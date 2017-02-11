@@ -1,0 +1,7 @@
+_unit = _this select 0
+
+fza_su17_steerpointstatus = 0
+
+fza_su17_steerpointfin = 1
+
+exit
