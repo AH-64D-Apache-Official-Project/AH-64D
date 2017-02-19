@@ -20,4 +20,4 @@ TO DO:
 - Add external lights.
 - Tune internal lights.
 - Add flares system.
-- Add distortion to M230 sound from distance and external point of view.
+- Add distortion to M230 sound from distance and external point of view
