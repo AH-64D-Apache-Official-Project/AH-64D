@@ -4298,6 +4298,18 @@ class SoundsExt
 		class MFD {};
 		class Sounds
 		{
+			 class Distance 
+			 {
+					frequency = "rotorSpeed";
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1000};
+					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
+				};
+							class FarDistance 
+			{
+					frequency = "rotorSpeed";
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 4000};
+					volume = "camPos * 3* (rotorSpeed factor [0.6, 1]) * (1 + rotorThrust)";
+				};
 			class Engine
 			{
 				frequency = "rotorSpeed";
