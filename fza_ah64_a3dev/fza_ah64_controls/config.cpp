@@ -60,6 +60,7 @@ class CfgSounds
 		sound[] = {\fza_ah64_us\audio\rh_doorclose1.ogg, 1, 1.0};
 		titles[]={};
 	};
+
 	class fza_ah64_pnvs_fail_1
 	{
 		name = "fza_ah64_pnvs_fail_1";
@@ -686,7 +687,7 @@ class MissileBase: MissileCore{};
 class M_Sidewinder_AA: MissileBase{};
 class M_Stinger_AA: MissileBase{};
 class M_Hellfire_AT: MissileBase{};
-class B_30mm_AP: BulletBase{};
+class B_30mm_MP: BulletBase{};
 class B_23mm_AA: BulletBase{};
 class B_127x107_Ball: BulletBase{};
 class ShellCore: Default {};
@@ -705,7 +706,7 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 		effectssmoke = "SmokeShellWhiteEffect";
 		weaponlocksystem = "8";
 	};
-	class fza_30x113: B_30mm_AP
+	class fza_30x113: B_30mm_MP
 	{
 	hit=210;
 	indirectHit=20;
@@ -1044,7 +1045,7 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 		weaponlocksystem = "16 + 2";
 		whistledist = 16;
 	};
-	class fza_m73mpsm: B_30mm_AP
+	class fza_m73mpsm: B_30mm_MP
 	{
 		hit=120;
 		indirectHit=50;
@@ -1057,7 +1058,7 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 		CraterEffects = "ExploAmmoCrater";
 		explosionEffects = "ExploAmmoExplosion";
 	};
-	class fza_flec_cluster: B_30mm_AP
+	class fza_flec_cluster: B_30mm_MP
 	{
 		hit=50;
 		indirectHit=20;
@@ -1123,11 +1124,11 @@ class CfgWeapons
 			sounds[] = {StandardSound};
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\m242_oneshot2.ogg",5,1};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
-			sound[] = {"\fza_ah64_us\audio\m242_oneshot2.ogg",5,1};
+			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
 			soundburst="";
 			soundContinuous= 0;
 			ffCount=1;
@@ -1218,7 +1219,7 @@ class CfgWeapons
 			burst=1;
 			displayName="M230E1";
 			dispersion=0.004;
-			sound[] = {"\fza_ah64_us\audio\m242_oneshot2.ogg",5,1};
+			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
 			soundburst="";
 			soundContinuous= 0;
 			ffCount=1;
@@ -1261,11 +1262,11 @@ class CfgWeapons
 		sounds[] = {StandardSound};
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\agm114_oneshot3.ogg", 31.6228, 1, 1100};
+			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 10,1,800};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
-		soundfly[] = {"\ca\Sounds\weapons\cannon\rocket_fly1", 100, 0.8, 800};
+		soundfly[] = {"\ca\Sounds\weapons\cannon\rocket_fly1", 100, 1, 800};
 		airateoffire = 5;
 		airateoffiredistance = 4000;
 		cmimmunity = 0.8;
@@ -1419,7 +1420,7 @@ class CfgWeapons
 			sounds[] = {StandardSound};
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\275_oneshot1.ogg", 3.16228, 1, 1100};
+				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 10,1,1500};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -3951,7 +3952,7 @@ class CfgVehicles
 						fov = 0.18;
 					};
 				};
-				/*
+								/*
 				//these sources are inefficient and difficult to work with//
 				//TADS/FLIR//
 				class gunnertads1
@@ -4031,7 +4032,7 @@ class CfgVehicles
 			};
 class SoundsExt
   {
-		class SoundEvents
+	class SoundEvents
 		{
 		};
    class Apu
@@ -4304,7 +4305,7 @@ class SoundsExt
 					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1000};
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
-							class FarDistance 
+			class FarDistance 
 			{
 					frequency = "rotorSpeed";
 					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 4000};
