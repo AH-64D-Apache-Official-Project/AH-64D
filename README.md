@@ -3,6 +3,11 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 # CHANGELOG NOTES:
 
+*23/02/2017*
+- Edited AFM based on A3 B_Heli_Attack_01 (WIP).
+- Edited Get-in & get-out sounds.
+- Cockpit interior tweaked sounds volume.
+
 *20/02/2017*
 - Added realistic flyby external sounds (JSRS4).
 - Re-edited AGM-114 Hellfire sound (JSRS4).
