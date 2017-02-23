@@ -28,7 +28,7 @@ class CfgPatches
 {
 	class fza_ah64_US
 	{
-		units[] = {fza_ah64base,fza_ah64d_b2e,fza_ah64d_b2e_nr,fza_ah64d_b2exp,fza_ah64d_b2exp_nr,fza_ah64d_b3,fza_ah64d_b3_nr,fza_ah64a_l,fza_ah64a_e,fza_ah64_jammer};
+		units[] = {fza_ah64base,fza_ah64d_b2e,fza_ah64d_b2e_nr};
 		weapons[] = {};
 		requiredVersion = 1.0; 
 		requiredAddons[] = {};
@@ -287,7 +287,7 @@ class CfgSounds
 	class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 1, 1.0};
+		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
@@ -300,19 +300,19 @@ class CfgSounds
 	class fza_ah64_button_click1
 	{
 		name = "fza_ah64_button_click1";
-		sound[] = {\fza_ah64_us\audio\button_click1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\button_click1.ogg, 1, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_button_click2
 	{
 		name = "fza_ah64_button_click2";
-		sound[] = {\fza_ah64_us\audio\button_click2.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\button_click2.ogg, 1, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip1
 	{
 		name = "fza_ah64_switch_flip1";
-		sound[] = {\fza_ah64_us\audio\switch_flip1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\switch_flip1.ogg, 1, 1.0};
 		titles[]={};
 	};
 };
@@ -3710,29 +3710,29 @@ class CfgVehicles
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		driverDoor = pilotdoor_open;
-		class RotorLibHelicopterProperties : RotorLibHelicopterProperties
-			{
-				RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii.xml";
-				maxTorque = 5260;
-				stressDamagePerSec	= 0.0033333332666667;
-				maxMainRotorStress = 300000;
-				maxTailRotorStress = 25000;
-				starterBatteryDrain = 10;
-				hasAPU = 1;
-				APUOn = 5;
-				APUOff = 5;
-				starterTime = 6;
-				throttleOffToIdle = 15;
-				throttleIdleToOff = 18;
-				throttleIdleToFull = 12;
-				throttleFullToIdle = 20;
-				autoHoverCorrection[] = {
-					-0.1,
-					5.3,
-					0
-				};
-				retreatBladeStallWarningSpeed = 101.346;
-				rtd_center = "rtd_center";
+		class RotorLibHelicopterProperties {
+			autoHoverCorrection[] = {3.5,5.2,0};
+			defaultCollective = 0.675;
+			horizontalWingsAngleCollMax = 0;
+			horizontalWingsAngleCollMin = 0;
+			maxHorizontalStabilizerLeftStress = 100000;
+			maxHorizontalStabilizerRightStress = 100000;
+			maxMainRotorStress = 300000;
+			maxTailRotorStress = 25000;
+			maxTorque = 5260;
+			stressDamagePerSec = 0.003333;
+			maxVerticalStabilizerStress = 100000;
+			retreatBladeStallWarningSpeed = 101.346;
+			starterBatteryDrain = 10;
+			hasAPU = 1;
+			APUOn = 5;
+			APUOff = 5;
+			starterTime = 6;
+			throttleOffToIdle = 15;
+			throttleIdleToOff = 18;
+			throttleIdleToFull = 12;
+			throttleFullToIdle = 20;
+			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
 				class Procedures
 				{
 					
@@ -4094,7 +4094,7 @@ class SoundsExt
     };
     class APULoopInt
     {
-     sound[] = {"",1.77828,1};
+     sound[] = {"",5,1};
      volume = "(1-camPos)*(apu factor [0.4 , 1])";
      frequency = 1;
     };
@@ -4273,7 +4273,7 @@ class SoundsExt
 		fuelconsumptionrate = 0.138;
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
-		maxSpeed = 200;
+		maxSpeed = 263;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
@@ -4281,14 +4281,50 @@ class SoundsExt
 		//RscUnitInfoSoldier
 		hideUnitInfo = 0;
 		insideSoundCoef = 0.5;
-		soundengineoffext[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg", 0.562341, 1, 800};
-		soundengineoffint[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg", 0.1, 1};
-		soundengineonext[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg", 0.562341, 1, 800};
-		soundengineonint[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg", 0.1, 1};
-		soundenviron[] = {"", 1, 1};
-		soundgetin[] = {"Ca\Sounds_E\Air_E\AH64\close", 0.316228, 1};
-		soundgetout[] = {"Ca\Sounds_E\Air_E\AH64\open", 0.316228, 1, 40};
+		
+		occludeSoundsWhenIn = 0.562341;
+		obstructSoundsWhenIn = 0.316228;
 		attenuationEffectType = "HeliAttenuation";
+		emptySound[] = {"", 0, 1};
+		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 100};
+		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 100};
+		soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 100};
+		soundCrashes[] = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
+		soundLandCrashes[] = {"emptySound", 0};
+		soundBuildingCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundArmorCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundWoodCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundBushCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_1", 1.000000, 1, 100};
+		soundBushCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2", 1.000000, 1, 100};
+		soundBushCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3", 1.000000, 1, 100};
+		soundBushCrash[] = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
+		soundWaterCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 100};
+		soundWaterCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 100};
+		soundWaterCrashes[] = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
+		soundDammage[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_crash_default_ext_1", 3.162278, 1};
+		
+		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2", 1, 1};
+		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2", 1, 1, 40};
+		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1};
+		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1};
+		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1};
+		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1};
+		
+		rotorDamageInt[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_rotor_int_open_1", 1.000000, 1.000000};
+		rotorDamageOut[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_rotor_ext_1", 2.511886, 1.000000, 150};
+		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
+		tailDamageInt[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_tail", 1.000000, 1.000000};
+		tailDamageOut[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_tail", 1.000000, 1.000000, 300};
+		tailDamage[] = {"tailDamageInt", "tailDamageOut"};
+		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
+		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
+		landingSoundInt[] = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};
+		landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 100};
+		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 100};
+		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
+		
+		soundenviron[] = {"", 1, 1};
+
 		author="Franze and Nodunit";
 		extCameraPosition[] =
 		{
