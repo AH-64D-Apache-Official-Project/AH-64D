@@ -64,230 +64,230 @@ class CfgSounds
 	class fza_ah64_pnvs_fail_1
 	{
 		name = "fza_ah64_pnvs_fail_1";
-		sound[] = {\fza_ah64_us\audio\pnvs_fail_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\pnvs_fail_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_tads_failure_1
 	{
 		name = "fza_ah64_tads_failure_1";
-		sound[] = {\fza_ah64_us\audio\tads_failure_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\tads_failure_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_tail_rotor_damaged_1
 	{
 		name = "fza_ah64_tail_rotor_damaged_1";
-		sound[] = {\fza_ah64_us\audio\tail_rotor_damaged_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\tail_rotor_damaged_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_tail_rotor_failure_1
 	{
 		name = "fza_ah64_tail_rotor_failure_1";
-		sound[] = {\fza_ah64_us\audio\tail_rotor_failure_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\tail_rotor_failure_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_main_rotor_damaged_1
 	{
 		name = "fza_ah64_main_rotor_damaged_1";
-		sound[] = {\fza_ah64_us\audio\main_rotor_damaged_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\main_rotor_damaged_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_main_rotor_failure_1
 	{
 		name = "fza_ah64_main_rotor_failure_1";
-		sound[] = {\fza_ah64_us\audio\main_rotor_failure_1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\main_rotor_failure_1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_2s6_track
 	{
 		name = "fza_ah64_2s6_track";
-		sound[] = {\fza_ah64_us\audio\lb2_2s6_track.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\lb2_2s6_track.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_zsu23_track
 	{
 		name = "fza_ah64_zsu23_track";
-		sound[] = {\fza_ah64_us\audio\lb2_zsu23_track.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\lb2_zsu23_track.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_rdr_track
 	{
 		name = "fza_ah64_rdr_track";
-		sound[] = {\fza_ah64_us\audio\lb2_rdr_track.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\lb2_rdr_track.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_sa19
 	{
 		name = "fza_ah64_bt_sa19";
-		sound[] = {\fza_ah64_us\audio\betty\bt_sa19c.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_sa19c.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_zsu23
 	{
 		name = "fza_ah64_bt_zsu23";
-		sound[] = {\fza_ah64_us\audio\betty\bt_zsu23.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_zsu23.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_tracking
 	{
 		name = "fza_ah64_bt_tracking";
-		sound[] = {\fza_ah64_us\audio\betty\bt_trackingb.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_trackingb.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_detected
 	{
 		name = "fza_ah64_bt_detected";
-		sound[] = {\fza_ah64_us\audio\betty\bt_detected.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_detected.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_missile
 	{
 		name = "fza_ah64_bt_missile";
-		sound[] = {\fza_ah64_us\audio\betty\bt_missle.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_missle.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_high
 	{
 		name = "fza_ah64_bt_high";
-		sound[] = {\fza_ah64_us\audio\betty\bt_high.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_high.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_low
 	{
 		name = "fza_ah64_bt_low";
-		sound[] = {\fza_ah64_us\audio\betty\bt_low.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_low.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_1oclock
 	{
 		name = "fza_ah64_bt_1oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_1oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_1oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_2oclock
 	{
 		name = "fza_ah64_bt_2oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_2oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_2oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_3oclock
 	{
 		name = "fza_ah64_bt_3oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_3oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_3oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_4oclock
 	{
 		name = "fza_ah64_bt_4oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_4oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_4oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_5oclock
 	{
 		name = "fza_ah64_bt_5oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_5oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_5oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_6oclock
 	{
 		name = "fza_ah64_bt_6oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_6oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_6oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_7oclock
 	{
 		name = "fza_ah64_bt_7oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_7oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_7oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_8oclock
 	{
 		name = "fza_ah64_bt_8oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_8oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_8oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_9oclock
 	{
 		name = "fza_ah64_bt_9oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_9oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_9oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_10oclock
 	{
 		name = "fza_ah64_bt_10oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_10oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_10oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_11oclock
 	{
 		name = "fza_ah64_bt_11oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_11oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_11oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_12oclock
 	{
 		name = "fza_ah64_bt_12oclock";
-		sound[] = {\fza_ah64_us\audio\betty\bt_12oclock.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_12oclock.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_fire
 	{
 		name = "fza_ah64_bt_fire";
-		sound[] = {\fza_ah64_us\audio\betty\bt_fire.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_fire.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_engine1
 	{
 		name = "fza_ah64_bt_engine1";
-		sound[] = {\fza_ah64_us\audio\betty\bt_engine1.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_engine1.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_engine2
 	{
 		name = "fza_ah64_bt_engine2";
-		sound[] = {\fza_ah64_us\audio\betty\bt_engine2b.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_engine2b.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_apu
 	{
 		name = "fza_ah64_bt_apu";
-		sound[] = {\fza_ah64_us\audio\betty\bt_apu.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_apu.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_failure
 	{
 		name = "fza_ah64_bt_failure";
-		sound[] = {\fza_ah64_us\audio\betty\bt_failure.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_failure.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_actuator
 	{
 		name = "fza_ah64_bt_actuator";
-		sound[] = {\fza_ah64_us\audio\betty\bt_actuator.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_actuator.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_gun
 	{
 		name = "fza_ah64_bt_gun";
-		sound[] = {\fza_ah64_us\audio\betty\bt_gun.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_gun.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_jammed
 	{
 		name = "fza_ah64_bt_jammed";
-		sound[] = {\fza_ah64_us\audio\betty\bt_jammedb.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_jammedb.ogg, 2, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_bt_rotorrpm
 	{
 		name = "fza_ah64_bt_rotorrpm";
-		sound[] = {\fza_ah64_us\audio\betty\bt_rotorrpm.ogg, 5, 1.0};
+		sound[] = {\fza_ah64_us\audio\betty\bt_rotorrpm.ogg, 2, 1.0};
 		titles[]={};
 	};
 	////STARTING SEQUENCE/////
 	class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 2, 1.0};
+		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 1, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
@@ -4130,7 +4130,7 @@ class SoundsExt
     };
     class EngineIdleIn
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine_int1.ogg", 1, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = "(0.8)+(0.2*(rpm factor[1000, 8000]))";
      volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
     };
@@ -4142,7 +4142,7 @@ class SoundsExt
     };
     class EngineFullIn
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine_int1.ogg", 1, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = "(0.8)+(0.2*(rpm factor[5000, 13000]))";
      volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
     };
@@ -4154,7 +4154,7 @@ class SoundsExt
     };
     class EngineIdleIn2
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine_int1.ogg", 1, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = "(0.8)+(0.2*(rpm1 factor[1000, 8000]))";
      volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
     };
@@ -4166,7 +4166,7 @@ class SoundsExt
     };
     class EngineFullIn2
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine_int1.ogg", 1, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = "(0.8)+(0.2*(rpm1 factor[5000, 13000]))";
      volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
     };
@@ -4196,13 +4196,13 @@ class SoundsExt
     };
     class RotorIdleIn
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_int1.ogg", 1.77828, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = 1;
      volume = "(1-camPos)*(rotorSpeed factor [0.15, 0.4]) * (rotorSpeed factor[0.8, 0.65])";
     };
     class RotorFullIn
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_int2.ogg", 1.77828, 1};
+     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
      frequency = 1;
      volume = "(1-camPos)*(rotorSpeed factor [0.6, 0.85])";
     };
@@ -4301,20 +4301,20 @@ class SoundsExt
 		soundWaterCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 100};
 		soundWaterCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 100};
 		soundWaterCrashes[] = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
-		soundDammage[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_crash_default_ext_1", 3.162278, 1};
+		soundDammage[] = {"\fza_ah64_US\audio\helibasiccrash.ogg", 3.162278, 1};
 		
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2", 1, 1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2", 1, 1, 40};
-		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1};
-		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1};
-		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1};
+		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1,100};
+		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",6,1};
+		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1,100};
 		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1};
 		
-		rotorDamageInt[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_rotor_int_open_1", 1.000000, 1.000000};
-		rotorDamageOut[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_rotor_ext_1", 2.511886, 1.000000, 150};
+		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
+		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 150};
 		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
-		tailDamageInt[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_tail", 1.000000, 1.000000};
-		tailDamageOut[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_tail", 1.000000, 1.000000, 300};
+		tailDamageInt[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000};
+		tailDamageOut[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000, 300};
 		tailDamage[] = {"tailDamageInt", "tailDamageOut"};
 		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
 		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
@@ -4386,19 +4386,19 @@ class SoundsExt
 			class EngineIn
 			{
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_engine_int1.ogg", 1, 1};
+				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
 				volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
 			};
 			class RotorLowIn
 			{
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_int1.ogg", 1.77828, 1};
+				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
 				volume = "2*(1-camPos)*((rotorSpeed factor[0.3, 1.1]) min (rotorSpeed factor[1.1, 0.3]))";
 			};
 			class RotorHighIn
 			{
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_int2.ogg", 1.77828, 1};
+				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 5, 1};
 				volume = "(1-camPos)*3*(rotorThrust-0.9)";
 			};
 		};
