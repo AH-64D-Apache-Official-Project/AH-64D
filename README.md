@@ -3,6 +3,15 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 # CHANGELOG NOTES:
 
+*23/02/2017*
+- Edited AFM now based on A3 B_Heli_Attack_01 (WIP).
+- Edited get-in & get-out sounds.
+- Tweaked cockpit interior sounds volumes.
+- New engine interior sound captured from the real aircraft.
+- Aircraft will spawn all doors opened by default.
+- TSD NAV mode instead of TSD ATK initialized by default.
+- Edited default skin.
+
 *20/02/2017*
 - Added realistic flyby external sounds (JSRS4).
 - Re-edited AGM-114 Hellfire sound (JSRS4).
@@ -13,7 +22,7 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 *11/02/2017*
 - PNVS zoom enhanced w/ WHOT FLIR & NVG.
-- APU sound is longer.
+- APU sound is longer (not looped yet).
 - Edited Hellfire launch sound.
 - Edited M230 sound.
 - Tweaked Hellfire damage according to different types.
@@ -22,8 +31,9 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 # TO DO:
 
+- Add internal & external weapon sounds.
 - Add external sounds for APU and startup sequence.
 - Add external lights.
-- Tune internal lights.
+- Tune internal backlight.
 - Add flares system.
-- Add distortion to M230 sound from distance and external point of view
+- Add distortion to M230 sound from distance and external point of view - DONE.
