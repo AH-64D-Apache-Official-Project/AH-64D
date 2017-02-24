@@ -3,13 +3,14 @@ _heli = _this select 0;
 _heli removeweapon "fza_m230";
 _heli addweapon "fza_m230";
 _heli selectweapon "fza_m230";
+_heli animate ["pdoor",1]; _heli animate ["gdoor",1]; 
 
 if(isNil "fza_ah64_skinlist") then {fza_ah64_skinlist = [];};
 
 _skinset = 0;
 if(!(_heli in fza_ah64_skinlist)) then
 {
-_setskin = [_heli,"\fza_ah64_us\tex\ex\b2_co.paa"] execvm "\fza_ah64_controls\scripting\damage\skins.sqf";
+_setskin = [_heli,"\fza_ah64_us\tex\ex\b2_weather_co.paa"] execvm "\fza_ah64_controls\scripting\damage\skins.sqf";
 _skinset = 1;
 };
 
@@ -169,7 +170,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_fcrstate = 0;
 	fza_ah64_fcrlist = [];
 	fza_ah64_tsddisptargs = [];
-	fza_ah64_tsdmode = "atk";
+	fza_ah64_tsdmode = "nav";
 	fza_ah64_tsdmap = 0;
 	fza_ah64_dispfcrlist = [];
 	//turrets//
