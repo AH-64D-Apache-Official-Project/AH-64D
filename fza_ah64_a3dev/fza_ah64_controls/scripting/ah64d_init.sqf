@@ -3,7 +3,8 @@ _heli = _this select 0;
 _heli removeweapon "fza_m230";
 _heli addweapon "fza_m230";
 _heli selectweapon "fza_m230";
-_heli animate ["pdoor",1]; _heli animate ["gdoor",1]; 
+_heli animate ["pdoor",1]; _heli animate ["gdoor",1];
+_heli animate ["tads_stow",0];
 
 if(isNil "fza_ah64_skinlist") then {fza_ah64_skinlist = [];};
 
