@@ -8,7 +8,7 @@ _targlist = [];
 _detectchance = 0.00834;
 _adaunit = false;
 
-if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["ZSU_Base","2S6M_Tunguska","HMMWV_Avenger","M6_EP1"];};
+if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["ZSU_Base","2S6M_Tunguska","HMMWV_Avenger","M6_EP1","O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsu234_aa","rhsgref_ins_zsu234","LOP_ISTS_ZSU234","LOP_US_ZSU234","LOP_ISTS_OPF_ZSU234","LOP_SLA_ZSU234","LOP_TKA_ZSU234","LOP_UA_ZSU234","LOP_UKR_ZSU234","LOP_UN_ZSU234","LOP_ZSU234_base","LOP_ChDKZ_ZSU234"];};
 
 while {(time > -1)} do
 {
