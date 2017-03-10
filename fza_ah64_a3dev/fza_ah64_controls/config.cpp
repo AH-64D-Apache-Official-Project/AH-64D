@@ -48,6 +48,18 @@ class CfgFontFamilies
 
 class CfgSounds
 {
+	class RainExt {
+		sound[] = {\fza_ah64_us\audio\rain1_ext.ogg, 1.000000, 1.000000, 100};
+		frequency = 1;
+		volume = "camPos * (rain - rotorSpeed/2) * 2";
+	};
+
+	class RainInt {
+		sound[] = {\fza_ah64_us\audio\rain1_int_open.ogg, 1.000000, 1.000000, 100};
+		frequency = 1;
+		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
+	};
+
 	class fza_ah64_rh_dooropen1
 	{
 		name = "fza_ah64_rh_dooropen1";
@@ -60,7 +72,7 @@ class CfgSounds
 		sound[] = {\fza_ah64_us\audio\rh_doorclose1.ogg, 1, 1.0};
 		titles[]={};
 	};
-
+	
 	class fza_ah64_pnvs_fail_1
 	{
 		name = "fza_ah64_pnvs_fail_1";
@@ -293,7 +305,7 @@ class CfgSounds
 	class fza_ah64_apustart1
 	{
 		name = "fza_ah64_apustart1";
-		sound[] = {\fza_ah64_us\audio\ah64_apustart1.ogg, 1, 1.0};
+		sound[] = {\fza_ah64_us\audio\ah64_apustart1.ogg, 0.6, 1.0};
 		titles[]={};
 	};
 	///GENERIC///
@@ -1100,7 +1112,7 @@ class CfgWeapons
 	burst=10;
 	multiplier=1;
 	dexterity=0.0001;
-	dispersion=0.004;
+	dispersion=0.003;
 	initspeed=1800;
 	soundContinuous=0;
 	aiRateOfFire=0.01; // delay between shots at given distance
@@ -1119,7 +1131,7 @@ class CfgWeapons
 			multiplier=1;
 			burst=1;
 			displayName="M230E1";
-			dispersion=0.004;
+			dispersion=0.003;
 			//sound[] = {"\ca\Weapons\Data\Sound\2A42_single2",17.782795,1};
 			sounds[] = {StandardSound};
 			class StandardSound
@@ -1202,7 +1214,7 @@ class CfgWeapons
 	burst=10;
 	multiplier=1;
 	dexterity=0.0001;
-	dispersion=0.004;
+	dispersion=0.002;
 	initspeed=1800;
 	soundContinuous=0;
 	aiRateOfFire=0.1; // delay between shots at given distance
@@ -1674,10 +1686,10 @@ class CfgWeapons
 	};
 	class SmokeLauncher: MGun {};
 	class CMFlareLauncher: SmokeLauncher {};
-	class fza_ah64_chaff30: CMFlareLauncher
+	class 60Rnd_CMFlare_Chaff_Magazine: CMFlareLauncher
 	{
-		displayname = "Chaff";
-		magazines[] = {"fza_ah64_chaff30"};
+		displayname = "Chaffs";
+		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
 		modes[] = {"Single", "Burst", "AIBurst"};
 		scope = 2;
 		simulation = "cmlauncher";
@@ -1782,8 +1794,8 @@ class CfgMagazines
 	class 60Rnd_CMFlareMagazine: CA_Magazine {};
 	class fza_ah64_chaff30: 60Rnd_CMFlareMagazine
 	{
-		ammo = "fza_ah64_chaff_shot";
-		count = 30;
+		ammo = "60Rnd_CMFlare_Chaff_Magazine";
+		count = 60;
 	};
 	class fza_m230_1200: VehicleMagazine
 	{
@@ -3703,13 +3715,13 @@ class CfgVehicles
 			};
 		};
 		//TKOH ENTRIES//
-		usePreciseGetInAction = 0;
-		preciseGetInOut = 0;
-		getInAction = "GetInHigh";
+		usePreciseGetInAction = 1;
+		preciseGetInOut = 1;
+		getInAction = "pilot_Heli_Light_02_Enter";
 		getOutAction = "GetOutHigh";
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		driverDoor = pilotdoor_open;
+		
 		class RotorLibHelicopterProperties {
 			autoHoverCorrection[] = {3.5,5.2,0};
 			defaultCollective = 0.675;
@@ -3751,6 +3763,7 @@ class CfgVehicles
 							condition = "[0, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
 							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
 							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
+							
 						};
 						class APUOn
 						{
@@ -4035,6 +4048,17 @@ class SoundsExt
 	class SoundEvents
 		{
 		};
+   	class RainExt {
+		sound[] = {\fza_ah64_us\audio\rain1_ext.ogg, 1.000000, 1.000000, 100};
+		frequency = 1;
+		volume = "camPos * (rain - rotorSpeed/2) * 2";
+	};
+
+	class RainInt {
+		sound[] = {\fza_ah64_us\audio\rain1_int_open.ogg, 1.000000, 1.000000, 100};
+		frequency = 1;
+		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
+	};
    class Apu
    {
     startInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",0.00794328,1};
@@ -4073,17 +4097,17 @@ class SoundsExt
    idleStartInt[] = {"",0.00794328,1};
    idleStartExt[] = {"", 0.562341, 1, 800};
    idleThrottle[] = {"idleStartInt","idleStartExt"};
-   rotorDamageInt[] = {"",3.16228,1};
-   rotorDamageOut[] = {"",1,1,800};
+   rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg",3.16228,1};
+   rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg",1,1,800};
    rotorDamage[] = {"rotorDamageInt","rotorDamageOut"};
-   landingSoundInt0[] = {"",1,1};
-   landingSoundInt1[] = {"",1,1};
-   landingSoundInt2[] = {"",1,1};
-   landingSoundInt[] = {"landingSoundInt0",0.33,"landingSoundInt1",0.33,"landingSoundInt2",0.333};
-   landingSoundOut0[] = {"",1,1};
-   landingSoundOut1[] = {"",1,1};
-   landingSoundOut2[] = {"",1,1};
-   landingSoundOut[] = {"landingSoundOut0",0.33,"landingSoundOut1",0.33,"landingSoundOut2",0.33};
+   landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
+   landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
+   landingSoundInt2[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
+   landingSoundInt[] = {"landingSoundInt0",0.5,"landingSoundInt1",0.5,"landingSoundInt2",0.5};
+   landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
+   landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
+   landingSoundOut2[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
+   landingSoundOut[] = {"landingSoundOut0",0.5,"landingSoundOut1",0.5,"landingSoundOut2",0.5};
    class Sounds
    {
     class Engine
@@ -4239,13 +4263,13 @@ class SoundsExt
     };
     class MotorDamageInt
     {
-     sound[] = {"",0.0316228,1};
+     sound[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg",1,1};
      volume = "(1-camPos)*(motorDamage factor [0.4 , 1])";
      frequency = 1;
     };
     class MotorDamageExt
     {
-     sound[] = {"",0.0316228,1,100};
+     sound[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg",1,1,100};
      volume = "(camPos)*(motorDamage factor [0.4 , 1])";
      frequency = 1;
     };
@@ -4273,7 +4297,7 @@ class SoundsExt
 		fuelconsumptionrate = 0.138;
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
-		maxSpeed = 263;
+		maxSpeed = 298;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
@@ -4286,6 +4310,7 @@ class SoundsExt
 		obstructSoundsWhenIn = 0.316228;
 		attenuationEffectType = "HeliAttenuation";
 		emptySound[] = {"", 0, 1};
+		
 		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 100};
 		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 100};
 		soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 100};
@@ -4307,8 +4332,8 @@ class SoundsExt
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2", 1, 1, 40};
 		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1,100};
 		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",6,1};
-		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1,100};
-		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1};
+		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1,100};
+		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1};
 		
 		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
 		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 150};
@@ -5053,7 +5078,7 @@ class SoundsExt
 			};
 			class cycle_wp
 			{
-				displayName="Cycle Waypoint";
+				displayName="Cycle Waypoint Forward";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5062,6 +5087,18 @@ class SoundsExt
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User18";
 				statement="fza_ah64_nextwp = [this] execvm ""\fza_ah64_controls\scripting\nav\nextwp.sqf""";
+			};
+			class cycle_wp2
+			{
+				displayName="Cycle Waypoint Backward";
+				position="pilot_action";
+				onlyForPlayer=1;
+				radius=8;
+				showWindow=0;
+				priority=-11;
+				condition="(player == driver this || player == gunner this)";
+				shortcut="User17";
+				statement="fza_ah64_nextwp = [this] execvm ""\fza_ah64_controls\scripting\nav\nextwp2.sqf""";
 			};
 			class fcr_toggle
 			{
@@ -5151,9 +5188,9 @@ class SoundsExt
 		class eventhandlers
 		{
 			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
-			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;";
+			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;"; 
 			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
-			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
+			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf"""; 
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
 			engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
 			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
@@ -6445,9 +6482,9 @@ class SoundsExt
 		gunnerUsesPilotView=0;
 		crew="B_Helipilot_F";
 		animated=1;
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {1,1,1,1};
+		driverOpticsColor[] = {0.15000001,1,0.15000001,1};
+		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
@@ -6460,7 +6497,7 @@ class SoundsExt
 		//threat[] VSoft, VArmor, VAir 
 		threat[]={0.8,1,0.9};
 		//Armor values
-		armor=120;
+		armor=240;
 		armorStructural=5; // structural dammage
 		armorHull=1.0;
 		armorEngine=1.5;
@@ -6478,10 +6515,10 @@ class SoundsExt
 		maxBackRotorDive = 0;
 		neutralBackRotorDive = 0;
 		//ARMA CONFIG POINTS
-		memorypointcm[] = {"chaff_launcher1"};
-		memorypointcmdir[] = {"chaff_launcher1_dir"};
-		weapons[] = {"fza_ah64_chaff30"};
-		magazines[] = {"fza_ah64_chaff30"};
+		memorypointcm[] = {"flare_1_beg", "flare_2_beg"};
+		memorypointcmdir[] = {"flare_1_end", "flare_2_end"};
+		weapons[] = {"CMFlareLauncher"};
+		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
@@ -6520,12 +6557,14 @@ class SoundsExt
 			};
 		};
 		*/
+
 		class Turrets
 		{
 			class MainTurret: NewTurret
 			{
 				gunnerAction = "fza_ah64_pilot";
 				gunnerInAction = "fza_ah64_pilot";
+				stabilizedInAxes=3;
 				primary = 1;
 				primaryGunner = 1;
 				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
@@ -6544,8 +6583,8 @@ class SoundsExt
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
-				maxhorizontalrotspeed = 1.57;
-				maxverticalrotspeed = 1.57;
+				maxhorizontalrotspeed = 4;
+				maxverticalrotspeed = 2;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
@@ -6557,6 +6596,7 @@ class SoundsExt
 				turretinfotype = "RscUnitInfoNoHUD";
 				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
 				discretedistanceinitindex = 3;
+				GunnerHasFlares = 1;
 				isCopilot = 1;
 				usePiP=1
 				class HitPoints
@@ -6585,6 +6625,9 @@ class SoundsExt
 					class Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
 						initfov = 0.466;
@@ -6601,6 +6644,9 @@ class SoundsExt
 					class Medium: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						opticStabilized=1;
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
 						initfov = 0.09;
 						maxfov = 0.09;
 						minfov = 0.09;
@@ -6609,6 +6655,9 @@ class SoundsExt
 					class Narrow: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						opticStabilized=1;
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
 						initfov = 0.01;
 						maxfov = 0.01;
 						minfov = 0.01;
@@ -6689,6 +6738,10 @@ class SoundsExt
 		};
 		class ViewOptics
 		{
+			opticsPPEffects[] = {"LLW_OpticsBlackWhite"};
+			opticStabilized=1;
+			directionStabilized = 1;
+			stabilizedInAxes = 3;
 			initAngleX=0;
 			minAngleX=-120;
 			maxAngleX=120;
@@ -6699,7 +6752,7 @@ class SoundsExt
 			minFov=0.1;
 			maxFov=0.7;
 			thermalmode[] = {0};
-			visionmode[] = {"Ti","NVG"};
+			visionmode[] = {"Normal","Ti","NVG"};
 		};
 		class AnimationSources
 		{
@@ -9460,8 +9513,8 @@ initPhase=0;
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
-				maxhorizontalrotspeed = 1.05;
-				maxverticalrotspeed = 1.05;
+				maxhorizontalrotspeed = 4;
+				maxverticalrotspeed = 2;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
@@ -9475,6 +9528,7 @@ initPhase=0;
 				discretedistanceinitindex = 3;
 				isCopilot = 1;
 				usePiP=1;
+				stabilizedInAxes=3;
 				class HitPoints
 				{
 					class HitTurret
@@ -9501,6 +9555,9 @@ initPhase=0;
 					class Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
 						initfov = 0.466;
@@ -9517,6 +9574,9 @@ initPhase=0;
 					class Medium: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initfov = 0.09;
 						maxfov = 0.09;
 						minfov = 0.09;
@@ -9525,6 +9585,9 @@ initPhase=0;
 					class Narrow: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initfov = 0.01;
 						maxfov = 0.01;
 						minfov = 0.01;
