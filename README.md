@@ -3,6 +3,17 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 # CHANGELOG NOTES:
 
+*10/03/2017*
+- Reduced APU volume.
+- Slightly increase "ah64_estart2a.ogg" duration.
+- TADS slew is now fixed to the ground (Point of Interest).
+- Added PLT DTV in order to counter A3 limitations regarding aircraft performances (no MPD sharing between crewmembers). This may be subject to change depending on community feedbacks and real aircraft data (WIP).
+- Early flares system, replacing the old one (WIP).
+- New get-in animation.
+- Ground-to-Air radar threats compatibility (A3+RHS+LOP) - now positively identified by the ASE.
+- Rearming vehicles compatibility (A3+RHS) - Arming menu will be available whether Ammo, Fuel, or Repair truck is placed.
+- Added Waypoint Cycle Backward/Forward - Custom User 17 & Custom User 18.
+
 *23/02/2017*
 - Edited AFM now based on A3 B_Heli_Attack_01 (WIP).
 - Edited get-in & get-out sounds.
@@ -36,4 +47,3 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 - Add external lights.
 - Tune internal backlight.
 - Add flares system.
-- Add distortion to M230 sound from distance and external point of view - DONE.
