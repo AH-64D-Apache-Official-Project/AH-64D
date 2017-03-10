@@ -12,6 +12,7 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 - New get-in animation.
 - Ground-to-Air radar threats compatibility (A3+RHS+LOP) - now positively identified by the ASE.
 - Rearming vehicles compatibility (A3+RHS) - Arming menu will be available whether Ammo, Fuel, or Repair truck is placed.
+- Aircraft compatible with ACE refueling system.
 - Added Waypoint Cycle Backward/Forward - Custom User 17 & Custom User 18.
 
 *23/02/2017*
