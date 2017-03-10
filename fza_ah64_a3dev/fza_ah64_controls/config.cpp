@@ -24,6 +24,16 @@
 //#define CanSeeRadarC CanSeeRadar+CanSeeCompass
 #define CanSeeAll 31
 
+/*class CfgOpticsEffect {
+
+	class LLW_OpticsBlackWhite {
+		type = "ColorCorrections";
+		priority = 1550;
+		params = {1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0};
+	};
+};
+*/
+
 class CfgPatches
 {
 	class fza_ah64_US
