@@ -5,15 +5,16 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 *10/03/2017*
 - Reduced APU volume.
-- Slightly increase "ah64_estart2a.ogg" duration.
+- Reduced ignition starters volumes.
+- Slightly increased "ah64_estart2a.ogg" duration.
 - TADS slew is now fixed to the ground (Point of Interest).
-- Added PLT DTV in order to counter A3 limitations regarding aircraft performances (no MPD sharing between crewmembers). This may be subject to change depending on community feedbacks and real aircraft data (WIP).
-- Early flares system, replacing the old one (WIP).
-- New get-in animation.
-- Ground-to-Air radar threats compatibility (A3+RHS+LOP) - now positively identified by the ASE.
-- Rearming vehicles compatibility (A3+RHS) - Arming menu will be available whether Ammo, Fuel, or Repair truck is placed.
-- Aircraft compatible with ACE refueling system.
-- Increased CPG TADS turret mouse sensitivity.
+- Added new PLT DTV/PNVS optics in order to counter A3 limitations regarding aircraft performances.
+- Early flares system, replacing the old one, doesn't display Flares/Chaffs quantities (WIP).
+- Added new get-in animation.
+- Added ground-to-air radar threats compatibility (A3+RHS+LOP) - now positively identified by the ASE.
+- Added support vehicles compatibility (A3+RHS) - Arming menu will be available whether Ammo, Fuel, or Repair truck is placed.
+- Aircraft compatibility with ACE refueling system.
+- Increased CPG TADS axis sensitivity.
 - Added Waypoint Cycle Backward/Forward - Custom User 17 & Custom User 18.
 
 *23/02/2017*
