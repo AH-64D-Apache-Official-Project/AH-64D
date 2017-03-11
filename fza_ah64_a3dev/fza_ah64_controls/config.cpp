@@ -6483,7 +6483,7 @@ class SoundsExt
 		crew="B_Helipilot_F";
 		animated=1;
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_m_F.p3d";
+		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
 		driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
