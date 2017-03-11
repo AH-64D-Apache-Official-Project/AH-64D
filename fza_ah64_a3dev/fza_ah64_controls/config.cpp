@@ -24,16 +24,6 @@
 //#define CanSeeRadarC CanSeeRadar+CanSeeCompass
 #define CanSeeAll 31
 
-/*class CfgOpticsEffect {
-
-	class LLW_OpticsBlackWhite {
-		type = "ColorCorrections";
-		priority = 1550;
-		params = {1, 1, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0};
-	};
-};
-*/
-
 class CfgPatches
 {
 	class fza_ah64_US
@@ -309,7 +299,7 @@ class CfgSounds
 	class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 1, 1.0};
+		sound[] = {\fza_ah64_us\audio\ah64_estart1.ogg, 0.5, 1.0};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
@@ -1734,11 +1724,11 @@ class CfgWeapons
 			multiplier = 1;
 			reloadtime = 0.2;
 			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 1, 1, 300};
 			sounds[] = {StandardSound};
 			class StandardSound
             {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 1, 1, 300};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -4104,8 +4094,8 @@ class SoundsExt
    starterClickInt[] = {"",0.316228,1};
    starterClickExt[] = {"",1,1,100};
    starterClick[] = {"starterClickInt","starterClickExt"};
-   idleStartInt[] = {"",0.00794328,1};
-   idleStartExt[] = {"", 0.562341, 1, 800};
+   idleStartInt[] = {"\fza_ah64_US\audio\rain1_ext.ogg",5,1};
+   idleStartExt[] = {"\fza_ah64_US\audio\rain1_ext.ogg", 5, 1, 800};
    idleThrottle[] = {"idleStartInt","idleStartExt"};
    rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg",3.16228,1};
    rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg",1,1,800};
@@ -6493,8 +6483,8 @@ class SoundsExt
 		crew="B_Helipilot_F";
 		animated=1;
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {0.15000001,1,0.15000001,1};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
+		driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
@@ -6525,8 +6515,8 @@ class SoundsExt
 		maxBackRotorDive = 0;
 		neutralBackRotorDive = 0;
 		//ARMA CONFIG POINTS
-		memorypointcm[] = {"flare_1_beg", "flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end", "flare_2_end"};
+		memorypointcm[] = {"l raketa", "p raketa"};
+		memorypointcmdir[] = {"exhaust1_dir", "exhaust2_dir"};
 		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
 		radartype = 4;
@@ -6748,7 +6738,7 @@ class SoundsExt
 		};
 		class ViewOptics
 		{
-			opticsPPEffects[] = {"LLW_OpticsBlackWhite"};
+			driverOpticsColor[] = {0.231,0.914,0.184,1};
 			opticStabilized=1;
 			directionStabilized = 1;
 			stabilizedInAxes = 3;
@@ -6761,7 +6751,7 @@ class SoundsExt
 			initFov=0.7;
 			minFov=0.1;
 			maxFov=0.7;
-			thermalmode[] = {0};
+			thermalmode[] = {2};
 			visionmode[] = {"Normal","Ti","NVG"};
 		};
 		class AnimationSources
@@ -8229,7 +8219,104 @@ initPhase=0;
 			initPhase=0;
 		};
 };
-};
+
+		class MarkerLights {
+
+			class WhiteStill {
+				name = "bily pozicni";
+				color[] = {1, 1, 1};
+				ambient[] = {0, 0, 0};
+				blinking = 0;
+				intensity = 50;
+				blinkingPattern[] = {0, 0};
+				blinkingPatternGuarantee = 0;
+				drawLightSize = 10;
+				drawLightCenterSize = 0;
+			};
+
+			class RedStill {
+				color[] = {0.8,0,0};
+				ambient[] = {0.08,0,0};
+				intensity = 50;
+				name = "PositionLight_Red_1_pos";
+				drawLight = 1;
+				drawLightSize = 0.6;
+				drawLightCenterSize = 0.05;
+				activeLight = 0;
+				blinking = 0;
+				dayLight = 0;
+				useFlare = 0;
+			};
+
+			class GreenStill {
+				name = "zeleny pozicni";
+				color[] = {0, 0, 0};
+				ambient[] = {0, 0, 0};
+				intensity = 0;
+				drawLight = 0;
+				drawLightSize = 0;
+				drawLightCenterSize = 0;
+				activeLight = 0;
+				blinking = 0;
+				dayLight = 0;
+				useFlare = 0;
+			};
+
+			class RedBlinking {
+				name = "bily pozicni blik";
+				color[] = {0, 0, 0};
+				ambient[] = {0, 0, 0};
+				intensity = 0;
+				blinking = 0;
+				blinkingPattern[] = {0, 0};
+				blinkingPatternGuarantee = 0;
+				drawLightSize = 0;
+				drawLightCenterSize = 0;
+			};
+
+			class WhiteBlinking {
+				name = "cerveny pozicni blik";
+				color[] = {0, 0, 0};
+				intensity = 0;
+				ambient[] = {0, 0, 0};
+				blinking = 0;
+				blinkingPattern[] = {0, 0};
+				blinkingPatternGuarantee = 0;
+				drawLightSize = 0;
+				drawLightCenterSize = 0;
+			};
+		};
+
+		class Reflectors {
+
+			class Right {
+				color[] = {7000, 7500, 10000};
+				ambient[] = {70, 75, 100};
+				intensity = 50;
+				size = 1;
+				innerAngle = 15;
+				outerAngle = 65;
+				coneFadeCoef = 10;
+				position = "dam_rgear";
+				direction = "Light_dir";
+				hitpoint = "Light_hitpoint";
+				selection = "Light";
+				useFlare = 1;
+				flareSize = 10;
+				flareMaxDistance = 250;
+				dayLight = 0;
+
+				class Attenuation {
+					start = 0;
+					constant = 0;
+					linear = 1;
+					quadratic = 1;
+					hardLimitStart = 100;
+					hardLimitEnd = 200;
+				};
+			};
+		};
+	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;				
@@ -10228,7 +10315,7 @@ initPhase=0;
 		animated=1;
 		driveropticsmodel = "\fza_ah64_US\fza_ah64_mpnvs";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {1,1,1,1};
+		driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
@@ -12416,7 +12503,7 @@ initPhase=0;
 		animated=1;
 		driveropticsmodel = "\fza_ah64_US\fza_ah64_mpnvs";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {1,1,1,1};
+		driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
@@ -14330,7 +14417,7 @@ initPhase=0;
 		animated=1;
 		driveropticsmodel = "\fza_ah64_US\fza_ah64_pnvs";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {1,1,1,1};
+		driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
