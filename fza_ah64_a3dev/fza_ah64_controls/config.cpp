@@ -718,6 +718,10 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 		effectssmoke = "SmokeShellWhiteEffect";
 		weaponlocksystem = "8";
 	};
+	class fza_ah64_flare_shot: CMflareAmmo
+	{
+		weaponlocksystem = "4";
+	};
 	class fza_30x113: B_30mm_MP
 	{
 	hit=210;
@@ -1687,10 +1691,10 @@ class CfgWeapons
 	};
 	class SmokeLauncher: MGun {};
 	class CMFlareLauncher: SmokeLauncher {};
-	class 60Rnd_CMFlare_Chaff_Magazine: CMFlareLauncher
+	class fza_ah64_flare30: CMFlareLauncher
 	{
-		displayname = "Chaffs";
-		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
+		displayname = "Flares";
+		magazines[] = {"fza_ah64_flare30"};
 		modes[] = {"Single", "Burst", "AIBurst"};
 		scope = 2;
 		simulation = "cmlauncher";
@@ -1725,11 +1729,110 @@ class CfgWeapons
 			multiplier = 1;
 			reloadtime = 0.2;
 			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 1, 1, 300};
+			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
 			sounds[] = {StandardSound};
 			class StandardSound
             {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 1, 1, 300};
+				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+			};
+			soundburst = 0;
+		};
+		class Burst: Single
+		{
+			airateoffire = 0.5;
+			airateoffiredistance = 500;
+			autofire = 0;
+			dispersion = 0.0005;
+			ffcount = 1;
+			fffrequency = 11;
+			ffmagnitude = 0.5;
+			flash = "gunfire";
+			flashsize = 0.1;
+			maxrangeprobab = 0.04;
+			midrange = 60;
+			midrangeprobab = 0.58;
+			minrangeprobab = 0.3;
+			recoil = "Empty";
+			recoilprone = "Empty";
+			soundbegin[] = {"sound", 1};
+			soundcontinuous = 0;
+			soundend[] = {"sound", 1};
+			soundloop[] = {"sound", 1};
+			useaction = 0;
+			useactiontitle = "";
+			////////
+			displayname = "Chaff x4";
+			burst = 4;
+			maxrange = 0;
+			minrange = 0;
+			multiplier = 1;
+			reloadtime = 1;
+			showtoplayer = 1;
+			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+			sounds[] = {StandardSound};
+			class StandardSound
+            {
+				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+			};
+			soundburst = 0;
+		};
+		class AIBurst: Burst
+		{
+			burst = 2;
+			maxrange = 10000;
+			minrange = 200;
+			showtoplayer = 0;
+			soundburst = 0;
+		};
+	};
+	
+	class fza_ah64_chaff30: CMFlareLauncher
+	{
+		displayname = "Chaff";
+		magazines[] = {"fza_ah64_chaff30"};
+		modes[] = {"Single", "Burst", "AIBurst"};
+		scope = 2;
+		simulation = "cmlauncher";
+		class Single : CMFlareLauncher
+		{
+			airateoffire = 0.5;
+			airateoffiredistance = 500;
+			autofire = 0;
+			dispersion = 0.0002;
+			ffcount = 1;
+			fffrequency = 11;
+			ffmagnitude = 0.5;
+			flash = "gunfire";
+			flashsize = 0.1;
+			maxrangeprobab = 0.04;
+			midrange = 300;
+			midrangeprobab = 0.58;
+			minrangeprobab = 0.25;
+			recoil = "Empty";
+			recoilprone = "Empty";
+			soundbegin[] = {"sound", 1};
+			soundcontinuous = 0;
+			soundend[] = {};
+			soundloop[] = {};
+			useaction = 0;
+			useactiontitle = "";
+			///////////////////
+			displayname = "Chaff";
+			burst = 1;
+			maxrange = 200;
+			minrange = 0;
+			multiplier = 1;
+			reloadtime = 0.2;
+			showtoplayer = 1;
+			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
+			sounds[] = {StandardSound};
+			class StandardSound
+            {
+				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -1793,10 +1896,16 @@ class CfgMagazines
 	class CA_Magazine: Default {};
 	class VehicleMagazine: CA_Magazine {};
 	class 60Rnd_CMFlareMagazine: CA_Magazine {};
-	class fza_ah64_chaff30: 60Rnd_CMFlareMagazine
+	class 60Rnd_CMFlare_Chaff_Magazine: CA_Magazine {};
+	class fza_ah64_flare30: 60Rnd_CMFlareMagazine
 	{
-		ammo = "60Rnd_CMFlare_Chaff_Magazine";
-		count = 60;
+		ammo = "fza_ah64_flare_shot";
+		count = 30;
+	};
+	class fza_ah64_chaff30: 60Rnd_CMFlare_Chaff_Magazine
+	{
+		ammo = "fza_ah64_chaff_shot";
+		count = 30;
 	};
 	class fza_m230_1200: VehicleMagazine
 	{
@@ -6516,14 +6625,16 @@ class SoundsExt
 		maxBackRotorDive = 0;
 		neutralBackRotorDive = 0;
 		//ARMA CONFIG POINTS
-		memorypointcm[] = {"l raketa", "p raketa"};
-		memorypointcmdir[] = {"exhaust1_dir", "exhaust2_dir"};
+		/* memorypointcm[] = {"chaff_launcher1"};
+		memorypointcmdir[] = {"chaff_launcher1_dir"}; */
+		memorypointcm[] = {"flare_1_beg"};
+		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
-		flarevelocity = 100;
+		flarevelocity = 200;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
@@ -8221,91 +8332,131 @@ initPhase=0;
 		};
 };
 
-		class MarkerLights {
+		 class MarkerLights 
+		{       
+			class PositionWhite 
+			{         
+			name = "tail_light";  
+			ambient[] = {0.1,0.1,0.1};  			
+			color[] = {1,1,1};  
+			drawLightSize = 0.50; 			
+			drawLightCenterSize = 0.16;     			
+			activeLight = 0;         
+			blinking = 0;         
+			dayLight = 0;         
+			drawLight = 1;        
+			intensity = 75;         
+			useFlare = 0;  
+			
+			class Attenuation {           
+			constant = 0;           
+			hardLimitEnd = 1;           
+			hardLimitStart = 0.75;           
+			linear = 25;           
+			quadratic = 50;           
+			start = 0;         
+			};       
+			};     
+			
+			class PositionGreen: PositionWhite 
+			{         
+			name = "zeleny pozicni";   
+			ambient[] = {0,0.08,0};         
+			color[] = {0,0.8,0};         
+			drawLightSize = 0.50;
+			drawLightCenterSize = 0.16; 			
+			};       
+			
+			class PositionRed: PositionWhite 
+			{         
+			name = "cerveny pozicni";  
+			ambient[] = {0.08,0,0};         
+			color[] = {0.8,0,0};         
+			drawLightSize = 0.50;   
+			drawLightCenterSize = 0.16;		    
+			};  
+			
+			/*class RedBlinking
+			{
+				name="bily pozicni blik";
+				color[]={0.89999998,0.15000001,0.1};
+				ambient[]={0.090000004,0.015,0.0099999998};
+				intensity=150;
+				blinking=1;
+				blinkingPattern[] = {0.1,1.3}; 
+				blinkingPatternGuarantee=0;
+				drawLightSize=0.50;
+				drawLightCenterSize=0.039999999;
+			};*/
+			
+			class WhiteBlinking1 
+			{          	
+			name="cerveny pozicni blik_1";
+			//ambient[] = {0.1,0.1,0.1};  			
+			//color[] = {1,1,1};
+			color[]={0.89999998,0.15000001,0.1};
+			ambient[]={0.090000004,0.015,0.0099999998};			
+			intensity=300;			
+			drawLightSize = 0.50;
+			drawLightCenterSize = 0.16; 	    
+			blinking = 1;         
+			blinkingPattern[]={0.03,4};   
+			blinkingPatternGuarantee = 0;          
+			};    
 
-			class WhiteStill {
-				name = "bily pozicni";
-				color[] = {1, 1, 1};
-				ambient[] = {0, 0, 0};
-				blinking = 0;
-				intensity = 50;
-				blinkingPattern[] = {0, 0};
-				blinkingPatternGuarantee = 0;
-				drawLightSize = 10;
-				drawLightCenterSize = 0;
+			class WhiteBlinking2 
+			{         	
+			name="cerveny pozicni blik_2";
+			//ambient[] = {0.1,0.1,0.1};  			
+			//color[] = {1,1,1};
+			color[]={0.89999998,0.15000001,0.1};
+			ambient[]={0.090000004,0.015,0.0099999998};			
+			intensity=300;			
+			drawLightSize = 0.50;
+			drawLightCenterSize = 0.16; 	    
+			blinking = 1;         
+			blinkingPattern[]={0.03,2};   
+			blinkingPatternGuarantee = 0;          
+			};     			
 			};
-
-			class RedStill {
-				color[] = {0.8,0,0};
-				ambient[] = {0.08,0,0};
-				intensity = 50;
-				name = "PositionLight_Red_1_pos";
-				drawLight = 1;
-				drawLightSize = 0.6;
-				drawLightCenterSize = 0.05;
-				activeLight = 0;
-				blinking = 0;
-				dayLight = 0;
-				useFlare = 0;
-			};
-
-			class GreenStill {
-				name = "zeleny pozicni";
-				color[] = {0, 0, 0};
-				ambient[] = {0, 0, 0};
-				intensity = 0;
-				drawLight = 0;
-				drawLightSize = 0;
-				drawLightCenterSize = 0;
-				activeLight = 0;
-				blinking = 0;
-				dayLight = 0;
-				useFlare = 0;
-			};
-
-			class RedBlinking {
-				name = "bily pozicni blik";
-				color[] = {0, 0, 0};
-				ambient[] = {0, 0, 0};
-				intensity = 0;
-				blinking = 0;
-				blinkingPattern[] = {0, 0};
-				blinkingPatternGuarantee = 0;
-				drawLightSize = 0;
-				drawLightCenterSize = 0;
-			};
-
-			class WhiteBlinking {
-				name = "cerveny pozicni blik";
-				color[] = {0, 0, 0};
-				intensity = 0;
-				ambient[] = {0, 0, 0};
-				blinking = 0;
-				blinkingPattern[] = {0, 0};
-				blinkingPatternGuarantee = 0;
-				drawLightSize = 0;
-				drawLightCenterSize = 0;
-			};
-		};
 
 		class Reflectors {
 
 			class Right {
-				color[] = {7000, 7500, 10000};
-				ambient[] = {70, 75, 100};
+				
+				position = "landing_light";
+				direction = "Light_dir";
+				hitpoint = "Light_hitpoint";
+				selection = "Light";
+				//direction = "light_1_dir";
+				//hitpoint = "L svetlo";
+				//selection = "L svetlo";
+				color[] = {0.850000, 0.950000, 1.000000};
+				ambient[] = {0.008500, 0.009500, 0.010000};
+				intensity = 100000;
+				size = 1;
+				innerAngle = 35;
+				outerAngle = 60;
+				coneFadeCoef = 5;
+				useFlare = 1;
+				flareSize = 1.500000;
+				flareMaxDistance = 500;
+				
+				/*color[] = {7000,7500,10000};
+				ambient[] = {70,75,100};
 				intensity = 50;
 				size = 1;
 				innerAngle = 15;
 				outerAngle = 65;
 				coneFadeCoef = 10;
-				position = "kulas";
-				direction = "Light_dir";
-				hitpoint = "Light_hitpoint";
-				selection = "Light";
 				useFlare = 1;
 				flareSize = 10;
 				flareMaxDistance = 250;
 				dayLight = 0;
+				position = "landing_light";
+				direction = "Light_dir";
+				hitpoint = "Light_hitpoint";
+				selection = "Light";*/
 
 				class Attenuation {
 					start = 0;
@@ -12548,8 +12699,8 @@ initPhase=0;
 		memoryPointsGetInDriverDir = "pos driver dir";
 		memoryPointsGetInCargo = "pos cargo";
 		memoryPointsGetInCargoDir = "pos cargo dir";
-		memorypointcm[] = {"flare_1_beg", "flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end", "flare_2_end"};
+		memorypointcm[] = {"chaff_launcher1"};
+		memorypointcmdir[] = {"chaff_launcher1_dir"};
 		weapons[] = {"CMFlareLauncher","fza_ah64_chaff30"};
 		magazines[] = {"60Rnd_CMFlareMagazine","fza_ah64_chaff30"};
 		radartype = 4;
