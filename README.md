@@ -1,7 +1,14 @@
-# AH-64D (v1.42+)
+# AH-64D (v1.43+)
 Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
+
+*19/03/2017*
+- Replaced chaffs by flares.
+- Enhanced startup and shutdown sound.
+- Various volume tweaks.
+- Added external lights.
+- New optic effects for PLT.
 
 *10/03/2017*
 - Reduced APU volume.
