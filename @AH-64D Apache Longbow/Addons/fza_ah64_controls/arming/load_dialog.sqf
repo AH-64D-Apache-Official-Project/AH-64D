@@ -1,0 +1,104 @@
+_heli = _this select 0;
+_weapons = createdialog "fza_ah64_loadout";
+fza_ah64_l_s1 = 0;
+fza_ah64_l_s2 = 0;
+fza_ah64_l_s3 = 0;
+fza_ah64_l_s4 = 0;
+fza_ah64_l_s1rz1 = 0;
+fza_ah64_l_s1rz2 = 0;
+fza_ah64_l_s1rz3 = 0;
+fza_ah64_l_s2rz1 = 0;
+fza_ah64_l_s2rz2 = 0;
+fza_ah64_l_s2rz3 = 0;
+fza_ah64_l_s3rz1 = 0;
+fza_ah64_l_s3rz2 = 0;
+fza_ah64_l_s3rz3 = 0;
+fza_ah64_l_s4rz1 = 0;
+fza_ah64_l_s4rz2 = 0;
+fza_ah64_l_s4rz3 = 0;
+fza_ah64_l_gun = 1;
+
+while {(alive _heli && player in _heli && dialog)} do
+{
+if (fza_ah64_l_gun == 0) then {ctrlSetText [105, ""];};
+if (fza_ah64_l_gun == 1) then {ctrlSetText [105, "1200"];};
+if (fza_ah64_l_gun == 2) then {ctrlSetText [105, "350"];};
+if (fza_ah64_l_s1 == 0) then {ctrlSetText [101, ""];};
+if (fza_ah64_l_s2 == 0) then {ctrlSetText [102, ""];};
+if (fza_ah64_l_s3 == 0) then {ctrlSetText [103, ""];};
+if (fza_ah64_l_s4 == 0) then {ctrlSetText [104, ""];};
+if (fza_ah64_l_s1 == 1) then {ctrlSetText [101, "\fza_ah64_US\tex\m299_icn.paa"];};
+if (fza_ah64_l_s2 == 1) then {ctrlSetText [102, "\fza_ah64_US\tex\m299_icn.paa"];};
+if (fza_ah64_l_s3 == 1) then {ctrlSetText [103, "\fza_ah64_US\tex\m299_icn.paa"];};
+if (fza_ah64_l_s4 == 1) then {ctrlSetText [104, "\fza_ah64_US\tex\m299_icn.paa"];};
+if (fza_ah64_l_s1 == 2) then {ctrlSetText [101, "\fza_ah64_US\tex\m261_icn.paa"];};
+if (fza_ah64_l_s2 == 2) then {ctrlSetText [102, "\fza_ah64_US\tex\m261_icn.paa"];};
+if (fza_ah64_l_s3 == 2) then {ctrlSetText [103, "\fza_ah64_US\tex\m261_icn.paa"];};
+if (fza_ah64_l_s4 == 2) then {ctrlSetText [104, "\fza_ah64_US\tex\m261_icn.paa"];};
+//rockets
+if (fza_ah64_l_s1rz1 == 0) then {ctrlSetText [106, "151"];};
+if (fza_ah64_l_s1rz2 == 0) then {ctrlSetText [107, "151"];};
+if (fza_ah64_l_s1rz3 == 0) then {ctrlSetText [108, "151"];};
+if (fza_ah64_l_s2rz1 == 0) then {ctrlSetText [109, "151"];};
+if (fza_ah64_l_s2rz2 == 0) then {ctrlSetText [110, "151"];};
+if (fza_ah64_l_s2rz3 == 0) then {ctrlSetText [111, "151"];};
+if (fza_ah64_l_s3rz1 == 0) then {ctrlSetText [112, "151"];};
+if (fza_ah64_l_s3rz2 == 0) then {ctrlSetText [113, "151"];};
+if (fza_ah64_l_s3rz3 == 0) then {ctrlSetText [114, "151"];};
+if (fza_ah64_l_s4rz1 == 0) then {ctrlSetText [115, "151"];};
+if (fza_ah64_l_s4rz2 == 0) then {ctrlSetText [116, "151"];};
+if (fza_ah64_l_s4rz3 == 0) then {ctrlSetText [117, "151"];};
+//m229
+if (fza_ah64_l_s1rz1 == 1) then {ctrlSetText [106, "229"];};
+if (fza_ah64_l_s1rz2 == 1) then {ctrlSetText [107, "229"];};
+if (fza_ah64_l_s1rz3 == 1) then {ctrlSetText [108, "229"];};
+if (fza_ah64_l_s2rz1 == 1) then {ctrlSetText [109, "229"];};
+if (fza_ah64_l_s2rz2 == 1) then {ctrlSetText [110, "229"];};
+if (fza_ah64_l_s2rz3 == 1) then {ctrlSetText [111, "229"];};
+if (fza_ah64_l_s3rz1 == 1) then {ctrlSetText [112, "229"];};
+if (fza_ah64_l_s3rz2 == 1) then {ctrlSetText [113, "229"];};
+if (fza_ah64_l_s3rz3 == 1) then {ctrlSetText [114, "229"];};
+if (fza_ah64_l_s4rz1 == 1) then {ctrlSetText [115, "229"];};
+if (fza_ah64_l_s4rz2 == 1) then {ctrlSetText [116, "229"];};
+if (fza_ah64_l_s4rz3 == 1) then {ctrlSetText [117, "229"];};
+//m261
+if (fza_ah64_l_s1rz1 == 2) then {ctrlSetText [106, "261"];};
+if (fza_ah64_l_s1rz2 == 2) then {ctrlSetText [107, "261"];};
+if (fza_ah64_l_s1rz3 == 2) then {ctrlSetText [108, "261"];};
+if (fza_ah64_l_s2rz1 == 2) then {ctrlSetText [109, "261"];};
+if (fza_ah64_l_s2rz2 == 2) then {ctrlSetText [110, "261"];};
+if (fza_ah64_l_s2rz3 == 2) then {ctrlSetText [111, "261"];};
+if (fza_ah64_l_s3rz1 == 2) then {ctrlSetText [112, "261"];};
+if (fza_ah64_l_s3rz2 == 2) then {ctrlSetText [113, "261"];};
+if (fza_ah64_l_s3rz3 == 2) then {ctrlSetText [114, "261"];};
+if (fza_ah64_l_s4rz1 == 2) then {ctrlSetText [115, "261"];};
+if (fza_ah64_l_s4rz2 == 2) then {ctrlSetText [116, "261"];};
+if (fza_ah64_l_s4rz3 == 2) then {ctrlSetText [117, "261"];};
+//m255
+if (fza_ah64_l_s1rz1 == 3) then {ctrlSetText [106, "255"];};
+if (fza_ah64_l_s1rz2 == 3) then {ctrlSetText [107, "255"];};
+if (fza_ah64_l_s1rz3 == 3) then {ctrlSetText [108, "255"];};
+if (fza_ah64_l_s2rz1 == 3) then {ctrlSetText [109, "255"];};
+if (fza_ah64_l_s2rz2 == 3) then {ctrlSetText [110, "255"];};
+if (fza_ah64_l_s2rz3 == 3) then {ctrlSetText [111, "255"];};
+if (fza_ah64_l_s3rz1 == 3) then {ctrlSetText [112, "255"];};
+if (fza_ah64_l_s3rz2 == 3) then {ctrlSetText [113, "255"];};
+if (fza_ah64_l_s3rz3 == 3) then {ctrlSetText [114, "255"];};
+if (fza_ah64_l_s4rz1 == 3) then {ctrlSetText [115, "255"];};
+if (fza_ah64_l_s4rz2 == 3) then {ctrlSetText [116, "255"];};
+if (fza_ah64_l_s4rz3 == 3) then {ctrlSetText [117, "255"];};
+//reset
+if (fza_ah64_l_s1rz1 == 4) then {fza_ah64_l_s1rz1 = 0;};
+if (fza_ah64_l_s1rz2 == 4) then {fza_ah64_l_s1rz2 = 0;};
+if (fza_ah64_l_s1rz3 == 4) then {fza_ah64_l_s1rz3 = 0;};
+if (fza_ah64_l_s2rz1 == 4) then {fza_ah64_l_s2rz1 = 0;};
+if (fza_ah64_l_s2rz2 == 4) then {fza_ah64_l_s2rz2 = 0;};
+if (fza_ah64_l_s2rz3 == 4) then {fza_ah64_l_s2rz3 = 0;};
+if (fza_ah64_l_s3rz1 == 4) then {fza_ah64_l_s3rz1 = 0;};
+if (fza_ah64_l_s3rz2 == 4) then {fza_ah64_l_s3rz2 = 0;};
+if (fza_ah64_l_s3rz3 == 4) then {fza_ah64_l_s3rz3 = 0;};
+if (fza_ah64_l_s4rz1 == 4) then {fza_ah64_l_s4rz1 = 0;};
+if (fza_ah64_l_s4rz2 == 4) then {fza_ah64_l_s4rz2 = 0;};
+if (fza_ah64_l_s4rz3 == 4) then {fza_ah64_l_s4rz3 = 0;};
+sleep 0.1;
+}

@@ -1,0 +1,5 @@
+_ah64 = _this select 0;
+
+?(fza_ah64_tsdmode == "atk"): fza_ah64_tsdmode = "nav"; exit
+?(fza_ah64_tsdmode == "nav"): fza_ah64_tsdmode = "atk"; exit
+exit
