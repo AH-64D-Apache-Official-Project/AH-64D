@@ -1,5 +1,0 @@
-_unit = _this select 0
-
-fza_su17_steerpointnext = 1;
-
-exit
