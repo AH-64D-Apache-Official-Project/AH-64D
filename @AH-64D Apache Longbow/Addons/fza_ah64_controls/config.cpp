@@ -720,6 +720,7 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 	};
 	class fza_ah64_flare_shot: CMflareAmmo
 	{
+		effectssmoke = "SmokeShellWhiteEffect";
 		weaponlocksystem = "4";
 	};
 	class fza_30x113: B_30mm_MP
@@ -4881,6 +4882,18 @@ class SoundsExt
 				shortcut="";
 				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\pilotdoor_toggle.sqf""";
 			};
+			/*class IntLight
+			{
+				displayName="Toggle Interior Lights";
+				position="pilot_action";
+				onlyForPlayer=0;
+				radius=2.5;
+				showWindow=0;
+				priority=-10;
+				condition="(alive this)";
+				shortcut="";
+				statement="[this] exec ""\fza_ah64_controls\scripting\IntLight.sqf""";
+			};*/
 			class pilotdoor_close
 			{
 				displayName="Close Pilot Door";
@@ -6627,14 +6640,14 @@ class SoundsExt
 		//ARMA CONFIG POINTS
 		/* memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"chaff_launcher1_dir"}; */
-		memorypointcm[] = {"flare_1_beg"};
+		memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
-		flarevelocity = 200;
+		flarevelocity = 400;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
@@ -8396,12 +8409,12 @@ initPhase=0;
 			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};			
-			intensity=600;			
+			intensity=1000;			
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
-			blinkingPattern[]={0.03,4};   
-			blinkingPatternGuarantee = 0;          
+			blinkingPattern[]={0.03,2.10};   
+			blinkingPatternGuarantee = 1;          
 			};    
 
 			class WhiteBlinking2 
@@ -8411,12 +8424,12 @@ initPhase=0;
 			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};			
-			intensity=600;			
+			intensity=1000;			
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
 			blinkingPattern[]={0.03,2};   
-			blinkingPatternGuarantee = 0;          
+			blinkingPatternGuarantee = 1;          
 			};     			
 			};
 
@@ -8435,8 +8448,8 @@ initPhase=0;
 				ambient[] = {0.008500, 0.009500, 0.010000};
 				intensity = 100000;
 				size = 1;
-				innerAngle = 35;
-				outerAngle = 60;
+				innerAngle = 45;
+				outerAngle = 90;
 				coneFadeCoef = 5;
 				useFlare = 1;
 				flareSize = 1.500000;
@@ -10513,8 +10526,8 @@ initPhase=0;
 		memoryPointsGetInCargoDir = "pos cargo dir";
 		memorypointcm[] = {"flare_1_beg", "flare_2_beg"};
 		memorypointcmdir[] = {"flare_1_end", "flare_2_end"};
-		weapons[] = {"CMFlareLauncher","fza_ah64_chaff30"};
-		magazines[] = {"60Rnd_CMFlareMagazine","fza_ah64_chaff30"};
+		weapons[] = {"fza_ah64_flare30","fza_ah64_chaff30"};
+		magazines[] = {"fza_ah64_flare30","fza_ah64_chaff30"};
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
