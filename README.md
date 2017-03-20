@@ -2,6 +2,9 @@
 Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
+*20/03/2017*
+- Added internal lights.
+- Fixed flares memorypoint.
 
 *19/03/2017*
 - Replaced chaffs by flares.
@@ -56,6 +59,3 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 
 - Add internal & external weapon sounds.
 - Add external sounds for APU and startup sequence.
-- Add external lights.
-- Tune internal backlight.
-- Add flares system.
