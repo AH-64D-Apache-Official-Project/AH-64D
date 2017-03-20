@@ -6647,7 +6647,7 @@ class SoundsExt
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
-		flarevelocity = 400;
+		flarevelocity = 800;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
@@ -8389,6 +8389,48 @@ initPhase=0;
 			drawLightCenterSize = 0.16;		    
 			};  
 			
+			/*class plt_light
+			{         	
+			name="plt_light";
+			//ambient[] = {0.1,0.1,0.1};  			
+			//color[] = {1,1,1};
+			color[]={0.306,0.878,0.349,1};
+			ambient[]={0.306,0.878,0.349,1};			
+			intensity=40;			
+			drawLightSize = 0.01;
+			drawLightCenterSize = 0.001; 	    
+			blinking = 0;                
+			class Attenuation {
+			constant = 0;
+			hardLimitEnd = 1;
+			hardLimitStart = 0.20;
+			linear = 25;
+			quadratic = 50;
+			start = 0;
+        };
+			}; */    
+			
+			class ckpt_light
+			{         	
+			name="ckpt_light";
+			//ambient[] = {0.1,0.1,0.1};  			
+			//color[] = {1,1,1};
+			color[]={0.306,0.878,0.349,1};
+			ambient[]={0.306,0.878,0.349,1};			
+			intensity=20;			
+			drawLightSize = 0.01;
+			drawLightCenterSize = 0.001; 	    
+			blinking = 0;                
+			class Attenuation {
+			constant = 0;
+			hardLimitEnd = 0.60;
+			hardLimitStart = 0.20;
+			linear = 25;
+			quadratic = 50;
+			start = 0;
+        };
+			};   
+			
 			/*class RedBlinking
 			{
 				name="bily pozicni blik";
@@ -8448,7 +8490,7 @@ initPhase=0;
 				ambient[] = {0.008500, 0.009500, 0.010000};
 				intensity = 100000;
 				size = 1;
-				innerAngle = 45;
+				innerAngle = 15;
 				outerAngle = 90;
 				coneFadeCoef = 5;
 				useFlare = 1;
