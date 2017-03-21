@@ -49,13 +49,13 @@ class CfgFontFamilies
 class CfgSounds
 {
 	class RainExt {
-		sound[] = {\fza_ah64_us\audio\rain1_ext.ogg, 1.000000, 1.000000, 100};
+		sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
 		frequency = 1;
 		volume = "camPos * (rain - rotorSpeed/2) * 2";
 	};
 
 	class RainInt {
-		sound[] = {\fza_ah64_us\audio\rain1_int_open.ogg, 1.000000, 1.000000, 100};
+		sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
 		frequency = 1;
 		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
 	};
@@ -760,8 +760,9 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 	indirectHitRange = 15;
 	cost = 10000;
 	maxSpeed = 1200;
-	irLock =false; //modifié
-	airLock=false;
+	irLock = 0; //modified
+	airLock= 0;
+	laserLock = 0; //modified
 	timetolive=50;
 	manualControl = 0;
 	maxControlRange = 8000;
@@ -771,8 +772,7 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 	trackOversteer = 1;
 	trackLead = 1;
 	maneuvrability = 10;
-	laserLock =false;
-	weaponlocksystem = "16 + 1";
+	weaponlocksystem = 8; //modified
 	airfriction = -0.00001;
 	simulationStep=0.01;
 	muzzleeffect = "";
@@ -793,12 +793,12 @@ class CMflare_Chaff_Ammo: CMflareAmmo {};
 		//thrust=400;
 		//maxspeed=600;
 		//sideAirFriction=0.6;
-		weaponlocksystem = "16 + 4";
+		weaponlocksystem = 4; //modified
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
-		airLock=false;
-		laserLock=true;
-		irLock=true;
+		airLock= 0;
+		laserLock= 1;
+		irLock= 1;
 		//maneuvrability=25.0;
 		//maxSpeed=250;
 		minRange=200;
@@ -3856,18 +3856,11 @@ class CfgVehicles
 			throttleIdleToFull = 12;
 			throttleFullToIdle = 20;
 			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
-				class Procedures
+			class Procedures
 				{
 					
 					class Startup
 					{
-						class RotorBrakeOff
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-						};
 						class BatteriesOn
 						{
 							delayFromCondition = 1;
@@ -3876,6 +3869,15 @@ class CfgVehicles
 							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
 							
 						};
+						
+						class RotorBrakeOff
+						{
+							delayFromCondition = 0;
+							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
+							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
+							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
+						};
+
 						class APUOn
 						{
 							delayFromCondition = 2;
@@ -3883,6 +3885,7 @@ class CfgVehicles
 							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_APUOn')";
 							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_APUOn')";
 						};
+						
 						class StarterOn0
 						{
 							delayFromCondition = 2;
@@ -3890,20 +3893,7 @@ class CfgVehicles
 							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
 							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
 						};
-						class ThrottleIdle0
-						{
-							delayFromCondition = 1;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-						};
-						class StarterOff0
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-						};
+						
 						class StarterOn1
 						{
 							delayFromCondition = 2;
@@ -3911,6 +3901,15 @@ class CfgVehicles
 							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
 							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
 						};
+						
+						class ThrottleIdle0
+						{
+							delayFromCondition = 1;
+							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
+							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
+							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
+						};
+						
 						class ThrottleIdle1
 						{
 							delayFromCondition = 1;
@@ -3918,6 +3917,15 @@ class CfgVehicles
 							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
 							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
 						};
+						
+						class StarterOff0
+						{
+							delayFromCondition = 0;
+							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
+							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
+							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
+						};
+								
 						class StarterOff1
 						{
 							delayFromCondition = 0;
@@ -3925,6 +3933,7 @@ class CfgVehicles
 							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
 							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
 						};
+						
 						class APUOff
 						{
 							delayFromCondition = 2;
@@ -3932,12 +3941,14 @@ class CfgVehicles
 							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_APUoff')";
 							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_APUoff')";
 						};
+						
 						class WarmupStart
 						{
 							delayFromCondition = 2;
 							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_warmupStart')";
 							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_warmupStart')";
 						};
+						
 						class ThrottleFull0
 						{
 							delayFromCondition = 17;
@@ -3945,6 +3956,7 @@ class CfgVehicles
 							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
 							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
 						};
+						
 						class ThrottleFull1
 						{
 							delayFromCondition = 0;
@@ -3952,6 +3964,7 @@ class CfgVehicles
 							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
 							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
 						};
+						
 						class EnginesOn
 						{
 							delayFromCondition = 0;
@@ -4160,13 +4173,13 @@ class SoundsExt
 		{
 		};
    	class RainExt {
-		sound[] = {\fza_ah64_us\audio\rain1_ext.ogg, 1.000000, 1.000000, 100};
+		sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
 		frequency = 1;
 		volume = "camPos * (rain - rotorSpeed/2) * 2";
 	};
 
 	class RainInt {
-		sound[] = {\fza_ah64_us\audio\rain1_int_open.ogg, 1.000000, 1.000000, 100};
+		sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
 		frequency = 1;
 		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
 	};
@@ -4441,9 +4454,10 @@ class SoundsExt
 		
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2", 1, 1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2", 1, 1, 40};
-		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1,100};
+		
+		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1,300};
 		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",6,1};
-		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1,100};
+		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1,300};
 		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1};
 		
 		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
@@ -4471,7 +4485,19 @@ class SoundsExt
 		class MFD {};
 		class Sounds
 		{
-			 class Distance 
+			class RainExt {
+			sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
+			frequency = 1;
+			volume = "camPos * (rain - rotorSpeed/2) * 2";
+	};
+
+			class RainInt {
+			sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
+			frequency = 1;
+			volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
+		};
+			 
+			class Distance 
 			 {
 					frequency = "rotorSpeed";
 					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1000};
@@ -8456,7 +8482,8 @@ initPhase=0;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
 			blinkingPattern[]={0.03,2.10};   
-			blinkingPatternGuarantee = 1;          
+			blinkingPatternGuarantee = 1;
+			daylight = 1; //added
 			};    
 
 			class WhiteBlinking2 
@@ -8471,7 +8498,8 @@ initPhase=0;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
 			blinkingPattern[]={0.03,2};   
-			blinkingPatternGuarantee = 1;          
+			blinkingPatternGuarantee = 1; 
+			daylight = 1;		//added	
 			};     			
 			};
 
@@ -8496,6 +8524,7 @@ initPhase=0;
 				useFlare = 1;
 				flareSize = 1.500000;
 				flareMaxDistance = 500;
+				daylight = 1;		//added	
 				
 				/*color[] = {7000,7500,10000};
 				ambient[] = {70,75,100};
@@ -9790,9 +9819,9 @@ initPhase=0;
 };
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
+		irScanToEyeFactor = 5;
+		irScanRangeMax=10000;
+		irScanRangeMin=2000;
 		class Turrets
 		{
 			class MainTurret: NewTurret
