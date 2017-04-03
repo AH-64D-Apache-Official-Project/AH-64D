@@ -4,6 +4,7 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 # CHANGELOG NOTES:
 *03/04/2017*
 - Added TADS NVG.
+- Reduced PNVS motion sensitivity.
 
 *20/03/2017*
 - Added internal lights.
