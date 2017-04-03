@@ -6633,7 +6633,8 @@ class SoundsExt
 		animated=1;
 		memorypointdriveroptics[] = {"driverview", "pilot"};
 		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
-		driverOpticsColor[] = {0.231,0.914,0.184,1};
+		driverOpticsColor[] = {1,1,1,1};
+		//driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
 		irScanToEyeFactor = 4;
@@ -6789,8 +6790,8 @@ class SoundsExt
 						minangley = -100;
 						minfov = 0.466;
 						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
+						thermalmode[] = {0,1};
+						visionmode[] = {"Normal","Ti","NVG"};
 					};
 					class Medium: Wide
 					{
@@ -6889,7 +6890,8 @@ class SoundsExt
 		};
 		class ViewOptics
 		{
-			driverOpticsColor[] = {0.231,0.914,0.184,1};
+			aimingMarkElevSpeed = 10; //test
+			aimingMarkTurnSpeed = 10; //test
 			opticStabilized=1;
 			directionStabilized = 1;
 			stabilizedInAxes = 3;
@@ -9846,8 +9848,8 @@ initPhase=0;
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
-				maxhorizontalrotspeed = 4;
-				maxverticalrotspeed = 2;
+				maxhorizontalrotspeed = 3;
+				maxverticalrotspeed = 3;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
@@ -9901,8 +9903,8 @@ initPhase=0;
 						minangley = -100;
 						minfov = 0.466;
 						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
+						thermalmode[] = {0,1};
+						visionmode[] = {"Normal","Ti","NVG"};
 					};
 					class Medium: Wide
 					{

@@ -15,6 +15,7 @@ _heli animate ["tads_stow",0];
 fza_ah64_estarted = true;
 fza_ah64_apuon = 0;
 fza_ah64_pwron = 0;
+
 } else {
 if(fza_ah64_cem) then
 {
@@ -27,6 +28,7 @@ _heli animate ["plt_eng2_start",0];
 _heli animate ["plt_eng1_throttle",0];
 _heli animate ["plt_eng2_throttle",0];
 _heli animate ["tads_stow",1];
+
 fza_ah64_estarted = false;
 fza_ah64_apuon = 0;
 fza_ah64_pwron = 0;

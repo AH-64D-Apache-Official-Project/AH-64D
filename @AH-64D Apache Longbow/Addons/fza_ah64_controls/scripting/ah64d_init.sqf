@@ -3,8 +3,8 @@ _heli = _this select 0;
 _heli removeweapon "fza_m230";
 _heli addweapon "fza_m230";
 _heli selectweapon "fza_m230";
-_heli animate ["tads_stow",1];
 
+if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
 
 /* connectionFirstTime = true;
 onPlayerConnected {
