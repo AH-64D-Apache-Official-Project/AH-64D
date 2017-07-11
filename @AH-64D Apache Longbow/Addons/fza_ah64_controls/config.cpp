@@ -4461,9 +4461,9 @@ class SoundsExt
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2", 1, 1, 40};
 		
 		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",3,1,300};
-		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",6,1};
-		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1,300};
-		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",5,1};
+		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",1,1};
+		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",3,1,300};
+		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",2,1};
 		
 		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
 		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 150};
