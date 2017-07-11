@@ -181,7 +181,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_fcrstate = 0;
 	fza_ah64_fcrlist = [];
 	fza_ah64_tsddisptargs = [];
-	fza_ah64_tsdmode = "nav";
+	fza_ah64_tsdmode = "atk";
 	fza_ah64_tsdmap = 0;
 	fza_ah64_dispfcrlist = [];
 	//turrets//
