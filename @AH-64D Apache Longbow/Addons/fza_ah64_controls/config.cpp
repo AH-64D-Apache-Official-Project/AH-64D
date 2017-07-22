@@ -1278,8 +1278,9 @@ class CfgWeapons
 		weaponlocksystem = 0;
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
-		cursor = "EmptyCursor";
-		cursoraim = "EmptyCursor";
+		canlock = 0;
+		cursor = "";
+		cursoraim = "";
 		cursorAimOn = "";
 		cursorsize = 1;
 		sounds[] = {StandardSound};
@@ -1669,8 +1670,10 @@ class CfgWeapons
 		airateoffire = 5;
 		airateoffiredistance = 2500;
 		cmimmunity = 0.8;
-		cursor = "EmptyCursor";
-		cursoraim = "EmptyCursor";
+		canlock = 0;
+		cursor = "";
+		cursoraim = "";
+		cursorAimOn = "";
 		cursorsize = 1;
 		displayname = "FIM-92F Stinger";
 		magazinereloadtime = 30;
