@@ -2,6 +2,20 @@
 Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
+*19/08/2017*
+- Proper "laser on" symbology display while CPG is head down in RTO - by blindbat2006.
+
+*23/07/2017*
+- PNVS mouse control slowed down (even more)- by blindbat2006.
+
+*22/07/2017*
+- Removed vanilla locking display - by blindbat2006.
+
+*11/07/2017*
+- Short term fix for FCR - by blindbat2006.
+- Engine sounds lowered - by blindbat2006.
+- Fixed RPT spam - by blindbat2006.
+
 *03/04/2017*
 - Added TADS NVG.
 - Reduced PNVS motion sensitivity.
