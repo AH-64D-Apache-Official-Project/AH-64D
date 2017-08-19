@@ -102,6 +102,7 @@ fza_ah64_fgeff ppEffectCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 137) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 124) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 125) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1]; 
 _ihadssidx = 146;
 while {(_ihadssidx < 207)} do
 {
@@ -125,11 +126,16 @@ _ihadssidx = _ihadssidx + 1;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 186) ctrlSetTextColor [0, 0, 0, 0];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 129) ctrlSetTextColor [0, 0, 0, 0];
 _headsdown = true;
+if (fza_ah64_laserstate isEqualTo 1) then  
+{ 
+  ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa"; 
+};
 } else {
 fza_ah64_bweff ppEffectEnable false;
 fza_ah64_fgeff ppEffectEnable false;
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetTextColor [1, 1, 1, 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "";
 
 _ihadssidx = 121;
 

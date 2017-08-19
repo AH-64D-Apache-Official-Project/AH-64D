@@ -17550,6 +17550,21 @@ class fza_ah64_raddisp
          h = 0.0025;
       };
 */
+	   class fza_ah64_raddisp_lase 
+      { 
+         idc = 138; 
+         type = 0; 
+         colorText[] = {0.1, 1, 0, 1}; 
+         font = "EtelkaMonospaceProBold"; 
+         colorBackground[] = {1, 1, 1, 1}; 
+         text = ""; 
+         style = 48; 
+         sizeEx = 1024; 
+         x = 0.2485; 
+         y = 0.16; 
+         w = 0.5; 
+         h = 0.68; 
+      };
 	  class fza_ah64_raddisp_hdg0_tickmark
       {
          idc = 146;
