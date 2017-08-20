@@ -4218,7 +4218,7 @@ class SoundsExt
    };
    class RotorNoiseExt
    {
-    sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext1.ogg", 3.16228, 1, 1200};
+    sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
     frequency = 1;
     volume = "(rotorSpeed factor [0.6, 0.85])";
     cone[] = {0.7,1.3,1,0};
@@ -4370,13 +4370,13 @@ class SoundsExt
     };
     class RotorIdleExt
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext1.ogg", 3.16228, 1, 1200};
+     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
      frequency = 1;
      volume = "(camPos)*(rotorSpeed factor [0.15, 0.4]) * (rotorSpeed factor[0.8, 0.65])";
     };
     class RotorFullExt
     {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1.77828, 1, 1300};
+     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
      frequency = 1;
      volume = "(camPos)*(rotorSpeed factor [0.6, 0.85])";
      cone[] = {1.8,3.14,2,1.5};
@@ -4527,21 +4527,21 @@ class SoundsExt
 			{
 				cone[] = {1.8, 3.14, 2, 0.9};
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext1.ogg", 3.16228, 1, 1200};
+				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
 				volume = "camPos*(0 max (rotorSpeed-0.1))";
 			};
 			class RotorHighOut
 			{
 				cone[] = {1.8, 3.14, 2, 0.9};
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1.77828, 1, 1300};
+				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
 				volume = "camPos*10*(0 max (rotorThrust-0.95))";
 			};
 			class TailRotor
 			{
 				cone[] = {3, 1.57, 3, 1.57};
 				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 0.8, 1, 200};
+				sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 5, 1, 200};
 				volume = "camPos*(0 max (rotorSpeed-0.1))";
 			};
 			/*
@@ -5182,7 +5182,7 @@ class SoundsExt
 				showWindow=0;
 				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
-				shortcut="";
+				shortcut="User5";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\add_remt.sqf""";
 			};
 			class rem_remt
@@ -5194,7 +5194,7 @@ class SoundsExt
 				showWindow=0;
 				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
-				shortcut="";
+				shortcut="User10";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
 			};
 			class pnvs_cam_onoff
@@ -5269,6 +5269,18 @@ class SoundsExt
 				shortcut="salute";
 				statement="fza_ah64_fcronoff = [this] execvm ""\fza_ah64_controls\scripting\fcr_toggle.sqf""";
 			};
+			//class laser_toggle
+			//{
+				//displayName="LASER TOGGLE";
+				//position="pilot_action";
+				//onlyForPlayer=1;
+				//radius=8;
+				//showWindow=0;
+				//priority=-7;
+				//condition="(player == driver this || player == gunner this)";
+				//shortcut="User5";
+				//statement="fza_ah64_laseronoff = [this] execvm ""\fza_ah64_controls\scripting\laser_toggle.sqf""";
+			//};
 			class irjammer_toggle
 			{
 				displayName="IR JAMMER";
@@ -6645,9 +6657,9 @@ class SoundsExt
 		//driverOpticsColor[] = {0.231,0.914,0.184,1};
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
+		irScanToEyeFactor = 2;
+		irScanRangeMax=10000;
+		irScanRangeMin=2000;
 		//irScanRange=6000;
 		laserScanner=1;
 		nightVision=1;
@@ -6910,7 +6922,7 @@ class SoundsExt
 			minAngleY=-60;
 			maxAngleY=11;
 			initFov=0.7;
-			minFov=0.1;
+			minFov=0.01; //test
 			maxFov=0.7;
 			thermalmode[] = {2};
 			visionmode[] = {"Normal","Ti","NVG"};
@@ -9829,7 +9841,7 @@ initPhase=0;
 };
 		//Calculation is visibility*irScanToEyeFactor
 		//irScanRanges are the limits
-		irScanToEyeFactor = 5;
+		irScanToEyeFactor = 2;
 		irScanRangeMax=10000;
 		irScanRangeMin=2000;
 		class Turrets
@@ -10765,7 +10777,7 @@ initPhase=0;
 			minAngleY=-60;
 			maxAngleY=11;
 			initFov=0.7;
-			minFov=0.1;
+			minFov=0.01;
 			maxFov=0.7;
 			thermalmode[] = {0};
 			visionmode[] = {"Ti","NVG"};
