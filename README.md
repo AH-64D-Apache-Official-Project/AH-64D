@@ -2,8 +2,11 @@
 Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
-*19/08/2017*
+*20/08/2017*
 - Proper "laser on" symbology display while CPG is head down in RTO - by blindbat2006.
+- External sounds louder than before.
+- PLT optics zoom slightly enhanced.
+- Added laser system keybindings (Custom User 5 & Custom User 10)
 
 *23/07/2017*
 - PNVS mouse control slowed down (even more)- by blindbat2006.
