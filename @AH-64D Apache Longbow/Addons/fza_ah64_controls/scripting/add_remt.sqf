@@ -15,7 +15,7 @@ _heli addweapon "Laserdesignator_mounted";
 };
 };
 
-_heli vehiclechat "Laser ready.";
+_heli vehiclechat "Laser system armed.";
 
 while {(alive _heli && _heli hasweapon "Laserdesignator_mounted") || (alive _heli && _heli hasweapon "Laserdesignator")} do
 {
@@ -36,4 +36,4 @@ _helilaser = objNull;
 sleep 1;
 };
 
-_heli vehiclechat "Laser off.";
+_heli vehiclechat "Laser system disarmed.";
