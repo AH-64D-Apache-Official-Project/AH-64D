@@ -421,21 +421,21 @@ _weaponstate = format ["%1",_heli ammo (currentweapon _heli)];
 
 if(currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") then
 {
-_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
-_w = 0.0734;
-_h = 0.1;
-_apx = 0.036;
-_apy = 0.05;
-_angley = -0.5*(_heli animationphase "maingun");
-_angley = _angley + 0.5;
-_anglex = -0.5*(_heli animationphase "mainturret");
-_anglex = _anglex + 0.5;
-//*abs(sin((_heli animationphase "mainturret") * -57.33))
-_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
-if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
-_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
+//_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+//_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
+//_w = 0.0734;
+//_h = 0.1;
+//_apx = 0.036;
+//_apy = 0.05;
+//_angley = -0.5*(_heli animationphase "maingun");
+//_angley = _angley + 0.5;
+//_anglex = -0.5*(_heli animationphase "mainturret");
+//_anglex = _anglex + 0.5;
+////*abs(sin((_heli animationphase "mainturret") * -57.33))
+//_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
+//if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
+//_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
 _weapon = "GUN" + (format [" RNG:%1",currentZeroing gunner _heli]);
 if(isManualFire _heli) then {_weapon = "P-GUN";};
 _curburst = fza_ah64_burst_limit;
@@ -444,20 +444,20 @@ _weaponstate = format ["BURST:%1 %2",_curburst,_heli ammo (currentweapon _heli)]
 
 if(currentweapon _heli == "Laserdesignator_mounted") then
 {
-_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
-_w = 0.0734;
-_h = 0.1;
-_apx = 0.036;
-_apy = 0.05;
-_angley = -0.5*(_heli animationphase "maingun");
-_angley = _angley + 0.5;
-_anglex = -0.5*(_heli animationphase "mainturret");
-_anglex = _anglex + 0.5;
-_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
-if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
-_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
+//_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+//_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
+//_w = 0.0734;
+//_h = 0.1;
+//_apx = 0.036;
+//_apy = 0.05;
+//_angley = -0.5*(_heli animationphase "maingun");
+//_angley = _angley + 0.5;
+//_anglex = -0.5*(_heli animationphase "mainturret");
+//_anglex = _anglex + 0.5;
+//_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
+//if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
+//_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
 _weapon = "LDRF";
 if(isManualFire _heli) then {_weapon = "P-LDRF";};
 _lasestatus = "OFF";

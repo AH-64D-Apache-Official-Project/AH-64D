@@ -1115,29 +1115,37 @@ class CfgWeapons
 	class RocketPods: LauncherCore {};
 	class fza_m230: CannonCore
 	{
-	scope = 1;
-	displayName="M230E1 Chaingun";
-	displayNameMagazine="M230 30mm";
-	shortNameMagazine="M230";
-	reloadTime=0.1;
-	burst=10;
-	multiplier=1;
-	dexterity=0.0001;
-	dispersion=0.003;
-	initspeed=1800;
-	soundContinuous=0;
-	aiRateOfFire=0.01; // delay between shots at given distance
-	aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
-	magazines[]={fza_m230_1200,fza_m230_350};
-	modes[]= {"Ten","aiclose","aimid","aifar"};
-	cursor = "";
-	cursoraim = "";
-	cursorAimOn = "";
-	cursorsize = 1;
-	ballisticscomputer = 1;
-	namesound = "cannon";
-	autoreload = 1;
-	class Ten: CannonCore
+		scope = 1;
+		displayName="M230E1 Chaingun";
+		displayNameMagazine="M230 30mm";
+		shortNameMagazine="M230";
+		reloadTime=0.1;
+		burst=10;
+		multiplier=1;
+		dexterity=0.0001;
+		dispersion=0.003;
+		initspeed=1800;
+		soundContinuous=0;
+		aiRateOfFire=0.01; // delay between shots at given distance
+		aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
+		magazines[]={fza_m230_1200,fza_m230_350};
+		modes[]= {"Ten","aiclose","aimid","aifar"};
+		cursor = "EmptyCursor";
+		cursorAim = "mg";
+		cursorSize = 1;
+		ballisticscomputer = "2 + 8";
+		shotFromTurret = true;
+		namesound = "cannon";
+		class GunParticles
+		{
+			class Effect
+			{
+				effectName = "MachineGun2";
+				positionName = "Usti hlavne";
+				directionName = "Konec hlavne";
+			};
+		};
+		class Ten: CannonCore
 		{
 			multiplier=1;
 			burst=1;
@@ -1160,7 +1168,7 @@ class CfgWeapons
 			aiRateOfFire=0.096;
 			aiRateOfFireDistance = 400;
 			recoil = "Empty";
-			recoilProne = "Empty";
+
 			useAction = 0;
 			useActionTitle = "";
 			showToPlayer = 1;
@@ -1170,12 +1178,12 @@ class CfgWeapons
 			midRangeProbab = 0.2;
 			maxRange = 1000;
 			maxRangeProbab = 0.1;
-			cursor = "";
-			cursoraim = "";
-			cursorAimOn = "";
+			cursor = "EmptyCursor";
+			cursorAim = "mg";
+			cursorSize = 1;
 			autoreload = 1;
 		};
-	class aiclose: Ten
+		class aiclose: Ten
 		{
 			burst=10;
 			showToPlayer = 0;
@@ -1188,7 +1196,7 @@ class CfgWeapons
 			maxRange = 400;
 			maxRangeProbab = 0.1;
 		};
-	class aimid: Ten
+		class aimid: Ten
 		{
 			burst=20;
 			showToPlayer = 0;
@@ -1201,7 +1209,7 @@ class CfgWeapons
 			maxRange = 800;
 			maxRangeProbab = 0.1;
 		};
-	class aifar: Ten
+		class aifar: Ten
 		{
 			burst=50;
 			showToPlayer = 0;
@@ -1217,26 +1225,26 @@ class CfgWeapons
 	};
 	class fza_burstlimiter: fza_m230
 	{
-	displayName="BURST LIMIT";
-	displayNameMagazine="BURST LIMIT";
-	shortNameMagazine="BURST LIMIT";
-	reloadTime=120;
-	magazinereloadTime=120;
-	burst=10;
-	multiplier=1;
-	dexterity=0.0001;
-	dispersion=0.002;
-	initspeed=1800;
-	soundContinuous=0;
-	aiRateOfFire=0.1; // delay between shots at given distance
-	aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
-	magazines[]={fza_m230_1200,fza_m230_350};
-	modes[]= {"Ten"};
-	cursor = "";
-	cursoraim = "";
-	cursorAimOn = "";
-	autoreload = 1;
-	class Ten: CannonCore
+		displayName="BURST LIMIT";
+		displayNameMagazine="BURST LIMIT";
+		shortNameMagazine="BURST LIMIT";
+		reloadTime=120;
+		magazinereloadTime=120;
+		burst=10;
+		multiplier=1;
+		dexterity=0.0001;
+		dispersion=0.002;
+		initspeed=1800;
+		soundContinuous=0;
+		aiRateOfFire=0.1; // delay between shots at given distance
+		aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
+		magazines[]={fza_m230_1200,fza_m230_350};
+		modes[]= {"Ten"};
+		cursor = "EmptyCursor";
+		cursorAim = "mg";
+		cursorSize = 1;
+		autoreload = 1;
+		class Ten: CannonCore
 		{
 			multiplier=1;
 			burst=1;
@@ -1252,7 +1260,6 @@ class CfgWeapons
 			aiRateOfFire=0.5;
 			aiRateOfFireDistance = 50;
 			recoil = "Empty";
-			recoilProne = "Empty";
 			useAction = 0;
 			useActionTitle = "";
 			showToPlayer = 1;
@@ -1262,9 +1269,6 @@ class CfgWeapons
 			midRangeProbab = 0.01;
 			maxRange = 3;
 			maxRangeProbab = 0.01;
-			cursor = "";
-			cursoraim = "";
-			cursorAimOn = "";
 			autoreload = 1;
 		};
 	};
@@ -5194,7 +5198,7 @@ class SoundsExt
 				showWindow=0;
 				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
-				shortcut="User10";
+				shortcut="";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
 			};
 			class pnvs_cam_onoff
