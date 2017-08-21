@@ -4,7 +4,17 @@ _helilaser = objNull;
 
 if("fza_ah64_tads_fail" in (_heli magazinesturret [-1]) || _heli in fza_ah64_desiglist) exitwith {};
 if(player == gunner _heli && fza_ah64_laserstate == 0) exitwith {fza_ah64_laserstate = 1; _heli vehiclechat "Laser ON.";};
-if(player == gunner _heli && fza_ah64_laserstate == 1) exitwith {fza_ah64_laserstate = 0; _heli vehiclechat "Laser OFF.";};
+if(player == gunner _heli && fza_ah64_laserstate == 1) exitwith 
+{
+	fza_ah64_laserstate = 0; 
+	if (fza_ah64_ihadssoff isEqualTo 0 && player in _heli) then 
+	{
+		fza_ah64_ihadssoff = 1;
+		sleep 0.1;
+		fza_ah64_ihadssoff = 0;
+	};
+	_heli vehiclechat "Laser OFF.";
+};
 
 if(!(_heli hasweapon "Laserdesignator_mounted")) then
 {
