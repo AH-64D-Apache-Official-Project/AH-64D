@@ -4,9 +4,9 @@ Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & 
 # CHANGELOG NOTES:
 *20/08/2017*
 - Proper "laser on" symbology display while CPG is head down in RTO - by blindbat2006.
-- External sounds louder than before.
 - PLT optics zoom slightly enhanced.
 - Added laser system keybindings (Custom User 5 & Custom User 10).
+- Replacement of few old sounds by better quality ones.
 - Overall aircraft sounds volume tweaked.
 
 *23/07/2017*
