@@ -224,7 +224,7 @@ _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
 _enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";
 _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
-_arming = [_heli] execvm "\fza_ah64_controls\arming\arming.sqf";
+//_arming = [_heli] execvm "\fza_ah64_controls\arming\arming.sqf";
 if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
 if(isnil "fza_ah64_tiron") then {fza_ah64_tiron = false;};
 
