@@ -17,6 +17,9 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha Oropeza & Communi
 - Increased 30mm ammo spread.
 - Fixed TADS & M230 AZ limits.
 - Fixed PNVS AZ & EL limits. 
+- Changed default loadout.
+- Changed CPG animation.
+- Changed AGM-114, M230 & Hydras sound effects. 
 
 *20/08/2017*
 - Proper "laser on" symbology display while CPG is head down in RTO - by blindbat2006.
