@@ -44,7 +44,6 @@ if (isNil "fza_ah64_fx_init") then
 {
 	fza_ah64_fx_init = true;
 	fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
-	fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
 	fza_ah64_fx_rktmsl=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fx_rkt_msl.sqf";
 	fza_ah64_rocketalign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
 	fza_ah64_hellfirealign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\hellfire_align.sqf";

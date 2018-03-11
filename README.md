@@ -1,7 +1,23 @@
 # AH-64D (v1.43+)
-Originally based on Franze & Nodunit AH-64D Project - Edited by Sacha Oropeza & Community.
+Originally based on Franze & Nodunit AH-64D - Project by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
+*11/03/2018*
+- Dynamic rotor sound.
+- Added damage sounds.
+- New startup/shutdown procedure based on the real aircraft (WIP).
+- Flares effects display fixed.
+- Fixed internal & external startup sounds.
+- Increased engine spooling time.
+- Removed M230 full auto for burst with proper sound effect.
+- Crash wreck fixed.
+- Tweaked armor values.
+- New M230 gun calculation based on laser range, own speed, movement and ballistics.
+- Reduced 30mm ammo velocity.
+- Increased 30mm ammo spread.
+- Fixed TADS & M230 AZ limits.
+- Fixed PNVS AZ & EL limits. 
+
 *20/08/2017*
 - Proper "laser on" symbology display while CPG is head down in RTO - by blindbat2006.
 - PLT optics zoom slightly enhanced.

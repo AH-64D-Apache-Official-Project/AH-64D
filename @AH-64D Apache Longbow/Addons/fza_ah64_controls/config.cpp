@@ -24,55 +24,72 @@
 //#define CanSeeRadarC CanSeeRadar+CanSeeCompass
 #define CanSeeAll 31
 
+#define StabilizedInAxesBoth 3
+
+class CfgFontFamilies
+{
+	class fza_txled
+	{
+		fonts[] = {"\fza_ah64_controls\font\txled6", "\fza_ah64_controls\font\txled7", "\fza_ah64_controls\font\txled", "\fza_ah64_controls\font\txled9", "\fza_ah64_controls\font\txled10", "\fza_ah64_controls\font\txled11", "\fza_ah64_controls\font\txled12", "\fza_ah64_controls\font\txled13", "\fza_ah64_controls\font\txled14", "\fza_ah64_controls\font\txled15", "\fza_ah64_controls\font\txled16", "\fza_ah64_controls\font\txled17", "\fza_ah64_controls\font\txled18", "\fza_ah64_controls\font\txled19", "\fza_ah64_controls\font\txled20", "\fza_ah64_controls\font\txled21", "\fza_ah64_controls\font\txled22", "\fza_ah64_controls\font\txled23", "\fza_ah64_controls\font\txled24", "\fza_ah64_controls\font\txled25", "\fza_ah64_controls\font\txled26", "\fza_ah64_controls\font\txled27", "\fza_ah64_controls\font\txled28", "\fza_ah64_controls\font\txled29", "\fza_ah64_controls\font\txled30", "\fza_ah64_controls\font\txled31", "\fza_ah64_controls\font\txled34", "\fza_ah64_controls\font\txled37", "\fza_ah64_controls\font\txled46" };
+		spaceWidth = 0.7;
+		spacing = 0.2;
+	};
+};
+class CfgFactionClasses
+{
+	class fza_usaav
+	{
+		displayName = "FZA - US Army Aviation";
+		priority = 2;
+		icon = "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
+		side = "TWest";
+	};
+};
+class CfgVehicleClasses
+{
+	class fza_helicopters
+	{
+		displayName = "FZA - Helicopters";
+	};
+};
 class CfgPatches
 {
 	class fza_ah64_US
 	{
-		units[] = {fza_ah64base,fza_ah64d_b2e,fza_ah64d_b2e_nr};
+		units[] = {"fza_ah64base","fza_ah64d_b2e","fza_ah64d_b2e_nr"};
 		weapons[] = {};
 		requiredVersion = 1.0; 
-		requiredAddons[] = {};
+		requiredAddons[] = {"A3_Air_F_Beta"};
 	};
 };
 
-///fonts
-class CfgFontFamilies
+class CfgAnimationSourceSounds
 {
- class fza_txled
- {
-  fonts[] = {"\fza_ah64_controls\font\txled6", "\fza_ah64_controls\font\txled7", "\fza_ah64_controls\font\txled", "\fza_ah64_controls\font\txled9", "\fza_ah64_controls\font\txled10", "\fza_ah64_controls\font\txled11", "\fza_ah64_controls\font\txled12", "\fza_ah64_controls\font\txled13", "\fza_ah64_controls\font\txled14", "\fza_ah64_controls\font\txled15", "\fza_ah64_controls\font\txled16", "\fza_ah64_controls\font\txled17", "\fza_ah64_controls\font\txled18", "\fza_ah64_controls\font\txled19", "\fza_ah64_controls\font\txled20", "\fza_ah64_controls\font\txled21", "\fza_ah64_controls\font\txled22", "\fza_ah64_controls\font\txled23", "\fza_ah64_controls\font\txled24", "\fza_ah64_controls\font\txled25", "\fza_ah64_controls\font\txled26", "\fza_ah64_controls\font\txled27", "\fza_ah64_controls\font\txled28", "\fza_ah64_controls\font\txled29", "\fza_ah64_controls\font\txled30", "\fza_ah64_controls\font\txled31", "\fza_ah64_controls\font\txled34", "\fza_ah64_controls\font\txled37", "\fza_ah64_controls\font\txled46" };
-  spaceWidth = 0.7;
-  spacing = 0.2;
- };
+		class eng1_start_sound
+			{
+				loop = 1;
+				terminate = 0;
+				sound0[] = {"\fza_ah64_us\audio\button_click1.ogg",3,1,40};
+				sound[] = {"sound0",1};	
+			};
+		class eng2_start_sound
+			{
+				loop = 1;
+				terminate = 0;
+				sound0[] = {"\fza_ah64_us\audio\button_click2.ogg",3,1,40};
+				sound[] = {"sound0",1};	
+			};
+		class rtrbrake_sound
+			{
+				loop = 1;
+				terminate = 0;
+				sound0[] = {"\fza_ah64_us\audio\switch_flip1.ogg",3,1,40};
+				sound[] = {"sound0",1};	
+			};
 };
 
 class CfgSounds
 {
-	class RainExt {
-		sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
-		frequency = 1;
-		volume = "camPos * (rain - rotorSpeed/2) * 2";
-	};
-
-	class RainInt {
-		sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
-		frequency = 1;
-		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
-	};
-
-	class fza_ah64_rh_dooropen1
-	{
-		name = "fza_ah64_rh_dooropen1";
-		sound[] = {\fza_ah64_us\audio\rh_dooropen1.ogg,1,1,1};
-		titles[]={};
-	};
-	class fza_ah64_rh_doorclose1
-	{
-		name = "fza_ah64_rh_doorclose1";
-		sound[] = {\fza_ah64_us\audio\rh_doorclose1.ogg,1,1,1};
-		titles[]={};
-	};
-	
 	class fza_ah64_pnvs_fail_1
 	{
 		name = "fza_ah64_pnvs_fail_1";
@@ -262,53 +279,56 @@ class CfgSounds
 	class fza_ah64_bt_apu
 	{
 		name = "fza_ah64_bt_apu";
-		sound[] = {\fza_ah64_us\audio\betty\bt_apu.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_apu.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_bt_failure
 	{
 		name = "fza_ah64_bt_failure";
-		sound[] = {\fza_ah64_us\audio\betty\bt_failure.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_failure.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_bt_actuator
 	{
 		name = "fza_ah64_bt_actuator";
-		sound[] = {\fza_ah64_us\audio\betty\bt_actuator.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_actuator.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_bt_gun
 	{
 		name = "fza_ah64_bt_gun";
-		sound[] = {\fza_ah64_us\audio\betty\bt_gun.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_gun.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_bt_jammed
 	{
 		name = "fza_ah64_bt_jammed";
-		sound[] = {\fza_ah64_us\audio\betty\bt_jammedb.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_jammedb.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_bt_rotorrpm
 	{
 		name = "fza_ah64_bt_rotorrpm";
-		sound[] = {\fza_ah64_us\audio\betty\bt_rotorrpm.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg",1,1,1};
 		titles[]={};
 	};
-	////STARTING SEQUENCE/////
+
+	///STARTING CLICKABLE SEQUENCE SOUNDS///
 	class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg", 0.5, 1, 200};
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.33,1,200};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
 	{
 		name = "fza_ah64_apustart1";
-		sound[] = {"fza_ah64_us\audio\Ext_Start.ogg", 0.5, 1.0};
+		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",0.33,1,200};
 		titles[]={};
 	};
-	///GENERIC///
+	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
+	
+	///GENERIC FLIP SOUNDS///
 	class fza_ah64_button_click1
 	{
 		name = "fza_ah64_button_click1";
@@ -318,17 +338,33 @@ class CfgSounds
 	class fza_ah64_button_click2
 	{
 		name = "fza_ah64_button_click2";
-		sound[] = {\fza_ah64_us\audio\button_click2.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip1
 	{
 		name = "fza_ah64_switch_flip1";
-		sound[] = {\fza_ah64_us\audio\switch_flip1.ogg,1,1,1};
+		sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1,1};
 		titles[]={};
 	};
+	///END OF GENERIC FLIP SOUNDS///
+	
+	///DOOR SOUNDS///
+	class fza_ah64_rh_dooropen1
+	{
+		name = "fza_ah64_rh_dooropen1";
+		sound[] = {"\fza_ah64_us\audio\rh_dooropen1.ogg",1,1,1};
+		titles[]={};
+	};
+	class fza_ah64_rh_doorclose1
+	{
+		name = "fza_ah64_rh_doorclose1";
+		sound[] = {"\fza_ah64_us\audio\rh_doorclose1.ogg",1,1,1};
+		titles[]={};
+	};
+	///END OF DOOR SOUNDS///
+	
 };
-
 class CfgRadio
 {
 	class fza_ah64_pnvs_fail_1
@@ -554,588 +590,598 @@ class CfgRadio
 		title = ;
 	};
 };
-
-//////start missile effects//////
-
+//////MISSILES EFFECTS//////
 class fza_ah64_rocketsmoke
 {
- class Light1
- {
-  simulation = "light";
-  type = "RocketLight";
-  position[] = {0,0,0};
-  intensity = 0.01;
-  interval = 1;
-  lifeTime = 1;
- };
- class MissileEffects1
- {
-  simulation = "particles";
-  type = "Missile1";
-  position[] = {0,0,0};
-  intensity = 1;
-  interval = 1;
-  lifeTime = 1;
- };
+	class Light1
+	{
+		simulation = "light";
+		type = "RocketLight";
+		position[] = {0,0,0};
+		intensity = 0.01;
+		interval = 1;
+		lifeTime = 1;
+	};
+	class MissileEffects1
+	{
+		simulation = "particles";
+		type = "Missile1";
+		position[] = {0,0,0};
+		intensity = 1;
+		interval = 1;
+		lifeTime = 1;
+	};
 };
-
 class fza_ah64_hellfiresmoke
 {
- class Light1
- {
-  simulation = "light";
-  type = "RocketLight";
-  position[] = {0,0,0};
-  intensity = 0.01;
-  interval = 1;
-  lifeTime = 1;
- };
- class Missile2
- {
-  simulation = "particles";
-  type = "Missile2";
-  position[] = {0,0,0};
-  intensity = 1;
-  interval = 1;
-  lifeTime = 1;
- };
+	class Light1
+	{
+		simulation = "light";
+		type = "RocketLight";
+		  position[] = {0,0,0};
+		  intensity = 0.01;
+		  interval = 1;
+		  lifeTime = 1;
+	};
+	class Missile2
+	{
+		simulation = "particles";
+		type = "Missile2";
+		position[] = {0,0,0};
+		intensity = 1;
+		interval = 1;
+		lifeTime = 1;
+	};
 };
-
 class fza_ah64_stingersmoke
 {
- class Light1
- {
-  simulation = "light";
-  type = "RocketLight";
-  position[] = {0,0,0};
-  intensity = 0.01;
-  interval = 1;
-  lifeTime = 1;
- };
- class Missile3
- {
-  simulation = "particles";
-  type = "Missile3";
-  position[] = {0,0,0};
-  intensity = 1;
-  interval = 1;
-  lifeTime = 1;
- };
+	class Light1
+	{
+		simulation = "light";
+		type = "RocketLight";
+		position[] = {0,0,0};
+		intensity = 0.01;
+		interval = 1;
+		lifeTime = 1;
+	};
+	class Missile3
+	{
+		simulation = "particles";
+		type = "Missile3";
+		position[] = {0,0,0};
+		intensity = 1;
+		interval = 1;
+		lifeTime = 1;
+	};
 };
-
-////end missile effects///
-
+//////END OF MISSILES EFFECTS//////
 class CfgMovesBasic
 {
- class DefaultDie;
- class ManActions
- {
-  fza_ah64_leftcargo = "fza_ah64_leftcargo";
-  fza_ah64_rightcargo = "fza_ah64_rightcargo";
-  fza_ah64_plt_movearm = "fza_ah64_plt_movearm";
-  fza_ah64_pilot = "fza_ah64_pilot";
- };
+	class DefaultDie;
+	class ManActions
+	{
+		fza_ah64_leftcargo = "fza_ah64_leftcargo";
+		fza_ah64_rightcargo = "fza_ah64_rightcargo";
+		fza_ah64_plt_movearm = "fza_ah64_plt_movearm";
+		fza_ah64_pilot = "fza_ah64_pilot";
+		fza_ah64_copilot = "fza_ah64_copilot";
+	};
 };
 class CfgMovesMaleSdr: CfgMovesBasic
 {
- class States
- {
-  class Crew;
-  class pilot_Heli_Transport_01: Crew {};
-  class fza_ah64_leftcargo_dead: DefaultDie
-  {
-   actions = "DeadActions";
-   speed = 0.5;
-   looped = "false";
-   terminal = 1;
-   file = "\fza_ah64_us\anim\fza_ah64_leftcargo_dead.rtm";
-   connectTo[] = {"DeadState",0.1};
-  };
-  class fza_ah64_leftcargo: Crew
-  {
-   file = "\fza_ah64_us\anim\fza_ah64_leftcargo.rtm";
-   interpolateTo[] = {"fza_ah64_leftcargo_dead",1};
-  };
-  class fza_ah64_rightcargo_dead: DefaultDie
-  {
-   actions = "DeadActions";
-   speed = 0.5;
-   looped = "false";
-   terminal = 1;
-   file = "\fza_ah64_us\anim\fza_ah64_rightcargo_dead.rtm";
-   connectTo[] = {"DeadState",0.1};
-  };
-  class fza_ah64_rightcargo: Crew
-  {
-   file = "\fza_ah64_us\anim\fza_ah64_rightcargo.rtm";
-   interpolateTo[] = {"fza_ah64_rightcargo_dead",1};
-  };
-  class fza_ah64_plt_movearm: Crew
-  {
-   file = "\fza_ah64_us\anim\fza_ah64_plt_movearm.rtm";
-   interpolateTo[] = {};
-   speed = 0.5;
-   looped = 0;
-  };
-  class fza_ah64_pilot: Crew
-  {
-   file = "\fza_ah64_us\anim\fza_ah64_pilot.rtm";
-   interpolateTo[] = {"KIA_pilot_Heli_Transport_01",1};
-  };
- };
+	class States
+	{
+		class Crew;
+		class pilot_Heli_Transport_01: Crew {};
+		class fza_ah64_leftcargo_dead: DefaultDie
+		{
+			actions = "DeadActions";
+			speed = 0.5;
+			looped = "false";
+			terminal = 1;
+			file = "\fza_ah64_us\anim\fza_ah64_leftcargo_dead.rtm";
+			connectTo[] = {"DeadState",0.1};
+		};
+		class fza_ah64_leftcargo: Crew
+		{
+			file = "\fza_ah64_us\anim\fza_ah64_leftcargo.rtm";
+			interpolateTo[] = {"fza_ah64_leftcargo_dead",1};
+		};
+		class fza_ah64_rightcargo_dead: DefaultDie
+		{
+			actions = "DeadActions";
+			speed = 0.5;
+			looped = "false";
+			terminal = 1;
+			file = "\fza_ah64_us\anim\fza_ah64_rightcargo_dead.rtm";
+			connectTo[] = {"DeadState",0.1};
+		};
+		class fza_ah64_rightcargo: Crew
+		{
+			file = "\fza_ah64_us\anim\fza_ah64_rightcargo.rtm";
+			interpolateTo[] = {"fza_ah64_rightcargo_dead",1};
+		};
+		class fza_ah64_plt_movearm: Crew
+		{
+			file = "\fza_ah64_us\anim\fza_ah64_plt_movearm.rtm";
+			interpolateTo[] = {};
+			speed = 0.5;
+			looped = 0;
+		};
+		class fza_ah64_pilot: Crew
+		{
+			file = "\fza_ah64_us\anim\fza_ah64_pilot.rtm";
+			interpolateTo[] = {"KIA_pilot_Heli_Transport_01",1};
+		};
+		class fza_ah64_copilot: Crew
+		{
+			file = "\A3\cargoposes_F\Anim\gunner_Heli_Attack_02_mocap.rtm"; //Heli_Attack_02_Gunner  //gunner_MRAP_01 //CoDriver_Van_02 //Acts_gunner_MRAP_01_mocap //gunner_Heli_Attack_02_mocap
+			interpolateTo[] = {"KIA_pilot_Heli_Transport_01",1};
+		};
+	};
 };
-
 class CfgAmmo
 {
-class Default{};
-class BulletCore : Default{};
-class BulletBase : BulletCore{};
-class B_20mm_AA: BulletBase {};
-class RocketCore: Default {};
-class RocketBase: RocketCore {};
-class R_Hydra_HE: RocketBase {};
-class MissileCore : Default{};
-class MissileBase: MissileCore{};
-class M_Sidewinder_AA: MissileBase{};
-class M_Stinger_AA: MissileBase{};
-class M_Hellfire_AT: MissileBase{};
-class B_30mm_MP: BulletBase
-{
-	ace_frag_skip = 1;
-};
-class B_23mm_AA: BulletBase{};
-class B_127x107_Ball: BulletBase{};
-class ShellCore: Default {};
-class ShellBase: ShellCore {};
-class Sh_120_HE: ShellBase {};
-class GrenadeCore: Default {};
-class GrenadeBase: GrenadeCore {};
-class G_40mm_HE: GrenadeBase {};
-class FlareCore: GrenadeCore {};
-class FlareBase: FlareCore {};
-class F_40mm_White: FlareBase {};
-class CMflareAmmo: BulletBase {};
-class CMflare_Chaff_Ammo: CMflareAmmo {};
-class fza_ah64_chaff_shot: CMflare_Chaff_Ammo
-{
-	effectssmoke = "SmokeShellWhiteEffect";
-	weaponlocksystem = "8";
-};
-class fza_ah64_flare_shot: CMflareAmmo
-{
-	effectssmoke = "SmokeShellWhiteEffect";
-	weaponlocksystem = "4";
-};
-class fza_30x113: B_30mm_MP
-{
-hit=210;
-indirectHit=20;
-indirectHitRange=5;
-airLock=true;
-//laserLock=false;
-//irLock=true;
-cost=50;
-explosive=true;
-minRange=20;
-minRangeProbab=0.20;
-midRange=200;
-midRangeProbab=0.50;
-maxRange=1000;
-maxRangeProbab=0.05;
-thrust=250;
-timeToLive=16;
-tracerstarttime = 0;
-typicalspeed = 450;
-//soundHit[]={"\mas_heliwep\sounds\hitbull6.wav",3.162278,1};
-CraterEffects = "ExploAmmoCrater";
-explosionEffects = "ExploAmmoExplosion";
-muzzleeffect = "fza_ah64_fx_30mm";
-tracerColor[] = {0.800000,0.100000,0.100000,0.040000};
-tracerColorR[] = {0.800000,0.100000,0.100000,0.040000};
-model = "\A3\Weapons_f\Data\bullettracer\tracer_red";
-};
-class fza_agm114l : MissileBase
-{
-ace_frag_skip = 1;
-model = "\fza_ah64_US\fza_agm114l";
-proxyShape="\fza_ah64_US\fza_agm114l";
-hit = 2400;
-indirectHit = 100;
-indirectHitRange = 15;
-cost = 10000;
-maxSpeed = 1200;
-irLock = 0; //modified
-airLock= 0;
-laserLock = 0; //modified
-timetolive=50;
-manualControl = 0;
-maxControlRange = 8000;
-initTime = 0.0000;
-thrustTime=4;
-thrust = 60;
-trackOversteer = 1;
-trackLead = 1;
-maneuvrability = 10;
-weaponlocksystem = 8; //modified
-airfriction = -0.00001;
-simulationStep=0.01;
-muzzleeffect = "";
-effectsmissile = "fza_ah64_hellfiresmoke";
-cmimmunity = 0.8;
-fusedistance = 5;
-sideairfriction = 0.2;
-whistledist = 4;
-CraterEffects = "BombCrater";
-explosionEffects = "BombExplosion";
-};
-class fza_agm114k : fza_agm114l
-{
-	hit=2400;
-	indirectHit=100;
-	indirectHitRange=15;
-	//thrustTime=10;
-	//thrust=400;
-	//maxspeed=600;
-	//sideAirFriction=0.6;
-	weaponlocksystem = 4; //modified
-	model = "\fza_ah64_US\fza_agm114k";
-	proxyShape="\fza_ah64_US\fza_agm114k";
-	airLock= 0;
-	laserLock= 1;
-	irLock= 1;
-	//maneuvrability=25.0;
-	//maxSpeed=250;
-	minRange=200;
-	minRangeProbab=0.200000;
-   	midRange=4000;
-   	midRangeProbab=0.200000;
-   	maxRange=8000;
-   	maxRangeProbab=0.50000;
-};
-class fza_agm114a : fza_agm114k
-{
-	hit=625;
-	indirectHit=30;
-	indirectHitRange=10;
-	//thrustTime=10;
-	//thrust=400;
-	//maxspeed=600;
-	//sideAirFriction=0.6;
-	model = "\fza_ah64_US\fza_agm114c";
-	proxyShape="\fza_ah64_US\fza_agm114c";
-	effectsmissile = "missile3";
-	airLock=false;
-	laserLock=true;
-	irLock=true;
-	//maneuvrability=25.0;
-	//maxSpeed=250;
-	minRange=200;
-	minRangeProbab=0.200000;
-   	midRange=4000;
-   	midRangeProbab=0.200000;
-   	maxRange=8000;
-   	maxRangeProbab=0.50000;
-};
-class fza_agm114c : fza_agm114k
-{
-	hit=625;
-	indirectHit=30;
-	indirectHitRange=10;
-	//thrustTime=10;
-	//thrust=400;
-	//maxspeed=600;
-	//sideAirFriction=0.6;
-	model = "\fza_ah64_US\fza_agm114c";
-	proxyShape="\fza_ah64_US\fza_agm114c";
-	airLock=false;
-	laserLock=true;
-	irLock=true;
-	//maneuvrability=25.0;
-	//maxSpeed=250;
-	minRange=200;
-	minRangeProbab=0.200000;
-   	midRange=4000;
-   	midRangeProbab=0.200000;
-   	maxRange=8000;
-   	maxRangeProbab=0.50000;
-};
-class fza_agm114m : fza_agm114k
-{
-	hit=1800;
-	indirectHit=100;
-	indirectHitRange=30;
-	//thrustTime=10;
-	//thrust=400;
-	//maxspeed=600;
-	//sideAirFriction=0.6;
-	model = "\fza_ah64_US\fza_agm114k";
-	proxyShape="\fza_ah64_US\fza_agm114k";
-	airLock=false;
-	laserLock=true;
-	irLock=true;
-	//maneuvrability=25.0;
-	//maxSpeed=250;
-	minRange=200;
-	minRangeProbab=0.200000;
-   	midRange=4000;
-   	midRangeProbab=0.200000;
-   	maxRange=8000;
-   	maxRangeProbab=0.50000;
-};
-class fza_agm114n : fza_agm114m
-{
-	hit=1200;
-	indirectHit=70;
-	indirectHitRange=40;
-	//thrustTime=10;
-	//thrust=400;
-	//maxspeed=600;
-	//sideAirFriction=0.6;
-	model = "\fza_ah64_US\fza_agm114k";
-	proxyShape="\fza_ah64_US\fza_agm114k";
-	airLock=false;
-	laserLock=true;
-	irLock=true;
-	//maneuvrability=25.0;
-	//maxSpeed=250;
-	minRange=200;
-	minRangeProbab=0.200000;
-   	midRange=4000;
-   	midRangeProbab=0.200000;
-   	maxRange=8000;
-   	maxRangeProbab=0.50000;
-};
-class fza_275_m151: RocketBase
-{
-	hit=160;
-   	indirectHit=80;
-   	indirectHitRange=10;
-   	minRange=100;
-   	minRangeProbab=0.200000;
-   	midRange=750;
-   	midRangeProbab=0.200000;
-   	maxRange=2000;
-   	maxRangeProbab=0.050000;
-	simulation="shotRocket";
-   	simulationStep=0.050000;
-   	cost=10;
-	maneuvrability=0;
-   	maxControlRange=0;
-	thrustTime=1.3;
-	thrust=1200;
-	model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-	airLock=false;
-	fusedistance = 100;
-	//laserLock=true;
-	//irLock=true;
-	muzzleeffect = "";
-	effectsmissile = "fza_ah64_rocketsmoke";
-	maxspeed = 740;
-	sideairfriction = 0.2;
-	timetolive = 20;
-	whistledist = 24;
-};
-class fza_275_m229: fza_275_m151
-{
-	hit=220;
-   	indirectHit=110;
-   	indirectHitRange=10;
-   	minRange=100;
-   	minRangeProbab=0.200000;
-   	midRange=750;
-   	midRangeProbab=0.200000;
-   	maxRange=2000;
-   	maxRangeProbab=0.050000;
-	simulation="shotRocket";
-   	simulationStep=0.050000;
-   	cost=10;
-	//model="ZUNI";
-	maneuvrability=0;
-   	maxControlRange=0;
-	thrustTime=1.3;
-	thrust=1200;
-	model = "\fza_ah64_us\weps\fza_hydra_m229_wep";
-	airLock=false;
-	fusedistance = 100;
-	explosiontime = 0.1;
-	//laserLock=true;
-	//irLock=true;
-};
-class fza_275_m261: fza_275_m151
-{
-	//hit=50;
-   	//indirectHit=50;
-   	//indirectHitRange=8;
-	hit=1;
-   	indirectHit=1;
-   	indirectHitRange=1;
-   	minRange=100;
-   	minRangeProbab=0.200000;
-   	midRange=750;
-   	midRangeProbab=0.200000;
-   	maxRange=2000;
-   	maxRangeProbab=0.050000;
-	simulation="shotRocket";
-   	simulationStep=0.050000;
-   	cost=9;
-	//model="ZUNI";
-	maneuvrability=0;
-   	maxControlRange=0;
-	thrustTime=1.3;
-	thrust=1200;
-	model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-	airLock=false;
-	fusedistance = 100;
-	//laserLock=true;
-	//irLock=true;
-};
-class fza_275_m255: fza_275_m151
-{
-	hit=1;
-   	indirectHit=1;
-   	indirectHitRange=1;
-   	minRange=100;
-   	minRangeProbab=0.200000;
-   	midRange=750;
-   	midRangeProbab=0.200000;
-   	maxRange=2000;
-   	maxRangeProbab=0.050000;
-	simulation="shotRocket";
-   	simulationStep=0.050000;
-   	cost=8;
-	//model="ZUNI";
-	maneuvrability=0;
-   	maxControlRange=0;
-	thrustTime=1.3;
-	thrust=1200;
-	model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-	airLock=false;
-	fusedistance = 100;
-	//laserLock=true;
-	//irLock=true;
-};
-class fza_275_m257: fza_275_m151
-{
-	hit=1;
-   	indirectHit=1;
-   	indirectHitRange=1;
-   	minRange=100;
-   	minRangeProbab=0.200000;
-   	midRange=750;
-   	midRangeProbab=0.200000;
-   	maxRange=2000;
-   	maxRangeProbab=0.050000;
-	simulation="shotRocket";
-   	simulationStep=0.050000;
-   	cost=8;
-	//model="ZUNI";
-	maneuvrability=0;
-   	maxControlRange=0;
-	thrustTime=1.3;
-	thrust=1200;
-	model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-	airLock=false;
-	fusedistance = 100;
-	//laserLock=true;
-	//irLock=true;
-};
-class fza_fim92: MissileBase
-{
-	ace_frag_skip = 1;
-	airlock = 1;
-	cmimmunity = 0.95;
-	cost = 10000;
-	cratereffects = "AAMissileCrater";
-	effectsmissile = "fza_ah64_stingersmoke";
-	explosioneffects = "AAMissileExplosion";
-	fusedistance = 5;
-	hit = 120;
-	indirecthit = 65;
-	indirecthitrange = 4;
-	inittime = 0.25;
-	irlock = 1;
-	maneuvrability = 4;
-	maxspeed = 2400;
-	model = "\fza_ah64_us\fza_fim92";
-	sideairfriction = 0.25;
-	airfriction = -0.00001;
-	simulationstep = 0.01;
-	thrust = 100;
-	thrusttime = 3;
-	timetolive = 17;
-	tracklead = 0;
-	trackoversteer = 0.85;
-	weaponlocksystem = "16 + 2";
-	whistledist = 16;
-};
-class fza_m73mpsm: B_30mm_MP
-{
-	hit=120;
-	indirectHit=50;
-	indirectHitRange=6;
-	timeToLive=60;
-	thrust = 0;
-	thrusttime = 0;
-	explosive = true;
-	typicalspeed = 1;
-	CraterEffects = "ExploAmmoCrater";
-	explosionEffects = "ExploAmmoExplosion";
-};
-class fza_flec_cluster: B_30mm_MP
-{
-	hit=50;
-	indirectHit=20;
-	indirectHitRange=10;
-	timeToLive=60;
-	thrust = 0;
-	thrusttime = 0;
-	explosive = true;
-	typicalspeed = 1;
-	CraterEffects = "ExploAmmoCrater";
-	explosionEffects = "ExploAmmoExplosion";
-};
-class fza_m257_flare: F_40mm_White
-{
+	class Default{};
+	class BulletCore : Default{};
+	class BulletBase : BulletCore{};
+	class B_20mm_AA: BulletBase {};
+	class RocketCore: Default {};
+	class RocketBase: RocketCore {};
+	class R_Hydra_HE: RocketBase {};
+	class MissileCore : Default{};
+	class MissileBase: MissileCore{};
+	class M_Sidewinder_AA: MissileBase{};
+	class M_Stinger_AA: MissileBase{};
+	class M_Hellfire_AT: MissileBase{};
+	class B_30mm_MP: BulletBase
+	{
+		ace_frag_skip = 1;
+	};
+	class B_23mm_AA: BulletBase{};
+	class B_127x107_Ball: BulletBase{};
+	class ShellCore: Default {};
+	class ShellBase: ShellCore {};
+	class Sh_120_HE: ShellBase {};
+	class GrenadeCore: Default {};
+	class GrenadeBase: GrenadeCore {};
+	class G_40mm_HE: GrenadeBase {};
+	class FlareCore: GrenadeCore {};
+	class FlareBase: FlareCore {};
+	class F_40mm_White: FlareBase {};
+	class CMflareAmmo: BulletBase {};
+	class CMflare_Chaff_Ammo: CMflareAmmo {};
+	
+	//TEST//
+	class fza_ah64_chaff_shot: CMflareAmmo
+	{
+		//effectssmoke = "SmokeShellWhiteEffect";
+		//weaponlocksystem = "8";
+	};
+	//END TEST//
+	
+	class fza_ah64_flare_shot: CMflareAmmo {};
+	class fza_30x113: B_30mm_MP
+	{
+		hit=150;
+		indirectHit=50;
+		indirectHitRange=5;
+		//airLock = true;
+		//laserLock = true;
+		//irLock=true;
+		cost=50;
+		explosive = true;
+		minRange=20;
+		minRangeProbab=0.20;
+		midRange=700;
+		midRangeProbab=0.50;
+		maxRange=2000;
+		maxRangeProbab=0.05;
+		//thrust=250;
+		timeToLive=8;
+		tracerstarttime = 0;
+		typicalspeed = 805;
+		CraterEffects = "ExploAmmoCrater";
+		explosionEffects = "ExploAmmoExplosion";
+		muzzleeffect = "fza_ah64_fx_30mm";
+		tracerColor[] = {0.800000,0.100000,0.100000,0.040000};
+		tracerColorR[] = {0.800000,0.100000,0.100000,0.040000};
+		model = "\A3\Weapons_f\Data\bullettracer\tracer_red";
+	};
+	class fza_agm114l : MissileBase
+	{
+		ace_frag_skip = 1;
+		model = "\fza_ah64_US\fza_agm114l";
+		proxyShape="\fza_ah64_US\fza_agm114l";
+		hit = 2400;
+		indirectHit = 100;
+		indirectHitRange = 15;
+		cost = 10000;
+		maxSpeed = 1200;
+		irLock = 0; //modified
+		airLock= 0;
+		laserLock = 0; //modified
+		timetolive=50;
+		manualControl = 0;
+		maxControlRange = 8000;
+		initTime = 0.0000;
+		thrustTime=4;
+		thrust = 60;
+		trackOversteer = 1;
+		trackLead = 1;
+		maneuvrability = 10;
+		weaponlocksystem = 8; //modified
+		airfriction = -0.00001;
+		simulationStep=0.01;
+		muzzleeffect = "";
+		effectsmissile = "fza_ah64_hellfiresmoke";
+		cmimmunity = 0.8;
+		fusedistance = 5;
+		sideairfriction = 0.2;
+		whistledist = 4;
+		CraterEffects = "BombCrater";
+		explosionEffects = "BombExplosion";
+	};
+	class fza_agm114k : fza_agm114l
+	{
+		hit=2400;
+		indirectHit=100;
+		indirectHitRange=15;
+		//thrustTime=10;
+		//thrust=400;
+		//maxspeed=600;
+		//sideAirFriction=0.6;
+		weaponlocksystem = 4; //modified
+		model = "\fza_ah64_US\fza_agm114k";
+		proxyShape="\fza_ah64_US\fza_agm114k";
+		airLock= 0;
+		laserLock= 1;
+		irLock= 1;
+		//maneuvrability=25.0;
+		//maxSpeed=250;
+		minRange=200;
+		minRangeProbab=0.200000;
+		midRange=4000;
+		midRangeProbab=0.200000;
+		maxRange=8000;
+		maxRangeProbab=0.50000;
+	};
+	class fza_agm114a : fza_agm114k
+	{
+		hit=625;
+		indirectHit=30;
+		indirectHitRange=10;
+		//thrustTime=10;
+		//thrust=400;
+		//maxspeed=600;
+		//sideAirFriction=0.6;
+		model = "\fza_ah64_US\fza_agm114c";
+		proxyShape="\fza_ah64_US\fza_agm114c";
+		effectsmissile = "missile3";
+		airLock=false;
+		laserLock=true;
+		irLock=true;
+		//maneuvrability=25.0;
+		//maxSpeed=250;
+		minRange=200;
+		minRangeProbab=0.200000;
+		midRange=4000;
+		midRangeProbab=0.200000;
+		maxRange=8000;
+		maxRangeProbab=0.50000;
+	};
+	class fza_agm114c : fza_agm114k
+	{
+		hit=625;
+		indirectHit=30;
+		indirectHitRange=10;
+		//thrustTime=10;
+		//thrust=400;
+		//maxspeed=600;
+		//sideAirFriction=0.6;
+		model = "\fza_ah64_US\fza_agm114c";
+		proxyShape="\fza_ah64_US\fza_agm114c";
+		airLock=false;
+		laserLock=true;
+		irLock=true;
+		//maneuvrability=25.0;
+		//maxSpeed=250;
+		minRange=200;
+		minRangeProbab=0.200000;
+		midRange=4000;
+		midRangeProbab=0.200000;
+		maxRange=8000;
+		maxRangeProbab=0.50000;
+	};
+	class fza_agm114m : fza_agm114k
+	{
+		hit=1800;
+		indirectHit=100;
+		indirectHitRange=30;
+		//thrustTime=10;
+		//thrust=400;
+		//maxspeed=600;
+		//sideAirFriction=0.6;
+		model = "\fza_ah64_US\fza_agm114k";
+		proxyShape="\fza_ah64_US\fza_agm114k";
+		airLock=false;
+		laserLock=true;
+		irLock=true;
+		//maneuvrability=25.0;
+		//maxSpeed=250;
+		minRange=200;
+		minRangeProbab=0.200000;
+		midRange=4000;
+		midRangeProbab=0.200000;
+		maxRange=8000;
+		maxRangeProbab=0.50000;
+	};
+	class fza_agm114n : fza_agm114m
+	{
+		hit=1200;
+		indirectHit=70;
+		indirectHitRange=40;
+		//thrustTime=10;
+		//thrust=400;
+		//maxspeed=600;
+		//sideAirFriction=0.6;
+		model = "\fza_ah64_US\fza_agm114k";
+		proxyShape="\fza_ah64_US\fza_agm114k";
+		airLock=false;
+		laserLock=true;
+		irLock=true;
+		//maneuvrability=25.0;
+		//maxSpeed=250;
+		minRange=200;
+		minRangeProbab=0.200000;
+		midRange=4000;
+		midRangeProbab=0.200000;
+		maxRange=8000;
+		maxRangeProbab=0.50000;
+	};
+	class fza_275_m151: RocketBase
+	{
+		hit=160;
+		indirectHit=80;
+		indirectHitRange=10;
+		minRange=100;
+		minRangeProbab=0.200000;
+		midRange=750;
+		midRangeProbab=0.200000;
+		maxRange=2000;
+		maxRangeProbab=0.050000;
+		simulation="shotRocket";
+		simulationStep=0.050000;
+		cost=10;
+		maneuvrability=0;
+		maxControlRange=0;
+		thrustTime=1.3;
+		thrust=1200;
+		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		airLock=false;
+		fusedistance = 100;
+		//laserLock=true;
+		//irLock=true;
+		muzzleeffect = "";
+		effectsmissile = "fza_ah64_rocketsmoke";
+		maxspeed = 740;
+		sideairfriction = 0.2;
+		timetolive = 20;
+		whistledist = 24;
+	};
+	class fza_275_m229: fza_275_m151
+	{
+		hit=220;
+		indirectHit=110;
+		indirectHitRange=10;
+		minRange=100;
+		minRangeProbab=0.200000;
+		midRange=750;
+		midRangeProbab=0.200000;
+		maxRange=2000;
+		maxRangeProbab=0.050000;
+		simulation="shotRocket";
+		simulationStep=0.050000;
+		cost=10;
+		//model="ZUNI";
+		maneuvrability=0;
+		maxControlRange=0;
+		thrustTime=1.3;
+		thrust=1200;
+		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";
+		airLock=false;
+		fusedistance = 100;
+		explosiontime = 0.1;
+		//laserLock=true;
+		//irLock=true;
+	};
+	class fza_275_m261: fza_275_m151
+	{
+		//hit=50;
+		//indirectHit=50;
+		//indirectHitRange=8;
+		hit=1;
+		indirectHit=1;
+		indirectHitRange=1;
+		minRange=100;
+		minRangeProbab=0.200000;
+		midRange=750;
+		midRangeProbab=0.200000;
+		maxRange=2000;
+		maxRangeProbab=0.050000;
+		simulation="shotRocket";
+		simulationStep=0.050000;
+		cost=9;
+		//model="ZUNI";
+		maneuvrability=0;
+		maxControlRange=0;
+		thrustTime=1.3;
+		thrust=1200;
+		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		airLock=false;
+		fusedistance = 100;
+		//laserLock=true;
+		//irLock=true;
+	};
+	class fza_275_m255: fza_275_m151
+	{
+		hit=1;
+		indirectHit=1;
+		indirectHitRange=1;
+		minRange=100;
+		minRangeProbab=0.200000;
+		midRange=750;
+		midRangeProbab=0.200000;
+		maxRange=2000;
+		maxRangeProbab=0.050000;
+		simulation="shotRocket";
+		simulationStep=0.050000;
+		cost=8;
+		//model="ZUNI";
+		maneuvrability=0;
+		maxControlRange=0;
+		thrustTime=1.3;
+		thrust=1200;
+		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		airLock=false;
+		fusedistance = 100;
+		//laserLock=true;
+		//irLock=true;
+	};
+	class fza_275_m257: fza_275_m151
+	{
+		hit=1;
+		indirectHit=1;
+		indirectHitRange=1;
+		minRange=100;
+		minRangeProbab=0.200000;
+		midRange=750;
+		midRangeProbab=0.200000;
+		maxRange=2000;
+		maxRangeProbab=0.050000;
+		simulation="shotRocket";
+		simulationStep=0.050000;
+		cost=8;
+		//model="ZUNI";
+		maneuvrability=0;
+		maxControlRange=0;
+		thrustTime=1.3;
+		thrust=1200;
+		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		airLock=false;
+		fusedistance = 100;
+		//laserLock=true;
+		//irLock=true;
+	};
+	class fza_fim92: MissileBase
+	{
+		ace_frag_skip = 1;
+		airlock = 1;
+		cmimmunity = 0.95;
+		cost = 10000;
+		cratereffects = "AAMissileCrater";
+		effectsmissile = "fza_ah64_stingersmoke";
+		explosioneffects = "AAMissileExplosion";
+		fusedistance = 5;
+		hit = 120;
+		indirecthit = 65;
+		indirecthitrange = 4;
+		inittime = 0.25;
+		irlock = 1;
+		maneuvrability = 4;
+		maxspeed = 2400;
+		model = "\fza_ah64_us\fza_fim92";
+		sideairfriction = 0.25;
+		airfriction = -0.00001;
+		simulationstep = 0.01;
+		thrust = 100;
+		thrusttime = 3;
+		timetolive = 17;
+		tracklead = 0;
+		trackoversteer = 0.85;
+		weaponlocksystem = "16 + 2";
+		whistledist = 16;
+	};
+	class fza_m73mpsm: B_30mm_MP
+	{
+		hit=120;
+		indirectHit=50;
+		indirectHitRange=6;
+		timeToLive=60;
+		thrust = 0;
+		thrusttime = 0;
+		explosive = true;
+		typicalspeed = 1;
+		CraterEffects = "ExploAmmoCrater";
+		explosionEffects = "ExploAmmoExplosion";
+	};
+	class fza_flec_cluster: B_30mm_MP
+	{
+		hit=50;
+		indirectHit=20;
+		indirectHitRange=10;
+		timeToLive=60;
+		thrust = 0;
+		thrusttime = 0;
+		explosive = true;
+		typicalspeed = 1;
+		CraterEffects = "ExploAmmoCrater";
+		explosionEffects = "ExploAmmoExplosion";
+	};
+	class fza_m257_flare: F_40mm_White
+	{
 		lightcolor[] = {0.5, 0.5, 0.5, 0};
 		airfriction = -0.0050;
 		timetolive = 100;
 	};
 };
-
 class CfgWeapons
 {
-    class Default{};
+	//class Mode_SemiAuto;
+	class Mode_Burst;
+	//class Mode_FullAuto;
+	class fza_burstlimiter;
+	
+	class Default{};
 	class MGunCore: Default{};
 	class MGun: MGunCore {};
+	class SmokeLauncher: MGun {};
 	class LauncherCore: Default{};
 	class CannonCore: Default{};
 	class MissileLauncher: LauncherCore{};
 	class Launcher: LauncherCore {};
 	class Stinger: Launcher {};
 	class RocketPods: LauncherCore {};
+	class CMFlareLauncher;
+	class fza_ah64_flare30: CMFlareLauncher
+	{
+		displayname = "Flares";
+		modes[] = {"Single"};
+		cursor = "EmptyCursor";
+		cursorAim = "EmptyCursor";
+		simulation = "cmlauncher";
+		count=30;
+		
+		class Single: Mode_Burst 
+		{
+				reloadTime = 0.500000;
+				autoFire = 0;
+				displayName = "TEST";
+				burst = 1;
+				multiplier = 1;
+				count=30;
+				sounds[] = {"StandardSound"};
+
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F\weapons\HMG\HMG_grenade", 1.000000, 1, 300};
+				soundBegin[] = {"begin1", 1};
+				weaponSoundEffect = "DefaultRifle";
+			};
+		};
+	
+	};
 	class fza_m230: CannonCore
 	{
-		scope = 1;
-		displayName="M230E1 Chaingun";
-		displayNameMagazine="M230 30mm";
-		shortNameMagazine="M230";
-		reloadTime=0.1;
-		burst=10;
-		multiplier=1;
-		dexterity=0.0001;
-		dispersion=0.003;
-		initspeed=1800;
-		soundContinuous=0;
-		aiRateOfFire=0.01; // delay between shots at given distance
-		aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
-		magazines[]={fza_m230_1200,fza_m230_350};
-		modes[]= {"Ten","aiclose","aimid","aifar"};
-		cursor = "EmptyCursor";
-		cursorAim = "mg";
-		cursorSize = 1;
-		ballisticscomputer = "2 + 8";
-		shotFromTurret = true;
-		namesound = "cannon";
 		class GunParticles
 		{
 			class Effect
@@ -1145,45 +1191,196 @@ class CfgWeapons
 				directionName = "Konec hlavne";
 			};
 		};
-		class Ten: CannonCore
+		scope = 1;
+		displayName="M230E1 Chaingun";
+		displayNameMagazine="M230 30mm";
+		shortNameMagazine="M230";
+		namesound = "cannon";
+		autoFire = 0;
+		magazines[]={fza_m230_1200};
+		canLock = 2;
+		initspeed=805;
+		recoil = "Empty";
+		laserLock = 1;
+		cursor = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+		cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+		cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+		showAimCursorInternal = 1;
+		cursorSize = 1;
+		ballisticscomputer = 1;
+		shotFromTurret = 1;
+		modes[]= {"fza_burstlimiter"};
+		
+		class fza_burstlimiter: Mode_Burst
 		{
-			multiplier=1;
-			burst=1;
-			displayName="M230E1";
-			dispersion=0.003;
-			//sound[] = {"\ca\Weapons\Data\Sound\2A42_single2",17.782795,1};
-			sounds[] = {StandardSound};
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst.ogg",4,1,1700};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
-			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
-			soundburst="";
-			soundContinuous= 0;
-			ffCount=1;
-			reloadTime=0.1;
-			autofire=1;
-			aiRateOfFire=0.096;
-			aiRateOfFireDistance = 400;
+			displayName="BURST LIMIT";
+			displayNameMagazine="BURST LIMIT";
+			shortNameMagazine="BURST LIMIT";
+			cursor = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			showAimCursorInternal = 1;
+			ballisticscomputer = 1;
+			magazines[]={fza_m230_1200};
+			reloadTime = 0.096000;
+			magazinereloadTime=120;
+			dispersion = 0.005000;
+			laserLock = 1;
+			canLock = 2;
+			initspeed=805;
+			textureType = "semi";
+			sounds[] = {"StandardSound"};
+			soundBurst= true;
+			autoFire = 0;
+			burst = 10;
+			multiplier = 1;
+			soundContinuous = 0;
+			flash = "gunfire";
+			flashSize = 0.300000;
 			recoil = "Empty";
-
-			useAction = 0;
-			useActionTitle = "";
+			recoilProne = "";
+			aiDispersionCoefX = 6;
+			aiDispersionCoefY = 6;
+			ffMagnitude = 0.500000;
+			ffFrequency = 11;
+			ffCount = 6;
+			aiRateOfFire = 5;
+			aiRateOfFireDistance = 100;
+			minRange = 100;
+			minRangeProbab = 0.500000;
+			midRange = 1000;
+			midRangeProbab = 0.780000;
+			maxRange = 2000;
+			maxRangeProbab = 0.200000;
 			showToPlayer = 1;
-			minRange = 0;
-			minRangeProbab = 0.04;
-			midRange = 500;
-			midRangeProbab = 0.2;
-			maxRange = 1000;
-			maxRangeProbab = 0.1;
-			cursor = "EmptyCursor";
-			cursorAim = "mg";
+			useAction= 0;
+			useActionTitle = 0;
 			cursorSize = 1;
 			autoreload = 1;
+			artilleryDispersion = 0.005000;
+			artilleryCharge = 2;
 		};
-		class aiclose: Ten
+		
+		/*class fza_m230_fullauto: Mode_Burst //Mode_FullAuto 
+		{
+			class StandardSound
+            {
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst.ogg",2,1,1700};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+            };
+			displayName = "GUN/ FULL";
+			reloadTime = 0.096000;
+			sounds[] = {"StandardSound"};
+			soundContinuous = 0;
+			flash = "gunfire";
+			flashSize = 0.100000;
+			recoil = "Empty";
+			cursor = "";
+			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			cursorSize = 1;
+			aiDispersionCoefX = 6;
+			aiDispersionCoefY = 6;
+			ffMagnitude = 0.500000;
+			ffFrequency = 11;
+			ffCount = 6;
+			minRange = 100;
+			minRangeProbab = 0.500000;
+			midRange = 700;
+			midRangeProbab = 0.780000;
+			maxRange = 2000;
+			maxRangeProbab = 0.200000;
+			dispersion = 0.005000;
+			showToPlayer = 0;
+		};
+		
+		class close: fza_m230_fullauto 
+		{
+			showToPlayer = 0;
+			burst = 15;
+			aiRateOfFire = 0.250000;
+			aiRateOfFireDistance = 400;
+			minRange = 1;
+			minRangeProbab = 0.900000;
+			midRange = 200;
+			midRangeProbab = 0.900000;
+			maxRange = 400;
+			maxRangeProbab = 0.900000;
+			textureType = "semi";
+			multiplier = 1;
+			recoilProne = "";
+			autoFire = 0;
+			soundBurst = 0;
+			useAction= 0;
+			useActionTitle = 0;
+			artilleryDispersion = 0.005000;
+			artilleryCharge = 2;
+		};
+
+		class near: close 
+		{
+			showToPlayer = 0;
+			burst = 5;
+			aiRateOfFire = 0.250000;
+			aiRateOfFireDistance = 400;
+			minRange = 1;
+			minRangeProbab = 0.900000;
+			midRange = 150;
+			midRangeProbab = 0.900000;
+			maxRange = 300;
+			maxRangeProbab = 0.900000;
+		};
+
+		class short: close 
+		{
+			burst = 13;
+			aiRateOfFire = 0.500000;
+			aiRateOfFireDistance = 600;
+			minRange = 200;
+			minRangeProbab = 0.900000;
+			midRange = 400;
+			midRangeProbab = 0.900000;
+			maxRange = 600;
+			maxRangeProbab = 0.900000;
+		};
+
+		class medium: close 
+		{
+			burst = 9;
+			aiRateOfFire = 1;
+			aiRateOfFireDistance = 900;
+			minRange = 400;
+			minRangeProbab = 0.900000;
+			midRange = 700;
+			midRangeProbab = 0.900000;
+			maxRange = 900;
+			maxRangeProbab = 0.900000;
+		};
+
+		class far: close 
+		{
+			burst = 5;
+			aiRateOfFire = 1.500000;
+			aiRateOfFireDistance = 1500;
+			minRange = 800;
+			minRangeProbab = 0.900000;
+			midRange = 1000;
+			midRangeProbab = 0.900000;
+			maxRange = 1500;
+			maxRangeProbab = 0.900000;
+		};*/
+		
+		
+		
+		
+	
+		/*class aiclose: Ten
 		{
 			burst=10;
 			showToPlayer = 0;
@@ -1221,36 +1418,15 @@ class CfgWeapons
 			midRangeProbab = 0.2;
 			maxRange = 1200;
 			maxRangeProbab = 0.1;
-		};
-	};
-	class fza_burstlimiter: fza_m230
-	{
-		displayName="BURST LIMIT";
-		displayNameMagazine="BURST LIMIT";
-		shortNameMagazine="BURST LIMIT";
-		reloadTime=120;
-		magazinereloadTime=120;
-		burst=10;
-		multiplier=1;
-		dexterity=0.0001;
-		dispersion=0.002;
-		initspeed=1800;
-		soundContinuous=0;
-		aiRateOfFire=0.1; // delay between shots at given distance
-		aiRateOfFireDistance=1200; // at shorter distance delay goes lineary to zero
-		magazines[]={fza_m230_1200,fza_m230_350};
-		modes[]= {"Ten"};
-		cursor = "EmptyCursor";
-		cursorAim = "mg";
-		cursorSize = 1;
-		autoreload = 1;
-		class Ten: CannonCore
+		};*/
+		
+		/*class Ten: CannonCore
 		{
 			multiplier=1;
 			burst=1;
 			displayName="M230E1";
 			dispersion=0.004;
-			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",30,1,1700};
+			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",10,1,1700};
 			soundburst="";
 			soundContinuous= 0;
 			ffCount=1;
@@ -1270,7 +1446,8 @@ class CfgWeapons
 			maxRange = 3;
 			maxRangeProbab = 0.01;
 			autoreload = 1;
-		};
+		};*/
+		
 	};
 	class fza_agm114_16 : MissileLauncher
 	{
@@ -1278,7 +1455,7 @@ class CfgWeapons
 		displayName="AGM-114 HELLFIRE";
 		displayNameMagazine="AGM-114";
 		shortNameMagazine="AGM-114";
-		magazines[]={fza_agm114l_16};
+		magazines[]={fza_agm114k_16};
 		weaponlocksystem = 0;
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
@@ -1290,7 +1467,7 @@ class CfgWeapons
 		sounds[] = {StandardSound};
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 10,1,800};
+			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 40,1,40};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
@@ -1298,11 +1475,11 @@ class CfgWeapons
 		airateoffire = 5;
 		airateoffiredistance = 4000;
 		cmimmunity = 0.8;
-		maxrange = 4000;
+		maxrange = 7000;
 		maxrangeprobab = 0.1;
-		midrange = 2000;
+		midrange = 4000;
 		midrangeprobab = 0.9;
-		minrange = 50;
+		minrange = 2000;
 		minrangeprobab = 0.6;
 		reloadtime = 1;
 	};
@@ -1430,82 +1607,52 @@ class CfgWeapons
 		displayNameMagazine="M261";
 		shortNameMagazine="M261";
 		reloadTime=0.05;
-		aiRateOfFire=0; // delay between shots at given distance
-		aiRateOfFireDistance=0; // at shorter distance delay goes lineary to zero
-		magazineReloadTime=0.05;
+		maxrange = 4000;
+		maxrangeprobab = 0.1;
+		midrange = 2000;
+		midrangeprobab = 0.9;
+		minrange = 200;
+		minrangeprobab = 0.6;
 		burst=2;
 		magazines[]={fza_m261_m151_76};
 		modes[]= {"Pairs"};
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		cursorAimOn = "";
+		ballisticscomputer = 1; //test
 		class Pairs : LauncherCore
 		{
+			class StandardSound
+            {
+				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4,1,1700};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+			};
 			multiplier=1;
 			burst=1;
 			displayName="2.75in x1";
 			dispersion=0.0;
 			sounds[] = {StandardSound};
-			class StandardSound
-            {
-				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 10,1,1500};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-			};
-			soundburst="";
+			soundburst="true";
 			soundContinuous= 0;
-			ffCount=1;
-			reloadTime=0.01;
-			//was 0.05
+			reloadTime=0.05;
 			recoil = "Empty";
 			recoilProne = "Empty";
 			autofire=0;
-			aiRateOfFire=0.5;
-			aiRateOfFireDistance = 500;
 			useAction = 0;
 			useActionTitle = "";
 			showToPlayer = 1;
-			minRange = 100;
-			minRangeProbab = 0.04;
-			midRange = 1100;
-			midRangeProbab = 0.2;
-			maxRange = 2200;
-			maxRangeProbab = 0.1;
+			maxrange = 4000;
+			maxrangeprobab = 0.1;
+			midrange = 2000;
+			midrangeprobab = 0.9;
+			minrange = 200;
+			minrangeprobab = 0.6;
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
 			cursorAimOn = "";
+			ballisticscomputer = 1; //test
 		};
-		/*
-		class Quad : Pairs
-		{
-			multiplier=1;
-			burst=4;
-			displayName="2.75in x4";
-			dispersion=0.0;
-			//sound[]={"\fza_ah64\sounds\hydra4.wav",db+95,1};
-			soundburst="";
-			soundContinuous= 0;
-			ffCount=1;
-			reloadTime=0.035;
-			recoil = "Empty";
-			recoilProne = "Empty";
-			autofire=0;
-			aiRateOfFire=5.0000;
-			aiRateOfFireDistance = 800;
-			useAction = 1;
-			useActionTitle = "Salvo x4";
-			showToPlayer = 1;
-			minRange = 100;
-			minRangeProbab = 0.100000;
-			midRange = 2250;
-			midRangeProbab = 0.580000;
-			maxRange = 4500;
-			maxRangeProbab = 0.040000;
-			cursor = "EmptyCursor";
-			cursoraim = "EmptyCursor";
-			cursorAimOn = "";
-		};
-		*/
 	};
 	////////////////14/////////////////
 	class fza_m261_14: fza_m261_76
@@ -1702,236 +1849,20 @@ class CfgWeapons
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
 	};
-	class SmokeLauncher: MGun {};
-	class CMFlareLauncher: SmokeLauncher {};
-	class fza_ah64_flare30: CMFlareLauncher
-	{
-		displayname = "Flares";
-		magazines[] = {"fza_ah64_flare30"};
-		modes[] = {"Single", "Burst", "AIBurst"};
-		scope = 2;
-		simulation = "cmlauncher";
-		class Single : CMFlareLauncher
-		{
-			airateoffire = 0.5;
-			airateoffiredistance = 500;
-			autofire = 0;
-			dispersion = 0.0002;
-			ffcount = 1;
-			fffrequency = 11;
-			ffmagnitude = 0.5;
-			flash = "gunfire";
-			flashsize = 0.1;
-			maxrangeprobab = 0.04;
-			midrange = 300;
-			midrangeprobab = 0.58;
-			minrangeprobab = 0.25;
-			recoil = "Empty";
-			recoilprone = "Empty";
-			soundbegin[] = {"sound", 1};
-			soundcontinuous = 0;
-			soundend[] = {};
-			soundloop[] = {};
-			useaction = 0;
-			useactiontitle = "";
-			///////////////////
-			displayname = "Chaff";
-			burst = 1;
-			maxrange = 200;
-			minrange = 0;
-			multiplier = 1;
-			reloadtime = 0.2;
-			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-			sounds[] = {StandardSound};
-			class StandardSound
-            {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-			};
-			soundburst = 0;
-		};
-		class Burst: Single
-		{
-			airateoffire = 0.5;
-			airateoffiredistance = 500;
-			autofire = 0;
-			dispersion = 0.0005;
-			ffcount = 1;
-			fffrequency = 11;
-			ffmagnitude = 0.5;
-			flash = "gunfire";
-			flashsize = 0.1;
-			maxrangeprobab = 0.04;
-			midrange = 60;
-			midrangeprobab = 0.58;
-			minrangeprobab = 0.3;
-			recoil = "Empty";
-			recoilprone = "Empty";
-			soundbegin[] = {"sound", 1};
-			soundcontinuous = 0;
-			soundend[] = {"sound", 1};
-			soundloop[] = {"sound", 1};
-			useaction = 0;
-			useactiontitle = "";
-			////////
-			displayname = "Chaff x4";
-			burst = 4;
-			maxrange = 0;
-			minrange = 0;
-			multiplier = 1;
-			reloadtime = 1;
-			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-			sounds[] = {StandardSound};
-			class StandardSound
-            {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-			};
-			soundburst = 0;
-		};
-		class AIBurst: Burst
-		{
-			burst = 2;
-			maxrange = 10000;
-			minrange = 200;
-			showtoplayer = 0;
-			soundburst = 0;
-		};
-	};
-	
-	class fza_ah64_chaff30: CMFlareLauncher
-	{
-		displayname = "Chaff";
-		magazines[] = {"fza_ah64_chaff30"};
-		modes[] = {"Single", "Burst", "AIBurst"};
-		scope = 2;
-		simulation = "cmlauncher";
-		class Single : CMFlareLauncher
-		{
-			airateoffire = 0.5;
-			airateoffiredistance = 500;
-			autofire = 0;
-			dispersion = 0.0002;
-			ffcount = 1;
-			fffrequency = 11;
-			ffmagnitude = 0.5;
-			flash = "gunfire";
-			flashsize = 0.1;
-			maxrangeprobab = 0.04;
-			midrange = 300;
-			midrangeprobab = 0.58;
-			minrangeprobab = 0.25;
-			recoil = "Empty";
-			recoilprone = "Empty";
-			soundbegin[] = {"sound", 1};
-			soundcontinuous = 0;
-			soundend[] = {};
-			soundloop[] = {};
-			useaction = 0;
-			useactiontitle = "";
-			///////////////////
-			displayname = "Chaff";
-			burst = 1;
-			maxrange = 200;
-			minrange = 0;
-			multiplier = 1;
-			reloadtime = 0.2;
-			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-			sounds[] = {StandardSound};
-			class StandardSound
-            {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-			};
-			soundburst = 0;
-		};
-		class Burst: Single
-		{
-			airateoffire = 0.5;
-			airateoffiredistance = 500;
-			autofire = 0;
-			dispersion = 0.0005;
-			ffcount = 1;
-			fffrequency = 11;
-			ffmagnitude = 0.5;
-			flash = "gunfire";
-			flashsize = 0.1;
-			maxrangeprobab = 0.04;
-			midrange = 60;
-			midrangeprobab = 0.58;
-			minrangeprobab = 0.3;
-			recoil = "Empty";
-			recoilprone = "Empty";
-			soundbegin[] = {"sound", 1};
-			soundcontinuous = 0;
-			soundend[] = {"sound", 1};
-			soundloop[] = {"sound", 1};
-			useaction = 0;
-			useactiontitle = "";
-			////////
-			displayname = "Chaff x4";
-			burst = 4;
-			maxrange = 0;
-			minrange = 0;
-			multiplier = 1;
-			reloadtime = 1;
-			showtoplayer = 1;
-			sound[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-			sounds[] = {StandardSound};
-			class StandardSound
-            {
-				weaponfire[] = {"\A3\Sounds_F\weapons\HMG\HMG_grenade", 0.316228, 1, 300};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-			};
-			soundburst = 0;
-		};
-		class AIBurst: Burst
-		{
-			burst = 2;
-			maxrange = 10000;
-			minrange = 200;
-			showtoplayer = 0;
-			soundburst = 0;
-		};
-	};
 };
-
 class CfgMagazines
 {
 	class Default {};
 	class CA_Magazine: Default {};
 	class VehicleMagazine: CA_Magazine {};
-	class 60Rnd_CMFlareMagazine: CA_Magazine {};
-	class 60Rnd_CMFlare_Chaff_Magazine: CA_Magazine {};
-	class fza_ah64_flare30: 60Rnd_CMFlareMagazine
-	{
-		ammo = "fza_ah64_flare_shot";
-		count = 30;
-	};
-	class fza_ah64_chaff30: 60Rnd_CMFlare_Chaff_Magazine
-	{
-		ammo = "fza_ah64_chaff_shot";
-		count = 30;
-	};
 	class fza_m230_1200: VehicleMagazine
 	{
 		scope = 2;
 		displayName = "30mm HEDP";
 		ammo = "fza_30x113";
 		count = 1200;
-		initSpeed = 850;
+		initSpeed = 805;
 		tracersevery = 0;
-	};
-	class fza_m230_350: fza_m230_1200
-	{
-		count = 300;
 	};
 	class fza_atas_2: VehicleMagazine
 	{
@@ -3771,27 +3702,7 @@ class CfgMagazines
 		displayName = "TAILBOOM";
 	};
 };
-
-class CfgFactionClasses
-{
-	class fza_usaav
-	{
-		displayName = "FZA - US Army Aviation";
-		priority = 2;
-		icon = "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
-		side = "TWest";
-	};
-};
-
-class CfgVehicleClasses
-{
-	class fza_helicopters
-	{
-		displayName = "FZA - Helicopters";
-	};
-};
-
-class CfgVehicles
+class CfgVehicles 
 {
 	class All;
 	class AllVehicles : All
@@ -3801,19 +3712,21 @@ class CfgVehicles
 	class Land : AllVehicles {};
 	class LandVehicle : Land {};
 	class Air : AllVehicles {};
-	class Helicopter : Air
+	class Helicopter : Air 
 	{
 		class RotorLibHelicopterProperties;
 	};
-	class fza_ah64base: Helicopter
+	class fza_ah64base: Helicopter 
 	{
-		//A3 ENTRIES//
+		side=1;
+		scope=0;
+		displayName="AH-64D";
 		driverlefthandanimname = "p_collective";
 		driverleftleganimname = "pedalL";
 		driverrighthandanimname = "p_cyclic";
 		driverrightleganimname = "pedalR";
 		simulation=helicopterRTD;
-		startDuration=60;
+		startDuration=80;
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
@@ -3823,237 +3736,91 @@ class CfgVehicles
 		cyclicForwardForceCoef = 1.0;
 		backRotorForceCoef = 1.0;
 		driveOnComponent[] = {"Wheels"};
-		class Exhausts
-		{
-			class Exhaust1
-			{
-				direction = "exhaust1_dir";
-				effect = "ExhaustEffectHeli";
-				position = "exhaust1";
-			};
-			class Exhaust2
-			{
-				direction = "exhaust2_dir";
-				effect = "ExhaustEffectHeli";
-				position = "exhaust2";
-			};
-		};
+		extCameraPosition[] = {0,0,-20};
+		radarTargetSize = 0.700000;
+		irTargetSize = 0.800000;		
 		//TKOH ENTRIES//
 		usePreciseGetInAction = 1;
 		preciseGetInOut = 1;
+		getInRadius = 1.500000;
+		//getInAction = "pilot_Heli_Light_02_Enter"; //pilot_Heli_Light_03_Enter
 		getInAction = "pilot_Heli_Light_02_Enter";
-		getOutAction = "GetOutHigh";
+		getOutAction = "GetOutHigh"; //pilot_Heli_Light_03_Exit
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		
-		class RotorLibHelicopterProperties {
-			autoHoverCorrection[] = {3.5,5.2,0};
+		//TKOH END//
+		_mainbladecenter = "rotor_center";
+		mainbladecenter = "rotor_center";
+		fuelCapacity = 1423;
+		fuelconsumptionrate = 0.138;
+		transportMaxWeapons = 3;
+		transportMaxMagazines = 10;
+		maxSpeed = 298;
+		driverCanSee = 2+4+8;
+		gunnerCanSee = 2+4+8;
+		unitinfotype="RscUnitInfoNoHUD";
+		destrtype = "DestructWreck";
+		//RscUnitInfoSoldier
+		hideUnitInfo = 0;
+		insideSoundCoef = 0.5;
+		occludeSoundsWhenIn = 0.562341;
+		obstructSoundsWhenIn = 0.316228;
+		attenuationEffectType = "HeliAttenuation";
+		emptySound[] = {"", 0, 1};
+		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
+		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
+		soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 10};
+		soundCrashes[] = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
+		soundLandCrashes[] = {"emptySound", 0};
+		soundBuildingCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundArmorCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundWoodCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
+		soundBushCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_1", 1.000000, 1, 10};
+		soundBushCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2", 1.000000, 1, 10};
+		soundBushCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3", 1.000000, 1, 10};
+		soundBushCrash[] = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
+		soundWaterCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 10};
+		soundWaterCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 10};
+		soundWaterCrashes[] = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
+		soundDammage[] = {"\fza_ah64_US\audio\helibasiccrash.ogg", 3.162278, 1, 10};
+		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
+		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
+		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",2,0.6,600};
+		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",1,0.8};
+		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,600};
+		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.33,0.6};
+		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
+		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 10};
+		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
+		tailDamageInt[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000};
+		tailDamageOut[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000, 10};
+		tailDamage[] = {"tailDamageInt", "tailDamageOut"};
+		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 10};
+		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 10};
+		landingSoundInt[] = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};
+		landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
+		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
+		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
+		soundenviron[] = {"", 1, 1};
+		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
+		class RotorLibHelicopterProperties 
+		{
+			autoHoverCorrection[] = {-0.4,2.75,0};
 			defaultCollective = 0.675;
 			horizontalWingsAngleCollMax = 0;
 			horizontalWingsAngleCollMin = 0;
 			maxHorizontalStabilizerLeftStress = 100000;
 			maxHorizontalStabilizerRightStress = 100000;
-			maxMainRotorStress = 300000;
-			maxTailRotorStress = 25000;
-			maxTorque = 5260;
+			maxMainRotorStress = 150000;
+			maxTailRotorStress = 30000;
+			maxTorque = 4500;
 			stressDamagePerSec = 0.003333;
 			maxVerticalStabilizerStress = 100000;
-			retreatBladeStallWarningSpeed = 101.346;
-			starterBatteryDrain = 10;
-			hasAPU = 1;
-			APUOn = 5;
-			APUOff = 5;
-			starterTime = 15;
-			throttleOffToIdle = 15;
-			throttleIdleToOff = 18;
-			throttleIdleToFull = 12;
-			throttleFullToIdle = 20;
+			retreatBladeStallWarningSpeed = 92.778;
 			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
-			class Procedures
-				{
-					
-					class Startup
-					{
-						class BatteriesOn
-						{
-							delayFromCondition = 1;
-							condition = "[0, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOn')";
-							
-						};
-						
-						class RotorBrakeOff
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-						};
-
-						class APUOn
-						{
-							delayFromCondition = 2;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_APUOn')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_APUOn')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_APUOn')";
-						};
-						
-						class StarterOn0
-						{
-							delayFromCondition = 2;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-						};
-						
-						class StarterOn1
-						{
-							delayFromCondition = 2;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOn1')";
-						};
-						
-						class ThrottleIdle0
-						{
-							delayFromCondition = 1;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-						};
-						
-						class ThrottleIdle1
-						{
-							delayFromCondition = 1;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-						};
-						
-						class StarterOff0
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-						};
-								
-						class StarterOff1
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_starterOff1')";
-						};
-						
-						class APUOff
-						{
-							delayFromCondition = 2;
-							condition = "[0, _this] call (uiNamespace getVariable 'BIS_fnc_APUoff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_APUoff')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_APUoff')";
-						};
-						
-						class WarmupStart
-						{
-							delayFromCondition = 2;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_warmupStart')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_warmupStart')";
-						};
-						
-						class ThrottleFull0
-						{
-							delayFromCondition = 17;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-						};
-						
-						class ThrottleFull1
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleFull1')";
-						};
-						
-						class EnginesOn
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_enginesOn')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_enginesOn')";
-						};
-					};
-					class Shutdown
-					{
-						class ThrottleIdle0
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-						};
-						class ThrottleIdle1
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleIdle1')";
-						};
-						class CoolDownStart
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_cooldownStart')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_cooldownStart')";
-						};
-						class ThrottleClosed0
-						{
-							delayFromCondition = 10;
-							condition = "[2, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-							statement = "[3, _this select 0, 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-							bypass = "[4, _this, 0] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-						};
-						class ThrottleClosed1
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-							statement = "[3, _this select 0, 1, _this select 1] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-							bypass = "[4, _this, 1] call (uiNamespace getVariable 'BIS_fnc_throttleOff1')";
-						};
-						class RotorBrakeOn
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOn')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOn')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOn')";
-						};
-						class RotorBrakeOff
-						{
-							delayFromCondition = 0;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_rotorBrakeOff')";
-						};
-						class BatteriesOff
-						{
-							delayFromCondition = 0;
-							condition = "[0, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_batteriesOff')";
-							bypass = "[4, _this] call (uiNamespace getVariable 'BIS_fnc_batteriesOff')";
-						};
-						class EnginesOff
-						{
-							delayFromCondition = 2;
-							condition = "[2, _this] call (uiNamespace getVariable 'BIS_fnc_enginesOff')";
-							statement = "[3, _this select 0, _this select 1] call (uiNamespace getVariable 'BIS_fnc_enginesOff')";
-						};
-					};
-					
-				};
-			};
-			class RenderTargets
-			{
+		};
+		class RenderTargets
+		{
 				class cockpitmirror1
 				{
 					renderTarget = "fza_ah64_cpitmirror1";
@@ -4102,506 +3869,542 @@ class CfgVehicles
 						fov = 0.18;
 					};
 				};
-								/*
-				//these sources are inefficient and difficult to work with//
-				//TADS/FLIR//
-				class gunnertads1
-				{
-					renderTarget = "fza_ah64_tadscam1";
-					class View01
+									/*
+					//these sources are inefficient and difficult to work with//
+					//TADS/FLIR//
+					class gunnertads1
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 2;
-						fov = 0.05;
+						renderTarget = "fza_ah64_tadscam1";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 2;
+							fov = 0.05;
+						};
 					};
-				};
-				class gunnertads2
-				{
-					renderTarget = "fza_ah64_tadscam2";
-					class View01
+					class gunnertads2
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 2;
-						fov = 0.1;
+						renderTarget = "fza_ah64_tadscam2";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 2;
+							fov = 0.1;
+						};
 					};
-				};
-				class gunnertads3
-				{
-					renderTarget = "fza_ah64_tadscam3";
-					class View01
+					class gunnertads3
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 2;
-						fov = 0.01;
+						renderTarget = "fza_ah64_tadscam3";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 2;
+							fov = 0.01;
+						};
 					};
-				};
-				//TADS/DTV//
-				class gunnertads4
-				{
-					renderTarget = "fza_ah64_tadscam4";
-					class View01
+					//TADS/DTV//
+					class gunnertads4
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 0;
-						fov = 0.6;
+						renderTarget = "fza_ah64_tadscam4";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 0;
+							fov = 0.6;
+						};
 					};
-				};
-				class gunnertads5
-				{
-					renderTarget = "fza_ah64_tadscam5";
-					class View01
+					class gunnertads5
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 0;
-						fov = 0.1;
+						renderTarget = "fza_ah64_tadscam5";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 0;
+							fov = 0.1;
+						};
 					};
-				};
-				class gunnertads6
-				{
-					renderTarget = "fza_ah64_tadscam6";
-					class View01
+					class gunnertads6
 					{
-						pointPosition = "gunnerview";
-						pointDirection = "gunnerview_dir";
-						renderQuality = 0;
-						renderVisionMode = 0;
-						fov = 0.01;
+						renderTarget = "fza_ah64_tadscam6";
+						class View01
+						{
+							pointPosition = "gunnerview";
+							pointDirection = "gunnerview_dir";
+							renderQuality = 0;
+							renderVisionMode = 0;
+							fov = 0.01;
+						};
 					};
-				};
-				*/
-			};
-class SoundsExt
-  {
-	class SoundEvents
-		{
+					*/
 		};
-   	class RainExt {
-		sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
+		class Exhausts
+		{
+				class Exhaust1
+				{
+					direction = "exhaust1_dir";
+					effect = "ExhaustEffectHeli";
+					position = "exhaust1";
+				};
+				class Exhaust2
+				{
+					direction = "exhaust2_dir";
+					effect = "ExhaustEffectHeli";
+					position = "exhaust2";
+				};
+		};
+		class Sounds 
+		{
+				///GENERIC FLIP SOUNDS///
+				/*class fza_ah64_button_click1
+				{
+		name = "fza_ah64_button_click1";
+		sound[] = {"\fza_ah64_us\audio\button_click1.ogg",1,1};
 		frequency = 1;
-		volume = "camPos * (rain - rotorSpeed/2) * 2";
-	};
-
-	class RainInt {
-		sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
+		volume = 1;
+				};
+				class fza_ah64_button_click2
+				{
+		name = "fza_ah64_button_click2";
+		sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1};
 		frequency = 1;
-		volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
-	};
-   class Apu
-   {
-    startInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",1,1,1};
-    startExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",1,1,200};
-    stopInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",1,1,1};
-    stopExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",1,1,200};
-   };
-   class Starter
-   {
-    startInt[] = {"",0.00794328,1};
-    startExt[] = {"",1,1,400};
-    stopInt[] = {"",0.00794328,1};
-    stopExt[] = {"",1,1,400};
-    damageInt[] = {"",1,1};
-    damageOut[] = {"",1,1,300};
-   };
-   class Starter1
-   {
-    startInt[] = {"",0.00794328,0.8};
-    startExt[] = {"",0.1,0.8,400};
-    stopInt[] = {"",0.00794328,0.8};
-    stopExt[] = {"",0.1,0.8,400};
-    damageInt[] = {"",0.1,1};
-    damageOut[] = {"",1,1,300};
-   };
-   class RotorNoiseExt
-   {
-    sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
-    frequency = 1;
-    volume = "(rotorSpeed factor [0.6, 0.85])";
-    cone[] = {0.7,1.3,1,0};
-   };
-   starterClickInt[] = {"",0.316228,1};
-   starterClickExt[] = {"",1,1,100};
-   starterClick[] = {"starterClickInt","starterClickExt"};
-   idleStartInt[] = {"\fza_ah64_US\audio\rain1_ext.ogg",5,1};
-   idleStartExt[] = {"\fza_ah64_US\audio\rain1_ext.ogg", 5, 1, 800};
-   idleThrottle[] = {"idleStartInt","idleStartExt"};
-   rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg",3.16228,1};
-   rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg",1,1,800};
-   rotorDamage[] = {"rotorDamageInt","rotorDamageOut"};
-   landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
-   landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
-   landingSoundInt2[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open",1,1};
-   landingSoundInt[] = {"landingSoundInt0",0.5,"landingSoundInt1",0.5,"landingSoundInt2",0.5};
-   landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
-   landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
-   landingSoundOut2[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1",1,1,100};
-   landingSoundOut[] = {"landingSoundOut0",0.5,"landingSoundOut1",0.5,"landingSoundOut2",0.5};
-   class Sounds
-   {
-    class Engine
-    {
-     sound[] = {"",1,1,1};
-     frequency = "1";
-     volume = "1";
-    };
-    class APULoopInt
-    {
-     sound[] = {"",5,1};
-     volume = "(1-camPos)*(apu factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class APULoopExt
-    {
-     sound[] = {"",1,1,200};
-     volume = "camPos * (apu factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class StarterLoopInt
-    {
-     sound[] = {"",1.77828,1};
-     volume = "(1-camPos)*(rpmStarter factor [100, 2900])";
-     frequency = 1;
-    };
-    class StarterLoopExt
-    {
-     sound[] = {"",1,1,300};
-     volume = "camPos * (rpmStarter factor [100, 2900])";
-     frequency = 1;
-    };
-    class StarterLoopInt1
-    {
-     sound[] = {"",1.77828,1};
-     volume = "(1-camPos)*(rpmStarter1 factor [100, 2900])";
-     frequency = 1.08;
-    };
-    class StarterLoopExt1
-    {
-     sound[] = {"",1,1,300};
-     volume = "camPos * (rpmStarter1 factor [100, 2900])";
-     frequency = 1.08;
-    };
-    class EngineIdleIn
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-     frequency = "(0.8)+(0.2*(rpm factor[1000, 8000]))";
-     volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
-    };
-    class EngineIdleOut
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 3.16228, 1, 1000};
-     frequency = "(0.8)+(0.2*(rpm factor[1000, 8000]))";
-     volume = "camPos*((rpm factor [1000, 4000])*(rpm factor [9000,4000]))";
-    };
-    class EngineFullIn
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-     frequency = "(0.8)+(0.2*(rpm factor[5000, 13000]))";
-     volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
-    };
-    class EngineFullOut
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 3.16228, 1, 1000};
-     frequency = "(0.8)+(0.2*(rpm factor[5000, 13000]))";
-     volume = "camPos * (rpm factor [5000, 8000])";
-    };
-    class EngineIdleIn2
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-     frequency = "(0.8)+(0.2*(rpm1 factor[1000, 8000]))";
-     volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
-    };
-    class EngineIdleOut2
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 3.16228, 1, 1000};
-     frequency = "(0.8)+(0.2*(rpm1 factor[1000, 8000]))";
-     volume = "camPos*((rpm1 factor [1000, 4000])*(rpm1 factor [9000,4000]))";
-    };
-    class EngineFullIn2
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 3, 1};
-     frequency = "(0.8)+(0.2*(rpm1 factor[5000, 13000]))";
-     volume = "(1-camPos)*((rotorSpeed-0.75)*0.25)";
-    };
-    class EngineFullOut2
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 3.16228, 1, 1000};
-     frequency = "(0.8)+(0.2*(rpm1 factor[5000, 13000]))";
-     volume = "camPos * (rpm1 factor [5000, 8000])";
-    };
-    class EngineHumIn
-    {
-     sound[] = {"",0.354813,1};
-     frequency = "1";
-     volume = "(1-camPos)*batteries";
-    };
-    class EngineHumOut
-    {
-     sound[] = {"",0.0562341,1,5};
-     frequency = "1";
-     volume = "camPos*batteries";
-    };
-    class RotorStarterIn
-    {
-     sound[] = {"",316.228,1};
-     frequency = "0.2 + (0.8*(rotorSpeed factor[0.05, 0.15]))";
-     volume = "(1-camPos)*(rotorSpeed factor [0.001, 0.1]) * (rotorSpeed factor[0.6, 0.3])";
-    };
-    class RotorIdleIn
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-     frequency = 1;
-     volume = "(1-camPos)*(rotorSpeed factor [0.15, 0.4]) * (rotorSpeed factor[0.8, 0.65])";
-    };
-    class RotorFullIn
-    {
-     sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-     frequency = 1;
-     volume = "(1-camPos)*(rotorSpeed factor [0.6, 0.85])";
-    };
-    class RotorStarterExt
-    {
-     sound[] = {"",31.6228,1,1600};
-     frequency = "0.2 + (0.8*(rotorSpeed factor[0.05, 0.2]))";
-     volume = "(camPos)*(rotorSpeed factor [0.001, 0.1]) * (rotorSpeed factor[0.6, 0.3])";
-    };
-    class RotorIdleExt
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
-     frequency = 1;
-     volume = "(camPos)*(rotorSpeed factor [0.15, 0.4]) * (rotorSpeed factor[0.8, 0.65])";
-    };
-    class RotorFullExt
-    {
-     sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
-     frequency = 1;
-     volume = "(camPos)*(rotorSpeed factor [0.6, 0.85])";
-     cone[] = {1.8,3.14,2,1.5};
-    };
-    class TransmissionDamageInt
-    {
-     sound[] = {"",1,1};
-     volume = "(1-camPos)*(transmissionDamage factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class TransmissionDamageExt
-    {
-     sound[] = {"",1,1,100};
-     volume = "(camPos)*(transmissionDamage factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class MotorDamageInt
-    {
-     sound[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg",1,1};
-     volume = "(1-camPos)*(motorDamage factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class MotorDamageExt
-    {
-     sound[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg",1,1,100};
-     volume = "(camPos)*(motorDamage factor [0.4 , 1])";
-     frequency = 1;
-    };
-    class RotorBrakeInt
-    {
-     sound[] = {"",31.6228,1};
-     volume = "(1-camPos)*(rotorBrake)*(rotorSpeed)";
-     frequency = "(1-camPos)*(rotorBrake * (0.5 + (rotorSpeed * 0.5)))";
-    };
-    class RotorBrakeExt
-    {
-     sound[] = {"",1,1,100};
-     volume = "(camPos)*(rotorBrake)*(rotorSpeed)";
-     frequency = "camPos * (rotorBrake * (0.5 + (rotorSpeed * 0.5)))";
-    };
-   };
-  };
-		//END TKOH//
-		scope=0;
-		displayName="AH-64";
-		side=1;
-		_mainbladecenter = "rotor_center";
-		mainbladecenter = "rotor_center";
-		fuelCapacity = 1423;
-		fuelconsumptionrate = 0.138;
-		transportMaxWeapons = 3;
-		transportMaxMagazines = 10;
-		maxSpeed = 298;
-		driverCanSee = 2+4+8;
-		gunnerCanSee = 2+4+8;
-		unitinfotype="RscUnitInfoNoHUD";
-		destrtype = "DestructWreck";
-		//RscUnitInfoSoldier
-		hideUnitInfo = 0;
-		insideSoundCoef = 0.5;
-		
-		occludeSoundsWhenIn = 0.562341;
-		obstructSoundsWhenIn = 0.316228;
-		attenuationEffectType = "HeliAttenuation";
-		emptySound[] = {"", 0, 1};
-		
-		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 100};
-		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 100};
-		soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 100};
-		soundCrashes[] = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
-		soundLandCrashes[] = {"emptySound", 0};
-		soundBuildingCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
-		soundArmorCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
-		soundWoodCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
-		soundBushCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_1", 1.000000, 1, 100};
-		soundBushCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2", 1.000000, 1, 100};
-		soundBushCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3", 1.000000, 1, 100};
-		soundBushCrash[] = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
-		soundWaterCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 100};
-		soundWaterCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 100};
-		soundWaterCrashes[] = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
-		soundDammage[] = {"\fza_ah64_US\audio\helibasiccrash.ogg", 3.162278, 1};
-		
-		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
-		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
-		
-		soundEngineOffExt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",1,1,200};
-		soundEngineOffInt[] = {"\fza_ah64_US\audio\ah64_estop2a.ogg",1,1,200};
-		soundEngineOnExt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",1,1,200};
-		soundEngineOnInt[] = {"\fza_ah64_US\audio\ah64_estart2a.ogg",1,1,200};
-		
-		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
-		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 150};
-		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
-		tailDamageInt[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000};
-		tailDamageOut[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000, 300};
-		tailDamage[] = {"tailDamageInt", "tailDamageOut"};
-		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
-		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 100};
-		landingSoundInt[] = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};
-		landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 100};
-		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 100};
-		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
-		
-		soundenviron[] = {"", 1, 1};
-
-		author="Franze and Nodunit";
-		extCameraPosition[] =
-		{
-			0,
-			0,
-			-20
-		};
-		class MFD {};
-		class Sounds
-		{
-			class RainExt {
-			sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
-			frequency = 1;
-			volume = "camPos * (rain - rotorSpeed/2) * 2";
-	};
-
-			class RainInt {
-			sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
-			frequency = 1;
-			volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
-		};
-			 
-			class Distance 
-			 {
+		volume = 1;
+				};
+				class fza_ah64_switch_flip1
+				{
+		name = "fza_ah64_switch_flip1";
+		sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1};
+		frequency = 1;
+		volume = 1;
+				};*/
+				///END OF GENERIC FLIP SOUNDS///
+				
+				///ENGINE & APU START FIRST PERSON///
+				/*class APUStartExt 
+				{
+					name = "fza_ah64_apustart1";
+					sound[] = {"fza_ah64_us\audio\Ext_Start.ogg", 1,1,200};
+					volume = "engineOn";
+					frequency = "(0.66 + rotorSpeed)/3";
+				};
+				class EngineStartExt 
+				{
+					name = "fza_ah64_estart1";
+					sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg", 1,1,200};
+					volume = "engineOn";
+					frequency = "(0.66 + rotorSpeed)/3";
+				};*/
+				///ENGINE & APU START FIRST PERSON END///
+				class EngineExt 
+				{
+					sound[] = {"\fza_ah64_us\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
+					frequency = "rotorSpeed";
+					volume = "camPos*((rotorSpeed-0.10)*4)";
+				};
+				class RotorExt 
+				{
+					sound[] = {"\fza_ah64_us\audio\ah64_rotor_ext1.ogg", 1, 1.000000, 1100};
+					frequency = "rotorSpeed * (1 - rotorThrust/5)";
+					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+				};	
+				class TailRotor
+				{
+					cone[] = {3, 1.57, 3, 1.57};
+					frequency = "rotorSpeed";
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2.5, 1, 600};
+					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+				};
+				class Distance 
+				{
 					frequency = "rotorSpeed";
 					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1000};
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
-			class FarDistance 
-			{
+				class FarDistance 
+				{
 					frequency = "rotorSpeed";
 					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 4000};
 					volume = "camPos * 3* (rotorSpeed factor [0.6, 1]) * (1 + rotorThrust)";
 				};
-			class Engine
-			{
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 3.16228, 1, 1000};
-				volume = "camPos*((rotorSpeed-0.72)*4)";
-			};
-			class RotorLowOut
-			{
-				cone[] = {1.8, 3.14, 2, 0.9};
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
-				volume = "camPos*(0 max (rotorSpeed-0.1))";
-			};
-			class RotorHighOut
-			{
-				cone[] = {1.8, 3.14, 2, 0.9};
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 5, 1, 1300};
-				volume = "camPos*10*(0 max (rotorThrust-0.95))";
-			};
-			class TailRotor
-			{
-				cone[] = {3, 1.57, 3, 1.57};
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 5, 1, 500};
-				volume = "camPos*(0 max (rotorSpeed-0.1))";
-			};
-			
-			class TailRotorHighOut //test
-			{
-				cone[] = {1, 1, 1.8, 3.14};
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 5, 1, 500};
-				volume = "camPos*10*(0 max (rotorSpeed-0.1))";
-			};
-			
-			class EngineIn
-			{
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-				volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
-			};
-			class RotorLowIn
-			{
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-				volume = "2*(1-camPos)*((rotorSpeed factor[0.3, 1.1]) min (rotorSpeed factor[1.1, 0.3]))";
-			};
-			class RotorHighIn
-			{
-				frequency = "rotorSpeed";
-				sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg",1,1};
-				volume = "(1-camPos)*3*(rotorThrust-0.9)";
-			};
+				class EngineInt 
+				{
+					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 1, 1.000000};
+					frequency = "rotorSpeed";
+					volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
+				};
+				class RotorInt 
+				{
+					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1.000000};
+					frequency = "rotorSpeed * (1 - rotorThrust/5)";
+					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+				};
+				class TransmissionDamageExt_phase1 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 150};
+					frequency = "0.66 + rotorSpeed / 3";
+					volume = "camPos * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
+				};
+				class TransmissionDamageExt_phase2 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2", 1.000000, 1.000000, 150};
+					frequency = "0.66 + rotorSpeed / 3";
+					volume = "camPos * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
+				};
+				class TransmissionDamageInt_phase1 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1", 1.000000, 1.000000, 150};
+					frequency = "0.66 + rotorSpeed / 3";
+					volume = "(1 - camPos) * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
+				};
+				class TransmissionDamageInt_phase2 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2", 1.000000, 1.000000, 150};
+					frequency = "0.66 + rotorSpeed / 3";
+					volume = "(1 - camPos) * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
+				};
+				class damageAlarmInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.316228, 1.000000};
+					frequency = 1;
+					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
+				};
+				class damageAlarmExt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.223872, 1.000000, 20};
+					frequency = 1;
+					volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
+				};
+				class rotorLowAlarmInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.316228, 1.000000};
+					frequency = 1;
+					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
+				};
+				class rotorLowAlarmExt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.223872, 1.000000, 20};
+					frequency = 1;
+					volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
+				};
+				class scrubLandInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "2 * (1-camPos) * (scrubLand factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+				};
+				class scrubLandExt 
+				{
+					sound[] = {"A3\Sounds_F\dummysound", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "camPos * (scrubLand factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+				};
+				class scrubBuildingInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "(1-camPos) * (scrubBuilding factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+				};
+				class scrubBuildingExt
+				{
+					sound[] = {"A3\Sounds_F\dummysound", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "camPos * (scrubBuilding factor[0.02, 0.05])";
+				};
+				class scrubTreeInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\scrubTreeInt", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "(1 - camPos) * ((scrubTree) factor [0, 0.01])";
+				};
+				class scrubTreeExt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\scrubTreeExt", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "camPos * ((scrubTree) factor [0, 0.01])";
+				};
+				class RainExt 
+				{
+					sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "camPos * (rain - rotorSpeed/2) * 2";
+				};
+				class RainInt 
+				{
+					sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
+					frequency = 1;
+					volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
+				};
+				class SlingLoadDownExt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineDownEXT", 1.258925, 1.000000, 500};
+					frequency = 1;
+					volume = "camPos*(slingLoadActive factor [0,-1])";
+				};
+				class SlingLoadUpExt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineupEXT", 1.258925, 1.000000, 500};
+					frequency = 1;
+					volume = "camPos*(slingLoadActive factor [0,1])";
+				};
+				class SlingLoadDownInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineDownINT", 1.000000, 1.000000, 500};
+					frequency = 1;
+					volume = "(1-camPos)*(slingLoadActive factor [0,-1])";
+				};
+				class SlingLoadUpInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineUpINT", 1.000000, 1.000000, 500};
+					frequency = 1;
+					volume = "(1-camPos)*(slingLoadActive factor [0,1])";
+				};
+				class WindInt 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\wind_closed", 0.398107, 1.000000, 50};
+					frequency = 1;
+					volume = "(1-camPos)*(speed factor[5, 50])*(speed factor[5, 50])";
+				};
+				class GStress 
+				{
+					sound[] = {"A3\Sounds_F\vehicles\noises\vehicle_stress2b", 0.354813, 1.000000, 50};
+					frequency = 1;
+					volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
+				};
 		};
-		//HITPOINTS
-		 class HitPoints
-		 {
+		class SoundsExt 
+		{
+				class SoundEvents {};
+				class Sounds 
+				{
+					///GENERIC FLIP SOUNDS///
+					/*class fza_ah64_button_click1
+				{
+					name = "fza_ah64_button_click1";
+					sound[] = {"\fza_ah64_us\audio\button_click1.ogg",1,1};
+					frequency = 1;
+					volume = 1;
+				};
+				class fza_ah64_button_click2
+				{
+					name = "fza_ah64_button_click2";
+					sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1};
+					frequency = 1;
+					volume = 1;
+				};
+				class fza_ah64_switch_flip1
+				{
+					name = "fza_ah64_switch_flip1";
+					sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1};
+					frequency = 1;
+					volume = 1;
+				};*/
+					///END OF GENERIC FLIP SOUNDS///				
+					///ENGINE & APU START 3RD PERSON//
+					/*class APUStartExt 
+					{
+						sound[] = {"fza_ah64_us\audio\Ext_Start.ogg", 1, 1, 200};
+						volume = "engineOn";
+						frequency = "0.66 + rotorSpeed / 3";
+					};
+					class EngineStartExt 
+					{
+						sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg", 1, 1, 200};
+						volume = "engineOn";
+						frequency = "0.66 + rotorSpeed / 3";
+					};*/
+					///ENGINE & APU START 3RD PERSON END///
+					class EngineExt 
+					{
+						sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
+						frequency = "rotorSpeed";
+						volume = "camPos*((rotorSpeed-0.10)*4)";
+					};
+					class RotorExt 
+					{
+						sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext1.ogg", 3, 1.000000, 1100};
+						frequency = "rotorSpeed * (1 - rotorThrust/5)";
+						volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+					};
+					class EngineInt 
+					{
+						sound[] = {"\fza_ah64_US\audio\Engine_Int.ogg", 1, 1.000000};
+						frequency = "rotorSpeed";
+						volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
+					};
+					class RotorInt 
+					{
+						sound[] = {"\fza_ah64_US\audio\ah64_rotor_int1.ogg", 1, 1.000000};
+						frequency = "rotorSpeed * (1 - rotorThrust/5)";
+						volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+					};
+					class TransmissionDamageExt_phase1 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 150};
+						frequency = "0.66 + rotorSpeed / 3";
+						volume = "camPos * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
+					};
+					class TransmissionDamageExt_phase2 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2", 1.000000, 1.000000, 150};
+						frequency = "0.66 + rotorSpeed / 3";
+						volume = "camPos * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
+					};
+					class TransmissionDamageInt_phase1 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1", 1.000000, 1.000000, 150};
+						frequency = "0.66 + rotorSpeed / 3";
+						volume = "(1 - camPos) * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
+					};
+					class TransmissionDamageInt_phase2 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2", 1.000000, 1.000000, 150};
+						frequency = "0.66 + rotorSpeed / 3";
+						volume = "(1 - camPos) * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
+					};
+					class damageAlarmInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.316228, 1.000000};
+						frequency = 1;
+						volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
+					};
+					class damageAlarmExt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.223872, 1.000000, 20};
+						frequency = 1;
+						volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
+					};
+					class rotorLowAlarmInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.316228, 1.000000};
+						frequency = 1;
+						volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
+					};
+					class rotorLowAlarmExt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.223872, 1.000000, 20};
+						frequency = 1;
+						volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
+					};
+					class scrubLandInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "2 * (1-camPos) * (scrubLand factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+					};
+					class scrubLandExt 
+					{
+						sound[] = {"A3\Sounds_F\dummysound", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "camPos * (scrubLand factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+					};
+					class scrubBuildingInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "(1-camPos) * (scrubBuilding factor[0.02, 0.05]) * (1 - (lateralMovement factor [0.7,1]))";
+					};
+					class scrubBuildingExt 
+					{
+						sound[] = {"A3\Sounds_F\dummysound", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "camPos * (scrubBuilding factor[0.02, 0.05])";
+					};
+					class scrubTreeInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\scrubTreeInt", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "(1 - camPos) * ((scrubTree) factor [0, 0.01])";
+					};
+					class scrubTreeExt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\scrubTreeExt", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "camPos * ((scrubTree) factor [0, 0.01])";
+					};
+					class RainExt 
+					{
+						sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "camPos * (rain - rotorSpeed/2) * 2";
+					};
+					class RainInt 
+					{
+						sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
+						frequency = 1;
+						volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
+					};
+					class SlingLoadDownExt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineDownEXT", 1.000000, 1.000000, 500};
+						frequency = 1;
+						volume = "camPos*(slingLoadActive factor [0,-1])";
+					};
+					class SlingLoadUpExt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineUpEXT", 1.000000, 1.000000, 500};
+						frequency = 1;
+						volume = "camPos*(slingLoadActive factor [0,1])";
+					};
+					class SlingLoadDownInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineDownINT", 1.000000, 1.000000, 500};
+						frequency = 1;
+						volume = "(1-camPos)*(slingLoadActive factor [0,-1])";
+					};
+					class SlingLoadUpInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\SL_engineUpINT", 1.000000, 1.000000, 500};
+						frequency = 1;
+						volume = "(1-camPos)*(slingLoadActive factor [0,1])";
+					};
+					class WindInt 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\air\noises\wind_closed", 0.398107, 1.000000, 50};
+						frequency = 1;
+						volume = "(1-camPos)*(speed factor[5, 50])*(speed factor[5, 50])";
+					};
+					class GStress 
+					{
+						sound[] = {"A3\Sounds_F\vehicles\noises\vehicle_stress2b", 0.354813, 1.000000, 50};
+						frequency = 1;
+						volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
+					};
+				};
+		};
+	
+		class HitPoints
+		{
 			class HitHull
 			{
-				armor = 1;
+				armor = 999;
 				material = 51;
 				name = "fuselage";
 				passthrough = 1;
 				visual = "fuselage";
-				explosionShielding = 1;
+				explosionShielding = 3;
 				convexComponent = "fuselage";
 				radius = 0.01;
 				depends = "Total";
 			};
 			class HitAvionics
 			{
-				armor = 1;
+				armor = 2;
 				material = 51;
 				name = "cockpit";
 				passthrough = 0.5;
 				visual = "cockpit";
 				explosionShielding = 1;
 				convexComponent = "cockpit";
-				minimalHit = 0.1;
+				minimalHit = 0.05;
 				radius = 0.4;
 			};
 			/*
@@ -4636,10 +4439,10 @@ class SoundsExt
 			};
 			class HitEngine1
 			{
-				armor = 0.8;
+				armor = 0.7;
 				material = 51;
 				name = "leng";
-				passthrough = 0.25;
+				passthrough = 1;
 				visual = "leng";
 				explosionShielding = 3;
 				convexComponent = "leng";
@@ -4648,10 +4451,10 @@ class SoundsExt
 			};
 			class HitEngine2
 			{
-				armor = 0.8;
+				armor = 0.7;
 				material = 51;
 				name = "reng";
-				passthrough = 0.25;
+				passthrough = 1;
 				visual = "reng";
 				explosionShielding = 3;
 				convexComponent = "reng";
@@ -4676,7 +4479,7 @@ class SoundsExt
 			};
 			class HitVRotor
 			{
-				armor = 0.2;
+				armor = 3;
 				material = 51;
 				name = "mala vrtule";
 				passthrough = 0.1;
@@ -4688,7 +4491,7 @@ class SoundsExt
 			};
 			class HitHRotor
 			{
-				armor = 0.3;
+				armor = 4;
 				material = 51;
 				name = "velka vrtule";
 				passthrough = 0.1;
@@ -4834,7 +4637,7 @@ class SoundsExt
 				passthrough = 0.1;
 				visual = "pylon4";
 			};
-		 };
+		};	
 		class UserActions
 		{
 			class sensorselect
@@ -4932,7 +4735,7 @@ class SoundsExt
 				condition="(alive this)";
 				shortcut="";
 				statement="[this] exec ""\fza_ah64_controls\scripting\IntLight.sqf""";
-			};*/
+			};*/			
 			class pilotdoor_close
 			{
 				displayName="Close Pilot Door";
@@ -5382,24 +5185,33 @@ class SoundsExt
 			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
+		class MFD {};
+		/*class MFD1
+		{
+			rendertarget = "fza_ah64_pnvsrtarget0";
+			class View01
+			{
+				fov = 0.2;
+				pointdirection = "driverview_dir";
+				pointposition = "driverview";
+				renderquality = 0;
+				rendervisionmode = 2;
+			};
+		};*/
 	};
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;				
 		scope=2;
-		author="Franze and Nodunit";
+		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
 		displayName="AH-64D Block II";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		ejectDeadCargo=0;
-		//picture="\mas_ah64\ah64_apic.paa";
-		//icon ="\mas_ah64\ah64_aicn.paa";
 		nameSound="veh_Helicopter";
-		//insideSoundCoef = 0.006;
 		faction="fza_usaav";
 		vehicleclass="fza_helicopters";
 		hasGunner=1; 
 		audible=4;
-		camouflage=10;
 		hiddenselections[]=
 {
 "pod1_m151_1",
@@ -6664,46 +6476,39 @@ class SoundsExt
 		accuracy=0.5;
 		simulation=helicopterRTD;
 		driverAction = "fza_ah64_pilot";
-		enableSweep=1;
-		gunnerUsesPilotView=0;
+		//enableSweep=1;
+		altFullForce = 3000;
+		altNoForce = 5000;
+		crewVulnerable = 0;
+		gunnerUsesPilotView = false;
+		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
-		animated=1;
 		memorypointdriveroptics[] = {"driverview", "pilot"};
 		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
 		driverOpticsColor[] = {1,1,1,1};
 		//driverOpticsColor[] = {0.231,0.914,0.184,1};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 2;
-		irScanRangeMax=10000;
-		irScanRangeMin=2000;
-		//irScanRange=6000;
 		laserScanner=1;
 		nightVision=1;
 		mainRotorSpeed = 1;
-		//threat[] VSoft, VArmor, VAir 
-		threat[]={0.8,1,0.9};
-		//Armor values
-		armor=240;
-		armorStructural=5; // structural dammage
-		armorHull=1.0;
-		armorEngine=1.5;
-		armorAvionics=1.0;
-		armorVRotor=1.0;
-		armorHRotor=1.5;
-		armorMissiles=1.0;
+		threat[] = {1,1,0.700000};
+		//ARMOR VALUES
+		armor=60;
+		armorHull=0.5;
+		armorEngine=0.6;
+		armorAvionics=1.4;
+		armorVRotor=0.5;
+		armorHRotor=0.7;
+		armorMissiles=1.6;
 		armorGlass=1.0;
-		//gunnerCanSee = CanSeeAll;
-		//unitinfotype="unitinfoapc";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
+		maxMainRotorDive = 7;
+		minMainRotorDive = -7;
 		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		//ARMA CONFIG POINTS
-		/* memorypointcm[] = {"chaff_launcher1"};
-		memorypointcmdir[] = {"chaff_launcher1_dir"}; */
+		castDriverShadow = true;
+		castGunnerShadow = true;
+		castCargoShadow = true;
+		viewCargoShadow = true;
+		viewGunnerShadow = true;
+		//memorypointcmdir[] = {"chaff_launcher1_dir"};
 		memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
@@ -6711,7 +6516,6 @@ class SoundsExt
 		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
-		flarevelocity = 800;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
@@ -6732,7 +6536,7 @@ class SoundsExt
 		/*
 		class RenderTargets
 		{
-			class MDF1
+			class MFD1
 			{
 				rendertarget = "fza_ah64_pnvsrtarget0";
 				class View01
@@ -6751,14 +6555,26 @@ class SoundsExt
 		{
 			class MainTurret: NewTurret
 			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				stabilizedInAxes=3;
+				//gunnerAction = "fza_ah64_pilot";
+				//gunnerInAction = "fza_ah64_pilot";
+				gunnerAction = "fza_ah64_copilot"; 
+				gunnerGetInAction = "GetInHigh";
+				gunnerGetOutAction = "GetOutHigh";
 				primary = 1;
 				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114l_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
+				stabilizedInAxes = 3;
+				//opticStabilized=1;
+				//directionStabilized = 1;
+				//horizontallyStabilized = 1;
+				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"}; //DEFAULT LOADOUT 8xSAL2
+				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"}; //LOADOUT 4xRF + 4xSAL2
+				//weapons[] = {"fza_m230","fza_m261_14","fza_atas_2","fza_agm114_3_4","fza_agm114_2_4"}; //LOADOUT 4xRF + 4xSAL2
+				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_4","fza_agm114l_2_4"}; //LOADOUT 4xRF + 4xSAL2
+				//weapons[] = {"fza_m230","fza_m261_14","fza_atas_2","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
+				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114l_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114l_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
+			    weapons[] = {"fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
+				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "kulas";
 				memoryPointGunnerOptics = "gunnerview";
@@ -6766,13 +6582,21 @@ class SoundsExt
 				gun = "mainGun";
 				animationsourcebody = "tads_tur";
 				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
+				gunnerOpticsModel = "";
+				gunnerOpticsColor[] = {1,1,1,1};
+				minElev = -60; 
+				maxElev = 30;
+				initElev= 0;
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
-				maxhorizontalrotspeed = 4;
+				minGunElev = -60;
+				maxGunElev = 30;
+				minGunTurn = -120;
+				maxGunTurn = 120;
+				minGunTurnAI = -120;
+				maxGunTurnAI = 120;
+				maxhorizontalrotspeed = 2;
 				maxverticalrotspeed = 2;
 				commanding = -1;
 				gunnerForceOptics = 0;
@@ -6785,9 +6609,9 @@ class SoundsExt
 				turretinfotype = "RscUnitInfoNoHUD";
 				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
 				discretedistanceinitindex = 3;
-				GunnerHasFlares = 1;
+				GunnerHasFlares = true;
 				isCopilot = 1;
-				usePiP=1
+				usePiP=1;
 				class HitPoints
 				{
 					class HitTurret
@@ -6807,25 +6631,21 @@ class SoundsExt
 						passThrough = 1;
 					};
 				};
-			    gunnerOpticsModel = "";
-				gunnerOpticsColor[] = {1,1,1,1};
 				class OpticsIn
 				{
 					class Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
-						opticStabilized=1;
+						directionStabilized=1;
 						initanglex = 0;
 						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
+						initfov = 0.7;
+						maxanglex = 120;
+						maxangley = 30;
+						minanglex = -120;
+						minangley = -60;
+						maxfov = 0.7;
+						minfov = 0.7;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
 						visionmode[] = {"Normal","Ti","NVG"};
@@ -6833,9 +6653,7 @@ class SoundsExt
 					class Medium: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						opticStabilized=1;
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
+						directionStabilized=1;
 						initfov = 0.09;
 						maxfov = 0.09;
 						minfov = 0.09;
@@ -6844,9 +6662,7 @@ class SoundsExt
 					class Narrow: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						opticStabilized=1;
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
+						directionStabilized=1;
 						initfov = 0.01;
 						maxfov = 0.01;
 						minfov = 0.01;
@@ -6859,35 +6675,35 @@ class SoundsExt
 					{
 						gunneropticseffect[] = {};
 						gunneropticsmodel = "";
+						initfov = 1;
 						initanglex = 0;
 						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
 						minfov = 0.4;
+						maxfov = 1;
+						minanglex = -60;
+						maxanglex = 30;
+						minangley = -120;
+						maxangley = 120;
 						visionmode[] = {"Normal", "NVG"};
 					};
 				};
 				class ViewGunner
 				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
+					initFov=1;
 					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
 					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-					maxmovex = 0.15;
-					maxmovey = 0.1;
-					maxmovez = 0.1;
+					minFov=0.400000;
+					maxFov=1;
+					minAngleX=-60;
+					maxAngleX= 30;
+					minAngleY= -120;
+					maxAngleY= 120;
 					minmovex = -0.15;
+					maxmovex = 0.15;
 					minmovey = -0.1;
+					maxmovey = 0.1;
 					minmovez = -0.1;
+					maxmovez = 0.1;	
 				};
 			};
 		};
@@ -6927,17 +6743,15 @@ class SoundsExt
 		};
 		class ViewOptics
 		{
-			aimingMarkElevSpeed = 10; //test
-			aimingMarkTurnSpeed = 10; //test
-			opticStabilized=1;
-			directionStabilized = 1;
+			//aimingMarkElevSpeed = 0.5; //test
+			//aimingMarkTurnSpeed = 0.5; //test
 			stabilizedInAxes = 3;
 			initAngleX=0;
-			minAngleX=-120;
-			maxAngleX=120;
+			minAngleX=-90;
+			maxAngleX=90;
 			initAngleY=0;
-			minAngleY=-60;
-			maxAngleY=11;
+			minAngleY=-45;
+			maxAngleY=20;
 			initFov=0.7;
 			minFov=0.01; //test
 			maxFov=0.7;
@@ -7355,29 +7169,32 @@ initPhase=0;
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				sound = "eng1_start_sound";
             };
 			class plt_eng2_start
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				sound = "eng2_start_sound";
             };
 			class plt_rtrbrake
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				sound = "rtrbrake_sound";
             };
 			class plt_eng1_throttle
             {
 				source = "user";
-				animPeriod = 3;
+				animPeriod = 1.5;
 				initPhase=0;
             };
 			class plt_eng2_throttle
             {
 				source = "user";
-				animPeriod = 3;
+				animPeriod = 1.5;
 				initPhase=0;
             };
 			class mpd_pl_obj1_v
@@ -8409,7 +8226,6 @@ initPhase=0;
 			initPhase=0;
 		};
 };
-
 		 class MarkerLights 
 		{       
 			class PositionWhite 
@@ -8516,7 +8332,7 @@ initPhase=0;
 			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};			
-			intensity=1000;			
+			intensity=2500;			
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
@@ -8532,7 +8348,7 @@ initPhase=0;
 			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};			
-			intensity=1000;			
+			intensity=2500;			
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16; 	    
 			blinking = 1;         
@@ -8541,8 +8357,8 @@ initPhase=0;
 			daylight = 1;		//added	
 			};     			
 			};
-
-		class Reflectors {
+		class Reflectors 
+		{
 
 			class Right {
 				
@@ -8595,281 +8411,281 @@ initPhase=0;
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;				
-		scope=2;
-		author="Franze and Nodunit";
+		scope=0; //MASKED FROM EDITOR
+		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
 		displayName="AH-64D Block II (NR)";
 		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114l_1",
-"rail1_114l_2",
-"rail1_114l_3",
-"rail1_114l_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114l_1",
-"rail2_114l_2",
-"rail2_114l_3",
-"rail2_114l_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114l_1",
-"rail3_114l_2",
-"rail3_114l_3",
-"rail3_114l_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114l_1",
-"rail4_114l_2",
-"rail4_114l_3",
-"rail4_114l_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
+		{
+			"pod1_m151_1",
+			"pod1_m151_2",
+			"pod1_m151_3",
+			"pod1_m151_4",
+			"pod1_m151_5",
+			"pod1_m151_6",
+			"pod1_m151_7",
+			"pod1_m151_8",
+			"pod1_m151_9",
+			"pod1_m151_10",
+			"pod1_m151_11",
+			"pod1_m151_12",
+			"pod1_m151_13",
+			"pod1_m151_14",
+			"pod1_m151_15",
+			"pod1_m151_16",
+			"pod1_m151_17",
+			"pod1_m151_18",
+			"pod1_m151_19",
+			"pod1_m229_1",
+			"pod1_m229_2",
+			"pod1_m229_3",
+			"pod1_m229_4",
+			"pod1_m229_5",
+			"pod1_m229_6",
+			"pod1_m229_7",
+			"pod1_m229_8",
+			"pod1_m229_9",
+			"pod1_m229_10",
+			"pod1_m229_11",
+			"pod1_m229_12",
+			"pod1_m229_13",
+			"pod1_m229_14",
+			"pod1_m229_15",
+			"pod1_m229_16",
+			"pod1_m229_17",
+			"pod1_m229_18",
+			"pod1_m229_19",
+			"pod1_m261_1",
+			"pod1_m261_2",
+			"pod1_m261_3",
+			"pod1_m261_4",
+			"pod1_m261_5",
+			"pod1_m261_6",
+			"pod1_m261_7",
+			"pod1_m261_8",
+			"pod1_m261_9",
+			"pod1_m261_10",
+			"pod1_m261_11",
+			"pod1_m261_12",
+			"pod1_m261_13",
+			"pod1_m261_14",
+			"pod1_m261_15",
+			"pod1_m261_16",
+			"pod1_m261_17",
+			"pod1_m261_18",
+			"pod1_m261_19",
+			"pod2_m151_1",
+			"pod2_m151_2",
+			"pod2_m151_3",
+			"pod2_m151_4",
+			"pod2_m151_5",
+			"pod2_m151_6",
+			"pod2_m151_7",
+			"pod2_m151_8",
+			"pod2_m151_9",
+			"pod2_m151_10",
+			"pod2_m151_11",
+			"pod2_m151_12",
+			"pod2_m151_13",
+			"pod2_m151_14",
+			"pod2_m151_15",
+			"pod2_m151_16",
+			"pod2_m151_17",
+			"pod2_m151_18",
+			"pod2_m151_19",
+			"pod2_m229_1",
+			"pod2_m229_2",
+			"pod2_m229_3",
+			"pod2_m229_4",
+			"pod2_m229_5",
+			"pod2_m229_6",
+			"pod2_m229_7",
+			"pod2_m229_8",
+			"pod2_m229_9",
+			"pod2_m229_10",
+			"pod2_m229_11",
+			"pod2_m229_12",
+			"pod2_m229_13",
+			"pod2_m229_14",
+			"pod2_m229_15",
+			"pod2_m229_16",
+			"pod2_m229_17",
+			"pod2_m229_18",
+			"pod2_m229_19",
+			"pod2_m261_1",
+			"pod2_m261_2",
+			"pod2_m261_3",
+			"pod2_m261_4",
+			"pod2_m261_5",
+			"pod2_m261_6",
+			"pod2_m261_7",
+			"pod2_m261_8",
+			"pod2_m261_9",
+			"pod2_m261_10",
+			"pod2_m261_11",
+			"pod2_m261_12",
+			"pod2_m261_13",
+			"pod2_m261_14",
+			"pod2_m261_15",
+			"pod2_m261_16",
+			"pod2_m261_17",
+			"pod2_m261_18",
+			"pod2_m261_19",
+			"pod3_m151_1",
+			"pod3_m151_2",
+			"pod3_m151_3",
+			"pod3_m151_4",
+			"pod3_m151_5",
+			"pod3_m151_6",
+			"pod3_m151_7",
+			"pod3_m151_8",
+			"pod3_m151_9",
+			"pod3_m151_10",
+			"pod3_m151_11",
+			"pod3_m151_12",
+			"pod3_m151_13",
+			"pod3_m151_14",
+			"pod3_m151_15",
+			"pod3_m151_16",
+			"pod3_m151_17",
+			"pod3_m151_18",
+			"pod3_m151_19",
+			"pod3_m229_1",
+			"pod3_m229_2",
+			"pod3_m229_3",
+			"pod3_m229_4",
+			"pod3_m229_5",
+			"pod3_m229_6",
+			"pod3_m229_7",
+			"pod3_m229_8",
+			"pod3_m229_9",
+			"pod3_m229_10",
+			"pod3_m229_11",
+			"pod3_m229_12",
+			"pod3_m229_13",
+			"pod3_m229_14",
+			"pod3_m229_15",
+			"pod3_m229_16",
+			"pod3_m229_17",
+			"pod3_m229_18",
+			"pod3_m229_19",
+			"pod3_m261_1",
+			"pod3_m261_2",
+			"pod3_m261_3",
+			"pod3_m261_4",
+			"pod3_m261_5",
+			"pod3_m261_6",
+			"pod3_m261_7",
+			"pod3_m261_8",
+			"pod3_m261_9",
+			"pod3_m261_10",
+			"pod3_m261_11",
+			"pod3_m261_12",
+			"pod3_m261_13",
+			"pod3_m261_14",
+			"pod3_m261_15",
+			"pod3_m261_16",
+			"pod3_m261_17",
+			"pod3_m261_18",
+			"pod3_m261_19",
+			"pod4_m151_1",
+			"pod4_m151_2",
+			"pod4_m151_3",
+			"pod4_m151_4",
+			"pod4_m151_5",
+			"pod4_m151_6",
+			"pod4_m151_7",
+			"pod4_m151_8",
+			"pod4_m151_9",
+			"pod4_m151_10",
+			"pod4_m151_11",
+			"pod4_m151_12",
+			"pod4_m151_13",
+			"pod4_m151_14",
+			"pod4_m151_15",
+			"pod4_m151_16",
+			"pod4_m151_17",
+			"pod4_m151_18",
+			"pod4_m151_19",
+			"pod4_m229_1",
+			"pod4_m229_2",
+			"pod4_m229_3",
+			"pod4_m229_4",
+			"pod4_m229_5",
+			"pod4_m229_6",
+			"pod4_m229_7",
+			"pod4_m229_8",
+			"pod4_m229_9",
+			"pod4_m229_10",
+			"pod4_m229_11",
+			"pod4_m229_12",
+			"pod4_m229_13",
+			"pod4_m229_14",
+			"pod4_m229_15",
+			"pod4_m229_16",
+			"pod4_m229_17",
+			"pod4_m229_18",
+			"pod4_m229_19",
+			"pod4_m261_1",
+			"pod4_m261_2",
+			"pod4_m261_3",
+			"pod4_m261_4",
+			"pod4_m261_5",
+			"pod4_m261_6",
+			"pod4_m261_7",
+			"pod4_m261_8",
+			"pod4_m261_9",
+			"pod4_m261_10",
+			"pod4_m261_11",
+			"pod4_m261_12",
+			"pod4_m261_13",
+			"pod4_m261_14",
+			"pod4_m261_15",
+			"pod4_m261_16",
+			"pod4_m261_17",
+			"pod4_m261_18",
+			"pod4_m261_19",
+			"rail1_114l_1",
+			"rail1_114l_2",
+			"rail1_114l_3",
+			"rail1_114l_4",
+			"rail1_114k_1",
+			"rail1_114k_2",
+			"rail1_114k_3",
+			"rail1_114k_4",
+			"rail2_114l_1",
+			"rail2_114l_2",
+			"rail2_114l_3",
+			"rail2_114l_4",
+			"rail2_114k_1",
+			"rail2_114k_2",
+			"rail2_114k_3",
+			"rail2_114k_4",
+			"rail3_114l_1",
+			"rail3_114l_2",
+			"rail3_114l_3",
+			"rail3_114l_4",
+			"rail3_114k_1",
+			"rail3_114k_2",
+			"rail3_114k_3",
+			"rail3_114k_4",
+			"rail4_114l_1",
+			"rail4_114l_2",
+			"rail4_114l_3",
+			"rail4_114l_4",
+			"rail4_114k_1",
+			"rail4_114k_2",
+			"rail4_114k_3",
+			"rail4_114k_4",
+			"atas_1",
+			"atas_2",
+			"fim92_1",
+			"fim92_2",
+			"fim92_3",
+			"fim92_4",
+			"auxtank_1",
+			"auxtank_2",
+			"auxtank_3",
+			"auxtank_4",
 			"mpd_pl_obj1",
 			"mpd_pl_obj2",
 			"mpd_pl_obj3",
@@ -8902,783 +8718,783 @@ initPhase=0;
 			"mpd_pl_obj30",
 			"mpd_pl_obj31",
 			"mpd_pl_obj32",
-"pl_mpd_back",
-"pr_mpd_back",
-"pl_aft_fuel_n0",
-"pl_aft_fuel_n1",
-"pl_aft_fuel_n2",
-"pl_aft_fuel_n3",
-"pl_aft_line",
-"pl_flow1_fuel_n0",
-"pl_flow1_fuel_n1",
-"pl_flow1_fuel_n2",
-"pl_flow2_fuel_n0",
-"pl_flow2_fuel_n1",
-"pl_flow2_fuel_n2",
-"pl_fwd_fuel_n0",
-"pl_fwd_fuel_n1",
-"pl_fwd_fuel_n2",
-"pl_fwd_fuel_n3",
-"pl_fwd_line",
-"pl_iafs_fuel_n0",
-"pl_iafs_fuel_n1",
-"pl_iafs_fuel_n2",
-"pl_iend_fuel_n0",
-"pl_iend_fuel_n1",
-"pl_iend_fuel_n2",
-"pl_int_fuel_n0",
-"pl_int_fuel_n1",
-"pl_int_fuel_n2",
-"pl_int_fuel_n3",
-"pl_tend_fuel_n0",
-"pl_tend_fuel_n1",
-"pl_tend_fuel_n2",
-"pl_tflow_fuel_n0",
-"pl_tflow_fuel_n1",
-"pl_tflow_fuel_n2",
-"pl_tot_fuel_n0",
-"pl_tot_fuel_n1",
-"pl_tot_fuel_n2",
-"pl_tot_fuel_n3",
-"pl_waux1",
-"pl_waux2",
-"pl_waux3",
-"pl_waux4",
-"pr_aft_fuel_n0",
-"pr_aft_fuel_n1",
-"pr_aft_fuel_n2",
-"pr_aft_fuel_n3",
-"pr_aft_line",
-"pr_flow1_fuel_n0",
-"pr_flow1_fuel_n1",
-"pr_flow1_fuel_n2",
-"pr_flow2_fuel_n0",
-"pr_flow2_fuel_n1",
-"pr_flow2_fuel_n2",
-"pr_fwd_fuel_n0",
-"pr_fwd_fuel_n1",
-"pr_fwd_fuel_n2",
-"pr_fwd_fuel_n3",
-"pr_fwd_line",
-"pr_iafs_fuel_n0",
-"pr_iafs_fuel_n1",
-"pr_iafs_fuel_n2",
-"pr_iend_fuel_n0",
-"pr_iend_fuel_n1",
-"pr_iend_fuel_n2",
-"pr_int_fuel_n0",
-"pr_int_fuel_n1",
-"pr_int_fuel_n2",
-"pr_int_fuel_n3",
-"pr_tend_fuel_n0",
-"pr_tend_fuel_n1",
-"pr_tend_fuel_n2",
-"pr_tflow_fuel_n0",
-"pr_tflow_fuel_n1",
-"pr_tflow_fuel_n2",
-"pr_tot_fuel_n0",
-"pr_tot_fuel_n1",
-"pr_tot_fuel_n2",
-"pr_tot_fuel_n3",
-"pr_waux1",
-"pr_waux2",
-"pr_waux3",
-"pr_waux4",
-"pr_iafs_line",
-"pl_iafs_line",
-"mpd_pr_tsd_wtdir1",
-"mpd_pr_tsd_wtdir2",
-"mpd_pr_tsd_wtdir3",
-"mpd_pr_tsd_eta1",
-"mpd_pr_tsd_eta2",
-"mpd_pr_tsd_eta3",
-"mpd_pr_tsd_eta4",
-"mpd_pr_tsd_hdg1",
-"mpd_pr_tsd_hdg2",
-"mpd_pr_tsd_hdg3",
-"mpd_pr_tsd_dist2",
-"mpd_pr_tsd_dist3",
-"mpd_pr_tsd_dist4",
-"mpd_pr_tsd_z1",
-"mpd_pr_tsd_z2",
-"mpd_pr_tsd_pfzs",
-"mpd_pr_tsd_filter",
-"mpd_pr_tsd_acq",
-"mpd_pr_tsd_wdir1",
-"mpd_pr_tsd_wdir2",
-"mpd_pr_tsd_wdir3",
-"mpd_pr_tsd_wv1",
-"mpd_pr_tsd_wv2",
-"mpd_pl_tsd_wtdir1",
-"mpd_pl_tsd_wtdir2",
-"mpd_pl_tsd_wtdir3",
-"mpd_pl_tsd_eta1",
-"mpd_pl_tsd_eta2",
-"mpd_pl_tsd_eta3",
-"mpd_pl_tsd_eta4",
-"mpd_pl_tsd_hdg1",
-"mpd_pl_tsd_hdg2",
-"mpd_pl_tsd_hdg3",
-"mpd_pl_tsd_dist2",
-"mpd_pl_tsd_dist3",
-"mpd_pl_tsd_dist4",
-"mpd_pl_tsd_z1",
-"mpd_pl_tsd_z2",
-"mpd_pl_tsd_pfzs",
-"mpd_pl_tsd_filter",
-"mpd_pl_tsd_acq",
-"mpd_pl_tsd_wdir1",
-"mpd_pl_tsd_wdir2",
-"mpd_pl_tsd_wdir3",
-"mpd_pl_tsd_wv1",
-"mpd_pl_tsd_wv2",
-"ufd_back",
-"in_lt_apu",
-"gl_tsd_end3",
-"gl_tsd_eta1",
-"gl_tsd_eta2",
-"gl_tsd_eta3",
-"gl_tsd_eta4",
-"gl_tsd_hdg1",
-"gl_tsd_hdg2",
-"gl_tsd_hdg3",
-"gl_tsd_rng1",
-"gl_tsd_rng2",
-"gl_tsd_rng3",
-"gl_tsd_scale1",
-"gl_tsd_scale2",
-"gl_tsd_typ1",
-"gl_tsd_typ2",
-"gl_tsd_typ3",
-"gl_tsd_winddir1",
-"gl_tsd_winddir2",
-"gl_tsd_winddir3",
-"gl_tsd_windspd1",
-"gl_tsd_windspd2",
-"gr_tsd_end1",
-"gr_tsd_end2",
-"gr_tsd_end3",
-"gr_tsd_eta1",
-"gr_tsd_eta2",
-"gr_tsd_eta3",
-"gr_tsd_eta4",
-"gr_tsd_hdg1",
-"gr_tsd_hdg2",
-"gr_tsd_hdg3",
-"gr_tsd_rng1",
-"gr_tsd_rng2",
-"gr_tsd_rng3",
-"gr_tsd_scale1",
-"gr_tsd_scale2",
-"gr_tsd_typ1",
-"gr_tsd_typ2",
-"gr_tsd_typ3",
-"gr_tsd_winddir1",
-"gr_tsd_winddir2",
-"gr_tsd_winddir3",
-"gr_tsd_windspd1",
-"gr_tsd_windspd2",
-"mpd_pl_chaff_qty_1",
-"mpd_pl_chaff_qty_2",
-"mpd_pl_flare1_qty_1",
-"mpd_pl_flare1_qty_2",
-"mpd_pl_flare2_qty_1",
-"mpd_pl_flare2_qty_2",
-"mpd_pl_gun_ammo_1",
-"mpd_pl_gun_ammo_2",
-"mpd_pl_gun_ammo_3",
-"mpd_pl_gun_ammo_4",
-"mpd_pl_gun_burst_1",
-"mpd_pl_gun_burst_2",
-"mpd_pl_gun_burst_3",
-"mpd_pl_gun_burst_4",
-"mpd_pl_gun_burst_5",
-"mpd_pl_gun_sel",
-"mpd_pl_hf_bracket",
-"mpd_pl_hf_desig",
-"mpd_pl_hf_salt",
-"mpd_pl_hf_traj",
-"mpd_pl_hf1_l1",
-"mpd_pl_hf1_l2",
-"mpd_pl_hf1_r1",
-"mpd_pl_hf1_r2",
-"mpd_pl_hf2_l1",
-"mpd_pl_hf2_l2",
-"mpd_pl_hf2_r1",
-"mpd_pl_hf2_r2",
-"mpd_pl_hf3_l1",
-"mpd_pl_hf3_l2",
-"mpd_pl_hf3_r1",
-"mpd_pl_hf3_r2",
-"mpd_pl_hf4_l1",
-"mpd_pl_hf4_l2",
-"mpd_pl_hf4_r1",
-"mpd_pl_hf4_r2",
-"mpd_pl_rg_base",
-"mpd_pl_rg_bracket",
-"mpd_pl_rkt_burst",
-"mpd_pl_rkt_sel_type_1",
-"mpd_pl_rkt_sel_type_2",
-"mpd_pl_rkt_sel_type_3",
-"mpd_pl_rkt_sel_type_4",
-"mpd_pl_rkt_tot_1",
-"mpd_pl_rkt_tot_2",
-"mpd_pl_rkt1_qty_1",
-"mpd_pl_rkt1_qty_2",
-"mpd_pl_rkt1_type",
-"mpd_pl_rkt2_qty_1",
-"mpd_pl_rkt2_qty_2",
-"mpd_pl_rkt2_type",
-"mpd_pl_rkt3_qty_1",
-"mpd_pl_rkt3_qty_2",
-"mpd_pl_rkt3_type",
-"mpd_pl_rkt4_qty_1",
-"mpd_pl_rkt4_qty_2",
-"mpd_pl_rkt4_type",
-"mpd_pl_rkt5_qty_1",
-"mpd_pl_rkt5_qty_2",
-"mpd_pl_rkt5_type",
-"mpd_pl_sight_acq",
-"mpd_pl_wpn_acq",
-"mpd_pl_wpn_ata_sel",
-"mpd_pl_wpn_gun_sel",
-"mpd_pl_wpn_hf_type",
-"mpd_pl_wpn_msl_sel",
-"mpd_pl_wpn_rkt_sel",
-"mpd_pl_wpn_sel",
-"mpd_pl_rkt1",
-"mpd_pl_rkt2",
-"mpd_pl_rkt3",
-"mpd_pl_rkt4",
-"pr_wca_pg",
-"pr_wca_1",
-"pr_wca_2",
-"pr_wca_3",
-"pr_wca_4",
-"pr_wca_5",
-"pr_wca_6",
-"pr_wca_7",
-"pr_wca_8",
-"pr_wca_9",
-"pr_wca_10",
-"pr_wca_11",
-"pr_wca_12",
-"pr_wca_13",
-"pr_wca_14",
-"pr_wca_15",
-"pr_wca_16",
-"pr_wca_17",
-"pr_wca_18",
-"pr_wca_19",
-"pr_wca_20",
-"pr_wca_21",
-"pr_wca_22",
-"pr_wca_23",
-"pr_wca_24",
-"pr_wca_25",
-"pr_wca_26",
-"pl_wca_pg",
-"pl_wca_1",
-"pl_wca_2",
-"pl_wca_3",
-"pl_wca_4",
-"pl_wca_5",
-"pl_wca_6",
-"pl_wca_7",
-"pl_wca_8",
-"pl_wca_9",
-"pl_wca_10",
-"pl_wca_11",
-"pl_wca_12",
-"pl_wca_13",
-"pl_wca_14",
-"pl_wca_15",
-"pl_wca_16",
-"pl_wca_17",
-"pl_wca_18",
-"pl_wca_19",
-"pl_wca_20",
-"pl_wca_21",
-"pl_wca_22",
-"pl_wca_23",
-"pl_wca_24",
-"pl_wca_25",
-"pl_wca_26",
-"gr_wca_pg",
-"gr_wca_1",
-"gr_wca_2",
-"gr_wca_3",
-"gr_wca_4",
-"gr_wca_5",
-"gr_wca_6",
-"gr_wca_7",
-"gr_wca_8",
-"gr_wca_9",
-"gr_wca_10",
-"gr_wca_11",
-"gr_wca_12",
-"gr_wca_13",
-"gr_wca_14",
-"gr_wca_15",
-"gr_wca_16",
-"gr_wca_17",
-"gr_wca_18",
-"gr_wca_19",
-"gr_wca_20",
-"gr_wca_21",
-"gr_wca_22",
-"gr_wca_23",
-"gr_wca_24",
-"gr_wca_25",
-"gr_wca_26",
-"gl_wca_pg",
-"gl_wca_1",
-"gl_wca_2",
-"gl_wca_3",
-"gl_wca_4",
-"gl_wca_5",
-"gl_wca_6",
-"gl_wca_7",
-"gl_wca_8",
-"gl_wca_9",
-"gl_wca_10",
-"gl_wca_11",
-"gl_wca_12",
-"gl_wca_13",
-"gl_wca_14",
-"gl_wca_15",
-"gl_wca_16",
-"gl_wca_17",
-"gl_wca_18",
-"gl_wca_19",
-"gl_wca_20",
-"gl_wca_21",
-"gl_wca_22",
-"gl_wca_23",
-"gl_wca_24",
-"gl_wca_25",
-"gl_wca_26",
-"mpd_pr_flt_balt1",
-"mpd_pr_flt_balt2",
-"mpd_pr_flt_balt3",
-"mpd_pr_flt_balt4",
-"mpd_pr_flt_bank",
-"mpd_pr_flt_gspd1",
-"mpd_pr_flt_gspd2",
-"mpd_pr_flt_gspd3",
-"mpd_pr_flt_hdg",
-"mpd_pr_flt_hdg2",
-"mpd_pr_flt_hi",
-"mpd_pr_flt_hor",
-"mpd_pr_flt_lo",
-"mpd_pr_flt_n20c",
-"mpd_pr_flt_p20c",
-"mpd_pr_flt_ralt1",
-"mpd_pr_flt_ralt2",
-"mpd_pr_flt_ralt3",
-"mpd_pr_flt_raltb",
-"mpd_pr_flt_rdr",
-"mpd_pr_flt_slip",
-"mpd_pr_flt_spd1",
-"mpd_pr_flt_spd2",
-"mpd_pr_flt_spd3",
-"mpd_pr_flt_trq1",
-"mpd_pr_flt_trq2",
-"mpd_pr_flt_trq3",
-"mpd_pr_flt_ttg1",
-"mpd_pr_flt_ttg2",
-"mpd_pr_flt_ttg3",
-"mpd_pr_flt_ttg4",
-"mpd_pr_flt_turn",
-"mpd_pr_flt_vsi",
-"mpd_pr_flt_vvi",
-"mpd_pr_flt_w",
-"mpd_pr_flt_wbear",
-"mpd_pr_flt_wp",
-"mpd_pr_flt_wr1",
-"mpd_pr_flt_wr2",
-"mpd_pr_flt_wr3",
-"mpd_pl_flt_balt1",
-"mpd_pl_flt_balt2",
-"mpd_pl_flt_balt3",
-"mpd_pl_flt_balt4",
-"mpd_pl_flt_bank",
-"mpd_pl_flt_gspd1",
-"mpd_pl_flt_gspd2",
-"mpd_pl_flt_gspd3",
-"mpd_pl_flt_hdg",
-"mpd_pl_flt_hdg2",
-"mpd_pl_flt_hi",
-"mpd_pl_flt_hor",
-"mpd_pl_flt_lo",
-"mpd_pl_flt_n20c",
-"mpd_pl_flt_p20c",
-"mpd_pl_flt_ralt1",
-"mpd_pl_flt_ralt2",
-"mpd_pl_flt_ralt3",
-"mpd_pl_flt_raltb",
-"mpd_pl_flt_rdr",
-"mpd_pl_flt_slip",
-"mpd_pl_flt_spd1",
-"mpd_pl_flt_spd2",
-"mpd_pl_flt_spd3",
-"mpd_pl_flt_trq1",
-"mpd_pl_flt_trq2",
-"mpd_pl_flt_trq3",
-"mpd_pl_flt_ttg1",
-"mpd_pl_flt_ttg2",
-"mpd_pl_flt_ttg3",
-"mpd_pl_flt_ttg4",
-"mpd_pl_flt_turn",
-"mpd_pl_flt_vsi",
-"mpd_pl_flt_vvi",
-"mpd_pl_flt_w",
-"mpd_pl_flt_wbear",
-"mpd_pl_flt_wp",
-"mpd_pl_flt_wr1",
-"mpd_pl_flt_wr2",
-"mpd_pl_flt_wr3",
-"mpd_gl_flt_balt1",
-"mpd_gl_flt_balt2",
-"mpd_gl_flt_balt3",
-"mpd_gl_flt_balt4",
-"mpd_gl_flt_bank",
-"mpd_gl_flt_gspd1",
-"mpd_gl_flt_gspd2",
-"mpd_gl_flt_gspd3",
-"mpd_gl_flt_hdg",
-"mpd_gl_flt_hdg2",
-"mpd_gl_flt_hi",
-"mpd_gl_flt_hor",
-"mpd_gl_flt_lo",
-"mpd_gl_flt_n20c",
-"mpd_gl_flt_p20c",
-"mpd_gl_flt_ralt1",
-"mpd_gl_flt_ralt2",
-"mpd_gl_flt_ralt3",
-"mpd_gl_flt_raltb",
-"mpd_gl_flt_rdr",
-"mpd_gl_flt_slip",
-"mpd_gl_flt_spd1",
-"mpd_gl_flt_spd2",
-"mpd_gl_flt_spd3",
-"mpd_gl_flt_trq1",
-"mpd_gl_flt_trq2",
-"mpd_gl_flt_trq3",
-"mpd_gl_flt_ttg1",
-"mpd_gl_flt_ttg2",
-"mpd_gl_flt_ttg3",
-"mpd_gl_flt_ttg4",
-"mpd_gl_flt_turn",
-"mpd_gl_flt_vsi",
-"mpd_gl_flt_vvi",
-"mpd_gl_flt_w",
-"mpd_gl_flt_wbear",
-"mpd_gl_flt_wp",
-"mpd_gl_flt_wr1",
-"mpd_gl_flt_wr2",
-"mpd_gl_flt_wr3",
-"mpd_gr_flt_balt1",
-"mpd_gr_flt_balt2",
-"mpd_gr_flt_balt3",
-"mpd_gr_flt_balt4",
-"mpd_gr_flt_bank",
-"mpd_gr_flt_gspd1",
-"mpd_gr_flt_gspd2",
-"mpd_gr_flt_gspd3",
-"mpd_gr_flt_hdg",
-"mpd_gr_flt_hdg2",
-"mpd_gr_flt_hi",
-"mpd_gr_flt_hor",
-"mpd_gr_flt_lo",
-"mpd_gr_flt_n20c",
-"mpd_gr_flt_p20c",
-"mpd_gr_flt_ralt1",
-"mpd_gr_flt_ralt2",
-"mpd_gr_flt_ralt3",
-"mpd_gr_flt_raltb",
-"mpd_gr_flt_rdr",
-"mpd_gr_flt_slip",
-"mpd_gr_flt_spd1",
-"mpd_gr_flt_spd2",
-"mpd_gr_flt_spd3",
-"mpd_gr_flt_trq1",
-"mpd_gr_flt_trq2",
-"mpd_gr_flt_trq3",
-"mpd_gr_flt_ttg1",
-"mpd_gr_flt_ttg2",
-"mpd_gr_flt_ttg3",
-"mpd_gr_flt_ttg4",
-"mpd_gr_flt_turn",
-"mpd_gr_flt_vsi",
-"mpd_gr_flt_vvi",
-"mpd_gr_flt_w",
-"mpd_gr_flt_wbear",
-"mpd_gr_flt_wp",
-"mpd_gr_flt_wr1",
-"mpd_gr_flt_wr2",
-"mpd_gr_flt_wr3",
-"mpd_pr_flt_dir1",
-"mpd_pr_flt_dir2",
-"mpd_pr_flt_dir3",
-"mpd_pr_flt_dirb",
-"mpd_pl_flt_dir1",
-"mpd_pl_flt_dir2",
-"mpd_pl_flt_dir3",
-"mpd_pl_flt_dirb",
-"mpd_gr_flt_dir1",
-"mpd_gr_flt_dir2",
-"mpd_gr_flt_dir3",
-"mpd_gr_flt_dirb",
-"mpd_gl_flt_dir1",
-"mpd_gl_flt_dir2",
-"mpd_gl_flt_dir3",
-"mpd_gl_flt_dirb",
-"mpd_pr_eng_1npb",
-"mpd_pr_eng_1tgt_1",
-"mpd_pr_eng_1tgt1",
-"mpd_pr_eng_1tgt2",
-"mpd_pr_eng_1tgt3",
-"mpd_pr_eng_1tgtb",
-"mpd_pr_eng_1tgtbg",
-"mpd_pr_eng_2npb",
-"mpd_pr_eng_2tgt_1",
-"mpd_pr_eng_2tgt1",
-"mpd_pr_eng_2tgt2",
-"mpd_pr_eng_2tgt3",
-"mpd_pr_eng_2tgtb",
-"mpd_pr_eng_2tgtbg",
-"mpd_pr_eng_1trq1",
-"mpd_pr_eng_1trq2",
-"mpd_pr_eng_1trqb",
-"mpd_pr_eng_1trqbg",
-"mpd_pr_eng_2trq1",
-"mpd_pr_eng_2trq2",
-"mpd_pr_eng_2trqb",
-"mpd_pr_eng_2trqbg",
-"mpd_pr_eng_ltrqbar",
-"mpd_pr_eng_accpsi1",
-"mpd_pr_eng_accpsi2",
-"mpd_pr_eng_accpsi3",
-"mpd_pr_eng_accpsi4",
-"mpd_pr_eng_utipsi1",
-"mpd_pr_eng_utipsi2",
-"mpd_pr_eng_utipsi3",
-"mpd_pr_eng_utipsi4",
-"mpd_pr_eng_pripsi1",
-"mpd_pr_eng_pripsi2",
-"mpd_pr_eng_pripsi3",
-"mpd_pr_eng_pripsi4",
-"mpd_pr_eng_e1ng1",
-"mpd_pr_eng_e1ng2",
-"mpd_pr_eng_e1ng3",
-"mpd_pr_eng_e2ng1",
-"mpd_pr_eng_e2ng2",
-"mpd_pr_eng_e2ng3",
-"mpd_pr_eng_e1np1",
-"mpd_pr_eng_e1np2",
-"mpd_pr_eng_e1np3",
-"mpd_pr_eng_e2np1",
-"mpd_pr_eng_e2np2",
-"mpd_pr_eng_e2np3",
-"mpd_pr_eng_oil1psi1",
-"mpd_pr_eng_oil1psi2",
-"mpd_pr_eng_oil1psi3",
-"mpd_pr_eng_oil2psi1",
-"mpd_pr_eng_oil2psi2",
-"mpd_pr_eng_oil2psi3",
-"mpd_pr_eng_rrpm1",
-"mpd_pr_eng_rrpm2",
-"mpd_pr_eng_rrpm3",
-"mpd_pr_eng_wca1",
-"mpd_pr_eng_wca2",
-"mpd_pr_eng_wca3",
-"mpd_pr_eng_wca4",
-"mpd_pr_eng_wca5",
-"mpd_pr_eng_wca6",
-"mpd_pr_eng_wca7",
-"mpd_pr_eng_wca8",
-"mpd_pr_eng_wca9",
-"mpd_pr_eng_wca10",
-"mpd_pr_eng_wca11",
-"mpd_pr_eng_wca12",
-"mpd_pr_eng_ifb",
-"mpd_pr_eng_ofb",
-"mpd_pr_eng_rtrrpmb",
-"mpd_pr_eng_hpa",
-"mpd_pr_eng_hpp",
-"mpd_pr_eng_hpu",
-"mpd_pr_eng_rbe1ng",
-"mpd_pr_eng_rbe1np",
-"mpd_pr_eng_rbe1op",
-"mpd_pr_eng_rbe2ng",
-"mpd_pr_eng_rbe2np",
-"mpd_pr_eng_rbe2op",
-"mpd_pr_eng_1accpsi1",
-"mpd_pr_eng_1accpsi2",
-"mpd_pr_eng_1accpsi3",
-"mpd_pr_eng_1accpsi4",
-"mpd_pr_eng_1utipsi1",
-"mpd_pr_eng_1utipsi2",
-"mpd_pr_eng_1utipsi3",
-"mpd_pr_eng_1utipsi4",
-"mpd_pr_eng_1pripsi1",
-"mpd_pr_eng_1pripsi2",
-"mpd_pr_eng_1pripsi3",
-"mpd_pr_eng_1pripsi4",
-"mpd_pl_eng_1npb",
-"mpd_pl_eng_1tgt_1",
-"mpd_pl_eng_1tgt1",
-"mpd_pl_eng_1tgt2",
-"mpd_pl_eng_1tgt3",
-"mpd_pl_eng_1tgtb",
-"mpd_pl_eng_1tgtbg",
-"mpd_pl_eng_2npb",
-"mpd_pl_eng_2tgt_1",
-"mpd_pl_eng_2tgt1",
-"mpd_pl_eng_2tgt2",
-"mpd_pl_eng_2tgt3",
-"mpd_pl_eng_2tgtb",
-"mpd_pl_eng_2tgtbg",
-"mpd_pl_eng_1trq1",
-"mpd_pl_eng_1trq2",
-"mpd_pl_eng_1trqb",
-"mpd_pl_eng_1trqbg",
-"mpd_pl_eng_2trq1",
-"mpd_pl_eng_2trq2",
-"mpd_pl_eng_2trqb",
-"mpd_pl_eng_2trqbg",
-"mpd_pl_eng_ltrqbar",
-"mpd_pl_eng_accpsi1",
-"mpd_pl_eng_accpsi2",
-"mpd_pl_eng_accpsi3",
-"mpd_pl_eng_accpsi4",
-"mpd_pl_eng_utipsi1",
-"mpd_pl_eng_utipsi2",
-"mpd_pl_eng_utipsi3",
-"mpd_pl_eng_utipsi4",
-"mpd_pl_eng_pripsi1",
-"mpd_pl_eng_pripsi2",
-"mpd_pl_eng_pripsi3",
-"mpd_pl_eng_pripsi4",
-"mpd_pl_eng_e1ng1",
-"mpd_pl_eng_e1ng2",
-"mpd_pl_eng_e1ng3",
-"mpd_pl_eng_e2ng1",
-"mpd_pl_eng_e2ng2",
-"mpd_pl_eng_e2ng3",
-"mpd_pl_eng_e1np1",
-"mpd_pl_eng_e1np2",
-"mpd_pl_eng_e1np3",
-"mpd_pl_eng_e2np1",
-"mpd_pl_eng_e2np2",
-"mpd_pl_eng_e2np3",
-"mpd_pl_eng_oil1psi1",
-"mpd_pl_eng_oil1psi2",
-"mpd_pl_eng_oil1psi3",
-"mpd_pl_eng_oil2psi1",
-"mpd_pl_eng_oil2psi2",
-"mpd_pl_eng_oil2psi3",
-"mpd_pl_eng_rrpm1",
-"mpd_pl_eng_rrpm2",
-"mpd_pl_eng_rrpm3",
-"mpd_pl_eng_wca1",
-"mpd_pl_eng_wca2",
-"mpd_pl_eng_wca3",
-"mpd_pl_eng_wca4",
-"mpd_pl_eng_wca5",
-"mpd_pl_eng_wca6",
-"mpd_pl_eng_wca7",
-"mpd_pl_eng_wca8",
-"mpd_pl_eng_wca9",
-"mpd_pl_eng_wca10",
-"mpd_pl_eng_wca11",
-"mpd_pl_eng_wca12",
-"mpd_pl_eng_ifb",
-"mpd_pl_eng_ofb",
-"mpd_pl_eng_rtrrpmb",
-"mpd_pl_eng_hpa",
-"mpd_pl_eng_hpp",
-"mpd_pl_eng_hpu",
-"mpd_pl_eng_rbe1ng",
-"mpd_pl_eng_rbe1np",
-"mpd_pl_eng_rbe1op",
-"mpd_pl_eng_rbe2ng",
-"mpd_pl_eng_rbe2np",
-"mpd_pl_eng_rbe2op",
-"mpd_pl_eng_1accpsi1",
-"mpd_pl_eng_1accpsi2",
-"mpd_pl_eng_1accpsi3",
-"mpd_pl_eng_1accpsi4",
-"mpd_pl_eng_1utipsi1",
-"mpd_pl_eng_1utipsi2",
-"mpd_pl_eng_1utipsi3",
-"mpd_pl_eng_1utipsi4",
-"mpd_pl_eng_1pripsi1",
-"mpd_pl_eng_1pripsi2",
-"mpd_pl_eng_1pripsi3",
-"mpd_pl_eng_1pripsi4",
-"p_ufd_clk1",
-"p_ufd_clk2",
-"p_ufd_clk3",
-"p_ufd_clk4",
-"p_ufd_clk5",
-"p_ufd_clk6",
-"p_ufd_fl1",
-"p_ufd_fl2",
-"p_ufd_fl3",
-"p_ufd_fl4",
-"p_ufd_adv1",
-"p_ufd_adv2",
-"p_ufd_adv3",
-"p_ufd_adv4",
-"p_ufd_adv5",
-"p_ufd_cau1",
-"p_ufd_cau2",
-"p_ufd_cau3",
-"p_ufd_cau4",
-"p_ufd_cau5",
-"p_ufd_wrn1",
-"p_ufd_wrn2",
-"p_ufd_wrn3",
-"p_ufd_wrn4",
-"p_ufd_wrn5",
-"g_ufd_clk1",
-"g_ufd_clk2",
-"g_ufd_clk3",
-"g_ufd_clk4",
-"g_ufd_clk5",
-"g_ufd_clk6",
-"g_ufd_fl1",
-"g_ufd_fl2",
-"g_ufd_fl3",
-"g_ufd_fl4",
-"g_ufd_adv1",
-"g_ufd_adv2",
-"g_ufd_adv3",
-"g_ufd_adv4",
-"g_ufd_adv5",
-"g_ufd_cau1",
-"g_ufd_cau2",
-"g_ufd_cau3",
-"g_ufd_cau4",
-"g_ufd_cau5",
-"g_ufd_wrn1",
-"g_ufd_wrn2",
-"g_ufd_wrn3",
-"g_ufd_wrn4",
-"g_ufd_wrn5",
-///NEWTSD///
-"mpd_pr_tsd_dist1",
-"mpd_pr_tsd_imap",
-"mpd_pr_tsd_map",
-"mpd_pr_tsd_phase",
-///LMPDTSD///
-"mpd_pl_tsd_dist1",
-"mpd_pl_tsd_imap",
-"mpd_pl_tsd_map",
-"mpd_pl_tsd_phase",
-////LMPDOBJS///
+			"pl_mpd_back",
+			"pr_mpd_back",
+			"pl_aft_fuel_n0",
+			"pl_aft_fuel_n1",
+			"pl_aft_fuel_n2",
+			"pl_aft_fuel_n3",
+			"pl_aft_line",
+			"pl_flow1_fuel_n0",
+			"pl_flow1_fuel_n1",
+			"pl_flow1_fuel_n2",
+			"pl_flow2_fuel_n0",
+			"pl_flow2_fuel_n1",
+			"pl_flow2_fuel_n2",
+			"pl_fwd_fuel_n0",
+			"pl_fwd_fuel_n1",
+			"pl_fwd_fuel_n2",
+			"pl_fwd_fuel_n3",
+			"pl_fwd_line",
+			"pl_iafs_fuel_n0",
+			"pl_iafs_fuel_n1",
+			"pl_iafs_fuel_n2",
+			"pl_iend_fuel_n0",
+			"pl_iend_fuel_n1",
+			"pl_iend_fuel_n2",
+			"pl_int_fuel_n0",
+			"pl_int_fuel_n1",
+			"pl_int_fuel_n2",
+			"pl_int_fuel_n3",
+			"pl_tend_fuel_n0",
+			"pl_tend_fuel_n1",
+			"pl_tend_fuel_n2",
+			"pl_tflow_fuel_n0",
+			"pl_tflow_fuel_n1",
+			"pl_tflow_fuel_n2",
+			"pl_tot_fuel_n0",
+			"pl_tot_fuel_n1",
+			"pl_tot_fuel_n2",
+			"pl_tot_fuel_n3",
+			"pl_waux1",
+			"pl_waux2",
+			"pl_waux3",
+			"pl_waux4",
+			"pr_aft_fuel_n0",
+			"pr_aft_fuel_n1",
+			"pr_aft_fuel_n2",
+			"pr_aft_fuel_n3",
+			"pr_aft_line",
+			"pr_flow1_fuel_n0",
+			"pr_flow1_fuel_n1",
+			"pr_flow1_fuel_n2",
+			"pr_flow2_fuel_n0",
+			"pr_flow2_fuel_n1",
+			"pr_flow2_fuel_n2",
+			"pr_fwd_fuel_n0",
+			"pr_fwd_fuel_n1",
+			"pr_fwd_fuel_n2",
+			"pr_fwd_fuel_n3",
+			"pr_fwd_line",
+			"pr_iafs_fuel_n0",
+			"pr_iafs_fuel_n1",
+			"pr_iafs_fuel_n2",
+			"pr_iend_fuel_n0",
+			"pr_iend_fuel_n1",
+			"pr_iend_fuel_n2",
+			"pr_int_fuel_n0",
+			"pr_int_fuel_n1",
+			"pr_int_fuel_n2",
+			"pr_int_fuel_n3",
+			"pr_tend_fuel_n0",
+			"pr_tend_fuel_n1",
+			"pr_tend_fuel_n2",
+			"pr_tflow_fuel_n0",
+			"pr_tflow_fuel_n1",
+			"pr_tflow_fuel_n2",
+			"pr_tot_fuel_n0",
+			"pr_tot_fuel_n1",
+			"pr_tot_fuel_n2",
+			"pr_tot_fuel_n3",
+			"pr_waux1",
+			"pr_waux2",
+			"pr_waux3",
+			"pr_waux4",
+			"pr_iafs_line",
+			"pl_iafs_line",
+			"mpd_pr_tsd_wtdir1",
+			"mpd_pr_tsd_wtdir2",
+			"mpd_pr_tsd_wtdir3",
+			"mpd_pr_tsd_eta1",
+			"mpd_pr_tsd_eta2",
+			"mpd_pr_tsd_eta3",
+			"mpd_pr_tsd_eta4",
+			"mpd_pr_tsd_hdg1",
+			"mpd_pr_tsd_hdg2",
+			"mpd_pr_tsd_hdg3",
+			"mpd_pr_tsd_dist2",
+			"mpd_pr_tsd_dist3",
+			"mpd_pr_tsd_dist4",
+			"mpd_pr_tsd_z1",
+			"mpd_pr_tsd_z2",
+			"mpd_pr_tsd_pfzs",
+			"mpd_pr_tsd_filter",
+			"mpd_pr_tsd_acq",
+			"mpd_pr_tsd_wdir1",
+			"mpd_pr_tsd_wdir2",
+			"mpd_pr_tsd_wdir3",
+			"mpd_pr_tsd_wv1",
+			"mpd_pr_tsd_wv2",
+			"mpd_pl_tsd_wtdir1",
+			"mpd_pl_tsd_wtdir2",
+			"mpd_pl_tsd_wtdir3",
+			"mpd_pl_tsd_eta1",
+			"mpd_pl_tsd_eta2",
+			"mpd_pl_tsd_eta3",
+			"mpd_pl_tsd_eta4",
+			"mpd_pl_tsd_hdg1",
+			"mpd_pl_tsd_hdg2",
+			"mpd_pl_tsd_hdg3",
+			"mpd_pl_tsd_dist2",
+			"mpd_pl_tsd_dist3",
+			"mpd_pl_tsd_dist4",
+			"mpd_pl_tsd_z1",
+			"mpd_pl_tsd_z2",
+			"mpd_pl_tsd_pfzs",
+			"mpd_pl_tsd_filter",
+			"mpd_pl_tsd_acq",
+			"mpd_pl_tsd_wdir1",
+			"mpd_pl_tsd_wdir2",
+			"mpd_pl_tsd_wdir3",
+			"mpd_pl_tsd_wv1",
+			"mpd_pl_tsd_wv2",
+			"ufd_back",
+			"in_lt_apu",
+			"gl_tsd_end3",
+			"gl_tsd_eta1",
+			"gl_tsd_eta2",
+			"gl_tsd_eta3",
+			"gl_tsd_eta4",
+			"gl_tsd_hdg1",
+			"gl_tsd_hdg2",
+			"gl_tsd_hdg3",
+			"gl_tsd_rng1",
+			"gl_tsd_rng2",
+			"gl_tsd_rng3",
+			"gl_tsd_scale1",
+			"gl_tsd_scale2",
+			"gl_tsd_typ1",
+			"gl_tsd_typ2",
+			"gl_tsd_typ3",
+			"gl_tsd_winddir1",
+			"gl_tsd_winddir2",
+			"gl_tsd_winddir3",
+			"gl_tsd_windspd1",
+			"gl_tsd_windspd2",
+			"gr_tsd_end1",
+			"gr_tsd_end2",
+			"gr_tsd_end3",
+			"gr_tsd_eta1",
+			"gr_tsd_eta2",
+			"gr_tsd_eta3",
+			"gr_tsd_eta4",
+			"gr_tsd_hdg1",
+			"gr_tsd_hdg2",
+			"gr_tsd_hdg3",
+			"gr_tsd_rng1",
+			"gr_tsd_rng2",
+			"gr_tsd_rng3",
+			"gr_tsd_scale1",
+			"gr_tsd_scale2",
+			"gr_tsd_typ1",
+			"gr_tsd_typ2",
+			"gr_tsd_typ3",
+			"gr_tsd_winddir1",
+			"gr_tsd_winddir2",
+			"gr_tsd_winddir3",
+			"gr_tsd_windspd1",
+			"gr_tsd_windspd2",
+			"mpd_pl_chaff_qty_1",
+			"mpd_pl_chaff_qty_2",
+			"mpd_pl_flare1_qty_1",
+			"mpd_pl_flare1_qty_2",
+			"mpd_pl_flare2_qty_1",
+			"mpd_pl_flare2_qty_2",
+			"mpd_pl_gun_ammo_1",
+			"mpd_pl_gun_ammo_2",
+			"mpd_pl_gun_ammo_3",
+			"mpd_pl_gun_ammo_4",
+			"mpd_pl_gun_burst_1",
+			"mpd_pl_gun_burst_2",
+			"mpd_pl_gun_burst_3",
+			"mpd_pl_gun_burst_4",
+			"mpd_pl_gun_burst_5",
+			"mpd_pl_gun_sel",
+			"mpd_pl_hf_bracket",
+			"mpd_pl_hf_desig",
+			"mpd_pl_hf_salt",
+			"mpd_pl_hf_traj",
+			"mpd_pl_hf1_l1",
+			"mpd_pl_hf1_l2",
+			"mpd_pl_hf1_r1",
+			"mpd_pl_hf1_r2",
+			"mpd_pl_hf2_l1",
+			"mpd_pl_hf2_l2",
+			"mpd_pl_hf2_r1",
+			"mpd_pl_hf2_r2",
+			"mpd_pl_hf3_l1",
+			"mpd_pl_hf3_l2",
+			"mpd_pl_hf3_r1",
+			"mpd_pl_hf3_r2",
+			"mpd_pl_hf4_l1",
+			"mpd_pl_hf4_l2",
+			"mpd_pl_hf4_r1",
+			"mpd_pl_hf4_r2",
+			"mpd_pl_rg_base",
+			"mpd_pl_rg_bracket",
+			"mpd_pl_rkt_burst",
+			"mpd_pl_rkt_sel_type_1",
+			"mpd_pl_rkt_sel_type_2",
+			"mpd_pl_rkt_sel_type_3",
+			"mpd_pl_rkt_sel_type_4",
+			"mpd_pl_rkt_tot_1",
+			"mpd_pl_rkt_tot_2",
+			"mpd_pl_rkt1_qty_1",
+			"mpd_pl_rkt1_qty_2",
+			"mpd_pl_rkt1_type",
+			"mpd_pl_rkt2_qty_1",
+			"mpd_pl_rkt2_qty_2",
+			"mpd_pl_rkt2_type",
+			"mpd_pl_rkt3_qty_1",
+			"mpd_pl_rkt3_qty_2",
+			"mpd_pl_rkt3_type",
+			"mpd_pl_rkt4_qty_1",
+			"mpd_pl_rkt4_qty_2",
+			"mpd_pl_rkt4_type",
+			"mpd_pl_rkt5_qty_1",
+			"mpd_pl_rkt5_qty_2",
+			"mpd_pl_rkt5_type",
+			"mpd_pl_sight_acq",
+			"mpd_pl_wpn_acq",
+			"mpd_pl_wpn_ata_sel",
+			"mpd_pl_wpn_gun_sel",
+			"mpd_pl_wpn_hf_type",
+			"mpd_pl_wpn_msl_sel",
+			"mpd_pl_wpn_rkt_sel",
+			"mpd_pl_wpn_sel",
+			"mpd_pl_rkt1",
+			"mpd_pl_rkt2",
+			"mpd_pl_rkt3",
+			"mpd_pl_rkt4",
+			"pr_wca_pg",
+			"pr_wca_1",
+			"pr_wca_2",
+			"pr_wca_3",
+			"pr_wca_4",
+			"pr_wca_5",
+			"pr_wca_6",
+			"pr_wca_7",
+			"pr_wca_8",
+			"pr_wca_9",
+			"pr_wca_10",
+			"pr_wca_11",
+			"pr_wca_12",
+			"pr_wca_13",
+			"pr_wca_14",
+			"pr_wca_15",
+			"pr_wca_16",
+			"pr_wca_17",
+			"pr_wca_18",
+			"pr_wca_19",
+			"pr_wca_20",
+			"pr_wca_21",
+			"pr_wca_22",
+			"pr_wca_23",
+			"pr_wca_24",
+			"pr_wca_25",
+			"pr_wca_26",
+			"pl_wca_pg",
+			"pl_wca_1",
+			"pl_wca_2",
+			"pl_wca_3",
+			"pl_wca_4",
+			"pl_wca_5",
+			"pl_wca_6",
+			"pl_wca_7",
+			"pl_wca_8",
+			"pl_wca_9",
+			"pl_wca_10",
+			"pl_wca_11",
+			"pl_wca_12",
+			"pl_wca_13",
+			"pl_wca_14",
+			"pl_wca_15",
+			"pl_wca_16",
+			"pl_wca_17",
+			"pl_wca_18",
+			"pl_wca_19",
+			"pl_wca_20",
+			"pl_wca_21",
+			"pl_wca_22",
+			"pl_wca_23",
+			"pl_wca_24",
+			"pl_wca_25",
+			"pl_wca_26",
+			"gr_wca_pg",
+			"gr_wca_1",
+			"gr_wca_2",
+			"gr_wca_3",
+			"gr_wca_4",
+			"gr_wca_5",
+			"gr_wca_6",
+			"gr_wca_7",
+			"gr_wca_8",
+			"gr_wca_9",
+			"gr_wca_10",
+			"gr_wca_11",
+			"gr_wca_12",
+			"gr_wca_13",
+			"gr_wca_14",
+			"gr_wca_15",
+			"gr_wca_16",
+			"gr_wca_17",
+			"gr_wca_18",
+			"gr_wca_19",
+			"gr_wca_20",
+			"gr_wca_21",
+			"gr_wca_22",
+			"gr_wca_23",
+			"gr_wca_24",
+			"gr_wca_25",
+			"gr_wca_26",
+			"gl_wca_pg",
+			"gl_wca_1",
+			"gl_wca_2",
+			"gl_wca_3",
+			"gl_wca_4",
+			"gl_wca_5",
+			"gl_wca_6",
+			"gl_wca_7",
+			"gl_wca_8",
+			"gl_wca_9",
+			"gl_wca_10",
+			"gl_wca_11",
+			"gl_wca_12",
+			"gl_wca_13",
+			"gl_wca_14",
+			"gl_wca_15",
+			"gl_wca_16",
+			"gl_wca_17",
+			"gl_wca_18",
+			"gl_wca_19",
+			"gl_wca_20",
+			"gl_wca_21",
+			"gl_wca_22",
+			"gl_wca_23",
+			"gl_wca_24",
+			"gl_wca_25",
+			"gl_wca_26",
+			"mpd_pr_flt_balt1",
+			"mpd_pr_flt_balt2",
+			"mpd_pr_flt_balt3",
+			"mpd_pr_flt_balt4",
+			"mpd_pr_flt_bank",
+			"mpd_pr_flt_gspd1",
+			"mpd_pr_flt_gspd2",
+			"mpd_pr_flt_gspd3",
+			"mpd_pr_flt_hdg",
+			"mpd_pr_flt_hdg2",
+			"mpd_pr_flt_hi",
+			"mpd_pr_flt_hor",
+			"mpd_pr_flt_lo",
+			"mpd_pr_flt_n20c",
+			"mpd_pr_flt_p20c",
+			"mpd_pr_flt_ralt1",
+			"mpd_pr_flt_ralt2",
+			"mpd_pr_flt_ralt3",
+			"mpd_pr_flt_raltb",
+			"mpd_pr_flt_rdr",
+			"mpd_pr_flt_slip",
+			"mpd_pr_flt_spd1",
+			"mpd_pr_flt_spd2",
+			"mpd_pr_flt_spd3",
+			"mpd_pr_flt_trq1",
+			"mpd_pr_flt_trq2",
+			"mpd_pr_flt_trq3",
+			"mpd_pr_flt_ttg1",
+			"mpd_pr_flt_ttg2",
+			"mpd_pr_flt_ttg3",
+			"mpd_pr_flt_ttg4",
+			"mpd_pr_flt_turn",
+			"mpd_pr_flt_vsi",
+			"mpd_pr_flt_vvi",
+			"mpd_pr_flt_w",
+			"mpd_pr_flt_wbear",
+			"mpd_pr_flt_wp",
+			"mpd_pr_flt_wr1",
+			"mpd_pr_flt_wr2",
+			"mpd_pr_flt_wr3",
+			"mpd_pl_flt_balt1",
+			"mpd_pl_flt_balt2",
+			"mpd_pl_flt_balt3",
+			"mpd_pl_flt_balt4",
+			"mpd_pl_flt_bank",
+			"mpd_pl_flt_gspd1",
+			"mpd_pl_flt_gspd2",
+			"mpd_pl_flt_gspd3",
+			"mpd_pl_flt_hdg",
+			"mpd_pl_flt_hdg2",
+			"mpd_pl_flt_hi",
+			"mpd_pl_flt_hor",
+			"mpd_pl_flt_lo",
+			"mpd_pl_flt_n20c",
+			"mpd_pl_flt_p20c",
+			"mpd_pl_flt_ralt1",
+			"mpd_pl_flt_ralt2",
+			"mpd_pl_flt_ralt3",
+			"mpd_pl_flt_raltb",
+			"mpd_pl_flt_rdr",
+			"mpd_pl_flt_slip",
+			"mpd_pl_flt_spd1",
+			"mpd_pl_flt_spd2",
+			"mpd_pl_flt_spd3",
+			"mpd_pl_flt_trq1",
+			"mpd_pl_flt_trq2",
+			"mpd_pl_flt_trq3",
+			"mpd_pl_flt_ttg1",
+			"mpd_pl_flt_ttg2",
+			"mpd_pl_flt_ttg3",
+			"mpd_pl_flt_ttg4",
+			"mpd_pl_flt_turn",
+			"mpd_pl_flt_vsi",
+			"mpd_pl_flt_vvi",
+			"mpd_pl_flt_w",
+			"mpd_pl_flt_wbear",
+			"mpd_pl_flt_wp",
+			"mpd_pl_flt_wr1",
+			"mpd_pl_flt_wr2",
+			"mpd_pl_flt_wr3",
+			"mpd_gl_flt_balt1",
+			"mpd_gl_flt_balt2",
+			"mpd_gl_flt_balt3",
+			"mpd_gl_flt_balt4",
+			"mpd_gl_flt_bank",
+			"mpd_gl_flt_gspd1",
+			"mpd_gl_flt_gspd2",
+			"mpd_gl_flt_gspd3",
+			"mpd_gl_flt_hdg",
+			"mpd_gl_flt_hdg2",
+			"mpd_gl_flt_hi",
+			"mpd_gl_flt_hor",
+			"mpd_gl_flt_lo",
+			"mpd_gl_flt_n20c",
+			"mpd_gl_flt_p20c",
+			"mpd_gl_flt_ralt1",
+			"mpd_gl_flt_ralt2",
+			"mpd_gl_flt_ralt3",
+			"mpd_gl_flt_raltb",
+			"mpd_gl_flt_rdr",
+			"mpd_gl_flt_slip",
+			"mpd_gl_flt_spd1",
+			"mpd_gl_flt_spd2",
+			"mpd_gl_flt_spd3",
+			"mpd_gl_flt_trq1",
+			"mpd_gl_flt_trq2",
+			"mpd_gl_flt_trq3",
+			"mpd_gl_flt_ttg1",
+			"mpd_gl_flt_ttg2",
+			"mpd_gl_flt_ttg3",
+			"mpd_gl_flt_ttg4",
+			"mpd_gl_flt_turn",
+			"mpd_gl_flt_vsi",
+			"mpd_gl_flt_vvi",
+			"mpd_gl_flt_w",
+			"mpd_gl_flt_wbear",
+			"mpd_gl_flt_wp",
+			"mpd_gl_flt_wr1",
+			"mpd_gl_flt_wr2",
+			"mpd_gl_flt_wr3",
+			"mpd_gr_flt_balt1",
+			"mpd_gr_flt_balt2",
+			"mpd_gr_flt_balt3",
+			"mpd_gr_flt_balt4",
+			"mpd_gr_flt_bank",
+			"mpd_gr_flt_gspd1",
+			"mpd_gr_flt_gspd2",
+			"mpd_gr_flt_gspd3",
+			"mpd_gr_flt_hdg",
+			"mpd_gr_flt_hdg2",
+			"mpd_gr_flt_hi",
+			"mpd_gr_flt_hor",
+			"mpd_gr_flt_lo",
+			"mpd_gr_flt_n20c",
+			"mpd_gr_flt_p20c",
+			"mpd_gr_flt_ralt1",
+			"mpd_gr_flt_ralt2",
+			"mpd_gr_flt_ralt3",
+			"mpd_gr_flt_raltb",
+			"mpd_gr_flt_rdr",
+			"mpd_gr_flt_slip",
+			"mpd_gr_flt_spd1",
+			"mpd_gr_flt_spd2",
+			"mpd_gr_flt_spd3",
+			"mpd_gr_flt_trq1",
+			"mpd_gr_flt_trq2",
+			"mpd_gr_flt_trq3",
+			"mpd_gr_flt_ttg1",
+			"mpd_gr_flt_ttg2",
+			"mpd_gr_flt_ttg3",
+			"mpd_gr_flt_ttg4",
+			"mpd_gr_flt_turn",
+			"mpd_gr_flt_vsi",
+			"mpd_gr_flt_vvi",
+			"mpd_gr_flt_w",
+			"mpd_gr_flt_wbear",
+			"mpd_gr_flt_wp",
+			"mpd_gr_flt_wr1",
+			"mpd_gr_flt_wr2",
+			"mpd_gr_flt_wr3",
+			"mpd_pr_flt_dir1",
+			"mpd_pr_flt_dir2",
+			"mpd_pr_flt_dir3",
+			"mpd_pr_flt_dirb",
+			"mpd_pl_flt_dir1",
+			"mpd_pl_flt_dir2",
+			"mpd_pl_flt_dir3",
+			"mpd_pl_flt_dirb",
+			"mpd_gr_flt_dir1",
+			"mpd_gr_flt_dir2",
+			"mpd_gr_flt_dir3",
+			"mpd_gr_flt_dirb",
+			"mpd_gl_flt_dir1",
+			"mpd_gl_flt_dir2",
+			"mpd_gl_flt_dir3",
+			"mpd_gl_flt_dirb",
+			"mpd_pr_eng_1npb",
+			"mpd_pr_eng_1tgt_1",
+			"mpd_pr_eng_1tgt1",
+			"mpd_pr_eng_1tgt2",
+			"mpd_pr_eng_1tgt3",
+			"mpd_pr_eng_1tgtb",
+			"mpd_pr_eng_1tgtbg",
+			"mpd_pr_eng_2npb",
+			"mpd_pr_eng_2tgt_1",
+			"mpd_pr_eng_2tgt1",
+			"mpd_pr_eng_2tgt2",
+			"mpd_pr_eng_2tgt3",
+			"mpd_pr_eng_2tgtb",
+			"mpd_pr_eng_2tgtbg",
+			"mpd_pr_eng_1trq1",
+			"mpd_pr_eng_1trq2",
+			"mpd_pr_eng_1trqb",
+			"mpd_pr_eng_1trqbg",
+			"mpd_pr_eng_2trq1",
+			"mpd_pr_eng_2trq2",
+			"mpd_pr_eng_2trqb",
+			"mpd_pr_eng_2trqbg",
+			"mpd_pr_eng_ltrqbar",
+			"mpd_pr_eng_accpsi1",
+			"mpd_pr_eng_accpsi2",
+			"mpd_pr_eng_accpsi3",
+			"mpd_pr_eng_accpsi4",
+			"mpd_pr_eng_utipsi1",
+			"mpd_pr_eng_utipsi2",
+			"mpd_pr_eng_utipsi3",
+			"mpd_pr_eng_utipsi4",
+			"mpd_pr_eng_pripsi1",
+			"mpd_pr_eng_pripsi2",
+			"mpd_pr_eng_pripsi3",
+			"mpd_pr_eng_pripsi4",
+			"mpd_pr_eng_e1ng1",
+			"mpd_pr_eng_e1ng2",
+			"mpd_pr_eng_e1ng3",
+			"mpd_pr_eng_e2ng1",
+			"mpd_pr_eng_e2ng2",
+			"mpd_pr_eng_e2ng3",
+			"mpd_pr_eng_e1np1",
+			"mpd_pr_eng_e1np2",
+			"mpd_pr_eng_e1np3",
+			"mpd_pr_eng_e2np1",
+			"mpd_pr_eng_e2np2",
+			"mpd_pr_eng_e2np3",
+			"mpd_pr_eng_oil1psi1",
+			"mpd_pr_eng_oil1psi2",
+			"mpd_pr_eng_oil1psi3",
+			"mpd_pr_eng_oil2psi1",
+			"mpd_pr_eng_oil2psi2",
+			"mpd_pr_eng_oil2psi3",
+			"mpd_pr_eng_rrpm1",
+			"mpd_pr_eng_rrpm2",
+			"mpd_pr_eng_rrpm3",
+			"mpd_pr_eng_wca1",
+			"mpd_pr_eng_wca2",
+			"mpd_pr_eng_wca3",
+			"mpd_pr_eng_wca4",
+			"mpd_pr_eng_wca5",
+			"mpd_pr_eng_wca6",
+			"mpd_pr_eng_wca7",
+			"mpd_pr_eng_wca8",
+			"mpd_pr_eng_wca9",
+			"mpd_pr_eng_wca10",
+			"mpd_pr_eng_wca11",
+			"mpd_pr_eng_wca12",
+			"mpd_pr_eng_ifb",
+			"mpd_pr_eng_ofb",
+			"mpd_pr_eng_rtrrpmb",
+			"mpd_pr_eng_hpa",
+			"mpd_pr_eng_hpp",
+			"mpd_pr_eng_hpu",
+			"mpd_pr_eng_rbe1ng",
+			"mpd_pr_eng_rbe1np",
+			"mpd_pr_eng_rbe1op",
+			"mpd_pr_eng_rbe2ng",
+			"mpd_pr_eng_rbe2np",
+			"mpd_pr_eng_rbe2op",
+			"mpd_pr_eng_1accpsi1",
+			"mpd_pr_eng_1accpsi2",
+			"mpd_pr_eng_1accpsi3",
+			"mpd_pr_eng_1accpsi4",
+			"mpd_pr_eng_1utipsi1",
+			"mpd_pr_eng_1utipsi2",
+			"mpd_pr_eng_1utipsi3",
+			"mpd_pr_eng_1utipsi4",
+			"mpd_pr_eng_1pripsi1",
+			"mpd_pr_eng_1pripsi2",
+			"mpd_pr_eng_1pripsi3",
+			"mpd_pr_eng_1pripsi4",
+			"mpd_pl_eng_1npb",
+			"mpd_pl_eng_1tgt_1",
+			"mpd_pl_eng_1tgt1",
+			"mpd_pl_eng_1tgt2",
+			"mpd_pl_eng_1tgt3",
+			"mpd_pl_eng_1tgtb",
+			"mpd_pl_eng_1tgtbg",
+			"mpd_pl_eng_2npb",
+			"mpd_pl_eng_2tgt_1",
+			"mpd_pl_eng_2tgt1",
+			"mpd_pl_eng_2tgt2",
+			"mpd_pl_eng_2tgt3",
+			"mpd_pl_eng_2tgtb",
+			"mpd_pl_eng_2tgtbg",
+			"mpd_pl_eng_1trq1",
+			"mpd_pl_eng_1trq2",
+			"mpd_pl_eng_1trqb",
+			"mpd_pl_eng_1trqbg",
+			"mpd_pl_eng_2trq1",
+			"mpd_pl_eng_2trq2",
+			"mpd_pl_eng_2trqb",
+			"mpd_pl_eng_2trqbg",
+			"mpd_pl_eng_ltrqbar",
+			"mpd_pl_eng_accpsi1",
+			"mpd_pl_eng_accpsi2",
+			"mpd_pl_eng_accpsi3",
+			"mpd_pl_eng_accpsi4",
+			"mpd_pl_eng_utipsi1",
+			"mpd_pl_eng_utipsi2",
+			"mpd_pl_eng_utipsi3",
+			"mpd_pl_eng_utipsi4",
+			"mpd_pl_eng_pripsi1",
+			"mpd_pl_eng_pripsi2",
+			"mpd_pl_eng_pripsi3",
+			"mpd_pl_eng_pripsi4",
+			"mpd_pl_eng_e1ng1",
+			"mpd_pl_eng_e1ng2",
+			"mpd_pl_eng_e1ng3",
+			"mpd_pl_eng_e2ng1",
+			"mpd_pl_eng_e2ng2",
+			"mpd_pl_eng_e2ng3",
+			"mpd_pl_eng_e1np1",
+			"mpd_pl_eng_e1np2",
+			"mpd_pl_eng_e1np3",
+			"mpd_pl_eng_e2np1",
+			"mpd_pl_eng_e2np2",
+			"mpd_pl_eng_e2np3",
+			"mpd_pl_eng_oil1psi1",
+			"mpd_pl_eng_oil1psi2",
+			"mpd_pl_eng_oil1psi3",
+			"mpd_pl_eng_oil2psi1",
+			"mpd_pl_eng_oil2psi2",
+			"mpd_pl_eng_oil2psi3",
+			"mpd_pl_eng_rrpm1",
+			"mpd_pl_eng_rrpm2",
+			"mpd_pl_eng_rrpm3",
+			"mpd_pl_eng_wca1",
+			"mpd_pl_eng_wca2",
+			"mpd_pl_eng_wca3",
+			"mpd_pl_eng_wca4",
+			"mpd_pl_eng_wca5",
+			"mpd_pl_eng_wca6",
+			"mpd_pl_eng_wca7",
+			"mpd_pl_eng_wca8",
+			"mpd_pl_eng_wca9",
+			"mpd_pl_eng_wca10",
+			"mpd_pl_eng_wca11",
+			"mpd_pl_eng_wca12",
+			"mpd_pl_eng_ifb",
+			"mpd_pl_eng_ofb",
+			"mpd_pl_eng_rtrrpmb",
+			"mpd_pl_eng_hpa",
+			"mpd_pl_eng_hpp",
+			"mpd_pl_eng_hpu",
+			"mpd_pl_eng_rbe1ng",
+			"mpd_pl_eng_rbe1np",
+			"mpd_pl_eng_rbe1op",
+			"mpd_pl_eng_rbe2ng",
+			"mpd_pl_eng_rbe2np",
+			"mpd_pl_eng_rbe2op",
+			"mpd_pl_eng_1accpsi1",
+			"mpd_pl_eng_1accpsi2",
+			"mpd_pl_eng_1accpsi3",
+			"mpd_pl_eng_1accpsi4",
+			"mpd_pl_eng_1utipsi1",
+			"mpd_pl_eng_1utipsi2",
+			"mpd_pl_eng_1utipsi3",
+			"mpd_pl_eng_1utipsi4",
+			"mpd_pl_eng_1pripsi1",
+			"mpd_pl_eng_1pripsi2",
+			"mpd_pl_eng_1pripsi3",
+			"mpd_pl_eng_1pripsi4",
+			"p_ufd_clk1",
+			"p_ufd_clk2",
+			"p_ufd_clk3",
+			"p_ufd_clk4",
+			"p_ufd_clk5",
+			"p_ufd_clk6",
+			"p_ufd_fl1",
+			"p_ufd_fl2",
+			"p_ufd_fl3",
+			"p_ufd_fl4",
+			"p_ufd_adv1",
+			"p_ufd_adv2",
+			"p_ufd_adv3",
+			"p_ufd_adv4",
+			"p_ufd_adv5",
+			"p_ufd_cau1",
+			"p_ufd_cau2",
+			"p_ufd_cau3",
+			"p_ufd_cau4",
+			"p_ufd_cau5",
+			"p_ufd_wrn1",
+			"p_ufd_wrn2",
+			"p_ufd_wrn3",
+			"p_ufd_wrn4",
+			"p_ufd_wrn5",
+			"g_ufd_clk1",
+			"g_ufd_clk2",
+			"g_ufd_clk3",
+			"g_ufd_clk4",
+			"g_ufd_clk5",
+			"g_ufd_clk6",
+			"g_ufd_fl1",
+			"g_ufd_fl2",
+			"g_ufd_fl3",
+			"g_ufd_fl4",
+			"g_ufd_adv1",
+			"g_ufd_adv2",
+			"g_ufd_adv3",
+			"g_ufd_adv4",
+			"g_ufd_adv5",
+			"g_ufd_cau1",
+			"g_ufd_cau2",
+			"g_ufd_cau3",
+			"g_ufd_cau4",
+			"g_ufd_cau5",
+			"g_ufd_wrn1",
+			"g_ufd_wrn2",
+			"g_ufd_wrn3",
+			"g_ufd_wrn4",
+			"g_ufd_wrn5",
+			///NEWTSD///
+			"mpd_pr_tsd_dist1",
+			"mpd_pr_tsd_imap",
+			"mpd_pr_tsd_map",
+			"mpd_pr_tsd_phase",
+			///LMPDTSD///
+			"mpd_pl_tsd_dist1",
+			"mpd_pl_tsd_imap",
+			"mpd_pl_tsd_map",
+			"mpd_pl_tsd_phase",
+			////LMPDOBJS///
 			"mpd_gr_obj1",
 			"mpd_gr_obj2",
 			"mpd_gr_obj3",
@@ -9855,12 +9671,7 @@ initPhase=0;
 			"hdam_tr",
 			"hdam_rtr",
 			"skin_tailboom_tear"
-};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 2;
-		irScanRangeMax=10000;
-		irScanRangeMin=2000;
+		};
 		class Turrets
 		{
 			class MainTurret: NewTurret
@@ -9871,17 +9682,19 @@ initPhase=0;
 				primaryGunner = 1;
 				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
 				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
+				memoryPointsGetInGunner = "pos gunner";
+				memoryPointsGetInGunnerDir = "pos gunner dir";
+				memoryPointGun = "kulas";
 				memoryPointGunnerOptics = "gunnerview";
 				body = "mainTurret";
 				gun = "mainGun";
+				gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+				gunnerOpticsColor[] = {1,1,1,1};
 				animationsourcebody = "tads_tur";
 				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
+				minElev = -60; 
+				maxElev = 30;
+				initElev= 0;
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
@@ -9920,15 +9733,13 @@ initPhase=0;
 						passThrough = 1;
 					};
 				};
-			    gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-				gunnerOpticsColor[] = {1,1,1,1};
 				class OpticsIn
 				{
 					class Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 						directionStabilized = 1;
-						stabilizedInAxes = 3;
+						//stabilizedInAxes = 3;
 						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
@@ -10005,5566 +9816,10 @@ initPhase=0;
 			};
 		};
 	};
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////BLOCKII+////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-	class fza_ah64d_b2exp: fza_ah64base
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64D Block II+";
-		model="\fza_ah64_US\fza_ah64d_b3.p3d";
-		ejectDeadCargo=0;
-		//picture="\mas_ah64\ah64_apic.paa";
-		//icon ="\mas_ah64\ah64_aicn.paa";
-		
-		nameSound="veh_Helicopter";
-		//insideSoundCoef = 0.006;
-		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1; 
-		audible=4;
-		camouflage=10;
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114l_1",
-"rail1_114l_2",
-"rail1_114l_3",
-"rail1_114l_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114l_1",
-"rail2_114l_2",
-"rail2_114l_3",
-"rail2_114l_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114l_1",
-"rail3_114l_2",
-"rail3_114l_3",
-"rail3_114l_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114l_1",
-"rail4_114l_2",
-"rail4_114l_3",
-"rail4_114l_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-			"mpd_pl_obj1",
-			"mpd_pl_obj2",
-			"mpd_pl_obj3",
-			"mpd_pl_obj4",
-			"mpd_pl_obj5",
-			"mpd_pl_obj6",
-			"mpd_pl_obj7",
-			"mpd_pl_obj8",
-			"mpd_pl_obj9",
-			"mpd_pl_obj10",
-			"mpd_pl_obj11",
-			"mpd_pl_obj12",
-			"mpd_pl_obj13",
-			"mpd_pl_obj14",
-			"mpd_pl_obj15",
-			"mpd_pl_obj16",
-			"mpd_pl_obj17",
-			"mpd_pl_obj18",
-			"mpd_pl_obj19",
-			"mpd_pl_obj20",
-			"mpd_pl_obj21",
-			"mpd_pl_obj22",
-			"mpd_pl_obj23",
-			"mpd_pl_obj24",
-			"mpd_pl_obj25",
-			"mpd_pl_obj26",
-			"mpd_pl_obj27",
-			"mpd_pl_obj28",
-			"mpd_pl_obj29",
-			"mpd_pl_obj30",
-			"mpd_pl_obj31",
-			"mpd_pl_obj32",
-"pl_mpd_back",
-"pr_mpd_back",
-"pl_aft_fuel_n0",
-"pl_aft_fuel_n1",
-"pl_aft_fuel_n2",
-"pl_aft_fuel_n3",
-"pl_aft_line",
-"pl_flow1_fuel_n0",
-"pl_flow1_fuel_n1",
-"pl_flow1_fuel_n2",
-"pl_flow2_fuel_n0",
-"pl_flow2_fuel_n1",
-"pl_flow2_fuel_n2",
-"pl_fwd_fuel_n0",
-"pl_fwd_fuel_n1",
-"pl_fwd_fuel_n2",
-"pl_fwd_fuel_n3",
-"pl_fwd_line",
-"pl_iafs_fuel_n0",
-"pl_iafs_fuel_n1",
-"pl_iafs_fuel_n2",
-"pl_iend_fuel_n0",
-"pl_iend_fuel_n1",
-"pl_iend_fuel_n2",
-"pl_int_fuel_n0",
-"pl_int_fuel_n1",
-"pl_int_fuel_n2",
-"pl_int_fuel_n3",
-"pl_tend_fuel_n0",
-"pl_tend_fuel_n1",
-"pl_tend_fuel_n2",
-"pl_tflow_fuel_n0",
-"pl_tflow_fuel_n1",
-"pl_tflow_fuel_n2",
-"pl_tot_fuel_n0",
-"pl_tot_fuel_n1",
-"pl_tot_fuel_n2",
-"pl_tot_fuel_n3",
-"pl_waux1",
-"pl_waux2",
-"pl_waux3",
-"pl_waux4",
-"pr_aft_fuel_n0",
-"pr_aft_fuel_n1",
-"pr_aft_fuel_n2",
-"pr_aft_fuel_n3",
-"pr_aft_line",
-"pr_flow1_fuel_n0",
-"pr_flow1_fuel_n1",
-"pr_flow1_fuel_n2",
-"pr_flow2_fuel_n0",
-"pr_flow2_fuel_n1",
-"pr_flow2_fuel_n2",
-"pr_fwd_fuel_n0",
-"pr_fwd_fuel_n1",
-"pr_fwd_fuel_n2",
-"pr_fwd_fuel_n3",
-"pr_fwd_line",
-"pr_iafs_fuel_n0",
-"pr_iafs_fuel_n1",
-"pr_iafs_fuel_n2",
-"pr_iend_fuel_n0",
-"pr_iend_fuel_n1",
-"pr_iend_fuel_n2",
-"pr_int_fuel_n0",
-"pr_int_fuel_n1",
-"pr_int_fuel_n2",
-"pr_int_fuel_n3",
-"pr_tend_fuel_n0",
-"pr_tend_fuel_n1",
-"pr_tend_fuel_n2",
-"pr_tflow_fuel_n0",
-"pr_tflow_fuel_n1",
-"pr_tflow_fuel_n2",
-"pr_tot_fuel_n0",
-"pr_tot_fuel_n1",
-"pr_tot_fuel_n2",
-"pr_tot_fuel_n3",
-"pr_waux1",
-"pr_waux2",
-"pr_waux3",
-"pr_waux4",
-"pr_iafs_line",
-"pl_iafs_line",
-"pr_tsd_end1",
-"pr_tsd_end2",
-"pr_tsd_end3",
-"pr_tsd_eta1",
-"pr_tsd_eta2",
-"pr_tsd_eta3",
-"pr_tsd_eta4",
-"pr_tsd_hdg1",
-"pr_tsd_hdg2",
-"pr_tsd_hdg3",
-"pr_tsd_rng1",
-"pr_tsd_rng2",
-"pr_tsd_rng3",
-"pr_tsd_scale1",
-"pr_tsd_scale2",
-"pr_tsd_typ1",
-"pr_tsd_typ2",
-"pr_tsd_typ3",
-"pr_tsd_winddir1",
-"pr_tsd_winddir2",
-"pr_tsd_winddir3",
-"pr_tsd_windspd1",
-"pr_tsd_windspd2",
-"pl_tsd_end1",
-"pl_tsd_end2",
-"pl_tsd_end3",
-"pl_tsd_eta1",
-"pl_tsd_eta2",
-"pl_tsd_eta3",
-"pl_tsd_eta4",
-"pl_tsd_hdg1",
-"pl_tsd_hdg2",
-"pl_tsd_hdg3",
-"pl_tsd_rng1",
-"pl_tsd_rng2",
-"pl_tsd_rng3",
-"pl_tsd_scale1",
-"pl_tsd_scale2",
-"pl_tsd_typ1",
-"pl_tsd_typ2",
-"pl_tsd_typ3",
-"pl_tsd_winddir1",
-"pl_tsd_winddir2",
-"pl_tsd_winddir3",
-"pl_tsd_windspd1",
-"pl_tsd_windspd2",
-"gl_tsd_end1",
-"gl_tsd_end2",
-"gl_tsd_end3",
-"gl_tsd_eta1",
-"gl_tsd_eta2",
-"gl_tsd_eta3",
-"gl_tsd_eta4",
-"gl_tsd_hdg1",
-"gl_tsd_hdg2",
-"gl_tsd_hdg3",
-"gl_tsd_rng1",
-"gl_tsd_rng2",
-"gl_tsd_rng3",
-"gl_tsd_scale1",
-"gl_tsd_scale2",
-"gl_tsd_typ1",
-"gl_tsd_typ2",
-"gl_tsd_typ3",
-"gl_tsd_winddir1",
-"gl_tsd_winddir2",
-"gl_tsd_winddir3",
-"gl_tsd_windspd1",
-"gl_tsd_windspd2",
-"gr_tsd_end1",
-"gr_tsd_end2",
-"gr_tsd_end3",
-"gr_tsd_eta1",
-"gr_tsd_eta2",
-"gr_tsd_eta3",
-"gr_tsd_eta4",
-"gr_tsd_hdg1",
-"gr_tsd_hdg2",
-"gr_tsd_hdg3",
-"gr_tsd_rng1",
-"gr_tsd_rng2",
-"gr_tsd_rng3",
-"gr_tsd_scale1",
-"gr_tsd_scale2",
-"gr_tsd_typ1",
-"gr_tsd_typ2",
-"gr_tsd_typ3",
-"gr_tsd_winddir1",
-"gr_tsd_winddir2",
-"gr_tsd_winddir3",
-"gr_tsd_windspd1",
-"gr_tsd_windspd2",
-"mpd_pl_chaff_qty_1",
-"mpd_pl_chaff_qty_2",
-"mpd_pl_flare1_qty_1",
-"mpd_pl_flare1_qty_2",
-"mpd_pl_flare2_qty_1",
-"mpd_pl_flare2_qty_2",
-"mpd_pl_gun_ammo_1",
-"mpd_pl_gun_ammo_2",
-"mpd_pl_gun_ammo_3",
-"mpd_pl_gun_ammo_4",
-"mpd_pl_gun_burst_1",
-"mpd_pl_gun_burst_2",
-"mpd_pl_gun_burst_3",
-"mpd_pl_gun_burst_4",
-"mpd_pl_gun_burst_5",
-"mpd_pl_gun_sel",
-"mpd_pl_hf_bracket",
-"mpd_pl_hf_desig",
-"mpd_pl_hf_salt",
-"mpd_pl_hf_traj",
-"mpd_pl_hf1_l1",
-"mpd_pl_hf1_l2",
-"mpd_pl_hf1_r1",
-"mpd_pl_hf1_r2",
-"mpd_pl_hf2_l1",
-"mpd_pl_hf2_l2",
-"mpd_pl_hf2_r1",
-"mpd_pl_hf2_r2",
-"mpd_pl_hf3_l1",
-"mpd_pl_hf3_l2",
-"mpd_pl_hf3_r1",
-"mpd_pl_hf3_r2",
-"mpd_pl_hf4_l1",
-"mpd_pl_hf4_l2",
-"mpd_pl_hf4_r1",
-"mpd_pl_hf4_r2",
-"mpd_pl_rg_base",
-"mpd_pl_rg_bracket",
-"mpd_pl_rkt_burst",
-"mpd_pl_rkt_sel_type_1",
-"mpd_pl_rkt_sel_type_2",
-"mpd_pl_rkt_sel_type_3",
-"mpd_pl_rkt_sel_type_4",
-"mpd_pl_rkt_tot_1",
-"mpd_pl_rkt_tot_2",
-"mpd_pl_rkt1_qty_1",
-"mpd_pl_rkt1_qty_2",
-"mpd_pl_rkt1_type",
-"mpd_pl_rkt2_qty_1",
-"mpd_pl_rkt2_qty_2",
-"mpd_pl_rkt2_type",
-"mpd_pl_rkt3_qty_1",
-"mpd_pl_rkt3_qty_2",
-"mpd_pl_rkt3_type",
-"mpd_pl_rkt4_qty_1",
-"mpd_pl_rkt4_qty_2",
-"mpd_pl_rkt4_type",
-"mpd_pl_rkt5_qty_1",
-"mpd_pl_rkt5_qty_2",
-"mpd_pl_rkt5_type",
-"mpd_pl_sight_acq",
-"mpd_pl_wpn_acq",
-"mpd_pl_wpn_ata_sel",
-"mpd_pl_wpn_gun_sel",
-"mpd_pl_wpn_hf_type",
-"mpd_pl_wpn_msl_sel",
-"mpd_pl_wpn_rkt_sel",
-"mpd_pl_wpn_sel",
-"mpd_pl_rkt1",
-"mpd_pl_rkt2",
-"mpd_pl_rkt3",
-"mpd_pl_rkt4",
-			"vuit2"
-};
-		transportSoldier=2;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		accuracy=0.5;
-		simulation=helicopterRTD;
-		driverAction = "fza_ah64_pilot";
-		enableSweep=1;
-		gunnerUsesPilotView=0;
-		crew="B_Helipilot_F";
-		animated=1;
-		driveropticsmodel = "\fza_ah64_US\fza_ah64_mpnvs";
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {0.231,0.914,0.184,1};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
-		//irScanRange=8000;
-		laserScanner=1;
-		//fuelCapacity=110;
-		nightVision=1;
-		mainRotorSpeed = 1;
-		//threat[] VSoft, VArmor, VAir 
-		threat[]={0.8,1,0.9};
-		//Armor values
-		armor=120;
-		armorStructural=5; // structural dammage
-		armorHull=1.0;
-		armorEngine=1.5;
-		armorAvionics=1.0;
-		armorVRotor=1.0;
-		armorHRotor=1.5;
-		armorMissiles=1.0;
-		armorGlass=1.0;
-		//unitinfotype="unitinfoapc";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
-		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		//ARMA CONFIG POINTS
-		selectionHRotorStill = "velka vrtule staticka";
-		selectionHRotorMove = "velka vrtule blur";
-		selectionVRotorStill = "mala vrtule staticka";
-		selectionVRotorMove = "mala vrtule blur";
-		memoryPointLMissile = "l strela";
-		memoryPointRMissile = "p strela";
-		memoryPointLRocket = "l raketa";
-		memoryPointRRocket = "p raketa";
-		gunAimDown = 0;
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
-		memoryPointsGetInCargo = "pos cargo";
-		memoryPointsGetInCargoDir = "pos cargo dir";
-		memorypointcm[] = {"flare_1_beg", "flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end", "flare_2_end"};
-		weapons[] = {"fza_ah64_flare30","fza_ah64_chaff30"};
-		magazines[] = {"fza_ah64_flare30","fza_ah64_chaff30"};
-		radartype = 4;
-		lockdetectionsystem = 8;
-		incommingmissliedetectionsystem = 16;
-		flarevelocity = 100;
-		envelope[]=
-		{
-		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
-		};
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114l_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-		class Library
-		{
-			libTextDesc = "The AH-64D Block II+ is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
-		};
-		class ViewPilot
-		{
-			initFov=0.700000;
-			minFov=0.400000;
-			maxFov=0.850000;
-			initAngleX=0;
-			minAngleX=-75;
-			maxAngleX=50;
-			initAngleY=0;
-			minAngleY=-150;
-			maxAngleY=150;
-		};
-		class ViewOptics
-		{
-			initAngleX=0;
-			minAngleX=-120;
-			maxAngleX=120;
-			initAngleY=0;
-			minAngleY=-60;
-			maxAngleY=11;
-			initFov=0.7;
-			minFov=0.01;
-			maxFov=0.7;
-			thermalmode[] = {0};
-			visionmode[] = {"Ti","NVG"};
-		};
-		class AnimationSources
-		{
-		class pnvs
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class pnvs_vert
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class m230_recoil
-		{
-			source = "reload";
-			weapon = fza_m230;
-		};
-		//EXPERIMENTAL//
-		class mainTurret
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class maingun
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		//ENDEXPERIMENTAL//
-		class swashplate_up_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class mr_act_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class trsw
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade2_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade3_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade4_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-class blade1_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade1_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade2_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade2_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade3_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade3_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade4_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade4_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-//////weapons///////////
-		class pod_m260_1
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_2
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_3
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_4
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_1
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_2
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_3
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_4
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		////////RADAR///////
-		class longbow
-		{
-			source = "user";
-			animPeriod = 4;
-			initPhase=0;
-		};
-			////////////////////////////////
-			///////////COCKPIT//////////////
-			////////////////////////////////
-			class mpd_pl_obj1_v
-            {
-				source = "user";
-				animPeriod = 0.001;
-				initPhase=0;
-            };
-			class mpd_pl_obj1_h
-            {
-				source = "user";
-				animPeriod = 0.001;
-				initPhase=0;
-            };
-			class mpd_pl_obj2_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj2";
-            };
-			class mpd_pl_obj2_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj2";
-            };
-			class mpd_pl_obj3_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj3";
-            };
-			class mpd_pl_obj3_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj3";
-            };
-			class mpd_pl_obj4_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj4";
-            };
-			class mpd_pl_obj4_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj4";
-            };
-			class mpd_pl_obj5_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj5";
-            };
-			class mpd_pl_obj5_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj5";
-            };
-			class mpd_pl_obj6_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj6";
-            };
-			class mpd_pl_obj6_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj6";
-            };
-			class mpd_pl_obj7_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj7";
-            };
-			class mpd_pl_obj7_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj7";
-            };
-			class mpd_pl_obj8_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj8";
-            };
-			class mpd_pl_obj8_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj8";
-            };
-			class mpd_pl_obj9_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj9";
-            };
-			class mpd_pl_obj9_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj9";
-            };
-			class mpd_pl_obj10_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj10";
-            };
-			class mpd_pl_obj10_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj10";
-            };
-			class mpd_pl_obj11_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj11";
-            };
-			class mpd_pl_obj11_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj11";
-            };
-			class mpd_pl_obj12_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj12";
-            };
-			class mpd_pl_obj12_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj12";
-            };
-			class mpd_pl_obj13_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj13";
-            };
-			class mpd_pl_obj13_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj13";
-            };
-			class mpd_pl_obj14_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj14";
-            };
-			class mpd_pl_obj14_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj14";
-            };
-			class mpd_pl_obj15_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj15";
-            };
-			class mpd_pl_obj15_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj15";
-            };
-			class mpd_pl_obj16_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj16";
-            };
-			class mpd_pl_obj16_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj16";
-            };
-			class mpd_pl_obj17_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj17";
-            };
-			class mpd_pl_obj17_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj17";
-            };
-			class mpd_pl_obj18_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj18";
-            };
-			class mpd_pl_obj18_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj18";
-            };
-			class mpd_pl_obj19_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj19";
-            };
-			class mpd_pl_obj19_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj19";
-            };
-			class mpd_pl_obj20_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj20";
-            };
-			class mpd_pl_obj20_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj20";
-            };
-			class mpd_pl_obj21_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj21";
-            };
-			class mpd_pl_obj21_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj21";
-            };
-			class mpd_pl_obj22_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj22";
-            };
-			class mpd_pl_obj22_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj22";
-            };
-			class mpd_pl_obj23_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj23";
-            };
-			class mpd_pl_obj23_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj23";
-            };
-			class mpd_pl_obj24_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj24";
-            };
-			class mpd_pl_obj24_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj24";
-            };
-			class mpd_pl_obj25_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj25";
-            };
-			class mpd_pl_obj25_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj25";
-            };
-			class mpd_pl_obj26_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj26";
-            };
-			class mpd_pl_obj26_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj26";
-            };
-			class mpd_pl_obj27_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj27";
-            };
-			class mpd_pl_obj27_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj27";
-            };
-			class mpd_pl_obj28_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj28";
-            };
-			class mpd_pl_obj28_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj28";
-            };
-			class mpd_pl_obj29_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj29";
-            };
-			class mpd_pl_obj29_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj29";
-            };
-			class mpd_pl_obj30_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj30";
-            };
-			class mpd_pl_obj30_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj30";
-            };
-			class mpd_pl_obj31_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj31";
-            };
-			class mpd_pl_obj31_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj31";
-            };
-			class mpd_pl_obj32_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj32";
-            };
-			class mpd_pl_obj32_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj32";
-            };
-		//////////////DOORS//////////////////
-		class pdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-		class gdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-		///////////////ADS//////////////////
-		class l_ads_p
-        {
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-        };
-		class l_ads_b : l_ads_p
-        {
-			source = "user";
-        };
-		class l_ads_y : l_ads_p
-        {
-			source = "user";
-        };
-		class r_ads_p
-        {
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-        };
-		class r_ads_b : r_ads_p
-        {
-			source = "user";
-        };
-		class r_ads_y : r_ads_p
-        {
-			source = "user";
-        };
-};
-};
-	class fza_ah64d_b2exp_nr: fza_ah64d_b2exp
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64D Block II+ (NR)";
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114l_1",
-"rail1_114l_2",
-"rail1_114l_3",
-"rail1_114l_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114l_1",
-"rail2_114l_2",
-"rail2_114l_3",
-"rail2_114l_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114l_1",
-"rail3_114l_2",
-"rail3_114l_3",
-"rail3_114l_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114l_1",
-"rail4_114l_2",
-"rail4_114l_3",
-"rail4_114l_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-			"mpd_pl_obj1",
-			"mpd_pl_obj2",
-			"mpd_pl_obj3",
-			"mpd_pl_obj4",
-			"mpd_pl_obj5",
-			"mpd_pl_obj6",
-			"mpd_pl_obj7",
-			"mpd_pl_obj8",
-			"mpd_pl_obj9",
-			"mpd_pl_obj10",
-			"mpd_pl_obj11",
-			"mpd_pl_obj12",
-			"mpd_pl_obj13",
-			"mpd_pl_obj14",
-			"mpd_pl_obj15",
-			"mpd_pl_obj16",
-			"mpd_pl_obj17",
-			"mpd_pl_obj18",
-			"mpd_pl_obj19",
-			"mpd_pl_obj20",
-			"mpd_pl_obj21",
-			"mpd_pl_obj22",
-			"mpd_pl_obj23",
-			"mpd_pl_obj24",
-			"mpd_pl_obj25",
-			"mpd_pl_obj26",
-			"mpd_pl_obj27",
-			"mpd_pl_obj28",
-			"mpd_pl_obj29",
-			"mpd_pl_obj30",
-			"mpd_pl_obj31",
-			"mpd_pl_obj32",
-"pl_mpd_back",
-"pr_mpd_back",
-"pl_aft_fuel_n0",
-"pl_aft_fuel_n1",
-"pl_aft_fuel_n2",
-"pl_aft_fuel_n3",
-"pl_aft_line",
-"pl_flow1_fuel_n0",
-"pl_flow1_fuel_n1",
-"pl_flow1_fuel_n2",
-"pl_flow2_fuel_n0",
-"pl_flow2_fuel_n1",
-"pl_flow2_fuel_n2",
-"pl_fwd_fuel_n0",
-"pl_fwd_fuel_n1",
-"pl_fwd_fuel_n2",
-"pl_fwd_fuel_n3",
-"pl_fwd_line",
-"pl_iafs_fuel_n0",
-"pl_iafs_fuel_n1",
-"pl_iafs_fuel_n2",
-"pl_iend_fuel_n0",
-"pl_iend_fuel_n1",
-"pl_iend_fuel_n2",
-"pl_int_fuel_n0",
-"pl_int_fuel_n1",
-"pl_int_fuel_n2",
-"pl_int_fuel_n3",
-"pl_tend_fuel_n0",
-"pl_tend_fuel_n1",
-"pl_tend_fuel_n2",
-"pl_tflow_fuel_n0",
-"pl_tflow_fuel_n1",
-"pl_tflow_fuel_n2",
-"pl_tot_fuel_n0",
-"pl_tot_fuel_n1",
-"pl_tot_fuel_n2",
-"pl_tot_fuel_n3",
-"pl_waux1",
-"pl_waux2",
-"pl_waux3",
-"pl_waux4",
-"pr_aft_fuel_n0",
-"pr_aft_fuel_n1",
-"pr_aft_fuel_n2",
-"pr_aft_fuel_n3",
-"pr_aft_line",
-"pr_flow1_fuel_n0",
-"pr_flow1_fuel_n1",
-"pr_flow1_fuel_n2",
-"pr_flow2_fuel_n0",
-"pr_flow2_fuel_n1",
-"pr_flow2_fuel_n2",
-"pr_fwd_fuel_n0",
-"pr_fwd_fuel_n1",
-"pr_fwd_fuel_n2",
-"pr_fwd_fuel_n3",
-"pr_fwd_line",
-"pr_iafs_fuel_n0",
-"pr_iafs_fuel_n1",
-"pr_iafs_fuel_n2",
-"pr_iend_fuel_n0",
-"pr_iend_fuel_n1",
-"pr_iend_fuel_n2",
-"pr_int_fuel_n0",
-"pr_int_fuel_n1",
-"pr_int_fuel_n2",
-"pr_int_fuel_n3",
-"pr_tend_fuel_n0",
-"pr_tend_fuel_n1",
-"pr_tend_fuel_n2",
-"pr_tflow_fuel_n0",
-"pr_tflow_fuel_n1",
-"pr_tflow_fuel_n2",
-"pr_tot_fuel_n0",
-"pr_tot_fuel_n1",
-"pr_tot_fuel_n2",
-"pr_tot_fuel_n3",
-"pr_waux1",
-"pr_waux2",
-"pr_waux3",
-"pr_waux4",
-"pr_iafs_line",
-"pl_iafs_line",
-"pr_tsd_end1",
-"pr_tsd_end2",
-"pr_tsd_end3",
-"pr_tsd_eta1",
-"pr_tsd_eta2",
-"pr_tsd_eta3",
-"pr_tsd_eta4",
-"pr_tsd_hdg1",
-"pr_tsd_hdg2",
-"pr_tsd_hdg3",
-"pr_tsd_rng1",
-"pr_tsd_rng2",
-"pr_tsd_rng3",
-"pr_tsd_scale1",
-"pr_tsd_scale2",
-"pr_tsd_typ1",
-"pr_tsd_typ2",
-"pr_tsd_typ3",
-"pr_tsd_winddir1",
-"pr_tsd_winddir2",
-"pr_tsd_winddir3",
-"pr_tsd_windspd1",
-"pr_tsd_windspd2",
-"pl_tsd_end1",
-"pl_tsd_end2",
-"pl_tsd_end3",
-"pl_tsd_eta1",
-"pl_tsd_eta2",
-"pl_tsd_eta3",
-"pl_tsd_eta4",
-"pl_tsd_hdg1",
-"pl_tsd_hdg2",
-"pl_tsd_hdg3",
-"pl_tsd_rng1",
-"pl_tsd_rng2",
-"pl_tsd_rng3",
-"pl_tsd_scale1",
-"pl_tsd_scale2",
-"pl_tsd_typ1",
-"pl_tsd_typ2",
-"pl_tsd_typ3",
-"pl_tsd_winddir1",
-"pl_tsd_winddir2",
-"pl_tsd_winddir3",
-"pl_tsd_windspd1",
-"pl_tsd_windspd2",
-"gl_tsd_end1",
-"gl_tsd_end2",
-"gl_tsd_end3",
-"gl_tsd_eta1",
-"gl_tsd_eta2",
-"gl_tsd_eta3",
-"gl_tsd_eta4",
-"gl_tsd_hdg1",
-"gl_tsd_hdg2",
-"gl_tsd_hdg3",
-"gl_tsd_rng1",
-"gl_tsd_rng2",
-"gl_tsd_rng3",
-"gl_tsd_scale1",
-"gl_tsd_scale2",
-"gl_tsd_typ1",
-"gl_tsd_typ2",
-"gl_tsd_typ3",
-"gl_tsd_winddir1",
-"gl_tsd_winddir2",
-"gl_tsd_winddir3",
-"gl_tsd_windspd1",
-"gl_tsd_windspd2",
-"gr_tsd_end1",
-"gr_tsd_end2",
-"gr_tsd_end3",
-"gr_tsd_eta1",
-"gr_tsd_eta2",
-"gr_tsd_eta3",
-"gr_tsd_eta4",
-"gr_tsd_hdg1",
-"gr_tsd_hdg2",
-"gr_tsd_hdg3",
-"gr_tsd_rng1",
-"gr_tsd_rng2",
-"gr_tsd_rng3",
-"gr_tsd_scale1",
-"gr_tsd_scale2",
-"gr_tsd_typ1",
-"gr_tsd_typ2",
-"gr_tsd_typ3",
-"gr_tsd_winddir1",
-"gr_tsd_winddir2",
-"gr_tsd_winddir3",
-"gr_tsd_windspd1",
-"gr_tsd_windspd2",
-"mpd_pl_chaff_qty_1",
-"mpd_pl_chaff_qty_2",
-"mpd_pl_flare1_qty_1",
-"mpd_pl_flare1_qty_2",
-"mpd_pl_flare2_qty_1",
-"mpd_pl_flare2_qty_2",
-"mpd_pl_gun_ammo_1",
-"mpd_pl_gun_ammo_2",
-"mpd_pl_gun_ammo_3",
-"mpd_pl_gun_ammo_4",
-"mpd_pl_gun_burst_1",
-"mpd_pl_gun_burst_2",
-"mpd_pl_gun_burst_3",
-"mpd_pl_gun_burst_4",
-"mpd_pl_gun_burst_5",
-"mpd_pl_gun_sel",
-"mpd_pl_hf_bracket",
-"mpd_pl_hf_desig",
-"mpd_pl_hf_salt",
-"mpd_pl_hf_traj",
-"mpd_pl_hf1_l1",
-"mpd_pl_hf1_l2",
-"mpd_pl_hf1_r1",
-"mpd_pl_hf1_r2",
-"mpd_pl_hf2_l1",
-"mpd_pl_hf2_l2",
-"mpd_pl_hf2_r1",
-"mpd_pl_hf2_r2",
-"mpd_pl_hf3_l1",
-"mpd_pl_hf3_l2",
-"mpd_pl_hf3_r1",
-"mpd_pl_hf3_r2",
-"mpd_pl_hf4_l1",
-"mpd_pl_hf4_l2",
-"mpd_pl_hf4_r1",
-"mpd_pl_hf4_r2",
-"mpd_pl_rg_base",
-"mpd_pl_rg_bracket",
-"mpd_pl_rkt_burst",
-"mpd_pl_rkt_sel_type_1",
-"mpd_pl_rkt_sel_type_2",
-"mpd_pl_rkt_sel_type_3",
-"mpd_pl_rkt_sel_type_4",
-"mpd_pl_rkt_tot_1",
-"mpd_pl_rkt_tot_2",
-"mpd_pl_rkt1_qty_1",
-"mpd_pl_rkt1_qty_2",
-"mpd_pl_rkt1_type",
-"mpd_pl_rkt2_qty_1",
-"mpd_pl_rkt2_qty_2",
-"mpd_pl_rkt2_type",
-"mpd_pl_rkt3_qty_1",
-"mpd_pl_rkt3_qty_2",
-"mpd_pl_rkt3_type",
-"mpd_pl_rkt4_qty_1",
-"mpd_pl_rkt4_qty_2",
-"mpd_pl_rkt4_type",
-"mpd_pl_rkt5_qty_1",
-"mpd_pl_rkt5_qty_2",
-"mpd_pl_rkt5_type",
-"mpd_pl_sight_acq",
-"mpd_pl_wpn_acq",
-"mpd_pl_wpn_ata_sel",
-"mpd_pl_wpn_gun_sel",
-"mpd_pl_wpn_hf_type",
-"mpd_pl_wpn_msl_sel",
-"mpd_pl_wpn_rkt_sel",
-"mpd_pl_wpn_sel",
-"mpd_pl_rkt1",
-"mpd_pl_rkt2",
-"mpd_pl_rkt3",
-"mpd_pl_rkt4",
-			"mast",
-			"vuit2",
-			"longbow"
-};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-	};
-//////////////////////////////////////////////////////////////////////////
-//////////////////////////////////BLOCKIII////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-	class fza_ah64d_b3: fza_ah64base
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64D Block III";
-		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		ejectDeadCargo=0;
-		//picture="\mas_ah64\ah64_apic.paa";
-		//icon ="\mas_ah64\ah64_aicn.paa";
-		
-		nameSound="veh_Helicopter";
-		//insideSoundCoef = 0.006;
-		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1; 
-		audible=4;
-		camouflage=10;
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114l_1",
-"rail1_114l_2",
-"rail1_114l_3",
-"rail1_114l_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114l_1",
-"rail2_114l_2",
-"rail2_114l_3",
-"rail2_114l_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114l_1",
-"rail3_114l_2",
-"rail3_114l_3",
-"rail3_114l_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114l_1",
-"rail4_114l_2",
-"rail4_114l_3",
-"rail4_114l_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-			"mpd_pl_obj1",
-			"mpd_pl_obj2",
-			"mpd_pl_obj3",
-			"mpd_pl_obj4",
-			"mpd_pl_obj5",
-			"mpd_pl_obj6",
-			"mpd_pl_obj7",
-			"mpd_pl_obj8",
-			"mpd_pl_obj9",
-			"mpd_pl_obj10",
-			"mpd_pl_obj11",
-			"mpd_pl_obj12",
-			"mpd_pl_obj13",
-			"mpd_pl_obj14",
-			"mpd_pl_obj15",
-			"mpd_pl_obj16",
-			"mpd_pl_obj17",
-			"mpd_pl_obj18",
-			"mpd_pl_obj19",
-			"mpd_pl_obj20",
-			"mpd_pl_obj21",
-			"mpd_pl_obj22",
-			"mpd_pl_obj23",
-			"mpd_pl_obj24",
-			"mpd_pl_obj25",
-			"mpd_pl_obj26",
-			"mpd_pl_obj27",
-			"mpd_pl_obj28",
-			"mpd_pl_obj29",
-			"mpd_pl_obj30",
-			"mpd_pl_obj31",
-			"mpd_pl_obj32",
-"pl_mpd_back",
-"pr_mpd_back",
-"pl_aft_fuel_n0",
-"pl_aft_fuel_n1",
-"pl_aft_fuel_n2",
-"pl_aft_fuel_n3",
-"pl_aft_line",
-"pl_flow1_fuel_n0",
-"pl_flow1_fuel_n1",
-"pl_flow1_fuel_n2",
-"pl_flow2_fuel_n0",
-"pl_flow2_fuel_n1",
-"pl_flow2_fuel_n2",
-"pl_fwd_fuel_n0",
-"pl_fwd_fuel_n1",
-"pl_fwd_fuel_n2",
-"pl_fwd_fuel_n3",
-"pl_fwd_line",
-"pl_iafs_fuel_n0",
-"pl_iafs_fuel_n1",
-"pl_iafs_fuel_n2",
-"pl_iend_fuel_n0",
-"pl_iend_fuel_n1",
-"pl_iend_fuel_n2",
-"pl_int_fuel_n0",
-"pl_int_fuel_n1",
-"pl_int_fuel_n2",
-"pl_int_fuel_n3",
-"pl_tend_fuel_n0",
-"pl_tend_fuel_n1",
-"pl_tend_fuel_n2",
-"pl_tflow_fuel_n0",
-"pl_tflow_fuel_n1",
-"pl_tflow_fuel_n2",
-"pl_tot_fuel_n0",
-"pl_tot_fuel_n1",
-"pl_tot_fuel_n2",
-"pl_tot_fuel_n3",
-"pl_waux1",
-"pl_waux2",
-"pl_waux3",
-"pl_waux4",
-"pr_aft_fuel_n0",
-"pr_aft_fuel_n1",
-"pr_aft_fuel_n2",
-"pr_aft_fuel_n3",
-"pr_aft_line",
-"pr_flow1_fuel_n0",
-"pr_flow1_fuel_n1",
-"pr_flow1_fuel_n2",
-"pr_flow2_fuel_n0",
-"pr_flow2_fuel_n1",
-"pr_flow2_fuel_n2",
-"pr_fwd_fuel_n0",
-"pr_fwd_fuel_n1",
-"pr_fwd_fuel_n2",
-"pr_fwd_fuel_n3",
-"pr_fwd_line",
-"pr_iafs_fuel_n0",
-"pr_iafs_fuel_n1",
-"pr_iafs_fuel_n2",
-"pr_iend_fuel_n0",
-"pr_iend_fuel_n1",
-"pr_iend_fuel_n2",
-"pr_int_fuel_n0",
-"pr_int_fuel_n1",
-"pr_int_fuel_n2",
-"pr_int_fuel_n3",
-"pr_tend_fuel_n0",
-"pr_tend_fuel_n1",
-"pr_tend_fuel_n2",
-"pr_tflow_fuel_n0",
-"pr_tflow_fuel_n1",
-"pr_tflow_fuel_n2",
-"pr_tot_fuel_n0",
-"pr_tot_fuel_n1",
-"pr_tot_fuel_n2",
-"pr_tot_fuel_n3",
-"pr_waux1",
-"pr_waux2",
-"pr_waux3",
-"pr_waux4",
-"pr_iafs_line",
-"pl_iafs_line",
-"pr_tsd_end1",
-"pr_tsd_end2",
-"pr_tsd_end3",
-"pr_tsd_eta1",
-"pr_tsd_eta2",
-"pr_tsd_eta3",
-"pr_tsd_eta4",
-"pr_tsd_hdg1",
-"pr_tsd_hdg2",
-"pr_tsd_hdg3",
-"pr_tsd_rng1",
-"pr_tsd_rng2",
-"pr_tsd_rng3",
-"pr_tsd_scale1",
-"pr_tsd_scale2",
-"pr_tsd_typ1",
-"pr_tsd_typ2",
-"pr_tsd_typ3",
-"pr_tsd_winddir1",
-"pr_tsd_winddir2",
-"pr_tsd_winddir3",
-"pr_tsd_windspd1",
-"pr_tsd_windspd2",
-"pl_tsd_end1",
-"pl_tsd_end2",
-"pl_tsd_end3",
-"pl_tsd_eta1",
-"pl_tsd_eta2",
-"pl_tsd_eta3",
-"pl_tsd_eta4",
-"pl_tsd_hdg1",
-"pl_tsd_hdg2",
-"pl_tsd_hdg3",
-"pl_tsd_rng1",
-"pl_tsd_rng2",
-"pl_tsd_rng3",
-"pl_tsd_scale1",
-"pl_tsd_scale2",
-"pl_tsd_typ1",
-"pl_tsd_typ2",
-"pl_tsd_typ3",
-"pl_tsd_winddir1",
-"pl_tsd_winddir2",
-"pl_tsd_winddir3",
-"pl_tsd_windspd1",
-"pl_tsd_windspd2",
-"gl_tsd_end1",
-"gl_tsd_end2",
-"gl_tsd_end3",
-"gl_tsd_eta1",
-"gl_tsd_eta2",
-"gl_tsd_eta3",
-"gl_tsd_eta4",
-"gl_tsd_hdg1",
-"gl_tsd_hdg2",
-"gl_tsd_hdg3",
-"gl_tsd_rng1",
-"gl_tsd_rng2",
-"gl_tsd_rng3",
-"gl_tsd_scale1",
-"gl_tsd_scale2",
-"gl_tsd_typ1",
-"gl_tsd_typ2",
-"gl_tsd_typ3",
-"gl_tsd_winddir1",
-"gl_tsd_winddir2",
-"gl_tsd_winddir3",
-"gl_tsd_windspd1",
-"gl_tsd_windspd2",
-"gr_tsd_end1",
-"gr_tsd_end2",
-"gr_tsd_end3",
-"gr_tsd_eta1",
-"gr_tsd_eta2",
-"gr_tsd_eta3",
-"gr_tsd_eta4",
-"gr_tsd_hdg1",
-"gr_tsd_hdg2",
-"gr_tsd_hdg3",
-"gr_tsd_rng1",
-"gr_tsd_rng2",
-"gr_tsd_rng3",
-"gr_tsd_scale1",
-"gr_tsd_scale2",
-"gr_tsd_typ1",
-"gr_tsd_typ2",
-"gr_tsd_typ3",
-"gr_tsd_winddir1",
-"gr_tsd_winddir2",
-"gr_tsd_winddir3",
-"gr_tsd_windspd1",
-"gr_tsd_windspd2",
-"mpd_pl_chaff_qty_1",
-"mpd_pl_chaff_qty_2",
-"mpd_pl_flare1_qty_1",
-"mpd_pl_flare1_qty_2",
-"mpd_pl_flare2_qty_1",
-"mpd_pl_flare2_qty_2",
-"mpd_pl_gun_ammo_1",
-"mpd_pl_gun_ammo_2",
-"mpd_pl_gun_ammo_3",
-"mpd_pl_gun_ammo_4",
-"mpd_pl_gun_burst_1",
-"mpd_pl_gun_burst_2",
-"mpd_pl_gun_burst_3",
-"mpd_pl_gun_burst_4",
-"mpd_pl_gun_burst_5",
-"mpd_pl_gun_sel",
-"mpd_pl_hf_bracket",
-"mpd_pl_hf_desig",
-"mpd_pl_hf_salt",
-"mpd_pl_hf_traj",
-"mpd_pl_hf1_l1",
-"mpd_pl_hf1_l2",
-"mpd_pl_hf1_r1",
-"mpd_pl_hf1_r2",
-"mpd_pl_hf2_l1",
-"mpd_pl_hf2_l2",
-"mpd_pl_hf2_r1",
-"mpd_pl_hf2_r2",
-"mpd_pl_hf3_l1",
-"mpd_pl_hf3_l2",
-"mpd_pl_hf3_r1",
-"mpd_pl_hf3_r2",
-"mpd_pl_hf4_l1",
-"mpd_pl_hf4_l2",
-"mpd_pl_hf4_r1",
-"mpd_pl_hf4_r2",
-"mpd_pl_rg_base",
-"mpd_pl_rg_bracket",
-"mpd_pl_rkt_burst",
-"mpd_pl_rkt_sel_type_1",
-"mpd_pl_rkt_sel_type_2",
-"mpd_pl_rkt_sel_type_3",
-"mpd_pl_rkt_sel_type_4",
-"mpd_pl_rkt_tot_1",
-"mpd_pl_rkt_tot_2",
-"mpd_pl_rkt1_qty_1",
-"mpd_pl_rkt1_qty_2",
-"mpd_pl_rkt1_type",
-"mpd_pl_rkt2_qty_1",
-"mpd_pl_rkt2_qty_2",
-"mpd_pl_rkt2_type",
-"mpd_pl_rkt3_qty_1",
-"mpd_pl_rkt3_qty_2",
-"mpd_pl_rkt3_type",
-"mpd_pl_rkt4_qty_1",
-"mpd_pl_rkt4_qty_2",
-"mpd_pl_rkt4_type",
-"mpd_pl_rkt5_qty_1",
-"mpd_pl_rkt5_qty_2",
-"mpd_pl_rkt5_type",
-"mpd_pl_sight_acq",
-"mpd_pl_wpn_acq",
-"mpd_pl_wpn_ata_sel",
-"mpd_pl_wpn_gun_sel",
-"mpd_pl_wpn_hf_type",
-"mpd_pl_wpn_msl_sel",
-"mpd_pl_wpn_rkt_sel",
-"mpd_pl_wpn_sel",
-"mpd_pl_rkt1",
-"mpd_pl_rkt2",
-"mpd_pl_rkt3",
-"mpd_pl_rkt4",
-			"vuit2"
-};
-		transportSoldier=2;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		accuracy=0.5;
-		simulation=helicopterRTD;
-		driverAction = "fza_ah64_pilot";
-		enableSweep=1;
-		gunnerUsesPilotView=0;
-		crew="B_Helipilot_F";
-		animated=1;
-		driveropticsmodel = "\fza_ah64_US\fza_ah64_mpnvs";
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {0.231,0.914,0.184,1};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
-		//irScanRange=8000;
-		laserScanner=1;
-		//fuelCapacity=110;
-		nightVision=1;
-		mainRotorSpeed = 1;
-		//threat[] VSoft, VArmor, VAir 
-		threat[]={0.8,1,0.9};
-		//Armor values
-		armor=120;
-		armorStructural=5; // structural dammage
-		armorHull=1.0;
-		armorEngine=1.5;
-		armorAvionics=1.0;
-		armorVRotor=1.0;
-		armorHRotor=1.5;
-		armorMissiles=1.0;
-		armorGlass=1.0;
-		//unitinfotype="unitinfoapc";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
-		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		//ARMA CONFIG POINTS
-		selectionHRotorStill = "velka vrtule staticka";
-		selectionHRotorMove = "velka vrtule blur";
-		selectionVRotorStill = "mala vrtule staticka";
-		selectionVRotorMove = "mala vrtule blur";
-		memoryPointLMissile = "l strela";
-		memoryPointRMissile = "p strela";
-		memoryPointLRocket = "l raketa";
-		memoryPointRRocket = "p raketa";
-		gunAimDown = 0;
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
-		memoryPointsGetInCargo = "pos cargo";
-		memoryPointsGetInCargoDir = "pos cargo dir";
-		memorypointcm[] = {"chaff_launcher1"};
-		memorypointcmdir[] = {"chaff_launcher1_dir"};
-		weapons[] = {"CMFlareLauncher","fza_ah64_chaff30"};
-		magazines[] = {"60Rnd_CMFlareMagazine","fza_ah64_chaff30"};
-		radartype = 4;
-		lockdetectionsystem = 8;
-		incommingmissliedetectionsystem = 16;
-		flarevelocity = 100;
-		envelope[]=
-		{
-		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
-		};
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114l_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-		class Library
-		{
-			libTextDesc = "The AH-64D Block III is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
-		};
-		class ViewPilot
-		{
-			initFov=0.700000;
-			minFov=0.400000;
-			maxFov=0.850000;
-			initAngleX=0;
-			minAngleX=-75;
-			maxAngleX=50;
-			initAngleY=0;
-			minAngleY=-150;
-			maxAngleY=150;
-		};
-		class ViewOptics
-		{
-			initAngleX=0;
-			minAngleX=-120;
-			maxAngleX=120;
-			initAngleY=0;
-			minAngleY=-60;
-			maxAngleY=11;
-			initFov=0.7;
-			minFov=0.1;
-			maxFov=0.7;
-			thermalmode[] = {0};
-			visionmode[] = {"Ti","NVG"};
-		};
-		class AnimationSources
-		{
-		class pnvs
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class pnvs_vert
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class m230_recoil
-		{
-			source = "reload";
-			weapon = fza_m230;
-		};
-		//EXPERIMENTAL//
-		class mainTurret
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class maingun
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		//ENDEXPERIMENTAL//
-		class swashplate_up_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class mr_act_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class trsw
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade2_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade3_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade4_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-class blade1_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade1_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade1_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade2_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade2_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade3_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade3_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-class blade4_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-/*
-class blade4_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-*/
-//////weapons///////////
-		class pod_m260_1
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_2
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_3
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class pod_m260_4
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_1
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_2
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_3
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		class rail_m299_4
-		{
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-		};
-		////////RADAR///////
-		class longbow
-		{
-			source = "user";
-			animPeriod = 4;
-			initPhase=0;
-		};
-			////////////////////////////////
-			///////////COCKPIT//////////////
-			////////////////////////////////
-			class mpd_pl_obj1_v
-            {
-				source = "user";
-				animPeriod = 0.001;
-				initPhase=0;
-            };
-			class mpd_pl_obj1_h
-            {
-				source = "user";
-				animPeriod = 0.001;
-				initPhase=0;
-            };
-			class mpd_pl_obj2_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj2";
-            };
-			class mpd_pl_obj2_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj2";
-            };
-			class mpd_pl_obj3_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj3";
-            };
-			class mpd_pl_obj3_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj3";
-            };
-			class mpd_pl_obj4_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj4";
-            };
-			class mpd_pl_obj4_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj4";
-            };
-			class mpd_pl_obj5_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj5";
-            };
-			class mpd_pl_obj5_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj5";
-            };
-			class mpd_pl_obj6_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj6";
-            };
-			class mpd_pl_obj6_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj6";
-            };
-			class mpd_pl_obj7_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj7";
-            };
-			class mpd_pl_obj7_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj7";
-            };
-			class mpd_pl_obj8_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj8";
-            };
-			class mpd_pl_obj8_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj8";
-            };
-			class mpd_pl_obj9_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj9";
-            };
-			class mpd_pl_obj9_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj9";
-            };
-			class mpd_pl_obj10_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj10";
-            };
-			class mpd_pl_obj10_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj10";
-            };
-			class mpd_pl_obj11_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj11";
-            };
-			class mpd_pl_obj11_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj11";
-            };
-			class mpd_pl_obj12_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj12";
-            };
-			class mpd_pl_obj12_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj12";
-            };
-			class mpd_pl_obj13_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj13";
-            };
-			class mpd_pl_obj13_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj13";
-            };
-			class mpd_pl_obj14_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj14";
-            };
-			class mpd_pl_obj14_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj14";
-            };
-			class mpd_pl_obj15_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj15";
-            };
-			class mpd_pl_obj15_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj15";
-            };
-			class mpd_pl_obj16_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj16";
-            };
-			class mpd_pl_obj16_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj16";
-            };
-			class mpd_pl_obj17_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj17";
-            };
-			class mpd_pl_obj17_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj17";
-            };
-			class mpd_pl_obj18_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj18";
-            };
-			class mpd_pl_obj18_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj18";
-            };
-			class mpd_pl_obj19_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj19";
-            };
-			class mpd_pl_obj19_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj19";
-            };
-			class mpd_pl_obj20_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj20";
-            };
-			class mpd_pl_obj20_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj20";
-            };
-			class mpd_pl_obj21_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj21";
-            };
-			class mpd_pl_obj21_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj21";
-            };
-			class mpd_pl_obj22_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj22";
-            };
-			class mpd_pl_obj22_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj22";
-            };
-			class mpd_pl_obj23_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj23";
-            };
-			class mpd_pl_obj23_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj23";
-            };
-			class mpd_pl_obj24_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj24";
-            };
-			class mpd_pl_obj24_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj24";
-            };
-			class mpd_pl_obj25_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj25";
-            };
-			class mpd_pl_obj25_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj25";
-            };
-			class mpd_pl_obj26_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj26";
-            };
-			class mpd_pl_obj26_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj26";
-            };
-			class mpd_pl_obj27_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj27";
-            };
-			class mpd_pl_obj27_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj27";
-            };
-			class mpd_pl_obj28_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj28";
-            };
-			class mpd_pl_obj28_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj28";
-            };
-			class mpd_pl_obj29_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj29";
-            };
-			class mpd_pl_obj29_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj29";
-            };
-			class mpd_pl_obj30_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj30";
-            };
-			class mpd_pl_obj30_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj30";
-            };
-			class mpd_pl_obj31_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj31";
-            };
-			class mpd_pl_obj31_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj31";
-            };
-			class mpd_pl_obj32_v : mpd_pl_obj1_v
-            {
-                selection = "mpd_pl_obj32";
-            };
-			class mpd_pl_obj32_h : mpd_pl_obj1_h
-            {
-                selection = "mpd_pl_obj32";
-            };
-		//////////////DOORS//////////////////
-		class pdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-		class gdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-		///////////////ADS//////////////////
-		class l_ads_p
-        {
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-        };
-		class l_ads_b : l_ads_p
-        {
-			source = "user";
-        };
-		class l_ads_y : l_ads_p
-        {
-			source = "user";
-        };
-		class r_ads_p
-        {
-			source = "user";
-			animPeriod = 0.001;
-			initPhase=0;
-        };
-		class r_ads_b : r_ads_p
-        {
-			source = "user";
-        };
-		class r_ads_y : r_ads_p
-        {
-			source = "user";
-        };
-};
-};
-	class fza_ah64d_b3_nr: fza_ah64d_b3
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64D Block III (NR)";
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114l_1",
-"rail1_114l_2",
-"rail1_114l_3",
-"rail1_114l_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114l_1",
-"rail2_114l_2",
-"rail2_114l_3",
-"rail2_114l_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114l_1",
-"rail3_114l_2",
-"rail3_114l_3",
-"rail3_114l_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114l_1",
-"rail4_114l_2",
-"rail4_114l_3",
-"rail4_114l_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-			"mpd_pl_obj1",
-			"mpd_pl_obj2",
-			"mpd_pl_obj3",
-			"mpd_pl_obj4",
-			"mpd_pl_obj5",
-			"mpd_pl_obj6",
-			"mpd_pl_obj7",
-			"mpd_pl_obj8",
-			"mpd_pl_obj9",
-			"mpd_pl_obj10",
-			"mpd_pl_obj11",
-			"mpd_pl_obj12",
-			"mpd_pl_obj13",
-			"mpd_pl_obj14",
-			"mpd_pl_obj15",
-			"mpd_pl_obj16",
-			"mpd_pl_obj17",
-			"mpd_pl_obj18",
-			"mpd_pl_obj19",
-			"mpd_pl_obj20",
-			"mpd_pl_obj21",
-			"mpd_pl_obj22",
-			"mpd_pl_obj23",
-			"mpd_pl_obj24",
-			"mpd_pl_obj25",
-			"mpd_pl_obj26",
-			"mpd_pl_obj27",
-			"mpd_pl_obj28",
-			"mpd_pl_obj29",
-			"mpd_pl_obj30",
-			"mpd_pl_obj31",
-			"mpd_pl_obj32",
-"pl_mpd_back",
-"pr_mpd_back",
-"pl_aft_fuel_n0",
-"pl_aft_fuel_n1",
-"pl_aft_fuel_n2",
-"pl_aft_fuel_n3",
-"pl_aft_line",
-"pl_flow1_fuel_n0",
-"pl_flow1_fuel_n1",
-"pl_flow1_fuel_n2",
-"pl_flow2_fuel_n0",
-"pl_flow2_fuel_n1",
-"pl_flow2_fuel_n2",
-"pl_fwd_fuel_n0",
-"pl_fwd_fuel_n1",
-"pl_fwd_fuel_n2",
-"pl_fwd_fuel_n3",
-"pl_fwd_line",
-"pl_iafs_fuel_n0",
-"pl_iafs_fuel_n1",
-"pl_iafs_fuel_n2",
-"pl_iend_fuel_n0",
-"pl_iend_fuel_n1",
-"pl_iend_fuel_n2",
-"pl_int_fuel_n0",
-"pl_int_fuel_n1",
-"pl_int_fuel_n2",
-"pl_int_fuel_n3",
-"pl_tend_fuel_n0",
-"pl_tend_fuel_n1",
-"pl_tend_fuel_n2",
-"pl_tflow_fuel_n0",
-"pl_tflow_fuel_n1",
-"pl_tflow_fuel_n2",
-"pl_tot_fuel_n0",
-"pl_tot_fuel_n1",
-"pl_tot_fuel_n2",
-"pl_tot_fuel_n3",
-"pl_waux1",
-"pl_waux2",
-"pl_waux3",
-"pl_waux4",
-"pr_aft_fuel_n0",
-"pr_aft_fuel_n1",
-"pr_aft_fuel_n2",
-"pr_aft_fuel_n3",
-"pr_aft_line",
-"pr_flow1_fuel_n0",
-"pr_flow1_fuel_n1",
-"pr_flow1_fuel_n2",
-"pr_flow2_fuel_n0",
-"pr_flow2_fuel_n1",
-"pr_flow2_fuel_n2",
-"pr_fwd_fuel_n0",
-"pr_fwd_fuel_n1",
-"pr_fwd_fuel_n2",
-"pr_fwd_fuel_n3",
-"pr_fwd_line",
-"pr_iafs_fuel_n0",
-"pr_iafs_fuel_n1",
-"pr_iafs_fuel_n2",
-"pr_iend_fuel_n0",
-"pr_iend_fuel_n1",
-"pr_iend_fuel_n2",
-"pr_int_fuel_n0",
-"pr_int_fuel_n1",
-"pr_int_fuel_n2",
-"pr_int_fuel_n3",
-"pr_tend_fuel_n0",
-"pr_tend_fuel_n1",
-"pr_tend_fuel_n2",
-"pr_tflow_fuel_n0",
-"pr_tflow_fuel_n1",
-"pr_tflow_fuel_n2",
-"pr_tot_fuel_n0",
-"pr_tot_fuel_n1",
-"pr_tot_fuel_n2",
-"pr_tot_fuel_n3",
-"pr_waux1",
-"pr_waux2",
-"pr_waux3",
-"pr_waux4",
-"pr_iafs_line",
-"pl_iafs_line",
-"pr_tsd_end1",
-"pr_tsd_end2",
-"pr_tsd_end3",
-"pr_tsd_eta1",
-"pr_tsd_eta2",
-"pr_tsd_eta3",
-"pr_tsd_eta4",
-"pr_tsd_hdg1",
-"pr_tsd_hdg2",
-"pr_tsd_hdg3",
-"pr_tsd_rng1",
-"pr_tsd_rng2",
-"pr_tsd_rng3",
-"pr_tsd_scale1",
-"pr_tsd_scale2",
-"pr_tsd_typ1",
-"pr_tsd_typ2",
-"pr_tsd_typ3",
-"pr_tsd_winddir1",
-"pr_tsd_winddir2",
-"pr_tsd_winddir3",
-"pr_tsd_windspd1",
-"pr_tsd_windspd2",
-"pl_tsd_end1",
-"pl_tsd_end2",
-"pl_tsd_end3",
-"pl_tsd_eta1",
-"pl_tsd_eta2",
-"pl_tsd_eta3",
-"pl_tsd_eta4",
-"pl_tsd_hdg1",
-"pl_tsd_hdg2",
-"pl_tsd_hdg3",
-"pl_tsd_rng1",
-"pl_tsd_rng2",
-"pl_tsd_rng3",
-"pl_tsd_scale1",
-"pl_tsd_scale2",
-"pl_tsd_typ1",
-"pl_tsd_typ2",
-"pl_tsd_typ3",
-"pl_tsd_winddir1",
-"pl_tsd_winddir2",
-"pl_tsd_winddir3",
-"pl_tsd_windspd1",
-"pl_tsd_windspd2",
-"gl_tsd_end1",
-"gl_tsd_end2",
-"gl_tsd_end3",
-"gl_tsd_eta1",
-"gl_tsd_eta2",
-"gl_tsd_eta3",
-"gl_tsd_eta4",
-"gl_tsd_hdg1",
-"gl_tsd_hdg2",
-"gl_tsd_hdg3",
-"gl_tsd_rng1",
-"gl_tsd_rng2",
-"gl_tsd_rng3",
-"gl_tsd_scale1",
-"gl_tsd_scale2",
-"gl_tsd_typ1",
-"gl_tsd_typ2",
-"gl_tsd_typ3",
-"gl_tsd_winddir1",
-"gl_tsd_winddir2",
-"gl_tsd_winddir3",
-"gl_tsd_windspd1",
-"gl_tsd_windspd2",
-"gr_tsd_end1",
-"gr_tsd_end2",
-"gr_tsd_end3",
-"gr_tsd_eta1",
-"gr_tsd_eta2",
-"gr_tsd_eta3",
-"gr_tsd_eta4",
-"gr_tsd_hdg1",
-"gr_tsd_hdg2",
-"gr_tsd_hdg3",
-"gr_tsd_rng1",
-"gr_tsd_rng2",
-"gr_tsd_rng3",
-"gr_tsd_scale1",
-"gr_tsd_scale2",
-"gr_tsd_typ1",
-"gr_tsd_typ2",
-"gr_tsd_typ3",
-"gr_tsd_winddir1",
-"gr_tsd_winddir2",
-"gr_tsd_winddir3",
-"gr_tsd_windspd1",
-"gr_tsd_windspd2",
-"mpd_pl_chaff_qty_1",
-"mpd_pl_chaff_qty_2",
-"mpd_pl_flare1_qty_1",
-"mpd_pl_flare1_qty_2",
-"mpd_pl_flare2_qty_1",
-"mpd_pl_flare2_qty_2",
-"mpd_pl_gun_ammo_1",
-"mpd_pl_gun_ammo_2",
-"mpd_pl_gun_ammo_3",
-"mpd_pl_gun_ammo_4",
-"mpd_pl_gun_burst_1",
-"mpd_pl_gun_burst_2",
-"mpd_pl_gun_burst_3",
-"mpd_pl_gun_burst_4",
-"mpd_pl_gun_burst_5",
-"mpd_pl_gun_sel",
-"mpd_pl_hf_bracket",
-"mpd_pl_hf_desig",
-"mpd_pl_hf_salt",
-"mpd_pl_hf_traj",
-"mpd_pl_hf1_l1",
-"mpd_pl_hf1_l2",
-"mpd_pl_hf1_r1",
-"mpd_pl_hf1_r2",
-"mpd_pl_hf2_l1",
-"mpd_pl_hf2_l2",
-"mpd_pl_hf2_r1",
-"mpd_pl_hf2_r2",
-"mpd_pl_hf3_l1",
-"mpd_pl_hf3_l2",
-"mpd_pl_hf3_r1",
-"mpd_pl_hf3_r2",
-"mpd_pl_hf4_l1",
-"mpd_pl_hf4_l2",
-"mpd_pl_hf4_r1",
-"mpd_pl_hf4_r2",
-"mpd_pl_rg_base",
-"mpd_pl_rg_bracket",
-"mpd_pl_rkt_burst",
-"mpd_pl_rkt_sel_type_1",
-"mpd_pl_rkt_sel_type_2",
-"mpd_pl_rkt_sel_type_3",
-"mpd_pl_rkt_sel_type_4",
-"mpd_pl_rkt_tot_1",
-"mpd_pl_rkt_tot_2",
-"mpd_pl_rkt1_qty_1",
-"mpd_pl_rkt1_qty_2",
-"mpd_pl_rkt1_type",
-"mpd_pl_rkt2_qty_1",
-"mpd_pl_rkt2_qty_2",
-"mpd_pl_rkt2_type",
-"mpd_pl_rkt3_qty_1",
-"mpd_pl_rkt3_qty_2",
-"mpd_pl_rkt3_type",
-"mpd_pl_rkt4_qty_1",
-"mpd_pl_rkt4_qty_2",
-"mpd_pl_rkt4_type",
-"mpd_pl_rkt5_qty_1",
-"mpd_pl_rkt5_qty_2",
-"mpd_pl_rkt5_type",
-"mpd_pl_sight_acq",
-"mpd_pl_wpn_acq",
-"mpd_pl_wpn_ata_sel",
-"mpd_pl_wpn_gun_sel",
-"mpd_pl_wpn_hf_type",
-"mpd_pl_wpn_msl_sel",
-"mpd_pl_wpn_rkt_sel",
-"mpd_pl_wpn_sel",
-"mpd_pl_rkt1",
-"mpd_pl_rkt2",
-"mpd_pl_rkt3",
-"mpd_pl_rkt4",
-			"mast",
-			"vuit2",
-			"longbow"
-};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-	};
-//////////////////////////////////////////////////////////////////////////
-/////////////////////////////////AH64A////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////
-	class fza_ah64a_l: fza_ah64base
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64A (Late)";
-		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		ejectDeadCargo=0;
-		//picture="\mas_ah64\ah64_apic.paa";
-		//icon ="\mas_ah64\ah64_aicn.paa";
-		nameSound="veh_Helicopter";
-		//insideSoundCoef = 0.006;
-		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1; 
-		audible=4;
-		camouflage=10;
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114c_1",
-"rail1_114c_2",
-"rail1_114c_3",
-"rail1_114c_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114c_1",
-"rail2_114c_2",
-"rail2_114c_3",
-"rail2_114c_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114c_1",
-"rail3_114c_2",
-"rail3_114c_3",
-"rail3_114c_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114c_1",
-"rail4_114c_2",
-"rail4_114c_3",
-"rail4_114c_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-"pod_m260_1",
-"pod_m260_2",
-"pod_m260_3",
-"pod_m260_4",
-"rail_m299_1",
-"rail_m299_2",
-"rail_m299_3",
-"rail_m299_4"
-};
-		transportSoldier=2;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		accuracy=0.5;
-		simulation=helicopterRTD;
-		driverAction = "fza_ah64_pilot";
-		enableSweep=1;
-		gunnerUsesPilotView=0;
-		crew="B_Helipilot_F";
-		animated=1;
-		driveropticsmodel = "\fza_ah64_US\fza_ah64_pnvs";
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driverOpticsColor[] = {0.231,0.914,0.184,1};
-		//Calculation is visibility*irScanToEyeFactor
-		//irScanRanges are the limits
-		irScanToEyeFactor = 4;
-		irScanRangeMax=6000;
-		irScanRangeMin=6000;
-		//irScanRange=8000;
-		laserScanner=1;
-		//fuelCapacity=110;
-		nightVision=1;
-		mainRotorSpeed = 1;
-		//threat[] VSoft, VArmor, VAir 
-		threat[]={0.8,1,0.9};
-		//Armor values
-		armor=120;
-		armorStructural=5; // structural dammage
-		armorHull=1.0;
-		armorEngine=1.5;
-		armorAvionics=1.0;
-		armorVRotor=1.0;
-		armorHRotor=1.5;
-		armorMissiles=1.0;
-		armorGlass=1.0;
-		//unitinfotype="unitinfoapc";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
-		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		//ARMA CONFIG POINTS
-		memorypointcm[] = {"chaff_launcher1"};
-		memorypointcmdir[] = {"chaff_launcher1_dir"};
-		weapons[] = {"fza_ah64_chaff30"};
-		magazines[] = {"fza_ah64_chaff30"};
-		radartype = 4;
-		lockdetectionsystem = 8;
-		incommingmissliedetectionsystem = 16;
-		flarevelocity = 100;
-		selectionHRotorStill = "velka vrtule staticka";
-		selectionHRotorMove = "velka vrtule blur";
-		selectionVRotorStill = "mala vrtule staticka";
-		selectionVRotorMove = "mala vrtule blur";
-		memoryPointLMissile = "l strela";
-		memoryPointRMissile = "p strela";
-		memoryPointLRocket = "l raketa";
-		memoryPointRRocket = "p raketa";
-		gunAimDown = 0;
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
-		memoryPointsGetInCargo = "pos cargo";
-		memoryPointsGetInCargoDir = "pos cargo dir";
-		envelope[]=
-		{
-		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
-		};
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-		class Library
-		{
-			libTextDesc = "The AH-64A is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was first used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64A has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
-		};
-		class ViewPilot
-		{
-			initFov=0.700000;
-			minFov=0.400000;
-			maxFov=0.850000;
-			initAngleX=0;
-			minAngleX=-75;
-			maxAngleX=50;
-			initAngleY=0;
-			minAngleY=-150;
-			maxAngleY=150;
-		};
-		class ViewOptics
-		{
-			initAngleX=0;
-			minAngleX=-120;
-			maxAngleX=120;
-			initAngleY=0;
-			minAngleY=-60;
-			maxAngleY=11;
-			initFov=0.7;
-			minFov=0.1;
-			maxFov=0.7;
-			thermalmode[] = {0};
-			visionmode[] = {"Ti","NVG"};
-		};
-		class AnimationSources
-		{
-		class pnvs
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class pnvs_vert
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;         
-		};
-		class m230_recoil
-		{
-			source = "reload";
-			weapon = fza_m230;
-		};
-		//EXPERIMENTAL//
-		class mainTurret
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class maingun
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		class pylon4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;
-		};
-		//ENDEXPERIMENTAL//
-		class swashplate_up_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_up_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swashplate_dn_bank
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class mr_act_tns
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm1_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm2
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm3_t
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class swup_arm4
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class trsw
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade2_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade3_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class tr_blade4_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-		class blade1_pitch
-		{
-			source = "user";
-			animPeriod = 0.1;
-			initPhase=0;         
-		};
-class blade1_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade2_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade3_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};
-class blade4_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;         
-};			////////////////////////////////
-			///////////COCKPIT//////////////
-			////////////////////////////////
-		//////////////DOORS//////////////////
-		class pdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-		class gdoor
-		{
-			source = "user";
-			animPeriod = 1;
-			initPhase=0;
-		};
-};
-		class eventhandlers
-		{
-			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\turrets.sqf""; [_this select 0] execvm ""\fza_ah64_controls\scripting\bladerot.sqf""; [_this select 0] execvm ""\fza_ah64_controls\scripting\ah64a_init.sqf""; [_this select 0] execvm ""\fza_ah64_controls\arming\arming.sqf""";
-			//dammaged = "[_this select 0,_this select 1,_this select 2] exec ""\mas_ah64cfg\scripts\damaged.sqs""";
-			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;";
-			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
-			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
-			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
-			engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
-			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this Call Compile PreProcessFile ""\fza_ah64_controls\scripting\damage\system_dam.sqf"";}; if(alive (_this select 0)) then {_this select 2};";
-			killed = "_this call BIS_Effects_EH_Killed;";
-		};
-};
-	class fza_ah64a_e: fza_ah64a_l
-	{
-		side=1;				
-		scope=1;
-		displayName="AH-64A (Early)";
-		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		ejectDeadCargo=0;
-		//picture="\mas_ah64\ah64_apic.paa";
-		//icon ="\mas_ah64\ah64_aicn.paa";
-		nameSound="veh_Helicopter";
-		//insideSoundCoef = 0.006;
-		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1; 
-		audible=4;
-		camouflage=10;
-		hiddenselections[]=
-{
-"pod1_m151_1",
-"pod1_m151_2",
-"pod1_m151_3",
-"pod1_m151_4",
-"pod1_m151_5",
-"pod1_m151_6",
-"pod1_m151_7",
-"pod1_m151_8",
-"pod1_m151_9",
-"pod1_m151_10",
-"pod1_m151_11",
-"pod1_m151_12",
-"pod1_m151_13",
-"pod1_m151_14",
-"pod1_m151_15",
-"pod1_m151_16",
-"pod1_m151_17",
-"pod1_m151_18",
-"pod1_m151_19",
-"pod1_m229_1",
-"pod1_m229_2",
-"pod1_m229_3",
-"pod1_m229_4",
-"pod1_m229_5",
-"pod1_m229_6",
-"pod1_m229_7",
-"pod1_m229_8",
-"pod1_m229_9",
-"pod1_m229_10",
-"pod1_m229_11",
-"pod1_m229_12",
-"pod1_m229_13",
-"pod1_m229_14",
-"pod1_m229_15",
-"pod1_m229_16",
-"pod1_m229_17",
-"pod1_m229_18",
-"pod1_m229_19",
-"pod1_m261_1",
-"pod1_m261_2",
-"pod1_m261_3",
-"pod1_m261_4",
-"pod1_m261_5",
-"pod1_m261_6",
-"pod1_m261_7",
-"pod1_m261_8",
-"pod1_m261_9",
-"pod1_m261_10",
-"pod1_m261_11",
-"pod1_m261_12",
-"pod1_m261_13",
-"pod1_m261_14",
-"pod1_m261_15",
-"pod1_m261_16",
-"pod1_m261_17",
-"pod1_m261_18",
-"pod1_m261_19",
-"pod2_m151_1",
-"pod2_m151_2",
-"pod2_m151_3",
-"pod2_m151_4",
-"pod2_m151_5",
-"pod2_m151_6",
-"pod2_m151_7",
-"pod2_m151_8",
-"pod2_m151_9",
-"pod2_m151_10",
-"pod2_m151_11",
-"pod2_m151_12",
-"pod2_m151_13",
-"pod2_m151_14",
-"pod2_m151_15",
-"pod2_m151_16",
-"pod2_m151_17",
-"pod2_m151_18",
-"pod2_m151_19",
-"pod2_m229_1",
-"pod2_m229_2",
-"pod2_m229_3",
-"pod2_m229_4",
-"pod2_m229_5",
-"pod2_m229_6",
-"pod2_m229_7",
-"pod2_m229_8",
-"pod2_m229_9",
-"pod2_m229_10",
-"pod2_m229_11",
-"pod2_m229_12",
-"pod2_m229_13",
-"pod2_m229_14",
-"pod2_m229_15",
-"pod2_m229_16",
-"pod2_m229_17",
-"pod2_m229_18",
-"pod2_m229_19",
-"pod2_m261_1",
-"pod2_m261_2",
-"pod2_m261_3",
-"pod2_m261_4",
-"pod2_m261_5",
-"pod2_m261_6",
-"pod2_m261_7",
-"pod2_m261_8",
-"pod2_m261_9",
-"pod2_m261_10",
-"pod2_m261_11",
-"pod2_m261_12",
-"pod2_m261_13",
-"pod2_m261_14",
-"pod2_m261_15",
-"pod2_m261_16",
-"pod2_m261_17",
-"pod2_m261_18",
-"pod2_m261_19",
-"pod3_m151_1",
-"pod3_m151_2",
-"pod3_m151_3",
-"pod3_m151_4",
-"pod3_m151_5",
-"pod3_m151_6",
-"pod3_m151_7",
-"pod3_m151_8",
-"pod3_m151_9",
-"pod3_m151_10",
-"pod3_m151_11",
-"pod3_m151_12",
-"pod3_m151_13",
-"pod3_m151_14",
-"pod3_m151_15",
-"pod3_m151_16",
-"pod3_m151_17",
-"pod3_m151_18",
-"pod3_m151_19",
-"pod3_m229_1",
-"pod3_m229_2",
-"pod3_m229_3",
-"pod3_m229_4",
-"pod3_m229_5",
-"pod3_m229_6",
-"pod3_m229_7",
-"pod3_m229_8",
-"pod3_m229_9",
-"pod3_m229_10",
-"pod3_m229_11",
-"pod3_m229_12",
-"pod3_m229_13",
-"pod3_m229_14",
-"pod3_m229_15",
-"pod3_m229_16",
-"pod3_m229_17",
-"pod3_m229_18",
-"pod3_m229_19",
-"pod3_m261_1",
-"pod3_m261_2",
-"pod3_m261_3",
-"pod3_m261_4",
-"pod3_m261_5",
-"pod3_m261_6",
-"pod3_m261_7",
-"pod3_m261_8",
-"pod3_m261_9",
-"pod3_m261_10",
-"pod3_m261_11",
-"pod3_m261_12",
-"pod3_m261_13",
-"pod3_m261_14",
-"pod3_m261_15",
-"pod3_m261_16",
-"pod3_m261_17",
-"pod3_m261_18",
-"pod3_m261_19",
-"pod4_m151_1",
-"pod4_m151_2",
-"pod4_m151_3",
-"pod4_m151_4",
-"pod4_m151_5",
-"pod4_m151_6",
-"pod4_m151_7",
-"pod4_m151_8",
-"pod4_m151_9",
-"pod4_m151_10",
-"pod4_m151_11",
-"pod4_m151_12",
-"pod4_m151_13",
-"pod4_m151_14",
-"pod4_m151_15",
-"pod4_m151_16",
-"pod4_m151_17",
-"pod4_m151_18",
-"pod4_m151_19",
-"pod4_m229_1",
-"pod4_m229_2",
-"pod4_m229_3",
-"pod4_m229_4",
-"pod4_m229_5",
-"pod4_m229_6",
-"pod4_m229_7",
-"pod4_m229_8",
-"pod4_m229_9",
-"pod4_m229_10",
-"pod4_m229_11",
-"pod4_m229_12",
-"pod4_m229_13",
-"pod4_m229_14",
-"pod4_m229_15",
-"pod4_m229_16",
-"pod4_m229_17",
-"pod4_m229_18",
-"pod4_m229_19",
-"pod4_m261_1",
-"pod4_m261_2",
-"pod4_m261_3",
-"pod4_m261_4",
-"pod4_m261_5",
-"pod4_m261_6",
-"pod4_m261_7",
-"pod4_m261_8",
-"pod4_m261_9",
-"pod4_m261_10",
-"pod4_m261_11",
-"pod4_m261_12",
-"pod4_m261_13",
-"pod4_m261_14",
-"pod4_m261_15",
-"pod4_m261_16",
-"pod4_m261_17",
-"pod4_m261_18",
-"pod4_m261_19",
-"rail1_114c_1",
-"rail1_114c_2",
-"rail1_114c_3",
-"rail1_114c_4",
-"rail1_114k_1",
-"rail1_114k_2",
-"rail1_114k_3",
-"rail1_114k_4",
-"rail2_114c_1",
-"rail2_114c_2",
-"rail2_114c_3",
-"rail2_114c_4",
-"rail2_114k_1",
-"rail2_114k_2",
-"rail2_114k_3",
-"rail2_114k_4",
-"rail3_114c_1",
-"rail3_114c_2",
-"rail3_114c_3",
-"rail3_114c_4",
-"rail3_114k_1",
-"rail3_114k_2",
-"rail3_114k_3",
-"rail3_114k_4",
-"rail4_114c_1",
-"rail4_114c_2",
-"rail4_114c_3",
-"rail4_114c_4",
-"rail4_114k_1",
-"rail4_114k_2",
-"rail4_114k_3",
-"rail4_114k_4",
-"atas_1",
-"atas_2",
-"fim92_1",
-"fim92_2",
-"fim92_3",
-"fim92_4",
-"auxtank_1",
-"auxtank_2",
-"auxtank_3",
-"auxtank_4",
-"pod_m260_1",
-"pod_m260_2",
-"pod_m260_3",
-"pod_m260_4",
-"rail_m299_1",
-"rail_m299_2",
-"rail_m299_3",
-"rail_m299_4",
-"ecomm"
-};
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114c_23_8"};
-			    memoryPointsGetInGunner = "pos gunner";
-			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -55.25; 
-				maxElev = 34.75;
-				initElev = 34.75;
-				minTurn = -120; 
-				maxTurn = 120;
-				initTurn = 0;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500};
-				discretedistanceinitindex = 0;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-			    gunnerOpticsModel = "\ca\air_e\gunnerOptics_ah64";
-				gunnerOpticsColor[] = {1,1,1,1};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 100;
-						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0, 1};
-						visionmode[] = {"Normal", "Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_2";
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\ca\air_e\gunnerOptics_ah64_3";
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -100;
-						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.700000;
-					minFov=0.400000;
-					maxFov=0.850000;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=50;
-					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
-				};
-			};
-		};
-	};
+	
+	/////////////////////////////////////////////////
+	///////////////////JAMMERS///////////////////////
+	/////////////////////////////////////////////////
 	class Thing: All {};
 	class ThingX: Thing {};
 	class RoadCone_F: Thing {};
@@ -15586,6 +9841,7 @@ initPhase=0;
 	class UAV_02_F: UAV_02_base_F {};
 	class fza_ah64_jammer: UAV_02_F
 	{
+		class Turrets {};
 		scope=1;
 		model = "\fza_ah64_US\fza_ah64_fake.p3d";
 		displayname="Helicopter";
@@ -15597,37 +9853,36 @@ initPhase=0;
 		hasGunner = false;
 		crew = "B_UAV_AI";
 		typicalCargo[] = {"B_UAV_AI"};
-		class Turrets {};
 	};
-////////////////////////////////////////////////
-///////////////////DEBRIS///////////////////////
-////////////////////////////////////////////////
+	////////////////////////////////////////////////
+	///////////////////DEBRIS///////////////////////
+	////////////////////////////////////////////////
 	/*
 	class ThingEffect: Thing {};
 	class FxExploArmor1: ThingEffect {};
 	*/
 	class fza_ah64_tailboom_debris: RoadCone_F
 	{
-	  scope=1;
-	  model = "\fza_ah64_us\prx\dam_tailboom_debris";
-	  displayName = "DEBRIS";
-	  submerged = 0;
-	  submergeSpeed = 0;
-	  timeToLive = 30;
-	  disappearAtContact = 0;
-	 };
+		scope=1;
+		model = "\fza_ah64_us\prx\dam_tailboom_debris";
+		displayName = "DEBRIS";
+		submerged = 0;
+		submergeSpeed = 0;
+		timeToLive = 30;
+		disappearAtContact = 0;
+	};
 	class fza_ah64_vtail_debris: fza_ah64_tailboom_debris
 	{
-	  model = "\fza_ah64_us\prx\dam_vtail_debris";
-	 };
+		model = "\fza_ah64_us\prx\dam_vtail_debris";
+	};
 	class fza_ah64_tr_debris: fza_ah64_tailboom_debris
 	{
-	  model = "\fza_ah64_us\prx\dam_tr_debris";
-	 };
+		model = "\fza_ah64_us\prx\dam_tr_debris";
+	};
 	class fza_ah64_hstab_debris: fza_ah64_tailboom_debris
 	{
-	  model = "\fza_ah64_us\prx\dam_hstab_debris";
-	 };
+		model = "\fza_ah64_us\prx\dam_hstab_debris";
+	};
 };
 //////////////////////////////////////////////////////
 ///////////////////////DIALOGS////////////////////////
@@ -15659,21 +9914,21 @@ initPhase=0;
 
 class fza_ah64_RscButton
 {
-        type = CT_BUTTON;
-        idc = -1;
-        style = ST_CENTER;
-        colorText[] = {0, 0, 0, 1};
+	type = CT_BUTTON;
+	idc = -1;
+	style = ST_CENTER;
+	colorText[] = {0, 0, 0, 1};
 	colorFocused[] = { 1, 1, 1, 1 };
 	colorDisabled[] = { 0, 0, 0, 0.7 };
 	colorBackground[] = { 1, 1, 1, 1 };
 	colorBackgroundDisabled[] = { 1, 1, 1, 0.5 }; 
 	colorBackgroundActive[] = { 1, 1, 1, 1 };
-        font = FontM;
-        sizeEx = 0.025;
-        soundPush[] = {, 0.2, 1};
-        soundClick[] = {"ui\ui_ok", 0.2, 1};
-        soundEscape[] = {"ui\ui_cc", 0.2, 1};
-        default = false;
+	font = FontM;
+	sizeEx = 0.025;
+	soundPush[] = {, 0.2, 1};
+	soundClick[] = {"ui\ui_ok", 0.2, 1};
+	soundEscape[] = {"ui\ui_cc", 0.2, 1};
+	default = false;
 	offsetX = 0;
 	offsetY = 0;
 	offsetPressedX = 0;
@@ -15689,10 +9944,9 @@ class fza_ah64_RscButton
 	text = "Close";
 	action = "";
 };
-
 class fza_ah64_wepbtn : fza_ah64_RscButton
 {
-        colorText[] = {0, 0, 0, 1};
+    colorText[] = {0, 0, 0, 1};
 	colorFocused[] = { 0, 0, 0, 0 };
 	colorDisabled[] = { 0, 0, 0, 0 };
 	colorBackground[] = { 0, 0, 0, 0 };
@@ -15705,18 +9959,16 @@ class fza_ah64_wepbtn : fza_ah64_RscButton
 	text = "";
 	action = "";
 };
-
 class fza_ah64_RscText
 {
-        type = CT_STATIC;
-        idc = -1;
-        style = ST_LEFT;
-        colorBackground[] = {0, 0, 0, 0};
-        colorText[] = {1, 1, 1, 1};
-        font = FontM;
-        sizeEx = 0.04;
+	type = CT_STATIC;
+	idc = -1;
+	style = ST_LEFT;
+	colorBackground[] = {0, 0, 0, 0};
+	colorText[] = {1, 1, 1, 1};
+	font = FontM;
+	sizeEx = 0.04;
 };
-
 class fza_ah64_RscBlueText: fza_ah64_RscText
 {
         type = CT_STATIC;
@@ -15728,34 +9980,32 @@ class fza_ah64_RscBlueText: fza_ah64_RscText
         font = FontM;
         sizeEx = 0.02;
 };
-
 class fza_ah64_RscYellowText: fza_ah64_RscText
 {
-        type = CT_STATIC;
-        idc = -1;
-        style = 16;
+	type = CT_STATIC;
+	idc = -1;
+	style = 16;
 	linespacing = 1;
-        colorBackground[] = {0.92, 0.7, 0, 1};
-        colorText[] = {0, 0, 0, 1};
-        font = FontM;
-        sizeEx = 0.03;
+	colorBackground[] = {0.92, 0.7, 0, 1};
+	colorText[] = {0, 0, 0, 1};
+	font = FontM;
+	sizeEx = 0.03;
 };
-
 class fza_ah64_RscLB_C
 {
-        style = ST_LEFT;
-        idc = -1;
-        colorSelect[] = {0.4, 0.4, 0.4, 1};
-        colorSelectBackground[] = {0.2, 0.2, 0.2, 1};
+	style = ST_LEFT;
+	idc = -1;
+	colorSelect[] = {0.4, 0.4, 0.4, 1};
+	colorSelectBackground[] = {0.2, 0.2, 0.2, 1};
 	colorDisabled[] = { 0, 0, 1, 0.7 };
-        colorText[] = {0.2, 0.2, 0.2, 1};
-        colorBackground[] = {0.4, 0.4, 0.4, 1};
-        font = FontM;
-        sizeEx = 0.025;
-        rowHeight = 0.04;
-        soundPush[] = {, 0.2, 1};
-        soundClick[] = {"", 0.2, 1};
-        soundEscape[] = {"", 0.2, 1};
+	colorText[] = {0.2, 0.2, 0.2, 1};
+	colorBackground[] = {0.4, 0.4, 0.4, 1};
+	font = FontM;
+	sizeEx = 0.025;
+	rowHeight = 0.04;
+	soundPush[] = {, 0.2, 1};
+	soundClick[] = {"", 0.2, 1};
+	soundEscape[] = {"", 0.2, 1};
 	soundEnter[] = { "", 0, 1 }; // no sound
 	soundSelect[] = {"", 0.2, 1};
 	soundExpand[] = {"", 0.2, 1};
@@ -15766,7 +10016,6 @@ class fza_ah64_RscLB_C
 	maxHistoryDelay = 0.1;
 	scrollbar = 1;
 };
-
 class fza_ah64_RscCombo:fza_ah64_RscLB_C
 {
 	type = CT_COMBO;
@@ -15786,9 +10035,7 @@ class fza_ah64_RscCombo:fza_ah64_RscLB_C
 		border = "\ca\ui\data\ui_border_scroll_ca.paa";
 		shadow = 0;
 	};
-
 };
-
 class fza_ah64_RscListbox:fza_ah64_RscLB_C
 {
 	type = CT_LISTBOX;
@@ -15809,7 +10056,6 @@ class fza_ah64_RscListbox:fza_ah64_RscLB_C
 		shadow = 0;
 	};
 };
-
 class fza_ah64_TEMPL_EDIT
 {
 	idc = -1;
@@ -15827,2482 +10073,2421 @@ class fza_ah64_TEMPL_EDIT
 	colorSelection[] = {1, 1, 1, 1};
 	colorDisabled[] = { 0, 0, 0, 0.7 };
 };
-
 class fza_ah64_loadout2
 {
-  idd = -1;
+	idd = -1;
 	moving =true;
 	movingEnable = true;
 	movingEnabled = true;
-  colorDisabled[] = { 0, 0, 1, 0.7 };
-  controlsBackground[] = { fza_ah64_loadout_back };
-  objects[] = {};
-  controls[] = {fza_ah64_heli,fza_ah64_pylons,fza_ah64_weapons_list,fza_ah64_loadarea,fza_ah64_loadarea_mis1,fza_ah64_loadarea_mis2,fza_ah64_loadarea_mis3,fza_ah64_loadarea_mis4,fza_ah64_loadarea_act,fza_ah64_wepinfo,fza_ah64_hardpoint1,fza_ah64_hp1_pic,fza_ah64_hardpoint2,fza_ah64_hp2_pic,fza_ah64_hardpoint3,fza_ah64_hp3_pic,fza_ah64_hardpoint4,fza_ah64_hp4_pic,fza_ah64_hardpoint5,fza_ah64_hp5_pic,fza_ah64_load,fza_ah64_clear,fza_ah64_close,fza_ah64_repair,fza_ah64_cannon,fza_ah64_skins};
-  class fza_ah64_loadout_back : fza_ah64_RscText
-  {
-    idc = 100;
-    style = ST_PICTURE;
-     x = 0.135;
-     y = 0;
-     w = 0.75;
-     h = 1;
-     text = "\fza_ah64_controls\arming\loadscreen.paa";
-  };
-  class fza_ah64_heli : fza_ah64_RscText
-  {
-     idc = 101;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.24;
-     y = -0.038;
-     w = 0.375;
-     h = 0.5;
-     text = "\fza_ah64_controls\arming\ah64db2.paa";
-  };
-  class fza_ah64_pylons : fza_ah64_RscText
-  {
-     idc = 102;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     colorText[] = {1, 1, 1, 0.6};
-     x = 0.055;
-     y = -0.03;
-     w = 0.75;
-     h = 0.5;
-     text = "\fza_ah64_controls\arming\wpn_area.paa";
-  };
-  class fza_ah64_weapons_list : fza_ah64_RscListbox
-  {
-  	idc = 103;
-  	x = 0.705;
-  	y = 0.005;
-  	w = 0.175;
-  	h = 0.86;
-  	style = LB_MULTI;
-  	colorText[] = {0.92, 0.73, 0, 1};
-  	colorBackground[] = {0, 0, 0, 0};
-  	SizeEX = 0.02;
-  	colorSelect[] = {0.7, 0, 0, 0.8};
-  	colorSelectBackGround[] = {0, 0, 0.5, 0.8};
-  	RowHeight = 0.12;
- 	wholeHeight = 0.3;
-	text="";
-  };
-  class fza_ah64_loadarea : fza_ah64_RscText
-  {
-     idc = 104;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.33;
-     y = 0.46;
-     w = 0.2;
-     h = 0.135;
-     text = "\fza_ah64_controls\arming\nowep_icn.paa";
-  };
-  class fza_ah64_loadarea_mis1 : fza_ah64_wepbtn
-  {
-     idc = 105;
-     colorBackground[] = {0, 0, 0, 0};
-     colorText[] = {0.9, 0.7, 0, 1};
-     x = 0.54;
-     y = 0.5;
-     w = 0.045;
-     h = 0.023;
-     sizeEx = 0.03;
-     text = "-";
-     action = "";
-  };
-  class fza_ah64_loadarea_mis2 : fza_ah64_loadarea_mis1
-  {
-     idc = 117; //106 is taken? wtf? IDCs must not be local anymore
-     x = 0.54;
-     y = 0.533;
-  };
-  class fza_ah64_loadarea_mis3 : fza_ah64_loadarea_mis1
-  {
-     idc = 107;
-     x = 0.585;
-     y = 0.5;
-  };
-  class fza_ah64_loadarea_mis4 : fza_ah64_loadarea_mis1
-  {
-     idc = 108;
-     x = 0.585;
-     y = 0.533;
-  };
-  class fza_ah64_loadarea_act : fza_ah64_wepbtn
-  {
-     idc = 109;
-     x = 0.33;
-     y = 0.46;
-     w = 0.2;
-     h = 0.135;
-     text = "";
-     action = "";
-  };
-  class fza_ah64_wepinfo : fza_ah64_RscText
-  {
-     idc = 110;
-     style = 16;
-     linespacing = 1;
-     colorBackground[] = {0, 0, 0, 0};
-     colorText[] = {0.9, 0.7, 0, 1};
-     x = 0.14;
-     y = 0.68;
-     w = 0.56;
-     h = 0.182;
-     sizeEx = 0.03;
-     text = "-";
-  };
-  class fza_ah64_hardpoint1 : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0, 0, 0, 0};
-     x = 0.355;
-     y = 0.016;
-     w = 0.15;
-     h = 0.1;
-     text = "";
-     action = "fza_ah64_hardpoint1 = fza_ah64_curwepsel; ctrlsettext [111,(ctrltext 104)];";
-  };
-  class fza_ah64_hp1_pic : fza_ah64_RscText
-  {
-     idc = 111;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.333;
-     y = 0.0025;
-     w = 0.19;
-     h = 0.12825;
-     text = "";
-  };
-  class fza_ah64_hardpoint2 : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0, 0, 0, 0};
-     x = 0.49;
-     y = 0.125;
-     w = 0.15;
-     h = 0.1;
-     text = "";
-     action = "fza_ah64_hardpoint2 = fza_ah64_curwepsel; fza_ah64_hardpoint2_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint2_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint2_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint2_ord4 = fza_ah64_weppoint4; ctrlsettext [112,(ctrltext 104)];";
-  };
-  class fza_ah64_hp2_pic : fza_ah64_RscText
-  {
-     idc = 112;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.468;
-     y = 0.1115;
-     w = 0.19;
-     h = 0.12825;
-     text = "";
-  };
-  class fza_ah64_hardpoint3 : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0, 0, 0, 0};
-     x = 0.49;
-     y = 0.27;
-     w = 0.15;
-     h = 0.1;
-     text = "";
-     action = "fza_ah64_hardpoint3 = fza_ah64_curwepsel; fza_ah64_hardpoint3_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint3_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint3_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint3_ord4 = fza_ah64_weppoint4; ctrlsettext [113,(ctrltext 104)];";
-  };
-  class fza_ah64_hp3_pic : fza_ah64_RscText
-  {
-     idc = 113;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.468;
-     y = 0.2565;
-     w = 0.19;
-     h = 0.12825;
-     text = "";
-  };
-  class fza_ah64_hardpoint4 : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0, 0, 0, 0};
-     x = 0.215;
-     y = 0.125;
-     w = 0.15;
-     h = 0.1;
-     text = "";
-     action = "fza_ah64_hardpoint4 = fza_ah64_curwepsel; fza_ah64_hardpoint4_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint4_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint4_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint4_ord4 = fza_ah64_weppoint4; ctrlsettext [114,(ctrltext 104)];";
-  };
-  class fza_ah64_hp4_pic : fza_ah64_RscText
-  {
-     idc = 114;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.193;
-     y = 0.1115;
-     w = 0.19;
-     h = 0.12825;
-     text = "";
-  };
-  class fza_ah64_hardpoint5 : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0, 0, 0, 0};
-     x = 0.215;
-     y = 0.27;
-     w = 0.15;
-     h = 0.1;
-     text = "";
-     action = "fza_ah64_hardpoint5 = fza_ah64_curwepsel; fza_ah64_hardpoint5_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint5_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint5_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint5_ord4 = fza_ah64_weppoint4; ctrlsettext [115,(ctrltext 104)];";
-  };
-  class fza_ah64_hp5_pic : fza_ah64_RscText
-  {
-     idc = 115;
-     style = ST_PICTURE;
-     type = ST_LEFT;
-     x = 0.193;
-     y = 0.2565;
-     w = 0.19;
-     h = 0.12825;
-     text = "";
-  };
-  class fza_ah64_load : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0.3, 0.2, 0.5, 0.5};
-     colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
-     colorText[] = {0.9, 0.7, 0, 1};
-     colorBorder[] = { 0.9, 0.7, 0, 1 };
-     sizeEx = 0.02;
-     borderSize = 0.01;
-     x = 0.15;
-     y = 0.01;
-     w = 0.1;
-     h = 0.05;
-     text = "LOAD";
-     action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\loadweps.sqf""";
-  };
-  class fza_ah64_clear : fza_ah64_load
-  {
-     x = 0.6;
-     y = 0.01;
-     text = "CLEAR";
-     action = "";
-  };
-  class fza_ah64_close : fza_ah64_load
-  {
-     x = 0.4;
-     y = 0.9;
-     text = "CLOSE";
-     action = "closedialog 0";
-  };
-  class fza_ah64_repair : fza_ah64_load
-  {
-     x = 0.51;
-     y = 0.9;
-	 w = 0.15;
-     text = "REPAIR-REFUEL";
-     action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\repair_refuel.sqf""";
-  };
-  class fza_ah64_skins : fza_ah64_load
-  {
-     x = 0.725;
-     y = 0.9;
-	 w = 0.1;
-     text = "SKINS";
-     action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\skinsel.sqf""";
-  };
-  class fza_ah64_cannon : fza_ah64_loadarea_mis1
-  {
-     idc = 116;
-     x = 0.405;
-     y = 0.27;
-     colorBackground[] = {0.5, 0, 0.5, 0.5};
-     colorBackgroundActive[] = { 0.5, 0, 0.5, 0.5 };
-     colorFocused[] = { 0.5, 0, 0.5, 0.5 };
-     text = "1200";
-     action = "fza_ah64_canmag = fza_ah64_canmag + 1;";
-  };
+	colorDisabled[] = { 0, 0, 1, 0.7 };
+	controlsBackground[] = { fza_ah64_loadout_back };
+	objects[] = {};
+	controls[] = {fza_ah64_heli,fza_ah64_pylons,fza_ah64_weapons_list,fza_ah64_loadarea,fza_ah64_loadarea_mis1,fza_ah64_loadarea_mis2,fza_ah64_loadarea_mis3,fza_ah64_loadarea_mis4,fza_ah64_loadarea_act,fza_ah64_wepinfo,fza_ah64_hardpoint1,fza_ah64_hp1_pic,fza_ah64_hardpoint2,fza_ah64_hp2_pic,fza_ah64_hardpoint3,fza_ah64_hp3_pic,fza_ah64_hardpoint4,fza_ah64_hp4_pic,fza_ah64_hardpoint5,fza_ah64_hp5_pic,fza_ah64_load,fza_ah64_clear,fza_ah64_close,fza_ah64_repair,fza_ah64_cannon,fza_ah64_skins};
+	class fza_ah64_loadout_back : fza_ah64_RscText
+	{
+		idc = 100;
+		style = ST_PICTURE;
+		x = 0.135;
+		y = 0;
+		w = 0.75;
+		h = 1;
+		text = "\fza_ah64_controls\arming\loadscreen.paa";
+	};
+	class fza_ah64_heli : fza_ah64_RscText
+	{
+		idc = 101;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.24;
+		y = -0.038;
+		w = 0.375;
+		h = 0.5;
+		text = "\fza_ah64_controls\arming\ah64db2.paa";
+	};
+	class fza_ah64_pylons : fza_ah64_RscText
+	{
+		idc = 102;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		colorText[] = {1, 1, 1, 0.6};
+		x = 0.055;
+		y = -0.03;
+		w = 0.75;
+		h = 0.5;
+		text = "\fza_ah64_controls\arming\wpn_area.paa";
+	};
+	class fza_ah64_weapons_list : fza_ah64_RscListbox
+	{
+		idc = 103;
+		x = 0.705;
+		y = 0.005;
+		w = 0.175;
+		h = 0.86;
+		style = LB_MULTI;
+		colorText[] = {0.92, 0.73, 0, 1};
+		colorBackground[] = {0, 0, 0, 0};
+		SizeEX = 0.02;
+		colorSelect[] = {0.7, 0, 0, 0.8};
+		colorSelectBackGround[] = {0, 0, 0.5, 0.8};
+		RowHeight = 0.12;
+		wholeHeight = 0.3;
+		text="";
+	};
+	class fza_ah64_loadarea : fza_ah64_RscText
+	{
+		idc = 104;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.33;
+		y = 0.46;
+		w = 0.2;
+		h = 0.135;
+		text = "\fza_ah64_controls\arming\nowep_icn.paa";
+	};
+	class fza_ah64_loadarea_mis1 : fza_ah64_wepbtn
+	{
+		idc = 105;
+		colorBackground[] = {0, 0, 0, 0};
+		colorText[] = {0.9, 0.7, 0, 1};
+		x = 0.54;
+		y = 0.5;
+		w = 0.045;
+		h = 0.023;
+		sizeEx = 0.03;
+		text = "-";
+		action = "";
+	};
+	class fza_ah64_loadarea_mis2 : fza_ah64_loadarea_mis1
+	{
+		idc = 117; //106 is taken? wtf? IDCs must not be local anymore
+		x = 0.54;
+		y = 0.533;
+	};
+	class fza_ah64_loadarea_mis3 : fza_ah64_loadarea_mis1
+	{
+		idc = 107;
+		x = 0.585;
+		y = 0.5;
+	};
+	class fza_ah64_loadarea_mis4 : fza_ah64_loadarea_mis1
+	{
+		idc = 108;
+		x = 0.585;
+		y = 0.533;
+	};
+	class fza_ah64_loadarea_act : fza_ah64_wepbtn
+	{
+		idc = 109;
+		x = 0.33;
+		y = 0.46;
+		w = 0.2;
+		h = 0.135;
+		text = "";
+		action = "";
+	};
+	class fza_ah64_wepinfo : fza_ah64_RscText
+	{
+		idc = 110;
+		style = 16;
+		linespacing = 1;
+		colorBackground[] = {0, 0, 0, 0};
+		colorText[] = {0.9, 0.7, 0, 1};
+		x = 0.14;
+		y = 0.68;
+		w = 0.56;
+		h = 0.182;
+		sizeEx = 0.03;
+		text = "-";
+	};	
+	class fza_ah64_hardpoint1 : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0, 0, 0, 0};
+		x = 0.355;
+		y = 0.016;
+		w = 0.15;
+		h = 0.1;
+		text = "";
+		action = "fza_ah64_hardpoint1 = fza_ah64_curwepsel; ctrlsettext [111,(ctrltext 104)];";
+	};
+	class fza_ah64_hp1_pic : fza_ah64_RscText
+	{
+		idc = 111;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.333;
+		y = 0.0025;
+		w = 0.19;
+		h = 0.12825;
+		text = "";
+	};
+	class fza_ah64_hardpoint2 : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0, 0, 0, 0};
+		x = 0.49;
+		y = 0.125;
+		w = 0.15;
+		h = 0.1;
+		text = "";
+		action = "fza_ah64_hardpoint2 = fza_ah64_curwepsel; fza_ah64_hardpoint2_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint2_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint2_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint2_ord4 = fza_ah64_weppoint4; ctrlsettext [112,(ctrltext 104)];";
+	};
+	class fza_ah64_hp2_pic : fza_ah64_RscText
+	{
+		idc = 112;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.468;
+		y = 0.1115;
+		w = 0.19;
+		h = 0.12825;
+		text = "";
+	};
+	class fza_ah64_hardpoint3 : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0, 0, 0, 0};
+		x = 0.49;
+		y = 0.27;
+		w = 0.15;
+		h = 0.1;
+		text = "";
+		action = "fza_ah64_hardpoint3 = fza_ah64_curwepsel; fza_ah64_hardpoint3_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint3_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint3_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint3_ord4 = fza_ah64_weppoint4; ctrlsettext [113,(ctrltext 104)];";
+	};
+	class fza_ah64_hp3_pic : fza_ah64_RscText
+	{
+		idc = 113;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.468;
+		y = 0.2565;
+		w = 0.19;
+		h = 0.12825;
+		text = "";
+	};
+	class fza_ah64_hardpoint4 : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0, 0, 0, 0};
+		x = 0.215;
+		y = 0.125;
+		w = 0.15;
+		h = 0.1;
+		text = "";
+		action = "fza_ah64_hardpoint4 = fza_ah64_curwepsel; fza_ah64_hardpoint4_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint4_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint4_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint4_ord4 = fza_ah64_weppoint4; ctrlsettext [114,(ctrltext 104)];";
+	};
+	class fza_ah64_hp4_pic : fza_ah64_RscText
+	{
+		idc = 114;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.193;
+		y = 0.1115;
+		w = 0.19;
+		h = 0.12825;
+		text = "";
+	};
+	class fza_ah64_hardpoint5 : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0, 0, 0, 0};
+		x = 0.215;
+		y = 0.27;
+		w = 0.15;
+		h = 0.1;
+		text = "";
+		action = "fza_ah64_hardpoint5 = fza_ah64_curwepsel; fza_ah64_hardpoint5_ord1 = fza_ah64_weppoint1; fza_ah64_hardpoint5_ord2 = fza_ah64_weppoint2; fza_ah64_hardpoint5_ord3 = fza_ah64_weppoint3; fza_ah64_hardpoint5_ord4 = fza_ah64_weppoint4; ctrlsettext [115,(ctrltext 104)];";
+	};
+	class fza_ah64_hp5_pic : fza_ah64_RscText
+	{
+		idc = 115;
+		style = ST_PICTURE;
+		type = ST_LEFT;
+		x = 0.193;
+		y = 0.2565;
+		w = 0.19;
+		h = 0.12825;
+		text = "";
+	};
+	class fza_ah64_load : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0.3, 0.2, 0.5, 0.5};
+		colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
+		colorText[] = {0.9, 0.7, 0, 1};
+		colorBorder[] = { 0.9, 0.7, 0, 1 };
+		sizeEx = 0.02;
+		borderSize = 0.01;
+		x = 0.15;
+		y = 0.01;
+		w = 0.1;
+		h = 0.05;
+		text = "LOAD";
+		action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\loadweps.sqf""";
+	};
+	class fza_ah64_clear : fza_ah64_load
+	{
+		x = 0.6;
+		y = 0.01;
+		text = "CLEAR";
+		action = "";
+	};
+	class fza_ah64_close : fza_ah64_load
+	{
+		x = 0.4;
+		y = 0.9;
+		text = "CLOSE";
+		action = "closedialog 0";
+	};
+	class fza_ah64_repair : fza_ah64_load
+	{
+		x = 0.51;
+		y = 0.9;
+		w = 0.15;
+		text = "REPAIR-REFUEL";
+		action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\repair_refuel.sqf""";
+	};
+	class fza_ah64_skins : fza_ah64_load
+	{
+		x = 0.725;
+		y = 0.9;
+		w = 0.1;
+		text = "SKINS";
+		action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\skinsel.sqf""";
+	};
+	class fza_ah64_cannon : fza_ah64_loadarea_mis1
+	{
+		idc = 116;
+		x = 0.405;
+		y = 0.27;
+		colorBackground[] = {0.5, 0, 0.5, 0.5};
+		colorBackgroundActive[] = { 0.5, 0, 0.5, 0.5 };
+		colorFocused[] = { 0.5, 0, 0.5, 0.5 };
+		text = "1200";
+		action = "fza_ah64_canmag = fza_ah64_canmag + 1;";
+	};
 };
-
-//////////////////////
-//////SKIN MENU///////
-//////////////////////
-
+///////////////////////////////
+//////AIRCRAFT SKIN MENU///////
+///////////////////////////////
 class fza_ah64_skinmenu
 {
-  idd = 199;
+	idd = 199;
 	moving = true;
 	movingEnable = true;
 	movingEnabled = true;
-  colorDisabled[] = { 0, 0, 1, 0.7 };
-  controlsBackground[] = { fza_ah64_skinmenu_back };
-  objects[] = { };
-  controls[] = { fza_ah64_skin_list,fza_ah64_skin_act,fza_ah64_skininfo,fza_ah64_skin_close,fza_ah64_skin_ok,fza_ah64_custskinpath,fza_ah64_testskin };
-  class fza_ah64_skinmenu_back : fza_ah64_RscText
-  {
-    idc = 200;
-    style = CT_STATIC;
-     x = safezoneX + (0.25 * safezoneW);
-     y = safezoneY + (0.72 * safezoneH);
-     w = safezoneW * 0.5;
-     h = safezoneH * 0.26;
-     colorText[] = {1, 1, 1, 1};
-	colorBackground[] = { 0.1, 0.1, 0.1, 0.8 };
-	colorBorder[] = { 0, 0, 0, 0 };
-	borderSize = 1;
-     text = "";
-  };
-
-  class fza_ah64_skin_list : fza_ah64_RscListbox
-  {
-  	idc = 201;
-     	x = safezoneX + (0.25 * safezoneW);
+	colorDisabled[] = { 0, 0, 1, 0.7 };
+	controlsBackground[] = { fza_ah64_skinmenu_back };
+	objects[] = { };
+	controls[] = { fza_ah64_skin_list,fza_ah64_skin_act,fza_ah64_skininfo,fza_ah64_skin_close,fza_ah64_skin_ok,fza_ah64_custskinpath,fza_ah64_testskin };
+	class fza_ah64_skinmenu_back : fza_ah64_RscText
+	{
+		idc = 200;
+		style = CT_STATIC;
+		x = safezoneX + (0.25 * safezoneW);
+		y = safezoneY + (0.72 * safezoneH);
+		w = safezoneW * 0.5;
+		h = safezoneH * 0.26;
+		colorText[] = {1, 1, 1, 1};
+		colorBackground[] = { 0.1, 0.1, 0.1, 0.8 };
+		colorBorder[] = { 0, 0, 0, 0 };
+		borderSize = 1;
+		text = "";
+	};
+	class fza_ah64_skin_list : fza_ah64_RscListbox
+	{
+		idc = 201;
+		x = safezoneX + (0.25 * safezoneW);
      	y = safezoneY + (0.72 * safezoneH);
     	w = safezoneW * 0.5;
      	h = safezoneH * 0.075;
-  	style = LB_MULTI;
-  	colorText[] = {0.92, 0.73, 0, 1};
-  	colorBackground[] = {0, 0, 0, 0};
-  	SizeEX = 0.02;
-  	colorSelect[] = {0.7, 0, 0, 0.8};
-  	colorSelectBackGround[] = {0, 0, 0.5, 0.8};
-  	RowHeight = 0.06;
- 	wholeHeight = 0.125;
-	text="";
-  };
-  class fza_ah64_skin_act : fza_ah64_wepbtn
-  {
-     idc = 202;
-     x = 0.33;
-     y = 0.46;
-     w = 0.2;
-     h = 0.135;
-     text = "";
-     action = "";
-  };
-  class fza_ah64_skininfo : fza_ah64_RscText
-  {
-     idc = 203;
-     style = ST_PICTURE;
-     linespacing = 1;
-     colorBackground[] = {0, 0, 0, 0};
-     colorText[] = {1, 1, 1, 1};
+		style = LB_MULTI;
+		colorText[] = {0.92, 0.73, 0, 1};
+		colorBackground[] = {0, 0, 0, 0};
+		SizeEX = 0.02;
+		colorSelect[] = {0.7, 0, 0, 0.8};
+		colorSelectBackGround[] = {0, 0, 0.5, 0.8};
+		RowHeight = 0.06;
+		wholeHeight = 0.125;
+		text="";
+	};
+	class fza_ah64_skin_act : fza_ah64_wepbtn
+	{
+		idc = 202;
+		x = 0.33;
+		y = 0.46;
+		w = 0.2;
+		h = 0.135;
+		text = "";
+		action = "";
+	};
+	class fza_ah64_skininfo : fza_ah64_RscText
+	{
+		idc = 203;
+		style = ST_PICTURE;
+		linespacing = 1;
+		colorBackground[] = {0, 0, 0, 0};
+		colorText[] = {1, 1, 1, 1};
      	x = safezoneX + (0.47 * safezoneW);
      	y = safezoneY + (0.8 * safezoneH);
     	w = safezoneW * 0.06;
      	h = safezoneH * 0.1;
-     sizeEx = 0.03;
-     text = "";
-  };
-  class fza_ah64_custskinpath : fza_ah64_TEMPL_EDIT
-  {
-	idc = 204;
-	colorText[] = {0.92, 0.73, 0, 1};
-  	colorSelect[] = {0.7, 0, 0, 0.8};
-  	colorSelectBackGround[] = {0, 0, 0.5, 0.8};
+		sizeEx = 0.03;
+		text = "";
+	};
+	class fza_ah64_custskinpath : fza_ah64_TEMPL_EDIT
+	{
+		idc = 204;
+		colorText[] = {0.92, 0.73, 0, 1};
+		colorSelect[] = {0.7, 0, 0, 0.8};
+		colorSelectBackGround[] = {0, 0, 0.5, 0.8};
      	x = safezoneX + (0.25 * safezoneW);
      	y = safezoneY + (0.9 * safezoneH);
     	w = safezoneW * 0.5;
      	h = safezoneH * 0.025;
-     sizeEx = 0.03;
-	text = "N/A";
-	action = "";
-  };
-  class fza_ah64_skin_close : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0.3, 0.2, 0.5, 0.5};
-     colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
-     colorText[] = {0.9, 0.7, 0, 1};
-     colorBorder[] = { 0.9, 0.7, 0, 1 };
-     sizeEx = 0.02;
-     borderSize = 0.01;
+		sizeEx = 0.03;
+		text = "N/A";
+		action = "";
+	};
+	class fza_ah64_skin_close : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0.3, 0.2, 0.5, 0.5};
+		colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
+		colorText[] = {0.9, 0.7, 0, 1};
+		colorBorder[] = { 0.9, 0.7, 0, 1 };
+		sizeEx = 0.02;
+		borderSize = 0.01;
      	x = safezoneX + (0.25 * safezoneW);
      	y = safezoneY + (0.95 * safezoneH);
     	w = safezoneW * 0.05;
      	h = safezoneH * 0.025;
-     text = "CLOSE";
-     action = "closedialog 0; fza_ah64_skindialog = false;";
-  };
-  class fza_ah64_skin_ok : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0.3, 0.2, 0.5, 0.5};
-     colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
-     colorText[] = {0.9, 0.7, 0, 1};
-     colorBorder[] = { 0.9, 0.7, 0, 1 };
-     sizeEx = 0.02;
-     borderSize = 0.01;
+		text = "CLOSE";
+		action = "closedialog 0; fza_ah64_skindialog = false;";
+	};
+	class fza_ah64_skin_ok : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0.3, 0.2, 0.5, 0.5};
+		colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
+		colorText[] = {0.9, 0.7, 0, 1};
+		colorBorder[] = { 0.9, 0.7, 0, 1 };
+		sizeEx = 0.02;
+		borderSize = 0.01;
      	x = safezoneX + (0.7 * safezoneW);
      	y = safezoneY + (0.95 * safezoneH);
     	w = safezoneW * 0.05;
      	h = safezoneH * 0.025;
-     text = "OK";
-     action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\setskin.sqf"";";
-  };
-  class fza_ah64_testskin : fza_ah64_wepbtn
-  {
-     idc = -1;
-     colorBackground[] = {0.3, 0.2, 0.5, 0.5};
-     colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
-     colorText[] = {0.9, 0.7, 0, 1};
-     colorBorder[] = { 0.9, 0.7, 0, 1 };
-     sizeEx = 0.02;
-     borderSize = 0.01;
+		text = "OK";
+		action = "[(vehicle player)] execvm ""\fza_ah64_controls\arming\setskin.sqf"";";
+	};
+	class fza_ah64_testskin : fza_ah64_wepbtn
+	{
+		idc = -1;
+		colorBackground[] = {0.3, 0.2, 0.5, 0.5};
+		colorBackgroundActive[] = { 0.5, 0.2, 0.3, 0.5 };
+		colorText[] = {0.9, 0.7, 0, 1};
+		colorBorder[] = { 0.9, 0.7, 0, 1 };
+		sizeEx = 0.02;
+		borderSize = 0.01;
      	x = safezoneX + (0.4875 * safezoneW);
      	y = safezoneY + (0.95 * safezoneH);
     	w = safezoneW * 0.05;
      	h = safezoneH * 0.025;
-     text = "Test Skin";
-     action = "ctrlsettext [203,(ctrlText 204)];";
-  };
+		text = "Test Skin";
+		action = "ctrlsettext [203,(ctrlText 204)];";
+	};
 };
-
 /////////////////////////////////////////////////////////////
 ////////////////////////////IHADSS///////////////////////////
 /////////////////////////////////////////////////////////////
 #define CT_OBJECT 80
 #define CT_MAP              100
 class RscObject;
-
 class fza_ah64_mapControl
 {
- idc = -1;
- type = 100;
- style = 48;
- x = 0;
- y = 0;
- w = 1;
- h = 1;
- colorBackground[] = {1,1,1,0};
- colorText[] = {0,0,0,0};
- colorSea[] = {0.56,0.8,0.98,0};
- colorForest[] = {0.6,0.8,0.2,0};
- colorRocks[] = {0.5,0.5,0.5,0};
- colorCountlines[] = {0.65,0.45,0.27,0};
- colorMainCountlines[] = {0.65,0.45,0.27,0};
- colorCountlinesWater[] = {0,0.53,1,0};
- colorMainCountlinesWater[] = {0,0.53,1,0};
- colorForestBorder[] = {0.4,0.8,0,0};
- colorRocksBorder[] = {0.5,0.5,0.5,0};
- colorPowerLines[] = {0,0,0,0};
- colorNames[] = {0,0,0,0};
- colorInactive[] = {1,1,1,0};
- colorLevels[] = {0,0,0,0};
- colorRailWay[] = {0,0,0,0};
- colorOutside[] = {0.56,0.8,0.98,0};
- //a3compat//
- colorTracks[] = {0,0,0,0};
- colorRoads[] = {0,0,0,0};
- colorMainRoads[] = {0,0,0,0};
- colorTracksFill[] = {0,0,0,0};
- colorRoadsFill[] = {0,0,0,0};
- colorMainRoadsFill[] = {0,0,0,0};
- colorGrid[] = {0,0,0,0};
- colorGridMap[] = {0,0,0,0};
- ////////////
- font = "TahomaB";
- sizeEx = 0;
- stickX[] = {0,
-  { "Gamma",1,1.5 }};
- stickY[] = {0,
-  { "Gamma",1,1.5 }};
- ptsPerSquareSea = 0;
- ptsPerSquareTxt = 0;
- ptsPerSquareCLn = 0;
- ptsPerSquareExp = 0;
- ptsPerSquareCost = 0;
- ptsPerSquareFor = "0f";
- ptsPerSquareForEdge = "0f";
- ptsPerSquareRoad = 0;
- ptsPerSquareObj = 0;
- fontLabel = "PuristaMedium";
- sizeExLabel = 0;
- fontGrid = "PuristaMedium";
- sizeExGrid = 0;
- fontUnits = "PuristaMedium";
- sizeExUnits = 0;
- fontNames = "PuristaMedium";
- sizeExNames = 0;
- fontInfo = "PuristaMedium";
- sizeExInfo = 0;
- fontLevel = "PuristaMedium";
- sizeExLevel = 0;
- scaleMax = 1;
- scaleMin = 0.125;
- text = "";
- maxSatelliteAlpha = 0;
- alphaFadeStartScale = 1;
- alphaFadeEndScale = 1.1;
- showCountourInterval = 1;
- scaleDefault = 2;
- class Task
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {1,0.537,0,0};
-  size = 27;
-  importance = 1;
-  coefMin = 1;
-  coefMax = 1;
-  iconCreated = "";
-  iconCanceled = "";
-  iconDone = "";
-  iconFailed = "";
-  colorCreated[] = {1,1,1,0};
-  colorCanceled[] = {1,1,1,0};
-  colorDone[] = {1,1,1,0};
-  colorFailed[] = {1,1,1,0};
- };
- class CustomMark
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.6471,0.6706,0.6235,0};
-  size = 18;
-  importance = 1;
-  coefMin = 1;
-  coefMax = 1;
- };
- class Legend
- {
-  x = "SafeZoneX";
-  y = "SafeZoneY";
-  w = 0.34;
-  h = 0.152;
-  font = "PuristaMedium";
-  sizeEx = 0.03921;
-  colorBackground[] = {0.906,0.901,0.88,0};
-  color[] = {0,0,0,0};
- };
- class Bunker
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.55,0.64,0.43,0};
-  size = 14;
-  importance = "1.5 * 14 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Bush
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.45,0.64,0.33,0};
-  size = 14;
-  importance = "0.2 * 14 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class BusStop
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.15,0.26,0.87,0};
-  size = 12;
-  importance = "1 * 10 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Command
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.9,0,0};
-  size = 18;
-  importance = 1;
-  coefMin = 1;
-  coefMax = 1;
- };
- class Cross
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "0.7 * 16 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Fortress
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Fuelstation
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.75;
-  coefMax = 4;
- };
- class Fountain
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.2,0.45,0.7,0};
-  size = 11;
-  importance = "1 * 12 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Hospital
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.78,0,0.05,0};
-  size = 16;
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class Chapel
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.55,0.64,0.43,0};
-  size = 16;
-  importance = "1 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class Church
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class Lighthouse
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 14;
-  color[] = {0,0.9,0,0};
-  importance = "3 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class Quay
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class Rock
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.1,0.1,0.1,0};
-  size = 12;
-  importance = "0.5 * 12 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Ruin
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 16;
-  color[] = {0,0.9,0,0};
-  importance = "1.2 * 16 * 0.05";
-  coefMin = 1;
-  coefMax = 4;
- };
- class SmallTree
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.45,0.64,0.33,0};
-  size = 12;
-  importance = "0.6 * 12 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Stack
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  size = 20;
-  color[] = {0,0.9,0,0};
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class Tree
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.45,0.64,0.33,0};
-  size = 12;
-  importance = "0.9 * 16 * 0.05";
-  coefMin = 0.25;
-  coefMax = 4;
- };
- class Tourism
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.78,0,0.05,0};
-  size = 16;
-  importance = "1 * 16 * 0.05";
-  coefMin = 0.7;
-  coefMax = 4;
- };
- class Transmitter
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.9,0,0};
-  size = 20;
-  importance = "2 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class ViewTower
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.9,0,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class Watertower
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0.2,0.45,0.7,0};
-  size = 20;
-  importance = "1.2 * 16 * 0.05";
-  coefMin = 0.9;
-  coefMax = 4;
- };
- class Waypoint
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class WaypointCompleted
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class PowerSolar
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class PowerWave
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class PowerWind
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class Shipwreck
- {
-  icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
-  color[] = {0,0.35,0.7,0};
-  size = 16;
-  importance = "2.5 * 16 * 0.05";
-  coefMin = 0.5;
-  coefMax = 4;
- };
- class ActiveMarker
- {
-  color[] = {0.3,0.1,0.9,0};
-  size = 50;
- };
+	idc = -1;
+	type = 100;
+	style = 48;
+	x = 0;
+	y = 0;
+	w = 1;
+	h = 1;
+	colorBackground[] = {1,1,1,0};
+	colorText[] = {0,0,0,0};
+	colorSea[] = {0.56,0.8,0.98,0};
+	colorForest[] = {0.6,0.8,0.2,0};
+	colorRocks[] = {0.5,0.5,0.5,0};
+	colorCountlines[] = {0.65,0.45,0.27,0};
+	colorMainCountlines[] = {0.65,0.45,0.27,0};
+	colorCountlinesWater[] = {0,0.53,1,0};
+	colorMainCountlinesWater[] = {0,0.53,1,0};
+	colorForestBorder[] = {0.4,0.8,0,0};
+	colorRocksBorder[] = {0.5,0.5,0.5,0};
+	colorPowerLines[] = {0,0,0,0};
+	colorNames[] = {0,0,0,0};
+	colorInactive[] = {1,1,1,0};
+	colorLevels[] = {0,0,0,0};
+	colorRailWay[] = {0,0,0,0};
+	colorOutside[] = {0.56,0.8,0.98,0};
+	//a3compat//
+	colorTracks[] = {0,0,0,0};
+	colorRoads[] = {0,0,0,0};
+	colorMainRoads[] = {0,0,0,0};
+	colorTracksFill[] = {0,0,0,0};
+	colorRoadsFill[] = {0,0,0,0};
+	colorMainRoadsFill[] = {0,0,0,0};
+	colorGrid[] = {0,0,0,0};
+	colorGridMap[] = {0,0,0,0};
+	////////////
+	font = "TahomaB";
+	sizeEx = 0;
+	stickX[] = {0,{"Gamma",1,1.5 }};
+	stickY[] = {0,{"Gamma",1,1.5 }};
+	ptsPerSquareSea = 0;
+	ptsPerSquareTxt = 0;
+	ptsPerSquareCLn = 0;
+	ptsPerSquareExp = 0;
+	ptsPerSquareCost = 0;
+	ptsPerSquareFor = "0f";
+	ptsPerSquareForEdge = "0f";
+	ptsPerSquareRoad = 0;
+	ptsPerSquareObj = 0;
+	fontLabel = "PuristaMedium";
+	sizeExLabel = 0;
+	fontGrid = "PuristaMedium";
+	sizeExGrid = 0;
+	fontUnits = "PuristaMedium";
+	sizeExUnits = 0;
+	fontNames = "PuristaMedium";
+	sizeExNames = 0;
+	fontInfo = "PuristaMedium";
+	sizeExInfo = 0;
+	fontLevel = "PuristaMedium";
+	sizeExLevel = 0;
+	scaleMax = 1;
+	scaleMin = 0.125;
+	text = "";
+	maxSatelliteAlpha = 0;
+	alphaFadeStartScale = 1;
+	alphaFadeEndScale = 1.1;
+	showCountourInterval = 1;
+	scaleDefault = 2;
+	class Task
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {1,0.537,0,0};
+		size = 27;
+		importance = 1;
+		coefMin = 1;
+		coefMax = 1;
+		iconCreated = "";
+		iconCanceled = "";
+		iconDone = "";
+		iconFailed = "";
+		colorCreated[] = {1,1,1,0};
+		colorCanceled[] = {1,1,1,0};
+		colorDone[] = {1,1,1,0};
+		colorFailed[] = {1,1,1,0};
+	};
+	class CustomMark
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.6471,0.6706,0.6235,0};
+		size = 18;
+		importance = 1;
+		coefMin = 1;
+		coefMax = 1;
+	};
+	class Legend
+	{
+		x = "SafeZoneX";
+		y = "SafeZoneY";
+		w = 0.34;
+		h = 0.152;
+		font = "PuristaMedium";
+		sizeEx = 0.03921;
+		colorBackground[] = {0.906,0.901,0.88,0};
+		color[] = {0,0,0,0};
+	};
+	class Bunker
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.55,0.64,0.43,0};
+		size = 14;
+		importance = "1.5 * 14 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Bush
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.45,0.64,0.33,0};
+		size = 14;
+		importance = "0.2 * 14 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class BusStop
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.15,0.26,0.87,0};
+		size = 12;
+		importance = "1 * 10 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Command
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.9,0,0};
+		size = 18;
+		importance = 1;
+		coefMin = 1;
+		coefMax = 1;
+	};
+	class Cross
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "0.7 * 16 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Fortress
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Fuelstation
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.75;
+		coefMax = 4;
+	};
+	class Fountain
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.2,0.45,0.7,0};
+		size = 11;
+		importance = "1 * 12 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Hospital
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.78,0,0.05,0};
+		size = 16;
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class Chapel
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.55,0.64,0.43,0};
+		size = 16;
+		importance = "1 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class Church
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class Lighthouse
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 14;
+		color[] = {0,0.9,0,0};
+		importance = "3 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class Quay
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class Rock
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.1,0.1,0.1,0};
+		size = 12;
+		importance = "0.5 * 12 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Ruin
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 16;
+		color[] = {0,0.9,0,0};
+		importance = "1.2 * 16 * 0.05";
+		coefMin = 1;
+		coefMax = 4;
+	};
+	class SmallTree
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.45,0.64,0.33,0};
+		size = 12;
+		importance = "0.6 * 12 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Stack
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		size = 20;
+		color[] = {0,0.9,0,0};
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class Tree
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.45,0.64,0.33,0};
+		size = 12;
+		importance = "0.9 * 16 * 0.05";
+		coefMin = 0.25;
+		coefMax = 4;
+	};
+	class Tourism
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.78,0,0.05,0};
+		size = 16;
+		importance = "1 * 16 * 0.05";
+		coefMin = 0.7;
+		coefMax = 4;
+	};
+	class Transmitter
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.9,0,0};
+		size = 20;
+		importance = "2 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class ViewTower
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.9,0,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class Watertower
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0.2,0.45,0.7,0};
+		size = 20;
+		importance = "1.2 * 16 * 0.05";
+		coefMin = 0.9;
+		coefMax = 4;
+	};
+	class Waypoint
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class WaypointCompleted
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class PowerSolar
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class PowerWave
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class PowerWind
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class Shipwreck
+	{
+		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		color[] = {0,0.35,0.7,0};
+		size = 16;
+		importance = "2.5 * 16 * 0.05";
+		coefMin = 0.5;
+		coefMax = 4;
+	};
+	class ActiveMarker
+	{
+		color[] = {0.3,0.1,0.9,0};
+		size = 50;
+	};
 };
-
 class RscTitles 
 {
+	class fza_ah64_mapfake
+	{
+		idd = 300;
+		movingEnable = 1;
+		enableSimulation = 1;
+		enableDisplay = 1;
+		duration     =  99999;
+		fadein       =  0;
+		fadeout      =  0;
+		name = "fza_ah64_mapfake";
+		//uiNameSpace setvariable ['fza_ah64_mapfake',_this select 0];
+		onLoad = "_this call fza_ah64_perframe;";
+		onunLoad = "((_this) displayCtrl 3001) ctrlSetEventHandler [""Draw"", '']; fza_ah64_pfsstate = false;";
+		class controlsBackground
+		{
+			class fza_ah64_cMap: fza_ah64_mapControl
+			{
+				idc = 3001;
+				moveOnEdges = 0;
+				x = -100;
+				y = -100;
+				w = 0.01;
+				h = 0.01;
+			};
+		};
+		class controls {};
+		class objects{};
+	};
+	class fza_ah64_click_helper
+	{
+		idd = 600;
+		movingEnable =  1;
+		duration     =  99999;
+		fadein       =  0;
+		fadeout      =  0;
+		name = "fza_ah64_click_helper";
+		onLoad = "with uiNameSpace do { fza_ah64_click_helper = _this select 0 }";
+		class controls 
+		{
+			class fza_ah64_click_helper_center
+			{
+				idc = 601;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\hdu\hmd_curs_ca.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.495;
+				y = 0.491;
+				w = 0.01;
+				h = 0.015;
+			};		
+			class fza_ah64_click_helper_txt
+			{
+				type = 13;
+				idc = 602;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.25;
+				y = 0.55;
+				w = 0.5;
+				h = 0.12;
+				size = 0.02;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,0.5};
+				text = "";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "center";
+					shadow = false;
+				};
+			};
+		};
+	};
+	class fza_ah64_raddisp
+	{
+		idd = 100;
+		movingEnable =  1;
+		duration     =  99999;
+		fadein       =  0;
+		fadeout      =  0;
+		name = "fza_ah64_raddisp";
+		//oldwith uiNameSpace do { fza_ah64_raddisp = _this select 0 }
+		onLoad = "uiNameSpace setvariable ['fza_ah64_raddisp',_this select 0];";
+		class objects
+		{
+			class fza_ah64_ihadss_hor_c
+			{
+				idc = 250;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_c.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p1
+			{
+				idc = 251;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p1.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p2
+			{
+				idc = 252;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p2.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p3
+			{
+				idc = 253;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p3.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p4
+			{
+				idc = 254;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p4.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p5
+			{
+				idc = 255;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p5.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p6
+			{
+				idc = 256;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p6.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p7
+			{
+				idc = 257;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p7.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p8
+			{
+				idc = 258;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p8.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_p9
+			{
+				idc = 259;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p9.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			//negs
+			class fza_ah64_ihadss_hor_n1
+			{
+				idc = 260;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n1.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n2
+			{
+				idc = 261;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n2.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n3
+			{
+				idc = 262;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n3.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n4
+			{
+				idc = 263;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n4.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n5
+			{
+				idc = 264;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n5.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n6
+			{
+				idc = 265;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n6.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n7
+			{
+				idc = 266;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n7.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n8
+			{
+				idc = 267;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n8.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			class fza_ah64_ihadss_hor_n9
+			{
+				idc = 268;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n9.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+			//trans
+			class fza_ah64_ihadss_hor_d
+			{
+				idc = 269;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_d.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};
+		};
+		class controls 
+		{
+			//hdu//
+			class fza_ah64_raddisp_hdu_bg
+			{
+				idc = 119;
+				type = 0;
+				colorText[] = {-1, 1, 0, 0.5};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "";
+				style = 48;
+				sizeEx = 512;
+				x = 0.25;
+				y = 0.28;
+				w = 0.5;
+				h = 0.44;
+			};
+			class fza_ah64_raddisp_hdu_bg2
+			{
+				idc = 120;
+				type = 0;
+				colorText[] = {-1, 1, 0, 0.5};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "";
+				style = 48;
+				sizeEx = 512;
+				x = 0.25;
+				y = 0.28;
+				w = 0.5;
+				h = 0.44;
+			};
+			///base///
+			class fza_ah64_raddisp_radrange
+			{
+				type = 13;
+				idc = 121;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = -0.055;
+				y = 0.72;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_targrange
+			{
+				type = 13;
+				idc = 122;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = -0.049;
+				y = 0.74;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_collective
+			{
+				type = 13;
+				idc = 123;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.31;
+				y = 0.356;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_speed
+			{
+				type = 13;
+				idc = 124;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.31;
+				y = 0.5;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_radaralt
+			{
+				type = 13;
+				idc = 125;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.18;
+				y = 0.5;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_weptype
+			{
+				type = 13;
+				idc = 126;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.56;
+				y = 0.72;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_wepstate
+			{
+				type = 13;
+				idc = 127;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.56;
+				y = 0.74;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_safemessage
+			{
 
-class fza_ah64_mapfake
-{
- access = 1;
- idd = 300;
-   movingEnable = 1;
-  enableSimulation = 1;
-  enableDisplay = 1;
-    duration     =  99999;
-   fadein       =  0;
-   fadeout      =  0;
- name = "fza_ah64_mapfake";
- // uiNameSpace setvariable ['fza_ah64_mapfake',_this select 0];
- onLoad = "_this call fza_ah64_perframe;";
- onunLoad = "((_this) displayCtrl 3001) ctrlSetEventHandler [""Draw"", '']; fza_ah64_pfsstate = false;";
- class controlsBackground
- {
-  class fza_ah64_cMap: fza_ah64_mapControl
-  {
-	idc = 3001;
-   moveOnEdges = 0;
-   x = -100;
-   y = -100;
-   w = 0.01;
-   h = 0.01;
-  };
- };
- class controls {};
- class objects{};
+				type = 13;
+				idc = 128;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.25;
+				y = 0.65;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "center";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_waypoint
+			{
+				type = 13;
+				idc = 129;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.29;
+				y = 0.6;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+				font = "EtelkaMonospaceProBold";
+						//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			//JHCMS
+			class fza_ah64_raddisp_jhmcs
+			{
+				idc = 130;
+				type = 0;
+				colorText[] = {0.1, 1, 0, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\ihadss.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.2485;
+				y = 0.16;
+				w = 0.5;
+				h = 0.68;
+			};
+			class fza_ah64_raddisp_jhmcs_trk
+			{
+				idc = 131;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
+				style = 48;
+				sizeEx = 64;
+				x = 0;
+				y = -50;
+				w = 0.0734;
+				h = 0.1;
+			};
+			class fza_ah64_raddisp_target
+			{
+				idc = 132;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
+				style = 48;
+				sizeEx = 64;
+				x = 0;
+				y = -50;
+				w = 0.0734;
+				h = 0.1;
+			};
+			class fza_ah64_raddisp_tadspos
+			{
+				idc = 133;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\tadspos.paa";
+				style = 48;
+				sizeEx = 256;
+				x = 0.5;
+				y = 0.7;
+				w = 0.03845;
+				h = 0.05;
+			};
+			class fza_ah64_raddisp_chevron
+			{
+				idc = 134;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_chev.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.3;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_vsi
+			{
+				idc = 135;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\alt_vsi.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.678;
+				y = 0.49;
+				w = 0.01;
+				h = 0.02;
+			};
+			class fza_ah64_raddisp_radaltbar
+			{
+				idc = 136;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.708;
+				y = 0.6325;
+				w = 0.01;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_fcrdir
+			{
+				idc = 137;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_fcr.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.678;
+				y = 0.3;
+				w = 0.032;
+				h = 0.04;
+			};
+			/*class fza_ah64_raddisp_hor_1
+			{
+				idc = 138;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.41;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_2
+			{
+				idc = 139;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.43;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_3
+			{
+				idc = 140;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.45;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_4
+			{
+				idc = 141;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.47;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_5
+			{
+				idc = 142;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.51;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_6
+			{
+				idc = 143;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.53;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_7
+			{
+				idc = 144;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.55;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};
+			class fza_ah64_raddisp_hor_8
+			{
+				idc = 145;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.57;
+				y = 0.6;
+				w = 0.015;
+				h = 0.0025;
+			};*/
+			class fza_ah64_raddisp_lase 
+			{ 
+				idc = 138; 
+				type = 0; 
+				colorText[] = {0.1, 1, 0, 1}; 
+				font = "EtelkaMonospaceProBold"; 
+				colorBackground[] = {1, 1, 1, 1}; 
+				text = ""; 
+				style = 48; 
+				sizeEx = 1024; 
+				x = 0.2485; 
+				y = 0.16; 
+				w = 0.5; 
+				h = 0.68; 
+			};
+			class fza_ah64_raddisp_hdg0_tickmark
+			{
+				idc = 146;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_360.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg30_tickmark
+			{
+				idc = 147;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_30.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg60_tickmark
+			{
+				idc = 148;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_60.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg90_tickmark
+			{
+				idc = 149;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_90.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg120_tickmark
+			{
+				idc = 150;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_120.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg150_tickmark
+			{
+				idc = 151;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_150.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg180_tickmark
+			{
+				idc = 152;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_180.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg210_tickmark
+			{
+				idc = 153;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_210.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg240_tickmark
+			{
+				idc = 154;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_240.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg270_tickmark
+			{
+				idc = 155;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_270.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg300_tickmark
+			{
+				idc = 156;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_300.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg330_tickmark
+			{
+				idc = 157;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\mark_330.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.05;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 158;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.003;
+				h = 0.01;
+			};
+			class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 159;
+			};
+			class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 160;
+			};
+			class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 161;
+			};
+			class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 162;
+			};
+			class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 163;
+			};
+			class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 164;
+			};
+			class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 165;
+			};
+			class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 166;
+			};
+			class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 167;
+			};
+			class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 168;
+			};
+			class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 169;
+			};
+			class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 170;
+			};
+			class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 171;
+			};
+			class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 172;
+			};
+			class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 173;
+			};
+			class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 174;
+			};
+			class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 175;
+			};
+			class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 176;
+			};
+			class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 177;
+			};
+			class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 178;
+			};
+			class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 179;
+			};
+			class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 180;
+			};
+			class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
+			{
+				idc = 181;
+			};
+			class fza_ah64_raddisp_pnvspos
+			{
+				idc = 182;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\headpos.paa";
+				style = 48;
+				sizeEx = 256;
+				x = 0.49;
+				y = 0.5;
+				w = 0.03845;
+				h = 0.05;
+			};
+			class fza_ah64_raddisp_fcr_for
+			{
+				idc = 183;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.27;
+				w = 0.002;
+				h = 0.054;
+			};
+			class fza_ah64_raddisp_waypoint_gspd
+			{
+				
+				type = 13;
+				idc = 184;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.29;
+				y = 0.62;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_velvect
+			{
+				idc = 185;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\MPD\cue_ca.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.5;
+				w = 0.03;
+				h = 0.04;
+			};
+			class fza_ah64_raddisp_slipball
+			{
+				idc = 186;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\hmd_slip.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = 0.5;
+				y = 0.7;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_bobup
+			{
+				
+				idc = 187;
+				type = 0;
+				colorText[] = {0.1, 1, 0, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\bobup.paa";
+				style = 48;
+				sizeEx = 256;
+				x = 0.49;
+				y = 0.5;
+				w = 0.03845;
+				h = 0.05;
+			};
+			class fza_ah64_raddisp_baroalt
+			{
+				
+				type = 13;
+				idc = 188;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.18;
+				y = 0.35;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_cscope1
+			{
+				idc = 190;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope2
+			{
+				idc = 191;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope3
+			{
+				idc = 192;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope4
+			{
+				idc = 193;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope5
+			{
+				idc = 194;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope6
+			{
+				idc = 195;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope7
+			{
+				idc = 196;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope8
+			{
+				idc = 197;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope9
+			{
+				idc = 198;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope10
+			{
+				idc = 199;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope11
+			{
+				idc = 200;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope12
+			{
+				idc = 201;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope13
+			{
+				idc = 202;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope14
+			{
+				idc = 203;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope15
+			{
+				idc = 204;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_cscope16
+			{
+				idc = 205;
+				type = 0;
+				colorText[] = {1, 1, 1, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = -100;
+				y = -100;
+				w = 0.018;
+				h = 0.024;
+			};
+			class fza_ah64_raddisp_fov
+			{
+				idc = 206;
+				type = 0;
+				colorText[] = {0.1, 1, 0, 1};
+				font = "EtelkaMonospaceProBold";
+				colorBackground[] = {1, 1, 1, 1};
+				text = "\fza_ah64_US\tex\HDU\FOV-W.paa";
+				style = 48;
+				sizeEx = 1024;
+				x = (safezoneX + safezoneW * 0.4);
+				y = (safezoneY + safezoneH * 0.4);
+				w = (safezoneW * 0.2);
+				h = (safezoneH * 0.2);
+			};
+		};
+	};
 };
-
-class fza_ah64_click_helper
-{
-   idd = 600;
-   movingEnable =  1;
-   duration     =  99999;
-   fadein       =  0;
-   fadeout      =  0;
-   name = "fza_ah64_click_helper";
-   onLoad = "with uiNameSpace do { fza_ah64_click_helper = _this select 0 }";
-   class controls 
-   {
-      class fza_ah64_click_helper_center
-      {
-         idc = 601;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\hdu\hmd_curs_ca.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.495;
-         y = 0.491;
-         w = 0.01;
-         h = 0.015;
-      };
-	class fza_ah64_click_helper_txt
-      {
-         access = 0;
-         type = 13;
-         idc = 602;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.25;
-         y = 0.55;
-         w = 0.5;
-         h = 0.12;
-         size = 0.02;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,0.5};
-         text = "";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "center";
-            shadow = false;
-         };
-	};
-   };
-};
-
-class fza_ah64_raddisp
-{
-   idd = 100;
-   movingEnable =  1;
-   duration     =  99999;
-   fadein       =  0;
-   fadeout      =  0;
-   name = "fza_ah64_raddisp";
-   //oldwith uiNameSpace do { fza_ah64_raddisp = _this select 0 }
-   onLoad = "uiNameSpace setvariable ['fza_ah64_raddisp',_this select 0];";
-   class objects
-   {
-	class fza_ah64_ihadss_hor_c
-	{
-	idc = 250;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_c.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p1
-	{
-	idc = 251;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p1.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p2
-	{
-	idc = 252;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p2.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p3
-	{
-	idc = 253;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p3.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p4
-	{
-	idc = 254;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p4.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p5
-	{
-	idc = 255;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p5.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p6
-	{
-	idc = 256;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p6.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p7
-	{
-	idc = 257;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p7.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p8
-	{
-	idc = 258;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p8.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_p9
-	{
-	idc = 259;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p9.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-//negs
-	class fza_ah64_ihadss_hor_n1
-	{
-	idc = 260;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n1.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n2
-	{
-	idc = 261;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n2.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n3
-	{
-	idc = 262;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n3.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n4
-	{
-	idc = 263;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n4.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n5
-	{
-	idc = 264;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n5.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n6
-	{
-	idc = 265;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n6.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n7
-	{
-	idc = 266;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n7.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n8
-	{
-	idc = 267;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n8.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-	class fza_ah64_ihadss_hor_n9
-	{
-	idc = 268;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n9.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-//trans
-	class fza_ah64_ihadss_hor_d
-	{
-	idc = 269;
-	type = 82;
-	model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_d.p3d";
-	scale = 1;
-	direction[] = {0, -0.35, -0.65};
-	up[] = {0, 0.65, -0.35};
-	position[] = {0.5,10,0.5};
-	x = 0.5; y = 0.5; z = 0.2;
-	xBack = 0.5;
-	yBack = 0.5;
-	zBack = 1.2;
-	inBack = 1;
-	enableZoom = 0;
-	zoomDuration = 0.001;
-	};
-   };
-   class controls 
-   {
-	  //hdu//
-	  class fza_ah64_raddisp_hdu_bg
-      {
-         idc = 119;
-         type = 0;
-         colorText[] = {-1, 1, 0, 0.5};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "";
-         style = 48;
-         sizeEx = 512;
-         x = 0.25;
-         y = 0.28;
-         w = 0.5;
-         h = 0.44;
-      };
-	  class fza_ah64_raddisp_hdu_bg2
-      {
-         idc = 120;
-         type = 0;
-         colorText[] = {-1, 1, 0, 0.5};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "";
-         style = 48;
-         sizeEx = 512;
-         x = 0.25;
-         y = 0.28;
-         w = 0.5;
-         h = 0.44;
-      };
-	  ///base///
-      class fza_ah64_raddisp_radrange
-      {
-         access = 0;
-         type = 13;
-         idc = 121;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = -0.055;
-         y = 0.72;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "right";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_targrange
-      {
-         access = 0;
-         type = 13;
-         idc = 122;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = -0.049;
-         y = 0.74;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "right";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_collective
-      {
-         access = 0;
-         type = 13;
-         idc = 123;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.31;
-         y = 0.356;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_speed
-      {
-         access = 0;
-         type = 13;
-         idc = 124;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.31;
-         y = 0.5;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_radaralt
-      {
-         access = 0;
-         type = 13;
-         idc = 125;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.18;
-         y = 0.5;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "right";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_weptype
-      {
-         access = 0;
-         type = 13;
-         idc = 126;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.56;
-         y = 0.72;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_wepstate
-      {
-         access = 0;
-         type = 13;
-         idc = 127;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.56;
-         y = 0.74;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_safemessage
-      {
-         access = 0;
-         type = 13;
-         idc = 128;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.25;
-         y = 0.65;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "center";
-            shadow = false;
-         };
-      };
-	  class fza_ah64_raddisp_waypoint
-      {
-         access = 0;
-         type = 13;
-         idc = 129;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.29;
-         y = 0.6;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-//JHCMS
-      class fza_ah64_raddisp_jhmcs
-      {
-         idc = 130;
-         type = 0;
-         colorText[] = {0.1, 1, 0, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\ihadss.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.2485;
-         y = 0.16;
-         w = 0.5;
-         h = 0.68;
-      };
-      class fza_ah64_raddisp_jhmcs_trk
-      {
-	 access = 0;
-         idc = 131;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
-         style = 48;
-         sizeEx = 64;
-         x = 0;
-         y = -50;
-         w = 0.0734;
-         h = 0.1;
-      };
-      class fza_ah64_raddisp_target
-      {
-	 access = 0;
-         idc = 132;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
-         style = 48;
-         sizeEx = 64;
-         x = 0;
-         y = -50;
-         w = 0.0734;
-         h = 0.1;
-      };
-      class fza_ah64_raddisp_tadspos
-      {
-	 access = 0;
-         idc = 133;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\tadspos.paa";
-         style = 48;
-         sizeEx = 256;
-         x = 0.5;
-         y = 0.7;
-         w = 0.03845;
-         h = 0.05;
-      };
-      class fza_ah64_raddisp_chevron
-      {
-	 access = 0;
-         idc = 134;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_chev.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.3;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	   class fza_ah64_raddisp_vsi
-      {
-         idc = 135;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\alt_vsi.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.678;
-         y = 0.49;
-         w = 0.01;
-         h = 0.02;
-      };
-
-	  class fza_ah64_raddisp_radaltbar
-      {
-         idc = 136;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.708;
-         y = 0.6325;
-         w = 0.01;
-         h = 0.0025;
-      };
-
-	   class fza_ah64_raddisp_fcrdir
-      {
-         idc = 137;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_fcr.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.678;
-         y = 0.3;
-         w = 0.032;
-         h = 0.04;
-      };
-/*
-      class fza_ah64_raddisp_hor_1
-      {
-         idc = 138;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.41;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_2
-      {
-         idc = 139;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.43;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_3
-      {
-         idc = 140;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.45;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_4
-      {
-         idc = 141;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.47;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_5
-      {
-         idc = 142;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.51;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_6
-      {
-         idc = 143;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.53;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_7
-      {
-         idc = 144;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.55;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-
-	  class fza_ah64_raddisp_hor_8
-      {
-         idc = 145;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.57;
-         y = 0.6;
-         w = 0.015;
-         h = 0.0025;
-      };
-*/
-	   class fza_ah64_raddisp_lase 
-      { 
-         idc = 138; 
-         type = 0; 
-         colorText[] = {0.1, 1, 0, 1}; 
-         font = "EtelkaMonospaceProBold"; 
-         colorBackground[] = {1, 1, 1, 1}; 
-         text = ""; 
-         style = 48; 
-         sizeEx = 1024; 
-         x = 0.2485; 
-         y = 0.16; 
-         w = 0.5; 
-         h = 0.68; 
-      };
-	  class fza_ah64_raddisp_hdg0_tickmark
-      {
-         idc = 146;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_360.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg30_tickmark
-      {
-         idc = 147;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_30.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg60_tickmark
-      {
-         idc = 148;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_60.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg90_tickmark
-      {
-         idc = 149;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_90.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg120_tickmark
-      {
-         idc = 150;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_120.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg150_tickmark
-      {
-         idc = 151;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_150.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg180_tickmark
-      {
-         idc = 152;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_180.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg210_tickmark
-      {
-         idc = 153;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_210.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg240_tickmark
-      {
-         idc = 154;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_240.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg270_tickmark
-      {
-         idc = 155;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_270.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg300_tickmark
-      {
-         idc = 156;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_300.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg330_tickmark
-      {
-         idc = 157;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\mark_330.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.05;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 158;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.003;
-         h = 0.01;
-      };
-
-	  class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 159;
-      };
-	  class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 160;
-      };
-	  class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 161;
-      };
-	  class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 162;
-      };
-	  class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 163;
-      };
-	  class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 164;
-      };
-	  class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 165;
-      };
-	  class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 166;
-      };
-	  class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 167;
-      };
-	  class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 168;
-      };
-	  class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 169;
-      };
-	  class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 170;
-      };
-	  class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 171;
-      };
-	  class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 172;
-      };
-	  class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 173;
-      };
-	  class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 174;
-      };
-	  class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 175;
-      };
-	  class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 176;
-      };
-	  class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 177;
-      };
-	  class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 178;
-      };
-	  class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 179;
-      };
-	  class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 180;
-      };
-	  class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
-      {
-         idc = 181;
-      };
-      class fza_ah64_raddisp_pnvspos
-      {
-		 access = 0;
-         idc = 182;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\headpos.paa";
-         style = 48;
-         sizeEx = 256;
-         x = 0.49;
-         y = 0.5;
-         w = 0.03845;
-         h = 0.05;
-      };
-
-	  class fza_ah64_raddisp_fcr_for
-      {
-         idc = 183;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.27;
-         w = 0.002;
-         h = 0.054;
-      };
-
-	  class fza_ah64_raddisp_waypoint_gspd
-      {
-         access = 0;
-         type = 13;
-         idc = 184;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.29;
-         y = 0.62;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "left";
-            shadow = false;
-         };
-      };
-
-	  class fza_ah64_raddisp_velvect
-      {
-         idc = 185;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\MPD\cue_ca.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.5;
-         w = 0.03;
-         h = 0.04;
-      };
-
-	  class fza_ah64_raddisp_slipball
-      {
-         idc = 186;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\hmd_slip.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = 0.5;
-         y = 0.7;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_bobup
-      {
-		 access = 0;
-         idc = 187;
-         type = 0;
-         colorText[] = {0.1, 1, 0, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\bobup.paa";
-         style = 48;
-         sizeEx = 256;
-         x = 0.49;
-         y = 0.5;
-         w = 0.03845;
-         h = 0.05;
-      };
-
-	  class fza_ah64_raddisp_baroalt
-      {
-         access = 0;
-         type = 13;
-         idc = 188;
-         style = 2 + 16;
-         lineSpacing = 1;
-         x = 0.18;
-         y = 0.35;
-         w = 0.5;
-         h = 0.12;
-         size = 0.024;
-         colorBackground[] = {0,0,0,0};
-         colorText[] = {0.1,1,0,1};
-         text = "0";
-         font = "EtelkaMonospaceProBold";
-         class Attributes 
-         {
-            font = "EtelkaMonospaceProBold";
-            //color = "1EFF00";
-            align = "right";
-            shadow = false;
-         };
-      };
-
-	  class fza_ah64_raddisp_cscope1
-      {
-         idc = 190;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope2
-      {
-         idc = 191;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope3
-      {
-         idc = 192;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope4
-      {
-         idc = 193;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope5
-      {
-         idc = 194;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope6
-      {
-         idc = 195;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope7
-      {
-         idc = 196;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope8
-      {
-         idc = 197;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope9
-      {
-         idc = 198;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope10
-      {
-         idc = 199;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope11
-      {
-         idc = 200;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope12
-      {
-         idc = 201;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope13
-      {
-         idc = 202;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope14
-      {
-         idc = 203;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope15
-      {
-         idc = 204;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-	  class fza_ah64_raddisp_cscope16
-      {
-         idc = 205;
-         type = 0;
-         colorText[] = {1, 1, 1, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = -100;
-         y = -100;
-         w = 0.018;
-         h = 0.024;
-      };
-      class fza_ah64_raddisp_fov
-      {
-         idc = 206;
-         type = 0;
-         colorText[] = {0.1, 1, 0, 1};
-         font = "EtelkaMonospaceProBold";
-         colorBackground[] = {1, 1, 1, 1};
-         text = "\fza_ah64_US\tex\HDU\FOV-W.paa";
-         style = 48;
-         sizeEx = 1024;
-         x = (safezoneX + safezoneW * 0.4);
-         y = (safezoneY + safezoneH * 0.4);
-         w = (safezoneW * 0.2);
-         h = (safezoneH * 0.2);
-      };
-   };
-};
-
-};
-/*
 //kept here in case needed//
-class CfgNonAIVehicles
+/*class CfgNonAIVehicles
 {
- class ProxyWeapon;
- class Proxyfza_agm114l: ProxyWeapon
- {
-  model = "\fza_ah64_US\fza_agm114l";
-  simulation = "maverickweapon";
- };
- class Proxyfza_agm114k: ProxyWeapon
- {
-  model = "\fza_ah64_US\fza_agm114k";
-  simulation = "maverickweapon";
- };
- class Proxyfza_agm114: ProxyWeapon
- {
-  model = "\fza_ah64_US\fza_agm114c";
-  simulation = "maverickweapon";
- };
-};
-*/
+	class ProxyWeapon;
+	class Proxyfza_agm114l: ProxyWeapon
+	{
+		model = "\fza_ah64_US\fza_agm114l";
+		simulation = "maverickweapon";
+	};
+	class Proxyfza_agm114k: ProxyWeapon
+	{
+		model = "\fza_ah64_US\fza_agm114k";
+		simulation = "maverickweapon";
+	};
+	class Proxyfza_agm114: ProxyWeapon
+	{
+		model = "\fza_ah64_US\fza_agm114c";
+		simulation = "maverickweapon";
+	};
+};*/
