@@ -1157,7 +1157,6 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 };
 
 /////ENGINE//////
-
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _btnpwr distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.04) then
 {
 if(fza_ah64_pwron == 1) exitwith {fza_ah64_pwron = 0; ["fza_ah64_button_click1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; fza_ah64_l1clicked = 1;};
@@ -1173,7 +1172,7 @@ fza_ah64_l1clicked = 1;
 };
 
 
-//RTR BRK
+
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _swrbrk distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && fza_ah64_apuon == 1) then
 {
@@ -1181,7 +1180,11 @@ if(_heli animationphase "plt_rtrbrake" < 1) then {_heli animate ["plt_rtrbrake",
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 1 START
+
+
+
+
+
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
@@ -1189,15 +1192,11 @@ if(_heli animationphase "plt_eng1_start" < 1) then {_heli animate ["plt_eng1_sta
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 2 START
-
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 if(_heli animationphase "plt_eng2_start" < 1) then {_heli animate ["plt_eng2_start",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; ["fza_ah64_estart1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";} else {_heli animate ["plt_eng2_start",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 fza_ah64_l1clicked = 1;
 };
-
-//ENGINE 1 THROTTLE OFF
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
@@ -1205,23 +1204,17 @@ _heli animate ["plt_eng1_throttle",0];
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 1 THROTTLE IDLE
-
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 1) then
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng1_throttle",0.25];
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 1 THROTTLE FLY
-
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 1) then
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng1_throttle",1];
 fza_ah64_l1clicked = 1;
 };
-
-//ENGINE 2 THROTTLE OFF
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
@@ -1229,55 +1222,34 @@ _heli animate ["plt_eng2_throttle",0];
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 2 THROTTLE IDLE
-
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 1) then
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng2_throttle",0.25];
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 2 THROTTLE FLY
-
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 1) then
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng2_throttle",1];
 fza_ah64_l1clicked = 1;
 };
 
-//STARTUP
 
-if(fza_ah64_apuon == 1 && _heli animationphase "plt_eng1_throttle" == 0.25 && _heli animationphase "plt_rtrbrake" == 1) then
+
+if(_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng1_throttle" == 0.25 && _heli animationphase "plt_eng2_throttle" == 0.25 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 if(_heli animationphase "plt_rtrbrake" == 1) then {fza_ah64_estarted = true; (driver _heli) action ["engineOn", _heli];} else {_heli animate ["plt_rtrbrake",0]; (driver _heli) action ["engineOff", _heli]; fza_ah64_estarted = false; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 1 & ENGINE 2 SWITCHES OFF ONCE THROTTLES IDLE
 
-if(_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng1_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
+
+if(fza_ah64_apuon == 0 && _heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
-_heli animate ["plt_eng1_start",0];
-};
-
-if(_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
-{
-_heli animate ["plt_eng2_start",0];
-};
-
-
-//SHUTDOWN
-
-if(fza_ah64_pwron == 1 && _heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 && isEngineOn _heli) then 
-{
-_heli animate ["plt_rtrbrake",0];
-(driver _heli) action ["engineOff", _heli];
-fza_ah64_estarted = false;
-["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+if(_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0) then {_heli animate ["plt_rtrbrake",0]; (driver _heli) action ["engineOff", _heli]; fza_ah64_estarted = false; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 fza_ah64_l1clicked = 1;
 };
 
-//IHADSS
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && isEngineOn _heli) then
 {

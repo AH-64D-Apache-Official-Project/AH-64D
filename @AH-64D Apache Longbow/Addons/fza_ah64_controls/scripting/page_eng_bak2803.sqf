@@ -106,15 +106,14 @@ waituntil{(vehicle player) iskindof "fza_ah64base"};
 _heli = vehicle player;
 waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player))};
 
-//ENG1 START
-
-if(_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng1_throttle" == 0.25 || _heli animationphase "plt_eng1_throttle" == 1) then
-{_e1rpm = (0.2 * _e1addcounter);
-_e1tgt = (0.536 * _e1addcounter);
-_e1opsi = (80 * _e1addcounter);
+if(_heli animationphase "plt_eng1_start" > 0.9) then
+{
+_e1rpm = (1 * _e1addcounter) * (_heli animationphase "plt_eng1_throttle");
+_e1tgt = (0.5 * _e1addcounter) * (_heli animationphase "plt_eng1_throttle");
+_e1opsi = (80 * _e1addcounter) * (_heli animationphase "plt_eng1_throttle");
 _e1addcounter = _e1addcounter + 0.002;
 if(_e1addcounter > 1) then {_e1addcounter = 1;};
-if(_e1tgt > 0.536) then {_e1tgt = 0.536;};
+if(_e1tgt > 0.5) then {_e1tgt = 0.5;};
 if(_e1rpm > 1) then {_e1rpm = 1;};
 if(_e1opsi > 80) then {_e1opsi = 80;};
 } else {
@@ -128,19 +127,16 @@ if(_e1rpm < 0) then {_e1rpm = 0;};
 if(_e1opsi < 0) then {_e1opsi = 0;};
 };
 
-//ENG1 START END
-
-//ENG2 START
-
-if(_heli animationphase "plt_eng2_start" == 1 || _heli animationphase "plt_eng2_throttle" == 0.25 || _heli animationphase "plt_eng2_throttle" == 1) then
-{_e2rpm = (0.2 * _e2addcounter);
-_e2tgt = (0.536 * _e2addcounter);
-_e2opsi = (81 * _e2addcounter);
+if(_heli animationphase "plt_eng2_start" > 0.9) then
+{
+_e2rpm = (1 * _e2addcounter) * (_heli animationphase "plt_eng2_throttle");
+_e2tgt = (0.5 * _e2addcounter) * (_heli animationphase "plt_eng2_throttle");
+_e2opsi = (80 * _e2addcounter) * (_heli animationphase "plt_eng2_throttle");
 _e2addcounter = _e2addcounter + 0.002;
 if(_e2addcounter > 1) then {_e2addcounter = 1;};
-if(_e2tgt > 0.536) then {_e2tgt = 0.536;};
+if(_e2tgt > 0.5) then {_e2tgt = 0.5;};
 if(_e2rpm > 1) then {_e2rpm = 1;};
-if(_e2opsi > 81) then {_e2opsi = 81;};
+if(_e2opsi > 80) then {_e2opsi = 80;};
 } else {
 _e2rpm = _e2rpm - 0.0025;
 _e2tgt = _e2tgt - 0.001;
@@ -152,7 +148,24 @@ if(_e2rpm < 0) then {_e2rpm = 0;};
 if(_e2opsi < 0) then {_e2opsi = 0;};
 };
 
-//ENG2 START END
+/*
+if(isengineon _heli) then
+{
+_e1rpm = _e1rpm + 0.0025;
+_e2rpm = _e2rpm + 0.0025;
+_e1tgt = _e1tgt + 0.001;
+_e2tgt = _e2tgt + 0.001;
+if(_e1tgt > 0.5) then {_e1tgt = 0.5; _e2tgt = 0.5;};
+if(_e1rpm > 1) then {_e1rpm = 1; _e2rpm = 1;};
+} else {
+_e1rpm = _e1rpm - 0.0025;
+_e2rpm = _e2rpm - 0.0025;
+_e1tgt = _e1tgt - 0.001;
+_e2tgt = _e2tgt - 0.001;
+if(_e1tgt < 0) then {_e1tgt = 0; _e2tgt = 0;};
+if(_e1rpm < 0) then {_e1rpm = 0; _e2rpm = 0;};
+};
+*/
 
 _phyd = 0.5;
 _uhyd = 0.5;

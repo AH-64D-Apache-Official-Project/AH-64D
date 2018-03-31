@@ -1253,14 +1253,16 @@ if(_heli animationphase "plt_rtrbrake" == 1) then {fza_ah64_estarted = true; (dr
 fza_ah64_l1clicked = 1;
 };
 
+
+
 //ENGINE 1 & ENGINE 2 SWITCHES OFF ONCE THROTTLES IDLE
 
-if(_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng1_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
+if(_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng1_throttle" == 1 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng1_start",0];
 };
 
-if(_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 1) then
+if(_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_throttle" == 1 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
 _heli animate ["plt_eng2_start",0];
 };
