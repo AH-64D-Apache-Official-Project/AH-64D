@@ -2,6 +2,12 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha Oropeza & Community.
 
 # CHANGELOG NOTES:
+*02/04/2018*
+- ENG RMPD PAGE rework to match real aircraft values (WIP).
+- Complexified startup procedure.
+- Tweaked animations to be less restrictive.
+- Fixed TADS optic stability.
+
 *11/03/2018*
 - Dynamic rotor sound.
 - Added damage sounds.
