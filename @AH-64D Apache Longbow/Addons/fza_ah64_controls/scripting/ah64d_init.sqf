@@ -227,7 +227,7 @@ _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
 if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
 if(isnil "fza_ah64_tiron") then {fza_ah64_tiron = false;};
 
-if(typeOf _heli == "fza_ah64d_b2e" || typeOf _heli == "fza_ah64d_b2exp" || typeOf _heli == "fza_ah64d_b3") then
+if(typeOf _heli == "fza_ah64d_b2e") then
 {
 	[_heli] execvm "\fza_ah64_controls\scripting\fcr_animate.sqf";
 };

@@ -108,17 +108,18 @@ waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == pla
 
 //ENG1 START
 
-if(_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng1_throttle" == 0.25 || _heli animationphase "plt_eng1_throttle" == 1) then
-{_e1rpm = (0.2 * _e1addcounter);
-_e1tgt = (0.536 * _e1addcounter);
+if(_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng1_throttle" == 0.25) then
+{
+_e1rpm = (0.44 * _e1addcounter);
+_e1tgt = (0.479 * _e1addcounter);
 _e1opsi = (80 * _e1addcounter);
-_e1addcounter = _e1addcounter + 0.002;
+_e1addcounter = _e1addcounter + 0.001;
 if(_e1addcounter > 1) then {_e1addcounter = 1;};
-if(_e1tgt > 0.536) then {_e1tgt = 0.536;};
-if(_e1rpm > 1) then {_e1rpm = 1;};
+if(_e1tgt > 0.479) then {_e1tgt = 0.479;};
+if(_e1rpm > 0.44) then {_e1rpm = 0.44;};
 if(_e1opsi > 80) then {_e1opsi = 80;};
 } else {
-_e1rpm = _e1rpm - 0.0025;
+_e1rpm = _e1rpm - 0.002;
 _e1tgt = _e1tgt - 0.001;
 _e1opsi = _e1opsi - 0.1;
 _e1addcounter = _e1addcounter - 0.002;
@@ -128,21 +129,32 @@ if(_e1rpm < 0) then {_e1rpm = 0;};
 if(_e1opsi < 0) then {_e1opsi = 0;};
 };
 
+if(isEngineOn _heli && _heli animationphase "plt_eng1_throttle" == 1) then
+{
+_e1rpm = (0.44 * _e1addcounter);
+_e1tgt = (0.479 * _e1addcounter);
+_e1opsi = (80 * _e1addcounter);
+_e1addcounter = _e1addcounter + 0.025;
+if(_e1rpm > 0.44) then {_e1rpm = 1.01;};
+if(_e1tgt > 0.536) then {_e1tgt = 0.536;};
+if(_e1opsi > 80) then {_e1opsi = 80;};
+};
+
 //ENG1 START END
 
 //ENG2 START
 
-if(_heli animationphase "plt_eng2_start" == 1 || _heli animationphase "plt_eng2_throttle" == 0.25 || _heli animationphase "plt_eng2_throttle" == 1) then
-{_e2rpm = (0.2 * _e2addcounter);
-_e2tgt = (0.536 * _e2addcounter);
+if(_heli animationphase "plt_eng2_start" == 1 || _heli animationphase "plt_eng2_throttle" == 0.25) then
+{_e2rpm = (0.44 * _e2addcounter);
+_e2tgt = (0.479 * _e2addcounter);
 _e2opsi = (81 * _e2addcounter);
-_e2addcounter = _e2addcounter + 0.002;
+_e2addcounter = _e2addcounter + 0.001;
 if(_e2addcounter > 1) then {_e2addcounter = 1;};
-if(_e2tgt > 0.536) then {_e2tgt = 0.536;};
-if(_e2rpm > 1) then {_e2rpm = 1;};
+if(_e2tgt > 0.479) then {_e2tgt = 0.479;};
+if(_e2rpm > 0.44) then {_e2rpm = 0.44;};
 if(_e2opsi > 81) then {_e2opsi = 81;};
 } else {
-_e2rpm = _e2rpm - 0.0025;
+_e2rpm = _e2rpm - 0.002;
 _e2tgt = _e2tgt - 0.001;
 _e2opsi = _e2opsi - 0.1;
 _e2addcounter = _e2addcounter - 0.002;
@@ -152,16 +164,25 @@ if(_e2rpm < 0) then {_e2rpm = 0;};
 if(_e2opsi < 0) then {_e2opsi = 0;};
 };
 
+if(isEngineOn _heli && _heli animationphase "plt_eng2_throttle" == 1) then
+{
+_e2rpm = (0.44 * _e2addcounter);
+_e2tgt = (0.479 * _e2addcounter);
+_e2opsi = (81 * _e2addcounter);
+_e2addcounter = _e2addcounter + 0.025;
+if(_e2rpm > 0.44) then {_e2rpm = 1.01;};
+if(_e2tgt > 0.536) then {_e2tgt = 0.536;};
+if(_e2opsi > 81) then {_e2opsi = 81;};
+};
+
 //ENG2 START END
 
-_phyd = 0.5;
-_uhyd = 0.5;
-_ahyd = 0.5;
+_phyd = 1;
+_uhyd = 1;
+_ahyd = 1;
 
-_tottorque = round(100*((0.25*(2-(inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25*(inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))));
-if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then {_tottorque =  round (((enginesTorqueRTD _heli select 0) + (enginesTorqueRTD _heli select 1)) / 35);};
-//(_tottorque*0.01) * _rotorrpm;
-if(difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then
+//_tottorque = (_tottorque*0.001) * _rotorrpm;
+if(difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0 && isEngineOn _heli) then
 {
 _e1trq = round((enginesTorqueRTD _heli select 0) / 17.5);
 _e2trq = round((enginesTorqueRTD _heli select 1) / 17.5);
@@ -170,7 +191,7 @@ _anitrq = ((_tottorque*0.0001) * _rotorrpm);
 _e1tgt = _e1tgt;
 _e2tgt = _e2tgt;
 
-_rotorrpm = round(100*(_heli animationphase "blade1_rise1"));
+_rotorrpm = round(101*(_heli animationphase "blade1_rise1"));
 
 if(fza_ah64_pl_mpd == "eng" || fza_ah64_pr_mpd == "eng") then
 {
@@ -190,8 +211,8 @@ _rotorrpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";
 		_rpmmsg = 1;
 	};
 };
-if(_rotorrpm < 80) then {_rotorrpmchar = "\fza_ah64_us\tex\char\y"; _rotorrpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_rotorrpm < 60) then {_rotorrpmchar = "\fza_ah64_us\tex\char\r"; _rotorrpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+//if(_rotorrpm < 80) then {_rotorrpmchar = "\fza_ah64_us\tex\char\y"; _rotorrpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+if(_rotorrpm < 94) then {_rotorrpmchar = "\fza_ah64_us\tex\char\r"; _rotorrpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 _rotorrpmformat1 = [_rotorrpm,_rotorrpmchar] call fza_ah64_digithun;
 _rotorrpmformat2 = [_rotorrpm,_rotorrpmchar] call fza_ah64_digitten;
 _rotorrpmformat3 = [_rotorrpm,_rotorrpmchar] call fza_ah64_digit;
@@ -200,21 +221,23 @@ _e1trqchar = "\fza_ah64_us\tex\char\g";
 _e1trqtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 _e2trqchar = "\fza_ah64_us\tex\char\g";
 _e2trqtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
-if(_e1trq < 40 || _e1trq > 105) then {_e1trqchar = "\fza_ah64_us\tex\char\y"; _e1trqtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e1trq < 20 || _e1trq > 108) then {_e1trqchar = "\fza_ah64_us\tex\char\r"; _e1trqtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
-if(_e2trq < 40 || _e2trq > 105) then {_e2trqchar = "\fza_ah64_us\tex\char\y"; _e2trqtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e2trq < 20 || _e2trq > 108) then {_e2trqchar = "\fza_ah64_us\tex\char\r"; _e2trqtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+if(_e1trq > 0 && _e1trq < 100) then {_e1trqchar = "\fza_ah64_us\tex\char\g"; _e1trqtape = "\fza_ah64_us\tex\mpd\Gtape.paa";};
+if(_e1trq > 101 && _e1trq < 115) then {_e1trqchar = "\fza_ah64_us\tex\char\y"; _e1trqtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+if(_e1trq > 115) then {_e1trqchar = "\fza_ah64_us\tex\char\r"; _e1trqtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+if(_e2trq > 0 && _e2trq < 100) then {_e2trqchar = "\fza_ah64_us\tex\char\g"; _e2trqtape = "\fza_ah64_us\tex\mpd\Gtape.paa";};
+if(_e2trq > 101 && _e2trq < 115) then {_e2trqchar = "\fza_ah64_us\tex\char\y"; _e2trqtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+if(_e2trq > 115) then {_e2trqchar = "\fza_ah64_us\tex\char\r"; _e2trqtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
-_e1trqformat1 = [_e1trq,_e1trqchar] call fza_ah64_digit;
+//_e1trqformat1 = [_e1trq,_e1trqchar] call fza_ah64_digit;
 _e1trqformat2 = [_e1trq,_e1trqchar] call fza_ah64_digitten;
-_e2trqformat1 = [_e2trq,_e2trqchar] call fza_ah64_digit;
+//_e2trqformat1 = [_e2trq,_e2trqchar] call fza_ah64_digit;
 _e2trqformat2 = [_e2trq,_e2trqchar] call fza_ah64_digitten;
 
 _e1percent = round(_e1rpm*100);
 _e1rpmchar = "\fza_ah64_us\tex\char\g";
 _e1rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
-if(_e1percent < 40 || _e1percent > 105) then {_e1rpmchar = "\fza_ah64_us\tex\char\y"; _e1rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e1percent < 20 || _e1percent > 108) then {_e1rpmchar = "\fza_ah64_us\tex\char\r"; _e1rpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+//if(_e1percent < 40 || _e1percent > 105) then {_e1rpmchar = "\fza_ah64_us\tex\char\y"; _e1rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+//if(_e1percent < 20 || _e1percent > 108) then {_e1rpmchar = "\fza_ah64_us\tex\char\r"; _e1rpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e1npformat1 = [_e1percent,_e1rpmchar] call fza_ah64_digithun;
 _e1npformat2 = [_e1percent,_e1rpmchar] call fza_ah64_digitten;
@@ -223,8 +246,8 @@ _e1npformat3 = [_e1percent,_e1rpmchar] call fza_ah64_digit;
 _e2percent = round(_e2rpm*100);
 _e2rpmchar = "\fza_ah64_us\tex\char\g";
 _e2rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
-if(_e2percent < 40 || _e2percent > 105) then {_e2rpmchar = "\fza_ah64_us\tex\char\y"; _e2rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e2percent < 20 || _e2percent > 108) then {_e2rpmchar = "\fza_ah64_us\tex\char\r"; _e2rpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+//if(_e2percent < 40 || _e2percent > 105) then {_e2rpmchar = "\fza_ah64_us\tex\char\y"; _e2rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+//if(_e2percent < 20 || _e2percent > 108) then {_e2rpmchar = "\fza_ah64_us\tex\char\r"; _e2rpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e2npformat1 = [_e2percent,_e2rpmchar] call fza_ah64_digithun;
 _e2npformat2 = [_e2percent,_e2rpmchar] call fza_ah64_digitten;
@@ -233,8 +256,8 @@ _e2npformat3 = [_e2percent,_e2rpmchar] call fza_ah64_digit;
 _e1tgtpercent = round(_e1tgt * 999);
 _e1tgtchar = "\fza_ah64_us\tex\char\g";
 _e1tgttape = "\fza_ah64_us\tex\mpd\Gtape.paa";
-if(_e1tgtpercent < 100 || _e1tgtpercent > 650) then {_e1tgtchar = "\fza_ah64_us\tex\char\y"; _e1tgttape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e1tgtpercent < 50 || _e1tgtpercent > 750) then {_e1tgtchar = "\fza_ah64_us\tex\char\r"; _e1tgttape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+//if(_e1tgtpercent < 100 || _e1tgtpercent > 650) then {_e1tgtchar = "\fza_ah64_us\tex\char\y"; _e1tgttape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+//if(_e1tgtpercent < 50 || _e1tgtpercent > 750) then {_e1tgtchar = "\fza_ah64_us\tex\char\r"; _e1tgttape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e1tgtformat1 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digithun;
 _e1tgtformat2 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digitten;
@@ -243,56 +266,56 @@ _e1tgtformat3 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digit;
 _e2tgtpercent = round(_e2tgt * 999);
 _e2tgtchar = "\fza_ah64_us\tex\char\g";
 _e2tgttape = "\fza_ah64_us\tex\mpd\Gtape.paa";
-if(_e2tgtpercent < 100 || _e2tgtpercent > 650) then {_e2tgtchar = "\fza_ah64_us\tex\char\y"; _e2tgttape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e2tgtpercent < 50 || _e2tgtpercent > 750) then {_e2tgtchar = "\fza_ah64_us\tex\char\r"; _e2tgttape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+//if(_e2tgtpercent < 100 || _e2tgtpercent > 650) then {_e2tgtchar = "\fza_ah64_us\tex\char\y"; _e2tgttape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+//if(_e2tgtpercent < 50 || _e2tgtpercent > 750) then {_e2tgtchar = "\fza_ah64_us\tex\char\r"; _e2tgttape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e2tgtformat1 = [_e2tgtpercent,_e2tgtchar] call fza_ah64_digithun;
 _e2tgtformat2 = [_e2tgtpercent,_e2tgtchar] call fza_ah64_digitten;
 _e2tgtformat3 = [_e2tgtpercent,_e2tgtchar] call fza_ah64_digit;
 
 _e1opsichar = "\fza_ah64_us\tex\char\g";
-if(_e1opsi < 30 || _e1opsi > 85) then {_e1opsichar = "\fza_ah64_us\tex\char\y";};
-if(_e1opsi < 15 || _e1opsi > 95) then {_e1opsichar = "\fza_ah64_us\tex\char\r";};
+//if(_e1opsi < 30 || _e1opsi > 85) then {_e1opsichar = "\fza_ah64_us\tex\char\y";};
+if(_e1opsi < 20 || _e1opsi > 95) then {_e1opsichar = "\fza_ah64_us\tex\char\r";};
 _e1opsiformat1 = [_e1opsi,_e1opsichar] call fza_ah64_digithun;
 _e1opsiformat2 = [_e1opsi,_e1opsichar] call fza_ah64_digitten;
 _e1opsiformat3 = [_e1opsi,_e1opsichar] call fza_ah64_digit;
 
 _e2opsichar = "\fza_ah64_us\tex\char\g";
-if(_e2opsi < 30 || _e2opsi > 85) then {_e2opsichar = "\fza_ah64_us\tex\char\y";};
-if(_e2opsi < 15 || _e2opsi > 95) then {_e2opsichar = "\fza_ah64_us\tex\char\r";};
+//if(_e2opsi < 30 || _e2opsi > 85) then {_e2opsichar = "\fza_ah64_us\tex\char\y";};
+if(_e2opsi < 20 || _e2opsi > 95) then {_e2opsichar = "\fza_ah64_us\tex\char\r";};
 _e2opsiformat1 = [_e2opsi,_e2opsichar] call fza_ah64_digithun;
 _e2opsiformat2 = [_e2opsi,_e2opsichar] call fza_ah64_digitten;
 _e2opsiformat3 = [_e2opsi,_e2opsichar] call fza_ah64_digit;
 
-_e1ng = round(_e1rpm*999);
+_e1ng = round(_e1rpm*835);
 _e1ngchar = "\fza_ah64_us\tex\char\g";
-if(_e1ng < 400 || _e1ng > 1005) then {_e1ngchar = "\fza_ah64_us\tex\char\y"; _e1ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e1ng < 200 || _e1ng > 1010) then {_e1ngchar = "\fza_ah64_us\tex\char\r"; _e1ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+if(_e1ng > 1023 && _e1ng < 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\y"; _e1ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+if(_e1ng < 630 || _e1ng > 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\r"; _e1ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e1ngformat1 = [_e1ng,_e1ngchar] call fza_ah64_digithun;
 _e1ngformat2 = [_e1ng,_e1ngchar] call fza_ah64_digitten;
 _e1ngformat3 = [_e1ng,_e1ngchar] call fza_ah64_digit;
 
-_e2ng = round(_e2rpm*999);
+_e2ng = round(_e2rpm*835);
 _e2ngchar = "\fza_ah64_us\tex\char\g";
-if(_e2ng < 400 || _e2ng > 1005) then {_e2ngchar = "\fza_ah64_us\tex\char\y"; _e2ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
-if(_e2ng < 200 || _e2ng > 1010) then {_e2ngchar = "\fza_ah64_us\tex\char\r"; _e2ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
+if(_e2ng > 1023 && _e2ng < 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\y"; _e2ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
+if(_e2ng < 630 || _e2ng > 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\r"; _e2ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
 _e2ngformat1 = [_e2ng,_e2ngchar] call fza_ah64_digithun;
 _e2ngformat2 = [_e2ng,_e2ngchar] call fza_ah64_digitten;
 _e2ngformat3 = [_e2ng,_e2ngchar] call fza_ah64_digit;
 
-_phydformat = _phyd * 6000;
+_phydformat = _phyd * 2970;
 _phydformat1 = [_phydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitthou;
 _phydformat2 = [_phydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digithun;
 _phydformat3 = [_phydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitten;
 _phydformat4 = [_phydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digit;
-_uhydformat = _uhyd * 6000;
+_uhydformat = _uhyd * 2970;
 _uhydformat1 = [_uhydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitthou;
 _uhydformat2 = [_uhydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digithun;
 _uhydformat3 = [_uhydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitten;
 _uhydformat4 = [_uhydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digit;
-_ahydformat = _phyd * 6000;
+_ahydformat = _phyd * 3000;
 _ahydformat1 = [_ahydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitthou;
 _ahydformat2 = [_ahydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digithun;
 _ahydformat3 = [_ahydformat,"\fza_ah64_us\tex\char\g"] call fza_ah64_digitten;
@@ -372,9 +395,9 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [843,_e2tgtformat3];
 		_heli setobjecttexture [844,_e2tgtformat2];
 		_heli setobjecttexture [845,_e2tgtformat1];
-		_heli setobjecttexture [848,_e1trqformat1];
+		//_heli setobjecttexture [848,_e1trqformat1];
 		_heli setobjecttexture [849,_e1trqformat2];
-		_heli setobjecttexture [852,_e2trqformat1];
+		//_heli setobjecttexture [852,_e2trqformat1];
 		_heli setobjecttexture [853,_e2trqformat2];
 		_heli setobjecttexture [857,_ahydformat4];
 		_heli setobjecttexture [858,_ahydformat3];
