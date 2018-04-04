@@ -1,7 +1,11 @@
-# AH-64D (v1.43+)
-Originally based on Franze & Nodunit AH-64D - Project by Sacha Oropeza & Community.
+# AH-64D Project
+Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*04/04/2018*
+- Advanced Flight Model (AFM) changes.
+- PNVS azimuth bug fixed (-90°/+90°)
+
 *02/04/2018*
 - ENG RMPD PAGE rework to match real aircraft values (WIP).
 - Complexified startup procedure.
@@ -101,8 +105,3 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha Oropeza & Communi
 - Tweaked Hellfire damage according to different types.
 - Tweaked Hellfire explosion animation.
 - Enhanced M230 dispersion.
-
-# TO DO:
-
-- Add internal & external weapon sounds.
-- Add external sounds for APU and startup sequence.
