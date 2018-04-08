@@ -664,12 +664,6 @@ if(fza_ah64_burst >= fza_ah64_burst_limit && currentweapon _heli == "fza_m230") 
 _safemessage = "BURST LIMIT";
 };
 
-/// TEST AZ LIMIT ///
-
-if(_tadsdir >= _100dir) then
-{
-_safemessage = "AZ LIMIT";
-
 if(fza_ah64_gunheat > 0) then
 {
 fza_ah64_gunheat = fza_ah64_gunheat - 0.05;

@@ -4718,7 +4718,7 @@ class CfgVehicles
 				onlyForPlayer=0;
 				radius=2.5;
 				showWindow=0;
-				priority=-10;
+				priority=10;
 				condition="this animationphase ""pdoor"" < 0.5 && alive this && !(isengineon this)";
 				shortcut="";
 				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\pilotdoor_toggle.sqf""";
@@ -4742,7 +4742,7 @@ class CfgVehicles
 				onlyForPlayer=0;
 				radius=2.5;
 				showWindow=0;
-				priority=-10;
+				priority=10;
 				condition="this animationphase ""pdoor"" > 0.5 && alive this";
 				shortcut="";
 				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\pilotdoor_toggle.sqf""";
@@ -4754,7 +4754,7 @@ class CfgVehicles
 				onlyForPlayer=0;
 				radius=3;
 				showWindow=0;
-				priority=-10;
+				priority=10;
 				condition="this animationphase ""gdoor"" < 0.5 && alive this && !(isengineon this)";
 				shortcut="";
 				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\gundoor_toggle.sqf""";
@@ -4766,7 +4766,7 @@ class CfgVehicles
 				onlyForPlayer=0;
 				radius=3;
 				showWindow=0;
-				priority=-10;
+				priority=10;
 				condition="this animationphase ""gdoor"" > 0.5 && alive this";
 				shortcut="";
 				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\gundoor_toggle.sqf""";
@@ -4778,7 +4778,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=3;
 				showWindow=0;
-				priority=-10;
+				priority=9;
 				condition="player == driver this || player == gunner this";
 				shortcut="User11";
 				statement="[this] exec ""\fza_ah64_controls\scripting\ihadss.sqs""";
@@ -4790,7 +4790,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=16;
 				condition="player == driver this || player == gunner this";
 				shortcut="User1";
 				statement="fza_ah64_prmpdcycle = [this] execvm ""\fza_ah64_controls\scripting\prmpdcycle.sqf""";
@@ -4895,9 +4895,9 @@ class CfgVehicles
 				shortcut="";
 				statement="fza_ah64_addwps = [this] execvm ""\fza_ah64_controls\scripting\nav\waypointclear.sqf""";
 			};
-			/*class map_toggle
+			class map_toggle
 			{
-				displayName="TSD MAP";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4906,7 +4906,7 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
 				shortcut="";
 				statement="fza_ah64_maptog = [this] execvm ""\fza_ah64_controls\scripting\tsd_map_toggle.sqf""";
-			};*/
+			};
 			///////////PFZ CONTROL/////////////
 			class pfz_create
 			{
@@ -4963,7 +4963,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=7;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_modeself = [this] execvm ""\fza_ah64_controls\scripting\mode_self.sqf""";
@@ -4975,7 +4975,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=7;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\mode_remt.sqf""";
@@ -4987,7 +4987,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=7;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User5";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\add_remt.sqf""";
@@ -4999,7 +4999,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=7;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User10";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
@@ -5011,7 +5011,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=8;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
@@ -5095,7 +5095,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-1;
+				priority=-6;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="";
 				statement="fza_ah64_irjamonoff = [this] execvm ""\fza_ah64_controls\scripting\ir_jammer.sqf""";
@@ -5107,7 +5107,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-1;
+				priority=-6;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="";
 				statement="fza_ah64_rfjamonoff = [this] execvm ""\fza_ah64_controls\scripting\rf_jammer.sqf""";
@@ -5119,7 +5119,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-1;
+				priority=-6;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="User13";
 				statement="fza_ah64_jamstate = [this] execvm ""\fza_ah64_controls\scripting\jam_toggle.sqf""";
@@ -5167,7 +5167,7 @@ class CfgVehicles
 				onlyForPlayer=1; 
 				radius=8; 
 				showWindow=0; 
-				priority=-10; 
+				priority=13; 
 				condition="(player == driver this) && (!isengineon this) && (speed this < 5) && (alive this)"; //removed CPG action
 				shortcut=""; 
 				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf"""; 
