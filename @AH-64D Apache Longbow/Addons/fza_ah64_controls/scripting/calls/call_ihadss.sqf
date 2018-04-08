@@ -199,7 +199,7 @@ _ihadssidx = _ihadssidx + 1;
 _rocketcode = "???";
 fza_ah64_ihadssinit = true;
 
-if ((player == driver _heli || player == gunner _heli) && (_heli iskindof "fza_ah64a_l" || _heli iskindof "fza_ah64a_e" || _heli iskindof "fza_ah64d_b2e_nr" || _heli iskindof "fza_ah64d_b2exp_nr" || _heli iskindof "fza_ah64d_b3_nr")) then
+if ((player == driver _heli || player == gunner _heli) && (_heli iskindof "fza_ah64a_l" || _heli iskindof "fza_ah64a_e" || _heli iskindof "fza_ah64d_b2e_nr")) then
 {
 _sensor = "A ";
 _sensxm = "TADS/HMD ";
@@ -419,45 +419,72 @@ if(isManualFire _heli) then {_weapon = "P-ATA";};
 _weaponstate = format ["%1",_heli ammo (currentweapon _heli)];
 };
 
-if(currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") then
+if((currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && player == driver _heli) then
 {
-//_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-//_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
-//_w = 0.0734;
-//_h = 0.1;
-//_apx = 0.036;
-//_apy = 0.05;
-//_angley = -0.5*(_heli animationphase "maingun");
-//_angley = _angley + 0.5;
-//_anglex = -0.5*(_heli animationphase "mainturret");
-//_anglex = _anglex + 0.5;
-////*abs(sin((_heli animationphase "mainturret") * -57.33))
-//_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
-//if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
-//_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
+_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+//_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fake.paa";
+//_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fake.paa";
+if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
+_w = 0.0734;
+_h = 0.1;
+_apx = 0.036;
+_apy = 0.05;
+_angley = -0.5*(_heli animationphase "maingun");
+_angley = _angley + 0.5;
+_anglex = -0.5*(_heli animationphase "mainturret");
+_anglex = _anglex + 0.5;
+//*abs(sin((_heli animationphase "mainturret") * -57.33))
+_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
+if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
+_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
 _weapon = "GUN" + (format [" RNG:%1",currentZeroing gunner _heli]);
 if(isManualFire _heli) then {_weapon = "P-GUN";};
 _curburst = fza_ah64_burst_limit;
 _weaponstate = format ["BURST:%1 %2",_curburst,_heli ammo (currentweapon _heli)];
 };
 
+
+
+if((currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && player == gunner _heli) then
+{
+_w = 0.0734;
+_h = 0.1;
+_apx = 0.036;
+_apy = 0.05;
+_angley = -0.5*(_heli animationphase "maingun");
+_angley = _angley + 0.5;
+_anglex = -0.5*(_heli animationphase "mainturret");
+_anglex = _anglex + 0.5;
+_weapon = "GUN" + (format [" RNG:%1",currentZeroing gunner _heli]);
+if(isManualFire _heli) then {_weapon = "P-GUN";};
+_curburst = fza_ah64_burst_limit;
+_weaponstate = format ["BURST:%1 %2",_curburst,_heli ammo (currentweapon _heli)];
+};
+
+
+
+
+
+
+
+
 if(currentweapon _heli == "Laserdesignator_mounted") then
 {
-//_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-//_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
-//_w = 0.0734;
-//_h = 0.1;
-//_apx = 0.036;
-//_apy = 0.05;
-//_angley = -0.5*(_heli animationphase "maingun");
-//_angley = _angley + 0.5;
-//_anglex = -0.5*(_heli animationphase "mainturret");
-//_anglex = _anglex + 0.5;
-//_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
-//if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
-//_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
+_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
+_w = 0.0734;
+_h = 0.1;
+_apx = 0.036;
+_apy = 0.05;
+_angley = -0.5*(_heli animationphase "maingun");
+_angley = _angley + 0.5;
+_anglex = -0.5*(_heli animationphase "mainturret");
+_anglex = _anglex + 0.5;
+_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
+if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
+_scPos = [(_gunpoint select 0),(_gunpoint select 1)];
 _weapon = "LDRF";
 if(isManualFire _heli) then {_weapon = "P-LDRF";};
 _lasestatus = "OFF";
@@ -517,6 +544,11 @@ _num = _num + 1;
 
 _bobcoords = [-100,-100];
 if(isnil "fza_ah64_bobtrue") then {fza_ah64_bobtrue = 0;};
+
+///IHADSS VIEW TWEAK - EXPERIMENTAL///
+
+//if (cameraView == "INTERNAL" && isEngineOn _heli && _heli animationphase "plt_eng1_throttle" == 1 && _heli animationphase "plt_eng2_throttle" == 1) then {fza_ah64_ihadssoff = 0;};
+//if (cameraView == "EXTERNAL" && (fza_ah64_ihadssoff == 1 || fza_ah64_ihadssoff == 0)) then {fza_ah64_ihadssoff = 1;};
 
 ///IHADSS MODES////
 
@@ -632,6 +664,12 @@ if(fza_ah64_burst >= fza_ah64_burst_limit && currentweapon _heli == "fza_m230") 
 _safemessage = "BURST LIMIT";
 };
 
+/// TEST AZ LIMIT ///
+
+if(_tadsdir >= _100dir) then
+{
+_safemessage = "AZ LIMIT";
+
 if(fza_ah64_gunheat > 0) then
 {
 fza_ah64_gunheat = fza_ah64_gunheat - 0.05;
@@ -658,7 +696,7 @@ _safemessage = "";
 };
 
 //auto hover detector//
-if((inputaction "HeliBack" > 0.25 || inputaction "HeliForward" > 0.25 || inputaction "HeliFastForward" > 0.25 || inputaction "HeliCyclicLeft" > 0.25 || inputaction "HeliCyclicRight" > 0.25) && (isAutoHoverOn _heli && player == driver _heli)) then
+if((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then
 {
 player action ["autoHoverCancel", _heli];
 };

@@ -3,7 +3,7 @@ _laseron = 0;
 _helilaser = objNull;
 
 if("fza_ah64_tads_fail" in (_heli magazinesturret [-1]) || _heli in fza_ah64_desiglist) exitwith {};
-if(player == gunner _heli && fza_ah64_laserstate == 0) exitwith {fza_ah64_laserstate = 1; _heli vehiclechat "Laser ON.";};
+if(player == gunner _heli && fza_ah64_laserstate == 0) exitwith {fza_ah64_laserstate = 1;};
 if(player == gunner _heli && fza_ah64_laserstate == 1) exitwith 
 {
 	fza_ah64_laserstate = 0; 
@@ -13,7 +13,7 @@ if(player == gunner _heli && fza_ah64_laserstate == 1) exitwith
 		sleep 0.1;
 		fza_ah64_ihadssoff = 0;
 	};
-	_heli vehiclechat "Laser OFF.";
+	//_heli vehiclechat "Laser OFF.";
 };
 
 if (player == driver _heli) then 
@@ -35,14 +35,14 @@ if (player == driver _heli) then
 		{
 			_heli fireAtTarget [_heli,"Laserdesignator_mounted"];
 			sleep 0.1;
-			_heli vehiclechat "Laser on.";
+			//_heli vehiclechat "Laser ON.";
 			fza_ah64_pltlaser = 1;
 		};
 		if (fza_ah64_pltlaser == 1) exitWith 
 		{
 			_heli fireAtTarget [_heli,"Laserdesignator_mounted"];
 			sleep 0.1;
-			_heli vehiclechat "Laser off.";
+			//_heli vehiclechat "Laser OFF.";
 			fza_ah64_pltlaser = 0;
 		};
 	};
@@ -95,4 +95,4 @@ while {(alive _heli && _heli hasweapon "Laserdesignator_mounted") || (alive _hel
 sleep 1;
 };
 
-_heli vehiclechat "Laser system disarmed.";
+_heli vehiclechat "Laser Disarmed.";

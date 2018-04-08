@@ -1202,9 +1202,9 @@ class CfgWeapons
 		initspeed=805;
 		recoil = "Empty";
 		laserLock = 1;
-		cursor = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
-		cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
-		cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+		cursor = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+		cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+		cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 		showAimCursorInternal = 1;
 		cursorSize = 1;
 		ballisticscomputer = 1;
@@ -1222,9 +1222,9 @@ class CfgWeapons
 			displayName="BURST LIMIT";
 			displayNameMagazine="BURST LIMIT";
 			shortNameMagazine="BURST LIMIT";
-			cursor = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
-			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
-			cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			cursor = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
+			cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 			showAimCursorInternal = 1;
 			ballisticscomputer = 1;
 			magazines[]={fza_m230_1200};
@@ -1283,7 +1283,7 @@ class CfgWeapons
 			flashSize = 0.100000;
 			recoil = "Empty";
 			cursor = "";
-			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun_exp.paa";
+			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 			cursorSize = 1;
 			aiDispersionCoefX = 6;
 			aiDispersionCoefY = 6;
@@ -4640,19 +4640,20 @@ class CfgVehicles
 		{
 			class sensorselect
 			{
-				displayName="Sensor Cycle";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
 				priority=-5;
-				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
+				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
+				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
 				statement="fza_ah64_agmode = fza_ah64_agmode + 1;";
 			};
 			class weaponactionswitch
 			{
-				displayName="WAS";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4664,7 +4665,7 @@ class CfgVehicles
 			};
 			class gunburst
 			{
-				displayName="Gun Burst";
+				displayName="";
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4676,7 +4677,7 @@ class CfgVehicles
 			};
 			class rocketsalvo
 			{
-				displayName="Rocket Salvo";
+				displayName="";
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4688,7 +4689,7 @@ class CfgVehicles
 			};
 			class guncontrol
 			{
-				displayName="Toggle Gun Control";
+				displayName="";
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4700,7 +4701,7 @@ class CfgVehicles
 			};
 			class misltraj
 			{
-				displayName="MISL TRAJ";
+				displayName="";
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4779,12 +4780,12 @@ class CfgVehicles
 				showWindow=0;
 				priority=-10;
 				condition="player == driver this || player == gunner this";
-				shortcut="";
+				shortcut="User11";
 				statement="[this] exec ""\fza_ah64_controls\scripting\ihadss.sqs""";
 			};
 			class pilotrmpd
 			{
-				displayName="Cycle Right MPD";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4796,7 +4797,7 @@ class CfgVehicles
 			};
 			class pilotlmpd
 			{
-				displayName="Cycle Left MPD";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4823,7 +4824,7 @@ class CfgVehicles
 			*/
 			class filtertargs
 			{
-				displayName="Cycle Target Filters";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4835,7 +4836,7 @@ class CfgVehicles
 			};
 			class tsdrange
 			{
-				displayName="TSD RANGE";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4847,7 +4848,7 @@ class CfgVehicles
 			};
 			class tsdmode
 			{
-				displayName="TSD MODE";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4860,7 +4861,7 @@ class CfgVehicles
 			////////////////TEMP NAV CONTROL/////////////
 			class waypoints_add
 			{
-				displayName="Create Waypoints";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4872,7 +4873,7 @@ class CfgVehicles
 			};
 			class waypoints_sav
 			{
-				displayName="Save Waypoints";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4884,7 +4885,7 @@ class CfgVehicles
 			};
 			class waypoints_clr
 			{
-				displayName="Clear Waypoints";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4894,7 +4895,7 @@ class CfgVehicles
 				shortcut="";
 				statement="fza_ah64_addwps = [this] execvm ""\fza_ah64_controls\scripting\nav\waypointclear.sqf""";
 			};
-			class map_toggle
+			/*class map_toggle
 			{
 				displayName="TSD MAP";
 				position="pilot_action";
@@ -4905,11 +4906,11 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
 				shortcut="";
 				statement="fza_ah64_maptog = [this] execvm ""\fza_ah64_controls\scripting\tsd_map_toggle.sqf""";
-			};
+			};*/
 			///////////PFZ CONTROL/////////////
 			class pfz_create
 			{
-				displayName="Create PFZ";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4921,7 +4922,7 @@ class CfgVehicles
 			};
 			class pfz_sel
 			{
-				displayName="PFZ SEL";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4933,7 +4934,7 @@ class CfgVehicles
 			};
 			class pfz_send
 			{
-				displayName="PFZ SEND";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4945,7 +4946,7 @@ class CfgVehicles
 			};
 			class pfz_recv
 			{
-				displayName="PFZ RECV";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5010,14 +5011,14 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=5;
+				priority=-10;
 				condition="(player == driver this || player == gunner this)";
-				shortcut="";
+				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
 			};
 			class tiron
 			{
-				displayName="Head Tracking On";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5029,7 +5030,7 @@ class CfgVehicles
 			};
 			class tiroff
 			{
-				displayName="Head Tracking Off";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5041,7 +5042,7 @@ class CfgVehicles
 			};
 			class cycle_wp
 			{
-				displayName="Cycle Waypoint Forward";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5053,7 +5054,7 @@ class CfgVehicles
 			};
 			class cycle_wp2
 			{
-				displayName="Cycle Waypoint Backward";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5065,7 +5066,7 @@ class CfgVehicles
 			};
 			class fcr_toggle
 			{
-				displayName="FCR TOGGLE";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5075,8 +5076,8 @@ class CfgVehicles
 				shortcut="salute";
 				statement="fza_ah64_fcronoff = [this] execvm ""\fza_ah64_controls\scripting\fcr_toggle.sqf""";
 			};
-			//class laser_toggle
-			//{
+			/*class laser_toggle
+			{
 				//displayName="LASER TOGGLE";
 				//position="pilot_action";
 				//onlyForPlayer=1;
@@ -5086,46 +5087,46 @@ class CfgVehicles
 				//condition="(player == driver this || player == gunner this)";
 				//shortcut="User5";
 				//statement="fza_ah64_laseronoff = [this] execvm ""\fza_ah64_controls\scripting\laser_toggle.sqf""";
-			//};
+			};*/
 			class irjammer_toggle
 			{
-				displayName="IR JAMMER";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=-1;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
-				shortcut="User11";
+				shortcut="";
 				statement="fza_ah64_irjamonoff = [this] execvm ""\fza_ah64_controls\scripting\ir_jammer.sqf""";
 			};
 			class rfjammer_toggle
 			{
-				displayName="RF JAMMER";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=-1;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
-				shortcut="User12";
+				shortcut="";
 				statement="fza_ah64_rfjamonoff = [this] execvm ""\fza_ah64_controls\scripting\rf_jammer.sqf""";
 			};
 			class jammer_toggle
 			{
-				displayName="JAMMER MAN/AUT";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=-1;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="User13";
 				statement="fza_ah64_jamstate = [this] execvm ""\fza_ah64_controls\scripting\jam_toggle.sqf""";
 			};
 			class ase_autpage
 			{
-				displayName="ASE Autopage";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5137,7 +5138,7 @@ class CfgVehicles
 			};
 			class ihadssmode
 			{
-				displayName="IHADSS MODE";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5147,7 +5148,7 @@ class CfgVehicles
 				shortcut="User15";
 				statement="fza_ah64_ihadssmode = [this] execvm ""\fza_ah64_controls\scripting\ihadss_mode.sqf""";
 			};
-			class clickhelpers
+			/*class clickhelpers
 			{
 				displayName="Click Helper Toggle";
 				position="pilot_action";
@@ -5158,7 +5159,7 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this)";
 				shortcut="";
 				statement="fza_ah64_clickhelpers = [this] execvm ""\fza_ah64_controls\scripting\click_helpers.sqf""";
-			};
+			};*/
 			class Arming 
 			{ 
 				displayName="<t color ='#ffff00'>Arming</t>"; 
@@ -5166,8 +5167,8 @@ class CfgVehicles
 				onlyForPlayer=1; 
 				radius=8; 
 				showWindow=0; 
-				priority=-7; 
-				condition="(player == driver this || player == gunner this) && (!isengineon this) && (speed this < 5) && (alive this)"; 
+				priority=-10; 
+				condition="(player == driver this) && (!isengineon this) && (speed this < 5) && (alive this)"; //removed CPG action
 				shortcut=""; 
 				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf"""; 
 			};
@@ -5202,7 +5203,7 @@ class CfgVehicles
 		side=1;				
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
-		displayName="AH-64D Block II";
+		displayName="AH-64D Apache Longbow";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		ejectDeadCargo=0;
 		nameSound="veh_Helicopter";
@@ -6554,6 +6555,7 @@ class CfgVehicles
 				gunnerAction = "fza_ah64_copilot"; 
 				gunnerGetInAction = "GetInHigh";
 				gunnerGetOutAction = "GetOutHigh";
+				enableCopilot = false;
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
@@ -6604,7 +6606,6 @@ class CfgVehicles
 				turretFollowFreeLook = 0;
 				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
 				discretedistanceinitindex = 3;
-				GunnerHasFlares = true;
 				isCopilot = 1;
 				usePiP=1;
 				class HitPoints
@@ -6631,16 +6632,18 @@ class CfgVehicles
 					class Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized=1;
+						directionStabilized = 1;
+						//stabilizedInAxes = 3;
+						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 120;
-						maxangley = 30;
-						minanglex = -120;
-						minangley = -60;
-						maxfov = 0.7;
-						minfov = 0.7;
+						initfov = 0.466;
+						maxanglex = 30;
+						maxangley = 100;
+						maxfov = 0.466;
+						minanglex = -30;
+						minangley = -100;
+						minfov = 0.466;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
 						visionmode[] = {"Normal","Ti","NVG"};
@@ -6648,7 +6651,9 @@ class CfgVehicles
 					class Medium: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized=1;
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initfov = 0.09;
 						maxfov = 0.09;
 						minfov = 0.09;
@@ -6657,7 +6662,9 @@ class CfgVehicles
 					class Narrow: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized=1;
+						directionStabilized = 1;
+						stabilizedInAxes = 3;
+						opticStabilized=1;
 						initfov = 0.01;
 						maxfov = 0.01;
 						minfov = 0.01;
@@ -6685,20 +6692,20 @@ class CfgVehicles
 				class ViewGunner
 				{
 					initFov=1;
-					initAngleX=0;
-					initAngleY=0;
 					minFov=0.400000;
 					maxFov=1;
-					minAngleX=-60;
-					maxAngleX= 30;
-					minAngleY= -120;
-					maxAngleY= 120;
-					minmovex = -0.15;
+					initAngleX=0;
+					minAngleX=-75;
+					maxAngleX=50;
+					initAngleY=0;
+					minAngleY=-150;
+					maxAngleY=150;
 					maxmovex = 0.15;
-					minmovey = -0.1;
 					maxmovey = 0.1;
+					maxmovez = 0.1;
+					minmovex = -0.15;
+					minmovey = -0.1;
 					minmovez = -0.1;
-					maxmovez = 0.1;	
 				};
 			};
 		};
@@ -6713,7 +6720,7 @@ class CfgVehicles
 			maxanglex = 40;
 			maxangley = 90;
 			maxanglez = 45;
-			minanglex = -30;
+			minanglex = -40;
 			minangley = -90;
 			minanglez = -45;
 			rotzradius = 0.2;
@@ -8406,9 +8413,9 @@ initPhase=0;
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;				
-		scope=0; //MASKED FROM EDITOR
+		scope=2; //UNMASKED FROM EDITOR
 		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
-		displayName="AH-64D Block II (NR)";
+		displayName="AH-64D Apache";
 		hiddenselections[]=
 		{
 			"pod1_m151_1",
@@ -9671,12 +9678,16 @@ initPhase=0;
 		{
 			class MainTurret: NewTurret
 			{
-				gunnerAction = "fza_ah64_pilot";
-				gunnerInAction = "fza_ah64_pilot";
+				gunnerAction = "fza_ah64_copilot"; 
+				gunnerGetInAction = "GetInHigh";
+				gunnerGetOutAction = "GetOutHigh";
 				primary = 1;
 				primaryGunner = 1;
-				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
+				enableCopilot = false;
+				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
+				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
+				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+				magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114k_3_ur","fza_agm114k_3_ll","fza_agm114k_2_lr","fza_agm114k_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 				memoryPointsGetInGunnerDir = "pos gunner dir";
 				memoryPointGun = "kulas";
@@ -9693,6 +9704,12 @@ initPhase=0;
 				minTurn = -120; 
 				maxTurn = 120;
 				initTurn = 0;
+				minGunElev = -60;
+				maxGunElev = 30;
+				minGunTurn = -120;
+				maxGunTurn = 120;
+				minGunTurnAI = -120;
+				maxGunTurnAI = 120;
 				maxhorizontalrotspeed = 3;
 				maxverticalrotspeed = 3;
 				commanding = -1;
@@ -9792,9 +9809,9 @@ initPhase=0;
 				};
 				class ViewGunner
 				{
-					initFov=0.700000;
+					initFov=1;
 					minFov=0.400000;
-					maxFov=0.850000;
+					maxFov=1;
 					initAngleX=0;
 					minAngleX=-75;
 					maxAngleX=50;
