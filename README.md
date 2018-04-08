@@ -2,6 +2,18 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*08/04/2018*
+- Changed Custom User 11 for IHADSS Toggle.
+- Changed Custom User 12 for HDU PNVS Toggle.
+- Restored GUN pipper for P*, removed for CPG (WIP).
+- Edited CPG FOV. 
+- Enhanced Crosshair (Custom User 20) visibility. 
+- Lighten interactions trough action menu.
+- Restored AH-64D Apache (without Longbow FCR).
+- Removed vehicle chat regarding CPG laser state.
+- Partially fixed misaligned backlight textures.
+- Added signature files.
+
 *04/04/2018*
 - Advanced Flight Model (AFM) changes.
 - PNVS azimuth bug fixed (-90°/+90°)
