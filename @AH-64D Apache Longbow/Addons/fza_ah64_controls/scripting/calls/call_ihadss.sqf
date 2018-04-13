@@ -425,7 +425,7 @@ _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 _losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 //_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fake.paa";
 //_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fake.paa";
-if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
+if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
 _w = 0.0734;
 _h = 0.1;
 _apx = 0.036;
