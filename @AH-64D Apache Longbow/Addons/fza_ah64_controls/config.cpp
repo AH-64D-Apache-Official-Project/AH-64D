@@ -3704,17 +3704,15 @@ class CfgMagazines
 };
 class CfgVehicles 
 {
+	//class RotorLibHelicopterProperties;
 	class All;
 	class AllVehicles : All
 	{
 		class NewTurret;
 	};
 	class Air : AllVehicles {};
-	class Helicopter : Air 
-	{
-		class RotorLibHelicopterProperties;
-	};
-	class fza_ah64base: Helicopter 
+	class Helicopter_Base_F : Air {};
+	class fza_ah64base: Helicopter_Base_F 
 	{
 		side=1;
 		scope=0;
@@ -3728,7 +3726,7 @@ class CfgVehicles
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
-		liftForceCoef = 1.1;	
+		liftForceCoef = 1.0;	
 		bodyFrictionCoef = 1.0;	
 		cyclicAsideForceCoef = 1.0;
 		cyclicForwardForceCoef = 1.0;
@@ -5197,7 +5195,27 @@ class CfgVehicles
 				rendervisionmode = 2;
 			};
 		};*/
+		class AcreRacks 
+		{
+           class Rack_1 {
+               displayName = "Dash"; // Name is displayed in the interaction menu.
+               componentName = "ACRE_VRC103";
+               allowedPositions[] = {"driver", "copilot"}; // Who has access. "inside" - anyone inside, "external" - provides access upto 10m away, "driver", "gunner", "copilot", "commander"
+               disabledPositions[] = {};
+               defaultComponents[] = {};
+               mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
+               isRadioRemovable = 0;
+               intercom[] = {"intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+					acre_hasInfantryPhone = 1; // 1 - enabled, 0 - disabled
+					acre_infantryPhoneDisableRinging = 0;   // If set to 1, the ringing funtionality will not be available
+					acre_infantryPhoneCustomRinging[] = {}; // An array used in order to override the default sound for the ringing functionality   
+					acre_infantryPhoneIntercom[] = {"all"}; // List of intercom names (intercom_1, intercom_2) or "all" in order to specify which intercom networks the phone can connect to
+					acre_infantryPhoneControlActions[] = {"intercom_1"}; // Only those units in "intercom_1" can have access to ringing functionality
+					acre_eventInfantryPhone = QFUNC(noApiFunction); // Here a custom function can be defined that is called when the infantry phone is picked up, put back, given to another unit or the intercom network is switched
+		   };
+       };
 	};
+	
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;				
@@ -6691,9 +6709,9 @@ class CfgVehicles
 				};
 				class ViewGunner
 				{
-					initFov=1;
+					initFov=0.7;
 					minFov=0.400000;
-					maxFov=1;
+					maxFov=0.7;
 					initAngleX=0;
 					minAngleX=-75;
 					maxAngleX=50;
@@ -8409,7 +8427,21 @@ initPhase=0;
 				};
 			};
 		};
+		/*class AcreRacks 
+		{
+           class Rack_1 {
+               displayName = "Dash"; // Name is displayed in the interaction menu.
+               componentName = "ACRE_VRC103";
+               allowedPositions[] = {"driver", "copilot"}; // Who has access. "inside" - anyone inside, "external" - provides access upto 10m away, "driver", "gunner", "copilot", "commander"
+               disabledPositions[] = {};
+               defaultComponents[] = {};
+               mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
+               isRadioRemovable = 0;
+               intercom[] = {"intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
+       };*/
 	};
+	
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;				
@@ -9674,6 +9706,19 @@ initPhase=0;
 			"hdam_rtr",
 			"skin_tailboom_tear"
 		};
+		/*class AcreRacks 
+		{
+           class Rack_1 {
+               displayName = "Dash"; // Name is displayed in the interaction menu.
+               componentName = "ACRE_VRC103";
+               allowedPositions[] = {"driver", "copilot"}; // Who has access. "inside" - anyone inside, "external" - provides access upto 10m away, "driver", "gunner", "copilot", "commander"
+               disabledPositions[] = {};
+               defaultComponents[] = {};
+               mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
+               isRadioRemovable = 0;
+               intercom[] = {"intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
+       };*/
 		class Turrets
 		{
 			class MainTurret: NewTurret
@@ -9809,9 +9854,9 @@ initPhase=0;
 				};
 				class ViewGunner
 				{
-					initFov=1;
+					initFov=0.7;
 					minFov=0.400000;
-					maxFov=1;
+					maxFov=0.7;
 					initAngleX=0;
 					minAngleX=-75;
 					maxAngleX=50;

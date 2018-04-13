@@ -2,6 +2,10 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*13/04/2018*
+- Advanced Flight Model (AFM) update.
+- Added ACRE 2 support (requires development build & ACE) /w AN-PRC117F, Racks & Infantry Telephone.
+
 *08/04/2018*
 - Changed Custom User 11 for IHADSS Toggle.
 - Changed Custom User 12 for HDU PNVS Toggle.
