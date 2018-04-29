@@ -78,7 +78,7 @@ waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == pla
 	{
 	if(fza_ah64_curwpnum > (count fza_ah64_waypointdata - 1)) then {fza_ah64_curwpnum = 0;};
 	fza_ah64_curwp = fza_ah64_waypointdata select fza_ah64_curwpnum;
-	if([(getposasl _heli select 0),(getposasl _heli select 1),0] distance fza_ah64_curwp < 500) then {fza_ah64_curwpnum = fza_ah64_curwpnum + 1;};
+	if([(getposasl _heli select 0),(getposasl _heli select 1),0] distance fza_ah64_curwp < 50) then {fza_ah64_curwpnum = fza_ah64_curwpnum + 1;};
 	};
 /////////////////
 

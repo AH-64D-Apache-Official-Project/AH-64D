@@ -2,10 +2,20 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*29/04/2018*
+- Advanced Flight Model (AFM) update based on real engines performances.
+- Reduced waypoint transition distance (from 500 to 50 meters).
+- Fixed SMG_Burst error.
+- Minor changes to auto-hover mode detector.
+- Added initial steerpoint (WP0) upon spawning.
+- Changed default M230 position to FXD.
+- Disabled TADS imagery when engines off.
+
+
 *13/04/2018*
 - Advanced Flight Model (AFM) update.
 - Added ACRE 2 support (requires development build & ACE) /w AN-PRC117F, Racks & Infantry Telephone.
-- Fixed Gun Crosshair Fixed symbology.
+- Fixed 'Gun Crosshair Fixed' symbology.
 
 *08/04/2018*
 - Changed Custom User 11 for IHADSS Toggle.

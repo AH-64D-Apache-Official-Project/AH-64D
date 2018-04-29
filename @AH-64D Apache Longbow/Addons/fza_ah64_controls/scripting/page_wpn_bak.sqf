@@ -128,37 +128,23 @@ _heli = vehicle player;
 waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player))};
 _mags = magazines _heli;
 _weps = weapons _heli;
-
-//MPD
+///////////////////////////MPD//////////////////////////
 if(fza_ah64_pl_mpd == "wpn" || fza_ah64_pr_mpd == "wpn") then
 {
-
 //CM
 _flareformat1 = [fza_ah64_flarecount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _flareformat2 = [fza_ah64_flarecount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-if(!(_heli iskindof "fza_ah64d_b2e" || _heli iskindof "fza_ah64d_b2e_nr")) then {_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa"; _flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";};
+if(!(_heli iskindof "fza_ah64d_b2exp" || _heli iskindof "fza_ah64d_b3" || _heli iskindof "fza_ah64d_b2e" || _heli iskindof "fza_ah64d_b2e_nr")) then {_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa"; _flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";};
 _chaffformat1 = [fza_ah64_chaffcount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _chaffformat2 = [fza_ah64_chaffcount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-
-//GUN
+//gun
 _gunammo = _heli ammo "fza_m230";
+if("fza_burstlimiter" in _weps) then {_gunammo = _heli ammo "fza_burstlimiter";};
 _gunformat1 = [_gunammo,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitthou;
 _gunformat2 = [_gunammo,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
 _gunformat3 = [_gunammo,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _gunformat4 = [_gunammo,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-//GUN FIRING MODE + PAGE WPN
-if(fza_ah64_burst_limit == 10) then {_gunammo = _heli ammo "fza_burst10";};
-if(fza_ah64_burst_limit == 20) then {_gunammo = _heli ammo "fza_burst20";};
-
-//if(fza_ah64_burst_limit == 10 && currentweapon _heli == "fza_m230") then {_heli selectweapon "fza_m230"; _heli action ["SwitchMagazine", _heli, _heli, 0];};
-//if(fza_ah64_burst_limit == 20 && currentweapon _heli == "fza_m230") then {_heli selectweapon "fza_m230"; _heli action ["SwitchMagazine", _heli, _heli, 1];};
-
-//if(fza_ah64_burst_limit == 10) then {_heli forceWeaponFire ["fza_m230", "fza_burst10"];};
-//if(fza_ah64_burst_limit == 20) then {_heli forceWeaponFire ["fza_m230", "fza_burst20"];};
-
-if(currentweapon _heli == "fza_m230") then
+if(currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter" || currentweapon _heli == "fza_burst10" || currentweapon _heli == "fza_burst20" ) then
 {
 	_rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 	_gunsel = "\fza_ah64_us\tex\icons\gun-sel_ca.paa";
@@ -166,14 +152,12 @@ if(currentweapon _heli == "fza_m230") then
 	_gunformat2 = [_gunammo,"\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digithun;
 	_gunformat3 = [_gunammo,"\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digitten;
 	_gunformat4 = [_gunammo,"\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digit;
-	
 	if(fza_ah64_burst_limit == 10) then
 	{
 		_burst10 = "\fza_ah64_us\tex\icons\box_ca.paa";
 		_burst20 = "";
 		_burst50 = "";
 		_burst100 = "";
-		_heli forceWeaponFire ["fza_m230", "fza_burst10"];
 	};
 	if(fza_ah64_burst_limit == 20) then
 	{
@@ -181,7 +165,6 @@ if(currentweapon _heli == "fza_m230") then
 		_burst20 = "\fza_ah64_us\tex\icons\box_ca.paa";
 		_burst50 = "";
 		_burst100 = "";
-		_heli forceWeaponFire ["fza_m230", "fza_burst20"];
 	};
 	if(fza_ah64_burst_limit == 50) then
 	{

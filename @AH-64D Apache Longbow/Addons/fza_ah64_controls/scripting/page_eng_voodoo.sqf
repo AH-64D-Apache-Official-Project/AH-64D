@@ -184,8 +184,8 @@ _ahyd = 1;
 //_tottorque = (_tottorque*0.001) * _rotorrpm;
 if(difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0 && isEngineOn _heli) then
 {
-_e1trq = round((enginesTorqueRTD _heli select 0) / 5.6);
-_e2trq = round((enginesTorqueRTD _heli select 1) / 5.6);
+_e1trq = round((enginesTorqueRTD _heli select 0) / 17.5);
+_e2trq = round((enginesTorqueRTD _heli select 1) / 17.5);
 };
 _anitrq = ((_tottorque*0.0001) * _rotorrpm);
 _e1tgt = _e1tgt;

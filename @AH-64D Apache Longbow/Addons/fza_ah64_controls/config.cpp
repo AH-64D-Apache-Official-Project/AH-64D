@@ -716,6 +716,7 @@ class CfgMovesMaleSdr: CfgMovesBasic
 		class fza_ah64_copilot: Crew
 		{
 			file = "\A3\cargoposes_F\Anim\gunner_Heli_Attack_02_mocap.rtm"; //Heli_Attack_02_Gunner  //gunner_MRAP_01 //CoDriver_Van_02 //Acts_gunner_MRAP_01_mocap //gunner_Heli_Attack_02_mocap
+			speed = 0.03;
 			interpolateTo[] = {"KIA_pilot_Heli_Transport_01",1};
 		};
 	};
@@ -752,32 +753,22 @@ class CfgAmmo
 	class CMflareAmmo: BulletBase {};
 	class CMflare_Chaff_Ammo: CMflareAmmo {};
 	
-	//TEST//
-	class fza_ah64_chaff_shot: CMflareAmmo
-	{
-		//effectssmoke = "SmokeShellWhiteEffect";
-		//weaponlocksystem = "8";
-	};
-	//END TEST//
-	
+	class fza_ah64_chaff_shot: CMflareAmmo {};
 	class fza_ah64_flare_shot: CMflareAmmo {};
+	
 	class fza_30x113: B_30mm_MP
 	{
-		hit=150;
-		indirectHit=50;
+		hit=100;
+		indirectHit=30;
 		indirectHitRange=5;
-		//airLock = true;
-		//laserLock = true;
-		//irLock=true;
 		cost=50;
-		explosive = true;
+		explosive =true;
 		minRange=20;
 		minRangeProbab=0.20;
 		midRange=700;
 		midRangeProbab=0.50;
 		maxRange=2000;
 		maxRangeProbab=0.05;
-		//thrust=250;
 		timeToLive=8;
 		tracerstarttime = 0;
 		typicalspeed = 805;
@@ -1137,10 +1128,7 @@ class CfgAmmo
 };
 class CfgWeapons
 {
-	//class Mode_SemiAuto;
-	class Mode_Burst;
-	//class Mode_FullAuto;
-	class fza_burstlimiter;
+	class CMFlareLauncher;
 	
 	class Default{};
 	class MGunCore: Default{};
@@ -1152,34 +1140,7 @@ class CfgWeapons
 	class Launcher: LauncherCore {};
 	class Stinger: Launcher {};
 	class RocketPods: LauncherCore {};
-	class CMFlareLauncher;
-	class fza_ah64_flare30: CMFlareLauncher
-	{
-		displayname = "Flares";
-		modes[] = {"Single"};
-		cursor = "EmptyCursor";
-		cursorAim = "EmptyCursor";
-		simulation = "cmlauncher";
-		count=30;
-		
-		class Single: Mode_Burst 
-		{
-				reloadTime = 0.500000;
-				autoFire = 0;
-				displayName = "TEST";
-				burst = 1;
-				multiplier = 1;
-				count=30;
-				sounds[] = {"StandardSound"};
-
-			class StandardSound {
-				begin1[] = {"A3\Sounds_F\weapons\HMG\HMG_grenade", 1.000000, 1, 300};
-				soundBegin[] = {"begin1", 1};
-				weaponSoundEffect = "DefaultRifle";
-			};
-		};
-	
-	};
+	class fza_ah64_flare30: CMFlareLauncher {};
 	class fza_m230: CannonCore
 	{
 		class GunParticles
@@ -1191,263 +1152,89 @@ class CfgWeapons
 				directionName = "Konec hlavne";
 			};
 		};
-		scope = 1;
-		displayName="M230E1 Chaingun";
+		displayName="M230E1 CORE";
 		displayNameMagazine="M230 30mm";
 		shortNameMagazine="M230";
-		namesound = "cannon";
-		autoFire = 0;
-		magazines[]={fza_m230_1200};
-		canLock = 2;
+		cursor = "";
+		cursorAim = "";
+		cursorAimOn = "";
+		scope = 1;
 		initspeed=805;
-		recoil = "Empty";
-		laserLock = 1;
-		cursor = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-		cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-		cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-		showAimCursorInternal = 1;
-		cursorSize = 1;
 		ballisticscomputer = 1;
-		shotFromTurret = 1;
-		modes[]= {"fza_burstlimiter"};
-		
-		class fza_burstlimiter: Mode_Burst
+		laserLock = 1;
+		canLock = 2;
+		autoreload = 1;
+		shotFromTurret = false;
+		magazines[]={fza_m230_1200};
+		//modes[]= {"fza_full","fza_burst10","fza_burst20"};
+		modes[]= {"fza_burst10","fza_burst20"};
+		class fza_full: CannonCore
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst.ogg",4,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",4,1,1700};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
-			displayName="BURST LIMIT";
-			displayNameMagazine="BURST LIMIT";
-			shortNameMagazine="BURST LIMIT";
-			cursor = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-			cursorAimOn = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-			showAimCursorInternal = 1;
-			ballisticscomputer = 1;
-			magazines[]={fza_m230_1200};
-			reloadTime = 0.096000;
-			magazinereloadTime=120;
-			dispersion = 0.005000;
-			laserLock = 1;
-			canLock = 2;
-			initspeed=805;
-			textureType = "semi";
-			sounds[] = {"StandardSound"};
-			soundBurst= true;
-			autoFire = 0;
-			burst = 10;
-			multiplier = 1;
-			soundContinuous = 0;
-			flash = "gunfire";
-			flashSize = 0.300000;
-			recoil = "Empty";
-			recoilProne = "";
-			aiDispersionCoefX = 6;
-			aiDispersionCoefY = 6;
-			ffMagnitude = 0.500000;
-			ffFrequency = 11;
-			ffCount = 6;
-			aiRateOfFire = 5;
-			aiRateOfFireDistance = 100;
-			minRange = 100;
-			minRangeProbab = 0.500000;
-			midRange = 1000;
-			midRangeProbab = 0.780000;
-			maxRange = 2000;
-			maxRangeProbab = 0.200000;
-			showToPlayer = 1;
-			useAction= 0;
-			useActionTitle = 0;
-			cursorSize = 1;
-			autoreload = 1;
-			artilleryDispersion = 0.005000;
-			artilleryCharge = 2;
-		};
-		
-		/*class fza_m230_fullauto: Mode_Burst //Mode_FullAuto 
-		{
-			class StandardSound
-            {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst.ogg",2,1,1700};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-            };
-			displayName = "GUN/ FULL";
-			reloadTime = 0.096000;
-			sounds[] = {"StandardSound"};
-			soundContinuous = 0;
-			flash = "gunfire";
-			flashSize = 0.100000;
-			recoil = "Empty";
+			displayName="M230E1 FULL AUTO";
 			cursor = "";
-			cursorAim = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-			cursorSize = 1;
-			aiDispersionCoefX = 6;
-			aiDispersionCoefY = 6;
-			ffMagnitude = 0.500000;
-			ffFrequency = 11;
-			ffCount = 6;
-			minRange = 100;
-			minRangeProbab = 0.500000;
-			midRange = 700;
-			midRangeProbab = 0.780000;
-			maxRange = 2000;
-			maxRangeProbab = 0.200000;
-			dispersion = 0.005000;
-			showToPlayer = 0;
-		};
-		
-		class close: fza_m230_fullauto 
-		{
-			showToPlayer = 0;
-			burst = 15;
-			aiRateOfFire = 0.250000;
-			aiRateOfFireDistance = 400;
-			minRange = 1;
-			minRangeProbab = 0.900000;
-			midRange = 200;
-			midRangeProbab = 0.900000;
-			maxRange = 400;
-			maxRangeProbab = 0.900000;
-			textureType = "semi";
-			multiplier = 1;
-			recoilProne = "";
-			autoFire = 0;
-			soundBurst = 0;
-			useAction= 0;
-			useActionTitle = 0;
-			artilleryDispersion = 0.005000;
-			artilleryCharge = 2;
-		};
-
-		class near: close 
-		{
-			showToPlayer = 0;
-			burst = 5;
-			aiRateOfFire = 0.250000;
-			aiRateOfFireDistance = 400;
-			minRange = 1;
-			minRangeProbab = 0.900000;
-			midRange = 150;
-			midRangeProbab = 0.900000;
-			maxRange = 300;
-			maxRangeProbab = 0.900000;
-		};
-
-		class short: close 
-		{
-			burst = 13;
-			aiRateOfFire = 0.500000;
-			aiRateOfFireDistance = 600;
-			minRange = 200;
-			minRangeProbab = 0.900000;
-			midRange = 400;
-			midRangeProbab = 0.900000;
-			maxRange = 600;
-			maxRangeProbab = 0.900000;
-		};
-
-		class medium: close 
-		{
-			burst = 9;
-			aiRateOfFire = 1;
-			aiRateOfFireDistance = 900;
-			minRange = 400;
-			minRangeProbab = 0.900000;
-			midRange = 700;
-			midRangeProbab = 0.900000;
-			maxRange = 900;
-			maxRangeProbab = 0.900000;
-		};
-
-		class far: close 
-		{
-			burst = 5;
-			aiRateOfFire = 1.500000;
-			aiRateOfFireDistance = 1500;
-			minRange = 800;
-			minRangeProbab = 0.900000;
-			midRange = 1000;
-			midRangeProbab = 0.900000;
-			maxRange = 1500;
-			maxRangeProbab = 0.900000;
-		};*/
-		
-		
-		
-		
-	
-		/*class aiclose: Ten
-		{
-			burst=10;
-			showToPlayer = 0;
-			aiRateOfFire=0.5;
-			aiRateOfFireDistance = 400;
-			minRange = 0;
-			minRangeProbab = 0.04;
-			midRange = 200;
-			midRangeProbab = 0.2;
-			maxRange = 400;
-			maxRangeProbab = 0.1;
-		};
-		class aimid: Ten
-		{
-			burst=20;
-			showToPlayer = 0;
-			aiRateOfFire=1;
-			aiRateOfFireDistance = 600;
-			minRange = 200;
-			minRangeProbab = 0.1;
-			midRange = 500;
-			midRangeProbab = 0.2;
-			maxRange = 800;
-			maxRangeProbab = 0.1;
-		};
-		class aifar: Ten
-		{
-			burst=50;
-			showToPlayer = 0;
-			aiRateOfFire=3;
-			aiRateOfFireDistance = 900;
-			minRange = 600;
-			minRangeProbab = 0.1;
-			midRange = 900;
-			midRangeProbab = 0.2;
-			maxRange = 1200;
-			maxRangeProbab = 0.1;
-		};*/
-		
-		/*class Ten: CannonCore
-		{
+			cursoraim = "";
+			cursorAimOn = "";
+			recoil = "Empty";
+			recoilProne = "Empty";
 			multiplier=1;
 			burst=1;
-			displayName="M230E1";
-			dispersion=0.004;
-			sound[] = {"\fza_ah64_us\audio\M230_Dist.ogg",10,1,1700};
-			soundburst="";
+			dispersion = 0.005000;
+			sounds[] = {"StandardSound"};
+			soundburst= false;
 			soundContinuous= 0;
-			ffCount=1;
-			reloadTime=120;
-			magazinereloadTime=120;
-			autofire=1;
-			aiRateOfFire=0.5;
-			aiRateOfFireDistance = 50;
-			recoil = "Empty";
+			reloadTime=0.096;
+			autofire= false;
+			autoreload = 1;
+			aiRateOfFire=0.096;
+			aiRateOfFireDistance = 400;
 			useAction = 0;
 			useActionTitle = "";
 			showToPlayer = 1;
-			minRange = 1;
-			minRangeProbab = 0.01;
-			midRange = 2;
-			midRangeProbab = 0.01;
-			maxRange = 3;
-			maxRangeProbab = 0.01;
-			autoreload = 1;
-		};*/
-		
+			minRange = 100;
+			minRangeProbab = 0.500000;
+			midRange = 1000;
+			midRangeProbab = 0.780000;
+			maxRange = 2000;
+			maxRangeProbab = 0.200000;
+	};
+		class fza_burst10: fza_full
+		{
+			class StandardSound
+            {
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",4,1,1700};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+            };
+			displayName="M230E1 BURST x10";
+			burst = 10;
+			scope = 1;
+			sounds[] = {"StandardSound"};
+			soundBurst= true;
+		};
+		class fza_burst20: fza_full
+		{
+			class StandardSound
+            {
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",4,1,1700};
+				soundBegin[] = {"weaponfire",1};
+				weaponsoundeffect = "DefaultRifle";
+            };
+			displayName="M230E1 BURST x20";
+			scope = 1;
+			burst = 20;
+			sounds[] = {"StandardSound"};
+			soundBurst= true;
+		};
+	};
+	class fza_burstlimiter: fza_m230 
+	{
+		scope = 1;
 	};
 	class fza_agm114_16 : MissileLauncher
 	{
@@ -1613,27 +1400,26 @@ class CfgWeapons
 		midrangeprobab = 0.9;
 		minrange = 200;
 		minrangeprobab = 0.6;
-		burst=2;
+		burst=1;
 		magazines[]={fza_m261_m151_76};
-		modes[]= {"Pairs"};
+		modes[]= {"Single"};
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		cursorAimOn = "";
-		ballisticscomputer = 1; //test
-		class Pairs : LauncherCore
+		class Single: LauncherCore
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4.5,1,1700};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
 			multiplier=1;
 			burst=1;
-			displayName="2.75in x1";
+			displayName="M261";
 			dispersion=0.0;
 			sounds[] = {StandardSound};
-			soundburst="true";
+			soundburst= true;
 			soundContinuous= 0;
 			reloadTime=0.05;
 			recoil = "Empty";
@@ -1651,7 +1437,7 @@ class CfgWeapons
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
 			cursorAimOn = "";
-			ballisticscomputer = 1; //test
+			//ballisticscomputer = 1; //test
 		};
 	};
 	////////////////14/////////////////
@@ -3704,14 +3490,16 @@ class CfgMagazines
 };
 class CfgVehicles 
 {
-	//class RotorLibHelicopterProperties;
 	class All;
 	class AllVehicles : All
 	{
 		class NewTurret;
 	};
 	class Air : AllVehicles {};
-	class Helicopter_Base_F : Air {};
+	class Helicopter_Base_F : Air 
+	{
+		//class RotorLibHelicopterProperties;
+	};
 	class fza_ah64base: Helicopter_Base_F 
 	{
 		side=1;
@@ -3799,7 +3587,23 @@ class CfgVehicles
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
 		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza & Community";
-		class RotorLibHelicopterProperties 
+		/*class RotorLibHelicopterProperties //Keplager's RTD
+		{
+            autoHoverCorrection[]={3,2.45,0};
+            defaultCollective=0.625;
+            retreatBladeStallWarningSpeed=85.556;
+            maxTorque=1600;
+            stressDamagePerSec=0.0033333332;
+            maxHorizontalStabilizerLeftStress=10000;
+            maxHorizontalStabilizerRightStress=10000;
+            maxVerticalStabilizerStress=10000;
+            horizontalWingsAngleCollMin=0;
+            horizontalWingsAngleCollMax=0;
+            maxMainRotorStress=200000;
+            maxTailRotorStress=60000;
+			RTDconfig = "fza_ah64_controls\tkoh\RTD_AH64.xml";
+		};*/
+		class RotorLibHelicopterProperties //Voodoo's RTD
 		{
 			autoHoverCorrection[] = {-0.4,2.75,0};
 			defaultCollective = 0.675;
@@ -3815,6 +3619,24 @@ class CfgVehicles
 			retreatBladeStallWarningSpeed = 92.778;
 			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
 		};
+		/*class RotorLibHelicopterProperties //Cleaned Out Franze's RTD + Voodoo's fixed Hover
+		{
+			//autoHoverCorrection[] = {-0.1,5.3,0};
+			autoHoverCorrection[] = {-0.4,2.75,0};
+			defaultCollective = 0.675;
+			horizontalWingsAngleCollMax = 0;
+			horizontalWingsAngleCollMin = 0;
+			maxHorizontalStabilizerLeftStress = 100000;
+			maxHorizontalStabilizerRightStress = 100000;
+			maxMainRotorStress = 300000;
+			maxTailRotorStress = 25000;
+			maxTorque = 5260;
+			stressDamagePerSec	= 0.0033333332666667;
+			maxVerticalStabilizerStress = 100000;
+			retreatBladeStallWarningSpeed = 101.346;
+			rtd_center = "rtd_center";
+			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii.xml";
+		};*/
 		class RenderTargets
 		{
 				class cockpitmirror1
@@ -4011,7 +3833,13 @@ class CfgVehicles
 					sound[] = {"\fza_ah64_us\audio\ah64_rotor_ext1.ogg", 1, 1.000000, 1100};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
-				};	
+				};
+				/*class RotorSwist //WIP
+				{
+				frequency = 1;
+				sound[] = {"bwa3_air\sounds\Heli_Attack_01\swist.wav",1,1,300};
+				volume = "camPos * (rotorThrust factor [0.7, 0.9])";
+				};*/
 				class TailRotor
 				{
 					cone[] = {3, 1.57, 3, 1.57};
@@ -4069,25 +3897,25 @@ class CfgVehicles
 				};
 				class damageAlarmInt 
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.316228, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.316228, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
 				class damageAlarmExt 
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.223872, 1.000000, 20};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.223872, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
 				};
 				class rotorLowAlarmInt 
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.316228, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.316228, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
 				class rotorLowAlarmExt 
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.223872, 1.000000, 20};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.223872, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
@@ -4181,43 +4009,6 @@ class CfgVehicles
 				class SoundEvents {};
 				class Sounds 
 				{
-					///GENERIC FLIP SOUNDS///
-					/*class fza_ah64_button_click1
-				{
-					name = "fza_ah64_button_click1";
-					sound[] = {"\fza_ah64_us\audio\button_click1.ogg",1,1};
-					frequency = 1;
-					volume = 1;
-				};
-				class fza_ah64_button_click2
-				{
-					name = "fza_ah64_button_click2";
-					sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1};
-					frequency = 1;
-					volume = 1;
-				};
-				class fza_ah64_switch_flip1
-				{
-					name = "fza_ah64_switch_flip1";
-					sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1};
-					frequency = 1;
-					volume = 1;
-				};*/
-					///END OF GENERIC FLIP SOUNDS///				
-					///ENGINE & APU START 3RD PERSON//
-					/*class APUStartExt 
-					{
-						sound[] = {"fza_ah64_us\audio\Ext_Start.ogg", 1, 1, 200};
-						volume = "engineOn";
-						frequency = "0.66 + rotorSpeed / 3";
-					};
-					class EngineStartExt 
-					{
-						sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg", 1, 1, 200};
-						volume = "engineOn";
-						frequency = "0.66 + rotorSpeed / 3";
-					};*/
-					///ENGINE & APU START 3RD PERSON END///
 					class EngineExt 
 					{
 						sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
@@ -4268,25 +4059,25 @@ class CfgVehicles
 					};
 					class damageAlarmInt 
 					{
-						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.316228, 1.000000};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.316228, 1.000000};
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 					};
 					class damageAlarmExt 
 					{
-						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_bluefor", 0.223872, 1.000000, 20};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.223872, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
 					};
 					class rotorLowAlarmInt 
 					{
-						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.316228, 1.000000};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.316228, 1.000000};
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 					};
 					class rotorLowAlarmExt 
 					{
-						sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_alarm_rotor_low", 0.223872, 1.000000, 20};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.223872, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 					};
@@ -4376,7 +4167,6 @@ class CfgVehicles
 					};
 				};
 		};
-	
 		class HitPoints
 		{
 			class HitHull
@@ -4639,6 +4429,8 @@ class CfgVehicles
 			class sensorselect
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4651,7 +4443,9 @@ class CfgVehicles
 			};
 			class weaponactionswitch
 			{
-				displayName="";
+				displayName="Weapon Action Switch (WAS)";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4664,6 +4458,8 @@ class CfgVehicles
 			class gunburst
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4676,6 +4472,8 @@ class CfgVehicles
 			class rocketsalvo
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4688,6 +4486,8 @@ class CfgVehicles
 			class guncontrol
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4700,6 +4500,8 @@ class CfgVehicles
 			class misltraj
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="zamerny";
 				onlyForPlayer=1;
 				radius=8;
@@ -4784,11 +4586,13 @@ class CfgVehicles
 			class pilotrmpd
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=16;
+				priority=-7;
 				condition="player == driver this || player == gunner this";
 				shortcut="User1";
 				statement="fza_ah64_prmpdcycle = [this] execvm ""\fza_ah64_controls\scripting\prmpdcycle.sqf""";
@@ -4796,6 +4600,8 @@ class CfgVehicles
 			class pilotlmpd
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4823,6 +4629,8 @@ class CfgVehicles
 			class filtertargs
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4835,6 +4643,8 @@ class CfgVehicles
 			class tsdrange
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4847,6 +4657,8 @@ class CfgVehicles
 			class tsdmode
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4860,6 +4672,8 @@ class CfgVehicles
 			class waypoints_add
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4872,6 +4686,8 @@ class CfgVehicles
 			class waypoints_sav
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4884,6 +4700,8 @@ class CfgVehicles
 			class waypoints_clr
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4896,6 +4714,8 @@ class CfgVehicles
 			class map_toggle
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4909,6 +4729,8 @@ class CfgVehicles
 			class pfz_create
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4921,6 +4743,8 @@ class CfgVehicles
 			class pfz_sel
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -4961,7 +4785,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=7;
+				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_modeself = [this] execvm ""\fza_ah64_controls\scripting\mode_self.sqf""";
@@ -4973,7 +4797,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=7;
+				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\mode_remt.sqf""";
@@ -4985,7 +4809,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=7;
+				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User5";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\add_remt.sqf""";
@@ -4997,7 +4821,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=7;
+				priority=-10;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User10";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
@@ -5009,14 +4833,16 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=8;
+				priority=5;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
 			};
 			class tiron
 			{
-				displayName="";
+				displayName="Toggle Head Tracking On";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5028,7 +4854,9 @@ class CfgVehicles
 			};
 			class tiroff
 			{
-				displayName="";
+				displayName="Toggle Head Tracking Off";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5040,7 +4868,9 @@ class CfgVehicles
 			};
 			class cycle_wp
 			{
-				displayName="";
+				displayName="Cycle Waypoints Forward";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5052,7 +4882,9 @@ class CfgVehicles
 			};
 			class cycle_wp2
 			{
-				displayName="";
+				displayName="Cycle Waypoints Backwards";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5065,6 +4897,8 @@ class CfgVehicles
 			class fcr_toggle
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5074,21 +4908,11 @@ class CfgVehicles
 				shortcut="salute";
 				statement="fza_ah64_fcronoff = [this] execvm ""\fza_ah64_controls\scripting\fcr_toggle.sqf""";
 			};
-			/*class laser_toggle
-			{
-				//displayName="LASER TOGGLE";
-				//position="pilot_action";
-				//onlyForPlayer=1;
-				//radius=8;
-				//showWindow=0;
-				//priority=-7;
-				//condition="(player == driver this || player == gunner this)";
-				//shortcut="User5";
-				//statement="fza_ah64_laseronoff = [this] execvm ""\fza_ah64_controls\scripting\laser_toggle.sqf""";
-			};*/
 			class irjammer_toggle
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5101,6 +4925,8 @@ class CfgVehicles
 			class rfjammer_toggle
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5112,7 +4938,9 @@ class CfgVehicles
 			};
 			class jammer_toggle
 			{
-				displayName="";
+				displayName="JAMMER MAN/AUT";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5125,6 +4953,8 @@ class CfgVehicles
 			class ase_autpage
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5137,6 +4967,8 @@ class CfgVehicles
 			class ihadssmode
 			{
 				displayName="";
+				useAction=false;
+				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
@@ -5214,8 +5046,7 @@ class CfgVehicles
 					acre_eventInfantryPhone = QFUNC(noApiFunction); // Here a custom function can be defined that is called when the infantry phone is picked up, put back, given to another unit or the intercom network is switched
 		   };
        };
-	};
-	
+	};	
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;				
@@ -6657,10 +6488,10 @@ class CfgVehicles
 						initangley = 0;
 						initfov = 0.466;
 						maxanglex = 30;
-						maxangley = 100;
+						maxangley = 120;
 						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
+						minanglex = -60;
+						minangley = -120;
 						minfov = 0.466;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
@@ -6691,15 +6522,15 @@ class CfgVehicles
 				};
 				class OpticsOut
 				{
-					class Monocular
+					class Monocular //FOV CPG
 					{
 						gunneropticseffect[] = {};
 						gunneropticsmodel = "";
-						initfov = 1;
+						initfov = 0.7;
 						initanglex = 0;
 						initangley = 0;
 						minfov = 0.4;
-						maxfov = 1;
+						maxfov = 0.7;
 						minanglex = -60;
 						maxanglex = 30;
 						minangley = -120;
@@ -6714,10 +6545,10 @@ class CfgVehicles
 					maxFov=0.7;
 					initAngleX=0;
 					minAngleX=-75;
-					maxAngleX=50;
+					maxAngleX=75;
 					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
+					minAngleY=-120;
+					maxAngleY=120;
 					maxmovex = 0.15;
 					maxmovey = 0.1;
 					maxmovez = 0.1;
@@ -6801,7 +6632,7 @@ class CfgVehicles
 		class m230_recoil
 		{
 			source = "reload";
-			weapon = fza_m230;
+			weapon = "fza_m230";
 		};
 		//EXPERIMENTAL//
 		class mainTurret
@@ -8441,7 +8272,6 @@ initPhase=0;
            };
        };*/
 	};
-	
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;				
@@ -9802,10 +9632,10 @@ initPhase=0;
 						initangley = 0;
 						initfov = 0.466;
 						maxanglex = 30;
-						maxangley = 100;
+						maxangley = 120;
 						maxfov = 0.466;
-						minanglex = -30;
-						minangley = -100;
+						minanglex = -60;
+						minangley = -120;
 						minfov = 0.466;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
@@ -9836,18 +9666,18 @@ initPhase=0;
 				};
 				class OpticsOut
 				{
-					class Monocular
+					class Monocular //FOV CPG NR
 					{
 						gunneropticseffect[] = {};
 						gunneropticsmodel = "";
 						initanglex = 0;
 						initangley = 0;
 						initfov = 0.7;
-						maxanglex = 50;
-						maxangley = 100;
+						maxanglex = 75;
+						maxangley = 120;
 						maxfov = 0.85;
 						minanglex = -75;
-						minangley = -100;
+						minangley = -120;
 						minfov = 0.4;
 						visionmode[] = {"Normal", "NVG"};
 					};
@@ -9859,10 +9689,10 @@ initPhase=0;
 					maxFov=0.7;
 					initAngleX=0;
 					minAngleX=-75;
-					maxAngleX=50;
+					maxAngleX=75;
 					initAngleY=0;
-					minAngleY=-150;
-					maxAngleY=150;
+					minAngleY=-120;
+					maxAngleY=120;
 					maxmovex = 0.15;
 					maxmovey = 0.1;
 					maxmovez = 0.1;

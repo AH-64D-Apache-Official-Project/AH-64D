@@ -176,11 +176,14 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_pfz8 = [];
 	fza_ah64_curwpnum = 0;
 	fza_ah64_curwp = [0,0,0];
+	
+	fza_ah64_waypointdata = [getpos _heli];
+	
 	fza_ah64_rangesetting = 0.0002; //5km
 	fza_ah64_fcrstate = 0;
 	fza_ah64_fcrlist = [];
 	fza_ah64_tsddisptargs = [];
-	fza_ah64_tsdmode = "atk";
+	fza_ah64_tsdmode = "nav";
 	fza_ah64_tsdmap = 0;
 	fza_ah64_dispfcrlist = [];
 	//turrets//
@@ -194,7 +197,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_pylonelev2 = 0;
 	fza_ah64_pylonelev3 = 0;
 	fza_ah64_pylonelev4 = 0;
-	fza_ah64_guncontrol = 0;
+	fza_ah64_guncontrol = 3;
 	fza_ah64_headdir = 0;
 	fza_ah64_headelev = 0;
 	fza_ah64_head1dir = 0;
@@ -205,6 +208,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_schedarray = [fza_ah64_turrets,fza_ah64_pnvscontrol,fza_ah64_worldtoscreen,fza_ah64_targetcycle,fza_ah64_slipcheck,fza_ah64_timetowp,fza_ah64_rotordam,fza_ah64_ldrfcall,fza_ah64_hmdihadss,fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
 	fza_ah64_asemisarray = [];
 	if(isNil "fza_ah64_pfsstate") then {fza_ah64_mapfaker = addMissionEventHandler ["Draw3D", {[0] call fza_ah64_pfsched;}]; fza_ah64_pfsstate = true;}; 
+
 //EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY//
 _weapontracker = [player] execvm "\fza_ah64_controls\scripting\page_wpn.sqf";
 _wcatracker = [player] execvm "\fza_ah64_controls\scripting\page_wca.sqf";

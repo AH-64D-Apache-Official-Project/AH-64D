@@ -49,7 +49,7 @@ sleep 0.1;
 _heli addweapon "fza_m230";
 _heli selectweapon "fza_m230";
 fza_ah64_hfmode = _heli;
-fza_ah64_guncontrol = 0;
+fza_ah64_guncontrol = 3;
 if (_heli iskindof "fza_ah64a_l" || _heli iskindof "fza_ah64a_e" || _heli iskindof "fza_ah64d_b2e_nr" || _heli iskindof "fza_ah64d_b2exp_nr" || _heli iskindof "fza_ah64d_b3_nr") then
 {
 fza_ah64_agmode = 2;
