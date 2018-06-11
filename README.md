@@ -2,6 +2,9 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*11/06/2018*
+- Fixed gun ammo count on WPN page.
+
 *29/04/2018*
 - Advanced Flight Model (AFM) update based on real engines performances.
 - Reduced waypoint transition distance (from 500 to 50 meters).
