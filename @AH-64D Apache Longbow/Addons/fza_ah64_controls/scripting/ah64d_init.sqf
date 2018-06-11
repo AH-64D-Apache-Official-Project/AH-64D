@@ -6,6 +6,7 @@ _heli selectweapon "fza_m230";
 
 if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
 
+// AH-64D AIRBORNE DOOR FIX
 /* connectionFirstTime = true;
 onPlayerConnected {
     if (connectionFirstTime == true) {
@@ -15,6 +16,14 @@ onPlayerConnected {
     };
 }; */ 
 
+// DISABLE CPG CONTROLS
+if (isCopilotEnabled _heli) then {
+    _heli enableCopilot false;
+};
+
+
+//REMOVE ACTIONS MENU
+if (player == driver _heli || player == gunner _heli)  then {removeAllActions _heli};
 
 if(isNil "fza_ah64_skinlist") then {fza_ah64_skinlist = [];};
 

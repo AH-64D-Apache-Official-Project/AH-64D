@@ -758,11 +758,11 @@ class CfgAmmo
 	
 	class fza_30x113: B_30mm_MP
 	{
-		hit=100;
+		hit=130;
 		indirectHit=30;
 		indirectHitRange=5;
 		cost=50;
-		explosive =true;
+		explosive = 0.35;
 		minRange=20;
 		minRangeProbab=0.20;
 		midRange=700;
@@ -1213,7 +1213,6 @@ class CfgWeapons
             };
 			displayName="M230E1 BURST x10";
 			burst = 10;
-			scope = 1;
 			sounds[] = {"StandardSound"};
 			soundBurst= true;
 		};
@@ -1226,7 +1225,6 @@ class CfgWeapons
 				weaponsoundeffect = "DefaultRifle";
             };
 			displayName="M230E1 BURST x20";
-			scope = 1;
 			burst = 20;
 			sounds[] = {"StandardSound"};
 			soundBurst= true;
@@ -3824,13 +3822,13 @@ class CfgVehicles
 				///ENGINE & APU START FIRST PERSON END///
 				class EngineExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
+					sound[] = {"\fza_ah64_us\audio\ah64_engine1.ogg", 1, 1.000000, 500};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.10)*4)";
 				};
 				class RotorExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_ext1.ogg", 1, 1.000000, 1100};
+					sound[] = {"\fza_ah64_us\audio\ah64_rotor_ext1.ogg", 1.5, 1.000000, 500};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -3844,13 +3842,13 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2.5, 1, 600};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1.5, 1, 500};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance 
 				{
 					frequency = "rotorSpeed";
-					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1000};
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 1, 1, 1100};
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
 				class FarDistance 
@@ -4435,7 +4433,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-5;
+				priority=0;
 				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
@@ -4450,7 +4448,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && alive this";
 				shortcut="user4";
 				statement="[this] call fza_ah64_wepactionswitch";
@@ -4464,7 +4462,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-8;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
 				shortcut="Binocular";
 				statement="[this] exec ""\fza_ah64_controls\scripting\burstlimit.sqs""";
@@ -4478,7 +4476,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-8;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this in fza_ah64_rocketweps14 || currentweapon this in fza_ah64_rocketweps23 || currentweapon this in fza_ah64_rocketweps1 || currentweapon this in fza_ah64_rocketweps2 || currentweapon this in fza_ah64_rocketweps3 || currentweapon this in fza_ah64_rocketweps4)";
 				shortcut="Binocular";
 				statement="fza_ah64_rs = [this] execvm ""\fza_ah64_controls\scripting\rocket_salvo.sqf""";
@@ -4492,7 +4490,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-9;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User3";
 				statement="fza_ah64_gc = [this] execvm ""\fza_ah64_controls\scripting\guncontrol.sqf""";
@@ -4506,7 +4504,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-8;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this == ""fza_agm114_23_8"" || currentweapon this == ""fza_agm114_14_8"" || currentweapon this in fza_ah64_hellfireweps1 || currentweapon this in fza_ah64_hellfireweps2 || currentweapon this in fza_ah64_hellfireweps3 || currentweapon this in fza_ah64_hellfireweps4)";
 				shortcut="Binocular";
 				statement="fza_ah64_hfltype = [this] execvm ""\fza_ah64_controls\scripting\ltype_tog.sqf""";
@@ -4592,7 +4590,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="player == driver this || player == gunner this";
 				shortcut="User1";
 				statement="fza_ah64_prmpdcycle = [this] execvm ""\fza_ah64_controls\scripting\prmpdcycle.sqf""";
@@ -4606,7 +4604,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="player == driver this || player == gunner this";
 				shortcut="User2";
 				statement="fza_ah64_plmpdcycle = [this] execvm ""\fza_ah64_controls\scripting\plmpdcycle.sqf""";
@@ -4635,7 +4633,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""fcr"" ||fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
 				shortcut="User6";
 				statement="[this] exec ""\fza_ah64_controls\scripting\tsd_targfilter.sqs""";
@@ -4649,7 +4647,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"" || fza_ah64_pr_mpd == ""ase"")";
 				shortcut="User7";
 				statement="[this] exec ""\fza_ah64_controls\scripting\tsd_range.sqf""";
@@ -4663,7 +4661,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
 				shortcut="User8";
 				statement="[this] exec ""\fza_ah64_controls\scripting\tsd_mode.sqs""";
@@ -4678,7 +4676,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"") && fza_ah64_tsdmode == ""nav""";
 				shortcut="";
 				statement="fza_ah64_addwps = [this] execvm ""\fza_ah64_controls\scripting\nav\waypointadd.sqf""";
@@ -4692,7 +4690,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"") && fza_ah64_tsdmode == ""nav""";
 				shortcut="";
 				statement="fza_ah64_addwps = [this] execvm ""\fza_ah64_controls\scripting\nav\waypointsave.sqf""";
@@ -4706,7 +4704,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"") && fza_ah64_tsdmode == ""nav""";
 				shortcut="";
 				statement="fza_ah64_addwps = [this] execvm ""\fza_ah64_controls\scripting\nav\waypointclear.sqf""";
@@ -4720,7 +4718,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
 				shortcut="";
 				statement="fza_ah64_maptog = [this] execvm ""\fza_ah64_controls\scripting\tsd_map_toggle.sqf""";
@@ -4735,7 +4733,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"")";
 				shortcut="";
 				statement="fza_ah64_createpfz = [this,fza_ah64_pfz_count] execvm ""\fza_ah64_controls\scripting\pfz.sqf""";
@@ -4749,7 +4747,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-9;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"")";
 				shortcut="User9";
 				statement="fza_ah64_selpfz = [this] execvm ""\fza_ah64_controls\scripting\pfz_sel.sqf""";
@@ -4761,7 +4759,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-9;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"")";
 				shortcut="";
 				statement="fza_ah64_sendpfz = [this] execvm ""\fza_ah64_controls\scripting\targxfer.sqf""";
@@ -4773,7 +4771,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-9;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"")";
 				shortcut="";
 				statement="fza_ah64_recvpfz = [this] execvm ""\fza_ah64_controls\scripting\targrecv.sqf""";
@@ -4785,7 +4783,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_modeself = [this] execvm ""\fza_ah64_controls\scripting\mode_self.sqf""";
@@ -4797,7 +4795,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\mode_remt.sqf""";
@@ -4809,7 +4807,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User5";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\add_remt.sqf""";
@@ -4821,7 +4819,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-10;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
 				shortcut="User10";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
@@ -4833,7 +4831,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=5;
+				priority=8;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
@@ -4847,7 +4845,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-11;
+				priority=0;
 				condition="(!(fza_ah64_tiron))";
 				shortcut="User19";
 				statement="fza_ah64_tiron = true";
@@ -4861,35 +4859,35 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-11;
+				priority=0;
 				condition="(fza_ah64_tiron)";
 				shortcut="User19";
 				statement="fza_ah64_tiron = false";
 			};
 			class cycle_wp
 			{
-				displayName="Cycle Waypoints Forward";
+				displayName="";
 				useAction=false;
 				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-11;
+				priority=0;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User18";
 				statement="fza_ah64_nextwp = [this] execvm ""\fza_ah64_controls\scripting\nav\nextwp.sqf""";
 			};
 			class cycle_wp2
 			{
-				displayName="Cycle Waypoints Backwards";
+				displayName="";
 				useAction=false;
 				showSwitchAction=false;
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-11;
+				priority=0;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User17";
 				statement="fza_ah64_nextwp = [this] execvm ""\fza_ah64_controls\scripting\nav\nextwp2.sqf""";
@@ -4903,7 +4901,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-7;
+				priority=0;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="salute";
 				statement="fza_ah64_fcronoff = [this] execvm ""\fza_ah64_controls\scripting\fcr_toggle.sqf""";
@@ -4917,7 +4915,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="";
 				statement="fza_ah64_irjamonoff = [this] execvm ""\fza_ah64_controls\scripting\ir_jammer.sqf""";
@@ -4931,7 +4929,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="";
 				statement="fza_ah64_rfjamonoff = [this] execvm ""\fza_ah64_controls\scripting\rf_jammer.sqf""";
@@ -4945,7 +4943,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="User13";
 				statement="fza_ah64_jamstate = [this] execvm ""\fza_ah64_controls\scripting\jam_toggle.sqf""";
@@ -4959,7 +4957,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=0;
 				condition="(player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
 				shortcut="User14";
 				statement="fza_ah64_autpg = [this] execvm ""\fza_ah64_controls\scripting\ase_autpage.sqf""";
@@ -4973,7 +4971,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=-6;
+				priority=0;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User15";
 				statement="fza_ah64_ihadssmode = [this] execvm ""\fza_ah64_controls\scripting\ihadss_mode.sqf""";
@@ -6404,7 +6402,6 @@ class CfgVehicles
 				gunnerAction = "fza_ah64_copilot"; 
 				gunnerGetInAction = "GetInHigh";
 				gunnerGetOutAction = "GetOutHigh";
-				enableCopilot = false;
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
@@ -9558,7 +9555,6 @@ initPhase=0;
 				gunnerGetOutAction = "GetOutHigh";
 				primary = 1;
 				primaryGunner = 1;
-				enableCopilot = false;
 				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
 				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
 				weapons[] = {"fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
@@ -9699,6 +9695,7 @@ initPhase=0;
 					minmovex = -0.15;
 					minmovey = -0.1;
 					minmovez = -0.1;
+					enableCopilot = false;
 				};
 			};
 		};
