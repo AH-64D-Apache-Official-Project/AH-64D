@@ -1,13 +1,4 @@
 _heli = _this select 0;
-
-private _map = getText (configFile >> "CfgWorlds" >> worldName >> "pictureMap");
-
-fza_ah64_maplist = [_map];
-
-_world_size = [] call BIS_fnc_mapSize;
-
-fza_ah64_mapsizearea = _world_size;
-
 _mapcount = count fza_ah64_maplist;
 
 if(fza_ah64_tsdmap == _mapcount) exitwith {fza_ah64_tsdmap = 0;};

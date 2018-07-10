@@ -2,6 +2,11 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*10/07/2018*
+- Fixed flares count display.
+- Initial TSD display set to 1km.
+- Added TSD MAP automatic compatibility with all maps - by Farquharson.
+
 *11/06/2018*
 - Fixed gun ammo count on WPN page.
 

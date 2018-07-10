@@ -188,12 +188,13 @@ if (isNil "fza_ah64_fx_init") then
 	
 	fza_ah64_waypointdata = [getpos _heli];
 	
-	fza_ah64_rangesetting = 0.0002; //5km
+	//fza_ah64_rangesetting = 0.0002; //5km
+	fza_ah64_rangesetting = 0.001; //1km
 	fza_ah64_fcrstate = 0;
 	fza_ah64_fcrlist = [];
 	fza_ah64_tsddisptargs = [];
 	fza_ah64_tsdmode = "nav";
-	fza_ah64_tsdmap = 0;
+	fza_ah64_tsdmap = 1;
 	fza_ah64_dispfcrlist = [];
 	//turrets//
 	fza_ah64_estate = 0;
