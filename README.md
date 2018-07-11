@@ -2,6 +2,13 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*11/07/2018*
+- M230 & RKT distance sound adjustments.
+- Restored M230 vibrations upon firing.
+- Restored M230 barrel smoke effect.
+- Battery should now provide supply by itself for CPG in MP.
+- Minor change to ACRE 2 onboard radio configuration.
+
 *10/07/2018*
 - Fixed flares count display.
 - Initial TSD display set to 1km.

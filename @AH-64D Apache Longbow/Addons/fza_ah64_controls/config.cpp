@@ -1172,7 +1172,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",4,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",4,1,4000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -1207,7 +1207,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",4,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",4,1,4000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -1220,7 +1220,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",4,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",4,1,4000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -1404,11 +1404,12 @@ class CfgWeapons
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		cursorAimOn = "";
+		ballisticscomputer = 2;
 		class Single: LauncherCore
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4.5,1,1700};
+				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4.5,1,4000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -1435,7 +1436,6 @@ class CfgWeapons
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
 			cursorAimOn = "";
-			//ballisticscomputer = 1; //test
 		};
 	};
 	////////////////14/////////////////
@@ -3519,9 +3519,11 @@ class CfgVehicles
 		backRotorForceCoef = 1.0;
 		driveOnComponent[] = {"Wheels"};
 		extCameraPosition[] = {0,0,-20};
+		radartype = 4;
 		radarTargetSize = 0.700000;
 		irTargetSize = 0.800000;		
 		//TKOH ENTRIES//
+		enableCopilot = true;
 		usePreciseGetInAction = 1;
 		preciseGetInOut = 1;
 		getInRadius = 1.500000;
@@ -5028,10 +5030,11 @@ class CfgVehicles
 		class AcreRacks 
 		{
            class Rack_1 {
-               displayName = "Dash"; // Name is displayed in the interaction menu.
+               displayName = "ARC-186"; // Name is displayed in the interaction menu.
+               //allowedPositions[] = {"driver", "copilot"}; // Who has access. "inside" - anyone inside, "external" - provides access upto 10m away, "driver", "gunner", "copilot", "commander"
                componentName = "ACRE_VRC103";
-               allowedPositions[] = {"driver", "copilot"}; // Who has access. "inside" - anyone inside, "external" - provides access upto 10m away, "driver", "gunner", "copilot", "commander"
-               disabledPositions[] = {};
+               allowedPositions[] = {"inside"};
+			   disabledPositions[] = {};
                defaultComponents[] = {};
                mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
                isRadioRemovable = 0;
@@ -6355,7 +6358,6 @@ class CfgVehicles
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
-		radartype = 4;
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
 		selectionHRotorStill = "velka vrtule staticka";
@@ -9695,7 +9697,6 @@ initPhase=0;
 					minmovex = -0.15;
 					minmovey = -0.1;
 					minmovez = -0.1;
-					enableCopilot = false;
 				};
 			};
 		};

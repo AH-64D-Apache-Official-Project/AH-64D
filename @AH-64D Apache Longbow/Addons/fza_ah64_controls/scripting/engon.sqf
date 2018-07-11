@@ -29,6 +29,6 @@ _heli animate ["tads_stow",1];
 
 fza_ah64_estarted = false;
 fza_ah64_apuon = 0;
-fza_ah64_pwron = 1;
+fza_ah64_pwron = 0;
 };
 };

@@ -10,7 +10,7 @@ _clicksound = ["none"];
 //["fza_ah64_button_click2",0.1]
 //["fza_ah64_switch_flip1",0.1]
 
-if(fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli animationphase "plt_eng1_start" > 0 || _heli animationphase "plt_eng2_start" > 0) then
+if(fza_ah64_pwron == 1) then
 {
 _poweron = true;
 };
