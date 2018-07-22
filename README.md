@@ -14,6 +14,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Added RKT FXD symbology.
 - Reworked TADS DTV colors.
 - Disabled PNVS view if not enough electrical power.
+- Added new PNVS rendering effect.
 
 *11/07/2018*
 - M230 & RKT distance sound adjustments.

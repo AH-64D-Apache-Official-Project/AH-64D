@@ -10762,7 +10762,6 @@ class fza_ah64_mapControl
 		size = 50;
 	};
 };
-
 class CfgInGameUI
 {
 	class Cursor{	
@@ -10902,7 +10901,18 @@ class CfgInGameUI
 		};
 	};
 };
-
+class RscControlsGroup
+{
+	type = CT_CONTROLS_GROUP;
+	idc = -1;
+	style = ST_MULTI;
+    x = 0;     
+	y = 0; 
+	w = 1; 
+	h = 1;
+	shadow=0;
+	class Controls{};
+};
 class RscTitles 
 {
 	class fza_ah64_mapfake
@@ -11341,9 +11351,39 @@ class RscTitles
 		};
 		class controls 
 		{
-			//hdu//
-			class fza_ah64_raddisp_hdu_bg
+			class fza_ah64_raddisp_crtmetal_monocle // IHADSS MONOCLE
+            {
+                idc = 801;
+                type = 0;
+                colorText[] = {1,1,1,1};
+                font = "EtelkaMonospaceProBold";
+                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
+                style = 48;
+                sizeEx = 1;
+                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
+                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
+				w = ICE_HUD_Monocle_Size*0.707;
+                h = ICE_HUD_Monocle_Size;
+                //x = 0.30;
+                //y = -0.29;
+                //w = 1.25;
+                //h = ICE_HUD_Monocle_Size;
+                colorBackground[] = {1,1,1,1};
+            };
+			
+			class fza_raddisp_ccontainer: RscControlsGroup // OFFSET WHOLE HUD CONTAINER
 			{
+				idc = 20052;
+				x = 0;
+				y = 0;
+				w = 2;
+				h = ICE_HUD_Monocle_Size;	
+				
+				class Controls 
+				{
+					//hdu//
+					class fza_ah64_raddisp_hdu_bg
+					{
 				idc = 119;
 				type = 0;
 				colorText[] = {-1, 1, 0, 0.5};
@@ -11357,8 +11397,8 @@ class RscTitles
 				w = 0.5;
 				h = 0.44;
 			};
-			class fza_ah64_raddisp_hdu_bg2
-			{
+					class fza_ah64_raddisp_hdu_bg2
+					{
 				idc = 120;
 				type = 0;
 				colorText[] = {-1, 1, 0, 0.5};
@@ -11372,9 +11412,9 @@ class RscTitles
 				w = 0.5;
 				h = 0.44;
 			};
-			///base///
-			class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
-			{
+					///base///
+					class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
+					{
 				type = 13;
 				idc = 121;
 				style = 2 + 16;
@@ -11396,8 +11436,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_targrange //SIGHT
-			{
+					class fza_ah64_raddisp_targrange //SIGHT
+					{
 				type = 13;
 				idc = 122;
 				style = 2 + 16;
@@ -11419,8 +11459,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_collective // TADS FLIR OR DTV
-			{
+					class fza_ah64_raddisp_collective // TADS FLIR OR DTV
+					{
 				type = 13;
 				idc = 123;
 				style = 2 + 16;
@@ -11442,8 +11482,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_speed // IHADSS SPEED
-			{
+					class fza_ah64_raddisp_speed // IHADSS SPEED
+					{
 				type = 13;
 				idc = 124;
 				style = 2 + 16;
@@ -11465,8 +11505,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_radaralt // IHADSS RADAR ALTITUDE
-			{
+					class fza_ah64_raddisp_radaralt // IHADSS RADAR ALTITUDE
+					{
 				type = 13;
 				idc = 125;
 				style = 2 + 16;
@@ -11488,8 +11528,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_weptype // WEAPON TYPE, _weapon, MSL RKT GUN
-			{
+					class fza_ah64_raddisp_weptype // WEAPON TYPE, _weapon, MSL RKT GUN
+					{
 				type = 13;
 				idc = 126;
 				style = 2 + 16;
@@ -11511,8 +11551,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_wepstate // SELECTED WEAPON, _weaponstate, LOBL LOAL 6PD ROUNDS
-			{
+					class fza_ah64_raddisp_wepstate // SELECTED WEAPON, _weaponstate, LOBL LOAL 6PD ROUNDS
+					{
 				type = 13;
 				idc = 127;
 				style = 2 + 16;
@@ -11534,8 +11574,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_safemessage
-			{
+					class fza_ah64_raddisp_safemessage
+					{
 
 				type = 13;
 				idc = 128;
@@ -11558,8 +11598,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_waypoint
-			{
+					class fza_ah64_raddisp_waypoint
+					{
 				type = 13;
 				idc = 129;
 				style = 2 + 16;
@@ -11581,9 +11621,9 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			//JHCMS
-			class fza_ah64_raddisp_jhmcs
-			{
+					//JHCMS
+					class fza_ah64_raddisp_jhmcs
+					{
 				idc = 130;
 				type = 0;
 				colorText[] = {0.1, 1, 0, 1};
@@ -11597,8 +11637,8 @@ class RscTitles
 				w = 0.5;
 				h = 0.68;
 			};
-			class fza_ah64_raddisp_jhmcs_trk
-			{
+					class fza_ah64_raddisp_jhmcs_trk
+					{
 				idc = 131;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11612,8 +11652,8 @@ class RscTitles
 				w = 0.0734;
 				h = 0.1;
 			};
-			class fza_ah64_raddisp_target
-			{
+					class fza_ah64_raddisp_target
+					{
 				idc = 132;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11627,8 +11667,8 @@ class RscTitles
 				w = 0.0734;
 				h = 0.1;
 			};
-			class fza_ah64_raddisp_tadspos
-			{
+					class fza_ah64_raddisp_tadspos
+					{
 				idc = 133;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11642,8 +11682,8 @@ class RscTitles
 				w = 0.03845;
 				h = 0.05;
 			};
-			class fza_ah64_raddisp_chevron
-			{
+					class fza_ah64_raddisp_chevron
+					{
 				idc = 134;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11657,8 +11697,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_vsi
-			{
+					class fza_ah64_raddisp_vsi
+					{
 				idc = 135;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11672,8 +11712,8 @@ class RscTitles
 				w = 0.01;
 				h = 0.02;
 			};
-			class fza_ah64_raddisp_radaltbar
-			{
+					class fza_ah64_raddisp_radaltbar
+					{
 				idc = 136;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11687,8 +11727,8 @@ class RscTitles
 				w = 0.01;
 				h = 0.0025;
 			};
-			class fza_ah64_raddisp_fcrdir
-			{
+					class fza_ah64_raddisp_fcrdir
+					{
 				idc = 137;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11702,7 +11742,7 @@ class RscTitles
 				w = 0.032;
 				h = 0.04;
 			};
-			/*class fza_ah64_raddisp_hor_1
+					/*class fza_ah64_raddisp_hor_1
 			{
 				idc = 138;
 				type = 0;
@@ -11822,8 +11862,8 @@ class RscTitles
 				w = 0.015;
 				h = 0.0025;
 			};*/
-			class fza_ah64_raddisp_lase 
-			{ 
+					class fza_ah64_raddisp_lase 
+					{ 
 				idc = 138; 
 				type = 0; 
 				colorText[] = {0.1, 1, 0, 1}; 
@@ -11837,8 +11877,8 @@ class RscTitles
 				w = 0.5; 
 				h = 0.68; 
 			};
-			class fza_ah64_raddisp_hdg0_tickmark
-			{
+					class fza_ah64_raddisp_hdg0_tickmark
+					{
 				idc = 146;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11852,8 +11892,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg30_tickmark
-			{
+					class fza_ah64_raddisp_hdg30_tickmark
+					{
 				idc = 147;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11867,8 +11907,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg60_tickmark
-			{
+					class fza_ah64_raddisp_hdg60_tickmark
+					{
 				idc = 148;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11882,8 +11922,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg90_tickmark
-			{
+					class fza_ah64_raddisp_hdg90_tickmark
+					{
 				idc = 149;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11897,8 +11937,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg120_tickmark
-			{
+					class fza_ah64_raddisp_hdg120_tickmark
+					{
 				idc = 150;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11912,8 +11952,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg150_tickmark
-			{
+					class fza_ah64_raddisp_hdg150_tickmark
+					{
 				idc = 151;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11927,8 +11967,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg180_tickmark
-			{
+					class fza_ah64_raddisp_hdg180_tickmark
+					{
 				idc = 152;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11942,8 +11982,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg210_tickmark
-			{
+					class fza_ah64_raddisp_hdg210_tickmark
+					{
 				idc = 153;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11957,8 +11997,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg240_tickmark
-			{
+					class fza_ah64_raddisp_hdg240_tickmark
+					{
 				idc = 154;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11972,8 +12012,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg270_tickmark
-			{
+					class fza_ah64_raddisp_hdg270_tickmark
+					{
 				idc = 155;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -11987,8 +12027,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg300_tickmark
-			{
+					class fza_ah64_raddisp_hdg300_tickmark
+					{
 				idc = 156;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12002,8 +12042,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg330_tickmark
-			{
+					class fza_ah64_raddisp_hdg330_tickmark
+					{
 				idc = 157;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12017,8 +12057,8 @@ class RscTitles
 				w = 0.05;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 158;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12032,100 +12072,100 @@ class RscTitles
 				w = 0.003;
 				h = 0.01;
 			};
-			class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 159;
 			};
-			class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 160;
 			};
-			class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 161;
 			};
-			class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 162;
 			};
-			class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 163;
 			};
-			class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 164;
 			};
-			class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 165;
 			};
-			class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 166;
 			};
-			class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 167;
 			};
-			class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 168;
 			};
-			class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 169;
 			};
-			class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 170;
 			};
-			class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 171;
 			};
-			class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 172;
 			};
-			class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 173;
 			};
-			class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 174;
 			};
-			class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 175;
 			};
-			class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 176;
 			};
-			class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 177;
 			};
-			class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 178;
 			};
-			class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 179;
 			};
-			class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 180;
 			};
-			class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
-			{
+					class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
+					{
 				idc = 181;
 			};
-			class fza_ah64_raddisp_pnvspos
-			{
+					class fza_ah64_raddisp_pnvspos
+					{
 				idc = 182;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12139,8 +12179,8 @@ class RscTitles
 				w = 0.03845;
 				h = 0.05;
 			};
-			class fza_ah64_raddisp_fcr_for
-			{
+					class fza_ah64_raddisp_fcr_for
+					{
 				idc = 183;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12154,8 +12194,8 @@ class RscTitles
 				w = 0.002;
 				h = 0.054;
 			};
-			class fza_ah64_raddisp_waypoint_gspd
-			{
+					class fza_ah64_raddisp_waypoint_gspd
+					{
 				
 				type = 13;
 				idc = 184;
@@ -12178,8 +12218,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_velvect
-			{
+					class fza_ah64_raddisp_velvect
+					{
 				idc = 185;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12193,8 +12233,8 @@ class RscTitles
 				w = 0.03;
 				h = 0.04;
 			};
-			class fza_ah64_raddisp_slipball
-			{
+					class fza_ah64_raddisp_slipball
+					{
 				idc = 186;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12208,8 +12248,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_bobup
-			{
+					class fza_ah64_raddisp_bobup
+					{
 				
 				idc = 187;
 				type = 0;
@@ -12224,8 +12264,8 @@ class RscTitles
 				w = 0.03845;
 				h = 0.05;
 			};
-			class fza_ah64_raddisp_baroalt
-			{
+					class fza_ah64_raddisp_baroalt
+					{
 				
 				type = 13;
 				idc = 188;
@@ -12248,8 +12288,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_cscope1
-			{
+					class fza_ah64_raddisp_cscope1
+					{
 				idc = 190;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12263,8 +12303,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope2
-			{
+					class fza_ah64_raddisp_cscope2
+					{
 				idc = 191;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12278,8 +12318,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope3
-			{
+					class fza_ah64_raddisp_cscope3
+					{
 				idc = 192;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12293,8 +12333,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope4
-			{
+					class fza_ah64_raddisp_cscope4
+					{
 				idc = 193;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12308,8 +12348,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope5
-			{
+					class fza_ah64_raddisp_cscope5
+					{
 				idc = 194;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12323,8 +12363,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope6
-			{
+					class fza_ah64_raddisp_cscope6
+					{
 				idc = 195;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12338,8 +12378,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope7
-			{
+					class fza_ah64_raddisp_cscope7
+					{
 				idc = 196;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12353,8 +12393,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope8
-			{
+					class fza_ah64_raddisp_cscope8
+					{
 				idc = 197;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12368,8 +12408,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope9
-			{
+					class fza_ah64_raddisp_cscope9
+					{
 				idc = 198;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12383,8 +12423,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope10
-			{
+					class fza_ah64_raddisp_cscope10
+					{
 				idc = 199;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12398,8 +12438,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope11
-			{
+					class fza_ah64_raddisp_cscope11
+					{
 				idc = 200;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12413,8 +12453,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope12
-			{
+					class fza_ah64_raddisp_cscope12
+					{
 				idc = 201;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12428,8 +12468,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope13
-			{
+					class fza_ah64_raddisp_cscope13
+					{
 				idc = 202;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12443,8 +12483,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope14
-			{
+					class fza_ah64_raddisp_cscope14
+					{
 				idc = 203;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12458,8 +12498,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope15
-			{
+					class fza_ah64_raddisp_cscope15
+					{
 				idc = 204;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12473,8 +12513,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_cscope16
-			{
+					class fza_ah64_raddisp_cscope16
+					{
 				idc = 205;
 				type = 0;
 				colorText[] = {1, 1, 1, 1};
@@ -12488,8 +12528,8 @@ class RscTitles
 				w = 0.018;
 				h = 0.024;
 			};
-			class fza_ah64_raddisp_fov
-			{
+					class fza_ah64_raddisp_fov
+					{
 				idc = 206;
 				type = 0;
 				colorText[] = {0.1, 1, 0, 1};
@@ -12503,27 +12543,8 @@ class RscTitles
 				w = (safezoneW * 0.2);
 				h = (safezoneH * 0.2);
 			};
-			class fza_ah64_raddisp_crtmetal_monocle // IHADSS MONOCLE
-            {
-                idc = 801;
-                type = 0;
-                colorText[] = {1,1,1,1};
-                font = "EtelkaMonospaceProBold";
-                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
-                style = 48;
-                sizeEx = 1;
-                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
-                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
-				w = ICE_HUD_Monocle_Size*0.707;
-                h = ICE_HUD_Monocle_Size;
-                //x = 0.30;
-                //y = -0.29;
-                //w = 1.25;
-                //h = ICE_HUD_Monocle_Size;
-                colorBackground[] = {1,1,1,1};
-            };
-			class fza_ah64_raddisp_rcd // RECORD
-			{
+					class fza_ah64_raddisp_rcd // RECORD
+					{
 				type = 13;
 				idc = 802;
 				style = 2 + 16;
@@ -12545,8 +12566,8 @@ class RscTitles
 					shadow = false;
 				};
 			};	
-			class fza_ah64_raddisp_lsrcode // LASER CODE
-			{
+					class fza_ah64_raddisp_lsrcode // LASER CODE
+					{
 				type = 13;
 				idc = 803;
 				style = 2 + 16;
@@ -12568,8 +12589,8 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_acq // TADS ACQ, FCR TADS
-			{
+					class fza_ah64_raddisp_acq // TADS ACQ, FCR TADS
+					{
 				type = 13;
 				idc = 804;
 				style = 2 + 16;
@@ -12590,7 +12611,8 @@ class RscTitles
 					align = "left";
 					shadow = false;
 				};
-			};
+			};	
+				};
 			};
 		};
 	};
