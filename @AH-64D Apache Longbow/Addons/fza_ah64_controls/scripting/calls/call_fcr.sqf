@@ -14,7 +14,7 @@ if(isengineon _heli) then
 {
 	if(fza_ah64_agmode == 1) then {_maxalt = 100;};
 	if(fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {_maxalt = 2;};
-	if(fza_ah64_fcrstate == 1 && (typeOf _heli == "fza_ah64d_b2e" || typeOf _heli == "fza_ah64d_b2exp" || typeOf _heli == "fza_ah64d_b3") && !("fza_ah64_fcr_fail" in (_heli magazinesturret [-1]))) then
+	if(fza_ah64_fcrstate == 1 && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret [-1]))) then
 	{
 		//add targets to master list
 		_targets = vehicles;

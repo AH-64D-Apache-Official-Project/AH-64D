@@ -7,7 +7,7 @@ _selWeapon = currentWeapon (vehicle player);
 if (_selWeapon == "fza_m230") 
 then 
 {
-addCamShake [0.5,2,20];
+addCamShake [0.20,2,20];
 };
 
 // M230 SMOKE EFFECT

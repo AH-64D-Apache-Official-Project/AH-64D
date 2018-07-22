@@ -16,14 +16,13 @@ onPlayerConnected {
     };
 }; */ 
 
-// DISABLE CPG CONTROLS
+// ENABLE/DISABLE CPG CONTROLS
 if (isCopilotEnabled _heli) then {
-    _heli enableCopilot false;
+    _heli enableCopilot true;
 };
 
-
 //REMOVE ACTIONS MENU
-if (player == driver _heli || player == gunner _heli)  then {removeAllActions _heli};
+//if (player == driver _heli || player == gunner _heli)  then {removeAllActions _heli};
 
 if(isNil "fza_ah64_skinlist") then {fza_ah64_skinlist = [];};
 
@@ -155,7 +154,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_velvect = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_vvect.sqf";
 	fza_ah64_slipcheck = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_slip.sqf";
 	fza_ah64_timetowp = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_timetowp.sqf";
-	fza_ah64_cpg_controls=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_cpgai.sqf";
+	//fza_ah64_cpg_controls=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_cpgai.sqf";
 	if(isNil "fza_ah64_targetlist") then {fza_ah64_targetlist = [];};
 	if(isNil "fza_ah64_mycurrenttarget") then {fza_ah64_mycurrenttarget = objNull;};
 	fza_ah64_wheelbrake = 1;

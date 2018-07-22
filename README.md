@@ -3,6 +3,19 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 
 # CHANGELOG NOTES:
 *11/07/2018*
+- Restored ability for CPG to take controls.
+- Fixed CPG POV and hands position.
+- Minor fix to Optical Relay Tube (ORT) 3D model.
+- Added ingame monocle. (w/ Keplager)
+- Removed vanilla UI lock box.
+- Removed green cursor upon 3rd person.
+- Fixed GUN azimuth limit on HMD ACQ. (w/ Jamo)
+- Reworked TADS informations display.
+- Added RKT FXD symbology.
+- Reworked TADS DTV colors.
+- Disabled PNVS view if not enough electrical power.
+
+*11/07/2018*
 - M230 & RKT distance sound adjustments.
 - Restored M230 vibrations upon firing.
 - Restored M230 barrel smoke effect.

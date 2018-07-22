@@ -1279,12 +1279,13 @@ fza_ah64_l1clicked = 1;
 
 //IHADSS
 
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && isEngineOn _heli) then
+/*
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && (fza_ah64_apuon == 1 || isEngineOn _heli) then
 {
 [_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
 fza_ah64_l1clicked = 1;
 };
-
+*/
 
 
 //PNVS HDU DAY/NIGHT TOGGLE
@@ -1327,7 +1328,7 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 //STOWIHADSS
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05) then
 {
-if(fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli animationphase "plt_eng1_start" > 0 || _heli animationphase "plt_eng2_start" > 0) then
+if(fza_ah64_apuon == 1 || isengineon _heli) then
 {
 [_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
 } else {
@@ -1336,6 +1337,8 @@ if(fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli anima
 fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_switch_flip1",0.1];
 };
+
+
 
 if(fza_ah64_l1clicked == 1 && count _clicksound > 1) then {_clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 

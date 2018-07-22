@@ -39,7 +39,7 @@ class CfgFactionClasses
 {
 	class fza_usaav
 	{
-		displayName = "FZA - US Army Aviation";
+		displayName = "AH-64D Project";
 		priority = 2;
 		icon = "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
 		side = "TWest";
@@ -49,7 +49,7 @@ class CfgVehicleClasses
 {
 	class fza_helicopters
 	{
-		displayName = "FZA - Helicopters";
+		displayName = "AH-64D Project";
 	};
 };
 class CfgPatches
@@ -6337,7 +6337,8 @@ class CfgVehicles
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
+		//driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
+		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		driverOpticsColor[] = {1,1,1,1};
 		//driverOpticsColor[] = {0.231,0.914,0.184,1};
 		laserScanner=1;
@@ -10388,6 +10389,14 @@ class fza_ah64_skinmenu
 /////////////////////////////////////////////////////////////
 #define CT_OBJECT 80
 #define CT_MAP              100
+//EXPERIMENTAL - MONOCLE OVERLAY
+#define ICE_HUD_Monocle_Size 1.70
+#define ICE_HUD_SCX (safeZoneX+(safeZoneW/2))
+#define ICE_HUD_SCY (safeZoneY+(safeZoneH/2))
+#define ICE_HUD_LargeFontSize 0.04*safeZoneH
+#define ICE_HUD_MediumFontSize 0.03*safeZoneH
+#define ICE_HUD_SmallFontSize 0.02*safeZoneH
+//END EXPERIMENTAL - MONOCLE OVERLAY
 class RscObject;
 class fza_ah64_mapControl
 {
@@ -10753,6 +10762,147 @@ class fza_ah64_mapControl
 		size = 50;
 	};
 };
+
+class CfgInGameUI
+{
+	class Cursor{	
+		class Targeting
+		{
+			class MarkedTarget
+			{
+				scale=1;
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				textureLockable="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				colorLockable[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				textureFriendly="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				colorFriendly[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				shadow=0;
+			};
+			class MarkedTargetNoLos: MarkedTarget
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				textureLockable="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				colorLockable[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				textureFriendly="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				colorFriendly[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+			class Seeker
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+				scale=1;
+				shadow=0;
+			};
+			class SeekerLocked: Seeker
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+			class ImpactPoint: Seeker
+			{
+				scale=0.5;
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+			class ImpactPointNoLOS: ImpactPoint
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+			class HitPrediction: Seeker
+			{
+				scale=0.5;
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+			class HitConfirm: Seeker
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]={0.70899999,0.972,0.384,1};
+			};
+			class KnownTarget: Seeker
+			{
+				texture="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
+				color[]=
+				{
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0])",
+					"(profilenamespace getvariable ['IGUI_TEXT_RGB_A',0])"
+				};
+			};
+		};
+	};
+};
+
 class RscTitles 
 {
 	class fza_ah64_mapfake
@@ -11223,14 +11373,14 @@ class RscTitles
 				h = 0.44;
 			};
 			///base///
-			class fza_ah64_raddisp_radrange
+			class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
 			{
 				type = 13;
 				idc = 121;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = -0.055;
-				y = 0.72;
+				x = -0.075;//bak -0.055
+				y = 0.73; //bak -0.72
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -11246,14 +11396,14 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_targrange
+			class fza_ah64_raddisp_targrange //SIGHT
 			{
 				type = 13;
 				idc = 122;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = -0.049;
-				y = 0.74;
+				x = -0.155; //bak -0.049
+				y = 0.73; //bal 0.74
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -11269,7 +11419,7 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_collective
+			class fza_ah64_raddisp_collective // TADS FLIR OR DTV
 			{
 				type = 13;
 				idc = 123;
@@ -11292,7 +11442,7 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_speed
+			class fza_ah64_raddisp_speed // IHADSS SPEED
 			{
 				type = 13;
 				idc = 124;
@@ -11315,7 +11465,7 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_radaralt
+			class fza_ah64_raddisp_radaralt // IHADSS RADAR ALTITUDE
 			{
 				type = 13;
 				idc = 125;
@@ -11338,14 +11488,14 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_weptype
+			class fza_ah64_raddisp_weptype // WEAPON TYPE, _weapon, MSL RKT GUN
 			{
 				type = 13;
 				idc = 126;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = 0.56;
-				y = 0.72;
+				x = 0.58; //bak 0.56
+				y = 0.73; //bak 0.72
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -11361,14 +11511,14 @@ class RscTitles
 					shadow = false;
 				};
 			};
-			class fza_ah64_raddisp_wepstate
+			class fza_ah64_raddisp_wepstate // SELECTED WEAPON, _weaponstate, LOBL LOAL 6PD ROUNDS
 			{
 				type = 13;
 				idc = 127;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = 0.56;
-				y = 0.74;
+				x = 0.58; //bak 0.56
+				y = 0.75; //bak 0.74
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -12352,6 +12502,95 @@ class RscTitles
 				y = (safezoneY + safezoneH * 0.4);
 				w = (safezoneW * 0.2);
 				h = (safezoneH * 0.2);
+			};
+			class fza_ah64_raddisp_crtmetal_monocle // IHADSS MONOCLE
+            {
+                idc = 801;
+                type = 0;
+                colorText[] = {1,1,1,1};
+                font = "EtelkaMonospaceProBold";
+                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
+                style = 48;
+                sizeEx = 1;
+                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
+                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
+				w = ICE_HUD_Monocle_Size*0.707;
+                h = ICE_HUD_Monocle_Size;
+                //x = 0.30;
+                //y = -0.29;
+                //w = 1.25;
+                //h = ICE_HUD_Monocle_Size;
+                colorBackground[] = {1,1,1,1};
+            };
+			class fza_ah64_raddisp_rcd // RECORD
+			{
+				type = 13;
+				idc = 802;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = -0.076;
+				y = 0.75;
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};	
+			class fza_ah64_raddisp_lsrcode // LASER CODE
+			{
+				type = 13;
+				idc = 803;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = -0.138; //bak -0.049
+				y = 0.71; //bak -0.72
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "right";
+					shadow = false;
+				};
+			};
+			class fza_ah64_raddisp_acq // TADS ACQ, FCR TADS
+			{
+				type = 13;
+				idc = 804;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.64;
+				y = 0.73; 
+				w = 0.5;
+				h = 0.12;
+				size = 0.024;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,1};
+				text = "0";
+				font = "EtelkaMonospaceProBold";
+				class Attributes 
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "left";
+					shadow = false;
+				};
+			};
 			};
 		};
 	};
