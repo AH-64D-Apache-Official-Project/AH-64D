@@ -15,6 +15,9 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Reworked TADS DTV colors.
 - Disabled PNVS view if not enough electrical power.
 - Added new PNVS rendering effect.
+- Added new APU & ENG 3D sounds.
+- External sounds adjustments.
+- Added threat circles to ASE MPD page.
 
 *11/07/2018*
 - M230 & RKT distance sound adjustments.

@@ -4,6 +4,9 @@ if(driver _heli == player) then
 {
 _estate = 0.11 * (_heli animationphase "blade1_rise1");
 //inputs
+
+
+
 _forback = ((inputAction "HeliForward")+(-1*(inputAction "HeliBack")));
 _leftright = (inputAction "HeliCyclicRight")+(inputAction "HeliRight")+(-1*(inputAction "HeliLeft"))+(-1*(inputAction "HeliCyclicLeft"));
 _collective =  (-0.25*(1-(inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (-0.25*(inputAction "heliUp" + inputAction "heliThrottlePos"));
@@ -16,6 +19,9 @@ _cyclicdir = (1/360)*_cyclicdir;
 _magnitude = (inputAction "HeliForward")+(inputAction "HeliBack")+(inputAction "HeliLeft")+(inputAction "HeliCyclicLeft")+(inputAction "HeliRight")+(inputAction "HeliCyclicRight");
 _magnitude = _magnitude * 5;
 if(_magnitude > 1) then {_magnitude = 1;};
+
+
+
 //bladepitch
 _b1phase = (_heli animationphase "mainRotor")+_cyclicdir;
 if(_b1phase > 1) then {_b1phase = _b1phase - 1;};

@@ -317,13 +317,31 @@ class CfgSounds
 	class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.33,1,200};
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.33,1};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
 	{
 		name = "fza_ah64_apustart1";
-		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",0.33,1,200};
+		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",0.33,1};
+		titles[]={};
+	};
+	class fza_ah64_apustart_3D
+	{
+		name = "fza_ah64_apustart_3D";
+		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",2,1};
+		titles[]={};
+	};
+	class fza_ah64_loop_3D
+	{
+		name = "fza_ah64_loop_3D";
+		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",1,1};
+		titles[]={};
+	};
+	class fza_ah64_estart_3D
+	{
+		name = "fza_ah64_estart_3D";
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",1,1};
 		titles[]={};
 	};
 	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
@@ -360,6 +378,18 @@ class CfgSounds
 	{
 		name = "fza_ah64_rh_doorclose1";
 		sound[] = {"\fza_ah64_us\audio\rh_doorclose1.ogg",1,1,1};
+		titles[]={};
+	};
+	class fza_ah64_rh_dooropen_3D
+	{
+		name = "fza_ah64_rh_dooropen_3D";
+		sound[] = {"\fza_ah64_us\audio\rh_dooropen1.ogg",1,1};
+		titles[]={};
+	};
+	class fza_ah64_rh_doorclose_3D
+	{
+		name = "fza_ah64_rh_doorclose_3D";
+		sound[] = {"\fza_ah64_us\audio\rh_doorclose1.ogg",1,1};
 		titles[]={};
 	};
 	///END OF DOOR SOUNDS///
@@ -3780,66 +3810,28 @@ class CfgVehicles
 					position = "exhaust2";
 				};
 		};
+		
 		class Sounds 
 		{
-				///GENERIC FLIP SOUNDS///
-				/*class fza_ah64_button_click1
+				/*class RotorSwist //WIP
 				{
-		name = "fza_ah64_button_click1";
-		sound[] = {"\fza_ah64_us\audio\button_click1.ogg",1,1};
-		frequency = 1;
-		volume = 1;
-				};
-				class fza_ah64_button_click2
-				{
-		name = "fza_ah64_button_click2";
-		sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1};
-		frequency = 1;
-		volume = 1;
-				};
-				class fza_ah64_switch_flip1
-				{
-		name = "fza_ah64_switch_flip1";
-		sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1};
-		frequency = 1;
-		volume = 1;
+						frequency = 1;
+						sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist",1,1,300};
+						volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};*/
-				///END OF GENERIC FLIP SOUNDS///
-				
-				///ENGINE & APU START FIRST PERSON///
-				/*class APUStartExt 
-				{
-					name = "fza_ah64_apustart1";
-					sound[] = {"fza_ah64_us\audio\Ext_Start.ogg", 1,1,200};
-					volume = "engineOn";
-					frequency = "(0.66 + rotorSpeed)/3";
-				};
-				class EngineStartExt 
-				{
-					name = "fza_ah64_estart1";
-					sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg", 1,1,200};
-					volume = "engineOn";
-					frequency = "(0.66 + rotorSpeed)/3";
-				};*/
-				///ENGINE & APU START FIRST PERSON END///
 				class EngineExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine1.ogg", 1, 1.000000, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.10)*4)";
 				};
 				class RotorExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_ext1.ogg", 1.5, 1.000000, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext1.ogg", 3, 1.000000, 1100};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
-				/*class RotorSwist //WIP
-				{
-				frequency = 1;
-				sound[] = {"bwa3_air\sounds\Heli_Attack_01\swist.wav",1,1,300};
-				volume = "camPos * (rotorThrust factor [0.7, 0.9])";
-				};*/
+
 				class TailRotor
 				{
 					cone[] = {3, 1.57, 3, 1.57};
@@ -3897,25 +3889,25 @@ class CfgVehicles
 				};
 				class damageAlarmInt 
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.316228, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
 				class damageAlarmExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.223872, 1.000000, 20};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
 				};
 				class rotorLowAlarmInt 
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.316228, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
 				class rotorLowAlarmExt 
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.223872, 1.000000, 20};
+					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
@@ -4009,6 +4001,13 @@ class CfgVehicles
 				class SoundEvents {};
 				class Sounds 
 				{
+					/*class RotorSwist //WIP
+					{
+						frequency = 1;
+						sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist",1,1,300};
+						volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
+					};*/
+					
 					class EngineExt 
 					{
 						sound[] = {"\fza_ah64_US\audio\ah64_engine1.ogg", 1, 1.000000, 1100};
@@ -4059,25 +4058,25 @@ class CfgVehicles
 					};
 					class damageAlarmInt 
 					{
-						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.316228, 1.000000};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 1, 1.000000};
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 					};
 					class damageAlarmExt 
 					{
-						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0.223872, 1.000000, 20};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
 					};
 					class rotorLowAlarmInt 
 					{
-						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.316228, 1.000000};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 					};
 					class rotorLowAlarmExt 
 					{
-						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0.223872, 1.000000, 20};
+						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 					};
@@ -5495,7 +5494,6 @@ class CfgVehicles
 "mpd_pl_tsd_wdir3",
 "mpd_pl_tsd_wv1",
 "mpd_pl_tsd_wv2",
-//WAS: gl_tsd_end1
 "ufd_back",
 "in_lt_apu",
 "gl_tsd_end3",
@@ -6132,17 +6130,14 @@ class CfgVehicles
 "g_ufd_wrn3",
 "g_ufd_wrn4",
 "g_ufd_wrn5",
-///NEWTSD///
 "mpd_pr_tsd_dist1",
 "mpd_pr_tsd_imap",
 "mpd_pr_tsd_map",
 "mpd_pr_tsd_phase",
-///LMPDTSD///
 "mpd_pl_tsd_dist1",
 "mpd_pl_tsd_imap",
 "mpd_pl_tsd_map",
 "mpd_pl_tsd_phase",
-////LMPDOBJS///
 			"mpd_gr_obj1",
 			"mpd_gr_obj2",
 			"mpd_gr_obj3",
@@ -10390,6 +10385,7 @@ class fza_ah64_skinmenu
 #define CT_OBJECT 80
 #define CT_MAP              100
 //EXPERIMENTAL - MONOCLE OVERLAY
+//#define CT_CONTROLS_GROUP 0
 #define ICE_HUD_Monocle_Size 1.70
 #define ICE_HUD_SCX (safeZoneX+(safeZoneW/2))
 #define ICE_HUD_SCY (safeZoneY+(safeZoneH/2))
@@ -11370,16 +11366,14 @@ class RscTitles
                 //h = ICE_HUD_Monocle_Size;
                 colorBackground[] = {1,1,1,1};
             };
-			
-			class fza_raddisp_ccontainer: RscControlsGroup // OFFSET WHOLE HUD CONTAINER
+			class fza_raddisp_container: RscControlsGroup // OFFSET OR EDIT WHOLE HUD CONTAINER
 			{
 				idc = 20052;
 				x = 0;
 				y = 0;
 				w = 2;
 				h = ICE_HUD_Monocle_Size;	
-				
-				class Controls 
+				class controls 
 				{
 					//hdu//
 					class fza_ah64_raddisp_hdu_bg

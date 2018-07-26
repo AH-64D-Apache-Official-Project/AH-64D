@@ -1064,6 +1064,7 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _pdoorhandle distanc
 {
 if(player == gunner _heli) then {_doorscript = [_heli,"gdoor"] execvm "\fza_ah64_controls\scripting\door_toggle.sqf";} else {_doorscript = [_heli,"pdoor"] execvm "\fza_ah64_controls\scripting\door_toggle.sqf";};
 fza_ah64_l1clicked = 1;
+
 };
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _pdoorhandle2 distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05 && (_heli animationphase "pdoor" > 0.5 || _heli animationphase "gdoor" > 0.5 )) then
@@ -1168,7 +1169,7 @@ fza_ah64_l1clicked = 1;
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _btnapu distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.04 && fza_ah64_pwron == 1) then
 {
 if(fza_ah64_apuon == 1) exitwith {fza_ah64_apuon = 0; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; fza_ah64_l1clicked = 1;};
-if(fza_ah64_apuon == 0) exitwith {fza_ah64_apuon = 1; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; ["fza_ah64_apustart1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; fza_ah64_l1clicked = 1;};
+if(fza_ah64_apuon == 0) exitwith {fza_ah64_apuon = 1; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_apustart_3D",200,1]; fza_ah64_l1clicked = 1;};
 fza_ah64_l1clicked = 1;
 };
 
@@ -1185,7 +1186,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
-if(_heli animationphase "plt_eng1_start" < 1) then {_heli animate ["plt_eng1_start",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; ["fza_ah64_estart1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";} else {_heli animate ["plt_eng1_start",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
+if(_heli animationphase "plt_eng1_start" < 1) then {_heli animate ["plt_eng1_start",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_estart_3D",200,1];} else {_heli animate ["plt_eng1_start",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 fza_ah64_l1clicked = 1;
 };
 
@@ -1193,7 +1194,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && fza_ah64_apuon == 1 && _heli animationphase "plt_rtrbrake" == 1) then
 {
-if(_heli animationphase "plt_eng2_start" < 1) then {_heli animate ["plt_eng2_start",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; ["fza_ah64_estart1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";} else {_heli animate ["plt_eng2_start",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
+if(_heli animationphase "plt_eng2_start" < 1) then {_heli animate ["plt_eng2_start",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_estart_3D",200,1];} else {_heli animate ["plt_eng2_start",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 fza_ah64_l1clicked = 1;
 };
 
@@ -1249,7 +1250,19 @@ fza_ah64_l1clicked = 1;
 
 if(fza_ah64_apuon == 1 && _heli animationphase "plt_eng1_throttle" == 0.25 && _heli animationphase "plt_rtrbrake" == 1) then
 {
-if(_heli animationphase "plt_rtrbrake" == 1) then {fza_ah64_estarted = true; (driver _heli) action ["engineOn", _heli];} else {_heli animate ["plt_rtrbrake",0]; (driver _heli) action ["engineOff", _heli]; fza_ah64_estarted = false; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
+if(_heli animationphase "plt_rtrbrake" == 1) then 
+{
+fza_ah64_estarted = true; 
+(driver _heli) action ["engineOn", _heli];
+_heli animate ["tads_stow",0];
+
+} else {
+_heli animate ["plt_rtrbrake",0];
+ (driver _heli) action ["engineOff", _heli];
+ _heli animate ["tads_stow",1];
+ fza_ah64_estarted = false;
+ ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+ };
 fza_ah64_l1clicked = 1;
 };
 
@@ -1272,20 +1285,11 @@ if(fza_ah64_pwron == 1 && _heli animationphase "plt_eng1_throttle" == 0 && _heli
 {
 _heli animate ["plt_rtrbrake",0];
 (driver _heli) action ["engineOff", _heli];
+ _heli animate ["tads_stow",1];
 fza_ah64_estarted = false;
 ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
 fza_ah64_l1clicked = 1;
 };
-
-//IHADSS
-
-/*
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && (fza_ah64_apuon == 1 || isEngineOn _heli) then
-{
-[_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
-fza_ah64_l1clicked = 1;
-};
-*/
 
 
 //PNVS HDU DAY/NIGHT TOGGLE
@@ -1325,10 +1329,10 @@ fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };
 
-//STOWIHADSS
+//IHADSS
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05) then
 {
-if(fza_ah64_apuon == 1 || isengineon _heli) then
+if(fza_ah64_pwron == 1 || fza_ah64_apuon == 1 || isengineon _heli) then
 {
 [_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
 } else {

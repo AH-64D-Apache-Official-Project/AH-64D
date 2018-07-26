@@ -8,7 +8,7 @@ _targlist = [];
 _detectchance = 0.00834;
 _adaunit = false;
 
-if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["ZSU_Base","2S6M_Tunguska","HMMWV_Avenger","M6_EP1"];};
+if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsutank_base","LOP_ZSU234_base"];};
 
 if(isengineon _heli) then
 {

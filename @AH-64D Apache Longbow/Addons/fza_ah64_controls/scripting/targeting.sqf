@@ -301,7 +301,7 @@ _angley = _angley + 0.5;
 _anglex = -0.5*(_heli animationphase "mainturret");
 _anglex = _anglex + 0.5;
 //*abs(sin((_heli animationphase "mainturret") * -57.33))
-_gunpoint = worldtoscreen (_heli modelToWorldVisual [((sin(deg(_heli animationphase "mainturret") * (-1))) * (cos(deg(_heli animationphase "maingun"))) * 500),(((cos(deg(_heli animationphase "maingun")))) * (cos(deg(_heli animationphase "mainturret") * (-1))) * 500) + 4,((sin(deg(_heli animationphase "maingun"))) * 500) - 1]);
+_gunpoint = worldtoscreen (_heli ModelToWorld [((sin((_heli animationphase "mainturret") * -57.33)) * 500),((cos((_heli animationphase "maingun") * 57.33)) * 500)*(cos((_heli animationphase "mainturret") * -57.33)) + 3,((sin((_heli animationphase "maingun") * 57.33)) * 500) - 2]);
 if(count _gunpoint < 1) then {_gunpoint = [0.5,0.5];};
 _scPos = [(_gunpoint select 0),(_gunpoint select 1)];
 _weapon = "GUN" + (format [" RNG:%1",currentZeroing gunner _heli]);

@@ -8,7 +8,7 @@ _targhead = 0;
 
 _sensor = "R ";
 _sensxm = "FCR ";
-_acq = ""; //TEST ACQ TADS DISPLAY
+_acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
 _rcd = "RCD      TADS";
@@ -69,6 +69,9 @@ _aratio = getResolution select 4;
 if(isNil "fza_ah64_ihadss_pnvs_cam") then {fza_ah64_ihadss_pnvs_cam = false;};
 if(isNil "fza_ah64_ihadss_pnvs_day") then {fza_ah64_ihadss_pnvs_day = true;};
 
+
+// PNVS CAM DATA
+
 if(fza_ah64_ihadss_pnvs_cam) then
 {
 	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 119) ctrlSetText "#(argb,256,256,1)r2t(fza_ah64_pnvscam1,1.3636)";
@@ -82,6 +85,8 @@ if(fza_ah64_ihadss_pnvs_cam) then
 	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 119) ctrlSetText "";
 	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "";
 };
+
+// END PNVS CAM DATA
 
 if(cameraView == "GUNNER" && player == gunner _heli && isEngineOn _heli) then
 {
@@ -393,11 +398,17 @@ if (fza_ah64_agmode == 1) then {_sensor = "R "; _sensxm = "FCR ";};
 if (fza_ah64_agmode == 2) then {_sensor = "A "; _sensxm = "TADS";};
 if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;};
 
-if(fza_ah64_hfmode != _heli) then {_acq = "REMT";};
-if(fza_ah64_guncontrol == 0) then {_acq = "TADS";};
-if(fza_ah64_guncontrol == 1) then {_acq = "HMD";};
-if(fza_ah64_guncontrol == 2) then {_acq = "AUTO";};
-if(fza_ah64_guncontrol == 3) then {_acq = "FXD";};
+
+if(fza_ah64_guncontrol == 0 && fza_ah64_agmode == 2) then 
+{_acqihadss = "TADS";} else {_acqihadss = "FCR";};
+if(fza_ah64_guncontrol == 1) then {_acqihadss = "HMD";};
+if(fza_ah64_guncontrol == 2) then {_acqihadss = "AUTO";};
+if(fza_ah64_guncontrol == 3) then {_acqihadss = "FXD";};
+if(fza_ah64_hfmode != _heli) then {_acqihadss = "REMT";};
+
+
+
+
 
 _targrange = format ["%1",((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
 if(isNull fza_ah64_mycurrenttarget) then {_targrange = "0.00";};
@@ -531,7 +542,7 @@ if(currentMagazine _heli in _6fcmags) then {_rocketcode = "6FL"};
 if(currentMagazine _heli in _6ilmags) then {_rocketcode = "6IL"};
 _weaponstate = format ["%1 NORM %2",_rocketcode,_heli ammo (currentweapon _heli)]; //TEST NEW RKT INFO
 //TEST RKT FIX TADS AND/OR IHADSS DISPLAY
-if(fza_ah64_guncontrol == 3) then {_nolosbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"; _acq = "FXD";};
+if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"; _nolosbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd";};
 //TEST END
 };
 
@@ -553,12 +564,7 @@ if((currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimite
 _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 _losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 
-//TEST TADS ACQ DISPLAY
-//if(fza_ah64_hfmode != _heli) then {_acq = "RMT";};
-if(fza_ah64_guncontrol == 1) then {_acq = "HMD";};
-if(fza_ah64_guncontrol == 2) then {_acq = "AUTO";};
-//TEST END
-if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"; _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"; _acq = "FXD";};
+if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"; _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";};
 
 };
 
@@ -599,7 +605,7 @@ if(currentweapon _heli == "Laserdesignator_mounted") then
 {
 //_nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 //_losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"; _acq = "FXD"};
+//if(fza_ah64_guncontrol == 3) then {_losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"; _acqihadss = "FXD"};
 //_w = 0.0734;
 //_h = 0.1;
 //_apx = 0.036;
@@ -841,7 +847,7 @@ if(cameraView == "GUNNER" && player == gunner _heli) then
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 129) ctrlSetText _waypointcode;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 184) ctrlSetText _gspdcode;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 188) ctrlSetText _baraltft;
-((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetText _acq;
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetText _acqihadss;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 131) ctrlSetPosition [(_scPos select 0)-(_apx),(_scPos select 1)-(_apy),_w,_h];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 131)  ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 132) ctrlSetPosition [(_targpos select 0)-0.036,(_targpos select 1)-0.05];
@@ -1010,7 +1016,7 @@ if(_350dir < 0) then {_350dir = _350dir + 360;};
 
 
 
-//TADS CAMERA HEADINGS
+// CAMERA HEADINGS
 
 if(cameraView == "GUNNER" && player == gunner _heli) then
 {

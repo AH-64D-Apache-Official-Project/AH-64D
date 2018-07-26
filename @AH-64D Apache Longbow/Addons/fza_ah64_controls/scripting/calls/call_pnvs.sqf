@@ -12,10 +12,10 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			fza_ah64_headdir = (-0.125*(inputaction "AimLeft" + (0.125 * inputaction "LookLeft"))) + (0.125*(inputaction "AimRight" + (0.125 * inputaction "LookRight")));
 			fza_ah64_headelev = (0.125*(inputaction "AimUp" + (0.125 * inputaction "LookUp"))) + (-0.125*(inputaction "AimDown" + (0.125 * inputaction "LookDown")));
 			
-			fza_ah64_pnvsweteff = ppEffectCreate ["WetDistortion",300];
-			fza_ah64_pnvsweteff ppEffectAdjust [1,0.1,0.1,1,1,1,1,0,0.01,0.05,0.01,0.2,0.2,0.2,0.2];
-			fza_ah64_pnvsweteff ppEffectCommit 0;
-			fza_ah64_pnvsweteff ppEffectEnable true;
+			//fza_ah64_pnvsweteff = ppEffectCreate ["WetDistortion",300];
+			//fza_ah64_pnvsweteff ppEffectAdjust [1,0.1,0.1,1,1,1,1,0,0.01,0.05,0.01,0.2,0.2,0.2,0.2];
+			//fza_ah64_pnvsweteff ppEffectCommit 0;
+			//fza_ah64_pnvsweteff ppEffectEnable true;
 			fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",1500];
 			fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,-0.64],[0,0,0,0,0,0,4]]; //TEST PNVS OPTICS REWORK
 			fza_ah64_pnvsgreff ppEffectCommit 0;
@@ -27,10 +27,10 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			
 			} else {
 
-			fza_ah64_pnvsweteff = ppEffectCreate ["WetDistortion",300];
-			fza_ah64_pnvsweteff ppEffectAdjust [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-			fza_ah64_pnvsweteff ppEffectCommit 0;
-			fza_ah64_pnvsweteff ppEffectEnable true;	
+			//fza_ah64_pnvsweteff = ppEffectCreate ["WetDistortion",300];
+			//fza_ah64_pnvsweteff ppEffectAdjust [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+			//fza_ah64_pnvsweteff ppEffectCommit 0;
+			//fza_ah64_pnvsweteff ppEffectEnable true;	
 			fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",1500];
 			fza_ah64_pnvsgreff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 			fza_ah64_pnvsgreff ppEffectCommit 0;
@@ -43,7 +43,7 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			
 			if(cameraView == "EXTERNAL" || cameraView == "INTERNAL") then
 			{
-			fza_ah64_pnvsweteff ppEffectEnable false;
+			//fza_ah64_pnvsweteff ppEffectEnable false;
 			fza_ah64_pnvsgreff ppEffectEnable false;
 			fza_ah64_pnvsfgeff ppEffectEnable false;
 			};
