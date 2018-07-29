@@ -9,15 +9,17 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Added ingame monocle. (w/ Keplager)
 - Removed vanilla UI lock box.
 - Removed green cursor upon 3rd person.
-- Fixed GUN azimuth limit on HMD ACQ. (w/ Jamo)
+- Fixed GUN azimuth limit on HMD ACQ. (/w Jamo)
 - Reworked TADS informations display.
 - Added RKT FXD symbology.
 - Reworked TADS DTV colors.
 - Disabled PNVS view if not enough electrical power.
 - Added new PNVS rendering effect.
 - Added new APU & ENG 3D sounds.
+- Added APU sound loop. (/w Reyhard)
 - External sounds adjustments.
 - Added threat circles to ASE MPD page.
+- Fixed laser issue not showing up on objects (buildings, rocks, vehicles...) at long distances - by Reyhard.
 
 *11/07/2018*
 - M230 & RKT distance sound adjustments.

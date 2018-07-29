@@ -146,7 +146,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_digitten = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digitten.sqf";
 	fza_ah64_digit = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digit.sqf";
 	fza_ah64_turrets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_turrets.sqf";
-	fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf";
+	fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf"; //TEST REMOVE BLADE ROTS
 	fza_ah64_pnvscontrol = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pnvs.sqf";
 	fza_ah64_worldtoscreen = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_click_this.sqf";
 	fza_ah64_targetcycle = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_targeting.sqf";

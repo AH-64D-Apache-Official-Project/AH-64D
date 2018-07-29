@@ -4,6 +4,9 @@ if(!(player in _heli)) exitwith {};
 
 _poweron = false;
 _clicksound = ["none"];
+//_apuloop = "";
+//_this select 0 = "apuloop"
+//_this = ["apuloop"] 
 
 //usage: _clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
 //["fza_ah64_button_click1",0.1]
@@ -652,6 +655,8 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 if(inputaction "User20" > 0.5 && (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && fza_ah64_l1clicked == 0 && fza_ah64_pl_mpd == "wpn" && _lbtnl1 distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
 {
 fza_ah64_burst_limit = 10;
+_heli forceWeaponFire ["fza_m230", "fza_burst10"]; //TEST
+//_heli selectWeapon "fza_burst10";
 fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };
@@ -659,6 +664,8 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 if(inputaction "User20" > 0.5 && (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && fza_ah64_l1clicked == 0 && fza_ah64_pl_mpd == "wpn" && _lbtnl2 distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
 {
 fza_ah64_burst_limit = 20;
+_heli forceWeaponFire ["fza_m230", "fza_burst20"]; //TEST
+//_heli selectWeapon "fza_burst20";
 fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };
@@ -1168,8 +1175,8 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _btnapu distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.04 && fza_ah64_pwron == 1) then
 {
-if(fza_ah64_apuon == 1) exitwith {fza_ah64_apuon = 0; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; fza_ah64_l1clicked = 1;};
-if(fza_ah64_apuon == 0) exitwith {fza_ah64_apuon = 1; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_apustart_3D",200,1]; fza_ah64_l1clicked = 1;};
+if(fza_ah64_apuon == 1) exitwith {fza_ah64_apuon = 0; fza_ah64_l1clicked = 1; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_apustop_3D",200,1];};
+if(fza_ah64_apuon == 0) exitwith {fza_ah64_apuon = 1; fza_ah64_l1clicked = 1; ["fza_ah64_button_click2",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf"; _heli say3D ["fza_ah64_apustart_3D",200,1]; [_heli] execvm "\fza_ah64_controls\scripting\calls\call_apuloop.sqf";};
 fza_ah64_l1clicked = 1;
 };
 
@@ -1330,7 +1337,7 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 };
 
 //IHADSS
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05) then
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05 && fza_ah64_apuon == 1) then
 {
 if(fza_ah64_pwron == 1 || fza_ah64_apuon == 1 || isengineon _heli) then
 {

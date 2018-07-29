@@ -314,10 +314,10 @@ class CfgSounds
 	};
 
 	///STARTING CLICKABLE SEQUENCE SOUNDS///
-	class fza_ah64_estart1
+	/*class fza_ah64_estart1
 	{
 		name = "fza_ah64_estart1";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.33,1};
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.50,1};
 		titles[]={};
 	};
 	class fza_ah64_apustart1
@@ -325,7 +325,7 @@ class CfgSounds
 		name = "fza_ah64_apustart1";
 		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",0.33,1};
 		titles[]={};
-	};
+	};*/
 	class fza_ah64_apustart_3D
 	{
 		name = "fza_ah64_apustart_3D";
@@ -335,13 +335,19 @@ class CfgSounds
 	class fza_ah64_loop_3D
 	{
 		name = "fza_ah64_loop_3D";
-		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",1,1};
+		sound[] = {"fza_ah64_us\audio\APU_Loop.ogg",2,1};
+		titles[]={};
+	};
+	class fza_ah64_apustop_3D
+	{
+		name = "fza_ah64_apustop_3D";
+		sound[] = {"fza_ah64_us\audio\APU_End.ogg",2,1};
 		titles[]={};
 	};
 	class fza_ah64_estart_3D
 	{
 		name = "fza_ah64_estart_3D";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",1,1};
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",2,1};
 		titles[]={};
 	};
 	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
@@ -1196,7 +1202,6 @@ class CfgWeapons
 		autoreload = 1;
 		shotFromTurret = false;
 		magazines[]={fza_m230_1200};
-		//modes[]= {"fza_full","fza_burst10","fza_burst20"};
 		modes[]= {"fza_burst10","fza_burst20"};
 		class fza_full: CannonCore
 		{
@@ -1242,7 +1247,10 @@ class CfgWeapons
 				weaponsoundeffect = "DefaultRifle";
             };
 			displayName="M230E1 BURST x10";
+			name = "fza_burst10";
 			burst = 10;
+			modes[]= {"fza_burst10"};
+			muzzles[] = {"fza_burst10"};
 			sounds[] = {"StandardSound"};
 			soundBurst= true;
 		};
@@ -1255,7 +1263,10 @@ class CfgWeapons
 				weaponsoundeffect = "DefaultRifle";
             };
 			displayName="M230E1 BURST x20";
+			name = "fza_burst20";
 			burst = 20;
+			modes[]= {"fza_burst20"};
+			muzzles[] = {"fza_burst20"};
 			sounds[] = {"StandardSound"};
 			soundBurst= true;
 		};
