@@ -18,6 +18,8 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Added new APU & ENG 3D sounds.
 - Added APU sound loop. (/w Reyhard)
 - External sounds adjustments.
+- Changed IHADSS & IHADSS BRT toggle sounds.
+- Added two steps IHADSS procedure, first put the monocle on and then click IHADSS BRT to put it alive (requires APU). 
 - Added threat circles to ASE MPD page.
 - Fixed laser issue not showing up on objects (buildings, rocks, vehicles...) at long distances - by Reyhard.
 

@@ -12,8 +12,10 @@ if(_position == "gunner" || _position == "driver") then
 		fza_ah64_pl_mpd = "off";
 		fza_ah64_pr_mpd = "off";
 		fza_ah64_ihadssoff = 1;
+		fza_ah64_monocleinbox = 1;
 		1 cuttext ["", "PLAIN",0.1];
 		2 cuttext ["", "PLAIN",0.1];
+		3 cuttext ["", "PLAIN",0.1];
 	} else {
 		fza_ah64_pl_mpd = "fuel";
 		fza_ah64_pr_mpd = "eng";
@@ -24,6 +26,7 @@ if(_position == "gunner" || _position == "driver") then
 	fza_ah64_pwron = 0;
 	1 cuttext ["", "PLAIN",0.1];
 	2 cuttext ["", "PLAIN",0.1];
+	3 cuttext ["", "PLAIN",0.1];
 	if(!(isNil "fza_ah64_bweff")) then
 	{
 		fza_ah64_bweff ppEffectEnable false;

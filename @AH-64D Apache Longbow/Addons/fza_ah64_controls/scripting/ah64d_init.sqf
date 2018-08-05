@@ -126,6 +126,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_pl_mpd = "fuel";
 	fza_ah64_pr_mpd = "eng";
 	fza_ah64_ihadssoff = 0;
+	fza_ah64_monocleinbox = 0;
 	fza_ah64_ltype = "lobl.sqf";
 	fza_ah64_hfmode = _heli;
 	fza_ah64_remtsel = 0;
@@ -209,7 +210,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_pylonelev2 = 0;
 	fza_ah64_pylonelev3 = 0;
 	fza_ah64_pylonelev4 = 0;
-	fza_ah64_guncontrol = 0;
+	fza_ah64_guncontrol = 3;
 	fza_ah64_headdir = 0;
 	fza_ah64_headelev = 0;
 	fza_ah64_head1dir = 0;

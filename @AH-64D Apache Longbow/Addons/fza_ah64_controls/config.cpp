@@ -365,6 +365,18 @@ class CfgSounds
 		sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1,1};
 		titles[]={};
 	};
+	class fza_ah64_knob
+	{
+		name = "fza_ah64_knob";
+		sound[] = {"\fza_ah64_us\audio\knob.ogg",1,1,1};
+		titles[]={};
+	};
+	class fza_ah64_monoclebox
+	{
+		name = "fza_ah64_monoclebox";
+		sound[] = {"\fza_ah64_us\audio\monoclebox.ogg",1,1,1};
+		titles[]={};
+	};
 	class fza_ah64_switch_flip1
 	{
 		name = "fza_ah64_switch_flip1";
@@ -11358,25 +11370,6 @@ class RscTitles
 		};
 		class controls 
 		{
-			class fza_ah64_raddisp_crtmetal_monocle // IHADSS MONOCLE
-            {
-                idc = 801;
-                type = 0;
-                colorText[] = {1,1,1,1};
-                font = "EtelkaMonospaceProBold";
-                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
-                style = 48;
-                sizeEx = 1;
-                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
-                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
-				w = ICE_HUD_Monocle_Size*0.707;
-                h = ICE_HUD_Monocle_Size;
-                //x = 0.30;
-                //y = -0.29;
-                //w = 1.25;
-                //h = ICE_HUD_Monocle_Size;
-                colorBackground[] = {1,1,1,1};
-            };
 			class fza_raddisp_container: RscControlsGroup // OFFSET OR EDIT WHOLE HUD CONTAINER
 			{
 				idc = 20052;
@@ -12621,6 +12614,38 @@ class RscTitles
 			};
 		};
 	};
+	class fza_ah64_click_monocle
+	{
+		idd = 500;
+		movingEnable =  1;
+		duration     =  99999;
+		fadein       =  0;
+		fadeout      =  0;
+		name = "fza_ah64_click_monocle";
+		onLoad = "with uiNameSpace do { fza_ah64_click_monocle = _this select 0 }";
+		class controls 
+		{
+			class fza_ah64_monocle
+			{
+                idc = 501;
+                type = 0;
+                colorText[] = {1,1,1,1};
+                font = "EtelkaMonospaceProBold";
+                text = "";
+                style = 48;
+                sizeEx = 1;
+                x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
+                y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
+				w = ICE_HUD_Monocle_Size*0.707;
+                h = ICE_HUD_Monocle_Size;
+                //x = 0.30;
+                //y = -0.29;
+                //w = 1.25;
+                //h = ICE_HUD_Monocle_Size;
+                colorBackground[] = {1,1,1,1};
+			};		
+		};
+	};	
 };
 //kept here in case needed//
 /*class CfgNonAIVehicles

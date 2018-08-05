@@ -14,11 +14,13 @@ if(_position == "gunner" || _position == "driver") then
 {
 if(_unit == player) then
 {
+if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
 if(fza_ah64_cem) then
 {
 	fza_ah64_pl_mpd = "off";
 	fza_ah64_pr_mpd = "off";
 	fza_ah64_ihadssoff = 1;
+	fza_ah64_monocleinbox = 1;
 	if(_position == "driver") then
 	{
 		sleep 0.1;
