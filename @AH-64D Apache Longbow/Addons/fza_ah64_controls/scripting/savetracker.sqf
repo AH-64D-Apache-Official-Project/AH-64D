@@ -15,9 +15,10 @@ if (time > (fza_ah64_missiontimestamp + 1)) then
 	fza_ah64_pfsstate = true;
 	if(fza_ah64_ihadssoff == 0 && fza_ah64_monocleinbox == 0 && (vehicle player iskindof "fza_ah64base" && (player == driver vehicle player || player == gunner vehicle player))) then
 	{
-		1 cutrsc ["fza_ah64_raddisp", "PLAIN",0.1];
-		2 cutrsc ["fza_ah64_click_helper", "PLAIN",0.1];
-		3 cutrsc ["fza_ah64_click_monocle", "PLAIN",0.1];
+		1 cutrsc ["fza_ah64_raddisp","PLAIN",0.1,false];
+		2 cutrsc ["fza_ah64_click_helper","PLAIN",0.1,false];
+		3 cutrsc ["fza_ah64_click_monocle","PLAIN",0.1,false];
+		4 cutrsc ["fza_ah64_laseit","PLAIN",0.1,false];
 		sleep 0.2;
 
 		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 121) ctrlSetTextColor [0.1, 1, 0, 1];

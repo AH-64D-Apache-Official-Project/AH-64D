@@ -6,6 +6,7 @@ if (cameraView == "INTERNAL") then
 
 if (cameraView == "EXTERNAL" || cameraView == "GUNNER") then 
 {
+3 cuttext ["", "PLAIN",0.1]; 
 ((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText ""; 
 };
 

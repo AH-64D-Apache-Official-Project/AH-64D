@@ -8,6 +8,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Minor fix to Optical Relay Tube (ORT) 3D model.
 - Added ingame monocle. (w/ Keplager)
 - Removed vanilla UI lock box.
+- Removed vanilla NVG mode to PNVS.
 - Removed green cursor upon 3rd person.
 - Fixed GUN azimuth limit on HMD ACQ. (/w Jamo)
 - Reworked TADS informations display.

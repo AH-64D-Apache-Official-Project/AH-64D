@@ -6625,7 +6625,7 @@ class CfgVehicles
 			minFov=0.01; //test
 			maxFov=0.7;
 			thermalmode[] = {2};
-			visionmode[] = {"Normal","Ti","NVG"};
+			visionmode[] = {"Normal","Ti"};
 		};
 		class AnimationSources
 		{
@@ -11860,21 +11860,21 @@ class RscTitles
 				w = 0.015;
 				h = 0.0025;
 			};*/
-					class fza_ah64_raddisp_lase 
+					/*class fza_ah64_raddisp_lase 
 					{ 
-				idc = 138; 
-				type = 0; 
-				colorText[] = {0.1, 1, 0, 1}; 
-				font = "EtelkaMonospaceProBold"; 
-				colorBackground[] = {1, 1, 1, 1}; 
-				text = ""; 
-				style = 48; 
-				sizeEx = 1024; 
-				x = 0.2485; 
-				y = 0.16; 
-				w = 0.5; 
-				h = 0.68; 
-			};
+						idc = 138; 
+						type = 0; 
+						colorText[] = {0.1, 1, 0, 1}; 
+						font = "EtelkaMonospaceProBold"; 
+						colorBackground[] = {1, 1, 1, 1}; 
+						text = ""; 
+						style = 48; 
+						sizeEx = 1024; 
+						x = 0.2485; 
+						y = 0.16; 
+						w = 0.5; 
+						h = 0.68; 
+					};*/
 					class fza_ah64_raddisp_hdg0_tickmark
 					{
 				idc = 146;
@@ -12645,7 +12645,35 @@ class RscTitles
                 colorBackground[] = {1,1,1,1};
 			};		
 		};
-	};	
+	};
+	class fza_ah64_laseit
+	{
+		idd = 700;
+		movingEnable =  1;
+		duration     =  99999;
+		fadein       =  0;
+		fadeout      =  0;
+		name = "fza_ah64_laseit";
+		onLoad = "uiNameSpace setvariable ['fza_ah64_laseit',_this select 0];";
+		class controls 
+		{
+			class fza_ah64_laseonoff
+			{
+                idc = 701;
+				type = 0; 
+				colorText[] = {0.1, 1, 0, 1}; 
+				font = "EtelkaMonospaceProBold"; 
+				colorBackground[] = {1, 1, 1, 1}; 
+				text = ""; 
+				style = 48; 
+				sizeEx = 1024; 
+				x = 0.2485; 
+				y = 0.16; 
+				w = 0.5; 
+				h = 0.68; 
+			};		
+		};
+	};		
 };
 //kept here in case needed//
 /*class CfgNonAIVehicles
