@@ -4,17 +4,15 @@ _heli removeweapon "fza_m230";
 _heli addweapon "fza_m230";
 _heli selectweapon "fza_m230";
 
-if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
-
 // AH-64D AIRBORNE DOOR FIX
 /* connectionFirstTime = true;
 onPlayerConnected {
     if (connectionFirstTime == true) {
-        _heli animate ["pdoor",1]; 
+        _heli animate ["pdoor",1];
         _heli animate ["gdoor",1];
         connectionFirstTime = false;
     };
-}; */ 
+}; */
 
 // ENABLE/DISABLE CPG CONTROLS
 if (isCopilotEnabled _heli) then {
@@ -52,9 +50,9 @@ if (isNil "fza_ah64_fx_init") then
 {
 	fza_ah64_fx_init = true;
 	fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
-	
+
 	fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
-	
+
 	fza_ah64_fx_rktmsl=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fx_rkt_msl.sqf";
 	fza_ah64_rocketalign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
 	fza_ah64_hellfirealign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\hellfire_align.sqf";
@@ -188,9 +186,9 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_pfz8 = [];
 	fza_ah64_curwpnum = 0;
 	fza_ah64_curwp = [0,0,0];
-	
+
 	fza_ah64_waypointdata = [getpos _heli];
-	
+
 	//fza_ah64_rangesetting = 0.0002; //5km
 	fza_ah64_rangesetting = 0.001; //1km
 	fza_ah64_fcrstate = 0;
@@ -220,7 +218,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_hducolor = [0.1, 1, 0, 1];
 	fza_ah64_schedarray = [fza_ah64_turrets,fza_ah64_pnvscontrol,fza_ah64_worldtoscreen,fza_ah64_targetcycle,fza_ah64_slipcheck,fza_ah64_timetowp,fza_ah64_rotordam,fza_ah64_ldrfcall,fza_ah64_hmdihadss,fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
 	fza_ah64_asemisarray = [];
-	if(isNil "fza_ah64_pfsstate") then {fza_ah64_mapfaker = addMissionEventHandler ["Draw3D", {[0] call fza_ah64_pfsched;}]; fza_ah64_pfsstate = true;}; 
+	if(isNil "fza_ah64_pfsstate") then {fza_ah64_mapfaker = addMissionEventHandler ["Draw3D", {[0] call fza_ah64_pfsched;}]; fza_ah64_pfsstate = true;};
 
 //EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY//
 _weapontracker = [player] execvm "\fza_ah64_controls\scripting\page_wpn.sqf";
@@ -1931,3 +1929,5 @@ _heli setobjecttexture [269,""];
 };
 sleep 0.03;
 };
+
+if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};

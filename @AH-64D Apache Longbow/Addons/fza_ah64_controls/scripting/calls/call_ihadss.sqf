@@ -120,9 +120,9 @@ fza_ah64_fgeff ppEffectCommit 0;
 
 //TADS LASER ON SYMBOLOGY
 /*
-if (cameraView == "GUNNER" && fza_ah64_laserstate isEqualTo 1) then  
-{ 
-((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa"; 
+if (cameraView == "GUNNER" && fza_ah64_laserstate isEqualTo 1) then
+{
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
 } else {
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "";
 };
@@ -133,11 +133,11 @@ if (cameraView == "GUNNER" && fza_ah64_laserstate isEqualTo 1) then
 
 
 //DISABLE/ENABLE MOUSE CURSOR (1ST/3RD PERSON)
-if (cameraView == "EXTERNAL" || cameraView == "GUNNER") then 
+if (cameraView == "EXTERNAL" || cameraView == "GUNNER") then
 {
-((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetText ""; 
+((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetText "";
 } else {
-if (cameraView == "INTERNAL") then 
+if (cameraView == "INTERNAL") then
 {
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetText "\fza_ah64_US\tex\HDU\hmd_curs_ca.paa";
 }
@@ -145,7 +145,7 @@ if (cameraView == "INTERNAL") then
 //END DISABLE/ENABLE MOUSE CURSOR (1ST/3RD PERSON)
 
 //DISABLE IHADSS IF MONOCLE IN BOX
-if (fza_ah64_monocleinbox == 1) then 
+if (fza_ah64_monocleinbox == 1) then
 {fza_ah64_ihadssoff = 1;};
 //END DISABLE IHADSS IF MONOCLE IN BOX
 
@@ -157,7 +157,7 @@ if (_tadsdir == _360mark) then {_safemessage = "AZ LIMIT";};
 
 _sensorposx = (_heli animationphase "tads_tur")*-0.025;
 _sensorposy = (_heli animationphase "tads")*-0.015;
-if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};	
+if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};
 */
 //END EXPERIMENTAL TADS AZ & EL LIMITS
 
@@ -169,7 +169,7 @@ if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};
 if(isNil "fza_ah64_laserinit") then
 {
 4 cutrsc ["fza_ah64_laseit","PLAIN",0.01,false];
-((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa"; 
+((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
 fza_ah64_laserinit = true;
 };
 */
@@ -221,7 +221,7 @@ fza_ah64_agmode = 2;
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0) then
 {
-
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlShow (cameraView == "INTERNAL");
 if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (fza_ah64_apuon == 1 || isEngineOn _heli || !(fza_ah64_cem))) then
 {
 1 cutrsc ["fza_ah64_raddisp", "PLAIN",0.01,false];
@@ -238,10 +238,10 @@ if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (fza_ah64_apuon == 1
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 184) ctrlSetTextColor [0.1, 1, 0, 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 188) ctrlSetTextColor [0.1, 1, 0, 1];
 _rocketcode = "???";
-}; 
+};
 } else {
 if (!(vehicle player isKindOf "fza_ah64base")) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 3 cuttext ["", "PLAIN"]; 4 cuttext ["", "PLAIN"];};
-}; 
+};
 
 //END 1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
@@ -269,7 +269,7 @@ fza_ah64_fgeff ppEffectCommit 0;
 //END ADD STATIC DATA TO TADS
 
 //COLOR WHITE TADS VIEW ACQ
-((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1]; 
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 //END COLOR WHITE TADS VIEW ACQ
 
 //HIDE CLICK HELPER
@@ -313,10 +313,10 @@ _ihadssidx = _ihadssidx + 1;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 186) ctrlSetTextColor [0, 0, 0, 0];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 129) ctrlSetTextColor [0, 0, 0, 0];
 
-if (fza_ah64_laserstate isEqualTo 1) then  
-{ 
+if (fza_ah64_laserstate isEqualTo 1) then
+{
 4 cutrsc ["fza_ah64_laseit","PLAIN",0.01,false];
-((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa"; 
+((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
 ((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 };
 
@@ -440,7 +440,7 @@ if (fza_ah64_agmode == 2) then {_sensor = "A "; _sensxm = "TADS";}; //TADSHMD
 if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;}; //BACK TO FCRG
 
 
-if(_heli iskindof "fza_ah64d_b2e_nr" && fza_ah64_guncontrol == 0 && fza_ah64_agmode == 2) then 
+if(_heli iskindof "fza_ah64d_b2e_nr" && fza_ah64_guncontrol == 0 && fza_ah64_agmode == 2) then
 {_acqihadss = "TADS";} else {_acqihadss = "FCR";};
 if(fza_ah64_guncontrol == 1) then {_acqihadss = "HMD";};
 if(fza_ah64_guncontrol == 2) then {_acqihadss = "AUTO";};
@@ -617,7 +617,7 @@ _angley = _angley + 0.5;
 _anglex = -0.5*(_heli animationphase "mainturret");
 _anglex = _anglex + 0.5;
 /*_ins = lineIntersectsSurfaces [
-		_heli modelToWorldVisualWorld [0,4,-1], 
+		_heli modelToWorldVisualWorld [0,4,-1],
 		_heli modelToWorldVisualWorld [((sin(deg(_heli animationphase "mainturret") * (-1))) * (cos(deg(_heli animationphase "maingun"))) * 4999),(((cos(deg(_heli animationphase "maingun")))) * (cos(deg(_heli animationphase "mainturret") * (-1))) * 4999) + 4,((sin(deg(_heli animationphase "maingun"))) * 4999) - 1]
 	];
 	_ins1 = (_ins select 0) select 0;
