@@ -182,7 +182,7 @@ if (fza_ah64_laserstate == 0) then {4 cuttext ["", "PLAIN",0.1];};
 
 //MONOCLE DISPLAY CONFIGURATION
 if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0) then
-{((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlShow (cameraView == "INTERNAL");};
+{((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlShow (cameraView == "INTERNAL");} else {3 cuttext ["", "PLAIN"];};
 //END MONOCLE DISPLAY CONFIGURATION
 // TEST if (!(vehicle player isKindOf "fza_ah64base")) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 4 cuttext ["", "PLAIN"];};
 
@@ -343,9 +343,6 @@ _ihadssidx = _ihadssidx + 1;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 803) ctrlSetText "";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetText "";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetTextColor [0.1,1,0,1]; //DOES SET GREEN COLOR FOR IHADSS
-
-  ((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
-  
 //END REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
 
 //1ST PERSON VIEW, REPOSITION TEXTURES FROM TADS VIEW TO IHADSS VIEW

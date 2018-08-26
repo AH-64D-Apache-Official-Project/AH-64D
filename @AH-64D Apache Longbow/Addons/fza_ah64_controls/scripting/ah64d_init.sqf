@@ -34,6 +34,8 @@ _skinset = 1;
 if(!(isNil "fza_ah64_noinit")) exitwith {};
 if(!(player in _heli) && !(isNil "fza_ah64_noai")) exitwith {hintsilent "EXITING";};
 
+if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
+
 //default weight//
 if((weightRTD _heli select 3) == 0) then
 {
@@ -1930,4 +1932,4 @@ _heli setobjecttexture [269,""];
 sleep 0.03;
 };
 
-if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
+

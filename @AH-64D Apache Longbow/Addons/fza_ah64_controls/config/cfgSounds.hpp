@@ -260,6 +260,12 @@ class CfgSounds
 		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",2,1};
 		titles[]={};
 	};
+	class fza_ah64_warntest_3D
+	{
+		name = "fza_ah64_warntest_3D";
+		sound[] = {"\fza_ah64_us\audio\betty\bt_warntest.ogg",1,1};
+		titles[]={};
+	};
 	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
 
 	///GENERIC FLIP SOUNDS///
@@ -285,6 +291,18 @@ class CfgSounds
 	{
 		name = "fza_ah64_monoclebox";
 		sound[] = {"\fza_ah64_us\audio\monoclebox.ogg",1,1,1};
+		titles[]={};
+	};
+	class fza_ah64_battery
+	{
+		name = "fza_ah64_battery";
+		sound[] = {"\fza_ah64_us\audio\battery.ogg",1,1,1};
+		titles[]={};
+	};
+	class fza_ah64_apubutton
+	{
+		name = "fza_ah64_apubutton";
+		sound[] = {"\fza_ah64_us\audio\apubutton.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip1

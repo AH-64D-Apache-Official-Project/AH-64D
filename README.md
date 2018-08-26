@@ -3,10 +3,11 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 
 # CHANGELOG NOTES:
 *11/07/2018*
+- Core file architecture rework - by Yax.
 - Restored ability for CPG to take controls.
 - Fixed CPG POV and hands position.
 - Minor fix to Optical Relay Tube (ORT) 3D model.
-- Added ingame monocle. (w/ Keplager)
+- Added ingame monocle. (w/ Keplager + Yax)
 - Removed vanilla UI lock box.
 - Removed vanilla NVG mode to PNVS.
 - Removed green cursor upon 3rd person.
@@ -23,6 +24,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Added two steps IHADSS procedure, first put the monocle on and then click IHADSS BRT to put it alive (requires APU). 
 - Added threat circles to ASE MPD page.
 - Fixed laser issue not showing up on objects (buildings, rocks, vehicles...) at long distances - by Reyhard.
+- Fixed ENG starters glitch.
 
 *11/07/2018*
 - M230 & RKT distance sound adjustments.
