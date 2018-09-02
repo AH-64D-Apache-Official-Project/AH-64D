@@ -9,7 +9,7 @@ sleep 0.1;
 _heli animate ["plt_rtrbrake",1];
 _heli animate ["plt_eng1_start",1];
 _heli animate ["plt_eng1_throttle",0.25];
-_heli animate ["tads_stow",0];
+//_heli animate ["tads_stow",0];
 fza_ah64_estarted = true;
 fza_ah64_apuon = 1;
 fza_ah64_pwron = 1;

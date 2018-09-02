@@ -185,7 +185,7 @@
 		180	0.000
 	</LiftDueToAoA>
 
-	<DragDueToAoA scale="1.5"  >
+	<DragDueToAoA scale="0.1"  >
 		-180	1.995
 		-170	2.291
 		-160	3.142
@@ -422,16 +422,16 @@
 			<DebugInfo printDebugInfo="false" />
       <!--	Note: Too little inertia causes problems if the drive train is damaged. W/o loads. engine controller is not
             		able to operate correctly. -->
-      <General inertia="24.0" /> 
-      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>  
-      <ControllerParams P="3.0" I="3.0" D="0.2" offset="150" targetRPM="20000" />
+      <General inertia="0.3" /> 
+      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000009"/>  
+      <ControllerParams P="0.5" I="1.5" D="0.0" offset="150" targetRPM="20000" />
 		</Engine>
 
     <Engine type="ConstantRPMEngine">
       <DebugInfo printDebugInfo="false" />
-		 	<General inertia="24.0" />
-      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
-      <ControllerParams P="3.0" I="3.0" D="0.2" offset="150" targetRPM="20000" />
+		 	<General inertia="0.3" />
+      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000009"/>
+      <ControllerParams P="0.5" I="1.5" D="0.0" offset="150" targetRPM="20000" />
 		</Engine>
 		
   </Engines>
@@ -440,7 +440,7 @@
     <DriveTrain type="GenericDriveTrain">
       <TorqueLimits emergency="3200"/>
       <GearBox gearRatios="1" reverseGearRatio="1"/>
-      <Clutch isFreewheeling="true" maxClutchTorque="2860"/>
+      <Clutch isFreewheeling="true" maxClutchTorque="3634"/>
       <Engine index="0"/>
       <Engine index="1"/>
       <Load gearRatio="63.492" name="MainRotor"/>
@@ -451,9 +451,9 @@
   <ControlSystem>
   
 		<CSComponent type="FCSAutoHoverTOH">
-      <YawController P="0.1" D="0.025"/>
-      <PitchController P="0.15" D="0.025"/>
-      <RollController P="0.15" D="0.025"/>
+      <YawController P="0.0" D="0"/>
+      <PitchController P="0.1" D="0.025"/>
+      <RollController P="0.1" D="0.025"/>
     </CSComponent>
     
     <CSComponent type="FCSHelicopterAutoTrim100" >
@@ -516,33 +516,15 @@
 		<Variable name="velocityBCS" member="Y" alias="Vms" />
 		<Variable name="velocityBCS" member="X" alias="Cms" />
 		<Variable name="velocityBCS" member="Z" alias="Bms" />
-		
-		<Variable alias="FPSY" dataType="REAL" name="FPSY"/>
-		<Variable alias="FPSP" dataType="REAL" name="FPSP"/>
-		<Variable alias="FPSR" dataType="REAL" name="FPSR"/>
-		
-		<Variable alias="YawSAS" dataType="REAL" name="YawSAS"/>
-		<Variable alias="RollSAS" dataType="REAL" name="RollSAS"/>
-		<Variable alias="PSAS" dataType="REAL" name="PSAS"/>
 
         <!-- <Variable alias="myVar" dataType="REAL" name="myVar"/> -->
       </Variables>
 	   
       <MathExpression>
         <Expression>
-		
-		  FPSY =  clamp(Cms * (Vms/30), -0.2, 0.2),
-		  FPSP =  clamp((pitchRateRad/3) * (Vms/60), -0.2, 0.2),
-		  FPSR =  clamp(rollRateRad * 0.02 * (Vms/60), -0.2, 0.2),
-		  
-		  PSAS = clamp(pitchRateRad * 0.2, -0.1 , 0.1 ),
-		  RollSAS = clamp(rollRateRad * 0.1, -0.1 , 0.1 ),
-		  YawSAS = clamp(yawRateRad * 3, -0.1 , 0.1 ),
-		  
-          latCyclic = latCyclic - RollSAS - collective * 0.2 - FPSR + pedals * 0.15,
-		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
-		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY,
-		  
+          latCyclic = latCyclic - clamp(rollRateRad * 0.1, -0.1 , 0.1 ) - collective * 0.2,
+		  lonCyclic = lonCyclic + clamp(pitchRateRad * 0.2, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+		  pedals = pedals + 0.3 + clamp(yawRateRad * 3, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),
 		  
           A1m = latCyclic * 11,
           A1m = clamp( A1m , -12.5 , 20 ),
@@ -550,7 +532,7 @@
           B1m = lonCyclic * 22,
           B1m = clamp( B1m , -13 , 18 ),
 		  
-          Th0m= collective * 13 + 6.5,
+          Th0m= collective * 15 + 6.5,
 		  
           A1t = 0.0,
           B1t = 0.0,
@@ -585,7 +567,7 @@
         <Rotation clockwise="false"/>
       </Geometry>
       
-      <MechanicalFeatures Ir="34300"  Ib="2400" maxBrakeTorque="0000"/>
+      <MechanicalFeatures Ir="11000"  Ib="2400" maxBrakeTorque="0000"/>
 
       <AerodynamicFeatures>      	
       	   <InducedVelocity groundEffectFactor="1.5" >

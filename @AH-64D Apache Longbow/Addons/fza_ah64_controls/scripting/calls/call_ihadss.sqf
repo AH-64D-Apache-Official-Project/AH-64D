@@ -75,15 +75,15 @@ if(isNil "fza_ah64_ihadss_pnvs_day") then {fza_ah64_ihadss_pnvs_day = true;};
 //PNVS CAM DATA
 if(fza_ah64_ihadss_pnvs_cam) then
 {
-	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 119) ctrlSetText "#(argb,256,256,1)r2t(fza_ah64_pnvscam1,1.3636)";
 	if(fza_ah64_ihadss_pnvs_day) then
 	{
-		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,256,256,1)r2t(fza_ah64_pnvscam2,1.3636)";
+		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //HDR
+		//{((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _x) ctrlSetPosition [100,10,100];} foreach [249];
 	} else {
-		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,256,256,1)r2t(fza_ah64_pnvscam3,1.3636)";
+		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG
+		//[249,(_pbvar select 0),(_pbvar select 1)] call _autohide;
 	};
 } else {
-	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 119) ctrlSetText "";
 	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "";
 };
 //END PNVS CAM DATA

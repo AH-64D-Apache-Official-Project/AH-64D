@@ -131,7 +131,8 @@ class CfgVehicles
 		};*/
 		class RotorLibHelicopterProperties //Voodoo's RTD
 		{
-			autoHoverCorrection[] = {-0.4,2.75,0};
+			//autoHoverCorrection[] = {-0.4,2.75,0};
+			autoHoverCorrection[] = {1.39,2.96,0};  // p - more forward, r - more right
 			defaultCollective = 0.675;
 			horizontalWingsAngleCollMax = 0;
 			horizontalWingsAngleCollMin = 0;
@@ -172,8 +173,8 @@ class CfgVehicles
 					{
 						pointPosition = "mirror_cpit1";
 						pointDirection = "mirror_cpit2";
-						renderQuality = 1;
-						renderVisionMode = 4;
+						renderQuality = 0;
+						renderVisionMode = 4; //MIRROR
 						fov = 0.5;
 					};
 				};
@@ -185,7 +186,7 @@ class CfgVehicles
 						pointPosition = "driverview";
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
-						renderVisionMode = 2;
+						renderVisionMode = 2; //FLIR
 						fov = 0.18;
 					};
 				};
@@ -197,7 +198,7 @@ class CfgVehicles
 						pointPosition = "driverview";
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
-						renderVisionMode = 0;
+						renderVisionMode = 0; //HDR
 						fov = 0.18;
 					};
 				};
@@ -209,7 +210,7 @@ class CfgVehicles
 						pointPosition = "driverview";
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
-						renderVisionMode = 1;
+						renderVisionMode = 1; //NVG
 						fov = 0.18;
 					};
 				};
@@ -3098,7 +3099,7 @@ class CfgVehicles
 			minFov=0.01; //test
 			maxFov=0.7;
 			thermalmode[] = {2};
-			visionmode[] = {"Normal","Ti"};
+			visionmode[] = {"Normal","Ti","NVG"};
 		};
 		class AnimationSources
 		{
@@ -4651,7 +4652,7 @@ initPhase=0;
 			linear = 25;
 			quadratic = 50;
 			start = 0;
-        };
+			};
 			};
 
 			/*class RedBlinking

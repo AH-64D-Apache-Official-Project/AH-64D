@@ -27,7 +27,7 @@ waituntil {
 			if(fza_ah64_pnvsdir < -0.75) then {fza_ah64_pnvsdir = -0.75;};
 			
 			if(fza_ah64_estate > -1 && !(isengineon _heli)) then {fza_ah64_estate = fza_ah64_estate - 0.02; fza_ah64_pnvsdir = fza_ah64_estate; };
-			if(isengineon _heli && fza_ah64_estate < 0) then {fza_ah64_estate = fza_ah64_estate + 0.02; fza_ah64_pnvsdir = fza_ah64_estate; };
+			if((fza_ah64_apuon == 1 || isengineon _heli) && fza_ah64_estate < 0) then {fza_ah64_estate = fza_ah64_estate + 0.02; fza_ah64_pnvsdir = fza_ah64_estate; };
 			if(fza_ah64_estate < -0.98 && !(isengineon _heli)) then {fza_ah64_pnvsdir = -1; fza_ah64_estate = -1;};
 			if(fza_ah64_estate > -0.02 && (isengineon _heli)) then {fza_ah64_estate = 0;};
 			if("fza_ah64_pnvs_fail" in (_heli magazinesturret [-1])) then {fza_ah64_pnvsdir = -1; fza_ah64_pnvselev = 1;};

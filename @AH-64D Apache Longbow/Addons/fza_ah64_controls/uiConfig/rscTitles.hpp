@@ -91,6 +91,23 @@ class RscTitles
 		onLoad = "uiNameSpace setvariable ['fza_ah64_raddisp',_this select 0];";
 		class objects
 		{
+			/*class fza_ah64_ihadss_3Dbg_test
+			{
+				idc = 249;
+				type = 82;
+				model = "\fza_ah64_us\prx\ihadss\fza_ihadss_scope.p3d";
+				scale = 1;
+				direction[] = {0, -0.35, -0.65};
+				up[] = {0, 0.65, -0.35};
+				position[] = {0.5,10,0.5};
+				x = 0.5; y = 0.5; z = 0.2;
+				xBack = 0.5;
+				yBack = 0.5;
+				zBack = 1.2;
+				inBack = 1;
+				enableZoom = 0;
+				zoomDuration = 0.001;
+			};*/
 			class fza_ah64_ihadss_hor_c
 			{
 				idc = 250;
@@ -441,11 +458,12 @@ class RscTitles
 				idc = 20052;
 				x = 0;
 				y = 0;
-				w = 2;
-				h = ICE_HUD_Monocle_Size;
+				w = ICE_HUD_Monocle_Size * 2;
+				h = ICE_HUD_Monocle_Size * 2;
 				class controls
 				{
-					//hdu//
+				/*
+					//HDU WITH FLIR//
 					class fza_ah64_raddisp_hdu_bg
 					{
 				idc = 119;
@@ -453,14 +471,16 @@ class RscTitles
 				colorText[] = {-1, 1, 0, 0.5};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "";
+				text = "\fza_ah64_us\prx\ihadss\fza_ihadss_scope.p3d";
 				style = 48;
 				sizeEx = 512;
 				x = 0.25;
 				y = 0.28;
-				w = 0.5;
-				h = 0.44;
-			};
+				w = 1;
+				h = 1;
+					};
+				*/
+					//HDU WITH HDR OR NVG//
 					class fza_ah64_raddisp_hdu_bg2
 					{
 				idc = 120;
@@ -474,8 +494,8 @@ class RscTitles
 				x = 0.25;
 				y = 0.28;
 				w = 0.5;
-				h = 0.44;
-			};
+				h = 0.5;
+					};
 					///base///
 					class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
 					{

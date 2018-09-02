@@ -4,9 +4,11 @@ _heli animate ["pdoor",1];
 _heli animate ["gdoor",1];
 _heli animate ["tads_stow",1];
 
+/*
 if(fza_ah64_apuon == 1 || isEngineOn _heli) then
 {
 _heli animate ["tads_stow",0];
 } else {
 _heli animate ["tads_stow",1];
 };
+*/

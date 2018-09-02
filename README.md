@@ -3,6 +3,12 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 
 # CHANGELOG NOTES:
 *11/07/2018*
+- Updated Advanced Flight Model (AFM) data - by Keplager.
+- Increased HDU PNVS resolution.
+- Fixed autohover values - by Keplager.
+- Unstowed TADS and PNVS camera once APU is running.
+
+*11/07/2018*
 - Core file architecture rework - by Yax.
 - Restored ability for CPG to take controls.
 - Fixed CPG POV and hands position.
@@ -25,6 +31,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Added threat circles to ASE MPD page.
 - Fixed laser issue not showing up on objects (buildings, rocks, vehicles...) at long distances - by Reyhard.
 - Fixed ENG starters glitch.
+- Added Fire Panel Test WARN sounds.
 
 *11/07/2018*
 - M230 & RKT distance sound adjustments.
