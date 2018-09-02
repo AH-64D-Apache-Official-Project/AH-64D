@@ -166,6 +166,7 @@ class CfgVehicles
 		};*/
 		class RenderTargets
 		{
+				/*
 				class cockpitmirror1
 				{
 					renderTarget = "fza_ah64_cpitmirror1";
@@ -178,6 +179,8 @@ class CfgVehicles
 						fov = 0.5;
 					};
 				};
+				*/
+				/*
 				class driverpnvs1
 				{
 					renderTarget = "fza_ah64_pnvscam1";
@@ -190,6 +193,7 @@ class CfgVehicles
 						fov = 0.18;
 					};
 				};
+				*/
 				class driverpnvs2
 				{
 					renderTarget = "fza_ah64_pnvscam2";

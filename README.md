@@ -2,11 +2,13 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
-*11/07/2018*
+*02/09/2018*
 - Updated Advanced Flight Model (AFM) data - by Keplager.
 - Increased HDU PNVS resolution.
 - Fixed autohover values - by Keplager.
 - Unstowed TADS and PNVS camera once APU is running.
+- Added NVS MODE cockpit interaction.
+- Fixed HDU PNVS FPS.
 
 *11/07/2018*
 - Core file architecture rework - by Yax.
