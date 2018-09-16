@@ -438,19 +438,132 @@ _curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
 
-if (fza_ah64_agmode == 0) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRG
-if (fza_ah64_agmode == 1) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRA
-if (fza_ah64_agmode == 2) then {_sensor = "A "; _sensxm = "TADS";}; //TADSHMD
-if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;}; //BACK TO FCRG
+if (fza_ah64_agmode == 0) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRG SENSOR
+if (fza_ah64_agmode == 1) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRA SENSOR
+if (fza_ah64_agmode == 2) then {_sensor = "A "; _sensxm = "TADS";}; //TADS SENSOR
+if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;}; 
+
+//if (fza_ah64_guncontrol == 0) then {_heli vehiclechat "TADS gun mode selected.";};
+//if (fza_ah64_guncontrol == 1) then {_heli vehiclechat "HMD gun mode selected.";};
+//if (fza_ah64_guncontrol == 2) then {_heli vehiclechat "AUTO gun mode selected.";};
+//if (fza_ah64_guncontrol == 3) then {_heli vehiclechat "FXD gun mode selected.";};
+
+//if(fza_ah64_hfmode != _heli) then {_acqihadss = "REMT";};
 
 
-if(_heli iskindof "fza_ah64d_b2e_nr" && fza_ah64_guncontrol == 0 && fza_ah64_agmode == 2) then
-{_acqihadss = "TADS";} else {_acqihadss = "FCR";};
-if(fza_ah64_guncontrol == 1) then {_acqihadss = "HMD";};
-if(fza_ah64_guncontrol == 2) then {_acqihadss = "AUTO";};
-if(fza_ah64_guncontrol == 3) then {_acqihadss = "FXD";};
-if(fza_ah64_hfmode != _heli) then {_acqihadss = "REMT";};
+if(_heli iskindof "fza_ah64base") then
+{
+	if (fza_ah64_guncontrol == 0) then
+	{
+	_acqihadss = "TADS";
+	};
+	
+	if (fza_ah64_guncontrol == 1) then
+	{
+	_acqihadss = "HMD";
+	};
+	
+	if (fza_ah64_guncontrol == 2) then
+	{
+	_acqihadss = "AUTO";
+	};
+	
+	if (fza_ah64_guncontrol == 3) then
+	{
+	_acqihadss = "FXD";
+	};
+	
+	if (fza_ah64_hfmode != _heli) then
+	{
+	_acqihadss = "REMT";
+	};
+};
 
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 0 && (fza_ah64_agmode == 0 || fza_ah64_agmode == 1)) then 
+{
+_acqihadss = "FCR";
+} else {
+_acqihadss = "TADS";
+};
+
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 1) then 
+{
+_acqihadss = "HMD";
+};
+
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 2) then 
+{
+_acqihadss = "AUTO";
+};
+
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then 
+{
+_acqihadss = "FXD";
+};
+
+/*
+if(_heli iskindof "fza_ah64d_b2e") then
+{
+
+	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 0) then
+	{
+	_sensxm = "TADS";
+	_acqihadss = "TADS";
+	_sensor = "A ";
+	};
+	
+	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 1) then
+	{
+	_sensxm = "TADS";
+	_acqihadss = "HMD";
+	_sensor = "A ";
+	};
+	
+	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 2) then
+	{
+	_sensxm = "TADS";
+	_acqihadss = "AUTO";
+	_sensor = "A ";
+	};
+	
+	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 3) then
+	{
+	_sensxm = "TADS";
+	_acqihadss = "FXD";
+	_sensor = "A ";
+	};
+	
+	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 0) then
+	{
+	_sensxm = "FCR";
+	_acqihadss = "TADS";
+	_sensor = "R ";
+	};
+	
+	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 1) then
+	{
+	_sensxm = "FCR";
+	_acqihadss = "HMD";
+	_sensor = "R ";
+	};
+	
+	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 2) then
+	{
+	_sensxm = "FCR";
+	_acqihadss = "AUTO";
+	_sensor = "R ";
+	};
+	
+	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 3) then
+	{
+	_sensxm = "FCR";
+	_acqihadss = "FXD";
+	_sensor = "R ";
+	};
+};
+*/
+
+/////////////////////////////////////////////////////////
 
 _targrange = format ["%1",((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
 if(isNull fza_ah64_mycurrenttarget) then {_targrange = "0.00";};
@@ -1238,4 +1351,4 @@ if(_350mark < 0.3) then {_350mark = _350mark - 100;};
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 180)  ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 181)  ctrlCommit 0;
 
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 3 cuttext ["", "PLAIN"]; fza_ah64_bweff ppEffectEnable false; fza_ah64_fgeff ppEffectEnable false;};
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 3 cuttext ["", "PLAIN"]; 4 cuttext ["", "PLAIN"]; fza_ah64_bweff ppEffectEnable false; fza_ah64_fgeff ppEffectEnable false;};

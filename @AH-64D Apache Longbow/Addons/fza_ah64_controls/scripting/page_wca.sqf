@@ -37,12 +37,12 @@ waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == pla
 if(fza_ah64_pl_mpd == "wca" || fza_ah64_pr_mpd == "wca") then
 {
 	_mags = _heli magazinesturret [-1];
-	if(_rtrbrake == 0 && (_heli animationphase "plt_rtrbrake" < 1)) then
+	if(_rtrbrake == 0 && (_heli animationphase "plt_rtrbrake" == 1)) then
 	{
 		_damlist = _damlist + ["\fza_ah64_us\tex\MPD\RTRBRKON.paa"];
 		_rtrbrake = 1;
 	};
-	if(isengineon _heli || (_heli animationphase "plt_rtrbrake" > 0)) then
+	if(isengineon _heli || (_heli animationphase "plt_rtrbrake" == 0)) then
 	{
 		_damlist = _damlist - ["\fza_ah64_us\tex\MPD\RTRBRKON.paa"];
 		_rtrbrake = 0;

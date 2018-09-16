@@ -7,7 +7,7 @@ fza_ah64_armact = _heli addAction ["Arming", "\fza_ah64_controls\arming\armingdi
 
 while {(alive _heli)} do
 {
-if (player in _heli && local gunner _heli) then
+if (player == driver _heli && player == gunner _heli) then
 {
 _armlist = nearestObjects [_heli, fza_ah64_armingunits, 50];
 if (count _armlist > 0 && player in _heli && _actionadd == 0) then {fza_ah64_armact = _heli addAction ["Arming", "\fza_ah64_controls\arming\armingdiag_2.sqf", "", -10, false, true, "", ""]; _actionadd = 1;};

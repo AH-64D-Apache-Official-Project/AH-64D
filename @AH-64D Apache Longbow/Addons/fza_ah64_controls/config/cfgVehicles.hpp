@@ -349,7 +349,7 @@ class CfgVehicles
 				class FarDistance
 				{
 					frequency = "rotorSpeed";
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 4000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 3000};
 					volume = "camPos * 3* (rotorSpeed factor [0.6, 1]) * (1 + rotorThrust)";
 				};
 				class EngineInt
@@ -1498,7 +1498,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=13;
-				condition="(player == driver this) && (!isengineon this) && (speed this < 5) && (alive this)"; //removed CPG action
+				condition="(player == driver this || player == gunner this) && (speed this < 5) && (alive this)"; //removed CPG action
 				shortcut="";
 				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf""";
 			};
@@ -1510,7 +1510,7 @@ class CfgVehicles
 			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
 			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
-			engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
+			//engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
 			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
@@ -2854,7 +2854,7 @@ class CfgVehicles
 		memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
-		magazines[] = {"60Rnd_CMFlare_Chaff_Magazine"};
+		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = 8;
 		incommingmissliedetectionsystem = 16;
 		selectionHRotorStill = "velka vrtule staticka";
@@ -3531,6 +3531,12 @@ initPhase=0;
 				animPeriod = 0.001;
 				initPhase=0;
 				sound = "rtrbrake_sound";
+            };
+			class plt_nvsmode
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
             };
 			class plt_eng1_throttle
             {

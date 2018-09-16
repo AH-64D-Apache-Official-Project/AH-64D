@@ -134,7 +134,7 @@ if(fza_ah64_pl_mpd == "wpn" || fza_ah64_pr_mpd == "wpn") then
 //CM
 _flareformat1 = [fza_ah64_flarecount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _flareformat2 = [fza_ah64_flarecount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-if(!(_heli iskindof "fza_ah64d_b2exp" || _heli iskindof "fza_ah64d_b3" || _heli iskindof "fza_ah64d_b2e" || _heli iskindof "fza_ah64d_b2e_nr")) then {_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa"; _flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";};
+if(!(_heli iskindof "fza_ah64d_b2e" || _heli iskindof "fza_ah64d_b2e_nr")) then {_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa"; _flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";};
 _chaffformat1 = [fza_ah64_chaffcount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _chaffformat2 = [fza_ah64_chaffcount,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
 //gun

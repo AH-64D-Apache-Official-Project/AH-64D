@@ -1,51 +1,103 @@
+class fza_CounterMeasureFlare
+{
+		class Cmeasures1
+		{
+			simulation = "particles";
+			type = "Cmeasures1";
+			position[] = {0,0,0};
+			intensity = 1;
+			interval = 1;
+			lifeTime = 4.5;
+			qualityLevel = 2;
+		};
+		class Cmeasures1M
+		{
+			simulation = "particles";
+			type = "Cmeasures1M";
+			position[] = {0,0,0};
+			intensity = 1;
+			interval = 1;
+			lifeTime = 4.5;
+			qualityLevel = 1;
+		};
+		class Cmeasures1L
+		{
+			simulation = "particles";
+			type = "Cmeasures1L";
+			position[] = {0,0,0};
+			intensity = 1;
+			interval = 1;
+			lifeTime = 4.5;
+			qualityLevel = 0;
+		};
+		class Cmeasures2
+		{
+			simulation = "particles";
+			type = "Cmeasures2";
+			position[] = {0,0,0};
+			intensity = 1;
+			interval = 1;
+			lifeTime = 3.2;
+		};
+		class Light1
+		{
+			simulation = "light";
+			type = "CmeasuresLight";
+			position[] = {0,0,0};
+			intensity = 1;
+			interval = 1;
+			lifeTime = 3;
+		};
+};
+
 class CfgAmmo
 {
 	class Default{};
 	class BulletCore : Default{};
 	class BulletBase : BulletCore{};
-	class B_20mm_AA: BulletBase {};
-	class RocketCore: Default {};
-	class RocketBase: RocketCore {};
-	class R_Hydra_HE: RocketBase {};
-	class MissileCore : Default{};
-	class MissileBase: MissileCore{};
-	class M_Sidewinder_AA: MissileBase{};
-	class M_Stinger_AA: MissileBase{};
-	class M_Hellfire_AT: MissileBase{};
 	class B_30mm_MP: BulletBase
 	{
 		ace_frag_skip = 1;
 	};
-	class B_23mm_AA: BulletBase{};
-	class B_127x107_Ball: BulletBase{};
-	class ShellCore: Default {};
-	class ShellBase: ShellCore {};
-	class Sh_120_HE: ShellBase {};
-	class GrenadeCore: Default {};
-	class GrenadeBase: GrenadeCore {};
-	class G_40mm_HE: GrenadeBase {};
-	class FlareCore: GrenadeCore {};
-	class FlareBase: FlareCore {};
-	class F_40mm_White: FlareBase {};
+	class RocketCore: Default {};
+	class RocketBase: RocketCore {};
+	class MissileCore : Default {};
+	class MissileBase: MissileCore {};
 	class CMflareAmmo: BulletBase {};
-	class CMflare_Chaff_Ammo: CMflareAmmo {};
-
-	class fza_ah64_chaff_shot: CMflareAmmo {};
-	class fza_ah64_flare_shot: CMflareAmmo {};
+	class fza_ah64_flare_shot: CMflareAmmo 
+	{
+		hit = 1;
+		indirectHit = 0;
+		indirectHitRange = 0;
+		timeToLive = 15.000000;
+		thrustTime = 4.000000;
+		airFriction = -0.010000;
+		simulation = "shotCM";
+		effectsSmoke = "fza_CounterMeasureFlare";
+		weaponLockSystem = 2;
+		model = "\A3\weapons_f\empty";
+		maxControlRange = -1;
+		initTime = 0;
+		aiAmmoUsageFlags = 8;	
+	};
 
 	class fza_30x113: B_30mm_MP
 	{
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+	
+		
 		hit=130;
-		indirectHit=30;
-		indirectHitRange=5;
+		indirectHit=70;
+		indirectHitRange=10;
+		
+		canLock = 1;
+		laserLock = 1; 
+		irLock = 1; 
+		airLock = 1;
+		
 		cost=50;
 		explosive = 0.35;
-		minRange=20;
-		minRangeProbab=0.20;
-		midRange=700;
-		midRangeProbab=0.50;
-		maxRange=2000;
-		maxRangeProbab=0.05;
 		timeToLive=8;
 		tracerstarttime = 0;
 		typicalspeed = 805;
@@ -58,17 +110,20 @@ class CfgAmmo
 	};
 	class fza_agm114l : MissileBase
 	{
+		ace_frag_enabled = 0;
 		ace_frag_skip = 1;
-		model = "\fza_ah64_US\fza_agm114l";
-		proxyShape="\fza_ah64_US\fza_agm114l";
-		hit = 2400;
-		indirectHit = 100;
-		indirectHitRange = 15;
+		
+		hit = 2500;
+		indirectHit = 1500;
+		indirectHitRange = 50;
+		
+		canLock = 0;
+		laserLock = 0;
+		irLock = 0;
+		airLock= 0;
+		
 		cost = 10000;
 		maxSpeed = 1200;
-		irLock = 0; //modified
-		airLock= 0;
-		laserLock = 0; //modified
 		timetolive=50;
 		manualControl = 0;
 		maxControlRange = 8000;
@@ -78,134 +133,84 @@ class CfgAmmo
 		trackOversteer = 1;
 		trackLead = 1;
 		maneuvrability = 10;
-		weaponlocksystem = 8; //modified
 		airfriction = -0.00001;
 		simulationStep=0.01;
 		muzzleeffect = "";
-		effectsmissile = "fza_ah64_hellfiresmoke";
 		cmimmunity = 0.8;
 		fusedistance = 5;
 		sideairfriction = 0.2;
 		whistledist = 4;
+		effectsmissile = "fza_ah64_hellfiresmoke";
+		model = "\fza_ah64_US\fza_agm114l";
+		proxyShape="\fza_ah64_US\fza_agm114l";
 		CraterEffects = "BombCrater";
 		explosionEffects = "BombExplosion";
 	};
 	class fza_agm114k : fza_agm114l
 	{
-		hit=2400;
-		indirectHit=100;
-		indirectHitRange=15;
-		//thrustTime=10;
-		//thrust=400;
-		//maxspeed=600;
-		//sideAirFriction=0.6;
-		weaponlocksystem = 4; //modified
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+		
+		canLock = 1;
+		laserLock= 1;
+		airLock= 0;
+		irLock= 0;
+		
+		hit = 2500;
+		indirectHit = 1500;
+		indirectHitRange = 50;
+
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
-		airLock= 0;
-		laserLock= 1;
-		irLock= 1;
-		//maneuvrability=25.0;
-		//maxSpeed=250;
-		minRange=200;
-		minRangeProbab=0.200000;
-		midRange=4000;
-		midRangeProbab=0.200000;
-		maxRange=8000;
-		maxRangeProbab=0.50000;
 	};
 	class fza_agm114a : fza_agm114k
 	{
-		hit=625;
-		indirectHit=30;
-		indirectHitRange=10;
-		//thrustTime=10;
-		//thrust=400;
-		//maxspeed=600;
-		//sideAirFriction=0.6;
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+	
+		hit=1200;
+		indirectHit=700;
+		indirectHitRange=50;
+		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
 		effectsmissile = "missile3";
-		airLock=false;
-		laserLock=true;
-		irLock=true;
-		//maneuvrability=25.0;
-		//maxSpeed=250;
-		minRange=200;
-		minRangeProbab=0.200000;
-		midRange=4000;
-		midRangeProbab=0.200000;
-		maxRange=8000;
-		maxRangeProbab=0.50000;
 	};
 	class fza_agm114c : fza_agm114k
 	{
-		hit=625;
-		indirectHit=30;
-		indirectHitRange=10;
-		//thrustTime=10;
-		//thrust=400;
-		//maxspeed=600;
-		//sideAirFriction=0.6;
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+	
+		hit=1200;
+		indirectHit=700;
+		indirectHitRange=50;
+		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
-		airLock=false;
-		laserLock=true;
-		irLock=true;
-		//maneuvrability=25.0;
-		//maxSpeed=250;
-		minRange=200;
-		minRangeProbab=0.200000;
-		midRange=4000;
-		midRangeProbab=0.200000;
-		maxRange=8000;
-		maxRangeProbab=0.50000;
 	};
 	class fza_agm114m : fza_agm114k
 	{
-		hit=1800;
-		indirectHit=100;
-		indirectHitRange=30;
-		//thrustTime=10;
-		//thrust=400;
-		//maxspeed=600;
-		//sideAirFriction=0.6;
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+	
+		hit=1000;
+		indirectHit=1000;
+		indirectHitRange=70;
+		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
-		airLock=false;
-		laserLock=true;
-		irLock=true;
-		//maneuvrability=25.0;
-		//maxSpeed=250;
-		minRange=200;
-		minRangeProbab=0.200000;
-		midRange=4000;
-		midRangeProbab=0.200000;
-		maxRange=8000;
-		maxRangeProbab=0.50000;
 	};
 	class fza_agm114n : fza_agm114m
 	{
-		hit=1200;
-		indirectHit=70;
-		indirectHitRange=40;
-		//thrustTime=10;
-		//thrust=400;
-		//maxspeed=600;
-		//sideAirFriction=0.6;
+		ace_frag_enabled = 0;
+		ace_frag_skip = 1;
+		
+		hit=1000;
+		indirectHit=1000;
+		indirectHitRange=50;
+		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
-		airLock=false;
-		laserLock=true;
-		irLock=true;
-		//maneuvrability=25.0;
-		//maxSpeed=250;
-		minRange=200;
-		minRangeProbab=0.200000;
-		midRange=4000;
-		midRangeProbab=0.200000;
-		maxRange=8000;
-		maxRangeProbab=0.50000;
 	};
 	class fza_275_m151: RocketBase
 	{
@@ -396,10 +401,12 @@ class CfgAmmo
 		CraterEffects = "ExploAmmoCrater";
 		explosionEffects = "ExploAmmoExplosion";
 	};
+	/*
 	class fza_m257_flare: F_40mm_White
 	{
 		lightcolor[] = {0.5, 0.5, 0.5, 0};
 		airfriction = -0.0050;
 		timetolive = 100;
 	};
+	*/
 };

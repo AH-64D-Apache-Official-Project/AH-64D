@@ -3,6 +3,13 @@ class CfgMagazines
 	class Default {};
 	class CA_Magazine: Default {};
 	class VehicleMagazine: CA_Magazine {};
+	class 60Rnd_CMFlareMagazine: CA_Magazine 
+	{
+		author = "$STR_A3_Bohemia_Interactive";
+		count = 60;
+		ammo = "fza_ah64_flare_shot";
+		initSpeed = 30;		
+	};
 	class fza_m230_1200: VehicleMagazine
 	{
 		scope = 2;

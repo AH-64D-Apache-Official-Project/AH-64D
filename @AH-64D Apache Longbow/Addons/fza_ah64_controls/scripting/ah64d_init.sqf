@@ -103,6 +103,7 @@ if (isNil "fza_ah64_fx_init") then
 	};
 	fza_ah64_apuon = 0;
 	fza_ah64_pwron = 0;
+	fza_ah64_ihadssoff = 1;
 	fza_ah64_fire1arm = 0;
 	fza_ah64_fire2arm = 0;
 	fza_ah64_fireapuarm = 0;
@@ -125,8 +126,6 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_burst_limit = 10;
 	fza_ah64_pl_mpd = "fuel";
 	fza_ah64_pr_mpd = "eng";
-	fza_ah64_ihadssoff = 0;
-	fza_ah64_monocleinbox = 0;
 	fza_ah64_ltype = "lobl.sqf";
 	fza_ah64_hfmode = _heli;
 	fza_ah64_remtsel = 0;

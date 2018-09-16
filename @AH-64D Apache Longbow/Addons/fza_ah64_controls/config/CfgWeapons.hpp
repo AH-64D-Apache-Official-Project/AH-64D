@@ -1,7 +1,5 @@
 class CfgWeapons
 {
-	class CMFlareLauncher;
-
 	class Default{};
 	class MGunCore: Default{};
 	class MGun: MGunCore {};
@@ -12,7 +10,48 @@ class CfgWeapons
 	class Launcher: LauncherCore {};
 	class Stinger: Launcher {};
 	class RocketPods: LauncherCore {};
-	class fza_ah64_flare30: CMFlareLauncher {};
+	class CMFlareLauncher: SmokeLauncher 
+	{
+		scope = 2;
+		displayName = "$STR_A3_CMFlareLauncher0";
+		magazines[] = {"60Rnd_CMFlareMagazine"};
+		magazineReloadTime = 0.200000;
+		simulation = "cmlauncher";
+		modes[] = {"Single"};
+		class Single
+		{
+			displayName = "$STR_A3_CMFlareLauncher_weapon_mode_Single_name";
+			reloadTime = 0.050000;
+			burst = 1;
+			autoFire = 1;
+			useAction = 0;
+			useActionTitle = 0;
+			soundContinuous = 0;
+			artilleryDispersion = 0;
+			artilleryCharge = 0;
+			textureType = "single";
+			recoil = "Empty";
+			recoilProne = "";
+			sounds[] = {"StandardSound"};
+
+			class StandardSound {
+				begin1[] = {"\fza_ah64_us\audio\Flares.ogg", 1.000000, 1, 300};
+				soundBegin[] = {"begin1", 1};
+			};
+			showToPlayer = 1;
+			multiplier = 2;
+			soundBurst = 0;
+			dispersion = 0.400000;
+			aiRateOfFire = 1;
+			aiRateOfFireDistance = 10;
+			minRange = 0;
+			minRangeProbab = 0.010000;
+			midRange = 1;
+			midRangeProbab = 0.010000;
+			maxRange = 2;
+			maxRangeProbab = 0.010000;
+		};
+	};	
 	class fza_m230: CannonCore
 	{
 		class GunParticles
@@ -43,7 +82,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",4,1,4000};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",2,1,2000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -78,7 +117,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",4,1,4000};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",2,1,2000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -94,7 +133,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",4,1,4000};
+				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",2,1,2000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
             };
@@ -121,7 +160,7 @@ class CfgWeapons
 		weaponlocksystem = 0;
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
-		canlock = 0;
+		canlock = 1;
 		cursor = "";
 		cursoraim = "";
 		cursorAimOn = "";
@@ -286,7 +325,7 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 4.5,1,4000};
+				weaponfire[] = {"\fza_ah64_us\audio\M275_Dist.ogg", 2,1,2000};
 				soundBegin[] = {"weaponfire",1};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -500,11 +539,11 @@ class CfgWeapons
 		sounds[] = {StandardSound};
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\fim92_oneshot1.ogg", 10, 1, 1200};
+			weaponfire[] = {"\fza_ah64_us\audio\fim92_oneshot1.ogg", 2, 1, 1200};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
-		soundfly[] = {"\ca\Sounds\weapons\cannon\rocket_fly1", 10, 1.5, 700};
+		soundfly[] = {"\ca\Sounds\weapons\cannon\rocket_fly1", 2, 1.5, 700};
 		weaponlockdelay = 3;
 		weaponlocksystem = 1;
 		lockedtargetsound[] = {"", 1, 1};

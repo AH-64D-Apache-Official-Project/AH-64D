@@ -1,8 +1,9 @@
-if(fza_ah64_apuon isEqualTo 1)then
-{
-    private _veh = "VR_3DSelector_01_default_F" createVehicle [0,0,0];
-    _veh attachTo [helo,[0,0,0]];
+params["_heli"];
 
+if((isServer || isDedicated) && fza_ah64_apuon isEqualTo 1)then
+{
+    private _veh = "Land_ClutterCutter_small_F" createVehicle [0,0,0];
+    _veh attachTo [_heli,[0,0,0]];
     hideObject _veh; 
     private _targetTime = time + 24.25;
     while {fza_ah64_apuon isEqualTo 1} do 

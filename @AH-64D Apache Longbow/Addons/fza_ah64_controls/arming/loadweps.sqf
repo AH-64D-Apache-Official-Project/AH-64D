@@ -1863,7 +1863,6 @@ _heli removemagazines "fza_auxtank_230_3";
 _heli removemagazines "fza_auxtank_230_4";
 //CM
 _heli removeMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
-_heli removeMagazineTurret ["fza_ah64_chaff30",[-1]];
 //wait a beat for scripts to finish
 sleep 8;
 //now add weaponry
@@ -2345,8 +2344,8 @@ if (fza_ah64_hardpoint4 == 14 && fza_ah64_auxtank_qty > 0) then {_heli addmagazi
 if (fza_ah64_hardpoint5 == 14 && fza_ah64_auxtank_qty > 0) then {_heli addmagazine "fza_auxtank_230_4"; fza_ah64_auxtank_qty = fza_ah64_auxtank_qty - 1; _heliweight = _heliweight + 420;};
 
 //CM Mags
-_heli addMagazineTurret ["fza_ah64_chaff30",[-1]];
-fza_ah64_chaffcount = 30;
+//_heli addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+//fza_ah64_flarecount = 30;
 if ("CMFlareLauncher" in (_heli weaponsTurret [-1])) then {_heli addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]]; fza_ah64_flarecount = 30; _heliweight = _heliweight + 10;};
 _heliweight = _heliweight + 5; //chaff countermeasure
 fza_ah64_burst = 0;

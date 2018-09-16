@@ -2,6 +2,18 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*14/09/2018*
+- Removed fza_ah64d_chaff30 upon rearming.
+- Added hot refuel.
+- Removed APU 3D virtual object placeholder.
+- Restored ability for PLT to close CPG door.
+- Rewrited bunch of scripts, performance are increased in SP.
+- Added NVS MODE switch simulation.
+- Added aircraft state persistence.
+- Tweaked weapon sounds at distance.
+- Added single flare dispense instead of burst.
+
+
 *02/09/2018*
 - Updated Advanced Flight Model (AFM) data - by Keplager.
 - Increased HDU PNVS resolution.

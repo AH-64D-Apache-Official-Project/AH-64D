@@ -233,13 +233,13 @@ if(player == gunner _heli && !(local _heli)) then
 		_advlist = _advlist - ["\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"];
 		_hovhold = 0;
 	};
-	if(_rtrbrake == 0 && (_heli animationphase "plt_rtrbrake" < 1)) then
+	if(_rtrbrake == 0 && (_heli animationphase "plt_rtrbrake" == 1)) then
 	{
 		_advlist = _advlist + ["\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"];
 		_advlist set [(count _advlist - 1),"\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"];
 		_rtrbrake = 1;
 	};
-	if(isengineon _heli || (_heli animationphase "plt_rtrbrake" > 0)) then
+	if(isengineon _heli || (_heli animationphase "plt_rtrbrake" == 0)) then
 	{
 		_advlist = _advlist - ["\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"];
 		_rtrbrake = 0;
