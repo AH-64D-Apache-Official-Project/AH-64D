@@ -2,6 +2,9 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*17/09/2018*
+- Update on the Avanced Flight Model (AFM), rotor intertia fixed - by Keplager.
+
 *16/09/2018*
 - Removed fza_ah64d_chaff30 upon rearming.
 - Added hot refuel.
