@@ -458,8 +458,8 @@ class RscTitles
 				idc = 20052;
 				x = 0;
 				y = 0;
-				w = ICE_HUD_Monocle_Size * 2;
-				h = ICE_HUD_Monocle_Size * 2;
+				w = ICE_HUD_Monocle_Size * 4;
+				h = ICE_HUD_Monocle_Size * 4;
 				class controls
 				{
 				/*
@@ -480,7 +480,7 @@ class RscTitles
 				h = 1;
 					};
 				*/
-					//HDU WITH HDR OR NVG//
+					//HDU PNVS WITH HDR OR NVG//
 					class fza_ah64_raddisp_hdu_bg2
 					{
 				idc = 120;
@@ -490,11 +490,11 @@ class RscTitles
 				colorBackground[] = {1, 1, 1, 1};
 				text = "";
 				style = 48;
-				sizeEx = 512;
-				x = 0.25;
-				y = 0.28;
-				w = 0.5;
-				h = 0.5;
+				sizeEx = 1024;
+				x = 0.12;
+				y = 0.19;
+				w = 0.78;
+				h = 0.78;
 					};
 					///base///
 					class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE

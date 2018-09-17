@@ -2,7 +2,7 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
-*14/09/2018*
+*16/09/2018*
 - Removed fza_ah64d_chaff30 upon rearming.
 - Added hot refuel.
 - Removed APU 3D virtual object placeholder.
