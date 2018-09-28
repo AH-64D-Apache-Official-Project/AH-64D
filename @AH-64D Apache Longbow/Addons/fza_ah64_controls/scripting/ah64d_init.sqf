@@ -1,8 +1,8 @@
 ///MASTER INIT FOR AH-64D///
 _heli = _this select 0;
-_heli removeweapon "fza_m230";
-_heli addweapon "fza_m230";
-_heli selectweapon "fza_m230";
+//_heli removeweapon "fza_m230";
+//_heli addweapon "fza_m230";
+//_heli selectweapon "fza_m230";
 
 // AH-64D AIRBORNE DOOR FIX
 /* connectionFirstTime = true;
@@ -103,7 +103,6 @@ if (isNil "fza_ah64_fx_init") then
 	};
 	fza_ah64_apuon = 0;
 	fza_ah64_pwron = 0;
-	fza_ah64_ihadssoff = 1;
 	fza_ah64_fire1arm = 0;
 	fza_ah64_fire2arm = 0;
 	fza_ah64_fireapuarm = 0;

@@ -116,22 +116,6 @@ fza_ah64_fgeff ppEffectCommit 0;
 };
 //END DISABLE IF ENGINE OFF
 
-
-
-//TADS LASER ON SYMBOLOGY
-/*
-if (cameraView == "GUNNER" && fza_ah64_laserstate isEqualTo 1) then
-{
-((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
-} else {
-((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 138) ctrlSetText "";
-};
-*/
-//END TADS LASER ON SYMBOLOGY
-
-
-
-
 //DISABLE/ENABLE MOUSE CURSOR (1ST/3RD PERSON)
 if (cameraView == "EXTERNAL" || cameraView == "GUNNER") then
 {
@@ -149,36 +133,18 @@ if (fza_ah64_monocleinbox == 1) then
 {fza_ah64_ihadssoff = 1;};
 //END DISABLE IHADSS IF MONOCLE IN BOX
 
-
 //EXPERIMENTAL TADS AZ & EL LIMITS
 /*
 if (_tadsdir == _360mark) then {_safemessage = "AZ LIMIT";};
-
-
 _sensorposx = (_heli animationphase "tads_tur")*-0.025;
 _sensorposy = (_heli animationphase "tads")*-0.015;
 if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};
 */
 //END EXPERIMENTAL TADS AZ & EL LIMITS
 
-
-
-//EXPERIMENTAL NEW LAYER + LASER
-
-/*
-if(isNil "fza_ah64_laserinit") then
-{
-4 cutrsc ["fza_ah64_laseit","PLAIN",0.01,false];
-((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
-fza_ah64_laserinit = true;
-};
-*/
-
+//NEW LAYER + LASER
 if (fza_ah64_laserstate == 0) then {4 cuttext ["", "PLAIN",0.1];};
-
-//END OF EXPERIMENTAL NEW LAYER + LASER
-
-
+//END NEW LAYER + LASER
 
 //MONOCLE DISPLAY CONFIGURATION
 if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0) then
@@ -500,68 +466,6 @@ if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then
 {
 _acqihadss = "FXD";
 };
-
-/*
-if(_heli iskindof "fza_ah64d_b2e") then
-{
-
-	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 0) then
-	{
-	_sensxm = "TADS";
-	_acqihadss = "TADS";
-	_sensor = "A ";
-	};
-	
-	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 1) then
-	{
-	_sensxm = "TADS";
-	_acqihadss = "HMD";
-	_sensor = "A ";
-	};
-	
-	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 2) then
-	{
-	_sensxm = "TADS";
-	_acqihadss = "AUTO";
-	_sensor = "A ";
-	};
-	
-	if (fza_ah64_agmode == 2 && fza_ah64_guncontrol == 3) then
-	{
-	_sensxm = "TADS";
-	_acqihadss = "FXD";
-	_sensor = "A ";
-	};
-	
-	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 0) then
-	{
-	_sensxm = "FCR";
-	_acqihadss = "TADS";
-	_sensor = "R ";
-	};
-	
-	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 1) then
-	{
-	_sensxm = "FCR";
-	_acqihadss = "HMD";
-	_sensor = "R ";
-	};
-	
-	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 2) then
-	{
-	_sensxm = "FCR";
-	_acqihadss = "AUTO";
-	_sensor = "R ";
-	};
-	
-	if ((fza_ah64_agmode == 0 || fza_ah64_agmode == 1 || fza_ah64_agmode == 3) && fza_ah64_guncontrol == 3) then
-	{
-	_sensxm = "FCR";
-	_acqihadss = "FXD";
-	_sensor = "R ";
-	};
-};
-*/
 
 /////////////////////////////////////////////////////////
 

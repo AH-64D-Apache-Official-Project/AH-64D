@@ -3,7 +3,6 @@ _heli = _this select 0;
 _position = _this select 1;
 _unit = _this select 2;
 
-//SETUP EMPTY FUEL FOR START PROCEDURE + GREEN CURSOR DISPLAY
 if(player == driver _heli || player == gunner _heli) then
 {
 
@@ -24,10 +23,16 @@ if(isNil "fza_ah64_crewweapons") then
 	fza_ah64_crewweapons = ["SMG_01_F"];
 };
 
+if(isNil "fza_ah64_ihadssoff") then
+{
+	fza_ah64_ihadssoff = 1;
+};
+
 if(isNil "fza_ah64_monocleinbox") then
 {
-	fza_ah64_monocleinbox = 0;
+	fza_ah64_monocleinbox = 1;
 };
+
 
 if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
 if(fza_ah64_cem) then
@@ -46,7 +51,6 @@ if(fza_ah64_cem) then
 
 2 cutrsc ["fza_ah64_click_helper", "PLAIN",0.1];
 };
-//END SETUP EMPTY FUEL FOR START PROCEDURE + GREEN CURSOR DISPLAY
 
 
 

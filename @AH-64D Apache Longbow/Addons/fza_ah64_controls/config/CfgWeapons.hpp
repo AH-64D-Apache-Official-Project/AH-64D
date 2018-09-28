@@ -63,88 +63,49 @@ class CfgWeapons
 				directionName = "Konec hlavne";
 			};
 		};
-		displayName="M230E1 CORE";
+		class StandardSound
+		{
+			weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",2,0.96,2000};
+			soundBegin[] = {"weaponfire",1};
+			weaponsoundeffect = "DefaultRifle";
+		};
+		displayName="M230E1";
 		displayNameMagazine="M230 30mm";
 		shortNameMagazine="M230";
 		cursor = "";
 		cursorAim = "";
 		cursorAimOn = "";
-		scope = 1;
+		recoil = "Empty";
+		recoilProne = "Empty";
+		scope = 2;
+		burst = 10;
+		multiplier=1;
+		reloadTime=0.096;
+		dispersion = 0.005000;
 		initspeed=805;
 		ballisticscomputer = 1;
-		laserLock = 1;
-		canLock = 2;
+		weaponLockSystem = 12;
+		weaponLockDelay = 0;
 		autoreload = 1;
 		shotFromTurret = false;
 		magazines[]={fza_m230_1200};
-		modes[]= {"fza_burst10","fza_burst20"};
-		class fza_full: CannonCore
-		{
-			class StandardSound
-            {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist.ogg",2,1,2000};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-            };
-			displayName="M230E1 FULL AUTO";
-			cursor = "";
-			cursoraim = "";
-			cursorAimOn = "";
-			recoil = "Empty";
-			recoilProne = "Empty";
-			multiplier=1;
-			burst=1;
-			dispersion = 0.005000;
-			sounds[] = {"StandardSound"};
-			soundburst= false;
-			soundContinuous= 0;
-			reloadTime=0.096;
-			autofire= false;
-			autoreload = 1;
-			aiRateOfFire=0.096;
-			aiRateOfFireDistance = 400;
-			useAction = 0;
-			useActionTitle = "";
-			showToPlayer = 1;
-			minRange = 100;
-			minRangeProbab = 0.500000;
-			midRange = 1000;
-			midRangeProbab = 0.780000;
-			maxRange = 2000;
-			maxRangeProbab = 0.200000;
-	};
-		class fza_burst10: fza_full
-		{
-			class StandardSound
-            {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",2,1,2000};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-            };
-			displayName="M230E1 BURST x10";
-			name = "fza_burst10";
-			burst = 10;
-			modes[]= {"fza_burst10"};
-			muzzles[] = {"fza_burst10"};
-			sounds[] = {"StandardSound"};
-			soundBurst= true;
-		};
-		class fza_burst20: fza_full
-		{
-			class StandardSound
-            {
-				weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst20.ogg",2,1,2000};
-				soundBegin[] = {"weaponfire",1};
-				weaponsoundeffect = "DefaultRifle";
-            };
-			displayName="M230E1 BURST x20";
-			name = "fza_burst20";
-			burst = 20;
-			modes[]= {"fza_burst20"};
-			muzzles[] = {"fza_burst20"};
-			sounds[] = {"StandardSound"};
-			soundBurst= true;
-		};
+		modes[]= {"this"};
+		muzzles[] = {"this"};
+		sounds[] = {"StandardSound"};
+		soundBurst= true;
+		soundContinuous= false;
+		showToPlayer = true;
+		autofire= true;
+		useAction = false;
+		useActionTitle = "";
+		aiRateOfFire=0.096;
+		aiRateOfFireDistance = 500;
+		minRange = 100;
+		minRangeProbab = 0.500000;
+		midRange = 1000;
+		midRangeProbab = 0.780000;
+		maxRange = 2000;
+		maxRangeProbab = 0.200000;
 	};
 	class fza_burstlimiter: fza_m230
 	{

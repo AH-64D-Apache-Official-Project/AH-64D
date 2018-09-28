@@ -84,24 +84,16 @@ class CfgAmmo
 	class fza_30x113: B_30mm_MP
 	{
 		ace_frag_enabled = 0;
-		ace_frag_skip = 1;
-	
-		
-		hit=130;
-		indirectHit=70;
-		indirectHitRange=10;
-		
-		canLock = 1;
-		laserLock = 1; 
-		irLock = 1; 
-		airLock = 1;
-		
+		ace_frag_skip = 1;	
+		hit=100;
+		indirectHit=50;
+		indirectHitRange=5;
 		cost=50;
-		explosive = 0.35;
+		explosive = 1;
 		timeToLive=8;
 		tracerstarttime = 0;
 		typicalspeed = 805;
-		CraterEffects = "ExploAmmoCrater";
+		CraterEffects = "GrenadeCrater";
 		explosionEffects = "ExploAmmoExplosion";
 		muzzleeffect = "fza_ah64_fx_30mm";
 		tracerColor[] = {0.800000,0.100000,0.100000,0.040000};

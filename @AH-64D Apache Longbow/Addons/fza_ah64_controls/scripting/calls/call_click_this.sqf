@@ -656,8 +656,6 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 if(inputaction "User20" > 0.5 && (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && fza_ah64_l1clicked == 0 && fza_ah64_pl_mpd == "wpn" && _lbtnl1 distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
 {
 fza_ah64_burst_limit = 10;
-_heli forceWeaponFire ["fza_m230", "fza_burst10"]; //TEST
-//_heli selectWeapon "fza_burst10";
 fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };
@@ -665,8 +663,6 @@ _clicksound = ["fza_ah64_button_click1",0.1];
 if(inputaction "User20" > 0.5 && (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") && fza_ah64_l1clicked == 0 && fza_ah64_pl_mpd == "wpn" && _lbtnl2 distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
 {
 fza_ah64_burst_limit = 20;
-_heli forceWeaponFire ["fza_m230", "fza_burst20"]; //TEST
-//_heli selectWeapon "fza_burst20";
 fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };

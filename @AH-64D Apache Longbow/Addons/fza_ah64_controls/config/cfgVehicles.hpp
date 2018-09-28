@@ -1510,7 +1510,7 @@ class CfgVehicles
 			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
 			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
-			//engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
+			engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
 			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
@@ -2855,7 +2855,7 @@ class CfgVehicles
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
-		lockdetectionsystem = 8;
+		lockdetectionsystem = "8+4";
 		incommingmissliedetectionsystem = 16;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
