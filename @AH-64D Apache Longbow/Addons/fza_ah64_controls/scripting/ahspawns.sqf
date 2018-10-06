@@ -4,6 +4,7 @@ _heli animate ["pdoor",1];
 _heli animate ["gdoor",1];
 _heli animate ["plt_rtrbrake",1];
 
+/*
 if(fza_ah64_pwron == 0) then
 {
 fza_ah64_pl_mpd = "off";
@@ -13,7 +14,7 @@ fza_ah64_ihadssoff = 1;
 fza_ah64_pl_mpd = "fuel";
 fza_ah64_pr_mpd = "eng";
 };
-
+*/
 
 
 //TRYING TO FIX TADS ORIENTATION BUG

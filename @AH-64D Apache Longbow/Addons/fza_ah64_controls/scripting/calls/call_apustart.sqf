@@ -1,12 +1,12 @@
 params["_heli"];
 
-if((isServer || isDedicated) && fza_ah64_apuon isEqualTo 1)then
+if(_heli animationphase "plt_apu" isEqualTo 1)then
 {
     private _veh = "Land_ClutterCutter_small_F" createVehicle [0,0,0];
     _veh attachTo [_heli,[0,0,0]];
     hideObject _veh; 
     private _targetTime = time + 24.25;
-    while {fza_ah64_apuon isEqualTo 1} do 
+    while {_heli animationphase "plt_apu" isEqualTo 1} do 
     {
         if (time > _targetTime) then 
         {

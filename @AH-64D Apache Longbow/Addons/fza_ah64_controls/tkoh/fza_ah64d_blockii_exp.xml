@@ -423,14 +423,14 @@
       <!--	Note: Too little inertia causes problems if the drive train is damaged. W/o loads. engine controller is not
             		able to operate correctly. -->
       <General inertia="8.14" /> 
-      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000003"/>  
+      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>  
       <ControllerParams P="1.0" I="1.5" D="0.1" offset="150" targetRPM="20000" />
 		</Engine>
 
     <Engine type="ConstantRPMEngine">
       <DebugInfo printDebugInfo="false" />
 		 	<General inertia="8.14" />
-      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000003"/>
+      <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
       <ControllerParams P="1.0" I="1.5" D="0.1" offset="150" targetRPM="20000" />
 		</Engine>
 		
@@ -585,7 +585,7 @@
         <Rotation clockwise="false"/>
       </Geometry>
       
-      <MechanicalFeatures Ir="4742"  Ib="2400" maxBrakeTorque="16000"/>
+      <MechanicalFeatures Ir="4742"  Ib="2400" maxBrakeTorque="32000"/>
 
       <AerodynamicFeatures>      	
       	   <InducedVelocity groundEffectFactor="1.5" >

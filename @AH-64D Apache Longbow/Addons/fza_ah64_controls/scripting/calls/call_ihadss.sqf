@@ -154,7 +154,7 @@ if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox 
 
 
 //IHADSS INIT
-if(fza_ah64_apuon == 1 || isEngineOn _heli || !(fza_ah64_cem)) then
+if(_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) then
 {
 if(isNil "fza_ah64_ihadssinit") then
 {
@@ -189,7 +189,7 @@ fza_ah64_agmode = 2;
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0) then
 {
-if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (fza_ah64_apuon == 1 || isEngineOn _heli || !(fza_ah64_cem))) then
+if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem))) then
 {
 1 cutrsc ["fza_ah64_raddisp", "PLAIN",0.01,false];
 
@@ -213,7 +213,7 @@ if (!(vehicle player isKindOf "fza_ah64base")) then {1 cuttext ["", "PLAIN"]; 2 
 //END 1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
 
-if(cameraView == "GUNNER" && player == gunner _heli && (fza_ah64_apuon == 1 || isEngineOn _heli)) then
+if(cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli)) then
 {
 
 _headsdown = true;

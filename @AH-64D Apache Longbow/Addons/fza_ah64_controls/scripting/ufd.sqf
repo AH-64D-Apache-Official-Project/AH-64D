@@ -168,13 +168,13 @@ if(player == gunner _heli && !(local _heli)) then
 		fza_ah64_pl_mpd = "fail";
 		_heli setobjecttexture [302,""];
 	};
-	if(fza_ah64_apuon == 1) then
+	if(_heli animationphase "plt_apu" > 0.5) then
 	{
 		_heli setobjecttexture [433,"\fza_ah64_us\tex\in\pushbut.paa"];
 	} else {
 		_heli setobjecttexture [433,""];
 	};
-	if(fza_ah64_apuon == 0 && fza_ah64_pwron == 0 && !(isengineon _heli) && !(_heli animationphase "plt_eng1_start" > 0.5) && !(_heli animationphase "plt_eng2_start" > 0)  && fza_ah64_cem) then
+	if(_heli animationphase "plt_batt" < 0.5) then
 	{
 		fza_ah64_pr_mpd = "off";
 		_heli setobjecttexture [303,""];
@@ -182,7 +182,7 @@ if(player == gunner _heli && !(local _heli)) then
 		_heli setobjecttexture [302,""];
 		_mpdpwr = 0;
 	};
-	if((fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli animationphase "plt_eng1_start" > 0 || _heli animationphase "plt_eng2_start" > 0) && _mpdpwr == 0) then
+	if((_heli animationphase "plt_batt" > 0.5) && _mpdpwr == 0) then
 	{
 		if(fza_ah64_pl_mpd == "off") then {fza_ah64_pl_mpd = "fuel";};
 		if(fza_ah64_pr_mpd == "off") then {fza_ah64_pr_mpd = "eng";};
@@ -198,13 +198,13 @@ if(player == gunner _heli && !(local _heli)) then
 		fza_ah64_pl_mpd = "fail";
 		_heli setobjecttexture [302,""];
 	};
-	if(fza_ah64_apuon == 1 && _apuon == 0) then
+	if(_heli animationphase "plt_apu" > 0.5 && _apuon == 0) then
 	{
 		_advlist = _advlist + ["\fza_ah64_us\tex\UFD\APUON_A_co.paa"];
 		_advlist set [(count _advlist - 1),"\fza_ah64_us\tex\UFD\APUON_A_co.paa"];
 		_apuon = 1;
 	};
-	if(fza_ah64_apuon == 0) then
+	if(_heli animationphase "plt_apu" < 0.5) then
 	{
 		_advlist = _advlist - ["\fza_ah64_us\tex\UFD\APUON_A_co.paa"];
 		_apuon = 0;
@@ -507,7 +507,7 @@ if(player == gunner _heli && !(local _heli)) then
 	};
 ///EWCA//
 //pilot
-if(fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli animationphase "plt_eng1_start" > 0 || _heli animationphase "plt_eng2_start" > 0 || !(fza_ah64_cem)) then
+if(_heli animationphase "plt_batt" > 0.5 || isengineon _heli || !(fza_ah64_cem)) then
 {
 _heli setobjecttexture [432,"\fza_ah64_us\tex\in\ufdon.paa"];
 _heli setobjecttexture [1018,_secformat2];

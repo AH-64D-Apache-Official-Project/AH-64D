@@ -2,6 +2,13 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*04/10/2018*
+- Added dynamic engines throttle levers - by Keplager.
+- Added proper onboard radios (VHF ARC-186, UHF ARC-164, FM1 ARC-201D, FM2 ARC-201D).  
+- Fixed APU & BATT MP synchronization on dedicated servers.
+- Tweaked AGM-114 area of effect.
+- Replaced IHADSS 180°, 360°, 270° and 90° headings by S, N, W and E.
+
 *28/09/2018*
 - Tweaked M230 damage and effects.
 

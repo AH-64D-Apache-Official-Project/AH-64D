@@ -106,8 +106,8 @@ class CfgAmmo
 		ace_frag_skip = 1;
 		
 		hit = 2500;
-		indirectHit = 1500;
-		indirectHitRange = 50;
+		indirectHit = 1000;
+		indirectHitRange = 25;
 		
 		canLock = 0;
 		laserLock = 0;
@@ -149,8 +149,8 @@ class CfgAmmo
 		irLock= 0;
 		
 		hit = 2500;
-		indirectHit = 1500;
-		indirectHitRange = 50;
+		indirectHit = 1000;
+		indirectHitRange = 25;
 
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
@@ -162,7 +162,7 @@ class CfgAmmo
 	
 		hit=1200;
 		indirectHit=700;
-		indirectHitRange=50;
+		indirectHitRange=25;
 		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
@@ -175,7 +175,7 @@ class CfgAmmo
 	
 		hit=1200;
 		indirectHit=700;
-		indirectHitRange=50;
+		indirectHitRange=25;
 		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
@@ -187,7 +187,7 @@ class CfgAmmo
 	
 		hit=1000;
 		indirectHit=1000;
-		indirectHitRange=70;
+		indirectHitRange=25;
 		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
@@ -199,7 +199,7 @@ class CfgAmmo
 		
 		hit=1000;
 		indirectHit=1000;
-		indirectHitRange=50;
+		indirectHitRange=25;
 		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
