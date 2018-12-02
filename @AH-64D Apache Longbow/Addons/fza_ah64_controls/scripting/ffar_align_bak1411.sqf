@@ -12,18 +12,17 @@ if (_weapon == "fza_m230") then
 drop ["\fza_ah64_us\weps\m789\m789_case","","SpaceObject",1,7,(_ah64 selectionPosition "osahlavne"),[random 0.5,random 0.5,-12],1,2.5,1,0,[1],[[1,1,1,1]],[0],0,0,"","",_ah64];
 };
 
-//if (_weapon == "fza_ah64_chaff30") then
-//{
-//drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
-//drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
-//drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
-//};
+if (_weapon == "fza_ah64_chaff30") then
+{
+drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
+drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
+drop [["\A3\data_f\ParticleEffects\Universal\Universal",16,14,5,1],"","Billboard",1,10,[-1,-6,0],[-5,0,7],(random 2),1.1,0.8,0.5,[5],[[1,1,1,1]],[1.5],0.2,0.2,"","",_ah64];
+};
 
 if(!(player == driver _ah64 || player == gunner _ah64)) exitwith{};
 
 if (_weapon == "fza_ah64_chaff30") then
 {
-
 fza_ah64_curchfln = fza_ah64_curchfln + 1;
 fza_ah64_chaffcount = fza_ah64_chaffcount - 1;
 if(_mode == "Single") then {fza_ah64_cmsel = 0;};
@@ -32,7 +31,7 @@ sleep 3;
 fza_ah64_curchfln = fza_ah64_curchfln - 1;
 };
 
-if (_weapon == "fza_CMFlareLauncher") then
+if (_weapon == "CMFlareLauncher") then
 {
 fza_ah64_curflrln = fza_ah64_curflrln + 2;
 fza_ah64_flarecount = fza_ah64_flarecount - 1;

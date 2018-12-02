@@ -337,7 +337,7 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1.5, 1, 500};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
@@ -394,24 +394,24 @@ class CfgVehicles
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
-				/*class damageAlarmExt
+				class damageAlarmExt
 				{
 					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
-				};*/
+				};
 				class rotorLowAlarmInt
 				{
 					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
-				/*class rotorLowAlarmExt
+				class rotorLowAlarmExt
 				{
 					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0, 1.000000, 20};
 					frequency = 1;
 					volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
-				};*/
+				};
 				class scrubLandInt
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
@@ -563,24 +563,24 @@ class CfgVehicles
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 					};
-					/*class damageAlarmExt
+					class damageAlarmExt
 					{
 						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
-					};*/
+					};
 					class rotorLowAlarmInt
 					{
 						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
 						frequency = 1;
 						volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 					};
-					/*class rotorLowAlarmExt
+					class rotorLowAlarmExt
 					{
 						sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0, 1.000000, 20};
 						frequency = 1;
 						volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
-					};*/
+					};
 					class scrubLandInt
 					{
 						sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
@@ -2907,7 +2907,7 @@ class CfgVehicles
 		//memorypointcmdir[] = {"chaff_launcher1_dir"};
 		memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"flare_1_end"};
-		weapons[] = {"fza_CMFlareLauncher"};
+		weapons[] = {"CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = "8+4";
 		incommingmissliedetectionsystem = 16;

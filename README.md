@@ -2,6 +2,10 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*24/11/2018*
+- Fixed flares issue making vanilla aircrafts not being able to drop flares - by Jamo.
+- Fixed Rearm & Repair feature.
+
 *04/10/2018*
 - Added dynamic engines throttle levers - by Keplager.
 - Added proper onboard radios (VHF ARC-186, UHF ARC-164, FM1 ARC-201D, FM2 ARC-201D).  

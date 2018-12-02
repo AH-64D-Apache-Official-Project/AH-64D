@@ -1196,9 +1196,16 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _swrbrk distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
-if(_heli animationphase "plt_rtrbrake" < 1) then {_heli animate ["plt_rtrbrake",1]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+if(_heli animationphase "plt_rtrbrake" < 1) then 
+{
+_heli animate ["plt_rtrbrake",1];
+["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+_heli setRotorBrakeRTD 0;
 } else {
-_heli animate ["plt_rtrbrake",0]; ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
+_heli animate ["plt_rtrbrake",0];
+["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+_heli setRotorBrakeRTD 1;
+};
 fza_ah64_l1clicked = 1;
 };
 
@@ -1272,11 +1279,10 @@ if(!isEngineOn _heli && _heli animationphase "plt_batt" > 0.5 && _heli animation
 {
 fza_ah64_estarted = true;
 (driver _heli) action ["engineOn", _heli];
-(vehicle player) enableAutoStartUpRTD false;
-(vehicle player) setRotorBrakeRTD 0;
-(vehicle player) setActualCollectiveRTD 0;
-(vehicle player) setWantedRPMRTD [20000, 15, -1];
-(vehicle player) setWantedRPMRTD [0, 15, -1];
+_heli enableAutoStartUpRTD false;
+//_heli setActualCollectiveRTD 0;
+_heli setWantedRPMRTD [20000, 15, -1];
+_heli setWantedRPMRTD [0, 15, -1];
 [_heli] execvm "\fza_ah64_controls\scripting\calls\call_enginepower.sqf";
 fza_ah64_l1clicked = 1;
 };
@@ -1294,8 +1300,8 @@ _heli animate ["plt_eng2_start",0];
 };
 
 
-//SHUTDOWN
-
+//SHUTDOWN, MOVED TO CALL_ENGINEPOWER
+/*
 if(fza_ah64_pwron == 1 && _heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 && isEngineOn _heli) then
 {
 (driver _heli) action ["engineOff", _heli];
@@ -1304,7 +1310,7 @@ _heli animate ["tads_stow",1];
 ["fza_ah64_switch_flip1",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
 fza_ah64_l1clicked = 1;
 };
-
+*/
 
 //PNVS HDU DAY/NIGHT TOGGLE
 

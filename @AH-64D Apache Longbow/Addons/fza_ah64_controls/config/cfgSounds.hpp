@@ -223,19 +223,8 @@ class CfgSounds
 		titles[]={};
 	};
 
-	///STARTING CLICKABLE SEQUENCE SOUNDS///
-	/*class fza_ah64_estart1
-	{
-		name = "fza_ah64_estart1";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",0.50,1};
-		titles[]={};
-	};
-	class fza_ah64_apustart1
-	{
-		name = "fza_ah64_apustart1";
-		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",0.33,1};
-		titles[]={};
-	};*/
+	///STARTING CLICKABLE SEQUENCE SOUNDS////	
+	
 	class fza_ah64_apustart_3D
 	{
 		name = "fza_ah64_apustart_3D";

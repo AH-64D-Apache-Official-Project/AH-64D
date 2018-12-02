@@ -11,9 +11,9 @@ if(isNil "fza_ah64_waypointdata") then
 	fza_ah64_wpmarkers = ["fza_ah64_BaseMarker"];
 };
 
-if(count fza_ah64_waypointdata > 30) exitwith {_heli vehiclechat "Waypoint limits reached.";};
+if(count fza_ah64_waypointdata > 30) exitwith {_heli vehiclechat "Waypoints limit reached.";};
 
-_markerstringc = format ["%1",count fza_ah64_waypointdata];
+_markerstringc = format ["WP%1",count fza_ah64_waypointdata];
 _markerstring = "fza_ah64_markstring" + _markerstringc;
 
 fza_ah64_waypointdata = fza_ah64_waypointdata + [[(_position select 0),(_position select 1),0]];

@@ -10,7 +10,7 @@ class CfgWeapons
 	class Launcher: LauncherCore {};
 	class Stinger: Launcher {};
 	class RocketPods: LauncherCore {};
-	class fza_CMFlareLauncher: SmokeLauncher 
+	class CMFlareLauncher: SmokeLauncher 
 	{
 		scope = 2;
 		displayName = "$STR_A3_CMFlareLauncher0";
@@ -65,7 +65,7 @@ class CfgWeapons
 		};
 		class StandardSound
 		{
-			weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",2,0.96,2000};
+			weaponfire[] = {"\fza_ah64_us\audio\M230_Dist_burst10.ogg",2,0.96,1000};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};

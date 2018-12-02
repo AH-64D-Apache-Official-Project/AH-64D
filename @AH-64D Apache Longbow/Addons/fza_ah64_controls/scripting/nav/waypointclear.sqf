@@ -1,6 +1,6 @@
 _heli = _this select 0;
 
-if(isNil "fza_ah64_waypointdata") exitwith {_heli vehiclechat "waypoints are not programmed.";};
+if(isNil "fza_ah64_waypointdata") exitwith {_heli vehiclechat "Waypoints are not programmed.";};
 
 _num = (count fza_ah64_waypointdata) + 1;
 
