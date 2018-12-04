@@ -2,6 +2,12 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*04/12/2018*
+- Reworked M261 sounds.
+- Fixed UI "white" menu bug.
+- Tweaked M230 sound.
+- Tweaked engines and rotor sounds at distance.
+
 *24/11/2018*
 - Fixed flares issue making vanilla aircrafts not being able to drop flares - by Jamo.
 - Fixed Rearm & Repair feature.

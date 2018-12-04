@@ -531,9 +531,11 @@ class fza_ah64_mapControl
 
 class RscControlsGroup
 {
-	type = CT_CONTROLS_GROUP;
+	//type = CT_CONTROLS_GROUP;
+	type = 15;
 	idc = -1;
-	style = ST_MULTI;
+	//style = ST_MULTI;
+	style = 16;
     x = 0;
 	y = 0;
 	w = 1;

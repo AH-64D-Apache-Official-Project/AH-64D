@@ -1,6 +1,6 @@
 class CfgMovesBasic
 {
-	class DefaultDie;
+	/*extern*/ class DefaultDie;
 	class ManActions
 	{
 		fza_ah64_leftcargo = "fza_ah64_leftcargo";
@@ -14,7 +14,7 @@ class CfgMovesMaleSdr: CfgMovesBasic
 {
 	class States
 	{
-		class Crew;
+		/*extern*/ class Crew;
 		class pilot_Heli_Transport_01: Crew {};
 		class fza_ah64_leftcargo_dead: DefaultDie
 		{

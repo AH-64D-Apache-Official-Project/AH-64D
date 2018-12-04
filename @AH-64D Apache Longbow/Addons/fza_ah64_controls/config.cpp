@@ -28,6 +28,21 @@ class CfgPatches
 #include "uiConfig\monocle.hpp"
 #include "uiConfig\rscTitles.hpp"
 
+/*extern*/ class SensorTemplateIR;
+/*extern*/ class SensorTemplateVisual;
+/*extern*/ class SensorTemplateActiveRadar;
+/*extern*/ class SensorTemplatePassiveRadar;
+/*extern*/ class SensorTemplateLaser;
+/*extern*/ class SensorTemplateNV;
+
+class DefaultVehicleSystemsDisplayManagerLeft {
+	/*extern*/ class Components;
+};
+
+class DefaultVehicleSystemsDisplayManagerRight {
+	/*extern*/ class Components;
+};
+
 
 //kept here in case needed//
 /*class CfgNonAIVehicles
