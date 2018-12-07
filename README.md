@@ -2,6 +2,12 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*05/12/2018*
+- Resized ASE threat circles.
+- Removed BARO ALT in Cruise mode from CPG's TADS view.
+- Fixed APU sounds on dedicated server.
+- Reworked HDU script, it's now temporary on by default however the procedure still needs to be done.
+
 *04/12/2018*
 - Reworked M261 sounds.
 - Fixed UI "white" menu bug.

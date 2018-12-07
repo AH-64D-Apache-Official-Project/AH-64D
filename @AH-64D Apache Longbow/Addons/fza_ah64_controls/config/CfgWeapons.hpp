@@ -59,8 +59,6 @@ class CfgWeapons
 			maxRangeProbab = 0.010000;
 		};
 	};
-	//class LauncherCore: Default{};
-	//class RocketPods: LauncherCore {};	
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////M230 CHAINGUN////////////////////////////
@@ -101,7 +99,7 @@ class fza_m230: CannonCore
 		dispersion = 0.005000;
 		initspeed=805;
 		ballisticscomputer = 1;
-		weaponLockSystem = 12;
+		weaponLockSystem = "8+4";
 		weaponLockDelay = 0;
 		autoreload = 1;
 		shotFromTurret = false;
@@ -137,36 +135,39 @@ class fza_m230: CannonCore
 	
 	class fza_agm114_16 : MissileLauncher
 	{
-		displayName="AGM-114 HELLFIRE";
-		displayNameMagazine="AGM-114";
-		shortNameMagazine="AGM-114";
-		sounds[] = {"StandardSound"};
-		nameSound = "MissileLauncher";
-		minRange = 300;
-		minRangeProbab = 0.025000;
-		midRange = 2500;
-		midRangeProbab = 0.090000;
-		maxRange = 9000;
-		maxRangeProbab = 0.010000;
-		cursor = "";
-		cursoraim = "";
-		
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 2,1,40};
+			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 40,1,40};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
-		
-		soundFly[] = {"A3\Sounds_F\weapons\Rockets\rocket_fly_2", 1, 1.500000, 700};
-		lockedtargetsound[] = {"", 1, 1};
-		lockingtargetsound[] = {"", 1, 1};
-		reloadTime = 0.100000;
-		magazineReloadTime = 0.100000;
-		magazines[] = {"fza_agm114k_16"};
+		scope = 1;
+		displayName="AGM-114 HELLFIRE";
+		displayNameMagazine="AGM-114";
+		shortNameMagazine="AGM-114";
+		magazines[]={fza_agm114k_16};
+		//weaponlocksystem = 0;
 		weaponLockDelay = 0;
 		weaponLockSystem = 4;
-		textureType = "semi";
+		lockedtargetsound[] = {"", 1, 1};
+		lockingtargetsound[] = {"", 1, 1};
+		canlock = 0;
+		cursor = "";
+		cursoraim = "";
+		cursorAimOn = "";
+		cursorsize = 1;
+		sounds[] = {StandardSound};
+		soundfly[] = {"A3\Sounds_F\weapons\Rockets\rocket_fly_2",1, 1.500000, 700};
+		airateoffire = 5;
+		airateoffiredistance = 4000;
+		cmimmunity = 0.8;
+		maxrange = 7000;
+		maxRangeProbab = 0.010000;
+		midrange = 3000;
+		midRangeProbab = 0.090000;
+		minrange = 1000;
+		minRangeProbab = 0.025000;
+		reloadtime = 1;	
 	};
 	class fza_agm114_23_8 : fza_agm114_16
 	{
@@ -294,25 +295,25 @@ class fza_m230: CannonCore
 		displayNameMagazine="M261";
 		shortNameMagazine="M261";
 		reloadTime=0.05;
-		maxrange = 4000;
-		maxrangeprobab = 0.1;
+		maxrange = 3000;
+		maxRangeProbab = 0.010000;
 		midrange = 2000;
-		midrangeprobab = 0.9;
+		midRangeProbab = 0.090000;
 		minrange = 200;
-		minrangeprobab = 0.6;
+		minRangeProbab = 0.025000;
 		burst=1;
 		magazines[]={fza_m261_m151_76};
 		modes[]= {"Single"};
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		cursorAimOn = "";
-		ballisticscomputer = 2;
+		ballisticscomputer = 0;
 		class Single: LauncherCore
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 2,1,1500};
-				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 2,1,1500};
+				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 3,1,1500};
+				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 3,1,1500};
 				soundBegin[] = {"weaponfire",0.50,"weaponfire2",0.50};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -536,8 +537,9 @@ class fza_m230: CannonCore
 			weaponsoundeffect = "DefaultRifle";
 		};
 		soundFly[] = {"A3\Sounds_F\weapons\Rockets\rocket_fly_1", 1, 1.100000, 700};
-		weaponlockdelay = 3;
-		weaponlocksystem = 1;
+		weaponlockdelay = 0;
+		//weaponlocksystem = 1;
+		weaponlocksystem = "1+2+8";
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
 	};

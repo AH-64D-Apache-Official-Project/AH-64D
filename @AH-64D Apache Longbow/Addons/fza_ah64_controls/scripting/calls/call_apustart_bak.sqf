@@ -11,8 +11,7 @@ if(_heli animationphase "plt_apu" isEqualTo 1)then
         if (time > _targetTime) then 
         {
             _targetTime = time + 5.4;
-            //_veh say3D ["fza_ah64_loop_3D",200,1];
-			[_veh,["fza_ah64_loop_3D", 200]] remoteExec ["say3d"];
+            _veh say3D ["fza_ah64_loop_3D",200,1];
         };
     };
     deleteVehicle _veh;

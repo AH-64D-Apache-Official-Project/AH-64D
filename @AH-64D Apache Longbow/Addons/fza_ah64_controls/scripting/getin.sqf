@@ -50,6 +50,10 @@ if(fza_ah64_cem) then
 		};
 
 2 cutrsc ["fza_ah64_click_helper", "PLAIN",0.1];
+//3 cutrsc ["fza_ah64_click_monocle", "PLAIN",0.1]; TO DISABLE
+//3 cutrsc ["", "PLAIN",0.01]; TO DISABLE, RETURNS RSCTITLE ERROR
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "";
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetTextColor [1, 1, 1, 0]; //HIDING MONOCLE WHEN GET IN
 };
 
 

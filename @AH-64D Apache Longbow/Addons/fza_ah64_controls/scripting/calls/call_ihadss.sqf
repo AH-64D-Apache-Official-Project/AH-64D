@@ -120,10 +120,12 @@ fza_ah64_fgeff ppEffectCommit 0;
 if (cameraView == "EXTERNAL" || cameraView == "GUNNER") then
 {
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetText "";
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "";
 } else {
 if (cameraView == "INTERNAL") then
 {
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetText "\fza_ah64_US\tex\HDU\hmd_curs_ca.paa";
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
 }
 };
 //END DISABLE/ENABLE MOUSE CURSOR (1ST/3RD PERSON)
@@ -145,13 +147,6 @@ if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};
 //NEW LAYER + LASER
 if (fza_ah64_laserstate == 0) then {4 cuttext ["", "PLAIN",0.1];};
 //END NEW LAYER + LASER
-
-//MONOCLE DISPLAY CONFIGURATION
-if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0) then
-{((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlShow (cameraView == "INTERNAL");};
-//END MONOCLE DISPLAY CONFIGURATION
-// TEST if (!(vehicle player isKindOf "fza_ah64base")) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 4 cuttext ["", "PLAIN"];};
-
 
 //IHADSS INIT
 if(_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) then
@@ -230,6 +225,7 @@ fza_ah64_fgeff ppEffectCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 130) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetTextColor [1, 1, 1, 0];
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetTextColor [1, 1, 1, 0];
 //ADD STATIC DATA TO TADS
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 802) ctrlSetText _rcd;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 803) ctrlSetText _lsrcode;
@@ -241,6 +237,7 @@ fza_ah64_fgeff ppEffectCommit 0;
 
 //HIDE CLICK HELPER
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetTextColor [1, 1, 1, 0];
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetTextColor [1, 1, 1, 0];
 //COLOR SET THESE
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 121) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 122) ctrlSetTextColor [(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
@@ -279,6 +276,7 @@ _ihadssidx = _ihadssidx + 1;
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 182) ctrlSetTextColor [0, 0, 0, 0];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 186) ctrlSetTextColor [0, 0, 0, 0];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 129) ctrlSetTextColor [0, 0, 0, 0];
+((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 188) ctrlSetTextColor [0, 0, 0, 0]; //HIDING BAROALT FT
 
 if (fza_ah64_laserstate isEqualTo 1) then
 {
@@ -304,14 +302,14 @@ _ihadssidx = _ihadssidx + 1;
 
 //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 601) ctrlSetTextColor [1, 1, 1, 1];
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetTextColor [1, 1, 1, 1];
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 802) ctrlSetText "";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 803) ctrlSetText "";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetText "";
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 804) ctrlSetTextColor [0.1,1,0,1]; //DOES SET GREEN COLOR FOR IHADSS
 
-  ((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
-  
+
 //END REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
 
 //1ST PERSON VIEW, REPOSITION TEXTURES FROM TADS VIEW TO IHADSS VIEW
@@ -358,11 +356,6 @@ if(isNil "fza_ah64_mousetracker") then {fza_ah64_mousetracker = (findDisplay 46)
 fza_ah64_helperinit = true;
 };
 
-
-
-
-
-
 if(isNull (uiNameSpace getVariable "fza_ah64_click_helper")) then
 {
 2 cutrsc ["fza_ah64_click_helper", "PLAIN",0.01,false];
@@ -371,6 +364,21 @@ if(isNull (uiNameSpace getVariable "fza_ah64_click_helper")) then
 
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 602) ctrlSetTextColor [0, 1, 1, 1];
 
+
+if(isNil "fza_ah64_monocleinit") then
+{
+3 cutrsc ["fza_ah64_click_monocle", "PLAIN",0.01,false];
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 502) ctrlSetTextColor [0, 1, 1, 1];
+fza_ah64_monocleinit = true;
+};
+
+if(isNull (uiNameSpace getVariable "fza_ah64_click_monocle")) then
+{
+3 cutrsc ["fza_ah64_click_monocle", "PLAIN",0.01,false];
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 502) ctrlSetTextColor [0, 1, 1, 1];
+};
+
+((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 502) ctrlSetTextColor [0, 1, 1, 1];
 
 
 

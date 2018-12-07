@@ -79,6 +79,7 @@ if ((gunner _heli == player || driver _heli == player) && _curveh == 0 && fza_ah
 sleep 0.1;
 if(fza_ah64_apuon == 1 || fza_ah64_pwron == 1 || isengineon _heli || _heli animationphase "plt_eng1_start" > 0 || _heli animationphase "plt_eng2_start" > 0 || !(fza_ah64_cem)) then {1 cutrsc ["fza_ah64_raddisp", "PLAIN",0.01];};
 2 cutrsc ["fza_ah64_click_helper", "PLAIN",0.01];
+//3 cutrsc ["fza_ah64_click_monocle", "PLAIN",0.01];
 
 sleep 0.1;
 ((uiNameSpace getVariable "fza_ah64_click_helper")displayCtrl 602) ctrlSetTextColor [0, 1, 1, 1];

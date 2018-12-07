@@ -347,7 +347,7 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 500};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
@@ -547,7 +547,7 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 500};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance

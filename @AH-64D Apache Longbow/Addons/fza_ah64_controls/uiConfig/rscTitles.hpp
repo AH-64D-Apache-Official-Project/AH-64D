@@ -1705,10 +1705,11 @@ class RscTitles
 		idd = 500;
 		movingEnable =  1;
 		duration     =  99999;
-		fadein       =  0;
-		fadeout      =  0;
+		fadein       =  3;
+		fadeout      =  3;
 		name = "fza_ah64_click_monocle";
 		onLoad = "with uiNameSpace do { fza_ah64_click_monocle = _this select 0 }";
+		
 		class controls
 		{
 			class fza_ah64_monocle
@@ -1717,18 +1718,37 @@ class RscTitles
                 type = 0;
                 colorText[] = {1,1,1,1};
                 font = "EtelkaMonospaceProBold";
-                text = "";
+				colorBackground[] = {1, 1, 1, 1};
+                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
                 style = 48;
                 sizeEx = 1;
                 x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
                 y = (ICE_HUD_SCY-ICE_HUD_Monocle_Size)*0.2;
 				w = ICE_HUD_Monocle_Size*0.707;
                 h = ICE_HUD_Monocle_Size;
-                //x = 0.30;
-                //y = -0.29;
-                //w = 1.25;
-                //h = ICE_HUD_Monocle_Size;
-                colorBackground[] = {1,1,1,1};
+			};
+			class fza_ah64_monocle_txt
+			{
+				type = 13;
+				idc = 502;
+				style = 2 + 16;
+				lineSpacing = 1;
+				x = 0.25;
+				y = 0.55;
+				w = 0.5;
+				h = 0.12;
+				size = 0.02;
+				colorBackground[] = {0,0,0,0};
+				colorText[] = {0.1,1,0,0.5};
+				text = "";
+				font = "EtelkaMonospaceProBold";
+				class Attributes
+				{
+					font = "EtelkaMonospaceProBold";
+					//color = "1EFF00";
+					align = "center";
+					shadow = false;
+				};
 			};
 		};
 	};

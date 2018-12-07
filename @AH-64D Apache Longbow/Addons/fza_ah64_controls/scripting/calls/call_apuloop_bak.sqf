@@ -5,14 +5,13 @@ if(_heli animationphase "plt_apu" isEqualTo 1)then
     private _veh = "Land_ClutterCutter_small_F" createVehicle [0,0,0];
     _veh attachTo [_heli,[0,0,0]];
     hideObject _veh; 
-    private _targetTime = time + 24.25;
+    private _targetTime = time + 24.500;
     while {_heli animationphase "plt_apu" isEqualTo 1} do 
     {
         if (time > _targetTime) then 
         {
-            _targetTime = time + 5.4;
-            //_veh say3D ["fza_ah64_loop_3D",200,1];
-			[_veh,["fza_ah64_loop_3D", 200]] remoteExec ["say3d"];
+            _targetTime = time + 60.876;
+            _veh say3D ["fza_ah64_loop_3D",200,1];
         };
     };
     deleteVehicle _veh;
