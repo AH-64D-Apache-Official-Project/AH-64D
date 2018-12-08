@@ -2,7 +2,7 @@
 _heli = _this select 0;
 //_heli removeweapon "fza_m230";
 //_heli addweapon "fza_m230";
-//_heli selectweapon "fza_m230";
+_heli selectweapon "fza_ma_safe";
 
 // AH-64D AIRBORNE DOOR FIX
 /* connectionFirstTime = true;

@@ -103,7 +103,7 @@ class fza_m230: CannonCore
 		weaponLockDelay = 0;
 		autoreload = 1;
 		shotFromTurret = false;
-		magazines[]={fza_m230_1200};
+		magazines[]={"fza_m230_300","fza_m230_1200"};
 		modes[]= {"this"};
 		muzzles[] = {"this"};
 		sounds[] = {"StandardSound"};
@@ -341,6 +341,30 @@ class fza_m230: CannonCore
 			cursoraim = "EmptyCursor";
 			cursorAimOn = "";
 		};
+	};
+	
+	class fza_ma_safe: RocketPods
+	{
+		scope=2;
+		displayName="MASTER ARM - SAFE";
+		displayNameMagazine="MASTER ARM - SAFE";
+		shortNameMagazine="MASTER ARM - SAFE";
+		cursor="laserDesignator";
+		cursorAim="EmptyCursor";
+		cursorAimOn="CursorAimOn";
+		magazines[]=
+		{
+			"fza_safe"
+		};
+		canLock=2;
+		showAimCursorInternal=0;
+		canShootInWater=1;
+		minRange=100;
+		minRangeProbab=1;
+		midRange=2000;
+		midRangeProbab=1;
+		maxRange=5000;
+		maxRangeProbab=1;
 	};
 	////////////////14/////////////////
 	class fza_m261_14: fza_m261_76

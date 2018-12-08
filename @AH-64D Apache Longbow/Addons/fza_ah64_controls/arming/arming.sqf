@@ -1,6 +1,6 @@
 //NOTE TO SELF: A3 version//
 _heli = _this select 0;
-sleep 1;
+uiSleep 1;
 
 if (isServer || isDedicated || isMultiplayer) then 
 {
@@ -16,7 +16,7 @@ _armlist = nearestObjects [_heli, fza_ah64_armingunits, 50];
 if (count _armlist > 0 && player in _heli && _actionadd == 0) then {fza_ah64_armact = _heli addAction ["Arming", "\fza_ah64_controls\arming\armingdiag_2.sqf", "", -10, false, true, "", ""]; _actionadd = 1;};
 if (count _armlist == 0 || speed _heli > 5 || speed _heli < -5 || (getpos _heli select 2) > 5) then {_heli removeaction fza_ah64_armact; _actionadd = 0;};
 };
-sleep 1;
+uiSleep 1;
 };
 
 _heli removeaction fza_ah64_armact;

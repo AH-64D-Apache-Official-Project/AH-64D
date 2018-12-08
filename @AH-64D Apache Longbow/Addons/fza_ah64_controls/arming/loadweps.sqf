@@ -1,5 +1,4 @@
 _heli = _this select 0;
-_heli vehiclechat "Standby, loading...";
 _heliweight = 0; //tkoh weighting
 //count current weaponry and add to pool
 _mags = magazines _heli;
@@ -11,6 +10,7 @@ _m229qty = 0;
 _m261qty = 0;
 _m255qty = 0;
 _m257qty = 0;
+_masafeqty = 0;
 
 _114aqty = 0;
 _114bqty = 0;
@@ -21,6 +21,11 @@ _114lqty = 0;
 _114mqty = 0;
 _114nqty = 0;
 _114rqty = 0;
+
+if(_heli hasweapon "fza_ma_safe") then
+{
+_masafeqty = _masafeqty + (_heli ammo "fza_ma_safe");
+};
 
 if(_heli hasweapon "fza_atas_2") then
 {
@@ -1492,8 +1497,11 @@ if(_x in fza_ah64_hellfireweps4 && _station4rack == 0) then {_m299rackqty = _m29
 fza_ah64_m261pod_qty = fza_ah64_m261pod_qty + _m261podqty;
 fza_ah64_m299rack_qty = fza_ah64_m299rack_qty + _m299rackqty;
 
+_heli vehiclechat "Rearming requested, this will take 5 minutes. Cannot refuel or repair at the same time.";
+uiSleep 2;
+
 //remove weaponry
-{_heli removeweapon _x;} foreach (weapons _heli - ["fza_m230"]);
+{_heli removeweapon _x;} foreach (weapons _heli - ["fza_ma_safe","fza_m230"]);
 _heli removeweapon "fza_agm114_23_8";
 _heli removeweapon "fza_agm114_14_8";
 _heli removeweapon "fza_agm114_1_4";
@@ -1864,7 +1872,8 @@ _heli removemagazines "fza_auxtank_230_4";
 //CM
 _heli removeMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
 //wait a beat for scripts to finish
-sleep 8;
+_heli vehiclechat "Rearming in progress (0%)...";
+uiSleep 75;
 //now add weaponry
 //what rockets are we using
 _pod1mag = "fza_m261_m151_1_19";
@@ -2304,6 +2313,8 @@ if(_zonecount23 == 6) then {_usecombined23 = 1;};
 
 //weapons
 //atas
+_heli vehiclechat "Rearming in progress (25%)...";
+uiSleep 75;
 if (fza_ah64_hardpoint1 > 0 && fza_ah64_fim92_qty > 3) then {_heli addmagazine "fza_atas_2"; _heli addweapon "fza_atas_2"; fza_ah64_fim92_qty = fza_ah64_fim92_qty - 4; _heliweight = _heliweight + 62.8;};
 //pairs
 if (fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 == 0 && _hp1differential == 4 && _hp4differential == 4 && fza_ah64_hardpoint3_ord1 == fza_ah64_hardpoint5_ord1) then {_heli addmagazine _hf14_8_mag; _heli addweapon "fza_agm114_14_8"; _heliweight = _heliweight + 130;};
@@ -2316,6 +2327,8 @@ if (fza_ah64_hardpoint3 == 1 && fza_ah64_hardpoint5 == 1 && _usecombined14 == 0)
 if (fza_ah64_hardpoint2 == 1 && fza_ah64_hardpoint4 == 1 && _usecombined23 == 0) then {_heli addmagazine _pod23magC; _heli addmagazine _pod23magD; _heli addmagazine _pod23magE; _heli addweapon "fza_m261_23_zoneC"; _heli addweapon "fza_m261_23_zoneD"; _heli addweapon "fza_m261_23_zoneE"; _heliweight = _heliweight + 78;};
 
 //singles
+_heli vehiclechat "Rearming in progress (50%)...";
+uiSleep 75;
 if (fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 != 0 && _hp1differential == 4 || fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 == 0 && _hp1differential != _hp4differential && _hp1differential == 4 || fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 == 0 && _hp1differential == _hp4differential && fza_ah64_hardpoint3_ord1 != fza_ah64_hardpoint5_ord1 && _hp1differential == 4) then {_heli addmagazine _hf1_4_mag; _heli addweapon "fza_agm114_1_4"; _heliweight = _heliweight + 65;};
 if (fza_ah64_hardpoint3 != 0 && fza_ah64_hardpoint5 == 0 && _hp4differential == 4 || fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 == 0 && _hp4differential != _hp1differential && _hp4differential == 4 || fza_ah64_hardpoint3 == 0 && fza_ah64_hardpoint5 == 0 && _hp1differential == _hp4differential && fza_ah64_hardpoint3_ord1 != fza_ah64_hardpoint5_ord1 && _hp4differential == 4) then {_heli addmagazine _hf4_4_mag; _heli addweapon "fza_agm114_4_4"; _heliweight = _heliweight + 65;};
 if (fza_ah64_hardpoint2 == 0 && fza_ah64_hardpoint4 != 0 && _hp2differential == 4 || fza_ah64_hardpoint2 == 0 && fza_ah64_hardpoint4 == 0 && _hp2differential != _hp3differential && _hp2differential == 4 || fza_ah64_hardpoint2 == 0 && fza_ah64_hardpoint4 == 0 && _hp2differential == _hp3differential && fza_ah64_hardpoint2_ord1 != fza_ah64_hardpoint4_ord1 && _hp2differential == 4) then {_heli addmagazine _hf2_4_mag; _heli addweapon "fza_agm114_2_4"; _heliweight = _heliweight + 65;};
@@ -2329,6 +2342,8 @@ if (fza_ah64_hardpoint4 == 0 && _hp3differential < 4) then {_heli addmagazine _h
 //single rails HP4//
 if (fza_ah64_hardpoint5 == 0 && _hp4differential < 4) then {_heli addmagazine _hf4_ur_mag; _heli addweapon "fza_agm114_4_ur"; _heli addmagazine _hf4_ul_mag; _heli addweapon "fza_agm114_4_ul"; _heli addmagazine _hf4_lr_mag; _heli addweapon "fza_agm114_4_lr"; _heli addmagazine _hf4_ll_mag; _heli addweapon "fza_agm114_4_ll"; _heliweight = _heliweight + 65;};
 //rockets
+_heli vehiclechat "Rearming in progress (75%)...";
+uiSleep 75;
 if (fza_ah64_hardpoint3 != -1 && fza_ah64_hardpoint3 == 1 && fza_ah64_hardpoint5 != 1) then {_heli addmagazine _pod1magA; _heli addmagazine _pod1magB; _heli addmagazine _pod1magE; _heli addweapon "fza_m261_1_zone1"; _heli addweapon "fza_m261_1_zone2"; _heli addweapon "fza_m261_1_zone3"; _heliweight = _heliweight + 39;};
 if (fza_ah64_hardpoint5 != -1 && fza_ah64_hardpoint5 == 1 && fza_ah64_hardpoint3 != 1) then {_heli addmagazine _pod4magA; _heli addmagazine _pod4magB; _heli addmagazine _pod4magE; _heli addweapon "fza_m261_4_zone1"; _heli addweapon "fza_m261_4_zone2"; _heli addweapon "fza_m261_4_zone3"; _heliweight = _heliweight + 39;};
 if (fza_ah64_hardpoint2 != -1 && fza_ah64_hardpoint2 == 1 && fza_ah64_hardpoint4 != 1) then {_heli addmagazine _pod2magC; _heli addmagazine _pod2magD; _heli addmagazine _pod2magE; _heli addweapon "fza_m261_2_zone1"; _heli addweapon "fza_m261_2_zone2"; _heli addweapon "fza_m261_2_zone3"; _heliweight = _heliweight + 39;};
@@ -2357,15 +2372,17 @@ _fuelweight = 1152 * (fza_ah64_fuelsave);
 fza_ah64_grossweight = _heliweight + _fuelweight;
 _heli setCustomWeightRTD _heliweight;
 
-sleep 0.5;
-
-_heli vehiclechat format ["Weapons loaded. Gross weight: %1kg",((weightRTD _heli select 0) + (weightRTD _heli select 3) + _fuelweight)];
+uiSleep 0.5;
 
 //fix the damned rocket salvo bug because weapon indexing broken//
 _heli removeweapon "fza_m230";
+_heli removeweapon "fza_ma_safe";
 _heli addweapon "fza_burstlimiter";
-sleep 0.1;
+uiSleep 0.1;
 _heli removeweapon "fza_burstlimiter";
-sleep 0.1;
+uiSleep 0.1;
 _heli addweapon "fza_m230";
-_heli selectweapon "fza_m230";
+_heli addweapon "fza_ma_safe";
+_heli selectweapon "fza_ma_safe";
+
+_heli vehiclechat format ["Rearming completed. Gross Weight (GW): %1kg",((weightRTD _heli select 0) + (weightRTD _heli select 3) + _fuelweight)];

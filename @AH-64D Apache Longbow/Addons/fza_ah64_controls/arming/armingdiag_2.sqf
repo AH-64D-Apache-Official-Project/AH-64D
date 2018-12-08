@@ -139,5 +139,5 @@ fza_ah64_weppoint1 = (ctrltext 105);
 fza_ah64_weppoint2 = (ctrltext 107);
 fza_ah64_weppoint3 = (ctrltext 117);
 fza_ah64_weppoint4 = (ctrltext 108);
-sleep 0.03;
+uiSleep 0.03;
 };

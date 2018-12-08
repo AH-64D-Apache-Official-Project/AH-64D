@@ -1704,7 +1704,12 @@ _rktformat2E = "";
 
 if(fza_ah64_pl_mpd == "wpn") then
 {
-_heli setobjecttexture [302,"\fza_ah64_us\tex\wpn.paa"];
+_heli setobjecttexture [302,"\fza_ah64_us\tex\WPN.paa"];
+
+	if(currentweapon _heli == "fza_ma_safe") then
+	{
+	_heli setobjecttexture [302,"\fza_ah64_us\tex\WPN_SAFE.paa"];} else {_heli setobjecttexture [302,"\fza_ah64_us\tex\WPN.paa"];};
+
 _heli setobjecttexture [478,_chaffformat1];
 _heli setobjecttexture [479,_chaffformat2];
 _heli setobjecttexture [480,_flareformat1];

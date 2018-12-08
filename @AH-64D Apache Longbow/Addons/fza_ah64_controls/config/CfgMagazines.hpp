@@ -10,6 +10,26 @@ class CfgMagazines
 		ammo = "fza_ah64_flare_shot";
 		initSpeed = 30;		
 	};
+	class fza_safe: VehicleMagazine
+	{
+		scope=2;
+		displayName="SAFE";
+		descriptionShort="SAFE";
+		ammo="fza_master";
+		count=1;
+		initSpeed=0;
+		tracersEvery=0;
+		nameSound="";
+	};
+	class fza_m230_300: VehicleMagazine
+	{
+		scope = 2;
+		displayName = "30mm HEDP";
+		ammo = "fza_30x113";
+		count = 300;
+		initSpeed = 805;
+		tracersevery = 0;
+	};	
 	class fza_m230_1200: VehicleMagazine
 	{
 		scope = 2;
@@ -1405,9 +1425,11 @@ class CfgMagazines
 		initSpeed = 850;
 		tracersevery = 0;
 	};
+	
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////DAMAGE//////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
+
 	class fza_ah64_tailrotor_dam: VehicleMagazine
 	{
 		scope = 2;

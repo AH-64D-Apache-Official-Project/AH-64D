@@ -2,7 +2,14 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
-*05/12/2018*
+*08/12/2018*
+- Reworked GUN FXD symbology.
+- Added Master Arm/Safe.
+- Retextured 230 GAL fuel tanks.
+- Added 300 rounds magazine by default.
+- Added refuel/repair and rearm delay.
+
+*07/12/2018*
 - Resized ASE threat circles.
 - Removed BARO ALT in Cruise mode from CPG's TADS view.
 - Fixed APU sounds on dedicated server.

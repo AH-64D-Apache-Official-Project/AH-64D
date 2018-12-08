@@ -80,7 +80,17 @@ class CfgAmmo
 		initTime = 0;
 		aiAmmoUsageFlags = 8;	
 	};
+	class fza_master: Default
+	{
+		airLock=1;
+		irLock=0;
+		laserLock=0;
+		nvLock=0;
+		artilleryLock=0;
+		lockType=0;
+		weaponLockSystem="0";
 
+	};
 	class fza_30x113: B_30mm_MP
 	{
 		ace_frag_enabled = 0;
