@@ -626,6 +626,14 @@ if(isManualFire _heli) then {_weapon = "PATA";};
 _weaponstate = format ["%1",_heli ammo (currentweapon _heli)];
 };
 
+
+if((currentweapon _heli == "fza_ma_safe") && player == driver _heli) then
+{
+_weapon = "";
+_weaponstate = "";
+};
+
+
 if((currentweapon _heli == "fza_m230") && player == driver _heli) then
 {
 _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";

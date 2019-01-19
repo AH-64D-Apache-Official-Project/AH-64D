@@ -358,7 +358,7 @@ class CfgVehicles
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 0.500000, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -370,7 +370,7 @@ class CfgVehicles
 				};
 				class RotorInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1.122018, 1};
+					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -558,7 +558,7 @@ class CfgVehicles
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 0.500000, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 1, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -570,7 +570,7 @@ class CfgVehicles
 				};
 				class RotorInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1.122018, 1};
+					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};

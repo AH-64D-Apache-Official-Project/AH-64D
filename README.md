@@ -2,6 +2,10 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*13/01/2019*
+- Minor sound tweaks.
+- Minor change to WPN page on LST & LRFD channels.
+
 *08/12/2018*
 - Reworked GUN FXD symbology.
 - Added Master Arm/Safe.
