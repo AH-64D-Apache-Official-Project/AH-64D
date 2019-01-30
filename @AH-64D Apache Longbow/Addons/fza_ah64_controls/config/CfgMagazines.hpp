@@ -3,12 +3,12 @@ class CfgMagazines
 	class Default {};
 	class CA_Magazine: Default {};
 	class VehicleMagazine: CA_Magazine {};
-	class 60Rnd_CMFlareMagazine: CA_Magazine 
+	class 60Rnd_CMFlareMagazine: CA_Magazine
 	{
 		author = "$STR_A3_Bohemia_Interactive";
 		count = 60;
 		ammo = "fza_ah64_flare_shot";
-		initSpeed = 30;		
+		initSpeed = 30;
 	};
 	class fza_safe: VehicleMagazine
 	{
@@ -29,7 +29,8 @@ class CfgMagazines
 		count = 300;
 		initSpeed = 805;
 		tracersevery = 0;
-	};	
+		weight = 104.78;
+	};
 	class fza_m230_1200: VehicleMagazine
 	{
 		scope = 2;
@@ -38,6 +39,7 @@ class CfgMagazines
 		count = 1200;
 		initSpeed = 805;
 		tracersevery = 0;
+		weight = 419.119;
 	};
 	class fza_atas_2: VehicleMagazine
 	{
@@ -48,6 +50,7 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 60;
 	};
 	class fza_agm114l_16: VehicleMagazine
 	{
@@ -58,98 +61,121 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 974.497848;
 	};
 	class fza_agm114l_23_8: fza_agm114l_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114l_14_8: fza_agm114l_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114l_1_4: fza_agm114l_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114l_1_ur: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_1_ul: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_1_ll: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_1_lr: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114l_2_4: fza_agm114l_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114l_2_ur: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_2_ul: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_2_ll: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_2_lr: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114l_3_4: fza_agm114l_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114l_3_ur: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_3_ul: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_3_ll: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_3_lr: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114l_4_4: fza_agm114l_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114l_4_ur: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_4_ul: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_4_ll: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114l_4_lr: fza_agm114l_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 //////////////////////////////////////114K/////////////////////////////////////////
 	class fza_agm114k_16: VehicleMagazine
@@ -161,98 +187,121 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 974.497848;
 	};
 	class fza_agm114k_23_8: fza_agm114k_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114k_14_8: fza_agm114k_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114k_1_4: fza_agm114k_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114k_1_ur: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_1_ul: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_1_ll: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_1_lr: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114k_2_4: fza_agm114k_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114k_2_ur: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_2_ul: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_2_ll: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_2_lr: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114k_3_4: fza_agm114k_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114k_3_ur: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_3_ul: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_3_ll: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_3_lr: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114k_4_4: fza_agm114k_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114k_4_ur: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_4_ul: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_4_ll: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114k_4_lr: fza_agm114k_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 //////////////////////////////////////114C/////////////////////////////////////////
 	class fza_agm114c_16: VehicleMagazine
@@ -264,98 +313,121 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 243.62446;
 	};
 	class fza_agm114c_23_8: fza_agm114c_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114c_14_8: fza_agm114c_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114c_1_4: fza_agm114c_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114c_1_ur: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_1_ul: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_1_ll: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_1_lr: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114c_2_4: fza_agm114c_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114c_2_ur: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_2_ul: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_2_ll: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_2_lr: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114c_3_4: fza_agm114c_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114c_3_ur: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_3_ul: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_3_ll: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_3_lr: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114c_4_4: fza_agm114c_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114c_4_ur: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_4_ul: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_4_ll: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114c_4_lr: fza_agm114c_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 //////////////////////////////////////114A/////////////////////////////////////////
 	class fza_agm114a_16: VehicleMagazine
@@ -367,98 +439,121 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 974.497848;
 	};
 	class fza_agm114a_23_8: fza_agm114a_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114a_14_8: fza_agm114a_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114a_1_4: fza_agm114a_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114a_1_ur: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_1_ul: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_1_ll: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_1_lr: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114a_2_4: fza_agm114a_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114a_2_ur: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_2_ul: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_2_ll: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_2_lr: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114a_3_4: fza_agm114a_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114a_3_ur: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_3_ul: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_3_ll: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_3_lr: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114a_4_4: fza_agm114a_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114a_4_ur: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_4_ul: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_4_ll: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114a_4_lr: fza_agm114a_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 //////////////////////////////////////114M/////////////////////////////////////////
 	class fza_agm114m_16: VehicleMagazine
@@ -474,94 +569,116 @@ class CfgMagazines
 	class fza_agm114m_23_8: fza_agm114m_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114m_14_8: fza_agm114m_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114m_1_4: fza_agm114m_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114m_1_ur: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_1_ul: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_1_ll: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_1_lr: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114m_2_4: fza_agm114m_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114m_2_ur: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_2_ul: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_2_ll: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_2_lr: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114m_3_4: fza_agm114m_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114m_3_ur: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_3_ul: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_3_ll: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_3_lr: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114m_4_4: fza_agm114m_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114m_4_ur: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_4_ul: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_4_ll: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114m_4_lr: fza_agm114m_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 //////////////////////////////////////114N/////////////////////////////////////////
 	class fza_agm114n_16: VehicleMagazine
@@ -573,98 +690,121 @@ class CfgMagazines
 		initSpeed = 150;
 		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 974.497848;
 	};
 	class fza_agm114n_23_8: fza_agm114n_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	class fza_agm114n_14_8: fza_agm114n_16
 	{
 		count = 8;
+		weight = 487.248924;
 	};
 	/////////////////////////pylon1/////////////////////////////////////
 	class fza_agm114n_1_4: fza_agm114n_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114n_1_ur: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_1_ul: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_1_ll: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_1_lr: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon2/////////////////////////////////////
 	class fza_agm114n_2_4: fza_agm114n_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114n_2_ur: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_2_ul: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_2_ll: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_2_lr: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon3/////////////////////////////////////
 	class fza_agm114n_3_4: fza_agm114n_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114n_3_ur: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_3_ul: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_3_ll: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_3_lr: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	/////////////////////////pylon4/////////////////////////////////////
 	class fza_agm114n_4_4: fza_agm114n_16
 	{
 		count = 4;
+		weight = 243.62446;
 	};
 	class fza_agm114n_4_ur: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_4_ul: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_4_ll: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 	class fza_agm114n_4_lr: fza_agm114n_16
 	{
 		count = 1;
+		weight = 108.09106;
 	};
 ///////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////ROCKETS//////////////////////////////////////
@@ -679,132 +819,164 @@ class CfgMagazines
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 952.544;
 	};
 	////////ZONES/////
 	class fza_m261_m151_14_zoneA: fza_m261_m151_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m151_14_zoneB: fza_m261_m151_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m151_23_zoneC: fza_m261_m151_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m151_23_zoneD: fza_m261_m151_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m151_14_zoneE: fza_m261_m151_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m151_23_zoneE: fza_m261_m151_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m151_1234_zoneE: fza_m261_m151_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	/////ZONES//////
 	class fza_m261_m151_14_38: fza_m261_m151_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m151_14_zone1_12: fza_m261_m151_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m151_14_zone2_4: fza_m261_m151_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m151_14_zone3_3: fza_m261_m151_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m151_23_38: fza_m261_m151_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m151_23_zone1_12: fza_m261_m151_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m151_23_zone2_4: fza_m261_m151_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m151_23_zone3_3: fza_m261_m151_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m151_1_19: fza_m261_m151_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m151_1_zone1_12: fza_m261_m151_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m151_1_zone2_4: fza_m261_m151_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m151_1_zone3_3: fza_m261_m151_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m151_2_19: fza_m261_m151_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m151_2_zone1_12: fza_m261_m151_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m151_2_zone2_4: fza_m261_m151_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m151_2_zone3_3: fza_m261_m151_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m151_3_19: fza_m261_m151_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m151_3_zone1_12: fza_m261_m151_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m151_3_zone2_4: fza_m261_m151_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m151_3_zone3_3: fza_m261_m151_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m151_4_19: fza_m261_m151_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m151_4_zone1_12: fza_m261_m151_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m151_4_zone2_4: fza_m261_m151_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m151_4_zone3_3: fza_m261_m151_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 ////////////////////////////////////////////////////////////////////////
 ////////////////M229////////////////////////////////////////////////////
@@ -819,132 +991,164 @@ class CfgMagazines
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 952.544;
 	};
 	////////ZONES/////
 	class fza_m261_m229_14_zoneA: fza_m261_m229_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m229_14_zoneB: fza_m261_m229_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m229_23_zoneC: fza_m261_m229_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m229_23_zoneD: fza_m261_m229_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m229_14_zoneE: fza_m261_m229_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m229_23_zoneE: fza_m261_m229_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m229_1234_zoneE: fza_m261_m229_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	/////ZONES//////
 	class fza_m261_m229_14_38: fza_m261_m229_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m229_14_zone1_12: fza_m261_m229_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m229_14_zone2_4: fza_m261_m229_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m229_14_zone3_3: fza_m261_m229_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m229_23_38: fza_m261_m229_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m229_23_zone1_12: fza_m261_m229_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m229_23_zone2_4: fza_m261_m229_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m229_23_zone3_3: fza_m261_m229_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m229_1_19: fza_m261_m229_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m229_1_zone1_12: fza_m261_m229_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m229_1_zone2_4: fza_m261_m229_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m229_1_zone3_3: fza_m261_m229_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m229_2_19: fza_m261_m229_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m229_2_zone1_12: fza_m261_m229_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m229_2_zone2_4: fza_m261_m229_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m229_2_zone3_3: fza_m261_m229_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m229_3_19: fza_m261_m229_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m229_3_zone1_12: fza_m261_m229_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m229_3_zone2_4: fza_m261_m229_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m229_3_zone3_3: fza_m261_m229_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m229_4_19: fza_m261_m229_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m229_4_zone1_12: fza_m261_m229_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m229_4_zone2_4: fza_m261_m229_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m229_4_zone3_3: fza_m261_m229_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -960,132 +1164,164 @@ class CfgMagazines
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 952.544;
 	};
 	////////ZONES/////
 	class fza_m261_m255_14_zoneA: fza_m261_m255_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m255_14_zoneB: fza_m261_m255_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m255_23_zoneC: fza_m261_m255_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m255_23_zoneD: fza_m261_m255_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m255_14_zoneE: fza_m261_m255_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m255_23_zoneE: fza_m261_m255_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m255_1234_zoneE: fza_m261_m255_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	/////ZONES//////
 	class fza_m261_m255_14_38: fza_m261_m255_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m255_14_zone1_12: fza_m261_m255_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m255_14_zone2_4: fza_m261_m255_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m255_14_zone3_3: fza_m261_m255_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m255_23_38: fza_m261_m255_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m255_23_zone1_12: fza_m261_m255_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m255_23_zone2_4: fza_m261_m255_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m255_23_zone3_3: fza_m261_m255_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m255_1_19: fza_m261_m255_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m255_1_zone1_12: fza_m261_m255_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m255_1_zone2_4: fza_m261_m255_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m255_1_zone3_3: fza_m261_m255_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m255_2_19: fza_m261_m255_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m255_2_zone1_12: fza_m261_m255_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m255_2_zone2_4: fza_m261_m255_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m255_2_zone3_3: fza_m261_m255_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m255_3_19: fza_m261_m255_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m255_3_zone1_12: fza_m261_m255_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m255_3_zone2_4: fza_m261_m255_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m255_3_zone3_3: fza_m261_m255_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m255_4_19: fza_m261_m255_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m255_4_zone1_12: fza_m261_m255_76
 	{
 		count = 12;
+		weight = 165.108;
 	};
 	class fza_m261_m255_4_zone2_4: fza_m261_m255_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m255_4_zone3_3: fza_m261_m255_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 ////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
@@ -1101,132 +1337,164 @@ class CfgMagazines
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 952.544;
 	};
 	////////ZONES/////
 	class fza_m261_m261_14_zoneA: fza_m261_m261_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m261_14_zoneB: fza_m261_m261_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m261_23_zoneC: fza_m261_m261_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m261_23_zoneD: fza_m261_m261_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m261_14_zoneE: fza_m261_m261_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m261_23_zoneE: fza_m261_m261_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m261_1234_zoneE: fza_m261_m261_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	/////ZONES//////
 	class fza_m261_m261_14_38: fza_m261_m261_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m261_14_zone1_12: fza_m261_m261_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m261_14_zone2_4: fza_m261_m261_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m261_14_zone3_3: fza_m261_m261_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m261_23_38: fza_m261_m261_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m261_23_zone1_12: fza_m261_m261_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m261_23_zone2_4: fza_m261_m261_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m261_23_zone3_3: fza_m261_m261_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m261_1_19: fza_m261_m261_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m261_1_zone1_12: fza_m261_m261_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m261_1_zone2_4: fza_m261_m261_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m261_1_zone3_3: fza_m261_m261_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m261_2_19: fza_m261_m261_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m261_2_zone1_12: fza_m261_m261_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m261_2_zone2_4: fza_m261_m261_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m261_2_zone3_3: fza_m261_m261_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m261_3_19: fza_m261_m261_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m261_3_zone1_12: fza_m261_m261_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m261_3_zone2_4: fza_m261_m261_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m261_3_zone3_3: fza_m261_m261_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m261_4_19: fza_m261_m261_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m261_4_zone1_12: fza_m261_m261_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m261_4_zone2_4: fza_m261_m261_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m261_4_zone3_3: fza_m261_m261_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 ////////////////////////////////////////////////////////////////////////
 ///////////////////////////////M257/////////////////////////////////////
@@ -1241,132 +1509,164 @@ class CfgMagazines
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		weight = 952.544;
 	};
 	////////ZONES/////
 	class fza_m261_m257_14_zoneA: fza_m261_m257_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m257_14_zoneB: fza_m261_m257_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m257_23_zoneC: fza_m261_m257_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m257_23_zoneD: fza_m261_m257_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m257_14_zoneE: fza_m261_m257_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m257_23_zoneE: fza_m261_m257_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m257_1234_zoneE: fza_m261_m257_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	/////ZONES//////
 	class fza_m261_m257_14_38: fza_m261_m257_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m257_14_zone1_12: fza_m261_m257_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m257_14_zone2_4: fza_m261_m257_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m257_14_zone3_3: fza_m261_m257_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m257_23_38: fza_m261_m257_76
 	{
 		count = 38;
+		weight = 476.272;
 	};
 	class fza_m261_m257_23_zone1_12: fza_m261_m257_76
 	{
 		count = 24;
+		weight = 330.215;
 	};
 	class fza_m261_m257_23_zone2_4: fza_m261_m257_76
 	{
 		count = 8;
+		weight = 123.377;
 	};
 	class fza_m261_m257_23_zone3_3: fza_m261_m257_76
 	{
 		count = 6;
+		weight = 102.512;
 	};
 	class fza_m261_m257_1_19: fza_m261_m257_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m257_1_zone1_12: fza_m261_m257_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m257_1_zone2_4: fza_m261_m257_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m257_1_zone3_3: fza_m261_m257_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m257_2_19: fza_m261_m257_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m257_2_zone1_12: fza_m261_m257_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m257_2_zone2_4: fza_m261_m257_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m257_2_zone3_3: fza_m261_m257_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m257_3_19: fza_m261_m257_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m257_3_zone1_12: fza_m261_m257_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m257_3_zone2_4: fza_m261_m257_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m257_3_zone3_3: fza_m261_m257_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 	class fza_m261_m257_4_19: fza_m261_m257_76
 	{
 		count = 19;
+		weight = 238.136;
 	};
 	class fza_m261_m257_4_zone1_12: fza_m261_m257_76
 	{
 		count = 12;
+		weight = 165.107;
 	};
 	class fza_m261_m257_4_zone2_4: fza_m261_m257_76
 	{
 		count = 4;
+		weight = 81.6466;
 	};
 	class fza_m261_m257_4_zone3_3: fza_m261_m257_76
 	{
 		count = 3;
+		weight = 71.2139;
 	};
 ////////////////////////////////////////////////////////////////////////
 //////////////////////////////FUEL TANKS////////////////////////////////
@@ -1379,6 +1679,7 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 320.6;
 	};
 	class fza_iafs_130: VehicleMagazine
 	{
@@ -1388,6 +1689,7 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 320.6;
 	};
 	class fza_auxtank_230_1: VehicleMagazine
 	{
@@ -1397,6 +1699,7 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 698.9858;
 	};
 	class fza_auxtank_230_2: VehicleMagazine
 	{
@@ -1406,6 +1709,7 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 698.9858;
 	};
 	class fza_auxtank_230_3: VehicleMagazine
 	{
@@ -1415,6 +1719,7 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 698.9858;
 	};
 	class fza_auxtank_230_4: VehicleMagazine
 	{
@@ -1424,8 +1729,9 @@ class CfgMagazines
 		count = 1;
 		initSpeed = 850;
 		tracersevery = 0;
+		weight = 698.9858;
 	};
-	
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////DAMAGE//////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////

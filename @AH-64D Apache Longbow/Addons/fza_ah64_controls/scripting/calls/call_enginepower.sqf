@@ -14,38 +14,38 @@ while {fza_ah64_estarted} do
   {
     if(!_e1Started) then
     {
-      _heli setWantedRPMRTD [13500, 30, 0];
+      _heli setWantedRPMRTD [14776, 30, 0];
       _e1Started = true;
     };
     if(_e1Started && (_e1SC == 60)) then
     {
-      _heli setWantedRPMRTD [13500, 10, 0];
+      _heli setWantedRPMRTD [14776, 10, 0];
       _e1FP = true;
     };
   };
 
   if((_heli animationphase "plt_eng1_throttle" > 0.95) && _e1FP) then
   {
-    _heli setWantedRPMRTD [20000, 7, 0];
+    _heli setWantedRPMRTD [21109, 7, 0];
   };
 
   if((_heli animationphase "plt_eng2_throttle" > 0.2) && (_heli animationphase "plt_eng2_throttle" < 0.95) && (!(_e1Started && (_e1SC < 60)) || _e2FP)) then
   {
     if(!_e2Started) then
     {
-      _heli setWantedRPMRTD [13500, 30, 1];
+      _heli setWantedRPMRTD [14776, 30, 1];
       _e2Started = true;
     };
     if(_e2Started && (_e2SC == 60)) then
     {
-      _heli setWantedRPMRTD [13500, 10, 1];
+      _heli setWantedRPMRTD [14776, 10, 1];
       _e2FP = true;
     };
   };
 
   if((_heli animationphase "plt_eng2_throttle" > 0.95) && _e2FP) then
   {
-    _heli setWantedRPMRTD [20000, 7, 1];
+    _heli setWantedRPMRTD [21109, 7, 1];
   };
 
   if(_heli animationphase "plt_eng1_throttle" == 0) then
@@ -77,8 +77,8 @@ _heli animate ["tads_stow",1];
 
 
 
-  
-  
+
+
   if ((_e1SC < 60) && (_e1Started)) then
   {
     _e1SC = _e1SC + 1;
