@@ -41,9 +41,7 @@ if((weightRTD _heli select 3) == 0) then
 {
 if(typeof _heli == "fza_ah64d_b2e") then
 {
-_heli setCustomWeightRTD 1561.8;
-} else {
-_heli setCustomWeightRTD 1311.8;
+_heli setCustomWeightRTD 295;
 };
 };
 
@@ -1929,5 +1927,3 @@ _heli setobjecttexture [269,""];
 };
 sleep 0.03;
 };
-
-

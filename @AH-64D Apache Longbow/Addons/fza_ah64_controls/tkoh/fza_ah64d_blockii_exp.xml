@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <GenHeli600 version="1.0">
 
-  <Mass mass="5460"/>
+  <Mass mass="6087.1533"/>
 	<MomentsOfInertia Ixx="27449" Iyy="5316" Izz="27665" Iyz="3166"/>
 	<CenterOfGravity x="0.0" y="0.108" z="-0.272" />
 
@@ -185,7 +185,7 @@
 		180	0.000
 	</LiftDueToAoA>
 
-	<DragDueToAoA scale="1.5"  >
+	<DragDueToAoA scale="1.1"  >
 		-180	1.995
 		-170	2.291
 		-160	3.142
@@ -540,7 +540,7 @@
 		  YawSAS = clamp(yawRateRad * 3, -0.1 , 0.1 ),
 
           latCyclic = latCyclic - RollSAS - collective * 0.2 - FPSR + pedals * 0.15,
-		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
+		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.25 + collective * 0.60 - pedals * 0.06 + FPSP,
 		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY,
 
 
@@ -562,7 +562,7 @@
           Th0m = degToRad(Th0m),
           Th0t = degToRad(Th0t),
 
-          profondeur = lonCyclic*10 + 3.5/clamp(Vms, 1, 999),
+          profondeur = lonCyclic*10 + 4.5/clamp(Vms, 1, 999),
           mainRotorBrake = rotorBrake
 
         </Expression>
