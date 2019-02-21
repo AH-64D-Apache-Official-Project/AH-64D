@@ -1,11 +1,7 @@
 <?xml version="1.0"?>
 <GenHeli600 version="1.0">
 
-<<<<<<< HEAD
   <Mass mass="6087.20"/>
-=======
-  <Mass mass="6087.1533"/>
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
 	<MomentsOfInertia Ixx="27449" Iyy="5316" Izz="27665" Iyz="3166"/>
 	<CenterOfGravity x="0.0" y="0.108" z="-0.272" />
 
@@ -189,11 +185,7 @@
 		180	0.000
 	</LiftDueToAoA>
 
-<<<<<<< HEAD
 	<DragDueToAoA scale="1.0"  >
-=======
-	<DragDueToAoA scale="1.1"  >
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
 		-180	1.995
 		-170	2.291
 		-160	3.142
@@ -431,22 +423,14 @@
       <!--	Note: Too little inertia causes problems if the drive train is damaged. W/o loads. engine controller is not
             		able to operate correctly. -->
       <General inertia="8.14" />
-<<<<<<< HEAD
       <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
-=======
-      <Performance emergencyPowerHP="1940" maxTorque="626" rotationResistance="0.000000"/>
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
       <ControllerParams P="1.0" I="1.5" D="0.1" offset="150" targetRPM="21109" />
 		</Engine>
 
     <Engine type="ConstantRPMEngine">
       <DebugInfo printDebugInfo="false" />
 		 	<General inertia="8.14" />
-<<<<<<< HEAD
       <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
-=======
-      <Performance emergencyPowerHP="1940" maxTorque="626" rotationResistance="0.000000"/>
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
       <ControllerParams P="1.0" I="1.5" D="0.1" offset="150" targetRPM="21109" />
 		</Engine>
 
@@ -454,9 +438,9 @@
 
   <DriveTrains>
     <DriveTrain type="GenericDriveTrain">
-      <TorqueLimits emergency="1252"/>
+      <TorqueLimits emergency="3200"/>
       <GearBox gearRatios="1" reverseGearRatio="1"/>
-      <Clutch isFreewheeling="true" maxClutchTorque="1108"/>
+      <Clutch isFreewheeling="true" maxClutchTorque="2860"/>
       <Engine index="0"/>
       <Engine index="1"/>
       <Load gearRatio="72.291" name="MainRotor"/>
@@ -483,21 +467,13 @@
 
       <PitchRateController printDebugInfo="false">
         <PID P="0.06"  I="0.01" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-<<<<<<< HEAD
         <MaxPitchRate maxPitchRate="45" />
-=======
-        <MaxPitchRate maxPitchRate="360" />
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
         <InputMapping nonlinearity="1" />
       </PitchRateController>
 
       <RollRateController printDebugInfo="false">
         <PID P="0.01"  I="0.04" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-<<<<<<< HEAD
         <MaxRollRate maxRollRate="60" />
-=======
-        <MaxRollRate maxRollRate="360" />
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
         <InputMapping nonlinearity="1" />
       </RollRateController>
 
@@ -505,13 +481,8 @@
 
 	<CSComponent type="FCSRotationDamper">
   <YawController P="1.0" D="0.01"/>
-<<<<<<< HEAD
   <PitchController P="1.0" D="0.001"/>
   <RollController P="0.5" D="0.001"/>
-=======
-  <PitchController P="0.2" D="0.001"/>
-  <RollController P="0.2" D="0.001"/>
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
  </CSComponent>
 
     <CSComponent type="GenericControlSystem">
@@ -573,7 +544,6 @@
 		<Variable alias="mod" dataType="REAL" name="mod"/>
         <!-- <Variable alias="myVar" dataType="REAL" name="myVar"/> -->
       </Variables>
-<<<<<<< HEAD
 	   <!--
 	      A1m = linearInterp(-12.5, 20, (latCyclic * 1.0) * 0.5),
           A1m = latCyclic * 10,
@@ -583,13 +553,10 @@
           B1m = lonCyclic * 20,
           B1m = clamp( B1m , -13 , 18 ),
 		  -->
-=======
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
 
       <MathExpression>
         <Expression>
 
-<<<<<<< HEAD
 		  FPSY =  clamp(Cms * (Vms/60), -0.1, 0.1),
 		  FPSP =  clamp((pitchRateRad/3) * (Vms/60), -0.1, 0.1),
 		  FPSR =  clamp(rollRateRad * 0.02 * (Vms/60), -0.1, 0.1),
@@ -597,32 +564,15 @@
 		  PSAS = 0,
 		  RollSAS = 0,
 		  YawSAS = 0,
-=======
-		  FPSY =  clamp(Cms * (Vms/30), -0.2, 0.2),
-		  FPSP =  clamp((pitchRateRad/3) * (Vms/60), -0.2, 0.2),
-		  FPSR =  clamp(rollRateRad * 0.02 * (Vms/60), -0.2, 0.2),
-
-		  PSAS = clamp(pitchRateRad * 0.15, -0.1 , 0.1 ),
-		  RollSAS = clamp(rollRateRad * 0.075, -0.1 , 0.1 ),
-		  YawSAS = clamp(yawRateRad * 3, -0.1 , 0.1 ),
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
 
           latCyclic = latCyclic - RollSAS - collective * 0.2 - FPSR + pedals * 0.15,
-		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.25 + collective * 0.60 - pedals * 0.06 + FPSP,
+		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
 		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY,
 
-<<<<<<< HEAD
 		  A1m = latCyclic * 10,
           A1m = clamp( A1m , -12.5 , 20 ),
 
           B1m = lonCyclic * 20,
-=======
-
-          A1m = latCyclic * 11,
-          A1m = clamp( A1m , -12.5 , 20 ),
-
-          B1m = lonCyclic * 22,
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
           B1m = clamp( B1m , -13 , 18 ),
 
           Th0m= collective * 13 + 6.5,
@@ -637,7 +587,6 @@
           Th0m = degToRad(Th0m),
           Th0t = degToRad(Th0t),
 
-<<<<<<< HEAD
 		  a = 30,
 		  b = -1.5,
 		  c = -12,
@@ -661,10 +610,6 @@
 		  profondeur = clamp(profondeur, -5, 25),
 
 		  mainRotorBrake = rotorBrake
-=======
-          profondeur = lonCyclic*10 + 4.5/clamp(Vms, 1, 999),
-          mainRotorBrake = rotorBrake
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
 
         </Expression>
 
@@ -682,11 +627,7 @@
       <Geometry>
         <Position x="0" y="0.353" z="1.42"/>
         <Tilt lateralTilt="0.0" longitudinalTilt="0.0"/>
-<<<<<<< HEAD
         <Blades chord="0.5334" rootCutout="0.9" count="4" flappingHingeHigherLimit="25" flappingHingeLowerLimit="-6" hingeOffset=".32385" radius="7.3152"/>
-=======
-        <Blades chord="0.5334" rootCutout="0.9" count="4" flappingHingeHigherLimit="25" flappingHingeLowerLimit="-6" hingeOffset="0.32385" radius="7.3152"/>
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
         <Rotation clockwise="false"/>
       </Geometry>
 
@@ -930,10 +871,6 @@
         </VortexRingState>
 
         <DesignRPM rpm="292"/>
-<<<<<<< HEAD
-=======
-        <Controls swashPlatePhaseAngle="-10" />
->>>>>>> 3dbc1e59e543d54461c9960f1bd0f14e355402c2
         <Blades twist="-9" tipLossFactor="0.03"> <!--3.5 degrees of difference due to linearisation: add it to collective -->
            <LiftCoefficient>
                       0           0.4           1.0           1.1          1.2          1.5           20
