@@ -2,6 +2,11 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*21/02/2019*
+- AFM update - by Keplager and BradMick
+- Couple sounds tweaking.
+- Possible M230 performance fix.
+
 *13/01/2019*
 - Minor sound tweaks.
 - Minor change to WPN page on LST & LRFD channels.
