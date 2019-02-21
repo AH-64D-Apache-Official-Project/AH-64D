@@ -110,16 +110,17 @@ waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == pla
 
 if(_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng1_throttle" == 0.25) then
 {
-_e1rpm = (0.44 * _e1addcounter);
+//_e1rpm = (0.44 * _e1addcounter);
+_e1rpm = ((enginesRpmRTD _heli) select 0);
 _e1tgt = (0.479 * _e1addcounter);
 _e1opsi = (80 * _e1addcounter);
 _e1addcounter = _e1addcounter + 0.001;
 if(_e1addcounter > 1) then {_e1addcounter = 1;};
 if(_e1tgt > 0.479) then {_e1tgt = 0.479;};
-if(_e1rpm > 0.44) then {_e1rpm = 0.44;};
+//if(_e1rpm > 0.44) then {_e1rpm = 0.44;};
 if(_e1opsi > 80) then {_e1opsi = 80;};
 } else {
-_e1rpm = _e1rpm - 0.002;
+//_e1rpm = _e1rpm - 0.002;
 _e1tgt = _e1tgt - 0.001;
 _e1opsi = _e1opsi - 0.1;
 _e1addcounter = _e1addcounter - 0.002;
@@ -131,11 +132,12 @@ if(_e1opsi < 0) then {_e1opsi = 0;};
 
 if(isEngineOn _heli && _heli animationphase "plt_eng1_throttle" == 1) then
 {
-_e1rpm = (0.44 * _e1addcounter);
+//_e1rpm = (0.44 * _e1addcounter);
+_e1rpm = ((enginesRpmRTD _heli) select 0);
 _e1tgt = (0.479 * _e1addcounter);
 _e1opsi = (80 * _e1addcounter);
 _e1addcounter = _e1addcounter + 0.025;
-if(_e1rpm > 0.44) then {_e1rpm = 1.01;};
+//if(_e1rpm > 0.44) then {_e1rpm = 1.01;};
 if(_e1tgt > 0.536) then {_e1tgt = 0.536;};
 if(_e1opsi > 80) then {_e1opsi = 80;};
 };
@@ -145,16 +147,18 @@ if(_e1opsi > 80) then {_e1opsi = 80;};
 //ENG2 START
 
 if(_heli animationphase "plt_eng2_start" == 1 || _heli animationphase "plt_eng2_throttle" == 0.25) then
-{_e2rpm = (0.44 * _e2addcounter);
+{//_e2rpm = (0.44 * _e2addcounter);
+_e2rpm = ((enginesRpmRTD _heli) select 1);
 _e2tgt = (0.479 * _e2addcounter);
 _e2opsi = (81 * _e2addcounter);
 _e2addcounter = _e2addcounter + 0.001;
 if(_e2addcounter > 1) then {_e2addcounter = 1;};
 if(_e2tgt > 0.479) then {_e2tgt = 0.479;};
-if(_e2rpm > 0.44) then {_e2rpm = 0.44;};
+//if(_e2rpm > 0.44) then {_e2rpm = 0.44;};
 if(_e2opsi > 81) then {_e2opsi = 81;};
 } else {
-_e2rpm = _e2rpm - 0.002;
+//_e2rpm = _e2rpm - 0.002;
+_e2rpm = ((enginesRpmRTD _heli) select 1);
 _e2tgt = _e2tgt - 0.001;
 _e2opsi = _e2opsi - 0.1;
 _e2addcounter = _e2addcounter - 0.002;
@@ -166,11 +170,12 @@ if(_e2opsi < 0) then {_e2opsi = 0;};
 
 if(isEngineOn _heli && _heli animationphase "plt_eng2_throttle" == 1) then
 {
-_e2rpm = (0.44 * _e2addcounter);
+//_e2rpm = (0.44 * _e2addcounter);
+_e2rpm = ((enginesRpmRTD _heli) select 1);
 _e2tgt = (0.479 * _e2addcounter);
 _e2opsi = (81 * _e2addcounter);
 _e2addcounter = _e2addcounter + 0.025;
-if(_e2rpm > 0.44) then {_e2rpm = 1.01;};
+//if(_e2rpm > 0.44) then {_e2rpm = 1.01;};
 if(_e2tgt > 0.536) then {_e2tgt = 0.536;};
 if(_e2opsi > 81) then {_e2opsi = 81;};
 };
@@ -228,12 +233,43 @@ if(_e2trq > 0 && _e2trq < 100) then {_e2trqchar = "\fza_ah64_us\tex\char\g"; _e2
 if(_e2trq > 101 && _e2trq < 115) then {_e2trqchar = "\fza_ah64_us\tex\char\y"; _e2trqtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
 if(_e2trq > 115) then {_e2trqchar = "\fza_ah64_us\tex\char\r"; _e2trqtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
 
-//_e1trqformat1 = [_e1trq,_e1trqchar] call fza_ah64_digit;
-_e1trqformat2 = [_e1trq,_e1trqchar] call fza_ah64_digitten;
-//_e2trqformat1 = [_e2trq,_e2trqchar] call fza_ah64_digit;
-_e2trqformat2 = [_e2trq,_e2trqchar] call fza_ah64_digitten;
+_e1trqformat3 = [_e1trq,_e1trqchar] call fza_ah64_digit;
+if (_e1trq > 9) then
+{
+    _e1trqformat2 = [_e1trq,_e1trqchar] call fza_ah64_digitten;
+}
+else
+{
+    _e1trqformat2 = "";
+};
+if (_e1trq > 99) then
+{
+    _e1trqformat1 = [_e1trq,_e1trqchar] call fza_ah64_digithun;
+}
+else
+{
+    e1trqformat1 = "";
+};
+_e2trqformat3 = [_e2trq,_e2trqchar] call fza_ah64_digit;
+if (_e2trq > 9) then
+{
+    _e2trqformat2 = [_e2trq,_e2trqchar] call fza_ah64_digitten;
+}
+else
+{
+    e2trqformat2 = "";
+};
+if (_e2trq > 99) then
+{
+    _e2trqformat1 = [_e1trq,_e1trqchar] call fza_ah64_digithun;
+}
+else
+{
+    _e2trqformat1 = "";
+};
 
-_e1percent = round(_e1rpm*100);
+//_e1percent = round(_e1rpm*100);
+_e1percent = _e1rpm/209;
 _e1rpmchar = "\fza_ah64_us\tex\char\g";
 _e1rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 //if(_e1percent < 40 || _e1percent > 105) then {_e1rpmchar = "\fza_ah64_us\tex\char\y"; _e1rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
@@ -243,7 +279,8 @@ _e1npformat1 = [_e1percent,_e1rpmchar] call fza_ah64_digithun;
 _e1npformat2 = [_e1percent,_e1rpmchar] call fza_ah64_digitten;
 _e1npformat3 = [_e1percent,_e1rpmchar] call fza_ah64_digit;
 
-_e2percent = round(_e2rpm*100);
+//_e2percent = round(_e2rpm*100);
+_e2percent = _e2rpm/209;
 _e2rpmchar = "\fza_ah64_us\tex\char\g";
 _e2rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 //if(_e2percent < 40 || _e2percent > 105) then {_e2rpmchar = "\fza_ah64_us\tex\char\y"; _e2rpmtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
@@ -287,7 +324,7 @@ _e2opsiformat1 = [_e2opsi,_e2opsichar] call fza_ah64_digithun;
 _e2opsiformat2 = [_e2opsi,_e2opsichar] call fza_ah64_digitten;
 _e2opsiformat3 = [_e2opsi,_e2opsichar] call fza_ah64_digit;
 
-_e1ng = round(_e1rpm*835);
+_e1ng = round((_e1rpm/20900)*835);
 _e1ngchar = "\fza_ah64_us\tex\char\g";
 if(_e1ng > 1023 && _e1ng < 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\y"; _e1ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
 if(_e1ng < 630 || _e1ng > 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\r"; _e1ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
@@ -296,7 +333,7 @@ _e1ngformat1 = [_e1ng,_e1ngchar] call fza_ah64_digithun;
 _e1ngformat2 = [_e1ng,_e1ngchar] call fza_ah64_digitten;
 _e1ngformat3 = [_e1ng,_e1ngchar] call fza_ah64_digit;
 
-_e2ng = round(_e2rpm*835);
+_e2ng = round((_e2rpm/20900)*835);
 _e2ngchar = "\fza_ah64_us\tex\char\g";
 if(_e2ng > 1023 && _e2ng < 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\y"; _e2ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
 if(_e2ng < 630 || _e2ng > 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\r"; _e2ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
@@ -395,9 +432,9 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [843,_e2tgtformat3];
 		_heli setobjecttexture [844,_e2tgtformat2];
 		_heli setobjecttexture [845,_e2tgtformat1];
-		//_heli setobjecttexture [848,_e1trqformat1];
+		_heli setobjecttexture [848,_e1trqformat3];
 		_heli setobjecttexture [849,_e1trqformat2];
-		//_heli setobjecttexture [852,_e2trqformat1];
+		_heli setobjecttexture [852,_e2trqformat3];
 		_heli setobjecttexture [853,_e2trqformat2];
 		_heli setobjecttexture [857,_ahydformat4];
 		_heli setobjecttexture [858,_ahydformat3];
@@ -414,15 +451,15 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [869,_e1ngformat3];
 		_heli setobjecttexture [870,_e1ngformat2];
 		_heli setobjecttexture [871,_e1ngformat1];
-		_heli setobjecttexture [872,_e1ngformat3];
-		_heli setobjecttexture [873,_e1ngformat2];
-		_heli setobjecttexture [874,_e1ngformat1];
+		_heli setobjecttexture [872,_e2ngformat3];
+		_heli setobjecttexture [873,_e2ngformat2];
+		_heli setobjecttexture [874,_e2ngformat1];
 		_heli setobjecttexture [875,_e1npformat3];
 		_heli setobjecttexture [876,_e1npformat2];
 		_heli setobjecttexture [877,_e1npformat1];
-		_heli setobjecttexture [878,_e1npformat3];
-		_heli setobjecttexture [879,_e1npformat2];
-		_heli setobjecttexture [880,_e1npformat1];
+		_heli setobjecttexture [878,_e2npformat3];
+		_heli setobjecttexture [879,_e2npformat2];
+		_heli setobjecttexture [880,_e2npformat1];
 		_heli setobjecttexture [881,_e1opsiformat3];
 		_heli setobjecttexture [882,_e1opsiformat2];
 		_heli setobjecttexture [883,_e1opsiformat1];

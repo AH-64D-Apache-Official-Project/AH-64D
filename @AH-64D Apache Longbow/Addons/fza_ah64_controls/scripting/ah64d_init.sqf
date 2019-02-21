@@ -1,18 +1,6 @@
 ///MASTER INIT FOR AH-64D///
 _heli = _this select 0;
-//_heli removeweapon "fza_m230";
-//_heli addweapon "fza_m230";
 _heli selectweapon "fza_ma_safe";
-
-// AH-64D AIRBORNE DOOR FIX
-/* connectionFirstTime = true;
-onPlayerConnected {
-    if (connectionFirstTime == true) {
-        _heli animate ["pdoor",1];
-        _heli animate ["gdoor",1];
-        connectionFirstTime = false;
-    };
-}; */
 
 // ENABLE/DISABLE CPG CONTROLS
 if (isCopilotEnabled _heli) then {
@@ -41,9 +29,7 @@ if((weightRTD _heli select 3) == 0) then
 {
 if(typeof _heli == "fza_ah64d_b2e") then
 {
-_heli setCustomWeightRTD 1561.8;
-} else {
-_heli setCustomWeightRTD 1311.8;
+_heli setCustomWeightRTD 295;
 };
 };
 
@@ -53,7 +39,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_fx_init = true;
 	fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
 
-	fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
+	//fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
 
 	fza_ah64_fx_rktmsl=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fx_rkt_msl.sqf";
 	fza_ah64_rocketalign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
@@ -1929,5 +1915,3 @@ _heli setobjecttexture [269,""];
 };
 sleep 0.03;
 };
-
-

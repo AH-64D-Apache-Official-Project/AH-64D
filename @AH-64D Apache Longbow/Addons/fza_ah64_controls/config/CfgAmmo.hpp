@@ -52,13 +52,10 @@ class fza_CounterMeasureFlare
 
 class CfgAmmo
 {
-	class Default{};
-	class BulletCore : Default{};
-	class BulletBase : BulletCore{};
-	class B_30mm_MP: BulletBase
-	{
-		ace_frag_skip = 1;
-	};
+	class Default {};
+	class BulletCore : Default {};
+	class BulletBase : BulletCore {};
+	class B_20mm: BulletBase {};
 	class RocketCore: Default {};
 	class RocketBase: RocketCore {};
 	class MissileCore : Default {};
@@ -91,24 +88,14 @@ class CfgAmmo
 		weaponLockSystem="0";
 
 	};
-	class fza_30x113: B_30mm_MP
+	class fza_30x113: B_20mm
 	{
-		ace_frag_enabled = 0;
-		ace_frag_skip = 1;	
-		hit=80;
-		indirectHit=40;
-		indirectHitRange=5;
-		cost=50;
-		explosive = 1;
-		timeToLive=8;
-		tracerstarttime = 0;
+		//hit=80;
+		//indirectHit=40;
+		//indirectHitRange=5;
 		typicalspeed = 805;
-		CraterEffects = "GrenadeCrater";
-		explosionEffects = "ExploAmmoExplosion";
+		ExplosionEffects = "HEShellExplosion";
 		muzzleeffect = "fza_ah64_fx_30mm";
-		tracerColor[] = {0.800000,0.100000,0.100000,0.040000};
-		tracerColorR[] = {0.800000,0.100000,0.100000,0.040000};
-		model = "\A3\Weapons_f\Data\bullettracer\tracer_red";
 	};
 	class fza_agm114l : MissileBase
 	{
@@ -222,9 +209,9 @@ class CfgAmmo
 		minRange=100;
 		minRangeProbab=0.200000;
 		midRange=750;
-		midRangeProbab=0.200000;
+		midRangeProbab=0.800000;
 		maxRange=2000;
-		maxRangeProbab=0.050000;
+		maxRangeProbab=0.800000;
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=10;
@@ -235,14 +222,14 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		airLock=false;
 		fusedistance = 100;
-		//laserLock=true;
-		//irLock=true;
 		muzzleeffect = "";
 		effectsmissile = "fza_ah64_rocketsmoke";
 		maxspeed = 740;
 		sideairfriction = 0.2;
 		timetolive = 20;
 		whistledist = 24;
+		CraterEffects = "HEShellCrater";
+		ExplosionEffects = "HEShellExplosion";
 	};
 	class fza_275_m229: fza_275_m151
 	{
@@ -258,7 +245,6 @@ class CfgAmmo
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=10;
-		//model="ZUNI";
 		maneuvrability=0;
 		maxControlRange=0;
 		thrustTime=1.3;
@@ -267,14 +253,9 @@ class CfgAmmo
 		airLock=false;
 		fusedistance = 100;
 		explosiontime = 0.1;
-		//laserLock=true;
-		//irLock=true;
 	};
 	class fza_275_m261: fza_275_m151
 	{
-		//hit=50;
-		//indirectHit=50;
-		//indirectHitRange=8;
 		hit=1;
 		indirectHit=1;
 		indirectHitRange=1;
@@ -287,7 +268,6 @@ class CfgAmmo
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=9;
-		//model="ZUNI";
 		maneuvrability=0;
 		maxControlRange=0;
 		thrustTime=1.3;
@@ -295,8 +275,6 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		airLock=false;
 		fusedistance = 100;
-		//laserLock=true;
-		//irLock=true;
 	};
 	class fza_275_m255: fza_275_m151
 	{
@@ -312,7 +290,6 @@ class CfgAmmo
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=8;
-		//model="ZUNI";
 		maneuvrability=0;
 		maxControlRange=0;
 		thrustTime=1.3;
@@ -320,8 +297,6 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		airLock=false;
 		fusedistance = 100;
-		//laserLock=true;
-		//irLock=true;
 	};
 	class fza_275_m257: fza_275_m151
 	{
@@ -337,7 +312,6 @@ class CfgAmmo
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=8;
-		//model="ZUNI";
 		maneuvrability=0;
 		maxControlRange=0;
 		thrustTime=1.3;
@@ -345,8 +319,6 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		airLock=false;
 		fusedistance = 100;
-		//laserLock=true;
-		//irLock=true;
 	};
 	class fza_fim92: MissileBase
 	{
@@ -377,7 +349,7 @@ class CfgAmmo
 		weaponlocksystem = "16 + 2";
 		whistledist = 16;
 	};
-	class fza_m73mpsm: B_30mm_MP
+	class fza_m73mpsm: B_20mm
 	{
 		hit=120;
 		indirectHit=50;
@@ -390,7 +362,7 @@ class CfgAmmo
 		CraterEffects = "ExploAmmoCrater";
 		explosionEffects = "ExploAmmoExplosion";
 	};
-	class fza_flec_cluster: B_30mm_MP
+	class fza_flec_cluster: B_20mm
 	{
 		hit=50;
 		indirectHit=20;

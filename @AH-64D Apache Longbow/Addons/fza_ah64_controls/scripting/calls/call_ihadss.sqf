@@ -415,7 +415,7 @@ _curwpdir = _targhead;
 if (fza_ah64_agmode == 0) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRG SENSOR
 if (fza_ah64_agmode == 1) then {_sensor = "R "; _sensxm = "FCR ";}; //FCRA SENSOR
 if (fza_ah64_agmode == 2) then {_sensor = "A "; _sensxm = "TADS";}; //TADS SENSOR
-if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;}; 
+if (fza_ah64_agmode == 3) then {_sensor = "R "; _sensxm = "FCR "; fza_ah64_agmode = 0;};
 
 //if (fza_ah64_guncontrol == 0) then {_heli vehiclechat "TADS gun mode selected.";};
 //if (fza_ah64_guncontrol == 1) then {_heli vehiclechat "HMD gun mode selected.";};
@@ -431,46 +431,46 @@ if(_heli iskindof "fza_ah64base") then
 	{
 	_acqihadss = "TADS";
 	};
-	
+
 	if (fza_ah64_guncontrol == 1) then
 	{
 	_acqihadss = "HMD";
 	};
-	
+
 	if (fza_ah64_guncontrol == 2) then
 	{
 	_acqihadss = "AUTO";
 	};
-	
+
 	if (fza_ah64_guncontrol == 3) then
 	{
 	_acqihadss = "FXD";
 	};
-	
+
 	if (fza_ah64_hfmode != _heli) then
 	{
 	_acqihadss = "REMT";
 	};
 };
 
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 0 && (fza_ah64_agmode == 0 || fza_ah64_agmode == 1)) then 
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 0 && (fza_ah64_agmode == 0 || fza_ah64_agmode == 1)) then
 {
 _acqihadss = "FCR";
 } else {
 _acqihadss = "TADS";
 };
 
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 1) then 
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 1) then
 {
 _acqihadss = "HMD";
 };
 
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 2) then 
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 2) then
 {
 _acqihadss = "AUTO";
 };
 
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then 
+if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then
 {
 _acqihadss = "FXD";
 };
@@ -503,7 +503,7 @@ if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {_targypos = 0.63;
 if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {_targxpos = 0.95;};
 _radrange = format ["%1",(abs(1 / fza_ah64_rangesetting))*0.001];
 _collective =  format ["%1",round(100*((0.25*(2-(inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25*(inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))))];
-if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then {_collective =  format ["%1",round (((enginesTorqueRTD _heli select 0) + (enginesTorqueRTD _heli select 1)) / 11.2)];};
+if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then {_collective =  format ["%1",round (((enginesTorqueRTD _heli select 0) + (enginesTorqueRTD _heli select 1)) / 9.6)];};
 if(_collective == "scalar") then {_collective = "0";};
 _speedkts = format ["%1",round(1.94*(sqrt(((velocity _heli select 0) + (0.836*(abs(wind select 0)^1.5)))^2 + ((velocity _heli select 1) + (0.836*(abs(wind select 2)^1.5)))^2 + ((velocity _heli select 2) + (0.836*(abs(wind select 1)^1.5)))^2)))];
 _radaltft = format ["%1",round(3.28084*(getpos _heli select 2))];
