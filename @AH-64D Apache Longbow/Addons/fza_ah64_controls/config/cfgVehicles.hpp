@@ -96,7 +96,7 @@ class CfgVehicles
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
 		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,600};
-		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",1,0.8};
+		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",1,0.6};
 		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,600};
 		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.33,0.6};
 		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};

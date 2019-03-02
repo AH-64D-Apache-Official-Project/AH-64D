@@ -137,7 +137,7 @@ class fza_m230: CannonCore
 	{
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 4,1,100};
+			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 7,1,100};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
