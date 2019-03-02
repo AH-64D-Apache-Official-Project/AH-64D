@@ -2,8 +2,13 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*02/03/2019*
+- Fixed aircraft weight after rearming - by Zeitsev.
+- Removed fza_ah64d_b2e for further FCR fixes, performances and code improvements.
+- Minor AFM tweaking - by Zeitsev.
+
 *21/02/2019*
-- AFM update - by Keplager and BradMick
+- AFM update - by Keplager and BradMick.
 - Couple sounds tweaking.
 - Possible M230 performance fix.
 

@@ -55,9 +55,10 @@ class CfgAmmo
 	class Default {};
 	class BulletCore : Default {};
 	class BulletBase : BulletCore {};
-	class B_20mm: BulletBase {};
+	class B_30mm_HE: BulletBase {};
 	class RocketCore: Default {};
 	class RocketBase: RocketCore {};
+	class 38Rnd_80mm_rockets: RocketBase {};
 	class MissileCore : Default {};
 	class MissileBase: MissileCore {};
 	class CMflareAmmo: BulletBase {};
@@ -88,13 +89,12 @@ class CfgAmmo
 		weaponLockSystem="0";
 
 	};
-	class fza_30x113: B_20mm
+	class fza_30x113: B_30mm_HE
 	{
 		//hit=80;
 		//indirectHit=40;
 		//indirectHitRange=5;
 		typicalspeed = 805;
-		ExplosionEffects = "HEShellExplosion";
 		muzzleeffect = "fza_ah64_fx_30mm";
 	};
 	class fza_agm114l : MissileBase
@@ -201,8 +201,18 @@ class CfgAmmo
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
 	};
-	class fza_275_m151: RocketBase
+	class fza_275_m151: 38Rnd_80mm_rockets
 	{
+		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		muzzleeffect = "";
+		effectsmissile = "fza_ah64_rocketsmoke";
+		simulation="shotRocket";
+		thrustTime=1.3;
+		thrust=1200;
+		maxspeed = 740;
+		sideairfriction = 0.2;
+		fusedistance = 100;
+		/*
 		hit=160;
 		indirectHit=80;
 		indirectHitRange=10;
@@ -230,6 +240,7 @@ class CfgAmmo
 		whistledist = 24;
 		CraterEffects = "HEShellCrater";
 		ExplosionEffects = "HEShellExplosion";
+		*/
 	};
 	class fza_275_m229: fza_275_m151
 	{
@@ -349,7 +360,7 @@ class CfgAmmo
 		weaponlocksystem = "16 + 2";
 		whistledist = 16;
 	};
-	class fza_m73mpsm: B_20mm
+	class fza_m73mpsm: B_30mm_HE
 	{
 		hit=120;
 		indirectHit=50;
@@ -362,7 +373,7 @@ class CfgAmmo
 		CraterEffects = "ExploAmmoCrater";
 		explosionEffects = "ExploAmmoExplosion";
 	};
-	class fza_flec_cluster: B_20mm
+	class fza_flec_cluster: B_30mm_HE
 	{
 		hit=50;
 		indirectHit=20;

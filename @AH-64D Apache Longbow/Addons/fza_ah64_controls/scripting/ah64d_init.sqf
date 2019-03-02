@@ -39,7 +39,7 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_fx_init = true;
 	fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
 
-	//fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
+	fza_ah64_fx_30mm=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
 
 	fza_ah64_fx_rktmsl=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fx_rkt_msl.sqf";
 	fza_ah64_rocketalign=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
@@ -214,7 +214,7 @@ _engtracker = [player] execvm "\fza_ah64_controls\scripting\page_eng.sqf";
 _asetracker = [player] execvm "\fza_ah64_controls\scripting\page_ase.sqf";
 _ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
 //_targettracker1 = [_heli] execvm "\fza_ah64_controls\scripting\targeting.sqf";
-_targetscanner = [player] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
+//_targetscanner = [player] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
 _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
 ///////////////////////////////////////////
 
@@ -225,7 +225,7 @@ _enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";
 _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
 //_arming = [_heli] execvm "\fza_ah64_controls\arming\arming.sqf";
-if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
+//if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
 if(isnil "fza_ah64_tiron") then {fza_ah64_tiron = false;};
 
 if(typeOf _heli == "fza_ah64d_b2e") then

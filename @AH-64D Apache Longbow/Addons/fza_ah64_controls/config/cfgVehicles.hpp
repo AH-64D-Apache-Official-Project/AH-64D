@@ -95,7 +95,7 @@ class CfgVehicles
 		soundDammage[] = {"\fza_ah64_US\audio\helibasiccrash.ogg", 3.162278, 1, 10};
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
-		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",2,0.6,600};
+		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,600};
 		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",1,0.8};
 		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,600};
 		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.33,0.6};
@@ -1509,7 +1509,7 @@ class CfgVehicles
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;
-		scope=2;
+		scope=1; //MASKED FROM EDITOR
 		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza, Zeitsev & Community";
 		displayName="AH-64D Apache Longbow";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";

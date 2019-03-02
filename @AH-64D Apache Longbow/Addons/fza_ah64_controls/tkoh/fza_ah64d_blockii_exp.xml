@@ -139,7 +139,7 @@
 		180	0.006
 	</SideForceDueToSideslip>
 
-	<LiftDueToAoA scale="1"  >
+	<LiftDueToAoA scale="2.0"  >
 		-180	0.000
 		-170	1.096
 		-160	1.998
@@ -459,7 +459,7 @@
     <CSComponent type="FCSHelicopterAutoTrim100" >
       <YawRateAndSideslipController printDebugInfo="false">
         <YawRatePID P="0.04"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
-        <SideslipPID P="0.02"  I="0.01" D="0.007" offset="0.0" integralMin="-25" integralMax="25" />
+        <SideslipPID P="0.06"  I="0.01" D="0.007" offset="0.0" integralMin="-25" integralMax="25" />
         <Transition speedLow="15" speedHigh="40" />
         <Maximums maxYawRate="60" maxSideslip="60" />
         <InputMapping nonlinearity="1.5" />
@@ -557,16 +557,16 @@
       <MathExpression>
         <Expression>
 
-		  FPSY =  clamp(Cms * (Vms/60), -0.1, 0.1),
-		  FPSP =  clamp((pitchRateRad/3) * (Vms/60), -0.1, 0.1),
-		  FPSR =  clamp(rollRateRad * 0.02 * (Vms/60), -0.1, 0.1),
+		  FPSY =  0,
+		  FPSP =  0,
+		  FPSR =  0,
 
 		  PSAS = 0,
 		  RollSAS = 0,
 		  YawSAS = 0,
 
           latCyclic = latCyclic - RollSAS - collective * 0.2 - FPSR + pedals * 0.15,
-		  lonCyclic = lonCyclic/clamp(Vms/50, 1, 999) + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
+		  lonCyclic = lonCyclic + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
 		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY,
 
 		  A1m = latCyclic * 10,
@@ -1061,7 +1061,7 @@
         <Front x="0.0" y="1.0" z="0.0"/>
         <SurfaceArea area="6.797"/>
       </Geometry>
-      <ControlResponse controlSurfaceLiftCoeffDerivative="0.4" controlSurfaceForceArmPos="0.0" maxControlSurfaceDeflection="25" minControlSurfaceDeflection="-5" controlSurfaceDeflectionRateLimit="3.5"/>
+      <ControlResponse controlSurfaceLiftCoeffDerivative="0.4" controlSurfaceForceArmPos="0.0" maxControlSurfaceDeflection="25" minControlSurfaceDeflection="-5" controlSurfaceDeflectionRateLimit="0.5"/>
 
       <AerodynamicFeatures>
         <DynamicPressureRatio>
