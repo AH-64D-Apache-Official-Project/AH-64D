@@ -137,7 +137,7 @@ class fza_m230: CannonCore
 	{
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg", 7,1,100};
+			weaponfire[] = {"\fza_ah64_us\audio\AGM114_Mid.ogg",30,1,50};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
@@ -312,8 +312,8 @@ class fza_m230: CannonCore
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 5,1,1200};
-				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 5,1,1200};
+				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 8,1,900};
+				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 8,1,900};
 				soundBegin[] = {"weaponfire",0.50,"weaponfire2",0.50};
 				weaponsoundeffect = "DefaultRifle";
 			};

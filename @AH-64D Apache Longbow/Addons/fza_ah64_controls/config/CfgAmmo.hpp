@@ -212,6 +212,8 @@ class CfgAmmo
 		maxspeed = 740;
 		sideairfriction = 0.2;
 		fusedistance = 100;
+		CraterEffects = "HEShellCrater";
+		ExplosionEffects = "HEShellExplosion";
 		/*
 		hit=160;
 		indirectHit=80;
@@ -238,8 +240,6 @@ class CfgAmmo
 		sideairfriction = 0.2;
 		timetolive = 20;
 		whistledist = 24;
-		CraterEffects = "HEShellCrater";
-		ExplosionEffects = "HEShellExplosion";
 		*/
 	};
 	class fza_275_m229: fza_275_m151

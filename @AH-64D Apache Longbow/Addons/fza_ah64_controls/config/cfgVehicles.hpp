@@ -6,10 +6,7 @@ class CfgVehicles
 		class NewTurret;
 	};
 	class Air : AllVehicles {};
-	class Helicopter_Base_F : Air
-	{
-		//class RotorLibHelicopterProperties;
-	};
+	class Helicopter_Base_F : Air {};
 	class fza_ah64base: Helicopter_Base_F
 	{
     class itc_air {
