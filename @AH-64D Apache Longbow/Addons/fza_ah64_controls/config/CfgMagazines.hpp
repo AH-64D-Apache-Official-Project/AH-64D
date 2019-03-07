@@ -27,7 +27,7 @@ class CfgMagazines
 		displayName = "30mm HEDP";
 		ammo = "fza_30x113";
 		count = 300;
-		initSpeed = 805;
+		initSpeed = 1620;
 		tracersevery = 0;
 		weight = 104.78;
 	};
@@ -37,7 +37,7 @@ class CfgMagazines
 		displayName = "30mm HEDP";
 		ammo = "fza_30x113";
 		count = 1200;
-		initSpeed = 805;
+		initSpeed = 1620;
 		tracersevery = 0;
 		weight = 419.119;
 	};
@@ -815,7 +815,7 @@ class CfgMagazines
 		displayName = "M151 HE";
 		ammo = "fza_275_m151";
 		count = 76;
-		initSpeed = 44;
+		initSpeed = 739;
 		nameSound = "rockets";
 		sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};
 		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};

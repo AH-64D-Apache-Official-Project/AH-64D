@@ -91,11 +91,11 @@ class CfgAmmo
 	};
 	class fza_30x113: B_30mm_HE
 	{
-		//hit=80;
-		//indirectHit=40;
-		//indirectHitRange=5;
-		typicalspeed = 805;
+		maxspeed = 1620;
 		muzzleeffect = "fza_ah64_fx_30mm";
+		timeToLive = 6;
+		supersonicCrackNear[] = {"\fza_ah64_us\audio\fakesound.ogg",1,1};
+		supersonicCrackFar[] = {"\fza_ah64_us\audio\fakesound.ogg",1,1};
 	};
 	class fza_agm114l : MissileBase
 	{
@@ -104,7 +104,7 @@ class CfgAmmo
 		
 		hit = 2500;
 		indirectHit = 1000;
-		indirectHitRange = 15;
+		indirectHitRange = 5;
 		
 		canLock = 0;
 		laserLock = 0;
@@ -131,6 +131,7 @@ class CfgAmmo
 		whistledist = 4;
 		effectsmissile = "fza_ah64_hellfiresmoke";
 		model = "\fza_ah64_US\fza_agm114l";
+		soundfly[] = {"\fza_ah64_us\audio\fakesound.ogg",1,1,1};
 		proxyShape="\fza_ah64_US\fza_agm114l";
 		CraterEffects = "BombCrater";
 		explosionEffects = "BombExplosion";
@@ -147,7 +148,7 @@ class CfgAmmo
 		
 		hit = 2500;
 		indirectHit = 1000;
-		indirectHitRange = 15;
+		indirectHitRange = 5;
 
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
@@ -159,7 +160,7 @@ class CfgAmmo
 	
 		hit=1200;
 		indirectHit=700;
-		indirectHitRange=15;
+		indirectHitRange=5;
 		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
@@ -172,7 +173,7 @@ class CfgAmmo
 	
 		hit=1200;
 		indirectHit=700;
-		indirectHitRange=15;
+		indirectHitRange=5;
 		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
@@ -184,7 +185,7 @@ class CfgAmmo
 	
 		hit=1000;
 		indirectHit=1000;
-		indirectHitRange=15;
+		indirectHitRange=5;
 		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
@@ -196,7 +197,7 @@ class CfgAmmo
 		
 		hit=1000;
 		indirectHit=1000;
-		indirectHitRange=15;
+		indirectHitRange=5;
 		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";
@@ -204,55 +205,22 @@ class CfgAmmo
 	class fza_275_m151: 38Rnd_80mm_rockets
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		soundfly[] = {"\fza_ah64_us\audio\fakesound.ogg",1,1,1};
 		muzzleeffect = "";
 		effectsmissile = "fza_ah64_rocketsmoke";
 		simulation="shotRocket";
-		thrustTime=1.3;
-		thrust=1200;
-		maxspeed = 740;
-		sideairfriction = 0.2;
-		fusedistance = 100;
+		thrustTime=2;
+		thrust=739;
+		maxspeed = 739;
+		sideairfriction = 0.1;
 		CraterEffects = "HEShellCrater";
 		ExplosionEffects = "HEShellExplosion";
-		/*
-		hit=160;
-		indirectHit=80;
-		indirectHitRange=10;
-		minRange=100;
-		minRangeProbab=0.200000;
-		midRange=750;
-		midRangeProbab=0.800000;
-		maxRange=2000;
-		maxRangeProbab=0.800000;
-		simulation="shotRocket";
-		simulationStep=0.050000;
-		cost=10;
-		maneuvrability=0;
-		maxControlRange=0;
-		thrustTime=1.3;
-		thrust=1200;
-		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-		airLock=false;
-		fusedistance = 100;
-		muzzleeffect = "";
-		effectsmissile = "fza_ah64_rocketsmoke";
-		maxspeed = 740;
-		sideairfriction = 0.2;
-		timetolive = 20;
-		whistledist = 24;
-		*/
 	};
 	class fza_275_m229: fza_275_m151
 	{
 		hit=220;
 		indirectHit=110;
 		indirectHitRange=10;
-		minRange=100;
-		minRangeProbab=0.200000;
-		midRange=750;
-		midRangeProbab=0.200000;
-		maxRange=2000;
-		maxRangeProbab=0.050000;
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=10;
@@ -270,12 +238,6 @@ class CfgAmmo
 		hit=1;
 		indirectHit=1;
 		indirectHitRange=1;
-		minRange=100;
-		minRangeProbab=0.200000;
-		midRange=750;
-		midRangeProbab=0.200000;
-		maxRange=2000;
-		maxRangeProbab=0.050000;
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=9;
@@ -292,12 +254,6 @@ class CfgAmmo
 		hit=1;
 		indirectHit=1;
 		indirectHitRange=1;
-		minRange=100;
-		minRangeProbab=0.200000;
-		midRange=750;
-		midRangeProbab=0.200000;
-		maxRange=2000;
-		maxRangeProbab=0.050000;
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=8;
@@ -314,12 +270,6 @@ class CfgAmmo
 		hit=1;
 		indirectHit=1;
 		indirectHitRange=1;
-		minRange=100;
-		minRangeProbab=0.200000;
-		midRange=750;
-		midRangeProbab=0.200000;
-		maxRange=2000;
-		maxRangeProbab=0.050000;
 		simulation="shotRocket";
 		simulationStep=0.050000;
 		cost=8;

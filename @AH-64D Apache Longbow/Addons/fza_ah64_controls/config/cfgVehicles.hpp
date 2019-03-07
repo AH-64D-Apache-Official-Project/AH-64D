@@ -50,9 +50,8 @@ class CfgVehicles
 		usePreciseGetInAction = 1;
 		preciseGetInOut = 1;
 		getInRadius = 1.500000;
-		//getInAction = "pilot_Heli_Light_02_Enter"; //pilot_Heli_Light_03_Enter
 		getInAction = "pilot_Heli_Light_02_Enter";
-		getOutAction = "GetOutHigh"; //pilot_Heli_Light_03_Exit
+		getOutAction = "GetOutHigh"; 
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		//TKOH END//
