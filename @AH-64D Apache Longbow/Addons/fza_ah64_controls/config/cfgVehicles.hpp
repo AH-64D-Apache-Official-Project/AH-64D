@@ -6,9 +6,12 @@ class CfgVehicles
 		class NewTurret;
 	};
 	class Air : AllVehicles {};
-	class Helicopter_Base_F : Air {};
-	class fza_ah64base: Helicopter_Base_F
+	class Helicopter_Base_F : Air 
 	{
+		class Components;
+	};
+	class fza_ah64base: Helicopter_Base_F
+	{		
     class itc_air {
 	    class rover {
 	        capable = 1;
@@ -21,7 +24,6 @@ class CfgVehicles
       mfdApps[] = {"STAT","OPT"};
       systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
 	    mfdType = "classic";
-      //mfdType = "touch";
     };
 		side=1;
 		scope=0;
@@ -108,7 +110,7 @@ class CfgVehicles
 		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
-		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza, Zeitsev & Community";
+		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Zeitsev & Community";
 		class RotorLibHelicopterProperties
 		{
 			autoHoverCorrection[] = {1.39,2.96,0};  // p - more forward, r - more right
@@ -179,83 +181,6 @@ class CfgVehicles
 						fov = 0.18;
 					};
 				};
-									/*
-					//these sources are inefficient and difficult to work with//
-					//TADS/FLIR//
-					class gunnertads1
-					{
-						renderTarget = "fza_ah64_tadscam1";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 2;
-							fov = 0.05;
-						};
-					};
-					class gunnertads2
-					{
-						renderTarget = "fza_ah64_tadscam2";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 2;
-							fov = 0.1;
-						};
-					};
-					class gunnertads3
-					{
-						renderTarget = "fza_ah64_tadscam3";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 2;
-							fov = 0.01;
-						};
-					};
-					//TADS/DTV//
-					class gunnertads4
-					{
-						renderTarget = "fza_ah64_tadscam4";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 0;
-							fov = 0.6;
-						};
-					};
-					class gunnertads5
-					{
-						renderTarget = "fza_ah64_tadscam5";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 0;
-							fov = 0.1;
-						};
-					};
-					class gunnertads6
-					{
-						renderTarget = "fza_ah64_tadscam6";
-						class View01
-						{
-							pointPosition = "gunnerview";
-							pointDirection = "gunnerview_dir";
-							renderQuality = 0;
-							renderVisionMode = 0;
-							fov = 0.01;
-						};
-					};
-					*/
 		};
 		class Exhausts
 		{
@@ -276,25 +201,25 @@ class CfgVehicles
 		{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class EngineClose
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Close.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine_Close.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorClose
 				{
-					sound[] = {"\fza_ah64_US\audio\Rotor_Close.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Rotor_Close.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -308,18 +233,18 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 3, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 3, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -476,25 +401,25 @@ class CfgVehicles
 			{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class EngineClose
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Close.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine_Close.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorClose
 				{
-					sound[] = {"\fza_ah64_US\audio\Rotor_Close.ogg", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Rotor_Close.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -508,18 +433,18 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 500};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 3, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 3, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3000};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -1506,7 +1431,7 @@ class CfgVehicles
 	{
 		side=1;
 		scope=1; //MASKED FROM EDITOR
-		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza, Zeitsev & Community";
+		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		displayName="AH-64D Apache Longbow";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		ejectDeadCargo=0;
@@ -2850,8 +2775,6 @@ class CfgVehicles
 		{
 			class MainTurret: NewTurret
 			{
-				//gunnerAction = "fza_ah64_pilot";
-				//gunnerInAction = "fza_ah64_pilot";
 				gunnerAction = "fza_ah64_copilot";
 				gunnerGetInAction = "GetInHigh";
 				gunnerGetOutAction = "GetOutHigh";
@@ -2867,11 +2790,11 @@ class CfgVehicles
 				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_4","fza_agm114l_2_4"}; //LOADOUT 4xRF + 4xSAL2
 				//weapons[] = {"fza_m230","fza_m261_14","fza_atas_2","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
 				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114l_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114l_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
-			    weapons[] = {"fza_ma_safe","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+			    weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
 				magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "kulas";
+			    memoryPointGun = "testsc";
 				memoryPointGunnerOptics = "gunnerview";
 				body = "mainTurret";
 				gun = "mainGun";
@@ -4726,13 +4649,61 @@ initPhase=0;
 				};
 			};
 		};
-
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
-	{
+	{	
+		class Components: Components
+		{
+			class TransportPylonsComponent
+			{
+				uiPicture = "\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_EDEN_CA.paa";		
+				
+				class Pylons // Pylons are indexed to aircraft model's proxies IDs in the order they are written in class Pylons
+				{
+					class PylonLeft1 {
+						attachment = "";
+						priority = 1;
+						hardpoints[] = {};
+						bay = -1;
+						turret[] = {};
+						UIposition[] = {0.060000, 0.400000};
+					};	
+					
+					class PylonLeft2: PylonLeft1 {
+						attachment = "";
+						hardpoints[] = {};
+						UIposition[] = {0.080000, 0.350000};
+					};
+
+					class PylonLeft3: PylonLeft1 {
+						attachment = "";
+						hardpoints[] = {};
+						UIposition[] = {0.100000, 0.300000};
+					};
+
+					class PylonRight3: PylonLeft3 {
+						attachment = "";
+						hardpoints[] = {};
+						UIposition[] = {0.590000, 0.300000};
+					};
+
+					class PylonRight2: PylonLeft2 {
+						attachment = "";
+						hardpoints[] = {};
+						UIposition[] = {0.620000, 0.350000};
+					};
+
+					class PylonRight1: PylonLeft1 {
+						attachment = "";
+						hardpoints[] = {};
+						UIposition[] = {0.640000, 0.400000};
+					};
+				};
+			};
+		};
 		side=1;
 		scope=2; //UNMASKED FROM EDITOR
-		author="Franze, Nodunit, Sacha 'Voodoo' Oropeza, Zeitsev & Community";
+		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		displayName="AH-64D Apache";
 		hiddenselections[]=
 		{
@@ -6003,11 +5974,11 @@ initPhase=0;
 				primaryGunner = 1;
 				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
 				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-				weapons[] = {"fza_ma_safe","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
 				magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114k_3_ur","fza_agm114k_3_ll","fza_agm114k_2_lr","fza_agm114k_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 				memoryPointsGetInGunnerDir = "pos gunner dir";
-				memoryPointGun = "kulas";
+				memoryPointGun = "testsc";
 				memoryPointGunnerOptics = "gunnerview";
 				body = "mainTurret";
 				gun = "mainGun";

@@ -1180,7 +1180,6 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _btnapu distance [fz
 if(_heli animationphase "plt_apu" < 1) then
 {_heli animate ["plt_apu",1];
 ["fza_ah64_apubutton",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-//_heli say3D ["fza_ah64_apustart_3D",200,1];
 [_heli,["fza_ah64_apustart_3D", 200]] remoteExec ["say3d"];
 [_heli] execvm "\fza_ah64_controls\scripting\calls\call_apuloop.sqf";
 _heli animate ["tads_stow",0];
@@ -1294,7 +1293,6 @@ if(_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_
 _heli animate ["plt_eng2_start",0];
 };
 
-
 //SHUTDOWN
 
 if(fza_ah64_pwron == 1 && _heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 && isEngineOn _heli && (player isEqualTo driver objectParent player)) then
@@ -1306,7 +1304,6 @@ _heli animate ["tads_stow",1];
 fza_ah64_l1clicked = 1;
 };
 
-
 //PNVS HDU DAY/NIGHT TOGGLE
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _pnvsdnt distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
@@ -1317,6 +1314,7 @@ _clicksound = ["fza_ah64_knob",0.1];
 };
 
 //NVS MODE TOGGLE
+
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _pnvshdu distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
 if(_heli animationphase "plt_nvsmode" < 1) then
@@ -1331,7 +1329,6 @@ _heli animate ["plt_nvsmode",0];
 _clicksound = ["fza_ah64_switch_flip1",0.1];
 fza_ah64_l1clicked = 1;
 };
-
 
 //CSCOPE
 
@@ -1361,47 +1358,37 @@ fza_ah64_l1clicked = 1;
 _clicksound = ["fza_ah64_button_click1",0.1];
 };
 
-//IHADSS BRIGHTNESS
+//MONOCLE
+
+if (fza_ah64_monocleinbox == 0 && cameraView == "INTERNAL") then
+{
+	3 cutrsc ["fza_ah64_monocleinbox","PLAIN",0.01,false];
+	((uiNameSpace getVariable "fza_ah64_monocleinbox")displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
+	} else {
+	3 cuttext ["", "PLAIN"];
+};
+
+if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowmonocle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.15) then
+{
+_clicksound = ["fza_ah64_monoclebox",0.1];
+fza_ah64_l1clicked = 1;
+[_heli] exec "\fza_ah64_controls\scripting\monocle.sqs";
+};
+
+//IHADSS ON/OFF (PREVIOUSLY BRIGHTNESS)
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _ihadssbrt distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.015) then
 {
-if(player == driver _heli) then
-{_clicksound = ["fza_ah64_knob",0.1];} else {_clicksound = ["fza_ah64_switch_flip1",0.1];};
-fza_ah64_l1clicked = 1;
-[_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
-
-
-/*
-if(isNil "fza_ah64_hducolor") then {fza_ah64_hducolor = [0.1, 1, 0, 1];};
-_cont = (fza_ah64_hducolor select 1) + 0.1;
-_cont2 = (fza_ah64_hducolor select 0) + 0.01;
-if(_cont > 1.1) then {_cont = 0; _cont2 = 0;};
-fza_ah64_hducolor = [_cont2, _cont, 0, 1];
-*/
+	if(player == driver _heli) then
+	{
+	_clicksound = ["fza_ah64_knob",0.1];
+	} else {
+	_clicksound = ["fza_ah64_switch_flip1",0.1];};
+	fza_ah64_l1clicked = 1;
+	[_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
 };
 
-//IHADSS
-/*
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowihadss distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.05) then
-{
-[_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
-fza_ah64_l1clicked = 1;
-_clicksound = ["fza_ah64_switch_flip1",0.1];
-};
-*/
-//MONOCLE
-
-if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _stowmonocle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.10) then
-{
-[_heli] exec "\fza_ah64_controls\scripting\monocle.sqs";
-[_heli] execVM "\fza_ah64_controls\scripting\calls\call_monocle.sqf";
-((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
-((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlSetTextColor [1, 1, 1, 1]; //HIDING MONOCLE WHEN GET IN
-((uiNameSpace getVariable "fza_ah64_click_monocle")displayCtrl 501) ctrlCommit 0;
-fza_ah64_l1clicked = 1;
-_clicksound = ["fza_ah64_monoclebox",0.1];
-};
-
+// BETTY ?!
 
 if(fza_ah64_l1clicked == 1 && count _clicksound > 1) then {_clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";};
 

@@ -2,10 +2,25 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*30/03/2020*
+- Corrected sonic cracks heard from CPG optic when headsdown
+- Further tweak to AGM-114 family and M230
+- Couple minor sound tweaks
+- Restored full auto on M230, limited by burst limiter setting (WPN page) just like in the real aircraft
+- Hence no more burst firing mode and sounds anymore
+- Ability to lock on TADS target, compatible with most ACQ submodes
+- Added randomization in RKTs flight path
+- AGM-114 SAL2 cannot track targets without laser designation anymore
+- Monocle is finally fixed
+- IHADSS flight data will no longer appear in external view
+- Code cleaning...
+
 *07/03/2019*
 - Removed NAV fixes on the A3 map, now TSD only.
 - Fixed waypoint script error on the editor.
 - Tweaked 30mm rounds max speed.
+- Reduced AGM-114 area of effect.
+- Reduced M230 damage.
 
 *02/03/2019*
 - Fixed aircraft weight after rearming - by Zeitsev.
