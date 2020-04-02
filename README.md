@@ -2,6 +2,11 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*02/04/2020*
+- Corrected a bug where the CPG would loose all IHADSS data while heads down when disabling the laser
+- Added clickable floodlight button for both CPG and PLT
+- Added clickable navigation & anticollision lights button on PLT side
+
 *30/03/2020*
 - Corrected sonic cracks heard from CPG optic when headsdown
 - Further tweak to AGM-114 family and M230

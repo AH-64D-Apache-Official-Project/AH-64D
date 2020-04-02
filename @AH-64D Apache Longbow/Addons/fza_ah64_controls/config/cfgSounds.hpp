@@ -300,6 +300,12 @@ class CfgSounds
 		sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1,1};
 		titles[]={};
 	};
+	class fza_ah64_button_rotary
+	{
+		name = "fza_ah64_button_rotary";
+		sound[] = {"\fza_ah64_us\audio\rotary.ogg",1,1,1};
+		titles[]={};
+	};
 	///END OF GENERIC FLIP SOUNDS///
 
 	///DOOR SOUNDS///

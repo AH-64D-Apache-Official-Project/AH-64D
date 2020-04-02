@@ -150,9 +150,9 @@ fza_ah64_agmode = 2;
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0 && cameraView == "INTERNAL") then
+if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then
 {
-if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) && cameraView == "INTERNAL") then
+if((isNull (uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then
 {
 1 cutrsc ["fza_ah64_raddisp", "PLAIN",0.01,false];
 
@@ -173,9 +173,7 @@ _rocketcode = "???";
 if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {1 cuttext ["", "PLAIN"]; 2 cuttext ["", "PLAIN"]; 3 cuttext ["", "PLAIN"]; 4 cuttext ["", "PLAIN"];};
 };
 
-
-
-//HUD FOR GUNNER HEADSDOWN
+//IHADSS FOR GUNNER HEADSDOWN
 
 if(cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli)) then
 {
@@ -254,7 +252,7 @@ _ihadssidx = _ihadssidx + 1;
 
 //LASER SYMBOLOGY FOR GUNNER
 
-if (fza_ah64_laserstate isEqualTo 1) then
+if (fza_ah64_laserstate == 1) then
 {
 4 cutrsc ["fza_ah64_laseit","PLAIN",0.01,false];
 ((uiNameSpace getVariable "fza_ah64_laseit")displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
@@ -406,8 +404,6 @@ if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then
 {
 _acqihadss = "FXD";
 };
-
-/////////////////////////////////////////////////////////
 
 _targrange = format ["%1",((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
 if(isNull fza_ah64_mycurrenttarget) then {_targrange = "0.00";};
@@ -922,9 +918,6 @@ _vecuz = cos(_pitch) * cos(_bank);
 ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _x) ctrlSetModelDirAndUp [[_vecdx,_vecdy,_vecdz],[_vecux,_vecuy,_vecuz]];
 } foreach [250,251,252,253,254,255,256,257,258,259,260,261,262,263,264,265,266,267,268,269];
 };
-
-
-
 
 //HUD HEADINGS
 

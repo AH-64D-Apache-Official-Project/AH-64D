@@ -392,8 +392,7 @@ class CfgVehicles
 					frequency = 1;
 					volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
 				};
-		};
-			
+		};		
 		class SoundsExt
 		{
 			class SoundEvents {};
@@ -3409,6 +3408,13 @@ initPhase=0;
 				initPhase=0;
 				sound = "rtrbrake_sound";
             };
+			class plt_anticollision
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
+				sound = "rtrbrake_sound";
+            };
 			class plt_nvsmode
             {
 				source = "user";
@@ -4484,7 +4490,8 @@ initPhase=0;
 			intensity = 75;
 			useFlare = 0;
 
-			class Attenuation {
+			class Attenuation 
+			{
 			constant = 0;
 			hardLimitEnd = 1;
 			hardLimitStart = 0.75;
@@ -4492,7 +4499,7 @@ initPhase=0;
 			quadratic = 50;
 			start = 0;
 			};
-			};
+		};
 
 			class PositionGreen: PositionWhite
 			{
@@ -4533,6 +4540,7 @@ initPhase=0;
         };
 			}; */
 
+			/*
 			class ckpt_light
 			{
 			name="ckpt_light";
@@ -4540,20 +4548,20 @@ initPhase=0;
 			//color[] = {1,1,1};
 			color[]={0.306,0.878,0.349,1};
 			ambient[]={0.306,0.878,0.349,1};
-			intensity=20;
+			intensity = 130;
 			drawLightSize = 0.01;
 			drawLightCenterSize = 0.001;
 			blinking = 0;
 			class Attenuation {
-			constant = 0;
+			constant = 1;
 			hardLimitEnd = 0.60;
-			hardLimitStart = 0.20;
-			linear = 25;
-			quadratic = 50;
+			hardLimitStart = 0.01;
+			linear = 1;
+			quadratic = 20;
 			start = 0;
 			};
 			};
-
+			*/
 			/*class RedBlinking
 			{
 				name="bily pozicni blik";

@@ -95,6 +95,7 @@ class CfgAmmo
 	class fza_30x113: B_30mm_HE
 	{
 		access = 1;
+		soundfly[] = {"\fza_ah64_us\audio\20mm_Flyby_5.ogg",1,1,1};
 		muzzleeffect = "fza_ah64_fx_30mm";		
 		hit = 60;
 		indirectHit = 10;

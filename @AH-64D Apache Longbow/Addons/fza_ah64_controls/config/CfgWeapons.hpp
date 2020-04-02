@@ -76,7 +76,7 @@ class CfgWeapons
 		};
 		class StandardSound 
 		{
-			begin1[] = {"\fza_ah64_us\audio\M230.ogg",3,0.99,1200};
+			begin1[] = {"\fza_ah64_us\audio\M230.ogg",5,0.99,1500};
 			soundBegin[] = {"begin1",1};
 			weaponSoundEffect = "DefaultRifle";
 		};
@@ -396,8 +396,8 @@ class CfgWeapons
 		{
 			class StandardSound
             {
-				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 8,1,2000};
-				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 8,1,2000};
+				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 5,1,1500};
+				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 5,1,1500};
 				soundBegin[] = {"weaponfire",0.50,"weaponfire2",0.50};
 				weaponsoundeffect = "DefaultRifle";
 			};
@@ -617,7 +617,7 @@ class CfgWeapons
 		sounds[] = {"StandardSound"};
 		class StandardSound
         {
-			weaponfire[] = {"\fza_ah64_us\audio\fim92_oneshot1.ogg", 4, 1, 1500};
+			weaponfire[] = {"\fza_ah64_us\audio\fim92_oneshot1.ogg", 5, 1, 1500};
 			soundBegin[] = {"weaponfire",1};
 			weaponsoundeffect = "DefaultRifle";
 		};
