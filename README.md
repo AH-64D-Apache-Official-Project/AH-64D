@@ -2,6 +2,13 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*03/04/2020*
+- Minor external model 3D adjustements
+- Fixed 3D side panels holes in CPG & PLT seats
+- Updated some cockpit switches sound
+- Added CPG BRT and NVS switch animation
+- Added avionics sound upon aircraft power up
+
 *02/04/2020*
 - Corrected a bug where the CPG would loose all IHADSS data while heads down when disabling the laser
 - Added clickable floodlight button for both CPG and PLT

@@ -76,7 +76,7 @@ class CfgWeapons
 		};
 		class StandardSound 
 		{
-			begin1[] = {"\fza_ah64_us\audio\M230.ogg",5,0.99,1500};
+			begin1[] = {"\fza_ah64_us\audio\M230.ogg",3,0.99,1200};
 			soundBegin[] = {"begin1",1};
 			weaponSoundEffect = "DefaultRifle";
 		};
@@ -405,7 +405,7 @@ class CfgWeapons
 			displayName="M261";
 			multiplier=1;
 			burst=1;
-			dispersion = 0.010;
+			dispersion = 0.012;
 			sounds[] = {"StandardSound"};
 			soundburst= 1;
 			soundContinuous= 0;

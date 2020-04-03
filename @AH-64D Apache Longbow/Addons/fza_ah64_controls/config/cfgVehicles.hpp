@@ -94,7 +94,7 @@ class CfgVehicles
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
 		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,600};
-		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",1,0.6};
+		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",0.33,0.6};
 		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,600};
 		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.33,0.6};
 		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
@@ -250,7 +250,7 @@ class CfgVehicles
 				};
 				class EngineInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 0.8, 1.000000};
 					frequency = "rotorSpeed";
 					volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
 				};
@@ -3420,6 +3420,14 @@ initPhase=0;
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				sound = "rtrbrake_sound";
+            };
+			class cpg_nvsmode
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
+				sound = "rtrbrake_sound";
             };
 			class plt_batt
             {
@@ -3432,6 +3440,13 @@ initPhase=0;
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+            };
+			class cpg_ihadss_brt
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
+				sound = "rtrbrake_sound";
             };
 			class plt_eng1_throttle
             {
