@@ -4,16 +4,15 @@ class Mode_FullAuto;
 
 class CfgWeapons
 {	
-	class Default{};
-	class MGunCore: Default{};
-	class MGun: MGunCore {};
-	class SmokeLauncher: MGun {};
-	class LauncherCore: Default{};
-	class CannonCore: Default{};
-	class MissileLauncher: LauncherCore{};
-	class Launcher: LauncherCore {};
-	class Stinger: Launcher {};
-	class RocketPods: LauncherCore {};
+	class MGunCore;
+	class MGun;
+	class RocketPods;
+	class CannonCore;
+	class SmokeLauncher;
+	class LauncherCore;
+	class MissileLauncher;
+	class missiles_DAR;
+
 	
 	class fza_CMFlareLauncher: SmokeLauncher 
 	{
@@ -62,7 +61,6 @@ class CfgWeapons
 	//////////////////////////////M230 CHAINGUN////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 
-	
 	class fza_m230: CannonCore
 	{
 		class GunParticles
@@ -212,7 +210,7 @@ class CfgWeapons
 		cursor="";
 		cursorAim="";
 		cursorAimOn="";
-		magazines[]={"fza_safe"};
+		magazines[]={"fza_burstlimit"};
 		};	
 		
 		class fza_ma_safe: fza_m230
@@ -224,8 +222,6 @@ class CfgWeapons
 		cursorAimOn="";
 		magazines[]={"fza_safe"};
 		};
-
-
 
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
@@ -247,11 +243,9 @@ class CfgWeapons
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};
 		canlock = 0;
-		lockAcquire = 0
-		cursor = "";
-		cursoraim = "";
-		cursorAimOn = "";
-		cursorsize = 1;
+		lockAcquire = 0;
+		cursor = "EmptyCursor";
+		cursoraim = "EmptyCursor";
 		sounds[] = {"StandardSound"};
 		aiRateOfFire = 5;
 		aiRateOfFireDistance = 3000;
@@ -398,14 +392,14 @@ class CfgWeapons
             {
 				weaponfire[] = {"\fza_ah64_us\audio\M261_Dist.ogg", 5,1,1500};
 				weaponfire2[] = {"\fza_ah64_us\audio\M261_Dist2.ogg", 5,1,1500};
-				soundBegin[] = {"weaponfire",0.50,"weaponfire2",0.50};
+				soundBegin[] = {"weaponfire2",0.50,"weaponfire",0.50};
 				weaponsoundeffect = "DefaultRifle";
 			};
 			showToPlayer = 1;			
 			displayName="M261";
 			multiplier=1;
 			burst=1;
-			dispersion = 0.012;
+			dispersion = 0.010;
 			sounds[] = {"StandardSound"};
 			soundburst= 1;
 			soundContinuous= 0;
@@ -602,8 +596,6 @@ class CfgWeapons
 		canlock = 0;
 		cursor = "";
 		cursoraim = "";
-		cursorAimOn = "";
-		cursorsize = 1;
 		displayname = "FIM-92F Stinger";
 		magazinereloadtime = 30;
 		magazines[] = {"fza_atas_2"};
@@ -623,7 +615,6 @@ class CfgWeapons
 		};
 		soundFly[] = {"A3\Sounds_F\weapons\Rockets\rocket_fly_1", 1, 1.100000, 700};
 		weaponlockdelay = 0;
-		//weaponlocksystem = 1;
 		weaponlocksystem = "1+2+8";
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};

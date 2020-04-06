@@ -14,7 +14,7 @@ while {fza_ah64_estarted} do
   {
     if(!_e1Started) then
     {
-      _heli setWantedRPMRTD [14776, 30, 0];
+      _heli setWantedRPMRTD [14776, 60, 0];
       _e1Started = true;
     };
     if(_e1Started && (_e1SC == 60)) then
@@ -33,7 +33,7 @@ while {fza_ah64_estarted} do
   {
     if(!_e2Started) then
     {
-      _heli setWantedRPMRTD [14776, 30, 1];
+      _heli setWantedRPMRTD [14776, 60, 1];
       _e2Started = true;
     };
     if(_e2Started && (_e2SC == 60)) then
@@ -61,23 +61,6 @@ while {fza_ah64_estarted} do
     _e2Started = false;
     _e2SC = 0;
   };
-
-
-
-
-
-if(_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0) then
-{
-(driver _heli) action ["engineOff", _heli];
-fza_ah64_estarted = false;
-_heli animate ["tads_stow",1];
-};
-
-
-
-
-
-
 
   if ((_e1SC < 60) && (_e1Started)) then
   {

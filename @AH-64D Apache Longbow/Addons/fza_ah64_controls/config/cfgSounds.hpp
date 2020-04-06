@@ -228,19 +228,19 @@ class CfgSounds
 	class fza_ah64_apustart_3D
 	{
 		name = "fza_ah64_apustart_3D";
-		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",1,1,100};
+		sound[] = {"fza_ah64_us\audio\APU_Start.ogg",1,1,300};
 		titles[]={};
 	};
 	class fza_ah64_apu_loop_3D
 	{
 		name = "fza_ah64_apu_loop_3D";
-		sound[] = {"fza_ah64_us\audio\APU_Loop.ogg",1,1,100};
+		sound[] = {"fza_ah64_us\audio\APU_Loop.ogg",1,1,300};
 		titles[]={};
 	};
 	class fza_ah64_apustop_3D
 	{
 		name = "fza_ah64_apustop_3D";
-		sound[] = {"fza_ah64_us\audio\APU_End.ogg",1,1,100};
+		sound[] = {"fza_ah64_us\audio\APU_End.ogg",1,1,300};
 		titles[]={};
 	};
 	class fza_ah64_bat_loop_3D
@@ -252,13 +252,13 @@ class CfgSounds
 	class fza_ah64_estart_3D
 	{
 		name = "fza_ah64_estart_3D";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",1,1,100};
+		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",1,1,300};
 		titles[]={};
 	};
 	class fza_ah64_warntest_3D
 	{
 		name = "fza_ah64_warntest_3D";
-		sound[] = {"\fza_ah64_us\audio\betty\bt_warntest.ogg",1,1,10};
+		sound[] = {"\fza_ah64_us\audio\betty\bt_warntest.ogg",3,1,1};
 		titles[]={};
 	};
 	class fza_ah64_fake_3D

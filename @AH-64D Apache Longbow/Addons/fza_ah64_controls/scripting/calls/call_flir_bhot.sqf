@@ -21,26 +21,4 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 				ppBlur ppEffectCommit 1;
 
 			};
-
-
-			/*
-			else {
-
-				ppEffectDestroy ppColor;
-				ppEffectDestroy ppBlur;
-				ppEffectDestroy ppChr;
-			};
-
-			if(cameraView == "EXTERNAL" || cameraView == "INTERNAL") then
-			{
-			fza_ah64_flirgreff ppEffectEnable false;
-			fza_ah64_pnvsfgeff ppEffectEnable false;
-			};
-			
-			if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then 
-			{
-			fza_ah64_flirgreff ppEffectEnable false;
-			fza_ah64_pnvsfgeff ppEffectEnable false;
-			};
-			*/
 };

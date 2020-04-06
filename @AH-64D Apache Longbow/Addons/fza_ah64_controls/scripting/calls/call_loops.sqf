@@ -1,6 +1,6 @@
 params["_heli"];
 
-private _apu = "Land_ClutterCutter_small_F" createVehicle [0,0,0];
+private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;
 private _bat = "Land_ClutterCutter_small_F" createVehicle [0,0,0];
 private _timed_apu = time + 24;
 private _timed_bat = time + 0;

@@ -14,12 +14,9 @@ if(player == driver _heli) then
 	
 fza_ah64_hfmode = _heli;
 fza_ah64_guncontrol = 0;
-fza_ah64_estarted = false;
 
 // COMPLEX ENGINE MODE (CEM)
-
-if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
-
+/*
 if(fza_ah64_cem) then
 {
 		sleep 0.1;
@@ -33,4 +30,5 @@ if(fza_ah64_cem) then
 			fza_ah64_fuelsave = _fuelsave;
 		};
 };
+*/
 };

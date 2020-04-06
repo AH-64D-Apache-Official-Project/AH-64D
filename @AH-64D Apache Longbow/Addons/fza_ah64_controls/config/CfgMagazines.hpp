@@ -1,8 +1,10 @@
 class CfgMagazines
 {
-	class Default {};
-	class CA_Magazine: Default {};
-	class VehicleMagazine: CA_Magazine {};
+	class CA_Magazine;
+	class VehicleMagazine;
+	class 24Rnd_PG_missiles;
+	class 24Rnd_missiles;
+	
 	class 60Rnd_CMFlareMagazine: CA_Magazine
 	{
 		author = "$STR_A3_Bohemia_Interactive";
@@ -11,6 +13,16 @@ class CfgMagazines
 		initSpeed = 30;
 	};
 	class fza_safe: VehicleMagazine
+	{
+		scope = 1;
+		displayName="SAFE";
+		ammo="fza_master";
+		count=1;
+		initSpeed=0;
+		tracersEvery=0;
+		nameSound="";
+	};
+	class fza_burstlimit: VehicleMagazine
 	{
 		scope = 1;
 		displayName="SAFE";

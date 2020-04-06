@@ -94,9 +94,9 @@ if(fza_ah64_ihadss_pnvs_cam && alive player) then
 {
 	if(fza_ah64_ihadss_pnvs_day) then
 	{
-		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //HDR
-	} else {
 		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG
+	} else {
+		((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //HDR
 	};
 } else {
 	((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl 120) ctrlSetText "";
@@ -121,7 +121,7 @@ fza_ah64_fgeff ppEffectEnable false;
 
 //IHADSS INIT
 
-if(_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) then
+if(_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngineOn _heli && fza_ah64_monocleinbox == 0 || !(fza_ah64_cem) && fza_ah64_monocleinbox == 0) then
 {
 if(isNil "fza_ah64_ihadssinit") then
 {

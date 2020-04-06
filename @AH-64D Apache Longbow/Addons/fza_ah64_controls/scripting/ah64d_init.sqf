@@ -2,6 +2,16 @@
 
 _heli = _this select 0;
 _heli selectweapon "fza_ma_safe";
+_heli animate ["pdoor",1];
+_heli animate ["gdoor",1];
+_heli animate ["plt_rtrbrake",1];
+_heli animate ["plt_firesw", 0.5];
+_heli animate ["cpg_firesw", 0.5];
+_heli animate ["tads_stow",1];
+
+	if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
+	if(isNil "fza_ah64_estarted") then {fza_ah64_estarted = false;};
+	if (isNil "fza_ah64_apuon") then {fza_ah64_apuon = 0;};	
 
 //ENABLE/DISABLE CPG CONTROLS
 
@@ -21,7 +31,6 @@ _skinset = 1;
 if(!(isNil "fza_ah64_noinit")) exitwith {};
 if(!(player in _heli) && !(isNil "fza_ah64_noai")) exitwith {hintsilent "EXITING";};
 
-if (isServer) then {_ahspawns = [_heli] execvm "\fza_ah64_controls\scripting\ahspawns.sqf";};
 
 //DEFAULT WEIGHT
 
@@ -60,11 +69,6 @@ if (isNil "fza_ah64_fx_init") then
 	fza_ah64_hellfireweps3 = ["fza_agm114_3_4","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr"];
 	fza_ah64_hellfireweps4 = ["fza_agm114_4_4","fza_agm114_4_ul","fza_agm114_4_ur","fza_agm114_4_ll","fza_agm114_4_lr"];
 
-	///engines///
-	if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
-	fza_ah64_estarted = false;
-	if(isengineon _heli) then {fza_ah64_estarted = true;};
-
 	fza_ah64_mousehorpos = 0.5;
 	fza_ah64_mousevertpos = 0.5;
 	fza_ah64_laserstate = 0;
@@ -83,7 +87,6 @@ if (isNil "fza_ah64_fx_init") then
 	uiNamespace setVariable ["fza_ah64_mapfake", (_this select 0)];
 	((_this select 0) displayCtrl 3001) ctrlSetEventHandler ["Draw", '[_this] call fza_ah64_pfsched'];
 	};
-	fza_ah64_apuon = 0;
 	fza_ah64_pwron = 0;
 	fza_ah64_fire1arm = 0;
 	fza_ah64_fire2arm = 0;

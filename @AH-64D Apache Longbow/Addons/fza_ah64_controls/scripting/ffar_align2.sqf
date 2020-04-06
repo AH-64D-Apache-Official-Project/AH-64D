@@ -75,10 +75,6 @@ _missobj setvelocity [0,0,0];
 
 _missobj setVectorDirAndUp [ [_vecdx,_vecdy,_vecdz], [_vecux,_vecuy,_vecuz] ];
 
-if(typeOf _missobj == "fza_275_m261") then {[_missobj,_ah64] execvm "\fza_ah64_controls\scripting\mpsm.sqf";};
-if(typeOf _missobj == "fza_275_m255") then {[_missobj,_ah64] execvm "\fza_ah64_controls\scripting\m255.sqf";};
-if(typeOf _missobj == "fza_275_m257") then {[_missobj,_ah64] execvm "\fza_ah64_controls\scripting\m257.sqf";};
-
 fza_ah64_salvofired = fza_ah64_salvofired + 1;
 };
 

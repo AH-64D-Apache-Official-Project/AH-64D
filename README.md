@@ -2,6 +2,14 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*06/04/2020*
+- Fixed TADS animation when shut down or lack of power
+- Fixed M255, M257, M151 & M261 submunitions
+- Changed default loadout based on real AH-64D  operation
+- Fixed turning off engine when player gets in cargo
+- Adjusted landing light strenght and direction
+
+
 *03/04/2020*
 - Minor external model 3D adjustements
 - Fixed 3D side panels holes in CPG & PLT seats

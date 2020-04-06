@@ -47,7 +47,6 @@ class CfgVehicles
 		radartype = 4;
 		radarTargetSize = 0.700000;
 		irTargetSize = 0.800000;
-		//TKOH ENTRIES//
 		enableCopilot = true;
 		usePreciseGetInAction = 1;
 		preciseGetInOut = 1;
@@ -56,8 +55,6 @@ class CfgVehicles
 		getOutAction = "GetOutHigh"; 
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		//TKOH END//
-		_mainbladecenter = "rotor_center";
 		mainbladecenter = "rotor_center";
 		fuelCapacity = 1423;
 		fuelconsumptionrate = 0.138;
@@ -68,7 +65,6 @@ class CfgVehicles
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
 		destrtype = "DestructWreck";
-		//RscUnitInfoSoldier
 		hideUnitInfo = 0;
 		insideSoundCoef = 0.5;
 		occludeSoundsWhenIn = 0.562341;
@@ -201,7 +197,7 @@ class CfgVehicles
 		{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 1200};
+					sound[] = {"\fza_ah64_US\audio\ah64_engine", 1, 1.000000, 800};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
@@ -233,7 +229,7 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 1200};
+					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
@@ -250,7 +246,7 @@ class CfgVehicles
 				};
 				class EngineInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 0.8, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 1, 1.000000};
 					frequency = "rotorSpeed";
 					volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
 				};
@@ -259,7 +255,7 @@ class CfgVehicles
 					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
-				};
+				};									
 				class TransmissionDamageExt_phase1
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 150};
@@ -290,24 +286,12 @@ class CfgVehicles
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
-				/*class damageAlarmExt
-				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 0, 1.000000, 20};
-					frequency = 1;
-					volume = "engineOn * camPos * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0, 0.001])";
-				};*/
 				class rotorLowAlarmInt
 				{
 					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
-				/*class rotorLowAlarmExt
-				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 0, 1.000000, 20};
-					frequency = 1;
-					volume = "engineOn * camPos * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
-				};*/
 				class scrubLandInt
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\noises\wheelsInt", 1.000000, 1.000000, 100};
@@ -392,15 +376,14 @@ class CfgVehicles
 					frequency = 1;
 					volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
 				};
-		};		
+		};	
 		class SoundsExt
 		{
-			class SoundEvents {};
 			class Sounds
 			{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine_Far_bak.ogg", 1, 1.000000, 1200};
+					sound[] = {"\fza_ah64_US\audio\ah64_engine", 1, 1.000000, 800};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
@@ -490,7 +473,7 @@ class CfgVehicles
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
 			};
-		};	
+		};						
 		class HitPoints
 		{
 			class HitHull
@@ -767,7 +750,7 @@ class CfgVehicles
 			};
 			class weaponactionswitch
 			{
-				displayName="Weapon Action Switch (WAS)";
+				displayName="";
 				useAction=false;
 				showSwitchAction=false;
 				position="pilot_action";
@@ -839,9 +822,9 @@ class CfgVehicles
 			{
 				displayName="Open Pilot Door";
 				position="pilot_action";
-				onlyForPlayer=0;
-				radius=2.5;
-				showWindow=0;
+				onlyForPlayer=1;
+				radius=3;
+				showWindow=1;
 				priority=10;
 				condition="this animationphase ""pdoor"" < 0.5 && alive this && !(isengineon this)";
 				shortcut="";
@@ -863,8 +846,8 @@ class CfgVehicles
 			{
 				displayName="Close Pilot Door";
 				position="pilot_action";
-				onlyForPlayer=0;
-				radius=2.5;
+				onlyForPlayer=1;
+				radius=3;
 				showWindow=0;
 				priority=10;
 				condition="this animationphase ""pdoor"" > 0.5 && alive this";
@@ -875,7 +858,7 @@ class CfgVehicles
 			{
 				displayName="Open Gunner Door";
 				position="gunner_action";
-				onlyForPlayer=0;
+				onlyForPlayer=1;
 				radius=3;
 				showWindow=0;
 				priority=10;
@@ -887,7 +870,7 @@ class CfgVehicles
 			{
 				displayName="Close Gunner Door";
 				position="gunner_action";
-				onlyForPlayer=0;
+				onlyForPlayer=1;
 				radius=3;
 				showWindow=0;
 				priority=10;
@@ -897,12 +880,12 @@ class CfgVehicles
 			};
 			class ihadsstoggle
 			{
-				displayName="IHADSS Toggle";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=3;
 				showWindow=0;
-				priority=9;
+				priority=0;
 				condition="player == driver this || player == gunner this";
 				shortcut="User11";
 				statement="[this] exec ""\fza_ah64_controls\scripting\ihadss.sqs""";
@@ -1152,12 +1135,12 @@ class CfgVehicles
 			};
 			class pnvs_cam_onoff
 			{
-				displayName="HDU PNVS Toggle";
+				displayName="";
 				position="pilot_action";
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=8;
+				priority=0;
 				condition="(player == driver this || player == gunner this)";
 				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
@@ -1171,7 +1154,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=0;
+				priority=9;
 				condition="(!(fza_ah64_tiron))";
 				shortcut="User19";
 				statement="fza_ah64_tiron = true";
@@ -1185,7 +1168,7 @@ class CfgVehicles
 				onlyForPlayer=1;
 				radius=8;
 				showWindow=0;
-				priority=0;
+				priority=9;
 				condition="(fza_ah64_tiron)";
 				shortcut="User19";
 				statement="fza_ah64_tiron = false";
@@ -1302,7 +1285,7 @@ class CfgVehicles
 				shortcut="User15";
 				statement="fza_ah64_ihadssmode = [this] execvm ""\fza_ah64_controls\scripting\ihadss_mode.sqf""";
 			};
-			/*class clickhelpers
+			/*
 			{
 				displayName="Click Helper Toggle";
 				position="pilot_action";
@@ -1313,7 +1296,8 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this)";
 				shortcut="";
 				statement="fza_ah64_clickhelpers = [this] execvm ""\fza_ah64_controls\scripting\click_helpers.sqf""";
-			};*/
+			};
+			*/
 			class Arming
 			{
 				displayName="<t color ='#ffff00'>Arming</t>";
@@ -1325,16 +1309,37 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && (speed this < 5) && (alive this)"; //removed CPG action
 				shortcut="";
 				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf""";
-			};
+			};	
+			/*
+            class Flood_On
+            {
+                displayName = "Flood On";
+                position = "pilot_action";
+                radius = 5;
+                onlyForPlayer = 1;
+                condition = "this animationPhase ""plt_floodlamps"" < 0.5 && (alive this) && player == driver this";
+                statement = "this animate ['plt_floodlamps',1]";
+                showWindow = 0;
+            };
+            class Flood_Off
+            {
+                displayName = "Flood Off";
+                position = "pilot_action";
+                radius = 5;
+                onlyForPlayer = 1;
+                condition = "this animationPhase ""plt_floodlamps"" > 0.5 && (alive this) && player == driver this";
+                statement = "this animate ['plt_floodlamps',0]";
+                showWindow = 0;
+            };
+			*/	
 		};
-		class eventhandlers
+		class EventHandlers
 		{
 			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
 			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;";
 			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
 			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
-			engine = "[_this select 0,_this select 1] execvm ""\fza_ah64_controls\scripting\engon.sqf""";
 			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
@@ -2699,7 +2704,6 @@ class CfgVehicles
 		accuracy=0.5;
 		simulation=helicopterRTD;
 		driverAction = "fza_ah64_pilot";
-		//enableSweep=1;
 		minMainRotorDive = 0;
 		maxMainRotorDive = 0;
 		neutralMainRotorDive = 0;
@@ -2711,10 +2715,8 @@ class CfgVehicles
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		//driveropticsmodel = "A3\Weapons_F\Reticle\Optics_Commander_01_w_F.p3d";
 		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		driverOpticsColor[] = {1,1,1,1};
-		//driverOpticsColor[] = {0.231,0.914,0.184,1};
 		laserScanner=1;
 		nightVision=1;
 		mainRotorSpeed = 1;
@@ -3006,7 +3008,6 @@ class CfgVehicles
 			source = "reload";
 			weapon = "fza_m230";
 		};
-		//EXPERIMENTAL//
 		class mainTurret
 		{
 			source = "user";
@@ -3043,7 +3044,6 @@ class CfgVehicles
 			animPeriod = 0.1;
 			initPhase=0;
 		};
-		//ENDEXPERIMENTAL//
 		class swashplate_up_tns
 		{
 			source = "user";
@@ -3208,38 +3208,6 @@ source = "user";
 animPeriod = 0.1;
 initPhase=0;
 };
-/*
-class blade2_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-*/
 class blade3_pitch
 {
 source = "user";
@@ -3252,38 +3220,6 @@ source = "user";
 animPeriod = 0.1;
 initPhase=0;
 };
-/*
-class blade3_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-*/
 class blade4_pitch
 {
 source = "user";
@@ -3296,38 +3232,6 @@ source = "user";
 animPeriod = 0.1;
 initPhase=0;
 };
-/*
-class blade4_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-*/
 //////weapons///////////
 		class pod_m260_1
 		{
@@ -3406,28 +3310,36 @@ initPhase=0;
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				sound = "rtrbrake_sound";
             };
 			class plt_anticollision
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				sound = "rtrbrake_sound";
+            };
+			class plt_firesw
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
+            };
+			class cpg_firesw
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
             };
 			class plt_nvsmode
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				sound = "rtrbrake_sound";
             };
 			class cpg_nvsmode
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				sound = "rtrbrake_sound";
             };
 			class plt_batt
             {
@@ -3446,7 +3358,6 @@ initPhase=0;
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				sound = "rtrbrake_sound";
             };
 			class plt_eng1_throttle
             {
@@ -3459,7 +3370,15 @@ initPhase=0;
 				source = "user";
 				animPeriod = 1.5;
 				initPhase=0;
+            };		
+			/*
+			class plt_floodlamps
+            {
+				source = "user";
+				animPeriod = 0.001;
+				initPhase=0;
             };
+			*/		
 			class mpd_pl_obj1_v
             {
 				source = "user";
@@ -4489,7 +4408,7 @@ initPhase=0;
 			initPhase=0;
 		};
 	};
-		 class MarkerLights
+		class MarkerLights
 		{
 			class PositionWhite
 			{
@@ -4524,7 +4443,6 @@ initPhase=0;
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
 			};
-
 			class PositionRed: PositionWhite
 			{
 			name = "cerveny pozicni";
@@ -4533,28 +4451,6 @@ initPhase=0;
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
 			};
-
-			/*class plt_light
-			{
-			name="plt_light";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
-			color[]={0.306,0.878,0.349,1};
-			ambient[]={0.306,0.878,0.349,1};
-			intensity=40;
-			drawLightSize = 0.01;
-			drawLightCenterSize = 0.001;
-			blinking = 0;
-			class Attenuation {
-			constant = 0;
-			hardLimitEnd = 1;
-			hardLimitStart = 0.20;
-			linear = 25;
-			quadratic = 50;
-			start = 0;
-        };
-			}; */
-
 			/*
 			class ckpt_light
 			{
@@ -4567,7 +4463,9 @@ initPhase=0;
 			drawLightSize = 0.01;
 			drawLightCenterSize = 0.001;
 			blinking = 0;
-			class Attenuation {
+			
+			class Attenuation 
+			{
 			constant = 1;
 			hardLimitEnd = 0.60;
 			hardLimitStart = 0.01;
@@ -4577,20 +4475,7 @@ initPhase=0;
 			};
 			};
 			*/
-			/*class RedBlinking
-			{
-				name="bily pozicni blik";
-				color[]={0.89999998,0.15000001,0.1};
-				ambient[]={0.090000004,0.015,0.0099999998};
-				intensity=150;
-				blinking=1;
-				blinkingPattern[] = {0.1,1.3};
-				blinkingPatternGuarantee=0;
-				drawLightSize=0.50;
-				drawLightCenterSize=0.039999999;
-			};*/
-
-			class WhiteBlinking1
+			class RedStrobe_1
 			{
 			name="cerveny pozicni blik_1";
 			//ambient[] = {0.1,0.1,0.1};
@@ -4605,8 +4490,7 @@ initPhase=0;
 			blinkingPatternGuarantee = 1;
 			daylight = 1; //added
 			};
-
-			class WhiteBlinking2
+			class RedStrobe_2
 			{
 			name="cerveny pozicni blik_2";
 			//ambient[] = {0.1,0.1,0.1};
@@ -4621,22 +4505,18 @@ initPhase=0;
 			blinkingPatternGuarantee = 1;
 			daylight = 1;		//added
 			};
-			};
+		};
 		class Reflectors
 		{
-
-			class Right {
-
+			class Landing_Light
+			{
 				position = "landing_light";
-				direction = "Light_dir";
-				hitpoint = "Light_hitpoint";
+				direction = "landing_light_dir";
+				hitpoint = "rfab";
 				selection = "Light";
-				//direction = "light_1_dir";
-				//hitpoint = "L svetlo";
-				//selection = "L svetlo";
 				color[] = {0.850000, 0.950000, 1.000000};
 				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 100000;
+				intensity = 3500;
 				size = 1;
 				innerAngle = 15;
 				outerAngle = 90;
@@ -4645,24 +4525,8 @@ initPhase=0;
 				flareSize = 1.500000;
 				flareMaxDistance = 500;
 				daylight = 1;		//added
-
-				/*color[] = {7000,7500,10000};
-				ambient[] = {70,75,100};
-				intensity = 50;
-				size = 1;
-				innerAngle = 15;
-				outerAngle = 65;
-				coneFadeCoef = 10;
-				useFlare = 1;
-				flareSize = 10;
-				flareMaxDistance = 250;
-				dayLight = 0;
-				position = "landing_light";
-				direction = "Light_dir";
-				hitpoint = "Light_hitpoint";
-				selection = "Light";*/
-
-				class Attenuation {
+				class Attenuation 
+				{
 					start = 0;
 					constant = 0;
 					linear = 1;
@@ -4671,7 +4535,87 @@ initPhase=0;
 					hardLimitEnd = 200;
 				};
 			};
+		/*
+			class Flood
+			{
+				position = "plt_floodlamps";
+				direction = "plt_memflood";
+				hitpoint = "plt_floodlamps";
+				selection = "plt_floodlamps";
+				color[] = {0.306,0.878,0.349};
+				ambient[] = {0.008500, 0.009500, 0.010000};
+				intensity = 90;
+				size = 1;
+				useFlare = 0;
+				flareSize = 0;
+				flareMaxDistance = 0;
+				daylight = 1;		//added
+				class Attenuation {
+					start = 0;
+					constant = 0;
+					linear = 1;
+					quadratic = 2;
+					hardLimitStart = 0.20;
+					hardLimitEnd = 1;
+				};
+			};		
+		*/
 		};
+		/*
+		class CompartmentsLights
+        {
+            class Comp1
+            {
+                class Light_Pilot
+                {
+                    color[]             = {0.306,0.878,0.349};
+                    ambient[]           = {0.008500, 0.009500, 0.010000};
+                    intensity           = 90;
+                    size                = 1;
+                    useFlare            = 0;
+                    flareSize           = 0;
+                    flareMaxDistance    = 0;
+                    dayLight            = 1;
+                    blinking            = 0;
+					point = "plt_floodlamps";
+                    class Attenuation
+                    {
+                        start           = 0;
+                        constant        = 0;
+                        linear          = 1;
+                        quadratic       = 2;
+                        hardLimitStart  = 0.20;
+                        hardLimitEnd    = 1;
+                    };
+                };
+            };
+            class Comp2
+            {
+                class Light_Gunner
+                {
+                    color[]             = {0.306,0.878,0.349};
+                    ambient[]           = {0.008500, 0.009500, 0.010000};
+                    intensity           = 30;
+                    size                = 1;
+                    useFlare            = 0;
+                    flareSize           = 0;
+                    flareMaxDistance    = 0;
+                    dayLight            = 1;
+                    blinking            = 0;
+                    point = "cpg_memflood";					
+                    class Attenuation
+                    {
+                        start           = 0;
+                        constant        = 0;
+                        linear          = 1;
+                        quadratic       = 2;
+                        hardLimitStart  = 0.20;
+                        hardLimitEnd    = 1;
+                    };
+                };
+            };
+        };
+		*/
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{	
@@ -4725,7 +4669,7 @@ initPhase=0;
 			};
 		};
 		side=1;
-		scope=2; //UNMASKED FROM EDITOR
+		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		displayName="AH-64D Apache";
 		hiddenselections[]=
@@ -5995,10 +5939,10 @@ initPhase=0;
 				gunnerGetOutAction = "GetOutHigh";
 				primary = 1;
 				primaryGunner = 1;
-				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"};
-				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"};
-				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
-				magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114k_3_ur","fza_agm114k_3_ll","fza_agm114k_2_lr","fza_agm114k_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"};
+				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
+				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
+				//weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114k_3_ur","fza_agm114k_3_ll","fza_agm114k_2_lr","fza_agm114k_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 				memoryPointsGetInGunnerDir = "pos gunner dir";
 				memoryPointGun = "testsc";
@@ -6143,6 +6087,7 @@ initPhase=0;
 	/////////////////////////////////////////////////
 	///////////////////JAMMERS///////////////////////
 	/////////////////////////////////////////////////
+	
 	class Thing: All {};
 	class ThingX: Thing {};
 	class RoadCone_F: Thing {};
@@ -6177,13 +6122,11 @@ initPhase=0;
 		crew = "B_UAV_AI";
 		typicalCargo[] = {"B_UAV_AI"};
 	};
+	
 	////////////////////////////////////////////////
 	///////////////////DEBRIS///////////////////////
 	////////////////////////////////////////////////
-	/*
-	class ThingEffect: Thing {};
-	class FxExploArmor1: ThingEffect {};
-	*/
+
 	class fza_ah64_tailboom_debris: RoadCone_F
 	{
 		scope=1;

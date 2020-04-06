@@ -16,7 +16,7 @@ class CfgPatches
 #include "config\CfgAnimationSourceSounds.hpp"
 #include "config\CfgSounds.hpp"
 #include "config\CfgRadio.hpp"
-#include "config\effects.hpp"
+#include "config\CfgCloudlets.hpp"
 #include "config\CfgMoves.hpp"
 #include "config\CfgAmmo.hpp"
 #include "config\CfgWeapons.hpp"
@@ -29,21 +29,3 @@ class CfgPatches
 #include "uiConfig\skinMenu.hpp"
 #include "uiConfig\monocle.hpp"
 #include "uiConfig\rscTitles.hpp"
-
-/*
- class SensorTemplateIR;
- class SensorTemplateVisual;
- class SensorTemplateActiveRadar;
- class SensorTemplatePassiveRadar;
- class SensorTemplateLaser;
- class SensorTemplateNV;
-
-class DefaultVehicleSystemsDisplayManagerLeft {
-		class Components;
-};
-
-class DefaultVehicleSystemsDisplayManagerRight {
-		class Components;
-};
-*/
-
