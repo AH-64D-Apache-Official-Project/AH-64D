@@ -6,12 +6,12 @@ class CfgVehicles
 		class NewTurret;
 	};
 	class Air : AllVehicles {};
-	class Helicopter_Base_F : Air 
+	class Helicopter_Base_F : Air
 	{
 		class Components;
 	};
 	class fza_ah64base: Helicopter_Base_F
-	{		
+	{
     class itc_air {
 	    class rover {
 	        capable = 1;
@@ -25,6 +25,10 @@ class CfgVehicles
       systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
 	    mfdType = "classic";
     };
+
+		receiveRemoteTargets = true;
+		reportRemoteTargets = true;
+
 		side=1;
 		scope=0;
 		displayName="AH-64D";
@@ -52,7 +56,7 @@ class CfgVehicles
 		preciseGetInOut = 1;
 		getInRadius = 1.500000;
 		getInAction = "pilot_Heli_Light_02_Enter";
-		getOutAction = "GetOutHigh"; 
+		getOutAction = "GetOutHigh";
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		mainbladecenter = "rotor_center";
@@ -86,21 +90,21 @@ class CfgVehicles
 		soundWaterCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_1", 1.000000, 1, 10};
 		soundWaterCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_water_ext_2", 1.000000, 1, 10};
 		soundWaterCrashes[] = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
-		soundDammage[] = {"\fza_ah64_US\audio\helibasiccrash.ogg", 3.162278, 1, 10};
+		soundDammage[] = {"\fza_ah64_US\audio\Crash.ogg", 3.162278, 1, 100};
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
-		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,600};
-		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",0.33,0.6};
-		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,600};
-		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.33,0.6};
-		rotorDamageInt[] = {"\fza_ah64_US\audio\heli_damage_rotor_int.ogg", 1.000000, 1.000000};
-		rotorDamageOut[] = {"\fza_ah64_US\audio\heli_damage_rotor_ext.ogg", 2.511886, 1.000000, 10};
+		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,300};
+		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",0.5,0.6};
+		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,300};
+		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.5,0.6};
+		rotorDamageInt[] = {"\fza_ah64_US\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
+		rotorDamageOut[] = {"\fza_ah64_US\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
 		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
-		tailDamageInt[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000};
-		tailDamageOut[] = {"\fza_ah64_US\audio\heli_damage_tail.ogg", 1.000000, 1.000000, 10};
+		tailDamageInt[] = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000};
+		tailDamageOut[] = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000, 100};
 		tailDamage[] = {"tailDamageInt", "tailDamageOut"};
-		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 10};
-		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000, 10};
+		landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
+		landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
 		landingSoundInt[] = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};
 		landingSoundOut0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
 		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
@@ -197,13 +201,13 @@ class CfgVehicles
 		{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_engine", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 800};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Rotor.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -219,17 +223,17 @@ class CfgVehicles
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
-				class RotorSwist 
+				class RotorSwist
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist", 0.500000, 1, 300};
 					frequency = 1;
 					volume = "camPos * (rotorThrust factor [0.7, 0.9])";
-				};					
+				};
 				class TailRotor
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 1, 1, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 1, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
@@ -246,16 +250,16 @@ class CfgVehicles
 				};
 				class EngineInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\Int_Engine.ogg", 1, 1.000000};
 					frequency = "rotorSpeed";
 					volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
 				};
 				class RotorInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1};
+					sound[] = {"\fza_ah64_us\audio\Int_Rotor.ogg", 1, 1};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
-				};									
+				};
 				class TransmissionDamageExt_phase1
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 150};
@@ -330,13 +334,13 @@ class CfgVehicles
 				};
 				class RainExt
 				{
-					sound[] = {"\fza_ah64_us\audio\rain1_ext.ogg", 1.000000, 1.000000, 100};
+					sound[] = {"\fza_ah64_us\audio\Ext_Rain.ogg", 1.000000, 1.000000, 100};
 					frequency = 1;
 					volume = "camPos * (rain - rotorSpeed/2) * 2";
 				};
 				class RainInt
 				{
-					sound[] = {"\fza_ah64_us\audio\rain1_int_open.ogg", 1.000000, 1.000000, 100};
+					sound[] = {"\fza_ah64_us\audio\Int_Rain.ogg", 1.000000, 1.000000, 100};
 					frequency = 1;
 					volume = "(1-camPos)*(rain - rotorSpeed/2)*2";
 				};
@@ -376,20 +380,20 @@ class CfgVehicles
 					frequency = 1;
 					volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
 				};
-		};	
+		};
 		class SoundsExt
 		{
 			class Sounds
 			{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_engine", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 800};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
 				class RotorExt
 				{
-					sound[] = {"\fza_ah64_US\audio\ah64_rotor_ext2.ogg", 1, 1.000000, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Rotor.ogg", 1, 1.000000, 1200};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -405,17 +409,17 @@ class CfgVehicles
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
-				class RotorSwist 
+				class RotorSwist
 				{
 					sound[] = {"A3\Sounds_F\vehicles\air\Heli_Attack_01\swist", 0.500000, 1, 300};
 					frequency = 1;
 					volume = "camPos * (rotorThrust factor [0.7, 0.9])";
-				};					
+				};
 				class TailRotor
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\ah64_trotor_ext1.ogg", 2, 1, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 2, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
@@ -432,13 +436,13 @@ class CfgVehicles
 				};
 				class EngineInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_engine_int1.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_us\audio\Int_Engine.ogg", 1, 1.000000};
 					frequency = "rotorSpeed";
 					volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
 				};
 				class RotorInt
 				{
-					sound[] = {"\fza_ah64_us\audio\ah64_rotor_int1.ogg", 1, 1};
+					sound[] = {"\fza_ah64_us\audio\Int_Rotor.ogg", 1, 1};
 					frequency = "rotorSpeed * (1 - rotorThrust/5)";
 					volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
@@ -473,7 +477,7 @@ class CfgVehicles
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
 			};
-		};						
+		};
 		class HitPoints
 		{
 			class HitHull
@@ -1309,7 +1313,7 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && (speed this < 5) && (alive this)"; //removed CPG action
 				shortcut="";
 				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf""";
-			};	
+			};
 			/*
             class Flood_On
             {
@@ -1331,7 +1335,7 @@ class CfgVehicles
                 statement = "this animate ['plt_floodlamps',0]";
                 showWindow = 0;
             };
-			*/	
+			*/
 		};
 		class EventHandlers
 		{
@@ -1357,60 +1361,60 @@ class CfgVehicles
 			};
 		};*/
 
-		 class AcreIntercoms 
+		 class AcreIntercoms
 		{
-            class Intercom_1 
+            class Intercom_1
 			{
                 displayName = "Crew Intercom";
                 shortName = "Crew";
                 allowedPositions[] = {"crew"};
-                disabledPositions[] = {}; 
+                disabledPositions[] = {};
                 masterPositions[] = {"crew"}; // Seats with master stations have the possibility of broadcasting a message in that network
                 limitedPositions[] = {"cargo"}; // Despite not having regular access to the network, units in cargo positions can have limited connections to communicate with the crew. These positions do not transmit automatically in the limited network; units in this position must toggle the functionality manually.
                 numLimitedPositions = 3;  // This is the number of simultaneous connections that units defined in the previous array can have
                 connectedByDefault = 0; // The intercom initial configuration is enabled upon entering a vehicle
             };
 		};
-		
+
 		acre_hasInfantryPhone = 1; // 1 - enabled, 0 - disabled
 		acre_infantryPhoneDisableRinging = 1;   // If set to 1, the ringing funtionality will not be available
 		acre_infantryPhoneCustomRinging[] = {}; // An array used in order to override the default sound for the ringing functionality
 		acre_infantryPhoneIntercom[] = {"intercom_1"}; // List of intercom names (intercom_1, intercom_2) or "all" in order to specify which intercom networks the phone can connect to
 		acre_infantryPhoneControlActions[] = {"intercom_1"}; // Only those units in "intercom_1" can have access to ringing functionality
 		acre_eventInfantryPhone = QFUNC(noApiFunction); // Here a custom function can be defined that is called when the infantry phone is picked up, put back, given to another unit or the intercom network is switched
-		
+
 		class AcreRacks
 		{
-           	class Rack_1 
+           	class Rack_1
 			{
                displayName = "ARC-186 (VHF)"; // Name is displayed in the interaction menu.
 			   shortName = "VHF";
                allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
-               componentName = "ACRE_VRC103";	
+               componentName = "ACRE_VRC103";
 			   disabledPositions[] = {};
                defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
                isRadioRemovable = 0;
                intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
 		   };
-		    class Rack_2 
+		    class Rack_2
 			{
                displayName = "ARC-164 (UHF)"; // Name is displayed in the interaction menu.
 			   shortName = "UHF";
                allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
-               componentName = "ACRE_VRC103";	
+               componentName = "ACRE_VRC103";
 			   disabledPositions[] = {};
                defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
                isRadioRemovable = 0;
                intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
 		   };
-		    class Rack_3 
+		    class Rack_3
 			{
                displayName = "ARC-201D (FM1)"; // Name is displayed in the interaction menu.
 			   shortName = "FM1";
                allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
-               componentName = "ACRE_SEM90";	
+               componentName = "ACRE_SEM90";
 			   disabledPositions[] = {};
                defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_SEM70";                 // Predefined mounted radio
@@ -1422,7 +1426,7 @@ class CfgVehicles
                displayName = "ARC-201D (FM2)"; // Name is displayed in the interaction menu.
 			   shortName = "FM2";
                allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
-               componentName = "ACRE_SEM90";	
+               componentName = "ACRE_SEM90";
 			   disabledPositions[] = {};
                defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_SEM70";                 // Predefined mounted radio
@@ -1434,7 +1438,7 @@ class CfgVehicles
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;
-		scope=1; //MASKED FROM EDITOR
+		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		displayName="AH-64D Apache Longbow";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
@@ -2730,7 +2734,6 @@ class CfgVehicles
 		armorHRotor=0.7;
 		armorMissiles=1.6;
 		armorGlass=1.0;
-		//memorypointcmdir[] = {"chaff_launcher1_dir"};
 		memorypointcm[] = {"chaff_launcher1"};
 		memorypointcmdir[] = {"flare_1_end"};
 		weapons[] = {"fza_CMFlareLauncher"};
@@ -2782,17 +2785,10 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				//opticStabilized=1;
-				//directionStabilized = 1;
-				//horizontallyStabilized = 1;
-				//weapons[] = {"fza_m230","fza_m261_14","fza_agm114_23_8"}; //DEFAULT LOADOUT 8xSAL2
-				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_agm114k_23_8"}; //LOADOUT 4xRF + 4xSAL2
-				//weapons[] = {"fza_m230","fza_m261_14","fza_atas_2","fza_agm114_3_4","fza_agm114_2_4"}; //LOADOUT 4xRF + 4xSAL2
-				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_4","fza_agm114l_2_4"}; //LOADOUT 4xRF + 4xSAL2
-				//weapons[] = {"fza_m230","fza_m261_14","fza_atas_2","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
-				//magazines[] = {"fza_m230_1200","fza_m261_m151_14_38","fza_atas_2","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114l_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114l_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"}; //LOADOUT DIAGONAL 4xRF + 4xSAL2
-			    weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
-				magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
+				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_2_4","fza_agm114_3_4"};
+				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114l_2_4","fza_agm114k_3_4"};
+			    //weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
+				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "testsc";
@@ -3370,7 +3366,7 @@ initPhase=0;
 				source = "user";
 				animPeriod = 1.5;
 				initPhase=0;
-            };		
+            };
 			/*
 			class plt_floodlamps
             {
@@ -3378,7 +3374,7 @@ initPhase=0;
 				animPeriod = 0.001;
 				initPhase=0;
             };
-			*/		
+			*/
 			class mpd_pl_obj1_v
             {
 				source = "user";
@@ -4424,7 +4420,7 @@ initPhase=0;
 			intensity = 75;
 			useFlare = 0;
 
-			class Attenuation 
+			class Attenuation
 			{
 			constant = 0;
 			hardLimitEnd = 1;
@@ -4463,8 +4459,8 @@ initPhase=0;
 			drawLightSize = 0.01;
 			drawLightCenterSize = 0.001;
 			blinking = 0;
-			
-			class Attenuation 
+
+			class Attenuation
 			{
 			constant = 1;
 			hardLimitEnd = 0.60;
@@ -4516,7 +4512,7 @@ initPhase=0;
 				selection = "Light";
 				color[] = {0.850000, 0.950000, 1.000000};
 				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 3500;
+				intensity = 5000;
 				size = 1;
 				innerAngle = 15;
 				outerAngle = 90;
@@ -4525,7 +4521,7 @@ initPhase=0;
 				flareSize = 1.500000;
 				flareMaxDistance = 500;
 				daylight = 1;		//added
-				class Attenuation 
+				class Attenuation
 				{
 					start = 0;
 					constant = 0;
@@ -4558,7 +4554,7 @@ initPhase=0;
 					hardLimitStart = 0.20;
 					hardLimitEnd = 1;
 				};
-			};		
+			};
 		*/
 		};
 		/*
@@ -4602,7 +4598,7 @@ initPhase=0;
                     flareMaxDistance    = 0;
                     dayLight            = 1;
                     blinking            = 0;
-                    point = "cpg_memflood";					
+                    point = "cpg_memflood";
                     class Attenuation
                     {
                         start           = 0;
@@ -4616,15 +4612,16 @@ initPhase=0;
             };
         };
 		*/
+	#include "sensor_b2e.hpp"
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
-	{	
+	{
 		class Components: Components
 		{
 			class TransportPylonsComponent
 			{
-				uiPicture = "\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_EDEN_CA.paa";		
-				
+				uiPicture = "\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_EDEN_CA.paa";
+
 				class Pylons // Pylons are indexed to aircraft model's proxies IDs in the order they are written in class Pylons
 				{
 					class PylonLeft1 {
@@ -4634,8 +4631,8 @@ initPhase=0;
 						bay = -1;
 						turret[] = {};
 						UIposition[] = {0.060000, 0.400000};
-					};	
-					
+					};
+
 					class PylonLeft2: PylonLeft1 {
 						attachment = "";
 						hardpoints[] = {};
@@ -5941,8 +5938,6 @@ initPhase=0;
 				primaryGunner = 1;
 				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
 				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
-				//weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
-				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114k_3_lr","fza_agm114k_3_ur","fza_agm114k_3_ll","fza_agm114k_2_lr","fza_agm114k_2_ul","fza_agm114k_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 				memoryPointsGetInGunnerDir = "pos gunner dir";
 				memoryPointGun = "testsc";
@@ -6087,7 +6082,7 @@ initPhase=0;
 	/////////////////////////////////////////////////
 	///////////////////JAMMERS///////////////////////
 	/////////////////////////////////////////////////
-	
+
 	class Thing: All {};
 	class ThingX: Thing {};
 	class RoadCone_F: Thing {};
@@ -6122,7 +6117,7 @@ initPhase=0;
 		crew = "B_UAV_AI";
 		typicalCargo[] = {"B_UAV_AI"};
 	};
-	
+
 	////////////////////////////////////////////////
 	///////////////////DEBRIS///////////////////////
 	////////////////////////////////////////////////

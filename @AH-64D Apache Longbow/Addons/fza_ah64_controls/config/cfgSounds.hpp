@@ -246,13 +246,13 @@ class CfgSounds
 	class fza_ah64_bat_loop_3D
 	{
 		name = "fza_ah64_bat_loop_3D";
-		sound[] = {"fza_ah64_us\audio\avionics.ogg",10,1,10};
+		sound[] = {"fza_ah64_us\audio\Avionics.ogg",10,1,10};
 		titles[]={};	
 	};
 	class fza_ah64_estart_3D
 	{
 		name = "fza_ah64_estart_3D";
-		sound[] = {"fza_ah64_us\audio\ah64_estart1.ogg",1,1,300};
+		sound[] = {"fza_ah64_us\audio\Start_Ext.ogg",1,1,300};
 		titles[]={};
 	};
 	class fza_ah64_warntest_3D
@@ -264,7 +264,7 @@ class CfgSounds
 	class fza_ah64_fake_3D
 	{
 		name = "fza_ah64_fake_3D";
-		sound[] = {"\fza_ah64_us\audio\betty\fakesound.ogg",1,1,10};
+		sound[] = {"A3\Sounds_F\dummysound",1,1,10};
 		titles[]={};
 	};
 	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
@@ -273,67 +273,67 @@ class CfgSounds
 	class fza_ah64_button_click1
 	{
 		name = "fza_ah64_button_click1";
-		sound[] = {"fza_ah64_us\audio\button_click1.ogg",1,1,1};
+		sound[] = {"fza_ah64_us\audio\Button1.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_button_click2
 	{
 		name = "fza_ah64_button_click2";
-		sound[] = {"\fza_ah64_us\audio\button_click2.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Button2.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_knob
 	{
 		name = "fza_ah64_knob";
-		sound[] = {"\fza_ah64_us\audio\knob.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Knob.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_monoclebox
 	{
 		name = "fza_ah64_monoclebox";
-		sound[] = {"\fza_ah64_us\audio\monoclebox.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\HDU.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_battery
 	{
 		name = "fza_ah64_battery";
-		sound[] = {"\fza_ah64_us\audio\battery.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Battery.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_apubutton
 	{
 		name = "fza_ah64_apubutton";
-		sound[] = {"\fza_ah64_us\audio\apubutton.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\APU_Button.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip1
 	{
 		name = "fza_ah64_switch_flip1";
-		sound[] = {"\fza_ah64_us\audio\switch_flip1.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Switch_Flip1.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip2
 	{
 		name = "fza_ah64_switch_flip2";
-		sound[] = {"\fza_ah64_us\audio\switch_flip2.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Switch_Flip2.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip3
 	{
 		name = "fza_ah64_switch_flip3";
-		sound[] = {"\fza_ah64_us\audio\switch_flip3.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Switch_Flip3.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_switch_flip4
 	{
 		name = "fza_ah64_switch_flip4";
-		sound[] = {"\fza_ah64_us\audio\switch_flip4.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Switch_Flip4.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_button_rotary
 	{
 		name = "fza_ah64_button_rotary";
-		sound[] = {"\fza_ah64_us\audio\rotary.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Rotary.ogg",1,1,1};
 		titles[]={};
 	};
 	///END OF GENERIC FLIP SOUNDS///
@@ -342,25 +342,13 @@ class CfgSounds
 	class fza_ah64_rh_dooropen1
 	{
 		name = "fza_ah64_rh_dooropen1";
-		sound[] = {"\fza_ah64_us\audio\rh_dooropen1.ogg",1,1,1};
+		sound[] = {"\fza_ah64_us\audio\Door_Open.ogg",1,1,1};
 		titles[]={};
 	};
 	class fza_ah64_rh_doorclose1
 	{
 		name = "fza_ah64_rh_doorclose1";
-		sound[] = {"\fza_ah64_us\audio\rh_doorclose1.ogg",1,1,1};
-		titles[]={};
-	};
-	class fza_ah64_rh_dooropen_3D
-	{
-		name = "fza_ah64_rh_dooropen_3D";
-		sound[] = {"\fza_ah64_us\audio\rh_dooropen1.ogg",1,1};
-		titles[]={};
-	};
-	class fza_ah64_rh_doorclose_3D
-	{
-		name = "fza_ah64_rh_doorclose_3D";
-		sound[] = {"\fza_ah64_us\audio\rh_doorclose1.ogg",1,1};
+		sound[] = {"\fza_ah64_us\audio\Door_Close.ogg",1,1,1};
 		titles[]={};
 	};
 	///END OF DOOR SOUNDS///

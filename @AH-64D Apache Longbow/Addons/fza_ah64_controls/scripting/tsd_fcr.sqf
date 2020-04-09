@@ -61,12 +61,12 @@ _thetafcr = [_heli,(getposatl _heli select 0),(getposatl _heli select 1),(getpos
 
 if(fza_ah64_agmode == 1) then
 {
-if((getpos _i select 2 < 10) || ((_heli distance _i) > 8000) || !(alive _i)) then {fza_ah64_dispfcrlist = fza_ah64_dispfcrlist - [_i];};
+if((getpos _i select 2 < 10) || ((_heli distance2D _i) > 8000) || !(alive _i)) then {fza_ah64_dispfcrlist = fza_ah64_dispfcrlist - [_i];};
 };
 
 if(fza_ah64_agmode == 0) then
 {
-if((getpos _i select 2 > 10) || ((_heli distance _i) > 8000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _i)) then {fza_ah64_dispfcrlist = fza_ah64_dispfcrlist - [_i];};
+if((getpos _i select 2 > 10) || ((_heli distance2D _i) > 8000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _i)) then {fza_ah64_dispfcrlist = fza_ah64_dispfcrlist - [_i];};
 };
 
 } foreach fza_ah64_dispfcrlist;
@@ -105,11 +105,11 @@ if(isNull fza_ah64_mycurrenttarget) then
 {
 _tgtr = 0;
 } else {
-_tgtr = (fza_ah64_mycurrenttarget distance _heli) * 0.001;
+_tgtr = (fza_ah64_mycurrenttarget distance2D _heli) * 0.001;
 };
 if(fza_ah64_tsdmode == "nav") then
 {
-_tgtr = ([(fza_ah64_curwp select 0),(fza_ah64_curwp select 1),0] distance [(getpos _heli select 0),(getpos _heli select 1),0]) * 0.001;
+_tgtr = ([(fza_ah64_curwp select 0),(fza_ah64_curwp select 1),0] distance2D [(getpos _heli select 0),(getpos _heli select 1),0]) * 0.001;
 };
 _tgtrtk = round(floor(_tgtr * 0.1));
 _tgtrk = round(floor(10*((_tgtr * 0.1) - floor(_tgtr * 0.1))));
@@ -291,8 +291,8 @@ _heli setobjecttexture [388,_targdir1];
 
 if (_theta >= 180) then {_targhead = _theta - 360;} else {_targhead = _theta;};
 
-_targxpos = ((sin _targhead) * (((_heli distance _x) * fza_ah64_rangesetting)*0.75))+0.5;
-_targypos = ((cos _targhead) * (((_heli distance _x) * fza_ah64_rangesetting)*0.75))+0.25;
+_targxpos = ((sin _targhead) * (((_heli distance2D _x) * fza_ah64_rangesetting)*0.75))+0.5;
+_targypos = ((cos _targhead) * (((_heli distance2D _x) * fza_ah64_rangesetting)*0.75))+0.25;
 
 if(_targxpos > 0.9) then {_targxpos = 0.9;};
 if(_targxpos < 0.1) then {_targxpos = 0.1;};
@@ -424,8 +424,8 @@ _heli setobjecttexture [388,_targdir1];
 
 if (_theta >= 180) then {_targhead = _theta - 360;} else {_targhead = _theta;};
 
-_targxpos = ((sin _targhead) * (((_heli distance _x) * fza_ah64_rangesetting)*0.75))+0.5;
-_targypos = ((cos _targhead) * (((_heli distance _x) * fza_ah64_rangesetting)*0.75))+0.25;
+_targxpos = ((sin _targhead) * (((_heli distance2D _x) * fza_ah64_rangesetting)*0.75))+0.5;
+_targypos = ((cos _targhead) * (((_heli distance2D _x) * fza_ah64_rangesetting)*0.75))+0.25;
 
 if(_targxpos > 0.9) then {_targxpos = 0.9;};
 if(_targxpos < 0.1) then {_targxpos = 0.135;};
@@ -589,7 +589,7 @@ if(fza_ah64_pr_mpd == "fcr") then
 			{if(_i iskindof _x) then {_adaunit = true;};} foreach fza_ah64_ada_units;
 
 			_targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_gen.paa";
-			
+
 			if (_x isKindOf "helicopter") then {_heli setobjecttexture [_targnum,"\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa"]; _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa";};
 			if (_x isKindOf "plane") then {_heli setobjecttexture [_targnum,"\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa"]; _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";};
 			if (_x isKindOf "tank") then {_heli setobjecttexture [_targnum,"\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa"]; _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa";};
@@ -643,21 +643,21 @@ if(fza_ah64_pr_mpd == "fcr") then
 			if (_theta >= 180) then {_targhead = _theta - 360;} else {_targhead = _theta;};
 			if(fza_ah64_agmode == 1) then
 			{
-				_targxpos = ((sin _targhead) * (((_heli distance _x) * 0.000125)*0.45))+0.5;
-				_targypos = ((cos _targhead) * (((_heli distance _x) * 0.000125)*0.45))+0.5;
-	
+				_targxpos = ((sin _targhead) * (((_heli distance2D _x) * 0.000125)*0.45))+0.5;
+				_targypos = ((cos _targhead) * (((_heli distance2D _x) * 0.000125)*0.45))+0.5;
+
 				if(_targxpos > 0.95) then {_targxpos = 0.95;};
 				if(_targxpos < 0.1) then {_targxpos = 0.1;};
-	
+
 				if(_targypos > 0.95) then {_targypos = 0.95;};
 				if(_targypos < 0.1) then {_targypos = 0.1;};
 			} else {
-				_targxpos = ((sin _targhead) * (((_heli distance _x) * 0.000125)*0.6))+0.5;
-				_targypos = ((cos _targhead) * (((_heli distance _x) * 0.000125)*0.6))+0.2;
-	
+				_targxpos = ((sin _targhead) * (((_heli distance2D _x) * 0.000125)*0.6))+0.5;
+				_targypos = ((cos _targhead) * (((_heli distance2D _x) * 0.000125)*0.6))+0.2;
+
 				if(_targxpos > 0.9) then {_targxpos = 0.9;};
 				if(_targxpos < 0.1) then {_targxpos = 0.1;};
-	
+
 				if(_targypos > 0.8) then {_targypos = 0.8;};
 				if(_targypos < 0.1) then {_targypos = 0.1;};
 			};

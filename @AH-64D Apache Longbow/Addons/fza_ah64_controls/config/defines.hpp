@@ -21,7 +21,6 @@
 #define CanSeeOptics 4
 #define CanSeeEar 8
 #define CanSeeCompass 16
-//#define CanSeeRadarC CanSeeRadar+CanSeeCompass
 #define CanSeeAll 31
 
 #define StabilizedInAxesBoth 3

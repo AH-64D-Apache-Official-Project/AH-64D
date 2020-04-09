@@ -6,7 +6,7 @@ sleep 2;
 
 while {(alive _heli)} do
 {
-waituntil {player in _heli && fza_ah64_fcrstate == 1 && isengineon _heli && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret [-1]))};
+waituntil {player in _heli && fza_ah64_fcrstate == 1 && (isengineon _heli || fza_ah64_apuon == 1) && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret [-1]))};
 
 if(fza_ah64_agmode != 1) then
 {

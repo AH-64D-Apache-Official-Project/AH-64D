@@ -30,17 +30,20 @@ _mistime = 1;
 _laserguided = 0;
 _attached = 1;
 
-if((_bomb iskindof "fza_agm114c" || _bomb iskindof "fza_agm114k") && !(isNull cursortarget)) then {_target = cursortarget;};
+if((_bomb iskindof "fza_agm114c" || _bomb iskindof "fza_agm114k" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") && !(isNull cursortarget)) then {_target = cursortarget;};
 
-if (!(_bomb isKindOf "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_fim92")) exitwith {};
+if (!(_bomb isKindOf "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n" || _bomb isKindOf "fza_fim92")) exitwith {};
 
 if (_bomb isKindOf "fza_fim92") then {_hilimit = 270; _lolimit = 90; _poweredmunition = 1; _prox = 1; _pdist = 15; _dirrate = 6.25;};
 
 if (typeOf _bomb == "fza_agm114l") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.5; _laserguided = 0;};
 if (typeOf _bomb == "fza_agm114k") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.7; _laserguided = 1;};
 if (typeOf _bomb == "fza_agm114c") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.7; _laserguided = 1;};
+if (typeOf _bomb == "fza_agm114a") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.7; _laserguided = 1;};
+if (typeOf _bomb == "fza_agm114m") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.7; _laserguided = 1;};
+if (typeOf _bomb == "fza_agm114n") then {_hilimit = 330; _lolimit = 30; _poweredmunition = 1; _dirrate = 5.7; _laserguided = 1;};
 
-if (_launchmode == "direct.sqf" && (_bomb isKindOf "fza_agm114l" || _bomb isKindOf "fza_agm114k")) exitwith {};
+if (_launchmode == "direct.sqf" && (_bomb isKindOf "fza_agm114l" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n" || _bomb isKindOf "fza_agm114k")) exitwith {};
 
 _bombpb = _bomb call fza_ah64_getpb;
 _pitch = _bombpb select 0;
@@ -141,14 +144,14 @@ if(_launchmode == "loaldir.sqf") then {_maxpitch = ((_bomb distance _posdetector
 if(_launchmode == "loallo.sqf") then {_maxpitch = 70; _pfactor = 2; _maxalt = _basetargdist * 0.05;};
 if(_launchmode == "loalhi.sqf") then {_maxpitch = 55; _pfactor = 1.5; _maxalt = _basetargdist * 0.075;};
 
-if(typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k") then {_maxpitch = 30; _pfactor = 1.2; _maxalt = _basetargdist * 0.106;};
+if(typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") then {_maxpitch = 30; _pfactor = 1.2; _maxalt = _basetargdist * 0.106;};
 
-if(_loftcomplete == 0 && _basepitch < _maxpitch && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013))) && (_relalt) < _maxalt) then
+if(_loftcomplete == 0 && _basepitch < _maxpitch && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013))) && (_relalt) < _maxalt) then
 {
 _pitch = _basepitch + _pfactor;
 };
 
-if(_loftcomplete == 0 && _basepitch > 0 && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013))) && (_relalt) >= _maxalt) then
+if(_loftcomplete == 0 && _basepitch > 0 && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013))) && (_relalt) >= _maxalt) then
 {
 _pitch = _basepitch - 2;
 if(_pitch <= 5) then
@@ -157,12 +160,12 @@ _loftcomplete = 1;
 };
 };
 
-if(_loftcomplete == 1 && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013)))) then
+if(_loftcomplete == 1 && (typeOf _bomb == "fza_agm114l" || _bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") && _bomb distance _target > (_relalt+((_relalt)/((_relalt)*0.0013)))) then
 {
 _pitch = 2;
 };
 
-if(_designator == _jet && _bomb isKindOf "fza_agm114k" && fza_ah64_targlos == 0 && _bomb distance _target < (_relalt+((_relalt)/((_relalt)*0.0013)))) exitwith
+if(_designator == _jet && (_bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c" || _bomb isKindOf "fza_agm114a" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n") && fza_ah64_targlos == 0 && _bomb distance _target < (_relalt+((_relalt)/((_relalt)*0.0013)))) exitwith
 {
 _pitch = _bombpb select 0;
 _dir = _basedir;

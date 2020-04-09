@@ -54,7 +54,7 @@ class CfgAmmo
 	class fza_30x113: B_30mm_HE
 	{
 		access = 1;
-		soundfly[] = {"\fza_ah64_us\audio\20mm_Flyby_5.ogg",1,1,1};
+		soundfly[] = {"\fza_ah64_us\audio\20mm_Flyby.ogg",1,1,1};
 		muzzleeffect = "fza_ah64_fx_30mm";		
 		hit = 60;
 		indirectHit = 10;
@@ -262,7 +262,7 @@ class CfgAmmo
 	class fza_275_base: MissileBase 
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-		soundfly[] = {"\fza_ah64_us\audio\fakesound.ogg",1,1,1};
+		soundfly[] = {"A3\Sounds_F\dummysound",1,1,1};
 		effectsmissile = "fza_ah64_rocketsmoke";
 		effectsMissileInit = "MissileDAR1";
 		muzzleEffect = "BIS_fnc_effectFiredRocket";

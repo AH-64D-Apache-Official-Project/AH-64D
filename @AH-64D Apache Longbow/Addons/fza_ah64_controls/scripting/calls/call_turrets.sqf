@@ -35,7 +35,7 @@ _powerfactor = 1.9;
 _toffactor = 0.002;
 _rktavgvel = 990;
 
-//////AUTOTRACK////////
+// AUTOTRACK
 		if((fza_ah64_guncontrol == 1 || fza_ah64_guncontrol == 2) && (gunner _heli == player || driver _heli == player) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) then
 		{
 		if(!(gunner _heli == player) || (gunner _heli == player)) then
@@ -72,34 +72,6 @@ _rktavgvel = 990;
 			//0.002 == 250m == 0.5m == 1.91
 			//0.001 == <250m == 0.5m == 1.91
 			//4.6x
-/*
-//old
-			_powerfactor = 1.91;
-			_toffactor = 0.001;
-			_rktavgvel = 1260;
-			if(_heli distance _targasl > 390) then {_powerfactor = 1.95; _toffactor = 0.0012; _distfactor = 2; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 490) then {_powerfactor = 1.94; _toffactor = 0.0015; _distfactor = 2.5; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 590) then {_powerfactor = 1.938; _toffactor = 0.0016; _distfactor = 4.3; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 690) then {_powerfactor = 1.937; _toffactor = 0.0017; _distfactor = 4.6; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 790) then {_powerfactor = 1.936; _toffactor = 0.0018; _distfactor = 4.9; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 890) then {_powerfactor = 1.9355; _toffactor = 0.0019; _distfactor = 5; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 990) then {_powerfactor = 1.935; _toffactor = 0.0015; _distfactor = 6; _rktavgvel = 1060;};
-			if(_heli distance _targasl > 1090) then {_powerfactor = 1.93; _toffactor = 0.0016; _distfactor = 8; _rktavgvel = 1010;};
-			if(_heli distance _targasl > 1190) then {_powerfactor = 1.926; _toffactor = 0.0017; _distfactor = 9; _rktavgvel = 950;};
-			if(_heli distance _targasl > 1290) then {_powerfactor = 1.925; _toffactor = 0.0018; _distfactor = 10; _rktavgvel = 850;};
-			if(_heli distance _targasl > 1390) then {_powerfactor = 1.92; _toffactor = 0.0019; _distfactor = 11; _rktavgvel = 800;};
-			if(_heli distance _targasl > 1490) then {_powerfactor = 1.915; _toffactor = 0.002; _distfactor = 12.2; _rktavgvel = 700;};
-			if(_heli distance _targasl > 1740) then {_powerfactor = 1.902; _toffactor = 0.0021; _distfactor = 13; _rktavgvel = 650;};
-			if(_heli distance _targasl > 1990) then {_powerfactor = 1.878; _toffactor = 0.0022; _distfactor = 16; _rktavgvel = 640;};
-			if(_heli distance _targasl > 2050) then {_powerfactor = 1.845; _toffactor = 0.00225; _distfactor = 17; _rktavgvel = 620;};
-			if(_heli distance _targasl > 2150) then {_powerfactor = 1.82; _toffactor = 0.0023; _distfactor = 19; _rktavgvel = 610;};
-			if(_heli distance _targasl > 2250) then {_powerfactor = 1.81; _toffactor = 0.0024; _distfactor = 20; _rktavgvel = 600;};
-			if(_heli distance _targasl > 2500) then {_powerfactor = 1.77; _toffactor = 0.00255; _distfactor = 22.3; _rktavgvel = 580;};
-			if(_heli distance _targasl > 2900) then {_distfactor = 30.5; _rktavgvel = 540;};
-			if(_heli distance _targasl > 3400) then {_distfactor = 39.9; _rktavgvel = 520;};
-			if(_heli distance _targasl > 3900) then {_distfactor = 53; _rktavgvel = 480;};
-			if(_heli distance _targasl > 4400) then {_distfactor = 66; _rktavgvel = 420;};
-*/
 
 			_powerfactor = 2;
 			_toffactor = 850;
@@ -156,8 +128,6 @@ _rktavgvel = 990;
 			_targdir = _targdir + _helidir;
 			if(_targdir < -180) then {_targdir = _targdir + 360;};
 			if(_targdir > 180) then {_targdir = _targdir - 360;};
-			
-			//angle of reach//0.5 * (asin((9.81*2000)/(500^2)))
 
 			_targelev = ((getposasl _heli select 2) - (_finalZ)) atan2 ([_finalX,_finalY,0] distance [(_helipos select 0),(_helipos select 1),0]);
 			_targelevg = ((getposasl _heli select 2) - (_finalZ2)) atan2 ([_finalX,_finalY,0] distance [(_helipos select 0),(_helipos select 1),0]);
@@ -211,7 +181,8 @@ _rktavgvel = 990;
 		};
 		};
 
-/////////////NORM////////
+// NORM
+
 		if(((fza_ah64_guncontrol == 0 || fza_ah64_guncontrol == 3) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) || (!(gunner _heli == player || driver _heli == player) && (local _heli))) then
 		{
 			if(fza_ah64_turdir > 1.5) then {fza_ah64_turdir = 1.5};

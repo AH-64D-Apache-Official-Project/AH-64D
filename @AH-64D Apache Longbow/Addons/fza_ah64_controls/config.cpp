@@ -11,17 +11,32 @@ class CfgPatches
 	};
 };
 
+/*extern*/ class SensorTemplateIR;
+/*extern*/ class SensorTemplateVisual;
+/*extern*/ class SensorTemplateActiveRadar;
+/*extern*/ class SensorTemplatePassiveRadar;
+/*extern*/ class SensorTemplateLaser;
+/*extern*/ class SensorTemplateNV;
+
+class DefaultVehicleSystemsDisplayManagerLeft {
+	/*extern*/ class Components;
+};
+class DefaultVehicleSystemsDisplayManagerRight {
+	/*extern*/ class Components;
+};
+
 #include "config\defines.hpp"
 #include "config\misc.hpp"
 #include "config\CfgAnimationSourceSounds.hpp"
 #include "config\CfgSounds.hpp"
 #include "config\CfgRadio.hpp"
-#include "config\CfgCloudlets.hpp"
 #include "config\CfgMoves.hpp"
 #include "config\CfgAmmo.hpp"
 #include "config\CfgWeapons.hpp"
 #include "config\CfgMagazines.hpp"
 #include "config\CfgVehicles.hpp"
+#include "config\CfgCloudlets.hpp"
+#include "config\CfgFunctions.hpp"
 
 #include "uiConfig\defines.hpp"
 #include "uiConfig\baseClasses.hpp"
