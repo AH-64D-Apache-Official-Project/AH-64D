@@ -54,7 +54,9 @@ class CfgAmmo
 	class fza_30x113: B_30mm_HE
 	{
 		access = 1;
-		soundfly[] = {"\fza_ah64_us\audio\20mm_Flyby.ogg",1,1,1};
+		soundsetbulletfly[] = {"fza_sc_bullet_flyby_soundset"};
+		soundsetsoniccrack[] = {"fza_sc_30x113_soundset"};
+		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};		
 		muzzleeffect = "fza_ah64_fx_30mm";		
 		hit = 60;
 		indirectHit = 10;
@@ -73,6 +75,9 @@ class CfgAmmo
 	
 	class fza_agm114l : Missile_AGM_02_F
 	{
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};			
 		model = "\fza_ah64_US\fza_agm114l";
 		proxyShape="\fza_ah64_US\fza_agm114l";
 		simulation = "shotMissile";
@@ -121,30 +126,13 @@ class CfgAmmo
 			minDistance		= 500;
 			descendDistance	= 500;
 		};
-
-		class Components : Components
-		{
-			class SensorsManagerComponent
-			{
-				class Components
-				{
-					class LaserSensorComponent: SensorTemplateLaser
-					{
-						minRange = 7000;
-						maxRange = 7000;
-						angleRangeHorizontal = 50;
-						angleRangeVertical = 50;
-						typeRecognitionDistance = -1;
-						maxGroundNoiseDistance = 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
-						maxFogSeeThrough = 0.3;
-					};
-				};
-			};
-		};
 		*/
 	};
 	class fza_agm114k : Missile_AGM_02_F
 	{
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};	
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape="\fza_ah64_US\fza_agm114k";	
 		thrustTime=3.25;
@@ -193,31 +181,14 @@ class CfgAmmo
 			minDistance		= 500;
 			descendDistance	= 500;
 		};
-
-		class Components : Components
-		{
-			class SensorsManagerComponent
-			{
-				class Components
-				{
-					class LaserSensorComponent: SensorTemplateLaser
-					{
-						minRange = 7000;
-						maxRange = 7000;
-						angleRangeHorizontal = 50;
-						angleRangeVertical = 50;
-						typeRecognitionDistance = -1;
-						maxGroundNoiseDistance = 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
-						maxFogSeeThrough = 0.3;
-					};
-				};
-			};
-		};
 		*/
 		
 	};
 	class fza_agm114a : fza_agm114k
 	{	
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};		
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
 		effectsmissile = "missile3";	
@@ -228,6 +199,9 @@ class CfgAmmo
 	};
 	class fza_agm114c : fza_agm114k
 	{
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";		
 		hit= 800;
@@ -237,6 +211,9 @@ class CfgAmmo
 	};
 	class fza_agm114m : fza_agm114k
 	{
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape ="\fza_ah64_US\fza_agm114k";		
 		hit = 900;
@@ -246,6 +223,9 @@ class CfgAmmo
 	};
 	class fza_agm114n : fza_agm114k
 	{	
+		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};		
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape = "\fza_ah64_US\fza_agm114k";	
 		hit = 600;
@@ -261,8 +241,10 @@ class CfgAmmo
 	
 	class fza_275_base: MissileBase 
 	{
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
+		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-		soundfly[] = {"A3\Sounds_F\dummysound",1,1,1};
 		effectsmissile = "fza_ah64_rocketsmoke";
 		effectsMissileInit = "MissileDAR1";
 		muzzleEffect = "BIS_fnc_effectFiredRocket";
@@ -322,19 +304,28 @@ class CfgAmmo
 	};
 	class fza_275_m151: fza_275_base
 	{
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};			
+		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};	
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		//proxyShape = "";
 	};			
 	class fza_275_m229: fza_275_base
 	{
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};		
+		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
 		//proxyShape = "";	
 		indirectHitRange = 15;
 		suppressionRadiusHit = 20;
 	};
-	class fza_275_m261: fza_275_base //OK
+	class fza_275_m261: fza_275_base 
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
+		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		//proxyShape = "";
 		maxSpeed = 600;
 		hit = 30;
@@ -348,8 +339,11 @@ class CfgAmmo
 		CraterEffects = "GrenadeCrater";
 		explosionEffects = "GrenadeExplosion";
 	};
-	class fza_275_m257: fza_275_base //OK
+	class fza_275_m257: fza_275_base 
 	{
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
+		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		//proxyShape = "";		
 		hit = 30;
@@ -373,8 +367,11 @@ class CfgAmmo
 			distance = 5;
 		};			
 	};
-	class fza_275_m255: fza_275_base //OK
+	class fza_275_m255: fza_275_base 
 	{
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
+		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		//proxyShape = "";		
 		maxSpeed = 600;
@@ -406,6 +403,7 @@ class CfgAmmo
 	
 	class fza_m73mpsm: GrenadeBase
 	{
+		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
 		simulation = "shotShell";
 		model = "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
 		CraterEffects = "ExploAmmoCrater";
@@ -463,7 +461,7 @@ class CfgAmmo
 		};
 	};	
 	class fza_m257_flare: FlareCore
-	{
+	{		
 		timeToLive = 30;
 		model = "\A3\Weapons_F\Ammo\UGL_Flare";
 		lightColor[] = {1,0.8,0.7,0.5}; //gotta find the right color/illumination intensity.
@@ -491,14 +489,16 @@ class CfgAmmo
 
 	class fza_fim92: MissileBase
 	{
-		ace_frag_skip = 1;
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};		
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
 		airlock = 1;
 		cmimmunity = 0.95;
 		cratereffects = "AAMissileCrater";
 		effectsmissile = "fza_ah64_stingersmoke";
 		explosioneffects = "AAMissileExplosion";
 		fusedistance = 5;
-		hit = 120;
+		hit = 700;
 		indirecthit = 65;
 		indirecthitrange = 4;
 		inittime = 0.25;

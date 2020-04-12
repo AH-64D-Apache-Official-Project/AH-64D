@@ -19,6 +19,7 @@ _vertvect1 = 0;
 _vertvect2 = 0;
 _horvect1 = 0;
 _horvect2 = 0;
+_trq = 0;
 
 while {(time > -1)} do
 {
@@ -56,8 +57,13 @@ _gspdformat2 = [_gspd,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
 _gspdformat3 = [_gspd,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
 _gspdformat4 = [_gspd,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
 
+if (!difficultyEnabledRTD) then 
+{
 _trq = round(100*((0.25*(2-(inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25*(inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))));
-if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then {_trq = round(((enginesTorqueRTD _heli select 0) + (enginesTorqueRTD _heli select 1)) / 35);};
+}; 
+
+if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0) then {_trq = round((enginesTorqueRTD _heli select 0) / 5.6);};
+
 //if((format ["%1",round (((enginesTorqueRTD _heli select 0) + (enginesTorqueRTD _heli select 1)) / 35)]) == "scalar") then {_trq = 0;};
 _trqformat2 = [_trq,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
 _trqformat3 = [_trq,"\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;

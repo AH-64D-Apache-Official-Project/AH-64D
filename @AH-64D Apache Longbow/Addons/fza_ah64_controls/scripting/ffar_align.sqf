@@ -19,7 +19,7 @@ sleep 0.1;
 
 
 
-
+//COUNTERMEASURES
 
 if (_weapon == "fza_ah64_chaff30") then
 {
@@ -53,7 +53,7 @@ _x setdamage ((damage _x) + 0.05);
 } foreach (crew _ah64 - [gunner _ah64,driver _ah64]);
 };
 
-//Gun fault due to overheat
+//OVERHEAT GUN FAULT
 
 if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64)) then
 {
@@ -64,7 +64,7 @@ fza_ah64_gunheat = fza_ah64_gunheat + 1;
 fza_ah64_firekeypressed = time;
 };
 
-//RKTs salvos
+//ROCKETS SALVOS
 
 if(player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then
 {

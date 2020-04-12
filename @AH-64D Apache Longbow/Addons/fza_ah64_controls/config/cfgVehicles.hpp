@@ -201,7 +201,7 @@ class CfgVehicles
 		{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
@@ -233,18 +233,18 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 1, 1, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 3, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3500};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3500};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -387,7 +387,7 @@ class CfgVehicles
 			{
 				class EngineExt
 				{
-					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 800};
+					sound[] = {"\fza_ah64_US\audio\Engine", 1, 1.000000, 1200};
 					frequency = "rotorSpeed";
 					volume = "camPos*((rotorSpeed-0.72)*4)";
 				};
@@ -419,18 +419,18 @@ class CfgVehicles
 				{
 					cone[] = {3, 1.57, 3, 1.57};
 					frequency = "rotorSpeed";
-					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 2, 1, 1200};
+					sound[] = {"\fza_ah64_US\audio\Ext_Tail_Rotor.ogg", 3, 1, 1200};
 					volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
 				};
 				class Distance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Engine_Far.ogg", 4, 1, 3500};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
 				class FarDistance
 				{
-					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3000};
+					sound[]  = {"\fza_ah64_US\audio\Rotor_Far.ogg", 4, 1, 3500};
 					frequency = "rotorSpeed";
 					volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
 				};
@@ -448,25 +448,25 @@ class CfgVehicles
 				};
 				class TransmissionDamageExt_phase1
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 150};
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_1", 1.000000, 1.000000, 200};
 					frequency = "0.66 + rotorSpeed / 3";
 					volume = "camPos * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
 				};
 				class TransmissionDamageExt_phase2
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2", 1.000000, 1.000000, 150};
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_ext_2", 1.000000, 1.000000, 200};
 					frequency = "0.66 + rotorSpeed / 3";
 					volume = "camPos * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
 				};
 				class TransmissionDamageInt_phase1
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1", 1.000000, 1.000000, 150};
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_1", 1.000000, 1.000000, 200};
 					frequency = "0.66 + rotorSpeed / 3";
 					volume = "(1 - camPos) * (transmissionDamage factor [0.3, 0.35]) * (transmissionDamage factor [0.5, 0.45]) * (rotorSpeed factor [0.2, 0.5])";
 				};
 				class TransmissionDamageInt_phase2
 				{
-					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2", 1.000000, 1.000000, 150};
+					sound[] = {"A3\Sounds_F\vehicles\air\noises\heli_damage_transmission_int_2", 1.000000, 1.000000, 200};
 					frequency = "0.66 + rotorSpeed / 3";
 					volume = "(1 - camPos) * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
 				};

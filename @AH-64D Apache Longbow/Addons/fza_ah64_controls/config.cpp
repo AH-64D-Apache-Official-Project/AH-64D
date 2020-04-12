@@ -38,9 +38,22 @@ class DefaultVehicleSystemsDisplayManagerRight {
 #include "config\CfgCloudlets.hpp"
 #include "config\CfgFunctions.hpp"
 
+#include "config\CfgSound3DProcessors.hpp"
+#include "config\CfgSoundCurves.hpp"
+#include "config\cfgDistanceFilters.hpp"
+#include "config\CfgSoundShaders.hpp"
+#include "config\CfgSoundSets.hpp"
+
+
 #include "uiConfig\defines.hpp"
 #include "uiConfig\baseClasses.hpp"
 #include "uiConfig\loadout2.hpp"
 #include "uiConfig\skinMenu.hpp"
 #include "uiConfig\monocle.hpp"
 #include "uiConfig\rscTitles.hpp"
+
+
+
+
+
+

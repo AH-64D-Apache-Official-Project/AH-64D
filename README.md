@@ -1,10 +1,14 @@
 # AH-64D Project
-Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza & Community.
+Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
-*06/04/2020*
+*12/04/2020*
+- Complete weapon sounds overhaul based on JSRS shaders
+- Removed MSL & RKTs offset
+
+*09/04/2020*
 - Fixed rotor blur shadow
-- Restored FCR variant of the aircraft (by Keplager)
+- A3 Sensors compatibility and restored FCR variant of the aircraft (by Keplager)
 - Fixed AGM-114 SAL1 & SAL2 tracking (by Keplager)
 - Changed default loadout for the FCR variant
 - Fixed 3D floor holes for both PLT & CPG 
@@ -16,7 +20,6 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodoo' Oropeza 
 - Changed default loadout based on real AH-64D operation
 - Fixed turning off engine when player gets in cargo
 - Adjusted landing light strenght and direction
-
 
 *03/04/2020*
 - Minor external model 3D adjustements
