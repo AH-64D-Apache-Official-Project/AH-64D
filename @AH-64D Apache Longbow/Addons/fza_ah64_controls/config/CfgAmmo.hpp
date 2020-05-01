@@ -308,6 +308,9 @@ class CfgAmmo
 		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};	
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		hit=200;
+		indirectHit=100;
+		indirectHitRange=10;
 		//proxyShape = "";
 	};			
 	class fza_275_m229: fza_275_base
@@ -317,7 +320,9 @@ class CfgAmmo
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
 		//proxyShape = "";	
-		indirectHitRange = 15;
+		hit=300;
+		indirectHit=150;
+		indirectHitRange=20;
 		suppressionRadiusHit = 20;
 	};
 	class fza_275_m261: fza_275_base 

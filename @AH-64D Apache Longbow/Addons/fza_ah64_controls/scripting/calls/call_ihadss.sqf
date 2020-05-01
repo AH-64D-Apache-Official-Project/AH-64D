@@ -766,7 +766,7 @@ _safemessage = "BURST LIMIT";
 player forceWeaponFire ["fza_burstlimiter","fza_burstlimiter"];
 };
 
-if (currentweapon _heli == "fza_burstlimiter" && (time - fza_ah64_firekeypressed < 3)) then 
+if (currentweapon _heli == "fza_burstlimiter" && (time - fza_ah64_firekeypressed < 1)) then 
 {
 _safemessage = "BURST LIMIT";
 };
@@ -782,7 +782,7 @@ fza_ah64_gunheat = 0;
 fza_ah64_burst = 0;
 };
 
-if(time - fza_ah64_firekeypressed > 3 && currentweapon _heli == "fza_burstlimiter") then 
+if(time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then 
 {
 fza_ah64_burst = 0;
 _heli selectWeapon "fza_m230";

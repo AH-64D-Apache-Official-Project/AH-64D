@@ -14,7 +14,7 @@ while {(time > -1)} do
 {
 waituntil{(vehicle player) iskindof "fza_ah64base"};
 _heli = vehicle player;
-	waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player) && (isengineon (vehicle player) || fza_ah64_apuon == 1))};
+	waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player) && isengineon (vehicle player))};
 	if(fza_ah64_agmode == 1) then {_maxalt = 100;};
 	if(fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {_maxalt = 2;};
 	if(fza_ah64_fcrstate == 1 && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret [-1]))) then
@@ -22,7 +22,7 @@ _heli = vehicle player;
 		//add targets to master list
 		//_targets = (list _radsweep);
 		//_targets = vehicles - allDead;
-		_targets = _heli targets [false, 16000, [], 8];
+		_targets = _heli targets [false, 8000, [], 8];
 		{
 		if(alive _x && !(_x in fza_ah64_targetlist)) then
 		{

@@ -12,3 +12,13 @@ if(player == driver _heli) then
 fza_ah64_hfmode = _heli;
 fza_ah64_guncontrol = 0;
 };
+
+//TURNS ON VANILLA A3 RADAR SENSOR
+
+if(typeof _heli == "fza_ah64d_b2e") then 
+{
+_d = CreateAgent ["VirtualMan_F", position player, [], 0, "FORM"]; 
+_d moveInCargo _heli;
+_d setVehicleRadar 1;
+if (isVehicleRadarOn _heli) then {_d setdamage 1;deleteVehicle _d;};
+};

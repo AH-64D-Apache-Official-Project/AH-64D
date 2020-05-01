@@ -308,8 +308,8 @@ class CfgSoundShaders {
 	{
 		samples[] = {{"fza_ah64_us\audio\M230\Close_1.ogg", 1}};
 		volume = "3.9810717*(1-interior/1.4)";
-		range = 50;
-		rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
+		range = 100;
+		//rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
 		frequency = 1;
 	};
 	class fza_m230_close_distance_soundshader 
@@ -361,8 +361,8 @@ class CfgSoundShaders {
 	{
 		samples[] = {{"fza_ah64_us\audio\M261\M261_1", 0.5}, {"fza_ah64_us\audio\M261\M261_2", 0.5}};
 		volume = "4*(1-interior/1.4)";
-		range = 50;
-		rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
+		range = 100;
+		//rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
 		frequency = 1;
 	};
 	class fza_m261_close_distance_soundshader 
@@ -435,8 +435,8 @@ class CfgSoundShaders {
 	{
 		samples[] = {{"fza_ah64_us\audio\ATAS\Close_1.ogg", 1}};
 		volume = "4*(1-interior/1.4)";
-		range = 50;
-		rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
+		range = 100;
+		//rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
 		frequency = 1;
 	};
 	class fza_atas_close_distance_soundshader 
@@ -488,14 +488,14 @@ class CfgSoundShaders {
 	{
 		samples[] = {{"fza_ah64_us\audio\AGM114\Missile_small_close_1.ogg", 1}};
 		volume = "4*(1-interior/1.4)";
-		range = 50;
-		rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
+		range = 100;
+		//rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
 		frequency = 1;
 	};
 	class fza_agm114_close_distance_soundshader 
 	{
 		samples[] = {{"fza_ah64_us\audio\AGM114\Close_Distance.ogg", 1}};
-		volume = "3.9810717*(1-interior/1.4)";
+		volume = "4*(1-interior/1.4)";
 		range = 300;
 		rangeCurve[] = {{0, 0}, {20, 0}, {50, 1}, {100, 1}, {300, 0}};
 		frequency = 1;

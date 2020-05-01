@@ -10,7 +10,7 @@ _adaunit = false;
 
 if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsutank_base","LOP_ZSU234_base"];};
 
-if(isengineon _heli || fza_ah64_apuon == 1) then
+if(isengineon _heli) then
 {
 	if(fza_ah64_agmode == 1) then {_maxalt = 100;};
 	if(fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {_maxalt = 2;};
@@ -18,7 +18,7 @@ if(isengineon _heli || fza_ah64_apuon == 1) then
 	{
 		//add targets to master list
 		//_targets = vehicles;
-		_targets = _heli targets [false, 16000, [], 8];
+		_targets = _heli targets [false, 8000, [], 8];
 		_rem = false;
 		{
 		if(!(_x in fza_ah64_targetlist)) then

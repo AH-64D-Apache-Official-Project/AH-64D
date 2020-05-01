@@ -12,16 +12,6 @@ _heli animate ["tads_stow",1];
 	if(isNil "fza_ah64_cem") then {fza_ah64_cem = true;};
 	if(isNil "fza_ah64_estarted") then {fza_ah64_estarted = false;};
 	if (isNil "fza_ah64_apuon") then {fza_ah64_apuon = 0;};
-	
-//TURNS ON VANILLA A3 RADAR SENSOR
-
-if(typeof _heli == "fza_ah64d_b2e") then 
-{
-_d = CreateAgent ["VirtualMan_F", position player, [], 0, "FORM"]; 
-_d moveInCargo _heli;
-_d setVehicleRadar 1;
-if (isVehicleRadarOn _heli) then {_d setdamage 1;};
-};
 
 //ENABLE/DISABLE CPG CONTROLS
 

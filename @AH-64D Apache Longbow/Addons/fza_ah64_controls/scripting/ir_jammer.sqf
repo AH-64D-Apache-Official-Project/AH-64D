@@ -1,6 +1,6 @@
-_heli = _this select 0;
+//_heli = _this select 0;
 
-if(fza_ah64_irjon == 0 && !("fza_ah64_irjamfail" in (_heli magazinesturret [-1]))) then
+if(fza_ah64_irjon == 0 && !("fza_ah64_irjamfail" in ((vehicle player) magazinesturret [-1]))) then
 {
 	fza_ah64_irjon = 1;
 	while{(fza_ah64_irjammer < 61 && fza_ah64_irjon == 1)} do

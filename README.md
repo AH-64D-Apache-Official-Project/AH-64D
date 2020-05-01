@@ -2,6 +2,12 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*01/05/2020*
+- Reduced burst limit cooldown to 1 second instead of 3 seconds
+- Expanded M151 & M229 area of effect
+- Potential fix for invisible aircraft on dedicated servers
+- Jammers critical error fix (by mattysmith22)
+
 *12/04/2020*
 - Complete weapon sounds overhaul based on JSRS shaders
 - Removed MSL & RKTs offset
