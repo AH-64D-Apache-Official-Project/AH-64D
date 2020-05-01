@@ -802,7 +802,7 @@ _safemessage = "";
 
 //AUTO HOVER DETECTOR
 
-if((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then
+if(!freeLook && (inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then
 {
 player action ["autoHoverCancel", _heli];
 };
