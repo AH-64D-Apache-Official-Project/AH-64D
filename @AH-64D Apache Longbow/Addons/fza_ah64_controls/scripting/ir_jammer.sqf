@@ -1,5 +1,3 @@
-//_heli = _this select 0;
-
 if(fza_ah64_irjon == 0 && !("fza_ah64_irjamfail" in ((vehicle player) magazinesturret [-1]))) then
 {
 	fza_ah64_irjon = 1;

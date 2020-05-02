@@ -6,7 +6,9 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 - Reduced burst limit cooldown to 1 second instead of 3 seconds
 - Expanded M151 & M229 area of effect
 - Potential fix for invisible aircraft on dedicated servers
+- Potential fix for FCR weird behaviour in multiplayer
 - Jammers critical error fix (by mattysmith22)
+- Minor AFM update
 
 *12/04/2020*
 - Complete weapon sounds overhaul based on JSRS shaders

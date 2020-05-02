@@ -13,7 +13,7 @@ if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["O_APC_Tracked_02_AA_
 while {(time > -1)} do
 {
 waituntil{(vehicle player) iskindof "fza_ah64base"};
-_heli = vehicle player;
+//_heli = vehicle player;
 	waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player) && isengineon (vehicle player))};
 	if(fza_ah64_agmode == 1) then {_maxalt = 100;};
 	if(fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {_maxalt = 2;};
@@ -38,15 +38,15 @@ _heli = vehicle player;
 			if (fza_ah64_agmode == 1 && ((getpos _i select 2) < 10)) then {_targets = _targets - [_i]; _rem = true;};
 			if (!(_i isKindOf "helicopter" || _i isKindOf "plane" || _i isKindOf "car" || _i isKindOf "tank" || _i isKindOf "ship" || _i isKindOf "StaticCannon" || _adaunit)) then {_targets = _targets - [_i]; _rem = true;};
 
-			if(!(_rem)) then
+			/*if(!(_rem)) then
 			{
 				_randchance = random 100;
-				_detectchance = 0.00834;
+				_detectchance = 0.00050;
 
-				if(_adaunit) then {_detectchance = 0.00417;};
+				if(_adaunit) then {_detectchance = 0.00017;};
 				if(((_i distance _heli) * _detectchance) > _randchance) then {_targets = _targets - [_i];};
 				//if((terrainIntersectasl [getposasl _heli, [(getPosASL _i select 0),(getPosASL _i select 1),(getPosASL _i select 2)+1]]) || (lineIntersects [getposasl _heli, getPosASL _i, _heli, _i])) then {_targets = _targets - [_i];};
-			};
+			};*/
 		sleep 0.03;
 		};
 		} foreach _targets;
@@ -79,4 +79,5 @@ _heli = vehicle player;
 	fza_ah64_targetlist = fza_ah64_targetlist - [_heli];
 	fza_ah64_fcrlist = fza_ah64_fcrlist - [_heli];
 	sleep 2;*/
+	sleep 2;
 };

@@ -308,10 +308,11 @@ class CfgAmmo
 		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};	
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		explosionEffects = "GrenadeExplosion";
+		//proxyShape = "";
 		hit=200;
 		indirectHit=100;
 		indirectHitRange=10;
-		//proxyShape = "";
 	};			
 	class fza_275_m229: fza_275_base
 	{
@@ -319,18 +320,21 @@ class CfgAmmo
 		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
+		explosionEffects = "GrenadeExplosion";
 		//proxyShape = "";	
 		hit=300;
 		indirectHit=150;
 		indirectHitRange=20;
 		suppressionRadiusHit = 20;
+
 	};
 	class fza_275_m261: fza_275_base 
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
 		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
-		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};	
+		explosionEffects = "GrenadeExplosion";		
 		//proxyShape = "";
 		maxSpeed = 600;
 		hit = 30;
@@ -341,8 +345,6 @@ class CfgAmmo
 		submunitionConeAngle = 2;
 		triggerTime = 1;
 		triggerSpeedCoef = 0.7;
-		CraterEffects = "GrenadeCrater";
-		explosionEffects = "GrenadeExplosion";
 	};
 	class fza_275_m257: fza_275_base 
 	{
@@ -350,6 +352,8 @@ class CfgAmmo
 		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		CraterEffects = "ATMissileCrater";
+		explosionEffects = "";
 		//proxyShape = "";		
 		hit = 30;
 		indirectHit = 0;
@@ -361,8 +365,6 @@ class CfgAmmo
 		maxSpeed = 450;
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
-		CraterEffects = "ATMissileCrater";
-		explosionEffects = "";
 		aiAmmoUsageFlags = 1;
 		class CamShakeExplode
 		{
@@ -378,6 +380,8 @@ class CfgAmmo
 		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
+		CraterEffects = "ATMissileCrater";
+		explosionEffects = "";
 		//proxyShape = "";		
 		maxSpeed = 600;
 		hit = 30;
@@ -390,8 +394,6 @@ class CfgAmmo
 		triggerSpeedCoef = 1;
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
-		CraterEffects = "ATMissileCrater";
-		explosionEffects = "";
 		aiAmmoUsageFlags = 1;
 		class CamShakeExplode
 		{
@@ -411,9 +413,8 @@ class CfgAmmo
 		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
 		simulation = "shotShell";
 		model = "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
-		CraterEffects = "ExploAmmoCrater";
 		explosionEffects = "ExploAmmoExplosion";
-		explosionSoundEffect = "DefaultExplosion";
+		CraterEffects = "ExploAmmoCrater";
 		muzzleEffect = "BIS_fnc_effectFiredHeliRocket";
 		hit = 300;
 		indirectHit = 70;

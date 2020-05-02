@@ -210,7 +210,7 @@ _flttracker = [player] execvm "\fza_ah64_controls\scripting\page_flt.sqf";
 _engtracker = [player] execvm "\fza_ah64_controls\scripting\page_eng.sqf";
 _asetracker = [player] execvm "\fza_ah64_controls\scripting\page_ase.sqf";
 _ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
-_targetscanner = [player] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
+_targetscanner = [_heli] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
 _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
 };
 

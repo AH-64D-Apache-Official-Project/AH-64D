@@ -33,17 +33,19 @@ if(isengineon _heli) then
 			if ((fza_ah64_agmode == 0 || fza_ah64_agmode > 1) && (getpos _i select 2 >= 10)) then {_targets = _targets - [_i]; _rem = true;};
 			if (fza_ah64_agmode == 1 && ((getpos _i select 2) < 10)) then {_targets = _targets - [_i]; _rem = true;};
 			if (!(_i isKindOf "helicopter" || _i isKindOf "plane" || _i isKindOf "car" || _i isKindOf "tank" || _i isKindOf "ship" || _i isKindOf "StaticCannon" || _adaunit)) then {_targets = _targets - [_i]; _rem = true;};
-			if(!(_rem)) then
+			/*if(!(_rem)) then
 			{
 				_randchance = random 100;
-				_detectchance = 0.00834;
+				_detectchance = 0.00186;
 
 				if(_adaunit) then {_detectchance = 0.00417;};
 				if(((_i distance _heli) * _detectchance) > _randchance) then {_targets = _targets - [_i];};
 				//if((terrainIntersectasl [getposasl _heli, [(getPosASL _i select 0),(getPosASL _i select 1),(getPosASL _i select 2)+1]]) || (lineIntersects [getposasl _heli, getPosASL _i, _heli, _i])) then {_targets = _targets - [_i];};
-			};
+			};*/
 		};
 		} foreach _targets;
+
+		sleep 0.03;
 
 
 		{if(!(_x in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_x]; _heli reveal _x;};} foreach _targets;
@@ -78,4 +80,5 @@ if(isengineon _heli) then
 	} foreach fza_ah64_targetlist;
 	fza_ah64_targetlist = fza_ah64_targetlist - [_heli];
 	fza_ah64_fcrlist = fza_ah64_fcrlist - [_heli];*/
+	sleep 2;
 };

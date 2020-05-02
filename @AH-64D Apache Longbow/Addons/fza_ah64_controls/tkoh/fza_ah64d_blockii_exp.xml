@@ -458,22 +458,22 @@
 
     <CSComponent type="FCSHelicopterAutoTrim100" >
       <YawRateAndSideslipController printDebugInfo="false">
-        <YawRatePID P="0.04"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
+        <YawRatePID P="0.005"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
         <SideslipPID P="0.06"  I="0.01" D="0.007" offset="0.0" integralMin="-25" integralMax="25" />
-        <Transition speedLow="15" speedHigh="40" />
+        <Transition speedLow="60" speedHigh="111" />
         <Maximums maxYawRate="60" maxSideslip="60" />
         <InputMapping nonlinearity="1.5" />
       </YawRateAndSideslipController>
 
       <PitchRateController printDebugInfo="false">
         <PID P="0.06"  I="0.01" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-        <MaxPitchRate maxPitchRate="45" />
+        <MaxPitchRate maxPitchRate="100" />
         <InputMapping nonlinearity="1" />
       </PitchRateController>
 
       <RollRateController printDebugInfo="false">
         <PID P="0.01"  I="0.04" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-        <MaxRollRate maxRollRate="60" />
+        <MaxRollRate maxRollRate="120" />
         <InputMapping nonlinearity="1" />
       </RollRateController>
 
@@ -481,8 +481,8 @@
 
 	<CSComponent type="FCSRotationDamper">
   <YawController P="1.0" D="0.01"/>
-  <PitchController P="1.0" D="0.001"/>
-  <RollController P="0.5" D="0.001"/>
+  <PitchController P="0.1" D="0.001"/>
+  <RollController P="0.05" D="0.001"/>
  </CSComponent>
 
     <CSComponent type="GenericControlSystem">
@@ -1739,10 +1739,10 @@
   </StabilizersAndWings>
 
   <GroundContacts>
-    <GeneralConfiguration	gearExtensionTime="3"	maxSteerableGearDeflection="90" steerableGearSpeedCorrectionFactor="0.0"/>
+    <GeneralConfiguration	gearExtensionTime="3"	maxSteerableGearDeflection="90" steerableGearSpeedCorrectionFactor="0.1"/>
 	<!--tail wheel -->
     <GroundContact type="FGGroundContact200" >
-      <Features isBrakable="false" isRetractable="false" isSteerable="true"  />
+      <Features isBrakable="false" isRetractable="false" isSteerable="false"  />
       <Aerodynamics equivalentFlatPlateArea ="0.1" />
       <Suspension>
         <MountStation  x="0" y="-9.5" z="-0.97"/>

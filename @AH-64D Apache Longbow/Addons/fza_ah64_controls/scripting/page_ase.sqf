@@ -27,8 +27,8 @@ waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == pla
 						if(fza_ah64_aseautopage == 1) then
 						{
 							fza_ah64_pr_mpd = "ase";
-							if(fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0) then {_rfjammerscript = [_ac] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";};
-							if(fza_ah64_irjstate == 1 && fza_ah64_irjon == 0) then {_irjammerscript = [_ac] execvm "\fza_ah64_controls\scripting\ir_jammer.sqf";};
+							if(fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0) then {_rfjammerscript = [(vehicle player)] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";};
+							if(fza_ah64_irjstate == 1 && fza_ah64_irjon == 0) then {_irjammerscript = [(vehicle player)] execvm "\fza_ah64_controls\scripting\ir_jammer.sqf";};
 						};
 					};
 				};
