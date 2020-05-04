@@ -2,13 +2,20 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+
+*04/05/2020*
+- Fixed FCR in multiplayer (by Keplager)
+- Resolve missing sound files issues in CfgSoundShaders
+
 *01/05/2020*
 - Reduced burst limit cooldown to 1 second instead of 3 seconds
 - Expanded M151 & M229 area of effect
 - Potential fix for invisible aircraft on dedicated servers
-- Potential fix for FCR weird behaviour in multiplayer
 - Jammers critical error fix (by mattysmith22)
-- Minor AFM update
+- Potential fix for FCR weird behaviour in multiplayer (by Keplager)
+- Minor AFM update (by Keplager)
+- Reduced RKTs smoke clouds
+- Fixed some more ASE related script errors
 
 *12/04/2020*
 - Complete weapon sounds overhaul based on JSRS shaders

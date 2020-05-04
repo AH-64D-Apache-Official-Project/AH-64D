@@ -69,8 +69,8 @@ class CfgMagazines
 		count = 4;
 		ammo = "fza_fim92";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 60;		
 	};
 	
@@ -85,8 +85,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114l";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 974.497848;	
 	};
 	class fza_agm114l_23_8: fza_agm114l_16
@@ -203,7 +203,11 @@ class CfgMagazines
 		count = 1;
 		weight = 108.09106;
 	};
-//////////////////////////////////////114K/////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////
+	///////////////////////////////AGM-114K/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////		
+	
 	class fza_agm114k_16: VehicleMagazine
 	{
 		scope = 2;
@@ -211,8 +215,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114k";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 974.497848;
 	};
 	class fza_agm114k_23_8: fza_agm114k_16
@@ -329,7 +333,11 @@ class CfgMagazines
 		count = 1;
 		weight = 108.09106;
 	};
-//////////////////////////////////////114C/////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////
+	///////////////////////////////AGM-114C/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////		
+	
 	class fza_agm114c_16: VehicleMagazine
 	{
 		scope = 2;
@@ -337,8 +345,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114c";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 243.62446;
 	};
 	class fza_agm114c_23_8: fza_agm114c_16
@@ -455,7 +463,11 @@ class CfgMagazines
 		count = 1;
 		weight = 108.09106;
 	};
-//////////////////////////////////////114A/////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////
+	///////////////////////////////AGM-114A/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////		
+	
 	class fza_agm114a_16: VehicleMagazine
 	{
 		scope = 2;
@@ -463,8 +475,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114a";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 974.497848;
 	};
 	class fza_agm114a_23_8: fza_agm114a_16
@@ -581,7 +593,11 @@ class CfgMagazines
 		count = 1;
 		weight = 108.09106;
 	};
-//////////////////////////////////////114M/////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////
+	///////////////////////////////AGM-114M/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////	
+	
 	class fza_agm114m_16: VehicleMagazine
 	{
 		scope = 2;
@@ -589,8 +605,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114m";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 	};
 	class fza_agm114m_23_8: fza_agm114m_16
 	{
@@ -706,7 +722,11 @@ class CfgMagazines
 		count = 1;
 		weight = 108.09106;
 	};
-//////////////////////////////////////114N/////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////
+	///////////////////////////////AGM-114N/////////////////////////////////
+	////////////////////////////////////////////////////////////////////////	
+	
 	class fza_agm114n_16: VehicleMagazine
 	{
 		scope = 2;
@@ -714,8 +734,8 @@ class CfgMagazines
 		count = 16;
 		ammo = "fza_agm114n";
 		initSpeed = 150;
-		sound[] = {"\ca\Weapons\Data\Sound\TOW_2",3.162278,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		sound[] = {"A3\sounds_f\dummysound", 3.16228, 1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 974.497848;
 	};
 	class fza_agm114n_23_8: fza_agm114n_16
@@ -846,7 +866,7 @@ class CfgMagazines
 		initSpeed = 739;
 		nameSound = "rockets";
 		sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 952.544;
 	};
 	////////ZONES/////
@@ -1020,7 +1040,7 @@ class CfgMagazines
 		initSpeed = 44;
 		nameSound = "rockets";
 		sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 952.544;
 	};
 	////////ZONES/////
@@ -1194,7 +1214,7 @@ class CfgMagazines
 		initSpeed = 44;
 		nameSound = "rockets";
 		sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 952.544;
 	};
 	////////ZONES/////
@@ -1368,7 +1388,7 @@ class CfgMagazines
 		initSpeed = 44;
 		nameSound = "rockets";
 		sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 952.544;
 	};
 	////////ZONES/////
@@ -1542,7 +1562,7 @@ class CfgMagazines
 		initSpeed = 44;
 		nameSound = "rockets";
 		sound[] = {"\ca\Weapons\Data\Sound\rocket1",1.000000,1};
-		reloadSound[] = {"\ca\Weapons\Data\Sound\missload",0.000316,1};
+		reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1};
 		weight = 952.544;
 	};
 	////////ZONES/////

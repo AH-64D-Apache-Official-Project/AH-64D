@@ -7,6 +7,7 @@ _hdgblocked = 0;
 _targlist = [];
 _detectchance = 0.00834;
 _adaunit = false;
+_targetm = [];
 
 if(isNil "fza_ah64_ada_units") then {fza_ah64_ada_units = ["O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsutank_base","LOP_ZSU234_base"];};
 
@@ -22,7 +23,14 @@ waituntil{(vehicle player) iskindof "fza_ah64base"};
 		//add targets to master list
 		//_targets = (list _radsweep);
 		//_targets = vehicles - allDead;
-		_targets = _heli targets [false, 8000, [], 8];
+
+		_targetm = listRemoteTargets west;
+
+		{
+			_targets pushback (_x select 0);
+		} foreach _targetm;
+
+
 		{
 		if(alive _x && !(_x in fza_ah64_targetlist)) then
 		{
@@ -38,7 +46,7 @@ waituntil{(vehicle player) iskindof "fza_ah64base"};
 			if (fza_ah64_agmode == 1 && ((getpos _i select 2) < 10)) then {_targets = _targets - [_i]; _rem = true;};
 			if (!(_i isKindOf "helicopter" || _i isKindOf "plane" || _i isKindOf "car" || _i isKindOf "tank" || _i isKindOf "ship" || _i isKindOf "StaticCannon" || _adaunit)) then {_targets = _targets - [_i]; _rem = true;};
 
-			/*if(!(_rem)) then
+			if(!(_rem)) then
 			{
 				_randchance = random 100;
 				_detectchance = 0.00050;
@@ -46,7 +54,7 @@ waituntil{(vehicle player) iskindof "fza_ah64base"};
 				if(_adaunit) then {_detectchance = 0.00017;};
 				if(((_i distance _heli) * _detectchance) > _randchance) then {_targets = _targets - [_i];};
 				//if((terrainIntersectasl [getposasl _heli, [(getPosASL _i select 0),(getPosASL _i select 1),(getPosASL _i select 2)+1]]) || (lineIntersects [getposasl _heli, getPosASL _i, _heli, _i])) then {_targets = _targets - [_i];};
-			};*/
+			};
 		sleep 0.03;
 		};
 		} foreach _targets;
