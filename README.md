@@ -2,6 +2,11 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*07/05/2020*
+- Datalink not being automatically enabled (by Keplager)
+- User actions allowing for players to try and access waypoints with a negative index (by mattysmith22)
+- Targeting being limited on FCR page by the scale in TSD (by Keplager & mattysmith22)
+- Removed F_VirtualMan entity
 
 *04/05/2020*
 - Fixed FCR in multiplayer (by Keplager)
