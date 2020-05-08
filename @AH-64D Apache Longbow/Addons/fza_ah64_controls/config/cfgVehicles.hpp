@@ -26,8 +26,11 @@ class CfgVehicles
 	    mfdType = "classic";
     };
 
-		receiveRemoteTargets = true;
-		reportRemoteTargets = true;
+		//Sensors definition
+
+    	receiveRemoteTargets    = 1;
+    	reportRemoteTargets     = 1;
+    	reportOwnPosition       = 1;
 
 		side=1;
 		scope=0;
