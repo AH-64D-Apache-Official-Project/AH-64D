@@ -1299,7 +1299,6 @@ fza_ah64_estarted = true;
 (vehicle player) setActualCollectiveRTD 0;
 (vehicle player) setWantedRPMRTD [20000, 15, -1];
 (vehicle player) setWantedRPMRTD [0, 15, -1];
-[_heli] execvm "\fza_ah64_controls\scripting\calls\call_enginepower.sqf";
 fza_ah64_l1clicked = 1;
 };
 

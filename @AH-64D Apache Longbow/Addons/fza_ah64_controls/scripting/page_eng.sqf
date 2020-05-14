@@ -98,6 +98,8 @@ _ahyd1format1 = _ahydformat1;
 _ahyd1format2 = _ahydformat2;
 _ahyd1format3 = _ahydformat3;
 _ahyd1format4 = _ahydformat4;
+_e1percent = 0;
+_e2percent = 0;
 _counter = 0;
 
 while {(time > -1)} do
@@ -453,13 +455,14 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [925,_phyd1format1];
 		if(local _heli) then
 		{
-		_heli animate ["mpd_pr_eng_e1np",_e1rpm];
-		_heli animate ["mpd_pr_eng_e2np",_e2rpm];
-		_heli animate ["mpd_pr_eng_e1trq",_anitrq];
-		_heli animate ["mpd_pr_eng_e2trq",_anitrq];
-		_heli animate ["mpd_pr_eng_ltrqbar",_anitrq];
-		_heli animate ["mpd_pr_eng_1tgt",_e1tgt];
-		_heli animate ["mpd_pr_eng_2tgt",_e2tgt];
+		_heli animate ["mpd_pr_eng_e1trq",_e1trq / 130.0];
+		_heli animate ["mpd_pr_eng_e2trq",_e2trq / 130.0];
+		_heli animate ["mpd_pr_eng_1tgt", _e1tgt / 999.0];
+		_heli animate ["mpd_pr_eng_2tgt", _e2tgt / 990.0];
+		_heli animate ["mpd_pr_eng_e1np", _e1percent / 100.0];
+		_heli animate ["mpd_pr_eng_e2np", _e2percent / 100.0];
+
+		_heli animate ["mpd_pr_eng_rtrrpm", ((rotorsRpmRTD _heli) select 0) / 289.0];
 		};
 	} else {
 		_heli setobjecttexture [834,""];

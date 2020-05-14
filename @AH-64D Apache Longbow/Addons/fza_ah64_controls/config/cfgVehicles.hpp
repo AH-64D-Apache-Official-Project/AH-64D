@@ -4249,6 +4249,10 @@ initPhase=0;
             {
                 selection = "mpd_pr_eng_e2np";
             };
+			class mpd_pr_eng_rtrrpm : mpd_pr_eng_1tgt
+            {
+                selection = "mpd_pr_eng_rtrrpm";
+            };
 			/*
 			class mpd_pr_eng_rtrrpm : mpd_pr_eng_1tgt
             {
