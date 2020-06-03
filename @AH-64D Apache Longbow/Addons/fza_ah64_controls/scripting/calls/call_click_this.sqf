@@ -1244,39 +1244,39 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
-_heli animate ["plt_eng1_throttle",0];
-fza_ah64_l1clicked = 1;
+	[_heli, 0, 0] call fza_fnc_engineSetPosition;
+	fza_ah64_l1clicked = 1;
 };
 
 //ENGINE 1 THROTTLE IDLE
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-_heli animate ["plt_eng1_throttle",0.25];
-fza_ah64_l1clicked = 1;
+	[_heli, 0, 1] call fza_fnc_engineSetPosition;
+	fza_ah64_l1clicked = 1;
 };
 
 //ENGINE 1 THROTTLE FLY
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-_heli animate ["plt_eng1_throttle",1];
-fza_ah64_l1clicked = 1;
+	[_heli, 0, 2] call fza_fnc_engineSetPosition;
+	fza_ah64_l1clicked = 1;
 };
 
 //ENGINE 2 THROTTLE OFF
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
-_heli animate ["plt_eng2_throttle",0];
-fza_ah64_l1clicked = 1;
+	[_heli, 1, 0] call fza_fnc_engineSetPosition;
+	fza_ah64_l1clicked = 1;
 };
 
 //ENGINE 2 THROTTLE IDLE
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-_heli animate ["plt_eng2_throttle",0.25];
+[_heli, 1, 1] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1284,18 +1284,20 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-_heli animate ["plt_eng2_throttle",1];
+[_heli, 1, 2] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
 //STARTUP
 
-if(!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && ((_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng1_throttle" == 0.25) || (_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_throttle" == 0.25)) && _heli animationphase "plt_rtrbrake" == 0) then
+if(!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (_heli animationphase "plt_eng1_start" == 1 ||_heli animationphase "plt_eng2_start" == 1) && _heli animationphase "plt_rtrbrake" == 0) then
 {
+systemChat "engine starting";
 fza_ah64_estarted = true;
-(driver _heli) action ["engineOn", _heli];
+(vehicle player) engineOn true;
 (vehicle player) enableAutoStartUpRTD false;
 (vehicle player) setRotorBrakeRTD 0;
+(vehicle player) setActualCollectiveRTD 0;
 (vehicle player) setActualCollectiveRTD 0;
 (vehicle player) setWantedRPMRTD [20000, 15, -1];
 (vehicle player) setWantedRPMRTD [0, 15, -1];
@@ -1316,9 +1318,10 @@ _heli animate ["plt_eng2_start",0];
 
 //SHUTDOWN
 
-if(_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 && isEngineOn _heli) then
+if(_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 &&  (_heli animationphase "plt_eng1_start" == 0 &&_heli animationphase "plt_eng2_start" == 0) && isEngineOn _heli) then
 {
-(driver _heli) action ["engineOff", _heli];
+systemChat "engine turned off";
+_heli engineOn false;
 fza_ah64_estarted = false;
 };
 

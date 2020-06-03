@@ -1,12 +1,10 @@
 params ["_arr", "_key"];
 
-private _upperIndex = this findIf {_x > _key}; //Find the index of the value above key
+private _upperIndex = _arr findIf {_x select 0 > _key}; //Find the index of the value above key
 
 if (_upperIndex == 0) exitWith {_arr select 0;}; //If it is below the values that can be interpolated
 
 if (_upperIndex == -1) exitWith {_arr select (count _arr - 1);}; //If it is below the values that can be interpolated
-
-
 
 private _lowerIndex = _upperIndex - 1;
 
