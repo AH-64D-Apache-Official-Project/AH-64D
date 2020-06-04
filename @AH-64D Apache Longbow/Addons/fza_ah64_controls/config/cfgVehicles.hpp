@@ -2701,7 +2701,9 @@ class CfgVehicles
 			"mpd_pr_eng_back",
 			"hdam_tr",
 			"hdam_rtr",
-			"skin_tailboom_tear"
+			"skin_tailboom_tear",
+			"mpd_pr_eng_1trq3",
+			"mpd_pr_eng_2trq3"
 };
 		transportSoldier=2;
 		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
@@ -5929,7 +5931,9 @@ initPhase=0;
 			"mpd_pr_eng_back",
 			"hdam_tr",
 			"hdam_rtr",
-			"skin_tailboom_tear"
+			"skin_tailboom_tear",
+			"mpd_pr_eng_1trq3",
+			"mpd_pr_eng_2trq3"
 		};
 		class Turrets
 		{
