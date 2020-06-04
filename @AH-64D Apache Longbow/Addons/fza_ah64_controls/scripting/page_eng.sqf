@@ -102,6 +102,9 @@ _e1percent = 0;
 _e2percent = 0;
 _counter = 0;
 
+_tgtTapeScaler = [[0, 0], [400, 0.10], [810, 0.60], [811, 0.70], [999, 1.00]];
+_npTapeScaler = [[0, 0], [96, 0.43], [99, 0.50], [100, 0.55], [102, 0.61], [105, 0.89], [120, 1.00]];
+
 while {(time > -1)} do
 {
 waituntil{(vehicle player) iskindof "fza_ah64base"};
@@ -380,12 +383,12 @@ _ahyd1format4 = "";
 		{
 		_heli animate ["mpd_pr_eng_e1trq",_e1trq / 130.0];
 		_heli animate ["mpd_pr_eng_e2trq",_e2trq / 130.0];
-		_heli animate ["mpd_pr_eng_1tgt", _e1tgt / 999.0];
-		_heli animate ["mpd_pr_eng_2tgt", _e2tgt / 999.0];
-		_heli animate ["mpd_pr_eng_e1np", _e1percent / 100.0];
-		_heli animate ["mpd_pr_eng_e2np", _e2percent / 100.0];
+		_heli animate ["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp) # 1];
 
-		_heli animate ["mpd_pr_eng_rtrrpm", _rotorrpm / 100.0];
+		_heli animate ["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fnc_linearInterp) # 1];
 		};
 	} else {
 		_heli setobjecttexture [834,""];
@@ -404,10 +407,12 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [847,""];
 		_heli setobjecttexture [848,""];
 		_heli setobjecttexture [849,""];
+		_heli setobjecttexture [1252,""];
 		_heli setobjecttexture [850,""];
 		_heli setobjecttexture [851,""];
 		_heli setobjecttexture [852,""];
 		_heli setobjecttexture [853,""];
+		_heli setobjecttexture [1253,""];
 		_heli setobjecttexture [854,""];
 		_heli setobjecttexture [855,""];
 		_heli setobjecttexture [856,""];
