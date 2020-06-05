@@ -2,7 +2,7 @@ params ["_heli", "_engNum"];
 
 [_heli, _engNum] call fza_fnc_engineUpdate;
 
-(fza_ah64_engineStates select _engNum) params ["_state", "_stateParams"];
+(_heli getVariable "fza_ah64_engineStates") params ["_state", "_stateParams"];
 
 private _npMul = 0;
 private _torqueMul = 0;
