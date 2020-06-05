@@ -1210,17 +1210,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_apu" > 0.5 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	if(_heli animationphase "plt_eng1_start" < 1) then 
-	{
-	_heli animate ["plt_eng1_start",1];
-	["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-	_heli say3D ["fza_ah64_estart_3D",100,1];
-	
-	} else {
-	
-	_heli animate ["plt_eng1_start",0];
-	["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-	};
+	[_heli, 0, -1] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1228,15 +1218,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_apu" > 0.5 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	if(_heli animationphase "plt_eng2_start" < 1) then 
-	{
-	_heli animate ["plt_eng2_start",1];
-	["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-	_heli say3D ["fza_ah64_estart_3D",100,1];
-	} else {
-	_heli animate ["plt_eng2_start",0];
-	["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-	};
+	[_heli, 1, -1] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1292,7 +1274,6 @@ fza_ah64_l1clicked = 1;
 
 if(!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (_heli animationphase "plt_eng1_start" == 1 ||_heli animationphase "plt_eng2_start" == 1) && _heli animationphase "plt_rtrbrake" == 0) then
 {
-systemChat "engine starting";
 fza_ah64_estarted = true;
 (vehicle player) engineOn true;
 (vehicle player) enableAutoStartUpRTD false;
@@ -1304,23 +1285,10 @@ fza_ah64_estarted = true;
 fza_ah64_l1clicked = 1;
 };
 
-//ENGINE 1 & ENGINE 2 SWITCHES OFF ONCE THROTTLES IDLE
-
-if(_heli animationphase "plt_eng1_start" == 1 && _heli animationphase "plt_eng1_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 0) then
-{
-_heli animate ["plt_eng1_start",0];
-};
-
-if(_heli animationphase "plt_eng2_start" == 1 && _heli animationphase "plt_eng2_throttle" == 1 && _heli animationphase "plt_rtrbrake" == 0) then
-{
-_heli animate ["plt_eng2_start",0];
-};
-
 //SHUTDOWN
 
 if(_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 &&  (_heli animationphase "plt_eng1_start" == 0 &&_heli animationphase "plt_eng2_start" == 0) && isEngineOn _heli) then
 {
-systemChat "engine turned off";
 _heli engineOn false;
 fza_ah64_estarted = false;
 };
