@@ -4,8 +4,9 @@ params ["_heli", "_engNum", "_position"];
 [_heli, 1] call fza_fnc_engineUpdate;
 
 private _otherEngineNum = if (_engNum == 0) then {1} else {0};
-(fza_ah64_engineStates select _engNum) params ["_state", "_stateParams"];
-(fza_ah64_engineStates select _otherEngineNum) params ["_otherState", "_otherStateParams"];
+private _heliData = _heli getVariable "fza_ah64_engineStates";
+(_heliData # _engNum) params ["_state", "_stateParams"];
+(_heliData # _otherEngineNum) params ["_otherState", "_otherStateParams"];
 
 private _engineSwitch = format ["plt_eng%1_start", _engNum+1];
 private _throttleAnimName = format ["plt_eng%1_throttle", _engNum+1];

@@ -2,7 +2,7 @@ params ["_heli", "_engNum"];
 
 if(!local _heli) exitWith {};
 
-(fza_ah64_engineStates select _engNum) params ["_state", "_stateParams"];
+((_heli getVariable "fza_ah64_engineStates") select _engNum) params ["_state", "_stateParams"];
 
 private _changeMade = false;
 private _nextState = _state;
@@ -46,6 +46,7 @@ switch(_state) do {
 };
 
 if(_changeMade) then {
-	_newVal = ((_heli getVariable "fza_ah64_engineStates") # _engNum) set [0, _nextState];
+	_newVal = (_heli getVariable "fza_ah64_engineStates");
+	(_newVal # _engNum) set [0, _nextState];
 	_heli setVariable ["fza_ah64_engineStates", _newVal, true];
 };

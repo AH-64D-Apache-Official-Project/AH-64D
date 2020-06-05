@@ -37,7 +37,7 @@ if (_e1state == "FLYIDLE" && _e2state == "FLYIDLE") exitWith {
 
 if (
 	(_e1state in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED"] || (_e1state == "STARTEDIDLE" && (time - _e1params <= 24))) &&
-	(_e2state == "OFF" || (_e2state == "STARTEDIDLE" && (time - _e2params <= 24)))) exitWith {
+	(_e2state in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED"] || (_e2state == "STARTEDIDLE" && (time - _e2params <= 24)))) exitWith {
 	_heli setWantedRPMRTD [0, 10, -1];
 	_heli setVariable ["fza_ah64_engineGovernFinish", time + 10, true];
 };

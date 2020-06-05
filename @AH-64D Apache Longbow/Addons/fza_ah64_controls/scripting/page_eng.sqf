@@ -127,7 +127,7 @@ _e2tgt = _e2data select 2;
 _e2opsi = _e2data select 3;
 _e2trq = (_e2data select 4) / 4.81;
 
-if (fza_ah64_engineStates # 0 # 0 in ["OFF", "OFFIDLE", "IDLEOFF"] || fza_ah64_engineStates # 1 # 0 in ["OFF", "OFFIDLE", "IDLEOFF"]) then {
+if ((_heli getVariable "fza_ah64_engineStates") # 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"] || (_heli getVariable "fza_ah64_engineStates") # 1 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
 	_rotorrpm = _e1percent max _e2percent;
 } else {
 	_rotorrpm = (rotorsRpmRTD _heli # 0) / 2.89;
