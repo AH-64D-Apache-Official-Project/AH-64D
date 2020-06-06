@@ -2,6 +2,18 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*06/06/2020*
+- Added PiP values for longer ranges to Video Options (by Keplager)
+- Fixed IHADSS overlay (by mattysmith22)
+- TGT, Nr and Np are now scaled more correctly (by mattysmith22)
+- Fixed bug where JIP would cause you to fall out the sky by resetting the ECU (by mattysmith22)
+- Extracted out settings to a header file, generally cleaned things up (by mattysmith22)
+- Fixed ENG control (by mattysmith22)
+- PNVS Optics layer fix when getting out 
+- Added A3TI full compatibility (CPG FLIR & PLT PNVS)
+- Fixed PNVS color (MPD grey source logic)
+
+
 *07/05/2020*
 - Datalink not being automatically enabled (by Keplager)
 - User actions allowing for players to try and access waypoints with a negative index (by mattysmith22)
