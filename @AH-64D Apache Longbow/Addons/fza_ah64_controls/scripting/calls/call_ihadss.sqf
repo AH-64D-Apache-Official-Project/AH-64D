@@ -174,14 +174,11 @@ if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox 
     };
 } else {
     if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
-        2 cuttext["", "PLAIN"];
+        1 cuttext["", "PLAIN"];
+		    2 cuttext["", "PLAIN"];
         3 cuttext["", "PLAIN"];
+		    4 cuttext["", "PLAIN"];
     };
-};
-
-if ((vehicle player) animationphase "plt_apu" < 0.5) then {
-    1 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
