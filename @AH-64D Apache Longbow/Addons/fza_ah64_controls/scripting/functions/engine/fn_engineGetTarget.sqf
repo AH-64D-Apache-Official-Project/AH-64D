@@ -23,40 +23,40 @@ Author:
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params["_heli", "_engNum"];
 
-(_heli getVariable "fza_ah64_engineStates") # _engNum params ["_state", "_params"];
+(_heli getVariable "fza_ah64_engineStates")# _engNum params["_state", "_params"];
 
 switch (_state) do {
-	case "OFFSTARTED";
-	case "STARTEDOFF";
-	case "STARTED";
-	case "OFF" : {
-		[RPM_OFF, 2];
-	};
-	case "STARTEDIDLE" : {
-		private _elapsedTime = time - _params;
-		if(_elapsedTime < ENGINE_STATE_STARTEDIDLE_ROTOR_DELAY) then {
-			[RPM_OFF, 2];
-		} else {
-			[RPM_IDLE, ENGINE_STATE_LEN_STARTEDIDLE - _elapsedTime];
-		};
-	};
-	case "IDLE" : {
-		[RPM_IDLE, 2];
-	};
-	case "IDLEOFF" : {
-		[RPM_OFF, ENGINE_STATE_LEN_IDLEOFF-(time-_params)];
-	};
-	case "IDLEFLY" : {
-		[RPM_FLY, ENGINE_STATE_LEN_IDLEFLY-(time-_params)];
-	};
-	case "FLYIDLE" : {
-		[RPM_IDLE, ENGINE_STATE_LEN_FLYIDLE-(time-_params)];
-	};
-	case "FLY" : {
-		[RPM_FLY, 2];
-	};
-	default {
-		["Engine governor hit unknown situation, State: %1, Params: %2", _state, _params] call BIS_fnc_error;
-		[RPM_FLY, 2];
-	};
+    case "OFFSTARTED";
+    case "STARTEDOFF";
+    case "STARTED";
+    case "OFF":{
+            [RPM_OFF, 2];
+        };
+    case "STARTEDIDLE":{
+            private _elapsedTime = time - _params;
+            if (_elapsedTime < ENGINE_STATE_STARTEDIDLE_ROTOR_DELAY) then {
+                [RPM_OFF, 2];
+            } else {
+                [RPM_IDLE, ENGINE_STATE_LEN_STARTEDIDLE - _elapsedTime];
+            };
+        };
+    case "IDLE":{
+            [RPM_IDLE, 2];
+        };
+    case "IDLEOFF":{
+            [RPM_OFF, ENGINE_STATE_LEN_IDLEOFF - (time - _params)];
+        };
+    case "IDLEFLY":{
+            [RPM_FLY, ENGINE_STATE_LEN_IDLEFLY - (time - _params)];
+        };
+    case "FLYIDLE":{
+            [RPM_IDLE, ENGINE_STATE_LEN_FLYIDLE - (time - _params)];
+        };
+    case "FLY":{
+            [RPM_FLY, 2];
+        };
+    default {
+        ["Engine governor hit unknown situation, State: %1, Params: %2", _state, _params] call BIS_fnc_error;
+        [RPM_FLY, 2];
+    };
 };
