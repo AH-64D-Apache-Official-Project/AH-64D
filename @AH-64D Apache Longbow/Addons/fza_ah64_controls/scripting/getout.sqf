@@ -16,6 +16,10 @@ if(!(vehicle player isKindOf "fza_ah64base")) then
 	if(!(isNil "fza_ah64_bweff")) then
 	{
 		fza_ah64_bweff ppEffectEnable false;
-		fza_ah64_fgeff ppEffectEnable false;
+	};
+	
+	if(!(isNil "fza_ah64_pnvsgreff")) then
+	{
+		fza_ah64_pnvsgreff ppEffectEnable false;
 	};
 };

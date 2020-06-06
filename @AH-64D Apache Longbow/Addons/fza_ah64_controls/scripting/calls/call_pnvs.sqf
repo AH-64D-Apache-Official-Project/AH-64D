@@ -13,13 +13,10 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			fza_ah64_headelev = (0.0125*(inputaction "AimUp" + (0.0125 * inputaction "LookUp"))) + (-0.0125*(inputaction "AimDown" + (0.0125 * inputaction "LookDown")));
 
 			fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",1500];
-			fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,-0.64],[0,0,0,0,0,0,4]]; //TEST PNVS OPTICS REWORK
+			//fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; GREEN PNVS (HDU LOGIC)
+			fza_ah64_pnvsgreff ppEffectAdjust[1,1,0,[0,0,0,0],[1,1,1,0],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; //GREY SOURCE PNVS (MPD LOGIC)
 			fza_ah64_pnvsgreff ppEffectCommit 0;
 			fza_ah64_pnvsgreff ppEffectEnable true;
-			fza_ah64_pnvsfgeff = ppEffectCreate ["filmGrain",2000];
-			fza_ah64_pnvsfgeff ppEffectAdjust [0.2,1,1,0.5,0.5,true];
-			fza_ah64_pnvsfgeff ppEffectCommit 0;
-			fza_ah64_pnvsfgeff ppEffectEnable true;
 
 			} else {
 
@@ -27,22 +24,16 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			fza_ah64_pnvsgreff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 			fza_ah64_pnvsgreff ppEffectCommit 0;
 			fza_ah64_pnvsgreff ppEffectEnable true;
-			fza_ah64_pnvsfgeff = ppEffectCreate ["filmGrain",2000];
-			fza_ah64_pnvsfgeff ppEffectEnable true;
-			fza_ah64_pnvsfgeff ppEffectAdjust [0, 0, 0, 0, 0, true];
-			fza_ah64_pnvsfgeff ppEffectCommit 0;
 			};
 
 			if(cameraView == "EXTERNAL" || cameraView == "INTERNAL") then
 			{
 			fza_ah64_pnvsgreff ppEffectEnable false;
-			fza_ah64_pnvsfgeff ppEffectEnable false;
 			};
 			
 			if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then 
 			{
 			fza_ah64_pnvsgreff ppEffectEnable false;
-			fza_ah64_pnvsfgeff ppEffectEnable false;
 			};
 
 			_headcenter = inputaction "LookCenter";
@@ -63,7 +54,6 @@ if(player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then
 			  private _vectorModelSpace = _heli vectorWorldToModel _vectToTarget;
 			  private _angleX = asin (_vectorModelSpace # 0);
 			  private _angleY = (asin (_vectorModelSpace # 2) + 8); // 4.74764 is the vertical offset between helo and view dir
-			  //player sideChat str [_angleX, _angleY];
 			  fza_ah64_pnvsdir = _angleX * (0.75/90);
 			  fza_ah64_pnvselev = if(_angleY < 0) then [{_angleY * (1/45)},{_angleY * (1/20)}];
 			};
