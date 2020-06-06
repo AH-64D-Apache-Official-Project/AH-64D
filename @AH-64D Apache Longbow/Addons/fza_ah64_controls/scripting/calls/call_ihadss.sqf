@@ -70,14 +70,6 @@ _wptime = 0;
 _headsdown = false;
 _aratio = getResolution select 4;
 
-
-if (isNil "fza_ah64_ihadss_pnvs_cam") then {
-    fza_ah64_ihadss_pnvs_cam = false;
-};
-if (isNil "fza_ah64_ihadss_pnvs_day") then {
-    fza_ah64_ihadss_pnvs_day = true;
-};
-
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
@@ -102,36 +94,39 @@ if (fza_ah64_laserstate == 0) then {
     4 cuttext["", "PLAIN", 0.1];
 };
 
-//PNVS CAM DATA
+//PNVS HDU
+if (isNil "fza_ah64_ihadss_pnvs_cam") then {
+    fza_ah64_ihadss_pnvs_cam = false;
+};
+if (isNil "fza_ah64_ihadss_pnvs_day") then {
+    fza_ah64_ihadss_pnvs_day = true;
+};
 
 if (fza_ah64_ihadss_pnvs_cam && alive player) then {
     if (fza_ah64_ihadss_pnvs_day) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG HDU
     } else {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //HDR
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
     };
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "";
 };
 
-//TADS DISABLE IF ENGINE OFF
+//A3TI FUNCTIONS
+private _a3ti_vis = call A3TI_fnc_getA3TIVision;
+private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
 
+//TADS DISABLE IF ENGINE OFF
 if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then {
-    fza_ah64_bweff = ppEffectCreate["colorCorrections", 1498];
+    fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
     fza_ah64_bweff ppEffectAdjust[0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
     fza_ah64_bweff ppEffectCommit 0;
     fza_ah64_bweff ppEffectEnable true;
-    fza_ah64_fgeff = ppEffectCreate["filmGrain", 1499];
-    fza_ah64_fgeff ppEffectEnable true;
-    fza_ah64_fgeff ppEffectAdjust[0, 0, 0, 0, 0, true];
-    fza_ah64_fgeff ppEffectCommit 0;
 } else {
     fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_fgeff ppEffectEnable false;
 };
 
 //IHADSS INIT
-
 if (_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngineOn _heli && fza_ah64_monocleinbox == 0 || !(fza_ah64_cem) && fza_ah64_monocleinbox == 0) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
@@ -190,39 +185,36 @@ if((vehicle player) animationphase "plt_apu" < 0.5 ) then {
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
-
 if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli)) then {
 
+    if !(isNil "_a3ti_vis") then {
+        if !(isNil "fza_ah64_bweff") then {
+            fza_ah64_bweff ppEffectEnable false;
+       };
+    } else {
+        fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
+        fza_ah64_bweff ppEffectAdjust[1,1,0,[0,0,0,0],[1,1,1,0],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; //MONOCHROME TADS EXP
+        fza_ah64_bweff ppEffectCommit 0;
+        fza_ah64_bweff ppEffectEnable true;
+    };
+	
     _headsdown = true;
-
-    fza_ah64_bweff = ppEffectCreate["colorCorrections", 1498];
-    fza_ah64_bweff ppEffectAdjust[0.4, 0.7, 0, [1, 1, 1, 0], [1, 1, 1, 0], [1, 1, 1, 1]]; //MONOCHROME TADS OPTICS REWORK
-    fza_ah64_bweff ppEffectCommit 0;
-    fza_ah64_bweff ppEffectEnable true;
-    fza_ah64_fgeff = ppEffectCreate["filmGrain", 1499];
-    fza_ah64_fgeff ppEffectEnable true;
-    fza_ah64_fgeff ppEffectAdjust[0.2, 1, 1, 0.5, 0.5, true];
-    fza_ah64_fgeff ppEffectCommit 0;
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
 
     //ADD STATIC DATA TO TADS
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText _rcd;
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText _lsrcode;
 
     //COLOR WHITE TADS VIEW ACQ
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 
     //HIDE CLICK HELPER FOR HEADSDOWN GUNNER
-
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
 
     //COLOR SET THESE
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
@@ -249,7 +241,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     };
 
     //RELOCATE TEXTURES AS FOLLOWS
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123)
     ctrlsetposition[0.31, 0.345, 0.5, 0.12];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlCommit 0;
@@ -259,7 +250,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlCommit 0;
 
     //HIDE THESE AS FOLLOWS
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetTextColor[0, 0, 0, 0];
@@ -268,7 +258,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0, 0, 0, 0]; //HIDING BAROALT FT
 
     //LASER SYMBOLOGY FOR GUNNER
-
     if (fza_ah64_laserstate == 1) then {
         4 cutrsc["fza_ah64_laseit", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
@@ -293,7 +282,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     };
 
     //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
-
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601)
     ctrlSetTextColor[1, 1, 1, 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
@@ -303,7 +291,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetTextColor[0.1, 1, 0, 1]; //DOES SET GREEN COLOR FOR IHADSS
 
     //1ST PERSON VIEW, REPOSITION TEXTURES FROM TADS VIEW TO IHADSS VIEW
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlsetposition[0.31, 0.356, 0.5, 0.12];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlCommit 0;
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlsetposition[0.31, 0.5, 0.5, 0.12];
@@ -312,16 +299,6 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlCommit 0;
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 206) ctrlSetTextColor[0, 0, 0, 0];
 };
-
-
-
-
-
-
-
-
-
-
 
 
 _autohide = {
@@ -931,25 +908,36 @@ if (fza_ah64_safemsgticker < 0) then {
 };
 
 //AUTO HOVER DETECTOR
-
 if ((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then {
     player action["autoHoverCancel", _heli];
 };
 
 //SET NUMBERS AND IDC
-
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetText _sensxm;
 
+//VISION MODE CPG HEADSDOWN
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    if (currentVisionMode player == 0) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText "DTV";
+    private _visionTxt = "";
+
+    if (isNil "_a3ti_vis") then {
+        if (currentVisionMode player == 0) then {
+            _visionTxt = "DTV";
+        } else {
+            _visionTxt = "FLIR";
+        };
     } else {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText "FLIR";
+        _visionTxt = _a3ti_vis;
     };
+
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
+
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };
+
+
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetText _speedkts;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetText _radaltft;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 126) ctrlSetText _weapon;
@@ -1541,5 +1529,4 @@ if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(al
     3 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_fgeff ppEffectEnable false;
 };

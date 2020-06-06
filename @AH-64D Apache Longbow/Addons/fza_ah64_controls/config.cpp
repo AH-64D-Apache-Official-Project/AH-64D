@@ -44,7 +44,6 @@ class DefaultVehicleSystemsDisplayManagerRight {
 #include "config\CfgSoundShaders.hpp"
 #include "config\CfgSoundSets.hpp"
 
-
 #include "uiConfig\defines.hpp"
 #include "uiConfig\baseClasses.hpp"
 #include "uiConfig\loadout2.hpp"
@@ -52,8 +51,4 @@ class DefaultVehicleSystemsDisplayManagerRight {
 #include "uiConfig\monocle.hpp"
 #include "uiConfig\rscTitles.hpp"
 
-
-
-
-
-
+#include "config\CfgVideoOptions.hpp"

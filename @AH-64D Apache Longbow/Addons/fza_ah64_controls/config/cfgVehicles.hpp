@@ -12,8 +12,13 @@ class CfgVehicles
 	};
 	class fza_ah64base: Helicopter_Base_F
 	{
-    class itc_air {
-	    class rover {
+		
+		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
+		
+    class itc_air 
+	{
+	    class rover 
+		{
 	        capable = 1;
 	        frequency_default = 5784;
 	    };
@@ -21,8 +26,8 @@ class CfgVehicles
 	    hmd = 1;
 	    tgp = 1;
 	    wso = 0;
-      mfdApps[] = {"STAT","OPT"};
-      systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
+		mfdApps[] = {"STAT","OPT"};
+		systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
 	    mfdType = "classic";
     };
 
@@ -31,7 +36,7 @@ class CfgVehicles
     	receiveRemoteTargets    = 1;
     	reportRemoteTargets     = 1;
     	reportOwnPosition       = 1;
-
+	
 		side=1;
 		scope=0;
 		displayName="AH-64D";
@@ -168,7 +173,7 @@ class CfgVehicles
 						pointPosition = "driverview";
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
-						renderVisionMode = 0; //HDR
+						renderVisionMode = 0; //DTV HDU
 						fov = 0.18;
 					};
 				};
@@ -180,7 +185,7 @@ class CfgVehicles
 						pointPosition = "driverview";
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
-						renderVisionMode = 1; //NVG
+						renderVisionMode = 1; //NVG HDU
 						fov = 0.18;
 					};
 				};
@@ -2857,7 +2862,6 @@ class CfgVehicles
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 						directionStabilized = 1;
-						//stabilizedInAxes = 3;
 						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
@@ -2870,7 +2874,7 @@ class CfgVehicles
 						minfov = 0.466;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
-						visionmode[] = {"Normal","Ti","NVG"};
+						visionmode[] = {"Normal","Ti"};
 					};
 					class Medium: Wide
 					{
@@ -2910,7 +2914,6 @@ class CfgVehicles
 						maxanglex = 30;
 						minangley = -120;
 						maxangley = 120;
-						visionmode[] = {"Normal", "NVG"};
 					};
 				};
 				class ViewGunner
@@ -2969,8 +2972,6 @@ class CfgVehicles
 		};
 		class ViewOptics
 		{
-			//aimingMarkElevSpeed = 0.5; //test
-			//aimingMarkTurnSpeed = 0.5; //test
 			stabilizedInAxes = 3;
 			initAngleX=0;
 			minAngleX=-90;
@@ -2979,10 +2980,10 @@ class CfgVehicles
 			minAngleY=-45;
 			maxAngleY=20;
 			initFov=0.7;
-			minFov=0.01; //test
+			minFov=0.7;
 			maxFov=0.7;
-			thermalmode[] = {2};
-			visionmode[] = {"Normal","Ti","NVG"};
+			thermalmode[] = {0};
+			visionmode[] = {"Normal","Ti"}; //PNVS
 		};
 		class AnimationSources
 		{
@@ -6012,7 +6013,6 @@ initPhase=0;
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 						directionStabilized = 1;
-						//stabilizedInAxes = 3;
 						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
@@ -6025,7 +6025,7 @@ initPhase=0;
 						minfov = 0.466;
 						opticsdisplayname = "W";
 						thermalmode[] = {0,1};
-						visionmode[] = {"Normal","Ti","NVG"};
+						visionmode[] = {"Normal","Ti"};
 					};
 					class Medium: Wide
 					{
@@ -6065,7 +6065,6 @@ initPhase=0;
 						minanglex = -75;
 						minangley = -120;
 						minfov = 0.4;
-						visionmode[] = {"Normal", "NVG"};
 					};
 				};
 				class ViewGunner
