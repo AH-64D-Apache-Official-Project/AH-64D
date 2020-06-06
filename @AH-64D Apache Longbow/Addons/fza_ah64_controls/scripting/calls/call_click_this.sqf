@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\engineConstants.h"
 _heli = _this select 0;
 
 if(!(player in _heli)) exitwith {};
@@ -1210,7 +1211,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_apu" > 0.5 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	[_heli, 0, -1] call fza_fnc_engineSetPosition;
+	[_heli, 0, ENGINE_CONTROL_STARTER] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1218,7 +1219,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2start distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_apu" > 0.5 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	[_heli, 1, -1] call fza_fnc_engineSetPosition;
+	[_heli, 1, ENGINE_CONTROL_STARTER] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1226,7 +1227,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
-	[_heli, 0, 0] call fza_fnc_engineSetPosition;
+	[_heli, 0, ENGINE_CONTROL_THROTTLE_OFF] call fza_fnc_engineSetPosition;
 	fza_ah64_l1clicked = 1;
 };
 
@@ -1234,7 +1235,7 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1off distance [fza
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	[_heli, 0, 1] call fza_fnc_engineSetPosition;
+	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
 	fza_ah64_l1clicked = 1;
 };
 
@@ -1242,7 +1243,7 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1idle distance [fz
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-	[_heli, 0, 2] call fza_fnc_engineSetPosition;
+	[_heli, 0, ENGINE_CONTROL_THROTTLE_FLY] call fza_fnc_engineSetPosition;
 	fza_ah64_l1clicked = 1;
 };
 
@@ -1250,7 +1251,7 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e1fly distance [fza
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2off distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03) then
 {
-	[_heli, 1, 0] call fza_fnc_engineSetPosition;
+	[_heli, 1, ENGINE_CONTROL_THROTTLE_OFF] call fza_fnc_engineSetPosition;
 	fza_ah64_l1clicked = 1;
 };
 
@@ -1258,7 +1259,7 @@ if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2off distance [fza
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2idle distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-[_heli, 1, 1] call fza_fnc_engineSetPosition;
+[_heli, 1, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 
@@ -1266,7 +1267,7 @@ fza_ah64_l1clicked = 1;
 
 if(inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _e2fly distance [fza_ah64_mousehorpos,fza_ah64_mousevertpos] < 0.03 && _heli animationphase "plt_rtrbrake" == 0) then
 {
-[_heli, 1, 2] call fza_fnc_engineSetPosition;
+[_heli, 1, ENGINE_CONTROL_THROTTLE_FLY] call fza_fnc_engineSetPosition;
 fza_ah64_l1clicked = 1;
 };
 

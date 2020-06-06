@@ -42,7 +42,9 @@ _heli setCustomWeightRTD 295;
 };
 };
 
-[_heli] call fza_fnc_engineInit;
+if (local _heli) then {
+	[_heli] call fza_fnc_engineInit;
+};
 
 if (isNil "fza_ah64_fx_init") then
 {

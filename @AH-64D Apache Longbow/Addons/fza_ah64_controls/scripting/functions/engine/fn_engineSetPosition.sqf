@@ -1,3 +1,27 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_engineSetPosition
+
+Description:
+	Handles the controls for each individual engine
+
+Parameters:
+	_heli - The apache helicopter [Unit].
+	_engNum - The engine that should be controlled. 0 or 1.
+	_position - The control you would like to apply. ENGINE_CONTROL_STARTER, ENGINE_CONTROL_THROTTLE_OFF, ENGINE_CONTROL_THROTTLE_IDLE or ENGINE_CONTROL_THROTTLE_FLY.
+
+Returns:
+	Nothing
+
+Examples:
+    (begin example)
+	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineGovernor;
+    (end)
+
+Author:
+	mattysmith22
+---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\engineConstants.h"
+
 params ["_heli", "_engNum", "_position"];
 
 [_heli, 0] call fza_fnc_engineUpdate;
@@ -15,7 +39,7 @@ private _changeMade = false;
 
 switch (_state) do {
 	case "OFF": {
-		if (_position == -1) then {
+		if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER)) then {
 			_state = "OFFSTARTED";
 			_stateParams = time;
 			_changeMade = true;
@@ -26,7 +50,7 @@ switch (_state) do {
 		};
 	};
 	case "STARTED": {
-		if (_position == -1) then {
+		if (_position == ENGINE_CONTROL_STARTER) then {
 			_state = "STARTEDOFF";
 			_stateParams = time;
 			_changeMade = true;
@@ -35,15 +59,10 @@ switch (_state) do {
 			["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
 			_heli say3D ["fza_ah64_estart_3D",100,1];
 		};
-		if (_position == 1) then {
+		if (_position == ENGINE_CONTROL_THROTTLE_IDLE) then {
 			_stateParams = time;
 			_state = "STARTEDIDLE";
 			_changeMade = true;
-
-			if (_otherState == "OFF") then {
-				_heli setWantedRPMRTD [0, 80, -1];
-				_heli setVariable ["fza_ah64_engineGovernFinish", time + 80, true];
-			};
 
 			_heli animate [_engineSwitch,0];
 			["fza_ah64_switch_flip4",0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
@@ -52,28 +71,20 @@ switch (_state) do {
 	};
 	case "IDLE": {
 		switch (_position) do {
-			case 0: {
+			case ENGINE_CONTROL_THROTTLE_OFF: {
 				_stateParams = time;
 				_state = "IDLEOFF";
 				_changeMade = true;
 
-				if (_otherState == "IDLEOFF" || _otherState == "OFF") then {
-					_heli setWantedRPMRTD [0, 30, -1];
-					_heli setVariable ["fza_ah64_engineGovernFinish", time + 30, true];
-				};
-
 				_heli animate [_throttleAnimName,0];
 			};
-			case 2: {
+			case ENGINE_CONTROL_THROTTLE_FLY: {
 				if(_otherState == "IDLE") then {
 					_state = "IDLEFLY";
 					_otherState = "IDLEFLY";
 					_stateParams = time;
 					_otherStateParams = time;
 					_changeMade = true;
-
-					_heli setWantedRPMRTD [21109, 30, -1];
-					_heli setVariable ["fza_ah64_engineGovernFinish", time + 30, true];
 
 					_heli animate ["plt_eng1_throttle",1];
 					_heli animate ["plt_eng2_throttle",1];
@@ -82,15 +93,12 @@ switch (_state) do {
 		};
 	};
 	case "FLY": {
-		if (_position == 1) then {
+		if (_position == ENGINE_CONTROL_THROTTLE_IDLE) then {
 			_state = "FLYIDLE";
 			_otherState = "FLYIDLE";
 			_stateParams = time;
 			_otherStateParams = time;
 			_changeMade = true;
-
-			_heli setWantedRPMRTD [14776, 10, -1];
-			_heli setVariable ["fza_ah64_engineGovernFinish", time + 10, true];
 
 			_heli animate ["plt_eng1_throttle",0.25];
 			_heli animate ["plt_eng2_throttle",0.25];

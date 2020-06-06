@@ -1,3 +1,42 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_linearInterp
+
+Description:
+	Performs linear interpolation given a 2d array of values.
+
+	Each element in the array _arr is a "row" of values, upon which the first
+	index is the one that we should match up with x. There can be unlimited
+	values in those arrays, as long as they are all of equal length.
+
+	Each value's index must be in ascending order.
+
+Parameters:
+	_arr - the aforementioned array
+	_x - the value that should be interpolated
+
+Returns:
+	Array of results
+
+Examples:
+    (begin example)
+	_interpArray = [[0, -1, 4, 5], [2, -2, 6, 7], [6, -5, 0, 14]]
+	
+	_badInterpArray = [[0, -1, 4, 5], [6, -5, 0, 14], [2, -2, 6, 7]]
+	//BAD, indexes are out of order
+
+	_result = [_interpArray, 1] call fza_fnc_linearInterp
+	//_result => [1, -1.5, 5, 6]
+
+	_result = [_interpArray, -2] call fza_fnc_linearInterp //Below range
+	//_result => [0, -1, 4, 5]
+	
+	_result = [_interpArray, 10] call fza_fnc_linearInterp //Above range
+	//_result => [2, -2, 6, 7]
+    (end)
+
+Author:
+	mattysmith22
+---------------------------------------------------------------------------- */
 params ["_arr", "_key"];
 
 private _upperIndex = _arr findIf {_x select 0 > _key}; //Find the index of the value above key

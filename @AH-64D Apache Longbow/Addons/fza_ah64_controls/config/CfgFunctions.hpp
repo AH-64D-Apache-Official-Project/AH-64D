@@ -38,6 +38,10 @@ class CfgFunctions
 			{
 				description = "Sets the engine's target RPMs"
 			};
+			class engineGetTarget
+			{
+				description = "Get what engine's target RPM and time is"
+			};
 		}
 	};
 };
