@@ -179,7 +179,7 @@ if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox 
     };
 };
 
-if((vehicle player) animationphase "plt_apu" < 0.5 ) then {
+if ((vehicle player) animationphase "plt_apu" < 0.5) then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
 };
@@ -190,14 +190,14 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     if !(isNil "_a3ti_vis") then {
         if !(isNil "fza_ah64_bweff") then {
             fza_ah64_bweff ppEffectEnable false;
-       };
+        };
     } else {
         fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
-        fza_ah64_bweff ppEffectAdjust[1,1,0,[0,0,0,0],[1,1,1,0],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; //MONOCHROME TADS EXP
+        fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
         fza_ah64_bweff ppEffectCommit 0;
         fza_ah64_bweff ppEffectEnable true;
     };
-	
+
     _headsdown = true;
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
@@ -458,35 +458,61 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
 };
 _targxpos = (_targhead * 0.0027777777777777777777777777777778) + 0.945;
 _targypos = ((_heli distance fza_ah64_mycurrenttarget) * fza_ah64_rangesetting) + 0.95;
-if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {_targypos = 0.63;};
-if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {_targxpos = 0.95;};
-_radrange = format ["%1",(abs(1 / fza_ah64_rangesetting))*0.001];
-_collective =  format ["%1",round(100*((0.25*(2-(inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25*(inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))))];
-if (difficultyEnabledRTD && count (enginesTorqueRTD _heli) == 2) then {
-    _eng1data = [_heli, 0] call fza_fnc_engineGetData;
-	_eng2data = [_heli, 1] call fza_fnc_engineGetData;
-	_collective =  format ["%1",round ((_eng1data # 4/ 4.81 + _eng2data # 4/ 4.81)/2)];
+if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {
+    _targypos = 0.63;
 };
-if(_collective == "scalar") then {_collective = "0";};
-_speedkts = format ["%1",round(1.94*(sqrt(((velocity _heli select 0) + (0.836*(abs(wind select 0)^1.5)))^2 + ((velocity _heli select 1) + (0.836*(abs(wind select 2)^1.5)))^2 + ((velocity _heli select 2) + (0.836*(abs(wind select 1)^1.5)))^2)))];
-_radaltft = format ["%1",round(3.28084*(getpos _heli select 2))];
-_baraltft = format ["%1",round(3.28084*(getposasl _heli select 2))];
-_fcrantennafor = ((_heli animationphase "longbow")*0.48)+0.5;
-if(_fcrantennafor > 0.56) then {_fcrantennafor = 0.56;};
-if(_fcrantennafor < 0.44) then {_fcrantennafor = 0.44;};
-if(typeOf _heli == "fza_ah64d_b2e_nr" || typeOf _heli == "fza_ah64d_b2exp_nr" || typeOf _heli == "fza_ah64d_b3_nr") then {_fcrantennafor = -100;};
-_sensorposx = (_heli animationphase "tads_tur")*-0.025;
-_sensorposy = (_heli animationphase "tads")*-0.015;
-if(_sensorposy < 0) then {_sensorposy = (_heli animationphase "tads")*-0.026;};
-_fcrdir = ((_heli animationphase "longbow")*1.6)+0.5;
-if(_fcrdir > 0.7) then {_fcrdir = 0.7;};
-if(_fcrdir < 0.3) then {_fcrdir = 0.3;};
-_pnvsyaw = ((_heli animationphase "pnvs")*0.4)+0.4825;
-_pnvspitch = ((_heli animationphase "pnvs_vert")*-0.4)+0.675;
-if(_pnvsyaw > 0.7) then {_pnvsyaw = 0.7};
-if(_pnvsyaw < 0.3) then {_pnvsyaw = 0.3};
-if(_pnvspitch > 0.7) then {_pnvspitch = 0.7};
-if(_pnvspitch < 0.3) then {_pnvspitch = 0.3};
+if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {
+    _targxpos = 0.95;
+};
+_radrange = format["%1", (abs(1 / fza_ah64_rangesetting)) * 0.001];
+_collective = format["%1", round(100 * ((0.25 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))))];
+if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) == 2) then {
+    _eng1data = [_heli, 0] call fza_fnc_engineGetData;
+    _eng2data = [_heli, 1] call fza_fnc_engineGetData;
+    _collective = format["%1", round((_eng1data# 4 / 4.81 + _eng2data# 4 / 4.81) / 2)];
+};
+if (_collective == "scalar") then {
+    _collective = "0";
+};
+_speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
+_radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
+_baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
+_fcrantennafor = ((_heli animationphase "longbow") * 0.48) + 0.5;
+if (_fcrantennafor > 0.56) then {
+    _fcrantennafor = 0.56;
+};
+if (_fcrantennafor < 0.44) then {
+    _fcrantennafor = 0.44;
+};
+if (typeOf _heli == "fza_ah64d_b2e_nr" || typeOf _heli == "fza_ah64d_b2exp_nr" || typeOf _heli == "fza_ah64d_b3_nr") then {
+    _fcrantennafor = -100;
+};
+_sensorposx = (_heli animationphase "tads_tur") * -0.025;
+_sensorposy = (_heli animationphase "tads") * -0.015;
+if (_sensorposy < 0) then {
+    _sensorposy = (_heli animationphase "tads") * -0.026;
+};
+_fcrdir = ((_heli animationphase "longbow") * 1.6) + 0.5;
+if (_fcrdir > 0.7) then {
+    _fcrdir = 0.7;
+};
+if (_fcrdir < 0.3) then {
+    _fcrdir = 0.3;
+};
+_pnvsyaw = ((_heli animationphase "pnvs") * 0.4) + 0.4825;
+_pnvspitch = ((_heli animationphase "pnvs_vert") * -0.4) + 0.675;
+if (_pnvsyaw > 0.7) then {
+    _pnvsyaw = 0.7
+};
+if (_pnvsyaw < 0.3) then {
+    _pnvsyaw = 0.3
+};
+if (_pnvspitch > 0.7) then {
+    _pnvspitch = 0.7
+};
+if (_pnvspitch < 0.3) then {
+    _pnvspitch = 0.3
+};
 
 _slip = (fza_ah64_slip * 0.5) + 0.492;
 if (_slip > 0.54) then {

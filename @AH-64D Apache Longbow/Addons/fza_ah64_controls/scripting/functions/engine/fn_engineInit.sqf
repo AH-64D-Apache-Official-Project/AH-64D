@@ -18,8 +18,11 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params["_heli"];
 
-if(!local _heli) exitWith {};
+if (!local _heli) exitWith {};
 
-_heli setVariable ["fza_ah64_engineStates", [["OFF", 0], ["OFF", 0]], true];
+_heli setVariable["fza_ah64_engineStates", [
+    ["OFF", 0],
+    ["OFF", 0]
+], true];
