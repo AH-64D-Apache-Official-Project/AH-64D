@@ -71,17 +71,17 @@ _e2ngchar = "\fza_ah64_us\tex\char\g";
 _e2ngformat1 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _e2ngformat2 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _e2ngformat3 = "\fza_ah64_us\tex\char\g0_ca.paa";
-_phyd = 0;
+_phyd = 1;
 _phydformat1 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _phydformat2 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _phydformat3 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _phydformat4 = "\fza_ah64_us\tex\char\g0_ca.paa";
-_uhyd = 0;
+_uhyd = 1;
 _uhydformat1 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _uhydformat2 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _uhydformat3 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _uhydformat4 = "\fza_ah64_us\tex\char\g0_ca.paa";
-_ahyd = 0;
+_ahyd = 1;
 _ahydformat1 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _ahydformat2 = "\fza_ah64_us\tex\char\g0_ca.paa";
 _ahydformat3 = "\fza_ah64_us\tex\char\g0_ca.paa";
@@ -98,7 +98,12 @@ _ahyd1format1 = _ahydformat1;
 _ahyd1format2 = _ahydformat2;
 _ahyd1format3 = _ahydformat3;
 _ahyd1format4 = _ahydformat4;
+_e1percent = 0;
+_e2percent = 0;
 _counter = 0;
+
+_tgtTapeScaler = [[0, 0], [400, 0.10], [810, 0.60], [811, 0.70], [999, 1.00]];
+_npTapeScaler = [[0, 0], [96, 0.43], [99, 0.50], [100, 0.55], [102, 0.61], [105, 0.89], [120, 1.00]];
 
 while {(time > -1)} do
 {
@@ -106,95 +111,27 @@ waituntil{(vehicle player) iskindof "fza_ah64base"};
 _heli = vehicle player;
 waitUntil {((driver (vehicle player) == player || gunner (vehicle player) == player))};
 
-//ENG1 START TO IDLE
+[_heli] call fza_fnc_engineGovernor;
 
-if(_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng1_throttle" == 0.25) then
-{
-_e1rpm = ((enginesRpmRTD _heli) select 0);
-_e1tgt = (0.479 * _e1addcounter);
-_e1opsi = (80 * _e1addcounter);
-_e1addcounter = _e1addcounter + 0.001;
-if(_e1addcounter > 1) then {_e1addcounter = 1;};
-if(_e1tgt > 0.479) then {_e1tgt = 0.479;};
-if(_e1opsi > 80) then {_e1opsi = 80;};
+_e1data = [_heli, 0] call fza_fnc_engineGetData;
+_e1percent = (_e1data select 0) / 209.0;
+_e1ng = (_e1data select 1) * 10;
+_e1tgt = _e1data select 2;
+_e1opsi = _e1data select 3;
+_e1trq = (_e1data select 4) / 4.81;
+
+_e2data = [_heli, 1] call fza_fnc_engineGetData;
+_e2percent = (_e2data select 0) / 209.0;
+_e2ng = (_e2data select 1) * 10;
+_e2tgt = _e2data select 2;
+_e2opsi = _e2data select 3;
+_e2trq = (_e2data select 4) / 4.81;
+
+if ((_heli getVariable "fza_ah64_engineStates") # 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"] || (_heli getVariable "fza_ah64_engineStates") # 1 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
+	_rotorrpm = _e1percent max _e2percent;
 } else {
-_e1tgt = _e1tgt - 0.001;
-_e1opsi = _e1opsi - 0.1;
-_e1addcounter = _e1addcounter - 0.002;
-if(_e1addcounter < 0) then {_e1addcounter = 0;};
-if(_e1tgt < 0) then {_e1tgt = 0;};
-if(_e1rpm < 0) then {_e1rpm = 0;};
-if(_e1opsi < 0) then {_e1opsi = 0;};
+	_rotorrpm = (rotorsRpmRTD _heli # 0) / 2.89;
 };
-
-//ENG1 START TO FLY
-
-if(isEngineOn _heli && _heli animationphase "plt_eng1_throttle" == 1) then
-{
-_e1rpm = ((enginesRpmRTD _heli) select 0);
-_e1tgt = (0.479 * _e1addcounter);
-_e1opsi = (80 * _e1addcounter);
-_e1addcounter = _e1addcounter + 0.025;
-if(_e1tgt > 0.536) then {_e1tgt = 0.536;};
-if(_e1opsi > 80) then {_e1opsi = 80;};
-};
-
-//ENG2 START TO IDLE
-
-if(_heli animationphase "plt_eng2_start" == 1 || _heli animationphase "plt_eng2_throttle" == 0.25) then
-{
-_e2rpm = ((enginesRpmRTD _heli) select 1);
-_e2tgt = (0.479 * _e2addcounter);
-_e2opsi = (81 * _e2addcounter);
-_e2addcounter = _e2addcounter + 0.001;
-if(_e2addcounter > 1) then {_e2addcounter = 1;};
-if(_e2tgt > 0.479) then {_e2tgt = 0.479;};
-if(_e2opsi > 81) then {_e2opsi = 81;};
-} else {
-_e2rpm = ((enginesRpmRTD _heli) select 1);
-_e2tgt = _e2tgt - 0.001;
-_e2opsi = _e2opsi - 0.1;
-_e2addcounter = _e2addcounter - 0.002;
-if(_e2addcounter < 0) then {_e2addcounter = 0;};
-if(_e2tgt < 0) then {_e2tgt = 0;};
-if(_e2rpm < 0) then {_e2rpm = 0;};
-if(_e2opsi < 0) then {_e2opsi = 0;};
-};
-
-//ENG2 START TO FLY
-
-if(isEngineOn _heli && _heli animationphase "plt_eng2_throttle" == 1) then
-{
-_e2rpm = ((enginesRpmRTD _heli) select 1);
-_e2tgt = (0.479 * _e2addcounter);
-_e2opsi = (81 * _e2addcounter);
-_e2addcounter = _e2addcounter + 0.025;
-if(_e2tgt > 0.536) then {_e2tgt = 0.536;};
-if(_e2opsi > 81) then {_e2opsi = 81;};
-};
-
-//ENG2 START END
-
-_phyd = 1;
-_uhyd = 1;
-_ahyd = 1;
-
-if(difficultyEnabledRTD && count (enginesTorqueRTD _heli) > 0 && isEngineOn _heli) then
-{
-_e1trq = round((enginesTorqueRTD _heli select 0) / 5.6);
-_e2trq = round((enginesTorqueRTD _heli select 1) / 5.6);
-};
-_anitrq = ((_tottorque*0.0001) * _rotorrpm);
-_e1tgt = _e1tgt;
-_e2tgt = _e2tgt;
-
-_rotorrpm = round(101*(_heli animationphase "blade1_rise1"));
-
-
-
-
-
-
 
 if(fza_ah64_pl_mpd == "eng" || fza_ah64_pr_mpd == "eng") then
 {
@@ -243,12 +180,6 @@ _e2trqformat1 = [_e2trq,_e2trqchar] call fza_ah64_digit;
 _e2trqformat2 = [_e2trq,_e2trqchar] call fza_ah64_digitten;
 _e2trqformat3 = [_e2trq,_e2trqchar] call fza_ah64_digithun;
 
-
-
-
-
-
-_e1percent = _e1rpm/209;
 _e1rpmchar = "\fza_ah64_us\tex\char\g";
 _e1rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
@@ -256,7 +187,6 @@ _e1npformat1 = [_e1percent,_e1rpmchar] call fza_ah64_digithun;
 _e1npformat2 = [_e1percent,_e1rpmchar] call fza_ah64_digitten;
 _e1npformat3 = [_e1percent,_e1rpmchar] call fza_ah64_digit;
 
-_e2percent = _e2rpm/209;
 _e2rpmchar = "\fza_ah64_us\tex\char\g";
 _e2rpmtape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
@@ -264,7 +194,7 @@ _e2npformat1 = [_e2percent,_e2rpmchar] call fza_ah64_digithun;
 _e2npformat2 = [_e2percent,_e2rpmchar] call fza_ah64_digitten;
 _e2npformat3 = [_e2percent,_e2rpmchar] call fza_ah64_digit;
 
-_e1tgtpercent = round(_e1tgt * 999);
+_e1tgtpercent = round(_e1tgt);
 _e1tgtchar = "\fza_ah64_us\tex\char\g";
 _e1tgttape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
@@ -272,7 +202,7 @@ _e1tgtformat1 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digithun;
 _e1tgtformat2 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digitten;
 _e1tgtformat3 = [_e1tgtpercent,_e1tgtchar] call fza_ah64_digit;
 
-_e2tgtpercent = round(_e2tgt * 999);
+_e2tgtpercent = round(_e2tgt);
 _e2tgtchar = "\fza_ah64_us\tex\char\g";
 _e2tgttape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
@@ -291,8 +221,6 @@ if(_e2opsi < 20 || _e2opsi > 95) then {_e2opsichar = "\fza_ah64_us\tex\char\r";}
 _e2opsiformat1 = [_e2opsi,_e2opsichar] call fza_ah64_digithun;
 _e2opsiformat2 = [_e2opsi,_e2opsichar] call fza_ah64_digitten;
 _e2opsiformat3 = [_e2opsi,_e2opsichar] call fza_ah64_digit;
-
-_e1ng = round((_e1rpm/20900)*835);
 _e1ngchar = "\fza_ah64_us\tex\char\g";
 if(_e1ng > 1023 && _e1ng < 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\y"; _e1ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
 if(_e1ng < 630 || _e1ng > 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\r"; _e1ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
@@ -300,8 +228,6 @@ if(_e1ng < 630 || _e1ng > 1051) then {_e1ngchar = "\fza_ah64_us\tex\char\r"; _e1
 _e1ngformat1 = [_e1ng,_e1ngchar] call fza_ah64_digithun;
 _e1ngformat2 = [_e1ng,_e1ngchar] call fza_ah64_digitten;
 _e1ngformat3 = [_e1ng,_e1ngchar] call fza_ah64_digit;
-
-_e2ng = round((_e2rpm/20900)*835);
 _e2ngchar = "\fza_ah64_us\tex\char\g";
 if(_e2ng > 1023 && _e2ng < 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\y"; _e2ngtape = "\fza_ah64_us\tex\mpd\Ytape.paa";};
 if(_e2ng < 630 || _e2ng > 1051) then {_e2ngchar = "\fza_ah64_us\tex\char\r"; _e2ngtape = "\fza_ah64_us\tex\mpd\Rtape.paa";};
@@ -404,8 +330,10 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [845,_e2tgtformat1];
 		_heli setobjecttexture [848,_e1trqformat1];
 		_heli setobjecttexture [849,_e1trqformat2];
+		_heli setobjecttexture [1252,_e1trqformat3];
 		_heli setobjecttexture [852,_e2trqformat1];
 		_heli setobjecttexture [853,_e2trqformat2];
+		_heli setobjecttexture [1253,_e2trqformat3];
 		_heli setobjecttexture [857,_ahydformat4];
 		_heli setobjecttexture [858,_ahydformat3];
 		_heli setobjecttexture [859,_ahydformat2];
@@ -421,15 +349,15 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [869,_e1ngformat3];
 		_heli setobjecttexture [870,_e1ngformat2];
 		_heli setobjecttexture [871,_e1ngformat1];
-		_heli setobjecttexture [872,_e1ngformat3];
-		_heli setobjecttexture [873,_e1ngformat2];
-		_heli setobjecttexture [874,_e1ngformat1];
+		_heli setobjecttexture [872,_e2ngformat3];
+		_heli setobjecttexture [873,_e2ngformat2];
+		_heli setobjecttexture [874,_e2ngformat1];
 		_heli setobjecttexture [875,_e1npformat3];
 		_heli setobjecttexture [876,_e1npformat2];
 		_heli setobjecttexture [877,_e1npformat1];
-		_heli setobjecttexture [878,_e1npformat3];
-		_heli setobjecttexture [879,_e1npformat2];
-		_heli setobjecttexture [880,_e1npformat1];
+		_heli setobjecttexture [878,_e2npformat3];
+		_heli setobjecttexture [879,_e2npformat2];
+		_heli setobjecttexture [880,_e2npformat1];
 		_heli setobjecttexture [881,_e1opsiformat3];
 		_heli setobjecttexture [882,_e1opsiformat2];
 		_heli setobjecttexture [883,_e1opsiformat1];
@@ -453,13 +381,14 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [925,_phyd1format1];
 		if(local _heli) then
 		{
-		_heli animate ["mpd_pr_eng_e1np",_e1rpm];
-		_heli animate ["mpd_pr_eng_e2np",_e2rpm];
-		_heli animate ["mpd_pr_eng_e1trq",_anitrq];
-		_heli animate ["mpd_pr_eng_e2trq",_anitrq];
-		_heli animate ["mpd_pr_eng_ltrqbar",_anitrq];
-		_heli animate ["mpd_pr_eng_1tgt",_e1tgt];
-		_heli animate ["mpd_pr_eng_2tgt",_e2tgt];
+		_heli animate ["mpd_pr_eng_e1trq",_e1trq / 130.0];
+		_heli animate ["mpd_pr_eng_e2trq",_e2trq / 130.0];
+		_heli animate ["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp) # 1];
+		_heli animate ["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp) # 1];
+
+		_heli animate ["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fnc_linearInterp) # 1];
 		};
 	} else {
 		_heli setobjecttexture [834,""];
@@ -478,10 +407,12 @@ _ahyd1format4 = "";
 		_heli setobjecttexture [847,""];
 		_heli setobjecttexture [848,""];
 		_heli setobjecttexture [849,""];
+		_heli setobjecttexture [1252,""];
 		_heli setobjecttexture [850,""];
 		_heli setobjecttexture [851,""];
 		_heli setobjecttexture [852,""];
 		_heli setobjecttexture [853,""];
+		_heli setobjecttexture [1253,""];
 		_heli setobjecttexture [854,""];
 		_heli setobjecttexture [855,""];
 		_heli setobjecttexture [856,""];

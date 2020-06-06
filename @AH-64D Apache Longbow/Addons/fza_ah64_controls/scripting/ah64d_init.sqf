@@ -42,6 +42,10 @@ _heli setCustomWeightRTD 295;
 };
 };
 
+if (local _heli) then {
+	[_heli] call fza_fnc_engineInit;
+};
+
 if (isNil "fza_ah64_fx_init") then
 {
 	fza_ah64_fx_init = true;
@@ -143,6 +147,7 @@ if (isNil "fza_ah64_fx_init") then
 	if(isNil "fza_ah64_mycurrenttarget") then {fza_ah64_mycurrenttarget = objNull;};
 	fza_ah64_wheelbrake = 1;
 	fza_ah64_burst = 1;
+	fza_ah64_engineGovernFinish = 0;
 	fza_ah64_tsdsort = 0;
 	fza_ah64_tsdsortarray = ["all"];
 	fza_ah64_laser = 0;
