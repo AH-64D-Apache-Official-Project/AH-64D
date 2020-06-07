@@ -955,7 +955,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             _visionTxt = "FLIR";
         };
     } else {
-        _visionTxt = _a3ti_vis;
+        //_visionTxt = _a3ti_vis;
+		_visionTxt = "FLIR";
     };
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
