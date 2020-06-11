@@ -230,6 +230,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
 
     _ihadssidx = 146;
     while {
@@ -276,7 +277,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     _ihadssidx = 121;
 
     while {
-        (_ihadssidx < 206)
+        (_ihadssidx < 208)
     }
     do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor fza_ah64_hducolor;
@@ -1218,6 +1219,24 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
     _curwpdir = _tadsdir;
 };
+private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")}); 
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (_heli animationPhase "pnvs_vert"), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
+
+private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
+private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);
+private _alternatesensordir = (_worldAlternateSensorvect # 0) atan2(_worldAlternateSensorvect # 1);
+
+_alternatesensordir = _alternatesensordir - direction _heli;
+
+if (_alternatesensordir > 180) then {
+    _alternatesensordir = _alternatesensordir - 360;
+};
+if (_alternatesensordir < -180) then {
+    _alternatesensordir = _alternatesensordir + 360;
+};
+
+private _alternatesensor = (_alternatesensordir * (1 / 360)) + 0.5;
+
 _chevmark = (_curwpdir * (1 / 360)) + 0.5;
 _360mark = (_helidir * (-1 / 360)) + 1.5;
 _10mark = (_10dir * (-1 / 360)) + 1.5;
@@ -1255,6 +1274,13 @@ _320mark = (_320dir * (-1 / 360)) + 1.5;
 _330mark = (_330dir * (-1 / 360)) + 1.5;
 _340mark = (_340dir * (-1 / 360)) + 1.5;
 _350mark = (_350dir * (-1 / 360)) + 1.5;
+
+if (_alternatesensor > 0.7) then {
+    _alternatesensor = 0.7;
+};
+if (_alternatesensor < 0.3) then {
+    _alternatesensor = 0.3;
+};
 if (_chevmark > 0.7) then {
     _chevmark = 0.7;
 };
@@ -1477,6 +1503,7 @@ if (_350mark > 0.7) then {
 if (_350mark < 0.3) then {
     _350mark = _350mark - 100;
 };
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetPosition[_alternatesensor - 0.025, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlSetPosition[_360mark - 0.02, 0.27];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlSetPosition[_30mark - 0.02, 0.27];
@@ -1514,6 +1541,7 @@ if (_350mark < 0.3) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlSetPosition[_320mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlSetPosition[_340mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlSetPosition[_350mark, 0.29];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlCommit 0;
