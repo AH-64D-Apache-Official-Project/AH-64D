@@ -6,8 +6,15 @@ class CfgFunctions
 		class controlHandlers
 		{
 			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
+			class controlHandleASEAutopage {};
 			class controlHandleCrosshairAction {};
+			class controlHandleIHADSSMode {};
+			class controlHandleJammerToggle {};
 			class controlHandleLookCenter {};
+			class controlHandleNextWaypoint {};
+			class controlHandlePrevWaypoint {};
+			class controlHandleToggleHeadtracking {};
+			class controlHandleTSDMode {};
 		};
 		class core
 		{
@@ -42,16 +49,27 @@ class CfgFunctions
 			{
 				description = "Get what engine's target RPM and time is"
 			};
-		}
+		};
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {};
-		}
+		};
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {};
+		};
+		class laser
+		{
+			file = "\fza_ah64_controls\scripting\functions\laser";
+			class laserArm {};
+			class laserDisarm {};
+		}
+		class lighting
+		{
+			file = "\fza_ah64_controls\scripting\functions\lighting";
+			class lightHandleControl {};
 		}
 		class mpd
 		{

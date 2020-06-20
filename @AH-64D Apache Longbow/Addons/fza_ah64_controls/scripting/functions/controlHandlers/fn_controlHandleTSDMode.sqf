@@ -1,4 +1,4 @@
-switch(fza_ah64_tsdmode) {
+switch(fza_ah64_tsdmode) do {
 	case "NAV": {
 		fza_ah64_tsdmode = "ATK";
 	};
