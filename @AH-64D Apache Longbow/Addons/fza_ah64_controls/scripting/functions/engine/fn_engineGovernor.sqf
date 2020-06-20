@@ -22,8 +22,11 @@ params["_heli"];
 
 if (!local _heli) exitWith {};
 
+((_heli getVariable "fza_ah64_engineStates") select 0) params ["_e1state", "_e1stateParams"];
+((_heli getVariable "fza_ah64_engineStates") select 1) params ["_e2state", "_e2stateParams"];
+
 //Startup
-if (!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (_heli animationphase "plt_eng1_start" == 1 || _heli animationphase "plt_eng2_start" == 1) && _heli animationphase "plt_rtrbrake" == 0) then {
+if (!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (_e1state != "OFF" || _e2state != "OFF") && _heli animationphase "plt_rtrbrake" == 0) then {
     fza_ah64_estarted = true;
     (vehicle player) engineOn true;
     (vehicle player) enableAutoStartUpRTD false;
@@ -32,10 +35,9 @@ if (!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animation
     (vehicle player) setActualCollectiveRTD 0;
     (vehicle player) setWantedRPMRTD[20000, 15, -1];
     (vehicle player) setWantedRPMRTD[0, 15, -1];
-    fza_ah64_l1clicked = 1;
 };
 
-if (_heli animationphase "plt_eng1_throttle" == 0 && _heli animationphase "plt_eng2_throttle" == 0 && (_heli animationphase "plt_eng1_start" == 0 && _heli animationphase "plt_eng2_start" == 0) && isEngineOn _heli) then {
+if (_heli animationphase "plt_eng1_throttle" == 0 && (_e1state == "OFF" && _e2state == "OFF") && isEngineOn _heli) then {
     _heli engineOn false;
     fza_ah64_estarted = false;
 };

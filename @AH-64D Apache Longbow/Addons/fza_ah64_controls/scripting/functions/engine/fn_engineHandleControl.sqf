@@ -4,7 +4,7 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "apu": {
-		if (_heli animationphase "plt_apu" < 1) then {
+		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
 			_heli animate["plt_apu", 1];
 			_heli animate["tads_stow", 0];
 			fza_ah64_apuon = 1;
