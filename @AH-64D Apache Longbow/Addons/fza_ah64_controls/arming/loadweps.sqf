@@ -1864,7 +1864,7 @@ _heli removemagazines "fza_m261_m257_1234_zoneE";
 _heli removemagazines "fza_atas_2";
 //gun
 _heli removemagazines "fza_m230_1200";
-_heli removemagazines "fza_m230_350";
+_heli removemagazines "fza_m230_300";
 _heli removemagazines "fza_iafs_100";
 _heli removemagazines "fza_iafs_130";
 _heli removemagazines "fza_ah64_gun_jam";
@@ -2365,7 +2365,7 @@ if (fza_ah64_hardpoint4 != -1 && fza_ah64_hardpoint4 == 1 && fza_ah64_hardpoint2
 
 if (fza_ah64_canmag  == 0) then {_heli addmagazine "fza_iafs_130"; _heliweight = _heliweight + 362;};
 if (fza_ah64_canmag  == 1 && fza_ah64_30mmhedp_qty > 1199) then {_heli addmagazine "fza_m230_1200"; fza_ah64_30mmhedp_qty = fza_ah64_30mmhedp_qty - 1200; _heliweight = _heliweight + 420;};
-if (fza_ah64_canmag  == 2 && fza_ah64_30mmhedp_qty > 299) then {_heli addmagazine "fza_m230_350"; _heli addmagazine "fza_iafs_100"; fza_ah64_30mmhedp_qty = fza_ah64_30mmhedp_qty - 300; _heliweight = _heliweight + 411;};
+if (fza_ah64_canmag  == 2 && fza_ah64_30mmhedp_qty > 299) then {_heli addmagazine "fza_m230_300"; _heli addmagazine "fza_iafs_100"; fza_ah64_30mmhedp_qty = fza_ah64_30mmhedp_qty - 300; _heliweight = _heliweight + 411;};
 
 //AUX FUEL TANKS
 
