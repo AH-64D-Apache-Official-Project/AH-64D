@@ -97,7 +97,6 @@ if (isNil "fza_ah64_fx_init") then {
         uiNamespace setVariable["fza_ah64_mapfake", (_this select 0)];
         ((_this select 0) displayCtrl 3001) ctrlSetEventHandler["Draw", '[_this] call fza_ah64_pfsched'];
     };
-    fza_ah64_pwron = 0;
     fza_ah64_fire1arm = 0;
     fza_ah64_fire2arm = 0;
     fza_ah64_fireapuarm = 0;
@@ -144,7 +143,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_turrets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_turrets.sqf";
     fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf";
     fza_ah64_pnvscontrol = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pnvs.sqf";
-    fza_ah64_worldtoscreen = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_click_this.sqf";
     fza_ah64_targetcycle = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_targeting.sqf";
     fza_ah64_wepactionswitch = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_was.sqf";
     fza_ah64_velvect = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_vvect.sqf";
@@ -196,7 +194,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_fcrstate = 0;
     fza_ah64_fcrlist = [];
     fza_ah64_tsddisptargs = [];
-    fza_ah64_tsdmode = "nav";
+    fza_ah64_tsdmode = "NAV";
     fza_ah64_tsdmap = 0;
     fza_ah64_dispfcrlist = [];
     fza_ah64_estate = 0;
@@ -219,7 +217,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_ihadssoff = 1;
     fza_ah64_monocleinbox = 1;
     fza_ah64_hducolor = [0.1, 1, 0, 1];
-    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_worldtoscreen, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
+    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
     fza_ah64_asemisarray = [];
     if (isNil "fza_ah64_pfsstate") then {
         fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
@@ -251,7 +249,7 @@ if (isnil "fza_ah64_tiron") then {
 if (typeOf _heli == "fza_ah64d_b2e") then {
     [_heli] execvm "\fza_ah64_controls\scripting\fcr_animate.sqf";
 };
-
+fza_ah64_backlights = 0;
 _rail1 = 0;
 _rail2 = 0;
 _rail3 = 0;
@@ -297,6 +295,18 @@ while {
     alive _heli
 }
 do {
+    
+    if (fza_ah64_backlights == 1 && _heli animationphase "plt_batt" < 0.5) then {
+
+        _heli setobjecttexture[1190, ""];
+        _heli setobjecttexture[1191, ""];
+
+        deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
+        deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
+
+        fza_ah64_backlights = 0;
+
+    };
 
     _mags = magazines _heli;
     _magsp = _heli magazinesturret[-1];

@@ -1,4 +1,4 @@
-_heli = _this select 0;
+params ["_heli"]
 
 fza_ah64_pfz_count = fza_ah64_pfz_count + 1;
 

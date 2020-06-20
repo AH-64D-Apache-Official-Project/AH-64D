@@ -1,4 +1,4 @@
-_heli = _this select 0;
+params ["_heli"];
 _laseron = 0;
 _helilaser = objNull;
 

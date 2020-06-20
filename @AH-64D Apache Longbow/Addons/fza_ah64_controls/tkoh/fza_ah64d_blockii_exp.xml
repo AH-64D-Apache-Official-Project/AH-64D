@@ -1754,7 +1754,7 @@
         <RollAxis x="1" y="0" z="0" />
         <Friction slidingFriction="0.7" resistanceTorqueNoBrake="1" resistanceTorqueFullBrake="1" />
       </Wheel>
-	  <SteeringController inverseRotation="true" keepCenter="false" />
+	  <SteeringController keepCenter="true" />
       <Damage thresholdLoad="20000000" />
     </GroundContact>
 

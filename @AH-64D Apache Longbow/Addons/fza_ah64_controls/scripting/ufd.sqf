@@ -211,19 +211,6 @@ do {
         _advlist = _advlist - ["\fza_ah64_us\tex\UFD\APUON_A_co.paa"];
         _apuon = 0;
     };
-    /*
-    	if(fza_ah64_pwron == 1 && _baton == 0) then
-    	{
-    		_advlist = _advlist + ["\fza_ah64_us\tex\UFD\BATTERYON_A_co.paa"];
-    		_advlist set [(count _advlist - 1),"\fza_ah64_us\tex\UFD\BATTERYON_A_co.paa"];
-    		_baton = 1;
-    	};
-    	if(fza_ah64_pwron == 0) then
-    	{
-    		_advlist = _advlist - ["\fza_ah64_us\tex\UFD\BATTERYON_A_co.paa"];
-    		_baton = 0;
-    	};
-    */
     if (isAutoHoverOn _heli && _hovhold == 0) then {
         _advlist = _advlist + ["\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"];
         _advlist set[(count _advlist - 1), "\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"];

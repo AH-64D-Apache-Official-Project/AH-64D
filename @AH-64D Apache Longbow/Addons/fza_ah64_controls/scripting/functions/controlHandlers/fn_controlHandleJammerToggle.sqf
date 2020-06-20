@@ -1,4 +1,4 @@
-_heli = _this select 0;
+params ["_heli"]
 
 if (fza_ah64_rfjstate == 1) exitwith {
     fza_ah64_rfjstate = 0;

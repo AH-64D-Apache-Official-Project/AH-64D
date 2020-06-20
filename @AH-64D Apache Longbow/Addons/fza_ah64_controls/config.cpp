@@ -7,7 +7,7 @@ class CfgPatches
 		author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		weapons[] = {};
 		requiredVersion = 1.0;
-		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F"};
+		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh"};
 	};
 };
 
@@ -36,7 +36,9 @@ class DefaultVehicleSystemsDisplayManagerRight {
 #include "config\CfgMagazines.hpp"
 #include "config\CfgVehicles.hpp"
 #include "config\CfgCloudlets.hpp"
+
 #include "config\CfgFunctions.hpp"
+#include "config\extendedEventHandlers.hpp"
 
 #include "config\CfgSound3DProcessors.hpp"
 #include "config\CfgSoundCurves.hpp"
@@ -50,5 +52,6 @@ class DefaultVehicleSystemsDisplayManagerRight {
 #include "uiConfig\skinMenu.hpp"
 #include "uiConfig\monocle.hpp"
 #include "uiConfig\rscTitles.hpp"
+
 
 #include "config\CfgVideoOptions.hpp"
