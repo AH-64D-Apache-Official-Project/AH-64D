@@ -13,7 +13,7 @@
 	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\plmpdcycle.sqf")
 }, {}] call CBA_fnc_addKeybind;
 
-[MOD_NAME, "cycleMPDRight", "Cycle Left MPD", {
+[MOD_NAME, "cycleMPDRight", "Cycle Right MPD", {
 	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\prmpdcycle.sqf")
 }, {}] call CBA_fnc_addKeybind;
 
