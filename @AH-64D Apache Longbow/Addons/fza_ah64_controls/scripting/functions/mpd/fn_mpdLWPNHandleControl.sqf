@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
+#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 private _hellfireweps = ["fza_agm114_23_8", "fza_agm114_14_8", "fza_agm114_1_4", "fza_agm114_2_4", "fza_agm114_3_4", "fza_agm114_4_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
@@ -115,10 +116,10 @@ switch (_control) do {
 	};
 	case "m": {
 		fza_ah64_pl_mpd = "dms";
-		_heli setobjecttexture[302, "\fza_ah64_us\tex\dms.paa"];
+		_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\dms.paa"];
 		if (("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) then {
 			fza_ah64_pr_mpd = "fail";
-			_heli setobjecttexture[303, ""];
+			_heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 		};
 	};
 };

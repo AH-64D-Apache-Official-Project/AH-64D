@@ -28,18 +28,22 @@ if (!local _heli) exitWith {};
 //Startup
 if (!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (_e1state != "OFF" || _e2state != "OFF") && _heli animationphase "plt_rtrbrake" == 0) then {
     fza_ah64_estarted = true;
-    (vehicle player) engineOn true;
-    (vehicle player) enableAutoStartUpRTD false;
-    (vehicle player) setRotorBrakeRTD 0;
-    (vehicle player) setActualCollectiveRTD 0;
-    (vehicle player) setActualCollectiveRTD 0;
-    (vehicle player) setWantedRPMRTD[20000, 15, -1];
-    (vehicle player) setWantedRPMRTD[0, 15, -1];
+    [] spawn { //TODO: Fix fuel management system so that sleep isn't needed here for 
+        sleep 0.1;
+        (vehicle player) engineOn true;
+        (vehicle player) enableAutoStartUpRTD false;
+        (vehicle player) setRotorBrakeRTD 0;
+        (vehicle player) setActualCollectiveRTD 0;
+        (vehicle player) setActualCollectiveRTD 0;
+        (vehicle player) setWantedRPMRTD[20000, 15, -1];
+        (vehicle player) setWantedRPMRTD[0, 15, -1];
+        hint "call on";
+    }
 };
 
 if (_heli animationphase "plt_eng1_throttle" == 0 && (_e1state == "OFF" && _e2state == "OFF") && isEngineOn _heli) then {
-    _heli engineOn false;
     fza_ah64_estarted = false;
+    _heli engineOn false;
 };
 
 ([_heli, 0] call fza_fnc_engineGetTarget) params["_e1rpm", "_e1time"];

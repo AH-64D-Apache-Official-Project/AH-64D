@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
+#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 switch(_control) do {
@@ -7,11 +8,11 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 		};
 		if (fza_ah64_firetest == 0) exitwith {
-			_heli setobjecttexture[1192, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1194, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1196, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1200, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1201, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
 			fza_ah64_l1clicked = 1;
 
@@ -27,13 +28,13 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
-			_heli setobjecttexture[1192, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1194, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1196, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1198, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1199, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1200, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1201, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
 			fza_ah64_l1clicked = 1;
 
@@ -47,16 +48,16 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
-			_heli setobjecttexture[1192, ""];
-			_heli setobjecttexture[1194, ""];
-			_heli setobjecttexture[1196, ""];
-			_heli setobjecttexture[1200, ""];
-			_heli setobjecttexture[1201, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
 			if (!("fza_ah64_firepdisch" in (_heli magazinesturret[-1]))) then {
-				_heli setobjecttexture[1198, ""];
+				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
 			if (!("fza_ah64_firerdisch" in (_heli magazinesturret[-1]))) then {
-				_heli setobjecttexture[1199, ""];
+				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
 			fza_ah64_l1clicked = 1;
@@ -72,43 +73,43 @@ switch(_control) do {
 	};
 	case "fe1": {
 		if (fza_ah64_fire1arm == 0) exitwith {
-			_heli setobjecttexture[1193, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_fire1arm = 1;
 			["fza_ah64_button_click2", 0.1];
 		};
 		if (fza_ah64_fire1arm == 1) exitwith {
-			_heli setobjecttexture[1193, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
 			fza_ah64_fire1arm = 0;
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fe2": {
 		if (fza_ah64_fire2arm == 0) exitwith {
-			_heli setobjecttexture[1195, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_fire2arm = 1;
 			["fza_ah64_button_click2", 0.1];
 		};
 		if (fza_ah64_fire2arm == 1) exitwith {
-			_heli setobjecttexture[1195, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
 			fza_ah64_fire2arm = 0;
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fapu": {
 			if (fza_ah64_fireapuarm == 0) exitwith {
-				_heli setobjecttexture[1197, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 				fza_ah64_fireapuarm = 1;
 				["fza_ah64_button_click2", 0.1];
 			};
 			if (fza_ah64_fireapuarm == 1) exitwith {
-				_heli setobjecttexture[1197, ""];
+				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
 				fza_ah64_fireapuarm = 0;
 				["fza_ah64_button_click2", 0.1];
 			};
 	};
 	case "fbp": {
 		if ((fza_ah64_fireapuarm == 1 || fza_ah64_fire2arm == 1 || fza_ah64_fire1arm == 1) && !("fza_ah64_firepdisch" in (_heli magazinesturret[-1])) && !("fza_ah64_firepdisch" in magazines _heli)) then {
-				_heli setobjecttexture[1198, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli addmagazine "fza_ah64_firepdisch";
 				_heli addmagazineturret["fza_ah64_firepdisch", [-1]];
 			};
@@ -116,7 +117,7 @@ switch(_control) do {
 		};
 		case "fbr": {
 			if ((fza_ah64_fireapuarm == 1 || fza_ah64_fire2arm == 1 || fza_ah64_fire1arm == 1) && !("fza_ah64_firerdisch" in (_heli magazinesturret[-1])) && !("fza_ah64_firerdisch" in magazines _heli)) then {
-				_heli setobjecttexture[1199, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli addmagazine "fza_ah64_firerdisch";
 				_heli addmagazineturret["fza_ah64_firerdisch", [-1]];
 			};
@@ -127,11 +128,11 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 		};
 		if (fza_ah64_firetest == 0) exitwith {
-			_heli setobjecttexture[1192, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1194, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1196, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1200, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1201, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
 			fza_ah64_l1clicked = 1;
 
@@ -147,13 +148,13 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
-			_heli setobjecttexture[1192, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1194, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1196, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1198, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1199, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1200, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture[1201, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
 			fza_ah64_l1clicked = 1;
 
@@ -167,16 +168,16 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
-			_heli setobjecttexture[1192, ""];
-			_heli setobjecttexture[1194, ""];
-			_heli setobjecttexture[1196, ""];
-			_heli setobjecttexture[1200, ""];
-			_heli setobjecttexture[1201, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE1, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIRE2, ""];
+			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
+			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
+			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
 			if (!("fza_ah64_firepdisch" in (_heli magazinesturret[-1]))) then {
-				_heli setobjecttexture[1198, ""];
+				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
 			if (!("fza_ah64_firerdisch" in (_heli magazinesturret[-1]))) then {
-				_heli setobjecttexture[1199, ""];
+				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
 			fza_ah64_l1clicked = 1;

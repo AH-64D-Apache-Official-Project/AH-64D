@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
+#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 switch (_control) do {
@@ -6,8 +7,8 @@ switch (_control) do {
 
 		if (fza_ah64_backlights == 0 && _heli animationphase "plt_batt" > 0.5) then {
 
-			_heli setobjecttexture[1190, "\fza_ah64_us\tex\in\dlt.paa"];
-			_heli setobjecttexture[1191, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
+			_heli setobjecttexture [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
 
 			_floodplt = "#lightpoint"
 			createVehicle position _heli;
@@ -29,8 +30,8 @@ switch (_control) do {
 			fza_ah64_backlights = 1;
 
 		} else {
-			_heli setobjecttexture[1190, ""];
-			_heli setobjecttexture[1191, ""];
+			_heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
+			_heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
 
 			deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
 			deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);

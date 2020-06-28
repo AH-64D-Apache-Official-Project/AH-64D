@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
+#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 if(_control == "brt") then {
@@ -7,19 +8,19 @@ if(_control == "brt") then {
     };
     if (fza_ah64_mpdbrightness == 0.2) exitwith {
         fza_ah64_mpdbrightness = 1;
-        _heli setobjecttexture[1189, ""];
+        _heli setobjecttexture [SEL_MPD_BRT, ""];
     };
     if (fza_ah64_mpdbrightness == 0.4) exitwith {
         fza_ah64_mpdbrightness = 0.2;
-        _heli setobjecttexture[1189, "\fza_ah64_US\tex\MPD\Brt1.paa"];
+        _heli setobjecttexture [SEL_MPD_BRT, "\fza_ah64_US\tex\MPD\Brt1.paa"];
     };
     if (fza_ah64_mpdbrightness == 0.6) exitwith {
         fza_ah64_mpdbrightness = 0.4;
-        _heli setobjecttexture[1189, "\fza_ah64_US\tex\MPD\Brt2.paa"];
+        _heli setobjecttexture [SEL_MPD_BRT, "\fza_ah64_US\tex\MPD\Brt2.paa"];
     };
     if (fza_ah64_mpdbrightness == 1) exitwith {
         fza_ah64_mpdbrightness = 0.6;
-        _heli setobjecttexture[1189, "\fza_ah64_US\tex\MPD\Brt3.paa"];
+        _heli setobjecttexture [SEL_MPD_BRT, "\fza_ah64_US\tex\MPD\Brt3.paa"];
     };
 };
 

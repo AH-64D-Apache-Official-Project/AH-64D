@@ -1,4 +1,5 @@
-_heli = _this select 0;
+#include "\fza_ah64_controls\headers\selections.h"
+heli = _this select 0;
 
 if (fza_ah64_pl_mpd == "fuel") exitwith {
     fza_ah64_pl_mpd = "wpn";
@@ -18,5 +19,5 @@ if (fza_ah64_pl_mpd == "fail" && !("fza_ah64_ldp_fail" in (_heli magazinesturret
 if (fza_ah64_pl_mpd == "fail" && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) exitwith {
     fza_ah64_pl_mpd = "fuel";
     fza_ah64_pr_mpd = "fail";
-    _heli setobjecttexture[303, ""];
+    _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 };

@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noblades")) exitwith {};
 _estate = 0;
 _heli = _this select 0;
@@ -27,38 +28,38 @@ do {
     };
     if ("fza_ah64_tailrotor_fail" in (_heli magazinesturret[-1])) then {
         _trtex = "";
-        _heli setobjecttexture[1249, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
+        _heli setobjecttexture [SEL_HDAM_TR, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
     } else {
         if !("fza_ah64_cdam_tailboom" in (_heli magazinesturret[-1])) then {
-            _heli setobjecttexture[1249, ""];
+            _heli setobjecttexture [SEL_HDAM_TR, ""];
         };
     };
     if ("fza_ah64_cdam_tailboom" in (_heli magazinesturret[-1])) then {
         _trtex = "";
-        _heli setobjecttexture[1249, ""];
+        _heli setobjecttexture [SEL_HDAM_TR, ""];
     };
     if ("fza_ah64_rotor_dam" in (_heli magazinesturret[-1])) then {
         _rtex = "\fza_ah64_us\tex\dam\mdam_Rtrs_co.paa";
     };
     if ("fza_ah64_rotor_fail" in (_heli magazinesturret[-1])) then {
         _rtex = "";
-        _heli setobjecttexture[1250, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
+        _heli setobjecttexture [SEL_HDAM_RTR, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
     } else {
-        _heli setobjecttexture[1250, ""];
+        _heli setobjecttexture [SEL_HDAM_RTR, ""];
     };
     if (_heli animationphase "blade1_rise1" > 0.5 && !("fza_ah64_tailrotor_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_tailrotor_dam" in (_heli magazinesturret[-1]))) then {
-        _heli setobjecttexture[1244, ""];
-        _heli setobjecttexture[1245, _trtex];
+        _heli setobjecttexture [SEL_TR_BLADES, ""];
+        _heli setobjecttexture [SEL_TR_BLUR, _trtex];
     } else {
-        _heli setobjecttexture[1244, _trtex];
-        _heli setobjecttexture[1245, ""];
+        _heli setobjecttexture [SEL_TR_BLADES, _trtex];
+        _heli setobjecttexture [SEL_TR_BLUR, ""];
     };
     if (_heli animationphase "blade1_rise1" > 0.5 && !("fza_ah64_rotor_fail" in (_heli magazinesturret[-1]))) then {
-        _heli setobjecttexture[1246, ""];
-        _heli setobjecttexture[1247, _rtex];
+        _heli setobjecttexture [SEL_MR_BLADES, ""];
+        _heli setobjecttexture [SEL_MR_BLUR, _rtex];
     } else {
-        _heli setobjecttexture[1246, _rtex];
-        _heli setobjecttexture[1247, ""];
+        _heli setobjecttexture [SEL_MR_BLADES, _rtex];
+        _heli setobjecttexture [SEL_MR_BLUR, ""];
     };
     if (local _heli && player in _heli) then {
 

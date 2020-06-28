@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_notsdfcr")) exitwith {};
 _heli = _this select 0;
 if (isNil "fza_ah64_tsdtargets") then {
@@ -100,8 +101,8 @@ do {
 
     //DRIVER AND FCR/TSD DISPLAYS
     if ((driver _heli == player || gunner _heli == player) && (fza_ah64_pr_mpd == "tsd" || fza_ah64_pl_mpd == "tsd" || fza_ah64_pr_mpd == "fcr")) then {
-        _heli setobjecttexture[270, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
-        _heli setobjecttexture[1076, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
+        _heli setobjecttexture [SEL_MPD_PL_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
+        _heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
         _mapsizefactor = 0.8 / fza_ah64_mapsizearea;
         _pfzsel = [fza_ah64_pfz_count, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
         _tfilter = "\fza_ah64_us\tex\mpd\all.paa";
@@ -196,39 +197,39 @@ do {
         _wndsformat2 = "\fza_ah64_us\tex\CHAR\G" + (format["%1", _windssi]) + "_ca.paa";
 
         if (fza_ah64_pr_mpd == "tsd") then {
-            _heli setobjecttexture[401, _pfzsel];
-            _heli setobjecttexture[402, _tfilter];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_PFZS, _pfzsel];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, _tfilter];
             //TSD//FCR/ICONS
             _targnum = 270;
             _objnum = 1;
             if (fza_ah64_tsdmap < 1) then {
-                _heli setobjecttexture[303, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
+                _heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
             } else {
-                _heli setobjecttexture[303, "\fza_ah64_US\tex\mpd\notfound_2.paa"];
+                _heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\notfound_2.paa"];
             };
-            _heli setobjecttexture[1111, "\fza_ah64_us\tex\mpd\tsd.paa"];
-            _heli setobjecttexture[393, _hdgformat3];
-            _heli setobjecttexture[394, _hdgformat2];
-            _heli setobjecttexture[395, _hdgformat1];
-            _heli setobjecttexture[396, _tgtrformat3];
-            _heli setobjecttexture[397, _tgtrformat2];
-            _heli setobjecttexture[398, _tgtrformat1];
-            _heli setobjecttexture[399, _tsdrformat2];
-            _heli setobjecttexture[400, _tsdrformat1];
-            _heli setobjecttexture[404, _wndformat3];
-            _heli setobjecttexture[405, _wndformat2];
-            _heli setobjecttexture[406, _wndformat1];
-            _heli setobjecttexture[407, _wndsformat2];
-            _heli setobjecttexture[408, _wndsformat1];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_BASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG1, _hdgformat3];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG2, _hdgformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG3, _hdgformat1];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST2, _tgtrformat3];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST3, _tgtrformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST4, _tgtrformat1];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_Z1, _tsdrformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_Z2, _tsdrformat1];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR1, _wndformat3];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR2, _wndformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR3, _wndformat1];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WV1, _wndsformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WV2, _wndsformat1];
 
             if (fza_ah64_tsdmode == "atk") then {
-                _heli setobjecttexture[1071, "\fza_ah64_us\tex\mpd\tsd.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
                 /////////////////////////////////////////
                 ////////////////ATTACK///////////////////
                 /////////////////////////////////////////
                 if (fza_ah64_tsdmap > 0) then {
-                    _heli setobjecttexture[1110, fza_ah64_currentmap];
-                    _heli setobjecttexture[1069, "\fza_ah64_us\tex\mpd\tsd.paa"];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, fza_ah64_currentmap];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, "\fza_ah64_us\tex\mpd\tsd.paa"];
                     _mapscale = 1 - (fza_ah64_rangesetting * (fza_ah64_mapsizearea / 8));
                     _zoom = (1 - _mapscale) / (fza_ah64_mapsizearea * 2);
                     _helidir = (1 / 360) * getdir _heli;
@@ -245,7 +246,7 @@ do {
 
                     //CPG
                     if (player == gunner _heli) then {
-                        _heli setobjecttexture[1108, fza_ah64_currentmap];
+                        _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, fza_ah64_currentmap];
                         _heli animate["mpd_gr_mmap_z", _helidir];
                         _heli animate["mpd_gr_mmap_h", _helixpos];
                         _heli animate["mpd_gr_mmap_v", _heliypos];
@@ -254,9 +255,9 @@ do {
                         _heli animate["mpd_gr_mmap_s3", _mapscale];
                     };
                 } else {
-                    _heli setobjecttexture[1108, ""];
-                    _heli setobjecttexture[1110, ""];
-                    _heli setobjecttexture[1069, ""];
+                    _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
                 };
 
                 if (player == driver _heli) then {
@@ -380,9 +381,9 @@ do {
                             _targdir1 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
                             _targdir2 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
                             _targdir3 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-                            _heli setobjecttexture[386, _targdir3];
-                            _heli setobjecttexture[387, _targdir2];
-                            _heli setobjecttexture[388, _targdir1];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR1, _targdir3];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR2, _targdir2];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR3, _targdir1];
                         };
 
                         if (_theta >= 180) then {
@@ -435,13 +436,13 @@ do {
                 /////////////////////////////////////////
             };
             if (fza_ah64_tsdmode == "nav") then {
-                _heli setobjecttexture[1071, ""];
+                _heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
                 /////////////////////////////////////////
                 ////////////////NAV//////////////////////
                 /////////////////////////////////////////
                 if (fza_ah64_tsdmap > 0) then {
-                    _heli setobjecttexture[1110, fza_ah64_currentmap];
-                    _heli setobjecttexture[1069, "\fza_ah64_us\tex\mpd\tsd.paa"];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, fza_ah64_currentmap];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, "\fza_ah64_us\tex\mpd\tsd.paa"];
                     _mapscale = 1 - (fza_ah64_rangesetting * (fza_ah64_mapsizearea / 8));
                     _zoom = (1 - _mapscale) / (fza_ah64_mapsizearea * 2);
                     _helidir = (1 / 360) * getdir _heli;
@@ -457,7 +458,7 @@ do {
                     };
                     //cpg//
                     if (player == gunner _heli) then {
-                        _heli setobjecttexture[1108, fza_ah64_currentmap];
+                        _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, fza_ah64_currentmap];
                         _heli animate["mpd_gr_mmap_z", _helidir];
                         _heli animate["mpd_gr_mmap_h", _helixpos];
                         _heli animate["mpd_gr_mmap_v", _heliypos];
@@ -466,9 +467,9 @@ do {
                         _heli animate["mpd_gr_mmap_s3", _mapscale];
                     };
                 } else {
-                    _heli setobjecttexture[1108, ""];
-                    _heli setobjecttexture[1110, ""];
-                    _heli setobjecttexture[1069, ""];
+                    _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
+                    _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
                 };
                 if (player == driver _heli) then {
                     _heli animate["mpd_pl_obj1_v", 0.25];
@@ -512,9 +513,9 @@ do {
                             _targdir1 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
                             _targdir2 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
                             _targdir3 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-                            _heli setobjecttexture[386, _targdir3];
-                            _heli setobjecttexture[387, _targdir2];
-                            _heli setobjecttexture[388, _targdir1];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR1, _targdir3];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR2, _targdir2];
+                            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR3, _targdir1];
                         };
 
                         if (_theta >= 180) then {
@@ -575,67 +576,67 @@ do {
         };
 
         if (!(fza_ah64_pr_mpd == "tsd")) then {
-            _heli setobjecttexture[386, ""];
-            _heli setobjecttexture[387, ""];
-            _heli setobjecttexture[388, ""];
-            _heli setobjecttexture[389, ""];
-            _heli setobjecttexture[390, ""];
-            _heli setobjecttexture[391, ""];
-            _heli setobjecttexture[392, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR3, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_ETA1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_ETA2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_ETA3, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_ETA4, ""];
             //////
-            _heli setobjecttexture[396, ""];
-            _heli setobjecttexture[397, ""];
-            _heli setobjecttexture[398, ""];
-            _heli setobjecttexture[399, ""];
-            _heli setobjecttexture[400, ""];
-            _heli setobjecttexture[401, ""];
-            _heli setobjecttexture[402, ""];
-            _heli setobjecttexture[403, ""];
-            _heli setobjecttexture[404, ""];
-            _heli setobjecttexture[405, ""];
-            _heli setobjecttexture[406, ""];
-            _heli setobjecttexture[407, ""];
-            _heli setobjecttexture[408, ""];
-            _heli setobjecttexture[1068, ""];
-            _heli setobjecttexture[1069, ""];
-            _heli setobjecttexture[1070, ""];
-            _heli setobjecttexture[1071, ""];
-            _heli setobjecttexture[1110, ""];
-            _heli setobjecttexture[1111, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST3, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST4, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_Z1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_Z2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_PFZS, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_ACQ, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR3, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WV1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_WV2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_DIST1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_MAP, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_BASE, ""];
             //hide unused TSD icons when FCR page is active
-            _heli setobjecttexture[287, ""];
-            _heli setobjecttexture[288, ""];
-            _heli setobjecttexture[289, ""];
-            _heli setobjecttexture[290, ""];
-            _heli setobjecttexture[291, ""];
-            _heli setobjecttexture[292, ""];
-            _heli setobjecttexture[293, ""];
-            _heli setobjecttexture[294, ""];
-            _heli setobjecttexture[295, ""];
-            _heli setobjecttexture[296, ""];
-            _heli setobjecttexture[297, ""];
-            _heli setobjecttexture[298, ""];
-            _heli setobjecttexture[299, ""];
-            _heli setobjecttexture[300, ""];
-            _heli setobjecttexture[301, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ32, ""];
             //cpg
-            _heli setobjecttexture[1092, ""];
-            _heli setobjecttexture[1093, ""];
-            _heli setobjecttexture[1094, ""];
-            _heli setobjecttexture[1095, ""];
-            _heli setobjecttexture[1096, ""];
-            _heli setobjecttexture[1097, ""];
-            _heli setobjecttexture[1098, ""];
-            _heli setobjecttexture[1099, ""];
-            _heli setobjecttexture[1100, ""];
-            _heli setobjecttexture[1101, ""];
-            _heli setobjecttexture[1102, ""];
-            _heli setobjecttexture[1103, ""];
-            _heli setobjecttexture[1104, ""];
-            _heli setobjecttexture[1105, ""];
-            _heli setobjecttexture[1106, ""];
-            _heli setobjecttexture[1107, ""];
-            _heli setobjecttexture[1108, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ17, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ32, ""];
+            _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
         };
 
         /////////////////////////////////////////////////////
@@ -643,8 +644,8 @@ do {
         /////////////////////////////////////////////////////
 
         if (fza_ah64_pr_mpd == "fcr") then {
-            //_heli setobjecttexture [401,_pfzsel];
-            //_heli setobjecttexture [402,_tfilter];
+            //_heli setobjecttexture [SEL_MPD_PR_TSD_PFZS,_pfzsel];
+            //_heli setobjecttexture [SEL_MPD_PR_TSD_FILTER,_tfilter];
             //TSD//FCR/ICONS
             _targnum = 269;
             _targnumcpg = _targnum + 806;
@@ -655,28 +656,28 @@ do {
             };
             _targcount2 = [_targcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
             _targcount1 = [_targcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-            _heli setobjecttexture[1128, _targcount1];
-            _heli setobjecttexture[1129, _targcount2];
-            _heli setobjecttexture[393, _hdgformat3];
-            _heli setobjecttexture[394, _hdgformat2];
-            _heli setobjecttexture[395, _hdgformat1];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM1, _targcount1];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM2, _targcount2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG1, _hdgformat3];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG2, _hdgformat2];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG3, _hdgformat1];
             if (fza_ah64_targlos == 0) then {
-                _heli setobjecttexture[1132, "\fza_ah64_us\tex\mpd\mpd_had_nolos.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, "\fza_ah64_us\tex\mpd\mpd_had_nolos.paa"];
             } else {
-                _heli setobjecttexture[1132, ""];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, ""];
             };
             if (fza_ah64_agmode == 1) then {
-                _heli setobjecttexture[303, "\fza_ah64_US\tex\mpd\air.paa"];
-                _heli setobjecttexture[1126, "\fza_ah64_us\tex\mpd\air.paa"];
-                _heli setobjecttexture[1127, ""];
-                _heli setobjecttexture[1130, ""];
-                _heli setobjecttexture[1131, ""];
+                _heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\air.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, "\fza_ah64_us\tex\mpd\air.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, ""];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, ""];
             } else {
-                _heli setobjecttexture[303, "\fza_ah64_US\tex\mpd\grnd.paa"];
-                _heli setobjecttexture[1127, "fza_ah64_us\tex\mpd\grnd.paa"];
-                _heli setobjecttexture[1126, ""];
-                _heli setobjecttexture[1130, "\fza_ah64_us\tex\mpd\gunlimit.paa"];
-                _heli setobjecttexture[1131, "\fza_ah64_us\tex\mpd\tads.paa"];
+                _heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, "fza_ah64_us\tex\mpd\grnd.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, "\fza_ah64_us\tex\mpd\gunlimit.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, "\fza_ah64_us\tex\mpd\tads.paa"];
                 _heli animate["mpd_pr_mpd_had_apos_v", (_heli animationphase "tads")];
                 _heli animate["mpd_pr_mpd_had_apos_h", (_heli animationphase "tads_tur")];
             };
@@ -793,9 +794,9 @@ do {
                         _targdir1 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
                         _targdir2 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
                         _targdir3 = [_targhead, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-                        //_heli setobjecttexture [386,_targdir3];
-                        //_heli setobjecttexture [387,_targdir2];
-                        //_heli setobjecttexture [388,_targdir1];
+                        //_heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR1,_targdir3];
+                        //_heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR2,_targdir2];
+                        //_heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR3,_targdir1];
                     };
 
                     if (_theta >= 180) then {
@@ -860,12 +861,12 @@ do {
             }
             foreach fza_ah64_dispfcrlist;
         } else {
-            _heli setobjecttexture[1126, ""];
-            _heli setobjecttexture[1127, ""];
-            _heli setobjecttexture[1128, ""];
-            _heli setobjecttexture[1129, ""];
-            _heli setobjecttexture[1130, ""];
-            _heli setobjecttexture[1131, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, ""];
+            _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, ""];
         };
 
         _targindi = _targnum + 1;
@@ -884,79 +885,79 @@ do {
 
         //elimination of icons for PR
         if (!(fza_ah64_pr_mpd == "tsd" || fza_ah64_pr_mpd == "fcr")) then {
-            _heli setobjecttexture[270, ""];
-            _heli setobjecttexture[271, ""];
-            _heli setobjecttexture[272, ""];
-            _heli setobjecttexture[273, ""];
-            _heli setobjecttexture[274, ""];
-            _heli setobjecttexture[275, ""];
-            _heli setobjecttexture[276, ""];
-            _heli setobjecttexture[277, ""];
-            _heli setobjecttexture[278, ""];
-            _heli setobjecttexture[279, ""];
-            _heli setobjecttexture[280, ""];
-            _heli setobjecttexture[281, ""];
-            _heli setobjecttexture[282, ""];
-            _heli setobjecttexture[283, ""];
-            _heli setobjecttexture[284, ""];
-            _heli setobjecttexture[285, ""];
-            _heli setobjecttexture[286, ""];
-            _heli setobjecttexture[287, ""];
-            _heli setobjecttexture[288, ""];
-            _heli setobjecttexture[289, ""];
-            _heli setobjecttexture[290, ""];
-            _heli setobjecttexture[291, ""];
-            _heli setobjecttexture[292, ""];
-            _heli setobjecttexture[293, ""];
-            _heli setobjecttexture[294, ""];
-            _heli setobjecttexture[295, ""];
-            _heli setobjecttexture[296, ""];
-            _heli setobjecttexture[297, ""];
-            _heli setobjecttexture[298, ""];
-            _heli setobjecttexture[299, ""];
-            _heli setobjecttexture[300, ""];
-            _heli setobjecttexture[301, ""];
-            _heli setobjecttexture[393, ""];
-            _heli setobjecttexture[394, ""];
-            _heli setobjecttexture[395, ""];
-            _heli setobjecttexture[1128, ""];
-            _heli setobjecttexture[1129, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ4, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ5, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ6, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ7, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ8, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ9, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ10, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ11, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ12, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ13, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ14, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ15, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ16, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ17, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ32, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG3, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM2, ""];
             //gunner//
 
-            _heli setobjecttexture[1076, ""];
-            _heli setobjecttexture[1077, ""];
-            _heli setobjecttexture[1078, ""];
-            _heli setobjecttexture[1079, ""];
-            _heli setobjecttexture[1080, ""];
-            _heli setobjecttexture[1081, ""];
-            _heli setobjecttexture[1082, ""];
-            _heli setobjecttexture[1083, ""];
-            _heli setobjecttexture[1084, ""];
-            _heli setobjecttexture[1085, ""];
-            _heli setobjecttexture[1086, ""];
-            _heli setobjecttexture[1087, ""];
-            _heli setobjecttexture[1088, ""];
-            _heli setobjecttexture[1089, ""];
-            _heli setobjecttexture[1090, ""];
-            _heli setobjecttexture[1091, ""];
-            _heli setobjecttexture[1092, ""];
-            _heli setobjecttexture[1093, ""];
-            _heli setobjecttexture[1094, ""];
-            _heli setobjecttexture[1095, ""];
-            _heli setobjecttexture[1096, ""];
-            _heli setobjecttexture[1097, ""];
-            _heli setobjecttexture[1098, ""];
-            _heli setobjecttexture[1099, ""];
-            _heli setobjecttexture[1100, ""];
-            _heli setobjecttexture[1101, ""];
-            _heli setobjecttexture[1102, ""];
-            _heli setobjecttexture[1103, ""];
-            _heli setobjecttexture[1104, ""];
-            _heli setobjecttexture[1105, ""];
-            _heli setobjecttexture[1106, ""];
-            _heli setobjecttexture[1107, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ1, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ2, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ3, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ4, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ5, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ6, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ7, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ8, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ9, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ10, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ11, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ12, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ13, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ14, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ15, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ16, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ17, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ32, ""];
 
-            _heli setobjecttexture[1132, ""];
+            _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, ""];
         };
 
         ///LEFT MPD CLEAR////
@@ -971,33 +972,33 @@ do {
         };
 
         if (!(fza_ah64_pl_mpd == "tsd")) then {
-            _heli setobjecttexture[409, ""];
-            _heli setobjecttexture[410, ""];
-            _heli setobjecttexture[411, ""];
-            _heli setobjecttexture[412, ""];
-            _heli setobjecttexture[413, ""];
-            _heli setobjecttexture[414, ""];
-            _heli setobjecttexture[415, ""];
-            _heli setobjecttexture[416, ""];
-            _heli setobjecttexture[417, ""];
-            _heli setobjecttexture[418, ""];
-            _heli setobjecttexture[419, ""];
-            _heli setobjecttexture[420, ""];
-            _heli setobjecttexture[421, ""];
-            _heli setobjecttexture[422, ""];
-            _heli setobjecttexture[423, ""];
-            _heli setobjecttexture[424, ""];
-            _heli setobjecttexture[425, ""];
-            _heli setobjecttexture[426, ""];
-            _heli setobjecttexture[427, ""];
-            _heli setobjecttexture[428, ""];
-            _heli setobjecttexture[429, ""];
-            _heli setobjecttexture[430, ""];
-            _heli setobjecttexture[431, ""];
-            _heli setobjecttexture[1072, ""];
-            _heli setobjecttexture[1073, ""];
-            _heli setobjecttexture[1074, ""];
-            _heli setobjecttexture[1075, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_ETA1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_ETA2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_ETA3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_ETA4, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_HDG1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_HDG2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_HDG3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_DIST2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_DIST3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_DIST4, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_Z1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_Z2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_PFZS, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_FILTER, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_ACQ, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WV1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_WV2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_DIST1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_IMAP, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_MAP, ""];
+            _heli setobjecttexture [SEL_MPD_PL_TSD_PHASE, ""];
         };
 
         ////END LEFT MPD///
@@ -1005,141 +1006,141 @@ do {
     };
     ///
     if (!(fza_ah64_pl_mpd == "tsd") && !(fza_ah64_pr_mpd == "tsd") && !(fza_ah64_pr_mpd == "fcr")) then {
-        _heli setobjecttexture[386, ""];
-        _heli setobjecttexture[387, ""];
-        _heli setobjecttexture[388, ""];
-        _heli setobjecttexture[389, ""];
-        _heli setobjecttexture[390, ""];
-        _heli setobjecttexture[391, ""];
-        _heli setobjecttexture[392, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WTDIR3, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_ETA1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_ETA2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_ETA3, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_ETA4, ""];
         ///
-        _heli setobjecttexture[396, ""];
-        _heli setobjecttexture[397, ""];
-        _heli setobjecttexture[398, ""];
-        _heli setobjecttexture[399, ""];
-        _heli setobjecttexture[400, ""];
-        _heli setobjecttexture[401, ""];
-        _heli setobjecttexture[402, ""];
-        _heli setobjecttexture[403, ""];
-        _heli setobjecttexture[404, ""];
-        _heli setobjecttexture[405, ""];
-        _heli setobjecttexture[406, ""];
-        _heli setobjecttexture[407, ""];
-        _heli setobjecttexture[408, ""];
-        _heli setobjecttexture[1068, ""];
-        _heli setobjecttexture[1069, ""];
-        _heli setobjecttexture[1070, ""];
-        _heli setobjecttexture[1071, ""];
-        _heli setobjecttexture[1110, ""];
-        _heli setobjecttexture[1111, ""];
-        _heli setobjecttexture[1132, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_DIST2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_DIST3, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_DIST4, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_Z1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_Z2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_PFZS, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_ACQ, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WDIR3, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WV1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_WV2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_DIST1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_MAP, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_BASE, ""];
+        _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, ""];
         if (!(fza_ah64_pr_mpd == "ase")) then {
-            _heli setobjecttexture[393, ""];
-            _heli setobjecttexture[394, ""];
-            _heli setobjecttexture[395, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG1, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG2, ""];
+            _heli setobjecttexture [SEL_MPD_PR_TSD_HDG3, ""];
             ///
-            _heli setobjecttexture[270, ""];
-            _heli setobjecttexture[271, ""];
-            _heli setobjecttexture[272, ""];
-            _heli setobjecttexture[273, ""];
-            _heli setobjecttexture[274, ""];
-            _heli setobjecttexture[275, ""];
-            _heli setobjecttexture[276, ""];
-            _heli setobjecttexture[277, ""];
-            _heli setobjecttexture[278, ""];
-            _heli setobjecttexture[279, ""];
-            _heli setobjecttexture[280, ""];
-            _heli setobjecttexture[281, ""];
-            _heli setobjecttexture[282, ""];
-            _heli setobjecttexture[283, ""];
-            _heli setobjecttexture[284, ""];
-            _heli setobjecttexture[285, ""];
-            _heli setobjecttexture[286, ""];
-            _heli setobjecttexture[287, ""];
-            _heli setobjecttexture[288, ""];
-            _heli setobjecttexture[289, ""];
-            _heli setobjecttexture[290, ""];
-            _heli setobjecttexture[291, ""];
-            _heli setobjecttexture[292, ""];
-            _heli setobjecttexture[293, ""];
-            _heli setobjecttexture[294, ""];
-            _heli setobjecttexture[295, ""];
-            _heli setobjecttexture[296, ""];
-            _heli setobjecttexture[297, ""];
-            _heli setobjecttexture[298, ""];
-            _heli setobjecttexture[299, ""];
-            _heli setobjecttexture[300, ""];
-            _heli setobjecttexture[301, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ1, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ2, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ3, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ4, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ5, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ6, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ7, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ8, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ9, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ10, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ11, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ12, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ13, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ14, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ15, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ16, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ17, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_PL_OBJ32, ""];
             ///gunner///
-            _heli setobjecttexture[1076, ""];
-            _heli setobjecttexture[1077, ""];
-            _heli setobjecttexture[1078, ""];
-            _heli setobjecttexture[1079, ""];
-            _heli setobjecttexture[1080, ""];
-            _heli setobjecttexture[1081, ""];
-            _heli setobjecttexture[1082, ""];
-            _heli setobjecttexture[1083, ""];
-            _heli setobjecttexture[1084, ""];
-            _heli setobjecttexture[1085, ""];
-            _heli setobjecttexture[1086, ""];
-            _heli setobjecttexture[1087, ""];
-            _heli setobjecttexture[1088, ""];
-            _heli setobjecttexture[1089, ""];
-            _heli setobjecttexture[1090, ""];
-            _heli setobjecttexture[1091, ""];
-            _heli setobjecttexture[1092, ""];
-            _heli setobjecttexture[1093, ""];
-            _heli setobjecttexture[1094, ""];
-            _heli setobjecttexture[1095, ""];
-            _heli setobjecttexture[1096, ""];
-            _heli setobjecttexture[1097, ""];
-            _heli setobjecttexture[1098, ""];
-            _heli setobjecttexture[1099, ""];
-            _heli setobjecttexture[1100, ""];
-            _heli setobjecttexture[1101, ""];
-            _heli setobjecttexture[1102, ""];
-            _heli setobjecttexture[1103, ""];
-            _heli setobjecttexture[1104, ""];
-            _heli setobjecttexture[1105, ""];
-            _heli setobjecttexture[1106, ""];
-            _heli setobjecttexture[1107, ""];
-            _heli setobjecttexture[1108, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ1, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ2, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ3, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ4, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ5, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ6, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ7, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ8, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ9, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ10, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ11, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ12, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ13, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ14, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ15, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ16, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ17, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ18, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ19, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ20, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ21, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ22, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ23, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ24, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ25, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ26, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ27, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ28, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ29, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ30, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ31, ""];
+            _heli setobjecttexture [SEL_MPD_GR_OBJ32, ""];
+            _heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
         };
         /////
-        _heli setobjecttexture[409, ""];
-        _heli setobjecttexture[410, ""];
-        _heli setobjecttexture[411, ""];
-        _heli setobjecttexture[412, ""];
-        _heli setobjecttexture[413, ""];
-        _heli setobjecttexture[414, ""];
-        _heli setobjecttexture[415, ""];
-        _heli setobjecttexture[416, ""];
-        _heli setobjecttexture[417, ""];
-        _heli setobjecttexture[418, ""];
-        _heli setobjecttexture[419, ""];
-        _heli setobjecttexture[420, ""];
-        _heli setobjecttexture[421, ""];
-        _heli setobjecttexture[422, ""];
-        _heli setobjecttexture[423, ""];
-        _heli setobjecttexture[424, ""];
-        _heli setobjecttexture[425, ""];
-        _heli setobjecttexture[426, ""];
-        _heli setobjecttexture[427, ""];
-        _heli setobjecttexture[428, ""];
-        _heli setobjecttexture[429, ""];
-        _heli setobjecttexture[430, ""];
-        _heli setobjecttexture[431, ""];
-        _heli setobjecttexture[1072, ""];
-        _heli setobjecttexture[1073, ""];
-        _heli setobjecttexture[1074, ""];
-        _heli setobjecttexture[1075, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WTDIR3, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_ETA1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_ETA2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_ETA3, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_ETA4, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_HDG1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_HDG2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_HDG3, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_DIST2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_DIST3, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_DIST4, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_Z1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_Z2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_PFZS, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_FILTER, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_ACQ, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WDIR3, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WV1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_WV2, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_DIST1, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_IMAP, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_MAP, ""];
+        _heli setobjecttexture [SEL_MPD_PL_TSD_PHASE, ""];
         ///
-        _heli setobjecttexture[1126, ""];
-        _heli setobjecttexture[1127, ""];
-        _heli setobjecttexture[1128, ""];
-        _heli setobjecttexture[1129, ""];
-        _heli setobjecttexture[1130, ""];
-        _heli setobjecttexture[1131, ""];
+        _heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
+        _heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
+        _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_FCRAG_TNUM2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, ""];
+        _heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, ""];
     };
     ///
     sleep 0.03;

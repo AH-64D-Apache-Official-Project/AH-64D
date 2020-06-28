@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 _heli = _this select 0;
 _heliweight = 0; //TKOH WEIGHTENING
 

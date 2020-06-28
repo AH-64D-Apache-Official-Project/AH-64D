@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noase")) exitwith {};
 _heli = _this select 0;
 _targnumcpg = 1076;
@@ -51,42 +52,42 @@ do {
     }
     foreach fza_ah64_asethreats;
     if (fza_ah64_pr_mpd == "ase") then {
-        _heli setobjecttexture[303, "\fza_ah64_us\tex\mpd\ase.paa"];
+        _heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\ase.paa"];
         if (fza_ah64_cmsel < 2) then {
             _cc1 = [fza_ah64_chaffcount, "\fza_ah64_us\tex\char\g"] call fza_ah64_digit;
             _cc2 = [fza_ah64_chaffcount, "\fza_ah64_us\tex\char\g"] call fza_ah64_digitten;
-            _heli setobjecttexture[1140, "\fza_ah64_us\tex\mpd\chaff.paa"];
-            _heli setobjecttexture[1138, _cc1];
-            _heli setobjecttexture[1139, _cc2];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CC1, _cc1];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CC2, _cc2];
             if (fza_ah64_cmsel == 1) then {
-                _heli setobjecttexture[1149, "\fza_ah64_us\tex\char\g4_ca.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
             } else {
-                _heli setobjecttexture[1149, "\fza_ah64_us\tex\char\g1_ca.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
             };
         };
         if (fza_ah64_cmsel > 1) then {
             _cc1 = [fza_ah64_flarecount, "\fza_ah64_us\tex\char\g"] call fza_ah64_digit;
             _cc2 = [fza_ah64_flarecount, "\fza_ah64_us\tex\char\g"] call fza_ah64_digitten;
-            _heli setobjecttexture[1140, ""];
-            _heli setobjecttexture[1138, _cc1];
-            _heli setobjecttexture[1139, _cc2];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CC1, _cc1];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_CC2, _cc2];
             if (fza_ah64_cmsel == 3) then {
-                _heli setobjecttexture[1149, "\fza_ah64_us\tex\char\g4_ca.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
             } else {
-                _heli setobjecttexture[1149, "\fza_ah64_us\tex\char\g1_ca.paa"];
+                _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
             };
         };
         _hdgformat3 = [(round getdir _heli), "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
         _hdgformat2 = [(round getdir _heli), "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
         _hdgformat1 = [(round getdir _heli), "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-        _heli setobjecttexture[393, _hdgformat1];
-        _heli setobjecttexture[394, _hdgformat2];
-        _heli setobjecttexture[395, _hdgformat3];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_HDG1, _hdgformat1];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_HDG2, _hdgformat2];
+        _heli setobjecttexture [SEL_MPD_PR_TSD_HDG3, _hdgformat3];
         _aserange = (abs(1 / fza_ah64_rangesetting)) * 0.001;
         _aserformat2 = [_aserange, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
         _aserformat1 = [_aserange, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-        _heli setobjecttexture[1141, _aserformat1];
-        _heli setobjecttexture[1142, _aserformat2];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_DIST1, _aserformat1];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_DIST2, _aserformat2];
         _aseautopage = "\fza_ah64_us\tex\mpd\ase_off.paa";
         if (fza_ah64_aseautopage == 1) then {
             _aseautopage = "\fza_ah64_us\tex\mpd\ase_track.paa";
@@ -94,36 +95,36 @@ do {
         if (fza_ah64_aseautopage == 2) then {
             _aseautopage = "\fza_ah64_us\tex\mpd\ase_launch.paa";
         };
-        _heli setobjecttexture[1137, _aseautopage];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_AUTPG, _aseautopage];
         if (fza_ah64_rfjon == 0) then {
-            _heli setobjecttexture[1147, "\fza_ah64_us\tex\mpd\OFF.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJOFF, "\fza_ah64_us\tex\mpd\OFF.paa"];
         } else {
-            _heli setobjecttexture[1147, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJOFF, ""];
         };
         if (fza_ah64_irjon == 0) then {
-            _heli setobjecttexture[1144, "\fza_ah64_us\tex\mpd\OFF.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJOFF, "\fza_ah64_us\tex\mpd\OFF.paa"];
         } else {
-            _heli setobjecttexture[1144, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJOFF, ""];
         };
         if (fza_ah64_rfjstate == 1) then {
-            _heli setobjecttexture[1146, "\fza_ah64_us\tex\mpd\stby.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJAUT, "\fza_ah64_us\tex\mpd\stby.paa"];
         } else {
-            _heli setobjecttexture[1146, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJAUT, ""];
         };
         if (fza_ah64_irjstate == 1) then {
-            _heli setobjecttexture[1143, "\fza_ah64_us\tex\mpd\stby.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJAUT, "\fza_ah64_us\tex\mpd\stby.paa"];
         } else {
-            _heli setobjecttexture[1143, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJAUT, ""];
         };
         if (fza_ah64_rfjon == 1) then {
-            _heli setobjecttexture[1148, "\fza_ah64_us\tex\mpd\OPER.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJON, "\fza_ah64_us\tex\mpd\OPER.paa"];
         } else {
-            _heli setobjecttexture[1148, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_RJON, ""];
         };
         if (fza_ah64_irjon == 1) then {
-            _heli setobjecttexture[1145, "\fza_ah64_us\tex\mpd\OPER.paa"];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJON, "\fza_ah64_us\tex\mpd\OPER.paa"];
         } else {
-            _heli setobjecttexture[1145, ""];
+            _heli setobjecttexture [SEL_MPD_PR_ASE_IJON, ""];
         };
         //////////////////////////////////////////////////////////////////////////////////////
         _targnum = 269;
@@ -212,19 +213,19 @@ do {
         };
         //////////////////////////////////////////////////////////////////////////////////////
     } else {
-        _heli setobjecttexture[1137, ""];
-        _heli setobjecttexture[1138, ""];
-        _heli setobjecttexture[1139, ""];
-        _heli setobjecttexture[1140, ""];
-        _heli setobjecttexture[1141, ""];
-        _heli setobjecttexture[1142, ""];
-        _heli setobjecttexture[1143, ""];
-        _heli setobjecttexture[1144, ""];
-        _heli setobjecttexture[1145, ""];
-        _heli setobjecttexture[1146, ""];
-        _heli setobjecttexture[1147, ""];
-        _heli setobjecttexture[1148, ""];
-        _heli setobjecttexture[1149, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_AUTPG, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_CC1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_CC2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_DIST1, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_DIST2, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_IJAUT, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_IJOFF, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_IJON, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_RJAUT, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_RJOFF, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_RJON, ""];
+        _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, ""];
     };
     sleep 0.03;
 };

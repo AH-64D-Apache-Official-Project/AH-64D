@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
 _advlist = [];
@@ -169,20 +170,20 @@ do {
     ///end gunner weapon damage//
     if ("fza_ah64_rdp_fail" in _mags && "fza_ah64_ldp_fail" in _mags) then {
         fza_ah64_pr_mpd = "fail";
-        _heli setobjecttexture[303, ""];
+        _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
         fza_ah64_pl_mpd = "fail";
-        _heli setobjecttexture[302, ""];
+        _heli setobjecttexture [SEL_PL_MPD_BACK, ""];
     };
     if (_heli animationphase "plt_apu" > 0.5) then {
-        _heli setobjecttexture[433, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
-        _heli setobjecttexture[433, ""];
+        _heli setobjecttexture [SEL_IN_LT_APU, ""];
     };
     if (_heli animationphase "plt_batt" < 0.5) then {
         fza_ah64_pr_mpd = "off";
-        _heli setobjecttexture[303, ""];
+        _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
         fza_ah64_pl_mpd = "off";
-        _heli setobjecttexture[302, ""];
+        _heli setobjecttexture [SEL_PL_MPD_BACK, ""];
         _mpdpwr = 0;
     };
     if ((_heli animationphase "plt_batt" > 0.5) && _mpdpwr == 0) then {
@@ -196,11 +197,11 @@ do {
     };
     if ("fza_ah64_rdp_fail" in _mags && !("fza_ah64_ldp_fail" in _mags) && fza_ah64_pl_mpd != "fail") then {
         fza_ah64_pr_mpd = "fail";
-        _heli setobjecttexture[303, ""];
+        _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
     };
     if ("fza_ah64_ldp_fail" in _mags && !("fza_ah64_rdp_fail" in _mags) && fza_ah64_pr_mpd != "fail") then {
         fza_ah64_pl_mpd = "fail";
-        _heli setobjecttexture[302, ""];
+        _heli setobjecttexture [SEL_PL_MPD_BACK, ""];
     };
     if (_heli animationphase "plt_apu" > 0.5 && _apuon == 0) then {
         _advlist = _advlist + ["\fza_ah64_us\tex\UFD\APUON_A_co.paa"];
@@ -378,28 +379,28 @@ do {
     	};
     */
     if ("fza_ah64_e1_fire" in _mags) then {
-        _heli setobjecttexture[1192, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
-        _heli setobjecttexture[1192, ""];
+        _heli setobjecttexture [SEL_IN_LT_FIRE1, ""];
         _e1fire = 0;
     };
     if ("fza_ah64_e2_fire" in _mags) then {
-        _heli setobjecttexture[1194, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
-        _heli setobjecttexture[1194, ""];
+        _heli setobjecttexture [SEL_IN_LT_FIRE2, ""];
         _e2fire = 0;
     };
     if ("fza_ah64_apu_fire" in _mags) then {
-        _heli setobjecttexture[1196, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
-        _heli setobjecttexture[1196, ""];
+        _heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
         _apufire = 0;
     };
     if ("fza_ah64_firepdisch" in _mags || "fza_ah64_firepdisch" in _magsg) then {
-        _heli setobjecttexture[1198, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
     };
     if ("fza_ah64_firerdisch" in _mags || "fza_ah64_firerdisch" in _magsg) then {
-        _heli setobjecttexture[1199, "\fza_ah64_us\tex\in\pushbut.paa"];
+        _heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
     };
     ///engine starts///
 
@@ -464,17 +465,17 @@ do {
     ///EWCA//
     //pilot
     if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli || !(fza_ah64_cem)) then {
-        _heli setobjecttexture[432, "\fza_ah64_us\tex\in\ufdon.paa"];
-        _heli setobjecttexture[1018, _secformat2];
-        _heli setobjecttexture[1019, _secformat1];
-        _heli setobjecttexture[1020, _minformat2];
-        _heli setobjecttexture[1021, _minformat1];
-        _heli setobjecttexture[1022, _hourformat2];
-        _heli setobjecttexture[1023, _hourformat1];
-        _heli setobjecttexture[1024, _intfuelformat4];
-        _heli setobjecttexture[1025, _intfuelformat3];
-        _heli setobjecttexture[1026, _intfuelformat2];
-        _heli setobjecttexture[1027, _intfuelformat1];
+        _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
+        _heli setobjecttexture [SEL_P_UFD_CLK1, _secformat2];
+        _heli setobjecttexture [SEL_P_UFD_CLK2, _secformat1];
+        _heli setobjecttexture [SEL_P_UFD_CLK3, _minformat2];
+        _heli setobjecttexture [SEL_P_UFD_CLK4, _minformat1];
+        _heli setobjecttexture [SEL_P_UFD_CLK5, _hourformat2];
+        _heli setobjecttexture [SEL_P_UFD_CLK6, _hourformat1];
+        _heli setobjecttexture [SEL_P_UFD_FL1, _intfuelformat4];
+        _heli setobjecttexture [SEL_P_UFD_FL2, _intfuelformat3];
+        _heli setobjecttexture [SEL_P_UFD_FL3, _intfuelformat2];
+        _heli setobjecttexture [SEL_P_UFD_FL4, _intfuelformat1];
         //advisories//
         _a = [_heli, 1028, 1032, _advlist] call _wcacall;
         //cautions//
@@ -482,16 +483,16 @@ do {
         //warnings//
         _w = [_heli, 1038, 1042, _wrnlist] call _wcacall;
         //gunner
-        _heli setobjecttexture[1043, _secformat2];
-        _heli setobjecttexture[1044, _secformat1];
-        _heli setobjecttexture[1045, _minformat2];
-        _heli setobjecttexture[1046, _minformat1];
-        _heli setobjecttexture[1047, _hourformat2];
-        _heli setobjecttexture[1048, _hourformat1];
-        _heli setobjecttexture[1049, _intfuelformat4];
-        _heli setobjecttexture[1050, _intfuelformat3];
-        _heli setobjecttexture[1051, _intfuelformat2];
-        _heli setobjecttexture[1052, _intfuelformat1];
+        _heli setobjecttexture [SEL_G_UFD_CLK1, _secformat2];
+        _heli setobjecttexture [SEL_G_UFD_CLK2, _secformat1];
+        _heli setobjecttexture [SEL_G_UFD_CLK3, _minformat2];
+        _heli setobjecttexture [SEL_G_UFD_CLK4, _minformat1];
+        _heli setobjecttexture [SEL_G_UFD_CLK5, _hourformat2];
+        _heli setobjecttexture [SEL_G_UFD_CLK6, _hourformat1];
+        _heli setobjecttexture [SEL_G_UFD_FL1, _intfuelformat4];
+        _heli setobjecttexture [SEL_G_UFD_FL2, _intfuelformat3];
+        _heli setobjecttexture [SEL_G_UFD_FL3, _intfuelformat2];
+        _heli setobjecttexture [SEL_G_UFD_FL4, _intfuelformat1];
         //advisories//
         _a = [_heli, 1053, 1057, _advlist] call _wcacall;
         //cautions//
@@ -499,17 +500,17 @@ do {
         //warnings//
         _w = [_heli, 1063, 1067, _wrnlist] call _wcacall;
     } else {
-        _heli setobjecttexture[432, ""];
-        _heli setobjecttexture[1018, ""];
-        _heli setobjecttexture[1019, ""];
-        _heli setobjecttexture[1020, ""];
-        _heli setobjecttexture[1021, ""];
-        _heli setobjecttexture[1022, ""];
-        _heli setobjecttexture[1023, ""];
-        _heli setobjecttexture[1024, ""];
-        _heli setobjecttexture[1025, ""];
-        _heli setobjecttexture[1026, ""];
-        _heli setobjecttexture[1027, ""];
+        _heli setobjecttexture [SEL_UFD_BACK, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK1, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK2, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK3, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK4, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK5, ""];
+        _heli setobjecttexture [SEL_P_UFD_CLK6, ""];
+        _heli setobjecttexture [SEL_P_UFD_FL1, ""];
+        _heli setobjecttexture [SEL_P_UFD_FL2, ""];
+        _heli setobjecttexture [SEL_P_UFD_FL3, ""];
+        _heli setobjecttexture [SEL_P_UFD_FL4, ""];
         //advisories//
         _a = [_heli, 1028, 1032, []] call _wcacall;
         //cautions//
@@ -517,16 +518,16 @@ do {
         //warnings//
         _w = [_heli, 1038, 1042, []] call _wcacall;
         //gunner
-        _heli setobjecttexture[1043, ""];
-        _heli setobjecttexture[1044, ""];
-        _heli setobjecttexture[1045, ""];
-        _heli setobjecttexture[1046, ""];
-        _heli setobjecttexture[1047, ""];
-        _heli setobjecttexture[1048, ""];
-        _heli setobjecttexture[1049, ""];
-        _heli setobjecttexture[1050, ""];
-        _heli setobjecttexture[1051, ""];
-        _heli setobjecttexture[1052, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK1, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK2, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK3, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK4, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK5, ""];
+        _heli setobjecttexture [SEL_G_UFD_CLK6, ""];
+        _heli setobjecttexture [SEL_G_UFD_FL1, ""];
+        _heli setobjecttexture [SEL_G_UFD_FL2, ""];
+        _heli setobjecttexture [SEL_G_UFD_FL3, ""];
+        _heli setobjecttexture [SEL_G_UFD_FL4, ""];
         //advisories//
         _a = [_heli, 1053, 1057, []] call _wcacall;
         //cautions//
