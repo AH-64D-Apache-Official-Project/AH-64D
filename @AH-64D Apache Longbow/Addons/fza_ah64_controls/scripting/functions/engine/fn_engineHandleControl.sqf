@@ -12,11 +12,13 @@ switch(_control) do {
 			[_heli] execvm "\fza_ah64_controls\scripting\calls\call_loops.sqf";
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
-			_heli animate["plt_apu", 0];
-			_heli animate["tads_stow", 1];
-			fza_ah64_apuon = 0;
-			["fza_ah64_apubutton", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-			[_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
+			if (_heli animationphase "plt_apu" == 1 && _heli animationphase "plt_batt" == 1) then {
+				_heli animate["plt_apu", 0];
+				_heli animate["tads_stow", 1];
+				fza_ah64_apuon = 0;
+				["fza_ah64_apubutton", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+				[_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
+			};
 		};
 	};
 	case "power": {
