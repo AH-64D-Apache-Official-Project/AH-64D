@@ -23,15 +23,15 @@ waituntil {
 };
 fza_ah64_bt_soundplay = 1;
 if (!(_system == "")) then {
-    playsound[_system, true];
+    playSound _system;
     sleep _delay1;
 };
 if (!(_subsystem == "")) then {
-    playsound[_subsystem, true];
+    playSound _subsystem;
     sleep _delay2;
 };
 if (!(_state == "")) then {
-    playsound[_state, true];
+    playSound _state;
     sleep _delay3;
 };
 

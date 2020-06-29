@@ -57,7 +57,7 @@ switch (_system) do {
 		}
 	};
 	case "engine": {
-		_clickSound = [_heli, _system, _control] call fza_fnc_engineHandleControl;
+		[_heli, _system, _control] call fza_fnc_engineHandleControl;
 	};
 	case "ihadss": {
 		_clickSound = [_heli, _system, _control] call fza_fnc_ihadssHandleControl;
