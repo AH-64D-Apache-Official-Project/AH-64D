@@ -90,9 +90,9 @@ switch (_system) do {
 	};
 };
 
-if (count _clicksound > 1) then {
-    _clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-};
+// if (count _clicksound > 1) then {
+//     _clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+// };
 
 //ownship [0.18,4.1,-0.735]
 private _ownship = _heli modelToWorldVisual(_heli selectionposition "ctrlref_rmpd_ownship");
