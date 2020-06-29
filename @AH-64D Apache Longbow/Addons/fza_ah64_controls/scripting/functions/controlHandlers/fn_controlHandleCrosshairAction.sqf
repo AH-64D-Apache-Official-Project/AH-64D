@@ -24,18 +24,18 @@ params ["_heli"];
 
 private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
 
-if (player != driver _heli && player != gunner _heli) exitWith {systemChat "None chosen"};
+if (player != driver _heli && player != gunner _heli) exitWith {};
 
 if (_controls isEqualTo []) exitWith {};
 
 //If there are multiple controls in the range, make sure we use the closest one
 if(count _controls > 1) then {
-	_controls = [_controls, {}, {_x # 3}, "ASCEND"] call BIS_fnc_sortBy;
+	_controls = [_controls, {}, {_x # 4}, "ASCEND"] call BIS_fnc_sortBy;
 };
 
 (_controls # 0) params ["", "", "_system", "_control"];
 
-systemChat format ["System %1, Handle %2", _system, _control];
+//systemChat format ["System %1, Handle %2", _system, _control];
 
 private _clickSound = ["none"];
 
