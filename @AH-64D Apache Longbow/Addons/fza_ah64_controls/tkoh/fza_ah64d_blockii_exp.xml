@@ -3,9 +3,9 @@
 
   <Mass mass="6087.20"/>
 	<MomentsOfInertia Ixx="27449" Iyy="5316" Izz="27665" Iyz="3166"/>
-	<CenterOfGravity x="0.0" y="0.108" z="-0.272" />
+	<CenterOfGravity x="0.0" y="-0.175" z="-0.272" />
 
-  <Fuselage  forceExertionPntX="0.0" forceExertionPntY="0.86" forceExertionPntZ="0.0" rotationalResistance="100" >
+  <Fuselage  forceExertionPntX="0.0" forceExertionPntY="0.86" forceExertionPntZ="0.0" rotationalResistance="0" >
 
   <MainRotorDownwash>
     <Low_a1 a1 ="-6" scale="1">
@@ -459,7 +459,7 @@
     <CSComponent type="FCSHelicopterAutoTrim100" >
       <YawRateAndSideslipController printDebugInfo="false">
         <YawRatePID P="0.005"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
-        <SideslipPID P="0.06"  I="0.01" D="0.007" offset="0.0" integralMin="-25" integralMax="25" />
+        <SideslipPID P="0.01"  I="0.00" D="0.000" offset="0.0" integralMin="-25" integralMax="25" />
         <Transition speedLow="60" speedHigh="111" />
         <Maximums maxYawRate="60" maxSideslip="60" />
         <InputMapping nonlinearity="1.5" />
@@ -467,13 +467,13 @@
 
       <PitchRateController printDebugInfo="false">
         <PID P="0.06"  I="0.01" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-        <MaxPitchRate maxPitchRate="100" />
+        <MaxPitchRate maxPitchRate="200" />
         <InputMapping nonlinearity="1" />
       </PitchRateController>
 
       <RollRateController printDebugInfo="false">
-        <PID P="0.01"  I="0.04" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-        <MaxRollRate maxRollRate="120" />
+        <PID P="0.1"  I="0.04" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
+        <MaxRollRate maxRollRate="240" />
         <InputMapping nonlinearity="1" />
       </RollRateController>
 
@@ -481,8 +481,8 @@
 
 	<CSComponent type="FCSRotationDamper">
   <YawController P="1.0" D="0.01"/>
-  <PitchController P="0.1" D="0.001"/>
-  <RollController P="0.05" D="0.001"/>
+  <PitchController P="0.06" D="0.00"/>
+  <RollController P="0.1" D="0.00"/>
  </CSComponent>
 
     <CSComponent type="GenericControlSystem">
@@ -566,8 +566,8 @@
 		  YawSAS = 0,
 
           latCyclic = latCyclic - RollSAS - collective * 0.2 - FPSR + pedals * 0.15,
-		  lonCyclic = lonCyclic + PSAS - 0.1 + collective * 0.60 - pedals * 0.06 + FPSP,
-		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY,
+		  lonCyclic = lonCyclic + PSAS - 0.1 + collective * 0.2 - pedals * 0.06 + FPSP,
+		  pedals = pedals + 0.25 + YawSAS - collective * 0.60 + FPSY + lonCyclic * 0.2,
 
 		  A1m = latCyclic * 10,
           A1m = clamp( A1m , -12.5 , 20 ),
@@ -625,7 +625,7 @@
       <InfoPrint printControlInputs="false" printFlappingInfo="false"/>
 
       <Geometry>
-        <Position x="0" y="0.353" z="1.42"/>
+        <Position x="0" y="-0.202" z="1.809"/>
         <Tilt lateralTilt="0.0" longitudinalTilt="0.0"/>
         <Blades chord="0.5334" rootCutout="0.9" count="4" flappingHingeHigherLimit="25" flappingHingeLowerLimit="-6" hingeOffset=".32385" radius="7.3152"/>
         <Rotation clockwise="false"/>
@@ -1002,7 +1002,7 @@
 
     <Rotor type="FGRotorMomentumTheory">
       <Geometry>
-        <Position x="-0.709" y="-8.636" z="0.807"/>
+        <Position x="-0.854" y="-9.22" z="1.043"/>
         <Tilt lateralTilt="90" longitudinalTilt="0.0" />
         <Blades radius="1.397" chord="0.254" count="4" hingeOffset="0.0" />
         <Delta3 angle="35" />
@@ -1056,7 +1056,7 @@
   <StabilizersAndWings>
     <HorizontalStabilizer>
       <Geometry>
-        <Position x="0.0" y="-8.873" z="-1.037"/>
+        <Position x="0.0" y="-9.06" z="-0.73"/>
         <Up x="0.0" y="0.0" z="1.0"/>
         <Front x="0.0" y="1.0" z="0.0"/>
         <SurfaceArea area="6.797"/>
