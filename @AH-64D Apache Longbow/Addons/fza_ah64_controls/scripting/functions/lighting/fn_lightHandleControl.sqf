@@ -41,7 +41,7 @@ switch (_control) do {
 		};
 
 		fza_ah64_l1clicked = 1;
-		_clicksound = ["fza_ah64_button_rotary", 0.5];
+		["fza_ah64_button_rotary", 0.5] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
 	};
 	case "anticollision": {
 		if (_heli animationphase "plt_anticollision" < 1 && _heli animationphase "plt_batt" > 0.5) then {
