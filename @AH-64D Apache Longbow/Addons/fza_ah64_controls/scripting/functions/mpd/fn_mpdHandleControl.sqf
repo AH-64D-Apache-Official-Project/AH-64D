@@ -22,6 +22,7 @@ if(_control == "brt") then {
         fza_ah64_mpdbrightness = 0.6;
         _heli setobjecttexture [SEL_MPD_BRT, "\fza_ah64_US\tex\MPD\Brt3.paa"];
     };
+	["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
 };
 
 if(_system == "lmpd") then {
