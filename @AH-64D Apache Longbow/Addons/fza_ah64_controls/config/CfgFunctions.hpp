@@ -110,6 +110,11 @@ class CfgFunctions
 				description = "Linear interpolate a 2d array of keyframe values";
 			};
 			class displayTime {R;};
+			class playAudio
+			{
+				R;
+				description = "Plays audio file, usage: [_firstAudioFile, _delay1, _secondAudioFile, _delay2, _thirdAudioFile, _delay3]";
+			};
 		};
 	};
 };

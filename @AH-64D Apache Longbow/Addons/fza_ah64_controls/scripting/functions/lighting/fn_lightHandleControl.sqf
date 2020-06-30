@@ -41,7 +41,7 @@ switch (_control) do {
 		};
 
 		fza_ah64_l1clicked = 1;
-		["fza_ah64_button_rotary", 0.5] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+		["fza_ah64_button_rotary", 0.5] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
 		if (_heli animationphase "plt_anticollision" < 1 && _heli animationphase "plt_batt" > 0.5) then {
@@ -51,6 +51,6 @@ switch (_control) do {
 			_heli animate["plt_anticollision", 0];
 			_heli setCollisionLight false;
 		};
-        ["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+        ["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 }

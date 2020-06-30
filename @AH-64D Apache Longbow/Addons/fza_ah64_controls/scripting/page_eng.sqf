@@ -164,7 +164,7 @@ do {
             _rotorrpmchar = "\fza_ah64_us\tex\char\r";
             _rotorrpmtape = "\fza_ah64_us\tex\mpd\Rtape.paa";
             if (_rpmmsg == 0) then {
-                ["fza_ah64_bt_rotorrpm", 1.7, "fza_ah64_bt_high", 1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+                ["fza_ah64_bt_rotorrpm", 1.7, "fza_ah64_bt_high", 1] spawn fza_fnc_playAudio;
                 _rpmmsg = 1;
             };
         };

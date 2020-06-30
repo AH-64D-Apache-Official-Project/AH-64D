@@ -18,7 +18,7 @@ if (_system == "mala vrtule") then {
     if (_damage > 0.4 && _damage < 0.8 && !("fza_ah64_tailrotor_dam" in _mags)) then {
         _heli addmagazineturret["fza_ah64_tailrotor_dam", [-1]];
         if (_usesound) then {
-            ["fza_ah64_tail_rotor_damaged_1", 3] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_tail_rotor_damaged_1", 3] spawn fza_fnc_playAudio;
         };
     };
     if (_damage >= 0.8 && !("fza_ah64_tailrotor_fail" in _mags)) then {
@@ -26,7 +26,7 @@ if (_system == "mala vrtule") then {
         _heli addmagazineturret["fza_ah64_tailrotor_fail", [-1]];
         _heli sethit["mala vrtule", 1];
         if (_usesound) then {
-            ["fza_ah64_tail_rotor_failure_1", 3] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_tail_rotor_failure_1", 3] spawn fza_fnc_playAudio;
         };
     };
 };
@@ -35,14 +35,14 @@ if (_system == "velka vrtule") then {
     if (_damage > 0.4 && _damage < 0.8 && !("fza_ah64_rotor_dam" in _mags)) then {
         _heli addmagazineturret["fza_ah64_rotor_dam", [-1]];
         if (_usesound) then {
-            ["fza_ah64_main_rotor_damaged_1", 4] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_main_rotor_damaged_1", 4] spawn fza_fnc_playAudio;
         };
     };
     if (_damage >= 0.8 && !("fza_ah64_rotor_fail" in _mags)) then {
         _heli removemagazinesturret["fza_ah64_rotor_dam", [-1]];
         _heli addmagazineturret["fza_ah64_rotor_fail", [-1]];
         if (_usesound) then {
-            ["fza_ah64_main_rotor_failure_1", 4] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_main_rotor_failure_1", 4] spawn fza_fnc_playAudio;
         };
         _heli removemagazinesturret["fza_ah64_trans_dam", [-1]];
         _heli addmagazineturret["fza_ah64_trans_fail", [-1]];
@@ -60,7 +60,7 @@ if (_system == "tads_tur" || _system == "tads") then {
         _heli sethit["tads", 1];
         _heli sethit["tads_tur", 1];
         if (_usesound) then {
-            ["fza_ah64_tads_failure_1", 5] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_tads_failure_1", 5] spawn fza_fnc_playAudio;
         };
     };
 };
@@ -69,7 +69,7 @@ if (_system == "pnvs") then {
     if (_damage >= 0.8 && !("fza_ah64_pnvs_fail" in _mags)) then {
         _heli addmagazineturret["fza_ah64_pnvs_fail", [-1]];
         if (_usesound) then {
-            ["fza_ah64_pnvs_fail_1", 3] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_pnvs_fail_1", 3] spawn fza_fnc_playAudio;
         };
     };
 };
@@ -80,7 +80,7 @@ if (_system == "otochlaven") then {
         _heli removemagazine "fza_m230_1200";
         _heli removemagazine "fza_m230_350";
         if (_usesound) then {
-            ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_jammed", 1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_jammed", 1] spawn fza_fnc_playAudio;
         };
     };
 };
@@ -89,7 +89,7 @@ if (_system == "otocvez") then {
     if (_damage >= 0.8 && !("fza_ah64_gun_fail" in _mags)) then {
         _heli addmagazineturret["fza_ah64_gun_fail", [-1]];
         if (_usesound) then {
-            ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+            ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
         };
     };
 };

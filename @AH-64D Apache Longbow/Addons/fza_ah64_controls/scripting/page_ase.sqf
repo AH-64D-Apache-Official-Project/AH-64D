@@ -25,13 +25,13 @@ do {
                 if ((_heli == assignedTarget _i || _i AimedAtTarget[_heli] > 0.5) && (alive _i) && !(_i in fza_ah64_threattracking)) then {
                     fza_ah64_threattracking = fza_ah64_threattracking + [_i];
                     if (_i iskindof "ZSU_Base") then {
-                        ["fza_ah64_bt_zsu23", 2.3, "fza_ah64_bt_tracking", 0.65] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+                        ["fza_ah64_bt_zsu23", 2.3, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
                     };
                     if (_i iskindof "2S6M_Tunguska") then {
-                        ["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+                        ["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
                     };
                     if !((_i iskindof "ZSU_Base") || (_i iskindof "2S6M_Tunguska")) then {
-                        ["fza_ah64_bt_tracking", 0.65] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+                        ["fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
                     };
                     if (fza_ah64_aseautopage == 1) then {
                         fza_ah64_pr_mpd = "ase";
