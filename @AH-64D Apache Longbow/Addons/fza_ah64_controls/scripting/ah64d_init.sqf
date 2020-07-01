@@ -1,7 +1,7 @@
 //MASTER INIT FOR AH-64D PROJECT
 _heli = _this select 0;
 
-if (isNil "fza_ah64_aircraftInitialised") then {
+if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
     _heli animate["pdoor", 1];
@@ -10,7 +10,6 @@ if (isNil "fza_ah64_aircraftInitialised") then {
     _heli animate["plt_firesw", 0.5];
     _heli animate["cpg_firesw", 0.5];
     _heli animate["tads_stow", 1];
-    fza_ah64_fcrlongbow = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_fcr.sqf";
 };
 
 if (isNil "fza_ah64_cem") then {
@@ -70,6 +69,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_ldrfcall = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ldrf.sqf";
     fza_ah64_mousepos = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_mousepos.sqf";
     fza_ah64_hmdihadss = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ihadss.sqf";
+    fza_ah64_fcrlongbow = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_fcr.sqf";
     fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
     fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
     fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
