@@ -1625,9 +1625,11 @@ if (inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _btnapu distance[fz
 if (inputaction "User20" > 0.5 && fza_ah64_l1clicked == 0 && _swrbrk distance[fza_ah64_mousehorpos, fza_ah64_mousevertpos] < 0.03) then {
     if (_heli animationphase "plt_rtrbrake" < 1) then {
         _heli animate["plt_rtrbrake", 1];
+        _heli setRotorBrakeRTD 1;
         ["fza_ah64_switch_flip2", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
     } else {
         _heli animate["plt_rtrbrake", 0];
+        _heli setRotorBrakeRTD 0;
         ["fza_ah64_switch_flip2", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
     };
     fza_ah64_l1clicked = 1;
