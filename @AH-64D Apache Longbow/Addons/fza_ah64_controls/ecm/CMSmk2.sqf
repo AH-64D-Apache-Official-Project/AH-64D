@@ -19,18 +19,16 @@ if (local _hostile && !(local _ac)) then {
     _missile = nearestobject[_hostile, _munition];
     _chance1 = 25; //since this doesn't seem to work well in MP
     fza_ah64_asemisarray = [_ac, _hostile, _missile, _chance1];
-    //waituntil {(fza_ah64_asemisarray select 2) == _missile};
-    //_chance1 = fza_ah64_asemisarray select 3;
+    _rand = 5;
+    statement = "exec "
+    "\fza_ah64_controls\ecm\amase.sqf"
+    "";
 
-    _reldir = ((getposasl _ac select 0) - (getposasl _missile select 0)) atan2((getposasl _ac select 1) - (getposasl _missile select 1));
-    if (_reldir < 0) then {
-        _reldir = _reldir + 360;
+    waitUntil {
+        _missile distance _ac < 300
     };
-    _mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
-    _pbvar = _missile call fza_ah64_getpb;
-    _pitch = _pbvar select 0;
-    _bank = _pbvar select 1;
 
+    if (floor random 10 < _rand) exitwith {};
     while {
         (alive _missile) && (alive _ac) && (_mistheta > 300 || _mistheta < 60)
     }
@@ -63,6 +61,9 @@ if (local _ac && !(player == driver _ac) || !(player == gunner _ac)) then {
     _rand = 30;
     _chance1 = 6;
     _scramdist = 500;
+    waitUntil {
+        _missile distance _ac < 300
+    };
 
     if (random 100 < _rand) exitwith {};
 
