@@ -21,8 +21,6 @@ if (local _hostile && !(local _ac)) then {
     fza_ah64_asemisarray = [_ac, _hostile, _missile, _chance1];
     _rand = 5;
     statement = "exec "
-    "\fza_ah64_controls\ecm\amase.sqf"
-    "";
 
     waitUntil {
         _missile distance _ac < 300
