@@ -20,7 +20,6 @@ if (local _hostile && !(local _ac)) then {
     _chance1 = 25; //since this doesn't seem to work well in MP
     fza_ah64_asemisarray = [_ac, _hostile, _missile, _chance1];
     _rand = 5;
-    statement = "exec "
 
     waitUntil {
         _missile distance _ac < 300
