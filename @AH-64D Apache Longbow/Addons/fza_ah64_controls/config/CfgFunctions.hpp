@@ -42,6 +42,11 @@ class CfgFunctions
 			{
 				description = "Get what engine's target RPM and time is"
 			};
-		}
+		};
+		class compensateSafezone
+			{
+				file = "\fza_ah64_controls\scripting\functions\fn_compensateSafezone.sqf";
+			};
+		};
 	};
 };
