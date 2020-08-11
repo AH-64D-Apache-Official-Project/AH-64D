@@ -104,29 +104,5 @@ do {
         }
         foreach _targets;
     };
-    ///////TADS/VISUAL TARGETS//////
-    /*_targlist = _heli neartargets 6000;
-    _targlist = _targlist - allDead;
-    {_posobj = nearestobject (_x select 0); (driver _heli) reveal _posobj; if ((_posobj isKindOf "helicopter" || _posobj isKindOf "plane" || _posobj isKindOf "car" || _posobj isKindOf "tank" || _posobj isKindOf "ship" || _posobj iskindof "StaticCannon") && (alive _posobj) && !(_posobj in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_posobj];}; sleep 0.01;} foreach _targlist;
-    {
-    	if((_x iskindof "man") || (_x == _heli) || !(alive _x)) then
-    		{
-    			fza_ah64_asethreats = fza_ah64_asethreats - [_x];
-    			fza_ah64_targetlist = fza_ah64_targetlist - [_x];
-    			fza_ah64_fcrlist = fza_ah64_fcrlist - [_x];
-    			fza_ah64_pfz1 = fza_ah64_pfz1 - [_x];
-    			fza_ah64_pfz2 = fza_ah64_pfz2 - [_x];
-    			fza_ah64_pfz3 = fza_ah64_pfz3 - [_x];
-    			fza_ah64_pfz4 = fza_ah64_pfz4 - [_x];
-    			fza_ah64_pfz5 = fza_ah64_pfz5 - [_x];
-    			fza_ah64_pfz6 = fza_ah64_pfz6 - [_x];
-    			fza_ah64_pfz7 = fza_ah64_pfz7 - [_x];
-    			fza_ah64_pfz8 = fza_ah64_pfz8 - [_x];
-    			fza_ah64_threattracking = fza_ah64_threattracking - [_x];
-    		};
-    } foreach fza_ah64_targetlist;
-    fza_ah64_targetlist = fza_ah64_targetlist - [_heli];
-    fza_ah64_fcrlist = fza_ah64_fcrlist - [_heli];
-    sleep 2;*/
     sleep 2;
 };

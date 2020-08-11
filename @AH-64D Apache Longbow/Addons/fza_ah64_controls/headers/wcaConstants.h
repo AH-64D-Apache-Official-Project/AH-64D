@@ -1,0 +1,3 @@
+#define WCA_WARNING 0
+#define WCA_CAUTION 1
+#define WCA_ADVISORY 2

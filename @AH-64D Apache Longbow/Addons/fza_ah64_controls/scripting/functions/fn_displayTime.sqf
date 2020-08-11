@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_displayTIme
+Function: fza_fnc_displayTime
 
 Description:
 	Converts a numeric time to a pretty string.

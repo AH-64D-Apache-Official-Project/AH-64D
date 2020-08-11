@@ -71,9 +71,6 @@ switch (_control) do {
 	case "fcr": {
 		fza_ah64_pr_mpd = "fcr";
 	};
-	case "tsd": {
-		fza_ah64_pr_mpd = "tsd";
-	};
 	case "m": {
 		if(fza_ah64_pr_mpd != "dms") then {
 			fza_ah64_pr_mpd = "dms";

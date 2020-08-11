@@ -15,21 +15,21 @@ class CfgVehicles
 		
 		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
 		
-    class itc_air 
-	{
-	    class rover 
+		class itc_air 
 		{
-	        capable = 1;
-	        frequency_default = 5784;
-	    };
-	    targeting_user = "gunner";
-	    hmd = 1;
-	    tgp = 1;
-	    wso = 0;
-		mfdApps[] = {"STAT","OPT"};
-		systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
-	    mfdType = "classic";
-    };
+			class rover 
+			{
+				capable = 1;
+				frequency_default = 5784;
+			};
+			targeting_user = "gunner";
+			hmd = 1;
+			tgp = 1;
+			wso = 0;
+			mfdApps[] = {"STAT","OPT"};
+			systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
+			mfdType = "classic";
+		};
 
 		//Sensors definition
 
@@ -1166,6 +1166,7 @@ class CfgVehicles
 		class EventHandlers
 		{
 			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
+			engine = "_this call fza_fnc_engineEventHandler;";
 			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;";
 			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
 			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";

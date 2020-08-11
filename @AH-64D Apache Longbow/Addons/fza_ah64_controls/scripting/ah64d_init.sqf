@@ -12,9 +12,7 @@ _heli animate["tads_stow", 1];
 if (isNil "fza_ah64_cem") then {
     fza_ah64_cem = true;
 };
-if (isNil "fza_ah64_estarted") then {
-    fza_ah64_estarted = false;
-};
+_heli setVariable ["fza_ah64_estarted", false, true];
 if (isNil "fza_ah64_apuon") then {
     fza_ah64_apuon = 0;
 };
@@ -67,7 +65,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_ldrfcall = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ldrf.sqf";
     fza_ah64_mousepos = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_mousepos.sqf";
     fza_ah64_hmdihadss = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ihadss.sqf";
-    fza_ah64_fcrlongbow = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_fcr.sqf";
     fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
     fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
     fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
@@ -123,6 +120,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_hfmode = _heli;
     fza_ah64_remtsel = 0;
     fza_ah64_mynum = 0;
+    fza_ah64_lastdir = direction _heli;
     fza_ah64_dps = 0;
     fza_ah64_slip = 0;
     fza_ah64_wptimhr = 0;
@@ -217,7 +215,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_ihadssoff = 1;
     fza_ah64_monocleinbox = 1;
     fza_ah64_hducolor = [0.1, 1, 0, 1];
-    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
+    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot, fza_fnc_targetingUpdate, fza_fnc_engineGovernor]; //disabled fza_ah64_cpg_controls//
     fza_ah64_asemisarray = [];
     if (isNil "fza_ah64_pfsstate") then {
         fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
