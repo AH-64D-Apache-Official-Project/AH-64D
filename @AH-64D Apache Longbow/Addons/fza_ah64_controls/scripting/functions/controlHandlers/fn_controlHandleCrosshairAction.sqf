@@ -69,7 +69,7 @@ switch (_system) do {
 			} else {
 				fza_ah64_ihadss_pnvs_day = true;
 			};
-			["fza_ah64_knob", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
 		}
 	};
 	case "nvs": {
@@ -82,7 +82,7 @@ switch (_system) do {
 				_heli animate[_nvsSwitch, 0];
 				fza_ah64_ihadss_pnvs_cam = false;
 			};
-			["fza_ah64_switch_flip3", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
 		}
 	};
 	case "light": {

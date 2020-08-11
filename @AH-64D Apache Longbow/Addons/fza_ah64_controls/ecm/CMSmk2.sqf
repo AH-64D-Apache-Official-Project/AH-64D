@@ -207,7 +207,7 @@ if (typeof _missile in fza_ah64_mis_ir) then {
     _ac vehiclechat format["Missile %1 OClock %2 %3 Meters", _oclock, _highlow, _range];
     _bthlsound = "fza_ah64_bt_" + _highlow;
     if (_usesound) then {
-        ["fza_ah64_bt_missile", 0.65, _clockaud, 1.3, _bthlsound, 0.62] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+        ["fza_ah64_bt_missile", 0.65, _clockaud, 1.3, _bthlsound, 0.62] spawn fza_fnc_playAudio;
     };
     if (fza_ah64_rfjon > 0) then {
         _rand = _rand - 10;

@@ -24,7 +24,7 @@ switch(_control) do {
 
 
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
@@ -44,7 +44,7 @@ switch(_control) do {
 				_heli animate["cpg_firesw", 1];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
@@ -68,7 +68,7 @@ switch(_control) do {
 				_heli animate["cpg_firesw", 0.5];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 		};
 	};
 	case "fe1": {
@@ -144,7 +144,7 @@ switch(_control) do {
 
 
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
@@ -164,7 +164,7 @@ switch(_control) do {
 				_heli animate["cpg_firesw", 1];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
@@ -188,7 +188,7 @@ switch(_control) do {
 				_heli animate["cpg_firesw", 0.5];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 		};
 	};
 };
