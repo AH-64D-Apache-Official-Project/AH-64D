@@ -212,7 +212,7 @@ if (_thetapitch > 0.1) then {
     _pitch = _pitch + _cprate;
 };
 
-_relalt = (getposasl _bomb select 2) - _jetalt;
+_relalt = (getposasl _bomb select 2);
 _maxpitch = 30;
 _pfactor = 1.2;
 _maxalt = _basetargdist * 0.07;

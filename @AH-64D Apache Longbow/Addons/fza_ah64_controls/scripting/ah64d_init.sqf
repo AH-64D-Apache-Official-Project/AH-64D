@@ -1,13 +1,17 @@
 //MASTER INIT FOR AH-64D PROJECT
 #include "\fza_ah64_controls\headers\selections.h"
 _heli = _this select 0;
-_heli selectweapon "fza_ma_safe";
-_heli animate["pdoor", 1];
-_heli animate["gdoor", 1];
-_heli animate["plt_rtrbrake", 1];
-_heli animate["plt_firesw", 0.5];
-_heli animate["cpg_firesw", 0.5];
-_heli animate["tads_stow", 1];
+
+if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
+    _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
+    _heli selectweapon "fza_ma_safe";
+    _heli animate["pdoor", 1];
+    _heli animate["gdoor", 1];
+    _heli animate["plt_rtrbrake", 1];
+    _heli animate["plt_firesw", 0.5];
+    _heli animate["cpg_firesw", 0.5];
+    _heli animate["tads_stow", 1];
+};
 
 if (isNil "fza_ah64_cem") then {
     fza_ah64_cem = true;
@@ -16,7 +20,6 @@ _heli setVariable ["fza_ah64_estarted", false, true];
 if (isNil "fza_ah64_apuon") then {
     fza_ah64_apuon = 0;
 };
-
 //ENABLE/DISABLE CPG CONTROLS
 
 if (isCopilotEnabled _heli) then {
