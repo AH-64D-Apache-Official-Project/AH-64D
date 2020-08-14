@@ -4,22 +4,15 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "b5": {
-		fza_ah64_pr_mpd = "wca";
+		[_heli, 1, "wca"] call fza_ah64_mpdSetDisplay;
 	};
 	case "fcr" : {
-		fza_ah64_pr_mpd = "fcr";
+		[_heli, 1, "fcr"] call fza_ah64_mpdSetDisplay;
 	};
 	case "tsd": {
-		fza_ah64_pr_mpd = "tsd";
+		[_heli, 1, "tsd"] call fza_ah64_mpdSetDisplay;
 	};
 	case "m": {
-		if(fza_ah64_pr_mpd != "dms") then {
-			fza_ah64_pr_mpd = "dms";
-			_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\dms.paa"];
-			if (("fza_ah64_rdp_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_ldp_fail" in (_heli magazinesturret[-1]))) then {
-				fza_ah64_pl_mpd = "fail";
-				_heli setobjecttexture [SEL_PL_MPD_BACK, ""];
-			};
-		};
+		[_heli, 1, "dms"] call fza_ah64_mpdSetDisplay;
 	};
 };

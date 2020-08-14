@@ -1,4 +1,4 @@
-#define R recompile = 1
+#define R recompile = 0
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -21,15 +21,28 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
 			class coreGetObjectsLookedAt {R;};
+			class coreGetWCAs {R;}
 		}
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
+			class engineEventHandler {R;};
 			class engineGetData
 			{
 				R;
 				description = "Gets the engine-related data for display"
 			};
+			class engineGetTarget
+			{
+				R;
+				description = "Get what engine's target RPM and time is"
+			};
+			class engineGovernor
+			{
+				R;
+				description = "Sets the engine's target RPMs"
+			};
+			class engineHandleControl {R;};
 			class engineInit
 			{
 				R;
@@ -44,17 +57,6 @@ class CfgFunctions
 			{
 				R;
 				description = "Updates internal engine state"
-			};
-			class engineGovernor
-			{
-				R;
-				description = "Sets the engine's target RPMs"
-			};
-			class engineHandleControl {R;};
-			class engineGetTarget
-			{
-				R;
-				description = "Get what engine's target RPM and time is"
 			};
 		};
 		class fire
@@ -81,21 +83,68 @@ class CfgFunctions
 		class mpd
 		{
 			file = "\fza_ah64_controls\scripting\functions\mpd";
+			class mpdGetCurrentDisplay {R;};
 			class mpdHandleControl {R;};
 			class mpdHandleZoom {R;};
 
-			class mpdLDMSHandleControl {R;};
-			class mpdLFUELHandleControl {R;};
-			class mpdLWCAHandleControl {R;};
-			class mpdLWPNHandleControl {R;};
 
-			class mpdRACEHandleControl {R;};
+			class mpdLDMSDestruct {R;};
+			class mpdLDMSDraw {R;};
+			class mpdLDMSHandleControl {R;};
+			class mpdLDMSInit {R;};
+			class mpdLFLTDestruct {R;};
+			class mpdLFLTDraw {R;};
+			class mpdLFLTHandleControl {R;};
+			class mpdLFLTInit {R;};
+			class mpdLFUELDestruct {R;};
+			class mpdLFUELDraw {R;};
+			class mpdLFUELHandleControl {R;};
+			class mpdLFUELInit {R;};
+			class mpdLWCADestruct {R;};
+			class mpdLWCADraw {R;};
+			class mpdLWCAHandleControl {R;};
+			class mpdLWCAInit {R;};
+			class mpdLWCADestruct {R;};
+			class mpdLWCADraw {R;};
+			class mpdLWCAHandleControl {R;};
+			class mpdLWCAInit {R;};
+
+			class mpdRASEDestruct {R;};
+			class mpdRASEDraw {R;};
+			class mpdRASEHandleControl {R;};
+			class mpdRASEInit {R;};
+			class mpdRDMSDestruct {R;};
+			class mpdRDMSDraw {R;};
 			class mpdRDMSHandleControl {R;};
+			class mpdRDMSInit {R;};
+			class mpdRENGDestruct {R;};
+			class mpdRENGDraw {R;};
 			class mpdRENGHandleControl {R;};
+			class mpdRENGInit {R;};
+			class mpdRFCRDestruct {R;};
+			class mpdRFCRDraw {R;};
 			class mpdRFCRHandleControl {R;};
+			class mpdRFCRInit {R;};
+			class mpdRTSDDestruct {R;};
+			class mpdRTSDDraw {R;};
 			class mpdRTSDHandleControl {R;};
+			class mpdRTSDInit {R;};
+			class mpdRWCADestruct {R;};
+			class mpdRWCADraw {R;};
 			class mpdRWCAHandleControl {R;};
-		}
+			class mpdRWCAInit {R;};
+			
+			class mpdSetDisplay {R;};
+			class mpdUpdateDisplays {R;};
+			class mpdUpdateMap {R;};
+			class mpdUpdatePoints {R;};
+		};
+		class targeting
+		{
+			file = "\fza_ah64_controls\scripting\functions\targeting";
+			class targetingPFZCycle {R;};
+			class targetingUpdate {R;};
+		};
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";

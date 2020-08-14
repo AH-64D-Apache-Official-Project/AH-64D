@@ -106,7 +106,7 @@ if (count _ownship < 2) then {
 
 //RIGHT MPD WP Add
 
-if (fza_ah64_pr_mpd == "tsd" && fza_ah64_waypointfin == 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_waypointfin == 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
     _scalenum = 5;
     if (_rmpdllc distance _rmpdurc > 0.45) then {
         _scalenum = 2.5;
@@ -126,7 +126,7 @@ if (fza_ah64_pr_mpd == "tsd" && fza_ah64_waypointfin == 0 && (_ownship select 0)
 
 //RIGHT MPD PFZ CREATE
 
-if (fza_ah64_tsdmode == "ATK" && fza_ah64_pr_mpd == "tsd" && fza_ah64_pfz_count > 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
+if (fza_ah64_tsdmode == "ATK" && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_pfz_count > 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
     _scalenum = 5;
     if (_rmpdllc distance _rmpdurc > 0.45) then {
         _scalenum = 2.5;

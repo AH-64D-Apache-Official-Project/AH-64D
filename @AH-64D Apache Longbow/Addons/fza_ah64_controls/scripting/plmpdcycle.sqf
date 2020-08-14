@@ -1,23 +1,14 @@
-#include "\fza_ah64_controls\headers\selections.h"
-heli = _this select 0;
+params["_heli"];
 
-if (fza_ah64_pl_mpd == "fuel") exitwith {
-    fza_ah64_pl_mpd = "wpn";
+if ([_heli, 0] call fza_fnc_mpdGetCurrentDisplay == "fuel") exitwith {
+    [_heli, 0, "wpn"] call fza_ah64_mpdSetDisplay;
 };
-if (fza_ah64_pl_mpd == "wpn") exitwith {
-    fza_ah64_pl_mpd = "wca";
+if ([_heli, 0] call fza_fnc_mpdGetCurrentDisplay == "wpn") exitwith {
+    [_heli, 0, "wca"] call fza_ah64_mpdSetDisplay;
 };
-if (fza_ah64_pl_mpd == "wca") exitwith {
-    fza_ah64_pl_mpd = "flt";
+if ([_heli, 0] call fza_fnc_mpdGetCurrentDisplay == "wca") exitwith {
+    [_heli, 0, "flt"] call fza_ah64_mpdSetDisplay;
 };
-if (fza_ah64_pl_mpd == "flt") exitwith {
-    fza_ah64_pl_mpd = "fuel";
-};
-if (fza_ah64_pl_mpd == "fail" && !("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) exitwith {
-    fza_ah64_pl_mpd = "fuel";
-};
-if (fza_ah64_pl_mpd == "fail" && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) exitwith {
-    fza_ah64_pl_mpd = "fuel";
-    fza_ah64_pr_mpd = "fail";
-    _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
+if ([_heli, 0] call fza_fnc_mpdGetCurrentDisplay == "flt") exitwith {
+    [_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
 };

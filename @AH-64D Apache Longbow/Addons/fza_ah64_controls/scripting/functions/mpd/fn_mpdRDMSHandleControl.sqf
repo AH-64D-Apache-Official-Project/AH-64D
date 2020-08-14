@@ -3,24 +3,24 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "l3": {
-		fza_ah64_pr_mpd = "ase";
+		[_heli, 1, "ase"] call fza_ah64_mpdSetDisplay;
 	};
 	case "l4": {
-		fza_ah64_pr_mpd = "tsd";
+		[_heli, 1, "tsd"] call fza_ah64_mpdSetDisplay;
 	};
 	case "l6": {
-		fza_ah64_pr_mpd = "fcr";
+		[_heli, 1, "fcr"] call fza_ah64_mpdSetDisplay;
 	};
 	case "b1": {
-		fza_ah64_pr_mpd = "eng";
+		[_heli, 1, "eng"] call fza_ah64_mpdSetDisplay;
 	};
 	case "tsd": {
-		fza_ah64_pr_mpd = "tsd";
+		[_heli, 1, "tsd"] call fza_ah64_mpdSetDisplay;
 	};
 	case "fcr" : {
-		fza_ah64_pr_mpd = "fcr";
+		[_heli, 1, "fcr"] call fza_ah64_mpdSetDisplay;
 	};
 	case "m": {
-		fza_ah64_pr_mpd = "wca";
+		[_heli, 1, "wca"] call fza_ah64_mpdSetDisplay;
 	};
 };

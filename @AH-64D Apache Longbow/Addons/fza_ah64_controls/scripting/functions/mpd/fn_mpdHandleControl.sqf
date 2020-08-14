@@ -26,7 +26,7 @@ if(_control == "brt") then {
 };
 
 if(_system == "lmpd") then {
-	switch(fza_ah64_pl_mpd) do {
+	switch([_heli, 0] call fza_fnc_mpdGetCurrentDisplay) do {
 		case "dms": {
 			[_heli, _system, _control] call fza_fnc_mpdLDMSHandleControl;
 		};
@@ -42,7 +42,7 @@ if(_system == "lmpd") then {
 	};
 };
 if(_system == "rmpd") then {
-	switch(fza_ah64_pr_mpd) do {
+	switch([_heli, 1] call fza_fnc_mpdGetCurrentDisplay) do {
 		case "ase": {
 			[_heli, _system, _control] call fza_fnc_mpdRASEHandleControl;
 		};

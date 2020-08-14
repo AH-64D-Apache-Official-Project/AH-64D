@@ -4,17 +4,12 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "t3": {
-		fza_ah64_pl_mpd = "fuel";
+		[_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
 	};
 	case "wpn": {
-		fza_ah64_pl_mpd = "wpn";
+		[_heli, 0, "wpn"] call fza_ah64_mpdSetDisplay;
 	};
 	case "m": {
-		fza_ah64_pl_mpd = "dms";
-		_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\dms.paa"];
-		if (("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) then {
-			fza_ah64_pr_mpd = "fail";
-			_heli setobjecttexture [SEL_PR_MPD_BACK, ""];
-		};
+		[_heli, 0, "dms"] call fza_ah64_mpdSetDisplay;
 	};
 };

@@ -200,7 +200,7 @@ if (typeof _missile in fza_ah64_mis_ir) then {
         fza_ah64_threatfiring = fza_ah64_threatfiring + [_hostile];
     };
     if (fza_ah64_aseautopage == 2) then {
-        fza_ah64_pr_mpd = "ase";
+        [_heli, 1, "ase"] call fza_ah64_mpdSetDisplay;
     };
     _ac vehiclechat format["Missile %1 OClock %2 %3 Meters", _oclock, _highlow, _range];
     _bthlsound = "fza_ah64_bt_" + _highlow;

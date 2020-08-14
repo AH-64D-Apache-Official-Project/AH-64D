@@ -41,12 +41,12 @@ fza_ah64_tsddisptargs = [];
 }
 foreach fza_ah64_tsdtargets;
 
-if (fza_ah64_pr_mpd == "fcr") then {
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
     fza_ah64_tsdtargets = fza_ah64_dispfcrlist;
 };
 
 _visibleTargets =
-    if (fza_ah64_pr_mpd == "fcr") then {
+    if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
         fza_ah64_dispfcrlist;
     } else {
         if (fza_ah64_pfz_count == 0) then {

@@ -812,7 +812,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
+				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
 				shortcut="Binocular";
 				statement="[this] exec ""\fza_ah64_controls\scripting\burstlimit.sqs""";
 			};
@@ -826,7 +826,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this in fza_ah64_rocketweps14 || currentweapon this in fza_ah64_rocketweps23 || currentweapon this in fza_ah64_rocketweps1 || currentweapon this in fza_ah64_rocketweps2 || currentweapon this in fza_ah64_rocketweps3 || currentweapon this in fza_ah64_rocketweps4)";
+				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this in fza_ah64_rocketweps14 || currentweapon this in fza_ah64_rocketweps23 || currentweapon this in fza_ah64_rocketweps1 || currentweapon this in fza_ah64_rocketweps2 || currentweapon this in fza_ah64_rocketweps3 || currentweapon this in fza_ah64_rocketweps4)";
 				shortcut="Binocular";
 				statement="fza_ah64_rs = [this] execvm ""\fza_ah64_controls\scripting\rocket_salvo.sqf""";
 			};
@@ -840,7 +840,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User3";
 				statement="[this] execvm ""\fza_ah64_controls\scripting\guncontrol.sqf""";
 			};
@@ -854,7 +854,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"") && (currentweapon this == ""fza_agm114_23_8"" || currentweapon this == ""fza_agm114_14_8"" || currentweapon this in fza_ah64_hellfireweps1 || currentweapon this in fza_ah64_hellfireweps2 || currentweapon this in fza_ah64_hellfireweps3 || currentweapon this in fza_ah64_hellfireweps4)";
+				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this == ""fza_agm114_23_8"" || currentweapon this == ""fza_agm114_14_8"" || currentweapon this in fza_ah64_hellfireweps1 || currentweapon this in fza_ah64_hellfireweps2 || currentweapon this in fza_ah64_hellfireweps3 || currentweapon this in fza_ah64_hellfireweps4)";
 				shortcut="Binocular";
 				statement="fza_ah64_hfltype = [this] execvm ""\fza_ah64_controls\scripting\ltype_tog.sqf""";
 			};
@@ -956,7 +956,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""fcr"" ||fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""fcr"" ||[this, 1] call fza_fnc_mpdGetCurrentDisplay == ""tsd"" || [this, 0] call fza_fnc_mpdGetCurrentDisplay == ""tsd"")";
 				shortcut="User6";
 				statement="[this] exec ""\fza_ah64_controls\scripting\tsd_targfilter.sqs""";
 			};
@@ -970,7 +970,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"" || fza_ah64_pr_mpd == ""ase"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""tsd"" || [this, 1] call fza_fnc_mpdGetCurrentDisplay == ""fcr"" || [this, 1] call fza_fnc_mpdGetCurrentDisplay == ""ase"")";
 				shortcut="User7";
 				statement="[this] execVM ""\fza_ah64_controls\scripting\tsd_range.sqf""";
 			};
@@ -984,7 +984,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pl_mpd == ""tsd"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""tsd"" || [this, 0] call fza_fnc_mpdGetCurrentDisplay == ""tsd"")";
 				shortcut="User8";
 				statement="[this] call fza_fnc_controlHandleTSDMode;";
 			};
@@ -998,7 +998,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""tsd"" || fza_ah64_pr_mpd == ""fcr"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""tsd"" || [this, 1] call fza_fnc_mpdGetCurrentDisplay == ""fcr"")";
 				shortcut="User9";
 				statement="[this] call fza_fnc_targetingPFZCycle;";
 			};
@@ -1010,7 +1010,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User5";
 				statement="[this] call fza_fnc_laserArm;";
 			};
@@ -1022,7 +1022,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pl_mpd == ""wpn"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User10";
 				statement="[this] call fza_fnc_laserArm;";
 			};
@@ -1118,7 +1118,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""ase"")";
 				shortcut="User13";
 				statement="[this] call fza_fnc_controlHandleJammersToggle";
 			};
@@ -1132,7 +1132,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && (fza_ah64_pr_mpd == ""ase"")";
+				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""ase"")";
 				shortcut="User14";
 				statement="[this] call fza_fnc_controlHandleASEAutopage;";
 			};

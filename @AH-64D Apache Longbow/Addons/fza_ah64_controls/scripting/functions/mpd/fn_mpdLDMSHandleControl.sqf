@@ -2,18 +2,18 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "b2": {
-		fza_ah64_pl_mpd = "flt";
+		[_heli, 0, "flt"] call fza_ah64_mpdSetDisplay;
 	};
 	case "b3": {
-		fza_ah64_pl_mpd = "fuel";
+		[_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
 	};
 	case "l5": {
-		fza_ah64_pl_mpd = "wpn";
+		[_heli, 0, "wpn"] call fza_ah64_mpdSetDisplay;
 	};
 	case "wpn": {
-		fza_ah64_pl_mpd = "wpn";
+		[_heli, 0, "wpn"] call fza_ah64_mpdSetDisplay;
 	};
 	case "m": {
-		fza_ah64_pl_mpd = "wca";
+		[_heli, 0, "wca"] call fza_ah64_mpdSetDisplay;
 	};
 };

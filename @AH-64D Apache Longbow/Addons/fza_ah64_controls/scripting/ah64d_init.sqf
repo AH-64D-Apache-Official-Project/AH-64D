@@ -117,8 +117,8 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_chaffcount = 0;
     fza_ah64_cmsel = 0;
     fza_ah64_burst_limit = 10;
-    fza_ah64_pl_mpd = "fuel";
-    fza_ah64_pr_mpd = "eng";
+    [_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
+    [_heli, 1, "eng"] call fza_ah64_mpdSetDisplay;
     fza_ah64_ltype = "lobl.sqf";
     fza_ah64_hfmode = _heli;
     fza_ah64_remtsel = 0;
@@ -218,7 +218,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_ihadssoff = 1;
     fza_ah64_monocleinbox = 1;
     fza_ah64_hducolor = [0.1, 1, 0, 1];
-    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot, fza_fnc_targetingUpdate, fza_fnc_engineGovernor]; //disabled fza_ah64_cpg_controls//
+    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
     fza_ah64_asemisarray = [];
     if (isNil "fza_ah64_pfsstate") then {
         fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
