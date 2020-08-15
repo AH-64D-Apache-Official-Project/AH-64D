@@ -131,4 +131,4 @@ if(isObjectRTD _heli && count enginesTorqueRTD _heli == 2) then {
 	[_npMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _torqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
 } else {
 	[_npMul * 1.01, _ng, _tgt, _oil, 40];
-}
+};

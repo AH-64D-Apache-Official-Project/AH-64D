@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
-if(fza_ah64_tsdmode == "NAV") then {
+if(fza_ah64_tsdmode == "nav") then {
 	switch (_control) do {
 		case "l1": {
 			[_heli] execvm "\fza_ah64_controls\scripting\nav\waypointadd.sqf";
@@ -17,7 +17,7 @@ if(fza_ah64_tsdmode == "NAV") then {
 			[_heli] call fza_fnc_controlHandleNextWaypoint;
 		};
 		case "b1": {
-			fza_ah64_tsdmode = "ATK";
+			fza_ah64_tsdmode = "atk";
 		};
 		case "b4": {
 			//RMPD B4 BTN RTE
@@ -33,7 +33,7 @@ if(fza_ah64_tsdmode == "NAV") then {
 		};
 	};
 };
-if(fza_ah64_tsdmode == "ATK") then {
+if(fza_ah64_tsdmode == "atk") then {
 	switch (_control) do {
 		case "l1": {
 			[_heli, fza_ah64_pfz_count] execvm "\fza_ah64_controls\scripting\pfz.sqf";
@@ -45,7 +45,7 @@ if(fza_ah64_tsdmode == "ATK") then {
 			[_heli] execvm "\fza_ah64_controls\scripting\targrecv.sqf";
 		};
 		case "b1": {
-			fza_ah64_tsdmode = "NAV";
+			fza_ah64_tsdmode = "nav";
 		};
 	};
 };
@@ -66,12 +66,12 @@ switch (_control) do {
 		[_heli] exec "\fza_ah64_controls\scripting\tsd_targfilter.sqs";
 	};
 	case "t2": {
-		[_heli, 1, "ase"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 	};
 	case "fcr": {
-		[_heli, 1, "fcr"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "fcr"] call fza_fnc_mpdSetDisplay;
 	};
 	case "m": {
-		[_heli, 1, "dms"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "dms"] call fza_fnc_mpdSetDisplay;
 	};
 };

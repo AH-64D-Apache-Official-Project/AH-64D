@@ -10,9 +10,9 @@ switch(_control) do {
 		};
 	};
 	case "tsd": {
-		[_heli, 1, "tsd"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;
 	};
 	case "m": {
-		[_heli, 1, "dms"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "dms"] call fza_fnc_mpdSetDisplay;
 	};
 };

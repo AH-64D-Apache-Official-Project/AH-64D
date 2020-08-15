@@ -18,7 +18,7 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli"]
+params ["_heli"];
 
 (_heli getVariable "fza_ah64_mpdPage") params ["_lmpdNext", "_rmpdNext"];
 (_heli getVariable "fza_ah64_mpdCurrPage") params ["_lmpdCurr", "_rmpdCurr"];
@@ -64,7 +64,7 @@ if (_rmpdNext != _rmpdCurr) then {
 		case "tsd" : { [_heli] call fza_fnc_mpdRTSDDestruct; };
 		case "wca" : { [_heli] call fza_fnc_mpdRWCADestruct; };
 	};
-	switch (_rmpdCurr) do {
+	switch (_rmpdNext) do {
 		case "ase" : { [_heli] call fza_fnc_mpdRASEInit; };
 		case "dms" : { [_heli] call fza_fnc_mpdRDMSInit; };
 		case "eng" : { [_heli] call fza_fnc_mpdRENGInit; };
@@ -84,4 +84,4 @@ switch (_rmpdCurr) do {
 	case "wca" : { [_heli] call fza_fnc_mpdRWCADraw; };
 };
 
-_heli setVariable ["fza_ah64_mpdCurrPage", ["_lmpdCurr", "_rmpdCurr"]];
+_heli setVariable ["fza_ah64_mpdCurrPage", [_lmpdCurr, _rmpdCurr]];

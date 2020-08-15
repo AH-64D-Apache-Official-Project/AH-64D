@@ -30,6 +30,9 @@ if(_system == "lmpd") then {
 		case "dms": {
 			[_heli, _system, _control] call fza_fnc_mpdLDMSHandleControl;
 		};
+		case "flt": {
+			[_heli, _system, _control] call fza_fnc_mpdLFLTHandleControl
+		};
 		case "fuel": {
 			[_heli, _system, _control] call fza_fnc_mpdLFUELHandleControl;
 		};
@@ -38,6 +41,9 @@ if(_system == "lmpd") then {
 		};
 		case "wpn": {
 			[_heli, _system, _control] call fza_fnc_mpdLWPNHandleControl;
+		};
+		case "wca": {
+			[_heli, _system, _control] call fza_fnc_mpdWCAHandleControl;
 		};
 	};
 };
@@ -57,6 +63,9 @@ if(_system == "rmpd") then {
 		};
 		case "tsd": {
 			[_heli, _system, _control] call fza_fnc_mpdRTSDHandleControl;
+		};
+		case "wca": {
+			[_heli, _system, _control] call fza_fnc_mpdWCAHandleControl;
 		};
 	};
 };

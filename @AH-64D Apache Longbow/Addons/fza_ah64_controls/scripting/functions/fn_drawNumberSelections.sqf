@@ -39,16 +39,16 @@ Author:
 
 params ["_obj", "_num", "_font", "_sels", "_min", "_max"];
 
-private _min = if(isNil "_min" || {_min < 0}) then {0} else {_min}
+private _min = if(isNil "_min" || {_min < 0}) then {0} else {_min};
 
 private _max = if(isNil "_max" || {_max > (10^(count _sels))-1}) then {(10^(count _sels))-1} else {_max};
 
-_num = [_num, _min, _max] call BIS_fnc_clamp;
+_num = [round _num, _min, _max] call BIS_fnc_clamp;
 
 _digits = _num call BIS_fnc_numberDigits;
 reverse _digits;
 
-while {count _sels < count _digits} do {
+while {count _sels > count _digits} do {
 	_digits pushBack 0;
 };
 

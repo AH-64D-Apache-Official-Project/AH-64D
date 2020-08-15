@@ -1,8 +1,8 @@
 switch(fza_ah64_tsdmode) do {
-	case "NAV": {
-		fza_ah64_tsdmode = "ATK";
+	case "nav": {
+		fza_ah64_tsdmode = "atk";
 	};
-	case "ATK": {
-		fza_ah64_tsdmode = "NAV";
+	case "atk": {
+		fza_ah64_tsdmode = "nav";
 	}
 }

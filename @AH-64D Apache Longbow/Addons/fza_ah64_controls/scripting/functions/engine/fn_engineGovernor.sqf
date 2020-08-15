@@ -66,7 +66,7 @@ _rotorrpm = if (count rotorsRpmRTD _heli == 2) then {
  if (_rotorrpm >= 106 && !fza_ah64_rotorRPMWarning) then {
     fza_ah64_rotorRPMWarning = true;
     ["fza_ah64_bt_rotorrpm", 1.7, "fza_ah64_bt_high", 1] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-    [_heli, 1, "eng"] call fza_ah64_mpdSetDisplay;
+    [_heli, 1, "eng"] call fza_fnc_mpdSetDisplay;
 };
 
 if (_rotorrpm < 106 && fza_ah64_rotorRPMWarning) then {

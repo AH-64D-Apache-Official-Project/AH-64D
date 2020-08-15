@@ -1,5 +1,3 @@
-params ["_heli"]
-
 fza_ah64_pfz_count = fza_ah64_pfz_count + 1;
 
 if (fza_ah64_pfz_count == 1) exitwith {

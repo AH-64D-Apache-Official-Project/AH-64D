@@ -38,9 +38,9 @@ switch(_control) do {
 		fza_ah64_irjon = 0;
 	};
 	case "tsd": {
-		[_heli, 1, "tsd"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;
 	};
 	case "m": {
-		[_heli, 1, "dms"] call fza_ah64_mpdSetDisplay;
+		[_heli, 1, "dms"] call fza_fnc_mpdSetDisplay;
 	};
 };

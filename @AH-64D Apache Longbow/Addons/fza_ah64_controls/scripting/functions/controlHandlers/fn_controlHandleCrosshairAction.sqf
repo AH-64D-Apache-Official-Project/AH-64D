@@ -30,7 +30,7 @@ if (_controls isEqualTo []) exitWith {};
 
 //If there are multiple controls in the range, make sure we use the closest one
 if(count _controls > 1) then {
-	_controls = [_controls, {}, {_x # 4}, "ASCEND"] call BIS_fnc_sortBy;
+	_controls = [_controls, [], {_x # 4}, "ASCEND"] call BIS_fnc_sortBy;
 };
 
 (_controls # 0) params ["", "", "_system", "_control"];
@@ -126,7 +126,7 @@ if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_waypointfi
 
 //RIGHT MPD PFZ CREATE
 
-if (fza_ah64_tsdmode == "ATK" && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_pfz_count > 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
+if (fza_ah64_tsdmode == "atk" && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_pfz_count > 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
     _scalenum = 5;
     if (_rmpdllc distance _rmpdurc > 0.45) then {
         _scalenum = 2.5;

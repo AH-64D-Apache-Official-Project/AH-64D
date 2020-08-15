@@ -173,21 +173,21 @@ do {
     } else {
         _heli setobjecttexture [SEL_IN_LT_APU, ""];
     };
-    if (_heli animationphase "plt_batt" < 0.5) then {
-        [_heli, 1, "off"] call fza_ah64_mpdSetDisplay;
-        [_heli, 0, "off"] call fza_ah64_mpdSetDisplay;
+    if (_heli animationphase "plt_batt" < 0.5 && _mpdpwr == 1) then {
+        [_heli, 1, "off"] call fza_fnc_mpdSetDisplay;
+        [_heli, 0, "off"] call fza_fnc_mpdSetDisplay;
         _mpdpwr = 0;
     };
     if ((_heli animationphase "plt_batt" > 0.5) && _mpdpwr == 0) then {
-        [_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
-        [_heli, 1, "eng"] call fza_ah64_mpdSetDisplay;
+        [_heli, 0, "fuel"] call fza_fnc_mpdSetDisplay;
+        [_heli, 1, "eng"] call fza_fnc_mpdSetDisplay;
         _mpdpwr = 1;
     };
     if ("fza_ah64_rdp_fail" in _mags && !("fza_ah64_ldp_fail" in _mags) && [_heli, 0] call fza_fnc_mpdGetCurrentDisplay != "fail") then {
-        [_heli, 1, "fail"] call fza_ah64_mpdSetDisplay;
+        [_heli, 1, "fail"] call fza_fnc_mpdSetDisplay;
     };
     if ("fza_ah64_ldp_fail" in _mags && !("fza_ah64_rdp_fail" in _mags) && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay != "fail") then {
-        [_heli, 0, "fail"] call fza_ah64_mpdSetDisplay;
+        [_heli, 0, "fail"] call fza_fnc_mpdSetDisplay;
     };
     if (_heli animationphase "plt_apu" > 0.5 && _apuon == 0) then {
         _advlist = _advlist + ["\fza_ah64_us\tex\UFD\APUON_A_co.paa"];

@@ -87,14 +87,14 @@ do {
         if ("fza_ah64_fwd_leak" in (_heli magazinesturret[-1]) || "fza_ah64_aft_leak" in (_heli magazinesturret[-1])) then {
             fza_ah64_fuelsave = fza_ah64_fuelsave - 0.0003;
         };
-        if (fza_ah64_cem && fuel _heli > 0 && !(fza_ah64_estarted) && !(_fueltrigger)) then {
+        if (fza_ah64_cem && fuel _heli > 0 && !(_heli getVariable ["fza_ah64_estarted", false]) && !(_fueltrigger)) then {
             _heli setfuel 0;
             _fueltrigger = true;
         };
-        if (fza_ah64_cem && !(isengineon _heli) && !(fza_ah64_estarted)) then {
+        if (fza_ah64_cem && !(isengineon _heli) && !(_heli getVariable ["fza_ah64_estarted", false])) then {
             _heli setfuel 0;
         };
-        if (fza_ah64_cem && fza_ah64_estarted && _fueltrigger) then {
+        if (fza_ah64_cem && _heli getVariable ["fza_ah64_estarted", false] && _fueltrigger) then {
             _heli setfuel fza_ah64_fuelsave;
             fza_ah64_fuelsave = fuel _heli;
             _fueltrigger = false;

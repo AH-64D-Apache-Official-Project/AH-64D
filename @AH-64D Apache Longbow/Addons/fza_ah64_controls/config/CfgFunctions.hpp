@@ -1,4 +1,4 @@
-#define R recompile = 0
+#define R recompile = 1
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -30,17 +30,17 @@ class CfgFunctions
 			class engineGetData
 			{
 				R;
-				description = "Gets the engine-related data for display"
+				description = "Gets the engine-related data for display";
 			};
 			class engineGetTarget
 			{
 				R;
-				description = "Get what engine's target RPM and time is"
+				description = "Get what engine's target RPM and time is";
 			};
 			class engineGovernor
 			{
 				R;
-				description = "Sets the engine's target RPMs"
+				description = "Sets the engine's target RPMs";
 			};
 			class engineHandleControl {R;};
 			class engineInit
@@ -51,12 +51,12 @@ class CfgFunctions
 			class engineSetPosition
 			{
 				R;
-				description = "Sets up engine to be at Off, Idle, Fly"
+				description = "Sets up engine to be at Off, Idle, Fly";
 			};
 			class engineUpdate
 			{
 				R;
-				description = "Updates internal engine state"
+				description = "Updates internal engine state";
 			};
 		};
 		class fire
@@ -104,10 +104,10 @@ class CfgFunctions
 			class mpdLWCADraw {R;};
 			class mpdLWCAHandleControl {R;};
 			class mpdLWCAInit {R;};
-			class mpdLWCADestruct {R;};
-			class mpdLWCADraw {R;};
-			class mpdLWCAHandleControl {R;};
-			class mpdLWCAInit {R;};
+			class mpdLWPNDestruct {R;};
+			class mpdLWPNDraw {R;};
+			class mpdLWPNHandleControl {R;};
+			class mpdLWPNInit {R;};
 
 			class mpdRASEDestruct {R;};
 			class mpdRASEDraw {R;};
@@ -159,6 +159,7 @@ class CfgFunctions
 				description = "Linear interpolate a 2d array of keyframe values";
 			};
 			class displayTime {R;};
+			class drawNumberSelections {R;};
 			class playAudio
 			{
 				R;

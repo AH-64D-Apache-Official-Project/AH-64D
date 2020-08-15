@@ -7,10 +7,10 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (fza_ah64_tsdsort) do {
 	case 1: {"\fza_ah64_us\tex\mpd\track.paa";};
 	case 2: {"\fza_ah64_us\tex\mpd\radiation.paa";};
 	case 3: {"\fza_ah64_us\tex\mpd\wheel.paa";};
-	case 4: {"\fza_ah64_us\tex\mpd\G1_ca.paa";};
-	case 5: {"\fza_ah64_us\tex\mpd\G2_ca.paa";};
-	case 6: {"\fza_ah64_us\tex\mpd\G3_ca.paa";};
-	case 7: {"\fza_ah64_us\tex\mpd\G4_ca.paa";};
+	case 4: {"\fza_ah64_us\tex\CHAR\G1_ca.paa";};
+	case 5: {"\fza_ah64_us\tex\CHAR\G2_ca.paa";};
+	case 6: {"\fza_ah64_us\tex\CHAR\G3_ca.paa";};
+	case 7: {"\fza_ah64_us\tex\CHAR\G4_ca.paa";};
 	case 8: {"\fza_ah64_us\tex\mpd\G5_ca.paa";};
 	case 9: {"\fza_ah64_us\tex\mpd\G6_ca.paa";};
 	case 10: {"\fza_ah64_us\tex\mpd\G7_ca.paa";};
@@ -22,6 +22,11 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (fza_ah64_tsdsort) do {
 
 [_heli, 1 / fza_ah64_rangesetting / 1000 , "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_Z] call fza_fnc_drawNumberSelections;
 
+if (fza_ah64_tsdmap < 1) then {
+	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
+} else {
+	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\notfound_2.paa"];
+};
 
 private _targetPos = [];
 if (!isNull fza_ah64_mycurrenttarget && fza_ah64_tsdmode == "atk") then {
@@ -31,7 +36,7 @@ if (fza_ah64_tsdmode == "nav") then {
 	 _targetPos = fza_ah64_curwp;
 };
 
-private _targetRange = if (_targetPos isEqualTo []) then {0} else {_targetPos distance2D _heli / 1000};
+private _targetRange = if (_targetPos isEqualTo []) then {0} else {(_targetPos distance2d _heli) / 1000};
 private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_targetPos select 0), (_targetPos # 1)] call fza_ah64_reldir};
 
 [_heli, _targetRange / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_DIST] call fza_fnc_drawNumberSelections;
@@ -45,7 +50,7 @@ private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getpos
 
 [_heli, _windSpeed * 1.94, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WV] call fza_fnc_drawNumberSelections;
 
-if (fza_ah64_tsdmodes == "atk") then {
+if (fza_ah64_tsdmode == "atk") then {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
 
 	private _targetsToDraw = fza_ah64_tsddisptargs apply {
@@ -93,7 +98,7 @@ if (fza_ah64_tsdmodes == "atk") then {
 } else {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
 
-	private _waypointIndex = 0
+	private _waypointIndex = 0;
 	private _waypointsToDraw = [];
 	
 	{

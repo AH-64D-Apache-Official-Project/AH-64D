@@ -1,6 +1,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+_heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_AUTPG, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_CC1, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_CC2, ""];
@@ -17,7 +18,7 @@ _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, ""];
 
 for "_i" from SEL_MPD_PL_OBJ1 to SEL_MPD_PL_OBJ32 do {
 	_heli setObjectTexture [_i, ""];
-}
+};
 
 for "_i" from SEL_MPD_GR_OBJ1 to SEL_MPD_GR_OBJ32 do {
 	_heli setObjectTexture [_i, ""];

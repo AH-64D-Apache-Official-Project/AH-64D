@@ -2,19 +2,11 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli"];
 
-private _wcas = [_heli getVariable "fza_ah64_wcas", [], {_x # 1}] call BIS_fnc_sortBy;
-private _warnings = _wcas select {(_this # 0) in [WCA_WARNING, WCA_CAUTION]};
-private _advisories = _wcas select {(_this # 0) == WCA_ADVISORY};
-
-_warnings resize 13;
-_advisories resize 13;
-
-_warnings append _advisories;
-
-_warnings apply {[_x, ""] select (isNil "_x")};
-
-private _startSel = [SEL_PR_WCA_1, SEL_GR_WCA_1] select (gunner _heli == player);
+private _wcas = [_heli] call fza_fnc_coreGetWCAs;
+_wcas resize 26;
+_wcas apply {[_x # 1, ""] select (isNil "_x")};
 
 {
-	_heli setObjectTexture [_forEachIndex + _startSel, format ["\fza_ah64_us\tex\MPD\%1.paa", _x # 2]]
-} forEach _warnings;
+	_heli setObjectTexture [_forEachIndex + SEL_PR_WCA_1, _x];
+	_heli setObjectTexture [_forEachIndex + SEL_GR_WCA_1, _x];
+} forEach _wcas;

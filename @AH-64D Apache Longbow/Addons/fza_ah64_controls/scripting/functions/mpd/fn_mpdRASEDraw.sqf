@@ -5,7 +5,7 @@ switch (fza_ah64_cmsel) do {
 	case 0;
 	case 1: {;
 		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
-		[_heli, fza_ah64_chaffcount, SEL_DIGITS_MPD_PR_ASE_CC, "\fza_ah64_us\tex\char\g"] call fza_fnc_drawNumberSelections;
+		[_heli, fza_ah64_chaffcount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
 		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
 		if (fza_ah64_cmsel == 1) then {
 			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
@@ -16,7 +16,7 @@ switch (fza_ah64_cmsel) do {
 	case 2;
 	case 3:  {
 		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
-		[_heli, fza_ah64_flarecount, SEL_DIGITS_MPD_PR_ASE_CC, "\fza_ah64_us\tex\char\g"] call fza_fnc_drawNumberSelections;
+		[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
 		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
 		if (fza_ah64_cmsel == 3) then {
 			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
@@ -29,7 +29,7 @@ switch (fza_ah64_cmsel) do {
 [_heli, round getDir _heli, SEL_DIGITS_MPD_PR_TSD_HDG] call fza_fnc_drawNumberSelections;
 
 private _aserange = (abs(1 / fza_ah64_rangesetting)) * 0.001;
-[_heli, _aserange, SEL_DIGITS_MPD_PR_ASE_DIST, "\fza_ah64_us\tex\char\g"] call fza_fnc_drawNumberSelections;
+[_heli, _aserange, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_DIST] call fza_fnc_drawNumberSelections;
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_AUTPG,
 	switch (fza_ah64_aseautopage) do {

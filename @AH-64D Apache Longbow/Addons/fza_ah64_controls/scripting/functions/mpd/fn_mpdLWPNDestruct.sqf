@@ -1,6 +1,6 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
-
+_heli setobjecttexture [SEL_PL_MPD_BACK, ""];
 _heli setobjecttexture [SEL_MPD_PL_CHAFF_QTY_1, ""];
 _heli setobjecttexture [SEL_MPD_PL_CHAFF_QTY_2, ""];
 _heli setobjecttexture [SEL_MPD_PL_FLARE1_QTY_1, ""];

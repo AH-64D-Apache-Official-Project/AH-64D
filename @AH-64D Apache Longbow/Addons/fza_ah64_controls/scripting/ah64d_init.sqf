@@ -117,8 +117,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_chaffcount = 0;
     fza_ah64_cmsel = 0;
     fza_ah64_burst_limit = 10;
-    [_heli, 0, "fuel"] call fza_ah64_mpdSetDisplay;
-    [_heli, 1, "eng"] call fza_ah64_mpdSetDisplay;
     fza_ah64_ltype = "lobl.sqf";
     fza_ah64_hfmode = _heli;
     fza_ah64_remtsel = 0;
@@ -195,7 +193,7 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_fcrstate = 0;
     fza_ah64_fcrlist = [];
     fza_ah64_tsddisptargs = [];
-    fza_ah64_tsdmode = "NAV";
+    fza_ah64_tsdmode = "nav";
     fza_ah64_tsdmap = 0;
     fza_ah64_dispfcrlist = [];
     fza_ah64_estate = 0;
@@ -229,15 +227,14 @@ if (isNil "fza_ah64_fx_init") then {
 
     //EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY
 
-    _weapontracker = [player] execvm "\fza_ah64_controls\scripting\page_wpn.sqf";
-    _wcatracker = [player] execvm "\fza_ah64_controls\scripting\page_wca.sqf";
-    _flttracker = [player] execvm "\fza_ah64_controls\scripting\page_flt.sqf";
-    _engtracker = [player] execvm "\fza_ah64_controls\scripting\page_eng.sqf";
     _asetracker = [player] execvm "\fza_ah64_controls\scripting\page_ase.sqf";
     _ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
     _targetscanner = [_heli] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
     _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
 };
+
+_heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
+_heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 
 _enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";

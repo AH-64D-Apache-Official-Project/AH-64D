@@ -18,12 +18,12 @@ private _aftCellWeight = AFT_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT * _fuelWe
 private _enginesOn = if (isObjectRTD _heli) then {
 	private _engines = enginesIsOnRTD _heli;
 	_engines resize 2;
-	_engines apply {[_x, false] select isNil _x};
+	_engines apply {[_x, false] select isNil "_x"};
 } else {
 	[[false, false], [true, true]] select isEngineOn _heli;
 };
 
-private _engineFuelConsumption = _enginesOn apply {[0, 480]};
+private _engineFuelConsumption = _enginesOn apply {[0, 480] select _x};
 
 private _totalFuelConsumption = _engineFuelConsumption # 0 + _engineFuelConsumption # 1;
 

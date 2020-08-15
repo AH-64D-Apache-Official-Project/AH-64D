@@ -40,25 +40,25 @@ private _wcas = [];
 
 if ("fza_ah64_e1_fire" in _mags) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\E1Fire.paa"]
-}
+};
 if ("fza_ah64_e2_fire" in _mags) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\E2Fire.paa"]
-}
+};
 if ("fza_ah64_rotor_dam" in _mags && !("fza_ah64_rotor_fail" in _mags)) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\HRTRRPM.paa"]
-}
+};
 if ("fza_ah64_rotor_fail" in _mags) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\LRTRRPM.paa"]
-}
+};
 if ("fza_ah64_tailrotor_fail" in _mags) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\TRTRHYD.paa"]
-}
+};
 
 // CAUTIONS
 
 if (_heli animationphase "plt_rtrbrake" == 1) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\RTRBRKON.paa"]
-}
+};
 if ("fza_ah64_tailrotor_dam" in _mags && _trdam == 0) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\TRTRDEGR.paa"];
 };
@@ -79,4 +79,5 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\CANOPY.paa"]
-}
+};
+_wcas;
