@@ -16,9 +16,6 @@ if(fza_ah64_tsdmode == "nav") then {
 		case "l6": {
 			[_heli] call fza_fnc_controlHandleNextWaypoint;
 		};
-		case "b1": {
-			fza_ah64_tsdmode = "atk";
-		};
 		case "b4": {
 			//RMPD B4 BTN RTE
 			if (count waypoints group(driver _heli) > 1) then {
@@ -44,12 +41,12 @@ if(fza_ah64_tsdmode == "atk") then {
 		case "l4": {
 			[_heli] execvm "\fza_ah64_controls\scripting\targrecv.sqf";
 		};
-		case "b1": {
-			fza_ah64_tsdmode = "nav";
-		};
 	};
 };
 switch (_control) do {
+	case "b1": {
+		call fza_fnc_controlHandleTSDMode;
+	};
 	case "l5": {
 		[_heli] call fza_fnc_targetingPFZCycle;
 	};

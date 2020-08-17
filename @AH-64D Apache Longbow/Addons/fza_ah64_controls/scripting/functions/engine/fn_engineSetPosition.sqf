@@ -14,7 +14,7 @@ Returns:
 
 Examples:
     (begin example)
-	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineGovernor;
+	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
     (end)
 
 Author:

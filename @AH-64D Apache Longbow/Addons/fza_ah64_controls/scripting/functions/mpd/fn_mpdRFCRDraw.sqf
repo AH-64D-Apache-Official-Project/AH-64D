@@ -59,7 +59,7 @@ private _targetsToDraw = fza_ah64_tsddisptargs apply {
 		_targetPriority = 1;
 	};
 
-	private _targIcon = format ["\fza_ah64_US\tex\ICONS\ah64_%1%2.paa", _targetType, _targetModfier];
+	private _targIcon = format ["\fza_ah64_US\tex\ICONS\ah64_%1%2.paa", _targetType, _targetModifier];
 	if (_x in fza_ah64_shotat_list) then {
 		_targIcon = "\fza_ah64_US\tex\ICONS\ah64_shotat.paa";
 	};

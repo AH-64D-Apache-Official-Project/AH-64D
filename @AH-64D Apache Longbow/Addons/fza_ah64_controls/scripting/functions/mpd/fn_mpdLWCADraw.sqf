@@ -4,9 +4,9 @@ params ["_heli"];
 
 private _wcas = [_heli] call fza_fnc_coreGetWCAs;
 _wcas resize 26;
-_wcas apply {[_x # 1, ""] select (isNil "_x")};
+_wcas = _wcas apply {[_x # 1, ""] select (isNil "_x")};
 
 {
-	_heli setObjectTexture [_forEachIndex + SEL_PL_WCA_1, _x # 1];
-	_heli setObjectTexture [_forEachIndex + SEL_GL_WCA_1, _x # 1];
+	_heli setObjectTexture [_forEachIndex + SEL_PL_WCA_1, _x];
+	_heli setObjectTexture [_forEachIndex + SEL_GL_WCA_1, _x];
 } forEach _wcas;

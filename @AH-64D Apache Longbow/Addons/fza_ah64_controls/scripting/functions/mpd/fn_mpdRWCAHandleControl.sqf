@@ -10,8 +10,6 @@ switch(_control) do {
 		[_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;
 	};
 	case "m": {
-		if([_heli, 1] call fza_fnc_mpdGetCurrentDisplay != "dms") then {
-			[_heli, 1, "dms"] call fza_fnc_mpdSetDisplay;
-		};
+		[_heli, 1, "dms"] call fza_fnc_mpdSetDisplay;
 	};
 };

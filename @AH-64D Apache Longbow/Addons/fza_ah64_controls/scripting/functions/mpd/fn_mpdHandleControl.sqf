@@ -65,7 +65,7 @@ if(_system == "rmpd") then {
 			[_heli, _system, _control] call fza_fnc_mpdRTSDHandleControl;
 		};
 		case "wca": {
-			[_heli, _system, _control] call fza_fnc_mpdWCAHandleControl;
+			[_heli, _system, _control] call fza_fnc_mpdRWCAHandleControl;
 		};
 	};
 };
