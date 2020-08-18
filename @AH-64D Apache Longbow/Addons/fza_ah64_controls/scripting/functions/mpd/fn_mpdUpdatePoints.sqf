@@ -30,10 +30,6 @@ params ["_heli", "_points", "_clipToScreen"];
 #define MPD_Y_MIN 0.1
 #define MPD_Y_MAX 0.9
 
-#define ANIMATION_OBJECT(_num, _dim) (format ["mpd_%1_obj%2_%3", _seat, _num, _dim])
-
-private _seat = if (player == driver _heli) then {"pr"} else {"gr"};
-
 // Calculate the position of all points
 _points = _points apply {
 	_x params ["_pos", "_tex", "_priority"];
@@ -64,27 +60,27 @@ if (count _points > 31) then {
 	_points resize 31;
 };
 
-// Draw the helicopter's range
-_heli setobjecttexture [SEL_MPD_PL_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
-_heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
 
-_heli animate[ANIMATION_OBJECT(1,"v"),0.25];
-_heli animate[ANIMATION_OBJECT(1,"h"),0.5];
-_heli animate[ANIMATION_OBJECT(1,"z"),0.005];
-
-private _initial = if (player == driver _heli) then {SEL_MPD_PL_OBJ2} else {SEL_MPD_GR_OBJ2};
+private _initial = if (player == driver _heli) then {SEL_MPD_PL_OBJ1} else {SEL_MPD_GR_OBJ1};
 
 // Draw all used selections
 {
 	_x params ["_pos", "_tex", "_priority"];
+
 	_heli setObjectTexture [_forEachIndex + _initial, _tex];
-	_heli animate[ANIMATION_OBJECT(_forEachIndex+2,"v"),pos # 0];
-	_heli animate[ANIMATION_OBJECT(_forEachIndex+2,"h"),pos # 1];
-	_heli animate[ANIMATION_OBJECT(_forEachIndex+2,"z"),_priority];
+	if (player == driver _heli) then {
+		_heli animate[format ["mpd_pl_obj%1_h", _forEachIndex + 1], _pos # 0];
+		_heli animate[format ["mpd_pl_obj%1_v", _forEachIndex + 1], _pos # 1];
+		_heli animate[format ["mpd_pl_obj%1_z", _forEachIndex + 1], _priority];
+	};
+	if (player == gunner _heli) then {
+		_heli animate[format ["mpd_gr_obj%1_h", _forEachIndex + 1], _pos # 0];
+		_heli animate[format ["mpd_gr_obj%1_v", _forEachIndex + 1], _pos # 1];
+		_heli animate[format ["mpd_gr_obj%1_z", _forEachIndex + 1], _priority];
+	};
 } forEach (_points);
 
-
 // Clear all unused selections
-for "_i" from (count _points) to 30 do {
+for "_i" from (count _points) to 31 do {
 	_heli setObjectTexture [_i + _initial, ""];
 };

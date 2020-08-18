@@ -37,7 +37,8 @@ _vvect = [_heli] call fza_ah64_velvect;
 _vertvect = (_vvect select 0) + 0.5;
 _horvect = (_vvect select 1) + 0.6;
 
-private _waypointEta = [60000, _waypointDistance / _groundSpeed] select (_groundSpeedKnots >= 15);
+
+private _waypointEta = call ([{60000}, {_waypointDistance / _groundSpeed}] select (_groundSpeedKnots >= 15));
 
 if (_waypointEta > 36000) then { //10 hours
 	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_FLT_TTG);

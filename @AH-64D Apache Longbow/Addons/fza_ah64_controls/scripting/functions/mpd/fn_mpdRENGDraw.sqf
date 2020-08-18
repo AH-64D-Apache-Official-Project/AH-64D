@@ -1,23 +1,6 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
-_tgtTapeScaler = [
-    [0, 0],
-    [400, 0.10],
-    [810, 0.60],
-    [811, 0.70],
-    [999, 1.00]
-];
-_npTapeScaler = [
-    [0, 0],
-    [96, 0.43],
-    [99, 0.50],
-    [100, 0.55],
-    [102, 0.61],
-    [105, 0.89],
-    [120, 1.00]
-];
-
 // #region ENGINE 1
 _e1data = [_heli, 0] call fza_fnc_engineGetData;
 _e1percent = (_e1data select 0) / 209.0;
@@ -197,6 +180,8 @@ _heli setObjectTexture [SEL_MPD_PR_ENG_RTRRPMB, _rotorRpmTape];
 // #endregion
 
 if (getpos _heli select 2 > 1) then {
+	_heli setobjecttexture [SEL_MPD_PR_ENG_IFB, "\fza_ah64_us\tex\mpd\ifbox.paa"];
+	_heli setobjecttexture [SEL_MPD_PR_ENG_OFB, ""];
 	_heli setObjectTexture [SEL_MPD_PR_ENG_OIL1PSI1, ""];
 	_heli setObjectTexture [SEL_MPD_PR_ENG_OIL1PSI2, ""];
 	_heli setObjectTexture [SEL_MPD_PR_ENG_OIL1PSI3, ""];
@@ -207,16 +192,12 @@ if (getpos _heli select 2 > 1) then {
 	[_heli, 2970, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_1PRIPSI] call fza_fnc_drawNumberSelections;
 	[_heli, 2970, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_1UTIPSI] call fza_fnc_drawNumberSelections;
 	[_heli, 3000, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_1ACCPSI] call fza_fnc_drawNumberSelections;
-	_heli setObjectTexture [SEL_MPD_PR_ENG_PRIPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_PRIPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_PRIPSI3, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_UTIPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_UTIPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_UTIPSI3, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_ACCPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_ACCPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_ACCPSI3, ""];
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_PRIPSI);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_UTIPSI);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_ACCPSI);
 } else {
+	_heli setobjecttexture [SEL_MPD_PR_ENG_IFB, ""];
+	_heli setobjecttexture [SEL_MPD_PR_ENG_OFB, "\fza_ah64_us\tex\mpd\eng.paa"];
 	// #region ENGINE 1 OIL PSI
 	private _e1opsiChar = "\fza_ah64_us\tex\char\g";
 	if (_e1opsi < 20 || _e1opsi > 95) then {
@@ -236,24 +217,7 @@ if (getpos _heli select 2 > 1) then {
 	[_heli, 2970, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_PRIPSI] call fza_fnc_drawNumberSelections;
 	[_heli, 2970, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_UTIPSI] call fza_fnc_drawNumberSelections;
 	[_heli, 3000 , "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ENG_ACCPSI] call fza_fnc_drawNumberSelections;
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1PRIPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1PRIPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1PRIPSI3, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1UTIPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1UTIPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1UTIPSI3, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1ACCPSI1, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1ACCPSI2, ""];
-	_heli setObjectTexture [SEL_MPD_PR_ENG_1ACCPSI3, ""];
-};
-
-if (local _heli) then {
-	_heli animate["mpd_pr_eng_e1trq", _e1trq / 130.0];
-	_heli animate["mpd_pr_eng_e2trq", _e2trq / 130.0];
-	_heli animate["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
-	_heli animate["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp)# 1];
-	_heli animate["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
-	_heli animate["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp)# 1];
-
-	_heli animate["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fnc_linearInterp)# 1];
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_1PRIPSI);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_1UTIPSI);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_ENG_1ACCPSI);
 };
