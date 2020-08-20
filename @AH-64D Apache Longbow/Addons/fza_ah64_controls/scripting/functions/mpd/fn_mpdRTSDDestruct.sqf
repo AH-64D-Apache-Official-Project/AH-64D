@@ -5,6 +5,10 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_BASE, ""];
 _heli setobjecttexture [SEL_PR_MPD_BACK, ""];
 _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, ""];
 
+_heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
+_heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
+_heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
+
 CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_TSD_HDG);
 CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_TSD_DIST);
 CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PR_TSD_Z);

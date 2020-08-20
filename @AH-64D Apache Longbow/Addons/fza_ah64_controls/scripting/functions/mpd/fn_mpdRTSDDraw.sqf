@@ -93,7 +93,6 @@ if (fza_ah64_tsdmode == "atk") then {
 
 		[_x, _targIcon, _targetPriority];
 	};
-	_targetsToDraw pushBack [_heli, "\fza_ah64_US\tex\mpd\ownship_ca.paa", 1];
 
 	[_heli, _targetsToDraw, true] call fza_fnc_mpdUpdatePoints;	
 } else {
@@ -105,7 +104,6 @@ if (fza_ah64_tsdmode == "atk") then {
 		private _status = if (_forEachIndex == fza_ah64_curwpnum) then {"act"} else {"ina"};
 		_waypointsToDraw pushBack [_x, format ["\fza_ah64_US\tex\ICONS\ah64_wp_%1_%2", _status, _forEachIndex], 0];
 	} forEach (fza_ah64_waypointdata);
-	_waypointsToDraw pushBack [_heli, "\fza_ah64_US\tex\mpd\ownship_ca.paa", 0.005];
 
 	[_heli, _waypointsToDraw, true] call fza_fnc_mpdUpdatePoints;
 };

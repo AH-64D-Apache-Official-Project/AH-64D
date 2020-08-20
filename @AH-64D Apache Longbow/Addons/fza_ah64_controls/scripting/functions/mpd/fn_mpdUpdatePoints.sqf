@@ -50,7 +50,7 @@ _points = _points apply {
 if !(_clipToScreen) then {
 	_points = _points select {
 		(_x # 0) params ["_tx", "_ty"];
-		(MPD_X_MIN < _tx && _tx < MPD_X_MAX && MPD_Y_MIN < _ty && ty < MPD_Y_MAX);
+		(MPD_X_MIN < _tx && _tx < MPD_X_MAX && MPD_Y_MIN < _ty && _ty < MPD_Y_MAX);
 	};
 };
 

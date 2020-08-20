@@ -97,6 +97,4 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
     };
     _heli animate["pnvs", fza_ah64_pnvsdir];
     _heli animate["pnvs_vert", fza_ah64_pnvselev];
-
-
 };

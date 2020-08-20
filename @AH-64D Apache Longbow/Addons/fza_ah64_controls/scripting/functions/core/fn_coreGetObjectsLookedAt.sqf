@@ -12,7 +12,7 @@ Parameters:
 
 Returns:
 	2d array, an array for each control that is in range in the format of:
-	    [Pilot memory point, Gunner memory point, system, control, sensitivity, description]
+	    [Pilot memory point, Gunner memory point, system, control, sensitivity, description, distance]
 
 Examples:
 	(begin example)
@@ -101,7 +101,7 @@ private _controls =  [
 	["ctrlref_p_doorhandle", "ctrlref_g_doorhandle", "door", "handle", 0.03, "Pilot Door Handle"],
 
 	["ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt", "ihadss", "brt", 0.03, "IHADSS Brightness"],
-	["ctrlref_p_monocle", "ctrlref_g_monocle", "ihadss", "stow", 0.03, "IHADSS Monocle"],
+	["ctrlref_p_monocle", "ctrlref_g_monocle", "ihadss", "stow", 0.1, "IHADSS Monocle"],
 
 	["ctrlref_p_apu", "", "engine", "apu", 0.03, "APU Toggle"],
 	["ctrlref_p_mstrign", "", "engine", "power", 0.03, "Battery Toggle"],
@@ -121,9 +121,8 @@ private _controls =  [
 	["plt_flood", "cpg_flood", "light", "floodlight", 0.03, "Floodlight"],
 	["plt_anticollision", "", "light", "anticollision", 0.03, "Anti-Collision Light"]
 ];
-_controls select {
-	_x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity"];
-
+_controls = _controls apply {
+	_x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description"];
 	private _point = [];
 	if(driver _heli == player && _pilotPos != "") then {
 		_point = _heli modelToWorldVisual (_heli selectionposition _pilotPos);
@@ -132,10 +131,10 @@ _controls select {
 		_point = _heli modelToWorldVisual (_heli selectionposition _gunnerPos);
 	};
 	_point =  (worldToScreen _point);
-	if(_point isEqualTo [] || {(_point distance [fza_ah64_mousehorpos, fza_ah64_mousevertpos]) > _sensitivity}) then {
-		//Parenthesis around second condition to allow for short circuit evaluation
-		false;
-	} else {
-		true;
-	};
+	_distance = if (_point isEqualTo []) then {1000} else {_point distance [fza_ah64_mousehorpos, fza_ah64_mousevertpos]};
+	[_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _distance];
+};
+_controls select {
+	_x params ["", "", "", "", "_sensitivity", "", "_distance"];
+	_distance < _sensitivity;
 };

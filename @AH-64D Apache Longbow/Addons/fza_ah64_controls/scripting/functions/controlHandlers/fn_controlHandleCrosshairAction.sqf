@@ -22,15 +22,15 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli"];
 
-private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
 
 if (player != driver _heli && player != gunner _heli) exitWith {};
 
+private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
 if (_controls isEqualTo []) exitWith {};
 
 //If there are multiple controls in the range, make sure we use the closest one
 if(count _controls > 1) then {
-	_controls = [_controls, [], {_x # 4}, "ASCEND"] call BIS_fnc_sortBy;
+	_controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
 };
 
 (_controls # 0) params ["", "", "_system", "_control"];
@@ -90,9 +90,10 @@ switch (_system) do {
 	};
 };
 
-// if (count _clicksound > 1) then {
-//     _clicksound execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
-// };
+// I haven't gotten these to work reliably enough to make it worth adding. Leaving here just in case that changes
+// - mattysmith22
+
+/*
 
 //ownship [0.18,4.1,-0.735]
 private _ownship = _heli modelToWorldVisual(_heli selectionposition "ctrlref_rmpd_ownship");
@@ -146,3 +147,4 @@ if (fza_ah64_tsdmode == "atk" && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay ==
     ];
     fza_ah64_pfz_counter = fza_ah64_pfz_counter + 1;
 };
+*/

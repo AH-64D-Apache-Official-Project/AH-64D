@@ -18,3 +18,10 @@
 	]
 ] call CBA_fnc_addSetting;
 
+[
+	"fza_ah64_enableClickHelper",
+	"CHECKBOX",
+	"Enable Cockpit hints",
+	"AH64D Apache",
+	[true]
+] call CBA_fnc_addSetting;

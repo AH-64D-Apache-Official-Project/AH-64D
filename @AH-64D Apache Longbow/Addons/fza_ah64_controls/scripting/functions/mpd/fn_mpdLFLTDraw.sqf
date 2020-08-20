@@ -94,4 +94,4 @@ if (speed _heli > 5) then {
 } else {
 	_heli setobjecttexture [SEL_MPD_PL_FLT_VVI, ""];
 	_heli setobjecttexture [SEL_MPD_PL_FLT_WP, ""];
-};
+}; 

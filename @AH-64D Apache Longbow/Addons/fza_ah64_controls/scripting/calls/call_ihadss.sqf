@@ -84,6 +84,23 @@ if (isNull(uiNameSpace getVariable "fza_ah64_click_helper")) then {
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
 };
 
+private _clickHint = (uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602;
+if (fza_ah64_enableClickHelper) then {
+    private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
+    if (_controls isEqualTo []) then {
+        _clickHint ctrlSetText "";
+    } else {
+        //If there are multiple controls in the range, make sure we use the closest one
+        if(count _controls > 1) then {
+            _controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
+        };
+        _clickHint ctrlSetText (_controls # 0 # 5);
+    };
+} else {
+     _clickHint ctrlSetText "";
+};
+_clickHint ctrlCommit 0.001;
+
 if (fza_ah64_ihadssoff == 1) then {
     1 cuttext["", "PLAIN", 0.1];
 };
