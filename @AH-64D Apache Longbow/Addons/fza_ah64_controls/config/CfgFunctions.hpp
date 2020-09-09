@@ -28,7 +28,7 @@ class CfgFunctions
 			};
 			class engineSetPosition
 			{
-				description = "Sets up engine to be at Off, Idle, Fly"
+				description = "Sets up engine to be at Off, Idle, Fly";
 			};
 			class engineUpdate
 			{
@@ -42,6 +42,6 @@ class CfgFunctions
 			{
 				description = "Get what engine's target RPM and time is"
 			};
-		}
+		};
 	};
 };

@@ -87,9 +87,14 @@ class Components: Components
 
     };
   };
-  class VehicleSystemsDisplayManagerComponentLeft: DefaultVehicleSystemsDisplayManagerLeft
+  class VehicleSystemsDisplayManagerComponentLeft
   {
-    class Components: Components
+    componentType = "VehicleSystemsDisplayManager";
+    x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"",	(safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
+    y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"",	(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
+    left = 1;
+    defaultDisplay = "EmptyDisplay";
+    class Components
     {
       class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
   		{
@@ -98,19 +103,26 @@ class Components: Components
   			showTargetTypes = 1+2+4+8+16+32+64+128+256+512+1024; // 1 - Sensor sectors, 2 - Threats, 4 - Marked tgt symbol, 8 - Own detection, 16 - Remote detection, 32 - Active detection, 64 - Passive detection, 128 - Ground tgts, 256 - Air tgts, 512 - Men, 1024 - Special (laser, NV)
   			resource = "RscCustomInfoSensors";
   		};
+      class VehicleGunnerDisplay	// Camera feed from gunner's optics
+      {
+        componentType = "TransportFeedDisplayComponent";
+        source = "PrimaryGunner";
+      };
+      class EmptyDisplay		// Empty display - hide panel
+      {
+        componentType = "EmptyDisplayComponent";
+      };
+      class MinimapDisplay	// GPS
+      {
+        componentType = "MinimapDisplayComponent";
+        resource = "RscCustomInfoMiniMap";
+      };
     };
   };
-  class VehicleSystemsDisplayManagerComponentRight: DefaultVehicleSystemsDisplayManagerRight
-  {
-    class Components: Components
-    {
-      class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
-  		{
-  			componentType = "SensorsDisplayComponent";
-  			range[] = {16000,8000,4000,2000};     //accepts an integer or an array of available ranges (submode)
-  			showTargetTypes = 1+2+4+8+16+32+64+128+256+512+1024; // 1 - Sensor sectors, 2 - Threats, 4 - Marked tgt symbol, 8 - Own detection, 16 - Remote detection, 32 - Active detection, 64 - Passive detection, 128 - Ground tgts, 256 - Air tgts, 512 - Men, 1024 - Special (laser, NV)
-  			resource = "RscCustomInfoSensors";
-  		};
-    };
+  class VehicleSystemsDisplayManagerComponentRight : VehicleSystemsDisplayManagerComponentLeft {
+    left = 0;
+    right = 1;
+    x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_X"",((safezoneX + safezoneW) - ((10 * (((safezoneW / safezoneH) min 1.2) / 40)) + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))])";
+    y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
   };
 };
