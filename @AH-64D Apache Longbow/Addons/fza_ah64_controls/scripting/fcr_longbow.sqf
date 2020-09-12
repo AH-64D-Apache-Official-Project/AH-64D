@@ -54,8 +54,6 @@ do {
                 }
                 foreach fza_ah64_ada_units;
 
-                //_theta = [_heli,(getposatl _heli select 0),(getposatl _heli select 1),(getposatl _i select 0),(getposatl _i select 1)] call fza_ah64_reldir;
-
                 if (_i distance _heli > 10000 || (_i iskindof "man") || !(alive _i)) then {
                     _targets = _targets - [_i];
                     _rem = true;

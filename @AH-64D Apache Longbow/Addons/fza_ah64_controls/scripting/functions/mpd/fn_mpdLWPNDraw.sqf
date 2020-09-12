@@ -26,10 +26,6 @@ _hftraj = "\fza_ah64_us\tex\icons\dir.paa";
 _hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
 _sight = "\fza_ah64_us\tex\icons\tads.paa";
 _acq = "\fza_ah64_us\tex\icons\tads.paa";
-_gunformat1 = "\fza_ah64_us\tex\CHAR\B0_ca.paa";
-_gunformat2 = "\fza_ah64_us\tex\CHAR\B0_ca.paa";
-_gunformat3 = "\fza_ah64_us\tex\CHAR\B0_ca.paa";
-_gunformat4 = "\fza_ah64_us\tex\CHAR\B0_ca.paa";
 _rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 _gunsel = "\fza_ah64_us\tex\icons\gun-sel_ca.paa";
 _burst10 = "\fza_ah64_us\tex\icons\box_ca.paa";
@@ -98,18 +94,6 @@ _rktzone3 = "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 _rktzone4 = "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 _rktzone5 = "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 _rktseltype = "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
-_rktformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat1A = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2A = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat1B = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2B = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat1C = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2C = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat1D = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2D = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat1E = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_rktformat2E = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
 _rocketcount = 0;
 _rocketcountA = 0;
 _rocketcountB = 0;
@@ -118,31 +102,10 @@ _rocketcountD = 0;
 _rocketcountE = 0;
 _rkt14ammo = 0;
 _rkt23ammo = 0;
-_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_chaffformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_chaffformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-_flareformat1 = [fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-_flareformat2 = [fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-if (!(_heli iskindof "fza_ah64d_b2e" || _heli iskindof "fza_ah64d_b2e_nr")) then {
-	_flareformat1 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-	_flareformat2 = "\fza_ah64_us\tex\CHAR\G0_ca.paa";
-};
-_chaffformat1 = [fza_ah64_chaffcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-_chaffformat2 = [fza_ah64_chaffcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-//gun
 _gunammo = _heli ammo "fza_m230";
-_gunformat1 = [_gunammo, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitthou;
-_gunformat2 = [_gunammo, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
-_gunformat3 = [_gunammo, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-_gunformat4 = [_gunammo, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
 if (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") then {
 	_rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 	_gunsel = "\fza_ah64_us\tex\icons\gun-sel_ca.paa";
-	_gunformat1 = [_gunammo, "\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digitthou;
-	_gunformat2 = [_gunammo, "\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digithun;
-	_gunformat3 = [_gunammo, "\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digitten;
-	_gunformat4 = [_gunammo, "\fza_ah64_us\tex\CHAR\B"] call fza_ah64_digit;
 	if (fza_ah64_burst_limit == 10) then {
 		_burst10 = "\fza_ah64_us\tex\icons\box_ca.paa";
 		_burst20 = "";
@@ -1491,44 +1454,32 @@ if (currentweapon _heli in _rocketweps) then {
 	}
 	foreach magazines _heli;
 
-	_rktformat1 = [_rocketcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2 = [_rocketcount, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-	_rktformat1A = [_rocketcountA, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2A = [_rocketcountA, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-	_rktformat1B = [_rocketcountB, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2B = [_rocketcountB, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-	_rktformat1C = [_rocketcountC, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2C = [_rocketcountC, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-	_rktformat1D = [_rocketcountD, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2D = [_rocketcountD, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
-	_rktformat1E = [_rocketcountE, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-	_rktformat2E = [_rocketcountE, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-
 	if (_rocketcountA == 0) then {
-		_rktformat1A = "";
-		_rktformat2A = "";
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT)
+	} else {
+		[_heli, _rocketcountA, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT1_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountB == 0) then {
-		_rktformat1B = "";
-		_rktformat2B = "";
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT)
+	} else {
+		[_heli, _rocketcountB, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT2_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountC == 0) then {
-		_rktformat1C = "";
-		_rktformat2C = "";
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT)
+	} else {
+		[_heli, _rocketcountC, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT3_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountD == 0) then {
-		_rktformat1D = "";
-		_rktformat2D = "";
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT)
+	} else {
+		[_heli, _rocketcountD, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT4_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountE == 0) then {
-		_rktformat1E = "";
-		_rktformat2E = "";
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT)
+	} else {
+		[_heli, _rocketcountE, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT5_TOT] call fza_fnc_drawNumberSelections;
 	};
+	[_heli, _rocketcount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT_TOT] call fza_fnc_drawNumberSelections;
 
 	{
 		if (_x == "fza_m261_m151_14_38") then {
@@ -1695,18 +1646,12 @@ if (currentweapon _heli in _rocketweps) then {
 		_rktsel3 = _rktseltype;
 	};
 } else {
-	_rktformat1 = "";
-	_rktformat2 = "";
-	_rktformat1A = "";
-	_rktformat2A = "";
-	_rktformat1B = "";
-	_rktformat2B = "";
-	_rktformat1C = "";
-	_rktformat2C = "";
-	_rktformat1D = "";
-	_rktformat2D = "";
-	_rktformat1E = "";
-	_rktformat2E = "";
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT)
 };
 _heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
 
@@ -1716,16 +1661,10 @@ if (currentweapon _heli == "fza_ma_safe") then {
 	_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
 };
 
-_heli setobjecttexture [SEL_MPD_PL_CHAFF_QTY_1, _chaffformat1];
-_heli setobjecttexture [SEL_MPD_PL_CHAFF_QTY_2, _chaffformat2];
-_heli setobjecttexture [SEL_MPD_PL_FLARE1_QTY_1, _flareformat1];
-_heli setobjecttexture [SEL_MPD_PL_FLARE1_QTY_2, _flareformat2];
-_heli setobjecttexture [SEL_MPD_PL_FLARE2_QTY_1, _flareformat1];
-_heli setobjecttexture [SEL_MPD_PL_FLARE2_QTY_2, _flareformat2];
-_heli setobjecttexture [SEL_MPD_PL_GUN_AMMO_1, _gunformat1];
-_heli setobjecttexture [SEL_MPD_PL_GUN_AMMO_2, _gunformat2];
-_heli setobjecttexture [SEL_MPD_PL_GUN_AMMO_3, _gunformat3];
-_heli setobjecttexture [SEL_MPD_PL_GUN_AMMO_4, _gunformat4];
+[_heli, fza_ah64_chaffcount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_CHAFF_QTY] call fza_fnc_drawNumberSelections;
+[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE1_QTY] call fza_fnc_drawNumberSelections;
+[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE2_QTY] call fza_fnc_drawNumberSelections;
+[_heli, _gunammo, ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter"),SEL_DIGITS_MPD_PL_GUN_AMMO] call fza_fnc_drawNumberSelections;
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_1, _burst10];
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_2, _burst20];
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_3, _burst50];
@@ -1758,22 +1697,10 @@ _heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_1, _rktsel1];
 _heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_2, _rktsel2];
 _heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_3, _rktsel3];
 _heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_4, _rktsel4];
-_heli setobjecttexture [SEL_MPD_PL_RKT_TOT_1, _rktformat1];
-_heli setobjecttexture [SEL_MPD_PL_RKT_TOT_2, _rktformat2];
-_heli setobjecttexture [SEL_MPD_PL_RKT1_QTY_1, _rktformat1A];
-_heli setobjecttexture [SEL_MPD_PL_RKT1_QTY_2, _rktformat2A];
 _heli setobjecttexture [SEL_MPD_PL_RKT1_TYPE, _rktzone1];
-_heli setobjecttexture [SEL_MPD_PL_RKT2_QTY_1, _rktformat1B];
-_heli setobjecttexture [SEL_MPD_PL_RKT2_QTY_2, _rktformat2B];
 _heli setobjecttexture [SEL_MPD_PL_RKT2_TYPE, _rktzone2];
-_heli setobjecttexture [SEL_MPD_PL_RKT3_QTY_1, _rktformat1C];
-_heli setobjecttexture [SEL_MPD_PL_RKT3_QTY_2, _rktformat2C];
 _heli setobjecttexture [SEL_MPD_PL_RKT3_TYPE, _rktzone3];
-_heli setobjecttexture [SEL_MPD_PL_RKT4_QTY_1, _rktformat1D];
-_heli setobjecttexture [SEL_MPD_PL_RKT4_QTY_2, _rktformat2D];
 _heli setobjecttexture [SEL_MPD_PL_RKT4_TYPE, _rktzone4];
-_heli setobjecttexture [SEL_MPD_PL_RKT5_QTY_1, _rktformat1E];
-_heli setobjecttexture [SEL_MPD_PL_RKT5_QTY_2, _rktformat2E];
 _heli setobjecttexture [SEL_MPD_PL_RKT5_TYPE, _rktzone5];
 _heli setobjecttexture [SEL_MPD_PL_SIGHT_ACQ, _sight];
 _heli setobjecttexture [SEL_MPD_PL_WPN_ACQ, _acq];

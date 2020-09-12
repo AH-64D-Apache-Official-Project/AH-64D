@@ -135,10 +135,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_setpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fsetpitch.sqf";
     fza_ah64_getpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\frotate.sqf";
     fza_ah64_reldir = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_reldir.sqf";
-    fza_ah64_digitthou = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digitthou.sqf";
-    fza_ah64_digithun = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digithun.sqf";
-    fza_ah64_digitten = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digitten.sqf";
-    fza_ah64_digit = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digit.sqf";
     fza_ah64_turrets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_turrets.sqf";
     fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf";
     fza_ah64_pnvscontrol = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pnvs.sqf";
@@ -147,7 +143,12 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_velvect = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_vvect.sqf";
     fza_ah64_slipcheck = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_slip.sqf";
     fza_ah64_timetowp = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_timetowp.sqf";
-    //fza_ah64_cpg_controls=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_cpgai.sqf";
+    
+    fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
+    fza_ah64_bweff ppEffectAdjust[0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    fza_ah64_bweff ppEffectCommit 0;
+    fza_ah64_bweff ppEffectEnable false;
+    
     if (isNil "fza_ah64_targetlist") then {
         fza_ah64_targetlist = [];
     };
@@ -230,7 +231,6 @@ if (isNil "fza_ah64_fx_init") then {
     _asetracker = [player] execvm "\fza_ah64_controls\scripting\page_ase.sqf";
     _ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
     _targetscanner = [_heli] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
-    _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
 };
 
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
@@ -239,7 +239,6 @@ _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";
 _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
-//if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
 if (isnil "fza_ah64_tiron") then {
     fza_ah64_tiron = false;
 };

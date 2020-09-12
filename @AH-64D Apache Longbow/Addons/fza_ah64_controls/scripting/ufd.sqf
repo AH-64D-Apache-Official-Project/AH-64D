@@ -42,8 +42,6 @@ if (isNil "fza_ah64_fuelsave") then {
     fza_ah64_fuelsave = 1;
 };
 
-//waituntil {(gunner _heli == player || driver _heli == player)};
-
 _wcacall = {
     _heli = _this select 0;
     _start = _this select 1;
@@ -100,17 +98,7 @@ do {
     _hour = round(floor daytime);
     _min = round(floor((daytime - floor(daytime)) * 60));
     _sec = floor((((daytime - floor daytime) * 60) - floor((daytime - floor daytime) * 60)) * 60);
-    _hourformat1 = [_hour, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-    _hourformat2 = [_hour, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-    _minformat1 = [_min, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-    _minformat2 = [_min, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-    _secformat1 = [_sec, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-    _secformat2 = [_sec, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
-    _intfuelweight = round(fza_ah64_fuelsave * 2538);
-    _intfuelformat1 = [_intfuelweight, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitthou;
-    _intfuelformat2 = [_intfuelweight, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digithun;
-    _intfuelformat3 = [_intfuelweight, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digitten;
-    _intfuelformat4 = [_intfuelweight, "\fza_ah64_us\tex\CHAR\G"] call fza_ah64_digit;
+    
     ///WCA///
     _mags = _heli magazinesturret[-1];
     _magsg = magazines _heli;
@@ -259,82 +247,6 @@ do {
         _caulist = _caulist - ["\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"];
         _trdam = 0;
     };
-    /*
-    	if("fza_ah64_rotor_dam" in _mags && _mrdam == 0) then
-    	{
-    		_wrnlist = _wrnlist + ["\fza_ah64_us\tex\UFD\HRTRRPM.paa"];
-    		_wrnlist set [(count _wrnlist - 1),"\fza_ah64_us\tex\UFD\HRTRRPM.paa"];
-    		_mrdam = 1;
-    	};
-    	if("fza_ah64_rotor_fail" in _mags && _mrdam < 2) then
-    	{
-    		_wrnlist = _wrnlist + ["\fza_ah64_us\tex\UFD\LRTRRPM.paa"];
-    		_wrnlist set [(count _wrnlist - 1),"\fza_ah64_us\tex\UFD\LRTRRPM.paa"];
-    		_wrnlist = _wrnlist - ["\fza_ah64_us\tex\UFD\HRTRRPM.paa"];
-    		_mrdam = 2;
-    	};
-    	if(_mrdam > 0 && !("fza_ah64_rotor_dam" in _mags || "fza_ah64_rotor_fail" in _mags)) then
-    	{
-    		_wrnlist = _wrnlist - ["\fza_ah64_us\tex\UFD\HRTRRPM.paa"];
-    		_wrnlist = _wrnlist - ["\fza_ah64_us\tex\UFD\LRTRRPM.paa"];
-    		_mrdam = 0;
-    	};
-    	if("fza_ah64_tads_dam" in _mags && _tadsdam == 0) then
-    	{
-    		_caulist = _caulist + ["\fza_ah64_us\tex\UFD\TADSDEGR.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\TADSDEGR.paa"];
-    		_tadsdam = 1;
-    	};
-    	if("fza_ah64_tads_fail" in _mags && _tadsdam < 2) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\TADSDEGR.paa"];
-    		_caulist = _caulist + ["\fza_ah64_us\tex\UFD\TADSFAIL.paa"];
-    		_caulist = _caulist + ["\fza_ah64_us\tex\UFD\LASEFAIL.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\TADSFAIL.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\LASEFAIL.paa"];
-    		_tadsdam = 2;
-    	};
-    	if(_tadsdam > 0 && !("fza_ah64_tads_fail" in _mags || "fza_ah64_tads_dam" in _mags)) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\TADSDEGR.paa"];
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\TADSFAIL.paa"];
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\LASEFAIL.paa"];
-    		_tadsdam = 0;
-    	};
-    	if("fza_ah64_gun_jam" in _mags && _gunjam == 0) then
-    	{
-    		_caulist  = _caulist + ["\fza_ah64_us\tex\UFD\GUNJAM.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\GUNJAM.paa"];
-    		_gunjam = 1;
-    	};
-    	if(_gunjam > 0 && !("fza_ah64_gun_jam" in _mags)) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\GUNJAM.paa"];
-    		_gunjam = 0;
-    	};
-    	if("fza_ah64_gun_fail" in _mags && _gunfail == 0) then
-    	{
-    		_caulist  = _caulist + ["\fza_ah64_us\tex\UFD\GUNACTFAIL.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\GUNACTFAIL.paa"];
-    		_gunfail = 1;
-    	};
-    	if(_gunfail > 0 && !("fza_ah64_gun_fail" in _mags)) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\GUNACTFAIL.paa"];
-    		_gunfail = 0;
-    	};
-    	if("fza_ah64_pnvs_fail" in _mags && _pnvsfail == 0) then
-    	{
-    		_caulist  = _caulist + ["\fza_ah64_us\tex\UFD\PNVSFAIL.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\PNVSFAIL.paa"];
-    		_pnvsfail = 1;
-    	};
-    	if(_pnvsfail > 0 && !("fza_ah64_pnvs_fail" in _mags)) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\PNVSFAIL.paa"];
-    		_pnvsfail = 0;
-    	};
-    */
     if ("fza_ah64_trans_dam" in _mags && _transdam == 0) then {
         _caulist = _caulist + ["\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
         _caulist set[(count _caulist - 1), "\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
@@ -351,19 +263,6 @@ do {
         _wrnlist = _wrnlist - ["\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
         _transdam = 0;
     };
-    /*
-    	if("fza_ah64_fcr_fail" in _mags && _fcrfail == 0) then
-    	{
-    		_caulist = _caulist + ["\fza_ah64_us\tex\UFD\FCRFAIL.paa"];
-    		_caulist set [(count _caulist - 1),"\fza_ah64_us\tex\UFD\FCRFAIL.paa"];
-    		_fcrfail = 1;
-    	};
-    	if(_fcrfail > 0 && !("fza_ah64_fcr_fail" in _mags)) then
-    	{
-    		_caulist = _caulist - ["\fza_ah64_us\tex\UFD\FCRFAIL.paa"];
-    		_fcrfail = 0;
-    	};
-    */
     if ("fza_ah64_e1_fire" in _mags) then {
         _heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
@@ -452,33 +351,20 @@ do {
     //pilot
     if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli || !(fza_ah64_cem)) then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
-        _heli setobjecttexture [SEL_P_UFD_CLK1, _secformat2];
-        _heli setobjecttexture [SEL_P_UFD_CLK2, _secformat1];
-        _heli setobjecttexture [SEL_P_UFD_CLK3, _minformat2];
-        _heli setobjecttexture [SEL_P_UFD_CLK4, _minformat1];
-        _heli setobjecttexture [SEL_P_UFD_CLK5, _hourformat2];
-        _heli setobjecttexture [SEL_P_UFD_CLK6, _hourformat1];
-        _heli setobjecttexture [SEL_P_UFD_FL1, _intfuelformat4];
-        _heli setobjecttexture [SEL_P_UFD_FL2, _intfuelformat3];
-        _heli setobjecttexture [SEL_P_UFD_FL3, _intfuelformat2];
-        _heli setobjecttexture [SEL_P_UFD_FL4, _intfuelformat1];
+        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
+        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;
+        [_heli, _hour, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_HR] call fza_fnc_drawNumberSelections;
+        [_heli, _min, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
+        [_heli, _sec, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
+        [_heli, _hour, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_HR] call fza_fnc_drawNumberSelections;
+        [_heli, _min, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_MIN] call fza_fnc_drawNumberSelections;
+        [_heli, _sec, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_MIN] call fza_fnc_drawNumberSelections;
         //advisories//
         _a = [_heli, 1028, 1032, _advlist] call _wcacall;
         //cautions//
         _c = [_heli, 1033, 1037, _caulist] call _wcacall;
         //warnings//
         _w = [_heli, 1038, 1042, _wrnlist] call _wcacall;
-        //gunner
-        _heli setobjecttexture [SEL_G_UFD_CLK1, _secformat2];
-        _heli setobjecttexture [SEL_G_UFD_CLK2, _secformat1];
-        _heli setobjecttexture [SEL_G_UFD_CLK3, _minformat2];
-        _heli setobjecttexture [SEL_G_UFD_CLK4, _minformat1];
-        _heli setobjecttexture [SEL_G_UFD_CLK5, _hourformat2];
-        _heli setobjecttexture [SEL_G_UFD_CLK6, _hourformat1];
-        _heli setobjecttexture [SEL_G_UFD_FL1, _intfuelformat4];
-        _heli setobjecttexture [SEL_G_UFD_FL2, _intfuelformat3];
-        _heli setobjecttexture [SEL_G_UFD_FL3, _intfuelformat2];
-        _heli setobjecttexture [SEL_G_UFD_FL4, _intfuelformat1];
         //advisories//
         _a = [_heli, 1053, 1057, _advlist] call _wcacall;
         //cautions//

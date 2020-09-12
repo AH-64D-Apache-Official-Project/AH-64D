@@ -67,11 +67,6 @@ _vecuz = cos(_pitch) * cos(_bank);
 
 _bomb setVectorDirAndUp[[_vecdx, _vecdy, _vecdz], [_vecux, _vecuy, _vecuz]];
 
-if (!(isnil "fza_ah64_miscam")) then {
-    _bomb switchcamera "external";
-    _bombspeed = [_bomb] execvm "\fza_ah64_controls\scripting\speedcheck.sqf";
-};
-
 if ((fza_ah64_targlos == 0 && typeof _bomb == "fza_agm114l" && _launchmode == "lobl.sqf") || (_launchmode == "lobl.sqf" && typeof _bomb == "fza_agm114l" && fza_ah64_fcrstate == 0)) exitwith {
     fza_ah64_shotat_list = fza_ah64_shotat_list - [_target];
 };
