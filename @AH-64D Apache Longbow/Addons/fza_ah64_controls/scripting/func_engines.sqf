@@ -87,14 +87,14 @@ do {
         if ("fza_ah64_fwd_leak" in (_heli magazinesturret[-1]) || "fza_ah64_aft_leak" in (_heli magazinesturret[-1])) then {
             fza_ah64_fuelsave = fza_ah64_fuelsave - 0.0003;
         };
-        if (fza_ah64_cem && fuel _heli > 0 && !(_heli getVariable ["fza_ah64_estarted", false]) && !(_fueltrigger)) then {
+        if (fuel _heli > 0 && !(_heli getVariable ["fza_ah64_estarted", false]) && !(_fueltrigger)) then {
             _heli setfuel 0;
             _fueltrigger = true;
         };
-        if (fza_ah64_cem && !(isengineon _heli) && !(_heli getVariable ["fza_ah64_estarted", false])) then {
+        if (!(isengineon _heli) && !(_heli getVariable ["fza_ah64_estarted", false])) then {
             _heli setfuel 0;
         };
-        if (fza_ah64_cem && _heli getVariable ["fza_ah64_estarted", false] && _fueltrigger) then {
+        if (_heli getVariable ["fza_ah64_estarted", false] && _fueltrigger) then {
             _heli setfuel fza_ah64_fuelsave;
             fza_ah64_fuelsave = fuel _heli;
             _fueltrigger = false;
@@ -190,7 +190,7 @@ do {
         };
     };
 
-    if (fza_ah64_apuon == 1) then {
+    if ([_heli] call fza_fnc_engineAPUOn) then {
         fza_ah64_fuelsave = fza_ah64_fuelsave - 0.000002;
         _burnrate = 0.1875;
         if (_heli animationphase "plt_eng1_start" > 0) then {

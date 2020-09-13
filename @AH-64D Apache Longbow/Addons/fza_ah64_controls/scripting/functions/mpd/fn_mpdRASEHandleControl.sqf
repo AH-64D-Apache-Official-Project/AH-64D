@@ -32,7 +32,6 @@ switch(_control) do {
 		if (fza_ah64_irjstate == 2) then {
 			fza_ah64_irjstate = 0;
 		};
-		fza_ah64_l1clicked = 1;
 	};
 	case "l6": {
 		fza_ah64_irjon = 0;

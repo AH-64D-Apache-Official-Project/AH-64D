@@ -9,7 +9,7 @@ while {
 }
 do {
     waituntil {
-        player in _heli && fza_ah64_fcrstate == 1 && (isengineon _heli || fza_ah64_apuon == 1) && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))
+        player in _heli && fza_ah64_fcrstate == 1 && (isengineon _heli || [_heli] call fza_fnc_engineAPUOn) && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))
     };
 
     if (fza_ah64_agmode != 1) then {

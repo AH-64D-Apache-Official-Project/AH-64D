@@ -64,11 +64,7 @@ switch (_system) do {
 	};
 	case "pnvs": {
 		if (_control == "daynight") then {
-			if (fza_ah64_ihadss_pnvs_day) then {
-				fza_ah64_ihadss_pnvs_day = false;
-			} else {
-				fza_ah64_ihadss_pnvs_day = true;
-			};
+			fza_ah64_ihadss_pnvs_day = !fza_ah64_ihadss_pnvs_day
 			["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
 		}
 	};

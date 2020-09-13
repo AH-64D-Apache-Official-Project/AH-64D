@@ -1,5 +1,5 @@
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
-_heli = _this select 0;
+_heli = objNull;
 _targets = [];
 _curterhdg = 0;
 _maxalt = 2;
@@ -20,7 +20,7 @@ do {
     waituntil {
         (vehicle player) iskindof "fza_ah64base"
     };
-    //_heli = vehicle player;
+    _heli = vehicle player;
     waitUntil {
         ((driver(vehicle player) == player || gunner(vehicle player) == player) && isengineon(vehicle player))
     };

@@ -141,7 +141,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then 
 };
 
 //IHADSS INIT
-if (_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngineOn _heli && fza_ah64_monocleinbox == 0 || !(fza_ah64_cem) && fza_ah64_monocleinbox == 0) then {
+if (_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngineOn _heli && fza_ah64_monocleinbox == 0 || fza_ah64_monocleinbox == 0) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
@@ -177,7 +177,7 @@ if (fza_ah64_monocleinbox == 0 && cameraView == "INTERNAL") then {
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
 if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
-    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli || !(fza_ah64_cem)) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];

@@ -40,7 +40,6 @@ switch (_control) do {
 
 		};
 
-		fza_ah64_l1clicked = 1;
 		["fza_ah64_button_rotary", 0.5] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
