@@ -14,7 +14,6 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 1];
@@ -36,7 +35,6 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 0];
@@ -60,7 +58,6 @@ switch(_control) do {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 0.5];
@@ -134,7 +131,6 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 1];
@@ -156,7 +152,6 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 0];
@@ -180,7 +175,6 @@ switch(_control) do {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
-			fza_ah64_l1clicked = 1;
 
 			if (player == driver _heli) then {
 				_heli animate["plt_firesw", 0.5];

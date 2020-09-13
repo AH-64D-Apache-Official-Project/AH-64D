@@ -160,7 +160,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_engineGovernFinish = 0;
     fza_ah64_tsdsort = 0;
     fza_ah64_tsdsortarray = ["all"];
-    fza_ah64_laser = 0;
     fza_ah64_pfzcache = ["none", "none", [], 0];
     publicvariable "fza_ah64_pfzcache";
     if (isNil "fza_ah64_mis_ir") then {
