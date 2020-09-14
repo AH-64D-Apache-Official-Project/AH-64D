@@ -31,9 +31,9 @@ _waypointDistance = (fza_ah64_curwp distance2D getpos _heli);
 
 
 
-private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (fza_ah64_curwp # 0), (fza_ah64_curwp # 1)] call fza_ah64_reldir] call CBA_fnc_simplifyAngle180;
+private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (fza_ah64_curwp # 0), (fza_ah64_curwp # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 
-_vvect = [_heli] call fza_ah64_velvect;
+_vvect = [_heli] call fza_fnc_velocityVector;
 _vertvect = (_vvect select 0) + 0.5;
 _horvect = (_vvect select 1) + 0.6;
 

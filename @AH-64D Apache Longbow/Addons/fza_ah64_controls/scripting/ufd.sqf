@@ -107,42 +107,42 @@ do {
     if (player == gunner _heli && !(local _heli)) then {
         if ("fza_ah64_mdam_pylon1" in _mags && _pylon1dam == 0) then {
             _pylon1dam = 1;
-            [_heli, "pylon1"] call fza_ah64_weapondamage;
+            [_heli, "pylon1"] call fza_fnc_damageWeapon;
         } else {
             _pylon1dam = 0;
         };
 
         if ("fza_ah64_mdam_pylon2" in _mags && _pylon2dam == 0) then {
             _pylon2dam = 1;
-            [_heli, "pylon2"] call fza_ah64_weapondamage;
+            [_heli, "pylon2"] call fza_fnc_damageWeapon;
         } else {
             _pylon2dam = 0;
         };
 
         if ("fza_ah64_mdam_pylon3" in _mags && _pylon3dam == 0) then {
             _pylon3dam = 1;
-            [_heli, "pylon3"] call fza_ah64_weapondamage;
+            [_heli, "pylon3"] call fza_fnc_damageWeapon;
         } else {
             _pylon3dam = 0;
         };
 
         if ("fza_ah64_mdam_pylon4" in _mags && _pylon4dam == 0) then {
             _pylon4dam = 1;
-            [_heli, "pylon4"] call fza_ah64_weapondamage;
+            [_heli, "pylon4"] call fza_fnc_damageWeapon;
         } else {
             _pylon4dam = 0;
         };
 
         if ("fza_ah64_mdam_lwing" in _mags && _lwingdam == 0) then {
             _lwingdam = 1;
-            [_heli, "lwing"] call fza_ah64_weapondamage;
+            [_heli, "lwing"] call fza_fnc_damageWeapon;
         } else {
             _lwingdam = 0;
         };
 
         if ("fza_ah64_mdam_rwing" in _mags && _rwingdam == 0) then {
             _rwingdam = 1;
-            [_heli, "rwing"] call fza_ah64_weapondamage;
+            [_heli, "rwing"] call fza_fnc_damageWeapon;
         } else {
             _rwingdam = 0;
         };
@@ -349,7 +349,7 @@ do {
     };
     ///EWCA//
     //pilot
-    if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli)) then {
+    if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli) then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;

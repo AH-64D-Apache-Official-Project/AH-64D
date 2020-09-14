@@ -1,5 +1,5 @@
 /*
-	fza_ah64_ldrfcall
+	fza_fnc_laserSched
 */
 
 params["_heli"];

@@ -249,7 +249,7 @@ if (_system == "lfab") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_lfab" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_lfab", [-1]];
-        [_heli, _system] call fza_ah64_processdamage;
+        [_heli, _system] call fza_fnc_damageDisplayProcessor;
     };
 };
 
@@ -259,7 +259,7 @@ if (_system == "rfab") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_rfab" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_rfab", [-1]];
-        [_heli, _system] call fza_ah64_processdamage;
+        [_heli, _system] call fza_fnc_damageDisplayProcessor;
     };
 };
 
@@ -269,7 +269,7 @@ if (_system == "lwing") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_lwing" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_lwing", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 
@@ -279,7 +279,7 @@ if (_system == "rwing") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_rwing" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_rwing", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 
@@ -321,7 +321,7 @@ if (_system == "pylon1") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_pylon1" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_pylon1", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 
@@ -331,7 +331,7 @@ if (_system == "pylon2") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_pylon2" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_pylon2", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 
@@ -341,7 +341,7 @@ if (_system == "pylon3") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_pylon3" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_pylon3", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 
@@ -351,7 +351,7 @@ if (_system == "pylon4") then {
     };
     if (_damage >= 0.4 && !("fza_ah64_mdam_pylon4" in _mags)) then {
         _heli addmagazineturret["fza_ah64_mdam_pylon4", [-1]];
-        [_heli, _system] call fza_ah64_weapondamage;
+        [_heli, _system] call fza_fnc_damageWeapon;
     };
 };
 

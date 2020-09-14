@@ -1455,27 +1455,27 @@ if (currentweapon _heli in _rocketweps) then {
 	foreach magazines _heli;
 
 	if (_rocketcountA == 0) then {
-		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT)
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT);
 	} else {
 		[_heli, _rocketcountA, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT1_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountB == 0) then {
-		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT)
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT);
 	} else {
 		[_heli, _rocketcountB, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT2_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountC == 0) then {
-		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT)
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT);
 	} else {
 		[_heli, _rocketcountC, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT3_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountD == 0) then {
-		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT)
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT);
 	} else {
 		[_heli, _rocketcountD, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT4_TOT] call fza_fnc_drawNumberSelections;
 	};
 	if (_rocketcountE == 0) then {
-		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT)
+		CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT);
 	} else {
 		[_heli, _rocketcountE, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_RKT5_TOT] call fza_fnc_drawNumberSelections;
 	};
@@ -1646,12 +1646,12 @@ if (currentweapon _heli in _rocketweps) then {
 		_rktsel3 = _rktseltype;
 	};
 } else {
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT_TOT)
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT)
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT)
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT)
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT)
-	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT)
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT_TOT);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT1_TOT);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT2_TOT);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT3_TOT);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT4_TOT);
+	CLEAR_DIGITS(_heli, SEL_DIGITS_MPD_PL_RKT5_TOT);
 };
 _heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
 

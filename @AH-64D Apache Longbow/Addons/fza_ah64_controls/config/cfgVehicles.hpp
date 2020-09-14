@@ -800,7 +800,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && alive this";
 				shortcut="user4";
-				statement="[this] call fza_ah64_wepactionswitch";
+				statement="[this] call fza_fnc_weaponActionSwitch";
 			};
 			class gunburst
 			{
@@ -1167,11 +1167,11 @@ class CfgVehicles
 		{
 			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
 			engine = "_this call fza_fnc_engineEventHandler;";
-			fired = "_this execvm ""\fza_ah64_controls\scripting\ffar_align.sqf""; _this call fza_ah64_fx_EH_Fired; _this call fza_ah64_rocketalign; _this call fza_ah64_hellfirealign;";
-			GetIn = "_this execvm ""\fza_ah64_controls\scripting\getin.sqf""";
-			GetOut = "_this execvm ""\fza_ah64_controls\scripting\getout.sqf""";
+			fired = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; _this call fza_fnc_weaponHellfireAlign;";
+			GetIn = "_this call fza_fnc_eventGetIn;";
+			GetOut = "_this call fza_fnc_eventGetOut;";
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
-			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_ah64_systemdamage;}; if(alive (_this select 0)) then {_this select 2};";
+			HandleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_fnc_damageSystem;}; if(alive (_this select 0)) then {_this select 2};";
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
 		class MFD {};

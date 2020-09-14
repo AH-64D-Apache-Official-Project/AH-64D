@@ -1852,7 +1852,15 @@ do {
         _pod23rocket1 = 0;
         _pod23rocket2 = 0;
         _pod23rocket3 = 0;
-        [_heli] call fza_ah64_hiderockets;
+        _numsel = 227;
+
+        while {
+            (_numsel >= 0)
+        }
+        do {
+            _heli setobjecttexture[_numsel, ""];
+            _numsel = _numsel - 1;
+        };
     };
     if (_heli hasweapon "fza_atas_2") then {
         if (_heli hasweapon "fza_atas_2") then {

@@ -36,7 +36,7 @@ _points = _points apply {
 	if(typeName _pos == "OBJECT") then {
 		_pos = getPos _pos;
 	};
-	private _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_pos select 0), (_pos select 1)] call fza_ah64_reldir;
+	private _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_pos select 0), (_pos select 1)] call fza_fnc_relativeDirection;
 	if (_theta >= 180) then {
 		_theta = _theta - 360;
 	};

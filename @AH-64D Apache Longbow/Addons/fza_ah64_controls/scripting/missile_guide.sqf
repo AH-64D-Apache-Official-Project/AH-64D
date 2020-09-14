@@ -50,7 +50,7 @@ if (_bomb isKindOf "fza_agm114k" && _designator != _jet && !(_launchmode == "dir
     _basetargdist = _bomb distance _target;
 };
 
-_bombpb = _bomb call fza_ah64_getpb;
+_bombpb = _bomb call fza_fnc_getPitchBank;
 _pitch = _bombpb select 0;
 _bank = _bombpb select 1;
 

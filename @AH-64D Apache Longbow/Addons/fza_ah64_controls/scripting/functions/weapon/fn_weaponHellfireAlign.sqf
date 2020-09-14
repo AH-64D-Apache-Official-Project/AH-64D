@@ -87,7 +87,7 @@ if (_missobj isKindOf "fza_agm114l") then {
     _worldPos = _ah64 modelToWorldVisual _offset;
     _missobj setPos _worldPos;
 
-    _pbvar = _missobj call fza_ah64_getpb;
+    _pbvar = _missobj call fza_fnc_getPitchBank;
     _dir = direction _missobj;
     _angle = (_pbvar select 0) + ((_ah64 animationphase "pylon1") * 10);
     _pitch = (_pbvar select 1);

@@ -90,7 +90,7 @@ if (typeOf _bomb == "fza_agm114n") then {
 
 if (_launchmode == "direct.sqf" && (_bomb isKindOf "fza_agm114l" || _bomb isKindOf "fza_agm114m" || _bomb isKindOf "fza_agm114n" || _bomb isKindOf "fza_agm114k")) exitwith {};
 
-_bombpb = _bomb call fza_ah64_getpb;
+_bombpb = _bomb call fza_fnc_getPitchBank;
 _pitch = _bombpb select 0;
 _bank = _bombpb select 1;
 
@@ -110,7 +110,7 @@ _distfactor = _magvel * _mistime;
 _htfactor = _target modelToWorldVisual(_target selectionposition "zamerny");
 _finalX = (getposasl _posdetector select 0) + ((Sin((velocity _target select 0) atan2(velocity _target select 1))) * (_distfactor));
 _finaly = (getposasl _posdetector select 1) + ((Cos((velocity _target select 0) atan2(velocity _target select 1))) * (_distfactor));
-_targetpb = _target call fza_ah64_getpb;
+_targetpb = _target call fza_fnc_getPitchBank;
 _targetp = _targetpb select 0;
 _htfactor = _htfactor select 2;
 if (_htfactor > 1) then {
@@ -132,7 +132,7 @@ if (_finalZ < 0) then {
 
 //PITCH AND BANK
 
-_bombpb = _bomb call fza_ah64_getpb;
+_bombpb = _bomb call fza_fnc_getPitchBank;
 _pitch = _bombpb select 0;
 _bank = _bombpb select 1;
 
@@ -147,11 +147,11 @@ _finalY = _finalY + ((cos _dir) * (2000 / _speedfactor));
 _jdamtarget = [_finalX, _finaly, _finalZ];
 _bombpos = getposasl _bomb;
 
-_jetreldir = [_jet, (getposasl _jet select 0), (getposasl _jet select 1), (_jdamtarget select 0), (_jdamtarget select 1)] call fza_ah64_reldir;
+_jetreldir = [_jet, (getposasl _jet select 0), (getposasl _jet select 1), (_jdamtarget select 0), (_jdamtarget select 1)] call fza_fnc_relativeDirection;
 
 if ((_laserguided == 1 && _jetreldir > 120 && _jetreldir < 240) || (_laserguided == 1 && "fza_ah64_tads_fail" in magazines _jet && _designator == _jet)) exitwith {};
 
-_theta = [_bomb, (_bombpos select 0), (_bombpos select 1), (_jdamtarget select 0), (_jdamtarget select 1)] call fza_ah64_reldir;
+_theta = [_bomb, (_bombpos select 0), (_bombpos select 1), (_jdamtarget select 0), (_jdamtarget select 1)] call fza_fnc_relativeDirection;
 
 if (_theta < _hilimit && _theta > _lolimit) exitwith {
 

@@ -22,7 +22,7 @@
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "was", "Weapon Action Switch", {
-	CALL_ENSURE_IN_APACHE(fza_ah64_wepactionswitch)
+	CALL_ENSURE_IN_APACHE(fza_fnc_weaponActionSwitch)
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "armLaserDesig", "Arm Laser Designation System", {

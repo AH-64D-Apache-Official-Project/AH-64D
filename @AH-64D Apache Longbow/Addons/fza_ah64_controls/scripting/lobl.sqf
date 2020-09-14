@@ -12,7 +12,7 @@ do {
     if (count(nearestObjects[[_x, _y, 0], ["Car", "Tank", "Ship", "LaserTarget"], 50]) > 0 || _curalt > _alt + 500) exitWith {
         _missobj setvelocity[0, 0, 0];
     };
-    _pbvar = _missobj call fza_ah64_getpb;
+    _pbvar = _missobj call fza_fnc_getPitchBank;
     _dir = direction _missobj;
     _angle = _pbvar select 0;
     _angle = _angle + 2;

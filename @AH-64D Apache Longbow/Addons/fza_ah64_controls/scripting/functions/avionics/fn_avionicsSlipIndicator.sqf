@@ -3,7 +3,7 @@ _heli = _this select 0;
 
 if (!(player in _heli)) exitwith {};
 
-_helipb = _heli call fza_ah64_getpb;
+_helipb = _heli call fza_fnc_getPitchBank;
 _pitch = _helipb select 0;
 _bank = _helipb select 1;
 

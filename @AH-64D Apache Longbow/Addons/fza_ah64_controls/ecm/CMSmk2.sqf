@@ -36,12 +36,12 @@ if (local _hostile && !(local _ac)) then {
         };
         _mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
         _missile setdir(_mistheta - (random _chance1));
-        _pbvar = _missile call fza_ah64_getpb;
+        _pbvar = _missile call fza_fnc_getPitchBank;
         _pitch = _pbvar select 0;
         _bank = _pbvar select 1;
         _bank = _bank - (random _chance1);
         _pitch = _pitch - (random _chance1);
-        [_missile, _pitch, _bank] call fza_ah64_setpb;
+        [_missile, _pitch, _bank] call fza_fnc_setPitchBank;
         sleep 0.1;
     };
 
@@ -74,12 +74,12 @@ if (local _ac && !(player == driver _ac) || !(player == gunner _ac)) then {
         };
         _mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
         _missile setdir(_mistheta - (random _chance1));
-        _pbvar = _missile call fza_ah64_getpb;
+        _pbvar = _missile call fza_fnc_getPitchBank;
         _pitch = _pbvar select 0;
         _bank = _pbvar select 1;
         _bank = _bank - (random _chance1);
         _pitch = _pitch - (random _chance1);
-        [_missile, _pitch, _bank] call fza_ah64_setpb;
+        [_missile, _pitch, _bank] call fza_fnc_setPitchBank;
         sleep 0.1;
     };
 };
@@ -243,7 +243,7 @@ if (_reldir < 0) then {
 };
 
 _mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
-_pbvar = _missile call fza_ah64_getpb;
+_pbvar = _missile call fza_fnc_getPitchBank;
 _pitch = _pbvar select 0;
 _bank = _pbvar select 1;
 _pitchb = _pitch;
@@ -260,12 +260,12 @@ do {
     };
     _mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
     _missile setdir _basedir - (random _chance1);
-    _pbvar = _missile call fza_ah64_getpb;
+    _pbvar = _missile call fza_fnc_getPitchBank;
     _pitch = _pbvar select 0;
     _bank = _pbvar select 1;
     _pitchb = _pitch - (random _chance1);
     _bankb = _bank - (random _chance1);
-    [_missile, _pitchb, _bankb] call fza_ah64_setpb;
+    [_missile, _pitchb, _bankb] call fza_fnc_setPitchBank;
     sleep 0.05;
 };
 

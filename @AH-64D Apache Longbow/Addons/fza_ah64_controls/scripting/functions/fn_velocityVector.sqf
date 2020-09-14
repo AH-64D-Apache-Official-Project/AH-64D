@@ -4,7 +4,7 @@ _heli = _this select 0;
 if (!(player in _heli)) exitwith {};
 
 _vertvect = ((velocity _heli select 2) atan2 sqrt(((velocity _heli select 0) * (velocity _heli select 0)) + ((velocity _heli select 1) * (velocity _heli select 1))));
-_helipb = _heli call fza_ah64_getpb;
+_helipb = _heli call fza_fnc_getPitchBank;
 
 _vertvect = (_vertvect - (_helipb select 0));
 _horveldir = (velocity _heli select 0) atan2(velocity _heli select 1);

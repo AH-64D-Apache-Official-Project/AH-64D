@@ -26,37 +26,6 @@
 	[true]
 ] call CBA_fnc_addSetting;
 
-fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
-fza_ah64_fx_30mm = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
-fza_ah64_rocketalign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
-fza_ah64_hellfirealign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\hellfire_align.sqf";
-fza_ah64_hiderockets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_hidewpn.sqf";
-fza_ah64_systemdamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\system_dam.sqf";
-fza_ah64_weapondamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\weapon_dam.sqf";
-fza_ah64_processdamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\processor_dam.sqf";
-fza_ah64_weaponfault = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\gun_jam.sqf";
-fza_ah64_ldrfcall = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ldrf.sqf";
-fza_ah64_mousepos = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_mousepos.sqf";
-fza_ah64_hmdihadss = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ihadss.sqf";
-fza_ah64_pfsched = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pfsched.sqf";
-fza_ah64_rotordam = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\dam_rotor.sqf";
-fza_ah64_misguide = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_missileg.sqf"; //NO MSL TRACKING WITHOUT IT
-fza_ah64_setpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fsetpitch.sqf";
-fza_ah64_getpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\frotate.sqf";
-fza_ah64_reldir = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_reldir.sqf";
-fza_ah64_turrets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_turrets.sqf";
-fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf";
-fza_ah64_pnvscontrol = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pnvs.sqf";
-fza_ah64_targetcycle = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_targeting.sqf";
-fza_ah64_wepactionswitch = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_was.sqf";
-fza_ah64_velvect = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_vvect.sqf";
-fza_ah64_slipcheck = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_slip.sqf";
-fza_ah64_timetowp = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_timetowp.sqf";
-fza_ah64_perframe = {
-	uiNamespace setVariable["fza_ah64_mapfake", (_this select 0)];
-	((_this select 0) displayCtrl 3001) ctrlSetEventHandler["Draw", '[_this] call fza_ah64_pfsched'];
-};
-
 fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
 fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
 fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
@@ -112,33 +81,20 @@ fza_ah64_wptimtm = 0;
 fza_ah64_wptimsm = 0;
 fza_ah64_wpdistr = 0;
 fza_ah64_tiron = false;
-if (isNil "fza_ah64_desiglist") then {
-	fza_ah64_desiglist = [];
-};
-
+fza_ah64_desiglist = [];
 fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
 fza_ah64_bweff ppEffectAdjust[0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 fza_ah64_bweff ppEffectCommit 0;
 fza_ah64_bweff ppEffectEnable false;
-
-if (isNil "fza_ah64_targetlist") then {
-	fza_ah64_targetlist = [];
-};
-if (isNil "fza_ah64_mycurrenttarget") then {
-	fza_ah64_mycurrenttarget = objNull;
-};
+fza_ah64_targetlist = [];
+fza_ah64_mycurrenttarget = objNull;
 fza_ah64_wheelbrake = 1;
 fza_ah64_burst = 1;
 fza_ah64_tsdsort = 0;
 fza_ah64_tsdsortarray = ["all"];
 fza_ah64_pfzcache = ["none", "none", [], 0];
-publicvariable "fza_ah64_pfzcache";
-if (isNil "fza_ah64_mis_ir") then {
-	fza_ah64_mis_ir = ["M_R73_AA", "M_Strela_AA", "M_Igla_AA", "M_Stinger_AA", "M_Sidewinder_AA", "fza_fim92"];
-};
-if (isNil "fza_ah64_mis_rf") then {
-	fza_ah64_mis_rf = ["M_9M311_AA"];
-};
+fza_ah64_mis_ir = ["M_R73_AA", "M_Strela_AA", "M_Igla_AA", "M_Stinger_AA", "M_Sidewinder_AA", "fza_fim92"];
+fza_ah64_mis_rf = ["M_9M311_AA"];
 fza_ah64_aseautopage = 0;
 fza_ah64_asethreats = [];
 fza_ah64_threattracking = [];
@@ -187,10 +143,10 @@ fza_ah64_nohelpers = 1;
 fza_ah64_ihadssoff = 1;
 fza_ah64_monocleinbox = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_damageRotors, fza_fnc_laserSched, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
 fza_ah64_asemisarray = [];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
-	[0] call fza_ah64_pfsched;
+	[0] call fza_fnc_coreScheduler;
 }];
 fza_ah64_pfsstate = true;
 

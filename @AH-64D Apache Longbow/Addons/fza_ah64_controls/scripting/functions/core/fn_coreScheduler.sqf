@@ -13,7 +13,7 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker && alive _heli && (player
     //missiles
     _miscounter = 0; {
         if (!(isnull(_x select 0))) then {
-            [_heli, (_x select 0), (_x select 1), (_x select 2), (_x select 3), _miscounter, (_x select 5), (_x select 6), (_x select 7)] call fza_ah64_misguide;
+            [_heli, (_x select 0), (_x select 1), (_x select 2), (_x select 3), _miscounter, (_x select 5), (_x select 6), (_x select 7)] call fza_fnc_weaponMissileGuide;
         } else {
             fza_ah64_misguidearray set[_miscounter, -1];
             fza_ah64_misguidearray = fza_ah64_misguidearray - [-1];

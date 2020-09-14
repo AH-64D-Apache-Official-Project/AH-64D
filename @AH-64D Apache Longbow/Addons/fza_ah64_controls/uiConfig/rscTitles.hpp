@@ -11,7 +11,7 @@ class RscTitles
 		fadeout      =  0;
 		name = "fza_ah64_mapfake";
 		//uiNameSpace setvariable ['fza_ah64_mapfake',_this select 0];
-		onLoad = "_this call fza_ah64_perframe;";
+		onLoad = "uiNamespace setVariable[""fza_ah64_mapfake"", (_this select 0)]; ((_this select 0) displayCtrl 3001) ctrlSetEventHandler[""Draw"", '[_this] call fza_fnc_coreScheduler'];";
 		onunLoad = "((_this) displayCtrl 3001) ctrlSetEventHandler [""Draw"", '']; fza_ah64_pfsstate = false;";
 		class controlsBackground
 		{

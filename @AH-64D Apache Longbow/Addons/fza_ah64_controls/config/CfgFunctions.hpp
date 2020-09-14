@@ -4,6 +4,11 @@ class CfgFunctions
 	class fza_ah64_project
 	{
 		tag = "FZA";
+		class avionics
+		{
+			file = "\fza_ah64_controls\scripting\functions\avionics";
+			class avionicsSlipIndicator {R;};
+		}
 		class controlHandlers
 		{
 			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
@@ -21,11 +26,21 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
 			class coreGetObjectsLookedAt {R;};
-			class coreGetWCAs {R;}
+			class coreGetWCAs {R;};
+			class coreScheduler {R;};
+		};
+		class damage {
+			file = "\fza_ah64_controls\scripting\functions\damage";
+			class damageDisplayProcessor {R;};
+			class damageSystem {R;};
+			class damageWeapon {R;};
+			class damageM230 {R;};
+			class damageRotors {R;};
 		}
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
+			class engineAPUOn {R;};
 			class engineEventHandler {R;};
 			class engineGetData
 			{
@@ -59,21 +74,35 @@ class CfgFunctions
 				description = "Updates internal engine state";
 			};
 		};
+		class event
+		{
+			file = "\fza_ah64_controls\scripting\functions\event";
+			class eventFired{R;};
+			class eventGetIn{R;};
+			class eventGetOut{R;};
+		}
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {R;};
 		};
+		class fx {
+			file = "\fza_ah64_controls\scripting\functions\fx";
+			class fx30mm {R;};
+			class fxMuzzle {R;};
+		}
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
+			class ihadssDraw {R;};
 		};
 		class laser
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
 			class laserDisarm {R;};
+			class laserSched {R;}
 		}
 		class lighting
 		{
@@ -139,12 +168,32 @@ class CfgFunctions
 			class mpdUpdateMap {R;};
 			class mpdUpdatePoints {R;};
 		};
+		class navigation {
+			file = "\fza_ah64_controls\scripting\functions\navigation";
+			class navigationWaypointEta {R;};
+		}
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
 			class targetingPFZCycle {R;};
+			class targetingPNVSControl {R;};
+			class targetingSched {R;};
 			class targetingUpdate {R;};
 		};
+		class ui
+		{
+			file = "\fza_ah64_controls\scripting\functions\ui";
+			class uiMouseMove {R;};
+		}
+		class weapon
+		{
+			file = "\fza_ah64_controls\scripting\functions\weapon";
+			class weaponActionSwitch {R;};
+			class weaponHellfireAlign {R;};
+			class weaponMissileGuide {R;};
+			class weaponTurretAim {R;};
+			class weaponRocketAlign {R;};
+		}
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";
@@ -160,6 +209,10 @@ class CfgFunctions
 			};
 			class displayTime {R;};
 			class drawNumberSelections {R;};
+			class setPitchBank {R;};
+			class getPitchBank {R;};
+			class relativeDirection {R;};
+			class velocityVector {R;};
 			class playAudio
 			{
 				R;

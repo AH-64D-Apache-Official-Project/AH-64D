@@ -37,7 +37,7 @@ if (fza_ah64_tsdmode == "nav") then {
 };
 
 private _targetRange = if (_targetPos isEqualTo []) then {0} else {(_targetPos distance2d _heli) / 1000};
-private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_targetPos select 0), (_targetPos # 1)] call fza_ah64_reldir};
+private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_targetPos select 0), (_targetPos # 1)] call fza_fnc_relativeDirection};
 
 [_heli, _targetRange / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_DIST] call fza_fnc_drawNumberSelections;
 [_heli, _targetDir, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WTDIR] call fza_fnc_drawNumberSelections;

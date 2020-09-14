@@ -74,7 +74,7 @@ if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
     if (isNil "fza_ah64_mousetracker") then {
-        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_ah64_mousepos"];
+        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
     };
     fza_ah64_helperinit = true;
 };
@@ -442,7 +442,7 @@ if (fza_ah64_mycurrenttarget iskindof "Lasertarget") then {
     _targrange = format["%1%2", "*", round(_heli distance fza_ah64_mycurrenttarget)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_ah64_reldir;
+_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -546,7 +546,7 @@ if (_slip < 0.44) then {
     _slip = 0.44;
 };
 
-_vvect = [_heli] call fza_ah64_velvect;
+_vvect = [_heli] call fza_fnc_velocityVector;
 _vertvect = ((_vvect select 0) * -1) + 0.5;
 _horvect = (_vvect select 1) + 0.485;
 
@@ -1034,7 +1034,7 @@ if (_fpm < -0.13) then {
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
-_pbvar = _heli call fza_ah64_getpb;
+_pbvar = _heli call fza_fnc_getPitchBank;
 
 //HUD HORIZON OBJECTS
 

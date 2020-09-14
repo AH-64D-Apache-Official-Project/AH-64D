@@ -23,8 +23,4 @@ if (vehicle player iskindof "fza_ah64base" && fza_ah64_tiron) then {
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetPosition[fza_ah64_mousehorpos - 0.25, fza_ah64_mousevertpos + 0.02];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlCommit 0.01;
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlCommit 0.01;
-
-    //_centpos = ctrlPosition ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601);
-
-    //hintsilent format ["%1,%2 \n%3",_mousex,_mousey,_centpos];
 };

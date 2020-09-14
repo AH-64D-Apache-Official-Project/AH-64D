@@ -269,7 +269,7 @@ if ((fza_ah64_guncontrol == 1 || fza_ah64_guncontrol == 2) && (gunner _heli == p
         _targelevg = ((getposasl _heli select 2) - (_finalZ2)) atan2([_finalX, _finalY, 0] distance[(_helipos select 0), (_helipos select 1), 0]);
         //player globalchat format ["%1 %2",_targelev,_distfactor2];
 
-        _pbvar = _heli call fza_ah64_getpb;
+        _pbvar = _heli call fza_fnc_getPitchBank;
         _pitch = _pbvar select 0;
         _bank = _pbvar select 1;
         _azimuth = (_targdir * (cos _bank)) + ((-1 * (_targelevg + _pitch)) * (sin _bank));

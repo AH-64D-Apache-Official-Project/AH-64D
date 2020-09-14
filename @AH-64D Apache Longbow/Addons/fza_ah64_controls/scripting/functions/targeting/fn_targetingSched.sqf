@@ -28,7 +28,7 @@ fza_ah64_tsddisptargs = [];
         };
     };
 
-    _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _i select 0), (getposatl _i select 1)] call fza_ah64_reldir;
+    _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _i select 0), (getposatl _i select 1)] call fza_fnc_relativeDirection;
 
     if ((fza_ah64_agmode == 1 && getpos _i select 2 < 10) || (_theta > 45 && _theta < 315) || (fza_ah64_agmode == 0 && getpos _i select 2 > 10) || (((_heli distance _i) * fza_ah64_rangesetting) > 1) || !(alive _i)) then {
         fza_ah64_tsdtargets = fza_ah64_tsdtargets - [_i];

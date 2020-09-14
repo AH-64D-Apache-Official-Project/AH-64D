@@ -1,10 +1,21 @@
-_array = _this;
-_ah64 = _this select 0;
-_weapon = _this select 1;
-_muzzle = _this select 2;
-_mode = _this select 3;
-_ammotype = _this select 4;
-_missobj = _this select 6;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponHandleFire
+
+Description:
+    Event handler that handles any ammunition fired by the apache
+
+Parameters:
+    Schema of the "fired" event handler.
+
+Returns:
+	Nothing
+
+Examples:
+
+Author:
+	unknown
+---------------------------------------------------------------------------- */
+params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
 _mags = magazines _ah64;
 
 if (!(player == driver _ah64 || player == gunner _ah64)) exitwith {};
@@ -15,8 +26,6 @@ if (_missobj isKindOf "fza_agm114l" || _missobj isKindOf "fza_agm114k" || _misso
     sleep 0.1;
     [_ah64, _missobj] execvm "\fza_ah64_controls\scripting\missile_guide.sqf";
 };
-
-
 
 //COUNTERMEASURES
 
@@ -43,8 +52,10 @@ if (_weapon == "fza_CMFlareLauncher") then {
     if (_mode == "Burst") then {
         fza_ah64_cmsel = 3;
     };
-    sleep 3;
-    fza_ah64_curflrln = fza_ah64_curflrln - 2;
+    [] spawn {
+        sleep 3;
+        fza_ah64_curflrln = fza_ah64_curflrln - 2;
+    }
 };
 
 //SPECIAL SCRIPTS
@@ -65,7 +76,7 @@ if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || is
         fza_ah64_burst = 0;
     };
     if (fza_ah64_gunheat > 105) then {
-        [_ah64] call fza_ah64_weaponfault;
+        [_ah64] call fza_fnc_damageM230;
     };
     fza_ah64_burst = fza_ah64_burst + 1;
     fza_ah64_gunheat = fza_ah64_gunheat + 1;
@@ -75,25 +86,27 @@ if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || is
 //ROCKETS SALVOS
 
 if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
-    sleep 0.011;
-    if (fza_ah64_rocketsalvo > 0 && fza_ah64_salvofired < fza_ah64_rocketsalvo && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
-        if (_ah64 ammo _weapon <= 0) then {
+    [] spawn {
+        sleep 0.011;
+        if (fza_ah64_rocketsalvo > 0 && fza_ah64_salvofired < fza_ah64_rocketsalvo && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
+            if (_ah64 ammo _weapon <= 0) then {
+                fza_ah64_salvofired = 0;
+            };
+            _weaponindex = 1;
+            _wpncounter = 0; {
+                if (_x == _weapon) then {
+                    _weaponindex = _wpncounter;
+                };
+                _wpncounter = _wpncounter + 1;
+            }
+            foreach(weapons _ah64);
+            _ah64 setWeaponReloadingTime[gunner _ah64, _weapon, 0];
+            _ah64 action["useWeapon", _ah64, gunner _ah64, _weaponindex];
+        };
+
+        if (fza_ah64_salvofired >= fza_ah64_rocketsalvo) then {
+            sleep 0.1;
             fza_ah64_salvofired = 0;
         };
-        _weaponindex = 1;
-        _wpncounter = 0; {
-            if (_x == _weapon) then {
-                _weaponindex = _wpncounter;
-            };
-            _wpncounter = _wpncounter + 1;
-        }
-        foreach(weapons _ah64);
-        _ah64 setWeaponReloadingTime[gunner _ah64, _weapon, 0];
-        _ah64 action["useWeapon", _ah64, gunner _ah64, _weaponindex];
-    };
-
-    if (fza_ah64_salvofired >= fza_ah64_rocketsalvo) then {
-        sleep 0.1;
-        fza_ah64_salvofired = 0;
     };
 };
