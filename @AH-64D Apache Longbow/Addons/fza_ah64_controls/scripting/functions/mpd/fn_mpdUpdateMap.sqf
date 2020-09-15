@@ -1,3 +1,23 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_mpdUpdateMap
+
+Description:
+	Does the maths and animations to correctly line up the moving map on the right MPD.
+
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_mpdUpdateMap
+	---
+
+Author:
+	Unknown, mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
 
 params ["_heli"];

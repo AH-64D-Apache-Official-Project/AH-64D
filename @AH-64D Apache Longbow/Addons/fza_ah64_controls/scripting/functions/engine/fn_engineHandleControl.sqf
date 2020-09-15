@@ -1,3 +1,25 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_engineHandleControl
+
+Description:
+    Handles any engine-related cockpit controls.
+
+Parameters:
+	_heli - The helicopter to act on
+	_system - the name of the system that the touched control belongs to
+	_control - the name of the control that has been touched
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli, "engine", "rtrbrake"] call engineHandleControl
+	---
+
+Author:
+	Unknown, mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params ["_heli", "_system", "_control"];

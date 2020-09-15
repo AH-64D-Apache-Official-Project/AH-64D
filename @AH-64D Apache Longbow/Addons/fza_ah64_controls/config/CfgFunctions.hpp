@@ -197,11 +197,6 @@ class CfgFunctions
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";
-			class findPlayer
-			{
-				R;
-				description = "Find player controled unit";
-			};
 			class linearInterp
 			{
 				R;

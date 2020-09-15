@@ -11,10 +11,10 @@ Returns:
     Nothing
 
 Examples:
-	(begin example)
+	--- Code
     [_heli] call fza_fnc_fxMuzzle
     //camera shakes if 30mm was fired 
-	(end)
+	---
 
 Author:
     unknown

@@ -1,6 +1,25 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_coreScheduler
+
+Description:
+    Schedules updates to all tasks in *fza_ah64_schedarray* and performs missile guidance to all missiles in *fza_ah64_misguidearray*
+
+Parameters:
+    _heli - The helicopter to modify
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_coreScheduler
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
-private["_dc", "_heli", "_ticker"];
-_dc = _this select 0;
+private["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 0.01;
 fza_ah64_missiontimestamp = time;

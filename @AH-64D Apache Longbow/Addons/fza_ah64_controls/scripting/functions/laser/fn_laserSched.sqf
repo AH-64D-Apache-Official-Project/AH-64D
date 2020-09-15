@@ -1,7 +1,23 @@
-/*
-	fza_fnc_laserSched
-*/
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_laserSched
 
+Description:
+    Should be run repeatedly, moves around apache's laser.
+
+Parameters:
+	_heli - The helicopter to act upon
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_laserSched
+	---
+
+Author:
+	Unknown, mattysmith22
+---------------------------------------------------------------------------- */
 params["_heli"];
 
 private _gunner = gunner _heli;

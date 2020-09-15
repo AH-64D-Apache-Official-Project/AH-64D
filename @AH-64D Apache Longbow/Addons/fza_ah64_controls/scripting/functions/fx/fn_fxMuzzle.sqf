@@ -11,10 +11,10 @@ Returns:
     Nothing
 
 Examples:
-	(begin example)
+	--- Code
     [_ammo] call fza_fnc_fxMuzzle
     //Smoke / rocket launch / missile firing effect occurs.
-	(end)
+	---
 
 Author:
     unknown

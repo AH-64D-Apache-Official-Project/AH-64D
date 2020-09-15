@@ -1,4 +1,24 @@
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_damageRotors
+
+Description:
+    Should be called regularly. Simulates uncontrollable movements if rotor is lost.
+
+Parameters:
+    _heli - The helicopter to modify
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_damageRotors
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params["_heli"];
 
 if ("fza_ah64_rotor_dam" in (_heli magazinesturret[-1]) && alive _heli && (getpos _heli select 2) > 1 && player == driver _heli) then {
     _dir = direction _heli;
@@ -16,29 +36,6 @@ if ("fza_ah64_rotor_dam" in (_heli magazinesturret[-1]) && alive _heli && (getpo
     [_heli, _pitch, _bank] call fza_fnc_setPitchBank;
 
 };
-
-/*
-if("fza_ah64_rotor_fail" in (_heli magazinesturret [-1]) && alive _heli && (getpos _heli select 2) > 3 && player == driver _heli) then
-{
-_dir = direction _heli;
-_helipb = _heli call fza_fnc_getPitchBank;
-_pitch = _helipb select 0;
-_bank = _helipb select 1;
-
-_bank = _bank;
-_pitch = _pitch - 0.5;
-
-[_heli,_pitch,_bank] call fza_fnc_setPitchBank;
-
-_vel = velocity _heli;
-
-if((_vel select 2) > -10) then
-{
-_heli setvelocity [(_vel select 0),(_vel select 1),(_vel select 2)-0.5];
-};
-
-};
-*/
 
 if ("fza_ah64_cdam_tailboom" in (_heli magazinesturret[-1]) && alive _heli && (getpos _heli select 2) > 3 && player == driver _heli) then {
     _dir = direction _heli;

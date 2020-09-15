@@ -1,5 +1,24 @@
-private["_heli"];
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_targetingSched
+
+Description:
+	Handles repetitive target management. Should be run regularly in the scheduler.
+
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_targetingSched
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params ["_heli"];
 if (!(player in _heli)) exitwith {};
 private _visibleTargets = [];
 

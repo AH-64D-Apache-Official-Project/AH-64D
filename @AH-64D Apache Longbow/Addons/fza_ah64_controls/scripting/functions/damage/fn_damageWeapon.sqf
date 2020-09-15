@@ -1,5 +1,25 @@
-_heli = _this select 0;
-_system = _this select 1;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_damageWeapon
+
+Description:
+    Destroys (removes) weapons from a pylon if it is hit.
+
+Parameters:
+    _heli - The helicopter to modify
+    _system - The *HitPoint* that was damaged
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli, "lwing"] call fza_fnc_damageWeapon
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params ["_heli", "_system"];
 
 if (player in _heli || local _heli) then {
 

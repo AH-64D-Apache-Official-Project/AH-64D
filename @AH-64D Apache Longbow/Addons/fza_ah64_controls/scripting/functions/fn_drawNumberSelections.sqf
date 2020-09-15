@@ -16,21 +16,21 @@ Returns:
 	Nothing
 
 Examples:
-    (begin example)
+    --- Code
 	_selections = [SEL_MPD_PL_FLT_SPD1, SEL_MPD_PL_FLT_SPD2, SEL_MPD_PL_FLT_SPD3];
 	[_heli, 1000, "\fza_ah64_us\tex\CHAR\G", _selections] call fza_fnc_drawNumberSelections;
 	//Draws "999" on the display
-    (end)
+    ---
 
-	(begin example)
+	--- Code
 	_result = [_heli, 1000, "\fza_ah64_us\tex\CHAR\G", _selections, 0, 130] call fza_fnc_drawNumberSelections;
 	//Draws "130" on the display
-    (end)
+    ---
 
-	(begin example)
+	--- Code
 	_result = [_heli, 0, "\fza_ah64_us\tex\CHAR\G", _selections, 10, 130] call fza_fnc_drawNumberSelections;
 	//Draws "10" on the display
-    (end)
+    ---
 
 Author:
 	mattysmith22

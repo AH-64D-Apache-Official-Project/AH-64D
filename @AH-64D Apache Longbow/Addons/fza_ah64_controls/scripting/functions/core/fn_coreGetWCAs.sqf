@@ -15,7 +15,7 @@ Returns:
 	* _mpd - the texture to be used by the MPD
 
 Examples:
-	(begin example)
+	--- Code
 	// Helicopter without any issues
     _data = [_heli] call fza_fnc_coreGetWCAs
 	// _data = []
@@ -23,7 +23,7 @@ Examples:
 	// Helicoper with an engine fire and the rotor brake on
     _data = [_heli] call fza_fnc_coreGetWCAs
 	// _data = [[WCA_WARNING, "\fza_ah64_us\tex\MPD\E1Fire.paa"], 
-	(end)
+	---
 
 Author:
 	mattysmith22

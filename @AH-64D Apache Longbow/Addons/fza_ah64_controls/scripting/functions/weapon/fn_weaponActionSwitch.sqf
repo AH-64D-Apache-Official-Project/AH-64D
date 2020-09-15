@@ -1,5 +1,24 @@
-private["_heli"];
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponActionSwitch
+
+Description:
+	Switches the player between different weapon types
+
+Parameters:
+    _heli - The helicopter to act upon
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_weaponActionSwitch
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params["_heli"];
 
 if (!(player in _heli)) exitwith {};
 

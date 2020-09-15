@@ -1,8 +1,27 @@
-private["_heli", "_system", "_damage", "_mags"];
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_damageSystem
 
-_heli = _this select 0;
-_system = _this select 1;
-_damage = _this select 2;
+Description:
+    Handles general damage to the aircraft. Determines whether a failure should be simulated and if so, sets it up.
+
+Parameters:
+    _heli - The helicopter to modify
+    _system - The *HitPoint* that was damaged
+    _damage - The damage amount of the *HitPoint* (0-1)
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_damageSystem
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params["_heli", "_system", "_damage"];
+
 _mags = _heli magazinesTurret[-1];
 _usesound = false;
 

@@ -1,7 +1,23 @@
-_array = _this;
-_heli = _this select 0;
-_position = _this select 1;
-_unit = _this select 2;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_eventGetOut
+
+Description:
+    Event handler that finishes parts of apache logic when someone gets out.
+
+    Closes HUD UI
+
+Parameters:
+    _heli - the helicopter to modify
+
+Returns:
+	Nothing
+
+Examples:
+
+Author:
+	unknown
+---------------------------------------------------------------------------- */
+params["_heli"];
 _isHeliDriver = !(player isEqualTo driver objectParent player);
 _isHeliGunner = !(player isEqualTo gunner objectParent player);
 

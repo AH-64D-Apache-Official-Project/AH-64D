@@ -9,9 +9,9 @@ Parameters:
 	_points - the points to draw on the screen. An array with arrays in it that fit the following schema
 	    [_pos, _tex, _priority]
 		where:
-		    _pos - the position of the item as a 2d or 3d array, or an object (where the object's position will be used)
-			_tex - the texture to use to represent the point
-			_priority - (between 0 and 1) if two points overlap, the one with the larger number will be on top
+		    _pos is the position of the item as a 2d or 3d array, or an object (where the object's position will be used)
+			_tex is the texture to use to represent the point
+			_priority is (between 0 and 1) if two points overlap, the one with the larger number will be on top
 	_clipToScreen - If a point goes off screen, should it be removed or drawn.
 
 Returns:

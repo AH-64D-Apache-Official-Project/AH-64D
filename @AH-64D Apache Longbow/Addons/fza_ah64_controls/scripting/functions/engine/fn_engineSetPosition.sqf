@@ -13,9 +13,9 @@ Returns:
 	Whether the control actually did anything
 
 Examples:
-    (begin example)
+    --- Code
 	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
-    (end)
+    ---
 
 Author:
 	mattysmith22

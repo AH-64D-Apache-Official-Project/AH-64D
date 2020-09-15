@@ -1,6 +1,28 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_fireHandleControl
+
+Description:
+    Handles any fire-related cockpit controls.
+
+Parameters:
+	_heli - The helicopter to act on
+	_system - the name of the system that the touched control belongs to
+	_control - the name of the control that has been touched
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli, "fire", "fe1"] call fireHandleControl
+	---
+
+Author:
+	Unknown, mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
-params ["_heli", "_system", "_control"];
+params ["_heli", "fire", "fe1"];
 
 switch(_control) do {
 	case "apu": {

@@ -15,7 +15,7 @@ Returns:
 	    [Pilot memory point, Gunner memory point, system, control, sensitivity, description, distance]
 
 Examples:
-	(begin example)
+	--- Code
 	// Player not looking at anything
     _data = [_heli] call fza_fnc_coreGetObjectsLookedAt
 	// _data = []
@@ -23,7 +23,7 @@ Examples:
 	// Player looking at the L1 button on the right MPD
     _data = [_heli] call fza_fnc_coreGetObjectsLookedAt
 	// _data = [["ctrlref_rmpd_l1", "ctrlref_g_rmpd_l1", "rmpd", "l1", 0.015, "Right MPD L1"]]
-	(end)
+	---
 
 Author:
 	mattysmith22

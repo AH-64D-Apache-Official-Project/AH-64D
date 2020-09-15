@@ -12,15 +12,15 @@ Returns:
 	The two MPDs that are being displayed.
 
 Examples:
-    (begin example)
+    --- Code
 	_ret = [_heli, 0] call fza_fnc_mpdGetCurrentDisplay;
 	// _ret => "fuel"
-    (end)
+    ---
 
-	(begin example)
+	--- Code
 	_ret = [_heli, 1] call fza_fnc_mpdGetCurrentDisplay;
 	// _ret => "eng"
-	(end)
+	---
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */

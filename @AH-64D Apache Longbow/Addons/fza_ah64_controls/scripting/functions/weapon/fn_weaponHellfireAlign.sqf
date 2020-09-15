@@ -1,3 +1,21 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponHellfireAlign
+
+Description:
+	Aligns hellfire upon launch so they come off the correct position on the rack
+
+Parameters:
+    (fired event schema)
+
+Returns:
+	Nothing
+
+Examples:
+	Call from event handler
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
 _array = _this;
 _ah64 = _this select 0;
 _weapon = _this select 1;

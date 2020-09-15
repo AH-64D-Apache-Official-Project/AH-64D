@@ -1,5 +1,24 @@
-private["_heli"];
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_targetingPNVSControl
+
+Description:
+	Handles the movement of the PNVS when the player moves their head or mouse (depending on if they are in head tracking mode.)
+
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_targetingPNVSControl
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params["_heli"];
 if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
     if (inputaction "nextCM" == 1 && fza_ah64_cmpressed == 0) then {
         fza_ah64_cmsel = fza_ah64_cmsel + 1;

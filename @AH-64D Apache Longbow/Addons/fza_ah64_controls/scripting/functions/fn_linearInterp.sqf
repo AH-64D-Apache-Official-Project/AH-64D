@@ -18,7 +18,7 @@ Returns:
 	Array of results
 
 Examples:
-    (begin example)
+    --- Code
 	_interpArray = [[0, -1, 4, 5], [2, -2, 6, 7], [6, -5, 0, 14]]
 	
 	_badInterpArray = [[0, -1, 4, 5], [6, -5, 0, 14], [2, -2, 6, 7]]
@@ -32,7 +32,7 @@ Examples:
 	
 	_result = [_interpArray, 10] call fza_fnc_linearInterp //Above range
 	//_result => [2, -2, 6, 7]
-    (end)
+    ---
 
 Author:
 	mattysmith22

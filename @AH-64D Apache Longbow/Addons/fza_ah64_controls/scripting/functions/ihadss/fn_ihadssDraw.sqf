@@ -1,5 +1,25 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_ihadssDraw
+
+Description:
+    Draws the IHADSS overlay for the player.
+
+Parameters:
+	_heli - The heli object to draw the IHADSS for
+
+Returns:
+    Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_ihadssDraw
+	---
+
+Author:
+    unknown
+---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
-_heli = _this select 0;
+params ["_heli"];
 
 _locktargstate = 0;
 _modestate = 0;

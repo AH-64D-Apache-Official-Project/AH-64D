@@ -1,5 +1,23 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_targetingUpdate
 
+Description:
+	Handles repetitive ASE targeting information management. Should be run regularly.
 
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_targetingUpdate
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
 params ["_heli"];
 
 fza_ah64_asethreats = fza_ah64_targetlist select { alive _x && _x call fza_fnc_targetIsADA && [side _x, side _heli] call BIS_fnc_sideIsEnemy};

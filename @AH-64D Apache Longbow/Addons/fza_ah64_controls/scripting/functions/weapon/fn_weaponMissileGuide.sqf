@@ -1,3 +1,28 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponMissileGuide
+
+Description:
+	Guides missile according to following inputs:
+
+Parameters:
+    _jet
+    _bomb
+    _target
+    _launchmode
+    _designator
+    _bombarray
+    _posdetector
+    _jetalt
+    _basetargdist
+
+Returns:
+	Nothing
+
+Examples:
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
 if (count fza_ah64_misguidearray < 1) exitwith {};
 private["_jet", "_bomb", "_target", "_launchmode", "_designator", "_bombarray", "_posdetector", "_jetalt", "_basetargdist"];
 _jet = _this select 0;

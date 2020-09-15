@@ -1,4 +1,25 @@
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_damageM230
+
+Description:
+    Called upon M230 chaingun overheating. Decides whether it should jam.
+
+Parameters:
+    _heli - The helicopter to modify
+    _system - the *HitPoint* that was damaged.
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_damageM230
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params ["_heli"];
 
 _heatfactor = fza_ah64_gunheat * 0.1;
 _heatchance = _heatfactor * 0.999;

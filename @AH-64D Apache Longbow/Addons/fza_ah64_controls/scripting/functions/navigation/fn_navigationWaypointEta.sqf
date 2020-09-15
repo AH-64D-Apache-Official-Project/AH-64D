@@ -1,5 +1,24 @@
-private["_heli"];
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_navigationWaypointEta
+
+Description:
+	Calculates the ETA to the next waypoint. Stores the information in fza_ah64_wptimhr, fza_ah64_wptim, fza_ah64_wptimtm, fza_ah64_wptimsm, fza_ah64_wpdistr
+
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_navigationWaypointEta
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params ["_heli"];
 
 if (!(player in _heli)) exitwith {};
 

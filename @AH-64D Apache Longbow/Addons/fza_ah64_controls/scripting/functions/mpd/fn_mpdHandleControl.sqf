@@ -1,3 +1,27 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_mpdHandleControl
+
+Description:
+	Handles any mpd-related cockpit controls.
+	
+	Works out what MPD is currently open, and calls that respective page's handler
+
+Parameters:
+	_heli - The helicopter to act on
+	_system - the name of the system that the touched control belongs to
+	_control - the name of the control that has been touched
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli, "lmpd", "r3"] call_mpdHandleControl
+	---
+
+Author:
+	mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];

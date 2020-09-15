@@ -13,15 +13,15 @@ Returns:
 	True if change was made, false if not.
 
 Examples:
-    (begin example)
+    --- Code
 	_ret = [_heli 0, "fuel"] call fza_fnc_mpdSetDisplay;
 	// _ret => true
-    (end)
+    ---
 
-	(begin example)
+	--- Code
 	_ret = [_heli 0, "tsd"] call fza_fnc_mpdSetDisplay;
 	// _ret => false (left MPD can't show the TSD)
-    (end)
+    ---
 
 Author:
 	mattysmith22

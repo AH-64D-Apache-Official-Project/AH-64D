@@ -4,6 +4,11 @@ Function: fza_fnc_weaponHandleFire
 Description:
     Event handler that handles any ammunition fired by the apache
 
+    - Starts custom missile guidance
+    - Ensures correct number of rockets fired in salvo
+    - Damages people holding on external stores if pylons fired
+    - Checks for gun overheat
+
 Parameters:
     Schema of the "fired" event handler.
 

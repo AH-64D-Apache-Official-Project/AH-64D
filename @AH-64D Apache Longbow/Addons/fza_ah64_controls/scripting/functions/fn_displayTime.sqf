@@ -11,10 +11,10 @@ Returns:
 	Converted string
 
 Examples:
-    (begin example)
+    --- Code
 	_result = [1] call fza_fnc_displayTIme;
 	//_result => "1 second"
-    (end)
+    ---
 
 Author:
 	mattysmith22

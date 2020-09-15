@@ -11,10 +11,10 @@ Returns:
 	Nothing
 
 Examples:
-	(begin example)
+	--- Code
 	// When you want to click what the player is looking at.
     [_heli] call fza_fnc_controlHandleCrosshairAction
-	(end)
+	---
 
 Author:
 	mattysmith22

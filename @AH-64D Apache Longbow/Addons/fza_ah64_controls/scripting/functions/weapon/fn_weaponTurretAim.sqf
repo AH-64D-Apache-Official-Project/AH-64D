@@ -1,5 +1,22 @@
-private["_heli"];
-_heli = _this select 0;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponTurretAim
+
+Description:
+	Points turrets, sensors and weaponry at the correct positions according to acquisition sources.
+
+Parameters:
+    _heli - the heli to fix the turret for.
+
+Returns:
+	Nothing
+
+Examples:
+    [_heli] call fza_fnc_weaponTurretAim
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params["_heli"];
 if (!(player in _heli)) exitwith {};
 if (!(isnil "fza_ah64_enableturrets")) exitwith {};
 _estate = 0;

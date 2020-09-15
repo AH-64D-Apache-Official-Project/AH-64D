@@ -2,7 +2,7 @@
 Function: fza_fnc_mpdUpdateDisplays
 
 Description:
-	Updates the MPDs inside the apache to show the correct values.
+	Updates the MPDs inside the apache to show the correct visuals. Should be run regularly.
 
 Parameters:
 	_heli - the apache to show the correct values for.
@@ -11,9 +11,9 @@ Returns:
 	Nothing.
 
 Examples:
-    (begin example)
+    --- Code
 	[_heli] call fza_fnc_mpdUpdateDisplays
-    (end)
+    ---
 
 Author:
 	mattysmith22

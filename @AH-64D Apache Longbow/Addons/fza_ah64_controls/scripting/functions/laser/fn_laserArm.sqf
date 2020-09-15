@@ -1,3 +1,23 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_laserArm
+
+Description:
+    Arms the apache's LRFD, from either seat.
+
+Parameters:
+	_heli - The helicopter to act upon
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_laserArm
+	---
+
+Author:
+	Unknown, mattysmith22
+---------------------------------------------------------------------------- */
 params ["_heli"];
 _laseron = 0;
 _helilaser = objNull;

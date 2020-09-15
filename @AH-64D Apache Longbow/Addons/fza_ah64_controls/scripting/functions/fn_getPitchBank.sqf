@@ -1,3 +1,24 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_getPitchBank
+
+Description:
+	Gets pitch bank of an object
+
+Parameters:
+    _obj - obj to get the pitch and bank of
+
+Returns:
+	[_pitch, _bank]
+
+Examples:
+    --- Code
+    _ret = [_heli] call fza_fnc_weaponTurretAim
+    //_ret => [30, -20]
+    ---
+
+Author:
+	general barron
+---------------------------------------------------------------------------- */
 comment "script by general barron";
 
 private["_obj", "_pitch", "_bank", "_yaw", "_vdir", "_vup", "_sign", "_rotate"];

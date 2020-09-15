@@ -15,9 +15,9 @@ Returns:
 	[Np (rpm), Ng (%), TGT (*C), Oil Pressure (PSI), Torque (Nm)]
 
 Examples:
-	(begin example)
+	--- Code
     _data = [_heli, 0] call fza_fnc_engineGetData
-	(end)
+	---
 
 Author:
 	mattysmith22

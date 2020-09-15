@@ -1,3 +1,23 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_targetingPFZCycle
+
+Description:
+	Switches the current PFZ between all options.
+
+Parameters:
+	_heli - The helicopter to act on
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_targetingPFZCycle
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
 fza_ah64_pfz_count = fza_ah64_pfz_count + 1;
 
 if (fza_ah64_pfz_count == 1) exitwith {

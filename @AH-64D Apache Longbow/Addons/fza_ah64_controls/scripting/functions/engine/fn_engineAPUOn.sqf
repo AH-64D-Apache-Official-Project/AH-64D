@@ -11,10 +11,10 @@ Returns:
 	Boolean - whether the APU is on
 
 Examples:
-	(begin example)
+	--- Code
     _ret = [_heli] call fza_fnc_engineAPUOn
     //_ret => true
-	(end)
+	---
 
 Author:
 	mattysmith22
