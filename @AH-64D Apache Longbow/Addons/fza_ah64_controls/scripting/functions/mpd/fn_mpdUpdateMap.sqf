@@ -4,6 +4,8 @@ Function: fza_fnc_mpdUpdateMap
 Description:
 	Does the maths and animations to correctly line up the moving map on the right MPD.
 
+	Note: it only does it for the seat the player is in.
+
 Parameters:
 	_heli - The helicopter to act on
 

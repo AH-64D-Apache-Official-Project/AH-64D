@@ -75,4 +75,4 @@ private _objects = fza_ah64_asethreats apply {
 	[_x, _iconformat + _iconsuffix, _priority];
 };
 
-[_heli, _objects, true] call fza_fnc_mpdUpdatePoints;
+[_heli, _objects, true, fza_ah64_rangesetting * 0.4, [0.5,0.5]] call fza_fnc_mpdUpdatePoints;

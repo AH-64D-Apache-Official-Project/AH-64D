@@ -19,7 +19,7 @@ Author:
 	Unknown
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
-private["", "_heli", "_ticker"];
+params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 0.01;
 fza_ah64_missiontimestamp = time;

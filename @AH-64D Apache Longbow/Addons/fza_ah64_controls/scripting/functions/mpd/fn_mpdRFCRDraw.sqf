@@ -67,4 +67,8 @@ private _targetsToDraw = fza_ah64_tsddisptargs apply {
 	[_x, _targicon, _targetPriority];
 };
 
-[_heli, _targetsToDraw, false] call fza_fnc_mpdUpdatePoints;
+if (fza_ah64_agmode == 1) then {
+	[_heli, _targetsToDraw, false, 0.000125 * 0.6, [0.5, 0.5]] call fza_fnc_mpdUpdatePoints;
+} else {
+	[_heli, _targetsToDraw, false, 0.000125 * 0.6, [0.5, 0.2]] call fza_fnc_mpdUpdatePoints;
+}

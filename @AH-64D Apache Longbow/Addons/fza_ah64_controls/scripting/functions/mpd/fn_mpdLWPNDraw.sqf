@@ -2,6 +2,8 @@
 params ["_heli"];
 //TODO: Look at simplifying weapon operation, this is just a copy paste of page_wpn.sqf
 //CM
+_mags = magazines _heli;
+_weps = weapons _heli;
 _gunammo = 0;
 _hf1l1_tex = "\fza_ah64_us\tex\ICONS\114LINV_ca.paa";
 _hf1l2_tex = "\fza_ah64_us\tex\ICONS\114LINV_ca.paa";

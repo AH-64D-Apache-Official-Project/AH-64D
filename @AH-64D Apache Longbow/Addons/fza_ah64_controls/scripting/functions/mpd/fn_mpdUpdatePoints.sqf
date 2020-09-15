@@ -13,6 +13,8 @@ Parameters:
 			_tex is the texture to use to represent the point
 			_priority is (between 0 and 1) if two points overlap, the one with the larger number will be on top
 	_clipToScreen - If a point goes off screen, should it be removed or drawn.
+	_scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
+	_center - (optional) Where in the screen should be where the "helicopter" should be. Defaults to [0.5, 0.25]
 
 Returns:
 	Nothing
@@ -22,7 +24,7 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_points", "_clipToScreen"];
+params ["_heli", "_points", "_clipToScreen", ["_scale", fza_ah64_rangesetting * 0.75], ["_center", [0.5, 0.5]]];
 #include "\fza_ah64_controls\headers\selections.h"
 
 #define MPD_X_MIN 0.1
@@ -41,8 +43,8 @@ _points = _points apply {
 		_theta = _theta - 360;
 	};
 
-	private _targxpos = [((sin _theta) * (((_heli distance2D _pos) * fza_ah64_rangesetting) * 0.75)) + 0.5, MPD_X_MIN, MPD_X_MAX] call BIS_fnc_clamp;
-	private _targypos = [((cos _theta) * (((_heli distance2D _pos) * fza_ah64_rangesetting) * 0.75)) + 0.25, MPD_Y_MIN, MPD_Y_MAX] call BIS_fnc_clamp;
+	private _targxpos = [(sin _theta) * (_heli distance2D _pos * _scale) + _center # 0, MPD_X_MIN, MPD_X_MAX] call BIS_fnc_clamp;
+	private _targypos = [(cos _theta) * (_heli distance2D _pos * _scale) + _center # 1, MPD_Y_MIN, MPD_Y_MAX] call BIS_fnc_clamp;
 
 	[[_targxpos, _targypos], _tex, _priority, _pos];
 };
