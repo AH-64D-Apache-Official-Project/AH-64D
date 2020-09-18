@@ -21,26 +21,28 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_dir"];
 
+_range = _heli getVariable "fza_ah64_rangesetting";
 if(_dir == "IN") then {
-	fza_ah64_rangesetting = (fza_ah64_rangesetting) * 2;
-    if (fza_ah64_rangesetting == 0.00008) then {
-        fza_ah64_rangesetting = 0.0001;
+	_range = (_range) * 2;
+    if (_range == 0.00008) then {
+        _range = 0.0001;
     };
-    if (fza_ah64_rangesetting == 0.0004) then {
-        fza_ah64_rangesetting = 0.0005;
+    if (_range == 0.0004) then {
+        _range = 0.0005;
     };
-    if (fza_ah64_rangesetting == 0.002) then {
-        fza_ah64_rangesetting = 0.001;
+    if (_range == 0.002) then {
+        _range = 0.001;
     };
 } else {
-	fza_ah64_rangesetting = (fza_ah64_rangesetting) * 0.5;
-    if (fza_ah64_rangesetting == 0.00025) then {
-        fza_ah64_rangesetting = 0.0002;
+	_range = (_range) * 0.5;
+    if (_range == 0.00025) then {
+        _range = 0.0002;
     };
-    if (fza_ah64_rangesetting == 0.00005) then {
-        fza_ah64_rangesetting = 0.00004;
+    if (_range == 0.00005) then {
+        _range = 0.00004;
     };
-    if (fza_ah64_rangesetting == 0.00001) then {
-        fza_ah64_rangesetting = 0.00002;
+    if (_range == 0.00001) then {
+        _range = 0.00002;
     };
-}
+};
+_heli setVariable ["fza_ah64_rangesetting", _range];

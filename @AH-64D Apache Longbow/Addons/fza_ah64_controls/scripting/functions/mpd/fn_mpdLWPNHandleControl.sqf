@@ -8,16 +8,16 @@ private _rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA"
 if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 	switch (_control) do {
 		case "l1": {
-			fza_ah64_burst_limit = 10;
+			_heli setVariable ["fza_ah64_burst_limit", 10];
 		};
 		case "l2": {
-			fza_ah64_burst_limit = 20;
+			_heli setVariable ["fza_ah64_burst_limit", 20];
 		};
 		case "l3": {
-			fza_ah64_burst_limit = 50;
+			_heli setVariable ["fza_ah64_burst_limit", 50];
 		};
 		case "l4": {
-			fza_ah64_burst_limit = 100;
+			_heli setVariable ["fza_ah64_burst_limit", 100];
 		};
 	};
 };

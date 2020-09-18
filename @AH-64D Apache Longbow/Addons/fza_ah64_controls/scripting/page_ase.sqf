@@ -29,7 +29,7 @@ do {
                     if !((_i iskindof "ZSU_Base") || (_i iskindof "2S6M_Tunguska")) then {
                         ["fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
                     };
-                    if (fza_ah64_aseautopage == 1) then {
+                    if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
                         [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
                         if (fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0) then {
                             _rfjammerscript = [(vehicle player)] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";

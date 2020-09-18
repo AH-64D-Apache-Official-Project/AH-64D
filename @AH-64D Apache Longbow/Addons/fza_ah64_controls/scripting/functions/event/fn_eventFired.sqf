@@ -34,29 +34,8 @@ if (_missobj isKindOf "fza_agm114l" || _missobj isKindOf "fza_agm114k" || _misso
 
 //COUNTERMEASURES
 
-if (_weapon == "fza_ah64_chaff30") then {
-
-    fza_ah64_curchfln = fza_ah64_curchfln + 1;
-    fza_ah64_chaffcount = fza_ah64_chaffcount - 1;
-    if (_mode == "Single") then {
-        fza_ah64_cmsel = 0;
-    };
-    if (_mode == "Burst") then {
-        fza_ah64_cmsel = 1;
-    };
-    sleep 3;
-    fza_ah64_curchfln = fza_ah64_curchfln - 1;
-};
-
 if (_weapon == "fza_CMFlareLauncher") then {
     fza_ah64_curflrln = fza_ah64_curflrln + 2;
-    fza_ah64_flarecount = fza_ah64_flarecount - 1;
-    if (_mode == "Single") then {
-        fza_ah64_cmsel = 2;
-    };
-    if (_mode == "Burst") then {
-        fza_ah64_cmsel = 3;
-    };
     [] spawn {
         sleep 3;
         fza_ah64_curflrln = fza_ah64_curflrln - 2;
@@ -93,7 +72,7 @@ if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || is
 if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
     [] spawn {
         sleep 0.011;
-        if (fza_ah64_rocketsalvo > 0 && fza_ah64_salvofired < fza_ah64_rocketsalvo && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
+        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo") && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
             if (_ah64 ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };
@@ -109,7 +88,7 @@ if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
             _ah64 action["useWeapon", _ah64, gunner _ah64, _weaponindex];
         };
 
-        if (fza_ah64_salvofired >= fza_ah64_rocketsalvo) then {
+        if (fza_ah64_salvofired >= (_ah64 getVariable "fza_ah64_rocketsalvo")) then {
             sleep 0.1;
             fza_ah64_salvofired = 0;
         };

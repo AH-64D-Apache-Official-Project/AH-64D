@@ -1,37 +1,34 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
-switch (fza_ah64_cmsel) do {
-	case 0;
-	case 1: {;
-		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
-		[_heli, fza_ah64_chaffcount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
-		if (fza_ah64_cmsel == 1) then {
-			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
-		} else {
-			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
-		};
-	};
-	case 2;
-	case 3:  {
-		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
-		[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
-		_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
-		if (fza_ah64_cmsel == 3) then {
-			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
-		} else {
-			_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
-		};
-	};
+
+
+/*TODO: When chaff re-added, add here
+_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
+[_heli, 0, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
+if (fza_ah64_cmsel == 1) then {
+	_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
+} else {
+	_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
+};
+*/
+
+_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
+[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
+_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
+if (weaponState [_heli, [-1], "fza_CMFlareLauncher"] # 2 != "Single") then {
+	_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
+} else {
+	_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g1_ca.paa"];
 };
 
 [_heli, round getDir _heli, SEL_DIGITS_MPD_PR_TSD_HDG] call fza_fnc_drawNumberSelections;
 
-private _aserange = (abs(1 / fza_ah64_rangesetting)) * 0.001;
+private _aserange = (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001;
 [_heli, _aserange, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_DIST] call fza_fnc_drawNumberSelections;
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_AUTPG,
-	switch (fza_ah64_aseautopage) do {
+	switch (_heli getVariable "fza_ah64_aseautopage") do {
 		case 0 : { "\fza_ah64_us\tex\mpd\ase_off.paa" };
 		case 1 : { "\fza_ah64_us\tex\mpd\ase_track.paa" };
 		case 2 : { "\fza_ah64_us\tex\mpd\ase_launch.paa" };
@@ -75,4 +72,4 @@ private _objects = fza_ah64_asethreats apply {
 	[_x, _iconformat + _iconsuffix, _priority];
 };
 
-[_heli, _objects, true, fza_ah64_rangesetting * 0.4, [0.5,0.5]] call fza_fnc_mpdUpdatePoints;
+[_heli, _objects, true, (_heli getVariable "fza_ah64_rangesetting") * 0.4, [0.5,0.5]] call fza_fnc_mpdUpdatePoints;

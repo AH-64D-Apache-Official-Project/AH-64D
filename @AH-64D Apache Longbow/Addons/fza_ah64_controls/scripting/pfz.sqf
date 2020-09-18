@@ -4,7 +4,7 @@ _pfz = [];
 fza_ah64_pfz_counter = 0;
 fza_ah64_curpfzarea = [];
 
-if (fza_ah64_pfz_count == 0) exitwith {
+if (_heli getVariable "fza_ah64_pfz_count" == 0) exitwith {
     _heli vehiclechat "PFZ is not selected!";
 };
 
@@ -84,35 +84,6 @@ _markername setMarkerColorLocal "ColorBlack";
 }
 foreach fza_ah64_targetlist;
 
-if (_pfznum == 1) then {
-    fza_ah64_pfz1 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 2) then {
-    fza_ah64_pfz2 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 3) then {
-    fza_ah64_pfz3 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 4) then {
-    fza_ah64_pfz4 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 5) then {
-    fza_ah64_pfz5 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 6) then {
-    fza_ah64_pfz6 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 7) then {
-    fza_ah64_pfz7 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
-if (_pfznum == 8) then {
-    fza_ah64_pfz8 = _pfz;
-    fza_ah64_currentpfz = _pfz;
-};
+assert (1 <= _pfznum && _pfznum <= 8);
+(_heli getVariable "fza_ah64_pfzs") set [_pfznum - 1, _pfz];
+_heli setVariable ["fza_ah64_pfzs", _heli getVariable "fza_ah64_pfzs", true];

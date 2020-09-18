@@ -17,13 +17,11 @@ if (isNil "fza_ah64_waypointdata") then {
     fza_ah64_wpmarkers = ["fza_ah64_BaseMarker"];
 };
 
-if (count fza_ah64_waypointdata > 30) exitwith {
+if (count (_heli getVariable "fza_ah64_waypointdata") > 30) exitwith {
     _heli vehiclechat "Waypoint limits reached.";
 };
 
-fza_ah64_waypointdata = fza_ah64_waypointdata + [
-    [(_position select 0), (_position select 1), 0]
-];
+_heli setVariable ["fza_ah64_waypointdata", (_heli getVariable "fza_ah64_waypointdata") + [[(_position select 0), (_position select 1), 0]], true];
 
 _marker = createMarkerLocal[_markerstring, [(_position select 0), (_position select 1)]];
 _markerstring setMarkerShapeLocal "ICON";

@@ -53,9 +53,10 @@ _toffactor = 0.002;
 _rktavgvel = 990;
 
 // AUTOTRACK
-if ((fza_ah64_guncontrol == 1 || fza_ah64_guncontrol == 2) && (gunner _heli == player || driver _heli == player) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) then {
+_acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
+if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == player) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) then {
     if (!(gunner _heli == player) || (gunner _heli == player)) then {
-        if (isNull fza_ah64_mycurrenttarget || fza_ah64_guncontrol == 1) then {
+        if (isNull fza_ah64_mycurrenttarget || _acq == 1) then {
             _wPos = screentoworld[0.5, 0.5];
             _targvel = [0, 0, 0];
             _targspeed = 0;
@@ -370,19 +371,7 @@ if ((fza_ah64_guncontrol == 1 || fza_ah64_guncontrol == 2) && (gunner _heli == p
 
 // NORM
 
-if (((fza_ah64_guncontrol == 0 || fza_ah64_guncontrol == 3) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) || (!(gunner _heli == player || driver _heli == player) && (local _heli))) then {
-    if (fza_ah64_turdir > 1.5) then {
-        fza_ah64_turdir = 1.5
-    };
-    if (fza_ah64_turdir < -1.5) then {
-        fza_ah64_turdir = -1.5
-    };
-    if (fza_ah64_turelev > 0.2) then {
-        fza_ah64_turelev = 0.2
-    };
-    if (fza_ah64_turelev < -1) then {
-        fza_ah64_turelev = -1
-    };
+if (((_acq == 0 || _acq == 3) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) || (!(gunner _heli == player || driver _heli == player) && (local _heli))) then {
     _curcontrol = (_heli animationphase "tads_tur");
     _curguncontrol = (_heli animationphase "tads");
     if (_curcontrol > 1.5) then {
@@ -394,7 +383,7 @@ if (((fza_ah64_guncontrol == 0 || fza_ah64_guncontrol == 3) && (local gunner _he
     if (_curguncontrol > 0.28777) then {
         _curguncontrol = 0.28777;
     };
-    if (fza_ah64_guncontrol == 3 && (gunner _heli == player || driver _heli == player) || !(isengineon _heli)) then {
+    if (_acq == 3 && (gunner _heli == player || driver _heli == player) || !(isengineon _heli)) then {
         _curcontrol = 0;
         _curguncontrol = 0.17;
     };

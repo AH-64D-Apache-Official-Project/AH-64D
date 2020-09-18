@@ -20,20 +20,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
-    if (inputaction "nextCM" == 1 && fza_ah64_cmpressed == 0) then {
-        fza_ah64_cmsel = fza_ah64_cmsel + 1;
-        fza_ah64_cmpressed = 1;
-    };
-    if (inputaction "nextCM" == 0 && fza_ah64_cmpressed == 1) then {
-        fza_ah64_cmpressed = 0;
-    };
-    if (fza_ah64_cmsel > 1 && count(_heli weaponsTurret[-1]) < 2) then {
-        fza_ah64_cmsel = 0;
-    };
-    if (fza_ah64_cmsel > 3 && count(_heli weaponsTurret[-1]) > 1) then {
-        fza_ah64_cmsel = 0;
-    };
-
     if (player == driver _heli && (_heli animationphase "plt_apu" > 0.5 || isengineon _heli)) then {
         fza_ah64_headdir = (-0.0125 * (inputaction "AimLeft" + (0.0125 * inputaction "LookLeft"))) + (0.0125 * (inputaction "AimRight" + (0.0125 * inputaction "LookRight")));
         fza_ah64_headelev = (0.0125 * (inputaction "AimUp" + (0.0125 * inputaction "LookUp"))) + (-0.0125 * (inputaction "AimDown" + (0.0125 * inputaction "LookDown")));
@@ -64,8 +50,6 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
     if (_headcenter > 0) then {
         fza_ah64_pnvsdir = 0;
         fza_ah64_pnvselev = 0.5;
-        fza_ah64_turdir = 0;
-        fza_ah64_turelev = 0;
     };
 
     fza_ah64_pnvsdir = fza_ah64_pnvsdir + fza_ah64_headdir;

@@ -18,11 +18,12 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-switch(fza_ah64_tsdmode) do {
+params ["_heli"];
+switch(_heli getVariable "fza_ah64_tsdmode") do {
 	case "nav": {
-		fza_ah64_tsdmode = "atk";
+		_heli setVariable ["fza_ah64_tsdmode", "atk"];
 	};
 	case "atk": {
-		fza_ah64_tsdmode = "nav";
+		_heli setVariable ["fza_ah64_tsdmode", "nav"];
 	};
 }

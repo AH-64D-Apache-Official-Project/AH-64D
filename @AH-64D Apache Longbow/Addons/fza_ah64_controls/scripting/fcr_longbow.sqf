@@ -24,13 +24,13 @@ do {
     waitUntil {
         ((driver(vehicle player) == player || gunner(vehicle player) == player) && isengineon(vehicle player))
     };
-    if (fza_ah64_agmode == 1) then {
+    if (_heli getVariable "fza_ah64_agmode" == 1) then {
         _maxalt = 100;
     };
-    if (fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {
+    if (_heli getVariable "fza_ah64_agmode" == 0 || _heli getVariable "fza_ah64_agmode" > 1) then {
         _maxalt = 2;
     };
-    if (fza_ah64_fcrstate == 1 && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
+    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
         //add targets to master list
         //_targets = (list _radsweep);
         //_targets = vehicles - allDead;
@@ -58,11 +58,11 @@ do {
                     _targets = _targets - [_i];
                     _rem = true;
                 };
-                if ((fza_ah64_agmode == 0 || fza_ah64_agmode > 1) && (getpos _i select 2 >= 10)) then {
+                if ((_heli getVariable "fza_ah64_agmode" == 0 || _heli getVariable "fza_ah64_agmode" > 1) && (getpos _i select 2 >= 10)) then {
                     _targets = _targets - [_i];
                     _rem = true;
                 };
-                if (fza_ah64_agmode == 1 && ((getpos _i select 2) < 10)) then {
+                if (_heli getVariable "fza_ah64_agmode" == 1 && ((getpos _i select 2) < 10)) then {
                     _targets = _targets - [_i];
                     _rem = true;
                 };

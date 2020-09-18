@@ -12,7 +12,7 @@ class RscTitles
 		name = "fza_ah64_mapfake";
 		//uiNameSpace setvariable ['fza_ah64_mapfake',_this select 0];
 		onLoad = "uiNamespace setVariable[""fza_ah64_mapfake"", (_this select 0)]; ((_this select 0) displayCtrl 3001) ctrlSetEventHandler[""Draw"", '[_this] call fza_fnc_coreScheduler'];";
-		onunLoad = "((_this) displayCtrl 3001) ctrlSetEventHandler [""Draw"", '']; fza_ah64_pfsstate = false;";
+		onunLoad = "((_this) displayCtrl 3001) ctrlSetEventHandler [""Draw"", ''];";
 		class controlsBackground
 		{
 			class fza_ah64_cMap: fza_ah64_mapControl

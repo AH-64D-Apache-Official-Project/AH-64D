@@ -28,10 +28,10 @@ if (player == gunner _heli && fza_ah64_laserstate == 0) exitwith {
 };
 if (player == gunner _heli && fza_ah64_laserstate == 1) exitwith {
     fza_ah64_laserstate = 0;
-    if (fza_ah64_ihadssoff isEqualTo 0 && player in _heli) then {
-        fza_ah64_ihadssoff = 1;
+    if ((_heli getVariable "fza_ah64_ihadssoff") isEqualTo 0 && player in _heli) then {
+        _heli setVariable ["fza_ah64_ihadssoff", 1];
         sleep 0.1;
-        fza_ah64_ihadssoff = 0;
+        _heli setVariable ["fza_ah64_ihadssoff", 0];
     };
     //_heli vehiclechat "Laser OFF.";
 };

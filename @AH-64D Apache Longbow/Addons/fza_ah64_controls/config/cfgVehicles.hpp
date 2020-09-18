@@ -786,7 +786,7 @@ class CfgVehicles
 				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
-				statement="fza_ah64_agmode = fza_ah64_agmode + 1;";
+				statement="this setVariable [""fza_ah64_agmode"", (this getVariable ""fza_ah64_agmode"") + 1, true]";
 			};
 			class weaponactionswitch
 			{
@@ -814,7 +814,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
 				shortcut="Binocular";
-				statement="[this] exec ""\fza_ah64_controls\scripting\burstlimit.sqs""";
+				statement="[this] call fza_fnc_weaponM230CycleBurst";
 			};
 			class rocketsalvo
 			{
@@ -916,7 +916,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls &&player == driver this || player == gunner this";
 				shortcut="User11";
-				statement="[this] exec ""\fza_ah64_controls\scripting\ihadss.sqs""";
+				statement="[this] execVM ""\fza_ah64_controls\scripting\ihadss.sqf""";
 			};
 			class pilotrmpd
 			{
@@ -958,7 +958,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 1] call fza_fnc_mpdGetCurrentDisplay == ""fcr"" ||[this, 1] call fza_fnc_mpdGetCurrentDisplay == ""tsd"" || [this, 0] call fza_fnc_mpdGetCurrentDisplay == ""tsd"")";
 				shortcut="User6";
-				statement="[this] exec ""\fza_ah64_controls\scripting\tsd_targfilter.sqs""";
+				statement="[this] execVM ""\fza_ah64_controls\scripting\tsd_targfilter.sqf""";
 			};
 			class tsdrange
 			{
@@ -1036,7 +1036,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this)";
 				shortcut="User12";
-				statement="fza_ah64_ihadss_pnvs_cam = !fza_ah64_ihadss_pnvs_cam;";
+				statement="this setVariable [""fza_ah64_ihadss_pnvs_cam"", !(this getVariable ""fza_ah64_ihadss_pnvs_cam"")];";
 			};
 			class tiron
 			{
@@ -1078,7 +1078,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this)";
 				shortcut="User18";
-				statement="[_heli] call fza_fnc_controlHandleNextWaypoint";
+				statement="[this] call fza_fnc_controlHandleNextWaypoint";
 			};
 			class cycle_wp2
 			{
@@ -1092,7 +1092,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this)";
 				shortcut="User17";
-				statement="[_heli] call fza_fnc_controlHandlePrevWaypoint";
+				statement="[this] call fza_fnc_controlHandlePrevWaypoint";
 			};
 			class fcr_toggle
 			{

@@ -37,10 +37,10 @@ switch(_control) do {
 		} else {
 			_heli animate["cpg_ihadss_brt", 0];
 		};
-		[_heli] exec "\fza_ah64_controls\scripting\ihadss.sqs";
+		[_heli] execVM "\fza_ah64_controls\scripting\ihadss.sqf";
 	};
 	case "stow": {
 		["fza_ah64_monoclebox", 0.1] spawn fza_fnc_playAudio;
-		[_heli] exec "\fza_ah64_controls\scripting\monocle.sqs";
+		[_heli] execVm "\fza_ah64_controls\scripting\monocle.sqf";
 	};
 };

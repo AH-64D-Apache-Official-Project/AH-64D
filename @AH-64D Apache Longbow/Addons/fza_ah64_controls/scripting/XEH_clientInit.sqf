@@ -30,7 +30,7 @@
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "targFilter", "TSD/FCR Filter", {
-	ENSURE_IN_APACHE([vehicle player] exec "\fza_ah64_controls\scripting\tsd_targfilter.sqs")
+	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\tsd_targfilter.sqf")
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "tsdRange", "TSD Range", {
@@ -50,11 +50,11 @@
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "toggleIHADSS", "IHADSS Toggle", {
-	ENSURE_IN_APACHE([vehicle player] exec "\fza_ah64_controls\scripting\ihadss.sqs")
+	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\ihadss.sqf")
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "toggleHDUPNVS", "HDU/PNVS Toggle", {
-	ENSURE_IN_APACHE(fza_ah64_ihadss_pnvs_cam = !fza_ah64_ihadss_pnvs_cam;)
+	ENSURE_IN_APACHE(vehicle player setVariable ["fza_ah64_ihadss_pnvs_cam", !(vehicle player getVariable "fza_ah64_ihadss_pnvs_cam")];)
 }, {}] call CBA_fnc_addKeybind;
 
 [MOD_NAME, "jammersToggle", "Manual/Automatic Jammers Toggle", {

@@ -1,5 +1,0 @@
-_heli = _this select 0;
-
-?(fza_ah64_ihadssoff == 0 && player in _heli): fza_ah64_ihadssoff = 1; exit;
-?(fza_ah64_ihadssoff == 1 && player in _heli): fza_ah64_ihadssoff = 0; exit;
-exit;

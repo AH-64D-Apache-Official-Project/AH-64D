@@ -46,7 +46,7 @@ private _controls =  [
 	["ctrlref_rmpd_b5", "ctrlref_g_rmpd_b5", "rmpd", "b5", 0.015, "Right MPD B5"],
 	["ctrlref_rmpd_b6", "ctrlref_g_rmpd_b6", "rmpd", "b6", 0.015, "Right MPD B6"],
 	["ctrlref_rmpd_r1", "ctrlref_g_rmpd_r1", "rmpd", "r1", 0.015, "Right MPD R1"],
-	["ctrlref_rmpd_r2", "ctrlref_g_rmpd_r1", "rmpd", "r2", 0.015, "Right MPD R2"],
+	["ctrlref_rmpd_r2", "ctrlref_g_rmpd_r2", "rmpd", "r2", 0.015, "Right MPD R2"],
 	["ctrlref_rmpd_r3", "ctrlref_g_rmpd_r3", "rmpd", "r3", 0.015, "Right MPD R3"],
 	["ctrlref_rmpd_r4", "ctrlref_g_rmpd_r4", "rmpd", "r4", 0.015, "Right MPD R4"],
 	["ctrlref_rmpd_r5", "ctrlref_g_rmpd_r5", "rmpd", "r5", 0.015, "Right MPD R5"],

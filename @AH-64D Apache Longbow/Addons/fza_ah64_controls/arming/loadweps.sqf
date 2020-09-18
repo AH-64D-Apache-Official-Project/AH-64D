@@ -2376,7 +2376,7 @@ if (fza_ah64_hardpoint5 == 14 && fza_ah64_auxtank_qty > 0) then {_heli addmagazi
 
 //COUNTERMESURES
 
-if ("fza_CMFlareLauncher" in (_heli weaponsTurret [-1])) then {_heli addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]]; fza_ah64_flarecount = 30;_heliweight = _heliweight + 10;};
+if ("fza_CMFlareLauncher" in (_heli weaponsTurret [-1])) then {_heli addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]]; _heliweight = _heliweight + 10;};
 _heliweight = _heliweight + 5; //chaff countermeasure
 fza_ah64_burst = 0;
 fza_ah64_gunheat = 0;
@@ -2385,7 +2385,6 @@ fza_ah64_gunheat = 0;
 
 if(typeof _heli == "fza_ah64d_b2e") then {_heliweight = _heliweight + 150;};
 _fuelweight = 1152 * (fza_ah64_fuelsave);
-fza_ah64_grossweight = _heliweight + _fuelweight;
 
 uiSleep 0.1;
 

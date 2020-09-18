@@ -22,13 +22,14 @@ params ["_heli"];
 
 if (!(player in _heli)) exitwith {};
 
-if (count fza_ah64_waypointdata > 0) then {
-    _wpdistr = (fza_ah64_wpdistr - ([(fza_ah64_curwp select 0), (fza_ah64_curwp select 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0])) * 33;
+if (count (_heli getVariable "fza_ah64_waypointdata") > 0) then {
+    _curwp = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
+    _wpdistr = (fza_ah64_wpdistr - ([(_curwp # 0), (_curwp # 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0])) * 33;
     if (_wpdistr == 0) then {
         _wpdistr = 1;
     };
 
-    _wptime = ([(fza_ah64_curwp select 0), (fza_ah64_curwp select 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0]) / _wpdistr;
+    _wptime = ([(_curwp # 0), (_curwp # 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0]) / _wpdistr;
     if (_wptime > 32400) then {
         _wptime = 32400;
     };
@@ -56,7 +57,7 @@ if (count fza_ah64_waypointdata > 0) then {
     fza_ah64_wptimtm = _wptimtm;
     fza_ah64_wptimsm = _wptimsm;
 
-    fza_ah64_wpdistr = [(fza_ah64_curwp select 0), (fza_ah64_curwp select 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0];
+    fza_ah64_wpdistr = [(_curwp # 0), (_curwp # 1), 0] distance[(getpos _heli select 0), (getpos _heli select 1), 0];
 } else {
     fza_ah64_wptimhr = 0;
     fza_ah64_wptim = 0;

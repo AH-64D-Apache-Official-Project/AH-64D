@@ -24,8 +24,12 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_points", "_clipToScreen", ["_scale", fza_ah64_rangesetting * 0.75], ["_center", [0.5, 0.5]]];
+params ["_heli", "_points", "_clipToScreen", ["_scale", -1], ["_center", [0.5, 0.25]]];
 #include "\fza_ah64_controls\headers\selections.h"
+
+if (_scale == -1) then {
+	_scale = (_heli getVariable "fza_ah64_rangesetting") * 0.75;
+};
 
 #define MPD_X_MIN 0.1
 #define MPD_X_MAX 0.9
@@ -43,8 +47,8 @@ _points = _points apply {
 		_theta = _theta - 360;
 	};
 
-	private _targxpos = [(sin _theta) * (_heli distance2D _pos * _scale) + _center # 0, MPD_X_MIN, MPD_X_MAX] call BIS_fnc_clamp;
-	private _targypos = [(cos _theta) * (_heli distance2D _pos * _scale) + _center # 1, MPD_Y_MIN, MPD_Y_MAX] call BIS_fnc_clamp;
+	private _targxpos = [(sin _theta) * ((_heli distance2D _pos) * _scale) + _center # 0, MPD_X_MIN, MPD_X_MAX] call BIS_fnc_clamp;
+	private _targypos = [(cos _theta) * ((_heli distance2D _pos) * _scale) + _center # 1, MPD_Y_MIN, MPD_Y_MAX] call BIS_fnc_clamp;
 
 	[[_targxpos, _targypos], _tex, _priority, _pos];
 };
@@ -65,6 +69,11 @@ if (count _points > 31) then {
 
 private _initial = if (player == driver _heli) then {SEL_MPD_PL_OBJ1} else {SEL_MPD_GR_OBJ1};
 
+// Clear all unused selections
+for "_i" from 0 to 31 do {
+	_heli setObjectTexture [_i + _initial, ""];
+};
+
 // Draw all used selections
 {
 	_x params ["_pos", "_tex", "_priority"];
@@ -81,8 +90,3 @@ private _initial = if (player == driver _heli) then {SEL_MPD_PL_OBJ1} else {SEL_
 		_heli animate[format ["mpd_gr_obj%1_z", _forEachIndex + 1], _priority];
 	};
 } forEach (_points);
-
-// Clear all unused selections
-for "_i" from (count _points) to 31 do {
-	_heli setObjectTexture [_i + _initial, ""];
-};

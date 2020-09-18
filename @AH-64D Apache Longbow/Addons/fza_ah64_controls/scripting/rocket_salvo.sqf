@@ -1,23 +1,13 @@
-_heli = _this select 0;
+params["_heli"];
 
-if (fza_ah64_rocketsalvo <= 1) exitwith {
-    fza_ah64_rocketsalvo = 2;
+_salvo = _heli getVariable "fza_ah64_rocketsalvo";
+_salvo = switch (_salvo) do {
+    case 1: {2};
+    case 2: {4};
+    case 4: {8};
+    case 8: {12};
+    case 12: {24};
+    case 24: {38};
+    case 38: {1};
 };
-if (fza_ah64_rocketsalvo == 2) exitwith {
-    fza_ah64_rocketsalvo = 4;
-};
-if (fza_ah64_rocketsalvo == 4) exitwith {
-    fza_ah64_rocketsalvo = 8;
-};
-if (fza_ah64_rocketsalvo == 8) exitwith {
-    fza_ah64_rocketsalvo = 12;
-};
-if (fza_ah64_rocketsalvo == 12) exitwith {
-    fza_ah64_rocketsalvo = 24;
-};
-if (fza_ah64_rocketsalvo == 24) exitwith {
-    fza_ah64_rocketsalvo = 38;
-};
-if (fza_ah64_rocketsalvo == 38) exitwith {
-    fza_ah64_rocketsalvo = 1;
-};
+_heli setVariable ["fza_ah64_rocketsalvo", _salvo]

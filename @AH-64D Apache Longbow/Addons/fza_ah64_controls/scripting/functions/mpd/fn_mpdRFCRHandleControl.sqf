@@ -4,10 +4,7 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "t1": {
-		fza_ah64_fcrcscope = fza_ah64_fcrcscope + 1;
-		if (fza_ah64_fcrcscope > 1) then {
-			fza_ah64_fcrcscope = 0;
-		};
+		_heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
 	};
 	case "tsd": {
 		[_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;

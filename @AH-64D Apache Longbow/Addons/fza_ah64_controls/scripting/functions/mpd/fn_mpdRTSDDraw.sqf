@@ -3,7 +3,7 @@ params ["_heli"];
 
 [_heli] call FZA_fnc_mpdUpdateMap;
 
-_heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (fza_ah64_tsdsort) do {
+_heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (_heli getVariable "fza_ah64_tsdsort") do {
 	case 1: {"\fza_ah64_us\tex\mpd\track.paa";};
 	case 2: {"\fza_ah64_us\tex\mpd\radiation.paa";};
 	case 3: {"\fza_ah64_us\tex\mpd\wheel.paa";};
@@ -11,16 +11,16 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (fza_ah64_tsdsort) do {
 	case 5: {"\fza_ah64_us\tex\CHAR\G2_ca.paa";};
 	case 6: {"\fza_ah64_us\tex\CHAR\G3_ca.paa";};
 	case 7: {"\fza_ah64_us\tex\CHAR\G4_ca.paa";};
-	case 8: {"\fza_ah64_us\tex\mpd\G5_ca.paa";};
-	case 9: {"\fza_ah64_us\tex\mpd\G6_ca.paa";};
-	case 10: {"\fza_ah64_us\tex\mpd\G7_ca.paa";};
-	case 11: {"\fza_ah64_us\tex\mpd\G8_ca.paa";};
+	case 8: {"\fza_ah64_us\tex\mpd\CHAR\G5_ca.paa";};
+	case 9: {"\fza_ah64_us\tex\mpd\CHAR\G6_ca.paa";};
+	case 10: {"\fza_ah64_us\tex\mpd\CHAR\G7_ca.paa";};
+	case 11: {"\fza_ah64_us\tex\mpd\CHAR\G8_ca.paa";};
 	default {"\fza_ah64_us\tex\mpd\all.paa";};
 }];
 
 [_heli, direction _heli, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_HDG] call fza_fnc_drawNumberSelections;
 
-[_heli, 1 / fza_ah64_rangesetting / 1000 , "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_Z] call fza_fnc_drawNumberSelections;
+[_heli, 1 / (_heli getVariable "fza_ah64_rangesetting") / 1000 , "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_Z] call fza_fnc_drawNumberSelections;
 
 if (fza_ah64_tsdmap < 1) then {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
@@ -29,11 +29,11 @@ if (fza_ah64_tsdmap < 1) then {
 };
 
 private _targetPos = [];
-if (!isNull fza_ah64_mycurrenttarget && fza_ah64_tsdmode == "atk") then {
+if (!isNull fza_ah64_mycurrenttarget && _heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_targetPos = getPos fza_ah64_mycurrenttarget;
 };
-if (fza_ah64_tsdmode == "nav") then {
-	 _targetPos = fza_ah64_curwp;
+if (_heli getVariable "fza_ah64_tsdmode" == "nav") then {
+	 _targetPos = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
 };
 
 private _targetRange = if (_targetPos isEqualTo []) then {0} else {(_targetPos distance2d _heli) / 1000};
@@ -42,7 +42,7 @@ private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getpos
 [_heli, _targetRange / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_DIST] call fza_fnc_drawNumberSelections;
 [_heli, _targetDir, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WTDIR] call fza_fnc_drawNumberSelections;
 
-[_heli, fza_ah64_pfz_count, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_PFZS] call fza_fnc_drawNumberSelections;
+[_heli, _heli getVariable "fza_ah64_pfz_count", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_PFZS] call fza_fnc_drawNumberSelections;
 
 (wind call CBA_fnc_vect2Polar) params ["_windSpeed", "_windDir"];
 
@@ -50,7 +50,7 @@ private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getpos
 
 [_heli, _windSpeed * 1.94, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WV] call fza_fnc_drawNumberSelections;
 
-if (fza_ah64_tsdmode == "atk") then {
+if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
 
 	private _targetsToDraw = fza_ah64_tsddisptargs apply {
@@ -78,7 +78,7 @@ if (fza_ah64_tsdmode == "atk") then {
 			_targetType = "ada";
 		};
 
-		if (_x in fza_ah64_currentpfz) then {
+		if (_x in ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"))) then {
 			_targetModifier = "_pfz";
 		};
 		if (_x == fza_ah64_mycurrenttarget) then {
@@ -87,7 +87,7 @@ if (fza_ah64_tsdmode == "atk") then {
 		};
 
 		private _targIcon = format ["\fza_ah64_US\tex\ICONS\ah64_%1%2.paa", _targetType, _targetModifier];
-		if (_x in fza_ah64_shotat_list) then {
+		if (_x in (_heli getVariable "fza_ah64_shotat_list")) then {
 			_targIcon = "\fza_ah64_US\tex\ICONS\ah64_shotat.paa";
 		};
 
@@ -101,9 +101,9 @@ if (fza_ah64_tsdmode == "atk") then {
 	private _waypointsToDraw = [];
 	
 	{
-		private _status = if (_forEachIndex == fza_ah64_curwpnum) then {"act"} else {"ina"};
+		private _status = if (_forEachIndex == _heli getVariable "fza_ah64_curwpnum") then {"act"} else {"ina"};
 		_waypointsToDraw pushBack [_x, format ["\fza_ah64_US\tex\ICONS\ah64_wp_%1_%2", _status, _forEachIndex], 0];
-	} forEach (fza_ah64_waypointdata);
+	} forEach (_heli getVariable "fza_ah64_waypointdata");
 
 	[_heli, _waypointsToDraw, true] call fza_fnc_mpdUpdatePoints;
 };

@@ -18,7 +18,8 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-fza_ah64_curwpnum = fza_ah64_curwpnum + 1;
-if (fza_ah64_curwpnum > (count fza_ah64_waypointdata - 1)) then {
-    fza_ah64_curwpnum = count fza_ah64_waypointdata - 1;
+params["_heli"];
+
+if (_heli getVariable "fza_ah64_curwpnum" < (count (_heli getVariable "fza_ah64_waypointdata") - 1)) then {
+    _heli setVariable ["fza_ah64_curwpnum", (_heli getVariable "fza_ah64_curwpnum") + 1, true];
 };

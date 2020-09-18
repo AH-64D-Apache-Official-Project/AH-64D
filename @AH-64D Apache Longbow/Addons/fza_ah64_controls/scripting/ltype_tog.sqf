@@ -1,14 +1,18 @@
-_ah64 = _this select 0;
+params["_heli"];
 
-if (fza_ah64_ltype == "lobl.sqf") exitwith {
-    fza_ah64_ltype = "loaldir.sqf";
-};
-if (fza_ah64_ltype == "loaldir.sqf") exitwith {
-    fza_ah64_ltype = "loallo.sqf";
-};
-if (fza_ah64_ltype == "loallo.sqf") exitwith {
-    fza_ah64_ltype = "loalhi.sqf";
-};
-if (fza_ah64_ltype == "loalhi.sqf") exitwith {
-    fza_ah64_ltype = "lobl.sqf";
-};
+_heli setVariable ["fza_ah64_ltype", 
+    switch (_heli getVariable "fza_ah64_ltype") do {
+        case "lobl.sqf": {
+            "loaldir.sqf"
+        };
+        case "loaldir.sqf": {
+            "loallo.sqf"
+        };
+        case "loallo.sqf": {
+            "loalhi.sqf"
+        };
+        case "loalhi.sqf": {
+            "lobl.sqf"
+        };
+    },
+    true];

@@ -108,29 +108,31 @@ _gunammo = _heli ammo "fza_m230";
 if (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") then {
 	_rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 	_gunsel = "\fza_ah64_us\tex\icons\gun-sel_ca.paa";
-	if (fza_ah64_burst_limit == 10) then {
-		_burst10 = "\fza_ah64_us\tex\icons\box_ca.paa";
-		_burst20 = "";
-		_burst50 = "";
-		_burst100 = "";
-	};
-	if (fza_ah64_burst_limit == 20) then {
-		_burst10 = "";
-		_burst20 = "\fza_ah64_us\tex\icons\box_ca.paa";
-		_burst50 = "";
-		_burst100 = "";
-	};
-	if (fza_ah64_burst_limit == 50) then {
-		_burst10 = "";
-		_burst20 = "";
-		_burst50 = "\fza_ah64_us\tex\icons\box_ca.paa";
-		_burst100 = "";
-	};
-	if (fza_ah64_burst_limit == 100) then {
-		_burst10 = "";
-		_burst20 = "";
-		_burst50 = "";
-		_burst100 = "\fza_ah64_us\tex\icons\box_ca.paa";
+	switch (_heli getVariable "fza_ah64_burst_limit") do {
+		case 10: {
+			_burst10 = "\fza_ah64_us\tex\icons\box_ca.paa";
+			_burst20 = "";
+			_burst50 = "";
+			_burst100 = "";
+		};
+		case 20: {
+			_burst10 = "";
+			_burst20 = "\fza_ah64_us\tex\icons\box_ca.paa";
+			_burst50 = "";
+			_burst100 = "";
+		};
+		case 50: {
+			_burst10 = "";
+			_burst20 = "";
+			_burst50 = "\fza_ah64_us\tex\icons\box_ca.paa";
+			_burst100 = "";
+		};
+		case 100: {
+			_burst10 = "";
+			_burst20 = "";
+			_burst50 = "";
+			_burst100 = "\fza_ah64_us\tex\icons\box_ca.paa";
+		};
 	};
 } else {
 	_rgbracket = "";
@@ -160,45 +162,47 @@ _hf4l1_tex = "";
 _hf4l2_tex = "";
 _hf4r1_tex = "";
 _hf4r2_tex = "";
-if (fza_ah64_ltype == "lobl.sqf") then {
-	_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
+
+switch (_heli getVariable "fza_ah64_ltype") do {
+	case "lobl.sqf";
+	case "direct.sqf" : {
+		_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
+	};
+	case "loallo.sqf": {
+		_hfcurtraj = "\fza_ah64_us\tex\icons\lo.paa";
+	};
+	case "loalhi.sqf": {
+		_hfcurtraj = "\fza_ah64_us\tex\icons\hi.paa";
+	}
 };
-if (fza_ah64_ltype == "loaldir.sqf") then {
-	_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
-};
-if (fza_ah64_ltype == "direct.sqf") then {
-	_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
-};
-if (fza_ah64_ltype == "loallo.sqf") then {
-	_hfcurtraj = "\fza_ah64_us\tex\icons\lo.paa";
-};
-if (fza_ah64_ltype == "loalhi.sqf") then {
-	_hfcurtraj = "\fza_ah64_us\tex\icons\hi.paa";
-};
+
 _sight = "\fza_ah64_us\tex\icons\tads.paa";
 _acq = "\fza_ah64_us\tex\icons\tads.paa";
-if (fza_ah64_agmode < 2) then {
+if (_heli getVariable "fza_ah64_agmode" < 2) then {
 	_sight = "\fza_ah64_us\tex\icons\fcr.paa";
 };
 
-if (fza_ah64_agmode < 2 && fza_ah64_hfmode == _heli) then {
+if (_heli getVariable "fza_ah64_agmode" < 2 && fza_ah64_hfmode == _heli) then {
 	_acq = "\fza_ah64_us\tex\icons\fcr.paa";
 };
 if (!(gettext(configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo") iskindof "fza_agm114k")) then {
 	_acq = _sight
 };
 
+
 if (fza_ah64_hfmode != _heli) then {
 	_acq = "\fza_ah64_us\tex\icons\REMT.paa";
 };
-if (fza_ah64_guncontrol == 1) then {
-	_acq = "\fza_ah64_us\tex\icons\HMD.paa";
-};
-if (fza_ah64_guncontrol == 2) then {
-	_acq = "\fza_ah64_us\tex\icons\AUTO.paa";
-};
-if (fza_ah64_guncontrol == 3) then {
-	_acq = "\fza_ah64_us\tex\icons\FXD.paa";
+switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+	case 1: {
+		_acq = "\fza_ah64_us\tex\icons\HMD.paa";
+	};
+	case 2: {
+		_acq = "\fza_ah64_us\tex\icons\AUTO.paa";
+	};
+	case 3: {
+		_acq = "\fza_ah64_us\tex\icons\FXD.paa";
+	}
 };
 
 if ("fza_agm114_23_8" in _weps) then {
@@ -1376,26 +1380,16 @@ _rktzone4 = "";
 _rktzone5 = "";
 
 if (currentweapon _heli in _rocketweps) then {
-
-	_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_1.paa";
-	if (fza_ah64_rocketsalvo == 2) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra.paa";
+	_rgbracket = switch (_heli getVariable "fza_ah64_rocketsalvo") do {
+		case 1: {"\fza_ah64_us\tex\icons\RKTxtra_1.paa"};
+		case 2: {"\fza_ah64_us\tex\icons\RKTxtra.paa"};
+		case 4: {"\fza_ah64_us\tex\icons\RKTxtra_4.paa"};
+		case 8: {"\fza_ah64_us\tex\icons\RKTxtra_8.paa"};
+		case 12: {"\fza_ah64_us\tex\icons\RKTxtra_12.paa"};
+		case 24: {"\fza_ah64_us\tex\icons\RKTxtra_24.paa"};
+		case 38: {"\fza_ah64_us\tex\icons\RKTxtra_all.paa"};
 	};
-	if (fza_ah64_rocketsalvo == 4) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_4.paa";
-	};
-	if (fza_ah64_rocketsalvo == 8) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_8.paa";
-	};
-	if (fza_ah64_rocketsalvo == 12) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_12.paa";
-	};
-	if (fza_ah64_rocketsalvo == 24) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_24.paa";
-	};
-	if (fza_ah64_rocketsalvo == 38) then {
-		_rgbracket = "\fza_ah64_us\tex\icons\RKTxtra_all.paa";
-	}; {
+	{
 		if ((_heli hasweapon "fza_m261_14") && (_x in _rktabshe || _x in _rktabshes || _x in _rktabsmp || _x in _rktabsfc)) then {
 			_rkt14ammo = _heli ammo "fza_m261_14";
 			_rocketcountA = _rkt14ammo - 14;
@@ -1662,10 +1656,10 @@ if (currentweapon _heli == "fza_ma_safe") then {
 } else {
 	_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
 };
-
-[_heli, fza_ah64_chaffcount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_CHAFF_QTY] call fza_fnc_drawNumberSelections;
-[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE1_QTY] call fza_fnc_drawNumberSelections;
-[_heli, fza_ah64_flarecount, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE2_QTY] call fza_fnc_drawNumberSelections;
+//TODO: When chaff re-added, add here
+[_heli, 0, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_CHAFF_QTY] call fza_fnc_drawNumberSelections;
+[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE1_QTY] call fza_fnc_drawNumberSelections;
+[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE2_QTY] call fza_fnc_drawNumberSelections;
 [_heli, _gunammo, ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter"),SEL_DIGITS_MPD_PL_GUN_AMMO] call fza_fnc_drawNumberSelections;
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_1, _burst10];
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_2, _burst20];

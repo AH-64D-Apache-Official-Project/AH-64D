@@ -64,7 +64,7 @@ switch (_system) do {
 	};
 	case "pnvs": {
 		if (_control == "daynight") then {
-			fza_ah64_ihadss_pnvs_day = !fza_ah64_ihadss_pnvs_day;
+			_heli setVariable ["fza_ah64_ihadss_pnvs_day", !(_heli getVariable "fza_ah64_ihadss_pnvs_day")];
 			["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
 		}
 	};
@@ -73,10 +73,10 @@ switch (_system) do {
 		if (_control == "mode") then {
 			if (_heli animationphase _nvsSwitch < 1) then {
 				_heli animate[_nvsSwitch, 1];
-				fza_ah64_ihadss_pnvs_cam = true;
+				_heli setVariable ["fza_ah64_ihadss_pnvs_cam", true];
 			} else {
 				_heli animate[_nvsSwitch, 0];
-				fza_ah64_ihadss_pnvs_cam = false;
+				_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 			};
 			["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
 		}
@@ -100,47 +100,3 @@ _ownship = worldtoscreen _ownship;
 if (count _ownship < 2) then {
     _ownship = [0, 0];
 };
-
-//RIGHT MPD WP Add
-
-if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_waypointfin == 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
-    _scalenum = 5;
-    if (_rmpdllc distance _rmpdurc > 0.45) then {
-        _scalenum = 2.5;
-    };
-    _direction = ((0.5) - (_ownship select 0)) atan2((_ownship select 1) - (0.5));
-    _direction = _direction + getdir _heli;
-    if (_direction < 0) then {
-        _direction = _direction + 360;
-    };
-    if (_direction > 360) then {
-        _direction = _direction - 360;
-    };
-    _wpposx = (getposatl _heli select 0) + ((sin _direction) * ((_scalenum / fza_ah64_rangesetting) * (_ownship distance[fza_ah64_mousehorpos, fza_ah64_mousevertpos])));
-    _wpposy = (getposatl _heli select 1) + ((cos _direction) * ((_scalenum / fza_ah64_rangesetting) * (_ownship distance[fza_ah64_mousehorpos, fza_ah64_mousevertpos])));
-    _wpadd = [_heli, [_wpposx, _wpposy]] execvm "\fza_ah64_controls\scripting\nav\wp_position.sqf";
-};
-
-//RIGHT MPD PFZ CREATE
-
-if (fza_ah64_tsdmode == "atk" && [_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd" && fza_ah64_pfz_count > 0 && (_ownship select 0) > 0.3 && (_ownship select 0) < 0.7 && (_ownship select 1) > 0.3 && (_ownship select 1) < 0.9) then {
-    _scalenum = 5;
-    if (_rmpdllc distance _rmpdurc > 0.45) then {
-        _scalenum = 2.5;
-    };
-    _direction = ((0.5) - (_ownship select 0)) atan2((_ownship select 1) - (0.5));
-    _direction = _direction + getdir _heli;
-    if (_direction < 0) then {
-        _direction = _direction + 360;
-    };
-    if (_direction > 360) then {
-        _direction = _direction - 360;
-    };
-    _wpposx = (getposatl _heli select 0) + ((sin _direction) * ((_scalenum / fza_ah64_rangesetting) * (_ownship distance[fza_ah64_mousehorpos, fza_ah64_mousevertpos])));
-    _wpposy = (getposatl _heli select 1) + ((cos _direction) * ((_scalenum / fza_ah64_rangesetting) * (_ownship distance[fza_ah64_mousehorpos, fza_ah64_mousevertpos])));
-    fza_ah64_curpfzarea = fza_ah64_curpfzarea + [
-        [_wpposx, _wpposy]
-    ];
-    fza_ah64_pfz_counter = fza_ah64_pfz_counter + 1;
-};
-*/

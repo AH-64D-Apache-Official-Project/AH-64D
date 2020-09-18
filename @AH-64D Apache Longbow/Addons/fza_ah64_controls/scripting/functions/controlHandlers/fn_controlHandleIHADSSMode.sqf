@@ -18,15 +18,17 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-if (fza_ah64_hmdfsmode == "trans") exitwith {
-    fza_ah64_hmdfsmode = "cruise";
-};
-if (fza_ah64_hmdfsmode == "cruise") exitwith {
-    fza_ah64_hmdfsmode = "hover";
-};
-if (fza_ah64_hmdfsmode == "hover") exitwith {
-    fza_ah64_hmdfsmode = "bobup";
-};
-if (fza_ah64_hmdfsmode == "bobup") exitwith {
-    fza_ah64_hmdfsmode = "trans";
-};
+params ["_heli"];
+
+_heli setVariable ["fza_ah64_hmdfsmode",
+	switch (_heli getVariable "fza_ah64_hmdfsmode") do {
+		case "trans": {"cruise"};
+		case "cruise": {"hover"};
+		case "hover": {
+			_heli setVariable ["fza_ah64_bobpos", [(getposasl _heli select 0), (getposasl _heli select 1)], true];
+			_heli setVariable ["fza_ah64_bobhdg", getdir _heli, true];
+			"bobup"
+		};
+		case "bobup": {"trans"};
+	}
+	, true];

@@ -22,64 +22,45 @@ params ["_heli"];
 if (!(player in _heli)) exitwith {};
 private _visibleTargets = [];
 
-fza_ah64_tsdtargets = fza_ah64_targetlist;
-fza_ah64_tsddisptargs = [];
+fza_ah64_tsddisptargs = ([_heli, fza_ah64_targetlist] call fza_fnc_targetingFilterType) select {
+    _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
 
-//_heli vehiclechat format ["%1",fza_ah64_dispfcrlist];
-//////////sort targets for helicopter/////////
-{
-    _i = _x;
-    fza_ah64_tsdtargets = fza_ah64_tsdtargets - [_i];
-    fza_ah64_tsddisptargs = fza_ah64_tsddisptargs - [_i];
+    ! (((_heli getVariable "fza_ah64_agmode" == 1 && getpos _x select 2 < 10) || (_theta > 45 && _theta < 315) || (_heli getVariable "fza_ah64_agmode" == 0 && getpos _x select 2 > 10) || (((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) > 1) || !(alive _x)) ||
+       ((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting") > 0.2) && (_theta > 90 && _theta < 270)) || ((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting") > 1) || !(alive _x)))
+};
 
-    if (fza_ah64_tsdsort < 4) then {
-        {
-            if (_i iskindof _x) then {
-                fza_ah64_tsdtargets = fza_ah64_tsdtargets + [_i];
-                fza_ah64_tsddisptargs = fza_ah64_tsddisptargs + [_i];
-            };
-        }
-        foreach fza_ah64_tsdsortarray;
-    } else {
-        if (_i in fza_ah64_tsdsortarray) then {
-            fza_ah64_tsdtargets = fza_ah64_tsdtargets + [_i];
-            fza_ah64_tsddisptargs = fza_ah64_tsddisptargs + [_i];
+fza_ah64_dispfcrlist = ([_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType) select {
+    _thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_ah64_reldir;
+
+    switch (_heli getVariable "fza_ah64_agmode") do {
+        case 0: {
+            !((getpos _x select 2 > 10) || ((_heli distance2D _x) > 8000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
+        };
+        case 1: {
+            !((getpos _x select 2 < 10) || ((_heli distance2D _x) > 8000) || !(alive _i))
+        };
+        default {
+            true
         };
     };
-
-    _theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _i select 0), (getposatl _i select 1)] call fza_fnc_relativeDirection;
-
-    if ((fza_ah64_agmode == 1 && getpos _i select 2 < 10) || (_theta > 45 && _theta < 315) || (fza_ah64_agmode == 0 && getpos _i select 2 > 10) || (((_heli distance _i) * fza_ah64_rangesetting) > 1) || !(alive _i)) then {
-        fza_ah64_tsdtargets = fza_ah64_tsdtargets - [_i];
-    };
-    if ((((_heli distance _i) * fza_ah64_rangesetting > 0.2) && (_theta > 90 && _theta < 270)) || ((_heli distance _i) * fza_ah64_rangesetting > 1) || !(alive _i)) then {
-        fza_ah64_tsddisptargs = fza_ah64_tsddisptargs - [_i];
-        fza_ah64_tsdtargets = fza_ah64_tsdtargets - [_i];
-    };
-
-}
-foreach fza_ah64_tsdtargets;
-
-if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
-    fza_ah64_tsdtargets = fza_ah64_dispfcrlist;
 };
 
 _visibleTargets =
     if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
         fza_ah64_dispfcrlist;
     } else {
-        if (fza_ah64_pfz_count == 0) then {
-            fza_ah64_tsdtargets;
+        if (_heli getVariable "fza_ah64_pfz_count" == 0) then {
+            fza_ah64_tsddisptargs;
         }
         else {
-            fza_ah64_currentpfz;
+            ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"));
         }
     };
 
-if (count fza_ah64_tsdtargets == 0 && isNull fza_ah64_mycurrenttarget) then {
+if (count _visibleTargets == 0 && isNull fza_ah64_mycurrenttarget) then {
     fza_ah64_mycurrenttarget = objNull;
 };
-if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count fza_ah64_tsdtargets > 0) then {
+if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _visibleTargets > 0) then {
     if (fza_ah64_mynum >= count _visibleTargets - 1) then {
         fza_ah64_mynum = 0;
     } else {
@@ -91,6 +72,6 @@ if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count f
 if (inputAction "vehLockTargets" < 0.5 && fza_ah64_locktargstate == 1) then {
     fza_ah64_locktargstate = 0;
 };
-if (fza_ah64_agmode == 2) then {
+if (_heli getVariable "fza_ah64_agmode" == 2) then {
     fza_ah64_mycurrenttarget = cursortarget;
 };

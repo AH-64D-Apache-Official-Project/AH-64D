@@ -83,9 +83,6 @@ _ins = [];
 _ins1 = [];
 _VMurangle = [];
 _lrange = 0;
-if (isNil "fza_ah64_safemsgticker") then {
-    fza_ah64_safemsgticker = 0;
-};
 _wptime = 0;
 _headsdown = false;
 _aratio = getResolution select 4;
@@ -121,10 +118,10 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-if (fza_ah64_ihadssoff == 1) then {
+if (_heli getVariable "fza_ah64_ihadssoff" == 1) then {
     1 cuttext["", "PLAIN", 0.1];
 };
-if (fza_ah64_ihadssoff == 0 && fza_ah64_monocleinbox == 1) then {
+if (_heli getVariable "fza_ah64_ihadssoff" == 0 && _heli getVariable "fza_ah64_monocleinbox") then {
     1 cuttext["", "PLAIN", 0.1];
 };
 if (fza_ah64_laserstate == 0) then {
@@ -132,15 +129,8 @@ if (fza_ah64_laserstate == 0) then {
 };
 
 //PNVS HDU
-if (isNil "fza_ah64_ihadss_pnvs_cam") then {
-    fza_ah64_ihadss_pnvs_cam = false;
-};
-if (isNil "fza_ah64_ihadss_pnvs_day") then {
-    fza_ah64_ihadss_pnvs_day = true;
-};
-
-if (fza_ah64_ihadss_pnvs_cam && alive player) then {
-    if (fza_ah64_ihadss_pnvs_day) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && alive player) then {
+    if (_heli getVariable "fza_ah64_ihadss_pnvs_day") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG HDU
     } else {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
@@ -161,7 +151,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then 
 };
 
 //IHADSS INIT
-if (_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngineOn _heli && fza_ah64_monocleinbox == 0 || fza_ah64_monocleinbox == 0) then {
+if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocleinbox") || isEngineOn _heli && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
@@ -182,12 +172,12 @@ if (_heli animationphase "plt_apu" > 0.5 && fza_ah64_monocleinbox == 0 || isEngi
         if ((player == driver _heli || player == gunner _heli) && _heli iskindof "fza_ah64d_b2e_nr") then {
             _sensor = "A ";
             _sensxm = "TADS ";
-            fza_ah64_agmode = 2;
+            _heli setVariable ["fza_ah64_agmode", 2, true];
         };
     };
 };
 
-if (fza_ah64_monocleinbox == 0 && cameraView == "INTERNAL") then {
+if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
     3 cutrsc["fza_ah64_monocleinbox", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
 } else {
@@ -196,7 +186,7 @@ if (fza_ah64_monocleinbox == 0 && cameraView == "INTERNAL") then {
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && fza_ah64_monocleinbox == 0 && fza_ah64_ihadssoff == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _heli getVariable "fza_ah64_ihadssoff" == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
     if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
@@ -360,17 +350,18 @@ _autohide = {
 
 if (("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && ("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) then {
     1 cuttext["", "PLAIN", 0.1];
-    fza_ah64_ihadssoff = 2;
+    _heli setVariable ["fza_ah64_ihadssoff", 2];
 };
-if ((!("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) || !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) && fza_ah64_ihadssoff == 2) then {
-    fza_ah64_ihadssoff = 1;
+if ((!("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) || !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
+    _heli setVariable ["fza_ah64_ihadssoff", 1];
 };
 
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
-_waypointcode = "W" + (format["%1", fza_ah64_curwpnum]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance fza_ah64_curwp)))]);
+_waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
+_waypointcode = "W" + (format["%1",_heli getVariable "fza_ah64_curwpnum"]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance _waypoint)))]);
 
-_reldir = ((fza_ah64_curwp select 0) - (getposatl _heli select 0)) atan2((fza_ah64_curwp select 1) - (getposatl _heli select 1));
+_reldir = ((_waypoint # 0) - (getposatl _heli select 0)) atan2((_waypoint # 1) - (getposatl _heli select 1));
 if (_reldir < 0) then {
     _reldir = _reldir + 360;
 };
@@ -388,70 +379,47 @@ _curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
 
-if (fza_ah64_agmode == 0) then {
+if (_heli getVariable "fza_ah64_agmode" == 0) then {
     _sensor = "R ";
     _sensxm = "FCR ";
 }; //FCRG SENSOR
-if (fza_ah64_agmode == 1) then {
+if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensor = "R ";
     _sensxm = "FCR ";
 }; //FCRA SENSOR
-if (fza_ah64_agmode == 2) then {
+if (_heli getVariable "fza_ah64_agmode" == 2) then {
     _sensor = "A ";
     _sensxm = "TADS";
 }; //TADS SENSOR
-if (fza_ah64_agmode == 3) then {
+if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _sensor = "R ";
     _sensxm = "FCR ";
-    fza_ah64_agmode = 0;
+    _heli setVariable ["fza_ah64_agmode", 0, true];
 };
-
-//if (fza_ah64_guncontrol == 0) then {_heli vehiclechat "TADS gun mode selected.";};
-//if (fza_ah64_guncontrol == 1) then {_heli vehiclechat "HMD gun mode selected.";};
-//if (fza_ah64_guncontrol == 2) then {_heli vehiclechat "AUTO gun mode selected.";};
-//if (fza_ah64_guncontrol == 3) then {_heli vehiclechat "FXD gun mode selected.";};
-
-//if(fza_ah64_hfmode != _heli) then {_acqihadss = "REMT";};
 
 
 if (_heli iskindof "fza_ah64base") then {
-    if (fza_ah64_guncontrol == 0) then {
-        _acqihadss = "TADS";
+    switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+        case 0: {
+            if (_heli iskindof "fza_ah64d_b2e") then {
+                _acqihadss = "FCR";
+            } else {
+                _acqihadss = "TADS";
+            };
+        };
+        case 1: {
+            _acqihadss = "HMD";
+        };
+        case 2: {
+            _acqihadss = "AUTO";
+        };
+        case 3: {
+            _acqihadss = "FXD";
+        }
     };
-
-    if (fza_ah64_guncontrol == 1) then {
-        _acqihadss = "HMD";
-    };
-
-    if (fza_ah64_guncontrol == 2) then {
-        _acqihadss = "AUTO";
-    };
-
-    if (fza_ah64_guncontrol == 3) then {
-        _acqihadss = "FXD";
-    };
-
     if (fza_ah64_hfmode != _heli) then {
         _acqihadss = "REMT";
     };
-};
-
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 0 && (fza_ah64_agmode == 0 || fza_ah64_agmode == 1)) then {
-    _acqihadss = "FCR";
-} else {
-    _acqihadss = "TADS";
-};
-
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 1) then {
-    _acqihadss = "HMD";
-};
-
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 2) then {
-    _acqihadss = "AUTO";
-};
-
-if (_heli iskindof "fza_ah64d_b2e" && fza_ah64_guncontrol == 3) then {
-    _acqihadss = "FXD";
 };
 
 _targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
@@ -501,14 +469,14 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
     _targhead = 45;
 };
 _targxpos = (_targhead * 0.0027777777777777777777777777777778) + 0.945;
-_targypos = ((_heli distance fza_ah64_mycurrenttarget) * fza_ah64_rangesetting) + 0.95;
+_targypos = ((_heli distance fza_ah64_mycurrenttarget) * (_heli getVariable "fza_ah64_rangesetting")) + 0.95;
 if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {
     _targypos = 0.63;
 };
 if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {
     _targxpos = 0.95;
 };
-_radrange = format["%1", (abs(1 / fza_ah64_rangesetting)) * 0.001];
+_radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 _collective = format["%1", round(100 * ((0.25 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))))];
 if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) == 2) then {
     _eng1data = [_heli, 0] call fza_fnc_engineGetData;
@@ -588,7 +556,7 @@ if (speed _heli < 5) then {
     _horvect = -100;
 };
 
-if (fza_ah64_ltype == "lobl.sqf" && (currentweapon _heli) in _hellfireweps) then {
+if (_heli getVariable "fza_ah64_ltype" == "lobl.sqf" && (currentweapon _heli) in _hellfireweps) then {
     _nolosbox = "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
     _losbox = "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
     _w = 0.2202;
@@ -600,7 +568,7 @@ if (fza_ah64_ltype == "lobl.sqf" && (currentweapon _heli) in _hellfireweps) then
     if (isManualFire _heli) then {
         _weapon = "PMSL";
     };
-    if (count fza_ah64_114sc > 0) then {
+    if (count fza_ah64_misguidearray > 0) then {
         if (fza_ah64_shottimer == 0) then {
             fza_ah64_shottimer = fza_ah64_firedist;
         };
@@ -614,7 +582,7 @@ if (fza_ah64_ltype == "lobl.sqf" && (currentweapon _heli) in _hellfireweps) then
     };
 };
 
-if ((currentweapon _heli) in _hellfireweps && !(fza_ah64_ltype == "lobl.sqf")) then {
+if ((currentweapon _heli) in _hellfireweps && !(_heli getVariable "fza_ah64_ltype" == "lobl.sqf")) then {
     _nolosbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
     _losbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
     _w = 0.0734;
@@ -625,19 +593,21 @@ if ((currentweapon _heli) in _hellfireweps && !(fza_ah64_ltype == "lobl.sqf")) t
     if (isManualFire _heli) then {
         _weapon = "PMSL";
     };
-    if (fza_ah64_ltype == "loaldir.sqf") then {
-        _weaponstate = "LOAL-DIR";
+    switch (_heli getVariable "fza_ah64_ltype") do {
+        case "loaldir.sqf": {
+            _weaponstate = "LOAL-DIR";
+        };
+        case "loallo.sqf": {
+            _weaponstate = "LOAL-LO";
+        };
+        case "loalhi.sqf": {
+            _weaponstate = "LOAL-HI";
+        };
+        case "direct.sqf": {
+            _weaponstate = "DIRECT";
+        }
     };
-    if (fza_ah64_ltype == "loallo.sqf") then {
-        _weaponstate = "LOAL-LO";
-    };
-    if (fza_ah64_ltype == "loalhi.sqf") then {
-        _weaponstate = "LOAL-HI";
-    };
-    if (fza_ah64_ltype == "direct.sqf") then {
-        _weaponstate = "DIRECT";
-    };
-    if (count fza_ah64_114sc > 0) then {
+    if (count fza_ah64_misguidearray > 0) then {
         if (fza_ah64_shottimer == 0) then {
             fza_ah64_shottimer = fza_ah64_firedist;
         };
@@ -688,7 +658,7 @@ if ((currentweapon _heli) in _rocketweps) then {
 
     //RKT FIX TADS AND/OR IHADSS DISPLAY
 
-    if (fza_ah64_guncontrol == 3) then {
+    if ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3) then {
         _losbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd";
         _nolosbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd";
     };
@@ -718,7 +688,7 @@ if ((currentweapon _heli == "fza_m230") && player == driver _heli) then {
     _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
     _losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
 
-    if (fza_ah64_guncontrol == 3) then {
+    if ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3) then {
         _losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";
         _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";
     };
@@ -764,7 +734,7 @@ if (currentweapon _heli == "Laserdesignator_mounted") then {
 
 //CSCOPE
 
-if (fza_ah64_fcrcscope == 1) then {
+if (_heli getVariable "fza_ah64_fcrcscope") then {
     _num = 190; {
         if (_num > 205) exitwith {};
         _coords = worldtoscreen(getpos _x);
@@ -837,31 +807,20 @@ if (fza_ah64_fcrcscope == 1) then {
 
 //IHADSS FLIGHT MODES
 
-_bobcoords = [-100, -100];
-if (isnil "fza_ah64_bobtrue") then {
-    fza_ah64_bobtrue = 0;
-};
-
-if ((fza_ah64_hmdfsmode != "trans" && fza_ah64_hmdfsmode != "cruise") || (_headsdown)) then {
+if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "fza_ah64_hmdfsmode") != "cruise") || (_headsdown)) then {
     _waypointcode = "";
     _gspdcode = "";
     _horvect = -100;
     _vertvect = -100;
 };
 
-if (fza_ah64_hmdfsmode != "cruise") then {
+if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _baraltft = "";
 };
+_bobcoords = [-100, -100];
+if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 
-if (fza_ah64_hmdfsmode == "bobup") then {
-
-    if (fza_ah64_bobtrue == 0) then {
-        fza_ah64_bobpos = [(getposasl _heli select 0), (getposasl _heli select 1)];
-        fza_ah64_bobhdg = getdir _heli;
-        fza_ah64_bobtrue = 1;
-    };
-
-    _thetabob = (360 + (fza_ah64_bobhdg - (direction _heli))) Mod 360;
+    _thetabob = (360 + ((_heli getVariable "fza_ah64_bobhdg") - direction _heli)) Mod 360;
 
     if (_thetabob >= 180) then {
         _thetabob = _thetabob - 360;
@@ -871,14 +830,14 @@ if (fza_ah64_hmdfsmode == "bobup") then {
 
     _curwpdir = _thetabob;
 
-    _bobcoordsx = (((fza_ah64_bobpos select 0) - (getposasl _heli select 0)) * 0.017) + 0.480775;
+    _bobcoordsx = (((_heli getVariable "fza_ah64_bobpos" select 0) - (getposasl _heli select 0)) * 0.017) + 0.480775;
     if (_bobcoordsx > 0.7) then {
         _bobcoordsx = 0.7;
     };
     if (_bobcoordsx < 0.3) then {
         _bobcoordsx = 0.3;
     };
-    _bobcoordsy = (((getposasl _heli select 1) - (fza_ah64_bobpos select 1)) * 0.017) + 0.475;
+    _bobcoordsy = (((getposasl _heli select 1) - (_heli getVariable "fza_ah64_bobpos" select 1)) * 0.017) + 0.475;
     if (_bobcoordsy > 0.7) then {
         _bobcoordsy = 0.7;
     };
@@ -886,9 +845,6 @@ if (fza_ah64_hmdfsmode == "bobup") then {
         _bobcoordsy = 0.3;
     };
     _bobcoords = [_bobcoordsx, _bobcoordsy];
-
-} else {
-    fza_ah64_bobtrue = 0;
 };
 
 ///HAD INHIBIT MESSAGES
@@ -935,7 +891,7 @@ if (currentweapon _heli in _hellfireweps && _heli ammo currentweapon _heli < 1 &
     _safemessage = "NO MSLS";
 };
 
-if ((currentweapon _heli) in _hellfireweps && (currentmagazine _heli) in _longbowmags && fza_ah64_ltype == "lobl.sqf" && fza_ah64_fcrstate == 0) then {
+if ((currentweapon _heli) in _hellfireweps && (currentmagazine _heli) in _longbowmags && _heli getVariable "fza_ah64_ltype" == "lobl.sqf" && !isVehicleRadarOn _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
     fza_ah64_targlos = 0;
     _safemessage = "NO ACQUIRE";
@@ -947,7 +903,7 @@ if (((currentweapon _heli) in _hellfireweps && !((currentmagazine _heli) in _lon
     _safemessage = "NO ACQUIRE";
 };
 
-if (fza_ah64_burst >= fza_ah64_burst_limit && currentweapon _heli == "fza_m230") then {
+if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
     _safemessage = "BURST LIMIT";
     player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
 };
@@ -970,13 +926,7 @@ if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimit
     _heli selectWeapon "fza_m230";
 };
 
-fza_ah64_safemsgticker = fza_ah64_safemsgticker + 1;
-
-if (fza_ah64_safemsgticker == 50) then {
-    fza_ah64_safemsgticker = -50;
-};
-
-if (fza_ah64_safemsgticker < 0) then {
+if ((diag_tickTime % 2) < 1) then {
     _safemessage = "";
 };
 
@@ -1058,19 +1008,19 @@ _pbvar = _heli call fza_fnc_getPitchBank;
 
 //HUD HORIZON OBJECTS
 
-if ((fza_ah64_hmdfsmode != "trans" && fza_ah64_hmdfsmode != "cruise") || (_headsdown)) then {
+if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza_ah64_hmdfsmode" != "cruise") || (_headsdown)) then {
     {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _x) ctrlSetPosition[100, 10, 100];
     }
     foreach[250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269];
 } else {
-    if (fza_ah64_hmdfsmode == "trans") then {
+    if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
         [269, (_pbvar select 0), (_pbvar select 1)] call _autohide;
     } else {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 269) ctrlSetPosition[100, 10, 100];
     };
 
-    if (fza_ah64_hmdfsmode == "cruise") then {
+    if (_heli getVariable "fza_ah64_hmdfsmode" == "cruise") then {
         [250, (_pbvar select 0), (_pbvar select 1)] call _autohide;
         [251, (_pbvar select 0) - 10, (_pbvar select 1)] call _autohide;
         [252, (_pbvar select 0) - 20, (_pbvar select 1)] call _autohide;

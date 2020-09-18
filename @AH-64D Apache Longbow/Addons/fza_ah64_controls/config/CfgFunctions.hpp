@@ -1,4 +1,4 @@
-#define R recompile = 1
+#define R recompile = 0
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -175,9 +175,11 @@ class CfgFunctions
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
+			class targetingGetAcquisitionSource {R;};
 			class targetingPFZCycle {R;};
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
+			class targetingSetAcquisitionSource {R;};
 			class targetingUpdate {R;};
 		};
 		class ui
@@ -191,6 +193,7 @@ class CfgFunctions
 			class weaponActionSwitch {R;};
 			class weaponHellfireAlign {R;};
 			class weaponMissileGuide {R;};
+			class weaponM230CycleBurst {R;};
 			class weaponTurretAim {R;};
 			class weaponRocketAlign {R;};
 		}

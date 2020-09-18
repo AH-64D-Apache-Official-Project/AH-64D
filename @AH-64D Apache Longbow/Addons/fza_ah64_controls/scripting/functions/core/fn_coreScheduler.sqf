@@ -22,7 +22,6 @@ if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 0.01;
-fza_ah64_missiontimestamp = time;
 
 if ((diag_ticktime - fza_ah64_overallticker) > _ticker && alive _heli && (player == driver _heli || player == gunner _heli) && count fza_ah64_schedarray > 0 && (vehicle player) isKindOf "fza_ah64base" && fza_ah64_pf_daytime < daytime) then {
     fza_ah64_overallticker = diag_ticktime; {

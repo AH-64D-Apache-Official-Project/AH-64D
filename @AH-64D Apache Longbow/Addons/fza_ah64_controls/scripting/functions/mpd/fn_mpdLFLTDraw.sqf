@@ -1,16 +1,16 @@
 params ["_heli"];
 #include "\fza_ah64_controls\headers\selections.h"
 
-private _2dvectTo3D = {[_this # 0, _this # 1]};
+private _2dvectTo3D = {[_this # 0, _this # 1, 0]};
 
 [_heli,  (getposasl _heli select 2) * 3.28084 / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_BALT] call fza_fnc_drawNumberSelections;
 [_heli,  (getpos _heli select 2) * 3.28084, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_RALT] call fza_fnc_drawNumberSelections;
 
 
-private _airSpeedKnots = vectorMagnitude((velocity _heli vectorDiff wind) call _2dvectTo3D) * 1.94;
+private _airSpeedKnots = vectorMagnitude (velocity _heli vectorDiff wind) * 1.94;
 [_heli, _airSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_SPD] call fza_fnc_drawNumberSelections;
 
-private _groundSpeed = vectorMagnitude ((velocity _heli) call _2dvectTo3D);
+private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * 1.94;
 [_heli, _groundSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_GSPD] call fza_fnc_drawNumberSelections;
 
@@ -23,15 +23,16 @@ if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) > 0) then {
 };
 [_heli, _torque, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TRQ] call fza_fnc_drawNumberSelections;
 
+_waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
 
-_waypointDistance = (fza_ah64_curwp distance2D getpos _heli);
+_waypointDistance = (_waypoint distance2D getpos _heli);
 [_heli, _waypointDistance / 100, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_WR] call fza_fnc_drawNumberSelections;
 
 [_heli, direction _heli, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_DIR] call fza_fnc_drawNumberSelections;
 
 
 
-private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (fza_ah64_curwp # 0), (fza_ah64_curwp # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
+private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (_waypoint # 0), (_waypoint # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 
 _vvect = [_heli] call fza_fnc_velocityVector;
 _vertvect = (_vvect select 0) + 0.5;

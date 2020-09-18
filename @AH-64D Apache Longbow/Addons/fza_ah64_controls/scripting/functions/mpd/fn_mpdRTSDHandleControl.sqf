@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
-if(fza_ah64_tsdmode == "nav") then {
+if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 	switch (_control) do {
 		case "l1": {
 			[_heli] execvm "\fza_ah64_controls\scripting\nav\waypointadd.sqf";
@@ -19,21 +19,21 @@ if(fza_ah64_tsdmode == "nav") then {
 		case "b4": {
 			//RMPD B4 BTN RTE
 			if (count waypoints group(driver _heli) > 1) then {
-				fza_ah64_waypointdata = [];
-				fza_ah64_waypointdata = fza_ah64_waypointdata + [position _heli]; {
+				_waypoints = [_heli getVariable "fza_ah64_waypointdata" select 0];
+				{
 					if (_x select 1 > 0) then {
-						fza_ah64_waypointdata = fza_ah64_waypointdata + [waypointPosition _x];
+						_waypoints pushBack waypointPosition _x;
 					};
-				}
-				foreach(waypoints group(driver _heli));
+				} foreach(waypoints group(driver _heli));
+				_heli setVariable ["fza_ah64_waypointdata", _waypoints, true];
 			};
 		};
 	};
 };
-if(fza_ah64_tsdmode == "atk") then {
+if(_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	switch (_control) do {
 		case "l1": {
-			[_heli, fza_ah64_pfz_count] execvm "\fza_ah64_controls\scripting\pfz.sqf";
+			[_heli, _heli getVariable "fza_ah64_pfz_count"] execvm "\fza_ah64_controls\scripting\pfz.sqf";
 		};
 		case "l3": {
 			[_heli] execvm "\fza_ah64_controls\scripting\targxfer.sqf";
@@ -60,7 +60,7 @@ switch (_control) do {
 		[_heli, "IN"] call fza_fnc_mpdHandleZoom;
 	};
 	case "r3": {
-		[_heli] exec "\fza_ah64_controls\scripting\tsd_targfilter.sqs";
+		[_heli] execVM "\fza_ah64_controls\scripting\tsd_targfilter.sqf";
 	};
 	case "t2": {
 		[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;

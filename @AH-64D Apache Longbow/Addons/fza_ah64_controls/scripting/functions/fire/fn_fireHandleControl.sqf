@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
-params ["_heli", "fire", "fe1"];
+params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "apu": {

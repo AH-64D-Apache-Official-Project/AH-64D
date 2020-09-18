@@ -85,12 +85,12 @@ do {
 
     ///////NAV///////
     if (!(isnil "fza_ah64_waypointdata")) then {
-        if (fza_ah64_curwpnum > (count fza_ah64_waypointdata - 1)) then {
-            fza_ah64_curwpnum = 0;
+        if (_heli getVariable "fza_ah64_curwpnum" > (count (_heli getVariable "fza_ah64_waypointdata") - 1)) then {
+            _heli setVariable ["fza_ah64_curwpnum", 0, true];
         };
-        fza_ah64_curwp = fza_ah64_waypointdata select fza_ah64_curwpnum;
-        if ([(getposasl _heli select 0), (getposasl _heli select 1), 0] distance fza_ah64_curwp < 50) then {
-            fza_ah64_curwpnum = fza_ah64_curwpnum + 1;
+        _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
+        if ([(getposasl _heli select 0), (getposasl _heli select 1), 0] distance _waypoint < 50) then {
+            [_heli] call fza_fnc_controlHandleNextWaypoint;
         };
     };
     /////////////////

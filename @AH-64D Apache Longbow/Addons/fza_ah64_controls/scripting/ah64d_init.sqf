@@ -14,11 +14,33 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli animate["cpg_firesw", 0.5];
     _heli animate["tads_stow", 1];
     _heli setVariable ["fza_ah64_estarted", false, true];
+    _heli setVariable ["fza_ah64_agmode", 0, true];
+    _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
+    _heli setVariable ["fza_ah64_curwpnum", 0, true];
+    _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
+    _heli setVariable ["fza_ah64_acq_plt", 3, true];
+    _heli setVariable ["fza_ah64_acq_cpg", 3, true];
+    _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
+    _heli setVariable ["fza_ah64_ltype", "lobl.sqf", true];
+    _heli setVariable ["fza_ah64_pfz_count", 0, true];
+    _heli setVariable ["fza_ah64_shotat_list", [], true];
+    _heli setVariable ["fza_ah64_tsdsort", 0, true];
 };
+_heli setVariable ["fza_ah64_aseautopage", 0];
+_heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
+_heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
+_heli setVariable ["fza_ah64_burst_limit", 10];
+_heli setVariable ["fza_ah64_fcrcscope", false];
+_heli setVariable ["fza_ah64_ihadssoff", 1];
+_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
+_heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
+_heli setVariable ["fza_ah64_monocleinbox", true];
+_heli setVariable ["fza_ah64_mpdbrightness", 1];
+_heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
+_heli setVariable ["fza_ah64_rocketsalvo", 1];
+_heli setVariable ["fza_ah64_tsdmode", "nav"];
 
-if (isNil "fza_ah64_skinlist") then {
-    fza_ah64_skinlist = [];
-};
+[_heli] call fza_fnc_engineInit;
 
 _skinset = 0;
 if (!(_heli in fza_ah64_skinlist)) then {
@@ -39,23 +61,13 @@ if ((weightRTD _heli select 3) == 0) then {
     };
 };
 
-[_heli] call fza_fnc_engineInit;
-
-_heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
-_heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
-
-_enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";
 _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
-if (isnil "fza_ah64_tiron") then {
-    fza_ah64_tiron = false;
-};
 
 if (typeOf _heli == "fza_ah64d_b2e") then {
     [_heli] execvm "\fza_ah64_controls\scripting\fcr_animate.sqf";
 };
 
-fza_ah64_backlights = 0;
 _rail1 = 0;
 _rail2 = 0;
 _rail3 = 0;
@@ -95,23 +107,18 @@ _end2 = 0;
 _end3 = 0;
 _end4 = 0;
 _num = 227;
-fza_ah64_114sc = [];
 
 while {
     alive _heli
 }
 do {
-    
-    if (fza_ah64_backlights == 1 && _heli animationphase "plt_batt" < 0.5) then {
+    if ((!isNull (_heli getVariable["fza_ah64_floodlight_cpg", objNull]) || (!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull]))) && _heli animationphase "plt_batt" < 0.5) then {
 
         _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
 
         deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
         deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
-
-        fza_ah64_backlights = 0;
-
     };
 
     _mags = magazines _heli;

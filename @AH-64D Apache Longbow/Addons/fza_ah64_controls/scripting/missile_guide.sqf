@@ -26,9 +26,9 @@ _basetargdist = _bomb distance _target;
 _designator = fza_ah64_hfmode;
 _laserguided = 0;
 _attached = 1;
-_launchmode = fza_ah64_ltype;
+_launchmode = _jet getVariable "fza_ah64_ltype";
 
-fza_ah64_shotat_list = fza_ah64_shotat_list + [_target];
+_heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list") + [_target]];
 
 //LASER OFF = AGM 114K WILL NOT TRACK ANYMORE
 
@@ -67,11 +67,10 @@ _vecuz = cos(_pitch) * cos(_bank);
 
 _bomb setVectorDirAndUp[[_vecdx, _vecdy, _vecdz], [_vecux, _vecuy, _vecuz]];
 
-if ((fza_ah64_targlos == 0 && typeof _bomb == "fza_agm114l" && _launchmode == "lobl.sqf") || (_launchmode == "lobl.sqf" && typeof _bomb == "fza_agm114l" && fza_ah64_fcrstate == 0)) exitwith {
-    fza_ah64_shotat_list = fza_ah64_shotat_list - [_target];
+if ((fza_ah64_targlos == 0 && typeof _bomb == "fza_agm114l" && _launchmode == "lobl.sqf") || (_launchmode == "lobl.sqf" && typeof _bomb == "fza_agm114l" && !isVehicleRadarOn _jet)) exitwith {
+    _heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list") - [_target]];
 };
 
-fza_ah64_114sc = fza_ah64_114sc + [_bomb];
 
 _curarrayidx = count fza_ah64_misguidearray;
 
@@ -106,7 +105,6 @@ do {
     };
 
     if ((_bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c") && _designator != _jet && isNull _target) then {
-        fza_ah64_shotat_list = fza_ah64_shotat_list - [_target];
         _curarrayidx = 0;
 
         {
@@ -127,11 +125,9 @@ do {
         fza_ah64_misguidearray = fza_ah64_misguidearray + [
             [_bomb, _target, _launchmode, _designator, _curarrayidx, _posdetector, _jetalt, _basetargdist]
         ];
-        fza_ah64_shotat_list = fza_ah64_shotat_list + [_target];
     };
 
     if ((_bomb isKindOf "fza_agm114k" || _bomb isKindOf "fza_agm114c") && _designator == _jet && fza_ah64_targlos == 1 && !(_target == cursortarget)) then {
-        fza_ah64_shotat_list = fza_ah64_shotat_list - [_target];
         _curarrayidx = 0;
 
         {
@@ -152,7 +148,6 @@ do {
         fza_ah64_misguidearray = fza_ah64_misguidearray + [
             [_bomb, _target, _launchmode, _designator, _curarrayidx, _posdetector, _jetalt, _basetargdist]
         ];
-        fza_ah64_shotat_list = fza_ah64_shotat_list + [_target];
     };
 
     sleep 0.05;
@@ -163,8 +158,7 @@ if (!(isnil "fza_ah64_miscam")) then {
     (vehicle player) switchcamera "external";
 };
 
-fza_ah64_114sc = fza_ah64_114sc - [_bomb];
-fza_ah64_shotat_list = fza_ah64_shotat_list - [_target];
+_heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list") - [_target]];
 
 _curarrayidx = 0;
 

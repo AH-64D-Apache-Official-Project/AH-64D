@@ -22,7 +22,7 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-private["_heli"];
+params["_heli"];
 
 if (!(player in _heli)) exitwith {};
 
