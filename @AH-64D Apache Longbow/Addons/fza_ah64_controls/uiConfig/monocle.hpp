@@ -1,5 +1,3 @@
-
-//END EXPERIMENTAL - MONOCLE OVERLAY
 class CfgInGameUI
 {
 	class Cursor{
@@ -124,7 +122,13 @@ class CfgInGameUI
 			class HitConfirm: Seeker
             {
                 texture="\A3\ui_f\data\igui\cfg\targeting\HitConfirm_ca.paa";
-                color[]={0.70899999,0.972,0.384,1};
+                color[]=
+                {
+                    "(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0.709])",
+                    "(profilenamespace getvariable ['IGUI_TEXT_RGB_G',0.972])",
+                    "(profilenamespace getvariable ['IGUI_TEXT_RGB_B',0.384])",
+                    "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',1]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
+                };
             };
 			class KnownTarget: Seeker
             {
