@@ -2,7 +2,7 @@
 Function: fza_fnc_laserArm
 
 Description:
-    Arms the apache's LRFD, from either seat.
+    Arms the apache's LRFD, from either seat. Must be run in scheduled environment (involve sleep)
 
 Parameters:
 	_heli - The helicopter to act upon
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_laserArm
+    [_heli] spawn fza_fnc_laserArm
 	---
 
 Author:

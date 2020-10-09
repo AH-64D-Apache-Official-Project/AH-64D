@@ -1012,7 +1012,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User5";
-				statement="[this] call fza_fnc_laserArm;";
+				statement="[this] spawn fza_fnc_laserArm;";
 			};
 			class rem_remt
 			{
@@ -1024,7 +1024,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User10";
-				statement="[this] call fza_fnc_laserArm;";
+				statement="[this] spawn fza_fnc_laserArm;";
 			};
 			class pnvs_cam_onoff
 			{

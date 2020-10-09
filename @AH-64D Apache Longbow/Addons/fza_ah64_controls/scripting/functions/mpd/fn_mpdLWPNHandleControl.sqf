@@ -52,7 +52,7 @@ switch (_control) do {
 			_heli removemagazine "Laserbatteries";
 			_heli removeweapon "Laserdesignator_mounted";
 		} else {
-			[_heli] call fza_fnc_laserArm;;
+			[_heli] spawn fza_fnc_laserArm;
 		};
 	};
 	case "b1": {

@@ -70,7 +70,8 @@ if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || is
 //ROCKETS SALVOS
 
 if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
-    [] spawn {
+    [_this] spawn {
+        params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
         sleep 0.011;
         if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo") && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
             if (_ah64 ammo _weapon <= 0) then {
