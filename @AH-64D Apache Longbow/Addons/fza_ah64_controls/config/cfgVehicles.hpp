@@ -1,17 +1,11 @@
 class CfgVehicles
 {
 	class All;
-	class AllVehicles : All
-	{
-		class NewTurret;
-	};
-	class Air : AllVehicles {};
-	class Helicopter_Base_F : Air
+	class Helicopter_Base_F;
+	class fza_ah64base : Helicopter_Base_F
 	{
 		class Components;
-	};
-	class fza_ah64base: Helicopter_Base_F
-	{
+		class NewTurret;
 		
 		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
 		
@@ -1496,6 +1490,47 @@ class CfgVehicles
 					minmovex = -0.15;
 					minmovey = -0.1;
 					minmovez = -0.1;
+				};
+				class Components
+				{
+					class VehicleSystemsDisplayManagerComponentLeft
+					{
+						componentType = "VehicleSystemsDisplayManager";
+						x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"",	(safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
+						y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"",	(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
+						left = 1;
+						defaultDisplay = "CrewDisplay";
+						class Components
+						{
+							class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
+								{
+									componentType = "SensorsDisplayComponent";
+									range[] = {16000,8000,4000,2000};     //accepts an integer or an array of available ranges (submode)
+									showTargetTypes = 1+2+4+8+16+32+64+128+256+512+1024; // 1 - Sensor sectors, 2 - Threats, 4 - Marked tgt symbol, 8 - Own detection, 16 - Remote detection, 32 - Active detection, 64 - Passive detection, 128 - Ground tgts, 256 - Air tgts, 512 - Men, 1024 - Special (laser, NV)
+									resource = "RscCustomInfoSensors";
+								};
+							class VehicleGunnerDisplay	// Camera feed from gunner's optics
+							{
+								componentType = "TransportFeedDisplayComponent";
+								source = "PrimaryGunner";
+							};
+							class EmptyDisplay		// Empty display - hide panel
+							{
+								componentType = "EmptyDisplayComponent";
+							};
+							class MinimapDisplay	// GPS
+							{
+								componentType = "MinimapDisplayComponent";
+								resource = "RscCustomInfoMiniMap";
+							};
+						};
+					};
+					class VehicleSystemsDisplayManagerComponentRight : VehicleSystemsDisplayManagerComponentLeft {
+						left = 0;
+						right = 1;
+						x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_X"",((safezoneX + safezoneW) - ((10 * (((safezoneW / safezoneH) min 1.2) / 40)) + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40)))])";
+						y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
+					};
 				};
 			};
 		};
@@ -3396,9 +3431,7 @@ initPhase=0;
 	///////////////////JAMMERS///////////////////////
 	/////////////////////////////////////////////////
 
-	class Thing: All {};
-	class ThingX: Thing {};
-	class RoadCone_F: Thing {};
+	class RoadCone_F;
 	class fza_ah64_ic: RoadCone_F
 	{
 		scope=1;
@@ -3411,11 +3444,8 @@ initPhase=0;
 		side=3;
 		simulation = "thing";
 	};
-	class Plane: Air {};
-	class UAV: Plane {};
-	class UAV_02_base_F: UAV {};
-	class UAV_02_F: UAV_02_base_F {};
-	class fza_ah64_jammer: UAV_02_F
+	class UAV_02_base_F;
+	class fza_ah64_jammer: UAV_02_base_F
 	{
 		class Turrets {};
 		scope=1;

@@ -459,6 +459,10 @@ class RscTitles
 				y = 0;
 				w = ICE_HUD_Monocle_Size * 4;
 				h = ICE_HUD_Monocle_Size * 4;
+				class ScrollBar {
+					width = 0;
+					height = 0;
+				};
 				class controls
 				{
 				/*

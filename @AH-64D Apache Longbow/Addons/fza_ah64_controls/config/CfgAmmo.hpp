@@ -1,24 +1,15 @@
 class CfgAmmo
 {
-	class BulletCore;
-	class B_30mm_HE: BulletCore {};
+	class B_30mm_HE;
 	class Bulletbase;
 	class MissileCore;
 	class MissileBase;
-	class Missile_AGM_02_F: MissileBase
-	{
-		class Components;
-	};
+	class Missile_AGM_02_F;
 	class RocketCore;
 	class RocketBase;
-	class Grenade;
 	class GrenadeBase;
 	class FlareCore;
-	class SmokeShell;
-	class SubmunitionBase;
 	class B_9x21_Ball;
-	class M_PG_AT;
-	class M_AT;
 	
 	class fza_ah64_flare_shot: FlareCore 
 	{

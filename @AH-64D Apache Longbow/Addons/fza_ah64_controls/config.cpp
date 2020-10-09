@@ -17,14 +17,6 @@ class CfgPatches
 /*extern*/ class SensorTemplatePassiveRadar;
 /*extern*/ class SensorTemplateLaser;
 /*extern*/ class SensorTemplateNV;
-
-class DefaultVehicleSystemsDisplayManagerLeft {
-	/*extern*/ class Components;
-};
-class DefaultVehicleSystemsDisplayManagerRight {
-	/*extern*/ class Components;
-};
-
 #include "config\defines.hpp"
 #include "config\misc.hpp"
 #include "config\CfgAnimationSourceSounds.hpp"
