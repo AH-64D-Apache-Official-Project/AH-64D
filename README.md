@@ -2,9 +2,15 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*11/10/2020*
+- Improved AFM based on old logic (by BradMick)
+- Fixed alternate sensor icon
+- Added propper 3D M130 flares dispenser on tail 
+- Firing the M230 should no longer shake screen for all clients (by Rosd6)
+
 *04/10/2020*
 - Fixed ACRE intercom preventing racks radio PTTs usage
-- Added targetting informations toggle - prior future CBA update (by mattysmith22)
+- Added targeting informations toggle - prior future CBA update (by mattysmith22)
 - Fixed headtracking toggle option appearing in action menu outside the aircraft
 - Fixed config inheritance and code cleaning in CfgVehicles (by mattysmith22)
 - Fixed AGM-144 max altitude launch (by Rosd6)

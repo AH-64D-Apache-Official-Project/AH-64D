@@ -13,6 +13,7 @@ _6ilmags = ["fza_m261_m257_14_38", "fza_m261_m257_23_38", "fza_m261_m257_1_19", 
 
 // M230 SHAKE
 if (_selWeapon == "fza_m230" || _selWeapon in _hellfireweps || _selWeapon in _rocketweps)
-    then {
-        addCamShake[0.20, 2, 20];
+    then 
+	{
+        private addCamShake[0.20, 2, 20];
     };
