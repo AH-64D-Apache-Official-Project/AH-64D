@@ -28,14 +28,12 @@ switch(_control) do {
 	case "apu": {
 		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
 			_heli animate["plt_apu", 1];
-			_heli animate["tads_stow", 0];
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
 			[_heli] execvm "\fza_ah64_controls\scripting\loops.sqf";
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
 			if (_heli animationphase "plt_apu" == 1) then {
 				_heli animate["plt_apu", 0];
-				_heli animate["tads_stow", 1];
 				["fza_ah64_apubutton", 0.1] spawn fza_fnc_playAudio;
 				[_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
 			};

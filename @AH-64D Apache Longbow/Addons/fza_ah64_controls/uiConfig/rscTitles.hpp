@@ -1382,7 +1382,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1397,7 +1397,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1412,7 +1412,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1427,7 +1427,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1442,7 +1442,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1457,7 +1457,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1472,7 +1472,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1487,7 +1487,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1502,7 +1502,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1517,7 +1517,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1532,7 +1532,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1547,7 +1547,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1562,7 +1562,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1577,7 +1577,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1592,7 +1592,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;
@@ -1607,7 +1607,7 @@ class RscTitles
 				colorText[] = {1, 1, 1, 1};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 				style = 48;
 				sizeEx = 1024;
 				x = -100;

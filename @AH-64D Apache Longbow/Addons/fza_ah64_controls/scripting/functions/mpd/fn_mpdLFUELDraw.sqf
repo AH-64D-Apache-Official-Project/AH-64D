@@ -5,15 +5,16 @@ params["_heli"];
 #define FORWARD_FUEL_CELL_WEIGHT 1041
 #define AFT_FUEL_CELL_WEIGHT 1534
 #define TOTAL_FUEL_CELL_WEIGHT 2575
+#define KGTOLBS 2.20462
 
 private _fuelWeight = if (isObjectRTD _heli) then {
-	weightRTD _heli # 2;
+	(weightRTD _heli # 2) * KGTOLBS;
 } else {
 	TOTAL_FUEL_CELL_WEIGHT * (fuel _heli)
 };
 
-private _forwardCellWeight = FORWARD_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT * _fuelWeight;
-private _aftCellWeight = AFT_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT * _fuelWeight;
+private _forwardCellWeight = (FORWARD_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT) * _fuelWeight;
+private _aftCellWeight = (AFT_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT) * _fuelWeight;
 
 private _enginesOn = if (isObjectRTD _heli) then {
 	private _engines = enginesIsOnRTD _heli;

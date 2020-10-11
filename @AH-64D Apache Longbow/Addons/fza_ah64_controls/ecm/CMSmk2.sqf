@@ -102,7 +102,7 @@ if (typeOf _ac == "fza_ah64d_b2e" || typeOf _ac == "fza_ah64d_b2exp" || typeOf _
 };
 
 {
-    if (_hostile iskindof _x && fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0 && _heli getVariable "fza_ah64_aseautopage" == 2) then {
+    if (_hostile iskindof _x && fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0 && _ac getVariable "fza_ah64_aseautopage" == 2) then {
         _rfjammerscript = [_ac] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";
     };
     if (_hostile iskindof _x && fza_ah64_irjstate == 1 && fza_ah64_irjon == 0 && fza_ah64_aseautopage == 2) then {
@@ -198,8 +198,8 @@ if (typeof _missile in fza_ah64_mis_ir) then {
     if (!(_hostile in fza_ah64_threatfiring)) then {
         fza_ah64_threatfiring = fza_ah64_threatfiring + [_hostile];
     };
-    if (_heli getVariable "fza_ah64_aseautopage" == 2) then {
-        [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+    if (_ac getVariable "fza_ah64_aseautopage" == 2) then {
+        [_ac, 1, "ase"] call fza_fnc_mpdSetDisplay;
     };
     _ac vehiclechat format["Missile %1 OClock %2 %3 Meters", _oclock, _highlow, _range];
     _bthlsound = "fza_ah64_bt_" + _highlow;

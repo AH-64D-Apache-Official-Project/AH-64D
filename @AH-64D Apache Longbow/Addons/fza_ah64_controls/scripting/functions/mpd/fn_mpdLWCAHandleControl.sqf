@@ -4,6 +4,6 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "m": {
-		[_heli, 0, "wca"] call fza_fnc_mpdSetDisplay;
+		[_heli, 0, "dms"] call fza_fnc_mpdSetDisplay;
 	};
 };

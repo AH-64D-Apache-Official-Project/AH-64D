@@ -124,6 +124,17 @@ do {
     _mags = magazines _heli;
     _magsp = _heli magazinesturret[-1];
 
+    if (local _heli) then {
+        _tadsShouldBeStowed = _heli animationphase "plt_apu" < 1 && !isEngineOn _heli;
+        
+        if (_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 0) then {
+            _heli animate ["tads_stow", 1];
+        };
+        if (!_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 1) then {
+            _heli animate ["tads_stow", 0];
+        };
+    };
+
     if (damage _heli > 0.001) then {
         _skinset = 0;
     };

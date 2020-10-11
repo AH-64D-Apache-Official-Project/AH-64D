@@ -11,10 +11,10 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (_heli getVariable "fza_ah
 	case 5: {"\fza_ah64_us\tex\CHAR\G2_ca.paa";};
 	case 6: {"\fza_ah64_us\tex\CHAR\G3_ca.paa";};
 	case 7: {"\fza_ah64_us\tex\CHAR\G4_ca.paa";};
-	case 8: {"\fza_ah64_us\tex\mpd\CHAR\G5_ca.paa";};
-	case 9: {"\fza_ah64_us\tex\mpd\CHAR\G6_ca.paa";};
-	case 10: {"\fza_ah64_us\tex\mpd\CHAR\G7_ca.paa";};
-	case 11: {"\fza_ah64_us\tex\mpd\CHAR\G8_ca.paa";};
+	case 8: {"\fza_ah64_us\tex\CHAR\G5_ca.paa";};
+	case 9: {"\fza_ah64_us\tex\CHAR\G6_ca.paa";};
+	case 10: {"\fza_ah64_us\tex\CHAR\G7_ca.paa";};
+	case 11: {"\fza_ah64_us\tex\CHAR\G8_ca.paa";};
 	default {"\fza_ah64_us\tex\mpd\all.paa";};
 }];
 
@@ -53,7 +53,7 @@ private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getpos
 if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
 
-	private _targetsToDraw = fza_ah64_tsddisptargs apply {
+	private _targetsToDraw = fza_ah64_targetlist apply {
 		private _targetType = "gen";
 		private _targetModifier = "";
 		private _targetPriority = 0;

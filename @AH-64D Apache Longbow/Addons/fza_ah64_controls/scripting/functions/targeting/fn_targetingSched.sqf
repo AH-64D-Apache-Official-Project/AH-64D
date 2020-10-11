@@ -50,7 +50,7 @@ _visibleTargets =
         fza_ah64_dispfcrlist;
     } else {
         if (_heli getVariable "fza_ah64_pfz_count" == 0) then {
-            fza_ah64_tsddisptargs;
+            fza_ah64_targetlist;
         }
         else {
             ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"));

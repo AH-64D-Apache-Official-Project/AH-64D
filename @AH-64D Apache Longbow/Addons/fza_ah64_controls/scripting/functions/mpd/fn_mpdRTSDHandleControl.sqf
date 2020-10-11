@@ -26,6 +26,7 @@ if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 					};
 				} foreach(waypoints group(driver _heli));
 				_heli setVariable ["fza_ah64_waypointdata", _waypoints, true];
+				_heli setVariable ["fza_ah64_curwpnum", 0, true];
 			};
 		};
 	};

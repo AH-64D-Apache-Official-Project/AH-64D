@@ -1088,20 +1088,6 @@ class CfgVehicles
 				shortcut="User17";
 				statement="[this] call fza_fnc_controlHandlePrevWaypoint";
 			};
-			class fcr_toggle
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="pilot_action";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this)";
-				shortcut="salute";
-				statement="fza_ah64_fcronoff = [this] execvm ""\fza_ah64_controls\scripting\fcr_toggle.sqf""";
-			};
 			class jammer_toggle
 			{
 				displayName="JAMMER MAN/AUT";
@@ -1161,7 +1147,7 @@ class CfgVehicles
 		{
 			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
 			engine = "_this call fza_fnc_engineEventHandler;";
-			fired = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; _this call fza_fnc_weaponHellfireAlign;";
+			fired = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; _this call fza_fnc_weaponHellfireAlign; _this call fza_fnc_weaponRocketAlign";
 			GetIn = "_this call fza_fnc_eventGetIn;";
 			GetOut = "_this call fza_fnc_eventGetOut;";
 			IncomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
