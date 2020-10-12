@@ -131,34 +131,6 @@ class CfgVehicles
 		};
 		class RenderTargets
 		{
-				/*
-				class cockpitmirror1
-				{
-					renderTarget = "fza_ah64_cpitmirror1";
-					class View01
-					{
-						pointPosition = "mirror_cpit1";
-						pointDirection = "mirror_cpit2";
-						renderQuality = 0;
-						renderVisionMode = 4; //MIRROR
-						fov = 0.5;
-					};
-				};
-				*/
-				/*
-				class driverpnvs1
-				{
-					renderTarget = "fza_ah64_pnvscam1";
-					class View01
-					{
-						pointPosition = "driverview";
-						pointDirection = "driverview_dir";
-						renderQuality = 0;
-						renderVisionMode = 2; //FLIR
-						fov = 0.18;
-					};
-				};
-				*/
 				class driverpnvs2
 				{
 					renderTarget = "fza_ah64_pnvscam2";
@@ -1168,12 +1140,13 @@ class CfgVehicles
 			};
 		};*/
 
+
 		 class AcreIntercoms
 		{
             class Intercom_1
 			{
-                displayName = "Crew Intercom";
-                shortName = "Crew";
+                displayName = "Intercom (ICS)";
+                shortName = "ICS";
                 allowedPositions[] = {"crew"};
                 disabledPositions[] = {};
                 masterPositions[] = {"crew"}; // Seats with master stations have the possibility of broadcasting a message in that network
@@ -1182,74 +1155,75 @@ class CfgVehicles
                 connectedByDefault = 0; // The intercom initial configuration is enabled upon entering a vehicle
             };
 		};
-
+		
 		acre_hasInfantryPhone = 1; // 1 - enabled, 0 - disabled
 		acre_infantryPhoneDisableRinging = 1;   // If set to 1, the ringing funtionality will not be available
 		acre_infantryPhoneCustomRinging[] = {}; // An array used in order to override the default sound for the ringing functionality
 		acre_infantryPhoneIntercom[] = {"intercom_1"}; // List of intercom names (intercom_1, intercom_2) or "all" in order to specify which intercom networks the phone can connect to
 		acre_infantryPhoneControlActions[] = {"intercom_1"}; // Only those units in "intercom_1" can have access to ringing functionality
-		acre_eventInfantryPhone = QFUNC(noApiFunction); // Here a custom function can be defined that is called when the infantry phone is picked up, put back, given to another unit or the intercom network is switched
-
-		class AcreRacks
-		{
-           	class Rack_1
-			{
+		acre_eventInfantryPhone = QFUNC(noApiFunction);
+		
+       class AcreRacks
+        {
+            class Rack_1
+            {
                displayName = "ARC-186 (VHF)"; // Name is displayed in the interaction menu.
-			   shortName = "VHF";
-               allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
+               shortName = "VHF";
+               allowedPositions[] = {"driver","gunner"};     // Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
                componentName = "ACRE_VRC103";
-			   disabledPositions[] = {};
-               defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
+               disabledPositions[] = {};
+               defaultComponents[] = {};                     // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
                isRadioRemovable = 0;
-               intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
-		   };
-		    class Rack_2
-			{
+               intercom[] = {};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
+            class Rack_2
+            {
                displayName = "ARC-164 (UHF)"; // Name is displayed in the interaction menu.
-			   shortName = "UHF";
-               allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
+               shortName = "UHF";
+               allowedPositions[] = {"driver","gunner"};     // Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
                componentName = "ACRE_VRC103";
-			   disabledPositions[] = {};
-               defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
+               disabledPositions[] = {};
+               defaultComponents[] = {};                     // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_PRC117F";                 // Predefined mounted radio
                isRadioRemovable = 0;
-               intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
-		   };
-		    class Rack_3
-			{
+               intercom[] = {};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
+			class Rack_3
+            {
                displayName = "ARC-201D (FM1)"; // Name is displayed in the interaction menu.
-			   shortName = "FM1";
-               allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
+               shortName = "FM1";
+               allowedPositions[] = {"driver","gunner"};     // Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
                componentName = "ACRE_SEM90";
-			   disabledPositions[] = {};
-               defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
+               disabledPositions[] = {};
+               defaultComponents[] = {};                     // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_SEM70";                 // Predefined mounted radio
                isRadioRemovable = 0;
-               intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
-		   };
-		    class Rack_4
-			{
+               intercom[] = {};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
+            class Rack_4
+            {
                displayName = "ARC-201D (FM2)"; // Name is displayed in the interaction menu.
-			   shortName = "FM2";
-               allowedPositions[] = {"crew"}; 	// Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
+               shortName = "FM2";
+               allowedPositions[] = {"driver","gunner"};     // Who can configure the radio and open the radio GUI. Same wildcards as the intercom. It also allows transmitting/receiving
                componentName = "ACRE_SEM90";
-			   disabledPositions[] = {};
-               defaultComponents[] = {};					 // Use this to attach simple components like Antennas. Not yet fully implemented
+               disabledPositions[] = {};
+               defaultComponents[] = {};                     // Use this to attach simple components like Antennas. Not yet fully implemented
                mountedRadio = "ACRE_SEM70";                 // Predefined mounted radio
                isRadioRemovable = 0;
-               intercom[] = {"Intercom_1"};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
-		   };
+               intercom[] = {};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
+           };
        };
 	};
 	class fza_ah64d_b2e: fza_ah64base
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
+		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		ejectDeadCargo=0;
+		ejectDeadCargo=false;
+		ejectdeadgunner = false;
 		nameSound="veh_Helicopter";
 		faction="fza_usaav";
 		vehicleclass="fza_helicopters";
@@ -1278,21 +1252,14 @@ class CfgVehicles
 		nightVision=1;
 		mainRotorSpeed = 1;
 		threat[] = {1,1,0.700000};
-		//ARMOR VALUES
 		armor=60;
-		armorHull=0.5;
-		armorEngine=0.6;
-		armorAvionics=1.4;
-		armorVRotor=0.5;
-		armorHRotor=0.7;
-		armorMissiles=1.6;
-		armorGlass=1.0;
-		memorypointcm[] = {"chaff_launcher1"};
-		memorypointcmdir[] = {"flare_1_end"};
+		memorypointcm[] = {"flare_beg"};
+		memorypointcmdir[] = {"flare_end"};
 		weapons[] = {"fza_CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = "8+4";
 		incommingmissliedetectionsystem = 16;
+		gunAimDown = 0;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
@@ -1301,7 +1268,6 @@ class CfgVehicles
 		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";
 		memoryPointRRocket = "p raketa";
-		gunAimDown = 0;
 		memoryPointsGetInDriver = "pos driver";
 		memoryPointsGetInDriverDir = "pos driver dir";
 		memoryPointsGetInCargo = "pos cargo";
@@ -1310,24 +1276,6 @@ class CfgVehicles
 		{
 		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
-		/*
-		class RenderTargets
-		{
-			class MFD1
-			{
-				rendertarget = "fza_ah64_pnvsrtarget0";
-				class View01
-				{
-					fov = 0.2;
-					pointdirection = "driverview_dir";
-					pointposition = "driverview";
-					renderquality = 0;
-					rendervisionmode = 2;
-				};
-			};
-		};
-		*/
-
 		class Turrets
 		{
 			class MainTurret: NewTurret
@@ -1338,8 +1286,10 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_2_4","fza_agm114_3_4"};
-				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114l_2_4","fza_agm114k_3_4"};
+				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
+				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
+				//weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_2_4","fza_agm114_3_4"};
+				//magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114l_2_4","fza_agm114k_3_4"};
 			    //weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
 				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
@@ -1364,16 +1314,10 @@ class CfgVehicles
 				maxGunTurn = 120;
 				minGunTurnAI = -120;
 				maxGunTurnAI = 120;
-				maxhorizontalrotspeed = 2;
-				maxverticalrotspeed = 2;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
 				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
 				turretinfotype = "RscUnitInfoNoHUD";
 				turretFollowFreeLook = 0;
 				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
@@ -1405,7 +1349,6 @@ class CfgVehicles
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 						directionStabilized = 1;
-						opticStabilized=1;
 						initanglex = 0;
 						initangley = 0;
 						initfov = 0.466;
@@ -1422,9 +1365,6 @@ class CfgVehicles
 					class Medium: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
-						opticStabilized=1;
 						initfov = 0.09;
 						maxfov = 0.09;
 						minfov = 0.09;
@@ -1433,9 +1373,6 @@ class CfgVehicles
 					class Narrow: Wide
 					{
 						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
-						opticStabilized=1;
 						initfov = 0.01;
 						maxfov = 0.01;
 						minfov = 0.01;
@@ -1458,24 +1395,6 @@ class CfgVehicles
 						minangley = -120;
 						maxangley = 120;
 					};
-				};
-				class ViewGunner
-				{
-					initFov=0.7;
-					minFov=0.400000;
-					maxFov=0.7;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=75;
-					initAngleY=0;
-					minAngleY=-120;
-					maxAngleY=120;
-					maxmovex = 0.15;
-					maxmovey = 0.1;
-					maxmovez = 0.1;
-					minmovex = -0.15;
-					minmovey = -0.1;
-					minmovez = -0.1;
 				};
 				class Components
 				{
@@ -1556,7 +1475,6 @@ class CfgVehicles
 		};
 		class ViewOptics
 		{
-			stabilizedInAxes = 3;
 			initAngleX=0;
 			minAngleX=-90;
 			maxAngleX=90;
@@ -3210,207 +3128,10 @@ initPhase=0;
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
-		class Components: Components
-		{
-			class TransportPylonsComponent
-			{
-				uiPicture = "\A3\Air_F_Beta\Heli_Attack_01\Data\UI\Heli_Attack_01_EDEN_CA.paa";
-
-				class Pylons // Pylons are indexed to aircraft model's proxies IDs in the order they are written in class Pylons
-				{
-					class PylonLeft1 {
-						attachment = "";
-						priority = 1;
-						hardpoints[] = {};
-						bay = -1;
-						turret[] = {};
-						UIposition[] = {0.060000, 0.400000};
-					};
-
-					class PylonLeft2: PylonLeft1 {
-						attachment = "";
-						hardpoints[] = {};
-						UIposition[] = {0.080000, 0.350000};
-					};
-
-					class PylonLeft3: PylonLeft1 {
-						attachment = "";
-						hardpoints[] = {};
-						UIposition[] = {0.100000, 0.300000};
-					};
-
-					class PylonRight3: PylonLeft3 {
-						attachment = "";
-						hardpoints[] = {};
-						UIposition[] = {0.590000, 0.300000};
-					};
-
-					class PylonRight2: PylonLeft2 {
-						attachment = "";
-						hardpoints[] = {};
-						UIposition[] = {0.620000, 0.350000};
-					};
-
-					class PylonRight1: PylonLeft1 {
-						attachment = "";
-						hardpoints[] = {};
-						UIposition[] = {0.640000, 0.400000};
-					};
-				};
-			};
-		};
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
+		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache";
-		class Turrets
-		{
-			class MainTurret: NewTurret
-			{
-				gunnerAction = "fza_ah64_copilot";
-				gunnerGetInAction = "GetInHigh";
-				gunnerGetOutAction = "GetOutHigh";
-				primary = 1;
-				primaryGunner = 1;
-				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
-				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
-				memoryPointsGetInGunner = "pos gunner";
-				memoryPointsGetInGunnerDir = "pos gunner dir";
-				memoryPointGun = "testsc";
-				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
-				gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-				gunnerOpticsColor[] = {1,1,1,1};
-				animationsourcebody = "tads_tur";
-				animationsourcegun = "tads";
-				minElev = -60;
-				maxElev = 30;
-				initElev= 0;
-				minTurn = -120;
-				maxTurn = 120;
-				initTurn = 0;
-				minGunElev = -60;
-				maxGunElev = 30;
-				minGunTurn = -120;
-				maxGunTurn = 120;
-				minGunTurnAI = -120;
-				maxGunTurnAI = 120;
-				maxhorizontalrotspeed = 3;
-				maxverticalrotspeed = 3;
-				commanding = -1;
-				gunnerForceOptics = 0;
-				startEngine=0;
-				outGunnerMayFire = 1;
-				ejectdeadgunner = 0;
-				viewgunnershadow = 1;
-				viewgunnershadowamb = 1;
-				viewgunnershadowdiff = 1;
-				turretinfotype = "RscUnitInfoNoHUD";
-				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
-				discretedistanceinitindex = 3;
-				isCopilot = 1;
-				usePiP=1;
-				stabilizedInAxes=3;
-				class HitPoints
-				{
-					class HitTurret
-					{
-						armor = 0.5;
-						material = 51;
-						name = "tads_tur";
-						visual = "tads_tur";
-						passThrough = 1;
-					};
-					class HitGun
-					{
-						armor = 1;
-						material = 52;
-						name = "tads";
-						visual = "tads";
-						passThrough = 1;
-					};
-				};
-				class OpticsIn
-				{
-					class Wide
-					{
-						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						opticStabilized=1;
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.466;
-						maxanglex = 30;
-						maxangley = 120;
-						maxfov = 0.466;
-						minanglex = -60;
-						minangley = -120;
-						minfov = 0.466;
-						opticsdisplayname = "W";
-						thermalmode[] = {0,1};
-						visionmode[] = {"Normal","Ti"};
-					};
-					class Medium: Wide
-					{
-						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
-						opticStabilized=1;
-						initfov = 0.09;
-						maxfov = 0.09;
-						minfov = 0.09;
-						opticsdisplayname = "M";
-					};
-					class Narrow: Wide
-					{
-						gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-						directionStabilized = 1;
-						stabilizedInAxes = 3;
-						opticStabilized=1;
-						initfov = 0.01;
-						maxfov = 0.01;
-						minfov = 0.01;
-						opticsdisplayname = "N";
-					};
-				};
-				class OpticsOut
-				{
-					class Monocular //FOV CPG NR
-					{
-						gunneropticseffect[] = {};
-						gunneropticsmodel = "";
-						initanglex = 0;
-						initangley = 0;
-						initfov = 0.7;
-						maxanglex = 75;
-						maxangley = 120;
-						maxfov = 0.85;
-						minanglex = -75;
-						minangley = -120;
-						minfov = 0.4;
-					};
-				};
-				class ViewGunner
-				{
-					initFov=0.7;
-					minFov=0.400000;
-					maxFov=0.7;
-					initAngleX=0;
-					minAngleX=-75;
-					maxAngleX=75;
-					initAngleY=0;
-					minAngleY=-120;
-					maxAngleY=120;
-					maxmovex = 0.15;
-					maxmovey = 0.1;
-					maxmovez = 0.1;
-					minmovex = -0.15;
-					minmovey = -0.1;
-					minmovez = -0.1;
-				};
-			};
-		};
 	};
 
 	/////////////////////////////////////////////////

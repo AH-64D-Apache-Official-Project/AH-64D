@@ -25,8 +25,8 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
         fza_ah64_headelev = (0.0125 * (inputaction "AimUp" + (0.0125 * inputaction "LookUp"))) + (-0.0125 * (inputaction "AimDown" + (0.0125 * inputaction "LookDown")));
 
         fza_ah64_pnvsgreff = ppEffectCreate["colorCorrections", 1500];
-        //fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; GREEN PNVS (HDU LOGIC)
-        fza_ah64_pnvsgreff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //GREY SOURCE PNVS (MPD LOGIC)
+        fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; //GREEN PNVS (HDU LOGIC)
+        //fza_ah64_pnvsgreff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //GREY SOURCE PNVS (MPD LOGIC)
         fza_ah64_pnvsgreff ppEffectCommit 0;
         fza_ah64_pnvsgreff ppEffectEnable true;
 

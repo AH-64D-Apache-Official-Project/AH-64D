@@ -1630,21 +1630,21 @@ class RscTitles
 				w = (safezoneW * 0.2);
 				h = (safezoneH * 0.2);
 			};
-			class fza_ah64_alternatesensor
+					class fza_ah64_alternatesensor
 					{
-				idc = 207;
-				text = "\fza_ah64_US\tex\HDU\mark_alt_sens.paa";
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.3;
-				w = 0.05;
-				h = 0.04;
-			};
+					idc = 207;
+					text = "\fza_ah64_US\tex\HDU\mark_alt_sens.paa";
+					type = 0;
+					colorText[] = {1, 1, 1, 1};
+					font = "EtelkaMonospaceProBold";
+					colorBackground[] = {1, 1, 1, 1};
+					style = 48;
+					sizeEx = 1024;
+					x = 0.5;
+					y = 0.3;
+					w = 0.015;
+					h = 0.015;
+					};
 					class fza_ah64_raddisp_rcd // RECORD
 					{
 				type = 13;
