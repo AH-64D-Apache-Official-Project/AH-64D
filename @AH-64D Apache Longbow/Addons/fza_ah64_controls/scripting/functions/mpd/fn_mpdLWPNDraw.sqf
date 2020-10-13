@@ -163,16 +163,22 @@ _hf4l2_tex = "";
 _hf4r1_tex = "";
 _hf4r2_tex = "";
 
-switch (_heli getVariable "fza_ah64_ltype") do {
-	case "lobl.sqf";
-	case "direct.sqf" : {
-		_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
-	};
-	case "loallo.sqf": {
-		_hfcurtraj = "\fza_ah64_us\tex\icons\lo.paa";
-	};
-	case "loalhi.sqf": {
-		_hfcurtraj = "\fza_ah64_us\tex\icons\hi.paa";
+_curwpn = weaponState [_heli, [0]];
+
+if (_curwpn # 0 iskindof ["fza_agm114_16", configFile / "CfgWeapons"]) then {
+	switch (_curwpn # 2) do {
+		case "Cruise": {
+			_hfcurtraj = "\fza_ah64_us\tex\icons\hi.paa";
+		};
+		case "TopDown": {
+			_hfcurtraj = "\fza_ah64_us\tex\icons\lo.paa"
+		};
+		case "LoalDistance" : {
+			_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
+		};
+		default {
+			_hfcurtraj = "";
+		}
 	}
 };
 

@@ -32,14 +32,29 @@ if(currentWeapon _heli in _rocketweps) then {
 if(currentweapon _heli in _hellfireweps) then {
 	switch (_control) do {
 		case "l1": {
-			if (fza_ah64_hfmode == _heli) then {
-				[_heli] execvm "\fza_ah64_controls\scripting\mode_remt.sqf"
+			_lases = ((listRemoteTargets west) apply {_x # 0}) select {_x isKindOf "LaserTargetBase"};
+			if (count _lases == 0) then {
+				systemChat "No lases available";
+				_heli setVariable ["fza_ah64_currentLase", objNull, true];
+				_heli setVariable ["fza_ah64_currentSkippedLases", [], true];
 			} else {
-				fza_ah64_hfmode = _heli;
+				_diff = _lases - (_heli getVariable "fza_ah64_currentSkippedLases");
+				if (count _diff == 0) then {
+					_heli setVariable ["fza_ah64_currentLase", _lases # 0, true];
+					_heli setVariable ["fza_ah64_currentSkippedLases", [_lases # 0], true];
+				} else {
+					_heli setVariable ["fza_ah64_currentLase", _lases # 0, true];
+					_heli setVariable ["fza_ah64_currentSkippedLases", (_heli getVariable "fza_ah64_currentSkippedLases") + [_lases # 0], true];
+				};
+			};
+
+			_lase = _heli getVariable "fza_ah64_currentLase";
+			if !(isNull _lase) then {
+				systemChat format ["%1 %2", ["REMOTE", "LOCAL"] select (laserTarget _heli == _lase), mapGridPosition _lase]
 			};
 		};
 		case "r3": {
-			[_heli] execvm "\fza_ah64_controls\scripting\ltype_tog.sqf";
+			["Error: Use fire switch to change trajectory"] call BIS_fnc_error;
 		};
 	};
 };

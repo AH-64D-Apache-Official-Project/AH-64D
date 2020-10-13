@@ -25,6 +25,8 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
+    _heli setVariable ["fza_ah64_currentLase", objNull, true];
+    _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
 };
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];

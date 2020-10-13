@@ -193,6 +193,7 @@ class CfgFunctions
 			class weaponActionSwitch {R;};
 			class weaponHellfireAlign {R;};
 			class weaponMissileGuide {R;};
+			class weaponMissileSlowDown {R;};
 			class weaponM230CycleBurst {R;};
 			class weaponTurretAim {R;};
 			class weaponRocketAlign {R;};

@@ -27,11 +27,6 @@ if (!(player == driver _ah64 || player == gunner _ah64)) exitwith {};
 
 //MSL GUIDANCE STARTS HERE !
 
-if (_missobj isKindOf "fza_agm114l" || _missobj isKindOf "fza_agm114k" || _missobj isKindOf "fza_fim92") then {
-    sleep 0.1;
-    [_ah64, _missobj] execvm "\fza_ah64_controls\scripting\missile_guide.sqf";
-};
-
 //COUNTERMEASURES
 
 if (_weapon == "fza_CMFlareLauncher") then {
