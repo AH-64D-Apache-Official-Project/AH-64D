@@ -976,7 +976,7 @@ class CfgVehicles
 				priority=0;
 				condition="fza_ah64_enableCustomControls && (player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"")";
 				shortcut="User10";
-				statement="[this] spawn fza_fnc_laserArm;";
+				statement="[this] spawn fza_fnc_laserDisarm;";
 			};
 			class pnvs_cam_onoff
 			{
@@ -1272,12 +1272,8 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
-				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
-				//weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_2_4","fza_agm114_3_4"};
-				//magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114l_2_4","fza_agm114k_3_4"};
-			    //weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
-				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
+				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
+				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "testsc";

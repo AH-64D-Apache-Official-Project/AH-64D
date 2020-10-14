@@ -32,6 +32,7 @@ if(currentWeapon _heli in _rocketweps) then {
 if(currentweapon _heli in _hellfireweps) then {
 	switch (_control) do {
 		case "l1": {
+			//Switch missile lase
 			_lases = ((listRemoteTargets west) apply {_x # 0}) select {_x isKindOf "LaserTargetBase"};
 			if (count _lases == 0) then {
 				systemChat "No lases available";
@@ -54,7 +55,16 @@ if(currentweapon _heli in _hellfireweps) then {
 			};
 		};
 		case "r3": {
-			["Error: Use fire switch to change trajectory"] call BIS_fnc_error;
+			//Switch missile trajectory of current hellfire
+			weaponState [_heli, [0]] params ["_weapon", "",  "_fireMode", "_magazine"];
+			_nextFireMode = switch (_fireMode) do {
+				case "Cruise": {"TopDown"};
+				case "TopDown": {"LoalDistance"};
+				case "LoalDistance": {"Cruise"};
+				default {["Unknown missile fire mode: %1", _fireMode] call BIS_fnc_error};
+			};
+			[_heli, [0], _weapon, _nextFireMode, _magazine] call fza_fnc_weaponSelectFireMode;
+			_heli setVariable ["fza_ah64_ltype", _nextFireMode, true];
 		};
 	};
 };
@@ -63,11 +73,10 @@ switch (_control) do {
 		[_heli] execvm "\fza_ah64_controls\scripting\guncontrol.sqf";
 	};
 	case "r5": {
-		if (_heli hasweapon "Laserdesignator_mounted") then {
-			_heli removemagazine "Laserbatteries";
-			_heli removeweapon "Laserdesignator_mounted";
-		} else {
+		if (isNull laserTarget _heli) then {
 			[_heli] spawn fza_fnc_laserArm;
+		} else {
+			[_heli] spawn fza_fnc_laserDisarm;
 		};
 	};
 	case "b1": {
@@ -80,25 +89,10 @@ switch (_control) do {
 	};
 	case "b2": {
 		//Select Missile
-		_emptywep = "";
-		_wpncounter = 0;
-		_selectedweapon = 0; 
-		{
-			if (_x in _hellfireweps) then {
-				_emptywep = _x;
-			};
-			if ((_x in _hellfireweps) && _heli ammo _x > 0 && _selectedweapon == 0) then {
-				_selectedweapon = 1;
-				_heli selectweapon _x;
-			};
-			if (_selectedweapon == 1) exitwith {};
-			_wpncounter = _wpncounter + 1;
-			if (_wpncounter >= count(weapons _heli)) then {
-				_selectedweapon = 1;
-				_heli selectweapon _emptywep;
-			};
-		}
-		foreach(weapons _heli);
+		_missileWeps = (_heli weaponsTurret [0]) arrayIntersect _hellfireweps;
+		_curIndex = _missileWeps find (currentWeapon _heli);
+		_nextWep = _missileWeps select ((_curIndex + 1)% count _missileWeps);
+		[_heli, [0], _nextWep, _heli getVariable "fza_ah64_ltype"] call fza_fnc_weaponSelectFireMode;
 	};
 	case "b3": {
 		//Select ATAS

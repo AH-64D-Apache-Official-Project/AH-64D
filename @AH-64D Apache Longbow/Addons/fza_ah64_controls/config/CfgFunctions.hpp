@@ -102,7 +102,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
 			class laserDisarm {R;};
-			class laserSched {R;}
 		}
 		class lighting
 		{
@@ -195,8 +194,9 @@ class CfgFunctions
 			class weaponMissileGuide {R;};
 			class weaponMissileSlowDown {R;};
 			class weaponM230CycleBurst {R;};
-			class weaponTurretAim {R;};
 			class weaponRocketAlign {R;};
+			class weaponSelectFireMode {R;};
+			class weaponTurretAim {R;};
 		}
 		class functions
 		{

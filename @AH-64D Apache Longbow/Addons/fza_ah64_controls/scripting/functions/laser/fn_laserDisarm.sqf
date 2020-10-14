@@ -19,10 +19,7 @@ Author:
 	Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-if (player == gunner _heli && fza_ah64_laserstate == 1) exitwith {
-    fza_ah64_laserstate = 0;
-    _heli vehiclechat "Laser OFF.";
-};
 
-_heli removemagazine "Laserbatteries";
-_heli removeweapon "Laserdesignator_mounted";
+if !(isNull laserTarget _heli) then {
+    [_heli, "Laserdesignator_mounted", [0]] call BIS_fnc_fire;
+}
