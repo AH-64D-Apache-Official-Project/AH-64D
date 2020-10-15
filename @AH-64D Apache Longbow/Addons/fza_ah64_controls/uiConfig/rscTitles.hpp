@@ -906,7 +906,7 @@ class RscTitles
 					{
 				idc = 120;
 				type = 0;
-				colorText[] = {-1, 1, 0, 0.5};
+				colorText[] = {-1, 1, 0, 0.8};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
 				text = "";
