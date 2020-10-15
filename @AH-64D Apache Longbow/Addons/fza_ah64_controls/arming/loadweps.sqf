@@ -2397,6 +2397,6 @@ _heli addweapon "fza_burstlimiter";
 _heli addweapon "fza_m230";
 _heli addweapon "fza_ma_safe";
 _heli selectweapon "fza_ma_safe";
-_heli addweapon "Laserdesignator_mounted"
+_heli addweapon "Laserdesignator_mounted";
 
 _heli vehiclechat format ["Rearming completed. Gross Weight (GW): %1kg",((weightRTD _heli select 0) + (weightRTD _heli select 3) + _fuelweight)];

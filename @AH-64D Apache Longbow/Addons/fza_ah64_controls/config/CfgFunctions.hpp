@@ -212,6 +212,7 @@ class CfgFunctions
 			class getPitchBank {R;};
 			class relativeDirection {R;};
 			class velocityVector {R;};
+			class addKeybind {R;};
 			class playAudio
 			{
 				R;

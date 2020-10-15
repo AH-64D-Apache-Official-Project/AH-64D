@@ -5,78 +5,99 @@
 
 #define CALL_ENSURE_IN_APACHE(func) ENSURE_IN_APACHE( [vehicle player] call func; )
 
+#define USER_1 0xFA
+#define USER_2 0xFB
+#define USER_3 0xFC
+#define USER_4 0xFD
+#define USER_5 0xFE
+#define USER_6 0xFF
+#define USER_7 0x100
+#define USER_8 0x101
+#define USER_9 0x102
+#define USER_10 0x103
+#define USER_11 0x104
+#define USER_12 0x105
+#define USER_13 0x106
+#define USER_14 0x107
+#define USER_15 0x108
+#define USER_16 0x109
+#define USER_17 0x10A
+#define USER_18 0x10B
+#define USER_19 0x10C
+#define USER_20 0x10D
+
 [MOD_NAME, "crosshairAction", "Crosshair Action", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleCrosshairAction)
-}, {}, [DIK_GRAVE, [false, false, false]]] call CBA_fnc_addKeybind;
+}, {}, [USER_20, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "cycleMPDLeft", "Cycle Left MPD", {
 	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\plmpdcycle.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_2, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "cycleMPDRight", "Cycle Right MPD", {
 	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\prmpdcycle.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_1, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "gunTracking", "Gun Tracking", {
 	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\guncontrol.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_3, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "was", "Weapon Action Switch", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_weaponActionSwitch)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_4, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "armLaserDesig", "Arm Laser Designation System", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_laserArm)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_5, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "targFilter", "TSD/FCR Filter", {
 	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\tsd_targfilter.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_6, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "tsdRange", "TSD Range", {
 	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\tsd_range.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_7, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "tsdMode", "TSD Mode", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleTSDMode)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_8, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "pfzSelect", "PFZ Select", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_targetingPFZCycle)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_9, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "disarmLaserDesig", "Disarm Laser Designation System", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_laserArm)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_10, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleIHADSS", "IHADSS Toggle", {
 	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\ihadss.sqf")
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_11, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHDUPNVS", "HDU/PNVS Toggle", {
 	ENSURE_IN_APACHE(vehicle player setVariable ["fza_ah64_ihadss_pnvs_cam", !(vehicle player getVariable "fza_ah64_ihadss_pnvs_cam")];)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_12, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "jammersToggle", "Manual/Automatic Jammers Toggle", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleJammersToggle)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_13, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "aseAutopage", "ASE Autopage", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleASEAutopage)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_14, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "modeIHADSS", "IHADSS Mode", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleIHADSSMode)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_15, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "waypointNext", "Cycle Waypoint Forwards", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleNextWaypoint)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_17, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "waypointPrev", "Cycle Waypoint Backwards", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandlePrevWaypoint)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_18, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHeadtracking", "Toggle Head Tracking", {
 	ENSURE_IN_APACHE(fza_ah64_tiron = !fza_ah64_tiron;)
-}, {}] call CBA_fnc_addKeybind;
+}, {}, [USER_19, [false, false, false]]] call fza_fnc_addKeybind;
