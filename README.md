@@ -2,6 +2,26 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*11/10/2020*
+- Improved AFM based on old logic (by BradMick)
+- Fixed alternate sensor icon
+- Added propper 3D M130 flares dispenser on tail 
+- Firing the M230 should no longer shake screen for all clients (by Rosd6)
+
+*04/10/2020*
+- Fixed ACRE intercom preventing racks radio PTTs usage
+- Added targeting informations toggle - prior future CBA update (by mattysmith22)
+- Fixed headtracking toggle option appearing in action menu outside the aircraft
+- Fixed config inheritance and code cleaning in CfgVehicles (by mattysmith22)
+- Fixed AGM-144 max altitude launch (by Rosd6)
+- Fixed AFM rotor brake not applying (by AngusLogan)
+- Fixed animations reset when players JIP (by AngusLogan)
+- Fixed skin locality issue (by AngusLogan)
+- Updated AFM, damping, mixing and CG location (by Keplager) 
+- Fixed 300 rounds magazine upon rearming (by Rosd6)
+- Added IHADSS alternate sensors for CPG & PLT (by mattysmith22)
+
+
 *06/06/2020*
 - Added PiP values for longer ranges to Video Options (by Keplager)
 - Fixed IHADSS overlay (by mattysmith22)

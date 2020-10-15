@@ -28,7 +28,7 @@ class CfgFunctions
 			};
 			class engineSetPosition
 			{
-				description = "Sets up engine to be at Off, Idle, Fly"
+				description = "Sets up engine to be at Off, Idle, Fly";
 			};
 			class engineUpdate
 			{

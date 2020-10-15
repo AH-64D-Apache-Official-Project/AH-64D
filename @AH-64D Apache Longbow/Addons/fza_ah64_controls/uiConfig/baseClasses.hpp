@@ -163,7 +163,7 @@ class fza_ah64_TEMPL_EDIT
 /////////////////////////////////////////////////////////////
 ////////////////////////////IHADSS///////////////////////////
 /////////////////////////////////////////////////////////////
-class RscObject;
+class RscControlsGroup;
 class fza_ah64_mapControl
 {
 	idc = -1;
@@ -527,19 +527,4 @@ class fza_ah64_mapControl
 		color[] = {0.3,0.1,0.9,0};
 		size = 50;
 	};
-};
-
-class RscControlsGroup
-{
-	//type = CT_CONTROLS_GROUP;
-	type = 15;
-	idc = -1;
-	//style = ST_MULTI;
-	style = 16;
-    x = 0;
-	y = 0;
-	w = 1;
-	h = 1;
-	shadow=0;
-	class Controls{};
 };
