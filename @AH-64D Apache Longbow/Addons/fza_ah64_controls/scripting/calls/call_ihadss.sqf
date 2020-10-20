@@ -735,7 +735,7 @@ if (fza_ah64_fcrcscope == 1) then {
                 _adaunit = true;
             };
         }
-        foreach fza_ah64_ada_helis;
+        foreach fza_ah64_ada_units;
 
         if (_x isKindOf "helicopter") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
@@ -760,7 +760,7 @@ if (fza_ah64_fcrcscope == 1) then {
             _coords = [-100, -100];
         };
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetText _type;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetPosition _coords;
+        ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     }
@@ -772,7 +772,7 @@ if (fza_ah64_fcrcscope == 1) then {
         }
         do {
             _coords = [-100, -100];
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetPosition _coords;
+            ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
             ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
             _num = _num + 1;
         };
@@ -785,7 +785,7 @@ if (fza_ah64_fcrcscope == 1) then {
     }
     do {
         _coords = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetPosition _coords;
+        ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     };
@@ -979,7 +979,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText _acqihadss;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition[(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition[(_targpos select 0) - 0.036, (_targpos select 1) - 0.05];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_targpos select 0)-0.036,(_targpos select 1)-0.05] call fza_fnc_compensateSafezone);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetPosition[(_sensorposx) + 0.4875, (_sensorposy) + 0.735];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlCommit 0;

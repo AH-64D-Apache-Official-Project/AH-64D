@@ -452,6 +452,428 @@ class RscTitles
 		};
 		class controls
 		{
+			class fza_raddisp_nobounds: RscControlsGroup //Cscope Container
+            {
+                idc = -1;
+                x = safeZoneX;
+                y = safeZoneY;
+                w = safeZoneW;
+                h = safeZoneH;
+                class ScrollBar
+                {
+                    color[] = {1,1,1,0.6};
+                    colorActive[] = {1,1,1,1};
+                    colorDisabled[] = {1,1,1,0.3};
+                    thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
+                    arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
+                    arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
+                    border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
+                };
+                class VScrollbar: ScrollBar
+                {
+                    width = 0;
+                    height = 0;
+                };
+                class HScrollBar: ScrollBar
+                {
+                    width = 0;
+                    height = 0;
+                };
+                class controls
+                {
+                    class fza_ah64_raddisp_target
+                    {
+                        idc = 132;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
+                        style = 48;
+                        sizeEx = 64;
+                        x = 0;
+                        y = -50;
+                        w = 0.0734;
+                        h = 0.1;
+                    };
+                    class fza_ah64_raddisp_cscope1
+                    {
+                        idc = 190;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope2
+                    {
+                        idc = 191;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope3
+                    {
+                        idc = 192;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope4
+                    {
+                        idc = 193;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope5
+                    {
+                        idc = 194;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope6
+                    {
+                        idc = 195;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope7
+                    {
+                        idc = 196;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope8
+                    {
+                        idc = 197;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope9
+                    {
+                        idc = 198;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope10
+                    {
+                        idc = 199;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope11
+                    {
+                        idc = 200;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope12
+                    {
+                        idc = 201;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope13
+                    {
+                        idc = 202;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope14
+                    {
+                        idc = 203;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope15
+                    {
+                        idc = 204;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope16
+                    {
+                        idc = 205;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+				};
+			};
 			class fza_raddisp_container: RscControlsGroup // OFFSET OR EDIT WHOLE HUD CONTAINER
 			{
 				idc = 20052;
@@ -488,7 +910,7 @@ class RscTitles
 					{
 				idc = 120;
 				type = 0;
-				colorText[] = {-1, 1, 0, 0.5};
+				colorText[] = {-1, 1, 0, 0.8};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
 				text = "";
@@ -732,21 +1154,6 @@ class RscTitles
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
 				text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
-				style = 48;
-				sizeEx = 64;
-				x = 0;
-				y = -50;
-				w = 0.0734;
-				h = 0.1;
-			};
-					class fza_ah64_raddisp_target
-					{
-				idc = 132;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
 				style = 48;
 				sizeEx = 64;
 				x = 0;
@@ -1374,246 +1781,6 @@ class RscTitles
 					align = "right";
 					shadow = false;
 				};
-			};
-					class fza_ah64_raddisp_cscope1
-					{
-				idc = 190;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope2
-					{
-				idc = 191;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope3
-					{
-				idc = 192;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope4
-					{
-				idc = 193;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope5
-					{
-				idc = 194;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope6
-					{
-				idc = 195;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope7
-					{
-				idc = 196;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope8
-					{
-				idc = 197;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope9
-					{
-				idc = 198;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope10
-					{
-				idc = 199;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope11
-					{
-				idc = 200;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope12
-					{
-				idc = 201;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope13
-					{
-				idc = 202;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope14
-					{
-				idc = 203;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope15
-					{
-				idc = 204;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope16
-					{
-				idc = 205;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
 			};
 					class fza_ah64_raddisp_fov
 					{
