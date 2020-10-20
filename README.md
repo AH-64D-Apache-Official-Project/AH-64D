@@ -2,6 +2,14 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*20/10/2020*
+- Removed pilot optic turret; PNVS is now usable trough NVS MODE switch from the frontseat & backseat (LVL knobs need to be rotated for daytime or night time toggle - default: day).
+  The PiP HDU PNVS is shared between the front & the backseat
+- Fixed PiP HDU PNVS transparency
+- C-Scope container fix (by Rosd6)
+- ECM script rework (by Rosd6)
+- Added cam shake for MSL & RKTs
+
 *11/10/2020*
 - Improved AFM based on old logic (by BradMick)
 - Fixed alternate sensor icon

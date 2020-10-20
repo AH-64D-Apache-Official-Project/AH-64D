@@ -47,7 +47,7 @@ class CfgAmmo
 		soundsetbulletfly[] = {"fza_sc_bullet_flyby_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_30x113_soundset"};
 		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};		
-		muzzleeffect = "fza_ah64_fx_30mm";		
+		muzzleeffect = "fza_ah64_fx_m230_shake";
 		hit = 60;
 		indirectHit = 10;
 		indirectHitRange = 3.5;		
@@ -56,7 +56,7 @@ class CfgAmmo
 		airFriction = -0.00036;
 		airlock = 0;
 		irlock = 0;
-		allowAgainstInfantry = 1;	
+		allowAgainstInfantry = 1;
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -64,7 +64,7 @@ class CfgAmmo
 	///////////////////////////////////////////////////////////////////////	
 	
 	class fza_agm114l : Missile_AGM_02_F
-	{
+	{	
 		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
 		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
 		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};			
@@ -80,7 +80,7 @@ class CfgAmmo
 		sideairfriction = 0.2;
 		effectsMissileInit = "MissileDAR1";
 		effectsmissile = "fza_ah64_hellfiresmoke";
-		muzzleEffect = "BIS_fnc_effectFiredRocket";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
 		whistledist = 300;
 		explosionEffects = "BombExplosion";
 		hit = 1400;
@@ -119,7 +119,7 @@ class CfgAmmo
 		*/
 	};
 	class fza_agm114k : Missile_AGM_02_F
-	{
+	{	
 		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
 		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
 		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};	
@@ -134,7 +134,7 @@ class CfgAmmo
 		sideairfriction = 0.2;
 		effectsMissileInit = "MissileDAR1";
 		effectsmissile = "fza_ah64_hellfiresmoke";
-		muzzleEffect = "BIS_fnc_effectFiredRocket";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
 		whistledist = 300;
 		explosionEffects = "BombExplosion";
 		hit = 1400;
@@ -237,7 +237,7 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		effectsmissile = "fza_ah64_rocketsmoke";
 		effectsMissileInit = "MissileDAR1";
-		muzzleEffect = "BIS_fnc_effectFiredRocket";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
 		hit=210;
 		indirectHit=20;
 		indirectHitRange=10;
@@ -254,43 +254,15 @@ class CfgAmmo
 		suppressionRadiusHit = 15;
 		dangerRadiusHit = 40;
 		initTime = 0.02;
-		maxSpeed=700;
-		thrustTime=1.07;
+		maxSpeed=840;
+		thrustTime=1.1;
 		thrust = 1060;
 		fuseDistance = 75;
 		airFriction = 0.1;
-		sideAirFriction = 0.005;
+		sideAirFriction = 0.004;
 		timeToLive=15;
 		whistleDist=24;
-		cost = 75;
-		class CamShakeExplode
-		{
-			power = 16;
-			duration = 1.8;
-			frequency = 20;
-			distance = 191.554;
-		};
-		class CamShakeHit
-		{
-			power = 80;
-			duration = 0.6;
-			frequency = 20;
-			distance = 1;
-		};
-		class CamShakeFire
-		{
-			power = 2.9907;
-			duration = 1.8;
-			frequency = 20;
-			distance = 71.5542;
-		};
-		class CamShakePlayerFire
-		{
-			power = 2;
-			duration = 0.1;
-			frequency = 20;
-			distance = 1;
-		};		
+		cost = 75;	
 	};
 	class fza_275_m151: fza_275_base
 	{
@@ -299,7 +271,6 @@ class CfgAmmo
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		explosionEffects = "GrenadeExplosion";
-		//proxyShape = "";
 		hit=200;
 		indirectHit=100;
 		indirectHitRange=10;
@@ -311,7 +282,6 @@ class CfgAmmo
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
 		explosionEffects = "GrenadeExplosion";
-		//proxyShape = "";	
 		hit=300;
 		indirectHit=150;
 		indirectHitRange=20;
@@ -325,7 +295,6 @@ class CfgAmmo
 		soundsetexplosion[] = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};	
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};	
 		explosionEffects = "GrenadeExplosion";		
-		//proxyShape = "";
 		maxSpeed = 600;
 		hit = 30;
 		indirectHit = 5;
@@ -343,8 +312,7 @@ class CfgAmmo
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		CraterEffects = "ATMissileCrater";
-		explosionEffects = "";
-		//proxyShape = "";		
+		explosionEffects = "";	
 		hit = 30;
 		indirectHit = 0;
 		indirectHitRange = 0;
@@ -355,14 +323,7 @@ class CfgAmmo
 		maxSpeed = 450;
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
-		aiAmmoUsageFlags = 1;
-		class CamShakeExplode
-		{
-			power = 1;
-			duration = 1;
-			frequency = 20;
-			distance = 5;
-		};			
+		aiAmmoUsageFlags = 1;			
 	};
 	class fza_275_m255: fza_275_base 
 	{
@@ -371,8 +332,7 @@ class CfgAmmo
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};		
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		CraterEffects = "ATMissileCrater";
-		explosionEffects = "";
-		//proxyShape = "";		
+		explosionEffects = "";	
 		maxSpeed = 600;
 		hit = 30;
 		indirectHit = 0;
@@ -385,13 +345,6 @@ class CfgAmmo
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
 		aiAmmoUsageFlags = 1;
-		class CamShakeExplode
-		{
-			power = 1;
-			duration = 1;
-			frequency = 20;
-			distance = 5;
-		};
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -427,34 +380,6 @@ class CfgAmmo
 		soundHit3[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_03",1.7782794,1,1600};
 		soundHit4[] = {"A3\Sounds_F\arsenal\explosives\shells\30mm40mm_shell_explosion_04",1.7782794,1,1600};
 		multiSoundHit[] = {"soundHit1",0.25,"soundHit2",0.25,"soundHit3",0.25,"soundHit4",0.25};
-		class CamShakeExplode
-		{
-			power = 7.74597;
-			duration = 1.6;
-			frequency = 20;
-			distance = 23.2379;
-		};
-		class CamShakeHit
-		{
-			power = 60;
-			duration = 0.6;
-			frequency = 20;
-			distance = 1;
-		};
-		class CamShakeFire
-		{
-			power = 2.51487;
-			duration = 1.2;
-			frequency = 20;
-			distance = 50.5964;
-		};
-		class CamShakePlayerFire
-		{
-			power = 0.01;
-			duration = 0.1;
-			frequency = 20;
-			distance = 1;
-		};
 	};	
 	class fza_m257_flare: FlareCore
 	{		
@@ -493,6 +418,7 @@ class CfgAmmo
 		cratereffects = "AAMissileCrater";
 		effectsmissile = "fza_ah64_stingersmoke";
 		explosioneffects = "AAMissileExplosion";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
 		fusedistance = 5;
 		hit = 700;
 		indirecthit = 65;
@@ -514,11 +440,6 @@ class CfgAmmo
 		whistledist = 16;
 		cost = 5000;
 	};
-
-	///////////////////////////////////////////////////////////////////////
-	/////////////////////////////////WIP///////////////////////////////////
-	///////////////////////////////////////////////////////////////////////	
-
 };
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////FLARES CM STYLE//////////////////////////

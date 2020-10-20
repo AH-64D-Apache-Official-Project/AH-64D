@@ -102,11 +102,11 @@ if (isNil "fza_ah64_ihadss_pnvs_day") then {
     fza_ah64_ihadss_pnvs_day = true;
 };
 
-if (fza_ah64_ihadss_pnvs_cam && alive player) then {
+if (fza_ah64_ihadss_pnvs_cam && alive _heli) then {
     if (fza_ah64_ihadss_pnvs_day) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG HDU
-    } else {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
+    } else {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam3,1)"; //NVG HDU
     };
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "";

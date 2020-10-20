@@ -58,7 +58,8 @@ if (local _heli) then {
 if (isNil "fza_ah64_fx_init") then {
     fza_ah64_fx_init = true;
     fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
-    fza_ah64_fx_30mm = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\effects_30mm.sqf";
+    fza_ah64_fx_m230_shake = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\m230_shake_effects.sqf";
+	fza_ah64_fx_msl_shake = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\msl_shake_effects.sqf";
     fza_ah64_rocketalign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
     fza_ah64_hellfirealign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\hellfire_align.sqf";
     fza_ah64_hiderockets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_hidewpn.sqf";
@@ -67,7 +68,6 @@ if (isNil "fza_ah64_fx_init") then {
     fza_ah64_processdamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\processor_dam.sqf";
     fza_ah64_weaponfault = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\gun_jam.sqf";
     fza_ah64_ldrfcall = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ldrf.sqf";
-    fza_ah64_mousepos = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_mousepos.sqf";
     fza_ah64_hmdihadss = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ihadss.sqf";
     fza_ah64_fcrlongbow = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_fcr.sqf";
     fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];

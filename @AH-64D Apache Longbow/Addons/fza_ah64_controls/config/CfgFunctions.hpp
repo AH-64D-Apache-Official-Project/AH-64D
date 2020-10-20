@@ -20,7 +20,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineGetData
 			{
-				description = "Gets the engine-related data for display"
+				description = "Gets the engine-related data for display";
 			};
 			class engineInit
 			{
@@ -32,15 +32,15 @@ class CfgFunctions
 			};
 			class engineUpdate
 			{
-				description = "Updates internal engine state"
+				description = "Updates internal engine state";
 			};
 			class engineGovernor
 			{
-				description = "Sets the engine's target RPMs"
+				description = "Sets the engine's target RPMs";
 			};
 			class engineGetTarget
 			{
-				description = "Get what engine's target RPM and time is"
+				description = "Get what engine's target RPM and time is";
 			};
 		};
 		class compensateSafezone
@@ -49,4 +49,3 @@ class CfgFunctions
 			};
 		};
 	};
-};

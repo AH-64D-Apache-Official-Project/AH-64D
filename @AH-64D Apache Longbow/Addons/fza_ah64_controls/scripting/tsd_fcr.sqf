@@ -284,30 +284,30 @@ do {
                         }
                         foreach fza_ah64_ada_units;
 
-                        _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_gen.paa";
+                        _targicon = "\fza_ah64_US\tex\ICONS\ah64_gen.paa";
 
                         if (_x isKindOf "helicopter") then {
-                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa"];
-                            _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa";
+                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_hc.paa"];
+                            _targicon = "\fza_ah64_US\tex\ICONS\ah64_hc.paa";
                         };
                         if (_x isKindOf "plane") then {
-                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa"];
-                            _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ac.paa"];
+                            _targicon = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         };
                         if (_x isKindOf "tank") then {
-                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa"];
-                            _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa";
+                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_tnk.paa"];
+                            _targicon = "\fza_ah64_US\tex\ICONS\ah64_tnk.paa";
                         };
                         if (_x isKindOf "car") then {
-                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_whl.paa"];
-                            _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_whl.paa";
+                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_whl.paa"];
+                            _targicon = "\fza_ah64_US\tex\ICONS\ah64_whl.paa";
                         };
                         if (_adaunit) then {
                             _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ada.paa"];
                             _targicon = "\fza_ah64_US\tex\ICONS\ah64_ada.paa";
                         };
                         if (!(_x isKindOf "car" || _x isKindOf "tank" || _x isKindOf "plane" || _x isKindOf "helicopter" || _adaunit)) then {
-                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_gen.paa"];
+                            _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_gen.paa"];
                         };
 
                         if (_x in fza_ah64_currentpfz) then {
@@ -697,30 +697,30 @@ do {
                     }
                     foreach fza_ah64_ada_units;
 
-                    _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_gen.paa";
+                    _targicon = "\fza_ah64_US\tex\ICONS\ah64_gen.paa";
 
                     if (_x isKindOf "helicopter") then {
-                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa"];
-                        _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_hc.paa";
+                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_hc.paa"];
+                        _targicon = "\fza_ah64_US\tex\ICONS\ah64_hc.paa";
                     };
                     if (_x isKindOf "plane") then {
-                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa"];
-                        _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ac.paa"];
+                        _targicon = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                     };
                     if (_x isKindOf "tank") then {
-                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa"];
-                        _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_tnk.paa";
+                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_tnk.paa"];
+                        _targicon = "\fza_ah64_US\tex\ICONS\ah64_tnk.paa";
                     };
                     if (_x isKindOf "car") then {
-                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_whl.paa"];
-                        _targicon = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_whl.paa";
+                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_whl.paa"];
+                        _targicon = "\fza_ah64_US\tex\ICONS\ah64_whl.paa";
                     };
                     if (_adaunit) then {
                         _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ada.paa"];
                         _targicon = "\fza_ah64_US\tex\ICONS\ah64_ada.paa";
                     };
                     if (!(_x isKindOf "car" || _x isKindOf "tank" || _x isKindOf "plane" || _x isKindOf "helicopter" || _adaunit)) then {
-                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_gen.paa"];
+                        _heli setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_gen.paa"];
                     };
 
                     if (_x in fza_ah64_currentpfz) then {

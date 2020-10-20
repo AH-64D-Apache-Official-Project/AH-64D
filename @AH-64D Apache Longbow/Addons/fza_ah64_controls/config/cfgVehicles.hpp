@@ -140,7 +140,7 @@ class CfgVehicles
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
 						renderVisionMode = 0; //DTV HDU
-						fov = 0.18;
+						fov = 0.2;
 					};
 				};
 				class driverpnvs3
@@ -152,7 +152,7 @@ class CfgVehicles
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
 						renderVisionMode = 1; //NVG HDU
-						fov = 0.18;
+						fov = 0.2;
 					};
 				};
 		};
@@ -896,21 +896,6 @@ class CfgVehicles
 				shortcut="User2";
 				statement="fza_ah64_plmpdcycle = [this] execvm ""\fza_ah64_controls\scripting\plmpdcycle.sqf""";
 			};
-			/*
-			DEPRECATED
-			class lasertoggle
-			{
-				displayName="Laser Toggle";
-				position="pilot_action";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=-7;
-				condition="player == gunner this";
-				shortcut="User5";
-				statement="[this] exec ""\fza_ah64_controls\scripting\laser.sqs""";
-			};
-			*/
 			class filtertargs
 			{
 				displayName="";
@@ -1111,6 +1096,7 @@ class CfgVehicles
 				shortcut="User10";
 				statement="fza_ah64_moderemt = [this] execvm ""\fza_ah64_controls\scripting\rem_remt.sqf""";
 			};
+			
 			class pnvs_cam_onoff
 			{
 				displayName="";
@@ -1123,6 +1109,7 @@ class CfgVehicles
 				shortcut="User12";
 				statement="fza_ah64_pnvs_cam_toggle = [this] execvm ""\fza_ah64_controls\scripting\pnvs_cam_set.sqf""";
 			};
+			
 			class tiron
 			{
 				displayName="Toggle Head Tracking On";
@@ -1322,19 +1309,6 @@ class CfgVehicles
 			killed = "_this call BIS_Effects_EH_Killed;";
 		};
 		class MFD {};
-		/*class MFD1
-		{
-			rendertarget = "fza_ah64_pnvsrtarget0";
-			class View01
-			{
-				fov = 0.2;
-				pointdirection = "driverview_dir";
-				pointposition = "driverview";
-				renderquality = 0;
-				rendervisionmode = 2;
-			};
-		};*/
-
 
 		 class AcreIntercoms
 		{
@@ -1440,9 +1414,9 @@ class CfgVehicles
 		gunnerUsesPilotView = false;
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		driverOpticsColor[] = {1,1,1,1};
+		//memorypointdriveroptics[] = {"driverview", "pilot"};
+		//driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+		//driverOpticsColor[] = {1,1,1,1};
 		laserScanner=1;
 		nightVision=1;
 		mainRotorSpeed = 1;
@@ -1483,10 +1457,6 @@ class CfgVehicles
 				stabilizedInAxes = 3;
 				weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
 				magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
-				//weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_2_4","fza_agm114_3_4"};
-				//magazines[] = {"fza_safe","fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114l_2_4","fza_agm114k_3_4"};
-			    //weapons[] = {"fza_ma_safe","fza_burstlimiter","fza_m230","fza_m261_14","fza_agm114_3_ul","fza_agm114_3_ur","fza_agm114_3_ll","fza_agm114_3_lr","fza_agm114_2_ul","fza_agm114_2_ur","fza_agm114_2_ll","fza_agm114_2_lr"};
-				//magazines[] = {"fza_safe","fza_m230_300","fza_m261_m151_14_38","fza_agm114k_3_ul","fza_agm114l_3_lr","fza_agm114k_3_ur","fza_agm114l_3_ll","fza_agm114l_2_lr","fza_agm114k_2_ul","fza_agm114l_2_ll","fza_agm114k_2_ur"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "testsc";
@@ -1667,20 +1637,6 @@ class CfgVehicles
 			minmovex = -0.15;
 			minmovey = -0.1;
 			minmovez = -0.1;
-		};
-		class ViewOptics
-		{
-			initAngleX=0;
-			minAngleX=-90;
-			maxAngleX=90;
-			initAngleY=0;
-			minAngleY=-45;
-			maxAngleY=20;
-			initFov=0.7;
-			minFov=0.7;
-			maxFov=0.7;
-			thermalmode[] = {0};
-			visionmode[] = {"Normal","Ti"}; //PNVS
 		};
 		class AnimationSources
 		{
@@ -1863,38 +1819,6 @@ source = "user";
 animPeriod = 0.1;
 initPhase=0;
 };
-/*
-class blade1_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-*/
 class blade2_pitch
 {
 source = "user";

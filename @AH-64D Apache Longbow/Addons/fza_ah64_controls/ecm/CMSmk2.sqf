@@ -56,7 +56,7 @@ _poshostile = getpos _missile;
 _range = _poshostile distance _posac;
 _highlow = "High";
 
-if(typeOf _ac == "fza_ah64d_b2e" || typeOf _ac == "fza_ah64d_b2exp" || typeOf _ac == "fza_ah64d_b3") then
+if(typeOf _ac == "fza_ah64d_b2e") then
 {
 	{
 		if (_hostile iskindof _x && !(_hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];};
