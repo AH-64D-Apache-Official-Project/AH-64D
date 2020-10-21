@@ -500,7 +500,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -523,7 +523,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -546,7 +546,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -569,7 +569,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -592,7 +592,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -615,7 +615,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -638,7 +638,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -661,7 +661,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -684,7 +684,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -707,7 +707,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -730,7 +730,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -753,7 +753,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -776,7 +776,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -799,7 +799,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -822,7 +822,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -845,7 +845,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\f16_rsc_fcr_ac.paa";
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -1088,19 +1088,19 @@ class RscTitles
 					//JHCMS
 					class fza_ah64_raddisp_jhmcs
 					{
-				idc = 130;
-				type = 0;
-				colorText[] = {0.1, 1, 0, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\ihadss.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.2485;
-				y = 0.16;
-				w = 0.5;
-				h = 0.68;
-			};
+					idc = 130;
+					type = 0;
+					colorText[] = {0.1, 1, 0, 1};
+					font = "EtelkaMonospaceProBold";
+					colorBackground[] = {1, 1, 1, 1};
+					text = "\fza_ah64_US\tex\HDU\ihadss.paa";
+					style = 48;
+					sizeEx = 1024;
+					x = 0.2485;
+					y = 0.16;
+					w = 0.5;
+					h = 0.68;
+					};
 					class fza_ah64_raddisp_jhmcs_trk
 					{
 				idc = 131;

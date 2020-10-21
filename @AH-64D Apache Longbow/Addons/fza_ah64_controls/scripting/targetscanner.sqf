@@ -57,35 +57,35 @@ do {
                 if (_targnum < 302) then {
                     if (_x isKindOf "air" || _x isKindOf "tank" || _x isKindOf "car") then {
                         if (_x isKindOf "helicopter") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\f16_rsc_fcr_hc.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_hc.paa"];
                         };
                         if (_x isKindOf "plane") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\f16_rsc_fcr_ac.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ac.paa"];
                         };
                         if (_x isKindOf "tank") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\f16_rsc_fcr_tnk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_tnk.paa"];
                         };
                         if (_x isKindOf "car") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\f16_rsc_fcr_whl.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_whl.paa"];
                         };
                     } else {
-                        _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\f16_rsc_fcr_gen.paa"];
+                        _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_gen.paa"];
                     };
                     if (_x == fza_ah64_mycurrenttarget) then {
                         if (_x isKindOf "helicopter") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ah64_hc_trk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_hc_trk.paa"];
                         };
                         if (_x isKindOf "plane") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ah64_ac_trk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_ac_trk.paa"];
                         };
                         if (_x isKindOf "tank") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ah64_tnk_trk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_tnk_trk.paa"];
                         };
                         if (_x isKindOf "car") then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ah64_whl_trk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_whl_trk.paa"];
                         };
                         if (!(_x isKindOf "car" || _x isKindOf "tank" || _x isKindOf "plane" || _x isKindOf "helicopter")) then {
-                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ah64_gen_trk.paa"];
+                            _unit setobjecttexture[_targnum, "\fza_ah64_US\tex\ICONS\ah64_gen_trk.paa"];
                         };
                     };
                     _targhead = _theta;
