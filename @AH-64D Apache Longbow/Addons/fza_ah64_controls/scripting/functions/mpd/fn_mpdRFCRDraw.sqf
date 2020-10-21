@@ -4,12 +4,6 @@ params ["_heli"];
 [_heli, direction _heli, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_HDG] call fza_fnc_drawNumberSelections;
 [_heli, count fza_ah64_fcrlist, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_FCRAG_TNUM] call fza_fnc_drawNumberSelections;
 
-if (fza_ah64_targlos == 0) then {
-	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, "\fza_ah64_us\tex\mpd\mpd_had_nolos.paa"];
-} else {
-	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_MSG1, ""];
-};
-
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\air.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, "\fza_ah64_us\tex\mpd\air.paa"];

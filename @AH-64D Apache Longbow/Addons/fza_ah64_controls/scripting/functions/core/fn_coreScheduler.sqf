@@ -2,7 +2,7 @@
 Function: fza_fnc_coreScheduler
 
 Description:
-    Schedules updates to all tasks in *fza_ah64_schedarray* and performs missile guidance to all missiles in *fza_ah64_misguidearray*
+    Schedules updates to all tasks in *fza_ah64_schedarray*
 
 Parameters:
     _heli - The helicopter to modify

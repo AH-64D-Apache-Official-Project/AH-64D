@@ -16,7 +16,7 @@ private _fuelWeight = if (isObjectRTD _heli) then {
 private _forwardCellWeight = (FORWARD_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT) * _fuelWeight;
 private _aftCellWeight = (AFT_FUEL_CELL_WEIGHT / TOTAL_FUEL_CELL_WEIGHT) * _fuelWeight;
 
-private _enginesOn = if (isObjectRTD _heli) then {
+private _enginesOn = if (isObjectRTD _heli && difficultyEnabledRTD && local _heli) then {
 	private _engines = enginesIsOnRTD _heli;
 	_engines resize 2;
 	_engines apply {[_x, false] select isNil "_x"};

@@ -50,9 +50,9 @@ _e2percent = (_e2data select 0) / 209.0;
 _e2tgt = _e2data select 2;
 _e2trq = (_e2data select 4) / 4.81;
 
-_rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD)
+_rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD && local _heli)
     || (_heli getVariable "fza_ah64_engineStates")# 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]
-	|| (_heli getVariable "fza_ah64_engineStates")# 1# 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
+	|| (_heli getVariable "fza_ah64_engineStates")# 1 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
 	_e1percent max _e2percent;
 } else {
 	(rotorsRpmRTD _heli # 0) / 2.89;

@@ -17,7 +17,10 @@ if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then
 		_projectile setMissileTarget _targ;
 	};
 };
+
+
 _heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")+[_targ], true];
+_heli setVariable ["fza_ah64_shotmissile_list", (_heli getVariable "fza_ah64_shotmissile_list")+[_projectile], true];
 private _pfh = "fza_pfh_agm114_helper_" + str _projectile;
 
 [_pfh, "onEachFrame", {
@@ -25,7 +28,8 @@ private _pfh = "fza_pfh_agm114_helper_" + str _projectile;
 
 	if(!alive _projectile)exitWith{
 		[_pfh, "onEachFrame"] call BIS_fnc_removeStackedEventHandler;
-		_heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")-[_targ], true];
+		_heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")-[_targ, objNull], true];
+		_heli setVariable ["fza_ah64_shotmissile_list", (_heli getVariable "fza_ah64_shotmissile_list")-[_projectile, objNull], true];
 	};
 
 	private _target = missileTarget _projectile;

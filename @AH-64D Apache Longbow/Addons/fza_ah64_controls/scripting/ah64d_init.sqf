@@ -16,14 +16,15 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
+    _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_curwpnum", 0, true];
     _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
     _heli setVariable ["fza_ah64_acq_plt", 3, true];
     _heli setVariable ["fza_ah64_acq_cpg", 3, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_ltype", "lobl.sqf", true];
-    _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
+    _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];

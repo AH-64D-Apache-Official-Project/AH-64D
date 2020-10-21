@@ -53,7 +53,7 @@ _visibleTargets =
             fza_ah64_targetlist;
         }
         else {
-            ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"));
+            (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1;
         }
     };
 

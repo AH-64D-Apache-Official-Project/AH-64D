@@ -50,6 +50,7 @@ private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getpos
 
 [_heli, _windSpeed * 1.94, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WV] call fza_fnc_drawNumberSelections;
 
+_pfzs = _heli getVariable "fza_ah64_pfz_count";
 if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
 
@@ -77,8 +78,7 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		if ([_x] call fza_fnc_targetIsADA) then {
 			_targetType = "ada";
 		};
-
-		if (_x in ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"))) then {
+		if (_pfzs !=  0 && _x in ((_heli getVariable "fza_ah64_pfzs") select ((_heli getVariable "fza_ah64_pfz_count") - 1))) then {
 			_targetModifier = "_pfz";
 		};
 		if (_x == fza_ah64_mycurrenttarget) then {

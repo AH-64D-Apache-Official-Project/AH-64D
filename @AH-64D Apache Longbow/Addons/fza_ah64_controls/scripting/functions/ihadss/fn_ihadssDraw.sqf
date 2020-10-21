@@ -122,8 +122,22 @@ if (_heli getVariable "fza_ah64_ihadssoff" == 1) then {
 if (_heli getVariable "fza_ah64_ihadssoff" == 0 && _heli getVariable "fza_ah64_monocleinbox") then {
     1 cuttext["", "PLAIN", 0.1];
 };
-if (fza_ah64_laserstate == 0) then {
+if (isNull laserTarget _heli) then {
     4 cuttext["", "PLAIN", 0.1];
+};
+
+
+
+_targPos = [-100, -100];
+if(!isNull fza_ah64_mycurrenttarget) then {
+    _targPos = worldToScreen(getpos fza_ah64_mycurrenttarget);
+    if (count _targPos < 1) then {
+        _targPos = [-100, -100];
+    } else {
+        _targPos = [
+            [_targPos # 0, 0, 1] call BIS_fnc_clamp,
+            [_targPos # 1, 0, 1] call BIS_fnc_clamp];
+    };
 };
 
 //PNVS HDU
@@ -290,7 +304,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0, 0, 0, 0]; //HIDING BAROALT FT
 
     //LASER SYMBOLOGY FOR GUNNER
-    if (fza_ah64_laserstate == 1) then {
+    if !(isNull laserTarget _heli) then {
         4 cutrsc["fza_ah64_laseit", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
@@ -395,28 +409,20 @@ if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
 
-
 if (_heli iskindof "fza_ah64base") then {
     switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
         case 0: {
-            if (_heli iskindof "fza_ah64d_b2e") then {
-                _acqihadss = "FCR";
-            } else {
-                _acqihadss = "TADS";
-            };
+            _acqihadss = ["FCR", "TADS"] select (_heli getVariable "fza_ah64_agmode" < 2)
         };
         case 1: {
             _acqihadss = "HMD";
         };
         case 2: {
-            _acqihadss = "AUTO";
+            _acqihadss  = "AUTO";
         };
         case 3: {
             _acqihadss = "FXD";
-        }
-    };
-    if (fza_ah64_hfmode != _heli) then {
-        _acqihadss = "REMT";
+        };
     };
 };
 
@@ -434,23 +440,7 @@ _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
     _aimpos = [-3, -3];
 };
-_scPos = worldToScreen(getpos fza_ah64_mycurrenttarget);
-if (count _scpos < 1) then {
-    _scPos = [0.5, 0.5];
-};
-_targpos = _scPos;
-if ((_scpos select 0) > 1) then {
-    _scPos = [1, (_scpos select 1)];
-};
-if ((_scpos select 0) < 0) then {
-    _scPos = [0, (_scpos select 1)];
-};
-if ((_scpos select 1) > 1) then {
-    _scPos = [(_scpos select 0), 1];
-};
-if ((_scpos select 1) < 0) then {
-    _scPos = [(_scpos select 0), 0];
-};
+_scPos = [-100, -100];
 _heading = format["%1", round(_thetatarg)];
 if (_heading == "scalar") then {
     _heading = "0";
@@ -553,70 +543,95 @@ if (speed _heli < 5) then {
     _vertvect = -100;
     _horvect = -100;
 };
-
-if (_heli getVariable "fza_ah64_ltype" == "lobl.sqf" && (currentweapon _heli) in _hellfireweps) then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
-    _w = 0.2202;
-    _h = 0.3;
-    _apx = 0.108;
-    _apy = 0.15;
+weaponState [_heli, [0]] params ["_curWeapon", "", "_fireMode", "_magazine"];
+if (_curWeapon in _hellfireweps) then {
     _weapon = "MSL";
-    _weaponstate = "LOBL";
     if (isManualFire _heli) then {
         _weapon = "PMSL";
     };
-    if (count fza_ah64_misguidearray > 0) then {
-        if (fza_ah64_shottimer == 0) then {
-            fza_ah64_shottimer = fza_ah64_firedist;
-        };
-        fza_ah64_shottimer = fza_ah64_shottimer - 0.3;
-        if (fza_ah64_shottimer < 0) then {
-            fza_ah64_shottimer = 0;
-        };
-        _weaponstate = _weaponstate + format[" TOF=%1", round(fza_ah64_shottimer * 0.1)];
+    _ammoType = getText (configFile / "CfgMagazines" / _magazine / "ammo");
+    private ["_mistargPos", "_radar"];
+    if (_ammoType == "fza_agm114l") then {
+        _mistargPos = fza_ah64_mycurrenttarget;
+        _radar = true;
     } else {
-        fza_ah64_shottimer = 0;
+        _mistargPos = _heli getVariable "fza_ah64_currentlase";
+        _radar = false;
     };
-};
+    _scPos = worldToScreen(getpos _mistargPos);
+    if (count _scpos < 1) then {
+        _scPos = [-100, -100];
+    } else {
+        _scPos = [
+            [_scPos # 0, 0, 1] call BIS_fnc_clamp,
+            [_scPos # 1, 0, 1] call BIS_fnc_clamp
+        ];
+    };
+    _targpos = _scPos;
 
-if ((currentweapon _heli) in _hellfireweps && !(_heli getVariable "fza_ah64_ltype" == "lobl.sqf")) then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _weapon = "MSL";
-    if (isManualFire _heli) then {
-        _weapon = "PMSL";
+    if (isNull _mistargPos) then {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
+    } else {
+        _terrainobscure = terrainIntersectasl[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], [(getPosASL _mistargPos select 0), (getPosASL _mistargPos select 1), (getPosASL _mistargPos select 2) + 1]];
+        _obscureobjs = lineIntersectsWith[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], getPosASL _mistargPos, _heli, _mistargPos];
+
+        _distOffAxis = abs ([[_heli, getPos _heli # 0, getPos _heli # 1, getPos _mistargPos # 0, getPos _mistargPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
+        
+        if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 10]) isEqualTo [] && _distOffAxis < 40 && !(_heli ammo currentweapon _heli < 1)) then {
+            _w = 0.2202;
+            _h = 0.3;
+            _apx = 0.108;
+            _apy = 0.15;
+            if (_distOffAxis < 20) then {
+                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
+            } else {
+                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
+            };
+        } else {
+            _w = 0.0734;
+            _h = 0.1;
+            _apx = 0.036;
+            _apy = 0.05;
+            _allowedDistOffAxis = [6.5, 20] select _radar;
+            if (_distOffAxis < _allowedDistOffAxis) then {
+                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
+            } else {
+                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
+            };
+        };
     };
-    switch (_heli getVariable "fza_ah64_ltype") do {
-        case "loaldir.sqf": {
-            _weaponstate = "LOAL-DIR";
+
+    if ((currentweapon _heli) in _hellfireweps && !(_heli getVariable "fza_ah64_ltype" == "lobl.sqf")) then {
+        _nolosbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
+        _losbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
+        _w = 0.0734;
+        _h = 0.1;
+        _apx = 0.036;
+        _apy = 0.05;
+        _weapon = "CMSL";
+        if (isManualFire _heli) then {
+            _weapon = "PMSL";
         };
-        case "loallo.sqf": {
-            _weaponstate = "LOAL-LO";
+        switch (_fireMode) do {
+            case "LoalDistance": {
+                _weaponstate = "DIR-MAN";
+            };
+            case "TopDown": {
+                _weaponstate = "LO-MAN";
+            };
+            case "Cruise": {
+                _weaponstate = "HI-MAN";
+            };
         };
-        case "loalhi.sqf": {
-            _weaponstate = "LOAL-HI";
-        };
-        case "direct.sqf": {
-            _weaponstate = "DIRECT";
+        _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+        
+        if (count _missileTOF > 0) then {
+            _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
+            _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
         }
     };
-    if (count fza_ah64_misguidearray > 0) then {
-        if (fza_ah64_shottimer == 0) then {
-            fza_ah64_shottimer = fza_ah64_firedist;
-        };
-        fza_ah64_shottimer = fza_ah64_shottimer - 0.3;
-        if (fza_ah64_shottimer < 0) then {
-            fza_ah64_shottimer = 0;
-        };
-        _weaponstate = _weaponstate + format[" TOF=%1", round(fza_ah64_shottimer * 0.1)];
-    } else {
-        fza_ah64_shottimer = 0;
-    };
+} else {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
 if ((currentweapon _heli) in _rocketweps) then {
@@ -846,60 +861,6 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-
-_terrainlos = terrainIntersectasl[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], [(getPosASL fza_ah64_mycurrenttarget select 0), (getPosASL fza_ah64_mycurrenttarget select 1), (getPosASL fza_ah64_mycurrenttarget select 2) + 1]];
-_obscureobjs = lineIntersectsWith[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], getPosASL fza_ah64_mycurrenttarget, _heli, fza_ah64_mycurrenttarget];
-_objlos = false;
-if ("all"
-    counttype _obscureobjs > 0) then {
-    _objlos = true;
-};
-//_objlos = lineIntersects [getposasl _heli, getPosASL fza_ah64_mycurrenttarget, _heli, fza_ah64_mycurrenttarget];
-
-if ((_thetatarg > 30 && _thetatarg < 330) || _terrainlos || _objlos) then {
-
-    if (_terrainlos) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-        _safemessage = "LOS INVALID";
-        fza_ah64_targlos = 0;
-    };
-    if ((_objlos) && !((currentmagazine _heli) in _longbowmags)) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-        _safemessage = "LOS INVALID";
-        fza_ah64_targlos = 0;
-    };
-    if (_thetatarg > 30 && _thetatarg < 330) then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-        _safemessage = "LOS INVALID";
-    };
-} else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _losbox;
-    _sensor = ""; //TEST "A" DISAPPEAR ONCE VALID LOCK
-    _safemessage = "";
-    fza_ah64_targlos = 1;
-};
-
-if (_heli distance fza_ah64_mycurrenttarget < 1000 && (_weapon == "ATA" || _weapon == "MSL") && fza_ah64_targlos == 1) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-    _safemessage = "MIN RANGE";
-};
-
-if (currentweapon _heli in _hellfireweps && _heli ammo currentweapon _heli < 1 && fza_ah64_targlos == 1) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-    _safemessage = "NO MSLS";
-};
-
-if ((currentweapon _heli) in _hellfireweps && (currentmagazine _heli) in _longbowmags && _heli getVariable "fza_ah64_ltype" == "lobl.sqf" && !isVehicleRadarOn _heli) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-    fza_ah64_targlos = 0;
-    _safemessage = "NO ACQUIRE";
-};
-
-if (((currentweapon _heli) in _hellfireweps && !((currentmagazine _heli) in _longbowmags)) && ((fza_ah64_hfmode == _heli && !(fza_ah64_mycurrenttarget isKindOf "LaserTarget") && "fza_ah64_tads_fail" in (_heli magazinesturret[-1])) || (isNull gunner _heli || !(alive gunner _heli)))) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText _nolosbox;
-    fza_ah64_targlos = 0;
-    _safemessage = "NO ACQUIRE";
-};
 
 if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
     _safemessage = "BURST LIMIT";
