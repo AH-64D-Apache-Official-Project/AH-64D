@@ -174,6 +174,7 @@ class CfgFunctions
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
+			class targetingFilterType {R;};
 			class targetingGetAcquisitionSource {R;};
 			class targetingPFZCycle {R;};
 			class targetingPNVSControl {R;};

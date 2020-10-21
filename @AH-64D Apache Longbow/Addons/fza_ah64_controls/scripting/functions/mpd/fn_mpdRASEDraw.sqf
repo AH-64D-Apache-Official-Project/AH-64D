@@ -14,8 +14,19 @@ if (fza_ah64_cmsel == 1) then {
 */
 
 _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
-[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
+
+_flareCount = 0;
+{
+	params ["_className", "_turretPath", "_ammoCount"];
+	if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
+		_flareCount = _flareCount + _ammoCount;
+	};
+} forEach magazinesAllTurrets vehicle player;
+
+[_heli, _flareCount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
+
 _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
+
 if (weaponState [_heli, [-1], "fza_CMFlareLauncher"] # 2 != "Single") then {
 	_heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, "\fza_ah64_us\tex\char\g4_ca.paa"];
 } else {

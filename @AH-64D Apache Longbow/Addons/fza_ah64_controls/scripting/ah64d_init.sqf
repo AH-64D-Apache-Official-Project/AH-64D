@@ -22,7 +22,7 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_acq_plt", 3, true];
     _heli setVariable ["fza_ah64_acq_cpg", 3, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
-    _heli setVariable ["fza_ah64_ltype", "lobl.sqf", true];
+    _heli setVariable ["fza_ah64_ltype", "TopDown", true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];

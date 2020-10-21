@@ -75,7 +75,7 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUELLO.paa"];
 };
 if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa"]
 };
 
 // ADVISORIES
@@ -84,6 +84,6 @@ if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\CANOPY.paa"]
 };
 if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 < 3) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\APUON.paa"]
 };
 _wcas;

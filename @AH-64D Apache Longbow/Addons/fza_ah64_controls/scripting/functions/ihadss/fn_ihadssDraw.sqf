@@ -180,13 +180,13 @@ if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocl
 
         _rocketcode = "???";
         fza_ah64_ihadssinit = true;
-
-        if ((player == driver _heli || player == gunner _heli) && _heli iskindof "fza_ah64d_b2e_nr") then {
-            _sensor = "A ";
-            _sensxm = "TADS ";
-            _heli setVariable ["fza_ah64_agmode", 2, true];
-        };
     };
+};
+
+if ((player == driver _heli || player == gunner _heli) && _heli iskindof "fza_ah64d_b2e_nr" && _heli getVariable "fza_ah64_agmode" != 2) then {
+    _sensor = "A ";
+    _sensxm = "TADS ";
+    _heli setVariable ["fza_ah64_agmode", 2, true];
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
@@ -601,42 +601,31 @@ if (_curWeapon in _hellfireweps) then {
         };
     };
 
-    if ((currentweapon _heli) in _hellfireweps && !(_heli getVariable "fza_ah64_ltype" == "lobl.sqf")) then {
-        _nolosbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
-        _losbox = "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
-        _w = 0.0734;
-        _h = 0.1;
-        _apx = 0.036;
-        _apy = 0.05;
-        _weapon = "CMSL";
-        if (isManualFire _heli) then {
-            _weapon = "PMSL";
+    if (isManualFire _heli) then {
+        _weapon = "PMSL";
+    };
+    switch (_fireMode) do {
+        case "LoalDistance": {
+            _weaponstate = "DIR-MAN";
         };
-        switch (_fireMode) do {
-            case "LoalDistance": {
-                _weaponstate = "DIR-MAN";
-            };
-            case "TopDown": {
-                _weaponstate = "LO-MAN";
-            };
-            case "Cruise": {
-                _weaponstate = "HI-MAN";
-            };
+        case "TopDown": {
+            _weaponstate = "LO-MAN";
         };
-        _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
-        
-        if (count _missileTOF > 0) then {
-            _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
-            _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
+        case "Cruise": {
+            _weaponstate = "HI-MAN";
         };
+    };
+    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+    
+    if (count _missileTOF > 0) then {
+        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
+        _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
     };
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
 if ((currentweapon _heli) in _rocketweps) then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\ah64_rkt_nolos.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\ah64_rkt.paa";
     _w = 0.0734;
     _h = 0.1;
     _apx = 0.036;
@@ -671,11 +660,8 @@ if ((currentweapon _heli) in _rocketweps) then {
 
     //RKT FIX TADS AND/OR IHADSS DISPLAY
 
-    if ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3) then {
-        _losbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd";
-        _nolosbox = "\fza_ah64_us\tex\HDU\ah64_rkt_fxd";
-    };
-
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
+        (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
 };
 
 if (currentweapon _heli == "fza_atas_2") then {
@@ -690,6 +676,7 @@ if (currentweapon _heli == "fza_atas_2") then {
         _weapon = "PATA";
     };
     _weaponstate = format["%1", _heli ammo(currentweapon _heli)];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_atas.paa";
 };
 
 if (currentweapon _heli == "fza_ma_safe") then {
@@ -698,14 +685,8 @@ if (currentweapon _heli == "fza_ma_safe") then {
 };
 
 if ((currentweapon _heli == "fza_m230") && player == driver _heli) then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\ah64_gun.paa";
-
-    if ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3) then {
-        _losbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";
-        _nolosbox = "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa";
-    };
-
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
+        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
 };
 
 if (currentweapon _heli == "fza_m230") then {

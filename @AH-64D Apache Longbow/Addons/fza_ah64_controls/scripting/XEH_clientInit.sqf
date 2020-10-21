@@ -92,11 +92,11 @@
 
 [MOD_NAME, "waypointNext", "Cycle Waypoint Forwards", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandleNextWaypoint)
-}, {}, [USER_17, [false, false, false]]] call fza_fnc_addKeybind;
+}, {}, [USER_18, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "waypointPrev", "Cycle Waypoint Backwards", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandlePrevWaypoint)
-}, {}, [USER_18, [false, false, false]]] call fza_fnc_addKeybind;
+}, {}, [USER_17, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHeadtracking", "Toggle Head Tracking", {
 	ENSURE_IN_APACHE(fza_ah64_tiron = !fza_ah64_tiron;)

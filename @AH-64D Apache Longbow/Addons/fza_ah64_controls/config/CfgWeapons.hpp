@@ -156,7 +156,7 @@ class CfgWeapons
 		class TopDown: Mode_SemiAuto
 		{
 			textureType = "topDown";
-			displayName = "LOBL";
+			displayName = "LOAL-Lo";
 
 			aiRateOfFire			= 5;
 			aiRateOfFireDistance	= 1000;
@@ -167,6 +167,7 @@ class CfgWeapons
 			midrangeprobab			= 0.9;
 			minrange				= 250;
 			minrangeprobab			= 0.6;
+			sounds[] = {"StandardSound"};
 			class StandardSound 
 			{
 				soundSetShot[] = {"fza_agm114_soundset"};

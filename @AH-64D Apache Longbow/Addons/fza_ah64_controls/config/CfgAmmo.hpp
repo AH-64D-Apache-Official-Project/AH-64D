@@ -122,7 +122,7 @@ class CfgAmmo
 		class Cruise
 		{
 			preferredFlightAltitude  = 500;
-			lockDistanceToTarget = 500;
+			lockDistanceToTarget = 1000;
 		};
 
 		class Components : Components
