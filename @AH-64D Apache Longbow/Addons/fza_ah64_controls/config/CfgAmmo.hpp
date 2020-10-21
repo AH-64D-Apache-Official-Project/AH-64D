@@ -113,11 +113,11 @@ class CfgAmmo
 			ascendAngle		= 39;
 			ascendHeight	= 360;
 			minDistance		= 600;
-			descendDistance	= 3000;
+			descendDistance	= 700;
 		};
 		class LoalDistance
 		{
-			lockSeekDistanceFromParent = 1000;
+			lockSeekDistanceFromParent = 500;
 		};
 		class Cruise
 		{
