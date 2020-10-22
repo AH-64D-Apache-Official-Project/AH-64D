@@ -16,7 +16,3 @@ Author:
 	unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
-if (player == driver _heli) then {
-    fza_ah64_hfmode = _heli;
-};

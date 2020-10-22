@@ -15,6 +15,7 @@ _heli setobjecttexture [SEL_MPD_PR_ASE_RJAUT, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_RJOFF, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_RJON, ""];
 _heli setobjecttexture [SEL_MPD_PR_ASE_SALVO, ""];
+_heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, ""];
 
 for "_i" from SEL_MPD_PL_OBJ1 to SEL_MPD_PL_OBJ32 do {
 	_heli setObjectTexture [_i, ""];

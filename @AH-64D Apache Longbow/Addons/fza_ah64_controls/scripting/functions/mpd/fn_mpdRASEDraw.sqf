@@ -17,11 +17,11 @@ _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
 
 _flareCount = 0;
 {
-	params ["_className", "_turretPath", "_ammoCount"];
+	_x params ["_className", "_turretPath", "_ammoCount"];
 	if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
 		_flareCount = _flareCount + _ammoCount;
 	};
-} forEach magazinesAllTurrets vehicle player;
+} forEach magazinesAllTurrets _heli;
 
 [_heli, _flareCount, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
 

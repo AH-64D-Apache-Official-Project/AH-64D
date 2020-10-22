@@ -67,7 +67,7 @@
 }, {}, [USER_9, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "disarmLaserDesig", "Disarm Laser Designation System", {
-	CALL_ENSURE_IN_APACHE(fza_fnc_laserArm)
+	CALL_ENSURE_IN_APACHE(fza_fnc_laserDisarm)
 }, {}, [USER_10, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleIHADSS", "IHADSS Toggle", {

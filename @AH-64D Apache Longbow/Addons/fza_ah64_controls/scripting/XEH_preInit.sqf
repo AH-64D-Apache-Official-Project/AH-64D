@@ -51,7 +51,6 @@ fza_ah64_rfjon = 0;
 fza_ah64_curflrln = 0;
 fza_ah64_curchfln = 0;
 fza_ah64_salvofired = 0;
-fza_ah64_hfmode = objNull;
 fza_ah64_remtsel = 0;
 fza_ah64_mynum = 0;
 fza_ah64_lastdir = 0;

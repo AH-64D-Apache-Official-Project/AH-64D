@@ -412,7 +412,7 @@ if (_heli getVariable "fza_ah64_agmode" == 3) then {
 if (_heli iskindof "fza_ah64base") then {
     switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
         case 0: {
-            _acqihadss = ["FCR", "TADS"] select (_heli getVariable "fza_ah64_agmode" < 2)
+            _acqihadss = ["TADS", "FCR"] select (_heli getVariable "fza_ah64_agmode" < 2)
         };
         case 1: {
             _acqihadss = "HMD";

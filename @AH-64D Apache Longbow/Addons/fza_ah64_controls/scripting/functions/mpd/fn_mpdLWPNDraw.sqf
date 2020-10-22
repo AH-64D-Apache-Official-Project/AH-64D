@@ -105,6 +105,13 @@ _rocketcountE = 0;
 _rkt14ammo = 0;
 _rkt23ammo = 0;
 _gunammo = _heli ammo "fza_m230";
+_flareCount = 0;
+{
+	_x params ["_className", "_turretPath", "_ammoCount"];
+	if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
+		_flareCount = _flareCount + _ammoCount;
+	};
+} forEach magazinesAllTurrets _heli;
 if (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter") then {
 	_rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 	_gunsel = "\fza_ah64_us\tex\icons\gun-sel_ca.paa";
@@ -184,21 +191,12 @@ if (_curwpn # 0 iskindof ["fza_agm114_16", configFile / "CfgWeapons"]) then {
 
 _sight = "\fza_ah64_us\tex\icons\tads.paa";
 _acq = "\fza_ah64_us\tex\icons\tads.paa";
+
 if (_heli getVariable "fza_ah64_agmode" < 2) then {
 	_sight = "\fza_ah64_us\tex\icons\fcr.paa";
-};
-
-if (_heli getVariable "fza_ah64_agmode" < 2 && fza_ah64_hfmode == _heli) then {
 	_acq = "\fza_ah64_us\tex\icons\fcr.paa";
 };
-if (!(gettext(configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo") iskindof "fza_agm114k")) then {
-	_acq = _sight
-};
 
-
-if (fza_ah64_hfmode != _heli) then {
-	_acq = "\fza_ah64_us\tex\icons\REMT.paa";
-};
 switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
 	case 1: {
 		_acq = "\fza_ah64_us\tex\icons\HMD.paa";
@@ -214,7 +212,7 @@ switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
 if ("fza_agm114_23_8" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_23_8") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -316,7 +314,7 @@ if ("fza_agm114_23_8" in _weps) then {
 if ("fza_agm114_14_8" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_14_8") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -418,7 +416,7 @@ if ("fza_agm114_14_8" in _weps) then {
 if ("fza_agm114_1_4" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_1_4") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -484,7 +482,7 @@ if ("fza_agm114_1_4" in _weps) then {
 if ("fza_agm114_4_4" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_4_4") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -550,7 +548,7 @@ if ("fza_agm114_4_4" in _weps) then {
 if ("fza_agm114_2_4" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_2_4") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -616,7 +614,7 @@ if ("fza_agm114_2_4" in _weps) then {
 if ("fza_agm114_3_4" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_3_4") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -682,7 +680,7 @@ if ("fza_agm114_3_4" in _weps) then {
 if ("fza_agm114_1_ul" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_1_ul") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -721,7 +719,7 @@ if ("fza_agm114_1_ul" in _weps) then {
 if ("fza_agm114_1_ur" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_1_ur") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -760,7 +758,7 @@ if ("fza_agm114_1_ur" in _weps) then {
 if ("fza_agm114_1_ll" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_1_ll") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -799,7 +797,7 @@ if ("fza_agm114_1_ll" in _weps) then {
 if ("fza_agm114_1_lr" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_1_lr") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -838,7 +836,7 @@ if ("fza_agm114_1_lr" in _weps) then {
 if ("fza_agm114_2_ul" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_2_ul") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -877,7 +875,7 @@ if ("fza_agm114_2_ul" in _weps) then {
 if ("fza_agm114_2_ur" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_2_ur") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -916,7 +914,7 @@ if ("fza_agm114_2_ur" in _weps) then {
 if ("fza_agm114_2_ll" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_2_ll") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -955,7 +953,7 @@ if ("fza_agm114_2_ll" in _weps) then {
 if ("fza_agm114_2_lr" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_2_lr") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -994,7 +992,7 @@ if ("fza_agm114_2_lr" in _weps) then {
 if ("fza_agm114_3_ul" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_3_ul") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1033,7 +1031,7 @@ if ("fza_agm114_3_ul" in _weps) then {
 if ("fza_agm114_3_ur" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_3_ur") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1072,7 +1070,7 @@ if ("fza_agm114_3_ur" in _weps) then {
 if ("fza_agm114_3_ll" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_3_ll") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1111,7 +1109,7 @@ if ("fza_agm114_3_ll" in _weps) then {
 if ("fza_agm114_3_lr" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_3_lr") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1150,7 +1148,7 @@ if ("fza_agm114_3_lr" in _weps) then {
 if ("fza_agm114_4_ul" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_4_ul") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1189,7 +1187,7 @@ if ("fza_agm114_4_ul" in _weps) then {
 if ("fza_agm114_4_ur" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_4_ur") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1228,7 +1226,7 @@ if ("fza_agm114_4_ur" in _weps) then {
 if ("fza_agm114_4_ll" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_4_ll") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1267,7 +1265,7 @@ if ("fza_agm114_4_ll" in _weps) then {
 if ("fza_agm114_4_lr" in _weps) then {
 	if (currentweapon _heli == "fza_agm114_4_lr") then {
 		_hfbracket = "\fza_ah64_us\tex\icons\mslxtra.paa";
-		if (fza_ah64_hfmode == _heli) then {
+		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
 			_hfdesig = "\fza_ah64_us\tex\icons\self.paa";
 		} else {
 			_hfdesig = "\fza_ah64_us\tex\icons\remt.paa";
@@ -1664,8 +1662,8 @@ if (currentweapon _heli == "fza_ma_safe") then {
 };
 //TODO: When chaff re-added, add here
 [_heli, 0, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_CHAFF_QTY] call fza_fnc_drawNumberSelections;
-[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE1_QTY] call fza_fnc_drawNumberSelections;
-[_heli, _heli ammo "fza_CMFlareLauncher", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE2_QTY] call fza_fnc_drawNumberSelections;
+[_heli, _flareCount/2, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE1_QTY] call fza_fnc_drawNumberSelections;
+[_heli, _flareCount/2, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLARE2_QTY] call fza_fnc_drawNumberSelections;
 [_heli, _gunammo, ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter"),SEL_DIGITS_MPD_PL_GUN_AMMO] call fza_fnc_drawNumberSelections;
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_1, _burst10];
 _heli setobjecttexture [SEL_MPD_PL_GUN_BURST_2, _burst20];
