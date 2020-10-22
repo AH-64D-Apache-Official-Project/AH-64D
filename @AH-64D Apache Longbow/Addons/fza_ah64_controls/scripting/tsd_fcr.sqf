@@ -221,11 +221,13 @@ do {
             _heli setobjecttexture[407, _wndsformat2];
             _heli setobjecttexture[408, _wndsformat1];
 
-            if (fza_ah64_tsdmode == "atk") then {
-                _heli setobjecttexture[1071, "\fza_ah64_us\tex\mpd\tsd.paa"];
                 /////////////////////////////////////////
                 ////////////////ATTACK///////////////////
-                /////////////////////////////////////////
+                /////////////////////////////////////////			
+			
+            if (fza_ah64_tsdmode == "atk") then {
+                _heli setobjecttexture[1071, "\fza_ah64_us\tex\mpd\tsd.paa"];
+				
                 if (fza_ah64_tsdmap > 0) then {
                     _heli setobjecttexture[1110, fza_ah64_currentmap];
                     _heli setobjecttexture[1069, "\fza_ah64_us\tex\mpd\tsd.paa"];
@@ -429,16 +431,16 @@ do {
                     };
                     //sleep 0.01;
                 }
-                foreach fza_ah64_tsddisptargs;
-                /////////////////////////////////////////
-                ////////////END ATTACK///////////////////
-                /////////////////////////////////////////
-            };
-            if (fza_ah64_tsdmode == "nav") then {
-                _heli setobjecttexture[1071, ""];
+                foreach fza_ah64_tsddisptargs;	
+            };		
+			
                 /////////////////////////////////////////
                 ////////////////NAV//////////////////////
                 /////////////////////////////////////////
+				
+            if (fza_ah64_tsdmode == "nav") then {
+                _heli setobjecttexture[1071, ""];
+
                 if (fza_ah64_tsdmap > 0) then {
                     _heli setobjecttexture[1110, fza_ah64_currentmap];
                     _heli setobjecttexture[1069, "\fza_ah64_us\tex\mpd\tsd.paa"];
@@ -555,12 +557,8 @@ do {
                             _heli animate[_objstrv, _targypos];
                         };
                     };
-                    //sleep 0.01;
                 }
                 foreach fza_ah64_waypointdata;
-                /////////////////////////////////////////
-                ////////////END NAV//////////////////////
-                /////////////////////////////////////////
             };
         };
 

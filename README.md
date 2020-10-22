@@ -2,6 +2,11 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*22/10/2020*
+- Restored PNVS optics turret
+- When enabling TIR, the mouse cursor will remain centered
+- Small edition on RKTs drag
+
 *20/10/2020*
 - Removed pilot optic turret; PNVS is now usable trough NVS MODE switch from the frontseat & backseat (LVL knobs need to be rotated for daytime or night time toggle - default: day).
   The PiP HDU PNVS is shared between the front & the backseat

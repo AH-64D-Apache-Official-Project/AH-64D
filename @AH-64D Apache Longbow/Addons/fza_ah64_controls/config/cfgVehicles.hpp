@@ -1414,9 +1414,10 @@ class CfgVehicles
 		gunnerUsesPilotView = false;
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
-		//memorypointdriveroptics[] = {"driverview", "pilot"};
-		//driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		//driverOpticsColor[] = {1,1,1,1};
+		//PNVS TURRET OPTICS BACK UP
+		memorypointdriveroptics[] = {"driverview", "pilot"};
+		driveropticsmodel = "\fza_ah64_us\prx\ihadss\fza_ihadss_scope";
+		driverOpticsColor[] = {1,1,1,1};
 		laserScanner=1;
 		nightVision=1;
 		mainRotorSpeed = 1;
@@ -1638,6 +1639,23 @@ class CfgVehicles
 			minmovey = -0.1;
 			minmovez = -0.1;
 		};
+
+		//PNVS TURRET OPTICS BACK UP
+		class ViewOptics
+		{
+			initFov=0.7;
+			minFov=0.7;
+			maxFov=0.7;			
+			initAngleX=0;
+			minAngleX=-90;
+			maxAngleX=90;
+			initAngleY=0;
+			minAngleY=-45;
+			maxAngleY=20;
+			thermalmode[] = {0};
+			visionmode[] = {"Normal","Ti"}; //PNVS
+		};
+
 		class AnimationSources
 		{
 		class pnvs
