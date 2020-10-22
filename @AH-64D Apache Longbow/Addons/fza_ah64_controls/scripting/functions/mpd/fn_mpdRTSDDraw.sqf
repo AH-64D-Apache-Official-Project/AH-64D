@@ -78,7 +78,7 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		if ([_x] call fza_fnc_targetIsADA) then {
 			_targetType = "ada";
 		};
-		if (_pfzs !=  0 && _x in ((_heli getVariable "fza_ah64_pfzs") select ((_heli getVariable "fza_ah64_pfz_count") - 1))) then {
+		if (_pfzs !=  0 && {_x in ((_heli getVariable "fza_ah64_pfzs") select (_pfzs - 1))}) then {
 			_targetModifier = "_pfz";
 		};
 		if (_x == fza_ah64_mycurrenttarget) then {
@@ -94,7 +94,7 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		[_x, _targIcon, _targetPriority];
 	};
 
-	[_heli, _targetsToDraw, true] call fza_fnc_mpdUpdatePoints;	
+	[_heli, _targetsToDraw, false] call fza_fnc_mpdUpdatePoints;	
 } else {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
 
@@ -105,5 +105,5 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		_waypointsToDraw pushBack [_x, format ["\fza_ah64_US\tex\ICONS\ah64_wp_%1_%2", _status, _forEachIndex], 0];
 	} forEach (_heli getVariable "fza_ah64_waypointdata");
 
-	[_heli, _waypointsToDraw, true] call fza_fnc_mpdUpdatePoints;
+	[_heli, _waypointsToDraw, false] call fza_fnc_mpdUpdatePoints;
 };

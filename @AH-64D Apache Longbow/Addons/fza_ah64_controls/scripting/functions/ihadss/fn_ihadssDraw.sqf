@@ -763,12 +763,9 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
 
         if (count _coords < 1) then {
             _coords = [-100, -100];
-            systemChat format ["object %1 is not visible", _x];
-        } else {
-            systemChat format ["object %1 is visible at %2", _x, _coords];
         };
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetText _type;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_dawdawawfawf);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetPosition _coords;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     }

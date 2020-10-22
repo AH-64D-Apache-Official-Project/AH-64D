@@ -30,7 +30,7 @@ fza_ah64_tsddisptargs = ([_heli, fza_ah64_targetlist] call fza_fnc_targetingFilt
 };
 
 fza_ah64_dispfcrlist = ([_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType) select {
-    _thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_ah64_reldir;
+    _thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
 
     switch (_heli getVariable "fza_ah64_agmode") do {
         case 0: {
@@ -64,6 +64,7 @@ if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _
     if (fza_ah64_mynum >= count _visibleTargets - 1) then {
         fza_ah64_mynum = 0;
     } else {
+        
         fza_ah64_mynum = fza_ah64_mynum + 1;
     };
     fza_ah64_mycurrenttarget = _visibleTargets select(fza_ah64_mynum);
