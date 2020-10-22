@@ -51,3 +51,8 @@ Temporary Items
 
 # Build artifacts
 *.pbo
+
+# Build scripts
+*.bat
+docs/
+naturaldocs/Working Data

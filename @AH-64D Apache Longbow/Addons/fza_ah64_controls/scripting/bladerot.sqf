@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noblades")) exitwith {};
 _estate = 0;
 _heli = _this select 0;
@@ -14,8 +15,6 @@ _smoothfactor = 0;
 _velfactor = 0;
 _weight = 90;
 
-//_fza_ah64_bladescript = [_heli] execvm "\fza_ah64_controls\scripting\bladetracker.sqf";
-
 while {
     alive _heli
 }
@@ -27,38 +26,38 @@ do {
     };
     if ("fza_ah64_tailrotor_fail" in (_heli magazinesturret[-1])) then {
         _trtex = "";
-        _heli setobjecttexture[1249, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
+        _heli setobjecttexture [SEL_HDAM_TR, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
     } else {
         if !("fza_ah64_cdam_tailboom" in (_heli magazinesturret[-1])) then {
-            _heli setobjecttexture[1249, ""];
+            _heli setobjecttexture [SEL_HDAM_TR, ""];
         };
     };
     if ("fza_ah64_cdam_tailboom" in (_heli magazinesturret[-1])) then {
         _trtex = "";
-        _heli setobjecttexture[1249, ""];
+        _heli setobjecttexture [SEL_HDAM_TR, ""];
     };
     if ("fza_ah64_rotor_dam" in (_heli magazinesturret[-1])) then {
         _rtex = "\fza_ah64_us\tex\dam\mdam_Rtrs_co.paa";
     };
     if ("fza_ah64_rotor_fail" in (_heli magazinesturret[-1])) then {
         _rtex = "";
-        _heli setobjecttexture[1250, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
+        _heli setobjecttexture [SEL_HDAM_RTR, "\fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"];
     } else {
-        _heli setobjecttexture[1250, ""];
+        _heli setobjecttexture [SEL_HDAM_RTR, ""];
     };
     if (_heli animationphase "blade1_rise1" > 0.5 && !("fza_ah64_tailrotor_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_tailrotor_dam" in (_heli magazinesturret[-1]))) then {
-        _heli setobjecttexture[1244, ""];
-        _heli setobjecttexture[1245, _trtex];
+        _heli setobjecttexture [SEL_TR_BLADES, ""];
+        _heli setobjecttexture [SEL_TR_BLUR, _trtex];
     } else {
-        _heli setobjecttexture[1244, _trtex];
-        _heli setobjecttexture[1245, ""];
+        _heli setobjecttexture [SEL_TR_BLADES, _trtex];
+        _heli setobjecttexture [SEL_TR_BLUR, ""];
     };
     if (_heli animationphase "blade1_rise1" > 0.5 && !("fza_ah64_rotor_fail" in (_heli magazinesturret[-1]))) then {
-        _heli setobjecttexture[1246, ""];
-        _heli setobjecttexture[1247, _rtex];
+        _heli setobjecttexture [SEL_MR_BLADES, ""];
+        _heli setobjecttexture [SEL_MR_BLUR, _rtex];
     } else {
-        _heli setobjecttexture[1246, _rtex];
-        _heli setobjecttexture[1247, ""];
+        _heli setobjecttexture [SEL_MR_BLADES, _rtex];
+        _heli setobjecttexture [SEL_MR_BLUR, ""];
     };
     if (local _heli && player in _heli) then {
 
@@ -117,7 +116,7 @@ do {
 
         _vertvect = ((_velair select 2) atan2 sqrt(((_velair select 0) * (_velair select 0)) + ((_velair select 1) * (_velair select 1))));
         _vertvect = (_vertvect * _velfactor) + _weight;
-        _helipb = _heli call fza_ah64_getpb;
+        _helipb = _heli call fza_fnc_getPitchBank;
         _vertvect = (_vertvect - (_helipb select 0));
         _horveldir = (velocity _heli select 0) atan2(velocity _heli select 1);
         if (_horveldir < 0) then {
@@ -143,13 +142,98 @@ do {
         _heli animate["l_ads_y", (_horvect1 + _horvect2 + _smoothing2) * 0.002778];
         _heli animate["r_ads_p", (_vertvect1 + _vertvect2 + _smoothing2) * 0.002778];
         _heli animate["r_ads_y", (_horvect1 + _horvect2 + _smoothing1) * 0.002778];
-        /*
-        _estate = 0.11 * (_heli animationphase "blade1_rise1");
-        if(driver _heli == player) then
-        {
-        [_heli,_estate] call fza_ah64_bladerot;
+    };
+    if (player == driver _heli) then {
+        //Angling of the rotors
+        _forback = ((inputAction "HeliForward") + (-1 * (inputAction "HeliBack")));
+        _leftright = (inputAction "HeliCyclicRight") + (inputAction "HeliRight") + (-1 * (inputAction "HeliLeft")) + (-1 * (inputAction "HeliCyclicLeft"));
+        _collective = (-0.125 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (-0.125 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"));
+        if (_collective > 0.1) then {
+            _collective = 0.1;
         };
-        */
+        if (_collective < -0.6) then {
+            _collective = -0.6;
+        };
+        _rudder = (-0.5 * (inputAction "HeliRudderLeft")) + (0.5 * (inputAction "HeliRudderRight"));
+        _cyclicdir = _leftright atan2 _forback;
+        if (_cyclicdir < 0) then {
+            _cyclicdir = _cyclicdir + 360;
+        };
+        _cyclicdir = (1 / 360) * _cyclicdir;
+        _magnitude = (inputAction "HeliForward") + (inputAction "HeliBack") + (inputAction "HeliLeft") + (inputAction "HeliCyclicLeft") + (inputAction "HeliRight") + (inputAction "HeliCyclicRight");
+        _magnitude = _magnitude * 5;
+        if (_magnitude > 1) then {
+            _magnitude = 1;
+        };
+        _addval = 0.09 * (_heli animationphase "blade1_rise1");
+        //bladepitch
+        _b1phase = (_heli animationphase "mainRotor") + (_addval + _cyclicdir);
+        if (_b1phase > 1) then {
+            _b1phase = _b1phase - 1;
+        };
+        _b1phase = (cos(360 * _b1phase)) * _magnitude;
+        _b2phase = (_heli animationphase "mainRotor") + (_addval + 0.25 + _cyclicdir);
+        if (_b2phase > 1) then {
+            _b2phase = _b2phase - 1;
+        };
+        _b2phase = (cos(360 * _b2phase)) * _magnitude;
+        _b3phase = (_heli animationphase "mainRotor") + (_addval + 0.5 + _cyclicdir);
+        if (_b3phase > 1) then {
+            _b3phase = _b3phase - 1;
+        };
+        _b3phase = (cos(360 * _b3phase)) * _magnitude;
+        _b4phase = (_heli animationphase "mainRotor") + (_addval + 0.75 + _cyclicdir);
+        if (_b4phase > 1) then {
+            _b4phase = _b4phase - 1;
+        };
+        _b4phase = (cos(360 * _b4phase)) * _magnitude;
+        //scissorarm1
+        _s1phase = (_heli animationphase "mainRotor") + (_addval + 0.875 + _cyclicdir);
+        if (_s1phase > 1) then {
+            _s1phase = _s1phase - 1;
+        };
+        _s1phase = (cos(360 * _s1phase)) * _magnitude;
+        //scissorarm2
+        _s2phase = (_heli animationphase "mainRotor") + (_addval + 0.375 + _cyclicdir);
+        if (_s2phase > 1) then {
+            _s2phase = _s2phase - 1;
+        };
+        _s2phase = (cos(360 * _s2phase)) * _magnitude;
+        _b1p = (0.5 * (_b1phase)) + _collective;
+        _b2p = (0.5 * (_b2phase)) + _collective;
+        _b3p = (0.5 * (_b3phase)) + _collective;
+        _b4p = (0.5 * (_b4phase)) + _collective;
+        _s1p = 1.5 * ((_s1phase) + _collective);
+        _s2p = 1.5 * ((_s2phase) + _collective);
+        //player globalchat format ["%1",_b1phase];
+        //tail rotor
+        _heli animate["trsw", _rudder];
+        _heli animate["tr_blade1_pitch", (-1 * (_rudder))];
+        _heli animate["tr_blade2_pitch", _rudder];
+        _heli animate["tr_blade3_pitch", _rudder];
+        _heli animate["tr_blade4_pitch", (-1 * (_rudder))];
+        //main rotor
+        _heli animate["swashplate_up_tns", (-2.5 * (_collective))];
+        _heli animate["swashplate_dn_tns", (-2.5 * (_collective))];
+        _heli animate["mr_act_tns", (-2.5 * (_collective))];
+        _heli animate["swashplate_up_pitch", -3 * _forback];
+        _heli animate["swashplate_up_bank", -3 * _leftright];
+        _heli animate["swashplate_dn_pitch", -3 * _forback];
+        _heli animate["swashplate_dn_bank", -3 * _leftright];
+        _heli animate["swup_arm1", _s1p];
+        _heli animate["swup_arm1_t", (-1 * (_s1p))];
+        _heli animate["swup_arm2", _s1p];
+        _heli animate["swup_arm3", _s2p];
+        _heli animate["swup_arm3_t", (-1 * (_s2p))];
+        _heli animate["swup_arm4", _s2p];
+        _heli animate["blade1_pitch", _b1p];
+        _heli animate["blade2_pitch", _b2p];
+        _heli animate["blade3_pitch", _b3p];
+        _heli animate["blade4_pitch", _b4p];
+        _heli animate["blade1_flap", (-0.8 * (_estate * (_b1p)))];
+        _heli animate["blade2_flap", (-0.8 * (_estate * (_b2p)))];
+        _heli animate["blade3_flap", (-0.8 * (_estate * (_b3p)))];
+        _heli animate["blade4_flap", (-0.8 * (_estate * (_b4p)))];
     };
     sleep 0.03;
 };

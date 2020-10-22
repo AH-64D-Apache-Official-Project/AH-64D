@@ -9,10 +9,10 @@ while {
 }
 do {
     waituntil {
-        player in _heli && fza_ah64_fcrstate == 1 && (isengineon _heli || fza_ah64_apuon == 1) && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))
+        player in _heli && isVehicleRadarOn _heli && (isengineon _heli || [_heli] call fza_fnc_engineAPUOn) && local _heli && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))
     };
 
-    if (fza_ah64_agmode != 1) then {
+    if (_heli getVariable "fza_ah64_agmode" != 1) then {
         if (_reverse == 0) then {
             _heli animate["longbow", (_heli animationphase "longbow") + 0.006250];
         };
@@ -27,7 +27,7 @@ do {
         };
     };
 
-    if (fza_ah64_agmode == 1) then {
+    if (_heli getVariable "fza_ah64_agmode" == 1) then {
         if (_heli animationphase "longbow" < 0.875) then {
             _heli animate["longbow", (_heli animationphase "longbow") + 0.006250];
         };

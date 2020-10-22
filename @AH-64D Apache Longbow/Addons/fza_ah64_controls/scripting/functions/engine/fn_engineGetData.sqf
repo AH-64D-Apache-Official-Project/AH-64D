@@ -15,9 +15,9 @@ Returns:
 	[Np (rpm), Ng (%), TGT (*C), Oil Pressure (PSI), Torque (Nm)]
 
 Examples:
-	(begin example)
+	--- Code
     _data = [_heli, 0] call fza_fnc_engineGetData
-	(end)
+	---
 
 Author:
 	mattysmith22
@@ -127,8 +127,8 @@ switch (_state) do {
 	};
 };
 
-if(isObjectRTD _heli && count enginesTorqueRTD _heli == 2) then {
+if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 2) then {
 	[_npMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _torqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
 } else {
-	[_npMul * 1.01, _ng, _tgt, _oil, 40];
-}
+	[_npMul * 1.01 * 209.0, _ng, _tgt, _oil, 70];
+};

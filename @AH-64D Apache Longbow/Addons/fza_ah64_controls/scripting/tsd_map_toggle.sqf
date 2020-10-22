@@ -1,3 +1,4 @@
+#include "\fza_ah64_controls\headers\selections.h"
 _heli = _this select 0;
 
 private _map = getText(configFile >> "CfgWorlds" >> worldName >> "pictureMap");
@@ -14,7 +15,6 @@ if (fza_ah64_tsdmap == _mapcount) exitwith {
     fza_ah64_tsdmap = 0;
 };
 fza_ah64_tsdmap = fza_ah64_tsdmap + 1;
-fza_ah64_currentmap = fza_ah64_maplist select(fza_ah64_tsdmap - 1);
 
-_heli setobjecttexture[270, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
-_heli setobjecttexture[1076, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
+_heli setobjecttexture [SEL_MPD_PL_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
+_heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];

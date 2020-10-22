@@ -1,13 +1,15 @@
+//Deleted stuff that wasn't actually used and fixed the ownship appearing on the FCR... - Brad
+
+#define AGMODE_GND 0
+#define AGMODE_AIR 1
+#define AGMODE_FNI 2 //FCR Not Installed (FNI)
+
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
-_heli = _this select 0;
-_targets = [];
-_curterhdg = 0;
-_maxalt = 2;
-_hdgblocked = 0;
-_targlist = [];
+_heli = objNull;
+_targetArray = [];
 _detectchance = 0.00834;
 _adaunit = false;
-_targetm = [];
+_datalinkArray = [];
 
 if (isNil "fza_ah64_ada_units") then {
     fza_ah64_ada_units = ["O_APC_Tracked_02_AA_F", "O_T_APC_Tracked_02_AA_ghex_F", "rhs_zsutank_base", "LOP_ZSU234_base"];
@@ -20,28 +22,23 @@ do {
     waituntil {
         (vehicle player) iskindof "fza_ah64base"
     };
-    //_heli = vehicle player;
+
+    _heli = vehicle player;
+
     waitUntil {
         ((driver(vehicle player) == player || gunner(vehicle player) == player) && isengineon(vehicle player))
     };
-    if (fza_ah64_agmode == 1) then {
-        _maxalt = 100;
-    };
-    if (fza_ah64_agmode == 0 || fza_ah64_agmode > 1) then {
-        _maxalt = 2;
-    };
-    if (fza_ah64_fcrstate == 1 && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
+
+    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
         //add targets to master list
-        //_targets = (list _radsweep);
-        //_targets = vehicles - allDead;
+        //_targetArray = (list _radsweep);
+        //_targetArray = vehicles - allDead;
 
-        _targetm = listRemoteTargets west;
-
+        _datalinkArray = listRemoteTargets west;
         {
-            _targets pushback(_x select 0);
+            _targetArray pushback(_x select 0);
         }
-        foreach _targetm;
-
+        foreach _datalinkArray;
 
         {
             if (alive _x && !(_x in fza_ah64_targetlist)) then {
@@ -54,22 +51,30 @@ do {
                 }
                 foreach fza_ah64_ada_units;
 
-                //_theta = [_heli,(getposatl _heli select 0),(getposatl _heli select 1),(getposatl _i select 0),(getposatl _i select 1)] call fza_ah64_reldir;
+                //In theory, this should hide the player helicopter...
+                if (_i == _heli) then {
+                    _targetArray = _targetArray - [_i];
+                    _rem = true;    
+                };
 
                 if (_i distance _heli > 10000 || (_i iskindof "man") || !(alive _i)) then {
-                    _targets = _targets - [_i];
+                    _targetArray = _targetArray - [_i];
                     _rem = true;
                 };
-                if ((fza_ah64_agmode == 0 || fza_ah64_agmode > 1) && (getpos _i select 2 >= 10)) then {
-                    _targets = _targets - [_i];
+
+                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (getpos _i select 2 >= 10)) then {
+                    _targetArray = _targetArray - [_i];
                     _rem = true;
                 };
-                if (fza_ah64_agmode == 1 && ((getpos _i select 2) < 10)) then {
-                    _targets = _targets - [_i];
+
+                if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && ((getpos _i select 2) < 10)) then {
+                    _targetArray = _targetArray - [_i];
                     _rem = true;
                 };
+
+                //If what is detected isn't any of the items below, remove it from the list...
                 if (!(_i isKindOf "helicopter" || _i isKindOf "plane" || _i isKindOf "car" || _i isKindOf "tank" || _i isKindOf "ship" || _i isKindOf "StaticCannon" || _adaunit)) then {
-                    _targets = _targets - [_i];
+                    _targetArray = _targetArray - [_i];
                     _rem = true;
                 };
 
@@ -80,16 +85,16 @@ do {
                     if (_adaunit) then {
                         _detectchance = 0.00017;
                     };
+
                     if (((_i distance _heli) * _detectchance) > _randchance) then {
-                        _targets = _targets - [_i];
+                        _targetArray = _targetArray - [_i];
                     };
-                    //if((terrainIntersectasl [getposasl _heli, [(getPosASL _i select 0),(getPosASL _i select 1),(getPosASL _i select 2)+1]]) || (lineIntersects [getposasl _heli, getPosASL _i, _heli, _i])) then {_targets = _targets - [_i];};
+                    //if((terrainIntersectasl [getposasl _heli, [(getPosASL _i select 0),(getPosASL _i select 1),(getPosASL _i select 2)+1]]) || (lineIntersects [getposasl _heli, getPosASL _i, _heli, _i])) then {_targetArray = _targetArray - [_i];};
                 };
                 sleep 0.03;
             };
         }
-        foreach _targets;
-
+        foreach _targetArray;
 
         {
             if (!(_x in fza_ah64_targetlist)) then {
@@ -97,36 +102,12 @@ do {
                 _heli reveal _x;
             };
         }
-        foreach _targets; {
+        foreach _targetArray; {
             if (!(_x in fza_ah64_fcrlist)) then {
                 fza_ah64_fcrlist = fza_ah64_fcrlist + [_x];
             };
         }
-        foreach _targets;
+        foreach _targetArray;
     };
-    ///////TADS/VISUAL TARGETS//////
-    /*_targlist = _heli neartargets 6000;
-    _targlist = _targlist - allDead;
-    {_posobj = nearestobject (_x select 0); (driver _heli) reveal _posobj; if ((_posobj isKindOf "helicopter" || _posobj isKindOf "plane" || _posobj isKindOf "car" || _posobj isKindOf "tank" || _posobj isKindOf "ship" || _posobj iskindof "StaticCannon") && (alive _posobj) && !(_posobj in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_posobj];}; sleep 0.01;} foreach _targlist;
-    {
-    	if((_x iskindof "man") || (_x == _heli) || !(alive _x)) then
-    		{
-    			fza_ah64_asethreats = fza_ah64_asethreats - [_x];
-    			fza_ah64_targetlist = fza_ah64_targetlist - [_x];
-    			fza_ah64_fcrlist = fza_ah64_fcrlist - [_x];
-    			fza_ah64_pfz1 = fza_ah64_pfz1 - [_x];
-    			fza_ah64_pfz2 = fza_ah64_pfz2 - [_x];
-    			fza_ah64_pfz3 = fza_ah64_pfz3 - [_x];
-    			fza_ah64_pfz4 = fza_ah64_pfz4 - [_x];
-    			fza_ah64_pfz5 = fza_ah64_pfz5 - [_x];
-    			fza_ah64_pfz6 = fza_ah64_pfz6 - [_x];
-    			fza_ah64_pfz7 = fza_ah64_pfz7 - [_x];
-    			fza_ah64_pfz8 = fza_ah64_pfz8 - [_x];
-    			fza_ah64_threattracking = fza_ah64_threattracking - [_x];
-    		};
-    } foreach fza_ah64_targetlist;
-    fza_ah64_targetlist = fza_ah64_targetlist - [_heli];
-    fza_ah64_fcrlist = fza_ah64_fcrlist - [_heli];
-    sleep 2;*/
     sleep 2;
 };

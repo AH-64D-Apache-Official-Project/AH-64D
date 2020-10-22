@@ -1,3 +1,4 @@
+class Mode_SemiAuto;
 class CfgWeapons
 {	
 	class MGunCore;
@@ -148,9 +149,38 @@ class CfgWeapons
 		minRangeProbab = 0.5;
 		midRange = 3500;
 		midRangeProbab = 1.0;
-		maxRange = 7000;
+		maxRange = 8000;
 		maxRangeProbab = 0.8;
 		reloadtime = 1;	
+		modes[]	= {TopDown,LoalDistance,Cruise};
+		class TopDown: Mode_SemiAuto
+		{
+			textureType = "topDown";
+			displayName = "LOAL-Lo";
+
+			aiRateOfFire			= 5;
+			aiRateOfFireDistance	= 1000;
+
+			maxrange				= 8000;
+			maxrangeprobab			= 0.6;
+			midrange				= 2000;
+			midrangeprobab			= 0.9;
+			minrange				= 250;
+			minrangeprobab			= 0.6;
+			sounds[] = {"StandardSound"};
+			class StandardSound 
+			{
+				soundSetShot[] = {"fza_agm114_soundset"};
+			};
+		};
+		class LoalDistance: TopDown
+		{
+			displayName = "LOAL-DIR";
+		};
+		class Cruise: TopDown
+		{
+			displayName = "LOAL-HI";
+		};
 	};
 	class fza_agm114_23_8 : fza_agm114_16
 	{

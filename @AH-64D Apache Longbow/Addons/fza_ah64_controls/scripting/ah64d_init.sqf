@@ -1,5 +1,8 @@
 //MASTER INIT FOR AH-64D PROJECT
+#include "\fza_ah64_controls\headers\selections.h"
 _heli = _this select 0;
+
+if (!(isNil "fza_ah64_noinit")) exitwith {};
 
 if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
@@ -10,26 +13,37 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli animate["plt_firesw", 0.5];
     _heli animate["cpg_firesw", 0.5];
     _heli animate["tads_stow", 1];
+    _heli setVariable ["fza_ah64_estarted", false, true];
+    _heli setVariable ["fza_ah64_agmode", 0, true];
+    _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
+    _heli setVariable ["fza_ah64_pfz_count", 0, true];
+    _heli setVariable ["fza_ah64_curwpnum", 0, true];
+    _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
+    _heli setVariable ["fza_ah64_acq_plt", 3, true];
+    _heli setVariable ["fza_ah64_acq_cpg", 3, true];
+    _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
+    _heli setVariable ["fza_ah64_ltype", "TopDown", true];
+    _heli setVariable ["fza_ah64_shotat_list", [], true];
+    _heli setVariable ["fza_ah64_shotmissile_list", [], true];
+    _heli setVariable ["fza_ah64_tsdsort", 0, true];
+    _heli setVariable ["fza_ah64_currentLase", objNull, true];
+    _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
 };
+_heli setVariable ["fza_ah64_aseautopage", 0];
+_heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
+_heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
+_heli setVariable ["fza_ah64_burst_limit", 10];
+_heli setVariable ["fza_ah64_fcrcscope", false];
+_heli setVariable ["fza_ah64_ihadssoff", 1];
+_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
+_heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
+_heli setVariable ["fza_ah64_monocleinbox", true];
+_heli setVariable ["fza_ah64_mpdbrightness", 1];
+_heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
+_heli setVariable ["fza_ah64_rocketsalvo", 1];
+_heli setVariable ["fza_ah64_tsdmode", "nav"];
 
-if (isNil "fza_ah64_cem") then {
-    fza_ah64_cem = true;
-};
-if (isNil "fza_ah64_estarted") then {
-    fza_ah64_estarted = false;
-};
-if (isNil "fza_ah64_apuon") then {
-    fza_ah64_apuon = 0;
-};
-//ENABLE/DISABLE CPG CONTROLS
-
-if (isCopilotEnabled _heli) then {
-    _heli enableCopilot true;
-};
-
-if (isNil "fza_ah64_skinlist") then {
-    fza_ah64_skinlist = [];
-};
+[_heli] call fza_fnc_engineInit;
 
 _skinset = 0;
 if (!(_heli in fza_ah64_skinlist)) then {
@@ -37,7 +51,6 @@ if (!(_heli in fza_ah64_skinlist)) then {
     _skinset = 1;
 };
 
-if (!(isNil "fza_ah64_noinit")) exitwith {};
 if (!(player in _heli) && !(isNil "fza_ah64_noai")) exitwith {
     hintsilent "EXITING";
 };
@@ -51,200 +64,8 @@ if ((weightRTD _heli select 3) == 0) then {
     };
 };
 
-if (local _heli) then {
-    [_heli] call fza_fnc_engineInit;
-};
-
-if (isNil "fza_ah64_fx_init") then {
-    fza_ah64_fx_init = true;
-    fza_ah64_fx_EH_Fired = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bi_fired.sqf";
-    fza_ah64_fx_m230_shake = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\m230_shake_effects.sqf";
-	fza_ah64_fx_msl_shake = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\msl_shake_effects.sqf";
-    fza_ah64_rocketalign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\ffar_align2.sqf";
-    fza_ah64_hellfirealign = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\hellfire_align.sqf";
-    fza_ah64_hiderockets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_hidewpn.sqf";
-    fza_ah64_systemdamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\system_dam.sqf";
-    fza_ah64_weapondamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\weapon_dam.sqf";
-    fza_ah64_processdamage = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\processor_dam.sqf";
-    fza_ah64_weaponfault = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\gun_jam.sqf";
-    fza_ah64_ldrfcall = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ldrf.sqf";
-    fza_ah64_hmdihadss = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_ihadss.sqf";
-    fza_ah64_fcrlongbow = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_fcr.sqf";
-    fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
-    fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
-    fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
-    fza_ah64_rocketweps2 = ["fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3"];
-    fza_ah64_rocketweps3 = ["fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3"];
-    fza_ah64_rocketweps4 = ["fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-    fza_ah64_hellfireweps1 = ["fza_agm114_1_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr"];
-    fza_ah64_hellfireweps2 = ["fza_agm114_2_4", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr"];
-    fza_ah64_hellfireweps3 = ["fza_agm114_3_4", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr"];
-    fza_ah64_hellfireweps4 = ["fza_agm114_4_4", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
-
-    fza_ah64_mousehorpos = 0.5;
-    fza_ah64_mousevertpos = 0.5;
-    fza_ah64_laserstate = 0;
-    fza_ah64_gunheat = 0;
-    fza_ah64_firekeypressed = 0;
-    fza_ah64_fcrcscope = 0;
-    fza_ah64_hmdfsmode = "trans";
-    fza_ah64_overallticker = 0;
-    fza_ah64_pf_daytime = 0;
-    fza_ah64_pfsched = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pfsched.sqf";
-    fza_ah64_rotordam = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\damage\dam_rotor.sqf";
-    fza_ah64_misguide = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_missileg.sqf"; //NO MSL TRACKING WITHOUT IT
-    fza_ah64_misguidearray = [];
-    fza_ah64_curmisguide = 0;
-    fza_ah64_perframe = {
-        uiNamespace setVariable["fza_ah64_mapfake", (_this select 0)];
-        ((_this select 0) displayCtrl 3001) ctrlSetEventHandler["Draw", '[_this] call fza_ah64_pfsched'];
-    };
-    fza_ah64_pwron = 0;
-    fza_ah64_fire1arm = 0;
-    fza_ah64_fire2arm = 0;
-    fza_ah64_fireapuarm = 0;
-    fza_ah64_firepdisch = 0;
-    fza_ah64_firerdisch = 0;
-    fza_ah64_locktargstate = 0;
-    fza_ah64_irjammer = 0;
-    fza_ah64_rfjammer = 0;
-    fza_ah64_irjstate = 0;
-    fza_ah64_rfjstate = 0;
-    fza_ah64_irjon = 0;
-    fza_ah64_rfjon = 0;
-    fza_ah64_curflrln = 0;
-    fza_ah64_curchfln = 0;
-    fza_ah64_salvofired = 0;
-    fza_ah64_rocketsalvo = 1;
-    fza_ah64_flarecount = 30;
-    fza_ah64_chaffcount = 0;
-    fza_ah64_cmsel = 0;
-    fza_ah64_burst_limit = 10;
-    fza_ah64_pl_mpd = "fuel";
-    fza_ah64_pr_mpd = "eng";
-    fza_ah64_ltype = "lobl.sqf";
-    fza_ah64_hfmode = _heli;
-    fza_ah64_remtsel = 0;
-    fza_ah64_mynum = 0;
-    fza_ah64_dps = 0;
-    fza_ah64_slip = 0;
-    fza_ah64_wptimhr = 0;
-    fza_ah64_wptim = 0;
-    fza_ah64_wptimtm = 0;
-    fza_ah64_wptimsm = 0;
-    fza_ah64_wpdistr = 0;
-    if (isNil "fza_ah64_desiglist") then {
-        fza_ah64_desiglist = [];
-    };
-    fza_ah64_setpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\fsetpitch.sqf";
-    fza_ah64_getpb = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\frotate.sqf";
-    fza_ah64_reldir = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_reldir.sqf";
-    fza_ah64_digitthou = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digitthou.sqf";
-    fza_ah64_digithun = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digithun.sqf";
-    fza_ah64_digitten = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digitten.sqf";
-    fza_ah64_digit = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_digit.sqf";
-    fza_ah64_turrets = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_turrets.sqf";
-    fza_ah64_bladerot = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_bladerot.sqf";
-    fza_ah64_pnvscontrol = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_pnvs.sqf";
-    fza_ah64_worldtoscreen = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_click_this.sqf";
-    fza_ah64_targetcycle = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_targeting.sqf";
-    fza_ah64_wepactionswitch = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_was.sqf";
-    fza_ah64_velvect = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_vvect.sqf";
-    fza_ah64_slipcheck = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_slip.sqf";
-    fza_ah64_timetowp = compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_timetowp.sqf";
-    //fza_ah64_cpg_controls=compile preprocessFileLineNumbers "\fza_ah64_controls\scripting\calls\call_cpgai.sqf";
-    if (isNil "fza_ah64_targetlist") then {
-        fza_ah64_targetlist = [];
-    };
-    if (isNil "fza_ah64_mycurrenttarget") then {
-        fza_ah64_mycurrenttarget = objNull;
-    };
-    fza_ah64_wheelbrake = 1;
-    fza_ah64_burst = 1;
-    fza_ah64_engineGovernFinish = 0;
-    fza_ah64_tsdsort = 0;
-    fza_ah64_tsdsortarray = ["all"];
-    fza_ah64_laser = 0;
-    fza_ah64_pfzcache = ["none", "none", [], 0];
-    publicvariable "fza_ah64_pfzcache";
-	if(isNil "fza_ah64_mis_ir") then {fza_ah64_mis_ir = ["M_R73_AA","M_Strela_AA","M_Igla_AA","M_Stinger_AA","M_Sidewinder_AA","fza_fim92","Missile_AGM_01_F","ammo_Missile_rim116","ammo_Missile_BIM9X","M_Air_AA","M_Air_AA_MI02","M_Air_AA_MI06","Missile_AA_04_F","Missile_AGM_02_F","Missile_AA_03_F","rhs_fim92_mag","rhs_mag_9k38_rocket","rhs_mag_9k32_rocket","M_Titan_AA"];};
-	if(isNil "fza_ah64_mis_rf") then {fza_ah64_mis_rf = ["M_9M311_AA","ammo_Missile_s750","ammo_Missile_rim162","ammo_Missile_mim145","ammo_Missile_AMRAAM_D","ammo_Missile_AMRAAM_C","ammo_Missile_AA_R77","ammo_Missile_AA_R73","M_Zephyr","M_Titan_AA_long","M_Titan_AA_static"];};
-    fza_ah64_aseautopage = 0;
-    fza_ah64_asethreats = [];
-    fza_ah64_threattracking = [];
-    fza_ah64_threatfiring = [];
-    fza_ah64_agmode = 0;
-    fza_ah64_mycurrenttarget = objNull;
-    fza_ah64_targlos = 0;
-    fza_ah64_currentpfz = [];
-    fza_ah64_pfz_count = 0;
-    fza_ah64_pfz1 = [];
-    fza_ah64_pfz2 = [];
-    fza_ah64_pfz3 = [];
-    fza_ah64_pfz4 = [];
-    fza_ah64_pfz5 = [];
-    fza_ah64_pfz6 = [];
-    fza_ah64_pfz7 = [];
-    fza_ah64_pfz8 = [];
-    fza_ah64_curwpnum = 0;
-    fza_ah64_curwp = [0, 0, 0];
-    fza_ah64_waypointdata = [getpos _heli];
-    fza_ah64_wpmarkers = [];
-    fza_ah64_rangesetting = 0.001; //1km
-    fza_ah64_fcrstate = 0;
-    fza_ah64_fcrlist = [];
-    fza_ah64_tsddisptargs = [];
-    fza_ah64_tsdmode = "nav";
-    fza_ah64_tsdmap = 0;
-    fza_ah64_dispfcrlist = [];
-    fza_ah64_estate = 0;
-    fza_ah64_turdir = 0;
-    fza_ah64_turelev = 0;
-    fza_ah64_pnvsdir = 0;
-    fza_ah64_pnvselev = 0.5;
-    fza_ah64_pylonelev = 0;
-    fza_ah64_pylonelev1 = 0;
-    fza_ah64_pylonelev2 = 0;
-    fza_ah64_pylonelev3 = 0;
-    fza_ah64_pylonelev4 = 0;
-    fza_ah64_guncontrol = 3;
-    fza_ah64_headdir = 0;
-    fza_ah64_headelev = 0;
-    fza_ah64_head1dir = 0;
-    fza_ah64_head1elev = 0;
-    fza_ah64_cmpressed = 0;
-    fza_ah64_nohelpers = 1;
-    fza_ah64_ihadssoff = 1;
-    fza_ah64_monocleinbox = 1;
-    fza_ah64_hducolor = [0.1, 1, 0, 1];
-    fza_ah64_schedarray = [fza_ah64_turrets, fza_ah64_pnvscontrol, fza_ah64_worldtoscreen, fza_ah64_targetcycle, fza_ah64_slipcheck, fza_ah64_timetowp, fza_ah64_rotordam, fza_ah64_ldrfcall, fza_ah64_hmdihadss, fza_ah64_bladerot]; //disabled fza_ah64_cpg_controls//
-    fza_ah64_asemisarray = [];
-    if (isNil "fza_ah64_pfsstate") then {
-        fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
-            [0] call fza_ah64_pfsched;
-        }];
-        fza_ah64_pfsstate = true;
-    };
-
-    //EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY
-
-    _weapontracker = [player] execvm "\fza_ah64_controls\scripting\page_wpn.sqf";
-    _wcatracker = [player] execvm "\fza_ah64_controls\scripting\page_wca.sqf";
-    _flttracker = [player] execvm "\fza_ah64_controls\scripting\page_flt.sqf";
-    _engtracker = [player] execvm "\fza_ah64_controls\scripting\page_eng.sqf";
-    _asetracker = [player] execvm "\fza_ah64_controls\scripting\page_ase.sqf";
-    _ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
-    _targetscanner = [_heli] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
-    _tsdfcr = [player] execvm "\fza_ah64_controls\scripting\tsd_fcr.sqf";
-};
-
-_enginetracker = [_heli] execvm "\fza_ah64_controls\scripting\func_engines.sqf";
 _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\turrets.sqf";
 _blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
-//if(!(isMultiplayer)) then {_savetracker = player execvm "\fza_ah64_controls\scripting\savetracker.sqf";};
-if (isnil "fza_ah64_tiron") then {
-    fza_ah64_tiron = false;
-};
 
 if (typeOf _heli == "fza_ah64d_b2e") then {
     [_heli] execvm "\fza_ah64_controls\scripting\fcr_animate.sqf";
@@ -289,15 +110,33 @@ _end2 = 0;
 _end3 = 0;
 _end4 = 0;
 _num = 227;
-fza_ah64_114sc = [];
 
 while {
     alive _heli
 }
 do {
+    if ((!isNull (_heli getVariable["fza_ah64_floodlight_cpg", objNull]) || (!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull]))) && _heli animationphase "plt_batt" < 0.5) then {
+
+        _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
+        _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
+
+        deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
+        deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
+    };
 
     _mags = magazines _heli;
     _magsp = _heli magazinesturret[-1];
+
+    if (local _heli) then {
+        _tadsShouldBeStowed = _heli animationphase "plt_apu" < 1 && !isEngineOn _heli;
+        
+        if (_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 0) then {
+            _heli animate ["tads_stow", 1];
+        };
+        if (!_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 1) then {
+            _heli animate ["tads_stow", 0];
+        };
+    };
 
     if (damage _heli > 0.001) then {
         _skinset = 0;
@@ -305,51 +144,51 @@ do {
 
     if (damage _heli < 0.001) then {
         //////light//////
-        _heli setobjecttexture[1202, ""];
-        _heli setobjecttexture[1203, ""];
-        _heli setobjecttexture[1204, ""];
-        _heli setobjecttexture[1205, ""];
-        _heli setobjecttexture[1206, ""];
-        _heli setobjecttexture[1207, ""];
-        _heli setobjecttexture[1208, ""];
-        _heli setobjecttexture[1209, ""];
-        _heli setobjecttexture[1210, ""];
-        _heli setobjecttexture[1211, ""];
-        _heli setobjecttexture[1212, ""];
-        _heli setobjecttexture[1213, ""];
-        _heli setobjecttexture[1214, ""];
-        _heli setobjecttexture[1215, ""];
-        _heli setobjecttexture[1216, ""];
-        _heli setobjecttexture[1217, ""];
-        _heli setobjecttexture[1218, ""];
-        _heli setobjecttexture[1219, ""];
-        _heli setobjecttexture[1220, ""];
-        _heli setobjecttexture[1221, ""];
-        _heli setobjecttexture[1222, ""];
+        _heli setobjecttexture [SEL_DAM_FUSE, ""];
+        _heli setobjecttexture [SEL_DAM_GDOOR, ""];
+        _heli setobjecttexture [SEL_DAM_HSTAB, ""];
+        _heli setobjecttexture [SEL_DAM_LEFAB, ""];
+        _heli setobjecttexture [SEL_DAM_LENG, ""];
+        _heli setobjecttexture [SEL_DAM_LGEAR, ""];
+        _heli setobjecttexture [SEL_DAM_LWING, ""];
+        _heli setobjecttexture [SEL_DAM_NOSE, ""];
+        _heli setobjecttexture [SEL_DAM_PDOOR, ""];
+        _heli setobjecttexture [SEL_DAM_PNVS, ""];
+        _heli setobjecttexture [SEL_DAM_PYLON1, ""];
+        _heli setobjecttexture [SEL_DAM_PYLON2, ""];
+        _heli setobjecttexture [SEL_DAM_PYLON3, ""];
+        _heli setobjecttexture [SEL_DAM_PYLON4, ""];
+        _heli setobjecttexture [SEL_DAM_REFAB, ""];
+        _heli setobjecttexture [SEL_DAM_RENG, ""];
+        _heli setobjecttexture [SEL_DAM_RGEAR, ""];
+        _heli setobjecttexture [SEL_DAM_RWING, ""];
+        _heli setobjecttexture [SEL_DAM_TADS, ""];
+        _heli setobjecttexture [SEL_DAM_TAILBOOM, ""];
+        _heli setobjecttexture [SEL_DAM_VTAIL, ""];
         ///////medium//////////
-        _heli setobjecttexture[1223, ""];
-        _heli setobjecttexture[1224, ""];
-        _heli setobjecttexture[1225, ""];
-        _heli setobjecttexture[1226, ""];
-        _heli setobjecttexture[1227, ""];
-        _heli setobjecttexture[1228, ""];
-        _heli setobjecttexture[1229, ""];
-        _heli setobjecttexture[1230, ""];
-        _heli setobjecttexture[1231, ""];
-        _heli setobjecttexture[1232, ""];
-        _heli setobjecttexture[1233, ""];
-        _heli setobjecttexture[1234, ""];
-        _heli setobjecttexture[1235, ""];
-        _heli setobjecttexture[1236, ""];
-        _heli setobjecttexture[1237, ""];
-        _heli setobjecttexture[1238, ""];
-        _heli setobjecttexture[1239, ""];
-        _heli setobjecttexture[1240, ""];
-        _heli setobjecttexture[1241, ""];
-        _heli setobjecttexture[1242, ""];
-        _heli setobjecttexture[1243, ""];
+        _heli setobjecttexture [SEL_MDAM_FUSE, ""];
+        _heli setobjecttexture [SEL_MDAM_GDOOR, ""];
+        _heli setobjecttexture [SEL_MDAM_HSTAB, ""];
+        _heli setobjecttexture [SEL_MDAM_LEFAB, ""];
+        _heli setobjecttexture [SEL_MDAM_LENG, ""];
+        _heli setobjecttexture [SEL_MDAM_LGEAR, ""];
+        _heli setobjecttexture [SEL_MDAM_LWING, ""];
+        _heli setobjecttexture [SEL_MDAM_NOSE, ""];
+        _heli setobjecttexture [SEL_MDAM_PDOOR, ""];
+        _heli setobjecttexture [SEL_MDAM_PNVS, ""];
+        _heli setobjecttexture [SEL_MDAM_PYLON1, ""];
+        _heli setobjecttexture [SEL_MDAM_PYLON2, ""];
+        _heli setobjecttexture [SEL_MDAM_PYLON3, ""];
+        _heli setobjecttexture [SEL_MDAM_PYLON4, ""];
+        _heli setobjecttexture [SEL_MDAM_REFAB, ""];
+        _heli setobjecttexture [SEL_MDAM_RENG, ""];
+        _heli setobjecttexture [SEL_MDAM_RGEAR, ""];
+        _heli setobjecttexture [SEL_MDAM_RWING, ""];
+        _heli setobjecttexture [SEL_MDAM_TADS, ""];
+        _heli setobjecttexture [SEL_MDAM_TAILBOOM, ""];
+        _heli setobjecttexture [SEL_MDAM_VTAIL, ""];
         //////catastrophic/////
-        _heli setobjecttexture[1251, ""];
+        _heli setobjecttexture [SEL_SKIN_TAILBOOM_TEAR, ""];
         if (_skinset == 0) then {
             _skinselector = 0;
             while {
@@ -426,132 +265,132 @@ do {
     };
 
     if ("fza_ah64_dam_fuse" in _magsp) then {
-        _heli setobjecttexture[1202, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_FUSE, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_nose" in _magsp) then {
-        _heli setobjecttexture[1203, "\fza_ah64_us\tex\dam\ldam.paa"];
-        _heli setobjecttexture[1209, "\fza_ah64_us\tex\dam\ldam.paa"];
-        _heli setobjecttexture[1210, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_GDOOR, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_NOSE, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PDOOR, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_leng" in _magsp) then {
-        _heli setobjecttexture[1206, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_LENG, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_reng" in _magsp) then {
-        _heli setobjecttexture[1217, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_RENG, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_lfab" in _magsp) then {
-        _heli setobjecttexture[1205, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_LEFAB, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_rfab" in _magsp) then {
-        _heli setobjecttexture[1216, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_REFAB, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_lwing" in _magsp) then {
-        _heli setobjecttexture[1208, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_LWING, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_rwing" in _magsp) then {
-        _heli setobjecttexture[1219, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_RWING, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_tailboom" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1221, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_TAILBOOM, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_vtail" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1222, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_VTAIL, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_hstab" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1204, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_HSTAB, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_tads_dam" in _magsp) then {
-        _heli setobjecttexture[1220, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_TADS, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_pylon1" in _magsp) then {
-        _heli setobjecttexture[1212, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PYLON1, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_pylon2" in _magsp) then {
-        _heli setobjecttexture[1213, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PYLON2, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_pylon3" in _magsp) then {
-        _heli setobjecttexture[1214, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PYLON3, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_dam_pylon4" in _magsp) then {
-        _heli setobjecttexture[1215, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PYLON4, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
     if ("fza_ah64_pnvs_fail" in _magsp) then {
-        _heli setobjecttexture[1211, "\fza_ah64_us\tex\dam\ldam.paa"];
+        _heli setobjecttexture [SEL_DAM_PNVS, "\fza_ah64_us\tex\dam\ldam.paa"];
     };
 
     if ("fza_ah64_mdam_fuse" in _magsp) then {
-        _heli setobjecttexture[1223, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_FUSE, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_nose" in _magsp) then {
-        _heli setobjecttexture[1224, "\fza_ah64_us\tex\dam\mdam.paa"];
-        _heli setobjecttexture[1230, "\fza_ah64_us\tex\dam\mdam.paa"];
-        _heli setobjecttexture[1231, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_GDOOR, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_NOSE, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PDOOR, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_leng" in _magsp) then {
-        _heli setobjecttexture[1227, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_LENG, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_reng" in _magsp) then {
-        _heli setobjecttexture[1238, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_RENG, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_lfab" in _magsp) then {
-        _heli setobjecttexture[1226, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_LEFAB, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_rfab" in _magsp) then {
-        _heli setobjecttexture[1237, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_REFAB, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_lwing" in _magsp) then {
-        _heli setobjecttexture[1229, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_LWING, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_rwing" in _magsp) then {
-        _heli setobjecttexture[1240, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_RWING, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_tailboom" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1242, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_TAILBOOM, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_vtail" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1243, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_VTAIL, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_hstab" in _magsp && !("fza_ah64_cdam_tailboom" in _magsp)) then {
-        _heli setobjecttexture[1225, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_HSTAB, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_tads_fail" in _magsp) then {
-        _heli setobjecttexture[1241, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_TADS, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_pylon1" in _magsp) then {
-        _heli setobjecttexture[1233, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PYLON1, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_pylon2" in _magsp) then {
-        _heli setobjecttexture[1234, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PYLON2, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_pylon3" in _magsp) then {
-        _heli setobjecttexture[1235, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PYLON3, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_mdam_pylon4" in _magsp) then {
-        _heli setobjecttexture[1236, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PYLON4, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
     if ("fza_ah64_pnvs_fail" in _magsp) then {
-        _heli setobjecttexture[1232, "\fza_ah64_us\tex\dam\mdam.paa"];
+        _heli setobjecttexture [SEL_MDAM_PNVS, "\fza_ah64_us\tex\dam\mdam.paa"];
     };
 
     if ("fza_ah64_cdam_tailboom" in _magsp) then {
-        _heli setobjecttexture[1221, ""];
-        _heli setobjecttexture[1222, ""];
-        _heli setobjecttexture[1204, ""];
-        _heli setobjecttexture[1242, ""];
-        _heli setobjecttexture[1243, ""];
-        _heli setobjecttexture[1225, ""];
+        _heli setobjecttexture [SEL_DAM_TAILBOOM, ""];
+        _heli setobjecttexture [SEL_DAM_VTAIL, ""];
+        _heli setobjecttexture [SEL_DAM_HSTAB, ""];
+        _heli setobjecttexture [SEL_MDAM_TAILBOOM, ""];
+        _heli setobjecttexture [SEL_MDAM_VTAIL, ""];
+        _heli setobjecttexture [SEL_MDAM_HSTAB, ""];
         //model//
-        _heli setobjecttexture[1153, ""];
-        _heli setobjecttexture[1181, ""];
-        _heli setobjecttexture[1183, ""];
-        _heli setobjecttexture[1184, ""];
-        _heli setobjecttexture[1251, "\fza_ah64_us\tex\dam\metdam_co.paa"];
+        _heli setobjecttexture [SEL_SKIN_HSTAB, ""];
+        _heli setobjecttexture [SEL_SKIN_TAILBOOM, ""];
+        _heli setobjecttexture [SEL_SKIN_TAILROTOR, ""];
+        _heli setobjecttexture [SEL_SKIN_VTAIL, ""];
+        _heli setobjecttexture [SEL_SKIN_TAILBOOM_TEAR, "\fza_ah64_us\tex\dam\metdam_co.paa"];
         _skinset = 0;
     };
 
     if (_heli hasweapon "fza_agm114_1_4" || _heli hasweapon "fza_agm114_2_4" || _heli hasweapon "fza_agm114_3_4" || _heli hasweapon "fza_agm114_4_4" || _heli hasweapon "fza_agm114_14_8" || _heli hasweapon "fza_agm114_23_8" || _heli hasweapon "fza_agm114_16" || _heli hasweapon "fza_agm114_1_ul" || _heli hasweapon "fza_agm114_1_ur" || _heli hasweapon "fza_agm114_1_ll" || _heli hasweapon "fza_agm114_1_lr" || _heli hasweapon "fza_agm114_2_ul" || _heli hasweapon "fza_agm114_2_ur" || _heli hasweapon "fza_agm114_2_ll" || _heli hasweapon "fza_agm114_2_lr" || _heli hasweapon "fza_agm114_3_ul" || _heli hasweapon "fza_agm114_3_ur" || _heli hasweapon "fza_agm114_3_ll" || _heli hasweapon "fza_agm114_3_lr" || _heli hasweapon "fza_agm114_4_ul" || _heli hasweapon "fza_agm114_4_ur" || _heli hasweapon "fza_agm114_4_ll" || _heli hasweapon "fza_agm114_4_lr") then {
         if (_heli hasweapon "fza_agm114_1_4") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_1_4";
             _r1hf1 = 228;
             _r1hf2 = 229;
@@ -586,11 +425,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf4, ""];
-                _heli setobjecttexture[235, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_1_ul") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_1_ul";
             _r1hf1 = 228;
             if ("fza_agm114k_1_ul" in _mags || "fza_agm114m_1_ul" in _mags || "fza_agm114n_1_ul" in _mags || ("fza_agm114a_1_ul" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_1_ul" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -601,11 +440,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf1, ""];
-                _heli setobjecttexture[232, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_1, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_1_ur") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_1_ur";
             _r1hf2 = 229;
             if ("fza_agm114k_1_ur" in _mags || "fza_agm114m_1_ur" in _mags || "fza_agm114n_1_ur" in _mags || ("fza_agm114a_1_ur" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_1_ur" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -616,11 +455,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf2, ""];
-                _heli setobjecttexture[233, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_2, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_1_ll") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_1_ll";
             _r1hf3 = 230;
             if ("fza_agm114k_1_ll" in _mags || "fza_agm114m_1_ll" in _mags || "fza_agm114n_1_ll" in _mags || ("fza_agm114a_1_ll" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_1_ll" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -631,11 +470,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf3, ""];
-                _heli setobjecttexture[234, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_3, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_1_lr") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_1_lr";
             _r1hf4 = 231;
             if ("fza_agm114k_1_lr" in _mags || "fza_agm114m_1_lr" in _mags || "fza_agm114n_1_lr" in _mags || ("fza_agm114a_1_lr" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_1_lr" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -646,11 +485,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf4, ""];
-                _heli setobjecttexture[235, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_2_4") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_2_4";
             _r2hf1 = 236;
             _r2hf2 = 237;
@@ -685,11 +524,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf4, ""];
-                _heli setobjecttexture[243, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_2_ul") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_2_ul";
             _r2hf1 = 236;
             if ("fza_agm114k_2_ul" in _mags || "fza_agm114m_2_ul" in _mags || "fza_agm114n_2_ul" in _mags || ("fza_agm114a_2_ul" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_2_ul" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -700,11 +539,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf1, ""];
-                _heli setobjecttexture[240, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_1, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_2_ur") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_2_ur";
             _r2hf2 = 237;
             if ("fza_agm114k_2_ur" in _mags || "fza_agm114m_2_ur" in _mags || "fza_agm114n_2_ur" in _mags || ("fza_agm114a_2_ur" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_2_ur" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -715,11 +554,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf2, ""];
-                _heli setobjecttexture[241, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_2, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_2_ll") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_2_ll";
             _r2hf3 = 238;
             if ("fza_agm114k_2_ll" in _mags || "fza_agm114m_2_ll" in _mags || "fza_agm114n_2_ll" in _mags || ("fza_agm114a_2_ll" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_2_ll" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -730,11 +569,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf3, ""];
-                _heli setobjecttexture[242, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_3, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_2_lr") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_2_lr";
             _r2hf4 = 239;
             if ("fza_agm114k_2_lr" in _mags || "fza_agm114m_2_lr" in _mags || "fza_agm114n_2_lr" in _mags || ("fza_agm114a_2_lr" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_2_lr" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -745,11 +584,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf4, ""];
-                _heli setobjecttexture[243, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_3_4") then {
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_3_4";
             _r3hf1 = 244;
             _r3hf2 = 245;
@@ -784,11 +623,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r3hf4, ""];
-                _heli setobjecttexture[251, ""];
+                _heli setobjecttexture [SEL_RAIL3_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_3_ul") then {
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_3_ul";
             _r3hf1 = 244;
             if ("fza_agm114k_3_ul" in _mags || "fza_agm114m_3_ul" in _mags || "fza_agm114n_3_ul" in _mags || ("fza_agm114a_3_ul" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_3_ul" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -799,11 +638,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r3hf1, ""];
-                _heli setobjecttexture[248, ""];
+                _heli setobjecttexture [SEL_RAIL3_114K_1, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_3_ur") then {
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_3_ur";
             _r3hf2 = 245;
             if ("fza_agm114k_3_ur" in _mags || "fza_agm114m_3_ur" in _mags || "fza_agm114n_3_ur" in _mags || ("fza_agm114a_3_ur" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_3_ur" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -814,11 +653,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r3hf2, ""];
-                _heli setobjecttexture[249, ""];
+                _heli setobjecttexture [SEL_RAIL3_114K_2, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_3_ll") then {
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_3_ll";
             _r3hf3 = 246;
             if ("fza_agm114k_3_ll" in _mags || "fza_agm114m_3_ll" in _mags || "fza_agm114n_3_ll" in _mags || ("fza_agm114a_3_ll" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_3_ll" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -829,11 +668,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r3hf3, ""];
-                _heli setobjecttexture[250, ""];
+                _heli setobjecttexture [SEL_RAIL3_114K_3, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_3_lr") then {
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_3_lr";
             _r3hf4 = 247;
             if ("fza_agm114k_3_lr" in _mags || "fza_agm114m_3_lr" in _mags || "fza_agm114n_3_lr" in _mags || ("fza_agm114a_3_lr" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_3_lr" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -844,11 +683,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r3hf4, ""];
-                _heli setobjecttexture[251, ""];
+                _heli setobjecttexture [SEL_RAIL3_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_4_4") then {
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_4_4";
             _r4hf1 = 252;
             _r4hf2 = 253;
@@ -883,11 +722,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r4hf4, ""];
-                _heli setobjecttexture[259, ""];
+                _heli setobjecttexture [SEL_RAIL4_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_4_ul") then {
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_4_ul";
             _r4hf1 = 252;
             if ("fza_agm114k_4_ul" in _mags || "fza_agm114m_4_ul" in _mags || "fza_agm114n_4_ul" in _mags || ("fza_agm114a_4_ul" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_4_ul" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -898,11 +737,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r4hf1, ""];
-                _heli setobjecttexture[256, ""];
+                _heli setobjecttexture [SEL_RAIL4_114K_1, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_4_ur") then {
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_4_ur";
             _r4hf2 = 253;
             if ("fza_agm114k_4_ur" in _mags || "fza_agm114m_4_ur" in _mags || "fza_agm114n_4_ur" in _mags || ("fza_agm114a_4_ur" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_4_ur" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -913,11 +752,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r4hf2, ""];
-                _heli setobjecttexture[257, ""];
+                _heli setobjecttexture [SEL_RAIL4_114K_2, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_4_ll") then {
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_4_ll";
             _r4hf3 = 254;
             if ("fza_agm114k_4_ll" in _mags || "fza_agm114m_4_ll" in _mags || "fza_agm114n_4_ll" in _mags || ("fza_agm114a_4_ll" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_4_ll" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -928,11 +767,11 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r4hf3, ""];
-                _heli setobjecttexture[258, ""];
+                _heli setobjecttexture [SEL_RAIL4_114K_3, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_4_lr") then {
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_4_lr";
             _r4hf4 = 255;
             if ("fza_agm114k_4_lr" in _mags || "fza_agm114m_4_lr" in _mags || "fza_agm114n_4_lr" in _mags || ("fza_agm114a_4_lr" in _mags && !(_heli iskindof "fza_ah64a_l")) || ("fza_agm114c_4_lr" in _mags && !(_heli iskindof "fza_ah64a_l"))) then {
@@ -943,12 +782,12 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r4hf4, ""];
-                _heli setobjecttexture[259, ""];
+                _heli setobjecttexture [SEL_RAIL4_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_23_8") then {
-            _heli setobjecttexture[1117, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1118, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_2, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_23_8";
             _r2hf1 = 236;
             _r2hf2 = 237;
@@ -1015,12 +854,12 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r2hf4, ""];
-                _heli setobjecttexture[243, ""];
+                _heli setobjecttexture [SEL_RAIL2_114K_4, ""];
             };
         };
         if (_heli hasweapon "fza_agm114_14_8") then {
-            _heli setobjecttexture[1116, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1119, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_RAIL_M299_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_agm114_14_8";
             _r1hf1 = 228;
             _r1hf2 = 229;
@@ -1087,53 +926,53 @@ do {
             };
             if (_amount < 1) then {
                 _heli setobjecttexture[_r1hf4, ""];
-                _heli setobjecttexture[235, ""];
+                _heli setobjecttexture [SEL_RAIL1_114K_4, ""];
             };
         };
     } else {
-        _heli setobjecttexture[1116, ""];
-        _heli setobjecttexture[1117, ""];
-        _heli setobjecttexture[1118, ""];
-        _heli setobjecttexture[1119, ""];
-        _heli setobjecttexture[228, ""];
-        _heli setobjecttexture[229, ""];
-        _heli setobjecttexture[230, ""];
-        _heli setobjecttexture[231, ""];
-        _heli setobjecttexture[232, ""];
-        _heli setobjecttexture[233, ""];
-        _heli setobjecttexture[234, ""];
-        _heli setobjecttexture[235, ""];
-        _heli setobjecttexture[236, ""];
-        _heli setobjecttexture[237, ""];
-        _heli setobjecttexture[238, ""];
-        _heli setobjecttexture[239, ""];
-        _heli setobjecttexture[240, ""];
-        _heli setobjecttexture[241, ""];
-        _heli setobjecttexture[242, ""];
-        _heli setobjecttexture[243, ""];
-        _heli setobjecttexture[244, ""];
-        _heli setobjecttexture[245, ""];
-        _heli setobjecttexture[246, ""];
-        _heli setobjecttexture[247, ""];
-        _heli setobjecttexture[248, ""];
-        _heli setobjecttexture[249, ""];
-        _heli setobjecttexture[250, ""];
-        _heli setobjecttexture[251, ""];
-        _heli setobjecttexture[252, ""];
-        _heli setobjecttexture[253, ""];
-        _heli setobjecttexture[254, ""];
-        _heli setobjecttexture[255, ""];
-        _heli setobjecttexture[256, ""];
-        _heli setobjecttexture[257, ""];
-        _heli setobjecttexture[258, ""];
-        _heli setobjecttexture[259, ""];
+        _heli setobjecttexture [SEL_RAIL_M299_1, ""];
+        _heli setobjecttexture [SEL_RAIL_M299_2, ""];
+        _heli setobjecttexture [SEL_RAIL_M299_3, ""];
+        _heli setobjecttexture [SEL_RAIL_M299_4, ""];
+        _heli setobjecttexture [SEL_RAIL1_114L_1, ""];
+        _heli setobjecttexture [SEL_RAIL1_114L_2, ""];
+        _heli setobjecttexture [SEL_RAIL1_114L_3, ""];
+        _heli setobjecttexture [SEL_RAIL1_114L_4, ""];
+        _heli setobjecttexture [SEL_RAIL1_114K_1, ""];
+        _heli setobjecttexture [SEL_RAIL1_114K_2, ""];
+        _heli setobjecttexture [SEL_RAIL1_114K_3, ""];
+        _heli setobjecttexture [SEL_RAIL1_114K_4, ""];
+        _heli setobjecttexture [SEL_RAIL2_114L_1, ""];
+        _heli setobjecttexture [SEL_RAIL2_114L_2, ""];
+        _heli setobjecttexture [SEL_RAIL2_114L_3, ""];
+        _heli setobjecttexture [SEL_RAIL2_114L_4, ""];
+        _heli setobjecttexture [SEL_RAIL2_114K_1, ""];
+        _heli setobjecttexture [SEL_RAIL2_114K_2, ""];
+        _heli setobjecttexture [SEL_RAIL2_114K_3, ""];
+        _heli setobjecttexture [SEL_RAIL2_114K_4, ""];
+        _heli setobjecttexture [SEL_RAIL3_114L_1, ""];
+        _heli setobjecttexture [SEL_RAIL3_114L_2, ""];
+        _heli setobjecttexture [SEL_RAIL3_114L_3, ""];
+        _heli setobjecttexture [SEL_RAIL3_114L_4, ""];
+        _heli setobjecttexture [SEL_RAIL3_114K_1, ""];
+        _heli setobjecttexture [SEL_RAIL3_114K_2, ""];
+        _heli setobjecttexture [SEL_RAIL3_114K_3, ""];
+        _heli setobjecttexture [SEL_RAIL3_114K_4, ""];
+        _heli setobjecttexture [SEL_RAIL4_114L_1, ""];
+        _heli setobjecttexture [SEL_RAIL4_114L_2, ""];
+        _heli setobjecttexture [SEL_RAIL4_114L_3, ""];
+        _heli setobjecttexture [SEL_RAIL4_114L_4, ""];
+        _heli setobjecttexture [SEL_RAIL4_114K_1, ""];
+        _heli setobjecttexture [SEL_RAIL4_114K_2, ""];
+        _heli setobjecttexture [SEL_RAIL4_114K_3, ""];
+        _heli setobjecttexture [SEL_RAIL4_114K_4, ""];
 
     };
     if (_heli hasweapon "fza_m261_1" || _heli hasweapon "fza_m261_1_zone1" || _heli hasweapon "fza_m261_1_zone2" || _heli hasweapon "fza_m261_1_zone3" || _heli hasweapon "fza_m261_2" || _heli hasweapon "fza_m261_2_zone1" || _heli hasweapon "fza_m261_2_zone2" || _heli hasweapon "fza_m261_2_zone3" || _heli hasweapon "fza_m261_3_zone1" || _heli hasweapon "fza_m261_3_zone2" || _heli hasweapon "fza_m261_3_zone3" || _heli hasweapon "fza_m261_3" || _heli hasweapon "fza_m261_4" || _heli hasweapon "fza_m261_4_zone1" || _heli hasweapon "fza_m261_4_zone2" || _heli hasweapon "fza_m261_4_zone3" || _heli hasweapon "fza_m261_14" || _heli hasweapon "fza_m261_23" || _heli hasweapon "fza_m261_14_zoneA" || _heli hasweapon "fza_m261_14_zoneB" || _heli hasweapon "fza_m261_14_zoneE" || _heli hasweapon "fza_m261_23_zoneC" || _heli hasweapon "fza_m261_23_zoneD" || _heli hasweapon "fza_m261_23_zoneE" || _heli hasweapon "fza_m261_1234_zoneE") then {
         _num = 227;
 
         if (_heli hasweapon "fza_m261_1") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_1";
             _rktarray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
             _fullcount = 19;
@@ -1170,13 +1009,13 @@ do {
             }
             foreach _rktarray;
             if (_amount < 1) then {
-                _heli setobjecttexture[19, ""];
-                _heli setobjecttexture[38, ""];
+                _heli setobjecttexture [SEL_POD1_M229_1, ""];
+                _heli setobjecttexture [SEL_POD1_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_1_zone1") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_1_zone1";
             _fullcount = 12;
             _zonearray = [3, 4, 7, 8, 11, 12, 13, 14, 15, 16, 17, 18];
@@ -1203,13 +1042,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[22, ""];
-                _heli setobjecttexture[41, ""];
+                _heli setobjecttexture [SEL_POD1_M229_4, ""];
+                _heli setobjecttexture [SEL_POD1_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_1_zone2") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_1_zone2";
             _fullcount = 4;
             _zonearray = [5, 6, 9, 10];
@@ -1236,13 +1075,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[24, ""];
-                _heli setobjecttexture[43, ""];
+                _heli setobjecttexture [SEL_POD1_M229_6, ""];
+                _heli setobjecttexture [SEL_POD1_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_1_zone3") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_1_zone3";
             _fullcount = 3;
             _zonearray = [0, 1, 2];
@@ -1269,13 +1108,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[19, ""];
-                _heli setobjecttexture[38, ""];
+                _heli setobjecttexture [SEL_POD1_M229_1, ""];
+                _heli setobjecttexture [SEL_POD1_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_2") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_2";
             _fullcount = 19;
             _beg2 = 57;
@@ -1314,7 +1153,7 @@ do {
         };
 
         if (_heli hasweapon "fza_m261_2_zone1") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_2_zone1";
             _fullcount = 12;
             _zonearray = [60, 61, 64, 65, 68, 69, 70, 71, 72, 73, 74, 75];
@@ -1341,13 +1180,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[79, ""];
-                _heli setobjecttexture[98, ""];
+                _heli setobjecttexture [SEL_POD2_M229_4, ""];
+                _heli setobjecttexture [SEL_POD2_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_2_zone2") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_2_zone2";
             _fullcount = 4;
             _zonearray = [62, 63, 66, 67];
@@ -1374,13 +1213,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[81, ""];
-                _heli setobjecttexture[100, ""];
+                _heli setobjecttexture [SEL_POD2_M229_6, ""];
+                _heli setobjecttexture [SEL_POD2_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_2_zone3") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_2_zone3";
             _fullcount = 3;
             _zonearray = [57, 58, 59];
@@ -1407,13 +1246,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[76, ""];
-                _heli setobjecttexture[95, ""];
+                _heli setobjecttexture [SEL_POD2_M229_1, ""];
+                _heli setobjecttexture [SEL_POD2_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_3") then {
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_3";
             _fullcount = 19;
             _beg3 = 114;
@@ -1452,7 +1291,7 @@ do {
         };
 
         if (_heli hasweapon "fza_m261_3_zone1") then {
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_3_zone1";
             _fullcount = 12;
             _zonearray = [117, 118, 121, 122, 125, 126, 127, 128, 129, 130, 131, 132];
@@ -1479,13 +1318,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[136, ""];
-                _heli setobjecttexture[155, ""];
+                _heli setobjecttexture [SEL_POD3_M229_4, ""];
+                _heli setobjecttexture [SEL_POD3_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_3_zone2") then {
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_3_zone2";
             _fullcount = 4;
             _zonearray = [119, 120, 123, 124];
@@ -1512,13 +1351,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[138, ""];
-                _heli setobjecttexture[157, ""];
+                _heli setobjecttexture [SEL_POD3_M229_6, ""];
+                _heli setobjecttexture [SEL_POD3_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_3_zone3") then {
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_3_zone3";
             _fullcount = 3;
             _zonearray = [114, 115, 116];
@@ -1545,13 +1384,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[133, ""];
-                _heli setobjecttexture[152, ""];
+                _heli setobjecttexture [SEL_POD3_M229_1, ""];
+                _heli setobjecttexture [SEL_POD3_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_4") then {
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_4";
             _fullcount = 19;
             _beg4 = 171;
@@ -1590,7 +1429,7 @@ do {
         };
 
         if (_heli hasweapon "fza_m261_4_zone1") then {
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_4_zone1";
             _fullcount = 12;
             _zonearray = [174, 175, 178, 179, 182, 183, 184, 185, 186, 187, 188, 189];
@@ -1617,13 +1456,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[193, ""];
-                _heli setobjecttexture[212, ""];
+                _heli setobjecttexture [SEL_POD4_M229_4, ""];
+                _heli setobjecttexture [SEL_POD4_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_4_zone2") then {
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_4_zone2";
             _fullcount = 4;
             _zonearray = [176, 177, 180, 181];
@@ -1650,13 +1489,13 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[195, ""];
-                _heli setobjecttexture[214, ""];
+                _heli setobjecttexture [SEL_POD4_M229_6, ""];
+                _heli setobjecttexture [SEL_POD4_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_4_zone3") then {
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_4_zone3";
             _fullcount = 3;
             _zonearray = [171, 172, 173];
@@ -1683,14 +1522,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[190, ""];
-                _heli setobjecttexture[209, ""];
+                _heli setobjecttexture [SEL_POD4_M229_1, ""];
+                _heli setobjecttexture [SEL_POD4_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_14") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_14";
             _fullcount = 38;
             _beg1 = 0;
@@ -1737,14 +1576,14 @@ do {
             }
             foreach _rktarray;
             if (_amount < 1) then {
-                _heli setobjecttexture[190, ""];
-                _heli setobjecttexture[209, ""];
+                _heli setobjecttexture [SEL_POD4_M229_1, ""];
+                _heli setobjecttexture [SEL_POD4_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_14_zoneA") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_14_zoneA";
             _fullcount = 24;
             _zonearray = [174, 3, 175, 4, 178, 7, 179, 8, 182, 11, 183, 12, 184, 13, 184, 14, 186, 15, 187, 16, 188, 17, 189, 18];
@@ -1771,14 +1610,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[193, ""];
-                _heli setobjecttexture[212, ""];
+                _heli setobjecttexture [SEL_POD4_M229_4, ""];
+                _heli setobjecttexture [SEL_POD4_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_14_zoneB") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_14_zoneB";
             _fullcount = 8;
             _zonearray = [176, 5, 177, 6, 180, 9, 181, 10];
@@ -1805,14 +1644,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[195, ""];
-                _heli setobjecttexture[214, ""];
+                _heli setobjecttexture [SEL_POD4_M229_6, ""];
+                _heli setobjecttexture [SEL_POD4_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_14_zoneE") then {
-            _heli setobjecttexture[1112, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1115, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_14_zoneE";
             _fullcount = 6;
             _zonearray = [171, 0, 172, 1, 173, 2];
@@ -1839,14 +1678,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[190, ""];
-                _heli setobjecttexture[209, ""];
+                _heli setobjecttexture [SEL_POD4_M229_1, ""];
+                _heli setobjecttexture [SEL_POD4_M261_1, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_23") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_23";
             _fullcount = 38;
             _beg2 = 57;
@@ -1906,8 +1745,8 @@ do {
         };
 
         if (_heli hasweapon "fza_m261_23_zoneC") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_23_zoneC";
             _fullcount = 24;
             _zonearray = [60, 117, 61, 118, 64, 121, 65, 122, 68, 125, 69, 126, 70, 127, 71, 128, 72, 129, 73, 130, 74, 131, 75, 132];
@@ -1934,14 +1773,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[79, ""];
-                _heli setobjecttexture[98, ""];
+                _heli setobjecttexture [SEL_POD2_M229_4, ""];
+                _heli setobjecttexture [SEL_POD2_M261_4, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_23_zoneD") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_23_zoneD";
             _fullcount = 8;
             _zonearray = [62, 119, 63, 120, 66, 123, 67, 124];
@@ -1968,14 +1807,14 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[81, ""];
-                _heli setobjecttexture[100, ""];
+                _heli setobjecttexture [SEL_POD2_M229_6, ""];
+                _heli setobjecttexture [SEL_POD2_M261_6, ""];
             };
         };
 
         if (_heli hasweapon "fza_m261_23_zoneE") then {
-            _heli setobjecttexture[1113, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[1114, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_2, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_POD_M260_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_m261_23_zoneE";
             _fullcount = 6;
             _zonearray = [57, 114, 58, 115, 59, 116];
@@ -2002,16 +1841,16 @@ do {
             }
             foreach _zonearray;
             if (_amount < 1) then {
-                _heli setobjecttexture[76, ""];
-                _heli setobjecttexture[95, ""];
+                _heli setobjecttexture [SEL_POD2_M229_1, ""];
+                _heli setobjecttexture [SEL_POD2_M261_1, ""];
             };
         };
 
     } else {
-        _heli setobjecttexture[1112, ""];
-        _heli setobjecttexture[1113, ""];
-        _heli setobjecttexture[1114, ""];
-        _heli setobjecttexture[1115, ""];
+        _heli setobjecttexture [SEL_POD_M260_1, ""];
+        _heli setobjecttexture [SEL_POD_M260_2, ""];
+        _heli setobjecttexture [SEL_POD_M260_3, ""];
+        _heli setobjecttexture [SEL_POD_M260_4, ""];
         _pod1rocket = 0;
         _pod1rocket1 = 0;
         _pod1rocket2 = 0;
@@ -2034,64 +1873,72 @@ do {
         _pod23rocket1 = 0;
         _pod23rocket2 = 0;
         _pod23rocket3 = 0;
-        [_heli] call fza_ah64_hiderockets;
+        _numsel = 227;
+
+        while {
+            (_numsel >= 0)
+        }
+        do {
+            _heli setobjecttexture[_numsel, ""];
+            _numsel = _numsel - 1;
+        };
     };
     if (_heli hasweapon "fza_atas_2") then {
         if (_heli hasweapon "fza_atas_2") then {
-            _heli setobjecttexture[260, "\fza_ah64_us\tex\wpn1_co.paa"];
-            _heli setobjecttexture[261, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_ATAS_1, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_ATAS_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             _amount = _heli ammo "fza_atas_2";
             if (_amount > 3) then {
-                _heli setobjecttexture[262, "\fza_ah64_us\tex\wpn1_co.paa"];
+                _heli setobjecttexture [SEL_FIM92_1, "\fza_ah64_us\tex\wpn1_co.paa"];
             };
             if (_amount > 2) then {
-                _heli setobjecttexture[263, "\fza_ah64_us\tex\wpn1_co.paa"];
+                _heli setobjecttexture [SEL_FIM92_2, "\fza_ah64_us\tex\wpn1_co.paa"];
             };
             if (_amount > 1) then {
-                _heli setobjecttexture[264, "\fza_ah64_us\tex\wpn1_co.paa"];
+                _heli setobjecttexture [SEL_FIM92_3, "\fza_ah64_us\tex\wpn1_co.paa"];
             };
             if (_amount > 0) then {
-                _heli setobjecttexture[265, "\fza_ah64_us\tex\wpn1_co.paa"];
+                _heli setobjecttexture [SEL_FIM92_4, "\fza_ah64_us\tex\wpn1_co.paa"];
             };
             if (_amount < 4) then {
-                _heli setobjecttexture[262, ""];
+                _heli setobjecttexture [SEL_FIM92_1, ""];
             };
             if (_amount < 3) then {
-                _heli setobjecttexture[263, ""];
+                _heli setobjecttexture [SEL_FIM92_2, ""];
             };
             if (_amount < 2) then {
-                _heli setobjecttexture[264, ""];
+                _heli setobjecttexture [SEL_FIM92_3, ""];
             };
             if (_amount < 1) then {
-                _heli setobjecttexture[265, ""];
+                _heli setobjecttexture [SEL_FIM92_4, ""];
             };
         };
     } else {
-        _heli setobjecttexture[260, ""];
-        _heli setobjecttexture[261, ""];
-        _heli setobjecttexture[262, ""];
-        _heli setobjecttexture[263, ""];
-        _heli setobjecttexture[264, ""];
-        _heli setobjecttexture[265, ""];
+        _heli setobjecttexture [SEL_ATAS_1, ""];
+        _heli setobjecttexture [SEL_ATAS_2, ""];
+        _heli setobjecttexture [SEL_FIM92_1, ""];
+        _heli setobjecttexture [SEL_FIM92_2, ""];
+        _heli setobjecttexture [SEL_FIM92_3, ""];
+        _heli setobjecttexture [SEL_FIM92_4, ""];
     };
     if ("fza_auxtank_230_1" in _mags || "fza_auxtank_230_2" in _mags || "fza_auxtank_230_3" in _mags || "fza_auxtank_230_4" in _mags) then {
         if ("fza_auxtank_230_1" in _mags) then {
-            _heli setobjecttexture[266, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_AUXTANK_1, "\fza_ah64_us\tex\wpn1_co.paa"];
         };
         if ("fza_auxtank_230_2" in _mags) then {
-            _heli setobjecttexture[267, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_AUXTANK_2, "\fza_ah64_us\tex\wpn1_co.paa"];
         };
         if ("fza_auxtank_230_3" in _mags) then {
-            _heli setobjecttexture[268, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_AUXTANK_3, "\fza_ah64_us\tex\wpn1_co.paa"];
         };
         if ("fza_auxtank_230_4" in _mags) then {
-            _heli setobjecttexture[269, "\fza_ah64_us\tex\wpn1_co.paa"];
+            _heli setobjecttexture [SEL_AUXTANK_4, "\fza_ah64_us\tex\wpn1_co.paa"];
         };
     } else {
-        _heli setobjecttexture[266, ""];
-        _heli setobjecttexture[267, ""];
-        _heli setobjecttexture[268, ""];
-        _heli setobjecttexture[269, ""];
+        _heli setobjecttexture [SEL_AUXTANK_1, ""];
+        _heli setobjecttexture [SEL_AUXTANK_2, ""];
+        _heli setobjecttexture [SEL_AUXTANK_3, ""];
+        _heli setobjecttexture [SEL_AUXTANK_4, ""];
     };
     sleep 0.03;
 };

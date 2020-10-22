@@ -62,7 +62,7 @@ _firefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16,
 ], [0.5, 0.5, 0], 0.5, 0.5, "", "", _heli];
 
 if (_usesound) then {
-    [_audio1, 1.25, "fza_ah64_bt_fire", 0.65] execvm "\fza_ah64_controls\scripting\damage\dam_bt_audio.sqf";
+    [_audio1, 1.25, "fza_ah64_bt_fire", 0.65] spawn fza_fnc_playAudio;
 };
 
 while {

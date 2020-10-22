@@ -12,10 +12,10 @@ Returns:
 	[Target RPM, Time]
 
 Examples:
-    (begin example)
+    --- Code
 	_target = [_heli, 0] call fza_fnc_engineGetTarget;
 	//_target => [21109, 2]
-    (end)
+    ---
 
 Author:
 	mattysmith22

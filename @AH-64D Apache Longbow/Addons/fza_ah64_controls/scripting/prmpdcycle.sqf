@@ -1,25 +1,17 @@
 _heli = _this select 0;
 
-if (fza_ah64_pr_mpd == "tsd") exitwith {
-    fza_ah64_pr_mpd = "fcr";
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") exitwith {
+    [_heli, 1, "fcr"] call fza_fnc_mpdSetDisplay;
 };
-if (fza_ah64_pr_mpd == "fcr") exitwith {
-    fza_ah64_pr_mpd = "wca";
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") exitwith {
+    [_heli, 1, "wca"] call fza_fnc_mpdSetDisplay;
 };
-if (fza_ah64_pr_mpd == "wca") exitwith {
-    fza_ah64_pr_mpd = "ase";
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "wca") exitwith {
+    [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 };
-if (fza_ah64_pr_mpd == "ase") exitwith {
-    fza_ah64_pr_mpd = "eng";
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") exitwith {
+    [_heli, 1, "eng"] call fza_fnc_mpdSetDisplay;
 };
-if (fza_ah64_pr_mpd == "eng") exitwith {
-    fza_ah64_pr_mpd = "tsd";
-};
-if (fza_ah64_pr_mpd == "fail" && !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1])) && !("fza_ah64_ldp_fail" in (_heli magazinesturret[-1]))) exitwith {
-    fza_ah64_pr_mpd = "eng";
-};
-if (fza_ah64_pr_mpd == "fail" && !("fza_ah64_ldp_fail" in (_heli magazinesturret[-1]))) exitwith {
-    fza_ah64_pr_mpd = "eng";
-    fza_ah64_pl_mpd = "fail";
-    _heli setobjecttexture[302, ""];
+if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "eng") exitwith {
+    [_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;
 };

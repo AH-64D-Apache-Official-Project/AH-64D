@@ -11,9 +11,9 @@ Returns:
 	Nothing
 
 Examples:
-    (begin example)
+    --- Code
 	[_heli] call fza_fnc_engineInit;
-    (end)
+    ---
 
 Author:
 	mattysmith22

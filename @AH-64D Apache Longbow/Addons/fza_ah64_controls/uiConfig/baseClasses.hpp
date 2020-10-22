@@ -235,7 +235,7 @@ class fza_ah64_mapControl
 	scaleDefault = 2;
 	class Task
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {1,0.537,0,0};
 		size = 27;
 		importance = 1;
@@ -252,7 +252,7 @@ class fza_ah64_mapControl
 	};
 	class CustomMark
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.6471,0.6706,0.6235,0};
 		size = 18;
 		importance = 1;
@@ -272,7 +272,7 @@ class fza_ah64_mapControl
 	};
 	class Bunker
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.55,0.64,0.43,0};
 		size = 14;
 		importance = "1.5 * 14 * 0.05";
@@ -281,7 +281,7 @@ class fza_ah64_mapControl
 	};
 	class Bush
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.45,0.64,0.33,0};
 		size = 14;
 		importance = "0.2 * 14 * 0.05";
@@ -290,7 +290,7 @@ class fza_ah64_mapControl
 	};
 	class BusStop
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.15,0.26,0.87,0};
 		size = 12;
 		importance = "1 * 10 * 0.05";
@@ -299,7 +299,7 @@ class fza_ah64_mapControl
 	};
 	class Command
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.9,0,0};
 		size = 18;
 		importance = 1;
@@ -308,7 +308,7 @@ class fza_ah64_mapControl
 	};
 	class Cross
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "0.7 * 16 * 0.05";
@@ -317,7 +317,7 @@ class fza_ah64_mapControl
 	};
 	class Fortress
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "2 * 16 * 0.05";
@@ -326,7 +326,7 @@ class fza_ah64_mapControl
 	};
 	class Fuelstation
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "2 * 16 * 0.05";
@@ -335,7 +335,7 @@ class fza_ah64_mapControl
 	};
 	class Fountain
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.2,0.45,0.7,0};
 		size = 11;
 		importance = "1 * 12 * 0.05";
@@ -344,7 +344,7 @@ class fza_ah64_mapControl
 	};
 	class Hospital
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.78,0,0.05,0};
 		size = 16;
 		importance = "2 * 16 * 0.05";
@@ -353,7 +353,7 @@ class fza_ah64_mapControl
 	};
 	class Chapel
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.55,0.64,0.43,0};
 		size = 16;
 		importance = "1 * 16 * 0.05";
@@ -362,7 +362,7 @@ class fza_ah64_mapControl
 	};
 	class Church
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "2 * 16 * 0.05";
@@ -371,7 +371,7 @@ class fza_ah64_mapControl
 	};
 	class Lighthouse
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 14;
 		color[] = {0,0.9,0,0};
 		importance = "3 * 16 * 0.05";
@@ -380,7 +380,7 @@ class fza_ah64_mapControl
 	};
 	class Quay
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "2 * 16 * 0.05";
@@ -389,7 +389,7 @@ class fza_ah64_mapControl
 	};
 	class Rock
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.1,0.1,0.1,0};
 		size = 12;
 		importance = "0.5 * 12 * 0.05";
@@ -398,7 +398,7 @@ class fza_ah64_mapControl
 	};
 	class Ruin
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 16;
 		color[] = {0,0.9,0,0};
 		importance = "1.2 * 16 * 0.05";
@@ -407,7 +407,7 @@ class fza_ah64_mapControl
 	};
 	class SmallTree
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.45,0.64,0.33,0};
 		size = 12;
 		importance = "0.6 * 12 * 0.05";
@@ -416,7 +416,7 @@ class fza_ah64_mapControl
 	};
 	class Stack
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		size = 20;
 		color[] = {0,0.9,0,0};
 		importance = "2 * 16 * 0.05";
@@ -425,7 +425,7 @@ class fza_ah64_mapControl
 	};
 	class Tree
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.45,0.64,0.33,0};
 		size = 12;
 		importance = "0.9 * 16 * 0.05";
@@ -434,7 +434,7 @@ class fza_ah64_mapControl
 	};
 	class Tourism
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.78,0,0.05,0};
 		size = 16;
 		importance = "1 * 16 * 0.05";
@@ -443,7 +443,7 @@ class fza_ah64_mapControl
 	};
 	class Transmitter
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.9,0,0};
 		size = 20;
 		importance = "2 * 16 * 0.05";
@@ -452,7 +452,7 @@ class fza_ah64_mapControl
 	};
 	class ViewTower
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.9,0,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -461,7 +461,7 @@ class fza_ah64_mapControl
 	};
 	class Watertower
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0.2,0.45,0.7,0};
 		size = 20;
 		importance = "1.2 * 16 * 0.05";
@@ -470,7 +470,7 @@ class fza_ah64_mapControl
 	};
 	class Waypoint
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -479,7 +479,7 @@ class fza_ah64_mapControl
 	};
 	class WaypointCompleted
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -488,7 +488,7 @@ class fza_ah64_mapControl
 	};
 	class PowerSolar
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -497,7 +497,7 @@ class fza_ah64_mapControl
 	};
 	class PowerWave
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -506,7 +506,7 @@ class fza_ah64_mapControl
 	};
 	class PowerWind
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
@@ -515,7 +515,7 @@ class fza_ah64_mapControl
 	};
 	class Shipwreck
 	{
-		icon = "\fza_ah64_us\tex\ICONS\f16_rsc_fcr_gen.paa";
+		icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
 		color[] = {0,0.35,0.7,0};
 		size = 16;
 		importance = "2.5 * 16 * 0.05";
