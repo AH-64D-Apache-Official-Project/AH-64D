@@ -140,7 +140,7 @@ class CfgVehicles
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
 						renderVisionMode = 0; //DTV HDU
-						fov = 0.18;
+						fov = 0.2;
 					};
 				};
 				class driverpnvs3
@@ -152,7 +152,7 @@ class CfgVehicles
 						pointDirection = "driverview_dir";
 						renderQuality = 0;
 						renderVisionMode = 1; //NVG HDU
-						fov = 0.18;
+						fov = 0.2;
 					};
 				};
 		};
@@ -961,8 +961,9 @@ class CfgVehicles
 		gunnerUsesPilotView = false;
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F";
+		//PNVS TURRET OPTICS BACK UP
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+		driveropticsmodel = "";
 		driverOpticsColor[] = {1,1,1,1};
 		laserScanner=1;
 		nightVision=1;
@@ -1185,20 +1186,23 @@ class CfgVehicles
 			minmovey = -0.1;
 			minmovez = -0.1;
 		};
+
+		//PNVS TURRET OPTICS BACK UP
 		class ViewOptics
 		{
+			initFov=0.7;
+			minFov=0.7;
+			maxFov=0.7;			
 			initAngleX=0;
 			minAngleX=-90;
 			maxAngleX=90;
 			initAngleY=0;
 			minAngleY=-45;
 			maxAngleY=20;
-			initFov=0.7;
-			minFov=0.7;
-			maxFov=0.7;
 			thermalmode[] = {0};
 			visionmode[] = {"Normal","Ti"}; //PNVS
 		};
+
 		class AnimationSources
 		{
 		class pnvs
@@ -1380,38 +1384,6 @@ source = "user";
 animPeriod = 0.1;
 initPhase=0;
 };
-/*
-class blade1_rise1
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise2
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise3
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise4
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade1_rise5
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-*/
 class blade2_pitch
 {
 source = "user";

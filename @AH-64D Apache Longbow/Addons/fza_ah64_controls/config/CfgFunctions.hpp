@@ -43,10 +43,7 @@ class CfgFunctions
 			class engineAPUOn {R;};
 			class engineEventHandler {R;};
 			class engineGetData
-			{
-				R;
-				description = "Gets the engine-related data for display";
-			};
+			{ R; description = "Gets the engine-related data for display"; };
 			class engineGetTarget
 			{
 				R;
@@ -69,10 +66,7 @@ class CfgFunctions
 				description = "Sets up engine to be at Off, Idle, Fly";
 			};
 			class engineUpdate
-			{
-				R;
-				description = "Updates internal engine state";
-			};
+			{ R; description = "Updates internal engine state"; };
 		};
 		class event
 		{
@@ -185,7 +179,6 @@ class CfgFunctions
 		class ui
 		{
 			file = "\fza_ah64_controls\scripting\functions\ui";
-			class uiMouseMove {R;};
 		}
 		class weapon
 		{
@@ -201,11 +194,7 @@ class CfgFunctions
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";
-			class linearInterp
-			{
-				R;
-				description = "Linear interpolate a 2d array of keyframe values";
-			};
+			class linearInterp { R; description = "Linear interpolate a 2d array of keyframe values"; };
 			class displayTime {R;};
 			class drawNumberSelections {R;};
 			class setPitchBank {R;};
@@ -213,11 +202,8 @@ class CfgFunctions
 			class relativeDirection {R;};
 			class velocityVector {R;};
 			class addKeybind {R;};
-			class playAudio
-			{
-				R;
-				description = "Plays audio file, usage: [_firstAudioFile, _delay1, _secondAudioFile, _delay2, _thirdAudioFile, _delay3]";
-			};
+			class playAudio { R; description = "Plays audio file"; };
+			class compensateSafezone { R;};
 		};
 	};
 };

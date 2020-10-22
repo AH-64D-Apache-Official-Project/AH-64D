@@ -72,7 +72,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "center";
 					shadow = false;
 				};
@@ -90,23 +89,6 @@ class RscTitles
 		onLoad = "uiNameSpace setvariable ['fza_ah64_raddisp',_this select 0];";
 		class objects
 		{
-			/*class fza_ah64_ihadss_3Dbg_test
-			{
-				idc = 249;
-				type = 82;
-				model = "\fza_ah64_us\prx\ihadss\fza_ihadss_scope.p3d";
-				scale = 1;
-				direction[] = {0, -0.35, -0.65};
-				up[] = {0, 0.65, -0.35};
-				position[] = {0.5,10,0.5};
-				x = 0.5; y = 0.5; z = 0.2;
-				xBack = 0.5;
-				yBack = 0.5;
-				zBack = 1.2;
-				inBack = 1;
-				enableZoom = 0;
-				zoomDuration = 0.001;
-			};*/
 			class fza_ah64_ihadss_hor_c
 			{
 				idc = 250;
@@ -452,6 +434,428 @@ class RscTitles
 		};
 		class controls
 		{
+			class fza_ah64_raddisp_nobounds: RscControlsGroup //Cscope Container
+            {
+                idc = -1;
+                x = safeZoneX;
+                y = safeZoneY;
+                w = safeZoneW;
+                h = safeZoneH;
+                class ScrollBar
+                {
+                    color[] = {1,1,1,0.6};
+                    colorActive[] = {1,1,1,1};
+                    colorDisabled[] = {1,1,1,0.3};
+                    thumb = "\A3\ui_f\data\gui\cfg\scrollbar\thumb_ca.paa";
+                    arrowEmpty = "\A3\ui_f\data\gui\cfg\scrollbar\arrowEmpty_ca.paa";
+                    arrowFull = "\A3\ui_f\data\gui\cfg\scrollbar\arrowFull_ca.paa";
+                    border = "\A3\ui_f\data\gui\cfg\scrollbar\border_ca.paa";
+                };
+                class VScrollbar: ScrollBar
+                {
+                    width = 0;
+                    height = 0;
+                };
+                class HScrollBar: ScrollBar
+                {
+                    width = 0;
+                    height = 0;
+                };
+                class controls
+                {
+                    class fza_ah64_raddisp_target
+                    {
+                        idc = 132;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
+                        style = 48;
+                        sizeEx = 64;
+                        x = 0;
+                        y = -50;
+                        w = 0.0734;
+                        h = 0.1;
+                    };
+                    class fza_ah64_raddisp_cscope1
+                    {
+                        idc = 190;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope2
+                    {
+                        idc = 191;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope3
+                    {
+                        idc = 192;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope4
+                    {
+                        idc = 193;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope5
+                    {
+                        idc = 194;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope6
+                    {
+                        idc = 195;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope7
+                    {
+                        idc = 196;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope8
+                    {
+                        idc = 197;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope9
+                    {
+                        idc = 198;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope10
+                    {
+                        idc = 199;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope11
+                    {
+                        idc = 200;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope12
+                    {
+                        idc = 201;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope13
+                    {
+                        idc = 202;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope14
+                    {
+                        idc = 203;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope15
+                    {
+                        idc = 204;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+                    class fza_ah64_raddisp_cscope16
+                    {
+                        idc = 205;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.018;
+                        h = 0.024;
+                    };
+				};
+			};
 			class fza_raddisp_container: RscControlsGroup // OFFSET OR EDIT WHOLE HUD CONTAINER
 			{
 				idc = 20052;
@@ -465,30 +869,12 @@ class RscTitles
 				};
 				class controls
 				{
-				/*
-					//HDU WITH FLIR//
-					class fza_ah64_raddisp_hdu_bg
-					{
-				idc = 119;
-				type = 0;
-				colorText[] = {-1, 1, 0, 0.5};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_us\prx\ihadss\fza_ihadss_scope.p3d";
-				style = 48;
-				sizeEx = 512;
-				x = 0.25;
-				y = 0.28;
-				w = 1;
-				h = 1;
-					};
-				*/
 					//HDU PNVS WITH HDR OR NVG//
 					class fza_ah64_raddisp_hdu_bg2
 					{
 				idc = 120;
 				type = 0;
-				colorText[] = {-1, 1, 0, 0.5};
+				colorText[] = {-1, 1, 0, 0.85};
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
 				text = "";
@@ -506,8 +892,8 @@ class RscTitles
 				idc = 121;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = -0.075;//bak -0.055
-				y = 0.73; //bak -0.72
+				x = -0.075;
+				y = 0.73; 
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -518,7 +904,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "right";
 					shadow = false;
 				};
@@ -529,8 +914,8 @@ class RscTitles
 				idc = 122;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = -0.155; //bak -0.049
-				y = 0.73; //bal 0.74
+				x = -0.155;
+				y = 0.73; 
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -564,7 +949,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -587,7 +971,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -610,7 +993,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "right";
 					shadow = false;
 				};
@@ -621,8 +1003,8 @@ class RscTitles
 				idc = 126;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = 0.58; //bak 0.56
-				y = 0.73; //bak 0.72
+				x = 0.58; 
+				y = 0.73; 
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -633,7 +1015,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -644,8 +1025,8 @@ class RscTitles
 				idc = 127;
 				style = 2 + 16;
 				lineSpacing = 1;
-				x = 0.58; //bak 0.56
-				y = 0.75; //bak 0.74
+				x = 0.58; 
+				y = 0.75; 
 				w = 0.5;
 				h = 0.12;
 				size = 0.024;
@@ -656,7 +1037,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -680,7 +1060,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "center";
 					shadow = false;
 				};
@@ -703,7 +1082,6 @@ class RscTitles
 				class Attributes
 				{
 				font = "EtelkaMonospaceProBold";
-						//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -711,19 +1089,19 @@ class RscTitles
 					//JHCMS
 					class fza_ah64_raddisp_jhmcs
 					{
-				idc = 130;
-				type = 0;
-				colorText[] = {0.1, 1, 0, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\ihadss.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.2485;
-				y = 0.16;
-				w = 0.5;
-				h = 0.68;
-			};
+					idc = 130;
+					type = 0;
+					colorText[] = {0.1, 1, 0, 1};
+					font = "EtelkaMonospaceProBold";
+					colorBackground[] = {1, 1, 1, 1};
+					text = "\fza_ah64_US\tex\HDU\ihadss.paa";
+					style = 48;
+					sizeEx = 1024;
+					x = 0.2485;
+					y = 0.16;
+					w = 0.5;
+					h = 0.68;
+					};
 					class fza_ah64_raddisp_jhmcs_trk
 					{
 				idc = 131;
@@ -732,21 +1110,6 @@ class RscTitles
 				font = "EtelkaMonospaceProBold";
 				colorBackground[] = {1, 1, 1, 1};
 				text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
-				style = 48;
-				sizeEx = 64;
-				x = 0;
-				y = -50;
-				w = 0.0734;
-				h = 0.1;
-			};
-					class fza_ah64_raddisp_target
-					{
-				idc = 132;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
 				style = 48;
 				sizeEx = 64;
 				x = 0;
@@ -829,141 +1192,6 @@ class RscTitles
 				w = 0.032;
 				h = 0.04;
 			};
-					/*class fza_ah64_raddisp_hor_1
-			{
-				idc = 138;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.41;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_2
-			{
-				idc = 139;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.43;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_3
-			{
-				idc = 140;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.45;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_4
-			{
-				idc = 141;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.47;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_5
-			{
-				idc = 142;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.51;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_6
-			{
-				idc = 143;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.53;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_7
-			{
-				idc = 144;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.55;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};
-			class fza_ah64_raddisp_hor_8
-			{
-				idc = 145;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.57;
-				y = 0.6;
-				w = 0.015;
-				h = 0.0025;
-			};*/
-					/*class fza_ah64_raddisp_lase
-					{
-						idc = 138;
-						type = 0;
-						colorText[] = {0.1, 1, 0, 1};
-						font = "EtelkaMonospaceProBold";
-						colorBackground[] = {1, 1, 1, 1};
-						text = "";
-						style = 48;
-						sizeEx = 1024;
-						x = 0.2485;
-						y = 0.16;
-						w = 0.5;
-						h = 0.68;
-					};*/
 					class fza_ah64_raddisp_hdg0_tickmark
 					{
 				idc = 146;
@@ -1300,7 +1528,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};
@@ -1370,250 +1597,9 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "right";
 					shadow = false;
 				};
-			};
-					class fza_ah64_raddisp_cscope1
-					{
-				idc = 190;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope2
-					{
-				idc = 191;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope3
-					{
-				idc = 192;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope4
-					{
-				idc = 193;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope5
-					{
-				idc = 194;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope6
-					{
-				idc = 195;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope7
-					{
-				idc = 196;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope8
-					{
-				idc = 197;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope9
-					{
-				idc = 198;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope10
-					{
-				idc = 199;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope11
-					{
-				idc = 200;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope12
-					{
-				idc = 201;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope13
-					{
-				idc = 202;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope14
-					{
-				idc = 203;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope15
-					{
-				idc = 204;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
-			};
-					class fza_ah64_raddisp_cscope16
-					{
-				idc = 205;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = -100;
-				y = -100;
-				w = 0.018;
-				h = 0.024;
 			};
 					class fza_ah64_raddisp_fov
 					{
@@ -1663,7 +1649,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "right";
 					shadow = false;
 				};
@@ -1674,8 +1659,8 @@ class RscTitles
 						idc = 803;
 						style = 2 + 16;
 						lineSpacing = 1;
-						x = -0.138; //bak -0.049
-						y = 0.71; //bak -0.72
+						x = -0.138; 
+						y = 0.71; 
 						w = 0.5;
 						h = 0.12;
 						size = 0.024;
@@ -1686,7 +1671,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "right";
 					shadow = false;
 				};
@@ -1709,7 +1693,6 @@ class RscTitles
 				class Attributes
 				{
 					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
 					align = "left";
 					shadow = false;
 				};

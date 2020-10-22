@@ -83,22 +83,54 @@ if (local _ac && !(player == driver _ac) || !(player == gunner _ac)) then {
     };
 };
 
-if (!(isNil "fza_ah64_noscripts") && fza_ah64_noscripts == 1 || !(isengineon _ac) || !(alive _ac) || !(_munition isKindOf "MissileBase") || !(player in _ac)) exitwith {};
+if(local _ac && !(player == driver _ac) || !(player == gunner _ac)) then
+{
+	_missile = nearestobject [_hostile,_munition];
 
-_missile = nearestobject[_hostile, _munition];
+	_posac = getpos _ac;
+	_poshostile = getpos _missile;
+	_range = _poshostile distance _posac;
+	_highlow = "High";
+	_chance1 = 200;
+	_rand = 6;
+
+	if(typeof _missile in fza_ah64_mis_ir) then {_rand = 7;};
+	if(typeof _missile in fza_ah64_mis_rf) then {_rand = 4;};
+	if (floor random 10 < _rand) exitwith {};
+	waitUntil {_missile distance _ac < 200};	
+	while {(alive _missile) && (alive _ac)} do
+	{
+		_reldir = ((getposasl _ac select 0) - (getposasl _missile select 0)) atan2 ((getposasl _ac select 1) - (getposasl _missile select 1));
+		if (_reldir < 0) then
+		{
+			_reldir = _reldir + 360;
+		};
+		_mistheta = (360 + (_reldir - (direction _missile))) Mod 360;
+		_missile setdir (_mistheta - (random _chance1));
+		_pbvar = _missile call fza_ah64_getpb;
+		_pitch = _pbvar select 0;
+		_bank = _pbvar select 1;
+		_bank = _bank - (random _chance1);
+		_pitch = _pitch - (random _chance1);
+		[_missile, _pitch, _bank] call fza_ah64_setpb;
+		sleep 0.1;
+	};
+};
+
+if (!(isNil "fza_ah64_noscripts") || !(isengineon _ac) || !(alive _ac) || !(_munition isKindOf "MissileBase") || !(player in _ac)) exitwith {};
+
+_missile = nearestobject [_hostile,_munition];
 
 _posac = getpos _ac;
 _poshostile = getpos _missile;
 _range = _poshostile distance _posac;
 _highlow = "High";
 
-if (typeOf _ac == "fza_ah64d_b2e" || typeOf _ac == "fza_ah64d_b2exp" || typeOf _ac == "fza_ah64d_b3") then {
-    {
-        if (_hostile iskindof _x && !(_hostile in fza_ah64_targetlist)) then {
-            fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];
-        };
-    }
-    foreach fza_ah64_ada_units;
+if(typeOf _ac == "fza_ah64d_b2e") then
+{
+	{
+		if (_hostile iskindof _x && !(_hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];};
+	} foreach fza_ah64_ada_units;
 };
 
 {
@@ -111,71 +143,66 @@ if (typeOf _ac == "fza_ah64d_b2e" || typeOf _ac == "fza_ah64d_b2exp" || typeOf _
 }
 foreach fza_ah64_ada_units;
 
-if (_posac select 2 > _poshostile select 2) then {
-    _highlow = "Low";
+if (_posac select 2 > _poshostile select 2) then
+{
+	_highlow = "Low";
 };
 
-_reldir = ((_poshostile select 0) - (_posac select 0)) atan2((_poshostile select 1) - (_posac select 1));
-if (_reldir < 0) then {
-    _reldir = _reldir + 360;
+_reldir = ((_poshostile select 0) - (_posac select  0)) atan2 ((_poshostile select 1) - (_posac select 1));
+if (_reldir < 0) then
+{
+	_reldir = _reldir + 360;
 };
 
 _theta = (360 + (_reldir - (direction _ac))) Mod 360;
 _oclock = 12;
 
-if (_theta > 15 && _theta < 45) then {
-    _oclock = 1;
-    _clockaud = "fza_ah64_bt_1oclock";
+if (_theta > 15 && _theta < 46) then
+{
+	_oclock = 1;
+	_clockaud = "fza_ah64_bt_1oclock";
 };
 
-if (_theta > 45 && _theta < 75) then {
-    _oclock = 2;
-    _clockaud = "fza_ah64_bt_2oclock";
+if (_theta > 45 && _theta < 76) then
+{
+	_oclock = 2;
+	_clockaud = "fza_ah64_bt_2oclock";
 };
 
-if (_theta > 75 && _theta < 105) then {
-    _oclock = 3;
-    _clockaud = "fza_ah64_bt_3oclock";
+if (_theta > 75 && _theta < 106) then
+{
+	_oclock = 3;
+	_clockaud = "fza_ah64_bt_3oclock";
 };
 
-if (_theta > 105 && _theta < 135) then {
-    _oclock = 4;
-    _clockaud = "fza_ah64_bt_4oclock";
+if (_theta > 105 && _theta < 136) then
+{
+	_oclock = 4;
+	_clockaud = "fza_ah64_bt_4oclock";
 };
 
-if (_theta > 135 && _theta < 165) then {
-    _oclock = 5;
-    _clockaud = "fza_ah64_bt_5oclock";
+if (_theta > 135 && _theta < 166) then
+{
+	_oclock = 5;
+	_clockaud = "fza_ah64_bt_5oclock";
 };
 
-if (_theta > 165 && _theta < 195) then {
-    _oclock = 6;
-    _clockaud = "fza_ah64_bt_6oclock";
+if (_theta > 165 && _theta < 196) then
+{
+	_oclock = 6;
+	_clockaud = "fza_ah64_bt_6oclock";
 };
 
-if (_theta > 195 && _theta < 225) then {
-    _oclock = 7;
-    _clockaud = "fza_ah64_bt_7oclock";
+if (_theta > 195 && _theta < 226) then
+{
+	_oclock = 7;
+	_clockaud = "fza_ah64_bt_7oclock";
 };
 
-if (_theta > 225 && _theta < 255) then {
-    _oclock = 8;
-    _clockaud = "fza_ah64_bt_8oclock";
-};
-
-if (_theta > 255 && _theta < 285) then {
-    _oclock = 9;
-    _clockaud = "fza_ah64_bt_9oclock";
-};
-
-if (_theta > 285 && _theta < 315) then {
-    _oclock = 10;
-    _clockaud = "fza_ah64_bt_10oclock";
-};
-
-if (_theta > 315 && _theta < 345) then {
-    _oclock = 11;
-    _clockaud = "fza_ah64_bt_11oclock";
+if (_theta > 225 && _theta < 256) then
+{
+	_oclock = 8;
+	_clockaud = "fza_ah64_bt_8oclock";
 };
 
 _rand = 30;
@@ -216,18 +243,16 @@ if (typeof _missile in fza_ah64_mis_ir) then {
     _scramdist = _scramdist + (fza_ah64_curchfln * 50);
 };
 
-if (random 100 < _rand) exitwith {
-    fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
-    if (fza_ah64_rfjstate == 1) then {
-        fza_ah64_rfjon = 0;
-    };
-    if (fza_ah64_irjstate == 1) then {
-        fza_ah64_irjon = 0;
-    };
+if (_theta > 285 && _theta < 316) then
+{
+	_oclock = 10;
+	_clockaud = "fza_ah64_bt_10oclock";
 };
 
-waitUntil {
-    _missile distance _ac < _scramdist
+if (_theta > 315 && _theta < 346) then
+{
+	_oclock = 11;
+	_clockaud = "fza_ah64_bt_11oclock";
 };
 
 _curvupmis = vectorup _missile;
@@ -266,9 +291,5 @@ do {
 };
 
 fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
-if (fza_ah64_rfjstate == 1) then {
-    fza_ah64_rfjon = 0;
-};
-if (fza_ah64_irjstate == 1) then {
-    fza_ah64_irjon = 0;
-};
+if (fza_ah64_rfjstate == 1) then {fza_ah64_rfjon = 0;};
+if (fza_ah64_irjstate == 1) then {fza_ah64_irjon = 0;};
