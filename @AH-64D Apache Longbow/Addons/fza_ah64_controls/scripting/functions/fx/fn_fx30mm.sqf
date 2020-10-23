@@ -27,5 +27,5 @@ _rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m
 
 // M230 SHAKE
 if (_selWeapon == "fza_m230" || _selWeapon in _hellfireweps || _selWeapon in _rocketweps) then {
-    addCamShake[0.20, 2, 20];
+    addCamShake[0.15, 2, 20];
 };

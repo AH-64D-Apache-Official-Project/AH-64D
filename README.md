@@ -2,10 +2,12 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
-*22/10/2020*
+*23/10/2020*
 - Restored PNVS optics turret
 - When enabling TIR, the mouse cursor will remain centered
-- Small edition on RKTs drag
+- Tweaked RKTs thrust time
+- CBA integration major update (by mattysmith22) 
+- Added throttle lever idle sound
 
 *20/10/2020*
 - Removed pilot optic turret; PNVS is now usable trough NVS MODE switch from the frontseat & backseat (LVL knobs need to be rotated for daytime or night time toggle - default: day).

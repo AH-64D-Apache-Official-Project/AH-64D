@@ -86,7 +86,7 @@ class CfgAmmo
 		timeToLive					= 70;
 
 		effectsmissile = "fza_ah64_hellfiresmoke";
-		muzzleEffect = "BIS_fnc_effectFiredRocket";
+		muzzleEffect = "BIS_fnc_effectFiredHeliRocket";
 		effectsMissileInit = "MissileDAR1";
 		explosionEffects = "BombExplosion"; 
 		soundsetsoniccrack[] = {"fza_sc_wire_flyby_soundset"};
@@ -295,7 +295,7 @@ class CfgAmmo
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		effectsmissile = "fza_ah64_rocketsmoke";
 		effectsMissileInit = "MissileDAR1";
-		muzzleEffect = "fza_ah64_fx_msl_shake";
+		muzzleEffect = "BIS_fnc_effectFiredHeliRocket";
 		hit=210;
 		indirectHit=20;
 		indirectHitRange=10;
@@ -313,8 +313,8 @@ class CfgAmmo
 		dangerRadiusHit = 40;
 		initTime = 0.02;
 		maxSpeed=840;
-		thrustTime=1.1;
-		thrust = 1060;
+		thrustTime=2;
+		thrust = 840;
 		fuseDistance = 75;
 		airFriction = 0.1;
 		sideAirFriction = 0.004;

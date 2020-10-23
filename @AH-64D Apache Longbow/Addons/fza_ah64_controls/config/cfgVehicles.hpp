@@ -81,7 +81,7 @@ class CfgVehicles
 		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
 		soundGeneralCollision3[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_3", 1.000000, 1, 10};
 		soundCrashes[] = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
-		soundLandCrashes[] = {"emptySound", 0};
+		soundLandCrashes[] = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
 		soundBuildingCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
 		soundArmorCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
 		soundWoodCrash[] = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
@@ -96,9 +96,9 @@ class CfgVehicles
 		soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
 		soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
 		soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,300};
-		soundEngineOffInt[] = {"fza_ah64_us\audio\Int_Off.ogg",0.5,0.6};
+		soundEngineOffInt[] = {"emptySound", 0};
 		soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,300};
-		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",0.5,0.6};
+		soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",1,0.6};
 		rotorDamageInt[] = {"\fza_ah64_US\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
 		rotorDamageOut[] = {"\fza_ah64_US\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
 		rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
@@ -963,7 +963,7 @@ class CfgVehicles
 		crew="B_Helipilot_F";
 		//PNVS TURRET OPTICS BACK UP
 		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "";
+		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		driverOpticsColor[] = {1,1,1,1};
 		laserScanner=1;
 		nightVision=1;

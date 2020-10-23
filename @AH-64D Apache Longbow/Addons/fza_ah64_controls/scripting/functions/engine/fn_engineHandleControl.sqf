@@ -72,26 +72,26 @@ switch(_control) do {
 	};
 	case "e1off": {
 		[_heli, 0, ENGINE_CONTROL_THROTTLE_OFF] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2off": {
 		[_heli, 1, ENGINE_CONTROL_THROTTLE_OFF] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1idle": {
 		[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2idle": {
 		[_heli, 1, ENGINE_CONTROL_THROTTLE_IDLE] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1fly": {
 		[_heli, 0, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2fly": {
 		[_heli, 1, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 };
