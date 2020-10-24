@@ -88,6 +88,9 @@ _aratio = getResolution select 4;
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
+    if (isNil "fza_ah64_mousetracker") then {
+        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
+    };
     fza_ah64_helperinit = true;
 };
 
@@ -862,11 +865,6 @@ if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimit
 
 if ((diag_tickTime % 2) < 1) then {
     _safemessage = "";
-};
-
-//AUTO HOVER DETECTOR
-if ((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then {
-    player action["autoHoverCancel", _heli];
 };
 
 //SET NUMBERS AND IDC

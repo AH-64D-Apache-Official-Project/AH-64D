@@ -24,7 +24,7 @@ Author:
 
 params["_heli", "_engNum", "_position"];
 
-if(_heli animationphase "plt_apu" < 0.5 || _heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
 
 [_heli, 0] call fza_fnc_engineUpdate;
 [_heli, 1] call fza_fnc_engineUpdate;
@@ -46,7 +46,7 @@ private _changeMade = false;
 
 switch (_state) do {
     case "OFF":{
-            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER)) then {
+            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER) && _heli animationphase "plt_apu" > 0.5) then {
                 _state = "OFFSTARTED";
                 _stateParams = time;
                 _changeMade = true;
@@ -55,6 +55,15 @@ switch (_state) do {
                 _heli say3D["fza_ah64_estart_3D", 100, 1];
             };
         };
+    case "OFFSTARTED": {
+        if (_position == ENGINE_CONTROL_STARTER) then {
+            _state = "STARTEDOFF";
+            _stateParams = time;
+            _changeMade = true;
+
+            _heli animate[_engineSwitch, 0];
+        };
+    }; 
     case "STARTED":{
         if (_position == ENGINE_CONTROL_STARTER) then {
             _state = "STARTEDOFF";
@@ -63,7 +72,7 @@ switch (_state) do {
 
             _heli animate[_engineSwitch, 0];
         };
-        if (_position == ENGINE_CONTROL_THROTTLE_IDLE) then {
+        if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli animationphase "plt_apu" > 0.5) then {
             _stateParams = time;
             _state = "STARTEDIDLE";
             _changeMade = true;

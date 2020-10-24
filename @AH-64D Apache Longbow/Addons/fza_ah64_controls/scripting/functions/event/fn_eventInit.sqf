@@ -1,6 +1,27 @@
-//MASTER INIT FOR AH-64D PROJECT
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_eventInit
+
+Description:
+    Master init event handler
+
+    Handles variable initialisation, and continues running to ensure weapon textures are kept up to date
+
+    Must be run in a scheduled environment (spawn)
+
+Parameters:
+    _heli - the helicopter to initialise
+
+Returns:
+	Nothing
+
+Examples:
+    [_heli] spawn fza_fnc_eventInit
+
+Author:
+	unknown, mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
-_heli = _this select 0;
+params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 

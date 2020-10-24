@@ -5,14 +5,6 @@ class Extended_PreInit_EventHandlers {
 	};
 };
 
-class Extended_Init_EventHandlers {
-	class fza_ah64base {
-		class fza_ah64base_init_eh {
-			init = "[_this select 0] execvm ""\fza_ah64_controls\scripting\ah64d_init.sqf"";";
-		};
-	};
-};
-
 class Extended_Engine_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_engine_eh {

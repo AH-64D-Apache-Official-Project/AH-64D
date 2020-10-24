@@ -1,21 +1,53 @@
 [
 	"fza_ah64_rearmTime",
 	"List",
-	"Time taken to rearm",
-	"AH64D Apache",
+	"Rearm time",
+	["AH64D Apache", "Rearm"],
 	[
 		[0, 15, 30, 60, 120, 240],
 		["Instant", "15 seconds", "30 seconds", "1 minute", "2 minutes", "4 minutes"],
 		5
-	]
+	],
+	1
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_headTrackAllowCursorMove",
+	"CHECKBOX",
+	"Allow cursor movement while in head tracking mode",
+	["AH64D Apache", "Control"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_headTrackSensitivity",
+	"SLIDER",
+	"Head tracking mode cursor sensitivity",
+	["AH64D Apache", "Control"],
+	[0, 1, 0.5, 2],
+	0
 ] call CBA_fnc_addSetting;
 
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
 	"Enable Cockpit hints",
-	"AH64D Apache",
+	["AH64D Apache", "UI"],
 	[true]
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_vanillaTargetingEnable",
+	"CHECKBOX",
+	"Show vanilla targeting information (restart needed)",
+	["AH64D Apache", "UI"],
+	[true],
+	0,
+	{
+		profileNamespace setVariable ["fza_ah64_enableTargeting", [0, 1] select _this];
+		saveProfileNamespace;
+	}
 ] call CBA_fnc_addSetting;
 
 fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];

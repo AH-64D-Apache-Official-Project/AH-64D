@@ -1,10 +1,12 @@
 class CfgVehicles
 {
 	class All;
-	class Helicopter_Base_F;
+	class Helicopter;
+	class Helicopter_Base_F : Helicopter {
+		class Components;
+	};
 	class fza_ah64base : Helicopter_Base_F
 	{
-		class Components;
 		class NewTurret;
 		
 		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
@@ -128,6 +130,11 @@ class CfgVehicles
 			maxVerticalStabilizerStress = 100000;
 			retreatBladeStallWarningSpeed = 92.778;
 			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
+		};
+		class EventHandlers {
+			class fza_ah64 {
+				init = "[_this # 0] spawn fza_fnc_eventInit";
+			};
 		};
 		class RenderTargets
 		{

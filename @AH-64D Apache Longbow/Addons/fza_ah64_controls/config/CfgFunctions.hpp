@@ -74,6 +74,7 @@ class CfgFunctions
 			class eventFired{R;};
 			class eventGetIn{R;};
 			class eventGetOut{R;};
+			class eventInit{R;};
 		}
 		class fire
 		{
@@ -179,7 +180,8 @@ class CfgFunctions
 		class ui
 		{
 			file = "\fza_ah64_controls\scripting\functions\ui";
-		}
+			class uiMouseMove {R;};
+		};
 		class weapon
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
@@ -190,7 +192,7 @@ class CfgFunctions
 			class weaponRocketAlign {R;};
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};
-		}
+		};
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";
