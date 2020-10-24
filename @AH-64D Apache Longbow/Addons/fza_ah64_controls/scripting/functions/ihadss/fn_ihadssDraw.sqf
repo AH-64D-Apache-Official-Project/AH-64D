@@ -867,11 +867,6 @@ if ((diag_tickTime % 2) < 1) then {
     _safemessage = "";
 };
 
-//AUTO HOVER DETECTOR
-if ((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then {
-    player action["autoHoverCancel", _heli];
-};
-
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetText _sensxm;
