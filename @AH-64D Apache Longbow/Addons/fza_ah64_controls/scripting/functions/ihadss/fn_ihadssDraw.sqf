@@ -88,6 +88,9 @@ _aratio = getResolution select 4;
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
+    if (isNil "fza_ah64_mousetracker") then {
+        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
+    };
     fza_ah64_helperinit = true;
 };
 
