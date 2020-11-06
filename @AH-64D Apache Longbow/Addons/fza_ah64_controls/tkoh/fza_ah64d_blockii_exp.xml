@@ -594,12 +594,28 @@
       <!-- A1m changed from 11 to 10.5, and clamp(A1m, -12.5, 20) changed to clamp(A1m, -10.5, 7) - BM 6Nov20 -->
       <!-- B1m changed from 22 to 10, and clamp(A1m, -13, 18) changed to clamp(A1m, -10, 20) - BM 6Nov20 -->
       <!-- Th0m changed from: collective * 13 + 6.5 to 20, added: clamp(Th0m, 1, 19) the clamp flags an error... - BM 6Nov20 -->
+      <!-- Th0m changed from: collective * 20 to: collective * 19 + 1 - BM 6Nov20 -->
+
+      <!-- ORIG!!
+           latCyclic = latCyclic - clamp(rollRateRad * 2, -0.1 , 0.1 ) - collective * 0.2,
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 3, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+           pedals = pedals + 0.3 + clamp(yawRateRad * 3, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1), -->
+      
+      <!-- Mod v1 6Nov20
+           latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 ),
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ),
+           pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ),-->
+      
+      <!-- Mod v2 6Nov20
+           latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 )  - collective * 0.2,
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+           pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),-->
       
       <MathExpression>
         <Expression>
-          latCyclic = latCyclic - clamp(rollRateRad * 2, -0.1 , 0.1 ) - collective * 0.2,
-          lonCyclic = lonCyclic + clamp(pitchRateRad * 3, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
-          pedals = pedals + 0.3 + clamp(yawRateRad * 3, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),
+          latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 )  - collective * 0.2,
+          lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+          pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),
 
           A1m = latCyclic * 10.5,
           A1m = clamp( A1m , -10.5 , 7 ),
@@ -607,7 +623,7 @@
           B1m = lonCyclic * 20,
           B1m = clamp( B1m , -10 , 20 ),
 
-          Th0m = collective * 20,
+          Th0m = collective * 19 + 1,
 
           A1t = 0.0,
           B1t = 0.0,
