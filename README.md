@@ -2,6 +2,20 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*06/11/2020*
+- ECM script fixed
+- Changed 30mm to the newer ballistics computer
+- Re-added ADA datebase
+- Re-added correct auto hover detector
+- Tempory fix for the TSD/FCR Radar Icons
+- Re-added missile datebase
+- Fixed the position issue for the gunner seat ENG1 fire button
+- Fixed the broken shadow on the FCR
+- CMimmunity move fix - radar hellfire failing in LO trajectory
+- Disabled part that was breaking ASE and error codes in Targetupdating 
+- "Shot at" fixed so it adds target to "shot at" list (BRK still can't remove it from shot at list)
+- Updated AFM (BradMick v5 AFM)
+
 *23/10/2020*
 - Restored PNVS optics turret
 - When enabling TIR, the mouse cursor will remain centered
