@@ -30,19 +30,19 @@ private _targetsToDraw = fza_ah64_targetlist apply {
 	};
 
 	if (_x isKindOf "plane") then {
-		_targicon = "ac";
+		_targetType = "ac";
 	};
 
 	if (_x isKindOf "tank") then {
-		_targicon = "tnk";
+		_targetType = "tnk";
 	};
 
 	if (_x isKindOf "car") then {
-		_targicon = "whl";
+		_targetType = "whl";
 	};
 
 	if ([_x] call fza_fnc_targetIsADA) then {
-		_targicon = "ada";
+		_targetType = "ada";
 	};
 
 	if (_x in ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"))) then {

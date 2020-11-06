@@ -104,8 +104,8 @@ fza_ah64_targetlist = [];
 fza_ah64_mycurrenttarget = objNull;
 fza_ah64_burst = 1;
 fza_ah64_pfzcache = ["none", "none", [], 0];
-fza_ah64_mis_ir = ["M_R73_AA", "M_Strela_AA", "M_Igla_AA", "M_Stinger_AA", "M_Sidewinder_AA", "fza_fim92"];
-fza_ah64_mis_rf = ["M_9M311_AA"];
+fza_ah64_mis_ir = ["M_R73_AA","M_Strela_AA","M_Igla_AA","M_Stinger_AA","M_Sidewinder_AA","fza_fim92","Missile_AGM_01_F","ammo_Missile_rim116","ammo_Missile_BIM9X","M_Air_AA","M_Air_AA_MI02","M_Air_AA_MI06","Missile_AA_04_F","Missile_AGM_02_F","Missile_AA_03_F","rhs_fim92_mag","rhs_mag_9k38_rocket","rhs_mag_9k32_rocket","M_Titan_AA"];
+fza_ah64_mis_rf = ["M_9M311_AA","ammo_Missile_s750","ammo_Missile_rim162","ammo_Missile_mim145","ammo_Missile_AMRAAM_D","ammo_Missile_AMRAAM_C","ammo_Missile_AA_R77","ammo_Missile_AA_R73","M_Zephyr","M_Titan_AA_long","M_Titan_AA_static"];
 fza_ah64_asethreats = [];
 fza_ah64_threattracking = [];
 fza_ah64_threatfiring = [];
@@ -137,6 +137,11 @@ fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fz
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;
 }];
+fza_ah64_ada_units = ["vme_PLA_DK9","VME_PLA_HQ64","VME_PLA_HQ7","VME_PLA_PGZ04","VME_PLA_EQ2050_AA","RHS_Stinger_AA_pod_Base","SAM_System_01_base_F","SAM_System_03_base_F",
+"Radar_System_01_base_F","SAM_System_02_base_F","AAA_System_01_base_F","RHS_ZU23_base","rhs_Igla_AA_pod_Base","AA_01_base_F","Radar_System_02_base_F","SAM_System_04_base_F",
+"RR_PGZ_04_ADS_SP_AA","VME_PLA_ADS_Base","I_LT_01_scout_F","I_LT_01_AA_F","O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsutank_base","LOP_ZSU234_base",
+"B_APC_Tracked_01_AA_F","B_T_APC_Tracked_01_AA_F"];
+
 
 //EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY
 

@@ -867,6 +867,7 @@ if ((diag_tickTime % 2) < 1) then {
     _safemessage = "";
 };
 
+
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetText _sensxm;

@@ -11,10 +11,6 @@ _detectchance = 0.00834;
 _adaunit = false;
 _datalinkArray = [];
 
-if (isNil "fza_ah64_ada_units") then {
-    fza_ah64_ada_units = ["O_APC_Tracked_02_AA_F", "O_T_APC_Tracked_02_AA_ghex_F", "rhs_zsutank_base", "LOP_ZSU234_base"];
-};
-
 while {
     (time > -1)
 }
