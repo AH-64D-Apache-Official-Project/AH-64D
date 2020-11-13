@@ -26,6 +26,7 @@ class CfgPatches
 #include "config\CfgAmmo.hpp"
 #include "config\CfgWeapons.hpp"
 #include "config\CfgMagazines.hpp"
+#include "config\CfgNonAIVehicles.hpp"
 #include "config\CfgVehicles.hpp"
 #include "config\CfgCloudlets.hpp"
 

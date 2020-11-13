@@ -311,9 +311,9 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
         _azimuth = ((_modpos select 0) atan2(_modpos select 1)) * -1;
         _elevation = (((_modpos select 2) atan2(((_modpos select 1) * (cos _modposX)) + ((_modpos select 0) * (sin _modposX))))) * -1;
 
-        if (!(currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4)) then {
-            _pylonelev = 5;
-        };
+        //if (!(currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4)) then {
+        //    _pylonelev = 5;
+        //};
         if (!(isengineon _heli)) then {
             _pylonelev = 0;
             _elevation = -7;

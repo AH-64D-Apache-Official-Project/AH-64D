@@ -1,10 +1,12 @@
 class CfgVehicles
 {
 	class All;
-	class Helicopter_Base_F;
+	class Helicopter;
+	class Helicopter_Base_F : Helicopter {
+		class Components;
+	};
 	class fza_ah64base : Helicopter_Base_F
 	{
-		class Components;
 		class NewTurret;
 		
 		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
@@ -128,6 +130,10 @@ class CfgVehicles
 			maxVerticalStabilizerStress = 100000;
 			retreatBladeStallWarningSpeed = 92.778;
 			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
+		};
+		class Components : Components
+		{
+			#include "cfgVehicles\pylons.hpp"
 		};
 		class RenderTargets
 		{
@@ -1003,8 +1009,8 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230","fza_m261_14_zoneA","fza_m261_14_zoneB","fza_m261_14_zoneE","fza_agm114_23_8"};
-				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200","fza_m261_m151_14_zoneA","fza_m261_m255_14_zoneB","fza_m261_m261_14_zoneE","fza_agm114k_23_8"};
+				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "testsc";

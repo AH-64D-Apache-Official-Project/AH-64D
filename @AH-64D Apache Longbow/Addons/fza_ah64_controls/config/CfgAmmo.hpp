@@ -193,8 +193,8 @@ class CfgAmmo
 	};
 	class fza_agm114k : fza_agm114base
 	{
-		model = "\fza_ah64_US\fza_agm114k";
-		proxyShape="\fza_ah64_US\fza_agm114k";	
+		model = "\fza_ah64_us\fza_agm114k"; 
+		proxyShape="\fza_ah64_us\fza_agm114k";	
 		
 		hit = 1400;
 		indirectHit = 1000;
@@ -215,7 +215,7 @@ class CfgAmmo
 		missileLockCone = 40;
 		missileKeepLockedCone = 40;
 		missileManualControlCone = 40;
-		weaponLockSystem = "4 + 16"
+		weaponLockSystem = "4 + 16";
 		weaponType = "missileAA";
 		class Components : Components
 		{
@@ -325,6 +325,7 @@ class CfgAmmo
 	class fza_275_m151: fza_275_base
 	{	
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		proxyShape = "\fza_ah64_us\fza_hydra_m151";	
 		explosionEffects = "GrenadeExplosion";
 		hit=200;
 		indirectHit=100;
@@ -333,6 +334,7 @@ class CfgAmmo
 	class fza_275_m229: fza_275_base
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m229";	
 		explosionEffects = "GrenadeExplosion";
 		hit=300;
 		indirectHit=150;
@@ -343,6 +345,7 @@ class CfgAmmo
 	class fza_275_m261: fza_275_base 
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";	
 		explosionEffects = "GrenadeExplosion";		
 		maxSpeed = 600;
 		hit = 30;
@@ -357,6 +360,7 @@ class CfgAmmo
 	class fza_275_m257: fza_275_base 
 	{	
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects = "ATMissileCrater";
 		explosionEffects = "";	
 		hit = 30;
@@ -374,6 +378,7 @@ class CfgAmmo
 	class fza_275_m255: fza_275_base 
 	{
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects = "ATMissileCrater";
 		explosionEffects = "";	
 		maxSpeed = 600;
