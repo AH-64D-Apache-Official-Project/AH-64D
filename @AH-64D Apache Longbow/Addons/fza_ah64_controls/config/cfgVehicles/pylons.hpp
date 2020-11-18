@@ -29,7 +29,7 @@
     };
 
 class TransportPylonsComponent {
-    uiPicture = "\A3\Air_F\Heli_Light_01\Data\UI\Heli_Light_01_3DEN_CA.paa";
+    uiPicture = "\fza_ah64_us\tex\pylonmenu.paa";
     class pylons {
         class pylons1 { //Pylon 1 rocket zone alpha
             maxweight = 560;
