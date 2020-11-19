@@ -86,7 +86,7 @@ class CfgMagazines
 			displayName = disp; \
 			count = 1; \
 			hardpoints[] = {"fza_agm114_ll"}; \
-			pylonWeapon = "fza_hellfire"; \
+			pylonWeapon = ammoname##_wep; \
 			muzzlePos = "muzzlepos"; \
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\dummysound", 3.16228, 1}; \
@@ -122,7 +122,7 @@ class CfgMagazines
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneA.p3d; \
 			count = 12; \
 			hardpoints[] = {"fza_hydra70_zone_AC"}; \
-			pylonWeapon = "fza_hydra70"; \
+			pylonWeapon = ammoname##_wep; \
 			muzzlePos = "muzzlepos"; \
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};\
@@ -146,7 +146,7 @@ class CfgMagazines
 	ROCKET_CONFIG(fza_275_m229, "M229 HEDP")
 	ROCKET_CONFIG(fza_275_m255, "M255 FLEC")
 	ROCKET_CONFIG(fza_275_m261, "M261 MPSM")
-	ROCKET_CONFIG(fza_275_m257, "M151 IL")
+	ROCKET_CONFIG(fza_275_m257, "M257 IL")
 
 	////////////////////////////////////////////////////////////////////////
 	//////////////////////////////FUEL TANKS////////////////////////////////

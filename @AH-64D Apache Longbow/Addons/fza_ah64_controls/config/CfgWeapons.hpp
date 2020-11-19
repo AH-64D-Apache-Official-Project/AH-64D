@@ -127,15 +127,14 @@ class CfgWeapons
 	
 	class fza_hellfire : MissileLauncher
 	{
+		scope = private;
 		class StandardSound 
 		{
 			soundSetShot[] = {"fza_agm114_soundset"};
 		};
-		sounds[] = {"StandardSound"};		
-		scope = 2;
+		sounds[] = {"StandardSound"};
 		displayName="AGM-114K";
-		#define HELLFIRE_DEFS(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
-		magazines[]={HELLFIRE_DEFS(fza_agm114k)};
+		magazines[]={};
 		weaponLockDelay = 1;
 		weaponLockSystem = 4;
 		lockedtargetsound[] = {"", 1, 1};
@@ -183,6 +182,19 @@ class CfgWeapons
 			displayName = "LOAL-HI";
 		};
 	};
+	#define HELLFIRE_DEFS(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
+	#define HELLFIRE_CONFIG(ammoName, prettyName) \
+		class ammoName##_wep : fza_hellfire {\
+			scope = protected;\
+			displayName = prettyName;\
+			magazines[] = {HELLFIRE_DEFS(ammoName)};\
+		} 
+	HELLFIRE_CONFIG(fza_agm114a, "AGM-114A")
+	HELLFIRE_CONFIG(fza_agm114c, "AGM-114C")
+	HELLFIRE_CONFIG(fza_agm114k, "AGM-114K")
+	HELLFIRE_CONFIG(fza_agm114l, "AGM-114L")
+	HELLFIRE_CONFIG(fza_agm114m, "AGM-114M")
+	HELLFIRE_CONFIG(fza_agm114n, "AGM-114N")
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////ROCKETS//////////////////////////////////
@@ -190,17 +202,12 @@ class CfgWeapons
 	
 	class fza_hydra70: RocketPods
 	{
-		scope = 1;
+		scope = private;
 		displayName="M261";
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		burst=1;
-		#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE
-		magazines[]={ROCKET_DEFS(fza_275_m151)
-			, ROCKET_DEFS(fza_275_m229)
-			, ROCKET_DEFS(fza_275_m255)
-			, ROCKET_DEFS(fza_275_m261)
-			, ROCKET_DEFS(fza_275_m257)};
+		magazines[]={};
 		modes[]= {"Single"};
 		class Single: LauncherCore
 		{
@@ -230,6 +237,18 @@ class CfgWeapons
 			cursoraim = "EmptyCursor";
 		};
 	};
+	#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE
+	#define ROCKET_CONFIG(ammoName, prettyName) \
+		class ammoName##_wep : fza_hydra70 {\
+			scope = protected;\
+			displayName = prettyName;\
+			magazines[] = {ROCKET_DEFS(ammoName)};\
+		} 
+	ROCKET_CONFIG(fza_275_m151, "M151 HEDP")
+	ROCKET_CONFIG(fza_275_m229, "M229 HEDP")
+	ROCKET_CONFIG(fza_275_m255, "M255 FLEC")
+	ROCKET_CONFIG(fza_275_m261, "M261 MPSM")
+	ROCKET_CONFIG(fza_275_m257, "M257 IL")
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////STINGERS/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	

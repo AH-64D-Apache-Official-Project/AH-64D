@@ -14,6 +14,7 @@ class TransportPylonsComponent {
     class pylons {
         class pylons1 { //Pylon 1 rocket zone alpha
             maxweight = 560;
+            turret[] = {0};
             hardPoints[] = {"fza_hydra70_zone_AC"};
             attachment = "fza_275_m229_zoneA";
             bay = -1;
