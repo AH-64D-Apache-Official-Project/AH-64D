@@ -5,13 +5,13 @@ _curwpn = weaponState [_heli, [0]];
 if (_curwpn # 0 iskindof ["fza_hellfire", configFile / "CfgWeapons"]) then {
 	switch (_curwpn # 2) do {
 		case "Cruise": {
-			_hfcurtraj = "\fza_ah64_us\tex\icons\hi.paa";
+			_hfcurtraj = "hi";
 		};
 		case "TopDown": {
-			_hfcurtraj = "\fza_ah64_us\tex\icons\lo.paa"
+			_hfcurtraj = "lo";
 		};
 		case "LoalDistance" : {
-			_hfcurtraj = "\fza_ah64_us\tex\icons\dir.paa";
+			_hfcurtraj = "dir";
 		};
 		default {
 			_hfcurtraj = "";
