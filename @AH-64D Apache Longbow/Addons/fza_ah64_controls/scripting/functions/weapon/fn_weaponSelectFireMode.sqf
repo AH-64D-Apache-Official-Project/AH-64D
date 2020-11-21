@@ -10,8 +10,8 @@ Parameters:
     _vehicle - The vehicle to apply this to
     _turret - The turret to work on
     _weapon - The name of the weapon to select - note this can also be done with the muzzle 
-    _magazine - The magazine to select
     _fireMode - The name of the firemode to select
+    _magazine - The magazine to select
     
 Returns:
 	Bool - whether operation succeded

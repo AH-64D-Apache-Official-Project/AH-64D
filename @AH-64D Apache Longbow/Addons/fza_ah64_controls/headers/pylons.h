@@ -10,7 +10,11 @@
 #define PYLON_ZONEA 0
 #define PYLON_ZONEB 1
 #define PYLON_ZONEE 2
+#define PYLON_HF_UL 3
+#define PYLON_HF_UR 4
+#define PYLON_HF_LL 5
+#define PYLON_HF_LR 6
 
-PYLON_TO_STANDARD(val) ((val)-1)
-PYLON_FROM_STANDARD(val) ((val)+1)
+#define PYLON_TO_STANDARD(val) ((val)-1)
+#define PYLON_FROM_STANDARD(val) ((val)+1)
 #endif

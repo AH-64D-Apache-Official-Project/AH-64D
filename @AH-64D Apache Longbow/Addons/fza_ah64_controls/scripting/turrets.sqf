@@ -23,7 +23,7 @@ do {
             _curcontrol = 0;
             _curguncontrol = 0.17;
         };
-        if (currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4) then {
+        if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
             //0.28777//
             _pylonElev = _curguncontrol;
             if ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1])) then {

@@ -52,6 +52,7 @@ _powerfactor = 1.9;
 _toffactor = 0.002;
 _rktavgvel = 990;
 
+_usingRocket = currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"];
 // AUTOTRACK
 _acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
 if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == player) && (local gunner _heli || (isNull gunner _heli && local _heli) || (local _heli && !(alive gunner _heli)))) then {
@@ -256,7 +257,7 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
         //_tof = (_heli distance _targasl) * _toffactor;
         //_tof = (_heli distance _targasl) / _toffactor;
         _tof = (_heli distance _targasl) / (1700 - ((_heli distance _targasl) ^ 0.6));
-        if (currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4) then {
+        if (_usingRocket) then {
             _tof = (_heli distance _targasl) / (1800 - ((_heli distance _targasl) ^ 0.6));
         };
 
@@ -301,7 +302,7 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
         _pylonelev = ((-1 * _targdir) * (sin _bank)) + ((-1 * (_targelev + _pitch)) * (cos _bank));
 
         _finalZ2 = (_wPos select 2) + _vzcor + _distfactor2;
-        if (currentweapon _heli == "Laserdesignator_mounted" || (!(isNull lasertarget _heli) && (currentweapon _heli == "fza_agm114_23_8" || currentweapon _heli == "fza_agm114_14_8" || currentweapon _heli in fza_ah64_hellfireweps1 || currentweapon _heli in fza_ah64_hellfireweps2 || currentweapon _heli in fza_ah64_hellfireweps3 || currentweapon _heli in fza_ah64_hellfireweps4))) then {
+        if (currentweapon _heli == "Laserdesignator_mounted" || (!(isNull lasertarget _heli) && (currentweapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]))) then {
             _finalZ2 = (_wPos select 2);
         };
         _modpos = _heli worldtomodel[_finalX, _finaly, _finalZ2];
@@ -311,9 +312,6 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
         _azimuth = ((_modpos select 0) atan2(_modpos select 1)) * -1;
         _elevation = (((_modpos select 2) atan2(((_modpos select 1) * (cos _modposX)) + ((_modpos select 0) * (sin _modposX))))) * -1;
 
-        //if (!(currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4)) then {
-        //    _pylonelev = 5;
-        //};
         if (!(isengineon _heli)) then {
             _pylonelev = 0;
             _elevation = -7;
@@ -387,7 +385,7 @@ if (((_acq == 0 || _acq == 3) && (local gunner _heli || (isNull gunner _heli && 
         _curcontrol = 0;
         _curguncontrol = 0.17;
     };
-    if (currentweapon _heli in fza_ah64_rocketweps14 || currentweapon _heli in fza_ah64_rocketweps23 || currentweapon _heli in fza_ah64_rocketweps1 || currentweapon _heli in fza_ah64_rocketweps2 || currentweapon _heli in fza_ah64_rocketweps3 || currentweapon _heli in fza_ah64_rocketweps4) then {
+    if (_usingRocket) then {
         //0.28777//
         fza_ah64_pylonelev = _curguncontrol;
         if ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1])) then {

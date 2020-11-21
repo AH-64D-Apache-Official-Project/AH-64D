@@ -35,21 +35,25 @@ class TransportPylonsComponent {
             hardPoints[] = {"fza_agm114_ul"};
             attachment = "";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_UL_Y};
+            priority = 8;
         };
         class pylons5:pylons1 { //Pylon 1 missile upper left
             hardPoints[] = {"fza_agm114_ur"};
             attachment = "";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_UR_Y};
+            priority = 7;
         };
         class pylons6:pylons1 { //Pylon 1 missile upper left
             hardPoints[] = {"fza_agm114_ll"};
             attachment = "";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_LL_Y};
+            priority = 6;
         };
         class pylons7:pylons1 { //Pylon 1 missile upper left
             hardPoints[] = {"fza_agm114_lr"};
             attachment = "";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_LR_Y};
+            priority = 5;
         };
 
         class pylons8: pylons1 { //Pylon 2 rocket zone charlie
@@ -67,18 +71,22 @@ class TransportPylonsComponent {
         class pylons11: pylons4 { //Pylon 2 missile upper left
             attachment = "fza_agm114k_ul";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_UL_Y};
+            priority = 4;
         };
         class pylons12: pylons5 { //Pylon 2 missile upper right
             attachment = "fza_agm114k_ur";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_UR_Y};
+            priority = 3;
         };
         class pylons13: pylons6 { //Pylon 2 missile lower left
             attachment = "fza_agm114l_ll";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_LL_Y};
+            priority = 2;
         };
         class pylons14: pylons7 { //Pylon 2 missile lower right
             attachment = "fza_agm114k_lr";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_LR_Y};
+            priority = 1;
         };
         
         class pylons15: pylons8 { //Pylon 3 rocket zone charlie
@@ -96,18 +104,22 @@ class TransportPylonsComponent {
         class pylons18: pylons11 { //Pylon 3 missile upper left
             mirroredMissilePos = 11;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_UL_Y};
+            priority = 4;
         };
         class pylons19: pylons12 { //Pylon 3 missile upper right
             mirroredMissilePos = 12;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_UR_Y};
+            priority = 3;
         };
         class pylons20: pylons13 { //Pylon 3 missile lower left
             mirroredMissilePos = 13;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_LL_Y};
+            priority = 2;
         };
         class pylons21: pylons14 { //Pylon 3 missile lower right
             mirroredMissilePos = 14;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_LR_Y};
+            priority = 1;
         };
 
         class pylons22: pylons1 { //Pylon 4 rocket zone alpha
@@ -125,18 +137,22 @@ class TransportPylonsComponent {
         class pylons25: pylons4 { //Pylon 4 missile upper left
             mirroredMissilePos = 4;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_UL_Y};
+            priority = 8;
         };
         class pylons26: pylons5 { //Pylon 4 missile upper right
             mirroredMissilePos = 5;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_UR_Y};
+            priority = 7;
         };
         class pylons27: pylons6 { //Pylon 4 missile lower left
             mirroredMissilePos = 6;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_LL_Y};
+            priority = 6;
         };
         class pylons28: pylons7 { //Pylon 4 missile lower right
             mirroredMissilePos = 7;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_LR_Y};
+            priority = 5;
         };
     }
 }

@@ -770,7 +770,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this in fza_ah64_rocketweps14 || currentweapon this in fza_ah64_rocketweps23 || currentweapon this in fza_ah64_rocketweps1 || currentweapon this in fza_ah64_rocketweps2 || currentweapon this in fza_ah64_rocketweps3 || currentweapon this in fza_ah64_rocketweps4)";
+				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
 				statement="fza_ah64_rs = [this] execvm ""\fza_ah64_controls\scripting\rocket_salvo.sqf""";
 			};

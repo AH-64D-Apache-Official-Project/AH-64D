@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponRocketInfo
+Function: fza_fnc_weaponRocketInventory
 
 Description:
     Gathers rocket inventory information, using given turret to work out whether it is selected or not.
@@ -10,7 +10,7 @@ Parameters:
 Returns:
     Array - [_rkt1, _rkt2, _rkt3, _rkt4, _rkt5]
     
-    where _rktN is either [] or [_name, _qty, _pylons]
+    where _rktN is either [] or [_name, _qty, _pylons, _tex]
     _name - the name of the pylons
 
 Examples:
@@ -27,14 +27,16 @@ _inventory = [[], [], [], [], []];
 
 for "_pylon" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
     for "_zone" from PYLON_ZONEA to PYLON_ZONEE do {
-        _magName = _mags select _pylon + _zone;
+        _magName = _mags select (_pylon + _zone);
         if (_magName != "") then {
             _ammoName = getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
             _ammoQty = _heli ammoOnPylon PYLON_FROM_STANDARD(_pylon + _zone);
             
             for "_i" from 0 to 4 do {
-                if (_inventory # _i isEqualTo []) exitWith {
-                    _inventory set [_i, [_ammoName, _ammoQty, [_pylon]]]
+                if ((_inventory # _i) isEqualTo []) exitWith {
+                    _ammoTexB = getText (configFile >> "CfgAmmo" >> _ammoName >> "fza_wpnPageIconB");
+                    _ammoTexG = getText (configFile >> "CfgAmmo" >> _ammoName >> "fza_wpnPageIconG");
+                    _inventory set [_i, [_ammoName, _ammoQty, [_pylon], _ammoTexB, _ammoTexG]];
                 };
                 if (_inventory # _i # 0 == _ammoName) exitWith {
                     _inventory # _i set [1, _ammoQty + _inventory # _i # 1];
@@ -44,3 +46,4 @@ for "_pylon" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
         };
     };
 };
+_inventory;

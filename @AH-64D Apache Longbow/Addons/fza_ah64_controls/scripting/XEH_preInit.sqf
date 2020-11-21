@@ -18,17 +18,6 @@
 	[true]
 ] call CBA_fnc_addSetting;
 
-fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
-fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
-fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
-fza_ah64_rocketweps2 = ["fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3"];
-fza_ah64_rocketweps3 = ["fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3"];
-fza_ah64_rocketweps4 = ["fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-fza_ah64_hellfireweps1 = ["fza_agm114_1_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr"];
-fza_ah64_hellfireweps2 = ["fza_agm114_2_4", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr"];
-fza_ah64_hellfireweps3 = ["fza_agm114_3_4", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr"];
-fza_ah64_hellfireweps4 = ["fza_agm114_4_4", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
-
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
 fza_ah64_laserstate = 0;

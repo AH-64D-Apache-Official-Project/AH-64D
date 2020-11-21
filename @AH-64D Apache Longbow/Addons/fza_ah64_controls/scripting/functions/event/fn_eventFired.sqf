@@ -29,11 +29,8 @@ if (_weapon == "fza_m230") then {
     addCamShake [0.40, 1, 25];
 };
 
-_hellfireweps = ["fza_agm114_23_8", "fza_agm114_14_8", "fza_agm114_1_4", "fza_agm114_2_4", "fza_agm114_3_4", "fza_agm114_4_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr", "fza_atas_2"];
-_rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE", "fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3", "fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3", "fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3", "fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-
 // RKT + MSL SHAKE
-if (_weapon in _hellfireweps || _weapon in _rocketweps) then 
+if (_weapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] || _weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then 
 {
     addCamShake [0.40, 0.5, 25];
 };
@@ -81,7 +78,9 @@ if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
     _this spawn {
         params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
         sleep 0.011;
-        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo") && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
+        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 
+            && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo")
+            && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
             if (_ah64 ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };
