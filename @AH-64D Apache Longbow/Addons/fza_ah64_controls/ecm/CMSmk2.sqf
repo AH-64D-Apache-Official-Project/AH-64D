@@ -17,17 +17,8 @@ _poshostile = getpos _missile;
 _range = _poshostile distance _posac;
 _highlow = "High";
 
+////Reduces the missiles 2 cores to 1 activation
 _fza_ah64_incominghandled = _hostile getVariable ["fza_ah64_shotCounter", 0];
-//////////////////////////////////
-//Event is fired twice per missile fired at the aircraft. Modulo operator used so that it is only called for the second event.
-/*5 / 2 => 2
-5 % 2 => 1
-
-0 (0 % 2 => 0) -- Runs
-1 (1 % 2 => 1) -- Doesn't run
-2 (2 % 2 => 0) -- Runs
-3 (3 % 2 => 1) -- Doesn't run*/
-//////////////////////////////////
 _hostile setVariable ["fza_ah64_shotCounter", (_fza_ah64_incominghandled + 1) % 2];
 if (_fza_ah64_incominghandled % 2 == 1) exitWith {};
 
@@ -118,7 +109,7 @@ if (_theta > 285 && _theta < 316) then
 
 if (_theta > 315 && _theta < 346) then
 {
-	_oclock = 11;
+	_oclock = 11; 
 	_clockaud = "fza_ah64_bt_11oclock";
 };
 
@@ -126,28 +117,23 @@ if(!(_hostile in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_
 if (_ac getVariable "fza_ah64_aseautopage" == 2) then {
         [_ac, 1, "ase"] call fza_fnc_mpdSetDisplay;
     };
-if (_range < 8000) then
-{
-	_ac vehiclechat format ["Missile %1 OClock %2 %3 Meters",_oclock,_highlow,_range];
-	//hint str [_oclock,_highlow,_range];
-};
 
-if (_range < 8000) then
-{
+if (_ac getVariable "fza_ah64_aseautopage" >= 1 && (_range < 8000)) then {
+	_ac vehiclechat format ["Missile %1 OClock %2 %3 Meters",_oclock,_highlow,_range];
 	_bthlsound = "fza_ah64_bt_" + _highlow;
-	if (_usesound) then {
-        ["fza_ah64_bt_missile", 0.65, _clockaud, 1.3, _bthlsound, 0.62] spawn fza_fnc_playAudio;
-    };
+	if (_usesound) then { 
+		["fza_ah64_bt_missile", 0.65, _clockaud, 1.3, _bthlsound, 0.62] spawn fza_fnc_playAudio;
+	};
 };
 
 fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
 if (fza_ah64_rfjstate == 1) then {fza_ah64_rfjon = 0;};
 if (fza_ah64_irjstate == 1) then {fza_ah64_irjon = 0;};
 
+
 if(local _ac && !(player == driver _ac) || !(player == gunner _ac)) then
 {
 	_missile = nearestobject [_hostile,_munition];
-
 	_posac = getpos _ac;
 	_poshostile = getpos _missile;
 	_range = _poshostile distance _posac;
@@ -155,10 +141,15 @@ if(local _ac && !(player == driver _ac) || !(player == gunner _ac)) then
 	_chance1 = 200;
 	_rand = 4;
 
+	////ASE PAGE LINK////
+	waitUntil {((fza_ah64_rfjstate == 1 && (_ac getVariable "fza_ah64_aseautopage" == 2)) || (fza_ah64_rfjon == 1) || !(alive _missile))};
+	if !(alive _missile) exitwith {};
+	////ASE PAGE LINK END////
+
 	if(typeof _missile in fza_ah64_mis_ir) then {_rand = 5;};
 	if(typeof _missile in fza_ah64_mis_rf) then {_rand = 4;};
 	if (floor random 10 < _rand) exitwith {};
-	waitUntil {_missile distance _ac < 200};	
+	waitUntil {_missile distance _ac < 350};
 	while {(alive _missile) && (alive _ac)} do
 	{
 		_mistheta = [_ac, (getpos _ac select 0), (getpos _ac select 1), (_poshostile select 0), (_poshostile select 1)] call fza_fnc_relativeDirection;
