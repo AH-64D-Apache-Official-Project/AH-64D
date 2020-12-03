@@ -83,7 +83,6 @@ class CfgFunctions
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
-			class fx30mm {R;};
 			class fxMuzzle {R;};
 		}
 		class ihadss

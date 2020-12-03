@@ -49,8 +49,7 @@ class CfgAmmo
 	{
 		soundsetbulletfly[] = {"fza_sc_bullet_flyby_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_30x113_soundset"};
-		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};		
-		muzzleeffect = "fza_fnc_fx30mm";		
+		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
 		hit = 60;
 		indirectHit = 10;
 		indirectHitRange = 3.5;		

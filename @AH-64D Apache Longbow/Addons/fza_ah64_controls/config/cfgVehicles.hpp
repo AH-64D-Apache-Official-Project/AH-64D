@@ -984,6 +984,7 @@ class CfgVehicles
 		lockdetectionsystem = "8+4";
 		incommingmissliedetectionsystem = 16;
 		gunAimDown = 0;
+		camshakecoef = 0.5;
 		selectionHRotorStill = "velka vrtule staticka";
 		selectionHRotorMove = "velka vrtule blur";
 		selectionVRotorStill = "mala vrtule staticka";
