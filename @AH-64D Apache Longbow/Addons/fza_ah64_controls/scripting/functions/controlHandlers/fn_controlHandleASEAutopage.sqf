@@ -22,12 +22,12 @@ params ["_heli"];
 
 switch(_heli getVariable "fza_ah64_aseautopage") do {
 	case 0: {
-		_heli setVariable ["fza_ah64_aseautopage", 1];
+		_heli setVariable ["fza_ah64_aseautopage", 1, true];
 	};
 	case 1: {
-		_heli setVariable ["fza_ah64_aseautopage", 2];
+		_heli setVariable ["fza_ah64_aseautopage", 2, true];
 	};
 	case 2: {
-		_heli setVariable ["fza_ah64_aseautopage", 0];
+		_heli setVariable ["fza_ah64_aseautopage", 0, true];
 	};
 };

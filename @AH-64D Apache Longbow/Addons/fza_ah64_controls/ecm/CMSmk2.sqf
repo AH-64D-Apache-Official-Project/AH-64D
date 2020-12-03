@@ -30,10 +30,10 @@ if(typeOf _ac == "fza_ah64d_b2e" || typeOf _ac == "fza_ah64d_b2exp" || typeOf _a
 };
 
 {
-    if (_hostile iskindof _x && fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0 && _ac getVariable "fza_ah64_aseautopage" == 2) then {
+    if (_hostile iskindof _x && _ac getVariable "fza_ah64_rfjstate" == 1 &&  _ac getVariable "fza_ah64_rfjon" == 0 && _ac getVariable "fza_ah64_aseautopage" == 2) then {
         _rfjammerscript = [_ac] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";
     };
-    if (_hostile iskindof _x && fza_ah64_irjstate == 1 && fza_ah64_irjon == 0 && _ac getVariable "fza_ah64_aseautopage" == 2) then {
+    if (_hostile iskindof _x && _ac getVariable "fza_ah64_irjstate" == 1 && _ac getVariable "fza_ah64_irjon" == 0 && _ac getVariable "fza_ah64_aseautopage" == 2) then {
         _irjammerscript = [_ac] execvm "\fza_ah64_controls\scripting\ir_jammer.sqf";
     };
 }
@@ -127,9 +127,8 @@ if (_ac getVariable "fza_ah64_aseautopage" >= 1 && (_range < 8000)) then {
 };
 
 fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
-if (fza_ah64_rfjstate == 1) then {fza_ah64_rfjon = 0;};
-if (fza_ah64_irjstate == 1) then {fza_ah64_irjon = 0;};
-
+if (_ac getVariable "fza_ah64_rfjstate" == 1) then {_ac setVariable ["fza_ah64_rfjon", 0, true];};
+if (_ac getVariable "fza_ah64_irjstate" == 1) then {_ac setVariable ["fza_ah64_irjon", 0, true];};
 
 if(local _ac && !(player == driver _ac) || !(player == gunner _ac)) then
 {
@@ -142,7 +141,7 @@ if(local _ac && !(player == driver _ac) || !(player == gunner _ac)) then
 	_rand = 4;
 
 	////ASE PAGE LINK////
-	waitUntil {((fza_ah64_rfjstate == 1 && (_ac getVariable "fza_ah64_aseautopage" == 2)) || (fza_ah64_rfjon == 1) || !(alive _missile))};
+	waitUntil {((_ac getVariable "fza_ah64_rfjstate" == 1 && (_ac getVariable "fza_ah64_aseautopage" == 2)) || (_ac getVariable "fza_ah64_rfjon" == 1) || !(alive _missile))};
 	if !(alive _missile) exitwith {};
 	////ASE PAGE LINK END////
 
