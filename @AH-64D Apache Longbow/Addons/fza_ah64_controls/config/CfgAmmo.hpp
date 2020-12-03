@@ -350,8 +350,6 @@ class CfgAmmo
 		submunitionAmmo = "fza_m73mpsm";
 		submunitionConeType[] = {"randomcenter",9};
 		submunitionConeAngle = 2;
-		triggerTime = 1;
-		triggerSpeedCoef = 0.7;
 	};
 	class fza_275_m257: fza_275_base 
 	{	
@@ -382,8 +380,6 @@ class CfgAmmo
 		submunitionAmmo = "fza_flec_cluster";
 		submunitionConeType[] = {"randomcenter",100};
 		submunitionConeAngle = 12;
-		triggerTime = 1;
-		triggerSpeedCoef = 1;
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
 		aiAmmoUsageFlags = 1;
