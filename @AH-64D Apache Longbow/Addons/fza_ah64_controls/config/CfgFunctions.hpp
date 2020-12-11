@@ -189,6 +189,7 @@ class CfgFunctions
 			class weaponMissileGetSelected {R;};
 			class weaponMissileTrajectory {R;};
 			class weaponM230CycleBurst {R;};
+			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};

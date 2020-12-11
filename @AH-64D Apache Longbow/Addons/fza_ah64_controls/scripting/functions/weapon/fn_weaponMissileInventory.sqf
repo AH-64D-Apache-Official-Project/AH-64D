@@ -1,20 +1,31 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponRocketInventory
+Function: fza_fnc_weaponMissileInventory
 
 Description:
-    Gathers rocket inventory information, using given turret to work out whether it is selected or not.
+    Gathers missile pylon information information.
 
 Parameters:
-    _heli - The helicopter that fired it
+    _heli - The helicopter to gather inventory information on
 
 Returns:
-    Array - [_rkt1, _rkt2, _rkt3, _rkt4, _rkt5]
+    Array - [_msl1UL, _msl1UR, _msl1LL, _msl1LR, ... , _msl4LR] (size 16)
     
-    where _rktN is either [] or [_name, _qty, _pylons, _tex]
-    _name - the name of the pylons
+    where _mslNXX is the state of the current pylon:
+
+    * "AMMO_NAME" where ammo is on that pylon
+    * "" where there was a hellfire, but it has been shot (the HML is still there)
+    * -1 where there is no hellfire and no  HML (on the WPN page a rail should not be shown)
 
 Examples:
+    (start code)
+    //On an aircraft with a HML on pylons 2 and 3, with AGM-114Ks on the upper half and AGM-114L on the lower half
+    _ret = [_heli] call fza_fnc_weaponMissileInventory
+    //_ret => [-1,-1,-1,-1,"fza_agm114k","fza_agm114k","fza_agm114l","fza_agm114l","fza_agm114k","fza_agm114k","fza_agm114l","fza_agm114l",-1,-1,-1,-1]
 
+    //The same aircraft as above, but with all the outboard rockets fired off
+    _ret2 = [_heli] call fza_fnc_weaponMissileInventory
+    \\_ret2 => [-1,-1,-1,-1,"","fza_agm114k","","fza_agm114l","","fza_agm114k","","fza_agm114l",-1,-1,-1,-1]
+    (end)
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
@@ -34,7 +45,7 @@ for "_pylon" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
             _inventory pushBack (["", _ammoName] select (_ammoQty != 0));
         } else {
             _inventory pushBack -1;
-        }
+        };
     };
 };
 _inventory

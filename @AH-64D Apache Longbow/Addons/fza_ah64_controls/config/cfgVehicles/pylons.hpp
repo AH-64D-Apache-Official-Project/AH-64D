@@ -137,22 +137,22 @@ class TransportPylonsComponent {
         class pylons25: pylons4 { //Pylon 4 missile upper left
             mirroredMissilePos = 4;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_UL_Y};
-            priority = 8;
+            priority = 7;
         };
         class pylons26: pylons5 { //Pylon 4 missile upper right
             mirroredMissilePos = 5;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_UR_Y};
-            priority = 7;
+            priority = 8;
         };
         class pylons27: pylons6 { //Pylon 4 missile lower left
             mirroredMissilePos = 6;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_LL_Y};
-            priority = 6;
+            priority = 7;
         };
         class pylons28: pylons7 { //Pylon 4 missile lower right
             mirroredMissilePos = 7;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_LR_Y};
-            priority = 5;
+            priority = 6;
         };
     }
 }

@@ -15,6 +15,9 @@
 #define PYLON_HF_LL 5
 #define PYLON_HF_LR 6
 
+#define PYLON_ROCKETS(_pylNum) ([PYLON_ZONEA, PYLON_ZONEB, PYLON_ZONEE] apply {_x + _pylNum})
+#define PYLON_MISSILES(_pylNum) ([PYLON_HF_UL, PYLON_HF_UR, PYLON_HF_LL, PYLON_HF_LR] apply {_x + _pylNum})
+
 #define PYLON_TO_STANDARD(val) ((val)-1)
 #define PYLON_FROM_STANDARD(val) ((val)+1)
 #endif

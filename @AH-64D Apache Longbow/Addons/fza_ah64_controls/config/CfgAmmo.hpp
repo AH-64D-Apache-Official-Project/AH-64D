@@ -399,9 +399,9 @@ class CfgAmmo
 	};
 	class fza_275_m255: fza_275_base 
 	{
-		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6FC-B_ca.paa";
-		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6FC-G_ca.paa";
-		fza_shortCode = "6FC";
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
+		fza_shortCode = "6FL";
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		proxyShape = "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects = "ATMissileCrater";
