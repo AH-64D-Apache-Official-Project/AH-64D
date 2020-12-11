@@ -39,7 +39,7 @@ class Extended_GetOut_EventHandlers {
 class Extended_IncomingMissile_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_incomingMissile_eh {
-			incomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf""";
+			incomingMissile = "_this execvm ""\fza_ah64_controls\ecm\CMSmk2.sqf"",_this execvm ""\fza_ah64_controls\ecm\MAWmk1.sqf""";
 		};
 	};
 };

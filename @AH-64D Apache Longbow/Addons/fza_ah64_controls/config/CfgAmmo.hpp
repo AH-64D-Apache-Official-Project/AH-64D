@@ -24,7 +24,7 @@ class CfgAmmo
 		airFriction = -0.01;
 		simulation = "shotCM";
 		effectsSmoke = "fza_cmflare";
-		weaponLockSystem = 2;
+		weaponLockSystem = 2+8;
 		model = "\A3\weapons_f\empty";
 		maxControlRange = -1;
 		initTime = 0;

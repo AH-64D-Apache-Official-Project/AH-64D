@@ -50,7 +50,11 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
 };
-_heli setVariable ["fza_ah64_aseautopage", 0];
+_heli setVariable ["fza_ah64_irjstate", 0, true];
+_heli setVariable ["fza_ah64_rfjstate", 0, true];
+_heli setVariable ["fza_ah64_irjon", 0, true];
+_heli setVariable ["fza_ah64_rfjon", 0, true];
+_heli setVariable ["fza_ah64_aseautopage", 0, true];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];

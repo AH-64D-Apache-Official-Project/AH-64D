@@ -46,13 +46,47 @@ _heli setObjectTexture [SEL_MPD_PR_ASE_AUTPG,
 	}
 ];
 
-_heli setObjectTexture [SEL_MPD_PR_ASE_RJOFF, if (fza_ah64_rfjon == 0) then {"\fza_ah64_us\tex\mpd\OFF.paa"} else {""}];
-_heli setObjectTexture [SEL_MPD_PR_ASE_RJAUT, if (fza_ah64_rfjstate == 1) then {"\fza_ah64_us\tex\mpd\STBY.paa"} else {""}];
-_heli setObjectTexture [SEL_MPD_PR_ASE_RJON, if (fza_ah64_rfjon == 1) then {"\fza_ah64_us\tex\mpd\OPER.paa"} else {""}];
+_heli setObjectTexture [SEL_MPD_PR_ASE_RJOFF, 
+	switch (_heli getVariable "fza_ah64_rfjon") do {
+		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
+		case 1 : { "" };
+	}
+];
 
-_heli setObjectTexture [SEL_MPD_PR_ASE_IJOFF, if (fza_ah64_irjon == 0) then {"\fza_ah64_us\tex\mpd\OFF.paa"} else {""}];
-_heli setObjectTexture [SEL_MPD_PR_ASE_IJAUT, if (fza_ah64_irjstate == 1) then {"\fza_ah64_us\tex\mpd\STBY.paa"} else {""}];
-_heli setObjectTexture [SEL_MPD_PR_ASE_IJON, if (fza_ah64_irjon == 1) then {"\fza_ah64_us\tex\mpd\OPER.paa"} else {""}];
+_heli setObjectTexture [SEL_MPD_PR_ASE_IJOFF, 
+	switch (_heli getVariable "fza_ah64_irjon") do {
+		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
+		case 1 : { "" };
+	}
+];
+
+_heli setObjectTexture [SEL_MPD_PR_ASE_RJAUT, 
+	switch (_heli getVariable "fza_ah64_rfjstate") do {
+		case 0 : { "" };
+		case 1 : { "\fza_ah64_us\tex\mpd\STBY.paa" };
+	}
+];
+
+_heli setObjectTexture [SEL_MPD_PR_ASE_IJAUT, 
+	switch (_heli getVariable "fza_ah64_irjstate") do {
+		case 0 : { "" };
+		case 1 : { "\fza_ah64_us\tex\mpd\STBY.paa" };
+	}
+];
+
+_heli setObjectTexture [SEL_MPD_PR_ASE_RJON, 
+	switch (_heli getVariable "fza_ah64_rfjon") do {
+		case 0 : { "" };
+		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
+	}
+];
+
+_heli setObjectTexture [SEL_MPD_PR_ASE_IJON, 
+	switch (_heli getVariable "fza_ah64_irjon") do {
+		case 0 : { "" };
+		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
+	}
+];
 
 private _firstSelection = if (driver _heli == player) then {SEL_MPD_PL_OBJ1} else {SEL_MPD_GR_OBJ1};
 private _lastSelection = if (driver _heli == player) then {SEL_MPD_PL_OBJ32} else {SEL_MPD_GR_OBJ32};

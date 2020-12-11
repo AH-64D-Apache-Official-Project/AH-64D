@@ -36,10 +36,10 @@ params ["_heli"];
 		};
 		if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
 			[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
-			if (fza_ah64_rfjstate == 1 && fza_ah64_rfjon == 0) then {
+			if (_heli getVariable "fza_ah64_rfjstate" == 1 && _heli getVariable "fza_ah64_rfjon" == 0) then {
 				_rfjammerscript = [(vehicle player)] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";
 			};
-			if (fza_ah64_irjstate == 1 && fza_ah64_irjon == 0) then {
+			if (_heli getVariable "fza_ah64_irjstate" == 1 && _heli getVariable "fza_ah64_irjon" == 0) then {
 				_irjammerscript = [(vehicle player)] execvm "\fza_ah64_controls\scripting\ir_jammer.sqf";
 			};
 		};

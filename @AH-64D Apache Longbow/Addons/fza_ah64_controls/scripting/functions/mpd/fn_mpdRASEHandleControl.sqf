@@ -13,13 +13,13 @@ switch(_control) do {
 		[_heli] execvm "\fza_ah64_controls\scripting\rf_jammer.sqf";
 	};
 	case "r5": {
-		fza_ah64_rfjstate = fza_ah64_rfjstate + 1;
-		if (fza_ah64_rfjstate == 2) then {
-			fza_ah64_rfjstate = 0;
+		_heli setVariable ["fza_ah64_rfjstate", (_heli getVariable "fza_ah64_rfjstate") + 1, true];
+		if (_heli getVariable "fza_ah64_rfjstate" == 2) then {
+			_heli setVariable ["fza_ah64_rfjstate", 0, true];
 		};
 	};
 	case "r6": {
-		fza_ah64_rfjon = 0;
+		_heli setVariable ["fza_ah64_rfjon", 0, true];
 	};
 	case "l1": {
 		_autpg = [_heli] call fza_fnc_controlHandleASEAutopage;
@@ -28,13 +28,13 @@ switch(_control) do {
 		_irjamonoff = [_heli] execvm "\fza_ah64_controls\scripting\ir_jammer.sqf";
 	};
 	case "l5": {
-		fza_ah64_irjstate = fza_ah64_irjstate + 1;
-		if (fza_ah64_irjstate == 2) then {
-			fza_ah64_irjstate = 0;
+		_heli setVariable ["fza_ah64_irjstate", (_heli getVariable "fza_ah64_irjstate") + 1, true];
+		if (_heli getVariable "fza_ah64_irjstate" == 2) then {
+			_heli setVariable ["fza_ah64_irjstate", 0, true];
 		};
 	};
 	case "l6": {
-		fza_ah64_irjon = 0;
+		_heli setVariable ["fza_ah64_irjon", 0, true];
 	};
 	case "tsd": {
 		[_heli, 1, "tsd"] call fza_fnc_mpdSetDisplay;
