@@ -1,8 +1,4 @@
-#define TSD_ICON_TYPE_WP 0
-#define TSD_ICON_TYPE_HZ 1
-#define TSD_ICON_TYPE_CM 2
-#define TSD_ICON_TYPE_TG 3
-
+#include "\fza_ah64_dms\headers\constants.h"
 
 #define TSD_ROOT               [0, 0]
 #define TSD_SHOW               [1, 0]

@@ -29,7 +29,7 @@ class Draw
     class Wpn {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WPN);
         #include "pages\wpn_draw.hpp"
-    }
+    };
     class Menu {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_MENU);
         #include "pages\menu_draw.hpp"
@@ -42,15 +42,15 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
         #include "pages\wca_draw.hpp"
     };
-    class Eng{
+    class Eng {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_ENG);
         #include "pages\eng_draw.hpp"
     };
-    class Fuel{
+    class Fuel {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FUEL);
         #include "pages\fuel_draw.hpp"
     };
-    class Tsd{
+    class Tsd {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_TSD);
         #include "pages\tsd_draw.hpp"
     };
