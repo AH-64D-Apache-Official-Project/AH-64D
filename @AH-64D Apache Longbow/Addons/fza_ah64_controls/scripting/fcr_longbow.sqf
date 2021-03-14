@@ -29,7 +29,7 @@ do {
         ((driver(vehicle player) == player || gunner(vehicle player) == player) && isengineon(vehicle player))
     };
 
-    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
+    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && _heli getHit "radar" < 0.8) then {
         //add targets to master list
         //_targetArray = (list _radsweep);
         //_targetArray = vehicles - allDead;

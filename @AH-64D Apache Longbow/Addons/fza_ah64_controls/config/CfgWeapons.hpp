@@ -150,8 +150,7 @@ class CfgWeapons
 		midRange = 3500;
 		midRangeProbab = 1.0;
 		maxRange = 8000;
-		maxRangeProbab = 0.8;
-		reloadtime = 1;	
+		maxRangeProbab = 0.8;	
 		modes[]	= {TopDown,LoalDistance,Cruise};
 		class TopDown: Mode_SemiAuto
 		{

@@ -31,11 +31,8 @@ class CfgFunctions
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
-			class damageDisplayProcessor {R;};
 			class damageSystem {R;};
-			class damageWeapon {R;};
 			class damageM230 {R;};
-			class damageRotors {R;};
 		}
 		class engine
 		{

@@ -1,4 +1,6 @@
-if (fza_ah64_irjon == 0 && !("fza_ah64_irjamfail" in ((vehicle player) magazinesturret[-1]))) then {
+params ["_heli"];
+
+if (fza_ah64_irjon == 0 && !(_heli getVariable "fza_ah64_irjamfail")) then {
     fza_ah64_irjon = 1;
     while {
         (fza_ah64_irjammer < 61 && fza_ah64_irjon == 1)

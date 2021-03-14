@@ -73,10 +73,10 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
-			if (!("fza_ah64_firepdisch" in (_heli magazinesturret[-1]))) then {
+			if !(_heli getVariable "fza_ah64_firepdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
-			if (!("fza_ah64_firerdisch" in (_heli magazinesturret[-1]))) then {
+			if !(_heli getVariable "fza_ah64_firerdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
@@ -91,54 +91,52 @@ switch(_control) do {
 		};
 	};
 	case "fe1": {
-		if (fza_ah64_fire1arm == 0) exitwith {
+		if (_heli getVariable "fza_ah64_fire1arm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			fza_ah64_fire1arm = 1;
+			_heli setVariable ["fza_ah64_fire1arm", 1];
 			["fza_ah64_button_click2", 0.1];
 		};
-		if (fza_ah64_fire1arm == 1) exitwith {
+		if (_heli getVariable "fza_ah64_fire1arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-			fza_ah64_fire1arm = 0;
+			_heli setVariable ["fza_ah64_fire1arm", 0];
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fe2": {
-		if (fza_ah64_fire2arm == 0) exitwith {
+		if (_heli getVariable "fza_ah64_fire2arm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			fza_ah64_fire2arm = 1;
+			_heli setVariable ["fza_ah64_fire2arm", 1];
 			["fza_ah64_button_click2", 0.1];
 		};
-		if (fza_ah64_fire2arm == 1) exitwith {
+		if (_heli getVariable "fza_ah64_fire2arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-			fza_ah64_fire2arm = 0;
+			_heli setVariable ["fza_ah64_fire2arm", 0];
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fapu": {
-			if (fza_ah64_fireapuarm == 0) exitwith {
+			if (_heli getVariable "fza_ah64_fireapuarm" == 0) exitwith {
 				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-				fza_ah64_fireapuarm = 1;
+				_heli setVariable ["fza_ah64_fireapuarm", 1];
 				["fza_ah64_button_click2", 0.1];
 			};
-			if (fza_ah64_fireapuarm == 1) exitwith {
+			if (_heli getVariable "fza_ah64_fireapuarm" == 1) exitwith {
 				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-				fza_ah64_fireapuarm = 0;
+				_heli setVariable ["fza_ah64_fireapuarm", 0];
 				["fza_ah64_button_click2", 0.1];
 			};
 	};
 	case "fbp": {
-		if ((fza_ah64_fireapuarm == 1 || fza_ah64_fire2arm == 1 || fza_ah64_fire1arm == 1) && !("fza_ah64_firepdisch" in (_heli magazinesturret[-1])) && !("fza_ah64_firepdisch" in magazines _heli)) then {
+		if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firepdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-				_heli addmagazine "fza_ah64_firepdisch";
-				_heli addmagazineturret["fza_ah64_firepdisch", [-1]];
+				_heli setVariable ["fza_ah64_firepdisch", true, true];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
 		case "fbr": {
-			if ((fza_ah64_fireapuarm == 1 || fza_ah64_fire2arm == 1 || fza_ah64_fire1arm == 1) && !("fza_ah64_firerdisch" in (_heli magazinesturret[-1])) && !("fza_ah64_firerdisch" in magazines _heli)) then {
+			if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firerdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-				_heli addmagazine "fza_ah64_firerdisch";
-				_heli addmagazineturret["fza_ah64_firerdisch", [-1]];
+				_heli setVariable ["fza_ah64_firerdisch", true, true];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
@@ -159,8 +157,6 @@ switch(_control) do {
 			} else {
 				_heli animate["cpg_firesw", 0];
 			};
-
-
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
@@ -190,10 +186,10 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
-			if (!("fza_ah64_firepdisch" in (_heli magazinesturret[-1]))) then {
+			if !(_heli getVariable "fza_ah64_firepdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
-			if (!("fza_ah64_firerdisch" in (_heli magazinesturret[-1]))) then {
+			if !(_heli getVariable "fza_ah64_firerdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;

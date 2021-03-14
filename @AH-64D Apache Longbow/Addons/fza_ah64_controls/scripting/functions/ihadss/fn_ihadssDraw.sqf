@@ -349,11 +349,11 @@ _autohide = {
 
 };
 
-if (("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && ("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) then {
+if ((_heli getVariable "fza_ah64_ldp_fail") && (_heli getVariable "fza_ah64_rdp_fail")) then {
     1 cuttext["", "PLAIN", 0.1];
     _heli setVariable ["fza_ah64_ihadssoff", 2];
 };
-if ((!("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) || !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
+if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_rdp_fail")) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
     _heli setVariable ["fza_ah64_ihadssoff", 1];
 };
 

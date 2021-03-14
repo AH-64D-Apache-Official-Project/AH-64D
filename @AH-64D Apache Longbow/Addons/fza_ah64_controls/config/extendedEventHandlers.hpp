@@ -53,14 +53,6 @@ class Extended_IncomingMissile_EventHandlers {
 	};
 };
 
-class Extended_handleDamage_EventHandlers {
-	class fza_ah64base {
-		class fza_ah64base_handleDamage_eh {
-			handleDamage = "if(alive (_this select 0) && !(surfaceiswater [getposasl (_this select 0) select 0,getposasl (_this select 0) select 1] && getpos (_this select 0)  select 2 < 0)) then {_this call fza_fnc_damageSystem;}; if(alive (_this select 0)) then {_this select 2};";
-		};
-	};
-};
-
 class Extended_Killed_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_killed_eh {

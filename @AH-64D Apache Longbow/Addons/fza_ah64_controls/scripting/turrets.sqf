@@ -26,7 +26,7 @@ do {
         if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
             //0.28777//
             _pylonElev = _curguncontrol;
-            if ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1])) then {
+            if (_heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail") then {
                 _pylonElev = 5.07;
             };
             if (_curguncontrol > 0) then {
@@ -67,7 +67,7 @@ do {
             _heli animate["pylon3", 0.507];
             _heli animate["pylon4", 0.507];
         };
-        if ("fza_ah64_gun_fail" in (_heli magazinesturret[-1]) || ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1]))) then {
+        if (_heli getHit "otocvez" >= 0.8 || (_heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail")) then {
             _curcontrol = 0;
             _curguncontrol = 0.17;
         };

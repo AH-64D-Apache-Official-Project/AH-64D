@@ -51,7 +51,7 @@ _distfactor2 = 1;
 _powerfactor = 1.9;
 _toffactor = 0.002;
 _rktavgvel = 990;
-
+_weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
 _usingRocket = currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"];
 // AUTOTRACK
 _acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
@@ -317,7 +317,7 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
             _elevation = -7;
             _azimuth = 0;
         };
-        if ("fza_ah64_gun_fail" in (_heli magazinesturret[-1]) || ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1]))) then {
+        if ("fza_ah64_gun_fail" in (_heli magazinesturret[-1]) || _weaponsProcessorFailed) then {
             _azimuth = 0;
             _elevation = -10;
         };
@@ -339,7 +339,7 @@ if ((_acq == 1 || _acq == 2) && (gunner _heli == player || driver _heli == playe
         if (_pylonelev < -10) then {
             _pylonelev = -10;
         };
-        if ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1])) then {
+        if _weaponsProcessorFailed then {
             _pylonelev = 5.07;
         };
         fza_ah64_pylonelev1 = _pylonelev;
@@ -388,7 +388,7 @@ if (((_acq == 0 || _acq == 3) && (local gunner _heli || (isNull gunner _heli && 
     if (_usingRocket) then {
         //0.28777//
         fza_ah64_pylonelev = _curguncontrol;
-        if ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1])) then {
+        if _weaponsProcessorFailed then {
             fza_ah64_pylonelev = 5.07;
         };
         if (_curguncontrol > 0) then {
@@ -429,7 +429,7 @@ if (((_acq == 0 || _acq == 3) && (local gunner _heli || (isNull gunner _heli && 
         _heli animate["pylon3", 0.507];
         _heli animate["pylon4", 0.507];
     };
-    if ("fza_ah64_gun_fail" in (_heli magazinesturret[-1]) || ("fza_ah64_rwp_fail" in (_heli magazinesturret[-1]) && "fza_ah64_lwp_fail" in (_heli magazinesturret[-1]))) then {
+    if ("fza_ah64_gun_fail" in (_heli magazinesturret[-1]) || _weaponsProcessorFailed) then {
         _curcontrol = 0;
         _curguncontrol = 0.17;
     };

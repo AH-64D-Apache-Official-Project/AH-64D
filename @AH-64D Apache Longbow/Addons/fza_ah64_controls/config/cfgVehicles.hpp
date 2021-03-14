@@ -4,12 +4,17 @@ class CfgVehicles
 	class Helicopter;
 	class Helicopter_Base_F : Helicopter {
 		class Components;
+		class EventHandlers;
 	};
 	class fza_ah64base : Helicopter_Base_F
 	{
+		class EventHandlers : EventHandlers {
+			init = "if (local (_this select 0)) then {[(_this select 0), """", [], false] call bis_fnc_initVehicle;};";
+			handleDamage = "_this call fza_fnc_damageSystem";
+		};
 		class NewTurret;
 		
-		A3TI_ThermalSelections[] = {"skin_pnvs","skin_hstab","skin_cockpit","skin_fuse","skin_lefab","skin_lelight","skin_leng","skin_lwing","skin_m230","skin_mainrotor","skin_nose","skin_refab","skin_relight","skin_reng","skin_rwing","skin_tailboom","skin_vtail","skin_refab_d_heavy","skin_refab_d_cata","skin_lefab_d_heavy","skin_lefab_d_cata"};	
+		A3TI_ThermalSelections[] = {"skin"};	
 		
 		class itc_air 
 		{
@@ -458,6 +463,19 @@ class CfgVehicles
 				};
 			};
 		};
+		class Damage
+		{
+			tex[] = {
+				"fza_ah64_us\tex\ex\rtrs_co.paa",
+				"fza_ah64_us\tex\dam\mdam_Rtrs_co.paa",
+				"fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"
+			};
+			mat[] = {
+				"fza_ah64_us\mat\body.rvmat",
+				"fza_ah64_us\mat\body_destruct.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
+				"fza_ah64_us\mat\body_destruct.rvmat"
+			};
+		};
 		class HitPoints
 		{
 			class HitHull
@@ -466,7 +484,7 @@ class CfgVehicles
 				material = 51;
 				name = "fuselage";
 				passthrough = 1;
-				visual = "fuselage";
+				visual = "skin_fuse";
 				explosionShielding = 3;
 				convexComponent = "fuselage";
 				radius = 0.01;
@@ -478,28 +496,42 @@ class CfgVehicles
 				material = 51;
 				name = "cockpit";
 				passthrough = 0.5;
-				visual = "cockpit";
+				visual = "skin_nose";
 				explosionShielding = 1;
 				convexComponent = "cockpit";
 				minimalHit = 0.05;
 				radius = 0.4;
 			};
-			/*
-			class HitFuselage
-			{
-				armor = 1;
-				material = 51;
-				name = "fuselage";
-				passthrough = 1;
-				visual = "fuselage";
-			};
-			*/
 			class HitTransmission
 			{
 				armor = 0.8;
 				material = -1;
 				name = "trans";
 				passthrough = 0.25;
+			};
+			class HitEngine1
+			{
+				armor = 0.7;
+				material = 51;
+				name = "leng";
+				passthrough = 1;
+				visual = "skin_leng";
+				explosionShielding = 3;
+				convexComponent = "leng";
+				minimalHit = 0.1;
+				radius = 0.4;
+			};
+			class HitEngine2
+			{
+				armor = 0.7;
+				material = 51;
+				name = "reng";
+				passthrough = 1;
+				visual = "skin_reng";
+				explosionShielding = 3;
+				convexComponent = "reng";
+				minimalHit = 0.1;
+				radius = 0.4;
 			};
 			class HitEngine
 			{
@@ -514,29 +546,21 @@ class CfgVehicles
 				radius = 0.4;
 				depends = "0.5 * (HitEngine1 + HitEngine2)";
 			};
-			class HitEngine1
+			class HitFuel
 			{
-				armor = 0.7;
+				armor = 0.5;
 				material = 51;
-				name = "leng";
-				passthrough = 1;
-				visual = "leng";
-				explosionShielding = 3;
-				convexComponent = "leng";
-				minimalHit = 0.1;
-				radius = 0.4;
+				name = "lfuel";
+				passthrough = 0.1;
+				depends = "HitEngine1"
 			};
-			class HitEngine2
+			class HitFuel2
 			{
-				armor = 0.7;
+				armor = 0.5;
 				material = 51;
-				name = "reng";
-				passthrough = 1;
-				visual = "reng";
-				explosionShielding = 3;
-				convexComponent = "reng";
-				minimalHit = 0.1;
-				radius = 0.4;
+				name = "rfuel";
+				passthrough = 0.1;
+				depends = "HitEngine2"
 			};
 			class Hitlfab
 			{
@@ -544,7 +568,7 @@ class CfgVehicles
 				material = 51;
 				name = "lfab";
 				passthrough = 0.1;
-				visual = "lfab";
+				visual = "skin_lefab";
 			};
 			class Hitrfab
 			{
@@ -552,7 +576,7 @@ class CfgVehicles
 				material = 51;
 				name = "rfab";
 				passthrough = 0.1;
-				visual = "rfab";
+				visual = "skin_refab";
 			};
 			class HitVRotor
 			{
@@ -560,7 +584,7 @@ class CfgVehicles
 				material = 51;
 				name = "mala vrtule";
 				passthrough = 0.1;
-				visual = "mala vrtule";
+				visual = "tr_blades";
 				explosionShielding = 6;
 				convexComponent = "mala vrtule";
 				minimalHit = 0.05;
@@ -572,7 +596,7 @@ class CfgVehicles
 				material = 51;
 				name = "velka vrtule";
 				passthrough = 0.1;
-				visual = "velka vrtule";
+				visual = "mr_blades";
 				explosionShielding = 2.5;
 				convexComponent = "velka vrtule";
 				minimalHit = 0.09;
@@ -584,7 +608,7 @@ class CfgVehicles
 				material = 51;
 				name = "lwing";
 				passthrough = 0.1;
-				visual = "lwing";
+				visual = "skin_lwing";
 			};
 			class Hitrwing
 			{
@@ -592,7 +616,7 @@ class CfgVehicles
 				material = 51;
 				name = "rwing";
 				passthrough = 0.1;
-				visual = "rwing";
+				visual = "skin_rwing";
 			};
 			class HitTail
 			{
@@ -600,7 +624,7 @@ class CfgVehicles
 				material = 51;
 				name = "tailboom";
 				passthrough = 0.5;
-				visual = "tailboom";
+				visual = "skin_tailboom";
 			};
 			class HitVTail
 			{
@@ -608,7 +632,7 @@ class CfgVehicles
 				material = 51;
 				name = "vtail";
 				passthrough = 0.1;
-				visual = "vtail";
+				visual = "skin_vtail";
 			};
 			class HitHTail
 			{
@@ -616,7 +640,7 @@ class CfgVehicles
 				material = 51;
 				name = "hstab";
 				passthrough = 0.1;
-				visual = "hstab";
+				visual = "skin_hstab";
 			};
 			class HitPNVS
 			{
@@ -632,7 +656,7 @@ class CfgVehicles
 				material = 51;
 				name = "tads";
 				passthrough = 0.1;
-				visual = "tads";
+				visual = "skin_tads1";
 			};
 			class Hittadstur
 			{
@@ -656,7 +680,7 @@ class CfgVehicles
 				material = 51;
 				name = "otocvez";
 				passthrough = 0.1;
-				visual = "otocvez";
+				visual = "skin_m230";
 			};
 			class Hitotochlaven
 			{
@@ -664,7 +688,7 @@ class CfgVehicles
 				material = 51;
 				name = "otochlaven";
 				passthrough = 0.1;
-				visual = "otochlaven";
+				visual = "skin_otochlaven";
 			};
 			class Hitmaingear
 			{
@@ -672,7 +696,7 @@ class CfgVehicles
 				material = 51;
 				name = "maingear";
 				passthrough = 0.1;
-				visual = "maingear";
+				visual = "skin_gear";
 			};
 			class Hittwsus
 			{
@@ -688,7 +712,7 @@ class CfgVehicles
 				material = 51;
 				name = "pylon1";
 				passthrough = 0.1;
-				visual = "pylon1";
+				visual = "skin_pylon1";
 			};
 			class Hitpylon2
 			{
@@ -696,7 +720,7 @@ class CfgVehicles
 				material = 51;
 				name = "pylon2";
 				passthrough = 0.1;
-				visual = "pylon2";
+				visual = "skin_pylon2";
 			};
 			class Hitpylon3
 			{
@@ -704,7 +728,7 @@ class CfgVehicles
 				material = 51;
 				name = "pylon3";
 				passthrough = 0.1;
-				visual = "pylon3";
+				visual = "skin_pylon3";
 			};
 			class Hitpylon4
 			{
@@ -712,7 +736,7 @@ class CfgVehicles
 				material = 51;
 				name = "pylon4";
 				passthrough = 0.1;
-				visual = "pylon4";
+				visual = "skin_pylon4";
 			};
 		};
 		class UserActions
@@ -983,10 +1007,10 @@ class CfgVehicles
 		lockdetectionsystem = "8+4";
 		incommingmissliedetectionsystem = 16;
 		gunAimDown = 0;
-		selectionHRotorStill = "velka vrtule staticka";
-		selectionHRotorMove = "velka vrtule blur";
-		selectionVRotorStill = "mala vrtule staticka";
-		selectionVRotorMove = "mala vrtule blur";
+		selectionHRotorStill = "mr_blades";
+		selectionHRotorMove = "mr_blur";
+		selectionVRotorStill = "tr_blades";
+		selectionVRotorMove = "tr_blur";
 		memoryPointLMissile = "l strela";
 		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";
@@ -999,6 +1023,36 @@ class CfgVehicles
 		{
 		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
+		class textureSources
+		{
+			class b2
+			{
+				displayName = "Default";
+				author = "Apache mod development team";
+				textures[]= {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class b2_weather
+			{
+				displayName = "Default (weathered)";
+				author = "Apache mod development team";
+				textures[]= {"\fza_ah64_us\tex\Ex\b2_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class arb229th
+			{
+				displayName = "229th ARB";
+				author = "Apache mod development team";
+				textures[]= {"\fza_ah64_us\tex\Ex\229arb_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class arb229th_weather
+			{
+				displayName = "229th ARB (weathered)";
+				author = "Apache mod development team";
+				textures[]= {"\fza_ah64_us\tex\Ex\229arb_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+		};
+
+		textureList[] = {"b2", 1};
+		hiddenSelectionsTextures[] = {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 		class Turrets
 		{
 			class MainTurret: NewTurret
@@ -1207,10 +1261,21 @@ class CfgVehicles
 			maxAngleY=20;
 			thermalmode[] = {0};
 			visionmode[] = {"Normal","Ti"}; //PNVS
-		};
+		};\
 
 		class AnimationSources
 		{
+		////////RADAR///////
+		class fcr_enable
+		{
+			displayName = "Attach FCR";
+			author = "Apache mod development team";
+			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1]; _this # 0 setCustomWeightRTD ([0, 295] select (_this # 1 == 1));";
+
+			source = "user";
+			initPhase = 1;
+			animPeriod = 0.001;
+		}
 		class pnvs
 		{
 			source = "user";
@@ -1473,13 +1538,6 @@ initPhase=0;
 		{
 			source = "user";
 			animPeriod = 0.001;
-			initPhase=0;
-		};
-		////////RADAR///////
-		class longbow
-		{
-			source = "user";
-			animPeriod = 0.01;
 			initPhase=0;
 		};
 			////////////////////////////////
@@ -2575,18 +2633,6 @@ initPhase=0;
             };
 
 		////MOVING MAP/////
-		class mpd_pr_fcraa_wiper
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;
-		};
-		class mpd_pr_fcrag_wiper
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;
-		};
 		class mpd_pr_mpd_had_apos_v
 		{
 			source = "user";
@@ -2821,7 +2867,14 @@ initPhase=0;
 		side=1;
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
-		displayName="AH-64D Apache";
+		displayName="AH-64D Apache Longbow (no radar)";
+
+		class AnimationSources : AnimationSources {
+			class fcr_enable : fcr_enable
+			{
+				initPhase = 0;
+			};
+		};
 	};
 
 	/////////////////////////////////////////////////

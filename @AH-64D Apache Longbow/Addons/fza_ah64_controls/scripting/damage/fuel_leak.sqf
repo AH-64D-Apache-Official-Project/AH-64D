@@ -1,8 +1,12 @@
 _heli = _this select 0;
+params["_heli", "_tank"];
 
-while {
-    (alive _heli) && (damage _heli > 0.01) && ("fza_ah64_fwd_leak" in (_heli magazinesturret[-1]) || "fza_ah64_aft_leak" in (_heli magazinesturret[-1]))
-}
+_tankName = format ["fza_ah64_%1_leak", _tank];
+
+if (_heli getVariable _tankName) exitWith {};
+
+_heli setVariable [_tankName, true, true];
+while {(alive _heli) && (damage _heli > 0.01) && _heli getVariable _tankName}
 do {
     waituntil {
         player in _heli
