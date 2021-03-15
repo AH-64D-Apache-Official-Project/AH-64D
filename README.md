@@ -3,10 +3,10 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 
 # CHANGELOG NOTES:
 *14/03/2021*
-- Opening fcr from ase page
-- radar max detection range
-- disabling rocket salvo to prevent bug //TEMP//
-- added vanilla thermal sensor
+- Fixed opening FCR page from the ASE page
+- radar max detection range changed from 10K to 8K
+- disabling rocket salvo to prevent bug were hellfires shot with hydras //TEMP//
+- added vanilla thermal sensor CFG IR sensor
 - increased size of fixed-wing cscope icons
 - fixed bindable jammer toggle
 - made ase scripts functions
@@ -14,7 +14,6 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 - fixed tsd & FCR ADA icons
 - submunitions activation are now a function
 - Fixed ASE Display on server enviroment
-- FIxed missile warning volume
 - added a bindable key to switch between self/remote laser]
 
 *06/11/2020*
