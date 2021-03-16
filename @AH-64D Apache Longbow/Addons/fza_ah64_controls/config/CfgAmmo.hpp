@@ -1,5 +1,6 @@
 class CfgAmmo
 {
+	class Default{};
 	class B_30mm_HE;
 	class Bulletbase;
 	class MissileCore;
@@ -24,13 +25,13 @@ class CfgAmmo
 		airFriction = -0.01;
 		simulation = "shotCM";
 		effectsSmoke = "fza_cmflare";
-		weaponLockSystem = 2;
+		weaponLockSystem = 2+8;
 		model = "\A3\weapons_f\empty";
 		maxControlRange = -1;
 		initTime = 0;
 		aiAmmoUsageFlags = 8;	
 	};
-	class fza_master: Bulletbase
+	class fza_master: Default
 	{
 		airLock=0;
 		irLock=0;
@@ -49,8 +50,7 @@ class CfgAmmo
 	{
 		soundsetbulletfly[] = {"fza_sc_bullet_flyby_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_30x113_soundset"};
-		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};		
-		muzzleeffect = "fza_fnc_fx30mm";		
+		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
 		hit = 60;
 		indirectHit = 10;
 		indirectHitRange = 3.5;		
@@ -85,6 +85,7 @@ class CfgAmmo
 		trackLead					= 0.2;
 		maneuvrability				= 21;
 		timeToLive					= 70;
+		cmImmunity					= 1;
 
 		effectsmissile = "fza_ah64_hellfiresmoke";
 		muzzleEffect = "BIS_fnc_effectFiredHeliRocket";
@@ -102,7 +103,7 @@ class CfgAmmo
 		missileLockCone			= 90;
 		missileKeepLockedCone	= 90;
 		lockSeekRadius			= 2000;
-		autoSeekTarget 			= 1;
+		autoSeekTarget 			= 0;
 		weaponLockSystem		= "2 + 16";
 		maneuvDependsOnSpeedCoef = 0.018;
 
@@ -208,8 +209,6 @@ class CfgAmmo
 		airLock = 0;
 		irlock = 0;	
 		nvLock=0;
-
-		cmimmunity = 1;
 		
 		//MSL sensors definition
 		missileLockMaxDistance = 8000;
@@ -373,8 +372,6 @@ class CfgAmmo
 		submunitionAmmo = "fza_m73mpsm";
 		submunitionConeType[] = {"randomcenter",9};
 		submunitionConeAngle = 2;
-		triggerTime = 1;
-		triggerSpeedCoef = 0.7;
 	};
 	class fza_275_m257: fza_275_base 
 	{	
@@ -413,8 +410,6 @@ class CfgAmmo
 		submunitionAmmo = "fza_flec_cluster";
 		submunitionConeType[] = {"randomcenter",100};
 		submunitionConeAngle = 12;
-		triggerTime = 1;
-		triggerSpeedCoef = 1;
 		soundHit1[] = {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] = {"soundHit1",1};
 		aiAmmoUsageFlags = 1;

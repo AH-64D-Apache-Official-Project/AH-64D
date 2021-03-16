@@ -80,6 +80,9 @@ _aratio = getResolution select 4;
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
+    if (isNil "fza_ah64_mousetracker") then {
+        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
+    };
     fza_ah64_helperinit = true;
 };
 
@@ -710,13 +713,7 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         _coords = worldtoscreen(getpos _x);
         _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
 
-        _adaunit = false;
-        _i = _x; {
-            if (_i iskindof _x) then {
-                _adaunit = true;
-            };
-        }
-        foreach fza_ah64_ada_units;
+        _adaunit = [_x] call fza_fnc_targetIsADA;
 
         if (_x isKindOf "helicopter") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
@@ -745,9 +742,9 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     }
-    foreach fza_ah64_dispfcrlist;
+    foreach fza_ah64_Cscopelist;
 
-    if (_num > (count fza_ah64_dispfcrlist + 189)) then {
+    if (_num > (count fza_ah64_Cscopelist + 189)) then {
         while {
             (_num < 206)
         }
@@ -843,10 +840,6 @@ if ((diag_tickTime % 2) < 1) then {
     _safemessage = "";
 };
 
-//AUTO HOVER DETECTOR
-if ((inputaction "HeliBack" > 0.50 || inputaction "HeliForward" > 0.50 || inputaction "HeliFastForward" > 0.50 || inputaction "HeliCyclicLeft" > 0.50 || inputaction "HeliCyclicRight" > 0.50) && (isAutoHoverOn _heli && player == driver _heli)) then {
-    player action["autoHoverCancel", _heli];
-};
 
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;

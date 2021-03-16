@@ -20,7 +20,7 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
 	_heli animate["mpd_pr_mpd_had_apos_h", (_heli animationphase "tads_tur")];
 };
 
-private _targetsToDraw = fza_ah64_targetlist apply {
+private _targetsToDraw = ([_heli, fza_ah64_dispfcrlist] call fza_fnc_targetingFilterType) apply {
 	private _targetType = "gen";
 	private _targetModifier = "";
 	private _targetPriority = 0;
@@ -30,19 +30,19 @@ private _targetsToDraw = fza_ah64_targetlist apply {
 	};
 
 	if (_x isKindOf "plane") then {
-		_targicon = "ac";
+		_targetType = "ac";
 	};
 
 	if (_x isKindOf "tank") then {
-		_targicon = "tnk";
+		_targetType = "tnk";
 	};
 
 	if (_x isKindOf "car") then {
-		_targicon = "whl";
+		_targetType = "whl";
 	};
 
 	if ([_x] call fza_fnc_targetIsADA) then {
-		_targicon = "ada";
+		_targetType = "ada";
 	};
 
 	if (_x in ((_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count"))) then {

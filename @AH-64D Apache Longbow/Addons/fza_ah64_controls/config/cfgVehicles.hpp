@@ -8,10 +8,6 @@ class CfgVehicles
 	};
 	class fza_ah64base : Helicopter_Base_F
 	{
-		class EventHandlers : EventHandlers {
-			init = "if (local (_this select 0)) then {[(_this select 0), """", [], false] call bis_fnc_initVehicle;};";
-			handleDamage = "_this call fza_fnc_damageSystem";
-		};
 		class NewTurret;
 		
 		A3TI_ThermalSelections[] = {"skin"};	
@@ -139,6 +135,12 @@ class CfgVehicles
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
+		}
+		class EventHandlers {
+			class fza_ah64 {
+				init = "[_this # 0] spawn fza_fnc_eventInit";
+				handleDamage = "_this call fza_fnc_damageSystem";
+			};
 		};
 		class RenderTargets
 		{
@@ -1005,12 +1007,13 @@ class CfgVehicles
 		weapons[] = {"fza_CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = "8+4";
-		incommingmissliedetectionsystem = 16;
+		incomingMissileDetectionSystem = 16;
 		gunAimDown = 0;
 		selectionHRotorStill = "mr_blades";
 		selectionHRotorMove = "mr_blur";
 		selectionVRotorStill = "tr_blades";
 		selectionVRotorMove = "tr_blur";
+		camshakecoef = 0.5;
 		memoryPointLMissile = "l strela";
 		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";

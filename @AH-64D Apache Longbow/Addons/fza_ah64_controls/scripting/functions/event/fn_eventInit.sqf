@@ -1,14 +1,35 @@
-//MASTER INIT FOR AH-64D PROJECT
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_eventInit
+
+Description:
+    Master init event handler
+
+    Handles variable initialisation, and continues running to ensure weapon textures are kept up to date
+
+    Must be run in a scheduled environment (spawn)
+
+Parameters:
+    _heli - the helicopter to initialise
+
+Returns:
+	Nothing
+
+Examples:
+    [_heli] spawn fza_fnc_eventInit
+
+Author:
+	unknown, mattysmith22
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
-_heli = _this select 0;
+params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 
 if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
-    _heli animate["pdoor", 1];
-    _heli animate["gdoor", 1];
+    _heli animate["pdoor", 0];
+    _heli animate["gdoor", 0];
     _heli animate["plt_rtrbrake", 1];
     _heli animate["plt_firesw", 0.5];
     _heli animate["cpg_firesw", 0.5];
@@ -19,8 +40,8 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_curwpnum", 0, true];
     _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
-    _heli setVariable ["fza_ah64_acq_plt", 3, true];
-    _heli setVariable ["fza_ah64_acq_cpg", 3, true];
+    _heli setVariable ["fza_ah64_acq_plt", 0, true];
+    _heli setVariable ["fza_ah64_acq_cpg", 0, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_ltype", "TopDown", true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
@@ -35,6 +56,10 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_e2_fire", false, true];
     _heli setVariable ["fza_ah64_firepdisch", false, true];
     _heli setVariable ["fza_ah64_firerdisch", false, true];
+    _heli setVariable ["fza_ah64_irjstate", 0, true];
+    _heli setVariable ["fza_ah64_rfjstate", 0, true];
+    _heli setVariable ["fza_ah64_irjon", 0, true];
+    _heli setVariable ["fza_ah64_rfjon", 0, true];
 };
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
@@ -72,7 +97,7 @@ while {
     alive _heli
 }
 do {
-    if ((!isNull (_heli getVariable["fza_ah64_floodlight_cpg", objNull]) || (!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull]))) && _heli animationphase "plt_batt" < 0.5) then {
+    if ((!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull])) && _heli animationphase "plt_batt" < 0.5) then {
 
         _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
@@ -92,4 +117,5 @@ do {
             _heli animate ["tads_stow", 0];
         };
     };
+    sleep 0.03;
 };

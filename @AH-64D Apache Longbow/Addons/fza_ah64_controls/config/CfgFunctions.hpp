@@ -16,6 +16,7 @@ class CfgFunctions
 			class controlHandleCrosshairAction {R;};
 			class controlHandleIHADSSMode {R;};
 			class controlHandleJammerToggle {R;};
+			class controlHandlelaserchange {R;};
 			class controlHandleLookCenter {R;};
 			class controlHandleNextWaypoint {R;};
 			class controlHandlePrevWaypoint {R;};
@@ -71,6 +72,7 @@ class CfgFunctions
 			class eventFired{R;};
 			class eventGetIn{R;};
 			class eventGetOut{R;};
+			class eventInit{R;};
 		}
 		class fire
 		{
@@ -79,7 +81,6 @@ class CfgFunctions
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
-			class fx30mm {R;};
 			class fxMuzzle {R;};
 		}
 		class ihadss
@@ -176,7 +177,8 @@ class CfgFunctions
 		class ui
 		{
 			file = "\fza_ah64_controls\scripting\functions\ui";
-		}
+			class uiMouseMove {R;};
+		};
 		class weapon
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
@@ -190,7 +192,8 @@ class CfgFunctions
 			class weaponRocketInventory {R;};
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};
-		}
+			class weaponSubmunition {R;};
+		};
 		class functions
 		{
 			file = "\fza_ah64_controls\scripting\functions";
@@ -204,6 +207,15 @@ class CfgFunctions
 			class addKeybind {R;};
 			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
+			class targetisADA {R;}
+		};
+		class ase
+		{
+			file = "\fza_ah64_controls\scripting\functions\ase";
+			class aseJammer {R;};
+			class aseFlaredeploy {R;};
+			class aseHandleRfcontrol {R;};
+			class aseHandleIrcontrol {R;};
 		};
 	};
 };

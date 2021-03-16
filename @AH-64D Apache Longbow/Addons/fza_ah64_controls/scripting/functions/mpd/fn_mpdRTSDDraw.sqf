@@ -54,7 +54,7 @@ _pfzs = _heli getVariable "fza_ah64_pfz_count";
 if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, "\fza_ah64_us\tex\mpd\tsd.paa"];
 
-	private _targetsToDraw = fza_ah64_targetlist apply {
+	private _targetsToDraw = ([_heli, fza_ah64_tsddisptargs] call fza_fnc_targetingFilterType) apply {
 		private _targetType = "gen";
 		private _targetModifier = "";
 		private _targetPriority = 0;
@@ -78,6 +78,7 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		if ([_x] call fza_fnc_targetIsADA) then {
 			_targetType = "ada";
 		};
+		
 		if (_pfzs !=  0 && {_x in ((_heli getVariable "fza_ah64_pfzs") select (_pfzs - 1))}) then {
 			_targetModifier = "_pfz";
 		};

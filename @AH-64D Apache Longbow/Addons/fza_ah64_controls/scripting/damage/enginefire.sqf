@@ -45,11 +45,11 @@ if (_heli getVariable _mag) exitwith {};
 _heli setVariable[_mag, true, true];
 
 _smokefx = "#particlesource"
-createVehiclelocal getpos _heli;
+createVehicle getpos _heli;
 _smokefx attachto[_heli, [0, 0, 0]];
 
 _firefx = "#particlesource"
-createVehiclelocal getpos _heli;
+createVehicle getpos _heli;
 _firefx attachto[_heli, [0, 0, 0]];
 
 _smokefx setParticleCircle[0, [0, 0, 0]];

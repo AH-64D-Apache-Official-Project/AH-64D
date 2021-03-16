@@ -22,12 +22,14 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (fza_ah64_rfjstate == 1) exitwith {
-    fza_ah64_rfjstate = 0;
+if (_heli getVariable "fza_ah64_rfjstate" == 1) exitwith {
+    _heli setVariable ["fza_ah64_rfjstate", 0, true];
 };
-if (fza_ah64_irjstate == 1) exitwith {
-    fza_ah64_irjstate = 0;
+if (_heli getVariable "fza_ah64_irjstate" == 1) exitwith {
+    _heli setVariable ["fza_ah64_irjstate", 0, true];
 };
 
-fza_ah64_rfjstate = fza_ah64_rfjstate + 1;
-fza_ah64_irjstate = fza_ah64_irjstate + 1;
+_heli setVariable ["fza_ah64_rfjstate", (_heli getVariable "fza_ah64_rfjstate") + 1, true];
+_heli setVariable ["fza_ah64_irjstate", (_heli getVariable "fza_ah64_irjstate") + 1, true];
+//_heli getVariable "fza_ah64_rfjstate" = fza_ah64_rfjstate + 1;
+//_heli getVariable "fza_ah64_irjstate" = fza_ah64_irjstate + 1;

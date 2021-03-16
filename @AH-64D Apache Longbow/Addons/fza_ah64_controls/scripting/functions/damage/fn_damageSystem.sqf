@@ -33,6 +33,9 @@ if (player == driver _heli || player == gunner _heli) then {
 if (!(alive _heli)) exitwith {
     false
 };
+//set damage so event init dosent reset
+_damheli= 0.001 + damage _heli;
+_heli setDamage _damheli;
 
 if (_system == "mala vrtule") then {
     if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {

@@ -7,7 +7,8 @@
   <!--	MomentOfInertia changed from 18858.5, 118101.6, 118101.6 to 27449, 5316, 27665 - BM 7Oct20 -->
   <!--	Izz from 27665 to 20000 - BM 7Oct20 -->
   <!--	Ixx from 27449 to 20000 - BM 7Oct20 -->
-  <MomentsOfInertia Ixx="20000" Iyy="5316" Izz="20000" Iyz="3166"/>
+  <!-- Changed fromk Ixx="20000" Iyy="5316" Izz="20000" Iyz="3166"  === to === Ixx="53023" Iyy="4084" Izz="52872" Iyz="4084" - BM 3Nov20 -->
+  <MomentsOfInertia Ixx="53023" Iyy="4084" Izz="52872" Iyz="4084"/>
   <!--	CenterOfGravity changefr om 0.0, 0.108, -0.272 to 0.0, -0.175, -0.272 - BM 7Oct20 -->
   <CenterOfGravity x="0.0" y="-0.175" z="-0.272" />
 
@@ -99,7 +100,9 @@
       </High_a1>
     </MainRotorInplanewash>
 
-    <SideForceDueToSideslip  scale="1"  >
+    <!-- scale = "1" changed to 0.25 - BM 5Nov20 -->
+    <!-- scale = "0.25" changed to 1.0 - BM 6Nov20 -->
+    <SideForceDueToSideslip  scale="0.25"  >
       -180	-0.006
       -170	-4.109
       -160	-7.717
@@ -237,6 +240,7 @@
       180	1.995
     </DragDueToAoA>
 
+    
     <DragDueToSideslip  scale="1" >
       -180	0.000
       -170	0.459
@@ -375,7 +379,8 @@
       180	0.000
     </YawingMomentDueToSideslip>
 
-    <RollingMomentDueToSideslip scale="1.0" >
+    <!-- changed from 1.0 to 0.25 -BM 6Nov20 -->
+    <RollingMomentDueToSideslip scale="0.25" >
       -180	0.000
       -170	2.150
       -160	3.725
@@ -432,26 +437,27 @@
       <!--	targetRPM changed from 20000 to 21109 - BM 6Oct20 -->
       <!--	General inertia changed from 0.1 to 8.14 - BM 6Oct20 -->
       <!--	General inertia changed from 8.14 to 0.3 - BM 10Oct20 -->
-      <General inertia="0.3" />
+      <!--	General inertia changed from 0.3 to 0.15 - BM 6Nov20 -->
+      <General inertia="0.15" />
       <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
       <!--	Offset changed from 150 to 300 - BM 7Oct20 -->
       <!--	Offset changed from 300 to 75 - BM 7Oct20 -->
       <!--	P = 1.0, I = 1.5, D = 0.1 changed to P = 0.5, I = 1.5, D = 0.0 - BM 10Oct20 -->
-      <ControllerParams P="0.5" I="1.5" D="0.0" offset="75" targetRPM="21109" />
+      <!--  P = 0.5, I = 1.5, D = 0.0 changed to P="1.0" I="1.0" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="1.0" I="1.0" D="0.0" offset="75" changed to P="0.1" I="1.0" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="0.1" I="1.0" D="0.0" offset="75" changed to P="0.1" I="0.1" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="0.1" I="0.1" D="0.0" offset="75" changed to P="0.2" I="0.1" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="0.2" I="0.1" D="0.0" offset="75" changed to P="0.1" I="0.5" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="0.1" I="0.5" D="0.0" offset="75" changed to P="0.5" I="0.75" D="0.0" offset="75" - BM 5Nov20 -->
+      <!--  P="0.5" I="0.75" D="0.0" offset="75" changed to P="0.75" I="1.5" D="0.0" offset="75" - BM 5Nov20 -->
+      <ControllerParams P="0.75" I="1.5" D="0.0" offset="75" targetRPM="21109" />
     </Engine>
 
     <Engine type="ConstantRPMEngine">
       <DebugInfo printDebugInfo="false" />
-      <!--	General inertia changed from 8.14 to 0.1 - BM 6Oct20 -->
-      <!--	targetRPM changed from 20000 to 21109 - BM 6Oct20 -->
-      <!--	General inertia changed from 0.1 to 8.14 - BM 6Oct20 -->
-      <!--	General inertia changed from 8.14 to 0.3 - BM 10Oct20 -->
-      <General inertia="0.3" />
+      <General inertia="0.15" />
       <Performance emergencyPowerHP="1902" maxTorque="1580" rotationResistance="0.000000"/>
-      <!--	Offset changed from 150 to 300 - BM 7Oct20 -->
-      <!--	Offset changed from 300 to 75 - BM 7Oct20 -->
-      <!--	P = 1.0, I = 1.5, D = 0.1 changed to P = 0.5, I = 1.5, D = 0.0 - BM 10Oct20 -->
-      <ControllerParams P="0.5" I="1.5" D="0.0" offset="75" targetRPM="21109" />
+      <ControllerParams P="0.75" I="1.5" D="0.0" offset="75" targetRPM="21109" />
     </Engine>
 
   </Engines>
@@ -479,8 +485,11 @@
 
     <CSComponent type="FCSHelicopterAutoTrim100" >
       <YawRateAndSideslipController printDebugInfo="false">
-        <YawRatePID P="0.04"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
-        <SideslipPID P="0.02"  I="0.01" D="0.007" offset="0.0" integralMin="-25" integralMax="25" />
+        <!-- P="0.04"  I="0.01" D="0.0" offset="0.0" changed to P="0.01"  I="0.04" D="0.0" offset="0.0" - BM 5Nov20 -->
+        <!-- P="0.01"  I="0.04" D="0.0" offset="0.0" changed to P="0.02"  I="0.01" D="0.0" offset="0.0" - BM 5Nov20 -->
+        <YawRatePID P="0.02"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
+        <!-- P="0.02"  I="0.01" D="0.007" offset="0.0" changed to  P="0.02"  I="0.01" D="0.0" offset="0.0" - BM 5Nov20 -->
+        <SideslipPID P="0.02"  I="0.01" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
         <!--	Speed low changed from 15 to 30 - BM 7Oct20 -->
         <Transition speedLow="30" speedHigh="40" />
         <Maximums maxYawRate="60" maxSideslip="60" />
@@ -490,20 +499,27 @@
       <PitchRateController printDebugInfo="false">
         <!--	P changed to 0.02 from 0.06 - BM 7Oct20 -->
         <!--  P 0.02, I 0.01, D 0.001 changed to P 0.06, I 0.01, D 0.001 - BM 10Oct20 -->
-        <PID P="0.06"  I="0.01" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
-        <!--	maxPitchRate changed from 35 to 60 - BM 7Oct20 -->
-        <!--	maxPitchRate changed from 60 to 50 - BM 7Oct20 -->
-        <!--	maxPitchRate changed from 50 to 35 - BM 10Oct20 -->
-        <MaxPitchRate maxPitchRate="35" />
+        <!--  P="0.01"  I="0.01" D="0.001" offset="0.0" integralMin="-25" integralMax="25" - BM 5Nov20-->
+        <!--  P="0.01"  I="0.01" D="0.004" offset="0.0" integralMin="-25" integralMax="25" - BM 5Nov20-->
+        <PID P="0.01"  I="0.04" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
+        <!--	maxPitchRate changed from 35 to 60  - BM 7Oct20 -->
+        <!--	maxPitchRate changed from 60 to 50  - BM 7Oct20 -->
+        <!--	maxPitchRate changed from 50 to 35  - BM 10Oct20 -->
+        <!--  maxPitchRate changed from 35 to 120 - BM 5Nov20 -->
+        <!--  maxPitchRate changed from 120 to 60 - BM 6Nov20 -->
+        <MaxPitchRate maxPitchRate="60" />
         <InputMapping nonlinearity="1" />
       </PitchRateController>
 
+      <!--  P="0.01"  I="0.01" D="0.004" offset="0.001" integralMin="-25" integralMax="25" - BM 5Nov20-->
       <RollRateController printDebugInfo="false">
-        <PID P="0.01"  I="0.04" D="0.001" offset="0.0" integralMin="-25" integralMax="25" />
+        <PID P="0.01"  I="0.04" D="0.0" offset="0.0" integralMin="-25" integralMax="25" />
         <!--	maxRollRate changed from 70 to 120 - BM 7Oct20 -->
         <!--	maxRollRate changed from 120 to 90 - BM 7Oct20 -->
-        <!--	maxRollRate changed from 90 to 70 - BM 7Oct20 -->
-        <MaxRollRate maxRollRate="70" />
+        <!--	maxRollRate changed from 90 to 70  - BM 7Oct20 -->
+         <!--	maxRollRate changed from 70 to 120 - BM 7Oct20 -->
+        <!--	maxRollRate changed from 120 to 80 - BM 6Nov20 -->
+        <MaxRollRate maxRollRate="80" />
         <InputMapping nonlinearity="1" />
       </RollRateController>
 
@@ -575,19 +591,39 @@
        
       BM 10Oct20-->
 
+      <!-- A1m changed from 11 to 10.5, and clamp(A1m, -12.5, 20) changed to clamp(A1m, -10.5, 7) - BM 6Nov20 -->
+      <!-- B1m changed from 22 to 10, and clamp(A1m, -13, 18) changed to clamp(A1m, -10, 20) - BM 6Nov20 -->
+      <!-- Th0m changed from: collective * 13 + 6.5 to 20, added: clamp(Th0m, 1, 19) the clamp flags an error... - BM 6Nov20 -->
+      <!-- Th0m changed from: collective * 20 to: collective * 19 + 1 - BM 6Nov20 -->
+
+      <!-- ORIG!!
+           latCyclic = latCyclic - clamp(rollRateRad * 2, -0.1 , 0.1 ) - collective * 0.2,
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 3, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+           pedals = pedals + 0.3 + clamp(yawRateRad * 3, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1), -->
+      
+      <!-- Mod v1 6Nov20
+           latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 ),
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ),
+           pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ),-->
+      
+      <!-- Mod v2 6Nov20
+           latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 )  - collective * 0.2,
+           lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+           pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),-->
+      
       <MathExpression>
         <Expression>
-          latCyclic = latCyclic - clamp(rollRateRad * 2, -0.1 , 0.1 ) - collective * 0.2,
-          lonCyclic = lonCyclic + clamp(pitchRateRad * 3, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
-          pedals = pedals + 0.3 + clamp(yawRateRad * 3, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),
+          latCyclic = latCyclic - clamp(rollRateRad * 0.75, -0.1 , 0.1 )  - collective * 0.2,
+          lonCyclic = lonCyclic + clamp(pitchRateRad * 1.5, -0.1 , 0.1 ) - 0.1 + collective * 0.60 - pedals * 0.60,
+          pedals = pedals + 0.3 + clamp(yawRateRad * 1.5, -0.1 , 0.1 ) - collective * 0.60 + clamp( Cms * (Vms/30), -0.1, 0.1),
 
-          A1m = latCyclic * 11,
-          A1m = clamp( A1m , -12.5 , 20 ),
+          A1m = latCyclic * 10.5,
+          A1m = clamp( A1m , -10.5 , 7 ),
 
-          B1m = lonCyclic * 22,
-          B1m = clamp( B1m , -13 , 18 ),
+          B1m = lonCyclic * 20,
+          B1m = clamp( B1m , -10 , 20 ),
 
-          Th0m= collective * 13 + 6.5,
+          Th0m = collective * 19 + 1,
 
           A1t = 0.0,
           B1t = 0.0,

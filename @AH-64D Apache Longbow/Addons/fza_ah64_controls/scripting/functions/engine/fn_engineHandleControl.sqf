@@ -26,15 +26,25 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "apu": {
+		_heli animate["plt_apu", 1];
 		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
-			_heli animate["plt_apu", 1];
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
 			[_heli] execvm "\fza_ah64_controls\scripting\loops.sqf";
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
 			if (_heli animationphase "plt_apu" == 1) then {
 				_heli animate["plt_apu", 0];
-				["fza_ah64_apubutton", 0.1] spawn fza_fnc_playAudio;
+
+				//If either of the apache's engines are in a mode where they are using APU, turn it off.
+				_heliData = _heli getVariable "fza_ah64_engineStates";
+				(_heliData # 0) params ["_e1state"];
+				(_heliData # 1) params ["_e2state"];
+				if (_e1state in ENGINE_STATE_USING_STARTER) then {
+					[_heli, 0, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
+				};
+				if (_e2state in ENGINE_STATE_USING_STARTER) then {
+					[_heli, 1, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
+				};
 				[_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
 			};
 		};
