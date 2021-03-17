@@ -80,6 +80,24 @@ _heli setVariable ["fza_ah64_fireapuarm", 0];
 
 [_heli] call fza_fnc_engineInit;
 
+if (local _heli) then { 
+    { 
+        _x params ["_pylId", "", "_pylTurr", "_pylMag", "_pylAmmo"]; 
+        if (_pylTurr isNotEqualTo [0]) then { 
+            _wep = configFile >> "CfgMagazines" >> _pylMag >> "pylonWeapon";
+            if (isText _wep) then {
+                [[_heli, getText _wep, _pylTurr], { 
+                    params["_heli", "_weapon", "_turret"]; 
+                    
+                    _heli removeWeaponTurret [_weapon, _turret] 
+                }] remoteExec ["call", [driver _heli, _heli] select (isNull driver _heli)];
+            };
+            _heli setPylonLoadout [_pylId, _pylMag, true, [0]]; 
+            _heli setAmmoOnPylon [_pylId, _pylAmmo]; 
+        }; 
+    } foreach getAllPylonsInfo _heli; 
+};
+
 //DEFAULT WEIGHT 
 
 if ((weightRTD _heli select 3) == 0) then {

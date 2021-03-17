@@ -84,7 +84,7 @@ class TransportPylonsComponent {
             priority = 2;
         };
         class pylons14: pylons7 { //Pylon 2 missile lower right
-            attachment = "fza_agm114k_lr";
+            attachment = "fza_agm114l_lr";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_LR_Y};
             priority = 1;
         };
@@ -153,6 +153,28 @@ class TransportPylonsComponent {
             mirroredMissilePos = 7;
             UIposition[] = {PYLON_UI_PYLON_4, PYLON_UI_LR_Y};
             priority = 6;
+        };
+    };
+    class presets {
+        class cmbt_sprt_fcr {
+            attachment[] = {"fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","","","","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","","",""};
+            displayName = "Combat Support (FCR)";
+        };
+        class cmbt_sprt {
+            attachment[] = {"fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","","","","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","","",""};
+            displayName = "Combat Support";
+        };
+        class hvy_atk_fcr {
+            attachment[] = {"","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr"};
+            displayName = "Heavy Attack (FCR)";
+        };
+        class hvy_atk {
+            attachment[] = {"","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114c_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","","","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114c_lr"};
+            displayName = "Heavy Attack";
+        };
+        class coin {
+            attachment[] = {"fza_275_m151_zoneA","fza_275_m255_zoneB","fza_275_m257_zoneE","","","","","","","","","","","","","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
+            displayName = "COIN";
         };
     }
 }
