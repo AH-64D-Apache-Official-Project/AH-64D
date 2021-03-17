@@ -1052,6 +1052,18 @@ class CfgVehicles
 				author = "Apache mod development team";
 				textures[]= {"\fza_ah64_us\tex\Ex\229arb_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class rnlaf_q_09
+			{
+				displayName = "RNLAF 301 Squadron Q-09";
+				author = "Houseman";
+				textures[]= {"\fza_ah64_us\tex\Ex\b2_rnlaf_q_09_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class rnlaf_demo
+			{
+				displayName = "RNLAF 301 Squadron Demo Team";
+				author = "Houseman";
+				textures[]= {"\fza_ah64_us\tex\Ex\b2_rnlaf_demo_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
 		};
 
 		textureList[] = {"b2", 1};

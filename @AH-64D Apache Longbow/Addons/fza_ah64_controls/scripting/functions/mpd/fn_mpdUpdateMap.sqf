@@ -40,7 +40,7 @@ if (fza_ah64_tsdmap > 0) then {
 	_size = [] call BIS_fnc_mapSize;
 	_heli animateSource [_seat+"_mmap_tx", - (0.5 - (getPos _heli # 0) / _size), true];
     _heli animateSource [_seat+"_mmap_ty", - (0.75 - (1 - (getPos _heli # 1) / _size)), true];
-	_heli animateSource [_seat+"_mmap_r", round (direction _heli) % 360, true];
+	_heli animateSource [_seat+"_mmap_r", direction _heli % 360, true];
 	_heli animateSource [_seat+"_mmap_sc", (1/(_heli getVariable "fza_ah64_rangesetting"))/_size , true];
 } else {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
