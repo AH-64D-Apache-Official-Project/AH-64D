@@ -23,44 +23,30 @@ Author:
 #include "\fza_ah64_controls\headers\selections.h"
 
 params ["_heli"];
+
+if !(player == driver _heli || player == gunner _heli) exitWith {};
+_seat = ["cpg", "plt"] select (player == driver _heli);
+
 if (fza_ah64_tsdmap > 0) then {
-	_heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, fza_ah64_maplist select(fza_ah64_tsdmap - 1)];
+	_map = configFile >> "CfgWorlds" >> worldName >> "pictureMap";
+	if (isText _map) then {
+		_map = getText _map;
+	} else {
+		_map = "\fza_ah64_US\tex\mpd\notfound_2.paa";
+	};
+
+	_heli setobjecttexture [SEL_PR_MPD_BACK, _map];
 	_heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, "\fza_ah64_us\tex\mpd\tsd.paa"];
-	_mapscale = 1 - ((_heli getVariable "fza_ah64_rangesetting") * (fza_ah64_mapsizearea / 8));
-	_zoom = (1 - _mapscale) / (fza_ah64_mapsizearea * 2);
-	_helidir = (1 / 360) * getdir _heli;
-	_helixpos = _zoom * (getposasl _heli select 0);
-	_heliypos = _zoom * (getposasl _heli select 1);
-	if (player == driver _heli) then {
-		_heli animate["mpd_pr_mmap_z", _helidir];
-		_heli animate["mpd_pr_mmap_h", _helixpos];
-		_heli animate["mpd_pr_mmap_v", _heliypos];
-		_heli animate["mpd_pr_mmap_s1", _mapscale];
-		_heli animate["mpd_pr_mmap_s2", _mapscale];
-		_heli animate["mpd_pr_mmap_s3", _mapscale];
-	};
-	//cpg//
-	if (player == gunner _heli) then {
-		_heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, fza_ah64_maplist select(fza_ah64_tsdmap - 1)];
-		_heli animate["mpd_gr_mmap_z", _helidir];
-		_heli animate["mpd_gr_mmap_h", _helixpos];
-		_heli animate["mpd_gr_mmap_v", _heliypos];
-		_heli animate["mpd_gr_mmap_s1", _mapscale];
-		_heli animate["mpd_gr_mmap_s2", _mapscale];
-		_heli animate["mpd_gr_mmap_s3", _mapscale];
-	};
+	_size = [] call BIS_fnc_mapSize;
+	_heli animateSource [_seat+"_mmap_tx", - (0.5 - (getPos _heli # 0) / _size), true];
+    _heli animateSource [_seat+"_mmap_ty", - (0.75 - (1 - (getPos _heli # 1) / _size)), true];
+	_heli animateSource [_seat+"_mmap_r", round (direction _heli) % 360, true];
+	_heli animateSource [_seat+"_mmap_sc", (1/(_heli getVariable "fza_ah64_rangesetting"))/_size , true];
 } else {
-	_heli setobjecttexture [SEL_MPD_GR_TSD_MMAP, ""];
-	_heli setobjecttexture [SEL_MPD_PR_TSD_MMAP, ""];
-	_heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, ""];
-};
-if (player == driver _heli) then {
-	_heli animate["mpd_pl_obj1_v", 0.25];
-	_heli animate["mpd_pl_obj1_h", 0.5];
-	_heli animate["mpd_pl_obj1_z", 0.005];
-};
-if (player == gunner _heli) then {
-	_heli animate["mpd_gr_obj1_v", 0.25];
-	_heli animate["mpd_gr_obj1_h", 0.5];
-	_heli animate["mpd_gr_obj1_z", 0.005];
+	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
+	_heli setobjecttexture [SEL_MPD_PR_TSD_IMAP, "\fza_ah64_us\tex\mpd\tsd.paa"];
+	_heli animateSource [_seat+"_mmap_tx", 0, true];
+    _heli animateSource [_seat+"_mmap_ty", 0, true];
+	_heli animateSource [_seat+"_mmap_r", 0, true];
+	_heli animateSource [_seat+"_mmap_sc", 1 , true];
 };

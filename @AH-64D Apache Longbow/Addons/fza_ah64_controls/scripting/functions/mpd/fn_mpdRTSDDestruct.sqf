@@ -28,3 +28,11 @@ for "_i" from SEL_MPD_PL_OBJ1 to SEL_MPD_PL_OBJ32 do {
 for "_i" from SEL_MPD_GR_OBJ1 to SEL_MPD_GR_OBJ32 do {
 	_heli setObjectTexture [_i, ""];
 };
+
+if (player == driver _heli || player == gunner _heli) then {
+	_seat = ["cpg", "plt"] select (player == driver _heli);
+	_heli animateSource [_seat+"_mmap_tx", 0, true];
+	_heli animateSource [_seat+"_mmap_ty", 0, true];
+	_heli animateSource [_seat+"_mmap_r", 0, true];
+	_heli animateSource [_seat+"_mmap_sc", 1 , true];
+};

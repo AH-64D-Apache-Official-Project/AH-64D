@@ -469,7 +469,9 @@ if (_collective == "scalar") then {
 _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
 _radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
 _baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
-_fcrantennafor = ((_heli animationphase "longbow") * 0.48) + 0.5;
+
+_fcrDir = 0.125- abs((((_heli animationPhase "longbow")*30)%1.2*2-1.2)*(0.25/1.2));
+_fcrantennafor = (_fcrDir * 0.48) + 0.5;
 if (_fcrantennafor > 0.56) then {
     _fcrantennafor = 0.56;
 };
@@ -484,7 +486,7 @@ _sensorposy = (_heli animationphase "tads") * -0.015;
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
-_fcrdir = ((_heli animationphase "longbow") * 1.6) + 0.5;
+_fcrdir = (_fcrDir * 1.6) + 0.5;
 if (_fcrdir > 0.7) then {
     _fcrdir = 0.7;
 };

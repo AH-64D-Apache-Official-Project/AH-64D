@@ -22,12 +22,6 @@ _heli setobjecttexture [SEL_MPD_PR_TSD_FILTER, switch (_heli getVariable "fza_ah
 
 [_heli, 1 / (_heli getVariable "fza_ah64_rangesetting") / 1000 , "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_Z] call fza_fnc_drawNumberSelections;
 
-if (fza_ah64_tsdmap < 1) then {
-	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_us\tex\mpd\tsd-b.paa"];
-} else {
-	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\notfound_2.paa"];
-};
-
 private _targetPos = [];
 if (!isNull fza_ah64_mycurrenttarget && _heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	_targetPos = getPos fza_ah64_mycurrenttarget;
