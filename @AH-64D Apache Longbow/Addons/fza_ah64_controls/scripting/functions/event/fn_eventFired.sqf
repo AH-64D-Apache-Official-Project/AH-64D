@@ -25,6 +25,15 @@ _mags = magazines _ah64;
 
 if (!(player == driver _ah64 || player == gunner _ah64)) exitwith {};
 
+if (_weapon == "fza_m230") then {
+    addCamShake [0.40, 1, 25];
+};
+
+// RKT + MSL SHAKE
+if (_weapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] || _weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then 
+{
+    addCamShake [0.40, 0.5, 25];
+};
 //MSL GUIDANCE STARTS HERE !
 
 //COUNTERMEASURES
@@ -68,7 +77,9 @@ if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
     _this spawn {
         params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
         sleep 0.011;
-        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo") && (_weapon in fza_ah64_rocketweps14 || _weapon in fza_ah64_rocketweps23 || _weapon in fza_ah64_rocketweps1 || _weapon in fza_ah64_rocketweps2 || _weapon in fza_ah64_rocketweps3 || _weapon in fza_ah64_rocketweps4)) then {
+        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 
+            && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo")
+            && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
             if (_ah64 ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };

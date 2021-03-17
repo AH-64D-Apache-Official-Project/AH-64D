@@ -50,16 +50,7 @@
 	}
 ] call CBA_fnc_addSetting;
 
-fza_ah64_rocketweps14 = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE"];
-fza_ah64_rocketweps23 = ["fza_m261_1234_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE"];
-fza_ah64_rocketweps1 = ["fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3"];
-fza_ah64_rocketweps2 = ["fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3"];
-fza_ah64_rocketweps3 = ["fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3"];
-fza_ah64_rocketweps4 = ["fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-fza_ah64_hellfireweps1 = ["fza_agm114_1_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr"];
-fza_ah64_hellfireweps2 = ["fza_agm114_2_4", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr"];
-fza_ah64_hellfireweps3 = ["fza_agm114_3_4", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr"];
-fza_ah64_hellfireweps4 = ["fza_agm114_4_4", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
+fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
 fza_ah64_laserstate = 0;
@@ -67,11 +58,6 @@ fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
 fza_ah64_pf_daytime = 0;
-fza_ah64_fire1arm = 0;
-fza_ah64_fire2arm = 0;
-fza_ah64_fireapuarm = 0;
-fza_ah64_firepdisch = 0;
-fza_ah64_firerdisch = 0;
 fza_ah64_locktargstate = 0;
 fza_ah64_irjammer = 0;
 fza_ah64_rfjammer = 0;
@@ -91,7 +77,7 @@ fza_ah64_wptimtm = 0;
 fza_ah64_wptimsm = 0;
 fza_ah64_wpdistr = 0;
 fza_ah64_tiron = false;
-fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
+fza_ah64_bweff = ppEffectCreate ["colorCorrections", 1499];
 fza_ah64_bweff ppEffectAdjust[0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 fza_ah64_bweff ppEffectCommit 0;
 fza_ah64_bweff ppEffectEnable false;
@@ -130,7 +116,7 @@ fza_ah64_headelev = 0;
 fza_ah64_cmpressed = 0;
 fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_damageRotors, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
+fza_ah64_schedarray = [fza_fnc_weaponPylonCheckValid, fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;
 }];

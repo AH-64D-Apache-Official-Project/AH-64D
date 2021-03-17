@@ -35,8 +35,6 @@ if(count _controls > 1) then {
 
 (_controls # 0) params ["", "", "_system", "_control"];
 
-//systemChat format ["System %1, Handle %2", _system, _control];
-
 private _clickSound = ["none"];
 
 switch (_system) do {

@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (!("fza_ah64_irJamfail" in ((vehicle player) magazinesturret[-1]))) then {
+if (!(_heli getVariable "fza_ah64_irjamfail")) then {
     _heli setVariable ["fza_ah64_irjon", 1, true];
     while {
         (fza_ah64_irjammer < 61 && _heli getVariable "fza_ah64_irjon" == 1)

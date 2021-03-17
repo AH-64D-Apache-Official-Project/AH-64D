@@ -66,6 +66,7 @@ class CfgAmmo
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	
 	class fza_agm114base : Missile_AGM_02_F {
+		fza_salType = "sal1";
 		irLock						= 1;
 		laserLock					= 0;
 		airLock						= 0;
@@ -167,6 +168,7 @@ class CfgAmmo
 	};
 	class fza_agm114l : fza_agm114base
 	{
+		fza_salType = "rf";
 		model = "\fza_ah64_US\fza_agm114l";
 		proxyShape="\fza_ah64_US\fza_agm114l";
 		simulation = "shotMissile";
@@ -194,8 +196,9 @@ class CfgAmmo
 	};
 	class fza_agm114k : fza_agm114base
 	{
-		model = "\fza_ah64_US\fza_agm114k";
-		proxyShape="\fza_ah64_US\fza_agm114k";	
+		fza_salType = "sal2";
+		model = "\fza_ah64_us\fza_agm114k"; 
+		proxyShape="\fza_ah64_us\fza_agm114k";	
 		
 		hit = 1400;
 		indirectHit = 1000;
@@ -245,6 +248,7 @@ class CfgAmmo
 	};
 	class fza_agm114a : fza_agm114k
 	{		
+		fza_salType = "sal1";
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
 		effectsmissile = "missile3";	
@@ -255,6 +259,7 @@ class CfgAmmo
 	};
 	class fza_agm114c : fza_agm114k
 	{
+		fza_salType = "sal1";
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";		
 		hit= 800;
@@ -264,6 +269,7 @@ class CfgAmmo
 	};
 	class fza_agm114m : fza_agm114k
 	{
+		fza_salType = "sal2";
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape ="\fza_ah64_US\fza_agm114k";		
 		hit = 900;
@@ -272,7 +278,8 @@ class CfgAmmo
 		cost = 1000;
 	};
 	class fza_agm114n : fza_agm114k
-	{		
+	{
+		fza_salType = "sal2";	
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape = "\fza_ah64_US\fza_agm114k";	
 		hit = 600;
@@ -288,6 +295,9 @@ class CfgAmmo
 	
 	class fza_275_base: MissileBase 
 	{
+		fza_wpnPageIconB = "";
+		fza_wpnPageIconG = "";
+		fza_shortCode = "";
 		soundfly[]  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
 		soundsetexplosion[]  = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};
@@ -322,8 +332,12 @@ class CfgAmmo
 		cost = 75;	
 	};
 	class fza_275_m151: fza_275_base
-	{	
+	{
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
+		fza_shortCode = "6PD";
 		model = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+		proxyShape = "\fza_ah64_us\fza_hydra_m151";	
 		explosionEffects = "GrenadeExplosion";
 		hit=200;
 		indirectHit=100;
@@ -331,7 +345,11 @@ class CfgAmmo
 	};			
 	class fza_275_m229: fza_275_base
 	{
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6RC-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6RC-G_ca.paa";
+		fza_shortCode = "6RC";
 		model = "\fza_ah64_us\weps\fza_hydra_m229_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m229";	
 		explosionEffects = "GrenadeExplosion";
 		hit=300;
 		indirectHit=150;
@@ -341,7 +359,11 @@ class CfgAmmo
 	};
 	class fza_275_m261: fza_275_base 
 	{
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6MP-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6MP-G_ca.paa";
+		fza_shortCode = "6MP";
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";	
 		explosionEffects = "GrenadeExplosion";		
 		maxSpeed = 600;
 		hit = 30;
@@ -353,7 +375,11 @@ class CfgAmmo
 	};
 	class fza_275_m257: fza_275_base 
 	{	
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6IL-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6IL-G_ca.paa";
+		fza_shortCode = "6IL";
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects = "ATMissileCrater";
 		explosionEffects = "";	
 		hit = 30;
@@ -370,7 +396,11 @@ class CfgAmmo
 	};
 	class fza_275_m255: fza_275_base 
 	{
+		fza_wpnPageIconB = "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
+		fza_wpnPageIconG = "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
+		fza_shortCode = "6FL";
 		model = "\fza_ah64_us\weps\fza_hydra_m261_wep";	
+		proxyShape = "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects = "ATMissileCrater";
 		explosionEffects = "";	
 		maxSpeed = 600;

@@ -1,9 +1,5 @@
-#include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
-
-private _hellfireweps = ["fza_agm114_23_8", "fza_agm114_14_8", "fza_agm114_1_4", "fza_agm114_2_4", "fza_agm114_3_4", "fza_agm114_4_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
-private _rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE", "fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3", "fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3", "fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3", "fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
 
 if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 	switch (_control) do {
@@ -21,15 +17,14 @@ if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 		};
 	};
 };
-private _rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE", "fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3", "fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3", "fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3", "fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-if(currentWeapon _heli in _rocketweps) then {
+if(currentWeapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 	switch (_control) do {
 		case "r1": {
 			[_heli] execVM "\fza_ah64_controls\scripting\rocket_salvo.sqf";
 		};
 	};
 };
-if(currentweapon _heli in _hellfireweps) then {
+if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	switch (_control) do {
 		case "l1": {
 			//Switch missile lase
@@ -85,10 +80,10 @@ switch (_control) do {
 		_emptywep = "";
 		_wpncounter = 0;
 		_selectedweapon = 0; {
-			if (_x in _rocketweps) then {
+			if (_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 				_emptywep = _x;
 			};
-			if ((_x in _rocketweps) && _heli ammo _x > 0 && _selectedweapon == 0) then {
+			if ((_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) && _heli ammo _x > 0 && _selectedweapon == 0) then {
 				_selectedweapon = 1;
 				_heli selectweapon _x;
 			};

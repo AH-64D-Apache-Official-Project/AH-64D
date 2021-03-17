@@ -30,33 +30,33 @@ switch (_state) do {
     case "STARTEDOFF";
     case "STARTED";
     case "OFF":{
-            [RPM_OFF, 2];
+            [RPM_OFF, 10];
         };
     case "STARTEDIDLE":{
             private _elapsedTime = time - _params;
             if (_elapsedTime < ENGINE_STATE_STARTEDIDLE_ROTOR_DELAY) then {
                 [RPM_OFF, 2];
             } else {
-                [RPM_IDLE, ENGINE_STATE_LEN_STARTEDIDLE - _elapsedTime];
+                [RPM_IDLE, 60];
             };
         };
     case "IDLE":{
             [RPM_IDLE, 2];
         };
     case "IDLEOFF":{
-            [RPM_OFF, ENGINE_STATE_LEN_IDLEOFF - (time - _params)];
+            [RPM_OFF, 10];
         };
     case "IDLEFLY":{
-            [RPM_FLY, ENGINE_STATE_LEN_IDLEFLY - (time - _params)];
+            [RPM_FLY, 7];
         };
     case "FLYIDLE":{
-            [RPM_IDLE, ENGINE_STATE_LEN_FLYIDLE - (time - _params)];
+            [RPM_IDLE, 10];
         };
     case "FLY":{
-            [RPM_FLY, 2];
+            [RPM_FLY, 7];
         };
     default {
         ["Engine governor hit unknown situation, State: %1, Params: %2", _state, _params] call BIS_fnc_error;
-        [RPM_FLY, 2];
+        [RPM_FLY, 7];
     };
 };

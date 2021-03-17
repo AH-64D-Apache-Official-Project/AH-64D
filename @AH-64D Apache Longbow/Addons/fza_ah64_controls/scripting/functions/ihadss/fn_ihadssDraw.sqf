@@ -61,14 +61,6 @@ _fcrantennafor = 0.5;
 _radrange = "20";
 _nolosbox = "";
 _losbox = "";
-_hellfireweps = ["fza_agm114_23_8", "fza_agm114_14_8", "fza_agm114_1_4", "fza_agm114_2_4", "fza_agm114_3_4", "fza_agm114_4_4", "fza_agm114_1_ul", "fza_agm114_1_ur", "fza_agm114_1_ll", "fza_agm114_1_lr", "fza_agm114_2_ul", "fza_agm114_2_ur", "fza_agm114_2_ll", "fza_agm114_2_lr", "fza_agm114_3_ul", "fza_agm114_3_ur", "fza_agm114_3_ll", "fza_agm114_3_lr", "fza_agm114_4_ul", "fza_agm114_4_ur", "fza_agm114_4_ll", "fza_agm114_4_lr"];
-_longbowmags = ["fza_agm114l_23_8", "fza_agm114l_14_8", "fza_agm114l_1_4", "fza_agm114l_2_4", "fza_agm114l_3_4", "fza_agm114l_4_4", "fza_agm114l_1_ul", "fza_agm114l_1_ur", "fza_agm114l_1_ll", "fza_agm114l_1_lr", "fza_agm114l_2_ul", "fza_agm114l_2_ur", "fza_agm114l_2_ll", "fza_agm114l_2_lr", "fza_agm114l_3_ul", "fza_agm114l_3_ur", "fza_agm114l_3_ll", "fza_agm114l_3_lr", "fza_agm114l_4_ul", "fza_agm114l_4_ur", "fza_agm114l_4_ll", "fza_agm114l_4_lr"];
-_rocketweps = ["fza_m261_1234_zoneE", "fza_m261_14", "fza_m261_14_zoneA", "fza_m261_14_zoneB", "fza_m261_14_zoneE", "fza_m261_23", "fza_m261_23_zoneC", "fza_m261_23_zoneD", "fza_m261_23_zoneE", "fza_m261_1", "fza_m261_1_zone1", "fza_m261_1_zone2", "fza_m261_1_zone3", "fza_m261_2", "fza_m261_2_zone1", "fza_m261_2_zone2", "fza_m261_2_zone3", "fza_m261_3", "fza_m261_3_zone1", "fza_m261_3_zone2", "fza_m261_3_zone3", "fza_m261_4", "fza_m261_4_zone1", "fza_m261_4_zone2", "fza_m261_4_zone3"];
-_6pdmags = ["fza_m261_m151_14_38", "fza_m261_m151_23_38", "fza_m261_m151_1_19", "fza_m261_m151_2_19", "fza_m261_m151_3_19", "fza_m261_m151_4_19", "fza_m261_m151_1_zone1_12", "fza_m261_m151_1_zone2_4", "fza_m261_m151_1_zone3_3", "fza_m261_m151_2_zone1_12", "fza_m261_m151_2_zone2_4", "fza_m261_m151_2_zone3_3", "fza_m261_m151_3_zone1_12", "fza_m261_m151_3_zone2_4", "fza_m261_m151_3_zone3_3", "fza_m261_m151_4_zone1_12", "fza_m261_m151_4_zone2_4", "fza_m261_m151_4_zone3_3", "fza_m261_m151_14_zoneA", "fza_m261_m151_14_zoneB", "fza_m261_m151_14_zoneE", "fza_m261_m151_23_zoneC", "fza_m261_m151_23_zoneD", "fza_m261_m151_23_zoneE"];
-_6rcmags = ["fza_m261_m229_14_38", "fza_m261_m229_23_38", "fza_m261_m229_1_19", "fza_m261_m229_2_19", "fza_m261_m229_3_19", "fza_m261_m229_4_19", "fza_m261_m229_1_zone1_12", "fza_m261_m229_1_zone2_4", "fza_m261_m229_1_zone3_3", "fza_m261_m229_2_zone1_12", "fza_m261_m229_2_zone2_4", "fza_m261_m229_2_zone3_3", "fza_m261_m229_3_zone1_12", "fza_m261_m229_3_zone2_4", "fza_m261_m229_3_zone3_3", "fza_m261_m229_4_zone1_12", "fza_m261_m229_4_zone2_4", "fza_m261_m229_4_zone3_3", "fza_m261_m229_14_zoneA", "fza_m261_m229_14_zoneB", "fza_m261_m229_14_zoneE", "fza_m261_m229_23_zoneC", "fza_m261_m229_23_zoneD", "fza_m261_m229_23_zoneE"];
-_6mpmags = ["fza_m261_m261_14_38", "fza_m261_m261_23_38", "fza_m261_m261_1_19", "fza_m261_m261_2_19", "fza_m261_m261_3_19", "fza_m261_m261_4_19", "fza_m261_m261_1_zone1_12", "fza_m261_m261_1_zone2_4", "fza_m261_m261_1_zone3_3", "fza_m261_m261_2_zone1_12", "fza_m261_m261_2_zone2_4", "fza_m261_m261_2_zone3_3", "fza_m261_m261_3_zone1_12", "fza_m261_m261_3_zone2_4", "fza_m261_m261_3_zone3_3", "fza_m261_m261_4_zone1_12", "fza_m261_m261_4_zone2_4", "fza_m261_m261_4_zone3_3", "fza_m261_m261_14_zoneA", "fza_m261_m261_14_zoneB", "fza_m261_m261_14_zoneE", "fza_m261_m261_23_zoneC", "fza_m261_m261_23_zoneD", "fza_m261_m261_23_zoneE"];
-_6fcmags = ["fza_m261_m255_14_38", "fza_m261_m255_23_38", "fza_m261_m255_1_19", "fza_m261_m255_2_19", "fza_m261_m255_3_19", "fza_m261_m255_4_19", "fza_m261_m255_1_zone1_12", "fza_m261_m255_1_zone2_4", "fza_m261_m255_1_zone3_3", "fza_m261_m255_2_zone1_12", "fza_m261_m255_2_zone2_4", "fza_m261_m255_2_zone3_3", "fza_m261_m255_3_zone1_12", "fza_m261_m255_3_zone2_4", "fza_m261_m255_3_zone3_3", "fza_m261_m255_4_zone1_12", "fza_m261_m255_4_zone2_4", "fza_m261_m255_4_zone3_3", "fza_m261_m255_14_zoneA", "fza_m261_m255_14_zoneB", "fza_m261_m255_14_zoneE", "fza_m261_m255_23_zoneC", "fza_m261_m255_23_zoneD", "fza_m261_m255_23_zoneE"];
-_6ilmags = ["fza_m261_m257_14_38", "fza_m261_m257_23_38", "fza_m261_m257_1_19", "fza_m261_m257_2_19", "fza_m261_m257_3_19", "fza_m261_m257_4_19", "fza_m261_m257_1_zone1_12", "fza_m261_m257_1_zone2_4", "fza_m261_m257_1_zone3_3", "fza_m261_m257_2_zone1_12", "fza_m261_m257_2_zone2_4", "fza_m261_m257_2_zone3_3", "fza_m261_m257_3_zone1_12", "fza_m261_m257_3_zone2_4", "fza_m261_m257_3_zone3_3", "fza_m261_m257_4_zone1_12", "fza_m261_m257_4_zone2_4", "fza_m261_m257_4_zone3_3", "fza_m261_m257_14_zoneA", "fza_m261_m257_14_zoneB", "fza_m261_m257_14_zoneE", "fza_m261_m257_23_zoneC", "fza_m261_m257_23_zoneD", "fza_m261_m257_23_zoneE"];
 _w = 0.0734;
 _h = 0.1;
 _apx = 0.036;
@@ -360,11 +352,11 @@ _autohide = {
 
 };
 
-if (("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) && ("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) then {
+if ((_heli getVariable "fza_ah64_ldp_fail") && (_heli getVariable "fza_ah64_rdp_fail")) then {
     1 cuttext["", "PLAIN", 0.1];
     _heli setVariable ["fza_ah64_ihadssoff", 2];
 };
-if ((!("fza_ah64_ldp_fail" in (_heli magazinesturret[-1])) || !("fza_ah64_rdp_fail" in (_heli magazinesturret[-1]))) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
+if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_rdp_fail")) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
     _heli setVariable ["fza_ah64_ihadssoff", 1];
 };
 
@@ -477,7 +469,9 @@ if (_collective == "scalar") then {
 _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
 _radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
 _baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
-_fcrantennafor = ((_heli animationphase "longbow") * 0.48) + 0.5;
+
+_fcrDir = 0.125- abs((((_heli animationPhase "longbow")*30)%1.2*2-1.2)*(0.25/1.2));
+_fcrantennafor = (_fcrDir * 0.48) + 0.5;
 if (_fcrantennafor > 0.56) then {
     _fcrantennafor = 0.56;
 };
@@ -492,7 +486,7 @@ _sensorposy = (_heli animationphase "tads") * -0.015;
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
-_fcrdir = ((_heli animationphase "longbow") * 1.6) + 0.5;
+_fcrdir = (_fcrDir * 1.6) + 0.5;
 if (_fcrdir > 0.7) then {
     _fcrdir = 0.7;
 };
@@ -544,7 +538,7 @@ if (speed _heli < 5) then {
     _horvect = -100;
 };
 weaponState [_heli, [0]] params ["_curWeapon", "", "_fireMode", "_magazine"];
-if (_curWeapon in _hellfireweps) then {
+if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
     _weapon = "MSL";
     if (isManualFire _heli) then {
         _weapon = "PMSL";
@@ -625,7 +619,7 @@ if (_curWeapon in _hellfireweps) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
-if ((currentweapon _heli) in _rocketweps) then {
+if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
     _w = 0.0734;
     _h = 0.1;
     _apx = 0.036;
@@ -641,21 +635,8 @@ if ((currentweapon _heli) in _rocketweps) then {
     if (isManualFire _heli) then {
         _weapon = "PRKT";
     };
-    if (currentMagazine _heli in _6pdmags) then {
-        _rocketcode = "6PD"
-    };
-    if (currentMagazine _heli in _6rcmags) then {
-        _rocketcode = "6RC"
-    };
-    if (currentMagazine _heli in _6mpmags) then {
-        _rocketcode = "6MP"
-    };
-    if (currentMagazine _heli in _6fcmags) then {
-        _rocketcode = "6FL"
-    };
-    if (currentMagazine _heli in _6ilmags) then {
-        _rocketcode = "6IL"
-    };
+    _ammo = getText (configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo");
+    _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(currentweapon _heli)];
 
     //RKT FIX TADS AND/OR IHADSS DISPLAY

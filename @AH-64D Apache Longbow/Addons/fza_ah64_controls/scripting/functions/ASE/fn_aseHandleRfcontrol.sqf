@@ -14,11 +14,11 @@ Examples:
 	_this spawn fza_fnc_aseHandleRfcontrol;
     
 Author:
-	ollieollieolllie
+    ollieollieolllie
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (!("fza_ah64_rfJamfail" in ((vehicle player) magazinesturret[-1]))) then {
+if (!(_heli getVariable "fza_ah64_irjamfail")) then {
     _heli setVariable ["fza_ah64_rfjon", 1, true];
     while {
         (fza_ah64_rfjammer < 61 && _heli getVariable "fza_ah64_rfjon" == 1)

@@ -12,28 +12,37 @@ if (player == driver _heli || player == gunner _heli) then {
 };
 
 _helidamage = 0;
-_firepstate = !("fza_ah64_firepdisch" in (_heli magazinesturret[-1])) || !("fza_ah64_firepdisch" in magazines _heli);
-_firerstate = !("fza_ah64_firerdisch" in (_heli magazinesturret[-1])) || !("fza_ah64_firerdisch" in magazines _heli);
+_firepstate = !(_heli getVariable "fza_ah64_firepdisch");
+_firerstate = !(_heli getVariable "fza_ah64_firerdisch");
 
-_side = [1.2, -0.8, -1.25];
-_sidef = [1.2, -0.6, -1.25];
-_mag = "fza_ah64_e2_fire";
-_audio1 = "fza_ah64_bt_engine2";
-
-if (_eng == "left") then {
-    _side = [-1, -0.8, -1.25];
-    _sidef = [-1, -0.6, -1.25];
-    _mag = "fza_ah64_e1_fire";
-    _audio1 = "fza_ah64_bt_engine1";
+_side = [];
+_sidef = [];
+_mag = "";
+_audio1 = "";
+switch _eng do {
+    case "right": {
+        _side = [1.2, -0.8, -1.25];
+        _sidef = [1.2, -0.6, -1.25];
+        _mag = "fza_ah64_e2_fire";
+        _audio1 = "fza_ah64_bt_engine2";
+    };
+    case "left": {
+        _side = [-1, -0.8, -1.25];
+        _sidef = [-1, -0.6, -1.25];
+        _mag = "fza_ah64_e1_fire";
+        _audio1 = "fza_ah64_bt_engine1";
+    };
+    case "apu": {
+        _side = [0, -0.8, -1.25];
+        _sidef = [0, 0.2, -1.25];
+        _mag = "fza_ah64_apu_fire";
+        _audio1 = "fza_ah64_bt_apu";
+    };
 };
-if (_eng == "apu") then {
-    _side = [0, -0.8, -1.25];
-    _sidef = [0, 0.2, -1.25];
-    _mag = "fza_ah64_apu_fire";
-    _audio1 = "fza_ah64_bt_apu";
-};
 
-_heli addmagazineturret[_mag, [-1]];
+if (_heli getVariable _mag) exitwith {};
+
+_heli setVariable[_mag, true, true];
 
 _smokefx = "#particlesource"
 createVehicle getpos _heli;
@@ -70,11 +79,12 @@ while {
 }
 do {
     _rand = random 10;
-    _firepon = "fza_ah64_firepdisch" in (_heli magazinesturret[-1]) || "fza_ah64_firepdisch" in magazines _heli;
-    _fireron = "fza_ah64_firerdisch" in (_heli magazinesturret[-1]) || "fza_ah64_firerdisch" in magazines _heli;
-    if ((_firepon && _eng == "left" && fza_ah64_fire1arm == 1 && _firepstate) || (_fireron && _eng == "left" && fza_ah64_fire1arm == 1 && _firerstate)) exitwith {};
-    if ((_firepon && _eng == "right" && fza_ah64_fire2arm == 1 && _firepstate) || (_fireron && _eng == "right" && fza_ah64_fire2arm == 1 && _firerstate)) exitwith {};
-    if ((_firepon && _eng == "apu" && fza_ah64_fireapuarm == 1 && _firepstate) || (_fireron && _eng == "apu" && fza_ah64_fireapuarm == 1 && _firerstate)) exitwith {};
+    _firepon = _heli getVariable "fza_ah64_firepdisch";
+    _fireron = _heli getVariable "fza_ah64_firerdisch";
+    if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+
     if (_rand > 9.9 && !(isengineon _heli)) exitwith {};
     _helidamage = _helidamage + 0.0005;
     if (_helidamage > 0.5) then {
@@ -92,5 +102,4 @@ detach _firefx;
 deletevehicle _smokefx;
 deletevehicle _firefx;
 
-_heli removemagazine _mag;
-_heli removemagazinesturret[_mag, [-1]];
+_heli setVariable[_mag, false, true];

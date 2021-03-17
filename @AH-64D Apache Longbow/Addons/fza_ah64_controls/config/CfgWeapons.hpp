@@ -125,16 +125,16 @@ class CfgWeapons
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
-	class fza_agm114_16 : MissileLauncher
+	class fza_hellfire : MissileLauncher
 	{
+		scope = private;
 		class StandardSound 
 		{
 			soundSetShot[] = {"fza_agm114_soundset"};
 		};
-		sounds[] = {"StandardSound"};		
-		scope = 2;
+		sounds[] = {"StandardSound"};
 		displayName="AGM-114K";
-		magazines[]={"fza_agm114k_16"};
+		magazines[]={};
 		weaponLockDelay = 1;
 		weaponLockSystem = 4;
 		lockedtargetsound[] = {"", 1, 1};
@@ -150,8 +150,7 @@ class CfgWeapons
 		midRange = 3500;
 		midRangeProbab = 1.0;
 		maxRange = 8000;
-		maxRangeProbab = 0.8;
-		reloadtime = 1;	
+		maxRangeProbab = 0.8;	
 		modes[]	= {TopDown,LoalDistance,Cruise};
 		class TopDown: Mode_SemiAuto
 		{
@@ -182,243 +181,32 @@ class CfgWeapons
 			displayName = "LOAL-HI";
 		};
 	};
-	class fza_agm114_23_8 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};	
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (2,3)";
-		magazines[]={fza_agm114l_23_8,fza_agm114k_23_8,fza_agm114c_23_8,fza_agm114a_23_8,fza_agm114m_23_8,fza_agm114n_23_8};	
-	};
-	class fza_agm114_14_8 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (1,4)";
-		magazines[]={fza_agm114l_14_8,fza_agm114k_14_8,fza_agm114c_14_8,fza_agm114a_14_8,fza_agm114m_14_8,fza_agm114n_14_8};
-	};
-	///////1///////////////////////////////
-	class fza_agm114_1_4 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (1)";
-		magazines[]={fza_agm114l_1_4,fza_agm114k_1_4,fza_agm114c_1_4,fza_agm114a_1_4,fza_agm114m_1_4,fza_agm114n_1_4};
-	};
-	class fza_agm114_1_ul : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (1,L1)";
-		magazines[]={fza_agm114l_1_ul,fza_agm114k_1_ul,fza_agm114c_1_ul,fza_agm114a_1_ul,fza_agm114m_1_ul,fza_agm114n_1_ul};
-	};
-	class fza_agm114_1_ur : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (1,R1)";
-		magazines[]={fza_agm114l_1_ur,fza_agm114k_1_ur,fza_agm114c_1_ur,fza_agm114a_1_ur,fza_agm114m_1_ur,fza_agm114n_1_ur};
-	};
-	class fza_agm114_1_ll : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (1,L2)";
-		magazines[]={fza_agm114l_1_ll,fza_agm114k_1_ll,fza_agm114c_1_ll,fza_agm114a_1_ll,fza_agm114m_1_ll,fza_agm114n_1_ll};
-	};
-	class fza_agm114_1_lr : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (1,R2)";
-		magazines[]={fza_agm114l_1_lr,fza_agm114k_1_lr,fza_agm114c_1_lr,fza_agm114a_1_lr,fza_agm114m_1_lr,fza_agm114n_1_lr};
-	};
-	/////////2//////////////////////////
-	class fza_agm114_2_4 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (2)";
-		magazines[]={fza_agm114l_2_4,fza_agm114k_2_4,fza_agm114c_2_4,fza_agm114a_2_4,fza_agm114m_2_4,fza_agm114n_2_4};
-	};
-	class fza_agm114_2_ul : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (2,L1)";
-		magazines[]={fza_agm114l_2_ul,fza_agm114k_2_ul,fza_agm114c_2_ul,fza_agm114a_2_ul,fza_agm114m_2_ul,fza_agm114n_2_ul};
-	};
-	class fza_agm114_2_ur : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (2,R1)";
-		magazines[]={fza_agm114l_2_ur,fza_agm114k_2_ur,fza_agm114c_2_ur,fza_agm114a_2_ur,fza_agm114m_2_ur,fza_agm114n_2_ur};
-	};
-	class fza_agm114_2_ll : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (2,L2)";
-		magazines[]={fza_agm114l_2_ll,fza_agm114k_2_ll,fza_agm114c_2_ll,fza_agm114a_2_ll,fza_agm114m_2_ll,fza_agm114n_2_ll};
-	};
-	class fza_agm114_2_lr : fza_agm114_16
-	{		
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (2,R2)";
-		magazines[]={fza_agm114l_2_lr,fza_agm114k_2_lr,fza_agm114c_2_lr,fza_agm114a_2_lr,fza_agm114m_2_lr,fza_agm114n_2_lr};	
-	};
-	/////////3/////////////////////////////
-	class fza_agm114_3_4 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (3)";
-		magazines[]={fza_agm114l_3_4,fza_agm114k_3_4,fza_agm114c_3_4,fza_agm114a_3_4,fza_agm114m_3_4,fza_agm114n_3_4};
-	};
-	class fza_agm114_3_ul : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (3,L1)";
-		magazines[]={fza_agm114l_3_ul,fza_agm114k_3_ul,fza_agm114c_3_ul,fza_agm114a_3_ul,fza_agm114m_3_ul,fza_agm114n_3_ul};
-	};
-	class fza_agm114_3_ur : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};			
-		displayName="AGM-114 (3,R1)";
-		magazines[]={fza_agm114l_3_ur,fza_agm114k_3_ur,fza_agm114c_3_ur,fza_agm114a_3_ur,fza_agm114m_3_ur,fza_agm114n_3_ur};
-	};
-	class fza_agm114_3_ll : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (3,L2)";
-		magazines[]={fza_agm114l_3_ll,fza_agm114k_3_ll,fza_agm114c_3_ll,fza_agm114a_3_ll,fza_agm114m_3_ll,fza_agm114n_3_ll};
-	};
-	class fza_agm114_3_lr : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (3,R2)";
-		magazines[]={fza_agm114l_3_lr,fza_agm114k_3_lr,fza_agm114c_3_lr,fza_agm114a_3_lr,fza_agm114m_3_lr,fza_agm114n_3_lr};
-	};
-	/////////4//////////////////////////////
-	class fza_agm114_4_4 : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (4)";
-		magazines[]={fza_agm114l_4_4,fza_agm114k_4_4,fza_agm114c_4_4,fza_agm114a_4_4,fza_agm114m_4_4,fza_agm114n_4_4};
-	};
-	class fza_agm114_4_ul : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (4,L1)";
-		magazines[]={fza_agm114l_4_ul,fza_agm114k_4_ul,fza_agm114c_4_ul,fza_agm114a_4_ul,fza_agm114m_4_ul,fza_agm114n_4_ul};
-	};
-	class fza_agm114_4_ur : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};
-		displayName="AGM-114 (4,R1)";
-		magazines[]={fza_agm114l_4_ur,fza_agm114k_4_ur,fza_agm114c_4_ur,fza_agm114a_4_ur,fza_agm114m_4_ur,fza_agm114n_4_ur};	
-	};
-	class fza_agm114_4_ll : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (4,L2)";
-		magazines[]={fza_agm114l_4_ll,fza_agm114k_4_ll,fza_agm114c_4_ll,fza_agm114a_4_ll,fza_agm114m_4_ll,fza_agm114n_4_ll};
-	};
-	class fza_agm114_4_lr : fza_agm114_16
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_agm114_soundset"};
-		};
-		sounds[] = {"StandardSound"};	
-		displayName="AGM-114 (4,R2)";
-		magazines[]={fza_agm114l_4_lr,fza_agm114k_4_lr,fza_agm114c_4_lr,fza_agm114a_4_lr,fza_agm114m_4_lr,fza_agm114n_4_lr};
-	};
+	#define HELLFIRE_DEFS(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
+	#define HELLFIRE_CONFIG(ammoName, prettyName) \
+		class ammoName##_wep : fza_hellfire {\
+			scope = protected;\
+			displayName = prettyName;\
+			magazines[] = {HELLFIRE_DEFS(ammoName)};\
+		} 
+	HELLFIRE_CONFIG(fza_agm114a, "AGM-114A")
+	HELLFIRE_CONFIG(fza_agm114c, "AGM-114C")
+	HELLFIRE_CONFIG(fza_agm114k, "AGM-114K")
+	HELLFIRE_CONFIG(fza_agm114l, "AGM-114L")
+	HELLFIRE_CONFIG(fza_agm114m, "AGM-114M")
+	HELLFIRE_CONFIG(fza_agm114n, "AGM-114N")
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////ROCKETS//////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
-	class fza_m261_76: RocketPods
+	class fza_hydra70: RocketPods
 	{
-		scope = 1;
+		scope = private;
 		displayName="M261";
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
 		burst=1;
-		magazines[]={"fza_m261_m151_76"};
+		magazines[]={};
 		modes[]= {"Single"};
 		class Single: LauncherCore
 		{
@@ -448,325 +236,18 @@ class CfgWeapons
 			cursoraim = "EmptyCursor";
 		};
 	};
-	
-	////////////////14/////////////////
-	class fza_m261_14: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (1,4)";
-		magazines[]={fza_m261_m151_14_38,fza_m261_m229_14_38,fza_m261_m261_14_38,fza_m261_m255_14_38,fza_m261_m257_14_38};
-	};
-	class fza_m261_14_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 A (1,4)";
-		magazines[]={fza_m261_m151_14_zone1_12,fza_m261_m229_14_zone1_12,fza_m261_m261_14_zone1_12,fza_m261_m255_14_zone1_12,fza_m261_m257_14_zone1_12};
-	};
-	class fza_m261_14_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 B (1,4)";
-		magazines[]={fza_m261_m151_14_zone2_4,fza_m261_m229_14_zone2_4,fza_m261_m261_14_zone2_4,fza_m261_m255_14_zone2_4,fza_m261_m257_14_zone2_4};
-	};
-	class fza_m261_14_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 E (1,4)";
-		magazines[]={fza_m261_m151_14_zone3_3,fza_m261_m229_14_zone3_3,fza_m261_m261_14_zone3_3,fza_m261_m255_14_zone3_3,fza_m261_m257_14_zone3_3};
-	};
-	//////////////23///////////////////
-	class fza_m261_23: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (2,3)";
-		magazines[]={fza_m261_m151_23_38,fza_m261_m229_23_38,fza_m261_m261_23_38,fza_m261_m255_23_38,fza_m261_m257_23_38};
-	};
-	class fza_m261_23_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		magazines[]={fza_m261_m151_23_zone1_12,fza_m261_m229_23_zone1_12,fza_m261_m261_23_zone1_12,fza_m261_m255_23_zone1_12,fza_m261_m257_23_zone1_12};
-	};
-	class fza_m261_23_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		magazines[]={fza_m261_m151_23_zone2_4,fza_m261_m229_23_zone2_4,fza_m261_m261_23_zone2_4,fza_m261_m255_23_zone2_4,fza_m261_m257_23_zone2_4};
-	};
-	class fza_m261_23_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		magazines[]={fza_m261_m151_23_zone3_3,fza_m261_m229_23_zone3_3,fza_m261_m261_23_zone3_3,fza_m261_m255_23_zone3_3,fza_m261_m257_23_zone3_3};
-	};
-	/////////////indi///////////////
-	class fza_m261_1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (1)";
-		magazines[]={fza_m261_m151_1_19,fza_m261_m229_1_19,fza_m261_m261_1_19,fza_m261_m255_1_19,fza_m261_m257_1_19};
-	};
-	class fza_m261_1_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 A (1)";
-		magazines[]={fza_m261_m151_1_zone1_12,fza_m261_m229_1_zone1_12,fza_m261_m261_1_zone1_12,fza_m261_m255_1_zone1_12,fza_m261_m257_1_zone1_12};
-	};
-	class fza_m261_1_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 B (1)";
-		magazines[]={fza_m261_m151_1_zone2_4,fza_m261_m229_1_zone2_4,fza_m261_m261_1_zone2_4,fza_m261_m255_1_zone2_4,fza_m261_m257_1_zone2_4};
-	};
-	class fza_m261_1_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 E (1)";
-		magazines[]={fza_m261_m151_1_zone3_3,fza_m261_m229_1_zone3_3,fza_m261_m261_1_zone3_3,fza_m261_m255_1_zone3_3,fza_m261_m257_1_zone3_3};
-	};
-	/////////////////////////////////////
-	class fza_m261_2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (2)";
-		magazines[]={fza_m261_m151_2_19,fza_m261_m229_2_19,fza_m261_m261_2_19,fza_m261_m255_2_19,fza_m261_m257_2_19};
-	};
-	class fza_m261_2_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 C (2)";
-		magazines[]={fza_m261_m151_2_zone1_12,fza_m261_m229_2_zone1_12,fza_m261_m261_2_zone1_12,fza_m261_m255_2_zone1_12,fza_m261_m257_2_zone1_12};
-	};
-	class fza_m261_2_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 D (2)";
-		magazines[]={fza_m261_m151_2_zone2_4,fza_m261_m229_2_zone2_4,fza_m261_m261_2_zone2_4,fza_m261_m255_2_zone2_4,fza_m261_m257_2_zone2_4};
-	};
-	class fza_m261_2_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 E (2)";
-		magazines[]={fza_m261_m151_2_zone3_3,fza_m261_m229_2_zone3_3,fza_m261_m261_2_zone3_3,fza_m261_m255_2_zone3_3,fza_m261_m257_2_zone3_3};
-	};
-	///////////////////////////////////////
-	class fza_m261_3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (3)";
-		magazines[]={fza_m261_m151_3_19,fza_m261_m229_3_19,fza_m261_m261_3_19,fza_m261_m255_3_19,fza_m261_m257_3_19};
-	};
-	class fza_m261_3_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 C (3)";
-		magazines[]={fza_m261_m151_3_zone1_12,fza_m261_m229_3_zone1_12,fza_m261_m261_3_zone1_12,fza_m261_m255_3_zone1_12,fza_m261_m257_3_zone1_12};
-	};
-	class fza_m261_3_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 D (3)";
-		magazines[]={fza_m261_m151_3_zone2_4,fza_m261_m229_3_zone2_4,fza_m261_m261_3_zone2_4,fza_m261_m255_3_zone2_4,fza_m261_m257_3_zone2_4};
-	};
-	class fza_m261_3_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 E (3)";
-		magazines[]={fza_m261_m151_3_zone3_3,fza_m261_m229_3_zone3_3,fza_m261_m261_3_zone3_3,fza_m261_m255_3_zone3_3,fza_m261_m257_3_zone3_3};
-	};
-	/////////////////////////////////////
-	class fza_m261_4: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 (4)";
-		magazines[]={fza_m261_m151_4_19,fza_m261_m229_4_19,fza_m261_m261_4_19,fza_m261_m255_4_19,fza_m261_m257_4_19};
-	};
-	class fza_m261_4_zone1: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};			
-		displayName="M261 A (4)";
-		magazines[]={fza_m261_m151_4_zone1_12,fza_m261_m229_4_zone1_12,fza_m261_m261_4_zone1_12,fza_m261_m255_4_zone1_12,fza_m261_m257_4_zone1_12};
-	};
-	class fza_m261_4_zone2: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 B (4)";
-		magazines[]={fza_m261_m151_4_zone2_4,fza_m261_m229_4_zone2_4,fza_m261_m261_4_zone2_4,fza_m261_m255_4_zone2_4,fza_m261_m257_4_zone2_4};
-	};
-	class fza_m261_4_zone3: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 E (4)";
-		magazines[]={fza_m261_m151_4_zone3_3,fza_m261_m229_4_zone3_3,fza_m261_m261_4_zone3_3,fza_m261_m255_4_zone3_3,fza_m261_m257_4_zone3_3};
-	};
-	//////////////////ZONES/////////////////
-	///////1 and 4 combined zones//////
-	class fza_m261_14_zoneA: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 A (1,4)";
-		magazines[]={fza_m261_m151_14_zoneA,fza_m261_m229_14_zoneA,fza_m261_m261_14_zoneA,fza_m261_m255_14_zoneA,fza_m261_m257_14_zoneA};
-	};
-	class fza_m261_14_zoneB: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};				
-		displayName="M261 B (1,4)";
-		magazines[]={fza_m261_m151_14_zoneB,fza_m261_m229_14_zoneB,fza_m261_m261_14_zoneB,fza_m261_m255_14_zoneB,fza_m261_m257_14_zoneB};
-	};
-	class fza_m261_14_zoneE: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};		
-		displayName="M261 E (1,4)";
-		magazines[]={fza_m261_m151_14_zoneE,fza_m261_m229_14_zoneE,fza_m261_m261_14_zoneE,fza_m261_m255_14_zoneE,fza_m261_m257_14_zoneE};
-	};
-	/////2 and 3 combined zones///////
-	class fza_m261_23_zoneC: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};	
-		displayName="M261 C (2,3)";
-		magazines[]={fza_m261_m151_23_zoneC,fza_m261_m229_23_zoneC,fza_m261_m261_23_zoneC,fza_m261_m255_23_zoneC,fza_m261_m257_23_zoneC};
-	};
-	class fza_m261_23_zoneD: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};			
-		displayName="M261 D (2,3)";
-		magazines[]={fza_m261_m151_23_zoneD,fza_m261_m229_23_zoneD,fza_m261_m261_23_zoneD,fza_m261_m255_23_zoneD,fza_m261_m257_23_zoneD};
-	};
-	class fza_m261_23_zoneE: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};			
-		displayName="M261 E (2,3)";
-		magazines[]={fza_m261_m151_23_zoneE,fza_m261_m229_23_zoneE,fza_m261_m261_23_zoneE,fza_m261_m255_23_zoneE,fza_m261_m257_23_zoneE};
-	};
-	/////zone E combined//////////
-	class fza_m261_1234_zoneE: fza_m261_76
-	{
-		class StandardSound 
-		{
-			soundSetShot[] = {"fza_m261_soundset"};
-		};	
-		sounds[] = {"StandardSound"};		
-		displayName="M261 E";
-		magazines[]={fza_m261_m151_1234_zoneE,fza_m261_m229_1234_zoneE,fza_m261_m261_1234_zoneE,fza_m261_m255_1234_zoneE,fza_m261_m257_1234_zoneE};
-	};
-
+	#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE
+	#define ROCKET_CONFIG(ammoName, prettyName) \
+		class ammoName##_wep : fza_hydra70 {\
+			scope = protected;\
+			displayName = prettyName;\
+			magazines[] = {ROCKET_DEFS(ammoName)};\
+		} 
+	ROCKET_CONFIG(fza_275_m151, "M151 HEDP")
+	ROCKET_CONFIG(fza_275_m229, "M229 HEDP")
+	ROCKET_CONFIG(fza_275_m255, "M255 FLEC")
+	ROCKET_CONFIG(fza_275_m261, "M261 MPSM")
+	ROCKET_CONFIG(fza_275_m257, "M257 IL")
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////STINGERS/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	

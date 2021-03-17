@@ -32,11 +32,8 @@ class CfgFunctions
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
-			class damageDisplayProcessor {R;};
 			class damageSystem {R;};
-			class damageWeapon {R;};
 			class damageM230 {R;};
-			class damageRotors {R;};
 		}
 		class engine
 		{
@@ -186,10 +183,13 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
 			class weaponActionSwitch {R;};
-			class weaponHellfireAlign {R;};
 			class weaponMissileSlowDown {R;};
+			class weaponMissileInventory {R;};
+			class weaponMissileGetSelected {R;};
+			class weaponMissileTrajectory {R;};
 			class weaponM230CycleBurst {R;};
-			class weaponRocketAlign {R;};
+			class weaponPylonCheckValid {R;};
+			class weaponRocketInventory {R;};
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
