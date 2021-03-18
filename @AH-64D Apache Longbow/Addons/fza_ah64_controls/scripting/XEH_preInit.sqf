@@ -57,7 +57,9 @@ fza_ah64_laserstate = 0;
 fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
+fza_ah64_overalltickerslow = 0;
 fza_ah64_pf_daytime = 0;
+fza_ah64_pf_daytime_Slow = 0;
 fza_ah64_locktargstate = 0;
 fza_ah64_irjammer = 0;
 fza_ah64_rfjammer = 0;
@@ -116,9 +118,11 @@ fza_ah64_headelev = 0;
 fza_ah64_cmpressed = 0;
 fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponPylonCheckValid, fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
+fza_ah64_Slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;
+	[0] call fza_fnc_coreSlowscheduler;
 }];
 fza_ah64_ada_units = ["vme_PLA_DK9","VME_PLA_HQ64","VME_PLA_HQ7","VME_PLA_PGZ04","VME_PLA_EQ2050_AA","RHS_Stinger_AA_pod_Base","SAM_System_01_base_F","SAM_System_03_base_F",
 "Radar_System_01_base_F","SAM_System_02_base_F","AAA_System_01_base_F","RHS_ZU23_base","rhs_Igla_AA_pod_Base","AA_01_base_F","Radar_System_02_base_F","SAM_System_04_base_F",
