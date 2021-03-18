@@ -15,7 +15,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-fza_ah64_aseAudio = fza_ah64_asethreats select {alive _x && _x call fza_fnc_targetIsADA};
+fza_ah64_aseAudio = fza_ah64_asethreats;
 {
 	if ((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) && (alive _x) && !(_x in fza_ah64_threattracking)) then {
 		fza_ah64_threattracking = fza_ah64_threattracking + [_x];

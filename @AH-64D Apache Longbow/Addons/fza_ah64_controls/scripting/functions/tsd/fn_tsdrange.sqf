@@ -13,7 +13,7 @@ Examples:
 
 Author:
 ---------------------------------------------------------------------------- */
-_heli = _this select 0;
+params ["_heli"];
 
 if (!(driver _heli == player || gunner _heli == player)) exitwith {};
 

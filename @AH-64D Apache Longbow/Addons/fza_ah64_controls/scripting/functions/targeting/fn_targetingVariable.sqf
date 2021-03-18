@@ -22,11 +22,10 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 	fza_ah64_tsddisptargs = fza_ah64_targetlist select {
 		_theta = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
 
-		! (((_heli getVariable "fza_ah64_agmode" == 1 && getposatl _x select 2 < 10) || (_theta > 90 && _theta < 270) || (_heli getVariable "fza_ah64_agmode" == 0 && getposatl _x select 2 > 10) || (((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) > 1) || !(alive _x)) ||
+		! (((_heli getVariable "fza_ah64_agmode" == 1 && getposatl _x select 2 > 10) || (_theta > 90 && _theta < 270) || (_heli getVariable "fza_ah64_agmode" == 0 && getposatl _x select 2 > 10) || (((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) > 1) || !(alive _x)) ||
 		((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting") > 0.2) && (_theta > 90 && _theta < 270)) || ((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting") > 1) || !(alive _x)))
 	};
 };
-
 
 //FCR LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "GUNNER")) then {
@@ -35,10 +34,10 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 0: {
-				!((getposatl _x select 2 > 10) || ((_heli distance2D _x) > 16000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
+				!((getposatl _x select 2 > 10) || ((_heli distance2D _x) > 8000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
 			};
 			case 1: {
-				!((getposatl _x select 2 < 10) || ((_heli distance2D _x) > 16000) || !(alive _i))
+				!((getposatl _x select 2 < 10) || ((_heli distance2D _x) > 8000) || !(alive _i))
 			};
 			default {
 				true
@@ -53,25 +52,11 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") && !(cameraView == "
 };
 
 //RWR AUDIO
-fza_ah64_asethreats = vehicles - alldead;
+fza_ah64_asethreats = vehicles select {alive _x && _x call fza_fnc_targetIsADA};
 
-
-//SELECTABLE TARGETS
-_visibleTargets =
-	if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
-		fza_ah64_dispfcrlist - alldead;
-	} else {
-		if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") then {
-		fza_ah64_dispfcrlist - alldead;
-		} else {
-			if (_heli getVariable "fza_ah64_pfz_count" == 0) then {
-				fza_ah64_targetlist - alldead;
-			}
-			else {
-				(_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1;
-			}
-		};
-	};
+//remove dead vehicles
+fza_ah64_targetlist = fza_ah64_targetlist - alldead;
+fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 
 //ofset it by 1 second so it alternated between mpd variable and cscope// ran every 2 second delay by 1
