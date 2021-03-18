@@ -1,3 +1,18 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_tsdRange
+
+Description:
+
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_tsdRange;
+
+Author:
+---------------------------------------------------------------------------- */
 _heli = _this select 0;
 
 if (!(driver _heli == player || gunner _heli == player)) exitwith {};

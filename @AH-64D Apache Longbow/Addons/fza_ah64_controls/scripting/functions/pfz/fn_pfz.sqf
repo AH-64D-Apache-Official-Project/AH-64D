@@ -1,3 +1,18 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_Pfz
+
+Description:
+
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_Pfz;
+    
+Author:
+---------------------------------------------------------------------------- */
 _heli = _this select 0;
 _pfznum = _this select 1;
 _pfz = [];

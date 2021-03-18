@@ -20,7 +20,7 @@ if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 if(currentWeapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 	switch (_control) do {
 		case "r1": {
-			[_heli] execVM "\fza_ah64_controls\scripting\rocket_salvo.sqf";
+			[_heli] call weaponRocketsalvo
 		};
 	};
 };
@@ -46,7 +46,7 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 };
 switch (_control) do {
 	case "r6": {
-		[_heli] execvm "\fza_ah64_controls\scripting\guncontrol.sqf";
+		[_heli] spawn fza_fnc_weaponguncontrol;
 	};
 	case "r5": {
 		if (isNull laserTarget _heli) then {

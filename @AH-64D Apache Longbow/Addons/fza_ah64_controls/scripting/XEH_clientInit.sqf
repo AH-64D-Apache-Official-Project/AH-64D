@@ -31,15 +31,15 @@
 }, {}, [USER_20, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "cycleMPDLeft", "Cycle Left MPD", {
-	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\plmpdcycle.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_mpdcycleL)
 }, {}, [USER_2, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "cycleMPDRight", "Cycle Right MPD", {
-	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\prmpdcycle.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_mpdcycleR)
 }, {}, [USER_1, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "gunTracking", "Gun Tracking", {
-	ENSURE_IN_APACHE([vehicle player] execvm "\fza_ah64_controls\scripting\guncontrol.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_weaponguncontrol)
 }, {}, [USER_3, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "was", "Weapon Action Switch", {
@@ -51,11 +51,11 @@
 }, {}, [USER_5, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "targFilter", "TSD/FCR Filter", {
-	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\tsd_targfilter.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_tsdfilter)
 }, {}, [USER_6, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "tsdRange", "TSD Range", {
-	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\tsd_range.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_tsdrange)
 }, {}, [USER_7, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "tsdMode", "TSD Mode", {
@@ -71,7 +71,7 @@
 }, {}, [USER_10, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleIHADSS", "IHADSS Toggle", {
-	ENSURE_IN_APACHE([vehicle player] execVM "\fza_ah64_controls\scripting\ihadss.sqf")
+	CALL_ENSURE_IN_APACHE(fza_fnc_Ihadsstoggle)
 }, {}, [USER_11, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHDUPNVS", "HDU/PNVS Toggle", {

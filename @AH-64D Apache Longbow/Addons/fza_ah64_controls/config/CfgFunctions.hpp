@@ -70,10 +70,15 @@ class CfgFunctions
 		class event
 		{
 			file = "\fza_ah64_controls\scripting\functions\event";
-			class eventFired{R;};
-			class eventGetIn{R;};
-			class eventGetOut{R;};
-			class eventInit{R;};
+			class eventFired {R;};
+			class eventGetIn {R;};
+			class eventGetOut {R;};
+			class eventInit {R;};
+		}
+		class fcr
+		{
+			file = "\fza_ah64_controls\scripting\functions\fcr";
+			class fcrlongbow{R;};
 		}
 		class fire
 		{
@@ -89,6 +94,8 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
 			class ihadssDraw {R;};
+			class Ihadsstoggle {R;};
+			class monicletoggle {R;};
 		};
 		class laser
 		{
@@ -159,10 +166,20 @@ class CfgFunctions
 			class mpdUpdateDisplays {R;};
 			class mpdUpdateMap {R;};
 			class mpdUpdatePoints {R;};
+
+			class mpdcycleL {R;};
+			class mpdcycleR {R;};
+			class Ufd {R;};
 		};
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
+		}
+		class pfz {
+			file = "\fza_ah64_controls\scripting\functions\pfz";
+			class pfz {R;};
+			class pfzrecive {R;};
+			class pfzsend {R;};
 		}
 		class targeting
 		{
@@ -175,6 +192,13 @@ class CfgFunctions
 			class targetingSetAcquisitionSource {R;};
 			class targetingUpdate {R;};
 			class targetingVariable {R;};
+		};
+		class tsd
+		{
+			file = "\fza_ah64_controls\scripting\functions\tsd";
+			class tsdFilter {R;};
+			class tsdMap {R;};
+			class tsdRange {R;};
 		};
 		class ui
 		{
@@ -195,6 +219,7 @@ class CfgFunctions
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
+			class weaponRocketsalvo {R;};
 		};
 		class functions
 		{
@@ -210,6 +235,9 @@ class CfgFunctions
 			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
 			class targetisADA {R;}
+			class doortoggleP {R;};
+			class doortoggleG {R;};
+			class loops {R;};
 		};
 		class ase
 		{

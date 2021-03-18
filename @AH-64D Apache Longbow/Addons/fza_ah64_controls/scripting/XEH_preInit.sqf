@@ -129,8 +129,5 @@ fza_ah64_ada_units = ["vme_PLA_DK9","VME_PLA_HQ64","VME_PLA_HQ7","VME_PLA_PGZ04"
 "RR_PGZ_04_ADS_SP_AA","VME_PLA_ADS_Base","I_LT_01_scout_F","I_LT_01_AA_F","O_APC_Tracked_02_AA_F","O_T_APC_Tracked_02_AA_ghex_F","rhs_zsutank_base","LOP_ZSU234_base",
 "B_APC_Tracked_01_AA_F","B_T_APC_Tracked_01_AA_F","RHS_Ural_Zu23_Base","UK3CB_MTLB_Zu23","UK3CB_V3S_Zu23","UK3CB_Hilux_ZU23","LT_01_scout_base_F"];
 
-
-//EXPERIMENTAL - RUN ONCE FOR PLAYER ONLY
-
-_ufdtracker = [player] execvm "\fza_ah64_controls\scripting\ufd.sqf";
-_targetscanner = [] execvm "\fza_ah64_controls\scripting\fcr_longbow.sqf";
+[0] spawn fza_fnc_fcrlongbow;
+[0] spawn fza_fnc_Ufd;
