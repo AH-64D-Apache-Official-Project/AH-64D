@@ -798,7 +798,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
-				statement="[this] spawn weaponRocketsalvo";
+				statement="[this] call weaponRocketsalvo";
 			};
 			class pilotdoor_open
 			{

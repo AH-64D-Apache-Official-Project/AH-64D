@@ -1,13 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_monicletoggle
+Function: fza_fnc_monocletoggle
+
 Description:
+    adds or removes player monicle
 Parameters:
+
 Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_monicletoggle;
+    [_heli] spawn fza_fnc_monocletoggle;
+
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

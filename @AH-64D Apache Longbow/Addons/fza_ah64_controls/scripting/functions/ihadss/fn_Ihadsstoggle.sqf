@@ -1,13 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_Ihadsstoggle
+Function: fza_fnc_ihadsstoggle
+
 Description:
+
 Parameters:
+
 Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_Ihadsstoggle;
+    [_heli] call fza_fnc_ihadsstoggle;
+
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

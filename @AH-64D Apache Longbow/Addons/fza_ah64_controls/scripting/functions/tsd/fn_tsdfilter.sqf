@@ -2,7 +2,8 @@
 Function: fza_fnc_tsdFilter
 
 Description:
-
+    handles the filter for the tsd
+    
 Parameters:
 
 Returns:
@@ -11,7 +12,8 @@ Returns:
 Examples:
     [_heli] spawn fza_fnc_tsdFilter;
 
-Author:
+Author: 
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

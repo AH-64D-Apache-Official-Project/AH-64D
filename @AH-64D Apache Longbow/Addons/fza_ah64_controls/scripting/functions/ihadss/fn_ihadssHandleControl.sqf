@@ -37,10 +37,10 @@ switch(_control) do {
 		} else {
 			_heli animate["cpg_ihadss_brt", 0];
 		};
-		[_heli] spawn fza_fnc_Ihadsstoggle;
+		[_heli] call fza_fnc_ihadsstoggle;
 	};
 	case "stow": {
 		["fza_ah64_monoclebox", 0.1] spawn fza_fnc_playAudio;
-		[_heli] spawn fza_fnc_monicletoggle;
+		[_heli] call fza_fnc_monocletoggle;
 	};
 };

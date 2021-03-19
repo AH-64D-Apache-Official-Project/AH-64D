@@ -1,15 +1,16 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_pfzRecive
+Function: fza_fnc_pfzReceive
 
 Description:
-
+    sends out the target data
+    
 Parameters:
 
 Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_pfzRecive;
+    [_heli] spawn fza_fnc_pfzReceive;
     
 Author:
 ---------------------------------------------------------------------------- */

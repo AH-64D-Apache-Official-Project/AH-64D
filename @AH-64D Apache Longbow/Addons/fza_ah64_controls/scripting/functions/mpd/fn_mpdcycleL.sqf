@@ -1,13 +1,19 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_mpdcycleL
+
 Description:
+    cycles through the left mpds
+
 Parameters:
+
 Returns:
     Nothing
     
 Examples:
     [_heli] spawn fza_fnc_mpdcycleL;
+
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

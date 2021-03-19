@@ -2,6 +2,7 @@
 Function: fza_fnc_loops
 
 Description:
+    loos battery or apu audio
 
 Parameters:
 
@@ -12,6 +13,7 @@ Examples:
     [_heli] spawn fza_fnc_loops;
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

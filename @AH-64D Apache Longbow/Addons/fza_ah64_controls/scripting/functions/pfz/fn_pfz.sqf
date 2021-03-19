@@ -1,15 +1,16 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_Pfz
+Function: fza_fnc_pfz
 
 Description:
-
+    Main pfz function
+    
 Parameters:
 
 Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_Pfz;
+    [_heli] spawn fza_fnc_pfz;
     
 Author:
 ---------------------------------------------------------------------------- */

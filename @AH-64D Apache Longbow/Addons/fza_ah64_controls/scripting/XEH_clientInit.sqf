@@ -71,7 +71,7 @@
 }, {}, [USER_10, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleIHADSS", "IHADSS Toggle", {
-	CALL_ENSURE_IN_APACHE(fza_fnc_Ihadsstoggle)
+	CALL_ENSURE_IN_APACHE(fza_fnc_ihadsstoggle)
 }, {}, [USER_11, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHDUPNVS", "HDU/PNVS Toggle", {

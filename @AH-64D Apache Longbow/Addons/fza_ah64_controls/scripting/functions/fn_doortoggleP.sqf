@@ -2,6 +2,7 @@
 Function: fza_fnc_doortoggleP
 
 Description:
+     opens/closes the pilot door
 
 Parameters:
 
@@ -13,6 +14,7 @@ Examples:
     statement="[this] spawn fza_fnc_doortoggleP";
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 _heli = _this select 0;
 

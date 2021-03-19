@@ -2,7 +2,8 @@
 Function: fza_fnc_Ufd
 
 Description:
-
+    handles the ufd textures
+    
 Parameters:
 
 Returns:
@@ -12,6 +13,7 @@ Examples:
     [_heli] spawn fza_fnc_Ufd;
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};

@@ -29,7 +29,6 @@ class CfgFunctions
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
 			class coreScheduler {R;};
-			class coreSlowscheduler {R;};
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
@@ -94,8 +93,8 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
 			class ihadssDraw {R;};
-			class Ihadsstoggle {R;};
-			class monicletoggle {R;};
+			class ihadsstoggle {R;};
+			class monocletoggle {R;};
 		};
 		class laser
 		{
@@ -178,7 +177,7 @@ class CfgFunctions
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfz {R;};
-			class pfzrecive {R;};
+			class pfzReceive {R;};
 			class pfzsend {R;};
 		}
 		class targeting

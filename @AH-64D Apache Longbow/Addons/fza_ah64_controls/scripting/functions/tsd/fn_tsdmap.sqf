@@ -2,7 +2,8 @@
 Function: fza_fnc_tsdMap
 
 Description:
-
+    toggles between the world map and a blank screen 
+    
 Parameters:
 
 Returns:
@@ -12,6 +13,7 @@ Examples:
     [_heli] spawn fza_fnc_tsdMap;
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];

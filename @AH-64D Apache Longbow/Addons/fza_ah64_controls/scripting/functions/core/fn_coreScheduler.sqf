@@ -30,3 +30,13 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker && alive _heli && (player
     foreach fza_ah64_schedarray;
     fza_ah64_pf_daytime = daytime;
 };
+
+_tickerSlow = 2;
+
+if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli && (player == driver _heli || player == gunner _heli) && count fza_ah64_Slowschedarray > 0 && (vehicle player) isKindOf "fza_ah64base" && fza_ah64_pf_daytime_Slow < daytime) then {
+    fza_ah64_overalltickerSlow = diag_ticktime; {
+        [_heli] call _x;
+    }
+    foreach fza_ah64_Slowschedarray;
+    fza_ah64_pf_daytime_Slow = daytime;
+}; 

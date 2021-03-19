@@ -2,7 +2,8 @@
 Function: fza_fnc_pfzSend
 
 Description:
-
+    recives data send by another apache
+    
 Parameters:
 
 Returns:

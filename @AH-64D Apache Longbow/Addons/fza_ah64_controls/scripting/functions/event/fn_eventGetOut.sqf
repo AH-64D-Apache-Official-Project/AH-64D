@@ -37,4 +37,4 @@ if (!(vehicle player isKindOf "fza_ah64base")) then {
     };
 };
 _heli setVariable ["fza_ah64_ihadssoff", 1];
-[_heli] spawn fza_fnc_Ihadsstoggle;
+[_heli] call fza_fnc_ihadsstoggle;

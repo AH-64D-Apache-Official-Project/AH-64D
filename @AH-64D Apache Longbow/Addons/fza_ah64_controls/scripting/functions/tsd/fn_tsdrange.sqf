@@ -2,7 +2,8 @@
 Function: fza_fnc_tsdRange
 
 Description:
-
+    cycles through the ranges for the TSD
+    
 Parameters:
 
 Returns:
@@ -12,6 +13,7 @@ Examples:
     [_heli] spawn fza_fnc_tsdRange;
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

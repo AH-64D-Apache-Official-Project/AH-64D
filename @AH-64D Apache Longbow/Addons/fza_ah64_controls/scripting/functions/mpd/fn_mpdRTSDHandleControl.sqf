@@ -34,13 +34,13 @@ if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 if(_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	switch (_control) do {
 		case "l1": {
-			[_heli, _heli getVariable "fza_ah64_pfz_count"] spawn fza_fnc_Pfz;
+			[_heli, _heli getVariable "fza_ah64_pfz_count"] spawn fza_fnc_pfz;
 		};
 		case "l3": {
 			[_heli] spawn fza_fnc_pfzSend;
 		};
 		case "l4": {
-			[_heli] spawn fza_fnc_pfzRecive;
+			[_heli] spawn fza_fnc_pfzReceive;
 		};
 	};
 };
@@ -52,7 +52,7 @@ switch (_control) do {
 		[_heli] call fza_fnc_targetingPFZCycle;
 	};
 	case "b3": {
-		[_heli] spawn fza_fnc_tsdmap;
+		[_heli] spawn fza_fnc_tsdMap;
 	};
 	case "r1": {
 		[_heli, "OUT"] call fza_fnc_mpdHandleZoom;

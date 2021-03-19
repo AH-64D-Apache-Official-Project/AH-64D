@@ -2,6 +2,7 @@
 Function: fza_fnc_doortoggleG
 
 Description:
+    opens/closes the gunner door
 
 Parameters:
 
@@ -13,6 +14,7 @@ Examples:
     statement="[this] spawn fza_fnc_doortoggleG";
 
 Author:
+    Unknown
 ---------------------------------------------------------------------------- */
 _heli = _this select 0;
 
