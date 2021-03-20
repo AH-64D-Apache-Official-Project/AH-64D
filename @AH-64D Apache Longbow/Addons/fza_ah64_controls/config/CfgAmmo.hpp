@@ -189,9 +189,9 @@ class CfgAmmo
 		proxyShape="\fza_ah64_US\fza_agm114l";
 		simulation = "shotMissile";
 		
-		hit = 800;
+		hit = 600;
 		indirectHit = 200;
-		indirectHitRange = 10;
+		indirectHitRange = 4;
 		cost = 1000;	
 
 		airLock = 0;
@@ -216,9 +216,9 @@ class CfgAmmo
 		model = "\fza_ah64_us\fza_agm114k"; 
 		proxyShape="\fza_ah64_us\fza_agm114k";	
 		
-		hit = 800;
+		hit = 600;
 		indirectHit = 200;
-		indirectHitRange = 10;
+		indirectHitRange = 4;
 		cost = 1000;	
 
 		laserLock = 1;
@@ -268,9 +268,9 @@ class CfgAmmo
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
 		effectsmissile = "missile3";	
-		hit = 300;
+		hit = 200;
 		indirectHit = 80;
-		indirectHitRange = 10;
+		indirectHitRange = 4;
 		cost = 1000;
 	};
 	class fza_agm114c : fza_agm114k
@@ -278,9 +278,9 @@ class CfgAmmo
 		fza_salType = "sal1";
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";		
-		hit= 400;
+		hit= 260;
 		indirectHit = 100;
-		indirectHitRange = 10;
+		indirectHitRange = 4;
 		cost = 1000;
 	};
 	class fza_agm114m : fza_agm114k
@@ -288,12 +288,13 @@ class CfgAmmo
 
 		ace_frag_enabled = 1;
 		ace_frag_skip = 0;
+		ace_frag_force = 1;
 		fza_salType = "sal2";
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape ="\fza_ah64_US\fza_agm114k";		
-		hit = 100;
-		indirectHit = 100;
-		indirectHitRange = 200;
+		hit = 50;
+		indirectHit = 50;
+		indirectHitRange = 100;
 		cost = 1000;
 	};
 	class fza_agm114n : fza_agm114k
@@ -303,7 +304,7 @@ class CfgAmmo
 		proxyShape = "\fza_ah64_US\fza_agm114k";	
 		hit = 200;
 		indirecthit = 200;
-		indirecthitrange = 100;
+		indirecthitrange = 12;
 		explosionEffects = "BombExplosion";
 		cost = 1000;
 	};
