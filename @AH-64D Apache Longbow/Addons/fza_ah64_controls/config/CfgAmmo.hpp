@@ -294,7 +294,7 @@ class CfgAmmo
 		proxyShape ="\fza_ah64_US\fza_agm114k";		
 		hit = 100;
 		indirectHit = 100;
-		indirectHitRange = 100;
+		indirectHitRange = 40;
 		cost = 1000;
 	};
 	class fza_agm114n : fza_agm114k
