@@ -116,8 +116,8 @@ class CfgAmmo
 		missileLockMaxDistance	= 8000;
 		missileLockMinDistance	= 700;
 		missileLockMaxSpeed		= 56;
-		missileLockCone			= 20;
-		missileKeepLockedCone	= 20;
+		missileLockCone			= 90;
+		missileKeepLockedCone	= 90;
 		lockSeekRadius			= 2000;
 		autoSeekTarget 			= 0;
 		weaponLockSystem		= "2 + 16";
@@ -230,9 +230,9 @@ class CfgAmmo
 		missileLockMaxDistance = 8000;
 		missileLockMinDistance = 500;
 		missileLockMaxSpeed = 56;
-		missileLockCone = 40;
-		missileKeepLockedCone = 40;
-		missileManualControlCone = 40;
+		missileLockCone = 90;
+		missileKeepLockedCone = 90;
+		missileManualControlCone = 90;
 		weaponLockSystem = "4 + 16";
 		weaponType = "missileAA";
 		class Components : Components
