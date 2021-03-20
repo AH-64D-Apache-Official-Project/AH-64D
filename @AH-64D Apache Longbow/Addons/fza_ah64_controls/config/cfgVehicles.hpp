@@ -1064,6 +1064,12 @@ class CfgVehicles
 				author = "Houseman";
 				textures[]= {"\fza_ah64_us\tex\Ex\b2_rnlaf_demo_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class UK_AAC
+			{
+				displayName = "United Kingdom Army Air Corps";
+				author = "ollieollieolllie & Jamo";
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
 		};
 
 		textureList[] = {"b2", 1};
