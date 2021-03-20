@@ -292,8 +292,8 @@ class CfgAmmo
 		fza_salType = "sal2";
 		model = "\fza_ah64_US\fza_agm114k";
 		proxyShape ="\fza_ah64_US\fza_agm114k";		
-		hit = 50;
-		indirectHit = 50;
+		hit = 100;
+		indirectHit = 100;
 		indirectHitRange = 100;
 		cost = 1000;
 	};
