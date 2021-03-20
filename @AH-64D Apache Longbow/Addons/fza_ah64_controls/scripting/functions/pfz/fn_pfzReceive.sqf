@@ -2,7 +2,7 @@
 Function: fza_fnc_pfzReceive
 
 Description:
-    sends out the target data
+    receiving pfz that were broadcast by other helis
     
 Parameters:
 

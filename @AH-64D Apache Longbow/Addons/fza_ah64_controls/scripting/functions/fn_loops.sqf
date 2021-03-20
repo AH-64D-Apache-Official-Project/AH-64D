@@ -2,7 +2,7 @@
 Function: fza_fnc_loops
 
 Description:
-    loos battery or apu audio
+    loops battery or apu audio
 
 Parameters:
 

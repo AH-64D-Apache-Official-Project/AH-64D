@@ -1,16 +1,19 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_pfz
+Function: fza_fnc_pfzCreate
 
 Description:
-    Main pfz function
+    Runs the in-map user interface that is used for selecting PFZs. Generates the 
+    PFZ for the given helicopter and puts all relevant targets inside it.
     
 Parameters:
+    _heli - the helicopter to create the PFZ on
+    _pfznum - the index of the PFZ (in range 1 - 8 inclusive)
 
 Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_pfz;
+    [_heli] spawn fza_fnc_pfzCreate;
     
 Author:
 ---------------------------------------------------------------------------- */

@@ -2,7 +2,7 @@
 Function: fza_fnc_pfzSend
 
 Description:
-    recives data send by another apache
+    broadcasting out the currently selected PFZ for other helis
     
 Parameters:
 

@@ -34,7 +34,7 @@ if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 if(_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	switch (_control) do {
 		case "l1": {
-			[_heli, _heli getVariable "fza_ah64_pfz_count"] spawn fza_fnc_pfz;
+			[_heli, _heli getVariable "fza_ah64_pfz_count"] spawn fza_fnc_pfzCreate;
 		};
 		case "l3": {
 			[_heli] spawn fza_fnc_pfzSend;

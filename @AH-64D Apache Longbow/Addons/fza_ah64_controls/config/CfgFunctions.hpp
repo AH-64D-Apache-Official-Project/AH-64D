@@ -176,7 +176,7 @@ class CfgFunctions
 		}
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
-			class pfz {R;};
+			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzsend {R;};
 		}

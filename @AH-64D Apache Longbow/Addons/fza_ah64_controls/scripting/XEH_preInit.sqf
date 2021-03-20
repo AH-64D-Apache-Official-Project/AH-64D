@@ -119,7 +119,7 @@ fza_ah64_cmpressed = 0;
 fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
-fza_ah64_Slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
+fza_ah64_slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;
 }];
@@ -129,4 +129,4 @@ fza_ah64_ada_units = ["vme_PLA_DK9","VME_PLA_HQ64","VME_PLA_HQ7","VME_PLA_PGZ04"
 "B_APC_Tracked_01_AA_F","B_T_APC_Tracked_01_AA_F","RHS_Ural_Zu23_Base","UK3CB_MTLB_Zu23","UK3CB_V3S_Zu23","UK3CB_Hilux_ZU23","LT_01_scout_base_F"];
 
 [0] spawn fza_fnc_fcrlongbow;
-[0] spawn fza_fnc_Ufd;
+[0] spawn fza_fnc_ufd;
