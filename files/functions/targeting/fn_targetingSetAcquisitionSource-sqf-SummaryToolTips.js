@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingSetAcquisitionSource.sqf",{8:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the player\'s seat\'s aquisition source to the source specified - 0 is FCR / TADS (depending on if you have a radar) - 1 is HMD - 2 is AUTO - 3 is FXD</div></div>"});

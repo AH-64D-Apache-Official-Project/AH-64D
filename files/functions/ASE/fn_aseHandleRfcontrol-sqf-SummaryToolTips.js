@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleRfcontrol.sqf",{30:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the RF jammer overheat</div></div>"});

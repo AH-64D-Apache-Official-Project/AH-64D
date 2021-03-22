@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:functions/targeting/fn_targetingSched.sqf","fn_targetingSched.sqf");NDSummary.OnSummaryLoaded("File:functions/targeting/fn_targetingSched.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[5,0,1,"Functions","Functions"],[6,0,0,"fza_fnc_targetingSched","fza_fnc_targetingSched"]]);

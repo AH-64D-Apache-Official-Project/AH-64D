@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleJammerToggle.sqf",{122:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Toggles both jammers between OFF and AUTO.</div></div>"});

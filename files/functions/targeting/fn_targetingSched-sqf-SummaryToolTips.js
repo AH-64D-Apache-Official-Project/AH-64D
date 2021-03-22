@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingSched.sqf",{6:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles repetitive target management. Should be run regularly in the scheduler.</div></div>"});
