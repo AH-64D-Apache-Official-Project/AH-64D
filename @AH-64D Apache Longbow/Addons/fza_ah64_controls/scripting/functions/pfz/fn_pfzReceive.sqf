@@ -2,7 +2,7 @@
 Function: fza_fnc_pfzReceive
 
 Description:
-    receiving pfz that were broadcast by other helis
+    Stores PFZ that was broadcasted by another helicopter in currently selected PFZ
     
 Parameters:
 

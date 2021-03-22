@@ -2,7 +2,7 @@
 Function: fza_fnc_pfzSend
 
 Description:
-    broadcasting out the currently selected PFZ for other helis
+    Broadcasts currently selected PFZ for other helis
     
 Parameters:
 
