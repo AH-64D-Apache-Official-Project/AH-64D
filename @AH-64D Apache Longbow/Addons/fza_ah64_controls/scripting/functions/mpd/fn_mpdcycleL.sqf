@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_mpdcycleL
+
+Description:
+    cycles through the left mpds
+
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_mpdcycleL;
+
+Author:
+    Unknown
+---------------------------------------------------------------------------- */
 params["_heli"];
 
 if ([_heli, 0] call fza_fnc_mpdGetCurrentDisplay == "fuel") exitwith {

@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_mpdcycleR
+
+Description:
+    cycles through the right mpds
+    
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_mpdcycleR;
+
+Author:
+    Unknown
+---------------------------------------------------------------------------- */
 _heli = _this select 0;
 
 if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") exitwith {

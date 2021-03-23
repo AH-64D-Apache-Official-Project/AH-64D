@@ -1,5 +1,21 @@
-//Deleted stuff that wasn't actually used and fixed the ownship appearing on the FCR... - Brad
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_fcrLongbow
 
+Description:
+    Fire control Radar script that takes target from sens radar and adds it to 
+    fza_ah64_targetlist & fza_ah64_fcrlist
+
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_fcrLongbow;
+
+Author:
+    Unknown
+---------------------------------------------------------------------------- */
 #define AGMODE_GND 0
 #define AGMODE_AIR 1
 #define AGMODE_FNI 2 //FCR Not Installed (FNI)
@@ -53,7 +69,7 @@ do {
                     _rem = true;    
                 };
 
-                if (_i distance _heli > 8000 || (_i iskindof "man") || !(alive _i)) then {
+                if (_i distance _heli > 10000 || (_i iskindof "man") || !(alive _i)) then {
                     _targetArray = _targetArray - [_i];
                     _rem = true;
                 };

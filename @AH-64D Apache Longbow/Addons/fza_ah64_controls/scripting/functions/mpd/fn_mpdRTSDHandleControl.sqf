@@ -34,13 +34,13 @@ if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 if(_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 	switch (_control) do {
 		case "l1": {
-			[_heli, _heli getVariable "fza_ah64_pfz_count"] execvm "\fza_ah64_controls\scripting\pfz.sqf";
+			[_heli, _heli getVariable "fza_ah64_pfz_count"] spawn fza_fnc_pfzCreate;
 		};
 		case "l3": {
-			[_heli] execvm "\fza_ah64_controls\scripting\targxfer.sqf";
+			[_heli] spawn fza_fnc_pfzSend;
 		};
 		case "l4": {
-			[_heli] execvm "\fza_ah64_controls\scripting\targrecv.sqf";
+			[_heli] spawn fza_fnc_pfzReceive;
 		};
 	};
 };
@@ -52,7 +52,7 @@ switch (_control) do {
 		[_heli] call fza_fnc_targetingPFZCycle;
 	};
 	case "b3": {
-		[_heli] execvm "\fza_ah64_controls\scripting\tsd_map_toggle.sqf";
+		[_heli] spawn fza_fnc_tsdMap;
 	};
 	case "r1": {
 		[_heli, "OUT"] call fza_fnc_mpdHandleZoom;
@@ -61,7 +61,7 @@ switch (_control) do {
 		[_heli, "IN"] call fza_fnc_mpdHandleZoom;
 	};
 	case "r3": {
-		[_heli] execVM "\fza_ah64_controls\scripting\tsd_targfilter.sqf";
+		[_heli] spawn fza_fnc_tsdFilter;
 	};
 	case "t2": {
 		[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;

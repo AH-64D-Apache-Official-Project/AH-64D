@@ -1,5 +1,22 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_tsdMap
+
+Description:
+    toggles between the world map and a blank screen 
+    
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_tsdMap;
+
+Author:
+    Unknown
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
-_heli = _this select 0;
+params ["_heli"];
 
 private _map = getText(configFile >> "CfgWorlds" >> worldName >> "pictureMap");
 
@@ -17,4 +34,4 @@ if (fza_ah64_tsdmap == _mapcount) exitwith {
 fza_ah64_tsdmap = fza_ah64_tsdmap + 1;
 
 _heli setobjecttexture [SEL_MPD_PL_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
-_heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"];
+_heli setobjecttexture [SEL_MPD_GR_OBJ1, "\fza_ah64_US\tex\mpd\ownship_ca.paa"]; 
