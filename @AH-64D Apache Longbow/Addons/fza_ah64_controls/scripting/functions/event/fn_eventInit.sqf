@@ -101,7 +101,7 @@ if (local _heli) then {
 //DEFAULT WEIGHT 
 
 if ((weightRTD _heli select 3) == 0) then {
-    if (typeof _heli == "fza_ah64d_b2e") then {
+    if (_heli animationPhase "fcr_enable" == 1) then {
         _heli setCustomWeightRTD 295;
     };
 };
