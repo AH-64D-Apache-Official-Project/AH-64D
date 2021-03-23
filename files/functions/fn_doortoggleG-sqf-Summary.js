@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:functions/fn_doortoggleG.sqf","fn_doortoggleG.sqf");NDSummary.OnSummaryLoaded("File:functions/fn_doortoggleG.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[173,0,1,"Functions","Functions"],[174,0,0,"fza_fnc_doortoggleG","fza_fnc_doortoggleG"]]);

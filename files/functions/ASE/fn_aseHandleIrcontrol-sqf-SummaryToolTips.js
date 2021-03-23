@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleIrcontrol.sqf",{28:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the IR jammer overheat</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleIrcontrol.sqf",{30:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the IR jammer overheat</div></div>"});
