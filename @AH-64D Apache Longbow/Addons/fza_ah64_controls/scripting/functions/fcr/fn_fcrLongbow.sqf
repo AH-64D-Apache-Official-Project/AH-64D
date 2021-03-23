@@ -1,5 +1,21 @@
-//Deleted stuff that wasn't actually used and fixed the ownship appearing on the FCR... - Brad
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_fcrLongbow
 
+Description:
+    Fire control Radar script that takes target from sens radar and adds it to 
+    fza_ah64_targetlist & fza_ah64_fcrlist
+
+Parameters:
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] spawn fza_fnc_fcrLongbow;
+
+Author:
+    Unknown
+---------------------------------------------------------------------------- */
 #define AGMODE_GND 0
 #define AGMODE_AIR 1
 #define AGMODE_FNI 2 //FCR Not Installed (FNI)
@@ -25,7 +41,7 @@ do {
         ((driver(vehicle player) == player || gunner(vehicle player) == player) && isengineon(vehicle player))
     };
 
-    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && _heli getHit "radar" < 0.8) then {
+    if (isVehicleRadarOn _heli && (typeOf _heli == "fza_ah64d_b2e") && !("fza_ah64_fcr_fail" in (_heli magazinesturret[-1]))) then {
         //add targets to master list
         //_targetArray = (list _radsweep);
         //_targetArray = vehicles - allDead;
@@ -53,7 +69,7 @@ do {
                     _rem = true;    
                 };
 
-                if (_i distance _heli > 8000 || (_i iskindof "man") || !(alive _i)) then {
+                if (_i distance _heli > 10000 || (_i iskindof "man") || !(alive _i)) then {
                     _targetArray = _targetArray - [_i];
                     _rem = true;
                 };

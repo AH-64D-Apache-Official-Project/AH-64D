@@ -11,15 +11,15 @@ Examples:
     [_heli] call fza_fnc_targetingUpdate
 	---
 Author:
-	Ollieollieolllie
+	Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-fza_ah64_asethreats = vehicles - alldead;
-fza_ah64_asethreats = fza_ah64_asethreats select {alive _x && _x call fza_fnc_targetIsADA};
+
+fza_ah64_aseAudio = fza_ah64_asethreats;
 {
 	if ((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) && (alive _x) && !(_x in fza_ah64_threattracking)) then {
 		fza_ah64_threattracking = fza_ah64_threattracking + [_x];
-        fza_ah64_targetlist = fza_ah64_targetlist + [_x];
+		fza_ah64_targetlist = fza_ah64_targetlist + [_x];
 		if (_x iskindof "rhs_zsutank_base") then {
 			["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
 		};
@@ -36,4 +36,4 @@ fza_ah64_asethreats = fza_ah64_asethreats select {alive _x && _x call fza_fnc_ta
 			[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 		};
 	};
-} forEach fza_ah64_asethreats;
+} forEach fza_ah64_aseAudio

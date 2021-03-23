@@ -94,21 +94,6 @@ private _lastSelection = if (driver _heli == player) then {SEL_MPD_PL_OBJ32} els
 private ["_sel", "_iconPrefix", "_iconSuffix", "_heading", "_distance", "_x", "_y"];
 private _seat = if (driver _heli == player) then {"pl"} else {"gr"};
 
-fza_ah64_asethreatsdraw = fza_ah64_targetlist; {
-	_i = _x;
-	fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw - [_i];
-	fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw - allDead; {
-		if (_i iskindof _x) then {
-			fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw + [_i];
-		};
-	}
-	foreach fza_ah64_ada_units;
-	if (side _i == side _heli) then {
-		fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw - [_i];
-	};
-}
-foreach fza_ah64_asethreatsdraw;
-
 private _objects = fza_ah64_asethreatsdraw apply {
 	private _iconformat = "\fza_ah64_US\tex\ICONS\U";
 	private _iconsuffix = "D.paa";
