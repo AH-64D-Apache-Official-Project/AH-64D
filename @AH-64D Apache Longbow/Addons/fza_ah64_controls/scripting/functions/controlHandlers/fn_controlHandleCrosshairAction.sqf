@@ -48,9 +48,9 @@ switch (_system) do {
 	case "door": {
 		if (_control == "handle") then {
 			if (player == gunner _heli) then {
-				[_heli, "gdoor"] execVM "\fza_ah64_controls\scripting\gundoor_toggle.sqf";
+				[_heli] spawn fza_fnc_doortoggleG;
 			} else {
-				[_heli, "pdoor"] execVM "\fza_ah64_controls\scripting\pilotdoor_toggle.sqf";
+				[_heli] spawn fza_fnc_doortogglep;
 			};
 		}
 	};
