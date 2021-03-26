@@ -23,8 +23,6 @@ Author:
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 _heli = objNull;
 _targetArray = [];
-_detectchance = 0.00834;
-_adaunit = false;
 _datalinkArray = [];
 
 while {
@@ -50,8 +48,28 @@ do {
         foreach _datalinkArray;
 
         {
-            if (_x == _heli) then {
-                _targetArray = _targetArray - [_x];
+            if (alive _x && !(_x in fza_ah64_fcrlist)) then {
+                _distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
+
+                if (_x == _heli) then {
+                    _targetArray = _targetArray - [_x];
+                };
+
+                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (_distOffAxis > 60)) then {
+                    _targetArray = _targetArray - [_x];
+                };
+                
+                if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !((_x isKindOf "plane") || (_x isKindOf "helicopter"))) then {
+                    _targetArray = _targetArray - [_x];
+                };
+                sleep 0.03;
+            };
+        }
+        foreach _targetArray;
+
+        {
+            if (!(_x in fza_ah64_fcrlist)) then {
+                fza_ah64_fcrlist = fza_ah64_fcrlist + [_x];
             };
         }
         foreach _targetArray;
@@ -63,12 +81,14 @@ do {
             };
         }
         foreach _targetArray;
+        /*
         {
-            if (!(_x in fza_ah64_fcrlist)) then {
-                fza_ah64_fcrlist = fza_ah64_fcrlist + [_x];
+            if (_x in fza_ah64_fcrlist && !(_X in _targetarray)) then {
+                fza_ah64_fcrlist = fza_ah64_fcrlist - [_x];
             };
         }
-        foreach _targetArray;
+        foreach fza_ah64_fcrlist;*/
+
     } else {
         fza_ah64_fcrlist = [];
     };

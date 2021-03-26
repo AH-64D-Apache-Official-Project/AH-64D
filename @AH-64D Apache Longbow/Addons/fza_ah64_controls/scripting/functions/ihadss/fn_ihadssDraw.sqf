@@ -27,7 +27,7 @@ _zoomstate = 0;
 _targhead = 0;
 
 _sensor = "R ";
-_sensxm = "FCR/G ";
+_sensxm = "FCR";
 _acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
@@ -385,11 +385,11 @@ _curwpdir = _targhead;
 
 if (_heli getVariable "fza_ah64_agmode" == 0) then {
     _sensor = "R ";
-    _sensxm = "FCR/G ";
+    _sensxm = "FCR ";
 }; //FCRG SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensor = "R ";
-    _sensxm = "FCR/A ";
+    _sensxm = "FCR ";
 }; //FCRA SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 2) then {
     _sensor = "A ";
@@ -397,7 +397,7 @@ if (_heli getVariable "fza_ah64_agmode" == 2) then {
 }; //TADS SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _sensor = "R ";
-    _sensxm = "FCR/G ";
+    _sensxm = "FCR ";
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
 
