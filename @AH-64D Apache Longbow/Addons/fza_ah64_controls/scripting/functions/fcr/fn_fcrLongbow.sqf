@@ -55,7 +55,7 @@ do {
                     _targetArray = _targetArray - [_x];
                 };
 
-                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (_distOffAxis > 60)) then {
+                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (_distOffAxis > 45)) then {
                     _targetArray = _targetArray - [_x];
                 };
                 

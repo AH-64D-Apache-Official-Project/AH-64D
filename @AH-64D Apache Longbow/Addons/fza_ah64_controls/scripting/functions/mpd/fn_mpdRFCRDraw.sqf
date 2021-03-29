@@ -62,7 +62,7 @@ private _targetsToDraw = ([_heli, fza_ah64_dispfcrlist] call fza_fnc_targetingFi
 };
 
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
-	[_heli, _targetsToDraw, false, 0.000125 * 0.37, [0.5, 0.5]] call fza_fnc_mpdUpdatePoints;
+	[_heli, _targetsToDraw, false, 0.000125 * 0.37, [0.51, 0.535]] call fza_fnc_mpdUpdatePoints;
 } else {
-	[_heli, _targetsToDraw, false, 0.000125 * 0.6, [0.5, 0.2]] call fza_fnc_mpdUpdatePoints;
+	[_heli, _targetsToDraw, false, 0.000125 * 0.60, [0.51, 0.18]] call fza_fnc_mpdUpdatePoints;
 }

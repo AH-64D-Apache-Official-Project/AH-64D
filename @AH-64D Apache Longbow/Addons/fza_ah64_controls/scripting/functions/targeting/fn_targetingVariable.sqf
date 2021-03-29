@@ -41,7 +41,7 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "
 				(((_x isKindOf "plane") || (_x isKindOf "helicopter")) && ((_heli distance2D _x) < 8000))
 			};
 			default {
-			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 60))
+			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 45))
 			};
 		};
 	};
@@ -52,7 +52,7 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") && !(cameraView == "
 	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {_x call fza_fnc_targetIsADA};
 };
 
-fza_ah64_asethreats = vehicles select {alive _x && _x call fza_fnc_targetIsADA};
+fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
 
 //CSCOPE LIST
 [] spawn {
@@ -64,7 +64,7 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 0: {
-				!((_distOffAxis > 60) || ((_heli distance2D _x) > 8000))
+				!((_distOffAxis > 45) || ((_heli distance2D _x) > 8000))
 			};
 			case 1: {
 				(((_x isKindOf "plane") || (_x isKindOf "helicopter")) && ((_heli distance2D _x) < 8000))
