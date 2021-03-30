@@ -267,7 +267,8 @@ class CfgAmmo
 		fza_salType = "sal1";
 		model = "\fza_ah64_US\fza_agm114c";
 		proxyShape="\fza_ah64_US\fza_agm114c";
-		effectsmissile = "missile3";	
+		effectsmissile = "missile3";
+		submunitionAmmo="ammo_Penetrator_Titan_AT";
 		hit = 200;
 		indirectHit = 80;
 		indirectHitRange = 4;
@@ -277,7 +278,8 @@ class CfgAmmo
 	{
 		fza_salType = "sal1";
 		model = "\fza_ah64_US\fza_agm114c";
-		proxyShape="\fza_ah64_US\fza_agm114c";		
+		proxyShape="\fza_ah64_US\fza_agm114c";
+		submunitionAmmo="ammo_Penetrator_Titan_AT_long";
 		hit= 260;
 		indirectHit = 100;
 		indirectHitRange = 4;
