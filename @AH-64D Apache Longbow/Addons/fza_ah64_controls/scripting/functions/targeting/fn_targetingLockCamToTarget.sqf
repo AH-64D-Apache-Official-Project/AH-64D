@@ -11,7 +11,7 @@ Examples:
     [_heli] spawn fza_fnc_targetingLockCamTarget 
 	---
 Authors:
-	AngusLogan02, Ollieollieollie
+	AngusLogan02, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 _tgt = cursorTarget;
