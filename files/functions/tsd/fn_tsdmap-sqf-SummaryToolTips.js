@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/tsd/fn_tsdmap.sqf",{42:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">toggles between the world map and a blank screen</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/tsd/fn_tsdmap.sqf",{46:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">toggles between the world map and a blank screen</div></div>"});

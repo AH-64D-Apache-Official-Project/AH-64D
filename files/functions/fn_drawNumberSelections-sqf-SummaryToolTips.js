@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/fn_drawNumberSelections.sqf",{184:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Displays a number on a series of named selections in the given \'font\'</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/fn_drawNumberSelections.sqf",{180:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Displays a number on a series of named selections in the given \'font\'</div></div>"});
