@@ -25,7 +25,7 @@ class Components: Components
         };
 
         typeRecognitionDistance = -1;
-        angleRangeHorizontal = 120;
+        angleRangeHorizontal = 360;
         angleRangeVertical = 60;
         nightRangeCoef = 1;
         maxFogSeeThrough= -1;
