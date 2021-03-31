@@ -50,19 +50,29 @@ class CfgAmmo
 	{
 		ace_frag_enabled = 0;
 		ace_frag_skip = 1;
-
 		soundsetbulletfly[] = {"fza_sc_bullet_flyby_soundset"};
 		soundsetsoniccrack[] = {"fza_sc_30x113_soundset"};
 		soundsetexplosion[] = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
-		hit = 50;
-		indirectHit = 10;
+
+		//duel purpose warhead
+		submunitionAmmo="ammo_Penetrator_30mm";
+		submunitionDirectionType="SubmunitionModelDirection";
+		submunitionInitSpeed=1000;
+		submunitionParentSpeedCoef=0;
+		submunitionInitialOffset[]={0,0,-0.2};
+		triggerOnImpact=1;
+		deleteParentWhenTriggered=0;
+
+		hit = 30;
+		indirectHit = 20;
 		indirectHitRange = 3.5;		
 		maxspeed = 805;
-		explosive = 0.50;
+		explosive = 0.5;
+
 		airFriction = -0.00036;
 		airlock = 0;
 		irlock = 0;
-		allowAgainstInfantry = 1;
+		aiAmmoUsageFlags = "64+128+256"
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -93,6 +103,7 @@ class CfgAmmo
 		maneuvrability				= 21;
 		timeToLive					= 70;
 		cmImmunity					= 1;
+		aiAmmoUsageFlags 			= "64+128+512";
 
 		//Penetrator
 		submunitionAmmo="ammo_Penetrator_AGM_01";
@@ -395,6 +406,7 @@ class CfgAmmo
 		hit = 30;
 		indirectHit = 5;
 		indirectHitRange = 5;
+		submunitionDirectionType="SubmunitionModelDirection";
 		submunitionAmmo = "fza_m73mpsm";
 		submunitionConeType[] = {"randomcenter",9};
 		submunitionConeAngle = 2;
@@ -433,6 +445,7 @@ class CfgAmmo
 		hit = 30;
 		indirectHit = 0;
 		indirectHitRange = 0;
+		submunitionDirectionType="SubmunitionModelDirection";
 		submunitionAmmo = "fza_flec_cluster";
 		submunitionConeType[] = {"randomcenter",100};
 		submunitionConeAngle = 12;
@@ -465,7 +478,7 @@ class CfgAmmo
 		cost = 10;
 		deflecting = 0;
 		airFriction = -0.001;
-		fuseDistance = 0.5;
+		fuseDistance = 30;
 		whistleDist = 16;
 		typicalSpeed = 300;
 		caliber = 3.7;
@@ -496,6 +509,7 @@ class CfgAmmo
 		indirectHitRange = 4;
 		deflecting = 0;
 		cost = 1;
+		fuseDistance = 50;
 	};	
 
 	///////////////////////////////////////////////////////////////////////
