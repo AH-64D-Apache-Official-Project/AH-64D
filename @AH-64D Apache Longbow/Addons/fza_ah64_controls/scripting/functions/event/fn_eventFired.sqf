@@ -25,15 +25,6 @@ _mags = magazines _ah64;
 
 if (!(player == driver _ah64 || player == gunner _ah64)) exitwith {};
 
-if (_weapon == "fza_m230") then {
-    addCamShake [0.40, 1, 25];
-};
-
-// RKT + MSL SHAKE
-if (_weapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] || _weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then 
-{
-    addCamShake [0.40, 0.5, 25];
-};
 //MSL GUIDANCE STARTS HERE !
 
 //COUNTERMEASURES

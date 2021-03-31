@@ -63,11 +63,11 @@ class CfgAmmo
 		triggerOnImpact=1;
 		deleteParentWhenTriggered=0;
 
-		hit = 30;
+		hit = 50;
 		indirectHit = 20;
 		indirectHitRange = 3.5;		
 		maxspeed = 805;
-		explosive = 0.5;
+		explosive = 0.8;
 
 		airFriction = -0.00036;
 		airlock = 0;
