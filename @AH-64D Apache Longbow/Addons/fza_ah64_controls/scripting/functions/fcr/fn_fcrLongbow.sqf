@@ -94,3 +94,60 @@ do {
     };
     sleep 2;
 };
+
+/****
+
+[] spawn  
+{ 
+ runLoop = true; 
+ while {runLoop} do  
+ { 
+    _targetList     = [];
+    _targetListSize = 0;
+
+    _targetList = (listRemoteTargets west select {_x # 1 > 6 && _x # 0 != vehicle player}) apply {_x # 0};
+    _targetListSize = count _targetList;
+
+    hintSilent format [ "Array Size = %1\n
+                        Item Name = %2\n
+                        Item Name = %3\n
+                        Item Name = %4\n",
+                        _targetListSize, _targetList select 0, _targetList select 1, _targetList select 2];
+
+    sleep 0.03; 
+ } 
+};
+
+[] spawn  
+{ 
+ runLoop = true; 
+ while {runLoop} do  
+ { 
+    _targetList     = [];
+    _targetListSize = 0;
+
+    _dataLinkArray = listRemoteTargets west;
+    {
+        if ((_x select 1) > 6) then
+        {
+            _targetList pushBack(_x);
+        }
+    }
+    foreach _dataLinkArray;
+
+    _targetListSize = count _targetList;
+
+    hintSilent format [ "Array Size = %1\n
+                        Item Name = %2\n
+                        Item Name = %3\n
+                        Item Name = %4\n
+                        Test = %5",
+                        _targetListSize, _targetList select 0, _targetList select 1, _targetList select 2, _targetList select 0 select 1];
+
+
+    _targetList deleteRange [0, _targetListSize];
+
+    sleep 0.03; 
+ } 
+};
+****/

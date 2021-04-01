@@ -145,7 +145,7 @@ if (_e2ng < 630 || _e2ng > 1051) then {
 
 // #region ROTORS
  
-_rotorRpm = if (!(isObjectRTD _heli)
+_rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD)
     || (_heli getVariable "fza_ah64_engineStates")# 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]
 	|| (_heli getVariable "fza_ah64_engineStates")# 1# 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
 	_e1percent max _e2percent;
