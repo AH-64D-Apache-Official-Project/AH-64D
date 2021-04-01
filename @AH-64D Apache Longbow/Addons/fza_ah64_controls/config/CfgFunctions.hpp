@@ -174,6 +174,17 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
 		}
+		class performance {
+			file = "\fza_ah64_controls\scripting\functions\performance";
+			
+			class getFuelFlow {R;};
+			class getTorque {R;};
+			class perfConfig {R;};
+			//class perfDataTables {R;};
+			class setFuel {R;};
+			class setMass {R;};
+			class updatePerfData {R;};
+		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
@@ -219,7 +230,6 @@ class CfgFunctions
 			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
 			class weaponRocketsalvo {R;};
-			class weaponguncontrol {R;};
 		};
 		class functions
 		{
