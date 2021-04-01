@@ -16,7 +16,7 @@ Examples:
     _this spawn fza_fnc_aseFlaredeploy;
 
 Author:
-	ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 
 params ["_heli","_munition","_hostile"];

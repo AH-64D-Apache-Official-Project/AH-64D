@@ -249,8 +249,8 @@ class CfgAmmo
 	class fza_agm114a : fza_agm114k
 	{		
 		fza_salType = "sal1";
-		model = "\fza_ah64_US\fza_agm114c";
-		proxyShape="\fza_ah64_US\fza_agm114c";
+		model = "\fza_ah64_US\fza_agm114a";
+		proxyShape="\fza_ah64_US\fza_agm114a";
 		effectsmissile = "missile3";	
 		hit = 800;
 		indirectHit = 400;
@@ -270,8 +270,8 @@ class CfgAmmo
 	class fza_agm114m : fza_agm114k
 	{
 		fza_salType = "sal2";
-		model = "\fza_ah64_US\fza_agm114k";
-		proxyShape ="\fza_ah64_US\fza_agm114k";		
+		model = "\fza_ah64_US\fza_agm114m";
+		proxyShape ="\fza_ah64_US\fza_agm114m";		
 		hit = 900;
 		indirectHit = 500;
 		indirectHitRange = 20;
@@ -280,8 +280,8 @@ class CfgAmmo
 	class fza_agm114n : fza_agm114k
 	{
 		fza_salType = "sal2";	
-		model = "\fza_ah64_US\fza_agm114k";
-		proxyShape = "\fza_ah64_US\fza_agm114k";	
+		model = "\fza_ah64_US\fza_agm114n";
+		proxyShape = "\fza_ah64_US\fza_agm114n";	
 		hit = 600;
 		indirecthit = 600;
 		indirecthitrange = 20;

@@ -16,7 +16,7 @@ Examples:
 	---
 
 Author:
-	Ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
