@@ -3,7 +3,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 
 # CHANGELOG NOTES:
 *1/04/2021*
-- Feature track moving object
+- Image Auto Tracking (IAT)
 - hellfire texture and unwrap fixes
 - Fixed the ENG page so that it works with SFM.
 
@@ -13,17 +13,17 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 - Fixed icon positioning on FCR page
 
 *23/03/2021*
-- added the slow scheduled array
+- performance improvement for targeting code
 - converted scripts into functions
-- optomized the heavy radar variables
+- optimised the heavy radar variables
 
 *20/03/2021*
-- United Kingdom army air corps texture
+- added United Kingdom army air corps texture
 
 *17/03/2021*
 - Implemented Dynamic Loadouts for the Apache, credit to BradMick for 3D modelling and design help
 - Removed old loadout system
-- Moved skins and setting FCR to vehicle customization
+- Moved skins and enabling FCR to vehicle customization
 - Fixed disappeared textures, moved as many damage handlers off scripts as possible
 - Added new RNLAF skins, courtesy of Houseman
 - Added default presets to loadouts
