@@ -130,8 +130,12 @@ switch (_state) do {
 if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 2) then {
 	[_npMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _torqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
 } else {
-	private _torque = [_heli] call fza_fnc_updatePerfData select 0;
-	_torque = _torque * 481;
+	private _perfData = [_heli] call fza_fnc_perfGetData;
+	
+	private _curTQ = _perfData select 0;
+	_curTQ = _curTQ * 481;
+	
+	private _curTGT = _perfData select 1;
 
-	[(_npMul / 100) * 21109, _ng, _tgt, _oil, _torque];
+	[(_npMul / 100) * 21109, _ng, _curTGT, _oil, _curTQ];
 };

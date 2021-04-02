@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_getEngineData
+Function: fza_fnc_perfGetData
 
 Description:
 
@@ -18,26 +18,28 @@ params ["_heli"];
 private _curGWT_kg = getMass _heli;
 
 //--------------GWT---IGE---OGE
-_hvrTQTable = [[6350, 0.54, 0.66],	//13000lbs
-			   [6803, 0.59, 0.72],	//14000lbs
-			   [7257, 0.64, 0.79],	//15000lbs
-			   [7711, 0.69, 0.86],	//16000lbs
-			   [8164, 0.73, 0.94],	//17000lbs
-			   [8618, 0.80, 1.01],	//18000lbs
-			   [9071, 0.86, 1.09],	//20000lbs
-			   [9525, 0.92, 1.16]];	//21000lbs
+private _hvrTQTable = [	[6350, 0.54, 0.66],	//13000lbs
+						[6803, 0.59, 0.72],	//14000lbs
+						[7257, 0.64, 0.79],	//15000lbs
+						[7711, 0.69, 0.86],	//16000lbs
+						[8164, 0.73, 0.94],	//17000lbs
+						[8618, 0.80, 1.01],	//18000lbs
+						[9071, 0.86, 1.09],	//20000lbs
+						[9525, 0.92, 1.16]];	//21000lbs
 
 private _intHvrTQTable = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp;
 private _hvrIGE = _intHvrTQTable select 1;
 private _hvrOGE = _intHvrTQTable select 2;
-
-//---------------Coll---TQ(N)------TGT(C)
-_engTQTable = [	[0,     0.15   ,   450],
-				[0.7,   _hvrIGE,   658],
-				[1.0, 	1.29   ,   867]];
-				
 private _gndEffMod = _hvrOGE / _hvrIGE;
 
+//--------------------TQ%----TGT(C)
+private _TGTTable = [[0.15,  450],
+                     [1.00,  810],
+					 [1.29,  867]];					 
+//-----------------------Coll---TQ(N)
+private _engTQTable = [	[0,     0.15   ],
+						[0.7,   _hvrIGE],
+						[1.0, 	1.29   ]];			
 //----------------AGL(m)----TQ Mod
 _gndEffTable = [ [1.52, 	1.0],
 				 [15.24,	_gndEffMod]];
@@ -47,26 +49,43 @@ private _heightAGL = getPosATL _heli select 2;
 private _gndEffVal = [_gndEffTable, _heightAGL] call fza_fnc_linearInterp select 1;
 
 //First we need to get the analog collective input, both of these are positive values: low is 1 to 0, and high is 0 to 1
-_collLow  = inputAction "HeliCollectiveLowerCont";
-_collHigh = inputAction "HeliCollectiveRaiseCont";
+private _collLow  = inputAction "HeliCollectiveLowerCont";
+private _collHigh = inputAction "HeliCollectiveRaiseCont";
 //If we take high - low, we get an output from -1 to 1 
-_collVal = _collHigh - _collLow;
+private _collVal = _collHigh - _collLow;
 //Now that convert the -1 to 1 to a 0 to 1 output
-_collOut = linearConversion [-1, 1, _collVal, 0, 1];
+private _collOut = linearConversion [-1, 1, _collVal, 0, 1];
 
-private _intEngTQTable = [_engTQTable, _collOut] call fza_fnc_linearInterp;
-private _hvrTQVal = _intEngTQTable select 1;
-private _TGT      = _intEngTQTable select 2;
+private _hvrTQVal = [_engTQTable, _collOut] call fza_fnc_linearInterp select 1;
+/*
+private _V_mps   = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+private _ETLMod  = linearConversion[0, 12.3467, _V_mps, 1.0, 0.0];
+if (_ETLMod > 1.0) then {
+	_ETLMod = 1.0;
+};
+
+if (_ETLMod < 0.0) then {
+	_ETLMod = 0.0;
+};
+private _finalTQ = _hvrTQVal * (_gndEffVal * _ETLMod);
+*/
 private _finalTQ = _hvrTQVal * _gndEffVal;
 
+private _TGTVal   = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
+private _finalTGT = _TGTVal;
+/*
 hintSilent format ["Gnd Effect Mod = %1
 					\nGnd Effect Val = %2
 					\nAGL = %3
 					\nHvr Tq Val = %4
 					\nFin Tq Val = %5
-					\nTQT = %6", _gndEffMod, _gndEffVal, _heightAGL, _hvrTQVal, _finalTq, _TGT];
+					\nTQT = %6", _gndEffMod, _gndEffVal, _heightAGL, _hvrTQVal, _finalTq, _finalTGT];
+*/
 
-[_finalTQ, _TGT];
+//_heli setVariable ["fza_ah64d_engTorque", _finalTQ];
+//_heli setVariable ["fza_ah64d_engTGT", _finalTGT];
+
+[_finalTQ, _finalTGT];
 
 /***
 
