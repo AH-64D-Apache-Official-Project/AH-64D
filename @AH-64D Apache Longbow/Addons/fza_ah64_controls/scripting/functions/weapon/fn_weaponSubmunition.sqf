@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","","","","","","_missobj"];
 
-_burstdist = 500;
+_burstdist = 200;
 _Tgpos = screentoworld[0.5, 0.5];
 
 if !(typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") exitwith{};

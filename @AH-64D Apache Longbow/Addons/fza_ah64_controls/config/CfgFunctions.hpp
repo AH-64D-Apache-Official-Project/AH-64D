@@ -193,6 +193,7 @@ class CfgFunctions
 			class weaponSelectFireMode {R;};
 			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
+			class weaponTrajectoryChange {R;};
 		};
 		class functions
 		{

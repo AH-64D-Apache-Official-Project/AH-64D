@@ -800,6 +800,20 @@ class CfgVehicles
 				shortcut="Binocular";
 				statement="fza_ah64_rs = [this] execvm ""\fza_ah64_controls\scripting\rocket_salvo.sqf""";
 			};
+			class hellfireTraj
+			{
+				displayName="";
+				useAction=false;
+				showSwitchAction=false;
+				position="zamerny";
+				onlyForPlayer=1;
+				radius=8;
+				showWindow=0;
+				priority=0;
+				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
+				shortcut="Binocular";
+				statement="[this] call fza_fnc_weaponTrajectoryChange";
+			};
 			class pilotdoor_open
 			{
 				displayName="Open Pilot Door";
