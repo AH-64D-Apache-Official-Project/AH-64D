@@ -29,8 +29,9 @@ private _GWT_kg = _heli getVariable "fza_ah64d_rampMass";
 //Only issue here is TQ doesn't update with reduction in GWT...current GWT needs
 //to be passed into getTorque to ensure accurate numbers...would it be better to
 //just pass the _heli into getTorque and then use getMass in getTorque itself?
-private _TQ = [_heli, _GWT_kg] call fza_fnc_getTorque;
-private _FF = [_heli, _TQ] call fza_fnc_getFuelFlow;
+private _TQ  = [_heli, _GWT_kg] call fza_fnc_getEngineData select 0;
+private _TGT = [_heli, _GWT_kg] call fza_fnc_getEngineData select 1;
+private _FF  = [_heli, _TQ] call fza_fnc_getFuelFlow;
 _FF = _FF;
 
 //This obviously causes the fuel to constantly be reset...not optimal
@@ -44,12 +45,12 @@ private _curAftFuelMass = _aftFuelMass;
 _curAftFuelMass = _curAftFuelMass - _FF;
 
 private _curMass = _GWT_kg + _curFwdFuelMass + _curAftFuelMass;
-
+/*
 hintSilent format ["Torque = %1
 					\nFuel Flow = %2 pph
 					\nFwd Fuel = %3
 					\nAft Fuel = %4", _TQ, (_FF * 2.204 * 3600), _curFwdFuelMass, _curAftFuelMass];
-
+*/
 _heli setMass _curMass;
 
 [_TQ, _FF, _curFwdFuelMass, _curAftFuelMass];

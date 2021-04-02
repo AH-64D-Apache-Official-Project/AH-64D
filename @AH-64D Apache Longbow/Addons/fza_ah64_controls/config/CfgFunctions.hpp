@@ -176,9 +176,8 @@ class CfgFunctions
 		}
 		class performance {
 			file = "\fza_ah64_controls\scripting\functions\performance";
-			
+			class getEngineData {R;};
 			class getFuelFlow {R;};
-			class getTorque {R;};
 			class perfConfig {R;};
 			//class perfDataTables {R;};
 			class setFuel {R;};

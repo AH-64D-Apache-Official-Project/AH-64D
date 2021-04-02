@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_engineGetData
+Function: fza_fnc_getEngineData
 
 Description:
 
@@ -27,12 +27,24 @@ _hvrTQTable = [[6350, 0.54, 0.66],	//13000lbs
 			   [9071, 0.86, 1.09],	//20000lbs
 			   [9525, 0.92, 1.16]];	//21000lbs
 
-private _hvrTQ = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp select 1;
-			 
-//---------------Coll---TQ(N)
-_engTQTable = [	[0, 	0.15],
-				[0.7,  _hvrTQ],
-				[1.0, 	1.29]];
+private _intHvrTQTable = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp;
+private _hvrIGE = _intHvrTQTable select 1;
+private _hvrOGE = _intHvrTQTable select 2;
+
+//---------------Coll---TQ(N)------TGT(C)
+_engTQTable = [	[0,     0.15   ,   450],
+				[0.7,   _hvrIGE,   658],
+				[1.0, 	1.29   ,   867]];
+				
+private _gndEffMod = _hvrOGE / _hvrIGE;
+
+//----------------AGL(m)----TQ Mod
+_gndEffTable = [ [1.52, 	1.0],
+				 [15.24,	_gndEffMod]];
+
+//This encounters problems when over water...
+private _heightAGL = getPosATL _heli select 2;
+private _gndEffVal = [_gndEffTable, _heightAGL] call fza_fnc_linearInterp select 1;
 
 //First we need to get the analog collective input, both of these are positive values: low is 1 to 0, and high is 0 to 1
 _collLow  = inputAction "HeliCollectiveLowerCont";
@@ -42,11 +54,19 @@ _collVal = _collHigh - _collLow;
 //Now that convert the -1 to 1 to a 0 to 1 output
 _collOut = linearConversion [-1, 1, _collVal, 0, 1];
 
-[_engTQTable, _collOut] call fza_fnc_linearInterp select 1;
+private _intEngTQTable = [_engTQTable, _collOut] call fza_fnc_linearInterp;
+private _hvrTQVal = _intEngTQTable select 1;
+private _TGT      = _intEngTQTable select 2;
+private _finalTQ = _hvrTQVal * _gndEffVal;
 
+hintSilent format ["Gnd Effect Mod = %1
+					\nGnd Effect Val = %2
+					\nAGL = %3
+					\nHvr Tq Val = %4
+					\nFin Tq Val = %5
+					\nTQT = %6", _gndEffMod, _gndEffVal, _heightAGL, _hvrTQVal, _finalTq, _TGT];
 
-
-
+[_finalTQ, _TGT];
 
 /***
 
