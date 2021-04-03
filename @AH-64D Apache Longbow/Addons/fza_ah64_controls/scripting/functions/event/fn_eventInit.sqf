@@ -110,7 +110,6 @@ _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "f
 _heli setCustomWeightRTD ([0, 295] select (_heli animationPhase "fcr_enable" == 1));
 
 if !(isMultiplayer) then {
-    _aiturrets = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\turrets.sqf";
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
 };
 
