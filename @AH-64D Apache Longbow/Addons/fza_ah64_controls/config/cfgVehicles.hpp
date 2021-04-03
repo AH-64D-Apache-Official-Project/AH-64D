@@ -798,7 +798,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
-				statement="fza_ah64_rs = [this] execvm ""\fza_ah64_controls\scripting\rocket_salvo.sqf""";
+				statement="[this] call weaponRocketsalvo";
 			};
 			class hellfireTraj
 			{
@@ -824,7 +824,7 @@ class CfgVehicles
 				priority=10;
 				condition="this animationphase ""pdoor"" < 0.5 && alive this && !(isengineon this)";
 				shortcut="";
-				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\pilotdoor_toggle.sqf""";
+				statement="[this] spawn fza_fnc_doortoggleP";
 			};
 			class pilotdoor_close
 			{
@@ -836,7 +836,7 @@ class CfgVehicles
 				priority=10;
 				condition="this animationphase ""pdoor"" > 0.5 && alive this";
 				shortcut="";
-				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\pilotdoor_toggle.sqf""";
+				statement="[this] spawn fza_fnc_doortoggleP";
 			};
 			class gundoor_open
 			{
@@ -848,7 +848,7 @@ class CfgVehicles
 				priority=10;
 				condition="this animationphase ""gdoor"" < 0.5 && alive this && !(isengineon this)";
 				shortcut="";
-				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\gundoor_toggle.sqf""";
+				statement="[this] spawn fza_fnc_doortoggleG";
 			};
 			class gundoor_close
 			{
@@ -860,7 +860,7 @@ class CfgVehicles
 				priority=10;
 				condition="this animationphase ""gdoor"" > 0.5 && alive this";
 				shortcut="";
-				statement="fza_ah64_pdoor = [this] execvm ""\fza_ah64_controls\scripting\gundoor_toggle.sqf""";
+				statement="[this] spawn fza_fnc_doortoggleG";
 			};
 			class tiron
 			{
@@ -1081,7 +1081,7 @@ class CfgVehicles
 			class UK_AAC
 			{
 				displayName = "United Kingdom Army Air Corps";
-				author = "ollieollieolllie & Jamo";
+				author = "Rosd6(Dryden) & Jamo";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 		};

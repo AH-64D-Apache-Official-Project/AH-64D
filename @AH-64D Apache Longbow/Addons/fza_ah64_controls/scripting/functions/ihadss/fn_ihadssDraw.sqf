@@ -27,7 +27,7 @@ _zoomstate = 0;
 _targhead = 0;
 
 _sensor = "R ";
-_sensxm = "FCR ";
+_sensxm = "FCR";
 _acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
@@ -175,7 +175,7 @@ if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocl
     };
 };
 
-if ((player == driver _heli || player == gunner _heli) && _heli iskindof "fza_ah64d_b2e_nr" && _heli getVariable "fza_ah64_agmode" != 2) then {
+if ((player == driver _heli || player == gunner _heli) && (_heli animationphase "fcr_enable" < 1) && _heli getVariable "fza_ah64_agmode" != 2) then {
     _sensor = "A ";
     _sensxm = "TADS ";
     _heli setVariable ["fza_ah64_agmode", 2, true];
@@ -478,7 +478,7 @@ if (_fcrantennafor > 0.56) then {
 if (_fcrantennafor < 0.44) then {
     _fcrantennafor = 0.44;
 };
-if (typeOf _heli == "fza_ah64d_b2e_nr" || typeOf _heli == "fza_ah64d_b2exp_nr" || typeOf _heli == "fza_ah64d_b3_nr") then {
+if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrantennafor = -100;
 };
 _sensorposx = (_heli animationphase "tads_tur") * -0.025;
@@ -709,6 +709,7 @@ if (currentweapon _heli == "Laserdesignator_mounted") then {
 
 //CSCOPE
 
+_targetsToDraw = ([_heli, fza_ah64_Cscopelist] call fza_fnc_targetingFilterType);
 if (_heli getVariable "fza_ah64_fcrcscope") then {
     _num = 190; {
         if (_num > 205) exitwith {};
@@ -744,9 +745,9 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     }
-    foreach fza_ah64_Cscopelist;
+    foreach _targetsToDraw;
 
-    if (_num > (count fza_ah64_Cscopelist + 189)) then {
+    if (_num > (count _targetsToDraw + 189)) then {
         while {
             (_num < 206)
         }

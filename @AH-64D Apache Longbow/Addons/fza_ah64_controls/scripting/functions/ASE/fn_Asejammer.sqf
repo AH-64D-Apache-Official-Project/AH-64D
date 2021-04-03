@@ -16,7 +16,7 @@ Examples:
 	_this spawn fza_fnc_aseJammer;
 	
 Author:
-	ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 
 params ["_heli","_munition","_hostile"];
@@ -45,13 +45,10 @@ if(!(_hostile in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_
 if (_heli getVariable "fza_ah64_aseautopage" == 2) then {
         [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
     };
-	
-if(typeOf _heli == "fza_ah64d_b2e" || typeOf _heli == "fza_ah64d_b2exp" || typeOf _heli == "fza_ah64d_b3") then
+
 {
-	{
-		if (_hostile iskindof _x && !(_hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];};
-	} foreach fza_ah64_ada_units;
-};
+	if (_hostile iskindof _x && !(_hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];};
+} foreach fza_ah64_ada_units;
 
 //OPER Auto control
 {

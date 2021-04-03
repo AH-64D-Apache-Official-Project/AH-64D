@@ -14,7 +14,7 @@ Examples:
 	_this spawn fza_fnc_aseHandleRfcontrol;
     
 Author:
-    ollieollieolllie
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

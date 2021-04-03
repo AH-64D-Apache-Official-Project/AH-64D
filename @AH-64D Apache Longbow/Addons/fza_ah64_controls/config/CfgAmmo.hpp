@@ -6,7 +6,7 @@ class CfgAmmo
 	class MissileCore;
 	class MissileBase;
 	class Missile_AGM_02_F : MissileBase {
-		class Components;
+		class Components;s
 		class EventHandlers;
 	};
 	class RocketCore;
@@ -327,7 +327,6 @@ class CfgAmmo
 	};
 	class fza_agm114m : fza_agm114k
 	{
-
 		ace_frag_enabled 			= 1;
 		ace_frag_skip 				= 0;
 		ace_frag_force 				= 1;
