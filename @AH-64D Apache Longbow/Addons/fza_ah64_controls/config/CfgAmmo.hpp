@@ -6,7 +6,7 @@ class CfgAmmo
 	class MissileCore;
 	class MissileBase;
 	class Missile_AGM_02_F : MissileBase {
-		class Components;s
+		class Components;
 		class EventHandlers;
 	};
 	class RocketCore;
