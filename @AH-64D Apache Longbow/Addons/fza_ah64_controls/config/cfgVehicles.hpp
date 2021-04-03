@@ -1070,8 +1070,19 @@ class CfgVehicles
 				author = "Rosd6(Dryden) & Jamo";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class 211th_clean
+			{
+				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard";
+				author = "seven10 & Apache mod development team";
+			textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class 211th_weathered
+			{
+				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard (weathered)";
+				author = "seven10 & Apache mod development team";
+			textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
 		};
-
 		textureList[] = {"b2", 1};
 		hiddenSelectionsTextures[] = {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 		class Turrets
