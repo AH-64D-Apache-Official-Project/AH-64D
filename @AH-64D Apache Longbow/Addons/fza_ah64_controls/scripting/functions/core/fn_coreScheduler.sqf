@@ -39,4 +39,4 @@ if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli &&
     }
     foreach fza_ah64_slowschedarray;
     fza_ah64_pf_daytime_Slow = daytime;
-}; 
+};

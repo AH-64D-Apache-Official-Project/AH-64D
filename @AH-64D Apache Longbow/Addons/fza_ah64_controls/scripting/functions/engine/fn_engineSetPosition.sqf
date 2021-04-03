@@ -98,8 +98,9 @@ switch (_state) do {
                         _otherStateParams = time;
                         _changeMade = true;
 
-                        _heli animate["plt_eng1_throttle", 1];
-                        _heli animate["plt_eng2_throttle", 1];
+                        //0.067 sets the power levers to fly in 15 seconds
+                        _heli animate["plt_eng1_throttle", 1, 0.067];
+                        _heli animate["plt_eng2_throttle", 1, 0.067];
                     }
                 };
             };
@@ -111,9 +112,10 @@ switch (_state) do {
             _stateParams = time;
             _otherStateParams = time;
             _changeMade = true;
-
-            _heli animate["plt_eng1_throttle", 0.25];
-            _heli animate["plt_eng2_throttle", 0.25];
+            
+            //0.667 sets the power levers to idle in 1.5 seconds
+            _heli animate["plt_eng1_throttle", 0.25, 0.667];
+            _heli animate["plt_eng2_throttle", 0.25, 0.667];
         };
     };
 };

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_setGWT
+Function: fza_fnc_setFuel
 
 Description:
 

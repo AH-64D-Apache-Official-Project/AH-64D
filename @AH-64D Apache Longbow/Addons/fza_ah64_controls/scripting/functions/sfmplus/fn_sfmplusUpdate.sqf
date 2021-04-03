@@ -1,9 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_setMass
+Function: fza_fnc_sfmplusUpdate
 
 Description:
-	Sets the initial mass of the helicopter.
-
+	
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
@@ -18,8 +17,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-[_heli] call fza_fnc_perfConfig;
-[_heli] call fza_fnc_setMass;
+[_heli] call fza_fnc_sfmplusConfig;
+[_heli] call fza_fnc_sfmplusSetMass;
 
 private _deltaTime = ["deltaTime"] call BIS_fnc_deltaTime;
 
@@ -29,9 +28,9 @@ private _GWT_kg = _heli getVariable "fza_ah64d_rampMass";
 //Only issue here is TQ doesn't update with reduction in GWT...current GWT needs
 //to be passed into getTorque to ensure accurate numbers...would it be better to
 //just pass the _heli into getTorque and then use getMass in getTorque itself?
-private _TQ  = [_heli, _GWT_kg] call fza_fnc_getEngineData select 0;
-private _TGT = [_heli, _GWT_kg] call fza_fnc_getEngineData select 1;
-private _FF  = [_heli, _TQ] call fza_fnc_getFuelFlow;
+private _TQ  = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 0;
+private _TGT = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 1;
+private _FF  = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 2;
 _FF = _FF;
 
 //This obviously causes the fuel to constantly be reset...not optimal

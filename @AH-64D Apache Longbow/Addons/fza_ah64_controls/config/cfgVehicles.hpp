@@ -1728,13 +1728,13 @@ initPhase=0;
 			class plt_eng1_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			class plt_eng2_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			/*

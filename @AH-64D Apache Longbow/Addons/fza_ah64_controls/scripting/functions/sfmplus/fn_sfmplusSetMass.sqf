@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_setMass
+Function: fza_fnc_perfSetMass
 
 Description:
 	Sets the initial mass of the helicopter.
@@ -26,7 +26,7 @@ if (typeOf _heli == "fza_ah64d_b2e") then {
 	_emptyMass = _heli getVariable "fza_ah64d_emptyMassNonFCR";
 };
 
-private _fuelMass = [_heli] call fza_fnc_setFuel;
+private _fuelMass = [_heli] call fza_fnc_sfmplusSetFuel;
 _heli setVariable ["fza_ah64d_initFwdFuelMass", (_fuelMass select 0)];
 _heli setVariable ["fza_ah64d_initAftFuelMass", (_fuelMass select 1)];
 private _fwdFuelMass = _fuelMass select 0;

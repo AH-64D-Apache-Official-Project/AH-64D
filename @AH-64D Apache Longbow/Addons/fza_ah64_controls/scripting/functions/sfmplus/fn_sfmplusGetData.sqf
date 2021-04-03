@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_perfGetData
+Function: fza_fnc_sfmplusGetData
 
 Description:
 	This function contains tables generated using 0ft PA and 15C (standard day)
@@ -39,7 +39,7 @@ private _hvrIGE = _intHvrTQTable select 1;
 private _hvrOGE = _intHvrTQTable select 2;
 private _gndEffMod = _hvrOGE / _hvrIGE;
 //--------------------TQ%----TGT(C)
-private _TGTTable  = [[0.15,  450],
+private _TGTTable  = [[0.15,  540],
                       [1.00,  810],
 					  [1.29,  867]];				 
 //-----------------------Coll---TQ(N)
@@ -64,7 +64,8 @@ private _V_mps    = abs vectorMagnitude [velocity _heli select 0, velocity _heli
 private _ETLMod   = linearConversion[0, 12.3467, _V_mps, 1.0, 0.0, true];
 
 //13000lbs
-private _cruiseTable6350 = [[10.29, 0.59],
+private _cruiseTable6350 = [[ 0.00, 0.54],
+							[10.29, 0.59],
 							[20.58, 0.39],
 							[30.87, 0.34],
 							[36.01, 0.34],
@@ -74,7 +75,8 @@ private _cruiseTable6350 = [[10.29, 0.59],
 							[72.02, 0.87],
 							[75.62, 1.00]];
 //17000lbs
-private _cruiseTable8164 = [[10.29, 0.71],
+private _cruiseTable8164 = [[ 0.00, 0.73],
+							[10.29, 0.71],
 							[20.58, 0.57],
 							[30.87, 0.46],
 							[36.01, 0.46],
@@ -84,7 +86,8 @@ private _cruiseTable8164 = [[10.29, 0.71],
 							[72.02, 0.97],
 							[73.05, 1.00]];
 //21000lbs
-private _cruiseTable9525 = [[11.32, 1.00],
+private _cruiseTable9525 = [[ 0.00, 0.92],
+							[15.43, 1.00],
 							[20.58, 0.78],
 							[30.87, 0.63],
 							[36.01, 0.61],
@@ -102,11 +105,11 @@ private _cruiseTable = [[6350, _int6350 select 1],
  						[8164, _int8164 select 1],
  						[9525, _int9525 select 1]];
 
-private _intCruiseTable = [_cruiseTable, _curGWT_kg] call fza_fnc_linearInterp;
+private _cruiseTQVal = [_cruiseTable, _curGWT_kg] call fza_fnc_linearInterp select 1;
+private _velMod = _cruiseTQVal / _hvrIGE;
 
-hintSilent format ["Interp Table = %1", _intCruiseTable];
-
-private _finalTQ  = _hvrTQVal * (1 + ((_gndEffVal - 1) * _ETLMod));
+private _finalTQ = (_hvrTQVal * (1 + ((_gndEffVal - 1) * _ETLMod)));
+_finalTQ = _finalTQ * _velMod;
 //-------------------------TQ----FF (kg/s)
 private _fuelFlowTable = [[0.00, 0.0000],
 				 		  [0.15, 0.0699],
@@ -118,4 +121,12 @@ private _fuelFlowTable = [[0.00, 0.0000],
 private _finalTGT = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
 private _finalFF  = [_fuelFlowTable, _finalTQ] call fza_fnc_linearInterp select 1;
 
+[_heli, 3.22, 1.07] call fza_fnc_sfmplusStabilator;
+
 [_finalTQ, _finalTGT, _finalFF];
+
+/*
+hintSilent format ["Interp Table = %1
+					\nVel Mod = %2
+					\nGnd Eff Val = %3", _cruiseTQVal, _velMod, _gndEffVal];
+*/

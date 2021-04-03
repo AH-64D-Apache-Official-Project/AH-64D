@@ -1,4 +1,4 @@
-#define R recompile = 0
+#define R recompile = 1
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -174,21 +174,23 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
 		}
-		class performance {
-			file = "\fza_ah64_controls\scripting\functions\performance";
-			class perfConfig {R;};
-			class perfGetData {R;};
-			//class perfDataTables {R;};
-			class setFuel {R;};
-			class setMass {R;};
-			class updatePerfData {R;};
-		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzsend {R;};
 		}
+		class sfmplus {
+			file = "\fza_ah64_controls\scripting\functions\sfmplus";
+			class sfmplusConfig {R;};
+			class sfmplusGetArea {R;};
+			class sfmplusGetData {R;};
+			class sfmplusSetFuel {R;};
+			class sfmplusSetMass {R;};
+			class sfmplusStabilator {R;};
+			class sfmplusUpdate {R;};
+
+		};
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";

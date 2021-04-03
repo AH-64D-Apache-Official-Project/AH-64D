@@ -1,8 +1,7 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_setGWT
+Function: fza_fnc_sfmplusConfig
 
 Description:
-
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
