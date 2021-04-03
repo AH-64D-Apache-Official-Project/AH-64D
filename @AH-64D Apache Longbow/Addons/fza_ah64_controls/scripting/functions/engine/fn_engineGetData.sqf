@@ -95,7 +95,7 @@ switch (_state) do {
 	case "IDLE": {
 		_npMul = 100;
 		_ng = 67.9;
-		_tgt = 500;
+		_tgt = 450;
 		_oil = 70;
 		_torqueMul = 100;
 	};
@@ -118,7 +118,7 @@ switch (_state) do {
 	case "FLY": {
 		_npMul = 100;
 		_ng = 83.4;
-		_tgt = 500;
+		_tgt = 450;
 		_oil = 70;
 		_torqueMul = 100;
 	};
@@ -131,11 +131,16 @@ if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 
 	[_npMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _torqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
 } else {
 	private _perfData = [_heli] call fza_fnc_perfGetData;
-	
+
 	private _curTQ = _perfData select 0;
 	_curTQ = _curTQ * 481;
-	
-	private _curTGT = _perfData select 1;
 
-	[(_npMul / 100) * 21109, _ng, _curTGT, _oil, _curTQ];
+	private _curTGT = 0;
+	if (_state in ["IDLE", "IDLEFLY","FLYIDLE","FLY"]) then {
+		_curTGT = _perfData select 1;
+	} else {
+		_curTGT = _tgt;
+	};
+
+	[(_npMul / 100) * 21109, _ng, _curTGT, _oil, (_torqueMul / 100) * _curTQ];
 };

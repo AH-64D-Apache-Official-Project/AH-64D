@@ -24,9 +24,10 @@ private _enginesOn = if (isObjectRTD _heli && difficultyEnabledRTD && local _hel
 	[[false, false], [true, true]] select isEngineOn _heli;
 };
 
-private _engineFuelConsumption = _enginesOn apply {[0, 480] select _x};
-
-private _totalFuelConsumption = _engineFuelConsumption # 0 + _engineFuelConsumption # 1;
+private _FFVal = [_heli] call fza_fnc_perfGetData select 2;
+_FFVal = _FFVal * 7936.64;
+private _engineFuelConsumption = _enginesOn apply {[0, (_FFVal / 2)] select _x};
+private _totalFuelConsumption  = _engineFuelConsumption # 0 + _engineFuelConsumption # 1;
 
 private _enduranceNumber = if(_totalFuelConsumption > 0) then {
 	private _enduranceTotal = _fuelWeight / _totalFuelConsumption * 60; //Minutes

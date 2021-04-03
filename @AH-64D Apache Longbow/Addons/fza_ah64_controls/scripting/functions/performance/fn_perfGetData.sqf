@@ -2,6 +2,13 @@
 Function: fza_fnc_perfGetData
 
 Description:
+	This function contains tables generated using 0ft PA and 15C (standard day)
+	conditions for hover and max torque available. Cruise data was derived from
+	the 2000ft PA and 20C chart. ARMA uses 70% throttle travel as the hover and 
+	level flight in cruise point in the SFM. The idea behind this function is 
+	to display the real values by using table interpolation. This is meant to
+	be real time and dynamic, as the aircraft gross weight (GWT) changes, so to
+	will the required torque.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
@@ -17,7 +24,7 @@ params ["_heli"];
 
 private _curGWT_kg = getMass _heli;
 
-//--------------GWT---IGE---OGE
+//-----------------------GWT---IGE---OGE
 private _hvrTQTable = [	[6350, 0.54, 0.66],	//13000lbs
 						[6803, 0.59, 0.72],	//14000lbs
 						[7257, 0.64, 0.79],	//15000lbs
@@ -25,145 +32,90 @@ private _hvrTQTable = [	[6350, 0.54, 0.66],	//13000lbs
 						[8164, 0.73, 0.94],	//17000lbs
 						[8618, 0.80, 1.01],	//18000lbs
 						[9071, 0.86, 1.09],	//20000lbs
-						[9525, 0.92, 1.16]];	//21000lbs
+						[9525, 0.92, 1.16]];//21000lbs
 
 private _intHvrTQTable = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp;
 private _hvrIGE = _intHvrTQTable select 1;
 private _hvrOGE = _intHvrTQTable select 2;
 private _gndEffMod = _hvrOGE / _hvrIGE;
-
 //--------------------TQ%----TGT(C)
-private _TGTTable = [[0.15,  450],
-                     [1.00,  810],
-					 [1.29,  867]];					 
+private _TGTTable  = [[0.15,  450],
+                      [1.00,  810],
+					  [1.29,  867]];				 
 //-----------------------Coll---TQ(N)
-private _engTQTable = [	[0,     0.15   ],
-						[0.7,   _hvrIGE],
-						[1.0, 	1.29   ]];			
-//----------------AGL(m)----TQ Mod
-_gndEffTable = [ [1.52, 	1.0],
-				 [15.24,	_gndEffMod]];
+private _engTQTable = [[0,     0.15   ],
+				       [0.7,   _hvrIGE],
+					   [1.0, 	1.29  ]];
 
-//This encounters problems when over water...
-private _heightAGL = getPosATL _heli select 2;
+//----------------AGL(m)----TQ Mod
+_gndEffTable = [[1.52, 	1.0],
+				[15.24,	_gndEffMod]];
+
+private _heightAGL = getPos _heli select 2;
 private _gndEffVal = [_gndEffTable, _heightAGL] call fza_fnc_linearInterp select 1;
 
-//First we need to get the analog collective input, both of these are positive values: low is 1 to 0, and high is 0 to 1
 private _collLow  = inputAction "HeliCollectiveLowerCont";
 private _collHigh = inputAction "HeliCollectiveRaiseCont";
-//If we take high - low, we get an output from -1 to 1 
-private _collVal = _collHigh - _collLow;
-//Now that convert the -1 to 1 to a 0 to 1 output
-private _collOut = linearConversion [-1, 1, _collVal, 0, 1];
+private _collVal  = _collHigh - _collLow;
+private _collOut  = linearConversion [-1, 1, _collVal, 0, 1];
 
 private _hvrTQVal = [_engTQTable, _collOut] call fza_fnc_linearInterp select 1;
-/*
-private _V_mps   = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-private _ETLMod  = linearConversion[0, 12.3467, _V_mps, 1.0, 0.0];
-if (_ETLMod > 1.0) then {
-	_ETLMod = 1.0;
-};
+private _V_mps    = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+private _ETLMod   = linearConversion[0, 12.3467, _V_mps, 1.0, 0.0, true];
 
-if (_ETLMod < 0.0) then {
-	_ETLMod = 0.0;
-};
-private _finalTQ = _hvrTQVal * (_gndEffVal * _ETLMod);
-*/
-private _finalTQ = _hvrTQVal * _gndEffVal;
+//13000lbs
+private _cruiseTable6350 = [[10.29, 0.59],
+							[20.58, 0.39],
+							[30.87, 0.34],
+							[36.01, 0.34],
+							[46.30, 0.40],
+							[56.59, 0.52],
+							[61.73, 0.61],
+							[72.02, 0.87],
+							[75.62, 1.00]];
+//17000lbs
+private _cruiseTable8164 = [[10.29, 0.71],
+							[20.58, 0.57],
+							[30.87, 0.46],
+							[36.01, 0.46],
+							[46.30, 0.48],
+							[56.59, 0.60],
+							[61.73, 0.82],
+							[72.02, 0.97],
+							[73.05, 1.00]];
+//21000lbs
+private _cruiseTable9525 = [[11.32, 1.00],
+							[20.58, 0.78],
+							[30.87, 0.63],
+							[36.01, 0.61],
+							[46.30, 0.63],
+							[56.59, 0.74],
+							[61.73, 0.84],
+							[66.88, 1.00],
+							[66.88, 1.00]];
 
-private _TGTVal   = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
-private _finalTGT = _TGTVal;
-/*
-hintSilent format ["Gnd Effect Mod = %1
-					\nGnd Effect Val = %2
-					\nAGL = %3
-					\nHvr Tq Val = %4
-					\nFin Tq Val = %5
-					\nTQT = %6", _gndEffMod, _gndEffVal, _heightAGL, _hvrTQVal, _finalTq, _finalTGT];
-*/
+private _int6350 = [_cruiseTable6350, _V_mps] call fza_fnc_linearInterp;
+private _int8164 = [_cruiseTable8164, _V_mps] call fza_fnc_linearInterp;
+private _int9525 = [_cruiseTable9525, _V_mps] call fza_fnc_linearInterp;
 
-//_heli setVariable ["fza_ah64d_engTorque", _finalTQ];
-//_heli setVariable ["fza_ah64d_engTGT", _finalTGT];
+private _cruiseTable = [[6350, _int6350 select 1],
+ 						[8164, _int8164 select 1],
+ 						[9525, _int9525 select 1]];
 
-[_finalTQ, _finalTGT];
+private _intCruiseTable = [_cruiseTable, _curGWT_kg] call fza_fnc_linearInterp;
 
-/***
+hintSilent format ["Interp Table = %1", _intCruiseTable];
 
-[] spawn 
-{
-	runLoop = true;
-	while {runLoop} do 
-	{
-		_hvrTQTable = [[6350, 0.54, 0.66],
-					[6803, 0.59, 0.72],
-					[7257, 0.64, 0.79],
-					[7711, 0.69, 0.86],
-					[8164, 0.73, 0.94],
-					[8618, 0.80, 1.01],
-					[9071, 0.86, 1.09],
-					[9525, 0.92, 1.16]];
+private _finalTQ  = _hvrTQVal * (1 + ((_gndEffVal - 1) * _ETLMod));
+//-------------------------TQ----FF (kg/s)
+private _fuelFlowTable = [[0.00, 0.0000],
+				 		  [0.15, 0.0699],
+				  	      [0.44, 0.1008],
+				          [0.65, 0.1260],
+				          [0.83, 0.1512],
+				          [1.00, 0.1732]];
 
+private _finalTGT = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
+private _finalFF  = [_fuelFlowTable, _finalTQ] call fza_fnc_linearInterp select 1;
 
-		_gwt_kg = 8322;
-
-			
-
-		_hvrTQ = [_hvrTQTable, _gwt_kg] call fza_fnc_linearInterp select 1;
-		
-		hintSilent format ["Hover TQ = %1", _hvrTQ];
-		sleep 0.03;
-	}
-};
-
-
-
-
-
-
-[] spawn 
-{
-	runLoop = true;
-	while {runLoop} do 
-	{
-		_collLow  = inputAction "HeliCollectiveLowerCont";
-		_collHigh = inputAction "HeliCollectiveRaiseCont";
-		_collVal = _collHigh - _collLow;
-		
-		_collOut = linearConversion [-1, 1, _collVal, 0, 1];
-		
-		_tqOut = linearConversion[0, 1, _collOut, 70, 630];
-		
-		hintSilent format ["Lower %1\nUpper %2\nColl Out %3\nTq Out %4", inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont", _collOut, _tqOut];
-		sleep 0.03;
-	}
-};
-
-
-[] spawn 
-{
-	runLoop = true;
-	while {runLoop} do 
-	{
-		_collLow  = inputAction "HeliCollectiveLowerCont";
-		_collHigh = inputAction "HeliCollectiveRaiseCont";
-
-		_collVal = _collHigh - _collLow;
-
-		_collOut = linearConversion [-1, 1, _collVal, 0, 1];
-
-		_engTQTable = [	  [	0, 			72],
-						[	0.7, 		390],
-						[	1.0, 		620]];
-
-		_gndEffTable = [  [	1.52, 		1.0],
-							15.24, 		1.27]];
-
-		_curTQ = [_engTQTable, _collOut] call fza_fnc_linearInterp;
-		_tqOut = (_engTQTable select 0, select 1) + _curTQ;
-		
-		hintSilent format ["Lower %1\nUpper %2\nColl Out %3\nTq Out %4", inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont", _collOut, _tqOut];
-		sleep 0.03;
-	}
-};
-
-***/
+[_finalTQ, _finalTGT, _finalFF];
