@@ -493,6 +493,9 @@ if (_fcrdir > 0.7) then {
 if (_fcrdir < 0.3) then {
     _fcrdir = 0.3;
 };
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrdir = -100;
+};
 _pnvsyaw = ((_heli animationphase "pnvs") * 0.4) + 0.4825;
 _pnvspitch = ((_heli animationphase "pnvs_vert") * -0.4) + 0.675;
 if (_pnvsyaw > 0.7) then {
