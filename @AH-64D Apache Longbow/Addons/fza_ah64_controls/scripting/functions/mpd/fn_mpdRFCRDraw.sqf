@@ -19,7 +19,7 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
 		_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];  //change this with FCR not installed backround
 		_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
 		_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
-	}
+	};
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, "\fza_ah64_us\tex\mpd\gunlimit.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, "\fza_ah64_us\tex\mpd\tads.paa"];
 	_heli animate["mpd_pr_mpd_had_apos_v", (_heli animationphase "tads")];
