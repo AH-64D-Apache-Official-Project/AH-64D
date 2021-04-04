@@ -54,6 +54,7 @@ _gndEffTable = [[1.52, 	1.0],
 private _heightAGL = getPos _heli select 2;
 private _gndEffVal = [_gndEffTable, _heightAGL] call fza_fnc_linearInterp select 1;
 
+//Move this to sfmplusGetInput and add _collOut as a parameter
 private _collLow  = inputAction "HeliCollectiveLowerCont";
 private _collHigh = inputAction "HeliCollectiveRaiseCont";
 private _collVal  = _collHigh - _collLow;
@@ -121,7 +122,7 @@ private _fuelFlowTable = [[0.00, 0.0000],
 private _finalTGT = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
 private _finalFF  = [_fuelFlowTable, _finalTQ] call fza_fnc_linearInterp select 1;
 
-[_heli, 3.22, 1.07] call fza_fnc_sfmplusStabilator;
+[_heli, _collOut] call fza_fnc_sfmplusStabilator;
 
 [_finalTQ, _finalTGT, _finalFF];
 

@@ -19,18 +19,14 @@ Author:
 params ["_heli"];
 
 private _emptyMass = 0;
-
 if (typeOf _heli == "fza_ah64d_b2e") then {
 	_emptyMass = _heli getVariable "fza_ah64d_emptyMassFCR";
 } else {
 	_emptyMass = _heli getVariable "fza_ah64d_emptyMassNonFCR";
 };
 
-private _fuelMass = [_heli] call fza_fnc_sfmplusSetFuel;
-_heli setVariable ["fza_ah64d_initFwdFuelMass", (_fuelMass select 0)];
-_heli setVariable ["fza_ah64d_initAftFuelMass", (_fuelMass select 1)];
-private _fwdFuelMass = _fuelMass select 0;
-private _aftFuelMass = _fuelMass select 1;
+private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
+private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
 //----------------------------------------Ammo----------------------------------------//
 /***
@@ -55,31 +51,6 @@ _heli setVariable ["fza_ah64d_initPylonMass", _pylonMass];
 ***/
 
 //Set the current gross weight
-private _rampMass = _emptyMass + _fwdFuelMass + _aftFuelMass;
-_heli setVariable ["fza_ah64d_rampMass", _rampMass];
+private _totalMass = _emptyMass + _fwdFuelMass + _aftFuelMass;
 //private _rampMass = _emptyMass + _fwdFuelMass + _aftFuelMass + _pylonMass;
-_heli setMass _rampMass;
-
-
-/***
-vehicle player call fza_fnc_perfConfig;
-
-_emptyMass = 0;
-
-if (typeOf vehicle player == "fza_ah64d_b2e") then { 
-	_emptyMass = vehicle player getVariable "fza_ah64d_emptyMassFCR";
-} else { 
-	_emptyMass = vehicle player getVariable "fza_ah64d_emptyMassNonFCR";
-};
-
-_fuelMass = [vehicle player] call fza_fnc_setFuel;
-_fwdFuelMass = _fuelMass select 0;
-_aftFuelMass = _fuelMass select 1;
-
-_rampMass = _emptyMass + _fwdFuelMass + _aftFuelMass;
-
-vehicle player setMass _rampMass;
-
-hintSilent format ["Empty Mass = %1", _rampMass];
-
-***/
+_heli setMass _totalMass;

@@ -79,6 +79,7 @@ _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
 [_heli] call fza_fnc_engineInit;
+[_heli] call fza_fnc_sfmplusConfig;
 
 if (local _heli) then { 
     { 
