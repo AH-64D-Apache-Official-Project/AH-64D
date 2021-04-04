@@ -609,9 +609,9 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
-    if (count _missileTOF > 0 && !(isnull missileTarget (_missileTOF # 0))) then {
+    if (count _missileTOF > 0) then {
         _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
         _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
     } else {}
