@@ -19,7 +19,7 @@ Author:
 params["_heli"];
 if (!(player in _heli)) exitwith {};
 if (!(isnil "fza_ah64_enableturrets")) exitwith {};
-private _inhibit = false;
+private _inhibit = "";
 
 private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
 
@@ -27,7 +27,6 @@ private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >>
 private _usingCannon = currentweapon _heli == "fza_m230";
 
 private _acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
-
 private _targVel = [0, 0, 0];
 private _targPos = -1;
 switch (_acq) do {
@@ -38,7 +37,7 @@ switch (_acq) do {
 		};
 	};
     case 1:{
-		_targPos = aglToAsl (positionCameraToWorld [0, 0, 0] vectorAdd (getCameraViewDirection player vectorMultiply 1000))
+		_targPos = aglToAsl (positionCameraToWorld [0, 0, 1000])
 	};
     case 2:{
 		if (gunner _heli == player && cameraView == "GUNNER" && !isNull cursorObject) then {
@@ -92,25 +91,27 @@ if (_usingRocket) then {
 		drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 1, 1], aslToAgl _aimLocation, 0.5, 0.5, 0, "Rocket Correction"];
 	};
 
-    private _targElev = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
-
+    private _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
+	if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
+		_inhibit = "PYLON LIMIT"
+	};
     if (_heliPylons# 0 != "") then {
-        _heli animateSource["pylon1", _targElev];
+        _heli animateSource["pylon1", _pylonAdjustment];
     } else {
 		_heli animateSource["pylon1", 0];
 	};
     if (_heliPylons# 7 != "") then {
-		_heli animateSource["pylon2", _targElev];
+		_heli animateSource["pylon2", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon2", 0];
 	};
 	if (_heliPylons# 14 != "") then {
-		_heli animateSource["pylon3", _targElev];
+		_heli animateSource["pylon3", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon3", 0];
 	};
 	if (_heliPylons# 21 != "") then {
-		_heli animateSource["pylon4", _targElev];
+		_heli animateSource["pylon4", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon4", 0];
 	};
@@ -125,10 +126,10 @@ if (_usingCannon) then {
 	private _pan = _heli animationPhase "tads_tur";
 	private _tilt = _heli animationPhase "tads";
 	if !(-86 < deg _pan && deg _pan < 86) then {
-		_inhibit = true;
+		_inhibit = "AZ LIMIT";
 	};
 	if !(-60 < deg _tilt && deg _tilt < 11) then {
-		_inhibit = true;
+		_inhibit = "EL LIMIT";
 	};
 	_heli animateSource["mainTurret", _pan];
 	_heli animateSource["mainGun", _tilt];

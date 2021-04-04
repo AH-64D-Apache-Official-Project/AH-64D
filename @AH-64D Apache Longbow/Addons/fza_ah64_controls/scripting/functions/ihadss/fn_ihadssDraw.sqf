@@ -20,7 +20,6 @@ Author:
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
-version = 2;
 _locktargstate = 0;
 _modestate = 0;
 _zoomstate = 0;
@@ -624,7 +623,7 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     _w = 0.0734*3;
     _h = 0.1*3;
     _apx = 0.036*3;
-    _apy = 0.3/2;
+    _apy = apy;
     _weapon = "RKT";
     if (isManualFire _heli) then {
         _weapon = "PRKT";
@@ -822,10 +821,9 @@ if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimit
     _heli selectWeapon "fza_m230";
 };
 
-if ((diag_tickTime % 2) < 1) then {
-    _safemessage = "";
+if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
+    _safemessage = _heli getVariable "fza_ah64_weaponInhibited";
 };
-
 
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;

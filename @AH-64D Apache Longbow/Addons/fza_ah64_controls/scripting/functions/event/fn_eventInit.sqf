@@ -25,8 +25,7 @@ params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 
-_heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "_target getVariable ""fza_ah64_weaponInhibited"""];
-_heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "Fire", "_target getVariable ""fza_ah64_weaponInhibited"""];
+_heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
 
 if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
@@ -64,7 +63,7 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_irjon", 0, true];
     _heli setVariable ["fza_ah64_rfjon", 0, true];
 };
-_heli setVariable ["fza_ah64_weaponInhibited", false];
+_heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
