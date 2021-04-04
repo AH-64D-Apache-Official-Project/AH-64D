@@ -1070,6 +1070,18 @@ class CfgVehicles
 				author = "Rosd6(Dryden) & Jamo";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class UK_AAC_weathered
+			{
+				displayName = "United Kingdom Army Air Corps (weathered)";
+				author = "Rosd6(Dryden)";
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_weathered.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class UK_AAC_SF
+			{
+				displayName = "United Kingdom Army Air Corps Special Forces";
+				author = "Rosd6(Dryden)";
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_SF.paa","\fza_ah64_us\tex\ex\FCR_Black_co.paa"};
+			};
 			class 211th_clean
 			{
 				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard";
