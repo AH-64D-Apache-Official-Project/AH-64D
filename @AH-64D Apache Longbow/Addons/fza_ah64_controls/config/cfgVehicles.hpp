@@ -782,7 +782,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
+				condition="(player == driver this || player == gunner this) && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
 				shortcut="Binocular";
 				statement="[this] call fza_fnc_weaponM230CycleBurst";
 			};
@@ -796,7 +796,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
+				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
 				statement="[this] call weaponRocketsalvo";
 			};
@@ -810,7 +810,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
+				condition="(player == driver this || player == gunner this) &&  (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
 				statement="[this] call fza_fnc_weaponTrajectoryChange";
 			};

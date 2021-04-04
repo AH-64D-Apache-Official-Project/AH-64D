@@ -195,7 +195,7 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 		_tex = switch (_salType) do {
 			case "sal1": {"\fza_ah64_us\tex\icons\sal.paa"};
 			case "sal2": {"\fza_ah64_us\tex\icons\sal.paa"};
-			case "rf": {"\fza_ah64_us\tex\icons\salRF.paa"};
+			case "rf": {"\fza_ah64_us\tex\icons\RF.paa"};
 			default {""};
 		};
 		_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, _tex];

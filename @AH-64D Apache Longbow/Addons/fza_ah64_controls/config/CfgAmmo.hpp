@@ -336,6 +336,8 @@ class CfgAmmo
 		indirectHit 				= 100;
 		indirectHitRange 			= 40;
 
+		submunitionAmmo				= "";
+
 		//AI usage
 		aiAmmoUsageFlags 			= "64+128+512";
 		allowAgainstInfantry 		= 1;
@@ -349,6 +351,8 @@ class CfgAmmo
 		indirecthit 				= 200;
 		indirecthitrange 			= 12;
 		explosionEffects 			= "BombExplosion";
+
+		submunitionAmmo				= "";
 
 		//AI usage
 		aiAmmoUsageFlags 			= "64+128+512";
