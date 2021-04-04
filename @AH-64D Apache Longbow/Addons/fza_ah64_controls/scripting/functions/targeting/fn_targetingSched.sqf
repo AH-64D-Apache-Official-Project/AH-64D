@@ -18,18 +18,17 @@ if (!(player in _heli)) exitwith {};
 
 //SELECTABLE TARGETS
 _visibleTargets =
-	if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
-		fza_ah64_dispfcrlist - alldead;
+	if (_heli getVariable "fza_ah64_pfz_count" != 0) then {
+		(_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1;
 	} else {
-		if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") then {
-		fza_ah64_tsddisptargs - alldead;
+		if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
+			fza_ah64_dispfcrlist - alldead;
 		} else {
-			if (_heli getVariable "fza_ah64_pfz_count" == 0) then {
+			if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") then {
+				fza_ah64_tsddisptargs - alldead;
+			} else {
 				fza_ah64_targetlist - alldead;
-			}
-			else {
-				(_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1;
-			}
+			};
 		};
 	};
 if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _visibleTargets > 0) then {
