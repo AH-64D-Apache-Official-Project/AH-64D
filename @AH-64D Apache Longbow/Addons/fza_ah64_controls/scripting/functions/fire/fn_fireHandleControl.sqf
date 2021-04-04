@@ -38,9 +38,9 @@ switch(_control) do {
 			fza_ah64_firetest = 1;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 1];
+				_heli animateSource["plt_firesw", 1];
 			} else {
-				_heli animate["cpg_firesw", 0];
+				_heli animateSource["cpg_firesw", 0];
 			};
 
 
@@ -59,9 +59,9 @@ switch(_control) do {
 			fza_ah64_firetest = 2;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 0];
+				_heli animateSource["plt_firesw", 0];
 			} else {
-				_heli animate["cpg_firesw", 1];
+				_heli animateSource["cpg_firesw", 1];
 			};
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
@@ -82,9 +82,9 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 0.5];
+				_heli animateSource["plt_firesw", 0.5];
 			} else {
-				_heli animate["cpg_firesw", 0.5];
+				_heli animateSource["cpg_firesw", 0.5];
 			};
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
@@ -153,9 +153,9 @@ switch(_control) do {
 			fza_ah64_firetest = 1;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 1];
+				_heli animateSource["plt_firesw", 1];
 			} else {
-				_heli animate["cpg_firesw", 0];
+				_heli animateSource["cpg_firesw", 0];
 			};
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
@@ -172,9 +172,9 @@ switch(_control) do {
 			fza_ah64_firetest = 2;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 0];
+				_heli animateSource["plt_firesw", 0];
 			} else {
-				_heli animate["cpg_firesw", 1];
+				_heli animateSource["cpg_firesw", 1];
 			};
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
@@ -195,9 +195,9 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 
 			if (player == driver _heli) then {
-				_heli animate["plt_firesw", 0.5];
+				_heli animateSource["plt_firesw", 0.5];
 			} else {
-				_heli animate["cpg_firesw", 0.5];
+				_heli animateSource["cpg_firesw", 0.5];
 			};
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;

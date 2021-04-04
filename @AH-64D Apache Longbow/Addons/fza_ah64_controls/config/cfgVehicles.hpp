@@ -1088,12 +1088,14 @@ class CfgVehicles
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "testsc";
+			    memoryPointGun = "laserBegin";
 				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
+				body = "tads_tur";
+				gun = "tads";
 				animationsourcebody = "tads_tur";
 				animationsourcegun = "tads";
+				gunBeg = "laserBegin";
+				gunEnd = "laserEnd";
 				gunnerOpticsModel = "";
 				gunnerOpticsColor[] = {1,1,1,1};
 				minElev = -60;
@@ -1380,6 +1382,18 @@ class CfgVehicles
 		ANIMS_MMAP(plt)
 		ANIMS_MMAP(cpg)
 		////////RADAR///////
+		class tads_tur
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
+		class tads
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
 		class fcr_enable
 		{
 			displayName = "Attach FCR";

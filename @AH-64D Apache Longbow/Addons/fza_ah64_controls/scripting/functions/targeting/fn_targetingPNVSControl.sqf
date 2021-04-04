@@ -52,8 +52,8 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
         fza_ah64_pnvsdir = -1;
         fza_ah64_pnvselev = 1;
     };
-    _heli animate["pnvs", fza_ah64_pnvsdir];
-    _heli animate["pnvs_vert", fza_ah64_pnvselev];
+    _heli animateSource["pnvs", fza_ah64_pnvsdir];
+    _heli animateSource["pnvs_vert", fza_ah64_pnvselev];
 	
 	fza_ah64_pnvsdir = fza_ah64_pnvsdir + fza_ah64_headdir;
     fza_ah64_pnvselev = fza_ah64_pnvselev + fza_ah64_headelev;

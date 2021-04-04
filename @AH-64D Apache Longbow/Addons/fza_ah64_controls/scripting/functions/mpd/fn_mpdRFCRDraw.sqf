@@ -16,11 +16,11 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
 	_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, "fza_ah64_us\tex\mpd\grnd.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, "\fza_ah64_us\tex\mpd\gunlimit.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, "\fza_ah64_us\tex\mpd\tads.paa"];
-	_heli animate["mpd_pr_mpd_had_apos_v", (_heli animationphase "tads")];
-	_heli animate["mpd_pr_mpd_had_apos_h", (_heli animationphase "tads_tur")];
+	_heli animateSource["mpd_pr_mpd_had_apos_v", (_heli animationphase "tads")];
+	_heli animateSource["mpd_pr_mpd_had_apos_h", (_heli animationphase "tads_tur")];
 };
 
-private _targetsToDraw = ([_heli, fza_ah64_dispfcrlist] call fza_fnc_targetingFilterType) apply {
+private _targetsToDraw = fza_ah64_dispfcrlist apply {
 	private _targetType = "gen";
 	private _targetModifier = "";
 	private _targetPriority = 0;

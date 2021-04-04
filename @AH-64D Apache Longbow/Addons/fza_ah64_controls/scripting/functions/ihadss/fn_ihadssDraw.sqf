@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
-
+version = 2;
 _locktargstate = 0;
 _modestate = 0;
 _zoomstate = 0;
@@ -400,9 +400,9 @@ if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _sensxm = "FCR ";
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
-
+_acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
 if (_heli iskindof "fza_ah64base") then {
-    switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+    switch (_acq) do {
         case 0: {
             _acqihadss = ["TADS", "FCR"] select (_heli getVariable "fza_ah64_agmode" < 2)
         };
@@ -620,17 +620,11 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 };
 
 if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _angle = -0.5 * (_heli animationphase "pylon1");
-    _angle = _angle + 0.5;
-    _rktpoint = worldtoscreen(_heli modelToWorldVisual[0, ((cos((_heli animationphase "pylon1") * 10)) * 500), ((sin((_heli animationphase "pylon1") * 10)) * 500)]);
-    if (count _rktpoint < 1) then {
-        _rktpoint = [0.5, 0.5];
-    };
-    _scPos = [(_rktpoint select 0), (_rktpoint select 1)];
+    //RKT FIX TADS AND/OR IHADSS DISPLAY
+    _w = 0.0734*3;
+    _h = 0.1*3;
+    _apx = 0.036*3;
+    _apy = 0.3/2;
     _weapon = "RKT";
     if (isManualFire _heli) then {
         _weapon = "PRKT";
@@ -638,26 +632,16 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     _ammo = getText (configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo");
     _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(currentweapon _heli)];
-
-    //RKT FIX TADS AND/OR IHADSS DISPLAY
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-        (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
-};
-
-if (currentweapon _heli == "fza_atas_2") then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\ah64_atas_nolos.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\ah64_atas.paa";
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _weapon = "ATA";
-    if (isManualFire _heli) then {
-        _weapon = "PATA";
+    (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
+    if (_acq == 3) then { //FXD
+        _scPos = worldToScreen (_heli modelToWorld [0, 1000, 0]);
+        if (_scpos isEqualTo []) then {
+            _scpos = [-100, -100];
+        };
+    } else {;
+        _scPos = [ 0.5 - deg (_heli animationPhase "tads_tur")*3/64/4, 0.5-deg (_heli animationPhase "tads")*3/64/4];
     };
-    _weaponstate = format["%1", _heli ammo(currentweapon _heli)];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_atas.paa";
 };
 
 if (currentweapon _heli == "fza_ma_safe") then {
@@ -709,7 +693,6 @@ if (currentweapon _heli == "Laserdesignator_mounted") then {
 
 //CSCOPE
 
-_targetsToDraw = ([_heli, fza_ah64_Cscopelist] call fza_fnc_targetingFilterType);
 if (_heli getVariable "fza_ah64_fcrcscope") then {
     _num = 190; {
         if (_num > 205) exitwith {};
@@ -745,9 +728,9 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
         _num = _num + 1;
     }
-    foreach _targetsToDraw;
+    foreach fza_ah64_Cscopelist;
 
-    if (_num > (count _targetsToDraw + 189)) then {
+    if (_num > (count fza_ah64_Cscopelist + 189)) then {
         while {
             (_num < 206)
         }
@@ -914,6 +897,8 @@ if (_fpm < -0.13) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;
+
+_pbvar set [0, _pbvar # 0 + 5];
 
 //HUD HORIZON OBJECTS
 

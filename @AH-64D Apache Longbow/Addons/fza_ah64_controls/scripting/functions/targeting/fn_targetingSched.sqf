@@ -22,7 +22,7 @@ _visibleTargets =
 		fza_ah64_dispfcrlist - alldead;
 	} else {
 		if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") then {
-		fza_ah64_dispfcrlist - alldead;
+		fza_ah64_tsddisptargs - alldead;
 		} else {
 			if (_heli getVariable "fza_ah64_pfz_count" == 0) then {
 				fza_ah64_targetlist - alldead;
@@ -32,15 +32,10 @@ _visibleTargets =
 			}
 		};
 	};
-    
-if (count _visibleTargets == 0 && isNull fza_ah64_mycurrenttarget) then {
-    fza_ah64_mycurrenttarget = objNull;
-};
 if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _visibleTargets > 0) then {
     if (fza_ah64_mynum >= count _visibleTargets - 1) then {
         fza_ah64_mynum = 0;
     } else {
-        
         fza_ah64_mynum = fza_ah64_mynum + 1;
     };
     fza_ah64_mycurrenttarget = _visibleTargets select(fza_ah64_mynum);

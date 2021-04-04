@@ -98,10 +98,10 @@ do {
         _horvect2 = (sin(_helipb select 1)) * _vertvect;
 
         //player globalchat format ["VV %1 HV %2",_vertvect,_horvect];
-        _heli animate["l_ads_p", (_vertvect1 + _vertvect2 + _smoothing1) * 0.002778];
-        _heli animate["l_ads_y", (_horvect1 + _horvect2 + _smoothing2) * 0.002778];
-        _heli animate["r_ads_p", (_vertvect1 + _vertvect2 + _smoothing2) * 0.002778];
-        _heli animate["r_ads_y", (_horvect1 + _horvect2 + _smoothing1) * 0.002778];
+        _heli animateSource["l_ads_p", (_vertvect1 + _vertvect2 + _smoothing1) * 0.002778];
+        _heli animateSource["l_ads_y", (_horvect1 + _horvect2 + _smoothing2) * 0.002778];
+        _heli animateSource["r_ads_p", (_vertvect1 + _vertvect2 + _smoothing2) * 0.002778];
+        _heli animateSource["r_ads_y", (_horvect1 + _horvect2 + _smoothing1) * 0.002778];
     };
     if (player == driver _heli) then {
         //Angling of the rotors
@@ -167,33 +167,33 @@ do {
         _s2p = 1.5 * ((_s2phase) + _collective);
         //player globalchat format ["%1",_b1phase];
         //tail rotor
-        _heli animate["trsw", _rudder];
-        _heli animate["tr_blade1_pitch", (-1 * (_rudder))];
-        _heli animate["tr_blade2_pitch", _rudder];
-        _heli animate["tr_blade3_pitch", _rudder];
-        _heli animate["tr_blade4_pitch", (-1 * (_rudder))];
+        _heli animateSource["trsw", _rudder];
+        _heli animateSource["tr_blade1_pitch", (-1 * (_rudder))];
+        _heli animateSource["tr_blade2_pitch", _rudder];
+        _heli animateSource["tr_blade3_pitch", _rudder];
+        _heli animateSource["tr_blade4_pitch", (-1 * (_rudder))];
         //main rotor
-        _heli animate["swashplate_up_tns", (-2.5 * (_collective))];
-        _heli animate["swashplate_dn_tns", (-2.5 * (_collective))];
-        _heli animate["mr_act_tns", (-2.5 * (_collective))];
-        _heli animate["swashplate_up_pitch", -3 * _forback];
-        _heli animate["swashplate_up_bank", -3 * _leftright];
-        _heli animate["swashplate_dn_pitch", -3 * _forback];
-        _heli animate["swashplate_dn_bank", -3 * _leftright];
-        _heli animate["swup_arm1", _s1p];
-        _heli animate["swup_arm1_t", (-1 * (_s1p))];
-        _heli animate["swup_arm2", _s1p];
-        _heli animate["swup_arm3", _s2p];
-        _heli animate["swup_arm3_t", (-1 * (_s2p))];
-        _heli animate["swup_arm4", _s2p];
-        _heli animate["blade1_pitch", _b1p];
-        _heli animate["blade2_pitch", _b2p];
-        _heli animate["blade3_pitch", _b3p];
-        _heli animate["blade4_pitch", _b4p];
-        _heli animate["blade1_flap", (-0.8 * (_estate * (_b1p)))];
-        _heli animate["blade2_flap", (-0.8 * (_estate * (_b2p)))];
-        _heli animate["blade3_flap", (-0.8 * (_estate * (_b3p)))];
-        _heli animate["blade4_flap", (-0.8 * (_estate * (_b4p)))];
+        _heli animateSource["swashplate_up_tns", (-2.5 * (_collective))];
+        _heli animateSource["swashplate_dn_tns", (-2.5 * (_collective))];
+        _heli animateSource["mr_act_tns", (-2.5 * (_collective))];
+        _heli animateSource["swashplate_up_pitch", -3 * _forback];
+        _heli animateSource["swashplate_up_bank", -3 * _leftright];
+        _heli animateSource["swashplate_dn_pitch", -3 * _forback];
+        _heli animateSource["swashplate_dn_bank", -3 * _leftright];
+        _heli animateSource["swup_arm1", _s1p];
+        _heli animateSource["swup_arm1_t", (-1 * (_s1p))];
+        _heli animateSource["swup_arm2", _s1p];
+        _heli animateSource["swup_arm3", _s2p];
+        _heli animateSource["swup_arm3_t", (-1 * (_s2p))];
+        _heli animateSource["swup_arm4", _s2p];
+        _heli animateSource["blade1_pitch", _b1p];
+        _heli animateSource["blade2_pitch", _b2p];
+        _heli animateSource["blade3_pitch", _b3p];
+        _heli animateSource["blade4_pitch", _b4p];
+        _heli animateSource["blade1_flap", (-0.8 * (_estate * (_b1p)))];
+        _heli animateSource["blade2_flap", (-0.8 * (_estate * (_b2p)))];
+        _heli animateSource["blade3_flap", (-0.8 * (_estate * (_b3p)))];
+        _heli animateSource["blade4_flap", (-0.8 * (_estate * (_b4p)))];
     };
     sleep 0.03;
 };

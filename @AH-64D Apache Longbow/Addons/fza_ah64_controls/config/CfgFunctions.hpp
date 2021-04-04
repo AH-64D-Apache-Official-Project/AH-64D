@@ -1,4 +1,4 @@
-#define R recompile = 0
+#define R recompile = 1
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -93,8 +93,8 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
 			class ihadssDraw {R;};
-			class ihadsstoggle {R;};
-			class monocletoggle {R;};
+			class ihadssToggle {R;};
+			class monocleToggle {R;};
 		};
 		class laser
 		{
@@ -168,7 +168,7 @@ class CfgFunctions
 
 			class mpdcycleL {R;};
 			class mpdcycleR {R;};
-			class Ufd {R;};
+			class ufd {R;};
 		};
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
@@ -178,7 +178,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
-			class pfzsend {R;};
+			class pfzSend {R;};
 		}
 		class targeting
 		{
@@ -208,17 +208,18 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
 			class weaponActionSwitch {R;};
-			class weaponMissileSlowDown {R;};
-			class weaponMissileInventory {R;};
-			class weaponMissileGetSelected {R;};
-			class weaponMissileTrajectory {R;};
+			class weaponGunControl {R;};
 			class weaponM230CycleBurst {R;};
+			class weaponMissileGetSelected {R;};
+			class weaponMissileInventory {R;};
+			class weaponMissileSlowDown {R;};
+			class weaponMissileTrajectory {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
+			class weaponRocketSalvo {R;};
 			class weaponSelectFireMode {R;};
-			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
-			class weaponRocketsalvo {R;};
+			class weaponTurretAim {R;};
 		};
 		class functions
 		{

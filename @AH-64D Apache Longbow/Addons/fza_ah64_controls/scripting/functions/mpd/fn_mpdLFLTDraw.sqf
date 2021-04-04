@@ -74,14 +74,14 @@ if (_slip < 0.3) then {
 };
 //TODO: Make sure this is being constantly run by person who heli is local to
 if (local _heli) then {
-	_heli animate["mpd_pl_flt_wbear", (_waypointDirection * 0.00476) + 0.5];
-	_heli animate["mpd_pl_flt_wp_h", (_waypointDirection * 0.00476) + 0.625];
-	_heli animate["mpd_pl_flt_wp_v", _vertvect];
-	_heli animate["mpd_pl_flt_vvi_v", _vertvect];
-	_heli animate["mpd_pl_flt_vvi_h", _horvect];
-	_heli animate["mpd_pl_flt_rdr", ((_heli animationphase "longbow") * 2) + 0.5];
-	_heli animate["mpd_pl_flt_turn", _turn];
-	_heli animate["mpd_pl_flt_slip", _slip];
+	_heli animateSource["mpd_pl_flt_wbear", (_waypointDirection * 0.00476) + 0.5];
+	_heli animateSource["mpd_pl_flt_wp_h", (_waypointDirection * 0.00476) + 0.625];
+	_heli animateSource["mpd_pl_flt_wp_v", _vertvect];
+	_heli animateSource["mpd_pl_flt_vvi_v", _vertvect];
+	_heli animateSource["mpd_pl_flt_vvi_h", _horvect];
+	_heli animateSource["mpd_pl_flt_rdr", ((_heli animationphase "longbow") * 2) + 0.5];
+	_heli animateSource["mpd_pl_flt_turn", _turn];
+	_heli animateSource["mpd_pl_flt_slip", _slip];
 };
 
 _heli setobjecttexture [SEL_MPD_PL_FLT_HI, ["", "\fza_ah64_us\tex\mpd\hi.paa"] select (getpos _heli select 2 > 304.8)];
