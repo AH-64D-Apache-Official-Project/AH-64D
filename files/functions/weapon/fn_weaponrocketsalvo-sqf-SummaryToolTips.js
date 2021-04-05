@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponrocketsalvo.sqf",{94:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">changes the rocket salvo value to the next</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponrocketsalvo.sqf",{96:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">changes the rocket salvo value to the next</div></div>"});
