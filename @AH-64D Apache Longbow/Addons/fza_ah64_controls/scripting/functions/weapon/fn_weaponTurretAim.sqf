@@ -24,17 +24,20 @@ private _inhibit = "";
 private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
 
 private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon = currentweapon _heli == "fza_m230";
-
+private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter"];
 private _acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
 private _targVel = [0, 0, 0];
 private _targPos = -1;
 switch (_acq) do {
     case 0:{
-		if (!isNull fza_ah64_mycurrenttarget) then {
-			_targPos = getPosAsl fza_ah64_mycurrenttarget;
-			_targVel = velocity fza_ah64_mycurrenttarget;
-		};
+        if (_heli getVariable "fza_ah64_agmode" < 2) then {
+            if (!isNull fza_ah64_mycurrenttarget) then {
+                _targPos = getPosAsl fza_ah64_mycurrenttarget;
+                _targVel = velocity fza_ah64_mycurrenttarget;
+            };
+        } else {
+            _targPos = aglToAsl screentoworld[0.5, 0.5];
+        }
 	};
     case 1:{
 		_targPos = aglToAsl (positionCameraToWorld [0, 0, 1000])
@@ -51,9 +54,17 @@ switch (_acq) do {
 if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) exitWith{
 	_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 };
+if (_acq == 0 && _heli getVariable "fza_ah64_agmode" < 2) then {
+    _heli lockCameraTo [_targPos, [0]];
+};
 
 if (cameraView == "GUNNER") then {
 	_heli lockCameraTo [objNull, [0]];
+};
+
+
+if (_acq == 3) then {
+    _inhibit = "GUN FIXED";
 };
 
 if (_targPos isEqualTo -1) exitWith {
@@ -131,8 +142,8 @@ if (_usingCannon) then {
 	if !(-60 < deg _tilt && deg _tilt < 11) then {
 		_inhibit = "EL LIMIT";
 	};
-	_heli animateSource["mainTurret", _pan];
-	_heli animateSource["mainGun", _tilt];
+	_heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
+	_heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
 } else {
 	_heli animateSource["mainTurret", 0];
 	_heli animateSource["mainGun", 0.45];

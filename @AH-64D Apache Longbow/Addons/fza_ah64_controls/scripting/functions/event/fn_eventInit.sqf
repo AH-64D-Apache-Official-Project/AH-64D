@@ -30,12 +30,12 @@ _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false,
 if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
-    _heli animateSource["pdoor", 0];
-    _heli animateSource["gdoor", 0];
-    _heli animateSource["plt_rtrbrake", 1];
-    _heli animateSource["plt_firesw", 0.5];
-    _heli animateSource["cpg_firesw", 0.5];
-    _heli animateSource["tads_stow", 1];
+    _heli animateSource ["pdoor", 0];
+    _heli animateSource ["gdoor", 0];
+    _heli animateSource ["plt_rtrbrake", 1];
+    _heli animateSource ["plt_firesw", 0.5];
+    _heli animateSource ["cpg_firesw", 0.5];
+    _heli animateSource ["tads_stow", 1];
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
