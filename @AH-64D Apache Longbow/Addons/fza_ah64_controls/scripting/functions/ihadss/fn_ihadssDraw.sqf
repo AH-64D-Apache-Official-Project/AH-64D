@@ -378,31 +378,31 @@ _curwpdir = _targhead;
 
 if (_heli getVariable "fza_ah64_agmode" == 0) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR ";
 }; //FCRG SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR ";
 }; //FCRA SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 2) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR ";
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
-_acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
+_sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
-    switch (_acq) do {
+    switch (_sight) do {
         case 0: {
-            _acqihadss = "FCR";
+            _sensxm = "FCR ";
         };
         case 1: {
-            _acqihadss = "HMD";
+            _sensxm = "HMD ";
         };
         case 2: {
-            _acqihadss  = "TADS";
+            _sensxm  = "TADS";
         };
         case 3: {
-            _acqihadss = "FXD";
+            _sensxm = "FXD ";
         };
     };
 };
@@ -608,8 +608,8 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(currentweapon _heli)];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-    (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
-    if (_acq == 3) then { //FXD
+    (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
+    if (_sight == 3) then { //FXD
         _scPos = worldToScreen (_heli modelToWorld [0, 1000, 0]);
         if (_scpos isEqualTo []) then {
             _scpos = [-100, -100];
@@ -626,7 +626,7 @@ if (currentweapon _heli == "fza_ma_safe") then {
 
 if ((currentweapon _heli == "fza_m230") && player == driver _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
+        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
 };
 
 if (currentweapon _heli == "fza_m230") then {
@@ -846,8 +846,13 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
 
-private _headTrackerPos = [-0.019225, -0.025] vectorAdd worldToScreen (_heli modelToWorld [0, 1000000, 0]);
-_headTrackerPos resize 2;
+private _headTrackerPos = worldToScreen (_heli modelToWorld [0, 1000000, 0]);
+if (_headTrackerPos isEqualTo []) then {
+    _headTrackerPos = [-100, -100];
+} else {
+    _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
+};
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];

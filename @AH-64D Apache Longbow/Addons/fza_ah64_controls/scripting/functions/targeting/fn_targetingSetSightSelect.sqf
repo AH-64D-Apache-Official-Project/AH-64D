@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingSetAcquisitionSource
+Function: fza_fnc_targetingSetSightSelect
 
 Description:
-    Sets the player's seat's aquisition source to the source specified
+    Sets the player's seat's sight to the source specified
     - 0 is FCR
     - 1 is HMD
     - 2 is TADS
@@ -10,25 +10,25 @@ Description:
 
 Parameters:
     _heli - The helicopter to act on
-    _acq - The acquisition source ID
+    _sight - The sight ID
 
 Returns:
 	Nothing
 
 Examples:
 	--- Code
-    [_heli, 0] call fza_fnc_targetingSetAcquisitionSource
-    // The acquisition source is now 0 (FCR).
+    [_heli, 0] call fza_fnc_targetingSetSightSelect
+    // The sigght is now 0 (FCR).
 	---
 
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_acq"];
+params ["_heli", "_sight"];
 
 if (player == driver _heli) then {
-    _heli setVariable ["fza_ah64_acq_plt", _acq, true];
+    _heli setVariable ["fza_ah64_sight_plt", _sight, true];
 };
 if (player == gunner _heli) then {
-    _heli setVariable ["fza_ah64_acq_cpg", _acq, true];
+    _heli setVariable ["fza_ah64_sight_cpg", _sight, true];
 }

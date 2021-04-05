@@ -770,7 +770,7 @@ class CfgVehicles
 				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
-				statement="this setVariable [""fza_ah64_agmode"", (this getVariable ""fza_ah64_agmode"") + 1, true]";
+				statement="[this] call fza_fnc_weaponguncontrol;";
 			};
 			class gunburst
 			{

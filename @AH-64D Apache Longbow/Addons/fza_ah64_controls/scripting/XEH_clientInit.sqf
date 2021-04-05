@@ -39,7 +39,7 @@
 }, {}, [USER_1, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "gunTracking", "Gun Tracking", {
-	CALL_ENSURE_IN_APACHE(fza_fnc_weaponguncontrol)
+	ENSURE_IN_APACHE(_heli setVariable ["fza_ah64_agmode", (_heli getVariable "fza_ah64_agmode") + 1, true];)
 }, {}, [USER_3, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "was", "Weapon Action Switch", {
