@@ -98,9 +98,9 @@ switch (_state) do {
                         _otherStateParams = time;
                         _changeMade = true;
 
-                        //0.067 sets the power levers to fly in 15 seconds
-                        _heli animate["plt_eng1_throttle", 1, 0.067];
-                        _heli animate["plt_eng2_throttle", 1, 0.067];
+                        //0.063 sets the power levers to fly in 16 seconds
+                        _heli animate["plt_eng1_throttle", 1, 0.063];
+                        _heli animate["plt_eng2_throttle", 1, 0.063];
                     }
                 };
             };

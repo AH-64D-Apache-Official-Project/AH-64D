@@ -118,7 +118,7 @@ fza_ah64_headelev = 0;
 fza_ah64_cmpressed = 0;
 fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate]; //disabled fza_ah64_cpg_controls//
 fza_ah64_slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;

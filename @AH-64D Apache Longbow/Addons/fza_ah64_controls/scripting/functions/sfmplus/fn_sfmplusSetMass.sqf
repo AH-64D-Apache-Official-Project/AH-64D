@@ -24,6 +24,7 @@ if (typeOf _heli == "fza_ah64d_b2e") then {
 } else {
 	_emptyMass = _heli getVariable "fza_ah64d_emptyMassNonFCR";
 };
+_heli setVariable["fza_ah64d_emptyMass", _emptyMass];
 
 private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
@@ -33,7 +34,6 @@ private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 //This needs to include 30mm rounds + hellfires and rockets...
 
 private _pylonMass = 0;
-
 {
 	private _magazineClass = (configFile >> "CfgMagazines" >> _x);
 	private _ammoClass     = (configFile >> "CfgAmmo" >> getText (_magazineClass >> "ammo"));

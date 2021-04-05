@@ -66,7 +66,7 @@ class CfgVehicles
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		mainbladecenter = "rotor_center";
 		fuelCapacity = 1423;
-		fuelconsumptionrate = 0.138;
+		fuelconsumptionrate = 0.0; 
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
 		maxSpeed = 298;
@@ -1390,6 +1390,14 @@ class CfgVehicles
 			initPhase = 1;
 			animPeriod = 0.001;
 		}
+		/*
+		class hstab
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase  = 1;
+		}
+		*/
 		class pnvs
 		{
 			source = "user";
@@ -1406,7 +1414,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 1;
-			initPhase=0;
+			initPhase  = 0;
 		};
 		class m230_recoil
 		{
@@ -1423,7 +1431,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 0.1;
-			initPhase=0;
+			initPhase  = 0;
 		};
 		class pylon1
 		{

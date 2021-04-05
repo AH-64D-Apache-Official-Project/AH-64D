@@ -185,6 +185,7 @@ class CfgFunctions
 			class sfmplusConfig {R;};
 			class sfmplusGetArea {R;};
 			class sfmplusGetData {R;};
+			class sfmplusGetInput {R;};
 			class sfmplusSetFuel {R;};
 			class sfmplusSetMass {R;};
 			class sfmplusStabilator {R;};

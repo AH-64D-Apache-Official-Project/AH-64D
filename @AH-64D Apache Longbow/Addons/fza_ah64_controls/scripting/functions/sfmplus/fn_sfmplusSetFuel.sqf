@@ -21,26 +21,14 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _percentFuel    = _heli getVariable "fza_ah64d_percentFuel";
+private _percentFuel    = fuel _heli;
 private _maxFwdFuelMass = _heli getVariable "fza_ah64d_maxFwdFuelMass";
 private _maxAftFuelMass = _heli getVariable "fza_ah64d_maxAftFuelMass";
+private _maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
+_heli setVariable ["fza_ah64d_maxTotFuelMass", _maxTotFuelMass];
 
-//Sum all the fuel together for balancing purposes
-private _totFuelMass = (_maxFwdFuelMass * _percentFuel) + (_maxAftFuelMass * _percentFuel);
-
-//Set the amount of fuel int he forward fuel scell accordinly and declare a variable
-//to track any fuel that exceeds the maximum of the fuel cell
-private _fwdFuelMass = (_totFuelMass / 2) * _percentFuel;
-private _fwdFuelRmng  = 0;	
-//Check to see if the current fwd fuel cell capacity has been exceeded, and if it has,
-//first subtract the maximum and hold it in the remainder and then set the fwd fuel
-//cell fuel equal to the max.
-if (_fwdFuelMass > _maxFwdFuelMass) then {
-	_fwdFuelRmng = _fwdFuelMass - _maxFwdFuelMass;
-	_fwdFuelMass = _maxFwdFuelMass;
-};
-//Calculate the amount of fuel in the aft fuel cell and add any remaining fuel from
-//the forward fuel cell.
-private _aftFuelMass = ((_totFuelMass / 2) * _percentFuel) + _fwdFuelRmng;
+private _totFuelMass = _maxTotFuelMass * _percentFuel;
+private _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
+private _aftFuelMass = _totFuelMass - _fwdFuelMass;
 
 [_fwdFuelMass, _aftFuelMass];

@@ -15,9 +15,11 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_collOut"];
+params ["_heli"];
 
-private _colRed = [1,0,0,1]; private _colorGreen = [0, 1, 0, 1];
+private _collOut = _heli getVariable "fza_ah64d_collectiveOutput";
+
+private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
 
 DRAW_LINE = {
 	params ["_heli", "_p1", "_p2", "_col"];
@@ -52,16 +54,17 @@ private _stabOutputTable = [[15.43, _intStabSched select 1],
 							[84.88, _intStabSched select 12],
 							[92.60, _intStabSched select 13]];
 
-private _V_mps    = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
+//_heli animateSource ["hstab", -_theta];
 
-//                  |
-//                  |
-//    A-------------+-------------B
+//Stab coords    |     |
+//               |-----|
+//    A-------------H-------------B
 //    |             |             |
 //    E-------------G-------------F
 //    |             |             |
-//    D-------------+-------------C
+//    D-------------I-------------C
 private _width  = _heli getVariable "fza_ah64d_stabWidth";
 private _length = _heli getVariable "fza_ah64d_stabLength";
 
@@ -76,10 +79,61 @@ private _E = (_A vectorAdd _D) vectorMultiply 0.5;
 private _F = (_B vectorAdd _C) vectorMultiply 0.5;
 private _G = (_E vectorAdd _F) vectorMultiply 0.5;
 
+private _H = (_A vectorAdd _B) vectorMultiply 0.5;
+private _I = (_D vectorAdd _C) vectorMultiply 0.5;
+
+private _liftLine  = _E vectorDiff _F;
+private _chordLine = _H vectorDiff _I;
+
+private _liftVec = vectorNormalized (_chordLine vectorCrossProduct _liftLine);
+_liftVec = _liftVec;
+
+private _stabLine = vectorNormalized _chordLine;
+_stabLine = _stabLine;
+
+private _relWind = vectornormalized(_heli vectorWorldToModel (velocity _heli));
+_relWind = _relWind;
+
+private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
+_AoA = [_AoA] call CBA_fnc_simplifyAngle180;
+
+private _AIRFOILTABLE =
+[
+//------AoA-[0]----------CL-[1]--------CD-[2]-------------
+    [   -180.0,        0.0,           0.0        ],  //0  - DO NOT CHANGE!!
+    [   -135.0,        0.5,           0.5        ],  //1  - DO NOT CHANGE!!
+    [   -90.0,         0.0,           0.0        ],  //2  - DO NOT CHANGE!!
+    [   -18.5,         -1.22580,      0.10236    ],  //3  -
+    [   -17.5,         -1.30310,      0.07429    ],  //4  -
+    [   -15.75,        -1.38680,      0.03865    ],  //5  -
+    [   -10.0,         -1.08070,      0.01499    ],  //6  -
+    [   -5.0,          -0.55710,      0.00847    ],  //7  -
+    [   0.0,           0.00000,       0.00540    ],  //8  -
+    [   5.0,           0.55720,       0.00847    ],  //9  -
+    [   10.0,          1.08080,       0.01499    ],  //10 -
+    [   15.75,         1.38810,       0.03863    ],  //11 -
+    [   17.5,          1.30590,       0.07416    ],  //12 -
+    [   18.5,          1.22840,       0.10229    ],  //13 -
+    [   90.0,          0.0,           0.0        ],  //14 - DO NOT CHANGE!!
+    [   135.0,         -0.5,          -0.5       ],  //15 - DO NOT CHANGE!!
+    [   180.0,         0.0,           0.0        ]   //16 - DO NOT CHANGE!!
+];
+
+private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
+private _CL = _intAIRFOILTABLE select 1;
+
 private _area = [_A, _B, _C, _D] call fza_fnc_sfmplusGetArea;
 
-hintSilent format ["Area = %1", _area];
+private _liftForce = -_CL * 0.5 * 1.225 * _area * _V_mps;
+private _lift = _liftVec vectorMultiply _liftForce;
 
+_heli addForce[_heli vectorModelToWorld _lift, _G];
+
+hintSilent format ["AoA = %1,
+				    \nrelWind = %2
+					\ntheta = %3,
+					\nThing = %4,
+					\nLift = %5", _AoA, _relWind, _theta, (_relWind # 2 atan2 _relWind # 1), _lift];
 /*
               +Z   +Y
                |   /
@@ -97,13 +151,18 @@ hintSilent format ["Area = %1", _area];
 				+--------------+ --
 				C               \
 */
-[_heli, _objCtr, _stabPvt, _colRed] call DRAW_LINE;
+[_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
-[_heli, _A, _B, _colRed] call DRAW_LINE;
-[_heli, _B, _C, _colRed] call DRAW_LINE;
-[_heli, _C, _D, _colRed] call DRAW_LINE;
-[_heli, _D, _A, _colRed] call DRAW_LINE;
-
+//Draw the stabilator
+[_heli, _A, _B, _colorWhite] call DRAW_LINE;
+[_heli, _B, _C, _colorWhite] call DRAW_LINE;
+[_heli, _C, _D, _colorWhite] call DRAW_LINE;
+[_heli, _D, _A, _colorWhite] call DRAW_LINE;
+//Draw the fwd chord line originating from the pivot
+[_heli, _H, _H vectorAdd _stabLine, _colorWhite] call DRAW_LINE;
+//Draw the lift line
 [_heli, _E, _F, _colorGreen] call DRAW_LINE;
-
-
+//Draw the lift vector
+[_heli, _G, _G vectorAdd _liftVec, _colorBlue] call DRAW_LINE;
+//Draw the velocity vector
+[_heli, _H, _H vectorAdd _relWind, _colorRed] call DRAW_LINE;

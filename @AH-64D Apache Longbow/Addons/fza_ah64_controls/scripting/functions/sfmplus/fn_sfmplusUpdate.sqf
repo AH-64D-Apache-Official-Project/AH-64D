@@ -17,85 +17,52 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-[_heli] call fza_fnc_sfmplusConfig;
-[_heli] call fza_fnc_sfmplusSetMass;
+private _deltaTime = ["fza_ah64d_deltaTime"] call BIS_fnc_deltaTime;
 
-private _deltaTime = ["deltaTime"] call BIS_fnc_deltaTime;
+[_heli] call fza_fnc_sfmplusGetInput;
 
-//Torque
-private _GWT_kg = _heli getVariable "fza_ah64d_rampMass";
+private _emptyMass      = _heli getVariable "fza_ah64d_emptyMass";
+private _maxTotFuelMass = _heli getVariable "fza_ah64d_maxTotFuelMass";
 
-//Only issue here is TQ doesn't update with reduction in GWT...current GWT needs
-//to be passed into getTorque to ensure accurate numbers...would it be better to
-//just pass the _heli into getTorque and then use getMass in getTorque itself?
-private _TQ  = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 0;
-private _TGT = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 1;
-private _FF  = [_heli, _GWT_kg] call fza_fnc_sfmplusGetData select 2;
-_FF = _FF;
+private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
+private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
-//This obviously causes the fuel to constantly be reset...not optimal
-private _fwdFuelMass    = _heli getVariable "fza_ah64d_initFwdFuelMass";
-private _curFwdFuelMass = _fwdFuelMass;
-_curFwdFuelMass = _curFwdFuelMass - _FF;
+private _eng1State = ((_heli getVariable "fza_ah64_engineStates") select 0) select 0;
+private _eng2State = ((_heli getVariable "fza_ah64_engineStates") select 0) select 0;
 
-//This obviously causes the fuel to constantly be reset...not optimal
-private _aftFuelMass    = _heli getVariable "fza_ah64d_initAftFuelMass";
-private _curAftFuelMass = _aftFuelMass;
-_curAftFuelMass = _curAftFuelMass - _FF;
+private _curFuelFlow = 0;
+if (_eng1State != "OFF" && _eng1State != "OFF") then {
+	_curFuelFlow = [_heli] call fza_fnc_sfmplusGetData select 2;
+} else {
+	if (_eng1State != "OFF" || _eng2State != "OFF") then {
+		_curFuelFlow = ([_heli] call fza_fnc_sfmplusGetData select 2) / 2;
+	} else {
+		_curFuelFlow = 0;
+	};
+};
+_curFuelFlow = _curFuelFlow * _deltaTime;
 
-private _curMass = _GWT_kg + _curFwdFuelMass + _curAftFuelMass;
-/*
-hintSilent format ["Torque = %1
-					\nFuel Flow = %2 pph
-					\nFwd Fuel = %3
-					\nAft Fuel = %4", _TQ, (_FF * 2.204 * 3600), _curFwdFuelMass, _curAftFuelMass];
-*/
-_heli setMass _curMass;
+private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
+_totFuelMass = _totFuelMass - _curFuelFlow;
+private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
 
-[_TQ, _FF, _curFwdFuelMass, _curAftFuelMass];
-
+_heli setFuel _armaFuelFrac;
 
 /***
-[] spawn 
-{
-	runLoop = true;
-	while {runLoop} do 
-	{
-		vehicle player call fza_fnc_perfConfig;
-		vehicle player call fza_fnc_setMass;
+PYLON WEIGHT AND MAGAZINE WEIGHT HERE
+*/
+/*
+hintSilent format ["_armaFuelFrac = %1
+					\nFwd Fuel = %2
+					\nAft Fuel  = %3
+					\nTot Fuel = %4
+					\nHeli Mass = %5
+					\nMax Fuel = %6
+					\nCur FF = %7
+					\nDelta Time = %8", _armaFuelFrac, _fwdFuelMass, _aftFuelMass, _totFuelMass, getMass _heli, _maxTotFuelMass, _curFuelFlow, _deltaTime];
+*/
+private _curMass = _emptyMass + _totFuelMass;
 
-		_GWT_kg = vehicle player getVariable "fza_ah64d_rampMass";
+[_heli] call fza_fnc_sfmplusStabilator;
 
-		_TQ = [vehicle player, _GWT_kg] call fza_fnc_getTorque;
-		
-		hintSilent format ["Torque = %1", _TQ];
-		sleep 0.03;
-	}
-};
-
-
-
-
-
-
-vehicle player call fza_fnc_perfConfig;
-
-_emptyMass = 0;
-
-if (typeOf vehicle player == "fza_ah64d_b2e") then { 
-	_emptyMass = vehicle player getVariable "fza_ah64d_emptyMassFCR";
-} else { 
-	_emptyMass = vehicle player getVariable "fza_ah64d_emptyMassNonFCR";
-};
-
-_fuelMass = [vehicle player] call fza_fnc_setFuel;
-_fwdFuelMass = _fuelMass select 0;
-_aftFuelMass = _fuelMass select 1;
-
-_rampMass = _emptyMass + _fwdFuelMass + _aftFuelMass;
-
-vehicle player setMass _rampMass;
-
-hintSilent format ["Empty Mass = %1", _rampMass];
-
-***/
+_heli setMass _curMass;

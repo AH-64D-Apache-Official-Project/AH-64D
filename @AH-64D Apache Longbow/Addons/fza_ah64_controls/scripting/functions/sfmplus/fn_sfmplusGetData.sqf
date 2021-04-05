@@ -22,6 +22,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+private _collOut = _heli getVariable "fza_ah64d_collectiveOutput";
+
 private _curGWT_kg = getMass _heli;
 
 //-----------------------GWT---IGE---OGE
@@ -36,6 +38,7 @@ private _hvrTQTable = [	[6350, 0.54, 0.66],	//13000lbs
 
 private _intHvrTQTable = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp;
 private _hvrIGE = _intHvrTQTable select 1;
+//hintSilent format ["Hvr IGE = %1", _hvrIGE];
 private _hvrOGE = _intHvrTQTable select 2;
 private _gndEffMod = _hvrOGE / _hvrIGE;
 //--------------------TQ%----TGT(C)
@@ -53,12 +56,6 @@ _gndEffTable = [[1.52, 	1.0],
 
 private _heightAGL = getPos _heli select 2;
 private _gndEffVal = [_gndEffTable, _heightAGL] call fza_fnc_linearInterp select 1;
-
-//Move this to sfmplusGetInput and add _collOut as a parameter
-private _collLow  = inputAction "HeliCollectiveLowerCont";
-private _collHigh = inputAction "HeliCollectiveRaiseCont";
-private _collVal  = _collHigh - _collLow;
-private _collOut  = linearConversion [-1, 1, _collVal, 0, 1];
 
 private _hvrTQVal = [_engTQTable, _collOut] call fza_fnc_linearInterp select 1;
 private _V_mps    = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
@@ -121,8 +118,6 @@ private _fuelFlowTable = [[0.00, 0.0000],
 
 private _finalTGT = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
 private _finalFF  = [_fuelFlowTable, _finalTQ] call fza_fnc_linearInterp select 1;
-
-[_heli, _collOut] call fza_fnc_sfmplusStabilator;
 
 [_finalTQ, _finalTGT, _finalFF];
 
