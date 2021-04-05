@@ -32,15 +32,7 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 		};
 		case "r3": {
 			//Switch missile trajectory of current hellfire
-			weaponState [_heli, [0]] params ["_weapon", "",  "_fireMode", "_magazine"];
-			_nextFireMode = switch (_fireMode) do {
-				case "Cruise": {"TopDown"};
-				case "TopDown": {"LoalDistance"};
-				case "LoalDistance": {"Cruise"};
-				default {["Unknown missile fire mode: %1", _fireMode] call BIS_fnc_error};
-			};
-			[_heli, [0], _weapon, _nextFireMode, _magazine] call fza_fnc_weaponSelectFireMode;
-			_heli setVariable ["fza_ah64_ltype", _nextFireMode, true];
+			[_heli] call fza_fnc_weaponTrajectoryChange;
 		};
 	};
 };

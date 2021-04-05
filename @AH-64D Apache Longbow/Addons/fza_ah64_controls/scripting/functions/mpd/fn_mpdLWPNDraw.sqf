@@ -188,10 +188,17 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 		_tex = switch (_salType) do {
 			case "sal1": {"\fza_ah64_us\tex\icons\sal1.paa"};
 			case "sal2": {"\fza_ah64_us\tex\icons\sal2.paa"};
-			case "rf": {"\fza_ah64_us\tex\icons\sal2.paa"};
+			case "rf": {""};
 			default {""};
 		};
 		_heli setObjectTexture [SEL_MPD_PL_HF_SALT, _tex];
+		_tex = switch (_salType) do {
+			case "sal1": {"\fza_ah64_us\tex\icons\sal.paa"};
+			case "sal2": {"\fza_ah64_us\tex\icons\sal.paa"};
+			case "rf": {"\fza_ah64_us\tex\icons\RF.paa"};
+			default {""};
+		};
+		_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, _tex];
 	};
 	_heli setObjectTexture [SEL_MPD_PL_HF_BRACKET, "\fza_ah64_us\tex\icons\mslxtra.paa"];
 	if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
@@ -211,6 +218,7 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	_heli setObjectTexture [SEL_MPD_PL_HF_BRACKET, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_DESIG, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_SALT, ""];
+	_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_TRAJ, ""];
 };
 _heli setobjecttexture [SEL_MPD_PL_RG_BASE, _rgbracket];
