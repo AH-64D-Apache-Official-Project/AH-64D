@@ -125,15 +125,49 @@ private _CL = _intAIRFOILTABLE select 1;
 private _area = [_A, _B, _C, _D] call fza_fnc_sfmplusGetArea;
 
 private _liftForce = -_CL * 0.5 * 1.225 * _area * _V_mps;
+/*
+LIFTMOD = [[ 0.00,  1.00],	//0kts
+			[10.29, 1.00],	//24kts
+			[20.58, 1.00],	//40kts
+			[30.87, 1.00],	//60kts
+			[36.01, 1.00],	//70kts
+			[46.30, 1.00],	//90kts
+			[56.59, 1.00],	//110kts
+			[61.73, 1.00],	//120kts
+			[72.02, 1.00],	//140kts
+			[73.05, 1.00]];	//142kts
+
+LIFTMOD = [[ 0.00,  1.00],
+			[10.29, 1.00],
+			[20.58, 1.00],
+			[30.87, 1.00],
+			[36.01, 1.00],
+			[46.30, 1.00],
+			[56.59, 1.00],
+			[61.73, 1.00],
+			[72.02, 1.00],
+			[73.05, 1.00]];
+			
+LIFTMOD = [[ 0.00, 1.00], 
+           [10.29, 1.00], 
+           [20.58, 1.00], 
+           [30.87, 1.00], 
+           [36.01, 1.00], 
+           [46.30, 0.155], 
+           [56.59, -0.5], 
+           [61.73, -0.42], 
+           [72.02, 0.00], 
+           [73.05, 0.00]];			
+*/
+private _liftModOut = [LIFTMOD, _V_mps] call fza_fnc_linearInterp select 1;
+_liftForce = _liftForce * _liftModOut;
+
 private _lift = _liftVec vectorMultiply _liftForce;
 
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
-hintSilent format ["AoA = %1,
-				    \nrelWind = %2
-					\ntheta = %3,
-					\nThing = %4,
-					\nLift = %5", _AoA, _relWind, _theta, (_relWind # 2 atan2 _relWind # 1), _lift];
+hintSilent format ["Lift Mod = %1
+					\nLift Force = %2", LIFTMOD, _liftForce];
 /*
               +Z   +Y
                |   /

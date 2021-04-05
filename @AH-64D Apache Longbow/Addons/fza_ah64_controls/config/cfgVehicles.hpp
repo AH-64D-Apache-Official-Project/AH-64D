@@ -46,11 +46,16 @@ class CfgVehicles
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
-		liftForceCoef = 1.0;
-		bodyFrictionCoef = 1.0;
-		cyclicAsideForceCoef = 1.0;
+		//SFM Variables-------------/
+		liftForceCoef          = 1.25;
+		bodyFrictionCoef       = 0.7;
+		cyclicAsideForceCoef   = 1.0;
 		cyclicForwardForceCoef = 1.0;
-		backRotorForceCoef = 1.0;
+		backRotorForceCoef     = 1.0;
+	    fuelCapacity           = 1423;
+		fuelconsumptionrate    = 0.0;
+		maxSpeed               = 298;
+		//SFM Variables-------------/
 		driveOnComponent[] = {"Wheels"};
 		extCameraPosition[] = {0,0,-20};
 		radartype = 4;
@@ -65,11 +70,8 @@ class CfgVehicles
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		mainbladecenter = "rotor_center";
-		fuelCapacity = 1423;
-		fuelconsumptionrate = 0.0; 
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
-		maxSpeed = 298;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
