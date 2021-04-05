@@ -493,6 +493,9 @@ if (_fcrdir > 0.7) then {
 if (_fcrdir < 0.3) then {
     _fcrdir = 0.3;
 };
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrdir = -100;
+};
 _pnvsyaw = ((_heli animationphase "pnvs") * 0.4) + 0.4825;
 _pnvspitch = ((_heli animationphase "pnvs_vert") * -0.4) + 0.675;
 if (_pnvsyaw > 0.7) then {
@@ -609,10 +612,10 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
     if (count _missileTOF > 0) then {
-        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
+        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
         _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
     };
 } else {
