@@ -11,14 +11,14 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, ""];
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, ""];
 } else {
-	if (_heli animationphase "fcr_enable" == 1) then {
-		_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];
-		_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
-		_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, "fza_ah64_us\tex\mpd\grnd.paa"];
-	} else {
+	if (_heli animationphase "fcr_enable" == 0) exitWith {
 		_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];  //change this with FCR not installed backround
 		_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
 		_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
+	} else {
+		_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];
+		_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, ""];
+		_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, "fza_ah64_us\tex\mpd\grnd.paa"];
 	};
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS, "\fza_ah64_us\tex\mpd\gunlimit.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_MPD_HAD_APOS2, "\fza_ah64_us\tex\mpd\tads.paa"];
