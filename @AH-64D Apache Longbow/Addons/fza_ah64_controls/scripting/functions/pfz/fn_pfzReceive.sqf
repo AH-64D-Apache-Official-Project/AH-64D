@@ -19,8 +19,10 @@ if (fza_ah64_pfzcache select 1 == "all" || fza_ah64_pfzcache select 1 == (name p
     _pfzIndex = _heli getVariable "fza_ah64_pfz_count";
     if(1 <= _pfzIndex && _pfzIndex <= 8) then {
         _pfzs = _heli getVariable "fza_ah64_pfzs";
-        _pfzs set [_pfzIndex - 1, (fza_ah64_pfzcache select 2)];
+        _receivedData = (fza_ah64_pfzcache select 2);
+        _pfzs set [_pfzIndex - 1, _receivedData];
         _heli setVariable ["fza_ah64_pfzs", _pfzs, true];
+        {fza_ah64_targetlist pushBackUnique _x} forEach _receivedData;
         _heli vehiclechat "PFZ Successfully loaded!";
     }
 }

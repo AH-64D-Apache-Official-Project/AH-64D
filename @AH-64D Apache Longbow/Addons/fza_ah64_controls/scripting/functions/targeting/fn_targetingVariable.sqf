@@ -63,19 +63,16 @@ fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 //ofset it by 1 second so it alternated between mpd variable and cscope// ran every 2 second delay by 1
 //CSCOPE LIST
-[] spawn {
-	sleep 1;
-	if (_heli getVariable "fza_ah64_fcrcscope") then {
-		fza_ah64_Cscopelist = fza_ah64_targetlist select {
-			_thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
+if (_heli getVariable "fza_ah64_fcrcscope") then {
+	fza_ah64_Cscopelist = fza_ah64_targetlist select {
+		_thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
 
-			switch (_heli getVariable "fza_ah64_agmode") do {
-				case 0: {
-					!((getposatl _x select 2 > 10) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
-				};
-				case 1: {
-					!((getposatl _x select 2 < 10) || !(alive _i))
-				};
+		switch (_heli getVariable "fza_ah64_agmode") do {
+			case 0: {
+				!((getposatl _x select 2 > 10) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
+			};
+			case 1: {
+				!((getposatl _x select 2 < 10) || !(alive _i))
 			};
 		};
 	};
