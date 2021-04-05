@@ -22,14 +22,19 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","","","","","","_missobj"];
 
-_burstdist = 200;
+if !(typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") exitwith {};
+
 _Tgpos = screentoworld[0.5, 0.5];
 
 if !(isNull laserTarget _heli) then {
     _TGpos = getPosATL laserTarget _heli;
 };
 
-if !(typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") exitwith {};
+if (typeOf _missobj == "fza_275_m255") then {
+    _burstdist = 200;
+} else {
+    _burstdist = 500;
+};
 
 waituntil{(_missobj distance _Tgpos < _burstdist && _missobj distance _heli > 450)};
 

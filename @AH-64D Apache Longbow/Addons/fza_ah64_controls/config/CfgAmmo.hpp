@@ -104,7 +104,7 @@ class CfgAmmo
 		fuseDistance				= 100;
 		manualControl 				= 0;
 		maxControlRange				= 8000;
-		trackOversteer				= 3;
+		trackOversteer				= 1;
 		trackLead					= 0.6;
 		maneuvrability				= 21;
 		timeToLive					= 70;

@@ -1027,7 +1027,7 @@ class CfgVehicles
 		selectionHRotorMove = "mr_blur";
 		selectionVRotorStill = "tr_blades";
 		selectionVRotorMove = "tr_blur";
-		camshakecoef = 0.5;
+		camshakecoef = 0.2;
 		memoryPointLMissile = "l strela";
 		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";

@@ -218,6 +218,7 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	_heli setObjectTexture [SEL_MPD_PL_HF_BRACKET, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_DESIG, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_SALT, ""];
+	_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_TRAJ, ""];
 };
 _heli setobjecttexture [SEL_MPD_PL_RG_BASE, _rgbracket];
