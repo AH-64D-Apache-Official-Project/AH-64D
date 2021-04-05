@@ -378,15 +378,15 @@ _curwpdir = _targhead;
 
 if (_heli getVariable "fza_ah64_agmode" == 0) then {
     _sensor = "R ";
-    _acqihadss = "FCR ";
+    _acqihadss = "FCR/G";
 }; //FCRG SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensor = "R ";
-    _acqihadss = "FCR ";
+    _acqihadss = "FCR/A";
 }; //FCRA SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 2) then {
     _sensor = "R ";
-    _acqihadss = "FCR ";
+    _acqihadss = "FCR/G";
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
