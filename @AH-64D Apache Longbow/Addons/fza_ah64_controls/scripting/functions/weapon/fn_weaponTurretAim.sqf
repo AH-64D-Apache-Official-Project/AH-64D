@@ -30,14 +30,10 @@ private _targVel = [0, 0, 0];
 private _targPos = -1;
 switch (_acq) do {
     case 0:{
-        if (_heli getVariable "fza_ah64_agmode" < 2) then {
-            if (!isNull fza_ah64_mycurrenttarget) then {
-                _targPos = getPosAsl fza_ah64_mycurrenttarget;
-                _targVel = velocity fza_ah64_mycurrenttarget;
-            };
-        } else {
-            _targPos = aglToAsl screentoworld[0.5, 0.5];
-        }
+       if (!isNull fza_ah64_mycurrenttarget) then {
+            _targPos = getPosAsl fza_ah64_mycurrenttarget;
+            _targVel = velocity fza_ah64_mycurrenttarget;
+        };
 	};
     case 1:{
 		_targPos = aglToAsl (positionCameraToWorld [0, 0, 1000])
@@ -54,7 +50,7 @@ switch (_acq) do {
 if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) exitWith{
 	_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 };
-if (_acq == 0 && _heli getVariable "fza_ah64_agmode" < 2) then {
+if (_acq == 0) then {
     _heli lockCameraTo [_targPos, [0]];
 };
 
@@ -63,11 +59,11 @@ if (cameraView == "GUNNER") then {
 };
 
 
-if (_acq == 3) then {
-    _inhibit = "GUN FIXED";
-};
 
 if (_targPos isEqualTo -1) exitWith {
+    if (_usingCannon) then {
+        _inhibit = "GUN FIXED";
+    };
     _heli animateSource["mainTurret", 0];
     _heli animateSource["mainGun", 0.45];
     _heli animateSource["pylon1", 0];

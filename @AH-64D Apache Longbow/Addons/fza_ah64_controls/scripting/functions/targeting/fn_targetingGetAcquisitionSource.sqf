@@ -4,9 +4,9 @@ Function: fza_fnc_targetingGetAcquisitionSource
 Description:
     Gets the player's seat's aquisition source. Can optionally be used to find the other crewstation's seat
 
-    - 0 is FCR / TADS (depending on if you have a radar)
+    - 0 is FCR
     - 1 is HMD
-    - 2 is AUTO
+    - 2 is TADS
     - 3 is FXD
 
 Parameters:

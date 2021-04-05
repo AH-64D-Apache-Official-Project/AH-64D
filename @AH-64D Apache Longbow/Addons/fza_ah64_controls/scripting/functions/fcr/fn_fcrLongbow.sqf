@@ -18,7 +18,6 @@ Author:
 ---------------------------------------------------------------------------- */
 #define AGMODE_GND 0
 #define AGMODE_AIR 1
-#define AGMODE_FNI 2 //FCR Not Installed (FNI)
 
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 _heli = objNull;
@@ -74,7 +73,7 @@ do {
                     _rem = true;
                 };
 
-                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (getpos _i select 2 >= 10)) then {
+                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (getpos _i select 2 >= 10)) then {
                     _targetArray = _targetArray - [_i];
                     _rem = true;
                 };

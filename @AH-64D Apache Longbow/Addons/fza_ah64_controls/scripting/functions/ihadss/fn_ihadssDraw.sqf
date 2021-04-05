@@ -174,12 +174,6 @@ if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocl
     };
 };
 
-if ((player == driver _heli || player == gunner _heli) && _heli iskindof "fza_ah64d_b2e_nr" && _heli getVariable "fza_ah64_agmode" != 2) then {
-    _sensor = "A ";
-    _sensxm = "TADS ";
-    _heli setVariable ["fza_ah64_agmode", 2, true];
-};
-
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
     3 cutrsc["fza_ah64_monocleinbox", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
@@ -391,10 +385,6 @@ if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensxm = "FCR ";
 }; //FCRA SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 2) then {
-    _sensor = "A ";
-    _sensxm = "TADS";
-}; //TADS SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _sensor = "R ";
     _sensxm = "FCR ";
     _heli setVariable ["fza_ah64_agmode", 0, true];
@@ -403,13 +393,13 @@ _acq = [_heli] call fza_fnc_targetingGetAcquisitionSource;
 if (_heli iskindof "fza_ah64base") then {
     switch (_acq) do {
         case 0: {
-            _acqihadss = ["TADS", "FCR"] select (_heli getVariable "fza_ah64_agmode" < 2)
+            _acqihadss = "FCR";
         };
         case 1: {
             _acqihadss = "HMD";
         };
         case 2: {
-            _acqihadss  = "AUTO";
+            _acqihadss  = "TADS";
         };
         case 3: {
             _acqihadss = "FXD";
@@ -491,20 +481,6 @@ if (_fcrdir > 0.7) then {
 };
 if (_fcrdir < 0.3) then {
     _fcrdir = 0.3;
-};
-_pnvsyaw = ((_heli animationphase "pnvs") * 0.4) + 0.4825;
-_pnvspitch = ((_heli animationphase "pnvs_vert") * -0.4) + 0.675;
-if (_pnvsyaw > 0.7) then {
-    _pnvsyaw = 0.7
-};
-if (_pnvsyaw < 0.3) then {
-    _pnvsyaw = 0.3
-};
-if (_pnvspitch > 0.7) then {
-    _pnvspitch = 0.7
-};
-if (_pnvspitch < 0.3) then {
-    _pnvspitch = 0.3
 };
 
 _slip = (fza_ah64_slip * 0.5) + 0.492;
@@ -869,7 +845,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition[_pnvsyaw, _pnvspitch];
+
+private _headTrackerPos = [-0.019225, -0.025] vectorAdd worldToScreen (_heli modelToWorld [0, 1000000, 0]);
+_headTrackerPos resize 2;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;

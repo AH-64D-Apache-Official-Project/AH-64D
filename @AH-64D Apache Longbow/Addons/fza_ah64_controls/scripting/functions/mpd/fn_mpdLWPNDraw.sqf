@@ -34,20 +34,18 @@ _gunAmmoFont = ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (cu
 
 // SIGHT AND ACQ SOURCES
 
-_sight = "\fza_ah64_us\tex\icons\tads.paa";
+_sight = "\fza_ah64_us\tex\icons\fcr.paa";
 _acq = "\fza_ah64_us\tex\icons\tads.paa";
 
-if (_heli getVariable "fza_ah64_agmode" < 2) then {
-	_sight = "\fza_ah64_us\tex\icons\fcr.paa";
-	_acq = "\fza_ah64_us\tex\icons\fcr.paa";
-};
-
 switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+	case 0: {
+		_acq = "\fza_ah64_us\tex\icons\fcr.paa"
+	};
 	case 1: {
 		_acq = "\fza_ah64_us\tex\icons\HMD.paa";
 	};
 	case 2: {
-		_acq = "\fza_ah64_us\tex\icons\AUTO.paa";
+		_acq = "\fza_ah64_us\tex\icons\tads.paa";
 	};
 	case 3: {
 		_acq = "\fza_ah64_us\tex\icons\FXD.paa";

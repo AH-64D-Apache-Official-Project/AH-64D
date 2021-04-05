@@ -44,9 +44,6 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "
 			case 1: {
 				!((getposatl _x select 2 < 10) || ((_heli distance2D _x) > 8000) || !(alive _i))
 			};
-			default {
-				true
-			};
 		};
 	}] call fza_fnc_targetingFilterType;
 };
@@ -79,9 +76,6 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
 			};
 			case 1: {
 				!((getposatl _x select 2 < 10) || !(alive _i))
-			};
-			default {
-				true
 			};
 		};
 	};

@@ -3,9 +3,9 @@ Function: fza_fnc_targetingSetAcquisitionSource
 
 Description:
     Sets the player's seat's aquisition source to the source specified
-    - 0 is FCR / TADS (depending on if you have a radar)
+    - 0 is FCR
     - 1 is HMD
-    - 2 is AUTO
+    - 2 is TADS
     - 3 is FXD
 
 Parameters:
