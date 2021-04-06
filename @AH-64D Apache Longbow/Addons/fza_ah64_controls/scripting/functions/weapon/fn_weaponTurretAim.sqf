@@ -65,6 +65,9 @@ if (cameraView == "GUNNER" && (_sight in [1,2])) then {
 };
 
 if (_targPos isEqualTo -1) exitWith {
+    if (_sight == 0) then {
+        _inhibit = "NO TARGET";
+    };
     if (_usingCannon && !(_sight == 3)) then {
         _inhibit = "GUN FIXED";
     };
@@ -86,7 +89,6 @@ if (_targPos isEqualTo -1) exitWith {
 };
 
 if (_sight == 1 && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
-	((_heli vectorModelToWorld getCameraViewDirection player) call CBA_fnc_vect2Polar) params ["", "_tadsAz", "_tadsEl"];
 	_heli lockCameraTo [_targPos, [0]];
 };
 if(fza_ah64_weaponDebug) then {
