@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/fn_addKeybind.sqf",{190:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Adds or updates the keybind handler for a specified mod action, and associates a function with that keybind being pressed.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/fn_addKeybind.sqf",{192:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Adds or updates the keybind handler for a specified mod action, and associates a function with that keybind being pressed.</div></div>"});
