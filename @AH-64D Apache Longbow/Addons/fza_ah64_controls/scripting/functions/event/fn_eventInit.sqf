@@ -84,6 +84,10 @@ _heli setVariable ["fza_ah64_fireapuarm", 0];
 
 [_heli] call fza_fnc_engineInit;
 
+if (player in _heli && !is3den &&  fza_ah64_showPopup && !fza_ah64_introShownThisScenario) then {
+    createDialog "RscFzaDisplayWelcome";
+};
+
 //Fixes pylons that went onto the wrong turret (pilot, rather than gunner)
 if (local _heli) then { 
     { 

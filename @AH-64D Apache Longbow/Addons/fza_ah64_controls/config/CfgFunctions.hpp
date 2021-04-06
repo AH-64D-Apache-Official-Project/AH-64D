@@ -1,4 +1,8 @@
+#ifdef __A3_DEBUG__
 #define R recompile = 1
+#else
+#define R recompile = 0
+#endif
 class CfgFunctions
 {
 	class fza_ah64_project
@@ -204,6 +208,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\ui";
 			class uiMouseMove {R;};
+			class uiShowIntro {R;};
 		};
 		class weapon
 		{

@@ -1,14 +1,9 @@
 [
-	"fza_ah64_rearmTime",
-	"List",
-	"Rearm time",
-	["AH64D Apache", "Rearm"],
-	[
-		[0, 15, 30, 60, 120, 240],
-		["Instant", "15 seconds", "30 seconds", "1 minute", "2 minutes", "4 minutes"],
-		5
-	],
-	1
+	"fza_ah64_showPopup",
+	"CHECKBOX",
+	["Show Popup Intro", "Show popup whenever the player gets into an apache"],
+	["AH64D Apache", "UI"],
+	true
 ] call CBA_fnc_addSetting;
 
 [
@@ -127,6 +122,7 @@ fza_ah64_headelev = 0;
 fza_ah64_cmpressed = 0;
 fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
+fza_ah64_introShownThisScenario = false;
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
 fza_ah64_slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
