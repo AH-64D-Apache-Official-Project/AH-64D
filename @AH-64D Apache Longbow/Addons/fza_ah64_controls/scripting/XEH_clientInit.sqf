@@ -38,7 +38,7 @@
 	CALL_ENSURE_IN_APACHE(fza_fnc_mpdcycleR)
 }, {}, [USER_1, [false, false, false]]] call fza_fnc_addKeybind;
 
-[MOD_NAME, "gunTracking", "Gun Tracking", { 
+[MOD_NAME, "radarMode", "Radar Mode", { 
 if(vehicle player isKindOf "fza_ah64base") then { 
 	vehicle player setVariable ["fza_ah64_agmode", (vehicle player getVariable "fza_ah64_agmode") + 1, true]; 
 }; 

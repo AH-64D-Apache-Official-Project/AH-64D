@@ -43,3 +43,6 @@ if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _
 if (inputAction "vehLockTargets" < 0.5 && fza_ah64_locktargstate == 1) then {
     fza_ah64_locktargstate = 0;
 };
+if (inputAction "lockTarget" > 0.5) then {
+    fza_ah64_mycurrenttarget = cursorTarget;
+};

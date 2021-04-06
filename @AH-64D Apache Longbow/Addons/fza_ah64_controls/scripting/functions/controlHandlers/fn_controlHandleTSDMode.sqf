@@ -21,6 +21,7 @@ Author:
 params ["_heli"];
 switch(_heli getVariable "fza_ah64_tsdmode") do {
 	case "nav": {
+		[_heli] call fza_fnc_targetingVariable;
 		_heli setVariable ["fza_ah64_tsdmode", "atk"];
 	};
 	case "atk": {
