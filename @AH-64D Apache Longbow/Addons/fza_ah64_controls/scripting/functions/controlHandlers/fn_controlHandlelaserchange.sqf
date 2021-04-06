@@ -16,7 +16,7 @@ Examples:
 	---
 
 Author:
-	ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

@@ -185,6 +185,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\targeting";
 			class targetingFilterType {R;};
 			class targetingGetSightSelect {R;};
+			class targetingLockCamToTarget {R;};
 			class targetingPFZCycle {R;};
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
@@ -219,6 +220,7 @@ class CfgFunctions
 			class weaponRocketSalvo {R;};
 			class weaponSelectFireMode {R;};
 			class weaponSubmunition {R;};
+			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
 		};
 		class functions

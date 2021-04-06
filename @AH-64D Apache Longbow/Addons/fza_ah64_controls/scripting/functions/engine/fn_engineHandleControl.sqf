@@ -26,8 +26,8 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "apu": {
-		_heli animateSource["plt_apu", 1];
 		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
+			_heli animateSource["plt_apu", 1];
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
 			[_heli] spawn fza_fnc_loops;
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];

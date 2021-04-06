@@ -62,6 +62,7 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
     _heli setVariable ["fza_ah64_rfjon", 0, true];
+    _heli setVariable ["fza_ah64_tadsLocked", false, true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
@@ -105,14 +106,16 @@ if (local _heli) then {
 //DEFAULT WEIGHT 
 
 if ((weightRTD _heli select 3) == 0) then {
-    if (typeof _heli == "fza_ah64d_b2e") then {
+    if (_heli animationPhase "fcr_enable" == 1) then {
         _heli setCustomWeightRTD 295;
     };
 };
 _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
 _heli setCustomWeightRTD ([0, 295] select (_heli animationPhase "fcr_enable" == 1));
 
-_blades = [_heli] execvm "\fza_ah64_controls\scripting\bladerot.sqf";
+if !(isMultiplayer) then {
+    _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
+};
 
 while {
     alive _heli

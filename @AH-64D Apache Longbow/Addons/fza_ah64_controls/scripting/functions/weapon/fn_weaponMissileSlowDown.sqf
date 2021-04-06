@@ -6,14 +6,16 @@ _heli = (getShotParents _projectile) # 0;
 
 if (_projectile isKindOf "fza_agm114l") then {
 	_targ =  fza_ah64_mycurrenttarget;
-	if !(isNull _targ) then {
+	_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _targ select 0), (getposatl _targ select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
+	if (!(isNull _targ) && _distOffAxis < 40) then {
 		_projectile setMissileTarget _targ;
 	};
 };
 
 if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then {
     _targ = (_heli getVariable "fza_ah64_currentLase");
-	if !(isNull _targ) then {
+	_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _targ select 0), (getposatl _targ select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
+	if (!(isNull _targ) && _distOffAxis < 40) then {
 		_projectile setMissileTarget _targ;
 	};
 };

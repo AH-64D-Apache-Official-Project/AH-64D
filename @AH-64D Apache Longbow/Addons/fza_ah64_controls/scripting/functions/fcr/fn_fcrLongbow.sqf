@@ -1,18 +1,14 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_fcrLongbow
-
 Description:
     Fire control Radar script that takes target from sens radar and adds it to 
     fza_ah64_targetlist & fza_ah64_fcrlist
-
 Parameters:
-
 Returns:
     Nothing
     
 Examples:
     [_heli] spawn fza_fnc_fcrLongbow;
-
 Author:
     Unknown
 ---------------------------------------------------------------------------- */

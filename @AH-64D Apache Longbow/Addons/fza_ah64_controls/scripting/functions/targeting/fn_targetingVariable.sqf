@@ -12,15 +12,19 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_targetingVariable
+    [_heli] call fza_fnc_targetingVariable;
 	---
 
 Author:
-	Ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
 private _visibleTargets = [];
+
+//remove dead targets
+fza_ah64_targetlist = fza_ah64_targetlist - alldead;
+fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk") && !(cameraView == "GUNNER")) then {
@@ -35,14 +39,13 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 //FCR LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "GUNNER")) then {
 	fza_ah64_dispfcrlist = [_heli, fza_ah64_fcrlist select {
-		_thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
-
+		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 0: {
-				!((getposatl _x select 2 > 10) || ((_heli distance2D _x) > 8000) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
+				!((getposatl _x select 2 > 10) || ((_heli distance2D _x) > 8000) || (_distOffAxis > 70 && _distOffAxis < 290) || !(alive _x))
 			};
 			case 1: {
-				!((getposatl _x select 2 < 10) || ((_heli distance2D _x) > 8000) || !(alive _i))
+				!((getposatl _x select 2 < 10) || ((_heli distance2D _x) > 8000) || !(alive _x))
 			};
 		};
 	}] call fza_fnc_targetingFilterType;
@@ -50,29 +53,22 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") && !(cameraView == "
 
 //ASE LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") && !(cameraView == "GUNNER")) then {
-	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {alive _x && _x call fza_fnc_targetIsADA};
+	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {_x call fza_fnc_targetIsADA};
 };
 
-//RWR AUDIO
-fza_ah64_asethreats = vehicles select {alive _x && _x call fza_fnc_targetIsADA};
+fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
 
-//remove dead vehicles
-fza_ah64_targetlist = fza_ah64_targetlist - alldead;
-fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
-
-
-//ofset it by 1 second so it alternated between mpd variable and cscope// ran every 2 second delay by 1
 //CSCOPE LIST
 if (_heli getVariable "fza_ah64_fcrcscope") then {
-	fza_ah64_Cscopelist = fza_ah64_targetlist select {
-		_thetafcr = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection;
+	fza_ah64_Cscopelist = fza_ah64_fcrlist select {
+		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 0: {
-				!((getposatl _x select 2 > 10) || (_thetafcr > 70 && _thetafcr < 290) || !(alive _x))
+				!((_distOffAxis > 45) || ((_heli distance2D _x) > 8000))
 			};
 			case 1: {
-				!((getposatl _x select 2 < 10) || !(alive _i))
+				(((_x isKindOf "plane") || (_x isKindOf "helicopter")) && ((_heli distance2D _x) < 8000))
 			};
 		};
 	};

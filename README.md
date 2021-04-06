@@ -2,23 +2,48 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*1/04/2021*
+- Image Auto Tracking (IAT)
+- hellfire texture and unwrap fixes
+- Fixed the ENG page so that it works with SFM.
+
+*30/03/2021*
+- Fixed air-to-air FCR
+- Fixed air-to-ground FCR FOV
+- Fixed icon positioning on FCR page
+
+*23/03/2021*
+- performance improvement for targeting code
+- converted scripts into functions
+- optimised the heavy radar variables
+
+*20/03/2021*
+- added United Kingdom army air corps texture
+
+*17/03/2021*
+- Implemented Dynamic Loadouts for the Apache, credit to BradMick for 3D modelling and design help
+- Removed old loadout system
+- Moved skins and enabling FCR to vehicle customization
+- Fixed disappeared textures, moved as many damage handlers off scripts as possible
+- Added new RNLAF skins, courtesy of Houseman
+- Added default presets to loadouts
+
 *14/03/2021*
-- Fixed opening FCR page from the ASE page
 - radar max detection range changed from 10K to 8K
 - disabling rocket salvo to prevent bug were hellfires shot with hydras //TEMP//
 - added vanilla thermal sensor CFG IR sensor
-- increased size of fixed-wing cscope icons
-- fixed bindable jammer toggle
-- made ase scripts functions
-- made jammer activation linked to both seats
-- fixed tsd & FCR ADA icons
-- submunitions activation are now a function
+- Increased size of fixed-wing cscope icons
+- Fixed bindable jammer toggle
+- Made ase scripts functions rather than `execVm`ed scripts
+- Made jammer activation linked to both seats
+- Fixed tsd & FCR ADA icons
+- Submunitions activation are now a function
 - Fixed ASE Display on server enviroment
-- added a bindable key to switch between self/remote laser]
+- Fixed missile warning volume
+- Added a bindable key to switch between self/remote laser
 
 *06/11/2020*
 - ECM script fixed
-- Changed 30mm to the newer ballistics computer
 - Re-added ADA datebase
 - Re-added correct auto hover detector
 - Tempory fix for the TSD/FCR Radar Icons

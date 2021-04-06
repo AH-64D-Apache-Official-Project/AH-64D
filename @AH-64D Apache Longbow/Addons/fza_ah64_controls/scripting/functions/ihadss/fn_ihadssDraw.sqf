@@ -26,7 +26,7 @@ _zoomstate = 0;
 _targhead = 0;
 
 _sensor = "R ";
-_sensxm = "FCR ";
+_sensxm = "FCR";
 _acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
@@ -467,7 +467,7 @@ if (_fcrantennafor > 0.56) then {
 if (_fcrantennafor < 0.44) then {
     _fcrantennafor = 0.44;
 };
-if (typeOf _heli == "fza_ah64d_b2e_nr" || typeOf _heli == "fza_ah64d_b2exp_nr" || typeOf _heli == "fza_ah64d_b3_nr") then {
+if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrantennafor = -100;
 };
 _sensorposx = (_heli animationphase "tads_tur") * -0.025;
@@ -482,7 +482,9 @@ if (_fcrdir > 0.7) then {
 if (_fcrdir < 0.3) then {
     _fcrdir = 0.3;
 };
-
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrdir = -100;
+};
 _slip = (fza_ah64_slip * 0.5) + 0.492;
 if (_slip > 0.54) then {
     _slip = 0.54;
@@ -584,10 +586,10 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
     if (count _missileTOF > 0) then {
-        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
+        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
         _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
     };
 } else {
