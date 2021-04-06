@@ -34,7 +34,7 @@ _gunAmmoFont = ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (cu
 
 // SIGHT AND ACQ SOURCES
 
-_acq = "\fza_ah64_us\tex\icons\fcr.paa";
+_acq = "\fza_ah64_us\tex\icons\t01.paa";
 _sight = "\fza_ah64_us\tex\icons\tads.paa";
 
 switch ([_heli] call fza_fnc_targetingGetSightSelect) do {

@@ -24,6 +24,4 @@ if (_curAcq > 3) then {
     _curAcq = 0;
 };
 
-systemChat str _curAcq;
-
 [_heli, _curAcq] call fza_fnc_targetingSetSightSelect;

@@ -411,8 +411,8 @@ _targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.
 if (isNull fza_ah64_mycurrenttarget) then {
     _targrange = "0.00";
 };
-if (fza_ah64_mycurrenttarget iskindof "Lasertarget") then {
-    _targrange = format["%1%2", "*", round(_heli distance fza_ah64_mycurrenttarget)];
+if (currentweapon _heli in ["fza_m230", "fza_burstlimiter"] && !isNull laserTarget _heli) then {
+    _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
 _thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
@@ -610,7 +610,7 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
     (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
     if (_sight == 3) then { //FXD
-        _scPos = worldToScreen (_heli modelToWorld [0, 1000, 0]);
+        _scPos = worldToScreen (_heli modelToWorldVisual [0, 1000, 0]);
         if (_scpos isEqualTo []) then {
             _scpos = [-100, -100];
         };
@@ -775,12 +775,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 ///HAD INHIBIT MESSAGES
 
 if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
-    _safemessage = "BURST LIMIT";
     player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
-};
-
-if (currentweapon _heli == "fza_burstlimiter" && (time - fza_ah64_firekeypressed < 1)) then {
-    _safemessage = "BURST LIMIT";
 };
 
 if (fza_ah64_gunheat > 0) then {
@@ -792,7 +787,7 @@ if (fza_ah64_gunheat < 0) then {
     fza_ah64_burst = 0;
 };
 
-if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
+if (time - fza_ah64_firekeypressed > 0.1 && currentweapon _heli == "fza_burstlimiter") then {
     fza_ah64_burst = 0;
     _heli selectWeapon "fza_m230";
 };
@@ -846,7 +841,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
 
-private _headTrackerPos = worldToScreen (_heli modelToWorld [0, 1000000, 0]);
+private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
 if (_headTrackerPos isEqualTo []) then {
     _headTrackerPos = [-100, -100];
 } else {
