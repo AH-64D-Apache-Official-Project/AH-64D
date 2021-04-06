@@ -26,8 +26,8 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 	fza_ah64_tsddisptargs = fza_ah64_targetlist select {alive _x};
 };
 
-//FCR LIST
-if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr")) then {
+//FCR & CSCOPE LIST
+if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") || (_heli getVariable "fza_ah64_fcrcscope")) then {
 	fza_ah64_dispfcrlist = fza_ah64_fcrlist select {
 		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
 
