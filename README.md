@@ -2,6 +2,31 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+*06/04/2021*
+* Added a welcome sceen on mod start up
+* Removed hydras from ace frag
+* Removed 30mm from ace frag
+* Hellfires now limited to 40 degrees left/right
+* Increase M230E1 RPM to reflect 650 RPM in-game (the reload time is not accurate)
+* Added a penetration submunition for the 30mm
+* Added penetrators to hellfires
+* Fixed submunition direction for hydras
+* Re-added Flechette red smoke
+* Added AAC textures to the mod
+* Fixed FCR page when FCR not installed
+* Fixed hellfire flight timer
+* Fixed laser jitter in MP
+* Increased cannon accuracy
+* Removed (temporarily) acquisition sources and rewritten sighting system.
+* Fixed PFZs and laser cycling
+* Added inhibits to the weapons system.
+
+*04/04/2021*
+* UFD and Fire systems fix
+
+*03/04/2021*
+* aking blade animation script singleplayer only
+* Added 211th Skins
 *1/04/2021*
 - Image Auto Tracking (IAT)
 - hellfire texture and unwrap fixes
