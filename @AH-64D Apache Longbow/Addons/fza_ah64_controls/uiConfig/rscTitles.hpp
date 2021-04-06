@@ -463,6 +463,21 @@ class RscTitles
                 };
                 class controls
                 {
+					class fza_ah64_raddisp_pnvspos
+					{
+						idc = 182;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\headpos.paa";
+						style = 48;
+						sizeEx = 256;
+						x = 0.49;
+						y = 0.5;
+						w = 0.03845;
+						h = 0.05;
+					};
                     class fza_ah64_raddisp_target
                     {
                         idc = 132;
@@ -1478,21 +1493,6 @@ class RscTitles
 					class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
 				idc = 181;
-			};
-					class fza_ah64_raddisp_pnvspos
-					{
-				idc = 182;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\headpos.paa";
-				style = 48;
-				sizeEx = 256;
-				x = 0.49;
-				y = 0.5;
-				w = 0.03845;
-				h = 0.05;
 			};
 					class fza_ah64_raddisp_fcr_for
 					{

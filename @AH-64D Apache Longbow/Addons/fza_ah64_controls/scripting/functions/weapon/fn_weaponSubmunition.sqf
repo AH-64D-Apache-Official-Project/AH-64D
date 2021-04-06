@@ -24,19 +24,19 @@ params ["_heli","","","","","","_missobj"];
 
 if !(typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") exitwith {};
 
-_Tgpos = screentoworld[0.5, 0.5];
+private _Tgpos = screentoworld[0.5, 0.5];
 
 if !(isNull laserTarget _heli) then {
-    _TGpos = getPosATL laserTarget _heli;
+    _TGpos = laserTarget _heli;
 };
-
+private _burstdist = 0;
 if (typeOf _missobj == "fza_275_m255") then {
     _burstdist = 200;
 } else {
     _burstdist = 500;
 };
 
-waituntil{(_missobj distance _Tgpos < _burstdist && _missobj distance _heli > 450)};
+waituntil{_missobj distance _Tgpos < _burstdist && _missobj distance _heli > 450};
 
 
 if (typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") then {

@@ -770,7 +770,7 @@ class CfgVehicles
 				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
-				statement="this setVariable [""fza_ah64_agmode"", (this getVariable ""fza_ah64_agmode"") + 1, true]";
+				statement="[this] call fza_fnc_weaponguncontrol;";
 			};
 			class gunburst
 			{
@@ -1125,12 +1125,14 @@ class CfgVehicles
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "testsc";
+			    memoryPointGun = "laserBegin";
 				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
+				body = "tads_tur";
+				gun = "tads";
 				animationsourcebody = "tads_tur";
 				animationsourcegun = "tads";
+				gunBeg = "laserBegin";
+				gunEnd = "laserEnd";
 				gunnerOpticsModel = "";
 				gunnerOpticsColor[] = {1,1,1,1};
 				minElev = -60;
@@ -1417,6 +1419,18 @@ class CfgVehicles
 		ANIMS_MMAP(plt)
 		ANIMS_MMAP(cpg)
 		////////RADAR///////
+		class tads_tur
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
+		class tads
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
 		class fcr_enable
 		{
 			displayName = "Attach FCR";

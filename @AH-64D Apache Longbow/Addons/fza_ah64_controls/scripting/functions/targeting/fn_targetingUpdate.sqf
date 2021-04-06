@@ -15,6 +15,11 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+
+if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
+    _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
+};
+
 fza_ah64_aseAudio = fza_ah64_asethreats;
 {
 	if ((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) && (alive _x) && !(_x in fza_ah64_threattracking)) then {

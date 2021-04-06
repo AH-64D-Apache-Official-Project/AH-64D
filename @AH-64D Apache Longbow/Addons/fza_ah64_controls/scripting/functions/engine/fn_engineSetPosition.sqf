@@ -51,7 +51,7 @@ switch (_state) do {
                 _stateParams = time;
                 _changeMade = true;
 
-                _heli animate[_engineSwitch, 1];;
+                _heli animateSource[_engineSwitch, 1];;
                 _heli say3D["fza_ah64_estart_3D", 100, 1];
             };
         };
@@ -61,7 +61,7 @@ switch (_state) do {
             _stateParams = time;
             _changeMade = true;
 
-            _heli animate[_engineSwitch, 0];
+            _heli animateSource[_engineSwitch, 0];
         };
     }; 
     case "STARTED":{
@@ -70,15 +70,15 @@ switch (_state) do {
             _stateParams = time;
             _changeMade = true;
 
-            _heli animate[_engineSwitch, 0];
+            _heli animateSource[_engineSwitch, 0];
         };
         if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli animationphase "plt_apu" > 0.5) then {
             _stateParams = time;
             _state = "STARTEDIDLE";
             _changeMade = true;
 
-            _heli animate[_engineSwitch, 0];
-            _heli animate[_throttleAnimName, 0.25];
+            _heli animateSource[_engineSwitch, 0];
+            _heli animateSource[_throttleAnimName, 0.25];
         };
     };
     case "IDLE":{
@@ -88,7 +88,7 @@ switch (_state) do {
                     _state = "IDLEOFF";
                     _changeMade = true;
 
-                    _heli animate[_throttleAnimName, 0];
+                    _heli animateSource[_throttleAnimName, 0];
                 };
             case ENGINE_CONTROL_THROTTLE_FLY:{
                     if (_otherState == "IDLE") then {
@@ -98,8 +98,8 @@ switch (_state) do {
                         _otherStateParams = time;
                         _changeMade = true;
 
-                        _heli animate["plt_eng1_throttle", 1];
-                        _heli animate["plt_eng2_throttle", 1];
+                        _heli animateSource["plt_eng1_throttle", 1];
+                        _heli animateSource["plt_eng2_throttle", 1];
                     }
                 };
             };
@@ -112,8 +112,8 @@ switch (_state) do {
             _otherStateParams = time;
             _changeMade = true;
 
-            _heli animate["plt_eng1_throttle", 0.25];
-            _heli animate["plt_eng2_throttle", 0.25];
+            _heli animateSource["plt_eng1_throttle", 0.25];
+            _heli animateSource["plt_eng2_throttle", 0.25];
         };
     };
 };

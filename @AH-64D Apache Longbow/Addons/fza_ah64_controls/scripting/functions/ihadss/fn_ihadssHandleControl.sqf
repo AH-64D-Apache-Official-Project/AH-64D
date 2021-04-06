@@ -33,9 +33,9 @@ switch(_control) do {
 		};
 
 		if (_heli animationphase "cpg_ihadss_brt" < 1 && player == gunner _heli) then {
-			_heli animate["cpg_ihadss_brt", 1];
+			_heli animateSource["cpg_ihadss_brt", 1];
 		} else {
-			_heli animate["cpg_ihadss_brt", 0];
+			_heli animateSource["cpg_ihadss_brt", 0];
 		};
 		[_heli] call fza_fnc_ihadsstoggle;
 	};

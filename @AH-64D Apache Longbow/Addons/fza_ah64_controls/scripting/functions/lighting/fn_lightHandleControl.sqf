@@ -58,10 +58,10 @@ switch (_control) do {
 	};
 	case "anticollision": {
 		if (_heli animationphase "plt_anticollision" < 1 && _heli animationphase "plt_batt" > 0.5) then {
-			_heli animate["plt_anticollision", 1];
+			_heli animateSource["plt_anticollision", 1];
 			_heli setCollisionLight true;
 		} else {
-			_heli animate["plt_anticollision", 0];
+			_heli animateSource["plt_anticollision", 0];
 			_heli setCollisionLight false;
 		};
         ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
