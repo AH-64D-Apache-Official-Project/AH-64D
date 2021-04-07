@@ -26,7 +26,7 @@ _zoomstate = 0;
 _targhead = 0;
 
 _sensor = "R ";
-_sensxm = "TADS";
+_sensxm = "HMD";
 _acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
