@@ -34,6 +34,12 @@ class CfgVehicles
     	reportRemoteTargets     = 1;
     	reportOwnPosition       = 1;
 	
+		//lesh tow compatabilty
+		LESH_canBeTowed = 1;
+		LESH_towFromFront = 0;
+		LESH_AxisOffsetTarget[] = {0,-9.2,-2};
+		LESH_WheelOffset[] = {0,2.5};
+
 		side=1;
 		scope=0;
 		displayName="AH-64D";
