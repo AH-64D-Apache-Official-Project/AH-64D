@@ -18,6 +18,7 @@ if (!(player in _heli)) exitwith {};
 private _visibleTargets = [];
 
 //remove dead targets
+fza_ah64_pfzs = fza_ah64_pfzs - alldead;
 fza_ah64_targetlist = fza_ah64_targetlist - alldead;
 fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
