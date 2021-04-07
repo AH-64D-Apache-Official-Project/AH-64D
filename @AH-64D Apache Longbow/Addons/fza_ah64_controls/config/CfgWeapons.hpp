@@ -76,9 +76,9 @@ class CfgWeapons
 		displayName="M230";
 		cursor = "";
 		cursorAim = "";
-		reloadTime=0.102;
+		reloadTime=0.07;  //0.102
 		weaponLockSystem = "8+4";
-		ballisticscomputer = 1;
+		ballisticscomputer = 16;
 		weaponLockDelay = 0;
 		autoreload = 1;
 		multiplier = 1;

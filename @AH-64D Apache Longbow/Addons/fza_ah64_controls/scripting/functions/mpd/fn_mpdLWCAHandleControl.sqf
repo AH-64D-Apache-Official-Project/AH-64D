@@ -6,4 +6,7 @@ switch(_control) do {
 	case "m": {
 		[_heli, 0, "dms"] call fza_fnc_mpdSetDisplay;
 	};
+	case "wpn": {
+		[_heli, 0, "wpn"] call fza_fnc_mpdSetDisplay;
+	};
 };

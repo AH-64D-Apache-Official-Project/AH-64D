@@ -2,6 +2,7 @@
 Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
 
 # CHANGELOG NOTES:
+
 *06/04/2021*
 * Added a welcome sceen on mod start up
 * Removed hydras from ace frag
@@ -27,6 +28,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 *03/04/2021*
 * aking blade animation script singleplayer only
 * Added 211th Skins
+
 *1/04/2021*
 - Image Auto Tracking (IAT)
 - hellfire texture and unwrap fixes

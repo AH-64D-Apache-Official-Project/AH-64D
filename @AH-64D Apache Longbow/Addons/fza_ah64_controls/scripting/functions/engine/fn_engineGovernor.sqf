@@ -58,14 +58,14 @@ _rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD && local _heli)
 	(rotorsRpmRTD _heli # 0) / 2.89;
 };
 
-_heli animate["mpd_pr_eng_e1trq", _e1trq / 130.0];
-_heli animate["mpd_pr_eng_e2trq", _e2trq / 130.0];
-_heli animate["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
-_heli animate["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp)# 1];
-_heli animate["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
-_heli animate["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e1trq", _e1trq / 130.0];
+_heli animateSource["mpd_pr_eng_e2trq", _e2trq / 130.0];
+_heli animateSource["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp)# 1];
 
-_heli animate["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fnc_linearInterp)# 1];
 
 ((_heli getVariable "fza_ah64_engineStates") select 0) params ["_e1state", "_e1stateParams"];
 ((_heli getVariable "fza_ah64_engineStates") select 1) params ["_e2state", "_e2stateParams"];

@@ -20,20 +20,10 @@ Examples:
 Author:
 	unknown
 ---------------------------------------------------------------------------- */
-params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
-_mags = magazines _ah64;
+params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
+_mags = magazines _heli;
 
-if (!(player == driver _ah64 || player == gunner _ah64)) exitwith {};
-
-if (_weapon == "fza_m230") then {
-    addCamShake [0.40, 1, 25];
-};
-
-// RKT + MSL SHAKE
-if (_weapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] || _weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then 
-{
-    addCamShake [0.40, 0.5, 25];
-};
+if (!(player == driver _heli || player == gunner _heli)) exitwith {};
 //MSL GUIDANCE STARTS HERE !
 
 //COUNTERMEASURES
@@ -54,17 +44,17 @@ if (!(_weapon == "fza_m230")) then {
     {
         _x setdamage((damage _x) + 0.05);
     }
-    foreach(crew _ah64 - [gunner _ah64, driver _ah64]);
+    foreach(crew _heli - [gunner _heli, driver _heli]);
 };
 
 //OVERHEAT GUN FAULT
 
-if (_weapon == "fza_m230" && (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64)) then {
+if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || isNull gunner _heli)) then {
     if (time - fza_ah64_firekeypressed > 1) then {
         fza_ah64_burst = 0;
     };
     if (fza_ah64_gunheat > 105) then {
-        [_ah64] call fza_fnc_damageM230;
+        [_heli] call fza_fnc_damageM230;
     };
     fza_ah64_burst = fza_ah64_burst + 1;
     fza_ah64_gunheat = fza_ah64_gunheat + 1;

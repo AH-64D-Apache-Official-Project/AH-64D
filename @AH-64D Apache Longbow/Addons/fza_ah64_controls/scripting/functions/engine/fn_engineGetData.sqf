@@ -46,58 +46,58 @@ private _flyIdleTransition = [[0, 83.0, 541.0, 88.0], [20, 67.9, 500.0, 70.0]];
 
 switch (_state) do {
 	case "OFF" : {
-		_npMul = 0;
-		_torqueMul = 0;
 		_tgt = 0;
 		_ng = 0;
 		_oil = 0;
+		_torqueMul = 0;
+		_npMul = 0;
 	};
 	case "OFFSTARTED" : {
 		private _result = [_offStartedTransition, time - _stateParams] call fza_fnc_linearInterp;
-		_npMul = _result select 1;
 		_ng = _result select 2;
 		_tgt = _result select 3;
 		_oil = _result select 4;
 		_torqueMul = _result select 5;
+		_npMul = _result select 1;
 	};
 	case "STARTEDOFF" : {
 		private _result = [_startedOffTransition, time - _stateParams] call fza_fnc_linearInterp;
-		_npMul = _result select 1;
 		_ng = _result select 2;
 		_tgt = _result select 3;
 		_oil = _result select 4;
 		_torqueMul = _result select 5;
+		_npMul = _result select 1;
 	};
 	case "STARTED" : {
 		private _result = _startedOffTransition # 0;
-		_npMul = _result select 1;
 		_ng = _result select 2;
 		_tgt = _result select 3;
 		_oil = _result select 4;
 		_torqueMul = _result select 5;
+		_npMul = _result select 1;
 	};
 	case "STARTEDIDLE": {
 		private _result = [_startedIdleTransition, time - _stateParams+10] call fza_fnc_linearInterp;
-		_npMul = _result select 1;
 		_ng = _result select 2;
 		_tgt = _result select 3;
 		_oil = _result select 4;
 		_torqueMul = _result select 5;
+		_npMul = _result select 1;
 	};
 	case "IDLEOFF": {
 		private _result = [_idleOffTransition, time - _stateParams] call fza_fnc_linearInterp;
-		_npMul = _result select 1;
 		_ng = _result select 2;
 		_tgt = _result select 3;
 		_oil = _result select 4;
 		_torqueMul = _result select 5;
+		_npMul = _result select 1;
 	};
 	case "IDLE": {
-		_npMul = 100;
 		_ng = 67.9;
 		_tgt = 500;
 		_oil = 70;
 		_torqueMul = 100;
+		_npMul = 100;
 	};
 	case "IDLEFLY": {
 		private _result = [_idleFlyTransition, time - _stateParams] call fza_fnc_linearInterp;
@@ -116,19 +116,55 @@ switch (_state) do {
 		_npMul = 100;
 	};
 	case "FLY": {
-		_npMul = 100;
 		_ng = 83.4;
 		_tgt = 500;
 		_oil = 70;
 		_torqueMul = 100;
+		_npMul = 100;
 	};
 	default {
 		["Invalid engine state reached (%1)", _state] call BIS_fnc_error;
 	};
 };
 
+//RTD...we shall burn it with holy fire...
 if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 2) then {
 	[_npMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _torqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
-} else {
-	[_npMul * 1.01 * 209.0, _ng, _tgt, _oil, 70];
+} 
+else {
+	//First we need to get the analog collective input, both of these are positive values: low is 1 to 0, and high is 0 to 1
+	_collLow  = inputAction "HeliCollectiveLowerCont";
+	_collHigh = inputAction "HeliCollectiveRaiseCont";
+	//If we take high - low, we get an output from -1 to 1 
+	_collVal = _collHigh - _collLow;
+	//Now that convert the -1 to 1 to a 0 to 1 output
+	_collOut = linearConversion [-1, 1, _collVal, 0, 1];
+	
+	//[Np (rpm), Ng (%), TGT (*C), Oil Pressure (PSI), Torque (Nm)]	
+	
+	//tqOut takes in the collective input from 0 to 1, and interpolates from 70 Nm Tq to 645 Nm torque this corresponds to a TQ % of 15% at
+	//flat pitch to 131% at 100% collective. This is temporary, but should make the engine page torque be dynamic.
+	_tqOut = linearConversion[0, 1, _collOut, 70, 630];
+	
+	[(_npMul / 100) * 21109, _ng, _tgt, _oil, _tqOut];
 };
+
+/***
+[] spawn 
+{
+	runLoop = true;
+	while {runLoop} do 
+	{
+		_collLow  = inputAction "HeliCollectiveLowerCont";
+		_collHigh = inputAction "HeliCollectiveRaiseCont";
+		_collVal = _collHigh - _collLow;
+		
+		_collOut = linearConversion [-1, 1, _collVal, 0, 1];
+		
+		_tqOut = linearConversion[0, 1, _collOut, 70, 630];
+		
+		hintSilent format ["Lower %1\nUpper %2\nColl Out %3\nTq Out %4", inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont", _collOut, _tqOut];
+		sleep 0.03;
+	}
+};
+***/

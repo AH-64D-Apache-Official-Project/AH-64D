@@ -16,3 +16,7 @@ Author:
 	unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+
+if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario) then {
+    createDialog "RscFzaDisplayWelcome";
+}

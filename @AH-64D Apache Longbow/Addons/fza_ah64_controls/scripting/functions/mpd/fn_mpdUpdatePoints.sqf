@@ -80,13 +80,13 @@ for "_i" from 0 to 31 do {
 
 	_heli setObjectTexture [_forEachIndex + _initial, _tex];
 	if (player == driver _heli) then {
-		_heli animate[format ["mpd_pl_obj%1_h", _forEachIndex + 1], _pos # 0];
-		_heli animate[format ["mpd_pl_obj%1_v", _forEachIndex + 1], _pos # 1];
-		_heli animate[format ["mpd_pl_obj%1_z", _forEachIndex + 1], _priority];
+		_heli animateSource[format ["mpd_pl_obj%1_h", _forEachIndex + 1], _pos # 0];
+		_heli animateSource[format ["mpd_pl_obj%1_v", _forEachIndex + 1], _pos # 1];
+		_heli animateSource[format ["mpd_pl_obj%1_z", _forEachIndex + 1], _priority];
 	};
 	if (player == gunner _heli) then {
-		_heli animate[format ["mpd_gr_obj%1_h", _forEachIndex + 1], _pos # 0];
-		_heli animate[format ["mpd_gr_obj%1_v", _forEachIndex + 1], _pos # 1];
-		_heli animate[format ["mpd_gr_obj%1_z", _forEachIndex + 1], _priority];
+		_heli animateSource[format ["mpd_gr_obj%1_h", _forEachIndex + 1], _pos # 0];
+		_heli animateSource[format ["mpd_gr_obj%1_v", _forEachIndex + 1], _pos # 1];
+		_heli animateSource[format ["mpd_gr_obj%1_z", _forEachIndex + 1], _priority];
 	};
 } forEach (_points);

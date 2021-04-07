@@ -770,7 +770,7 @@ class CfgVehicles
 				//condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"" || this iskindof ""fza_ah64a_e"")";
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
-				statement="this setVariable [""fza_ah64_agmode"", (this getVariable ""fza_ah64_agmode"") + 1, true]";
+				statement="[this] call fza_fnc_weaponguncontrol;";
 			};
 			class gunburst
 			{
@@ -782,7 +782,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
+				condition="(player == driver this || player == gunner this) && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
 				shortcut="Binocular";
 				statement="[this] call fza_fnc_weaponM230CycleBurst";
 			};
@@ -796,9 +796,23 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=0;
-				condition="(player == driver this || player == gunner this) && ([this, 0] call fza_fnc_mpdGetCurrentDisplay == ""wpn"") && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
+				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
 				statement="[this] call weaponRocketsalvo";
+			};
+			class hellfireTraj
+			{
+				displayName="";
+				useAction=false;
+				showSwitchAction=false;
+				position="zamerny";
+				onlyForPlayer=1;
+				radius=8;
+				showWindow=0;
+				priority=0;
+				condition="(player == driver this || player == gunner this) &&  (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
+				shortcut="Binocular";
+				statement="[this] call fza_fnc_weaponTrajectoryChange";
 			};
 			class pilotdoor_open
 			{
@@ -1013,7 +1027,7 @@ class CfgVehicles
 		selectionHRotorMove = "mr_blur";
 		selectionVRotorStill = "tr_blades";
 		selectionVRotorMove = "tr_blur";
-		camshakecoef = 0.5;
+		camshakecoef = 0.2;
 		memoryPointLMissile = "l strela";
 		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";
@@ -1070,8 +1084,31 @@ class CfgVehicles
 				author = "Rosd6(Dryden) & Jamo";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class UK_AAC_weathered
+			{
+				displayName = "United Kingdom Army Air Corps (weathered)";
+				author = "Rosd6(Dryden)";
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_weathered.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class UK_AAC_SF
+			{
+				displayName = "United Kingdom Army Air Corps Special Forces";
+				author = "Rosd6(Dryden)";
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_SF.paa","\fza_ah64_us\tex\ex\FCR_Black_co.paa"};
+			};
+			class 211th_clean
+			{
+				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard";
+				author = "seven10 & Apache mod development team";
+			textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class 211th_weathered
+			{
+				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard (weathered)";
+				author = "seven10 & Apache mod development team";
+			textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
 		};
-
 		textureList[] = {"b2", 1};
 		hiddenSelectionsTextures[] = {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 		class Turrets
@@ -1088,12 +1125,14 @@ class CfgVehicles
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
-			    memoryPointGun = "testsc";
+			    memoryPointGun = "laserBegin";
 				memoryPointGunnerOptics = "gunnerview";
-				body = "mainTurret";
-				gun = "mainGun";
+				body = "tads_tur";
+				gun = "tads";
 				animationsourcebody = "tads_tur";
 				animationsourcegun = "tads";
+				gunBeg = "laserBegin";
+				gunEnd = "laserEnd";
 				gunnerOpticsModel = "";
 				gunnerOpticsColor[] = {1,1,1,1};
 				minElev = -60;
@@ -1380,6 +1419,18 @@ class CfgVehicles
 		ANIMS_MMAP(plt)
 		ANIMS_MMAP(cpg)
 		////////RADAR///////
+		class tads_tur
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
+		class tads
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase=0;
+		};
 		class fcr_enable
 		{
 			displayName = "Attach FCR";
