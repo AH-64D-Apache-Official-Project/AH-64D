@@ -3040,10 +3040,41 @@ initPhase=0;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
 
-		class AnimationSources : AnimationSources {
-			class fcr_enable : fcr_enable
+		class AnimationSources: AnimationSources {
+			class fcr_enable: fcr_enable
 			{
 				initPhase = 0;
+			};
+		};
+		class Components: Components
+		{
+			class TransportPylonsComponent : TransportPylonsComponent {
+				class pylons: pylons {
+					class pylons1: pylons1 {};
+					class pylons2: pylons2 {};
+					class pylons3: pylons3 {};
+					class pylons4: pylons4 {};
+					class pylons5: pylons5 {};
+					class pylons6: pylons6 {};
+					class pylons7: pylons7 {
+						attachment = "fza_agm114k_ll";
+					};
+					class pylons8: pylons8 {
+						attachment = "fza_agm114k_lr";
+					};
+					class pylons9: pylons9 {};
+					class pylons10: pylons10 {};
+					class pylons11: pylons11 {
+						attachment = "fza_agm114k_ll";
+					};
+					class pylons12: pylons12 {
+						attachment = "fza_agm114k_lr";
+					};
+					class pylons13: pylons13 {};
+					class pylons14: pylons14 {};
+					class pylons15: pylons15 {};
+					class pylons16: pylons16 {};
+				};
 			};
 		};
 	};
