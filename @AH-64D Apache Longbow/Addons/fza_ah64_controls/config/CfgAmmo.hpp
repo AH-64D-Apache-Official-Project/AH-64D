@@ -542,9 +542,9 @@ class CfgAmmo
 	};	
 	class fza_m257_flare: FlareCore
 	{		
-		timeToLive 					= 30;
+		timeToLive 					= 90;
 		model 						= "\A3\Weapons_F\Ammo\UGL_Flare";
-		lightColor[] 				= {1,0.8,0.7,0.5}; //gotta find the right color/illumination intensity.
+		lightColor[] 				= {1,0.8,0.7,0.5};
 		smokeColor[] 				= {1,1,1,0.4};
 		effectFlare 				= "CounterMeasureFlare";
 		brightness 					= 0.1;
