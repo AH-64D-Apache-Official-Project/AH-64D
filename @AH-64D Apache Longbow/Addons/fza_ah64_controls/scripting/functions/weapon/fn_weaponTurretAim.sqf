@@ -33,7 +33,7 @@ private _lockCameraForwards = false;
 switch (_sight) do {
     case 0:{
        if (!isNull fza_ah64_mycurrenttarget) then {
-            _targPos = fza_ah64_mycurrenttarget modelToWorldWorld (fza_ah64_mycurrenttarget selectionPosition "zamerny");
+            _targPos = aimPos fza_ah64_mycurrenttarget;
             _targVel = velocity fza_ah64_mycurrenttarget;
         } else {
             _lockCameraForwards = true;
@@ -44,7 +44,7 @@ switch (_sight) do {
 	};
     case 2:{
 		if (gunner _heli == player && cameraView == "GUNNER" && !isNull cursorObject) then {
-			_targPos = getPosAsl cursorObject;
+			_targPos = aimPos cursorObject;
 			_targVel = velocity cursorObject;
 		} else {
 			_targPos = aglToAsl screentoworld[0.5, 0.5];
@@ -91,6 +91,22 @@ if (_targPos isEqualTo -1) exitWith {
 
 if (_sight == 1 && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
 	_heli lockCameraTo [_targPos, [0]];
+};
+
+#define NOTVISIBLEFROMTADS(_heli, _tgt) ([(_heli), "VIEW", (_tgt)] checkVisibility [eyePos player, getPosASL (_tgt)] == 0)
+if (_sight == 2 && (gunner _heli == player) && !isNull (_heli getVariable "fza_ah64_tadsLocked")) then {
+	_heli lockCameraTo [aimPos (_heli getVariable "fza_ah64_tadsLocked"), [0]];
+
+	if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked") && !fza_ah64_tadsLockCheckRunning) then {
+		fza_ah64_tadsLockCheckRunning = true;
+		[{
+			params["_heli"];
+			fza_ah64_tadsLockCheckRunning = false;
+			if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked")) then {
+				_heli setVariable["fza_ah64_tadsLocked", objNull, true];
+			}
+		}, _heli, 2] call CBA_fnc_waitAndExecute;
+	}
 };
 if(fza_ah64_weaponDebug) then {
 	drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], aslToAgl _targPos, 0.5, 0.5, 0, "Target"];

@@ -894,18 +894,6 @@ class CfgVehicles
 				condition="fza_ah64_tiron";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
-			class Arming
-			{
-				displayName="<t color ='#ffff00'>Arming</t>";
-				position="pilot_action";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=13;
-				condition="(player == driver this || player == gunner this) && (speed this < 5) && (alive this)"; //removed CPG action
-				shortcut="";
-				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf""";
-			};
 		};
 		class MFD {};
 		

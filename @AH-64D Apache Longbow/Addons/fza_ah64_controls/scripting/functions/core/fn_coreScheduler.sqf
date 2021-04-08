@@ -23,17 +23,18 @@ params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 0.01;
 
-fza_ah64_overallticker = diag_ticktime; {
-[_heli] call _x;
-}
-foreach fza_ah64_schedarray;
-
+if (alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base") then {
+    {
+        [_heli] call _x;
+    }
+    foreach fza_ah64_schedarray;
+};
 _tickerSlow = 2;
 
-if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli && (player == driver _heli || player == gunner _heli) && count fza_ah64_slowschedarray > 0 && (vehicle player) isKindOf "fza_ah64base" && fza_ah64_pf_daytime_Slow < daytime) then {
-    fza_ah64_overalltickerSlow = diag_ticktime; {
+if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli && (player == driver _heli || player == gunner _heli) && count fza_ah64_slowschedarray > 0 && (vehicle player) isKindOf "fza_ah64base") then {
+    fza_ah64_overalltickerSlow = diag_ticktime; 
+    {
         [_heli] call _x;
     }
     foreach fza_ah64_slowschedarray;
-    fza_ah64_pf_daytime_Slow = daytime;
 }; 
