@@ -62,7 +62,7 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
     _heli setVariable ["fza_ah64_rfjon", 0, true];
-    _heli setVariable ["fza_ah64_tadsLocked", false, true];
+    _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
