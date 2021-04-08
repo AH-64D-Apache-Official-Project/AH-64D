@@ -19,6 +19,7 @@ Author:
 params["_heli"];
 if (!(player in _heli)) exitwith {};
 if (!(isnil "fza_ah64_enableturrets")) exitwith {};
+#define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 private _inhibit = "";
 
 private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
@@ -111,27 +112,26 @@ if (_usingRocket) then {
 	if(fza_ah64_weaponDebug) then {
 		drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 1, 1], aslToAgl _aimLocation, 0.5, 0.5, 0, "Rocket Correction"];
 	};
-
     private _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
 	if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
 		_inhibit = "PYLON LIMIT"
 	};
-    if (_heliPylons# 0 != "") then {
+    if (WEP_TYPE(_heliPylons# 0) == "rocket") then {
         _heli animateSource["pylon1", _pylonAdjustment];
     } else {
 		_heli animateSource["pylon1", 0];
 	};
-    if (_heliPylons# 7 != "") then {
+    if (WEP_TYPE(_heliPylons# 4) == "rocket") then {
 		_heli animateSource["pylon2", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon2", 0];
 	};
-	if (_heliPylons# 14 != "") then {
+	if (WEP_TYPE(_heliPylons# 8) == "rocket") then {
 		_heli animateSource["pylon3", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon3", 0];
 	};
-	if (_heliPylons# 21 != "") then {
+	if (WEP_TYPE(_heliPylons# 12) == "rocket") then {
 		_heli animateSource["pylon4", _pylonAdjustment];
 	} else {
 		_heli animateSource["pylon4", 0];
