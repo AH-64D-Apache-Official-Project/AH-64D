@@ -34,25 +34,25 @@ switch (_side) do {
 		if (_page in ["off", "fail", "dms", "flt", "fuel", "wca", "wpn"]) then {
 			(_heli getVariable ["fza_ah64_mpdPage", []]) set [0, _page
 			];
-			TRACE_1("Successfully managed to change page on left MPD to", _page);
+			//TRACE_1("Successfully managed to change page on left MPD to", _page);
 			true;
 		} else {
-			WARNING(format["Failed to change page on left MPD to %1", _page]);
+			//WARNING(format["Failed to change page on left MPD to %1", _page]);
 			false;
 		};
 	};
 	case 1 : {
 		if (_page in ["off", "fail", "ase", "dms", "eng", "fcr", "tsd", "wca"]) then {
 			(_heli getVariable ["fza_ah64_mpdPage", []]) set [1, _page];
-			TRACE_1("Successfully managed to change page on right MPD to", _page);
+			//TRACE_1("Successfully managed to change page on right MPD to", _page);
 			true;
 		} else {
-			WARNING(format["Failed to change page on right MPD to %1", _page]);
+			//WARNING(format["Failed to change page on right MPD to %1", _page]);
 			false;
 		};
 	};
 	default {
-		ERROR("Tried to change page of invalid MPD");
+		//ERROR("Tried to change page of invalid MPD");
 		false;
 	};
 };

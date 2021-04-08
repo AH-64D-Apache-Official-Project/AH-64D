@@ -15,6 +15,7 @@ Authors:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 _tgt = cursorTarget;
+_tgtpos = fza_ah64_mycurrenttarget modelToWorldWorld (fza_ah64_mycurrenttarget selectionPosition "zamerny");
 
 if (player != gunner _heli) exitWith {};
 
