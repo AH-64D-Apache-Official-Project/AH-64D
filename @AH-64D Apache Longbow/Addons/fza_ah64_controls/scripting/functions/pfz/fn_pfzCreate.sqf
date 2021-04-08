@@ -73,10 +73,11 @@ createmarkerlocal[_markerarea, [_xpos, _ypos]];
 _markerarea setMarkerShapeLocal "RECTANGLE";
 _markerarea setMarkerSizeLocal[_xsize * 0.5, _ysize * 0.5];
 _markerarea setMarkerColorLocal "ColorWhite";
+_markerarea setMarkerAlphaLocal 0.4;
 
 createmarkerlocal[_markername, [_xpos, _ypos]];
 _markername setMarkerShapeLocal "ICON";
-_markername setMarkerTypeLocal "Empty";
+_markername setMarkerTypeLocal "mil_dot";
 _markername setMarkerTextLocal "PFZ" + format["%1", _pfznum];
 _markername setMarkerColorLocal "ColorBlack";
 

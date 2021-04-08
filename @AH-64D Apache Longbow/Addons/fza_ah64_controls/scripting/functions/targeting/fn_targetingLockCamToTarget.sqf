@@ -14,6 +14,7 @@ Authors:
 	AngusLogan02, Rosd6(Dryden), mattysmith22
 ---------------------------------------------------------------------------- */
 params["_heli"];
+_tgt = cursorTarget;
 if (player != gunner _heli) exitWith {};
 
 _tgt = cursorTarget;
