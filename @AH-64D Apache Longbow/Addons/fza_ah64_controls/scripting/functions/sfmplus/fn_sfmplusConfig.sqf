@@ -20,6 +20,7 @@ params ["_heli"];
 _heli setVariable ["fza_ah64d_emptyMassFCR",    6609]; //kg
 _heli setVariable ["fza_ah64d_emptyMassNonFCR", 6314]; //kg
 
+_heli setVariable ["fza_ah64d_stabPos", [0.0, -7.207, -0.50]];
 _heli setVariable ["fza_ah64d_stabWidth", 3.22];  //m
 _heli setVariable ["fza_ah64d_stabLength", 1.07]; //m
 

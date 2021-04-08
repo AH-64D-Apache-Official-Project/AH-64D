@@ -15,7 +15,7 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params ["_heli", "_deltaTime"];
 
 private _collOut = _heli getVariable "fza_ah64d_collectiveOutput";
 
@@ -26,38 +26,22 @@ DRAW_LINE = {
 	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
 };
 
-private _objCtr  = getCenterOfMass _heli;
-private _stabPos = [0.0, -8.783, -0.50];	//this needs to come from the config...
+private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
+private _stabPos = _heli getVariable "fza_ah64d_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-//--------------------------Coll---30-----50-----57.5---60-----80-----82.5---90-----117.5---120----150---160---165---180
-private _stabSchedTable = [[0.00, -25.0,   2.5,   5.0,   5.0,   5.0,   5.0,   5.0,   5.0,   5.0,   5.0,  5.0,  5.0,  5.0],
-						   [0.25, -25.0,  -5.0,  -0.5,   0.0,   4.5,   5.0,   5.0,   5.0,   5.0,   5.0,  5.0,  5.0,  5.0],
-						   [0.50, -25.0, -12.6,  -8.0,  -7.5,  -3.1,  -2.6,  -1.0,   5.0,   5.0,   5.0,  5.0,  5.0,  5.0],
-						   [0.75, -25.0, -20.0, -15.5, -14.9, -10.5, -10.0,  -8.3,  -2.2,  -1.7,   5.0,  5.0,  5.0,  5.0], 
-						   [1.00, -25.0, -27.5, -23.0, -22.4, -17.8, -17.3, -15.5,  -9.2,  -8.7,  -1.8,  0.5,  0.5,  0.5]];
-
-private _intStabSched = [_stabSchedTable, _collOut] call fza_fnc_linearInterp;
-
-//---------------------------A/S----Theta
-private _stabOutputTable = [[15.43, _intStabSched select 1],
-                            [25.72, _intStabSched select 2],
-							[29.58, _intStabSched select 3],
-							[30.86, _intStabSched select 4],
-							[41.15, _intStabSched select 5],
-							[42.44, _intStabSched select 6],
-							[46.30, _intStabSched select 7],
-							[60.44, _intStabSched select 8],
-							[61.73, _intStabSched select 9],
-							[77.16, _intStabSched select 10],
-							[82.31, _intStabSched select 11],
-							[84.88, _intStabSched select 12],
-							[92.60, _intStabSched select 13]];
+private _stabOutputTable = [[15.43, -25.0],   //30kts
+							[25.72, -13.5],   //50kts
+							[36.01, -3.9],    //70kts
+							[46.30, -6.9],    //90kts
+							[56.58, -7.8],    //110kts
+							[61.73, -11.0],   //120kts
+							[66.87, -6.0],    //130kts
+							[77.16,  5.0],    //150kts
+							[92.60,  5.0]];   //180kts
 
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
-//_heli animateSource ["hstab", -_theta];
-
 //Stab coords    |     |
 //               |-----|
 //    A-------------H-------------B
@@ -124,67 +108,12 @@ private _CL = _intAIRFOILTABLE select 1;
 
 private _area = [_A, _B, _C, _D] call fza_fnc_sfmplusGetArea;
 
-private _liftForce = -_CL * 0.5 * 1.225 * _area * _V_mps;
-/*
-LIFTMOD = [[ 0.00,  1.00],	//0kts
-			[10.29, 1.00],	//24kts
-			[20.58, 1.00],	//40kts
-			[30.87, 1.00],	//60kts
-			[36.01, 1.00],	//70kts
-			[46.30, 1.00],	//90kts
-			[56.59, 1.00],	//110kts
-			[61.73, 1.00],	//120kts
-			[72.02, 1.00],	//140kts
-			[73.05, 1.00]];	//142kts
+private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
-LIFTMOD = [[ 0.00,  1.00],
-			[10.29, 1.00],
-			[20.58, 1.00],
-			[30.87, 1.00],
-			[36.01, 1.00],
-			[46.30, 1.00],
-			[56.59, 1.00],
-			[61.73, 1.00],
-			[72.02, 1.00],
-			[73.05, 1.00]];
-			
-LIFTMOD = [[ 0.00, 1.00], 
-           [10.29, 1.00], 
-           [20.58, 1.00], 
-           [30.87, 1.00], 
-           [36.01, 1.00], 
-           [46.30, 0.155], 
-           [56.59, -0.5], 
-           [61.73, -0.42], 
-           [72.02, 0.00], 
-           [73.05, 0.00]];			
-*/
-private _liftModOut = [LIFTMOD, _V_mps] call fza_fnc_linearInterp select 1;
-_liftForce = _liftForce * _liftModOut;
-
-private _lift = _liftVec vectorMultiply _liftForce;
-
+private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
-hintSilent format ["Lift Mod = %1
-					\nLift Force = %2", LIFTMOD, _liftForce];
-/*
-              +Z   +Y
-               |   /
-               |  / 
-	           | / 
-	           |/
-   -X ---------+--------- +X
-              /|
-             / |
-            /  |
-		   /   |
-         -Y   -Z                
-		 
-		                       SRP
-				+--------------+ --
-				C               \
-*/
+/*DEBUG GRAPHICS
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
 //Draw the stabilator
@@ -200,3 +129,4 @@ hintSilent format ["Lift Mod = %1
 [_heli, _G, _G vectorAdd _liftVec, _colorBlue] call DRAW_LINE;
 //Draw the velocity vector
 [_heli, _H, _H vectorAdd _relWind, _colorRed] call DRAW_LINE;
+*/

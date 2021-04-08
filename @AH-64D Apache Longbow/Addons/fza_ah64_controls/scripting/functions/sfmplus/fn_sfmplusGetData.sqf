@@ -37,9 +37,8 @@ private _hvrTQTable = [	[6350, 0.54, 0.66],	//13000lbs
 						[9525, 0.92, 1.16]];//21000lbs
 
 private _intHvrTQTable = [_hvrTQTable, _curGWT_kg] call fza_fnc_linearInterp;
-private _hvrIGE = _intHvrTQTable select 1;
-//hintSilent format ["Hvr IGE = %1", _hvrIGE];
-private _hvrOGE = _intHvrTQTable select 2;
+private _hvrIGE    = _intHvrTQTable select 1;
+private _hvrOGE    = _intHvrTQTable select 2;
 private _gndEffMod = _hvrOGE / _hvrIGE;
 //--------------------TQ%----TGT(C)
 private _TGTTable  = [[0.15,  540],
@@ -120,9 +119,3 @@ private _finalTGT = [_TGTTable, _finalTQ] call fza_fnc_linearInterp select 1;
 private _finalFF  = [_fuelFlowTable, _finalTQ] call fza_fnc_linearInterp select 1;
 
 [_finalTQ, _finalTGT, _finalFF];
-
-/*
-hintSilent format ["Interp Table = %1
-					\nVel Mod = %2
-					\nGnd Eff Val = %3", _cruiseTQVal, _velMod, _gndEffVal];
-*/

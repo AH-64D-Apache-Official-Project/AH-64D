@@ -29,28 +29,15 @@ _heli setVariable["fza_ah64d_emptyMass", _emptyMass];
 private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
-//----------------------------------------Ammo----------------------------------------//
-/***
-//This needs to include 30mm rounds + hellfires and rockets...
-
 private _pylonMass = 0;
 {
-	private _magazineClass = (configFile >> "CfgMagazines" >> _x);
-	private _ammoClass     = (configFile >> "CfgAmmo" >> getText (_magazineClass >> "ammo"));
-	
-	private _massFull  = getNumber (_magazineClass >> "mass");
-	
-	private _countNow  = _heli ammoOnPylon (_forEachIndex + 1);
-	private _countFull = 1 max getNumber (_magazineClass >> "count");
-	
-	private _magazineMass = _massFull * _countNow / _countFull;
-	_pylonMass = _pylonMass + _magazineMass;
-} foreach (getPylonMagazines _heli);
+	_x params ["_magName","", "_magAmmo"];
+	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
+	private _magMaxWeight = getNumber (_magConfig >> "weight");
+	private _magMaxAmmo   = getNumber (_magConfig >> "count");
+	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
+} foreach magazinesAllTurrets _heli;
 
-_heli setVariable ["fza_ah64d_initPylonMass", _pylonMass];
-***/
+private _totalMass = _emptyMass + _fwdFuelMass + _aftFuelMass + _pylonMass;
 
-//Set the current gross weight
-private _totalMass = _emptyMass + _fwdFuelMass + _aftFuelMass;
-//private _rampMass = _emptyMass + _fwdFuelMass + _aftFuelMass + _pylonMass;
 _heli setMass _totalMass;

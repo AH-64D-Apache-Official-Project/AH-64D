@@ -48,21 +48,16 @@ private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
 
 _heli setFuel _armaFuelFrac;
 
-/***
-PYLON WEIGHT AND MAGAZINE WEIGHT HERE
-*/
-/*
-hintSilent format ["_armaFuelFrac = %1
-					\nFwd Fuel = %2
-					\nAft Fuel  = %3
-					\nTot Fuel = %4
-					\nHeli Mass = %5
-					\nMax Fuel = %6
-					\nCur FF = %7
-					\nDelta Time = %8", _armaFuelFrac, _fwdFuelMass, _aftFuelMass, _totFuelMass, getMass _heli, _maxTotFuelMass, _curFuelFlow, _deltaTime];
-*/
-private _curMass = _emptyMass + _totFuelMass;
+private _pylonMass = 0;
+{
+	_x params ["_magName","", "_magAmmo"];
+	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
+	private _magMaxWeight = getNumber (_magConfig >> "weight");
+	private _magMaxAmmo   = getNumber (_magConfig >> "count");
+	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
+} foreach magazinesAllTurrets _heli;
 
-[_heli] call fza_fnc_sfmplusStabilator;
-
+private _curMass = _emptyMass + _totFuelMass + _pylonMass;
 _heli setMass _curMass;
+
+[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
