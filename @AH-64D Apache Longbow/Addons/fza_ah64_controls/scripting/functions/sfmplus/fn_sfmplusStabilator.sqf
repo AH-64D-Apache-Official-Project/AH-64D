@@ -59,8 +59,6 @@ private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 
-hintsilent format ["Collective Out = %1
-                   \nStab Pos = %2", _collOut, _theta];
 //Stab coords    |     |
 //               |-----|
 //    A-------------H-------------B
@@ -132,7 +130,10 @@ private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
-/*DEBUG GRAPHICS
+/*
+hintsilent format ["Collective Out = %1
+                   \nStab Pos = %2", _collOut, _theta];
+
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
 //Draw the stabilator
