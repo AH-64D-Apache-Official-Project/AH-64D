@@ -44,6 +44,9 @@ if (_heli getVariable "fza_ah64_e1_fire") then {
 if (_heli getVariable "fza_ah64_e2_fire") then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\E2Fire.paa", ""]
 };
+if (_heli getVariable "fza_ah64_apu_fire") then {
+	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\APUF.paa", ""]
+};
 if (_heli getHitPointDamage "HitHRotor" >= 0.4 && _heli getHitPointDamage "HitHRotor" < 0.8) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\HRTRRPM.paa", "\fza_ah64_us\tex\UFD\RTRRPMHI_W_co.paa"]
 };
@@ -79,6 +82,18 @@ if (_heli getVariable "fza_ah64_irjamfail") then {
 };
 if (_heli getVariable "fza_ah64_rfjamfail") then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\RJAMFAIL.paa", "\fza_ah64_us\tex\UFD\RFJFAIL_C_co.paa"]
+};
+if (_heli getHit "radar" >= 0.8) then {
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\FCRFAIL.paa", ""]
+};
+if (_heli getHit "pnvs" >= 0.8) then {
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\PNVSFAIL.paa", ""]
+};
+if (_heli getHit "otochlaven" >= 0.9) then {
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\GUNJAM.paa", ""]
+};
+if (_heli getHit "otocvez" >= 0.8) then {
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\GUNACTFAIL.paa", ""]
 };
 
 // ADVISORIES

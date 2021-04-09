@@ -1022,8 +1022,8 @@ class CfgVehicles
 		mainRotorSpeed = 1;
 		threat[] = {1,1,0.700000};
 		armor=60;
-		memorypointcm[] = {"flare_beg"};
-		memorypointcmdir[] = {"flare_end"};
+		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
 		weapons[] = {"fza_CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = "8+4";
