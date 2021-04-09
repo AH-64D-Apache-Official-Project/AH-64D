@@ -1313,7 +1313,7 @@ class CfgVehicles
 			initAngleY=0;
 			minAngleY=-45;
 			maxAngleY=20;
-			thermalmode[] = {0};
+			thermalmode[] = {0, 1};
 			visionmode[] = {"Normal","Ti"}; //PNVS
 		};\
 

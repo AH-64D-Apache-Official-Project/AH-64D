@@ -27,14 +27,6 @@ if (!(vehicle player isKindOf "fza_ah64base")) then {
     2 cuttext["", "PLAIN", 0.1];
     3 cuttext["", "PLAIN", 0.1];
     4 cuttext["", "PLAIN", 0.1];
-
-    if (!(isNil "fza_ah64_bweff")) then {
-        fza_ah64_bweff ppEffectEnable false;
-    };
-
-    if (!(isNil "fza_ah64_pnvsgreff")) then {
-        fza_ah64_pnvsgreff ppEffectEnable false;
-    };
 };
 _heli setVariable ["fza_ah64_ihadssoff", 1];
 [_heli] call fza_fnc_ihadsstoggle;
