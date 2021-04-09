@@ -34,26 +34,7 @@ _visibleTargets = switch (true) do {
         [_heli, fza_ah64_targetlist - alldead] call fza_fnc_targetingFilterType;
     };
 };
-/*
-_visibleTargets =
-	if (_heli getVariable "fza_ah64_pfz_count" != 0 && _heli getVariable "fza_ah64_tsdsort" < 4) then {
-		[_heli, (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1] call fza_fnc_targetingFilterType;
-	} else {
-		if (_heli getVariable "fza_ah64_tsdsort" > 3) then {
-			[_heli, (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_tsdsort") - 4] call fza_fnc_targetingFilterType;
-		} else {
-			if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") then {
-				fza_ah64_dispfcrlist - alldead;
-			} else {
-				if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") then {
-					fza_ah64_tsddisptargs - alldead;
-				} else {
-					fza_ah64_targetlist - alldead;
-				};
-			};
-		};
-	};
-*/
+
 if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _visibleTargets > 0) then {
     if (fza_ah64_mynum >= count _visibleTargets - 1) then {
         fza_ah64_mynum = 0;
