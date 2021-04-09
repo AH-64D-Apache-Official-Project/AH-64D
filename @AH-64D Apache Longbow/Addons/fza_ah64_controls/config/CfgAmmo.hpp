@@ -542,7 +542,7 @@ class CfgAmmo
 	};	
 	class fza_m257_flare: FlareCore
 	{		
-		timeToLive 					= 90;
+		timeToLive 					= 100;
 		model 						= "\A3\Weapons_F\Ammo\UGL_Flare";
 		lightColor[] 				= {1,0.8,0.7,0.5};
 		smokeColor[] 				= {1,1,1,0.4};
