@@ -190,7 +190,6 @@ class CfgFunctions
 			class sfmplusSetMass {R;};
 			class sfmplusStabilator {R;};
 			class sfmplusUpdate {R;};
-
 		};
 		class targeting
 		{
@@ -231,6 +230,7 @@ class CfgFunctions
 			class weaponTurretAim {R;};
 			class weaponSubmunition {R;};
 			class weaponRocketsalvo {R;};
+			class weaponguncontrol {R;};
 		};
 		class functions
 		{
