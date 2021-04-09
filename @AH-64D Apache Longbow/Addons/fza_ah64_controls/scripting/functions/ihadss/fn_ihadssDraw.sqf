@@ -132,7 +132,7 @@ if(!isNull fza_ah64_mycurrenttarget) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && alive player) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player) then {
     if (_heli getVariable "fza_ah64_ihadss_pnvs_day") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
     } else {
@@ -222,7 +222,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
             fza_ah64_bweff ppEffectEnable false;
         };
     } else {
-        fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
+        fza_ah64_bweff = ppEffectCreate["colorCorrections", 4000];
         fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
         fza_ah64_bweff ppEffectCommit 0;
         fza_ah64_bweff ppEffectEnable true;
