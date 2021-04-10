@@ -52,11 +52,16 @@ class CfgVehicles
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
-		liftForceCoef = 1.0;
-		bodyFrictionCoef = 1.0;
-		cyclicAsideForceCoef = 1.0;
+		//SFM Variables-------------/
+		liftForceCoef          = 1.25;
+		bodyFrictionCoef       = 1.0;
+		cyclicAsideForceCoef   = 1.0;
 		cyclicForwardForceCoef = 1.0;
-		backRotorForceCoef = 1.0;
+		backRotorForceCoef     = 1.0;
+	    fuelCapacity           = 1423;
+		fuelconsumptionrate    = 0.0;
+		maxSpeed               = 298;
+		//SFM Variables-------------/
 		driveOnComponent[] = {"Wheels"};
 		extCameraPosition[] = {0,0,-20};
 		radartype = 4;
@@ -71,11 +76,8 @@ class CfgVehicles
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		mainbladecenter = "rotor_center";
-		fuelCapacity = 1423;
-		fuelconsumptionrate = 0.138;
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
-		maxSpeed = 298;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
@@ -1435,6 +1437,14 @@ class CfgVehicles
 			initPhase = 1;
 			animPeriod = 0.001;
 		}
+		/*
+		class hstab
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase  = 1;
+		}
+		*/
 		class pnvs
 		{
 			source = "user";
@@ -1451,7 +1461,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 1;
-			initPhase=0;
+			initPhase  = 0;
 		};
 		class m230_recoil
 		{
@@ -1468,7 +1478,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 0.1;
-			initPhase=0;
+			initPhase  = 0;
 		};
 		class pylon1
 		{
@@ -1773,13 +1783,13 @@ initPhase=0;
 			class plt_eng1_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			class plt_eng2_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			/*

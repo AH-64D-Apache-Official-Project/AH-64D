@@ -72,7 +72,7 @@ if (fuel _heli < 0.05) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\FWDFUELLO.paa", "\fza_ah64_us\tex\UFD\FWDFUELLOW_C_co.paa"];
 };
 if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUEL.paa", "\fza_ah64_us\tex\UFD\AFTFUELLOW_C_co.paa"];
+	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUEL.paa", "\fza_ah64_us\tex\UFD\AFTFUELLO_C_co.paa"];
 };
 if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
