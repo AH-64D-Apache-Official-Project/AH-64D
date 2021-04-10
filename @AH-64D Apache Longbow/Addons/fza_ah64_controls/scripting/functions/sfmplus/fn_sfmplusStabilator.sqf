@@ -17,7 +17,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _collOut = _heli getVariable "fza_ah64d_collectiveOutput";
+private _collOut = fza_ah64_collectiveOutput;
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
 
@@ -27,7 +27,7 @@ DRAW_LINE = {
 };
 
 private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
-private _stabPos = _heli getVariable "fza_ah64d_stabPos";
+private _stabPos = _heli getVariable "fza_ah64_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
 //---------------------Coll----30kts---50kts---80kts--120kts---150kts
@@ -66,8 +66,8 @@ private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 //    E-------------G-------------F
 //    |             |             |
 //    D-------------I-------------C
-private _width  = _heli getVariable "fza_ah64d_stabWidth";
-private _length = _heli getVariable "fza_ah64d_stabLength";
+private _width  = _heli getVariable "fza_ah64_stabWidth";
+private _length = _heli getVariable "fza_ah64_stabLength";
 
 private _halfWidth = _width / 2;
 
@@ -123,16 +123,17 @@ private _AIRFOILTABLE =
 private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
 private _CL = _intAIRFOILTABLE select 1;
 
-private _area = [_A, _B, _C, _D] call fza_fnc_sfmplusGetArea;
-
+private _area = 3.45;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
-/*
+#ifdef __A3_DEBUG__
 hintsilent format ["Collective Out = %1
-                   \nStab Pos = %2", _collOut, _theta];
+                   \nStab Pos = %2
+                   \nCollective Low = %3
+                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
 
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
@@ -149,4 +150,4 @@ hintsilent format ["Collective Out = %1
 [_heli, _G, _G vectorAdd _liftVec, _colorBlue] call DRAW_LINE;
 //Draw the velocity vector
 [_heli, _H, _H vectorAdd _relWind, _colorRed] call DRAW_LINE;
-*/
+#endif

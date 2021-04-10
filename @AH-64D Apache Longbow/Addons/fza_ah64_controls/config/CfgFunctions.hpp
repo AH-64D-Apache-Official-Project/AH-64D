@@ -53,11 +53,6 @@ class CfgFunctions
 				description = "Sets the engine's target RPMs";
 			};
 			class engineHandleControl {R;};
-			class engineInit
-			{
-				R;
-				description = "Sets up the engine states";
-			};
 			class engineSetPosition
 			{
 				R;
@@ -182,8 +177,6 @@ class CfgFunctions
 		}
 		class sfmplus {
 			file = "\fza_ah64_controls\scripting\functions\sfmplus";
-			class sfmplusConfig {R;};
-			class sfmplusGetArea {R;};
 			class sfmplusGetData {R;};
 			class sfmplusGetInput {R;};
 			class sfmplusSetFuel {R;};

@@ -25,7 +25,7 @@ params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 
-if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
+if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
     _heli animate["pdoor", 0];
@@ -60,6 +60,10 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
     _heli setVariable ["fza_ah64_rfjon", 0, true];
+    _heli setVariable["fza_ah64_engineStates", [
+        ["OFF", 0],
+        ["OFF", 0]
+    ], true];
 };
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
@@ -78,8 +82,22 @@ _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
-[_heli] call fza_fnc_engineInit;
-[_heli] call fza_fnc_sfmplusConfig;
+//SFM Plus+
+_heli setVariable ["fza_ah64_emptyMassFCR",    6609]; //kg
+_heli setVariable ["fza_ah64_emptyMassNonFCR", 6314]; //kg
+
+_heli setVariable ["fza_ah64_stabPos", [0.0, -7.207, -0.50]];
+_heli setVariable ["fza_ah64_stabWidth", 3.22];  //m
+_heli setVariable ["fza_ah64_stabLength", 1.07]; //m
+
+_heli setVariable ["fza_ah64_maxFwdFuelMass", 473];	//1043lbs in kg
+//_heli setVariable ["fza_ah64_maxCtrFuelMass", 300];	//663lbs in kg, net yet implemented, center robbie
+_heli setVariable ["fza_ah64_maxAftFuelMass", 669]; 	//1474lbs in kg
+
+[_heli] call fza_fnc_sfmplusSetFuel;
+[_heli] call fza_fnc_sfmplusSetMass;
+
+
 
 if (local _heli) then { 
     { 

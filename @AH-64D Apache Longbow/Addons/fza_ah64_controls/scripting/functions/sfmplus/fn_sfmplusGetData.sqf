@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _collOut = _heli getVariable "fza_ah64d_collectiveOutput";
+private _collOut = fza_ah64_collectiveOutput;
 
 private _curGWT_kg = getMass _heli;
 

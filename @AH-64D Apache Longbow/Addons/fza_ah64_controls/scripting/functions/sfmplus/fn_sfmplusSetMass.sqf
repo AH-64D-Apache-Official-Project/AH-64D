@@ -20,11 +20,11 @@ params ["_heli"];
 
 private _emptyMass = 0;
 if (typeOf _heli == "fza_ah64d_b2e") then {
-	_emptyMass = _heli getVariable "fza_ah64d_emptyMassFCR";
+	_emptyMass = _heli getVariable "fza_ah64_emptyMassFCR";
 } else {
-	_emptyMass = _heli getVariable "fza_ah64d_emptyMassNonFCR";
+	_emptyMass = _heli getVariable "fza_ah64_emptyMassNonFCR";
 };
-_heli setVariable["fza_ah64d_emptyMass", _emptyMass];
+_heli setVariable["fza_ah64_emptyMass", _emptyMass];
 
 private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;

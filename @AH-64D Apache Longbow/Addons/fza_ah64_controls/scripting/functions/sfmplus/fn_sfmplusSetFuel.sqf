@@ -22,10 +22,10 @@ Author:
 params ["_heli"];
 
 private _percentFuel    = fuel _heli;
-private _maxFwdFuelMass = _heli getVariable "fza_ah64d_maxFwdFuelMass";
-private _maxAftFuelMass = _heli getVariable "fza_ah64d_maxAftFuelMass";
+private _maxFwdFuelMass = _heli getVariable "fza_ah64_maxFwdFuelMass";
+private _maxAftFuelMass = _heli getVariable "fza_ah64_maxAftFuelMass";
 private _maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
-_heli setVariable ["fza_ah64d_maxTotFuelMass", _maxTotFuelMass];
+_heli setVariable ["fza_ah64_maxTotFuelMass", _maxTotFuelMass];
 
 private _totFuelMass = _maxTotFuelMass * _percentFuel;
 private _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;

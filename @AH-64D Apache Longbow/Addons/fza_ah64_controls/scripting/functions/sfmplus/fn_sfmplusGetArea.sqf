@@ -4,7 +4,7 @@ Function: fza_fnc_sfmplusGetArea
 Description:
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_A, _B, _C, _D 
 
 Returns:
 
