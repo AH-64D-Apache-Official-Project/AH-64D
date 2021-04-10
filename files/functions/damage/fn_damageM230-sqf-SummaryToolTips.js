@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageM230.sqf",{68:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Called upon M230 chaingun overheating. Decides whether it should jam.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageM230.sqf",{82:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Called upon M230 chaingun overheating. Decides whether it should jam.</div></div>"});

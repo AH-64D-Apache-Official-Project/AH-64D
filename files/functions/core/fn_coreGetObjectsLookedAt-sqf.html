@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic123"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic137"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_coreGetObjectsLookedAt"></a><a name="Topic124"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_coreGetObjectsLookedAt"></a><a name="Topic138"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_coreGetObjectsLookedAt</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Retrieves information about each object that is looked at by the user.</p><p>Works for both pilot and gunner seats, and uses preconfigured sensitivity to determine the zone it works for.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The apache helicopter to get information from [Unit].</p></td></tr></table><div class="CHeading">Returns</div><p>2d array, an array for each control that is in range in the format of: [Pilot memory point, Gunner memory point, system, control, sensitivity, description, distance]</p><div class="CHeading">Examples</div><pre><span class="SHComment">// Player not looking at anything</span><br />_data = [_heli] call fza_fnc_coreGetObjectsLookedAt<br /><span class="SHComment">// _data = []</span><br /><br /><span class="SHComment">// Player looking at the L1 button on the right MPD</span><br />_data = [_heli] call fza_fnc_coreGetObjectsLookedAt<br /><span class="SHComment">// _data = [[&quot;ctrlref_rmpd_l1&quot;, &quot;ctrlref_g_rmpd_l1&quot;, &quot;rmpd&quot;, &quot;l1&quot;, 0.015, &quot;Right MPD L1&quot;]]</span></pre><div class="CHeading">Author</div><p>mattysmith22</p></div>
 </div>

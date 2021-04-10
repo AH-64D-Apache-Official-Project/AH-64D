@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/sfmplus/fn_sfmplusGetArea.sqf",{28:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">_A, _B, _C, _D</div></div>"});

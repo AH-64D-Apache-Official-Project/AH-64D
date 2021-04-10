@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/sfmplus/fn_sfmplusSetFuel.sqf",{});

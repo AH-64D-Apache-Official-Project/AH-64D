@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponGuncontrol.sqf",{86:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">changes current acquisition</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponGuncontrol.sqf",{98:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">changes current acquisition</div></div>"});
