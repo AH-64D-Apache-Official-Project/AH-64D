@@ -211,6 +211,7 @@ switch (_state) do {
 	};
 };
 
+//RTD...we shall burn it with holy fire...
 if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 2) then {
 	[_afmNpMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _afmTorqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
 } else {

@@ -18,19 +18,18 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\pylons.h"
 params["_heli"];
 
 _mags = getPylonMagazines _heli;
 
 _inventory = [[], [], [], [], []];
-
-for "_pylon" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
-    for "_zone" from PYLON_ZONEA to PYLON_ZONEE do {
+#define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
+for "_pylon" from 0 to 12 step 4 do {
+    for "_zone" from 0 to 3 do {
         _magName = _mags select (_pylon + _zone);
-        if (_magName != "") then {
+        if (WEP_TYPE(_magName) == "rocket") then {
             _ammoName = getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
-            _ammoQty = _heli ammoOnPylon PYLON_FROM_STANDARD(_pylon + _zone);
+            _ammoQty = _heli ammoOnPylon (_pylon + _zone + 1);
             
             for "_i" from 0 to 4 do {
                 if ((_inventory # _i) isEqualTo []) exitWith {

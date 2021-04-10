@@ -1,14 +1,9 @@
 [
-	"fza_ah64_rearmTime",
-	"List",
-	"Rearm time",
-	["AH64D Apache", "Rearm"],
-	[
-		[0, 15, 30, 60, 120, 240],
-		["Instant", "15 seconds", "30 seconds", "1 minute", "2 minutes", "4 minutes"],
-		5
-	],
-	1
+	"fza_ah64_showPopup",
+	"CHECKBOX",
+	["Show Popup Intro", "Show popup whenever the player gets into an apache"],
+	["AH64D Apache", "UI"],
+	true
 ] call CBA_fnc_addSetting;
 
 [
@@ -59,23 +54,27 @@
 	0
 ] call CBA_fnc_addSetting;
 
+fza_ah64_rocketTable =
+        [[0, 5]
+        ,[500, 8]
+        ,[750, 12]
+        ,[1000, 15]
+        ,[2000, 28]
+        ,[3500, 75]
+        ,[4500, 120]];
+fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
-fza_ah64_laserstate = 0;
 fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
-fza_ah64_overallticker = 0;
 fza_ah64_overalltickerslow = 0;
-fza_ah64_pf_daytime = 0;
-fza_ah64_pf_daytime_Slow = 0;
 fza_ah64_locktargstate = 0;
 fza_ah64_irjammer = 0;
 fza_ah64_rfjammer = 0;
 fza_ah64_curflrln = 0;
 fza_ah64_curchfln = 0;
 fza_ah64_salvofired = 0;
-fza_ah64_remtsel = 0;
 fza_ah64_mynum = 0;
 fza_ah64_lastdir = 0;
 fza_ah64_dps = 0;
@@ -83,17 +82,12 @@ fza_ah64_slip = 0;
 fza_ah64_wptimhr = 0;
 fza_ah64_wptim = 0;
 fza_ah64_tiron = false;
-fza_ah64_skinlist = [];
 fza_ah64_wptimtm = 0;
 fza_ah64_wptimsm = 0;
 fza_ah64_wpdistr = 0;
-fza_ah64_tiron = false;
-fza_ah64_bweff = ppEffectCreate ["colorCorrections", 1499];
-fza_ah64_bweff ppEffectAdjust[0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-fza_ah64_bweff ppEffectCommit 0;
-fza_ah64_bweff ppEffectEnable false;
 fza_ah64_targetlist = [];
 fza_ah64_mycurrenttarget = objNull;
+fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
 fza_ah64_pfzcache = ["none", "none", [], 0];
 fza_ah64_mis_ir = ["M_R73_AA","M_Strela_AA","M_Igla_AA","M_Stinger_AA","M_Sidewinder_AA","fza_fim92","Missile_AGM_01_F","ammo_Missile_rim116","ammo_Missile_BIM9X","M_Air_AA","M_Air_AA_MI02","M_Air_AA_MI06","Missile_AA_04_F","Missile_AGM_02_F","Missile_AA_03_F","rhs_fim92_mag","rhs_mag_9k38_rocket","rhs_mag_9k32_rocket","M_Titan_AA"];
@@ -103,31 +97,13 @@ fza_ah64_asethreatsdraw = [];
 fza_ah64_threattracking = [];
 fza_ah64_threatfiring = [];
 fza_ah64_mycurrenttarget = objNull;
-fza_ah64_pfz1 = [];
-fza_ah64_pfz2 = [];
-fza_ah64_pfz3 = [];
-fza_ah64_pfz4 = [];
-fza_ah64_pfz5 = [];
-fza_ah64_pfz6 = [];
-fza_ah64_pfz7 = [];
-fza_ah64_pfz8 = [];
 fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_dispfcrlist = [];
 fza_ah64_Cscopelist = [];
-fza_ah64_pnvsdir = 0;
-fza_ah64_pnvselev = 0.5;
-fza_ah64_pylonelev = 0;
-fza_ah64_pylonelev1 = 0;
-fza_ah64_pylonelev2 = 0;
-fza_ah64_pylonelev3 = 0;
-fza_ah64_pylonelev4 = 0;
-fza_ah64_headdir = 0;
-fza_ah64_headelev = 0;
-fza_ah64_cmpressed = 0;
-fza_ah64_nohelpers = 1;
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate]; //disabled fza_ah64_cpg_controls//
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];
+fza_ah64_introShownThisScenario = false;
 fza_ah64_slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;

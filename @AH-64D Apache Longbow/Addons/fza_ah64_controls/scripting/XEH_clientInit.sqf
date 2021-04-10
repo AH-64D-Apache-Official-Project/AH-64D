@@ -38,9 +38,11 @@
 	CALL_ENSURE_IN_APACHE(fza_fnc_mpdcycleR)
 }, {}, [USER_1, [false, false, false]]] call fza_fnc_addKeybind;
 
-[MOD_NAME, "gunTracking", "Gun Tracking", {
-	CALL_ENSURE_IN_APACHE(fza_fnc_weaponguncontrol)
-}, {}, [USER_3, [false, false, false]]] call fza_fnc_addKeybind;
+[MOD_NAME, "radarMode", "Radar Mode", { 
+if(vehicle player isKindOf "fza_ah64base") then { 
+	vehicle player setVariable ["fza_ah64_agmode", (vehicle player getVariable "fza_ah64_agmode") + 1, true]; 
+}; 
+}, {}, [0xFC, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "was", "Weapon Action Switch", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_weaponActionSwitch)
@@ -100,8 +102,12 @@
 
 [MOD_NAME, "Self/remote laser", "Switch from self/remote lase", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandlelaserchange)
-}, {}, [user_20, [false, false, false]]] call fza_fnc_addKeybind;
+}, {}, [USER_20, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHeadtracking", "Toggle Head Tracking", {
 	ENSURE_IN_APACHE(fza_ah64_tiron = !fza_ah64_tiron;)
 }, {}, [USER_19, [false, false, false]]] call fza_fnc_addKeybind;
+
+[MOD_NAME, "lockCamToTgt", "Toggle Camera Lock to Point Target", {
+	ENSURE_IN_APACHE([vehicle player] spawn fza_fnc_targetingLockCamToTarget;);
+}, {}, [0x14, [false, true, false]]] call fza_fnc_addKeybind;

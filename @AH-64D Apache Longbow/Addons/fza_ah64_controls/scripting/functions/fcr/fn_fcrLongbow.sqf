@@ -1,24 +1,19 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_fcrLongbow
-
 Description:
     Fire control Radar script that takes target from sens radar and adds it to 
     fza_ah64_targetlist & fza_ah64_fcrlist
-
 Parameters:
-
 Returns:
     Nothing
     
 Examples:
     [_heli] spawn fza_fnc_fcrLongbow;
-
 Author:
     Unknown
 ---------------------------------------------------------------------------- */
 #define AGMODE_GND 0
 #define AGMODE_AIR 1
-#define AGMODE_FNI 2 //FCR Not Installed (FNI)
 
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 _heli = objNull;
@@ -55,7 +50,7 @@ do {
                     _targetArray = _targetArray - [_x];
                 };
 
-                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND || _heli getVariable "fza_ah64_agmode" == AGMODE_FNI) && (_distOffAxis > 45)) then {
+                if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45)) then {
                     _targetArray = _targetArray - [_x];
                 };
                 
@@ -94,3 +89,49 @@ do {
     };
     sleep 2;
 };
+
+/****
+[] spawn  
+{ 
+ runLoop = true; 
+ while {runLoop} do  
+ { 
+    _targetList     = [];
+    _targetListSize = 0;
+    _targetList = (listRemoteTargets west select {_x # 1 > 6 && _x # 0 != vehicle player}) apply {_x # 0};
+    _targetListSize = count _targetList;
+    hintSilent format [ "Array Size = %1\n
+                        Item Name = %2\n
+                        Item Name = %3\n
+                        Item Name = %4\n",
+                        _targetListSize, _targetList select 0, _targetList select 1, _targetList select 2];
+    sleep 0.03; 
+ } 
+};
+[] spawn  
+{ 
+ runLoop = true; 
+ while {runLoop} do  
+ { 
+    _targetList     = [];
+    _targetListSize = 0;
+    _dataLinkArray = listRemoteTargets west;
+    {
+        if ((_x select 1) > 6) then
+        {
+            _targetList pushBack(_x);
+        }
+    }
+    foreach _dataLinkArray;
+    _targetListSize = count _targetList;
+    hintSilent format [ "Array Size = %1\n
+                        Item Name = %2\n
+                        Item Name = %3\n
+                        Item Name = %4\n
+                        Test = %5",
+                        _targetListSize, _targetList select 0, _targetList select 1, _targetList select 2, _targetList select 0 select 1];
+    _targetList deleteRange [0, _targetListSize];
+    sleep 0.03; 
+ } 
+};
+****/

@@ -34,23 +34,21 @@ _gunAmmoFont = ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (cu
 
 // SIGHT AND ACQ SOURCES
 
+_acq = "\fza_ah64_us\tex\icons\t01.paa";
 _sight = "\fza_ah64_us\tex\icons\tads.paa";
-_acq = "\fza_ah64_us\tex\icons\tads.paa";
 
-if (_heli getVariable "fza_ah64_agmode" < 2) then {
-	_sight = "\fza_ah64_us\tex\icons\fcr.paa";
-	_acq = "\fza_ah64_us\tex\icons\fcr.paa";
-};
-
-switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
+	case 0: {
+		_sight = "\fza_ah64_us\tex\icons\fcr.paa"
+	};
 	case 1: {
-		_acq = "\fza_ah64_us\tex\icons\HMD.paa";
+		_sight = "\fza_ah64_us\tex\icons\HMD.paa";
 	};
 	case 2: {
-		_acq = "\fza_ah64_us\tex\icons\AUTO.paa";
+		_sight = "\fza_ah64_us\tex\icons\tads.paa";
 	};
 	case 3: {
-		_acq = "\fza_ah64_us\tex\icons\FXD.paa";
+		_sight = "\fza_ah64_us\tex\icons\FXD.paa";
 	}
 };
 _heli setobjecttexture [SEL_MPD_PL_SIGHT_ACQ, _sight];
@@ -101,7 +99,7 @@ _pylonsWithRockets = [];
 } forEach (_rocketInventory);
 
 for "_i" from 1 to 4 do {
-	_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), ["", "\fza_ah64_us\tex\icons\PODINV.paa"] select ((_i - 1) * 7 in _pylonsWithRockets)];
+	_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), ["", "\fza_ah64_us\tex\icons\PODINV.paa"] select ((_i - 1) * 4 in _pylonsWithRockets)];
 };
 
 if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
@@ -118,7 +116,7 @@ if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 	if (_rocketInvIndex != -1) then {
 		(_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktTextureB"];
 		for "_i" from 1 to 4 do {
-			if ((_i - 1) * 7 in _selectedRktPylons) then {
+			if ((_i - 1) * 4 in _selectedRktPylons) then {
 				_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), "\fza_ah64_us\tex\icons\PODSEL.paa"];
 				_heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_1+(_i-1), _selectedRktTextureB];
 			};
@@ -172,7 +170,7 @@ _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 		};
 	};
 }forEach (_missileInventory);
-
+ 
 if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	_selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
 	if (_selectedMsl != -1) then {
@@ -188,10 +186,17 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 		_tex = switch (_salType) do {
 			case "sal1": {"\fza_ah64_us\tex\icons\sal1.paa"};
 			case "sal2": {"\fza_ah64_us\tex\icons\sal2.paa"};
-			case "rf": {"\fza_ah64_us\tex\icons\sal2.paa"};
+			case "rf": {""};
 			default {""};
 		};
 		_heli setObjectTexture [SEL_MPD_PL_HF_SALT, _tex];
+		_tex = switch (_salType) do {
+			case "sal1": {"\fza_ah64_us\tex\icons\sal.paa"};
+			case "sal2": {"\fza_ah64_us\tex\icons\sal.paa"};
+			case "rf": {"\fza_ah64_us\tex\icons\RF.paa"};
+			default {""};
+		};
+		_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, _tex];
 	};
 	_heli setObjectTexture [SEL_MPD_PL_HF_BRACKET, "\fza_ah64_us\tex\icons\mslxtra.paa"];
 	if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
@@ -211,6 +216,7 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	_heli setObjectTexture [SEL_MPD_PL_HF_BRACKET, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_DESIG, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_SALT, ""];
+	_heli setObjectTexture [SEL_MPD_PL_WPN_HF_TYPE, ""];
 	_heli setObjectTexture [SEL_MPD_PL_HF_TRAJ, ""];
 };
 _heli setobjecttexture [SEL_MPD_PL_RG_BASE, _rgbracket];

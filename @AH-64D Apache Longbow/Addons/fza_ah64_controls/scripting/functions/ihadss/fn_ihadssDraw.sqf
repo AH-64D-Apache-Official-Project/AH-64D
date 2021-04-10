@@ -20,14 +20,13 @@ Author:
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
-
 _locktargstate = 0;
 _modestate = 0;
 _zoomstate = 0;
 _targhead = 0;
 
 _sensor = "R ";
-_sensxm = "FCR";
+_sensxm = "HMD";
 _acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
@@ -133,7 +132,7 @@ if(!isNull fza_ah64_mycurrenttarget) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && alive player) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player) then {
     if (_heli getVariable "fza_ah64_ihadss_pnvs_day") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
     } else {
@@ -173,12 +172,6 @@ if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocl
         _rocketcode = "???";
         fza_ah64_ihadssinit = true;
     };
-};
-
-if ((player == driver _heli || player == gunner _heli) && (_heli animationphase "fcr_enable" < 1) && _heli getVariable "fza_ah64_agmode" != 2) then {
-    _sensor = "A ";
-    _sensxm = "TADS ";
-    _heli setVariable ["fza_ah64_agmode", 2, true];
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
@@ -229,7 +222,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "p
             fza_ah64_bweff ppEffectEnable false;
         };
     } else {
-        fza_ah64_bweff = ppEffectCreate["colorCorrections", 1499];
+        fza_ah64_bweff = ppEffectCreate["colorCorrections", 4000];
         fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
         fza_ah64_bweff ppEffectCommit 0;
         fza_ah64_bweff ppEffectEnable true;
@@ -385,35 +378,31 @@ _curwpdir = _targhead;
 
 if (_heli getVariable "fza_ah64_agmode" == 0) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR/G";
 }; //FCRG SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 1) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR/A";
 }; //FCRA SENSOR
 if (_heli getVariable "fza_ah64_agmode" == 2) then {
-    _sensor = "A ";
-    _sensxm = "TADS";
-}; //TADS SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 3) then {
     _sensor = "R ";
-    _sensxm = "FCR ";
+    _acqihadss = "FCR/G";
     _heli setVariable ["fza_ah64_agmode", 0, true];
 };
-
+_sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
-    switch ([_heli] call fza_fnc_targetingGetAcquisitionSource) do {
+    switch (_sight) do {
         case 0: {
-            _acqihadss = ["TADS", "FCR"] select (_heli getVariable "fza_ah64_agmode" < 2)
+            _sensxm = "FCR ";
         };
         case 1: {
-            _acqihadss = "HMD";
+            _sensxm = "HMD ";
         };
         case 2: {
-            _acqihadss  = "AUTO";
+            _sensxm  = "TADS";
         };
         case 3: {
-            _acqihadss = "FXD";
+            _sensxm = "FXD ";
         };
     };
 };
@@ -422,8 +411,8 @@ _targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.
 if (isNull fza_ah64_mycurrenttarget) then {
     _targrange = "0.00";
 };
-if (fza_ah64_mycurrenttarget iskindof "Lasertarget") then {
-    _targrange = format["%1%2", "*", round(_heli distance fza_ah64_mycurrenttarget)];
+if (currentweapon _heli in ["fza_m230", "fza_burstlimiter"] && !isNull laserTarget _heli) then {
+    _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
 _thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
@@ -496,21 +485,9 @@ if (_fcrdir > 0.7) then {
 if (_fcrdir < 0.3) then {
     _fcrdir = 0.3;
 };
-_pnvsyaw = ((_heli animationphase "pnvs") * 0.4) + 0.4825;
-_pnvspitch = ((_heli animationphase "pnvs_vert") * -0.4) + 0.675;
-if (_pnvsyaw > 0.7) then {
-    _pnvsyaw = 0.7
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrdir = -100;
 };
-if (_pnvsyaw < 0.3) then {
-    _pnvsyaw = 0.3
-};
-if (_pnvspitch > 0.7) then {
-    _pnvspitch = 0.7
-};
-if (_pnvspitch < 0.3) then {
-    _pnvspitch = 0.3
-};
-
 _slip = (fza_ah64_slip * 0.5) + 0.492;
 if (_slip > 0.54) then {
     _slip = 0.54;
@@ -612,10 +589,10 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x};
+    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
     if (count _missileTOF > 0) then {
-        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / speed (_missileTOF # 0);
+        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
         _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
     };
 } else {
@@ -623,17 +600,11 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 };
 
 if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _angle = -0.5 * (_heli animationphase "pylon1");
-    _angle = _angle + 0.5;
-    _rktpoint = worldtoscreen(_heli modelToWorldVisual[0, ((cos((_heli animationphase "pylon1") * 10)) * 500), ((sin((_heli animationphase "pylon1") * 10)) * 500)]);
-    if (count _rktpoint < 1) then {
-        _rktpoint = [0.5, 0.5];
-    };
-    _scPos = [(_rktpoint select 0), (_rktpoint select 1)];
+    //RKT FIX TADS AND/OR IHADSS DISPLAY
+    _w = 0.0734*3;
+    _h = 0.1*3;
+    _apx = 0.036*3;
+    _apy = 0.3/2;
     _weapon = "RKT";
     if (isManualFire _heli) then {
         _weapon = "PRKT";
@@ -641,26 +612,16 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     _ammo = getText (configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo");
     _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(currentweapon _heli)];
-
-    //RKT FIX TADS AND/OR IHADSS DISPLAY
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-        (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
-};
-
-if (currentweapon _heli == "fza_atas_2") then {
-    _nolosbox = "\fza_ah64_us\tex\HDU\ah64_atas_nolos.paa";
-    _losbox = "\fza_ah64_us\tex\HDU\ah64_atas.paa";
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _weapon = "ATA";
-    if (isManualFire _heli) then {
-        _weapon = "PATA";
+    (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
+    if (_sight == 3) then { //FXD
+        _scPos = worldToScreen (_heli modelToWorldVisual [0, 1000, 0]);
+        if (_scpos isEqualTo []) then {
+            _scpos = [-100, -100];
+        };
+    } else {;
+        _scPos = [ 0.5 - deg (_heli animationPhase "tads_tur")*3/64/4, 0.5-deg (_heli animationPhase "tads")*3/64/4];
     };
-    _weaponstate = format["%1", _heli ammo(currentweapon _heli)];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_atas.paa";
 };
 
 if (currentweapon _heli == "fza_ma_safe") then {
@@ -670,7 +631,7 @@ if (currentweapon _heli == "fza_ma_safe") then {
 
 if ((currentweapon _heli == "fza_m230") && player == driver _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetAcquisitionSource == 3));
+        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
 };
 
 if (currentweapon _heli == "fza_m230") then {
@@ -711,8 +672,7 @@ if (currentweapon _heli == "Laserdesignator_mounted") then {
 };
 
 //CSCOPE
-
-_targetsToDraw = ([_heli, fza_ah64_Cscopelist] call fza_fnc_targetingFilterType);
+_targetsToDraw = ([_heli, fza_ah64_dispfcrlist] call fza_fnc_targetingFilterType);
 if (_heli getVariable "fza_ah64_fcrcscope") then {
     _num = 190; {
         if (_num > 205) exitwith {};
@@ -820,12 +780,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 ///HAD INHIBIT MESSAGES
 
 if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
-    _safemessage = "BURST LIMIT";
     player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
-};
-
-if (currentweapon _heli == "fza_burstlimiter" && (time - fza_ah64_firekeypressed < 1)) then {
-    _safemessage = "BURST LIMIT";
 };
 
 if (fza_ah64_gunheat > 0) then {
@@ -837,15 +792,14 @@ if (fza_ah64_gunheat < 0) then {
     fza_ah64_burst = 0;
 };
 
-if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
+if (time - fza_ah64_firekeypressed > 0.1 && currentweapon _heli == "fza_burstlimiter") then {
     fza_ah64_burst = 0;
     _heli selectWeapon "fza_m230";
 };
 
-if ((diag_tickTime % 2) < 1) then {
-    _safemessage = "";
+if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
+    _safemessage = _heli getVariable "fza_ah64_weaponInhibited";
 };
-
 
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;
@@ -872,7 +826,9 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };
 
-
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _acqihadss = "";
+};
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetText _speedkts;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetText _radaltft;
@@ -891,7 +847,15 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition[_pnvsyaw, _pnvspitch];
+
+private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
+if (_headTrackerPos isEqualTo []) then {
+    _headTrackerPos = [-100, -100];
+} else {
+    _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
+};
+
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
@@ -917,6 +881,8 @@ if (_fpm < -0.13) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;
+
+_pbvar set [0, _pbvar # 0 + 5];
 
 //HUD HORIZON OBJECTS
 

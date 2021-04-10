@@ -16,7 +16,7 @@ Examples:
 	---
 
 Author:
-	ollieollieolllie
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -31,8 +31,8 @@ if (count _lases == 0) then {
 		_heli setVariable ["fza_ah64_currentLase", _lases # 0, true];
 		_heli setVariable ["fza_ah64_currentSkippedLases", [_lases # 0], true];
 	} else {
-		_heli setVariable ["fza_ah64_currentLase", _lases # 0, true];
-		_heli setVariable ["fza_ah64_currentSkippedLases", (_heli getVariable "fza_ah64_currentSkippedLases") + [_lases # 0], true];
+		_heli setVariable ["fza_ah64_currentLase", _diff # 0, true];
+		_heli setVariable ["fza_ah64_currentSkippedLases", (_heli getVariable "fza_ah64_currentSkippedLases") + [_diff # 0], true];
 	};
 };
 

@@ -70,10 +70,10 @@ switch (_system) do {
 		private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
 		if (_control == "mode") then {
 			if (_heli animationphase _nvsSwitch < 1) then {
-				_heli animate[_nvsSwitch, 1];
+				_heli animateSource[_nvsSwitch, 1];
 				_heli setVariable ["fza_ah64_ihadss_pnvs_cam", true];
 			} else {
-				_heli animate[_nvsSwitch, 0];
+				_heli animateSource[_nvsSwitch, 0];
 				_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 			};
 			["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
