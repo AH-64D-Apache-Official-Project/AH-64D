@@ -1468,7 +1468,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 0.1;
-			initPhase=0;
+			initPhase  = 0.298;
 		};
 		class pylon1
 		{

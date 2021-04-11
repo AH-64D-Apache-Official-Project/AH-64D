@@ -73,10 +73,10 @@ if (_targPos isEqualTo -1) exitWith {
         _inhibit = "GUN FIXED";
     };
     _heli animateSource["mainTurret", 0];
-    if (_sight == 3) then {
+    if (_sight == 3 && _usingCannon) then {
         _heli animateSource["mainGun", 0];
     } else {
-        _heli animateSource["mainGun", 0.45];
+        _heli animateSource["mainGun", 0.298];
     };
     
     _heli animateSource["pylon1", 0];
