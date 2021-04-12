@@ -480,8 +480,8 @@ class CfgVehicles
 			};
 			mat[] = {
 				"fza_ah64_us\mat\body.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat"
+				"fza_ah64_us\mat\body_damage.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
+				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
 		class HitPoints

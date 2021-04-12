@@ -96,39 +96,39 @@ class CfgNonAIVehicles
 	};
 
 	class ProxyRetex;
-	class ProxyD_cata: ProxyRetex
+	class Proxyfza_dam_D_cata: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_fuse" };
-		model = "\fza_ah64_us\prx\D_cata.p3d";
+		hiddenSelections[] = { "skin" };
+		model = "\fza_ah64_us\prx\fza_dam_D_cata.p3d";
 	};
-	class Proxydam_hstab_debris: ProxyRetex
+	class Proxyfza_dam_hstab_debris: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_hstab", "skin_tailboom" };
-		model = "\fza_ah64_us\prx\dam_hstab_debris.p3d";
+		hiddenSelections[] = { "skin" };
+		model = "\fza_ah64_us\prx\fza_dam_hstab_debris.p3d";
 	};
-	class Proxydam_tailboom_debris: ProxyRetex
+	class Proxyfza_dam_tailboom_debris: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_fuse", "skin_tailboom", "skin_vtail" };
-		model = "\fza_ah64_us\prx\dam_tailboom_debris.p3d";
+		hiddenSelections[] = { "skin" };
+		model = "\fza_ah64_us\prx\fza_dam_tailboom_debris.p3d";
 	};
-	class Proxydam_vtail_debris: ProxyRetex
+	class Proxyfza_dam_vtail_debris: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_vtail" };
-		model = "\fza_ah64_us\prx\dam_vtail_debris.p3d";
+		hiddenSelections[] = { "skin" };
+		model = "\fza_ah64_us\prx\fza_dam_vtail_debris.p3d";
 	};
-	class ProxyExtCpitB2: ProxyRetex
+	class Proxyfza_dam_ExtCpitB2: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_cockpit" };
-		model = "\fza_ah64_us\prx\ExtCpitB2.p3d";
+		hiddenSelections[] = { "skin" };
+		model = "\fza_ah64_us\prx\fza_dam_ExtCpitB2.p3d";
 	};
 	class Proxyfza_ah64db2_wreck: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_tailboom", "skin_fuse" };
+		hiddenSelections[] = { "skin" };
 		model = "\fza_ah64_us\prx\fza_ah64db2_wreck.p3d";
 	};
-	class Proxyfza_longbow: ProxyRetex
+	class Proxyfza_dam_longbow: ProxyRetex
 	{
-		hiddenSelections[] = { "skin", "skin_fcr" };
-		model = "\fza_ah64_us\fza_longbow.p3d";
+		hiddenSelections[] = { "skin_fcr" };
+		model = "\fza_ah64_us\prx\fza_dam_longbow.p3d";
 	};
 };

@@ -46,6 +46,5 @@ private _pfh = "fza_pfh_agm114_helper_" + str _projectile;
 			};
 		};
 	};
-	//hintSilent format["speed %1\ntarget: %2",speed _projectile,missileTarget _projectile];
 
 }, [_projectile,_pfh, _heli, _targ]] call BIS_fnc_addStackedEventHandler;

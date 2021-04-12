@@ -69,7 +69,6 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
 	// BACKUP TURRET OPTIC PNVS WITH BOTH LOGICS
 	if(player == driver _heli && (_heli animationphase "plt_apu" > 0.5 || isengineon _heli)) then
 	{
-        hintSilent "green";
         if (isNil "fza_ah64_pnvsgreff") then {
             fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
         };
@@ -78,7 +77,6 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
         fza_ah64_pnvsgreff ppEffectEnable true;
 	
 	} else {
-            hintSilent "Off";
             if (isNil "fza_ah64_pnvsgreff") then {
                 fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
             };
