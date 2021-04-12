@@ -2,13 +2,13 @@
 <GenHeli600 version="1.0">
 
   <!--	Mass changed from 5165 to 6087.2 - BM 7Oct20 -->
-  <Mass mass="6087.2"/>
+  <Mass mass="6090"/>
   <!--	MomentOfInertia changed from 27449, 5316, 27665 to 18858.5, 118101.6, 118101.6 - BM 7Oct20 -->
   <!--	MomentOfInertia changed from 18858.5, 118101.6, 118101.6 to 27449, 5316, 27665 - BM 7Oct20 -->
   <!--	Izz from 27665 to 20000 - BM 7Oct20 -->
   <!--	Ixx from 27449 to 20000 - BM 7Oct20 -->
   <!-- Changed fromk Ixx="20000" Iyy="5316" Izz="20000" Iyz="3166"  === to === Ixx="53023" Iyy="4084" Izz="52872" Iyz="4084" - BM 3Nov20 -->
-  <MomentsOfInertia Ixx="53023" Iyy="4084" Izz="52872" Iyz="4084"/>
+  <MomentsOfInertia Ixx="47956" Iyy="4925" Izz="49287" Iyz="4925"/>
   <!--	CenterOfGravity changefr om 0.0, 0.108, -0.272 to 0.0, -0.175, -0.272 - BM 7Oct20 -->
   <CenterOfGravity x="0.0" y="-0.175" z="-0.272" />
 

@@ -46,7 +46,7 @@ class CfgMagazines
 		count = 300;
 		initSpeed = 1620;
 		tracersevery = 0;
-		weight = 104.78;
+		weight = 104.8;
 	};
 	class fza_m230_1200: fza_m230_300
 	{
@@ -56,7 +56,7 @@ class CfgMagazines
 		count = 1200;
 		initSpeed = 1620;
 		tracersevery = 0;
-		weight = 419.119;
+		weight = 419.1;
 	};
 	
 	////////////////////////////////////////////////////////////////////////
@@ -92,7 +92,7 @@ class CfgMagazines
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\dummysound", 3.16228, 1}; \
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 108.09106; \
+			weight = 46.77; \
 			fza_pylonType = "hellfire"; \
 		}; \
 		class ammoname##_lr: ammoname##_ll { \
@@ -130,20 +130,20 @@ class CfgMagazines
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};\
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 205.024; \
+			weight = 125.2; \
 			fza_pylonType = "rocket"; \
 		}; \
 		class ammoname##_zoneB: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneB.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_BD"}; \
 			count = 4; \
-			weight = 68.341;\
+			weight = 41.73;\
 		}; \
 		class ammoname##_zoneE: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneE.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_E"}; \
 			count = 3; \
-			weight = 51.256;\
+			weight = 31.3;\
 		};
 	
 	ROCKET_CONFIG(fza_275_m151, "M151 HEDP", "The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.")

@@ -13,7 +13,7 @@ _e1trq = (_e1data select 4) / 4.81;
 private _e1trqChar = "\fza_ah64_us\tex\char\g";
 private _e1trqTape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
-if (_e1trq > 101 && _e1trq <= 115) then {
+if (_e1trq > 100 && _e1trq <= 115) then {
 	_e1trqChar = "\fza_ah64_us\tex\char\y";
 	_e1trqTape = "\fza_ah64_us\tex\mpd\Ytape.paa";
 };
@@ -45,7 +45,7 @@ _heli setObjectTexture [SEL_MPD_PR_ENG_1NPB, _e1percentTape];
 private _e1tgtChar = "\fza_ah64_us\tex\char\g";
 private _e1tgtTape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
-if (_e1tgt > 811 && _e1tgt < 949) then {
+if (_e1tgt > 810 && _e1tgt < 949) then {
 	_e1tgtChar = "\fza_ah64_us\tex\char\y";
     _e1tgtTape = "\fza_ah64_us\tex\mpd\Ytape.paa";
 };
@@ -84,7 +84,7 @@ _e2trq = (_e2data select 4) / 4.81;
 private _e2trqChar = "\fza_ah64_us\tex\char\g";
 private _e2trqTape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
-if (_e2trq > 101 && _e2trq <= 115) then {
+if (_e2trq > 100 && _e2trq <= 115) then {
 	_e2trqChar = "\fza_ah64_us\tex\char\y";
 	_e2trqTape = "\fza_ah64_us\tex\mpd\Ytape.paa";
 };
@@ -116,7 +116,7 @@ _heli setObjectTexture [SEL_MPD_PR_ENG_2NPB, _e2percentTape];
 private _e2tgtChar = "\fza_ah64_us\tex\char\g";
 private _e2tgtTape = "\fza_ah64_us\tex\mpd\Gtape.paa";
 
-if (_e2tgt > 811 && _e2tgt < 949) then {
+if (_e2tgt > 810 && _e2tgt < 949) then {
 	_e2tgtChar = "\fza_ah64_us\tex\char\y";
     _e2tgtTape = "\fza_ah64_us\tex\mpd\Ytape.paa";
 };
