@@ -48,3 +48,19 @@ if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") then {
 	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {_x call fza_fnc_targetIsADA};
 };
 fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
+
+//cscope
+if (count fza_ah64_dispfcrlist > 16) then {
+    fza_ah64_Cscopelist = [fza_ah64_dispfcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+    /*
+	_targets = [fza_ah64_dispfcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+	{
+        _adaunit = [_x] call fza_fnc_targetIsADA;
+        if (_x isKindOf "tank" || _adaunit) then {
+            _targets insert [1,[_x]];
+        };
+    } foreach fza_ah64_dispfcrlist;
+    fza_ah64_Cscopelist = _targets;*/
+} else {
+    fza_ah64_Cscopelist = fza_ah64_dispfcrlist;
+};
