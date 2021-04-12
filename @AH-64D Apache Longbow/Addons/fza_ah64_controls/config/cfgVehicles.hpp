@@ -482,8 +482,8 @@ class CfgVehicles
 			};
 			mat[] = {
 				"fza_ah64_us\mat\body.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat"
+				"fza_ah64_us\mat\body_damage.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
+				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
 		class HitPoints
@@ -1478,7 +1478,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 0.1;
-			initPhase  = 0;
+			initPhase  = 0.298;
 		};
 		class pylon1
 		{

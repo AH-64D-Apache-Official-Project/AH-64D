@@ -32,7 +32,7 @@ class Stage2
 };
 class Stage3
 {
-	texture="fza_ah64_us\tex\dam\mdam.paa";
+	texture="a3\data_f\destruct\destruct_rust_mca.paa";
 	uvSource="tex";
 	class uvTransform
 	{
