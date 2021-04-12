@@ -176,6 +176,6 @@ if (_usingCannon) then {
 	_heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
 } else {
 	_heli animateSource["mainTurret", 0];
-	_heli animateSource["mainGun", 0.45];
+	_heli animateSource["mainGun", 0.298];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
