@@ -37,7 +37,7 @@ if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli &&
         [_heli] call _x;
     }
     foreach fza_ah64_slowschedarray;
-}; 
+};
 
 if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {
     1 cuttext["", "PLAIN"];

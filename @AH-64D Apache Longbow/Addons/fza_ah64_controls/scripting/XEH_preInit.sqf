@@ -45,6 +45,15 @@
 	}
 ] call CBA_fnc_addSetting;
 
+[
+	"fza_ah64_sfmPlusStabilatorEnabled",
+	"CHECKBOX",
+	"Enanle stabilator in SFM",
+	["AH64D Apache", "Flight model"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
 fza_ah64_rocketTable =
         [[0, 5]
         ,[500, 8]
@@ -93,8 +102,8 @@ fza_ah64_tsdmap = 0;
 fza_ah64_dispfcrlist = [];
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];
 fza_ah64_introShownThisScenario = false;
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays]; //disabled fza_ah64_cpg_controls//
 fza_ah64_slowschedarray = [fza_fnc_targetingVariable, fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3D", {
 	[0] call fza_fnc_coreScheduler;

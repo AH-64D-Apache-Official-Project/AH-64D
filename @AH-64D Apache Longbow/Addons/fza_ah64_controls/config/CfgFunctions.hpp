@@ -1,3 +1,4 @@
+
 #ifdef __A3_DEBUG__
 #define R recompile = 1
 #else
@@ -57,11 +58,6 @@ class CfgFunctions
 				description = "Sets the engine's target RPMs";
 			};
 			class engineHandleControl {R;};
-			class engineInit
-			{
-				R;
-				description = "Sets up the engine states";
-			};
 			class engineSetPosition
 			{
 				R;
@@ -184,6 +180,15 @@ class CfgFunctions
 			class pfzReceive {R;};
 			class pfzSend {R;};
 		}
+		class sfmplus {
+			file = "\fza_ah64_controls\scripting\functions\sfmplus";
+			class sfmplusGetData {R;};
+			class sfmplusGetInput {R;};
+			class sfmplusSetFuel {R;};
+			class sfmplusSetMass {R;};
+			class sfmplusStabilator {R;};
+			class sfmplusUpdate {R;};
+		};
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
