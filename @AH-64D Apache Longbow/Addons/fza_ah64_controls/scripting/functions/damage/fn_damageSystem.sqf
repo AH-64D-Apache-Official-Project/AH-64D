@@ -61,6 +61,8 @@ if (_system == "pnvs") then {
 if (_system == "otocvez") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
         ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
+        _heli removemagazine "fza_m230_1200";
+        _heli removemagazine "fza_m230_300";
     };
 };
 

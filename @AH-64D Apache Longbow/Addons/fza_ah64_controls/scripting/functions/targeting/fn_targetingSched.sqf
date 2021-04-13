@@ -11,7 +11,7 @@ Examples:
     [_heli] call fza_fnc_targetingSched
 	---
 Author:
-	Unknown
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if (!(player in _heli)) exitwith {};

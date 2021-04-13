@@ -16,7 +16,7 @@ Examples:
 	---
 
 Author:
-	Unknown
+	mattysmith22, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];
@@ -37,6 +37,7 @@ if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli &&
         [_heli] call _x;
     }
     foreach fza_ah64_slowschedarray;
+    [_heli] spawn fza_fnc_fcrLongbow;
 };
 
 if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {
