@@ -55,9 +55,9 @@ class CfgVehicles
 		//SFM Variables-------------/
 		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 1.0;
-		cyclicForwardForceCoef = 1.0;
-		backRotorForceCoef     = 1.0;
+		cyclicAsideForceCoef   = 0.4;
+		cyclicForwardForceCoef = 0.5;
+		backRotorForceCoef     = 0.7;
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
