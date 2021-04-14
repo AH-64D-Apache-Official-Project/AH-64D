@@ -685,7 +685,7 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
         };
         if (_x isKindOf "plane") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_ac_pfz.paa";
+            _type = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
         };
         if (_x isKindOf "tank") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_tnk_pfz.paa";

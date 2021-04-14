@@ -89,7 +89,7 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		[_x, _targIcon, _targetPriority];
 	};
 
-	[_heli, _targetsToDraw, false] call fza_fnc_mpdUpdatePoints;	
+	[_heli, _targetsToDraw, false, (_heli getVariable "fza_ah64_rangesetting") * 1, [0.5, 0.27]] call fza_fnc_mpdUpdatePoints;	
 } else {
 	_heli setobjecttexture [SEL_MPD_PR_TSD_PHASE, ""];
 
@@ -100,5 +100,5 @@ if (_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 		_waypointsToDraw pushBack [_x, format ["\fza_ah64_US\tex\ICONS\ah64_wp_%1_%2", _status, _forEachIndex], 0];
 	} forEach (_heli getVariable "fza_ah64_waypointdata");
 
-	[_heli, _waypointsToDraw, false] call fza_fnc_mpdUpdatePoints;
+	[_heli, _waypointsToDraw, false, (_heli getVariable "fza_ah64_rangesetting") * 1.02, [0.5, 0.27]] call fza_fnc_mpdUpdatePoints;
 };
