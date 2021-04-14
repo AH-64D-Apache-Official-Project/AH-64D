@@ -24,7 +24,15 @@ fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
-	fza_ah64_tsddisptargs = fza_ah64_targetlist select {alive _x};
+	fza_ah64_tsddisptargs = fza_ah64_targetlist select {
+		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
+
+		switch (_heli getVariable "fza_ah64_agmode") do {
+			default {
+			!((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) > 1) || (_distOffAxis > 90))
+			};
+		};
+	};
 };
 
 //FCR & CSCOPE LIST
