@@ -30,10 +30,10 @@ if (_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 	 _targetPos = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
 };
 
-private _targetRange = if (_targetPos isEqualTo []) then {0} else {(_targetPos distance2d _heli) / 1000};
+private _targetRange = if (_targetPos isEqualTo []) then {0} else {(_targetPos distance2d _heli) / 100};
 private _targetDir = if (_targetPos isEqualTo []) then {0} else {[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (_targetPos select 0), (_targetPos # 1)] call fza_fnc_relativeDirection};
 
-[_heli, _targetRange / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_DIST] call fza_fnc_drawNumberSelections;
+[_heli, _targetRange, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_DIST] call fza_fnc_drawNumberSelections;
 [_heli, _targetDir, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_WTDIR] call fza_fnc_drawNumberSelections;
 
 [_heli, _heli getVariable "fza_ah64_pfz_count", "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_PFZS] call fza_fnc_drawNumberSelections;
