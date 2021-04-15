@@ -356,7 +356,7 @@ if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_r
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
-_waypointcode = "W" + (format["%1",_heli getVariable "fza_ah64_curwpnum"]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance2d _waypoint)))]);
+_waypointcode = "W" + (format["%1",_heli getVariable "fza_ah64_curwpnum"]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance _waypoint)))]);
 
 _reldir = ((_waypoint # 0) - (getposatl _heli select 0)) atan2((_waypoint # 1) - (getposatl _heli select 1));
 if (_reldir < 0) then {
