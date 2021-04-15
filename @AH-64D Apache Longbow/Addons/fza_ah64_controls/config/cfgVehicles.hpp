@@ -880,7 +880,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="!fza_ah64_tiron";
+				condition="!fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 			class tiroff
@@ -893,7 +893,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="fza_ah64_tiron";
+				condition="fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 		};
