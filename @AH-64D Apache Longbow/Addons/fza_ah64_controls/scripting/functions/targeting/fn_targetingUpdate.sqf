@@ -11,14 +11,9 @@ Examples:
     [_heli] call fza_fnc_targetingUpdate
 	---
 Author:
-	Unknown
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
-
-if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
-    _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
-};
 
 fza_ah64_aseAudio = fza_ah64_asethreats;
 {
@@ -40,5 +35,8 @@ fza_ah64_aseAudio = fza_ah64_asethreats;
 		if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
 			[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 		};
+	};
+	if !((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) || (alive _x) && !(_x in fza_ah64_threattracking)) then {
+		fza_ah64_threattracking = fza_ah64_threattracking - [_x];
 	};
 } forEach fza_ah64_aseAudio

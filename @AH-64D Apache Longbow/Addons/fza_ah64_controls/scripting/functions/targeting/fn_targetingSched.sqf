@@ -16,6 +16,11 @@ Author:
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
 
+// Auto self laser select
+if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
+    _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
+};
+
 //SELECTABLE TARGETS
 _visibleTargets = switch (true) do {
     case (_heli getVariable "fza_ah64_pfz_count" != 0 && _heli getVariable "fza_ah64_tsdsort" < 4): {
