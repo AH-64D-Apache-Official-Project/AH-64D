@@ -35,7 +35,7 @@ fza_ah64_aseAudio = fza_ah64_asethreats;
 				[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 			};
 		};
-		if !((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) || (alive _x) || (true == isVehicleRadarOn vehicle _x) && !(_x in fza_ah64_threattracking)) then {
+		if !((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.1) || (alive _x) || (true == isVehicleRadarOn vehicle _x) && !(_x in fza_ah64_threattracking)) then {
 			fza_ah64_threattracking = fza_ah64_threattracking - [_x];
 		};
 	};
