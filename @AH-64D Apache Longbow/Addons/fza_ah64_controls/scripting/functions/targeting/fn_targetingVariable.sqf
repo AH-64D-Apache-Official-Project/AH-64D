@@ -32,7 +32,7 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") || (_heli getVariabl
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 1: {
-				((_heli distance2D _x) < 8000)
+				((_x isKindOf "air") && ((_heli distance2D _x) < 8000))
 			};
 			default {
 			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 45))

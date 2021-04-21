@@ -28,7 +28,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 	{
 		if (alive _x) then {
 			_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
-			if (_x == _heli) then {
+			if (_x == _heli || _x isKindOf "man" || _x isKindOf "StaticCannon") then {
 				_dataLinkArray = _dataLinkArray - [_x];
 			};
 			if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45)) then {
@@ -37,7 +37,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 			if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air")) then {
 				_dataLinkArray = _dataLinkArray - [_x];
 			};
-			if ([_heli, "GEOM", _x] checkVisibility [_heli modelToWorld [0,2.1,15], aimPos _x] == 0) then {
+			if ([_heli, "GEOM", _x] checkVisibility [_heli modelToWorld [0,2.1,14], aimPos _x] == 0) then {
 				_dataLinkArray = _dataLinkArray - [_x];
 			};
 			sleep 0.10;
