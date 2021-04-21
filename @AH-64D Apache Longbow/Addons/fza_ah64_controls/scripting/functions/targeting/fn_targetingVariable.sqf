@@ -18,9 +18,7 @@ if (!(player in _heli)) exitwith {};
 private _visibleTargets = [];
 
 //remove dead targets
-fza_ah64_pfzs = fza_ah64_pfzs - alldead;
 fza_ah64_targetlist = fza_ah64_targetlist - alldead;
-fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
@@ -34,7 +32,7 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") || (_heli getVariabl
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 1: {
-				(((_x isKindOf "plane") || (_x isKindOf "helicopter")) && ((_heli distance2D _x) < 8000))
+				((_heli distance2D _x) < 8000)
 			};
 			default {
 			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 45))
@@ -52,15 +50,6 @@ fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
 //cscope
 if (count fza_ah64_dispfcrlist > 16) then {
     fza_ah64_Cscopelist = [fza_ah64_dispfcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
-    /*
-	_targets = [fza_ah64_dispfcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
-	{
-        _adaunit = [_x] call fza_fnc_targetIsADA;
-        if (_x isKindOf "tank" || _adaunit) then {
-            _targets insert [1,[_x]];
-        };
-    } foreach fza_ah64_dispfcrlist;
-    fza_ah64_Cscopelist = _targets;*/
 } else {
     fza_ah64_Cscopelist = fza_ah64_dispfcrlist;
 };
