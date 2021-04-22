@@ -93,7 +93,6 @@ fza_ah64_asethreats = [];
 fza_ah64_asethreatsdraw = [];
 fza_ah64_threattracking = [];
 fza_ah64_threatfiring = [];
-fza_ah64_dataLinkArray = [];
 fza_ah64_mycurrenttarget = objNull;
 fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
