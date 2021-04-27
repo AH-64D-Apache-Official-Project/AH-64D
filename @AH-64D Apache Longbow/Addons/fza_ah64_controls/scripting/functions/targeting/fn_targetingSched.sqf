@@ -30,6 +30,9 @@ _visibleTargets = switch (true) do {
     case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd"): {
         [_heli, fza_ah64_tsddisptargs - alldead] call fza_fnc_targetingFilterType;
     };
+    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase"): {
+        [_heli, fza_ah64_dispfcrlist - alldead] call fza_fnc_targetingFilterType;
+    };
     default {
         [_heli, fza_ah64_targetlist - alldead] call fza_fnc_targetingFilterType;
     };

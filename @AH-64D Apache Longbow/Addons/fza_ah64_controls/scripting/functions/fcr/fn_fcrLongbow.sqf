@@ -41,12 +41,12 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		};
 		sleep 0.20;
 	}   foreach _dataLinkArray;
+	{
+		if !(_x in fza_ah64_targetlist) then{
+			fza_ah64_targetlist = fza_ah64_targetlist + [_x];
+		};
+	} foreach _dataLinkArray;
 };
-{
-	if !(_x in fza_ah64_targetlist) then{
-		fza_ah64_targetlist = fza_ah64_targetlist + _dataLinkArray;
-	};
-} foreach _dataLinkArray;
 fza_ah64_fcrlist = _dataLinkArray;
 
 [_heli] call fza_fnc_targetingVariable;
