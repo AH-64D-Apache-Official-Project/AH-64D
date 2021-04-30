@@ -63,7 +63,7 @@ class CfgAmmo
 		triggerOnImpact				=1;
 		deleteParentWhenTriggered	=0;
 
-		hit 						= 50;
+		hit 						= 60;
 		indirectHit 				= 20;
 		indirectHitRange 			= 3.5;		
 		maxspeed 					= 805;
@@ -78,7 +78,13 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128+256"
 		allowAgainstInfantry 		= 1;
 		cost 						= 15;
-
+		visibleFire=32;
+		audibleFire=200;
+		visibleFireTime=3;
+		dangerRadiusBulletClose=20;
+		dangerRadiusHit=60;
+		suppressionRadiusBulletClose=12;
+		suppressionRadiusHit=24;
 	};
 	
 	///////////////////////////////////////////////////////////////////////
