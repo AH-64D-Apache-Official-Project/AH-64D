@@ -36,7 +36,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air")) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
-		if ([_heli, "GEOM", _x] checkVisibility [_heli modelToWorld [0,2.1,12], aimPos _x] == 0) then {
+		if ([_heli, "GEOM", _x] checkVisibility [_heli modelToWorldWorld [0,2.1,2.2], aimPos _x] == 0) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
 		sleep 0.20;
