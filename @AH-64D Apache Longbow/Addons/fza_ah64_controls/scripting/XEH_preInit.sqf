@@ -48,7 +48,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	"Enanle stabilator in SFM",
+	["Enanle stabilator in SFM", "All crew needed to disable"],
 	["AH64D Apache", "Flight model"],
 	[true],
 	0
