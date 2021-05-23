@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleASEAutopage.sqf",{118:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter between different ASE autopage settings (Off, Launch, Track)</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleASEAutopage.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter between different ASE autopage settings (Off, Launch, Track)</div></div>"});
