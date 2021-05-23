@@ -53,7 +53,7 @@ if (fza_ah64_ExperimentalFCR) then {
 		_dir = _lastPos vectorFromTo _p2;
 		_totalDist = _lastPos distance _p2;
 		_clear = true;
-		for "_i" from 3000 to _totalDist step 3000 do {
+		for "_i" from 4000 to _totalDist step 4000 do {
 			_NextPos = (_dir vectorMultiply _i) vectorAdd _lastPos;
 			//check from _lastPos to _NextPos;
 			_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _x];

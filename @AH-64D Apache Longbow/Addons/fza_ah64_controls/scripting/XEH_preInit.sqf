@@ -27,7 +27,6 @@
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
-	"Cockpit hints",
 	["Cockpit hints", "Disabling this will hide the Cockpit hints"],
 	["AH64D Apache", "UI"],
 	[true]
@@ -36,7 +35,6 @@
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	"vanilla targeting information (restart needed)",
 	["vanilla targeting information", "Disabling this will hide vanilla targeting information (restart needed)"],
 	["AH64D Apache", "UI"],
 	[true],
@@ -50,7 +48,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["stabilator in SFM", "Disclaimer: All crew needed to disable"],
+	["stabilator in SFM", "Disclaimer: All crew need to disable this funtion to turn off"],
 	["AH64D Apache", "Flight model"],
 	[true],
 	0
