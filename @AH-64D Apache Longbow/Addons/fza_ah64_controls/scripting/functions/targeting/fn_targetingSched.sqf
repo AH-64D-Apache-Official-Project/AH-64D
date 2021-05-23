@@ -11,10 +11,15 @@ Examples:
     [_heli] call fza_fnc_targetingSched
 	---
 Author:
-	Unknown
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
+
+// Auto self laser select
+if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
+    _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
+};
 
 //SELECTABLE TARGETS
 _visibleTargets = switch (true) do {
@@ -27,7 +32,7 @@ _visibleTargets = switch (true) do {
     case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr"): {
         [_heli, fza_ah64_dispfcrlist - alldead] call fza_fnc_targetingFilterType;
     };
-    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd"): {
+    case (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")): {
         [_heli, fza_ah64_tsddisptargs - alldead] call fza_fnc_targetingFilterType;
     };
     default {

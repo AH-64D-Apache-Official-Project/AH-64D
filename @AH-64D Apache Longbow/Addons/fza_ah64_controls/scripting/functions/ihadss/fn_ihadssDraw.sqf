@@ -414,6 +414,9 @@ if (isNull fza_ah64_mycurrenttarget) then {
 if (currentweapon _heli in ["fza_m230", "fza_burstlimiter"] && !isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
+if (currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] && !isNull laserTarget _heli) then {
+    _targrange = format["*%1", round(_heli distance (_heli getVariable "fza_ah64_currentlase"))];
+};
 
 _thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
 
@@ -685,7 +688,7 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
         };
         if (_x isKindOf "plane") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_ac_pfz.paa";
+            _type = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
         };
         if (_x isKindOf "tank") then {
             _type = "\fza_ah64_US\tex\ICONS\ah64_tnk_pfz.paa";

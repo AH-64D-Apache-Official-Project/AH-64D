@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_lases = ((listRemoteTargets west) apply {_x # 0}) select {_x isKindOf "LaserTargetBase"};
+_lases = ((listRemoteTargets playerSide) apply {_x # 0}) select {_x isKindOf "LaserTargetBase"};
 if (count _lases == 0) then {
 	systemChat "No lases available";
 	_heli setVariable ["fza_ah64_currentLase", objNull, true];
