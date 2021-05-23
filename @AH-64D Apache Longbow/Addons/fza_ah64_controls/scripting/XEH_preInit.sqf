@@ -48,8 +48,17 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	"Enanle stabilator in SFM",
+	"Enable stabilator in SFM",
 	["AH64D Apache", "Flight model"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_ExperimentalFCR",
+	"CHECKBOX",
+	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
+	["AH64D Apache", "Fire Control Radar"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
