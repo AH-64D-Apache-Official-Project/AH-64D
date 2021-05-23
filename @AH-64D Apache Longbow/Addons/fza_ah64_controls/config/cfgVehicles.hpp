@@ -55,9 +55,9 @@ class CfgVehicles
 		//SFM Variables-------------/
 		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 1.0;
-		cyclicForwardForceCoef = 1.0;
-		backRotorForceCoef     = 1.0;
+		cyclicAsideForceCoef   = 0.4;
+		cyclicForwardForceCoef = 0.5;
+		backRotorForceCoef     = 0.7;
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
@@ -491,11 +491,12 @@ class CfgVehicles
 			class HitHull
 			{
 				armor = 999;
+				minimalHit=0.050000001;
 				material = 51;
 				name = "fuselage";
 				passthrough = 1;
 				visual = "skin_fuse";
-				explosionShielding = 3;
+				explosionShielding = 999;
 				convexComponent = "fuselage";
 				radius = 0.01;
 				depends = "Total";
@@ -531,17 +532,12 @@ class CfgVehicles
 				minimalHit = 0.1;
 				radius = 0.4;
 			};
-			class HitEngine2
+			class HitEngine2: HitEngine1
 			{
 				armor = 0.7;
-				material = 51;
 				name = "reng";
-				passthrough = 1;
 				visual = "skin_reng";
-				explosionShielding = 3;
 				convexComponent = "reng";
-				minimalHit = 0.1;
-				radius = 0.4;
 			};
 			class HitEngine
 			{
@@ -563,13 +559,11 @@ class CfgVehicles
 				name = "lfuel";
 				passthrough = 0.1;
 				depends = "HitEngine1"
+				explosionShielding=2;
 			};
-			class HitFuel2
+			class HitFuel2: HitFuel
 			{
-				armor = 0.5;
-				material = 51;
 				name = "rfuel";
-				passthrough = 0.1;
 				depends = "HitEngine2"
 			};
 			class Hitlfab
@@ -880,7 +874,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="!fza_ah64_tiron";
+				condition="!fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 			class tiroff
@@ -893,7 +887,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="fza_ah64_tiron";
+				condition="fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 		};
@@ -1012,6 +1006,7 @@ class CfgVehicles
 		mainRotorSpeed = 1;
 		threat[] = {1,1,0.700000};
 		armor=60;
+		damageResistance=0.0055499999;
 		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
 		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
 		weapons[] = {"fza_CMFlareLauncher"};
@@ -1134,6 +1129,10 @@ class CfgVehicles
 				minElev = -60;
 				maxElev = 30;
 				initElev= 0;
+				maxXRotSpeed = 1;	// yawing speed
+				maxYRotSpeed = 1;	// pitching speed
+				maxMouseXRotSpeed= 0.5;
+				maxMouseYRotSpeed= 0.5;
 				minTurn = -120;
 				maxTurn = 120;
 				initTurn = 0;

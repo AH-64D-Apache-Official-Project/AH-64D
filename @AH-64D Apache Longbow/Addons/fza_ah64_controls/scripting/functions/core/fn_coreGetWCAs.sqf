@@ -117,10 +117,10 @@ if (_heli animationphase "plt_rtrbrake" == 1) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RTRBRKON.paa", "\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"]
 };
 
-if (_heli getVariable "fza_ah64_irjon" == 1 && fza_ah64_irjammer > 0) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\IRJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\IRJOHEAT_A_co.paa"]
+if (_heli getVariable "fza_ah64_irjon" == 1 && fza_ah64_irjammer > 40) then {
+	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\IRJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\IRJAMOHEAT_A_co.paa"]
 };
-if (_heli getVariable "fza_ah64_rfjon" == 1 && fza_ah64_rfjammer > 0) then {
+if (_heli getVariable "fza_ah64_rfjon" == 1 && fza_ah64_rfjammer > 40) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RFJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\RFJOHEAT_A_co.paa"]
 };
 

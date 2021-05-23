@@ -126,6 +126,15 @@ class Components: Components
     defaultDisplay = "EmptyDisplay";
     class Components
     {
+      class EmptyDisplay		// Empty display - hide panel
+      {
+        componentType = "EmptyDisplayComponent";
+      };
+      class MinimapDisplay	// GPS
+      {
+        componentType = "MinimapDisplayComponent";
+        resource = "RscCustomInfoAirborneMiniMap"; //gives you the airborne nav version with coloured altitude display
+      };
       class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
   		{
   			componentType = "SensorsDisplayComponent";
@@ -138,14 +147,14 @@ class Components: Components
         componentType = "TransportFeedDisplayComponent";
         source = "PrimaryGunner";
       };
-      class EmptyDisplay		// Empty display - hide panel
+      class VehicleDriverDisplay	// Camera feed from driver's optics
       {
-        componentType = "EmptyDisplayComponent";
+        componentType = "TransportFeedDisplayComponent";
+        source = "Driver";    // returns the pnvs feed
       };
-      class MinimapDisplay	// GPS
+      class UAVFeedDisplay	// Drone camera feed
       {
-        componentType = "MinimapDisplayComponent";
-        resource = "RscCustomInfoMiniMap";
+        componentType = "UAVFeedDisplayComponent";  // panel for uav 
       };
     };
   };

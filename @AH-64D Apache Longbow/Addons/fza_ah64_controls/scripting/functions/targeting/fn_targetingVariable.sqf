@@ -15,7 +15,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
-private _visibleTargets = [];
 
 //remove dead targets
 fza_ah64_targetlist = fza_ah64_targetlist - alldead;

@@ -27,7 +27,8 @@
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
-	"Enable Cockpit hints",
+	"Cockpit hints",
+	["Cockpit hints", "Disabling this will hide the Cockpit hints"],
 	["AH64D Apache", "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
@@ -35,7 +36,8 @@
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	"Show vanilla targeting information (restart needed)",
+	"vanilla targeting information (restart needed)",
+	["vanilla targeting information", "Disabling this will hide vanilla targeting information (restart needed)"],
 	["AH64D Apache", "UI"],
 	[true],
 	0,
@@ -48,7 +50,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	"Enable stabilator in SFM",
+	["stabilator in SFM", "Disclaimer: All crew needed to disable"],
 	["AH64D Apache", "Flight model"],
 	[true],
 	0

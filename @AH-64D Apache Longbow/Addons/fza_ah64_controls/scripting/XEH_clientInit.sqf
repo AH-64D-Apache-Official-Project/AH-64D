@@ -77,7 +77,9 @@ if(vehicle player isKindOf "fza_ah64base") then {
 }, {}, [USER_11, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHDUPNVS", "HDU/PNVS Toggle", {
-	ENSURE_IN_APACHE(vehicle player setVariable ["fza_ah64_ihadss_pnvs_cam", !(vehicle player getVariable "fza_ah64_ihadss_pnvs_cam")];)
+if(vehicle player isKindOf "fza_ah64base") then { 
+	vehicle player setVariable ["fza_ah64_ihadss_pnvs_cam", !(vehicle player getVariable "fza_ah64_ihadss_pnvs_cam")];
+};
 }, {}, [USER_12, [false, false, false]]] call fza_fnc_addKeybind;
 
 [MOD_NAME, "jammersToggle", "Manual/Automatic Jammers Toggle", {
