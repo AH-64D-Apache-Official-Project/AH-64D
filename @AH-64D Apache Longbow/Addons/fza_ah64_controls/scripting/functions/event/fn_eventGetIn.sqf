@@ -15,8 +15,8 @@ Examples:
 Author:
 	unknown
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params ["_heli", "", "_unit"];
 
-if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario) then {
+if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player) then {
     createDialog "RscFzaDisplayWelcome";
 }
