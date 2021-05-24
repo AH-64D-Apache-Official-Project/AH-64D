@@ -1,0 +1,11 @@
+name = "AH-64D Apache Mod Official";
+picture = "apache_mod_picture.paa";
+actionName = "GitHub";
+action = "https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki";
+description = "Apache mod";
+logo = "apache_mod_logo.paa";
+logoOver = "apache_mod_logo.paa";
+tooltip = "AH-64D Apache Mod Official";
+tooltipOwned = "AH-64D Apache Mod Official Owned";
+overview = "Implementation of the AH-64D Apache Longbow, with a focus on realism and usability, including a clickable cockpit,";
+author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";

@@ -973,6 +973,7 @@ class CfgVehicles
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow";
+		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		ejectDeadCargo=false;
 		ejectdeadgunner = false;
@@ -3036,7 +3037,7 @@ initPhase=0;
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
-
+		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
 		class AnimationSources: AnimationSources {
 			class fcr_enable: fcr_enable
 			{
