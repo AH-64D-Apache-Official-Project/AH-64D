@@ -411,11 +411,8 @@ _targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.
 if (isNull fza_ah64_mycurrenttarget) then {
     _targrange = "0.00";
 };
-if (currentweapon _heli in ["fza_m230", "fza_burstlimiter"] && !isNull laserTarget _heli) then {
+if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
-};
-if (currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"] && !isNull laserTarget _heli) then {
-    _targrange = format["*%1", round(_heli distance (_heli getVariable "fza_ah64_currentlase"))];
 };
 
 _thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;

@@ -37,6 +37,10 @@ if ((vehicle player) animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) then 
 				if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !((_x isKindOf "plane") || (_x isKindOf "helicopter") && ((getpos _x select 2) > 10))) then {
 					_dataLinkArray = _dataLinkArray - [_x];
 				};
+
+				if (_x == _heli || _x isKindOf "man" || _x isKindOf "StaticCannon" || laserTarget _heli == _x) then {
+					_dataLinkArray = _dataLinkArray - [_x];
+				};
 				sleep 0.05;
 			};
 		}   foreach _dataLinkArray;
