@@ -1036,13 +1036,13 @@ class CfgVehicles
 			class b2
 			{
 				displayName = "Default";
-				author = "Apache mod development team";
+				author = "NodUnit";
 				textures[]= {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class b2_weather
 			{
 				displayName = "Default (weathered)";
-				author = "Apache mod development team";
+				author = "Franze";
 				textures[]= {"\fza_ah64_us\tex\Ex\b2_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class arb229th
@@ -1091,13 +1091,19 @@ class CfgVehicles
 			{
 				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard";
 				author = "seven10 & Apache mod development team";
-			textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+				textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class 211th_weathered
 			{
 				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard (weathered)";
 				author = "seven10 & Apache mod development team";
-			textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+				textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class Israeli_Air_Force
+			{
+				displayName = "IAF (Saraf)";
+				author = "NodUnit";
+				textures[]= {"\fza_ah64_us\tex\Ex\Nodunit_Isreal_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 		};
 		textureList[] = {"b2", 1};
