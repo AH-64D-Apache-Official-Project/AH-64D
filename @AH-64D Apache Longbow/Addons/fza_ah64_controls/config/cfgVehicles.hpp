@@ -1101,7 +1101,7 @@ class CfgVehicles
 			};
 			class Israeli_Air_Force
 			{
-				displayName = "IAF (Saraf)";
+				displayName = "Israeli Air Force (IAF Saraf)";
 				author = "NodUnit";
 				textures[]= {"\fza_ah64_us\tex\Ex\Nodunit_Isreal_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
