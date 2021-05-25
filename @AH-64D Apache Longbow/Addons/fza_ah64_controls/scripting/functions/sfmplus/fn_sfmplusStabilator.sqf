@@ -30,30 +30,33 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_ah64_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-//---------------------Coll----30kts---50kts---80kts--120kts---150kts
-private _stabTable = [[0.00,  -25.00,  2.5,   5.00,   5.0,  5.0],  
-                      [0.60,  -25.00,  2.0,   5.00,   5.0,  5.0],   
-                      [0.70,  -25.00, -13.2,  -5.0,   -6.0, 5.0],   
-                      [0.80,  -25.00, -17.8,  -10.5,  -8.8,  2.5],   
-                      [1.00,  -25.00, -17.5,  -10.0,  -2.5,  5.0]];
+//--------------------Coll----30kts---70kts--900kts--110---120kts
+private _stabTable =[[0.00,  -25.00,   2.5,   5.0,   5.0,  5.0],
+                     [0.67,  -25.00,  -2.0,  -2.0   -2.0, -7.8],  
+                     [0.70,  -25.00,  -5.6,  -5.6,  -5.6, -7.8],
+                     [0.74,  -25.00,  -6.8,  -6.8,  -6.8, -7.8],
+                     [0.89,  -25.00,  -7.2,  -7.2,  -7.8, -7.8],   
+                     [1.00,  -25.00, -12.0, -12.0, -12.0, -12.0]];
 
 /*
-TEMPTABLE = [ 
-[0.00,  -25.00,   2.5,   5.00,   5.0,  5.0], 
-[0.60,  -25.00,   5.0,   5.00,   5.0,  5.0],  
-[0.70,  -25.00, -13.2,  -5.0,   -5.0, -5.0],  
-[0.80,  -25.00, -20.0,  -17.0,  -8.8,  2.5],  
-[1.000, -25.00, -17.5,  -10.0,  -2.5,  5.0]];
+Udpated 23May21
+TEMPTABLE = [  
+[0.00,  -25.00,   2.5,   5.0,   5.0,  5.0],
+[0.67,  -25.00,  -2.0,  -2.0   -2.0, -7.8],  
+[0.70,  -25.00,  -5.6,  -5.6,  -5.6, -7.8],
+[0.74,  -25.00,  -6.8,  -6.8,  -6.8, -7.8],
+[0.89,  -25.00,  -7.2,  -7.2,  -7.8, -7.8],   
+[1.00,  -25.00, -12.0, -12.0, -12.0, -12.0]];
 
 private _intStabTable = [TEMPTABLE, _collOut] call fza_fnc_linearInterp;
 */
 private _intStabTable = [_stabTable, _collOut] call fza_fnc_linearInterp;
 
 private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
-							[25.72, _intStabTable select 2],  //50kts
-							[41.16, _intStabTable select 3],  //80kts
-							[61.73, _intStabTable select 4],  //120kts
-							[77.17, _intStabTable select 5]]; //150kts
+							[36.01, _intStabTable select 2],  //70kts
+							[46.30, _intStabTable select 3],  //90kts
+							[56.59, _intStabTable select 4],  //110kts
+							[61.73, _intStabTable select 5]]; //120kts
 
 
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
