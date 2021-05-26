@@ -9,6 +9,11 @@ class CfgVehicles
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
+
+		//Images
+		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
+		mapSize = 10;
+		icon = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
 		
 		A3TI_ThermalSelections[] = {"skin"};	
 		
