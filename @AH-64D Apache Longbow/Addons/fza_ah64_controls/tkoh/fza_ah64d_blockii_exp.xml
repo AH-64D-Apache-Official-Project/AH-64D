@@ -8,7 +8,7 @@
   <!--	Izz from 27665 to 20000 - BM 7Oct20 -->
   <!--	Ixx from 27449 to 20000 - BM 7Oct20 -->
   <!-- Changed fromk Ixx="20000" Iyy="5316" Izz="20000" Iyz="3166"  === to === Ixx="53023" Iyy="4084" Izz="52872" Iyz="4084" - BM 3Nov20 -->
-  <MomentsOfInertia Ixx="47956" Iyy="4925" Izz="49287" Iyz="4925"/>
+  <MomentsOfInertia Ixx="44250" Iyy="3138" Izz="45581" Iyz="3808"/>
   <!--	CenterOfGravity changefr om 0.0, 0.108, -0.272 to 0.0, -0.175, -0.272 - BM 7Oct20 -->
   <CenterOfGravity x="0.0" y="-0.175" z="-0.272" />
 
@@ -1655,7 +1655,7 @@
       <Features isBrakable="false" isRetractable="false" isSteerable="true"  />
       <Aerodynamics equivalentFlatPlateArea ="0.1" />
       <Suspension>
-        <MountStation  x="0" y="-9.5" z="-0.97"/>
+        <MountStation  x="0" y="-9.5" z="-1.0"/>
         <SliderAxis x="0" y="0" z="1" />
         <SuspensionLength length="0.8" />
         <SpringParameters springConstant="420000" damperConstant="50000" maxCompression="0.2" />
@@ -1673,12 +1673,12 @@
       <Features isBrakable="true" isRetractable="false" isSteerable="false"  />
       <Aerodynamics equivalentFlatPlateArea ="0.04" />
       <Suspension>
-        <MountStation  x="-1.046" y="1.174" z="0.22"/>
+        <MountStation  x="-1.046" y="1.174" z="0.1"/>
         <SliderAxis x="0" y="0" z="1" />
         <SuspensionLength length="2" />
         <SpringParameters springConstant="420000" damperConstant="50000" maxCompression="0.5" />
       </Suspension>
-      <Wheel mass="30" radius="0.2" >
+      <Wheel mass="30" radius="0.22" >
         <RollAxis x="1" y="0" z="0" />
         <Friction slidingFriction="0.7" resistanceTorqueNoBrake="1" resistanceTorqueFullBrake="3000" />
       </Wheel>
@@ -1690,12 +1690,12 @@
       <Features isBrakable="true" isRetractable="false" isSteerable="false"  />
       <Aerodynamics equivalentFlatPlateArea ="0.04" />
       <Suspension>
-        <MountStation  x="1.046" y="1.174" z="0.22"/>
+        <MountStation  x="1.046" y="1.174" z="0.1"/>
         <SliderAxis x="0" y="0" z="1" />
         <SuspensionLength length="2" />
         <SpringParameters springConstant="420000" damperConstant="50000" maxCompression="0.5" />
       </Suspension>
-      <Wheel mass="30" radius="0.2" >
+      <Wheel mass="30" radius="0.22" >
         <RollAxis x="1" y="0" z="0" />
         <Friction slidingFriction="0.7" resistanceTorqueNoBrake="1" resistanceTorqueFullBrake="3000" />
       </Wheel>
@@ -1712,7 +1712,7 @@
         <SuspensionLength length="0" />
         <SpringParameters springConstant="420000" damperConstant="50000" maxCompression="0" />
       </Suspension>
-      <Wheel mass="0.1" radius="0.1" >
+      <Wheel mass="0.1" radius="0.12" >
         <RollAxis x="1" y="0" z="0" />
         <Friction slidingFriction="0.5" resistanceTorqueNoBrake="1000" resistanceTorqueFullBrake="1000" />
       </Wheel>
