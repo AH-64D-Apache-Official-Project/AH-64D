@@ -88,7 +88,7 @@ Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oro
 * UFD and Fire systems fix
 
 *03/04/2021*
-* aking blade animation script singleplayer only
+* making blade animation script singleplayer only
 * Added 211th Skins
 
 *1/04/2021*
