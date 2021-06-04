@@ -19,7 +19,6 @@ Author:
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
-_mpdpwr = 0;
 
 _wcacall = {
     _heli = _this select 0;
@@ -87,16 +86,6 @@ do {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_APU, ""];
-    };
-    if (_heli animationphase "plt_batt" < 0.5 && _mpdpwr == 1) then {
-        [_heli, 1, "off"] call fza_fnc_mpdSetDisplay;
-        [_heli, 0, "off"] call fza_fnc_mpdSetDisplay;
-        _mpdpwr = 0;
-    };
-    if ((_heli animationphase "plt_batt" > 0.5) && _mpdpwr == 0) then {
-        [_heli, 0, "fuel"] call fza_fnc_mpdSetDisplay;
-        [_heli, 1, "eng"] call fza_fnc_mpdSetDisplay;
-        _mpdpwr = 1;
     };
     if (_heli getVariable "fza_ah64_rdp_fail" && !(_heli getVariable "fza_ah64_ldp_fail") && [_heli, 0] call fza_fnc_mpdGetCurrentDisplay != "fail") then {
         [_heli, 1, "fail"] call fza_fnc_mpdSetDisplay;

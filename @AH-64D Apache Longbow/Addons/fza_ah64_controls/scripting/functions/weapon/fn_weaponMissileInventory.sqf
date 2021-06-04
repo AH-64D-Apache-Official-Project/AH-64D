@@ -29,19 +29,19 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\pylons.h"
 params["_heli"];
 
 _mags = getPylonMagazines _heli;
 
 _inventory = [];
 
-for "_pylon" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
-    for "_hf" from PYLON_HF_UL to PYLON_HF_LR do {
+#define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
+for "_pylon" from 0 to 15 step 4 do {
+    for "_hf" from 0 to 3 do {
         _magName = _mags select (_pylon + _hf);
-        if (_magName != "") then {
+        if (WEP_TYPE(_magName) == "hellfire") then {
             _ammoName = getText (configFile >> "CfgMagazines" >> _magName >> "ammo");
-            _ammoQty = _heli ammoOnPylon PYLON_FROM_STANDARD(_pylon + _hf);
+            _ammoQty = _heli ammoOnPylon (_pylon + _hf + 1);
             _inventory pushBack (["", _ammoName] select (_ammoQty != 0));
         } else {
             _inventory pushBack -1;

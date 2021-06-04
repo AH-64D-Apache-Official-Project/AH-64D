@@ -63,7 +63,7 @@ class CfgAmmo
 		triggerOnImpact				=1;
 		deleteParentWhenTriggered	=0;
 
-		hit 						= 50;
+		hit 						= 60;
 		indirectHit 				= 20;
 		indirectHitRange 			= 3.5;		
 		maxspeed 					= 805;
@@ -78,7 +78,13 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128+256"
 		allowAgainstInfantry 		= 1;
 		cost 						= 15;
-
+		visibleFire=32;
+		audibleFire=200;
+		visibleFireTime=3;
+		dangerRadiusBulletClose=20;
+		dangerRadiusHit=60;
+		suppressionRadiusBulletClose=12;
+		suppressionRadiusHit=24;
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -104,8 +110,8 @@ class CfgAmmo
 		fuseDistance				= 100;
 		manualControl 				= 0;
 		maxControlRange				= 8000;
-		trackOversteer				= 1;
-		trackLead					= 0.6;
+		trackOversteer				= 4;
+		trackLead					= 1.2;
 		maneuvrability				= 21;
 		timeToLive					= 70;
 		cmImmunity					= 0.97;
@@ -542,9 +548,9 @@ class CfgAmmo
 	};	
 	class fza_m257_flare: FlareCore
 	{		
-		timeToLive 					= 30;
+		timeToLive 					= 100;
 		model 						= "\A3\Weapons_F\Ammo\UGL_Flare";
-		lightColor[] 				= {1,0.8,0.7,0.5}; //gotta find the right color/illumination intensity.
+		lightColor[] 				= {1,0.8,0.7,0.5};
 		smokeColor[] 				= {1,1,1,0.4};
 		effectFlare 				= "CounterMeasureFlare";
 		brightness 					= 0.1;

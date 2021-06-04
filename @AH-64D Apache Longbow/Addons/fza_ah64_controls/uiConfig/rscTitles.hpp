@@ -887,220 +887,220 @@ class RscTitles
 					//HDU PNVS WITH HDR OR NVG//
 					class fza_ah64_raddisp_hdu_bg2
 					{
-				idc = 120;
-				type = 0;
-				colorText[] = {-1, 1, 0, 0.85};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.12;
-				y = 0.19;
-				w = 0.78;
-				h = 0.78;
+						idc = 120;
+						type = 0;
+						colorText[] = {-1, 1, 0, 0.85};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.12;
+						y = 0.19;
+						w = 0.78;
+						h = 0.78;
 					};
 					///base///
 					class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
 					{
-				type = 13;
-				idc = 121;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = -0.075;
-				y = 0.73; 
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "right";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 121;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = -0.075;
+						y = 0.73; 
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_targrange //SIGHT
 					{
-				type = 13;
-				idc = 122;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = -0.155;
-				y = 0.73; 
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					//color = "1EFF00";
-					align = "right";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 122;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = -0.155;
+						y = 0.73; 
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							//color = "1EFF00";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_collective // TADS FLIR OR DTV
 					{
-				type = 13;
-				idc = 123;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.31;
-				y = 0.356;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 123;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.31;
+						y = 0.356;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_speed // IHADSS SPEED
 					{
-				type = 13;
-				idc = 124;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.31;
-				y = 0.5;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 124;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.31;
+						y = 0.5;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_radaralt // IHADSS RADAR ALTITUDE
 					{
-				type = 13;
-				idc = 125;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.18;
-				y = 0.5;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "right";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 125;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.18;
+						y = 0.5;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_weptype // WEAPON TYPE, _weapon, MSL RKT GUN
 					{
-				type = 13;
-				idc = 126;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.58; 
-				y = 0.73; 
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 126;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.58; 
+						y = 0.73; 
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_wepstate // SELECTED WEAPON, _weaponstate, LOBL LOAL 6PD ROUNDS
 					{
-				type = 13;
-				idc = 127;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.58; 
-				y = 0.75; 
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 127;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.58; 
+						y = 0.75; 
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_safemessage
 					{
 
-				type = 13;
-				idc = 128;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.25;
-				y = 0.65;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "center";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 128;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.25;
+						y = 0.65;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "center";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_waypoint
 					{
-				type = 13;
-				idc = 129;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.29;
-				y = 0.6;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-				font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 129;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.29;
+						y = 0.6;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+						font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					//JHCMS
 					class fza_ah64_raddisp_jhmcs
 					{
@@ -1119,540 +1119,540 @@ class RscTitles
 					};
 					class fza_ah64_raddisp_jhmcs_trk
 					{
-				idc = 131;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
-				style = 48;
-				sizeEx = 64;
-				x = 0;
-				y = -50;
-				w = 0.0734;
-				h = 0.1;
-			};
+						idc = 131;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
+						style = 48;
+						sizeEx = 64;
+						x = 0;
+						y = -50;
+						w = 0.0734;
+						h = 0.1;
+					};
 					class fza_ah64_raddisp_tadspos
 					{
-				idc = 133;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\tadspos.paa";
-				style = 48;
-				sizeEx = 256;
-				x = 0.5;
-				y = 0.7;
-				w = 0.03845;
-				h = 0.05;
-			};
+						idc = 133;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\tadspos.paa";
+						style = 48;
+						sizeEx = 256;
+						x = 0.5;
+						y = 0.7;
+						w = 0.03845;
+						h = 0.05;
+					};
 					class fza_ah64_raddisp_chevron
 					{
-				idc = 134;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_chev.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.3;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 134;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_chev.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.3;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_vsi
 					{
-				idc = 135;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\alt_vsi.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.678;
-				y = 0.49;
-				w = 0.01;
-				h = 0.02;
-			};
+						idc = 135;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\alt_vsi.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.678;
+						y = 0.49;
+						w = 0.01;
+						h = 0.02;
+					};
 					class fza_ah64_raddisp_radaltbar
 					{
-				idc = 136;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.708;
-				y = 0.6325;
-				w = 0.01;
-				h = 0.0025;
-			};
+						idc = 136;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.708;
+						y = 0.6325;
+						w = 0.01;
+						h = 0.0025;
+					};
 					class fza_ah64_raddisp_fcrdir
 					{
-				idc = 137;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_fcr.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.678;
-				y = 0.3;
-				w = 0.032;
-				h = 0.04;
-			};
+						idc = 137;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_fcr.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.678;
+						y = 0.3;
+						w = 0.032;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg0_tickmark
 					{
-				idc = 146;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_360.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 146;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_360.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg30_tickmark
 					{
-				idc = 147;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_30.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 147;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_30.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg60_tickmark
 					{
-				idc = 148;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_60.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 148;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_60.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg90_tickmark
 					{
-				idc = 149;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_90.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 149;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_90.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg120_tickmark
 					{
-				idc = 150;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_120.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 150;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_120.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg150_tickmark
 					{
-				idc = 151;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_150.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 151;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_150.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg180_tickmark
 					{
-				idc = 152;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_180.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 152;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_180.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg210_tickmark
 					{
-				idc = 153;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_210.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 153;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_210.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg240_tickmark
 					{
-				idc = 154;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_240.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 154;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_240.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg270_tickmark
 					{
-				idc = 155;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_270.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 155;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_270.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg300_tickmark
 					{
-				idc = 156;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_300.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 156;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_300.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg330_tickmark
 					{
-				idc = 157;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\mark_330.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.05;
-				h = 0.04;
-			};
+						idc = 157;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\mark_330.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.05;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 158;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.003;
-				h = 0.01;
-			};
+						idc = 158;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.003;
+						h = 0.01;
+					};
 					class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 159;
-			};
-					class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
+						idc = 159;
+					};
+						class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 160;
-			};
+						idc = 160;
+					};
 					class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 161;
-			};
+						idc = 161;
+					};
 					class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 162;
-			};
+						idc = 162;
+					};
 					class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 163;
-			};
+						idc = 163;
+					};
 					class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 164;
-			};
+						idc = 164;
+					};
 					class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 165;
-			};
+						idc = 165;
+					};
 					class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 166;
-			};
+						idc = 166;
+					};
 					class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 167;
-			};
+						idc = 167;
+					};
 					class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 168;
-			};
+						idc = 168;
+					};
 					class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 169;
-			};
+						idc = 169;
+					};
 					class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 170;
-			};
+						idc = 170;
+					};
 					class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 171;
-			};
+						idc = 171;
+					};
 					class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 172;
-			};
+						idc = 172;
+					};
 					class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 173;
-			};
+						idc = 173;
+					};
 					class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 174;
-			};
+						idc = 174;
+					};
 					class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 175;
-			};
+						idc = 175;
+					};
 					class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 176;
-			};
+						idc = 176;
+					};
 					class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 177;
-			};
+						idc = 177;
+					};
 					class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 178;
-			};
+						idc = 178;
+					};
 					class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 179;
-			};
+						idc = 179;
+					};
 					class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 180;
-			};
+						idc = 180;
+					};
 					class fza_ah64_raddisp_hdg350_tickmark: fza_ah64_raddisp_hdg10_tickmark
 					{
-				idc = 181;
-			};
+						idc = 181;
+					};
 					class fza_ah64_raddisp_fcr_for
 					{
-				idc = 183;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.27;
-				w = 0.002;
-				h = 0.054;
-			};
+						idc = 183;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.27;
+						w = 0.002;
+						h = 0.054;
+					};
 					class fza_ah64_raddisp_waypoint_gspd
 					{
 
-				type = 13;
-				idc = 184;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.29;
-				y = 0.62;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 184;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.29;
+						y = 0.62;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_velvect
 					{
-				idc = 185;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\MPD\cue_ca.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.5;
-				w = 0.03;
-				h = 0.04;
-			};
+						idc = 185;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\MPD\cue_ca.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.5;
+						w = 0.03;
+						h = 0.04;
+					};
 					class fza_ah64_raddisp_slipball
 					{
-				idc = 186;
-				type = 0;
-				colorText[] = {1, 1, 1, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\hmd_slip.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = 0.5;
-				y = 0.7;
-				w = 0.018;
-				h = 0.024;
-			};
+						idc = 186;
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\hmd_slip.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.7;
+						w = 0.018;
+						h = 0.024;
+					};
 					class fza_ah64_raddisp_bobup
 					{
 
-				idc = 187;
-				type = 0;
-				colorText[] = {0.1, 1, 0, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\bobup.paa";
-				style = 48;
-				sizeEx = 256;
-				x = 0.49;
-				y = 0.5;
-				w = 0.03845;
-				h = 0.05;
-			};
+						idc = 187;
+						type = 0;
+						colorText[] = {0.1, 1, 0, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\bobup.paa";
+						style = 48;
+						sizeEx = 256;
+						x = 0.49;
+						y = 0.5;
+						w = 0.03845;
+						h = 0.05;
+					};
 					class fza_ah64_raddisp_baroalt
 					{
 
-				type = 13;
-				idc = 188;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.18;
-				y = 0.35;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "right";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 188;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.18;
+						y = 0.35;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_fov
 					{
-				idc = 206;
-				type = 0;
-				colorText[] = {0.1, 1, 0, 1};
-				font = "EtelkaMonospaceProBold";
-				colorBackground[] = {1, 1, 1, 1};
-				text = "\fza_ah64_US\tex\HDU\FOV-W.paa";
-				style = 48;
-				sizeEx = 1024;
-				x = (safezoneX + safezoneW * 0.4);
-				y = (safezoneY + safezoneH * 0.4);
-				w = (safezoneW * 0.2);
-				h = (safezoneH * 0.2);
-			};
+						idc = 206;
+						type = 0;
+						colorText[] = {0.1, 1, 0, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						text = "\fza_ah64_US\tex\HDU\FOV-W.paa";
+						style = 48;
+						sizeEx = 1024;
+						x = (safezoneX + safezoneW * 0.4);
+						y = (safezoneY + safezoneH * 0.4);
+						w = (safezoneW * 0.2);
+						h = (safezoneH * 0.2);
+					};
 					class fza_ah64_alternatesensor
 					{
-					idc = 207;
-					text = "\fza_ah64_US\tex\HDU\mark_alt_sens.paa";
-					type = 0;
-					colorText[] = {1, 1, 1, 1};
-					font = "EtelkaMonospaceProBold";
-					colorBackground[] = {1, 1, 1, 1};
-					style = 48;
-					sizeEx = 1024;
-					x = 0.5;
-					y = 0.3;
-					w = 0.015;
-					h = 0.015;
+						idc = 207;
+						text = "\fza_ah64_US\tex\HDU\mark_alt_sens.paa";
+						type = 0;
+						colorText[] = {1, 1, 1, 1};
+						font = "EtelkaMonospaceProBold";
+						colorBackground[] = {1, 1, 1, 1};
+						style = 48;
+						sizeEx = 1024;
+						x = 0.5;
+						y = 0.3;
+						w = 0.015;
+						h = 0.015;
 					};
 					class fza_ah64_raddisp_rcd // RECORD
 					{
-				type = 13;
-				idc = 802;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = -0.076;
-				y = 0.75;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "right";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 802;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = -0.076;
+						y = 0.75;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_lsrcode // LASER CODE
 					{
 						type = 13;
@@ -1668,35 +1668,35 @@ class RscTitles
 						colorText[] = {0.1,1,0,1};
 						text = "0";
 						font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "right";
-					shadow = false;
-				};
-			};
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "right";
+							shadow = false;
+						};
+					};
 					class fza_ah64_raddisp_acq // TADS ACQ, FCR TADS
 					{
-				type = 13;
-				idc = 804;
-				style = 2 + 16;
-				lineSpacing = 1;
-				x = 0.64;
-				y = 0.73;
-				w = 0.5;
-				h = 0.12;
-				size = 0.024;
-				colorBackground[] = {0,0,0,0};
-				colorText[] = {0.1,1,0,1};
-				text = "0";
-				font = "EtelkaMonospaceProBold";
-				class Attributes
-				{
-					font = "EtelkaMonospaceProBold";
-					align = "left";
-					shadow = false;
-				};
-			};
+						type = 13;
+						idc = 804;
+						style = 2 + 16;
+						lineSpacing = 1;
+						x = 0.64;
+						y = 0.73;
+						w = 0.5;
+						h = 0.12;
+						size = 0.024;
+						colorBackground[] = {0,0,0,0};
+						colorText[] = {0.1,1,0,1};
+						text = "0";
+						font = "EtelkaMonospaceProBold";
+						class Attributes
+						{
+							font = "EtelkaMonospaceProBold";
+							align = "left";
+							shadow = false;
+						};
+					};
 				};
 			};
 		};

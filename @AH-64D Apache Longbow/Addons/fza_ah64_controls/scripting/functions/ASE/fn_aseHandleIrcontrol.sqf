@@ -35,7 +35,7 @@ if (!(_heli getVariable "fza_ah64_irjamfail")) then {
     }
     do {
         fza_ah64_irjammer = fza_ah64_irjammer - 1;
-        sleep 2;
+        sleep 1;
     };
 } else {
     _heli setVariable ["fza_ah64_irjon", 0, true];

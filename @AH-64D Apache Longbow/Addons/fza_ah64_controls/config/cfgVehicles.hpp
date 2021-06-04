@@ -9,6 +9,11 @@ class CfgVehicles
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
+
+		//Images
+		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
+		mapSize = 10;
+		icon = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
 		
 		A3TI_ThermalSelections[] = {"skin"};	
 		
@@ -34,6 +39,12 @@ class CfgVehicles
     	reportRemoteTargets     = 1;
     	reportOwnPosition       = 1;
 	
+		//lesh tow compatabilty
+		LESH_canBeTowed = 1;
+		LESH_towFromFront = 0;
+		LESH_AxisOffsetTarget[] = {0,-9.2,-2};
+		LESH_WheelOffset[] = {0,2.5};
+
 		side=1;
 		scope=0;
 		displayName="AH-64D";
@@ -46,11 +57,16 @@ class CfgVehicles
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
-		liftForceCoef = 1.0;
-		bodyFrictionCoef = 1.0;
-		cyclicAsideForceCoef = 1.0;
-		cyclicForwardForceCoef = 1.0;
-		backRotorForceCoef = 1.0;
+		//SFM Variables-------------/
+		liftForceCoef          = 1.25;
+		bodyFrictionCoef       = 1.0;
+		cyclicAsideForceCoef   = 0.4;
+		cyclicForwardForceCoef = 0.5;
+		backRotorForceCoef     = 0.7;
+	    fuelCapacity           = 1423;
+		fuelconsumptionrate    = 0.0;
+		maxSpeed               = 298;
+		//SFM Variables-------------/
 		driveOnComponent[] = {"Wheels"};
 		extCameraPosition[] = {0,0,-20};
 		radartype = 4;
@@ -65,11 +81,8 @@ class CfgVehicles
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		mainbladecenter = "rotor_center";
-		fuelCapacity = 1423;
-		fuelconsumptionrate = 0.138;
 		transportMaxWeapons = 3;
 		transportMaxMagazines = 10;
-		maxSpeed = 298;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
 		unitinfotype="RscUnitInfoNoHUD";
@@ -474,8 +487,8 @@ class CfgVehicles
 			};
 			mat[] = {
 				"fza_ah64_us\mat\body.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
-				"fza_ah64_us\mat\body_destruct.rvmat"
+				"fza_ah64_us\mat\body_damage.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
+				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
 		class HitPoints
@@ -483,11 +496,12 @@ class CfgVehicles
 			class HitHull
 			{
 				armor = 999;
+				minimalHit=0.050000001;
 				material = 51;
 				name = "fuselage";
 				passthrough = 1;
 				visual = "skin_fuse";
-				explosionShielding = 3;
+				explosionShielding = 999;
 				convexComponent = "fuselage";
 				radius = 0.01;
 				depends = "Total";
@@ -523,17 +537,12 @@ class CfgVehicles
 				minimalHit = 0.1;
 				radius = 0.4;
 			};
-			class HitEngine2
+			class HitEngine2: HitEngine1
 			{
 				armor = 0.7;
-				material = 51;
 				name = "reng";
-				passthrough = 1;
 				visual = "skin_reng";
-				explosionShielding = 3;
 				convexComponent = "reng";
-				minimalHit = 0.1;
-				radius = 0.4;
 			};
 			class HitEngine
 			{
@@ -555,13 +564,11 @@ class CfgVehicles
 				name = "lfuel";
 				passthrough = 0.1;
 				depends = "HitEngine1"
+				explosionShielding=2;
 			};
-			class HitFuel2
+			class HitFuel2: HitFuel
 			{
-				armor = 0.5;
-				material = 51;
 				name = "rfuel";
-				passthrough = 0.1;
 				depends = "HitEngine2"
 			};
 			class Hitlfab
@@ -872,7 +879,7 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="!fza_ah64_tiron";
+				condition="!fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
 			};
 			class tiroff
@@ -885,20 +892,8 @@ class CfgVehicles
 				radius=8;
 				showWindow=0;
 				priority=9;
-				condition="fza_ah64_tiron";
+				condition="fza_ah64_tiron && (player == driver this || player == gunner this)";
 				statement="fza_ah64_tiron = !fza_ah64_tiron";
-			};
-			class Arming
-			{
-				displayName="<t color ='#ffff00'>Arming</t>";
-				position="pilot_action";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=13;
-				condition="(player == driver this || player == gunner this) && (speed this < 5) && (alive this)"; //removed CPG action
-				shortcut="";
-				statement="[this] execVM ""\fza_ah64_controls\arming\armingdiag_2.sqf""";
 			};
 		};
 		class MFD {};
@@ -983,6 +978,7 @@ class CfgVehicles
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow";
+		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		ejectDeadCargo=false;
 		ejectdeadgunner = false;
@@ -1016,8 +1012,9 @@ class CfgVehicles
 		mainRotorSpeed = 1;
 		threat[] = {1,1,0.700000};
 		armor=60;
-		memorypointcm[] = {"flare_beg"};
-		memorypointcmdir[] = {"flare_end"};
+		damageResistance=0.0055499999;
+		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
 		weapons[] = {"fza_CMFlareLauncher"};
 		magazines[] = {"60Rnd_CMFlareMagazine"};
 		lockdetectionsystem = "8+4";
@@ -1045,13 +1042,13 @@ class CfgVehicles
 			class b2
 			{
 				displayName = "Default";
-				author = "Apache mod development team";
+				author = "NodUnit";
 				textures[]= {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class b2_weather
 			{
 				displayName = "Default (weathered)";
-				author = "Apache mod development team";
+				author = "Franze";
 				textures[]= {"\fza_ah64_us\tex\Ex\b2_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class arb229th
@@ -1094,19 +1091,37 @@ class CfgVehicles
 			{
 				displayName = "United Kingdom Army Air Corps Special Forces";
 				author = "Rosd6(Dryden)";
-				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_SF.paa","\fza_ah64_us\tex\ex\FCR_Black_co.paa"};
+				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_SF.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class 211th_clean
 			{
 				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard";
 				author = "seven10 & Apache mod development team";
-			textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+				textures[]= {"\fza_ah64_us\tex\Ex\211th_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class 211th_weathered
 			{
 				displayName = "1/211th ARB ""The Air Pirates"" Utah National Guard (weathered)";
 				author = "seven10 & Apache mod development team";
-			textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+				textures[]= {"\fza_ah64_us\tex\Ex\211th_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class Israeli_Air_Force
+			{
+				displayName = "Israeli Air Force (IAF Saraf)";
+				author = "NodUnit";
+				textures[]= {"\fza_ah64_us\tex\Ex\Nodunit_Isreal_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class Shield
+			{
+				displayName = "Shield (Marvel)";
+				author = "NodUnit";
+				textures[]= {"\fza_ah64_us\tex\Ex\Shield.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
+			class NodUnit
+			{
+				displayName = "Kane's Wrath";
+				author = "NodUnit";
+				textures[]= {"\fza_ah64_us\tex\Ex\Nodunit.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 		};
 		textureList[] = {"b2", 1};
@@ -1138,6 +1153,10 @@ class CfgVehicles
 				minElev = -60;
 				maxElev = 30;
 				initElev= 0;
+				maxXRotSpeed = 1;	// yawing speed
+				maxYRotSpeed = 1;	// pitching speed
+				maxMouseXRotSpeed= 0.5;
+				maxMouseYRotSpeed= 0.5;
 				minTurn = -120;
 				maxTurn = 120;
 				initTurn = 0;
@@ -1319,7 +1338,7 @@ class CfgVehicles
 			initAngleY=0;
 			minAngleY=-45;
 			maxAngleY=20;
-			thermalmode[] = {0};
+			thermalmode[] = {0, 1};
 			visionmode[] = {"Normal","Ti"}; //PNVS
 		};\
 
@@ -1441,6 +1460,14 @@ class CfgVehicles
 			initPhase = 1;
 			animPeriod = 0.001;
 		}
+		/*
+		class hstab
+		{
+			source = "user";
+			animPeriod = 0.01;
+			initPhase  = 1;
+		}
+		*/
 		class pnvs
 		{
 			source = "user";
@@ -1457,7 +1484,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 1;
-			initPhase=0;
+			initPhase  = 0;
 		};
 		class m230_recoil
 		{
@@ -1474,7 +1501,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 0.1;
-			initPhase=0;
+			initPhase  = 0.298;
 		};
 		class pylon1
 		{
@@ -1779,13 +1806,13 @@ initPhase=0;
 			class plt_eng1_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			class plt_eng2_throttle
             {
 				source = "user";
-				animPeriod = 1.5;
+				animPeriod = 1;
 				initPhase=0;
             };
 			/*
@@ -2925,7 +2952,7 @@ initPhase=0;
 				selection = "Light";
 				color[] = {0.850000, 0.950000, 1.000000};
 				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 5000;
+				intensity = 20000;
 				size = 1;
 				innerAngle = 15;
 				outerAngle = 90;
@@ -3033,11 +3060,42 @@ initPhase=0;
 		scope=2;
 		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
-
-		class AnimationSources : AnimationSources {
-			class fcr_enable : fcr_enable
+		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
+		class AnimationSources: AnimationSources {
+			class fcr_enable: fcr_enable
 			{
 				initPhase = 0;
+			};
+		};
+		class Components: Components
+		{
+			class TransportPylonsComponent : TransportPylonsComponent {
+				class pylons: pylons {
+					class pylons1: pylons1 {};
+					class pylons2: pylons2 {};
+					class pylons3: pylons3 {};
+					class pylons4: pylons4 {};
+					class pylons5: pylons5 {};
+					class pylons6: pylons6 {};
+					class pylons7: pylons7 {
+						attachment = "fza_agm114k_ll";
+					};
+					class pylons8: pylons8 {
+						attachment = "fza_agm114k_lr";
+					};
+					class pylons9: pylons9 {};
+					class pylons10: pylons10 {};
+					class pylons11: pylons11 {
+						attachment = "fza_agm114k_ll";
+					};
+					class pylons12: pylons12 {
+						attachment = "fza_agm114k_lr";
+					};
+					class pylons13: pylons13 {};
+					class pylons14: pylons14 {};
+					class pylons15: pylons15 {};
+					class pylons16: pylons16 {};
+				};
 			};
 		};
 	};

@@ -24,18 +24,6 @@ params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
 _mags = magazines _heli;
 
 if (!(player == driver _heli || player == gunner _heli)) exitwith {};
-//MSL GUIDANCE STARTS HERE !
-
-//COUNTERMEASURES
-
-if (_weapon == "fza_CMFlareLauncher") then {
-    fza_ah64_curflrln = fza_ah64_curflrln + 2;
-    [] spawn {
-        sleep 3;
-        fza_ah64_curflrln = fza_ah64_curflrln - 2;
-    }
-};
-
 //SPECIAL SCRIPTS
 
 //Damages any outside occupants if wing stores used

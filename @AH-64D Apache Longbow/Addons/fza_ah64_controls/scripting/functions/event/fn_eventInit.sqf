@@ -24,10 +24,9 @@ Author:
 params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
-
 _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
 
-if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
+if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
     _heli animateSource ["pdoor", 0];
@@ -42,8 +41,8 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_curwpnum", 0, true];
     _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
-    _heli setVariable ["fza_ah64_sight_plt", 0, true];
-    _heli setVariable ["fza_ah64_sight_cpg", 0, true];
+    _heli setVariable ["fza_ah64_sight_plt", 1, true];
+    _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_ltype", "TopDown", true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
@@ -62,7 +61,11 @@ if !(_heli getVariable ["fza_ah64_aircraftInitialised", false]) then {
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
     _heli setVariable ["fza_ah64_rfjon", 0, true];
-    _heli setVariable ["fza_ah64_tadsLocked", false, true];
+    _heli setVariable["fza_ah64_engineStates", [
+        ["OFF", 0],
+        ["OFF", 0]
+    ], true];
+    _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
@@ -82,9 +85,24 @@ _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
-[_heli] call fza_fnc_engineInit;
+//SFM Plus+
+_heli setVariable ["fza_ah64_emptyMassFCR",    6609]; //kg
+_heli setVariable ["fza_ah64_emptyMassNonFCR", 6314]; //kg
 
-if (player in _heli && !is3den &&  fza_ah64_showPopup && !fza_ah64_introShownThisScenario) then {
+_heli setVariable ["fza_ah64_stabPos", [0.0, -7.207, -0.50]];
+_heli setVariable ["fza_ah64_stabWidth", 3.22];  //m
+_heli setVariable ["fza_ah64_stabLength", 1.07]; //m
+
+_heli setVariable ["fza_ah64_maxFwdFuelMass", 473];	//1043lbs in kg
+//_heli setVariable ["fza_ah64_maxCtrFuelMass", 300];	//663lbs in kg, net yet implemented, center robbie
+_heli setVariable ["fza_ah64_maxAftFuelMass", 669]; 	//1474lbs in kg
+
+[_heli] call fza_fnc_sfmplusSetFuel;
+[_heli] call fza_fnc_sfmplusSetMass;
+
+
+
+if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
     createDialog "RscFzaDisplayWelcome";
 };
 

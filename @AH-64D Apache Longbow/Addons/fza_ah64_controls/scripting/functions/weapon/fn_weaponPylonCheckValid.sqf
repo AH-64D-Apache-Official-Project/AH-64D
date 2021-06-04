@@ -19,30 +19,60 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\pylons.h"
 #define ANY(_arr, _pred) (( _arr ) findIf ( _pred ) != -1)
+#define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 
 params["_heli"];
-
 _mags = getPylonMagazines _heli;
+_magTypes = _mags apply {WEP_TYPE(_x)};
 
 if (fza_ah64_pylonsLastCheckMags isEqualTo _mags) exitWith {};
 
 // On any pylon, either rockets, hellfires or none are selected. If both, remove rockets
-for "_i" from PYLON_1 to PYLON_4 step PYLON_SIZE do {
-    if ( ANY(PYLON_MISSILES(_i) , {_mags # _x != ""}) && ANY(PYLON_ROCKETS(_i) , {_mags # _x != ""}) ) then {
-        systemChat "Hellfires and rockets were doubled up on a pylon, correcting.";
-        {
-        _heli setPylonLoadout [PYLON_FROM_STANDARD(_x), "", false, [0]];
-        } forEach (PYLON_ROCKETS(_i));
+for "_i" from 0 to 15 step 4 do {
+    _primaryMagType = _magTypes # _i;
+    _otherMags = [_magTypes # (_i+1), _magTypes # (_i+2), _magTypes # (_i+3)];
+
+    switch (true) do {
+        case (_primaryMagType == ""): {
+            if (ANY(_otherMags, {_x != ""})) then {
+                systemChat "Apache Pylon Issue: In order to load items onto a pylon, the top pylon at a minimum must be populated";
+                for "_indexToClear" from 1 to 4 do {
+                    _heli setPylonLoadout[_i + _indexToClear, "", false, [0]];
+                };
+            };
+        };
+        case (_primaryMagType == "hellfire"): {
+            if (ANY(_otherMags, {_x == "rocket"})) then {
+                systemChat "Apache Pylon Issue: Your first pylon magazine was a hellfire, all subsequent pylons must be empty or hellfires";
+                for "_j" from 1 to 3 do {
+                    if (_magTypes # (_i+_j) == "rocket") then {
+                        _heli setPylonLoadout[_i + _j + 1, "", false, [0]];
+                    };
+                };
+            };
+        };
+        case (_primaryMagType == "rocket"): {
+            if (ANY(_otherMags, {_x == "hellfire"})) then {
+                systemChat "Apache Pylon Issue: Your first pylon magazine was a rocket, all subsequent pylons must be empty or rockets";
+                for "_j" from 1 to 3 do {
+                    if (_magTypes # (_i+_j) == "hellfire") then {
+                        _heli setPylonLoadout[_i + _j + 1, "", false, [0]];
+                    };
+                };
+            };
+        };
     };
 };
 
-_zoneA = [[PYLON_1 + PYLON_ZONEA, PYLON_4 + PYLON_ZONEA], "_zoneA"];
-_zoneB = [[PYLON_1 + PYLON_ZONEB, PYLON_4 + PYLON_ZONEB], "_zoneB"];
-_zoneC = [[PYLON_2 + PYLON_ZONEA, PYLON_3 + PYLON_ZONEA], "_zoneA"];
-_zoneD = [[PYLON_2 + PYLON_ZONEB, PYLON_3 + PYLON_ZONEB], "_zoneB"];
-_zoneE = [[PYLON_1 + PYLON_ZONEE, PYLON_2 + PYLON_ZONEE, PYLON_3 + PYLON_ZONEE, PYLON_4 + PYLON_ZONEE], "_zoneE"];
+_mags = getPylonMagazines _heli;
+_magTypes = _mags apply {WEP_TYPE(_x)};
+    
+_zoneA = [[0, 12], "_zoneA"];
+_zoneB = [[1, 13], "_zoneB"];
+_zoneC = [[4, 8], "_zoneA"];
+_zoneD = [[5, 9], "_zoneB"];
+_zoneE = [[2, 6, 10, 14], "_zoneE"];
 _rocketZones = [_zoneA, _zoneB, _zoneC, _zoneD, _zoneE];
 
 {
@@ -51,13 +81,13 @@ _rocketZones = [_zoneA, _zoneB, _zoneC, _zoneD, _zoneE];
     {
         _mag = _mags # _x;
         _ammo = getText (configFile >> "CfgMagazines" >> _mag >> "ammo");
-        if (_mags # _x != "") then {
+        if (_magTypes # _x == "rocket") then {
             if (_zoneAmmoType isEqualTo -1) then {
                 _zoneAmmoType = _ammo;
             } else {
                 if !(_ammo isEqualTo _zoneAmmoType) then {
                     systemChat "Cannot mix rocket types within zones.";
-                    _heli setPylonLoadout [PYLON_FROM_STANDARD(_x), _zoneAmmoType + _suffix, false, [0]];
+                    _heli setPylonLoadout [_x+1, _zoneAmmoType + _suffix, false, [0]];
                 };
             };
         };

@@ -99,7 +99,7 @@ _pylonsWithRockets = [];
 } forEach (_rocketInventory);
 
 for "_i" from 1 to 4 do {
-	_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), ["", "\fza_ah64_us\tex\icons\PODINV.paa"] select ((_i - 1) * 7 in _pylonsWithRockets)];
+	_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), ["", "\fza_ah64_us\tex\icons\PODINV.paa"] select ((_i - 1) * 4 in _pylonsWithRockets)];
 };
 
 if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
@@ -116,7 +116,7 @@ if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 	if (_rocketInvIndex != -1) then {
 		(_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktTextureB"];
 		for "_i" from 1 to 4 do {
-			if ((_i - 1) * 7 in _selectedRktPylons) then {
+			if ((_i - 1) * 4 in _selectedRktPylons) then {
 				_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), "\fza_ah64_us\tex\icons\PODSEL.paa"];
 				_heli setobjecttexture [SEL_MPD_PL_RKT_SEL_TYPE_1+(_i-1), _selectedRktTextureB];
 			};
@@ -170,7 +170,7 @@ _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 		};
 	};
 }forEach (_missileInventory);
-
+ 
 if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 	_selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
 	if (_selectedMsl != -1) then {

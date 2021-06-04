@@ -8,32 +8,20 @@ Returns:
 	Nothing
 Examples:
 	--- Code
-    [_heli] spawn fza_fnc_targetingLockCamTarget 
+    [_heli] call fza_fnc_targetingLockCamToTarget 
 	---
 Authors:
-	AngusLogan02, Rosd6(Dryden)
+	AngusLogan02, Rosd6(Dryden), mattysmith22
 ---------------------------------------------------------------------------- */
 params["_heli"];
 _tgt = cursorTarget;
-
 if (player != gunner _heli) exitWith {};
 
-if (_heli getVariable "fza_ah64_tadsLocked" == false && !isNull _tgt) then {
-	_heli lockCameraTo [_tgt, [0]];
-	_heli setVariable["fza_ah64_tadsLocked", true, true];
+_tgt = cursorTarget;
+
+if (isNull (_heli getVariable "fza_ah64_tadsLocked") && !isNull _tgt) then {
+	_heli setVariable["fza_ah64_tadsLocked", _tgt, true];
 } else {
-	_heli lockCameraTo [objNull, [0]];
-	_heli setVariable["fza_ah64_tadsLocked", false, true];
+	_heli setVariable["fza_ah64_tadsLocked", objNull, true];
 };
 
-while {_heli getVariable "fza_ah64_tadsLocked" == true} do {
-	_theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (getpos _tgt select 0), (getpos _tgt select 1)] call fza_fnc_relativeDirection;
-	if ([_heli, "VIEW", _tgt] checkVisibility [eyePos player, getPosASL _tgt] == 0 || (_theta > 118 && _theta < 242)) then {
-		uiSleep 2;
-			if ([_heli, "VIEW", _tgt] checkVisibility [eyePos player, getPosASL _tgt] == 0 || (_theta > 118 && _theta < 242)) then {
-			_heli lockCameraTo [objNull, [0]];
-			_heli setVariable["fza_ah64_tadsLocked", false, true];
-		};
-	};
-	uiSleep 0.5;
-};
