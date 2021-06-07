@@ -22,7 +22,6 @@ if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 2;
-_tickerSlow = 10;
 
 if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base") exitwith {};
 

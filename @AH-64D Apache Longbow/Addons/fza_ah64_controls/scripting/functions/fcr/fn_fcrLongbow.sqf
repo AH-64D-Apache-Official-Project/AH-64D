@@ -36,7 +36,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air")) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
-		sleep 0.2;
+		sleep 0.02;
 	}   foreach _dataLinkArray;
 	{
 		if !(_x in fza_ah64_targetlist) then{
@@ -69,7 +69,7 @@ if (fza_ah64_ExperimentalFCR) then {
 				_dataLinkArray = _dataLinkArray - [_x];
 			};
 		};
-		sleep 0.2;
+		sleep 0.02;
 	}   foreach _dataLinkArray;
 };
 //LOS check end
