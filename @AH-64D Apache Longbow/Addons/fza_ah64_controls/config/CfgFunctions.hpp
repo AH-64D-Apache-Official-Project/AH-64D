@@ -182,11 +182,18 @@ class CfgFunctions
 		}
 		class sfmplus {
 			file = "\fza_ah64_controls\scripting\functions\sfmplus";
+			class sfmplusApplyDamage {R;};
+			class sfmplusClampedMove {R;};
+			class sfmplusEngine {R;};
+			class sfmplusEngineVariables {R;};
 			class sfmplusGetData {R;};
 			class sfmplusGetInput {R;};
+			class sfmplusPowerLever {R;};
+			class sfmplusSetArrayVariable {R;};
 			class sfmplusSetFuel {R;};
 			class sfmplusSetMass {R;};
 			class sfmplusStabilator {R;};
+			class sfmplusStartSwitch {R;};
 			class sfmplusUpdate {R;};
 		};
 		class targeting

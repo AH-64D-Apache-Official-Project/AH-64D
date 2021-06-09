@@ -30,7 +30,7 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_ah64_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-//--------------------Coll----30kts---70kts--900kts--110---120kts
+//--------------------Coll----30kts--70kts--90kts--110kts--120kts
 private _stabTable =[[0.00,  -25.00,   2.5,   5.0,   5.0,  5.0],
                      [0.67,  -25.00,  -2.0,  -2.0   -2.0, -7.8],  
                      [0.70,  -25.00,  -5.6,  -5.6,  -5.6, -7.8],
@@ -133,11 +133,12 @@ private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
 #ifdef __A3_DEBUG__
+/*
 hintsilent format ["Collective Out = %1
                    \nStab Pos = %2
                    \nCollective Low = %3
                    \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
-
+*/
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
 //Draw the stabilator

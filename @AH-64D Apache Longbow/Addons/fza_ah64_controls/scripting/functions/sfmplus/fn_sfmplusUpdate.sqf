@@ -17,7 +17,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _deltaTime = ["fza_ah64_deltaTime"] call BIS_fnc_deltaTime;
+private _deltaTime = ["sfmplusUpdate_deltaTime"] call BIS_fnc_deltaTime;
 
 [_heli] call fza_fnc_sfmplusGetInput;
 
@@ -29,6 +29,24 @@ private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
 private _eng1State = ((_heli getVariable "fza_ah64_engineStates") select 0) select 0;
 private _eng2State = ((_heli getVariable "fza_ah64_engineStates") select 1) select 0;
+
+//NEW ENGINE 
+[_heli, 0, _deltaTime] call fza_fnc_sfmplusEngine;
+[_heli, 1, _deltaTime] call fza_fnc_sfmplusEngine;
+
+hintsilent format ["Engine 1 Ng = %1
+					\nEngine 1 TQ = %2
+					\nEngine 1 TGT = %3
+					\n------------------
+					\nEngine 2 Ng = %4
+					\nEngine 2 TQ = %5
+					\nEngine 2 TGT = %6", _heli getVariable "fza_ah64_engPctNG" select 0, 
+										  _heli getVariable "fza_ah64_engPctTQ" select 0, 
+										  _heli getVariable "fza_ah64_engTGT" select 0,
+										  _heli getVariable "fza_ah64_engPctNG" select 1, 
+										  _heli getVariable "fza_ah64_engPctTQ" select 1, 
+										  _heli getVariable "fza_ah64_engTGT" select 1];
+//NEW ENGINE
 
 private _curFuelFlow = 0;
 if (_eng1State != "OFF" && _eng1State != "OFF") then {
