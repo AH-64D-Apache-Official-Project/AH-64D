@@ -106,7 +106,6 @@ private _hvrOGE = _intHvrTQTable select 2;
 private _heightAGL = getPos _heli select 2;
 private _hvrTQ     = linearConversion [1.52, 15.24, _heightAGL, _hvrIGE, _hvrOGE, true];
 
-_hvrTQ = _hvrTQ - _baseTQ;
 //----------------------Coll-----TQ---
 private _engTQTable = [[ 0.0,  _baseTQ],
 					   [ 0.7,   _hvrTQ],
