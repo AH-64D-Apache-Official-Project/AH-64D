@@ -13,28 +13,39 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_engNum", "_deltaTime"];
+params ["_heli", "_engNum", "_deltaTime", "_engTQMult"];
 
 private _engState            = _heli getVariable "fza_ah64_engState" select _engNum;
+private _engBaseFF           = _heli getVariable "fza_ah64_engBaseFF" select _engNum;
+private _engFF               = _heli getVariable "fza_ah64_engFF" select _engNum;
+private _engBaseNG			 = _heli getVariable "fza_ah64_engBaseNG" select _engNum;
 private _engPctNG            = _heli getVariable "fza_ah64_engPctNG" select _engNum;
+private _engBaseNP           = _heli getVariable "fza_ah64_engBaseNP" select _engNum;
 private _engPctNP            = _heli getVariable "fza_ah64_engPctNP" select _engNum;
+private _engBaseTQ           = _heli getVariable "fza_ah64_engBaseTQ" select _engNum;
 private _engPctTQ            = _heli getVariable "fza_ah64_engPctTQ" select _engNum;
+private _engBaseTGT          = _heli getVariable "fza_ah64_engBaseTGT" select _engNum;
 private _engTGT              = _heli getVariable "fza_ah64_engTGT" select _engNum;
 private _engStartSwitchState = _heli getVariable "fza_ah64_engStartSwitchState" select _engNum;
 private _engPowerLeverState  = _heli getVariable "fza_ah64_engPowerLeverState" select _engNum;
-
-//Local variables
-private _maxVal    = 0;
-private _curVal    = 0;
-private _timeToVal = 0;
-private _valPerUnitTime = 0;
+private _engClutchState      = _heli getVariable "fza_ah64_engClutchState" select _engNum;
 
 //Ng variables
+private _ngMaxVal    = 0;
+private _ngCurVal    = 0;
+private _ngTimeToVal = 0;
+private _ngValPerUnitTime = 0;
+
 private _engStartNg = _heli getVariable "fza_ah64_engStartNg";
 private _engIdleNg  = _heli getVariable "fza_ah64_engIdleNg";
 private _engFlyNg   = _heli getVariable "fza_ah64_engFlyNg";
 
 //Np variables
+private _npMaxVal    = 0;
+private _npCurVal    = 0;
+private _npTimeToVal = 0;
+private _npValPerUnitTime = 0;
+
 private _engStartNp = _heli getVariable "fza_ah64_engStartNp";
 private _engIdleNp  = _heli getVariable "fza_ah64_engIdleNp";
 private _engFlyNp   = _heli getVariable "fza_ah64_engFlyNp"; 
@@ -46,81 +57,193 @@ if (_engStartSwitchState == "START") then {
 
 switch (_engState) do {
 	case "OFF": {
-		_maxVal    = 0;
-		_curVal    = _engPctNG;
-		_timeToVal = 10;
-		_valPerUnitTime = _curVal / _timeToVal;
+		_ngMaxVal    = 0;
+		_ngCurVal    = _engPctNG;
+		_ngTimeToVal = 10;
+		_ngValPerUnitTime = _ngCurVal / _ngTimeToVal;
+
+		_npMaxVal    = 0;
+		_npCurVal    = _engPctNP;
+		_npTimeToVal = 10;
+		_npValPerUnitTime = _npCurVal / _npTimeToVal;
 	};
 	case "STARTING": {
 		if (_engPowerLeverState == "OFF") then {
-			_maxVal    = _engStartNg;
-			_curVal    = _engPctNG;
-			_timeToVal = 8;
-			_valPerUnitTime = _maxVal / _timeToVal;
+			_ngMaxVal    = _engStartNg;
+			_ngCurVal    = _engPctNG;
+			_ngTimeToVal = 8;
+			_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
+
+			_npMaxVal    = _engStartNp;
+			_npCurVal    = _engPctNP;
+			_npTimeToVal = 20;
+			_npValPerUnitTime = _npMaxVal / _npTimeToVal;
 		};
 		if (_engPowerLeverState == "IDLE") then {
-			_maxVal    = _engIdleNg;
-			_curVal    = _engPctNG;
-			_timeToVal = 24;
-			_valPerUnitTime = _maxVal / _timeToVal;
+			_ngMaxVal    = _engIdleNg;
+			_ngCurVal    = _engPctNG;
+			_ngTimeToVal = 24;
+			_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
+
+			_npMaxVal    = _engIdleNp;
+			_npCurVal    = _engPctNP;
+			_npTimeToVal = 32;
+			_npValPerUnitTime = _npMaxVal / _npTimeToVal;
 		};
 	};
 	case "ON": {
 		if (_engPowerLeverState == "OFF") then {
 			_engState  = "OFF";
-			_maxVal    = 0;
-			_curVal    = _engPctNG;
-			_timeToVal = 10;
-			_valPerUnitTime = _curVal / _timeToVal;
+			_ngMaxVal    = 0;
+			_ngCurVal    = _engPctNG;
+			_ngTimeToVal = 10;
+			_ngValPerUnitTime = _ngCurVal / _ngTimeToVal;
+
+			_npMaxVal    = 0;
+			_npCurVal    = _engPctNP;
+			_npTimeToVal = 10;
+			_npValPerUnitTime = _npCurVal / _npTimeToVal;
 		};
 		if (_engPowerLeverState == "IDLE") then {
-			_maxVal    = _engIdleNg;
-			_curVal    = _engPctNG;
-			_timeToVal = 24;
-			_valPerUnitTime = _maxVal / _timeToVal;
+			_ngMaxVal    = _engIdleNg;
+			_ngCurVal    = _engPctNG;
+			_ngTimeToVal = 24;
+			_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
+			/*
+			if (_engClutchState == "DIS") then {
+				_npMaxVal    = 0.0;
+				_npCurVal    = _engPctNP;
+				_npTimeToVal = 6;
+				_npValPerUnitTime = _npCurVal / _npTimeToVal;
+			} else {
+			*/
+				_npMaxVal    = _engIdleNp;
+				_npCurVal    = _engPctNP;
+				_npTimeToVal = 32;
+				_npValPerUnitTime = _npMaxVal / _npTimeToVal;
+			//};
 		};
 		if (_engPowerLeverState == "FLY") then {
-			_maxVal    = _engFlyNg;
-			_curVal    = _engPctNG;
-			_timeToVal = 12;
-			_valPerUnitTime = _maxVal / _timeToVal;
+			_ngMaxVal    = _engFlyNg;
+			_ngCurVal    = _engPctNG;
+			_ngTimeToVal = 12;
+			_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
+
+			_npMaxVal    = _engFlyNp;
+			_npCurVal    = _engPctNP;
+			_npTimeToVal = 16;
+			_npValPerUnitTime = _npMaxVal / _npTimeToVal;
 		};
+	};
+	case "DEST": {
+		_ngMaxVal    = 0;
+		_ngCurVal    = _engPctNG;
+		_ngTimeToVal = 10;
+		_ngValPerUnitTime = _ngCurVal / _ngTimeToVal;
+
+		_npMaxVal    = 0;
+		_npCurVal    = _engPctNP;
+		_npTimeToVal = 10;
+		_npValPerUnitTime = _npCurVal / _npTimeToVal;
+	};
+};
+_engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_fnc_sfmplusClampedMove;
+[_heli, "fza_ah64_engBaseNG", _engNum, _engBaseNG] call fza_fnc_sfmplusSetArrayVariable;
+
+_engPctNP = [_npMaxVal, _npCurVal, _deltaTime, _npValPerUnitTime] call fza_fnc_sfmplusClampedMove;
+[_heli, "fza_ah64_engPctNP", _engNum, _engPctNP] call fza_fnc_sfmplusSetArrayVariable;
+
+if (_engBaseNG >= 0.52) then {
+	_engState = "ON";
+};
+[_heli, "fza_ah64_engState", _engNum, _engState] call fza_fnc_sfmplusSetArrayVariable;
+/*
+if (_engState == "STARTING" && _engPctNP >= 0.05) then {
+	_engClutchState = "ENG"
+};
+
+if (_engPowerLeverState == "FLY") then {
+	if (_engPowerLeverState == "IDLE") then {
+		_engClutchState = "DIS"
 	};
 };
 
-_engPctNG = [_maxVal, _curVal, _deltaTime, _valPerUnitTime] call fza_fnc_sfmplusClampedMove;
-
-if (_engPctNG >= 0.52) then {
-	_engState = "ON";
+if (_engPowerLeverState == "IDLE") then {
+	if (_engPowerLeverState == "FLY") then {
+		_engClutchState == "ENG";
+	};
 };
+[_heli, "fza_ah64_engClutchState", _engNum, _engClutchState] call fza_fnc_sfmplusSetArrayVariable;
+*/
+if (_engState != "OFF") then {
+	private _intEngBaseTable = [_heli getVariable "fza_ah64_engBaseTable", _engBaseNG] call fza_fnc_linearInterp;
+	//TGT
+	_engBaseTGT = _intEngBaseTable select 1;
+	[_heli, "fza_ah64_engBaseTGT", _engNum, _engBaseTGT] call fza_fnc_sfmplusSetArrayVariable;
+	//TQ
+	_engBaseTQ = _intEngBaseTable select 2;
+	[_heli, "fza_ah64_engBaseTQ",  _engNum, _engBaseTQ] call fza_fnc_sfmplusSetArrayVariable;
 
-private _intEngBaseTable = [_heli getVariable "fza_ah64_engBaseTable", _engPctNG] call fza_fnc_linearInterp;
-private _baseTGT = _intEngBaseTable select 1;
-private _baseTQ  = _intEngBaseTable select 2;
+	private _curGWT_kg     = getMass _heli;
+	private _intHvrTQTable = [_heli getVariable "fza_ah64_engHvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
+	private _hvrIGE = _intHvrTQTable select 1;
+	private _hvrOGE = _intHvrTQTable select 2;
 
-private _curGWT_kg     = getMass _heli;
-private _intHvrTQTable = [_heli getVariable "fza_ah64_engHvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
-private _hvrIGE = _intHvrTQTable select 1;
-private _hvrOGE = _intHvrTQTable select 2;
+	private _heightAGL = getPos _heli select 2;
+	private _hvrTQ     = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
-private _heightAGL = getPos _heli select 2;
-private _hvrTQ     = linearConversion [1.52, 15.24, _heightAGL, _hvrIGE, _hvrOGE, true];
+	//--------------------------Coll-----TQ---
+	private _engHvrTQTable = [[ 0.0, _engBaseTQ],
+							  [ 0.7,     _hvrTQ],
+							  [ 1.0,       1.34]];
 
-//----------------------Coll-----TQ---
-private _engTQTable = [[ 0.0,  _baseTQ],
-					   [ 0.7,   _hvrTQ],
-					   [ 1.0,    1.34]];
+	private _intCruiseTQTable = [_heli getVariable "fza_ah64_engCruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
 
-_engPctTQ = [_engTQTable, fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
-//-------------------------TQ----------TGT--
-private _engTGTTable = [[ _baseTQ,	_baseTGT],
-						[ 1.00, 		 810],	//Cont
-					    [ 1.29, 	     867],	//10 min
-						[ 1.34, 	     896]];	//2.5 Min
+	//----------------------------Coll-----TQ---
+	private _engCruiseTQTable = [[ 0.00, 		               0.03],
+								 [ 0.67, _intCruiseTQTable select 4],
+								 [ 0.70, _intCruiseTQTable select 5],
+								 [ 0.89, _intCruiseTQTable select 7],
+								 [ 1.00, _intCruiseTQTable select 9]];
+	/*
+	private _collOut = 0;
+	if (_engPowerLeverState == "IDLE") then {
+		_collOut = 0;
+	} else { 
+		_collOut = fza_ah64_collectiveOutput;
+	};
+	*/
+	private _curHvrTQ = [_engHvrTQTable,    fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
+	private _cruiseTQ = [_engCruiseTQTable, fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
+	
+	private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+	_engPctTQ = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
+	_engPctTQ = _engPctTQ * _engTQMult;
+	[_heli, "fza_ah64_engPctTQ", _engNum, _engPctTQ] call fza_fnc_sfmplusSetArrayVariable;
 
-_engTGT = [_engTGTTable, _engPctTQ] call fza_fnc_linearInterp select 1;
+	//-------------------------TQ----------TGT------------NG---------
+	private _engTable = [[ _engBaseTQ,	_engBaseTGT,	_engBaseNG],
+						 [ 1.00, 		810,			0.950	  ],	//Cont
+						 [ 1.29, 	    867,			0.990	  ],	//10 min
+						 [ 1.34, 	    896,			0.997	  ]];	//2.5 Min
 
-[_heli, "fza_ah64_engState", _engNum, _engState] call fza_fnc_sfmplusSetArrayVariable;
-[_heli, "fza_ah64_engPctNG", _engNum, _engPctNG] call fza_fnc_sfmplusSetArrayVariable;
-[_heli, "fza_ah64_engPctTQ", _engNum, _engPctTQ] call fza_fnc_sfmplusSetArrayVariable;
-[_heli, "fza_ah64_engTGT",   _engNum, _engTGT] call fza_fnc_sfmplusSetArrayVariable;
+	//-------------------------TQ----FF (kg/s)
+	private _fuelFlowTable = [[0.00, 0.0000],
+							  [0.30, 0.0428],
+							  [0.40, 0.0480],
+							  [0.50, 0.0535],
+							  [0.60, 0.0598],
+							  [0.70, 0.0661],
+							  [0.80, 0.0732],
+							  [0.90, 0.0803],
+							  [1.00, 0.0866]];
+
+	_engTGT = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 1;
+	[_heli, "fza_ah64_engTGT", _engNum, _engTGT] call fza_fnc_sfmplusSetArrayVariable;
+
+	_engPctNG = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 2;
+	[_heli, "fza_ah64_engPctNG", _engNum, _engPctNG] call fza_fnc_sfmplusSetArrayVariable;
+
+	_engFF = [_fuelFlowTable, _engPctTQ] call fza_fnc_linearInterp select 1;
+	[_heli, "fza_ah64_engFF", _engNum, _engFF] call fza_fnc_sfmplusSetArrayVariable;
+};

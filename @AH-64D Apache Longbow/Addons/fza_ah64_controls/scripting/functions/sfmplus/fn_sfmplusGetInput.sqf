@@ -18,24 +18,36 @@ Author:
 params ["_heli"];
 
 //HOTAS Input
-private _collLow  = inputAction "HeliCollectiveLowerCont";
-private _collHigh = inputAction "HeliCollectiveRaiseCont";
-private _collVal  = _collHigh - _collLow;
-private _collOut  = linearConversion [-1, 1, _collVal, 0, 1];
+//Cyclic
+private _cyclicLeft     = inputAction "HeliCyclicLeft";
+private _cyclicRight    = inputAction "HeliCyclicRight";
+private _cyclicForward  = inputAction "HeliCyclicForward";
+private _cyclicBackward = inputAction "HeliCyclicBack";
+
+//Collective
+private _collectiveLow  = inputAction "HeliCollectiveLowerCont";
+private _collectiveHigh = inputAction "HeliCollectiveRaiseCont";
+private _collectiveVal  = _collectiveHigh - _collectiveLow;
+private _collectiveOut  = linearConversion [-1, 1, _collectiveVal, 0, 1];
 //Keyboard Input
+/*
 private _collKeyLow  = inputAction "HeliCollectiveLower";
 private _collKeyHigh = inputAction "HeliCollectiveRaise";
 
 private _curAlt = getPos _heli select 2;
 
-if (_curAlt <= 0.6 && _collLow == 0 && _collHigh == 0) then {	//~2 feet
-	_collOut = 0.0;
+if (_curAlt <= 0.6 && _collectiveLow == 0 && _collectiveHigh == 0) then {	//~2 feet
+	_collectiveOut = 0.0;
 } else {
-	if (_collLow == 0 && _collHigh == 0) then {
-		private _collOutKey = (_collKeyHigh * 0.05) - (_collKeyLow * 0.2);
-		_collOut = 0.7 + _collOutKey;
+	if (_collectiveLow == 0 && _collectiveHigh == 0) then {
+		private _collectiveOutKey = (_collKeyHigh * 0.05) - (_collKeyLow * 0.2);
+		_collectiveOut = 0.7 + _collectiveOutKey;
 	};
 };
 version = 2;
-fza_ah64_collectiveOutput = _collOut
+*/
+//Global variable for use by other scripts, returns -1 to 1
+fza_ah64_cyclicRollOut    = _cyclicRight - _cyclicLeft;
+fza_ah64_cyclicPitchOut   = _cyclicForward - _cyclicBackward;
+fza_ah64_collectiveOutput = _collectiveOut
 

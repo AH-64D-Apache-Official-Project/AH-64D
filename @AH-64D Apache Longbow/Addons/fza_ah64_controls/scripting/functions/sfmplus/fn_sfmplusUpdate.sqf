@@ -17,6 +17,13 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
+
+DRAW_LINE = {
+	params ["_heli", "_p1", "_p2", "_col"];
+	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
+};
+
 private _deltaTime = ["sfmplusUpdate_deltaTime"] call BIS_fnc_deltaTime;
 
 [_heli] call fza_fnc_sfmplusGetInput;
@@ -27,12 +34,111 @@ private _maxTotFuelMass = _heli getVariable "fza_ah64_maxTotFuelMass";
 private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
-private _eng1State = ((_heli getVariable "fza_ah64_engineStates") select 0) select 0;
-private _eng2State = ((_heli getVariable "fza_ah64_engineStates") select 1) select 0;
+//Start Simplified Rotor Test
+/*
+private _bladeRadius = 7.315;
+private _rotorRPM    = 292;
+private _tipSpeed    = (2 * PI * _rotorRPM / 60) * _bladeRadius;
+private _V_mps       = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+private _advRatio    = _V_mps / _tipSpeed;
 
-//NEW ENGINE 
-[_heli, 0, _deltaTime] call fza_fnc_sfmplusEngine;
-[_heli, 1, _deltaTime] call fza_fnc_sfmplusEngine;
+private _minCycPitch = -10.0;
+private _maxCycPitch =  20.0;
+private _minCycRoll  = -10.5;
+private _maxCycRoll  =   7.0;
+
+//Cyclic roll
+private _discRollAngle  = 0;
+if (fza_ah64_cyclicRollOut < 0) then
+{
+	_discRollAngle = _minCycRoll;
+};
+if (fza_ah64_cyclicRollOut > 0) then {
+	_discRollAngle = -_maxCycRoll;
+};
+_discRollAngle = _discRollAngle * fza_ah64_cyclicRollOut;
+
+//Cyclic pitch
+private _discPitchAngle = 0;
+if (fza_ah64_cyclicPitchOut < 0) then
+{
+	_discPitchAngle = _minCycPitch;
+};
+if (fza_ah64_cyclicPitchOut > 0) then {
+	_discPitchAngle = -_maxCycPitch;
+};
+_discPitchAngle = _discPitchAngle * fza_ah64_cyclicPitchOut;
+
+private _thrustMod = 1.3643;
+private _hvrThrust = 97410;	//N
+private _minThrust = 0.15 * _hvrThrust;
+private _maxThrust = _hvrThrust * _thrustMod;
+private _curThrust = _minThrust + ((_maxThrust - _minThrust) * fza_ah64_collectiveOutput);
+_curThrust = _curThrust * (1 + _advRatio);
+
+private _rotorPos    = [0.00, 1.33, 2.08];
+private _refDatum    = [0.00, 0.00, 0.00];
+private _modelCenter = _heli selectionPosition "modelCenter";
+private _pos = _rotorPos vectorAdd _refDatum vectorAdd _modelCenter;
+
+private _a = [0,0,0]; private _b = [0,0,0]; private _c = [0,0,0]; private _d = [0,0,0]; private _e = [0,0,0]; private _thrustVector = [0,0,0];
+private _xAxisTQ = 0.0; private _yAxisTQ = 0.0; private _zAxisTQ = 0.0;
+
+_a = _pos vectorAdd [0.0, cos _discPitchAngle * _bladeRadius, sin _discPitchAngle * _bladeRadius];
+_b = _pos vectorAdd [cos _discRollAngle * _bladeRadius, 0.0, sin _discRollAngle * _bladeRadius];
+_c = _pos vectorAdd [0.0, cos _discPitchAngle * (-_bladeRadius), sin _discPitchAngle * (-_bladeRadius)];
+_d = _pos vectorAdd [cos _discRollAngle * (-_bladeRadius), 0.0, sin _discRollAngle * (-_bladeRadius)];
+_e = (_a vectorAdd _c) vectorMultiply 0.5;
+_thrustVector = vectorNormalized ((_b vectorDiff _d) vectorCrossProduct (_a vectorDiff _c));
+
+private _thrust = _thrustVector vectorMultiply (_curThrust * _deltaTime);
+_heli addForce[_heli vectorModelToWorld _thrust, _e];
+
+private _yAxisThrust = _curThrust * sin _discPitchAngle;
+private _xAxisThrust = _curThrust * sin _discRollAngle;
+_xAxisTQ = _yAxisThrust * _deltaTime;
+_yAxisTQ = _xAxisThrust * _deltaTime;
+//_zAxisTQ = _totalTorque * _deltaTime;
+
+_heli addTorque (_heli vectorModelToWorld [_xAxisTQ, _yAxisTQ, 0.0]);
+
+hintSilent format ["GWT = %1
+                    \nThrust = %2
+					\nColl Pos = %3", getMass _heli, _curThrust, fza_ah64_collectiveOutput];
+
+[_heli, _a, _c, _colorWhite] call DRAW_LINE;
+[_heli, _b, _d, _colorWhite] call DRAW_LINE;
+[_heli, _e, _e vectorAdd _thrustVector, _colorBlue] call DRAW_LINE;
+*/
+//End Simplified Rotor Test
+
+//NEW ENGINE
+private _engState  = _heli getVariable "fza_ah64_engState";
+private _eng1State = _engState select 0;
+private _eng2State = _engState select 1;
+if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
+	_heli engineOn true;
+};
+
+private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _eng1PwrLvrState = _engPwrLvrState select 0;
+private _eng2PwrLvrState = _engPwrLvrState select 1;
+
+private _eng1TqMult = 1;
+private _eng2TqMult = 1;
+if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State == "DEST") && _eng2PwrLvrState == "FLY") then {
+	_eng1TqMult = 0;
+	_eng2TqMult = 2;
+};
+
+if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State == "DEST") && _eng1PwrLvrState == "FLY") then {
+	_eng1TqMult = 2;
+	_eng2TqMult = 0;
+};
+
+[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
+[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+
 
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
@@ -40,23 +146,35 @@ hintsilent format ["Engine 1 Ng = %1
 					\n------------------
 					\nEngine 2 Ng = %4
 					\nEngine 2 TQ = %5
-					\nEngine 2 TGT = %6", _heli getVariable "fza_ah64_engPctNG" select 0, 
-										  _heli getVariable "fza_ah64_engPctTQ" select 0, 
-										  _heli getVariable "fza_ah64_engTGT" select 0,
-										  _heli getVariable "fza_ah64_engPctNG" select 1, 
-										  _heli getVariable "fza_ah64_engPctTQ" select 1, 
-										  _heli getVariable "fza_ah64_engTGT" select 1];
+					\nEngine 2 TGT = %6
+					\n------------------
+					\nEng State = %7
+					\nIs Single Engine? = %8
+					\nPercent NP = %9
+					\nEng Clutch State = %10
+					\n-------------------
+					\nColl Pos = %11
+					\nEng Spd Frac = %12
+					\nEng FF = %13", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
+									   			_heli getVariable "fza_ah64_engPctTQ" select 0, 
+									   			_heli getVariable "fza_ah64_engTGT" select 0,
+												_heli getVariable "fza_ah64_engPctNG" select 1, 
+												_heli getVariable "fza_ah64_engPctTQ" select 1, 
+												_heli getVariable "fza_ah64_engTGT" select 1,
+												_heli getVariable "fza_ah64_engState",
+												_isSingleEng,
+												_heli getVariable "fza_ah64_engPctNP",
+											    _heli getVariable "fza_ah64_engClutchState",
+											    fza_ah64_collectiveOutput,
+												TEMP_ENGSPEEDFRAC,
+											    _heli getVariable "fza_ah64_engFF"];
 //NEW ENGINE
 
 private _curFuelFlow = 0;
-if (_eng1State != "OFF" && _eng1State != "OFF") then {
-	_curFuelFlow = [_heli] call fza_fnc_sfmplusGetData select 2;
-} else {
-	if (_eng1State != "OFF" || _eng2State != "OFF") then {
-		_curFuelFlow = ([_heli] call fza_fnc_sfmplusGetData select 2) / 2;
-	} else {
-		_curFuelFlow = 0;
-	};
+private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+if (_eng1State != "OFF" || _eng1State != "OFF") then {
+	_curFuelFlow = _eng1FF + _eng2FF;
 };
 _curFuelFlow = _curFuelFlow * _deltaTime;
 

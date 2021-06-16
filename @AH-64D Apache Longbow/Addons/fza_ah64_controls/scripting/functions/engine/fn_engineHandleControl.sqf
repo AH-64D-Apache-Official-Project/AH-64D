@@ -18,7 +18,7 @@ Examples:
 	---
 
 Author:
-	Unknown, mattysmith22
+	Unknown, mattysmith22, BradMick
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\engineConstants.h"
@@ -116,7 +116,6 @@ switch(_control) do {
 		[_heli, 1, "IDLE"] spawn fza_fnc_sfmplusPowerLever;
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
-
 	case "e2fly": {
 		//[_heli, 1, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
 		[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;

@@ -53,12 +53,12 @@ class CfgVehicles
 		driverrighthandanimname = "p_cyclic";
 		driverrightleganimname = "pedalR";
 		simulation=helicopterRTD;
-		startDuration=80;
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
 		maxFordingDepth = 0.55;
 		//SFM Variables-------------/
-		liftForceCoef          = 1.25;
+		startDuration          = 80;
+		liftForceCoef          = 1.25;	//1.25
 		bodyFrictionCoef       = 1.0;
 		cyclicAsideForceCoef   = 0.4;
 		cyclicForwardForceCoef = 0.5;
