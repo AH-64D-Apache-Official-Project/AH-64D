@@ -1,6 +1,11 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_sfmplusGetData
 
+DELETE ME!
+DELETE ME!
+DELETE ME!
+DELETE ME!
+
 Description:
 	This function contains tables generated using 0ft PA and 15C (standard day)
 	conditions for hover and max torque available. Cruise data was derived from

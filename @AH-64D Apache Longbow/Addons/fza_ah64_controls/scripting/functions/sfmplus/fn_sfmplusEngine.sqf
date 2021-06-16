@@ -227,16 +227,20 @@ if (_engState != "OFF") then {
 						 [ 1.29, 	    867,			0.990	  ],	//10 min
 						 [ 1.34, 	    896,			0.997	  ]];	//2.5 Min
 
-	//-------------------------TQ----FF (kg/s)
-	private _fuelFlowTable = [[0.00, 0.0000],
-							  [0.30, 0.0428],
-							  [0.40, 0.0480],
-							  [0.50, 0.0535],
-							  [0.60, 0.0598],
-							  [0.70, 0.0661],
-							  [0.80, 0.0732],
-							  [0.90, 0.0803],
-							  [1.00, 0.0866]];
+	//----------------------TQ----FF (kg/s)
+	private _engFFTable = [[0.00, 0.0000],
+						   [0.30, 0.0428],
+						   [0.40, 0.0480],
+						   [0.50, 0.0535],
+						   [0.60, 0.0598],
+						   [0.70, 0.0661],
+						   [0.80, 0.0732],
+						   [0.90, 0.0803],
+						   [1.00, 0.0866],
+						   [1.10, 0.0929],
+						   [1.20, 0.0992],
+						   [1.30, 0.1055],
+						   [1.40, 0.1118]]; //<-- update this with expanded FF table from cruise chart
 
 	_engTGT = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 1;
 	[_heli, "fza_ah64_engTGT", _engNum, _engTGT] call fza_fnc_sfmplusSetArrayVariable;
@@ -244,6 +248,6 @@ if (_engState != "OFF") then {
 	_engPctNG = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 2;
 	[_heli, "fza_ah64_engPctNG", _engNum, _engPctNG] call fza_fnc_sfmplusSetArrayVariable;
 
-	_engFF = [_fuelFlowTable, _engPctTQ] call fza_fnc_linearInterp select 1;
+	_engFF = [_engFFTable, _engPctTQ] call fza_fnc_linearInterp select 1;
 	[_heli, "fza_ah64_engFF", _engNum, _engFF] call fza_fnc_sfmplusSetArrayVariable;
 };

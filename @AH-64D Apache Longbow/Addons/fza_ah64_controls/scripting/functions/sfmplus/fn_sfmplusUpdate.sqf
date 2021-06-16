@@ -34,6 +34,90 @@ private _maxTotFuelMass = _heli getVariable "fza_ah64_maxTotFuelMass";
 private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
+//NEW ENGINE
+private _engState  = _heli getVariable "fza_ah64_engState";
+private _eng1State = _engState select 0;
+private _eng2State = _engState select 1;
+if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
+	_heli engineOn true;
+};
+
+private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _eng1PwrLvrState = _engPwrLvrState select 0;
+private _eng2PwrLvrState = _engPwrLvrState select 1;
+
+private _eng1TqMult = 1;
+private _eng2TqMult = 1;
+if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State == "DEST") && _eng2PwrLvrState == "FLY") then {
+	_eng1TqMult = 0;
+	_eng2TqMult = 2;
+};
+
+if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State == "DEST") && _eng1PwrLvrState == "FLY") then {
+	_eng1TqMult = 2;
+	_eng2TqMult = 0;
+};
+
+[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
+[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+
+
+hintsilent format ["Engine 1 Ng = %1
+					\nEngine 1 TQ = %2
+					\nEngine 1 TGT = %3
+					\n------------------
+					\nEngine 2 Ng = %4
+					\nEngine 2 TQ = %5
+					\nEngine 2 TGT = %6
+					\n------------------
+					\nEng State = %7
+					\nIs Single Engine? = %8
+					\nPercent NP = %9
+					\nEng Clutch State = %10
+					\n-------------------
+					\nColl Pos = %11
+					\nEng Spd Frac = %12
+					\nEng FF = %13", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
+									   			_heli getVariable "fza_ah64_engPctTQ" select 0, 
+									   			_heli getVariable "fza_ah64_engTGT" select 0,
+												_heli getVariable "fza_ah64_engPctNG" select 1, 
+												_heli getVariable "fza_ah64_engPctTQ" select 1, 
+												_heli getVariable "fza_ah64_engTGT" select 1,
+												_heli getVariable "fza_ah64_engState",
+												_isSingleEng,
+												_heli getVariable "fza_ah64_engPctNP",
+											    _heli getVariable "fza_ah64_engClutchState",
+											    fza_ah64_collectiveOutput,
+												TEMP_ENGSPEEDFRAC,
+											    _heli getVariable "fza_ah64_engFF"];
+//NEW ENGINE
+
+private _curFuelFlow = 0;
+private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+_curFuelFlow    = (_eng1FF + _eng2FF) * _deltaTime;
+
+private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
+_totFuelMass          = _totFuelMass - _curFuelFlow;
+private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
+_heli setFuel _armaFuelFrac;
+
+private _pylonMass = 0;
+{
+	_x params ["_magName","", "_magAmmo"];
+	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
+	private _magMaxWeight = getNumber (_magConfig >> "weight");
+	private _magMaxAmmo   = getNumber (_magConfig >> "count");
+	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
+} foreach magazinesAllTurrets _heli;
+
+private _curMass = _emptyMass + _totFuelMass + _pylonMass;
+_heli setMass _curMass;
+
+if(fza_ah64_sfmPlusStabilatorEnabled) then {
+	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
+};
+
 //Start Simplified Rotor Test
 /*
 private _bladeRadius = 7.315;
@@ -111,91 +195,3 @@ hintSilent format ["GWT = %1
 [_heli, _e, _e vectorAdd _thrustVector, _colorBlue] call DRAW_LINE;
 */
 //End Simplified Rotor Test
-
-//NEW ENGINE
-private _engState  = _heli getVariable "fza_ah64_engState";
-private _eng1State = _engState select 0;
-private _eng2State = _engState select 1;
-if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
-	_heli engineOn true;
-};
-
-private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
-
-private _eng1TqMult = 1;
-private _eng2TqMult = 1;
-if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State == "DEST") && _eng2PwrLvrState == "FLY") then {
-	_eng1TqMult = 0;
-	_eng2TqMult = 2;
-};
-
-if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State == "DEST") && _eng1PwrLvrState == "FLY") then {
-	_eng1TqMult = 2;
-	_eng2TqMult = 0;
-};
-
-[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
-[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
-
-
-hintsilent format ["Engine 1 Ng = %1
-					\nEngine 1 TQ = %2
-					\nEngine 1 TGT = %3
-					\n------------------
-					\nEngine 2 Ng = %4
-					\nEngine 2 TQ = %5
-					\nEngine 2 TGT = %6
-					\n------------------
-					\nEng State = %7
-					\nIs Single Engine? = %8
-					\nPercent NP = %9
-					\nEng Clutch State = %10
-					\n-------------------
-					\nColl Pos = %11
-					\nEng Spd Frac = %12
-					\nEng FF = %13", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
-									   			_heli getVariable "fza_ah64_engPctTQ" select 0, 
-									   			_heli getVariable "fza_ah64_engTGT" select 0,
-												_heli getVariable "fza_ah64_engPctNG" select 1, 
-												_heli getVariable "fza_ah64_engPctTQ" select 1, 
-												_heli getVariable "fza_ah64_engTGT" select 1,
-												_heli getVariable "fza_ah64_engState",
-												_isSingleEng,
-												_heli getVariable "fza_ah64_engPctNP",
-											    _heli getVariable "fza_ah64_engClutchState",
-											    fza_ah64_collectiveOutput,
-												TEMP_ENGSPEEDFRAC,
-											    _heli getVariable "fza_ah64_engFF"];
-//NEW ENGINE
-
-private _curFuelFlow = 0;
-private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
-if (_eng1State != "OFF" || _eng1State != "OFF") then {
-	_curFuelFlow = _eng1FF + _eng2FF;
-};
-_curFuelFlow = _curFuelFlow * _deltaTime;
-
-private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
-_totFuelMass = _totFuelMass - _curFuelFlow;
-private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
-
-_heli setFuel _armaFuelFrac;
-
-private _pylonMass = 0;
-{
-	_x params ["_magName","", "_magAmmo"];
-	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
-	private _magMaxWeight = getNumber (_magConfig >> "weight");
-	private _magMaxAmmo   = getNumber (_magConfig >> "count");
-	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
-} foreach magazinesAllTurrets _heli;
-
-private _curMass = _emptyMass + _totFuelMass + _pylonMass;
-_heli setMass _curMass;
-
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
-	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
-};

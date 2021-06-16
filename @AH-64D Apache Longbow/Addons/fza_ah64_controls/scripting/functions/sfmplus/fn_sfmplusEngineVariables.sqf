@@ -41,7 +41,6 @@ _heli setVariable ["fza_ah64_engIdleNp",            0.55];
 _heli setVariable ["fza_ah64_engFlyNp",             1.01];
 
 //Outputs
-_heli setVariable ["fza_ah64_engBaseFF",		   [0.0, 0.0]];
 _heli setVariable ["fza_ah64_engFF",               [0.0, 0.0]];
 _heli setVariable ["fza_ah64_engBaseNG",		   [0.0, 0.0]];
 _heli setVariable ["fza_ah64_engPctNG",            [0.0, 0.0]];
@@ -53,7 +52,7 @@ _heli setVariable ["fza_ah64_engBaseTGT",     	   [0.0, 0.0]];
 _heli setVariable ["fza_ah64_engTGT",        	   [0.0, 0.0]];
 _heli setVariable ["fza_ah64_engDst", 			   [false, false]];
 
-//------------------------------------------------NG--------TGT--------TQ-------NP------FF
+//------------------------------------------------NG--------TGT--------TQ-------NP------FF (NOT USED)
 _heli setVariable ["fza_ah64_engBaseTable",		[[	0.000,		0,		0.00,	0.00,	0.0000],		//Off
                                                  [	0.262,		3,		0.00,	0.00,	0.0021],
 												 [	0.318,	  244,	    0.00,	0.00,	0.0043],
