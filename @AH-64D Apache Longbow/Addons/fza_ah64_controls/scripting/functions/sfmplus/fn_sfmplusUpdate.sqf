@@ -61,7 +61,6 @@ if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State == "DEST")
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
 
-
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3

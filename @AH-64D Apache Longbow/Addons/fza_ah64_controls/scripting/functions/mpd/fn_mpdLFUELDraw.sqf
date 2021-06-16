@@ -36,7 +36,7 @@ _FFVal = _FFVal * 7936.64;
 
 private _eng1FuelCons = 0;
 private _eng1State    = _heli getVariable "fza_ah64_engState" select 0;
-if (isEngineOn _heli && (_eng1State != "OFF")) then {
+if (isEngineOn _heli && (_eng1State != "OFF" || _eng1State != "DEST")) then {
 	_eng1FuelCons = _FFVal / 2;
 } else {
 	_eng1FuelCons = 0;
@@ -44,7 +44,7 @@ if (isEngineOn _heli && (_eng1State != "OFF")) then {
 
 private _eng2FuelCons = 0;
 private _eng2State    = _heli getVariable "fza_ah64_engState" select 1;
-if (isEngineOn _heli && (_eng2State != "OFF")) then {
+if (isEngineOn _heli && (_eng2State != "OFF" || _eng2State != "DEST")) then {
 	_eng2FuelCons = _FFVal / 2;
 } else {
 	_eng2FuelCons = 0;

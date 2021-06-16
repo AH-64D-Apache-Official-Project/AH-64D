@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusStartSwitch
+Function: fza_fnc_sfmplusEngine
 
 Description:
 

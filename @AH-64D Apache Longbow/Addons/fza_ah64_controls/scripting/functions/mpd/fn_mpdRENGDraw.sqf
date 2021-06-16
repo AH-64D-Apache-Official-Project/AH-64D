@@ -1,6 +1,21 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+private _tgtTapeScaler = [[0,   0.00],
+						  [400, 0.10],
+						  [810, 0.60],
+						  [811, 0.70],
+						  [999, 1.00]
+];
+private _npTapeScaler  = [[0,   0.00],
+    					  [96,  0.43],
+    				 	  [99,  0.50],
+    					  [100, 0.55],
+    					  [102, 0.61],
+    					  [105, 0.89],
+    					  [120, 1.00]
+];
+
 // #region ENGINE 1
 //_e1data = [_heli, 0] call fza_fnc_engineGetData;
 //_e1percent = (_e1data select 0) / 209.0;
@@ -72,6 +87,13 @@ if (_e1ng < 630 || _e1ng > 1051) then {
 };
 
 [_heli, _e1ng, _e1ngchar, SEL_DIGITS_MPD_PR_ENG_E1NG] call fza_fnc_drawNumberSelections;
+
+// #region animations
+_heli animateSource["mpd_pr_eng_e1trq", _e1trq / 130.0];
+_heli animateSource["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
+// #endregion
+
 // #endregion
 
 // #endregion
@@ -149,17 +171,22 @@ if (_e2ng < 630 || _e2ng > 1051) then {
 [_heli, _e2ng, _e2ngchar, SEL_DIGITS_MPD_PR_ENG_E2NG] call fza_fnc_drawNumberSelections;
 // #endregion
 
+// #region animations
+_heli animateSource["mpd_pr_eng_e2trq", _e2trq / 130.0];
+_heli animateSource["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp)# 1];
 // #endregion
 
 // #region ROTORS
  
-_rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD)
+/*private _rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD)
     || (_heli getVariable "fza_ah64_engineStates")# 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]
 	|| (_heli getVariable "fza_ah64_engineStates")# 1# 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
 	_e1percent max _e2percent;
 } else {
 	(rotorsRpmRTD _heli # 0) / 2.89;
-};
+};*/
+private _rotorRpm = _e1percent max _e2percent;
 
 private _rotorRpmChar = "\fza_ah64_us\tex\char\g";
 private _rotorRpmTape = "\fza_ah64_us\tex\mpd\Gtape.paa";
@@ -184,6 +211,10 @@ if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
 
 [_heli, _rotorRpm, _rotorRpmChar, SEL_DIGITS_MPD_PR_ENG_RRPM] call fza_fnc_drawNumberSelections;
 _heli setObjectTexture [SEL_MPD_PR_ENG_RTRRPMB, _rotorRpmTape];
+
+// #region animations
+_heli animateSource["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorRpm] call fza_fnc_linearInterp)# 1];
+// #endregion
 
 // #endregion
 
