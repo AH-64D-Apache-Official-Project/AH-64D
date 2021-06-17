@@ -94,10 +94,23 @@ switch(_control) do {
 	};
 	case "e1fly": {
 		//[_heli, 0, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-		[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+		
+		private _eng2State       = _heli getVariable "fza_ah64_engState" select 1;
+		private _eng2PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 1;
+		//Allow the eng 1 power lever to be advanced individually when the opposite engine
+		//is off OR when the opposite engine is on w/ it's power lever at fly
+		if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
+			[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+		};
+		//Advance both power levers to fly together when the opposite engine is on and its
+		//power lever is at idle
+		if (_eng2State == "ON" && _eng2PwrLvrState == "IDLE") then {
+			[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+			[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+		};
+
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
-
 	//--------------------ENGINE 2--------------------//
 	//Start Switch
 	case "e2start": {
@@ -118,7 +131,20 @@ switch(_control) do {
 	};
 	case "e2fly": {
 		//[_heli, 1, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-		[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+
+		private _eng1State       = _heli getVariable "fza_ah64_engState" select 0;
+		private _eng1PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 0;
+		//Allow the eng 1 power lever to be advanced individually when the opposite engine
+		//is off OR when the opposite engine is on w/ it's power lever at fly
+		if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {
+			[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+		};
+		//Advance both power levers to fly together when the opposite engine is on and its
+		//power lever is at idle
+		if (_eng1State == "ON" && _eng1PwrLvrState == "IDLE") then {
+			[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+			[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
+		};
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 };

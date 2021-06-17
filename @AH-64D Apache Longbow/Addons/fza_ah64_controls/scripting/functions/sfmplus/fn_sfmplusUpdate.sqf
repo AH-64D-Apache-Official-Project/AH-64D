@@ -17,24 +17,20 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
-DRAW_LINE = {
-	params ["_heli", "_p1", "_p2", "_col"];
-	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
 private _deltaTime = ["sfmplusUpdate_deltaTime"] call BIS_fnc_deltaTime;
 
+//Input
 [_heli] call fza_fnc_sfmplusGetInput;
 
+//Weight
 private _emptyMass      = _heli getVariable "fza_ah64_emptyMass";
 private _maxTotFuelMass = _heli getVariable "fza_ah64_maxTotFuelMass";
+private _fwdFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 0;
+private _aftFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
-private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
-private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
-
-//NEW ENGINE
+//Engines
+[_heli, _deltaTime] call fza_ah64_sfmplusEngineController;
+/*
 private _engState  = _heli getVariable "fza_ah64_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
@@ -42,25 +38,66 @@ if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
 	_heli engineOn true;
 };
 
+private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
 private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 private _eng1TqMult = 1;
 private _eng2TqMult = 1;
-if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State == "DEST") && _eng2PwrLvrState == "FLY") then {
+if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State in ["OFF","DEST"]) && _eng2PwrLvrState == "FLY") then {
 	_eng1TqMult = 0;
 	_eng2TqMult = 2;
+	_isSingleEng = true;
+} else {
+	_isSingleEng = false;
 };
 
-if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State == "DEST") && _eng1PwrLvrState == "FLY") then {
+if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State in ["OFF","DEST"]) && _eng1PwrLvrState == "FLY") then {
 	_eng1TqMult = 2;
 	_eng2TqMult = 0;
+	_isSingleEng = true;
+} else {
+	_isSingleEng = false;
 };
+_heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
 
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+*/
+//Fuel
+private _curFuelFlow = 0;
+private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+_curFuelFlow    = (_eng1FF + _eng2FF) * _deltaTime;
 
+private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
+_totFuelMass          = _totFuelMass - _curFuelFlow;
+private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
+_heli setFuel _armaFuelFrac;
+
+//Pylons
+private _pylonMass = 0;
+{
+	_x params ["_magName","", "_magAmmo"];
+	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
+	private _magMaxWeight = getNumber (_magConfig >> "weight");
+	private _magMaxAmmo   = getNumber (_magConfig >> "count");
+	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
+} foreach magazinesAllTurrets _heli;
+
+private _curMass = _emptyMass + _totFuelMass + _pylonMass;
+_heli setMass _curMass;
+
+//Damage
+[_heli, _deltaTime] call fza_fnc_sfmplusApplyDamage;
+
+//Stabilator
+if(fza_ah64_sfmPlusStabilatorEnabled) then {
+	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
+};
+
+/*
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
@@ -77,48 +114,29 @@ hintsilent format ["Engine 1 Ng = %1
 					\nColl Pos = %11
 					\nEng Spd Frac = %12
 					\nEng FF = %13", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
-									   			_heli getVariable "fza_ah64_engPctTQ" select 0, 
-									   			_heli getVariable "fza_ah64_engTGT" select 0,
-												_heli getVariable "fza_ah64_engPctNG" select 1, 
-												_heli getVariable "fza_ah64_engPctTQ" select 1, 
-												_heli getVariable "fza_ah64_engTGT" select 1,
-												_heli getVariable "fza_ah64_engState",
-												_isSingleEng,
-												_heli getVariable "fza_ah64_engPctNP",
-											    _heli getVariable "fza_ah64_engClutchState",
-											    fza_ah64_collectiveOutput,
-												TEMP_ENGSPEEDFRAC,
-											    _heli getVariable "fza_ah64_engFF"];
-//NEW ENGINE
-
-private _curFuelFlow = 0;
-private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
-_curFuelFlow    = (_eng1FF + _eng2FF) * _deltaTime;
-
-private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
-_totFuelMass          = _totFuelMass - _curFuelFlow;
-private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
-_heli setFuel _armaFuelFrac;
-
-private _pylonMass = 0;
-{
-	_x params ["_magName","", "_magAmmo"];
-	private _magConfig    = configFile >> "cfgMagazines" >> _magName;
-	private _magMaxWeight = getNumber (_magConfig >> "weight");
-	private _magMaxAmmo   = getNumber (_magConfig >> "count");
-	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
-} foreach magazinesAllTurrets _heli;
-
-private _curMass = _emptyMass + _totFuelMass + _pylonMass;
-_heli setMass _curMass;
-
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
-	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
-};
+									   		_heli getVariable "fza_ah64_engPctTQ" select 0, 
+									   		_heli getVariable "fza_ah64_engTGT" select 0,
+											_heli getVariable "fza_ah64_engPctNG" select 1, 
+											_heli getVariable "fza_ah64_engPctTQ" select 1, 
+											_heli getVariable "fza_ah64_engTGT" select 1,
+											_heli getVariable "fza_ah64_engState",
+											_isSingleEng,
+											_heli getVariable "fza_ah64_engPctNP",
+											_heli getVariable "fza_ah64_engClutchState",
+											fza_ah64_collectiveOutput,
+											TEMP_ENGSPEEDFRAC,
+											_heli getVariable "fza_ah64_engFF"];
+*/
 
 //Start Simplified Rotor Test
 /*
+private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
+
+DRAW_LINE = {
+	params ["_heli", "_p1", "_p2", "_col"];
+	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
+};
+
 private _bladeRadius = 7.315;
 private _rotorRPM    = 292;
 private _tipSpeed    = (2 * PI * _rotorRPM / 60) * _bladeRadius;

@@ -101,6 +101,9 @@ _heli setVariable ["fza_ah64_maxAftFuelMass", 669]; 	//1474lbs in kg
 [_heli] call fza_fnc_sfmplusSetFuel;
 [_heli] call fza_fnc_sfmplusSetMass;
 
+_heli setVariable ["fza_ah64_totRtrDmg",     0];
+_heli setVariable ["fza_ah64_dmgTimerCont",  0];
+_heli setVariable ["fza_ah64_dmgTimerTrans", 0];
 [_heli] call fza_fnc_sfmplusEngineVariables;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {

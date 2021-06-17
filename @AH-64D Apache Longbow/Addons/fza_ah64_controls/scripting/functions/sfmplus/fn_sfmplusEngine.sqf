@@ -87,7 +87,7 @@ switch (_engState) do {
 
 			_npMaxVal    = _engIdleNp;
 			_npCurVal    = _engPctNP;
-			_npTimeToVal = 32;
+			_npTimeToVal = 26;
 			_npValPerUnitTime = _npMaxVal / _npTimeToVal;
 		};
 	};
@@ -109,19 +109,11 @@ switch (_engState) do {
 			_ngCurVal    = _engPctNG;
 			_ngTimeToVal = 24;
 			_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
-			/*
-			if (_engClutchState == "DIS") then {
-				_npMaxVal    = 0.0;
-				_npCurVal    = _engPctNP;
-				_npTimeToVal = 6;
-				_npValPerUnitTime = _npCurVal / _npTimeToVal;
-			} else {
-			*/
-				_npMaxVal    = _engIdleNp;
-				_npCurVal    = _engPctNP;
-				_npTimeToVal = 32;
-				_npValPerUnitTime = _npMaxVal / _npTimeToVal;
-			//};
+
+			_npMaxVal    = _engIdleNp;
+			_npCurVal    = _engPctNP;
+			_npTimeToVal = 26;
+			_npValPerUnitTime = _npMaxVal / _npTimeToVal;
 		};
 		if (_engPowerLeverState == "FLY") then {
 			_ngMaxVal    = _engFlyNg;
@@ -157,24 +149,7 @@ if (_engBaseNG >= 0.52) then {
 	_engState = "ON";
 };
 [_heli, "fza_ah64_engState", _engNum, _engState] call fza_fnc_sfmplusSetArrayVariable;
-/*
-if (_engState == "STARTING" && _engPctNP >= 0.05) then {
-	_engClutchState = "ENG"
-};
 
-if (_engPowerLeverState == "FLY") then {
-	if (_engPowerLeverState == "IDLE") then {
-		_engClutchState = "DIS"
-	};
-};
-
-if (_engPowerLeverState == "IDLE") then {
-	if (_engPowerLeverState == "FLY") then {
-		_engClutchState == "ENG";
-	};
-};
-[_heli, "fza_ah64_engClutchState", _engNum, _engClutchState] call fza_fnc_sfmplusSetArrayVariable;
-*/
 if (_engState != "OFF") then {
 	private _intEngBaseTable = [_heli getVariable "fza_ah64_engBaseTable", _engBaseNG] call fza_fnc_linearInterp;
 	//TGT
@@ -185,7 +160,7 @@ if (_engState != "OFF") then {
 	[_heli, "fza_ah64_engBaseTQ",  _engNum, _engBaseTQ] call fza_fnc_sfmplusSetArrayVariable;
 
 	private _curGWT_kg     = getMass _heli;
-	private _intHvrTQTable = [_heli getVariable "fza_ah64_engHvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
+	private _intHvrTQTable = [_heli getVariable "fza_ah64_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
 	private _hvrIGE = _intHvrTQTable select 1;
 	private _hvrOGE = _intHvrTQTable select 2;
 
@@ -197,7 +172,7 @@ if (_engState != "OFF") then {
 							  [ 0.7,     _hvrTQ],
 							  [ 1.0,       1.34]];
 
-	private _intCruiseTQTable = [_heli getVariable "fza_ah64_engCruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
+	private _intCruiseTQTable = [_heli getVariable "fza_ah64_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
 
 	//----------------------------Coll-----TQ---
 	private _engCruiseTQTable = [[ 0.00, 		               0.03],
@@ -205,14 +180,7 @@ if (_engState != "OFF") then {
 								 [ 0.70, _intCruiseTQTable select 5],
 								 [ 0.89, _intCruiseTQTable select 7],
 								 [ 1.00, _intCruiseTQTable select 9]];
-	/*
-	private _collOut = 0;
-	if (_engPowerLeverState == "IDLE") then {
-		_collOut = 0;
-	} else { 
-		_collOut = fza_ah64_collectiveOutput;
-	};
-	*/
+
 	private _curHvrTQ = [_engHvrTQTable,    fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
 	private _cruiseTQ = [_engCruiseTQTable, fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
 	
@@ -240,7 +208,7 @@ if (_engState != "OFF") then {
 						   [1.10, 0.0929],
 						   [1.20, 0.0992],
 						   [1.30, 0.1055],
-						   [1.40, 0.1118]]; //<-- update this with expanded FF table from cruise chart
+						   [1.40, 0.1118]];
 
 	_engTGT = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 1;
 	[_heli, "fza_ah64_engTGT", _engNum, _engTGT] call fza_fnc_sfmplusSetArrayVariable;

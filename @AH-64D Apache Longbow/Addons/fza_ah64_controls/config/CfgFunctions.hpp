@@ -185,6 +185,7 @@ class CfgFunctions
 			class sfmplusApplyDamage {R;};
 			class sfmplusClampedMove {R;};
 			class sfmplusEngine {R;};
+			class sfmplusEngineController {R;};
 			class sfmplusEngineVariables {R;};
 			class sfmplusGetData {R;};
 			class sfmplusGetInput {R;};
