@@ -67,7 +67,7 @@ _heli animateSource["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorrpm] call fza_fn
 private _engineOffStates = ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED"];
 if (!isEngineOn _heli && _heli animationphase "plt_batt" == 1 && _heli animationphase "plt_apu" == 1 && (!(_e1state in _engineOffStates) || !(_e2state in _engineOffStates)) && _heli animationphase "plt_rtrbrake" == 0) then {
     _heli setVariable ["fza_ah64_estarted", true, true];
-    (vehicle player) engineOn true;
+    _heli engineOn true;
 };
 
 if (_heli animationphase "plt_eng1_throttle" == 0 && (_e1state == "OFF"  && _e2state == "OFF") && isEngineOn _heli) then {

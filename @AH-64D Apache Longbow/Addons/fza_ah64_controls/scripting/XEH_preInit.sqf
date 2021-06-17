@@ -48,7 +48,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enable tail stabilizer in SFM", "Disclaimer: All crew needed to disable"],
+	["Enable stabilator"],
 	["AH64D Apache", "Flight model"],
 	[true],
 	0
