@@ -52,7 +52,7 @@ class CfgVehicles
 		driverleftleganimname = "pedalL";
 		driverrighthandanimname = "p_cyclic";
 		driverrightleganimname = "pedalR";
-		simulation=helicopter;
+		simulation=helicopterRTD;
 		startDuration=80;
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
