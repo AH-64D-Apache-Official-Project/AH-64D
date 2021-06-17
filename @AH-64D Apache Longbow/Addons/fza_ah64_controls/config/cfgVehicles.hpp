@@ -52,7 +52,7 @@ class CfgVehicles
 		driverleftleganimname = "pedalL";
 		driverrighthandanimname = "p_cyclic";
 		driverrightleganimname = "pedalR";
-		simulation=helicopterRTD;
+		simulation=helicopter;
 		startDuration=80;
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
@@ -128,23 +128,7 @@ class CfgVehicles
 		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Zeitsev & Community";
-		class RotorLibHelicopterProperties
-		{
-			autoHoverCorrection[] = {1.39,2.96,0};  // p - more forward, r - more right
-			defaultCollective = 0.675;
-			horizontalWingsAngleCollMax = 0;
-			horizontalWingsAngleCollMin = 0;
-			maxHorizontalStabilizerLeftStress = 100000;
-			maxHorizontalStabilizerRightStress = 100000;
-			maxMainRotorStress = 150000;
-			maxTailRotorStress = 30000;
-			maxTorque = 4800;
-			stressDamagePerSec = 0.003333;
-			maxVerticalStabilizerStress = 100000;
-			retreatBladeStallWarningSpeed = 92.778;
-			RTDconfig = "fza_ah64_controls\tkoh\fza_ah64d_blockii_exp.xml";
-		};
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
@@ -991,7 +975,7 @@ class CfgVehicles
 		transportSoldier=2;
 		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
 		accuracy=0.5;
-		simulation=helicopterRTD;
+		simulation=helicopter;
 		driverAction = "fza_ah64_pilot";
 		minMainRotorDive = 0;
 		maxMainRotorDive = 0;
@@ -1454,7 +1438,7 @@ class CfgVehicles
 		{
 			displayName = "Attach FCR";
 			author = "Apache mod development team";
-			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1]; _this # 0 setCustomWeightRTD ([0, 295] select (_this # 1 == 1));";
+			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
 
 			source = "user";
 			initPhase = 1;

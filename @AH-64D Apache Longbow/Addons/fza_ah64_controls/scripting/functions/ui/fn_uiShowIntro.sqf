@@ -17,23 +17,28 @@ params ["_display"];
 fza_ah64_introShownThisScenario = true;
 diag_log "test";
 private _content = parseText
-"<t align='center' size='2'>Welcome to the apache mod!</t><br/>
+"<t align='center' size='2'>AH-64D Official Project</t><br/>
 <br/>
 <t align='center'><img size='10' image='\fza_ah64_us\tex\intro.jpg'/></t><br/>
 <br/>
-We are happy to bring you many months of work from our community, with a large code rewrite in the backend to bring you more features and better quality.<br/>
+Starting in February 2017 from the ARMA 2 mod of the same name, this project received significant changes and enhancements over the years as the development team grew. <br/>
 <br/>
-Want to learn how to get set up? Can't click things in the cockpit? Why don't you check our <a href='https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki/Setting-Up'>wiki</a>!<br/>
+With the help of real-world AH-64D/E pilots we are proud to present to you one of the best rotary wing experiences possible within the limitations of ARMA 3. <br/>
 <br/>
-Want to get more involved in the community? Join us on our discord <a href='https://discord.gg/rB6yDDy'>here</a>. If you have any questions, make sure to check out the FAQ channel, there are lots of great resources there!<br/>
+With 2.0, our team presents over a year’s worth of work designed to enhance the fidelity, immersion, performance, reliability and lay the groundwork for new features. To that end entire sections of the mod were re-written from scratch with an eye towards utilizing inbuilt ARMA 3 features. <br/>
 <br/>
-To be able to click things in the cockpit, make sure to bind something to our custom cockpit interaction under our keybinds. Default is User Action 20.<br/>
+To get started and familiarize yourself with your new office, head over to our <a href='https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki/Setting-Up'>AH-64D Official Project Wiki page.</a><br/>
 <br/>
-This message can be disabled in the CBA settings for our mod.<br/>
+If you want to support us and be part of our large community, feel free to join us on our <a href='https://discord.gg/rB6yDDy'>AH-64D Official Project Discord.</a><br/>
 <br/>
-Happy flying!<br/>
-Apache mod development team<br/>
-<br/>";
+If you have any questions, please check our #faq channel on Discord prior to asking. If you do encounter a bug that you would like to report, please do so on our <a href='https://github.com/AH-64D-Apache-Official-Project/AH-64D/issues'>Github</a><br/>
+<br/>
+PS: This introduction message can be turned off in Options>Addon Options>AH-64D Official Project.<br/>
+<br/>
+We really hope you'll enjoy our mod as much as we do. Fly safe.<br/>
+<br/>
+<t align='right'>AH-64D Official Project</t><br/>
+<t align='right'>Development Team</t>";
 //[_content, "Welcome to the apache mod!"] spawn BIS_fnc_guiMessage
 
 //Format and set welcome message

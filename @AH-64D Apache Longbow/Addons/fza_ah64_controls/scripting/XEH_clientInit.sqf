@@ -1,5 +1,5 @@
 #include "\a3\ui_f\hpp\definedikcodes.inc"
-#define MOD_NAME "AH-64D Apache"
+#define MOD_NAME "AH-64D Official Project"
 
 #define ENSURE_IN_APACHE(expr) if(vehicle player isKindOf "fza_ah64base") then { expr };
 
@@ -102,9 +102,9 @@ if(vehicle player isKindOf "fza_ah64base") then {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandlePrevWaypoint)
 }, {}, [USER_17, [false, false, false]]] call fza_fnc_addKeybind;
 
-[MOD_NAME, "Self/remote laser", "Switch from self/remote lase", {
+[MOD_NAME, "Self/remote laser", "Cycle Laser Code", {
 	CALL_ENSURE_IN_APACHE(fza_fnc_controlHandlelaserchange)
-}, {}, [USER_20, [false, false, false]]] call fza_fnc_addKeybind;
+}, {}] call fza_fnc_addKeybind;
 
 [MOD_NAME, "toggleHeadtracking", "Toggle Head Tracking", {
 	ENSURE_IN_APACHE(fza_ah64_tiron = !fza_ah64_tiron;)

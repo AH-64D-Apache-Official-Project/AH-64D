@@ -125,15 +125,8 @@ if (local _heli) then {
     } foreach getAllPylonsInfo _heli; 
 };
 
-//DEFAULT WEIGHT 
 
-if ((weightRTD _heli select 3) == 0) then {
-    if (_heli animationPhase "fcr_enable" == 1) then {
-        _heli setCustomWeightRTD 295;
-    };
-};
 _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
-_heli setCustomWeightRTD ([0, 295] select (_heli animationPhase "fcr_enable" == 1));
 
 if !(isMultiplayer) then {
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";

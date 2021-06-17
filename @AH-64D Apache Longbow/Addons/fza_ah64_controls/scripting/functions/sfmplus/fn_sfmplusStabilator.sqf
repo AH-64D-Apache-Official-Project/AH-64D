@@ -130,13 +130,15 @@ private _area = 3.45;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
-_heli addForce[_heli vectorModelToWorld _lift, _G];
+if (local _heli) then {
+    _heli addForce[_heli vectorModelToWorld _lift, _G];
+};
 
 #ifdef __A3_DEBUG__
-hintsilent format ["Collective Out = %1
+/*hintsilent format ["Collective Out = %1
                    \nStab Pos = %2
                    \nCollective Low = %3
-                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
+                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];*/
 
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
