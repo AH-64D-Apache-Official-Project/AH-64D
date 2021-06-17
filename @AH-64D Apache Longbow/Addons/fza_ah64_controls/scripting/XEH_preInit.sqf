@@ -1,7 +1,7 @@
 [
 	"fza_ah64_showPopup",
 	"CHECKBOX",
-	["Show Popup Intro", "Show popup whenever the player gets into an apache"],
+	["Show Popup Intro", "Show popup when the player gets into an Apache"],
 	["AH64D Apache", "UI"],
 	true
 ] call CBA_fnc_addSetting;
@@ -27,7 +27,7 @@
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
-	"Enable Cockpit hints",
+	"Enable cockpit hints",
 	["AH64D Apache", "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
@@ -48,7 +48,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enanle stabilator in SFM", "Disclaimer: All crew needed to disable"],
+	["Enable tail stabilizer in SFM", "Disclaimer: All crew needed to disable"],
 	["AH64D Apache", "Flight model"],
 	[true],
 	0

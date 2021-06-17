@@ -211,25 +211,20 @@ switch (_state) do {
 	};
 };
 
-//RTD...we shall burn it with holy fire...
-if(isObjectRTD _heli && difficultyEnabledRTD && count enginesTorqueRTD _heli == 2) then {
-	[_afmNpMul / 100.0 * (enginesRpmRTD _heli select _engNum), _ng, _tgt, _oil, _afmTorqueMul / 100.0 * (enginesTorqueRTD _heli select _engNum)];
+private _data = [_heli] call fza_fnc_sfmplusGetData;
+
+private _curTQ  = 0;
+if (_state in ["FLY"]) then {
+	_curTQ = (_data select 0) * 481;
 } else {
-	private _data = [_heli] call fza_fnc_sfmplusGetData;
-
-	private _curTQ  = 0;
-	if (_state in ["FLY"]) then {
-		_curTQ = (_data select 0) * 481;
-	} else {
-		_curTQ = (_sfmTorqueMul / 100) * 481;
-	};
-
-	private _curTGT = 0;
-	if (_state in ["FLY"]) then {
-		_curTGT = _data select 1;
-	} else {
-		_curTGT = _tgt;
-	};
-
-	[(_sfmNpMul / 100) * 21109, _ng, _curTGT, _oil, _curTQ];
+	_curTQ = (_sfmTorqueMul / 100) * 481;
 };
+
+private _curTGT = 0;
+if (_state in ["FLY"]) then {
+	_curTGT = _data select 1;
+} else {
+	_curTGT = _tgt;
+};
+
+[(_sfmNpMul / 100) * 21109, _ng, _curTGT, _oil, _curTQ];

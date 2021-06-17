@@ -450,11 +450,6 @@ _radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) 
 //Use the perfGetData method to update the TQ in the HDU
 _TQVal = [_heli] call fza_fnc_sfmplusGetData select 0;
 _collective = format["%1", round(100 * _TQVal)];
-if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) == 2) then {
-    _eng1data = [_heli, 0] call fza_fnc_engineGetData;
-    _eng2data = [_heli, 1] call fza_fnc_engineGetData;
-    _collective = format["%1", round((_eng1data# 4 / 4.81 + _eng2data# 4 / 4.81) / 2)];
-};
 if (_collective == "scalar") then {
     _collective = "0";
 };
