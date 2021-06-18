@@ -1,46 +1,30 @@
 <# 
 
 	.SYNOPSIS
-	This script is used to build an in-development version of the AH-64 Apache mod and launch Arma 3 diagnostic executable for testing purposes.
+	This script is used to manage the local dev environment for working on the AH-64 Apache mod for Arma 3. This script should be run in an elevated Powershell window.
 
+	.DESCRIPTION
+	Options available:
+		1) Build PBOs
+		2) Run Arma 3 Diagnostics EXE
+			- requires development branch installed from Steam!
+		3) Manage symlinks for file patching use
 	
-	1) Build PBO
-	2) Run arma 3
-		- Maybe specify whether diag to be used?
-		- Allow custom arguments / extra mods via a parameter?
-	3) Make symlinks for file patching
-		- I will get you an example batch script
-	4) Remove symlinks for file patching
+	.EXAMPLE
+	.\build.ps1
 
-#>
+	.LINK
+	https://github.com/AH-64D-Apache-Official-Project/AH-64D
 
+	.NOTES
+	Authored by
+	Indigo#6290 on Discord
+	indifox.info
 
-
-<# 
-	REFERENCE: Config properties
-
-	{
-		arma.addonBuilder.path = "I:\Steam\steamapps\common\Arma 3 Tools\AddonBuilder\AddonBuilder.exe"
-		arma.diagnosticsExe.path = "J:\Steam\steamapps\common\Arma 3\arma3diag_x64.exe
-		arma.game.path = J:\Steam\steamapps\common\Arma 3"
-		git.untrackedChanges = "separate"
-		git.path = "C:\Users\Matt Desktop\Documents\AH64D-Project\.vscode\wslgit.exe"
-	}
-
-
-	REFERENCE: Symlink reference
-	mklink /j "fza_ah64_controls" "G:\AH-64D\@AH-64D Apache Longbow\Addons\fza_ah64_controls"
+	On first run, Arma 3 and Arma 3 Tools installation directories will be searched for and saved to buildCfg.json in the working directory.
 
 	File patching is available in the diag branch of A3.
 	When loading files in a PBO, if file patching is enabled, it will look in the Arma 3 install root first and load files if found. This allows quick modifications without reloading the game.
-	
-	Need to build a symlink in A3 install path that points to the Git dev directories.
-	/a3/data_f/marshall.p3d
-	loads
-	J:\Steam\steamapps\common\Arma 3\a3\data_f\marshall.p3d
-	which should point to
-	C:\Git\AH-64\etc..
-
 #>
 
 
@@ -137,12 +121,12 @@ function Start-AddonBuild {
 		Write-Progress -Activity "Packing PBOs" -Status "@AH-64D Apache Longbow\Addons\${Mod}" -PercentComplete $percentComplete
 
 
-		$Proc = Start-Process -FilePath $addonBuilderExe -ArgumentList @(
+		Start-Process -FilePath $addonBuilderExe -ArgumentList @(
 			"""${gitPath}\@AH-64D Apache Longbow\Addons\${Mod}"" ",
 			"""${gitPath}\@AH-64D Apache Longbow\Addons"" " +
 			"""-clear"" " + 
 			"""-include=${gitpath}\buildExtIncludes.txt"""
-		) -Wait -PassThru -RedirectStandardOutput ".\buildLog.log"
+		) -Wait -RedirectStandardOutput ".\buildLog.log"
 
 		if ((Get-Content ".\buildLog.log" -Tail 1) -match '\[ERROR\]') {
 			Write-Warning "Failed to pack ${mod} into a PBO. Output below, please check."
