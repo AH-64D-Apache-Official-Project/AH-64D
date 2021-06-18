@@ -30,15 +30,13 @@ switch (_control) do {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
 
-			_floodplt = "#lightpoint"
-			createVehicle position _heli;
+			_floodplt = "#lightpoint" createVehicle position _heli;
 			_floodplt setLightIntensity 60;
 			_floodplt setLightColor[0.306, 0.878, 0.349];
 			_floodplt setLightAttenuation[0, 1, 1, 2, 0.50, 1];
 			_floodplt attachTo[_heli, [0, 0, 0], "plt_memflood"];
 
-			_floodcpg = "#lightpoint"
-			createVehicle position _heli;
+			_floodcpg = "#lightpoint" createVehicle position _heli;
 			_floodcpg setLightIntensity 60;
 			_floodcpg setLightColor[0.306, 0.878, 0.349];
 			_floodcpg setLightAttenuation[0, 1, 1, 2, 0.50, 1];
