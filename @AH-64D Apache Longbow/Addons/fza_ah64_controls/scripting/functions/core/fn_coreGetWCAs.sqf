@@ -9,10 +9,11 @@ Parameters:
 
 Returns:
 	2d array, an array for each active WCA entry in thee format
-	    [_type, _mpd]
+	    [_type, _mpd, _ufd]
 	
 	* _type - either WCA_CAUTION, WCA_WARNING or WCA_ADVISORY
 	* _mpd - the texture to be used by the MPD
+	* _ufd - the texture to be used by the UFD
 
 Examples:
 	--- Code

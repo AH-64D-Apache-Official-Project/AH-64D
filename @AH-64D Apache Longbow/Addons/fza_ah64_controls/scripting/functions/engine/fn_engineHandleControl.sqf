@@ -29,7 +29,7 @@ switch(_control) do {
 		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
 			_heli animateSource["plt_apu", 1];
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
-			[_heli] spawn fza_fnc_loops;
+			[_heli] spawn fza_fnc_fxLoops;
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
 			if (_heli animationphase "plt_apu" == 1) then {
@@ -52,7 +52,7 @@ switch(_control) do {
 	case "power": {
 	    if (_heli animationphase "plt_batt" < 1) then {
 			_heli animateSource["plt_batt", 1];
-			[_heli] spawn fza_fnc_loops;
+			[_heli] spawn fza_fnc_fxLoops;
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
 			_heli animateSource["plt_batt", 0];

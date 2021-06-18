@@ -87,6 +87,7 @@ class CfgFunctions
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
 			class fxMuzzle {R;};
+			class fxLoops {R;};
 		}
 		class ihadss
 		{
@@ -249,7 +250,6 @@ class CfgFunctions
 			class targetisADA {R;}
 			class doortoggleP {R;};
 			class doortoggleG {R;};
-			class loops {R;};
 		};
 		class ase
 		{
