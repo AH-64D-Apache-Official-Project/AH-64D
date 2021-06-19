@@ -52,7 +52,6 @@ class CfgVehicles
 		driverleftleganimname = "pedalL";
 		driverrighthandanimname = "p_cyclic";
 		driverrightleganimname = "pedalR";
-		simulation=helicopterRTD;
 		startDuration=80;
 		mainBladeRadius = 7.3;
 		maxGForce = 9;
@@ -975,7 +974,6 @@ class CfgVehicles
 		transportSoldier=2;
 		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
 		accuracy=0.5;
-		simulation=helicopter;
 		driverAction = "fza_ah64_pilot";
 		minMainRotorDive = 0;
 		maxMainRotorDive = 0;

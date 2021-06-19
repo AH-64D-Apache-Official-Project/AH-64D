@@ -20,7 +20,9 @@ fza_ah64_aseAudio = fza_ah64_asethreats;
 	if ((vehicle player) animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) then {
 		if ((_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) && (alive _x) && !(_x in fza_ah64_threattracking) && (true == isVehicleRadarOn vehicle _x)) then {
 			fza_ah64_threattracking = fza_ah64_threattracking + [_x];
-			fza_ah64_targetlist = fza_ah64_targetlist + [_x];
+			if !(_x in fza_ah64_targetlist) then {
+				fza_ah64_targetlist = fza_ah64_targetlist + [_x];
+			};
 			_x confirmSensorTarget [playerSide, true];
 			if (_x iskindof "rhs_zsutank_base") then {
 				["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
