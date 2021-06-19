@@ -29,7 +29,7 @@ private _fwdFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
 //Engines
-[_heli, _deltaTime] call fza_ah64_sfmplusEngineController;
+//[_heli, _deltaTime] call fza_fnc_sfmplusEngineController;
 /*
 private _engState  = _heli getVariable "fza_ah64_engState";
 private _eng1State = _engState select 0;

@@ -58,7 +58,7 @@ class CfgVehicles
 		maxFordingDepth = 0.55;
 		//SFM Variables-------------/
 		startDuration          = 80;
-		liftForceCoef          = 1.25;	//1.25
+		liftForceCoef          = 0.00;	//1.25
 		bodyFrictionCoef       = 1.0;
 		cyclicAsideForceCoef   = 0.4;
 		cyclicForwardForceCoef = 0.5;

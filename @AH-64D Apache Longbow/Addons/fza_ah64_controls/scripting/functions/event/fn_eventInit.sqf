@@ -106,6 +106,9 @@ _heli setVariable ["fza_ah64_dmgTimerCont",  0];
 _heli setVariable ["fza_ah64_dmgTimerTrans", 0];
 [_heli] call fza_fnc_sfmplusEngineVariables;
 
+//HeliSim
+[_heli] call BMK_fnc_coreConfig;
+
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
     createDialog "RscFzaDisplayWelcome";
 };

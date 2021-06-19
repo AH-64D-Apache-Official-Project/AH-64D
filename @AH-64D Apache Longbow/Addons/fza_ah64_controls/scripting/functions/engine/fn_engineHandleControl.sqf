@@ -79,22 +79,25 @@ switch(_control) do {
 	case "e1start": {
 		//[_heli, 0, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
 		[_heli, 0, "START"] spawn fza_fnc_sfmplusStartSwitch;
+
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e1off": {
 		//[_heli, 0, ENGINE_CONTROL_THROTTLE_OFF] spawn fza_fnc_engineSetPosition;
 		[_heli, 0, "OFF"] spawn fza_fnc_sfmplusPowerLever;
+
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1idle": {
 		//[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] spawn fza_fnc_engineSetPosition;
 		[_heli, 0, "IDLE"] spawn fza_fnc_sfmplusPowerLever;
+
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1fly": {
 		//[_heli, 0, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-		
+	
 		private _eng2State       = _heli getVariable "fza_ah64_engState" select 1;
 		private _eng2PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 1;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
@@ -108,7 +111,7 @@ switch(_control) do {
 			[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
 			[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
 		};
-
+		
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 	//--------------------ENGINE 2--------------------//
@@ -116,22 +119,25 @@ switch(_control) do {
 	case "e2start": {
 		//[_heli, 1, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
 		[_heli, 1, "START"] spawn fza_fnc_sfmplusStartSwitch;
+
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e2off": {
 		//[_heli, 1, ENGINE_CONTROL_THROTTLE_OFF] spawn fza_fnc_engineSetPosition;
 		[_heli, 1, "OFF"] spawn fza_fnc_sfmplusPowerLever;
+
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2idle": {
 		//[_heli, 1, ENGINE_CONTROL_THROTTLE_IDLE] spawn fza_fnc_engineSetPosition;
 		[_heli, 1, "IDLE"] spawn fza_fnc_sfmplusPowerLever;
+
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2fly": {
 		//[_heli, 1, ENGINE_CONTROL_THROTTLE_FLY] spawn fza_fnc_engineSetPosition;
-
+		
 		private _eng1State       = _heli getVariable "fza_ah64_engState" select 0;
 		private _eng1PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 0;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
@@ -145,6 +151,7 @@ switch(_control) do {
 			[_heli, 0, "FLY"] spawn fza_fnc_sfmplusPowerLever;
 			[_heli, 1, "FLY"] spawn fza_fnc_sfmplusPowerLever;
 		};
+		
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 };
