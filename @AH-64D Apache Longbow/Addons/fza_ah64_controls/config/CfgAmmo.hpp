@@ -75,7 +75,7 @@ class CfgAmmo
 		weaponType 					= "cannon";
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64+128+256"
+		aiAmmoUsageFlags 			= "64+128+256";
 		allowAgainstInfantry 		= 1;
 		cost 						= 15;
 		visibleFire=32;

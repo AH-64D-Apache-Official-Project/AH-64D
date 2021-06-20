@@ -23,7 +23,7 @@ params["", "_heli", "_ticker"];
 _heli = (vehicle player);
 _ticker = 2;
 
-if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base") exitwith {};
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
 
 {
     [_heli] call _x;
