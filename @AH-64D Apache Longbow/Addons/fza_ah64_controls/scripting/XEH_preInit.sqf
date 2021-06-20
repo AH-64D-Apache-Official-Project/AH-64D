@@ -27,7 +27,7 @@
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
-	"Enable cockpit hints",
+	["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
 	["AH64D Apache", "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
@@ -35,7 +35,7 @@
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	"Show vanilla targeting information (restart needed)",
+	["Show vanilla targeting information (restart needed)", "Disabling this will hide vanilla targeting information (restart needed)"],
 	["AH64D Apache", "UI"],
 	[true],
 	0,
@@ -48,8 +48,17 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enable stabilator"],
+	["Enable stabilator", "Disclaimer: All crew need to disable this funtion to turn off"],
 	["AH64D Apache", "Flight model"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_ExperimentalFCR",
+	"CHECKBOX",
+	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
+	["AH64D Apache", "Fire Control Radar"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;

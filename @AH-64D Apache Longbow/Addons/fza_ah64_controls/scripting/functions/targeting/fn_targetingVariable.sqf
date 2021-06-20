@@ -18,7 +18,6 @@ if (!(player in _heli)) exitwith {};
 
 //remove dead targets
 fza_ah64_targetlist = fza_ah64_targetlist - alldead;
-fza_ah64_fcrlist = fza_ah64_fcrlist - alldead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
@@ -36,7 +35,7 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") || (_heli getVariabl
 
 		switch (_heli getVariable "fza_ah64_agmode") do {
 			case 1: {
-				(((_x isKindOf "plane") || (_x isKindOf "helicopter")) && ((_heli distance2D _x) < 8000))
+				((_x isKindOf "air") && ((_heli distance2D _x) < 8000))
 			};
 			default {
 			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 45))
