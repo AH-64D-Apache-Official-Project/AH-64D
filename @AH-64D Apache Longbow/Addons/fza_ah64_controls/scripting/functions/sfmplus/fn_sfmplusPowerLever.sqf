@@ -20,7 +20,7 @@ private _engPwrLeverAnimName = format["plt_eng%1_throttle", _engNum + 1];
 
 if (_state == "OFF") then {
 	_heli animateSource[_engPwrLeverAnimName, 0];
-	//[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
+	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
 	[_heli, _engNum, 0.0] call bmk_fnc_engineSetThrottle;
@@ -28,7 +28,7 @@ if (_state == "OFF") then {
 
 if (_state == "IDLE") then {
 	_heli animateSource[_engPwrLeverAnimName, 0.25];
-	//[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
+	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
 	[_heli, _engNum, 0.25] call bmk_fnc_engineSetThrottle;
@@ -37,7 +37,7 @@ if (_state == "IDLE") then {
 if (_state == "FLY") then {
 	//0.063 sets the power levers to fly in 16 seconds
 	_heli animateSource[_engPwrLeverAnimName, 1, 0.25];
-	//[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
+	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
 	[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;

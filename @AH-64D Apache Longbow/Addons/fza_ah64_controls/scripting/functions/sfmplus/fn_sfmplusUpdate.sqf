@@ -30,7 +30,7 @@ private _aftFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
 //Engines
 //[_heli, _deltaTime] call fza_fnc_sfmplusEngineController;
-/*
+
 private _engState  = _heli getVariable "fza_ah64_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
@@ -64,7 +64,7 @@ _heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
 
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
-*/
+
 //Fuel
 private _curFuelFlow = 0;
 private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
@@ -97,7 +97,7 @@ if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
 };
 
-/*
+
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
@@ -112,8 +112,7 @@ hintsilent format ["Engine 1 Ng = %1
 					\nEng Clutch State = %10
 					\n-------------------
 					\nColl Pos = %11
-					\nEng Spd Frac = %12
-					\nEng FF = %13", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
+					\nEng FF = %12", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
 									   		_heli getVariable "fza_ah64_engPctTQ" select 0, 
 									   		_heli getVariable "fza_ah64_engTGT" select 0,
 											_heli getVariable "fza_ah64_engPctNG" select 1, 
@@ -124,9 +123,8 @@ hintsilent format ["Engine 1 Ng = %1
 											_heli getVariable "fza_ah64_engPctNP",
 											_heli getVariable "fza_ah64_engClutchState",
 											fza_ah64_collectiveOutput,
-											TEMP_ENGSPEEDFRAC,
 											_heli getVariable "fza_ah64_engFF"];
-*/
+
 
 //Start Simplified Rotor Test
 /*

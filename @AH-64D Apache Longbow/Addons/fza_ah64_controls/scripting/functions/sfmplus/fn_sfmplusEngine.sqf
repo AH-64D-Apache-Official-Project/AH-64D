@@ -52,7 +52,7 @@ private _engFlyNp   = _heli getVariable "fza_ah64_engFlyNp";
 
 if (_engStartSwitchState == "START") then {
 	_engState = "STARTING";
-	[_heli, "fza_ah64_engStartSwitchState", _engNum, "OFF"] call fza_fnc_sfmplusSetArrayVariable;
+	[_heli, _engNum, "OFF"] spawn fza_fnc_sfmplusStartSwitch;
 };
 
 switch (_engState) do {
@@ -145,7 +145,7 @@ _engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_fnc_
 _engPctNP = [_npMaxVal, _npCurVal, _deltaTime, _npValPerUnitTime] call fza_fnc_sfmplusClampedMove;
 [_heli, "fza_ah64_engPctNP", _engNum, _engPctNP] call fza_fnc_sfmplusSetArrayVariable;
 
-if (_engBaseNG >= 0.52) then {
+if (_engBaseNG >= 0.52 && _engState == "STARTING") then {
 	_engState = "ON";
 };
 [_heli, "fza_ah64_engState", _engNum, _engState] call fza_fnc_sfmplusSetArrayVariable;
@@ -161,8 +161,8 @@ if (_engState != "OFF") then {
 
 	private _curGWT_kg     = getMass _heli;
 	private _intHvrTQTable = [_heli getVariable "fza_ah64_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
-	private _hvrIGE = _intHvrTQTable select 1;
-	private _hvrOGE = _intHvrTQTable select 2;
+	private _hvrIGE        = _intHvrTQTable select 1;
+	private _hvrOGE        = _intHvrTQTable select 2;
 
 	private _heightAGL = getPos _heli select 2;
 	private _hvrTQ     = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
@@ -185,19 +185,21 @@ if (_engState != "OFF") then {
 	private _cruiseTQ = [_engCruiseTQTable, fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
 	
 	private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-	_engPctTQ = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
-	_engPctTQ = _engPctTQ * _engTQMult;
+	_engPctTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
+	_engPctTQ      = _engPctTQ * _engTQMult;
 	[_heli, "fza_ah64_engPctTQ", _engNum, _engPctTQ] call fza_fnc_sfmplusSetArrayVariable;
 
 	//-------------------------TQ----------TGT------------NG---------
-	private _engTable = [[ _engBaseTQ,	_engBaseTGT,	_engBaseNG],
-						 [ 1.00, 		810,			0.950	  ],	//Cont
-						 [ 1.29, 	    867,			0.990	  ],	//10 min
-						 [ 1.34, 	    896,			0.997	  ]];	//2.5 Min
+	private _engTable = [[ _engBaseTQ, _engBaseTGT,	_engBaseNG],
+						 [ 1.00, 	   810,			0.950	  ],	//Cont
+						 [ 1.29, 	   867,			0.990	  ],	//10 min
+						 [ 1.34, 	   896,			0.997	  ]];	//2.5 Min
 
 	//----------------------TQ----FF (kg/s)
 	private _engFFTable = [[0.00, 0.0000],
-						   [0.30, 0.0428],
+						   [0.07, 0.0216],
+						   [0.15, 0.0350],
+						   [0.30, 0.0432],
 						   [0.40, 0.0480],
 						   [0.50, 0.0535],
 						   [0.60, 0.0598],

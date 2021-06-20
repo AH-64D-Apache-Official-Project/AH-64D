@@ -27,6 +27,9 @@ private _e1percent = (_heli getVariable "fza_ah64_engPctNP" select 0) * 100;
 private _e1ng      = (_heli getVariable "fza_ah64_engPctNG" select 0) * 1000;
 private _e1tgt     = _heli getVariable "fza_ah64_engTGT" select 0;
 private _e1trq     = (_heli getVariable "fza_ah64_engPctTQ" select 0) * 100;
+if (_e1percent <= (0.37 * 100)) then {
+	_e1trq = 0;
+};
 
 // #region TORQUE
 private _e1trqChar = "\fza_ah64_us\tex\char\g";
@@ -109,6 +112,9 @@ private _e2percent = (_heli getVariable "fza_ah64_engPctNP" select 1) * 100;
 private _e2ng      = (_heli getVariable "fza_ah64_engPctNG" select 1) * 1000;
 private _e2tgt     = _heli getVariable "fza_ah64_engTGT" select 1;
 private _e2trq     = (_heli getVariable "fza_ah64_engPctTQ" select 1) * 100;
+if (_e2percent <= (0.37 * 100)) then {
+	_e2trq = 0;
+};
 
 // #region TORQUE
 private _e2trqChar = "\fza_ah64_us\tex\char\g";
