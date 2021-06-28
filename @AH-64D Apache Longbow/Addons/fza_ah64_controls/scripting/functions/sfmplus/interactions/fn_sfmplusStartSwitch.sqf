@@ -25,13 +25,14 @@ if (_state == "START") then {
 	[_heli, "fza_ah64_engStartSwitchState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
-	[_heli, _engNum, true] call bmk_fnc_engineStartSwitch;
+	//[_heli, _engNum, true] call bmk_fnc_engineStartSwitch;
 };
 
 if (_state == "OFF") then {
 	_heli animateSource[_engStartSwitch, 0];
 	[_heli, "fza_ah64_engStartSwitchState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
+
 	//HeliSim
-	[_heli, _engNum, false] call BMK_fnc_engineStartSwitch;
+	//[_heli, _engNum, false] call BMK_fnc_engineStartSwitch;
 }
 

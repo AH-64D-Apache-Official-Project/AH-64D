@@ -29,41 +29,7 @@ private _fwdFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 0;
 private _aftFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 
 //Engines
-//[_heli, _deltaTime] call fza_fnc_sfmplusEngineController;
-
-private _engState  = _heli getVariable "fza_ah64_engState";
-private _eng1State = _engState select 0;
-private _eng2State = _engState select 1;
-if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
-	_heli engineOn true;
-};
-
-private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
-
-private _eng1TqMult = 1;
-private _eng2TqMult = 1;
-if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State in ["OFF","DEST"]) && _eng2PwrLvrState == "FLY") then {
-	_eng1TqMult = 0;
-	_eng2TqMult = 2;
-	_isSingleEng = true;
-} else {
-	_isSingleEng = false;
-};
-
-if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State in ["OFF","DEST"]) && _eng1PwrLvrState == "FLY") then {
-	_eng1TqMult = 2;
-	_eng2TqMult = 0;
-	_isSingleEng = true;
-} else {
-	_isSingleEng = false;
-};
-_heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
-
-[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
-[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+[_heli, _deltaTime] call fza_fnc_sfmplusEngineController;
 
 //Fuel
 private _curFuelFlow = 0;
@@ -110,20 +76,61 @@ hintsilent format ["Engine 1 Ng = %1
 					\nIs Single Engine? = %8
 					\nPercent NP = %9
 					\nEng Clutch State = %10
+					\nEng Start Switch = %11
 					\n-------------------
-					\nColl Pos = %11
-					\nEng FF = %12", 		_heli getVariable "fza_ah64_engPctNG" select 0, 
-									   		_heli getVariable "fza_ah64_engPctTQ" select 0, 
-									   		_heli getVariable "fza_ah64_engTGT" select 0,
-											_heli getVariable "fza_ah64_engPctNG" select 1, 
-											_heli getVariable "fza_ah64_engPctTQ" select 1, 
-											_heli getVariable "fza_ah64_engTGT" select 1,
-											_heli getVariable "fza_ah64_engState",
-											_isSingleEng,
-											_heli getVariable "fza_ah64_engPctNP",
-											_heli getVariable "fza_ah64_engClutchState",
-											fza_ah64_collectiveOutput,
-											_heli getVariable "fza_ah64_engFF"];
+					\nColl Pos = %12
+					\nEng FF = %13
+					\nEngine Base NG = %14", 		
+					_heli getVariable "fza_ah64_engPctNG" select 0, 
+					_heli getVariable "fza_ah64_engPctTQ" select 0, 
+					_heli getVariable "fza_ah64_engTGT" select 0,
+					_heli getVariable "fza_ah64_engPctNG" select 1, 
+					_heli getVariable "fza_ah64_engPctTQ" select 1, 
+					_heli getVariable "fza_ah64_engTGT" select 1,
+					_heli getVariable "fza_ah64_engState",
+					_heli getVariable "fza_ah64_isSingEng",
+					_heli getVariable "fza_ah64_engPctNP",
+					_heli getVariable "fza_ah64_engClutchState",
+					_heli getVariable "fza_ah64_engStartSwitchState",
+					fza_ah64_collectiveOutput,
+					_heli getVariable "fza_ah64_engFF",
+					_heli getVariable "fza_ah64_engBaseNG"];
+
+/* Old engine...
+private _engState  = _heli getVariable "fza_ah64_engState";
+private _eng1State = _engState select 0;
+private _eng2State = _engState select 1;
+if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
+	_heli engineOn true;
+};
+
+private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
+private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _eng1PwrLvrState = _engPwrLvrState select 0;
+private _eng2PwrLvrState = _engPwrLvrState select 1;
+
+private _eng1TqMult = 1;
+private _eng2TqMult = 1;
+if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State in ["OFF","DEST"]) && _eng2PwrLvrState == "FLY") then {
+	_eng1TqMult = 0;
+	_eng2TqMult = 2;
+	_isSingleEng = true;
+} else {
+	_isSingleEng = false;
+};
+
+if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State in ["OFF","DEST"]) && _eng1PwrLvrState == "FLY") then {
+	_eng1TqMult = 2;
+	_eng2TqMult = 0;
+	_isSingleEng = true;
+} else {
+	_isSingleEng = false;
+};
+_heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
+
+[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
+[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+*/
 
 
 //Start Simplified Rotor Test
@@ -210,3 +217,5 @@ hintSilent format ["GWT = %1
 [_heli, _e, _e vectorAdd _thrustVector, _colorBlue] call DRAW_LINE;
 */
 //End Simplified Rotor Test
+
+

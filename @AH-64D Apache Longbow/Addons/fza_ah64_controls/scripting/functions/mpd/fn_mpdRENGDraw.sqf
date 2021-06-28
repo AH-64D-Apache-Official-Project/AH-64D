@@ -16,6 +16,8 @@ private _npTapeScaler  = [[0,   0.00],
     					  [120, 1.00]
 ];
 
+private _isSingleEng = _heli getVariable "fza_ah64_isSingleEng";
+
 // #region ENGINE 1
 //_e1data = [_heli, 0] call fza_fnc_engineGetData;
 //_e1percent = (_e1data select 0) / 209.0;

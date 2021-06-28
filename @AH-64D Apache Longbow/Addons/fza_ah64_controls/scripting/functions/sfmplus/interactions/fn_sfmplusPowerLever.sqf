@@ -23,7 +23,7 @@ if (_state == "OFF") then {
 	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
-	[_heli, _engNum, 0.0] call bmk_fnc_engineSetThrottle;
+	//[_heli, _engNum, 0.0] call bmk_fnc_engineSetThrottle;
 };
 
 if (_state == "IDLE") then {
@@ -31,7 +31,7 @@ if (_state == "IDLE") then {
 	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
-	[_heli, _engNum, 0.25] call bmk_fnc_engineSetThrottle;
+	//[_heli, _engNum, 0.25] call bmk_fnc_engineSetThrottle;
 };
 
 if (_state == "FLY") then {
@@ -40,5 +40,5 @@ if (_state == "FLY") then {
 	[_heli, "fza_ah64_engPowerLeverState", _engNum, _state] call fza_fnc_sfmplusSetArrayVariable;
 
 	//HeliSim
-	[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;
+	//[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;
 };
