@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandlelaserchange.sqf",{142:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter\'s Between self/remote laser aquistion.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandlelaserchange.sqf",{132:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter\'s Between self/remote laser aquistion.</div></div>"});

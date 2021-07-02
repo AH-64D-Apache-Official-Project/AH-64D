@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/core/fn_coreScheduler.sqf",{80:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Schedules updates to all tasks in <b>fza_ah64_schedarray</b></div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/core/fn_coreScheduler.sqf",{6:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Schedules updates to all tasks in <b>fza_ah64_schedarray</b></div></div>"});

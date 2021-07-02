@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleLookCenter.sqf",{146:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handler for the look center (Num 5) key.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleLookCenter.sqf",{120:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handler for the look center (Num 5) key.</div></div>"});

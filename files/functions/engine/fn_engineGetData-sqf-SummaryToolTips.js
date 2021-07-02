@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/engine/fn_engineGetData.sqf",{8:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Retrieves avionics data for a single engine.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/engine/fn_engineGetData.sqf",{76:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Retrieves avionics data for a single engine.</div></div>"});

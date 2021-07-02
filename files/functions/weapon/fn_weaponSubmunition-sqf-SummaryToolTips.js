@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponSubmunition.sqf",{50:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Deploys submunitions</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponSubmunition.sqf",{98:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Deploys submunitions</div></div>"});
