@@ -247,15 +247,16 @@ class CfgFunctions
 			class addKeybind {R;};
 			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
-			class targetisADA {R;}
+			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
 		};
 		class ase
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
+			class aseBetty {R;};
+			class aseGunnerFlare {R;};
 			class aseJammer {R;};
-			class aseFlaredeploy {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
 		};
