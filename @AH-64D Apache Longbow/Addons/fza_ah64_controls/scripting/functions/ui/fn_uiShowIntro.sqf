@@ -15,7 +15,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_display"];
 fza_ah64_introShownThisScenario = true;
-diag_log "test";
 private _content = parseText
 "<t align='center' size='2'>AH-64D Official Project</t><br/>
 <br/>

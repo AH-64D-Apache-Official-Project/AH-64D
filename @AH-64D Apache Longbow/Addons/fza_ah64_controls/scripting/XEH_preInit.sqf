@@ -28,6 +28,7 @@
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
 	["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
+
 	["AH-64D Official Project", "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
@@ -110,7 +111,7 @@ fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];
 fza_ah64_introShownThisScenario = false;
 fza_ah64_slowschedarray = [fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid];
-fza_ah64_mapfaker = addMissionEventHandler["EachFrame", {
+fza_ah64_mapfaker = addMissionEventHandler["Draw3d", {
 	[0] call fza_fnc_coreScheduler;
 }];
 
