@@ -110,7 +110,7 @@ if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 		case 8: {"\fza_ah64_us\tex\icons\RKTxtra_8.paa"};
 		case 12: {"\fza_ah64_us\tex\icons\RKTxtra_12.paa"};
 		case 24: {"\fza_ah64_us\tex\icons\RKTxtra_24.paa"};
-		case 38: {"\fza_ah64_us\tex\icons\RKTxtra_all.paa"};
+		case 99: {"\fza_ah64_us\tex\icons\RKTxtra_all.paa"};
 	};
 	_rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
 	if (_rocketInvIndex != -1) then {
