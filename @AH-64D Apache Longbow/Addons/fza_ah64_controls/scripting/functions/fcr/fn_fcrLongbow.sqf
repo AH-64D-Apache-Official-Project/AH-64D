@@ -36,44 +36,39 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air")) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
-		sleep 0.02;
-	}   foreach _dataLinkArray;
-	{
-		if !(_x in fza_ah64_targetlist) then{
+
+		//LOS check Beg
+		if (fza_ah64_ExperimentalFCR) then {
+			_lastPos = _heli modelToWorldWorld [0,2.1,2.2];
+			_p2 = aimPos _x;
+			_dir = _lastPos vectorFromTo _p2;
+			_totalDist = _lastPos distance _p2;
+			_clear = true;
+			for "_i" from 4000 to _totalDist step 4000 do {
+				_NextPos = (_dir vectorMultiply _i) vectorAdd _lastPos;
+				//check from _lastPos to _NextPos;
+				_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _x];
+				if (_ins isNotEqualTo []) then {
+					_clear = false;
+					_dataLinkArray = _dataLinkArray - [_x]; break;
+				};
+				_lastPos = _NextPos;
+			};
+			if (_clear) then {
+				_ins = lineIntersectsSurfaces [_lastPos , _p2, _heli, _x];
+				if (_ins isNotEqualTo []) then {
+					_dataLinkArray = _dataLinkArray - [_x];
+				};
+			};
+		};
+		//LOS check end
+
+		if (!(_x in fza_ah64_targetlist) && (_x in _dataLinkArray)) then {
 			fza_ah64_targetlist = fza_ah64_targetlist + [_x];
 		};
-	} foreach _dataLinkArray;
-};
-
-//LOS check Beg
-if (fza_ah64_ExperimentalFCR) then {
-	{
-		_lastPos = _heli modelToWorldWorld [0,2.1,2.2];
-		_p2 = aimPos _x;
-		_dir = _lastPos vectorFromTo _p2;
-		_totalDist = _lastPos distance _p2;
-		_clear = true;
-		for "_i" from 4000 to _totalDist step 4000 do {
-			_NextPos = (_dir vectorMultiply _i) vectorAdd _lastPos;
-			//check from _lastPos to _NextPos;
-			_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _x];
-			if (_ins isNotEqualTo []) then {
-				_clear = false;
-				_dataLinkArray = _dataLinkArray - [_x]; break;
-			};
-			_lastPos = _NextPos;
-		};
-		if (_clear) then {
-			_ins = lineIntersectsSurfaces [_lastPos , _p2, _heli, _x];
-			if (_ins isNotEqualTo []) then {
-				_dataLinkArray = _dataLinkArray - [_x];
-			};
-		};
 		sleep 0.02;
 	}   foreach _dataLinkArray;
 };
-//LOS check end
 
 fza_ah64_fcrlist = _dataLinkArray;
-
 [_heli] call fza_fnc_targetingVariable;
