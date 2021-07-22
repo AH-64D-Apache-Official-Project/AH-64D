@@ -31,26 +31,22 @@ _Hostile setVariable ["fza_ah64_shotCounter1", (_counter + 1) % 2];
 if (_counter % 2 == 1) exitWith {};
 ////stop one of the double event handler END
 
+//Info Variable
 if(!(_Hostile in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_threatfiring + [_Hostile];};
-{
-	if (_Hostile iskindof _x && !(_Hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_Hostile];};
-} foreach fza_ah64_ada_units;
-
+if (([_Hostile] call fza_fnc_targetIsADA) && !(_Hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_Hostile];};
+//Info Variable
 
 //ase page link Beg
 if (_Heli getVariable "fza_ah64_aseautopage" == 2) then {
 	[_Heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 };
-{
-	_Seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
-	if (("2" in _seekerhead) && (_Heli getVariable "fza_ah64_irjstate" == 1) || (_Heli getVariable "fza_ah64_irjon" == 1)) then {
-        _irjammerscript = _this spawn fza_fnc_aseHandleIrcontrol;
-    };
-	if (("8" in _seekerhead) && (_Heli getVariable "fza_ah64_rfjstate" == 1) || (_Heli getVariable "fza_ah64_rfjon" == 1)) then {
-        _rfjammerscript = _this spawn fza_fnc_aseHandleRfcontrol;
-    };
-}
-foreach fza_ah64_ada_units;
+_Seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
+if (("2" in _seekerhead) && (_Heli getVariable "fza_ah64_irjstate" == 1)) then {
+	_irjammerscript = _this spawn fza_fnc_aseHandleIrcontrol;
+};
+if (("8" in _seekerhead) && (_Heli getVariable "fza_ah64_rfjstate" == 1)) then {
+	_rfjammerscript = _this spawn fza_fnc_aseHandleRfcontrol;
+};
 //ase page link End
 
 _Seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
