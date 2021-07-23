@@ -124,10 +124,6 @@ if (_system == "leng") then {
 };
 
 if (_system == "reng") then {
-    if (_damage == 0 && _oldDam != 0) then {
-        _heli setVariable ["fza_ah64_firerdisch", false, true];
-        _heli setVariable ["fza_ah64_e2_fire", false, true];
-    };
     if (_damage >= 0.4) then {
         [_heli, "right"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
     };

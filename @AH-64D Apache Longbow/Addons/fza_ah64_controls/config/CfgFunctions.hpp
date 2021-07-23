@@ -83,6 +83,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {R;};
+			class fireHandleRearm {R;};
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
