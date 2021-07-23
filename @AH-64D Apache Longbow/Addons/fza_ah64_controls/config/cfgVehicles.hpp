@@ -501,14 +501,14 @@ class CfgVehicles
 				convexComponent = "cockpit";
 				minimalHit = 0.05;
 				radius = 0.4;
-			};
+			};/*
 			class HitTransmission
 			{
 				armor = 0.8;
 				material = -1;
 				name = "trans";
 				passthrough = 0.25;
-			};
+			};*/
 			class HitEngine1
 			{
 				armor = 0.7;
@@ -533,7 +533,7 @@ class CfgVehicles
 				armor = 0.8;
 				material = 51;
 				name = "trans";
-				passthrough = 0.25;
+				passthrough = 0;
 				visual = "trans";
 				explosionShielding = 3;
 				convexComponent = "trans";
