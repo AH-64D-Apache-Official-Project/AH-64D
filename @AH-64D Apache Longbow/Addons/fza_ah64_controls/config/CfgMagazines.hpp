@@ -33,6 +33,20 @@ class CfgMagazines
 		tracersEvery=0;
 		nameSound="";
 	};
+	class fza_Fb1: VehicleMagazine
+	{
+		scope = 1;
+		displayName="Primary Fire Bottle";
+		ammo="fza_fireBottlePrimary";
+		count=1;
+	};
+	class fza_Fb2: VehicleMagazine
+	{
+		scope = 1;
+		displayName="Reserve Fire Bottle";
+		ammo="fza_fireBottleSecondary";
+		count=1;
+	};
 	
 	////////////////////////////////////////////////////////////////////////
 	///////////////////////////////M230/////////////////////////////////////

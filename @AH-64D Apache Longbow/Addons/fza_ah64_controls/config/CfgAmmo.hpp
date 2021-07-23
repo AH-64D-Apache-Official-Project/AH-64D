@@ -41,6 +41,14 @@ class CfgAmmo
 		weaponLockSystem			=0;
 		lockType					=2;
 	};
+	class fza_fireBottlePrimary: Default
+	{
+		lockType					=2;
+	};
+	class fza_fireBottleSecondary: Default
+	{
+		lockType					=2;
+	};
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////M230/////////////////////////////////////

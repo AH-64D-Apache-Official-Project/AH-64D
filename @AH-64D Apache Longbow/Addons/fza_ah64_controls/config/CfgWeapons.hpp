@@ -120,6 +120,16 @@ class CfgWeapons
 		cursorAim="";
 		magazines[]={"fza_safe"};
 	};
+	class fza_Fx1: fza_m230
+	{
+		showToPlayer = 0;
+		magazines[]={"fza_Fb1"};
+	};	
+	class fza_Fx2: fza_m230
+	{
+		showToPlayer = 0;
+		magazines[]={"fza_Fb2"};
+	};	
 
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
