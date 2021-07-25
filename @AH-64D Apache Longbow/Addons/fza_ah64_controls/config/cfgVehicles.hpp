@@ -559,7 +559,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "lfab";
+				name = "IR Jammer";
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
@@ -567,7 +567,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "rfab";
+				name = "RF Jammer";
 				passthrough = 0.1;
 				visual = "skin_refab";
 			};
