@@ -74,28 +74,24 @@ if (_system == "trans") then {
         [_heli, "apu"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
     };
 };
-
-if (_system == "fuselage") then {
+/*
+if (_system == "lfuel") then {
     if (_damage >= 0.5) then {
-        _rand = round(random 10);
+        _rand = round(random 5);
         if (_rand == 5) then {
-            [_heli, "fwd"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-        if (_rand == 10) then {
-            [_heli, "aft"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-    };
-    if (_damage >= 0.8) then {
-        _rand = round(random 10);
-        if (_rand > 6) then {
-            [_heli, "fwd"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-        if (_rand > 8) then {
-            [_heli, "aft"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
+            [_heli, "fwd"] spawn fza_fnc_DamageFuelLeak;
         };
     };
 };
-
+if (_system == "rfuel") then {
+    if (_damage >= 0.5) then {
+        _rand = round(random 5);
+        if (_rand > 6) then {
+            [_heli, "aft"] spawn fza_fnc_DamageFuelLeak;
+        };
+    };
+};
+*/
 if (_system == "leng") then {
     if (_damage == 0 && _oldDam != 0) then {
         _heli setVariable ["fza_ah64_firepdisch", false, true];
