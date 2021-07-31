@@ -151,7 +151,52 @@ class CfgCloudlets
 		randomDirectionIntensityVar = 0.1;
 		sizeVar = 0.3;
 	};
+	class FX_FlareSmokeLong_LOW: Default
+	{
+		interval=0.04;
+		circleRadius=0;
+		circleVelocity[]={0,0,0};
+		particleShape="fza_ah64_us\cloudSmall1.p3d";
+		particleFSNtieth=1;
+		particleFSIndex=0;
+		particleFSFrameCount=1;
+		particleFSLoop=1;
+		angle=0;
+		angleVar=360;
+		animationName="";
+		particleType="Billboard";
+		timerPeriod=1;
+		lifeTime=1;
+		moveVelocity[]={0,0,0};
+		rotationVelocity=0;
+		weight=1;
+		volume=0.80000001;
+		rubbing=0.3;
+		size[]={0.60000002,1.75,2,2.05,2.0999999,2.1500001,2.2,2.25};
+		sizeVar=0.40000001;
+		color[]=
+		{
+			{1,1,1,0.40000001},
+			{1,1,1,0.2},
+			{1,1,1,0}
+		};
+		animationSpeed[]={0.5};
+		randomDirectionPeriod=0;
+		randomDirectionIntensity=0;
+		onTimerScript="";
+		beforeDestroyScript="";
+		lifeTimeVar=0;
+		positionVar[]={0,0,0};
+		MoveVelocityVar[]={0.050000001,0.050000001,0.050000001};
+		rotationVelocityVar=15;
+		ignoreWind=0;
+		colorVar[]={0,0,0,0};
+		randomDirectionPeriodVar=0;
+		randomDirectionIntensityVar=0;
+		destroyOnWaterSurface=1;
+	};
 };
+
 
 class fza_trail_smoke_small_effect
 {
@@ -283,3 +328,54 @@ class fza_ah64_stingersmoke
 	};
 };
 
+class CfgLights
+{
+	class LFX_FlareLightMain
+	{
+		ambient[]={1,0.9,0.1,0.003,0};
+		diffuse[]={1,0.9,0.1};
+		color[]={1,0.9,0.1};
+		brightness=0.8;
+		size=1;
+		drawLight=0;
+		blinking="false";
+		flareSize=2;
+		flareMaxDistance=10000;
+		useFlare=1;
+		shape="fza_ah64_us\flare2single.p3d";
+		class Attenuation
+		{
+			start=0;
+			constant=0;
+			linear=0;
+			quadratic=0;
+			hardLimitStart=1;
+			hardLimitEnd=0;
+		};
+		position[]={0,0,0};
+	};
+	class LFX_FlareLightwhite
+	{
+		diffuse[]={1,1,0.8};
+		color[]={1,1,0.8};
+		ambient[]={0,0,0,0};
+		brightness=1;
+		size=1;
+		drawLight=0;
+		blinking="false";
+		flareSize=3;
+		flareMaxDistance=10000;
+		useFlare=1;
+		shape="fza_ah64_us\flare2single.p3d";
+		class Attenuation
+		{
+			start=0;
+			constant=0;
+			linear=0;
+			quadratic=0;
+			hardLimitStart=0.0099999998;
+			hardLimitEnd=0.0099999998;
+		};
+		position[]={0,0,0};
+	};
+};
