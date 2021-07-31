@@ -166,7 +166,7 @@ class CfgCloudlets
 		animationName="";
 		particleType="Billboard";
 		timerPeriod=1;
-		lifeTime=0.75;
+		lifeTime=0.67;
 		moveVelocity[]={0,0,0};
 		rotationVelocity=0;
 		weight=1;
