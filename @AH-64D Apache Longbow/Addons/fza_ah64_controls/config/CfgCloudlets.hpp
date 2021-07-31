@@ -153,7 +153,7 @@ class CfgCloudlets
 	};
 	class FX_FlareSmokeLong_LOW: Default
 	{
-		interval=0.04;
+		interval=0.02;
 		circleRadius=0;
 		circleVelocity[]={0,0,0};
 		particleShape="fza_ah64_us\cloudSmall1.p3d";
@@ -166,13 +166,13 @@ class CfgCloudlets
 		animationName="";
 		particleType="Billboard";
 		timerPeriod=1;
-		lifeTime=1;
+		lifeTime=1.1;
 		moveVelocity[]={0,0,0};
 		rotationVelocity=0;
 		weight=1;
 		volume=0.80000001;
-		rubbing=0.3;
-		size[]={0.60000002,1.75,2,2.05,2.0999999,2.1500001,2.2,2.25};
+		rubbing=0.1;
+		size[]={0.30000002,0.9,1,1.03,1.01,1.2,1.25,1.44};
 		sizeVar=0.40000001;
 		color[]=
 		{
