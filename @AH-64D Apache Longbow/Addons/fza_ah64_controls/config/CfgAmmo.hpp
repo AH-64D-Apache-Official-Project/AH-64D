@@ -600,7 +600,7 @@ class AC130_Flares
 		qualityLevel=1;
 		enabled=1;
 	};
-	class CFX_FlareLightMain_VERYLOW
+	class CFX_FlareLightMain
 	{
 		simulation="light";
 		type="LFX_FlareLightMain";
@@ -620,5 +620,14 @@ class AC130_Flares
 		interval=1;
 		lifeTime=4;
 		enabled=1;
+	};
+	class Flare_DayTime
+	{
+		simulation = "particles";
+		type = "Cmeasures2";
+		position[] = {0,0,0};
+		intensity = 4;
+		interval = 1;
+		lifeTime = 3.2;
 	};
 };

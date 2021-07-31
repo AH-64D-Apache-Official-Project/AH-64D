@@ -166,13 +166,13 @@ class CfgCloudlets
 		animationName="";
 		particleType="Billboard";
 		timerPeriod=1;
-		lifeTime=1.1;
+		lifeTime=0.75;
 		moveVelocity[]={0,0,0};
 		rotationVelocity=0;
 		weight=1;
 		volume=0.80000001;
 		rubbing=0.1;
-		size[]={0.30000002,0.9,1,1.03,1.01,1.2,1.25,1.44};
+		size[]={0.30000002,0.9,1,1.03,1.01,1.1,1.15,1.24};
 		sizeVar=0.40000001;
 		color[]=
 		{
