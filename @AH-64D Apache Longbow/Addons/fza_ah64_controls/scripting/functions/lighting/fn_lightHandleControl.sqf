@@ -26,32 +26,17 @@ params ["_heli", "_system", "_control"];
 
 switch (_control) do {
 	case "floodlight": {
-		if ((isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull])) && _heli animationphase "plt_batt" > 0.5) then {
+		if (!(isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5) then {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
-
-			_floodplt = "#lightpoint" createVehicle position _heli;
-			_floodplt setLightIntensity 60;
-			_floodplt setLightColor[0.306, 0.878, 0.349];
-			_floodplt setLightAttenuation[0, 1, 1, 2, 0.50, 1];
-			_floodplt attachTo[_heli, [0, 0, 0], "plt_memflood"];
-
-			_floodcpg = "#lightpoint" createVehicle position _heli;
-			_floodcpg setLightIntensity 60;
-			_floodcpg setLightColor[0.306, 0.878, 0.349];
-			_floodcpg setLightAttenuation[0, 1, 1, 2, 0.50, 1];
-			_floodcpg attachTo[_heli, [0, 0, 0], "cpg_memflood"];
-
-			_heli setVariable["fza_ah64_floodlight_plt", _floodplt, true];
-			_heli setVariable["fza_ah64_floodlight_cpg", _floodcpg, true];
+				
+			(vehicle player turretUnit [0]) action ["searchlighton",vehicle player];
 		} else {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
 
-			deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
-			deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
+			(vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
 		};
-
 		["fza_ah64_button_rotary", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
@@ -64,4 +49,36 @@ switch (_control) do {
 		};
         ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
 	};
-}
+};
+
+
+/*
+	Light toggle script - turns on search light
+
+	_v - vehicle name
+	_a - animation name
+	_t - turret path, default [0]
+
+	a: reyhard
+*/
+
+params["_v","_a",["_t",[0]]];
+
+private _p		= call rhs_fnc_findPlayer;
+private _delete	= false;
+private _d		= objNull;
+
+if(isnull (_v turretUnit _t))then{
+	_delete = true;
+	_d = createAgent ["VirtualMan_F", [0,0,0], [], 0, "FORM"];
+	_d moveInTurret [_v,_t];
+};
+
+if(isLightOn [_heli,[0]])then{
+	_v animateSource [_a,1,true];
+	(_v turretUnit _t) action ["searchlightOff",_v];
+}else{
+	_v animateSource [_a,0,true];
+	(_v turretUnit _t) action ["searchlightOn",_v];
+};
+if(_delete)then{deleteVehicle _d;};
