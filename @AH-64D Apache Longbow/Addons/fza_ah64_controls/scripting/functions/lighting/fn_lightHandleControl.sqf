@@ -30,10 +30,28 @@ switch (_control) do {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
 				
+			//spawn ai when no gunner
+			if (isnull(_heli turretUnit [0])) then {
+				_ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
+				hideObject _ai;
+				_ai moveIngunner _heli;
+				(vehicle player turretUnit [0]) action ["searchlighton",vehicle player];
+				_heli deleteVehicleCrew gunner _heli;
+			};
+			
 			(vehicle player turretUnit [0]) action ["searchlighton",vehicle player];
 		} else {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
+
+			//spawn ai when no gunner
+			if (isnull(_heli turretUnit [0])) then {
+				_ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
+				hideObject _ai;
+				_ai moveIngunner _heli;
+				(vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
+				_heli deleteVehicleCrew gunner _heli;
+			};
 
 			(vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
 		};
@@ -50,35 +68,3 @@ switch (_control) do {
         ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
 	};
 };
-
-
-/*
-	Light toggle script - turns on search light
-
-	_v - vehicle name
-	_a - animation name
-	_t - turret path, default [0]
-
-	a: reyhard
-*/
-
-params["_v","_a",["_t",[0]]];
-
-private _p		= call rhs_fnc_findPlayer;
-private _delete	= false;
-private _d		= objNull;
-
-if(isnull (_v turretUnit _t))then{
-	_delete = true;
-	_d = createAgent ["VirtualMan_F", [0,0,0], [], 0, "FORM"];
-	_d moveInTurret [_v,_t];
-};
-
-if(isLightOn [_heli,[0]])then{
-	_v animateSource [_a,1,true];
-	(_v turretUnit _t) action ["searchlightOff",_v];
-}else{
-	_v animateSource [_a,0,true];
-	(_v turretUnit _t) action ["searchlightOn",_v];
-};
-if(_delete)then{deleteVehicle _d;};
