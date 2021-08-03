@@ -1165,7 +1165,7 @@ class CfgVehicles
 					{
 						color[]={0.306, 0.878, 0.349};
 						ambient[] = {0.306, 0.878, 0.349};
-						intensity = 20;
+						intensity = 25;
 						size = 1;
 						innerAngle = 30;
 						outerAngle = 150;
