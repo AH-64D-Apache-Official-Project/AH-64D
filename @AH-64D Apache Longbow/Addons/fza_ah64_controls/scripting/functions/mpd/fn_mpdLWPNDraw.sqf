@@ -1,5 +1,5 @@
 #include "\fza_ah64_controls\headers\selections.h"
-#define Salvo_all 99
+#define SALVO_ALL 99
 params ["_heli"];
 
 _rgbracket = "";
@@ -111,7 +111,7 @@ if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 		case 8: {"\fza_ah64_us\tex\icons\RKTxtra_8.paa"};
 		case 12: {"\fza_ah64_us\tex\icons\RKTxtra_12.paa"};
 		case 24: {"\fza_ah64_us\tex\icons\RKTxtra_24.paa"};
-		case Salvo_all: {"\fza_ah64_us\tex\icons\RKTxtra_all.paa"};
+		case SALVO_ALL: {"\fza_ah64_us\tex\icons\RKTxtra_all.paa"};
 	};
 	_rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
 	if (_rocketInvIndex != -1) then {
