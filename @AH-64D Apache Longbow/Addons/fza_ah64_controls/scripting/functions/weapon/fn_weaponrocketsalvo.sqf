@@ -18,6 +18,7 @@ Author:
 
 // Disables to reduce script running of disabled function
 params["_heli"];
+#define Salvo_all 99
 
 _salvo = _heli getVariable "fza_ah64_rocketsalvo";
 _salvo = switch (_salvo) do {
@@ -27,6 +28,6 @@ _salvo = switch (_salvo) do {
     case 8: {12};
     case 12: {24};
     case 24: {99};
-    case 99: {1};
+    case Salvo_all: {1};
 };
 _heli setVariable ["fza_ah64_rocketsalvo", _salvo];
