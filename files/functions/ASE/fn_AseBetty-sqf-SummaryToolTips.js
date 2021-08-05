@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_AseBetty.sqf",{156:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Audio &amp; text warning of direction of incoming missile</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_AseBetty.sqf",{158:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Audio &amp; text warning of direction of incoming missile</div></div>"});

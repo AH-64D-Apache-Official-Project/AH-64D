@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleCrosshairAction.sqf",{42:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Called when the action crosshair button is pressed.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleCrosshairAction.sqf",{40:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Called when the action crosshair button is pressed.</div></div>"});
