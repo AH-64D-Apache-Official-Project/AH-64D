@@ -125,9 +125,8 @@ class CfgWeapons
 		showToPlayer = 0;
 		magazines[]={"fza_Fb1"};
 	};	
-	class fza_Fx2: fza_m230
+	class fza_Fx2: fza_Fx1
 	{
-		showToPlayer = 0;
 		magazines[]={"fza_Fb2"};
 	};	
 

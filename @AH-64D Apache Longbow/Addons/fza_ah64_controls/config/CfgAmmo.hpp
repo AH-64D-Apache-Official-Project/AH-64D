@@ -45,9 +45,8 @@ class CfgAmmo
 	{
 		lockType					=2;
 	};
-	class fza_fireBottleSecondary: Default
+	class fza_fireBottleSecondary: fza_fireBottlePrimary
 	{
-		lockType					=2;
 	};
 	
 	///////////////////////////////////////////////////////////////////////

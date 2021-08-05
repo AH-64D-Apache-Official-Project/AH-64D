@@ -110,9 +110,13 @@ do {
     };
 	if (_heli ammo "fza_Fx1" == 0) then {
         _heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+    } else {
+        _heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
     };
 	if (_heli ammo "fza_Fx2" == 0) then {
         _heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+    } else {
+        _heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
     };
 
     ///EWCA//

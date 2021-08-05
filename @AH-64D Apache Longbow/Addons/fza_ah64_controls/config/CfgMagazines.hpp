@@ -40,12 +40,10 @@ class CfgMagazines
 		ammo="fza_fireBottlePrimary";
 		count=1;
 	};
-	class fza_Fb2: VehicleMagazine
+	class fza_Fb2: fza_Fb1
 	{
-		scope = 1;
 		displayName="Reserve Fire Bottle";
 		ammo="fza_fireBottleSecondary";
-		count=1;
 	};
 	
 	////////////////////////////////////////////////////////////////////////
