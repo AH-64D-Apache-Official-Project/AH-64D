@@ -251,6 +251,7 @@ class CfgFunctions
 			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
+			class bearingClock {R;};
 		};
 		class ase
 		{

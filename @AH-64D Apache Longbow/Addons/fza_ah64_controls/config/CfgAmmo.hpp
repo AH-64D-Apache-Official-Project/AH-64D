@@ -47,7 +47,7 @@ class CfgAmmo
 		initTime 					= 0;
 		aiAmmoUsageFlags			= 8;	
 	};
-    class fza_RF_JAMMING_shot: fza_IR_JAMMING_sho
+    class fza_RF_JAMMING_shot: fza_IR_JAMMING_shot
 	{
 		weaponLockSystem 			= 8;
 	};
