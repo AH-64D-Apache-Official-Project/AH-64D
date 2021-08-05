@@ -559,7 +559,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "IR Jammer";
+				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
@@ -567,7 +567,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "RF Jammer";
+				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_refab";
 			};

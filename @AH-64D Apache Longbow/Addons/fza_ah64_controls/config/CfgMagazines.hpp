@@ -20,12 +20,9 @@ class CfgMagazines
 		ammo = "fza_IR_JAMMING_shot";
 		initSpeed = 30;
 	};
-	class fza_RF_JAMMING: CA_Magazine
+	class fza_RF_JAMMING:  fza_IR_JAMMING
 	{
-		author = "$STR_A3_Bohemia_Interactive";
-		count = 99999999;
 		ammo = "fza_RF_JAMMING_shot";
-		initSpeed = 30;
 	};
 	class fza_safe: VehicleMagazine
 	{
