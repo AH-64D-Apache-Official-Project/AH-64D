@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/fire/fn_fireHandleRearm.sqf",{24:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the reset of fire system when rearming</div></div>"});
