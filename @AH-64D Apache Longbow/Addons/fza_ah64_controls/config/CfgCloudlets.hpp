@@ -151,7 +151,7 @@ class CfgCloudlets
 		randomDirectionIntensityVar = 0.1;
 		sizeVar = 0.3;
 	};
-	class FX_FlareSmokeLong_LOW: Default
+	class fza_FlareSmokeLong_LOW: Default
 	{
 		interval=0.02;
 		circleRadius=0;
@@ -330,7 +330,7 @@ class fza_ah64_stingersmoke
 
 class CfgLights
 {
-	class LFX_FlareLightMain
+	class fza_FlareLightMain
 	{
 		ambient[]={1,0.9,0.1,0.003,0};
 		diffuse[]={1,0.9,0.1};
@@ -354,7 +354,7 @@ class CfgLights
 		};
 		position[]={0,0,0};
 	};
-	class LFX_FlareLightwhite
+	class fza_FlareLightwhite
 	{
 		diffuse[]={1,1,0.8};
 		color[]={1,1,0.8};

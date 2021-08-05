@@ -24,7 +24,7 @@ class CfgAmmo
 		thrustTime 					= 4;
 		airFriction 				= -0.01;
 		simulation 					= "shotCM";
-		effectsSmoke 				= "AC130_Flares";
+		effectsSmoke 				= "fza_AC130_Flares";
 		weaponLockSystem 			= 2 + 8;
 		model 						= "\A3\weapons_f\empty";
 		maxControlRange 			= -1;
@@ -576,12 +576,12 @@ class CfgAmmo
 	////////////////////////code and effect must contact///////////////////
 	//////////////////////////////// pingopete ////////////////////////////
 
-class AC130_Flares
+class fza_AC130_Flares
 {
-	class CFX_FlareSmokeLong_VERYLOW
+	class fza_FlareSmokeLong_VERYLOW
 	{
 		simulation="particles";
-		type="FX_FlareSmokeLong_LOW";
+		type="fza_FlareSmokeLong_LOW";
 		position[]={0,0,0};
 		intensity=1;
 		interval=1;
@@ -589,10 +589,10 @@ class AC130_Flares
 		qualityLevel=0;
 		enabled=1;
 	};
-	class CFX_FlareLightMain_LOW
+	class fza_FlareLightMain_LOW
 	{
 		simulation="light";
-		type="LFX_FlareLightMain";
+		type="fza_FlareLightMain";
 		position[]={0,0,0};
 		intensity=1;
 		interval=1;
@@ -600,10 +600,10 @@ class AC130_Flares
 		qualityLevel=1;
 		enabled=1;
 	};
-	class CFX_FlareLightMain
+	class fza_FlareLightMain
 	{
 		simulation="light";
-		type="LFX_FlareLightMain";
+		type="fza_FlareLightMain";
 		position[]={0,0,0};
 		intensity=1;
 		interval=1;
@@ -611,17 +611,17 @@ class AC130_Flares
 		qualityLevel=0;
 		enabled=1;
 	};
-	class CFX_FlareLightwhite
+	class fza_FlareLightwhite
 	{
 		simulation="light";
-		type="LFX_FlareLightwhite";
+		type="fza_FlareLightwhite";
 		position[]={0,0,0};
 		intensity=1;
 		interval=1;
 		lifeTime=4;
 		enabled=1;
 	};
-	class Flare_DayTime
+	class fza_Flare_DayTime
 	{
 		simulation = "particles";
 		type = "Cmeasures2";
