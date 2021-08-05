@@ -1159,6 +1159,44 @@ class CfgVehicles
 				discretedistanceinitindex = 3;
 				isCopilot = 1;
 				usePiP=1;
+				class Reflectors
+				{
+					class cabin
+					{
+						color[]={0.306, 0.878, 0.349};
+						ambient[] = {0.306, 0.878, 0.349};
+						intensity = 25;
+						size = 1;
+						innerAngle = 30;
+						outerAngle = 150;
+						coneFadeCoef = 1;
+						position = "plt_floodlamps";
+						direction = "plt_memflood";
+						hitpoint = "plt_floodlamps";
+						selection = "plt_floodlamps";
+						useFlare = 0;
+						flareSize = 0;
+						flareMaxDistance = 0;
+						dayLight = 1;
+						blinking = 0;
+						class Attenuation
+						{
+							start           = 0;
+							constant        = 0;
+							linear          = 1;
+							quadratic       = 2;
+							hardLimitStart  = 0.65;
+							hardLimitEnd    = 1.9;
+						};
+					};
+					class cargo_light_1: cabin
+					{
+						position = "cpg_flood";
+						direction = "cpg_memflood";
+						hitpoint = "cpg_flood";
+						selection = "cpg_flood";
+					};
+				};
 				class HitPoints
 				{
 					class HitTurret
@@ -2954,87 +2992,7 @@ initPhase=0;
 					hardLimitEnd = 200;
 				};
 			};
-		/*
-			class Flood
-			{
-				position = "plt_floodlamps";
-				direction = "plt_memflood";
-				hitpoint = "plt_floodlamps";
-				selection = "plt_floodlamps";
-				color[] = {0.306,0.878,0.349};
-				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 90;
-				size = 1;
-				useFlare = 0;
-				flareSize = 0;
-				flareMaxDistance = 0;
-				daylight = 1;		//added
-				class Attenuation {
-					start = 0;
-					constant = 0;
-					linear = 1;
-					quadratic = 2;
-					hardLimitStart = 0.20;
-					hardLimitEnd = 1;
-				};
-			};
-		*/
 		};
-		/*
-		class CompartmentsLights
-        {
-            class Comp1
-            {
-                class Light_Pilot
-                {
-                    color[]             = {0.306,0.878,0.349};
-                    ambient[]           = {0.008500, 0.009500, 0.010000};
-                    intensity           = 90;
-                    size                = 1;
-                    useFlare            = 0;
-                    flareSize           = 0;
-                    flareMaxDistance    = 0;
-                    dayLight            = 1;
-                    blinking            = 0;
-					point = "plt_floodlamps";
-                    class Attenuation
-                    {
-                        start           = 0;
-                        constant        = 0;
-                        linear          = 1;
-                        quadratic       = 2;
-                        hardLimitStart  = 0.20;
-                        hardLimitEnd    = 1;
-                    };
-                };
-            };
-            class Comp2
-            {
-                class Light_Gunner
-                {
-                    color[]             = {0.306,0.878,0.349};
-                    ambient[]           = {0.008500, 0.009500, 0.010000};
-                    intensity           = 30;
-                    size                = 1;
-                    useFlare            = 0;
-                    flareSize           = 0;
-                    flareMaxDistance    = 0;
-                    dayLight            = 1;
-                    blinking            = 0;
-                    point = "cpg_memflood";
-                    class Attenuation
-                    {
-                        start           = 0;
-                        constant        = 0;
-                        linear          = 1;
-                        quadratic       = 2;
-                        hardLimitStart  = 0.20;
-                        hardLimitEnd    = 1;
-                    };
-                };
-            };
-        };
-		*/
 	#include "sensor_b2e.hpp"
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e

@@ -103,10 +103,11 @@ class CfgFunctions
 			class laserArm {R;};
 			class laserDisarm {R;};
 		};
-		class lighting
+		class light
 		{
-			file = "\fza_ah64_controls\scripting\functions\lighting";
+			file = "\fza_ah64_controls\scripting\functions\light";
 			class lightHandleControl {R;};
+			class lightSetCockpitLight {R;};
 		};
 		class mpd
 		{
