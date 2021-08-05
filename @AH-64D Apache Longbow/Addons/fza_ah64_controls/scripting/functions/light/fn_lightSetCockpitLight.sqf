@@ -24,6 +24,10 @@ params["_heli", "_state"];
 
 private _action = ["searchlightoff", "searchlighton"] select _state;
 
+if !(_heli turretLocal [0]) exitWith {
+    _this remoteExec ["fza_fnc_lightSetCockpitLight", _heli turretUnit [0]];
+};
+
 //spawn ai when no gunner
 if (isnull(_heli turretUnit [0])) then {
     _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];

@@ -138,8 +138,8 @@ while {
 do {
     if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
 
-        _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
-        _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
 
         [_heli, false] call fza_fnc_lightSetCockpitLight;
     };
