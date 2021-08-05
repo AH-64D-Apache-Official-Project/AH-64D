@@ -6,6 +6,7 @@ Description:
     To be bound in the future with arma 3 mod keybinding update
 
 Parameters:
+    _heli - the helicopter calling this
     
 Returns:
 

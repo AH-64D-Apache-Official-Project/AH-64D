@@ -82,7 +82,6 @@ _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
-_heli setVariable ["fza_ah64_Fuelleak", false, true];
 
 //SFM Plus+
 _heli setVariable ["fza_ah64_emptyMassFCR",    6609]; //kg
