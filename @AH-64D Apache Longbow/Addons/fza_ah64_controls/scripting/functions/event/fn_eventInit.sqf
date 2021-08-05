@@ -141,16 +141,7 @@ do {
         _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
 
-        //spawn ai when no gunner
-        if (isnull(_heli turretUnit [0])) then {
-            _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
-            hideObject _ai;
-            _ai moveIngunner _heli;
-            (vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
-			_heli deleteVehicleCrew gunner _heli;
-        };
-        
-        (vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
+        [_heli, false] call fza_fnc_lightSetCockpitLight;
     };
     _magsp = _heli magazinesturret[-1];
 

@@ -29,31 +29,15 @@ switch (_control) do {
 		if (!(isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5) then {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
-				
-			//spawn ai when no gunner
-			if (isnull(_heli turretUnit [0])) then {
-				_ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
-				hideObject _ai;
-				_ai moveIngunner _heli;
-				(vehicle player turretUnit [0]) action ["searchlighton",vehicle player];
-				_heli deleteVehicleCrew gunner _heli;
-			};
-			
-			(vehicle player turretUnit [0]) action ["searchlighton",vehicle player];
+
+			[_heli, true] call fza_fnc_lightSetCockpitLight;
+
 		} else {
 			_heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
 			_heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
 
-			//spawn ai when no gunner
-			if (isnull(_heli turretUnit [0])) then {
-				_ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
-				hideObject _ai;
-				_ai moveIngunner _heli;
-				(vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
-				_heli deleteVehicleCrew gunner _heli;
-			};
+			[_heli, false] call fza_fnc_lightSetCockpitLight;
 
-			(vehicle player turretUnit [0]) action ["searchlightoff",vehicle player];
 		};
 		["fza_ah64_button_rotary", 0.1] spawn fza_fnc_playAudio;
 	};
