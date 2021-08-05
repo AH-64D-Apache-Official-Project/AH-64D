@@ -27,7 +27,7 @@ _salvo = switch (_salvo) do {
     case 4: {8};
     case 8: {12};
     case 12: {24};
-    case 24: {99};
+    case 24: {Salvo_all};
     case Salvo_all: {1};
 };
 _heli setVariable ["fza_ah64_rocketsalvo", _salvo];
