@@ -559,7 +559,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "lfab";
+				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
@@ -567,7 +567,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "rfab";
+				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_refab";
 			};
@@ -998,8 +998,8 @@ class CfgVehicles
 		damageResistance=0.0055499999;
 		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
 		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-		weapons[] = {"fza_CMFlareLauncher"};
-		magazines[] = {"60Rnd_CMFlareMagazine"};
+	    weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
 		lockdetectionsystem = "8+4";
 		incomingMissileDetectionSystem = 16;
 		gunAimDown = 0;

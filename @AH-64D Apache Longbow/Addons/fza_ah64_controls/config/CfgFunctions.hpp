@@ -13,7 +13,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\avionics";
 			class avionicsSlipIndicator {R;};
-		}
+		};
 		class controlHandlers
 		{
 			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
@@ -39,7 +39,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\damage";
 			class damageSystem {R;};
 			class damageM230 {R;};
-		}
+		};
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
@@ -73,12 +73,12 @@ class CfgFunctions
 			class eventGetIn {R;};
 			class eventGetOut {R;};
 			class eventInit {R;};
-		}
+		};
 		class fcr
 		{
 			file = "\fza_ah64_controls\scripting\functions\fcr";
 			class fcrlongbow{R;};
-		}
+		};
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
@@ -88,7 +88,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\fx";
 			class fxMuzzle {R;};
 			class fxLoops {R;};
-		}
+		};
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
@@ -102,12 +102,12 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
 			class laserDisarm {R;};
-		}
+		};
 		class lighting
 		{
 			file = "\fza_ah64_controls\scripting\functions\lighting";
 			class lightHandleControl {R;};
-		}
+		};
 		class mpd
 		{
 			file = "\fza_ah64_controls\scripting\functions\mpd";
@@ -174,13 +174,13 @@ class CfgFunctions
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
-		}
+		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
-		}
+		};
 		class sfmplus {
 			file = "\fza_ah64_controls\scripting\functions\sfmplus";
 			class sfmplusGetData {R;};
@@ -247,15 +247,17 @@ class CfgFunctions
 			class addKeybind {R;};
 			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
-			class targetisADA {R;}
+			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
+			class bearingClock {R;};
 		};
 		class ase
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
+			class aseBetty {R;};
+			class aseGunnerFlare {R;};
 			class aseJammer {R;};
-			class aseFlaredeploy {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
 		};
