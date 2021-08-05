@@ -501,14 +501,14 @@ class CfgVehicles
 				convexComponent = "cockpit";
 				minimalHit = 0.05;
 				radius = 0.4;
-			};
+			};/*
 			class HitTransmission
 			{
 				armor = 0.8;
 				material = -1;
 				name = "trans";
 				passthrough = 0.25;
-			};
+			};*/
 			class HitEngine1
 			{
 				armor = 0.7;
@@ -533,7 +533,7 @@ class CfgVehicles
 				armor = 0.8;
 				material = 51;
 				name = "trans";
-				passthrough = 0.25;
+				passthrough = 0;
 				visual = "trans";
 				explosionShielding = 3;
 				convexComponent = "trans";
@@ -559,7 +559,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "lfab";
+				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
@@ -567,7 +567,7 @@ class CfgVehicles
 			{
 				armor = 0.5;
 				material = 51;
-				name = "rfab";
+				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_refab";
 			};
@@ -789,7 +789,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
 				shortcut="Binocular";
-				statement="[this] call weaponRocketsalvo";
+				statement="[this] call fza_fnc_weaponRocketsalvo";
 			};
 			class hellfireTraj
 			{
@@ -998,8 +998,8 @@ class CfgVehicles
 		damageResistance=0.0055499999;
 		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
 		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-		weapons[] = {"fza_CMFlareLauncher"};
-		magazines[] = {"60Rnd_CMFlareMagazine"};
+	    weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
 		lockdetectionsystem = "8+4";
 		incomingMissileDetectionSystem = 16;
 		gunAimDown = 0;

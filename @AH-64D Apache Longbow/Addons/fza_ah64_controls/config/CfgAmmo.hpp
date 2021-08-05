@@ -31,6 +31,26 @@ class CfgAmmo
 		initTime 					= 0;
 		aiAmmoUsageFlags			= 8;	
 	};
+    class fza_IR_JAMMING_shot: FlareCore 
+	{
+		hit 						= 0;
+		indirectHit 				= 0;
+		indirectHitRange 			= 0;
+		timeToLive 					= 15;
+		thrustTime 					= 4;
+		airFriction 				= -0.01;
+		simulation 					= "shotCM";
+		effectsSmoke 				= "";
+		weaponLockSystem 			= 2;
+		model 						= "\A3\weapons_f\empty";
+		maxControlRange 			= -1;
+		initTime 					= 0;
+		aiAmmoUsageFlags			= 8;	
+	};
+    class fza_RF_JAMMING_shot: fza_IR_JAMMING_shot
+	{
+		weaponLockSystem 			= 8;
+	};
 	class fza_master: Default
 	{
 		airLock						=0;
@@ -110,8 +130,8 @@ class CfgAmmo
 		fuseDistance				= 100;
 		manualControl 				= 0;
 		maxControlRange				= 8000;
-		trackOversteer				= 4;
-		trackLead					= 1.2;
+		trackOversteer				= 1;
+		trackLead					= 1;
 		maneuvrability				= 21;
 		timeToLive					= 70;
 		cmImmunity					= 0.97;

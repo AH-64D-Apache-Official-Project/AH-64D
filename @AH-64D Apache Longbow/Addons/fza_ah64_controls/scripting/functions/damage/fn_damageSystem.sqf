@@ -61,8 +61,7 @@ if (_system == "pnvs") then {
 if (_system == "otocvez") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
         ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
-        _heli removemagazine "fza_m230_1200";
-        _heli removemagazine "fza_m230_300";
+        _heli setAmmo ["fza_m230", 0];
     };
 };
 
@@ -74,49 +73,6 @@ if (_system == "trans") then {
         [_heli, "apu"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
     };
 };
-
-if (_system == "fuselage") then {
-    if (_damage == 0 && _oldDam != 0) then {
-        _heli setVariable ["fza_ah64_irjamfail", true, true];
-    };
-    if (_damage >= 0.5) then {
-        _rand = round(random 10);
-        if (_rand == 1 && !(_heli getVariable "fza_ah64_irjamfail")) then {
-            _heli setVariable ["fza_ah64_irjamfail", true, true];
-        };
-        if (_rand == 5) then {
-            [_heli, "fwd"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-        if (_rand == 10) then {
-            [_heli, "aft"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-    };
-    if (_damage >= 0.8) then {
-        _rand = round(random 10);
-        if (_rand > 3 && !(_heli getVariable "fza_ah64_irjamfail")) then {
-            _heli setVariable ["fza_ah64_irjamfail", true, true];
-        };
-        if (_rand > 6) then {
-            [_heli, "fwd"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-        if (_rand > 8) then {
-            [_heli, "aft"] execvm "\fza_ah64_controls\scripting\damage\fuel_leak.sqf";
-        };
-    };
-};
-
-if (_system == "cockpit") then {
-    if (_oldDam > 0 && _damage == 0) then { //Fix upon return
-        _heli setVariable ["fza_ah64_rfjamfail", false, true];
-    };
-    if (_damage >= 0.5) then {
-        _rand = round(random 10);
-        if (_rand == 1 && !(_heli getVariable "fza_ah64_rfjamfail")) then {
-            _heli setVariable ["fza_ah64_rfjamfail", true, true];
-        };
-    };
-};
-
 if (_system == "leng") then {
     if (_damage == 0 && _oldDam != 0) then {
         _heli setVariable ["fza_ah64_firepdisch", false, true];
