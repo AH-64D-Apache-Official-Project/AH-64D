@@ -50,32 +50,28 @@ if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || is
 };
 
 //ROCKETS SALVOS
-/*
-if (player == gunner _ah64 || local gunner _ah64 || isNull gunner _ah64) then {
+
+if (player == gunner _heli|| local gunner _heli|| isNull gunner _heli) then {
     _this spawn {
-        params["_ah64", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
-        sleep 0.011;
-        if ((_ah64 getVariable "fza_ah64_rocketsalvo") > 0 
-            && fza_ah64_salvofired < (_ah64 getVariable "fza_ah64_rocketsalvo")
-            && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
-            if (_ah64 ammo _weapon <= 0) then {
+        params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
+        sleep 0.14;
+        if ((_heli getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_heli getVariable "fza_ah64_rocketsalvo") && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
+            if (_heli ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };
-            _weaponindex = 1;
-            _wpncounter = 0; {
+            _weaponindex = 0;
+            _wpncounter = 0;
+            {
                 if (_x == _weapon) then {
                     _weaponindex = _wpncounter;
                 };
                 _wpncounter = _wpncounter + 1;
-            }
-            foreach(weapons _ah64);
-            _ah64 setWeaponReloadingTime[gunner _ah64, _weapon, 0];
-            _ah64 action["useWeapon", _ah64, gunner _ah64, _weaponindex];
+            } foreach (weapons _heli);
+            _heli setWeaponReloadingTime[gunner _heli, _weapon, 0];
+            vehicle player action["useWeapon", vehicle player, gunner vehicle player, _weaponindex];
         };
-
-        if (fza_ah64_salvofired >= (_ah64 getVariable "fza_ah64_rocketsalvo")) then {
-            sleep 0.1;
+        if (fza_ah64_salvofired >= (_heli getVariable "fza_ah64_rocketsalvo")) then {
             fza_ah64_salvofired = 0;
         };
     };
-};*/
+};
