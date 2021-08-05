@@ -15,7 +15,7 @@ class CfgAmmo
 	class FlareCore;
 	class B_9x21_Ball;
 	
-	class fza_ah64_flare_shot: FlareCore 
+	class fza_ah64_flare_shot: Bulletbase
 	{
 		hit 						= 1;
 		indirectHit 				= 0;
@@ -24,8 +24,8 @@ class CfgAmmo
 		thrustTime 					= 4;
 		airFriction 				= -0.01;
 		simulation 					= "shotCM";
-		effectsSmoke 				= "fza_cmflare";
-		weaponLockSystem 			= 2+8;
+		effectsSmoke 				= "fza_AC130_Flares";
+		weaponLockSystem 			= 2 + 8;
 		model 						= "\A3\weapons_f\empty";
 		maxControlRange 			= -1;
 		initTime 					= 0;
@@ -590,57 +590,64 @@ class CfgAmmo
 	};
 };
 	///////////////////////////////////////////////////////////////////////
-	//////////////////////////////FLARES CM STYLE//////////////////////////
-	///////////////////////////////////////////////////////////////////////	
+	////////////////////////USAF Flares From AC130 Beta////////////////////
+	////////////////////////Permission for use from pingopete//////////////
+	////////////////////////anyone wishing to use this/////////////////////
+	////////////////////////code and effect must contact///////////////////
+	//////////////////////////////// pingopete ////////////////////////////
 
-class fza_cmflare
+class fza_AC130_Flares
 {
-		class Cmeasures1
-		{
-			simulation = "particles";
-			type = "Cmeasures1";
-			position[] = {0,0,0};
-			intensity = 1;
-			interval = 1;
-			lifeTime = 4.5;
-			qualityLevel = 2;
-		};
-		class Cmeasures1M
-		{
-			simulation = "particles";
-			type = "Cmeasures1M";
-			position[] = {0,0,0};
-			intensity = 1;
-			interval = 1;
-			lifeTime = 4.5;
-			qualityLevel = 1;
-		};
-		class Cmeasures1L
-		{
-			simulation = "particles";
-			type = "Cmeasures1L";
-			position[] = {0,0,0};
-			intensity = 1;
-			interval = 1;
-			lifeTime = 4.5;
-			qualityLevel = 0;
-		};
-		class Cmeasures2
-		{
-			simulation = "particles";
-			type = "Cmeasures2";
-			position[] = {0,0,0};
-			intensity = 1;
-			interval = 1;
-			lifeTime = 3.2;
-		};
-		class Light1
-		{
-			simulation = "light";
-			type = "CmeasuresLight";
-			position[] = {0,0,0};
-			intensity = 1;
-			interval = 1;
-			lifeTime = 3;
-		};
+	class fza_FlareSmokeLong_VERYLOW
+	{
+		simulation="particles";
+		type="fza_FlareSmokeLong_LOW";
+		position[]={0,0,0};
+		intensity=1;
+		interval=1;
+		lifeTime=4.5;
+		qualityLevel=0;
+		enabled=1;
+	};
+	class fza_FlareLightMain_LOW
+	{
+		simulation="light";
+		type="fza_FlareLightMain";
+		position[]={0,0,0};
+		intensity=1;
+		interval=1;
+		lifeTime=3.5;
+		qualityLevel=1;
+		enabled=1;
+	};
+	class fza_FlareLightMain
+	{
+		simulation="light";
+		type="fza_FlareLightMain";
+		position[]={0,0,0};
+		intensity=1;
+		interval=1;
+		lifeTime=3.5;
+		qualityLevel=0;
+		enabled=1;
+	};
+	class fza_FlareLightwhite
+	{
+		simulation="light";
+		type="fza_FlareLightwhite";
+		position[]={0,0,0};
+		intensity=1;
+		interval=1;
+		lifeTime=4;
+		enabled=1;
+	};
+	class fza_Flare_DayTime
+	{
+		simulation = "particles";
+		type = "Cmeasures2";
+		position[] = {0,0,0};
+		intensity = 4;
+		interval = 1;
+		lifeTime = 3.2;
+	};
 };
