@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_AseFlaredeploy.sqf",{12:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Deploys flare if IR jamming is enabled</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_AseFlaredeploy.sqf",{150:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Deploys flare if IR jamming is enabled</div></div>"});
