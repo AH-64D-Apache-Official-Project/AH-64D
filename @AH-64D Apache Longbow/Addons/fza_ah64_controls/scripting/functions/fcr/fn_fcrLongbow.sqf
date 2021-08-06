@@ -47,7 +47,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 			for "_i" from 4000 to _totalDist step 4000 do {
 				_NextPos = (_dir vectorMultiply _i) vectorAdd _lastPos;
 				//check from _lastPos to _NextPos;
-				_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _x];
+				_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _x, true, 1, "GEOM", "FIRE"];
 				if (_ins isNotEqualTo []) then {
 					_clear = false;
 					_dataLinkArray = _dataLinkArray - [_x]; break;
@@ -55,7 +55,7 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 				_lastPos = _NextPos;
 			};
 			if (_clear) then {
-				_ins = lineIntersectsSurfaces [_lastPos , _p2, _heli, _x];
+				_ins = lineIntersectsSurfaces [_lastPos, _p2, _heli, _x, true, 1, "GEOM", "FIRE"];
 				if (_ins isNotEqualTo []) then {
 					_dataLinkArray = _dataLinkArray - [_x];
 				};
