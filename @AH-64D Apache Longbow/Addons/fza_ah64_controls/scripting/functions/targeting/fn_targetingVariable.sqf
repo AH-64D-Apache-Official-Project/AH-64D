@@ -28,22 +28,6 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 	};
 };
 
-//FCR & CSCOPE LIST
-if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr") || (_heli getVariable "fza_ah64_fcrcscope")) then {
-	fza_ah64_dispfcrlist = fza_ah64_fcrlist select {
-		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
-
-		switch (_heli getVariable "fza_ah64_agmode") do {
-			case 1: {
-				((_x isKindOf "air") && ((_heli distance2D _x) < 8000))
-			};
-			default {
-			!(((_heli distance2D _x) > 8000) || (_distOffAxis > 45))
-			};
-		};
-	};
-};
-
 //ASE LIST
 if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") then {
 	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {_x call fza_fnc_targetIsADA};
@@ -51,8 +35,8 @@ if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") then {
 fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
 
 //cscope
-if (count fza_ah64_dispfcrlist > 16) then {
-    fza_ah64_Cscopelist = [fza_ah64_dispfcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+if (count fza_ah64_fcrlist > 16) then {
+    fza_ah64_Cscopelist = [fza_ah64_fcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 } else {
-    fza_ah64_Cscopelist = fza_ah64_dispfcrlist;
+    fza_ah64_Cscopelist = fza_ah64_fcrlist;
 };

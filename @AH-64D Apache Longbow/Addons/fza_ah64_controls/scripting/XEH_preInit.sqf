@@ -105,7 +105,6 @@ fza_ah64_threatfiring = [];
 fza_ah64_mycurrenttarget = objNull;
 fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
-fza_ah64_dispfcrlist = [];
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];

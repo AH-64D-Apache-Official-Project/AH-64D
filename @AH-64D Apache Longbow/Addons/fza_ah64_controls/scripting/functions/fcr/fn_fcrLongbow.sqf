@@ -30,10 +30,10 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		if !(alive _x) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
-		if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45)) then {
+		if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45) && ((_heli distance2D _x) > 8000)) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};				
-		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air")) then {
+		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_x isKindOf "air") && ((_heli distance2D _x) > 8000)) then {
 			_dataLinkArray = _dataLinkArray - [_x];
 		};
 
