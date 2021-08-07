@@ -1,13 +1,13 @@
 #include "BIS_AddonInfo.hpp"
 class CfgPatches
 {
-	class fza_ah64_US
+	class fza_ah64_controls
 	{
 		units[] = {"fza_ah64base","fza_ah64d_b2e","fza_ah64d_b2e_nr"};
 		author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
 		weapons[] = {};
 		requiredVersion = 1.0;
-		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh"};
+		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh", "fza_ah64_sfmplus"};
 	};
 };
 

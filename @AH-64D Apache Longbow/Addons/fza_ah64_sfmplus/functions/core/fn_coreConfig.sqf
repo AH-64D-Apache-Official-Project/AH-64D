@@ -33,10 +33,10 @@ _heli setVariable ["fza_ah64_maxFwdFuelMass", 473];	    //1043lbs in kg
 _heli setVariable ["fza_ah64_maxAftFuelMass", 669]; 	//1474lbs in kg
 //_heli setVariable ["fza_ah64_maxExtFuelMass", 690];     //1541lbs in kg, not yet implemented, 230gal external tank
 
-[_heli] call fza_fnc_sfmplusSetFuel;
-[_heli] call fza_fnc_sfmplusSetMass;
+[_heli] call fza_sfmplus_fnc_fuelSet;
+[_heli] call fza_sfmplus_fnc_massSet;
 
 _heli setVariable ["fza_ah64_totRtrDmg",     0];
 _heli setVariable ["fza_ah64_dmgTimerCont",  0];
 _heli setVariable ["fza_ah64_dmgTimerTrans", 0];
-[_heli] call fza_fnc_sfmplusEngineVariables;
+[_heli] call fza_sfmplus_fnc_engineVariables;

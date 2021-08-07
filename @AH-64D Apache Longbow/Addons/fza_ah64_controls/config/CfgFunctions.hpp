@@ -45,8 +45,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineAPUOn {R;};
 			class engineEventHandler {R;};
-			class engineGetData
-			{ R; description = "Gets the engine-related data for display"; };
 			class engineGetTarget
 			{
 				R;
@@ -180,47 +178,7 @@ class CfgFunctions
 			class pfzReceive {R;};
 			class pfzSend {R;};
 		}
-		//SFM+
-		class sfmplusAerodynamics {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\aerodynamics";
-			class sfmplusStabilator {R;};
-		};
-		class sfmplusCore {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\core";
-			class sfmplusConfig {R;};
-			class sfmplusUpdate  {R;};
-		};
-		class sfmplusDamage {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\damage";
-			class sfmplusApplyDamage {R;};
-		};
-		class sfmplusEngineSim {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\engineSim";
-			class sfmplusEngine  {R;};
-			class sfmplusEngineController {R;};
-			class sfmplusEngineVariables {R;};
-		};
-		class sfmplusSetFuel {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\fuel";
-			class sfmplusSetFuel {R;};
-		};
-		class sfmplusInteractions {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\interactions";
-			class sfmplusPowerLever {R;};
-			class sfmplusStartSwitch {R;};
-		};
-		class sfmplusMass {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\mass";
-			class sfmplusSetMass {R;};
-		};
-		class sfmplusUtility {
-			file = "\fza_ah64_controls\scripting\functions\sfmplus\utility";
-			class sfmplusClampedMove {R;};
-			class sfmplusGetArea {R;};
-			class sfmplusGetInput   {R;};
-			class sfmplusSetArrayVariable {R;};
-		};
-		//SFM+
+		
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";

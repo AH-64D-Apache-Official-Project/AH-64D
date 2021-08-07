@@ -54,6 +54,6 @@ if ((_eng1State == "ON" && _eng2State == "ON") && (_eng1PwrLvrState == "FLY" && 
 
 _heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
 
-[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
-[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
+[_heli, 0, _deltaTime, _eng1TqMult] call fza_sfmplus_fnc_engine;
+[_heli, 1, _deltaTime, _eng2TqMult] call fza_sfmplus_fnc_engine;
 

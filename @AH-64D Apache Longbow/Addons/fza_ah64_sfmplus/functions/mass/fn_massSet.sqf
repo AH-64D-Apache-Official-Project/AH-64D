@@ -26,8 +26,8 @@ if (typeOf _heli == "fza_ah64d_b2e") then {
 };
 _heli setVariable["fza_ah64_emptyMass", _emptyMass];
 
-private _fwdFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 0;
-private _aftFuelMass = [_heli] call fza_fnc_sfmplusSetFuel select 1;
+private _fwdFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
+private _aftFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 
 private _pylonMass = 0;
 {

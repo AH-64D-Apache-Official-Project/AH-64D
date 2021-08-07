@@ -86,7 +86,7 @@ _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
 //SFM+
-[_heli] call fza_fnc_sfmplusConfig;
+[_heli] call fza_sfmplus_fnc_coreConfig;
 
 //HeliSim
 //[_heli] call BMK_fnc_coreConfig;

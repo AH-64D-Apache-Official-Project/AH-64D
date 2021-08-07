@@ -67,7 +67,7 @@ _heli setMass _curMass;
 if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
-/*
+
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
@@ -99,7 +99,7 @@ hintsilent format ["Engine 1 Ng = %1
 					fza_ah64_collectiveOutput,
 					_heli getVariable "fza_ah64_engFF",
 					_heli getVariable "fza_ah64_engBaseNG"];
-*/
+
 
 /* Old engine...
 private _engState  = _heli getVariable "fza_ah64_engState";

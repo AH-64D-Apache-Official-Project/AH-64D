@@ -8,8 +8,8 @@ params["_heli"];
 #define KGTOLBS 2.20462
 
 
-private _forwardCellWeight = [_heli] call fza_fnc_sfmplusSetFuel select 0;
-private _aftCellWeight     = [_heli] call fza_fnc_sfmplusSetFuel select 1;
+private _forwardCellWeight = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
+private _aftCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 private _totFuelCellWeight = _forwardCellWeight + _aftCellWeight;
 _forwardCellWeight = _forwardCellWeight * KGTOLBS;
 _aftCellWeight     = _aftCellWeight * KGTOLBS;
