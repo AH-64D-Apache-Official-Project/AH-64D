@@ -29,8 +29,8 @@ private _collectiveLow  = inputAction "HeliCollectiveLowerCont";
 private _collectiveHigh = inputAction "HeliCollectiveRaiseCont";
 private _collectiveVal  = _collectiveHigh - _collectiveLow;
 private _collectiveOut  = linearConversion [-1, 1, _collectiveVal, 0, 1];
+
 //Keyboard Input
-/*
 private _collKeyLow  = inputAction "HeliCollectiveLower";
 private _collKeyHigh = inputAction "HeliCollectiveRaise";
 
@@ -44,8 +44,7 @@ if (_curAlt <= 0.6 && _collectiveLow == 0 && _collectiveHigh == 0) then {	//~2 f
 		_collectiveOut = 0.7 + _collectiveOutKey;
 	};
 };
-version = 2;
-*/
+
 //Global variable for use by other scripts, returns -1 to 1
 fza_ah64_cyclicRollOut    = _cyclicRight - _cyclicLeft;
 fza_ah64_cyclicPitchOut   = _cyclicForward - _cyclicBackward;
