@@ -32,10 +32,15 @@ private _aftFuelMass    = [_heli] call fza_fnc_sfmplusSetFuel select 1;
 [_heli, _deltaTime] call fza_fnc_sfmplusEngineController;
 
 //Fuel
-private _curFuelFlow = 0;
+private _apuFF  = 0;
 private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
-_curFuelFlow    = (_eng1FF + _eng2FF) * _deltaTime;
+private _curFuelFlow = 0;
+
+if (_heli animationphase "plt_apu" > 0.5) then {
+	_apuFF = 0.0220;	//175pph
+};
+_curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
 private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
 _totFuelMass          = _totFuelMass - _curFuelFlow;
@@ -62,8 +67,7 @@ _heli setMass _curMass;
 if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_fnc_sfmplusStabilator;
 };
-
-
+/*
 hintsilent format ["Engine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
@@ -95,6 +99,7 @@ hintsilent format ["Engine 1 Ng = %1
 					fza_ah64_collectiveOutput,
 					_heli getVariable "fza_ah64_engFF",
 					_heli getVariable "fza_ah64_engBaseNG"];
+*/
 
 /* Old engine...
 private _engState  = _heli getVariable "fza_ah64_engState";
@@ -217,5 +222,3 @@ hintSilent format ["GWT = %1
 [_heli, _e, _e vectorAdd _thrustVector, _colorBlue] call DRAW_LINE;
 */
 //End Simplified Rotor Test
-
-

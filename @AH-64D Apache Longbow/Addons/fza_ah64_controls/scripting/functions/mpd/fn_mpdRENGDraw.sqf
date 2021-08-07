@@ -29,6 +29,7 @@ private _e1percent = (_heli getVariable "fza_ah64_engPctNP" select 0) * 100;
 private _e1ng      = (_heli getVariable "fza_ah64_engPctNG" select 0) * 1000;
 private _e1tgt     = _heli getVariable "fza_ah64_engTGT" select 0;
 private _e1trq     = (_heli getVariable "fza_ah64_engPctTQ" select 0) * 100;
+private _e1opsi    = (_heli getVariable "fza_ah64_engOilPSI" select 0) * 100;
 if (_e1percent <= (0.37 * 100)) then {
 	_e1trq = 0;
 };
@@ -114,6 +115,7 @@ private _e2percent = (_heli getVariable "fza_ah64_engPctNP" select 1) * 100;
 private _e2ng      = (_heli getVariable "fza_ah64_engPctNG" select 1) * 1000;
 private _e2tgt     = _heli getVariable "fza_ah64_engTGT" select 1;
 private _e2trq     = (_heli getVariable "fza_ah64_engPctTQ" select 1) * 100;
+private _e2opsi    = (_heli getVariable "fza_ah64_engOilPSI" select 1) * 100;
 if (_e2percent <= (0.37 * 100)) then {
 	_e2trq = 0;
 };
@@ -245,6 +247,7 @@ if (getpos _heli select 2 > 1) then {
 } else {
 	_heli setobjecttexture [SEL_MPD_PR_ENG_IFB, ""];
 	_heli setobjecttexture [SEL_MPD_PR_ENG_OFB, "\fza_ah64_us\tex\mpd\eng.paa"];
+	
 	// #region ENGINE 1 OIL PSI
 	private _e1opsiChar = "\fza_ah64_us\tex\char\g";
 	if (_e1opsi < 20 || _e1opsi > 95) then {

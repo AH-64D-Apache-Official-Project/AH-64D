@@ -26,9 +26,16 @@ private _engBaseTQ           = _heli getVariable "fza_ah64_engBaseTQ" select _en
 private _engPctTQ            = _heli getVariable "fza_ah64_engPctTQ" select _engNum;
 private _engBaseTGT          = _heli getVariable "fza_ah64_engBaseTGT" select _engNum;
 private _engTGT              = _heli getVariable "fza_ah64_engTGT" select _engNum;
+private _engBaseOilPSI       = _heli getVariable "fza_ah64_engBaseOilPSI" select _engNum;
+private _engOilPSI           = _heli getVariable "fza_ah64_engOilPSI" select _engNum; 
 private _engStartSwitchState = _heli getVariable "fza_ah64_engStartSwitchState" select _engNum;
 private _engPowerLeverState  = _heli getVariable "fza_ah64_engPowerLeverState" select _engNum;
 private _engClutchState      = _heli getVariable "fza_ah64_engClutchState" select _engNum;
+
+if (_engStartSwitchState == "START") then {
+	_engState = "STARTING";
+	[_heli, _engNum, "OFF"] spawn fza_fnc_sfmplusStartSwitch;
+};
 
 //Ng variables
 private _ngMaxVal    = 0;
@@ -50,10 +57,11 @@ private _engStartNp = _heli getVariable "fza_ah64_engStartNp";
 private _engIdleNp  = _heli getVariable "fza_ah64_engIdleNp";
 private _engFlyNp   = _heli getVariable "fza_ah64_engFlyNp"; 
 
-if (_engStartSwitchState == "START") then {
-	_engState = "STARTING";
-	[_heli, _engNum, "OFF"] spawn fza_fnc_sfmplusStartSwitch;
-};
+//Tq Variables
+private _tqMaxVal    = 0;
+private _tqCurVal    = 0;
+private _tqTimeToVal = 0;
+private _tqValPerUnitTime = 0;   
 
 switch (_engState) do {
 	case "OFF": {
@@ -139,6 +147,7 @@ switch (_engState) do {
 		_npValPerUnitTime = _npCurVal / _npTimeToVal;
 	};
 };
+
 if (_engTQMult != 0) then {
 	_engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_fnc_sfmplusClampedMove;
 } else {
@@ -147,11 +156,12 @@ if (_engTQMult != 0) then {
 	_ngTimeToVal = 4;
 	_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
 
-	_npMaxVal    = 0;
+	_npMaxVal    = _engIdleNp;
 	_npCurVal    = _engPctNP;
-	_npTimeToVal = 2;
+	_npTimeToVal = 4;
 	_npValPerUnitTime = _npCurVal / _npTimeToVal;
 };
+
 _engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_fnc_sfmplusClampedMove;
 [_heli, "fza_ah64_engBaseNG", _engNum, _engBaseNG] call fza_fnc_sfmplusSetArrayVariable;
 
@@ -171,6 +181,9 @@ if (_engState != "OFF") then {
 	//TQ
 	_engBaseTQ = _intEngBaseTable select 2;
 	[_heli, "fza_ah64_engBaseTQ",  _engNum, _engBaseTQ] call fza_fnc_sfmplusSetArrayVariable;
+	//Oil
+	_engBaseOilPSI = _intEngBaseTable select 4;
+	[_heli, "fza_ah64_engBaseOilPSI",  _engNum, _engBaseOilPSI] call fza_fnc_sfmplusSetArrayVariable;
 
 	private _curGWT_kg     = getMass _heli;
 	private _intHvrTQTable = [_heli getVariable "fza_ah64_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
@@ -199,14 +212,24 @@ if (_engState != "OFF") then {
 	
 	private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 	_engPctTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
-	_engPctTQ      = _engPctTQ * _engTQMult;
+	
+	if (_engTQMult != 0) then {
+		_tqMaxVal    = 0;
+		_tqCurVal    = _engPctTQ * _engTQMult;
+		_tqTimeToVal = 4;
+		_tqValPerUnitTime = _tqCurVal / _tqTimeToVal;  
+
+		_engPctTQ = [_tqMaxVal, _tqCurVal, _deltaTime, _tqValPerUnitTime] call fza_fnc_sfmplusClampedMove;
+	} else {
+		_engPctTQ = _engPctTQ * _engTQMult;
+	};
 	[_heli, "fza_ah64_engPctTQ", _engNum, _engPctTQ] call fza_fnc_sfmplusSetArrayVariable;
 
-	//-------------------------TQ----------TGT------------NG---------
-	private _engTable = [[ _engBaseTQ, _engBaseTGT,	_engBaseNG],
-						 [ 1.00, 	   810,			0.950	  ],	//Cont
-						 [ 1.29, 	   867,			0.990	  ],	//10 min
-						 [ 1.34, 	   896,			0.997	  ]];	//2.5 Min
+	//--------------------0-TQ--------1-TGT---------2-NG--------3-Oil
+	private _engTable = [[_engBaseTQ, _engBaseTGT,	_engBaseNG, _engBaseOilPSI],
+						 [1.00,       810,			0.950	  ,	0.91		  ],	//Cont
+						 [1.29, 	  867,			0.990	  , 0.94          ],	//10 min
+						 [1.34, 	  896,			0.997	  , 0.99          ]];	//2.5 Min
 
 	//----------------------TQ----FF (kg/s)
 	private _engFFTable = [[0.00, 0.0000],
@@ -230,6 +253,9 @@ if (_engState != "OFF") then {
 
 	_engPctNG = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 2;
 	[_heli, "fza_ah64_engPctNG", _engNum, _engPctNG] call fza_fnc_sfmplusSetArrayVariable;
+
+	_engOilPSI = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 3;
+	[_heli, "fza_ah64_engOilPSI", _engNum, _engOilPSI] call fza_fnc_sfmplusSetArrayVariable;
 
 	if (_engTQMult != 0) then {
 		_engFF = [_engFFTable, _engPctTQ] call fza_fnc_linearInterp select 1;
