@@ -19,12 +19,6 @@ private _npTapeScaler  = [[0,   0.00],
 private _isSingleEng = _heli getVariable "fza_ah64_isSingleEng";
 
 // #region ENGINE 1
-//_e1data = [_heli, 0] call fza_fnc_engineGetData;
-//_e1percent = (_e1data select 0) / 209.0;
-//_e1ng = (_e1data select 1) * 10;
-//_e1tgt = _e1data select 2;
-//_e1opsi = _e1data select 3;
-//_e1trq = (_e1data select 4) / 4.81;
 private _e1percent = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
 private _e1ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
 private _e1tgt     = _heli getVariable "fza_sfmplus_engTGT" select 0;
@@ -105,12 +99,6 @@ _heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc
 // #endregion
 
 // #region ENGINE 2
-//_e2data = [_heli, 1] call fza_fnc_engineGetData;
-//_e2percent = (_e2data select 0) / 209.0;
-//_e2ng = (_e2data select 1) * 10;
-//_e2tgt = _e2data select 2;
-//_e2opsi = _e2data select 3;
-//_e2trq = (_e2data select 4) / 4.81;
 private _e2percent = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
 private _e2ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
 private _e2tgt     = _heli getVariable "fza_sfmplus_engTGT" select 1;

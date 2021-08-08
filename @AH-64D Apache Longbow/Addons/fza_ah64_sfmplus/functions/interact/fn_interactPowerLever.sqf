@@ -24,12 +24,11 @@ if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
 private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _engPwrLeverAnimName = format["plt_eng%1_throttle", _engNum + 1]; 
 
-
 if (_state == "OFF") then {
 	_heli animateSource[_engPwrLeverAnimName, 0];
 	[_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state] call fza_sfmplus_fnc_setArrayVariable;
 
-	if (_engState == "ON") then {
+	if (_engState == "ON" && _state == "OFF") then {
 		[_heli, _engNum] call fza_sfmplus_fnc_engineReset;
 	};
 

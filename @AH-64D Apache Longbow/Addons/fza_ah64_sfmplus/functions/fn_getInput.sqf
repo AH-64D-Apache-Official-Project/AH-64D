@@ -24,7 +24,6 @@ private _collectiveLow = 0.0; private _collectiveHigh = 0.0;
 private _collectiveVal = 0.0; private _collectiveOut  = 0.0;
 
 if (fza_ah64_sfmPlusKeyboardOnly) then {
-	hintSilent format ["KEYBOARD only!"];
 	//Keyboard Input
 	_collectiveLow  = inputAction "HeliCollectiveLower";
 	_collectiveHigh = inputAction "HeliCollectiveRaise";
@@ -38,7 +37,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 		_collectiveOut = 0.7 + _collectiveVal;
 	};
 } else {
-	hintSilent format ["HOTAS only!"];
 	//HOTAS Input
 	//Cyclic
 	_cyclicLeft     = inputAction "HeliCyclicLeft";
