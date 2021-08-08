@@ -68,8 +68,8 @@ _heli setMass _curMass;
 if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
-/*
-hintsilent format ["v0.3
+
+hintsilent format ["v0.11
 					\nEngine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
@@ -83,10 +83,11 @@ hintsilent format ["v0.3
 					\nPercent NP = %9
 					\nEng Clutch State = %10
 					\nEng Start Switch = %11
+					\nEng Power Lever = %12;
 					\n-------------------
-					\nColl Pos = %12
-					\nEng FF = %13
-					\nEngine Base NG = %14", 		
+					\nColl Pos = %13
+					\nEng FF = %14
+					\nEngine Base NG = %15", 		
 					_heli getVariable "fza_sfmplus_engPctNG" select 0, 
 					_heli getVariable "fza_sfmplus_engPctTQ" select 0, 
 					_heli getVariable "fza_sfmplus_engTGT" select 0,
@@ -94,11 +95,11 @@ hintsilent format ["v0.3
 					_heli getVariable "fza_sfmplus_engPctTQ" select 1, 
 					_heli getVariable "fza_sfmplus_engTGT" select 1,
 					_heli getVariable "fza_sfmplus_engState",
-					_heli getVariable "fza_sfmplus_isSingEng",
+					_heli getVariable "fza_sfmplus_isSingleEng",
 					_heli getVariable "fza_sfmplus_engPctNP",
 					_heli getVariable "fza_sfmplus_engClutchState",
 					_heli getVariable "fza_sfmplus_engStartSwitchState",
+					_heli getVariable "fza_sfmplus_engPowerLeverState",
 					fza_sfmplus_collectiveOutput,
 					_heli getVariable "fza_sfmplus_engFF",
 					_heli getVariable "fza_sfmplus_engBaseNG"];
-*/

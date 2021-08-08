@@ -21,7 +21,7 @@ params ["_heli", "_engNum"];
 [_heli, "fza_sfmplus_engStartSwitchState", _engNum, "OFF"] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPowerLeverState",  _engNum, "OFF"] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engState", 		   _engNum, "OFF"] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engClutchState", 	   _engNum, "OFF"] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engClutchState", 	   _engNum, "DIS"] call fza_sfmplus_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engFF", 	 	 _engNum, 0.0] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseNG", 	 _engNum, 0.0] call fza_sfmplus_fnc_setArrayVariable;

@@ -36,11 +36,6 @@ private _engStartSwitchState = _heli getVariable "fza_sfmplus_engStartSwitchStat
 private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
 private _engClutchState      = _heli getVariable "fza_sfmplus_engClutchState" select _engNum;
 
-if (_engStartSwitchState == "START") then {
-	_engState = "STARTING";
-	[_heli, _engNum, "OFF"] spawn fza_sfmplus_fnc_interactStartSwitch;
-};
-
 //Ng variables
 private _ngMaxVal    = 0;
 private _ngCurVal    = 0;
@@ -152,6 +147,7 @@ switch (_engState) do {
 	};
 };
 
+//I think this might be why the other engine is outputting Ng...Need to investigate later.
 if (_engTQMult != 0) then {
 	_engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
 } else {
@@ -267,4 +263,7 @@ if (_engState != "OFF") then {
 		_engFF = [_engFFTable, _engBaseTQ] call fza_fnc_linearInterp select 1;
 	};
 	[_heli, "fza_sfmplus_engFF", _engNum, _engFF] call fza_sfmplus_fnc_setArrayVariable;
+} else {
+	_engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
+	[_heli, "fza_sfmplus_engPctNG", _engNum, _engBaseNG] call fza_sfmplus_fnc_setArrayVariable;
 };

@@ -38,13 +38,13 @@ private _eng2TqMult = 1;
 if ((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") && (_eng2State == "ON" && _eng2PwrLvrState == "IDLE")) then {
 	_isSingleEng = false;
 } else {
-	if (_eng1State in ["OFF", "ON"] && _eng2PwrLvrState == "IDLE") then {
+	if (_eng1State == "ON" && _eng2PwrLvrState in ["OFF", "IDLE"]) then {
 		_eng1TqMult = 2;
 		_eng2TqMult = 0;
 		_isSingleEng = true;
 	};
 
-	if (_eng2State in ["OFF", "ON"] && _eng1PwrLvrState == "IDLE") then {
+	if (_eng2State == "ON" && _eng1PwrLvrState in ["OFF", "IDLE"]) then {
 		_eng1TqMult = 0;
 		_eng2TqMult = 2;
 		_isSingleEng = true;

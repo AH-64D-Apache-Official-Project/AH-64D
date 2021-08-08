@@ -8,34 +8,34 @@ Parameters:
 	...
 
 Returns:
-	...
+	Whether to register a click (boolean)
 
 Examples:
 	...
-	
+
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_engNum", "_state"];
+params ["_heli", "_engNum"];
 
 if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
 
-private _engStartSwitch = format["plt_eng%1_start", _engNum + 1];
+private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
-//If the start switch is in the off position, move it to the start position
-if (_state == "START") then {
-	_heli animateSource[_engStartSwitch, 1];
-	[_heli, "fza_sfmplus_engStartSwitchState", _engNum, _state] call fza_sfmplus_fnc_setArrayVariable;
+switch (_engState) do {
+	case "STARTING": {
+		_engState = "OFF";
+		[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 
-	//HeliSim
-	//[_heli, _engNum, true] call bmk_fnc_engineStartSwitch;
+		true;
+	};
+	case "OFF": {
+		_engState = "STARTING";
+		[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
+
+		true;
+	};
+	default {
+		false;
+	}
 };
-
-if (_state == "OFF") then {
-	_heli animateSource[_engStartSwitch, 0];
-	[_heli, "fza_sfmplus_engStartSwitchState", _engNum, _state] call fza_sfmplus_fnc_setArrayVariable;
-
-	//HeliSim
-	//[_heli, _engNum, false] call BMK_fnc_engineStartSwitch;
-}
-

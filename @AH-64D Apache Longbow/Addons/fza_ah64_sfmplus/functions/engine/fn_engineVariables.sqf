@@ -49,7 +49,7 @@ _heli setVariable ["fza_sfmplus_engBaseTGT",     	   	[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engTGT",        	   	[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engBaseOilPSI",	  		[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engOilPSI",		   		[0.0, 0.0]];
-_heli setVariable ["fza_sfmplus_engDst", 			   	[false, false]];
+_heli setVariable ["fza_sfmplus_engDest", 			   	[false, false]];
 
 //------------------------------------------------0-NG-----1-TGT----2-TQ----3-NP----4-Oil
 _heli setVariable ["fza_sfmplus_engBaseTable",	[[0.000,	  0,	0.00,	0.00,	0.00],		//Off

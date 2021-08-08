@@ -77,10 +77,9 @@ switch(_control) do {
 	//--------------------ENGINE 1--------------------//
 	//Start Switch
 	case "e1start": {
-		private _eng1State = _heli getVariable "fza_sfmplus_engState" select 0;
-
-		if (_eng1State in ["OFF", "STARTING"]) then {
-			[_heli, 0, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
+		private _startSwitchToStart = [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
+		if (_startSwitchToStart) then {
+			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)]
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
@@ -116,10 +115,9 @@ switch(_control) do {
 	//--------------------ENGINE 2--------------------//	
 	//Start Switch
 	case "e2start": {
-		private _eng2State = _heli getVariable "fza_sfmplus_engState" select 1;
-		
-		if (_eng2State in ["OFF", "STARTING"]) then {
-			[_heli, 1, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
+		private _startSwitchToStart = [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
+		if (_startSwitchToStart) then {
+			_heli animateSource ["plt_eng2_start", [0, 2] select (_heli animationSourcePhase "plt_eng2_start" != 0)]
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
