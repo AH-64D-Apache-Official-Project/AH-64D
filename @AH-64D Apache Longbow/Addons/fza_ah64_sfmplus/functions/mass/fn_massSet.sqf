@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_perfSetMass
+Function: fza_sfmplus_fnc_massSet
 
 Description:
 	Sets the initial mass of the helicopter.
@@ -8,10 +8,10 @@ Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-
+	...
 
 Examples:
-
+	...
 
 Author:
 	BradMick
@@ -19,7 +19,7 @@ Author:
 params ["_heli"];
 
 private _emptyMass = 0;
-if (typeOf _heli == "fza_ah64d_b2e") then {
+if (_heli animationPhase "fcr_enable" == 1) then {
 	_emptyMass = _heli getVariable "fza_sfmplus_emptyMassFCR";
 } else {
 	_emptyMass = _heli getVariable "fza_sfmplus_emptyMassNonFCR";

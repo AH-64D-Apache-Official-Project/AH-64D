@@ -1,15 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusStartSwitch
+Function: fza_sfmplus_fnc_interactStartSwitch
 
 Description:
+	Handles start switch animations.
 
 Parameters:
+	...
 
 Returns:
-
+	...
 
 Examples:
-
+	...
+	
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */

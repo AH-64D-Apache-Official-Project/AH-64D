@@ -1,13 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusPowerLever
+Function: fza_sfmplus_fnc_interactPowerLever
 
 Description:
+	Handles power lever animation and invokes engineReset when a power lever is
+	taken to off.	
 
 Parameters:
+	...
 
 Returns:
+	...
 
 Examples:
+	...
 
 Author:
 	BradMick

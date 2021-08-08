@@ -79,7 +79,7 @@ switch(_control) do {
 	case "e1start": {
 		private _eng1State = _heli getVariable "fza_sfmplus_engState" select 0;
 
-		if (_eng1State == "OFF") then {
+		if (_eng1State in ["OFF", "STARTING"]) then {
 			[_heli, 0, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
@@ -118,7 +118,7 @@ switch(_control) do {
 	case "e2start": {
 		private _eng2State = _heli getVariable "fza_sfmplus_engState" select 1;
 		
-		if (_eng2State == "OFF") then {
+		if (_eng2State in ["OFF", "STARTING"]) then {
 			[_heli, 1, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;

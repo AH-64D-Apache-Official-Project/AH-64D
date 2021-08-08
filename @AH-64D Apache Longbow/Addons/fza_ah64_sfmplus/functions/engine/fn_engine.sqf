@@ -1,14 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusEngine
+Function: fza_sfmplus_fnc_engine
 
 Description:
+	Provides a visually accurate simulation of a turbine engine based on table
+	interpolation and collective input.
 
 Parameters:
+	...
 
 Returns:
-
+	...
 
 Examples:
+	...
 
 Author:
 	BradMick

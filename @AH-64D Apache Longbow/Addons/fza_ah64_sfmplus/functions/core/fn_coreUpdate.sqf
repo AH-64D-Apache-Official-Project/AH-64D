@@ -1,16 +1,17 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusUpdate
+Function: fza_sfmplus_fnc_coreUpdate
 
 Description:
+	Updates all of the modules core functions.
 	
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-
+	...
 
 Examples:
-
+	...
 
 Author:
 	BradMick
@@ -101,125 +102,3 @@ hintsilent format ["v0.3
 					_heli getVariable "fza_sfmplus_engFF",
 					_heli getVariable "fza_sfmplus_engBaseNG"];
 */
-
-/* Old engine...
-private _engState  = _heli getVariable "fza_sfmplus_engState";
-private _eng1State = _engState select 0;
-private _eng2State = _engState select 1;
-if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
-	_heli engineOn true;
-};
-
-private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
-
-private _eng1TqMult = 1;
-private _eng2TqMult = 1;
-if (((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") || _eng1State in ["OFF","DEST"]) && _eng2PwrLvrState == "FLY") then {
-	_eng1TqMult = 0;
-	_eng2TqMult = 2;
-	_isSingleEng = true;
-} else {
-	_isSingleEng = false;
-};
-
-if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State in ["OFF","DEST"]) && _eng1PwrLvrState == "FLY") then {
-	_eng1TqMult = 2;
-	_eng2TqMult = 0;
-	_isSingleEng = true;
-} else {
-	_isSingleEng = false;
-};
-_heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
-
-[_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
-[_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
-*/
-
-
-//Start Simplified Rotor Test
-/*
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
-DRAW_LINE = {
-	params ["_heli", "_p1", "_p2", "_col"];
-	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
-private _bladeRadius = 7.315;
-private _rotorRPM    = 292;
-private _tipSpeed    = (2 * PI * _rotorRPM / 60) * _bladeRadius;
-private _V_mps       = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-private _advRatio    = _V_mps / _tipSpeed;
-
-private _minCycPitch = -10.0;
-private _maxCycPitch =  20.0;
-private _minCycRoll  = -10.5;
-private _maxCycRoll  =   7.0;
-
-//Cyclic roll
-private _discRollAngle  = 0;
-if (fza_sfmplus_cyclicRollOut < 0) then
-{
-	_discRollAngle = _minCycRoll;
-};
-if (fza_sfmplus_cyclicRollOut > 0) then {
-	_discRollAngle = -_maxCycRoll;
-};
-_discRollAngle = _discRollAngle * fza_sfmplus_cyclicRollOut;
-
-//Cyclic pitch
-private _discPitchAngle = 0;
-if (fza_sfmplus_cyclicPitchOut < 0) then
-{
-	_discPitchAngle = _minCycPitch;
-};
-if (fza_sfmplus_cyclicPitchOut > 0) then {
-	_discPitchAngle = -_maxCycPitch;
-};
-_discPitchAngle = _discPitchAngle * fza_sfmplus_cyclicPitchOut;
-
-private _thrustMod = 1.3643;
-private _hvrThrust = 97410;	//N
-private _minThrust = 0.15 * _hvrThrust;
-private _maxThrust = _hvrThrust * _thrustMod;
-private _curThrust = _minThrust + ((_maxThrust - _minThrust) * fza_sfmplus_collectiveOutput);
-_curThrust = _curThrust * (1 + _advRatio);
-
-private _rotorPos    = [0.00, 1.33, 2.08];
-private _refDatum    = [0.00, 0.00, 0.00];
-private _modelCenter = _heli selectionPosition "modelCenter";
-private _pos = _rotorPos vectorAdd _refDatum vectorAdd _modelCenter;
-
-private _a = [0,0,0]; private _b = [0,0,0]; private _c = [0,0,0]; private _d = [0,0,0]; private _e = [0,0,0]; private _thrustVector = [0,0,0];
-private _xAxisTQ = 0.0; private _yAxisTQ = 0.0; private _zAxisTQ = 0.0;
-
-_a = _pos vectorAdd [0.0, cos _discPitchAngle * _bladeRadius, sin _discPitchAngle * _bladeRadius];
-_b = _pos vectorAdd [cos _discRollAngle * _bladeRadius, 0.0, sin _discRollAngle * _bladeRadius];
-_c = _pos vectorAdd [0.0, cos _discPitchAngle * (-_bladeRadius), sin _discPitchAngle * (-_bladeRadius)];
-_d = _pos vectorAdd [cos _discRollAngle * (-_bladeRadius), 0.0, sin _discRollAngle * (-_bladeRadius)];
-_e = (_a vectorAdd _c) vectorMultiply 0.5;
-_thrustVector = vectorNormalized ((_b vectorDiff _d) vectorCrossProduct (_a vectorDiff _c));
-
-private _thrust = _thrustVector vectorMultiply (_curThrust * _deltaTime);
-_heli addForce[_heli vectorModelToWorld _thrust, _e];
-
-private _yAxisThrust = _curThrust * sin _discPitchAngle;
-private _xAxisThrust = _curThrust * sin _discRollAngle;
-_xAxisTQ = _yAxisThrust * _deltaTime;
-_yAxisTQ = _xAxisThrust * _deltaTime;
-//_zAxisTQ = _totalTorque * _deltaTime;
-
-_heli addTorque (_heli vectorModelToWorld [_xAxisTQ, _yAxisTQ, 0.0]);
-
-hintSilent format ["GWT = %1
-                    \nThrust = %2
-					\nColl Pos = %3", getMass _heli, _curThrust, fza_sfmplus_collectiveOutput];
-
-[_heli, _a, _c, _colorWhite] call DRAW_LINE;
-[_heli, _b, _d, _colorWhite] call DRAW_LINE;
-[_heli, _e, _e vectorAdd _thrustVector, _colorBlue] call DRAW_LINE;
-*/
-//End Simplified Rotor Test

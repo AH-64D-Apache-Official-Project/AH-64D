@@ -1,15 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusApplyDamage
+Function: fza_sfmplus_fnc_damageApply
 
 Description:
+    Applies damage within a defined period of time after exceeding aircraft
+    operating limits. 
 
 Parameters:
+    ...
 
 Returns:
-
+    ...
 
 Examples:
-
+    ...
 
 Author:
 	BradMick

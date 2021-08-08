@@ -1,16 +1,17 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusConfig
+Function: fza_sfmplus_fnc_getInput
 
 Description:
+	Handles keyboard and HOTAS input for the simulation.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-
+	...
 
 Examples:
-
+	...
 
 Author:
 	BradMick

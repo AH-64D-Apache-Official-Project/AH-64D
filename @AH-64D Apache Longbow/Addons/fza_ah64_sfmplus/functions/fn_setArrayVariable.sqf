@@ -1,7 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: BMK_fn_setArrayVariable
+Function: fza_sfmplus_fnc_setArrayVariable
 
 Description:
+  Sets a multi-variable array.
 
 Parameters:
   ...

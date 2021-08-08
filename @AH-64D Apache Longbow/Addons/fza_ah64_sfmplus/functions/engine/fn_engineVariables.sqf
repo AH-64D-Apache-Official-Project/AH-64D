@@ -1,20 +1,17 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusSetFuel
+Function: fza_sfmplus_fnc_engineVariables
 
 Description:
-
+	Defines core engine variables.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-	The mass of the forward and aft fuel cells.
+	...
 
 Examples:
 	...
-	_fuelMass = [_heli] call fza_fnc_setFuel;
-	_fwdFuelMass = _fuelMass select 0;
-	_aftFuelMass = _fuelMass select 1;
 
 Author:
 	BradMick
@@ -26,7 +23,6 @@ _heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, I
 _heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
 _heli setVariable ["fza_sfmplus_engClutchState",	  	["DIS", "DIS"]]; //DIS, ENG
 
-//
 _heli setVariable ["fza_sfmplus_isSingleEng",			false];
 _heli setVariable ["fza_sfmplus_engTqMult",				2];
 _heli setVariable ["fza_sfmplus_baseTQ",				0];

@@ -1,7 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: BMK_fn_setArrayClampedMove
+Function: fza_sfmplus_fnc_clampedMove
 
 Description:
+  Interpolates between current and max values over time.
 
 Parameters:
   ...

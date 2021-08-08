@@ -83,10 +83,7 @@ _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
-//SFM+
 [_heli] call fza_sfmplus_fnc_coreConfig;
-
-//HeliSim
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {

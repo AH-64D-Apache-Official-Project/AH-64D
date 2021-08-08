@@ -1,16 +1,18 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusStabilator
+Function: fza_sfmplus_fnc_aeroStabilator
 
 Description:
+    Creates a stabilator object which automatically schedules as a function of
+    collective position and airspeed.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-
+    ...
 
 Examples:
-
+    ...
 
 Author:
 	BradMick

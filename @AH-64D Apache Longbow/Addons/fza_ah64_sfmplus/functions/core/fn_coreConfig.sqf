@@ -1,20 +1,17 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusConfig
+Function: fza_sfmplus_fnc_coreConfig
 
 Description:
-
+	Defines key values for the simulation.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].
 
 Returns:
-	The mass of the forward and aft fuel cells.
+	...
 
 Examples:
 	...
-	_fuelMass = [_heli] call fza_fnc_setFuel;
-	_fwdFuelMass = _fuelMass select 0;
-	_aftFuelMass = _fuelMass select 1;
 
 Author:
 	BradMick

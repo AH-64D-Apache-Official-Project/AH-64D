@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusSetFuel
+Function: fza_sfmplus_fnc_fuelSet
 
 Description:
-
+	Sets the initial fuel state of the aircraft.
 
 Parameters:
 	_heli - The apache helicopter to get information from [Unit].

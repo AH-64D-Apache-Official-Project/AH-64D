@@ -1,8 +1,10 @@
+private _projName = "AH-64D Official Project";
+
 [
 	"fza_ah64_showPopup",
 	"CHECKBOX",
 	["Show Popup Intro", "Show popup when the player gets into an Apache"],
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	true
 ] call CBA_fnc_addSetting;
 
@@ -10,7 +12,7 @@
 	"fza_ah64_headTrackAllowCursorMove",
 	"CHECKBOX",
 	"Allow cursor movement while in head tracking mode",
-	["AH-64D Official Project", "Control"],
+	[_projName, "Control"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -19,7 +21,7 @@
 	"fza_ah64_headTrackSensitivity",
 	"SLIDER",
 	"Head tracking mode cursor sensitivity",
-	["AH-64D Official Project", "Control"],
+	[_projName, "Control"],
 	[0, 1, 0.5, 2],
 	0
 ] call CBA_fnc_addSetting;
@@ -28,7 +30,7 @@
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
 	"Enable cockpit hints",
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
 
@@ -36,7 +38,7 @@
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
 	"Show vanilla targeting information (restart needed)",
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	[true],
 	0,
 	{
@@ -48,8 +50,8 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enable stabilator in SFM", "Disclaimer: All crew needed to disable"],
-	["AH64D Apache", "Flight model"],
+	["Enable stabilator in SFM"],
+	[_projName, "Flight model"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -58,7 +60,7 @@
 	"fza_ah64_sfmPlusKeyboardOnly",
 	"CHECKBOX",
 	["Enable keyboard only mode in SFM"],
-	["AH64D Apache", "Flight model"],
+	[_projName, "Flight model"],
 	[false],
 	0
 ] call CBA_fnc_addSetting;
