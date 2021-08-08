@@ -49,7 +49,7 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enable stabilator", "Disclaimer: All crew need to disable this funtion to turn off"],
+	["Enable stabilator"],
 	["AH-64D Official Project", "Flight model"],
 	[true],
 	0
