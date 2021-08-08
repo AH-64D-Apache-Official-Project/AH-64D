@@ -448,7 +448,7 @@ if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) the
 _radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_ah64_engPctTQ" select 0) max (_heli getVariable "fza_ah64_engPctTQ" select 1);
+_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
 _collective = format["%1", round(100 * _TQVal)];
 if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) == 2) then {
     _eng1data = [_heli, 0] call fza_fnc_engineGetData;

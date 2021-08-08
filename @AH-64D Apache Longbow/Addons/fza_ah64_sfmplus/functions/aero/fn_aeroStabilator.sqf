@@ -17,7 +17,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _collOut = fza_ah64_collectiveOutput;
+private _collOut = fza_sfmplus_collectiveOutput;
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
 
@@ -27,7 +27,7 @@ DRAW_LINE = {
 };
 
 private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
-private _stabPos = _heli getVariable "fza_ah64_stabPos";
+private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
 //--------------------Coll----30kts--70kts--90kts--110kts--120kts-150kts
@@ -79,8 +79,8 @@ private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 //    E-------------G-------------F
 //    |             |             |
 //    D-------------I-------------C
-private _width  = _heli getVariable "fza_ah64_stabWidth";
-private _length = _heli getVariable "fza_ah64_stabLength";
+private _width  = _heli getVariable "fza_sfmplus_stabWidth";
+private _length = _heli getVariable "fza_sfmplus_stabLength";
 
 private _halfWidth = _width / 2;
 
@@ -136,7 +136,7 @@ private _AIRFOILTABLE =
 private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
 private _CL = _intAIRFOILTABLE select 1;
 
-private _area = 3.45;
+private _area = [_A, _B, _C, _D] call fza_sfmplus_getArea;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);

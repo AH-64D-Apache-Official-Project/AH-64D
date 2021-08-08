@@ -16,14 +16,14 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _pctNR         = (_heli getVariable "fza_ah64_engPctNP" select 0) max (_heli getVariable "fza_ah64_engPctNP" select 1);
-private _eng1PctTQ     = _heli getVariable "fza_ah64_engPctTQ" select 0;
-private _eng2PctTQ     = _heli getVariable "fza_ah64_engPctTQ" select 1;
+private _pctNR         = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
+private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
+private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ      = _eng1PctTQ max _eng2PctTQ;
 private _totRtrDmg     = _heli getHit "velka vrtule";
-private _isSingleEng   = _heli getVariable "fza_ah64_isSingleEng";
-private _dmgTimerCont  = _heli getVariable "fza_ah64_dmgTimerCont";
-private _dmgTimerTrans = _heli getVariable "fza_ah64_dmgTimerTrans";
+private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
+private _dmgTimerCont  = _heli getVariable "fza_sfmplus_dmgTimerCont";
+private _dmgTimerTrans = _heli getVariable "fza_sfmplus_dmgTimerTrans";
 
 private _timeToMaxDmg = 30;
 private _dmgPerSec    = 1 / _timeToMaxDmg;
@@ -59,8 +59,8 @@ if (isEngineOn _heli) then {
             if (_engPctTQ <= 1.10) then {
                 _dmgTimerCont  = 0;
                 _dmgTimerTrans = 0;
-                _heli setVariable ["fza_ah64_dmgTimerCont", _dmgTimerCont];
-                _heli setVariable ["fza_ah64_dmgTimerTrans", _dmgTimerTrans];
+                _heli setVariable ["fza_sfmplus_dmgTimerCont", _dmgTimerCont];
+                _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             //2.5 min SE contingency
             if (_engPctTQ > 1.10 && _engPctTQ <= 1.22) then {
@@ -73,10 +73,10 @@ if (isEngineOn _heli) then {
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
-                _heli setVariable ["fza_ah64_dmgTimerCont", _dmgTimerCont];
+                _heli setVariable ["fza_sfmplus_dmgTimerCont", _dmgTimerCont];
             } else {
                 _dmgTimerCont  = 0;
-                _heli setVariable ["fza_ah64_dmgTimerCont", _dmgTimerCont];
+                _heli setVariable ["fza_sfmplus_dmgTimerCont", _dmgTimerCont];
             };
             //6 sec transient
             if (_engPctTQ > 1.22 && _engPctTQ <= 125) then {
@@ -89,10 +89,10 @@ if (isEngineOn _heli) then {
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
-                _heli setVariable ["fza_ah64_dmgTimerTrans", _dmgTimerTrans];
+                _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             } else {
                 _dmgTimerTrans  = 0;
-                _heli setVariable ["fza_ah64_dmgTimerTrans", _dmgTimerTrans];
+                _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             if (_engPctTQ > 1.25) then {
                 private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
@@ -108,7 +108,7 @@ if (isEngineOn _heli) then {
         } else {
             if (_engPctTQ <= 1.0) then {
                 _dmgTimerTrans = 0;
-                _heli setVariable ["fza_ah64_dmgTimerTrans", _dmgTimerTrans];
+                _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             //6 sec transient
             if (_engPctTQ > 1.0 && _engPctTQ <= 1.15) then {
@@ -121,7 +121,7 @@ if (isEngineOn _heli) then {
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
-                _heli setVariable ["fza_ah64_dmgTimerTrans", _dmgTimerTrans];
+                _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             if (_engPctTQ > 1.15) then {
                 private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);

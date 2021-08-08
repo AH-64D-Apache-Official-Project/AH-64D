@@ -26,6 +26,7 @@ class CfgFunctions
 			file = "\fza_ah64_sfmplus\functions\engine";
 			class engine  {R;};
 			class engineController {R;};
+            class engineReset {R;};
 			class engineVariables {R;};
 		};
 		class fuel {

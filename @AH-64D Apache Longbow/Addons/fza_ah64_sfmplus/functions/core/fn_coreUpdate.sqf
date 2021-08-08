@@ -17,14 +17,14 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _deltaTime = ["sfmplusUpdate_deltaTime"] call BIS_fnc_deltaTime;
+private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 //Input
 [_heli] call fza_sfmplus_fnc_getInput;
 
 //Weight
-private _emptyMass      = _heli getVariable "fza_ah64_emptyMass";
-private _maxTotFuelMass = _heli getVariable "fza_ah64_maxTotFuelMass";
+private _emptyMass      = _heli getVariable "fza_sfmplus_emptyMass";
+private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
 private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 
@@ -33,8 +33,8 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 
 //Fuel
 private _apuFF  = 0;
-private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
 if (_heli animationphase "plt_apu" > 0.5) then {
@@ -64,11 +64,12 @@ _heli setMass _curMass;
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
+if(fza_sfmplus_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
-
-hintsilent format ["Engine 1 Ng = %1
+/*
+hintsilent format ["v0.3
+					\nEngine 1 Ng = %1
 					\nEngine 1 TQ = %2
 					\nEngine 1 TGT = %3
 					\n------------------
@@ -85,32 +86,32 @@ hintsilent format ["Engine 1 Ng = %1
 					\nColl Pos = %12
 					\nEng FF = %13
 					\nEngine Base NG = %14", 		
-					_heli getVariable "fza_ah64_engPctNG" select 0, 
-					_heli getVariable "fza_ah64_engPctTQ" select 0, 
-					_heli getVariable "fza_ah64_engTGT" select 0,
-					_heli getVariable "fza_ah64_engPctNG" select 1, 
-					_heli getVariable "fza_ah64_engPctTQ" select 1, 
-					_heli getVariable "fza_ah64_engTGT" select 1,
-					_heli getVariable "fza_ah64_engState",
-					_heli getVariable "fza_ah64_isSingEng",
-					_heli getVariable "fza_ah64_engPctNP",
-					_heli getVariable "fza_ah64_engClutchState",
-					_heli getVariable "fza_ah64_engStartSwitchState",
-					fza_ah64_collectiveOutput,
-					_heli getVariable "fza_ah64_engFF",
-					_heli getVariable "fza_ah64_engBaseNG"];
-
+					_heli getVariable "fza_sfmplus_engPctNG" select 0, 
+					_heli getVariable "fza_sfmplus_engPctTQ" select 0, 
+					_heli getVariable "fza_sfmplus_engTGT" select 0,
+					_heli getVariable "fza_sfmplus_engPctNG" select 1, 
+					_heli getVariable "fza_sfmplus_engPctTQ" select 1, 
+					_heli getVariable "fza_sfmplus_engTGT" select 1,
+					_heli getVariable "fza_sfmplus_engState",
+					_heli getVariable "fza_sfmplus_isSingEng",
+					_heli getVariable "fza_sfmplus_engPctNP",
+					_heli getVariable "fza_sfmplus_engClutchState",
+					_heli getVariable "fza_sfmplus_engStartSwitchState",
+					fza_sfmplus_collectiveOutput,
+					_heli getVariable "fza_sfmplus_engFF",
+					_heli getVariable "fza_sfmplus_engBaseNG"];
+*/
 
 /* Old engine...
-private _engState  = _heli getVariable "fza_ah64_engState";
+private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
 	_heli engineOn true;
 };
 
-private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
@@ -131,7 +132,7 @@ if (((_eng2State == "ON" && _eng2PwrLvrState == "IDLE") || _eng2State in ["OFF",
 } else {
 	_isSingleEng = false;
 };
-_heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
+_heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_fnc_sfmplusEngine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_fnc_sfmplusEngine;
@@ -160,31 +161,31 @@ private _maxCycRoll  =   7.0;
 
 //Cyclic roll
 private _discRollAngle  = 0;
-if (fza_ah64_cyclicRollOut < 0) then
+if (fza_sfmplus_cyclicRollOut < 0) then
 {
 	_discRollAngle = _minCycRoll;
 };
-if (fza_ah64_cyclicRollOut > 0) then {
+if (fza_sfmplus_cyclicRollOut > 0) then {
 	_discRollAngle = -_maxCycRoll;
 };
-_discRollAngle = _discRollAngle * fza_ah64_cyclicRollOut;
+_discRollAngle = _discRollAngle * fza_sfmplus_cyclicRollOut;
 
 //Cyclic pitch
 private _discPitchAngle = 0;
-if (fza_ah64_cyclicPitchOut < 0) then
+if (fza_sfmplus_cyclicPitchOut < 0) then
 {
 	_discPitchAngle = _minCycPitch;
 };
-if (fza_ah64_cyclicPitchOut > 0) then {
+if (fza_sfmplus_cyclicPitchOut > 0) then {
 	_discPitchAngle = -_maxCycPitch;
 };
-_discPitchAngle = _discPitchAngle * fza_ah64_cyclicPitchOut;
+_discPitchAngle = _discPitchAngle * fza_sfmplus_cyclicPitchOut;
 
 private _thrustMod = 1.3643;
 private _hvrThrust = 97410;	//N
 private _minThrust = 0.15 * _hvrThrust;
 private _maxThrust = _hvrThrust * _thrustMod;
-private _curThrust = _minThrust + ((_maxThrust - _minThrust) * fza_ah64_collectiveOutput);
+private _curThrust = _minThrust + ((_maxThrust - _minThrust) * fza_sfmplus_collectiveOutput);
 _curThrust = _curThrust * (1 + _advRatio);
 
 private _rotorPos    = [0.00, 1.33, 2.08];
@@ -215,7 +216,7 @@ _heli addTorque (_heli vectorModelToWorld [_xAxisTQ, _yAxisTQ, 0.0]);
 
 hintSilent format ["GWT = %1
                     \nThrust = %2
-					\nColl Pos = %3", getMass _heli, _curThrust, fza_ah64_collectiveOutput];
+					\nColl Pos = %3", getMass _heli, _curThrust, fza_sfmplus_collectiveOutput];
 
 [_heli, _a, _c, _colorWhite] call DRAW_LINE;
 [_heli, _b, _d, _colorWhite] call DRAW_LINE;

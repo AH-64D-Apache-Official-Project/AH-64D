@@ -77,7 +77,7 @@ switch(_control) do {
 	//--------------------ENGINE 1--------------------//
 	//Start Switch
 	case "e1start": {
-		private _eng1State = _heli getVariable "fza_ah64_engState" select 0;
+		private _eng1State = _heli getVariable "fza_sfmplus_engState" select 0;
 
 		if (_eng1State == "OFF") then {
 			[_heli, 0, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
@@ -96,8 +96,8 @@ switch(_control) do {
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1fly": {
-		private _eng2State       = _heli getVariable "fza_ah64_engState" select 1;
-		private _eng2PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 1;
+		private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
+		private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
 		//is off OR when the opposite engine is on w/ it's power lever at fly
 		if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
@@ -116,7 +116,7 @@ switch(_control) do {
 	//--------------------ENGINE 2--------------------//	
 	//Start Switch
 	case "e2start": {
-		private _eng2State = _heli getVariable "fza_ah64_engState" select 1;
+		private _eng2State = _heli getVariable "fza_sfmplus_engState" select 1;
 		
 		if (_eng2State == "OFF") then {
 			[_heli, 1, "START"] spawn fza_sfmplus_fnc_interactStartSwitch;
@@ -135,8 +135,8 @@ switch(_control) do {
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2fly": {
-		private _eng1State       = _heli getVariable "fza_ah64_engState" select 0;
-		private _eng1PwrLvrState = _heli getVariable "fza_ah64_engPowerLeverState" select 0;
+		private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
+		private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
 		//is off OR when the opposite engine is on w/ it's power lever at fly
 		if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {

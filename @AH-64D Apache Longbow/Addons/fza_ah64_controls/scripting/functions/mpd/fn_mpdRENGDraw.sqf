@@ -25,11 +25,11 @@ private _isSingleEng = _heli getVariable "fza_ah64_isSingleEng";
 //_e1tgt = _e1data select 2;
 //_e1opsi = _e1data select 3;
 //_e1trq = (_e1data select 4) / 4.81;
-private _e1percent = (_heli getVariable "fza_ah64_engPctNP" select 0) * 100;
-private _e1ng      = (_heli getVariable "fza_ah64_engPctNG" select 0) * 1000;
-private _e1tgt     = _heli getVariable "fza_ah64_engTGT" select 0;
-private _e1trq     = (_heli getVariable "fza_ah64_engPctTQ" select 0) * 100;
-private _e1opsi    = (_heli getVariable "fza_ah64_engOilPSI" select 0) * 100;
+private _e1percent = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
+private _e1ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
+private _e1tgt     = _heli getVariable "fza_sfmplus_engTGT" select 0;
+private _e1trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
+private _e1opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
 if (_e1percent <= (0.37 * 100)) then {
 	_e1trq = 0;
 };
@@ -111,11 +111,11 @@ _heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc
 //_e2tgt = _e2data select 2;
 //_e2opsi = _e2data select 3;
 //_e2trq = (_e2data select 4) / 4.81;
-private _e2percent = (_heli getVariable "fza_ah64_engPctNP" select 1) * 100;
-private _e2ng      = (_heli getVariable "fza_ah64_engPctNG" select 1) * 1000;
-private _e2tgt     = _heli getVariable "fza_ah64_engTGT" select 1;
-private _e2trq     = (_heli getVariable "fza_ah64_engPctTQ" select 1) * 100;
-private _e2opsi    = (_heli getVariable "fza_ah64_engOilPSI" select 1) * 100;
+private _e2percent = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
+private _e2ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
+private _e2tgt     = _heli getVariable "fza_sfmplus_engTGT" select 1;
+private _e2trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
+private _e2opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
 if (_e2percent <= (0.37 * 100)) then {
 	_e2trq = 0;
 };

@@ -46,7 +46,7 @@ if (_curAlt <= 0.6 && _collectiveLow == 0 && _collectiveHigh == 0) then {	//~2 f
 };
 
 //Global variable for use by other scripts, returns -1 to 1
-fza_ah64_cyclicRollOut    = _cyclicRight - _cyclicLeft;
-fza_ah64_cyclicPitchOut   = _cyclicForward - _cyclicBackward;
-fza_ah64_collectiveOutput = _collectiveOut
+fza_sfmplus_cyclicRollOut    = _cyclicRight - _cyclicLeft;
+fza_sfmplus_cyclicPitchOut   = _cyclicForward - _cyclicBackward;
+fza_sfmplus_collectiveOutput = _collectiveOut
 

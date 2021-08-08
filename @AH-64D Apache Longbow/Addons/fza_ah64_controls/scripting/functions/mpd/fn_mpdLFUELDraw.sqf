@@ -29,11 +29,11 @@ private _enginesOn = if (isObjectRTD _heli && difficultyEnabledRTD && local _hel
 	[[false, false], [true, true]] select isEngineOn _heli;
 };
 
-private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 
 private _eng1FuelCons = 0;
-private _eng1State    = _heli getVariable "fza_ah64_engState" select 0;
+private _eng1State    = _heli getVariable "fza_sfmplus_engState" select 0;
 if (isEngineOn _heli && (_eng1State != "OFF" || _eng1State != "DEST")) then {
 	_eng1FuelCons = _eng1FF * 7936.64;
 } else {
@@ -41,7 +41,7 @@ if (isEngineOn _heli && (_eng1State != "OFF" || _eng1State != "DEST")) then {
 };
 
 private _eng2FuelCons = 0;
-private _eng2State    = _heli getVariable "fza_ah64_engState" select 1;
+private _eng2State    = _heli getVariable "fza_sfmplus_engState" select 1;
 if (isEngineOn _heli && (_eng2State != "OFF" || _eng2State != "DEST")) then {
 	_eng2FuelCons = _eng2FF * 7936.64;
 } else {

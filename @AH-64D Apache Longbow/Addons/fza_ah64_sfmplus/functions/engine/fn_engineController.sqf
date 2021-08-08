@@ -17,15 +17,16 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _engState  = _heli getVariable "fza_ah64_engState";
+private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
+
 if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
 	_heli engineOn true;
 };
 
-private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
@@ -52,7 +53,7 @@ if ((_eng1State == "ON" && _eng2State == "ON") && (_eng1PwrLvrState == "FLY" && 
 	_isSingleEng = false;
 };
 
-_heli setVariable ["fza_ah64_isSingleEng", _isSingleEng];
+_heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_sfmplus_fnc_engine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_sfmplus_fnc_engine;

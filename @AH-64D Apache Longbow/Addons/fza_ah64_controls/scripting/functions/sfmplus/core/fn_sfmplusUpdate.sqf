@@ -23,8 +23,8 @@ private _deltaTime = ["sfmplusUpdate_deltaTime"] call BIS_fnc_deltaTime;
 [_heli] call fza_sfmplus_fnc_getInput;
 
 //Weight
-private _emptyMass      = _heli getVariable "fza_ah64_emptyMass";
-private _maxTotFuelMass = _heli getVariable "fza_ah64_maxTotFuelMass";
+private _emptyMass      = _heli getVariable "fza_sfmplus_emptyMass";
+private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
 private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 
@@ -33,8 +33,8 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 
 //Fuel
 private _apuFF  = 0;
-private _eng1FF = _heli getVariable "fza_ah64_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_ah64_engFF" select 1;
+private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
+private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
 if (_heli animationphase "plt_apu" > 0.5) then {
@@ -85,24 +85,24 @@ hintsilent format ["Engine 1 Ng = %1
 					\nColl Pos = %12
 					\nEng FF = %13
 					\nEngine Base NG = %14", 		
-					_heli getVariable "fza_ah64_engPctNG" select 0, 
-					_heli getVariable "fza_ah64_engPctTQ" select 0, 
-					_heli getVariable "fza_ah64_engTGT" select 0,
-					_heli getVariable "fza_ah64_engPctNG" select 1, 
-					_heli getVariable "fza_ah64_engPctTQ" select 1, 
-					_heli getVariable "fza_ah64_engTGT" select 1,
-					_heli getVariable "fza_ah64_engState",
+					_heli getVariable "fza_sfmplus_engPctNG" select 0, 
+					_heli getVariable "fza_sfmplus_engPctTQ" select 0, 
+					_heli getVariable "fza_sfmplus_engTGT" select 0,
+					_heli getVariable "fza_sfmplus_engPctNG" select 1, 
+					_heli getVariable "fza_sfmplus_engPctTQ" select 1, 
+					_heli getVariable "fza_sfmplus_engTGT" select 1,
+					_heli getVariable "fza_sfmplus_engState",
 					_heli getVariable "fza_ah64_isSingEng",
-					_heli getVariable "fza_ah64_engPctNP",
+					_heli getVariable "fza_sfmplus_engPctNP",
 					_heli getVariable "fza_ah64_engClutchState",
-					_heli getVariable "fza_ah64_engStartSwitchState",
+					_heli getVariable "fza_sfmplus_engStartSwitchState",
 					fza_ah64_collectiveOutput,
 					_heli getVariable "fza_ah64_engFF",
 					_heli getVariable "fza_ah64_engBaseNG"];
 */
 
 /* Old engine...
-private _engState  = _heli getVariable "fza_ah64_engState";
+private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
@@ -110,7 +110,7 @@ if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
 };
 
 private _isSingleEng     = _heli getVariable "fza_ah64_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_ah64_engPowerLeverState";
+private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 

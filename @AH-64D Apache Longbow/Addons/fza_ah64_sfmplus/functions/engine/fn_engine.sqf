@@ -15,22 +15,22 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum", "_deltaTime", "_engTQMult"];
 
-private _engState            = _heli getVariable "fza_ah64_engState" select _engNum;
-private _engBaseFF           = _heli getVariable "fza_ah64_engBaseFF" select _engNum;
-private _engFF               = _heli getVariable "fza_ah64_engFF" select _engNum;
-private _engBaseNG			 = _heli getVariable "fza_ah64_engBaseNG" select _engNum;
-private _engPctNG            = _heli getVariable "fza_ah64_engPctNG" select _engNum;
-private _engBaseNP           = _heli getVariable "fza_ah64_engBaseNP" select _engNum;
-private _engPctNP            = _heli getVariable "fza_ah64_engPctNP" select _engNum;
-private _engBaseTQ           = _heli getVariable "fza_ah64_engBaseTQ" select _engNum;
-private _engPctTQ            = _heli getVariable "fza_ah64_engPctTQ" select _engNum;
-private _engBaseTGT          = _heli getVariable "fza_ah64_engBaseTGT" select _engNum;
-private _engTGT              = _heli getVariable "fza_ah64_engTGT" select _engNum;
-private _engBaseOilPSI       = _heli getVariable "fza_ah64_engBaseOilPSI" select _engNum;
-private _engOilPSI           = _heli getVariable "fza_ah64_engOilPSI" select _engNum; 
-private _engStartSwitchState = _heli getVariable "fza_ah64_engStartSwitchState" select _engNum;
-private _engPowerLeverState  = _heli getVariable "fza_ah64_engPowerLeverState" select _engNum;
-private _engClutchState      = _heli getVariable "fza_ah64_engClutchState" select _engNum;
+private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
+private _engBaseFF           = _heli getVariable "fza_sfmplus_engBaseFF" select _engNum;
+private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
+private _engBaseNG			 = _heli getVariable "fza_sfmplus_engBaseNG" select _engNum;
+private _engPctNG            = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
+private _engBaseNP           = _heli getVariable "fza_sfmplus_engBaseNP" select _engNum;
+private _engPctNP            = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
+private _engBaseTQ           = _heli getVariable "fza_sfmplus_engBaseTQ" select _engNum;
+private _engPctTQ            = _heli getVariable "fza_sfmplus_engPctTQ" select _engNum;
+private _engBaseTGT          = _heli getVariable "fza_sfmplus_engBaseTGT" select _engNum;
+private _engTGT              = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
+private _engBaseOilPSI       = _heli getVariable "fza_sfmplus_engBaseOilPSI" select _engNum;
+private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
+private _engStartSwitchState = _heli getVariable "fza_sfmplus_engStartSwitchState" select _engNum;
+private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
+private _engClutchState      = _heli getVariable "fza_sfmplus_engClutchState" select _engNum;
 
 if (_engStartSwitchState == "START") then {
 	_engState = "STARTING";
@@ -43,9 +43,9 @@ private _ngCurVal    = 0;
 private _ngTimeToVal = 0;
 private _ngValPerUnitTime = 0;
 
-private _engStartNg = _heli getVariable "fza_ah64_engStartNg";
-private _engIdleNg  = _heli getVariable "fza_ah64_engIdleNg";
-private _engFlyNg   = _heli getVariable "fza_ah64_engFlyNg";
+private _engStartNg = _heli getVariable "fza_sfmplus_engStartNg";
+private _engIdleNg  = _heli getVariable "fza_sfmplus_engIdleNg";
+private _engFlyNg   = _heli getVariable "fza_sfmplus_engFlyNg";
 
 //Np variables
 private _npMaxVal    = 0;
@@ -53,9 +53,9 @@ private _npCurVal    = 0;
 private _npTimeToVal = 0;
 private _npValPerUnitTime = 0;
 
-private _engStartNp = _heli getVariable "fza_ah64_engStartNp";
-private _engIdleNp  = _heli getVariable "fza_ah64_engIdleNp";
-private _engFlyNp   = _heli getVariable "fza_ah64_engFlyNp"; 
+private _engStartNp = _heli getVariable "fza_sfmplus_engStartNp";
+private _engIdleNp  = _heli getVariable "fza_sfmplus_engIdleNp";
+private _engFlyNp   = _heli getVariable "fza_sfmplus_engFlyNp"; 
 
 //Tq Variables
 private _tqMaxVal    = 0;
@@ -163,30 +163,30 @@ if (_engTQMult != 0) then {
 };
 
 _engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
-[_heli, "fza_ah64_engBaseNG", _engNum, _engBaseNG] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engBaseNG", _engNum, _engBaseNG] call fza_sfmplus_fnc_setArrayVariable;
 
 _engPctNP = [_npMaxVal, _npCurVal, _deltaTime, _npValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
-[_heli, "fza_ah64_engPctNP", _engNum, _engPctNP] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctNP", _engNum, _engPctNP] call fza_sfmplus_fnc_setArrayVariable;
 
 if (_engBaseNG >= 0.52 && _engState == "STARTING") then {
 	_engState = "ON";
 };
-[_heli, "fza_ah64_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 
 if (_engState != "OFF") then {
-	private _intEngBaseTable = [_heli getVariable "fza_ah64_engBaseTable", _engBaseNG] call fza_fnc_linearInterp;
+	private _intEngBaseTable = [_heli getVariable "fza_sfmplus_engBaseTable", _engBaseNG] call fza_fnc_linearInterp;
 	//TGT
 	_engBaseTGT = _intEngBaseTable select 1;
-	[_heli, "fza_ah64_engBaseTGT", _engNum, _engBaseTGT] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engBaseTGT", _engNum, _engBaseTGT] call fza_sfmplus_fnc_setArrayVariable;
 	//TQ
 	_engBaseTQ = _intEngBaseTable select 2;
-	[_heli, "fza_ah64_engBaseTQ",  _engNum, _engBaseTQ] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engBaseTQ",  _engNum, _engBaseTQ] call fza_sfmplus_fnc_setArrayVariable;
 	//Oil
 	_engBaseOilPSI = _intEngBaseTable select 4;
-	[_heli, "fza_ah64_engBaseOilPSI",  _engNum, _engBaseOilPSI] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engBaseOilPSI",  _engNum, _engBaseOilPSI] call fza_sfmplus_fnc_setArrayVariable;
 
 	private _curGWT_kg     = getMass _heli;
-	private _intHvrTQTable = [_heli getVariable "fza_ah64_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
+	private _intHvrTQTable = [_heli getVariable "fza_sfmplus_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
 	private _hvrIGE        = _intHvrTQTable select 1;
 	private _hvrOGE        = _intHvrTQTable select 2;
 
@@ -198,7 +198,7 @@ if (_engState != "OFF") then {
 							  [ 0.7,     _hvrTQ],
 							  [ 1.0,       1.34]];
 
-	private _intCruiseTQTable = [_heli getVariable "fza_ah64_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
+	private _intCruiseTQTable = [_heli getVariable "fza_sfmplus_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
 
 	//----------------------------Coll-----TQ---
 	private _engCruiseTQTable = [[ 0.00, 		               0.03],
@@ -207,8 +207,8 @@ if (_engState != "OFF") then {
 								 [ 0.89, _intCruiseTQTable select 7],
 								 [ 1.00, _intCruiseTQTable select 9]];
 
-	private _curHvrTQ = [_engHvrTQTable,    fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
-	private _cruiseTQ = [_engCruiseTQTable, fza_ah64_collectiveOutput] call fza_fnc_linearInterp select 1;
+	private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
+	private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
 	
 	private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 	_engPctTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
@@ -223,7 +223,7 @@ if (_engState != "OFF") then {
 	} else {
 		_engPctTQ = _engPctTQ * _engTQMult;
 	};
-	[_heli, "fza_ah64_engPctTQ", _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engPctTQ", _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;
 
 	//--------------------0-TQ--------1-TGT---------2-NG--------3-Oil
 	private _engTable = [[_engBaseTQ, _engBaseTGT,	_engBaseNG, _engBaseOilPSI],
@@ -249,18 +249,18 @@ if (_engState != "OFF") then {
 						   [1.40, 0.1118]];
 
 	_engTGT = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 1;
-	[_heli, "fza_ah64_engTGT", _engNum, _engTGT] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engTGT", _engNum, _engTGT] call fza_sfmplus_fnc_setArrayVariable;
 
 	_engPctNG = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 2;
-	[_heli, "fza_ah64_engPctNG", _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engPctNG", _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;
 
 	_engOilPSI = [_engTable, _engPctTQ] call fza_fnc_linearInterp select 3;
-	[_heli, "fza_ah64_engOilPSI", _engNum, _engOilPSI] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engOilPSI", _engNum, _engOilPSI] call fza_sfmplus_fnc_setArrayVariable;
 
 	if (_engTQMult != 0) then {
 		_engFF = [_engFFTable, _engPctTQ] call fza_fnc_linearInterp select 1;
 	} else {
 		_engFF = [_engFFTable, _engBaseTQ] call fza_fnc_linearInterp select 1;
 	};
-	[_heli, "fza_ah64_engFF", _engNum, _engFF] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engFF", _engNum, _engFF] call fza_sfmplus_fnc_setArrayVariable;
 };
