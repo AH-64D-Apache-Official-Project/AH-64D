@@ -45,16 +45,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineAPUOn {R;};
 			class engineEventHandler {R;};
-			class engineGetTarget
-			{
-				R;
-				description = "Get what engine's target RPM and time is";
-			};
-			class engineGovernor
-			{
-				R;
-				description = "Sets the engine's target RPMs";
-			};
 			class engineHandleControl {R;};
 			class engineSetPosition
 			{

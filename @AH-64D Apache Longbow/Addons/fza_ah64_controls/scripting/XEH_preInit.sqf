@@ -48,9 +48,18 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enanle stabilator in SFM", "Disclaimer: All crew needed to disable"],
+	["Enable stabilator in SFM", "Disclaimer: All crew needed to disable"],
 	["AH64D Apache", "Flight model"],
 	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_sfmPlusKeyboardOnly",
+	"CHECKBOX",
+	["Enable keyboard only mode in SFM"],
+	["AH64D Apache", "Flight model"],
+	[false],
 	0
 ] call CBA_fnc_addSetting;
 

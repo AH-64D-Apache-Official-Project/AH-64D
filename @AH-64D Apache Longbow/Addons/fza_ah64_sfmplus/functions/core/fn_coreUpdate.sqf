@@ -64,7 +64,7 @@ _heli setMass _curMass;
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_sfmplus_sfmPlusStabilatorEnabled) then {
+if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 /*
