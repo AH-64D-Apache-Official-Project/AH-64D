@@ -21,18 +21,17 @@ Author:
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];
 _heli = (vehicle player);
-_ticker = 0.01;
+_ticker = 2;
 
-if (alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base") then {
-    {
-        [_heli] call _x;
-    }
-    foreach fza_ah64_schedarray;
-};
-_tickerSlow = 2;
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
 
-if ((diag_ticktime - fza_ah64_overalltickerSlow) > _tickerSlow && alive _heli && (player == driver _heli || player == gunner _heli) && count fza_ah64_slowschedarray > 0 && (vehicle player) isKindOf "fza_ah64base") then {
-    fza_ah64_overalltickerSlow = diag_ticktime; 
+{
+    [_heli] call _x;
+}
+foreach fza_ah64_schedarray;
+
+if ((diag_ticktime - fza_ah64_overallticker) > _ticker && count fza_ah64_slowschedarray > 0) then {
+    fza_ah64_overallticker = diag_ticktime; 
     {
         [_heli] call _x;
     }

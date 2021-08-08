@@ -1,7 +1,7 @@
 class RscDisplayWelcome;
 class RscText;
 class RscFzaDisplayWelcome : RscDisplayWelcome {
-    onLoad = "_this call fza_fnc_uiShowIntro"
+    onLoad = "_this call fza_fnc_uiShowIntro";
     onUnload = "";
     idd = -1;
     class controlsBackground {

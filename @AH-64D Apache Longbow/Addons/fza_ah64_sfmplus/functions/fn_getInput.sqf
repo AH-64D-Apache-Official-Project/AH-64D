@@ -22,7 +22,6 @@ private _cyclicForward = 0.0; private _cyclicBackward = 0.0;
 private _collectiveLow = 0.0; private _collectiveHigh = 0.0;
 private _collectiveVal = 0.0; private _collectiveOut  = 0.0;
 
-
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	hintSilent format ["KEYBOARD only!"];
 	//Keyboard Input

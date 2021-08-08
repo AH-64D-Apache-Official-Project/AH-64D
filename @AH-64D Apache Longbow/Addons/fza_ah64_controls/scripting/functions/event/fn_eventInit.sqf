@@ -50,8 +50,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
-    _heli setVariable ["fza_ah64_irjamfail", false, true];
-    _heli setVariable ["fza_ah64_rfjamfail", false, true];
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
     _heli setVariable ["fza_ah64_e2_fire", false, true];
@@ -60,7 +58,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
-    _heli setVariable ["fza_ah64_rfjon", 0, true];
+    _heli setVariable ["fza_ah64_rfjon", 0, true];    
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
@@ -114,15 +112,8 @@ if (local _heli) then {
     } foreach getAllPylonsInfo _heli; 
 };
 
-//DEFAULT WEIGHT 
 
-if ((weightRTD _heli select 3) == 0) then {
-    if (_heli animationPhase "fcr_enable" == 1) then {
-        _heli setCustomWeightRTD 295;
-    };
-};
 _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
-_heli setCustomWeightRTD ([0, 295] select (_heli animationPhase "fcr_enable" == 1));
 
 if !(isMultiplayer) then {
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
@@ -132,13 +123,12 @@ while {
     alive _heli
 }
 do {
-    if ((!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull])) && _heli animationphase "plt_batt" < 0.5) then {
+    if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
 
-        _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
-        _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
 
-        deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
-        deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
+        [_heli, false] call fza_fnc_lightSetCockpitLight;
     };
     _magsp = _heli magazinesturret[-1];
 

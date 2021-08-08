@@ -15,19 +15,7 @@ _forwardCellWeight = _forwardCellWeight * KGTOLBS;
 _aftCellWeight     = _aftCellWeight * KGTOLBS;
 _totFuelCellWeight = _totFuelCellWeight * KGTOLBS;
 
-private _fuelWeight = if (isObjectRTD _heli && difficultyEnabledRTD) then {
-	(weightRTD _heli # 2) * KGTOLBS;
-} else {
-	_totFuelCellWeight;
-};
-
-private _enginesOn = if (isObjectRTD _heli && difficultyEnabledRTD && local _heli) then {
-	private _engines = enginesIsOnRTD _heli;
-	_engines resize 2;
-	_engines apply {[_x, false] select isNil "_x"};
-} else {
-	[[false, false], [true, true]] select isEngineOn _heli;
-};
+private _fuelWeight = _totFuelCellWeight;
 
 private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
@@ -48,8 +36,6 @@ if (isEngineOn _heli && (_eng2State != "OFF" || _eng2State != "DEST")) then {
 	_eng2FuelCons = 0;
 };
 
-//private _engineFuelConsumption = _enginesOn apply {[0, (_FFVal / 2)] select _x};
-//private _totalFuelConsumption  = _engineFuelConsumption # 0 + _engineFuelConsumption # 1;
 private _totalFuelConsumption = _eng1FuelCons + _eng2FuelCons;
 
 private _enduranceNumber = if(_totalFuelConsumption > 0) then {

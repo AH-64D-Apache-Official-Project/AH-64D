@@ -44,7 +44,7 @@ if (typeOf _missobj == "fza_275_m255" || typeOf _missobj == "fza_275_m261") then
 };
 
 
-//flechett red smoke 
+//flechette red smoke 
 if (typeOf _missobj == "fza_275_m255") then {
     drop [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 9, 1], "", "Billboard", 0.5, 7, [0,0,0], [0,0,0], 0, 0.7, 0.5, 0, [8,16,24,32,36,36,36], [[0.4,0,0,0.8],[0.4,0,0,0.7],[0.4,0,0,0.6],[0.4,0,0,0.5],[0,0,0,0]], [0], 0.1, 0.2, "", "", _missobj];
     drop [["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 9, 1], "", "Billboard", 0.5, 7, [0,0,0], [0,0,0], 0, 0.7, 0.5, 0, [8,16,24,32,36,36,36], [[0.4,0,0,0.8],[0.4,0,0,0.7],[0.4,0,0,0.6],[0.4,0,0,0.5],[0,0,0,0]], [0], 0.1, 0.2, "", "", _missobj];

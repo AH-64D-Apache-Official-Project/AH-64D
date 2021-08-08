@@ -189,13 +189,6 @@ _heli animateSource["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc
 
 // #region ROTORS
  
-/*private _rotorRpm = if (!(isObjectRTD _heli && difficultyEnabledRTD)
-    || (_heli getVariable "fza_ah64_engineStates")# 0 # 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]
-	|| (_heli getVariable "fza_ah64_engineStates")# 1# 0 in ["OFF", "OFFSTARTED", "STARTEDOFF", "STARTED", "STARTEDIDLE", "IDLEOFF"]) then {
-	_e1percent max _e2percent;
-} else {
-	(rotorsRpmRTD _heli # 0) / 2.89;
-};*/
 private _rotorRpm = _e1percent max _e2percent;
 
 private _rotorRpmChar = "\fza_ah64_us\tex\char\g";

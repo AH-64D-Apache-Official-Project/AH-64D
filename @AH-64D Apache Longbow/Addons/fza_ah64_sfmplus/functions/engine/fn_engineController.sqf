@@ -22,6 +22,7 @@ private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 
 if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
+	_heli setVariable ["fza_ah64_estarted", true, true];
 	_heli engineOn true;
 };
 
@@ -58,3 +59,7 @@ _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_sfmplus_fnc_engine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_sfmplus_fnc_engine;
 
+if (_eng1State == "OFF" && _eng2State == "OFF") then {
+	_heli setVariable ["fza_ah64_estarted", false, true];
+	_heli engineOn false;
+};
