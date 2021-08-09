@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (_heli getHitPointDamage "Hitlfab" < 0.8) then {
+if (_heli getHitPointDamage "IrJammer" < 0.8) then {
     _heli setVariable ["fza_ah64_irjon", 1, true];
     while {
         (fza_ah64_irjammer < 61 && _heli getVariable "fza_ah64_irjon" == 1)

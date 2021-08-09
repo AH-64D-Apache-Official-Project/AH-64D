@@ -477,7 +477,7 @@ class CfgVehicles
 		};
 		class HitPoints
 		{
-			class HitHull
+			class Hull
 			{
 				armor = 999;
 				minimalHit=0.050000001;
@@ -490,7 +490,7 @@ class CfgVehicles
 				radius = 0.01;
 				depends = "Total";
 			};
-			class HitAvionics
+			class Avionics
 			{
 				armor = 2;
 				material = 51;
@@ -501,15 +501,8 @@ class CfgVehicles
 				convexComponent = "cockpit";
 				minimalHit = 0.05;
 				radius = 0.4;
-			};/*
-			class HitTransmission
-			{
-				armor = 0.8;
-				material = -1;
-				name = "trans";
-				passthrough = 0.25;
-			};*/
-			class HitEngine1
+			};
+			class LeftEngine
 			{
 				armor = 0.7;
 				material = 51;
@@ -521,14 +514,13 @@ class CfgVehicles
 				minimalHit = 0.1;
 				radius = 0.4;
 			};
-			class HitEngine2: HitEngine1
+			class RightEngine: LeftEngine
 			{
-				armor = 0.7;
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
 			};
-			class HitEngine
+			class Transmission
 			{
 				armor = 0.8;
 				material = 51;
@@ -539,39 +531,36 @@ class CfgVehicles
 				convexComponent = "trans";
 				minimalHit = 0.1;
 				radius = 0.4;
-				depends = "0.5 * (HitEngine1 + HitEngine2)";
+				depends = "0.5 * (LeftEngine + RightEngine)";
 			};
-			class HitFuel
+			class FuelTankF
 			{
 				armor = 0.5;
 				material = 51;
 				name = "lfuel";
 				passthrough = 0.1;
-				depends = "HitEngine1";
+				depends = "LeftEngine";
 				explosionShielding=2;
 			};
-			class HitFuel2: HitFuel
+			class FuelTankR: FuelTankF
 			{
 				name = "rfuel";
-				depends = "HitEngine2";
+				depends = "RightEngine";
 			};
-			class Hitlfab
+			class IrJammer
 			{
 				armor = 0.5;
 				material = 51;
-				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
+				name = "lfab";
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
-			class Hitrfab
+			class RfJammer: IrJammer
 			{
-				armor = 0.5;
-				material = 51;
-				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
-				passthrough = 0.1;
+				name = "Rfab";
 				visual = "skin_refab";
 			};
-			class HitVRotor
+			class TailRotor
 			{
 				armor = 3;
 				material = 51;
@@ -583,7 +572,7 @@ class CfgVehicles
 				minimalHit = 0.05;
 				radius = 0.06;
 			};
-			class HitHRotor
+			class MainRotor
 			{
 				armor = 4;
 				material = 51;
@@ -595,7 +584,7 @@ class CfgVehicles
 				minimalHit = 0.09;
 				radius = 0.4;
 			};
-			class Hitlwing
+			class LeftWing
 			{
 				armor = 0.75;
 				material = 51;
@@ -603,15 +592,12 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_lwing";
 			};
-			class Hitrwing
+			class RightWing: LeftWing
 			{
-				armor = 0.75;
-				material = 51;
 				name = "rwing";
-				passthrough = 0.1;
 				visual = "skin_rwing";
 			};
-			class HitTail
+			class Boom
 			{
 				armor = 0.75;
 				material = 51;
@@ -619,7 +605,7 @@ class CfgVehicles
 				passthrough = 0.5;
 				visual = "skin_tailboom";
 			};
-			class HitVTail
+			class VertStab
 			{
 				armor = 0.2;
 				material = 51;
@@ -627,15 +613,12 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_vtail";
 			};
-			class HitHTail
+			class Stabiliser: VertStab
 			{
-				armor = 0.2;
-				material = 51;
 				name = "hstab";
-				passthrough = 0.1;
 				visual = "skin_hstab";
 			};
-			class HitPNVS
+			class PNVS
 			{
 				armor = 0.25;
 				material = 51;
@@ -643,7 +626,7 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "pnvs";
 			};
-			class Hittads
+			class TADS
 			{
 				armor = 0.25;
 				material = 51;
@@ -651,15 +634,12 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_tads1";
 			};
-			class Hittadstur
+			class TADSMotor: TADS
 			{
-				armor = 0.25;
-				material = 51;
 				name = "tads_tur";
-				passthrough = 0.1;
 				visual = "tads_tur";
 			};
-			class Hitradar
+			class FCR
 			{
 				armor = 0.05;
 				material = 51;
@@ -667,7 +647,7 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "radar";
 			};
-			class Hitotocvez
+			class Actuator
 			{
 				armor = 0.25;
 				material = 51;
@@ -675,15 +655,12 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_m230";
 			};
-			class Hitotochlaven
+			class Gun: Actuator
 			{
-				armor = 0.25;
-				material = 51;
 				name = "otochlaven";
-				passthrough = 0.1;
 				visual = "skin_otochlaven";
 			};
-			class Hitmaingear
+			class MainGear
 			{
 				armor = 0.2;
 				material = 51;
@@ -691,15 +668,12 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_gear";
 			};
-			class Hittwsus
+			class RearGear: MainGear
 			{
-				armor = 0.2;
-				material = 51;
 				name = "twsus";
-				passthrough = 0.1;
 				visual = "twsus";
 			};
-			class Hitpylon1
+			class Pylon1
 			{
 				armor = 0.2;
 				material = 51;
@@ -707,28 +681,19 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_pylon1";
 			};
-			class Hitpylon2
+			class pylon2: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon2";
-				passthrough = 0.1;
 				visual = "skin_pylon2";
 			};
-			class Hitpylon3
+			class pylon3: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon3";
-				passthrough = 0.1;
 				visual = "skin_pylon3";
 			};
-			class Hitpylon4
+			class pylon4: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon4";
-				passthrough = 0.1;
 				visual = "skin_pylon4";
 			};
 		};
