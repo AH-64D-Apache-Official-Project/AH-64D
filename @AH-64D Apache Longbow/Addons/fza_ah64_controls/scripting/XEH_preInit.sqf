@@ -27,7 +27,8 @@
 [
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
-	"Enable cockpit hints",
+	["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
+
 	["AH-64D Official Project", "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
@@ -35,7 +36,7 @@
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	"Show vanilla targeting information (restart needed)",
+	["Show vanilla targeting information (restart needed)", "Disabling this will hide vanilla targeting information (restart needed)"],
 	["AH-64D Official Project", "UI"],
 	[true],
 	0,
@@ -50,6 +51,15 @@
 	"CHECKBOX",
 	["Enable stabilator"],
 	["AH-64D Official Project", "Flight model"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_ExperimentalFCR",
+	"CHECKBOX",
+	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
+	["AH-64D Official Project", "Fire Control Radar"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -95,7 +105,6 @@ fza_ah64_threatfiring = [];
 fza_ah64_mycurrenttarget = objNull;
 fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
-fza_ah64_dispfcrlist = [];
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];
