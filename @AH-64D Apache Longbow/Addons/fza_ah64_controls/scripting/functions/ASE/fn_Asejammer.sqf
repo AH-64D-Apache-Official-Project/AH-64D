@@ -52,11 +52,11 @@ if (("8" in _seekerhead) && (_heli getVariable "fza_ah64_rfjstate" == 1)) then {
 _seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
 _timer = 1;
 while {(MissileTarget _missile == _heli) && (alive _heli)} do {
-	if (("2" in _seekerhead) && (_heli getVariable "fza_ah64_irjstate" == 1) || (_heli getVariable "fza_ah64_irjon" == 1) && (_heli getHitPointDamage "HitLfab" < 0.8)) then {
+	if (("2" in _seekerhead) && (_heli getVariable "fza_ah64_irjstate" == 1) || (_heli getVariable "fza_ah64_irjon" == 1) && (_heli getHitPointDamage "IrJammer" < 0.8)) then {
 		[vehicle player, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
 		_timer = 1;
 	};
-	if (("8" in _seekerhead) && (_heli getVariable "fza_ah64_rfjstate" == 1) || (_heli getVariable "fza_ah64_rfjon" == 1) && (_heli getHitPointDamage "Hitrfab" < 0.8)) then {
+	if (("8" in _seekerhead) && (_heli getVariable "fza_ah64_rfjstate" == 1) || (_heli getVariable "fza_ah64_rfjon" == 1) && (_heli getHitPointDamage "RfJammer" < 0.8)) then {
 		[vehicle player, "fza_AseRFjammer", [-1]] call BIS_fnc_fire;
 		_timer = 0.5;
 	};
