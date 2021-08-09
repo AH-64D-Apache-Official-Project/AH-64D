@@ -516,7 +516,6 @@ class CfgVehicles
 			};
 			class RightEngine: LeftEngine
 			{
-				armor = 0.7;
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
@@ -556,12 +555,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_lefab";
 			};
-			class RfJammer
+			class RfJammer: IrJammer
 			{
-				armor = 0.5;
-				material = 51;
 				name = "Rfab";
-				passthrough = 0.1;
 				visual = "skin_refab";
 			};
 			class TailRotor
@@ -596,12 +592,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_lwing";
 			};
-			class RightWing
+			class RightWing: LeftWing
 			{
-				armor = 0.75;
-				material = 51;
 				name = "rwing";
-				passthrough = 0.1;
 				visual = "skin_rwing";
 			};
 			class Boom
@@ -620,12 +613,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_vtail";
 			};
-			class Stabiliser
+			class Stabiliser: VertStab
 			{
-				armor = 0.2;
-				material = 51;
 				name = "hstab";
-				passthrough = 0.1;
 				visual = "skin_hstab";
 			};
 			class PNVS
@@ -644,12 +634,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_tads1";
 			};
-			class TADSMotor
+			class TADSMotor: TADS
 			{
-				armor = 0.25;
-				material = 51;
 				name = "tads_tur";
-				passthrough = 0.1;
 				visual = "tads_tur";
 			};
 			class FCR
@@ -668,12 +655,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_m230";
 			};
-			class Gun
+			class Gun: Actuator
 			{
-				armor = 0.25;
-				material = 51;
 				name = "otochlaven";
-				passthrough = 0.1;
 				visual = "skin_otochlaven";
 			};
 			class MainGear
@@ -684,12 +668,9 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_gear";
 			};
-			class RearGear
+			class RearGear: MainGear
 			{
-				armor = 0.2;
-				material = 51;
 				name = "twsus";
-				passthrough = 0.1;
 				visual = "twsus";
 			};
 			class Pylon1
@@ -700,28 +681,19 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_pylon1";
 			};
-			class pylon2
+			class pylon2: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon2";
-				passthrough = 0.1;
 				visual = "skin_pylon2";
 			};
-			class pylon3
+			class pylon3: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon3";
-				passthrough = 0.1;
 				visual = "skin_pylon3";
 			};
-			class pylon4
+			class pylon4: Pylon1
 			{
-				armor = 0.2;
-				material = 51;
 				name = "pylon4";
-				passthrough = 0.1;
 				visual = "skin_pylon4";
 			};
 		};
