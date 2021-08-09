@@ -147,21 +147,6 @@ switch (_engState) do {
 	};
 };
 
-//I think this might be why the other engine is outputting Ng...Need to investigate later.
-if (_engTQMult != 0) then {
-	_engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
-} else {
-	_ngMaxVal    = _engIdleNg;
-	_ngCurVal    = _engPctNG;
-	_ngTimeToVal = 4;
-	_ngValPerUnitTime = _ngMaxVal / _ngTimeToVal;
-
-	_npMaxVal    = _engIdleNp;
-	_npCurVal    = _engPctNP;
-	_npTimeToVal = 4;
-	_npValPerUnitTime = _npCurVal / _npTimeToVal;
-};
-
 _engBaseNG = [_ngMaxVal, _ngCurVal, _deltaTime, _ngValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
 [_heli, "fza_sfmplus_engBaseNG", _engNum, _engBaseNG] call fza_sfmplus_fnc_setArrayVariable;
 

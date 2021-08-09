@@ -1759,14 +1759,14 @@ initPhase=0;
 			class plt_eng1_start
             {
 				source = "user";
-				animPeriod = 0.001;
+				animPeriod = 1;
 				initPhase=0;
 				sound = "eng1_start_sound";
             };
 			class plt_eng2_start
             {
 				source = "user";
-				animPeriod = 0.001;
+				animPeriod = 1;
 				initPhase=0;
 				sound = "eng2_start_sound";
             };
