@@ -5,7 +5,8 @@ Description:
 	Resets critical variables on the engine when the engine is turned off.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli   - The helicopter to get information from [Unit].
+	_engNum - The engine to reset
 
 Returns:
 	...

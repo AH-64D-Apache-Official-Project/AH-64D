@@ -5,7 +5,7 @@ Description:
 	Defines core engine variables.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli - The helicopter to get information from [Unit].
 
 Returns:
 	...

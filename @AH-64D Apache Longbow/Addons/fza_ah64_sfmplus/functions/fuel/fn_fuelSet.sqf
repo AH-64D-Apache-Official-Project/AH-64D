@@ -5,7 +5,7 @@ Description:
 	Sets the initial fuel state of the aircraft.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli - The helicopter to get information from [Unit].
 
 Returns:
 	The mass of the forward and aft fuel cells.

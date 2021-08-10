@@ -6,7 +6,9 @@ Description:
 	taken to off.	
 
 Parameters:
-	...
+	_heli   - The helicopter to get information from [Unit].
+	_engNum - The desired engine.
+	_state  - The state of the power lever (OFF, IDLE, FLY).
 
 Returns:
 	...

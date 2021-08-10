@@ -5,7 +5,7 @@ Description:
 	Handles keyboard and HOTAS input for the simulation.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli - The helicopter to get information from [Unit].
 
 Returns:
 	...

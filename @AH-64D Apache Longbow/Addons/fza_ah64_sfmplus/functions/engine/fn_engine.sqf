@@ -6,7 +6,10 @@ Description:
 	interpolation and collective input.
 
 Parameters:
-	...
+	_heli      - The helicopter to get information from [Unit].
+	_engNum    - The engine to simulate
+	_deltaTime - Passed delta time from core update.
+	_engTQMult - Is either 0, 1 or 2 depending on the state of the engine
 
 Returns:
 	...

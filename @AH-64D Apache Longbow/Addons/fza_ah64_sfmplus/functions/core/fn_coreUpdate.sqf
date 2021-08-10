@@ -5,7 +5,7 @@ Description:
 	Updates all of the modules core functions.
 	
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli - The helicopter to get information from [Unit].
 
 Returns:
 	...

@@ -2,13 +2,14 @@
 Function: fza_sfmplus_fnc_interactStartSwitch
 
 Description:
-	Handles start switch animations.
+	Sets start switch state for the engine sim.
 
 Parameters:
-	...
+	_heli   - The helicopter to get information from [Unit].
+	_engNum - The desired engine.
 
 Returns:
-	Whether to register a click (boolean)
+	Whether to register a click (boolean).
 
 Examples:
 	...

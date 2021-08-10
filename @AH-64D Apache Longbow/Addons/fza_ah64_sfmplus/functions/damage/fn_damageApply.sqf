@@ -6,7 +6,8 @@ Description:
     operating limits. 
 
 Parameters:
-    ...
+	_heli      - The helicopter to get information from [Unit].
+    _deltaTime - Passed delta time from core update.
 
 Returns:
     ...
