@@ -24,7 +24,12 @@ private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 [_heli] call fza_sfmplus_fnc_getInput;
 
 //Weight
-private _emptyMass      = _heli getVariable "fza_sfmplus_emptyMass";
+private _emptyMass = 0;
+if (_heli animationPhase "fcr_enable" == 1) then {
+	_emptyMass = _heli getVariable "fza_sfmplus_emptyMassFCR";
+} else {
+	_emptyMass = _heli getVariable "fza_sfmplus_emptyMassNonFCR";
+};
 private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
 private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
