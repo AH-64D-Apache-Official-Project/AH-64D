@@ -74,6 +74,7 @@ if(fza_ah64_sfmPlusStabilatorEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
+#ifdef __A3_DEBUG__
 hintsilent format ["v0.11
 					\nEngine 1 Ng = %1
 					\nEngine 1 TQ = %2
@@ -108,3 +109,4 @@ hintsilent format ["v0.11
 					fza_sfmplus_collectiveOutput,
 					_heli getVariable "fza_sfmplus_engFF",
 					_heli getVariable "fza_sfmplus_engBaseNG"];
+#endif
