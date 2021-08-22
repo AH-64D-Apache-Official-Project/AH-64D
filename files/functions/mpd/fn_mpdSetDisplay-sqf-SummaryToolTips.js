@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdSetDisplay.sqf",{20:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the display on each page.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdSetDisplay.sqf",{18:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the display on each page.</div></div>"});

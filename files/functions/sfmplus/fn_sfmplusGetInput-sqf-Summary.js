@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/sfmplus/fn_sfmplusGetInput.sqf","fn_sfmplusGetInput.sqf");NDSummary.OnSummaryLoaded("File:functions/sfmplus/fn_sfmplusGetInput.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[175,0,1,"Functions","Functions"],[176,0,0,"fza_fnc_sfmplusConfig","fza_fnc_sfmplusConfig"]]);
