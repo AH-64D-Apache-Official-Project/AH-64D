@@ -12,16 +12,20 @@ Description:
 
 Parameters:
 	_arr - the aforementioned array
-	_x - the value that should be interpolated
+	_key - the value that should be interpolated
 
 Returns:
 	Array of results
 
 Examples:
     --- Code
-	_interpArray = [[0, -1, 4, 5], [2, -2, 6, 7], [6, -5, 0, 14]]
+	_interpArray = [[0, -1, 4, 5], 
+	                [2, -2, 6, 7], 
+					[6, -5, 0, 14]]
 	
-	_badInterpArray = [[0, -1, 4, 5], [6, -5, 0, 14], [2, -2, 6, 7]]
+	_badInterpArray = [[0, -1, 4, 5], 
+	                   [6, -5, 0, 14], 
+					   [2, -2, 6, 7]]
 	//BAD, indexes are out of order
 
 	_result = [_interpArray, 1] call fza_fnc_linearInterp

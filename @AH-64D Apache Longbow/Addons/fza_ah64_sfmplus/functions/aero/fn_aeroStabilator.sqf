@@ -1,23 +1,26 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusStabilator
+Function: fza_sfmplus_fnc_aeroStabilator
 
 Description:
+    Creates a stabilator object which automatically schedules as a function of
+    collective position and airspeed.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli      - The helicopter to get information from [Unit].
+    _deltaTime - Passed delta time from core update.
 
 Returns:
-
+    ...
 
 Examples:
-
+    ...
 
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _collOut = fza_ah64_collectiveOutput;
+private _collOut = fza_sfmplus_collectiveOutput;
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
 
@@ -27,26 +30,35 @@ DRAW_LINE = {
 };
 
 private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
-private _stabPos = _heli getVariable "fza_ah64_stabPos";
+private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-//--------------------Coll----30kts---70kts--900kts--110---120kts
-private _stabTable =[[0.00,  -25.00,   2.5,   5.0,   5.0,  5.0],
-                     [0.67,  -25.00,  -2.0,  -2.0   -2.0, -7.8],  
-                     [0.70,  -25.00,  -5.6,  -5.6,  -5.6, -7.8],
-                     [0.74,  -25.00,  -6.8,  -6.8,  -6.8, -7.8],
-                     [0.89,  -25.00,  -7.2,  -7.2,  -7.8, -7.8],   
-                     [1.00,  -25.00, -12.0, -12.0, -12.0, -12.0]];
+//--------------------Coll----30kts--70kts--90kts--110kts--120kts-150kts
+private _stabTable =[[0.00,  -25.00,  2.5,    5.0,   5.0,   5.0,   5.0],  
+                     [0.67,  -25.00, -3.2,   -3.2,  -3.2,  -3.2,  -3.2],  
+                     [0.71,  -25.00, -6.0,   -6.0,  -6.0,  -6.0,  -6.0],  
+                     [0.81,  -25.00, -9.5,   -9.5,  -9.5,  -9.5,  -9.5],  
+                     [0.89,  -25.00, -12.2, -12.2, -12.2, -12.2, -12.2],
+                     [0.97,  -25.00, -14.5, -14.5, -14.5, -14.5, -14.5]];
 
 /*
-Udpated 23May21
-TEMPTABLE = [  
-[0.00,  -25.00,   2.5,   5.0,   5.0,  5.0],
-[0.67,  -25.00,  -2.0,  -2.0   -2.0, -7.8],  
-[0.70,  -25.00,  -5.6,  -5.6,  -5.6, -7.8],
-[0.74,  -25.00,  -6.8,  -6.8,  -6.8, -7.8],
-[0.89,  -25.00,  -7.2,  -7.2,  -7.8, -7.8],   
-[1.00,  -25.00, -12.0, -12.0, -12.0, -12.0]];
+Udpated 15Jun21 - SFM+ 
+TEMPTABLE = [    
+[0.00,  -25.00, 2.5,   5.0,  5.0,  5.0, 5.0],  
+[0.67,  -25.00,-3.2,  -3.2, -3.2, -3.2, -3.2],  
+[0.71,  -25.00,-6.0,  -6.0, -6.0, -6.0, -6.0],  
+[0.81,  -25.00,-9.5,  -9.5, -9.5, -9.5, -9.5],  
+[0.89,  -25.00,-12.2,-12.2,-12.2,-12.2,-12.2],
+[0.97,  -25.00,-14.5,-14.5,-14.5,-14.5,-14.5]];
+
+HeliSim
+TEMPTABLE = [     
+[0.00,  -25.00, 2.5,   5.0,  5.0,  5.0, 5.0],   
+[0.37,  -25.00,-3.2,  -3.2, -3.2, -3.2, -3.2], 
+[0.41,  -25.00,-6.0,  -6.0, -6.0, -6.0, -6.0],  
+[0.51,  -25.00,-9.5,  -9.5, -9.5, -9.5, -9.5],  
+[0.59,  -25.00,-12.2,-12.2,-12.2,-12.2,-12.2], 
+[0.67,  -25.00,-14.5,-14.5,-14.5,-14.5,-14.5]];
 
 private _intStabTable = [TEMPTABLE, _collOut] call fza_fnc_linearInterp;
 */
@@ -56,7 +68,8 @@ private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 							[36.01, _intStabTable select 2],  //70kts
 							[46.30, _intStabTable select 3],  //90kts
 							[56.59, _intStabTable select 4],  //110kts
-							[61.73, _intStabTable select 5]]; //120kts
+							[61.73, _intStabTable select 5],  //120kts
+                            [77.17, _intStabTable select 6]]; //150kts
 
 
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
@@ -69,8 +82,8 @@ private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 //    E-------------G-------------F
 //    |             |             |
 //    D-------------I-------------C
-private _width  = _heli getVariable "fza_ah64_stabWidth";
-private _length = _heli getVariable "fza_ah64_stabLength";
+private _width  = _heli getVariable "fza_sfmplus_stabWidth";
+private _length = _heli getVariable "fza_sfmplus_stabLength";
 
 private _halfWidth = _width / 2;
 
@@ -126,7 +139,7 @@ private _AIRFOILTABLE =
 private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
 private _CL = _intAIRFOILTABLE select 1;
 
-private _area = 3.45;
+private _area = [_A, _B, _C, _D] call fza_sfmplus_fnc_getArea;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
@@ -135,11 +148,12 @@ if (local _heli) then {
 };
 
 #ifdef __A3_DEBUG__
-/*hintsilent format ["Collective Out = %1
+/*
+hintsilent format ["Collective Out = %1
                    \nStab Pos = %2
                    \nCollective Low = %3
-                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];*/
-
+                   \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
+*/
 [_heli, _objCtr, _stabPvt, _colorWhite] call DRAW_LINE;
 
 //Draw the stabilator

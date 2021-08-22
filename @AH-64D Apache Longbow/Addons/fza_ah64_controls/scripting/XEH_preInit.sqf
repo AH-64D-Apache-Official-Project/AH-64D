@@ -1,8 +1,10 @@
+private _projName = "AH-64D Official Project";
+
 [
 	"fza_ah64_showPopup",
 	"CHECKBOX",
 	["Show Popup Intro", "Show popup when the player gets into an Apache"],
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	true
 ] call CBA_fnc_addSetting;
 
@@ -10,7 +12,7 @@
 	"fza_ah64_headTrackAllowCursorMove",
 	"CHECKBOX",
 	"Allow cursor movement while in head tracking mode",
-	["AH-64D Official Project", "Control"],
+	[_projName, "Control"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -19,7 +21,7 @@
 	"fza_ah64_headTrackSensitivity",
 	"SLIDER",
 	"Head tracking mode cursor sensitivity",
-	["AH-64D Official Project", "Control"],
+	[_projName, "Control"],
 	[0, 1, 0.5, 2],
 	0
 ] call CBA_fnc_addSetting;
@@ -28,8 +30,7 @@
 	"fza_ah64_enableClickHelper",
 	"CHECKBOX",
 	["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
-
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	[true]
 ] call CBA_fnc_addSetting;
 
@@ -37,7 +38,7 @@
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
 	["Show vanilla targeting information (restart needed)", "Disabling this will hide vanilla targeting information (restart needed)"],
-	["AH-64D Official Project", "UI"],
+	[_projName, "UI"],
 	[true],
 	0,
 	{
@@ -49,17 +50,26 @@
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
 	"CHECKBOX",
-	["Enable stabilator"],
-	["AH-64D Official Project", "Flight model"],
+	["Enable stabilator in SFM"],
+	[_projName, "Flight model"],
 	[true],
 	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_sfmPlusKeyboardOnly",
+	"CHECKBOX",
+	["Enable keyboard only mode in SFM"],
+	[_projName, "Flight model"],
+	[false],
+  0
 ] call CBA_fnc_addSetting;
 
 [
 	"fza_ah64_ExperimentalFCR",
 	"CHECKBOX",
 	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
-	["AH-64D Official Project", "Fire Control Radar"],
+	[_projName, "Fire Control Radar"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -107,7 +117,7 @@ fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_engineGovernor, fza_fnc_mpdUpdateDisplays, fza_fnc_sfmplusUpdate];
+fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_mpdUpdateDisplays, fza_sfmplus_fnc_coreUpdate]; //BMK_fnc_coreUpdate
 fza_ah64_introShownThisScenario = false;
 fza_ah64_slowschedarray = [fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3d", {

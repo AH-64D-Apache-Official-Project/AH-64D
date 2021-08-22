@@ -1,13 +1,32 @@
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
+private _tgtTapeScaler = [[0,   0.00],
+						  [400, 0.10],
+						  [810, 0.60],
+						  [811, 0.70],
+						  [999, 1.00]
+];
+private _npTapeScaler  = [[0,   0.00],
+    					  [96,  0.43],
+    				 	  [99,  0.50],
+    					  [100, 0.55],
+    					  [102, 0.61],
+    					  [105, 0.89],
+    					  [120, 1.00]
+];
+
+private _isSingleEng = _heli getVariable "fza_ah64_isSingleEng";
+
 // #region ENGINE 1
-_e1data = [_heli, 0] call fza_fnc_engineGetData;
-_e1percent = (_e1data select 0) / 209.0;
-_e1ng = (_e1data select 1) * 10;
-_e1tgt = _e1data select 2;
-_e1opsi = _e1data select 3;
-_e1trq = (_e1data select 4) / 4.81;
+private _e1percent = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
+private _e1ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
+private _e1tgt     = _heli getVariable "fza_sfmplus_engTGT" select 0;
+private _e1trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
+private _e1opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
+if (_e1percent <= (0.37 * 100)) then {
+	_e1trq = 0;
+};
 
 // #region TORQUE
 private _e1trqChar = "\fza_ah64_us\tex\char\g";
@@ -68,17 +87,26 @@ if (_e1ng < 630 || _e1ng > 1051) then {
 };
 
 [_heli, _e1ng, _e1ngchar, SEL_DIGITS_MPD_PR_ENG_E1NG] call fza_fnc_drawNumberSelections;
+
+// #region animations
+_heli animateSource["mpd_pr_eng_e1trq", _e1trq / 130.0];
+_heli animateSource["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
+// #endregion
+
 // #endregion
 
 // #endregion
 
 // #region ENGINE 2
-_e2data = [_heli, 1] call fza_fnc_engineGetData;
-_e2percent = (_e2data select 0) / 209.0;
-_e2ng = (_e2data select 1) * 10;
-_e2tgt = _e2data select 2;
-_e2opsi = _e2data select 3;
-_e2trq = (_e2data select 4) / 4.81;
+private _e2percent = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
+private _e2ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
+private _e2tgt     = _heli getVariable "fza_sfmplus_engTGT" select 1;
+private _e2trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
+private _e2opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
+if (_e2percent <= (0.37 * 100)) then {
+	_e2trq = 0;
+};
 
 // #region TORQUE
 private _e2trqChar = "\fza_ah64_us\tex\char\g";
@@ -141,6 +169,10 @@ if (_e2ng < 630 || _e2ng > 1051) then {
 [_heli, _e2ng, _e2ngchar, SEL_DIGITS_MPD_PR_ENG_E2NG] call fza_fnc_drawNumberSelections;
 // #endregion
 
+// #region animations
+_heli animateSource["mpd_pr_eng_e2trq", _e2trq / 130.0];
+_heli animateSource["mpd_pr_eng_2tgt", ([_tgtTapeScaler, _e2tgt] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_e2np", ([_npTapeScaler, _e2percent] call fza_fnc_linearInterp)# 1];
 // #endregion
 
 // #region ROTORS
@@ -171,6 +203,10 @@ if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
 [_heli, _rotorRpm, _rotorRpmChar, SEL_DIGITS_MPD_PR_ENG_RRPM] call fza_fnc_drawNumberSelections;
 _heli setObjectTexture [SEL_MPD_PR_ENG_RTRRPMB, _rotorRpmTape];
 
+// #region animations
+_heli animateSource["mpd_pr_eng_rtrrpm", ([_npTapeScaler, _rotorRpm] call fza_fnc_linearInterp)# 1];
+// #endregion
+
 // #endregion
 
 if (getpos _heli select 2 > 1) then {
@@ -192,6 +228,7 @@ if (getpos _heli select 2 > 1) then {
 } else {
 	_heli setobjecttexture [SEL_MPD_PR_ENG_IFB, ""];
 	_heli setobjecttexture [SEL_MPD_PR_ENG_OFB, "\fza_ah64_us\tex\mpd\eng.paa"];
+	
 	// #region ENGINE 1 OIL PSI
 	private _e1opsiChar = "\fza_ah64_us\tex\char\g";
 	if (_e1opsi < 20 || _e1opsi > 95) then {
