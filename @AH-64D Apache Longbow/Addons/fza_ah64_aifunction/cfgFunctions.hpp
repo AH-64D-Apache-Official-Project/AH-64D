@@ -5,7 +5,9 @@ class CfgFunctions
         tag = "FZA_aifunction";
 		class functions {
 			file = "\fza_ah64_aifunction\functions"; 
-			class coreEventHandler {R;};
+			class aicoreupdate {R;};
+			class enginestart {R;};
+			class firecontrol {R;};
 		};
     };
 };
