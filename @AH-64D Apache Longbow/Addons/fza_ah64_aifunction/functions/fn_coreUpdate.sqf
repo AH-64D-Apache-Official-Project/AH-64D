@@ -20,4 +20,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-[heli] spawn fza_aifunction_fnc_fireControl;
+
+
+if ((isplayer driver _heli == false) && isengineon _heli == false) then {
+	_this remoteExec ["fza_aifunction_fnc_fireControl", _heli turretUnit [0]];
+	_this remoteExec ["fza_aifunction_fnc_fireControl", _heli turretUnit [-1]];
+};

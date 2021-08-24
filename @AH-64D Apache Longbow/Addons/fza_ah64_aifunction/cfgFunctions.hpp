@@ -14,6 +14,7 @@ class CfgFunctions
 			class coreUpdate {R;};
 			class engineStart {R;};
 			class fireControl {R;};
+			class engineStartSequence {R;};
 		};
     };
 };
