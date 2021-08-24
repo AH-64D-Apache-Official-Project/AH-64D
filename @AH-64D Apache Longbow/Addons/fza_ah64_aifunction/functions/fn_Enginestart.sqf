@@ -27,8 +27,7 @@ if(local _heli && !(_heli getVariable "fza_ah64_estarted") && _engineState) then
 	_heli engineOn false;
 };
 
-
 if ((isplayer driver _heli == false) && isengineon _heli == false) then {
-	_this remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [0]];
-	_this remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [-1]];
+	[_heli] remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [0]];
+	[_heli] remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [-1]];
 };
