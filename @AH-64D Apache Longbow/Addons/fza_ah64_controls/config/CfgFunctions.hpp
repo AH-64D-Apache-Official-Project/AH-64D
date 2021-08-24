@@ -44,7 +44,6 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineAPUOn {R;};
-			class engineEventHandler {R;};
 			class engineHandleControl {R;};
 			class engineSetPosition
 			{

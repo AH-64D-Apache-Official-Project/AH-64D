@@ -10,4 +10,5 @@ class CfgPatches
     };
 };
 
+#include "extendedEventHandlers.hpp"
 #include "CfgFunctions.hpp"

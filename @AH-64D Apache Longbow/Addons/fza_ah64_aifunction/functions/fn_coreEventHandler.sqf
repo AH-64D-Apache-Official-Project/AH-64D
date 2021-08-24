@@ -1,5 +1,6 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_engineEventHandler
+Function: fza_aifunction_fnc_coreEventHandler
+
 
 Description:
     Engine event handler, stops the engines from being turned on using the action menu if they shouldn't be on according to the simulated startup sequence.
@@ -14,14 +15,15 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli, true] call fza_fnc_engineEventHandler
+    [_heli, true] call fza_aifunction_fnc_coreEventHandler
+
 	---
 
 Author:
 	Unknown, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engineState"];
-
+hint "connected";
 if(local _heli && !(_heli getVariable "fza_ah64_estarted") && _engineState && (isplayer vehicle player == true)) then {
 	_heli engineOn false;
 };
@@ -47,6 +49,3 @@ if (isplayer vehicle player == false && isengineon _heli = false) then {
 	vehicle player animate["plt_batt", 0];
 	vehicle player animateSource ["plt_rtrbrake", 0];
 };
-
-_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, IDLE, FLY
-_heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
