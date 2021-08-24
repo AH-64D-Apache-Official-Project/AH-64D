@@ -1,5 +1,25 @@
-_heli = _this select 0;
-_eng = _this select 1;
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_damageEngineFire
+
+Description:
+    damageEngineFire
+
+Parameters:
+    _heli - The helicopter to modify
+    _eng - the engine that has been assigned to burn
+
+Returns:
+	Nothing
+
+Examples:
+	--- Code
+    [_heli] call fza_fnc_damageEngineFire
+	---
+
+Author:
+	Unknown
+---------------------------------------------------------------------------- */
+params ["_heli","_eng"];
 
 _rand = random 10;
 

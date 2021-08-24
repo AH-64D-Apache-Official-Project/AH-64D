@@ -28,6 +28,28 @@ if(local _heli && !(_heli getVariable "fza_ah64_estarted") && _engineState) then
 };
 
 if ((isplayer driver _heli == false) && isengineon _heli == false) then {
-	[_heli] remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [0]];
-	[_heli] remoteExec ["fza_aifunction_fnc_engineStartSequence", _heli turretUnit [-1]];
+	//Ai Start up sequence
+	_heli animateSource ["plt_rtrbrake", 0];
+	_heli animate["plt_batt", 1, 10];
+	_heli animate["plt_apu", 1];
+	uisleep 1;
+	_heli setVariable ["fza_sfmplus_engStartSwitchState", 	["START", "OFF"]];
+	_heli setVariable ["fza_sfmplus_engState",            	["STARTING", "OFF"]];
+	uisleep 10;
+	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["IDLE", "OFF"]];
+	_heli setVariable ["fza_sfmplus_engState",            	["ON", "OFF"]];
+	_heli animate["plt_eng1_throttle", 0.25, 0.667];
+	uisleep 2;
+	_heli setVariable ["fza_sfmplus_engStartSwitchState", 	["START", "START"]];
+	_heli setVariable ["fza_sfmplus_engState",            	["ON", "STARTING"]];
+	uisleep 10;
+	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["IDLE", "IDLE"]];
+	_heli setVariable ["fza_sfmplus_engState",            	["ON", "ON"]];
+	_heli animate["plt_eng2_throttle", 0.25, 0.667];
+	uisleep 20;
+	_heli  animate["plt_apu", 0];
+	uisleep 3;
+	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["FLY", "FLY"]];
+	_heli animate["plt_eng1_throttle", 1, 0.063];
+	_heli animate["plt_eng2_throttle", 1, 0.063];
 };
