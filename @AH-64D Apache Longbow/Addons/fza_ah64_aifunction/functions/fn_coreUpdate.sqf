@@ -1,9 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_fireControl
-
+Function: fza_aifunction_fnc_coreUpdate
 
 Description:
-	handles the ai controls sequence for putting out fires
+	handles the spawning of the ai functions
 
 Parameters:
 	Heli - The helicopter to modify
@@ -13,10 +12,12 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_aifunction_fnc_fireControl
+    [_heli] call fza_aifunction_fnc_coreUpdate
 	---
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+
+[heli] spawn fza_aifunction_fnc_fireControl;

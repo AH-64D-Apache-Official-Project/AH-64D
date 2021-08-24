@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_Enginestart
+Function: fza_aifunction_fnc_engineStart
 
 
 Description:
@@ -15,28 +15,28 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli, true] call fza_aifunction_fnc_Enginestart
-
+    [_heli, true] call fza_aifunction_fnc_Enginestarts
 	---
 
 Author:
 	Unknown, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engineState"];
-hint "connected";
 
 if ((isplayer driver _heli == false) && isengineon _heli == false) then {
+	/*
 	//clean reset since heli is meant to be off
 	_heli setVariable ["fza_sfmplus_engStartSwitchState", 	["OFF", "OFF"]]; //OFF, START
 	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, IDLE, FLY
 	_heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
 	_heli animate["plt_eng1_throttle", 0, 10];
-	_heli animate["plt_eng2_throttle", 0, 10];
+	_heli animate["plt_eng2_throttle", 0, 10];*/
 
 	//Ai Start up sequence
 	_heli animateSource ["plt_rtrbrake", 0];
 	_heli animate["plt_batt", 1];
 	_heli animate["plt_apu", 1];
+	sleep 1;
 	_heli setVariable ["fza_sfmplus_engStartSwitchState", 	["START", "OFF"]];
 	_heli setVariable ["fza_sfmplus_engState",            	["STARTING", "OFF"]];
 	Sleep 10;

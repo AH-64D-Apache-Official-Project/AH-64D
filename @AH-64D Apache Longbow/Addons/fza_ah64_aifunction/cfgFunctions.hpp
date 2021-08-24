@@ -1,3 +1,9 @@
+#ifdef __A3_DEBUG__
+#define R recompile = 1
+#else
+#define R recompile = 0
+#endif
+
 class CfgFunctions
 {
 	class fza_ah64_project_aifunction
@@ -5,9 +11,9 @@ class CfgFunctions
         tag = "FZA_aifunction";
 		class functions {
 			file = "\fza_ah64_aifunction\functions"; 
-			class aicoreupdate {R;};
-			class enginestart {R;};
-			class firecontrol {R;};
+			class coreUpdate {R;};
+			class engineStart {R;};
+			class fireControl {R;};
 		};
     };
 };
