@@ -3,7 +3,7 @@ Function: fza_aifunction_fnc_setupinit
 
 
 Description:
-	to set up the aircraft for full ai crew
+	To set up the aircraft for full ai crew
 
 Parameters:
 	Heli - The helicopter to modify
@@ -19,5 +19,7 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
+params ["_heli"];
 
-//no plans for full ai crew until brad agres to add an option to disable stress damage so they dont blow themselfs up
+/*
+if (isplayer driver _heli == false) then {

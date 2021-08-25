@@ -23,7 +23,8 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 
-//if (player = driver _heli && player = gunner _heli || fza_ah64_aiFirecontrol == false) exitWith {};
+//wont let full ai crew past point
+if !(fza_ah64_aiFirecontrol) exitWith {};
 
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
 	Sleep 10;

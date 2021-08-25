@@ -15,6 +15,8 @@ class CfgFunctions
 			class engineStart {R;};
 			class fireControl {R;};
 			class setupinit {R;};
+			class GetOut {R;};
+			class ase {R;};
 		};
     };
 };

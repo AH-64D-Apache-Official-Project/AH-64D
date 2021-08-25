@@ -5,3 +5,11 @@ class Extended_Engine_EventHandlers {
 		};
 	};
 };
+
+class Extended_GetOut_EventHandlers {
+	class fza_ah64base {
+		class fza_ah64base_getout {
+			getOut = "_this call fza_aifunction_fnc_getout;";
+		};
+	};
+};
