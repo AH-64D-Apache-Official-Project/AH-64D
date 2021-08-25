@@ -28,4 +28,5 @@ if (isplayer driver _heli == false) then {
 if (isplayer gunner _heli == false) then {
     _heli setVariable ["fza_ah64_sight_plt", 2, true];
     _heli setVariable ["fza_ah64_rocketsalvo", 2, true];
+	_heli setVariable ["fza_ah64_burst_limit", 100];
 };

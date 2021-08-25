@@ -141,14 +141,14 @@ class CfgWeapons
 		recoil = "Empty";
 		recoilProne = "Empty";
 		dispersion = 0.006;
-		aiRateOfFire = 0.102;
+		aiRateOfFire = 0.109;
 		aiRateOfFireDistance = 2800;
-		minRange = 1200;
+		minRange = 500;
 		minRangeProbab = 0.9;
-		midRange = 1900;
-		midRangeProbab = 0.9;
-		maxRange = 2500;
-		maxRangeProbab = 0.9;
+		midRange = 2400;
+		midRangeProbab = 0.8;
+		maxRange = 3500;
+		maxRangeProbab = 0.6;
 		showToPlayer = 1;
 	};		
 	
@@ -203,8 +203,8 @@ class CfgWeapons
 		cursoraim = "EmptyCursor";
 		aiRateOfFire = 5;
 		aiRateOfFireDistance = 3000;
-		minRange = 2000;
-		minRangeProbab = 0.5;
+		minRange = 500;
+		minRangeProbab = 0.7;
 		midRange = 3500;
 		midRangeProbab = 1.0;
 		maxRange = 8000;
@@ -285,10 +285,10 @@ class CfgWeapons
 			useAction = 0;
 			useActionTitle = "";
 			minRange = 200;
-			minRangeProbab = 0.041;
-			midRange = 600;
+			minRangeProbab = 0.11;
+			midRange = 2000;
 			midRangeProbab = 0.21;
-			maxRange = 2500;
+			maxRange = 3800;
 			maxRangeProbab = 0.11;
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
