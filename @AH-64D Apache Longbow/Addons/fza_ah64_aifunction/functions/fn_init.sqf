@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_setupinit
+Function: fza_aifunction_fnc_init
 
 
 Description:
@@ -21,5 +21,11 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-/*
+//sight select ai
 if (isplayer driver _heli == false) then {
+    _heli setVariable ["fza_ah64_sight_plt", 3, true];
+};
+if (isplayer gunner _heli == false) then {
+    _heli setVariable ["fza_ah64_sight_plt", 2, true];
+    _heli setVariable ["fza_ah64_rocketsalvo", 2, true];
+};

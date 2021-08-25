@@ -14,7 +14,7 @@ class CfgFunctions
 			class coreUpdate {R;};
 			class engineStart {R;};
 			class fireControl {R;};
-			class setupinit {R;};
+			class init {R;};
 			class GetOut {R;};
 			class ase {R;};
 		};
