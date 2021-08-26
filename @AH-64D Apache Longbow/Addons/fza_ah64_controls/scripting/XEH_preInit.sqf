@@ -75,9 +75,18 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-	"fza_ah64_aiFirecontrol",
+	"fza_ah64_aiFireControl",
 	"CHECKBOX",
-	["Ai Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
+	["Ai Fire suppresion", "Enabling an AI Pilot to handle engine fires (does not work with full AI crew)"],
+	[_projName, "AI settings"],
+	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_aiAseControl",
+	"CHECKBOX",
+	["Ai Ase control", "Enabling an AI Control the Aircraft survival equipment (does not work with full AI crew)"],
 	[_projName, "AI settings"],
 	[true],
 	0

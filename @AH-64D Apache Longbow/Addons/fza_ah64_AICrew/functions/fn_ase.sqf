@@ -20,3 +20,5 @@ Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+
+if !(fza_ah64_aiAseControl) exitwith {};

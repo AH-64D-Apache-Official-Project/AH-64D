@@ -17,6 +17,7 @@ class CfgFunctions
 			class init {R;};
 			class GetOut {R;};
 			class ase {R;};
+			class turretaim {R;};
 		};
     };
 };
