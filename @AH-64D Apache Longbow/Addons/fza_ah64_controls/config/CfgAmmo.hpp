@@ -112,6 +112,15 @@ class CfgAmmo
 		dangerRadiusHit=60;
 		suppressionRadiusBulletClose=12;
 		suppressionRadiusHit=24;
+
+		aiRateOfFire = 0.109;
+		aiRateOfFireDistance = 0;
+		minRange = 0;
+		minRangeProbab = 0.9;
+		midRange = 2400;
+		midRangeProbab = 0.8;
+		maxRange = 3500;
+		maxRangeProbab = 0.6;
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -147,6 +156,12 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128+512";
 		allowAgainstInfantry 		= 1;
 		cost 						= 1000;
+		minRange = 300;
+		minRangeProbab = 0.7;
+		midRange = 3500;
+		midRangeProbab = 1.0;
+		maxRange = 8000;
+		maxRangeProbab = 0.8;	
 
 		//Penetrator
 		submunitionAmmo				="ammo_Penetrator_AGM_01";
@@ -205,11 +220,11 @@ class CfgAmmo
 					class RadarSensorComponent : SensorTemplateActiveRadar
 					{
 						class AirTarget {
-							minRange = 8000;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						class GroundTarget {
-							minRange = 8000;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						typeRecognitionDistance = -1; // distance how far the target type gets recognized
@@ -274,8 +289,8 @@ class CfgAmmo
 		proxyShape					= "\fza_ah64_us\fza_agm114k";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
+		aiAmmoUsageFlags 			= "64+128+512";
+		allowAgainstInfantry 		= 1;
 		cost 						= 1000;
 
 		hit 						= 600;
@@ -305,11 +320,11 @@ class CfgAmmo
 					class LaserSensorComponent : SensorTemplateLaser
 					{
 						class AirTarget {
-							minRange = 7000;
+							minRange = 0;
 							maxRange = 7000;
 						};
 						class GroundTarget {
-							minRange = 7000;
+							minRange = 0;
 							maxRange = 7000;
 						};
 						angleRangeHorizontal = 30;
@@ -337,8 +352,6 @@ class CfgAmmo
 		indirectHitRange 			= 4;
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
 		cost 						= 500;
 	};
 	class fza_agm114c : fza_agm114k
@@ -354,8 +367,6 @@ class CfgAmmo
 		indirectHitRange 			= 4;
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
 		cost 						= 600;
 	};
 	class fza_agm114m : fza_agm114k
@@ -372,8 +383,6 @@ class CfgAmmo
 		submunitionAmmo				= "";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "64+128+512";
-		allowAgainstInfantry 		= 1;
 		cost 						= 700;
 	};
 	class fza_agm114n : fza_agm114k
@@ -388,8 +397,6 @@ class CfgAmmo
 		submunitionAmmo				= "";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "64+128+512";
-		allowAgainstInfantry 		= 1;
 		cost 						= 700;
 	};
 	
@@ -430,6 +437,8 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128";
 		allowAgainstInfantry 		= 1;
 		cost 						= 75;
+		aiRateOfFire = 3;
+		aiRateOfFireDistance = 0;
 
 		weaponType 					= "rocket";
 		suppressionRadiusHit 		= 15;
@@ -482,13 +491,17 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 5;
 		indirectHitRange 			= 5;
+
 		submunitionDirectionType	= "SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_m73mpsm";
 		submunitionConeType[] 		= {"randomcenter",9};
 		submunitionConeAngle		= 2;
+		triggerDistance				= 500;
+		submunitionInitSpeed		= 500;
+		
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64";
+		aiAmmoUsageFlags 			= "64+128";
 		cost 						= 100;
 	};
 	class fza_275_m257: fza_275_base 
@@ -503,9 +516,11 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 0;
 		indirectHitRange 			= 0;
+
 		submunitionAmmo 			= "fza_m257_flare";
 		submunitionCount 			= 1;
 		submunitionConeAngle		= 0;
+
 		triggerTime 				= 1.5;
 		maxSpeed 					= 450;
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
@@ -528,15 +543,19 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit					= 0;
 		indirectHitRange 			= 0;
+
 		submunitionDirectionType	="SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_flec_cluster";
 		submunitionConeType[] 		= {"randomcenter",100};
 		submunitionConeAngle 		= 12;
+		triggerDistance				= 200;
+		submunitionInitSpeed		= 500;
+
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] 			= {"soundHit1",1};
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64";
+		aiAmmoUsageFlags 			= "64+128";
 		cost 						= 100;
 	};
 	

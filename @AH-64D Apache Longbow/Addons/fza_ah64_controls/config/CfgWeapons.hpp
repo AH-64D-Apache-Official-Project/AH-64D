@@ -123,11 +123,16 @@ class CfgWeapons
 		};	
 		scope = 1;
 		displayName="M230";
+		nameSound="cannon";
 		cursor = "";
 		cursorAim = "";
+		showAimCursorInternal=0;
 		reloadTime=0.109;
 		weaponLockSystem = "8+4";
 		ballisticscomputer = 16;
+		FCSMaxLeadSpeed=200;
+		FCSZeroingDelay=0;
+		maxZeroing=4200;
 		weaponLockDelay = 0;
 		autoreload = 1;
 		multiplier = 1;
@@ -140,16 +145,21 @@ class CfgWeapons
 		useActionTitle = "";
 		recoil = "Empty";
 		recoilProne = "Empty";
-		dispersion = 0.006;
-		aiRateOfFire = 0.102;
-		aiRateOfFireDistance = 2800;
-		minRange = 1200;
-		minRangeProbab = 0.9;
-		midRange = 1900;
-		midRangeProbab = 0.9;
-		maxRange = 2500;
-		maxRangeProbab = 0.9;
 		showToPlayer = 1;
+		dispersion = 0.006;
+
+		//AI
+		aiRateOfFire=0.109;
+		aiRateOfFireDispersion=2;
+		aiRateOfFireDistance=0;
+		minRange=0;
+		minRangeProbab=0.64999998;
+		midRange=1500;
+		midRangeProbab=0.75;
+		maxRange=3000;
+		maxRangeProbab=0.69999999;
+		aiDispersionCoefY=0.5;
+		aiDispersionCoefX=0.5;
 	};		
 	
 	class fza_burstlimiter: fza_m230
@@ -201,10 +211,8 @@ class CfgWeapons
 		lockAcquire = 0;
 		cursor = "EmptyCursor";
 		cursoraim = "EmptyCursor";
-		aiRateOfFire = 5;
-		aiRateOfFireDistance = 3000;
-		minRange = 2000;
-		minRangeProbab = 0.5;
+		minRange = 500;
+		minRangeProbab = 0.7;
 		midRange = 3500;
 		midRangeProbab = 1.0;
 		maxRange = 8000;
@@ -284,12 +292,15 @@ class CfgWeapons
 			autofire=0;
 			useAction = 0;
 			useActionTitle = "";
-			minRange = 200;
-			minRangeProbab = 0.041;
-			midRange = 600;
-			midRangeProbab = 0.21;
-			maxRange = 2500;
-			maxRangeProbab = 0.11;
+			aiRateOfFire=4;
+			aiRateOfFireDistance=0;
+			aiRateOfFireDispersion=4;
+			minRange=1000;
+			minRangeProbab=0.69999999;
+			midRange=1500;
+			midRangeProbab=0.69999999;
+			maxRange=3200;
+			maxRangeProbab=0.1;
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
 		};

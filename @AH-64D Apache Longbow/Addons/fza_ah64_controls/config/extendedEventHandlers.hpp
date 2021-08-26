@@ -5,14 +5,6 @@ class Extended_PreInit_EventHandlers {
 	};
 };
 
-class Extended_Engine_EventHandlers {
-	class fza_ah64base {
-		class fza_ah64base_engine_eh {
-			engine = "_this call fza_fnc_engineEventHandler;";
-		};
-	};
-};
-
 class Extended_FiredBIS_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_fired_eh {
