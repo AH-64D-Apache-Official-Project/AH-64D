@@ -492,14 +492,14 @@ class CfgVehicles
 			};
 			class HitAvionics
 			{
-				armor = 2;
+				armor = 2.2;
 				material = 51;
 				name = "cockpit";
 				passthrough = 0.5;
 				visual = "skin_nose";
 				explosionShielding = 1;
 				convexComponent = "cockpit";
-				minimalHit = 0.05;
+				minimalHit = 0.1;
 				radius = 0.4;
 			};/*
 			class HitTransmission
@@ -511,44 +511,44 @@ class CfgVehicles
 			};*/
 			class HitEngine1
 			{
-				armor = 0.7;
+				armor = 0.9;
 				material = 51;
 				name = "leng";
 				passthrough = 1;
 				visual = "skin_leng";
 				explosionShielding = 3;
 				convexComponent = "leng";
-				minimalHit = 0.1;
+				minimalHit = 0.3;
 				radius = 0.4;
 			};
 			class HitEngine2: HitEngine1
 			{
-				armor = 0.7;
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
 			};
 			class HitEngine
 			{
-				armor = 0.8;
+				armor = 1.2;
 				material = 51;
 				name = "trans";
 				passthrough = 0;
 				visual = "trans";
 				explosionShielding = 3;
 				convexComponent = "trans";
-				minimalHit = 0.1;
+				minimalHit = 0.5;
 				radius = 0.4;
 				depends = "0.5 * (HitEngine1 + HitEngine2)";
 			};
 			class HitFuel
 			{
-				armor = 0.5;
+				armor = 0.8;
 				material = 51;
 				name = "lfuel";
 				passthrough = 0.1;
 				depends = "HitEngine1";
 				explosionShielding=2;
+				minimalHit = 0.3;
 			};
 			class HitFuel2: HitFuel
 			{
@@ -557,19 +557,21 @@ class CfgVehicles
 			};
 			class Hitlfab
 			{
-				armor = 0.5;
+				armor = 0.9;
 				material = 51;
 				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_lefab";
+				minimalHit = 0.3;
 			};
 			class Hitrfab
 			{
-				armor = 0.5;
+				armor = 0.9;
 				material = 51;
 				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_refab";
+				minimalHit = 0.3;
 			};
 			class HitVRotor
 			{
@@ -597,31 +599,34 @@ class CfgVehicles
 			};
 			class Hitlwing
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "lwing";
 				passthrough = 0.1;
 				visual = "skin_lwing";
+				minimalHit = 0.3;
 			};
 			class Hitrwing
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "rwing";
 				passthrough = 0.1;
 				visual = "skin_rwing";
+				minimalHit = 0.3;
 			};
 			class HitTail
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "tailboom";
 				passthrough = 0.5;
 				visual = "skin_tailboom";
+				minimalHit = 0.5;
 			};
 			class HitVTail
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "vtail";
 				passthrough = 0.1;
@@ -629,7 +634,7 @@ class CfgVehicles
 			};
 			class HitHTail
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "hstab";
 				passthrough = 0.1;
@@ -637,7 +642,7 @@ class CfgVehicles
 			};
 			class HitPNVS
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "pnvs";
 				passthrough = 0.1;
@@ -645,7 +650,7 @@ class CfgVehicles
 			};
 			class Hittads
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "tads";
 				passthrough = 0.1;
@@ -653,7 +658,7 @@ class CfgVehicles
 			};
 			class Hittadstur
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "tads_tur";
 				passthrough = 0.1;
@@ -661,7 +666,7 @@ class CfgVehicles
 			};
 			class Hitradar
 			{
-				armor = 0.05;
+				armor = 0.08;
 				material = 51;
 				name = "radar";
 				passthrough = 0.1;
@@ -669,7 +674,7 @@ class CfgVehicles
 			};
 			class Hitotocvez
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "otocvez";
 				passthrough = 0.1;
@@ -677,7 +682,7 @@ class CfgVehicles
 			};
 			class Hitotochlaven
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "otochlaven";
 				passthrough = 0.1;
@@ -685,7 +690,7 @@ class CfgVehicles
 			};
 			class Hitmaingear
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "maingear";
 				passthrough = 0.1;
@@ -693,7 +698,7 @@ class CfgVehicles
 			};
 			class Hittwsus
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "twsus";
 				passthrough = 0.1;
@@ -701,7 +706,7 @@ class CfgVehicles
 			};
 			class Hitpylon1
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon1";
 				passthrough = 0.1;
@@ -709,7 +714,7 @@ class CfgVehicles
 			};
 			class Hitpylon2
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon2";
 				passthrough = 0.1;
@@ -717,7 +722,7 @@ class CfgVehicles
 			};
 			class Hitpylon3
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon3";
 				passthrough = 0.1;
@@ -725,7 +730,7 @@ class CfgVehicles
 			};
 			class Hitpylon4
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon4";
 				passthrough = 0.1;
@@ -994,7 +999,7 @@ class CfgVehicles
 		nightVision=1;
 		mainRotorSpeed = 1;
 		threat[] = {1,1,0.700000};
-		armor=60;
+		armor=80;
 		damageResistance=0.0055499999;
 		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
 		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
@@ -1155,8 +1160,8 @@ class CfgVehicles
 				outGunnerMayFire = 1;
 				turretinfotype = "RscUnitInfoNoHUD";
 				turretFollowFreeLook = 0;
-				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
-				discretedistanceinitindex = 3;
+				discreteDistance[]={100,200,300,400,500,600,700,800,1000,1200,1500,1800,2100,2500,2800,3300};
+				discreteDistanceInitIndex=5;
 				isCopilot = 1;
 				usePiP=1;
 				class Reflectors
@@ -1201,7 +1206,7 @@ class CfgVehicles
 				{
 					class HitTurret
 					{
-						armor = 0.5;
+						armor = 0.9;
 						material = 51;
 						name = "tads_tur";
 						visual = "tads_tur";
@@ -1209,7 +1214,7 @@ class CfgVehicles
 					};
 					class HitGun
 					{
-						armor = 1;
+						armor = 1.3;
 						material = 52;
 						name = "tads";
 						visual = "tads";

@@ -4,6 +4,7 @@ Function: fza_aifunction_fnc_fireControl
 
 Description:
 	handles the ai controls sequence for putting out fires
+	fire suppresion does not work on full ai crew so it is disabled for full ai crew
 
 Parameters:
 	Heli - The helicopter to modify
@@ -23,10 +24,9 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 
-/*
-//wont let full ai crew past point
-if !(fza_ah64_aiFirecontrol) exitWith {};
-*/
+
+if !(fza_ah64_aiFirecontrol) exitwith {};
+systemchat "fire";
 
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
 	Sleep 10;

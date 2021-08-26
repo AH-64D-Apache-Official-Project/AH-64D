@@ -115,7 +115,7 @@ class CfgAmmo
 
 		aiRateOfFire = 0.109;
 		aiRateOfFireDistance = 2800;
-		minRange = 500;
+		minRange = 0;
 		minRangeProbab = 0.9;
 		midRange = 2400;
 		midRangeProbab = 0.8;
@@ -156,7 +156,7 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128+512";
 		allowAgainstInfantry 		= 1;
 		cost 						= 1000;
-		minRange = 500;
+		minRange = 300;
 		minRangeProbab = 0.7;
 		midRange = 3500;
 		midRangeProbab = 1.0;
@@ -220,11 +220,11 @@ class CfgAmmo
 					class RadarSensorComponent : SensorTemplateActiveRadar
 					{
 						class AirTarget {
-							minRange = 0;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						class GroundTarget {
-							minRange = 0;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						typeRecognitionDistance = -1; // distance how far the target type gets recognized

@@ -24,7 +24,6 @@ params ["_heli"];
 if (isplayer driver _heli == false) then {
 	//Ai variables
 	_heli setVariable ["fza_ah64_aiESStop", true];
-	_heli setVariable ["fza_ah64_aiFSStop", true];
 
 	_heli setVariable ["fza_sfmplus_engStartSwihState", 	["OFF", "OFF"]];
 	_heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]];

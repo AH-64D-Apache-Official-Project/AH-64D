@@ -17,8 +17,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (player == driver _heli && player == gunner _heli) exitWith {};
+if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
 
-[_heli] spawn fza_aifunction_fnc_setupinit;
+[_heli] spawn fza_aifunction_fnc_init;
 [_heli] spawn fza_aifunction_fnc_fireControl;
 [_heli] spawn fza_aifunction_fnc_ase;

@@ -70,17 +70,20 @@ if (_system == "trans") then {
         _heli setVariable ["fza_ah64_apu_fire", false, true];
     };
     if (_oldDam < 0.4 && _damage >= 0.4 && _heli animationphase "plt_apu" == 1) then {
+        //if !(isplayer driver _heli && isplayer gunner _heli) exitWith {}; 
         [_heli, "apu"] spawn fza_fnc_damageEngineFire;
     };
 };
 if (_system == "leng") then {
     if (_damage >= 0.4) then {
+        //if !(isplayer driver _heli && isplayer gunner _heli) exitWith {}; 
         [_heli, "left"] spawn fza_fnc_damageEngineFire;
     };
 };
 
 if (_system == "reng") then {
     if (_damage >= 0.4) then {
+        //if !(isplayer driver _heli && isplayer gunner _heli) exitWith {}; 
         [_heli, "right"] spawn fza_fnc_damageEngineFire;
     };
 };
