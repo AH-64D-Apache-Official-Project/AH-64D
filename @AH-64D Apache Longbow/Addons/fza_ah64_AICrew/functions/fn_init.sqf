@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_init
+Function: fza_AICrew_fnc_init
 
 
 Description:
@@ -13,22 +13,13 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_aifunction_fnc_init
+    [_heli] call fza_AICrew_fnc_init
 	---
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
-if (isplayer driver _heli == false) then {
-    //_heli setVariable ["fza_ah64_sight_plt", 3, true];
-};
-if (isplayer gunner _heli == false) then {
-    //_heli setVariable ["fza_ah64_sight_cpg", 2, true];
-    _heli setVariable ["fza_ah64_rocketsalvo", 2, true];
-	_heli setVariable ["fza_ah64_burst_limit", 100];
-};
 
 if !(isplayer driver _heli && isplayer gunner _heli) then {
 	_heli animateSource["pylon1", 5]; 

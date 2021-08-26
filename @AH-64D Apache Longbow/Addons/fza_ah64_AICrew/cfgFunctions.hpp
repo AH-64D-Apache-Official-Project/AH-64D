@@ -6,11 +6,11 @@
 
 class CfgFunctions
 {
-	class fza_ah64_project_aifunction
+	class fza_ah64_project_AICrew
 	{
-        tag = "FZA_aifunction";
+        tag = "FZA_AICrew";
 		class functions {
-			file = "\fza_ah64_aifunction\functions"; 
+			file = "\fza_ah64_AICrew\functions"; 
 			class coreUpdate {R;};
 			class engineStart {R;};
 			class fireControl {R;};

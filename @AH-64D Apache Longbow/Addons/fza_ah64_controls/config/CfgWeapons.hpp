@@ -149,9 +149,7 @@ class CfgWeapons
 		dispersion = 0.006;
 
 		//AI
-		burst=1;
-		burstRangeMax=50;
-		aiRateOfFire=0.1091;
+		aiRateOfFire=0.109;
 		aiRateOfFireDispersion=2;
 		aiRateOfFireDistance=0;
 		minRange=0;
@@ -275,11 +273,7 @@ class CfgWeapons
 		cursoraim = "EmptyCursor";
 		burst=1;
 		magazines[]={};
-		modes[]= {
-			"Single",
-			"Medium_AI",
-			"Close_AI"
-		};
+		modes[]= {"Single"};
 		class Single: LauncherCore
 		{
 			class StandardSound 
@@ -298,7 +292,6 @@ class CfgWeapons
 			autofire=0;
 			useAction = 0;
 			useActionTitle = "";
-			burstRangeMax=4;
 			aiRateOfFire=4;
 			aiRateOfFireDistance=0;
 			aiRateOfFireDispersion=4;
@@ -310,37 +303,6 @@ class CfgWeapons
 			maxRangeProbab=0.1;
 			cursor = "EmptyCursor";
 			cursoraim = "EmptyCursor";
-		};
-		class Medium_AI: Single
-		{
-			aiBurstTerminable=1;
-			showToPlayer=0;
-			burst=1;
-			burstRangeMax=6;
-			aiRateOfFire=3;
-			aiRateOfFireDistance=0;
-			aiRateOfFireDispersion=3;
-			minRange=400;
-			minRangeProbab=0.1;
-			midRange=800;
-			midRangeProbab=0.69999999;
-			maxRange=1200;
-			maxRangeProbab=0.75;
-		};
-		class Close_AI: Medium_AI
-		{
-			aiBurstTerminable=1;
-			showToPlayer=0;
-			burst=1;
-			burstRangeMax=42;
-			aiRateOfFire=1;
-			aiRateOfFireDistance=0;
-			minRange=1600;
-			minRangeProbab=0.6;
-			midRange=2000;
-			midRangeProbab=0.69;
-			maxRange=2400;
-			maxRangeProbab=0.8;
 		};
 	};
 	#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE

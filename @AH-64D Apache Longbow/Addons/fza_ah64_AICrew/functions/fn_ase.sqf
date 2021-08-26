@@ -1,8 +1,9 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_coreUpdate
+Function: fza_AICrew_fnc_ase
+
 
 Description:
-	handles the spawning of the ai functions
+	Handles ase control for ai crewmembers
 
 Parameters:
 	Heli - The helicopter to modify
@@ -11,14 +12,11 @@ Returns:
 	Nothing
 
 Examples:
+	--- Code
+    [_heli] call fza_AICrew_fnc_ase
+	---
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
-if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
-
-[_heli] spawn fza_aifunction_fnc_init;
-[_heli] spawn fza_aifunction_fnc_fireControl;
-[_heli] spawn fza_aifunction_fnc_ase;

@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class fza_ah64_aifunction
+	class fza_ah64_AICrew
 	{
         units[] = {};
 		author = "Rosd6(Dryden)";

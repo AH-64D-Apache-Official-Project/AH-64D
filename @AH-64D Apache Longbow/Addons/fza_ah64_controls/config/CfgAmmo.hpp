@@ -114,7 +114,7 @@ class CfgAmmo
 		suppressionRadiusHit=24;
 
 		aiRateOfFire = 0.109;
-		aiRateOfFireDistance = 2800;
+		aiRateOfFireDistance = 0;
 		minRange = 0;
 		minRangeProbab = 0.9;
 		midRange = 2400;
@@ -437,6 +437,8 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128";
 		allowAgainstInfantry 		= 1;
 		cost 						= 75;
+		aiRateOfFire = 3;
+		aiRateOfFireDistance = 0;
 
 		weaponType 					= "rocket";
 		suppressionRadiusHit 		= 15;
@@ -489,10 +491,14 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 5;
 		indirectHitRange 			= 5;
+
 		submunitionDirectionType	= "SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_m73mpsm";
 		submunitionConeType[] 		= {"randomcenter",9};
 		submunitionConeAngle		= 2;
+		triggerDistance				= 500;
+		submunitionInitSpeed		= 500;
+		
 
 		//AI uasge
 		aiAmmoUsageFlags 			= "64+128";
@@ -510,9 +516,11 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 0;
 		indirectHitRange 			= 0;
+
 		submunitionAmmo 			= "fza_m257_flare";
 		submunitionCount 			= 1;
 		submunitionConeAngle		= 0;
+
 		triggerTime 				= 1.5;
 		maxSpeed 					= 450;
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
@@ -535,10 +543,14 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit					= 0;
 		indirectHitRange 			= 0;
+
 		submunitionDirectionType	="SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_flec_cluster";
 		submunitionConeType[] 		= {"randomcenter",100};
 		submunitionConeAngle 		= 12;
+		triggerDistance				= 200;
+		submunitionInitSpeed		= 500;
+
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] 			= {"soundHit1",1};
 

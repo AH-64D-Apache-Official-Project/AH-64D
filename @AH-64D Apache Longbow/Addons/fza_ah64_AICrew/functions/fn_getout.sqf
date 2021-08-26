@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_getout
+Function: fza_AICrew_fnc_getout
 
 
 Description:
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_aifunction_fnc_getout
+    [_heli] call fza_AICrew_fnc_getout
 	---
 
 Author:

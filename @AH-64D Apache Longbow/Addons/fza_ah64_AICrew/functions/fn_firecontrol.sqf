@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_aifunction_fnc_fireControl
+Function: fza_AICrew_fnc_fireControl
 
 
 Description:
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_aifunction_fnc_fireControl
+    [_heli] call fza_AICrew_fnc_fireControl
 	---
 
 Author:
@@ -26,7 +26,6 @@ params ["_heli"];
 
 
 if !(fza_ah64_aiFirecontrol) exitwith {};
-systemchat "fire";
 
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
 	Sleep 10;
