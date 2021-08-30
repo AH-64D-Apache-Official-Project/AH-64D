@@ -13,3 +13,11 @@ class Extended_GetOut_EventHandlers {
 		};
 	};
 };
+
+class Extended_GetIn_EventHandlers {
+	class fza_ah64base {
+		class fza_ah64base_getin {
+			getIn = "_this spawn fza_AICrew_fnc_getin;";
+		};
+	};
+};

@@ -28,7 +28,7 @@ params ["_heli"];
 if !(fza_ah64_aiFirecontrol) exitwith {};
 
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-	Sleep 10;
+	Sleep fza_ah64_aiFireResponce;
 	if (_heli getVariable "fza_ah64_e1_fire") then {
 		_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 		_heli setVariable ["fza_ah64_fire1arm", 1];

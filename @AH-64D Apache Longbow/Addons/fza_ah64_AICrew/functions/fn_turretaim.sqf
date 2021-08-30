@@ -20,6 +20,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
+/* currantly does not work*/
+if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
+
+
 private _inhibit = "";
 private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
 private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter"];

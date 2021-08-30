@@ -45,17 +45,6 @@ class CfgVehicles
 		LESH_AxisOffsetTarget[] = {0,-9.2,-2};
 		LESH_WheelOffset[] = {0,2.5};
 
-		side=1;
-		scope=0;
-		displayName="AH-64D";
-		driverlefthandanimname = "p_collective";
-		driverleftleganimname = "pedalL";
-		driverrighthandanimname = "p_cyclic";
-		driverrightleganimname = "pedalR";
-		simulation=helicopterRTD;
-		mainBladeRadius = 7.3;
-		maxGForce = 9;
-		maxFordingDepth = 0.55;
 		//SFM Variables-------------/
 		startDuration          = 80;
 		liftForceCoef          = 1.25;
@@ -67,31 +56,50 @@ class CfgVehicles
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
 		//SFM Variables-------------/
-		driveOnComponent[] = {"Wheels"};
-		extCameraPosition[] = {0,0,-20};
-		radartype = 4;
-		radarTargetSize = 0.700000;
-		irTargetSize = 0.800000;
-		enableCopilot = true;
-		usePreciseGetInAction = 1;
-		preciseGetInOut = 1;
-		getInRadius = 1.500000;
-		getInAction = "pilot_Heli_Light_02_Enter";
-		getOutAction = "GetOutHigh";
+
+		side=1;
+		scope=0;
+		displayName="AH-64D";
+		simulation=helicopterRTD;
+		attenuationEffectType = "HeliAttenuation";
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		mainbladecenter = "rotor_center";
-		transportMaxWeapons = 3;
-		transportMaxMagazines = 10;
-		driverCanSee = 2+4+8;
-		gunnerCanSee = 2+4+8;
-		unitinfotype="RscUnitInfoNoHUD";
 		destrtype = "DestructWreck";
+		driveOnComponent[] = {"Wheels"};
+		driverCanSee = 1+2+4+8;
+		driverlefthandanimname = "p_collective";
+		driverleftleganimname = "pedalL";	
+		driverrighthandanimname = "p_cyclic";
+		driverrightleganimname = "pedalR";
+		enableCopilot = true;
+		enableSweep = true;
+		extCameraPosition[] = {0,0,-20};
+		formationX = 20;
+		formationZ = 20;
+		formationTime = 20;
+		getInAction = "pilot_Heli_Light_02_Enter";
+		getInRadius = 1.500000;
+		getOutAction = "GetOutHigh";
+		gunnerCanSee = 1+2+4+8;
 		hideUnitInfo = 0;
 		insideSoundCoef = 0.5;
-		occludeSoundsWhenIn = 0.562341;
+		irTargetSize = 0.800000;
+		mainBladeRadius = 7.3;
+		mainbladecenter = "rotor_center";
+		maxFordingDepth = 0.55;
+		maxGForce = 9;
 		obstructSoundsWhenIn = 0.316228;
-		attenuationEffectType = "HeliAttenuation";
+		occludeSoundsWhenIn = 0.562341;
+		preciseGetInOut = 1;
+		radarTarget = 1;
+		radarTargetSize = 0.700000;
+		radartype = 4;
+		transportMaxBackpacks = 2;
+		transportMaxMagazines = 10;
+		transportMaxWeapons = 3;
+		type = VAir;
+		unitinfotype="RscUnitInfoNoHUD";
+		usePreciseGetInAction = 1;
 		emptySound[] = {"", 0, 1};
 		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
 		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
@@ -969,58 +977,75 @@ class CfgVehicles
 		displayName="AH-64D Apache Longbow";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
+		#include "hiddenSelections.hpp"
+		//PNVS TURRET OPTICS BACK UP
+		accuracy=5;
+		armor=80;
+		armorLights = 0.4;
+		armorStructural = 4;
+		audible=4;
+		attendant = 0;
+		camshakecoef = 0.2;
+		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
+		commanderUsesPilotView = false;
+		crew="B_Helipilot_F"
+		crewCrashProtection = 0.25;
+		crewVulnerable = 0;
+		damageResistance=0.0055499999;
+		driverAction = "fza_ah64_pilot";
+		driverOpticsColor[] = {1,1,1,1};
+		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		ejectDeadCargo=false;
 		ejectdeadgunner = false;
-		nameSound="veh_Helicopter";
+		explosionShielding = 8;
 		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1;
-		audible=4;
-		#include "hiddenSelections.hpp"
-		transportSoldier=2;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		accuracy=0.5;
-		driverAction = "fza_ah64_pilot";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
-		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		crewVulnerable = 0;
-		gunnerUsesPilotView = false;
-		commanderUsesPilotView = false;
-		crew="B_Helipilot_F";
-		//PNVS TURRET OPTICS BACK UP
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		driverOpticsColor[] = {1,1,1,1};
-		laserScanner=1;
-		nightVision=1;
-		mainRotorSpeed = 1;
-		threat[] = {1,1,0.700000};
-		armor=80;
-		damageResistance=0.0055499999;
-		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-	    weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
-		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
-		lockdetectionsystem = "8+4";
-		incomingMissileDetectionSystem = 16;
+		gForceShakeAttenuation = 0.5;
 		gunAimDown = 0;
-		selectionHRotorStill = "mr_blades";
-		selectionHRotorMove = "mr_blur";
-		selectionVRotorStill = "tr_blades";
-		selectionVRotorMove = "tr_blur";
-		camshakecoef = 0.2;
+		gunnerUsesPilotView = false;
+		hasGunner=1;
+		impactEffectSpeedLimit = 8;
+		impactEffectsSea = "ImpactEffectsAir";
+		incomingMissileDetectionSystem = 16;
+		irScanGround = 1;
+		irScanRangeMax = 10000;
+		irScanRangeMin = 700;
+		irScanToEyeFactor = 2;
+		laserScanner=1;
+		laserTarget=0;
+		lockdetectionsystem = "8+4+0";
+		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
+		mainRotorSpeed = 1;
+		maxBackRotorDive = 0;
+		maxMainRotorDive = 0;
 		memoryPointLMissile = "l strela";
-		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";
+		memoryPointRMissile = "p strela";
 		memoryPointRRocket = "p raketa";
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
 		memoryPointsGetInCargo = "pos cargo";
 		memoryPointsGetInCargoDir = "pos cargo dir";
+		memoryPointsGetInDriver = "pos driver";
+		memoryPointsGetInDriverDir = "pos driver dir";
+		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
+		memorypointdriveroptics[] = {"driverview", "pilot"};
+		minBackRotorDive = 0;
+		minMainRotorDive = 0;
+		nameSound="veh_Helicopter";
+		neutralBackRotorDive = 0;
+		neutralMainRotorDive = 0;
+		nightVision=1;
+		nvScanner = 0;
+		nvTarget = 0;
+		selectionHRotorMove = "mr_blur";
+		selectionHRotorStill = "mr_blades";
+		selectionVRotorMove = "tr_blur";
+		selectionVRotorStill = "tr_blades";
+		threat[] = {1,1,0.5};
+		transportSoldier=2;
+		vehicleclass="fza_helicopters";
+		visualTarget = 1;
+		visualTargetsize = 1.0;
+		weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
 		envelope[]=
 		{
 		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
@@ -1152,8 +1177,8 @@ class CfgVehicles
 				maxGunElev = 30;
 				minGunTurn = -120;
 				maxGunTurn = 120;
-				minGunTurnAI = -120;
-				maxGunTurnAI = 120;
+				minGunTurnAI = -90;
+				maxGunTurnAI = 90;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
@@ -1364,9 +1389,11 @@ class CfgVehicles
 			initAngleY=0;
 			minAngleY=-45;
 			maxAngleY=20;
+			maxXRotSpeed = 4;	// yawing speed
+			maxYRotSpeed = 4;	// pitching speed
 			thermalmode[] = {0, 1};
 			visionmode[] = {"Normal","Ti"}; //PNVS
-		};\
+		};
 
 		class UVAnimations
 		{
@@ -1485,7 +1512,7 @@ class CfgVehicles
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
-		}
+		};
 		/*
 		class hstab
 		{
@@ -2736,12 +2763,16 @@ initPhase=0;
 		//////////////DOORS//////////////////
 		class pdoor
 		{
+			displayName = "Pilot door";
+			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;
 			initPhase=0;
 		};
 		class gdoor
 		{
+			displayName = "Gunner door";
+			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;
 			initPhase=0;
@@ -3063,27 +3094,6 @@ initPhase=0;
 		side=3;
 		simulation = "thing";
 	};
-	class UAV_02_base_F;
-	class fza_ah64_jammer: UAV_02_base_F
-	{
-		class Turrets {};
-		scope=1;
-		model = "\fza_ah64_US\fza_ah64_fake.p3d";
-		displayname="Helicopter";
-		armor = 200;
-		cost = 10000000;
-		camouflage = 150;
-		threat[] = {0.5, 1, 0.1};
-		namesound = "veh_Helicopter";
-		hasGunner = false;
-		crew = "B_UAV_AI";
-		typicalCargo[] = {"B_UAV_AI"};
-	};
-
-	////////////////////////////////////////////////
-	///////////////////DEBRIS///////////////////////
-	////////////////////////////////////////////////
-
 	class fza_ah64_tailboom_debris: RoadCone_F
 	{
 		scope=1;

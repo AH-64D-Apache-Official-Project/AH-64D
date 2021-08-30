@@ -15,6 +15,7 @@ class CfgFunctions
 			class engineStart {R;};
 			class fireControl {R;};
 			class init {R;};
+			class getin {R;};
 			class GetOut {R;};
 			class ase {R;};
 			class turretaim {R;};

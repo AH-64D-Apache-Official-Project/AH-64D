@@ -149,15 +149,16 @@ class CfgWeapons
 		dispersion = 0.006;
 
 		//AI
+		aiburst=50;
 		aiRateOfFire=0.109;
 		aiRateOfFireDispersion=2;
-		aiRateOfFireDistance=0;
+		aiRateOfFireDistance=10000;
 		minRange=0;
-		minRangeProbab=0.64999998;
+		minRangeProbab=0.65;
 		midRange=1500;
 		midRangeProbab=0.75;
 		maxRange=3000;
-		maxRangeProbab=0.69999999;
+		maxRangeProbab=0.65;
 		aiDispersionCoefY=0.5;
 		aiDispersionCoefX=0.5;
 	};		
@@ -292,8 +293,8 @@ class CfgWeapons
 			autofire=0;
 			useAction = 0;
 			useActionTitle = "";
-			aiRateOfFire=4;
-			aiRateOfFireDistance=0;
+			aiRateOfFire=1.8;
+			aiRateOfFireDistance=10000;
 			aiRateOfFireDispersion=4;
 			minRange=1000;
 			minRangeProbab=0.69999999;
