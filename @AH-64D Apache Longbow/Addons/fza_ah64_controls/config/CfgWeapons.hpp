@@ -293,17 +293,12 @@ class CfgWeapons
 			autofire=0;
 			useAction = 0;
 			useActionTitle = "";
-			aiRateOfFire=1.8;
-			aiRateOfFireDistance=10000;
-			aiRateOfFireDispersion=4;
-			minRange=1000;
-			minRangeProbab=0.69999999;
-			midRange=1500;
-			midRangeProbab=0.69999999;
-			maxRange=3200;
-			maxRangeProbab=0.1;
-			cursor = "EmptyCursor";
-			cursoraim = "EmptyCursor";
+			minRange = 200;
+			minRangeProbab = 0.041;
+			midRange = 600;
+			midRangeProbab = 0.21;
+			maxRange = 2500;
+			maxRangeProbab = 0.11;
 		};
 	};
 	#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE

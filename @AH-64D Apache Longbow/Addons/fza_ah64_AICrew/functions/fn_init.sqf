@@ -21,9 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
-
-_heli animateSource["pylon1", 5]; 
-_heli animateSource["pylon2", 5]; 
-_heli animateSource["pylon3", 5]; 
-_heli animateSource["pylon4", 5];
+//Gets AI rocketpods to work & aim accurate
+_heli animateSource["pylon1", 0]; 
+_heli animateSource["pylon2", 0]; 
+_heli animateSource["pylon3", 0]; 
+_heli animateSource["pylon4", 0];

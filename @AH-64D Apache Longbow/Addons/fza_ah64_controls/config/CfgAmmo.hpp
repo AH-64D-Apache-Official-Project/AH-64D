@@ -434,10 +434,10 @@ class CfgAmmo
 		cmimmunity 					= 1;
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64+128";
+		aiAmmoUsageFlags 			= "128+512";
 		allowAgainstInfantry 		= 1;
 		cost 						= 75;
-		aiRateOfFire = 3;
+		aiRateOfFire = 0.3;
 		aiRateOfFireDistance = 0;
 
 		weaponType 					= "rocket";
