@@ -20,7 +20,6 @@ params ["_heli"];
 if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
 if !(alive _heli && (_heli) isKindOf "fza_ah64base") exitwith {};
 
-[_heli] spawn fza_AICrew_fnc_init;
 [_heli] spawn fza_AICrew_fnc_fireControl;
 [_heli] spawn fza_AICrew_fnc_ase;
 

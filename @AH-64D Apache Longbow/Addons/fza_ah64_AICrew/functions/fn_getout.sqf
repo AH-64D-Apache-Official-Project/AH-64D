@@ -6,11 +6,10 @@ Description:
 	Handles shutdown of SFM+ when AI pilot Gets out
 
 Parameters:
-	Heli: Object - Unit the event handler is assigned to
+	heli: Object - Vehicle the event handler is assigned to
 	role: String - Can be either "driver", "gunner" or "cargo"
-	vehicle: Object - Vehicle the unit entered
+	unit: Object - Unit that left the vehicle
 	turret: Array - turret path
-
 
 Returns:
 	Nothing
@@ -25,6 +24,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_role", "_unit", "_turret"];
 
+if (isplayer _unit) exitWith {};
+
 if (_unit == driver _heli) then {
 	//Ai variables
 	_heli setVariable ["fza_ah64_aiESStop", true];
@@ -38,8 +39,4 @@ if (_unit == driver _heli) then {
 	_heli animate["plt_apu", 0];
 	_heli animate["plt_batt", 0];
 	_heli animateSource ["plt_rtrbrake", 1];
-};
-
-/*
-if (_unit == gunner _heli) then {
 };

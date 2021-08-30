@@ -21,9 +21,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if !(isplayer driver _heli && isplayer gunner _heli) then {
-	_heli animateSource["pylon1", 5]; 
-	_heli animateSource["pylon2", 5]; 
-	_heli animateSource["pylon3", 5]; 
-	_heli animateSource["pylon4", 5];
-};
+if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
+
+_heli animateSource["pylon1", 5]; 
+_heli animateSource["pylon2", 5]; 
+_heli animateSource["pylon3", 5]; 
+_heli animateSource["pylon4", 5];

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_AICrew_fnc_ase
+Function: fza_AICrew_fnc_asecontrol
 
 
 Description:

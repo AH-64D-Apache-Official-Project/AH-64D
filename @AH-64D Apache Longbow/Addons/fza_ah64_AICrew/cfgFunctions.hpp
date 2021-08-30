@@ -15,10 +15,10 @@ class CfgFunctions
 			class engineStart {R;};
 			class fireControl {R;};
 			class init {R;};
-			class getin {R;};
+			class getIn {R;};
 			class GetOut {R;};
-			class ase {R;};
-			class turretaim {R;};
+			class asecontrol {R;};
+			class turretAim {R;};
 		};
     };
 };

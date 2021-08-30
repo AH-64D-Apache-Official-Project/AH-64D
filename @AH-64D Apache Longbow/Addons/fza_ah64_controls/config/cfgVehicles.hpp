@@ -143,7 +143,7 @@ class CfgVehicles
 		}
 		class EventHandlers {
 			class fza_ah64 {
-				init = "[_this # 0] spawn fza_fnc_eventInit";
+				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_AICrew_fnc_init";
 				handleDamage = "_this call fza_fnc_damageSystem";
 			};
 		};
@@ -1144,8 +1144,9 @@ class CfgVehicles
 			class MainTurret: NewTurret
 			{
 				gunnerAction = "fza_ah64_copilot";
-				gunnerGetInAction = "GetInHigh";
+				gunnerGetInAction = "pilot_Heli_Light_02_Enter";
 				gunnerGetOutAction = "GetOutHigh";
+				preciseGetInOut = 1;
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
