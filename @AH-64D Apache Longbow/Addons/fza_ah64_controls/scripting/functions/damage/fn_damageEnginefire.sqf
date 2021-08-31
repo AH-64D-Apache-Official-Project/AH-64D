@@ -104,8 +104,9 @@ do {
     if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
     if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
     if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
-
-    if (_rand > 9.9 && !(isengineon _heli)) exitwith {};
+    if (_eng == "left" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 0 == "off") && _rand > 9.9) exitwith {};
+    if (_eng == "right" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 1 == "off") && _rand > 9.9) exitwith {};
+    if (_eng == "apu" && _heli animationphase "plt_apu" < 0.5 && _rand > 9.9) exitwith {};
     _helidamage = _helidamage + 0.0005;
     if (_helidamage > 0.5) then {
         _heli setHit["trans", 1];
