@@ -787,7 +787,7 @@ if (fza_ah64_gunheat < 0) then {
     fza_ah64_burst = 0;
 };
 
-if (time - fza_ah64_firekeypressed > 0.1 && currentweapon _heli == "fza_burstlimiter") then {
+if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
     fza_ah64_burst = 0;
     _heli selectWeapon "fza_m230";
 };

@@ -22,7 +22,7 @@ Author:
 params ["_heli"];
 
 //Gets AI rocketpods to work & aim accurate
-_heli animateSource["pylon1", 0]; 
-_heli animateSource["pylon2", 0]; 
-_heli animateSource["pylon3", 0]; 
-_heli animateSource["pylon4", 0];
+_heli animateSource["pylon1", 0.5]; 
+_heli animateSource["pylon2", 0.5]; 
+_heli animateSource["pylon3", 0.5]; 
+_heli animateSource["pylon4", 0.5];

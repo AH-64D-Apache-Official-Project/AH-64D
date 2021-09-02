@@ -33,18 +33,5 @@ private _pfh = "fza_pfh_agm114_helper_" + str _projectile;
 		_heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")-[_targ, objNull], true];
 		_heli setVariable ["fza_ah64_shotmissile_list", (_heli getVariable "fza_ah64_shotmissile_list")-[_projectile, objNull], true];
 	};
-
-	private _target = missileTarget _projectile;
-	if(!(_target isEqualTo objNull)  ) then
-	{
-		if(_projectile distance _target < 200)then
-		{
-			if(speed _projectile > 600)then
-			{
-				// Slow down the missile to fight default ugly missile physics
-				_projectile setVelocity (velocity _projectile vectorMultiply 0.98);
-			};
-		};
-	};
-
+	
 }, [_projectile,_pfh, _heli, _targ]] call BIS_fnc_addStackedEventHandler;

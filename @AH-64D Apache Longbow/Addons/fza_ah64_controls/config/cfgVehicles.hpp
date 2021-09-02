@@ -995,7 +995,7 @@ class CfgVehicles
 		driverAction = "fza_ah64_pilot";
 		driverOpticsColor[] = {1,1,1,1};
 		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		ejectDeadCargo=false;
+		ejectDeadCargo=true;
 		ejectdeadgunner = false;
 		explosionShielding = 8;
 		faction="fza_usaav";

@@ -3,14 +3,12 @@ class CfgAmmo
 	class Default{};
 	class B_30mm_HE;
 	class Bulletbase;
-	class MissileCore;
 	class MissileBase;
+	class Missile_AA_04_F;
 	class Missile_AGM_02_F : MissileBase {
 		class Components;
 		class EventHandlers;
 	};
-	class RocketCore;
-	class RocketBase;
 	class GrenadeBase;
 	class FlareCore;
 	class B_9x21_Ball;
@@ -64,6 +62,7 @@ class CfgAmmo
 	class fza_fireBottlePrimary: Default
 	{
 		lockType					=2;
+		showToPlayer = 0;
 	};
 	class fza_fireBottleSecondary: fza_fireBottlePrimary
 	{
@@ -136,7 +135,7 @@ class CfgAmmo
 		laserLock					= 0;
 		airLock						= 0;
 
-		maxSpeed					= 425;
+		maxSpeed					= 166;
 		simulationStep				= 0.005;
 		airFriction					= 0.03;
 		sideAirFriction				= 0.15;
@@ -183,7 +182,7 @@ class CfgAmmo
 
 		//Missile sensors definition
 		missileLockMaxDistance		= 8000;
-		missileLockMinDistance		= 700;
+		missileLockMinDistance		= 200;
 		missileLockMaxSpeed			= 56;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
@@ -304,7 +303,7 @@ class CfgAmmo
 		
 		//MSL sensors definition
 		missileLockMaxDistance 		= 8000;
-		missileLockMinDistance 		= 500;
+		missileLockMinDistance 		= 300;
 		missileLockMaxSpeed 		= 56;
 		missileLockCone 			= 90;
 		missileKeepLockedCone 		= 90;
@@ -320,11 +319,11 @@ class CfgAmmo
 					class LaserSensorComponent : SensorTemplateLaser
 					{
 						class AirTarget {
-							minRange = 0;
+							minRange = 300;
 							maxRange = 7000;
 						};
 						class GroundTarget {
-							minRange = 0;
+							minRange = 300;
 							maxRange = 7000;
 						};
 						angleRangeHorizontal = 30;
@@ -613,6 +612,61 @@ class CfgAmmo
 		indirectHitRange 			= 4;
 		deflecting 					= 0;
 		fuseDistance 				= 50;
+	};
+
+	///////////////////////////////////////////////////////////////////////
+	//////////////////////////////STINGERS/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////	
+
+	class fza_fim92: Missile_AA_04_F
+	{
+		model = "\fza_ah64_us\fza_fim92";
+		proxyShape = "\fza_ah64_us\fza_fim92";
+		cost = 1000;
+		hit = 100;
+		indirectHit = 75;
+		indirectHitRange = 9;
+		proximityExplosionDistance = 15;
+		warheadName = "HE";
+		airLock = 2;
+		irLock = 1;
+		laserLock = 0;
+		nvLock = 0;
+		missileLockCone = 45;
+		missileKeepLockedCone = 60;
+		missileLockMaxDistance = 4500;
+		missileLockMinDistance = 150;
+		missileLockMaxSpeed = 445;
+		weaponLockSystem = "2 + 16";
+		cmImmunity = 0.9;
+		manualControl = 0;
+		maxControlRange = 4500;
+		aiAmmoUsageFlags = 256;
+		initTime = 0;
+		thrust = 220;
+		thrustTime = 5;
+		airFriction = 0.14;
+		sideAirFriction = 0.2;
+		maxSpeed = 920;
+		maneuvrability = 36;
+		simulationStep = 0.002;
+		fuseDistance = 500;
+		timeToLive = 20;
+		trackLead = 0.9;
+		trackOversteer = 1;
+		craterEffects = "ATRocketCrater";
+		effectsMissileInit = "PylonBackEffects";
+		effectsmissile = "fza_ah64_stingersmoke";
+		explosioneffects = "AAMissileExplosion";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
+		whistleDist = 16;
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};		
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		class Hiteffects
+		{
+			hitWater = "ImpactEffectsSmall";
+		};
 	};
 };
 	///////////////////////////////////////////////////////////////////////
