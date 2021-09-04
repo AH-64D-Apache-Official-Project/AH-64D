@@ -985,7 +985,7 @@ class CfgVehicles
 		armorStructural = 4;
 		audible=4;
 		attendant = 0;
-		camshakecoef = 0.2;
+		camshakecoef = 0.3;
 		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
 		commanderUsesPilotView = false;
 		crew="B_Helipilot_F"

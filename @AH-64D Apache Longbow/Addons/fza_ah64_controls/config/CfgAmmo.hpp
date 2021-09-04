@@ -120,6 +120,34 @@ class CfgAmmo
 		midRangeProbab = 0.8;
 		maxRange = 3500;
 		maxRangeProbab = 0.6;
+		class CamShakeExplode
+		{
+			power = 6;
+			duration = 1;
+			frequency = 20;
+			distance = 67.8178;
+		};
+		class CamShakeHit
+		{
+			power = 30;
+			duration = 0.4;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.23607;
+			duration = 1;
+			frequency = 20;
+			distance = 40;
+		};
+		class CamShakePlayerFire
+		{
+			power = 0.01;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
+		};
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -248,6 +276,34 @@ class CfgAmmo
 			{
 				fired = "_this call fza_fnc_weaponMissileSlowDown";
 			};
+		};
+		class CamShakeExplode
+		{
+			power = 22;
+			duration = 2;
+			frequency = 20;
+			distance = 163.905;
+		};
+		class CamShakeHit
+		{
+			power = 110;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 4;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
 		};
 	};
 	class fza_agm114l : fza_agm114base
@@ -451,6 +507,34 @@ class CfgAmmo
 		sideAirFriction 			= 0.004;
 		timeToLive					= 15;
 		whistleDist					= 24;
+		class CamShakeExplode
+		{
+			power = 16;
+			duration = 1.8;
+			frequency = 20;
+			distance = 191.554;
+		};
+		class CamShakeHit
+		{
+			power = 80;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 2;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
+		};
 	};
 	class fza_275_m151: fza_275_base
 	{
@@ -640,14 +724,14 @@ class CfgAmmo
 		weaponLockSystem = "2 + 16";
 		cmImmunity = 0.9;
 		manualControl = 0;
-		maxControlRange = 4500;
+		maxControlRange = 8000;
 		aiAmmoUsageFlags = 256;
 		initTime = 0;
 		thrust = 220;
 		thrustTime = 5;
 		airFriction = 0.14;
 		sideAirFriction = 0.2;
-		maxSpeed = 920;
+		maxSpeed = 2700;
 		maneuvrability = 36;
 		simulationStep = 0.002;
 		fuseDistance = 500;
@@ -666,6 +750,34 @@ class CfgAmmo
 		class Hiteffects
 		{
 			hitWater = "ImpactEffectsSmall";
+		};
+		class CamShakeExplode
+		{
+			power = 22;
+			duration = 2;
+			frequency = 20;
+			distance = 163.905;
+		};
+		class CamShakeHit
+		{
+			power = 110;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 4;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
 		};
 	};
 };
