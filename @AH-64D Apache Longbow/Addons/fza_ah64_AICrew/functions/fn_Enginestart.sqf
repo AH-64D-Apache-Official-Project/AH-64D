@@ -23,11 +23,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engineState"];
 
-/*
-if(!(_heli getVariable "fza_ah64_estarted") && _engineState) then {
-	_heli engineOn false;
-};*/
-
 if ((isplayer driver _heli == false) && _engineState == false && (_heli getVariable ["fza_ah64_aiESStop", true] == true)) then {
 	_heli setVariable ["fza_ah64_aiESStop", false];
 	//Ai Start up sequence

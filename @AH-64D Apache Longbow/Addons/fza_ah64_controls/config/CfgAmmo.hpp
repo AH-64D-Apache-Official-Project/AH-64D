@@ -581,6 +581,7 @@ class CfgAmmo
 		submunitionConeAngle		= 2;
 		triggerDistance				= 500;
 		submunitionInitSpeed		= 500;
+		deleteParentWhenTriggered	= 1;
 		
 
 		//AI uasge
@@ -603,6 +604,7 @@ class CfgAmmo
 		submunitionAmmo 			= "fza_m257_flare";
 		submunitionCount 			= 1;
 		submunitionConeAngle		= 0;
+		deleteParentWhenTriggered	= 1;
 
 		triggerTime 				= 1.5;
 		maxSpeed 					= 450;
@@ -633,6 +635,7 @@ class CfgAmmo
 		submunitionConeAngle 		= 12;
 		triggerDistance				= 200;
 		submunitionInitSpeed		= 500;
+		deleteParentWhenTriggered	= 1;
 
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] 			= {"soundHit1",1};
@@ -648,6 +651,9 @@ class CfgAmmo
 	
 	class fza_m73mpsm: GrenadeBase
 	{
+		ace_frag_enabled 			= 0;
+		ace_frag_skip 				= 1;
+
 		soundsetexplosion[] 		= {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
 		simulation 					= "shotShell";
 		model 						= "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
@@ -691,6 +697,9 @@ class CfgAmmo
 	};
 	class fza_flec_cluster: B_9x21_Ball
 	{
+		ace_frag_enabled 			= 0;
+		ace_frag_skip 				= 1;
+		
 		hit 						= 6;
 		indirectHit 				= 6;
 		indirectHitRange 			= 4;
