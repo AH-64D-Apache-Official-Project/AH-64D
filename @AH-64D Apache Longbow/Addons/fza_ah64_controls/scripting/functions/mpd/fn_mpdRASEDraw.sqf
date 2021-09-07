@@ -106,7 +106,7 @@ private _objects = fza_ah64_asethreatsdraw apply {
 		_iconformat = "\fza_ah64_US\tex\ICONS\19";
 	};
 
-	if (_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) then {
+	if (_x in fza_ah64_threattracking) then {
 		_iconsuffix = "T.paa";
 	};
 	if (_x in fza_ah64_threatfiring) then {

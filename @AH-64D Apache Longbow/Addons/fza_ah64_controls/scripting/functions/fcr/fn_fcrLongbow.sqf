@@ -19,7 +19,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
-
 if !(_heli animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) exitwith {};
 
 #define AGMODE_GND 0
@@ -27,60 +26,39 @@ if !(_heli animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) exitwith {};
 
 private _datalinkarray = [];
 
-if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli getHit "radar" < 0.8) then {
+if ((_heli animationPhase "fcr_enable" == 1) && _heli getHit "radar" < 0.8) then {
 	_datalinkarray = [];
 	{
 		private _target = _x # 0;
+		private _type = _x # 1;
+		private _relationship = _x # 2;
+		private _sensor = _x # 3;
 
 		private _distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _target select 0), (getposatl _target select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
-		if (_target == _heli || _target isKindOf "man" || _target isKindOf "StaticCannon" || laserTarget _heli == _target) then {
+
+		if (_relationship == "destroyed") then {
 			continue;
 		};
-		if !(alive _target) then {
+		if (("passiveradar" in _sensor && _type == "ground") && !(_Target in fza_ah64_asethreatsdraw)) then {
+			fza_ah64_asethreatsdraw pushBack _Target;
+		};
+		if !("activeradar" in _sensor) then {
 			continue;
 		};
-		if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45) && ((_heli distance2D _target) > 8000)) then {
+		
+		if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45)) then {
 			continue;
 		};				
-		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_target isKindOf "air") && ((_heli distance2D _target) > 8000)) then {
+		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_type == "air")) then {
 			continue;
 		};
-
-		//LOS check Beg
-		if (fza_ah64_ExperimentalFCR) then {
-			_lastPos = _heli modelToWorldWorld [0,2.1,2.2];
-			_p2 = aimPos _target;
-			_dir = _lastPos vectorFromTo _p2;
-			_totalDist = _lastPos distance _p2;
-			_clear = true;
-			for "_i" from 4000 to _totalDist step 4000 do {
-				_NextPos = (_dir vectorMultiply _i) vectorAdd _lastPos;
-				//check from _lastPos to _NextPos;
-				_ins = lineIntersectsSurfaces [_lastPos, _nextPos, _heli, _target, true, 1, "GEOM", "FIRE"];
-				if (_ins isNotEqualTo []) then {
-					_clear = false;
-					break;
-				};
-				_lastPos = _NextPos;
-			};
-			if (_clear) then {
-				_ins = lineIntersectsSurfaces [_lastPos , _p2, _heli, _target, true, 1, "GEOM", "FIRE"];
-				if (_ins isNotEqualTo []) then {
-					continue
-				};
-			} else {
-				continue
-			};
-		};
-		//LOS check end
 
 		_dataLinkArray pushBack _Target;
 
-		if (!(_target in fza_ah64_targetlist)) then {
-			fza_ah64_targetlist = fza_ah64_targetlist + [_target];
+		if !(_target in fza_ah64_targetlist) then {
+			fza_ah64_targetlist pushBack _Target;
 		};
-		sleep 0.02;
-	}   foreach listRemoteTargets playerSide;
+	}   foreach getSensorTargets _heli;
 };
 
 fza_ah64_fcrlist = _dataLinkArray;

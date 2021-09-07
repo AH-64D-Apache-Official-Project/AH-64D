@@ -37,7 +37,7 @@ if (([_hostile] call fza_fnc_targetIsADA) && !(_hostile in fza_ah64_targetlist))
 //Info Variable
 
 //ase page link Beg
-if (_heli getVariable "fza_ah64_aseautopage" == 2) then {
+if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethreatsdraw) then {
 	[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
 };
 _seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");

@@ -16,8 +16,11 @@ Author:
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
 
+private _dead = allDead;
+
 //remove dead targets
-fza_ah64_targetlist = fza_ah64_targetlist - alldead;
+fza_ah64_targetlist = fza_ah64_targetlist - _dead;
+fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw - _dead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
@@ -27,12 +30,6 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 		(((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) < 0.71) && (_distOffAxis < 45)) || ((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) < 0.4) && (_distOffAxis < 90)))
 	};
 };
-
-//ASE LIST
-if ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase") then {
-	fza_ah64_asethreatsdraw = fza_ah64_targetlist select {_x call fza_fnc_targetIsADA};
-};
-fza_ah64_asethreats = vehicles select {_x call fza_fnc_targetIsADA};
 
 //cscope
 if (count fza_ah64_fcrlist > 16) then {

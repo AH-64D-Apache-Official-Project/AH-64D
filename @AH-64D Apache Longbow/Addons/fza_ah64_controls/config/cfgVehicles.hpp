@@ -1002,6 +1002,7 @@ class CfgVehicles
 		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
 		lockdetectionsystem = "8+4";
 		incomingMissileDetectionSystem = 16;
+		countermeasureActivationRadius = 8000;
 		gunAimDown = 0;
 		selectionHRotorStill = "mr_blades";
 		selectionHRotorMove = "mr_blur";
