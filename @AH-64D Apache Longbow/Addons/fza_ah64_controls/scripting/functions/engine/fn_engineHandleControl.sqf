@@ -77,24 +77,51 @@ switch(_control) do {
 	//--------------------ENGINE 1--------------------//
 	//Start Switch
 	case "e1start": {
-		private _startSwitchToStart = [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
-		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)]
+		//SFM+
+		private _sfmplusStartSwitchToStart = [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
+		if (_sfmplusStartSwitchToStart) then {
+			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)];
 		};
+		//End SFM+
+		
+		//HeliSim
+		private _helisimStartSwitchToStart = [_heli, 0] call bmk_fnc_engineStartSwitchNew;
+		if (_heliStartSwitchToStart) then {
+			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)];
+		};
+
+		[_heli, 0, true] call bmk_fnc_engineStartSwitch;
+		//End HeliSim
+
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e1off": {
+		//SFM+
 		[_heli, 0, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+		//End SFM+
+		
+		//HeliSim
+		[_heli, 0, 0.0] call bmk_fnc_engineSetThrottle;
+		[_heli, 0, "OFF"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1idle": {
+		//SFM+
 		[_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+		//End SFM+
+
+		//HeliSim
+		[_heli, 0, 0.25] call bmk_fnc_engineSetThrottle;
+		[_heli, 0, "IDLE"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1fly": {
+		//SFM+
 		private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
 		private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
@@ -108,31 +135,65 @@ switch(_control) do {
 			[_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 		};
+		//End SFM+
 		
+		//HeliSim
+		[_heli, 0, 1.0] call bmk_fnc_engineSetThrottle;
+		[_heli, 0, "FLY"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
+
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 	
 	//--------------------ENGINE 2--------------------//	
 	//Start Switch
 	case "e2start": {
+		//SFM+
 		private _startSwitchToStart = [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
+		
 		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng2_start", [0, 2] select (_heli animationSourcePhase "plt_eng2_start" != 0)]
+			_heli animateSource ["plt_eng2_start", [0, 2] select (_heli animationSourcePhase "plt_eng2_start" != 0)];
 		};
+		//End SFM+
+
+		//HeliSim
+		private _helisimStartSwitchToStart = [_heli, 1] call bmk_fnc_engineStartSwitchNew;
+		if (_heliStartSwitchToStart) then {
+			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)];
+		};
+
+		[_heli, 1, true] call bmk_fnc_engineStartSwitch;
+		//End HeliSim
+
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e2off": {
+		//SFM+
 		[_heli, 1, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+		//End SFM+
+		
+		//HeliSim
+		[_heli, 1, 0.0] call bmk_fnc_engineSetThrottle;
+		[_heli, 1, "OFF"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2idle": {
+		//SFM+
 		[_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+		//End SFM+
+
+		//HeliSim
+		[_heli, 1, 0.25] call bmk_fnc_engineSetThrottle;
+		[_heli, 1, "IDLE"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2fly": {
+		//SFM+
 		private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
 		private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
@@ -146,7 +207,13 @@ switch(_control) do {
 			[_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 		};
+		//End SFM+
 		
+		//HeliSim
+		[_heli, 1, 1.0] call bmk_fnc_engineSetThrottle;
+		[_heli, 1, "FLY"] call bmk_fnc_engineThrottleNew;
+		//End HeliSim
+
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
 	};
 };

@@ -67,7 +67,7 @@ private _curMass = _emptyMass + _totFuelMass + _pylonMass;
 _heli setMass _curMass;
 
 //Damage
-[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
+//[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
 if(fza_ah64_sfmPlusStabilatorEnabled) then {

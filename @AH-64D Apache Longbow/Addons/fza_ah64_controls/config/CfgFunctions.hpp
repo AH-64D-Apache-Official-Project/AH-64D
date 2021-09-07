@@ -46,13 +46,6 @@ class CfgFunctions
 			class engineAPUOn {R;};
 			class engineEventHandler {R;};
 			class engineHandleControl {R;};
-			class engineSetPosition
-			{
-				R;
-				description = "Sets up engine to be at Off, Idle, Fly";
-			};
-			class engineUpdate
-			{ R; description = "Updates internal engine state"; };
 		};
 		class event
 		{

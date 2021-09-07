@@ -37,24 +37,16 @@ if (isEngineOn _heli) then {
     if (_pctNR <= 0.50) then {
         if (_engPctTQ >= 0.3) then {
             private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+            if (_dmg > 1.0) then { _dmg = 1.0; };
             _heli setHit ["velka vrtule", _dmg];
-            /*
-            hintSilent format ["1. NR = %1,
-                            \nTQ = %2
-                            \nDMG = %3", _pctNR, _engPctTQ, _dmg];
-            */
         };
     };
 
     if (_pctNR <= 0.9) then {
         if (_engPctTQ >= 0.7) then {
             private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+            if (_dmg > 1.0) then { _dmg = 1.0; };
             _heli setHit ["velka vrtule", _dmg];
-            /*
-            hintSilent format ["2. NR = %1,
-                            \nTQ = %2
-                            \nDMG = %3", _pctNR, _engPctTQ, _dmg];
-            */
         };
     };
     //With the power levers at fly
@@ -74,6 +66,7 @@ if (isEngineOn _heli) then {
                     _dmgTimerCont = 150;
                     
                     private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+                    if (_dmg > 1.0) then { _dmg = 1.0; };
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
@@ -90,6 +83,7 @@ if (isEngineOn _heli) then {
                     _dmgTimerTrans = 6;
                     
                     private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+                    if (_dmg > 1.0) then { _dmg = 1.0; };
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
@@ -100,15 +94,9 @@ if (isEngineOn _heli) then {
             };
             if (_engPctTQ > 1.25) then {
                 private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+                if (_dmg > 1.0) then { _dmg = 1.0; };
                 _heli setHit ["velka vrtule", _dmg];
             };
-            /*
-            hintSilent format ["3. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         } else {
             if (_engPctTQ <= 1.0) then {
                 _dmgTimerTrans = 0;
@@ -122,6 +110,7 @@ if (isEngineOn _heli) then {
                     _dmgTimerTrans = 6;
 
                     private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+                    if (_dmg > 1.0) then { _dmg = 1.0; };
                     _heli setHit ["velka vrtule", _dmg];
                 };
 
@@ -129,15 +118,9 @@ if (isEngineOn _heli) then {
             };
             if (_engPctTQ > 1.15) then {
                 private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+                if (_dmg > 1.0) then { _dmg = 1.0; };
                 _heli setHit ["velka vrtule", _dmg];
             };
-            /*
-            hintSilent format ["4. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         };
     };
 };
