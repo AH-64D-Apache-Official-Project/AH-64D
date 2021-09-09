@@ -39,7 +39,7 @@ if (_usingCannon) then {
 	};
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
+        _heli selectweapon "fza_burstlimiter";
     };
 	_heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
 	_heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
