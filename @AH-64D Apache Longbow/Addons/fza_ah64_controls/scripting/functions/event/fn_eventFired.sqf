@@ -18,7 +18,7 @@ Returns:
 Examples:
 
 Author:
-	unknown
+	unknown, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
 _mags = magazines _heli;
@@ -51,7 +51,7 @@ if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || is
 
 //ROCKETS SALVOS
 
-if (player == gunner _heli|| local gunner _heli|| isNull gunner _heli) then {
+if (player == gunner _heli || player == driver _heli) then {
     _this spawn {
         params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
         sleep 0.14;
@@ -59,16 +59,11 @@ if (player == gunner _heli|| local gunner _heli|| isNull gunner _heli) then {
             if (_heli ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };
-            _weaponindex = 0;
-            _wpncounter = 0;
-            {
-                if (_x == _weapon) then {
-                    _weaponindex = _wpncounter;
-                };
-                _wpncounter = _wpncounter + 1;
-            } foreach (weapons _heli);
-            _heli setWeaponReloadingTime[gunner _heli, _weapon, 0];
-            vehicle player action["useWeapon", vehicle player, gunner vehicle player, _weaponindex];
+            if (currentWeapon vehicle player == _weapon) then {
+                _heli fire [_weapon,"single"];
+            } else {
+                fza_ah64_salvofired = _heli getVariable "fza_ah64_rocketsalvo";
+           };
         };
         if (fza_ah64_salvofired >= (_heli getVariable "fza_ah64_rocketsalvo")) then {
             fza_ah64_salvofired = 0;

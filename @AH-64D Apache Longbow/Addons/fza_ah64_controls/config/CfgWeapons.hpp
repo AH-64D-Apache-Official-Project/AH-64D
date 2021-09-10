@@ -256,6 +256,7 @@ class CfgWeapons
 		cursor="";
 		cursorAim="";
 		magazines[]={"fza_burstlimit"};
+		textureType = "single";
 	};	
 		
 	class fza_ma_safe: fza_m230
@@ -265,6 +266,7 @@ class CfgWeapons
 		cursor="";
 		cursorAim="";
 		magazines[]={"fza_safe"};
+		textureType = "single";
 	};
 	
 	class fza_Fx1: CannonCore
@@ -275,6 +277,7 @@ class CfgWeapons
 		displayName="Fire extinguisher";
 		useAction = 0;
 		useActionTitle = "";
+		textureType = "single";
 	};	
 	class fza_Fx2: fza_Fx1
 	{
@@ -329,10 +332,12 @@ class CfgWeapons
 		class LoalDistance: TopDown
 		{
 			displayName = "LOAL-DIR";
+			textureType = "semi";
 		};
 		class Cruise: TopDown
 		{
 			displayName = "LOAL-HI";
+			textureType = "terrain";
 		};
 	};
 	#define HELLFIRE_DEFS(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
@@ -414,7 +419,7 @@ class CfgWeapons
 			burst = 1;
 			soundContinuous = 0;
 			autoFire = 0;
-			reloadTime = 0.08;
+			reloadTime = 0;
 			dispersion = 0.015;
 			aiRateOfFire = 1;
 			aiRateOfFireDistance = 10;
@@ -429,7 +434,7 @@ class CfgWeapons
 			{
 				soundSetShot[] = {"fza_m261_soundset"};
 			};
-			textureType = "Single";
+			textureType = "semi";
 		};
 	};
 	#define ROCKET_DEFS(ammoName) ammoName##_zoneA, ammoName##_zoneB, ammoName##_zoneE
