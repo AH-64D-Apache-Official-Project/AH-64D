@@ -45,5 +45,7 @@ class CfgPatches
 #include "uiConfig\rscTitles.hpp"
 #include "uiconfig\welcome.hpp"
 
+#include "uiConfig\CfgUserActions.hpp"
+#include "uiConfig\UserActionGroups.hpp"
 
 #include "config\CfgVideoOptions.hpp"

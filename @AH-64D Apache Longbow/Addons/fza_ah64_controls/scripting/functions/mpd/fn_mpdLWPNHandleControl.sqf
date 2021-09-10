@@ -28,7 +28,7 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 	switch (_control) do {
 		case "l1": {
 			//Switch missile lase
-			[_heli] call fza_fnc_controlHandlelaserchange;
+			[_heli] call fza_fnc_laserCycle;
 		};
 		case "r3": {
 			//Switch missile trajectory of current hellfire

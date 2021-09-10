@@ -14,20 +14,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\avionics";
 			class avionicsSlipIndicator {R;};
 		};
-		class controlHandlers
-		{
-			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
-			class controlHandleASEAutopage {R;};
-			class controlHandleCrosshairAction {R;};
-			class controlHandleIHADSSMode {R;};
-			class controlHandleJammerToggle {R;};
-			class controlHandlelaserchange {R;};
-			class controlHandleLookCenter {R;};
-			class controlHandleNextWaypoint {R;};
-			class controlHandlePrevWaypoint {R;};
-			class controlHandleToggleHeadtracking {R;};
-			class controlHandleTSDMode {R;};
-		};
 		class core
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
@@ -90,6 +76,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
+			class laserCycle {R;};
 			class laserDisarm {R;};
 		};
 		class light
