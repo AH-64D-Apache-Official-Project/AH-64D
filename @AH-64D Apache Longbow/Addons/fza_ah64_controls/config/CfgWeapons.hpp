@@ -382,7 +382,7 @@ class CfgWeapons
 			};
 			autoFire = 0;
 			reloadTime = 0.30;
-			dispersion = 0.015;
+			dispersion = 0.08;
 			aiBurstTerminable = 1;
 			showToPlayer = 0;
 			burst = 1;
@@ -419,7 +419,7 @@ class CfgWeapons
 			burst = 1;
 			soundContinuous = 0;
 			autoFire = 0;
-			reloadTime = 0.30;
+			reloadTime = 0.08;
 			dispersion = 0.015;
 			aiRateOfFire = 1;
 			aiRateOfFireDistance = 10;
