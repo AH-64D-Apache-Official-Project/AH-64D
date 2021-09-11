@@ -381,7 +381,7 @@ class CfgWeapons
 				soundSetShot[] = {"fza_m261_soundset"};
 			};
 			autoFire = 0;
-			reloadTime = 0.08;
+			reloadTime = 0.30;
 			dispersion = 0.015;
 			aiBurstTerminable = 1;
 			showToPlayer = 0;
@@ -419,7 +419,7 @@ class CfgWeapons
 			burst = 1;
 			soundContinuous = 0;
 			autoFire = 0;
-			reloadTime = 0;
+			reloadTime = 0.30;
 			dispersion = 0.015;
 			aiRateOfFire = 1;
 			aiRateOfFireDistance = 10;

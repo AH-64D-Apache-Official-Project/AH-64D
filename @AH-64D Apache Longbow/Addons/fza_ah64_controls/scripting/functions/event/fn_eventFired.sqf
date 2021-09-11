@@ -54,19 +54,20 @@ if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || is
 if (player == gunner _heli || player == driver _heli) then {
     _this spawn {
         params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
-        sleep 0.14;
+        sleep 0.1;
         if ((_heli getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_heli getVariable "fza_ah64_rocketsalvo") && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
             if (_heli ammo _weapon <= 0) then {
                 fza_ah64_salvofired = 0;
             };
             if (currentWeapon vehicle player == _weapon) then {
                 _heli fire [_weapon,"single"];
-            } else {
-                fza_ah64_salvofired = _heli getVariable "fza_ah64_rocketsalvo";
-           };
+            };
         };
         if (fza_ah64_salvofired >= (_heli getVariable "fza_ah64_rocketsalvo")) then {
             fza_ah64_salvofired = 0;
+        };
+        if !(currentWeapon vehicle player == _weapon) then {
+            fza_ah64_salvofired = _heli getVariable "fza_ah64_rocketsalvo";
         };
     };
 };

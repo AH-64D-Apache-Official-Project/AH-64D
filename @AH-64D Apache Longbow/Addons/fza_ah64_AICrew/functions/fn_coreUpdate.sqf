@@ -25,3 +25,6 @@ if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
 if ((daytime > 20.0 || daytime < 4.20) && fza_ah64_aiFloodlight == true && (!(isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5)) then {
 	[_heli, _system, "floodlight"] call fza_fnc_lightHandleControl;
 };
+if ((daytime < 20.0 && daytime > 4.20) && fza_ah64_aiFloodlight == true && ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5)) then {
+	[_heli, _system, "floodlight"] call fza_fnc_lightHandleControl;
+};
