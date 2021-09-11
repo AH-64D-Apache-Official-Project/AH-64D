@@ -73,10 +73,10 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
-			if (_heli ammo "fza_Fx1" == 1) then {
+			if !(_heli getVariable "fza_ah64_firepdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
-			if (_heli ammo "fza_Fx2" == 1) then {
+			if !(_heli getVariable "fza_ah64_firerdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;
@@ -127,20 +127,20 @@ switch(_control) do {
 			};
 	};
 	case "fbp": {
-		if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && (_heli ammo "fza_Fx1" == 1)) then {
+		if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firepdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firepdisch", true, true];
-				_heli removeMagazinesTurret ["fza_Fb1", [0]];
-				_heli addMagazineTurret ["fza_Fb1", [0], 0];
+				_dmg = _heli getHit "leng";
+				_heli setHit ["leng", _dmg + 0.01];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
 		case "fbr": {
-			if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && (_heli ammo "fza_Fx2" == 1)) then {
+			if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firerdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firerdisch", true, true];
-				_heli removeMagazinesTurret ["fza_Fb2", [0]];
-				_heli addMagazineTurret ["fza_Fb2", [0], 0];
+				_dmg = _heli getHit "Reng";
+				_heli setHit ["Reng", _dmg + 0.01];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
@@ -190,10 +190,10 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
 			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
-			if (_heli ammo "fza_Fx1" == 1) then {
+			if !(_heli getVariable "fza_ah64_firepdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
 			};
-			if (_heli ammo "fza_Fx2" == 1) then {
+			if !(_heli getVariable "fza_ah64_firerdisch") then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
 			};
 			fza_ah64_firetest = 0;

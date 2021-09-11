@@ -32,8 +32,8 @@ if (player == driver _heli || player == gunner _heli) then {
 };
 
 _helidamage = 0;
-_firepstate = _heli ammo "fza_Fx1";
-_firerstate = _heli ammo "fza_Fx2";
+_firepstate = !(_heli getVariable "fza_ah64_firepdisch");
+_firerstate = !(_heli getVariable "fza_ah64_firerdisch");
 
 _side = [];
 _sidef = [];
@@ -99,11 +99,11 @@ while {
 }
 do {
     _rand = random 10;
-    _firepon = _heli ammo "fza_Fx1";
-    _fireron = _heli ammo "fza_Fx2";
-    if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
-    if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
-    if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" == 1 && ((_firepon == 0 && _firepstate == 1) || (_fireron == 0 && _firerstate == 1))) exitwith {};
+    _firepon = _heli getVariable "fza_ah64_firepdisch";
+    _fireron = _heli getVariable "fza_ah64_firerdisch";
+    if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
     if (_eng == "left" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 0 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "right" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 1 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "apu" && _heli animationphase "plt_apu" < 0.5 && _rand > 9.9) exitwith {};

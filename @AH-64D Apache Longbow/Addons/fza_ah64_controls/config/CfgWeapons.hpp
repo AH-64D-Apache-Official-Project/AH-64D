@@ -269,21 +269,6 @@ class CfgWeapons
 		textureType = "single";
 	};
 	
-	class fza_Fx1: CannonCore
-	{
-		showToPlayer = 0;
-		magazines[]={"fza_Fb1"};
-		scope = 1;
-		displayName="Fire extinguisher";
-		useAction = 0;
-		useActionTitle = "";
-		textureType = "single";
-	};	
-	class fza_Fx2: fza_Fx1
-	{
-		magazines[]={"fza_Fb2"};
-	};	
-
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
