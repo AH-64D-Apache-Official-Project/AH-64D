@@ -6,7 +6,6 @@ class CfgUserActions
 		tooltip = "Interact with item in the cockpit under the crosshair";
 		onActivate = "['fza_ah64_crosshairAction', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_crosshairAction', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_crosshairAction', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_cycleMPDLeft
@@ -15,7 +14,6 @@ class CfgUserActions
 		tooltip = "Cycle between all values on the left MPD";
 		onActivate = "['fza_ah64_cycleMPDLeft', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_cycleMPDLeft', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_cycleMPDLeft', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_cycleMPDRight
@@ -24,7 +22,6 @@ class CfgUserActions
 		tooltip = "Cycle between all values on the right MPD";
 		onActivate = "['fza_ah64_cycleMPDRight', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_cycleMPDRight', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_cycleMPDRight', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_was
@@ -33,7 +30,6 @@ class CfgUserActions
 		tooltip = "Cycle between all weapons on the aircraft";
 		onActivate = "['fza_ah64_was', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_was', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_was', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_radarMode
@@ -42,7 +38,6 @@ class CfgUserActions
 		tooltip = "Cycle the radar between air and ground mode";
 		onActivate = "['fza_ah64_radarMode', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_radarMode', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_radarMode', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_laserDesig
@@ -51,7 +46,6 @@ class CfgUserActions
 		tooltip = "When held down, activates the laser designator";
 		onActivate = "['fza_ah64_laserDesig', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_laserDesig', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_laserDesig', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_targFilter
@@ -60,7 +54,6 @@ class CfgUserActions
 		tooltip = "Cycle what targets will appear on the FCR / TSD";
 		onActivate = "['fza_ah64_targFilter', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_targFilter', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_targFilter', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_tsdRange
@@ -69,7 +62,6 @@ class CfgUserActions
 		tooltip = "Cycle between TSD ranges";
 		onActivate = "['fza_ah64_tsdRange', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_tsdRange', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_tsdRange', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_tsdMode
@@ -78,7 +70,6 @@ class CfgUserActions
 		tooltip = "Switches between ATK and NAV mode";
 		onActivate = "['fza_ah64_tsdMode', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_tsdMode', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_tsdMode', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_pfzSelect
@@ -87,7 +78,6 @@ class CfgUserActions
 		tooltip = "Cycles the selected PFZ";
 		onActivate = "['fza_ah64_pfzSelect', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_pfzSelect', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_pfzSelect', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_toggleIHADSS
@@ -96,7 +86,6 @@ class CfgUserActions
 		tooltip = "Toggle the IHADSS being on or off (requires monocle to be on)";
 		onActivate = "['fza_ah64_toggleIHADSS', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_toggleIHADSS', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_toggleIHADSS', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_toggleNVS
@@ -105,7 +94,6 @@ class CfgUserActions
 		tooltip = "Toggles the night vision system being shown in the IHADSS";
 		onActivate = "['fza_ah64_toggleNVS', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_toggleNVS', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_toggleNVS', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_modeIHADSS
@@ -114,7 +102,6 @@ class CfgUserActions
 		tooltip = "Cycles between all IHADSS modes";
 		onActivate = "['fza_ah64_modeIHADSS', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_modeIHADSS', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_modeIHADSS', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_jammersToggle
@@ -123,7 +110,6 @@ class CfgUserActions
 		tooltip = "Toggles both RF and IR jammers (independently)";
 		onActivate = "['fza_ah64_jammersToggle', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_jammersToggle', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_jammersToggle', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_autopage
@@ -132,7 +118,6 @@ class CfgUserActions
 		tooltip = "Cycles ASE Autopage modes";
 		onActivate = "['fza_ah64_autopage', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_autopage', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_autopage', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_laserCycle
@@ -141,7 +126,6 @@ class CfgUserActions
 		tooltip = "Cycles the currently targeted laser";
 		onActivate = "['fza_ah64_laserCycle', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_laserCycle', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_laserCycle', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_headTrackingToggle
@@ -150,7 +134,6 @@ class CfgUserActions
 		tooltip = "Toggles head tracking mode (cursor freelook)";
 		onActivate = "['fza_ah64_headTrackingToggle', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_headTrackingToggle', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_headTrackingToggle', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 	class fza_ah64_lockCameraToTarget
@@ -159,7 +142,6 @@ class CfgUserActions
 		tooltip = "Locks TADS onto the target being looked at";
 		onActivate = "['fza_ah64_lockCameraToTarget', true] call fza_fnc_coreControlHandle";
 		onDeactivate = "['fza_ah64_lockCameraToTarget', false] call fza_fnc_coreControlHandle";
-		onAnalog = "['fza_ah64_lockCameraToTarget', _this > 0.5] call fza_fnc_coreControlHandle";
 		analogChangeThreshold = 0.1;
 	};
 };

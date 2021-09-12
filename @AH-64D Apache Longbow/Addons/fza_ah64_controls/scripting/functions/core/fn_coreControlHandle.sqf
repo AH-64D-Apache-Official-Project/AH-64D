@@ -197,8 +197,8 @@ if (value) then {
 		case "fza_ah64_lockCameraToTarget": {
 			[_heli] call fza_fnc_targetingLockCamToTarget;
 		};
-	}
-}
+	};
+};
 
 if !(value) then {
 	switch (_name) do {

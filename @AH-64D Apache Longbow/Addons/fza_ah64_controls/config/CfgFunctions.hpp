@@ -19,6 +19,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\core";
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
+			class coreControlHandle {R;};
 			class coreScheduler {R;};
 		};
 		class damage {
