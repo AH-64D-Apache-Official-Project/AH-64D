@@ -2764,7 +2764,7 @@ initPhase=0;
 		//////////////DOORS//////////////////
 		class pdoor
 		{
-			displayName = "Pilot door";
+			displayName = "Open Pilot door";
 			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;
@@ -2772,7 +2772,7 @@ initPhase=0;
 		};
 		class gdoor
 		{
-			displayName = "Gunner door";
+			displayName = "Open Gunner door";
 			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;

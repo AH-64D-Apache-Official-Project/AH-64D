@@ -47,4 +47,4 @@ if (_usingCannon) then {
 	_heli animateSource["mainTurret", 0];
 	_heli animateSource["mainGun", 0.298];
 };
-_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
+_heli setVariable ["fza_ah64_weaponInhibited", _inhibit, true];

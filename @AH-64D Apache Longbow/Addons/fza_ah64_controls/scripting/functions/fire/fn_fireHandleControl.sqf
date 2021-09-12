@@ -93,36 +93,36 @@ switch(_control) do {
 	case "fe1": {
 		if (_heli getVariable "fza_ah64_fire1arm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire1arm", 1];
+			_heli setVariable ["fza_ah64_fire1arm", 1, true];
 			["fza_ah64_button_click2", 0.1];
 		};
 		if (_heli getVariable "fza_ah64_fire1arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-			_heli setVariable ["fza_ah64_fire1arm", 0];
+			_heli setVariable ["fza_ah64_fire1arm", 0, true];
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fe2": {
 		if (_heli getVariable "fza_ah64_fire2arm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire2arm", 1];
+			_heli setVariable ["fza_ah64_fire2arm", 1, true];
 			["fza_ah64_button_click2", 0.1];
 		};
 		if (_heli getVariable "fza_ah64_fire2arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-			_heli setVariable ["fza_ah64_fire2arm", 0];
+			_heli setVariable ["fza_ah64_fire2arm", 0, true];
 			["fza_ah64_button_click2", 0.1];
 		};
 	};
 	case "fapu": {
 			if (_heli getVariable "fza_ah64_fireapuarm" == 0) exitwith {
 				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-				_heli setVariable ["fza_ah64_fireapuarm", 1];
+				_heli setVariable ["fza_ah64_fireapuarm", 1, true];
 				["fza_ah64_button_click2", 0.1];
 			};
 			if (_heli getVariable "fza_ah64_fireapuarm" == 1) exitwith {
 				_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-				_heli setVariable ["fza_ah64_fireapuarm", 0];
+				_heli setVariable ["fza_ah64_fireapuarm", 0, true];
 				["fza_ah64_button_click2", 0.1];
 			};
 	};

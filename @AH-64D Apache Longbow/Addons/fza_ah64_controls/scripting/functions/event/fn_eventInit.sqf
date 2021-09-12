@@ -63,7 +63,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     ], true];
     _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
 };
-_heli setVariable ["fza_ah64_weaponInhibited", ""];
+_heli setVariable ["fza_ah64_weaponInhibited", "", true];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
@@ -77,9 +77,9 @@ _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
 _heli setVariable ["fza_ah64_rocketsalvo", 1];
 _heli setVariable ["fza_ah64_tsdmode", "nav"];
-_heli setVariable ["fza_ah64_fire1arm", 0];
-_heli setVariable ["fza_ah64_fire2arm", 0];
-_heli setVariable ["fza_ah64_fireapuarm", 0];
+_heli setVariable ["fza_ah64_fire1arm", 0, true];
+_heli setVariable ["fza_ah64_fire2arm", 0, true];
+_heli setVariable ["fza_ah64_fireapuarm", 0, true];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 //[_heli] call BMK_fnc_coreConfig;

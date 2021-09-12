@@ -34,17 +34,17 @@ if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)
 		Sleep fza_ah64_aiFireResponce;
 		if (_heli getVariable "fza_ah64_e1_fire") then {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire1arm", 1];
+			_heli setVariable ["fza_ah64_fire1arm", 1, true];
 		};
 		sleep 0.4;
 		if (_heli getVariable "fza_ah64_e2_fire") then {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire2arm", 1];
+			_heli setVariable ["fza_ah64_fire2arm", 1, true];
 		};
 		sleep 0.4;
 		if (_heli getVariable "fza_ah64_apu_fire") then {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fireapuarm", 1];
+			_heli setVariable ["fza_ah64_fireapuarm", 1, true];
 		};
 		sleep 0.4;
 		if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
@@ -67,12 +67,12 @@ if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)
 		};
 		sleep 3;
 		_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-		_heli setVariable ["fza_ah64_fire1arm", 0];
+		_heli setVariable ["fza_ah64_fire1arm", 0, true];
 		sleep 0.4;
 		_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-		_heli setVariable ["fza_ah64_fire2arm", 0];
+		_heli setVariable ["fza_ah64_fire2arm", 0, true];
 		sleep 0.4;
 		_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-		_heli setVariable ["fza_ah64_fireapuarm", 0];
+		_heli setVariable ["fza_ah64_fireapuarm", 0, true];
 	};
 };

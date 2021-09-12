@@ -21,7 +21,7 @@ params ["_heli"];
 
 if ((_heli getHit "leng" == 0) && (_heli getVariable "fza_ah64_firepdisch" == true)) then {
     _heli setVariable ["fza_ah64_firepdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0];
+    _heli setVariable ["fza_ah64_fire1arm", 0, true];
 	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
     _heli setVariable ["fza_ah64_fire2arm", 0];
 	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
@@ -30,7 +30,7 @@ if ((_heli getHit "leng" == 0) && (_heli getVariable "fza_ah64_firepdisch" == tr
 };
 if ((_heli getHit "Reng" == 0) && (_heli getVariable "fza_ah64_firerdisch" == true)) then {
     _heli setVariable ["fza_ah64_firerdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0];
+    _heli setVariable ["fza_ah64_fire1arm", 0, true];
 	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
     _heli setVariable ["fza_ah64_fire2arm", 0];
 	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
