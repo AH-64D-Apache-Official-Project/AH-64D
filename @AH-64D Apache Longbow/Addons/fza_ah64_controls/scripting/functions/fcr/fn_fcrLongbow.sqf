@@ -17,13 +17,11 @@ Examples:
 Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.hpp"
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 
 if !(_heli animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) exitwith {};
-
-#define AGMODE_GND 0
-#define AGMODE_AIR 1
 
 private _datalinkarray = [];
 
@@ -39,10 +37,10 @@ if (isVehicleRadarOn _heli && (_heli animationPhase "fcr_enable" == 1) && _heli 
 		if !(alive _target) then {
 			continue;
 		};
-		if ((_heli getVariable "fza_ah64_agmode" == AGMODE_GND) && (_distOffAxis > 45) && ((_heli distance2D _target) > 8000)) then {
+		if ((_heli getVariable "fza_ah64_agmode" == FCR_MODE_GND) && (_distOffAxis > 45) && ((_heli distance2D _target) > 8000)) then {
 			continue;
 		};				
-		if (_heli getVariable "fza_ah64_agmode" == AGMODE_AIR && !(_target isKindOf "air") && ((_heli distance2D _target) > 8000)) then {
+		if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR && !(_target isKindOf "air") && ((_heli distance2D _target) > 8000)) then {
 			continue;
 		};
 

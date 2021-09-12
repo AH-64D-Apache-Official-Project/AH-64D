@@ -1,9 +1,7 @@
-class UserActionGroups
-{
-	class fza_ah64 // unique classname for your category
+class UserActionsConflictGroups{
+	class CollisionGroups
 	{
-		name = "AH-64D Apache Official"; // display name of your category
-		group[] = {
+		fza_ah64_collisionGroups[] = {
 			fza_ah64_sightSelectHMD,
 			fza_ah64_sightSelectTADS,
 			fza_ah64_sightSelectFXD,
@@ -22,4 +20,4 @@ class UserActionGroups
 			fza_ah64_laserCycle
 		};
 	};
-};
+}

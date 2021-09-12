@@ -18,6 +18,7 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.hpp"
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;
@@ -375,20 +376,17 @@ if (_theta >= 180) then {
 _curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
-
-if (_heli getVariable "fza_ah64_agmode" == 0) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/G";
-}; //FCRG SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 1) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/A";
-}; //FCRA SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 2) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/G";
-    _heli setVariable ["fza_ah64_agmode", 0, true];
+switch (_heli getVariable "fza_ah64_agmode") do {
+    case FCR_MODE_GND: {
+        _sensor = "R ";
+        _acqihadss = "FCR/G";
+    };
+    case FCR_MODE_AIR: {
+        _sensor = "R ";
+        _acqihadss = "FCR/A";
+    }
 };
+
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
     switch (_sight) do {

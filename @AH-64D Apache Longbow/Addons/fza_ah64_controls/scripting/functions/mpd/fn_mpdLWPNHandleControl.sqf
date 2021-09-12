@@ -37,9 +37,6 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 	};
 };
 switch (_control) do {
-	case "r6": {
-		_heli setVariable ["fza_ah64_agmode", (_heli getVariable "fza_ah64_agmode") + 1, true];
-	};
 	case "r5": {
 		if (isNull laserTarget _heli) then {
 			[_heli] spawn fza_fnc_laserArm;
