@@ -64,13 +64,13 @@ private _pylonMass = 0;
 } foreach magazinesAllTurrets _heli;
 
 private _curMass = _emptyMass + _totFuelMass + _pylonMass;
-_heli setMass _curMass;
+//_heli setMass _curMass; <--DISABLED FOR HELISIM TESTING
 
 //Damage
-//[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
+//[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply; <--DISABLED FOR HELISIM TESTING
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
+if(fza_ah64_sfmPlusStabilatorEnabled && !fza_ah64_heliSimEnabled) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 

@@ -37,7 +37,7 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	["Show vanilla targeting information (restart needed)", "Disabling this will hide vanilla targeting information (restart needed)"],
+	["Show vanilla targeting information (restart required)", "Disabling this will hide vanilla targeting information (restart needed)"],
 	[_projName, "UI"],
 	[true],
 	0,
@@ -60,6 +60,15 @@ private _projName = "AH-64D Official Project";
 	"fza_ah64_sfmPlusKeyboardOnly",
 	"CHECKBOX",
 	["Enable keyboard only mode in SFM"],
+	[_projName, "Flight model"],
+	[false],
+  0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_heliSimEnabled",
+	"CHECKBOX",
+	["Enable Helisim (restart required)"],
 	[_projName, "Flight model"],
 	[false],
   0
@@ -117,7 +126,11 @@ fza_ah64_fcrlist = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
+
+//will need to specify SFM+ vs. HeliSim
 fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_mpdUpdateDisplays, fza_sfmplus_fnc_coreUpdate, bmk_fnc_coreUpdate];
+
+
 fza_ah64_introShownThisScenario = false;
 fza_ah64_slowschedarray = [fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm];
 fza_ah64_mapfaker = addMissionEventHandler["Draw3d", {

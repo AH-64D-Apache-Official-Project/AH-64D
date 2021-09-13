@@ -91,17 +91,17 @@ private _controls =  [
 	["ctrlref_lmpd_m", "ctrlref_g_lmpd_m", "lmpd", "m", 0.015, "Left MPD Menu"],
 	["ctrlref_lmpd_brt", "", "lmpd", "brt", 0.015, "MPD Brightness"],
 
-	["ctrlref_p_fe1", "ctrlref_g_fe1", "fire", "fe1", 0.03, "Fire Engine 1"],
-	["ctrlref_p_fapu", "ctrlref_g_fapu", "fire", "fapu", 0.03, "Fire APU"],
-	["ctrlref_p_fe2", "ctrlref_g_fe2", "fire", "fe2", 0.03, "Fire Engine 2"],
-	["ctrlref_p_fbp", "ctrlref_g_fbp", "fire", "fbp", 0.03, "Fire Bottle Primary"],
-	["ctrlref_p_fbr", "ctrlref_g_fbr", "fire", "fbr", 0.03, "Fire Bottle Reserve"],
-	["ctrlref_p_swfiretst", "ctrlref_g_swfiretst", "fire", "test", 0.03, "Fire Test"],
+	["ctrlref_p_fe1", "ctrlref_g_fe1", "fire", "fe1", 0.03, "Engine 1 fire pushbutton"],
+	["ctrlref_p_fapu", "ctrlref_g_fapu", "fire", "fapu", 0.03, "APU fire pushbutton"],
+	["ctrlref_p_fe2", "ctrlref_g_fe2", "fire", "fe2", 0.03, "Engine 2 fire pushbutton"],
+	["ctrlref_p_fbp", "ctrlref_g_fbp", "fire", "fbp", 0.03, "Primary fire bottle"],
+	["ctrlref_p_fbr", "ctrlref_g_fbr", "fire", "fbr", 0.03, "Reserve fire bottle"],
+	["ctrlref_p_swfiretst", "ctrlref_g_swfiretst", "fire", "test", 0.03, "Fire test switch"],
 
 	["ctrlref_p_doorhandle", "ctrlref_g_doorhandle", "door", "handle", 0.03, "Pilot Door Handle"],
 
-	["ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt", "ihadss", "brt", 0.03, "IHADSS Brightness"],
-	["ctrlref_p_monocle", "ctrlref_g_monocle", "ihadss", "stow", 0.1, "IHADSS Monocle"],
+	["ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt", "ihadss", "brt", 0.03, "IHADSS, HDU Brightness"],
+	["ctrlref_p_monocle", "ctrlref_g_monocle", "ihadss", "stow", 0.1, "HDU storage container"],
 
 	["ctrlref_p_apu", "", "engine", "apu", 0.03, "APU Toggle"],
 	["ctrlref_p_mstrign", "", "engine", "power", 0.03, "Battery Toggle"],
