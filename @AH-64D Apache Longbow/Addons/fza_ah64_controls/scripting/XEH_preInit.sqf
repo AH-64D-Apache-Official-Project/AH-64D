@@ -124,3 +124,16 @@ fza_ah64_mapfaker = addMissionEventHandler["Draw3d", {
 	[0] call fza_fnc_coreScheduler;
 }];
 [0] spawn fza_fnc_ufd;
+
+#define OVERRIDE_ACTION(actn) \
+	addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
+	addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
+
+
+OVERRIDE_ACTION("SwitchWeaponGrp1")
+OVERRIDE_ACTION("SwitchWeaponGrp2")
+OVERRIDE_ACTION("SwitchWeaponGrp3")
+OVERRIDE_ACTION("SwitchWeaponGrp4")
+OVERRIDE_ACTION("SwitchWeaponGrp4")
+OVERRIDE_ACTION("nextWeapon");
+OVERRIDE_ACTION("prevWeapon");

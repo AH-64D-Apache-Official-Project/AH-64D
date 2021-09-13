@@ -169,6 +169,9 @@ class CfgWeapons
 		cursorAim="";
 		magazines[]={"fza_safe"};
 	};
+	class fza_gun_safe: fza_ma_safe {};
+	class fza_rkt_safe: fza_ma_safe {};
+	class fza_msl_safe: fza_ma_safe {};
 	class fza_Fx1: fza_m230
 	{
 		showToPlayer = 0;
@@ -245,7 +248,8 @@ class CfgWeapons
 			scope = protected;\
 			displayName = prettyName;\
 			magazines[] = {HELLFIRE_DEFS(ammoName)};\
-		} 
+			fza_ammoType = ammoName;\
+		};
 	HELLFIRE_CONFIG(fza_agm114a, "AGM-114A")
 	HELLFIRE_CONFIG(fza_agm114c, "AGM-114C")
 	HELLFIRE_CONFIG(fza_agm114k, "AGM-114K")
@@ -300,7 +304,8 @@ class CfgWeapons
 			scope = protected;\
 			displayName = prettyName;\
 			magazines[] = {ROCKET_DEFS(ammoName)};\
-		} 
+			fza_ammoType = ammoName;\
+		};
 	ROCKET_CONFIG(fza_275_m151, "M151 HEDP")
 	ROCKET_CONFIG(fza_275_m229, "M229 HEDP")
 	ROCKET_CONFIG(fza_275_m255, "M255 FLEC")

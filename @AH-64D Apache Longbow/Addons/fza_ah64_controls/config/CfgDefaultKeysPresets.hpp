@@ -55,7 +55,7 @@ class CfgDefaultKeysPresets {
 			fza_ah64_laserDesig = {INPUT_DEVICE_SOLO_KB + 0x22}; //G
 			fza_ah64_fcrSingleScan = {INPUT_DEVICE_SOLO_KB + 0x13}; //R
 			fza_ah64_targetStoreUpdate = {COMBO_LSHIFT + COMBO_LINPUT_DEVICE_COMBO_KB + INPUT_DEVICE_MAIN_KB + 0x22}; //Shift+G
-			fza_ah64_crosshairInteract = {COMBO_LINPUT_DEVICE_COMBO_KB + Ox2B}; // Backslash (\)
+			fza_ah64_crosshairInteract = {COMBO_LINPUT_DEVICE_COMBO_KB + Ox56}; // Backslash (\)
 			fza_ah64_waypointIncrease = {COMBO_LSHIFT + COMBO_LINPUT_DEVICE_COMBO_KB + INPUT_DEVICE_MAIN_KB + 0x06}; //Shift+5
 			fza_ah64_waypointDecrease = {COMBO_LCTRL + COMBO_LINPUT_DEVICE_COMBO_KB + INPUT_DEVICE_MAIN_KB + 0x06}; //Ctrl+5
 			fza_ah64_laserCycle = {COMBO_LALT + COMBO_LINPUT_DEVICE_COMBO_KB + INPUT_DEVICE_MAIN_KB + 0x14}; //Alt+T

@@ -143,6 +143,34 @@ if (value) then {
 		case "fza_ah64_laserCycle": {
 			[_heli] call fza_fnc_laserCycle;
 		};
+		case "SwitchWeaponGrp1": {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) {
+				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+			} else {
+				[_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
+			}
+		};
+		case "SwitchWeaponGrp2": {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) {
+				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+			} else {
+				[_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
+			}
+		};
+		case "SwitchWeaponGrp3": {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) {
+				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
+			} else {
+				[_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
+			}
+		};
+		case "SwitchWeaponGrp4": {
+			_heli setVariable ["fza_ah64_armed", !(_heli getVariable "fza_ah64_armed"), true];
+		};
+		case "nextWeapon";
+		case "prevWeapon": {
+			[_heli] call fza_fnc_weaponUpdateSelected;
+		}
 	};
 };
 

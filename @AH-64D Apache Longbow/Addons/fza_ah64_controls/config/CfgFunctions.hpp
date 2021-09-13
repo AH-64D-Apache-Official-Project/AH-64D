@@ -195,14 +195,15 @@ class CfgFunctions
 			class weaponMissileGetSelected {R;};
 			class weaponMissileInventory {R;};
 			class weaponMissileSlowDown {R;};
-			class weaponMissileTrajectory {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};
+			class weaponRocketSetSelected {R;};
 			class weaponSelectFireMode {R;};
 			class weaponSubmunition {R;};
 			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
+			class weaponUpdateSelected {R;};
 		};
 		class functions
 		{

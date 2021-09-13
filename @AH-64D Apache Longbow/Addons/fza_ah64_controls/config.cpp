@@ -47,6 +47,7 @@ class CfgPatches
 
 #include "config\CfgUserActions.hpp"
 #include "config\UserActionGroups.hpp"
+#include "config\UserActionsConflictGroups.hpp"
 #include "config\CfgDefaultKeysPresets.hpp"
 
 #include "config\CfgVideoOptions.hpp"

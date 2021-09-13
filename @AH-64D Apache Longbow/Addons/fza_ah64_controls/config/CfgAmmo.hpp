@@ -406,6 +406,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "";
 		fza_wpnPageIconG 			= "";
 		fza_shortCode 				= "";
+		fza_weaponName              = "";
 		soundfly[]  				= {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};	
 		soundsetexplosion[]  		= {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
 		soundsetsoniccrack[] 		= {"fza_sc_rocket_flyby_soundset"};
@@ -449,6 +450,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
 		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 		fza_shortCode 				= "6PD";
+		fza_weaponName              = "fza_275_m151_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m151_wep";
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m151";	
 		explosionEffects 			= "GrenadeExplosion";
@@ -461,6 +463,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6RC-B_ca.paa";
 		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6RC-G_ca.paa";
 		fza_shortCode 				= "6RC";
+		fza_weaponName              = "fza_275_m229_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m229_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m229";	
 		explosionEffects 			= "GrenadeExplosion";
@@ -475,6 +478,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6MP-B_ca.paa";
 		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6MP-G_ca.paa";
 		fza_shortCode 				= "6MP";
+		fza_weaponName              = "fza_275_m261_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";	
 		explosionEffects 			= "GrenadeExplosion";		
@@ -496,6 +500,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6IL-B_ca.paa";
 		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6IL-G_ca.paa";
 		fza_shortCode 				= "6IL";
+		fza_weaponName              = "fza_275_m257_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects 				= "ATMissileCrater";
@@ -520,6 +525,7 @@ class CfgAmmo
 		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
 		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
 		fza_shortCode 				= "6FL";
+		fza_weaponName              = "fza_275_m255_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
 		proxyShape 					= "\fza_ah64_us\fza_hydra_m261";
 		CraterEffects 				= "ATMissileCrater";
