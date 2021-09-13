@@ -1,7 +1,4 @@
-# AH-64D Project
-Originally based on Franze & Nodunit AH-64D - Project by Sacha 'Voodooflies' Oropeza & Community.
-
-# CHANGELOG NOTES:
+# Changelog Notes:
 
 *26/05/2021*
 * Israeli texture (Nodunit)
