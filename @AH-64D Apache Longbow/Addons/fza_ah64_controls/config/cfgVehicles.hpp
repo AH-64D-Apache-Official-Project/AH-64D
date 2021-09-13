@@ -6,6 +6,25 @@ class CfgVehicles
 		class Components;
 		class EventHandlers;
 	};
+	class B_Helipilot_F;
+	#define MAG_2(a) a, a
+	#define MAG_6(a) a, a, a, a, a, a
+	class fza_ah64_pilot: B_Helipilot_F
+	{
+		author                  = "Rosd6(Dryden)";
+		scope                   = 2;
+		scopeCurator            = 2;
+		displayName             = "AH-64D Pilot";
+		uniformClass			= "U_B_HeliPilotCoveralls";
+		weapons[]               = {"arifle_SPAR_01_blk_HOLO_Flash_F", "hgun_P07_blk_F", "Throw", "Put"};
+		respawnWeapons[]        = {"arifle_SPAR_01_blk_HOLO_Flash_F", "hgun_P07_blk_F", "Throw", "Put"};
+		Items[]                 = {"FirstAidKit", "FirstAidKit", "ToolKit", "NVGoggles_OPFOR"};
+		RespawnItems[]          = {"FirstAidKit", "FirstAidKit", "ToolKit", "NVGoggles_OPFOR"};
+		magazines[]             = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
+		respawnMagazines[]      = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
+		linkedItems[]           = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "Binocular"};
+		respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "Binocular"};
+	};
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
@@ -62,8 +81,10 @@ class CfgVehicles
 		displayName="AH-64D";
 		simulation=helicopterRTD;
 		attenuationEffectType = "HeliAttenuation";
+		availableForSupportTypes[] = {"CAS_Heli", "CAS_Bombing", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
+		crew = "fza_ah64_pilot";
 		destrtype = "DestructWreck";
 		driveOnComponent[] = {"Wheels"};
 		driverCanSee = 1+2+4+8;
@@ -988,7 +1009,6 @@ class CfgVehicles
 		camshakecoef = 0.3;
 		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
 		commanderUsesPilotView = false;
-		crew="B_Helipilot_F"
 		crewCrashProtection = 0.25;
 		crewVulnerable = 0;
 		damageResistance=0.0055499999;

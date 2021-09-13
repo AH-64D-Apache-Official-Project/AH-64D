@@ -5,6 +5,7 @@ class CfgWeapons
 	class CannonCore;
 	class SmokeLauncher;
 	class MissileLauncher;
+	class arifle_SPAR_01_blk_F;
 
 	class fza_CMFlareLauncher: SmokeLauncher 
 	{
@@ -470,5 +471,31 @@ class CfgWeapons
 		midRangeProbab = 0.95;
 		maxRange = 4000;
 		maxRangeProbab = 0.85;
+	};
+
+	
+	///////////////////////////////////////////////////////////////////////
+	//////////////////////////////Crew Weapon//////////////////////////////
+	///////////////////////////////////////////////////////////////////////
+
+	class arifle_SPAR_01_blk_HOLO_Flash_F: arifle_SPAR_01_blk_F
+	{
+		author = "Rosd6(Dryden)";
+		_generalMacro = "arifle_SPAR_01_blk_HOLO_Flash_F";
+		baseWeapon = "arifle_SPAR_01_blk_F";
+		scope = 1;
+		class LinkedItems
+		{
+			class LinkedItemsOptic
+			{
+				slot = "CowsSlot";
+				item = "optic_Holosight_blk_F";
+			};
+			class LinkedItemsAcc
+			{
+				slot = "PointerSlot";
+				item = "acc_flashlight";
+			};
+		};
 	};
 };
