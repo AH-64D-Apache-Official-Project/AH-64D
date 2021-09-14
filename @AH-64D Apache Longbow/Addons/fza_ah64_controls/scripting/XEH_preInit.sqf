@@ -135,5 +135,5 @@ OVERRIDE_ACTION("SwitchWeaponGrp2")
 OVERRIDE_ACTION("SwitchWeaponGrp3")
 OVERRIDE_ACTION("SwitchWeaponGrp4")
 OVERRIDE_ACTION("SwitchWeaponGrp4")
-OVERRIDE_ACTION("nextWeapon");
-OVERRIDE_ACTION("prevWeapon");
+OVERRIDE_ACTION("nextWeapon")
+OVERRIDE_ACTION("prevWeapon")

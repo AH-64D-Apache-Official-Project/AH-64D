@@ -18,7 +18,7 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\systemConstants.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;

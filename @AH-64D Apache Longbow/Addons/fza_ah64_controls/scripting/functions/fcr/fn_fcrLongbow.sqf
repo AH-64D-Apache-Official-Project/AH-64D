@@ -17,7 +17,7 @@ Examples:
 Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\systemConstants.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 

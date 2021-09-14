@@ -23,7 +23,7 @@ if(_heli getVariable "fza_ah64_wpnPageSelected" == WAS_WEAPON_RKT) then {
 	private _setSelectedRocketType = {
 		params ["_heli", "_type"];
 		
-	}
+	};
 	switch (_control) do {
 		case "l1": {
 			[_heli, 0] call fza_fnc_weaponRocketSetSelected;

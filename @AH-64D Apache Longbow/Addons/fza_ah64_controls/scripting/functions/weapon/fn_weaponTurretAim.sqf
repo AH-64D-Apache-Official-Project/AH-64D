@@ -16,7 +16,7 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\systemConstants.hpp"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 
 params["_heli"];
 if (!(player in _heli)) exitwith {};

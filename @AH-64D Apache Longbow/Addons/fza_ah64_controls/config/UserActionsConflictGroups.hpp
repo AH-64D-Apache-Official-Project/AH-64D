@@ -20,4 +20,4 @@ class UserActionsConflictGroups{
 			fza_ah64_laserCycle
 		};
 	};
-}
+};

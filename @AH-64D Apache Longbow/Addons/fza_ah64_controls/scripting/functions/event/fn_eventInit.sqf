@@ -64,7 +64,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         ["OFF", 0],
         ["OFF", 0]
     ], true];
-    _heli setVariable ["fza_ah64_tadsLocked", objNull, watrue];
+    _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
     _heli setVariable ["fza_ah64_armed", false, true];
     _heli setVariable ["fza_ah64_selectedRocket", "", true];
     _heli setVariable ["fza_ah64_selectedMissile", "", true];
