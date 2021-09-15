@@ -16,18 +16,21 @@ class CfgVehicles
 		scopeCurator            = 2;
 		displayName             = "AH-64D Pilot";
 		uniformClass			= "U_B_HeliPilotCoveralls";
-		weapons[]               = {"arifle_SPAR_01_blk_HOLO_Flash_F", "hgun_P07_blk_F", "Throw", "Put"};
-		respawnWeapons[]        = {"arifle_SPAR_01_blk_HOLO_Flash_F", "hgun_P07_blk_F", "Throw", "Put"};
-		Items[]                 = {"FirstAidKit", "FirstAidKit", "ToolKit", "NVGoggles_OPFOR"};
-		RespawnItems[]          = {"FirstAidKit", "FirstAidKit", "ToolKit", "NVGoggles_OPFOR"};
+		weapons[]               = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
+		respawnWeapons[]        = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
+		Items[]                 = {"FirstAidKit", "FirstAidKit", "ToolKit"};
+		RespawnItems[]          = {"FirstAidKit", "FirstAidKit", "ToolKit"};
 		magazines[]             = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
 		respawnMagazines[]      = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
-		linkedItems[]           = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "Binocular"};
-		respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "Binocular"};
+		linkedItems[]           = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
+		respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "G_Bandanna_tan", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
+		faction					= "fza_usaav";
+		vehicleclass			= "fza_Men";
 	};
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
+		class CargoTurret;
 
 		//Images
 		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
@@ -81,7 +84,7 @@ class CfgVehicles
 		displayName="AH-64D";
 		simulation=helicopterRTD;
 		attenuationEffectType = "HeliAttenuation";
-		availableForSupportTypes[] = {"CAS_Heli", "CAS_Bombing", "Transport"};
+		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
 		crew = "fza_ah64_pilot";
@@ -1167,6 +1170,7 @@ class CfgVehicles
 				gunnerGetInAction = "pilot_Heli_Light_02_Enter";
 				gunnerGetOutAction = "GetOutHigh";
 				preciseGetInOut = 1;
+				hideWeaponsGunner = false;
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
@@ -1361,7 +1365,44 @@ class CfgVehicles
 						y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
 					};
 				};
+			};/*
+			class CargoTurret_01 : CargoTurret
+			{
+				gunnerAction = "fza_ah64_leftcargo";
+				memoryPointsGetInGunner = "pos cargo";
+				memoryPointsGetInGunnerDir = "pos cargo dir";
+				gunnerName = "Left cargo seat";
+				gunnerCompartments = Compartment1;
+				proxyIndex = 1;
+				isPersonTurret = 0;
+				gunnerGetInAction = "GetInHigh";
+				gunnerGetOutAction = "GetOutHigh";
+				canHideGunner = 1;
+				enabledByAnimationSource = "left_gunner_move";
+				inGunnerMayFire = 0;
+				outGunnerMayFire = 0;
+				LODTurnedIn = VIEW_DEFAULT_LOD;
+				LODTurnedOut = VIEW_DEFAULT_LOD;
+
+				maxElev = 5;	// vertical limit for field of view
+				minElev = -30;	// vertical limit for field of view
+				maxTurn = 60;	// horizontal limit for field of view
+				minTurn = -15;	// horizontal limit for field of view	
 			};
+			class CargoTurret_02 : CargoTurret_01
+			{
+				gunnerAction = "fza_ah64_rightcargo";
+				memoryPointsGetInGunner = "pos cargo";
+				memoryPointsGetInGunnerDir = "pos cargo dir";
+				gunnerName = "Right cargo seat";
+				gunnerCompartments = Compartment1;
+				proxyIndex = 2;
+
+				maxElev = 5;	// vertical limit for field of view
+				minElev = -30;	// vertical limit for field of view
+				maxTurn = 15;	// horizontal limit for field of view
+				minTurn = -60;	// horizontal limit for field of view	
+			};*/
 		};
 		class Library
 		{

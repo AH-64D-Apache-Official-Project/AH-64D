@@ -62,6 +62,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         ["OFF", 0]
     ], true];
     _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
+    player action ["ActiveSensorsOff", _heli];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", "", true];
 _heli setVariable ["fza_ah64_aseautopage", 0];

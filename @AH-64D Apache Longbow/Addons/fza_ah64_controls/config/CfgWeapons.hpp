@@ -478,10 +478,10 @@ class CfgWeapons
 	//////////////////////////////Crew Weapon//////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 
-	class arifle_SPAR_01_blk_HOLO_Flash_F: arifle_SPAR_01_blk_F
+	class arifle_SPAR_01_blk_MRCO_Flash_F: arifle_SPAR_01_blk_F
 	{
 		author = "Rosd6(Dryden)";
-		_generalMacro = "arifle_SPAR_01_blk_HOLO_Flash_F";
+		_generalMacro = "arifle_SPAR_01_blk_MRCO_Flash_F";
 		baseWeapon = "arifle_SPAR_01_blk_F";
 		scope = 1;
 		class LinkedItems
@@ -489,7 +489,7 @@ class CfgWeapons
 			class LinkedItemsOptic
 			{
 				slot = "CowsSlot";
-				item = "optic_Holosight_blk_F";
+				item = "optic_MRCO";
 			};
 			class LinkedItemsAcc
 			{
