@@ -32,6 +32,7 @@ DRAW_LINE = {
 private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
+private _stabLiftScalar = _heli getVariable "fza_sfmplus_stabLiftScalar";
 
 //--------------------Coll----30kts--70kts--90kts--110kts--120kts-150kts
 private _stabTable =[[0.00,  -25.00,  2.5,    5.0,   5.0,   5.0,   5.0],  
@@ -140,9 +141,9 @@ private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
 private _CL = _intAIRFOILTABLE select 1;
 
 private _area = [_A, _B, _C, _D] call fza_sfmplus_fnc_getArea;
-private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
+private _liftForce = _CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
-private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
+private _lift = _liftVec vectorMultiply ((-_liftForce * _stabLiftScalar) * _deltaTime);
 if (local _heli) then {
     _heli addForce[_heli vectorModelToWorld _lift, _G];
 };

@@ -742,6 +742,19 @@ if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _baraltft = "";
 };
+/*
+_bobcoords = [-40, -40];
+if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    _curwpdir = ((_heli getVariable "fza_ah64_bobhdg") - direction _heli) Mod 360;
+
+    private _bobUpCoords  = ([(_heli getVariable "fza_ah64_bobpos") vectorDiff getPos _heli, 0 - direction _heli] call BIS_fnc_rotateVector2D) vectorMultiply (3.281 / 40 * 0.4);
+
+    _bobcoords = [0.480775, 0.475] vectorAdd [
+      [_bobUpCoords # 0 , 0.3, 0.7] call BIS_fnc_clamp,
+      [_bobUpCoords # 1 , 0.3, 0.7] call BIS_fnc_clamp];
+    _bobcoords resize 2;
+      systemChat format ["Bob Coords test2 %1", _bobcoords];
+};*/
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 
@@ -873,6 +886,15 @@ if (_fpm > 0.13) then {
 if (_fpm < -0.13) then {
     _fpm = -0.13;
 };
+/*
+_fpm = (velocity _heli select 2) * 196.85;
+if (_fpm > 1000) then {
+    _fpm = 1000;
+};
+if (_fpm < -1000) then {
+    _fpm = -1000;
+};
+*/
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;

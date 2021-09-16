@@ -3,7 +3,9 @@ params ["_heli"];
 
 private _2dvectTo3D = {[_this # 0, _this # 1, 0]};
 
-[_heli,  (getposasl _heli select 2) * 3.28084 / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_BALT] call fza_fnc_drawNumberSelections;
+
+//[_heli,  (getposasl _heli select 2) * 3.28084 / 10, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_BALT] call fza_fnc_drawNumberSelections;
+[_heli,  (getposasl _heli select 2) * 3.28084, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_BALT] call fza_fnc_drawNumberSelections;
 [_heli,  (getpos _heli select 2) * 3.28084, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_RALT] call fza_fnc_drawNumberSelections;
 
 

@@ -22,8 +22,9 @@ _heli setVariable ["fza_sfmplus_emptyMassFCR",    	6609]; //kg
 _heli setVariable ["fza_sfmplus_emptyMassNonFCR", 	6314]; //kg
 
 _heli setVariable ["fza_sfmplus_stabPos", 			[0.0, -7.207, -0.50]];
-_heli setVariable ["fza_sfmplus_stabWidth", 		3.22];  //m
+_heli setVariable ["fza_sfmplus_stabWidth", 		3.22]; //m
 _heli setVariable ["fza_sfmplus_stabLength", 		1.07]; //m
+_heli setVariable ["fza_sfmplus_stabLiftScalar",	1.00];
 
 _heli setVariable ["fza_sfmplus_maxFwdFuelMass", 	473];	    //1043lbs in kg
 //_heli setVariable ["fza_sfmplus_maxCtrFuelMass", 300];	//663lbs in kg, net yet implemented, center robbie
