@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_coreScheduler
+Function: fza_fnc_draw3Dscheduler
 
 Description:
     Schedules updates to all tasks in *fza_ah64_schedarray*
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_coreScheduler
+    [_heli] call fza_fnc_draw3Dscheduler
 	---
 
 Author:
@@ -28,14 +28,14 @@ if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehic
 {
     [_heli] call _x;
 }
-foreach fza_ah64_schedarray;
+foreach fza_ah64_draw3Darray;
 
 if ((diag_ticktime - fza_ah64_overallticker) > _ticker && count fza_ah64_slowschedarray > 0) then {
     fza_ah64_overallticker = diag_ticktime; 
     {
         [_heli] call _x;
     }
-    foreach fza_ah64_slowschedarray;
+    foreach fza_ah64_draw3DarraySlow;
     [_heli] spawn fza_fnc_fcrLongbow;
 };
 
