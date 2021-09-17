@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_coreScheduler
+Function: fza_fnc_coreDraw3Dscheduler
 
 Description:
     Schedules updates to all tasks in *fza_ah64_schedarray*
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_coreScheduler
+    [_heli] call fza_fnc_coreDraw3Dscheduler
 	---
 
 Author:
