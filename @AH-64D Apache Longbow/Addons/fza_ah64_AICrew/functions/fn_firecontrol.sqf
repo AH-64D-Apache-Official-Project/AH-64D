@@ -7,7 +7,7 @@ Description:
 	fire suppresion does not work on full ai crew so it is disabled for full ai crew
 
 Parameters:
-	Heli - The helicopter to modify
+	Heli: Object - The helicopter to modify
 
 Returns:
 	Nothing

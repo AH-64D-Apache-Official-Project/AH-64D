@@ -6,15 +6,13 @@ Description:
 	To set up the aircraft for full ai crew
 
 Parameters:
-	Heli - The helicopter to modify
+	Heli: Object - The helicopter to modify
 
 Returns:
 	Nothing
 
 Examples:
-	--- Code
     [_heli] call fza_AICrew_fnc_init
-	---
 
 Author:
 	Rosd6(Dryden)

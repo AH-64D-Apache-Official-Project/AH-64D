@@ -30,8 +30,6 @@ if (player == driver _heli || player == gunner _heli) then {
     _usesound = true;
 };
 
-hint str _this;
-
 //set damage so event init dosent reset
 _damheli= 0.001 + damage _heli;
 _heli setDamage _damheli;

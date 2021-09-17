@@ -15,9 +15,7 @@ Returns:
 	Nothing
 
 Examples:
-	--- Code
     [_heli] call fza_AICrew_fnc_getout
-	---
 
 Author:
 	Rosd6(Dryden)

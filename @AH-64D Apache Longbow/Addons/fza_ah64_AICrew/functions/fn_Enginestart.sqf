@@ -7,15 +7,15 @@ Description:
 
 Parameters:
 	(format of the engine event <https://community.bistudio.com/wiki/Arma_3:_Event_Handlers#Engine>)
-    _heli - The helicopter to modify
-    _engineState - True when the engine is turned on, false when turned off
+    heli: Object - The helicopter to modify
+    engineState: Boolean - True when the engine is turned on, false when turned off
 
 Returns:
 	Nothing
 
 Examples:
 	--- Code
-    [_heli, true] call fza_AICrew_fnc_Enginestarts
+    [_heli, true] call fza_AICrew_fnc_Enginestart;
 	---
 
 Author:

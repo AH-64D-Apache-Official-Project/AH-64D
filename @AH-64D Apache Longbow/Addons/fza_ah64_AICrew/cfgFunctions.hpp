@@ -18,7 +18,7 @@ class CfgFunctions
 			class getIn {R;};
 			class GetOut {R;};
 			class asecontrol {R;};
-			class turretAim {R;};
+			class floodlight {R;};
 		};
     };
 };

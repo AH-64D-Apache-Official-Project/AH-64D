@@ -5,26 +5,24 @@ Description:
 	handles the spawning of the ai functions
 
 Parameters:
-	Heli - The helicopter to modify
+	Heli: Object - The helicopter to modify
 
 Returns:
 	Nothing
 
 Examples:
+	[_heli] call fza_AICrew_fnc_coreUpdate;
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
 if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
+_driver = driver vehicle _heli;
+_gunner = gunner vehicle _heli;
 
-[_heli] spawn fza_AICrew_fnc_fireControl;
-[_heli] spawn fza_AICrew_fnc_ase;
-
-if ((daytime > 20.0 || daytime < 4.20) && fza_ah64_aiFloodlight == true && (!(isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5)) then {
-	[_heli, _system, "floodlight"] call fza_fnc_lightHandleControl;
-};
-if ((daytime < 20.0 && daytime > 4.20) && fza_ah64_aiFloodlight == true && ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5)) then {
-	[_heli, _system, "floodlight"] call fza_fnc_lightHandleControl;
+if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) then {
+	[_heli] call fza_AICrew_fnc_floodlight; // only functions with a player and ai crew
+	[_heli] call fza_AICrew_fnc_asecontrol; // only functions with a player and ai crew
+	//[_heli] call fza_AICrew_fnc_fireControl; // called in damage systems when engine fire starts for non player crew compat
 };

@@ -77,8 +77,8 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_aiFireControl",
 	"CHECKBOX",
-	["AI Fire suppresion", "Enabling an AI Pilot to handle engine fires (does not work with full AI crew)"],
-	[_projName, "AI settings"],
+	["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
+	[_projName, "AI Control settings"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -86,8 +86,8 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_aiFireResponce",
 	"SLIDER",
-	["AI Fire suppresion responce time", "This setting controls how long it takes the Ai to handle an engine fire"],
-	[_projName, "AI settings"],
+	["Fire suppresion responce time", "This setting controls how long it takes the Ai to handle an engine fire"],
+	[_projName, "AI Control settings"],
 	[4, 30, 15, 0],
 	0
 ] call CBA_fnc_addSetting;
@@ -95,8 +95,8 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_aiAseControl",
 	"CHECKBOX",
-	["AI Ase control", "Enabling an AI Control the Aircraft survival equipment (does not work with full AI crew)"],
-	[_projName, "AI settings"],
+	["Ase control", "Enabling an AI Control the Aircraft survival equipment (does not work with full AI crew)"],
+	[_projName, "AI Control settings"],
 	[true],
 	0
 ] call CBA_fnc_addSetting;
@@ -104,8 +104,8 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_aiFloodlight",
 	"CHECKBOX",
-	["AI Cockpit lighting control", "Enabling an AI to turn on the cockpit lighting when it gets near to dark"],
-	[_projName, "AI settings"],
+	["Cockpit lighting control", "Enabling an AI to turn on the cockpit lighting near dark (does not work with full AI crew)"],
+	[_projName, "AI Control settings"],
 	[false],
 	0
 ] call CBA_fnc_addSetting;
