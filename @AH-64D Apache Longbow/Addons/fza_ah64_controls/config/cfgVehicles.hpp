@@ -1,32 +1,11 @@
 class CfgVehicles
 {
-	class All;
 	class Helicopter;
 	class Helicopter_Base_F : Helicopter {
 		class Components;
 		class EventHandlers;
 	};
-	class B_Helipilot_F;
-	#define MAG_2(a) a, a
-	#define MAG_6(a) a, a, a, a, a, a
-	class fza_ah64_pilot: B_Helipilot_F
-	{
-		author                  = "Rosd6(Dryden)";
-		scope                   = 2;
-		scopeCurator            = 2;
-		displayName             = "AH-64D Pilot";
-		uniformClass			= "U_B_CombatUniform_mcam";
-		weapons[]               = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
-		respawnWeapons[]        = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
-		Items[]                 = {"FirstAidKit", "FirstAidKit", "ToolKit"};
-		RespawnItems[]          = {"FirstAidKit", "FirstAidKit", "ToolKit"};
-		magazines[]             = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
-		respawnMagazines[]      = {MAG_6(30Rnd_556x45_Stanag), MAG_2(16Rnd_9x21_Mag), MAG_2(B_IR_Grenade), MAG_2(SmokeShell), MAG_2(SmokeShellBlue), MAG_2(SmokeShellPurple), MAG_2(Chemlight_green)};
-		linkedItems[]           = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
-		respawnLinkedItems[]    = {"V_PlateCarrier1_rgr", "H_PilotHelmetHeli_O", "ItemMap", "ItemGPS", "ItemCompass", "ItemWatch", "ItemRadio", "NVGoggles_OPFOR"};
-		faction					= "fza_usaav";
-		vehicleclass			= "fza_Men";
-	};
+	#include "CfgCrew.hpp"
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
@@ -87,7 +66,6 @@ class CfgVehicles
 		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		crew = "fza_ah64_pilot";
 		destrtype = "DestructWreck";
 		driveOnComponent[] = {"Wheels"};
 		driverCanSee = 1+2+4+8;
@@ -98,6 +76,8 @@ class CfgVehicles
 		enableCopilot = true;
 		enableSweep = true;
 		extCameraPosition[] = {0,0,-20};
+		faction="fza_usaav";
+		vehicleclass="fza_helicopters";
 		formationX = 20;
 		formationZ = 20;
 		formationTime = 20;
@@ -164,7 +144,7 @@ class CfgVehicles
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
-		}
+		};
 		class EventHandlers {
 			class fza_ah64 {
 				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_AICrew_fnc_init";
@@ -1016,12 +996,12 @@ class CfgVehicles
 		crewVulnerable = 0;
 		damageResistance=0.0055499999;
 		driverAction = "fza_ah64_pilot";
+		crew="fza_ah64_pilot";
 		driverOpticsColor[] = {1,1,1,1};
 		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
 		ejectDeadCargo=true;
 		ejectdeadgunner = false;
 		explosionShielding = 8;
-		faction="fza_usaav";
 		gForceShakeAttenuation = 0.5;
 		gunAimDown = 0;
 		gunnerUsesPilotView = false;
@@ -1065,13 +1045,11 @@ class CfgVehicles
 		selectionVRotorStill = "tr_blades";
 		threat[] = {1,1,0.5};
 		transportSoldier=2;
-		vehicleclass="fza_helicopters";
 		visualTarget = 1;
 		visualTargetsize = 1.0;
 		weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
-		envelope[]=
-		{
-		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
+		envelope[]={
+			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
 		class textureSources
 		{
@@ -1365,44 +1343,7 @@ class CfgVehicles
 						y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
 					};
 				};
-			};/*
-			class CargoTurret_01 : CargoTurret
-			{
-				gunnerAction = "fza_ah64_leftcargo";
-				memoryPointsGetInGunner = "pos cargo";
-				memoryPointsGetInGunnerDir = "pos cargo dir";
-				gunnerName = "Left cargo seat";
-				gunnerCompartments = Compartment1;
-				proxyIndex = 1;
-				isPersonTurret = 0;
-				gunnerGetInAction = "GetInHigh";
-				gunnerGetOutAction = "GetOutHigh";
-				canHideGunner = 1;
-				enabledByAnimationSource = "left_gunner_move";
-				inGunnerMayFire = 0;
-				outGunnerMayFire = 0;
-				LODTurnedIn = VIEW_DEFAULT_LOD;
-				LODTurnedOut = VIEW_DEFAULT_LOD;
-
-				maxElev = 5;	// vertical limit for field of view
-				minElev = -30;	// vertical limit for field of view
-				maxTurn = 60;	// horizontal limit for field of view
-				minTurn = -15;	// horizontal limit for field of view	
 			};
-			class CargoTurret_02 : CargoTurret_01
-			{
-				gunnerAction = "fza_ah64_rightcargo";
-				memoryPointsGetInGunner = "pos cargo";
-				memoryPointsGetInGunnerDir = "pos cargo dir";
-				gunnerName = "Right cargo seat";
-				gunnerCompartments = Compartment1;
-				proxyIndex = 2;
-
-				maxElev = 5;	// vertical limit for field of view
-				minElev = -30;	// vertical limit for field of view
-				maxTurn = 15;	// horizontal limit for field of view
-				minTurn = -60;	// horizontal limit for field of view	
-			};*/
 		};
 		class Library
 		{
@@ -1521,11 +1462,11 @@ class CfgVehicles
 				section	= cpg_pr_mpd_back;
 				source = cpg_mmap_sc;
 			};
-		}
+		};
 
 		class AnimationSources
 		{
-#define ANIMS_MMAP(seat) \
+			#define ANIMS_MMAP(seat) \
 			class seat##_mmap_tx \
 			{ \
 				source = "user"; \
@@ -1756,49 +1697,49 @@ class CfgVehicles
 			animPeriod = 0.1;
 			initPhase=0;
 		};
-class blade1_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-//////weapons///////////
+		class blade1_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade2_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade2_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade3_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade3_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade4_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade4_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		//////weapons///////////
 		class pod_m260_1
 		{
 			source = "user";

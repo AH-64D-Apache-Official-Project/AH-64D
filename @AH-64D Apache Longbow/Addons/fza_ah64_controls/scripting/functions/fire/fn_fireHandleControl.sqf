@@ -227,8 +227,8 @@ switch(_control) do {
 	};
 };
 
-if (_panel && isMultiplayer) then {
-	if !(_heli turretLocal [0]) exitWith {
+if (_panel) then {
+	if !(_heli turretLocal [0]) then {
 		[_heli,_eng,_val] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [0]];
 	} else {
 		[_heli,_eng,_val] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [-1]];
