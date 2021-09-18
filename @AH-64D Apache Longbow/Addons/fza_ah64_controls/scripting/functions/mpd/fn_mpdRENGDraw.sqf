@@ -16,14 +16,27 @@ private _npTapeScaler  = [[0,   0.00],
     					  [120, 1.00]
 ];
 
-private _isSingleEng = _heli getVariable "fza_ah64_isSingleEng";
-
 // #region ENGINE 1
-private _e1percent = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
-private _e1ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
-private _e1tgt     = _heli getVariable "fza_sfmplus_engTGT" select 0;
-private _e1trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
-private _e1opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
+private _e1percent = 0;
+private _e1ng      = 0;
+private _e1tgt     = 0;
+private _e1trq     = 0;
+private _e1opsi    = 0;
+
+if (fza_ah64_heliSimEnabled) then {
+	_e1percent = (_heli getVariable "bmk_engPwrTurSpeed" select 0) * 100;
+	_e1ng      = (_heli getVariable "bmk_engGasGenSpeed" select 0) * 1000;
+	_e1tgt     = 0;
+	_e1trq     = ((_heli getVariable "bmk_engTorque" select 0) / 481) * 100;
+	_e1opsi    = 0;
+} else {
+	_e1percent = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
+	_e1ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
+	_e1tgt     = _heli getVariable "fza_sfmplus_engTGT" select 0;
+	_e1trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
+	_e1opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
+};
+//Suppress torque below 37% NP
 if (_e1percent <= (0.37 * 100)) then {
 	_e1trq = 0;
 };
@@ -90,8 +103,8 @@ if (_e1ng < 630 || _e1ng > 1051) then {
 
 // #region animations
 _heli animateSource["mpd_pr_eng_e1trq", _e1trq / 130.0];
-_heli animateSource["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp)# 1];
-_heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp)# 1];
+_heli animateSource["mpd_pr_eng_1tgt", ([_tgtTapeScaler, _e1tgt] call fza_fnc_linearInterp) # 1];
+_heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc_linearInterp) # 1];
 // #endregion
 
 // #endregion
@@ -99,11 +112,26 @@ _heli animateSource["mpd_pr_eng_e1np", ([_npTapeScaler, _e1percent] call fza_fnc
 // #endregion
 
 // #region ENGINE 2
-private _e2percent = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
-private _e2ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
-private _e2tgt     = _heli getVariable "fza_sfmplus_engTGT" select 1;
-private _e2trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
-private _e2opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
+private _e2percent = 0;
+private _e2ng      = 0;
+private _e2tgt     = 0;
+private _e2trq     = 0;
+private _e2opsi    = 0;
+
+if (fza_ah64_heliSimEnabled) then {
+	_e2percent = (_heli getVariable "bmk_engPwrTurSpeed" select 1) * 100;
+	_e2ng      = (_heli getVariable "bmk_engGasGenSpeed" select 1) * 1000;
+	_e2tgt     = 0;
+	_e2trq     = ((_heli getVariable "bmk_engTorque" select 1) / 481) * 100;
+	_e2opsi    = 0;
+} else {
+	_e2percent = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
+	_e2ng      = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
+	_e2tgt     = _heli getVariable "fza_sfmplus_engTGT" select 1;
+	_e2trq     = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
+	_e2opsi    = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
+};
+//Suppress torque below 37% NP
 if (_e2percent <= (0.37 * 100)) then {
 	_e2trq = 0;
 };

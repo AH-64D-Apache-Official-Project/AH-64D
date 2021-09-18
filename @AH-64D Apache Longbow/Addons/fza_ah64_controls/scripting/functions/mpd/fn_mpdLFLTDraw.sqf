@@ -16,7 +16,15 @@ private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * 1.94;
 [_heli, _groundSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_GSPD] call fza_fnc_drawNumberSelections;
 
-private _torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
+private _torque = 0;
+if (fza_ah64_heliSimEnabled) then {
+	private _e1trq = ((_heli getVariable "bmk_engTorque" select 0) / 481) * 100;
+	private _e2trq = ((_heli getVariable "bmk_engTorque" select 1) / 481) * 100;
+
+	_torque = _e1trq max _e2trq;
+} else {
+	_torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
+};
 [_heli, _torque, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TRQ] call fza_fnc_drawNumberSelections;
 
 _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
