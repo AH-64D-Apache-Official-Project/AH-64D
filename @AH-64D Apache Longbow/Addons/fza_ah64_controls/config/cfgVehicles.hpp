@@ -141,6 +141,15 @@ class CfgVehicles
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
 		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
+		class SimpleObject
+		{
+			eden = 1;
+			animate[] = {};
+			hide[] = {"mr_blur","tr_blur","hdam_tr","hdam_rtr"};
+			verticalOffset = 1.785;
+			verticalOffsetWorld = 0.006;
+			init = "[this, '', []] call bis_fnc_initVehicle";
+		};
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
@@ -2904,10 +2913,10 @@ class CfgVehicles
 			initPhase=0;
 		};
 	};
-		class MarkerLights
+	class MarkerLights
+	{
+		class PositionWhite
 		{
-			class PositionWhite
-			{
 			name = "tail_light";
 			ambient[] = {0.1,0.1,0.1};
 			color[] = {1,1,1};
@@ -2919,63 +2928,35 @@ class CfgVehicles
 			drawLight = 1;
 			intensity = 75;
 			useFlare = 0;
-
 			class Attenuation
 			{
-			constant = 0;
-			hardLimitEnd = 1;
-			hardLimitStart = 0.75;
-			linear = 25;
-			quadratic = 50;
-			start = 0;
+				constant = 0;
+				hardLimitEnd = 1;
+				hardLimitStart = 0.75;
+				linear = 25;
+				quadratic = 50;
+				start = 0;
 			};
 		};
-
-			class PositionGreen: PositionWhite
-			{
+		class PositionGreen: PositionWhite
+		{
 			name = "zeleny pozicni";
 			ambient[] = {0,0.08,0};
 			color[] = {0,0.8,0};
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
-			};
-			class PositionRed: PositionWhite
-			{
+		};
+		class PositionRed: PositionWhite
+		{
 			name = "cerveny pozicni";
 			ambient[] = {0.08,0,0};
 			color[] = {0.8,0,0};
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
-			};
-			/*
-			class ckpt_light
-			{
-			name="ckpt_light";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
-			color[]={0.306,0.878,0.349,1};
-			ambient[]={0.306,0.878,0.349,1};
-			intensity = 130;
-			drawLightSize = 0.01;
-			drawLightCenterSize = 0.001;
-			blinking = 0;
-
-			class Attenuation
-			{
-			constant = 1;
-			hardLimitEnd = 0.60;
-			hardLimitStart = 0.01;
-			linear = 1;
-			quadratic = 20;
-			start = 0;
-			};
-			};
-			*/
-			class RedStrobe_1
-			{
+		};
+		class RedStrobe_1
+		{
 			name="cerveny pozicni blik_1";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};
 			intensity=2500;
@@ -2984,13 +2965,11 @@ class CfgVehicles
 			blinking = 1;
 			blinkingPattern[]={0.03,2.10};
 			blinkingPatternGuarantee = 1;
-			daylight = 1; //added
-			};
-			class RedStrobe_2
-			{
+			daylight = 1;
+		};
+		class RedStrobe_2
+		{
 			name="cerveny pozicni blik_2";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};
 			intensity=2500;
@@ -2999,39 +2978,39 @@ class CfgVehicles
 			blinking = 1;
 			blinkingPattern[]={0.03,2};
 			blinkingPatternGuarantee = 1;
-			daylight = 1;		//added
-			};
+			daylight = 1;
 		};
-		class Reflectors
+	};
+	class Reflectors
+	{
+		class Landing_Light
 		{
-			class Landing_Light
+			position = "landing_light";
+			direction = "landing_light_dir";
+			hitpoint = "rfab";
+			selection = "Light";
+			color[] = {7000,7500,10000};
+			ambient[] = {70,75,100};
+			intensity = 100;
+			size = 1;
+			innerAngle = 15;
+			outerAngle = 90;
+			coneFadeCoef = 10;
+			useFlare = 1;
+			flareSize = 10;
+			flareMaxDistance = 500;
+			daylight = 1;		//added
+			class Attenuation
 			{
-				position = "landing_light";
-				direction = "landing_light_dir";
-				hitpoint = "rfab";
-				selection = "Light";
-				color[] = {0.850000, 0.950000, 1.000000};
-				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 20000;
-				size = 1;
-				innerAngle = 15;
-				outerAngle = 90;
-				coneFadeCoef = 5;
-				useFlare = 1;
-				flareSize = 1.500000;
-				flareMaxDistance = 500;
-				daylight = 1;		//added
-				class Attenuation
-				{
-					start = 0;
-					constant = 0;
-					linear = 1;
-					quadratic = 1;
-					hardLimitStart = 100;
-					hardLimitEnd = 200;
-				};
+				start = 0;
+				constant = 0;
+				linear = 1;
+				quadratic = 1;
+				hardLimitStart = 100;
+				hardLimitEnd = 200;
 			};
 		};
+	};
 	#include "sensor_b2e.hpp"
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
