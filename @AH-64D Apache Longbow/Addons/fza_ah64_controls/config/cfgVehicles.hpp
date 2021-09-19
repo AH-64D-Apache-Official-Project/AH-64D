@@ -986,7 +986,7 @@ class CfgVehicles
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
 		displayName="AH-64D Apache Longbow";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
@@ -1101,7 +1101,7 @@ class CfgVehicles
 			class UK_AAC
 			{
 				displayName = "United Kingdom Army Air Corps";
-				author = "Rosd6(Dryden) & Jamo";
+				author = "Rosd6(Dryden) & Jamo aka blindbat2006";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class UK_AAC_weathered
@@ -3017,7 +3017,7 @@ class CfgVehicles
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
 		class AnimationSources: AnimationSources {

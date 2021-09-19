@@ -4,9 +4,9 @@ class CfgPatches
 	class fza_ah64_controls
 	{
 		units[] = {"fza_ah64base","fza_ah64d_b2e","fza_ah64d_b2e_nr","fza_ah64_pilot"};
-		author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
 		weapons[] = {};
-		requiredVersion = 1.0;
+		requiredVersion = 2.1.0;
 		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh", "fza_ah64_sfmplus", "fza_ah64_AICrew"};
 	};
 };
