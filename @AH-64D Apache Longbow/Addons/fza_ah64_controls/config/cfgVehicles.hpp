@@ -140,7 +140,7 @@ class CfgVehicles
 		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		class SimpleObject
 		{
 			eden = 1;
@@ -986,7 +986,7 @@ class CfgVehicles
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName="AH-64D Apache Longbow";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
@@ -3017,7 +3017,7 @@ class CfgVehicles
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
 		class AnimationSources: AnimationSources {
