@@ -1,5 +1,49 @@
 # Changelog Notes:
 
+*22/08/2021*
+* Sfm plus damage update
+
+*09/08/2021*
+* FCR Acquisition & Los Fix
+
+*06/08/2021*
+* Fire Extinguisher Replaceable
+
+*05/08/2021*
+* Gun overheat breaking rearm fix
+* fixed Rocket salvo 
+* Hellfire Stability
+* Damage Cam shake fix
+* ASE update
+* Flood lighting
+* Flare EFX change (source files credited to Pingopete)
+
+*02/07/2021*
+* Draw3d event handler fix
+
+*20/06/2021*
+* Rewritten simulation
+* Infinite Variable bug in ASE Track warner
+* Targeting fix for Ase Page open
+* Fixed some missing semicolons
+* Renamed settings group
+* Fixed race condition between aircraft initialisation and scheduler
+* Removed debug statement
+
+*18/06/2021*
+* Fixed APU sound loop. Pair programmed with Indigo
+
+*17/06/2021*
+* Make changes to mod naming as per voodoo's request
+* Remove Rotorlib
+* Fixed accidental hovering bug
+
+*04/06/2021*
+* Fix infinitely growing target variable
+
+*04/06/2021*
+* Fix infinitely growing target variable
+
 *26/05/2021*
 * Israeli texture (Nodunit)
 * Marvels Shield texture (Nodunit)
