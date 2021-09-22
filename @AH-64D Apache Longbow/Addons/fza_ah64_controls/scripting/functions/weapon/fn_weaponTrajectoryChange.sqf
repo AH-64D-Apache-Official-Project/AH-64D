@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_fnc_weaponTrajectoryChange
 
 Author:
-	Unknown
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
