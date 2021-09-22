@@ -102,8 +102,9 @@ class CfgMagazines
 	///////////////////////////////HELLFIRE/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
+	class PylonRack_4Rnd_ACE_Hellfire_AGM114K;
 	#define HELLFIRE_CONFIG(ammoname, disp, descShort) \
-		class ammoname##_ll: 6Rnd_Missile_AGM_02_F { \
+		class ammoname##_ll: PylonRack_4Rnd_ACE_Hellfire_AGM114K { \
 			descriptionShort = descShort;\
 			ammo = ammoname;\
 			model = \fza_ah64_us\weps\pylons\fza_rail_ll.p3d; \

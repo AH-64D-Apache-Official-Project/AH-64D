@@ -183,7 +183,8 @@ class CfgWeapons
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
-	class fza_hellfire : MissileLauncher
+	class ace_hellfire_launcher;
+	class fza_hellfire: ace_hellfire_launcher
 	{
 		scope = private;
 		class StandardSound 

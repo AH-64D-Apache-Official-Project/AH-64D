@@ -32,7 +32,7 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 		};
 		case "r3": {
 			//Switch missile trajectory of current hellfire
-			[_heli] call fza_fnc_weaponTrajectoryChange;
+			[] call ace_missileguidance_fnc_cycleAttackProfileKeyDown;
 		};
 	};
 };
