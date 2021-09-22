@@ -52,6 +52,55 @@ class CfgWeapons
 			maxRangeProbab = 0.010000;
 		};
 	};
+    class fza_AseIRjammer: SmokeLauncher 
+	{
+		scope = 2;
+		displayName = "IRJAM";
+		magazines[] = {"fza_IR_JAMMING"};
+		magazineReloadTime = 0.500000;
+		simulation = "cmlauncher";
+		modes[] = {"Single"};
+		class Single
+		{
+			displayName = "$STR_A3_CMFlareLauncher_weapon_mode_Single_name";
+			reloadTime = 0.050000;
+			burst = 1;
+			autoFire = 1;
+			useAction = 0;
+			useActionTitle = 0;
+			soundContinuous = 0;
+			artilleryDispersion = 0;
+			artilleryCharge = 0;
+			textureType = "single";
+			recoil = "Empty";
+			recoilProne = "";
+			sounds[] = {"StandardSound"};
+
+			class StandardSound {
+				begin1[] = {"", 1.000000, 1, 300};
+				soundBegin[] = {"begin1", 1};
+			};
+			showToPlayer = 0;
+			multiplier = 2;
+			soundBurst = 0;
+			dispersion = 0.400000;
+			aiRateOfFire = 1;
+			aiRateOfFireDistance = 10;
+			minRange = 0;
+			minRangeProbab = 0.010000;
+			midRange = 1;
+			midRangeProbab = 0.010000;
+			maxRange = 2;
+			maxRangeProbab = 0.010000;
+		};
+	};
+    class fza_AseRFjammer: fza_AseIRjammer
+	{
+		displayName = "RFJAM";
+		magazines[] = {"fza_RF_JAMMING"};
+		modes[] = {"Single"};
+
+	};
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////M230 CHAINGUN////////////////////////////
@@ -120,6 +169,15 @@ class CfgWeapons
 		cursorAim="";
 		magazines[]={"fza_safe"};
 	};
+	class fza_Fx1: fza_m230
+	{
+		showToPlayer = 0;
+		magazines[]={"fza_Fb1"};
+	};	
+	class fza_Fx2: fza_Fx1
+	{
+		magazines[]={"fza_Fb2"};
+	};	
 
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////

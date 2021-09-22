@@ -59,3 +59,4 @@ Temporary Items
 *.bat
 docs/
 naturaldocs/Working Data
+buildCfg.json

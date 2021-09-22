@@ -14,13 +14,7 @@ private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * 1.94;
 [_heli, _groundSpeedKnots, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_GSPD] call fza_fnc_drawNumberSelections;
 
-private _torque = 0;
-if (!difficultyEnabledRTD) then {
-	_torque = round(100 * ((0.25 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (0.25 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"))));
-};
-if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) > 0) then {
-	_torque = round((enginesTorqueRTD _heli select 0) / 5.6);
-};
+private _torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
 [_heli, _torque, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PL_FLT_TRQ] call fza_fnc_drawNumberSelections;
 
 _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");

@@ -9,10 +9,11 @@ Parameters:
 
 Returns:
 	2d array, an array for each active WCA entry in thee format
-	    [_type, _mpd]
+	    [_type, _mpd, _ufd]
 	
 	* _type - either WCA_CAUTION, WCA_WARNING or WCA_ADVISORY
 	* _mpd - the texture to be used by the MPD
+	* _ufd - the texture to be used by the UFD
 
 Examples:
 	--- Code
@@ -77,10 +78,10 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
-if (_heli getVariable "fza_ah64_irjamfail") then {
+if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\IRJAMFAIL.paa", "\fza_ah64_us\tex\UFD\IRJAMFAIL_C_co.paa"]
 };
-if (_heli getVariable "fza_ah64_rfjamfail") then {
+if (_heli getHitPointDamage "Hitrfab" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\RJAMFAIL.paa", "\fza_ah64_us\tex\UFD\RFJFAIL_C_co.paa"]
 };
 if (_heli getHit "radar" >= 0.8) then {

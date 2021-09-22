@@ -448,13 +448,8 @@ if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) the
 _radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = [_heli] call fza_fnc_sfmplusGetData select 0;
+_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
 _collective = format["%1", round(100 * _TQVal)];
-if (difficultyEnabledRTD && count(enginesTorqueRTD _heli) == 2) then {
-    _eng1data = [_heli, 0] call fza_fnc_engineGetData;
-    _eng2data = [_heli, 1] call fza_fnc_engineGetData;
-    _collective = format["%1", round((_eng1data# 4 / 4.81 + _eng2data# 4 / 4.81) / 2)];
-};
 if (_collective == "scalar") then {
     _collective = "0";
 };
@@ -601,10 +596,10 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 
 if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
     //RKT FIX TADS AND/OR IHADSS DISPLAY
-    _w = 0.0734*3;
-    _h = 0.1*3;
-    _apx = 0.036*3;
-    _apy = 0.3/2;
+    _w = 0.0734*2;
+    _h = 0.1*2;
+    _apx = 0.036*2;
+    _apy = 0.3/3;
     _weapon = "RKT";
     if (isManualFire _heli) then {
         _weapon = "PRKT";

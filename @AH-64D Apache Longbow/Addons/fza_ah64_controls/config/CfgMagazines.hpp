@@ -13,6 +13,17 @@ class CfgMagazines
 		ammo = "fza_ah64_flare_shot";
 		initSpeed = 30;
 	};
+	class fza_IR_JAMMING: CA_Magazine
+	{
+		author = "$STR_A3_Bohemia_Interactive";
+		count = 99999999;
+		ammo = "fza_IR_JAMMING_shot";
+		initSpeed = 30;
+	};
+	class fza_RF_JAMMING:  fza_IR_JAMMING
+	{
+		ammo = "fza_RF_JAMMING_shot";
+	};
 	class fza_safe: VehicleMagazine
 	{
 		scope = 1;
@@ -32,6 +43,18 @@ class CfgMagazines
 		initSpeed=0;
 		tracersEvery=0;
 		nameSound="";
+	};
+	class fza_Fb1: VehicleMagazine
+	{
+		scope = 1;
+		displayName="Primary Fire Bottle";
+		ammo="fza_fireBottlePrimary";
+		count=1;
+	};
+	class fza_Fb2: fza_Fb1
+	{
+		displayName="Reserve Fire Bottle";
+		ammo="fza_fireBottleSecondary";
 	};
 	
 	////////////////////////////////////////////////////////////////////////

@@ -1,11 +1,11 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_sfmplusSetFuel
+Function: fza_sfmplus_fnc_fuelSet
 
 Description:
-
+	Sets the initial fuel state of the aircraft.
 
 Parameters:
-	_heli - The apache helicopter to get information from [Unit].
+	_heli - The helicopter to get information from [Unit].
 
 Returns:
 	The mass of the forward and aft fuel cells.
@@ -22,10 +22,10 @@ Author:
 params ["_heli"];
 
 private _percentFuel    = fuel _heli;
-private _maxFwdFuelMass = _heli getVariable "fza_ah64_maxFwdFuelMass";
-private _maxAftFuelMass = _heli getVariable "fza_ah64_maxAftFuelMass";
+private _maxFwdFuelMass = _heli getVariable "fza_sfmplus_maxFwdFuelMass";
+private _maxAftFuelMass = _heli getVariable "fza_sfmplus_maxAftFuelMass";
 private _maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
-_heli setVariable ["fza_ah64_maxTotFuelMass", _maxTotFuelMass];
+_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
 
 private _totFuelMass = _maxTotFuelMass * _percentFuel;
 private _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;

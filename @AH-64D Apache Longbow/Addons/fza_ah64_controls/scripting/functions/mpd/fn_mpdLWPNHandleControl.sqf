@@ -20,7 +20,7 @@ if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 if(currentWeapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
 	switch (_control) do {
 		case "r1": {
-			[_heli] call weaponRocketsalvo
+			[_heli] call fza_fnc_weaponRocketsalvo;
 		};
 	};
 };

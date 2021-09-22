@@ -39,7 +39,7 @@ private _heliData = _heli getVariable "fza_ah64_engineStates";
 (_heliData# _engNum) params["_state", "_stateParams"];
 (_heliData# _otherEngineNum) params["_otherState", "_otherStateParams"];
 
-private _engineSwitch = format["plt_eng%1_start", _engNum + 1];
+private _engineSwitch     = format["plt_eng%1_start", _engNum + 1];
 private _throttleAnimName = format["plt_eng%1_throttle", _engNum + 1];
 
 private _changeMade = false;

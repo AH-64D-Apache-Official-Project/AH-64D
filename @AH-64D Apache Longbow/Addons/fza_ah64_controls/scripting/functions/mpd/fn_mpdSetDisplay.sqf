@@ -32,8 +32,7 @@ params ["_heli", "_side", "_page"];
 switch (_side) do {
 	case 0 : {
 		if (_page in ["off", "fail", "dms", "flt", "fuel", "wca", "wpn"]) then {
-			(_heli getVariable ["fza_ah64_mpdPage", []]) set [0, _page
-			];
+			(_heli getVariable ["fza_ah64_mpdPage", []]) set [0, _page];
 			//TRACE_1("Successfully managed to change page on left MPD to", _page);
 			true;
 		} else {

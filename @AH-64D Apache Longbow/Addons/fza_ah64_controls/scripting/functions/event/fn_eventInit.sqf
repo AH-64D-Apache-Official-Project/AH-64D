@@ -50,8 +50,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
-    _heli setVariable ["fza_ah64_irjamfail", false, true];
-    _heli setVariable ["fza_ah64_rfjamfail", false, true];
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
     _heli setVariable ["fza_ah64_e2_fire", false, true];
@@ -60,7 +58,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irjon", 0, true];
-    _heli setVariable ["fza_ah64_rfjon", 0, true];
+    _heli setVariable ["fza_ah64_rfjon", 0, true];    
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
@@ -85,22 +83,8 @@ _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
-//SFM Plus+
-_heli setVariable ["fza_ah64_emptyMassFCR",    6609]; //kg
-_heli setVariable ["fza_ah64_emptyMassNonFCR", 6314]; //kg
-
-_heli setVariable ["fza_ah64_stabPos", [0.0, -7.207, -0.50]];
-_heli setVariable ["fza_ah64_stabWidth", 3.22];  //m
-_heli setVariable ["fza_ah64_stabLength", 1.07]; //m
-
-_heli setVariable ["fza_ah64_maxFwdFuelMass", 473];	//1043lbs in kg
-//_heli setVariable ["fza_ah64_maxCtrFuelMass", 300];	//663lbs in kg, net yet implemented, center robbie
-_heli setVariable ["fza_ah64_maxAftFuelMass", 669]; 	//1474lbs in kg
-
-[_heli] call fza_fnc_sfmplusSetFuel;
-[_heli] call fza_fnc_sfmplusSetMass;
-
-
+[_heli] call fza_sfmplus_fnc_coreConfig;
+//[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
     createDialog "RscFzaDisplayWelcome";
@@ -125,15 +109,8 @@ if (local _heli) then {
     } foreach getAllPylonsInfo _heli; 
 };
 
-//DEFAULT WEIGHT 
 
-if ((weightRTD _heli select 3) == 0) then {
-    if (_heli animationPhase "fcr_enable" == 1) then {
-        _heli setCustomWeightRTD 295;
-    };
-};
 _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
-_heli setCustomWeightRTD ([0, 295] select (_heli animationPhase "fcr_enable" == 1));
 
 if !(isMultiplayer) then {
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
@@ -143,13 +120,12 @@ while {
     alive _heli
 }
 do {
-    if ((!isNull (_heli getVariable["fza_ah64_floodlight_plt", objNull])) && _heli animationphase "plt_batt" < 0.5) then {
+    if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
 
-        _heli setobjecttexture [SEL_IN_BACKLIGHT, ""];
-        _heli setobjecttexture [SEL_IN_BACKLIGHT2, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
+        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
 
-        deleteVehicle(_heli getVariable["fza_ah64_floodlight_plt", objnull]);
-        deleteVehicle(_heli getVariable["fza_ah64_floodlight_cpg", objnull]);
+        [_heli, false] call fza_fnc_lightSetCockpitLight;
     };
     _magsp = _heli magazinesturret[-1];
 
