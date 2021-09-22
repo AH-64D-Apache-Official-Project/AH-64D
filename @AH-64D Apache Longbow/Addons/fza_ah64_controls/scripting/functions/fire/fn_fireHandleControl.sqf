@@ -23,9 +23,11 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
-private _panel = false;
-private _eng = "eng1";
-private _val = false;
+
+private _turret = 0;
+if (_heli turretLocal [0]) then {
+	_turret = -1;
+};
 
 switch(_control) do {
 	case "apu": {
@@ -98,51 +100,42 @@ switch(_control) do {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setVariable ["fza_ah64_fire1arm", 1, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "eng1";
-			_val = true;
+			[_heli,"eng1",true] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
 		if (_heli getVariable "fza_ah64_fire1arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
 			_heli setVariable ["fza_ah64_fire1arm", 0, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "eng1";
-			_val = false;
+			[_heli,"eng1",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
-		_panel = true;
 	};
 	case "fe2": {
 		if (_heli getVariable "fza_ah64_fire2arm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setVariable ["fza_ah64_fire2arm", 1, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "eng2";
-			_val = true;
+			[_heli,"eng2",true] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
 		if (_heli getVariable "fza_ah64_fire2arm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
 			_heli setVariable ["fza_ah64_fire2arm", 0, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "eng2";
-			_val = false;
+			[_heli,"eng2",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
-		_panel = true;
 	};
 	case "fapu": {
 		if (_heli getVariable "fza_ah64_fireapuarm" == 0) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
 			_heli setVariable ["fza_ah64_fireapuarm", 1, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "apu";
-			_val = true;
+			[_heli,"apu",true] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
 		if (_heli getVariable "fza_ah64_fireapuarm" == 1) exitwith {
 			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
 			_heli setVariable ["fza_ah64_fireapuarm", 0, true];
 			["fza_ah64_button_click2", 0.1];
-			_eng = "apu";
-			_val = false;
+			[_heli,"apu",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
 		};
-		_panel = true;
 	};
 	case "fbp": {
 		if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firepdisch")) then {
@@ -224,13 +217,5 @@ switch(_control) do {
 
 			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 		};
-	};
-};
-
-if (_panel) then {
-	if !(_heli turretLocal [0]) then {
-		[_heli,_eng,_val] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [0]];
-	} else {
-		[_heli,_eng,_val] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [-1]];
 	};
 };
