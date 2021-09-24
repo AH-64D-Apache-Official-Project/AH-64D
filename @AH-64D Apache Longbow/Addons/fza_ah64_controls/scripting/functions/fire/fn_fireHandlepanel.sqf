@@ -20,8 +20,6 @@ Author:
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli","_engine","_value"];
 
-hint str _this;
-
 switch(_engine) do {
 	case "eng1": {
         if (_value == true) then {

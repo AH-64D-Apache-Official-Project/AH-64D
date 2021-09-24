@@ -141,8 +141,8 @@ switch(_control) do {
 		if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firepdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firepdisch", true, true];
-				_dmg = _heli getHit "leng";
-				_heli setHit ["leng", _dmg + 0.01];
+				_dmg = vehicle player getHit "leng";
+				vehicle player setHit ["leng", _dmg + 0.01];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
@@ -150,8 +150,8 @@ switch(_control) do {
 			if ((_heli getVariable "fza_ah64_fireapuarm" == 1 || _heli getVariable "fza_ah64_fire2arm" == 1 || _heli getVariable "fza_ah64_fire1arm" == 1) && !(_heli getVariable "fza_ah64_firerdisch")) then {
 				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firerdisch", true, true];
-				_dmg = _heli getHit "Reng";
-				_heli setHit ["Reng", _dmg + 0.01];
+				_dmg = vehicle player getHit "Reng";
+				vehicle player setHit ["Reng", _dmg + 0.01];
 			};
 			["fza_ah64_button_click2", 0.1];
 		};
