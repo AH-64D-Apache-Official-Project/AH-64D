@@ -1,30 +1,30 @@
 # Changelog Notes:
 
 *22/08/2021*
-* Sfm plus damage update
+* Sfm plus damage update (#107)
 
 *09/08/2021*
-* FCR Acquisition & Los Fix
+* FCR Acquisition & Los Fix (#83)
 
 *06/08/2021*
-* Fire Extinguisher Replaceable
+* Fire Extinguisher Replaceable (#100)
 
 *05/08/2021*
-* Gun overheat breaking rearm fix
-* fixed Rocket salvo 
-* Hellfire Stability
-* Damage Cam shake fix
-* ASE update
-* Flood lighting
-* Flare EFX change (source files credited to Pingopete)
+* Gun overheat breaking rearm fix (#92)
+* Got the rocket salvo functioning again (#93)
+* Improved terminal hellfire stability (#95)
+* Tads shake from hull damage fix  (#97)
+* ASE update using vanilla CM systems  (#90)
+* Fix Flood lighting stability and mp (#106)
+* Flare EFX change (source files credited to Pingopete) (#105)
 
 *02/07/2021*
-* Draw3d event handler fix
+* Draw3d event handler fix (#85)
 
 *20/06/2021*
-* Rewritten simulation
-* Infinite Variable bug in ASE Track warner
-* Targeting fix for Ase Page open
+* Rewritten simulation (#82)
+* Infinite Variable bug in ASE Track warner (#82)
+* Targeting fix for Ase Page open (#82)
 * Fixed some missing semicolons
 * Renamed settings group
 * Fixed race condition between aircraft initialisation and scheduler
