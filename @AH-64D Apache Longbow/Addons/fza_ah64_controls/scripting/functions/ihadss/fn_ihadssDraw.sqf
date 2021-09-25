@@ -887,22 +887,9 @@ if (_radalt > 0.26) then {
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetPosition[0.709, (0.6321 - _radalt), 0.01, _radalt];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlCommit 0;
-_fpm = (velocity _heli select 2) * 0.051;
-if (_fpm > 0.13) then {
-    _fpm = 0.13;
-};
-if (_fpm < -0.13) then {
-    _fpm = -0.13;
-};
-/*
-_fpm = (velocity _heli select 2) * 196.85;
-if (_fpm > 1000) then {
-    _fpm = 1000;
-};
-if (_fpm < -1000) then {
-    _fpm = -1000;
-};
-*/
+_fpm = (velocity _heli select 2) * 0.0255;
+[_fpm, -0.13, 0.13] call BIS_fnc_clamp;
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;
