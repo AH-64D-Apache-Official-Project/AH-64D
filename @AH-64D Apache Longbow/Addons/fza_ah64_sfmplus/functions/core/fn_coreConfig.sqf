@@ -18,8 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_sfmplus_emptyMassFCR",    	6609]; //kg
-_heli setVariable ["fza_sfmplus_emptyMassNonFCR", 	6314]; //kg
+_heli setVariable ["fza_sfmplus_emptyMassFCR",    	6382]; //kg
+_heli setVariable ["fza_sfmplus_emptyMassNonFCR", 	6087]; //kg
 
 _heli setVariable ["fza_sfmplus_stabPos", 			[0.0, -7.207, -0.50]];
 _heli setVariable ["fza_sfmplus_stabWidth", 		3.22]; //m
@@ -38,3 +38,5 @@ _heli setVariable ["fza_sfmplus_totRtrDmg",     0];
 _heli setVariable ["fza_sfmplus_dmgTimerCont",  0];
 _heli setVariable ["fza_sfmplus_dmgTimerTrans", 0];
 [_heli] call fza_sfmplus_fnc_engineVariables;
+
+_heli setVariable ["fza_sfmplus_keyCollOut",	0];

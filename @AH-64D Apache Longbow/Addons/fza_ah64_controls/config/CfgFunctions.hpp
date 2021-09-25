@@ -47,6 +47,7 @@ class CfgFunctions
 			class engineAPUOn {R;};
 			class engineEventHandler {R;};
 			class engineHandleControl {R;};
+			class engineSetEngineOn {R;};
 		};
 		class event
 		{

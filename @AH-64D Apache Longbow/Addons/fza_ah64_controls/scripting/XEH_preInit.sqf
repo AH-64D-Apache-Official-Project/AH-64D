@@ -91,57 +91,56 @@ fza_ah64_rocketTable =
         ,[2000, 28]
         ,[3500, 75]
         ,[4500, 120]];
-fza_ah64_weaponDebug = false;
-fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_mousehorpos = 0.5;
-fza_ah64_mousevertpos = 0.5;
-fza_ah64_gunheat = 0;
-fza_ah64_firekeypressed = 0;
-fza_ah64_overallticker = 0;
-fza_ah64_locktargstate = 0;
-fza_ah64_irjammer = 0;
-fza_ah64_rfjammer = 0;
-fza_ah64_salvofired = 0;
-fza_ah64_mynum = 0;
-fza_ah64_lastdir = 0;
-fza_ah64_dps = 0;
-fza_ah64_slip = 0;
-fza_ah64_wptimhr = 0;
-fza_ah64_wptim = 0;
-fza_ah64_tiron = false;
-fza_ah64_wptimtm = 0;
-fza_ah64_wptimsm = 0;
-fza_ah64_wpdistr = 0;
-fza_ah64_targetlist = [];
-fza_ah64_mycurrenttarget = objNull;
-fza_ah64_tadsLockCheckRunning = false;
-fza_ah64_burst = 1;
-fza_ah64_pfzcache = ["none", "none", [], 0];
-fza_ah64_asethreats = [];
-fza_ah64_asethreatsdraw = [];
-fza_ah64_threattracking = [];
-fza_ah64_threatfiring = [];
-fza_ah64_mycurrenttarget = objNull;
-fza_ah64_fcrlist = [];
-fza_ah64_tsdmap = 0;
-fza_ah64_Cscopelist = [];
-fza_ah64_hducolor = [0.1, 1, 0, 1];
+fza_ah64_weaponDebug 		 	= false;
+fza_ah64_pylonsLastCheckMags 	= [];
+fza_ah64_mousehorpos 		 	= 0.5;
+fza_ah64_mousevertpos 		 	= 0.5;
+fza_ah64_gunheat 			 	= 0;
+fza_ah64_firekeypressed 	 	= 0;
+fza_ah64_overallticker 			= 0;
+fza_ah64_locktargstate 			= 0;
+fza_ah64_irjammer 				= 0;
+fza_ah64_rfjammer 				= 0;
+fza_ah64_salvofired 			= 0;
+fza_ah64_mynum 					= 0;
+fza_ah64_lastdir 				= 0;
+fza_ah64_dps 					= 0;
+fza_ah64_slip 					= 0;
+fza_ah64_wptimhr 				= 0;
+fza_ah64_wptim 					= 0;
+fza_ah64_tiron 					= false;
+fza_ah64_wptimtm 				= 0;
+fza_ah64_wptimsm 				= 0;
+fza_ah64_wpdistr 				= 0;
+fza_ah64_targetlist				= [];
+fza_ah64_mycurrenttarget 		= objNull;
+fza_ah64_tadsLockCheckRunning	= false;
+fza_ah64_burst 					= 1;
+fza_ah64_pfzcache 				= ["none", "none", [], 0];
+fza_ah64_asethreats 			= [];
+fza_ah64_asethreatsdraw 		= [];
+fza_ah64_threattracking 		= [];
+fza_ah64_threatfiring 			= [];
+fza_ah64_mycurrenttarget 		= objNull;
+fza_ah64_fcrlist 				= [];
+fza_ah64_tsdmap 				= 0;
+fza_ah64_Cscopelist 			= [];
+fza_ah64_hducolor 				= [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
-
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_mpdUpdateDisplays]; //, fza_sfmplus_fnc_coreUpdate, bmk_fnc_coreUpdate];
-fza_ah64_draw3DarraySlow = [fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm];
-
-if (fza_ah64_heliSimEnabled) then {
-	fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, bmk_fnc_coreUpdate];
+//Draw3D arrays
+fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_mpdUpdateDisplays, fza_fnc_engineSetEngineOn];
+//EachFrame arrays
+if (!fza_ah64_heliSimEnabled) then {
+	fza_ah64_eachFrameArray = [fza_sfmplus_fnc_coreUpdate];
 } else {
-	fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate];
+	fza_ah64_eachFrameArray = [bmk_fnc_coreUpdate];
 };
-
+//Draw3D scheduler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
 	[0] call fza_fnc_coreDraw3Dscheduler;
 }];
 [0] spawn fza_fnc_ufd;
-
+//EachFrame scheduler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
 	[0] call fza_fnc_coreEachFrameScheduler;
 }];

@@ -1,26 +1,24 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_engineEventHandler
+Function: fza_fnc_engineSetEngineOn
 
 Description:
     Engine event handler, stops the engines from being turned on using the action menu if they shouldn't be on according to the simulated startup sequence.
 
 Parameters:
-	(format of the engine event <https://community.bistudio.com/wiki/Arma_3:_Event_Handlers#Engine>)
     _heli - The helicopter to modify
-    _engineState - True when the engine is turned on, false when turned off
 
 Returns:
 	Nothing
 
 Examples:
 	--- Code
-    [_heli, true] call fza_fnc_engineEventHandler
+    [_heli, true] call fza_fnc_engineSetEngineOn
 	---
 
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
-params ["_heli", "_engineState"];
+params ["_heli"];
 
 if (!fza_ah64_heliSimEnabled) then {
 	private _eng1state = _heli getVariable "fza_sfmplus_engState" select 0;
@@ -38,8 +36,4 @@ if (!fza_ah64_heliSimEnabled) then {
 		_heli setVariable ["fza_ah64_estarted", true, true];
 		_heli engineOn true;
 	};
-};
-
-if(local _heli && !(_heli getVariable "fza_ah64_estarted") && _engineState) then {
-	_heli engineOn false;
 };

@@ -21,7 +21,7 @@ params ["_heli"];
 private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 //Input
-[_heli] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
