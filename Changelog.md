@@ -35,11 +35,11 @@
 
 *17/06/2021*
 * Make changes to mod naming as per voodoo's request
-* Remove Rotorlib
-* Fixed accidental hovering bug
+* Remove Rotorlib (#78)
+* Fixed accidental hovering bug (#78)
 
 *04/06/2021*
-* Fix infinitely growing target variable
+* Fix infinitely growing target variable (#75)
 
 *26/05/2021*
 * Israeli texture (Nodunit)
