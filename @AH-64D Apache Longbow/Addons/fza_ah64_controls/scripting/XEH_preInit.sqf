@@ -65,14 +65,15 @@ private _projName = "AH-64D Official Project";
   0
 ] call CBA_fnc_addSetting;
 
-[
+
+/*[
 	"fza_ah64_heliSimEnabled",
 	"CHECKBOX",
 	["Enable Helisim (restart required)"],
 	[_projName, "Flight model"],
 	[false],
   0
-] call CBA_fnc_addSetting;
+] call CBA_fnc_addSetting;*/
 
 [
 	"fza_ah64_ExperimentalFCR",
