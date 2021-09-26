@@ -85,7 +85,7 @@ class CfgVehicles
 		transportMaxMagazines = 10;
 		driverCanSee = 2+4+8;
 		gunnerCanSee = 2+4+8;
-		unitinfotype="RscUnitInfoNoHUD";
+		unitinfotype="UnitInfoSoldier";
 		destrtype = "DestructWreck";
 		hideUnitInfo = 0;
 		insideSoundCoef = 0.5;
@@ -1119,7 +1119,7 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "fza_Fx1", "fza_Fx2", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "fza_Fx1", "fza_Fx2", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
 				magazines[] = {"fza_safe", "fza_Fb1", "fza_Fb2", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";

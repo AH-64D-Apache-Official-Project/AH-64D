@@ -1,9 +1,20 @@
-#define CfgUserActionDef(vname, vdisplayName, vtooltip) class vname {\
+#define CfgUserActionDef(vname, vdisplayName, vtooltip) \
+class vname {\
 	displayName = vdisplayName;\
 	tooltip = vtooltip;\
 	onActivate = __EVAL(format["['%1', true] call fza_fnc_coreControlHandle", #vname]);\
 	onDeactivate = __EVAL(format["['%1', false] call fza_fnc_coreControlHandle", #vname]);\
 }
+
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) \
+class fza_ah64_cockpit_##system##_##control {\
+	displayName = __EVAL(format["%1: %2", system_name, control_name]);\
+	tooltip = "";\
+	onActivate = __EVAL(format["['%1', '%2', '%3', '%4', true] call fza_fnc_coreCockpitControlHandle", #system, #control, pilot_mempoint, gunner_mempoint]);\
+	onDeactivate = __EVAL(format["['%1', '%2', '%3', '%4', false] call fza_fnc_coreCockpitControlHandle", #system, #control, pilot_mempoint, gunner_mempoint]);\
+};
+#define COCKPIT_CONTROL_SEP 
+
 class CfgUserActions
 {
 	CfgUserActionDef(fza_ah64_sightSelectHMD, "Sight Select HMD", "Sets the current sight to HMD");
@@ -22,4 +33,5 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_waypointIncrease, "Next Waypoint", "Sets the current waypoint to the next waypoint");
 	CfgUserActionDef(fza_ah64_waypointDecrease, "Previous Waypoint", "Sets the current waypoint to the previous waypoint");
 	CfgUserActionDef(fza_ah64_laserCycle, "Laser Cycle", "Cycles between all available lasers");
+	#include "\fza_ah64_controls\headers\controls.h"
 };

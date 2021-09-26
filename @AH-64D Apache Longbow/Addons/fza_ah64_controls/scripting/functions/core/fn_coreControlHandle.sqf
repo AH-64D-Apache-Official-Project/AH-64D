@@ -5,68 +5,22 @@ params["_name", "_value"];
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
-if (value) then {
+if (_value) then {
 	//When button pressed
 	switch (_name) do {
 		case "fza_ah64_crosshairInteract": {
 			private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
 			if (_controls isEqualTo []) exitWith {};
-
+			
 			//If there are multiple controls in the range, make sure we use the closest one
 			if(count _controls > 1) then {
 				_controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
 			};
-
+			systemChat format ["Controls: %1", _controls];
+			
 			(_controls # 0) params ["", "", "_system", "_control"];
 
-			private _clickSound = ["none"];
-
-			switch (_system) do {
-				case "lmpd";
-				case "rmpd" : {
-					_clickSound = [_heli, _system, _control] call fza_fnc_mpdHandleControl;
-				};
-				case "fire": {
-					_clickSound = [_heli, _system, _control] call fza_fnc_fireHandleControl;
-				};
-				case "door": {
-					if (_control == "handle") then {
-						if (player == gunner _heli) then {
-							[_heli] spawn fza_fnc_doortoggleG;
-						} else {
-							[_heli] spawn fza_fnc_doortogglep;
-						};
-					}
-				};
-				case "engine": {
-					[_heli, _system, _control] call fza_fnc_engineHandleControl;
-				};
-				case "ihadss": {
-					_clickSound = [_heli, _system, _control] call fza_fnc_ihadssHandleControl;
-				};
-				case "pnvs": {
-					if (_control == "daynight") then {
-						_heli setVariable ["fza_ah64_ihadss_pnvs_day", !(_heli getVariable "fza_ah64_ihadss_pnvs_day")];
-						["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
-					}
-				};
-				case "nvs": {
-					private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
-					if (_control == "mode") then {
-						if (_heli animationphase _nvsSwitch < 1) then {
-							_heli animateSource[_nvsSwitch, 1];
-							_heli setVariable ["fza_ah64_ihadss_pnvs_cam", true];
-						} else {
-							_heli animateSource[_nvsSwitch, 0];
-							_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
-						};
-						["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
-					}
-				};
-				case "light": {
-					_clickSound = [_heli, _system, _control] call fza_fnc_lightHandleControl;
-				};
-			};
+			[_heli, _system, _control] call fza_fnc_coreCockpitInteract;
 		};
 		case "fza_ah64_laserDesig": {
 			[_heli] call fza_fnc_laserArm;
@@ -94,7 +48,7 @@ if (value) then {
 				case "trans": {
 					_heli setVariable ["fza_ah64_hmdfsmode", "cruise", true];
 				};
-				default: {
+				default {
 					_heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
 				};
 			};
@@ -106,7 +60,7 @@ if (value) then {
 					_heli setVariable ["fza_ah64_bobhdg", getdir _heli, true];
 					_heli setVariable ["fza_ah64_hmdfsmode", "bobup", true];
 				};
-				default: {
+				default {
 					_heli setVariable ["fza_ah64_hmdfsmode", "hover", true];
 				};
 			};
@@ -144,37 +98,45 @@ if (value) then {
 			[_heli] call fza_fnc_laserCycle;
 		};
 		case "SwitchWeaponGrp1": {
-			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
-			}
+			};
+			
+			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
 		case "SwitchWeaponGrp2": {
-			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
-			}
+			};
+			[_heli] call fza_fnc_weaponUpdateSelected;
+			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
 		case "SwitchWeaponGrp3": {
-			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
-			}
+			};
+			[_heli] call fza_fnc_weaponUpdateSelected;
+			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
 		case "SwitchWeaponGrp4": {
 			_heli setVariable ["fza_ah64_armed", !(_heli getVariable "fza_ah64_armed"), true];
+			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
 		case "nextWeapon";
 		case "prevWeapon": {
 			[_heli] call fza_fnc_weaponUpdateSelected;
+			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		}
 	};
 };
 
-if !(value) then {
+if !(_value) then {
 	//When button releassed
 	switch (_name) do {
 		case "fza_ah64_laserDesig": {

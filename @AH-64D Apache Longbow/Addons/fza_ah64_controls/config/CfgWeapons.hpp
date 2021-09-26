@@ -169,9 +169,9 @@ class CfgWeapons
 		cursorAim="";
 		magazines[]={"fza_safe"};
 	};
-	class fza_gun_safe: fza_ma_safe {};
-	class fza_rkt_safe: fza_ma_safe {};
-	class fza_msl_safe: fza_ma_safe {};
+	class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe"};
+	class fza_rkt_safe: fza_ma_safe {displayName = "Rkt Safe"};
+	class fza_msl_safe: fza_ma_safe {displayName = "Msl Safe"};
 	class fza_Fx1: fza_m230
 	{
 		showToPlayer = 0;

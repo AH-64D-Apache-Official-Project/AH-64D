@@ -1,3 +1,7 @@
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) \
+	fza_ah64_cockpit_##system##_##control
+
+#define COCKPIT_CONTROL_SEP ,
 class UserActionGroups
 {
 	class fza_ah64 // unique classname for your category
@@ -22,4 +26,11 @@ class UserActionGroups
 			fza_ah64_laserCycle
 		};
 	};
+	class fza_ah64_cockpit
+	{
+		name = "AH-64D Apache Official: Cockpit Controls";
+		group[] = {
+			#include "\fza_ah64_controls\headers\controls.h"
+		};
+	}
 };

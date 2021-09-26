@@ -19,6 +19,8 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\core";
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
+			class coreCockpitControlHandle {R;};
+			class coreCockpitInteract {R;};
 			class coreControlHandle {R;};
 			class coreScheduler {R;};
 		};
