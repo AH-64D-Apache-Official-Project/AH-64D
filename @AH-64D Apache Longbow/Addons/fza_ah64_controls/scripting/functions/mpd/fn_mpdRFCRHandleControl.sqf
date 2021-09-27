@@ -4,7 +4,6 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "t1": {
-		[_heli] call fza_fnc_targetingVariable;
 		_heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
 	};
 	case "tsd": {

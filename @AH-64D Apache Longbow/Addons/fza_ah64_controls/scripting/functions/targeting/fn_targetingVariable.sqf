@@ -20,7 +20,6 @@ private _dead = allDead;
 
 //remove dead targets
 fza_ah64_targetlist = fza_ah64_targetlist - _dead;
-fza_ah64_asethreatsdraw = fza_ah64_asethreatsdraw - _dead;
 
 //TSD ATK LIST
 if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
@@ -32,8 +31,4 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 };
 
 //cscope
-if (count fza_ah64_fcrlist > 16) then {
-    fza_ah64_Cscopelist = [fza_ah64_fcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
-} else {
-    fza_ah64_Cscopelist = fza_ah64_fcrlist;
-};
+fza_ah64_Cscopelist = [fza_ah64_fcrlist, [_heli], {_input0 distance2d _x}, "ASCEND"] call BIS_fnc_sortBy;
