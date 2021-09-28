@@ -54,6 +54,7 @@ Private _trackingarray = [];
 			};
 		};
 	};
+	sleep 0.1;
 } forEach getSensorThreats _heli;
 
 fza_ah64_threattracking = _trackingarray;

@@ -66,7 +66,7 @@ while {(MissileTarget _missile == _heli) && (alive _heli)} do {
 player setammo ["fza_AseIRjammer",999999999];
 player setammo ["fza_AseRFjammer",999999999];
 
-sleep 15;
+sleep 25;
 fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
 
 //auto deploy stop 

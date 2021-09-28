@@ -58,6 +58,7 @@ if ((_heli animationPhase "fcr_enable" == 1) && _heli getHit "radar" < 0.8) then
 		if !(_target in fza_ah64_targetlist) then {
 			fza_ah64_targetlist pushBack _Target;
 		};
+		sleep 0.05;
 	}   foreach getSensorTargets _heli;
 };
 
