@@ -59,3 +59,9 @@ Private _trackingarray = [];
 
 fza_ah64_threattracking = _trackingarray;
 fza_ah64_asethreatsdraw = _asearray;
+
+/* tracking audio repeats
+ASE ICON
+FW FIxed wing CSCOPE PLANE
+RW  Rotor wing CSCOPE HELI
+sa 12/5 s300 Long rane launcher

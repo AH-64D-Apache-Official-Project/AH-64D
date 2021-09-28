@@ -65,27 +65,6 @@ class Components: Components
         componentType = "MinimapDisplayComponent";
         resource = "RscCustomInfoAirborneMiniMap"; //gives you the airborne nav version with coloured altitude display
       };
-      class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
-  		{
-  			componentType = "SensorsDisplayComponent";
-  			range[] = {16000,8000,4000,2000};     //accepts an integer or an array of available ranges (submode)
-  			showTargetTypes = 1+2+4+8+16+32+64+128+256+512+1024; // 1 - Sensor sectors, 2 - Threats, 4 - Marked tgt symbol, 8 - Own detection, 16 - Remote detection, 32 - Active detection, 64 - Passive detection, 128 - Ground tgts, 256 - Air tgts, 512 - Men, 1024 - Special (laser, NV)
-  			resource = "RscCustomInfoSensors";
-  		};
-      class VehicleGunnerDisplay	// Camera feed from gunner's optics
-      {
-        componentType = "TransportFeedDisplayComponent";
-        source = "PrimaryGunner";
-      };
-      class VehicleDriverDisplay	// Camera feed from driver's optics
-      {
-        componentType = "TransportFeedDisplayComponent";
-        source = "Driver";    // returns the pnvs feed
-      };
-      class UAVFeedDisplay	// Drone camera feed
-      {
-        componentType = "UAVFeedDisplayComponent";  // panel for uav 
-      };
     };
   };
   class VehicleSystemsDisplayManagerComponentRight : VehicleSystemsDisplayManagerComponentLeft {
