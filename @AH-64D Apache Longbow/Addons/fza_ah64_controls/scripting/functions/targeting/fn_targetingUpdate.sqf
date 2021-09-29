@@ -16,10 +16,16 @@ Author:
 params ["_heli"];
 Private _asearray = fza_ah64_AseRWR;
 Private _trackingarray = [];
+
+//Audio delay every other scrip
+_Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
+_heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
+
 {
 	private _ADA = _x # 0;
 	private _type = _x # 1;
 	private _sensor = _x # 2;
+	private _IDfailed = true;
 	if ((vehicle player) animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) then {
 		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
 			//TSD & ASE Draw
@@ -42,17 +48,26 @@ Private _trackingarray = [];
 				};
 
 				//audio 
-				if ((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "CUP_ZSU23_Base")) then {
-					["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
-				};
-				if (_ADA iskindof "CUP_2S6_Base") then {
-					["fza_ah64_2s6_track", 2.3, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-				};
-				if (_ADA iskindof "O_APC_Tracked_02_AA_F") then {
-					["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-				};
-				if !((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "O_APC_Tracked_02_AA_F")) then {
-					["fza_ah64_rdr_track", 0.1] spawn fza_fnc_playAudio;
+				if (_counter % 2 == 1) then {
+					if ((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "CUP_ZSU23_Base")) then {
+						["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
+						_IDfailed = false;
+					};
+					if (_ADA iskindof "CUP_2S6_Base") then {
+						["fza_ah64_2s6_track", 2.3] spawn fza_fnc_playAudio;
+						_IDfailed = false;
+					};
+					if ((_ADA iskindof "B_APC_Tracked_01_base_F") || (_ADA iskindof "O_APC_Tracked_02_base_F")) then {
+						["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
+						_IDfailed = false;
+					};
+					if ((_ADA iskindof "Radar_System_01_base_F") || (_ADA iskindof "Radar_System_02_base_F") || (_ADA iskindof "I_LT_01_scout_F")) then {
+						["fza_ah64_bt_sa9", 1.2, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
+						_IDfailed = false;
+					};
+					if (_IDfailed == true) then {
+						["fza_ah64_rdr_track", 0.1] spawn fza_fnc_playAudio;
+					};
 				};
 			};
 		};

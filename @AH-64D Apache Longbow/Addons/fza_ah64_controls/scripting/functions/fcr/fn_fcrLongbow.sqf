@@ -27,7 +27,7 @@ if !(_heli animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) exitwith {};
 private _datalinkarray = [];
 private _activeradar = [];
 
-if ((_heli animationPhase "fcr_enable" == 1) && _heli getHit "radar" < 0.8) then {
+if ((_heli animationPhase "fcr_enable" == 1 && _heli getHit "radar" < 0.8) || (_heli animationPhase "fcr_enable" == 0)) then {
 	_datalinkarray = [];
 	{
 		private _target = _x # 0;
@@ -39,7 +39,7 @@ if ((_heli animationPhase "fcr_enable" == 1) && _heli getHit "radar" < 0.8) then
 		if (_relationship == "destroyed") then {
 			continue;
 		};
-		if (("passiveradar" in _sensor && _type == "ground") && !(_Target in _activeradar)) then {
+		if (("passiveradar" in _sensor || "laser" in _sensor) && !(_Target in _activeradar)) then {
 			_activeradar pushBack _Target;
 		};
 		if !("activeradar" in _sensor) then {

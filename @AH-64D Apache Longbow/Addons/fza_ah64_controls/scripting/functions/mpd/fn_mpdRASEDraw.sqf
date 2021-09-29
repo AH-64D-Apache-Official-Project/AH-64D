@@ -3,7 +3,7 @@ params ["_heli"];
 
 
 
-/*TODO: When chaff re-added, add here
+/*TODO: When chaff re-added, add here //HA who wrote this
 _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
 [_heli, 0, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
 if (fza_ah64_cmsel == 1) then {
@@ -107,6 +107,10 @@ private _objects = fza_ah64_asethreatsdraw apply {
 	};
 	if ((_x iskindof "Radar_System_01_base_F") || (_x iskindof "Radar_System_02_base_F") || (_x iskindof "I_LT_01_scout_F")) then {
 		_iconformat = "\fza_ah64_US\tex\ICONS\9";
+	};
+	if ((_x iskindof "laserTarget")) then {
+		_iconformat = "\fza_ah64_US\tex\ICONS\ULSR";
+		_iconsuffix = "";
 	};
 	
 	if (_x in fza_ah64_threattracking) then {
