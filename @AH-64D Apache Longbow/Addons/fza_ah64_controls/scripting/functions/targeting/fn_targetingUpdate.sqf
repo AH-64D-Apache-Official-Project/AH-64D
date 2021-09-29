@@ -42,8 +42,11 @@ Private _trackingarray = [];
 				};
 
 				//audio 
-				if (_ADA iskindof "rhs_zsutank_base") then {
+				if ((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "CUP_ZSU23_Base")) then {
 					["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
+				};
+				if (_ADA iskindof "CUP_2S6_Base") then {
+					["fza_ah64_2s6_track", 2.3, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
 				};
 				if (_ADA iskindof "O_APC_Tracked_02_AA_F") then {
 					["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
@@ -59,9 +62,3 @@ Private _trackingarray = [];
 
 fza_ah64_threattracking = _trackingarray;
 fza_ah64_asethreatsdraw = _asearray;
-
-/* tracking audio repeats
-ASE ICON
-FW FIxed wing CSCOPE PLANE
-RW  Rotor wing CSCOPE HELI
-sa 12/5 s300 Long rane launcher
