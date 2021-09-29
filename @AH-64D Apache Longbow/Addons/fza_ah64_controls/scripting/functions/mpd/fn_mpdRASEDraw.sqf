@@ -105,18 +105,9 @@ private _objects = fza_ah64_asethreatsdraw apply {
 	if ((_x iskindof "B_APC_Tracked_01_base_F") || (_x iskindof "O_APC_Tracked_02_base_F") || (_x iskindof "CUP_2S6_Base")) then {
 		_iconformat = "\fza_ah64_US\tex\ICONS\19";
 	};
-	if (_x iskindof "I_LT_01_scout_F") then {
+	if ((_x iskindof "Radar_System_01_base_F") || (_x iskindof "Radar_System_02_base_F") || (_x iskindof "I_LT_01_scout_F")) then {
 		_iconformat = "\fza_ah64_US\tex\ICONS\9";
-	};/*
-	if ((_x iskindof "Radar_System_01_base_F") || (_x iskindof "Radar_System_02_base_F")) then {
-		_iconformat = "\fza_ah64_US\tex\ICONS\12";
 	};
-	if (_x iskindof "plane") then {
-		_iconformat = "\fza_ah64_US\tex\ICONS\FW";
-	};
-	if (_x iskindof "Helicopter") then {
-		_iconformat = "\fza_ah64_US\tex\ICONS\RW";
-	};*/
 	
 	if (_x in fza_ah64_threattracking) then {
 		_iconsuffix = "T.paa";
