@@ -10,7 +10,10 @@ switch(_control) do {
 		[_heli, "IN"] call fza_fnc_mpdHandleZoom;
 	};
 	case "r4": {
-		_rfjamonoff = _this spawn fza_fnc_aseHandleRfcontrol;
+		if (_heli getVariable "fza_ah64_RFjon" == 0) then {
+			_rfjamonoff = _this spawn fza_fnc_aseHandleRfcontrol;
+			_this spawn fza_fnc_aseJammer;
+		};
 	};
 	case "r5": {
 		_heli setVariable ["fza_ah64_rfjstate", (_heli getVariable "fza_ah64_rfjstate") + 1, true];
@@ -25,7 +28,10 @@ switch(_control) do {
 		_autpg = [_heli] call fza_fnc_controlHandleASEAutopage;
 	};
 	case "l4": {
-		_irjamonoff = _this spawn fza_fnc_aseHandleIrcontrol;
+		if (_heli getVariable "fza_ah64_irjon" == 0) then {
+			_irjamonoff = _this spawn fza_fnc_aseHandleIrcontrol;
+			_this spawn fza_fnc_aseJammer;
+		};
 	};
 	case "l5": {
 		_heli setVariable ["fza_ah64_irjstate", (_heli getVariable "fza_ah64_irjstate") + 1, true];

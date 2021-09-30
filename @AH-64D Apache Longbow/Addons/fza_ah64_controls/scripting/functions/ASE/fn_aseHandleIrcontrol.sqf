@@ -21,13 +21,13 @@ params ["_heli"];
 if (_heli getHitPointDamage "Hitlfab" < 0.8) then {
     _heli setVariable ["fza_ah64_irjon", 1, true];
     while {
-        (fza_ah64_irjammer < 61 && _heli getVariable "fza_ah64_irjon" == 1)
+        (fza_ah64_irjammer < 121 && _heli getVariable "fza_ah64_irjon" == 1)
     }
     do {
         fza_ah64_irjammer = fza_ah64_irjammer + 1;
         sleep 1;
     };
-    if (fza_ah64_irjammer > 60) then {
+    if (fza_ah64_irjammer > 120) then {
         _heli setVariable ["fza_ah64_irjon", 0, true];
     };
     while {
@@ -35,7 +35,7 @@ if (_heli getHitPointDamage "Hitlfab" < 0.8) then {
     }
     do {
         fza_ah64_irjammer = fza_ah64_irjammer - 1;
-        sleep 1;
+        sleep 0.5;
     };
 } else {
     _heli setVariable ["fza_ah64_irjon", 0, true];

@@ -77,10 +77,10 @@ class CfgWeapons
 			sounds[] = {"StandardSound"};
 
 			class StandardSound {
-				begin1[] = {"", 1.000000, 1, 300};
+				begin1[] = {"\fza_ah64_us\audio\Flares.ogg", 1.000000, 1, 300};
 				soundBegin[] = {"begin1", 1};
 			};
-			showToPlayer = 0;
+			showToPlayer = 1;
 			multiplier = 2;
 			soundBurst = 0;
 			dispersion = 0.400000;
