@@ -132,7 +132,7 @@ class CfgVehicles
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
-		}
+		};
 		class EventHandlers {
 			class fza_ah64 {
 				init = "[_this # 0] spawn fza_fnc_eventInit";

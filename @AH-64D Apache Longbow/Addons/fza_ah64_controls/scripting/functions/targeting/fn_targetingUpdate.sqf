@@ -61,7 +61,7 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
 						["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
 						_IDfailed = false;
 					};
-					if ((_ADA iskindof "Radar_System_01_base_F") || (_ADA iskindof "Radar_System_02_base_F") || (_ADA iskindof "I_LT_01_scout_F")) then {
+					if ((_ADA iskindof "Radar_System_01_base_F") || (_ADA iskindof "Radar_System_02_base_F") || (vehicle _ADA iskindof "SAM_System_03_base_F") || (vehicle _ADA iskindof "SAM_System_04_base_F")) then {
 						["fza_ah64_bt_sa9", 1.2, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
 						_IDfailed = false;
 					};

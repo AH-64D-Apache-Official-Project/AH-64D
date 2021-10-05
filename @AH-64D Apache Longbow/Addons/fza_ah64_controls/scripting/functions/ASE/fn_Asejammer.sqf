@@ -5,9 +5,10 @@ Description:
     jamming of missile if ase page jammer active
 
 Parameters:
-    _heli - The helicopter that fired it
-    _munition - Missile
-    _hostile - is it hostile
+    heli: Object - Object the event handler is assigned to
+    munition: String - Ammo type that was fired on the target
+    hostile: Object - Vehicle that fired the weapon. In case of soldier, unit is returned
+    instigator: Object - Person who pulled the trigger
 	
 Returns:
 	Nothing
@@ -18,7 +19,7 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli","_munition","_hostile"];
+params ["_heli","_munition","_hostile", "_instigator"];
 
 player setammo ["fza_AseIRjammer",999999999];
 player setammo ["fza_AseRFjammer",999999999];
@@ -44,8 +45,8 @@ if (_irjstate == 1 && _irjon == 0 && _Lfab < 0.8 || _RFjstate == 1 && _RFjon == 
     ////stop one of the double event handler END
 
     //Info Variable
-    if(!(_hostile in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_threatfiring + [_hostile];};
-    if (([_hostile] call fza_fnc_targetIsADA) && !(_hostile in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [_hostile];};
+    if(!(vehicle _instigator in fza_ah64_threatfiring)) then {fza_ah64_threatfiring = fza_ah64_threatfiring + [vehicle _instigator];};
+    if (([vehicle _instigator] call fza_fnc_targetIsADA) && !(vehicle _instigator in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [vehicle _instigator];};
     //Info Variable
     
     _rfoper = (_heli getVariable "fza_ah64_rfjon");
