@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_weaponUpdateSelected
+
+Description:
+    Sets the current selected weapon on the gunner's turret to match the settings the mod specifies
+
+Parameters:
+    _heli - The helicopter to update
+
+Returns:
+
+Examples:
+	statement="[_heli] fza_fnc_weaponUpdateSelected
+
+Author:
+	
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 

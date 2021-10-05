@@ -763,48 +763,6 @@ class CfgVehicles
 				shortcut="OpticsMode";
 				statement="[this] call fza_fnc_weaponguncontrol;";
 			};
-			class gunburst
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponM230CycleBurst";
-			};
-			class rocketsalvo
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponRocketsalvo";
-			};
-			class hellfireTraj
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) &&  (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponTrajectoryChange";
-			};
 			class pilotdoor_open
 			{
 				displayName="Open Pilot Door";

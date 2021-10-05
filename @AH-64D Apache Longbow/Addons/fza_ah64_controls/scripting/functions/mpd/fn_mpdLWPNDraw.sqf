@@ -171,8 +171,8 @@ _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 	};
 }forEach (_missileInventory);
  
-if (__selectedWeapon == WAS_WEAPON_MSL) then {
-	private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
+if (_selectedWeapon == WAS_WEAPON_MSL) then {
+	private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");
 	_selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
 	if (_selectedMsl != -1) then {
 		assert (0 <= _selectedMsl && _selectedMsl <= 15);

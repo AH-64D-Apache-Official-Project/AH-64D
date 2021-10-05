@@ -192,9 +192,8 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
 			class weaponActionSwitch {R;};
-			class weaponGunControl {R;};
-			class weaponM230CycleBurst {R;};
 			class weaponMissileGetSelected {R;};
+			class weaponMissileCycle {R;};
 			class weaponMissileInventory {R;};
 			class weaponMissileSlowDown {R;};
 			class weaponPylonCheckValid {R;};
@@ -223,6 +222,7 @@ class CfgFunctions
 			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
+			class cycle {R;};
 			class bearingClock {R;};
 		};
 		class ase

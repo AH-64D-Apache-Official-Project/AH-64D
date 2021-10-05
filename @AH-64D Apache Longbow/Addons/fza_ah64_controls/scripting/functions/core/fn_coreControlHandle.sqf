@@ -53,7 +53,7 @@ if (_value) then {
 				};
 			};
 		};
-		case "fza_ah64_symbologySelectUp": {
+		case "fza_ah64_symbologySelectDown": {
 			switch (_heli getVariable "fza_ah64_hmdfsmode") do {
 				case "hover": {
 					_heli setVariable ["fza_ah64_bobpos", [(getposasl _heli select 0), (getposasl _heli select 1)], true];
@@ -70,7 +70,11 @@ if (_value) then {
 		};
 		case "fza_ah64_fcrSingleScan": {
 			player action ["ActiveSensorsOn", vehicle player];
-			["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 2, "seconds"] call BIS_fnc_runLater;
+			if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR) then {
+				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 8, "seconds"] call BIS_fnc_runLater;
+			} else {
+				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 4, "seconds"] call BIS_fnc_runLater;
+			};
 		};
 		case "fza_ah64_targetStoreUpdate": {
 

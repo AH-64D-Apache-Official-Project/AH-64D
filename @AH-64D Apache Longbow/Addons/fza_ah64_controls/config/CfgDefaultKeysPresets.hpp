@@ -22,7 +22,7 @@ class CfgDefaultKeysPresets {
 			fza_ah64_symbologySelectDown[] = {0x1D130030}; //Ctrl+B
 			fza_ah64_symbologySelectPress[] = {0x30}; //B
 			fza_ah64_laserDesig[] = {0x22}; //G
-			fza_ah64_fcrSingleScan[] = {0x13}; //R
+			fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
 			fza_ah64_targetStoreUpdate[] = {0x2A130022}; //Shift+G
 			fza_ah64_crosshairInteract[] = {0x56}; // Backslash (\)
 			fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
