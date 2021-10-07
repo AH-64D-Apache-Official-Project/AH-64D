@@ -102,7 +102,7 @@ class CfgMagazines
 	///////////////////////////////HELLFIRE/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
-	#define HELLFIRE_CONFIG(ammoname, disp, descShort) \
+	#define HELLFIRE_MAGAZINE_CONFIG(ammoname, disp, descShort) \
 		class ammoname##_ll: 6Rnd_Missile_AGM_02_F { \
 			descriptionShort = descShort;\
 			ammo = ammoname;\
@@ -129,18 +129,18 @@ class CfgMagazines
 		class ammoname##_ur: ammoname##_ll { \
 			model = \fza_ah64_us\weps\pylons\fza_rail_ur.p3d; \
 			hardpoints[] = {"fza_agm114_ur"} ; \
-		};
-	HELLFIRE_CONFIG(fza_agm114a, "AGM-114A", "Semi-active laser guided missile with an effective range out to 7km. The A variant was the first built, capable of destroying non-reactive armor threats.")
-	HELLFIRE_CONFIG(fza_agm114c, "AGM-114C", "Semi-active laser guided missile with an effective range out to 7km. The C variant introduced an improved motor, seeker, and autopilot over the A variant.")
-	HELLFIRE_CONFIG(fza_agm114k, "AGM-114K", "Semi-active laser guided missile with an effective range out to 7km. This is the most advanced model of all the laser guided HELLFIRES available.")
-	HELLFIRE_CONFIG(fza_agm114l, "AGM-114L", "One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.")
-	HELLFIRE_CONFIG(fza_agm114m, "AGM-114M", "Semi-active laser guided missile with an effective range out to 7km, with a blast-fragmentation warhead. It is ideal for soft targets.")
-	HELLFIRE_CONFIG(fza_agm114n, "AGM-114N", "Semi-active laser guided missile with an effective range out to 7km, with a thermobaric warhead. It is very deadly when used against hardened targets.")
+		}
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114a, "AGM-114A", "Semi-active laser guided missile with an effective range out to 7km. The A variant was the first built, capable of destroying non-reactive armor threats.");
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114c, "AGM-114C", "Semi-active laser guided missile with an effective range out to 7km. The C variant introduced an improved motor, seeker, and autopilot over the A variant.");
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114k, "AGM-114K", "Semi-active laser guided missile with an effective range out to 7km. This is the most advanced model of all the laser guided HELLFIRES available.");
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114l, "AGM-114L", "One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.");
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114m, "AGM-114M", "Semi-active laser guided missile with an effective range out to 7km, with a blast-fragmentation warhead. It is ideal for soft targets.");
+	HELLFIRE_MAGAZINE_CONFIG(fza_agm114n, "AGM-114N", "Semi-active laser guided missile with an effective range out to 7km, with a thermobaric warhead. It is very deadly when used against hardened targets.");
 
 	////////////////////////////////////////////////////////////////////////
 	///////////////////////////////ROCKETS/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
-	#define ROCKET_CONFIG(ammoname, disp, dispShort) \
+	#define ROCKET_MAGAZINE_CONFIG(ammoname, disp, dispShort) \
 		class ammoname##_zoneA: 6Rnd_Missile_AGM_02_F { \
 			ammo = ammoname; \
 			displayName = disp; \
@@ -167,13 +167,13 @@ class CfgMagazines
 			hardpoints[] = {"fza_hydra70_zone_E"}; \
 			count = 3; \
 			weight = 31.3;\
-		};
+		}
 	
-	ROCKET_CONFIG(fza_275_m151, "M151 HEDP", "The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.")
-	ROCKET_CONFIG(fza_275_m229, "M229 HEDP", "The M229 warhead is a 17 pound warhead with a pre-fragmented shell. It is more effective against heavier armored vehicles and personnel than the M151, at a cost of slightly reduced range. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 4.5km.")
-	ROCKET_CONFIG(fza_275_m255, "M255 FLEC", "The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.")
-	ROCKET_CONFIG(fza_275_m261, "M261 MPSM", "The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.")
-	ROCKET_CONFIG(fza_275_m257, "M257 IL", "The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 3.5km.")
+	ROCKET_MAGAZINE_CONFIG(fza_275_m151, "M151 HEDP", "The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
+	ROCKET_MAGAZINE_CONFIG(fza_275_m229, "M229 HEDP", "The M229 warhead is a 17 pound warhead with a pre-fragmented shell. It is more effective against heavier armored vehicles and personnel than the M151, at a cost of slightly reduced range. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 4.5km.");
+	ROCKET_MAGAZINE_CONFIG(fza_275_m255, "M255 FLEC", "The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
+	ROCKET_MAGAZINE_CONFIG(fza_275_m261, "M261 MPSM", "The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
+	ROCKET_MAGAZINE_CONFIG(fza_275_m257, "M257 IL", "The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 3.5km.");
 
 	////////////////////////////////////////////////////////////////////////
 	//////////////////////////////FUEL TANKS////////////////////////////////

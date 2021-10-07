@@ -170,7 +170,7 @@ class CfgFunctions
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
-		}
+		};
 		
 		class targeting
 		{
