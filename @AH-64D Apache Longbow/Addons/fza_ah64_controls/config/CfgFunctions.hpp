@@ -31,9 +31,11 @@ class CfgFunctions
 		class core
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
+			class coreDraw3Dscheduler {R;};
+			class coreEachFrameScheduler {R;};
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
-			class coreScheduler {R;};
+			
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
