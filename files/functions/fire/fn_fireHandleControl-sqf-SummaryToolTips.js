@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/fire/fn_fireHandleControl.sqf",{154:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any fire-related cockpit controls.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/fire/fn_fireHandleControl.sqf",{32:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any fire-related cockpit controls.</div></div>"});
