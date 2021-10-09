@@ -1,4 +1,7 @@
 fza_mapclickchk = param [0, objNull];
+
+if (isNull fza_mapclickchk) exitWith {};
+
 fza_ah64_waypointfin = 0;
 
 /* if (!(isNil "fza_ah64_waypointfin") && "fza_ah64_waypointfin"
