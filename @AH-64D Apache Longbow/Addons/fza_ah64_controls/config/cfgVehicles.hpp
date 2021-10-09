@@ -132,7 +132,7 @@ class CfgVehicles
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
-		}
+		};
 		class EventHandlers {
 			class fza_ah64 {
 				init = "[_this # 0] spawn fza_fnc_eventInit";
@@ -1361,7 +1361,7 @@ class CfgVehicles
 			maxAngleY=20;
 			thermalmode[] = {0, 1};
 			visionmode[] = {"Normal","Ti"}; //PNVS
-		};\
+		};
 
 		class UVAnimations
 		{
@@ -1427,7 +1427,7 @@ class CfgVehicles
 				section	= cpg_pr_mpd_back;
 				source = cpg_mmap_sc;
 			};
-		}
+		};
 
 		class AnimationSources
 		{
@@ -1480,14 +1480,14 @@ class CfgVehicles
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
-		}
+		};
 		/*
 		class hstab
 		{
 			source = "user";
 			animPeriod = 0.01;
 			initPhase  = 1;
-		}
+		};
 		*/
 		class pnvs
 		{
@@ -3082,7 +3082,7 @@ initPhase=0;
 	class fza_ah64_tailboom_debris: RoadCone_F
 	{
 		scope=1;
-		model = "\fza_ah64_us\prx\dam_tailboom_debris";
+		model = "\fza_ah64_us\prx\fza_dam_tailboom_debris";
 		displayName = "DEBRIS";
 		submerged = 0;
 		submergeSpeed = 0;
@@ -3091,7 +3091,7 @@ initPhase=0;
 	};
 	class fza_ah64_vtail_debris: fza_ah64_tailboom_debris
 	{
-		model = "\fza_ah64_us\prx\dam_vtail_debris";
+		model = "\fza_ah64_us\prx\fza_dam_vtail_debris";
 	};
 	class fza_ah64_tr_debris: fza_ah64_tailboom_debris
 	{
@@ -3099,6 +3099,6 @@ initPhase=0;
 	};
 	class fza_ah64_hstab_debris: fza_ah64_tailboom_debris
 	{
-		model = "\fza_ah64_us\prx\dam_hstab_debris";
+		model = "\fza_ah64_us\prx\fza_dam_hstab_debris";
 	};
 };
