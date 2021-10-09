@@ -62,10 +62,11 @@ class CfgFunctions
 			class eventGetOut {R;};
 			class eventInit {R;};
 		};
-		class fcr
+		class Sensor
 		{
-			file = "\fza_ah64_controls\scripting\functions\fcr";
-			class fcrlongbow{R;};
+			file = "\fza_ah64_controls\scripting\functions\Sensor";
+			class targetingSensorUpdate {R;};
+			class targetingAseUpdate {R;};
 		};
 		class fire
 		{
@@ -182,7 +183,6 @@ class CfgFunctions
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
-			class targetingUpdate {R;};
 			class targetingVariable {R;};
 		};
 		class tsd

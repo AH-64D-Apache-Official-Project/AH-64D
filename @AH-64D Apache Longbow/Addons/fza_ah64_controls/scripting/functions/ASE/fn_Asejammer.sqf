@@ -14,7 +14,7 @@ Returns:
 	Nothing
 	
 Examples:
-	Dont call this script, this script is designed to be used by the system, not players in debug
+	_this spawn fza_fnc_aseJammer;
 	
 Author:
 	Rosd6(Dryden)
@@ -49,21 +49,21 @@ if (_irjstate == 1 && _irjon == 0 && _Lfab < 0.8 || _RFjstate == 1 && _RFjon == 
     if (([vehicle _instigator] call fza_fnc_targetIsADA) && !(vehicle _instigator in fza_ah64_targetlist)) then {fza_ah64_targetlist = fza_ah64_targetlist + [vehicle _instigator];};
     //Info Variable
     
-    _rfoper = (_heli getVariable "fza_ah64_rfjon");
-    _iroper = (_heli getVariable "fza_ah64_irjon");
+    _rfoper = _heli getVariable "fza_ah64_rfjon";
+    _iroper = _heli getVariable "fza_ah64_irjon";
     
     //ase page link Beg
     if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethreatsdraw) then {
         [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
     };
-    _seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
-    if (("2" in _seekerhead) && (_heli getVariable "fza_ah64_irjstate" == 1)) then {
-		if (_heli getVariable "fza_ah64_irjon" == 0) then {
+    _seekerhead = getNumber (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
+    if (([_seekerhead, 2] call BIS_fnc_bitwiseAND != 0) && (_heli getVariable "fza_ah64_irjstate" == 1)) then {
+        if (_heli getVariable "fza_ah64_irjon" == 0) then {
             _irjammerscript = _this spawn fza_fnc_aseHandleIrcontrol;
         };
     };
-    if (("8" in _seekerhead) && (_heli getVariable "fza_ah64_rfjstate" == 1)) then {
-		if (_heli getVariable "fza_ah64_RFjon" == 0) then {
+    if (([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) && (_heli getVariable "fza_ah64_rfjstate" == 1)) then {
+        if (_heli getVariable "fza_ah64_RFjon" == 0) then {
             _rfjammerscript = _this spawn fza_fnc_aseHandleRfcontrol;
         };
     };
@@ -72,11 +72,10 @@ if (_irjstate == 1 && _irjon == 0 && _Lfab < 0.8 || _RFjstate == 1 && _RFjon == 
     //activation delay
     sleep 1.5;
 
-    _seekerhead = getText (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
     //RF Jammer
-    if ("8" in _seekerhead) then {
+    if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
         while {(MissileTarget _missile == _heli) && (alive _heli)} do {
-            if ((_heli getVariable "fza_ah64_RFjstate" == 1) && (_heli getHitPointDamage "HitRfab" < 0.8) && (_heli getVariable ["fza_ah64_RFOdeploying", false] == false)) then {
+            if ((_heli getVariable "fza_ah64_RFjstate" == 1) && (_heli getHitPointDamage "HitRfab" < 0.8) && (_heli getVariable "fza_ah64_RFOdeploying" == false)) then {
                 [vehicle player, "fza_AseRFjammer", [-1]] call BIS_fnc_fire;
                 _heli setVariable ["fza_ah64_RFSdeploying", true, true];
             };
@@ -85,9 +84,9 @@ if (_irjstate == 1 && _irjon == 0 && _Lfab < 0.8 || _RFjstate == 1 && _RFjon == 
     };
     _heli setVariable ["fza_ah64_RFSdeploying", false, true];
     //IR Jammer
-    if ("2" in _seekerhead) then {
+    if ([_seekerhead, 2] call BIS_fnc_bitwiseAND != 0) then {
         while {(MissileTarget _missile == _heli) && (alive _heli)} do {
-            if ((_heli getVariable "fza_ah64_irjstate" == 1) && (_heli getHitPointDamage "HitLfab" < 0.8) && (_heli getVariable ["fza_ah64_IROdeploying", false] == false)) then {
+            if ((_heli getVariable "fza_ah64_irjstate" == 1) && (_heli getHitPointDamage "HitLfab" < 0.8) && (_heli getVariable "fza_ah64_IROdeploying" == false)) then {
                 [vehicle player, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
                 _heli setVariable ["fza_ah64_IRSdeploying", true, true];
             };
@@ -108,9 +107,9 @@ if (_irjstate == 1 && _irjon == 0 && _Lfab < 0.8 || _RFjstate == 1 && _RFjon == 
 if (_irjon == 1 && _Lfab < 0.8) then {
     //activation delay
     sleep 1.5;
-    if (_heli getVariable ["fza_ah64_IROdeploying", false] == false) then {
+    if (_heli getVariable "fza_ah64_IROdeploying" == false) then {
         while {((_heli getVariable "fza_ah64_irjon" == 1) && (_heli getHitPointDamage "HitLfab" < 0.8) && (alive _heli))} do {
-            if (_heli getVariable ["fza_ah64_IRSdeploying", false] == false) then {
+            if (_heli getVariable "fza_ah64_IRSdeploying" == false) then {
                 [vehicle player, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
                 _heli setVariable ["fza_ah64_IROdeploying", true, true];
             };
@@ -124,9 +123,9 @@ if (_irjon == 1 && _Lfab < 0.8) then {
 if (_RFjon == 1 && _Rfab < 0.8) then {
     //activation delay
     sleep 1.5;
-    if (_heli getVariable ["fza_ah64_RFOdeploying", false] == false) then {
+    if (_heli getVariable "fza_ah64_RFOdeploying" == false) then {
         while {((_heli getVariable "fza_ah64_RFjon" == 1) && (_heli getHitPointDamage "HitRfab" < 0.8) && (alive _heli))} do {
-            if (_heli getVariable ["fza_ah64_RFSdeploying", false] == false) then {
+            if (_heli getVariable "fza_ah64_RFSdeploying" == false) then {
                 [vehicle player, "fza_AseRFjammer", [-1]] call BIS_fnc_fire;
                 _heli setVariable ["fza_ah64_RFOeploying", true, true];
             };

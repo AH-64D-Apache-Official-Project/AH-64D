@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingUpdate
+Function: fza_fnc_targetingAseUpdate
 Description:
 	Handles repetitive ASE targeting information management. Should be run regularly.
 Parameters:
@@ -8,7 +8,7 @@ Returns:
 	Nothing
 Examples:
 	--- Code
-    [_heli] call fza_fnc_targetingUpdate
+    [_heli] call fza_fnc_targetingAseUpdate
 	---
 Author:
 	Rosd6(Dryden)
@@ -22,9 +22,7 @@ _Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
 _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
 
 {
-	private _ADA = _x # 0;
-	private _type = _x # 1;
-	private _sensor = _x # 2;
+	_x params ["_ada", "_type", "_sensor"];
 	private _IDfailed = true;
 	if ((vehicle player) animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) then {
 		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {

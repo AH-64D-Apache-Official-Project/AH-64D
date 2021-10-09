@@ -83,6 +83,12 @@ _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
 
+//Jammer variables
+_heli setVariable ["fza_ah64_IROdeploying", false];
+_heli setVariable ["fza_ah64_RFOdeploying", false];
+_heli setVariable ["fza_ah64_IRSdeploying", false];
+_heli setVariable ["fza_ah64_RFSdeploying", false];
+
 [_heli] call fza_sfmplus_fnc_coreConfig;
 //[_heli] call BMK_fnc_coreConfig;
 

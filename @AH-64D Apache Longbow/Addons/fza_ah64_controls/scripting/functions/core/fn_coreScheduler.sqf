@@ -36,8 +36,8 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker && count fza_ah64_slowsch
         [_heli] call _x;
     }
     foreach fza_ah64_slowschedarray;
-    [_heli] spawn fza_fnc_fcrLongbow;
-    [_heli] spawn fza_fnc_targetingUpdate;
+    [_heli] spawn fza_fnc_targetingSensorUpdate;
+    [_heli] spawn fza_fnc_targetingAseUpdate;
 };
 
 if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {
