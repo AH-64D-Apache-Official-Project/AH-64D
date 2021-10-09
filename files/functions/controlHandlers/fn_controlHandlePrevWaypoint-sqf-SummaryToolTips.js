@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandlePrevWaypoint.sqf",{34:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Moves the to the previous waypoint in the helicopter\'s list</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandlePrevWaypoint.sqf",{36:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Moves the to the previous waypoint in the helicopter\'s list</div></div>"});
