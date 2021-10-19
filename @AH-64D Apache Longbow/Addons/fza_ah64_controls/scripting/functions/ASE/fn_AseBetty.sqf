@@ -28,6 +28,7 @@ if (_Counter % 2 == 1) exitWith {};
 if !(player == driver _heli || player == gunner _heli) exitwith {};
 if (!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
 
+fza_ah64_Incomingaudio = true;
 _theta = 0;
 _missile = nearestobject [_hostile,_munition];
 _posHeli = getpos _heli;
@@ -51,3 +52,7 @@ _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 _heli vehiclechat format ["Missile %1 OClock %2 %3 Meters",_clock,_highLow,_range];
 _VertAud = "fza_ah64_bt_" + _highLow;
 ["fza_ah64_bt_missile", 0.65, _dirAud, 1.3, _VertAud, 0.62] spawn fza_fnc_playAudio;
+
+fza_ah64_Incomingaudio = true;
+sleep 3;
+fza_ah64_Incomingaudio = false;

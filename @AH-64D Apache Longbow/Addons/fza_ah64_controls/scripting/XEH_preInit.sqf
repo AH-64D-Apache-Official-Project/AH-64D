@@ -74,6 +74,7 @@ fza_ah64_rocketTable =
         ,[3500, 75]
         ,[4500, 120]];
 fza_ah64_weaponDebug = false;
+fza_ah64_Incomingaudio = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
