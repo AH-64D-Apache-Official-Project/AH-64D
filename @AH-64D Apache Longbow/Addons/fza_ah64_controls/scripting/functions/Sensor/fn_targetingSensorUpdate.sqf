@@ -35,7 +35,7 @@ _fcrTargets = [];
 	if (_relationship == "destroyed") then {
 		continue;
 	};
-	if (("passiveradar" in _sensor || "laser" in _sensor) && !(_Target in _detectedActiveRadars)) then {
+	if (("passiveradar" in _sensor || "laser" in _sensor)) then {
 		_detectedActiveRadars pushBack _Target;
 	};
 	if !("activeradar" in _sensor) then {
