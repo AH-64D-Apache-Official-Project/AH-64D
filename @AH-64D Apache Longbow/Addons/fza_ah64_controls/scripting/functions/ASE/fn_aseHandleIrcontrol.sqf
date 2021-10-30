@@ -2,10 +2,10 @@
 Function: fza_fnc_aseHandleIrControl
 
 Description:
-    Handles the IR jammer overheat
+    Enables IR jammer, can be disabled by setting fza_ah64_irJamOn to false.
 
 Parameters:
-    _heli - The helicopter
+    _heli - The helicopter to enable the jammer on
 
 Returns:
 	nothing
@@ -18,25 +18,29 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (_heli getHitPointDamage "Hitlfab" < 0.8) then {
-    _heli setVariable ["fza_ah64_irjon", 1, true];
-    while {
-        (fza_ah64_irjammer < 121 && _heli getVariable "fza_ah64_irjon" == 1)
-    }
-    do {
-        fza_ah64_irjammer = fza_ah64_irjammer + 1;
-        sleep 1;
-    };
-    if (fza_ah64_irjammer > 120) then {
-        _heli setVariable ["fza_ah64_irjon", 0, true];
-    };
-    while {
-        (fza_ah64_irjammer > 0 && _heli getVariable "fza_ah64_irjon" == 0)
-    }
-    do {
-        fza_ah64_irjammer = fza_ah64_irjammer - 1;
-        sleep 0.5;
-    };
-} else {
-    _heli setVariable ["fza_ah64_irjon", 0, true];
+if (_heli getVariable "fza_ah64_irJamOn") exitWith {};
+
+if !local _heli exitWith {
+    _this remoteExec ["fza_fnc_aseHandleIrControl", _heli]
 };
+
+_heli setammo ["fza_AseIRjammer",999999999];
+
+(_heli getVariable "fza_ah64_irJamCooldown") params ["_originalJamTime", "_timeSinceLastMeasurement"];
+
+//Calculate how much the jammer has cooled down since the last deployment.
+private _jamTime = (_originalJamTime - (time - _timeSinceLastMeasurement)) max 0;
+_heli setVariable ["fza_ah64_irJamOn", true, true];
+
+while {_heli getHitPointDamage "HitLfab" < 0.8 &&
+    alive _heli &&
+    _heli getVariable "fza_ah64_irJamOn" &&
+    _jamTime < 60 
+} do {
+    [_heli, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
+    _jamTime = _jamTime + 0.5;
+    sleep 1;
+};
+
+_heli setVariable ["fza_ah64_irJamOn", false, true];
+_heli setVariable ["fza_ah64_irJamCooldown", [_jamTime, time], true];

@@ -60,6 +60,7 @@ class CfgFunctions
 			class eventFired {R;};
 			class eventGetIn {R;};
 			class eventGetOut {R;};
+			class eventIncomingMissile {R;};
 			class eventInit {R;};
 		};
 		class Sensor
@@ -239,7 +240,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ase";
 			class aseBetty {R;};
 			class aseGunnerFlare {R;};
-			class aseJammer {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
 		};

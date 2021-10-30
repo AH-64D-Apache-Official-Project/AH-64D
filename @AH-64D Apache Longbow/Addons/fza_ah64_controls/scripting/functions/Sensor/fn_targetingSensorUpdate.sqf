@@ -38,7 +38,7 @@ _fcrTargets = [];
 	if (("passiveradar" in _sensor || "laser" in _sensor)) then {
 		_detectedActiveRadars pushBack _Target;
 	};
-	if !("activeradar" in _sensor) then {
+	if !("activeradar" in _sensor && _heli getHit "radar" < 0.9) then {
 		continue;
 	};
 	
@@ -55,7 +55,7 @@ _fcrTargets = [];
 		fza_ah64_targetlist pushBack _Target;
 	};
 	sleep 0.05;
-}   foreach getSensorTargets _heli;
+} foreach getSensorTargets _heli;
 
 fza_ah64_fcrlist = _fcrTargets;
 fza_ah64_AseRWR = _detectedActiveRadars;

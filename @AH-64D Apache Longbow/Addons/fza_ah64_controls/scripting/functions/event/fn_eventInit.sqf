@@ -57,8 +57,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_firerdisch", false, true];
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
-    _heli setVariable ["fza_ah64_irjon", 0, true];
-    _heli setVariable ["fza_ah64_rfjon", 0, true];    
+    _heli setVariable ["fza_ah64_irJamOn", false, true];
+    _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
+    _heli setVariable ["fza_ah64_rfJamOn", false, true];
+    _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
@@ -82,12 +84,6 @@ _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire1arm", 0];
 _heli setVariable ["fza_ah64_fire2arm", 0];
 _heli setVariable ["fza_ah64_fireapuarm", 0];
-
-//Jammer variables
-_heli setVariable ["fza_ah64_IROdeploying", false];
-_heli setVariable ["fza_ah64_RFOdeploying", false];
-_heli setVariable ["fza_ah64_IRSdeploying", false];
-_heli setVariable ["fza_ah64_RFSdeploying", false];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 //[_heli] call BMK_fnc_coreConfig;

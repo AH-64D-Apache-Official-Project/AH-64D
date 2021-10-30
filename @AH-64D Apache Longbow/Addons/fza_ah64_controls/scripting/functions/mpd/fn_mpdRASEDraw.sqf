@@ -47,17 +47,11 @@ _heli setObjectTexture [SEL_MPD_PR_ASE_AUTPG,
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_RJOFF, 
-	switch (_heli getVariable "fza_ah64_rfjon") do {
-		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
-		case 1 : { "" };
-	}
+	["\fza_ah64_us\tex\mpd\OFF.paa", ""] select (_heli getVariable "fza_ah64_rfJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_IJOFF, 
-	switch (_heli getVariable "fza_ah64_irjon") do {
-		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
-		case 1 : { "" };
-	}
+	["\fza_ah64_us\tex\mpd\OFF.paa", ""] select (_heli getVariable "fza_ah64_irJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_RJAUT, 
@@ -74,18 +68,12 @@ _heli setObjectTexture [SEL_MPD_PR_ASE_IJAUT,
 	}
 ];
 
-_heli setObjectTexture [SEL_MPD_PR_ASE_RJON, 
-	switch (_heli getVariable "fza_ah64_rfjon") do {
-		case 0 : { "" };
-		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
-	}
+_heli setObjectTexture [SEL_MPD_PR_ASE_RJON,
+	["", "\fza_ah64_us\tex\mpd\OPER.paa"] select (_heli getVariable "fza_ah64_rfJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_IJON, 
-	switch (_heli getVariable "fza_ah64_irjon") do {
-		case 0 : { "" };
-		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
-	}
+	["", "\fza_ah64_us\tex\mpd\OPER.paa"] select (_heli getVariable "fza_ah64_irJamOn")
 ];
 
 private _firstSelection = if (driver _heli == player) then {SEL_MPD_PL_OBJ1} else {SEL_MPD_GR_OBJ1};
