@@ -29,18 +29,19 @@ _heli setammo ["fza_AseRFjammer",999999999];
 (_heli getVariable "fza_ah64_rfJamCooldown") params ["_originalJamTime", "_timeSinceLastDeployment"];
 
 //Calculate how much the jammer has cooled down since the last deployment.
-private _jamTime = (_originalJamTime - (time - _timeSinceLastDeployment)) max 0;
+private _jamTemp = (_originalJamTime - (time - _timeSinceLastDeployment)) max 0;
 _heli setVariable ["fza_ah64_rfJamOn", true, true];
 
+_heli setVariable ["fza_ah64_rfJamCooldown", [_jamTemp, time], true];
 while {_heli getHitPointDamage "HitRfab" < 0.8 &&
     alive _heli &&
     _heli getVariable "fza_ah64_rfJamOn" &&
-    _jamTime < 60 
+    _jamTemp < 60 
 } do {
     [_heli, "fza_AseRFjammer", [-1]] call BIS_fnc_fire;
-    _jamTime = _jamTime + 0.5;
+    _jamTemp = _jamTemp + 0.5;
     sleep 1;
 };
 
 _heli setVariable ["fza_ah64_rfJamOn", false, true];
-_heli setVariable ["fza_ah64_rfJamCooldown", [_jamTime, time], true];
+_heli setVariable ["fza_ah64_rfJamCooldown", [_jamTemp, time], true];
