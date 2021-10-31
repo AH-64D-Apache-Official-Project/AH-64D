@@ -10,14 +10,12 @@ class CfgFunctions
 	{
         tag = "FZA_AICrew";
 		class functions {
-			file = "\fza_ah64_AICrew\functions"; 
-			class coreUpdate {R;};
+			file = "\fza_ah64_AICrew\functions";
 			class engineStart {R;};
 			class fireControl {R;};
 			class init {R;};
 			class getIn {R;};
-			class GetOut {R;};
-			class asecontrol {R;};
+			class getOut {R;};
 			class floodlight {R;};
 		};
     };

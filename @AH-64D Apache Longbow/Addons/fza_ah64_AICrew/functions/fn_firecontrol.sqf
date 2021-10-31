@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_AICrew_fnc_fireControl
+Function: fza_aiCrew_fnc_fireControl
 
 
 Description:
@@ -14,7 +14,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_this] spawn fza_AICrew_fnc_fireControl
+    [_this] spawn fza_aiCrew_fnc_fireControl
 	---
 
 Author:
@@ -24,55 +24,50 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\selections.h"
 
+if !fza_ah64_aiFirecontrol exitwith {};
+if (_heli getVariable "fza_ah64_aiFireHandling") exitWith {}; //Prevent this from being run multiple times simultaneously
+_heli setVariable ["fza_ah64_aiFireHandling", true];
 _driver = driver vehicle _heli;
 _gunner = gunner vehicle _heli;
 
-if !(fza_ah64_aiFirecontrol) exitwith {};
+if !((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) exitWith {};
 
-if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) then {
-	if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-		Sleep fza_ah64_aiFireResponce;
-		if (_heli getVariable "fza_ah64_e1_fire") then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire1arm", 1, true];
-		};
-		sleep 0.4;
-		if (_heli getVariable "fza_ah64_e2_fire") then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fire2arm", 1, true];
-		};
-		sleep 0.4;
-		if (_heli getVariable "fza_ah64_apu_fire") then {
-			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_fireapuarm", 1, true];
-		};
-		sleep 0.4;
+sleep fza_ah64_aiFireResponse;
+if !(_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") exitWith {};
+if (_heli getVariable "fza_ah64_e1_fire") then {
+	[_heli, "eng1", true] call fza_fnc_fireHandlepanel;
+};
+sleep 0.4;
+if (_heli getVariable "fza_ah64_e2_fire") then {
+	[_heli, "eng2", true] call fza_fnc_fireHandlepanel;
+};
+sleep 0.4;
+if (_heli getVariable "fza_ah64_apu_fire") then {
+	[_heli, "apu", true] call fza_fnc_fireHandlepanel;
+};
+sleep 0.4;
+if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
+	if !(_heli getVariable "fza_ah64_firepdisch") then {
+		_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+		_heli setVariable ["fza_ah64_firepdisch", true, true];
+		_dmg = _heli getHit "leng";
+		_heli setHit ["leng", _dmg + 0.01];
+	} else {
+		sleep 1;
 		if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-			if !(_heli getVariable "fza_ah64_firepdisch") then {
-			_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setVariable ["fza_ah64_firepdisch", true, true];
-			_dmg = _heli getHit "leng";
-			_heli setHit ["leng", _dmg + 0.01];
-			} else {
-				sleep 1;
-				if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-					if !(_heli getVariable "fza_ah64_firerdisch") then {
-						_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-						_heli setVariable ["fza_ah64_firerdisch", true, true];
-						_dmg = _heli getHit "Reng";
-						_heli setHit ["Reng", _dmg + 0.01];
-					};
-				};
+			if !(_heli getVariable "fza_ah64_firerdisch") then {
+				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setVariable ["fza_ah64_firerdisch", true, true];
+				_dmg = _heli getHit "Reng";
+				_heli setHit ["Reng", _dmg + 0.01];
 			};
 		};
-		sleep 3;
-		_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-		_heli setVariable ["fza_ah64_fire1arm", 0, true];
-		sleep 0.4;
-		_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-		_heli setVariable ["fza_ah64_fire2arm", 0, true];
-		sleep 0.4;
-		_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-		_heli setVariable ["fza_ah64_fireapuarm", 0, true];
 	};
 };
+_heli setVariable ["fza_ah64_aiFireHandling", false];
+sleep 3;
+[_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+sleep 0.4;
+[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+sleep 0.4;
+[_heli, "apu", false] call fza_fnc_fireHandlepanel;

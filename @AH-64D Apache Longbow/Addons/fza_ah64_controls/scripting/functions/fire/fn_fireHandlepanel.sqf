@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_fireHandlepanel
+Function: fza_fnc_fireHandlePanel
 
 Description:
-    handles remotely setting fire panel texture for mulitplayer compatibilty
+    Arms or disarms the fire panel
 
 Parameters:
 	heli - The helicopter to act on   
@@ -22,27 +22,15 @@ params ["_heli","_engine","_value"];
 
 switch(_engine) do {
 	case "eng1": {
-        if (_value == true) then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-        };
-        if (_value == false) then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-        };
+        _heli setVariable ["fza_ah64_fire1arm", _value, true];
+        _heli setObjectTextureGlobal [SEL_IN_LT_FIRE1RDY, ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _value];
     };
-	case "eng2": {
-        if (_value == true) then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-        };
-        if (_value == false) then {
-			_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-        };
+    case "eng2": {
+        _heli setVariable ["fza_ah64_fire2arm", _value, true];
+        _heli setObjectTextureGlobal [SEL_IN_LT_FIRE2RDY, ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _value];
     };
-	case "apu": {
-        if (_value == true) then {
-			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, "\fza_ah64_us\tex\in\pushbut.paa"];
-        };
-        if (_value == false) then {
-			_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-        };
+    case "apu": {
+        _heli setVariable ["fza_ah64_fireapuarm", _value, true];
+        _heli setObjectTextureGlobal [SEL_IN_LT_FIREAPURDY, ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _value];
     };
 };

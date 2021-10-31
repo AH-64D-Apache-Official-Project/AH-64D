@@ -13,7 +13,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_damageEngineFire
+    [_heli, "right"] call fza_fnc_damageEngineFire
 	---
 
 Author:
@@ -25,20 +25,21 @@ _rand = random 10;
 
 if (_rand > 5) exitwith {};
 
-_usesound = false;
+private _usesound = false;
 
 if (player == driver _heli || player == gunner _heli) then {
     _usesound = true;
 };
 
+
 _helidamage = 0;
 _firepstate = !(_heli getVariable "fza_ah64_firepdisch");
 _firerstate = !(_heli getVariable "fza_ah64_firerdisch");
 
-_side = [];
-_sidef = [];
-_mag = "";
-_audio1 = "";
+private _side = [];
+private _sidef = [];
+private _mag = "";
+private _audio1 = "";
 switch _eng do {
     case "right": {
         _side = [1.2, -0.8, -1.25];
@@ -63,32 +64,7 @@ switch _eng do {
 if (_heli getVariable _mag) exitwith {};
 
 _heli setVariable[_mag, true, true];
-
-_smokefx = "#particlesource"
-createVehicle getpos _heli;
-_smokefx attachto[_heli, [0, 0, 0]];
-
-_firefx = "#particlesource"
-createVehicle getpos _heli;
-_firefx attachto[_heli, [0, 0, 0]];
-
-_smokefx setParticleCircle[0, [0, 0, 0]];
-_smokefx setParticleRandom[0, [0.25, 0.25, 0], [0.2, 0.2, 0], 0, 0.25, [0, 0, 0, 0.1], 0, 0];
-_smokefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 9, 1], "", "Billboard", 1, 3, _side, [0, 0, 1], 0, 10, 7.9, 0.066, [2, 3, 4], [
-    [0.1, 0.1, 0.1, 1],
-    [0.2, 0.2, 0.2, 0.5],
-    [0.3, 0.3, 0.3, 0]
-], [0.125], 1, 0, "", "", _heli];
-_smokefx setDropInterval 0.03;
-
-_firefx setParticleCircle[0, [0, 0, 0]];
-_firefx setParticleRandom[0.5, [0.25, 0.25, 0.1], [0, 0, 1], 0, 0.5, [0, 0, 0, 0], 0, 0];
-_firefx setDropInterval 0.01;
-_firefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 10, 32, 1], "", "Billboard", 1, 0.2, _sidef, [0, 0, 0.5], 5, 1, 0.9, 0.3, [1], [
-    [1, 1, 1, 1],
-    [1, 1, 1, 0.75],
-    [1, 1, 1, 0]
-], [0.5, 0.5, 0], 0.5, 0.5, "", "", _heli];
+["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
 if (_usesound) then {
     [_audio1, 1.25, "fza_ah64_bt_fire", 0.65] spawn fza_fnc_playAudio;
@@ -101,9 +77,9 @@ do {
     _rand = random 10;
     _firepon = _heli getVariable "fza_ah64_firepdisch";
     _fireron = _heli getVariable "fza_ah64_firerdisch";
-    if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
-    if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
-    if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" == 1 && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
+    if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
     if (_eng == "left" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 0 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "right" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 1 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "apu" && _heli animationphase "plt_apu" < 0.5 && _rand > 9.9) exitwith {};
@@ -117,10 +93,5 @@ do {
     sleep 0.1;
 };
 
-detach _smokefx;
-detach _firefx;
-
-deletevehicle _smokefx;
-deletevehicle _firefx;
-
+["fza_engineFireOut", [_heli, _eng]] call CBA_fnc_globalEvent;
 _heli setVariable[_mag, false, true];

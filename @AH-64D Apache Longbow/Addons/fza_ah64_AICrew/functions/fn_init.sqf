@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_AICrew_fnc_init
+Function: fza_aiCrew_fnc_init
 
 
 Description:
@@ -12,14 +12,14 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_AICrew_fnc_init
+    [_heli] call fza_aiCrew_fnc_init
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-//Gets AI rocketpods to work & aim accurate
+//Gets AI rocketpods to work & aim accurately
 _heli animateSource["pylon1", 0.5]; 
 _heli animateSource["pylon2", 0.5]; 
 _heli animateSource["pylon3", 0.5]; 

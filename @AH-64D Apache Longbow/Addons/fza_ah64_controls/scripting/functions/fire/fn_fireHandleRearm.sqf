@@ -26,25 +26,13 @@ if (_heli turretLocal [0]) then {
 
 if ((_heli getHit "leng" == 0) && (_heli getVariable "fza_ah64_firepdisch" == true)) then {
     _heli setVariable ["fza_ah64_firepdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0, true];
-	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-    _heli setVariable ["fza_ah64_fire2arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-    _heli setVariable ["fza_ah64_fireapuarm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-	[_heli,"eng1",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
-	[_heli,"eng2",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
-	[_heli,"apu",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
+	[_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+	[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+	[_heli, "apu", false] call fza_fnc_fireHandlepanel;
 };
-if ((_heli getHit "Reng" == 0) && (_heli getVariable "fza_ah64_firerdisch" == true)) then {
+if ((_heli getHit "reng" == 0) && (_heli getVariable "fza_ah64_firerdisch" == true)) then {
     _heli setVariable ["fza_ah64_firerdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0, true];
-	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-    _heli setVariable ["fza_ah64_fire2arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-    _heli setVariable ["fza_ah64_fireapuarm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
-	[_heli,"eng1",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
-	[_heli,"eng2",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
-	[_heli,"apu",false] remoteExec ["fza_fnc_fireHandlepanel", _heli turretUnit [_turret]];
+    [_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+	[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+	[_heli, "apu", false] call fza_fnc_fireHandlepanel;
 };

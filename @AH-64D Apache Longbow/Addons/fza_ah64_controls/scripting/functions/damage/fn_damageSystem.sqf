@@ -65,19 +65,16 @@ if (_system == "otocvez") then {
 if (_system == "trans") then {
     if (_damage >= 0.4) then {
         [_heli, "apu"] spawn fza_fnc_damageEngineFire;
-        [_heli] spawn fza_AICrew_fnc_fireControl;
     };
 };
 if (_system == "leng") then {
     if (_damage >= 0.4) then {
         [_heli, "left"] spawn fza_fnc_damageEngineFire;
-        [_heli] spawn fza_AICrew_fnc_fireControl;
     };
 };
 
 if (_system == "reng") then {
     if (_damage >= 0.4) then {
         [_heli, "right"] spawn fza_fnc_damageEngineFire;
-        [_heli] spawn fza_AICrew_fnc_fireControl;
     };
 };

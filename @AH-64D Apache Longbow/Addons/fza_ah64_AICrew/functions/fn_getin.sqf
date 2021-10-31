@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_AICrew_fnc_getin
+Function: fza_aiCrew_fnc_getin
 
 
 Description:
@@ -15,7 +15,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_AICrew_fnc_getin
+    [_heli] call fza_aiCrew_fnc_getin
     
 Author:
 	Rosd6(Dryden)

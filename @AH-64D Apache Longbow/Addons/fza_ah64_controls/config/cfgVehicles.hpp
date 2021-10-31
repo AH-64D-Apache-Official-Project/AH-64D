@@ -5,7 +5,7 @@ class CfgVehicles
 		class Components;
 		class EventHandlers;
 	};
-	#include "CfgCrew.hpp"
+	#include "cfgVehicles\crew.hpp"
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
@@ -156,7 +156,7 @@ class CfgVehicles
 		};
 		class EventHandlers {
 			class fza_ah64 {
-				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_AICrew_fnc_init";
+				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init";
 				handleDamage = "_this call fza_fnc_damageSystem";
 			};
 		};
