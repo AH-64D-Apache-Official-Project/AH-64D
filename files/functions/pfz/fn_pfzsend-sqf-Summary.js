@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/pfz/fn_pfzsend.sqf","fn_pfzsend.sqf");NDSummary.OnSummaryLoaded("File:functions/pfz/fn_pfzsend.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[81,0,1,"Functions","Functions"],[82,0,0,"fza_fnc_pfzSend","fza_fnc_pfzSend"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:functions/pfz/fn_pfzsend.sqf","fn_pfzsend.sqf");NDSummary.OnSummaryLoaded("File:functions/pfz/fn_pfzsend.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[69,0,1,"Functions","Functions"],[70,0,0,"fza_fnc_pfzSend","fza_fnc_pfzSend"]]);
