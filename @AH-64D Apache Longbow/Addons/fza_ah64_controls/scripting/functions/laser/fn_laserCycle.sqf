@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_controlHandlelasechange
+    [_heli] call fza_fnc_laserCycle
 	---
 
 Author:

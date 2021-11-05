@@ -68,7 +68,7 @@ do {
         };
         _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
         if ([(getposasl _heli select 0), (getposasl _heli select 1), 0] distance _waypoint < 50) then {
-            [_heli] call fza_fnc_controlHandleNextWaypoint;
+            [_heli, true] call fza_fnc_navigationWaypointCycle;;
         };
     };
     /////////////////

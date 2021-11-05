@@ -22,7 +22,11 @@ switch(_control) do {
 		_heli setVariable ["fza_ah64_rfjon", 0, true];
 	};
 	case "l1": {
-		_autpg = [_heli] call fza_fnc_controlHandleASEAutopage;
+		switch (_heli getVariable "fza_ah64_aseautopage") do {
+			case 0 : { _heli setVariable ["fza_ah64_aseautopage", 1] };
+			case 1 : { _heli setVariable ["fza_ah64_aseautopage", 2] };
+			case 2 : { _heli setVariable ["fza_ah64_aseautopage", 0] };
+		};
 	};
 	case "l4": {
 		_irjamonoff = _this spawn fza_fnc_aseHandleIrcontrol;

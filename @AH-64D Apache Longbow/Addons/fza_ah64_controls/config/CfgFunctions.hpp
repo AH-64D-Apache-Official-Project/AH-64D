@@ -154,6 +154,7 @@ class CfgFunctions
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
+			class navigationWaypointCycle {R;};
 		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
@@ -229,7 +230,6 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
 			class aseBetty {R;};
-			class aseGunnerFlare {R;};
 			class aseJammer {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};

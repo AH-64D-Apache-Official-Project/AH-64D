@@ -78,7 +78,7 @@ if (_value) then {
 		};
 		case "fza_ah64_targetStoreUpdate": {
 
-			private _position = positionCameraToWorld [0.5, 0.5];
+			private _position = screenToWorld [0.5, 0.5];
 			
 			if (_position distance (getPos _heli) > 7000) exitWith {};
 
@@ -86,17 +86,13 @@ if (_value) then {
 				_heli vehiclechat "Waypoint limits reached.";
 			};
 
-			_heli setVariable ["fza_ah64_waypointdata", (_heli getVariable "fza_ah64_waypointdata") + [[(_position select 0), (_position select 1), 0]], true];
+			_heli setVariable ["fza_ah64_waypointdata", (_heli getVariable "fza_ah64_waypointdata") + [[_position # 0, _position # 1, 0]], true];
 		};
 		case "fza_ah64_waypointIncrease": {
-			if (_heli getVariable "fza_ah64_curwpnum" < (count (_heli getVariable "fza_ah64_waypointdata") - 1)) then {
-				_heli setVariable ["fza_ah64_curwpnum", (_heli getVariable "fza_ah64_curwpnum") + 1, true];
-			};
+			[_heli, true] call fza_fnc_navigationWaypointCycle;
 		};
 		case "fza_ah64_waypointDecrease": {
-			if((_heli getVariable "fza_ah64_curwpnum") > 0) then {
-				_heli setVariable ["fza_ah64_curwpnum", (_heli getVariable "fza_ah64_curwpnum") - 1, true];
-			};
+			[_heli, false] call fza_fnc_navigationWaypointCycle;
 		};
 		case "fza_ah64_laserCycle": {
 			[_heli] call fza_fnc_laserCycle;
@@ -136,7 +132,12 @@ if (_value) then {
 		case "prevWeapon": {
 			[_heli] call fza_fnc_weaponUpdateSelected;
 			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
-		}
+		};
+		case "launchCM": {
+			if (player == gunner _heli) then {
+				[_heli, "fza_CMFlareLauncher", [-1]] call BIS_fnc_fire;
+			}
+		};
 	};
 };
 
