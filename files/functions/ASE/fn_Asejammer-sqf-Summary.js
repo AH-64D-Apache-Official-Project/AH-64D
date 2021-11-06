@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/ASE/fn_Asejammer.sqf","fn_Asejammer.sqf");NDSummary.OnSummaryLoaded("File:functions/ASE/fn_Asejammer.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[157,0,1,"Functions","Functions"],[158,0,0,"fza_fnc_aseJammer","fza_fnc_aseJammer"]]);

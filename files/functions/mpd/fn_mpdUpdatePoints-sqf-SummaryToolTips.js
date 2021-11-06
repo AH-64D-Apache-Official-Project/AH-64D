@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdUpdatePoints.sqf",{124:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws the points inputted on the right hand MPD, performing all necessary positioning</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdUpdatePoints.sqf",{58:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws the points inputted on the right hand MPD, performing all necessary positioning</div></div>"});

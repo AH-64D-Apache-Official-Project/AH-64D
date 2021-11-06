@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleIrcontrol.sqf",{166:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the IR jammer overheat</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleIrcontrol.sqf",{142:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Enables IR jammer, can be disabled by setting fza_ah64_irJamOn to false.</div></div>"});
