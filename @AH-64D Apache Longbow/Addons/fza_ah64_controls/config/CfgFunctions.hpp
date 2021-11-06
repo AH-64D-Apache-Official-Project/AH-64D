@@ -62,12 +62,14 @@ class CfgFunctions
 			class eventFired {R;};
 			class eventGetIn {R;};
 			class eventGetOut {R;};
+			class eventIncomingMissile {R;};
 			class eventInit {R;};
 		};
-		class fcr
+		class Sensor
 		{
-			file = "\fza_ah64_controls\scripting\functions\fcr";
-			class fcrlongbow{R;};
+			file = "\fza_ah64_controls\scripting\functions\Sensor";
+			class targetingSensorUpdate {R;};
+			class targetingAseUpdate {R;};
 		};
 		class fire
 		{
@@ -184,7 +186,6 @@ class CfgFunctions
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
-			class targetingUpdate {R;};
 			class targetingVariable {R;};
 		};
 		class tsd
@@ -241,7 +242,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ase";
 			class aseBetty {R;};
 			class aseGunnerFlare {R;};
-			class aseJammer {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
 		};

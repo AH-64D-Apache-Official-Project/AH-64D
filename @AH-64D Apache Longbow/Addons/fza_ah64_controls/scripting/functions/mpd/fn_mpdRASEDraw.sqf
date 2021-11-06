@@ -3,7 +3,7 @@ params ["_heli"];
 
 
 
-/*TODO: When chaff re-added, add here
+/*TODO: When chaff re-added, add here //HA who wrote this
 _heli setobjecttexture [SEL_MPD_PR_ASE_CSEL, "\fza_ah64_us\tex\mpd\chaff.paa"];
 [_heli, 0, "\fza_ah64_us\tex\char\g", SEL_DIGITS_MPD_PR_ASE_CC] call fza_fnc_drawNumberSelections;
 if (fza_ah64_cmsel == 1) then {
@@ -47,17 +47,11 @@ _heli setObjectTexture [SEL_MPD_PR_ASE_AUTPG,
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_RJOFF, 
-	switch (_heli getVariable "fza_ah64_rfjon") do {
-		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
-		case 1 : { "" };
-	}
+	["\fza_ah64_us\tex\mpd\OFF.paa", ""] select (_heli getVariable "fza_ah64_rfJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_IJOFF, 
-	switch (_heli getVariable "fza_ah64_irjon") do {
-		case 0 : { "\fza_ah64_us\tex\mpd\OFF.paa" };
-		case 1 : { "" };
-	}
+	["\fza_ah64_us\tex\mpd\OFF.paa", ""] select (_heli getVariable "fza_ah64_irJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_RJAUT, 
@@ -74,18 +68,12 @@ _heli setObjectTexture [SEL_MPD_PR_ASE_IJAUT,
 	}
 ];
 
-_heli setObjectTexture [SEL_MPD_PR_ASE_RJON, 
-	switch (_heli getVariable "fza_ah64_rfjon") do {
-		case 0 : { "" };
-		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
-	}
+_heli setObjectTexture [SEL_MPD_PR_ASE_RJON,
+	["", "\fza_ah64_us\tex\mpd\OPER.paa"] select (_heli getVariable "fza_ah64_rfJamOn")
 ];
 
 _heli setObjectTexture [SEL_MPD_PR_ASE_IJON, 
-	switch (_heli getVariable "fza_ah64_irjon") do {
-		case 0 : { "" };
-		case 1 : { "\fza_ah64_us\tex\mpd\OPER.paa" };
-	}
+	["", "\fza_ah64_us\tex\mpd\OPER.paa"] select (_heli getVariable "fza_ah64_irJamOn")
 ];
 
 private _firstSelection = if (driver _heli == player) then {SEL_MPD_PL_OBJ1} else {SEL_MPD_GR_OBJ1};
@@ -99,17 +87,24 @@ private _objects = fza_ah64_asethreatsdraw apply {
 	private _iconsuffix = "D.paa";
 	private _priority = 0;
 
-	if (_x iskindof "rhs_zsutank_base") then {
+	if ((_x iskindof "rhs_zsutank_base") || (_x iskindof "CUP_ZSU23_Base")) then {
 		_iconformat = "\fza_ah64_US\tex\ICONS\23";
 	};
-	if (_x iskindof "O_APC_Tracked_02_AA_F") then {
+	if ((_x iskindof "B_APC_Tracked_01_base_F") || (_x iskindof "O_APC_Tracked_02_base_F") || (_x iskindof "CUP_2S6_Base")) then {
 		_iconformat = "\fza_ah64_US\tex\ICONS\19";
 	};
-
-	if (_heli == assignedTarget _x || _x AimedAtTarget[_heli] > 0.5) then {
+	if ((_x iskindof "Radar_System_01_base_F") || (_x iskindof "Radar_System_02_base_F") || (vehicle _x iskindof "SAM_System_03_base_F") || (vehicle _x iskindof "SAM_System_04_base_F")) then {
+		_iconformat = "\fza_ah64_US\tex\ICONS\9";
+	};
+	if ((_x iskindof "laserTarget")) then {
+		_iconformat = "\fza_ah64_US\tex\ICONS\ULSR";
+		_iconsuffix = "";
+	};
+	
+	if (vehicle _x in fza_ah64_threattracking) then {
 		_iconsuffix = "T.paa";
 	};
-	if (_x in fza_ah64_threatfiring) then {
+	if (vehicle _x in fza_ah64_threatfiring) then {
 		_iconsuffix = "L.paa";
 		_priority = 1;
 	};

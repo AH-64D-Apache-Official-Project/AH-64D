@@ -28,15 +28,16 @@ if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehic
 {
     [_heli] call _x;
 }
-foreach fza_ah64_schedarray;
+foreach fza_ah64_draw3Darray;
 
-if ((diag_ticktime - fza_ah64_overallticker) > _ticker && count fza_ah64_slowschedarray > 0) then {
+if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
     fza_ah64_overallticker = diag_ticktime; 
     {
         [_heli] call _x;
     }
-    foreach fza_ah64_slowschedarray;
-    [_heli] spawn fza_fnc_fcrLongbow;
+    foreach fza_ah64_draw3DarraySlow;
+    [_heli] spawn fza_fnc_targetingSensorUpdate;
+    [_heli] spawn fza_fnc_targetingAseUpdate;
 };
 
 if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {

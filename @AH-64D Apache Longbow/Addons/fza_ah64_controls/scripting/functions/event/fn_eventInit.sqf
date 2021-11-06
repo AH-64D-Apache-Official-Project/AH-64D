@@ -57,8 +57,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_firerdisch", false, true];
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
-    _heli setVariable ["fza_ah64_irjon", 0, true];
-    _heli setVariable ["fza_ah64_rfjon", 0, true];    
+    _heli setVariable ["fza_ah64_irJamOn", false, true];
+    _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
+    _heli setVariable ["fza_ah64_rfJamOn", false, true];
+    _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
