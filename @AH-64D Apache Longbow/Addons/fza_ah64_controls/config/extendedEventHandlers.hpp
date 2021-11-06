@@ -5,18 +5,10 @@ class Extended_PreInit_EventHandlers {
 	};
 };
 
-class Extended_Engine_EventHandlers {
-	class fza_ah64base {
-		class fza_ah64base_engine_eh {
-			engine = "_this call fza_fnc_engineEventHandler;";
-		};
-	};
-};
-
 class Extended_FiredBIS_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_fired_eh {
-			firedBIS = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; fza_ah64_salvofired = fza_ah64_salvofired + 1;  _this spawn fza_fnc_weaponSubmunition;";
+			firedBIS = "_this call fza_fnc_eventFired; _this call fza_fnc_fxMuzzle; fza_ah64_salvofired = fza_ah64_salvofired + 1;";
 		};
 	};
 };
@@ -48,6 +40,6 @@ class Extended_Killed_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_killed_eh {
 			killed = "_this call fza_fnc_eventGetOut; _this call BIS_Effects_EH_Killed;";
-		}; // helpes remove IHADSS upon dead
+		}; // helps remove IHADSS upon dead
 	};
 };

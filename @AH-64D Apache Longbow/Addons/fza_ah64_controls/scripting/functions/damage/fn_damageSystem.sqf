@@ -63,21 +63,18 @@ if (_system == "otocvez") then {
 };
 
 if (_system == "trans") then {
-    if (_damage == 0 && _oldDam != 0) then {
-        _heli setVariable ["fza_ah64_apu_fire", false, true];
-    };
-    if (_oldDam < 0.4 && _damage >= 0.4 && _heli animationphase "plt_apu" == 1) then {
-        [_heli, "apu"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
+    if (_damage >= 0.4) then {
+        [_heli, "apu"] spawn fza_fnc_damageEngineFire;
     };
 };
 if (_system == "leng") then {
     if (_damage >= 0.4) then {
-        [_heli, "left"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
+        [_heli, "left"] spawn fza_fnc_damageEngineFire;
     };
 };
 
 if (_system == "reng") then {
     if (_damage >= 0.4) then {
-        [_heli, "right"] execvm "\fza_ah64_controls\scripting\damage\enginefire.sqf";
+        [_heli, "right"] spawn fza_fnc_damageEngineFire;
     };
 };

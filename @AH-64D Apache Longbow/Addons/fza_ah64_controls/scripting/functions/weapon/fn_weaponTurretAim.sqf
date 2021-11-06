@@ -133,22 +133,22 @@ if (_usingRocket) then {
 		_inhibit = "PYLON LIMIT"
 	};
     if (WEP_TYPE(_heliPylons# 0) == "rocket") then {
-        _heli animateSource["pylon1", _pylonAdjustment];
+        _heli animateSource["pylon1", _pylonAdjustment, true];
     } else {
 		_heli animateSource["pylon1", 0];
 	};
     if (WEP_TYPE(_heliPylons# 4) == "rocket") then {
-		_heli animateSource["pylon2", _pylonAdjustment];
+		_heli animateSource["pylon2", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon2", 0];
 	};
 	if (WEP_TYPE(_heliPylons# 8) == "rocket") then {
-		_heli animateSource["pylon3", _pylonAdjustment];
+		_heli animateSource["pylon3", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon3", 0];
 	};
 	if (WEP_TYPE(_heliPylons# 12) == "rocket") then {
-		_heli animateSource["pylon4", _pylonAdjustment];
+		_heli animateSource["pylon4", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon4", 0];
 	};
@@ -170,7 +170,7 @@ if (_usingCannon) then {
 	};
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
+		_heli selectweapon "fza_burstlimiter";
     };
 	_heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
 	_heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];

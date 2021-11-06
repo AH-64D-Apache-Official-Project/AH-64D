@@ -108,12 +108,12 @@ do {
     } else {
         _heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
     };
-	if (_heli ammo "fza_Fx1" == 0) then {
+    if (_heli getVariable "fza_ah64_firepdisch") then {
         _heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
     };
-	if (_heli ammo "fza_Fx2" == 0) then {
+    if (_heli getVariable "fza_ah64_firerdisch") then {
         _heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
@@ -121,7 +121,7 @@ do {
 
     ///EWCA//
     //pilot
-    if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli) then {
+    if (_heli animationphase "plt_batt" > 0.5) then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;

@@ -775,7 +775,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 ///HAD INHIBIT MESSAGES
 
 if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
-    player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
+    _heli selectweapon "fza_burstlimiter";
 };
 
 if (fza_ah64_gunheat > 0) then {
@@ -787,7 +787,7 @@ if (fza_ah64_gunheat < 0) then {
     fza_ah64_burst = 0;
 };
 
-if (time - fza_ah64_firekeypressed > 0.1 && currentweapon _heli == "fza_burstlimiter") then {
+if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
     fza_ah64_burst = 0;
     _heli selectWeapon "fza_m230";
 };

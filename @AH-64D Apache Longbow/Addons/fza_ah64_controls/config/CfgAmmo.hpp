@@ -3,14 +3,12 @@ class CfgAmmo
 	class Default{};
 	class B_30mm_HE;
 	class Bulletbase;
-	class MissileCore;
 	class MissileBase;
+	class Missile_AA_04_F;
 	class Missile_AGM_02_F : MissileBase {
 		class Components;
 		class EventHandlers;
 	};
-	class RocketCore;
-	class RocketBase;
 	class GrenadeBase;
 	class FlareCore;
 	class B_9x21_Ball;
@@ -61,13 +59,6 @@ class CfgAmmo
 		weaponLockSystem			=0;
 		lockType					=2;
 	};
-	class fza_fireBottlePrimary: Default
-	{
-		lockType					=2;
-	};
-	class fza_fireBottleSecondary: fza_fireBottlePrimary
-	{
-	};
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////M230/////////////////////////////////////
@@ -112,6 +103,43 @@ class CfgAmmo
 		dangerRadiusHit=60;
 		suppressionRadiusBulletClose=12;
 		suppressionRadiusHit=24;
+
+		aiRateOfFire = 0.109;
+		aiRateOfFireDistance = 0;
+		minRange = 0;
+		minRangeProbab = 0.9;
+		midRange = 2400;
+		midRangeProbab = 0.8;
+		maxRange = 3500;
+		maxRangeProbab = 0.6;
+		class CamShakeExplode
+		{
+			power = 6;
+			duration = 1;
+			frequency = 20;
+			distance = 67.8178;
+		};
+		class CamShakeHit
+		{
+			power = 30;
+			duration = 0.4;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.23607;
+			duration = 1;
+			frequency = 20;
+			distance = 40;
+		};
+		class CamShakePlayerFire
+		{
+			power = 0.01;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
+		};
 	};
 	
 	///////////////////////////////////////////////////////////////////////
@@ -127,7 +155,7 @@ class CfgAmmo
 		laserLock					= 0;
 		airLock						= 0;
 
-		maxSpeed					= 425;
+		maxSpeed					= 166;
 		simulationStep				= 0.005;
 		airFriction					= 0.03;
 		sideAirFriction				= 0.15;
@@ -147,6 +175,12 @@ class CfgAmmo
 		aiAmmoUsageFlags 			= "64+128+512";
 		allowAgainstInfantry 		= 1;
 		cost 						= 1000;
+		minRange = 300;
+		minRangeProbab = 0.7;
+		midRange = 3500;
+		midRangeProbab = 1.0;
+		maxRange = 8000;
+		maxRangeProbab = 0.8;	
 
 		//Penetrator
 		submunitionAmmo				="ammo_Penetrator_AGM_01";
@@ -168,7 +202,7 @@ class CfgAmmo
 
 		//Missile sensors definition
 		missileLockMaxDistance		= 8000;
-		missileLockMinDistance		= 700;
+		missileLockMinDistance		= 200;
 		missileLockMaxSpeed			= 56;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
@@ -205,11 +239,11 @@ class CfgAmmo
 					class RadarSensorComponent : SensorTemplateActiveRadar
 					{
 						class AirTarget {
-							minRange = 8000;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						class GroundTarget {
-							minRange = 8000;
+							minRange = 500;
 							maxRange = 8000;
 						};
 						typeRecognitionDistance = -1; // distance how far the target type gets recognized
@@ -234,6 +268,34 @@ class CfgAmmo
 			{
 				fired = "_this call fza_fnc_weaponMissileSlowDown";
 			};
+		};
+		class CamShakeExplode
+		{
+			power = 22;
+			duration = 2;
+			frequency = 20;
+			distance = 163.905;
+		};
+		class CamShakeHit
+		{
+			power = 110;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 4;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
 		};
 	};
 	class fza_agm114l : fza_agm114base
@@ -274,8 +336,8 @@ class CfgAmmo
 		proxyShape					= "\fza_ah64_us\fza_agm114k";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
+		aiAmmoUsageFlags 			= "64+128+512";
+		allowAgainstInfantry 		= 1;
 		cost 						= 1000;
 
 		hit 						= 600;
@@ -289,7 +351,7 @@ class CfgAmmo
 		
 		//MSL sensors definition
 		missileLockMaxDistance 		= 8000;
-		missileLockMinDistance 		= 500;
+		missileLockMinDistance 		= 300;
 		missileLockMaxSpeed 		= 56;
 		missileLockCone 			= 90;
 		missileKeepLockedCone 		= 90;
@@ -305,11 +367,11 @@ class CfgAmmo
 					class LaserSensorComponent : SensorTemplateLaser
 					{
 						class AirTarget {
-							minRange = 7000;
+							minRange = 300;
 							maxRange = 7000;
 						};
 						class GroundTarget {
-							minRange = 7000;
+							minRange = 300;
 							maxRange = 7000;
 						};
 						angleRangeHorizontal = 30;
@@ -337,8 +399,6 @@ class CfgAmmo
 		indirectHitRange 			= 4;
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
 		cost 						= 500;
 	};
 	class fza_agm114c : fza_agm114k
@@ -354,8 +414,6 @@ class CfgAmmo
 		indirectHitRange 			= 4;
 
 		//AI usage
-		aiAmmoUsageFlags 			= "128+512";
-		allowAgainstInfantry 		= 0;
 		cost 						= 600;
 	};
 	class fza_agm114m : fza_agm114k
@@ -372,8 +430,6 @@ class CfgAmmo
 		submunitionAmmo				= "";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "64+128+512";
-		allowAgainstInfantry 		= 1;
 		cost 						= 700;
 	};
 	class fza_agm114n : fza_agm114k
@@ -388,8 +444,6 @@ class CfgAmmo
 		submunitionAmmo				= "";
 
 		//AI usage
-		aiAmmoUsageFlags 			= "64+128+512";
-		allowAgainstInfantry 		= 1;
 		cost 						= 700;
 	};
 	
@@ -427,9 +481,11 @@ class CfgAmmo
 		cmimmunity 					= 1;
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64+128";
+		aiAmmoUsageFlags 			= "128+512";
 		allowAgainstInfantry 		= 1;
 		cost 						= 75;
+		aiRateOfFire = 0.3;
+		aiRateOfFireDistance = 0;
 
 		weaponType 					= "rocket";
 		suppressionRadiusHit 		= 15;
@@ -443,6 +499,34 @@ class CfgAmmo
 		sideAirFriction 			= 0.004;
 		timeToLive					= 15;
 		whistleDist					= 24;
+		class CamShakeExplode
+		{
+			power = 16;
+			duration = 1.8;
+			frequency = 20;
+			distance = 191.554;
+		};
+		class CamShakeHit
+		{
+			power = 80;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 2;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
+		};
 	};
 	class fza_275_m151: fza_275_base
 	{
@@ -482,13 +566,18 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 5;
 		indirectHitRange 			= 5;
+
 		submunitionDirectionType	= "SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_m73mpsm";
 		submunitionConeType[] 		= {"randomcenter",9};
 		submunitionConeAngle		= 2;
+		triggerDistance				= 500;
+		submunitionInitSpeed		= 500;
+		deleteParentWhenTriggered	= 1;
+		
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64";
+		aiAmmoUsageFlags 			= "64+128";
 		cost 						= 100;
 	};
 	class fza_275_m257: fza_275_base 
@@ -503,9 +592,12 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit 				= 0;
 		indirectHitRange 			= 0;
+
 		submunitionAmmo 			= "fza_m257_flare";
 		submunitionCount 			= 1;
 		submunitionConeAngle		= 0;
+		deleteParentWhenTriggered	= 1;
+
 		triggerTime 				= 1.5;
 		maxSpeed 					= 450;
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
@@ -528,15 +620,20 @@ class CfgAmmo
 		hit 						= 30;
 		indirectHit					= 0;
 		indirectHitRange 			= 0;
+
 		submunitionDirectionType	="SubmunitionModelDirection";
 		submunitionAmmo 			= "fza_flec_cluster";
 		submunitionConeType[] 		= {"randomcenter",100};
 		submunitionConeAngle 		= 12;
+		triggerDistance				= 200;
+		submunitionInitSpeed		= 500;
+		deleteParentWhenTriggered	= 1;
+
 		soundHit1[] 				= {"A3\sounds_f\dummysound",2.5118864,1,5};
 		multiSoundHit[] 			= {"soundHit1",1};
 
 		//AI uasge
-		aiAmmoUsageFlags 			= "64";
+		aiAmmoUsageFlags 			= "64+128";
 		cost 						= 100;
 	};
 	
@@ -546,6 +643,9 @@ class CfgAmmo
 	
 	class fza_m73mpsm: GrenadeBase
 	{
+		ace_frag_enabled 			= 0;
+		ace_frag_skip 				= 1;
+
 		soundsetexplosion[] 		= {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
 		simulation 					= "shotShell";
 		model 						= "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
@@ -589,11 +689,97 @@ class CfgAmmo
 	};
 	class fza_flec_cluster: B_9x21_Ball
 	{
+		ace_frag_enabled 			= 0;
+		ace_frag_skip 				= 1;
+		
 		hit 						= 6;
 		indirectHit 				= 6;
 		indirectHitRange 			= 4;
 		deflecting 					= 0;
 		fuseDistance 				= 50;
+	};
+
+	///////////////////////////////////////////////////////////////////////
+	//////////////////////////////STINGERS/////////////////////////////////
+	///////////////////////////////////////////////////////////////////////	
+
+	class fza_fim92: Missile_AA_04_F
+	{
+		model = "\fza_ah64_us\fza_fim92";
+		proxyShape = "\fza_ah64_us\fza_fim92";
+		cost = 1000;
+		hit = 100;
+		indirectHit = 75;
+		indirectHitRange = 9;
+		proximityExplosionDistance = 15;
+		warheadName = "HE";
+		airLock = 2;
+		irLock = 1;
+		laserLock = 0;
+		nvLock = 0;
+		missileLockCone = 45;
+		missileKeepLockedCone = 60;
+		missileLockMaxDistance = 4500;
+		missileLockMinDistance = 150;
+		missileLockMaxSpeed = 445;
+		weaponLockSystem = "2 + 16";
+		cmImmunity = 0.9;
+		manualControl = 0;
+		maxControlRange = 8000;
+		aiAmmoUsageFlags = 256;
+		initTime = 0;
+		thrust = 220;
+		thrustTime = 5;
+		airFriction = 0.14;
+		sideAirFriction = 0.2;
+		maxSpeed = 2700;
+		maneuvrability = 36;
+		simulationStep = 0.002;
+		fuseDistance = 500;
+		timeToLive = 20;
+		trackLead = 0.9;
+		trackOversteer = 1;
+		craterEffects = "ATRocketCrater";
+		effectsMissileInit = "PylonBackEffects";
+		effectsmissile = "fza_ah64_stingersmoke";
+		explosioneffects = "AAMissileExplosion";
+		muzzleEffect = "fza_ah64_fx_msl_shake";
+		whistleDist = 16;
+		soundsetexplosion[] = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};		
+		soundsetsoniccrack[] = {"fza_sc_rocket_flyby_soundset"};
+		soundfly[]  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+		class Hiteffects
+		{
+			hitWater = "ImpactEffectsSmall";
+		};
+		class CamShakeExplode
+		{
+			power = 22;
+			duration = 2;
+			frequency = 20;
+			distance = 163.905;
+		};
+		class CamShakeHit
+		{
+			power = 110;
+			duration = 0.6;
+			frequency = 20;
+			distance = 1;
+		};
+		class CamShakeFire
+		{
+			power = 2.9907;
+			duration = 1.8;
+			frequency = 20;
+			distance = 71.5542;
+		};
+		class CamShakePlayerFire
+		{
+			power = 4;
+			duration = 0.1;
+			frequency = 20;
+			distance = 1;
+		};
 	};
 };
 	///////////////////////////////////////////////////////////////////////

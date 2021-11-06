@@ -41,12 +41,12 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\damage";
 			class damageSystem {R;};
 			class damageM230 {R;};
+			class damageEnginefire {R;};
 		};
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineAPUOn {R;};
-			class engineEventHandler {R;};
 			class engineHandleControl {R;};
 			class engineSetPosition
 			{
@@ -76,6 +76,7 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {R;};
 			class fireHandleRearm {R;};
+			class fireHandlepanel {R;};
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
@@ -215,7 +216,6 @@ class CfgFunctions
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};
 			class weaponSelectFireMode {R;};
-			class weaponSubmunition {R;};
 			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
 		};
