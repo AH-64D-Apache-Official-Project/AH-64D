@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_Ihadsstoggle.sqf",{36:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Nothing</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_Ihadsstoggle.sqf",{38:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Nothing</div></div>"});
