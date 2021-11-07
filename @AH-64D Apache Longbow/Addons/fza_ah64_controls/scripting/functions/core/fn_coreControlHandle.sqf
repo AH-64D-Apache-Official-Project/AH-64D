@@ -16,7 +16,6 @@ if (_value) then {
 			if(count _controls > 1) then {
 				_controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
 			};
-			systemChat format ["Controls: %1", _controls];
 			
 			(_controls # 0) params ["", "", "_system", "_control"];
 
