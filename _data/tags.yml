@@ -7,9 +7,11 @@ allowed-tags:
   - hellfire
   - laser
   - radar
-  - MPDs
+  - mpd
   - engines
   - IHADSS
   - flight_model
-
-# Copyright 2021 Google LLC
+  - targeting
+  - changelogs
+  - contributing
+  - ui

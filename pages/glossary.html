@@ -1,0 +1,30 @@
+---
+title: Glossary
+tags: [getting_started]
+summary: Common terms and abbreviations
+sidebar: ah64d_sidebar
+permalink: glossary.html
+folder: root
+---
+<p>Since the Apache mod aims for realism in as many places as possible we use a lot of terms and acronyms for their specificity and shortness. Unfortunately, some of these can seem obscure without knowing what they mean. Here is a list of such terms and their definitions in this context:</p>
+
+{% comment %} To edit this glosary go to _data/glossary.yml {% endcomment %}
+
+<br/>
+<table>
+<thead>
+    <tr>
+        <td>Item</td>
+        <td>Description</td>
+    </tr>
+</thead>
+<tbody>
+{% assign sorted_items = site.data.glossary.items | sort_natural: "name" %}
+{% for item in sorted_items %}
+    <tr>
+        <td>{{item.name}}</td>
+        <td>{{item.description}}</td>
+    </tr>
+{% endfor %}
+</tbody>
+</table>

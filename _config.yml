@@ -44,9 +44,10 @@ feedback_disable: false
 feedback_text: "Need help?"
 # if you uncomment the previous line, it changes the Feedback text
 
-feedback_link: "https://steamcommunity.com/linkfilter/?url=https://discord.gg/rB6yDDy"
+feedback_link: "https://discord.gg/rB6yDDy"
 # if you uncomment the previous line, it changes where the feedback link points to
 
+folders: [weapons, targeting, root]
 highlighter: rouge
 # library used for syntax highlighting
 
@@ -73,16 +74,17 @@ defaults:
       layout: "page"
       comments: false
       # if you don't want to use Commento.io and just hide comments, change true to false wherever you see the comments property
-      search: true
+      search:
       sidebar: ah64d_sidebar
       topnav: topnav
+      tooltip: true
   -
     scope:
       path: ""
       type: "tooltips"
     values:
       layout: "page"
-      search: true
+      search:
       tooltip: true
 
   -
@@ -93,7 +95,7 @@ defaults:
       layout: "post"
       comments: false
       # if you don't want to use Commento.io and just hide comments, change true to false wherever you see the comments property
-      search: true
+      search:
       sidebar: ah64d_sidebar
       topnav: topnav
 

@@ -72,6 +72,7 @@ body {
 .breadcrumb > .active {color: #777 !important;}
 
 /* make room for the nav bar */
+/*
 h1[id],
 h2[id],
 h3[id],
@@ -81,7 +82,7 @@ h6[id],
 dt[id]{
 padding-top: 60px;
 margin-top: -40px
-}
+}*/
 
 .post-content img {
     margin: 12px 0px 3px 0px;
@@ -462,7 +463,6 @@ figcaption {
 
     padding-bottom:12px;
     padding-top:6px;
-    max-width: 90%;
     margin-bottom:20px;
     font-style: italic;
     color: gray;
@@ -893,15 +893,6 @@ span.soft {
     max-height: 100%;
 }
 
-
-.post-content img {
-    margin: 12px 0px 3px 0px;
-    width: auto;
-    height: auto;
-    max-width: 100%;
-    max-height: 100%;
-}
-
 .videoThumbs img {
     float: left;
     margin:15px 15px 15px 0px;
@@ -1200,4 +1191,49 @@ h4.panel-title {
     .collapse.in{
         display:block !important;
     }
+}
+
+/* Underline selected headings, particularly useful for the FAQ */
+
+.post-content > h1:target::before, .post-content > h2:target::before, .post-content > h3:target::before, .post-content > h4:target::before, .post-content > h5:target::before {
+    content: "";
+    background: skyblue;
+    height: .25em;
+    width: calc( 100% + 20px);
+    position: absolute;
+    bottom: .15em;
+    left: -10px;
+    z-index: -1;
+}
+
+.post-content > h1:target, .post-content > h2:target, .post-content > h3:target, .post-content > h4:target, .post-content > h5:target {
+    position: relative;
+    display:inline-blockc; 
+}
+
+/* Centre align images */
+
+.post-content > figure img {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 500px;
+    display: block;
+}
+
+.post-content > figure figcaption {
+    text-align: center;
+}
+
+/* Centre align tables */
+
+.post-content > table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Highlight rows in table that are selected (useful for keybinding table) */
+
+.post-content > table tr:target {
+    background: skyblue;
 }

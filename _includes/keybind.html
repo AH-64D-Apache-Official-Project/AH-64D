@@ -1,0 +1,1 @@
+{% if html %}{::nomarkdown}{% endif %}<a href="keybinds.html#{{include.name}}">{% for key in site.data.keybinds[include.name].keys %}{% unless forloop.first %} + {% endunless %}<span class="badge bg-secondary">{{key}}</span>{% endfor %}</a>{% if html %}{:/}{% endif %}

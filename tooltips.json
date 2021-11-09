@@ -6,10 +6,10 @@ search: exclude
 {
 "entries":
 [
-{% for page in site.tooltips %}
+{% for item in site.data.glossary.items %}
 {
-"doc_id": "{{ page.doc_id }}",
-"body": "{{ page.content | strip_newlines | replace: '\', '\\\\' | replace: '"', '\\"' }}"
+"doc_id": "{{ item.name }}",
+"body": "{{ item.description | strip_newlines | replace: '\', '\\\\' | replace: '"', '\\"' }}"
 } {% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]

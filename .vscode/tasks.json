@@ -1,0 +1,29 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Serve Site",
+            "group": "test",
+            "type": "process",
+            "command": "bundle",
+            "args": ["exec", "jekyll", "serve"]
+        },
+        {
+            "label": "Build Site",
+            "group": "build",
+            "type": "process",
+            "command": "bundle",
+            "args": ["exec", "jekyll", "build"]
+        },
+        {
+            "group": "test",
+            "label": "Link check",
+            "dependsOn": ["Build Site"],
+            "type": "process",
+            "command": "bundle",
+            "args": ["exec", "htmlproofer", "--allow-hash-href", "--empty-alt-ignore", "./_site", "--assume-extension"]
+        }
+    ]
+}

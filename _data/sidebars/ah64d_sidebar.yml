@@ -4,12 +4,102 @@ entries:
 - title: Sidebar
   levels: one
   folders:
-
   - title: Getting started
     output: web
     folderitems:
-    - title: Test
-      url: /test.html
-      output: web
+    - title: Welcome!
+      url: index.html
+      output: [web]
+    - title: Set-Up
+      url: setup.html
+      output: [web]
+    - title: FAQ
+      url: faq.html
+      output: [web]
+    - title: Glossary
+      url: glossary.html
+      output: [web]
+    - title: Keybinds
+      url: keybinds.html
+      output: [web]
+    - title: Cockpit Overview
+      url: cockpit.html
+      output: [web]
+    - title: Startup
+      url: flight-model-startup.html
+      output: [web]
+
+  - title: Targeting
+    output: web
+    folderitems:
+    - title: FCR
+      url: targeting-fcr.html
+      output: [web]
+
+  - title: Weapons
+    output: web
+    folderitems:
+    - title: Sighting Systems
+      url: weapons-sights.html
+      output: [web]
+    - title: M230 Chaingun
+      url: weapons-m230.html
+      output: [web]
+    - title: Rockets
+      url: weapons-rockets.html
+      output: [web]
+    - title: Hellfires
+      url: weapons-hellfire.html
+      output: [web]
+  
+  - title: Displays
+    output: web
+    folderitems:
+    - title: MPDs
+      url: mpd.html
+      output: [web]
+    - title: "MPD Page: ENG"
+      url: mpd-eng.html
+      output: [web]
+    - title: "MPD Page: FCR"
+      url: mpd-fcr.html
+      output: [web]
+    - title: "MPD Page: TSD"
+      url: mpd-tsd.html
+      output: [web]
+    - title: "MPD Page: WCA"
+      url: mpd-wca.html
+      output: [web]
+    - title: "MPD Page: WPN"
+      url: mpd-wpn.html
+      output: [web]
+
+  - title: Flight Model
+    output: web
+    folderitems:
+    - title: SFM+
+      url: flight-model-sfm-plus.html
+      output: [web]
+    - title: Startup
+      url: flight-model-startup.html
+      output: [web]
+  
+  - title: User Interface
+    output: web
+    folderitems:
+    - title: Head Tracking Mode
+      url: ui-headtracking.html
+      output: [web]
+  
+  - title: Changelogs
+    output: web
+    folderitems:
+    - title: V2.0.0
+      url: changelogs-v2-0-0
+      output: [web]
+    - title: Developent
+      url: changelogs-dev
+      output: [web]
+
 
 # Copyright 2021 Google LLC

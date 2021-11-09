@@ -1,0 +1,160 @@
+cockpit-interact:
+  name: Cockpit Interact
+  description: Interacts with the control under the cursor
+  category: Common
+  keys: [\]
+  mod: true
+
+waypoint-next:
+  name: Next Waypoint
+  description: Sets current waypoint to the next waypoint
+  category: Navigation
+  keys: [Shift,5]
+  mod: true
+waypoint-prev:
+  name: Previous Waypoint
+  description: Sets current waypoint to the previous waypoint
+  category: Navigation
+  keys: [Ctrl,5]
+  mod: true
+
+sight-select-hmd:
+  name: Sight Select HMD
+  description: Sets current sight to HMD
+  category: Sighting
+  keys: [Ctrl,1]
+  mod: true
+sight-select-tads:
+  name: Sight Select TADS
+  description: Sets current sight to TADS
+  category: Sighting
+  keys: [Ctrl,2]
+  mod: true
+sight-select-fxd:
+  name: Sight Select FXD
+  description: Sets current sight to FXD
+  category: Sighting
+  keys: [Ctrl,3]
+  mod: true
+sight-select-fcr:
+  name: Sight Select FCR
+  description: Sets current sight to FCR
+  category: Sighting
+  keys: [Ctrl,4]
+  mod: true
+target-store:
+  name: Target Store
+  description: Adds the position currently being looked as a waypoint
+  category: Sighting
+  keys: [Shift,G]
+
+was-m230:
+  name: WAS M230
+  description: Sets current selected weapon to be the M230, or if it is selected then deselects it
+  category: Weapons
+  keys: [1]
+  mod: true
+was-rkt:
+  name: WAS Rockets
+  description: Sets current selected weapon to be rockets, or if it is selected then deselects it
+  category: Weapons
+  keys: [2]
+  mod: true
+was-msl:
+  name: WAS Missiles
+  description: Sets current selected weapon to be hellfires, or if it is selected then deselects it
+  category: Weapons
+  keys: [3]
+  mod: true
+arm-safe:
+  name: Arm/Safe
+  description: Toggles the aircraft between armed and safe
+  category: Weapons
+  keys: [4]
+  mod: true
+missile-advance:
+  name: Missile Advance
+  description: Selects next missile type
+  category: Weapons
+  keys: [Alt,F]
+lrfd-second-detent:
+  name: LRFD Second Detent
+  description: When held down, turns on the LRFD
+  keys: [G]
+  category: Weapons
+  mod: true
+target-range:
+  name: Lock target
+  keys: [T]
+  category: Weapons
+  description: When in the TADS, ranges the M230 to the range looked at
+  mod: false
+
+radar-gtm:
+  name: FCR Mode Select GTM
+  description: Sets FCR mode to Ground Tracking Mode
+  category: FCR
+  keys: [Ctrl,H]
+  mod: true
+radar-atm:
+  name: FCR Mode Select ATM
+  description: Sets FCR mode to Air Tracking Mode
+  category: FCR
+  keys: [Shift,H]
+  mod: true
+radar-singlescan:
+  name: FCR - Single Scan
+  description: Performs a single scan of the FCR
+  category: FCR
+  keys: [Shift,R]
+  mod: true
+radar-toggle:
+  name: FCR - Continuous Scan
+  description: Toggles enabling the FCR continuously
+  category: FCR
+  keys: [Ctrl,R]
+  mod: false
+targeting-next:
+  name: Next Target
+  description: Selects next visible target
+  category: FCR
+  keys: [R]
+  mod: false
+
+symbology-up:
+  name: Symbology Select Up
+  description: Cycles symbology between transition and cruise
+  category: IHADSS
+  keys: [Shift,B]
+  mod: true
+symbology-down:
+  name: Symbology Select Up
+  description: Cycles symbology between hover and bobup
+  category: IHADSS
+  keys: [Shift,B]
+  mod: true
+symbology-up:
+  name: Symbology Select Press
+  description: Selects the FLT page on the left MPD
+  category: IHADSS
+  keys: [B]
+  mod: true
+
+head-left:
+  name: Move Head Left
+  description: Moves head to the left in order to see around obstacle
+  category: View
+  keys: [Ctrl,Num 4]
+  mod: false
+head-right:
+  name: Move Head Right
+  description: Moves head to the right in order to see around obstacle
+  category: View
+  keys: [Ctrl,Num 6]
+  mod: false
+look-center:
+  name: Look Center
+  description: Forces head to look forwards. Also re-centers the crosshair in <a href="ui-headtracking.html">head tracking mode</a>.
+  category: View
+  keys: [Num 5]
+  mod: false
