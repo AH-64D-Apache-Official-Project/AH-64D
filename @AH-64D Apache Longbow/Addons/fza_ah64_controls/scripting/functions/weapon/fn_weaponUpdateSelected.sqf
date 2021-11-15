@@ -20,12 +20,6 @@ params["_heli"];
 
 if !(_heli turretLocal [0]) exitWith {};
 
-
-if (_heli getVariable "fza_ah64_armed") then {
-	player action ["ManualFire", _heli];
-} else {
-	player action ["ManualFireCancel", _heli];
-};
 switch (_heli getVariable "fza_ah64_was") do {
 	case WAS_WEAPON_NONE: {
 		_heli selectWeapon "fza_ma_safe";
