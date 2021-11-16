@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseGunnerFlare.sqf",{132:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Action for Gunner to deploy flares To be bound in the future with arma 3 mod keybinding update Parameters: _heli - the helicopter calling this</div></div>"});

@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/controlHandlers/fn_controlHandleToggleHeadtracking.sqf",{134:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Toggles headtracking mode https://&#8203;github&#8203;.com&#8203;/SachaOropeza&#8203;/AH64D-Project&#8203;/wiki&#8203;/Head-Tracking</div></div>"});

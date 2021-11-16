@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:functions/weapon/fn_weaponUpdateSelected.sqf","fn_weaponUpdateSelected.sqf");NDSummary.OnSummaryLoaded("File:functions/weapon/fn_weaponUpdateSelected.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[101,0,1,"Functions","Functions"],[102,0,0,"fza_fnc_weaponUpdateSelected","fza_fnc_weaponUpdateSelected"]]);
