@@ -127,34 +127,34 @@ do {
         };
         _addval = 0.09 * (_heli animationphase "blade1_rise1");
         //bladepitch
-        _b1phase = (_heli animationphase "mainRotor") + (_addval + _cyclicdir);
+        _b1phase = (_heli animationphase "HitHRotor") + (_addval + _cyclicdir);
         if (_b1phase > 1) then {
             _b1phase = _b1phase - 1;
         };
         _b1phase = (cos(360 * _b1phase)) * _magnitude;
-        _b2phase = (_heli animationphase "mainRotor") + (_addval + 0.25 + _cyclicdir);
+        _b2phase = (_heli animationphase "HitHRotor") + (_addval + 0.25 + _cyclicdir);
         if (_b2phase > 1) then {
             _b2phase = _b2phase - 1;
         };
         _b2phase = (cos(360 * _b2phase)) * _magnitude;
-        _b3phase = (_heli animationphase "mainRotor") + (_addval + 0.5 + _cyclicdir);
+        _b3phase = (_heli animationphase "HitHRotor") + (_addval + 0.5 + _cyclicdir);
         if (_b3phase > 1) then {
             _b3phase = _b3phase - 1;
         };
         _b3phase = (cos(360 * _b3phase)) * _magnitude;
-        _b4phase = (_heli animationphase "mainRotor") + (_addval + 0.75 + _cyclicdir);
+        _b4phase = (_heli animationphase "HitHRotor") + (_addval + 0.75 + _cyclicdir);
         if (_b4phase > 1) then {
             _b4phase = _b4phase - 1;
         };
         _b4phase = (cos(360 * _b4phase)) * _magnitude;
         //scissorarm1
-        _s1phase = (_heli animationphase "mainRotor") + (_addval + 0.875 + _cyclicdir);
+        _s1phase = (_heli animationphase "HitHRotor") + (_addval + 0.875 + _cyclicdir);
         if (_s1phase > 1) then {
             _s1phase = _s1phase - 1;
         };
         _s1phase = (cos(360 * _s1phase)) * _magnitude;
         //scissorarm2
-        _s2phase = (_heli animationphase "mainRotor") + (_addval + 0.375 + _cyclicdir);
+        _s2phase = (_heli animationphase "HitHRotor") + (_addval + 0.375 + _cyclicdir);
         if (_s2phase > 1) then {
             _s2phase = _s2phase - 1;
         };

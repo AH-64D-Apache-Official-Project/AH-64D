@@ -48,19 +48,19 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 if (_heli getVariable "fza_ah64_apu_fire") then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\APUF.paa", ""]
 };
-if (_heli getHitPointDamage "MainRotor" >= 0.4 && _heli getHitPointDamage "MainRotor" < 0.8) then {
+if (_heli getHitPointDamage "HitHRotor" >= 0.4 && _heli getHitPointDamage "HitHRotor" < 0.8) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\HRTRRPM.paa", "\fza_ah64_us\tex\UFD\RTRRPMHI_W_co.paa"]
 };
-if ( _heli getHitPointDamage "MainRotor" >= 0.8) then {
+if ( _heli getHitPointDamage "HitHRotor" >= 0.8) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\LRTRRPM.paa", "\fza_ah64_us\tex\UFD\RPMLOW_W_co.paa"]
 };
-if (_heli getHitPointDamage "TailRotor" >= 0.8) then {
+if (_heli getHitPointDamage "HitVRotor" >= 0.8) then {
 	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\TRTRHYD.paa", "\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"]
 };
 
 // CAUTIONS
 
-if (_heli getHitPointDamage "TailRotor" >= 0.4 && _heli getHitPointDamage "TailRotor" < 0.8) then {
+if (_heli getHitPointDamage "HitVRotor" >= 0.4 && _heli getHitPointDamage "HitVRotor" < 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\TRTRDEGR.paa", "\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"];
 };
 if (_heli getHitPointDamage "Transmission" >= 0.4 && _heli getHitPointDamage "Transmission" < 0.8) then {
