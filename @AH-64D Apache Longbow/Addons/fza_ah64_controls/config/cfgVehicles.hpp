@@ -477,7 +477,7 @@ class CfgVehicles
 		};
 		class HitPoints
 		{
-			class Hull
+			class Hithull
 			{
 				armor = 999;
 				minimalHit=0.050000001;
@@ -490,7 +490,7 @@ class CfgVehicles
 				radius = 0.01;
 				depends = "Total";
 			};
-			class Avionics
+			class HitAvionics
 			{
 				armor = 2;
 				material = 51;
@@ -502,7 +502,7 @@ class CfgVehicles
 				minimalHit = 0.05;
 				radius = 0.4;
 			};
-			class LeftEngine
+			class HitEngine1
 			{
 				armor = 0.7;
 				material = 51;
@@ -514,13 +514,13 @@ class CfgVehicles
 				minimalHit = 0.1;
 				radius = 0.4;
 			};
-			class RightEngine: LeftEngine
+			class HitEngine2: HitEngine1
 			{
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
 			};
-			class Transmission
+			class HitEngine
 			{
 				armor = 0.8;
 				material = 51;
@@ -531,9 +531,9 @@ class CfgVehicles
 				convexComponent = "trans";
 				minimalHit = 0.1;
 				radius = 0.4;
-				depends = "0.5 * (LeftEngine + RightEngine)";
+				depends = "0.5 * (HitEngine1 + HitEngine2)";
 			};
-			class FuelTankF
+			class HitFuel
 			{
 				armor = 0.5;
 				material = 51;
@@ -542,7 +542,7 @@ class CfgVehicles
 				depends = "LeftEngine";
 				explosionShielding=2;
 			};
-			class FuelTankR: FuelTankF
+			class HitFuel2: HitFuel
 			{
 				name = "rfuel";
 				depends = "RightEngine";
@@ -560,7 +560,7 @@ class CfgVehicles
 				name = "Rfab";
 				visual = "skin_refab";
 			};
-			class TailRotor
+			class HitVRotor
 			{
 				armor = 3;
 				material = 51;
@@ -572,7 +572,7 @@ class CfgVehicles
 				minimalHit = 0.05;
 				radius = 0.06;
 			};
-			class MainRotor
+			class HitHRotor
 			{
 				armor = 4;
 				material = 51;
@@ -597,7 +597,7 @@ class CfgVehicles
 				name = "rwing";
 				visual = "skin_rwing";
 			};
-			class Boom
+			class HitTail
 			{
 				armor = 0.75;
 				material = 51;
