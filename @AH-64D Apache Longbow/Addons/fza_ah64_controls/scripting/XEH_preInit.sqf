@@ -156,6 +156,7 @@ fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
 	[0] call fza_fnc_coreDraw3Dscheduler;
 }];
 [0] spawn fza_fnc_ufd;
+
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
 	[0] call fza_fnc_coreEachFrameScheduler;
@@ -237,3 +238,15 @@ fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
 
 	_heli setVariable [format ["fza_ah64_fire_%1_fx", _location], []];
 }] call CBA_fnc_addEventHandler;
+
+#define OVERRIDE_ACTION(actn) \
+	addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
+	addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
+
+OVERRIDE_ACTION("SwitchWeaponGrp1")
+OVERRIDE_ACTION("SwitchWeaponGrp2")
+OVERRIDE_ACTION("SwitchWeaponGrp3")
+OVERRIDE_ACTION("SwitchWeaponGrp4")
+OVERRIDE_ACTION("nextWeapon")
+OVERRIDE_ACTION("prevWeapon")
+OVERRIDE_ACTION("launchCM")

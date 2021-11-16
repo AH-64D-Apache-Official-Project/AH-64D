@@ -269,7 +269,9 @@ class CfgWeapons
 		magazines[]={"fza_safe"};
 		textureType = "single";
 	};
-	
+	class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe"};
+	class fza_rkt_safe: fza_ma_safe {displayName = "Rkt Safe"};
+	class fza_msl_safe: fza_ma_safe {displayName = "Msl Safe"};
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
@@ -332,13 +334,14 @@ class CfgWeapons
 			scope = protected;\
 			displayName = prettyName;\
 			magazines[] = {HELLFIRE_MAGAZINES(ammoName)};\
-		} 
-	HELLFIRE_WEAPON_CONFIG(fza_agm114a, "AGM-114A");
-	HELLFIRE_WEAPON_CONFIG(fza_agm114c, "AGM-114C");
-	HELLFIRE_WEAPON_CONFIG(fza_agm114k, "AGM-114K");
-	HELLFIRE_WEAPON_CONFIG(fza_agm114l, "AGM-114L");
-	HELLFIRE_WEAPON_CONFIG(fza_agm114m, "AGM-114M");
-	HELLFIRE_WEAPON_CONFIG(fza_agm114n, "AGM-114N");
+			fza_ammoType = ammoName;\
+		};
+	HELLFIRE_WEAPON_CONFIG(fza_agm114a, "AGM-114A")
+	HELLFIRE_WEAPON_CONFIG(fza_agm114c, "AGM-114C")
+	HELLFIRE_WEAPON_CONFIG(fza_agm114k, "AGM-114K")
+	HELLFIRE_WEAPON_CONFIG(fza_agm114l, "AGM-114L")
+	HELLFIRE_WEAPON_CONFIG(fza_agm114m, "AGM-114M")
+	HELLFIRE_WEAPON_CONFIG(fza_agm114n, "AGM-114N")
 	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////ROCKETS//////////////////////////////////
@@ -429,12 +432,13 @@ class CfgWeapons
 			scope = protected;\
 			displayName = prettyName;\
 			magazines[] = {ROCKET_MAGAZINES(ammoName)};\
-		} 
-	ROCKET_WEAPON_CONFIG(fza_275_m151, "M151 HEDP");
-	ROCKET_WEAPON_CONFIG(fza_275_m229, "M229 HEDP");
-	ROCKET_WEAPON_CONFIG(fza_275_m255, "M255 FLEC");
-	ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM");
-	ROCKET_WEAPON_CONFIG(fza_275_m257, "M257 IL");
+			fza_ammoType = ammoName;\
+		};
+	ROCKET_WEAPON_CONFIG(fza_275_m151, "M151 HEDP")
+	ROCKET_WEAPON_CONFIG(fza_275_m229, "M229 HEDP")
+	ROCKET_WEAPON_CONFIG(fza_275_m255, "M255 FLEC")
+	ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM")
+	ROCKET_WEAPON_CONFIG(fza_275_m257, "M257 IL")
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////STINGERS/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	

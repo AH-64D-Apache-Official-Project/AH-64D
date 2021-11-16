@@ -21,6 +21,7 @@ Author:
 	unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
@@ -42,7 +43,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
-    _heli setVariable ["fza_ah64_ltype", "TopDown", true];
+    _heli setVariable ["fza_ah64_hellfireTrajectory", "lo", true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
@@ -67,8 +68,15 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fire1arm", false, true];
     _heli setVariable ["fza_ah64_fire2arm", false, true];
     _heli setVariable ["fza_ah64_fireapuarm", false, true];
+    _heli setVariable ["fza_ah64_armed", false, true];
+    private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
+    _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
+    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+    _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
+    _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };
-_heli setVariable ["fza_ah64_weaponInhibited", "", true];
+_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
+_heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];

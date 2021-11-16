@@ -14,20 +14,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\avionics";
 			class avionicsSlipIndicator {R;};
 		};
-		class controlHandlers
-		{
-			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
-			class controlHandleASEAutopage {R;};
-			class controlHandleCrosshairAction {R;};
-			class controlHandleIHADSSMode {R;};
-			class controlHandleJammerToggle {R;};
-			class controlHandlelaserchange {R;};
-			class controlHandleLookCenter {R;};
-			class controlHandleNextWaypoint {R;};
-			class controlHandlePrevWaypoint {R;};
-			class controlHandleToggleHeadtracking {R;};
-			class controlHandleTSDMode {R;};
-		};
 		class core
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
@@ -35,7 +21,9 @@ class CfgFunctions
 			class coreEachFrameScheduler {R;};
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
-			
+			class coreCockpitControlHandle {R;};
+			class coreCockpitInteract {R;};
+			class coreControlHandle {R;};
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
@@ -95,6 +83,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
+			class laserCycle {R;};
 			class laserDisarm {R;};
 		};
 		class light
@@ -169,6 +158,7 @@ class CfgFunctions
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
+			class navigationWaypointCycle {R;};
 		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
@@ -206,18 +196,18 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
 			class weaponActionSwitch {R;};
-			class weaponGunControl {R;};
-			class weaponM230CycleBurst {R;};
 			class weaponMissileGetSelected {R;};
+			class weaponMissileCycle {R;};
 			class weaponMissileInventory {R;};
 			class weaponMissileSlowDown {R;};
-			class weaponMissileTrajectory {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};
+			class weaponRocketSetSelected {R;};
 			class weaponSelectFireMode {R;};
 			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
+			class weaponUpdateSelected {R;};
 		};
 		class functions
 		{
@@ -235,6 +225,7 @@ class CfgFunctions
 			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
+			class cycle {R;};
 			class bearingClock {R;};
 		};
 		class ase

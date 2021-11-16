@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_controlHandlelaserchange
+Function: fza_fnc_laserCycle
 
 Description:
 	Switches the helicopter's Between self/remote laser aquistion.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_controlHandlelasechange
+    [_heli] call fza_fnc_laserCycle
 	---
 
 Author:

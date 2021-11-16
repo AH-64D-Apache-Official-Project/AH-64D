@@ -1,5 +1,7 @@
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
+
 
 if (_heli animationphase "fcr_enable" == 0) exitWith {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\grnd.paa"];  //change this with FCR not installed backround
@@ -10,7 +12,7 @@ if (_heli animationphase "fcr_enable" == 0) exitWith {
 [_heli, direction _heli, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_TSD_HDG] call fza_fnc_drawNumberSelections;
 [_heli, count fza_ah64_fcrlist, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_MPD_PR_FCRAG_TNUM] call fza_fnc_drawNumberSelections;
 
-if (_heli getVariable "fza_ah64_agmode" == 1) then {
+if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR) then {
 	_heli setobjecttexture [SEL_PR_MPD_BACK, "\fza_ah64_US\tex\mpd\air.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_FCRAA_WIPER, "\fza_ah64_us\tex\mpd\air.paa"];
 	_heli setobjecttexture [SEL_MPD_PR_FCRAG_WIPER, ""];
@@ -67,7 +69,7 @@ private _targetsToDraw = ([_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilter
 	[_x, _targicon, _targetPriority];
 };
 
-if (_heli getVariable "fza_ah64_agmode" == 1) then {
+if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR) then {
 	[_heli, _targetsToDraw, false, 0.000125 * 0.37, [0.51, 0.535]] call fza_fnc_mpdUpdatePoints;
 } else {
 	[_heli, _targetsToDraw, false, 0.000125 * 0.60, [0.51, 0.18]] call fza_fnc_mpdUpdatePoints;

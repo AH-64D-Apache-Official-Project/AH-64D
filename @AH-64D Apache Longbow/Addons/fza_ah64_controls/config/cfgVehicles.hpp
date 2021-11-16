@@ -772,7 +772,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="LookCenter";
-				statement="[this] call fza_fnc_controlHandleLookCenter;";
+				statement="fza_ah64_mousehorpos = 0.5; fza_ah64_mousevertpos = 0.5; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlSetPosition[fza_ah64_mousehorpos - 0.005, fza_ah64_mousevertpos - 0.009]; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlSetPosition[fza_ah64_mousehorpos - 0.25, fza_ah64_mousevertpos + 0.02]; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlCommit 0.01; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlCommit 0.01;";
 			};
 			class sensorselect
 			{
@@ -788,48 +788,6 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
 				statement="[this] call fza_fnc_weaponguncontrol;";
-			};
-			class gunburst
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponM230CycleBurst";
-			};
-			class rocketsalvo
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponRocketsalvo";
-			};
-			class hellfireTraj
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) &&  (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponTrajectoryChange";
 			};
 			class pilotdoor_open
 			{
@@ -1162,7 +1120,7 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
