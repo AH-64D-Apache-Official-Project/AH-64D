@@ -63,10 +63,10 @@ if (_heli getHitPointDamage "HitVRotor" >= 0.8) then {
 if (_heli getHitPointDamage "HitVRotor" >= 0.4 && _heli getHitPointDamage "HitVRotor" < 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\TRTRDEGR.paa", "\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"];
 };
-if (_heli getHitPointDamage "Transmission" >= 0.4 && _heli getHitPointDamage "Transmission" < 0.8) then {
+if (_heli getHitPointDamage "HitEngine" >= 0.4 && _heli getHitPointDamage "HitEngine" < 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\XMSNDGRD.paa", "\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
 };
-if (_heli getHitPointDamage "Transmission" >= 0.8) then {
+if (_heli getHitPointDamage "HitEngine" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\XMSNFAIL.paa", "\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
 };
 if (fuel _heli < 0.05) then {

@@ -477,7 +477,7 @@ class CfgVehicles
 		};
 		class HitPoints
 		{
-			class Hithull
+			class HitHull
 			{
 				armor = 999;
 				minimalHit=0.050000001;
@@ -539,13 +539,13 @@ class CfgVehicles
 				material = 51;
 				name = "lfuel";
 				passthrough = 0.1;
-				depends = "LeftEngine";
+				depends = "HitEngine1";
 				explosionShielding=2;
 			};
 			class HitFuel2: HitFuel
 			{
 				name = "rfuel";
-				depends = "RightEngine";
+				depends = "HitEngine2";
 			};
 			class IrJammer
 			{
