@@ -96,40 +96,41 @@ if (_value) then {
 		case "fza_ah64_laserCycle": {
 			[_heli] call fza_fnc_laserCycle;
 		};
-		case "SwitchWeaponGrp1": {
+		case "fza_ah64_missileAdvance": {
+			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+				[_heli] call fza_fnc_weaponMissileCycle
+			};
+		};
+		case "fza_ah64_wasGun": {
 			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
 			};
-			
-			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
-		case "SwitchWeaponGrp2": {
+		case "fza_ah64_wasRkt": {
 			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
 			};
-			[_heli] call fza_fnc_weaponUpdateSelected;
-			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
-		case "SwitchWeaponGrp3": {
+		case "fza_ah64_wasMsl": {
 			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
 				[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 			} else {
 				[_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
 			};
-			[_heli] call fza_fnc_weaponUpdateSelected;
-			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
-		case "SwitchWeaponGrp4": {
+		case "fza_ah64_masterSafe": {
 			_heli setVariable ["fza_ah64_armed", !(_heli getVariable "fza_ah64_armed"), true];
-			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
+		case "SwitchWeaponGrp1";
+		case "SwitchWeaponGrp2";
+		case "SwitchWeaponGrp3";
+		case "SwitchWeaponGrp4";
 		case "nextWeapon";
 		case "prevWeapon": {
-			[_heli] call fza_fnc_weaponUpdateSelected;
 			["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
 		};
 		case "launchCM": {

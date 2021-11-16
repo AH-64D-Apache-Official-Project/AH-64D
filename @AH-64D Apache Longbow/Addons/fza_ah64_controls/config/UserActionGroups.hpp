@@ -23,7 +23,12 @@ class UserActionGroups
 			fza_ah64_crosshairInteract,
 			fza_ah64_waypointIncrease,
 			fza_ah64_waypointDecrease,
-			fza_ah64_laserCycle
+			fza_ah64_laserCycle,
+			fza_ah64_missileAdvance,
+			fza_ah64_wasGun,
+			fza_ah64_wasRkt,
+			fza_ah64_wasMsl,
+			fza_ah64_masterSafe
 		};
 	};
 	class fza_ah64_cockpit

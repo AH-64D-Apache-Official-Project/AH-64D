@@ -29,6 +29,11 @@ class CfgDefaultKeysPresets {
 			fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
 			fza_ah64_laserCycle[] = {0x38130014}; //Alt+T
 			fza_ah64_countermeasure[] = {0x13}; //R
+			fza_ah64_missileAdvance[] = {0x21}; //F
+			fza_ah64_wasGun[] = {0x02}; // 1
+			fza_ah64_wasRkt[] = {0x03}; // 2
+			fza_ah64_wasMsl[] = {0x04}; // 3
+			fza_ah64_masterSafe[] = {0x05}; // 4
 		};
 	};
 	class Arma3: Arma2 {

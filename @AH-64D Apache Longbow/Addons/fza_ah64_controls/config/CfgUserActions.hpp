@@ -33,5 +33,10 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_waypointIncrease, "Next Waypoint", "Sets the current waypoint to the next waypoint");
 	CfgUserActionDef(fza_ah64_waypointDecrease, "Previous Waypoint", "Sets the current waypoint to the previous waypoint");
 	CfgUserActionDef(fza_ah64_laserCycle, "Laser Cycle", "Cycles between all available lasers");
+	CfgUserActionDef(fza_ah64_missileAdvance, "Missile Advance", "Advances through all missile types");
+	CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");
+	CfgUserActionDef(fza_ah64_wasRkt, "WAS Rockets", "Action the rockets in your crew station");
+	CfgUserActionDef(fza_ah64_wasMsl, "WAS Missiles", "Action the missiles in your crew station");
+	CfgUserActionDef(fza_ah64_masterSafe, "Toggle Master Safe", "Arms or Safes the aircraft");
 	#include "\fza_ah64_controls\headers\controls.h"
 };
