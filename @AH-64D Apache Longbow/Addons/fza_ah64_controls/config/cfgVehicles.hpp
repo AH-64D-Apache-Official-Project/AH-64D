@@ -500,23 +500,23 @@ class CfgVehicles
 		{
 			class Hithull
 			{
-				armor = 999;
-				minimalHit=0.050000001;
-				material = 51;
+				armor = 10;
+				minimalHit=0.05;
+				material = -1;
 				name = "fuselage";
 				passthrough = 1;
 				visual = "skin_fuse";
-				explosionShielding = 999;
+				explosionShielding = 2.5;
 				convexComponent = "fuselage";
-				radius = 0.01;
+				radius = 0.3;
 				depends = "Total";
-			};
+			};/*
 			class HitAvionics
-			{
+			{   // Causes no affect in aircraft control, visual or otherwise
 				armor = 2.2;
 				material = 51;
 				name = "cockpit";
-				passthrough = 0.5;
+				passthrough = 0.2;
 				visual = "skin_nose";
 				explosionShielding = 1;
 				convexComponent = "cockpit";
@@ -524,7 +524,7 @@ class CfgVehicles
 				radius = 0.4;
 			};
 			class HitEngine1
-			{
+			{   // Causes no affect in aircraft control, visual or otherwise
 				armor = 0.9;
 				material = 51;
 				name = "leng";
@@ -536,11 +536,11 @@ class CfgVehicles
 				radius = 0.4;
 			};
 			class HitEngine2: HitEngine1
-			{
+			{   // Causes no affect in aircraft control, visual or otherwise
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
-			};
+			};*/
 			class HitEngine
 			{
 				armor = 1.2;
@@ -552,21 +552,14 @@ class CfgVehicles
 				convexComponent = "trans";
 				minimalHit = 0.5;
 				radius = 0.4;
-				depends = "0.5 * (HitEngine1 + HitEngine2)";
 			};
 			class HitFuel
 			{
 				armor = 0.8;
 				material = 51;
 				name = "lfuel";
-				passthrough = 0.1;
-				depends = "HitEngine1";
+				passthrough = 0;
 				explosionShielding=2;
-			};
-			class HitFuel2: HitFuel
-			{
-				name = "rfuel";
-				depends = "HitEngine2";
 			};
 			class IrJammer
 			{
@@ -579,7 +572,7 @@ class CfgVehicles
 			};
 			class RfJammer: IrJammer
 			{
-				name = "Rfab";
+				name = "RF Jammer";
 				visual = "skin_refab";
 			};
 			class HitVRotor
@@ -606,8 +599,8 @@ class CfgVehicles
 				minimalHit = 0.09;
 				radius = 0.4;
 			};
-			class LeftWing
-			{
+			class HitHStabilizerL1
+			{   //causes aircraft to shake
 				armor = 1;
 				material = 51;
 				name = "lwing";
@@ -615,29 +608,32 @@ class CfgVehicles
 				visual = "skin_lwing";
 				minimalHit = 0.3;
 			};
-			class RightWing: LeftWing
-			{
+			class HitHStabilizerR1: HitHStabilizerL1
+			{   //causes aircraft to shake
 				name = "rwing";
 				visual = "skin_rwing";
 			};
-			class HitTail
-			{
+			class HitVStabilizer1
+			{   //causes aircraft to shake
+				armor = 0.5;
+				material = 51;
+				name = "vtail";
+				passthrough = 0.1;
+				visual = "skin_vtail";
+			};
+			class TailBoom
+			{   //Causes no effect on aircraft other than visual
 				armor = 1;
 				material = 51;
 				name = "tailboom";
 				passthrough = 0.5;
 				visual = "skin_tailboom";
 			};
-			class VertStab
-			{
-				armor = 0.3;
+			class HitTail
+			{   //Causes no effect on aircraft other than visual
+				armor = 0.5;
 				material = 51;
-				name = "vtail";
 				passthrough = 0.1;
-				visual = "skin_vtail";
-			};
-			class Stabiliser: VertStab
-			{
 				name = "hstab";
 				visual = "skin_hstab";
 			};
@@ -649,29 +645,16 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "pnvs";
 			};
-			class TADS
-			{
-				armor = 0.3;
-				material = 51;
-				name = "tads";
-				passthrough = 0.1;
-				visual = "skin_tads1";
-			};
-			class TADSMotor: TADS
-			{
-				name = "tads_tur";
-				visual = "tads_tur";
-			};
 			class FCR
-			{
+			{   
 				armor = 0.08;
 				material = 51;
 				name = "radar";
 				passthrough = 0.1;
 				visual = "radar";
-			};
+			};/*// CUSTOM HITPOINTS NOT CURRANTLY USED
 			class Actuator
-			{
+			{   //Causes no effect on aircraft other than visual
 				armor = 0.3;
 				material = 51;
 				name = "otocvez";
@@ -679,11 +662,11 @@ class CfgVehicles
 				visual = "skin_m230";
 			};
 			class Gun: Actuator
-			{
+			{   //Causes no effect on aircraft other than visual
 				name = "otochlaven";
 				visual = "skin_otochlaven";
 			};
-			class MainGear
+			class HitGear
 			{
 				armor = 0.3;
 				material = 51;
@@ -691,7 +674,7 @@ class CfgVehicles
 				passthrough = 0.1;
 				visual = "skin_gear";
 			};
-			class RearGear: MainGear
+			class RearGear: HitGear
 			{
 				name = "twsus";
 				visual = "twsus";
@@ -718,7 +701,7 @@ class CfgVehicles
 			{
 				name = "pylon4";
 				visual = "skin_pylon4";
-			};
+			};*/
 		};
 		class UserActions
 		{
@@ -1161,23 +1144,23 @@ class CfgVehicles
 					};
 				};
 				class HitPoints
-				{
+				{ // turret resets when destroyed
 					class HitTurret
 					{
 						armor = 0.9;
 						material = 51;
 						name = "tads_tur";
-						visual = "tads_tur";
+						visual = "skin_tads1";
 						passThrough = 1;
-					};
+					};/* Dosent work because camera and gun are 1
 					class HitGun
 					{
 						armor = 1.3;
 						material = 52;
-						name = "tads";
-						visual = "tads";
+						name = "otochlaven";
+						visual = "skin_otochlaven";
 						passThrough = 1;
-					};
+					};*/
 				};
 				class OpticsIn
 				{
@@ -2895,7 +2878,7 @@ class CfgVehicles
 		{
 			position = "landing_light";
 			direction = "landing_light_dir";
-			hitpoint = "rfab";
+			hitpoint = "landing_light";
 			selection = "Light";
 			color[] = {7000,7500,10000};
 			ambient[] = {70,75,100};
