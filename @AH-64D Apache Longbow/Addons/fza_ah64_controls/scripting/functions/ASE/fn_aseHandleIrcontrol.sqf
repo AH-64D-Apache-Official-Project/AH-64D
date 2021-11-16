@@ -33,7 +33,7 @@ private _jamTemp = (_originalJamTime - (time - _timeSinceLastMeasurement)) max 0
 _heli setVariable ["fza_ah64_irJamOn", true, true];
 
 _heli setVariable ["fza_ah64_irJamCooldown", [_jamTemp, time], true];
-while {_heli getHitPointDamage "HitLfab" < 0.8 &&
+while {_heli getHitPointDamage "IrJammer" < 0.8 &&
     alive _heli &&
     _heli getVariable "fza_ah64_irJamOn" &&
     _jamTemp < 60 
