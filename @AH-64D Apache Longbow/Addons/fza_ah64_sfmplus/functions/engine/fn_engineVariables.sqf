@@ -18,10 +18,12 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_sfmplus_engStartSwitchState", 	["OFF", "OFF"]]; //OFF, START
 _heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, IDLE, FLY
 _heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
-_heli setVariable ["fza_sfmplus_engClutchState",	  	["DIS", "DIS"]]; //DIS, ENG
+
+if(isMultiplayer) then {
+	_heli setVariable ["fza_sfmplus_lastTimePropagated", 0];
+};
 
 _heli setVariable ["fza_sfmplus_isSingleEng",			false];
 _heli setVariable ["fza_sfmplus_engTqMult",				2];
