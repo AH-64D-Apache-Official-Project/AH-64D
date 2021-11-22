@@ -33,7 +33,7 @@ You can also control the infrared & Radar Jammers using the modes available stan
 5. RF Jammer Control.
 6. Ownership icon.
 
-### Jammers (Figure 1 & 3)
+### Jammers (Figure 2 & 3)
 
 1. OFF. jammers are Off.
 2. STBY. In this mode Jammers will Automaticaly switch to OPER after Missile is detected.
@@ -42,6 +42,8 @@ You can also control the infrared & Radar Jammers using the modes available stan
 {% include warning.html content="Switching the Jammers from OFF to OPER & STBY to OPER has a 1.5 second activation delay, so STBY mode will Be less Successfull to activate in time at short range, If heading into close proximity to known anti air its recommended to manualy activate OPER jammers Before doing so." %}
 
 ## RWR Icons
+
+{% include important.html content="Currantly in the aircraft there are only three Types of anti air identifiers, In the upcoming MPD update we hope to be able to have a seperate identifier for all Anti-airs from vanilla and the most common community mods like RHS & CUP." %}
 
 | Type | Detected | Tracking | Firing | Description
 | :- | :-: | :-: | :-: | :- |
