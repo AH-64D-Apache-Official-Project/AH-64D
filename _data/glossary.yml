@@ -37,3 +37,5 @@ items:
   description:  Tactical situation display - an MPD page that allows for you to view waypoints and targets in a map-like environment.
 - name: WCA
   description: "Warning, Caution, Advisory - the 3 types of status messages that the Apache's systems can provide. They are visible either on the EUFD or on the WCA page on an MFD. They can range from warnings (Engine out) to smaller advisories (canopy door open.)"
+- name: RWR
+  description: "Radar Warning Receiver - this takes information about incoming Radar signals processes the information & sends the information to the ASE"

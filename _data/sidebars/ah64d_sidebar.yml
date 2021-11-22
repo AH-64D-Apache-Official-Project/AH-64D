@@ -58,11 +58,20 @@ entries:
     - title: MPDs
       url: mpd.html
       output: [web]
+    - title: "MPD Page: ASE"
+      url: mpd-ase.html
+      output: [web]
     - title: "MPD Page: ENG"
       url: mpd-eng.html
       output: [web]
     - title: "MPD Page: FCR"
       url: mpd-fcr.html
+      output: [web]
+    - title: "MPD Page: FLY"
+      url: mpd-fly.html
+      output: [web]
+    - title: "MPD Page: FUEL"
+      url: mpd-fuel.html
       output: [web]
     - title: "MPD Page: TSD"
       url: mpd-tsd.html
