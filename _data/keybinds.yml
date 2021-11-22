@@ -128,12 +128,12 @@ symbology-up:
   keys: [Shift,B]
   mod: true
 symbology-down:
-  name: Symbology Select Up
+  name: Symbology Select Sown
   description: Cycles symbology between hover and bobup
   category: IHADSS
-  keys: [Shift,B]
+  keys: [Ctrl,B]
   mod: true
-symbology-up:
+symbology-select:
   name: Symbology Select Press
   description: Selects the FLT page on the left MPD
   category: IHADSS

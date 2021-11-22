@@ -10,7 +10,7 @@ This is a tutorial on how to set up the AH-64D Apache Project mod for ArmA 3. Th
 
 ## Key bindings
 
-Due to how many features this custom aircraft has, we have multiple additional keybinds that you can map. There is no default, so you will have to do this. Here is the [[full list|Keybinds]] of keybinds.
+Due to how many features this custom aircraft has, we have multiple additional keybinds that you can map. There is no default, so you will have to do this. Here is the [Full list](keybinds.html) of keybinds.
 
 
 At a bare minimum, you must map "Custom User 20" - which is used to click on buttons in the cockpit. You can not fly the aircraft without it.
