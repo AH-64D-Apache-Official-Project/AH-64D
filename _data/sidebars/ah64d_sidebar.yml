@@ -51,6 +51,9 @@ entries:
     - title: Hellfires
       url: weapons-hellfire.html
       output: [web]
+    - title: M789 30MM
+      url: weapons-M789.html
+      output: [web]
   
   - title: Displays
     output: web
@@ -91,6 +94,9 @@ entries:
       output: [web]
     - title: Rockets
       url: Ammunition-type-Rockets.html
+      output: [web]
+    - title: M789
+      url: Ammunition-M789.html
       output: [web]
 
   - title: Flight Model
