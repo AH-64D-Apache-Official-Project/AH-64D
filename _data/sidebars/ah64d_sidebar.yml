@@ -67,8 +67,8 @@ entries:
     - title: "MPD Page: FCR"
       url: mpd-fcr.html
       output: [web]
-    - title: "MPD Page: FLY"
-      url: mpd-fly.html
+    - title: "MPD Page: FLT"
+      url: mpd-flt.html
       output: [web]
     - title: "MPD Page: FUEL"
       url: mpd-fuel.html

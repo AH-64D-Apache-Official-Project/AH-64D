@@ -14,7 +14,7 @@ items:
 - name: HMD
   description: "Helmet Mounted Display - the monocle display attached to the cockpit that displays the IHADSS' symbology."
 - name: KU
-  description: "Keyboard unit. The small keyboard on the left hand side of the cockpit. (:construction: not currently implemented)"
+  description: "Keyboard unit. The small keyboard on the left hand side of the cockpit. (not currently implemented)"
 - name: IHADSS
   description: "Integrated Helmet and Display Sight System - the helmet mounted display that the Apache uses."
 - name: LRFD
@@ -38,4 +38,8 @@ items:
 - name: WCA
   description: "Warning, Caution, Advisory - the 3 types of status messages that the Apache's systems can provide. They are visible either on the EUFD or on the WCA page on an MFD. They can range from warnings (Engine out) to smaller advisories (canopy door open.)"
 - name: RWR
-  description: "Radar Warning Receiver - this takes information about incoming Radar signals processes the information & sends the information to the ASE"
+  description: "Radar Warning Receiver - A part of the ASE systems that passively detects incoming radar signals."
+- name: Radar altitude
+  description: "The height from the ground below the aircraft."
+- name: Barometric altitude
+  description: "The height of the aircraft from sea level."
