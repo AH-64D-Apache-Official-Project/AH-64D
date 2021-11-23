@@ -67,8 +67,8 @@ class CfgAmmo
 	class fza_30x113: B_30mm_HE
 	{
 		ace_frag_enabled = 1;  // Enable fragmentation (0-disabled, 1-enabled)
-        ace_frag_metal = 42;  // Amount of metal being fragmented (grams) - information below
-        ace_frag_charge = 57;  // Amount of explosive filler (grams) - information below
+        ace_frag_metal = 50;  // Amount of metal being fragmented (grams) - information below
+        ace_frag_charge = 85;  // Amount of explosive filler (grams) - information below
         ace_frag_gurney_c = 2377;  // w/PBXN-5 Explosive Fill
         ace_frag_gurney_k = 3/5;
         ace_frag_classes[] = {"ACE_frag_large"};
