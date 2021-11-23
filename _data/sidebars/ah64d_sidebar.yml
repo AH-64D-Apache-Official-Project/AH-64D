@@ -83,6 +83,16 @@ entries:
       url: mpd-wpn.html
       output: [web]
 
+  - title: Ammunition Type
+    output: web
+    folderitems:
+    - title: Hellfires
+      url: Ammunition-type-Hellfires.html
+      output: [web]
+    - title: Rockets
+      url: Ammunition-type-Rockets.html
+      output: [web]
+
   - title: Flight Model
     output: web
     folderitems:

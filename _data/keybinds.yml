@@ -128,7 +128,7 @@ symbology-up:
   keys: [Shift,B]
   mod: true
 symbology-down:
-  name: Symbology Select Sown
+  name: Symbology Select Down
   description: Cycles symbology between hover and bobup
   category: IHADSS
   keys: [Ctrl,B]
@@ -151,6 +151,12 @@ head-right:
   description: Moves head to the right in order to see around obstacle
   category: View
   keys: [Ctrl,Num 6]
+  mod: false
+head-up:
+  name: Move Head Up
+  description: Moves head up in order to see over Dashboard
+  category: View
+  keys: [Ctrl,Page Up]
   mod: false
 look-center:
   name: Look Center

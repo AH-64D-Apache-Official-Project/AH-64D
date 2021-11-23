@@ -52,6 +52,29 @@ These are the changes that have been made to the dev version on Github since the
  - Floodlighting, No longer jumps around, either Seat can now activate it in multiplayer
  - PNVS jitteriness with head tracking
 
+## New Keybinding
+ - Cockpit Interact
+ - Next Waypoint
+ - Previous Waypoint
+ - Sight Select HMD
+ - Sight Select TADS
+ - Sight Select FXD
+ - Sight Select FCR
+ - Target Store
+ - WAS M230
+ - WAS Rockets
+ - WAS Missiles
+ - Arm/Safe
+ - Missile Advance
+ - LRFD Second Detent
+ - FCR Mode Select GTM
+ - FCR Mode Select ATM
+ - FCR - Single Scan
+ - FCR - Continuous Scan
+ - Symbology Select Up
+ - Symbology Select Down
+ - Symbology Select Press
+ - Look Center
+
 ## Todo
  - Rename of hit point for easier zeus damage 
- - Redone keybindings
