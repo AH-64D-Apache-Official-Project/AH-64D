@@ -1,16 +1,16 @@
 ---
-title: Hellfires
+title: Hellfire Ammo
 tags: [weapons]
 sidebar: ah64d_sidebar
-permalink: Ammunition-type-Hellfires.html
-folder: AmmunitionType
+permalink: weapons-ammo-hellfires.html
+folder: ammunitiontype
 ---
 
 
 ## Introduction
 Hellfires were originaly an Anti-tank weapon designed to kill soviet tanks at long range in the 70's, The entirety of the apache Airframe was orginaly built around the incoperation and use of these leathal anti tank weapons, over the years their capability such as warhead and range has improved dramaticaly as such we have 6 different types available to use.
 
-## SAL & RF
+## Seekers
 ### SAL1
 - Semi-active laser homing. Non-programmable. Analogue autopilot.
 - Cannot Reaquire lost laser lock

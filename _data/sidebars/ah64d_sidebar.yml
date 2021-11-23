@@ -51,6 +51,16 @@ entries:
     - title: Hellfires
       url: weapons-hellfire.html
       output: [web]
+    subfolders:
+    - title: Amunition types
+      output: [web]
+      subfolderitems:
+      - title: Hydra-70 Rockets
+        url: weapons-ammo-rockets.html
+        output: [web]
+      - title: AGM-114 Hellfires
+        url: weapons-ammo-hellfires.html
+        output: [web]
   
   - title: Displays
     output: web
@@ -83,15 +93,7 @@ entries:
       url: mpd-wpn.html
       output: [web]
 
-  - title: Ammunition Type
-    output: web
-    folderitems:
-    - title: Hellfires
-      url: Ammunition-type-Hellfires.html
-      output: [web]
-    - title: Rockets
-      url: Ammunition-type-Rockets.html
-      output: [web]
+  
 
   - title: Flight Model
     output: web

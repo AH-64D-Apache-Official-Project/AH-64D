@@ -1,9 +1,9 @@
 ---
-title: Rockets
+title: Rocket Ammo
 tags: [weapons]
 sidebar: ah64d_sidebar
-permalink: Ammunition-type-Rockets.html
-folder: AmmunitionType
+permalink: weapons-ammo-rockets.html
+folder: ammunitiontype
 ---
 
 

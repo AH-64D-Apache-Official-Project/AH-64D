@@ -8,42 +8,46 @@ folder: mpd
 
 
 {% include image.html file="mpd/ase_page_notracks_nojam.png" alt="Image of ASE MPD with no track" caption="Figure 1: The ASE mpd with no active jammers and no tracks" %}
-{% include image.html file="mpd/IR_jam_panel.png" alt="Image of ASE MPD with no track" caption="Figure 2: The Jammer pannel for the IR Jammer" %}
-{% include image.html file="mpd/RF_jam_panel.png" alt="Image of ASE MPD with no track" caption="Figure 3: The Jammer pannel for the RF Jammer" %}
-
 
 ## Introduction
 
-The ASE, or aircraft survival equipment, is the page in which you manage outside threats to the airframe. On this page you will find information about active radar threats both airborne and grounded, this information is gathered by the RWR and processed onto the display with information about the type of threat, its distance & its actions.
+The ASE page allows for the operator to operate the aircraft's Aircraft Survivability Equipment. The central portion of the page displays all detected threats to the airframe, both airborne and grounded. The outer sections allows for the operator to operate the aircraft's countermeasures and decide how the aircraft should react to threats.
 
-You can also control the infrared & Radar Jammers using the modes available standby & operational.
-
-{% include important.html content="In reality in the real aircraft the Jammer do not have the different modes as standby is to warm the jammers up ready for activation & operation would be the equivilant of standby currantly in which it jammes when it detects a threat." %}
-
-{% include warning.html content="The ASE can only show up to 32 targets due to technical limitations of the engine. If you have more targets than that known to you, you may not be able to view them all.." %}
+{% include important.html content="In reality in the real aircraft the Jammer do not have the different modes as Standby is to warm the jammers up ready for activation & operation would be the equivilant of standby currantly in which it jammes when it detects a threat." %}
 
 ## Info
 
-### ASE (Figure 1)
+### ASE
 
-1. Autopage. Will open the ASE page on the right Mpd under the set conditions of Track or Launch.
-2. Range setting on the ASE page, Range is defined as Radius.
-3. Flare counter Identical to what can be seen on the WPN MPD page.
+1. Autopage. This sets what situations this page will be automatically shown. It has 3 Modes
+    * `OFF` - Never autopage
+    * `TRACK` - Autopage when a threat begins tracking, or when a launch is detected.
+    * `LAUNCH` - Autopage when a launch is detected
+2. Range to show in the central dsplay
+3. Countermeasure count.
 4. IR Jammer Control.
 5. RF Jammer Control.
-6. Ownership icon.
+6. Ownship icon.
 
-### Jammers (Figure 2 & 3)
+### Jammers
+
+<figure>
+    <div style="display:block;width:100%;display:flex;justify-content:center">
+    <img class="docimage" style="display:inline-block" src="images/mpd/ir_jam_panel.png"/>
+    <img class="docimage" style="display:inline-block" src="images/mpd/rf_jam_panel.png"/>
+    </div>
+    <figcaption>Figure 2: Jammer controls on the MPD</figcaption>
+</figure>
 
 1. OFF. jammers are Off.
 2. STBY. In this mode Jammers will Automaticaly switch to OPER after Missile is detected.
 3. OPER. The Jammers are Jamming, They have 120 seconds of operation before overheat & require 60 seconds cooldown, OPER can be interrupted.
 
-{% include warning.html content="Switching the Jammers from OFF to OPER & STBY to OPER has a 1.5 second activation delay, so STBY mode will Be less Successfull to activate in time at short range, If heading into close proximity to known anti air its recommended to manualy activate OPER jammers Before doing so." %}
+{% include warning.html content="Switching the Jammers from OFF to OPER & STBY to OPER has a 1.5 second activation delay, so being in either OFF or STBY mode will delay jammer enabling at short range, If heading into close proximity to known anti air it is recommended to have jammers in OPER beforehand." %}
 
 ## RWR Icons
 
-{% include important.html content="Currantly in the aircraft there are only three Types of anti air identifiers, In the upcoming MPD update we hope to be able to have a seperate identifier for all Anti-airs from vanilla and the most common community mods like RHS & CUP." %}
+{% include important.html content="Currently in the aircraft there are only three types of anti air icons." %}
 
 | Type | Detected | Tracking | Firing | Description
 | :- | :-: | :-: | :-: | :- |
