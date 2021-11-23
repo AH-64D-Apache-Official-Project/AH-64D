@@ -47,8 +47,6 @@ _this spawn fza_fnc_aseBetty;
 
 [_heli, _munition, _hostile] spawn {
     params ["_heli", "_munition", "_hostile"];
-    //activation delay for countermeasures
-    sleep 1.5;
 
     private _irjon = _heli getVariable "fza_ah64_irJamOn";
     private _irjstate = _heli getVariable "fza_ah64_irjstate";
