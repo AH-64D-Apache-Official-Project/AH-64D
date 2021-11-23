@@ -12,6 +12,8 @@ folder: mpd
 ## Introduction
 The Fly page is extremely usefull page as it acts as a backup to the HDU incase of failure, This page contains everything you would need to fly blind at night, altitude, radar altitude, horizon, bank angle, slip, speed, ground speed & torque, the only thing it cant help you do flying blind is land.
 The Fly page can be open using {% include keybind.html name="symbology-select"%}.
+
+
 ## Info
 
 ### FLY (Figure 1)
