@@ -12,6 +12,7 @@ class CfgAmmo
 	class GrenadeBase;
 	class FlareCore;
 	class B_9x21_Ball;
+	class ammo_Penetrator_Base;
 	
 	class fza_ah64_flare_shot: Bulletbase
 	{
@@ -145,6 +146,19 @@ class CfgAmmo
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	
+
+	class Fza_Penetrator_9KG_Tandem: ammo_Penetrator_Base
+	{
+		caliber = 60;
+		warheadName = "TandemHEAT";
+		hit = 1650;
+	};
+	class Fza_Penetrator_8KG: ammo_Penetrator_Base
+	{
+		caliber = 60;
+		warheadName = "HEAT";
+		hit = 780;
+	};
 	class fza_agm114base : Missile_AGM_02_F {
 
 		ace_frag_enabled 			= 0;
@@ -183,7 +197,7 @@ class CfgAmmo
 		maxRangeProbab = 0.8;	
 
 		//Penetrator
-		submunitionAmmo				="ammo_Penetrator_AGM_01";
+		submunitionAmmo				="Fza_Penetrator_9KG_Tandem";
 		submunitionDirectionType	="SubmunitionModelDirection";
 		submunitionInitSpeed		=1000;
 		submunitionParentSpeedCoef	=0;
@@ -392,7 +406,7 @@ class CfgAmmo
 		proxyShape					= "\fza_ah64_US\fza_agm114c";
 		effectsmissile 				= "missile3";
 
-		submunitionAmmo				= "ammo_Penetrator_Titan_AT";
+		submunitionAmmo				= "Fza_Penetrator_8KG";
 
 		hit							= 200;
 		indirectHit 				= 80;
@@ -407,7 +421,7 @@ class CfgAmmo
 		model 						= "\fza_ah64_US\fza_agm114c";
 		proxyShape					= "\fza_ah64_US\fza_agm114c";
 
-		submunitionAmmo				= "ammo_Penetrator_Titan_AT_long";
+		submunitionAmmo				= "Fza_Penetrator_8KG";
 
 		hit							= 260;
 		indirectHit 				= 100;
