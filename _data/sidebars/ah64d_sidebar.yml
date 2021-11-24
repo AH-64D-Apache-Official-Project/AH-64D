@@ -25,6 +25,9 @@ entries:
     - title: Startup
       url: flight-model-startup.html
       output: [web]
+    - title: Settings
+      url: Settings.html
+      output: [web]
     - title: FAQ
       url: faq.html
       output: [web]
