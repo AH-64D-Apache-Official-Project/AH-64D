@@ -16,8 +16,8 @@ Examples:
 Author:
   BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_variableName", "_index", "_value"];
+params ["_heli", "_variableName", "_index", "_value", ["_public", false]];
 
 private _temp = (_heli getVariable _variableName);
 _temp set [_index, _value];
-_heli setVariable[_variableName, _temp, true];
+_heli setVariable[_variableName, _temp, _public];
