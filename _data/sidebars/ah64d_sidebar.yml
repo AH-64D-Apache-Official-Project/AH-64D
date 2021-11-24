@@ -61,6 +61,9 @@ entries:
       - title: AGM-114 Hellfires
         url: weapons-ammo-hellfires.html
         output: [web]
+      - title: M789 30MM
+        url: weapons-M789.html
+        output: [web]
   
   - title: Displays
     output: web
@@ -92,8 +95,6 @@ entries:
     - title: "MPD Page: WPN"
       url: mpd-wpn.html
       output: [web]
-
-  
 
   - title: Flight Model
     output: web
