@@ -10,23 +10,23 @@ entries:
     - title: Welcome!
       url: index.html
       output: [web]
-    - title: Set-Up
-      url: setup.html
-      output: [web]
-    - title: FAQ
-      url: faq.html
-      output: [web]
     - title: Glossary
       url: glossary.html
       output: [web]
     - title: Keybinds
       url: keybinds.html
       output: [web]
+    - title: Set-Up
+      url: setup.html
+      output: [web]
     - title: Cockpit Overview
       url: cockpit.html
       output: [web]
     - title: Startup
       url: flight-model-startup.html
+      output: [web]
+    - title: FAQ
+      url: faq.html
       output: [web]
 
   - title: Targeting
