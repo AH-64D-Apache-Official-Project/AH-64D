@@ -30,8 +30,10 @@ The menu can be access by hitting
 
 ### Flight Model 
 - Enable stabilator in SFM, When enabled the stabilator Aerofoil will function to help you fly as the aircraft is intended (you are not meant to fight the Stabilator).
-{% include tip.html content="You are not meant to fight the stabilator, if you increase collective the stabilator will point you nose up to climb, reverse it for descent, The stabilator is meant to function with the collective left at a set position for foward flight" %}
 - Enable keyboard only mode in SFM, if you are Flying with a keyboard this must be enabled to have the engine simulate engine torq correctly
+
+{% include tip.html content="You are not meant to fight the stabilator, if you increase collective the stabilator will point you nose up to climb, reverse it for descent, The stabilator is meant to function with the collective left at a set position for foward flight" %}
+
 {% include warning.html content="Failure to have this set correctly will cause damage to the engine when flying.
 when using HOTAS you should disable this setting because your not using keyboard, That being said there are rare instanses in which those with a HOTAS will need this setting on, Were not sure why." %}
 
