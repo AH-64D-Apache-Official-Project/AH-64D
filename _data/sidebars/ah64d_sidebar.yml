@@ -51,19 +51,19 @@ entries:
     - title: Hellfires
       url: weapons-hellfire.html
       output: [web]
-    subfolders:
-    - title: Amunition types
-      output: [web]
-      subfolderitems:
-      - title: Hydra-70 Rockets
-        url: weapons-ammo-rockets.html
+      subfolders:
+      - title: Ammunition types
         output: [web]
-      - title: AGM-114 Hellfires
-        url: weapons-ammo-hellfires.html
-        output: [web]
-      - title: M789 30MM
-        url: weapons-M789.html
-        output: [web]
+        subfolderitems:
+        - title: Hydra-70 Rockets
+          url: weapons-ammo-rockets.html
+          output: [web]
+        - title: AGM-114 Hellfires
+          url: weapons-ammo-hellfires.html
+          output: [web]
+        - title: M789 30MM
+          url: weapons-M789.html
+          output: [web]
   
   - title: Displays
     output: web
