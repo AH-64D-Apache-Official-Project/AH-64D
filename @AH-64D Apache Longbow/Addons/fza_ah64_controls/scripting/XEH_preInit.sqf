@@ -66,15 +66,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-	"fza_ah64_ExperimentalFCR",
-	"CHECKBOX",
-	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
-	[_projName, "Fire Control Radar"],
-	[true],
-	0
-] call CBA_fnc_addSetting;
-
-[
 	"fza_ah64_aiFireControl",
 	"CHECKBOX",
 	["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
