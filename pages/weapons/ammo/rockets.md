@@ -1,5 +1,5 @@
 ---
-title: Rocket Ammo
+title: Hydra-70 Rockets
 tags: [weapons]
 sidebar: ah64d_sidebar
 permalink: weapons-ammo-rockets.html

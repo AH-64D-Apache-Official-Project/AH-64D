@@ -1,5 +1,5 @@
 ---
-title: Hellfire Ammo
+title: AGM-114 Hellfires
 tags: [weapons]
 sidebar: ah64d_sidebar
 permalink: weapons-ammo-hellfires.html
