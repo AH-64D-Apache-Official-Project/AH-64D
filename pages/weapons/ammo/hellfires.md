@@ -72,4 +72,4 @@ A thermobaric weapon, aerosol bomb, or vacuum bomb is a type of explosive that u
 - Range: 8,000 m (8,700 yd).
 - Warhead: Metal augmented charge (Thermobaric).
 
-{% include important.html content="The Range off the AGM-114 Hellfire Missile are Rated for 8Km but if you increase your relative altitude to the target point e.g Target 200ASL & you are 3500ASL you can significantly increase the weapons max range by doing so, Other facters are also needed to be taken into consideration such as wind direction and speed, aswell as wether or not you can effectively designate the target yourself at that range you may require a JTAC laser." %}
+{% include tip.html content="The Range off the AGM-114 Hellfire Missile are Rated for 8Km but if you increase your relative altitude to the target point e.g Target 200ASL & you are 3500ASL you can significantly increase the weapons max range by doing so, Other facters are also needed to be taken into consideration such as wind direction and speed, aswell as wether or not you can effectively designate the target yourself at that range you may require a JTAC laser." %}

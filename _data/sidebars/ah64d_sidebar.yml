@@ -62,7 +62,7 @@ entries:
           url: weapons-ammo-hellfires.html
           output: [web]
         - title: M789 30MM
-          url: weapons-M789.html
+          url: weapons-ammo-m789.html
           output: [web]
   
   - title: Displays
