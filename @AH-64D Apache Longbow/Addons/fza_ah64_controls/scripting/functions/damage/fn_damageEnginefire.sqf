@@ -85,7 +85,8 @@ do {
     if (_eng == "apu" && _heli animationphase "plt_apu" < 0.5 && _rand > 9.9) exitwith {};
     _helidamage = _helidamage + 0.0005;
     if (_helidamage > 0.5) then {
-        _heli setHit["HitHRotor", 1];
+        _heli setHit ["velka vrtule", 1];
+        
     };
     if (_helidamage > 1) then {
         _heli setdamage 1;
