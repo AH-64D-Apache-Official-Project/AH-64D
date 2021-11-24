@@ -67,8 +67,15 @@ class CfgAmmo
 	
 	class fza_30x113: B_30mm_HE
 	{
-		ace_frag_enabled			= 0;
-		ace_frag_skip 				= 1;
+		ace_frag_enabled = 1;  // Enable fragmentation (0-disabled, 1-enabled)
+        ace_frag_metal = 50;  // Amount of metal being fragmented (grams) - information below
+        ace_frag_charge = 85;  // Amount of explosive filler (grams) - information below
+        ace_frag_gurney_c = 2377;  // w/PBXN-5 Explosive Fill
+        ace_frag_gurney_k = 3/5;
+        ace_frag_classes[] = {"ACE_frag_large"};
+        ace_frag_skip = 0;
+        ace_frag_force = 1;
+    
 		soundsetbulletfly[] 		= {"fza_sc_bullet_flyby_soundset"};
 		soundsetsoniccrack[] 		= {"fza_sc_30x113_soundset"};
 		soundsetexplosion[] 		= {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
@@ -86,7 +93,7 @@ class CfgAmmo
 		indirectHit 				= 20;
 		indirectHitRange 			= 3.5;		
 		maxspeed 					= 805;
-		explosive					= 0.8;
+		explosive					= 0.4;
 
 		airFriction 				= -0.00036;
 		airlock 					= 0;
