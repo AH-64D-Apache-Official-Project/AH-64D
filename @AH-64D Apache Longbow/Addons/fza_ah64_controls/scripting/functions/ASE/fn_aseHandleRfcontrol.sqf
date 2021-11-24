@@ -18,6 +18,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+//activation delay for countermeasures
+sleep 1.5;
+
 if (_heli getVariable "fza_ah64_rfJamOn") exitWith {};
 
 if !local _heli exitWith {
