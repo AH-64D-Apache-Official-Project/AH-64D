@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/laser/fn_laserArm.sqf",{12:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Arms the apache\'s LRFD, from either seat. Must be run in scheduled environment (involve sleep)</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/laser/fn_laserArm.sqf",{10:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Arms the apache\'s LRFD, from either seat. Must be run in scheduled environment (involve sleep)</div></div>"});
