@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/light/fn_lightHandleControl.sqf",{26:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any light-related cockpit controls.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/light/fn_lightHandleControl.sqf",{22:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles any light-related cockpit controls.</div></div>"});
