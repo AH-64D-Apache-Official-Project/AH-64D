@@ -18,6 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+//private _collectiveVal = -1.0; private _collectiveOut  = 0.0;
+/*
 private _cyclicLeft    = 0.0; private _cyclicRight    = 0.0;
 private _cyclicForward = 0.0; private _cyclicBackward = 0.0;
 private _collectiveLow = 0.0; private _collectiveHigh = 0.0;
@@ -49,10 +51,25 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveHigh = inputAction "HeliCollectiveRaiseCont";
 	_collectiveVal  = _collectiveHigh - _collectiveLow;
 	_collectiveOut  = linearConversion [-1, 1, _collectiveVal, 0, 1];
+};*/
+
+private _collectiveVal = _heli animationSourcePhase "collective";
+
+private _collectiveOut = 0.0;
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+	_collectiveOut = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
+
+	private _V_mps            = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+	private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.780, 0.940, true];
+
+	_collectiveOut = [_collectiveOut, 0.0, _collectiveOutMod] call BIS_fnc_clamp;
+} else {
+	_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
 };
 
+systemChat format ["collectivVal %1
+					\ncollectiveOut %2", _collectiveVal, _collectiveOut];
+
 //Global variable for use by other scripts, returns -1 to 1
-fza_sfmplus_cyclicRollOut    = _cyclicRight - _cyclicLeft;
-fza_sfmplus_cyclicPitchOut   = _cyclicForward - _cyclicBackward;
 fza_sfmplus_collectiveOutput = _collectiveOut
 

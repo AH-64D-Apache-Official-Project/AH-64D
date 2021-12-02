@@ -35,7 +35,7 @@ private _dmgPerSec    = 1 / _timeToMaxDmg;
 if (isEngineOn _heli) then {
     //With the power levers at idle
     if (_pctNR <= 0.50) then {
-        if (_engPctTQ >= 0.3) then {
+        if (_engPctTQ >= 0.40) then {
             private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
             _heli setHit ["velka vrtule", _dmg];
             /*
