@@ -1,1 +1,0 @@
-[_heli] call fza_fnc_targetingVariable;

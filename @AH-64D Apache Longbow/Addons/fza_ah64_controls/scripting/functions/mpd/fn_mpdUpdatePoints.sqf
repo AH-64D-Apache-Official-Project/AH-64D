@@ -61,9 +61,9 @@ if !(_clipToScreen) then {
 };
 
 // If there are more points to draw then selections available, render the closest ones to the helicopter.
-if (count _points > 31) then {
+if (count _points > 32) then {
 	_points = [_points, [_heli], {_input0 distance2D (_x # 3)}, "ASCEND"] call BIS_fnc_sortBy;
-	_points resize 31;
+	_points resize 32;
 };
 
 

@@ -1,7 +1,9 @@
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
+
 params ["_heli", "_system", "_control"];
 
-if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
+if(_heli getVariable "fza_ah64_wpnPageSelected" == WAS_WEAPON_GUN) then {
 	switch (_control) do {
 		case "l1": {
 			_heli setVariable ["fza_ah64_burst_limit", 10];
@@ -17,18 +19,41 @@ if(currentWeapon _heli in ["fza_m230", "fza_burstlimiter"]) then {
 		};
 	};
 };
-if(currentWeapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
+if(_heli getVariable "fza_ah64_wpnPageSelected" == WAS_WEAPON_RKT) then {
+	private _setSelectedRocketType = {
+		params ["_heli", "_type"];
+		
+	};
 	switch (_control) do {
+		case "l1": {
+			[_heli, 0] call fza_fnc_weaponRocketSetSelected;
+		};
+		case "l2": {
+			[_heli, 1] call fza_fnc_weaponRocketSetSelected;
+		};
+		case "l3": {
+			[_heli, 2] call fza_fnc_weaponRocketSetSelected;
+		};
+		case "l4": {
+			[_heli, 3] call fza_fnc_weaponRocketSetSelected;
+		};
+		case "l5": {
+			[_heli, 4] call fza_fnc_weaponRocketSetSelected;
+		};
 		case "r1": {
 			[_heli] call fza_fnc_weaponRocketsalvo;
 		};
 	};
 };
-if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
+if(_heli getVariable "fza_ah64_wpnPageSelected" == WAS_WEAPON_MSL) then {
 	switch (_control) do {
 		case "l1": {
 			//Switch missile lase
-			[_heli] call fza_fnc_controlHandlelaserchange;
+			[_heli] call fza_fnc_laserCycle;
+		};
+		case "l3": {
+			//Switch missile type
+			[_heli] call fza_fnc_weaponMissileCycle
 		};
 		case "r3": {
 			//Switch missile trajectory of current hellfire
@@ -37,9 +62,6 @@ if(currentWeapon _heli isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) th
 	};
 };
 switch (_control) do {
-	case "r6": {
-		_heli setVariable ["fza_ah64_agmode", (_heli getVariable "fza_ah64_agmode") + 1, true];
-	};
 	case "r5": {
 		if (isNull laserTarget _heli) then {
 			[_heli] spawn fza_fnc_laserArm;
@@ -48,45 +70,19 @@ switch (_control) do {
 		};
 	};
 	case "b1": {
-		//Select M230
-		if (_heli hasweapon "fza_m230") then {
-			_heli selectweapon "fza_m230";
-		} else {
-			_heli selectweapon "fza_burstlimiter";
+		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
+			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_GUN];
 		};
 	};
 	case "b2": {
-		//Select Missile
-		_missileWeps = (_heli weaponsTurret [0]) arrayIntersect _hellfireweps;
-		_curIndex = _missileWeps find (currentWeapon _heli);
-		_nextWep = _missileWeps select ((_curIndex + 1)% count _missileWeps);
-		[_heli, [0], _nextWep, _heli getVariable "fza_ah64_ltype"] call fza_fnc_weaponSelectFireMode;
-	};
-	case "b3": {
-		//Select ATAS
-		if (_heli hasweapon "fza_atas_2") then {
-			_heli selectweapon "fza_atas_2";
+		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
+			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_MSL];
 		};
 	};
 	case "b4": {
-		_emptywep = "";
-		_wpncounter = 0;
-		_selectedweapon = 0; {
-			if (_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
-				_emptywep = _x;
-			};
-			if ((_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) && _heli ammo _x > 0 && _selectedweapon == 0) then {
-				_selectedweapon = 1;
-				_heli selectweapon _x;
-			};
-			if (_selectedweapon == 1) exitwith {};
-			_wpncounter = _wpncounter + 1;
-			if (_wpncounter >= count(weapons _heli)) then {
-				_selectedweapon = 1;
-				_heli selectweapon _emptywep;
-			};
-		}
-		foreach(weapons _heli);
+		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
+			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_RKT];
+		};
 	};
 	case "wpn": {
 		[_heli, 0, "wpn"] call fza_fnc_mpdSetDisplay;

@@ -16,6 +16,8 @@ Examples:
 Author:
 	Unknown
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
+
 params["_heli"];
 if (!(player in _heli)) exitwith {};
 if (!(isnil "fza_ah64_enableturrets")) exitwith {};
@@ -24,14 +26,14 @@ private _inhibit = "";
 
 private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
 
-private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter"];
+private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
+private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
 private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel = [0, 0, 0];
 private _targPos = -1;
 private _lockCameraForwards = false;
 switch (_sight) do {
-    case 0:{
+    case SIGHT_FCR:{
        if (!isNull fza_ah64_mycurrenttarget) then {
             _targPos = aimPos fza_ah64_mycurrenttarget;
             _targVel = velocity fza_ah64_mycurrenttarget;
@@ -39,10 +41,10 @@ switch (_sight) do {
             _lockCameraForwards = true;
         };
 	};
-    case 1:{
+    case SIGHT_HMD:{
 		_targPos = aglToAsl (positionCameraToWorld [0, 0, 1000])
 	};
-    case 2:{
+    case SIGHT_TADS:{
 		if (gunner _heli == player && cameraView == "GUNNER" && !isNull cursorObject) then {
 			_targPos = aimPos cursorObject;
 			_targVel = velocity cursorObject;
@@ -50,30 +52,30 @@ switch (_sight) do {
 			_targPos = aglToAsl screentoworld[0.5, 0.5];
 		};
 	};
-    case 3:{
+    case SIGHT_FXD:{
         _lockCameraForwards = true;
     };
 };
 if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) exitWith{
 	_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 };
-if (_sight == 0) then {
+if (_sight == SIGHT_FCR) then {
     _heli lockCameraTo [_targPos, [0]];
 };
 
-if (cameraView == "GUNNER" && (_sight in [1,2])) then {
+if (cameraView == "GUNNER" && (_sight in [SIGHT_HMD,SIGHT_TADS])) then {
 	_heli lockCameraTo [objNull, [0]];
 };
 
 if (_targPos isEqualTo -1) exitWith {
-    if (_sight == 0) then {
+    if (_sight == SIGHT_FCR) then {
         _inhibit = "NO TARGET";
     };
-    if (_usingCannon && !(_sight == 3)) then {
+    if (_usingCannon && !(_sight == SIGHT_FIXED)) then {
         _inhibit = "GUN FIXED";
     };
     _heli animateSource["mainTurret", 0];
-    if (_sight == 3 && _usingCannon) then {
+    if (_sight == SIGHT_FXD && _usingCannon) then {
         _heli animateSource["mainGun", 0];
     } else {
         _heli animateSource["mainGun", 0.298];
@@ -89,12 +91,12 @@ if (_targPos isEqualTo -1) exitWith {
     };
 };
 
-if (_sight == 1 && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
+if (_sight == SIGHT_HMD && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
 	_heli lockCameraTo [_targPos, [0]];
 };
 
 #define NOTVISIBLEFROMTADS(_heli, _tgt) ([(_heli), "VIEW", (_tgt)] checkVisibility [eyePos player, getPosASL (_tgt)] == 0)
-if (_sight == 2 && (gunner _heli == player) && !isNull (_heli getVariable "fza_ah64_tadsLocked")) then {
+if (_sight == SIGHT_TADS && (gunner _heli == player) && !isNull (_heli getVariable "fza_ah64_tadsLocked")) then {
 	_heli lockCameraTo [aimPos (_heli getVariable "fza_ah64_tadsLocked"), [0]];
 
 	if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked") && !fza_ah64_tadsLockCheckRunning) then {
@@ -133,22 +135,22 @@ if (_usingRocket) then {
 		_inhibit = "PYLON LIMIT"
 	};
     if (WEP_TYPE(_heliPylons# 0) == "rocket") then {
-        _heli animateSource["pylon1", _pylonAdjustment];
+        _heli animateSource["pylon1", _pylonAdjustment, true];
     } else {
 		_heli animateSource["pylon1", 0];
 	};
     if (WEP_TYPE(_heliPylons# 4) == "rocket") then {
-		_heli animateSource["pylon2", _pylonAdjustment];
+		_heli animateSource["pylon2", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon2", 0];
 	};
 	if (WEP_TYPE(_heliPylons# 8) == "rocket") then {
-		_heli animateSource["pylon3", _pylonAdjustment];
+		_heli animateSource["pylon3", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon3", 0];
 	};
 	if (WEP_TYPE(_heliPylons# 12) == "rocket") then {
-		_heli animateSource["pylon4", _pylonAdjustment];
+		_heli animateSource["pylon4", _pylonAdjustment, true];
 	} else {
 		_heli animateSource["pylon4", 0];
 	};
@@ -170,7 +172,7 @@ if (_usingCannon) then {
 	};
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
+		_heli selectweapon "fza_burstlimiter";
     };
 	_heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
 	_heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];

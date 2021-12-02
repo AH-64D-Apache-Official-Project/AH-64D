@@ -55,12 +55,10 @@ class CfgNonAIVehicles
 	};
 	class Proxyfza_hydra_m257: ProxyWeapon
 	{
-		model = "\fza_ah64_us\fza_hydra_m257.p3d";
 		simulation = "maverickweapon";
 	};
 	class Proxyfza_hydra_m255: ProxyWeapon
 	{
-		model = "\fza_ah64_us\fza_hydra_m255.p3d";
 		simulation = "maverickweapon";
 	};
 
@@ -91,7 +89,7 @@ class CfgNonAIVehicles
 		simulation = "pylonpod";
 	};
 	class Proxyfza_rail_ur: ProxyWeapon {
-		model = \fza_ah64_us\weps\pylons\fza_railur.p3d;
+		model = \fza_ah64_us\weps\pylons\fza_rail_ur.p3d;
 		simulation = "pylonpod";
 	};
 

@@ -23,4 +23,8 @@ class CfgVehicleClasses
 	{
 		displayName = "AH-64D Project";
 	};
+	class fza_Men
+	{
+		displayName = "AH-64D Project";
+	};
 };

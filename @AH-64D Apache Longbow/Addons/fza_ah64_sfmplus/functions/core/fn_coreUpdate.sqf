@@ -51,7 +51,9 @@ _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
 _totFuelMass          = _totFuelMass - _curFuelFlow;
 private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
-_heli setFuel _armaFuelFrac;
+if (local _heli) then {
+	_heli setFuel _armaFuelFrac;
+};
 
 //Pylons
 private _pylonMass = 0;
@@ -64,13 +66,14 @@ private _pylonMass = 0;
 } foreach magazinesAllTurrets _heli;
 
 private _curMass = _emptyMass + _totFuelMass + _pylonMass;
-_heli setMass _curMass;
+if (local _heli) then {
+	_heli setMass _curMass;
+};
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-
 if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
 	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
@@ -106,8 +109,6 @@ hintsilent format ["v0.11
 					_heli getVariable "fza_sfmplus_engState",
 					_heli getVariable "fza_sfmplus_isSingleEng",
 					_heli getVariable "fza_sfmplus_engPctNP",
-					_heli getVariable "fza_sfmplus_engClutchState",
-					_heli getVariable "fza_sfmplus_engStartSwitchState",
 					_heli getVariable "fza_sfmplus_engPowerLeverState",
 					fza_sfmplus_collectiveOutput,
 					_heli getVariable "fza_sfmplus_engFF",

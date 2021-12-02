@@ -35,10 +35,7 @@ private _engBaseTGT          = _heli getVariable "fza_sfmplus_engBaseTGT" select
 private _engTGT              = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
 private _engBaseOilPSI       = _heli getVariable "fza_sfmplus_engBaseOilPSI" select _engNum;
 private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
-private _engStartSwitchState = _heli getVariable "fza_sfmplus_engStartSwitchState" select _engNum;
 private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
-private _engClutchState      = _heli getVariable "fza_sfmplus_engClutchState" select _engNum;
-private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
 
 //Ng variables
 private _ngMaxVal    = 0;
@@ -105,6 +102,7 @@ switch (_engState) do {
 	case "ON": {
 		if (_engPowerLeverState == "OFF") then {
 			_engState  = "OFF";
+			[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 			_ngMaxVal    = 0;
 			_ngCurVal    = _engPctNG;
 			_ngTimeToVal = 10;
@@ -159,8 +157,8 @@ _engPctNP = [_npMaxVal, _npCurVal, _deltaTime, _npValPerUnitTime] call fza_sfmpl
 
 if (_engBaseNG >= 0.52 && _engState == "STARTING") then {
 	_engState = "ON";
+	[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
 };
-[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 
 if (_engState != "OFF") then {
 	private _intEngBaseTable = [_heli getVariable "fza_sfmplus_engBaseTable", _engBaseNG] call fza_fnc_linearInterp;

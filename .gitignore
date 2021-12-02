@@ -60,3 +60,6 @@ Temporary Items
 docs/
 naturaldocs/Working Data
 buildCfg.json
+.sconsign.dblite
+venv/
+buildTools

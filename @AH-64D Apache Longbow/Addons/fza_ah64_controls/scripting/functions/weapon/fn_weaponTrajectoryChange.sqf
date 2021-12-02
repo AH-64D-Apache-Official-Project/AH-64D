@@ -2,7 +2,7 @@
 Function: fza_fnc_weaponTrajectoryChange
 
 Description:
-	Cycles through the available hellfires trajectory
+	Cycles through the available hellfire trajectories
 
 Parameters:
     _heli - the helicopter
@@ -18,12 +18,11 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-weaponState [_heli, [0]] params ["_weapon", "",  "_fireMode", "_magazine"];
-_nextFireMode = switch (_fireMode) do {
-	case "Cruise": {"TopDown"};
-	case "TopDown": {"LoalDistance"};
-	case "LoalDistance": {"Cruise"};
+private _nextFireMode = switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
+	case "hi": {"lo"};
+	case "lo": {"dir"};
+	case "dir": {"hi"};
 	default {["Unknown missile fire mode: %1", _fireMode] call BIS_fnc_error};
 };
-[_heli, [0], _weapon, _nextFireMode, _magazine] call fza_fnc_weaponSelectFireMode;
-_heli setVariable ["fza_ah64_ltype", _nextFireMode, true];
+_heli setVariable ["fza_ah64_hellfireTrajectory", _nextFireMode, true];
+[_heli] call fza_fnc_weaponUpdateSelected;

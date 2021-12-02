@@ -117,5 +117,5 @@ class TransportPylonsComponent {
             attachment[] = {"","","","","","","","","","","","","","","",""};
             displayName = "Empty";
         };
-    }
-}
+    };
+};

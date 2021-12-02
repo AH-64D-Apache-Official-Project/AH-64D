@@ -37,7 +37,7 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_vanillaTargetingEnable",
 	"CHECKBOX",
-	["Show vanilla targeting information (restart needed)", "Disabling this will hide vanilla targeting information (restart needed)"],
+	["Show vanilla targeting information (restart required)", "Disabling this will hide vanilla targeting information (restart needed)"],
 	[_projName, "UI"],
 	[true],
 	0,
@@ -57,11 +57,29 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-	"fza_ah64_ExperimentalFCR",
+	"fza_ah64_aiFireControl",
 	"CHECKBOX",
-	["Realistic FCR", "Enabling Realistic FCR should stop radar Targets from showing behind terrain, buildings & objects"],
-	[_projName, "Fire Control Radar"],
+	["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
+	[_projName, "AI Control settings"],
 	[true],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_aiFireResponse",
+	"SLIDER",
+	["Fire suppresion response time", "This setting controls how long it takes the Ai to handle an engine fire"],
+	[_projName, "AI Control settings"],
+	[4, 30, 15, 0],
+	0
+] call CBA_fnc_addSetting;
+
+[
+	"fza_ah64_aiFloodlight",
+	"CHECKBOX",
+	["Cockpit lighting control", "Enabling an AI to turn on the cockpit lighting near dark (does not work with full AI crew)"],
+	[_projName, "AI Control settings"],
+	[false],
 	0
 ] call CBA_fnc_addSetting;
 
@@ -74,6 +92,7 @@ fza_ah64_rocketTable =
         ,[3500, 75]
         ,[4500, 120]];
 fza_ah64_weaponDebug = false;
+fza_ah64_Incomingaudio = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
@@ -99,19 +118,117 @@ fza_ah64_mycurrenttarget = objNull;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
 fza_ah64_pfzcache = ["none", "none", [], 0];
-fza_ah64_asethreats = [];
 fza_ah64_asethreatsdraw = [];
 fza_ah64_threattracking = [];
 fza_ah64_threatfiring = [];
 fza_ah64_mycurrenttarget = objNull;
 fza_ah64_fcrlist = [];
+fza_ah64_AseRWR = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
-fza_ah64_schedarray = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_targetingUpdate, fza_fnc_mpdUpdateDisplays, fza_sfmplus_fnc_coreUpdate]; //BMK_fnc_coreUpdate
 fza_ah64_introShownThisScenario = false;
-fza_ah64_slowschedarray = [fza_fnc_targetingUpdate, fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm];
-fza_ah64_mapfaker = addMissionEventHandler["Draw3d", {
-	[0] call fza_fnc_coreScheduler;
+
+//Scheduler arrays
+fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_mpdUpdateDisplays];
+fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
+fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate];
+//Draw3d handler
+fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
+	[0] call fza_fnc_coreDraw3Dscheduler;
 }];
 [0] spawn fza_fnc_ufd;
+
+//EachFrame handler
+fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
+	[0] call fza_fnc_coreEachFrameScheduler;
+}];
+
+["fza_engineFire", {
+    params ["_heli", "_location"];
+    [_heli] spawn fza_aiCrew_fnc_fireControl
+}] call CBA_fnc_addEventHandler;
+
+["fza_engineFire", {
+    params ["_heli", "_location"];
+
+	//If the effects are already present, don't overwrite
+	if (_heli getVariable [format ["fza_ah64_fire_%1_fx", _location], []] isNotEqualTo []) exitWith {};
+	private _side = [];
+	private _sidef = [];
+	private _mag = "";
+	private _audio1 = "";
+	switch _location do {
+		case "right": {
+			_side = [1.2, -0.8, -1.25];
+			_sidef = [1.2, -0.6, -1.25];
+			_mag = "fza_ah64_e2_fire";
+			_audio1 = "fza_ah64_bt_engine2";
+		};
+		case "left": {
+			_side = [-1, -0.8, -1.25];
+			_sidef = [-1, -0.6, -1.25];
+			_mag = "fza_ah64_e1_fire";
+			_audio1 = "fza_ah64_bt_engine1";
+		};
+		case "apu": {
+			_side = [0, -0.8, -1.25];
+			_sidef = [0, 0.2, -1.25];
+			_mag = "fza_ah64_apu_fire";
+			_audio1 = "fza_ah64_bt_apu";
+		};
+	};
+
+	private _smokefx = "#particlesource" createVehicleLocal getpos _heli;
+	_smokefx attachto[_heli, [0, 0, 0]];
+
+	private _firefx = "#particlesource" createVehicleLocal getpos _heli;
+	_firefx attachto[_heli, [0, 0, 0]];
+
+	_smokefx setParticleCircle[0, [0, 0, 0]];
+	_smokefx setParticleRandom[0, [0.25, 0.25, 0], [0.2, 0.2, 0], 0, 0.25, [0, 0, 0, 0.1], 0, 0];
+	_smokefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 9, 1], "", "Billboard", 1, 3, _side, [0, 0, 1], 0, 10, 7.9, 0.066, [2, 3, 4], [
+		[0.1, 0.1, 0.1, 1],
+		[0.2, 0.2, 0.2, 0.5],
+		[0.3, 0.3, 0.3, 0]
+	], [0.125], 1, 0, "", "", _heli];
+	_smokefx setDropInterval 0.03;
+
+	_firefx setParticleCircle[0, [0, 0, 0]];
+	_firefx setParticleRandom[0.5, [0.25, 0.25, 0.1], [0, 0, 1], 0, 0.5, [0, 0, 0, 0], 0, 0];
+	_firefx setDropInterval 0.01;
+	_firefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 10, 32, 1], "", "Billboard", 1, 0.2, _sidef, [0, 0, 0.5], 5, 1, 0.9, 0.3, [1], [
+		[1, 1, 1, 1],
+		[1, 1, 1, 0.75],
+		[1, 1, 1, 0]
+	], [0.5, 0.5, 0], 0.5, 0.5, "", "", _heli];
+
+	_heli setVariable [format ["fza_ah64_fire_%1_fx", _location], [_smokefx, _firefx]];
+}] call CBA_fnc_addEventHandler;
+
+["fza_engineFireOut", {
+    params ["_heli", "_location"];
+
+	private _fx = _heli getVariable [format ["fza_ah64_fire_%1_fx", _location], []];
+	if (count _fx != 2) exitWith {};
+
+	detach (_fx # 0);
+	detach (_fx # 1);
+
+	deletevehicle (_fx # 0);
+	deletevehicle (_fx # 1);
+
+	_heli setVariable [format ["fza_ah64_fire_%1_fx", _location], []];
+}] call CBA_fnc_addEventHandler;
+
+#define OVERRIDE_ACTION(actn) \
+	addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
+	addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
+
+OVERRIDE_ACTION("SwitchWeaponGrp1")
+OVERRIDE_ACTION("SwitchWeaponGrp2")
+OVERRIDE_ACTION("SwitchWeaponGrp3")
+OVERRIDE_ACTION("SwitchWeaponGrp4")
+OVERRIDE_ACTION("nextWeapon")
+OVERRIDE_ACTION("prevWeapon")
+OVERRIDE_ACTION("launchCM")

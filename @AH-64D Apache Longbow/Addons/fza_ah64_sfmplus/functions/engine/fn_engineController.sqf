@@ -23,7 +23,7 @@ private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 
-if (_eng1State == "STARTING" || _eng2State == "STARTING") then {
+if ((_eng1State == "STARTING" || _eng2State == "STARTING") && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", true, true];
 	_heli engineOn true;
 };
@@ -66,10 +66,30 @@ if ((_eng1State == "ON" && _eng2State == "ON") && (_eng1PwrLvrState == "FLY" && 
 
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
+if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 5 < time) then {
+	{
+		_heli setVariable [_x, _heli getVariable _x, true];
+	} forEach [
+		"fza_sfmplus_engFF",
+		"fza_sfmplus_engBaseNG",
+		"fza_sfmplus_engPctNG",
+		"fza_sfmplus_engBaseNP",
+		"fza_sfmplus_engPctNP",
+		"fza_sfmplus_engBaseTQ",
+		"fza_sfmplus_engPctTQ",
+		"fza_sfmplus_engBaseTGT",
+		"fza_sfmplus_engTGT",
+		"fza_sfmplus_engBaseOilPSI",
+		"fza_sfmplus_engOilPSI",
+		"fza_sfmplus_engDest"
+	];
+	_heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
+};
+
 [_heli, 0, _deltaTime, _eng1TqMult] call fza_sfmplus_fnc_engine;
 [_heli, 1, _deltaTime, _eng2TqMult] call fza_sfmplus_fnc_engine;
 
-if (_eng1State == "OFF" && _eng2State == "OFF") then {
+if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", false, true];
 	_heli engineOn false;
 };

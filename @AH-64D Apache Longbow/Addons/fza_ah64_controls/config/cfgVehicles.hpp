@@ -1,14 +1,15 @@
 class CfgVehicles
 {
-	class All;
 	class Helicopter;
 	class Helicopter_Base_F : Helicopter {
 		class Components;
 		class EventHandlers;
 	};
+	#include "cfgVehicles\crew.hpp"
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
+		class CargoTurret;
 
 		//Images
 		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
@@ -45,17 +46,6 @@ class CfgVehicles
 		LESH_AxisOffsetTarget[] = {0,-9.2,-2};
 		LESH_WheelOffset[] = {0,2.5};
 
-		side=1;
-		scope=0;
-		displayName="AH-64D";
-		driverlefthandanimname = "p_collective";
-		driverleftleganimname = "pedalL";
-		driverrighthandanimname = "p_cyclic";
-		driverrightleganimname = "pedalR";
-		simulation=helicopterRTD;
-		mainBladeRadius = 7.3;
-		maxGForce = 9;
-		maxFordingDepth = 0.55;
 		//SFM Variables-------------/
 		startDuration          = 80;
 		liftForceCoef          = 1.25;
@@ -67,31 +57,53 @@ class CfgVehicles
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
 		//SFM Variables-------------/
-		driveOnComponent[] = {"Wheels"};
-		extCameraPosition[] = {0,0,-20};
-		radartype = 4;
-		radarTargetSize = 0.700000;
-		irTargetSize = 0.800000;
-		enableCopilot = true;
-		usePreciseGetInAction = 1;
-		preciseGetInOut = 1;
-		getInRadius = 1.500000;
-		getInAction = "pilot_Heli_Light_02_Enter";
-		getOutAction = "GetOutHigh";
+
+		side=1;
+		scope=0;
+		displayName="AH-64D";
+		simulation=helicopterRTD;
+		attenuationEffectType = "HeliAttenuation";
+		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
-		mainbladecenter = "rotor_center";
-		transportMaxWeapons = 3;
-		transportMaxMagazines = 10;
-		driverCanSee = 2+4+8;
-		gunnerCanSee = 2+4+8;
-		unitinfotype="RscUnitInfoNoHUD";
 		destrtype = "DestructWreck";
+		driveOnComponent[] = {"Wheels"};
+		driverCanSee = 1+2+4+8;
+		driverlefthandanimname = "p_collective";
+		driverleftleganimname = "pedalL";	
+		driverrighthandanimname = "p_cyclic";
+		driverrightleganimname = "pedalR";
+		enableCopilot = true;
+		enableSweep = true;
+		extCameraPosition[] = {0,0,-20};
+		faction="fza_usaav";
+		vehicleclass="fza_helicopters";
+		formationX = 20;
+		formationZ = 20;
+		formationTime = 20;
+		getInAction = "pilot_Heli_Light_02_Enter";
+		getInRadius = 1.500000;
+		getOutAction = "GetOutHigh";
+		gunnerCanSee = 1+2+4+8;
 		hideUnitInfo = 0;
 		insideSoundCoef = 0.5;
-		occludeSoundsWhenIn = 0.562341;
+		irTargetSize = 0.800000;
+		mainBladeRadius = 7.3;
+		mainbladecenter = "rotor_center";
+		maxFordingDepth = 0.55;
+		maxGForce = 9;
 		obstructSoundsWhenIn = 0.316228;
-		attenuationEffectType = "HeliAttenuation";
+		occludeSoundsWhenIn = 0.562341;
+		preciseGetInOut = 1;
+		radarTarget = 1;
+		radarTargetSize = 0.700000;
+		radartype = 4;
+		transportMaxBackpacks = 2;
+		transportMaxMagazines = 10;
+		transportMaxWeapons = 3;
+		type = VAir;
+		unitinfotype="RscUnitInfoNoHUD";
+		usePreciseGetInAction = 1;
 		emptySound[] = {"", 0, 1};
 		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
 		soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
@@ -128,14 +140,23 @@ class CfgVehicles
 		landingSoundOut1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_ext1", 1.778279, 1.000000, 10};
 		landingSoundOut[] = {"landingSoundOut0", 0.500000, "landingSoundOut1", 0.500000};
 		soundenviron[] = {"", 1, 1};
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		class SimpleObject
+		{
+			eden = 1;
+			animate[] = {};
+			hide[] = {"mr_blur","tr_blur","hdam_tr","hdam_rtr"};
+			verticalOffset = 1.785;
+			verticalOffsetWorld = 0.006;
+			init = "[this, '', []] call bis_fnc_initVehicle";
+		};
 		class Components : Components
 		{
 			#include "cfgVehicles\pylons.hpp"
-		}
+		};
 		class EventHandlers {
 			class fza_ah64 {
-				init = "[_this # 0] spawn fza_fnc_eventInit";
+				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init";
 				handleDamage = "_this call fza_fnc_damageSystem";
 			};
 		};
@@ -492,14 +513,14 @@ class CfgVehicles
 			};
 			class HitAvionics
 			{
-				armor = 2;
+				armor = 2.2;
 				material = 51;
 				name = "cockpit";
 				passthrough = 0.5;
 				visual = "skin_nose";
 				explosionShielding = 1;
 				convexComponent = "cockpit";
-				minimalHit = 0.05;
+				minimalHit = 0.1;
 				radius = 0.4;
 			};/*
 			class HitTransmission
@@ -511,44 +532,44 @@ class CfgVehicles
 			};*/
 			class HitEngine1
 			{
-				armor = 0.7;
+				armor = 0.9;
 				material = 51;
 				name = "leng";
 				passthrough = 1;
 				visual = "skin_leng";
 				explosionShielding = 3;
 				convexComponent = "leng";
-				minimalHit = 0.1;
+				minimalHit = 0.3;
 				radius = 0.4;
 			};
 			class HitEngine2: HitEngine1
 			{
-				armor = 0.7;
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
 			};
 			class HitEngine
 			{
-				armor = 0.8;
+				armor = 1.2;
 				material = 51;
 				name = "trans";
 				passthrough = 0;
 				visual = "trans";
 				explosionShielding = 3;
 				convexComponent = "trans";
-				minimalHit = 0.1;
+				minimalHit = 0.5;
 				radius = 0.4;
 				depends = "0.5 * (HitEngine1 + HitEngine2)";
 			};
 			class HitFuel
 			{
-				armor = 0.5;
+				armor = 0.8;
 				material = 51;
 				name = "lfuel";
 				passthrough = 0.1;
 				depends = "HitEngine1";
 				explosionShielding=2;
+				minimalHit = 0.3;
 			};
 			class HitFuel2: HitFuel
 			{
@@ -557,19 +578,21 @@ class CfgVehicles
 			};
 			class Hitlfab
 			{
-				armor = 0.5;
+				armor = 0.9;
 				material = 51;
 				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_lefab";
+				minimalHit = 0.3;
 			};
 			class Hitrfab
 			{
-				armor = 0.5;
+				armor = 0.9;
 				material = 51;
 				name = "RF Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
 				passthrough = 0.1;
 				visual = "skin_refab";
+				minimalHit = 0.3;
 			};
 			class HitVRotor
 			{
@@ -597,31 +620,34 @@ class CfgVehicles
 			};
 			class Hitlwing
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "lwing";
 				passthrough = 0.1;
 				visual = "skin_lwing";
+				minimalHit = 0.3;
 			};
 			class Hitrwing
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "rwing";
 				passthrough = 0.1;
 				visual = "skin_rwing";
+				minimalHit = 0.3;
 			};
 			class HitTail
 			{
-				armor = 0.75;
+				armor = 1;
 				material = 51;
 				name = "tailboom";
 				passthrough = 0.5;
 				visual = "skin_tailboom";
+				minimalHit = 0.5;
 			};
 			class HitVTail
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "vtail";
 				passthrough = 0.1;
@@ -629,7 +655,7 @@ class CfgVehicles
 			};
 			class HitHTail
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "hstab";
 				passthrough = 0.1;
@@ -637,7 +663,7 @@ class CfgVehicles
 			};
 			class HitPNVS
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "pnvs";
 				passthrough = 0.1;
@@ -645,7 +671,7 @@ class CfgVehicles
 			};
 			class Hittads
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "tads";
 				passthrough = 0.1;
@@ -653,7 +679,7 @@ class CfgVehicles
 			};
 			class Hittadstur
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "tads_tur";
 				passthrough = 0.1;
@@ -661,7 +687,7 @@ class CfgVehicles
 			};
 			class Hitradar
 			{
-				armor = 0.05;
+				armor = 0.08;
 				material = 51;
 				name = "radar";
 				passthrough = 0.1;
@@ -669,7 +695,7 @@ class CfgVehicles
 			};
 			class Hitotocvez
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "otocvez";
 				passthrough = 0.1;
@@ -677,7 +703,7 @@ class CfgVehicles
 			};
 			class Hitotochlaven
 			{
-				armor = 0.25;
+				armor = 0.3;
 				material = 51;
 				name = "otochlaven";
 				passthrough = 0.1;
@@ -685,7 +711,7 @@ class CfgVehicles
 			};
 			class Hitmaingear
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "maingear";
 				passthrough = 0.1;
@@ -693,7 +719,7 @@ class CfgVehicles
 			};
 			class Hittwsus
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "twsus";
 				passthrough = 0.1;
@@ -701,7 +727,7 @@ class CfgVehicles
 			};
 			class Hitpylon1
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon1";
 				passthrough = 0.1;
@@ -709,7 +735,7 @@ class CfgVehicles
 			};
 			class Hitpylon2
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon2";
 				passthrough = 0.1;
@@ -717,7 +743,7 @@ class CfgVehicles
 			};
 			class Hitpylon3
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon3";
 				passthrough = 0.1;
@@ -725,7 +751,7 @@ class CfgVehicles
 			};
 			class Hitpylon4
 			{
-				armor = 0.2;
+				armor = 0.3;
 				material = 51;
 				name = "pylon4";
 				passthrough = 0.1;
@@ -746,7 +772,7 @@ class CfgVehicles
 				priority=0;
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="LookCenter";
-				statement="[this] call fza_fnc_controlHandleLookCenter;";
+				statement="fza_ah64_mousehorpos = 0.5; fza_ah64_mousevertpos = 0.5; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlSetPosition[fza_ah64_mousehorpos - 0.005, fza_ah64_mousevertpos - 0.009]; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlSetPosition[fza_ah64_mousehorpos - 0.25, fza_ah64_mousevertpos + 0.02]; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlCommit 0.01; ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlCommit 0.01;";
 			};
 			class sensorselect
 			{
@@ -762,48 +788,6 @@ class CfgVehicles
 				condition="(player == driver this || player == gunner this) && alive this && !(this iskindof ""fza_ah64a_l"")";
 				shortcut="OpticsMode";
 				statement="[this] call fza_fnc_weaponguncontrol;";
-			};
-			class gunburst
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this == ""fza_m230"" || currentweapon this == ""fza_burstlimiter"")";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponM230CycleBurst";
-			};
-			class rocketsalvo
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) && (currentweapon this isKindOf [""fza_hydra70"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponRocketsalvo";
-			};
-			class hellfireTraj
-			{
-				displayName="";
-				useAction=false;
-				showSwitchAction=false;
-				position="zamerny";
-				onlyForPlayer=1;
-				radius=8;
-				showWindow=0;
-				priority=0;
-				condition="(player == driver this || player == gunner this) &&  (currentweapon this isKindOf [""fza_hellfire"", configFile >> ""CfgWeapons""])";
-				shortcut="Binocular";
-				statement="[this] call fza_fnc_weaponTrajectoryChange";
 			};
 			class pilotdoor_open
 			{
@@ -960,65 +944,80 @@ class CfgVehicles
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName="AH-64D Apache Longbow";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		ejectDeadCargo=false;
-		ejectdeadgunner = false;
-		nameSound="veh_Helicopter";
-		faction="fza_usaav";
-		vehicleclass="fza_helicopters";
-		hasGunner=1;
-		audible=4;
 		#include "hiddenSelections.hpp"
-		transportSoldier=2;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		accuracy=0.5;
-		driverAction = "fza_ah64_pilot";
-		minMainRotorDive = 0;
-		maxMainRotorDive = 0;
-		neutralMainRotorDive = 0;
-		minBackRotorDive = 0;
-		maxBackRotorDive = 0;
-		neutralBackRotorDive = 0;
-		crewVulnerable = 0;
-		gunnerUsesPilotView = false;
-		commanderUsesPilotView = false;
-		crew="B_Helipilot_F";
 		//PNVS TURRET OPTICS BACK UP
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		driverOpticsColor[] = {1,1,1,1};
-		laserScanner=1;
-		nightVision=1;
-		mainRotorSpeed = 1;
-		threat[] = {1,1,0.700000};
-		armor=60;
+		accuracy=5;
+		armor=80;
+		armorLights = 0.4;
+		armorStructural = 4;
+		audible=4;
+		attendant = 0;
+		camshakecoef = 0.3;
+		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
+		commanderUsesPilotView = false;
+		crewCrashProtection = 0.25;
+		crewVulnerable = 0;
 		damageResistance=0.0055499999;
-		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-	    weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		driverAction = "fza_ah64_pilot";
+		crew="fza_ah64_pilot";
+		driverOpticsColor[] = {1,1,1,1};
+		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+		ejectDeadCargo=true;
+		ejectdeadgunner = false;
+		explosionShielding = 8;
+		gForceShakeAttenuation = 0.5;
+		gunnerUsesPilotView = false;
+		hasGunner=1;
+		impactEffectSpeedLimit = 8;
+		impactEffectsSea = "ImpactEffectsAir";
+		incomingMissileDetectionSystem = 16;
+		irScanGround = 1;
+		irScanRangeMax = 10000;
+		irScanRangeMin = 700;
+		irScanToEyeFactor = 2;
+		laserScanner=1;
+		laserTarget=0;
 		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
 		lockdetectionsystem = "8+4";
-		incomingMissileDetectionSystem = 16;
+		countermeasureActivationRadius = 8000;
 		gunAimDown = 0;
 		selectionHRotorStill = "mr_blades";
 		selectionHRotorMove = "mr_blur";
 		selectionVRotorStill = "tr_blades";
 		selectionVRotorMove = "tr_blur";
-		camshakecoef = 0.2;
+		mainRotorSpeed = 1;
+		maxBackRotorDive = 0;
+		maxMainRotorDive = 0;
 		memoryPointLMissile = "l strela";
-		memoryPointRMissile = "p strela";
 		memoryPointLRocket = "l raketa";
+		memoryPointRMissile = "p strela";
 		memoryPointRRocket = "p raketa";
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
 		memoryPointsGetInCargo = "pos cargo";
 		memoryPointsGetInCargoDir = "pos cargo dir";
-		envelope[]=
-		{
-		0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
+		memoryPointsGetInDriver = "pos driver";
+		memoryPointsGetInDriverDir = "pos driver dir";
+		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
+		memorypointdriveroptics[] = {"driverview", "pilot"};
+		minBackRotorDive = 0;
+		minMainRotorDive = 0;
+		nameSound="veh_Helicopter";
+		neutralBackRotorDive = 0;
+		neutralMainRotorDive = 0;
+		nightVision=1;
+		nvScanner = 0;
+		nvTarget = 0;
+		threat[] = {1,1,0.5};
+		transportSoldier=2;
+		visualTarget = 1;
+		visualTargetsize = 1.0;
+		weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		envelope[]={
+			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
 		class textureSources
 		{
@@ -1061,7 +1060,7 @@ class CfgVehicles
 			class UK_AAC
 			{
 				displayName = "United Kingdom Army Air Corps";
-				author = "Rosd6(Dryden) & Jamo";
+				author = "Rosd6(Dryden) & Jamo aka blindbat2006";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 			class UK_AAC_weathered
@@ -1114,13 +1113,15 @@ class CfgVehicles
 			class MainTurret: NewTurret
 			{
 				gunnerAction = "fza_ah64_copilot";
-				gunnerGetInAction = "GetInHigh";
+				gunnerGetInAction = "pilot_Heli_Light_02_Enter";
 				gunnerGetOutAction = "GetOutHigh";
+				preciseGetInOut = 1;
+				hideWeaponsGunner = false;
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "fza_Fx1", "fza_Fx2", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
-				magazines[] = {"fza_safe", "fza_Fb1", "fza_Fb2", "LaserBatteries", "fza_m230_1200"};
+				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "laserBegin";
@@ -1147,16 +1148,16 @@ class CfgVehicles
 				maxGunElev = 30;
 				minGunTurn = -120;
 				maxGunTurn = 120;
-				minGunTurnAI = -120;
-				maxGunTurnAI = 120;
+				minGunTurnAI = -90;
+				maxGunTurnAI = 90;
 				commanding = -1;
 				gunnerForceOptics = 0;
 				startEngine=0;
 				outGunnerMayFire = 1;
 				turretinfotype = "RscUnitInfoNoHUD";
 				turretFollowFreeLook = 0;
-				discretedistance[] = {1, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000};
-				discretedistanceinitindex = 3;
+				discreteDistance[]={100,200,300,400,500,600,700,800,1000,1200,1500,1800,2100,2500,2800,3300};
+				discreteDistanceInitIndex=5;
 				isCopilot = 1;
 				usePiP=1;
 				class Reflectors
@@ -1201,7 +1202,7 @@ class CfgVehicles
 				{
 					class HitTurret
 					{
-						armor = 0.5;
+						armor = 0.9;
 						material = 51;
 						name = "tads_tur";
 						visual = "tads_tur";
@@ -1209,7 +1210,7 @@ class CfgVehicles
 					};
 					class HitGun
 					{
-						armor = 1;
+						armor = 1.3;
 						material = 52;
 						name = "tads";
 						visual = "tads";
@@ -1280,18 +1281,6 @@ class CfgVehicles
 						defaultDisplay = "CrewDisplay";
 						class Components
 						{
-							class SensorsDisplay   //Combined display showing sensors, detected and tracked targets, info about marked target and threats
-								{
-									componentType = "SensorsDisplayComponent";
-									range[] = {16000,8000,4000,2000};     //accepts an integer or an array of available ranges (submode)
-									showTargetTypes = 1+2+4+8+16+32+64+128+256+512+1024; // 1 - Sensor sectors, 2 - Threats, 4 - Marked tgt symbol, 8 - Own detection, 16 - Remote detection, 32 - Active detection, 64 - Passive detection, 128 - Ground tgts, 256 - Air tgts, 512 - Men, 1024 - Special (laser, NV)
-									resource = "RscCustomInfoSensors";
-								};
-							class VehicleGunnerDisplay	// Camera feed from gunner's optics
-							{
-								componentType = "TransportFeedDisplayComponent";
-								source = "PrimaryGunner";
-							};
 							class EmptyDisplay		// Empty display - hide panel
 							{
 								componentType = "EmptyDisplayComponent";
@@ -1359,9 +1348,11 @@ class CfgVehicles
 			initAngleY=0;
 			minAngleY=-45;
 			maxAngleY=20;
+			maxXRotSpeed = 4;	// yawing speed
+			maxYRotSpeed = 4;	// pitching speed
 			thermalmode[] = {0, 1};
 			visionmode[] = {"Normal","Ti"}; //PNVS
-		};\
+		};
 
 		class UVAnimations
 		{
@@ -1427,11 +1418,11 @@ class CfgVehicles
 				section	= cpg_pr_mpd_back;
 				source = cpg_mmap_sc;
 			};
-		}
+		};
 
 		class AnimationSources
 		{
-#define ANIMS_MMAP(seat) \
+			#define ANIMS_MMAP(seat) \
 			class seat##_mmap_tx \
 			{ \
 				source = "user"; \
@@ -1476,18 +1467,17 @@ class CfgVehicles
 			displayName = "Attach FCR";
 			author = "Apache mod development team";
 			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
-
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
-		}
+		};
 		/*
 		class hstab
 		{
 			source = "user";
 			animPeriod = 0.01;
 			initPhase  = 1;
-		}
+		};
 		*/
 		class pnvs
 		{
@@ -1662,49 +1652,49 @@ class CfgVehicles
 			animPeriod = 0.1;
 			initPhase=0;
 		};
-class blade1_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade2_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade3_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_pitch
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-class blade4_flap
-{
-source = "user";
-animPeriod = 0.1;
-initPhase=0;
-};
-//////weapons///////////
+		class blade1_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade2_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade2_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade3_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade3_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade4_pitch
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		class blade4_flap
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=0;
+		};
+		//////weapons///////////
 		class pod_m260_1
 		{
 			source = "user";
@@ -2731,12 +2721,16 @@ initPhase=0;
 		//////////////DOORS//////////////////
 		class pdoor
 		{
+			displayName = "Open Pilot door";
+			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;
 			initPhase=0;
 		};
 		class gdoor
 		{
+			displayName = "Open Gunner door";
+			author = "Apache mod development team";
 			source = "user";
 			animPeriod = 1;
 			initPhase=0;
@@ -2865,10 +2859,10 @@ initPhase=0;
 			initPhase=0;
 		};
 	};
-		class MarkerLights
+	class MarkerLights
+	{
+		class PositionWhite
 		{
-			class PositionWhite
-			{
 			name = "tail_light";
 			ambient[] = {0.1,0.1,0.1};
 			color[] = {1,1,1};
@@ -2880,63 +2874,35 @@ initPhase=0;
 			drawLight = 1;
 			intensity = 75;
 			useFlare = 0;
-
 			class Attenuation
 			{
-			constant = 0;
-			hardLimitEnd = 1;
-			hardLimitStart = 0.75;
-			linear = 25;
-			quadratic = 50;
-			start = 0;
+				constant = 0;
+				hardLimitEnd = 1;
+				hardLimitStart = 0.75;
+				linear = 25;
+				quadratic = 50;
+				start = 0;
 			};
 		};
-
-			class PositionGreen: PositionWhite
-			{
+		class PositionGreen: PositionWhite
+		{
 			name = "zeleny pozicni";
 			ambient[] = {0,0.08,0};
 			color[] = {0,0.8,0};
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
-			};
-			class PositionRed: PositionWhite
-			{
+		};
+		class PositionRed: PositionWhite
+		{
 			name = "cerveny pozicni";
 			ambient[] = {0.08,0,0};
 			color[] = {0.8,0,0};
 			drawLightSize = 0.50;
 			drawLightCenterSize = 0.16;
-			};
-			/*
-			class ckpt_light
-			{
-			name="ckpt_light";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
-			color[]={0.306,0.878,0.349,1};
-			ambient[]={0.306,0.878,0.349,1};
-			intensity = 130;
-			drawLightSize = 0.01;
-			drawLightCenterSize = 0.001;
-			blinking = 0;
-
-			class Attenuation
-			{
-			constant = 1;
-			hardLimitEnd = 0.60;
-			hardLimitStart = 0.01;
-			linear = 1;
-			quadratic = 20;
-			start = 0;
-			};
-			};
-			*/
-			class RedStrobe_1
-			{
+		};
+		class RedStrobe_1
+		{
 			name="cerveny pozicni blik_1";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};
 			intensity=2500;
@@ -2945,13 +2911,11 @@ initPhase=0;
 			blinking = 1;
 			blinkingPattern[]={0.03,2.10};
 			blinkingPatternGuarantee = 1;
-			daylight = 1; //added
-			};
-			class RedStrobe_2
-			{
+			daylight = 1;
+		};
+		class RedStrobe_2
+		{
 			name="cerveny pozicni blik_2";
-			//ambient[] = {0.1,0.1,0.1};
-			//color[] = {1,1,1};
 			color[]={0.89999998,0.15000001,0.1};
 			ambient[]={0.090000004,0.015,0.0099999998};
 			intensity=2500;
@@ -2960,46 +2924,46 @@ initPhase=0;
 			blinking = 1;
 			blinkingPattern[]={0.03,2};
 			blinkingPatternGuarantee = 1;
-			daylight = 1;		//added
-			};
+			daylight = 1;
 		};
-		class Reflectors
+	};
+	class Reflectors
+	{
+		class Landing_Light
 		{
-			class Landing_Light
+			position = "landing_light";
+			direction = "landing_light_dir";
+			hitpoint = "rfab";
+			selection = "Light";
+			color[] = {7000,7500,10000};
+			ambient[] = {70,75,100};
+			intensity = 100;
+			size = 1;
+			innerAngle = 15;
+			outerAngle = 90;
+			coneFadeCoef = 10;
+			useFlare = 1;
+			flareSize = 10;
+			flareMaxDistance = 500;
+			daylight = 1;		//added
+			class Attenuation
 			{
-				position = "landing_light";
-				direction = "landing_light_dir";
-				hitpoint = "rfab";
-				selection = "Light";
-				color[] = {0.850000, 0.950000, 1.000000};
-				ambient[] = {0.008500, 0.009500, 0.010000};
-				intensity = 20000;
-				size = 1;
-				innerAngle = 15;
-				outerAngle = 90;
-				coneFadeCoef = 5;
-				useFlare = 1;
-				flareSize = 1.500000;
-				flareMaxDistance = 500;
-				daylight = 1;		//added
-				class Attenuation
-				{
-					start = 0;
-					constant = 0;
-					linear = 1;
-					quadratic = 1;
-					hardLimitStart = 100;
-					hardLimitEnd = 200;
-				};
+				start = 0;
+				constant = 0;
+				linear = 1;
+				quadratic = 1;
+				hardLimitStart = 100;
+				hardLimitEnd = 200;
 			};
 		};
+	};
 	#include "sensor_b2e.hpp"
 	};
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;
 		scope=2;
-		author="Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager, mattysmith22 & Community";
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
 		class AnimationSources: AnimationSources {
@@ -3058,31 +3022,10 @@ initPhase=0;
 		side=3;
 		simulation = "thing";
 	};
-	class UAV_02_base_F;
-	class fza_ah64_jammer: UAV_02_base_F
-	{
-		class Turrets {};
-		scope=1;
-		model = "\fza_ah64_US\fza_ah64_fake.p3d";
-		displayname="Helicopter";
-		armor = 200;
-		cost = 10000000;
-		camouflage = 150;
-		threat[] = {0.5, 1, 0.1};
-		namesound = "veh_Helicopter";
-		hasGunner = false;
-		crew = "B_UAV_AI";
-		typicalCargo[] = {"B_UAV_AI"};
-	};
-
-	////////////////////////////////////////////////
-	///////////////////DEBRIS///////////////////////
-	////////////////////////////////////////////////
-
 	class fza_ah64_tailboom_debris: RoadCone_F
 	{
 		scope=1;
-		model = "\fza_ah64_us\prx\dam_tailboom_debris";
+		model = "\fza_ah64_us\prx\fza_dam_tailboom_debris";
 		displayName = "DEBRIS";
 		submerged = 0;
 		submergeSpeed = 0;
@@ -3091,7 +3034,7 @@ initPhase=0;
 	};
 	class fza_ah64_vtail_debris: fza_ah64_tailboom_debris
 	{
-		model = "\fza_ah64_us\prx\dam_vtail_debris";
+		model = "\fza_ah64_us\prx\fza_dam_vtail_debris";
 	};
 	class fza_ah64_tr_debris: fza_ah64_tailboom_debris
 	{
@@ -3099,6 +3042,6 @@ initPhase=0;
 	};
 	class fza_ah64_hstab_debris: fza_ah64_tailboom_debris
 	{
-		model = "\fza_ah64_us\prx\dam_hstab_debris";
+		model = "\fza_ah64_us\prx\fza_dam_hstab_debris";
 	};
 };
