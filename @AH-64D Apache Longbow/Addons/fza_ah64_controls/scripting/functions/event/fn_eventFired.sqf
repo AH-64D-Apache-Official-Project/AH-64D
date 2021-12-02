@@ -52,7 +52,7 @@ if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || is
 //ROCKETS SALVOS
 
 if (player == gunner _heli || player == driver _heli) then {
-    if ((_heli getVariable "fza_ah64_rocketsalvo") > 0 && fza_ah64_salvofired < (_heli getVariable "fza_ah64_rocketsalvo") && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
+    if ((_heli getVariable "fza_ah64_rocketsalvo") > 1 && fza_ah64_salvofired < (_heli getVariable "fza_ah64_rocketsalvo") && (_weapon isKindOf ["fza_hydra70", configFile >> "CfgWeapons"])) then {
         if (_heli ammo _weapon <= 0) then {
             fza_ah64_salvofired = 0;
         };
