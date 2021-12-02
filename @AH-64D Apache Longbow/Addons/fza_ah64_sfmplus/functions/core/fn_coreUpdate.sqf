@@ -17,7 +17,7 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 //Input
@@ -70,7 +70,9 @@ _heli setMass _curMass;
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
+
+if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
+	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
