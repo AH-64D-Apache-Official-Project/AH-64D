@@ -180,10 +180,19 @@ if (_engState != "OFF") then {
 	private _heightAGL = getPos _heli select 2;
 	private _hvrTQ     = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
+	private _engHvrTQTable = [[]];
 	//--------------------------Coll-----TQ---
-	private _engHvrTQTable = [[ 0.0, _engBaseTQ],
-							  [ 0.7,     _hvrTQ],
-							  [ 1.0,       1.34]];
+	if (fza_ah64_sfmPlusKeyboardOnly) then {
+		_engHvrTQTable = [[ 0.00, _engBaseTQ],
+						  [ 0.58,     _hvrTQ],
+						  [ 0.68,     _hvrTQ],
+						  [ 1.00,       1.34]];
+	} else {
+		_engHvrTQTable = [[ 0.00, _engBaseTQ],
+						  [ 0.645,     _hvrTQ],
+						  [ 0.670,     _hvrTQ],
+						  [ 1.00,       1.34]];
+	};
 
 	private _intCruiseTQTable = [_heli getVariable "fza_sfmplus_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
 
@@ -210,6 +219,21 @@ if (_engState != "OFF") then {
 	} else {
 		_engPctTQ = _engPctTQ * _engTQMult;
 	};
+	/*
+	if (_isSingleEng == true) then {
+		if (_engPowerLeverState in ["OFF","IDLE"]) then {
+			_engTqMult = 0.0;
+		};
+		_tqMaxVal    = _engPctTQ * _engTqMult * 2.0;
+		_tqCurVal    = _engPctTQ;
+		_tqTimeToVal = 4;
+		_tqValPerUnitTime = _tqCurVal / _tqTimeToVal;  
+
+		_engPctTQ = [_tqMaxVal, _tqCurVal, _deltaTime, _tqValPerUnitTime] call fza_sfmplus_fnc_clampedMove;
+	} else {
+		_engPctTQ = _engPctTQ * _engTqMult;
+	};
+	*/
 	[_heli, "fza_sfmplus_engPctTQ", _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;
 
 	//--------------------0-TQ--------1-TGT---------2-NG--------3-Oil

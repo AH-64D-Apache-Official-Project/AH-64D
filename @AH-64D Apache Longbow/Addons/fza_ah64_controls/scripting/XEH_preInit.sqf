@@ -1,5 +1,5 @@
 private _projName = "AH-64D Official Project";
-
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 [
 	"fza_ah64_showPopup",
 	"CHECKBOX",
@@ -49,20 +49,11 @@ private _projName = "AH-64D Official Project";
 
 [
 	"fza_ah64_sfmPlusStabilatorEnabled",
-	"CHECKBOX",
-	["Enable stabilator in SFM"],
+	"LIST",
+	["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
 	[_projName, "Flight model"],
-	[true],
+	[[STABILTOR_MODE_ALWAYSENABLED,STABILTOR_MODE_JOYSTICKONLY,STABILTOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
 	0
-] call CBA_fnc_addSetting;
-
-[
-	"fza_ah64_sfmPlusKeyboardOnly",
-	"CHECKBOX",
-	["Enable keyboard only mode in SFM"],
-	[_projName, "Flight model"],
-	[false],
-  0
 ] call CBA_fnc_addSetting;
 
 [

@@ -36,6 +36,14 @@ private _eng2PwrLvrState = _engPwrLvrState select 1;
 private _eng1TqMult = 1;
 private _eng2TqMult = 1;
 
+/*
+if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
+	_isSingleEng = false;
+} else {
+	_isSingleEng = true;
+};
+*/
+
 if ((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") && (_eng2State == "ON" && _eng2PwrLvrState == "IDLE")) then {
 	_isSingleEng = false;
 } else {

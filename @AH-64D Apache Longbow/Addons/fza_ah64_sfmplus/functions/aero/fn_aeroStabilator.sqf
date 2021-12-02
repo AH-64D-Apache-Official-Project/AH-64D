@@ -20,6 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
+if (!local _heli) exitWith {};
+
 private _collOut = fza_sfmplus_collectiveOutput;
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
