@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponUpdateSelected.sqf",{98:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the current selected weapon on the gunner\'s turret to match the settings the mod specifies</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponUpdateSelected.sqf",{26:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets the current selected weapon on the gunner\'s turret to match the settings the mod specifies</div></div>"});
