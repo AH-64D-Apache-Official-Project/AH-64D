@@ -352,12 +352,12 @@ class CfgWeapons
 		scope = private;
 		displayName="M261";
 		magazines[]={};
-		modes[] = {"Far_AI","Medium_AI","Single"};
+		modes[] = {"Single","Far_AI","Medium_AI"};
 		canLock = 0;
 		weaponLockDelay = 0.0;
 		cursor = "EmptyCursor";
 		cursorAim = "rocket";
-		holdsterAnimValue = 1;
+		holdsterAnimValue = 3;
 		weight = 80;
 		useAction = 0;
 		useActionTitle = "";
@@ -372,10 +372,7 @@ class CfgWeapons
 			autoFire = 0;
 			reloadTime = 0.09;
 			dispersion = 0.08;
-			aiBurstTerminable = 1;
 			showToPlayer = 0;
-			burst = 1;
-			burstRangeMax = 4;
 			aiRateOfFire = 4;
 			aiRateOfFireDispersion = 4;
 			aiRateOfFireDistance = 1000;
@@ -388,10 +385,7 @@ class CfgWeapons
 		};
 		class Medium_AI: Far_AI
 		{
-			aiBurstTerminable = 1;
 			showToPlayer = 0;
-			burst = 1;
-			burstRangeMax = 6;
 			aiRateOfFire = 3;
 			aiRateOfFireDispersion = 3;
 			aiRateOfFireDistance = 1000;
@@ -405,7 +399,6 @@ class CfgWeapons
 		class Single: RocketPods
 		{
 		    displayName="M261";
-			burst = 1;
 			soundContinuous = 0;
 			autoFire = 0;
 			reloadTime = 0.09;
