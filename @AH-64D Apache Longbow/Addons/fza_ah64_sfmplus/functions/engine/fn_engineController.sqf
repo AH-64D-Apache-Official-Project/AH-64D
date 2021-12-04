@@ -33,37 +33,11 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-private _eng1TqMult = 1;
-private _eng2TqMult = 1;
-
-/*
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
 	_isSingleEng = false;
 } else {
 	_isSingleEng = true;
 };
-*/
-
-if ((_eng1State == "ON" && _eng1PwrLvrState == "IDLE") && (_eng2State == "ON" && _eng2PwrLvrState == "IDLE")) then {
-	_isSingleEng = false;
-} else {
-	if (_eng1State == "ON" && _eng2PwrLvrState in ["OFF", "IDLE"]) then {
-		_eng1TqMult = 2;
-		_eng2TqMult = 0;
-		_isSingleEng = true;
-	};
-
-	if (_eng2State == "ON" && _eng1PwrLvrState in ["OFF", "IDLE"]) then {
-		_eng1TqMult = 0;
-		_eng2TqMult = 2;
-		_isSingleEng = true;
-	};
-};
-
-if ((_eng1State == "ON" && _eng2State == "ON") && (_eng1PwrLvrState == "FLY" && _eng2PwrLvrState == "FLY")) then {
-	_isSingleEng = false;
-};
-
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 5 < time) then {
@@ -86,8 +60,19 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 	_heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };
 
-[_heli, 0, _deltaTime, _eng1TqMult] call fza_sfmplus_fnc_engine;
-[_heli, 1, _deltaTime, _eng2TqMult] call fza_sfmplus_fnc_engine;
+[_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
+[_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
+
+private _no1EngDmg = _heli getHitPointDamage "HitEngine1";
+private _no2EngDmg = _heli getHitPointDamage "HitEngine2";
+
+if (_no1EngDmg > 0.5) then {
+	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+};
+
+if (_no2EngDmg > 0.5) then {
+	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+};
 
 if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", false, true];
