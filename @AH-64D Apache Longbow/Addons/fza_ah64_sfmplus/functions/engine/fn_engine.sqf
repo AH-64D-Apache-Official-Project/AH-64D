@@ -179,7 +179,7 @@ _engTGT    = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 1;
 _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
 _engFF     = [_engFFTable, _engPctTQ] call fza_fnc_linearInterp select 1;
 
-//Update values
+//Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;

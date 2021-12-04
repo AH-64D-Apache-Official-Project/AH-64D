@@ -22,8 +22,6 @@ params ["_heli", "_deltaTime"];
 
 if (!local _heli) exitWith {};
 
-private _collOut = fza_sfmplus_collectiveOutput;
-
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
 
 DRAW_LINE = {
@@ -42,7 +40,7 @@ private _stabTable =[[0.00,  -25.00,  2.5,    5.0,   5.0,   5.0,   5.0],
                      [0.81,  -25.00, -9.5,   -9.5,  -9.5,  -9.5,  -9.5],  
                      [0.89,  -25.00, -12.2, -12.2, -12.2, -12.2, -12.2],
                      [0.97,  -25.00, -14.5, -14.5, -14.5, -14.5, -14.5]];
-
+                     
 /*
 Udpated 15Jun21 - SFM+ 
 TEMPTABLE = [    
@@ -64,7 +62,7 @@ TEMPTABLE = [
 
 private _intStabTable = [TEMPTABLE, _collOut] call fza_fnc_linearInterp;
 */
-private _intStabTable = [_stabTable, _collOut] call fza_fnc_linearInterp;
+private _intStabTable = [_stabTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
 
 private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 							[36.01, _intStabTable select 2],  //70kts
@@ -75,7 +73,14 @@ private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 
 
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-private _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
+private _theta = 0.0;
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+    _theta = -5.5;
+    //systemChat format ["Stab keyboard!"];
+} else {
+    _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
+    //systemChat format ["Stab joystick!"];
+};
 
 //Stab coords    |     |
 //               |-----|
