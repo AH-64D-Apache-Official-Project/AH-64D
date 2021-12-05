@@ -32,7 +32,7 @@ private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select 
 private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
 
 private _engThrottle         = 0.0;
-private _engSimTime 		 = 22.0;	//sec
+private _engSimTime 		 = 8.0;	//sec
 
 //Torque - TQ
 private _engIdleTQ  = 0.055;
@@ -76,7 +76,7 @@ switch (_engState) do {
 	case "STARTING": {
 		if (_engPowerLeverState == "OFF") then {
 			//Ng
-			_engPctNG = [_engPctNG, _engStartNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
+			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
 			//Np
 			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
 		} else {
