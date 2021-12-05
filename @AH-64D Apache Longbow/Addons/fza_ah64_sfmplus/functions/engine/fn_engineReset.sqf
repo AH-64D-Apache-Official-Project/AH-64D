@@ -35,4 +35,3 @@ if (!local _heli) exitWith {};
 [_heli, "fza_sfmplus_engTGT",		 _engNum, 0.0, true] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseOilPSI", _engNum, 0.0, true] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engOilPSI", 	 _engNum, 0.0, true] call fza_sfmplus_fnc_setArrayVariable;
-//[_heli, "fza_sfmplus_engDst", _engNum, false] call fza_sfmplus_fnc_setArrayVariable;

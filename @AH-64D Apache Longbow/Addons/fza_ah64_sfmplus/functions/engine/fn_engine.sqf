@@ -21,6 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum", "_deltaTime"];
 
+private _config = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
 private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
@@ -32,25 +34,26 @@ private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select 
 private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
 
 private _engThrottle         = 0.0;
-private _engSimTime 		 = 8.0;	//sec
+private _engSimTime 		 = getNumber (_config >> "engSimTime");
 
 //Torque - TQ
-private _engIdleTQ  = 0.055;
-private _engFlyTQ   = 0.18;
-private _engMaxTQ   = 1.34;
-private _engBaseTQ  = 0.0; private _engSetTQ = 0.0;
+private _engIdleTQ  = getNumber (_config >> "engIdleTQ");
+private _engFlyTQ   = getNumber (_config >> "engFlyTQ");
+private _engBaseTQ  = 0.0; 
+private _engSetTQ   = 0.0;
 //Gas producer - Ng
-private _engStartNG = 0.23;
-private _engIdleNG  = 0.679;
-private _engFlyNG   = 0.834;
-private _engMaxNG   = 1.04;
-private _engBaseNG  = 0.0; private _engSetNG = 0.0;
+private _engStartNG = getNumber (_config >> "engStartNG");
+private _engIdleNG  = getNumber (_config >> "engIdleNG");
+private _engFlyNG   = getNumber (_config >> "engFlyNG");
+private _engMaxNG   = getNumber (_config >> "engMaxNG");
+private _engBaseNG  = 0.0; 
+private _engSetNG   = 0.0;
 //Power turbine - Np
-private _engStartNP  = 0.10;
-private _engIdleNP   = 0.57;
-private _engOnIdleNP = 0.94;
-private _engFlyNP    = 1.01;
-private _engBaseNP   = 0.0; private _engSetNP = 0.0;
+private _engStartNP = getNumber (_config >> "engStartNP");
+private _engIdleNP  = getNumber (_config >> "engIdleNP");
+private _engFlyNP   = getNumber (_config >> "engFlyNP");
+private _engBaseNP  = 0.0; 
+private _engSetNP   = 0.0;
 
 //Throttle
 if (_engPowerLeverState in ["OFF", "IDLE"]) then {
@@ -105,14 +108,14 @@ switch (_engState) do {
 	};
 };
 
-private _intEngBaseTable = [_heli getVariable "fza_sfmplus_engBaseTable", _engPctNG] call fza_fnc_linearInterp;
+private _intEngBaseTable = [getArray (_config >> "engBaseTable"), _engPctNG] call fza_fnc_linearInterp;
 //Base TGT
 private _engBaseTGT      = _intEngBaseTable select 1;
 //Base Oil
 private _engBaseOilPSI   = _intEngBaseTable select 4;
 //Torque
 private _curGWT_kg     = getMass _heli;
-private _intHvrTQTable = [_heli getVariable "fza_sfmplus_hvrTqTable", _curGWT_kg] call fza_fnc_linearInterp;
+private _intHvrTQTable = [getArray (_config >> "hvrTqTable"), _curGWT_kg] call fza_fnc_linearInterp;
 private _hvrIGE        = _intHvrTQTable select 1;
 private _hvrOGE        = _intHvrTQTable select 2;
 
@@ -133,7 +136,7 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 					  [ 1.00,       1.34]];
 };
 
-private _intCruiseTQTable = [_heli getVariable "fza_sfmplus_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
+private _intCruiseTQTable = [getArray (_config >> "cruiseTable"), _curGWT_kg] call fza_fnc_linearInterp;
 
 private _engCruiseTQTable = [[]];
 //-------------------------Coll-----TQ---
@@ -165,26 +168,9 @@ private _engTable = [[_engBaseTQ, _engBaseTGT,	_engBaseNG, _engBaseOilPSI],
 					 [1.29, 	  867,			0.990	  , 0.94          ],	//10 min
 					 [1.34, 	  896,			0.997	  , 0.99          ]];	//2.5 Min
 
-//----------------------TQ----FF (kg/s)
-private _engFFTable = [[0.00, 0.0000],
-					   [0.07, 0.0216],
-					   [0.15, 0.0350],
-					   [0.30, 0.0432],
-					   [0.40, 0.0480],
-					   [0.50, 0.0535],
-					   [0.60, 0.0598],
-					   [0.70, 0.0661],
-					   [0.80, 0.0732],
-					   [0.90, 0.0803],
-					   [1.00, 0.0866],
-					   [1.10, 0.0929],
-					   [1.20, 0.0992],
-					   [1.30, 0.1055],
-					   [1.40, 0.1118]];
-
 _engTGT    = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 1;
 _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
-_engFF     = [_engFFTable, _engPctTQ] call fza_fnc_linearInterp select 1;
+_engFF     = [getArray (_config >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
 
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;

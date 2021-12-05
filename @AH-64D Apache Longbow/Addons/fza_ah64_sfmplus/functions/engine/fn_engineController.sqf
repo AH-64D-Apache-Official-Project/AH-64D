@@ -54,8 +54,7 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 		"fza_sfmplus_engBaseTGT",
 		"fza_sfmplus_engTGT",
 		"fza_sfmplus_engBaseOilPSI",
-		"fza_sfmplus_engOilPSI",
-		"fza_sfmplus_engDest"
+		"fza_sfmplus_engOilPSI"
 	];
 	_heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };

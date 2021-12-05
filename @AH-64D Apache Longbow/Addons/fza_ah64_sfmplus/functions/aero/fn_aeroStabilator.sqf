@@ -20,6 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
+private _config = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+
 if (!local _heli) exitWith {};
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
@@ -33,36 +35,7 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-//--------------------Coll----30kts--70kts--90kts--110kts--120kts-150kts
-private _stabTable =[[0.00,  -25.00,  2.5,    5.0,   5.0,   5.0,   5.0],  
-                     [0.67,  -25.00, -3.2,   -3.2,  -3.2,  -3.2,  -3.2],  
-                     [0.71,  -25.00, -6.0,   -6.0,  -6.0,  -6.0,  -6.0],  
-                     [0.81,  -25.00, -9.5,   -9.5,  -9.5,  -9.5,  -9.5],  
-                     [0.89,  -25.00, -12.2, -12.2, -12.2, -12.2, -12.2],
-                     [0.97,  -25.00, -14.5, -14.5, -14.5, -14.5, -14.5]];
-                     
-/*
-Udpated 15Jun21 - SFM+ 
-TEMPTABLE = [    
-[0.00,  -25.00, 2.5,   5.0,  5.0,  5.0, 5.0],  
-[0.67,  -25.00,-3.2,  -3.2, -3.2, -3.2, -3.2],  
-[0.71,  -25.00,-6.0,  -6.0, -6.0, -6.0, -6.0],  
-[0.81,  -25.00,-9.5,  -9.5, -9.5, -9.5, -9.5],  
-[0.89,  -25.00,-12.2,-12.2,-12.2,-12.2,-12.2],
-[0.97,  -25.00,-14.5,-14.5,-14.5,-14.5,-14.5]];
-
-HeliSim
-TEMPTABLE = [     
-[0.00,  -25.00, 2.5,   5.0,  5.0,  5.0, 5.0],   
-[0.37,  -25.00,-3.2,  -3.2, -3.2, -3.2, -3.2], 
-[0.41,  -25.00,-6.0,  -6.0, -6.0, -6.0, -6.0],  
-[0.51,  -25.00,-9.5,  -9.5, -9.5, -9.5, -9.5],  
-[0.59,  -25.00,-12.2,-12.2,-12.2,-12.2,-12.2], 
-[0.67,  -25.00,-14.5,-14.5,-14.5,-14.5,-14.5]];
-
-private _intStabTable = [TEMPTABLE, _collOut] call fza_fnc_linearInterp;
-*/
-private _intStabTable = [_stabTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+private _intStabTable = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
 
 private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 							[36.01, _intStabTable select 2],  //70kts
@@ -71,11 +44,10 @@ private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 							[61.73, _intStabTable select 5],  //120kts
                             [77.17, _intStabTable select 6]]; //150kts
 
-
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
-    _theta = -5.5;
+    _theta = getNumber (_config >> "stabKeyTheta");
     //systemChat format ["Stab keyboard!"];
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
@@ -121,30 +93,8 @@ _relWind = _relWind;
 private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
 _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
-private _AIRFOILTABLE =
-[
-//------AoA-[0]----------CL-[1]--------CD-[2]-------------
-    [   -180.0,        0.0,           0.0        ],  //0  - DO NOT CHANGE!!
-    [   -135.0,        0.5,           0.5        ],  //1  - DO NOT CHANGE!!
-    [   -90.0,         0.0,           0.0        ],  //2  - DO NOT CHANGE!!
-    [   -18.5,         -1.22580,      0.10236    ],  //3  -
-    [   -17.5,         -1.30310,      0.07429    ],  //4  -
-    [   -15.75,        -1.38680,      0.03865    ],  //5  -
-    [   -10.0,         -1.08070,      0.01499    ],  //6  -
-    [   -5.0,          -0.55710,      0.00847    ],  //7  -
-    [   0.0,           0.00000,       0.00540    ],  //8  -
-    [   5.0,           0.55720,       0.00847    ],  //9  -
-    [   10.0,          1.08080,       0.01499    ],  //10 -
-    [   15.75,         1.38810,       0.03863    ],  //11 -
-    [   17.5,          1.30590,       0.07416    ],  //12 -
-    [   18.5,          1.22840,       0.10229    ],  //13 -
-    [   90.0,          0.0,           0.0        ],  //14 - DO NOT CHANGE!!
-    [   135.0,         -0.5,          -0.5       ],  //15 - DO NOT CHANGE!!
-    [   180.0,         0.0,           0.0        ]   //16 - DO NOT CHANGE!!
-];
-
-private _intAIRFOILTABLE = [_AIRFOILTABLE, _AoA] call fza_fnc_linearInterp;
-private _CL = _intAIRFOILTABLE select 1;
+private _intAirfoilTable = [getArray (_config >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
+private _CL = _intAirfoilTable select 1;
 
 private _area = [_A, _B, _C, _D] call fza_sfmplus_fnc_getArea;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
