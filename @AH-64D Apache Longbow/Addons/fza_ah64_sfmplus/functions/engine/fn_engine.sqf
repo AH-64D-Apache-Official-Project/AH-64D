@@ -149,8 +149,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 						 [ 1.00, _intCruiseTQTable select 9]];
 };
 
-systemChat format ["Collective = %1 and CruiseTq = %2", fza_sfmplus_collectiveOutput, _intCruiseTQTable select 5];
-
 private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
 private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
 
