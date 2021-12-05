@@ -135,12 +135,21 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 
 private _intCruiseTQTable = [_heli getVariable "fza_sfmplus_cruiseTable", _curGWT_kg] call fza_fnc_linearInterp;
 
-//----------------------------Coll-----TQ---
-private _engCruiseTQTable = [[ 0.00, 		               0.03],
-							 [ 0.67, _intCruiseTQTable select 4],
-							 [ 0.70, _intCruiseTQTable select 5],
-							 [ 0.89, _intCruiseTQTable select 7],
-							 [ 1.00, _intCruiseTQTable select 9]];
+private _engCruiseTQTable = [[]];
+//-------------------------Coll-----TQ---
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+	_engCruiseTQTable = [[ 0.00, 		               0.03],
+					 	 [ 0.82, _intCruiseTQTable select 5],
+					 	 [ 1.00, _intCruiseTQTable select 9]];
+} else {
+	_engCruiseTQTable = [[ 0.00, 		               0.03],
+						 [ 0.67, _intCruiseTQTable select 4],
+						 [ 0.70, _intCruiseTQTable select 5],
+						 [ 0.89, _intCruiseTQTable select 7],
+						 [ 1.00, _intCruiseTQTable select 9]];
+};
+
+systemChat format ["Collective = %1 and CruiseTq = %2", fza_sfmplus_collectiveOutput, _intCruiseTQTable select 5];
 
 private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
 private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
