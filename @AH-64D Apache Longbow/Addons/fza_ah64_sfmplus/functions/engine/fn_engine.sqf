@@ -135,7 +135,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 					  [ 0.670,     _hvrTQ],
 					  [ 1.00,       1.34]];
 };
-
 private _intCruiseTQTable = [getArray (_config >> "cruiseTable"), _curGWT_kg] call fza_fnc_linearInterp;
 
 private _engCruiseTQTable = [[]];
