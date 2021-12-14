@@ -191,13 +191,12 @@ if (_rotorRpm < 94 || _rotorRpm >= 110) then {
 	_rotorRpmTape = "\fza_ah64_us\tex\mpd\Rtape.paa";
 };
 
-//TODO: Change so sound occurs even if not in engine page
-if (_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5 && !fza_ah64_warnHighRpm) then {
-    ["fza_ah64_bt_rotorrpm", 1.7, "fza_ah64_bt_high", 1] spawn fza_fnc_playAudio;
-	fza_ah64_warnHighRpm = true;
-};
-if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
-	fza_ah64_warnHighRpm = false;
+if (isengineon _heli && (getpos _heli select 2) > 5) then {
+	if (_rotorRpm > 110) then {
+		fza_ah64_warnHighRpm = true;
+	} else {
+		fza_ah64_warnHighRpm = false;
+	};
 };
 
 [_heli, _rotorRpm, _rotorRpmChar, SEL_DIGITS_MPD_PR_ENG_RRPM] call fza_fnc_drawNumberSelections;
