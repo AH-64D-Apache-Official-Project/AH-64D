@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdHandleZoom.sqf",{30:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Zooms in and out the TSD.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdHandleZoom.sqf",{46:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Zooms in and out the TSD.</div></div>"});
