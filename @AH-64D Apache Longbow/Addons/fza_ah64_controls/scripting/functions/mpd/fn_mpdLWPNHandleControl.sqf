@@ -70,18 +70,30 @@ switch (_control) do {
 		};
 	};
 	case "b1": {
-		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
-			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_GUN];
+		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
+			if(_heli getVariable "fza_ah64_wpnPageSelected" != WAS_WEAPON_GUN) then {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_GUN];
+			} else {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
+			}
 		};
 	};
 	case "b2": {
-		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
-			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_MSL];
+		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
+			if(_heli getVariable "fza_ah64_wpnPageSelected" != WAS_WEAPON_MSL) then {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_MSL];
+			} else {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
+			}
 		};
 	};
 	case "b4": {
-		if (_heli getVariable "fza_ah64_was" != WAS_WEAPON_NONE) then {
-			_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_RKT];
+		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
+			if(_heli getVariable "fza_ah64_wpnPageSelected" != WAS_WEAPON_RKT) then {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_RKT];
+			} else {
+				_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
+			}
 		};
 	};
 	case "wpn": {
