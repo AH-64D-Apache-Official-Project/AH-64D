@@ -1,6 +1,4 @@
-class VABs {//B4
-    #include "..\components\vabs_top.hpp"
-    #include "..\components\vabs_right.hpp"
+class vabs {//B4
     #include "..\components\vabs_bottom.hpp"
 
     //T4

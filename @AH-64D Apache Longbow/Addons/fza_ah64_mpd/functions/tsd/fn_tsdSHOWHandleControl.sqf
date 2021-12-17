@@ -1,5 +1,6 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 
 private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 switch (_control) do {
@@ -44,7 +45,7 @@ switch (_control) do {
         _val set [_phase, !(_val # _phase)];
     };
     case "l6": {
-        _state set ["subPageVarPage", [0, 0]];
+        _state set ["subPageVarPage", TSD_ROOT];
     };
     case "l5": {
         private _val = (_heli getVariable "fza_mpd_tsdShowPlanTgts") ;

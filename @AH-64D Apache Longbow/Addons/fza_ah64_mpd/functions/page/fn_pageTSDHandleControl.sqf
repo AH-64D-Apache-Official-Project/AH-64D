@@ -1,5 +1,7 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 
+#include "\fza_ah64_mpd\headers\tsd.hpp"
+
 switch (_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
@@ -15,10 +17,10 @@ switch (_state get "subPageVarPage" select 0) do {
     case 0: { // Root
         switch (_control) do {
             case "l6": {
-                _state set ["subPageVarPage", [1, 0]]; //SHOW subpage
+                _state set ["subPageVarPage", TSD_SHOW]; //SHOW subpage
             };
             case "b4": {
-                _state set ["subPageVarPage", [2, 0]]; //WPT subpage
+                _state set ["subPageVarPage", TSD_WPT]; //WPT subpage
 
             };
         };
