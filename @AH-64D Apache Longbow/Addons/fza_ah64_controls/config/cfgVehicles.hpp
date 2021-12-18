@@ -1832,9 +1832,11 @@ class CfgVehicles
 #define SECTION(val) \
 			class val##_x {\
 				source= user;\
+				animPeriod = 0.001;\
 			};\
 			class val##_y {\
 				source=user;\
+				animPeriod = 0.001;\
 			};
 			LIST_OF_BONES(pl)
 			LIST_OF_BONES(pr)

@@ -27,11 +27,11 @@ MPD_TEXT_C(SET, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("SET"
 MPD_TEXT_L(Torque, 0.15, 0.14, MPD_TEXT_USER(MFD_TEXT_IND_FLT_TORQUE))
 
 ///////////////// Altitude ///////////////
-MPD_TEXT_L(AltMSL, 0.93, 0.13, MPD_TEXT_USER(MFD_TEXT_IND_FLT_BALT) sourceScale = MPD_SCALE_METERS_FEET;)
-MPD_TEXT_L(AltAGL, 0.90, 0.5 - 0.5 * MPD_TEXT_WIDTH, MPD_TEXT_USER(MFD_TEXT_IND_FLT_GALT) sourceScale = MPD_SCALE_METERS_FEET;)
+MPD_TEXT_L(AltMSL, 0.93, 0.13, MPD_TEXT_USER_SCALE(MFD_TEXT_IND_FLT_BALT, MPD_SCALE_METERS_FEET))
+MPD_TEXT_L(AltAGL, 0.90, 0.5 - 0.5 * MPD_TEXT_WIDTH, MPD_TEXT_USER_SCALE(MFD_TEXT_IND_FLT_GALT, MPD_SCALE_METERS_FEET))
 
 ///////////////// Airspeed ///////////////
-MPD_TEXT_L(Airspeed, 0.16, 0.5, MPD_TEXT_USER(MFD_TEXT_IND_FLT_AIRSPEED) sourceScale = MPD_SCALE_MPS_KNOTS; )
+MPD_TEXT_L(Airspeed, 0.16, 0.5, MPD_TEXT_USER_SCALE(MFD_TEXT_IND_FLT_AIRSPEED, MPD_SCALE_MPS_KNOTS))
 
 ///////////////// Heading Tape ///////////////
 class HeadingTape {
@@ -332,7 +332,7 @@ class BankAngleStaticThick {
 };
 
 class BankAngleExtension {
-    condition = (horizonBank ,  rad 20) + (horizonBank < rad -20);
+    condition = (horizonBank >  rad 20) + (horizonBank < rad -20);
     class BankAngleStaticThick {
         type = line;
         width = 9;

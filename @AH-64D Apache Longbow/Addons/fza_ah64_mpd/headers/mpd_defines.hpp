@@ -50,7 +50,8 @@
 
 #define MFD_USER_NUM(num) __EVAL(MFD_OFFSET + num)
 #define MPD_TEXT_STATIC(str)  source = static; text = str; sourceScale = 1;
-#define MPD_TEXT_USER(num) source = userText; sourceIndex = MFD_USER_NUM(num);
+#define MPD_TEXT_USER_SCALE(num, scale) source = userText; sourceIndex = MFD_USER_NUM(num); sourceScale = 1;
+#define MPD_TEXT_USER(num) MPD_TEXT_USER_SCALE(num,1)
 #define MPD_NUM_USER(num) source = "user"; sourceIndex = MFD_USER_NUM(num);
 #define MPD_COND_USER(num) __EVAL("user" + str (MFD_OFFSET + num))
 #define STRINGIFY(str) #str

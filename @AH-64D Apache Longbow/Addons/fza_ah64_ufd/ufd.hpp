@@ -1,10 +1,13 @@
 color[] = {0.74, 0.85, 0, 1};
-helmetMountedDisplay = false;
+helmetMountedDisplay = 0;
+borderBottom=0;
 borderLeft=0;
 borderRight=0;
 borderTop=0;
 font="fza_ticketing";
-borderBottom=0;
+helmetDown[] = {0,-0.075,0};
+helmetPosition[] = {-0.0375,0.0375,0.1};
+helmetRight[] = {0.075,0,0};
 class material
 {
 	ambient[]	= { 1, 1, 1, 1 };
