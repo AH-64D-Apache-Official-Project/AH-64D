@@ -1,4 +1,4 @@
-class xmit {
+class wptXmit {
     class vabs {
         #include "..\components\vabs_top_xmit.hpp"
 

@@ -1,4 +1,4 @@
-class add{
+class wptAdd{
     class vabs {
         #include "..\components\vabs_top.hpp"
         #include "..\components\vabs_right.hpp"

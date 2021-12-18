@@ -1,7 +1,5 @@
-
-
-
-class root {
+class tsdRoot {
+    #include "..\tsd\common.hpp"
     #include "components\info_boxes.hpp"
 
     class vabs {

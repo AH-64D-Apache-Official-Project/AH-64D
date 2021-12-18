@@ -1,6 +1,7 @@
+ #include "..\tsd\common.hpp"
 #include "components\info_boxes.hpp"
 
-class Common {
+class tsdShow {
     class Occluders {
         color[] = {0,0,0,1};
         class Polygons {

@@ -1,4 +1,4 @@
-class delPointSel {
+class wptDelPointSel {
     class Occluders {
         color[] = {0,0,0,1};
 

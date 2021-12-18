@@ -1,6 +1,6 @@
 
 
-class delNoPointSel {
+class wptDelNoPointSel {
     class vabs {
         #include "..\components\vabs_top.hpp"
         #include "..\components\vabs_right.hpp"
