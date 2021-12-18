@@ -65,7 +65,7 @@ if (_value) then {
 			};
 		};
 		case "fza_ah64_symbologySelectPress": {
-			[_heli, 0, "flt"] call fza_fnc_mpdSetDisplay;
+			[_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;
 		};
 		case "fza_ah64_fcrSingleScan": {
 			player action ["ActiveSensorsOn", vehicle player];

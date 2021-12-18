@@ -39,7 +39,7 @@ fza_ah64_targetlist pushBackUnique vehicle _instigator;
 
 //ase page link Beg
 if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethreatsdraw) then {
-    [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 };
 //ase page link End
 

@@ -34,5 +34,7 @@ if ((_heli animationphase "plt_apu" >= 0.5) && (_lmpdCurr == "OFF" || _rmpdCurr 
 };
 
 (_heli getVariable "fza_mpd_mpdState") # 0 params ["", "", "_ldrawFunc", "_lState"];
+(_heli getVariable "fza_mpd_mpdState") # 1 params ["", "", "_rdrawFunc", "_rState"];
 
 [_heli,0,_lState] call _ldrawFunc;
+[_heli,1,_rState] call _rdrawFunc;

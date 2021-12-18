@@ -14,6 +14,14 @@ class CfgVehicles {
 				bottomLeft = "PLT_MPD_L_BL";
 				#include "mpd.hpp"
 			};
+			#define MFD_IND_PAGE MFD_IND_PAGE_RIGHT
+			#define MFD_OFFSET MFD_OFFSET_R
+			class MPD_R {
+				topLeft = "PLT_MPD_R_TL";
+				topRight = "PLT_MPD_R_TR";
+				bottomLeft = "PLT_MPD_R_BL";
+				#include "mpd.hpp"
+			};
 		};
 		class EventHandlers : EventHandlers {
 			class fza_mpd {

@@ -29,13 +29,13 @@ _visibleTargets = switch (true) do {
     case (_heli getVariable "fza_ah64_tsdsort" > 3): {
         [_heli, (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_tsdsort") - 4] call fza_fnc_targetingFilterType;
     };
-    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr"): {
+    case ([_heli, 1] call fza_mpd_fnc_currentPage == "fcr"): {
         [_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType;
     };
-    case (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")): {
+    case (([_heli, 1] call fza_mpd_fnc_currentPage == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")): {
         [_heli, fza_ah64_tsddisptargs - alldead] call fza_fnc_targetingFilterType;
     };
-    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase"): {
+    case ([_heli, 1] call fza_mpd_fnc_currentPage == "ase"): {
         [_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType;
     };
     default {

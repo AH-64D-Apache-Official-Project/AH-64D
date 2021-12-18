@@ -42,7 +42,7 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
 
 				//ASE autopage
 				if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
-					[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+					[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 				};
 
 				//audio 
