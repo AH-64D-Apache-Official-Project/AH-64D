@@ -1,0 +1,15 @@
+#define MPD_ICON_COLOR_GREEN 0
+#define MPD_ICON_COLOR_CYAN 1
+#define MPD_ICON_COLOR_RED 2
+#define MPD_ICON_COLOR_YELLOW 3
+
+#define MPD_POSMODE_WORLD true
+#define MPD_POSMODE_SCREEN false
+
+#define MPD_ICON_TYPE_A 0
+#define MPD_ICON_TYPE_B 1
+#define MPD_ICON_TYPE_C 2
+#define MPD_ICON_TYPE_D 3
+#define MPD_ICON_TYPE_E 4
+#define MPD_ICON_TYPE_F 5
+#define MPD_ICON_TYPE_G 6

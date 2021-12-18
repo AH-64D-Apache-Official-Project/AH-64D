@@ -756,8 +756,8 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-
-if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
+private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
+if (_burstLimit != -1 && fza_ah64_burst >= _burstLimit && currentweapon _heli == "fza_m230") then {
     _heli selectweapon "fza_burstlimiter";
 };
 

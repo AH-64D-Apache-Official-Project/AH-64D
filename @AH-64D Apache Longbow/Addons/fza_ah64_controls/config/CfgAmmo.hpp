@@ -545,8 +545,6 @@ class CfgAmmo
 	};
 	class fza_275_m151: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 		fza_shortCode 				= "6PD";
 		fza_weaponName              = "fza_275_m151_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m151_wep";
@@ -558,8 +556,6 @@ class CfgAmmo
 	};
 	class fza_275_m229: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6RC-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6RC-G_ca.paa";
 		fza_shortCode 				= "6RC";
 		fza_weaponName              = "fza_275_m229_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m229_wep";	
@@ -573,8 +569,6 @@ class CfgAmmo
 	};
 	class fza_275_m261: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6MP-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6MP-G_ca.paa";
 		fza_shortCode 				= "6MP";
 		fza_weaponName              = "fza_275_m261_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
@@ -599,9 +593,7 @@ class CfgAmmo
 		cost 						= 100;
 	};
 	class fza_275_m257: fza_275_base 
-	{	
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6IL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6IL-G_ca.paa";
+	{
 		fza_shortCode 				= "6IL";
 		fza_weaponName              = "fza_275_m257_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";
@@ -628,8 +620,6 @@ class CfgAmmo
 	};
 	class fza_275_m255: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
 		fza_shortCode 				= "6FL";
 		fza_weaponName              = "fza_275_m255_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	

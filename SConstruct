@@ -8,8 +8,8 @@ import zipfile
 
 env = Environment(tools=[])
 addonsFolder = r"@AH-64D Apache Longbow\Addons"
-pbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_us"]
-linkablePbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus"]
+pbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd", "fza_ah64_us"]
+linkablePbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd"]
 
 def targetDef(target, description):
     return env.Help(f"\n{target.ljust(20)}\t - {description}")

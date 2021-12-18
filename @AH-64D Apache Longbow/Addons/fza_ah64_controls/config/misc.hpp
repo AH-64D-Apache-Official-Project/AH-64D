@@ -6,6 +6,12 @@ class CfgFontFamilies
 		spaceWidth = 0.7;
 		spacing = 0.2;
 	};
+	class fza_ticketing
+	{
+		fonts[] = {"\fza_ah64_controls\font\Ticketing\Ticketing6", "\fza_ah64_controls\font\Ticketing\Ticketing7", "\fza_ah64_controls\font\Ticketing\Ticketing9", "\fza_ah64_controls\font\Ticketing\Ticketing10", "\fza_ah64_controls\font\Ticketing\Ticketing11", "\fza_ah64_controls\font\Ticketing\Ticketing12", "\fza_ah64_controls\font\Ticketing\Ticketing13", "\fza_ah64_controls\font\Ticketing\Ticketing14", "\fza_ah64_controls\font\Ticketing\Ticketing15", "\fza_ah64_controls\font\Ticketing\Ticketing16", "\fza_ah64_controls\font\Ticketing\Ticketing17", "\fza_ah64_controls\font\Ticketing\Ticketing18", "\fza_ah64_controls\font\Ticketing\Ticketing19", "\fza_ah64_controls\font\Ticketing\Ticketing20", "\fza_ah64_controls\font\Ticketing\Ticketing21", "\fza_ah64_controls\font\Ticketing\Ticketing22", "\fza_ah64_controls\font\Ticketing\Ticketing23", "\fza_ah64_controls\font\Ticketing\Ticketing24", "\fza_ah64_controls\font\Ticketing\Ticketing25", "\fza_ah64_controls\font\Ticketing\Ticketing26", "\fza_ah64_controls\font\Ticketing\Ticketing27", "\fza_ah64_controls\font\Ticketing\Ticketing28", "\fza_ah64_controls\font\Ticketing\Ticketing29", "\fza_ah64_controls\font\Ticketing\Ticketing30", "\fza_ah64_controls\font\Ticketing\Ticketing31", "\fza_ah64_controls\font\Ticketing\Ticketing34", "\fza_ah64_controls\font\Ticketing\Ticketing37", "\fza_ah64_controls\font\Ticketing\Ticketing46" };
+		spaceWidth = 0.3;
+		spacing = 0.2;
+	};
 };
 class CfgFactionClasses
 {

@@ -75,7 +75,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };
-_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];

@@ -20,7 +20,7 @@ if (!(player in _heli)) exitwith {};
 fza_ah64_targetlist = fza_ah64_targetlist - allDead;
 
 //TSD ATK LIST
-if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
+if (([_heli, 0] call fza_mpd_fnc_currentPage == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")) then {
 	fza_ah64_tsddisptargs = fza_ah64_targetlist select {
 		_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _x select 0), (getposatl _x select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
 

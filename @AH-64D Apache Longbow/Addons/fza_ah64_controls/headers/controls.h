@@ -5,12 +5,12 @@ COCKPIT_CONTROL("ctrlref_rmpd_l3", "ctrlref_g_rmpd_l3",rmpd, "Right MPD",l3, 0.0
 COCKPIT_CONTROL("ctrlref_rmpd_l4", "ctrlref_g_rmpd_l4",rmpd, "Right MPD",l4, 0.015, "Right MPD L4") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_l5", "ctrlref_g_rmpd_l5",rmpd, "Right MPD",l5, 0.015, "Right MPD L5") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_l6", "ctrlref_g_rmpd_l6",rmpd, "Right MPD",l6, 0.015, "Right MPD L6") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b1", "ctrlref_g_rmpd_b1",rmpd, "Right MPD",b1, 0.015, "Right MPD B1") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b2", "ctrlref_g_rmpd_b2",rmpd, "Right MPD",b2, 0.015, "Right MPD B2") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b3", "ctrlref_g_rmpd_b3",rmpd, "Right MPD",b3, 0.015, "Right MPD B3") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b4", "ctrlref_g_rmpd_b4",rmpd, "Right MPD",b4, 0.015, "Right MPD B4") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b5", "ctrlref_g_rmpd_b5",rmpd, "Right MPD",b5, 0.015, "Right MPD B5") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_b6", "ctrlref_g_rmpd_b6",rmpd, "Right MPD",b6, 0.015, "Right MPD B6") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_m", "ctrlref_g_rmpd_m",rmpd, "Right MPD",b1, 0.015, "Right MPD B1") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_b1", "ctrlref_g_rmpd_b1",rmpd, "Right MPD",b2, 0.015, "Right MPD B2") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_b2", "ctrlref_g_rmpd_b2",rmpd, "Right MPD",b3, 0.015, "Right MPD B3") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_b3", "ctrlref_g_rmpd_b3",rmpd, "Right MPD",b4, 0.015, "Right MPD B4") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_b4", "ctrlref_g_rmpd_b4",rmpd, "Right MPD",b5, 0.015, "Right MPD B5") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_b5", "ctrlref_g_rmpd_b5",rmpd, "Right MPD",b6, 0.015, "Right MPD B6") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_r1", "ctrlref_g_rmpd_r1",rmpd, "Right MPD",r1, 0.015, "Right MPD R1") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_r2", "ctrlref_g_rmpd_r2",rmpd, "Right MPD",r2, 0.015, "Right MPD R2") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_r3", "ctrlref_g_rmpd_r3",rmpd, "Right MPD",r3, 0.015, "Right MPD R3") COCKPIT_CONTROL_SEP
@@ -26,8 +26,8 @@ COCKPIT_CONTROL("ctrlref_rmpd_t6", "ctrlref_g_rmpd_t6",rmpd, "Right MPD",t6, 0.0
 COCKPIT_CONTROL("ctrlref_rmpd_fcr", "ctrlref_g_rmpd_fcr",rmpd, "Right MPD",fcr, 0.015, "Right MPD FCR") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_wpn", "ctrlref_g_rmpd_wpn",rmpd, "Right MPD",wpn, 0.015, "Right MPD WPN") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_tsd", "ctrlref_g_rmpd_tsd",rmpd, "Right MPD",tsd, 0.015, "Right MPD TSD") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_m", "ctrlref_g_rmpd_m",rmpd, "Right MPD",m, 0.015, "Right MPD Menu") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_brt", "",rmpd, "Right MPD",brt, 0.015, "MPD Brightness") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_ac", "ctrlref_g_rmpd_ac",rmpd, "Right MPD",ac, 0.015, "Right MPD A/C") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_brt", "ctrlref_g_rmpd_brt",rmpd, "Right MPD",brt, 0.015, "MPD Brightness") COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("ctrlref_lmpd_l1", "ctrlref_g_lmpd_l1",lmpd, "Left MPD",l1, 0.015, "Left MPD L1") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_l2", "ctrlref_g_lmpd_l2",lmpd, "Left MPD",l2, 0.015, "Left MPD L2") COCKPIT_CONTROL_SEP
@@ -35,12 +35,12 @@ COCKPIT_CONTROL("ctrlref_lmpd_l3", "ctrlref_g_lmpd_l3",lmpd, "Left MPD",l3, 0.01
 COCKPIT_CONTROL("ctrlref_lmpd_l4", "ctrlref_g_lmpd_l4",lmpd, "Left MPD",l4, 0.015, "Left MPD L4") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_l5", "ctrlref_g_lmpd_l5",lmpd, "Left MPD",l5, 0.015, "Left MPD L5") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_l6", "ctrlref_g_lmpd_l6",lmpd, "Left MPD",l6, 0.015, "Left MPD L6") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b1", "ctrlref_g_lmpd_b1",lmpd, "Left MPD",b1, 0.015, "Left MPD B1") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b2", "ctrlref_g_lmpd_b2",lmpd, "Left MPD",b2, 0.015, "Left MPD B2") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b3", "ctrlref_g_lmpd_b3",lmpd, "Left MPD",b3, 0.015, "Left MPD B3") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b4", "ctrlref_g_lmpd_b4",lmpd, "Left MPD",b4, 0.015, "Left MPD B4") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b5", "ctrlref_g_lmpd_b5",lmpd, "Left MPD",b5, 0.015, "Left MPD B5") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_b6", "ctrlref_g_lmpd_b6",lmpd, "Left MPD",b6, 0.015, "Left MPD B6") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_m", "ctrlref_g_lmpd_m",lmpd, "Left MPD",b1, 0.015, "Left MPD B1") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_b1", "ctrlref_g_lmpd_b1",lmpd, "Left MPD",b2, 0.015, "Left MPD B2") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_b2", "ctrlref_g_lmpd_b2",lmpd, "Left MPD",b3, 0.015, "Left MPD B3") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_b3", "ctrlref_g_lmpd_b3",lmpd, "Left MPD",b4, 0.015, "Left MPD B4") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_b4", "ctrlref_g_lmpd_b4",lmpd, "Left MPD",b5, 0.015, "Left MPD B5") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_b5", "ctrlref_g_lmpd_b5",lmpd, "Left MPD",b6, 0.015, "Left MPD B6") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_r1", "ctrlref_g_lmpd_r1",lmpd, "Left MPD",r1, 0.015, "Left MPD R1") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_r2", "ctrlref_g_lmpd_r1",lmpd, "Left MPD",r2, 0.015, "Left MPD R2") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_r3", "ctrlref_g_lmpd_r3",lmpd, "Left MPD",r3, 0.015, "Left MPD R3") COCKPIT_CONTROL_SEP
@@ -53,9 +53,11 @@ COCKPIT_CONTROL("ctrlref_lmpd_t3", "ctrlref_g_lmpd_t3",lmpd, "Left MPD",t3, 0.01
 COCKPIT_CONTROL("ctrlref_lmpd_t4", "ctrlref_g_lmpd_t4",lmpd, "Left MPD",t4, 0.015, "Left MPD T4") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_t5", "ctrlref_g_lmpd_t5",lmpd, "Left MPD",t5, 0.015, "Left MPD T5") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_t6", "ctrlref_g_lmpd_t6",lmpd, "Left MPD",t6, 0.015, "Left MPD T6") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_fcr", "ctrlref_g_lmpd_fcr",lmpd, "Left MPD",fcr, 0.015, "Left MPD FCR") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_wpn", "ctrlref_g_lmpd_wpn",lmpd, "Left MPD",wpn, 0.015, "Left MPD WPN") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_m", "ctrlref_g_lmpd_m",lmpd, "Left MPD",m, 0.015, "Left MPD Menu") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_brt", "",lmpd, "Left MPD",brt, 0.015, "MPD Brightness") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_tsd", "ctrlref_g_lmpd_tsd",lmpd, "Left MPD",tsd, 0.015, "Left MPD TSD") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_ac", "ctrlref_g_lmpd_ac",lmpd, "Left MPD",ac, 0.015, "Left MPD A/C") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_brt", "ctrlref_g_lmpd_brt",lmpd, "Left MPD",brt, 0.015, "MPD Brightness") COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("ctrlref_p_fe1", "ctrlref_g_fe1",fire, "Fire Panel",fe1, 0.03, "Fire Engine 1") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_p_fapu", "ctrlref_g_fapu",fire, "Fire Panel",fapu, 0.03, "Fire APU") COCKPIT_CONTROL_SEP

@@ -1,4 +1,0 @@
-#include "\fza_ah64_controls\headers\selections.h"
-params ["_heli"];
-
-_heli setobjecttexture [SEL_PR_MPD_BACK, ""];
