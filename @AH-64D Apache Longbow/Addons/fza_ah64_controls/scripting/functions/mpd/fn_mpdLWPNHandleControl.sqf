@@ -51,7 +51,7 @@ if(_heli getVariable "fza_ah64_wpnPageSelected" == WAS_WEAPON_MSL) then {
 			//Switch missile lase
 			[_heli] call fza_fnc_laserCycle;
 		};
-		case "l3": {
+		case "r1": {
 			//Switch missile type
 			[_heli] call fza_fnc_weaponMissileCycle
 		};
