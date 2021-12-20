@@ -5,7 +5,7 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 
-if (_control == "l1" && _variant != 1) exitWith {    //Temporary, will allow user to input point via KU, will return you to the WPT page
+if (_control == "l1" && _variant == 0) exitWith {    //Temporary, will allow user to input point via KU, will return you to the WPT page
     private _callBack = {
         params ["_input", "", "_heli"];
         _heli setVariable ["fza_mpd_tsdWptCurrentSel", _input];
@@ -39,7 +39,7 @@ switch (_variant) do {
     case 0: {   //Top level TSD page
         switch (_control) do {
             case "b4": {    //WPT
-                _state set ["subPageVarPage", TSD_WPT];
+                _state set ["subPageVarPage", TSD_ROOT];
             };
             case "l2": {    //WPT > ADD
                 _state set ["subPageVarPage", TSD_WPT_ADD];
@@ -180,6 +180,11 @@ switch (_variant) do {
         switch (_control) do {
             case "b4": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
+            };
+            case "l1": {    //Store current flown-over position
+                private _nextIndex = [_heli, POINT_TYPE_WP] call fza_dms_fnc_pointNextFree;
+                [_heli, _nextIndex, "WP", "", getPos _heli, getTerrainHeightASL getPos _heli max 0] call fza_dms_fnc_pointCreate;
+                _heli setVariable ["fza_mpd_tsdWptCurrentSel", _nextIndex];
             };
             case "l5": {    //Return to WPT page
                 _state set ["subPageVarPage", TSD_WPT];
