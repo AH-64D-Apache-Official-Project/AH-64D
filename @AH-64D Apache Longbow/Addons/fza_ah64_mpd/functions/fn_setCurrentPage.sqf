@@ -54,6 +54,14 @@ if (isText (_config >> "handleControl")) then {
 	_handleControlFunc = missionNamespace getVariable getText (_config >> "handleControl");
 };
 
+private _usesIcons = 0;
+if (isNumber (_config >> "usesIcons")) then {
+	_usesIcons = getNumber (_config >> "usesIcons");
+};
+
+if (_mpdState # _side # 5 == 1) then {
+	[_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
+};
 _mpdState # _side # 3 set ["active", false];
 
 private _state = createHashMap;
@@ -70,7 +78,7 @@ if (isClass (_config >> "InitState")) then {
 _state set ["side", _side];
 _state set ["page", _page];
 _state set ["active", true];
-private _newState = [_page, _mfdIndex, _drawFunc, _state, _handleControlFunc];
+private _newState = [_page, _mfdIndex, _drawFunc, _state, _handleControlFunc, _usesIcons];
 
 _heli setUserMfdValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];

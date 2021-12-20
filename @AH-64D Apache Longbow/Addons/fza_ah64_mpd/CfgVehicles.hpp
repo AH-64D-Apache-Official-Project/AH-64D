@@ -70,6 +70,7 @@ class CfgVehicles {
 				index = MPD_PAGE_TSD;
 				draw = "fza_mpd_fnc_pageTSDDraw";
 				handleControl = "fza_mpd_fnc_pageTSDHandleControl";
+				usesIcons = 1;
 				class InitState {
 					subPageVarPage[] = {0,0};
 				};
