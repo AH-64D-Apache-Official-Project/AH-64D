@@ -14,15 +14,15 @@ if (_control == "l1" && _variant != 1) exitWith {    //Temporary, will allow use
         params ["_input", "", "_heli"];
         private _ret = [_heli, _input] call fza_dms_fnc_pointParse;
 
-        if (_ret isEqualTo []) exitWith {false};
-        _ret params ["_type", "_index"];
+        if (_id isEqualTo []) exitWith {false};
+        _id params ["_type"];
         if (_type == POINT_TYPE_TG) exitWith {false};
 
-        private _databaseType = [_heli, _type, _index, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+        private _databaseType = [_heli, _id, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
 
         if (isNil "_databaseType") exitWith {false;};
 
-        [true, _ret];
+        [true, _id];
     };
     private _currentValue = _heli getVariable "fza_mpd_tsdWptCurrentSel";
     private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
@@ -48,7 +48,7 @@ switch (_variant) do {
             case "l3": {    //WPT > DEL
                 private _current = _heli getVariable "fza_mpd_tsdWptCurrentSel";
                 if (_current isEqualTo []) exitWith {_state set ["subPageVarPage", TSD_WPT_DEL_NOPOINTSEL];};
-                private _ret = [_heli, _current # 0, _current # 1, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+                private _ret = [_heli, _current, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
                 if (isNil "_ret") then {
                     _state set ["subPageVarPage", TSD_WPT_DEL_NOPOINTSEL];
                 } else {
@@ -58,21 +58,21 @@ switch (_variant) do {
             case "l4": {    //WPT > EDT
                 private _current = _heli getVariable "fza_mpd_tsdWptCurrentSel";
                 if (_current isNotEqualTo []) then {_state set ["subPageVarPage", TSD_WPT_EDT_NOPOINTSEL];};
-                private _ret = [_heli, _current # 0, _current # 1, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+                private _ret = [_heli, _current, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
                 if (isNil "_ret") then {
                     _state set ["subPageVarPage", TSD_WPT_EDT_NOPOINTSEL];
                 } else {
                     _state set ["subPageVarPage", TSD_WPT_EDT_POINTSEL];
-                    private _dbRow = [_heli, _current # 0, _current # 1, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
+                    private _dbRow = [_heli, _current, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
                     _state set ["wptDefaultFree", _dbRow # POINT_GET_FREE_TEXT];
                     _state set ["wptDefaultGrid", _dbRow # POINT_GET_GRID_COORD];
                     _state set ["wptDefaultHeight", _dbRow # POINT_GET_ALT_MSL];
                     _state set ["wptEnterCallback", {
                         params ["_heli", "_state", "_free", "_pos", "_alt"];
                         private _selection = _heli getVariable "fza_mpd_tsdWptCurrentSel";
-                        [_heli, _selection # 0, _selection # 1, POINT_SET_FREE_TEXT, _free] call fza_dms_fnc_pointEditValue;
-                        [_heli, _selection # 0, _selection # 1, POINT_SET_ARMA_POS, _pos] call fza_dms_fnc_pointEditValue;
-                        [_heli, _selection # 0, _selection # 1, POINT_SET_ALT_MSL, _alt] call fza_dms_fnc_pointEditValue;
+                        [_heli, _selection, POINT_SET_FREE_TEXT, _free] call fza_dms_fnc_pointEditValue;
+                        [_heli, _selection, POINT_SET_ARMA_POS, _pos] call fza_dms_fnc_pointEditValue;
+                        [_heli, _selection, POINT_SET_ALT_MSL, _alt] call fza_dms_fnc_pointEditValue;
                         _state set ["subPageVarPage", TSD_WPT];
                     }];
                     [_heli, _state] call fza_mpd_fnc_tsdWptEnterDetails;
@@ -105,8 +105,7 @@ switch (_variant) do {
                     _state set ["wptEnterCallback", {
                         params ["_heli", "_state", "_free", "_pos", "_alt"];
                         private _nextIndex = [_heli, _state get "wptAddType"] call fza_dms_fnc_pointNextFree;
-                        if (_nextIndex isEqualTo []) exitWith {};
-                        [_heli, _nextIndex # 0, _nextIndex # 1
+                        [_heli, _nextIndex
                             , _state get "wptAddIdent"
                             , _free
                             , _pos
@@ -149,7 +148,7 @@ switch (_variant) do {
             };
             case "l3": {    //Do not delete - "No", return to WPT page
                 private _current = _heli getVariable "fza_mpd_tsdWptCurrentSel";
-                [_heli, _current # 0, _current # 1] call fza_dms_fnc_pointDelete;
+                [_heli, _current] call fza_dms_fnc_pointDelete;
                 _state set ["subPageVarPage", TSD_WPT];
             };
             case "l4": {    //Do not delete - "No", return to WPT page

@@ -1,7 +1,6 @@
 #include "\fza_ah64_dms\headers\constants.h"
-params ["_heli", "_type", "_index", "_valueType", "_newValue"];
-
-private _result = [_heli, _type, _index] call fza_dms_fnc_pointGetArrayIndex;
+params ["_heli", "_id", "_valueType", "_newValue"];
+private _result = [_heli, _id] call fza_dms_fnc_pointGetArrayIndex;
 
 if (_result isEqualTo -1) exitWith {false};
 _result params ["_dbName", "_dbIndex"];
