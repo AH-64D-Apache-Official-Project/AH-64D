@@ -7,4 +7,5 @@ _result params ["_dbName", "_dbIndex"];
 
 private _db = _heli getVariable _dbName;
 
-_db # _dbIndex # _valueType
+if (_db # _dbIndex isEqualTo -1) exitWith {};
+_db # _dbIndex select _valueType

@@ -4,4 +4,4 @@ private _config = configFile >> "FzaIconTypes" >> _ident >> "type";
 
 if !(isNumber _config) exitWith {false};
 
-getNumber _config == _ident;
+getNumber _config == _type;

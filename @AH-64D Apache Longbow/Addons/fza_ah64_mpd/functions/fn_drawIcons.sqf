@@ -16,7 +16,7 @@ Parameters:
 			_textMode is the text mode (MPD_ICON_TYPE_A .. G)
 			_text1 is the first part of text
 			_text2 is the second part of text, where applicable
-	_display - true if right, false if left
+	_display - 1 if right, 0 if left
 	_scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
 	_center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
 
@@ -28,9 +28,10 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.25]]];
+params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.75]]];
 #include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_mpd\headers\points.hpp"
+#include "\fza_ah64_dms\headers\constants.h"
 
 private _validChars = createHashmapFromArray [
 	["0", "\fza_ah64_us\tex\char\Y0_ca.paa"],
@@ -41,7 +42,7 @@ private _validChars = createHashmapFromArray [
 	["5", "\fza_ah64_us\tex\char\Y5_ca.paa"],
 	["6", "\fza_ah64_us\tex\char\Y6_ca.paa"],
 	["7", "\fza_ah64_us\tex\char\Y7_ca.paa"],
-	["0", "\fza_ah64_us\tex\char\Y0_ca.paa"],
+	["8", "\fza_ah64_us\tex\char\Y0_ca.paa"],
 	["9", "\fza_ah64_us\tex\char\Y9_ca.paa"]
 ];
 
@@ -55,12 +56,11 @@ if (_scale == -1) then {
 #define MPD_Y_MAX 0.9
 
 private _pointsWithPos = _points apply {
-	private _theta = (_heli getDir _pos) - (direction _heli);
-
 	private _pos = _x # 1;
+	private _theta = (_heli getDir _pos) - (direction _heli);
 	if (_x # 0) then {
-		private _targxpos = (sin _theta) * ((_heli distance2D _pos) * _scale) + _center # 0;
-		private _targypos = (cos _theta) * ((_heli distance2D _pos) * _scale) + _center # 1;
+		private _targxpos = _center # 0 + (sin _theta) * ((_heli distance2D _pos) * _scale);
+		private _targypos = _center # 1 - (cos _theta) * ((_heli distance2D _pos) * _scale);
 		_pos = [_targxpos, _targypos];
 	};
 
@@ -72,11 +72,7 @@ private _filter = {
 	(MPD_X_MIN < _tx && _tx < MPD_X_MAX && MPD_Y_MIN < _ty && _ty < MPD_Y_MAX);
 };
 
-systemChat format ["Presort: %1", _pointsWithPos];
-
-_pointsWithPos = [_pointsWithPos, [_heli], {_heli distance2D _x # 0}, "ASCEND", _filter] call BIS_fnc_sortBy;
-
-systemChat format ["Postsort: %1", _pointsWithPos];
+_pointsWithPos = [_pointsWithPos, [_heli], {_center distance2D _x # 0}, "ASCEND", _filter] call BIS_fnc_sortBy;
 
 #define SETTEXTURE(_ind, _tex) _heli setObjectTexture [_ind, _tex]
 #define SETICONTEXTURE(_ind, _tex) SETTEXTURE(_ind + _offset, _tex)
@@ -91,15 +87,12 @@ private _writeText = {
 		reverse _inds;
 	};
 
-	systemChat format ["WriteText %1", _inds];
 	{
-		systemChat format ["WriteText1 %1", _this];
 		if (_forEachIndex >= _textLen) then {
 			SETICONTEXTURE(_x, "");
 			continue;
 		};
 		private _char = _text select [_forEachIndex,1];
-		systemChat format ["Writing string %1 i=%2 ind=%3 c=%4 tex=%5 o=%6",_text, _i, _x, _char, str(_validChars getOrDefault [_char, ""]), _offset];
 		private _tex = _validChars getOrDefault [_char, ""];
 		SETICONTEXTURE(_x, _tex);
 	} forEach _inds;
@@ -131,11 +124,8 @@ for "_i" from 0 to 31 do {
 	};
 	private _pos = _pointsWithPos # _i # 0;
 	_pointsWithPos # _i # 1 params ["","", "_tex", "_color", "_textMode", "_text1", "_text2"];
-	systemChat format ["Setting: %1", _pointsWithPos # _i];
 	// Set point texture
 	SETICONTEXTURE(SEL_MPD_OBJ1_ICON, _tex);
-
-	systemChat format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 8), _i + 1];
 	
 	// Set point position
 	_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 8), _i + 1], _pos # 0];

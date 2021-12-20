@@ -14,9 +14,16 @@ class CfgPatches
 #include "headers\mfdConstants.h"
 #include "headers\points.hpp"
 #include "headers\tsd.hpp"
+#include "\fza_ah64_dms\headers\constants.h"
 
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
 #include "CfgVehicles.hpp"
 
 #include "FzaIconTypes.hpp"
+
+class Extended_PreInit_EventHandlers {
+	class fza_ah64_mpd_PreInits {
+		init = "call compile preprocessFileLineNumbers 'fza_ah64_mpd\XEH_preInit.sqf';";
+	};
+};

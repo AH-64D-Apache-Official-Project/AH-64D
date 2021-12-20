@@ -46,13 +46,13 @@ class tsdCommon {
         points[] = {
             {{0.1, 0.1}, 1}, {{0.9, 0.1}, 1}, {{0.9, 0.9}, 1}, {{0.1, 0.9}, 1}, {{0.1, 0.1}, 1}, {}, //outside box
             
-            {{0.1, 0.115}, 1}, {{0.085, 0.115}, 1}, {}, //Left 10km indicator
-            {{0.1, 0.24}, 1}, {{0.085, 0.24}, 1}, {}, //Left 8km indicator
-            {{0.1, 0.365}, 1}, {{0.085, 0.365}, 1}, {}, //Left 6km indicator
-            {{0.1, 0.49}, 1}, {{0.085, 0.49}, 1}, {}, //Left 4km indicator
-            {{0.1, 0.615}, 1}, {{0.085, 0.615}, 1}, {}, //Left 2km indicator
+            {{0.1, 0.115}, 1}, {{0.085, 0.115}, 1}, {}, //Left 5km indicator
+            {{0.1, 0.24}, 1}, {{0.085, 0.24}, 1}, {}, //Left 4km indicator
+            {{0.1, 0.365}, 1}, {{0.085, 0.365}, 1}, {}, //Left 3km indicator
+            {{0.1, 0.49}, 1}, {{0.085, 0.49}, 1}, {}, //Left 2km indicator
+            {{0.1, 0.615}, 1}, {{0.085, 0.615}, 1}, {}, //Left 1km indicator
             {{0.1, 0.74}, 1}, {{0.085, 0.74}, 1}, {}, //Left 0km indicator
-            {{0.1, 0.865}, 1}, {{0.085, 0.865}, 1}, {}, //Left -2km indicator
+            {{0.1, 0.865}, 1}, {{0.085, 0.865}, 1}, {}, //Left -1km indicator
 
             MPD_TSD_SCALE_BOX(0.1, 0.865-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
             MPD_TSD_SCALE_BOX(0.1, 0.615-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
@@ -69,13 +69,13 @@ class tsdCommon {
         };
     };
 
-    MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+    MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
 
-    MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+    MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
 
-    MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
+    MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
 
-    MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("10"))
+    MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("5"))
 
     //Ownship Icon
     class Ownship {

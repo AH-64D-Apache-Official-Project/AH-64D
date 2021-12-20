@@ -165,6 +165,9 @@
 
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
+#define MFD_IND_TSD_WPT_ADD_TYPE 1
+
+#define MFD_TEXT_IND_TSD_WPT_CURRENT_POINT 0
 
 //Waypoint page indices
 #define MFD_IND_WPT_ADD 1

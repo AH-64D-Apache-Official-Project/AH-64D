@@ -21,7 +21,6 @@ switch (_state get "subPageVarPage" select 0) do {
             };
             case "b4": {
                 _state set ["subPageVarPage", TSD_WPT]; //WPT subpage
-
             };
         };
     };

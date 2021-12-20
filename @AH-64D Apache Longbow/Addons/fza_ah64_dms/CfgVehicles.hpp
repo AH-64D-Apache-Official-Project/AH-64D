@@ -30,7 +30,7 @@ array of:
 true if success, false if fail
 
 [heli, type, index, valueType] call fza_dms_fnc_pointGetValue
--1 if fail
+nil if fail
 Value otherwise
 
 [heli, type, index, valueType, newValue] call fza_dms_fnc_pointEditValue

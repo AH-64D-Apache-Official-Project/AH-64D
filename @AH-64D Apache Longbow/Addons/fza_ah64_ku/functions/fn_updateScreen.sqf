@@ -2,9 +2,9 @@ params ["_heli"];
 #include "\fza_ah64_ku\headers\constants.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-_heli setUserMfdValue [MFD_IND_KU_STATE, [0,1] select (_heli getVariable "fza_ku_state" == 2)];
+_heli setUserMfdValue [MFD_IND_KU_STATE, [0,1] select (_heli getVariable "fza_ku_state" == KU_STATE_ERROR)];
 
-if (_heli getVariable "fza_ku_state" == 0) exitWith {
+if (_heli getVariable "fza_ku_state" == KU_STATE_OFF) exitWith {
     _heli setUserMfdText [MFD_TEXT_IND_KU, ""];
 };
 

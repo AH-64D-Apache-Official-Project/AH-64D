@@ -27,6 +27,7 @@ Author:
 params ["_heli", "_system", "_control"];
 
 private _mpdIndex = [0,1] select (_system == "rmpd");
+[_heli] call fza_ku_fnc_clear;
 
 switch (_control) do {
 	case "wpn": {

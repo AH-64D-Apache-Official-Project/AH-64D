@@ -9,4 +9,5 @@ private _db = _heli getVariable _dbName;
 _db set [_dbIndex, -1];
 
 _heli setVariable [_dbName, _db, true];
+["fza_dms_pointDeleted", [_heli, [_type, _index]]] call CBA_fnc_globalEvent;
 true;

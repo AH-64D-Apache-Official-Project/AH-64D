@@ -23,6 +23,7 @@ class CfgFunctions
             class tsdSHOWDraw {RECOMPILE_FLAG;};
             class tsdSHOWHandleControl {RECOMPILE_FLAG;};
             class tsdWPTDraw {RECOMPILE_FLAG;};
+            class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
         };
         class page {

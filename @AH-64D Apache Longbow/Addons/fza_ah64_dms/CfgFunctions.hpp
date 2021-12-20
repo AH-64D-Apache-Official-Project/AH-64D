@@ -24,6 +24,9 @@ class CfgFunctions
             class pointGetIdentDetails{R;};
             class pointGetValue{R;};
             class pointIsValidIdent{R;};
+            class pointNextFree{R;};
+            class pointParse{R;};
+            class pointToString{R;};
         };
     };
 };

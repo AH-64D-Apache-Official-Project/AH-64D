@@ -1,6 +1,5 @@
 params ["_heli", "_mpdIndex", "_control"];
 
- systemChat str _this;
 switch(_control) do {
 	case "b1": {
 		[_heli, _mpdIndex, "wca"] call fza_mpd_fnc_setCurrentPage;

@@ -87,4 +87,5 @@ COCKPIT_CONTROL("ctrlref_p_pnvs_dn", "ctrlref_g_pnvs_dn",pnvs, "PNVS",daynight, 
 COCKPIT_CONTROL("nvs_mode_sw", "nvs_mode_swg",nvs, "NVS",mode, 0.03, "NVS Mode") COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("plt_flood", "cpg_flood",light, "Lighting",floodlight, 0.03, "Floodlight") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("plt_anticollision", "",light, "Lighting",anticollision, 0.03, "Anti-Collision Light")
+COCKPIT_CONTROL("plt_anticollision", "",light, "Lighting",anticollision, 0.03, "Anti-Collision Light") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("plt_ku_ctr", "cpg_ku_ctr",ku, "Keyboard Unit",activate, 0.15, "Activate KU input")

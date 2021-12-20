@@ -7,14 +7,21 @@ class CfgFunctions
 {
     class fza_ah64_ku {
         tag="fza_ku";
+        class checkers {
+            file = "\fza_ah64_ku\functions\checkers";
+            class checkerFree;
+            class checkerGrid;
+            class checkerInteger;
+        };
         class functions {
             file = "\fza_ah64_ku\functions";
             class addPrompt{R;};
+            class clear{R;};
             class enter{R;};
             class handleInput{R;};
             class init{R;};
             class toggleInput{R;};
-            class update{R;};
+            class updateScreen{R;};
         };
     };
 };

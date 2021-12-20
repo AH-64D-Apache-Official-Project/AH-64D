@@ -54,6 +54,7 @@ if (isText (_config >> "handleControl")) then {
 	_handleControlFunc = missionNamespace getVariable getText (_config >> "handleControl");
 };
 
+_mpdState # _side # 3 set ["active", false];
 
 private _state = createHashMap;
 if (isClass (_config >> "InitState")) then {
@@ -66,7 +67,9 @@ if (isClass (_config >> "InitState")) then {
 		[configName _x, _ret];
 	});
 };
-
+_state set ["side", _side];
+_state set ["page", _page];
+_state set ["active", true];
 private _newState = [_page, _mfdIndex, _drawFunc, _state, _handleControlFunc];
 
 _heli setUserMfdValue [_side + 1, _mfdIndex];

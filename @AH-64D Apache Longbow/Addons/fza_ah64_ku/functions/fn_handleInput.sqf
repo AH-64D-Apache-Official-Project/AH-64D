@@ -23,7 +23,7 @@ private _addChar = {
     _heli setVariable ["fza_ku_state", KU_STATE_INPUT];
     if (count _currentInput < KU_MAX_CHARS) then {
         _heli setVariable ["fza_ku_input", _currentInput + _keyCode];
-        [_heli] call fza_ku_fnc_update;
+        [_heli] call fza_ku_fnc_updateScreen;
     };
 };
 
@@ -84,7 +84,7 @@ if (_key == DIK_BACK || _key == DIK_BACKSPACE) exitwith {
     private _newInput = _currentInput select [0, (count _currentInput - 1) max 0];
     _heli setVariable ["fza_ku_input", _newInput];
     _heli setVariable ["fza_ku_state", KU_STATE_INPUT];
-    [_heli] call fza_ku_fnc_update;
+    [_heli] call fza_ku_fnc_updateScreen;
     true;
 };
 

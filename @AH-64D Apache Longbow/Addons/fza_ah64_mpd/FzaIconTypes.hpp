@@ -2,6 +2,7 @@ class FzaIconTypes {
     class AA {
         tex= "\fza_ah64_mpd\tex\tsdIcons\aa.paa";
         type = POINT_TYPE_CM;
+        iconType = MPD_ICON_TYPE_A;
     };
     class AG:AA  { tex= "\fza_ah64_mpd\tex\tsdIcons\ag.paa";};
     class AI:AA  { tex= "\fza_ah64_mpd\tex\tsdIcons\ai.paa";};
