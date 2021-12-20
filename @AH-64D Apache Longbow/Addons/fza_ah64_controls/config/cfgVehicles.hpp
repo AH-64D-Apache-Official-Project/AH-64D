@@ -569,14 +569,14 @@ class CfgVehicles
 				material = 51;
 				name = "lfuel";
 				passthrough = 0.1;
-				depends = "HitEngine1";
+				//depends = "HitEngine1";
 				explosionShielding=2;
 				minimalHit = 0.3;
 			};
 			class HitFuel2: HitFuel
 			{
 				name = "rfuel";
-				depends = "HitEngine2";
+				//depends = "HitEngine2";
 			};
 			class Hitlfab
 			{

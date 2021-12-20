@@ -34,7 +34,7 @@ if (!_mpdsHavePower && _lmpdCurr != "off") then {
 };
 
 if (_mpdsHavePower && _rmpdCurr == "off") then {
-	[_heli, 1, "fuel"] call fza_mpd_fnc_setCurrentPage;
+	[_heli, 1, "dtu"] call fza_mpd_fnc_setCurrentPage;
 };
 if (!_mpdsHavePower && _rmpdCurr != "off") then {
 	[_heli, 1, "off"] call fza_mpd_fnc_setCurrentPage;

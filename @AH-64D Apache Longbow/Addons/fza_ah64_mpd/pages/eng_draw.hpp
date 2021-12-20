@@ -164,8 +164,8 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
         config\
     };
 
-COLOR_G_Y_R(Torque_1, MFD_IND_ENG_TORQUE_1, 110, 125, ENG_TORQUE_TAPE(1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1))
-COLOR_G_Y_R(Torque_2, MFD_IND_ENG_TORQUE_2, 110, 125, ENG_TORQUE_TAPE(2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2))
+COLOR_G_Y_R(Torque_1, MFD_IND_ENG_TORQUE_1, 101, 115, ENG_TORQUE_TAPE(1, ENG_TAPE_TORQUE_1_X, MFD_TEXT_IND_ENG_TORQUE_1))
+COLOR_G_Y_R(Torque_2, MFD_IND_ENG_TORQUE_2, 101, 115, ENG_TORQUE_TAPE(2, ENG_TAPE_TORQUE_2_X, MFD_TEXT_IND_ENG_TORQUE_2))
 COLOR_G_Y_R(Tgt_1, MFD_IND_ENG_TGT_1, 811, 950, ENG_TGT_TAPE(1, ENG_TAPE_TGT_1_X, MFD_TEXT_IND_ENG_TGT_1))
 COLOR_G_Y_R(Tgt_2, MFD_IND_ENG_TGT_2, 811, 950, ENG_TGT_TAPE(2, ENG_TAPE_TGT_2_X, MFD_TEXT_IND_ENG_TGT_2))
 COLOR_R_G_Y_R(Np_1, MFD_IND_ENG_NP_1, 95, 105, 110, ENG_NP_TAPE(1, ENG_TAPE_NP_1_X, ENG_SIDE_DATA_1_X, MFD_TEXT_IND_ENG_NP_1))
@@ -245,7 +245,7 @@ class Limits_Red {
     };
 };
 
-class AirFormatOnly {
+class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
     condition=__EVAL(format ["user%1", MFD_OFFSET + MFD_IND_ENG_MODE]);
     class WCA_Box{
         type = line;
@@ -267,6 +267,7 @@ class AirFormatOnly {
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_7, MPD_WCA_COLUMN_2_X, 0.6, 2)
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_8, MPD_WCA_COLUMN_2_X, 0.6, 3)
 }
+
 class Hydraulics_Box {
     type = line;
     width = 3;

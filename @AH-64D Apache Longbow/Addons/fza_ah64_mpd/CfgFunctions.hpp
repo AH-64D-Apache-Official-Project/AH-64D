@@ -27,6 +27,10 @@ class CfgFunctions
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
+            class pageDMSDraw {R;};
+            class pageDMSHandleControl {R;};
+            class pageDTUDraw {R;};
+            class pageDTUHandleControl {R;};
             class pageENGDraw {R;};
             class pageENGHandleControl {R;};
             class pageFLTDraw {R;};

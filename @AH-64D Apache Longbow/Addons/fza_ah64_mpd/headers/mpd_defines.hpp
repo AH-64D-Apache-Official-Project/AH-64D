@@ -16,8 +16,8 @@
 #define MPD_BOX_PAD_Y 0.000
 
 // Common MPD position coordinates - edges of MPDs next to buttons
-#define MPD_POS_BUTTON_L_X 0.015
-#define MPD_POS_BUTTON_R_X 0.985
+#define MPD_POS_BUTTON_L_X 0.03
+#define MPD_POS_BUTTON_R_X 0.97
 #define MPD_POS_BUTTON_LR_1_Y 0.2
 #define MPD_POS_BUTTON_LR_2_Y 0.315
 #define MPD_POS_BUTTON_LR_3_Y 0.43
@@ -226,3 +226,19 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_TEXT_OCCLUDER_C(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)/2*MPD_TEXT_WIDTH),startY,numChars)
 #define MPD_TEXT_OCCLUDER_L(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)*MPD_TEXT_WIDTH),startY,numChars)
+/*
+#define MPD_BAR_BOX_B(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {posX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + MPD_TEXT_HEIGHT}, 1 },\
+                { {posX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + MPD_TEXT_HEIGHT}, 1 },\
+                { {posX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {posX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+            }\
+        };\
+    };\
+};
+*/
