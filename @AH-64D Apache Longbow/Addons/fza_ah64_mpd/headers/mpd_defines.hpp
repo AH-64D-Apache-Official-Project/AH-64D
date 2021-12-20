@@ -226,19 +226,63 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_TEXT_OCCLUDER_C(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)/2*MPD_TEXT_WIDTH),startY,numChars)
 #define MPD_TEXT_OCCLUDER_L(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)*MPD_TEXT_WIDTH),startY,numChars)
-/*
-#define MPD_BAR_BOX_B(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
+
+#define MPD_BOX_BAR_B(name, startX, startY) class Mpd_Box_##name##_Barrier { \
     color[] = {0.05,0.25,0,0.5};\
     class Polygons {\
         type = polygon;\
         points[] = {\
             {\
-                { {posX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + MPD_TEXT_HEIGHT}, 1 },\
-                { {posX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + MPD_TEXT_HEIGHT}, 1 },\
-                { {posX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + 1.2*MPD_TEXT_HEIGHT}, 1 },\
-                { {posX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_B_Y + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+            },\
+        };\
+    };\
+};
+
+#define MPD_BOX_BAR_T(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY - 0.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY - 0.2*MPD_TEXT_HEIGHT}, 1 },\
+            },\
+        };\
+    };\
+};
+
+#define MPD_BOX_BAR_L(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
             }\
         };\
     };\
 };
-*/
+
+#define MPD_BOX_BAR_R(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX - 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+            }\
+        };\
+    };\
+};

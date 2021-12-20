@@ -11,50 +11,21 @@ class dms_draw {
             MPD_POINTS_BOX(Null, (0.75 - MPD_TEXT_WIDTH * 10.5), 0.105, (21 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)  
         };
     };
-    
-    class barriers {
-        color[] = {0.05,0.25,0,0.5};
-        class Polygons {
-            type = polygon;
-            points[] = {
-                {
-                    { {MPD_POS_BUTTON_TB_2_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_2_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_2_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                    { {MPD_POS_BUTTON_TB_2_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                },
-                {
-                    { {MPD_POS_BUTTON_TB_3_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_3_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_3_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                    { {MPD_POS_BUTTON_TB_3_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                },
-                {
-                    { {MPD_POS_BUTTON_TB_5_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_5_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_5_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                    { {MPD_POS_BUTTON_TB_5_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                },
-                {
-                    { {MPD_POS_BUTTON_TB_6_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_6_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y}, 1 },
-                    { {MPD_POS_BUTTON_TB_6_X+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                    { {MPD_POS_BUTTON_TB_6_X-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, MPD_POS_BUTTON_T_Y - 0.2*MPD_TEXT_HEIGHT}, 1 },
-                },                                
-            };
-        };
-    };
 
     //T1
     MPD_ARROW_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 3)
     MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("DTU"))
     //T2
+    MPD_BOX_BAR_T(FAULT, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y);
     MPD_TEXT_C(FAULT,  MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("FAULT"))
     //T3
+    MPD_BOX_BAR_T(IBIT, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y);
     MPD_TEXT_C(IBIT,  MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("IBIT"))
     //T5
+    MPD_BOX_BAR_T(VERS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y);
     MPD_TEXT_C(VERS,  MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("VERS"))
     //T6
+    MPD_BOX_BAR_T(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y);
     MPD_TEXT_C(UTIL,  MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
 
     //B1
