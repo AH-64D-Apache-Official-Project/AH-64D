@@ -17,5 +17,5 @@ switch (_match # 1 # 0) do {
     };
 };
 private _number = parseNumber (_match # 2 # 0);
-if ([_heli, _type, _number] call fza_dms_fnc_pointGetArrayIndex isEqualTo -1) exitWith {[]};
+if ([_heli, [_type, _number]] call fza_dms_fnc_pointGetArrayIndex isEqualTo -1) exitWith {[]};
 [_type, _number];

@@ -68,12 +68,25 @@ class CfgVehicles {
 			#include "\fza_ah64_mpd\headers\tsd.hpp"
 			class Tsd {
 				index = MPD_PAGE_TSD;
-				draw = "fza_mpd_fnc_pageTSDDraw";
+				draw  = "fza_mpd_fnc_pageTSDDraw";
 				handleControl = "fza_mpd_fnc_pageTSDHandleControl";
 				usesIcons = 1;
 				class InitState {
 					subPageVarPage[] = {0,0};
 				};
+			};
+			class Dms {
+				index = MPD_PAGE_DMS;
+				draw  = "fza_mpd_fnc_pageDMSDraw";
+				handleControl = "fza_mpd_fnc_pageDMSHandleControl";
+				class InitState {
+					subPageVarPage[] = {1,0};
+				};
+			};
+			class Dtu {
+				index = MPD_PAGE_DTU;
+				draw  = "fza_mpd_fnc_pageDTUDraw";
+				handleControl = "fza_mpd_fnc_pageDTUHandleControl";
 			};
 		};
     };

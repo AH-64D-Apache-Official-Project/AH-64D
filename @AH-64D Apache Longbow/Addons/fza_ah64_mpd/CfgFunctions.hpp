@@ -28,6 +28,10 @@ class CfgFunctions
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
+            class pageDMSDraw {RECOMPILE_FLAG;};
+            class pageDMSHandleControl {RECOMPILE_FLAG;};
+            class pageDTUDraw {RECOMPILE_FLAG;};
+            class pageDTUHandleControl {RECOMPILE_FLAG;};
             class pageENGDraw {RECOMPILE_FLAG;};
             class pageENGHandleControl {RECOMPILE_FLAG;};
             class pageFLTDraw {RECOMPILE_FLAG;};

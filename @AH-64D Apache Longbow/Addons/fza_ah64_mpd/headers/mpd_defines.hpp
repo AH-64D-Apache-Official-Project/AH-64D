@@ -16,8 +16,8 @@
 #define MPD_BOX_PAD_Y 0.000
 
 // Common MPD position coordinates - edges of MPDs next to buttons
-#define MPD_POS_BUTTON_L_X 0.015
-#define MPD_POS_BUTTON_R_X 0.985
+#define MPD_POS_BUTTON_L_X 0.03
+#define MPD_POS_BUTTON_R_X 0.97
 #define MPD_POS_BUTTON_LR_1_Y 0.2
 #define MPD_POS_BUTTON_LR_2_Y 0.315
 #define MPD_POS_BUTTON_LR_3_Y 0.43
@@ -226,3 +226,63 @@ class Mpd_Arrow_##name##_Triangle { \
 
 #define MPD_TEXT_OCCLUDER_C(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)/2*MPD_TEXT_WIDTH),startY,numChars)
 #define MPD_TEXT_OCCLUDER_L(bone,startX,startY,numChars) MPD_TEXT_OCCLUDER_R(bone,((startX)-(numChars)*MPD_TEXT_WIDTH),startY,numChars)
+
+#define MPD_BOX_BAR_B(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY + 1.2*MPD_TEXT_HEIGHT}, 1 },\
+            },\
+        };\
+    };\
+};
+
+#define MPD_BOX_BAR_T(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY}, 1 },\
+                { {startX+1.5*MPD_TEXT_WIDTH + MPD_BOX_PAD_X, startY - 0.2*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX-1.5*MPD_TEXT_WIDTH - MPD_BOX_PAD_X, startY - 0.2*MPD_TEXT_HEIGHT}, 1 },\
+            },\
+        };\
+    };\
+};
+
+#define MPD_BOX_BAR_L(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+            }\
+        };\
+    };\
+};
+
+#define MPD_BOX_BAR_R(name, startX, startY) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.05,0.25,0,0.5};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX - 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX - 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+            }\
+        };\
+    };\
+};

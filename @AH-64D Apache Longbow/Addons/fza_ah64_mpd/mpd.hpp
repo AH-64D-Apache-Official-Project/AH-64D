@@ -54,4 +54,12 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_TSD);
         #include "pages\tsd_draw.hpp"
     };
+    class Dms{
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DMS);
+        #include "pages\dms_draw.hpp"
+    };
+    class Dtu{
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DTU);
+        #include "pages\dtu_draw.hpp"
+    };
 };
