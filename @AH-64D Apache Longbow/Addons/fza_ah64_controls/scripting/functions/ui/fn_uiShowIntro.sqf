@@ -25,7 +25,7 @@ Starting in February 2017 from the ARMA 2 mod of the same name, this project rec
 With the help of real-world AH-64D/E pilots we are proud to present to you one of the best rotary wing experiences possible within the limitations of ARMA 3. <br/>
 <br/>
 With 2.0, our team presents over a year’s worth of work designed to enhance the fidelity, immersion, performance, reliability and lay the groundwork for new features. To that end entire sections of the mod were re-written from scratch with an eye towards utilizing inbuilt ARMA 3 features. <br/>
-<br/>
+<br/>bj
 To get started and familiarize yourself with your new office, head over to our <a href='https://github.com/AH-64D-Apache-Official-Project/AH-64D/wiki/Setting-Up'>AH-64D Official Project Wiki page.</a><br/>
 <br/>
 If you want to support us and be part of our large community, feel free to join us on our <a href='https://discord.gg/rB6yDDy'>AH-64D Official Project Discord.</a><br/>
