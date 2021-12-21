@@ -12,7 +12,7 @@ if (_control == "l1" && _variant == 0) exitWith {    //Temporary, will allow use
     };
     private _checker = {
         params ["_input", "", "_heli"];
-        private _ret = [_heli, _input] call fza_dms_fnc_pointParse;
+        private _id = [_heli, _input] call fza_dms_fnc_pointParse;
 
         if (_id isEqualTo []) exitWith {false};
         _id params ["_type"];
@@ -43,7 +43,7 @@ switch (_variant) do {
             };
             case "l2": {    //WPT > ADD
                 _state set ["subPageVarPage", TSD_WPT_ADD];
-                _state set ["wptAddType", POINT_TYPE_WP];
+                _state set ["wptAddType",     POINT_TYPE_WP];
             };
             case "l3": {    //WPT > DEL
                 private _current = _heli getVariable "fza_mpd_tsdWptCurrentSel";
@@ -81,9 +81,9 @@ switch (_variant) do {
             case "l5": {    //WPT > STO
                 _state set ["subPageVarPage", TSD_WPT_STO];
             };
-            case "l6": {    //WPT > XMIT
+            /*case "l6": {    //WPT > XMIT
                 _state set ["subPageVarPage", TSD_WPT_XMIT];
-            };
+            };*/
         };
     };
     case 1: {   //WPT > ADD
@@ -185,6 +185,7 @@ switch (_variant) do {
                 private _nextIndex = [_heli, POINT_TYPE_WP] call fza_dms_fnc_pointNextFree;
                 [_heli, _nextIndex, "WP", "", getPos _heli, getTerrainHeightASL getPos _heli max 0] call fza_dms_fnc_pointCreate;
                 _heli setVariable ["fza_mpd_tsdWptCurrentSel", _nextIndex];
+                _state set ["subPageVarPage", TSD_ROOT];
             };
             case "l5": {    //Return to WPT page
                 _state set ["subPageVarPage", TSD_WPT];

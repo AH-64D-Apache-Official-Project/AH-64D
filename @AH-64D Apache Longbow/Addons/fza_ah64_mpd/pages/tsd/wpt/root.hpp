@@ -15,6 +15,7 @@ class wptRoot {
         //L5
         MPD_TEXT_R(STO,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("STO"))
         //L6
+        MPD_BOX_BAR_R(XMIT,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y)
         MPD_TEXT_R(XMIT,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("XMIT"))
     };
 };

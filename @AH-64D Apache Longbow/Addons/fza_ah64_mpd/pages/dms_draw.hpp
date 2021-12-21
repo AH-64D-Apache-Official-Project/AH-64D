@@ -1,5 +1,5 @@
 class dms_draw {
-    class Static {
+    class outlines {
         type = line;
         width = 3;
         points[] = {

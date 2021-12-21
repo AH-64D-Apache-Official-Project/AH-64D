@@ -4,7 +4,11 @@ params ["_ident"];
 
 private _config = configFile >> "FzaIconTypes" >> _ident;
 
-if (!isClass _config) exitWith {-1};
+if (!isClass _config) then {
+    _config = configFile >> "FzaIconTypes" >> "Icon" + _ident;
+};
+
+if (!isClass _config) exitWith {};
 
 private _tex = "";
 if (isText (_config >> "tex")) then {

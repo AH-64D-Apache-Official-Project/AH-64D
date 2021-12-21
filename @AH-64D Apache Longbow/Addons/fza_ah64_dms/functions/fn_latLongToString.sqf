@@ -1,6 +1,6 @@
 params ["_lat", "_long"];
 
-private _eastWest = ["E", "W"] select (_lat >= 0);
+private _eastWest   = ["N", "S"] select (_lat >= 0);
 private _northSouth = ["E", "W"] select (_long >= 0);
 
 private _ewDegrees = [abs _lat, 2, 0] call CBA_fnc_formatNumber;

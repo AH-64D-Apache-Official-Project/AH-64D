@@ -45,12 +45,32 @@ class FzaIconTypes {
     class WL:TO  { tex= "\fza_ah64_mpd\tex\tsdIcons\wl.paa";};
     class WS:TO  { tex= "\fza_ah64_mpd\tex\tsdIcons\ws.paa";};    
 
-    class GU {
+    class TG  {
         type = POINT_TYPE_TG;
-        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
-    };  
-    class R :GU { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};
-    class TG:GU  { tex= "\fza_ah64_mpd\tex\tsdIcons\tg.paa";};  
+        tex= "\fza_ah64_mpd\tex\tsdIcons\tg.paa";
+    };
+    class GU:TG    { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class Icon1:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class Icon2:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class Icon3:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon4:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon5:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon6:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon7:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon8:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon9:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon10:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon11:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon12:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon13:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon14:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon15:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon16:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
+    class Icon17:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class S6:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class ZU:TG { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class SR:TG    { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};
+    class TR:TG    { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};  
 };
 
 /***

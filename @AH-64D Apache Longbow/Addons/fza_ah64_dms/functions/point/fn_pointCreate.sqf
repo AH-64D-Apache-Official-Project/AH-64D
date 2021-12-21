@@ -14,7 +14,7 @@ if (_result isEqualTo -1) exitWith {false};
 _result params ["_iconTex", "_iconOffset"];
 
 private _gridCoord = [_armaPos] call fza_dms_fnc_posToGrid;
-private _latLong = [_armaPos] call fza_dms_fnc_posToLatLong call fza_dms_fnc_latLongToString;
+private _latLong   = [_armaPos] call fza_dms_fnc_posToLatLong call fza_dms_fnc_latLongToString;
 
 private _pointData = [_ident, _freeText, _type, _iconTex, _iconOffset, 0, _armaPos, _gridCoord, _latLong, _altMsl, (_altMsl - getTerrainHeightASL _armaPos) max 0];
 

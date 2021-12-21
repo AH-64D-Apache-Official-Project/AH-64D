@@ -19,5 +19,4 @@ switch(_control) do {
 	case "l5": {
 		[_heli, _mpdIndex, "wpn"] call fza_mpd_fnc_setCurrentPage;
 	};
-
 };
