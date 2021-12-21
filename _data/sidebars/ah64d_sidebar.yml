@@ -42,6 +42,9 @@ entries:
   - title: Weapons
     output: web
     folderitems:
+    - title: WAS Logic
+      url: weapons-was.html
+      output: [web]
     - title: Sighting Systems
       url: weapons-sights.html
       output: [web]

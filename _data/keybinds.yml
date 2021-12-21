@@ -22,25 +22,25 @@ sight-select-hmd:
   name: Sight Select HMD
   description: Sets current sight to HMD
   category: Sighting
-  keys: [Ctrl,1]
+  keys: [Shift,1]
   mod: true
 sight-select-tads:
   name: Sight Select TADS
   description: Sets current sight to TADS
   category: Sighting
-  keys: [Ctrl,2]
+  keys: [Shift,2]
   mod: true
 sight-select-fxd:
   name: Sight Select FXD
   description: Sets current sight to FXD
   category: Sighting
-  keys: [Ctrl,3]
+  keys: [Shift,3]
   mod: true
 sight-select-fcr:
   name: Sight Select FCR
   description: Sets current sight to FCR
   category: Sighting
-  keys: [Ctrl,4]
+  keys: [Shift,4]
   mod: true
 target-store:
   name: Target Store
@@ -157,6 +157,12 @@ head-up:
   description: Moves head up in order to see over Dashboard
   category: View
   keys: [Ctrl,Page Up]
+  mod: false
+head-down:
+  name: Move Head Down
+  description: Moves head down in order to better see the displays
+  category: View
+  keys: [Ctrl,Page Down]
   mod: false
 look-center:
   name: Look Center

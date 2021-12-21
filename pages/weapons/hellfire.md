@@ -33,7 +33,7 @@ Lasers are able to be locked on if they are on the friendly side's datalink. To 
 
 If you haven't selected the right laser, repeat step 3 until the correct lase is displayed.
 
-> :construction: ACE laser integration is being looked into.
+{% include todo.html content="ACE laser integration is being looked into."%}
 
 ### IHADSS Symbology
 

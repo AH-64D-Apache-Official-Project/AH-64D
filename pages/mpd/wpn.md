@@ -10,37 +10,43 @@ The WPN or Weapon page is one of the most important pages for the Co-Pilot Gunne
 
 The weapon page will give you different options and information depending on the weapon you have selected. It will also show you the quantity of missiles, rockets and 30mm you have onboard. This page has multiple configurations depending on the currently selected weapons systems
 
-## Safe
+## Selecting weapons
+
+To view a weapon's subpage, you select it on the bottom of the MPD (buttons B2,B3,B5). To deselect one, you can click on it again.
+
+When you have a weapon [WAS](weapons-was.html)ed, that weapon's subpage will always be visible on the WPN page. You cannot select one weapon while another is WASed.
+
+{% include warning.html content="Just because a WPN Subpage is selected doesn't mean the respective weapon is ready to fire. You must use the keybinds to WAS a weapon and fire it." %}
+
+## Common information
 
 {% include image.html file="mpd/annot_page_wpn_safe.png"%}
 
-1. Sight shows you which sight is selected (either TADS or FCR)
-2. Safety indication of the aircraft (when the safety is on “SAFE” will be shown, otherwise “ARM)
-3. ACQ  Acquisition source (what sensor your targeting information is coming from)
-4. Selected Countermeasures and quantities
+1. The arming indicator shows whether the aircraft is armed or safe.
+2. The sight status box, to the left of the arming indicator, shows you which sight is selected
+3. The acquisition source status box shows the currently selected acquisition source (not yet implemented)
+4. The countermeasures count indication is in the tail of the aircraft, and shows the current armament of countermeasures.
 
-## Gun Page
+## GUN Subpage
 
-The M230 Chain Gun is a 30mm cannon firing M789 HEDP (High Explosive Dual Purpose) rounds at a maximum of 650 rounds per minute.
-It has an effective firing range of 2.5km.
+The GUN Subpage allows for the modification of the operating parameters of the M230 chaingun
 
 {% include image.html file="mpd/annot_page_wpn_m230.png"%}
 
-1. Current burst settings - Allows for you to view and select the current burst quantity
-2. M230 ammo remaining
+1. The current burst settings on the left allow for the selection of a specific burst limit.
+2. M230 ammo remaining is visible inside the highlighted image of the M230.
 
-## Missile Page
+## MSL Subpage
 
-The AGM-114 HELLFIRE (Helicopter Launched Fire and Forget) missiles are the primary weapon of all AH-64 aircraft.
-Despite the name, only the AGM-114L is a true fire and forget weapon, all others require constant laser guidance to hit their target.
+The MSL Subpage allows for the selection of specific missiles as well as their launch parameters.
 
 {% include image.html file="mpd/annot_page_wpn_msl.png"%}
 
-7. Generation of selected Hellfire
-8. Missile Icon ( indicates if its an **R**=Radar guided **L**= laser guided Missile)
-9. TRAJ allows you to change the missile trajectory  (Dir/Low/Hi)
-10. LRFD FIRST  (Laser designator/RangeFinder) allows you to Arm the laser ( NOTE this will only make it selectable)
-11. ACQ (R6) used to switch Sights  between TADS and FCR
+* Each hellfire has an icon specifying its seeker type. This can be used to decide which missile to shoot.
+* The hellfire that will be the next launched will be highlighted in inverse video.
+* TRAJ (R3) displays the current trajectory, and pressing it will cycle available hellfire trajectories.
+* SAL SEL (L3) will cycle the different missile types.
+* PRI (L1) shows the status of the currently selected lase, either `SELF` or `REMT`. Pressing this will cycle between all available lases.
 
 The AH-64D classifies missiles on-screen using the missile's icons:
 
@@ -51,11 +57,11 @@ The AH-64D classifies missiles on-screen using the missile's icons:
 | RF | Radio frequency - Fire and forget Millimeter-Wave radar | ![SAL-2 missile](images/tex/icons/114RINV_ca.png)
 
 ## Rocket Page
-The Hydra rocket consists of a basic Mk 66 rocket motor with a selectable warhead and fuse. There are several variations of the rocket motor;The types represented here use the Mod 6 motor, which is designed to reduce combustion of launch gasses in the engines of the firing aircraft. Hydra rockets use a folding fin and are launched from pods, typically either a 7 shot M260 or 19 shot M261 pod.
+
+The RKT Subpage allows for the selection of specific rocket types from the available inventory, along with allowing for specific launch parameters to be set.
 
 {% include image.html file="mpd/annot_page_wpn_rkt.png"%}
 
-12. Zone inventory shows you which kind of rockets you have on board in each zone.
-13. Selected warhead type Shows you which warhead type you have selected
-14. Total Rocket count (Shows you the quantity of rockets left for that zone)
-15. Salvo Quantity  (allows you to view the amount of rockets fired in a single trigger pull) press "Salvo". The available quantities are (1,2,4,8,12,24,ALL)
+* On the left is the aircraft's inventory, which shows all available rocket types. Clicking on a rocket type will select that rocket type
+* The selected rocket type is displayed on the pods holding that rocket type.
+*  Salvo Quantity (R1) shows the number of rockets that will be fired in a single trigger pull. This can be 1,2,4,8,12,24 or ALL.
