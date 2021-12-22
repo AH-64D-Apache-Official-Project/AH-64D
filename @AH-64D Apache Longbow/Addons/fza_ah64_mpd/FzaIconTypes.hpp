@@ -14,7 +14,7 @@ class FzaIconTypes {
 //                          
 //                      +---------+
 //                      |         |
-//              000/AAA |   TEX   |  
+//               00/AAA |   TEX   |  
 //                      |         |
 //                      +---------+  
     //Waypoints
@@ -252,7 +252,7 @@ class FzaIconTypes {
     class FCR_ADU_LOAL { 
         tex = "\fza_ah64_mpd\tex\fcrIcons\aduLOAL.paa";
         type     = POINT_TYPE_FCR;
-        iconType = MPD_ICON_TYPE_F;
+        iconType = MPD_ICON_TYPE_H;
     };
     class FCR_ADU_LOAL_ANTS:FCR_ADU_LOAL      { tex = "\fza_ah64_mpd\tex\fcrIcons\aduLOAL_ANTS.paa";};
     class FCR_ADU_LOAL_NTS:FCR_ADU_LOAL       { tex = "\fza_ah64_mpd\tex\fcrIcons\aduLOAL_NTS.paa";};
