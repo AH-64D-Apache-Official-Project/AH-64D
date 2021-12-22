@@ -5,7 +5,7 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 
-if (_control == "l1" && _variant == 0) exitWith {    //Temporary, will allow user to input point via KU, will return you to the WPT page
+if (_control == "l1" && _variant == 0) exitWith {
     private _callBack = {
         params ["_input", "", "_heli"];
         _heli setVariable ["fza_mpd_tsdWptCurrentSel", _input];
@@ -156,7 +156,7 @@ switch (_variant) do {
             };
         };
     };
-    case 4: {   //WPT > EDT page
+    case 4: {   //WPT > EDT no point selected
         switch (_control) do {
             case "b4": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
@@ -166,7 +166,7 @@ switch (_variant) do {
             };
         };
     };
-    case 5: {   //WPT > EDT page
+    case 5: {   //WPT > EDT point selected
         switch (_control) do {
             case "b4": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];

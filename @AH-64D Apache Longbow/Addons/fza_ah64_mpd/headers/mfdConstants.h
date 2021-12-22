@@ -172,12 +172,9 @@
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_2 2
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_3 3
 
-//Waypoint page indices
-#define MFD_IND_WPT_ADD 1
-#define MFD_IND_WPT_DEL 2
-#define MFD_IND_WPT_EDT 3
-#define MFD_IND_WPT_STO 4
-#define MFD_IND_WPT_XMT 5
+//TSD THRT page indices
+#define MFD_IND_TSD_THRT_VARIANT 0
+#define MFD_IND_TSD_THRT_ADD_TYPE 1
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF 0

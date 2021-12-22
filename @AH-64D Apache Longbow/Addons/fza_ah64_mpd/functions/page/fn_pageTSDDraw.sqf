@@ -20,12 +20,17 @@ if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
 };
 switch (_state get "subPageVarPage" select 0) do {
-    case 1: { // Show
+    case 1: {   //SHOW
         _this call fza_mpd_fnc_tsdShowDraw;
     };
-    case 2: {
+    case 2: {   //WPT
         _this call fza_mpd_fnc_tsdWptDraw;
-    }
+    };
+    case 3: {   //RTE
+    };
+    case 4: {   //THRT
+        _this call fza_mpd_fnc_tsdThrtDraw;
+    };
 };
 
 private _pointsArray = [];

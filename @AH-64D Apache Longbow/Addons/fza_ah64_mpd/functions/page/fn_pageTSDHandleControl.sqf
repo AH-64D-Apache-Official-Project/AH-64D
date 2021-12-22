@@ -22,12 +22,24 @@ switch (_state get "subPageVarPage" select 0) do {
             case "b4": {
                 _state set ["subPageVarPage", TSD_WPT]; //WPT subpage
             };
+            case "b5": {
+                _state set ["subPageVarPage", TSD_RTE]; //RTE subpage
+            };
+            case "b6": {
+                _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
+            };
         };
     };
-    case 1: { // Show
+    case 1: { // SHOW
         _this call fza_mpd_fnc_tsdShowHandleControl;
     };
-    case 2: { // Wpt
+    case 2: { // WPT
         _this call fza_mpd_fnc_tsdWptHandleControl;
+    };
+    case 3: { //RTE
+        _this call fza_mpd_fnc_tsdRteHandleControl;
+    };
+    case 4: { // THRT
+        _this call fza_mpd_fnc_tsdThrtHandleControl;
     };
 };

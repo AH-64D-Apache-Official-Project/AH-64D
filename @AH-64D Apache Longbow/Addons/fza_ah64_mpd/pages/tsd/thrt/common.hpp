@@ -1,6 +1,6 @@
 #include "..\common.hpp"
 
-class wptCommon {
+class thrtCommon {
     class vabs {//B4
         #include "..\components\vabs_bottom.hpp"
 
@@ -9,7 +9,7 @@ class wptCommon {
         MPD_TEXT_C(ABR,  MPD_POS_BUTTON_TB_4_X+0.015, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("ABR"))
 
         //B6
-        MPD_BOX_TALL_C(WPT, MPD_POS_BUTTON_TB_4_X+0.015, MPD_POS_BUTTON_B_Y, 3)
+        MPD_BOX_TALL_C(THRT, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, 4)
     };
 
     class WAYPOINTINFOBOX {
@@ -28,7 +28,7 @@ class wptCommon {
         };
     };
 
-    class Outline  {
+    class lines {
         type  = line;
         width = 3;
         points[] = {

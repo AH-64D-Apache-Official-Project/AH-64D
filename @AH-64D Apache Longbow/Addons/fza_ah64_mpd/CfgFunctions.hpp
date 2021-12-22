@@ -20,8 +20,12 @@ class CfgFunctions
         };
         class tsd {
             file = "\fza_ah64_mpd\functions\tsd";
+            class tsdRTEDraw {RECOMPILE_FLAG;};
+            class tsdRTEHandleControl {RECOMPILE_FLAG;};
             class tsdSHOWDraw {RECOMPILE_FLAG;};
             class tsdSHOWHandleControl {RECOMPILE_FLAG;};
+            class tsdTHRTDraw {RECOMPILE_FLAG;};
+            class tsdTHRTHandleControl {RECOMPILE_FLAG;};
             class tsdWPTDraw {RECOMPILE_FLAG;};
             class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
