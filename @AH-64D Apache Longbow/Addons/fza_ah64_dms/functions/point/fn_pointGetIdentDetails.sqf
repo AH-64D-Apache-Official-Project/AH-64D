@@ -1,6 +1,7 @@
+#include "\fza_ah64_dms\headers\constants.h"
 params ["_ident"];
 
-//Returns -1 for invalid identifier, or [texture, offset]
+//Returns nil for invalid identifier, or [texture, offset]
 
 private _config = configFile >> "FzaIconTypes" >> _ident;
 
@@ -16,8 +17,34 @@ if (isText (_config >> "tex")) then {
 };
 
 private _offset = [0,0];
-if (isArray (config >> "offset")) then {
+if (isArray (_config >> "offset")) then {
     _offset = getArray (_config >> "offset");
 };
 
-[_tex, _offset];
+private _color = MPD_ICON_COLOR_GREEN;
+if (isNumber (_config >> "color")) then {
+    _color = getNumber (_config >> "color");
+};
+
+private _type = MPD_ICON_TYPE_A;
+if (isNumber (_config >> "type")) then {
+    _type = getNumber (_config >> "type");
+};
+
+private _textA = "";
+if (isNumber (_config >> "textA")) then {
+    _textA = getNumber (_config >> "textA");
+};
+if (isText (_config >> "textA")) then {
+    _textA = getText (_config >> "textA");
+};
+
+private _textB = "";
+if (isNumber (_config >> "textB")) then {
+    _textB = getNumber (_config >> "textB");
+};
+if (isText (_config >> "textB")) then {
+    _textB = getText (_config >> "textB");
+};
+
+[_tex, _offset, _color, _type, _textA, _textB];

@@ -1,7 +1,0 @@
-#define MPD_ICON_COLOR_GREEN 0
-#define MPD_ICON_COLOR_CYAN 1
-#define MPD_ICON_COLOR_RED 2
-#define MPD_ICON_COLOR_YELLOW 3
-
-#define MPD_POSMODE_WORLD true
-#define MPD_POSMODE_SCREEN false

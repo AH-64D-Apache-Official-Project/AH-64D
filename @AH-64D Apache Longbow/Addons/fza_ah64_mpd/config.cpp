@@ -12,7 +12,7 @@ class CfgPatches
 
 #include "headers\mpd_defines.hpp"
 #include "headers\mfdConstants.h"
-#include "headers\points.hpp"
+#include "\fza_ah64_dms\headers\constants.h"
 #include "headers\tsd.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 

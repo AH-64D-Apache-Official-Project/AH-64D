@@ -30,7 +30,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.75]]];
 #include "\fza_ah64_controls\headers\selections.h"
-#include "\fza_ah64_mpd\headers\points.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _validChars = createHashmapFromArray [

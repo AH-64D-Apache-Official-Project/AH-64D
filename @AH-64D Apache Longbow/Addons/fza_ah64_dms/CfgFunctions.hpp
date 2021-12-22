@@ -20,6 +20,7 @@ class CfgFunctions
             class pointCreate{R;};
             class pointDelete{R;};
             class pointEditValue{R;};
+            class pointFillIconText{R;};
             class pointGetArrayIndex{R;};
             class pointGetIdentDetails{R;};
             class pointGetValue{R;};

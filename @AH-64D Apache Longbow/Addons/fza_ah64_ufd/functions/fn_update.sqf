@@ -19,7 +19,7 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
-_heli = _this select 0;_
+_heli = _this select 0;
 
 while {
     (time > -1)
