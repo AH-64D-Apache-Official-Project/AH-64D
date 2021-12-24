@@ -27,10 +27,8 @@ Without the stabilator, the aircraft will maintian straight and level flight at 
 
 More additions will be made in the future, for now this is a limited feature test being used to lay the ground work for a replacement for the AFM.
 
-# SFM+ 2.0 (Upcoming features, not yet implemented)
-
 ## Damage Modeling
-SFM+ 2.0 now features damage modeling. This is a means of enforcing proper startup procedures and enhance realism. No long will you be able to start a single engine and leave it at idle and take off. Within 30 seconds of exceeding the limits outlined below the transmission will fail and the aircraft fall out of the sky.
+SFM+ now features damage modeling. This is a means of enforcing proper startup procedures and enhance realism. No long will you be able to start a single engine and leave it at idle and take off. Within 30 seconds of exceeding the limits outlined below the transmission will fail and the aircraft fall out of the sky.
 
 **During Start**
 
@@ -58,7 +56,7 @@ SFM+ 2.0 now features damage modeling. This is a means of enforcing proper start
 
 
 ## Engine Start Differences
-SFM+ 2.0 no longer requires you to wait for the Ng to peak at 23% before bringing a power lever to idle. In addition to this, power levers may be manipulated indpendently again AFTER the power levers have been advanced to fly. The revised start up procedure is as follows:
+SFM+ no longer requires you to wait for the Ng to peak at 23% before bringing a power lever to idle. In addition to this, power levers may be manipulated indpendently again AFTER the power levers have been advanced to fly. The revised start up procedure is as follows:
 
 1. Start switch to Start
 2. At the first sign of Ng, Power Lever - IDLE
