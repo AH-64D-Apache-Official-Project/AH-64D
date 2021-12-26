@@ -56,6 +56,16 @@ if (isEngineOn _heli) then {
                             \nDMG = %3", _pctNR, _engPctTQ, _dmg];
             */
         };
+
+        if (getpos _heli select 2 > 1) then {
+            private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+            _heli setHit ["velka vrtule", _dmg];
+            /*
+            hintSilent format ["1a. NR = %1,
+                                \nTQ = %2
+                                \nDMG = %3", _pctNR, _engPctTQ, _dmg];
+            */
+        };
     };
     //With the power levers at fly
     if (_pctNR > 0.9) then {
