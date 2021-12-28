@@ -187,6 +187,7 @@
 #define MPD_PAGE_TSD 7
 #define MPD_PAGE_DMS 8
 #define MPD_PAGE_DTU 9
+#define MPD_PAGE_FCR 10
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

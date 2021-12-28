@@ -28,7 +28,7 @@ class wptCommon {
         };
     };
 
-    class Outline  {
+    class lines  {
         type  = line;
         width = 3;
         points[] = {
@@ -40,28 +40,9 @@ class wptCommon {
         };
     };
 
-    /*
-    class WaypointInfoBoxText {
-        MPD_TEXT_C(WIBT01, 0.49, 0.9-3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("W02 WP P02 ETE 00:00:18 ETA 14:12:21Z"))
-        MPD_TEXT_C(WIBT02, 0.49, 0.9-2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CL6 25 14R PK 1712 4594  360*  0.5 KM"))
-        MPD_TEXT_C(WIBT03, 0.49, 0.9-MPD_TEXT_HEIGHT,   MPD_TEXT_STATIC("N31 08.60 W097 46.29   280 FT  0.3 NM"))
-    };*/
-
-
     class WaypointInfoBoxText {
         MPD_TEXT_C(WIBT01, 0.49, 0.9-3*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_WPT_DETAILS_1))
         MPD_TEXT_C(WIBT02, 0.49, 0.9-2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_WPT_DETAILS_2))
         MPD_TEXT_C(WIBT03, 0.49, 0.9-MPD_TEXT_HEIGHT,   MPD_TEXT_USER(MFD_TEXT_IND_TSD_WPT_DETAILS_3))
     };
 };
-
-/*
-    Index  Type  Free
-    ?01    WP    AAA   ETE 00:00:00 ETA 00:00:00L
-    W84    47    13S   FU  XXXX XXXX XXX  XX.X KM
-    NXX XX.XX WXXX XX.XX   XXXX FT        XX.X NM
-
-    _heli setVariable ["fza_dms_waypointsHazards", [POINT_COUNT_WP_HZ] call _newPointsArray, true];
-    _heli setVariable ["fza_dms_controlMeasures", [POINT_COUNT_CM] call _newPointsArray, true];
-    _heli setVariable ["fza_dms_targetsThreats", [POINT_COUNT_TG_TH] call _newPointsArray, true];
-*/

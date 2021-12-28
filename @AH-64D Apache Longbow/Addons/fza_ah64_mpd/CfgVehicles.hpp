@@ -36,17 +36,17 @@ class CfgVehicles {
 				index = MPD_PAGE_MENU;
 				handleControl = "fza_mpd_fnc_pageMENUHandleControl";
 			};
-			class Eng {
+			class ENG {
 				index = MPD_PAGE_ENG;
 				draw = "fza_mpd_fnc_pageENGDraw";
 				handleControl = "fza_mpd_fnc_pageENGHandleControl";
 			};
-			class Flt {
+			class FLT {
 				index = MPD_PAGE_FLT;
 				draw = "fza_mpd_fnc_pageFLTDraw";
 				handleControl = "fza_mpd_fnc_pageFLTHandleControl";
 			};
-			class Wca {
+			class WCA {
 				index = MPD_PAGE_WCA;
 				draw = "fza_mpd_fnc_pageWCADraw";
 				handleControl = "fza_mpd_fnc_pageWCAHandleControl";
@@ -56,7 +56,7 @@ class CfgVehicles {
 				draw = "fza_mpd_fnc_pageFUELDraw";
 				handleControl = "fza_mpd_fnc_pageFUELHandleControl";
 			};
-			class Wpn {
+			class WPN {
 				index = MPD_PAGE_WPN;
 				draw = "fza_mpd_fnc_pageWpnDraw";
 				handleControl = "fza_mpd_fnc_pageWPNHandleControl";
@@ -66,7 +66,7 @@ class CfgVehicles {
 				};
 			};
 			#include "\fza_ah64_mpd\headers\tsd.hpp"
-			class Tsd {
+			class TSD {
 				index = MPD_PAGE_TSD;
 				draw  = "fza_mpd_fnc_pageTSDDraw";
 				handleControl = "fza_mpd_fnc_pageTSDHandleControl";
@@ -75,7 +75,7 @@ class CfgVehicles {
 					subPageVarPage[] = {0,0};
 				};
 			};
-			class Dms {
+			class DMS {
 				index = MPD_PAGE_DMS;
 				draw  = "fza_mpd_fnc_pageDMSDraw";
 				handleControl = "fza_mpd_fnc_pageDMSHandleControl";
@@ -83,10 +83,15 @@ class CfgVehicles {
 					subPageVarPage[] = {1,0};
 				};
 			};
-			class Dtu {
+			class DTU {
 				index = MPD_PAGE_DTU;
 				draw  = "fza_mpd_fnc_pageDTUDraw";
 				handleControl = "fza_mpd_fnc_pageDTUHandleControl";
+			};
+			class FCR {
+				index = MPD_PAGE_FCR;
+				draw  = "fza_mpd_fnc_pageFCRDraw";
+				handleControl = "fza_mpd_fnc_pageFCRHandleControl";
 			};
 		};
     };

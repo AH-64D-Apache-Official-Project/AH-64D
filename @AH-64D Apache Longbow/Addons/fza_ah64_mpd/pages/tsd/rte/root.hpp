@@ -41,7 +41,7 @@ class rteRoot {
         //R3 & R4
         MPD_TEXT_L(SELRTE_01, 0.87, 0.5 - 2.02*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))   //B - D - H - I
         MPD_TEXT_L(SELRTE_02, 0.87, 0.5 - 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))   //R - E - O - N
-        MPD_TEXT_L(SELRTE_03, 0.87, 0.5, MPD_TEXT_STATIC("P"))                          //A - L - T - D
+        MPD_TEXT_L(SELRTE_03, 0.87, 0.5                       , MPD_TEXT_STATIC("P"))   //A - L - T - D
         MPD_TEXT_L(SELRTE_04, 0.87, 0.5 + 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("H"))   //V - T - E - I
         MPD_TEXT_L(SELRTE_05, 0.87, 0.5 + 2.02*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))   //O - A - L - A
         

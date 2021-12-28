@@ -5,6 +5,7 @@
 #define MPD_ICON_TYPE_E 4
 #define MPD_ICON_TYPE_F 5
 #define MPD_ICON_TYPE_G 6
+#define MPD_ICON_TYPE_H 7
 
 #define MPD_ICON_TEXT_ID 0
 #define MPD_ICON_TEXT_FREE 1
@@ -97,7 +98,7 @@ class FzaIconTypes {
         tex= "\fza_ah64_mpd\tex\tsdIcons\fu.paa";
         color    = MPD_ICON_COLOR_CYAN;
         type     = POINT_TYPE_CM;
-        iconType = MPD_ICON_TYPE_A;
+        iconType = MPD_ICON_TYPE_B;
         textA    = MPD_ICON_TEXT_FREE;    
     };
     class EU:FU  {                                              //Enemy Unit
@@ -142,7 +143,7 @@ class FzaIconTypes {
         tex= "\fza_ah64_mpd\tex\tsdIcons\fc.paa";
         color    = MPD_ICON_COLOR_GREEN;
         type     = POINT_TYPE_CM;
-        iconType = MPD_ICON_TYPE_C;
+        iconType = MPD_ICON_TYPE_D;
         textA    = MPD_ICON_TEXT_ID;
         textB    = MPD_ICON_TEXT_FREE;
     };

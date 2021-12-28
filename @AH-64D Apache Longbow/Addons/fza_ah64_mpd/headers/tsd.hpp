@@ -29,3 +29,5 @@
 #define TSD_THRT_EDT_POINTSEL   [4, 5]
 #define TSD_THRT_STO            [4, 6]
 #define TSD_THRT_XMIT           [4, 7]
+
+#define FCR_ROOT                [5, 0]

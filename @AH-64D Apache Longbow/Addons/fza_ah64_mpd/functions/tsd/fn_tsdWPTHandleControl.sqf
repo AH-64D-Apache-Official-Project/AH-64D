@@ -2,7 +2,7 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
-private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
+private _phase   = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 
 if (_control == "l1" && _variant == 0) exitWith {
@@ -120,13 +120,13 @@ switch (_variant) do {
             case "l2": {    //Return to WPT > ADD
                 _state set ["subPageVarPage", TSD_WPT];
             };
-            case "l3": {    //Set add type to WP
+            case "l4": {    //Set add type to WP
                 _state set ["wptAddType", POINT_TYPE_WP];
             };
-            case "l4": {    //Set add type to HZ
+            case "l5": {    //Set add type to HZ
                 _state set ["wptAddType", POINT_TYPE_HZ];
             };
-            case "l5": {    //Set add type to CM
+            case "l6": {    //Set add type to CM
                 _state set ["wptAddType", POINT_TYPE_CM];
             };
         }
@@ -146,12 +146,12 @@ switch (_variant) do {
             case "b4": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT]; //TSD_ROOT  TSD_WPT_ROOT  
             };
-            case "l3": {    //Do not delete - "No", return to WPT page
+            case "l2": {    //Delete - "Yes", return to WPT page
                 private _current = _heli getVariable "fza_mpd_tsdWptCurrentSel";
                 [_heli, _current] call fza_dms_fnc_pointDelete;
                 _state set ["subPageVarPage", TSD_WPT];
             };
-            case "l4": {    //Do not delete - "No", return to WPT page
+            case "l3": {    //Do not delete - "No", return to WPT page
                 _state set ["subPageVarPage", TSD_WPT];
             };
         };

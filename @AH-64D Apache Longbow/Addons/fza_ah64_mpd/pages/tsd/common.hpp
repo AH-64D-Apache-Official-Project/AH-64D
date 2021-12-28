@@ -40,7 +40,7 @@ class tsdCommon {
         {{posX, posY +MPD_TEXT_HEIGHT}, 1},\
         {{posX, posY}, 1}
 
-    class outline {
+    class lines {
         type = line;
         width = 3;
         points[] = {
@@ -132,6 +132,6 @@ class tsdCommon {
     };
 
     // Hdg info
-    MPD_TEXT_C(HeadingLow, 0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
-    MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("360"))
+    MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
+    MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)
 };

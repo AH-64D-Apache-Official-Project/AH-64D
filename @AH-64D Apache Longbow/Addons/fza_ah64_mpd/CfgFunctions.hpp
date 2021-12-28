@@ -38,6 +38,8 @@ class CfgFunctions
             class pageDTUHandleControl {RECOMPILE_FLAG;};
             class pageENGDraw {RECOMPILE_FLAG;};
             class pageENGHandleControl {RECOMPILE_FLAG;};
+            class pageFCRDraw {RECOMPILE_FLAG;};
+            class pageFCRHandleControl {RECOMPILE_FLAG;};
             class pageFLTDraw {RECOMPILE_FLAG;};
             class pageFLTHandleControl {RECOMPILE_FLAG;};
             class pageFUELDraw {RECOMPILE_FLAG;};

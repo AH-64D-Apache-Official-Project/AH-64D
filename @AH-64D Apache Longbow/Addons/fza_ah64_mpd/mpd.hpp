@@ -34,15 +34,15 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_MENU);
         #include "pages\menu_draw.hpp"
     };
-    class Flt {
+    class FLT {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FLT);
         #include "pages\flt_draw.hpp"
     };
-    class Wca {
+    class WCA {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
         #include "pages\wca_draw.hpp"
     };
-    class Eng {
+    class ENG {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_ENG);
         #include "pages\eng_draw.hpp"
     };
@@ -50,16 +50,20 @@ class Draw
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FUEL);
         #include "pages\fuel_draw.hpp"
     };
-    class Tsd {
+    class TSD {
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_TSD);
         #include "pages\tsd_draw.hpp"
     };
-    class Dms{
+    class DMS{
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DMS);
         #include "pages\dms_draw.hpp"
     };
-    class Dtu{
+    class DTU{
         condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DTU);
         #include "pages\dtu_draw.hpp"
+    };
+    class FCR{
+        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FCR);
+        #include "pages\fcr_draw.hpp"
     };
 };

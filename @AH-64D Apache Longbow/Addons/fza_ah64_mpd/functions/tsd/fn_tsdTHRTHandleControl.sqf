@@ -2,6 +2,7 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
+private _phase   = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 
 switch (_variant) do {
@@ -32,13 +33,13 @@ switch (_variant) do {
         case "l2": {
             _state set ["subPageVarPage", TSD_THRT];
         };
-        case "l3": {    //Set add type to WP
+        case "l4": {    //Set add type to WP
             _state set ["wptAddType", POINT_TYPE_WP];
         };
-        case "l4": {    //Set add type to HZ
+        case "l5": {    //Set add type to HZ
             _state set ["wptAddType", POINT_TYPE_HZ];
         };
-        case "l5": {    //Set add type to CM
+        case "l6": {    //Set add type to CM
             _state set ["wptAddType", POINT_TYPE_CM];
         };
     };
