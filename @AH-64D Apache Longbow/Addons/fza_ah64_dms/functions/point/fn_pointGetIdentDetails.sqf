@@ -26,7 +26,12 @@ if (isNumber (_config >> "color")) then {
     _color = getNumber (_config >> "color");
 };
 
-private _type = MPD_ICON_TYPE_A;
+private _iconType = MPD_ICON_TYPE_A;
+if (isNumber (_config >> "iconType")) then {
+    _iconType = getNumber (_config >> "iconType");
+};
+
+private _type = POINT_TYPE_WP;
 if (isNumber (_config >> "type")) then {
     _type = getNumber (_config >> "type");
 };
@@ -47,4 +52,4 @@ if (isText (_config >> "textB")) then {
     _textB = getText (_config >> "textB");
 };
 
-[_tex, _offset, _color, _type, _textA, _textB];
+[_tex, _offset, _color, _iconType, _textA, _textB, _type];
