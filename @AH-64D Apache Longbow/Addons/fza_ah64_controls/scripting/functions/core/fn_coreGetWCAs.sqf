@@ -78,10 +78,10 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
-if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
+if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\IRJAMFAIL.paa", "\fza_ah64_us\tex\UFD\IRJAMFAIL_C_co.paa"]
 };
-if (_heli getHitPointDamage "Hitrfab" >= 0.8) then {
+if (_heli getHitPointDamage "RfJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\RJAMFAIL.paa", "\fza_ah64_us\tex\UFD\RFJFAIL_C_co.paa"]
 };
 if (_heli getHit "radar" >= 0.8) then {

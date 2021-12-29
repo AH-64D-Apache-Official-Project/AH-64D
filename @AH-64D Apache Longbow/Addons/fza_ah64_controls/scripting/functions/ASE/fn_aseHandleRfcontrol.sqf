@@ -36,7 +36,7 @@ private _jamTemp = (_originalJamTime - (time - _timeSinceLastDeployment)) max 0;
 _heli setVariable ["fza_ah64_rfJamOn", true, true];
 
 _heli setVariable ["fza_ah64_rfJamCooldown", [_jamTemp, time], true];
-while {_heli getHitPointDamage "HitRfab" < 0.8 &&
+while {_heli getHitPointDamage "RfJammer" < 0.8 &&
     alive _heli &&
     _heli getVariable "fza_ah64_rfJamOn" &&
     _jamTemp < 60 
