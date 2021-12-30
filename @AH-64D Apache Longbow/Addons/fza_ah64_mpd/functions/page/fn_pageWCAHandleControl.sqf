@@ -9,4 +9,7 @@ switch(_control) do {
 	case "b1": {
 		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
+	case "b6": {
+		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
+	};
 };

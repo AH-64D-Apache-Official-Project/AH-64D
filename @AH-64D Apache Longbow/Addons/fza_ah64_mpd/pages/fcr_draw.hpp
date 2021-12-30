@@ -108,7 +108,7 @@ class fcr_draw {
         };
     };
 
-    class lines_HAD {
+    class lines {
         type = line;
         width = 3;
         points[] = {
@@ -128,9 +128,24 @@ class fcr_draw {
             MPD_POINTS_BOX(Null, 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
             //Right HAD box
             MPD_POINTS_BOX(Null, 0.78-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
+            //Target count box
+            MPD_POINTS_BOX(Null, 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
         };
     };
 
+    class lines_HAD_CPGFormat {
+
+    };
+
+    class lines_HAD_PLTFormat {
+
+    };
+
+    class lines_FOVBox {
+
+    };
+
+    
     ///////////////// Heading Tape ///////////////
     /*
     class headingTape {
@@ -165,7 +180,7 @@ class fcr_draw {
     MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     
     class vabs{
-        //L1
+        //T1
         MPD_TEXT_C(C_SCP,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C SCP"))
         //T6
         MPD_BOX_BAR_T(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
@@ -196,5 +211,20 @@ class fcr_draw {
         MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
         MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
         MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
+    };
+
+    class text {
+        //Target count
+        MPD_TEXT_L(COUNT, 0.95, 0.04, MPD_TEXT_STATIC("XXXX"))
+
+        //HAD left
+        //Sight Select Status 6 chars
+        //Sight Status 12 chars
+        //Range and Range Source 5 chars
+
+        //HAD right
+        //Weapon Control 5 chars
+        //Acquisition Select Status 4 chars
+        //Weapon Status 12 chars
     };
 };

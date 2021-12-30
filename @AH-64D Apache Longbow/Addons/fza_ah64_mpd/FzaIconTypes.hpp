@@ -217,27 +217,84 @@ class FzaIconTypes {
         color    = MPD_ICON_COLOR_RED;
         type     = POINT_TYPE_TG;
         iconType = MPD_ICON_TYPE_G;
-        textA    = MPD_ICON_TEXT_ID; 
+        textA    = "46"; 
     };
-    class Icon1:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
-    class Icon2:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
-    class Icon3:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon4:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon5:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon6:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon7:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon8:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon9:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon10:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon11:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon12:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon13:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon14:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon15:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon16:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";}; 
-    class Icon17:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
-    class S6:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
-    class ZU:GU { tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";};
+    class Icon1:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 1";
+    };
+        class Icon2:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 2";
+    };
+        class Icon3:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 3";
+    };
+        class Icon4:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 4";
+    };
+        class Icon5:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 5";
+    };
+        class Icon6:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 6";
+    };
+        class Icon7:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 7";
+    };
+        class Icon8:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 8";
+    };
+        class Icon9:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = " 9";
+    };
+        class Icon10:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "10";
+    };
+        class Icon11:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "11";
+    };
+        class Icon12:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "12";
+    };
+        class Icon13:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "13";
+    };
+        class Icon14:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "14";
+    };
+        class Icon15:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "15";
+    };
+        class Icon16:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "16";
+    };
+        class Icon17:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "17";
+    };
+    class S6:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "56";
+    };
+    class ZU:GU { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
+        textA = "66";
+    };
 };
 
 //--------------------Icon Type H--------------------
