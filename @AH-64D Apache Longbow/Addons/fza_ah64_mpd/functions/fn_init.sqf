@@ -17,6 +17,7 @@ _heli setVariable ["fza_mpd_tsdShowAtkShot", true];
 _heli setVariable ["fza_mpd_tsdShowAtkHazard", true];
 
 _heli setVariable ["fza_mpd_tsdWptCurrentSel", []];
+_heli setVariable ["fza_mpd_tsdThrtCurrentSel", []];
 
 _heli setVariable ["fza_mpd_mpdState", []];
 [_heli, 0, "Off"] call fza_mpd_fnc_setCurrentPage;

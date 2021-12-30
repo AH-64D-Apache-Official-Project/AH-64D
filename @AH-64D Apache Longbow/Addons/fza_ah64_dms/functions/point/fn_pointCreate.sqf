@@ -2,7 +2,7 @@
 params ["_heli", "_id", "_ident", "_freeText", "_armaPos", "_altMsl"];
 if (_id isEqualTo []) exitWith {false};
 _id params ["_type", "_index"];
-if !([_type, _ident] call fza_dms_fnc_fza_dms_fnc_pointIsValidIdent) exitWith {false};
+if !([_type, _ident] call fza_dms_fnc_pointIsValidIdent) exitWith {false};
 
 private _result = [_heli, _id] call fza_dms_fnc_pointGetArrayIndex;
 

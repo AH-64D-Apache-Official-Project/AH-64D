@@ -2,7 +2,14 @@ params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _currentPoint    = _heli getVariable "fza_mpd_tsdWptCurrentSel";
+#ifdef POINTMODE_THREAT
+#define POINT_CURRENTSEL "fza_mpd_tsdThrtCurrentSel"
+
+#else //Wpt
+#define POINT_CURRENTSEL "fza_mpd_tsdWptCurrentSel"
+#endif
+
+private _currentPoint    = _heli getVariable POINT_CURRENTSEL;
 private _currentPointStr = _currentPoint call fza_dms_fnc_pointToString;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_WPT_VARIANT), _state get "subPageVarPage" select 1];
@@ -43,6 +50,6 @@ if (isNil "_pointDetails") then {
 private _variant = _state get "subPageVarPage" select 1;
 switch (_variant) do {
     case 1: {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_WPT_ADD_TYPE), _state get "wptAddType"];
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_WPT_ADD_TYPE), _state get "addType"];
     };
 };

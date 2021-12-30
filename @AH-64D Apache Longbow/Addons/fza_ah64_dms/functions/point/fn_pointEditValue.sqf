@@ -13,7 +13,7 @@ private _operationCompleted = false;
 
 switch (_valueType) do {
     case POINT_SET_FREE_TEXT: {
-        _id params ["_index"];
+        _id params ["","_index"];
 
         private _ident = _dbRow # POINT_GET_IDENT;
 

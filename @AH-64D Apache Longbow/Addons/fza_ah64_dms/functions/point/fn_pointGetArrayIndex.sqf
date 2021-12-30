@@ -18,11 +18,11 @@ if (_type == POINT_TYPE_CM) exitWith {
     ["fza_dms_controlMeasures", _arrIndex];
 };
 
-if (_type == POINT_TYPE_TG || _type == POINT_TYPE_TH) exitWith {
+if (_type == POINT_TYPE_TG) exitWith {
     private _arrIndex = _index - 1;
 
     if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_TG_TH) exitwith {-1};
-    ["fza_dms_controlMeasures", _arrIndex];
+    ["fza_dms_targetsThreats", _arrIndex];
 };
 
 -1;
