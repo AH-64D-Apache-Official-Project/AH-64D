@@ -30,6 +30,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_isThrtPage"];
 
 #endif
 
+systemChat format ["MODE: %1, ARGS: %2", POINT_CURRENTSEL, _this];
 private _phase   = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 private _isThrtPage = _state get "subPageVarPage" select 0 == TSD_THRT # 0;
@@ -82,9 +83,10 @@ switch (_variant) do {
             };
             case "l3": {    //WPT > DEL
                 private _current = _heli getVariable POINT_CURRENTSEL;
-                if (_current isEqualTo []) exitWith {_state set ["subPageVarPage", TSD_WPT_DEL_NOPOINTSEL];};
+                if (_current isEqualTo []) exitWith {_state set ["subPageVarPage", POINT_PAGE_DEL_NOPOINTSEL];};
                 private _ret = [_heli, _current, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
                 if (isNil "_ret") then {
+                    systemChat str POINT_PAGE_DEL_NOPOINTSEL;
                     _state set ["subPageVarPage", POINT_PAGE_DEL_NOPOINTSEL];
                 } else {
                     _state set ["subPageVarPage", POINT_PAGE_DEL_POINTSEL];
