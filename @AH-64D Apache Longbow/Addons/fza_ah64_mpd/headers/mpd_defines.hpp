@@ -108,30 +108,55 @@ Parameters:
 
 // Group: Conditions
 
-/* Macro: EQ
-    Ensures two values are equal
+/* Macro: C_COND
+    Wrapped around a condition built in these macros, for example:
+    
+    --- Code
+    condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
+    ---
 
 Parameters:
-    a,b - values to check are equal
+    cond - the condition to evaluate
 */
-#define EQ(A,B) (((A)>((B) - 1))*((A)<((B) + 1)))
-/* Macro: USER_NUM
-    MFD user number to be used in conditions. Does not add MPD_OFFSET, and therefore cannot be used for MPD actions
+#define C_COND(cond) __EVAL(cond)
+
+/* Macro: C_USER
+    Reads the value of a user value. Does not add MFD_OFFSET, and therefore can only be used for values like
+    MFD_IND_PAGE
 
 Parameters:
-    num - User number
+    num - the index of the value to read
 */
-#define USER_NUM(num) user##num
-/* Macro: USER_NUM
-    MPD user number to be used in conditions. Adds MPD_OFFSET, and therefore should be used for MPD actions
+#define C_USER(num) format["user%1", num]
+
+/* Macro: C_MPD_USER
+    Reads the value of a user MFD value, valid for MPD values
 
 Parameters:
-    num - User number
+    num - the index of the value to read
 */
-#define MPD_COND_USER(num) __EVAL("user" + str (MFD_OFFSET + num))
+#define C_MPD_USER(num) C_USER(MFD_OFFSET + num)
 
-#define MFD_USER_NUM(num) __EVAL(MFD_OFFSET + num)
+/* Macros: Comparisons
+    C_EQ - Checks two values are equal
+    C_LESS - Checks one value is less than another
+    C_MORE - Checks one value is more than another
+*/
+#define C_EQ(argA,argB) format["(((%1)>((%2) - 1))*((%1)<((%2) + 1)))", argA, argB]
+#define C_LESS(argA, argB) format["((%1)<(%2))", argA, argB]
+#define C_MORE(argA, argB) format["((%1)>(%2))", argA, argB]
+
+/* Macros: Logical operations
+    C_AND - Checks two conditions are both true
+    C_OR - Checks at least one of two conditions are true
+    C_NOT - Inverts a single condition
+*/
+#define C_AND(argA,argB) format["((%1)*(%2))", argA, argB]
+#define C_OR(argA,argB) format["((%1)+(%2))", argA, argB]
+#define C_NOT(argX) format["(1-((%1) factor [0,1]))", argX]
+
 // Group: Text Source Macros
+#define MFD_USER_NUM(num) __EVAL(MFD_OFFSET + num)
 
 /* Macro: MPD_TEXT_STATIC
     Sets static source in type="text"

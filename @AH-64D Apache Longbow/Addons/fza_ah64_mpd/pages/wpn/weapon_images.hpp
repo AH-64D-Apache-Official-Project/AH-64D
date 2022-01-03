@@ -1,6 +1,6 @@
 class Gun {
 	class Selected {
-		condition =  __EVAL(format [STRINGIFY(EQ(user%1,1)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN]);
+		condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1));
         //Here
         class Polygon {
             type = polygon;
@@ -66,7 +66,7 @@ class Gun {
         };
     };
 	class Deselected {
-		condition = __EVAL(format [STRINGIFY(1-EQ(user%1,1)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN]);
+        condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1)));
         MPD_TEXT_C(Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         class Lines {
             type = line;
@@ -93,7 +93,7 @@ class Gun {
 #define MFD_WPN_HF_PYLON(num, posX, posY) \
     class HellfirePylon##num { \
         class Deselected {\
-            condition = __EVAL(format[STRINGIFY(1-EQ(user%1, 3)), MFD_OFFSET+MFD_IND_WPN_SELECTED_WPN]);\
+            condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3)));\
             class Pylon {\
                 type = pylonicon;\
                 pos[] = {{posX, posY}, 1};\
@@ -102,13 +102,13 @@ class Gun {
             };\
         };\
         class Ready: Deselected {\
-            condition = __EVAL(format[STRINGIFY(EQ(user%1, 3) * (1-EQ(user%2, num))), MFD_OFFSET+MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET+MFD_IND_WPN_SELECTED_HF]);\
+            condition =  C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3), C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_HF),num))));\
             class Pylon : Pylon {\
                 name = fza_ah64_hellfire_inverse;\
             };\
         };\
         class Selected : Deselected {\
-            condition = __EVAL(format[STRINGIFY(EQ(user%1, 3) * EQ(user%2, num)), MFD_OFFSET+MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET+MFD_IND_WPN_SELECTED_HF]);\
+            condition =  C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3), C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_HF),num)));\
             class Pylon : Pylon {\
                 name = fza_ah64_hellfire_selected;\
             };\
@@ -144,9 +144,9 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
 #define MFD_WPN_ROCKET_PYLON(num, posX, posY, selectState1, selectState2, presentIndex, presentState1, presentState2, textInd) \
     class RocketPylon##num { \
         class Present {\
-            condition = __EVAL(format[STRINGIFY(EQ(user%1, presentState1)+EQ(user%1,presentState2)), MFD_OFFSET+presentIndex]);\
+            condition =  C_COND(C_OR(C_EQ(C_MPD_USER(presentIndex),presentState2), C_NOT(C_EQ(C_MPD_USER(presentIndex),presentState2))));\
             class Deselected {\
-                condition = __EVAL(format[STRINGIFY(1-(EQ(user%2, selectState1)+EQ(user%2,selectState2))), MFD_OFFSET+MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET+MFD_IND_WPN_SELECTED_RKT]);\
+                condition =  C_COND(C_NOT(C_OR(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2), C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2)))));\
                 class Pylon {\
                     type = pylonicon;\
                     pos[] = {{posX, posY}, 1};\
@@ -156,7 +156,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
                 MPD_TEXT_C(Name,posX, posY-MPD_TEXT_HEIGHT, MPD_TEXT_USER(textInd))\
             };\
             class Selected {\
-                condition = __EVAL(format[STRINGIFY(EQ(user%1, 2) * (EQ(user%2, selectState1)+EQ(user%2,selectState2))), MFD_OFFSET+MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET+MFD_IND_WPN_SELECTED_RKT]);\
+                condition =  C_COND(C_OR(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2), C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2))));\
                 class Pylon {\
                     type = pylonicon;\
                     pos[] = {{posX, posY}, 1};\

@@ -122,12 +122,12 @@ class tsdCommon {
     MPD_BOX_C(PHASE,        MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, 3)
 
     class AtkOnly {
-        condition = __EVAL(format["user%1", MFD_IND_TSD_PHASE + MFD_OFFSET]);
+        condition = C_COND(C_MPD_USER(MFD_IND_TSD_PHASE));
         MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ATK"))
     };
 
     class NavOnly {
-        condition = __EVAL(format["1-user%1", MFD_IND_TSD_PHASE + MFD_OFFSET]);
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_PHASE)));
         MPD_TEXT_C(PHASE, MPD_POS_BUTTON_TB_2_X-0.005, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("NAV"))
     };
 

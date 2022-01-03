@@ -27,7 +27,7 @@ class InfoBoxes {
     MPD_TEXT_SMALL_R(EnduranceLabel, 0.7+MPD_TEXT_WIDTH, 0.73+MPD_TEXT_HEIGHT-MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("EN"))
 
     class NavOnlyInfo {
-        condition = __EVAL(format["1 - user%1", MFD_IND_TSD_PHASE + MFD_OFFSET]);
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_PHASE)));
 
         class Occluders {
             color[] = {0,0,0,1};

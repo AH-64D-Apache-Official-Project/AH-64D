@@ -44,14 +44,14 @@ class wptAdd{
         MPD_TEXT_R(ADD, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("ADD"))
         //L3 - Default
         class TypeWp {
-            condition = __EVAL(format [STRINGIFY(EQ(user%1, POINT_TYPE_WP)), MFD_OFFSET + MFD_IND_TSD_WPT_ADD_TYPE]);
+            condition = C_COND(C_EQ(POINT_TYPE_WP, C_MPD_USER(MFD_IND_TSD_WPT_ADD_TYPE)));
             MPD_BOX_R(WP,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 2)
             MPD_TEXT_R(POINT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WP"))
         };
         MPD_TEXT_R(WP, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("WP"))
         //L4
         class TypeHz {
-            condition = __EVAL(format [STRINGIFY(EQ(user%1, POINT_TYPE_HZ)), MFD_OFFSET + MFD_IND_TSD_WPT_ADD_TYPE]);
+            condition = C_COND(C_EQ(POINT_TYPE_HZ, C_MPD_USER(MFD_IND_TSD_WPT_ADD_TYPE)));
             MPD_BOX_R(HZ,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 2)
             MPD_TEXT_R(POINT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HZ"))
         };
@@ -64,7 +64,7 @@ class wptAdd{
         
         //L5
         class TypeCm {
-            condition = __EVAL(format [STRINGIFY(EQ(user%1, POINT_TYPE_CM)), MFD_OFFSET + MFD_IND_TSD_WPT_ADD_TYPE]);
+            condition = C_COND(C_EQ(POINT_TYPE_CM, C_MPD_USER(MFD_IND_TSD_WPT_ADD_TYPE)));
             MPD_BOX_R(CM,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 2)
             MPD_TEXT_R(POINT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CM"))
         };
