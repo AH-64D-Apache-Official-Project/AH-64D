@@ -27,6 +27,7 @@ switch (_state get "subPageVarPage" select 0) do {
         _this call fza_mpd_fnc_tsdWptDraw;
     };
     case 3: {   //RTE
+        _this call fza_mpd_fnc_tsdRteDraw;
     };
     case 4: {   //THRT
         _this call fza_mpd_fnc_tsdThrtDraw;

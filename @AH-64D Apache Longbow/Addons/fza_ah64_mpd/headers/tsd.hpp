@@ -16,7 +16,14 @@
 #define TSD_WPT_XMIT            [2, 7]
 
 //Route sub-page selections     
-#define TSD_RTE                 [3, 0]                                
+#define TSD_RTE                 [3, 0]
+#define TSD_RTE_ADD             [3, 1]
+#define TSD_RTE_DEL             [3, 2]
+//--Direct
+#define TSD_RTE_DIR_NOPOINTSEL  [3, 3]
+#define TSD_RTE_DIR_POINTSEL    [3, 4]
+#define TSD_RTE_RVW             [3, 5]
+#define TSD_RTE_RTM             [3, 6]                   
 
 //Threat sub-page selections    
 #define TSD_THRT                [4, 0]

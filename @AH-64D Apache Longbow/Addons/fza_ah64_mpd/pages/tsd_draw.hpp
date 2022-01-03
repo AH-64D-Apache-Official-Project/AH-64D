@@ -53,25 +53,37 @@ class Wpt {
 
 class Rte {
     condition = __EVAL(format [STRINGIFY(EQ(user%1, 3)), MFD_OFFSET + MFD_IND_TSD_SUBPAGE]);
-    #include "tsd\rte\root.hpp"
+    #include "tsd\rte\common.hpp"
+
+    class RteRoot {
+        condition = __EVAL(format [STRINGIFY(EQ(user%1, 0)), MFD_OFFSET + MFD_IND_TSD_RTE_VARIANT]);
+        #include "tsd\rte\root.hpp"
+    };
+
     //ADD sub page
-    class Add {
+    class RteAdd {
 
     };
     //DEL sub page
-    class Del {
+    class RteDel {
 
     };
     //DIR sub page
-    class Dir {
-
+    class RteDirNoPointSel {
+        condition = __EVAL(format [STRINGIFY(EQ(user%1, 3)), MFD_OFFSET + MFD_IND_TSD_RTE_VARIANT]);
+        #include "tsd\rte\dirNoPointSel.hpp"
+    };
+        //DIR sub page
+    class RteDirPointSel {
+        condition = __EVAL(format [STRINGIFY(EQ(user%1, 4)), MFD_OFFSET + MFD_IND_TSD_RTE_VARIANT]);
+        #include "tsd\rte\dirPointSel.hpp"
     };
         //RVW sub page
-    class Rvw {
+    class RteRvw {
 
     };
         //RTM sub page
-    class Rtm {
+    class RteRtm {
 
     };
 };
