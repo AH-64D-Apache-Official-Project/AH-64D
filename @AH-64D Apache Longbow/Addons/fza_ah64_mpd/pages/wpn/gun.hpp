@@ -1,10 +1,10 @@
 class VABs_Mode_Gun {
-    condition =  __EVAL(format [STRINGIFY(EQ(user%1,1)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN]);
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_WAS), 1)));
     #define WPN_GUN_BURST_LIMIT(className, burstIndex, posY, numChars, burstName) \
     class className {\
         MPD_TEXT_R(Name, MPD_POS_BUTTON_L_X, posY, MPD_TEXT_STATIC(burstName)) \
         class Box {\
-            condition =  __EVAL(format [STRINGIFY(EQ(user%1,burstIndex)), MFD_OFFSET + MFD_IND_WPN_SELECTED_BURST_LIMIT]);\
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_BURST_LIMIT), burstIndex)));\
             MPD_BOX_R(Null, MPD_POS_BUTTON_L_X, posY, numChars)\
         };\
     };

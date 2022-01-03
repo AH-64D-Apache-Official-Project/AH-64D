@@ -27,43 +27,43 @@ class Bones {
 class Draw
 {
     class Wpn {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WPN);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WPN));
         #include "pages\wpn_draw.hpp"
     };
     class Menu {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_MENU);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_MENU));
         #include "pages\menu_draw.hpp"
     };
     class FLT {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FLT);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FLT));
         #include "pages\flt_draw.hpp"
     };
     class WCA {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_WCA);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_WCA));
         #include "pages\wca_draw.hpp"
     };
     class ENG {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_ENG);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ENG));
         #include "pages\eng_draw.hpp"
     };
     class Fuel {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FUEL);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FUEL));
         #include "pages\fuel_draw.hpp"
     };
     class TSD {
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_TSD);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_TSD));
         #include "pages\tsd_draw.hpp"
     };
     class DMS{
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DMS);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DMS));
         #include "pages\dms_draw.hpp"
     };
     class DTU{
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_DTU);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_DTU));
         #include "pages\dtu_draw.hpp"
     };
     class FCR{
-        condition = EQ(USER_NUM(MFD_IND_PAGE), MPD_PAGE_FCR);
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR));
         #include "pages\fcr_draw.hpp"
     };
 };

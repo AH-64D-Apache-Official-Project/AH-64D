@@ -30,11 +30,11 @@ class StatusWindows {
     MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
     class ChaffArming {
         class Safe {
-            condition =  __EVAL(format ["1 - user%1", MFD_OFFSET + MFD_IND_WPN_CHAFF_ARM]);
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_WPN_CHAFF_ARM)));
             MPD_TEXT_C(Chaff_Armed, 0.5, 0.60+2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
         };
         class Arm {
-            condition = __EVAL(format ["user%1", MFD_OFFSET + MFD_IND_WPN_CHAFF_ARM]);
+            condition = C_COND(C_MPD_USER(MFD_IND_WPN_CHAFF_ARM));
             class Yellow {
                 color[] = {1,1,0,1};
                 class Polygon {

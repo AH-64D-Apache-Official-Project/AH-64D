@@ -13,12 +13,12 @@ class thrtSto {
         MPD_BOX_R(TYPE,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, 2)
 
         class navPhase {
-            condition = __EVAL(format["1 - user%1", MFD_IND_TSD_PHASE + MFD_OFFSET]);
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_PHASE)));
             MPD_TEXT_R(TYPE,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WP"))
         };
 
         class atkPhase {
-            condition = __EVAL(format["user%1", MFD_IND_TSD_PHASE + MFD_OFFSET]);
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_PHASE));
             MPD_TEXT_R(TYPE,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TG"))
         };
     };

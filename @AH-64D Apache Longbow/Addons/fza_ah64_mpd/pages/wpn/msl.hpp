@@ -1,12 +1,12 @@
 class VABs_Mode_Msl {
-    condition =  __EVAL(format [STRINGIFY(EQ(user%1,3)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN]);
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3));
     MPD_TEXT_L(Mode_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MODE"))
     MPD_BOX_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 3)
     MPD_TEXT_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MAN"))
 };
 
 class VABs_Mode_Msl_SAL {
-    condition =  __EVAL(format [STRINGIFY(EQ(user%1,3) * (1-user%2)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET + MFD_IND_WPN_SELECTED_MSL_TYPE]);
+    condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3), C_NOT(C_MPD_USER(MFD_IND_WPN_SELECTED_MSL_TYPE))));
     MPD_TEXT_R(Pri_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PRI"))
     MPD_BOX_R(Pri, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 1)
     MPD_TEXT_R(Pri, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MSL_PRI_CODE))
@@ -57,7 +57,7 @@ class VABs_Mode_Msl_SAL {
     #define WPN_MISSILE_CHANNEL(className, posX, channelNum, textSourceInd) \
     class className {\
         class Pri {\
-            condition = __EVAL(format [STRINGIFY(EQ(user%1,channelNum)), MFD_OFFSET + MFD_IND_WPN_SELECTED_PRI_CH]);\
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_PRI_CH), channelNum));\
             color[] = {1,1,1,1};\
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PRI"))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
@@ -74,7 +74,7 @@ class VABs_Mode_Msl_SAL {
             };\
         };\
         class Alt {\
-            condition = __EVAL(format [STRINGIFY(EQ(user%1,channelNum)), MFD_OFFSET + MFD_IND_WPN_SELECTED_ALT_CH]);\
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_ALT_CH), channelNum));\
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ALT"))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
             class Box {\
@@ -90,7 +90,7 @@ class VABs_Mode_Msl_SAL {
             };\
         };\
         class Unused {\
-            condition = __EVAL(format [STRINGIFY((1-(EQ(user%1,channelNum) + EQ(user%2,channelNum)))), MFD_OFFSET + MFD_IND_WPN_SELECTED_PRI_CH,  MFD_OFFSET + MFD_IND_WPN_SELECTED_ALT_CH]);\
+            condition = C_COND(C_NOT(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_ALT_CH), channelNum), C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_PRI_CH), channelNum))));\
             MPD_TEXT_C(Label, posX, 0.77+MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(channelNum))\
             MPD_TEXT_C(Value, posX, 0.77+2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(textSourceInd))\
         };\
@@ -103,7 +103,7 @@ class VABs_Mode_Msl_SAL {
 };
 
 class VABs_Mode_Msl_Rf {
-    condition =  __EVAL(format [STRINGIFY(EQ(user%1,3) * user%2), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN, MFD_OFFSET + MFD_IND_WPN_SELECTED_MSL_TYPE]);
+    condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3), C_MPD_USER(MFD_IND_WPN_SELECTED_MSL_TYPE)));
     MPD_TEXT_R(Msl_Pwr_All, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("ALL"))
     MPD_TEXT_R(Msl_Pwr_Auto, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("AUTO"))
     MPD_BOX_R(Msl_Pwr_Auto, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, 4)

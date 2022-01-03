@@ -68,15 +68,15 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), [0, 1] select _airMod
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
-private _engineStates = _heli getVariable "fza_ah64_engineStates";
+private _engineStates = _heli getVariable "fza_sfmplus_engState";
 
 private _engineStarted = 0;
 
-if (_engineStates # 0 # 0 in ["OFFSTARTED", "STARTED"]) then {
+if (_engineStates # 0 in ["STARTING", "STARTED"]) then {
     _engineStarted = 1;
 };
 
-if (_engineStates # 1 # 0 in ["OFFSTARTED", "STARTED"]) then {
+if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
     _engineStarted = 2;
 };
 

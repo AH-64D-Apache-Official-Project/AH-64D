@@ -20,7 +20,7 @@
 
 class ArmSafe {
     class Safe {
-        condition = __EVAL(format["1-user%1", MFD_OFFSET+MFD_IND_WPN_MASTER_ARM]);
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_WPN_MASTER_ARM)));
         MPD_TEXT_C(Safe, 0.5, 0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
         //Safe Box
         class Static {
@@ -32,7 +32,7 @@ class ArmSafe {
         };
     };
     class Safe_WAS {
-        condition = __EVAL(format["(1-user%1) * user%2", MFD_OFFSET+MFD_IND_WPN_MASTER_ARM, MFD_OFFSET+MFD_IND_WPN_WAS]);
+        condition = C_COND(C_AND(C_NOT(C_MPD_USER(MFD_IND_WPN_MASTER_ARM)), C_MPD_USER(MFD_IND_WPN_WAS)));
         class Polygons {
             type = polygon;
             points[] = {
@@ -41,7 +41,7 @@ class ArmSafe {
         };
     };
     class Arm {
-        condition = __EVAL(format["user%1", MFD_OFFSET+MFD_IND_WPN_MASTER_ARM]);
+        condition = C_COND(C_MPD_USER(MFD_IND_WPN_MASTER_ARM));
         color[] = {1,1,0,1};
         class Polygons {
             type = polygon;
@@ -128,7 +128,7 @@ class ArmSafe {
         }
     };
     class Arm_WAS {
-        condition = __EVAL(format["user%1 * user%2", MFD_OFFSET+MFD_IND_WPN_MASTER_ARM, MFD_OFFSET+MFD_IND_WPN_WAS]);
+        condition = C_COND(C_AND(C_MPD_USER(MFD_IND_WPN_MASTER_ARM), C_MPD_USER(MFD_IND_WPN_WAS)));
         color[] = {0,0,0,1};
         class Polygons {
             type = polygon;

@@ -37,11 +37,11 @@ class wpnDraw {
             class className {\
                 MPD_TEXT_C(Name, posX, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC(weaponName))\
                 class Selected{\
-                    condition = __EVAL(format [STRINGIFY(EQ(user%1,weaponIndex)), MFD_OFFSET + MFD_IND_WPN_SELECTED_WPN]);\
+                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), weaponIndex));\
                     MPD_BOX_C(Name, posX, MPD_POS_BUTTON_B_Y, 3)\
                 }\
                 class Actioned{\
-                    condition = __EVAL(format [STRINGIFY(EQ(user%1,weaponIndex)), MFD_OFFSET + MFD_IND_WPN_WAS]);\
+                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_WAS), weaponIndex));\
                     color[] = {0.05,0.25,0,0.5};\
                     class Polygon {\
                     type = polygon;\

@@ -132,38 +132,38 @@ MPD_TEXT_C(NP_2_NUMBER, ENG_TAPE_NP_2_X, ENG_TAPE_BOTTOM_Y, MPD_TEXT_STATIC("2")
 
 #define COLOR_G_Y_R(name, value, del1, del2, config) \
     class name##_Green {\
-        condition = __EVAL(format ["%2 - user%1", MFD_OFFSET + value, del1]);\
+        condition = C_COND(C_LESS(C_MPD_USER(value), del1));\
         config\
     };\
     class name##_Yellow {\
         color[] = {1,1,0,1};\
-        condition = __EVAL(format ["(user%1 - %2) * (%3 - user%1)", MFD_OFFSET + value, del1-0.05, del2+0.05]);\
+        condition = C_COND(C_AND(C_MORE(C_MPD_USER(value),del1-0.05),C_LESS(C_MPD_USER(value),del2+0.05)));\
         config\
     };\
     class name##_Red {\
         color[] = {1,0,0,1};\
-        condition = __EVAL(format ["user%1 - %2", MFD_OFFSET + value, del2]);\
+        condition = C_COND(C_MORE(C_MPD_USER(value), del2));\
         config\
     };
 
 #define COLOR_R_G_Y_R(name, value, del1, del2, del3, config) \
     class name##_Red {\
         color[] = {1,0,0,1};\
-        condition = __EVAL(format ["%2 - user%1", MFD_OFFSET + value, del1]);\
+        condition = C_COND(C_LESS(C_MPD_USER(value), del1));\
         config\
     };\
     class name##_Green {\
-        condition = __EVAL(format ["(user%1 - %2) * (%3 - user%1)", MFD_OFFSET + value, del1-0.1, del2+0.1]);\
+        condition = C_COND(C_AND(C_MORE(C_MPD_USER(value), del1-0.1), C_LESS(C_MPD_USER(value), del2+0.1)));\
         config\
     };\
     class name##_Yellow {\
         color[] = {1,1,0,1};\
-        condition = __EVAL(format ["(user%1 - %2) * (%3 - user%1)", MFD_OFFSET + value, del2-0.1, del3+0.1]);\
+        condition = C_COND(C_AND(C_MORE(C_MPD_USER(value), del2-0.1), C_LESS(C_MPD_USER(value), del3+0.1)));\
         config\
     };\
     class name##_Red2 {\
         color[] = {1,0,0,1};\
-        condition = __EVAL(format ["user%1 - %2", MFD_OFFSET + value, del3]);\
+        condition = C_COND(C_MORE(C_MPD_USER(value), del3));\
         config\
     };
 
@@ -176,7 +176,7 @@ COLOR_R_G_Y_R(Np_2, MFD_IND_ENG_NP_2, 95, 105, 110, ENG_NP_TAPE(2, ENG_TAPE_NP_2
 COLOR_R_G_Y_R(Nr, MFD_IND_ENG_NR, 95, 105, 110, ENG_NR_TAPE)
 
 class StarterBox {
-    condition = MPD_COND_USER(MFD_IND_ENG_START)
+    condition = C_COND(C_MPD_USER(MFD_IND_ENG_START));
     class StarterBox {
         type = line;
         width = 3;
@@ -188,13 +188,13 @@ class StarterBox {
 }
 
 class StarterEng1 {
-    condition = __EVAL(format [STRINGIFY(EQ(user%1, 1)), MFD_OFFSET + MFD_IND_ENG_START]);
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_START), 1));
     color[] = {1,1,1,1};
     MPD_TEXT_C(NP_SIDE_ENG_1_STARTER, ENG_SIDE_DATA_1_X, 0.45+3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ON"))
 };
 
 class StarterEng2 {
-    condition = __EVAL(format [STRINGIFY(EQ(user%1, 2)), MFD_OFFSET + MFD_IND_ENG_START]);
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_START), 2));
     color[] = {1,1,1,1};
     MPD_TEXT_C(NG_SIDE_ENG_2_STARTER, ENG_SIDE_DATA_2_X, 0.45+3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ON"))
 };
@@ -249,7 +249,7 @@ class Limits_Red {
 };
 
 class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
-    condition=__EVAL(format ["user%1", MFD_OFFSET + MFD_IND_ENG_MODE]);
+    condition=C_COND(C_MPD_USER(MFD_IND_ENG_MODE));
     class WCA_Box{
         type = line;
         width = 3;
@@ -288,7 +288,7 @@ MPD_TEXT_BONE_R(Hydraulics_Util, Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH
 MPD_TEXT_BONE_R(Hydraulics_Acc, Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_STATIC("3000"))
 
 class GroundFormatOnly {
-    condition=__EVAL(format ["1 - user%1", MFD_OFFSET + MFD_IND_ENG_MODE]);
+    condition=C_COND(C_NOT(C_MPD_USER(MFD_IND_ENG_MODE)));
 
     class GroundFormatBoxes {
         type = line;
