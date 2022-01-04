@@ -19,6 +19,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli","_Radartargets"];
 
+//needs Mp testing to ensure when passed to foreach it goes through list in order
+_Radartargets = [_Radartargets, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+
 Private _p1 = [];
 Private _p2 = [];
 Private _p3 = [];
@@ -70,7 +73,7 @@ Private _p9 = [];
 	sleep 0.05;
 } foreach _Radartargets;
 
-_p1 = [_p1, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+/*_p1 = [_p1, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p2 = [_p2, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p3 = [_p3, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p4 = [_p4, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
@@ -78,7 +81,6 @@ _p5 = [_p5, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p6 = [_p6, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p7 = [_p7, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
 _p8 = [_p8, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
-_p9 = [_p9, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+_p9 = [_p9, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;*/
 
 fza_ah64_fcrlist = _P1 + _P2 + _P3 + _P4 + _P5 + _P6 + _P7 + _P8 + _P9;
-[_heli] call fza_fnc_targetingVariable;

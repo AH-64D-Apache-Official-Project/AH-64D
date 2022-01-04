@@ -59,3 +59,4 @@ _fcrTargets = [];
 
 fza_ah64_AseRWR = _detectedActiveRadars;
 [_heli, _fcrTargets] spawn fza_fnc_targetingPriority;
+[_heli] call fza_fnc_targetingVariable;
