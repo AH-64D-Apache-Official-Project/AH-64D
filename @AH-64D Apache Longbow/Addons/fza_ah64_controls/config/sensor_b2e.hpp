@@ -9,7 +9,7 @@ class Components: Components
         componentType = "ActiveRadarSensorComponent";
         class AirTarget      // ranges for targets with sky background
         {
-            minRange = 500;         // -1 if undef; in meters
+            minRange = 200;         // -1 if undef; in meters
             maxRange = 8000;       // -1 if undef; in meter
             viewDistanceLimitCoef = -1;      // -1 if undef; coefficient, multiplies current view distance as set in player's options. -1 means view distance is not used to limit sensor range.
             objectDistanceLimitCoef = -1;    // -1 if undef; coefficient, multiplies current object view distance as set in player's options. -1 means object view distance is not used to limit sensor range.
@@ -17,7 +17,7 @@ class Components: Components
 
         class GroundTarget      // ranges for targets with ground background
         {
-          minRange = 250;         // -1 if undef; in meters
+          minRange = 200;         // -1 if undef; in meters
           maxRange = 8000;       // -1 if undef; in meters
           viewDistanceLimitCoef = -1;      // -1 if undef; coefficient, multiplies current view distance as set in player's options. -1 means view distance is not used to limit sensor range.
           objectDistanceLimitCoef = -1;    // -1 if undef; coefficient, multiplies current object view distance as set in player's options. -1 means object view distance is not used to limit sensor range.

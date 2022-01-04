@@ -650,7 +650,7 @@ if (_was == WAS_WEAPON_GUN) then {
 };
 
 //CSCOPE
-_targetsToDraw = ([_heli, fza_ah64_Cscopelist] call fza_fnc_targetingFilterType);
+_targetsToDraw = ([_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType);
 if (_heli getVariable "fza_ah64_fcrcscope") then {
     _num = 190; {
         if (_num > 205) exitwith {};

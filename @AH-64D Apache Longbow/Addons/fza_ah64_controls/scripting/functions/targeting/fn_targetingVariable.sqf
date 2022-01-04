@@ -27,13 +27,3 @@ if (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariabl
 		(((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) < 0.71) && (_distOffAxis < 45)) || ((((_heli distance _x) * (_heli getVariable "fza_ah64_rangesetting")) < 0.4) && (_distOffAxis < 90)))
 	};
 };
-
-//cscope
-if (_heli getVariable "fza_ah64_fcrcscope") then {
-	if (count fza_ah64_fcrlist > 16) then {
-		fza_ah64_Cscopelist = [fza_ah64_fcrlist, [_heli], {_input0 distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
-	} else {
-		fza_ah64_Cscopelist = fza_ah64_fcrlist;
-	}; 
-};
-

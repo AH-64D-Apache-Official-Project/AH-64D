@@ -178,6 +178,7 @@ class CfgFunctions
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
 			class targetingVariable {R;};
+			class targetingPriority {R;};
 		};
 		class tsd
 		{

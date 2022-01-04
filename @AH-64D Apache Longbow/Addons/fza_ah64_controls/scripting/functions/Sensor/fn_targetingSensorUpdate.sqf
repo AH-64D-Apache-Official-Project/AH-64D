@@ -57,6 +57,5 @@ _fcrTargets = [];
 	sleep 0.05;
 } foreach getSensorTargets _heli;
 
-fza_ah64_fcrlist = _fcrTargets;
 fza_ah64_AseRWR = _detectedActiveRadars;
-[_heli] call fza_fnc_targetingVariable;
+[_heli, _fcrTargets] spawn fza_fnc_targetingPriority;
