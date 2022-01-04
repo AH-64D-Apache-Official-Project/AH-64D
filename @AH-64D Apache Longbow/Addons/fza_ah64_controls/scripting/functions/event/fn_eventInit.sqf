@@ -38,8 +38,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
-    _heli setVariable ["fza_ah64_curwpnum", 0, true];
-    _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];

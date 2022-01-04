@@ -47,7 +47,7 @@ class wcaDraw {
     #define MPD_WCA_COLUMN_SPACING (MPD_TEXT_HEIGHT + 0.015)
 
     #define MPD_WCA_ITEM(userNum, posX, posY, yIndex) class WcaItem##userNum { \
-        color[] = {__EVAL("2 - user" + str (MFD_OFFSET + userNum)), __EVAL(format["user%1",userNum]), __EVAL("0.02 * user" + str (MFD_OFFSET + userNum)) + " - 0.02", 1}; \
+        color[] = {__EVAL("2 - user" + str (MFD_OFFSET + userNum)), __EVAL("user" + str (MFD_OFFSET + userNum)), __EVAL("0.02 * user" + str (MFD_OFFSET + userNum)) + " - 0.02", 1}; \
         MPD_TEXT_R(Text, posX, (posY + yIndex * MPD_WCA_COLUMN_SPACING), MPD_TEXT_USER(userNum)) \
     };
 

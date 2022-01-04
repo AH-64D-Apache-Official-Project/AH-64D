@@ -409,7 +409,7 @@ class flt_draw {
                 {"Flt_TurnIndicator", {-0.0125, 0.0125}, 1}
             }
         };
-    }
+    };
 
     class WaypointBoxStatic {
         type = line;
@@ -436,29 +436,32 @@ class flt_draw {
         clipTL[] = {0.2, 0.27};
         clipBR[] = {0.8, 0.73};
 
-        class FlyToCueLines {
-            type = line;
-            width = 3;
-            points[] = {
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.035, 0.025}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.055, 0.005}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.055, -0.01}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0, -0.06}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.055, -0.01}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.055, 0.005}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1},
-                {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1}
+        class FlyToCue {
+            condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FLT_FLY_TO_CUE_X), -20))
+            class FlyToCueLines {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.035, 0.025}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.055, 0.005}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.055, -0.01}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0, -0.06}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.055, -0.01}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.055, 0.005}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1},
+                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.035, 0.025}, 1}
+                };
             };
-        };
-        
-        class FlyToCueTriangle {
-            type = polygon;
-            points[] = {
-                {
-                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0, -0.005}, 1},
-                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.0075, 0.005}, 1},
-                    {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.0075, 0.005}, 1}
+            
+            class FlyToCueTriangle {
+                type = polygon;
+                points[] = {
+                    {
+                        {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0, -0.005}, 1},
+                        {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {0.0075, 0.005}, 1},
+                        {"Flt_FlyToCueX", 1, "Flt_FlyToCueY", {-0.0075, 0.005}, 1}
+                    };
                 };
             };
         };
@@ -479,12 +482,15 @@ class flt_draw {
     };
 
     class CommandHeading {
-        type = line;
-        width = 3;
-        points[] = {
-            {"Flt_CommandHeading", {-0.0075, 0.015}, 1},
-            {"Flt_CommandHeading", {0, 0}, 1},
-            {"Flt_CommandHeading", {0.0075, 0.015}, 1}
+        condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FLT_COMMAND_HEADING), -180));
+        class CommandHeading {
+            type = line;
+            width = 3;
+            points[] = {
+                {"Flt_CommandHeading", {-0.0075, 0.015}, 1},
+                {"Flt_CommandHeading", {0, 0}, 1},
+                {"Flt_CommandHeading", {0.0075, 0.015}, 1}
+            };
         };
     };
 

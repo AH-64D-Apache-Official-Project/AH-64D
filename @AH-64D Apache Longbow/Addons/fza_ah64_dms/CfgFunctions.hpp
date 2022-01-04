@@ -29,5 +29,9 @@ class CfgFunctions
             class pointParse{R;};
             class pointToString{R;};
         };
+        class route {
+            file = "\fza_ah64_dms\functions\route";
+            class routeSetDir{R;};
+        }
     };
 };

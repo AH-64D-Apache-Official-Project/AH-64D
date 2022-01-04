@@ -33,17 +33,6 @@ do {
         ((driver(vehicle player) == player || gunner(vehicle player) == player))
     };
 
-    ///////NAV///////
-    if (!(isnil "fza_ah64_waypointdata")) then {
-        if (_heli getVariable "fza_ah64_curwpnum" > (count (_heli getVariable "fza_ah64_waypointdata") - 1)) then {
-            _heli setVariable ["fza_ah64_curwpnum", 0, true];
-        };
-        _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
-        if ([(getposasl _heli select 0), (getposasl _heli select 1), 0] distance _waypoint < 50) then {
-            [_heli] call fza_fnc_controlHandleNextWaypoint;
-        };
-    };
-
     ///end gunner weapon damage//
     if (_heli animationphase "plt_apu" > 0.5) then {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];

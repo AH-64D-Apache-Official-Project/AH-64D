@@ -76,22 +76,7 @@ if (_value) then {
 			};
 		};
 		case "fza_ah64_targetStoreUpdate": {
-
-			private _position = screenToWorld [0.5, 0.5];
-			
-			if (_position distance (getPos _heli) > 7000) exitWith {};
-
-			if (count (_heli getVariable "fza_ah64_waypointdata") > 30) exitwith {
-				_heli vehiclechat "Waypoint limits reached.";
-			};
-
-			_heli setVariable ["fza_ah64_waypointdata", (_heli getVariable "fza_ah64_waypointdata") + [[_position # 0, _position # 1, 0]], true];
-		};
-		case "fza_ah64_waypointIncrease": {
-			[_heli, true] call fza_fnc_navigationWaypointCycle;
-		};
-		case "fza_ah64_waypointDecrease": {
-			[_heli, false] call fza_fnc_navigationWaypointCycle;
+			// Todo: Implemen target store
 		};
 		case "fza_ah64_laserCycle": {
 			[_heli] call fza_fnc_laserCycle;

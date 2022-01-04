@@ -30,8 +30,6 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_fcrSingleScan, "FCR Single Scan", "Scans the FCR a single time");
 	CfgUserActionDef(fza_ah64_targetStoreUpdate, "Target Store", "Stores the target being currently looked at in the TADS as a waypoint");
 	CfgUserActionDef(fza_ah64_crosshairInteract, "Crosshair Action", "Interact with item in the cockpit under the crosshair");
-	CfgUserActionDef(fza_ah64_waypointIncrease, "Next Waypoint", "Sets the current waypoint to the next waypoint");
-	CfgUserActionDef(fza_ah64_waypointDecrease, "Previous Waypoint", "Sets the current waypoint to the previous waypoint");
 	CfgUserActionDef(fza_ah64_laserCycle, "Laser Cycle", "Cycles between all available lasers");
 	CfgUserActionDef(fza_ah64_missileAdvance, "Missile Advance", "Advances through all missile types");
 	CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");

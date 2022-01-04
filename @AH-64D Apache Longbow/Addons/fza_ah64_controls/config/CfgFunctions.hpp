@@ -92,18 +92,12 @@ class CfgFunctions
 			class lightHandleControl {R;};
 			class lightSetCockpitLight {R;};
 		};
-		class navigation {
-			file = "\fza_ah64_controls\scripting\functions\navigation";
-			class navigationWaypointEta {R;};
-			class navigationWaypointCycle {R;};
-		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
 		};
-		
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
