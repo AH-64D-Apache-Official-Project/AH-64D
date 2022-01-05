@@ -1,14 +1,11 @@
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli", "_string"];
-private _ret = _string regexFind ["^([WHC])(\d{2})$"];
+private _ret = _string regexFind ["^([WCT])(\d{2})$"];
 if (count _ret == 0) exitWith {[]};
 private _match = _ret # 0;
 
 private _type = POINT_TYPE_WP;
 switch (_match # 1 # 0) do {
-    case "H": {
-        _type = POINT_TYPE_HZ;
-    };
     case "C": {
         _type = POINT_TYPE_CM;
     };

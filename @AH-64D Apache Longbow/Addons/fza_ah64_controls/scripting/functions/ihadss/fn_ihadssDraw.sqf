@@ -19,6 +19,10 @@ Author:
     unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
+
+#define SCALE_MPS_KNOTS 1.94
+
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;
@@ -44,7 +48,7 @@ _laseron = 0;
 _waypointcode = "";
 _gspdcode = "";
 
-_curwpdir = 0;
+_curwpdir = -1000;
 _chevmark = 0;
 _wpdistr = 0;
 _bobhdg = 0;
@@ -354,26 +358,33 @@ if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_r
     _heli setVariable ["fza_ah64_ihadssoff", 1];
 };
 
-_gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
-_waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
-_waypointcode = "W" + (format["%1",_heli getVariable "fza_ah64_curwpnum"]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance _waypoint)))]);
+private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+// Todo: Display current waypoint
+if (!isNil "_nextPointPos") then {
+    private _pointDist = _heli distance2d _nextPointPos;
+    _waypointcode = format ["%1    %2"
+        ,_nextPoint call fza_dms_fnc_pointToString
+        ,[_pointDist/1000, 1,1] call CBA_fnc_formatNumber];
 
-_reldir = ((_waypoint # 0) - (getposatl _heli select 0)) atan2((_waypoint # 1) - (getposatl _heli select 1));
-if (_reldir < 0) then {
-    _reldir = _reldir + 360;
-};
-_theta = (360 + (_reldir - (direction _heli))) Mod 360;
+    private _etastr = "";
+    if (speed _heli > 0.1) then {
+        private _eta = _pointDist / speed _heli;
+        if (_eta < 10*60*60 && _eta >= 5*60) then {
+            _etastr = [_eta / 60, "M:SS"] call CBA_fnc_formatElapsedTime;
+        };
+        if (_eta < 5*60) then {
+            _etastr = [_eta, "M:SS"] call CBA_fnc_formatElapsedTime;
+        };
+    };
+    _gspdcode = format ["%1    %2",round (vectorMagnitude velocity _heli * SCALE_MPS_KNOTS),_etastr];
+    _curwpdir = [_heli, getpos _heli # 0, getPos _heli # 1, _nextPointPos # 0, _nextPointPos # 1] call fza_fnc_relativeDirection;
 
-_targhead = _theta;
-
-if (_theta >= 180) then {
-    _targhead = _theta - 360;
 } else {
-    _targhead = _theta;
+    _waypointcode = "?01";
+    _gspdcode = str round (vectorMagnitude velocity _heli * SCALE_MPS_KNOTS);
 };
-
-_curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
 switch (_heli getVariable "fza_ah64_agmode") do {
@@ -1350,7 +1361,12 @@ if (_350mark < 0.3) then {
     _350mark = _350mark - 100;
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetPosition[_alternatesensor - 0.025, 0.31];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
+
+if (_curwpdir < -360 || _curwpdir > 360) then {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[-100, 0];
+} else {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
+};
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlSetPosition[_360mark - 0.02, 0.27];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlSetPosition[_30mark - 0.02, 0.27];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 148) ctrlSetPosition[_60mark - 0.02, 0.27];

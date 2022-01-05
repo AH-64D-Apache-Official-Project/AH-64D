@@ -5,9 +5,6 @@ params ["_type", "_num"];
 
 private _typeStr = "W";
 switch (_type) do {
-    case POINT_TYPE_HZ: {
-        _typeStr = "H";
-    };
     case POINT_TYPE_CM: {
         _typeStr = "C";
     };

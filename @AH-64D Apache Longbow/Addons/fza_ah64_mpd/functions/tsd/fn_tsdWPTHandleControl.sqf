@@ -82,7 +82,7 @@ switch (_variant) do {
             };
             case "l3": {    //WPT > DEL
                 private _current = _heli getVariable POINT_CURRENTSEL;
-                if (_current isEqualTo []) exitWith {_state set ["subPageVarPage", TSD_WPT_DEL_NOPOINTSEL];};
+                if (_current isEqualTo []) exitWith {_state set ["subPageVarPage", POINT_PAGE_DEL_NOPOINTSEL];};
                 private _ret = [_heli, _current, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
                 if (isNil "_ret") then {
                     _state set ["subPageVarPage", POINT_PAGE_DEL_NOPOINTSEL];
