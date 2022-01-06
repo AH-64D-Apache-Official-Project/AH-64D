@@ -3,6 +3,9 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 switch (_control) do {
+    case "t2": {
+        [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };

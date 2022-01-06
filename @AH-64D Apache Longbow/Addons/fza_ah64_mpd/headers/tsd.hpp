@@ -38,3 +38,5 @@
 #define TSD_THRT_XMIT           [4, 7]
 
 #define FCR_ROOT                [5, 0]
+
+#define ASE_ROOT                [6, 0]

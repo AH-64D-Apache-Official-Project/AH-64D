@@ -93,6 +93,11 @@ class CfgVehicles {
 				draw  = "fza_mpd_fnc_pageFCRDraw";
 				handleControl = "fza_mpd_fnc_pageFCRHandleControl";
 			};
+			class ASE {
+				index = MPD_PAGE_ASE;
+				draw  = "fza_mpd_fnc_pageASEDraw";
+				handleControl = "fza_mpd_fnc_pageASEHandleControl";
+			};
 		};
     };
 };

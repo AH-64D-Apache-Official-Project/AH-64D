@@ -66,4 +66,8 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FCR));
         #include "pages\fcr_draw.hpp"
     };
+    class ASE{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASE));
+        #include "pages\ase_draw.hpp"
+    };
 };

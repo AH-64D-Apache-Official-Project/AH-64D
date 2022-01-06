@@ -129,6 +129,19 @@ class fcr_draw {
         };
     };
 
+    class polys_elev {
+        class Polygon {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.060, 0.860}, 1 },
+                    { {0.072, 0.850}, 1 },
+                    { {0.072, 0.870}, 1 },
+                },
+            };
+        };
+    };
+
     class lines_elev {
         type = line;
         width = 3;
@@ -238,8 +251,72 @@ class fcr_draw {
         };
     };
 
-    class lines_FOVBox {
+    class lines_CurScanLine {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            {{0.450, 0.894}, 1}, 
+            {{0.450, 0.984}, 1}, {},
+        };
+    };
 
+    class lines_PrevScanLine {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            //1
+            {{0.580, 0.894}, 1}, 
+            {{0.580, 0.904}, 1}, {},
+            //2
+            {{0.580, 0.914}, 1}, 
+            {{0.580, 0.924}, 1}, {},
+            //3
+            {{0.580, 0.934}, 1}, 
+            {{0.580, 0.944}, 1}, {},
+            //4
+            {{0.580, 0.954}, 1}, 
+            {{0.580, 0.964}, 1}, {},
+            //5
+            {{0.580, 0.974}, 1}, 
+            {{0.580, 0.984}, 1}, {},
+        };
+    };
+
+    class polys_CuedLOS {
+        //Needs bone
+        class Polygon {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.495, 0.939}, 1 },
+                    { {0.500, 0.934}, 1 },
+                    { {0.505, 0.939}, 1 },
+                    { {0.500, 0.944}, 1 }
+                },
+            };
+        };
+    };
+
+    class lines_FOVBox {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            //Top
+            {{0.480, 0.926}, 1}, 
+            {{0.520, 0.926}, 1},
+            //Right
+            {{0.520, 0.926}, 1}, 
+            {{0.520, 0.952}, 1},
+            //Bottom
+            {{0.520, 0.952}, 1}, 
+            {{0.480, 0.952}, 1},
+            //Left
+            {{0.480, 0.952}, 1}, 
+            {{0.480, 0.926}, 1}, {},
+        };
     };
 
     

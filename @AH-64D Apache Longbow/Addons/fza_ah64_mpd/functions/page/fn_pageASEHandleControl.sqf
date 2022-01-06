@@ -3,7 +3,7 @@
 params ["_heli", "_mpdIndex", "_control"];
 
 switch(_control) do {
-	case "b1": {
+    case "b1": {
 		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
 };
