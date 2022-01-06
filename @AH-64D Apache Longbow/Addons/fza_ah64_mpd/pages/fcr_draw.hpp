@@ -351,7 +351,6 @@ class fcr_draw {
         right[] = {0.25 + MPD_TEXT_WIDTH_VEC, 0.15-MPD_TEXT_HEIGHT};
         down[] = {0.25, 0.15};
     };*/
-    MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     
     class vabs{
         //T1
@@ -406,5 +405,8 @@ class fcr_draw {
         MPD_TEXT_R(ACQ, 0.78 + MPD_TEXT_WIDTH,     0.939 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FXD"))
         //Weapon Status 12 chars
         MPD_TEXT_R(WS,  0.78 - (6*MPD_TEXT_WIDTH), 0.939, MPD_TEXT_STATIC("XXXXXXXXXXXX"))
+
+        //Heading
+        MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     };
 };
