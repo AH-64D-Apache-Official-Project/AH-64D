@@ -18,7 +18,7 @@ Use the following procedures when operating the aircraft:
 
 ## Before Starting APU
 1. {{BS}} MSTR IGN switch - BATT
-2. {{BS}} Searchlight - As required
+2. {{BS}} ~~Searchlight - As required~~
 3. {{BS}} ~~TAIL WHEEL button - Lock~~
 4. FIRE DET/EXTG panel TEST switch - Test as follows:
     1. {{BS}} Position 1: - MSTR WARN, ENG 1, APU, and ENG 2 FIRE buttons are illuminated, a DECK FIRE warning is displayed on the UFD and voice warning systems activated.
