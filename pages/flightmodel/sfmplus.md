@@ -54,18 +54,6 @@ SFM+ now features damage modeling. This is a means of enforcing proper startup p
 | 100% | Continuous |
 | 101 to 115% | 6 Seconds |
 
-
-## Engine Start Differences
-SFM+ no longer requires you to wait for the Ng to peak at 23% before bringing a power lever to idle. In addition to this, power levers may be manipulated indpendently again AFTER the power levers have been advanced to fly. The revised start up procedure is as follows:
-
-1. Start switch to Start
-2. At the first sign of Ng, Power Lever - IDLE
-3. Monitor for a rise in TGT, Engine Oil and Np within 45 seconds of bringing ther power lever to IDLE.
-4. Check the start box does not go out prior to 52% Ng (not yet implemented)
-5. Second engine start after attaining Ng IDLE speed of 67.9%.
-
-After the second engine has been started and stabilized at IDLE, simultaneously advance both power levers to fly (default action). 
-
 ## Single Engine Sim
 
 Once the power levers are at fly, each power lever can be manipulated indpendently. Beware of your current Tq, as it WILL double, potentially exceeding the Tq limits outlined above.
