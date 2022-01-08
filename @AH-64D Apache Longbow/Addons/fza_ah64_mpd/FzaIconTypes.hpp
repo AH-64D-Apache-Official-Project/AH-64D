@@ -83,6 +83,7 @@ class FzaIconTypes {
         color    = MPD_ICON_COLOR_CYAN;
     };
     //Target/Threats
+    //ASE
 
 //--------------------Icon Type B--------------------
 //                          
@@ -106,6 +107,7 @@ class FzaIconTypes {
         color    = MPD_ICON_COLOR_RED;
     };
     //Target/Threats
+    //ASE
 
 //--------------------Icon Type C--------------------
 //                          
@@ -128,6 +130,7 @@ class FzaIconTypes {
     class FA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\fa.paa";};  //Forward Assembly Area
     class HA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\ha.paa";};  //Holding Area
     //Target/Threats
+    //ASE
 
 //--------------------Icon Type D--------------------
 //                          AAA
@@ -150,6 +153,7 @@ class FzaIconTypes {
     class FF:FC  { tex= "\fza_ah64_mpd\tex\tsdIcons\ff.paa";};  //FARP - Fuel only
     class FM:FC  { tex= "\fza_ah64_mpd\tex\tsdIcons\fm.paa";};  //Farm - Ammo only
     //Target/Threats
+    //ASE
 
 //--------------------Icon Type E--------------------
 //                          AAA
@@ -176,6 +180,7 @@ class FzaIconTypes {
         color    = MPD_ICON_COLOR_CYAN;
     };
     //Target/Threats
+    //ASE
  
 //--------------------Icon Type F--------------------
 //
@@ -196,7 +201,8 @@ class FzaIconTypes {
         textA    = MPD_ICON_TEXT_ID;
     };
     class SR:TG    { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};
-    class TR:TG    { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};  
+    class TR:TG    { tex= "\fza_ah64_mpd\tex\tsdIcons\r.paa";};
+    //ASE  
 
 //--------------------Icon Type G--------------------
 //
@@ -295,7 +301,168 @@ class FzaIconTypes {
         tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
         textA = "66";
     };
-};
+    //ASE
+    /*
+    //--SA1
+    class ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        color    = MPD_ICON_COLOR_RED;
+        type     = POINT_TYPE_ASE;
+        iconType = MPD_ICON_TYPE_G;
+        textA    = " 1";
+    };
+    class ASE_ADU_ACQ_Icon1:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA2
+    class ASE_ADU_SRH_Icon2:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 2";
+    };
+    class ASE_ADU_ACQ_Icon2:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA3
+    class ASE_ADU_SRH_Icon3:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 3";
+    };
+    class ASE_ADU_ACQ_Icon3:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA4
+    class ASE_ADU_SRH_Icon4:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 4";
+    };
+    class ASE_ADU_ACQ_Icon4:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA5
+    class ASE_ADU_SRH_Icon5:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 5";
+    };
+    class ASE_ADU_ACQ_Icon5:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA6
+    class ASE_ADU_SRH_Icon6:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 6";
+    };
+    class ASE_ADU_ACQ_Icon6:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA7
+    class ASE_ADU_SRH_Icon7:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 7";
+    };
+    class ASE_ADU_ACQ_Icon7:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA8
+    class ASE_ADU_SRH_Icon8:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 8";
+    };
+    class ASE_ADU_ACQ_Icon8:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA9
+    class ASE_ADU_SRH_Icon9:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = " 9";
+    };
+    class ASE_ADU_ACQ_Icon9:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA10
+    class ASE_ADU_SRH_Icon10:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "10";
+    };
+    class ASE_ADU_ACQ_Icon10:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA11
+    class ASE_ADU_SRH_Icon11:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "11";
+    };
+    class ASE_ADU_ACQ_Icon11:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA12
+    class ASE_ADU_SRH_Icon12:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "12";
+    };
+    class ASE_ADU_ACQ_Icon12:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA13
+    class ASE_ADU_SRH_Icon13:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "13";
+    };
+    class ASE_ADU_ACQ_Icon13:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA14
+    class ASE_ADU_SRH_Icon14:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "14";
+    };
+    class ASE_ADU_ACQ_Icon14:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA15
+    class ASE_ADU_SRH_Icon15:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "15";
+    };
+    class ASE_ADU_ACQ_Icon15:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA16
+    class ASE_ADU_SRH_Icon16:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "16";
+    };
+    class ASE_ADU_ACQ_Icon16:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--SA17
+    class ASE_ADU_SRH_Icon17:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "17";
+    };
+    class ASE_ADU_ACQ_Icon17:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--2S6
+    class ASE_ADU_SRH_S6:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "56";
+    };
+    class ASE_ADU_ACQ_S6:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    //--ZSU-23-4
+    class ASE_ADU_SRH_ZU:ASE_ADU_SRH_Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
+        textA = "66";
+    };
+    class ASE_ADU_ACQ_ZU:ASE_ADU_SRH_Icon1 {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\ADUAcquisition.paa";
+    };
+    class ASE_LSR_RNG:ASE_ADU_SRH_Icon1  { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\LSRRanging.paa";
+        textA    = "  "; 
+    };
+    */
 
 //--------------------Icon Type H--------------------
 //
@@ -392,3 +559,4 @@ class FzaIconTypes {
     //Flyer
     class FCR_FLYER_MOVE:FCR_ADU_LOAL           { tex = "\fza_ah64_mpd\tex\fcrIcons\flyer.paa";};
     */
+};

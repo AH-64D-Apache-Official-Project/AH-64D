@@ -64,6 +64,210 @@ class ase_draw {
         };
     };
     
+    #define ASE_OBJ_01_ANGLE 0
+    class lines_ASEObj01Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_01_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+            };
+        };
+    };
+   #define ASE_OBJ_02_ANGLE 51
+    class lines_ASEObj02Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_02_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_02_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_02_ANGLE)}, 1}, {},
+            };
+        };
+    };
+    #define ASE_OBJ_03_ANGLE 103
+    class lines_ASEObj03Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_03_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_03_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_03_ANGLE)}, 1}, {},
+            };
+        };
+    };
+    #define ASE_OBJ_04_ANGLE 154
+    class lines_ASEObj04Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_04_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_04_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_04_ANGLE)}, 1}, {},
+            };
+        };
+    };
+    #define ASE_OBJ_05_ANGLE 206
+    class lines_ASEObj05Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_05_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_05_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_05_ANGLE)}, 1}, {},
+            };
+        };
+    };
+       #define ASE_OBJ_06_ANGLE 257
+    class lines_ASEObj06Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_06_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_06_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_06_ANGLE)}, 1}, {},
+            };
+        };
+    };
+    #define ASE_OBJ_07_ANGLE 309
+    class lines_ASEObj07Track {
+        color[] = {1,1,0,1};
+        class Lines {
+            type = line;
+            width    = 3;
+            points[] = {
+                //ASE Object 0
+                //--Dash 1
+                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+                //--Dash 2
+                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+                //--Dash 3
+                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+                //--Dash 4
+                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+                //--Dash 5
+                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+                //--Dash 6
+                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_07_ANGLE)}, 1},
+                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_07_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_07_ANGLE)}, 1}, {},
+            };
+        };
+    };
+
     //Ownship Icon
     class lines_ownshipIcon {
         color[] = {0,1,1,1};
