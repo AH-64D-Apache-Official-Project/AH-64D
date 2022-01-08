@@ -61,7 +61,11 @@ if (_engPowerLeverState in ["OFF", "IDLE"]) then {
 } else { _engThrottle = 1.0; };
 
 //Tq
-_engBaseTQ = _engIdleTQ + (_engFlyTQ - _engIdleTQ) * _engThrottle;
+if (_engPowerLeverState != "OFF") then {
+	_engBaseTQ = _engIdleTQ + (_engFlyTQ - _engIdleTQ) * _engThrottle;
+} else {
+	_engBaseTQ = 0.0;
+};
 //Ng
 _engBaseNG = _engIdleNG + (_engFlyNG - _engIdleNG) * _engThrottle;
 //Np
@@ -142,13 +146,15 @@ private _engCruiseTQTable = [[]];
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
 					 	 [ 0.82, _intCruiseTQTable select 5],
-					 	 [ 1.00, _intCruiseTQTable select 9]];
+					 	 [ 0.90, _intCruiseTQTable select 9],
+					 	 [ 1.00, 1.34                      ]];
 } else {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
 						 [ 0.67, _intCruiseTQTable select 4],
 						 [ 0.70, _intCruiseTQTable select 5],
-						 [ 0.89, _intCruiseTQTable select 7],
-						 [ 1.00, _intCruiseTQTable select 9]];
+						 [ 0.80, _intCruiseTQTable select 7],
+						 [ 0.90, _intCruiseTQTable select 9],
+						 [ 1.00, 1.34                      ]];
 };
 
 private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
