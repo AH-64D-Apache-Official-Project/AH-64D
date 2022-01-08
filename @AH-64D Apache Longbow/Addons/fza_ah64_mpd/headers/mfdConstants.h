@@ -182,6 +182,10 @@
 #define MFD_IND_TSD_THRT_VARIANT 0
 #define MFD_IND_TSD_THRT_ADD_TYPE 1
 
+// FCR Indices
+#define MFD_IND_FCR_ANIM 0
+#define MFD_IND_FCR_SCAN_TYPE 1
+
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1

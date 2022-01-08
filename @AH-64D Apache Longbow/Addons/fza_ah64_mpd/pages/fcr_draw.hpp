@@ -128,6 +128,58 @@ class fcr_draw {
             {{0.743, 0.283}, 1}, {},
         };
     };
+    class lines_continuous {
+        condition = C_COND(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE));
+        class nearBar {
+            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_NearBar", {0, 0.05}, 1},
+                    {"FCR_NearBar", {0, 0.325}, 1}
+                };
+            };
+        };
+        class farBar {
+            condition = C_COND(C_AND(C_LESS(1,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_FarBar", {0, 0.325}, 1},
+                    {"FCR_FarBar", {0, 0.650}, 1}
+                };
+            };
+        };
+    };
+    class lines_single : lines_continuous {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE)));
+        color[] = {1,1,1,1};
+        class nearBar {
+            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_NearBar", {0, 0.05}, 1},
+                    {"FCR_NearBar", {0, 0.325}, 1}
+                };
+            };
+        };
+        class farBar {
+            condition = C_COND(C_AND(C_LESS(1,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_FarBar", {0, 0.325}, 1},
+                    {"FCR_FarBar", {0, 0.650}, 1}
+                };
+            };
+        };
+    };
+    //Wide = Near Bar, Far Bar, Near Bar, Far Bar starts left and moves right
 
     class polys_elev {
         class Polygon {
