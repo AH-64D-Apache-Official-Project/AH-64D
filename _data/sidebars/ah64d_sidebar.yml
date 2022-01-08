@@ -122,6 +122,9 @@ entries:
   - title: Changelogs
     output: web
     folderitems:
+    - title: V2.1.0
+      url: changelogs-v2-1-0
+      output: [web]
     - title: V2.0.0
       url: changelogs-v2-0-0
       output: [web]
