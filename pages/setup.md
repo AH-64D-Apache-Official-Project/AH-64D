@@ -19,7 +19,7 @@ To do this, complete the following steps:
 {% include tip.html content="These steps can also be done from the in-game menu accessed by pressing the `Esc` key. You should not have to restart your game afterwards." %}
 
 1. From the main menu go to *Options -> Controls*
-2. In Controls, select **SHOW:**, and scroll until you find **=== Mods ===* and select **AH-64D Apache Official**
+2. In Controls, select **SHOW:**, and scroll until you find **=== Mods ===** and select **AH-64D Apache Official**
 3. Find **Crosshair Action** and bind it to the key/joystick button of your choice
 4. Press *OK* until you are back at the main menu
 
