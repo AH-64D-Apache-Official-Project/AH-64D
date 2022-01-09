@@ -26,44 +26,23 @@ private _radarAlt = getPos _heli # 2 * SCALE_METERS_FEET;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT), (round (_baroAlt / 10) * 10) toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radarAlt toFixed 0, ""] select (_radarAlt > 1428)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GROUNDSPEED), _groundSpeedKnots toFixed 0];
 
 // Waypoint status window
-private _waypointIndex = _heli getVariable "fza_dms_routeNext";
-private _waypoint = [_heli, _waypointIndex, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
-private _waypointMSL = [_heli, _waypointIndex, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue;
+private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+private _nextPointMSL = [_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue;
+[_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO), _waypointDist];
+
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DESTINATION), _waypointId];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO),  _waypointEta];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GROUNDSPEED), _groundSpeed];
 if (isNil "_waypoint") then {
 	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_COMMAND_HEADING), -360];
-	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DESTINATION), "?01"];
-	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO), ""];
 	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLY_TO_CUE_X), -100];
-	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SHOW_WAYPOINT_BOX), 0];
-	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO),  ""];
-}
-else {
-	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SHOW_WAYPOINT_BOX), 1];
-	private _waypointDistance = (_waypoint distance2D getpos _heli);
-	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DESTINATION),  _waypointIndex call fza_dms_fnc_pointToString];
-	_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO),  format["%1km", (_waypointDistance/1000) toFixed 1]];
-
+} else {
 	private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (_waypoint # 0), (_waypoint # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_COMMAND_HEADING), _waypointDirection];
-
-	private _waypointEta = call ([{60000}, {_waypointDistance / _groundSpeed}] select (_groundSpeedKnots >= 15));
-
-	if (_waypointEta > 36000) then { //10 hours
-		_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO),  ""];
-	} else {
-		if (_waypointEta < 300) then { //5 min
-			private _seconds = floor (_waypointEta % 60);
-			private _minutes = floor (_waypointEta / 60 % 10);
-			_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO), format["%1:%2", _minutes, [str _seconds, 2] call _padLeft]];
-		} else {
-			private _minutes = floor (_waypointEta / 60 % 60);
-			private _hours = floor (_waypointEta / 3600 % 10);
-			_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TIMETOGO), format["%1:%2", _hours, [str _minutes, 2] call _padLeft]];
-		};
-	};
 
 	// Navigation fly to cue
 	private _flyToCueX = _waypointDirection;

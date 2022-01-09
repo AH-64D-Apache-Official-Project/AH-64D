@@ -20,6 +20,16 @@ if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
 };
 switch (_state get "subPageVarPage" select 0) do {
+    case 0: { //Root
+        [_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
+        [_heli] call fza_mpd_fnc_fuelGetData params ["", "", "", "", "", "", "_enduranceNumber"];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDEST), _waypointId];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDIST), _waypointDist];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPETA),  _waypointEta];
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED), _groundSpeed];
+        
+        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_ENDR), _enduranceNumber]
+    };
     case 1: {   //SHOW
         _this call fza_mpd_fnc_tsdShowDraw;
     };

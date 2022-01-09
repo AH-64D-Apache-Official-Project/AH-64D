@@ -361,29 +361,13 @@ if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_r
 
 private _nextPoint = _heli getVariable "fza_dms_routeNext";
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+[_heli] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
+
+_waypointcode = format ["%1    %2", _waypointId, _waypointDist];
+_gspdcode = format ["%1    %2", _groundSpeed, _waypointEta];
 // Todo: Display current waypoint
 if (!isNil "_nextPointPos") then {
-    private _pointDist = _heli distance2d _nextPointPos;
-    _waypointcode = format ["%1    %2"
-        ,_nextPoint call fza_dms_fnc_pointToString
-        ,[_pointDist/1000, 1,1] call CBA_fnc_formatNumber];
-
-    private _etastr = "";
-    if (speed _heli > 0.1) then {
-        private _eta = _pointDist / speed _heli;
-        if (_eta < 10*60*60 && _eta >= 5*60) then {
-            _etastr = [_eta / 60, "M:SS"] call CBA_fnc_formatElapsedTime;
-        };
-        if (_eta < 5*60) then {
-            _etastr = [_eta, "M:SS"] call CBA_fnc_formatElapsedTime;
-        };
-    };
-    _gspdcode = format ["%1    %2",round (vectorMagnitude velocity _heli * SCALE_MPS_KNOTS),_etastr];
-    _curwpdir = [_heli, getpos _heli # 0, getPos _heli # 1, _nextPointPos # 0, _nextPointPos # 1] call fza_fnc_relativeDirection;
-
-} else {
-    _waypointcode = "?01";
-    _gspdcode = str round (vectorMagnitude velocity _heli * SCALE_MPS_KNOTS);
+    _curwpdir = [[_heli, getpos _heli # 0, getPos _heli # 1, _nextPointPos # 0, _nextPointPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 };
 
 /////////////////////////////////////////////////////////

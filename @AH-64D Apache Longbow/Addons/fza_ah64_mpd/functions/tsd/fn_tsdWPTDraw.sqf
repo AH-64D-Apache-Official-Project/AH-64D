@@ -4,9 +4,11 @@ params["_heli", "_mpdIndex", "_state"];
 
 #ifdef POINTMODE_THREAT
 #define POINT_CURRENTSEL "fza_mpd_tsdThrtCurrentSel"
+#define POINT_DEFAULTIDENT "TG"
 
 #else //Wpt
 #define POINT_CURRENTSEL "fza_mpd_tsdWptCurrentSel"
+#define POINT_DEFAULTIDENT "WP"
 #endif
 
 private _currentPoint    = _heli getVariable POINT_CURRENTSEL;
@@ -18,7 +20,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_CURRENT_POINT), _cur
 private _pointDetails = [_heli, _currentPoint, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
 
 if (isNil "_pointDetails") then {
-    _heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_1), "?01 WP AAA ETE 00:00:00 ETA 00:00:00L"];
+    _heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_1), format["?01 %1 AAA ETE 00:00:00 ETA 00:00:00L", POINT_DEFAULTIDENT]];
     _heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_2), "W84 47 13S FU  XXXX XXXX XXX* XX.X KM"];
     _heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_3), "NXX XX.XX WXXX XX.XX  XXXX FT XX.X NM"];
 } else {

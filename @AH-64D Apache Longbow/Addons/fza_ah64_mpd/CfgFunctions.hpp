@@ -18,6 +18,10 @@ class CfgFunctions
             class update {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
         };
+        class fuel {
+            file = "\fza_ah64_mpd\functions\fuel";
+            class fuelGetData {RECOMPILE_FLAG;};
+        };
         class tsd {
             file = "\fza_ah64_mpd\functions\tsd";
             class tsdRTEDraw {RECOMPILE_FLAG;};
@@ -29,6 +33,7 @@ class CfgFunctions
             class tsdWPTDraw {RECOMPILE_FLAG;};
             class tsdWPTEnterDetails {RECOMPILE_FLAG;};
             class tsdWPTHandleControl {RECOMPILE_FLAG;};
+            class tsdWaypointStatusText {RECOMPILE_FLAG;};
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
