@@ -187,18 +187,23 @@
 #define MFD_IND_TSD_THRT_VARIANT 0
 #define MFD_IND_TSD_THRT_ADD_TYPE 1
 
+// FCR Indices
+#define MFD_IND_FCR_ANIM 0
+#define MFD_IND_FCR_SCAN_TYPE 1
+
 // PAGE INDEXES
-#define MPD_PAGE_OFF 0
+#define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1
-#define MPD_PAGE_FLT 2
-#define MPD_PAGE_WCA 3
+#define MPD_PAGE_FLT  2
+#define MPD_PAGE_WCA  3
 #define MPD_PAGE_FUEL 4
-#define MPD_PAGE_ENG 5
-#define MPD_PAGE_WPN 6
-#define MPD_PAGE_TSD 7
-#define MPD_PAGE_DMS 8
-#define MPD_PAGE_DTU 9
-#define MPD_PAGE_FCR 10
+#define MPD_PAGE_ENG  5
+#define MPD_PAGE_WPN  6
+#define MPD_PAGE_TSD  7
+#define MPD_PAGE_DMS  8
+#define MPD_PAGE_DTU  9
+#define MPD_PAGE_FCR  10
+#define MPD_PAGE_ASE  11
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

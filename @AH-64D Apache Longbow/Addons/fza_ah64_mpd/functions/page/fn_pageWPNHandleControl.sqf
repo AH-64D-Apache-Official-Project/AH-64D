@@ -61,6 +61,9 @@ if(_selectedWeapon == WAS_WEAPON_MSL) then {
 	};
 };
 switch (_control) do {
+	case "t2": {
+		[_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
+	};
 	case "r5": {
 		if (isNull laserTarget _heli) then {
 			[_heli] spawn fza_fnc_laserArm;

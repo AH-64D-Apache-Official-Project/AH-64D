@@ -128,6 +128,71 @@ class fcr_draw {
             {{0.743, 0.283}, 1}, {},
         };
     };
+    class lines_continuous {
+        condition = C_COND(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE));
+        class nearBar {
+            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_NearBar", {0, 0.05}, 1},
+                    {"FCR_NearBar", {0, 0.325}, 1}
+                };
+            };
+        };
+        class farBar {
+            condition = C_COND(C_AND(C_LESS(1,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_FarBar", {0, 0.325}, 1},
+                    {"FCR_FarBar", {0, 0.650}, 1}
+                };
+            };
+        };
+    };
+    class lines_single : lines_continuous {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE)));
+        color[] = {1,1,1,1};
+        class nearBar {
+            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_NearBar", {0, 0.05}, 1},
+                    {"FCR_NearBar", {0, 0.325}, 1}
+                };
+            };
+        };
+        class farBar {
+            condition = C_COND(C_AND(C_LESS(1,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+            class line {
+                type = line;
+                width = 3;
+                points[] = {
+                    {"FCR_FarBar", {0, 0.325}, 1},
+                    {"FCR_FarBar", {0, 0.650}, 1}
+                };
+            };
+        };
+    };
+    //Wide = Near Bar, Far Bar, Near Bar, Far Bar starts left and moves right
+
+    class polys_elev {
+        class Polygon {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.060, 0.860}, 1 },
+                    { {0.072, 0.850}, 1 },
+                    { {0.072, 0.870}, 1 },
+                },
+            };
+        };
+    };
 
     class lines_elev {
         type = line;
@@ -238,8 +303,72 @@ class fcr_draw {
         };
     };
 
-    class lines_FOVBox {
+    class lines_CurScanLine {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            {{0.450, 0.894}, 1}, 
+            {{0.450, 0.984}, 1}, {},
+        };
+    };
 
+    class lines_PrevScanLine {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            //1
+            {{0.580, 0.894}, 1}, 
+            {{0.580, 0.904}, 1}, {},
+            //2
+            {{0.580, 0.914}, 1}, 
+            {{0.580, 0.924}, 1}, {},
+            //3
+            {{0.580, 0.934}, 1}, 
+            {{0.580, 0.944}, 1}, {},
+            //4
+            {{0.580, 0.954}, 1}, 
+            {{0.580, 0.964}, 1}, {},
+            //5
+            {{0.580, 0.974}, 1}, 
+            {{0.580, 0.984}, 1}, {},
+        };
+    };
+
+    class polys_CuedLOS {
+        //Needs bone
+        class Polygon {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.495, 0.939}, 1 },
+                    { {0.500, 0.934}, 1 },
+                    { {0.505, 0.939}, 1 },
+                    { {0.500, 0.944}, 1 }
+                },
+            };
+        };
+    };
+
+    class lines_FOVBox {
+        //Needs bone
+        type = line;
+        width = 3;
+        points[] = {
+            //Top
+            {{0.480, 0.926}, 1}, 
+            {{0.520, 0.926}, 1},
+            //Right
+            {{0.520, 0.926}, 1}, 
+            {{0.520, 0.952}, 1},
+            //Bottom
+            {{0.520, 0.952}, 1}, 
+            {{0.480, 0.952}, 1},
+            //Left
+            {{0.480, 0.952}, 1}, 
+            {{0.480, 0.926}, 1}, {},
+        };
     };
 
     
@@ -274,7 +403,6 @@ class fcr_draw {
         right[] = {0.25 + MPD_TEXT_WIDTH_VEC, 0.15-MPD_TEXT_HEIGHT};
         down[] = {0.25, 0.15};
     };*/
-    MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     
     class vabs{
         //T1
@@ -329,5 +457,8 @@ class fcr_draw {
         MPD_TEXT_R(ACQ, 0.78 + MPD_TEXT_WIDTH,     0.939 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FXD"))
         //Weapon Status 12 chars
         MPD_TEXT_R(WS,  0.78 - (6*MPD_TEXT_WIDTH), 0.939, MPD_TEXT_STATIC("XXXXXXXXXXXX"))
+
+        //Heading
+        MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     };
 };

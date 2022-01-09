@@ -375,11 +375,22 @@ Parameters:
     type = line; \
     width = 2; \
     points[] = { \
-        {{startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X,                             startY - MPD_BOX_PAD_Y}, 1}, \
         {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD_Y}, 1}, \
         {{startX + MPD_BOX_PAD_X + numChars * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
-        {{startX - MPD_BOX_PAD_X, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
-        {{startX - MPD_BOX_PAD_X, startY - MPD_BOX_PAD_Y}, 1}}; \
+        {{startX - MPD_BOX_PAD_X,                             startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X,                             startY - MPD_BOX_PAD_Y}, 1}}; \
+};
+
+#define MPD_BOX_V(name, startX, startY, numChars) class Mpd_Box_##name##_Line { \
+    type = line; \
+    width = 2; \
+    points[] = { \
+        {{startX - MPD_BOX_PAD_X,                  (startY) - 0.85*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX + MPD_BOX_PAD_X + MPD_TEXT_WIDTH, (startY) - 0.85*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX + MPD_BOX_PAD_X + MPD_TEXT_WIDTH, (startY) + 0.60*numChars * MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X,                  (startY) + 0.60*numChars * MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+        {{startX - MPD_BOX_PAD_X,                  (startY) - 0.85*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}}; \
 };
 
 /* Macro: MPD_BOX_TALL_x
