@@ -48,9 +48,9 @@ _this spawn fza_fnc_aseBetty;
 [_heli, _munition, _hostile] spawn {
     params ["_heli", "_munition", "_hostile"];
 
-    private _irjon = _heli getVariable "fza_ah64_irJamOn";
+    private _irjon    = _heli getVariable "fza_ah64_irJamOn";
     private _irjstate = _heli getVariable "fza_ah64_irjstate";
-    private _rfjon = _heli getVariable "fza_ah64_rfJamOn";
+    private _rfjon    = _heli getVariable "fza_ah64_rfJamOn";
     private _rfjstate = _heli getVariable "fza_ah64_rfjstate";
 
     private _seekerhead = getNumber (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");

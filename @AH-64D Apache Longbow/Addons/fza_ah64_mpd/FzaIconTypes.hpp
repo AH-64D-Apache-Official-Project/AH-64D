@@ -301,10 +301,10 @@ class FzaIconTypes {
         tex = "\fza_ah64_mpd\tex\tsdIcons\gu.paa";
         textA = "66";
     };
+    
     //ASE
-    /*
     //--SA1
-    class ASE_ADU_SRH_Icon1 { 
+    class ASE_ADU_SRH_Icon1 {
         tex = "\fza_ah64_mpd\tex\tsdIcons\ADUSearch.paa";
         color    = MPD_ICON_COLOR_RED;
         type     = POINT_TYPE_ASE;
@@ -462,7 +462,6 @@ class FzaIconTypes {
         tex = "\fza_ah64_mpd\tex\tsdIcons\LSRRanging.paa";
         textA    = "  "; 
     };
-    */
 
 //--------------------Icon Type H--------------------
 //
@@ -471,7 +470,6 @@ class FzaIconTypes {
 //                      |   TEX   |
 //                      |         |
 //                      +---------+
-/*
     //--------------------FCR LOAL--------------------
     //ADU
     class FCR_ADU_LOAL { 
@@ -558,5 +556,4 @@ class FzaIconTypes {
     class FCR_WHEEL_MOVE_NTS_NOMSL:FCR_ADU_LOAL { tex = "\fza_ah64_mpd\tex\fcrIcons\wheelMOVE_NTS_NoMSL.paa";}; 
     //Flyer
     class FCR_FLYER_MOVE:FCR_ADU_LOAL           { tex = "\fza_ah64_mpd\tex\fcrIcons\flyer.paa";};
-    */
 };
