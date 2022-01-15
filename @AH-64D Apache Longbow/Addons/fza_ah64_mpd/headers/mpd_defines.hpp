@@ -571,3 +571,87 @@ Parameters:
         };\
     };\
 };
+
+/* Macros: ASE Object
+    ASE_OBJ - Draws an ASE object on the ASE page
+
+Parameters:
+    name - Unique name to use in the class definition. Can be the same as that in the ancillary text draw definitions
+        as they are deconflicted within the macros
+    modeSource - Defines the mode of the detected emitter
+*/
+#define ASE_OBJ(name, modeSource)\
+class aseObj_##name {\
+    color[] = {1,1,0,1};\
+    class lines_aseObj##name##Null {\
+        condition = C_COND(C_EQ(C_MPD_USER(modeSource), -1));\
+    };\
+    class lines_aseObj##name##Search {\
+        condition = C_COND(C_EQ(C_MPD_USER(modeSource), ASE_SRH));\
+        class searchIcon {\
+            type = line;\
+            width = 3;\
+            points[] = {\
+                {ase_obj_##name##_iconRotCorr, { 0.000, 0.001}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, { 0.015, 0.031}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, {-0.015, 0.031}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, { 0.000, 0.001}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1} \
+            };\
+        };\
+        class searchText {\
+            type        ="text";\
+            source      ="static";\
+            text        ="S A";\
+            scale       =1;\
+            sourceScale =1;\
+            align       = "center";\
+            pos[]       = {ase_obj_##name##_iconRotCorr, { 0.000,        -0.040       }, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1};\
+            right[]     = {ase_obj_##name##_iconRotCorr, { 0.000 + 0.04, -0.040       }, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1};\
+            down[]      = {ase_obj_##name##_iconRotCorr, { 0.000,        -0.040 + 0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1};\
+        };\
+    };\
+    class lines_aseObj##name##Acq : lines_aseObj##name##Search {\
+        condition = C_COND(C_EQ(C_MPD_USER(modeSource), ASE_ACQ));\
+        class searchIcon: searchIcon {};\
+        class searchText: searchText {};\
+        class acqBox {\
+            type = line;\
+            width = 3;\
+            points[] = {\
+                {ase_obj_##name##_iconRotCorr, {-0.04, 0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, { 0.04, 0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, { 0.04,-0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, {-0.04,-0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+                {ase_obj_##name##_iconRotCorr, {-0.04, 0.04}, 1, ase_obj_iconTranslate, 1, ase_obj_##name, 1},\
+            };\
+        };\
+    };\
+    class lines_ASEObj##name##Track : lines_aseObj##name##Acq {\
+        condition = C_COND(C_EQ(C_MPD_USER(modeSource), ASE_TRK));\
+        blinkingPattern[] = {0.25,0.25};\
+        blinkingStartsOn = 1;\
+        class searchIcon: searchIcon {};\
+        class searchText: searchText {};\
+        class acqBox: acqBox{};\
+        class trackLine {\
+            type     = line;\
+            width    = 3;\
+            points[] = {\
+                {ase_obj_##name, { 0.000, 0.018}, 1},\
+                {ase_obj_##name, { 0.000, 0.036}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.054}, 1},\
+                {ase_obj_##name, { 0.000, 0.071}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.089}, 1},\
+                {ase_obj_##name, { 0.000, 0.107}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.125}, 1},\
+                {ase_obj_##name, { 0.000, 0.143}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.161}, 1},\
+                {ase_obj_##name, { 0.000, 0.179}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.196}, 1},\
+                {ase_obj_##name, { 0.000, 0.214}, 1}, {},\
+                {ase_obj_##name, { 0.000, 0.232}, 1},\
+                {ase_obj_##name, { 0.000, 0.250}, 1}, {},\
+            };\
+        };\
+    };\
+};

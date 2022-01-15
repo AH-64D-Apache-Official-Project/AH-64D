@@ -1,7 +1,26 @@
+/* ----------------------------------------------------------------------------
+Function: fza_fnc_aseRLWR
+
+Description:
+    Handles RLWR logic
+
+Parameters:
+    _heli - The helicopter the RLWR is on
+
+Returns:
+	nothing
+
+Examples:
+	_this spawn fza_fnc_aseRLWR;
+    
+Author:
+	BradMick
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-#include "\fza_ah64_controls\headers\wcaConstants.h"
+#include "\fza_ah64_mpd\headers\mpd_defines.hpp"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex"];
+
+params ["_heli"];
 
 private _aseObjs = [];
 //Sensor targets - Lasers, Search

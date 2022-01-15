@@ -23,3 +23,17 @@
 #define FCR_TYPE_FLYER 3
 #define FCR_TYPE_TRACKED 4
 #define FCR_TYPE_ADU 5
+
+
+//ASE
+#define ASE_LSR 4   //Laser
+#define ASE_LNC 3   //Launch
+#define ASE_TRK 2   //Track
+#define ASE_ACQ 1   //Acquisition
+#define ASE_SRH 0   //Search
+
+#define ASE_LSR_RANGE_M 4000
+#define ASE_LNC_RANGE_M 4000
+#define ASE_TRK_RANGE_M 6000
+#define ASE_ACQ_RANGE_M 8000
+#define ASE_SRH_RANGE_M 10000
