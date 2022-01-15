@@ -32,6 +32,6 @@ class CfgFunctions
         class route {
             file = "\fza_ah64_dms\functions\route";
             class routeSetDir{R;};
-        }
+        };
     };
 };

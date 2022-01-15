@@ -36,12 +36,6 @@ if (_value) then {
 		case "fza_ah64_sightSelectFCR": {
 			[_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
 		};
-		case "fza_ah64_fcrModeGTM": {
-			_heli setVariable ["fza_ah64_agmode", FCR_MODE_GND, true];
-		};
-		case "fza_ah64_fcrModeATM": {
-			_heli setVariable ["fza_ah64_agmode", FCR_MODE_AIR, true];
-		};
 		case "fza_ah64_symbologySelectUp": {
 			switch (_heli getVariable "fza_ah64_hmdfsmode") do {
 				case "trans": {
@@ -69,11 +63,7 @@ if (_value) then {
 		};
 		case "fza_ah64_fcrSingleScan": {
 			player action ["ActiveSensorsOn", vehicle player];
-			if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR) then {
-				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 8, "seconds"] call BIS_fnc_runLater;
-			} else {
-				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 4, "seconds"] call BIS_fnc_runLater;
-			};
+			_heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
 		};
 		case "fza_ah64_targetStoreUpdate": {
 			// Todo: Implemen target store

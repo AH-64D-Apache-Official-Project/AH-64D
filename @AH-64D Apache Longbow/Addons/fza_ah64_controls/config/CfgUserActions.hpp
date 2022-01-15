@@ -21,8 +21,6 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_sightSelectTADS, "Sight Select TADS", "Sets the current sight to TADS");
 	CfgUserActionDef(fza_ah64_sightSelectFXD, "Sight Select FXD", "Sets the current sight to FXD");
 	CfgUserActionDef(fza_ah64_sightSelectFCR, "Sight Select FCR", "Sets the current sight to FCR");
-	CfgUserActionDef(fza_ah64_fcrModeGTM, "FCR Mode Select GTM", "Sets the current FCR mode to GTM (Ground Targeting Mode)");
-	CfgUserActionDef(fza_ah64_fcrModeATM, "FCR Mode Select ATM", "Sets the current FCR mode to ATM (Air Targeting Mode)");
 	CfgUserActionDef(fza_ah64_symbologySelectUp, "Symbology Select Up", "Cycles the HDU Symbology between Transition and Cruise modes");
 	CfgUserActionDef(fza_ah64_symbologySelectDown, "Symbology Select Down", "Cycles the HDU Symbology between Hover and Bobup modes");
 	CfgUserActionDef(fza_ah64_symbologySelectPress, "Symbology Select Press", "Brings up the FLT page on the left MPD");

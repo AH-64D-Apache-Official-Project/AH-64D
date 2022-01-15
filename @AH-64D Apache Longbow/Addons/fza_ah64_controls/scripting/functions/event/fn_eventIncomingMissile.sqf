@@ -35,7 +35,6 @@ if !(missileTarget _missile == _heli) exitwith {}; // Would this ever be true?
 
 //Add target info to databases
 fza_ah64_threatfiring pushBackUnique vehicle _instigator;
-fza_ah64_targetlist pushBackUnique vehicle _instigator;
 
 //ase page link Beg
 if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethreatsdraw) then {

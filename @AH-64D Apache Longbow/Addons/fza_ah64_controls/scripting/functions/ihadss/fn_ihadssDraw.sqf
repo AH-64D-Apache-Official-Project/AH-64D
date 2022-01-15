@@ -61,7 +61,9 @@ _bobpos = [0, 0];
 ///0.0002// 5km//
 ///0.0005// 2km//
 ///0.001// 1km//
-_fcrantennafor = 0.5;
+_fcrantennafor = -100;
+_fcrhdg = -1000;
+_showFcrLastScan = false;
 _radrange = "20";
 _nolosbox = "";
 _losbox = "";
@@ -371,16 +373,8 @@ if (!isNil "_nextPointPos") then {
 };
 
 /////////////////////////////////////////////////////////
-switch (_heli getVariable "fza_ah64_agmode") do {
-    case FCR_MODE_GND: {
-        _sensor = "R ";
-        _acqihadss = "FCR/G";
-    };
-    case FCR_MODE_AIR: {
-        _sensor = "R ";
-        _acqihadss = "FCR/A";
-    }
-};
+_sensor = "R ";
+_acqihadss = "FCR/G";
 
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
@@ -450,16 +444,12 @@ _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 
 _radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
 _baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
 
-_fcrDir = 0.125- abs((((_heli animationPhase "longbow")*30)%1.2*2-1.2)*(0.25/1.2));
-_fcrantennafor = (_fcrDir * 0.48) + 0.5;
-if (_fcrantennafor > 0.56) then {
-    _fcrantennafor = 0.56;
-};
-if (_fcrantennafor < 0.44) then {
-    _fcrantennafor = 0.44;
-};
-if !(_heli animationPhase "fcr_enable" == 1) then {
-    _fcrantennafor = -100;
+private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
+if !isNil {_fcrLastScan # 0} then {
+    _fcrhdg = _fcrLastScan # 0;
+    _showFcrLastScan = true;
+    _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
+    _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
 _sensorposx = (_heli animationphase "tads_tur") * -0.025;
 _sensorposy = (_heli animationphase "tads") * -0.015;
@@ -475,6 +465,8 @@ if (_fcrdir < 0.3) then {
 };
 if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrdir = -100;
+    _fcrantennafor = -100;
+    _showFcrLastScan = false;
 };
 _slip = (fza_ah64_slip * 0.5) + 0.492;
 if (_slip > 0.54) then {
@@ -948,6 +940,7 @@ _320dir = _helidir - 320;
 _330dir = _helidir - 330;
 _340dir = _helidir - 340;
 _350dir = _helidir - 350;
+_fcrdir = _helidir - _fcrhdg;
 if (_10dir < 0) then {
     _10dir = _10dir + 360;
 };
@@ -1053,6 +1046,9 @@ if (_340dir < 0) then {
 if (_350dir < 0) then {
     _350dir = _350dir + 360;
 };
+if (_fcrdir < 0) then {
+    _fcrdir = _fcrdir + 360;
+};
 
 // CAMERA HEADINGS FOR GUNNER
 
@@ -1115,7 +1111,7 @@ _320mark = (_320dir * (-1 / 360)) + 1.5;
 _330mark = (_330dir * (-1 / 360)) + 1.5;
 _340mark = (_340dir * (-1 / 360)) + 1.5;
 _350mark = (_350dir * (-1 / 360)) + 1.5;
-
+_fcrmark = (_fcrdir * (-1 / 360)) + 1.5;
 if (_alternatesensor > 0.7) then {
     _alternatesensor = 0.7;
 };
@@ -1344,6 +1340,12 @@ if (_350mark > 0.7) then {
 if (_350mark < 0.3) then {
     _350mark = _350mark - 100;
 };
+if (_fcrmark > 0.7) then {
+    _fcrmark = _fcrmark - 1;
+};
+if (_fcrmark < 0.3) then {
+    _fcrmark = _fcrmark - 100;
+};
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetPosition[_alternatesensor - 0.025, 0.31];
 
 if (_curwpdir < -360 || _curwpdir > 360) then {
@@ -1387,6 +1389,8 @@ if (_curwpdir < -360 || _curwpdir > 360) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlSetPosition[_320mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlSetPosition[_340mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlSetPosition[_350mark, 0.29];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[[-100, _fcrmark - 0.01] select _showFcrLastScan, 0.31];
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlCommit 0;
@@ -1425,6 +1429,7 @@ if (_curwpdir < -360 || _curwpdir > 360) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlCommit 0;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
 
 if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
     1 cuttext["", "PLAIN"];

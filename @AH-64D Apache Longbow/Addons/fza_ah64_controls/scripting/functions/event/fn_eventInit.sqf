@@ -35,13 +35,15 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli animateSource ["cpg_firesw", 0.5];
     _heli animateSource ["tads_stow", 1];
     _heli setVariable ["fza_ah64_estarted", false, true];
-    _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_hellfireTrajectory", "lo", true];
+    _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+    _heli setVariable ["fza_ah64_fcrLastScan", [nil, nil, time], true];
+    _heli setVariable ["fza_ah64_fcrTargets", [], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
