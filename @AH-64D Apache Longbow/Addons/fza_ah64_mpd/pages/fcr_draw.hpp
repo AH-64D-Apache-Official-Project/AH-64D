@@ -162,7 +162,7 @@ class fcr_draw {
                 type = line;
                 width = 3;
                 points[] = {
-                    {"FCR_NearBar", {0, 0.05}, 1},
+                    {"FCR_NearBar", {0, 0.050}, 1},
                     {"FCR_NearBar", {0, 0.325}, 1}
                 };
             };

@@ -1,4 +1,196 @@
 class ase_draw {
+    class ase_threats_gnd {
+        color[] = {1,1,0,1};
+        class sensor_group {
+            type            = sensor;
+            pos[]           = {{0.175, 0.175}, 1};  //top left of circle
+            down[]          = {{0.825, 0.825}, 1};  //bottom right of circle
+            showTargetTypes = 2+4+8+16+32+64+128+1024;
+            /***
+            1 - Sensor sectors,
+            2 - Threats, <--Lock/Launch cone
+            4 - Marked tgt symbol,
+            8 - Own detection,
+            16 - Remote detection,
+            32 - Active detection,
+            64 - Passive detection,
+            128 - Ground tgts,
+            256 - Air tgts,
+            512 - Men,
+            1024 - Special (laser, NV)
+            ***/
+            width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
+            sensorLineType    = 0;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
+            sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
+            range             = 5000;
+            
+            /*class MissileThreat { <-- No MWS so a whole lotta nope here.
+                color[] = {1,1,0,1};
+                class TargetLines {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        {{-0.04,  0.04}, 1},
+                        {{ 0.04,  0.04}, 1},
+                        {{ 0.04, -0.04}, 1},
+                        {{-0.04, -0.04}, 1},
+                        {{-0.04,  0.04}, 1},
+                    };
+                };
+            };*/
+            class rwr { //Radar is emitting
+                class TargetLines {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        //ADU symbol
+                        {{ 0.000,-0.005}, 1},
+                        {{ 0.015, 0.025}, 1},
+                        {{-0.015, 0.025}, 1},
+                        {{ 0.000,-0.005}, 1}
+                    };
+                };
+                class Text {
+                    type        ="text";
+                    source      ="static";
+                    text        ="S A";
+                    scale       =1;
+                    sourceScale =1;
+                    align       = "center";
+                    pos[]       = {{ 0.000,        -0.040       }, 1};
+                    right[]     = {{ 0.000 + 0.04, -0.040       }, 1};
+                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                }; 
+            };
+            class markingThreat: rwr {   //Radar tracking (acquisition)
+                class TargetLines : TargetLines {
+                    points[] = {
+                        //ADU symbol
+                        {{ 0.000,-0.005}, 1},
+                        {{ 0.015, 0.025}, 1},
+                        {{-0.015, 0.025}, 1},
+                        {{ 0.000,-0.005}, 1}, {},
+                        //Acquistion/Tracking Box
+                        {{-0.04,  0.04}, 1},
+                        {{ 0.04,  0.04}, 1},
+                        {{ 0.04, -0.04}, 1},
+                        {{-0.04, -0.04}, 1},
+                        {{-0.04,  0.04}, 1},
+                    };
+                };
+            class Text {
+                    type        ="text";
+                    source      ="static";
+                    text        ="S A";
+                    scale       =1;
+                    sourceScale =1;
+                    align       = "center";
+                    pos[]       = {{ 0.000,        -0.040    }, 1};
+                    right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
+                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                }; 
+            };
+            class lockingThreat: rwr {   //Radar is locked on (track/launch)
+                class TargetLines : TargetLines {
+                    points[] = {
+                        //ADU symbol
+                        {{ 0.000,-0.005}, 1},
+                        {{ 0.015, 0.025}, 1},
+                        {{-0.015, 0.025}, 1},
+                        {{ 0.000,-0.005}, 1}, {},
+                        //Acquistion/Tracking Box
+                        {{-0.04,  0.04}, 1},
+                        {{ 0.04,  0.04}, 1},
+                        {{ 0.04, -0.04}, 1},
+                        {{-0.04, -0.04}, 1},
+                        {{-0.04,  0.04}, 1},
+                    };
+                };
+                class Text {
+                    type        ="text";
+                    source      ="static";
+                    text        ="S A";
+                    scale       =1;
+                    sourceScale =1;
+                    align       = "center";
+                    pos[]       = {{ 0.000,        -0.040    }, 1};
+                    right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
+                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                };  
+            };
+            /*class markedTarget {
+                color[] = {1,0,1,1};
+                class TargetLines {
+                    points[] = {
+                        //Laser symbol
+                        {{-0.015,-0.015}, 1},
+                        {{ 0.015, 0.015}, 1}, {},
+                        {{-0.015, 0.015}, 1},
+                        {{ 0.015,-0.015}, 1}, {},
+                        {{-0.015, 0.000}, 1},
+                        {{ 0.015, 0.000}, 1}, {},
+                    };
+                };
+            };
+            class target: markedTarget {
+                color[] = {0,1,1,1};
+                class TargetLines {
+                    points[] = {
+                        //Laser symbol
+                        {{-0.015,-0.015}, 1},
+                        {{ 0.015, 0.015}, 1}, {},
+                        {{-0.015, 0.015}, 1},
+                        {{ 0.015,-0.015}, 1}, {},
+                        {{-0.015, 0.000}, 1},
+                        {{ 0.015, 0.000}, 1}, {},
+                    };
+                };
+            };
+            class targetLaser: target {
+                color[] = {0,1,1,1};
+                class TargetLines {
+                    points[] = {
+                        //Laser symbol
+                        {{-0.015,-0.015}, 1},
+                        {{ 0.015, 0.015}, 1}, {},
+                        {{-0.015, 0.015}, 1},
+                        {{ 0.015,-0.015}, 1}, {},
+                        {{-0.015, 0.000}, 1},
+                        {{ 0.015, 0.000}, 1}, {},
+                    };
+                };
+            };
+            class targetLaserFriendly: targetLaser {
+                color[] = {0,1,0,1};
+                class TargetLines {
+                    points[] = {
+                        //Laser symbol
+                        {{-0.015,-0.015}, 1},
+                        {{ 0.015, 0.015}, 1}, {},
+                        {{-0.015, 0.015}, 1},
+                        {{ 0.015,-0.015}, 1}, {},
+                        {{-0.015, 0.000}, 1},
+                        {{ 0.015, 0.000}, 1}, {},
+                    };
+                };
+            };
+            class targetLaserEnemy: targetLaser  {
+                color[] = {1,0,0,1};
+                class TargetLines {
+                    points[] = {
+                        //Laser symbol
+                        {{-0.015,-0.015}, 1},
+                        {{ 0.015, 0.015}, 1}, {},
+                        {{-0.015, 0.015}, 1},
+                        {{ 0.015,-0.015}, 1}, {},
+                        {{-0.015, 0.000}, 1},
+                        {{ 0.015, 0.000}, 1}, {},
+                    };
+                };
+            };*/
+        };
+    };
+
     class lines {
         type = line;
         width = 3;
@@ -215,36 +407,40 @@ class ase_draw {
             MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(2*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_6_Y + 0.6*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
         };
     };
-    /*
-    #define ASE_OBJ_01_ANGLE 0
+    
+    //#define ASE_OBJ_01_ANGLE 0
     class lines_ASEObj01Track {
         color[] = {1,1,0,1};
         class Lines {
-            type = line;
+            type     = line;
             width    = 3;
             points[] = {
                 //ASE Object 0
                 //--Dash 1
-                {"ase_ownship", { __EVAL(-0.021 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.021 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.043 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.043 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.018}, 1},
+                {"ase_obj_01", { 0.000, 0.036}, 1}, {},
                 //--Dash 2
-                {"ase_ownship", { __EVAL(-0.064 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.064 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.086 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.086 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.054}, 1},
+                {"ase_obj_01", { 0.000, 0.071}, 1}, {},
                 //--Dash 3
-                {"ase_ownship", { __EVAL(-0.107 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.107 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.129 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.129 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.089}, 1},
+                {"ase_obj_01", { 0.000, 0.107}, 1}, {},
                 //--Dash 4
-                {"ase_ownship", { __EVAL(-0.150 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.150 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.171 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.171 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.125}, 1},
+                {"ase_obj_01", { 0.000, 0.143}, 1}, {},
                 //--Dash 5
-                {"ase_ownship", { __EVAL(-0.193 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.193 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.214 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.214 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.161}, 1},
+                {"ase_obj_01", { 0.000, 0.179}, 1}, {},
                 //--Dash 6
-                {"ase_ownship", { __EVAL(-0.236 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.236 * sin ASE_OBJ_01_ANGLE)}, 1},
-                {"ase_ownship", { __EVAL(-0.257 * cos ASE_OBJ_01_ANGLE), __EVAL(-0.257 * sin ASE_OBJ_01_ANGLE)}, 1}, {},
+                {"ase_obj_01", { 0.000, 0.196}, 1},
+                {"ase_obj_01", { 0.000, 0.214}, 1}, {},
+                //--Dash 7
+                {"ase_obj_01", { 0.000, 0.232}, 1},
+                {"ase_obj_01", { 0.000, 0.250}, 1}, {},
             };
         };
     };
+    /*
    #define ASE_OBJ_02_ANGLE 51
     class lines_ASEObj02Track {
         color[] = {1,1,0,1};
@@ -419,128 +615,6 @@ class ase_draw {
             };
         };
     };*/
-
-    class ase_threats_gnd {
-        color[] = {1,1,0,1};
-        class sensor_group {
-            type            = sensor;
-            pos[]           = {{0.175, 0.175}, 1};  //top left of circle
-            down[]          = {{0.825, 0.825}, 1};  //bottom right of circle
-            showTargetTypes = 2+8+16+32+64+128+1024;
-            /***
-            1 - Sensor sectors,
-            2 - Threats, <--Lock/Launch cone
-            4 - Marked tgt symbol,
-            8 - Own detection,
-            16 - Remote detection,
-            32 - Active detection,
-            64 - Passive detection,
-            128 - Ground tgts,
-            256 - Air tgts,
-            512 - Men,
-            1024 - Special (laser, NV)
-            ***/
-            width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
-            sensorLineType    = 0;    //Same as lineType
-            sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
-            range             = 5000;
-            
-            /*class MissileThreat { <-- No MWS so a whole lotta nope here.
-                color[] = {1,1,0,1};
-                class TargetLines {
-                    type = line;
-                    width = 3;
-                    points[] = {
-                        {{-0.04,  0.04}, 1},
-                        {{ 0.04,  0.04}, 1},
-                        {{ 0.04, -0.04}, 1},
-                        {{-0.04, -0.04}, 1},
-                        {{-0.04,  0.04}, 1},
-                    };
-                };
-            };*/
-            class rwr { //Radar is emitting
-                class TargetLines {
-                    type = line;
-                    width = 3;
-                    points[] = {
-                        //ADU symbol
-                        {{ 0.000,-0.005}, 1},
-                        {{ 0.015, 0.025}, 1},
-                        {{-0.015, 0.025}, 1},
-                        {{ 0.000,-0.005}, 1}
-                    };
-                };
-                class Text {
-                    type        ="text";
-                    source      ="static";
-                    text        ="S A";
-                    scale       =1;
-                    sourceScale =1;
-                    align       = "center";
-                    pos[]       = {{ 0.000,        -0.040    }, 1};
-                    right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
-                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
-                }; 
-            };
-            class markingThreat: rwr {   //Radar tracking (acquisition)
-                class TargetLines : TargetLines {
-                    points[] = {
-                        //ADU symbol
-                        {{ 0.000,-0.005}, 1},
-                        {{ 0.015, 0.025}, 1},
-                        {{-0.015, 0.025}, 1},
-                        {{ 0.000,-0.005}, 1}, {},
-                        //Acquistion/Tracking Box
-                        {{-0.04,  0.04}, 1},
-                        {{ 0.04,  0.04}, 1},
-                        {{ 0.04, -0.04}, 1},
-                        {{-0.04, -0.04}, 1},
-                        {{-0.04,  0.04}, 1},
-                    };
-                };
-            class Text {
-                    type        ="text";
-                    source      ="static";
-                    text        ="S A";
-                    scale       =1;
-                    sourceScale =1;
-                    align       = "center";
-                    pos[]       = {{ 0.000,        -0.040    }, 1};
-                    right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
-                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
-                }; 
-            };
-            class lockingThreat: rwr {   //Radar is locked on (track/launch)
-                class TargetLines : TargetLines {
-                    points[] = {
-                        //ADU symbol
-                        {{ 0.000,-0.005}, 1},
-                        {{ 0.015, 0.025}, 1},
-                        {{-0.015, 0.025}, 1},
-                        {{ 0.000,-0.005}, 1}, {},
-                        //Acquistion/Tracking Box
-                        {{-0.04,  0.04}, 1},
-                        {{ 0.04,  0.04}, 1},
-                        {{ 0.04, -0.04}, 1},
-                        {{-0.04, -0.04}, 1},
-                        {{-0.04,  0.04}, 1},
-                    };
-                };
-                class Text {
-                    type        ="text";
-                    source      ="static";
-                    text        ="S A";
-                    scale       =1;
-                    sourceScale =1;
-                    align       = "center";
-                    pos[]       = {{ 0.000,        -0.040    }, 1};
-                    right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
-                    down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
-                };  
-            };
-        };
-    };
 
     //Ownship Icon
     class lines_ownshipIcon {

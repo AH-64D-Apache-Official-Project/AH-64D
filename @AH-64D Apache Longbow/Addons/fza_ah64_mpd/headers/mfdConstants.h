@@ -191,6 +191,22 @@
 #define MFD_IND_FCR_ANIM 0
 #define MFD_IND_FCR_SCAN_TYPE 1
 
+//ASE Indices
+//#define MFD_IND_ASE_CHAFF_STATE 0 <-- Text only, doesn't really control or do anything
+#define MFD_IND_ASE_IRJAM_STATE 0
+#define MFD_IND_ASE_RLWR_STATE  1
+#define MFD_IND_ASE_RLWR_COUNT  2
+#define MFD_IND_ASE_RJAM_STATE  3
+#define MFD_IND_ASE_AUTOPAGE    4
+#define MFD_IND_ASE_ICON_01_AZ  5
+#define MFD_IND_ASE_ICON_02_AZ  6
+#define MFD_IND_ASE_ICON_03_AZ  7
+#define MFD_IND_ASE_ICON_04_AZ  8
+#define MFD_IND_ASE_ICON_05_AZ  9
+#define MFD_IND_ASE_ICON_06_AZ  10
+#define MFD_IND_ASE_ICON_07_AZ  11
+
+
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1

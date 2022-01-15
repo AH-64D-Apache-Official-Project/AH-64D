@@ -80,13 +80,6 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED
 };
 
 #ifdef __A3_DEBUG__
-
-//Test
-hintsilent format ["Sensor Threats:
-					\n%1
-					\nSensor Targets:
-					\n%2", getSensorThreats _heli, getSensorTargets _heli];
-
 /*
 hintsilent format ["v0.11
 					\nEngine 1 Ng = %1
