@@ -115,7 +115,6 @@ fza_ah64_pfzcache = ["none", "none", [], 0];
 fza_ah64_asethreatsdraw = [];
 fza_ah64_threattracking = [];
 fza_ah64_threatfiring = [];
-fza_ah64_mycurrenttarget = objNull;
 fza_ah64_AseRWR = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];

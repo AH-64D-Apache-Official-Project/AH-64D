@@ -45,7 +45,6 @@ switch (_state get "subPageVarPage" select 0) do {
 };
 
 private _pointsArray = [];
-
 {
     {
         if (_x isEqualTo -1) then {continue;};

@@ -56,7 +56,7 @@ if (_scale == -1) then {
 
 private _pointsWithPos = _points apply {
 	private _pos = _x # 1;
-	private _theta = (_heli getDir _pos) - (direction _heli);
+	private _theta = _heli getRelDir _pos;
 	if (_x # 0) then {
 		private _targxpos = _center # 0 + (sin _theta) * ((_heli distance2D _pos) * _scale);
 		private _targypos = _center # 1 - (cos _theta) * ((_heli distance2D _pos) * _scale);
@@ -230,6 +230,23 @@ for "_i" from 0 to 31 do {
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
+		};
+		case MPD_ICON_TYPE_H : {
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
+			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
 			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
