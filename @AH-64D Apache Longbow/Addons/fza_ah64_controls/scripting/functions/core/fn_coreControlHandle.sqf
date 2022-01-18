@@ -113,6 +113,17 @@ if (_value) then {
 				[_heli, "fza_CMFlareLauncher", [-1]] call BIS_fnc_fire;
 			}
 		};
+		case "vehLockTargets": {
+			private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
+			if (count _fcrTargets == 0) then {
+				_heli setVariable ["fza_ah64_fcrNts", objNull, true];
+			} else {
+				private _oldNts = _heli getVariable "fza_ah64_fcrNts";
+				private _oldNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
+				private _newNtsIndex = (_oldNtsIndex + 1) mod count _fcrTargets;
+				_heli setVariable ["fza_ah64_fcrNts", _fcrTargets # _newNtsIndex # 3, true];
+			};
+		}
 	};
 };
 

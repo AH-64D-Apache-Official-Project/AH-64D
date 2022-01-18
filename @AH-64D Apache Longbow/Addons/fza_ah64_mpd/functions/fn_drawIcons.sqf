@@ -28,7 +28,7 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.75]]];
+params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.75]], ["_heading", direction (_this # 0)], ["_heliPos", getPosASL (_this # 0)]];
 #include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
@@ -56,10 +56,10 @@ if (_scale == -1) then {
 
 private _pointsWithPos = _points apply {
 	private _pos = _x # 1;
-	private _theta = _heli getRelDir _pos;
+	private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _pos # 0, _pos # 1, _heading] call fza_fnc_relativeDirection;
 	if (_x # 0) then {
-		private _targxpos = _center # 0 + (sin _theta) * ((_heli distance2D _pos) * _scale);
-		private _targypos = _center # 1 - (cos _theta) * ((_heli distance2D _pos) * _scale);
+		private _targxpos = _center # 0 + (sin _theta) * ((_heliPos distance2D _pos) * _scale);
+		private _targypos = _center # 1 - (cos _theta) * ((_heliPos distance2D _pos) * _scale);
 		_pos = [_targxpos, _targypos];
 	};
 

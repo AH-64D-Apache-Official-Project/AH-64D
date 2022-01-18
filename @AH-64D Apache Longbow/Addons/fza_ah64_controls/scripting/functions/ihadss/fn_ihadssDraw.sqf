@@ -26,9 +26,9 @@ Author:
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;
-_modestate = 0;
-_zoomstate = 0;
-_targhead = 0;
+_modestate     = 0;
+_zoomstate     = 0;
+_targhead      = 0;
 
 _sensor = "R ";
 _sensxm = "HMD";
@@ -127,8 +127,9 @@ if (isNull laserTarget _heli) then {
 
 
 _targPos = [-100, -100];
-if(!isNull fza_ah64_mycurrenttarget) then {
-    _targPos = worldToScreen(getpos fza_ah64_mycurrenttarget);
+private _nts = _heli getVariable "fza_ah64_fcrNts";
+if(!isNull _nts) then {
+    _targPos = worldToScreen(getpos _nts);
     if (count _targPos < 1) then {
         _targPos = [-100, -100];
     } else {
@@ -394,15 +395,15 @@ if (_heli iskindof "fza_ah64base") then {
     };
 };
 
-_targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
-if (isNull fza_ah64_mycurrenttarget) then {
-    _targrange = "0.00";
+_targrange = format["%1", ((round((_heli distance _nts) * 0.01)) * 0.1)];
+if (isNull _nts) then {
+    _targrange = "0.0";
 };
 if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
+_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _nts select 0), (getposatl _nts select 1)] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -425,11 +426,11 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
     _targhead = 45;
 };
 _targxpos = (_targhead * 0.0027777777777777777777777777777778) + 0.945;
-_targypos = ((_heli distance fza_ah64_mycurrenttarget) * (_heli getVariable "fza_ah64_rangesetting")) + 0.95;
-if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {
+_targypos = ((_heli distance _nts) * (_heli getVariable "fza_ah64_rangesetting")) + 0.95;
+if (_targypos < 0.63 || isNull _nts) then {
     _targypos = 0.63;
 };
-if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {
+if (_targxpos > 1.07 || _targxpos < 0.82 || isNull _nts) then {
     _targxpos = 0.95;
 };
 _radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
@@ -505,7 +506,7 @@ if (_was == WAS_WEAPON_MSL) then {
     };
     private ["_mistargPos", "_radar"];
     if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-        _mistargPos = fza_ah64_mycurrenttarget;
+        _mistargPos = _nts;
         _radar = true;
     } else {
         _mistargPos = _heli getVariable "fza_ah64_currentlase";

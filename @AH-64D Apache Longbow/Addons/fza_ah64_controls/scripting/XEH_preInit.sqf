@@ -108,7 +108,6 @@ fza_ah64_lastdir = 0;
 fza_ah64_dps = 0;
 fza_ah64_slip = 0;
 fza_ah64_tiron = false;
-fza_ah64_mycurrenttarget = objNull;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
 fza_ah64_pfzcache = ["none", "none", [], 0];
@@ -224,3 +223,4 @@ OVERRIDE_ACTION("SwitchWeaponGrp4")
 OVERRIDE_ACTION("nextWeapon")
 OVERRIDE_ACTION("prevWeapon")
 OVERRIDE_ACTION("launchCM")
+OVERRIDE_ACTION("vehLockTargets")

@@ -32,11 +32,13 @@ private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel = [0, 0, 0];
 private _targPos = -1;
 private _lockCameraForwards = false;
+private _nts = _heli getVariable "fza_ah64_fcrNts";
+
 switch (_sight) do {
     case SIGHT_FCR:{
-       if (!isNull fza_ah64_mycurrenttarget) then {
-            _targPos = aimPos fza_ah64_mycurrenttarget;
-            _targVel = velocity fza_ah64_mycurrenttarget;
+       if (!isNull _nts) then {
+            _targPos = aimPos _nts;
+            _targVel = velocity _nts;
         } else {
             _lockCameraForwards = true;
         };

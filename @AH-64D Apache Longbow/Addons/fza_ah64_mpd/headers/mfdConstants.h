@@ -10,14 +10,14 @@
 #define MFD_OFFSET_R 30
 
 //Flight page
-#define MFD_TEXT_IND_FLT_TORQUE  0
-#define MFD_TEXT_IND_FLT_AIRSPEED 1
-#define MFD_TEXT_IND_FLT_DESTINATION 2
-#define MFD_TEXT_IND_FLT_GROUNDSPEED 3
+#define MFD_TEXT_IND_FLT_TORQUE       0
+#define MFD_TEXT_IND_FLT_AIRSPEED     1
+#define MFD_TEXT_IND_FLT_DESTINATION  2
+#define MFD_TEXT_IND_FLT_GROUNDSPEED  3
 #define MFD_TEXT_IND_FLT_DISTANCETOGO 4
-#define MFD_TEXT_IND_FLT_TIMETOGO 5
-#define MFD_TEXT_IND_FLT_BALT 6
-#define MFD_TEXT_IND_FLT_GALT 7
+#define MFD_TEXT_IND_FLT_TIMETOGO     5
+#define MFD_TEXT_IND_FLT_BALT         6
+#define MFD_TEXT_IND_FLT_GALT         7
 
 #define MFD_IND_FLT_TURN 0
 #define MFD_IND_FLT_SLIP 1
@@ -188,8 +188,17 @@
 #define MFD_IND_TSD_THRT_ADD_TYPE 1
 
 // FCR Indices
-#define MFD_IND_FCR_ANIM 0
-#define MFD_IND_FCR_SCAN_TYPE 1
+//--User value
+#define MFD_IND_FCR_ANIM       0
+#define MFD_IND_FCR_SCAN_TYPE  1
+//--User text
+#define MFD_TEXT_IND_FCR_COUNT 0
+#define MFD_TEXT_IND_FCR_SSS   1
+#define MFD_TEXT_IND_FCR_RRS   2
+#define MFD_TEXT_IND_FCR_SS    3
+#define MFD_TEXT_IND_FCR_WC    4
+#define MFD_TEXT_IND_FCR_ACQ   5
+#define MFD_TEXT_IND_FCR_WS    6
 
 //ASE Indices
 //#define MFD_IND_ASE_CHAFF_STATE 0 <-- Text only, doesn't really control or do anything

@@ -19,9 +19,9 @@ Author:
 params ["_heli"];
 
 private _nextFireMode = switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
-	case "hi": {"lo"};
-	case "lo": {"dir"};
-	case "dir": {"hi"};
+	case "HI": {"HI"};
+	case "LO": {"LO"};
+	case "DIR": {"DIR"};
 	default {["Unknown missile fire mode: %1", _fireMode] call BIS_fnc_error};
 };
 _heli setVariable ["fza_ah64_hellfireTrajectory", _nextFireMode, true];

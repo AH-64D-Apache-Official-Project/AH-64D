@@ -19,12 +19,12 @@
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH 6
 
 
-#define FCR_TYPE_UNKNOWN 0
-#define FCR_TYPE_WHEELED 1
+#define FCR_TYPE_UNKNOWN    0
+#define FCR_TYPE_FLYER      1
 #define FCR_TYPE_HELICOPTER 2
-#define FCR_TYPE_FLYER 3
-#define FCR_TYPE_TRACKED 4
-#define FCR_TYPE_ADU 5
+#define FCR_TYPE_TRACKED    3
+#define FCR_TYPE_WHEELED    4
+#define FCR_TYPE_ADU        5
 
 
 //ASE
