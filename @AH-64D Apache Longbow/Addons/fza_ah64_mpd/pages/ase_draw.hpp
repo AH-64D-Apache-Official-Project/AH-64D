@@ -121,111 +121,133 @@ class ase_draw {
             {{IRJamX - 0.010, IRJamY + 0.000}, 1},
         };
     };
-    class polys_IRJamOnOff {
-        class Polygons {
-            type = polygon;
-            points[] = {
-                { //Top left
-                    {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                    {{IRJamX - 0.007, IRJamY - 0.007}, 1},
-                    {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                    {{IRJamX, IRJamY}, 1}
-                },
-                { //Top right
-                    {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                    {{IRJamX + 0.007, IRJamY - 0.007}, 1},
-                    {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                    {{IRJamX, IRJamY}, 1}
-                },
-                { //Bottom right
-                    {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                    {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
-                    {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                    {{IRJamX, IRJamY}, 1}
-                },
-                { //Bottom left
-                    {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                    {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
-                    {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                    {{IRJamX, IRJamY}, 1}
-                }
+    class IRJamON {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+        class IRJamDraw {
+            class polys_IRJamOnOff {
+                class Polygons {
+                    type = polygon;
+                    points[] = {
+                        { //Top left
+                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                            {{IRJamX - 0.007, IRJamY - 0.007}, 1},
+                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                            {{IRJamX, IRJamY}, 1}
+                        },
+                        { //Top right
+                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                            {{IRJamX + 0.007, IRJamY - 0.007}, 1},
+                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                            {{IRJamX, IRJamY}, 1}
+                        },
+                        { //Bottom right
+                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                            {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
+                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                            {{IRJamX, IRJamY}, 1}
+                        },
+                        { //Bottom left
+                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                            {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
+                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                            {{IRJamX, IRJamY}, 1}
+                        }
+                    };
+                };
+                class lines_IRJam {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                    };
+                };
+                class text_IRJamWarm {
+                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
+                    //R1
+                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
+                };
+                class text_IRJamOper {
+                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
+                    //R1
+                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
+                };
             };
-        };
-    };
-    class lines_IRJam {
-        type = line;
-        width = 3;
-        points[] = {
-            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
         };
     };
 
     #define RLWRX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define RLWRY MPD_POS_BUTTON_LR_6_Y - 0.05*MPD_TEXT_HEIGHT
-    class lines_RLWROnOff {
-        type = line;
-        width = 3;
-        points[] = {
-            //Power Indicator
-            {{RLWRX - 0.010, RLWRY + 0.000}, 1},
-            {{RLWRX - 0.007, RLWRY - 0.007}, 1},
-            {{RLWRX - 0.000, RLWRY - 0.010}, 1},
-            {{RLWRX + 0.007, RLWRY - 0.007}, 1},
-            {{RLWRX + 0.010, RLWRY + 0.000}, 1},
-            {{RLWRX + 0.007, RLWRY + 0.007}, 1},
-            {{RLWRX + 0.000, RLWRY + 0.010}, 1},
-            {{RLWRX - 0.007, RLWRY + 0.007}, 1}, 
-            {{RLWRX - 0.010, RLWRY + 0.000}, 1},
-        };
-    };
-    class polys_RLWROnOff {
-        class Polygons {
-            type = polygon;
+    class RLWR_Off {
+        class lines_RLWROnOff {
+            type = line;
+            width = 3;
             points[] = {
-                { //Top left
-                    {{RLWRX - 0.010, RLWRY + 0.000}, 1},
-                    {{RLWRX - 0.007, RLWRY - 0.007}, 1},
-                    {{RLWRX - 0.000, RLWRY - 0.010}, 1},
-                    {{RLWRX, RLWRY}, 1}
-                },
-                { //Top right
-                    {{RLWRX - 0.000, RLWRY - 0.010}, 1},
-                    {{RLWRX + 0.007, RLWRY - 0.007}, 1},
-                    {{RLWRX + 0.010, RLWRY + 0.000}, 1},
-                    {{RLWRX, RLWRY}, 1}
-                },
-                { //Bottom right
-                    {{RLWRX + 0.010, RLWRY + 0.000}, 1},
-                    {{RLWRX + 0.007, RLWRY + 0.007}, 1}, 
-                    {{RLWRX + 0.000, RLWRY + 0.010}, 1},
-                    {{RLWRX, RLWRY}, 1}
-                },
-                { //Bottom left
-                    {{RLWRX + 0.000, RLWRY + 0.010}, 1},
-                    {{RLWRX - 0.007, RLWRY + 0.007}, 1}, 
-                    {{RLWRX - 0.010, RLWRY + 0.000}, 1},
-                    {{RLWRX, RLWRY}, 1}
-                }
+                //Power Indicator
+                {{RLWRX - 0.010, RLWRY + 0.000}, 1},
+                {{RLWRX - 0.007, RLWRY - 0.007}, 1},
+                {{RLWRX - 0.000, RLWRY - 0.010}, 1},
+                {{RLWRX + 0.007, RLWRY - 0.007}, 1},
+                {{RLWRX + 0.010, RLWRY + 0.000}, 1},
+                {{RLWRX + 0.007, RLWRY + 0.007}, 1},
+                {{RLWRX + 0.000, RLWRY + 0.010}, 1},
+                {{RLWRX - 0.007, RLWRY + 0.007}, 1}, 
+                {{RLWRX - 0.010, RLWRY + 0.000}, 1},
             };
         };
     };
-    class lines_RLWR {
-        type = line;
-        width = 3;
-        points[] = {
-            //RLWR box
-            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(2*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_6_Y + 0.6*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+    class RLWR_On {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_RLWR_PWR)));
+        class RLWR_draw {
+            class polys_RLWROnOff {
+                class Polygons {
+                    type = polygon;
+                    points[] = {
+                        { //Top left
+                            {{RLWRX - 0.010, RLWRY + 0.000}, 1},
+                            {{RLWRX - 0.007, RLWRY - 0.007}, 1},
+                            {{RLWRX - 0.000, RLWRY - 0.010}, 1},
+                            {{RLWRX, RLWRY}, 1}
+                        },
+                        { //Top right
+                            {{RLWRX - 0.000, RLWRY - 0.010}, 1},
+                            {{RLWRX + 0.007, RLWRY - 0.007}, 1},
+                            {{RLWRX + 0.010, RLWRY + 0.000}, 1},
+                            {{RLWRX, RLWRY}, 1}
+                        },
+                        { //Bottom right
+                            {{RLWRX + 0.010, RLWRY + 0.000}, 1},
+                            {{RLWRX + 0.007, RLWRY + 0.007}, 1}, 
+                            {{RLWRX + 0.000, RLWRY + 0.010}, 1},
+                            {{RLWRX, RLWRY}, 1}
+                        },
+                        { //Bottom left
+                            {{RLWRX + 0.000, RLWRY + 0.010}, 1},
+                            {{RLWRX - 0.007, RLWRY + 0.007}, 1}, 
+                            {{RLWRX - 0.010, RLWRY + 0.000}, 1},
+                            {{RLWRX, RLWRY}, 1}
+                        }
+                    };
+                };
+            };
+            class lines_RLWR {
+                type = line;
+                width = 3;
+                points[] = {
+                    //RLWR box
+                    MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(2*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_6_Y + 0.6*MPD_TEXT_HEIGHT, 2*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                };
+            };
+            MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
+            //Draw ASE Objects    
+            ASE_OBJ(01, MFD_IND_ASE_OBJECT_01_MD)
+            ASE_OBJ(02, MFD_IND_ASE_OBJECT_02_MD)
+            ASE_OBJ(03, MFD_IND_ASE_OBJECT_03_MD)
+            ASE_OBJ(04, MFD_IND_ASE_OBJECT_04_MD)
+            ASE_OBJ(05, MFD_IND_ASE_OBJECT_05_MD)
+            ASE_OBJ(06, MFD_IND_ASE_OBJECT_06_MD)
+            ASE_OBJ(07, MFD_IND_ASE_OBJECT_07_MD)
         };
     };
-
-    //Draw ASE Objects    
-    ASE_OBJ(01, MFD_IND_ASE_OBJECT_01_MD)
-    ASE_OBJ(02, MFD_IND_ASE_OBJECT_02_MD)
-    ASE_OBJ(03, MFD_IND_ASE_OBJECT_03_MD)
-    ASE_OBJ(04, MFD_IND_ASE_OBJECT_04_MD)
-    ASE_OBJ(05, MFD_IND_ASE_OBJECT_05_MD)
-    ASE_OBJ(06, MFD_IND_ASE_OBJECT_06_MD)
-    ASE_OBJ(07, MFD_IND_ASE_OBJECT_07_MD)
 
     //Ownship Icon
     class lines_ownshipIcon {
@@ -289,7 +311,7 @@ class ase_draw {
         //R6
         MPD_TEXT_L(RLWR_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RLWR "))
         //MPD_BOX_L(PGM,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 2)
-        MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("7"))
+
 
         //B1 or M
         MPD_TEXT_C(TSD,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"))
@@ -322,42 +344,45 @@ class ase_draw {
         MPD_TEXT_R(OFF_3, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("F"))
     };
 
+    //Chaff
     class text_ChaffSafe {
+        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
     };
     class text_ChaffArm {
-        //MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
+        MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
     };
 
-    class textBox_RJAMOff {
-         MPD_BOX_C(OFF,  MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, 3)
+    //RF Jammer
+    class textBox_RFJAM_Off {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OFF));
+        MPD_BOX_C(OFF,  MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, 3)
     };
-    class textBox_RJAMStby {
+    class textBox_RFJAM_Stby {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_STBY));
         MPD_BOX_C(STBY,  MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
     };
-    class textBox_RJAMOper {
+    class textBox_RFJAM_Oper {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OPER));
         MPD_BOX_C(OPER,  MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
     };
 
-    class text_IRJamWarm {
-        //R1
-        //MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
-    };
-    class text_IRJamOper {
-        //R1
-        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
-    };
-
+    //ASE Autopage
     class textBox_AutopageSrh {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_SRH));
         MPD_BOX_V(SRH, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, 3)
     };
     class textBox_AutopageAcq {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_ACQ));
         MPD_BOX_V(ACQ,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 3)
     };
     class textBox_AutopageTrk {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_TRK));
         MPD_BOX_V(TRK,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, 3)
     };
     class textBox_AutopageOff {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_OFF));
         MPD_BOX_V(OFF,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 3)
     };
 
@@ -380,7 +405,7 @@ class ase_draw {
 
         //Chaff count box
         MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
-        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
 
         // Hdg info
         MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)

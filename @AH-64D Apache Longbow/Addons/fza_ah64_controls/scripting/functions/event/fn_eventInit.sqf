@@ -41,20 +41,36 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_hellfireTrajectory", "LO", true];
+    //FCR initial states
     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
     _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
     _heli setVariable ["fza_ah64_fcrNts", objNull, true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
+    //
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
+    //System States
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
     _heli setVariable ["fza_ah64_e2_fire", false, true];
     _heli setVariable ["fza_ah64_firepdisch", false, true];
     _heli setVariable ["fza_ah64_firerdisch", false, true];
+    //ASE Initial States
+    //--Chaff       - Aircraft common
+    _heli setVariable ["fza_ah64_ase_chaffState",   "safe"];
+    //--RLWR        - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off"];
+    //--IR Jammer   - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_irJamPwr",     "off"];
+    _heli setVariable ["fza_ah64_ase_irJamState",   0];
+    //--RF Jammer   - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rfJamState",   0];
+    //--Autopage    - Crewstation independent
+    _heli setVariable ["fza_ah64_ase_autopage",     1, true];
+
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irJamOn", false, true];
