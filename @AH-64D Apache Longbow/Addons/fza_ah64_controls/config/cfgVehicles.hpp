@@ -1856,6 +1856,12 @@ class CfgVehicles
 				animPeriod = 0.001;
 				initPhase=0;
             };
+			class hstab
+			{
+				source = "user";
+				animPeriod = 0.001;
+				initphase = 0;
+			};
 			class mpd_pl_obj2_v : mpd_pl_obj1_v
             {
                 selection = "mpd_pl_obj2";
