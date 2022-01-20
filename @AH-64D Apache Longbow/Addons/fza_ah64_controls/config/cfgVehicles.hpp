@@ -501,7 +501,7 @@ class CfgVehicles
 		{
 			class Hithull
 			{
-				armor = 10;
+				armor = 999;
 				minimalHit=0.05;
 				material = -1;
 				name = "fuselage";
@@ -513,7 +513,7 @@ class CfgVehicles
 				depends = "Total";
 			};/*
 			class HitAvionics
-			{   // Causes no affect in aircraft control, visual or otherwise
+			{	// Causes no affect in aircraft control, visual or otherwise
 				armor = 2.2;
 				material = 51;
 				name = "cockpit";
@@ -523,9 +523,9 @@ class CfgVehicles
 				convexComponent = "cockpit";
 				minimalHit = 0.1;
 				radius = 0.4;
-			};
-			class HitEngine1
-			{   // Causes no affect in aircraft control, visual or otherwise
+			};*/
+			class HitEngine1 
+			{
 				armor = 0.9;
 				material = 51;
 				name = "leng";
@@ -537,13 +537,13 @@ class CfgVehicles
 				radius = 0.4;
 			};
 			class HitEngine2: HitEngine1
-			{   // Causes no affect in aircraft control, visual or otherwise
+			{
 				name = "reng";
 				visual = "skin_reng";
 				convexComponent = "reng";
-			};*/
+			};/*
 			class HitEngine
-			{
+			{	// Causes no affect in aircraft control, visual or otherwise
 				armor = 1.2;
 				material = 51;
 				name = "trans";
@@ -553,7 +553,7 @@ class CfgVehicles
 				convexComponent = "trans";
 				minimalHit = 0.5;
 				radius = 0.4;
-			};
+			};*/
 			class HitFuel
 			{
 				armor = 0.8;
@@ -566,7 +566,7 @@ class CfgVehicles
 			{
 				armor = 0.9;
 				material = 51;
-				name = "IR Jammer"; // renamed for the purpose of knowing what to repair to get jammers working
+				name = "IR Jammer";
 				passthrough = 0.1;
 				visual = "skin_lefab";
 				minimalHit = 0.3;
@@ -601,7 +601,7 @@ class CfgVehicles
 				radius = 0.4;
 			};
 			class HitHStabilizerL1
-			{   //causes aircraft to shake
+			{	//causes aircraft to shake slightly when damaged
 				armor = 1;
 				material = 51;
 				name = "lwing";
@@ -610,12 +610,12 @@ class CfgVehicles
 				minimalHit = 0.3;
 			};
 			class HitHStabilizerR1: HitHStabilizerL1
-			{   //causes aircraft to shake
+			{   //causes aircraft to shake slightly when damaged
 				name = "rwing";
 				visual = "skin_rwing";
 			};
 			class HitVStabilizer1
-			{   //causes aircraft to shake
+			{   //causes aircraft to shake slightly when damaged
 				armor = 0.5;
 				material = 51;
 				name = "vtail";
@@ -653,9 +653,10 @@ class CfgVehicles
 				name = "radar";
 				passthrough = 0.1;
 				visual = "radar";
-			};/*// CUSTOM HITPOINTS NOT CURRANTLY USED
+			};
+			/* CUSTOM HITPOINTS NOT CURRANTLY USED
 			class Actuator
-			{   //Causes no effect on aircraft other than visual
+			{   //Causes no effect on aircraft other than visual, already done in hitgun
 				armor = 0.3;
 				material = 51;
 				name = "otocvez";
@@ -663,12 +664,12 @@ class CfgVehicles
 				visual = "skin_m230";
 			};
 			class Gun: Actuator
-			{   //Causes no effect on aircraft other than visual
+			{   //Causes no effect on aircraft other than visual, already done in hitgun
 				name = "otochlaven";
 				visual = "skin_otochlaven";
 			};
 			class HitGear
-			{
+			{   //Causes no effect on aircraft other than visual
 				armor = 0.3;
 				material = 51;
 				name = "maingear";
@@ -676,12 +677,12 @@ class CfgVehicles
 				visual = "skin_gear";
 			};
 			class RearGear: HitGear
-			{
+			{   //Causes no effect on aircraft other than visual
 				name = "twsus";
 				visual = "twsus";
-			};
+			};*/
 			class Pylon1
-			{
+			{   //Causes no effect on aircraft other than visual
 				armor = 0.3;
 				material = 51;
 				name = "pylon1";
@@ -689,20 +690,20 @@ class CfgVehicles
 				visual = "skin_pylon1";
 			};
 			class pylon2: Pylon1
-			{
+			{   //Causes no effect on aircraft other than visual
 				name = "pylon2";
 				visual = "skin_pylon2";
 			};
 			class pylon3: Pylon1
-			{
+			{   //Causes no effect on aircraft other than visual
 				name = "pylon3";
 				visual = "skin_pylon3";
 			};
 			class pylon4: Pylon1
-			{
+			{   //Causes no effect on aircraft other than visual
 				name = "pylon4";
 				visual = "skin_pylon4";
-			};*/
+			};
 		};
 		class UserActions
 		{
@@ -895,7 +896,33 @@ class CfgVehicles
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 		model="\fza_ah64_US\fza_ah64d_b2.p3d";
 		#include "hiddenSelections.hpp"
-		//PNVS TURRET OPTICS BACK UP
+		//Ace Hitpoints
+		ace_repair_hitpointPositions[] = {
+			{"Hithull", 					{0,0,-1.5}},
+			{"HitEngine1", 					{-1,0.7,-1}},
+			{"HitEngine2", 					{1,0.7,-1}},
+			{"HitVRotor", 					{-0.6,-6.95,-0.1}},
+			{"HitHRotor", 					{0,2,0.7}},
+			{"HitTail", 					{0,-7,-2}},
+			{"HitVStabilizer1", 			{0,-7,-1}},
+			{"HitHStabilizerL1", 			{-2,1.8,-1.3}},
+			{"HitHStabilizerR1", 			{2,1.8,-1.3}},
+			{"Hitfuel", 					{0,1,-1.6}},
+			{"Hitfuel1", 					{0,5,-1.6}},
+			{"HitGun", 						{0,5,-2.3}},
+			{"HitTurret", 					{0,6.9,-1.5}},
+			{"PNVS", 						{0,6.8,-1}},
+			{"FCR", 						{0,2,1.6}},
+			{"TailBoom", 					{0,-3,-2}},
+			{"IrJammer", 					{-1,5,-1.6}},
+			{"RfJammer", 					{1,5,-1.6}},
+			{"Pylon1", 						{-2.385,2.4,-1.8}},
+			{"Pylon2", 						{-1.665,2.4,-1.8}},
+			{"Pylon3", 						{1.665,2.4,-1.8}},
+			{"Pylon4", 						{2.385,2.4,-1.8}}
+		};
+
+		allowTabLock = 0;
 		accuracy=5;
 		armor=80;
 		armorLights = 0.4;
