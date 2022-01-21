@@ -6,28 +6,41 @@ permalink: flight-model-sfm-plus.html
 folder: flightmodel
 ---
 
-SFM+ is an experiment aimed at improving the stock ARMA Simple Flight Model (SFM) by applying forces that are only available in the current RotorLib Advanced Flight Model (AFM). SFM+ is also a complete overhaul of the mods existing engine and fuel page and presents an accurate depiction of helicopter performance limits and fuel flow as detailed in the Public Intelligence AH-64D Operator's Manual.
+SFM+ is a visual simulation that presents an accurate performance model in ARMA's SFM. It also provides a force generating stabilator designed to expand the pitch range of the aircraft and allow for hands off flight for a given power setting. Another feature of SFM+ is damage modeling.
 
-Currently the only force generator in SFM+ is a fully dynamic stabilator. _**The stabilator can be toggled off in the CBA Settings for the mod and is defaulted on.**_ The function of the stabilator was developed using ["First Article Preproduction Tests of the AH-64A Helicopter"](https://apps.dtic.mil/dtic/tr/fulltext/u2/a170594.pdf) and operates just as it does in the actual helicopter. The values are custom to the mod, but present accurate behaviors based on control input and airspeed. The chart below shows the stabilator schedule developed for the mod. Along the vertical axis is stabilator position, where a negative value means the stabilator is scheduled trailing edge down and positive value indicates the stabalator is scheduled trailing edge up. 
+## Performance Model
+SFM+ accurately accounts for weight of the aircraft and consults several lookup tables to present accurate performance figures to the pilot. The Table below presents information for the default aircraft placed in the 3DEN editor.
 
-<img style="width:50%;display:inline" src="images/sfmplus/stabilatorSchedule.png"/><img style="width:50%;display:inline" src="images/sfmplus/throttleExample.png"/>
+{% include note.html content="Currently all performance data is for a PA of 0ft and 20C only!"%}
 
-There are 5 unique schedules based on collective input. 0% collective means the collective (or throttle) is fully down (or back). 100% collective means the collective (or throttle) is fully up (or forward). This is ONLY with regards to the physical position of your input device and has NOTHING to do with the TQ in the aircraft. The general logic is this: A reduction in collective implies a desire to decelerate this will cause the stabilator to schedule up and result in the nose pitching up, the pilot has to apply forward cyclic to manage this pitch rate. Conversely, an increase in collective implies a desire to accelerate, this will cause the stabilator to schedule down and result in the nose pitching down, the pilot has to apply aft cyclic to manage this pitch rate. 
+The table below presents performance data for the aircraft. The gross weight of the non-FCR aircraft is 8828kg (19462lbs) and the gross weight of the FCR aircraft is 9123kg (20113lbs). This weight includes: 2x Pilots, 100% fuel, 2x M-299 Longbow Hellfire Missile Launchers, 2x M261 Rocket Pods, 1200x rounds of 30mm, 38x Rockets and 8x Hellfires.
 
-This is expected and normal behavior.
+| Max Tq Dual Engine      | Max Tq Single Engine      |
+|:--             |:--             |
+| 127%           | 131%           |
+| Max Cont TQ Dual Engine  | Max Cont TQ Single Engine |
+|:--             |:--             |
+| 100 %          | 110%           |
+| Max GWT In Ground Effect    | Max GWT Out of Ground Effect    |
+|:--             |:--             |
+|20260 lbs       | 18700 lbs      |
+| Hover TQ In Ground Effect (Non-FCR) | Hover Torque Out of Ground Effect (Non-FCR)
+|:--             |:--             |
+| 84%            | *105%          |
+| Hover TQ In Ground Effect (FCR) | Hover Torque Out of Ground Effect (FCR)
+|:--             |:--             |
+| 88%            | *110%          |
 
-On the topic of the engine page overhaul: All torques displayed are accurate as are fuel flows. The engine page also replicates the effects of ground effect and airspeed on torque. As the aircraft ascends out of ground effect, the required hover torque will increase up to an altitude of 50 feet. Gross weight is also dynamic with SFM+. The baseline configuration for the aircraft (8 hellfires, 38 rockets, 1200rds of 30mm and 2517lbs of fuel) requires an IGE hover torque of ~83% TQ and OGE ~103% TQ dual engine. You are limited to a maximum TQ dual engine of 100% continously and between 101 to 115% TQ for 6 seconds. Exceeding this time limit or 115% will cause damage to the aircraft. You will have to make a decision: Do you take fewer weapons or less fuel? As the aircraft burns fuel and you fire weapons, the aircraft weight will update dynamically thus reducing your current power requirements.
+{% include note.html content="* Indicates the TQ required to hover in this mode exceeds the Maximum Continuous Torque Dual Engine"%}
 
-The aircraft is trimmed via the stabilator for the following airspeeds: 
-* 70kts at ~52% TQ depending on gross weight
-* 90kts at ~57% TQ depending on gross weight
-* 120kts at ~97% TQ depending on gross weight
+SFM+ simulates ground effect and out of ground effect. The aircraft is considered to be operating in ground effect with less than 1 rotor diamter (~48 feet) above ground level. As the aircraft climbs in altitude, ground effect is lost and required torque to hover increases. SFM+ also simulates the effects of Effective Translational Lift and as the aircraft transitions into forward flight will benefit from an increase in rotor efficiency and a decreased power requirement. 
 
-Without the stabilator, the aircraft will maintian straight and level flight at 55kts with 56% TQ applied.
-
-More additions will be made in the future, for now this is a limited feature test being used to lay the ground work for a replacement for the AFM.
+In order to hover out of ground effect, the crew MUST reduce weight, or remain above ETL (~24 kts)! The recommended configuration is 38% fuel, 38x Rockets and 6x Hellire missiles.
 
 ## Damage Modeling
+
+{% include note.html content="Currently a ROTOR RPM HIGH warning and audio indicate an impending transmission failure."%}
+
 SFM+ now features damage modeling. This is a means of enforcing proper startup procedures and enhance realism. No long will you be able to start a single engine and leave it at idle and take off. Within 30 seconds of exceeding the limits outlined below the transmission will fail and the aircraft fall out of the sky.
 
 **During Start**
@@ -39,6 +52,8 @@ SFM+ now features damage modeling. This is a means of enforcing proper startup p
 
 **Single Engine Torque**
 
+{% include warning.html content="Exceeding 111 - 122% single engine torque for greater than 2.5 minutes, or 123 - 125% Torque for greater than 6 seconds, or 125% torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!" %}
+
 |Tq | Time |
 |:--|:--|
 | 0 to 110% | Normal Operation|
@@ -47,6 +62,8 @@ SFM+ now features damage modeling. This is a means of enforcing proper startup p
 | 123 to 125% | 6 Seconds |
 
 **Dual Engine Torque**
+
+{% include warning.html content="Exceeding 100 - 115% dual engine torque for greater than 6 seconds, or 115% Torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!"" %}
 
 | Tq | Time |
 |:--|:--|
