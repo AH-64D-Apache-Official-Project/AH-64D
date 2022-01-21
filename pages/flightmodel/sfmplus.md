@@ -15,21 +15,38 @@ SFM+ accurately accounts for weight of the aircraft and consults several lookup 
 
 The table below presents performance data for the aircraft. The gross weight of the non-FCR aircraft is 8828kg (19462lbs) and the gross weight of the FCR aircraft is 9123kg (20113lbs). This weight includes: 2x Pilots, 100% fuel, 2x M-299 Longbow Hellfire Missile Launchers, 2x M261 Rocket Pods, 1200x rounds of 30mm, 38x Rockets and 8x Hellfires.
 
-| Max Tq Dual Engine      | Max Tq Single Engine      |
-|:--             |:--             |
-| 127%           | 131%           |
-| Max Cont TQ Dual Engine  | Max Cont TQ Single Engine |
-|:--             |:--             |
-| 100 %          | 110%           |
-| Max GWT In Ground Effect    | Max GWT Out of Ground Effect    |
-|:--             |:--             |
-|20260 lbs       | 18700 lbs      |
-| Hover TQ In Ground Effect (Non-FCR) | Hover Torque Out of Ground Effect (Non-FCR)
-|:--             |:--             |
-| 84%            | *105%          |
-| Hover TQ In Ground Effect (FCR) | Hover Torque Out of Ground Effect (FCR)
-|:--             |:--             |
-| 88%            | *110%          |
+| Max Tq Dual Engine | Max Tq Single Engine |
+|:--|:--|
+| 127% | 131% |
+
+Maximum Torque Dual Engine and Single engine are the maximum torque the engines can produce based on environmental conditions. This torque can best be thought of as "life torque", meaning that if the pilot finds themselves in a bad situation, this torque can be used to save the aircraft. It will exceed the drive train limits and cause damage, but it will allow the aircraft to fly another day.
+
+| Max Cont TQ Dual Engine | Max Cont TQ Single Engine |
+|:--|:--|
+| 100 % | 110% |
+
+Maximum continuous torque dual engine and single engine is the maximum torque the pilot can continuously pull during flight. These limits are determined by the drive train.
+
+| Max GWT In Ground Effect | Max GWT Out of Ground Effect |
+|:--|:--|
+|20260 lbs | 18700 lbs |
+
+Maximum gross weight IGE and OGE are the maximum gross weights the aircraft can support when operating IGE and OGE.
+
+| Go/No-Go Torque IGE | Go/No-Go Torque OGE |
+|:--|:--|
+| 88% | 80% |
+
+Go/No-Go torque represents the maximum GWT IGE/OGE as measured at a 5-foot hover. Exceeding Go/No-Go torque OGE while at a 5-foot hover informs the crew that they DO NOT have OGE hover power, and are restricted from performing maneuvers requiring OGE hover power. Exceeding Go/No-Go torque IGE while at a 5-foot hover informs the crew that they DO NOT have OGE or IGE power and are restricted from performing maneuvers requiring OGE hover power. 
+
+| Hover TQ In Ground Effect (Non-FCR) | Hover Torque Out of Ground Effect (Non-FCR) |
+|:--|:--|
+| 84% | *105% |
+
+
+| Hover TQ In Ground Effect (FCR) | Hover Torque Out of Ground Effect (FCR) |
+|:--|:--|
+| 88% | *110% |
 
 {% include note.html content="* Indicates the TQ required to hover in this mode exceeds the Maximum Continuous Torque Dual Engine"%}
 
