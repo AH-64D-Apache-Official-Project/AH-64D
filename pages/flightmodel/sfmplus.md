@@ -69,7 +69,7 @@ SFM+ now features damage modeling. This is a means of enforcing proper startup p
 
 **Single Engine Torque**
 
-{% include warning.html content="Exceeding 111 - 122% single engine torque for greater than 2.5 minutes, or 123 - 125% Torque for greater than 6 seconds, or 125% torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!" %}
+{% include warning.html content="Exceeding 111 - 122% single engine torque for greater than 2.5 minutes, or 123 - 125% Torque for greater than 6 seconds, or 125% torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!"%}
 
 |Tq | Time |
 |:--|:--|
@@ -80,7 +80,7 @@ SFM+ now features damage modeling. This is a means of enforcing proper startup p
 
 **Dual Engine Torque**
 
-{% include warning.html content="Exceeding 100 - 115% dual engine torque for greater than 6 seconds, or 115% Torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!"" %}
+{% include warning.html content="Exceeding 100 - 115% dual engine torque for greater than 6 seconds, or 115% Torque for any amount of time will result in a catastrophic transmission failure and/or loss of aircraft and crew!"%}
 
 | Tq | Time |
 |:--|:--|
