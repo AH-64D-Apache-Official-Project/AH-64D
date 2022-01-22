@@ -164,10 +164,15 @@ class CfgFunctions
 		class ase
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
+			class aseAudioController {R;};
 			class aseBetty {R;};
 			class aseGunnerFlare {R;};
+			class aseController {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
+			class aseIRJam {R;};
+			class aseRFJam {R;};
+			class aseRLWR {R;};
 		};
 	};
 };

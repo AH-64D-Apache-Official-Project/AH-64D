@@ -6,10 +6,10 @@ class Fza_SfmPlus {
     stabWidth  = 3.22;  //m
     stabLength = 1.07; //m
 
-    maxFwdFuelMass = 473; //1043lbs in kg
+    maxFwdFuelMass = 473;   //1043lbs in kg
     //maxCtrFuelMass = 300;	//663lbs in kg, net yet implemented, center robbie
     maxAftFuelMass = 669; 	//1474lbs in kg
-    //maxExtFuelMass = 690;     //1541lbs in kg, not yet implemented, 230gal external tank
+    //maxExtFuelMass = 690; //1541lbs in kg, not yet implemented, 230gal external tank
 
     //Engine Data
     engSimTime  = 8.0;
@@ -50,14 +50,15 @@ class Fza_SfmPlus {
                          {0.834,    541,	0.15,	1.01,	0.88}};	    //Fly
 
     //--------------------GWT---IGE---OGE--
-    hvrTqTable[] =      {{6350, 0.54, 0.66},	//13000lbs
-                         {6803, 0.59, 0.72},	//14000lbs
-                         {7257, 0.64, 0.79},	//15000lbs
-                         {7711, 0.69, 0.86},	//16000lbs
-                         {8164, 0.73, 0.94},	//17000lbs
-                         {8618, 0.80, 1.01},	//18000lbs
-                         {9071, 0.86, 1.09},	//20000lbs
-                         {9525, 0.92, 1.16}};	//21000lbs
+    hvrTqTable[] =      {{5897, 0.49, 0.60},    //13000lbs
+                         {6350, 0.54, 0.66},	//14000lbs
+                         {6803, 0.59, 0.73},	//15000lbs
+                         {7257, 0.64, 0.80},	//16000lbs
+                         {7711, 0.70, 0.87},	//17000lbs
+                         {8164, 0.76, 0.94},	//18000lbs
+                         {8618, 0.81, 1.02},	//19000lbs
+                         {9071, 0.87, 1.09},	//20000lbs
+                         {9525, 0.92, 1.17}};	//21000lbs
 
     //--------------------GWT---24kt--40kt--60kt--70kt--90kt--100kt-120kt-130kt-150kt
     cruiseTable[] =	    {{5897, 0.48, 0.39, 0.34, 0.34, 0.40, 0.44, 0.62, 0.72, 1.03},
