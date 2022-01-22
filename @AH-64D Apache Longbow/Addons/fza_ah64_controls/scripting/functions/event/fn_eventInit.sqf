@@ -123,10 +123,6 @@ if (local _heli) then {
 
 _heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
 
-if !(isMultiplayer) then {
-    _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
-};
-
 while {
     alive _heli
 }

@@ -227,6 +227,7 @@ class CfgFunctions
 			class doortoggleG {R;};
 			class cycle {R;};
 			class bearingClock {R;};
+			class BladeSimulation {R;};
 		};
 		class ase
 		{

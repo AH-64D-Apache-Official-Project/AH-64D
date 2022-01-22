@@ -83,6 +83,16 @@ private _projName = "AH-64D Official Project";
 	0
 ] call CBA_fnc_addSetting;
 
+[
+	"fza_ah64_BladeSimulation",
+	"CHECKBOX",
+	["Blade Simulation", "Enabling this starts a dynamic simulation of the Rotor & tail rotor pitch based on cyclic, rudder & collective"],
+	[_projName, "Flight model"],
+	[false],
+	0
+] call CBA_fnc_addSetting;
+
+
 fza_ah64_rocketTable =
         [[0, 5]
         ,[500, 8]
@@ -130,7 +140,7 @@ fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_mpdUpdateDisplays];
+fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_mpdUpdateDisplays, fza_fnc_BladeSimulation];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
 fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate];
 //Draw3d handler

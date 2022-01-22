@@ -1545,157 +1545,157 @@ class CfgVehicles
 		class swashplate_up_tns
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swashplate_up_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swashplate_up_bank
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swashplate_dn_tns
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swashplate_dn_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swashplate_dn_bank
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class mr_act_tns
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm1
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm1_t
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm2
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm3
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm3_t
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class swup_arm4
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class trsw
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class tr_blade1_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class tr_blade2_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class tr_blade3_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class tr_blade4_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade1_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade1_flap
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade2_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade2_flap
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade3_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade3_flap
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade4_pitch
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		class blade4_flap
 		{
 			source = "user";
-			animPeriod = 0.1;
+			animPeriod = 0.001;
 			initPhase=0;
 		};
 		//////weapons///////////
