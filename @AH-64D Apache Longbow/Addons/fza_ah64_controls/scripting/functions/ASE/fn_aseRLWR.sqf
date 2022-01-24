@@ -69,8 +69,6 @@ if (_rlwrPwr == "on") then {
         };
     } foreach getSensorThreats _heli;
     _rlwrObjects = [_rlwrObjects, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
-    //Call the audio controller
-    [_heli] call fza_fnc_aseAudioController;
 } else { _rlwrObjects = []; };
 _heli setVariable ["fza_ah64_ase_rlwrObjects", _rlwrObjects];
 _rlwrCount = count _rlwrObjects;

@@ -16,18 +16,17 @@ private _chaffCount = 0; //<-- this is duplicated in the WPN page!!
 _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CHAFF_QTY), _chaffCount toFixed 0];
 
 //IR Jammer
-private _irJamPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_irjamPwr" == "off");
+private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_irJamPwr" == "off");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER];
+private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
 
 //RF Jammer
 private _rfJamState = _heli getVariable "fza_ah64_ase_rfJamState";
-systemChat format ["RF Jam State = %1", _rfJamState];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RFJAM_STATE), _rfJamState];
 
 //Autopage
 private _autopage = _heli getVariable "fza_ah64_ase_autopage";
-systemChat format ["Autopage State = %1", _autopage];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
 
 //RLWR

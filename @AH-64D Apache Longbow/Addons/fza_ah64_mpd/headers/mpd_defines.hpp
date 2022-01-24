@@ -572,6 +572,32 @@ Parameters:
     };\
 };
 
+/* Macros: Inverse Box
+    MPD_BOX_INV_C
+    MPD_BOX_INV_R
+    MPD_BOX_INV_L
+
+Parameters:
+    name -
+    startX -
+    startY -
+
+*/
+#define MPD_BOX_INV_C(name, startX, startY, numChars) class Mpd_Box_##name##_Barrier { \
+    color[] = {0.2, 1, 0, 1};\
+    class Polygons {\
+        type = polygon;\
+        points[] = {\
+            {\
+                { {startX-numChars / 2 * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD_Y}, 1 },\
+                { {startX+numChars / 2 * MPD_TEXT_WIDTH, startY - MPD_BOX_PAD_Y}, 1 },\
+                { {startX+numChars / 2 * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1 },\
+                { {startX-numChars / 2 * MPD_TEXT_WIDTH, startY + MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1 },\
+            },\
+        };\
+    };\
+};
+
 /* Macros: ASE Object
     ASE_OBJ - Draws an ASE object on the ASE page
 

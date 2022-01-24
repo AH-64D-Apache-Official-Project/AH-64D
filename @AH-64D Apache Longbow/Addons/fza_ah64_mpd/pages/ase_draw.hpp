@@ -122,7 +122,7 @@ class ase_draw {
         };
     };
     class IRJamON {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)))
         class IRJamDraw {
             class polys_IRJamOnOff {
                 class Polygons {
@@ -359,10 +359,28 @@ class ase_draw {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OFF));
         MPD_BOX_C(OFF,  MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, 3)
     };
+    class polygon_RFJAM_Warm_Stby {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_WARM_STBY));
+         MPD_BOX_INV_C(WARM_STBY,  MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+        //B5
+        color[] = {0,0,0,1};
+        class text_color {
+            MPD_TEXT_C(STBY_BLK, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("STBY"))
+        };
+    };
     class textBox_RFJAM_Stby {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_STBY));
         MPD_BOX_C(STBY,  MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
     };
+    class polygon_RFJAM_Warm_Oper {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_WARM_OPER));
+         MPD_BOX_INV_C(WARM_OPER,  MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
+        //B5
+        color[] = {0,0,0,1};
+        class text_color {
+            MPD_TEXT_C(OPER_BLK, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OPER"))
+        };
+    };    
     class textBox_RFJAM_Oper {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OPER));
         MPD_BOX_C(OPER,  MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)

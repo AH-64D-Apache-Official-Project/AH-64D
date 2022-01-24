@@ -30,10 +30,10 @@ switch(_control) do {
 		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_OFF];
 	};
 	case "b5": {
-		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_STBY];
+		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_WARM_STBY];
 	};
 	case "b6": {
-		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_OPER];
+		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_WARM_OPER];
 	};
 	//Autopage
 	case "l3": {

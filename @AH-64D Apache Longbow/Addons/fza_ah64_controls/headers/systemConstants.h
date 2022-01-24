@@ -45,12 +45,14 @@
 #define ASE_IRJAM_STATE_OFF   0
 #define ASE_IRJAM_STATE_WARM  1
 #define ASE_IRJAM_STATE_OPER  2
-#define ASE_IRJAM_PWR_ON_TIME 10 //sec
+#define ASE_IRJAM_PWR_ON_TIME 2 //sec
 //--RF Jammer
-#define ASE_RFJAM_STATE_OFF   0
-#define ASE_RFJAM_STATE_STBY  1
-#define ASE_RFJAM_STATE_OPER  2
-#define ASE_RFJAM_PWR_ON_TIME 10 //sec
+#define ASE_RFJAM_STATE_OFF       0
+#define ASE_RFJAM_STATE_WARM_STBY 1
+#define ASE_RFJAM_STATE_STBY      2
+#define ASE_RFJAM_STATE_WARM_OPER 3
+#define ASE_RFJAM_STATE_OPER      4
+#define ASE_RFJAM_PWR_ON_TIME     2 //sec
 //--Autopage
 #define ASE_AUTOPAGE_SRH 1
 #define ASE_AUTOPAGE_ACQ 2
