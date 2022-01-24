@@ -32,6 +32,8 @@ _heli setVariable ["fza_sfmplus_maxFwdFuelMass", 	getNumber (_config >> "maxFwdF
 _heli setVariable ["fza_sfmplus_maxAftFuelMass", 	getNumber (_config >> "maxAftFuelMass")]; 	//1474lbs in kg
 //_heli setVariable ["fza_sfmplus_maxExtFuelMass", getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
+private _initFuelFrac = getNumber (_config >> "initFuelFrac")
+_heli setFuel _initFuelFrac;
 [_heli] call fza_sfmplus_fnc_fuelSet;
 [_heli] call fza_sfmplus_fnc_massSet;
 
