@@ -1650,6 +1650,12 @@ class CfgVehicles
 			animPeriod = 0.001;
 			initPhase=0;
 		};
+		class blade1_rise1
+		{
+			source = "user";
+			animPeriod = 0.001;
+			initPhase=0;
+		};
 		class blade1_pitch
 		{
 			source = "user";

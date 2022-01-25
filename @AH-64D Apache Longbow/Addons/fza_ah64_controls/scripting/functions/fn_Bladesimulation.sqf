@@ -3,7 +3,7 @@ Function: fza_fnc_BladeSimulation
 
 Description:
     to simulate the cyclinc and collective input into animations visible on 
-    the tail rotor, main rotor and main rotor squash plate
+    the tail rotor, main rotor and squash plates
 Parameters:
     _heli = The apache
 Returns:
@@ -11,14 +11,12 @@ Returns:
 Examples:
     [_heli] call fza_fnc_BladeSimulation;
 Author:
-	Rosd6(Dryden)
+	Rosd6(Dryden), BradMick
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if !(fza_ah64_BladeSimulation) exitwith {};
 
-_smoothfactor = 0;
 _velfactor = 0;
-_weight = 90;
 
 if (player == currentPilot _heli) then {
 
@@ -68,104 +66,92 @@ if (player == currentPilot _heli) then {
     _heli animateSource["r_ads_p", (_vertvect1 + _vertvect2 + _2) * 0.002778];
     _heli animateSource["r_ads_y", (_horvect1 + _horvect2 + _1) * 0.002778];
 
-    //Rotor Simulation
-    _forback = ((inputAction "HeliForward") + (-1 * (inputAction "HeliBack")));
-    _rudder = (-0.5 * (inputAction "HeliRudderLeft")) + (0.5 * (inputAction "HeliRudderRight"));
-    _leftright = (inputAction "HeliCyclicRight") + (inputAction "HeliRight") + (-1 * (inputAction "HeliLeft")) + (-1 * (inputAction "HeliCyclicLeft"));
-    _magnitude = (inputAction "HeliForward") + (inputAction "HeliBack") + (inputAction "HeliLeft") + (inputAction "HeliCyclicLeft") + (inputAction "HeliRight") + (inputAction "HeliCyclicRight");
-    _collective = (-0.125 * (2 - (inputAction "HeliCollectiveLowerCont" + inputAction "heliThrottleNeg" + inputAction "heliDown"))) + (-0.125 * (inputAction "HeliCollectiveRaiseCont" + inputAction "heliUp" + inputAction "heliThrottlePos"));
-    if (_collective > 0.1) then {
-        _collective = 0.1;
-    };
-    if (_collective < -0.6) then {
-        _collective = -0.6;
-    };
-    _cyclicdir = _leftright atan2 _forback;
-    if (_cyclicdir < 0) then {
-        _cyclicdir = _cyclicdir + 360;
-    };
-    _cyclicdir = (1 / 360) * _cyclicdir;
-    _magnitude = _magnitude * 5;
-    if (_magnitude > 1) then {
-        _magnitude = 1;
-    };
-    _addval = 0.09 * (_heli animationphase "blade1_rise1");
-    _mrp = (_heli animationphase "mainRotor");
-    //bladepitch
-    _b1phase = (_mrp) + (_addval + _cyclicdir);
-    _b2phase = (_mrp) + (_addval + 0.25 + _cyclicdir);
-    _b3phase = (_mrp) + (_addval + 0.50 + _cyclicdir);
-    _b4phase = (_mrp) + (_addval + 0.75 + _cyclicdir);
-    _s1phase = (_mrp) + (_addval + 0.875 + _cyclicdir);
-    _s2phase = (_mrp) + (_addval + 0.375 + _cyclicdir);
+    //////////////////////////////////////////////Blade Simulation//////////////////////////////////////////////
+    private _flapAngle_deg   = 10.0;
 
-    if (_b1phase > 1) then {
-        _b1phase = _b1phase - 1;
-    };
-    _b1phase = (cos(360 * _b1phase)) * _magnitude;
-    if (_b2phase > 1) then {
-        _b2phase = _b2phase - 1;
-    };
-    _b2phase = (cos(360 * _b2phase)) * _magnitude;
-    if (_b3phase > 1) then {
-        _b3phase = _b3phase - 1;
-    };
-    _b3phase = (cos(360 * _b3phase)) * _magnitude;
-    if (_b4phase > 1) then {
-        _b4phase = _b4phase - 1;
-    };
-    _b4phase = (cos(360 * _b4phase)) * _magnitude;
+    // Cyclic Input
+    private _bladePitchFwd   = (inputAction "HeliCyclicForward") + (inputAction "HeliForward");
+    private _bladePitchAft   = (inputAction "HeliCyclicBack")    + (inputAction "HeliBack");
+    private _bladePitch      = _bladePitchAft - _bladePitchFwd; // -1 to 1
+    if (_bladePitch > 1)  then {_bladePitch = 1;};
+    if (_bladePitch < -1) then {_bladePitch = -1;};
 
-    //scissorarm1
-    _s1phase = (_mrp) + (_addval + 0.875 + _cyclicdir);
-    if (_s1phase > 1) then {
-        _s1phase = _s1phase - 1;
-    };
-    _s1phase = (cos(360 * _s1phase)) * _magnitude;
-    //scissorarm2
-    if (_s2phase > 1) then {
-        _s2phase = _s2phase - 1;
-    };
+    private _bladePitchLeft  = (inputAction "HeliCyclicLeft")  + (inputAction "HeliLeft");
+    private _bladePitchRight = (inputAction "HeliCyclicRight") + (inputAction "HeliRight");
+    private _bladeRoll       = _bladePitchRight - _bladePitchLeft; // -1 to 1
+    if (_bladeRoll > 1)  then {_bladeRoll = 1;};
+    if (_bladeRoll < -1) then {_bladeRoll = -1;};
 
-    _s2phase = (cos(360 * _s2phase)) * _magnitude;
-    _b1p = (0.5 * (_b1phase)) + _collective;
-    _b2p = (0.5 * (_b2phase)) + _collective;
-    _b3p = (0.5 * (_b3phase)) + _collective;
-    _b4p = (0.5 * (_b4phase)) + _collective;
-    _s1p = 1.5 * ((_s1phase) + _collective);
-    _s2p = 1.5 * ((_s2phase) + _collective);
+    //Rudder input
+    Private _RudderYaw = (-1 * ((inputAction "HeliRudderLeft") - (inputAction "HeliRudderRight"))); // -1 to 1
 
-    //tail rotor
-    _heli animateSource["trsw", _rudder];
-    _heli animateSource["tr_blade1_pitch", (-1 * (_rudder))];
-    _heli animateSource["tr_blade2_pitch", _rudder];
-    _heli animateSource["tr_blade3_pitch", _rudder];
-    _heli animateSource["tr_blade4_pitch", (-1 * (_rudder))];
+    //Blade posiiton
+    private _mainRtrPctRot     = (_heli animationphase "mainRotor");  // 0 to 1, going counterclockwise, 0  is the nose.
+    private _blade1AzAngle_deg = _mainRtrPctRot * 360;
+    private _blade2AzAngle_deg = (_mainRtrPctRot + 0.25) * 360;
+    private _blade3AzAngle_deg = (_mainRtrPctRot + 0.50) * 360;
+    private _blade4AzAngle_deg = (_mainRtrPctRot + 0.75) * 360;
+    private _SPA1AzAngle_deg   = (_mainRtrPctRot + 0.875) * 360;
+    private _SPA2AzAngle_deg   = (_mainRtrPctRot + 0.375) * 360;
 
-    //main rotor
-    _heli animateSource["swashplate_up_tns", (-2.5 * (_collective))];
-    _heli animateSource["swashplate_dn_tns", (-2.5 * (_collective))];
-    _heli animateSource["mr_act_tns", (-2.5 * (_collective))];
-    _heli animateSource["swashplate_up_pitch", -3 * _forback];
-    _heli animateSource["swashplate_up_bank", -3 * _leftright];
-    _heli animateSource["swashplate_dn_pitch", -3 * _forback];
-    _heli animateSource["swashplate_dn_bank", -3 * _leftright];
-    _heli animateSource["swup_arm1", _s1p];
-    _heli animateSource["swup_arm1_t", (-1 * (_s1p))];
-    _heli animateSource["swup_arm2", _s1p];
-    _heli animateSource["swup_arm3", _s2p];
-    _heli animateSource["swup_arm3_t", (-1 * (_s2p))];
-    _heli animateSource["swup_arm4", _s2p];
-    _heli animateSource["blade1_pitch", _b1p];
-    _heli animateSource["blade2_pitch", _b2p];
-    _heli animateSource["blade3_pitch", _b3p];
-    _heli animateSource["blade4_pitch", _b4p];
+    //blade flap
+    private _blade1Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade1AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade1AzAngle_deg));
+    private _blade2Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade2AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade2AzAngle_deg));
+    private _blade3Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade3AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade3AzAngle_deg));
+    private _blade4Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade4AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade4AzAngle_deg));
 
-    //Blade flap
-    _TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
-    _TQVal = _TQVal * -0.8;
-    _heli animateSource["blade1_flap", (_TQVal * (_b1p))];
-    _heli animateSource["blade2_flap", (_TQVal * (_b2p))];
-    _heli animateSource["blade3_flap", (_TQVal * (_b3p))];
-    _heli animateSource["blade4_flap", (_TQVal * (_b4p))];
+    //Blade Pitch 
+    private _blade1Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade1AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade1AzAngle_deg)));
+    private _blade2Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade2AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade2AzAngle_deg)));
+    private _blade3Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade3AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade3AzAngle_deg)));
+    private _blade4Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade4AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade4AzAngle_deg)));
+    private _SParm1Pitch = ((1 / 4) * (_bladePitch * (cos _SPA1AzAngle_deg)) + (_bladeRoll * (sin _SPA1AzAngle_deg)));
+    private _SParm2Pitch = ((1 / 4) * (_bladePitch * (cos _SPA2AzAngle_deg)) + (_bladeRoll * (sin _SPA2AzAngle_deg)));
+
+    private _bladeFlapTable = [[0.0,   0.00],
+                              [0.57,  0.50],
+                              [1.01,  1.00]];
+    //blade Coneing
+    private _rpm = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
+    private _bladeFlapTableInterp = [_bladeFlapTable, _rpm] call fza_fnc_linearInterp;
+    private _bladeFlapLimit       = _bladeFlapTableInterp select 1;
+
+    private _bladeConeTable = [[0.00, 0.00],
+                            [0.50, 0.50],
+                            [1.00, 1.00]];
+    //blade Flapping  
+    private _bladeFlapTableInterp = [_bladeConeTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+    private _bladeConeOut         = _bladeFlapTableInterp select 1;
+
+    private _blade1Flap = 0; //disabled broken flap for testing
+    private _blade2Flap = 0;
+    private _blade3Flap = 0;
+    private _blade4Flap = 0;
+
+    //Main Rotor Blade Flap
+    _heli animateSource["blade1_flap", ((_blade1Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // its fucked, it dosent transition from high pos to low but snaps half way around the disk
+    _heli animateSource["blade2_flap", ((_blade2Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
+    _heli animateSource["blade3_flap", ((_blade3Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
+    _heli animateSource["blade4_flap", ((_blade4Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
+    //Main Rotor Blade Pitch
+    _heli animateSource["blade1_pitch", -1 * (0.5 * (_blade1Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade2_pitch", -1 * (0.5 * (_blade2Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade3_pitch", -1 * (0.5 * (_blade3Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade4_pitch", -1 * (0.5 * (_blade4Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    //Main Rotor Squashplate
+    _heli animateSource["swashplate_up_tns", (fza_sfmplus_collectiveOutput)];   //Functional
+    _heli animateSource["swashplate_dn_tns", (fza_sfmplus_collectiveOutput)];   //Functional
+    _heli animateSource["mr_act_tns", (fza_sfmplus_collectiveOutput)];          //Functional
+    _heli animateSource["swashplate_up_pitch", _bladePitch];                    //Functional
+    _heli animateSource["swashplate_up_bank", -1 * _bladeRoll];                 //Functional
+    _heli animateSource["swashplate_dn_pitch", _bladePitch];                    //Functional
+    _heli animateSource["swashplate_dn_bank", -1 * _bladeRoll];                 //Functional
+    _heli animateSource["swup_arm2", (-1 * (_SParm1Pitch))];                    //Functional
+    _heli animateSource["swup_arm4", _SParm1Pitch];                             //Functional
+    //Tail Rotor & squashplate
+    _heli animateSource["trsw", _RudderYaw];                                       // animation calibrated, needs review
+    _heli animateSource["tr_blade1_pitch", (-1 * (_RudderYaw))];                   // animation calibrated, needs review
+    _heli animateSource["tr_blade2_pitch", _RudderYaw];                            // animation calibrated, needs review
+    _heli animateSource["tr_blade3_pitch", _RudderYaw];                            // animation calibrated, needs review
+    _heli animateSource["tr_blade4_pitch", (-1 * (_RudderYaw))];                   // animation calibrated, needs review
 };
