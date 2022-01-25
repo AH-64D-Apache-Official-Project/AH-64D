@@ -122,33 +122,42 @@ private _hvrOGE        = _intHvrTQTable select 2;
 private _heightAGL = getPos _heli select 2;
 private _hvrTQ     = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
+private _maxTQ_DE = _heli getVariable "fza_sfmplus_maxTQ_DE";
+private _maxTQ_SE = _heli getVariable "fza_sfmplus_maxTQ_SE";
+private _maxTQ    = 0.0;
+if (_isSingleEng) then {
+	_maxTQ = _maxTQ_SE;
+} else {
+	_maxTQ = _maxTQ_DE;
+};
+
 private _engHvrTQTable = [[]];
 //--------------------------Coll-----TQ---
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_engHvrTQTable = [[ 0.00, _engBaseTQ],
 					  [ 0.58,     _hvrTQ],
 					  [ 0.68,     _hvrTQ],
-					  [ 1.00,       1.34]];
+					  [ 1.00,     _maxTQ]];
 } else {
 	_engHvrTQTable = [[ 0.00, _engBaseTQ],
-					  [ 0.645,     _hvrTQ],
-					  [ 0.670,     _hvrTQ],
-					  [ 1.00,       1.34]];
+					  [ 0.645,    _hvrTQ],
+					  [ 0.670,    _hvrTQ],
+					  [ 1.00,     _maxTQ]];
 };
-private _intCruiseTQTable = [getArray (_config >> "cruiseTable"), _curGWT_kg] call fza_fnc_linearInterp;
+private _intCruiseTQTable = [getArray (_config >> "cruiseTqTable"), _curGWT_kg] call fza_fnc_linearInterp;
 
 private _engCruiseTQTable = [[]];
 //-------------------------Coll-----TQ---
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
 					 	 [ 0.82, _intCruiseTQTable select 5],
-					 	 [ 1.00, _intCruiseTQTable select 9]];
+					 	 [ 1.00, _maxTQ                    ]];
 } else {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
 						 [ 0.67, _intCruiseTQTable select 4],
 						 [ 0.70, _intCruiseTQTable select 5],
 						 [ 0.89, _intCruiseTQTable select 7],
-						 [ 1.00, _intCruiseTQTable select 9]];
+						 [ 1.00, _maxTQ                    ]];
 };
 
 private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
@@ -164,8 +173,8 @@ if (_isSingleEng) then {
 
 private _engTable = [[_engBaseTQ, _engBaseTGT,	_engBaseNG, _engBaseOilPSI],
 					 [1.00,       810,			0.950	  ,	0.91		  ],	//Cont
-					 [1.29, 	  867,			0.990	  , 0.94          ],	//10 min
-					 [1.34, 	  896,			0.997	  , 0.99          ]];	//2.5 Min
+					 [_maxTQ_DE,  867,			0.990	  , 0.94          ],	//10 min
+					 [_maxTQ_SE,  896,			0.997	  , 0.99          ]];	//2.5 Min
 
 _engTGT    = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 1;
 _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;

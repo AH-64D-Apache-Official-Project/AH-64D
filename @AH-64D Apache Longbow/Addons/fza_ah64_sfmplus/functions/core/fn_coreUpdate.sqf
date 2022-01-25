@@ -79,6 +79,9 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
+//Perormance
+[_heli] call fza_sfmplus_fnc_perfData;
+
 #ifdef __A3_DEBUG_
 /*
 hintsilent format ["v0.11
