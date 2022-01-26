@@ -61,6 +61,13 @@ private _goNoGo_OGE      = _intGoNoGoTable3 select 2;
 _heli setVariable ["fza_sfmplus_goNoGoTQ_IGE", _goNoGo_IGE];
 _heli setVariable ["fza_sfmplus_goNoGoTQ_OGE", _goNoGo_OGE];
 
+//Hover TQ IGE and OGE
+private _curGWT_kg     = getMass _heli;
+private _intHvrTQTable = [getArray (_config >> "hvrTqTable"), _curGWT_kg] call fza_fnc_linearInterp;
+private _hvrTQ_IGE     = _intHvrTQTable select 1;
+private _hvrTQ_OGE     = _intHvrTQTable select 2;
+_heli setVariable ["fza_sfmplus_hvrTQ_IGE", _hvrTQ_IGE];
+_heli setVariable ["fza_sfmplus_hvrTQ_OGE", _hvrTQ_OGE];
 /*
 hintSilent format ["Max Tq DE = %1
                     \nMax Tq SE = %2

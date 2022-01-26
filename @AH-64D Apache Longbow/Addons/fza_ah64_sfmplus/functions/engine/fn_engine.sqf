@@ -114,10 +114,8 @@ private _engBaseTGT      = _intEngBaseTable select 1;
 //Base Oil
 private _engBaseOilPSI   = _intEngBaseTable select 4;
 //Torque
-private _curGWT_kg     = getMass _heli;
-private _intHvrTQTable = [getArray (_config >> "hvrTqTable"), _curGWT_kg] call fza_fnc_linearInterp;
-private _hvrIGE        = _intHvrTQTable select 1;
-private _hvrOGE        = _intHvrTQTable select 2;
+private _hvrIGE = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
+private _hvrOGE = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
 
 private _heightAGL = getPos _heli select 2;
 private _hvrTQ     = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];

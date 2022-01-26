@@ -24,4 +24,5 @@ _heli setVariable ["fza_sfmplus_maxGWT_IGE",   0.0];
 _heli setVariable ["fza_sfmplus_maxGWT_OGE",   0.0];
 _heli setVariable ["fza_sfmplus_goNoGoTQ_IGE", 0.0];
 _heli setVariable ["fza_sfmplus_goNoGoTQ_OGE", 0.0];
-
+_heli setVariable ["fza_sfmplus_hvrTQ_IGE",    0.0];
+_heli setVariable ["fza_sfmplus_hvrTQ_OGE",    0.0];
