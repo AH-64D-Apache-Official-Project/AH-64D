@@ -94,50 +94,41 @@ if (player == currentPilot _heli) then {
     private _SPA1AzAngle_deg   = (_mainRtrPctRot + 0.875) * 360;
     private _SPA2AzAngle_deg   = (_mainRtrPctRot + 0.375) * 360;
 
-    //blade flap
-    private _blade1Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade1AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade1AzAngle_deg));
-    private _blade2Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade2AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade2AzAngle_deg));
-    private _blade3Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade3AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade3AzAngle_deg));
-    private _blade4Flap = ((_bladePitch * _flapAngle_deg) * (cos _blade4AzAngle_deg)) + ((_bladeRoll * _flapAngle_deg) * (sin _blade4AzAngle_deg));
+    //blade output
+    private _blade1Output= (_bladePitch * (cos _blade1AzAngle_deg)) + (_bladeRoll * (sin _blade1AzAngle_deg));
+    private _blade2Output = (_bladePitch * (cos _blade2AzAngle_deg)) + (_bladeRoll * (sin _blade2AzAngle_deg));
+    private _blade3Output = (_bladePitch * (cos _blade3AzAngle_deg)) + (_bladeRoll * (sin _blade3AzAngle_deg));
+    private _blade4Output = (_bladePitch * (cos _blade4AzAngle_deg)) + (_bladeRoll * (sin _blade4AzAngle_deg));
+    private _SParm1Pitch = (_bladePitch * (cos _SPA1AzAngle_deg)) + (_bladeRoll * (sin _SPA1AzAngle_deg));
+    private _SParm2Pitch = (_bladePitch * (cos _SPA2AzAngle_deg)) + (_bladeRoll * (sin _SPA2AzAngle_deg));
 
-    //Blade Pitch 
-    private _blade1Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade1AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade1AzAngle_deg)));
-    private _blade2Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade2AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade2AzAngle_deg)));
-    private _blade3Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade3AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade3AzAngle_deg)));
-    private _blade4Pitch = ((1 / 4) * ((_bladePitch * 4) * (cos _blade4AzAngle_deg)) + ((_bladeRoll * 4) * (sin _blade4AzAngle_deg)));
-    private _SParm1Pitch = ((1 / 4) * (_bladePitch * (cos _SPA1AzAngle_deg)) + (_bladeRoll * (sin _SPA1AzAngle_deg)));
-    private _SParm2Pitch = ((1 / 4) * (_bladePitch * (cos _SPA2AzAngle_deg)) + (_bladeRoll * (sin _SPA2AzAngle_deg)));
-
+    //Tables
     private _bladeFlapTable = [[0.0,   0.00],
                               [0.57,  0.50],
                               [1.01,  1.00]];
+                              
+    private _bladeConeTable = [[0.00, 0.00],
+                              [0.50, 0.35],
+                              [1.00, 0.70]];
     //blade Coneing
     private _rpm = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
     private _bladeFlapTableInterp = [_bladeFlapTable, _rpm] call fza_fnc_linearInterp;
     private _bladeFlapLimit       = _bladeFlapTableInterp select 1;
 
-    private _bladeConeTable = [[0.00, 0.00],
-                            [0.50, 0.50],
-                            [1.00, 1.00]];
     //blade Flapping  
     private _bladeFlapTableInterp = [_bladeConeTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     private _bladeConeOut         = _bladeFlapTableInterp select 1;
 
-    private _blade1Flap = 0; //disabled broken flap for testing
-    private _blade2Flap = 0;
-    private _blade3Flap = 0;
-    private _blade4Flap = 0;
-
-    //Main Rotor Blade Flap
-    _heli animateSource["blade1_flap", ((_blade1Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // its fucked, it dosent transition from high pos to low but snaps half way around the disk
-    _heli animateSource["blade2_flap", ((_blade2Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
-    _heli animateSource["blade3_flap", ((_blade3Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
-    _heli animateSource["blade4_flap", ((_blade4Flap + _bladeConeOut) / 2) * _bladeFlapLimit]; // ^^^^^^^^^^
+    //Main Rotor Blade Flap                        
+    _heli animateSource["blade1_flap", (_blade1Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade2_flap", (_blade2Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade3_flap", (_blade3Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade4_flap", (_blade4Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
     //Main Rotor Blade Pitch
-    _heli animateSource["blade1_pitch", -1 * (0.5 * (_blade1Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
-    _heli animateSource["blade2_pitch", -1 * (0.5 * (_blade2Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
-    _heli animateSource["blade3_pitch", -1 * (0.5 * (_blade3Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
-    _heli animateSource["blade4_pitch", -1 * (0.5 * (_blade4Pitch)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade1_pitch", -1 * (0.5 * (_blade1Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade2_pitch", -1 * (0.5 * (_blade2Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade3_pitch", -1 * (0.5 * (_blade3Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
+    _heli animateSource["blade4_pitch", -1 * (0.5 * (_blade4Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
     //Main Rotor Squashplate
     _heli animateSource["swashplate_up_tns", (fza_sfmplus_collectiveOutput)];   //Functional
     _heli animateSource["swashplate_dn_tns", (fza_sfmplus_collectiveOutput)];   //Functional
