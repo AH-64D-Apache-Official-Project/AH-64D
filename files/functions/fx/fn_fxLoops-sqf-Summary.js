@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/fx/fn_fxLoops.sqf","fn_fxLoops.sqf");NDSummary.OnSummaryLoaded("File:functions/fx/fn_fxLoops.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[77,0,1,"Functions","Functions"],[78,0,0,"fza_fnc_fxLoops","fza_fnc_fxLoops"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:functions/fx/fn_fxLoops.sqf","fn_fxLoops.sqf");NDSummary.OnSummaryLoaded("File:functions/fx/fn_fxLoops.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[15,0,1,"Functions","Functions"],[16,0,0,"fza_fnc_fxLoops","fza_fnc_fxLoops"]]);
