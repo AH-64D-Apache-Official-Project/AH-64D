@@ -2,7 +2,8 @@
 Function: fza_sfmplus_fnc_perfData
 
 Description:
-	Sets the initial mass of the helicopter.
+	Updates performance tables for the aircraft based on Pressure Altitude in
+	feet, Temperature in deg C and aircraft gross weight in kg.
 
 Parameters:
 	_heli - The helicopter to get information from [Unit].
