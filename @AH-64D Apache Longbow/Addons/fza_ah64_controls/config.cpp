@@ -62,3 +62,4 @@ class CfgAddons
 #include "config\CfgDefaultKeysPresets.hpp"
 
 #include "config\CfgVideoOptions.hpp"
+#include "config\CfgUi.hpp"

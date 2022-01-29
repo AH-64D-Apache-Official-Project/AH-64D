@@ -103,7 +103,10 @@ class CfgVehicles
 		transportMaxMagazines = 10;
 		transportMaxWeapons = 3;
 		type = VAir;
-		unitinfotype="RscUnitInfoNoHUD";
+		unitinfotype = "fza_ah64_rscInfoMinimal";
+		unitInfoTypeLite = "fza_ah64_rscInfoBasic";
+		unitInfoTypeRTD = "fza_ah64_rscInfoRTD";
+
 		usePreciseGetInAction = 1;
 		emptySound[] = {"", 0, 1};
 		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
