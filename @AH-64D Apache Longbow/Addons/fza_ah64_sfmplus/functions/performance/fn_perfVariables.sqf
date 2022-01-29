@@ -2,7 +2,7 @@
 Function: fza_sfmplus_fnc_perfVariables
 
 Description:
-	Sets the initial mass of the helicopter.
+	Defines the initial performance page variables and initializes them.
 
 Parameters:
 	_heli - The helicopter to get information from [Unit].
