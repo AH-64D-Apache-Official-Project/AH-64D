@@ -67,17 +67,31 @@ if (player == currentPilot _heli) then {
     _heli animateSource["r_ads_y", (_horvect1 + _horvect2 + _1) * 0.002778];
 
     //////////////////////////////////////////////Blade Simulation//////////////////////////////////////////////
-    private _flapAngle_deg   = 10.0;
-
+    //mouse input in freelook to cancel
+    private _foward = 0;
+    private _backward = 0;
+    private _right = 0;
+    private _left = 0;
+    if (freeLook == true) then {
+        if (inputAction "HeliCyclicForward" == inputAction "aimup") then {_foward = inputAction "aimup";};
+        if (inputAction "HeliCyclicForward" == inputAction "aimdown") then {_foward = inputAction "aimdown";};
+        if (inputAction "HeliCyclicBack" == inputAction "aimdown") then {_backward = inputAction "aimdown";};
+        if (inputAction "HeliCyclicBack" == inputAction "aimup") then {_backward = inputAction "aimup";};
+        if (inputAction "HeliCyclicRight" == inputAction "Aimleft") then {_right = inputAction "Aimleft";};
+        if (inputAction "HeliCyclicRight" == inputAction "AimRight") then {_right = inputAction "AimRight";};
+        if (inputAction "HeliCyclicLeft" == inputAction "AimRight") then {_left = inputAction "AimRight";};
+        if (inputAction "HeliCyclicLeft" == inputAction "Aimleft") then {_left = inputAction "Aimleft";};
+    };
+    
     // Cyclic Input
-    private _bladePitchFwd   = (inputAction "HeliCyclicForward") + (inputAction "HeliForward");
-    private _bladePitchAft   = (inputAction "HeliCyclicBack")    + (inputAction "HeliBack");
+    private _bladePitchFwd   = (inputAction "HeliCyclicForward") - _foward;
+    private _bladePitchAft   = (inputAction "HeliCyclicBack") - _backward;
     private _bladePitch      = _bladePitchAft - _bladePitchFwd; // -1 to 1
     if (_bladePitch > 1)  then {_bladePitch = 1;};
     if (_bladePitch < -1) then {_bladePitch = -1;};
 
-    private _bladePitchLeft  = (inputAction "HeliCyclicLeft")  + (inputAction "HeliLeft");
-    private _bladePitchRight = (inputAction "HeliCyclicRight") + (inputAction "HeliRight");
+    private _bladePitchLeft  = (inputAction "HeliCyclicLeft")  - _left;
+    private _bladePitchRight = (inputAction "HeliCyclicRight") - _right;
     private _bladeRoll       = _bladePitchRight - _bladePitchLeft; // -1 to 1
     if (_bladeRoll > 1)  then {_bladeRoll = 1;};
     if (_bladeRoll < -1) then {_bladeRoll = -1;};
@@ -86,16 +100,23 @@ if (player == currentPilot _heli) then {
     Private _RudderYaw = (-1 * ((inputAction "HeliRudderLeft") - (inputAction "HeliRudderRight"))); // -1 to 1
 
     //Blade posiiton
-    private _mainRtrPctRot     = (_heli animationphase "mainRotor");  // 0 to 1, going counterclockwise, 0  is the nose.
-    private _blade1AzAngle_deg = _mainRtrPctRot * 360;
-    private _blade2AzAngle_deg = (_mainRtrPctRot + 0.25) * 360;
-    private _blade3AzAngle_deg = (_mainRtrPctRot + 0.50) * 360;
-    private _blade4AzAngle_deg = (_mainRtrPctRot + 0.75) * 360;
-    private _SPA1AzAngle_deg   = (_mainRtrPctRot + 0.875) * 360;
-    private _SPA2AzAngle_deg   = (_mainRtrPctRot + 0.375) * 360;
+    private _mainRtrPctRot     = (_heli animationphase "mainRotor") * 360;  // 0 to 1, going counterclockwise, 0  is the nose.
+    private _blade1AzAngle_deg = _mainRtrPctRot + 0;
+    private _blade2AzAngle_deg = _mainRtrPctRot + 90;
+    private _blade3AzAngle_deg = _mainRtrPctRot + 180;
+    private _blade4AzAngle_deg = _mainRtrPctRot + 270;
+    private _SPA1AzAngle_deg = _mainRtrPctRot + 315;
+    private _SPA2AzAngle_deg = _mainRtrPctRot + 135;
+    if (_blade1AzAngle_deg > 360) then {_blade1AzAngle_deg = _blade1AzAngle_deg - 360;};
+    if (_blade2AzAngle_deg > 360) then {_blade2AzAngle_deg = _blade2AzAngle_deg - 360;};
+    if (_blade3AzAngle_deg > 360) then {_blade3AzAngle_deg = _blade3AzAngle_deg - 360;};
+    if (_blade4AzAngle_deg > 360) then {_blade4AzAngle_deg = _blade4AzAngle_deg - 360;};
+    if (_blade4AzAngle_deg > 360) then {_blade4AzAngle_deg = _blade4AzAngle_deg - 360;};
+    if (_SPA1AzAngle_deg > 360) then {_SPA1AzAngle_deg = _SPA1AzAngle_deg - 360;};
+    if (_SPA2AzAngle_deg > 360) then {_SPA2AzAngle_deg = _SPA2AzAngle_deg - 360;};
 
     //blade output
-    private _blade1Output= (_bladePitch * (cos _blade1AzAngle_deg)) + (_bladeRoll * (sin _blade1AzAngle_deg));
+    private _blade1Output = (_bladePitch * (cos _blade1AzAngle_deg)) + (_bladeRoll * (sin _blade1AzAngle_deg));
     private _blade2Output = (_bladePitch * (cos _blade2AzAngle_deg)) + (_bladeRoll * (sin _blade2AzAngle_deg));
     private _blade3Output = (_bladePitch * (cos _blade3AzAngle_deg)) + (_bladeRoll * (sin _blade3AzAngle_deg));
     private _blade4Output = (_bladePitch * (cos _blade4AzAngle_deg)) + (_bladeRoll * (sin _blade4AzAngle_deg));
@@ -120,10 +141,10 @@ if (player == currentPilot _heli) then {
     private _bladeConeOut         = _bladeFlapTableInterp select 1;
 
     //Main Rotor Blade Flap                        
-    _heli animateSource["blade1_flap", (_blade1Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
-    _heli animateSource["blade2_flap", (_blade2Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
-    _heli animateSource["blade3_flap", (_blade3Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
-    _heli animateSource["blade4_flap", (_blade4Output + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade1_flap", ((_blade1Output * 1.20) + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade2_flap", ((_blade2Output * 1.20) + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade3_flap", ((_blade3Output * 1.20) + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
+    _heli animateSource["blade4_flap", ((_blade4Output * 1.20) + _bladeConeOut) * _bladeFlapLimit]; //Functional, Coneing needs tuning
     //Main Rotor Blade Pitch
     _heli animateSource["blade1_pitch", -1 * (0.5 * (_blade1Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
     _heli animateSource["blade2_pitch", -1 * (0.5 * (_blade2Output)) + (-0.5 * (fza_sfmplus_collectiveOutput))]; //Functional
