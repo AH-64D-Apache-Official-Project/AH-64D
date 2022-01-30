@@ -22,15 +22,34 @@ Author:
 params ["_heli"];
 
 private _percentFuel    = fuel _heli;
+private _IAFSInstalled  = _heli getVariable "fza_ah64_IAFSInstalled";
 private _maxFwdFuelMass = _heli getVariable "fza_sfmplus_maxFwdFuelMass";
 private _maxCtrFuelMass = _heli getVariable "fza_sfmplus_maxCtrFuelMass";
 private _maxAftFuelMass = _heli getVariable "fza_sfmplus_maxAftFuelMass";
-private _maxTotFuelMass = _maxFwdFuelMass + _maxCtrFuelMass + _maxAftFuelMass;
-_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
 
-private _totFuelMass = _maxTotFuelMass * _percentFuel;
-private _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
-private _aftFuelMass = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
-private _ctrFuelMass = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
+private _totFuelMass    = 0.0;
+private _fwdFuelMass    = 0.0;
+private _aftFuelMass    = 0.0;
+private _ctrFuelMass    = 0.0;
+private _maxTotFuelMass = 0.0;
+
+if (_IAFSInstalled) then {
+	_maxTotFuelMass = _maxFwdFuelMass + _maxCtrFuelMass + _maxAftFuelMass;
+	_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
+
+	_totFuelMass = _maxTotFuelMass * _percentFuel;
+	_fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
+	_aftFuelMass = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
+	_ctrFuelMass = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
+} else {
+	_maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
+	_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
+
+	_totFuelMass = _maxTotFuelMass * _percentFuel;
+	_fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
+	_aftFuelMass = _totFuelMass - _fwdFuelMass;
+};
+
+systemChat format ["Tot Fuel Mass %4 / Fwd Fuel Mass %1 / Ctr Fuel Mass %2 / Aft Fuel Mass %3", _fwdFuelMass, _ctrFuelMass, _aftFuelMass, _totFuelMass];
 
 [_fwdFuelMass, _ctrFuelMass, _aftFuelMass];

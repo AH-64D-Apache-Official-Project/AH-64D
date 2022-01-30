@@ -65,6 +65,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_apuSwitchState",    "OFF", true];
     _heli setVariable ["fza_ah64_rtrBrkSwitchState", "OFF", true];
     _heli setVariable ["fza_ah64_apuState", false, true];
+    _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
