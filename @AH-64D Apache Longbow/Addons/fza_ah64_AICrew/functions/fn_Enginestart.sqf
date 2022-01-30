@@ -26,7 +26,7 @@ params ["_heli", "_engineState"];
 if ((isplayer driver _heli == false) && _engineState == false && (_heli getVariable ["fza_ah64_aiESStop", true] == true)) then {
 	_heli setVariable ["fza_ah64_aiESStop", false];
 	//Ai Start up sequence
-	_heli animateSource ["plt_rtrbrake", 0];
+	[_heli, "fza_ah64_rtrbrake", false] call fza_fnc_animSetValue;
 	[_heli, "fza_ah64_battery", true] call fza_fnc_animSetValue;
 	[_heli, "fza_ah64_apu", true] call fza_fnc_animSetValue;
 

@@ -21,7 +21,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum", "_state"];
 
-if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _engPwrLeverAnimName = format["plt_eng%1_throttle", _engNum + 1]; 

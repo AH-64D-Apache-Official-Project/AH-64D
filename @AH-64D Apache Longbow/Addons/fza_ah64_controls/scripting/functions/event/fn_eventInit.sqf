@@ -30,14 +30,11 @@ _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false,
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
-    _heli animateSource ["plt_rtrbrake", 1];
-    _heli animateSource ["plt_firesw", 0.5];
-    _heli animateSource ["cpg_firesw", 0.5];
-    _heli animateSource ["tads_stow", 1];
 
     _heli setVariable ["fza_ah64_rtrbrake", true, true];
     _heli setVariable ["fza_ah64_battery", false, true];
     _heli setVariable ["fza_ah64_apu", false, true];
+    _heli setVariable ["fza_ah64_tadsStow", true, true]
 
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];
@@ -148,11 +145,11 @@ do {
     if (local _heli) then {
         _tadsShouldBeStowed = _heli getVariable "fza_ah64_apu" && !isEngineOn _heli;
         
-        if (_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 0) then {
-            _heli animateSource ["tads_stow", 1];
+        if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
+            [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;
         };
-        if (!_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 1) then {
-            _heli animateSource ["tads_stow", 0];
+        if (!_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
+            [_heli, "fza_ah64_tadsStow", false] call fza_fnc_animSetValue;
         };
     };
     sleep 0.03;

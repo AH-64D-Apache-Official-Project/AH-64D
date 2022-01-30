@@ -114,7 +114,7 @@ if (_heli animationphase "plt_eng2_start" > 0 && _heli animationphase "plt_eng2_
 if (isAutoHoverOn _heli) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\ATTHOLD.paa", "\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"]
 };
-if (_heli animationphase "plt_rtrbrake" == 1) then {
+if (_heli getVariable "fza_ah64_rtrbrake") then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RTRBRKON.paa", "\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"]
 };
 

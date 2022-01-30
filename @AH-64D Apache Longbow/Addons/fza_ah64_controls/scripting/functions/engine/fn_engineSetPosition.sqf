@@ -24,7 +24,7 @@ Author:
 
 params["_heli", "_engNum", "_position"];
 
-if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 [_heli, 0] call fza_fnc_engineUpdate;
 [_heli, 1] call fza_fnc_engineUpdate;

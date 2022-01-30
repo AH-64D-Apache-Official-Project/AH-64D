@@ -56,7 +56,7 @@ switch(_control) do {
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
 			[_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
-			_heli animateSource["plt_anticollision", 0];
+			[_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
 			_heli setCollisionLight false;
 			_heli setPilotLight false;
 			[_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
@@ -65,13 +65,8 @@ switch(_control) do {
 	};
 	
 	case "rtrbrake": {
-		if (_heli animationphase "plt_rtrbrake" < 1) then {
-			_heli animateSource["plt_rtrbrake", 1];
-			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
-		} else {
-			_heli animateSource["plt_rtrbrake", 0];
-			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
-		};
+		[_heli, "fza_ah64_rtrbrake", !(_heli getVariable "fza_ah64_rtrbrake")] call fza_fnc_animSetValue;
+		["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
 	};
 
 	//--------------------ENGINE 1--------------------//

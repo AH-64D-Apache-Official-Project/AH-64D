@@ -1499,7 +1499,7 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 1;
-			initPhase  = 0;
+			initPhase  = 1;
 		};
 		class m230_recoil
 		{
@@ -1780,13 +1780,13 @@ class CfgVehicles
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
+				initPhase=0.5;
             };
 			class cpg_firesw
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
+				initPhase=0.5;
             };
 			class plt_nvsmode
             {

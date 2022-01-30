@@ -36,5 +36,5 @@ if (_unit == driver _heli) then {
 	_heli animate["plt_eng2_throttle", 0, 10];
 	[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
 	[_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
-	_heli animateSource ["plt_rtrbrake", 1];
+	[_heli, "fza_ah64_rtrbrake", true] call fza_fnc_animSetValue;
 };

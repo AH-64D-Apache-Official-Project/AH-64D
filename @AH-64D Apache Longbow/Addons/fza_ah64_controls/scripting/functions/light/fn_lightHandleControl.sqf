@@ -42,11 +42,11 @@ switch (_control) do {
 		["fza_ah64_button_rotary", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
-		if (_heli animationphase "plt_anticollision" < 1 && _heli getVariable "fza_ah64_battery") then {
-			_heli animateSource["plt_anticollision", 1];
+		if (!(_heli getVariable "fza_ah64_anticollision") && _heli getVariable "fza_ah64_battery") then {
+			[_heli, "fza_ah64_anticollision", true] call fza_fnc_animSetValue;
 			_heli setCollisionLight true;
 		} else {
-			_heli animateSource["plt_anticollision", 0];
+			[_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
 			_heli setCollisionLight false;
 		};
         ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
