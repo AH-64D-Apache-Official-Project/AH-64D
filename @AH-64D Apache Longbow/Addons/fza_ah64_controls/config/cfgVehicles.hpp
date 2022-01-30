@@ -1125,7 +1125,7 @@ class CfgVehicles
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
 				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
-				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
+				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "laserBegin";
@@ -1468,11 +1468,20 @@ class CfgVehicles
 		};
 		class fcr_enable
 		{
-			displayName = "Attach FCR";
+			displayName = "Add FCR";
 			author = "Apache mod development team";
 			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
 			source = "user";
 			initPhase = 1;
+			animPeriod = 0.001;
+		};
+		class magazine_set_1200
+		{
+			displayName = "Swap IAFS for 1200rnd magazine"
+			author = "Apache mod development team";
+			onPhaseChanged = "_this remoteExec [""fza_fnc_weaponSwapM230Mag"",_this # 0];";
+			source = "user";
+			initPhase = 0;
 			animPeriod = 0.001;
 		};
 		/*
