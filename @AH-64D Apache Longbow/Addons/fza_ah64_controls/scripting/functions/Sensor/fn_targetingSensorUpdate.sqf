@@ -19,7 +19,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
-if !(_heli animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) exitwith {};
+if !(_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) exitwith {};
 
 #define AGMODE_GND 0
 #define AGMODE_AIR 1

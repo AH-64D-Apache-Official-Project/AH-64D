@@ -19,7 +19,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum"];
 
-if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
 

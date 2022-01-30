@@ -155,7 +155,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then 
 };
 
 //IHADSS INIT
-if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocleinbox") || isEngineOn _heli && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (_heli getVariable "fza_ah64_apu" && !(_heli getVariable "fza_ah64_monocleinbox") || isEngineOn _heli && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
@@ -185,7 +185,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") th
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
 if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _heli getVariable "fza_ah64_ihadssoff" == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
-    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli getVariable "fza_ah64_apu" || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];
@@ -210,13 +210,13 @@ if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "f
     };
 };
 
-if((vehicle player) animationphase "plt_apu" < 0.5 && !(isEngineOn _heli)) then {
+if(_heli getVariable "fza_ah64_apu" && !(isEngineOn _heli)) then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
-if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli)) then {
+if (cameraView == "GUNNER" && player == gunner _heli && (_heli getVariable "fza_ah64_apu" || isEngineOn _heli)) then {
 
     if !(isNil "_a3ti_vis") then {
         if !(isNil "fza_ah64_bweff") then {

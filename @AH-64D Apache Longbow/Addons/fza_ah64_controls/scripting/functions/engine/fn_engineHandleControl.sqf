@@ -26,14 +26,14 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "apu": {
-		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
-			_heli animateSource["plt_apu", 1];
+		if (!(_heli getVariable "fza_ah64_apu") && _heli getVariable "fza_ah64_battery") then {
+			[_heli, "fza_ah64_apu", true] call fza_fnc_animSetValue;
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
 			[_heli] spawn fza_fnc_fxLoops;
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
-			if (_heli animationphase "plt_apu" == 1) then {
-				_heli animateSource["plt_apu", 0];
+			if (_heli getVariable "fza_ah64_apu") then {
+				[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
 				//If either of the apache's engines are in a mode where they are using APU, turn it off.
 				_heliData = _heli getVariable "fza_ah64_engineStates";
 				(_heliData # 0) params ["_e1state"];
@@ -49,13 +49,13 @@ switch(_control) do {
 		};
 	};
 	case "power": {
-	    if (_heli animationphase "plt_batt" < 1) then {
-			_heli animateSource["plt_batt", 1];
+	    if !(_heli getVariable "fza_ah64_battery") then {
+			[_heli, "fza_ah64_battery", true] call fza_fnc_animSetValue;
 			[_heli] spawn fza_fnc_fxLoops;
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
-			_heli animateSource["plt_batt", 0];
-			_heli animateSource["plt_anticollision", 0];
+			[_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
+			[_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
 			_heli setCollisionLight false;
 			_heli setPilotLight false;
 			[_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
@@ -64,13 +64,8 @@ switch(_control) do {
 	};
 	
 	case "rtrbrake": {
-		if (_heli animationphase "plt_rtrbrake" < 1) then {
-			_heli animateSource["plt_rtrbrake", 1];
-			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
-		} else {
-			_heli animateSource["plt_rtrbrake", 0];
-			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
-		};
+		[_heli, "fza_ah64_rtrbrake", !(_heli getVariable "fza_ah64_rtrbrake")] call fza_fnc_animSetValue;
+		["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
 	};
 
 	//--------------------ENGINE 1--------------------//
