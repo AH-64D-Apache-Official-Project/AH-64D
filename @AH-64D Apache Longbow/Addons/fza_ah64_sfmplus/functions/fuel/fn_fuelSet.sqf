@@ -50,6 +50,4 @@ if (_IAFSInstalled) then {
 	_aftFuelMass = _totFuelMass - _fwdFuelMass;
 };
 
-systemChat format ["Tot Fuel Mass %4 / Fwd Fuel Mass %1 / Ctr Fuel Mass %2 / Aft Fuel Mass %3", _fwdFuelMass, _ctrFuelMass, _aftFuelMass, _totFuelMass];
-
 [_fwdFuelMass, _ctrFuelMass, _aftFuelMass];
