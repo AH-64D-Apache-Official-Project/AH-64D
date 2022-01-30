@@ -54,6 +54,9 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
     //systemChat format ["Stab joystick!"];
 };
 
+//Animate the Horizontal stabilizer
+_heli animate ["Hstab", _theta];
+
 //Stab coords    |     |
 //               |-----|
 //    A-------------H-------------B
