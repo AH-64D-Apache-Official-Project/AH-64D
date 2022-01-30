@@ -54,6 +54,7 @@ switch(_control) do {
 			[_heli] spawn fza_fnc_fxLoops;
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
+			_heli animateSource["plt_batt", 0];
 			_heli animateSource["plt_anticollision", 0];
 			_heli setCollisionLight false;
 			_heli setPilotLight false;
