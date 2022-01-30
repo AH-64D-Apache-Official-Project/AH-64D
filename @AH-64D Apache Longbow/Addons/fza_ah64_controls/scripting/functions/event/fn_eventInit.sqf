@@ -34,7 +34,9 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_rtrbrake", true, true];
     _heli setVariable ["fza_ah64_battery", false, true];
     _heli setVariable ["fza_ah64_apu", false, true];
-    _heli setVariable ["fza_ah64_tadsStow", true, true]
+    _heli setVariable ["fza_ah64_tadsStow", true, true];
+    _heli setVariable ["fza_ah64_powerLever1", 0, true];
+    _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];

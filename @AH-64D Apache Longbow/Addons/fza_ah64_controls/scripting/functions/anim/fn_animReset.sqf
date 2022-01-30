@@ -23,12 +23,12 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params [["_heli", nil, objNull], "_varName", "_animName"];
+params [["_heli", nil, [objNull]], "_varName", "_animName"];
 
 private _val = _heli getVariable _varName;
 
 if (typeName _val == "BOOL") then {
-	_heli animate [_animName, [0,1] select _val];
+	_heli animate [_animName, parseNumber _val];
 };
 
 if (typeName _val == "SCALAR") then {

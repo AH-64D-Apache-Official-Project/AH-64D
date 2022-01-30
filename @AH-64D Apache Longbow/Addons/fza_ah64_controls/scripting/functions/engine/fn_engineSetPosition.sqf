@@ -99,8 +99,8 @@ switch (_state) do {
                         _changeMade = true;
 
                         //0.063 sets the power levers to fly in 16 seconds
-                        _heli animate["plt_eng1_throttle", 1, 0.063];
-                        _heli animate["plt_eng2_throttle", 1, 0.063];
+                        [_heli, "fza_ah64_powerLever1", 1, 0.063] call fza_fnc_animSetValue;
+                        [_heli, "fza_ah64_powerLever2", 1, 0.063] call fza_fnc_animSetValue;
                     }
                 };
             };
@@ -114,8 +114,8 @@ switch (_state) do {
             _changeMade = true;
             
             //0.667 sets the power levers to idle in 1.5 seconds
-            _heli animate["plt_eng1_throttle", 0.25, 0.667];
-            _heli animate["plt_eng2_throttle", 0.25, 0.667];
+            [_heli, "fza_ah64_powerLever1", 0.25, 0.667] call fza_fnc_animSetValue;
+            [_heli, "fza_ah64_powerLever2", 0.25, 0.667] call fza_fnc_animSetValue;
         };
     };
 };

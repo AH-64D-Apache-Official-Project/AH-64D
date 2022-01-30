@@ -41,7 +41,7 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
 
 	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["IDLE", "OFF"]];
 	_heli setVariable ["fza_sfmplus_engState",            	["ON", "OFF"]];
-	_heli animate["plt_eng1_throttle", 0.25, 0.667];
+	[_heli, "fza_ah64_powerLever1", 0.25, 0.667] call fza_fnc_animSetValue;
 
 	sleep 2;
 	if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
@@ -54,7 +54,7 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
 
 	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["IDLE", "IDLE"]];
 	_heli setVariable ["fza_sfmplus_engState",            	["ON", "ON"]];
-	_heli animate["plt_eng2_throttle", 0.25, 0.667];
+	[_heli, "fza_ah64_powerLever2", 0.25, 0.667] call fza_fnc_animSetValue;
 
 	sleep 20;
 	if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
@@ -65,8 +65,8 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
 	if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
 
 	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["FLY", "FLY"]];
-	_heli animate["plt_eng1_throttle", 1, 0.063];
-	_heli animate["plt_eng2_throttle", 1, 0.063];
+	[_heli, "fza_ah64_powerLever1", 1, 0.063] call fza_fnc_animSetValue;
+	[_heli, "fza_ah64_powerLever2", 1, 0.063] call fza_fnc_animSetValue;
 
 	_heli setVariable ["fza_ah64_aiESStop", false];
 };

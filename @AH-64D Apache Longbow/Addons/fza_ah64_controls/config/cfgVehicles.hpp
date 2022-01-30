@@ -1500,6 +1500,7 @@ class CfgVehicles
 			source = "user";
 			animPeriod = 1;
 			initPhase  = 1;
+			onPhaseChanged = "[_this # 0, ""fza_ah64_tadsStow"", ""tads_stow""] call fza_fnc_animReset";
 		};
 		class m230_recoil
 		{
@@ -1768,15 +1769,15 @@ class CfgVehicles
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
-				onPhaseChanged = "[_heli, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
+				initPhase=1;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
             };
 			class plt_anticollision
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				onPhaseChanged = "[_heli, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
+				onPhaseChanged = "[_this # 0, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
             };
 			class plt_firesw
             {
@@ -1807,14 +1808,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				onPhaseChanged = "[_heli, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
+				onPhaseChanged = "[_this # 0, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
             };
 			class plt_apu
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
-				onPhaseChanged = "[_heli, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
+				onPhaseChanged = "[_this # 0, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
             };
 			class cpg_ihadss_brt
             {
@@ -1827,12 +1828,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 1;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever1"", ""plt_eng1_throttle""] call fza_fnc_animReset";
             };
 			class plt_eng2_throttle
             {
 				source = "user";
 				animPeriod = 1;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
             };
 			/*
 			class plt_floodlamps
