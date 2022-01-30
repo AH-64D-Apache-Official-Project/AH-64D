@@ -53,7 +53,7 @@ private _intGoNoGoTable2 = [[-40, _intGoNoGoTable select 1, _intGoNoGoTable sele
 						    [ 20, _intGoNoGoTable select 7, _intGoNoGoTable select 8],
 						    [ 40, _intGoNoGoTable select 9, _intGoNoGoTable select 10]];
 private _intGoNoGoTable3 = [_intGoNoGoTable2, _temp] call fza_fnc_linearInterp;
-_heli setVariable ["fza_sfmplus_goNoGoTQ_IGE", _intGoNoGoTable3 select 1;
+_heli setVariable ["fza_sfmplus_goNoGoTQ_IGE", _intGoNoGoTable3 select 1];
 _heli setVariable ["fza_sfmplus_goNoGoTQ_OGE", _intGoNoGoTable3 select 2];
 
 //Hover TQ IGE and OGE
