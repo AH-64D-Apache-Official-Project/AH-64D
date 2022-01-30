@@ -34,7 +34,6 @@ switch(_control) do {
 		} else {
 			if (_heli getVariable "fza_ah64_apu") then {
 				[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
-
 				//If either of the apache's engines are in a mode where they are using APU, turn it off.
 				_heliData = _heli getVariable "fza_ah64_engineStates";
 				(_heliData # 0) params ["_e1state"];

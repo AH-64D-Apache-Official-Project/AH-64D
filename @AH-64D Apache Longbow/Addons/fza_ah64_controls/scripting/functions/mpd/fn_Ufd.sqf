@@ -123,8 +123,9 @@ do {
     //pilot
     if (_heli getVariable "fza_ah64_battery") then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
-        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
-        [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;
+        private _maxTotFuelMass = (_heli getVariable "fza_sfmplus_maxTotFuelMass") * 2.20462;
+        [_heli, fuel _heli * _maxTotFuelMass, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
+        [_heli, fuel _heli * _maxTotFuelMass, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;
         [_heli, _hour, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_HR] call fza_fnc_drawNumberSelections;
         [_heli, _min, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
         [_heli, _sec, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_MIN] call fza_fnc_drawNumberSelections;
