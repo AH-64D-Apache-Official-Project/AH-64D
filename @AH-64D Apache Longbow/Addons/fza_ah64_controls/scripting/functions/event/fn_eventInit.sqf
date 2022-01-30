@@ -48,6 +48,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
+    _heli setVariable ["fza_ah64_magazineAddLastValue", _heli animationSourcePhase "magazine_set_1200", true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
@@ -60,6 +61,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
     _heli setVariable ["fza_ah64_rfJamOn", false, true];
     _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
+    _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]

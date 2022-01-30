@@ -34,7 +34,6 @@ switch(_control) do {
 		} else {
 			if (_heli animationphase "plt_apu" == 1) then {
 				_heli animateSource["plt_apu", 0];
-
 				//If either of the apache's engines are in a mode where they are using APU, turn it off.
 				_heliData = _heli getVariable "fza_ah64_engineStates";
 				(_heliData # 0) params ["_e1state"];
