@@ -46,7 +46,7 @@ private _changeMade = false;
 
 switch (_state) do {
     case "OFF":{
-            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER) && _heli animationphase "plt_apu" > 0.5) then {
+            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER) && _heli getVariable "fza_ah64_apu") then {
                 _state = "OFFSTARTED";
                 _stateParams = time;
                 _changeMade = true;
@@ -72,7 +72,7 @@ switch (_state) do {
 
             _heli animateSource[_engineSwitch, 0];
         };
-        if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli animationphase "plt_apu" > 0.5) then {
+        if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli getVariable "fza_ah64_apu") then {
             _stateParams = time;
             _state = "STARTEDIDLE";
             _changeMade = true;

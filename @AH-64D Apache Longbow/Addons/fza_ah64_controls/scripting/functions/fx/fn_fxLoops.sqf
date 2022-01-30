@@ -21,13 +21,13 @@ private _timed_apu = time + 24;
 private _timed_bat = time + 0;
 
 
-if (_heli animationphase "plt_apu" == 1) then {
+if (_heli getVariable "fza_ah64_apu") then {
     private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;
     _apu attachTo[_heli, [0, 0, 0]];
     hideObjectGlobal _apu;
     
     while {
-        _heli animationphase "plt_apu" == 1
+        _heli getVariable "fza_ah64_apu"
     }
     do {
         if (time > _timed_apu) then {
@@ -39,13 +39,13 @@ if (_heli animationphase "plt_apu" == 1) then {
     deleteVehicle _apu;
 };
 
-if (_heli animationphase "plt_batt" == 1) then {
+if (_heli getVariable "fza_ah64_battery") then {
     private _bat = "Land_ClutterCutter_small_F" createVehicle[0, 0, 0];
     _bat attachTo[_heli, [0, 5, 0]];
     hideObjectGlobal _bat;
 
     while {
-        _heli animationphase "plt_batt" == 1
+        _heli getVariable "fza_ah64_battery"
     }
     do {
         if (time > _timed_bat) then {

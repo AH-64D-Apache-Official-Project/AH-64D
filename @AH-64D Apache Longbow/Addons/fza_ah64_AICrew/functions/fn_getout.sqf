@@ -34,7 +34,7 @@ if (_unit == driver _heli) then {
 	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]];
 	_heli animate["plt_eng1_throttle", 0, 10];
 	_heli animate["plt_eng2_throttle", 0, 10];
-	_heli animate["plt_apu", 0];
-	_heli animate["plt_batt", 0];
+	[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
+	[_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
 	_heli animateSource ["plt_rtrbrake", 1];
 };

@@ -75,7 +75,7 @@ if (fuel _heli < 0.05) then {
 if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUEL.paa", "\fza_ah64_us\tex\UFD\AFTFUELLO_C_co.paa"];
 };
-if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
+if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
 if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
@@ -102,7 +102,7 @@ if (_heli getHit "otocvez" >= 0.8) then {
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\CANOPY.paa", "\fza_ah64_us\tex\UFD\CANOPYOPEN_A_co.paa"]
 };
-if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 < 3) then {
+if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 < 3) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
 if (_heli animationphase "plt_eng1_start" > 0 && _heli animationphase "plt_eng1_throttle" < 0.25) then {

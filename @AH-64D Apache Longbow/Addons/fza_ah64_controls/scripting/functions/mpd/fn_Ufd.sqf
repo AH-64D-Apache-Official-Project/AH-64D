@@ -82,7 +82,7 @@ do {
     _magsg = magazines _heli;
 
     ///end gunner weapon damage//
-    if (_heli animationphase "plt_apu" > 0.5) then {
+    if (_heli getVariable "fza_ah64_apu") then {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_APU, ""];
@@ -121,7 +121,7 @@ do {
 
     ///EWCA//
     //pilot
-    if (_heli animationphase "plt_batt" > 0.5) then {
+    if (_heli getVariable "fza_ah64_battery") then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;

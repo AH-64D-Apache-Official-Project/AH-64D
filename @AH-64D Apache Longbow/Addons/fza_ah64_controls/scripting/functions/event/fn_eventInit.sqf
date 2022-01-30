@@ -34,6 +34,11 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli animateSource ["plt_firesw", 0.5];
     _heli animateSource ["cpg_firesw", 0.5];
     _heli animateSource ["tads_stow", 1];
+
+    _heli setVariable ["fza_ah64_rtrbrake", true, true];
+    _heli setVariable ["fza_ah64_battery", false, true];
+    _heli setVariable ["fza_ah64_apu", false, true];
+
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
@@ -131,7 +136,7 @@ while {
     alive _heli
 }
 do {
-    if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
+    if ((isLightOn [_heli,[0]]) && !(_heli getVariable "fza_ah64_battery")) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
@@ -141,7 +146,7 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        _tadsShouldBeStowed = _heli animationphase "plt_apu" < 1 && !isEngineOn _heli;
+        _tadsShouldBeStowed = _heli getVariable "fza_ah64_apu" && !isEngineOn _heli;
         
         if (_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 0) then {
             _heli animateSource ["tads_stow", 1];

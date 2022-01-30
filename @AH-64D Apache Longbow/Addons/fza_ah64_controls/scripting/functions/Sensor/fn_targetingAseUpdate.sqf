@@ -24,7 +24,7 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
 {
 	_x params ["_ada", "_type", "_sensor"];
 	private _IDfailed = true;
-	if ((vehicle player) animationphase "plt_apu" > 0.5 || (isEngineOn _heli)) then {
+	if (_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) then {
 		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
 			//TSD & ASE Draw
 			if !(_ADA in fza_ah64_targetlist) then {

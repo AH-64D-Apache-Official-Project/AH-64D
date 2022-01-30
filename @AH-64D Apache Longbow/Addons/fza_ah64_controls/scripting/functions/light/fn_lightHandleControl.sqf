@@ -26,7 +26,7 @@ params ["_heli", "_system", "_control"];
 
 switch (_control) do {
 	case "floodlight": {
-		if (!(isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" > 0.5) then {
+		if (!(isLightOn [_heli,[0]]) && _heli getVariable "fza_ah64_battery") then {
 			_heli setObjectTextureGlobal [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
 
@@ -42,7 +42,7 @@ switch (_control) do {
 		["fza_ah64_button_rotary", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
-		if (_heli animationphase "plt_anticollision" < 1 && _heli animationphase "plt_batt" > 0.5) then {
+		if (_heli animationphase "plt_anticollision" < 1 && _heli getVariable "fza_ah64_battery") then {
 			_heli animateSource["plt_anticollision", 1];
 			_heli setCollisionLight true;
 		} else {

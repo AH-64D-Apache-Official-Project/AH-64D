@@ -43,7 +43,7 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli animationphase "plt_apu" > 0.5) then {
+if (_heli getVariable "fza_ah64_apu") then {
 	_apuFF = 0.0220;	//175pph
 };
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;

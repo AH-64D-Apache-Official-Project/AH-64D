@@ -9,6 +9,10 @@ class CfgFunctions
 	class fza_ah64_project
 	{
 		tag = "FZA";
+		class anim {
+			file = "\fza_ah64_controls\scripting\functions\avionics";
+			class animSetValue {R;};
+		};
 		class avionics
 		{
 			file = "\fza_ah64_controls\scripting\functions\avionics";
