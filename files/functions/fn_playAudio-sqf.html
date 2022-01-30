@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic173"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic175"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_playAudio"></a><a name="Topic174"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_playAudio"></a><a name="Topic176"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_playAudio</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Play an audio message comprising of multiple parts</p><p>The delay needed to compensate for the playing of each clip is not taken into account automatically. This also needs to be done with the delays.</p><p>There must be an equal number of sounds and delays.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_system</td><td class="CDLDefinition"><p><b>CfgSounds</b> class to play</p></td></tr><tr><td class="CDLEntry">_delay1</td><td class="CDLDefinition"><p>The delay between this and the next part of the message in seconds</p></td></tr><tr><td class="CDLEntry">_subsystem</td><td class="CDLDefinition"><p><b>CfgSounds</b> class to play</p></td></tr><tr><td class="CDLEntry">_delay2</td><td class="CDLDefinition"><p>The delay between this and the next part of the message in seconds</p></td></tr><tr><td class="CDLEntry">_state</td><td class="CDLDefinition"><p><b>CfgSounds</b> class to play</p></td></tr><tr><td class="CDLEntry">_delay3</td><td class="CDLDefinition"><p>The delay between this and the next part of the message in seconds</p></td></tr></table><div class="CHeading">Returns</div><p>Nothing</p><div class="CHeading">Examples</div><p>This is a valid 2 part message:</p><pre>[<span class="SHString">&quot;fza_ah64_bt_rotorrpm&quot;</span>, <span class="SHNumber">1.7</span>, <span class="SHString">&quot;fza_ah64_bt_high&quot;</span>, <span class="SHNumber">1</span>] spawn fza_fnc_playAudio;</pre><p>This is a valid 1 part message:</p><pre>[<span class="SHString">&quot;fza_ah64_tads_failure_1&quot;</span>, <span class="SHNumber">5</span>] spawn fza_fnc_playAudio;</pre><p>This is bad usage, you could end up with overlapping sounds if you do this.</p><pre>[<span class="SHString">&quot;fza_ah64_bt_rotorrpm&quot;</span>] spawn fza_fnc_playAudio;</pre><div class="CHeading">Author</div><p>Unknown, AngusLogan02</p></div>
 </div>
