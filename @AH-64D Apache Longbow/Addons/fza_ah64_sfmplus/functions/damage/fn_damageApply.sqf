@@ -20,6 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
+if (!local _heli) exitWith {};
+
 private _pctNR         = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
 private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 1;

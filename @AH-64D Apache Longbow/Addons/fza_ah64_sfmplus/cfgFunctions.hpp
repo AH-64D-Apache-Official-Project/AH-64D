@@ -42,6 +42,11 @@ class CfgFunctions
 			file = "\fza_ah64_sfmplus\functions\mass";
 			class massSet {R;};
 		};
+		class performance {
+			file = "\fza_ah64_sfmplus\functions\performance";
+			class perfData {R;};
+			class perfVariables {R;};
+		};
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
 			class clampedMove {R;};
