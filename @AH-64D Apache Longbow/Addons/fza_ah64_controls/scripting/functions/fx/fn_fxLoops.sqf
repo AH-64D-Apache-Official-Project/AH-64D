@@ -39,13 +39,14 @@ if (_heli animationphase "plt_apu" == 1) then {
     deleteVehicle _apu;
 };
 
-if (_heli animationphase "plt_batt" == 1) then {
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
+if (_batteryState == 1) then {
     private _bat = "Land_ClutterCutter_small_F" createVehicle[0, 0, 0];
     _bat attachTo[_heli, [0, 5, 0]];
     hideObjectGlobal _bat;
 
     while {
-        _heli animationphase "plt_batt" == 1
+        _batteryState == 1
     }
     do {
         if (time > _timed_bat) then {

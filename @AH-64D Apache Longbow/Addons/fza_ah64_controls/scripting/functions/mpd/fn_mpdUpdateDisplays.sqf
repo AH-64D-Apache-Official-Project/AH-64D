@@ -23,11 +23,13 @@ params ["_heli"];
 (_heli getVariable "fza_ah64_mpdPage") params ["_lmpdNext", "_rmpdNext"];
 (_heli getVariable "fza_ah64_mpdCurrPage") params ["_lmpdCurr", "_rmpdCurr"];
 
-if (_heli animationphase "plt_batt" < 0.5 && (_lmpdCurr != "OFF" || _rmpdCurr != "OFF")) then {
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
+
+if ((_batteryState == 0) && (_lmpdCurr != "OFF" || _rmpdCurr != "OFF")) then {
 	[_heli, 1, "off"] call fza_fnc_mpdSetDisplay;
 	[_heli, 0, "off"] call fza_fnc_mpdSetDisplay;
 };
-if ((_heli animationphase "plt_batt" > 0.5) && (_lmpdCurr == "OFF" || _rmpdCurr == "OFF")) then {
+if ((_batteryState == 1) && (_lmpdCurr == "OFF" || _rmpdCurr == "OFF")) then {
 	[_heli, 0, "fuel"] call fza_fnc_mpdSetDisplay;
 	[_heli, 1, "eng"] call fza_fnc_mpdSetDisplay;
 };
