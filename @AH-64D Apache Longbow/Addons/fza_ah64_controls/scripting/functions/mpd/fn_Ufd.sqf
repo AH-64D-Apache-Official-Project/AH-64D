@@ -20,6 +20,8 @@ Author:
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
 
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
+
 _wcacall = {
     _heli = _this select 0;
     _start = _this select 1;
@@ -121,7 +123,6 @@ do {
 
     ///EWCA//
     //pilot
-    private _batteryState = _heli getVariable "fza_ah64_batteryState";
     if (_batteryState == 1) then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
