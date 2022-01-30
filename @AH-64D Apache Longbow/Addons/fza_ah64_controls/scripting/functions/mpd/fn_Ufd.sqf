@@ -121,12 +121,7 @@ do {
 
     ///EWCA//
     //pilot
-<<<<<<< HEAD
     if (_heli animationphase "plt_batt" > 0.5) then {
-=======
-    private _batteryState = _heli getVariable "fza_ah64_batteryState";
-    if (_batteryState == 1) then {
->>>>>>> parent of 8a6e98e4 (Update)
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         private _maxTotFuelMass = (_heli getVariable "fza_sfmplus_maxTotFuelMass") * 2.20462;
         [_heli, fuel _heli * _maxTotFuelMass, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
