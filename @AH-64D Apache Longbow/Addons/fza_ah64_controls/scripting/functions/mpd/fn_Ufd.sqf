@@ -17,10 +17,11 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
+
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
 
-private _batteryState = _heli getVariable "fza_ah64_batteryState";
+private _battSwitchState = _heli getVariable "fza_ah64_battSwitchState";
 
 _wcacall = {
     _heli = _this select 0;
@@ -123,7 +124,7 @@ do {
 
     ///EWCA//
     //pilot
-    if (_batteryState == 1) then {
+    if (_battSwitchState == "ON") then {
         _heli setobjecttexture [SEL_UFD_BACK, "\fza_ah64_us\tex\in\ufdon.paa"];
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_G_UFD_FL] call fza_fnc_drawNumberSelections;
         [_heli, fuel _heli * 2538, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_P_UFD_FL] call fza_fnc_drawNumberSelections;
