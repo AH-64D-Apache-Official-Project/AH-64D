@@ -61,10 +61,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
     _heli setVariable ["fza_ah64_rfJamOn", false, true];
     _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
-    _heli setVariable ["fza_ah64_battSwitchState",   "OFF", true];
-    _heli setVariable ["fza_ah64_apuSwitchState",    "OFF", true];
-    _heli setVariable ["fza_ah64_rtrBrkSwitchState", "OFF", true];
-    _heli setVariable ["fza_ah64_apuState", false, true];
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
@@ -137,8 +133,7 @@ while {
     alive _heli
 }
 do {
-    private _batteryState = _heli getVariable "fza_ah64_batteryState";
-    if ((isLightOn [_heli,[0]]) && _batteryState == 1) then {
+    if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
