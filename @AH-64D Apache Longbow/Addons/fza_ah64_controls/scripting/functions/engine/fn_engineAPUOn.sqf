@@ -20,4 +20,6 @@ Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+
 _heli animationSourcePhase "plt_apu" > 0.5
+
