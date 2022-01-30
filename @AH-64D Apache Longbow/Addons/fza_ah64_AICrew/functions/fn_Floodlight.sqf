@@ -15,8 +15,8 @@ params ["_heli"];
 
 if !fza_ah64_aiFloodlight exitWith {};
 if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
-private _battSwitchState = _heli getVariable "fza_ah64_battSwitchState";
-if (_battSwitchState == "OFF") exitWith {};
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
+if (_batteryState == 0) exitWith {};
 
 private _driver = driver vehicle _heli;
 private _gunner = gunner vehicle _heli;

@@ -24,15 +24,15 @@ Author:
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params ["_heli", "_system", "_control"];
 
-private _apuSwitchState    = _heli getVariable "fza_ah64_apuSwitchState";
-private _battSwitchState   = _heli getVariable "fza_ah64_battSwitchState";
-private _rtrBrkSwitchState = _heli getVariable "fza_ah64_rtrBrkSwitchState";
+private _apuState     = _heli getVariable "fza_ah64_apuState";
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
+private _rtrBrkState  = _heli getVariable "fza_ah64_rtrBrkState";
 
 switch(_control) do {
 	case "apu": {
 		if (_heli animationphase "plt_apu" < 1 && _heli animationphase "plt_batt" == 1) then {
 			//Set the APU state to ON
-			_apuSwitchState = "ON";
+			_apuState = 1;
 			//Set the APU animation to 1
 			_heli animateSource["plt_apu", 1];
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
@@ -41,7 +41,7 @@ switch(_control) do {
 		} else {
 			if (_heli animationphase "plt_apu" == 1) then {
 				//Set the APU state to OFF
-				_apuSwitchState = "OFF";
+				_apuState = 0;
 				//Set the APU animation to 0
 				_heli animateSource["plt_apu", 0];
 				//If either of the apache's engines are in a mode where they are using APU, turn it off.
@@ -59,19 +59,19 @@ switch(_control) do {
 		};
 		
 		//Set the APU state
-		_heli setVariable ["fza_ah64_apuSwitchState", _apuSwitchState, true];
+		_heli setVariable ["fza_ah64_apuState", _apuState, true];
 	};
 	case "power": {
 	    if (_heli animationphase "plt_batt" < 1) then {
 			//Set the battery state to ON
-			_battSwitchState = "ON";
+			_batteryState = 1;
 			//Set the battery animation to 1
 			_heli animateSource["plt_batt", 1];
 			[_heli] spawn fza_fnc_fxLoops;
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
 			//Set the battery state to OFF
-			_battSwitchState = "OFF";
+			_batteryState = 0;
 			//Set the battery animation to 0
 			_heli animateSource["plt_batt", 0];
 			_heli animateSource["plt_anticollision", 0];
@@ -82,26 +82,26 @@ switch(_control) do {
 		};
 
 		//Set the battery state
-		_heli setVariable ["fza_ah64_battSwitchState", _battSwitchState, true];
+		_heli setVariable ["fza_ah64_batteryState", _batteryState, true];
 	};
 	
 	case "rtrbrake": {
 		if (_heli animationphase "plt_rtrbrake" < 1) then {
 			//Set the rotor brake state to OFF
-			_rtrBrkSwitchState = "ON";
+			_rtrBrkState = 1;
 			//Set the rotor brake animation to 0
 			_heli animateSource["plt_rtrbrake", 1];
 			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
 		} else {
 			//Set the rotor brake state to ON
-			_rtrBrkSwitchState = "OFF";
+			_rtrBrkState = 0;
 			//Set the rotor brake animation to 1
 			_heli animateSource["plt_rtrbrake", 0];
 			["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
 		};
 
 		//Set the battery state
-		_heli setVariable ["fza_ah64_rtrBrkSwitchState", _rtrBrkSwitchState, true];
+		_heli setVariable ["fza_ah64_rtrBrkState", _rtrBrkState, true];
 	};
 
 	//--------------------ENGINE 1--------------------//

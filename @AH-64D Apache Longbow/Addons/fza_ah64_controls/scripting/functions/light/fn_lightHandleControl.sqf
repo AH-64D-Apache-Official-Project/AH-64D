@@ -24,11 +24,11 @@ Author:
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
-private _battSwitchState = _heli getVariable "fza_ah64_battSwitchState";
+private _batteryState = _heli getVariable "fza_ah64_batteryState";
 
 switch (_control) do {
 	case "floodlight": {
-		if (!(isLightOn [_heli,[0]]) && _battSwitchState == "ON") then {
+		if (!(isLightOn [_heli,[0]]) && _batteryState == 1) then {
 			_heli setObjectTextureGlobal [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
 			_heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
 
@@ -44,7 +44,7 @@ switch (_control) do {
 		["fza_ah64_button_rotary", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "anticollision": {
-		if (_heli animationphase "plt_anticollision" < 1 && _battSwitchState == "ON") then {
+		if (_heli animationphase "plt_anticollision" < 1 && _batteryState == 1) then {
 			_heli animateSource["plt_anticollision", 1];
 			_heli setCollisionLight true;
 		} else {

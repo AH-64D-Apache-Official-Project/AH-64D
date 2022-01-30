@@ -17,7 +17,6 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
-
 if (!(isNil "fza_ah64_noufd")) exitwith {};
 _heli = _this select 0;
 

@@ -137,8 +137,8 @@ while {
     alive _heli
 }
 do {
-    private _battSwitchState = _heli getVariable "fza_ah64_battSwitchState";
-    if ((isLightOn [_heli,[0]]) && _battSwitchState == "ON") then {
+    private _batteryState = _heli getVariable "fza_ah64_batteryState";
+    if ((isLightOn [_heli,[0]]) && _batteryState == 1) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
