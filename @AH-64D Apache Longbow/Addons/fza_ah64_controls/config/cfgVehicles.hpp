@@ -1769,12 +1769,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_heli, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
             };
 			class plt_anticollision
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_heli, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
             };
 			class plt_firesw
             {
@@ -1805,12 +1807,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_heli, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
             };
 			class plt_apu
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_heli, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
             };
 			class cpg_ihadss_brt
             {
