@@ -76,11 +76,11 @@ switch(_control) do {
 			params ["_heli", "_startSwitchToStart"];
 			if (_startSwitchToStart) then {
 				_heli animateSource ["plt_eng1_start", 1];
-				sleep 0.3;
+				sleep 0.15;
 				_heli animateSource ["plt_eng1_start", 0];
 			} else {
 				_heli animateSource ["plt_eng1_start", -1];
-				sleep 0.3;
+				sleep 0.15;
 				_heli animateSource ["plt_eng1_start", 0];
 			};
 		};
