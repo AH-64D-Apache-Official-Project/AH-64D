@@ -15,7 +15,7 @@ stub: true
 
 ## Left Panel Description
 1. {{FSBS}} **Flood Light Knob** - This control toggles the crewstation floodlighting ON/OFF.
-2. {{BS}} **Exterior Light Switch** - **NOT VISIBLE** This control toggles the aircraft exterior lighting.
+2. {{BS}} **Exterior Light Switch** - **NOT VISIBLE IN {{BS}}** This control toggles the aircraft exterior lighting.
 3. {{BS}} **Engine 1 and 2 Start Switches** - Toggle the engine starter ON/OFF. To start the engines, Battery and Auxilliary Power Unit (APU) power are required and the Rotor Brake must be OFF.
 4. {{BS}} **Auxilliary Power Unit (APU) Pushbutton** - Toggles the APU ON/OFF. When ON the pushbutton will be illuminated, when OFF the pushbutton will be dark.
 5. {{BS}} **Master Ignition Switch** - Toggles the aircraft battery ON/OFF.
