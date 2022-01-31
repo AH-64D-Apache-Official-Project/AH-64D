@@ -10,10 +10,11 @@ private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
 
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 //FCR wiper
-private _fcrScanDeltaTime = time - _fcrScanStartTime;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime * 0.66];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-
+if (_fcrScanState != FCR_MODE_OFF) then {
+    private _fcrScanDeltaTime = time - _fcrScanStartTime;
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 2];
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
+};
 
 //Total target count
 private _fcrTgtCount  = count _fcrTargets;

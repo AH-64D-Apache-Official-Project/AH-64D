@@ -18,7 +18,7 @@ params ["_heli"];
 if (!(player in _heli)) exitwith {};
 
 if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
-    private _fcrState = _heli getVariable "fza_ah64_fcrState";
+    private _fcrState    = _heli getVariable "fza_ah64_fcrState";
     private _armaRadarOn = isVehicleRadarOn vehicle player;
 
     switch (_fcrState # 0) do {
