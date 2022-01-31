@@ -24,8 +24,6 @@ private _irJamPwr   = _heli getVariable "fza_ah64_ase_irJamPwr";
 private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
 private _irJamTimer = _heli getVariable "fza_ah64_ase_irJamTimer";
 
-systemChat format ["IR Jam Pwr / State = %1 / %2", _irJamPwr, _irJamState];
-
 switch (_irJamState) do {
 	case ASE_IRJAM_STATE_OFF: {
 		if (_irJamPwr == "on") then {

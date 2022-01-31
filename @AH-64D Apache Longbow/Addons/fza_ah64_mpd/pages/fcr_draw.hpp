@@ -129,7 +129,7 @@ class fcr_draw {
         };
     };
     class lines_continuous {
-        condition = C_COND(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
         class nearBar {
             condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));
             class line {
@@ -154,7 +154,7 @@ class fcr_draw {
         };
     };
     class lines_single : lines_continuous {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE)));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
         color[] = {1,1,1,1};
         class nearBar {
             condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1)));

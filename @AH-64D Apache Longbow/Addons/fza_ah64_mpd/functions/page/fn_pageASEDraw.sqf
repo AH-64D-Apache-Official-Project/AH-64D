@@ -46,6 +46,3 @@ for "_i" from 0 to 6 do {
 };
 private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrCount";
 _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
-
-//Test
-hintsilent format ["Ase Objs = %1", _rwlrObjects];
