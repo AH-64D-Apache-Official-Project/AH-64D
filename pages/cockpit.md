@@ -18,9 +18,9 @@ stub: true
 2. {{BS}} **Exterior Light Switch** - **NOT VISIBLE** This control toggles the aircraft exterior lighting.
 3. {{BS}} **Engine 1 and 2 Start Switches** - Toggle the engine starter ON/OFF. To start the engines, Battery and Auxilliary Power Unit (APU) power are required and the Rotor Brake must be OFF.
 4. {{BS}} **Auxilliary Power Unit (APU) Pushbutton** - Toggles the APU ON/OFF. When ON the pushbutton will be illuminated, when OFF the pushbutton will be dark.
-5. {{BS}} Master Ignition Switch - Toggles the aircraft battery ON/OFF.
-6. {{BS}} Rotor Brake Switch - Toggles the Rotor Brake switch from Brake (BRK) to OFF. By default it is set to BRK.
-7. {{FSBS}} NVS Mode Switch - Toggles the Helmet Display Unit (HDU) Forward Looking Infrared (FLIR) video ON/OFF for night flight.
+5. {{BS}} **Master Ignition Switch** - Toggles the aircraft battery ON/OFF.
+6. {{BS}} **Rotor Brake Switch** - Toggles the Rotor Brake switch from Brake (BRK) to OFF. By default it is set to BRK.
+7. {{FSBS}} **NVS Mode Switch** - Toggles the Helmet Display Unit (HDU) Forward Looking Infrared (FLIR) video ON/OFF for night flight.
 
 Additionally, there are three detents for the Engine 1/2 Power Levers: OFF, IDLE and FLY. Clicking within each zone will advance/retard he Power Levers automatically.
 
