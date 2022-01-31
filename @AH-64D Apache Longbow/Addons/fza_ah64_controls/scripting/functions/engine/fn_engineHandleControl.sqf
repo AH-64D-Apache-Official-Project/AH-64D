@@ -72,8 +72,17 @@ switch(_control) do {
 	//Start Switch
 	case "e1start": {
 		private _startSwitchToStart = [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
-		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)]
+		[_heli,_startSwitchToStart] spawn {
+			params ["_heli", "_startSwitchToStart"];
+			if (_startSwitchToStart) then {
+				_heli animateSource ["plt_eng1_start", 1];
+				sleep 0.3;
+				_heli animateSource ["plt_eng1_start", 0];
+			} else {
+				_heli animateSource ["plt_eng1_start", -1];
+				sleep 0.3;
+				_heli animateSource ["plt_eng1_start", 0];
+			};
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
@@ -110,8 +119,17 @@ switch(_control) do {
 	//Start Switch
 	case "e2start": {
 		private _startSwitchToStart = [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
-		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng2_start", [0, 2] select (_heli animationSourcePhase "plt_eng2_start" != 0)]
+		[_heli,_startSwitchToStart] spawn {
+			params ["_heli", "_startSwitchToStart"];
+			if (_startSwitchToStart) then {
+				_heli animateSource ["plt_eng2_start", 1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng2_start", 0];
+			} else {
+				_heli animateSource ["plt_eng2_start", -1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng2_start", 0];
+			};
 		};
 		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
