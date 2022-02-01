@@ -103,9 +103,6 @@ class CfgVehicles
 		transportMaxMagazines = 10;
 		transportMaxWeapons = 3;
 		type = VAir;
-		unitinfotype = "fza_ah64_rscInfoMinimal";
-		unitInfoTypeLite = "fza_ah64_rscInfoBasic";
-		unitInfoTypeRTD = "fza_ah64_rscInfoRTD";
 
 		usePreciseGetInAction = 1;
 		emptySound[] = {"", 0, 1};
