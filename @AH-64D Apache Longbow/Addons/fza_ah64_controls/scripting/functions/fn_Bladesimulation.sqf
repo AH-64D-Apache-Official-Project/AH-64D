@@ -16,10 +16,8 @@ Author:
 params["_heli"];
 if !(fza_ah64_BladeSimulation) exitwith {};
 
-_velfactor = 0;
-
 if (player == currentPilot _heli) then {
-
+    _velfactor = 0;
     _velair = [(velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5)), (velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5)), (velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))];
     _velmag = sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2);
     _velfactor = _velmag * 0.05;

@@ -138,6 +138,7 @@ fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
+fza_sfmplus_collectiveOutput = 0; // stops error in blade sim in editor
 
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_fnc_mpdUpdateDisplays, fza_fnc_BladeSimulation];
