@@ -18,21 +18,24 @@ if !(fza_ah64_BladeSimulation) exitwith {};
 
 if (player == currentPilot _heli) then {
     _velfactor = 0;
-    _velair = [(velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5)), (velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5)), (velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))];
-    _velmag = sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2);
-    _velfactor = _velmag * 0.05;
-    if (_velfactor > 1) then {
-        _velfactor = 1;
-    };
+    private _airvelocityX = (velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5));
+    private _airvelocityY = (velocity _heli select 1) + (0.836 * (abs(wind select 1) ^ 1.5));
+    private _airvelocityZ = (velocity _heli select 2) + (0.836 * (abs(wind select 2) ^ 1.5));
+    private _velair = [_airvelocityX, _airvelocityY, _airvelocityZ];
 
-    _smoothfactor = (20 - _velmag) * 0.05;
-    if (_smoothfactor < 0) then {
-        _smoothfactor = 0;
-    };
+    private _velocityMagnitudeX = ((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2; //Times 2 basicaly
+    private _velocityMagnitudeY = ((velocity _heli select 1) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2;
+    private _velocityMagnitudeZ = ((velocity _heli select 2) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2;
+    private _velmag = sqrt(_velocityMagnitudeX + _velocityMagnitudeY + _velocityMagnitudeZ);
+
+    private _vertvect = ((_velair select 2) atan2 sqrt(((_velair select 0) * (_velair select 0)) + ((_velair select 1) * (_velair select 1))));
+    private _velfactor = _velmag * 0.05;
+    private _smoothfactor = abs(20 - _velmag) * 0.05;
+    if (_velfactor > 1) then {_velfactor = 1;};
+
     _weight = 90;
     _weight = _weight * _smoothfactor;
 
-    _vertvect = ((_velair select 2) atan2 sqrt(((_velair select 0) * (_velair select 0)) + ((_velair select 1) * (_velair select 1))));
     _vertvect = (_vertvect * _velfactor) + _weight;
     _helipb = _heli call fza_fnc_getPitchBank;
     _vertvect = (_vertvect - (_helipb select 0));
@@ -50,14 +53,10 @@ if (player == currentPilot _heli) then {
     _horvect1 = (cos(_helipb select 1)) * _horvect;
     _horvect2 = (sin(_helipb select 1)) * _vertvect;
 
-    _1 = random 1;
-    _2 = random 1;
-    if (random 1 >= 0.5) then {
-        _1 = _1 - 1;
-    };
-    if (random 1 >= 0.5) then {
-        _2 = _2 - 1;
-    };
+    private _1 = random 1;
+    private _2 = random 1;
+    if (random 1 >= 0.5) then {_2 = _2 - 1;};
+    if (random 1 >= 0.5) then {_1 = _1 - 1;};
 
     _heli animateSource["l_ads_p", (_vertvect1 + _vertvect2 + _1) * 0.002778];
     _heli animateSource["l_ads_y", (_horvect1 + _horvect2 + _2) * 0.002778];
