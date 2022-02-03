@@ -1064,12 +1064,6 @@ class CfgVehicles
 			class UK_AAC
 			{
 				displayName = "United Kingdom Army Air Corps";
-				author = "Rosd6(Dryden) & Jamo aka blindbat2006";
-				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
-			};
-			class UK_AAC_weathered
-			{
-				displayName = "United Kingdom Army Air Corps (weathered)";
 				author = "Rosd6(Dryden)";
 				textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_weathered.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
