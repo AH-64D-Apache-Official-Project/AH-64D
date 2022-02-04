@@ -1110,7 +1110,17 @@ class CfgVehicles
 				textures[]= {"\fza_ah64_us\tex\Ex\Nodunit.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
 		};
-		textureList[] = {"b2", 1};
+		textureList[] = {"b2", 1,
+						 "b2_weather", 1,
+						 "arb229th", 1,
+						 "arb229th_weather", 1,
+						 "rnlaf_q_09", 1,
+						 "UK_AAC", 1,
+						 "UK_AAC_weathered", 1,
+						 "211th_clean", 1,
+						 "211th_weathered", 1,
+						 "Israeli_Air_Force", 1,
+						 };
 		hiddenSelectionsTextures[] = {"\fza_ah64_us\tex\Ex\b2_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 		class Turrets
 		{
