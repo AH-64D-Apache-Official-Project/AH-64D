@@ -152,7 +152,8 @@ private _engCruiseTQTable = [[]];
 //-------------------------Coll-----TQ---
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
-					 	 [ 0.82, _intCruiseTQTable select 5],
+						 [ 0.82, _intCruiseTQTable select 5],
+					 	 [ 0.90, _intCruiseTQTable select 9],
 					 	 [ 1.00, _maxTQ                    ]];
 } else {
 	_engCruiseTQTable = [[ 0.00, 		               0.03],
