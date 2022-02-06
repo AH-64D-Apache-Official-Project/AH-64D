@@ -20,9 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _rtrDmgHitName = "velka vrtule";
-private _timeToMaxDmg  = 30;
-private _dmgPerSec     = 1 / _timeToMaxDmg;
+if (!local _heli) exitWith {};
 
 private _pctNR         = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
 private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
@@ -34,30 +32,16 @@ private _dmgTimerCont  = _heli getVariable "fza_sfmplus_dmgTimerCont";
 private _dmgTimerTrans = _heli getVariable "fza_sfmplus_dmgTimerTrans";
 
 
+private _applyDamage = false;
+
 if (isEngineOn _heli) then {
     //With the power levers at idle
-    if (_pctNR <= 0.50) then {
-        if (_engPctTQ >= 0.30) then {
-            private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-            _heli setHit [_rtrDmgHitName, _dmg];
-            /*
-            hintSilent format ["1. NR = %1,
-                            \nTQ = %2
-                            \nDMG = %3", _pctNR, _engPctTQ, _dmg];
-            */
-        };
+    if (_pctNR <= 0.50 && _engPctTQ >= 0.30) then {
+        _applyDamage = true;
     };
 
-    if (_pctNR <= 0.9) then {
-        if (_engPctTQ >= 0.7) then {
-            private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-            _heli setHit [_rtrDmgHitName, _dmg];
-            /*
-            hintSilent format ["2. NR = %1,
-                            \nTQ = %2
-                            \nDMG = %3", _pctNR, _engPctTQ, _dmg];
-            */
-        };
+    if (_pctNR <= 0.9 && (_eng1PctTQ >= 0.7 || getpos _heli select 2 > 1)) then {
+        _applyDamage = true;
     };
     //With the power levers at fly
     if (_pctNR > 0.9) then {
@@ -74,9 +58,7 @@ if (isEngineOn _heli) then {
                     
                 if (_dmgTimerCont >= 150) then {    //2.5 minutes = 150 sec
                     _dmgTimerCont = 150;
-                    
-                    private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-                    _heli setHit [_rtrDmgHitName, _dmg];
+                    _applyDamage = true;
                 };
 
                 _heli setVariable ["fza_sfmplus_dmgTimerCont", _dmgTimerCont];
@@ -91,8 +73,7 @@ if (isEngineOn _heli) then {
                 if (_dmgTimerTrans >= 6) then {    //2.5 minutes = 150 sec
                     _dmgTimerTrans = 6;
                     
-                    private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-                    _heli setHit [_rtrDmgHitName, _dmg];
+                    _applyDamage = true;
                 };
 
                 _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
@@ -101,16 +82,8 @@ if (isEngineOn _heli) then {
                 _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             if (_engPctTQ > 1.25) then {
-                private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-                _heli setHit [_rtrDmgHitName, _dmg];
+                _applyDamage = true;
             };
-            /*
-            hintSilent format ["3. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         } else {
             if (_engPctTQ <= 1.0) then {
                 _dmgTimerTrans = 0;
@@ -123,23 +96,19 @@ if (isEngineOn _heli) then {
                 if (_dmgTimerTrans >= 6) then {
                     _dmgTimerTrans = 6;
 
-                    private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-                    _heli setHit [_rtrDmgHitName, _dmg];
+                    _applyDamage = true;
                 };
 
                 _heli setVariable ["fza_sfmplus_dmgTimerTrans", _dmgTimerTrans];
             };
             if (_engPctTQ > 1.15) then {
-                private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
-                _heli setHit [_rtrDmgHitName, _dmg];
+                _applyDamage = true;
             };
-            /*
-            hintSilent format ["4. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         };
     };
 };
+
+if (_applyDamage) then {
+    private _dmg = _totRtrDmg + (_dmgPerSec * _deltaTime);
+    _heli setHit ["velka vrtule", _dmg];
+}

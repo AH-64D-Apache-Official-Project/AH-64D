@@ -104,7 +104,10 @@ class CfgVehicles
 		transportMaxMagazines = 10;
 		transportMaxWeapons = 3;
 		type = VAir;
-		unitinfotype="RscUnitInfoNoHUD";
+		unitinfotype = "fza_ah64_rscInfoMinimal";
+		unitInfoTypeLite = "fza_ah64_rscInfoBasic";
+		unitInfoTypeRTD = "fza_ah64_rscInfoRTD";
+
 		usePreciseGetInAction = 1;
 		emptySound[] = {"", 0, 1};
 		soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
@@ -1123,7 +1126,7 @@ class CfgVehicles
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
 				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
-				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_1200"};
+				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
 			    memoryPointGun = "laserBegin";
@@ -1466,11 +1469,20 @@ class CfgVehicles
 		};
 		class fcr_enable
 		{
-			displayName = "Attach FCR";
+			displayName = "Add FCR";
 			author = "Apache mod development team";
 			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
 			source = "user";
 			initPhase = 1;
+			animPeriod = 0.001;
+		};
+		class magazine_set_1200
+		{
+			displayName = "Swap IAFS for 1200rnd magazine"
+			author = "Apache mod development team";
+			onPhaseChanged = "_this remoteExec [""fza_fnc_weaponSwapM230Mag"",_this # 0];";
+			source = "user";
+			initPhase = 0;
 			animPeriod = 0.001;
 		};
 		/*
@@ -1497,7 +1509,8 @@ class CfgVehicles
 		{
 			source = "user";
 			animPeriod = 1;
-			initPhase  = 0;
+			initPhase  = 1;
+			onPhaseChanged = "[_this # 0, ""fza_ah64_tadsStow"", ""tads_stow""] call fza_fnc_animReset";
 		};
 		class m230_recoil
 		{
@@ -1766,25 +1779,27 @@ class CfgVehicles
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
+				initPhase=1;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
             };
 			class plt_anticollision
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
             };
 			class plt_firesw
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
+				initPhase=0.5;
             };
 			class cpg_firesw
             {
 				source = "user";
 				animPeriod = 0.001;
-				initPhase=0;
+				initPhase=0.5;
             };
 			class plt_nvsmode
             {
@@ -1803,12 +1818,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
             };
 			class plt_apu
             {
 				source = "user";
 				animPeriod = 0.001;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
             };
 			class cpg_ihadss_brt
             {
@@ -1821,12 +1838,14 @@ class CfgVehicles
 				source = "user";
 				animPeriod = 1;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever1"", ""plt_eng1_throttle""] call fza_fnc_animReset";
             };
 			class plt_eng2_throttle
             {
 				source = "user";
 				animPeriod = 1;
 				initPhase=0;
+				onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
             };
 						//////////////MPD OBJECTS//////////////////
 #define SECTION(val) \

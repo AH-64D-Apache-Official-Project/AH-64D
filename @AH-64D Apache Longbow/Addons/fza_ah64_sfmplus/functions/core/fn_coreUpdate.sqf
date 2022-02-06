@@ -32,7 +32,8 @@ if (_heli animationPhase "fcr_enable" == 1) then {
 };
 private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
@@ -43,12 +44,12 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli animationphase "plt_apu" > 0.5) then {
+if (_heli getVariable "fza_ah64_apu") then {
 	_apuFF = 0.0220;	//175pph
 };
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
-private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
+private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
 _totFuelMass          = _totFuelMass - _curFuelFlow;
 private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
 if (local _heli) then {
@@ -79,7 +80,10 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
-#ifdef __A3_DEBUG__
+//Performance
+[_heli] call fza_sfmplus_fnc_perfData;
+
+#ifdef __A3_DEBUG_
 /*
 hintsilent format ["v0.11
 					\nEngine 1 Ng = %1
