@@ -1485,14 +1485,12 @@ class CfgVehicles
 			initPhase = 0;
 			animPeriod = 0.001;
 		};
-		/*
 		class hstab
 		{
 			source = "user";
 			animPeriod = 0.01;
 			initPhase  = 1;
 		};
-		*/
 		class pnvs
 		{
 			source = "user";
