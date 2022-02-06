@@ -76,7 +76,7 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO"];
 };
 if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON     "]
 };
 if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL "]
@@ -103,7 +103,7 @@ if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY    "]
 };
 if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 < 3) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON     "]
 };
 if (_heli animationphase "plt_eng1_start" > 0 && _heli animationphase "plt_eng1_throttle" < 0.25) then {
 	_wcas pushBack [WCA_ADVISORY, "ENGINE 1 START", "ENG 1 START"]
@@ -115,7 +115,7 @@ if (isAutoHoverOn _heli) then {
 	_wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD   "]
 };
 if (_heli getVariable "fza_ah64_rtrbrake") then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RTRBRKON.paa", "\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON "]
 };
 
 if (_heli getVariable "fza_ah64_irjon" == 1 && fza_ah64_irjammer > 40) then {
