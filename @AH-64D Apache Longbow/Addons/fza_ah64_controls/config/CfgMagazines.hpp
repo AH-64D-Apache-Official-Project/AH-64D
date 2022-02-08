@@ -101,7 +101,7 @@ class CfgMagazines
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\dummysound", 3.16228, 1}; \
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 62.99; \
+			weight = 62.94; \
 			fza_pylonType = "hellfire"; \
 		};\
 		class ammoname##_ll: ammoname##_base { \
@@ -148,20 +148,20 @@ class CfgMagazines
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};\
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 128.48; \
+			weight = 150.06; \
 			fza_pylonType = "rocket"; \
 		}; \
 		class ammoname##_zoneB: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneB.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_BD"}; \
 			count = 4; \
-			weight = 51.57;\
+			weight = 50.02;\
 		}; \
 		class ammoname##_zoneE: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneE.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_E"}; \
 			count = 3; \
-			weight = 44.42;\
+			weight = 37.51;\
 		}
 	
 	class fza_275_rocket_base: 6Rnd_Missile_AGM_02_F {
