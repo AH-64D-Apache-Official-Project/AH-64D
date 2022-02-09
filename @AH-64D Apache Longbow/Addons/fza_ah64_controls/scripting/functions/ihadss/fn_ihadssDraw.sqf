@@ -156,7 +156,7 @@ private _a3ti_vis = call A3TI_fnc_getA3TIVision;
 private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
 
 //TADS DISABLE IF ENGINE OFF
-if (cameraView == "GUNNER" && player == gunner _heli && !(_powerOnState)) then {
+if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
     fza_ah64_bweff ppEffectEnable true;
 } else {
     fza_ah64_bweff ppEffectEnable false;
