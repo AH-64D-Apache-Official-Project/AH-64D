@@ -66,7 +66,4 @@ _this spawn fza_fnc_aseBetty;
     
     fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
 };
-
-//empty array to keep it small for less performance impact over time
-sleep 60;
-fza_ah64_incomingmissiles deleteAt 0;
+fza_ah64_incomingmissiles = fza_ah64_incomingmissiles - [objNull];
