@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic83"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic75"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_weaponMissileGetSelected"></a><a name="Topic84"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_weaponMissileGetSelected"></a><a name="Topic76"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_weaponMissileGetSelected</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Returns the index of the missile that will be fired next, if the given ammo type is selected</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The helicopter to gather inventory information on</p></td></tr></table><div class="CHeading">Returns</div><table class="CDefinitionList"><tr><td class="CDLEntry">Array</td><td class="CDLDefinition"><p>[_msl1UL, _msl1UR, _msl1LL, _msl1LR, ... , _msl4LR] (size 16)</p></td></tr></table><p>where _mslNXX is the state of the current pylon:</p><ul><li><p>&quot;AMMO_NAME&quot; where ammo is on that pylon</p></li><li><p>&quot;&quot; where there was a hellfire, but it has been shot (the HML is still there)</p></li><li><p>-1 where there is no hellfire and no&nbsp; HML (on the WPN page a rail should not be shown)</p></li></ul><div class="CHeading">Examples</div><p>//On an aircraft with a HML on pylons 2 and 3, with AGM-114Ks on the upper half and AGM-114L on the lower half _ret = [_heli] call fza_fnc_weaponMissileInventory //_ret =&gt; [-1,-1,-1,-1,&quot;fza_agm114k&quot;,&quot;fza_agm114k&quot;,&quot;fza_agm114l&quot;,&quot;fza_agm114l&quot;,&quot;fza_agm114k&quot;,&quot;fza_agm114k&quot;,&quot;fza_agm114l&quot;,&quot;fza_agm114l&quot;,-1,-1,-1,-1]</p><p>//The same aircraft as above, but with all the outboard rockets fired off _ret2 = [_heli] call fza_fnc_weaponMissileInventory \\_ret2 =&gt; [-1,-1,-1,-1,&quot;&quot;,&quot;fza_agm114k&quot;,&quot;&quot;,&quot;fza_agm114l&quot;,&quot;&quot;,&quot;fza_agm114k&quot;,&quot;&quot;,&quot;fza_agm114l&quot;,-1,-1,-1,-1] Author: mattysmith22</p></div>
 </div>
