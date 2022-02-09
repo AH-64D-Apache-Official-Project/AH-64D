@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_monocletoggle.sqf",{58:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">adds or removes player monicle Parameters:</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_monocletoggle.sqf",{54:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">adds or removes player monicle Parameters:</div></div>"});
