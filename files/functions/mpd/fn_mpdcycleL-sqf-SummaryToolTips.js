@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdcycleL.sqf",{100:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">cycles through the left mpds</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdcycleL.sqf",{98:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">cycles through the left mpds</div></div>"});

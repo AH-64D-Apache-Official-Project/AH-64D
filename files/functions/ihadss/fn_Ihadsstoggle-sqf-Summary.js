@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/ihadss/fn_Ihadsstoggle.sqf","fn_Ihadsstoggle.sqf");NDSummary.OnSummaryLoaded("File:functions/ihadss/fn_Ihadsstoggle.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[49,0,1,"Functions","Functions"],[50,0,0,"fza_fnc_ihadsstoggle","fza_fnc_ihadsstoggle"]]);
