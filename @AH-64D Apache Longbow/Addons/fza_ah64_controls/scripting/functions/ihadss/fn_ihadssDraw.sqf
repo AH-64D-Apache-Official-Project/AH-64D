@@ -116,7 +116,7 @@ private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1
 private _apuState = _heli getVariable "fza_ah64_apu";
 private _powerOnState = _apuState == true || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
 
-if !(_powerOnState) then {
+if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
 };
 if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
@@ -218,7 +218,7 @@ if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "f
     };
 };
 
-if !(_powerOnState) then {
+if !_powerOnState then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
 };
