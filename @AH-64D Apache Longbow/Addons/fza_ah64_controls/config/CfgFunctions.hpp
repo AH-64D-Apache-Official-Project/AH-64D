@@ -81,7 +81,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
 			class ihadssDraw {R;};
-			class ihadssToggle {R;};
 			class monocleToggle {R;};
 		};
 		class laser

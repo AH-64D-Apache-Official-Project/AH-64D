@@ -1455,18 +1455,6 @@ class CfgVehicles
 		ANIMS_MMAP(plt)
 		ANIMS_MMAP(cpg)
 		////////RADAR///////
-		class tads_tur
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;
-		};
-		class tads
-		{
-			source = "user";
-			animPeriod = 0.01;
-			initPhase=0;
-		};
 		class fcr_enable
 		{
 			displayName = "Add FCR";

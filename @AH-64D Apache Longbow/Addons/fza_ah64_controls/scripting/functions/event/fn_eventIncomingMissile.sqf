@@ -22,16 +22,12 @@ Author:
 params ["_heli","_munition","_hostile", "_instigator"];
 
 if (!local _heli) exitWith {}; //Should've also have been run on the local machine
-
-private _counter = _hostile getVariable ["fza_ah64_shotCounter", 0];
-_hostile setVariable ["fza_ah64_shotCounter", (_counter + 1) % 2];
-if (_counter % 2 == 1) exitWith {};
-
 if(!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
-
 private _missile = nearestobject [_hostile,_munition];
-
 if !(missileTarget _missile == _heli) exitwith {}; // Would this ever be true?
+
+if (_missile in fza_ah64_incomingmissiles) exitwith {};
+fza_ah64_incomingmissiles pushback _missile;
 
 //Add target info to databases
 fza_ah64_threatfiring pushBackUnique vehicle _instigator;
@@ -69,3 +65,4 @@ _this spawn fza_fnc_aseBetty;
     
     fza_ah64_threatfiring = fza_ah64_threatfiring - [_hostile];
 };
+fza_ah64_incomingmissiles = fza_ah64_incomingmissiles - [objNull];
