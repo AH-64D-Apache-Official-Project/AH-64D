@@ -57,6 +57,8 @@ class CfgVehicles
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
+		altFullForce 		   = 1615;
+		altNoForce 			   = 9000;
 		//SFM Variables-------------/
 
 		side=1;
