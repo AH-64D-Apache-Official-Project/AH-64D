@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingFilterType.sqf",{2:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Filters the input array of targets based on the fza_ah64_tsdsort setting of the input apache</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingFilterType.sqf",{4:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Filters the input array of targets based on the fza_ah64_tsdsort setting of the input apache</div></div>"});

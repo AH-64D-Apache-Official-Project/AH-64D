@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponSelectFireMode.sqf",{68:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Selects the specific weapon AND firemode on a turret.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/weapon/fn_weaponSelectFireMode.sqf",{70:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Selects the specific weapon AND firemode on a turret.</div></div>"});

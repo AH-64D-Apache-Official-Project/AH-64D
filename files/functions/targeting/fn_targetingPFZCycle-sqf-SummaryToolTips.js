@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingPFZCycle.sqf",{4:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the current PFZ between all options.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/targeting/fn_targetingPFZCycle.sqf",{2:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the current PFZ between all options.</div></div>"});
