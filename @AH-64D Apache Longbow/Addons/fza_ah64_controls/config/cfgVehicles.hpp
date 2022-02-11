@@ -1753,14 +1753,14 @@ class CfgVehicles
 			class plt_eng1_start
             {
 				source = "user";
-				animPeriod = 1;
+				animPeriod = 0.15;
 				initPhase=0;
 				sound = "eng1_start_sound";
             };
 			class plt_eng2_start
             {
 				source = "user";
-				animPeriod = 1;
+				animPeriod = 0.15;
 				initPhase=0;
 				sound = "eng2_start_sound";
             };
