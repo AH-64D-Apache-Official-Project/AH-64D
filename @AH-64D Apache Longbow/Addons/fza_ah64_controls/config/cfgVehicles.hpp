@@ -58,6 +58,8 @@ class CfgVehicles
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
+		altFullForce 		   = 1615;
+		altNoForce 			   = 9000;
 		//SFM Variables-------------/
 
 		side=1;
@@ -1750,14 +1752,14 @@ class CfgVehicles
 			class plt_eng1_start
             {
 				source = "user";
-				animPeriod = 1;
+				animPeriod = 0.15;
 				initPhase=0;
 				sound = "eng1_start_sound";
             };
 			class plt_eng2_start
             {
 				source = "user";
-				animPeriod = 1;
+				animPeriod = 0.15;
 				initPhase=0;
 				sound = "eng2_start_sound";
             };
