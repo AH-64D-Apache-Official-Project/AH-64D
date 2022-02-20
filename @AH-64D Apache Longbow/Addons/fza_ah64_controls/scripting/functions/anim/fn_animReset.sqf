@@ -27,6 +27,8 @@ params [["_heli", nil, [objNull]], "_varName", "_animName"];
 
 private _val = _heli getVariable _varName;
 
+if (isNil "_val") exitWith {};
+
 if (typeName _val == "BOOL") then {
 	_heli animate [_animName, parseNumber _val];
 };

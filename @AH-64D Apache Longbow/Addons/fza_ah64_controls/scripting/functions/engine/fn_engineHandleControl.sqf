@@ -71,11 +71,23 @@ switch(_control) do {
 	//--------------------ENGINE 1--------------------//
 	//Start Switch
 	case "e1start": {
-		private _startSwitchToStart = [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
-		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng1_start", [0, 2] select (_heli animationSourcePhase "plt_eng1_start" != 0)]
+		private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
+		[_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
+		[_heli,_eng1state] spawn {
+			params ["_heli","_eng1state"];
+			if (_eng1state == "OFF") then {
+				_heli animateSource ["plt_eng1_start", 1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng1_start", 0];
+				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			};
+			if (_eng1state == "STARTING") then {
+				_heli animateSource ["plt_eng1_start", -1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng1_start", 0];
+				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			};
 		};
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e1off": {
@@ -109,11 +121,23 @@ switch(_control) do {
 	//--------------------ENGINE 2--------------------//	
 	//Start Switch
 	case "e2start": {
-		private _startSwitchToStart = [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
-		if (_startSwitchToStart) then {
-			_heli animateSource ["plt_eng2_start", [0, 2] select (_heli animationSourcePhase "plt_eng2_start" != 0)]
+		private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
+		[_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
+		[_heli,_eng2state] spawn {
+			params ["_heli","_eng2state"];
+			if (_eng2state == "OFF") then {
+				_heli animateSource ["plt_eng2_start", 1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng2_start", 0];
+				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			};
+			if (_eng2state == "STARTING") then {
+				_heli animateSource ["plt_eng2_start", -1];
+				sleep 0.15;
+				_heli animateSource ["plt_eng2_start", 0];
+				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			};
 		};
-		["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
 	};
 	//Power Lever
 	case "e2off": {

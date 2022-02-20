@@ -108,10 +108,18 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-if (_heli getVariable "fza_ah64_ihadssoff" == 1) then {
+
+private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
+private _eng1Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
+private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+private _apuState = _heli getVariable "fza_ah64_apu";
+private _powerOnState = _apuState == true || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
+
+if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
 };
-if (_heli getVariable "fza_ah64_ihadssoff" == 0 && _heli getVariable "fza_ah64_monocleinbox") then {
+if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
     1 cuttext["", "PLAIN", 0.1];
 };
 if (isNull laserTarget _heli) then {
@@ -148,14 +156,14 @@ private _a3ti_vis = call A3TI_fnc_getA3TIVision;
 private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
 
 //TADS DISABLE IF ENGINE OFF
-if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then {
+if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
     fza_ah64_bweff ppEffectEnable true;
 } else {
     fza_ah64_bweff ppEffectEnable false;
 };
 
 //IHADSS INIT
-if (_heli getVariable "fza_ah64_apu" && !(_heli getVariable "fza_ah64_monocleinbox") || isEngineOn _heli && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (!(_heli getVariable "fza_ah64_monocleinbox") || _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
@@ -184,8 +192,8 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") th
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _heli getVariable "fza_ah64_ihadssoff" == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
-    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli getVariable "fza_ah64_apu" || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _powerOnState && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];
@@ -210,13 +218,13 @@ if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "f
     };
 };
 
-if(_heli getVariable "fza_ah64_apu" && !(isEngineOn _heli)) then {
+if !_powerOnState then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
-if (cameraView == "GUNNER" && player == gunner _heli && (_heli getVariable "fza_ah64_apu" || isEngineOn _heli)) then {
+if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
 
     if !(isNil "_a3ti_vis") then {
         if !(isNil "fza_ah64_bweff") then {
@@ -344,14 +352,6 @@ _autohide = {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _partid) ctrlSetPosition[0.5 + (((_pitchid) * 0.00556) * (sin _bankid)), 10, 0.5 + (((_pitchid) * 0.00556) * (cos _bankid))];
     };
 
-};
-
-if ((_heli getVariable "fza_ah64_ldp_fail") && (_heli getVariable "fza_ah64_rdp_fail")) then {
-    1 cuttext["", "PLAIN", 0.1];
-    _heli setVariable ["fza_ah64_ihadssoff", 2];
-};
-if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_rdp_fail")) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
-    _heli setVariable ["fza_ah64_ihadssoff", 1];
 };
 
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];

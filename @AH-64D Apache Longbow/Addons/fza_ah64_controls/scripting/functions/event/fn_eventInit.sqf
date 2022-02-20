@@ -88,7 +88,6 @@ _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];
 _heli setVariable ["fza_ah64_fcrcscope", false];
-_heli setVariable ["fza_ah64_ihadssoff", 1];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
 _heli setVariable ["fza_ah64_monocleinbox", true];

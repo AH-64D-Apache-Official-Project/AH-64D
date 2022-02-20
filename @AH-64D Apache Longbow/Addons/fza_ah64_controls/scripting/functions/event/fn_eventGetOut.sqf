@@ -28,5 +28,4 @@ if (!(vehicle player isKindOf "fza_ah64base")) then {
     3 cuttext["", "PLAIN", 0.1];
     4 cuttext["", "PLAIN", 0.1];
 };
-_heli setVariable ["fza_ah64_ihadssoff", 1];
 [_heli] call fza_fnc_ihadsstoggle;
