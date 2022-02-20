@@ -21,7 +21,7 @@ Author:
 params ["_heli","_munition","_hostile"];
 
 if !(player == driver _heli || player == gunner _heli) exitwith {};
-if (!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
+if !((_munition isKindOf "missileBase") || (isengineon _heli || (alive _heli))) exitwith {};
 
 fza_ah64_incomingAudio = true;
 private _missile = nearestobject [_hostile,_munition];
