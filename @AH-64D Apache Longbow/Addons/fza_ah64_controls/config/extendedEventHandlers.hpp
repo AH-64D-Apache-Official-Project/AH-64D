@@ -30,7 +30,7 @@ class Extended_GetOut_EventHandlers {
 class Extended_IncomingMissile_EventHandlers {
 	class fza_ah64base {
 		class fza_ah64base_incomingMissile_eh {
-			incomingMissile = "_this spawn fza_fnc_eventIncomingMissile";
+			incomingMissile = "_this call fza_fnc_eventIncomingMissile";
 		};
 	};
 };
