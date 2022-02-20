@@ -37,7 +37,7 @@ if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethr
 };
 //ase page link End
 
-_this spawn fza_fnc_aseBetty;
+[_heli,_munition,_hostile,_instigator] call fza_fnc_aseBetty;
 
 [_heli, _munition, _hostile] spawn {
     params ["_heli", "_munition", "_hostile"];
