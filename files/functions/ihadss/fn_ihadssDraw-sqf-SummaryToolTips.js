@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_ihadssDraw.sqf",{66:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws the IHADSS overlay for the player.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ihadss/fn_ihadssDraw.sqf",{62:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws the IHADSS overlay for the player.</div></div>"});
