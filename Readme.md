@@ -1,4 +1,4 @@
-# AH-64D Apache Mod Official Project
+# AH-64D Official Project
 
 [![](https://img.shields.io/steam/subscriptions/1351428303)](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303)
 [![](https://img.shields.io/steam/favorites/1351428303)](https://steamcommunity.com/sharedfiles/filedetails/?id=1351428303)
