@@ -12,6 +12,7 @@ if (_projectile isKindOf "fza_agm114l") then {
 	};
 };
 
+/*
 if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then {
     _targ = (_heli getVariable "fza_ah64_currentLase");
 	_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _targ select 0), (getposatl _targ select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
@@ -19,6 +20,7 @@ if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then
 		_projectile setMissileTarget _targ;
 	};
 };
+*/
 
 _targ = fza_ah64_mycurrenttarget;
 _heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")+[_targ], true];
