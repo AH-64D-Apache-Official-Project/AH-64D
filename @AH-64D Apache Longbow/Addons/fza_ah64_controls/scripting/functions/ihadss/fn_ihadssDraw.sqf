@@ -445,12 +445,18 @@ if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) the
 };
 _radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 
-//Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
-_collective = format["%1", round(100 * _TQVal)];
-if (_collective == "scalar") then {
-    _collective = "0";
+//Aircraft torque
+private _TQVal = "0";
+if (player == currentpilot _heli || currentpilot _heli != player) then {
+    private _engpercentmax = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
+	_TQVal = format["%1", round(100 * ((_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1)))];
+    if (_engpercentmax <= 0.37) then {_TQVal = "0";};
+    if (_TQVal == "scalar") then {_TQVal = "0";};
+	_heli setVariable["fza_sfmplus_hduTQ", _TQVal, true];
+} else {
+    _TQVal = _heli getVariable "fza_sfmplus_hduTQ";
 };
+
 _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
 _radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
 _baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
@@ -801,7 +807,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
 
 } else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _TQVal + "%";
 };
 
 if !(_heli animationPhase "fcr_enable" == 1) then {

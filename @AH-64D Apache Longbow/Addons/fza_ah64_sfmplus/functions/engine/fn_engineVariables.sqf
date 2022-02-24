@@ -39,3 +39,4 @@ _heli setVariable ["fza_sfmplus_engBaseTGT",     	   	[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engTGT",        	   	[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engBaseOilPSI",	  		[0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engOilPSI",		   		[0.0, 0.0]];
+_heli setVariable ["fza_sfmplus_hduTQ",		   			0];

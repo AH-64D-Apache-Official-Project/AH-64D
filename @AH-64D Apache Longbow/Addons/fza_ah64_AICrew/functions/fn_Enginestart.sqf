@@ -59,14 +59,14 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
 	sleep 20;
 	if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
 
-	[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
+	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["FLY", "FLY"]];
+	[_heli, "fza_ah64_powerLever1", 1, 0.063] call fza_fnc_animSetValue;
+	[_heli, "fza_ah64_powerLever2", 1, 0.063] call fza_fnc_animSetValue;
 
 	sleep 3;
 	if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
 
-	_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["FLY", "FLY"]];
-	[_heli, "fza_ah64_powerLever1", 1, 0.063] call fza_fnc_animSetValue;
-	[_heli, "fza_ah64_powerLever2", 1, 0.063] call fza_fnc_animSetValue;
+	[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
 
 	_heli setVariable ["fza_ah64_aiESStop", false];
 };
