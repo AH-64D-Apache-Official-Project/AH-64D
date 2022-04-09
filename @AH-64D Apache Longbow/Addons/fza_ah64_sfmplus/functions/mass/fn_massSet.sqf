@@ -27,7 +27,8 @@ if (_heli animationPhase "fcr_enable" == 1) then {
 _heli setVariable["fza_sfmplus_emptyMass", _emptyMass];
 
 private _fwdFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _aftFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _ctrFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _aftFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 private _pylonMass = 0;
 {
@@ -38,6 +39,6 @@ private _pylonMass = 0;
 	_pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
 } foreach magazinesAllTurrets _heli;
 
-private _totalMass = _emptyMass + _fwdFuelMass + _aftFuelMass + _pylonMass;
+private _totalMass = _emptyMass + _fwdFuelMass + _ctrFuelMass + _aftFuelMass + _pylonMass;
 
 _heli setMass _totalMass;

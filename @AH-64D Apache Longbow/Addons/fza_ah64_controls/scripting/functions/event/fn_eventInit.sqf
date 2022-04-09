@@ -21,6 +21,7 @@ Author:
 	unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
@@ -29,12 +30,14 @@ _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false,
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
-    _heli animateSource ["pdoor", 0];
-    _heli animateSource ["gdoor", 0];
-    _heli animateSource ["plt_rtrbrake", 1];
-    _heli animateSource ["plt_firesw", 0.5];
-    _heli animateSource ["cpg_firesw", 0.5];
-    _heli animateSource ["tads_stow", 1];
+
+    _heli setVariable ["fza_ah64_rtrbrake", true, true];
+    _heli setVariable ["fza_ah64_battery", false, true];
+    _heli setVariable ["fza_ah64_apu", false, true];
+    _heli setVariable ["fza_ah64_tadsStow", true, true];
+    _heli setVariable ["fza_ah64_powerLever1", 0, true];
+    _heli setVariable ["fza_ah64_powerLever2", 0, true];
+
     _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
@@ -44,11 +47,12 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
-    _heli setVariable ["fza_ah64_ltype", "TopDown", true];
+    _heli setVariable ["fza_ah64_hellfireTrajectory", "lo", true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
+    _heli setVariable ["fza_ah64_magazineAddLastValue", _heli animationSourcePhase "magazine_set_1200", true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
@@ -57,21 +61,33 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_firerdisch", false, true];
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
-    _heli setVariable ["fza_ah64_irjon", 0, true];
-    _heli setVariable ["fza_ah64_rfjon", 0, true];    
+    _heli setVariable ["fza_ah64_irJamOn", false, true];
+    _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
+    _heli setVariable ["fza_ah64_rfJamOn", false, true];
+    _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
+    _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]
     ], true];
     _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
+    _heli setVariable ["fza_ah64_fire1arm", false, true];
+    _heli setVariable ["fza_ah64_fire2arm", false, true];
+    _heli setVariable ["fza_ah64_fireapuarm", false, true];
+    _heli setVariable ["fza_ah64_armed", false, true];
+    private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
+    _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
+    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+    _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
+    _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };
+_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];
 _heli setVariable ["fza_ah64_fcrcscope", false];
-_heli setVariable ["fza_ah64_ihadssoff", 1];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
 _heli setVariable ["fza_ah64_monocleinbox", true];
@@ -79,9 +95,9 @@ _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
 _heli setVariable ["fza_ah64_rocketsalvo", 1];
 _heli setVariable ["fza_ah64_tsdmode", "nav"];
-_heli setVariable ["fza_ah64_fire1arm", 0];
-_heli setVariable ["fza_ah64_fire2arm", 0];
-_heli setVariable ["fza_ah64_fireapuarm", 0];
+_heli setVariable ["fza_ah64_fire_left_fx", []];
+_heli setVariable ["fza_ah64_fire_right_fx", []];
+_heli setVariable ["fza_ah64_fire_apu_fx", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 //[_heli] call BMK_fnc_coreConfig;
@@ -120,7 +136,7 @@ while {
     alive _heli
 }
 do {
-    if ((isLightOn [_heli,[0]]) && _heli animationphase "plt_batt" < 0.5) then {
+    if ((isLightOn [_heli,[0]]) && !(_heli getVariable "fza_ah64_battery")) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
@@ -130,13 +146,13 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        _tadsShouldBeStowed = _heli animationphase "plt_apu" < 1 && !isEngineOn _heli;
+        _tadsShouldBeStowed = _heli getVariable "fza_ah64_apu" && !isEngineOn _heli;
         
-        if (_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 0) then {
-            _heli animateSource ["tads_stow", 1];
+        if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
+            [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;
         };
-        if (!_tadsShouldBeStowed && _heli animationPhase "tads_stow" == 1) then {
-            _heli animateSource ["tads_stow", 0];
+        if (!_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
+            [_heli, "fza_ah64_tadsStow", false] call fza_fnc_animSetValue;
         };
     };
     sleep 0.03;

@@ -43,4 +43,4 @@ class RscFzaDisplayWelcome : RscDisplayWelcome {
 			h="20.8 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
 		};
     };
-}
+};

@@ -54,6 +54,12 @@ class CfgSounds
 		sound[] = {"\fza_ah64_us\audio\lb2_rdr_track.ogg",4,1,1};
 		titles[]={};
 	};
+	class fza_ah64_bt_sa9
+	{
+		name = "fza_ah64_bt_sa9";
+		sound[] = {"\fza_ah64_us\audio\betty\bt_sa9c.ogg",4,1,1};
+		titles[]={};
+	};
 	class fza_ah64_bt_sa19
 	{
 		name = "fza_ah64_bt_sa19";

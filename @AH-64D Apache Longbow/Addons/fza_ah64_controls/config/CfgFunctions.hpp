@@ -9,42 +9,37 @@ class CfgFunctions
 	class fza_ah64_project
 	{
 		tag = "FZA";
+		class anim {
+			file = "\fza_ah64_controls\scripting\functions\anim";
+			class animSetValue {R;};
+			class animReset {R;};
+		};
 		class avionics
 		{
 			file = "\fza_ah64_controls\scripting\functions\avionics";
 			class avionicsSlipIndicator {R;};
 		};
-		class controlHandlers
-		{
-			file = "\fza_ah64_controls\scripting\functions\controlHandlers";
-			class controlHandleASEAutopage {R;};
-			class controlHandleCrosshairAction {R;};
-			class controlHandleIHADSSMode {R;};
-			class controlHandleJammerToggle {R;};
-			class controlHandlelaserchange {R;};
-			class controlHandleLookCenter {R;};
-			class controlHandleNextWaypoint {R;};
-			class controlHandlePrevWaypoint {R;};
-			class controlHandleToggleHeadtracking {R;};
-			class controlHandleTSDMode {R;};
-		};
 		class core
 		{
 			file = "\fza_ah64_controls\scripting\functions\core";
+			class coreDraw3Dscheduler {R;};
+			class coreEachFrameScheduler {R;};
 			class coreGetObjectsLookedAt {R;};
 			class coreGetWCAs {R;};
-			class coreScheduler {R;};
+			class coreCockpitControlHandle {R;};
+			class coreCockpitInteract {R;};
+			class coreControlHandle {R;};
 		};
 		class damage {
 			file = "\fza_ah64_controls\scripting\functions\damage";
 			class damageSystem {R;};
 			class damageM230 {R;};
+			class damageEnginefire {R;};
 		};
 		class engine
 		{
 			file = "\fza_ah64_controls\scripting\functions\engine";
 			class engineAPUOn {R;};
-			class engineEventHandler {R;};
 			class engineHandleControl {R;};
 			class engineSetPosition
 			{
@@ -60,18 +55,21 @@ class CfgFunctions
 			class eventFired {R;};
 			class eventGetIn {R;};
 			class eventGetOut {R;};
+			class eventIncomingMissile {R;};
 			class eventInit {R;};
 		};
-		class fcr
+		class Sensor
 		{
-			file = "\fza_ah64_controls\scripting\functions\fcr";
-			class fcrlongbow{R;};
+			file = "\fza_ah64_controls\scripting\functions\Sensor";
+			class targetingSensorUpdate {R;};
+			class targetingAseUpdate {R;};
 		};
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {R;};
 			class fireHandleRearm {R;};
+			class fireHandlepanel {R;};
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
@@ -83,13 +81,13 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
 			class ihadssHandleControl {R;};
 			class ihadssDraw {R;};
-			class ihadssToggle {R;};
 			class monocleToggle {R;};
 		};
 		class laser
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
+			class laserCycle {R;};
 			class laserDisarm {R;};
 		};
 		class light
@@ -164,13 +162,14 @@ class CfgFunctions
 		class navigation {
 			file = "\fza_ah64_controls\scripting\functions\navigation";
 			class navigationWaypointEta {R;};
+			class navigationWaypointCycle {R;};
 		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
-		}
+		};
 		
 		class targeting
 		{
@@ -182,7 +181,6 @@ class CfgFunctions
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
-			class targetingUpdate {R;};
 			class targetingVariable {R;};
 		};
 		class tsd
@@ -202,19 +200,19 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\weapon";
 			class weaponActionSwitch {R;};
-			class weaponGunControl {R;};
-			class weaponM230CycleBurst {R;};
 			class weaponMissileGetSelected {R;};
+			class weaponMissileCycle {R;};
 			class weaponMissileInventory {R;};
 			class weaponMissileSlowDown {R;};
-			class weaponMissileTrajectory {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};
+			class weaponRocketSetSelected {R;};
 			class weaponSelectFireMode {R;};
-			class weaponSubmunition {R;};
+			class weaponSwapM230Mag {R;};
 			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
+			class weaponUpdateSelected {R;};
 		};
 		class functions
 		{
@@ -232,6 +230,7 @@ class CfgFunctions
 			class targetisADA {R;};
 			class doortoggleP {R;};
 			class doortoggleG {R;};
+			class cycle {R;};
 			class bearingClock {R;};
 		};
 		class ase
@@ -239,7 +238,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions\ase";
 			class aseBetty {R;};
 			class aseGunnerFlare {R;};
-			class aseJammer {R;};
 			class aseHandleRfcontrol {R;};
 			class aseHandleIrcontrol {R;};
 		};

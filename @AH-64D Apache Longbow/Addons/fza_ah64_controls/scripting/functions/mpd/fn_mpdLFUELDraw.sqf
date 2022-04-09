@@ -8,12 +8,14 @@ params["_heli"];
 #define KGTOLBS 2.20462
 #define FUEL_FLOW_LBS_PER_HOUR 7936.64;
 
-private _forwardCellWeight = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _aftCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
-private _totFuelCellWeight = _forwardCellWeight + _aftCellWeight;
-_forwardCellWeight = _forwardCellWeight * KGTOLBS;
-_aftCellWeight     = _aftCellWeight * KGTOLBS;
-_totFuelCellWeight = _totFuelCellWeight * KGTOLBS;
+private _fwdCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
+private _ctrCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _aftCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
+private _totFuelCellWeight = _fwdCellWeight + _ctrCellWeight + _aftCellWeight;
+_fwdCellWeight             = _fwdCellWeight * KGTOLBS;
+_ctrCellWeight             = _ctrCellWeight * KGTOLBS;
+_aftCellWeight             = _aftCellWeight * KGTOLBS;
+_totFuelCellWeight         = _totFuelCellWeight * KGTOLBS;
 
 private _fuelWeight = _totFuelCellWeight;
 
@@ -45,9 +47,9 @@ private _enduranceNumber = if(_totalFuelConsumption > 0) then {
 	100 * _enduranceHours + _enduranceMinutes;
 } else {999;};
 
-[_heli, _forwardCellWeight, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_FWD_FUEL] call fza_fnc_drawNumberSelections;
+[_heli, _fwdCellWeight, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_FWD_FUEL] call fza_fnc_drawNumberSelections;
+[_heli, _ctrCellWeight, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_IAFS_FUEL] call fza_fnc_drawNumberSelections;
 [_heli, _aftCellWeight, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_AFT_FUEL] call fza_fnc_drawNumberSelections;
-[_heli, 0, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_IAFS_FUEL] call fza_fnc_drawNumberSelections;
 
 //[_heli, _engineFuelConsumption # 0, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_FLOW1_FUEL] call fza_fnc_drawNumberSelections;
 //[_heli, _engineFuelConsumption # 1, "\fza_ah64_us\tex\CHAR\G", SEL_DIGITS_PL_FLOW2_FUEL] call fza_fnc_drawNumberSelections;

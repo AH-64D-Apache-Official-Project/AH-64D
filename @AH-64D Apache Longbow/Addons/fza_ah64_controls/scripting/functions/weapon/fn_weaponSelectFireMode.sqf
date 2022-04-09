@@ -11,7 +11,6 @@ Parameters:
     _turret - The turret to work on
     _weapon - The name of the weapon to select - note this can also be done with the muzzle 
     _fireMode - The name of the firemode to select
-    _magazine - The magazine to select
     
 Returns:
 	Bool - whether operation succeded
@@ -21,36 +20,42 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params["_vehicle", "_turret", "_weapon", "_fireMode", ["_magazine", ""]];
+params["_vehicle", "_turret", "_selectedWeapon", "_selectedFireMode"];
 
 if !(_vehicle turretLocal _turret) exitWith {
     ["Cannot switch turret's weapon, turret is not local"] call BIS_fnc_error;
     false;
 };
 
-_crewMember = _vehicle turretUnit _turret;
+private _crewMember = _vehicle turretUnit _turret;
 
 if (isNull _crewMember) exitWith {
     ["Cannot switch turret's weapon, there must be a crewmember in the seat"] call BIS_fnc_error;
     false;
 };
 
-_lastState = [];
-_i = 0;
-_crewMember action ["SwitchWeapon", _vehicle, _crewMember, 0];
-while {!(_lastState isEqualTo (weaponState [_vehicle, _turret]))} do {
-    _lastState = weaponState [_vehicle, _turret];
-    _lastState params ["_curWep", "_curMuzz", "_curFireMode", "_curMag"];
-    if ((_curWep == _weapon || _curMuzz == _weapon) && (_magazine == "" || _magazine == _curMag) && _curFireMode == _fireMode) exitWith {}; //Success!
+private _cfgWeapons = configFile >> "cfgWeapons";
+private _indexes = [];
+{
+    private _weapon = _x;
+    private _weaponConfig = _cfgWeapons >> _x;
+    private _muzzles = getArray (_weaponConfig >> "muzzles") apply {if (_x == "this") then {[_weaponConfig, _weapon]} else {[_weaponConfig >> _x, _x]}};
+    {
+        _x params ["_muzzleConfig", "_muzzle"];
+        private _modes = getArray (_muzzleConfig >> "modes") apply {if (_x == "this") then {_muzzle} else {_x}};
+        {
+            private _mode = _x;
+            _indexes pushBack [_weapon, _muzzle, _mode];
+        } forEach _modes;
+    } forEach _muzzles
+} forEach (_vehicle weaponsTurret _turret);
 
-    _i = _i + 1;
-    _crewMember action ["SwitchWeapon", _vehicle, _crewMember, _i];
+private _index = _indexes findIf {_x # 0 == _selectedWeapon && _x # 2 == _selectedFireMode};
+
+
+if (_index == -1 ) exitWith {
+    ["Cannot switch turret's weapon, couldn't find %1 (searched %2)", [_selectedWeapon, _selectedFireMode]] call BIS_fnc_error;
 };
 
-weaponState [_vehicle, _turret] params ["_curWep", "_curMuzz", "_curFireMode", "_curMag"];
-if ((_curWep == _weapon || _curMuzz == _weapon) && (_magazine == "" || _magazine == _curMag) && _curFireMode == _fireMode) then {
-    true
-} else {
-    ["Cannot switch turret's weapon, couldn't find (searched up to index %1)", _i] call BIS_fnc_error;
-    false;
-};
+_crewMember action ["SwitchWeapon", _vehicle, _crewMember, _index];
+true;

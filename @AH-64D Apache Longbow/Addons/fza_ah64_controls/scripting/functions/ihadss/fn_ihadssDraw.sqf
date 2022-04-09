@@ -18,6 +18,7 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;
@@ -107,10 +108,18 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-if (_heli getVariable "fza_ah64_ihadssoff" == 1) then {
+
+private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
+private _eng1Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
+private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+private _apuState = _heli getVariable "fza_ah64_apu";
+private _powerOnState = _apuState == true || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
+
+if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
 };
-if (_heli getVariable "fza_ah64_ihadssoff" == 0 && _heli getVariable "fza_ah64_monocleinbox") then {
+if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
     1 cuttext["", "PLAIN", 0.1];
 };
 if (isNull laserTarget _heli) then {
@@ -147,14 +156,14 @@ private _a3ti_vis = call A3TI_fnc_getA3TIVision;
 private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
 
 //TADS DISABLE IF ENGINE OFF
-if (cameraView == "GUNNER" && player == gunner _heli && !isEngineOn _heli) then {
+if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
     fza_ah64_bweff ppEffectEnable true;
 } else {
     fza_ah64_bweff ppEffectEnable false;
 };
 
 //IHADSS INIT
-if (_heli animationphase "plt_apu" > 0.5 && !(_heli getVariable "fza_ah64_monocleinbox") || isEngineOn _heli && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (!(_heli getVariable "fza_ah64_monocleinbox") || _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (isNil "fza_ah64_ihadssinit") then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
@@ -183,8 +192,8 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") th
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _heli getVariable "fza_ah64_ihadssoff" == 0 && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
-    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _powerOnState && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];
@@ -209,13 +218,13 @@ if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "f
     };
 };
 
-if((vehicle player) animationphase "plt_apu" < 0.5 && !(isEngineOn _heli)) then {
+if !_powerOnState then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
-if (cameraView == "GUNNER" && player == gunner _heli && (_heli animationphase "plt_apu" > 0.5 || isEngineOn _heli)) then {
+if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
 
     if !(isNil "_a3ti_vis") then {
         if !(isNil "fza_ah64_bweff") then {
@@ -345,14 +354,6 @@ _autohide = {
 
 };
 
-if ((_heli getVariable "fza_ah64_ldp_fail") && (_heli getVariable "fza_ah64_rdp_fail")) then {
-    1 cuttext["", "PLAIN", 0.1];
-    _heli setVariable ["fza_ah64_ihadssoff", 2];
-};
-if ((!(_heli getVariable "fza_ah64_ldp_fail") || !(_heli getVariable "fza_ah64_rdp_fail")) && _heli getVariable "fza_ah64_ihadssoff" == 2) then {
-    _heli setVariable ["fza_ah64_ihadssoff", 1];
-};
-
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 _waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
@@ -375,20 +376,17 @@ if (_theta >= 180) then {
 _curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
-
-if (_heli getVariable "fza_ah64_agmode" == 0) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/G";
-}; //FCRG SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 1) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/A";
-}; //FCRA SENSOR
-if (_heli getVariable "fza_ah64_agmode" == 2) then {
-    _sensor = "R ";
-    _acqihadss = "FCR/G";
-    _heli setVariable ["fza_ah64_agmode", 0, true];
+switch (_heli getVariable "fza_ah64_agmode") do {
+    case FCR_MODE_GND: {
+        _sensor = "R ";
+        _acqihadss = "FCR/G";
+    };
+    case FCR_MODE_AIR: {
+        _sensor = "R ";
+        _acqihadss = "FCR/A";
+    }
 };
+
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
     switch (_sight) do {
@@ -512,15 +510,14 @@ if (speed _heli < 5) then {
     _vertvect = -100;
     _horvect = -100;
 };
-weaponState [_heli, [0]] params ["_curWeapon", "", "_fireMode", "_magazine"];
-if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
+private _was = _heli getVariable "fza_ah64_was";
+if (_was == WAS_WEAPON_MSL) then {
     _weapon = "MSL";
     if (isManualFire _heli) then {
         _weapon = "PMSL";
     };
-    _ammoType = getText (configFile / "CfgMagazines" / _magazine / "ammo");
     private ["_mistargPos", "_radar"];
-    if (_ammoType == "fza_agm114l") then {
+    if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
         _mistargPos = fza_ah64_mycurrenttarget;
         _radar = true;
     } else {
@@ -546,7 +543,7 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 
         _distOffAxis = abs ([[_heli, getPos _heli # 0, getPos _heli # 1, getPos _mistargPos # 0, getPos _mistargPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
         
-        if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 10]) isEqualTo [] && _distOffAxis < 40 && !(_heli ammo currentweapon _heli < 1)) then {
+        if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 10]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0) then {
             _w = 0.2202;
             _h = 0.3;
             _apx = 0.108;
@@ -573,14 +570,14 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
     if (isManualFire _heli) then {
         _weapon = "PMSL";
     };
-    switch (_fireMode) do {
-        case "LoalDistance": {
+    switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
+        case "dir": {
             _weaponstate = "DIR-MAN";
         };
-        case "TopDown": {
+        case "lo": {
             _weaponstate = "LO-MAN";
         };
-        case "Cruise": {
+        case "hi": {
             _weaponstate = "HI-MAN";
         };
     };
@@ -594,7 +591,7 @@ if (_curWeapon isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
-if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
+if (_was == WAS_WEAPON_RKT) then {
     //RKT FIX TADS AND/OR IHADSS DISPLAY
     _w = 0.0734*2;
     _h = 0.1*2;
@@ -604,9 +601,9 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     if (isManualFire _heli) then {
         _weapon = "PRKT";
     };
-    _ammo = getText (configFile >> "CfgMagazines" >> currentMagazine _heli >> "ammo");
+    _ammo = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedRocket") >> "fza_ammoType");
     _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
-    _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(currentweapon _heli)];
+    _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(_heli getVariable "fza_ah64_selectedRocket")];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
     (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
     if (_sight == 3) then { //FXD
@@ -619,17 +616,17 @@ if (currentweapon _heli isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) th
     };
 };
 
-if (currentweapon _heli == "fza_ma_safe") then {
+if (_was == WAS_WEAPON_NONE) then {
     _weapon = "";
     _weaponstate = "";
 };
 
-if ((currentweapon _heli == "fza_m230") && player == driver _heli) then {
+if (_was == WAS_WEAPON_GUN && player == driver _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
         (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
 };
 
-if (currentweapon _heli == "fza_m230") then {
+if (_was == WAS_WEAPON_GUN) then {
     _w = 0.0734;
     _h = 0.1;
     _apx = 0.036;
@@ -649,21 +646,7 @@ if (currentweapon _heli == "fza_m230") then {
         _weapon = "PGUN";
     };
 
-    _weaponstate = format["ROUNDS %1", _heli ammo(currentweapon _heli)];
-};
-
-if (currentweapon _heli == "Laserdesignator_mounted") then {
-    _weapon = "LRFD";
-    if (isManualFire _heli) then {
-        _weapon = "LRFD";
-    };
-    _lasestatus = "OFF";
-    if (isNull lasertarget _heli) then {
-        _lasestatus = "OFF";
-    } else {
-        _lasestatus = "ON";
-    };
-    _weaponstate = format["%1", _lasestatus];
+    _weaponstate = format["ROUNDS %1", _heli ammo "fza_m230"];
 };
 
 //CSCOPE
@@ -775,7 +758,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 ///HAD INHIBIT MESSAGES
 
 if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
-    player forceWeaponFire["fza_burstlimiter", "fza_burstlimiter"];
+    _heli selectweapon "fza_burstlimiter";
 };
 
 if (fza_ah64_gunheat > 0) then {
@@ -787,7 +770,7 @@ if (fza_ah64_gunheat < 0) then {
     fza_ah64_burst = 0;
 };
 
-if (time - fza_ah64_firekeypressed > 0.1 && currentweapon _heli == "fza_burstlimiter") then {
+if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
     fza_ah64_burst = 0;
     _heli selectWeapon "fza_m230";
 };
@@ -866,13 +849,9 @@ if (_radalt > 0.26) then {
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetPosition[0.709, (0.6321 - _radalt), 0.01, _radalt];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlCommit 0;
-_fpm = (velocity _heli select 2) * 0.051;
-if (_fpm > 0.13) then {
-    _fpm = 0.13;
-};
-if (_fpm < -0.13) then {
-    _fpm = -0.13;
-};
+_fpm = (velocity _heli select 2) * 0.0255;
+_fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;

@@ -19,24 +19,24 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum"];
 
-if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
 switch (_engState) do {
 	case "STARTING": {
 		_engState = "OFF";
-		[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
+		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
 
-		true;
+		false;
 	};
 	case "OFF": {
 		_engState = "STARTING";
-		[_heli, "fza_sfmplus_engState", _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
+		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
 
 		true;
 	};
 	default {
-		false;
+		true;
 	}
 };

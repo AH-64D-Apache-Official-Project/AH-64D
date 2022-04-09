@@ -1,13 +1,11 @@
 #include "\fza_ah64_controls\headers\selections.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #define SALVO_ALL 99
 params ["_heli"];
 
 _rgbracket = "";
 
-weaponState [_heli, [0]] params ["_curWpn", "_curMuzzle", "_curFiremode", "_curMagazine", "_curAmmoCount"];
-_curAmmo = getText (configFile >> "CfgMagazines" >> _curMagazine >> "ammo");
-
-if (currentweapon _heli == "fza_ma_safe") then {
+if !(_heli getVariable "fza_ah64_armed") then {
 	_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN_SAFE.paa"];
 } else {
 	_heli setobjecttexture [SEL_PL_MPD_BACK, "\fza_ah64_us\tex\WPN.paa"];
@@ -30,7 +28,7 @@ _flareCount = 0;
 //GUN AMMO - ALWAYS DISPLAYED
 
 _gunAmmo = _heli ammo "fza_m230";
-_gunAmmoFont = ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (currentweapon _heli == "fza_m230" || currentweapon _heli == "fza_burstlimiter");
+_gunAmmoFont = ["\fza_ah64_us\tex\CHAR\G", "\fza_ah64_us\tex\CHAR\B"] select (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN);
 [_heli, _gunAmmo, _gunAmmoFont, SEL_DIGITS_MPD_PL_GUN_AMMO] call fza_fnc_drawNumberSelections;
 
 // SIGHT AND ACQ SOURCES
@@ -55,9 +53,9 @@ switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
 _heli setobjecttexture [SEL_MPD_PL_SIGHT_ACQ, _sight];
 _heli setobjecttexture [SEL_MPD_PL_WPN_ACQ, _acq];
 
+private _selectedWeapon = _heli getVariable "fza_ah64_wpnPageSelected";
 // GUN SELECTED
-
-if (_curWpn == "fza_m230" || _curWpn == "fza_burstlimiter") then {
+if (_selectedWeapon == WAS_WEAPON_GUN) then {
 	_rgbracket = "\fza_ah64_us\tex\icons\gunxtra.paa";
 	_heli setobjecttexture [SEL_MPD_PL_GUN_SEL, "\fza_ah64_us\tex\icons\gun-sel_ca.paa"];
 	_burst10 = "";
@@ -103,7 +101,8 @@ for "_i" from 1 to 4 do {
 	_heli setobjecttexture [SEL_MPD_PL_RKT1+(_i-1), ["", "\fza_ah64_us\tex\icons\PODINV.paa"] select ((_i - 1) * 4 in _pylonsWithRockets)];
 };
 
-if (_curWpn isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]) then {
+if (_selectedWeapon == WAS_WEAPON_RKT) then {
+	private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
 	_rgbracket = switch (_heli getVariable "fza_ah64_rocketsalvo") do {
 		case 1: {"\fza_ah64_us\tex\icons\RKTxtra_1.paa"};
 		case 2: {"\fza_ah64_us\tex\icons\RKTxtra.paa"};
@@ -172,7 +171,8 @@ _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
 	};
 }forEach (_missileInventory);
  
-if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
+if (_selectedWeapon == WAS_WEAPON_MSL) then {
+	private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");
 	_selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
 	if (_selectedMsl != -1) then {
 		assert (0 <= _selectedMsl && _selectedMsl <= 15);
@@ -206,7 +206,7 @@ if (_curWpn isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]) then {
 		_heli setObjectTexture [SEL_MPD_PL_HF_DESIG, "\fza_ah64_us\tex\icons\remt.paa"];
 	};
 
-	_trajTex = switch ([_heli] call fza_fnc_weaponMissileTrajectory) do {
+	_trajTex = switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
 		case "dir": {"\fza_ah64_us\tex\icons\dir.paa"};
 		case "lo": {"\fza_ah64_us\tex\icons\lo.paa"};
 		case "hi": {"\fza_ah64_us\tex\icons\hi.paa"};

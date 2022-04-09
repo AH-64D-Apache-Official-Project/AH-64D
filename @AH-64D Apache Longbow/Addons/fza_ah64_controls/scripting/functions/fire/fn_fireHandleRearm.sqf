@@ -19,21 +19,20 @@ Author:
 #include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
-if ((_heli ammo "fza_Fx1" == 1) && (_heli getVariable "fza_ah64_firepdisch" == true)) then {
-    _heli setVariable ["fza_ah64_firepdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-    _heli setVariable ["fza_ah64_fire2arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-    _heli setVariable ["fza_ah64_fireapuarm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
+private _turret = 0;
+if (_heli turretLocal [0]) then {
+	_turret = -1;
 };
-if ((_heli ammo "fza_Fx2" == 1) && (_heli getVariable "fza_ah64_firerdisch" == true)) then {
+
+if ((_heli getHit "leng" == 0) && (_heli getVariable "fza_ah64_firepdisch" == true)) then {
+    _heli setVariable ["fza_ah64_firepdisch", false, true];
+	[_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+	[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+	[_heli, "apu", false] call fza_fnc_fireHandlepanel;
+};
+if ((_heli getHit "reng" == 0) && (_heli getVariable "fza_ah64_firerdisch" == true)) then {
     _heli setVariable ["fza_ah64_firerdisch", false, true];
-    _heli setVariable ["fza_ah64_fire1arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE1RDY, ""];
-    _heli setVariable ["fza_ah64_fire2arm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIRE2RDY, ""];
-    _heli setVariable ["fza_ah64_fireapuarm", 0];
-	_heli setobjecttexture [SEL_IN_LT_FIREAPURDY, ""];
+    [_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+	[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+	[_heli, "apu", false] call fza_fnc_fireHandlepanel;
 };

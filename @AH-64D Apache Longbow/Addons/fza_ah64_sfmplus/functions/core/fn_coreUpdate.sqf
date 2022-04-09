@@ -17,7 +17,7 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 //Input
@@ -32,7 +32,8 @@ if (_heli animationPhase "fcr_enable" == 1) then {
 };
 private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
 private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
+private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
@@ -43,15 +44,17 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli animationphase "plt_apu" > 0.5) then {
+if (_heli getVariable "fza_ah64_apu") then {
 	_apuFF = 0.0220;	//175pph
 };
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
-private _totFuelMass  = _fwdFuelMass + _aftFuelMass;
+private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
 _totFuelMass          = _totFuelMass - _curFuelFlow;
 private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
-_heli setFuel _armaFuelFrac;
+if (local _heli) then {
+	_heli setFuel _armaFuelFrac;
+};
 
 //Pylons
 private _pylonMass = 0;
@@ -64,15 +67,21 @@ private _pylonMass = 0;
 } foreach magazinesAllTurrets _heli;
 
 private _curMass = _emptyMass + _totFuelMass + _pylonMass;
-_heli setMass _curMass;
+if (local _heli) then {
+	_heli setMass _curMass;
+};
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled) then {
+if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
+	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
+
+//Perormance
+[_heli] call fza_sfmplus_fnc_perfData;
 
 #ifdef __A3_DEBUG_
 /*
@@ -104,8 +113,6 @@ hintsilent format ["v0.11
 					_heli getVariable "fza_sfmplus_engState",
 					_heli getVariable "fza_sfmplus_isSingleEng",
 					_heli getVariable "fza_sfmplus_engPctNP",
-					_heli getVariable "fza_sfmplus_engClutchState",
-					_heli getVariable "fza_sfmplus_engStartSwitchState",
 					_heli getVariable "fza_sfmplus_engPowerLeverState",
 					fza_sfmplus_collectiveOutput,
 					_heli getVariable "fza_sfmplus_engFF",

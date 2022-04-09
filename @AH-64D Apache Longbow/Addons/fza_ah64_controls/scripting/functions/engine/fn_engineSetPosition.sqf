@@ -24,7 +24,7 @@ Author:
 
 params["_heli", "_engNum", "_position"];
 
-if(_heli animationphase "plt_rtrbrake" != 0) exitWith {};
+if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 [_heli, 0] call fza_fnc_engineUpdate;
 [_heli, 1] call fza_fnc_engineUpdate;
@@ -46,7 +46,7 @@ private _changeMade = false;
 
 switch (_state) do {
     case "OFF":{
-            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER) && _heli animationphase "plt_apu" > 0.5) then {
+            if (_position == ENGINE_CONTROL_STARTER && !(_otherState in ENGINE_STATE_USING_STARTER) && _heli getVariable "fza_ah64_apu") then {
                 _state = "OFFSTARTED";
                 _stateParams = time;
                 _changeMade = true;
@@ -72,7 +72,7 @@ switch (_state) do {
 
             _heli animateSource[_engineSwitch, 0];
         };
-        if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli animationphase "plt_apu" > 0.5) then {
+        if (_position == ENGINE_CONTROL_THROTTLE_IDLE && _heli getVariable "fza_ah64_apu") then {
             _stateParams = time;
             _state = "STARTEDIDLE";
             _changeMade = true;
@@ -99,8 +99,8 @@ switch (_state) do {
                         _changeMade = true;
 
                         //0.063 sets the power levers to fly in 16 seconds
-                        _heli animate["plt_eng1_throttle", 1, 0.063];
-                        _heli animate["plt_eng2_throttle", 1, 0.063];
+                        [_heli, "fza_ah64_powerLever1", 1, 0.063] call fza_fnc_animSetValue;
+                        [_heli, "fza_ah64_powerLever2", 1, 0.063] call fza_fnc_animSetValue;
                     }
                 };
             };
@@ -114,8 +114,8 @@ switch (_state) do {
             _changeMade = true;
             
             //0.667 sets the power levers to idle in 1.5 seconds
-            _heli animate["plt_eng1_throttle", 0.25, 0.667];
-            _heli animate["plt_eng2_throttle", 0.25, 0.667];
+            [_heli, "fza_ah64_powerLever1", 0.25, 0.667] call fza_fnc_animSetValue;
+            [_heli, "fza_ah64_powerLever2", 0.25, 0.667] call fza_fnc_animSetValue;
         };
     };
 };

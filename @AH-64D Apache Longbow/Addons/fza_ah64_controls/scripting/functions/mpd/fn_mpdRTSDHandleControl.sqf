@@ -14,7 +14,7 @@ if(_heli getVariable "fza_ah64_tsdmode" == "nav") then {
 			[_heli] execvm "\fza_ah64_controls\scripting\nav\waypointsave.sqf";
 		};
 		case "l6": {
-			[_heli] call fza_fnc_controlHandleNextWaypoint;
+			[_heli, true] call fza_fnc_navigationWaypointCycle;
 		};
 		case "b4": {
 			//RMPD B4 BTN RTE
@@ -46,7 +46,7 @@ if(_heli getVariable "fza_ah64_tsdmode" == "atk") then {
 };
 switch (_control) do {
 	case "b1": {
-		call fza_fnc_controlHandleTSDMode;
+		_heli setVariable ["fza_ah64_tsdmode", ["atk", "nav"] select (_heli getVariable "fza_ah64_tsdmode" == "atk")];
 	};
 	case "l5": {
 		[_heli] call fza_fnc_targetingPFZCycle;

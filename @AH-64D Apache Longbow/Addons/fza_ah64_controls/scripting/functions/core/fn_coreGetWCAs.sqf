@@ -75,7 +75,7 @@ if (fuel _heli < 0.05) then {
 if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUEL.paa", "\fza_ah64_us\tex\UFD\AFTFUELLO_C_co.paa"];
 };
-if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 >= 3) then {
+if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
 if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
@@ -102,7 +102,7 @@ if (_heli getHit "otocvez" >= 0.8) then {
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\CANOPY.paa", "\fza_ah64_us\tex\UFD\CANOPYOPEN_A_co.paa"]
 };
-if (_heli animationphase "plt_apu" > 0.5 && getpos _heli # 2 < 3) then {
+if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 < 3) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
 };
 if (_heli animationphase "plt_eng1_start" > 0 && _heli animationphase "plt_eng1_throttle" < 0.25) then {
@@ -114,14 +114,21 @@ if (_heli animationphase "plt_eng2_start" > 0 && _heli animationphase "plt_eng2_
 if (isAutoHoverOn _heli) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\ATTHOLD.paa", "\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"]
 };
-if (_heli animationphase "plt_rtrbrake" == 1) then {
+if (_heli getVariable "fza_ah64_rtrbrake") then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RTRBRKON.paa", "\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"]
 };
 
-if (_heli getVariable "fza_ah64_irjon" == 1 && fza_ah64_irjammer > 40) then {
+(_heli getVariable "fza_ah64_irJamCooldown") params ["_irTemp", "_irTempTime"];
+private _irCurrentTemp = _irTemp + ([-1, 0.5] select (_heli getVariable "fza_ah64_irJamOn")) * (time - _irTempTime);
+
+if (_irCurrentTemp > 40) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\IRJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\IRJAMOHEAT_A_co.paa"]
 };
-if (_heli getVariable "fza_ah64_rfjon" == 1 && fza_ah64_rfjammer > 40) then {
+
+(_heli getVariable "fza_ah64_rfJamCooldown") params ["_rfTemp", "_rfTempTime"];
+private _rfCurrentTemp = _rfTemp + ([-1, 0.5] select (_heli getVariable "fza_ah64_rfJamOn")) * (time - _rfTempTime);
+
+if (_rfCurrentTemp > 40) then {
 	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RFJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\RFJOHEAT_A_co.paa"]
 };
 
