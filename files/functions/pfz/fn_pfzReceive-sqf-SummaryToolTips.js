@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/pfz/fn_pfzReceive.sqf",{56:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Stores PFZ that was broadcasted by another helicopter in currently selected PFZ</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/pfz/fn_pfzReceive.sqf",{10:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Stores PFZ that was broadcasted by another helicopter in currently selected PFZ</div></div>"});

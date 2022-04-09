@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageEnginefire.sqf",{92:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">damageEngineFire</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageEnginefire.sqf",{34:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">damageEngineFire</div></div>"});

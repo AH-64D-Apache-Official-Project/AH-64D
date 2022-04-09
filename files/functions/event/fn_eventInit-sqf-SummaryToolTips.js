@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/event/fn_eventInit.sqf",{22:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Master init event handler</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/event/fn_eventInit.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Master init event handler</div></div>"});

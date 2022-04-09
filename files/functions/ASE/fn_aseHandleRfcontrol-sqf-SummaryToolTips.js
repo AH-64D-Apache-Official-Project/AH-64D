@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleRfcontrol.sqf",{134:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Enables RF jammer, can be disabled by setting fza_ah64_rfJamOn to false.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/ASE/fn_aseHandleRfcontrol.sqf",{28:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Enables RF jammer, can be disabled by setting fza_ah64_rfJamOn to false.</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/laser/fn_laserCycle.sqf",{64:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter\'s Between self/remote laser aquistion.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/laser/fn_laserCycle.sqf",{102:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the helicopter\'s Between self/remote laser aquistion.</div></div>"});
