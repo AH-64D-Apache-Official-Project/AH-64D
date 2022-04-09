@@ -40,11 +40,7 @@ class Components: Components
         aimDown = 5;
         allowsMarking= 1;
       };
-			class PassiveRadarSensorComponent: SensorTemplatePassiveRadar
-      {
-        angleRangeHorizontal = 360;
-        angleRangeVertical = 90;
-      };
+			class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{};
       class LaserSensorComponent: SensorTemplateLaser
       {
         componentType = "LaserSensorComponent";
