@@ -208,7 +208,6 @@ class CfgFunctions
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};
 			class weaponRocketSetSelected {R;};
-			class weaponSelectFireMode {R;};
 			class weaponSwapM230Mag {R;};
 			class weaponTrajectoryChange {R;};
 			class weaponTurretAim {R;};
