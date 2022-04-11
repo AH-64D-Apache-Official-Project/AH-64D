@@ -21,10 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","_munition","_hostile", "_instigator"];
 
-if (!local _heli) exitWith {}; //Should've also have been run on the local machine
 if(!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
 private _missile = nearestobject [_hostile,_munition];
-if !(missileTarget _missile == _heli) exitwith {}; // Would this ever be true?
 
 if (_missile in fza_ah64_incomingmissiles) exitwith {};
 fza_ah64_incomingmissiles pushback _missile;
@@ -39,7 +37,7 @@ if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethr
 };
 //ase page link End
 
-_this spawn fza_fnc_aseBetty;
+[_heli,_munition,_hostile,_instigator] call fza_fnc_aseBetty;
 
 [_heli, _munition, _hostile] spawn {
     params ["_heli", "_munition", "_hostile"];

@@ -953,6 +953,7 @@ class CfgVehicles
 		impactEffectSpeedLimit = 8;
 		impactEffectsSea = "ImpactEffectsAir";
 		incomingMissileDetectionSystem = 16;
+		countermeasureActivationRadius = 6000;
 		irScanGround = 1;
 		irScanRangeMax = 10000;
 		irScanRangeMin = 700;
@@ -961,7 +962,6 @@ class CfgVehicles
 		laserTarget=0;
 		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
 		lockdetectionsystem = "8+4";
-		countermeasureActivationRadius = 8000;
 		gunAimDown = 0;
 		selectionHRotorStill = "mr_blades";
 		selectionHRotorMove = "mr_blur";
