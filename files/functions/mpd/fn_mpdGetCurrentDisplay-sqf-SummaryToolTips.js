@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdGetCurrentDisplay.sqf",{90:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the displays that are being displayed on the MPDs</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/mpd/fn_mpdGetCurrentDisplay.sqf",{88:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the displays that are being displayed on the MPDs</div></div>"});

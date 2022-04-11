@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic87"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic85"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_mpdSetDisplay"></a><a name="Topic88"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_mpdSetDisplay"></a><a name="Topic86"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_mpdSetDisplay</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Sets the display on each page.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>the apache to show the correct values for.</p></td></tr><tr><td class="CDLEntry">_side</td><td class="CDLDefinition"><p>0 for left MPD, 1 for right MPD</p></td></tr><tr><td class="CDLEntry">_page</td><td class="CDLDefinition"><p>page name</p></td></tr></table><div class="CHeading">Returns</div><p>True if change was made, false if not.</p><div class="CHeading">Examples</div><pre>_ret = [_heli <span class="SHNumber">0</span>, <span class="SHString">&quot;fuel&quot;</span>] call fza_fnc_mpdSetDisplay;<br /><span class="SHComment">// _ret =&gt; true</span></pre><pre>_ret = [_heli <span class="SHNumber">0</span>, <span class="SHString">&quot;tsd&quot;</span>] call fza_fnc_mpdSetDisplay;<br /><span class="SHComment">// _ret =&gt; false (left MPD can't show the TSD)</span></pre><div class="CHeading">Author</div><p>mattysmith22</p></div>
 </div>
