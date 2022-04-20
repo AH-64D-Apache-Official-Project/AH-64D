@@ -231,6 +231,7 @@ class CfgFunctions
 			class doortoggleG {R;};
 			class cycle {R;};
 			class bearingClock {R;};
+			class loadoutImportJson {R;};
 		};
 		class ase
 		{
