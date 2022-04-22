@@ -895,27 +895,13 @@ class CfgVehicles
 		{
 			class fza_pylonLoadout
 			{
-				displayName = "Loadout Config"; // Name assigned to UI control class Title
-				tooltip = "Loadout in JSON form to export"; // Tooltip assigned to UI control class Title
-				property = "fza_ah64_loadout"; // Unique config property name saved in SQM
-				control = "Edit"; // UI control base class displayed in Edit Attributes window, points to Cfg3DEN >> Attributes
-
-				// Expression called when applying the attribute in Eden and at the scenario start
-				// The expression is called twice - first for data validation, and second for actual saving
-				// Entity is passed as _this, value is passed as _value
-				// %s is replaced by attribute config name. It can be used only once in the expression
-				// In MP scenario, the expression is called only on server.
+				displayName = "Loadout Config";
+				tooltip = "Loadout in JSON form to export";
+				property = "fza_ah64_loadout";
+				control = "Edit";
 				expression = "[_this, _value] call fza_fnc_loadoutImportJson;";
-
-				// Expression called when custom property is undefined yet (i.e., when setting the attribute for the first tim>
-				// Entity (unit, group, marker, comment etc.) is passed as _this
-				// Returned value is the default value
-				// Used when no value is returned, or when it is of other type than NUMBER, STRING or ARRAY
-				// Custom attributes of logic entities (e.g., modules) are saved always, even when they have default value
-				defaultValue = "";
-
-				//--- Optional properties
-				unique = 0; // When 1, only one entity of the type can have the value in the mission (used for example for var>
+				defaultValue = "''";
+				unique = 0;
 				validate = "none";
 				condition = "object";
 				typeName = "STRING";    
