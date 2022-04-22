@@ -37,11 +37,11 @@ private _IAFSstate = [1, 0] select (_settings getVariable "iafsInstalled");
 
 //SFM Weight sim
 [_heli] call fza_sfmplus_fnc_coreConfig;
-
 private _fuelKg = _settings getVariable "fuel";
+private _IAFSstate = [0, 1] select (_settings getVariable "iafsInstalled");
 private _sfmPlusCfg = configFile >> "CfgVehicles" >> typeOf _heli >> "Fza_SfmPlus";
 private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumber (_sfmPlusCfg >> "maxAftFuelMass") + _IAFSstate * getNumber (_sfmPlusCfg >> "maxCtrFuelMass");
-_heli setFuel (_fuelKg / _tankCapacity);
+_heli setFuel (_fuelKg / _tankCapacityKg);
 
 //SFM Weight sim
 [_heli] call fza_sfmplus_fnc_fuelSet;
