@@ -42,7 +42,7 @@ if (isEngineOn _heli) then {
         _applyDamage = true;
     };
 
-    if (_pctNR <= 0.9 && (_eng1PctTQ >= 0.7 || getpos _heli select 2 > 1)) then {
+    if (_pctNR <= 0.9 && _eng1PctTQ >= 0.7) then {
         _applyDamage = true;
     };
     //With the power levers at fly

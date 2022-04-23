@@ -23,15 +23,16 @@ private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
 
-if ((_eng1State == "STARTING" || _eng2State == "STARTING") && local _heli) then {
+private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
+private _eng1PwrLvrState = _engPwrLvrState select 0;
+private _eng2PwrLvrState = _engPwrLvrState select 1;
+
+if (((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", true, true];
 	_heli engineOn true;
 };
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
-private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
 	_isSingleEng = false;
