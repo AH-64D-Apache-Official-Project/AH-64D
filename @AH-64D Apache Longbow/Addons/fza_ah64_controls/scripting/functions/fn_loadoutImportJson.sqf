@@ -22,11 +22,10 @@ if (_json == "true") exitwith {};
 
 private _settings = [_json] call CBA_fnc_parseJSON;
 private _nameCheck = ["M151","M229","M261","M257","M255","AGM114A","AGM114C","AGM114K","AGM114L","AGM114M","AGM114N"];
-private _PylonArraycheck  = ["pylon1","pylon2","pylon3","pylon4"];
+private _pylonArraycheck  = ["pylon1","pylon2","pylon3","pylon4"];
 private _pylonRktCheck = ["zoneE","zoneB","zoneA"];
 private _pylonMslCheck = ["lr","ll","ur","ul"];
-private _MagazineArray = [];
-private _MagazineIndex = 16;
+private _magazineIndex = 16;
 
 //System Settings
 private _fcrState = [0, 1] select (_settings getVariable "fcrInstalled");
@@ -54,23 +53,23 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
     switch _pylonType do {
         case "none": {
             for "_i" from 0 to 3 do {
-                _MagazineArray pushback [_MagazineIndex,""];
-                _MagazineIndex = _MagazineIndex - 1;
+                _heli setPylonLoadout [_magazineIndex, "", true, [0]]; 
+                _magazineIndex = _magazineIndex - 1;
             };
         };
         case "rocket": {
-            _MagazineArray pushback [_MagazineIndex,""];
-            _MagazineIndex = _MagazineIndex - 1;
+            _heli setPylonLoadout [_magazineIndex, "", true, [0]]; 
+            _magazineIndex = _magazineIndex - 1;
             {
                 private _pylonZone = _x;
                 private _ammoName = _pylonInfo getVariable _x;
                 if (_ammoname in _nameCheck) then {
                     private _magname = "fza_275_" + _ammoName + "_" + _pylonZone;
-                    _MagazineArray pushback [_MagazineIndex,_magname];
-                    _MagazineIndex = _MagazineIndex - 1;
+                    _heli setPylonLoadout [_magazineIndex, _magname, true, [0]];
+                    _magazineIndex = _magazineIndex - 1;
                 } else {
-                    _MagazineArray pushback [_MagazineIndex,""];
-                    _MagazineIndex = _MagazineIndex - 1;
+                    _heli setPylonLoadout [_magazineIndex, "", true, [0]];
+                    _magazineIndex = _magazineIndex - 1;
                 };
             } foreach _pylonRktCheck;
         };
@@ -80,11 +79,11 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
                 _ammoName = [_ammoName] call BIS_fnc_filterString;
                 if (_ammoname in _nameCheck) then {
                     private _magname = "fza_" + _ammoName + "_" + _x; 
-                    _MagazineArray pushback [_MagazineIndex,_magname];
-                    _MagazineIndex = _MagazineIndex - 1;
+                    _heli setPylonLoadout [_magazineIndex, _magname, true, [0]];
+                    _magazineIndex = _magazineIndex - 1;
                 } else {
-                    _MagazineArray pushback [_MagazineIndex,""];
-                    _MagazineIndex = _MagazineIndex - 1;
+                    _heli setPylonLoadout [_magazineIndex, "", true, [0]];
+                    _magazineIndex = _magazineIndex - 1;
                 };
             } foreach _pylonMslCheck;
         };
@@ -92,10 +91,4 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
             ["Unknown pylon type %1", _pylonType] call BIS-fnc_error;
         };
     };
-} foreach _PylonArraycheck;
-_MagazineArray;
-
-{    
-    _x params ["_Pylonindex","_MagazineName"]; 
-    _heli setPylonLoadout [_Pylonindex, _MagazineName, true, [0]]; 
-} foreach _MagazineArray;
+} foreach _pylonArraycheck;
