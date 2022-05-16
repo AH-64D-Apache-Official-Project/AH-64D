@@ -890,7 +890,23 @@ class CfgVehicles
                isRadioRemovable = 0;
                intercom[] = {};                   // All units in intercom will be able to hear/send transmittions (ACE3 interaction menu) but they cannot manipulate the radio (GUI interface)
            };
-       };
+        };
+		class Attributes
+		{
+			class fza_pylonLoadout
+			{
+				displayName = "Loadout Config";
+				tooltip = "Loadout in JSON form to export";
+				property = "fza_ah64_loadout";
+				control = "Edit";
+				expression = "[_this, _value] call fza_fnc_loadoutImportJson;";
+				defaultValue = "''";
+				unique = 0;
+				validate = "none";
+				condition = "object";
+				typeName = "STRING";    
+			};
+		};
 	};
 	class fza_ah64d_b2e: fza_ah64base
 	{
