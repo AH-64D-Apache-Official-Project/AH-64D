@@ -31,15 +31,15 @@ private _magazineIndex = 16;
 private _fcrState = [0, 1] select (_settings getVariable "fcrInstalled");
 _heli animateSource ["fcr_enable", _fcrState];
 
-private _IAFSstate = [1, 0] select (_settings getVariable "iafsInstalled");
-[_heli, _IAFSstate] call fza_fnc_weaponSwapM230Mag;
+private _iafsState = [1, 0] select (_settings getVariable "iafsInstalled");
+[_heli, _iafsState] call fza_fnc_weaponSwapM230Mag;
 
 //SFM Weight sim
 [_heli] call fza_sfmplus_fnc_coreConfig;
 private _fuelKg = _settings getVariable "fuel";
-private _IAFSstate = [0, 1] select (_settings getVariable "iafsInstalled");
+private _iafsState = [0, 1] select (_settings getVariable "iafsInstalled");
 private _sfmPlusCfg = configFile >> "CfgVehicles" >> typeOf _heli >> "Fza_SfmPlus";
-private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumber (_sfmPlusCfg >> "maxAftFuelMass") + _IAFSstate * getNumber (_sfmPlusCfg >> "maxCtrFuelMass");
+private _tankCapacityKg = getNumber (_sfmPlusCfg >> "maxFwdFuelMass") + getNumber (_sfmPlusCfg >> "maxAftFuelMass") + _iafsState * getNumber (_sfmPlusCfg >> "maxCtrFuelMass");
 _heli setFuel (_fuelKg / _tankCapacityKg);
 
 //SFM Weight sim
@@ -63,9 +63,9 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
             {
                 private _pylonZone = _x;
                 private _ammoName = _pylonInfo getVariable _x;
-                if (_ammoname in _nameCheck) then {
-                    private _magname = "fza_275_" + _ammoName + "_" + _pylonZone;
-                    _heli setPylonLoadout [_magazineIndex, _magname, true, [0]];
+                if (_ammoName in _nameCheck) then {
+                    private _magName = "fza_275_" + _ammoName + "_" + _pylonZone;
+                    _heli setPylonLoadout [_magazineIndex, _magName, true, [0]];
                     _magazineIndex = _magazineIndex - 1;
                 } else {
                     _heli setPylonLoadout [_magazineIndex, "", true, [0]];
@@ -77,9 +77,9 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
             {
                 private _ammoName = _pylonInfo getVariable _x;
                 _ammoName = [_ammoName] call BIS_fnc_filterString;
-                if (_ammoname in _nameCheck) then {
-                    private _magname = "fza_" + _ammoName + "_" + _x; 
-                    _heli setPylonLoadout [_magazineIndex, _magname, true, [0]];
+                if (_ammoName in _nameCheck) then {
+                    private _magName = "fza_" + _ammoName + "_" + _x; 
+                    _heli setPylonLoadout [_magazineIndex, _magName, true, [0]];
                     _magazineIndex = _magazineIndex - 1;
                 } else {
                     _heli setPylonLoadout [_magazineIndex, "", true, [0]];
