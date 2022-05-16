@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/event/fn_eventFired.sqf",{112:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Event handler that handles any ammunition fired by the apache</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/event/fn_eventFired.sqf",{72:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Event handler that handles any ammunition fired by the apache</div></div>"});
