@@ -88,7 +88,7 @@ _heli setFuel (_fuelKg / _tankCapacityKg);
             } foreach _pylonMslCheck;
         };
         default {
-            ["Unknown pylon type %1", _pylonType] call BIS-fnc_error;
+            ["Unknown pylon type %1", _pylonType] call BIS_fnc_error;
         };
     };
 } foreach _pylonArraycheck;
