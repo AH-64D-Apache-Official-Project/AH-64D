@@ -23,12 +23,6 @@ switch (_system) do {
     case "ihadss": {
         [_heli, _system, _control] call fza_fnc_ihadssHandleControl;
     };
-    case "pnvs": {
-        if (_control == "daynight") then {
-            _heli setVariable ["fza_ah64_ihadss_pnvs_day", !(_heli getVariable "fza_ah64_ihadss_pnvs_day")];
-            ["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
-        }
-    };
     case "nvs": {
         private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
         if (_control == "mode") then {

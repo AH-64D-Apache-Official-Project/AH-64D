@@ -89,7 +89,6 @@ _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];
 _heli setVariable ["fza_ah64_fcrcscope", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
-_heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
