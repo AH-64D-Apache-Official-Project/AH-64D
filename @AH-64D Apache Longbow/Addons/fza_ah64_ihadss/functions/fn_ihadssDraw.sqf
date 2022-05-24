@@ -590,32 +590,28 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 
-    _thetabob = (360 + ((_heli getVariable "fza_ah64_bobhdg") - direction _heli)) Mod 360;
+    _BobMultiGraph =  [[0,       0],
+                       [6.096,  0.17]];
 
-    if (_thetabob >= 180) then {
-        _thetabob = _thetabob - 360;
-    } else {
-        _thetabob = _thetabob;
-    };
+    _thetabob = (360 + ((_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli)) Mod 360;
+    _HeliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos"));
+    _distance = [_BobMultiGraph, _HeliBobDist] call fza_fnc_linearInterp;
+    _CoordX = (sin _thetabob);
+    _CoordY = (cos _thetabob);
+    _offsetX = 0.480;
+    _offsetY = 0.475;
 
-    _curwpdir = _thetabob;
+    _bobcoordsX = (_CoordX * _distance#1) + _offsetX;
+    _bobcoordsY = ((_CoordY * _distance#1) * -1) + _offsetY;
+    if (_bobcoordsx > 0.650) then {_bobcoordsx = 0.650;};
+    if (_bobcoordsx < 0.310) then {_bobcoordsx = 0.310;};
 
-    _bobcoordsx = (((_heli getVariable "fza_ah64_bobpos" select 0) - (getposasl _heli select 0)) * 0.017) + 0.480775;
-    if (_bobcoordsx > 0.7) then {
-        _bobcoordsx = 0.7;
-    };
-    if (_bobcoordsx < 0.3) then {
-        _bobcoordsx = 0.3;
-    };
-    _bobcoordsy = (((getposasl _heli select 1) - (_heli getVariable "fza_ah64_bobpos" select 1)) * 0.017) + 0.475;
-    if (_bobcoordsy > 0.7) then {
-        _bobcoordsy = 0.7;
-    };
-    if (_bobcoordsy < 0.3) then {
-        _bobcoordsy = 0.3;
-    };
+    if (_bobcoordsy > 0.645) then {_bobcoordsy = 0.645;};
+    if (_bobcoordsy < 0.305) then {_bobcoordsy = 0.305;};
     _bobcoords = [_bobcoordsx, _bobcoordsy];
 };
+
+
 
 ///HAD INHIBIT MESSAGES
 private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
