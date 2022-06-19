@@ -44,7 +44,7 @@ if (fuel _heli > 0.99) then {
 		_initFuelFrac = getNumber (_config >> "initFuelFracNoRobbie");
 	};
 	_heli setFuel _initFuelFrac;
-}
+};
 
 [_heli] call fza_sfmplus_fnc_fuelSet;
 [_heli] call fza_sfmplus_fnc_massSet;
