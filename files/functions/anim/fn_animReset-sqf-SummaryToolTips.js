@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/anim/fn_animReset.sqf",{74:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Resets an animation to the value on the given variable. Called by onPhaseChanged which is called by bis_fnc_initVehicle.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/anim/fn_animReset.sqf",{36:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Resets an animation to the value on the given variable. Called by onPhaseChanged which is called by bis_fnc_initVehicle.</div></div>"});
