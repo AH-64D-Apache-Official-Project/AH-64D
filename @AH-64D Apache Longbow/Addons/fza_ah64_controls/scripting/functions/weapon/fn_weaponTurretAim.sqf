@@ -59,9 +59,6 @@ switch (_sight) do {
 if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) exitWith{
 	_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 };
-if (_sight == SIGHT_FCR) then {
-    _heli lockCameraTo [_targPos, [0]];
-};
 
 if (cameraView == "GUNNER" && (_sight in [SIGHT_HMD,SIGHT_TADS])) then {
 	_heli lockCameraTo [objNull, [0]];
@@ -89,6 +86,10 @@ if (_targPos isEqualTo -1) exitWith {
     if (_lockCameraForwards) then {
         _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0]];
     };
+};
+
+if (_sight == SIGHT_FCR) then {
+    _heli lockCameraTo [_targPos, [0]];
 };
 
 if (_sight == SIGHT_HMD && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
