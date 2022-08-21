@@ -32,13 +32,22 @@ private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel = [0, 0, 0];
 private _targPos = -1;
 private _lockCameraForwards = false;
+
 private _nts = _heli getVariable "fza_ah64_fcrNts";
+private _nts = _nts # 0;
+private _ntspos = _heli getVariable "fza_ah64_fcrNts";
+private _ntspos = _ntspos # 1;
+private _armaRadarOn         = isVehicleRadarOn _heli;
 
 switch (_sight) do {
     case SIGHT_FCR:{
        if (!isNull _nts) then {
-            _targPos = aimPos _nts;
-            _targVel = velocity _nts;
+			if (_armaRadarOn) then {
+				_targPos = aimPos _nts;
+				_targVel = velocity _nts;
+			} else {
+				_targPos = _ntspos;
+			};
         } else {
             _lockCameraForwards = true;
         };
@@ -60,9 +69,6 @@ switch (_sight) do {
 };
 if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) exitWith{
 	_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
-};
-if (_sight == SIGHT_FCR) then {
-    _heli lockCameraTo [_targPos, [0]];
 };
 
 if (cameraView == "GUNNER" && (_sight in [SIGHT_HMD,SIGHT_TADS])) then {
@@ -91,6 +97,10 @@ if (_targPos isEqualTo -1) exitWith {
     if (_lockCameraForwards) then {
         _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0]];
     };
+};
+
+if (_sight == SIGHT_FCR) then {
+    _heli lockCameraTo [_targPos, [0]];
 };
 
 if (_sight == SIGHT_HMD && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {

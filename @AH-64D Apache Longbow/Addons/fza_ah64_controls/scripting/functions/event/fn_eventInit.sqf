@@ -49,9 +49,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
     _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
-    _heli setVariable ["fza_ah64_fcrNts", objNull, true];
+    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
+    _heli setVariable ["fza_ah64_missleLOBL", [], true];
     //
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];

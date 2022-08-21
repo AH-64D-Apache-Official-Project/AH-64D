@@ -254,11 +254,11 @@ class CfgAmmo
 					{
 						class AirTarget {
 							minRange = 500;
-							maxRange = 8000;
+							maxRange = 2500;
 						};
 						class GroundTarget {
 							minRange = 500;
-							maxRange = 8000;
+							maxRange = 2500;
 						};
 						typeRecognitionDistance = -1; // distance how far the target type gets recognized
 						angleRangeHorizontal = 90;     // sensor azimuth coverage in degrees
@@ -332,16 +332,27 @@ class CfgAmmo
 		irlock 						= 1;	
 		nvLock						= 0;
 
-		activeSensorAlwaysOn = 0;
+		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
-		flightProfiles[]	= {TopDown,LoalDistance,Cruise};
+		autoSeekTarget				= 1;
+		lockSeekDistanceFromParent  = 300;
+		lockSeekRadius 				= 2500;
+		lockAcquire					= 1;
+
+		flightProfiles[]	= {TopDown};
 		class TopDown
 		{
 			ascendAngle				= 26.5;
 			ascendHeight			= 850;
 			minDistance				= 1000;
 			descendDistance			= 1200;
+			autoSeekTarget				= 1;
+			lockSeekDistanceFromParent  = 300;
+			lockSeekRadius 				= 2500;
+			activeSensorAlwaysOn        = 1;
+			lockType                    = 0;
+			lockAcquire 				= 1;
 		};
 	};
 	class fza_agm114k : fza_agm114base
@@ -372,6 +383,11 @@ class CfgAmmo
 		missileManualControlCone 	= 90;
 		weaponLockSystem 			= "4";
 		weaponType					= "missileAT";
+
+		autoSeekTarget				= 1;
+		lockSeekDistanceFromParent  = 300;
+		lockSeekRadius 				= 500;
+		
 		class Components : Components
 		{
 			class SensorsManagerComponent

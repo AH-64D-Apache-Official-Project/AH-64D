@@ -30,6 +30,7 @@ private _fcrTargets = [];
 _fcrTargets = [_fcrTargets, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
 
 private _oldNts = _heli getVariable "fza_ah64_fcrNts";
+private _oldNts = _oldNts # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
 if (_newNtsIndex == -1) then {
     if (count _fcrTargets > 0) then {
@@ -38,9 +39,9 @@ if (_newNtsIndex == -1) then {
 };
 
 if(_newNtsIndex == -1) then {
-    _heli setVariable ["fza_ah64_fcrNts", objNull, true];
+    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
 } else {
-    _heli setVariable ["fza_ah64_fcrNts", _fcrTargets # _newNtsIndex # 3, true];
+    _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
 };
 
 _heli setVariable ["fza_ah64_fcrTargets", _fcrTargets, true];

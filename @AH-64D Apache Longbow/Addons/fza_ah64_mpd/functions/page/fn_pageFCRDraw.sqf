@@ -41,6 +41,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
+private _nts     = _nts # 0;
 private _rngSrce = format["R%1", ((_heli distance _nts) / 1000) toFixed 1];
 if (isNull _nts) then {
     if (driver _heli isEqualTo player) then {
@@ -110,7 +111,9 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_ACQ), "T01"];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
 //FCR page draw
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _heli getVariable "fza_ah64_fcrNts"};
+private _nts  = _heli getVariable "fza_ah64_fcrNts";
+private _nts  = _nts # 0;
+private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex = 0;
 if (count _fcrTargets > 0) then {
     _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);

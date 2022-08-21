@@ -518,8 +518,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope2
                     {
@@ -541,8 +541,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope3
                     {
@@ -564,8 +564,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope4
                     {
@@ -587,8 +587,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope5
                     {
@@ -610,8 +610,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope6
                     {
@@ -633,8 +633,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope7
                     {
@@ -656,8 +656,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope8
                     {
@@ -679,8 +679,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope9
                     {
@@ -702,8 +702,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope10
                     {
@@ -725,8 +725,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope11
                     {
@@ -748,8 +748,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope12
                     {
@@ -771,8 +771,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope13
                     {
@@ -794,8 +794,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope14
                     {
@@ -817,8 +817,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope15
                     {
@@ -840,8 +840,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
                     class fza_ah64_raddisp_cscope16
                     {
@@ -863,8 +863,8 @@ class RscTitles
                         sizeEx = 1024;
                         x = -100;
                         y = -100;
-                        w = 0.018;
-                        h = 0.024;
+                        w = 0.072;
+                        h = 0.096;
                     };
 				};
 			};

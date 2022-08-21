@@ -92,6 +92,7 @@ class CfgVehicles {
 				index = MPD_PAGE_FCR;
 				draw  = "fza_mpd_fnc_pageFCRDraw";
 				handleControl = "fza_mpd_fnc_pageFCRHandleControl";
+				usesIcons = 1;
 			};
 			class ASE {
 				index = MPD_PAGE_ASE;
