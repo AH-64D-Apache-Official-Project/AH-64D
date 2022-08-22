@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageSystem.sqf",{108:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles general damage to the aircraft. Determines whether a failure should be simulated and if so, sets it up.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:functions/damage/fn_damageSystem.sqf",{138:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles general damage to the aircraft. Determines whether a failure should be simulated and if so, sets it up.</div></div>"});
