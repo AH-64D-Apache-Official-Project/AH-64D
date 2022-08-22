@@ -26,29 +26,30 @@ DRAW_LINE = {
 	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
 };
 
-if (isEngineOn _heli) then {
-    private _objCtr        = _heli selectionPosition ["modelCenter", "Memory"];
-    private _forcePos      = _heli getVariable "fza_sfmplus_forcePos";
-    private _forceVec      = [0.0, 0.0, 1.0];   //X, Z, Y
-    private _forceVec_norm = vectorNormalized(_forcePos vectorAdd _forceVec);
+if (!isEngineOn _heli) exitWith {};
+if (_heli getHitPointDamage "HitHRotor" >= 0.8 || (_heli getHitPointDamage "HitEngine1" >= 0.8 && _heli getHitPointDamage "HitEngine2" >= 0.8)) exitWith {};
 
-    private _eng1Np        = _heli getVariable "fza_sfmplus_engPctNP" select 0;
-    private _eng2Np        = _heli getVariable "fza_sfmplus_engPctNP" select 1;
-    private _rtrRPM        = _eng1Np max _eng2Np;
-    private _forceVal      = 0.15;
-    private _forceMult     = linearConversion[0.0, 0.98, _rtrRPM, _forceVal, 0.0];
-    _forceMult = [_forceMult, 0.0, _forceVal] call BIS_fnc_clamp;
+private _objCtr        = _heli selectionPosition ["modelCenter", "Memory"];
+private _forcePos      = _heli getVariable "fza_sfmplus_forcePos";
+private _forceVec      = [0.0, 0.0, 1.0];   //X, Z, Y
+private _forceVec_norm = vectorNormalized(_forcePos vectorAdd _forceVec);
 
-    private _curMass       = getMass _heli;
-    private _negLiftForce  = ((_curMass * -9.806) * _forceMult) * fza_sfmplus_collectiveOutput;
-    _negLiftForce          = [_negLiftForce, 0.0, (1.0 / 15.0) * _deltaTime] call BIS_fnc_lerp;
-    private _negLift       = _forceVec vectorMultiply _negLiftForce;
+private _eng1Np        = _heli getVariable "fza_sfmplus_engPctNP" select 0;
+private _eng2Np        = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+private _rtrRPM        = _eng1Np max _eng2Np;
+private _forceVal      = 0.15;
+private _forceMult     = linearConversion[0.0, 0.98, _rtrRPM, _forceVal, 0.0];
+_forceMult = [_forceMult, 0.0, _forceVal] call BIS_fnc_clamp;
 
-    _heli addForce[_heli vectorModelToWorld _negLift, _forcePos];
+private _curMass       = getMass _heli;
+private _negLiftForce  = ((_curMass * -9.806) * _forceMult) * fza_sfmplus_collectiveOutput;
+_negLiftForce          = [_negLiftForce, 0.0, (1.0 / 15.0) * _deltaTime] call BIS_fnc_lerp;
+private _negLift       = _forceVec vectorMultiply _negLiftForce;
 
-    #ifdef __A3_DEBUG__
-    //Draw the force vector
-    [_heli, _forcePos, _forcePos vectorAdd _forceVec, _colorGreen] call DRAW_LINE;
+_heli addForce[_heli vectorModelToWorld _negLift, _forcePos];
 
-    #endif
-};
+#ifdef __A3_DEBUG__
+//Draw the force vector
+[_heli, _forcePos, _forcePos vectorAdd _forceVec, _colorGreen] call DRAW_LINE;
+
+#endif
