@@ -34,7 +34,6 @@ private _animNames = createHashMapFromArray
 	,["fza_ah64_powerLever1", "plt_eng1_throttle"]
 	,["fza_ah64_powerLever2", "plt_eng2_throttle"]
 	];
-systemChat str _this;
 private _animName = _animNames get _varName;
 
 if (isNil "_animName") exitWith {["Variable name not valid: '%1'", _varName] call BIS_fnc_error};
