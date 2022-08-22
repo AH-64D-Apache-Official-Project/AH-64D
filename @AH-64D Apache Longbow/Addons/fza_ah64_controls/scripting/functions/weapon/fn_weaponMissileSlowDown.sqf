@@ -16,6 +16,45 @@ if (_projectile isKindOf "fza_agm114l") then {
 		_projectile setmissiletarget objnull;
     };
 	_projectile setmissiletarget _targObj;
+	if (!(isNull _targObj) && _heli getVariable "fza_ah64_missleLOBL" == true) then {
+		_projectile setmissiletarget _targObj;
+	} else {
+        //Lima LOAL Logic
+		private _LoalTarget = "ArtilleryTargetE" createvehiclelocal [0,0,100];
+		_LoalTarget enableSimulationglobal false;
+		_LoalTarget hideobjectglobal true;
+
+        if (_armaRadarOn == true) then {
+            _loaltarget setposasl getposasl _targObj;
+        } else {
+            _loaltarget setposasl _targPos;
+        };
+        if (_distance > 6000) exitwith {
+            _projectile setmissiletarget objnull;
+        };
+
+		_projectile setMissileTarget _loaltarget;
+
+        //delate Search point target and seek new target
+		[_loaltarget,_projectile] spawn {
+    		params ["_loaltarget", "_projectile"];
+			waitUntil {_projectile distance _LoalTarget < 2500;};
+			private _Postargets = _loaltarget nearEntities ["Allvehicles",500];
+			private _Postargets = _Postargets - [_loaltarget];
+			deleteVehicle _loaltarget;
+			private _Valtargets = _Postargets select {
+				_terrainobscure = terrainIntersectasl[[(getPosASL _projectile select 0) + ((sin getdir _projectile) * 6), (getPosASL _projectile select 1) + ((cos getdir _projectile) * 6), (getPosASL _projectile select 2)], [(getPosASL _x select 0), (getPosASL _x select 1), (getPosASL _x select 2) + 1]];
+        		_obscureobjs = lineIntersectsWith[[(getPosASL _projectile select 0) + ((sin getdir _projectile) * 6), (getPosASL _projectile select 1) + ((cos getdir _projectile) * 6), (getPosASL _projectile select 2)], getPosASL _x, _projectile, _x];
+				(!_terrainobscure && (_obscureobjs - nearestObjects [getpos _x, ["All"], 10]) isEqualTo [])
+			};
+			if (_Valtargets isNotEqualTo []) then {
+				private _Finaltarget = [_Valtargets, _LoalTarget] call BIS_fnc_nearestPosition;
+				_projectile setmissiletarget _Finaltarget;
+			} else {
+				_projectile setmissiletarget objNull;
+			};
+		};
+	};
 
 	private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
 	if (count _fcrTargets == 0) then {
