@@ -729,6 +729,10 @@ private _CscopeCount = 0;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    } else {
+        _GuiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition _GuiPos;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
     };
     _CscopeCount = _CscopeCount + 1;
 
