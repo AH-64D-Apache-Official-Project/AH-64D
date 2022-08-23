@@ -15,7 +15,6 @@ if (_projectile isKindOf "fza_agm114l") then {
     if (_distance < 500) exitwith {
 		_projectile setmissiletarget objnull;
     };
-	_projectile setmissiletarget _targObj;
 	if (!(isNull _targObj) && _heli getVariable "fza_ah64_missleLOBL" == true) then {
 		_projectile setmissiletarget _targObj;
 	} else {

@@ -335,10 +335,6 @@ class CfgAmmo
 		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
-		autoSeekTarget				= 1;
-		lockSeekDistanceFromParent  = 300;
-		lockSeekRadius 				= 2500;
-		lockAcquire					= 1;
 
 		flightProfiles[]	= {TopDown};
 		class TopDown
@@ -347,12 +343,6 @@ class CfgAmmo
 			ascendHeight			= 850;
 			minDistance				= 1000;
 			descendDistance			= 1200;
-			autoSeekTarget				= 1;
-			lockSeekDistanceFromParent  = 300;
-			lockSeekRadius 				= 2500;
-			activeSensorAlwaysOn        = 1;
-			lockType                    = 0;
-			lockAcquire 				= 1;
 		};
 	};
 	class fza_agm114k : fza_agm114base
