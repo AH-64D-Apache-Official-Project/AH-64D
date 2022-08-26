@@ -269,9 +269,9 @@ class CfgWeapons
 		magazines[]={"fza_safe"};
 		textureType = "single";
 	};
-	class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe"};
-	class fza_rkt_safe: fza_ma_safe {displayName = "Rkt Safe"};
-	class fza_msl_safe: fza_ma_safe {displayName = "Msl Safe"};
+	class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe";};
+	class fza_rkt_safe: fza_ma_safe {displayName = "Rkt Safe";};
+	class fza_msl_safe: fza_ma_safe {displayName = "Msl Safe";};
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////

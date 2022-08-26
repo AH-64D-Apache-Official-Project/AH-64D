@@ -72,10 +72,41 @@ class tsdCommon {
         };
     };
 
-    MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-    MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-    MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
-    MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("5"))
+    class Scale_Boxes_5km {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 5000));
+
+        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("5"))
+    };
+    
+    class Scale_Boxes_10km {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 10000));
+
+        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
+        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("10"))
+    };
+
+    class Scale_Boxes_25km {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 25000));
+
+        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("25"))
+    };
+
+    class Scale_Boxes_50km {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 50000));
+
+        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("50"))
+    };
 
     //Ownship Icon
     class Ownship {

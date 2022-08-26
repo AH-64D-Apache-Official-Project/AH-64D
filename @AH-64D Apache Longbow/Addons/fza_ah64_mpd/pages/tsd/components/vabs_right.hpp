@@ -8,7 +8,24 @@ class VABSRight {
         //R2
         MPD_TEXT_L(SC_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SC"))
         MPD_BOX_L(SC,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, 2)
-        MPD_TEXT_L(SC,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        
+        class Scale_Boxes_5km {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 5000));
+            MPD_TEXT_L(SC,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        };
+        class Scale_Boxes_10km {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 10000));
+            MPD_TEXT_L(SC,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        };
+        class Scale_Boxes_25km {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 25000));
+            MPD_TEXT_L(SC,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("25"))
+        };
+        class Scale_Boxes_50km {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 50000));
+            MPD_TEXT_L(SC,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("50"))
+        };
+        
         //R3
         MPD_TEXT_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("CTR"))
         //R5
