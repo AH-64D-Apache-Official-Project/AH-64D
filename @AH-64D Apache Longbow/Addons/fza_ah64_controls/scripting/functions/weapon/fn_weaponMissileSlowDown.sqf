@@ -9,6 +9,7 @@ if (_projectile isKindOf "fza_agm114l") then {
 	private _targObj        = _targinfo #0;
 	private _targPos        = _targinfo #1;
     private _distance       = _heli distance _targObj;
+	private _targetType     = _targobj call BIS_fnc_objectType;
     private _armaRadarOn    = isVehicleRadarOn _heli;
 
     //Min range
@@ -19,14 +20,15 @@ if (_projectile isKindOf "fza_agm114l") then {
 		_projectile setmissiletarget _targObj;
 	} else {
         //Lima LOAL Logic
-		private _LoalTarget = "ArtilleryTargetE" createvehiclelocal [0,0,100];
+		//private _LoalTarget = "O_UAV_01_F" createvehiclelocal [0,0,100];
+		private _LoalTarget = createVehicle ["O_UAV_01_F", [0,0,100]];
 		_LoalTarget enableSimulationglobal false;
 		_LoalTarget hideobjectglobal true;
 
         if (_armaRadarOn == true) then {
-            _loaltarget setposasl getposasl _targObj;
+            _loaltarget setposasl (getposasl _targObj vectoradd [0,0,2]);
         } else {
-            _loaltarget setposasl _targPos;
+            _loaltarget setposasl (_targPos vectoradd [0,0,2]);
         };
         if (_distance > 6000) exitwith {
             _projectile setmissiletarget objnull;
@@ -35,23 +37,77 @@ if (_projectile isKindOf "fza_agm114l") then {
 		_projectile setMissileTarget _loaltarget;
 
         //delate Search point target and seek new target
-		[_loaltarget,_projectile] spawn {
-    		params ["_loaltarget", "_projectile"];
-			waitUntil {_projectile distance _LoalTarget < 2500;};
-			private _Postargets = _loaltarget nearEntities ["Allvehicles",500];
-			private _Postargets = _Postargets - [_loaltarget];
-			deleteVehicle _loaltarget;
-			private _Valtargets = _Postargets select {
-				_terrainobscure = terrainIntersectasl[[(getPosASL _projectile select 0) + ((sin getdir _projectile) * 6), (getPosASL _projectile select 1) + ((cos getdir _projectile) * 6), (getPosASL _projectile select 2)], [(getPosASL _x select 0), (getPosASL _x select 1), (getPosASL _x select 2) + 1]];
-        		_obscureobjs = lineIntersectsWith[[(getPosASL _projectile select 0) + ((sin getdir _projectile) * 6), (getPosASL _projectile select 1) + ((cos getdir _projectile) * 6), (getPosASL _projectile select 2)], getPosASL _x, _projectile, _x];
-				(!_terrainobscure && (_obscureobjs - nearestObjects [getpos _x, ["All"], 10]) isEqualTo [])
-			};
-			if (_Valtargets isNotEqualTo []) then {
-				private _Finaltarget = [_Valtargets, _LoalTarget] call BIS_fnc_nearestPosition;
-				_projectile setmissiletarget _Finaltarget;
-			} else {
-				_projectile setmissiletarget objNull;
-			};
+		[_loaltarget,_projectile,_targetType] spawn {
+    		params ["_loaltarget", "_projectile","_targetType"];
+            private _searchRadius = 300;
+			private _lastscantarget = _loaltarget;
+            while {
+                (alive _projectile)
+            } do {
+				if (_projectile distance _LoalTarget < 2500) then {
+					private _lastscantarget = missileTarget _projectile;
+					private _distance = _projectile distance _lastscantarget;
+					private _finalScanTarget = objNull;
+					private _validTargets = objNull;
+					//Radar Lock check
+					if !(_lastscantarget == _LoalTarget) then {
+						private _terrainobscure = terrainIntersectasl[getPosASL _projectile, getPosASL _lastscantarget vectoradd [0,0,1]];
+						private _obscureobjs = lineIntersectsSurfaces [getPosASL _projectile, getPosASL _lastscantarget vectoradd [0,0,2], _projectile, _lastscantarget, false, -1, "view", "geom", false];
+
+						if ((_terrainobscure || (_obscureobjs - nearestObjects [getpos _lastscantarget, ["All"], 20]) isNotEqualTo []) && _distance > 250) then {
+							_projectile setmissiletarget _loaltarget;
+						};
+					} else {
+						_projectile setmissiletarget objnull;
+						private _newScanTargets  = nearestObjects [_loaltarget, ["allvehicles"],_searchRadius];
+						if (_LoalTarget in _newscantargets && count _newScanTargets > 1) then {
+							_newScanTargets = _newScanTargets - [_LoalTarget];
+						};
+						private _validTargets  = _newScanTargets select {
+							private _terrainobscure = terrainIntersectasl[getPosASL _projectile, getPosASL _x vectoradd [0,0,1]];
+							
+							//private _obscureobjs = lineIntersectsWith [getPosASL _projectile, getPosASL _x vectoradd [0,0,1], _projectile, _x];
+							//private _obscureobjs = lineIntersectsObjs [getPosASL _projectile, getPosASL _x vectoradd [0,0,1], _projectile, _x, false, 32];
+							//private _obscureobjs = [_projectile, "GEOM", _x] checkVisibility [getPosASL _projectile, getPosASL _x vectoradd [0,0,1]];
+							private _obscureobjs = lineIntersectsSurfaces [getPosASL _projectile, getPosASL _x vectoradd [0,0,2], _projectile, _x, false, -1, "view", "geom", false];
+
+							_results = "terrain check: " + str _terrainobscure + " /Obj Check: " + str _obscureobjs;
+							//hint str _results;
+							(!_terrainobscure && (_obscureobjs - nearestObjects [getpos _x, ["All"], 20]) isEqualTo [])
+						};
+						private _Primarytargets = _validTargets select {
+							private _targTypeCompair = _x call BIS_fnc_objectType;
+							(_targetType isEqualTo _targTypeCompair)
+						};
+						private _secondarytargets = _validTargets select {
+							private _targTypeCompair = _x call BIS_fnc_objectType;
+							!(_targetType isEqualTo _targTypeCompair)
+						};
+						If (_Primarytargets isNotEqualTo []) then {
+							_finalScanTarget = [_Primarytargets, _lastscantarget] call BIS_fnc_nearestPosition;
+						} else {
+							If (_secondarytargets isNotEqualTo []) then {
+								_finalScanTarget = [_secondarytargets, _lastscantarget] call BIS_fnc_nearestPosition;
+							} else {
+								_finalScanTarget = _LoalTarget;
+							};
+						};
+
+						If (_distance < 1000 && _finalScanTarget == _LoalTarget) then {
+							_searchRadius = 500;
+						};
+
+						_test = "valid targets: " + str _validTargets + "Primary targets: " + str _Primarytargets + "Final targets; " + str _finalScanTarget;
+						hint str _test ;
+						copyToClipboard _test;
+
+						if (_finalScanTarget isNotEqualTo []) then {
+							_projectile setmissiletarget _finalScanTarget;
+						};
+					};
+				};
+            };
+            deleteVehicle _loaltarget;
 		};
 	};
 

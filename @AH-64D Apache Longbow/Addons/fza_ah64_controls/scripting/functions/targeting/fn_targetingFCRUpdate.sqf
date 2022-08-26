@@ -12,7 +12,7 @@ private _fcrTargets = [];
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
 	if (_distOffAxis > 45) then { continue; };
     if (_range < FCR_LIMIT_MIN_RANGE) then { continue; };
-    if !(_range < FCR_LIMIT_STATIONARY_DIST ||
+    if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_DIST) 
         then { continue; };
 
