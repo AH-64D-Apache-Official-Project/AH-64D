@@ -25,7 +25,7 @@ class Draw
             class Text {
                 type = text;
                 align = right;
-                scale = 1
+                scale = 1;
                 source = userText;
                 sourceIndex = 9;
                 sourceScale = 1;
@@ -41,7 +41,7 @@ class Draw
             class Text {
                 type = text;
                 align = right;
-                scale = 1
+                scale = 1;
                 source = userText;
                 sourceIndex = 9;
                 sourceScale = 1;

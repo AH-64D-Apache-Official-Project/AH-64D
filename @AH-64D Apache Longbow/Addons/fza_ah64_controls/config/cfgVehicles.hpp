@@ -499,7 +499,7 @@ class CfgVehicles
 			};
 			mat[] = {
 				"fza_ah64_us\mat\body.rvmat",
-				"fza_ah64_us\mat\body_damage.rvmat", //"fza_ah64_us\mat\body_damage.rvmat",
+				"fza_ah64_us\mat\body_damage.rvmat",
 				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
@@ -1468,7 +1468,7 @@ class CfgVehicles
 		};
 		class magazine_set_1200
 		{
-			displayName = "Swap IAFS for 1200rnd magazine"
+			displayName = "Swap IAFS for 1200rnd magazine";
 			author = "Apache mod development team";
 			onPhaseChanged = "_this remoteExec [""fza_fnc_weaponSwapM230Mag"",_this # 0];";
 			source = "user";

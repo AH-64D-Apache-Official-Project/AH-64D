@@ -122,7 +122,7 @@ class ase_draw {
         };
     };
     class IRJamON {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)))
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
         class IRJamDraw {
             class polys_IRJamOnOff {
                 class Polygons {

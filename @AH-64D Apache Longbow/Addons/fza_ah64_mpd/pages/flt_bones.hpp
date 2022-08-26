@@ -7,7 +7,7 @@ class Flt_Horizon {
 
 class Flt_RadarAlt {
     type = linear;
-    source = altitudeAGL
+    source = altitudeAGL;
     sourceScale = MPD_SCALE_METERS_FEET;
     min = 0;
     max = 200;

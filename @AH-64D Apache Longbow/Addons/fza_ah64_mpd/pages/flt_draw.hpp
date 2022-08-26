@@ -437,7 +437,7 @@ class flt_draw {
         clipBR[] = {0.8, 0.73};
 
         class FlyToCue {
-            condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FLT_FLY_TO_CUE_X), -20))
+            condition = C_COND(C_LESS(C_MPD_USER(MFD_IND_FLT_FLY_TO_CUE_X), -20));
             class FlyToCueLines {
                 type = line;
                 width = 3;
