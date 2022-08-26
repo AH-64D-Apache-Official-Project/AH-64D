@@ -427,15 +427,6 @@ if (_thetatarg < 315 && _thetatarg >= 180) then {
 if (_thetatarg > 45 && _thetatarg < 180) then {
     _targhead = 45;
 };
-_targxpos = (_targhead * 0.0027777777777777777777777777777778) + 0.945;
-_targypos = ((_heli distance _nts) * (_heli getVariable "fza_ah64_rangesetting")) + 0.95;
-if (_targypos < 0.63 || isNull _nts) then {
-    _targypos = 0.63;
-};
-if (_targxpos > 1.07 || _targxpos < 0.82 || isNull _nts) then {
-    _targxpos = 0.95;
-};
-_radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 
 //Use the perfGetData method to update the TQ in the HDU
 _TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);

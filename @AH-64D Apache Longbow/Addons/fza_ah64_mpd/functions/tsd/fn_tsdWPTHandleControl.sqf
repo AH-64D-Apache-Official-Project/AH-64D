@@ -104,6 +104,9 @@ switch (_variant) do {
             /*case "l6": {    //WPT > XMIT
                 _state set ["subPageVarPage", TSD_WPT_XMIT];
             };*/
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 1: {   //WPT > ADD
@@ -158,7 +161,10 @@ switch (_variant) do {
                 _state set ["addType", POINT_TYPE_CM];
             };
             #endif
-        }
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
+        };
     };
     case 2: {   //WPT > DEL no point selected
         switch (_control) do {
@@ -173,6 +179,9 @@ switch (_variant) do {
             };
             case "l3": {    //Do not delete - "No", return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };
@@ -195,6 +204,9 @@ switch (_variant) do {
             case "l3": {    //Do not delete - "No", return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
             };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 4: {   //WPT > EDT no point selected
@@ -210,6 +222,9 @@ switch (_variant) do {
             };
             case "l4": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };
@@ -243,6 +258,9 @@ switch (_variant) do {
             case "l4": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
             };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 6: {   //WPT > STO page
@@ -268,6 +286,9 @@ switch (_variant) do {
             };
             case "l5": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };

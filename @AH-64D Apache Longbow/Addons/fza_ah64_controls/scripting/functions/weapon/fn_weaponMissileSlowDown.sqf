@@ -65,14 +65,7 @@ if (_projectile isKindOf "fza_agm114l") then {
 						};
 						private _validTargets  = _newScanTargets select {
 							private _terrainobscure = terrainIntersectasl[getPosASL _projectile, getPosASL _x vectoradd [0,0,1]];
-							
-							//private _obscureobjs = lineIntersectsWith [getPosASL _projectile, getPosASL _x vectoradd [0,0,1], _projectile, _x];
-							//private _obscureobjs = lineIntersectsObjs [getPosASL _projectile, getPosASL _x vectoradd [0,0,1], _projectile, _x, false, 32];
-							//private _obscureobjs = [_projectile, "GEOM", _x] checkVisibility [getPosASL _projectile, getPosASL _x vectoradd [0,0,1]];
 							private _obscureobjs = lineIntersectsSurfaces [getPosASL _projectile, getPosASL _x vectoradd [0,0,2], _projectile, _x, false, -1, "view", "geom", false];
-
-							_results = "terrain check: " + str _terrainobscure + " /Obj Check: " + str _obscureobjs;
-							//hint str _results;
 							(!_terrainobscure && (_obscureobjs - nearestObjects [getpos _x, ["All"], 20]) isEqualTo [])
 						};
 						private _Primarytargets = _validTargets select {
@@ -97,15 +90,12 @@ if (_projectile isKindOf "fza_agm114l") then {
 							_searchRadius = 500;
 						};
 
-						_test = "valid targets: " + str _validTargets + "Primary targets: " + str _Primarytargets + "Final targets; " + str _finalScanTarget;
-						hint str _test ;
-						copyToClipboard _test;
-
 						if (_finalScanTarget isNotEqualTo []) then {
 							_projectile setmissiletarget _finalScanTarget;
 						};
 					};
 				};
+				Uisleep 0.001;
             };
             deleteVehicle _loaltarget;
 		};

@@ -13,7 +13,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli, "IN"] call fza_mpd_fnc_handleZoom
+    [_heli] call fza_mpd_fnc_handleZoom
 	---
 
 Author:
@@ -21,28 +21,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_dir"];
 
-_range = _heli getVariable "fza_ah64_rangesetting";
-if(_dir == "IN") then {
-	_range = (_range) * 2;
-    if (_range == 0.00008) then {
-        _range = 0.0001;
-    };
-    if (_range == 0.0004) then {
-        _range = 0.0005;
-    };
-    if (_range == 0.002) then {
-        _range = 0.001;
-    };
-} else {
-	_range = (_range) * 0.5;
-    if (_range == 0.00025) then {
-        _range = 0.0002;
-    };
-    if (_range == 0.00005) then {
-        _range = 0.00004;
-    };
-    if (_range == 0.00001) then {
-        _range = 0.00002;
-    };
-};
-_heli setVariable ["fza_ah64_rangesetting", _range];
+_heli setVariable ["fza_ah64_rangesetting", [[1000, 2000, 5000, 10000, 25000, 50000], _heli getVariable "fza_ah64_rangesetting", 5000] call fza_fnc_cycle];

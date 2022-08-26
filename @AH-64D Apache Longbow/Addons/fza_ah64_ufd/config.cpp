@@ -3,7 +3,7 @@ class CfgPatches
 	class fza_ah64_ufd
 	{
         units[] = {};
-		author = "Franze, Nodunit, Sacha 'Voodooflies' Oropeza, Keplager & Community";
+		author ="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		weapons[] = {};
 		requiredVersion = 1.0;
 		requiredAddons[] = {"fza_ah64_controls"};

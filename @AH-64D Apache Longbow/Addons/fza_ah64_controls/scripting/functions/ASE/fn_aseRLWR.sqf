@@ -26,16 +26,10 @@ private _rlwrObjects = [];
 private _rlwrCount   = 0;
 //If the RLWR is on
 if (_rlwrPwr == "on") then {
-    //Sensor targets - Lasers, Search
+    //Sensor targets - Search
     {
         _x params ["_target", "_type", "_relationship", "_sensor"];
         private _distance_m = _heli distance2d _target;
-        //Lasers
-        if ("laser" in _sensor) then {
-            if (_distance_m <= ASE_LSR_RANGE_M) then {
-                _rlwrObjects pushBack [ASE_LSR, _heli getRelDir _target];
-            };
-        };
         //Search
         if ("passiveradar" in _sensor) then {
             if (_distance_m <= ASE_SRH_RANGE_M) then {
@@ -61,8 +55,7 @@ if (_rlwrPwr == "on") then {
             };
         };
         //Launch
-        //Rhea Missile only currently
-        if (["missile_sam_04_fly_f.p3d", str _object] call BIS_fnc_inString) then {
+        if (_type == "missile") then {
             if (_distance_m <= ASE_LNC_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object];
             };
