@@ -56,8 +56,11 @@ if (_rlwrPwr == "on") then {
         };
         //Launch
         if (_type == "missile") then {
-            if (_distance_m <= ASE_LNC_RANGE_M) then {
-                _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object];
+            private _seekerhead = getNumber (configFile >> "CfgAmmo" >> _object >> "weaponLockSystem");
+            if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
+                if (_distance_m <= ASE_LNC_RANGE_M) then {
+                    _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object];
+                };
             };
         };
     } foreach getSensorThreats _heli;

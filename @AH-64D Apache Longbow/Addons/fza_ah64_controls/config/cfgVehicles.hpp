@@ -981,7 +981,7 @@ class CfgVehicles
 		hasGunner=1;
 		impactEffectSpeedLimit = 8;
 		impactEffectsSea = "ImpactEffectsAir";
-		incomingMissileDetectionSystem = 8;
+		incomingMissileDetectionSystem = 16;
 		irScanGround = 1;
 		irScanRangeMax = 10000;
 		irScanRangeMin = 700;
