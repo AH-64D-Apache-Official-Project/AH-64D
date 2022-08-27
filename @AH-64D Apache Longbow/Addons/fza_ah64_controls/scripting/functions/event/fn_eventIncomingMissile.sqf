@@ -21,7 +21,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","_munition","_hostile", "_instigator"];
 
-if (!local _heli) exitWith {}; //Should've also have been run on the local machine
 if(!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
 private _missile = nearestobject [_hostile,_munition];
 

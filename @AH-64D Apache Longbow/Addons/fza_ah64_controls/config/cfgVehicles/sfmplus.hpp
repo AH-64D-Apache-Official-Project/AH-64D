@@ -2,15 +2,17 @@ class Fza_SfmPlus {
     emptyMassFCR    = 6609; //kg
     emptyMassNonFCR = 6314; //kg
 
-    stabPos[]  = {0.0, -7.207, -0.50};
-    stabWidth  = 3.22;  //m
-    stabLength = 1.07; //m
+    stabPos[]  = {0.0, -7.207, -0.50};  //m
+    stabWidth  = 3.22;                  //m
+    stabLength = 1.07;                  //m
+
+    forcePos[] = {0.0, 2.08, 0.83};     //m
 
     initFuelFracRobbie   = 0.39;
     initFuelFracNoRobbie = 0.22;
-    maxFwdFuelMass = 473;   //1043lbs in kg
-    maxCtrFuelMass = 301;   //663lbs in kg, net yet implemented, center robbie
-    maxAftFuelMass = 669;   //1474lbs in kg
+    maxFwdFuelMass       = 473;   //1043lbs in kg
+    maxCtrFuelMass       = 301;   //663lbs in kg, net yet implemented, center robbie
+    maxAftFuelMass       = 669;   //1474lbs in kg
     //maxExtFuelMass = 690; //1541lbs in kg, not yet implemented, 230gal external tank
 
     //Engine Data

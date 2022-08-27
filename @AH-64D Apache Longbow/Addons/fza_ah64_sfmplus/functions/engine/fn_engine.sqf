@@ -69,7 +69,7 @@ if (_engPowerLeverState != "OFF") then {
 //Ng
 _engBaseNG = _engIdleNG + (_engFlyNG - _engIdleNG) * _engThrottle;
 //Np
-_engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle; 
+_engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle;
 
 switch (_engState) do {
 	case "OFF": {

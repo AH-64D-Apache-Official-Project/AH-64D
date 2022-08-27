@@ -78,10 +78,10 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON     "]
 };
-if (_heli getHitPointDamage "Hitlfab" >= 0.8) then {
+if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL "]
 };
-if (_heli getHitPointDamage "Hitrfab" >= 0.8) then {
+if (_heli getHitPointDamage "RfJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "RFJAM FAIL", "RFJAM FAIL "]
 };
 if (_heli getHit "radar" >= 0.8) then {
