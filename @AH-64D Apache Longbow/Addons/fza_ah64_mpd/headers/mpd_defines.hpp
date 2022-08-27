@@ -93,6 +93,11 @@ Parameters:
 */
 #define STRINGIFY(str) #str
 
+
+#define POLAR(rad, dim) POLAR_OFFSET(0,0,rad,dim)
+
+#define POLAR_OFFSET(x, y, rad, dim) {x + sin (rad) * (dim), y - (cos (rad)) * (dim)}
+
 /* Constants: Source scales
   MPD_SCALE_METERS_FEET - Conversion from meters to feet
   MPD_SCALE_MPS_KNOTS - Conversion from meters per second to knots
