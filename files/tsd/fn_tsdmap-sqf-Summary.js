@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:tsd/fn_tsdmap.sqf","fn_tsdmap.sqf");NDSummary.OnSummaryLoaded("File:tsd/fn_tsdmap.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[7,0,1,"Functions","Functions"],[8,0,0,"fza_fnc_tsdMap","fza_fnc_tsdMap"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:tsd/fn_tsdmap.sqf","fn_tsdmap.sqf");NDSummary.OnSummaryLoaded("File:tsd/fn_tsdmap.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[91,0,1,"Functions","Functions"],[92,0,0,"fza_fnc_tsdMap","fza_fnc_tsdMap"]]);
