@@ -51,27 +51,27 @@ class fza_ah64_rocket {
 {\
     { {posX-0.00375, posY}, 1 }, \
     { {posX-0.0068, posY-0.0031}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }, {\
     { {posX-0.0068, posY-0.0031}, 1 }, \
     { {posX-0.0050, posY-0.0056}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }, {\
     { {posX-0.0050, posY-0.0056}, 1 }, \
     { {posX, posY-0.0075}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }, {\
     { {posX+0.00375, posY}, 1 }, \
     { {posX+0.0068, posY-0.0031}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }, {\
     { {posX+0.0068, posY-0.0031}, 1 }, \
     { {posX+0.0050, posY-0.0056}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }, {\
     { {posX+0.0050, posY-0.0056}, 1 }, \
     { {posX, posY-0.0075}, 1 }, \
-    { {posX, posY}, 1 }, \
+    { {posX, posY}, 1 } \
 }
 
 class fza_ah64_rocket_inverse {

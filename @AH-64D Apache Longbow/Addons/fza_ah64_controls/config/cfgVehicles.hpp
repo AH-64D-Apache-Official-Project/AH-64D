@@ -892,7 +892,7 @@ class CfgVehicles
 				defaultValue = "''";
 				unique = 0;
 				validate = "none";
-				condition = "object";
+				condition = "1";
 				typeName = "STRING";    
 			};
 		};
