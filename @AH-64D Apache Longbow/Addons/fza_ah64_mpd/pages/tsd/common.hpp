@@ -173,14 +173,14 @@ class tsdCommon {
 
 #define MPD_HSI_TEXT(bone, label) class bone##_Text { \
                 align = "center"; \
-                down[] =  {bone, {0,-0.22+MPD_TEXT_HEIGHT},1, "TSD_Ownship",1}; \
+                down[] =  {bone, {0,-0.22+MPD_TEXT_HEIGHT_VEC},1, "TSD_Ownship",1}; \
                 pos[] =   {bone, {0,-0.22},1, "TSD_Ownship",1}; \
                 right[] = {bone, {-MPD_TEXT_WIDTH_VEC,-0.22},1, "TSD_Ownship",1}; \
                 scale = 1; \
                 source = "static"; \
                 sourceScale = 1; \
                 text = label; \
-                type = "text"; \
+                type = text; \
             };
 
 #define HSI_LINES_30_SEGMENT(hdg) \

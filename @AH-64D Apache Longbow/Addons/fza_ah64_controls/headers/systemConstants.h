@@ -61,6 +61,3 @@
 //--Chaff dispenser
 #define ASE_CHAFF_STATE_SAFE 0
 #define ASE_CHAFF_STATE_ARM  1
-
-
-

@@ -126,9 +126,9 @@ class FzaIconTypes {
         iconType = MPD_ICON_TYPE_C;
         textA    = MPD_ICON_TEXT_ID;
     };
-    class BP:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\bp.paa";};  //Battle Position
-    class FA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\fa.paa";};  //Forward Assembly Area
-    class HA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\ha.paa";};  //Holding Area
+    class BP:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\bp_ca.paa";};  //Battle Position
+    class FA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\fa_ca.paa";};  //Forward Assembly Area
+    class HA:AP  { tex= "\fza_ah64_mpd\tex\tsdIcons\ha_ca.paa";};  //Holding Area
     //Target/Threats
     //ASE
 

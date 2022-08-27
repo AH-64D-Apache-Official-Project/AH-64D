@@ -25,7 +25,7 @@ class Draw
         #define UFD_CHAR_HEIGHT 0.1
         class Line0
         {
-            type = "text";			// type of HUD-Element
+            type = text;			// type of HUD-Element
             source = "userText";
             sourceIndex = 0;
             scale=1;
