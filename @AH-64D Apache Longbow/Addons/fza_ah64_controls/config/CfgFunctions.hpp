@@ -114,13 +114,6 @@ class CfgFunctions
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
 		};
-		class tsd
-		{
-			file = "\fza_ah64_controls\scripting\functions\tsd";
-			class tsdFilter {R;};
-			class tsdMap {R;};
-			class tsdRange {R;};
-		};
 		class ui
 		{
 			file = "\fza_ah64_controls\scripting\functions\ui";
