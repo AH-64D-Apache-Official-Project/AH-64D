@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:functions/event/fn_eventIncomingMissile.sqf",{80:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Event handler that handles the ASE system\'s reaction to incoming missiles</div></div>"});

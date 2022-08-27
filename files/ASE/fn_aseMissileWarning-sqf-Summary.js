@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseMissileWarning.sqf","fn_aseMissileWarning.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseMissileWarning.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[217,0,1,"Functions","Functions"],[218,0,0,"fza_fnc_aseMissileWarning","fza_fnc_aseMissileWarning"]]);

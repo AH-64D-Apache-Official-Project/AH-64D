@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:fire/fn_fireHandlepanel.sqf","fn_fireHandlepanel.sqf");NDSummary.OnSummaryLoaded("File:fire/fn_fireHandlepanel.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[173,0,1,"Functions","Functions"],[174,0,0,"fza_fnc_fireHandlePanel","fza_fnc_fireHandlePanel"]]);

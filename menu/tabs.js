@@ -1,1 +1,1 @@
-﻿NDMenu.OnTabsLoaded([["File","Files","File:functions/","files.js"]]);
+﻿NDMenu.OnTabsLoaded([["File","Files",,"files.js"]]);

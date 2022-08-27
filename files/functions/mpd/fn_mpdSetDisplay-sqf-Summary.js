@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/mpd/fn_mpdSetDisplay.sqf","fn_mpdSetDisplay.sqf");NDSummary.OnSummaryLoaded("File:functions/mpd/fn_mpdSetDisplay.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[109,0,1,"Functions","Functions"],[110,0,0,"fza_fnc_mpdSetDisplay","fza_fnc_mpdSetDisplay"]]);

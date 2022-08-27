@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("coo",["Information"],[["Coordinate",,[[,"Coordinate Positioning",,,0,"File2:mpd_defines.hpp:Coordinate_Positioning"]]]]);

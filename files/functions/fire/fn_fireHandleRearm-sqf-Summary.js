@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:functions/fire/fn_fireHandleRearm.sqf","fn_fireHandleRearm.sqf");NDSummary.OnSummaryLoaded("File:functions/fire/fn_fireHandleRearm.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[97,0,1,"Functions","Functions"],[98,0,0,"fza_fnc_fireHandleRearm","fza_fnc_fireHandleRearm"]]);

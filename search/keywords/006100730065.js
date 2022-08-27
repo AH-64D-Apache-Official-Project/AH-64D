@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("ase",["Macro"],[["ASE",,[[,"ASE Object",,,0,"File2:mpd_defines.hpp:ASE_Object"]]],["ASE_OBJ",,[[,,,,0,"File2:mpd_defines.hpp:ASE_OBJ"]]]]);
