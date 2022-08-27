@@ -169,30 +169,18 @@ class CfgVehicles
 		};
 		class RenderTargets
 		{
-				class driverpnvs2
+			class driverpnvs2
+			{
+				renderTarget = "fza_ah64_pnvscam2";
+				class View01
 				{
-					renderTarget = "fza_ah64_pnvscam2";
-					class View01
-					{
-						pointPosition = "driverview";
-						pointDirection = "driverview_dir";
-						renderQuality = 0;
-						renderVisionMode = 0; //DTV HDU
-						fov = 0.2;
-					};
+					pointPosition = "driverview";
+					pointDirection = "driverview_dir";
+					renderQuality = 2;
+					renderVisionMode = 2; //TI HDU
+					fov = 0.2;
 				};
-				class driverpnvs3
-				{
-					renderTarget = "fza_ah64_pnvscam3";
-					class View01
-					{
-						pointPosition = "driverview";
-						pointDirection = "driverview_dir";
-						renderQuality = 0;
-						renderVisionMode = 1; //NVG HDU
-						fov = 0.2;
-					};
-				};
+			};
 		};
 		class Exhausts
 		{
@@ -1345,8 +1333,8 @@ class CfgVehicles
 			maxAngleY=20;
 			maxXRotSpeed = 4;	// yawing speed
 			maxYRotSpeed = 4;	// pitching speed
-			thermalmode[] = {0, 1};
-			visionmode[] = {"Normal","Ti"}; //PNVS
+			thermalmode[] = {2};
+			visionmode[] = {"Ti"}; //PNVS
 		};
 
 		class UVAnimations

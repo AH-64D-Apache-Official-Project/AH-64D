@@ -83,7 +83,6 @@ COCKPIT_CONTROL("ctrlref_p_e2off", "",engine, "Engine Panel",e2off, 0.03, "Engin
 COCKPIT_CONTROL("ctrlref_p_e2idle", "",engine, "Engine Panel",e2idle, 0.03, "Engine 2 Idle") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_p_e2fly", "",engine, "Engine Panel",e2fly, 0.03, "Engine 2 Fly") COCKPIT_CONTROL_SEP
 
-COCKPIT_CONTROL("ctrlref_p_pnvs_dn", "ctrlref_g_pnvs_dn",pnvs, "PNVS",daynight, 0.03, "PNVS Day / Night Toggle") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("nvs_mode_sw", "nvs_mode_swg",nvs, "NVS",mode, 0.03, "NVS Mode") COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("plt_flood", "cpg_flood",light, "Lighting",floodlight, 0.03, "Floodlight") COCKPIT_CONTROL_SEP
