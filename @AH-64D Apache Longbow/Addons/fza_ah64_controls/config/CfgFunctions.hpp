@@ -96,84 +96,16 @@ class CfgFunctions
 			class lightHandleControl {R;};
 			class lightSetCockpitLight {R;};
 		};
-		class mpd
-		{
-			file = "\fza_ah64_controls\scripting\functions\mpd";
-			class mpdGetCurrentDisplay {R;};
-			class mpdHandleControl {R;};
-			class mpdHandleZoom {R;};
-
-
-			class mpdLDMSDestruct {R;};
-			class mpdLDMSDraw {R;};
-			class mpdLDMSHandleControl {R;};
-			class mpdLDMSInit {R;};
-			class mpdLFLTDestruct {R;};
-			class mpdLFLTDraw {R;};
-			class mpdLFLTHandleControl {R;};
-			class mpdLFLTInit {R;};
-			class mpdLFUELDestruct {R;};
-			class mpdLFUELDraw {R;};
-			class mpdLFUELHandleControl {R;};
-			class mpdLFUELInit {R;};
-			class mpdLWCADestruct {R;};
-			class mpdLWCADraw {R;};
-			class mpdLWCAHandleControl {R;};
-			class mpdLWCAInit {R;};
-			class mpdLWPNDestruct {R;};
-			class mpdLWPNDraw {R;};
-			class mpdLWPNHandleControl {R;};
-			class mpdLWPNInit {R;};
-
-			class mpdRASEDestruct {R;};
-			class mpdRASEDraw {R;};
-			class mpdRASEHandleControl {R;};
-			class mpdRASEInit {R;};
-			class mpdRDMSDestruct {R;};
-			class mpdRDMSDraw {R;};
-			class mpdRDMSHandleControl {R;};
-			class mpdRDMSInit {R;};
-			class mpdRENGDestruct {R;};
-			class mpdRENGDraw {R;};
-			class mpdRENGHandleControl {R;};
-			class mpdRENGInit {R;};
-			class mpdRFCRDestruct {R;};
-			class mpdRFCRDraw {R;};
-			class mpdRFCRHandleControl {R;};
-			class mpdRFCRInit {R;};
-			class mpdRTSDDestruct {R;};
-			class mpdRTSDDraw {R;};
-			class mpdRTSDHandleControl {R;};
-			class mpdRTSDInit {R;};
-			class mpdRWCADestruct {R;};
-			class mpdRWCADraw {R;};
-			class mpdRWCAHandleControl {R;};
-			class mpdRWCAInit {R;};
-			
-			class mpdSetDisplay {R;};
-			class mpdUpdateDisplays {R;};
-			class mpdUpdateMap {R;};
-			class mpdUpdatePoints {R;};
-
-			class mpdcycleL {R;};
-			class mpdcycleR {R;};
-			class ufd {R;};
-		};
-		class navigation {
-			file = "\fza_ah64_controls\scripting\functions\navigation";
-			class navigationWaypointEta {R;};
-			class navigationWaypointCycle {R;};
-		};
 		class pfz {
 			file = "\fza_ah64_controls\scripting\functions\pfz";
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
 		};
-		
 		class targeting
 		{
 			file = "\fza_ah64_controls\scripting\functions\targeting";
+			class targetingFCRUpdate {R;};
 			class targetingFilterType {R;};
 			class targetingGetSightSelect {R;};
 			class targetingLockCamToTarget {R;};
@@ -181,7 +113,6 @@ class CfgFunctions
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
-			class targetingVariable {R;};
 		};
 		class tsd
 		{
@@ -231,15 +162,20 @@ class CfgFunctions
 			class doortoggleG {R;};
 			class cycle {R;};
 			class bearingClock {R;};
+			class padString {R;};
 			class loadoutImportJson {R;};
 		};
 		class ase
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
-			class aseBetty {R;};
+			class aseAudioController {R;};
+			class aseMissileWarning {R;};
+			class aseChaff {R;};
 			class aseGunnerFlare {R;};
-			class aseHandleRfcontrol {R;};
-			class aseHandleIrcontrol {R;};
+			class aseController {R;};
+			class aseIRJam {R;};
+			class aseRFJam {R;};
+			class aseRLWR {R;};
 		};
 	};
 };

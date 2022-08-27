@@ -26,13 +26,11 @@ private _pctNR         = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max
 private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ      = _eng1PctTQ max _eng2PctTQ;
-private _totRtrDmg     = _heli getHit "velka vrtule";
+private _totRtrDmg     = _heli getHit _rtrDmgHitName;
 private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
 private _dmgTimerCont  = _heli getVariable "fza_sfmplus_dmgTimerCont";
 private _dmgTimerTrans = _heli getVariable "fza_sfmplus_dmgTimerTrans";
 
-private _timeToMaxDmg = 30;
-private _dmgPerSec    = 1 / _timeToMaxDmg;
 
 private _applyDamage = false;
 
@@ -86,13 +84,6 @@ if (isEngineOn _heli) then {
             if (_engPctTQ > 1.25) then {
                 _applyDamage = true;
             };
-            /*
-            hintSilent format ["3. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         } else {
             if (_engPctTQ <= 1.0) then {
                 _dmgTimerTrans = 0;
@@ -113,13 +104,6 @@ if (isEngineOn _heli) then {
             if (_engPctTQ > 1.15) then {
                 _applyDamage = true;
             };
-            /*
-            hintSilent format ["4. NR = %1,
-                                \nTQ = %2
-                                \nTimer Cont = %3
-                                \nTimer Trans = %4
-                                \nDmg = %5", _pctNR, _engPctTQ, _dmgTimerCont, _dmgTimerTrans, _totRtrDmg];
-            */
         };
     };
 };

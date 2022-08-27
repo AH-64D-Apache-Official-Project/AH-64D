@@ -91,30 +91,36 @@ class CfgMagazines
 	////////////////////////////////////////////////////////////////////////
 
 	#define HELLFIRE_MAGAZINE_CONFIG(ammoname, disp, descShort) \
-		class ammoname##_ll: 6Rnd_Missile_AGM_02_F { \
+		class ammoname##_base: 6Rnd_Missile_AGM_02_F {\
 			descriptionShort = descShort;\
 			ammo = ammoname;\
-			model = \fza_ah64_us\weps\pylons\fza_rail_ll.p3d; \
 			displayName = disp; \
 			count = 1; \
-			hardpoints[] = {"fza_agm114_ll"}; \
 			pylonWeapon = ammoname##_wep; \
 			muzzlePos = "muzzlepos"; \
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\dummysound", 3.16228, 1}; \
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 62.99; \
+			weight = 62.94; \
 			fza_pylonType = "hellfire"; \
+		};\
+		class ammoname##_ll: ammoname##_base { \
+			scope = public;\
+			model = \fza_ah64_us\weps\pylons\fza_rail_ll.p3d; \
+			hardpoints[] = {"fza_agm114_ll"}; \
 		}; \
-		class ammoname##_lr: ammoname##_ll { \
+		class ammoname##_lr: ammoname##_base { \
+			scope = public;\
 			model = \fza_ah64_us\weps\pylons\fza_rail_lr.p3d; \
 			hardpoints[] = {"fza_agm114_lr"}; \
 		}; \
-		class ammoname##_ul: ammoname##_ll { \
+		class ammoname##_ul: ammoname##_base { \
+			scope = public;\
 			model = \fza_ah64_us\weps\pylons\fza_rail_ul.p3d; \
 			hardpoints[] = {"fza_agm114_ul"}; \
 		}; \
-		class ammoname##_ur: ammoname##_ll { \
+		class ammoname##_ur: ammoname##_base { \
+			scope = public;\
 			model = \fza_ah64_us\weps\pylons\fza_rail_ur.p3d; \
 			hardpoints[] = {"fza_agm114_ur"} ; \
 		}
@@ -129,7 +135,8 @@ class CfgMagazines
 	///////////////////////////////ROCKETS/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 	#define ROCKET_MAGAZINE_CONFIG(ammoname, disp, dispShort) \
-		class ammoname##_zoneA: 6Rnd_Missile_AGM_02_F { \
+		class ammoname##_zoneA: fza_275_rocket_base { \
+			scope=public;\
 			ammo = ammoname; \
 			displayName = disp; \
 			descriptionShort = dispShort; \
@@ -141,22 +148,25 @@ class CfgMagazines
 			muzzleEnd = "muzzleend"; \
 			sound[] = {"A3\sounds_f\weapons\rockets\explosion_missile_01", 1, 1, 1200};\
 			reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
-			weight = 128.48; \
+			weight = 150.06; \
 			fza_pylonType = "rocket"; \
 		}; \
 		class ammoname##_zoneB: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneB.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_BD"}; \
 			count = 4; \
-			weight = 51.57;\
+			weight = 50.02;\
 		}; \
 		class ammoname##_zoneE: ammoname##_zoneA { \
 			model = \fza_ah64_us\weps\pylons\fza_pod_zoneE.p3d; \
 			hardpoints[] = {"fza_hydra70_zone_E"}; \
 			count = 3; \
-			weight = 44.42;\
+			weight = 37.51;\
 		}
 	
+	class fza_275_rocket_base: 6Rnd_Missile_AGM_02_F {
+		scope = private;
+	};
 	ROCKET_MAGAZINE_CONFIG(fza_275_m151, "M151 HEDP", "The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
 	ROCKET_MAGAZINE_CONFIG(fza_275_m229, "M229 HEDP", "The M229 warhead is a 17 pound warhead with a pre-fragmented shell. It is more effective against heavier armored vehicles and personnel than the M151, at a cost of slightly reduced range. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 4.5km.");
 	ROCKET_MAGAZINE_CONFIG(fza_275_m255, "M255 FLEC", "The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");

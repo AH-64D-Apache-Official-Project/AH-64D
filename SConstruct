@@ -8,8 +8,8 @@ import zipfile
 
 env = Environment(tools=[])
 addonsFolder = r"@AH-64D Apache Longbow\Addons"
-pbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_us"]
-linkablePbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus"]
+pbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd", "fza_ah64_us", "fza_ah64_dms"]
+linkablePbos = ["fza_ah64_AICrew", "fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd", "fza_ah64_dms"]
 
 def targetDef(target, description):
     return env.Help(f"\n{target.ljust(20)}\t - {description}")
@@ -54,9 +54,10 @@ env.Command(r"buildTools\Natural Docs", [], [downloadNaturaldocs, Delete(r"build
 allPbos = env.Alias("all", pboAliases)
 targetDef("all", "Build all pbos.")
 
-env.Command(r"docs\index.html",
+buildDocs = env.Command(r"docs\index.html",
     [s for s in allFilesIn(addonsFolder) if s.endswith(".sqf")] + [r"buildTools\Natural Docs"], 
     [Mkdir("docs"), r'"buildTools\Natural Docs\NaturalDocs.exe" naturaldocs'])
+env.AlwaysBuild(buildDocs)
 
 env.Alias("docs", r"docs\index.html")
 targetDef("docs", "Generate naturaldocs documentation")

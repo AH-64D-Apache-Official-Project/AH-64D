@@ -39,26 +39,49 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
     _heli setVariable ["fza_ah64_estarted", false, true];
-    _heli setVariable ["fza_ah64_agmode", 0, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
-    _heli setVariable ["fza_ah64_curwpnum", 0, true];
-    _heli setVariable ["fza_ah64_waypointdata", [getPos _heli], true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
-    _heli setVariable ["fza_ah64_hellfireTrajectory", "lo", true];
+    _heli setVariable ["fza_ah64_hellfireTrajectory", "LO", true];
+    //FCR initial states
+    _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+    _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
+    _heli setVariable ["fza_ah64_fcrTargets", [], true];
+    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
+    _heli setVariable ["fza_ah64_missleLOBL", [], true];
+    //
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_magazineAddLastValue", _heli animationSourcePhase "magazine_set_1200", true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
+    //System States
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
     _heli setVariable ["fza_ah64_e2_fire", false, true];
     _heli setVariable ["fza_ah64_firepdisch", false, true];
     _heli setVariable ["fza_ah64_firerdisch", false, true];
+    //ASE Initial States
+    //--Chaff       - Aircraft common
+    _heli setVariable ["fza_ah64_ase_chaffState",   "safe"];
+    //--RLWR        - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off"];
+    _heli setVariable ["fza_ah64_ase_rlwrCount",    0, true];
+    _heli setVariable ["fza_ah64_ase_rlwrObjects",  [], true];
+    //--IR Jammer   - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_irJamPwr",      "off"];
+    _heli setVariable ["fza_ah64_ase_irJamState",    0];
+    _heli setVariable ["fza_ah64_ase_irJamTimer",    0.0];
+    _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", 0];	
+    //--RF Jammer   - Aircraft Common
+    _heli setVariable ["fza_ah64_ase_rfJamState",    0];
+    _heli setVariable ["fza_ah64_ase_rfJamTimer",    0.0];
+    //--Autopage    - Crewstation independent
+    _heli setVariable ["fza_ah64_ase_autopage",     1, true];
+
     _heli setVariable ["fza_ah64_irjstate", 0, true];
     _heli setVariable ["fza_ah64_rfjstate", 0, true];
     _heli setVariable ["fza_ah64_irJamOn", false, true];
@@ -81,7 +104,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };
-_heli setVariable ["fza_ah64_wpnPageSelected", WAS_WEAPON_NONE];
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
@@ -92,7 +114,7 @@ _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_day", true];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
-_heli setVariable ["fza_ah64_rangesetting", 0.001]; //1km
+_heli setVariable ["fza_ah64_rangesetting", 5000]; //1km
 _heli setVariable ["fza_ah64_rocketsalvo", 1];
 _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire_left_fx", []];

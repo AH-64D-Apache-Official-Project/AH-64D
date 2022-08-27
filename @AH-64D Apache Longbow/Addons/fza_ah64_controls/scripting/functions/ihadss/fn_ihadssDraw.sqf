@@ -19,12 +19,16 @@ Author:
     unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
+
+#define SCALE_MPS_KNOTS 1.94
+
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 params ["_heli"];
 _locktargstate = 0;
-_modestate = 0;
-_zoomstate = 0;
-_targhead = 0;
+_modestate     = 0;
+_zoomstate     = 0;
+_targhead      = 0;
 
 _sensor = "R ";
 _sensxm = "HMD";
@@ -44,7 +48,7 @@ _laseron = 0;
 _waypointcode = "";
 _gspdcode = "";
 
-_curwpdir = 0;
+_curwpdir = -1000;
 _chevmark = 0;
 _wpdistr = 0;
 _bobhdg = 0;
@@ -57,7 +61,9 @@ _bobpos = [0, 0];
 ///0.0002// 5km//
 ///0.0005// 2km//
 ///0.001// 1km//
-_fcrantennafor = 0.5;
+_fcrantennafor = -100;
+_fcrhdg = -1000;
+_showFcrLastScan = false;
 _radrange = "20";
 _nolosbox = "";
 _losbox = "";
@@ -129,8 +135,10 @@ if (isNull laserTarget _heli) then {
 
 
 _targPos = [-100, -100];
-if(!isNull fza_ah64_mycurrenttarget) then {
-    _targPos = worldToScreen(getpos fza_ah64_mycurrenttarget);
+private _nts = _heli getVariable "fza_ah64_fcrNts";
+private _nts = _nts # 0;
+if(!isNull _nts) then {
+    _targPos = worldToScreen(getpos _nts);
     if (count _targPos < 1) then {
         _targPos = [-100, -100];
     } else {
@@ -356,36 +364,20 @@ _autohide = {
 
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
-_waypoint = (_heli getVariable "fza_ah64_waypointdata") select (_heli getVariable "fza_ah64_curwpnum");
-_waypointcode = "W" + (format["%1",_heli getVariable "fza_ah64_curwpnum"]) + "    " + (format["%1", 0.1 * (round(0.01 * (_heli distance _waypoint)))]);
+private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+[_heli] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
 
-_reldir = ((_waypoint # 0) - (getposatl _heli select 0)) atan2((_waypoint # 1) - (getposatl _heli select 1));
-if (_reldir < 0) then {
-    _reldir = _reldir + 360;
+_waypointcode = format ["%1    %2", _waypointId, _waypointDist];
+_gspdcode = format ["%1    %2", _groundSpeed, _waypointEta];
+// Todo: Display current waypoint
+if (!isNil "_nextPointPos") then {
+    _curwpdir = [[_heli, getpos _heli # 0, getPos _heli # 1, _nextPointPos # 0, _nextPointPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 };
-_theta = (360 + (_reldir - (direction _heli))) Mod 360;
-
-_targhead = _theta;
-
-if (_theta >= 180) then {
-    _targhead = _theta - 360;
-} else {
-    _targhead = _theta;
-};
-
-_curwpdir = _targhead;
 
 /////////////////////////////////////////////////////////
-switch (_heli getVariable "fza_ah64_agmode") do {
-    case FCR_MODE_GND: {
-        _sensor = "R ";
-        _acqihadss = "FCR/G";
-    };
-    case FCR_MODE_AIR: {
-        _sensor = "R ";
-        _acqihadss = "FCR/A";
-    }
-};
+_sensor = "R ";
+_acqihadss = "FCR/G";
 
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
@@ -405,15 +397,15 @@ if (_heli iskindof "fza_ah64base") then {
     };
 };
 
-_targrange = format["%1", ((round((_heli distance fza_ah64_mycurrenttarget) * 0.01)) * 0.1)];
-if (isNull fza_ah64_mycurrenttarget) then {
-    _targrange = "0.00";
+_targrange = format["%1", ((round((_heli distance _nts) * 0.01)) * 0.1)];
+if (isNull _nts) then {
+    _targrange = "0.0";
 };
 if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl fza_ah64_mycurrenttarget select 0), (getposatl fza_ah64_mycurrenttarget select 1)] call fza_fnc_relativeDirection;
+_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _nts select 0), (getposatl _nts select 1)] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -435,15 +427,6 @@ if (_thetatarg < 315 && _thetatarg >= 180) then {
 if (_thetatarg > 45 && _thetatarg < 180) then {
     _targhead = 45;
 };
-_targxpos = (_targhead * 0.0027777777777777777777777777777778) + 0.945;
-_targypos = ((_heli distance fza_ah64_mycurrenttarget) * (_heli getVariable "fza_ah64_rangesetting")) + 0.95;
-if (_targypos < 0.63 || isNull fza_ah64_mycurrenttarget) then {
-    _targypos = 0.63;
-};
-if (_targxpos > 1.07 || _targxpos < 0.82 || isNull fza_ah64_mycurrenttarget) then {
-    _targxpos = 0.95;
-};
-_radrange = format["%1", (abs(1 / (_heli getVariable "fza_ah64_rangesetting"))) * 0.001];
 
 //Use the perfGetData method to update the TQ in the HDU
 _TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
@@ -455,16 +438,12 @@ _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 
 _radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
 _baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
 
-_fcrDir = 0.125- abs((((_heli animationPhase "longbow")*30)%1.2*2-1.2)*(0.25/1.2));
-_fcrantennafor = (_fcrDir * 0.48) + 0.5;
-if (_fcrantennafor > 0.56) then {
-    _fcrantennafor = 0.56;
-};
-if (_fcrantennafor < 0.44) then {
-    _fcrantennafor = 0.44;
-};
-if !(_heli animationPhase "fcr_enable" == 1) then {
-    _fcrantennafor = -100;
+private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
+if !isNil {_fcrLastScan # 0} then {
+    _fcrhdg = _fcrLastScan # 0;
+    _showFcrLastScan = true;
+    _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
+    _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
 _sensorposx = (_heli animationphase "tads_tur") * -0.025;
 _sensorposy = (_heli animationphase "tads") * -0.015;
@@ -480,6 +459,8 @@ if (_fcrdir < 0.3) then {
 };
 if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrdir = -100;
+    _fcrantennafor = -100;
+    _showFcrLastScan = false;
 };
 _slip = (fza_ah64_slip * 0.5) + 0.492;
 if (_slip > 0.54) then {
@@ -518,7 +499,7 @@ if (_was == WAS_WEAPON_MSL) then {
     };
     private ["_mistargPos", "_radar"];
     if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-        _mistargPos = fza_ah64_mycurrenttarget;
+        _mistargPos = _nts;
         _radar = true;
     } else {
         _mistargPos = _heli getVariable "fza_ah64_currentlase";
@@ -540,29 +521,60 @@ if (_was == WAS_WEAPON_MSL) then {
     } else {
         _terrainobscure = terrainIntersectasl[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], [(getPosASL _mistargPos select 0), (getPosASL _mistargPos select 1), (getPosASL _mistargPos select 2) + 1]];
         _obscureobjs = lineIntersectsWith[[(getPosASL _heli select 0) + ((sin getdir _heli) * 6), (getPosASL _heli select 1) + ((cos getdir _heli) * 6), (getPosASL _heli select 2)], getPosASL _mistargPos, _heli, _mistargPos];
-
         _distOffAxis = abs ([[_heli, getPos _heli # 0, getPos _heli # 1, getPos _mistargPos # 0, getPos _mistargPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
-        
-        if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 10]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0) then {
-            _w = 0.2202;
-            _h = 0.3;
-            _apx = 0.108;
-            _apy = 0.15;
-            if (_distOffAxis < 20) then {
-                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
+        _targetDist = _heli distance getPos _mistargPos;
+	    _targ = _heli getVariable "fza_ah64_fcrNts";
+
+        if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
+            if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 20]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0
+            && (((speed _mistargPos >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_targetDist >= FCR_LIMIT_MIN_RANGE && _targetDist <= FCR_LIMIT_MOVING_RANGE)) || _targetDist < 2500 && _targetDist > 500)) then {
+                _heli setVariable ["fza_ah64_missleLOBL", true, true];
+                _w = 0.2202;
+                _h = 0.3;
+                _apx = 0.108;
+                _apy = 0.15;
+                if (_distOffAxis < 20) then {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
+                } else {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
+                };
             } else {
-                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
+                _heli setVariable ["fza_ah64_missleLOBL", false, true];
+                _w = 0.0734;
+                _h = 0.1;
+                _apx = 0.036;
+                _apy = 0.05;
+                _allowedDistOffAxis = [6.5, 20] select _radar;
+                if (_distOffAxis < _allowedDistOffAxis && _targetDist > 500 && _targetDist < 6000) then {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
+                } else {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
+                };
             };
         } else {
-            _w = 0.0734;
-            _h = 0.1;
-            _apx = 0.036;
-            _apy = 0.05;
-            _allowedDistOffAxis = [6.5, 20] select _radar;
-            if (_distOffAxis < _allowedDistOffAxis) then {
-                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
+            if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 20]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _targetDist < 8000 && _targetDist > 500) then {
+                _heli setVariable ["fza_ah64_missleLOBL", true, true];
+                _w = 0.2202;
+                _h = 0.3;
+                _apx = 0.108;
+                _apy = 0.15;
+                if (_distOffAxis < 20) then {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
+                } else {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
+                };
             } else {
-                ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
+                _heli setVariable ["fza_ah64_missleLOBL", false, true];
+                _w = 0.0734;
+                _h = 0.1;
+                _apx = 0.036;
+                _apy = 0.05;
+                _allowedDistOffAxis = [6.5, 20] select _radar;
+                if (_distOffAxis < _allowedDistOffAxis && _targetDist > 500) then {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
+                } else {
+                    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
+                };
             };
         };
     };
@@ -649,69 +661,99 @@ if (_was == WAS_WEAPON_GUN) then {
     _weaponstate = format["ROUNDS %1", _heli ammo "fza_m230"];
 };
 
-//CSCOPE
-_targetsToDraw = ([_heli, fza_ah64_Cscopelist] call fza_fnc_targetingFilterType);
-if (_heli getVariable "fza_ah64_fcrcscope") then {
-    _num = 190; {
-        if (_num > 205) exitwith {};
-        _coords = worldtoscreen(getpos _x);
-        _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
+//Cscope Code Begin
+private _CscopeCount = 0;
+{
+    if (_CscopeCount > 15) exitwith {};
+    _x params ["_pos", "_type", "_speed", "_obj"];
+    private _distance_m          = _heli distance2d _pos;
+    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
+    private _unitStatus          = ""; //loal, lobl, move
+    private _unitSelAndWpnStatus = ""; //nts, ants
+    private _armaRadarOn         = isVehicleRadarOn _heli;
+    private _GuiPos              = [-100, -100];
 
-        _adaunit = [_x] call fza_fnc_targetIsADA;
+    if (_armaRadarOn) then {
+        _GuiPos = worldtoscreen (getpos _obj);
+    } else {
+        _GuiPos = worldtoscreen asltoagl _pos;
+    };
 
-        if (_x isKindOf "helicopter") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_hc_pfz.paa";
+    //Unit type
+    switch (_type) do {
+        case FCR_TYPE_UNKNOWN: {
+            _unitType = "unk";
         };
-        if (_x isKindOf "plane") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+        case FCR_TYPE_WHEELED: {
+            _unitType = "wheel";
         };
-        if (_x isKindOf "tank") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_tnk_pfz.paa";
+        case FCR_TYPE_HELICOPTER: {
+            _unitType = "heli";
         };
-        if (_x isKindOf "car") then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_whl_pfz.paa";
+        case FCR_TYPE_FLYER: {
+            _unitType = "flyer";
         };
-        if (_adaunit) then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_ada_pfz.paa";
+        case FCR_TYPE_TRACKED: {
+            _unitType = "track";
         };
-        if (!(_x isKindOf "car" || _x isKindOf "tank" || _x isKindOf "plane" || _x isKindOf "helicopter" || _adaunit)) then {
-            _type = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        };
-
-        if (count _coords < 1) then {
-            _coords = [-100, -100];
-        };
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlSetText _type;
-        ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
-        _num = _num + 1;
-    }
-    foreach _targetsToDraw;
-
-    if (_num > (count _targetsToDraw + 189)) then {
-        while {
-            (_num < 206)
-        }
-        do {
-            _coords = [-100, -100];
-            ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
-            _num = _num + 1;
+        case FCR_TYPE_ADU: {
+            _unitType = "adu";
         };
     };
 
-} else {
-    _num = 190;
+    //Unit status
+    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+        _unitStatus = "MOVE";
+    } else {
+        If (_unitType == "flyer") then {
+            _unitType = "unk";
+        };
+        if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "LOAL";
+        } else {
+            _unitStatus = "LOBL";
+        };
+    };
+
+    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2_ca.paa", _unitType, _unitStatus];
+    
+    if (_heli getVariable "fza_ah64_fcrcscope") then {
+        if (count _GuiPos < 1) then {
+            _GuiPos = [-100, -100];
+        };
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    } else {
+        _GuiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition _GuiPos;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    };
+    _CscopeCount = _CscopeCount + 1;
+
+    _ntsc = _heli getVariable "fza_ah64_fcrNts";
+    if (_obj == _ntsc # 0) then {
+        if (_was == WAS_WEAPON_MSL) then {
+            _targpos = _guipos;
+            _scPos = _guipos;
+        };
+    };
+} forEach (_heli getVariable "fza_ah64_fcrTargets");
+
+//Hides unused cscope elements
+if (_CscopeCount > (count (_heli getVariable "fza_ah64_fcrTargets") - 1)) then {
     while {
-        (_num < 206)
+        (_CscopeCount < 16)
     }
     do {
-        _coords = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp")displayCtrl _num) ctrlSetPosition (_coords call fza_fnc_compensateSafezone);
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _num) ctrlCommit 0;
-        _num = _num + 1;
+        _GuiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+        _CscopeCount = _CscopeCount + 1;
     };
 };
+
+//Cscope Code End
 
 //IHADSS FLIGHT MODES
 
@@ -756,8 +798,8 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-
-if (fza_ah64_burst >= _heli getVariable "fza_ah64_burst_limit" && currentweapon _heli == "fza_m230") then {
+private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
+if (_burstLimit != -1 && fza_ah64_burst >= _burstLimit && currentweapon _heli == "fza_m230") then {
     _heli selectweapon "fza_burstlimiter";
 };
 
@@ -953,6 +995,7 @@ _320dir = _helidir - 320;
 _330dir = _helidir - 330;
 _340dir = _helidir - 340;
 _350dir = _helidir - 350;
+_fcrdir = _helidir - _fcrhdg;
 if (_10dir < 0) then {
     _10dir = _10dir + 360;
 };
@@ -1058,6 +1101,9 @@ if (_340dir < 0) then {
 if (_350dir < 0) then {
     _350dir = _350dir + 360;
 };
+if (_fcrdir < 0) then {
+    _fcrdir = _fcrdir + 360;
+};
 
 // CAMERA HEADINGS FOR GUNNER
 
@@ -1120,7 +1166,7 @@ _320mark = (_320dir * (-1 / 360)) + 1.5;
 _330mark = (_330dir * (-1 / 360)) + 1.5;
 _340mark = (_340dir * (-1 / 360)) + 1.5;
 _350mark = (_350dir * (-1 / 360)) + 1.5;
-
+_fcrmark = (_fcrdir * (-1 / 360)) + 1.5;
 if (_alternatesensor > 0.7) then {
     _alternatesensor = 0.7;
 };
@@ -1349,8 +1395,19 @@ if (_350mark > 0.7) then {
 if (_350mark < 0.3) then {
     _350mark = _350mark - 100;
 };
+if (_fcrmark > 0.7) then {
+    _fcrmark = _fcrmark - 1;
+};
+if (_fcrmark < 0.3) then {
+    _fcrmark = _fcrmark - 100;
+};
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetPosition[_alternatesensor - 0.025, 0.31];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
+
+if (_curwpdir < -360 || _curwpdir > 360) then {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[-100, 0];
+} else {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
+};
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlSetPosition[_360mark - 0.02, 0.27];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlSetPosition[_30mark - 0.02, 0.27];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 148) ctrlSetPosition[_60mark - 0.02, 0.27];
@@ -1387,6 +1444,8 @@ if (_350mark < 0.3) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlSetPosition[_320mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlSetPosition[_340mark, 0.29];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlSetPosition[_350mark, 0.29];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[[-100, _fcrmark - 0.01] select _showFcrLastScan, 0.31];
+
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlCommit 0;
@@ -1425,6 +1484,7 @@ if (_350mark < 0.3) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlCommit 0;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
 
 if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
     1 cuttext["", "PLAIN"];

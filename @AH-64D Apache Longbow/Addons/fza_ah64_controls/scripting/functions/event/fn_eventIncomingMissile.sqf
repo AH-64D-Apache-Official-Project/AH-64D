@@ -29,34 +29,33 @@ fza_ah64_incomingmissiles pushback _missile;
 
 //Add target info to databases
 fza_ah64_threatfiring pushBackUnique vehicle _instigator;
-fza_ah64_targetlist pushBackUnique vehicle _instigator;
 
 //ase page link Beg
 if (_heli getVariable "fza_ah64_aseautopage" == 2 && _hostile in fza_ah64_asethreatsdraw) then {
-    [_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 };
 //ase page link End
 
-[_heli,_munition,_hostile,_instigator] call fza_fnc_aseBetty;
+_this spawn fza_fnc_aseMissileWarning;
 
 [_heli, _munition, _hostile] spawn {
     params ["_heli", "_munition", "_hostile"];
 
-    private _irjon = _heli getVariable "fza_ah64_irJamOn";
+    private _irjon    = _heli getVariable "fza_ah64_irJamOn";
     private _irjstate = _heli getVariable "fza_ah64_irjstate";
-    private _rfjon = _heli getVariable "fza_ah64_rfJamOn";
+    private _rfjon    = _heli getVariable "fza_ah64_rfJamOn";
     private _rfjstate = _heli getVariable "fza_ah64_rfjstate";
 
     private _seekerhead = getNumber (configFile >> "CfgAmmo" >> _munition >> "weaponLockSystem");
     if (_irjstate == 1 && !_irjon) then {
         if (([_seekerhead, 2] call BIS_fnc_bitwiseAND != 0) && (_heli getVariable "fza_ah64_irjstate" == 1)) then {
-            [_heli] spawn fza_fnc_aseHandleIrcontrol;
+            //[_heli] spawn fza_fnc_aseHandleIrcontrol;
         };
     };
 
     if (_RFjstate == 1 && !_rfjon) then {   
         if (([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) && (_heli getVariable "fza_ah64_rfjstate" == 1)) then {
-            [_heli] spawn fza_fnc_aseHandleRfcontrol;
+            //[_heli] spawn fza_fnc_aseHandleRfcontrol;
         };
     };
 

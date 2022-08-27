@@ -81,28 +81,6 @@ _markername setMarkerTypeLocal "mil_dot";
 _markername setMarkerTextLocal "PFZ" + format["%1", _pfznum];
 _markername setMarkerColorLocal "ColorBlack";
 
-{
-    if ([(getposasl _x select 0), (getposasl _x select 1)] distance[_xpos, _ypos] < _radius) then {
-        //if pfz +x and +y
-        if ((getposasl _x select 0) > ((fza_ah64_curpfzarea select 0) select 0) && (getposasl _x select 0) < ((fza_ah64_curpfzarea select 1) select 0) && (getposasl _x select 1) > ((fza_ah64_curpfzarea select 0) select 1) && (getposasl _x select 1) < ((fza_ah64_curpfzarea select 1) select 1)) then {
-            _pfz = _pfz + [_x];
-        };
-        //if pfz -x and -y
-        if ((getposasl _x select 0) < ((fza_ah64_curpfzarea select 0) select 0) && (getposasl _x select 0) > ((fza_ah64_curpfzarea select 1) select 0) && (getposasl _x select 1) < ((fza_ah64_curpfzarea select 0) select 1) && (getposasl _x select 1) > ((fza_ah64_curpfzarea select 1) select 1)) then {
-            _pfz = _pfz + [_x];
-        };
-        //if pfz +x and -y
-        if ((getposasl _x select 0) > ((fza_ah64_curpfzarea select 0) select 0) && (getposasl _x select 0) < ((fza_ah64_curpfzarea select 1) select 0) && (getposasl _x select 1) < ((fza_ah64_curpfzarea select 0) select 1) && (getposasl _x select 1) > ((fza_ah64_curpfzarea select 1) select 1)) then {
-            _pfz = _pfz + [_x];
-        };
-        //if pfz -x and +y
-        if ((getposasl _x select 0) < ((fza_ah64_curpfzarea select 0) select 0) && (getposasl _x select 0) < ((fza_ah64_curpfzarea select 1) select 0) && (getposasl _x select 1) > ((fza_ah64_curpfzarea select 0) select 1) && (getposasl _x select 1) < ((fza_ah64_curpfzarea select 1) select 1)) then {
-            _pfz = _pfz + [_x];
-        };
-    };
-    sleep 0.01;
-}
-foreach fza_ah64_targetlist;
 
 assert (1 <= _pfznum && _pfznum <= 8);
 (_heli getVariable "fza_ah64_pfzs") set [_pfznum - 1, _pfz];

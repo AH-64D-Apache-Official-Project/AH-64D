@@ -3,7 +3,7 @@ params ["_heli", "_system", "_control"];
 switch (_system) do {
     case "lmpd";
     case "rmpd" : {
-        [_heli, _system, _control] call fza_fnc_mpdHandleControl;
+        [_heli, _system, _control] call fza_mpd_fnc_handleControl;
     };
     case "fire": {
         [_heli, _system, _control] call fza_fnc_fireHandleControl;
@@ -44,5 +44,8 @@ switch (_system) do {
     };
     case "light": {
         [_heli, _system, _control] call fza_fnc_lightHandleControl;
+    };
+    case "ku": {
+        [_heli, _system, _control] call fza_ku_fnc_toggleInput;
     };
 };

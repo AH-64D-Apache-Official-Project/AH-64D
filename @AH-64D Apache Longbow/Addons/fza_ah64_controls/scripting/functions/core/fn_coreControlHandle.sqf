@@ -36,12 +36,6 @@ if (_value) then {
 		case "fza_ah64_sightSelectFCR": {
 			[_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
 		};
-		case "fza_ah64_fcrModeGTM": {
-			_heli setVariable ["fza_ah64_agmode", FCR_MODE_GND, true];
-		};
-		case "fza_ah64_fcrModeATM": {
-			_heli setVariable ["fza_ah64_agmode", FCR_MODE_AIR, true];
-		};
 		case "fza_ah64_symbologySelectUp": {
 			switch (_heli getVariable "fza_ah64_hmdfsmode") do {
 				case "trans": {
@@ -65,33 +59,14 @@ if (_value) then {
 			};
 		};
 		case "fza_ah64_symbologySelectPress": {
-			[_heli, 0, "flt"] call fza_fnc_mpdSetDisplay;
+			[_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;
 		};
 		case "fza_ah64_fcrSingleScan": {
 			player action ["ActiveSensorsOn", vehicle player];
-			if (_heli getVariable "fza_ah64_agmode" == FCR_MODE_AIR) then {
-				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 8, "seconds"] call BIS_fnc_runLater;
-			} else {
-				["fza_ah64_disableRadar", { player action ["ActiveSensorsOff", vehicle player]; }, 4, "seconds"] call BIS_fnc_runLater;
-			};
+			_heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
 		};
 		case "fza_ah64_targetStoreUpdate": {
-
-			private _position = screenToWorld [0.5, 0.5];
-			
-			if (_position distance (getPos _heli) > 7000) exitWith {};
-
-			if (count (_heli getVariable "fza_ah64_waypointdata") > 30) exitwith {
-				_heli vehiclechat "Waypoint limits reached.";
-			};
-
-			_heli setVariable ["fza_ah64_waypointdata", (_heli getVariable "fza_ah64_waypointdata") + [[_position # 0, _position # 1, 0]], true];
-		};
-		case "fza_ah64_waypointIncrease": {
-			[_heli, true] call fza_fnc_navigationWaypointCycle;
-		};
-		case "fza_ah64_waypointDecrease": {
-			[_heli, false] call fza_fnc_navigationWaypointCycle;
+			// Todo: Implemen target store
 		};
 		case "fza_ah64_laserCycle": {
 			[_heli] call fza_fnc_laserCycle;
@@ -138,6 +113,18 @@ if (_value) then {
 				[_heli, "fza_CMFlareLauncher", [-1]] call BIS_fnc_fire;
 			}
 		};
+		case "vehLockTargets": {
+			private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
+			if (count _fcrTargets == 0) then {
+				_heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+			} else {
+				private _oldNts = _heli getVariable "fza_ah64_fcrNts";
+				private _oldNts = _oldNts # 0;
+				private _oldNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
+				private _newNtsIndex = (_oldNtsIndex + 1) mod count _fcrTargets;
+				_heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
+			};
+		}
 	};
 };
 

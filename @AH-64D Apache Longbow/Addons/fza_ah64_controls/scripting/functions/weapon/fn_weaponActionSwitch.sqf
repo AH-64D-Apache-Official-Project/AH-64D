@@ -24,5 +24,4 @@ params["_heli", "_weapon"];
 if !(_heli turretLocal [0]) exitWith {};
 
 _heli setVariable ["fza_ah64_was", _weapon, true];
-_heli setVariable ["fza_ah64_wpnPageSelected", _weapon, true];
 [_heli] call fza_fnc_weaponUpdateSelected;

@@ -80,7 +80,7 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
-//Perormance
+//Performance
 [_heli] call fza_sfmplus_fnc_perfData;
 
 //Apply a negative force to prevent the helicopter from taking off until the power levers are at fly
@@ -100,13 +100,11 @@ hintsilent format ["v0.11
 					\nEng State = %7
 					\nIs Single Engine? = %8
 					\nPercent NP = %9
-					\nEng Clutch State = %10
-					\nEng Start Switch = %11
-					\nEng Power Lever = %12;
+					\nEng Power Lever = %10;
 					\n-------------------
-					\nColl Pos = %13
-					\nEng FF = %14
-					\nEngine Base NG = %15", 		
+					\nColl Pos = %11
+					\nEng FF = %12
+					\nEngine Base NG = %13", 		
 					_heli getVariable "fza_sfmplus_engPctNG" select 0, 
 					_heli getVariable "fza_sfmplus_engPctTQ" select 0, 
 					_heli getVariable "fza_sfmplus_engTGT" select 0,

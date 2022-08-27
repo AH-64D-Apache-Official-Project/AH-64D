@@ -27,9 +27,6 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
 	if (_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) then {
 		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
 			//TSD & ASE Draw
-			if !(_ADA in fza_ah64_targetlist) then {
-				fza_ah64_targetlist pushBack _ADA;
-			};
 			if !(_ADA in _asearray) then {
 				_asearray pushBack _ADA;
 			};
@@ -42,7 +39,7 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
 
 				//ASE autopage
 				if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
-					[_heli, 1, "ase"] call fza_fnc_mpdSetDisplay;
+					[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 				};
 
 				//audio 

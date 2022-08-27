@@ -26,7 +26,7 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveOut = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
 
 	private _V_mps            = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-	private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.775, 0.868, true];
+	private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.775, 0.853, true];
 
 	_collectiveOut = [_collectiveOut, 0.0, _collectiveOutMod] call BIS_fnc_clamp;
 } else {

@@ -13,48 +13,45 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 if (!(player in _heli)) exitwith {};
+
+if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
+    private _fcrState    = _heli getVariable "fza_ah64_fcrState";
+    private _armaRadarOn = isVehicleRadarOn vehicle player;
+
+    switch (_fcrState # 0) do {
+        case FCR_MODE_OFF: {
+            if _armaRadarOn then {
+                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
+            };
+        };
+        case FCR_MODE_ON_SINGLE: {
+            private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
+            if (time > _fcrstate # 1 + 3 && _lastScanState # 2 < _fcrState # 1) then {
+                [_heli] call fza_fnc_targetingFCRUpdate;
+            } else {
+                if (time > (_fcrState # 1 + 4) && _lastScanState # 2 + 1 < time) then {
+                    _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+                    player action ["ActiveSensorsOff", _heli];
+                };
+            };
+        };
+        case FCR_MODE_ON_CONTINUOUS: {
+            if (_armaRadarOn) then {
+                private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
+                if (time > _lastScanState # 2 + 4 && time > _fcrState # 1 + 4) then {
+                    [_heli] call fza_fnc_targetingFCRUpdate;
+                }
+            } else {
+                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+            };
+        };
+    };
+};
 
 // Auto self laser select
 if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
     _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
-};
-
-//SELECTABLE TARGETS
-_visibleTargets = switch (true) do {
-    case (_heli getVariable "fza_ah64_pfz_count" != 0 && _heli getVariable "fza_ah64_tsdsort" < 4): {
-        [_heli, (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_pfz_count") - 1] call fza_fnc_targetingFilterType;
-    };
-    case (_heli getVariable "fza_ah64_tsdsort" > 3): {
-        [_heli, (_heli getVariable "fza_ah64_pfzs") select (_heli getVariable "fza_ah64_tsdsort") - 4] call fza_fnc_targetingFilterType;
-    };
-    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "fcr"): {
-        [_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType;
-    };
-    case (([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "tsd") && (_heli getVariable "fza_ah64_tsdmode" == "atk")): {
-        [_heli, fza_ah64_tsddisptargs - alldead] call fza_fnc_targetingFilterType;
-    };
-    case ([_heli, 1] call fza_fnc_mpdGetCurrentDisplay == "ase"): {
-        [_heli, fza_ah64_fcrlist] call fza_fnc_targetingFilterType;
-    };
-    default {
-        [_heli, fza_ah64_targetlist - alldead] call fza_fnc_targetingFilterType;
-    };
-};
-
-if (inputAction "vehLockTargets" > 0.5 && fza_ah64_locktargstate == 0 && count _visibleTargets > 0) then {
-    if (fza_ah64_mynum >= count _visibleTargets - 1) then {
-        fza_ah64_mynum = 0;
-    } else {
-        fza_ah64_mynum = fza_ah64_mynum + 1;
-    };
-    fza_ah64_mycurrenttarget = _visibleTargets select(fza_ah64_mynum);
-    fza_ah64_locktargstate = 1;
-};
-if (inputAction "vehLockTargets" < 0.5 && fza_ah64_locktargstate == 1) then {
-    fza_ah64_locktargstate = 0;
-};
-if (inputAction "lockTarget" > 0.5) then {
-    fza_ah64_mycurrenttarget = cursorTarget;
 };

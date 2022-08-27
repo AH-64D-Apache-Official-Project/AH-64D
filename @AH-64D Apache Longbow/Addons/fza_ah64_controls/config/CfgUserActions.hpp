@@ -21,8 +21,6 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_sightSelectTADS, "Sight Select TADS", "Sets the current sight to TADS");
 	CfgUserActionDef(fza_ah64_sightSelectFXD, "Sight Select FXD", "Sets the current sight to FXD");
 	CfgUserActionDef(fza_ah64_sightSelectFCR, "Sight Select FCR", "Sets the current sight to FCR");
-	CfgUserActionDef(fza_ah64_fcrModeGTM, "FCR Mode Select GTM", "Sets the current FCR mode to GTM (Ground Targeting Mode)");
-	CfgUserActionDef(fza_ah64_fcrModeATM, "FCR Mode Select ATM", "Sets the current FCR mode to ATM (Air Targeting Mode)");
 	CfgUserActionDef(fza_ah64_symbologySelectUp, "Symbology Select Up", "Cycles the HDU Symbology between Transition and Cruise modes");
 	CfgUserActionDef(fza_ah64_symbologySelectDown, "Symbology Select Down", "Cycles the HDU Symbology between Hover and Bobup modes");
 	CfgUserActionDef(fza_ah64_symbologySelectPress, "Symbology Select Press", "Brings up the FLT page on the left MPD");
@@ -30,8 +28,6 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_fcrSingleScan, "FCR Single Scan", "Scans the FCR a single time");
 	CfgUserActionDef(fza_ah64_targetStoreUpdate, "Target Store", "Stores the target being currently looked at in the TADS as a waypoint");
 	CfgUserActionDef(fza_ah64_crosshairInteract, "Crosshair Action", "Interact with item in the cockpit under the crosshair");
-	CfgUserActionDef(fza_ah64_waypointIncrease, "Next Waypoint", "Sets the current waypoint to the next waypoint");
-	CfgUserActionDef(fza_ah64_waypointDecrease, "Previous Waypoint", "Sets the current waypoint to the previous waypoint");
 	CfgUserActionDef(fza_ah64_laserCycle, "Laser Cycle", "Cycles between all available lasers");
 	CfgUserActionDef(fza_ah64_missileAdvance, "Missile Advance", "Advances through all missile types");
 	CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");

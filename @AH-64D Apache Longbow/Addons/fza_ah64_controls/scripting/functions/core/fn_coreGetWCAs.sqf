@@ -40,96 +40,89 @@ private _wcas = [];
 // WARNINGS
 
 if (_heli getVariable "fza_ah64_e1_fire") then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\E1Fire.paa", ""]
+	_wcas pushBack [WCA_WARNING, "ENG1 FIRE", ""]
 };
 if (_heli getVariable "fza_ah64_e2_fire") then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\E2Fire.paa", ""]
+	_wcas pushBack [WCA_WARNING, "ENG2 FIRE", ""]
 };
 if (_heli getVariable "fza_ah64_apu_fire") then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\APUF.paa", ""]
+	_wcas pushBack [WCA_WARNING, "APU FIRE", ""]
 };
 if (_heli getHitPointDamage "HitHRotor" >= 0.4 && _heli getHitPointDamage "HitHRotor" < 0.8) then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\HRTRRPM.paa", "\fza_ah64_us\tex\UFD\RTRRPMHI_W_co.paa"]
+	_wcas pushBack [WCA_WARNING, "HIGH ROTOR RPM", "HIGH RTR  "]
 };
 if ( _heli getHitPointDamage "HitHRotor" >= 0.8) then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\LRTRRPM.paa", "\fza_ah64_us\tex\UFD\RPMLOW_W_co.paa"]
+	_wcas pushBack [WCA_WARNING, "LOW ROTOR RPM", "LOW RTR   "]
 };
 if (_heli getHitPointDamage "HitVRotor" >= 0.8) then {
-	_wcas pushBack [WCA_WARNING, "\fza_ah64_us\tex\MPD\TRTRHYD.paa", "\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"]
+	_wcas pushBack [WCA_WARNING, "TAIL ROTOR HYD", "TAIL RTR  "]
+};
+if (_heli getHitPointDamage "HitEngine" >= 0.8) then {
+	_wcas pushBack [WCA_CAUTION, "MAIN XMSN FAILURE", "MAIN XMSN  "];
 };
 
 // CAUTIONS
 
 if (_heli getHitPointDamage "HitVRotor" >= 0.4 && _heli getHitPointDamage "HitVRotor" < 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\TRTRDEGR.paa", "\fza_ah64_us\tex\UFD\TAILRTRHYD_W_co.paa"];
+	_wcas pushBack [WCA_CAUTION, "TROTOR DEGR", "TAIL RTR   "];
 };
 if (_heli getHitPointDamage "HitEngine" >= 0.4 && _heli getHitPointDamage "HitEngine" < 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\XMSNDGRD.paa", "\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
-};
-if (_heli getHitPointDamage "HitEngine" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\XMSNFAIL.paa", "\fza_ah64_us\tex\UFD\MAINXMSN_C_co.paa"];
+	_wcas pushBack [WCA_CAUTION, "MAIN XMSN DEGRADED", "MAIN XMSN  "];
 };
 if (fuel _heli < 0.05) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\FWDFUELLO.paa", "\fza_ah64_us\tex\UFD\FWDFUELLOW_C_co.paa"];
+	_wcas pushBack [WCA_CAUTION, "FORWARD FUEL LOW", "FWD FUEL LO"];
 };
 if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\AFTFUEL.paa", "\fza_ah64_us\tex\UFD\AFTFUELLO_C_co.paa"];
+	_wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO"];
 };
 if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON     "]
 };
 if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\IRJAMFAIL.paa", "\fza_ah64_us\tex\UFD\IRJAMFAIL_C_co.paa"]
+	_wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL "]
 };
 if (_heli getHitPointDamage "RfJammer" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\RJAMFAIL.paa", "\fza_ah64_us\tex\UFD\RFJFAIL_C_co.paa"]
+	_wcas pushBack [WCA_CAUTION, "RFJAM FAIL", "RFJAM FAIL "]
 };
 if (_heli getHit "radar" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\FCRFAIL.paa", ""]
+	_wcas pushBack [WCA_CAUTION, "FCR FAIL", ""]
 };
 if (_heli getHit "pnvs" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\PNVSFAIL.paa", ""]
+	_wcas pushBack [WCA_CAUTION, "PNVS FAIL", ""]
 };
 if (_heli getHit "otochlaven" >= 0.9) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\GUNJAM.paa", ""]
+	_wcas pushBack [WCA_CAUTION, "GUN JAM", ""]
 };
 if (_heli getHit "otocvez" >= 0.8) then {
-	_wcas pushBack [WCA_CAUTION, "\fza_ah64_us\tex\MPD\GUNACTFAIL.paa", ""]
+	_wcas pushBack [WCA_CAUTION, "GUN ACTUATOR FAIL", ""]
 };
 
 // ADVISORIES
 
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\CANOPY.paa", "\fza_ah64_us\tex\UFD\CANOPYOPEN_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY    "]
 };
 if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 < 3) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\APUON.paa", "\fza_ah64_us\tex\UFD\APUON_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON     "]
 };
 if (_heli animationphase "plt_eng1_start" > 0 && _heli animationphase "plt_eng1_throttle" < 0.25) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\ENG1START.paa", "\fza_ah64_us\tex\UFD\ENG1START_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "ENGINE 1 START", "ENG 1 START"]
 };
 if (_heli animationphase "plt_eng2_start" > 0 && _heli animationphase "plt_eng2_throttle" < 0.25) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\ENG2START.paa", "\fza_ah64_us\tex\UFD\ENG2START_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG 2 START"]
 };
 if (isAutoHoverOn _heli) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\ATTHOLD.paa", "\fza_ah64_us\tex\UFD\ATTHLD_A_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD   "]
 };
 if (_heli getVariable "fza_ah64_rtrbrake") then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RTRBRKON.paa", "\fza_ah64_us\tex\UFD\RTRBRKON_C_co.paa"]
+	_wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON "]
 };
 
-(_heli getVariable "fza_ah64_irJamCooldown") params ["_irTemp", "_irTempTime"];
-private _irCurrentTemp = _irTemp + ([-1, 0.5] select (_heli getVariable "fza_ah64_irJamOn")) * (time - _irTempTime);
-
-if (_irCurrentTemp > 40) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\IRJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\IRJAMOHEAT_A_co.paa"]
+if (_heli getVariable "fza_ah64_irjon" == 1 && fza_ah64_irjammer > 40) then {
+	_wcas pushBack [WCA_ADVISORY, "IRJAM OVERHEAT", "IR JAM OHT"]
 };
-
-(_heli getVariable "fza_ah64_rfJamCooldown") params ["_rfTemp", "_rfTempTime"];
-private _rfCurrentTemp = _rfTemp + ([-1, 0.5] select (_heli getVariable "fza_ah64_rfJamOn")) * (time - _rfTempTime);
-
-if (_rfCurrentTemp > 40) then {
-	_wcas pushBack [WCA_ADVISORY, "\fza_ah64_us\tex\MPD\RFJAMOHEAT.paa", "\fza_ah64_us\tex\UFD\RFJOHEAT_A_co.paa"]
+if (_heli getVariable "fza_ah64_rfjon" == 1 && fza_ah64_rfjammer > 40) then {
+	_wcas pushBack [WCA_ADVISORY, "RFJAM OVERHEAT", "RF JAM OHT"]
 };
 
 _wcas;

@@ -254,11 +254,11 @@ class CfgAmmo
 					{
 						class AirTarget {
 							minRange = 500;
-							maxRange = 8000;
+							maxRange = 2500;
 						};
 						class GroundTarget {
 							minRange = 500;
-							maxRange = 8000;
+							maxRange = 2500;
 						};
 						typeRecognitionDistance = -1; // distance how far the target type gets recognized
 						angleRangeHorizontal = 90;     // sensor azimuth coverage in degrees
@@ -332,10 +332,11 @@ class CfgAmmo
 		irlock 						= 1;	
 		nvLock						= 0;
 
-		activeSensorAlwaysOn = 0;
+		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
-		flightProfiles[]	= {TopDown,LoalDistance,Cruise};
+
+		flightProfiles[]	= {TopDown};
 		class TopDown
 		{
 			ascendAngle				= 26.5;
@@ -372,6 +373,11 @@ class CfgAmmo
 		missileManualControlCone 	= 90;
 		weaponLockSystem 			= "4";
 		weaponType					= "missileAT";
+
+		autoSeekTarget				= 1;
+		lockSeekDistanceFromParent  = 300;
+		lockSeekRadius 				= 500;
+		
 		class Components : Components
 		{
 			class SensorsManagerComponent
@@ -545,8 +551,6 @@ class CfgAmmo
 	};
 	class fza_275_m151: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6PD-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6PD-G_ca.paa";
 		fza_shortCode 				= "6PD";
 		fza_weaponName              = "fza_275_m151_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m151_wep";
@@ -558,8 +562,6 @@ class CfgAmmo
 	};
 	class fza_275_m229: fza_275_base
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6RC-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6RC-G_ca.paa";
 		fza_shortCode 				= "6RC";
 		fza_weaponName              = "fza_275_m229_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m229_wep";	
@@ -573,8 +575,6 @@ class CfgAmmo
 	};
 	class fza_275_m261: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6MP-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6MP-G_ca.paa";
 		fza_shortCode 				= "6MP";
 		fza_weaponName              = "fza_275_m261_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	
@@ -599,9 +599,7 @@ class CfgAmmo
 		cost 						= 100;
 	};
 	class fza_275_m257: fza_275_base 
-	{	
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6IL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6IL-G_ca.paa";
+	{
 		fza_shortCode 				= "6IL";
 		fza_weaponName              = "fza_275_m257_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";
@@ -628,8 +626,6 @@ class CfgAmmo
 	};
 	class fza_275_m255: fza_275_base 
 	{
-		fza_wpnPageIconB 			= "\fza_ah64_us\tex\icons\6FL-B_ca.paa";
-		fza_wpnPageIconG 			= "\fza_ah64_us\tex\icons\6FL-G_ca.paa";
 		fza_shortCode 				= "6FL";
 		fza_weaponName              = "fza_275_m255_wep";
 		model 						= "\fza_ah64_us\weps\fza_hydra_m261_wep";	

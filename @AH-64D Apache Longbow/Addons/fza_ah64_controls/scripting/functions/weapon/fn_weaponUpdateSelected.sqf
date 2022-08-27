@@ -51,9 +51,9 @@ switch (_heli getVariable "fza_ah64_was") do {
 	case WAS_WEAPON_MSL: {
 		if (_heli getVariable "fza_ah64_armed") then {
 			private _trajectory = switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
-				case "lo": {"TopDown"};
-				case "dir": {"LoalDistance"};
-				case "hi": {"Cruise"};
+				case "LO": {"TopDown"};
+				case "DIR": {"LoalDistance"};
+				case "HI": {"Cruise"};
 				default {""};
 			};
 			private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
