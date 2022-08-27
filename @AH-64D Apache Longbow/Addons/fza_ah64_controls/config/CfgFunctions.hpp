@@ -113,7 +113,6 @@ class CfgFunctions
 			class targetingPNVSControl {R;};
 			class targetingSched {R;};
 			class targetingSetSightSelect {R;};
-			class targetingVariable {R;};
 		};
 		class tsd
 		{

@@ -20,7 +20,6 @@ params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 if !(_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) exitwith {};
 
-private _fcrTargets = [];
 private _detectedActiveRadars = [];
 {
 	_x params ["_target", "_type", "_relationship", "_sensor"];
@@ -40,9 +39,7 @@ private _detectedActiveRadars = [];
 		continue;
 	};
 
-	_fcrTargets pushBack _Target;
 	sleep 0.05;
 } foreach getSensorTargets _heli;
 
 fza_ah64_AseRWR = _detectedActiveRadars;
-[_heli] call fza_fnc_targetingVariable;
