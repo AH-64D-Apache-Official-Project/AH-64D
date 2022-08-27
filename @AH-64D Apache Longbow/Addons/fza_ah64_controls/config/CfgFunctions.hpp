@@ -62,7 +62,6 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\Sensor";
 			class targetingSensorUpdate {R;};
-			class targetingAseUpdate {R;};
 		};
 		class fire
 		{

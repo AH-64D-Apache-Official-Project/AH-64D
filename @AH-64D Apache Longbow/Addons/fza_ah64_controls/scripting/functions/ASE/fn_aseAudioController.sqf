@@ -11,87 +11,59 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseAudioController
+    [_heli,_object,_Radarstate] call fza_fnc_aseAudioController
 
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params ["_heli","_Object","_Radarstate"];
+
+if !(_heli getVariable "fza_ah64_apu" && (isEngineOn _heli)) exitwith {};
+
+private _Autopage		    = _heli getVariable "fza_ah64_ase_autopage";
+private _detected     		= _heli getVariable "fza_ah64_ase_detectedobj";
+private _searching     		= _heli getVariable "fza_ah64_ase_searchingObj";
+private _tracking     		= _heli getVariable "fza_ah64_ase_trackingobj";
+private _identity           = "Radar";
+
+// Classification Audio
+
+if ((_Object iskindof "rhs_zsutank_base") || (_Object iskindof "CUP_ZSU23_Base")) then {_identity = "zsu23"};
+if (_Object iskindof "CUP_2S6_Base") then {_identity = "2s6"};
+if ((_Object iskindof "B_APC_Tracked_01_base_F") || (_Object iskindof "O_APC_Tracked_02_base_F")) then {_identity = ""};
+if ((_Object iskindof "Radar_System_01_base_F") || (_Object iskindof "Radar_System_02_base_F") || (vehicle _Object iskindof "SAM_System_03_base_F") || (vehicle _Object iskindof "SAM_System_04_base_F")) then {_identity = ""};
+
+// Direction Audio
+private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_object select 0), (_object select 1)] call fza_fnc_relativeDirection;
+private _clock = [_theta] call fza_fnc_bearingClock;
+private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
+
+// State audio
+if (_Radarstate == "passiveradar") then {_Radarstate = "Searching";};
+if (_Radarstate == "marked") then {_Radarstate = "Aquisition";};
+if (_Radarstate == "locked") then {_Radarstate = "Tracking";};
+private _stateAudio = format ["fza_ah64_bt_%1oclock", _State];
 
 
+if ((fza_ah64_aseAudioPlaying == false)) then {
+	fza_ah64_aseAudioPlaying = true
+	[_identity, 1, _dirAud, 1, _stateAudio, 1] call fza_fnc_playAudio;
+	sleep 3;
+	fza_ah64_aseAudioPlaying = false;
+};
 
+if (_state == "locked") then {
+	_object confirmSensorTarget [playerSide, true];
+};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-_Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
-_heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
-
-{
-	_x params ["_ada", "_type", "_sensor"];
-	private _IDfailed = true;
-	if (_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) then {
-		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
-
-			if (_type == "locked") then {
-				_trackingarray pushBack _ADA;
-				
-				//confirm ada hostile for team
-				_ADA confirmSensorTarget [playerSide, true];
-
-				//ASE autopage
-				if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
-					[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-				};
-
-				//audio 
-				if (_counter % 5 == 1 && (fza_ah64_Incomingaudio == false)) then {
-					if ((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "CUP_ZSU23_Base")) then {
-						["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.3;
-					};
-					if (_ADA iskindof "CUP_2S6_Base") then {
-						["fza_ah64_2s6_track", 2.3] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.3;
-					};
-					if ((_ADA iskindof "B_APC_Tracked_01_base_F") || (_ADA iskindof "O_APC_Tracked_02_base_F")) then {
-						["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.25;
-					};
-					if ((_ADA iskindof "Radar_System_01_base_F") || (_ADA iskindof "Radar_System_02_base_F") || (vehicle _ADA iskindof "SAM_System_03_base_F") || (vehicle _ADA iskindof "SAM_System_04_base_F")) then {
-						["fza_ah64_bt_sa9", 1.2, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 1.85;
-					};
-					if (_IDfailed == true) then {
-						["fza_ah64_rdr_track", 1.4] spawn fza_fnc_playAudio;
-						sleep 1.4;
-					};
-				};
-			};
-		};
-	};
-	sleep 0.1;
-} forEach getSensorThreats _heli;
-
-fza_ah64_threattracking = _trackingarray;
-fza_ah64_asethreatsdraw = _asearray;
+//ASE AUTOPAGE
+if (_Autopage == ASE_AUTOPAGE_SRH && _Radarstate == "Searching") then {
+	[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+};
+if (_Autopage == ASE_AUTOPAGE_ACQ && _Radarstate == "Aquisition") then {
+	[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+};
+if (_Autopage == ASE_AUTOPAGE_TRK && _Radarstate == "Tracking") then {
+	[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+};
