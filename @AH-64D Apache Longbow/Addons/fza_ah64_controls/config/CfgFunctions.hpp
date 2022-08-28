@@ -157,6 +157,7 @@ class CfgFunctions
 			class bearingClock {R;};
 			class padString {R;};
 			class loadoutImportJson {R;};
+			class configToHashMap {R;};
 		};
 		class ase
 		{

@@ -1,4 +1,4 @@
-params ["_heli", "_mpdIndex", "_control", "_state"];
+params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
@@ -10,8 +10,8 @@ switch (_control) do {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
     case "b2": {
-        private _newMode = ["atk", "nav"] select (_heli getVariable "fza_mpd_tsdMode" == "atk");
-        _heli setVariable ["fza_mpd_tsdMode", _newMode];
+        private _newMode = ["atk", "nav"] select (_persistState get "mode" == "atk");
+        _persistState set ["mode", _newMode];
     };    
 };
 
@@ -32,6 +32,9 @@ switch (_state get "subPageVarPage" select 0) do {
             };
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
+            };
+            case "r3": {
+                _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
         };
     };

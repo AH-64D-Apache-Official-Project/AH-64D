@@ -1,7 +1,7 @@
-params["_heli", "_mpdIndex", "_state"];
+params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
+private _phase = BOOLTONUM(_persistState get "mode" == "atk");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENEMY_UNITS), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEnemy" select _phase)];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_FRIENDLY_UNITS), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowFriendly" select _phase)];

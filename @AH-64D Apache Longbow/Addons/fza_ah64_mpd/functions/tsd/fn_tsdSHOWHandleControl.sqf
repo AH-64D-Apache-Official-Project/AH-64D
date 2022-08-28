@@ -1,8 +1,8 @@
-params ["_heli", "_mpdIndex", "_control", "_state"];
+params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
-private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
+private _phase = BOOLTONUM(_persistState get "mode" == "atk");
 switch (_control) do {
     case "t1": {
         private _val = (_heli getVariable "fza_mpd_tsdShowHsi") ;
@@ -25,7 +25,7 @@ switch (_control) do {
         _val set [_phase, !(_val # _phase)];
     };
     case "b6": {
-        if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
+        if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkHazard") ;
             _heli setVariable ["fza_mpd_tsdShowAtkHazard", _val];
         };
@@ -35,7 +35,7 @@ switch (_control) do {
         _val set [_phase, !(_val # _phase)];
     };
     case "b4": {
-        if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
+        if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkShot") ;
             _heli setVariable ["fza_mpd_tsdShowAtkShot", _val];
         };
@@ -52,7 +52,7 @@ switch (_control) do {
         _val set [_phase, !(_val # _phase)];
     };
     case "l4": {
-        if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
+        if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute") ;
             _heli setVariable ["fza_mpd_tsdShowAtkCurrRoute", _val];
         } else {

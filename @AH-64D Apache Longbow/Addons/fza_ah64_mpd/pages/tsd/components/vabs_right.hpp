@@ -28,6 +28,10 @@ class VABSRight {
         
         //R3
         MPD_TEXT_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("CTR"))
+        class CTR_Box {
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_CTR));
+            MPD_BOX_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 3)
+        };
         //R5
         MPD_BOX_BAR_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y)
         MPD_TEXT_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("FRZ"))
