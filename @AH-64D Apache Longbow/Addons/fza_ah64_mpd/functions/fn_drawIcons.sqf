@@ -253,6 +253,7 @@ private _writeText = {
 		_text = reverse _text;
 		reverse _inds;
 	};
+	systemChat format ["Offset: %1, Text: %2", _offset, _text];
 	{
 		if (_forEachIndex >= _textLen) then {
 			SETICONTEXTURE(_x, "");
@@ -260,8 +261,8 @@ private _writeText = {
 		};
 		private _char = _text select [_forEachIndex,1];
 		private _tex = _validChars getOrDefault [[_color, _char], ""];
-		private _mat = "\fza_ah64_us\tex\fza_ah64_bright.rvmat";
 		SETICONTEXTURE(_x, _tex);
+		systemChat _tex;
 	} forEach _inds;
 };
 
@@ -289,8 +290,8 @@ for "_i" from 0 to 31 do {
 		SETICONTEXTURE(SEL_MPD_OBJ1_ICON, "");
 
 		//Set the position to the top left corner
-		_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];
-		_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];
+		_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];//0.20 + (_i % 7) * 0.1];
+		_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];//0.20 + round (_i / 7) * 0.12];
 
 		continue;
 	};
