@@ -74,6 +74,10 @@ class CfgVehicles {
 				class InitState {
 					subPageVarPage[] = {0,0};
 				};
+				class PersistState {
+					mode = "nav";
+					ctr = 0;
+				};
 			};
 			class DMS {
 				index = MPD_PAGE_DMS;
