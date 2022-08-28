@@ -58,6 +58,8 @@ class CfgFunctions
             class pageWCAHandleControl {RECOMPILE_FLAG;};
             class pageWPNDraw {RECOMPILE_FLAG;};
             class pageWPNHandleControl {RECOMPILE_FLAG;};
+            class pagePERFDraw {RECOMPILE_FLAG;};
+            class pagePERFHandleControl {RECOMPILE_FLAG;};
         };
     };
 };

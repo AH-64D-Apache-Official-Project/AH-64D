@@ -99,6 +99,11 @@ class CfgVehicles {
 				draw  = "fza_mpd_fnc_pageASEDraw";
 				handleControl = "fza_mpd_fnc_pageASEHandleControl";
 			};
+			class PERF {
+				index = MPD_PAGE_PERF;
+				draw  = "fza_mpd_fnc_pagePERFDraw";
+				handleControl = "fza_mpd_fnc_pagePerfHandleControl";
+			}
 		};
     };
 };
