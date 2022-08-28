@@ -223,7 +223,7 @@ _scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
 #define MPD_Y_MAX 0.9
 
 private _pointsWithPos = _points apply {
-	private _pos = _x # 1;
+	private _pos   = _x # 1;
 	private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _pos # 0, _pos # 1, _heading] call fza_fnc_relativeDirection;
 	if (_x # 0) then {
 		private _targxpos = _center # 0 + (sin _theta) * ((_heliPos distance2D _pos) * _scale);
@@ -260,6 +260,7 @@ private _writeText = {
 		};
 		private _char = _text select [_forEachIndex,1];
 		private _tex = _validChars getOrDefault [[_color, _char], ""];
+		private _mat = "\fza_ah64_us\tex\fza_ah64_bright.rvmat";
 		SETICONTEXTURE(_x, _tex);
 	} forEach _inds;
 };
@@ -286,6 +287,11 @@ for "_i" from 0 to 31 do {
 		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
 		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
 		SETICONTEXTURE(SEL_MPD_OBJ1_ICON, "");
+
+		//Set the position to the top left corner
+		_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];
+		_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 9), _i + 1], 0.0];
+
 		continue;
 	};
 	private _pos = _pointsWithPos # _i # 0;
@@ -294,8 +300,8 @@ for "_i" from 0 to 31 do {
 	SETICONTEXTURE(SEL_MPD_OBJ1_ICON, _tex);
 
 	// Set point position
-	_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 8), _i + 1], _pos # 0];
-	_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 8), _i + 1], _pos # 1];
+	_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 9), _i + 1], _pos # 0];
+	_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 9), _i + 1], _pos # 1];
 
 	switch (_textMode) do {
 		case MPD_ICON_TYPE_A : {
