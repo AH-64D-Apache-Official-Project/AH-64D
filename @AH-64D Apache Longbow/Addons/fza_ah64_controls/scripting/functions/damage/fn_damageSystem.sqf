@@ -51,13 +51,13 @@ if (_system == "velka vrtule") then {
 
 if (_system == "pnvs") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        ["fza_ah64_pnvs_fail_1", 3] spawn fza_fnc_playAudio;
+        //["fza_ah64_pnvs_fail_1", 3] spawn fza_fnc_playAudio;
     };
 };
 
 if (_system == "otocvez") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
+        //["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
         _heli setAmmo ["fza_m230", 0];
     };
 };

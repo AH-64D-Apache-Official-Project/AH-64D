@@ -81,14 +81,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_rfJamTimer",    0.0];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",     1];
-    _heli setVariable ["fza_ah64_ase_AudioList",  []];
+    _heli setVariable ["fza_ah64_ase_searchingObj",  []];
+    _heli setVariable ["fza_ah64_ase_AquisitionObj",  []];
+    _heli setVariable ["fza_ah64_ase_trackingobj",  []];
 
-    _heli setVariable ["fza_ah64_irjstate", 0, true];
-    _heli setVariable ["fza_ah64_rfjstate", 0, true];
-    _heli setVariable ["fza_ah64_irJamOn", false, true];
-    _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
-    _heli setVariable ["fza_ah64_rfJamOn", false, true];
-    _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],

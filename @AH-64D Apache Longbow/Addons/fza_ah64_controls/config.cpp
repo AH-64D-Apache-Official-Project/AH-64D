@@ -32,7 +32,6 @@ class CfgAddons
 #include "config\misc.hpp"
 #include "config\CfgAnimationSourceSounds.hpp"
 #include "config\CfgSounds.hpp"
-#include "config\CfgRadio.hpp"
 #include "config\CfgMoves.hpp"
 #include "config\CfgAmmo.hpp"
 #include "config\CfgWeapons.hpp"

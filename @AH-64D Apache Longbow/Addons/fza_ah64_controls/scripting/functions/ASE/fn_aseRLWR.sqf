@@ -24,6 +24,8 @@ params ["_heli"];
 private _rlwrPwr     = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _rlwrObjects = [];
 private _rlwrCount   = 0;
+private _rlwrAudio   = [];
+
 //If the RLWR is on
 if (_rlwrPwr == "on") then {
     //Sensor targets - Search
@@ -34,6 +36,7 @@ if (_rlwrPwr == "on") then {
         if ("passiveradar" in _sensor) then {
             if (_distance_m <= ASE_SRH_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_SRH, _heli getRelDir _target];
+                _rlwrAudio pushback [_target, "Searching"];
             };
         };
     } foreach getSensorTargets _heli;
@@ -46,17 +49,19 @@ if (_rlwrPwr == "on") then {
         if ("marked" in _type) then {
             if (_distance_m <= ASE_ACQ_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_ACQ, _heli getRelDir _object];
+                _rlwrAudio pushback [_object, "Aquisition"];
             };
         };
         //Track
         if ("locked" in _type) then {
             if (_distance_m <= ASE_TRK_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_TRK, _heli getRelDir _object];
+                _rlwrAudio pushback [_object, "Tracking"];
             };
         };
         //Launch
         if (_type == "missile") then {
-            private _seekerhead = getNumber (configFile >> "CfgAmmo" >> _object >> "weaponLockSystem");
+            private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _object >> "weaponLockSystem");
             if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
                 if (_distance_m <= ASE_LNC_RANGE_M) then {
                     _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object];
@@ -69,3 +74,5 @@ if (_rlwrPwr == "on") then {
 _heli setVariable ["fza_ah64_ase_rlwrObjects", _rlwrObjects];
 _rlwrCount = count _rlwrObjects;
 _heli setVariable ["fza_ah64_ase_rlwrCount", _rlwrCount];
+
+[_heli,_rlwrAudio] spawn fza_fnc_aseAudioController;

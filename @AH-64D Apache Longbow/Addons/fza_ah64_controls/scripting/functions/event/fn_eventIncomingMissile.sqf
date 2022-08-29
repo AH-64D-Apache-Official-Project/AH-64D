@@ -26,4 +26,8 @@ private _missile = nearestobject [_hostile,_munition];
 
 [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 
+_Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
+_heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
+if (_counter % 2 == 1) exitwith {};
+
 _this spawn fza_fnc_aseMissileWarning;

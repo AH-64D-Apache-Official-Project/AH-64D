@@ -160,6 +160,7 @@ class CfgFunctions
 		class ase
 		{
 			file = "\fza_ah64_controls\scripting\functions\ase";
+			class aseAdaClassification {R;};
 			class aseAudioController {R;};
 			class aseMissileWarning {R;};
 			class aseChaff {R;};
