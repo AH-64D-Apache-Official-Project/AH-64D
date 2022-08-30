@@ -36,7 +36,7 @@ if (_rlwrPwr == "on") then {
         if ("passiveradar" in _sensor) then {
             if (_distance_m <= ASE_SRH_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_SRH, _heli getRelDir _target];
-                _rlwrAudio pushback [_target, "Searching"];
+                _rlwrAudio pushback [vehicle _target, "Searching"];
             };
         };
     } foreach getSensorTargets _heli;
@@ -49,14 +49,14 @@ if (_rlwrPwr == "on") then {
         if ("marked" in _type) then {
             if (_distance_m <= ASE_ACQ_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_ACQ, _heli getRelDir _object];
-                _rlwrAudio pushback [_object, "Aquisition"];
+                _rlwrAudio pushback [vehicle _object, "Aquisition"];
             };
         };
         //Track
         if ("locked" in _type) then {
             if (_distance_m <= ASE_TRK_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_TRK, _heli getRelDir _object];
-                _rlwrAudio pushback [_object, "Tracking"];
+                _rlwrAudio pushback [vehicle _object, "Tracking"];
             };
         };
         //Launch

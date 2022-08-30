@@ -27,19 +27,25 @@ private _missile = nearestobject [_hostile,_munition];
 private _posHeli = getpos _heli;
 private _posInc = getpos _missile;
 
-//Detection range
-waitUntil {(_heli distance _missile <= ASE_LNC_RANGE_M);};
-hint "Warning missile";
+private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
+if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
+        
+    _Classification = [_hostile] call fza_fnc_aseAdaClassification;
+    private _identity = format ["fza_ah64_bt_%1", _Classification];
 
-private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
-private _clock = [_theta] call fza_fnc_bearingClock;
-private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
+    //Detection range
+    waitUntil {(_heli distance _missile <= ASE_LNC_RANGE_M);};
 
-//Audio
-["fza_ah64_launch", 0.65, "fza_ah64_launch", 0.65, _dirAud, 1.3] spawn fza_fnc_playAudio;
+    private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
+    private _clock = [_theta] call fza_fnc_bearingClock;
+    private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 
-private _future = time + 3;
-while {(time >= _future)} do {
-    fza_ah64_aseAudioPlaying = true;
+    //Audio
+    [_identity, 0.8, _dirAud, 1.3, "fza_ah64_launch", 0.65] spawn fza_fnc_playAudio;
+
+    private _future = time + 3;
+    while {(time >= _future)} do {
+        fza_ah64_aseAudioPlaying = true;
+    };
+    fza_ah64_aseAudioPlaying = false;
 };
-fza_ah64_aseAudioPlaying = false;

@@ -22,7 +22,7 @@ Returns:
 Examples:
     This is a valid 2 part message:
     --- Code
-    ["fza_ah64_rotor_rpm_high", 1] spawn fza_fnc_playAudio;
+    ["fza_ah64_bt_rotorrpm", 1.7, "fza_ah64_bt_high", 1] spawn fza_fnc_playAudio;
     ---
 
     This is a valid 1 part message:
