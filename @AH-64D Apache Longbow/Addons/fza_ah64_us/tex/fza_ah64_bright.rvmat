@@ -3,17 +3,18 @@ class StageTI
 {
 	texture="A3\Data_F\default_ti_ca.tga";
 };
-ambient[]={0,0,0,1};
+ambient[]={1,1,1,1};
 diffuse[]={1,1,1,1};
-forcedDiffuse[]={0,0,0,1};
-emmisive[]={60,60,60,1};
-specular[]={0.1,0.1,0.1,1};
-specularPower=500.0;
+forcedDiffuse[]={1,1,1,1};
+emmisive[]={200,200,200,1};
+specular[]={1,1,1,1};
+specularPower=100.0;
 PixelShaderID="Super";
 VertexShaderID="Super";
+RenderFlags[] = {"NoReceiveShadow"}; 
 class Stage1
 {
-	texture="#(rgb,8,8,3)color(0.5,0.5,1,1,NOHQ)";
+	texture="#(rgb,8,8,3)color(1,1,1,1,NOHQ)";
 	uvSource="tex";
 	class uvTransform
 	{
@@ -37,7 +38,7 @@ class Stage2
 };
 class Stage3
 {
-	texture="#(argb,8,8,3)color(0,0,0,0,MC)";
+	texture="#(argb,8,8,3)color(1,1,1,0.0,MC)";
 	uvSource="tex";
 	class uvTransform
 	{
@@ -61,7 +62,7 @@ class Stage4
 };
 class Stage5
 {
-	texture="#(rgb,8,8,3)color(0,0,1,1,SMDI)";
+	texture="#(rgb,8,8,3)color(0,0,0,1,SMDI)";
 	uvSource="tex";
 	class uvTransform
 	{
@@ -73,7 +74,7 @@ class Stage5
 };
 class Stage6
 {
-	texture="#(ai,64,64,1)fresnel(1.33,0.1)";
+	texture="#(ai,64,64,1)fresnel(1.4,0.1)";
 	uvSource="none";
 };
 class Stage7
@@ -89,5 +90,3 @@ class Stage7
 		pos[]={0.0,0.0,0.0};
 	};
 };
-
-

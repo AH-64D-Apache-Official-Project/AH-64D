@@ -10,6 +10,7 @@ specular[]={1,1,1,1};
 specularPower=100.0;
 PixelShaderID="Super";
 VertexShaderID="Super";
+RenderFlags[] = {"NoReceiveShadow"}; 
 class Stage1
 {
 	texture="#(rgb,8,8,3)color(1,1,1,1,NOHQ)";
@@ -88,4 +89,3 @@ class Stage7
 		pos[]={0.0,0.0,0.0};
 	};
 };
-
