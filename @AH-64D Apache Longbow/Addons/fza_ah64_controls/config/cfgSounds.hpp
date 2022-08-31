@@ -483,25 +483,25 @@ class CfgSounds
 	class fza_ah64_Altitude_low
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_Altitude_low.ogg",1,1,10};
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_Altitude_low.ogg",100,1,10};
 		titles[]={};
 	};
 	class fza_ah64_APR_39_Power_up
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_APR_39_Power_up.ogg",1,1,10};
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_APR_39_Power_up.ogg",100,1,10};
 		titles[]={};
 	};
 	class fza_ah64_Caution
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_caution.ogg",1,1,10};
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_caution.ogg",100,1,10};
 		titles[]={};
 	};
 	class fza_ah64_Flight_control
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_flt_ctrl.ogg",1,1,10};
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_flt_ctrl.ogg",100,1,10};
 		titles[]={};
 	};
 
