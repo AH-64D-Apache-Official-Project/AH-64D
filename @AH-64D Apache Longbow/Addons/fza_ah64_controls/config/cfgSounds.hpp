@@ -479,6 +479,31 @@ class CfgSounds
 		sound[] = {"\fza_ah64_us\audio\main_rotor_failure_1.ogg",100,1,1};
 		titles[]={};
 	};
+	//Caution sounds
+	class fza_ah64_Altitude_low
+	{
+		name = "fza_ah64_";
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_Altitude_low.ogg",1,1,10};
+		titles[]={};
+	};
+	class fza_ah64_APR_39_Power_up
+	{
+		name = "fza_ah64_";
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_APR_39_Power_up.ogg",1,1,10};
+		titles[]={};
+	};
+	class fza_ah64_Caution
+	{
+		name = "fza_ah64_";
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_caution.ogg",1,1,10};
+		titles[]={};
+	};
+	class fza_ah64_Flight_control
+	{
+		name = "fza_ah64_";
+		sound[] = {"\fza_ah64_us\audio\betty\Systems\bt_flt_ctrl.ogg",1,1,10};
+		titles[]={};
+	};
 
 	///STARTING CLICKABLE SEQUENCE SOUNDS////	
 	
@@ -524,7 +549,6 @@ class CfgSounds
 		sound[] = {"A3\Sounds_F\dummysound",1,1,10};
 		titles[]={};
 	};
-	///END OF STARTING CLICKABLE SEQUENCE SOUNDS////
 
 	///GENERIC FLIP SOUNDS///
 	class fza_ah64_button_click1
