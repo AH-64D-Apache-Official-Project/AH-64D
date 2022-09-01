@@ -31,11 +31,28 @@
         };
 
         class hover_q_text {
-             MPD_TEXT_R(HOV_Q,   MPD_TEXT_WIDTH * 10,  MPD_TEXT_HEIGHT * 2.5, MPD_TEXT_STATIC(  "HOVER Q"))
+             MPD_TEXT_R(HOV_Q,   MPD_TEXT_WIDTH * 10,  MPD_TEXT_HEIGHT * 2.5, MPD_TEXT_STATIC("HOVER Q"))
              MPD_TEXT_R(IGE_OGE, MPD_TEXT_WIDTH * 10,  MPD_TEXT_HEIGHT * 3.8, MPD_TEXT_STATIC("         IGE OGE"))
              MPD_TEXT_R(REQ,     MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 5.1, MPD_TEXT_STATIC( "REQUIRED 067 083"))
              MPD_TEXT_R(GO_NOGO, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 6.4, MPD_TEXT_STATIC( "GO-NO/GO 100 082"))
              MPD_TEXT_R(IND,     MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 7.7, MPD_TEXT_STATIC( "INDICATED  019"))
+        };
+    };
+
+    class cruise_box {
+        class cruise_box_outline {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (32*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 12.2*MPD_TEXT_WIDTH, 5.2*MPD_TEXT_HEIGHT), {},
+            };
+        };
+
+        class cruise_box_text {
+             MPD_TEXT_R(CRU,     MPD_TEXT_WIDTH * 32,  MPD_TEXT_HEIGHT * 2.5, MPD_TEXT_STATIC("CRUISE"))
+             MPD_TEXT_R(RNG_END, MPD_TEXT_WIDTH * 32,  MPD_TEXT_HEIGHT * 3.8, MPD_TEXT_STATIC("    RNG  END"))
+             MPD_TEXT_R(Q,       MPD_TEXT_WIDTH * 32, MPD_TEXT_HEIGHT  * 5.1, MPD_TEXT_STATIC(" Q  065  043"))
+             MPD_TEXT_R(FF,      MPD_TEXT_WIDTH * 32, MPD_TEXT_HEIGHT  * 6.4, MPD_TEXT_STATIC("FF  990  770"))
         };
     };
 
