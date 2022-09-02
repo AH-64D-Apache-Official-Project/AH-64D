@@ -6,92 +6,85 @@ Description:
 
 Parameters:
 	heli: Object - Vehicle the event handler is assigned to
+	_audioList: array - filled with vehicles and radar states
 
 Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseAudioController
+    [_heli, _audioList] call fza_fnc_aseAudioController
 
 Author:
-	BradMick
+	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params ["_heli","_audioList"];
 
+if !(isEngineOn _heli) exitwith {};
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-_Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
-_heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
+private _Autopage		    = _heli getVariable "fza_ah64_ase_autopage";
+private _Searchlist 		= _heli getVariable "fza_ah64_ase_searchingObj";
+private _aquirelist 		= _heli getVariable "fza_ah64_ase_AquisitionObj";
+private _tracklist 			= _heli getVariable "fza_ah64_ase_trackingobj";
+private _searching     		= [];
+private _aquisition     	= [];
+private _tracking     		= [];
 
 {
-	_x params ["_ada", "_type", "_sensor"];
-	private _IDfailed = true;
-	if (_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) then {
-		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
+	if (fza_ah64_aseAudioPlaying == false) then {
+		_x params ["_object", "_Radarstate"];
 
-			if (_type == "locked") then {
-				_trackingarray pushBack _ADA;
-				
-				//confirm ada hostile for team
-				_ADA confirmSensorTarget [playerSide, true];
+		// Classification Audio
+		_Classification = [_object] call fza_fnc_aseAdaClassification;
+		private _identity = format ["fza_ah64_bt_%1", _Classification];
 
-				//ASE autopage
-				if (_heli getVariable "fza_ah64_aseautopage" == 1) then {
-					[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-				};
+		// Direction Audio
+		private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (getpos _object select 0), (getpos _object select 1)] call fza_fnc_relativeDirection;
+		private _clock = [_theta] call fza_fnc_bearingClock;
+		private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 
-				//audio 
-				if (_counter % 5 == 1 && (fza_ah64_Incomingaudio == false)) then {
-					if ((_ADA iskindof "rhs_zsutank_base") || (_ADA iskindof "CUP_ZSU23_Base")) then {
-						["fza_ah64_zsu23_track", 2.3] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.3;
-					};
-					if (_ADA iskindof "CUP_2S6_Base") then {
-						["fza_ah64_2s6_track", 2.3] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.3;
-					};
-					if ((_ADA iskindof "B_APC_Tracked_01_base_F") || (_ADA iskindof "O_APC_Tracked_02_base_F")) then {
-						["fza_ah64_bt_sa19", 1.6, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 2.25;
-					};
-					if ((_ADA iskindof "Radar_System_01_base_F") || (_ADA iskindof "Radar_System_02_base_F") || (vehicle _ADA iskindof "SAM_System_03_base_F") || (vehicle _ADA iskindof "SAM_System_04_base_F")) then {
-						["fza_ah64_bt_sa9", 1.2, "fza_ah64_bt_tracking", 0.65] spawn fza_fnc_playAudio;
-						_IDfailed = false;
-						sleep 1.85;
-					};
-					if (_IDfailed == true) then {
-						["fza_ah64_rdr_track", 1.4] spawn fza_fnc_playAudio;
-						sleep 1.4;
-					};
-				};
-			};
+		// State audio
+		if (_Radarstate == "Searching") then {
+			_searching pushback _object;
+			_heli setVariable ["fza_ah64_ase_searchingObj", _searching];
+		};
+		if (_Radarstate == "Aquisition") then {
+			_aquisition pushback _object;
+			_heli setVariable ["fza_ah64_ase_AquisitionObj", _aquisition];
+		};
+		if (_Radarstate == "Tracking") then {
+			_tracking pushback _object;
+			_object confirmSensorTarget [playerSide, true];
+			_heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
+		};
+		private _stateAudio = format ["fza_ah64_%1", _Radarstate];
+
+		//_ADA audio Previously played check
+		if (_object in _Searchlist && _Radarstate == "searching") exitwith {};
+		if (_object in _aquirelist && !(_Radarstate == "tracking")) exitwith {};
+		if (_object in _tracklist) exitwith {};
+
+		//Play audio
+		[_identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] spawn fza_fnc_playAudio;
+		private _future = time + 2.1;
+		while {(time >= _future)} do {
+			fza_ah64_aseAudioPlaying = true;
+		};
+		fza_ah64_aseAudioPlaying = false;
+
+		//ASE AUTOPAGE
+		if (_Autopage == 1 && _Radarstate == "Searching") then {
+			[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+		};
+		if (_Autopage == 2 && _Radarstate == "Aquisition") then {
+			[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+		};
+		if (_Autopage == 3 && _Radarstate == "Tracking") then {
+			[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 		};
 	};
-	sleep 0.1;
-} forEach getSensorThreats _heli;
+} foreach _audioList;
 
-fza_ah64_threattracking = _trackingarray;
-fza_ah64_asethreatsdraw = _asearray;
+_heli setVariable ["fza_ah64_ase_searchingObj", _searching];
+_heli setVariable ["fza_ah64_ase_AquisitionObj", _aquisition];
+_heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
