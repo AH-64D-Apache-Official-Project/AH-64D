@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseRFJam.sqf","fn_aseRFJam.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseRFJam.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[205,0,1,"Functions","Functions"],[206,0,0,"fza_fnc_aseRFJAM","fza_fnc_aseRFJAM"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseRFJam.sqf","fn_aseRFJam.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseRFJam.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[203,0,1,"Functions","Functions"],[204,0,0,"fza_fnc_aseRFJAM","fza_fnc_aseRFJAM"]]);
