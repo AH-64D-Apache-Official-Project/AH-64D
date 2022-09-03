@@ -115,6 +115,7 @@ _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
+_heli setVariable ["fza_ah64_audioQueList", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 //[_heli] call BMK_fnc_coreConfig;

@@ -26,7 +26,7 @@ params ["_heli", "_system", "_control"];
 
 switch(_control) do {
 	case "stow": {
-		["fza_ah64_monoclebox", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_monoclebox";
 		[_heli] call fza_fnc_monocletoggle;
 	};
 };

@@ -50,7 +50,7 @@ switch(_control) do {
 
 
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
@@ -69,7 +69,7 @@ switch(_control) do {
 				_heli animateSource["cpg_firesw", 1];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
@@ -92,7 +92,7 @@ switch(_control) do {
 				_heli animateSource["cpg_firesw", 0.5];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 		};
 	};
 	case "fe1": {
@@ -143,7 +143,7 @@ switch(_control) do {
 				_heli animateSource["cpg_firesw", 0];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
@@ -162,7 +162,7 @@ switch(_control) do {
 				_heli animateSource["cpg_firesw", 1];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
@@ -185,7 +185,7 @@ switch(_control) do {
 				_heli animateSource["cpg_firesw", 0.5];
 			};
 
-			["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_switch_flip4";
 		};
 	};
 };

@@ -147,7 +147,6 @@ class CfgFunctions
 			class relativeDirection {R;};
 			class velocityVector {R;};
 			class addKeybind {R;};
-			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
 			class targetisADA {R;};
 			class doortoggleP {R;};
@@ -170,6 +169,12 @@ class CfgFunctions
 			class aseIRJam {R;};
 			class aseRFJam {R;};
 			class aseRLWR {R;};
+		};
+		class audio
+		{
+			file = "\fza_ah64_controls\scripting\functions\audio";
+			class playQuedAudio { R; description = "Plays Qued audio from array"; };
+			class addQuedAudio { R; description = "Adds audio to the que"; };
 		};
 	};
 };

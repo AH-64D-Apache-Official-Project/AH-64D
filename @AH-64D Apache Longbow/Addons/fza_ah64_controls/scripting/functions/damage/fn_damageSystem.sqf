@@ -36,28 +36,31 @@ if (!(alive _heli)) exitwith {
 
 if (_system == "mala vrtule") then {
     if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
-        ["fza_ah64_tail_rotor_damaged_1", 3] spawn fza_fnc_playAudio;
+        //Mastercaution here
+    };
+    if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
+        ["fza_ah64_tail_rotor_hydraulic_failure", 2,"","","","", 7, "EngineWarning"] call fza_fnc_addQuedAudio;
     };
 };
 
 if (_system == "velka vrtule") then {
     if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
-        ["fza_ah64_main_rotor_damaged_1", 4] spawn fza_fnc_playAudio;
+        //Mastercaution here
     };
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        ["fza_ah64_main_rotor_failure_1", 4] spawn fza_fnc_playAudio;
+        ["fza_ah64_hydraulic_failure", 2,"","","","", 7, "EngineWarning"] call fza_fnc_addQuedAudio;
     };
 };
 
 if (_system == "pnvs") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        //["fza_ah64_pnvs_fail_1", 3] spawn fza_fnc_playAudio;
+        //Mastercaution here
     };
 };
 
 if (_system == "otocvez") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        //["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_actuator", 1, "fza_ah64_bt_failure", 1] spawn fza_fnc_playAudio;
+        //Mastercaution here
         _heli setAmmo ["fza_m230", 0];
     };
 };

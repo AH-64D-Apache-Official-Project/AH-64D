@@ -29,6 +29,7 @@ if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehic
     [_heli] call _x;
 }
 foreach fza_ah64_draw3Darray;
+[_heli] spawn fza_fnc_playQuedAudio;
 
 if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
     fza_ah64_overallticker = diag_ticktime; 

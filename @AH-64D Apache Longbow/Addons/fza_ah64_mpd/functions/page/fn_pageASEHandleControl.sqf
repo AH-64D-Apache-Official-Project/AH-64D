@@ -19,7 +19,7 @@ switch(_control) do {
 		private _newState = ["off", "on"] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState];
 		if (_newstate == "on") then {
-			["fza_ah64_APR_39_Power_up", 1.8] spawn fza_fnc_playAudio;
+			["fza_ah64_APR_39_Power_up", 1.8,"","","","", 10, "APR-39"] call fza_fnc_addQuedAudio;
 		};
 	};
 	case "t2": {

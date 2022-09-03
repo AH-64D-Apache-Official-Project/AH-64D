@@ -33,8 +33,8 @@ switch (_system) do {
                 _heli animateSource[_nvsSwitch, 0];
                 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
             };
-            ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
-        }
+            playsound "fza_ah64_switch_flip3";
+        };
     };
     case "light": {
         [_heli, _system, _control] call fza_fnc_lightHandleControl;
