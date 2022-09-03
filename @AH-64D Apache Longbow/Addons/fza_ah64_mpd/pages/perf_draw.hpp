@@ -27,6 +27,7 @@
             width = 3;
             points[] = {
                 MPD_POINTS_BOX(Null, (10*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 6.2*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX(Null, (21*MPD_TEXT_WIDTH) - 0.005, (7.72*MPD_TEXT_HEIGHT), 2.95*MPD_TEXT_WIDTH, 0.78*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -44,7 +45,7 @@
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (32*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 12.2*MPD_TEXT_WIDTH, 5.2*MPD_TEXT_HEIGHT), {},
+                MPD_POINTS_BOX(Null, (32*MPD_TEXT_WIDTH) - 0.005, (2.5*MPD_TEXT_HEIGHT), 12.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
             };
         };
 
@@ -53,6 +54,41 @@
              MPD_TEXT_R(RNG_END, MPD_TEXT_WIDTH * 32,  MPD_TEXT_HEIGHT * 3.8, MPD_TEXT_STATIC("    RNG  END"))
              MPD_TEXT_R(Q,       MPD_TEXT_WIDTH * 32, MPD_TEXT_HEIGHT  * 5.1, MPD_TEXT_STATIC(" Q  065  043"))
              MPD_TEXT_R(FF,      MPD_TEXT_WIDTH * 32, MPD_TEXT_HEIGHT  * 6.4, MPD_TEXT_STATIC("FF  990  770"))
+        };
+    };
+
+    class max_gwt_box {
+        class max_gwt_box_outline {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (10*MPD_TEXT_WIDTH) - 0.005, (9.7*MPD_TEXT_HEIGHT), 16.2*MPD_TEXT_WIDTH, 4.8*MPD_TEXT_HEIGHT), {},
+            };
+        };
+
+        class max_gwt_text {
+             MPD_TEXT_R(GWT,         MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT *  9.7, MPD_TEXT_STATIC("MAX GWT"))
+             MPD_TEXT_R(GWT_IGE_OGE, MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 11.0, MPD_TEXT_STATIC("    IGE     OGE"))
+             MPD_TEXT_R(GWT_DE,      MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 12.3, MPD_TEXT_STATIC("DE 21440   18410"))
+             MPD_TEXT_R(GWT_SE,      MPD_TEXT_WIDTH * 10, MPD_TEXT_HEIGHT * 13.6, MPD_TEXT_STATIC("SE 14200   12400"))
+        };
+    };
+
+    class tas_box {
+        class tas_box_outline {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (35*MPD_TEXT_WIDTH) - 0.005, (8.4*MPD_TEXT_HEIGHT), 8.2*MPD_TEXT_WIDTH, 6.1*MPD_TEXT_HEIGHT), {},
+            };
+        };
+
+        class tas_text {
+             MPD_TEXT_R(TAS,         MPD_TEXT_WIDTH * 35, MPD_TEXT_HEIGHT *  8.4, MPD_TEXT_STATIC("TAS"))
+             MPD_TEXT_R(TAS_VNE,     MPD_TEXT_WIDTH * 35, MPD_TEXT_HEIGHT *  9.9, MPD_TEXT_STATIC(" VNE 192"))
+             MPD_TEXT_R(TAS_VSSE_DE, MPD_TEXT_WIDTH * 35, MPD_TEXT_HEIGHT * 11.0, MPD_TEXT_STATIC("VSSE 034"))
+             MPD_TEXT_R(TAS_RNG,     MPD_TEXT_WIDTH * 35, MPD_TEXT_HEIGHT * 12.3, MPD_TEXT_STATIC(" RNG 120"))
+             MPD_TEXT_R(TAS_END,     MPD_TEXT_WIDTH * 35, MPD_TEXT_HEIGHT * 13.6, MPD_TEXT_STATIC(" END 073"))
         };
     };
 
