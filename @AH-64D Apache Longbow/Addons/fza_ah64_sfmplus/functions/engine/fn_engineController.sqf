@@ -87,7 +87,7 @@ private _realRPM = _heli animationPhase "mainRotorRPM";
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
 if (cba_missionTime > _lastUpdate + 0.3 && _rtrRPM > 0.05) then {
 	//systemChat str [_realRPM / 11, _rtrRPM];
-	_rtrRPM = _rtrRPM - (fza_sfmplus_liftLossTimer * 2.0);
+	_rtrRPM = _rtrRPM - (fza_sfmplus_liftLossTimer * 0.45);
 
 	//systemChat str ["adjusted RPM", _rtrRPM];
 	if ((_realRPM / 10)  > _rtrRPM) then {
