@@ -18,7 +18,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _config = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+
+fza_sfmplus_liftLossTimer = 0;
 
 _heli setVariable ["fza_sfmplus_emptyMassFCR",    	getNumber (_config >> "emptyMassFCR")]; 	//kg
 _heli setVariable ["fza_sfmplus_emptyMassNonFCR", 	getNumber (_config >> "emptyMassNonFCR")]; 	//kg

@@ -18,9 +18,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _collectiveVal = _heli animationSourcePhase "collective";
+private _collectiveVal     = _heli animationSourcePhase "collective";
 
-private _collectiveOut = 0.0;
+private _collectiveOut     = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveVal = [_collectiveVal, 0.5, 1.0] call BIS_fnc_clamp;
 	_collectiveOut = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
@@ -33,5 +33,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
 };
 
-fza_sfmplus_collectiveOutput = _collectiveOut
+//systemChat format ["_collectiveVal = %1 - _collectiveOutMod = %2 - _collectiveOut = %3", _collectiveVal, _collectiveOutMod, _collectiveOut];
 
+fza_sfmplus_collectiveOutput = _collectiveOut

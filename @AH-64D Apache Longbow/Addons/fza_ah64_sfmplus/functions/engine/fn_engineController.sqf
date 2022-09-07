@@ -78,3 +78,25 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", false, true];
 	_heli engineOn false;
 };
+
+private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
+private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+private _rtrRPM  = _eng1Np max _eng2Np;
+private _realRPM = _heli animationPhase "mainRotorRPM";
+
+private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
+if (cba_missionTime > _lastUpdate + 0.3 && _rtrRPM > 0.05) then {
+	//systemChat str [_realRPM / 11, _rtrRPM];
+	_rtrRPM = _rtrRPM - (fza_sfmplus_liftLossTimer * 2.0);
+
+	//systemChat str ["adjusted RPM", _rtrRPM];
+	if ((_realRPM / 10)  > _rtrRPM) then {
+		systemChat "breaking rotor!";
+		_heli setHit ["velka vrtule", 0.9];
+	} else {
+		systemChat "fixing rotor";
+		_heli setHit ["velka vrtule", 0.0];
+		_heli engineOn true;
+	};
+	_heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
+};

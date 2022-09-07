@@ -34,20 +34,20 @@ if (!(alive _heli)) exitwith {
     false
 };
 
-if (_system == "mala vrtule") then {
+/*if (_system == "mala vrtule") then {
     if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
         ["fza_ah64_tail_rotor_damaged_1", 3] spawn fza_fnc_playAudio;
     };
-};
+};*/
 
-if (_system == "velka vrtule") then {
+/*if (_system == "velka vrtule") then {
     if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
         ["fza_ah64_main_rotor_damaged_1", 4] spawn fza_fnc_playAudio;
     };
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
         ["fza_ah64_main_rotor_failure_1", 4] spawn fza_fnc_playAudio;
     };
-};
+};*/
 
 if (_system == "pnvs") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {

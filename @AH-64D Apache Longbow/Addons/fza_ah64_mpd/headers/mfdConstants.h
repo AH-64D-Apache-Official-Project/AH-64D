@@ -235,7 +235,7 @@
 //--Hover Torque (TQ)
 #define MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE     3
 #define MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE 4
-#define MFD_TEXT_IND_PERF_GO_IND_TQ          5
+#define MFD_TEXT_IND_PERF_IND_TQ          5
 //--Max Gross Weight
 #define MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE 6
 #define MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE 7
@@ -250,6 +250,8 @@
 #define MFD_TEXT_IND_PERF_VSSE    13
 #define MFD_TEXT_IND_PERF_RNG_SPD 14
 #define MFD_TEXT_IND_PERF_END_SPD 15
+//--Wind Speed & Direction
+#define MFD_TEXT_IND_WIND 16
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0

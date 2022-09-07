@@ -31,7 +31,7 @@ class CfgFunctions
 		};
 		class forceGenerators {
 			file = "\fza_ah64_sfmplus\functions\forceGenerators";
-			class antiLift {R;};
+			//class antiLift {R;};
 		};
 		class fuel {
 			file = "\fza_ah64_sfmplus\functions\fuel";

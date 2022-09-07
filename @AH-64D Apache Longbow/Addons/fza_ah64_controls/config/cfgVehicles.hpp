@@ -49,11 +49,11 @@ class CfgVehicles
 		LESH_WheelOffset[] = {0,2.5};
 
 		//SFM Variables-------------/
-		startDuration          = 45;
+		startDuration          = 15;
 		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 0.4;
-		cyclicForwardForceCoef = 0.5;
+		cyclicAsideForceCoef   = 0.40;
+		cyclicForwardForceCoef = 0.50;
 		backRotorForceCoef     = 0.7;
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
