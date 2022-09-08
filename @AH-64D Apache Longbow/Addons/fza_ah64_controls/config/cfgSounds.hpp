@@ -222,12 +222,12 @@ class CfgSounds
 		sound[] = {"\fza_ah64_us\audio\betty\bt_jammedb.ogg",4,1,1};
 		titles[]={};
 	};
-	class fza_ah64_bt_rotorrpm
+	/*class fza_ah64_bt_rotorrpm
 	{
 		name = "fza_ah64_bt_rotorrpm";
 		sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg",4,1,1};
 		titles[]={};
-	};
+	};*/
 
 	///STARTING CLICKABLE SEQUENCE SOUNDS////	
 	

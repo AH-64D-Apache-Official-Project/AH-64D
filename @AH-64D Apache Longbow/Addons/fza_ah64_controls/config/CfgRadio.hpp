@@ -222,10 +222,10 @@ class CfgRadio
 		sound[] = {"fza_ah64_us\audio\betty\bt_jammedb.ogg",1,1,1};
 		title = ;
 	};
-	class fza_ah64_bt_rotorrpm
+	/*class fza_ah64_bt_rotorrpm
 	{
 		name = "";
 		sound[] = {"fza_ah64_us\audio\betty\bt_rotorrpm.ogg",1,1,1};
 		title = ;
-	};
+	};*/
 };
