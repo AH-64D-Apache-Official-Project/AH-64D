@@ -19,6 +19,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
+private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+
 private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
 private _eng2State = _engState select 1;
@@ -79,15 +81,37 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli engineOn false;
 };
 
+private _maxTQ    = getNumber (_config >> "engMaxTQ");
+private _limitTQ  = 0.0;
+private _limitRPM = getNumber (_config >> "engIdleNP");
+
+
 private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
 private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 private _rtrRPM  = _eng1Np max _eng2Np;
 private _realRPM = _heli animationPhase "mainRotorRPM";
 
+private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
+private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _engPctTQ = _eng1TQ max _eng2TQ;
+
+
+if (_isSingleEng) then {
+	_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
+} else {
+    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
+};
+
+private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
+private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
+_droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
+
+systemChat str [_droopRPM];
+
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-if (cba_missionTime > _lastUpdate + 0.3 && _rtrRPM > 0.05) then {
+if (cba_missionTime > _lastUpdate + 0.1 && _rtrRPM > 0.05) then {
 	//systemChat str [_realRPM / 10, _rtrRPM];
-	_rtrRPM = _rtrRPM - (fza_sfmplus_liftLossTimer * 2.50);
+	_rtrRPM = _droopRPM;
 
 	//systemChat str ["adjusted RPM", _rtrRPM];
 	if ((_realRPM / 10)  > _rtrRPM) then {

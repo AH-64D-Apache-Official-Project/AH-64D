@@ -128,11 +128,11 @@ private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
 private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
 private _maxTQ      = getNumber (_config >> "engMaxTQ");
-if (_isSingleEng) then {
+/*if (_isSingleEng) then {
 	_maxTQ = _maxTQ * 2;
 } else {
 	_maxTQ = _maxTQ;
-};
+};*/
 
 private _engHvrTQTable = [[]];
 //----------------------Coll-----TQ---
@@ -169,7 +169,7 @@ private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_f
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 _engSetTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
 if (_isSingleEng) then {
-	_engPctTQ = [_engPctTQ, _engBaseTq + ((_engSetTQ - _engBaseTQ) * 2.0) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
+	_engPctTQ = [_engPctTQ, (_engBaseTq * 2.0) + ((_engSetTQ - _engBaseTQ) * 2.0) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
 } else {
 	_engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
 };
