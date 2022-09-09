@@ -8,7 +8,10 @@ switch(_control) do {
 	};
 	case "t3": {
 		[_heli, _mpdIndex, "fuel"] call fza_mpd_fnc_setCurrentPage;
-	};	
+	};
+	case "t4": {
+		[_heli, _mpdIndex, "perf"] call fza_mpd_fnc_setCurrentPage;
+	};
 	case "b6": {
 		[_heli, _mpdIndex, "wca"] call fza_mpd_fnc_setCurrentPage;
 	};
