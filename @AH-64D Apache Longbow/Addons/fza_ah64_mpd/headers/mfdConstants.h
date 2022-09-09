@@ -162,6 +162,7 @@
 #define MFD_IND_TSD_SHOW_HAZ 7
 #define MFD_IND_TSD_SHOW_WIND 8
 #define MFD_IND_TSD_SHOW_ENDR 9
+#define MFD_IND_TSD_ASE_FOOTPRINT 10
 
 //Drawing goes here 10 to 15
 #define MFD_IND_TSD_SHOW_HSI 16
