@@ -85,9 +85,6 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
-//Apply a negative force to prevent the helicopter from taking off until the power levers are at fly
-//[_heli, _deltaTime] call fza_sfmplus_fnc_antiLift;
-
 #ifdef __A3_DEBUG_
 /*
 hintsilent format ["v0.11

@@ -59,7 +59,11 @@ private _projName = "AH-64D Official Project";
 [
 	"fza_ah64_sfmplusEnvironment",
 	"LIST",
-	["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C. Europe is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C. The Middle East is a base altitude of 1,800ft and a temperature of 30 deg C. Central Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C. Asia is a base altitude of 3100ft and a temperature of 25 deg C."],
+	["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C.
+	Europe is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C. 
+	The Middle East is a base altitude of 1,800ft and a temperature of 30 deg C. 
+	Central Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C. 
+	Asia is a base altitude of 3100ft and a temperature of 25 deg C."],
 	[_projName, "Flight model"],
 	[[ISA_STD, EUROPE_SUMMER, EUROPE_WINTER, MIDDLE_EAST, CENTRAL_ASIA_SUMMER, CENTRAL_ASIA_WINTER, ASIA],["Standard Day", "Europe - Summer", "Europe - Winter", "Middle East", "Cental Asia - Summer", "Central Asia - Winter", "Asia"],1],
 	0

@@ -97,16 +97,16 @@ private _engPctTQ = _eng1TQ max _eng2TQ;
 
 
 if (_isSingleEng) then {
-	_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
+	_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
 } else {
-    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
+    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
 };
 
 private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
 private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
 _droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
 
-systemChat str [_droopRPM];
+//systemChat str [_droopRPM];
 
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
 if (cba_missionTime > _lastUpdate + 0.1 && _rtrRPM > 0.05) then {

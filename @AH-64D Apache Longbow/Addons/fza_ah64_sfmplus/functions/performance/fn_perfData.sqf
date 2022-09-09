@@ -24,7 +24,7 @@ params ["_heli"];
 private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 
 private _baroAlt = getPosASL _heli # 2 * SCALE_METERS_FEET;
-private _baseAlt = 0.0;//getElevationOffset * SCALE_METERS_FEET;
+private _baseAlt = 0.0;
 private _baseFAT = 0.0;
 switch (fza_ah64_sfmplusEnvironment) do {
 	case ISA_STD: {
