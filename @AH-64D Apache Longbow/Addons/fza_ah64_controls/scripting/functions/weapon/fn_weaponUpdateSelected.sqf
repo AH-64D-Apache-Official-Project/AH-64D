@@ -58,12 +58,12 @@ switch (_heli getVariable "fza_ah64_was") do {
 			};
 			private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
 			if (_selectedMissile != "") then {
-				vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile,_trajectory];
+				vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile];
 			} else {
-				private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+				private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire_laser", configFile >> "CfgWeapons"] || _x isKindOf ["fza_hellfire_radar", configFile >> "CfgWeapons"]};
 				if (count _missiles > 0) then {
 					_heli setVariable ["fza_ah64_selectedMissile", _missiles # 0, true];
-					vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0,_trajectory];
+					vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0];
 				} else {
 					_heli selectWeaponTurret ["fza_ma_safe",[0]];
 				};

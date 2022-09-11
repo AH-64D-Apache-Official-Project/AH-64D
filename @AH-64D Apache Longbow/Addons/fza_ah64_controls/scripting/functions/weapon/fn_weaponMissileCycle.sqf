@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire_laser", configFile >> "CfgWeapons"] || _x isKindOf ["fza_hellfire_radar", configFile >> "CfgWeapons"]};
 
 if (_missiles isEqualTo []) exitWith {};
 

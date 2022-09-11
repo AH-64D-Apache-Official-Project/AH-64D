@@ -97,7 +97,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_armed", false, true];
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
-    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
+    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire_laser", configFile >> "CfgWeapons"] || _x isKindOf ["fza_hellfire_radar", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };

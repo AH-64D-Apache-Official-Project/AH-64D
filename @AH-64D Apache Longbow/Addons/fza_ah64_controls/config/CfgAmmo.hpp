@@ -5,7 +5,7 @@ class CfgAmmo
 	class Bulletbase;
 	class MissileBase;
 	class Missile_AA_04_F;
-	class Missile_AGM_02_F : MissileBase {
+	class M_Scalpel_AT : MissileBase {
 		class Components;
 		class EventHandlers;
 	};
@@ -67,11 +67,35 @@ class CfgAmmo
 	
 	class fza_30x113: B_30mm_HE
 	{
-		ace_frag_enabled			= 0;
-		ace_frag_skip 				= 1;
-		soundsetbulletfly[] 		= {"fza_sc_bullet_flyby_soundset"};
-		soundsetsoniccrack[] 		= {"fza_sc_30x113_soundset"};
-		soundsetexplosion[] 		= {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
+		//Ace Cfg
+		ACE_caliber = 30.00;
+		ACE_bulletLength = 104;
+		ACE_bulletMass = 114;
+		ACE_muzzleVelocityVariationSD = 0.37;
+		ACE_ammoTempMuzzleVelocityShifts[] = {-27.20, -26.44, -23.76, -21.00, -17.54, -13.10, -7.95, -1.62, 6.24, 15.48, 27.75};
+		ACE_ballisticCoefficients[] = {0.151};
+		ACE_velocityBoundaries[]={};
+		ACE_standardAtmosphere = "ICAO";
+		ACE_dragModel = 1;
+		ACE_muzzleVelocities[] = {805};
+		ACE_barrelLengths[] = {1066};
+		ace_vehicle_damage_incendiary = 0.7;
+
+		ace_frag_enabled			= 1;
+		ace_frag_skip 				= 0;
+
+		hit 						= 60;
+		indirectHit 				= 20;
+		indirectHitRange 			= 3.5;		
+		typicalSpeed				= 800;
+		maxspeed 					= 825;
+		explosive					= 0.8;
+
+		airFriction 				= -0.00036;
+		airlock 					= 0;
+		irlock						= 0;
+		weaponType 					= "cannon";
+		warheadName = "AP";
 
 		//duel purpose warhead
 		submunitionAmmo				="ammo_Penetrator_30mm";
@@ -81,17 +105,10 @@ class CfgAmmo
 		submunitionInitialOffset[]	={0,0,-0.2};
 		triggerOnImpact				=1;
 		deleteParentWhenTriggered	=0;
-
-		hit 						= 60;
-		indirectHit 				= 20;
-		indirectHitRange 			= 3.5;		
-		maxspeed 					= 805;
-		explosive					= 0.8;
-
-		airFriction 				= -0.00036;
-		airlock 					= 0;
-		irlock						= 0;
-		weaponType 					= "cannon";
+		
+		soundsetbulletfly[] 		= {"fza_sc_bullet_flyby_soundset"};
+		soundsetsoniccrack[] 		= {"fza_sc_30x113_soundset"};
+		soundsetexplosion[] 		= {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
 
 		//AI uasge
 		aiAmmoUsageFlags 			= "64+128+256";
@@ -146,7 +163,7 @@ class CfgAmmo
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////	
-
+	class ACE_Hellfire_AGM114K: M_Scalpel_AT {class ace_missileguidance;};
 	class Fza_Penetrator_9KG_Tandem: ammo_Penetrator_Base
 	{
 		caliber = 60;
@@ -159,7 +176,7 @@ class CfgAmmo
 		warheadName = "HEAT";
 		hit = 780;
 	};
-	class fza_agm114base : Missile_AGM_02_F {
+	class fza_agm114base : ACE_Hellfire_AGM114K {
 
 		ace_frag_enabled 			= 0;
 		ace_frag_skip 				= 1;
@@ -224,25 +241,6 @@ class CfgAmmo
 		autoSeekTarget 				= 0;
 		weaponLockSystem			= "4 + 8";
 		maneuvDependsOnSpeedCoef	= 0.018;
-
-		flightProfiles[]	= {TopDown,LoalDistance,Cruise};
-		class Direct{};
-		class TopDown
-		{
-			ascendAngle				= 39;
-			ascendHeight			= 360;
-			minDistance				= 600;
-			descendDistance			= 700;
-		};
-		class LoalDistance
-		{
-			lockSeekDistanceFromParent = 500;
-		};
-		class Cruise
-		{
-			preferredFlightAltitude = 500;
-			lockDistanceToTarget = 1000;
-		};
 
 		class Components : Components
 		{
@@ -311,6 +309,33 @@ class CfgAmmo
 			frequency = 20;
 			distance = 1;
 		};
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 	};
 	class fza_agm114l : fza_agm114base
 	{
@@ -335,14 +360,62 @@ class CfgAmmo
 		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
+		class ace_missileguidance {
+            enabled = 1;
 
-		flightProfiles[]	= {TopDown};
-		class TopDown
+            minDeflection 					= 0.0005;   // Minium flap deflection for guidance
+            maxDeflection 					= 0.01;     // Maximum flap deflection for guidance
+            incDeflection 					= 0.0005;   // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 					= 1;        // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 				=   "ARH";
+            seekerTypes[] 					= { "ARH" };
+            defaultSeekerLockMode 			=   "LOBL";
+            seekerLockModes[] 				= { "LOBL" };
+
+            seekLastTargetPos 				= 1;      	// seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 					= 90;       // Angle in front of the missile which can be searched
+            seekerAccuracy 					= 1;        // seeker accuracy multiplier
+
+			activeRadarEngageDistance 		= 2000;
+            seekerMinRange 					= 500;
+			seekerMaxRange 					= 2000; 	// distance that the hellfire internal radar can scan
+
+            // Attack profile type selection
+            defaultAttackProfile = "hellfire";
+            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
+		class Components : Components
 		{
-			ascendAngle				= 26.5;
-			ascendHeight			= 850;
-			minDistance				= 1000;
-			descendDistance			= 1200;
+			class SensorsManagerComponent
+			{
+				class Components
+				{
+					class ActiveRadarSensorComponent: SensorTemplateActiveRadar
+					{
+						class AirTarget {
+							minRange 				= 500;
+							maxRange 				= 7000;
+							viewDistanceLimitCoef 	= -1;
+							objectDistanceLimitCoef = -1
+						};
+						class GroundTarget {
+							minRange 				= 500;
+							maxRange 				= 7000;
+							viewDistanceLimitCoef 	= -1;
+							objectDistanceLimitCoef = -1
+						};
+						angleRangeHorizontal 		= 90;
+						angleRangeVertical 			= 90;
+						typeRecognitionDistance 	= -1;
+						maxGroundNoiseDistance 		= 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
+						maxFogSeeThrough 			= 0.8;
+						allowsMarking				= 1;
+					};
+				};
+			};
 		};
 	};
 	class fza_agm114k : fza_agm114base
@@ -378,6 +451,33 @@ class CfgAmmo
 		lockSeekDistanceFromParent  = 300;
 		lockSeekRadius 				= 500;
 		
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 		class Components : Components
 		{
 			class SensorsManagerComponent
@@ -387,19 +487,19 @@ class CfgAmmo
 					class LaserSensorComponent : SensorTemplateLaser
 					{
 						class AirTarget {
-							minRange = 300;
+							minRange = 500;
 							maxRange = 7000;
 						};
 						class GroundTarget {
-							minRange = 300;
+							minRange = 500;
 							maxRange = 7000;
 						};
-						angleRangeHorizontal = 30;
-						angleRangeVertical = 50;
-						typeRecognitionDistance = -1;
-						maxGroundNoiseDistance = 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
-						maxFogSeeThrough = 0.3;
-						allowsMarking= 1;
+						angleRangeHorizontal 		= 30;
+						angleRangeVertical 			= 50;
+						typeRecognitionDistance 	= -1;
+						maxGroundNoiseDistance 		= 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
+						maxFogSeeThrough 			= 0.3;
+						allowsMarking				= 1;
 					};
 				};
 			};
@@ -420,6 +520,33 @@ class CfgAmmo
 
 		//AI usage
 		cost 						= 500;
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 0;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 	};
 	class fza_agm114c : fza_agm114k
 	{
@@ -435,6 +562,33 @@ class CfgAmmo
 
 		//AI usage
 		cost 						= 600;
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 	};
 	class fza_agm114m : fza_agm114k
 	{
@@ -451,6 +605,33 @@ class CfgAmmo
 
 		//AI usage
 		cost 						= 700;
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 	};
 	class fza_agm114n : fza_agm114k
 	{
@@ -465,6 +646,33 @@ class CfgAmmo
 
 		//AI usage
 		cost 						= 700;
+        class ace_missileguidance {
+            enabled 							= 1;
+
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
+
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "SALH";
+            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+
+            defaultSeekerLockMode				= "LOAL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            seekerMaxRange 						= 8100;      // Range from the missile which the seeker can visually search
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire";
+            attackProfiles[] 					= {"hellfire", "hellfire_hi", "hellfire_lo"};
+        };
 	};
 	
 	///////////////////////////////////////////////////////////////////////

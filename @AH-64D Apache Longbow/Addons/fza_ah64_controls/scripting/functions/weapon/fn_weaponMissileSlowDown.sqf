@@ -3,7 +3,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 if(!local _projectile)exitWith{}; 
 _heli = (getShotParents _projectile) # 0;
 if !(_projectile isKindOf "fza_agm114l" || _projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") exitwith {};
-
+/*
 if (_projectile isKindOf "fza_agm114l") then {
 	private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 	private _targObj        = _targinfo #0;
@@ -113,13 +113,14 @@ if (_projectile isKindOf "fza_agm114l") then {
 	};
 };
 
+
 if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then {
     _targ = (_heli getVariable "fza_ah64_currentLase");
 	_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _targ select 0), (getposatl _targ select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
 	if (!(isNull _targ) && _distOffAxis < 40) then {
 		_projectile setMissileTarget _targ;
 	};
-};
+};*/
 
 _heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")+[_targ], true];
 _heli setVariable ["fza_ah64_shotmissile_list", (_heli getVariable "fza_ah64_shotmissile_list")+[_projectile], true];

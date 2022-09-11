@@ -930,7 +930,24 @@ class CfgVehicles
 			{"Pylon2", 						{-1.665,2.4,-1.8}},
 			{"Pylon3", 						{1.665,2.4,-1.8}},
 			{"Pylon4", 						{2.385,2.4,-1.8}}
-		};
+		};    
+		
+		//map light condition not working
+        ace_map_vehicleLightColor[] = {0.306, 0.878, 0.349}; 
+        ace_map_vehicleExteriorTurrets[] = {1,2};
+        ace_map_vehicleLightCondition[] = {"(isLightOn [_vehicle, [0]]) == true"};
+
+		ace_vehicle_damage_hullDetonationProb = 0.1;
+		ace_vehicle_damage_turretDetonationProb = 0.2;
+		ace_vehicle_damage_engineDetonationProb = 0.1;
+		ace_vehicle_damage_hullFireProb = 0;
+		ace_vehicle_damage_turretFireProb = 0;
+		ace_vehicle_damage_engineFireProb = 0;
+		ace_vehicle_damage_detonationDuringFireProb = 0.2;
+		ace_vehicle_damage_canHaveFireRing = 1;
+
+		ace_cargo_space 	= 0;
+        ace_cargo_hasCargo 	= 0;
 
 		allowTabLock = 0;
 		accuracy=5;
@@ -1103,7 +1120,7 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "fza_gun_safe", "fza_rkt_safe", "fza_msl_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";
@@ -1145,7 +1162,7 @@ class CfgVehicles
 				usePiP=1;
 				class Reflectors
 				{
-					class cabin
+					class cabinlights_hide
 					{
 						color[]={0.306, 0.878, 0.349};
 						ambient[] = {0.306, 0.878, 0.349};
@@ -1173,7 +1190,7 @@ class CfgVehicles
 							hardLimitEnd    = 1.9;
 						};
 					};
-					class cargo_light_1: cabin
+					class cargo_light_1: cabinlights_hide
 					{
 						position = "cpg_flood";
 						direction = "cpg_memflood";
