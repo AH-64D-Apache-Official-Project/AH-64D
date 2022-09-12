@@ -646,6 +646,7 @@ class CfgVehicles
 			};
 			class hithrotor
 			{
+				armor = 0.72;
 				radius = 0.24;
 				minimalHit = 0.1;
 				explosionShielding = 0.270;
@@ -775,7 +776,7 @@ class CfgVehicles
 			};
 			class hitvrotor
 			{	
-				armor = 3;
+				armor = 0.72;
 				radius = 0.24;
 				minimalHit = 0.1;
 				explosionShielding =0.270;
