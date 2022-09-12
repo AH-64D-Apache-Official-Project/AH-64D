@@ -20,7 +20,7 @@ class Fza_SfmPlus {
 
     engIdleTQ   = 0.055;
     engFlyTQ    = 0.18;
-    engMaxTQ    = 2.00;
+    engMaxTQ    = 1.50;
 
     engStartNG  = 0.23;
     engIdleNG   = 0.679;

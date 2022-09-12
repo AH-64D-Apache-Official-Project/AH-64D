@@ -65,8 +65,8 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 [_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
 [_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
 
-private _no1EngDmg = _heli getHitPointDamage "HitEngine1";
-private _no2EngDmg = _heli getHitPointDamage "HitEngine2";
+private _no1EngDmg = _heli getHitPointDamage "hitengine1";
+private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
 if (_no1EngDmg > 0.5) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
@@ -116,10 +116,10 @@ if (cba_missionTime > _lastUpdate + 0.1 && _rtrRPM > 0.05) then {
 	//systemChat str ["adjusted RPM", _rtrRPM];
 	if ((_realRPM / 10)  > _rtrRPM) then {
 		//systemChat "breaking rotor!";
-		_heli setHit ["velka vrtule", 0.9];
+		_heli setHitpointDamage ["hithrotor", 0.9];
 	} else {
 		//systemChat "fixing rotor";
-		_heli setHit ["velka vrtule", 0.0];
+		_heli setHitpointDamage ["hithrotor", 0.0];
 		_heli engineOn true;
 	};
 	_heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];

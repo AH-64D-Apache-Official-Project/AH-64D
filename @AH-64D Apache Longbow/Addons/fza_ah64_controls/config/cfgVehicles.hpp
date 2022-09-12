@@ -492,214 +492,298 @@ class CfgVehicles
 				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
-		class HitPoints
-		{
-			class Hithull
-			{
-				armor = 999;
-				minimalHit=0.05;
-				material = -1;
-				name = "fuselage";
-				passthrough = 1;
-				visual = "skin_fuse";
-				explosionShielding = 2.5;
-				convexComponent = "fuselage";
-				radius = 0.3;
-				depends = "Total";
-			};/*
-			class HitAvionics
-			{	// Causes no affect in aircraft control, visual or otherwise
-				armor = 2.2;
-				material = 51;
-				name = "cockpit";
-				passthrough = 0.2;
-				visual = "skin_nose";
-				explosionShielding = 1;
-				convexComponent = "cockpit";
+		class HitPoints		
+		{		
+			class hit_apu	
+			{	
+				armor = 0.72;
+				radius = 0.22;
 				minimalHit = 0.1;
+				explosionShielding = 1.199;
+				name = "hit_apu";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_drives_intermediategearbox	
+			{	
+				armor = 0.72;
+				radius = 0.26;
+				minimalHit = 0.1;
+				explosionShielding = 0.240;
+				name = "hit_drives_intermediategearbox";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_drives_noseGearbox1	
+			{	
+				armor = 0.96;
+				radius = 0.23;
+				minimalHit = 0.1;
+				explosionShielding = 0.320;
+				name = "hit_drives_noseGearbox1";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_drives_noseGearbox2	
+			{	
+				armor = 0.96;
+				radius = 0.23;
+				minimalHit = 0.1;
+				explosionShielding = 0.320;
+				name = "hit_drives_noseGearbox2";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_drives_tailRotorGearbox	
+			{	
+				armor = 0.72;
 				radius = 0.4;
-			};*/
-			class HitEngine1 
-			{
+				minimalHit = 0.1;
+				explosionShielding = 0.240;
+				name = "hit_drives_tailRotorGearbox";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_drives_transmission	
+			{	
+				armor = 0.72;
+				radius = 0.5;
+				minimalHit = 0.1;
+				explosionShielding = 0.240;
+				name = "hit_drives_transmission";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_elec_battery	
+			{	
+				armor = 0.48;
+				radius = 0.14;
+				minimalHit = 0.1;
+				explosionShielding = 0.799;
+				name = "hit_elec_battery";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_elec_generator1	
+			{	
+				armor = 0.36;
+				radius = 0.11;
+				minimalHit = 0.1;
+				explosionShielding = 0.200;
+				name = "hit_elec_generator1";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_elec_generator2	
+			{	
+				armor = 0.36;
+				radius = 0.11;
+				minimalHit = 0.1;
+				explosionShielding = 0.200;
+				name = "hit_elec_generator2";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hitengine1	
+			{	
+				armor = 0.72;
+				radius = 0.5;
+				minimalHit = 0.1;
+				explosionShielding = 0.240;
+				name = "hitengine1";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hitengine2	
+			{	
+				armor = 0.72;
+				radius = 0.5;
+				minimalHit = 0.1;
+				explosionShielding = 0.240;
+				name = "hitengine2";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_hyd_prireservoir	
+			{	
+				armor = 0.72;
+				radius = 0.14;
+				minimalHit = 0.1;
+				explosionShielding = 0.599;
+				name = "hit_hyd_prireservoir";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_hyd_priPump	
+			{	
 				armor = 0.9;
+				radius = 0.11;
+				minimalHit = 0.1;
+				explosionShielding = 0.499;
+				name = "hit_hyd_priPump";
 				material = 51;
-				name = "leng";
-				passthrough = 1;
-				visual = "skin_leng";
-				explosionShielding = 3;
-				convexComponent = "leng";
-				minimalHit = 0.3;
-				radius = 0.4;
-			};
-			class HitEngine2: HitEngine1
-			{
-				name = "reng";
-				visual = "skin_reng";
-				convexComponent = "reng";
-			};/*
-			class HitEngine
-			{	// Causes no affect in aircraft control, visual or otherwise
-				armor = 1.2;
-				material = 51;
-				name = "trans";
-				passthrough = 0;
-				visual = "trans";
-				explosionShielding = 3;
-				convexComponent = "trans";
-				minimalHit = 0.5;
-				radius = 0.4;
-			};*/
-			class HitFuel
-			{
-				armor = 0.8;
-				material = 51;
-				name = "lfuel";
-				passthrough = 0;
-				explosionShielding=2;
-			};
-			class IrJammer
-			{
+				passThrough = 0;
+			};	
+			class hit_hyd_utilreservoir	
+			{	
 				armor = 0.9;
+				radius = 0.14;
+				minimalHit = 0.1;
+				explosionShielding = 0.749;
+				name = "hit_hyd_utilreservoir";
 				material = 51;
-				name = "IR Jammer";
-				passthrough = 0.1;
-				visual = "skin_lefab";
-				minimalHit = 0.3;
+				passThrough = 0;
+			};	
+			class hit_hyd_utilPump	
+			{	
+				armor = 0.72;
+				radius = 0.11;
+				minimalHit = 0.1;
+				explosionShielding = 0.400;
+				name = "hit_hyd_utilPump";
+				material = 51;
+				passThrough = 0;
 			};
-			class RfJammer: IrJammer
+			class hithrotor
 			{
-				name = "RF Jammer";
-				visual = "skin_refab";
+				radius = 0.24;
+				minimalHit = 0.1;
+				explosionShielding = 0.270;
+				name = "hithrotor";
+				material = 51;
+				passThrough = 0;
 			};
-			class HitVRotor
-			{
+			class hit_msnEquip_gun_turret	
+			{	
+				armor = 0.9;
+				radius = 0.26;
+				minimalHit = 0.1;
+				explosionShielding = 0.749;
+				name = "hit_msnEquip_gun_turret";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pnvs_flir	
+			{	
+				armor = 0.48;
+				radius = 0.12;
+				minimalHit = 0.1;
+				explosionShielding = 0.799;
+				name = "hit_msnEquip_pnvs_flir";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pnvs_turret	
+			{	
+				armor = 0.48;
+				radius = 0.12;
+				minimalHit = 0.1;
+				explosionShielding = ;
+				name = "hit_msnEquip_pnvs_turret";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pylon1	
+			{	
+				armor = 0.72;
+				radius = 0.27;
+				minimalHit = 0.1;
+				explosionShielding = 0.599;
+				name = "hit_msnEquip_pylon1";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pylon2	
+			{	
+				armor = 0.72;
+				radius = 0.27;
+				minimalHit = 0.1;
+				explosionShielding = 0.599;
+				name = "hit_msnEquip_pylon2";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pylon3	
+			{	
+				armor = 0.72;
+				radius = 0.27;
+				minimalHit = 0.1;
+				explosionShielding = 0.599;
+				name = "hit_msnEquip_pylon3";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_pylon4	
+			{	
+				armor = 0.72;
+				radius = 0.27;
+				minimalHit = 0.1;
+				explosionShielding = 0.599;
+				name = "hit_msnEquip_pylon4";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_tads_dtv	
+			{	
+				armor = 0.48;
+				radius = 0.30;
+				minimalHit = 0.1;
+				explosionShielding = 0.799;
+				name = "hit_msnEquip_tads_dtv";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_tads_flir	
+			{	
+				armor = 0.48;
+				radius = 0.30;
+				minimalHit = 0.1;
+				explosionShielding = ;
+				name = "hit_msnEquip_tads_flir";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_tads_turret	
+			{	
+				armor = 0.48;
+				radius = 0.12;
+				minimalHit = 0.1;
+				explosionShielding = ;
+				name = "hit_msnEquip_tads_turret";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_msnEquip_fcr	
+			{	
+				armor = 0.48;
+				radius = 0.66;
+				minimalHit = 0.1;
+				explosionShielding = ;
+				name = "hit_msnEquip_fcr";
+				material = 51;
+				passThrough = 0;
+			};	
+			class hit_stabilator	
+			{	
+				armor = 0.48;
+				radius = 0.86;
+				minimalHit = 0.1;
+				explosionShielding = ;
+				name = "hit_stabilator";
+				material = 51;
+				passThrough = 0;
+			};
+			class hitvrotor
+			{	
 				armor = 3;
+				radius = 0.24;
+				minimalHit = 0.1;
+				explosionShielding =0.270;
+				name = "hitvrotor";
 				material = 51;
-				name = "mala vrtule";
-				passthrough = 0.1;
-				visual = "tr_blades";
-				explosionShielding = 6;
-				convexComponent = "mala vrtule";
-				minimalHit = 0.05;
-				radius = 0.06;
-			};
-			class HitHRotor
-			{
-				armor = 4;
-				material = 51;
-				name = "velka vrtule";
-				passthrough = 0.1;
-				visual = "mr_blades";
-				explosionShielding = 2.5;
-				convexComponent = "velka vrtule";
-				minimalHit = 0.09;
-				radius = 0.4;
-			};
-			class HitHStabilizerL1
-			{	//causes aircraft to shake slightly when damaged
-				armor = 1;
-				material = 51;
-				name = "lwing";
-				passthrough = 0.1;
-				visual = "skin_lwing";
-				minimalHit = 0.3;
-			};
-			class HitHStabilizerR1: HitHStabilizerL1
-			{   //causes aircraft to shake slightly when damaged
-				name = "rwing";
-				visual = "skin_rwing";
-			};
-			class HitVStabilizer1
-			{   //causes aircraft to shake slightly when damaged
-				armor = 0.5;
-				material = 51;
-				name = "vtail";
-				passthrough = 0.1;
-				visual = "skin_vtail";
-			};
-			class TailBoom
-			{   //Causes no effect on aircraft other than visual
-				armor = 1;
-				material = 51;
-				name = "tailboom";
-				passthrough = 0.5;
-				visual = "skin_tailboom";
-			};
-			class HitTail
-			{   //Causes no effect on aircraft other than visual
-				armor = 0.5;
-				material = 51;
-				passthrough = 0.1;
-				name = "hstab";
-				visual = "skin_hstab";
-			};
-			class PNVS
-			{
-				armor = 0.3;
-				material = 51;
-				name = "pnvs";
-				passthrough = 0.1;
-				visual = "pnvs";
-			};
-			class FCR
-			{   
-				armor = 0.08;
-				material = 51;
-				name = "radar";
-				passthrough = 0.1;
-				visual = "radar";
-			};
-			/* CUSTOM HITPOINTS NOT CURRANTLY USED
-			class Actuator
-			{   //Causes no effect on aircraft other than visual, already done in hitgun
-				armor = 0.3;
-				material = 51;
-				name = "otocvez";
-				passthrough = 0.1;
-				visual = "skin_m230";
-			};
-			class Gun: Actuator
-			{   //Causes no effect on aircraft other than visual, already done in hitgun
-				name = "otochlaven";
-				visual = "skin_otochlaven";
-			};
-			class HitGear
-			{   //Causes no effect on aircraft other than visual
-				armor = 0.3;
-				material = 51;
-				name = "maingear";
-				passthrough = 0.1;
-				visual = "skin_gear";
-			};
-			class RearGear: HitGear
-			{   //Causes no effect on aircraft other than visual
-				name = "twsus";
-				visual = "twsus";
-			};*/
-			class Pylon1
-			{   //Causes no effect on aircraft other than visual
-				armor = 0.3;
-				material = 51;
-				name = "pylon1";
-				passthrough = 0.1;
-				visual = "skin_pylon1";
-			};
-			class pylon2: Pylon1
-			{   //Causes no effect on aircraft other than visual
-				name = "pylon2";
-				visual = "skin_pylon2";
-			};
-			class pylon3: Pylon1
-			{   //Causes no effect on aircraft other than visual
-				name = "pylon3";
-				visual = "skin_pylon3";
-			};
-			class pylon4: Pylon1
-			{   //Causes no effect on aircraft other than visual
-				name = "pylon4";
-				visual = "skin_pylon4";
-			};
-		};
+				passThrough = 0;
+			};		
+		};		
 		class UserActions
 		{
 			class lookcenter
