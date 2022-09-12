@@ -1162,7 +1162,7 @@ class CfgVehicles
 				usePiP=1;
 				class Reflectors
 				{
-					class cabinlights_hide
+					class cabin
 					{
 						color[]={0.306, 0.878, 0.349};
 						ambient[] = {0.306, 0.878, 0.349};
@@ -1190,7 +1190,7 @@ class CfgVehicles
 							hardLimitEnd    = 1.9;
 						};
 					};
-					class cargo_light_1: cabinlights_hide
+					class cargo_light_1: cabin
 					{
 						position = "cpg_flood";
 						direction = "cpg_memflood";

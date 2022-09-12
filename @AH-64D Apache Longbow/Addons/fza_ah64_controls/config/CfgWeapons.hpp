@@ -141,7 +141,7 @@ class CfgWeapons
 		showAimCursorInternal = 0;
 		magazines[]			={"fza_m230_300","fza_m230_1200"};
         canLock 			= 1;
-		ballisticsComputer 	= "1 + 2 + 16";
+		ballisticsComputer 	= "1 + 16";
 		FCSZeroingDelay 	= 0;
 		maxZeroing 			= 4200;
 		aiDispersionCoefY 	= 0.5;
@@ -155,7 +155,7 @@ class CfgWeapons
 
 		//ACE Advanced Ballistics Cfg
 		ACE_barrelTwist 			= 177.8;
-        ACE_barrelLength 			= 1066;
+        ACE_barrelLength 			= 1676;
 		ACE_twistDirection 			= 1;
         ace_overpressure_angle 		= 90;
         ace_overpressure_range 		= 2;
@@ -322,8 +322,9 @@ class CfgWeapons
 	HELLFIRE_WEAPON_CONFIG_LASER(fza_agm114k, "AGM-114K")
 	HELLFIRE_WEAPON_CONFIG_LASER(fza_agm114m, "AGM-114M")
 	HELLFIRE_WEAPON_CONFIG_LASER(fza_agm114n, "AGM-114N")
-	
-	class fza_hellfire_radar: ace_hellfire_launcher
+
+	class ace_hellfire_launcher_L;
+	class fza_hellfire_radar: ace_hellfire_launcher_L
 	{
 		scope = private;
 		displayName="AGM-114";
@@ -334,7 +335,7 @@ class CfgWeapons
 		showAimCursorInternal = 0;
 		textureType = "semi";
 		weaponLockDelay = 0;
-		weaponLockSystem = 4;
+		weaponLockSystem = 8;
 		cmImmunity = 0.9;
 		lockedtargetsound[] = {"", 1, 1};
 		lockingtargetsound[] = {"", 1, 1};

@@ -3,7 +3,7 @@ params ["_unit", "_weapon", "_muzzle", "_mode", "_ammo", "_magazine", "_projecti
 if(!local _projectile)exitWith{}; 
 _heli = (getShotParents _projectile) # 0;
 if !(_projectile isKindOf "fza_agm114l" || _projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") exitwith {};
-/*
+
 if (_projectile isKindOf "fza_agm114l") then {
 	private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 	private _targObj        = _targinfo #0;
@@ -12,6 +12,10 @@ if (_projectile isKindOf "fza_agm114l") then {
 	private _targetType     = _targobj call BIS_fnc_objectType;
     private _armaRadarOn    = isVehicleRadarOn _heli;
 
+	
+	_projectile setmissiletarget _targObj;
+
+	/*
     //Min range
     if (_distance < 500) exitwith {
 		_projectile setmissiletarget objnull;
@@ -100,6 +104,7 @@ if (_projectile isKindOf "fza_agm114l") then {
             deleteVehicle _loaltarget;
 		};
 	};
+	*/
 
 	private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
 	if (count _fcrTargets == 0) then {
@@ -113,7 +118,7 @@ if (_projectile isKindOf "fza_agm114l") then {
 	};
 };
 
-
+/*
 if (_projectile isKindOf "fza_agm114k" || _projectile isKindOf "fza_fim92") then {
     _targ = (_heli getVariable "fza_ah64_currentLase");
 	_distOffAxis = abs ([[_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _targ select 0), (getposatl _targ select 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180);
