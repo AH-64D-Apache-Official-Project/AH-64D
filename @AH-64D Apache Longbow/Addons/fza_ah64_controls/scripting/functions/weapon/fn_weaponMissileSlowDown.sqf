@@ -11,10 +11,6 @@ if (_projectile isKindOf "fza_agm114l") then {
     private _distance       = _heli distance _targObj;
 	private _targetType     = _targobj call BIS_fnc_objectType;
     private _armaRadarOn    = isVehicleRadarOn _heli;
-
-	
-	_projectile setmissiletarget _targObj;
-
 	/*
     //Min range
     if (_distance < 500) exitwith {

@@ -75,6 +75,12 @@ class CfgFunctions
 			class fxMuzzle {R;};
 			class fxLoops {R;};
 		};
+		class hellfire {
+			file = "\fza_ah64_controls\Scripting\functions\hellfire";
+			class hellfireguidance {R;};
+			class getLaserCode {R;};
+
+		};
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
