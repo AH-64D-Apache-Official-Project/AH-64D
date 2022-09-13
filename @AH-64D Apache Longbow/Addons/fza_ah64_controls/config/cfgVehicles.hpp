@@ -492,12 +492,17 @@ class CfgVehicles
 				"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
+
+		#define HIT_RADIUS_01 0.14
+		#define HIT_RADIUS_02 0.05
+		#define ARMOR_SCALAR  0.067
+
 		class HitPoints		
 		{		
 			class hit_apu	
 			{	
-				armor = 0.72;
-				radius = 0.22;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 1.199;
 				name = "hit_apu";
@@ -506,8 +511,8 @@ class CfgVehicles
 			};	
 			class hit_drives_intermediategearbox	
 			{	
-				armor = 0.72;
-				radius = 0.26;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
 				name = "hit_drives_intermediategearbox";
@@ -516,8 +521,8 @@ class CfgVehicles
 			};	
 			class hit_drives_noseGearbox1	
 			{	
-				armor = 0.96;
-				radius = 0.23;
+				armor = 0.96 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.320;
 				name = "hit_drives_noseGearbox1";
@@ -526,8 +531,8 @@ class CfgVehicles
 			};	
 			class hit_drives_noseGearbox2	
 			{	
-				armor = 0.96;
-				radius = 0.23;
+				armor = 0.96 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.320;
 				name = "hit_drives_noseGearbox2";
@@ -536,8 +541,8 @@ class CfgVehicles
 			};	
 			class hit_drives_tailRotorGearbox	
 			{	
-				armor = 0.72;
-				radius = 0.4;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
 				name = "hit_drives_tailRotorGearbox";
@@ -546,8 +551,8 @@ class CfgVehicles
 			};	
 			class hit_drives_transmission	
 			{	
-				armor = 0.72;
-				radius = 0.5;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
 				name = "hit_drives_transmission";
@@ -556,8 +561,8 @@ class CfgVehicles
 			};	
 			class hit_elec_battery	
 			{	
-				armor = 0.48;
-				radius = 0.14;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.799;
 				name = "hit_elec_battery";
@@ -566,8 +571,8 @@ class CfgVehicles
 			};	
 			class hit_elec_generator1	
 			{	
-				armor = 0.36;
-				radius = 0.11;
+				armor = 0.36 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.200;
 				name = "hit_elec_generator1";
@@ -576,8 +581,8 @@ class CfgVehicles
 			};	
 			class hit_elec_generator2	
 			{	
-				armor = 0.36;
-				radius = 0.11;
+				armor = 0.36 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.200;
 				name = "hit_elec_generator2";
@@ -586,8 +591,8 @@ class CfgVehicles
 			};	
 			class hitengine1	
 			{	
-				armor = 0.72;
-				radius = 0.5;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
 				name = "hitengine1";
@@ -596,8 +601,8 @@ class CfgVehicles
 			};	
 			class hitengine2	
 			{	
-				armor = 0.72;
-				radius = 0.5;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
 				name = "hitengine2";
@@ -606,8 +611,8 @@ class CfgVehicles
 			};	
 			class hit_hyd_prireservoir	
 			{	
-				armor = 0.72;
-				radius = 0.14;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.599;
 				name = "hit_hyd_prireservoir";
@@ -616,8 +621,8 @@ class CfgVehicles
 			};	
 			class hit_hyd_priPump	
 			{	
-				armor = 0.9;
-				radius = 0.11;
+				armor = 0.9 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.499;
 				name = "hit_hyd_priPump";
@@ -626,8 +631,8 @@ class CfgVehicles
 			};	
 			class hit_hyd_utilreservoir	
 			{	
-				armor = 0.9;
-				radius = 0.14;
+				armor = 0.9 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.749;
 				name = "hit_hyd_utilreservoir";
@@ -636,8 +641,8 @@ class CfgVehicles
 			};	
 			class hit_hyd_utilPump	
 			{	
-				armor = 0.72;
-				radius = 0.11;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
 				explosionShielding = 0.400;
 				name = "hit_hyd_utilPump";
@@ -646,8 +651,8 @@ class CfgVehicles
 			};
 			class hithrotor
 			{
-				armor = 0.72;
-				radius = 0.24;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.270;
 				name = "hithrotor";
@@ -656,8 +661,8 @@ class CfgVehicles
 			};
 			class hit_msnEquip_gun_turret	
 			{	
-				armor = 0.9;
-				radius = 0.26;
+				armor = 0.9 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.749;
 				name = "hit_msnEquip_gun_turret";
@@ -666,8 +671,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pnvs_flir	
 			{	
-				armor = 0.48;
-				radius = 0.12;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.799;
 				name = "hit_msnEquip_pnvs_flir";
@@ -676,8 +681,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pnvs_turret	
 			{	
-				armor = 0.48;
-				radius = 0.12;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = ;
 				name = "hit_msnEquip_pnvs_turret";
@@ -686,8 +691,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pylon1	
 			{	
-				armor = 0.72;
-				radius = 0.27;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.599;
 				name = "hit_msnEquip_pylon1";
@@ -696,8 +701,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pylon2	
 			{	
-				armor = 0.72;
-				radius = 0.27;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.599;
 				name = "hit_msnEquip_pylon2";
@@ -706,8 +711,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pylon3	
 			{	
-				armor = 0.72;
-				radius = 0.27;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.599;
 				name = "hit_msnEquip_pylon3";
@@ -716,8 +721,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_pylon4	
 			{	
-				armor = 0.72;
-				radius = 0.27;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.599;
 				name = "hit_msnEquip_pylon4";
@@ -726,8 +731,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_tads_dtv	
 			{	
-				armor = 0.48;
-				radius = 0.30;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.799;
 				name = "hit_msnEquip_tads_dtv";
@@ -736,8 +741,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_tads_flir	
 			{	
-				armor = 0.48;
-				radius = 0.30;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = ;
 				name = "hit_msnEquip_tads_flir";
@@ -746,8 +751,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_tads_turret	
 			{	
-				armor = 0.48;
-				radius = 0.12;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = ;
 				name = "hit_msnEquip_tads_turret";
@@ -756,8 +761,8 @@ class CfgVehicles
 			};	
 			class hit_msnEquip_fcr	
 			{	
-				armor = 0.48;
-				radius = 0.66;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = ;
 				name = "hit_msnEquip_fcr";
@@ -766,8 +771,8 @@ class CfgVehicles
 			};	
 			class hit_stabilator	
 			{	
-				armor = 0.48;
-				radius = 0.86;
+				armor = 0.48 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = ;
 				name = "hit_stabilator";
@@ -776,8 +781,8 @@ class CfgVehicles
 			};
 			class hitvrotor
 			{	
-				armor = 0.72;
-				radius = 0.24;
+				armor = 0.72 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding =0.270;
 				name = "hitvrotor";
@@ -1020,7 +1025,7 @@ class CfgVehicles
 
 		allowTabLock = 0;
 		accuracy=5;
-		armor=80;
+		armor = 600;
 		armorLights = 0.4;
 		armorStructural = 4;
 		audible=4;
@@ -1030,7 +1035,7 @@ class CfgVehicles
 		commanderUsesPilotView = false;
 		crewCrashProtection = 0.25;
 		crewVulnerable = 0;
-		damageResistance=0.0055499999;
+		//damageResistance=0.0055499999;
 		driverAction = "fza_ah64_pilot";
 		crew="fza_ah64_pilot";
 		driverOpticsColor[] = {1,1,1,1};
