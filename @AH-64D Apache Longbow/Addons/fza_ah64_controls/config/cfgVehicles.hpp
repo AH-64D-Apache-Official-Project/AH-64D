@@ -821,7 +821,7 @@ class CfgVehicles
 				shortcut="OpticsMode";
 				statement="[this] call fza_fnc_weaponguncontrol;";
 			};
-			class pilotdoor_open
+			/*class pilotdoor_open
 			{
 				displayName="Open Pilot Door";
 				position="pilot_action";
@@ -868,7 +868,7 @@ class CfgVehicles
 				condition="this animationphase ""gdoor"" > 0.5 && alive this";
 				shortcut="";
 				statement="[this] spawn fza_fnc_doortoggleG";
-			};
+			};*/
 			class tiron
 			{
 				displayName="Toggle Head Tracking On";
