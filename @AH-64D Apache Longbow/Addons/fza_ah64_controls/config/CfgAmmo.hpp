@@ -78,7 +78,7 @@ class CfgAmmo
 		ACE_standardAtmosphere = "ICAO";
 		ACE_dragModel = 1;
 		ACE_muzzleVelocities[] = {805};
-		ACE_barrelLengths[] = {1066};
+		ACE_barrelLengths[] = {1676};
 		ace_vehicle_damage_incendiary = 0.7;
 
 		ace_frag_enabled			= 1;
