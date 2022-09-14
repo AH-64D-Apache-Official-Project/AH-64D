@@ -77,9 +77,13 @@ class CfgFunctions
 		};
 		class hellfire {
 			file = "\fza_ah64_controls\Scripting\functions\hellfire";
-			class hellfireguidance {R;};
+			class hellfireLaserguidance {R;};
+			class hellfireRadarguidance {R;};
 			class getLaserCode {R;};
-
+			class setLaserCode {R;};
+			class setLaserChannels {R;};
+			class setAceLaserDes {R;};
+			class getAttackProfile {R;};
 		};
 		class ihadss
 		{
@@ -132,7 +136,6 @@ class CfgFunctions
 			class weaponMissileGetSelected {R;};
 			class weaponMissileCycle {R;};
 			class weaponMissileInventory {R;};
-			class weaponMissileSlowDown {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};

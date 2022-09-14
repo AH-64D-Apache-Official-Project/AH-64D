@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireguidance
+Function: fza_fnc_hellfireLaserguidance
 
 Description:
 	Calls the Ace hellfire Guidance Perframe event handler with Desired input
@@ -31,32 +31,19 @@ if ((count _configs) < 1) exitWith {};
 
 private _config = configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance";
 
-_heli = Vehicle _shooter;
-private _target         = nil;
-private _targetPos      = nil;
-private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
-_target         = _targinfo #0;
-_targetPos      = _targinfo #1;
-private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
-if (count _fcrTargets == 0) then {
-    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
-} else {
-    private _oldNts = _heli getVariable "fza_ah64_fcrNts";
-    private _oldNts = _oldNts # 0;
-    private _oldNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
-    private _newNtsIndex = (_oldNtsIndex + 1) mod count _fcrTargets;
-    _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
-};
-
+private _target = _shooter getVariable ["ace_missileguidance_target", nil];
+private _targetPos = _shooter getVariable ["ace_missileguidance_targetPosition", nil];
 private _seekerType = _shooter getVariable ["ace_missileguidance_seekerType", nil];
-private _attackProfile = _shooter getVariable ["ace_missileguidance_attackProfile", nil];
-if ((getNumber (configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance" >> "useModeForAttackProfile")) == 1) then {
-    _attackProfile = getText (configFile >> "CfgWeapons" >> _weapon >> _mode >> "ace_missileguidance_attackProfile")
-};
 private _lockMode = _shooter getVariable ["ace_missileguidance_lockMode", nil];
+private _attackProfile = [] call fza_fnc_getAttackProfile;
 
-//private _laserCode = [vehicle player, "PRI CHAN"] call fza_fnc_getLaserCode; // THIS NEEDS CREATING
-_laserCode = 1111;
+
+if !(isNull laserTarget _heli) then {
+    _laserCode = [_heli, "Primary_Alternate", 0] call fza_fnc_getLaserCode;
+} else {
+    _laserCode = [_heli, "Primary_Alternate", 1] call fza_fnc_getLaserCode;
+};
+
 private _laserInfo = [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
 
 private _launchPos = getPosASL _heli;

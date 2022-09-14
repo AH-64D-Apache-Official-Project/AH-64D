@@ -198,7 +198,7 @@ class CfgAmmo
 		maxControlRange				= 8000;
 		trackOversteer				= 1;
 		trackLead					= 1;
-		maneuvrability				= 21;
+		maneuvrability				= 0;
 		timeToLive					= 70;
 		cmImmunity					= 0.97;
 
@@ -241,14 +241,6 @@ class CfgAmmo
 		autoSeekTarget 				= 0;
 		weaponLockSystem			= "4 + 8";
 		maneuvDependsOnSpeedCoef	= 0.018;
-		class Eventhandlers: Eventhandlers
-		{
-			class FZA_EH
-			{
-				fired = "_this call fza_fnc_hellfireguidance";
-				
-			};
-		};
 		class CamShakeExplode
 		{
 			power = 22;
@@ -301,32 +293,26 @@ class CfgAmmo
 		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
+		maneuvrability				= 21;
+
+		flightProfiles[]	= {Cruise};
+		class Direct{};
+		class Cruise
+		{
+			preferredFlightAltitude = 500;
+			lockDistanceToTarget = 1000;
+		};
+		class Eventhandlers: Eventhandlers
+		{
+			class FZA_EH
+			{
+				fired = "_this call fza_fnc_hellfireRadarguidance";
+				
+			};
+		};
+
 		class ace_missileguidance {
-            enabled 						= 0;
-
-            minDeflection 					= 0.0005;   // Minium flap deflection for guidance
-            maxDeflection 					= 0.01;     // Maximum flap deflection for guidance
-            incDeflection 					= 0.0005;   // The incrmeent in which deflection adjusts.
-
-            canVanillaLock 					= 0;        // Can this default vanilla lock? Only applicable to non-cadet mode
-
-            // Guidance type for munitions
-            defaultSeekerType 				=   "ARH";
-            seekerTypes[] 					= { "ARH" };
-            defaultSeekerLockMode 			=   "LOBL";
-            seekerLockModes[] 				= { "LOBL" };
-
-            seekLastTargetPos 				= 1;      	// seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 					= 90;       // Angle in front of the missile which can be searched
-            seekerAccuracy 					= 1;        // seeker accuracy multiplier
-
-			activeRadarEngageDistance 		= 2000;
-            seekerMinRange 					= 500;
-			seekerMaxRange 					= 2000; 	// distance that the hellfire internal radar can scan
-
-            // Attack profile type selection
-            defaultAttackProfile = "hellfire";
-            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
+            enabled = 0;
         };
 		class Components : Components
 		{
@@ -391,6 +377,15 @@ class CfgAmmo
 		autoSeekTarget				= 1;
 		lockSeekDistanceFromParent  = 300;
 		lockSeekRadius 				= 500;
+
+		class Eventhandlers: Eventhandlers
+		{
+			class FZA_EH
+			{
+				fired = "_this call fza_fnc_hellfireLaserguidance";
+				
+			};
+		};
 		
         class ace_missileguidance {
             enabled 							= 0;

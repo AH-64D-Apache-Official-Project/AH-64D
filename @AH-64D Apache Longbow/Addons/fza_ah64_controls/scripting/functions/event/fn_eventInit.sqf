@@ -97,9 +97,23 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_armed", false, true];
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
-    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire_laser", configFile >> "CfgWeapons"] || _x isKindOf ["fza_hellfire_radar", configFile >> "CfgWeapons"]};
+    private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
+
+
+    //ACE LASER CODES
+    _heli setVariable ["fza_ah64_PrimaryAlternateChannels", [["A",1111],["B",1112]], true];
+    _heli setVariable ["fza_ah64_LRFD_LST_channel",         [["A",1111],["B",1112]], true];
+    _heli setVariable ["fza_ah64_LaserBoxChannels",         [["A",1111],["B",1112],["C",1113],["D",1114]], true];
+    _heli setVariable ["fza_ah64_LaserChannelIndex",        [["A",1111],["B",1112],
+                                                             ["C",1113],["D",1114],
+                                                             ["E",1121],["F",1122],
+                                                             ["G",1123],["H",1124],
+                                                             ["J",1131],["K",1132],
+                                                             ["L",1133],["M",1134],
+                                                             ["N",1141],["P",1142],
+                                                             ["Q",1143],["R",1144]], true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];

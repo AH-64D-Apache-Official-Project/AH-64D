@@ -19,3 +19,8 @@ Author:
 params ["_heli"];
 
 "hellfire";
+/*
+"hellfire"
+"hellfire_hi"
+"hellfire_lo"
+we may need to create our own Attack profiles, as aces deviate from the real trajectories
