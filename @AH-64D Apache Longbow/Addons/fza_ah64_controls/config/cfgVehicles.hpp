@@ -934,8 +934,8 @@ class CfgVehicles
 		
 		//map light condition not working
         ace_map_vehicleLightColor[] = {0.306, 0.878, 0.349}; 
-        ace_map_vehicleExteriorTurrets[] = {1,2};
-        ace_map_vehicleLightCondition[] = {"(isLightOn [_vehicle, [0]]) == true"};
+        ace_map_vehicleExteriorTurrets[] = {};
+        ace_map_vehicleLightCondition[] = {(isLightOn [_vehicle, [0]]) == true};
 
 		ace_vehicle_damage_hullDetonationProb = 0.1;
 		ace_vehicle_damage_turretDetonationProb = 0.2;

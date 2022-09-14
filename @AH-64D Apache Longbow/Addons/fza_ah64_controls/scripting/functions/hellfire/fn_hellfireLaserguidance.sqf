@@ -31,11 +31,12 @@ if ((count _configs) < 1) exitWith {};
 
 private _config = configFile >> "CfgAmmo" >> _ammo >> "ace_missileguidance";
 
+private _heli = vehicle _shooter;
 private _target = _shooter getVariable ["ace_missileguidance_target", nil];
 private _targetPos = _shooter getVariable ["ace_missileguidance_targetPosition", nil];
 private _seekerType = _shooter getVariable ["ace_missileguidance_seekerType", nil];
 private _lockMode = _shooter getVariable ["ace_missileguidance_lockMode", nil];
-private _attackProfile = [] call fza_fnc_getAttackProfile;
+private _attackProfile = [_heli] call fza_fnc_getAttackProfile;
 
 
 if !(isNull laserTarget _heli) then {
@@ -107,7 +108,7 @@ copyToClipboard str _args;
 [ace_missileguidance_fnc_guidancePFH, 0, _args ] call CBA_fnc_addPerFrameHandler;
 
 
-
+/*
 _heli setVariable ["fza_ah64_shotat_list", (_heli getVariable "fza_ah64_shotat_list")+[_target], true];
 _heli setVariable ["fza_ah64_shotmissile_list", (_heli getVariable "fza_ah64_shotmissile_list")+[_projectile], true];
 private _pfh = "fza_pfh_agm114_helper_" + str _projectile;

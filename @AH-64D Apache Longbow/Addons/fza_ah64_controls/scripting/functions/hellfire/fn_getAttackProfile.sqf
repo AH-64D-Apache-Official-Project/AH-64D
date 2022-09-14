@@ -2,7 +2,7 @@
 Function: fza_fnc_getAttackProfile
 
 Description:
-	Calls the Ace Radar hellfire Guidance Perframe event handler with Desired input
+	grabs the ace name for the current attack mode.
 
 Parameters:
     _heli - the helicopter
@@ -11,16 +11,25 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_getAttackProfile
+    _result = [_heli] call fza_fnc_getAttackProfile;
 
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-"hellfire";
-/*
-"hellfire"
-"hellfire_hi"
-"hellfire_lo"
-we may need to create our own Attack profiles, as aces deviate from the real trajectories
+private _trajectory = _heli getvariable "fza_ah64_hellfireTrajectory";
+Private _result = false;
+
+switch _trajectory do {
+    case "DIR": {
+        _result = "hellfire";
+    };
+    case "HI": {
+        _result = "hellfire_hi";
+    };
+    case "LO": {
+        _result = "hellfire_lo";
+    };
+};
+_result;
