@@ -115,12 +115,9 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 
-private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
-private _eng1Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
-private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
-private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
-private _apuState = _heli getVariable "fza_ah64_apu";
-private _powerOnState = _apuState == true || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
+private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
+private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+private _powerOnState = (_ACBusState == "ON" && _DCBusState == "ON");
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];

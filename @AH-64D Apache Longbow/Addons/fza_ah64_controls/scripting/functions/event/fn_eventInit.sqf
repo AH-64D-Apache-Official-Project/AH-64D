@@ -157,7 +157,8 @@ while {
     alive _heli
 }
 do {
-    if ((isLightOn [_heli,[0]]) && !(_heli getVariable "fza_ah64_battery")) then {
+    private _battBusState       = _heli getVariable "fza_sfmplus_battBusState";
+    if ((isLightOn [_heli,[0]]) && (_battBusState == "OFF")) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
@@ -167,12 +168,20 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        _tadsShouldBeStowed = _heli getVariable "fza_ah64_apu" && !isEngineOn _heli;
-        
+        private _ACBusState         = _heli getVariable "fza_sfmplus_ACBusState";
+        private _DCBusState         = _heli getVariable "fza_sfmplus_DCBusState";
+        private _tadsShouldBeStowed = true;
+
+        if (_ACBusState == "ON" && _DCBusState == "ON") then {
+            _tadsShouldBeStowed = false;
+        };
+
+        //systemchat format ["Tads should stow? %1", _tadsShouldBeStowed];
+
         if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
             [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;
         };
-        if (!_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
+        if (_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
             [_heli, "fza_ah64_tadsStow", false] call fza_fnc_animSetValue;
         };
     };

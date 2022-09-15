@@ -1,7 +1,10 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-if !isEngineOn _heli exitwith {};
+private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
+private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+
+if (_ACBusState == "OFF" && _DCBusState == "OFF") exitwith {};
 
 private _fcrTargets = [];
 {

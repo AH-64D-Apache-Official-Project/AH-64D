@@ -21,10 +21,15 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
+private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
+
 private _lmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _rmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
 
-private _mpdsHavePower = (_heli animationphase "plt_apu" > 0.5) || (_heli animationphase "plt_eng1_throttle" >= 0.5) || (_heli animationphase "plt_eng2_throttle" >= 0.5);
+private _mpdsHavePower = false;
+if (_ACBusState == "ON") then {
+	_mpdsHavePower = true;
+};
 
 if (_mpdsHavePower && _lmpdCurr == "off") then {
 	[_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;

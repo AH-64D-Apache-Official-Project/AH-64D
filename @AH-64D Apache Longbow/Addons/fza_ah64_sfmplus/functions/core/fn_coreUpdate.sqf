@@ -24,6 +24,9 @@ private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 //Input
 [_heli] call fza_sfmplus_fnc_getInput;
 
+//Systems <-- move it it's own .pbo, needs to be called in XEH_preinit, fza_ah64_eachFrameArray
+[_heli, _deltaTime] call fza_sfmplus_fnc_systemsCoreUpdate;
+
 //Weight
 private _emptyMass = 0;
 if (_heli animationPhase "fcr_enable" == 1) then {
@@ -48,7 +51,8 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli getVariable "fza_ah64_apu") then {
+private _apuState = _heli getVariable "fza_sfmplus_apuState";
+if (_apuState == "ON") then {
 	_apuFF = 0.0220;	//175pph
 };
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;

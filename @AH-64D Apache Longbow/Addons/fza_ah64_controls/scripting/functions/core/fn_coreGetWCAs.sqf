@@ -38,6 +38,11 @@ private _mags = _heli weaponsTurret [-1];
 private _wcas = [];
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
+// System States    /////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////// 
+private _apuState = _heli getVariable "fza_sfmplus_apuState";
+
+///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 if (_heli getVariable "fza_ah64_e1_fire") then {
@@ -91,7 +96,7 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO"];
 };
 //--APU
-if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 >= 3) then {
+if (_apuState == "ON" && getpos _heli # 2 >= 3) then {
 	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON     "]
 };
 //--Mission Equipment
@@ -117,7 +122,7 @@ if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY    "]
 };
-if (_heli getVariable "fza_ah64_apu" && getpos _heli # 2 < 3) then {
+if (_apuState == "ON" && getpos _heli # 2 < 3) then {
 	_wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON     "]
 };
 if (_heli animationphase "plt_eng1_start" > 0 && _heli animationphase "plt_eng1_throttle" < 0.25) then {

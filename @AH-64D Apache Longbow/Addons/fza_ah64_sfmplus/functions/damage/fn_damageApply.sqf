@@ -32,7 +32,6 @@ private _maxTQ_SE    = _heli getVariable "fza_sfmplus_maxTQ_SE";
 private _droopRotor  = false;
 
 if (isEngineOn _heli) then {
-
     //With the power levers at idle
     if (_pctNR <= 0.50 && _engPctTQ >= 0.30) then {
         _droopRotor = true;

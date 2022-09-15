@@ -14,7 +14,9 @@ Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-Private _asearray = fza_ah64_AseRWR;
+
+private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+Private _asearray      = fza_ah64_AseRWR;
 Private _trackingarray = [];
 
 //Audio delay every other scrip
@@ -24,7 +26,7 @@ _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 5];
 {
 	_x params ["_ada", "_type", "_sensor"];
 	private _IDfailed = true;
-	if (_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) then {
+	if (_DCBusState == "ON") then {
 		if (!(_type == "missile") && ("radar" in _sensor) && (alive _ADA)) then {
 			//TSD & ASE Draw
 			if !(_ADA in _asearray) then {

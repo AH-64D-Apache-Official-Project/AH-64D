@@ -59,3 +59,6 @@ _heli setVariable ["fza_sfmplus_dmgTimerTrans", 0];
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;
+
+//Systems
+[_heli] call fza_sfmplus_fnc_systemsVariables;

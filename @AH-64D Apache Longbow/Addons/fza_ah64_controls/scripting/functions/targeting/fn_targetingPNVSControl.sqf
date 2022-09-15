@@ -19,8 +19,12 @@ Author:
 	Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
+
+private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
+private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+
 if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
-    if (player == driver _heli && (_heli getVariable "fza_ah64_apu" || isengineon _heli)) then {
+    if (player == driver _heli && (_ACBusState == "ON" && _DCBusState == "ON")) then {
         if (isNil "fza_ah64_pnvsgreff") then {
             fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
         };
@@ -67,7 +71,7 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
     };
 	
 	// BACKUP TURRET OPTIC PNVS WITH BOTH LOGICS
-	if(player == driver _heli && (_heli getVariable "fza_ah64_apu" || isengineon _heli)) then
+	if(player == driver _heli && (_ACBusState == "ON" && _DCBusState == "ON")) then
 	{
         if (isNil "fza_ah64_pnvsgreff") then {
             fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
