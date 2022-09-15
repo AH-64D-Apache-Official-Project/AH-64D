@@ -17,10 +17,12 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
+#include "\fza_ah64_sfmplus\headers\systems.hpp"
 
 private _apuBtnState   = _heli getVariable "fza_sfmplus_apuBtnState";
 private _battBusState  = _heli getVariable "fza_sfmplus_battBusState";
 private _apuState      = _heli getVariable "fza_sfmplus_apuState";
+private _apuDamage     = _heli getHitPointDamage "hit_apu";
 private _apuStartDelay = _heli getVariable "fza_sfmplus_apuStartDelay";
 private _apuRPM_pct    = _heli getVariable "fza_sfmplus_apuRPM_pct";
 
@@ -32,10 +34,14 @@ if (_apuBtnState == "ON" && _battBusState == "ON") then {
 _heli setVariable ["fza_sfmplus_apuRPM_pct", _apuRPM_pct];
 
 //Set the APU state
-if (_apuRPM_pct <= 0.85) then {
+if (_apuRPM_pct <= SYS_MIN_RPM) then {
     _apuState = "OFF";
 };
-if (_apuRPM_pct > 0.85) then {
-    _apuState = "ON";
+if (_apuRPM_pct > SYS_MIN_RPM) then {
+	if (_apuDamage <= SYS_APU_DMG_VAL) then {
+    	_apuState = "ON";
+	} else {
+		_apuState = "OFF";
+	};
 };
 _heli setVariable ["fza_sfmplus_apuState", _apuState];

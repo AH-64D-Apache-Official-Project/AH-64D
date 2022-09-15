@@ -16,6 +16,7 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\systems.hpp"
 
 //APU
 private _apuState  = _heli getVariable "fza_sfmplus_apuState";
@@ -36,16 +37,16 @@ private _gen2State  = _heli getVariable "fza_sfmplus_gen2State";
 private _gen2Damage = _heli getHitPointDamage "hit_elec_generator2";
 private _rtru2State = _heli getVariable "fza_sfmplus_rtru2State";
 
-//Set generator states
-if (_apuState == "ON" || (_eng1State == "ON" && _eng1PctNP > 0.85) || (_eng2State == "ON" && _eng2PctNP > 0.85)) then {
+//Set generator states <-- NP needs to eventually be replaced with NR
+if (_apuState == "ON" || (_eng1State == "ON" && _eng1PctNP > SYS_MIN_RPM) || (_eng2State == "ON" && _eng2PctNP > SYS_MIN_RPM)) then {
     //Generator 1
-    if (_gen1Damage <= 0.85) then {
+    if (_gen1Damage <= SYS_GEN_DMG_VAL) then {
         _gen1State = "ON";
     } else {
         _gen1State = "OFF";
     };
     //Generator 2
-    if (_gen2Damage <= 0.85) then {
+    if (_gen2Damage <= SYS_GEN_DMG_VAL) then {
         _gen2State = "ON";
     } else {
         _gen2State = "OFF";
@@ -93,7 +94,8 @@ _heli setVariable ["fza_sfmplus_ACBusState", _ACBusState];
 //--(6) IHADSS DEU
 //--(6) ORT
 //--(6) CPG left hand MPD
-//--(6) PLT right hand MPD  
+//--(6) PLT right hand MPD
+//--(6) Battery charger 
 
 //DC Bus
 private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";

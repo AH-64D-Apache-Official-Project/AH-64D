@@ -18,8 +18,11 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
+#include "\fza_ah64_sfmplus\headers\systems.hpp"
 
 private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+
+private _apuState = _heli getVariable "fza_sfmplus_apuState";
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
@@ -29,7 +32,7 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-if (((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) && local _heli) then {
+if (((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) && _apuState == "ON" && local _heli) then {
 	_heli setVariable ["fza_ah64_estarted", true, true];
 	_heli engineOn true;
 };
@@ -68,11 +71,11 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
-if (_no1EngDmg > 0.5) then {
+if (_no1EngDmg > SYS_ENG_DMG_VAL) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 };
 
-if (_no2EngDmg > 0.5) then {
+if (_no2EngDmg > SYS_ENG_DMG_VAL) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 };
 

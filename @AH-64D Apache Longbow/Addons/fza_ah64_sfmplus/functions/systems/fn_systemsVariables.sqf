@@ -17,11 +17,16 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\systems.hpp"
 
 //Switch states
 _heli setVariable ["fza_sfmplus_battSwitchState",   "OFF"];
 
 //Electrical System
+//--Battery
+_heli setVariable ["fza_sfmplus_battPower_pct",     1.0];
+private _battTime = SYS_BATT_TIMER * 60;
+_heli setVariable ["fza_sfmplus_battTimer",         _battTime];
 //--Buses
 _heli setVariable ["fza_sfmplus_battBusState",      "OFF"];
 _heli setVariable ["fza_sfmplus_ACBusState",        "OFF"];

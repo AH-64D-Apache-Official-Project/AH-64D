@@ -86,6 +86,8 @@ switch (_engState) do {
 			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
 			//Np
 			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
+			//Set the engine state
+			//[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 		} else {
 			//Ng
 			_engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
