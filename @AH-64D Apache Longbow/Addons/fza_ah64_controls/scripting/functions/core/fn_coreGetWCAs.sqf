@@ -42,14 +42,15 @@ private _wcas = [];
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--APU
-private _apuState   = _heli getVariable "fza_sfmplus_apuState";
-private _apuRPM_pct = _heli getVariable "fza_sfmplus_apuRPM_pct";
-private _apuDamage  = _heli getHitPointDamage "hit_apu";
+private _apuBtnState = _heli getVariable "fza_sfmplus_apuBtnState";
+private _apuState    = _heli getVariable "fza_sfmplus_apuState";
+private _apuRPM_pct  = _heli getVariable "fza_sfmplus_apuRPM_pct";
+private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
-private _fcrDamage  = _heli getHitPointDamage "hit_msnequip_fcr";
+private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 //--Generators
-private _gen1Damage = _heli getHitPointDamage "hit_elec_generator1";
-private _gen2Damage = _heli getHitPointDamage "hit_elec_generator2";
+private _gen1Damage  = _heli getHitPointDamage "hit_elec_generator1";
+private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
 //--Rectifiers
 private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
 private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
@@ -75,13 +76,14 @@ private _rtrRPM = ((_heli animationPhase "mainrotorRPM") * 1.08) / 10;
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";
 //--Tail rotor & Intermediate gearboxes
 private _IGBDamage  = _heli getHitPointDamage "hit_drives_intermediategearbox";
-private _TGBDamage  = _heli getHitPointDamage "hit_drives_tailrotorgeearbox";
+private _TGBDamage  = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
 //--Nose gearboxes
 private _NGB1Damage = _heli getHitPointDamage "hit_drives_nosegearbox1";
 private _NGB2Damage = _heli getHitPointDamage "hit_drives_nosegearbox2";
 //--Battery
 private _battDamage = _heli getHitPointDamage "hit_elec_battery";
-
+//--Stabilator
+private _stabDamage = _heli getHitPointDamage "hit_stabilator";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -152,12 +154,16 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO"];
 };
 //--APU
-if (_apuState == "ON" && getpos _heli # 2 >= 3) then {
+if (_apuState == "ON" && getpos _heli # 2 >= 3 && _apuBtnState == "ON") then {
 	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON     "];
 };
 //--Mission Equipment
 if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL "];
+};
+//--Stabilator
+if (_stabDamage >= SYS_STAB_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "AUTO/MAN STAB FAIL", "STAB FAIL  "];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////
@@ -170,18 +176,23 @@ if (_battDamage >= SYS_BATT_DMG_VAL) then {
 	_wcas pushBack [WCA_ADVISORY, "BATTERY", "BATTERY    "];
 };
 //--APU
-if (_apuRPM_pct >= 0.02 && _apuState != "ON") then {
+if (_apuRPM_pct >= 0.02 && _apuState != "ON" && _apuBtnState == "ON") then {
 	_wcas pushBack [WCA_ADVISORY, "APU START", "APU START  "];
 };
-if (_apuRPM_pct >= 0.04 && _apuState != "ON") then {
+if (_apuRPM_pct >= 0.04 && _apuState != "ON" && _apuBtnState == "ON") then {
 	_wcas pushBack [WCA_ADVISORY, "APU POWER ON", "APU PWR ON "];
 };
-if (_apuState == "ON" && getpos _heli # 2 < 3) then {
+if (_apuState == "ON" && getpos _heli # 2 < 3 && _apuBtnState == "ON") then {
 	_wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON     "];
 };
+if (_apuRPM_pct >= 0.5 && _apuBtnState == "OFF") then {
+	_wcas pushBack [WCA_ADVISORY, "APU STOP", "APU STOP   "];
+};
+//--Engine 1
 if (_eng1State == "STARTING") then {
 	_wcas pushBack [WCA_ADVISORY, "ENGINE 1 START", "ENG 1 START"];
 };
+//--Engine 2
 if (_eng2State == "STARTING") then {
 	_wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG 2 START"];
 };

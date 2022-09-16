@@ -539,13 +539,13 @@ class CfgVehicles
 				material = 51;
 				passThrough = 0;
 			};	
-			class hit_drives_tailRotorGearbox	
+			class hit_drives_tailrotorgearbox	
 			{	
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
 				explosionShielding = 0.240;
-				name = "hit_drives_tailRotorGearbox";
+				name = "hit_drives_tailrotorgearbox";
 				material = 51;
 				passThrough = 0;
 			};	

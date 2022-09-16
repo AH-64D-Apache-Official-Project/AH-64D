@@ -52,9 +52,6 @@ if (fuel _heli > 0.99) then {
 [_heli] call fza_sfmplus_fnc_massSet;
 
 //Engines
-_heli setVariable ["fza_sfmplus_totRtrDmg",     0];
-_heli setVariable ["fza_sfmplus_dmgTimerCont",  0];
-_heli setVariable ["fza_sfmplus_dmgTimerTrans", 0];
 [_heli] call fza_sfmplus_fnc_engineVariables;
 
 //Performance

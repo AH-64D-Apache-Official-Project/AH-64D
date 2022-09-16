@@ -43,3 +43,7 @@ _heli setVariable ["fza_sfmplus_apuBtnState",       "OFF"];
 _heli setVariable ["fza_sfmplus_apuStartDelay",     5.0];
 _heli setVariable ["fza_sfmplus_apuRPM_pct",        0.0];
 _heli setVariable ["fza_sfmplus_apuState",          "OFF"];
+
+//Damage
+_heli setVariable ["fza_sfmplus_dmgTimerCont",      0.0];
+_heli setVariable ["fza_sfmplus_dmgTimerTrans",     0.0];

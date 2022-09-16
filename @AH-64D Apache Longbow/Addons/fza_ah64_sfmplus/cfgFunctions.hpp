@@ -56,10 +56,15 @@ class CfgFunctions
 			file = "\fza_ah64_sfmplus\functions\systems";	
 			class systemsAPU {R;};
 			class systemsVariables {R;};
+			class systemsRepair {R;};
 		};
 		class systemsCore {					
 			file = "\fza_ah64_sfmplus\functions\systems\core";
 			class systemsCoreUpdate {R;};
+		};
+		class systemsDamage {
+			file = "\fza_ah64_sfmplus\functions\systems\damage";
+			class systemsDamageUpdate {R;};
 		};
 		class systemsElectrical {
 			file = "\fza_ah64_sfmplus\functions\systems\electrical";

@@ -19,14 +19,14 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\systems.hpp"
 
 //APU
-private _apuState  = _heli getVariable "fza_sfmplus_apuState";
+private _apuState    = _heli getVariable "fza_sfmplus_apuState";
 
 //Engine 1
-private _eng1State = _heli getVariable "fza_sfmplus_engState" select 0;
-private _eng1PctNP = _heli getVariable "fza_sfmplus_engPctNP" select 0;
+private _eng1State   = _heli getVariable "fza_sfmplus_engState" select 0;
+private _eng1PctNP   = _heli getVariable "fza_sfmplus_engPctNP" select 0;
 //Engine 2
-private _eng2State = _heli getVariable "fza_sfmplus_engState" select 1;
-private _eng2PctNP = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+private _eng2State   = _heli getVariable "fza_sfmplus_engState" select 1;
+private _eng2PctNP   = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 
 //Generator & RTRU 1
 private _gen1State   = _heli getVariable "fza_sfmplus_gen1State";

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_damageApply
+Function: fza_sfmplus_fnc_damageApply <-- rename me to perfLimit, move to engine
 
 Description:
     Applies damage within a defined period of time after exceeding aircraft

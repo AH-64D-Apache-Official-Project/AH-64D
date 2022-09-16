@@ -24,6 +24,8 @@ params ["_heli", "_deltaTime"];
 [_heli, _deltaTime] call fza_sfmplus_fnc_systemsAPU;
 //Update the Generators
 [_heli] call fza_sfmplus_fnc_systemsElectricalGenController;
+//Update damage
+[_heli, _deltaTime] call fza_sfmplus_fnc_systemsDamageUpdate;
 
 hintsilent format ["Battery State: %1
                     \nBattery Bus State: %4
@@ -32,7 +34,8 @@ hintsilent format ["Battery State: %1
                     \nAPU RPM: %3
                     \nAC Bus State: %6
                     \nDC Bus State: %7
-                    \nBatt Power = %8", 
+                    \nBatt Power = %8
+                    \nXmsn Dmg = %9", 
                     _heli getVariable "fza_sfmplus_battSwitchState",
                     _heli getVariable "fza_sfmplus_apuState",
                     _heli getVariable "fza_sfmplus_apuRPM_pct",
@@ -40,4 +43,5 @@ hintsilent format ["Battery State: %1
                     _heli getVariable "fza_sfmplus_apuBtnState",
                     _heli getVariable "fza_sfmplus_ACBusState",
                     _heli getVariable "fza_sfmplus_DCBusState",
-                    _heli getVariable "fza_sfmplus_battPower_pct"];
+                    _heli getVariable "fza_sfmplus_battPower_pct",
+                    _heli getHitPointDamage "hit_drives_transmission"];
