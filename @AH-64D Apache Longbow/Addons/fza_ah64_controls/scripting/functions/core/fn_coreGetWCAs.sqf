@@ -50,6 +50,9 @@ private _fcrDamage  = _heli getHitPointDamage "hit_msnequip_fcr";
 //--Generators
 private _gen1Damage = _heli getHitPointDamage "hit_elec_generator1";
 private _gen2Damage = _heli getHitPointDamage "hit_elec_generator2";
+//--Rectifiers
+private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
+private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 //--Engine 1
 private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
 private _eng1Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 0;
@@ -116,6 +119,14 @@ if (_gen1Damage >= SYS_GEN_DMG_VAL) then {
 //--Generator 2 Fail
 if (_gen2Damage >= SYS_GEN_DMG_VAL) then {
 	_wcas pushBack [WCA_CAUTION, "GENERATOR 2 FAIL", "GEN2 FAIL  "];
+};
+//--Rectifier 1 Fail
+if (_rect1Damage >= SYS_RECT_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "RECTIFIER 1 FAIL", "RECT1 FAIL "];
+};
+//--Rectifier 2 Fail
+if (_rect2Damage >= SYS_RECT_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "RECTIFIER 2 FAIL", "RECT2 FAIL "];
 };
 //--Intermediate and Tail Rotor Gearboxes
 if (_IGBDamage >= SYS_IGB_DMG_VAL || _TGBDamage >= SYS_TGB_DMG_VAL) then {

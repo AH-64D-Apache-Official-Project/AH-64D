@@ -29,13 +29,16 @@ private _eng2State = _heli getVariable "fza_sfmplus_engState" select 1;
 private _eng2PctNP = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 
 //Generator & RTRU 1
-private _gen1State  = _heli getVariable "fza_sfmplus_gen1State";
-private _gen1Damage = _heli getHitPointDamage "hit_elec_generator1";
-private _rtru1State = _heli getVariable "fza_sfmplus_rtru1State";
+private _gen1State   = _heli getVariable "fza_sfmplus_gen1State";
+private _gen1Damage  = _heli getHitPointDamage "hit_elec_generator1";
+private _rect1State  = _heli getVariable "fza_sfmplus_rect1State";
+private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
+
 //Generator & RTRU 2
-private _gen2State  = _heli getVariable "fza_sfmplus_gen2State";
-private _gen2Damage = _heli getHitPointDamage "hit_elec_generator2";
-private _rtru2State = _heli getVariable "fza_sfmplus_rtru2State";
+private _gen2State   = _heli getVariable "fza_sfmplus_gen2State";
+private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
+private _rect2State  = _heli getVariable "fza_sfmplus_rect2State";
+private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 
 //Set generator states <-- NP needs to eventually be replaced with NR
 if (_apuState == "ON" || (_eng1State == "ON" && _eng1PctNP > SYS_MIN_RPM) || (_eng2State == "ON" && _eng2PctNP > SYS_MIN_RPM)) then {
@@ -59,20 +62,20 @@ _heli setVariable ["fza_sfmplus_gen1State", _gen1State];
 _heli setVariable ["fza_sfmplus_gen2State", _gen2State];
 
 //Set RTRU 1 state
-if (_gen1State == "ON") then {
-    _rtru1State = "ON";
+if (_gen1State == "ON" && _rect1Damage <= SYS_RECT_DMG_VAL) then {
+    _rect1State = "ON";
 } else {
-    _rtru1State = "OFF";
+    _rect1State = "OFF";
 };
-_heli setVariable ["fza_sfmplus_rtru1State", _rtru1State];
+_heli setVariable ["fza_sfmplus_rect1State", _rect1State];
 
 //Set RTRU 2 state
-if (_gen2State == "ON") then {
-    _rtru2State = "ON";
+if (_gen2State == "ON" && _rect2Damage <= SYS_RECT_DMG_VAL) then {
+    _rect2State = "ON";
 } else {
-    _rtru2State = "OFF";
+    _rect2State = "OFF";
 };
-_heli setVariable ["fza_sfmplus_rtru2State", _rtru2State];
+_heli setVariable ["fza_sfmplus_rect2State", _rect2State];
 
 //AC Bus
 private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
@@ -99,7 +102,7 @@ _heli setVariable ["fza_sfmplus_ACBusState", _ACBusState];
 
 //DC Bus
 private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
-if (_rtru1State == "ON" || _rtru2State == "ON") then {
+if (_rect1State == "ON" || _rect2State == "ON") then {
     _DCBusState = "ON";
 } else {
     _DCBusState = "OFF";

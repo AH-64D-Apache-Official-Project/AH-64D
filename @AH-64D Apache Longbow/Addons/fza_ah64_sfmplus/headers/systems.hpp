@@ -2,6 +2,7 @@
 #define SYS_APU_DMG_VAL   0.85
 #define SYS_BATT_DMG_VAL  0.85
 #define SYS_GEN_DMG_VAL   0.85
+#define SYS_RECT_DMG_VAL  0.85
 #define SYS_ENG_DMG_VAL   0.85
 #define SYS_XMSN_DMG_VAL  0.85
 #define SYS_NGB_DMG_VAL   0.85

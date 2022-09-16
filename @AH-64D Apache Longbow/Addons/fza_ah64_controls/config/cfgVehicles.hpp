@@ -588,7 +588,27 @@ class CfgVehicles
 				name = "hit_elec_generator2";
 				material = 51;
 				passThrough = 0;
-			};	
+			};
+			class hit_elec_rectifier1
+			{
+				armor = 0.36 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
+				minimalHit = 0.1;
+				explosionShielding = 0.200;
+				name = "hit_elec_rectifier1";
+				material = 51;
+				passThrough = 0;
+			};
+			class hit_elec_rectifier2
+			{
+				armor = 0.36 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_02;
+				minimalHit = 0.1;
+				explosionShielding = 0.200;
+				name = "hit_elec_rectifier2";
+				material = 51;
+				passThrough = 0;
+			};
 			class hitengine1	
 			{	
 				armor = 0.72 * ARMOR_SCALAR;
