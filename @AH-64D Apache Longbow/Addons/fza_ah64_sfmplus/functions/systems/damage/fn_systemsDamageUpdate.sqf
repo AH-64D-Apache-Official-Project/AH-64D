@@ -124,3 +124,19 @@ private _TGBDamage  = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
 if (_IGBDamage >= SYS_IGB_DMG_VAL || _TGBDamage >= SYS_TGB_DMG_VAL) then {
     _heli setHitPointDamage ["hitvrotor", 1.0];
 };
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Hydraulics       /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _priHydPumpDamage    = _heli getHitPointDamage "hit_hyd_pripump";
+private _priReservoirDamage  = _heli getHitPointDamage "hit_hyd_prireservoir";
+private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
+private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilreservoir";
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Mission Equipment  ///////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _gunTurretDamage  = _heli getHitPointDamage "hit_msnEquip_gun_turret";
+private _pnvsFLIRDamage   = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
+private _pnvsTurretDamage = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
+private _tadsDTVDamage    = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
+private _tadsFLIRDamage   = _heli getHitPointDamage "hit_msnEquip_tads_flir";
+private _tadsTurretDamage = _heli getHitPointDamage "hit_msnEquip_tads_turret";

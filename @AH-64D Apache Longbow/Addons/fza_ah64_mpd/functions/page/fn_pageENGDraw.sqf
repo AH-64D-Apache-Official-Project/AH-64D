@@ -91,3 +91,12 @@ if (_airMode) then {
 		_heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 0];
 	} forEach _wcas;
 };
+
+//Hydraulics
+private _priHydPSI       = (round(_heli getVariable "fza_sfmplus_priHydPsi") / 10) * 10;
+private _priHydPSI_text  = format["%1", [str _priHydPSI, 4] call fza_fnc_padString];
+private _utilHydPSI      = (round(_heli getVariable "fza_sfmplus_utilHydPsi") / 10) * 10;
+private _utilHydPSI_text = format["%1", [str _utilHydPSI, 4] call fza_fnc_padString];
+
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_PRI_HYD_PSI),  _priHydPSI_text];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_UTIL_HYD_PSI), _utilHydPSI_text];

@@ -10,6 +10,7 @@
 #define SYS_TGB_DMG_VAL   0.85
 #define SYS_FCR_DMG_VAL   0.85
 #define SYS_STAB_DMG_VAL  0.85
+#define SYS_HYD_DMG_VAL   0.85
 
 #define SYS_MIN_RPM       0.85
 

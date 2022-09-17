@@ -98,7 +98,7 @@ _heli setVariable ["fza_sfmplus_ACBusState", _ACBusState];
 //--(6) ORT
 //--(6) CPG left hand MPD
 //--(6) PLT right hand MPD
-//--(6) Battery charger 
+//--(6) Battery charger
 
 //DC Bus
 private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";

@@ -52,8 +52,8 @@ class CfgVehicles
 		startDuration          = 15;
 		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 0.40;
-		cyclicForwardForceCoef = 0.50;
+		cyclicAsideForceCoef   = 0.00;
+		cyclicForwardForceCoef = 0.00;
 		backRotorForceCoef     = 0.7;
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;

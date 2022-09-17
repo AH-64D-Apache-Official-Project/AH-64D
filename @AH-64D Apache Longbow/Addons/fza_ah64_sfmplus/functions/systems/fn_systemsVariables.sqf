@@ -47,3 +47,10 @@ _heli setVariable ["fza_sfmplus_apuState",          "OFF"];
 //Damage
 _heli setVariable ["fza_sfmplus_dmgTimerCont",      0.0];
 _heli setVariable ["fza_sfmplus_dmgTimerTrans",     0.0];
+
+//Hydraulics
+_heli setVariable ["fza_sfmplus_priHydPSI_pct",     0.0];
+_heli setVariable ["fza_sfmplus_priHydPsi",         0.0];
+
+_heli setVariable ["fza_sfmplus_utilHydPSI_pct",    0.0];
+_heli setVariable ["fza_sfmplus_utilHydPsi",        0.0];

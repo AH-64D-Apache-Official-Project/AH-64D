@@ -84,6 +84,11 @@ private _NGB2Damage = _heli getHitPointDamage "hit_drives_nosegearbox2";
 private _battDamage = _heli getHitPointDamage "hit_elec_battery";
 //--Stabilator
 private _stabDamage = _heli getHitPointDamage "hit_stabilator";
+//-Hydraulics
+private _priHydPumpDamage    = _heli getHitPointDamage "hit_hyd_pripump";
+private _priReservoirDamage  = _heli getHitPointDamage "hit_hyd_prireservoir";
+private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
+private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilreservoir";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -110,6 +115,10 @@ if (_eng2Ng < 0.63 && !_onGnd) then {
 //--Rotor RPM Low
 if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
 	_wcas pushBack [WCA_WARNING, "LOW ROTOR RPM", "LOW RTR   "];
+};
+//--Hydraulics
+if (_priHydPumpDamage >= SYS_HYD_DMG_VAL && _utilHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_WARNING, "HYD FAILURE", "HYD FAIL   "];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // CAUTIONS         /////////////////////////////////////////////////////////////////////////
@@ -164,6 +173,26 @@ if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 //--Stabilator
 if (_stabDamage >= SYS_STAB_DMG_VAL) then {
 	_wcas pushBack [WCA_CAUTION, "AUTO/MAN STAB FAIL", "STAB FAIL  "];
+};
+//--Hydraulics
+if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "PRI HYD PSI LOW", "PRI HYD PSI"];
+};
+if (_priReservoirDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "PRI HYD LEVEL LOW", "PRI HYD LVL"];
+};
+if (_utilHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "UTIL HYD PSI LOW", "UTIL HYD PSI"];
+};
+if (_utilReservoirDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "UTIL HYD LEVEL LOW", "UTIL HYD LVL"];
+};
+//--Flight Controls
+if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+	_wcas pushBack [WCA_CAUTION, "BUCS FAIL", "BUCS FAIL  "];
+};
+if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+		_wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG "];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////

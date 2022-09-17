@@ -24,6 +24,9 @@ params ["_heli", "_deltaTime"];
 [_heli, _deltaTime] call fza_sfmplus_fnc_systemsAPU;
 //Update the Generators
 [_heli] call fza_sfmplus_fnc_systemsElectricalGenController;
+//Update the Hydraulics
+[_heli, _deltaTime] call fza_sfmplus_fnc_systemsHydraulicsPump;
+
 //Update damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_systemsDamageUpdate;
 
