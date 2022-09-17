@@ -37,7 +37,7 @@ private _targetPos = _shooter getVariable ["ace_missileguidance_targetPosition",
 private _seekerType = _shooter getVariable ["ace_missileguidance_seekerType", nil];
 private _lockMode = _shooter getVariable ["ace_missileguidance_lockMode", nil];
 private _attackProfile = [_heli] call fza_fnc_getAttackProfile;
-
+private _lasercode = 1111;
 
 if !(isNull laserTarget _heli) then {
     _laserCode = [_heli, "Primary_Alternate", 0] call fza_fnc_getLaserCode;
@@ -45,7 +45,7 @@ if !(isNull laserTarget _heli) then {
     _laserCode = [_heli, "Primary_Alternate", 1] call fza_fnc_getLaserCode;
 };
 
-private _laserInfo = [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
+private _laserInfo = [_laserCode #1, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
 
 private _launchPos = getPosASL _heli;
 

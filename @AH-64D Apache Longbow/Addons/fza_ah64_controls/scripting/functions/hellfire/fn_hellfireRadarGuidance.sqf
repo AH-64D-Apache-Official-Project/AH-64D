@@ -62,7 +62,7 @@ if (_heli getVariable "fza_ah64_missleLOBL" == true) then {
 		while {
 			(alive _projectile)
 		} do {
-			if (_projectile distance _LoalTarget < 2500) then {
+			if (_projectile distance _LoalTarget < 2000) then {
 				private _lastscantarget = missileTarget _projectile;
 				private _distance = _projectile distance _lastscantarget;
 				private _finalScanTarget = objNull;

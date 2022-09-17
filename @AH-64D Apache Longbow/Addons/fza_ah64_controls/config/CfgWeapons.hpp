@@ -303,8 +303,8 @@ class CfgWeapons
 		{
 			soundSetShot[] = {"fza_agm114_soundset"};
 		};
-		modes[]	= {"Cruise"};
-		class Cruise: MissileLauncher
+		modes[]	= {"TopDown"};
+		class TopDown: MissileLauncher
 		{
 			displayName = "LOAL-HI";
 			textureType = "terrain";

@@ -295,12 +295,14 @@ class CfgAmmo
 		missileKeepLockedCone		= 90;
 		maneuvrability				= 21;
 
-		flightProfiles[]	= {Cruise};
+		flightProfiles[]	= {TopDown};
 		class Direct{};
-		class Cruise
+		class TopDown : Direct
 		{
-			preferredFlightAltitude = 500;
-			lockDistanceToTarget = 1000;
+			minDistance = 1000; //Minimum distance required to do a top down attack
+			ascendHeight = 500;
+			ascendAngle  = 40;
+			descendDistance = 500;
 		};
 		class Eventhandlers: Eventhandlers
 		{

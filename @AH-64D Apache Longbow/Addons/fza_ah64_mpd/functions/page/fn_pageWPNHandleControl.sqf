@@ -50,7 +50,7 @@ if(_selectedWeapon == WAS_WEAPON_MSL) then {
 			//Switch missile lase
 			[_heli] call fza_fnc_controlHandlelaserchange;
 		};
-		case "l3": {
+		case "r1": {
 			//Switch missile type
 			[_heli] call fza_fnc_weaponMissileCycle
 		};

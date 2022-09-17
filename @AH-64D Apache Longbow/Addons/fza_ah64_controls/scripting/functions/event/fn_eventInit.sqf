@@ -187,4 +187,9 @@ do {
         };
     };
     sleep 0.03;
+    
+    //Ace Map Lighting settings
+    ace_map_vehicleLightColor = [0.306, 0.878, 0.349,0.3]; 
+    ace_map_vehicleExteriorTurrets = [];
+    ace_map_vehicleLightCondition = (isLightOn [_heli, [0]]);
 };
