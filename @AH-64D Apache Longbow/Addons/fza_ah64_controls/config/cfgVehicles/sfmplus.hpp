@@ -2,13 +2,14 @@ class Fza_SfmPlus {
     emptyMassFCR    = 6609; //kg
     emptyMassNonFCR = 6314; //kg
 
-    cyclicPitchTorque = 4000.0; //Nm
+    cyclicPitchTorque = 3000.0; //Nm
     cyclicRollTorque  = 1500.0; //Nm
+    pedalYawTorque    = 4000.0; //Nm
 
     stabPos[]       = {0.0, -7.207, -0.50};  //m
     stabWidth       = 3.22;                  //m
     stabLength      = 1.07;                  //m
-    forcePos[]      = {0.0, 2.08, 0.83};     //m
+    forcePos[]      = {0.0, 2.08, 0.00};     //m
 
     //Fuel data
     initFuelFracRobbie   = 0.39;
