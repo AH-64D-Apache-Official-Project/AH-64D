@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:pfz/fn_pfzReceive.sqf","fn_pfzReceive.sqf");NDSummary.OnSummaryLoaded("File:pfz/fn_pfzReceive.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_pfzReceive","fza_fnc_pfzReceive"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:pfz/fn_pfzReceive.sqf","fn_pfzReceive.sqf");NDSummary.OnSummaryLoaded("File:pfz/fn_pfzReceive.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[177,0,1,"Functions","Functions"],[178,0,0,"fza_fnc_pfzReceive","fza_fnc_pfzReceive"]]);
