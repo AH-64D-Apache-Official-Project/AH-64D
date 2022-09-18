@@ -90,7 +90,7 @@ private _priHydPSI           = _heli getVariable "fza_sfmplus_priHydPsi";
 private _priReservoirDamage  = _heli getHitPointDamage "hit_hyd_prireservoir";
 
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
-private _utilHydPSI          = _heli getVariable "fza_sfmplus_priHydPsi";
+private _utilHydPSI          = _heli getVariable "fza_sfmplus_utilHydPsi";
 private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilreservoir";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
@@ -185,10 +185,10 @@ if (_priReservoirDamage >= SYS_HYD_DMG_VAL) then {
 	_wcas pushBack [WCA_CAUTION, "PRI HYD LEVEL LOW", "PRI HYD LVL"];
 };
 if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
-	_wcas pushBack [WCA_CAUTION, "UTIL HYD PSI LOW", "UTIL HYD PSI"];
+	_wcas pushBack [WCA_CAUTION, "UTIL HYD PSI LOW", "UTIL HYD PS"];
 };
 if (_utilReservoirDamage >= SYS_HYD_DMG_VAL) then {
-	_wcas pushBack [WCA_CAUTION, "UTIL HYD LEVEL LOW", "UTIL HYD LVL"];
+	_wcas pushBack [WCA_CAUTION, "UTIL HYD LEVEL LOW", "UTIL HYD LV"];
 };
 //--Flight Controls
 if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {

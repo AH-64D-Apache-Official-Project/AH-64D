@@ -73,8 +73,12 @@ class CfgFunctions
 		};
 		class systemsHydraulics {
 			file = "\fza_ah64_sfmplus\functions\systems\hydraulics";
-			class systemsHydraulicsPumpController {R;};
-			class systemsHydraulicsReservoirController {R;};
+			class systemsHydraulicsAccumulator {R;};
+			class systemsHydraulicsController {R;};
+			class systemsHydraulicsPriPump {R;};
+			class systemsHydraulicsPriReservoir {R;};
+			class systemsHydraulicsUtilPump {R;};
+			class systemsHydraulicsUtilReservoir {R;};
 		};
 		/////////////////////////////////////////////////////////////////////////////////////////////
 		// End of move to own .pbo //////////////////////////////////////////////////////////////////
