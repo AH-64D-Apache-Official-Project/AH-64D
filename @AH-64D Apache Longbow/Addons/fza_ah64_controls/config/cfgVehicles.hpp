@@ -52,9 +52,9 @@ class CfgVehicles
 		startDuration          = 15;
 		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 0.05;
-		cyclicForwardForceCoef = 0.15;
-		backRotorForceCoef     = 0.05;
+		cyclicAsideForceCoef   = 0.00;
+		cyclicForwardForceCoef = 0.00;
+		backRotorForceCoef     = 0.00;
 	    fuelCapacity           = 1423;
 		fuelconsumptionrate    = 0.0;
 		maxSpeed               = 298;
@@ -482,14 +482,14 @@ class CfgVehicles
 		class Damage
 		{
 			tex[] = {
-				"fza_ah64_us\tex\ex\rtrs_co.paa",
-				"fza_ah64_us\tex\dam\mdam_Rtrs_co.paa",
-				"fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"
+				//"fza_ah64_us\tex\ex\rtrs_co.paa",
+				//"fza_ah64_us\tex\dam\mdam_Rtrs_co.paa",
+				//"fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"
 			};
 			mat[] = {
-				"fza_ah64_us\mat\body.rvmat",
-				"fza_ah64_us\mat\body_damage.rvmat",
-				"fza_ah64_us\mat\body_damage.rvmat"
+				//"fza_ah64_us\mat\body.rvmat",
+				//"fza_ah64_us\mat\body_damage.rvmat",
+				//"fza_ah64_us\mat\body_damage.rvmat"
 			};
 		};
 
@@ -501,130 +501,130 @@ class CfgVehicles
 		{		
 			class hit_apu	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 1.199;
+				explosionShielding = 0.80;
 				name = "hit_apu";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_intermediategearbox	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.62 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.240;
+				explosionShielding = 0.67;
 				name = "hit_drives_intermediategearbox";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_noseGearbox1	
 			{	
-				armor = 0.96 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.320;
+				explosionShielding = 0.80;
 				name = "hit_drives_noseGearbox1";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_noseGearbox2	
 			{	
-				armor = 0.96 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.320;
+				explosionShielding = 0.80;
 				name = "hit_drives_noseGearbox2";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_tailrotorgearbox	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.62 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.240;
+				explosionShielding = 0.67;
 				name = "hit_drives_tailrotorgearbox";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_transmission	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 2.16 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.240;
+				explosionShielding = 0.60;
 				name = "hit_drives_transmission";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_elec_battery	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.799;
+				explosionShielding = 0.80;
 				name = "hit_elec_battery";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_elec_generator1	
 			{	
-				armor = 0.36 * ARMOR_SCALAR;
+				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.200;
+				explosionShielding = 0.80;
 				name = "hit_elec_generator1";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_elec_generator2	
 			{	
-				armor = 0.36 * ARMOR_SCALAR;
+				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.200;
+				explosionShielding = 0.80;
 				name = "hit_elec_generator2";
 				material = 51;
 				passThrough = 0;
 			};
 			class hit_elec_rectifier1
 			{
-				armor = 0.36 * ARMOR_SCALAR;
+				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.200;
+				explosionShielding = 0.80;
 				name = "hit_elec_rectifier1";
 				material = 51;
 				passThrough = 0;
 			};
 			class hit_elec_rectifier2
 			{
-				armor = 0.36 * ARMOR_SCALAR;
+				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.200;
+				explosionShielding = 0.80;
 				name = "hit_elec_rectifier2";
 				material = 51;
 				passThrough = 0;
 			};
 			class hitengine1	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.80 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.240;
+				explosionShielding = 0.75;
 				name = "hitengine1";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hitengine2	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.80 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.240;
+				explosionShielding = 0.75;
 				name = "hitengine2";
 				material = 51;
 				passThrough = 0;
@@ -634,177 +634,177 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.599;
+				explosionShielding = 0.80;
 				name = "hit_hyd_prireservoir";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_hyd_priPump	
 			{	
-				armor = 0.9 * ARMOR_SCALAR;
+				armor = 0.90 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.499;
+				explosionShielding = 0.75;
 				name = "hit_hyd_priPump";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_hyd_utilreservoir	
 			{	
-				armor = 0.9 * ARMOR_SCALAR;
+				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.749;
+				explosionShielding = 0.80;
 				name = "hit_hyd_utilreservoir";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_hyd_utilPump	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 0.90 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.400;
+				explosionShielding = 0.75;
 				name = "hit_hyd_utilPump";
 				material = 51;
 				passThrough = 0;
 			};
 			class hithrotor
 			{
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 5.76 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.270;
+				explosionShielding = 0.80;
 				name = "hithrotor";
 				material = 51;
 				passThrough = 0;
 			};
 			class hit_msnEquip_gun_turret	
 			{	
-				armor = 0.9 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.749;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_gun_turret";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pnvs_flir	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.799;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pnvs_flir";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pnvs_turret	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = ;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pnvs_turret";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pylon1	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.599;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pylon1";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pylon2	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.599;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pylon2";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pylon3	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.599;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pylon3";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_pylon4	
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.599;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_pylon4";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_tads_dtv	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.799;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_tads_dtv";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_tads_flir	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = ;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_tads_flir";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_tads_turret	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = ;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_tads_turret";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_msnEquip_fcr	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = ;
+				explosionShielding = 0.80;
 				name = "hit_msnEquip_fcr";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_stabilator	
 			{	
-				armor = 0.48 * ARMOR_SCALAR;
+				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = ;
+				explosionShielding = 0.80;
 				name = "hit_stabilator";
 				material = 51;
 				passThrough = 0;
 			};
 			class hitvrotor
 			{	
-				armor = 0.72 * ARMOR_SCALAR;
+				armor = 5.76 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding =0.270;
+				explosionShielding = 0.80;
 				name = "hitvrotor";
 				material = 51;
 				passThrough = 0;

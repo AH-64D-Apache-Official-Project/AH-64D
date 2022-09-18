@@ -9,7 +9,7 @@ class Fza_SfmPlus {
     stabPos[]       = {0.0, -7.207, -0.50};  //m
     stabWidth       = 3.22;                  //m
     stabLength      = 1.07;                  //m
-    forcePos[]      = {0.0, 2.08, 0.00};     //m
+    centerOfMass[]  = {0.0, 2.08, 0.00};     //m
 
     //Fuel data
     initFuelFracRobbie   = 0.39;

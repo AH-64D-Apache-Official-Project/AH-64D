@@ -30,10 +30,14 @@ private _priLevel_pct        = _heli getVariable "fza_sfmplus_priLevel_pct";
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilLevel_pct       = _heli getVariable "fza_sfmplus_utilLevel_pct";
 
+private _accState 		     = _heli getVariable "fza_sfmplus_accState";
+
 private _collectiveVal   = _heli animationSourcePhase "collective";
 private _cyclicFwdAft    = _heli animationSourcePhase "cyclicForward";
 private _cyclicLeftRight = _heli animationSourcePhase "cyclicAside";
 private _pedalLeftRight  = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+
+private _railRtrDamage   = _heli getHitPointDamage "hitvrotor";
 
 private _collectiveOut   = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
@@ -64,6 +68,10 @@ _pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
 
 private _foreAftTorque   = _cyclicFwdAft    *  _pitchTorque;
 private _leftRightTorque = _cyclicLeftRight * -_rollTorque;
+
+if (_railRtrDamage == 1.0) then {
+	_yawTorque = 0.0;
+};
 private _pedalTorque     = _pedalLeftRight  * _yawTorque;
 
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
@@ -71,29 +79,23 @@ private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
-	//Main rotor controls (pitch and roll)
+	//Primary and Utility Hydraulics
 	if (_priHydPumpDamage < SYS_HYD_DMG_VAL || _utilHydPumpDamage < SYS_HYD_DMG_VAL) then {
+		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+	};
+	//Emergency Hydraulics
+	if (_accState == "ON") then {
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 };
 
-
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
-DRAW_LINE = {
-	params ["_heli", "_p1", "_p2", "_col"];
-	drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
-private _objCtr        = _heli selectionPosition ["modelCenter", "Memory"];
-private _forcePos      = _heli getVariable "fza_sfmplus_forcePos";
-private _forceVec      = [0.0, 0.0, 5.0];   //X, Z, Y
-private _forceVec_norm = vectorNormalized(_forcePos vectorAdd _forceVec);
-
-_heli setCenterofMass [_forcePos];
-
-#ifdef __A3_DEBUG__
-//Draw the force vector
-[_heli, getCenterOfMass _heli, (getCenterOfMass _heli) vectorAdd _forceVec, _colorGreen] call DRAW_LINE;
-
-#endif
+/*
+[] spawn { 
+	runLoop = true; 
+	while {runLoop} do { 
+	 systemChat str ("Engines Invulnerable!"); 
+	 vehicle player setHitPointDamage["hitengine1", 0.0]; 
+	 vehicle player setHitPointDamage["hitengine2", 0.0]; 
+	 sleep 0.03; 
+	}; 
+};*/

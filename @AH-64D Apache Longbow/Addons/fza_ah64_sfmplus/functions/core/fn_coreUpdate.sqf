@@ -21,6 +21,10 @@ params ["_heli"];
 
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
+//Set the center of mass
+private _forcePos = _heli getVariable "fza_sfmplus_centerOfMass";
+_heli setCenterofMass [_forcePos];
+
 //Input
 [_heli] call fza_sfmplus_fnc_getInput;
 

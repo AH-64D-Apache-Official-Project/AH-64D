@@ -86,8 +86,11 @@ private _battDamage = _heli getHitPointDamage "hit_elec_battery";
 private _stabDamage = _heli getHitPointDamage "hit_stabilator";
 //-Hydraulics
 private _priHydPumpDamage    = _heli getHitPointDamage "hit_hyd_pripump";
+private _priHydPSI           = _heli getVariable "fza_sfmplus_priHydPsi";
 private _priReservoirDamage  = _heli getHitPointDamage "hit_hyd_prireservoir";
+
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
+private _utilHydPSI          = _heli getVariable "fza_sfmplus_priHydPsi";
 private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilreservoir";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
@@ -175,13 +178,13 @@ if (_stabDamage >= SYS_STAB_DMG_VAL) then {
 	_wcas pushBack [WCA_CAUTION, "AUTO/MAN STAB FAIL", "STAB FAIL  "];
 };
 //--Hydraulics
-if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+if (_priHydPSI < SYS_MIN_HYD_PSI) then {
 	_wcas pushBack [WCA_CAUTION, "PRI HYD PSI LOW", "PRI HYD PSI"];
 };
 if (_priReservoirDamage >= SYS_HYD_DMG_VAL) then {
 	_wcas pushBack [WCA_CAUTION, "PRI HYD LEVEL LOW", "PRI HYD LVL"];
 };
-if (_utilHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
 	_wcas pushBack [WCA_CAUTION, "UTIL HYD PSI LOW", "UTIL HYD PSI"];
 };
 if (_utilReservoirDamage >= SYS_HYD_DMG_VAL) then {

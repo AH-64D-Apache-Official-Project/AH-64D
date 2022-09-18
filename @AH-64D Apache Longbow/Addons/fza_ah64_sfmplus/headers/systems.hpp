@@ -14,7 +14,11 @@
 
 #define SYS_MIN_RPM       0.85
 
+#define SYS_MIN_HYD_PSI   1260
+#define SYS_MIN_ACC_PSI   1650
+
 #define SYS_BATT_TIMER    3
+#define SYS_ACC_TIMER     1.5
 
 //Damage timers
 #define DMG_PER_SEC       0.003 //5 minutes total time
