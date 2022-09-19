@@ -12,8 +12,6 @@ class CfgFunctions
 		class apu {
 			file = "\fza_ah64_systems\functions\apu";	
 			class apu {R;};
-
-			class systemsRepair {R;};
 		};
 		class core {					
 			file = "\fza_ah64_systems\functions\core";
@@ -40,6 +38,7 @@ class CfgFunctions
 		};
 		class repair {
 			file = "\fza_ah64_systems\functions\repair";
+			class repair {R;};
 		};
     };
 };
