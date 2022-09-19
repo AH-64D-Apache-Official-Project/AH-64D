@@ -77,13 +77,10 @@ class CfgFunctions
 		};
 		class hellfire {
 			file = "\fza_ah64_controls\Scripting\functions\hellfire";
-			class hellfireLaserguidance {R;};
-			class hellfireRadarguidance {R;};
-			class getLaserCode {R;};
-			class setLaserCode {R;};
-			class setLaserChannels {R;};
-			class setAceLaserDes {R;};
-			class getAttackProfile {R;};
+			class HellfireAceController {R;};
+			class HellfireGetAttackProfile {R;};
+			class hellfireSALFired {R;};
+			class hellfireARHSeeker {R;};
 		};
 		class ihadss
 		{

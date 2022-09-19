@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_getAttackProfile
+Function: fza_fnc_HellfireGetAttackProfile
 
 Description:
 	grabs the ace name for the current attack mode.
@@ -11,7 +11,7 @@ Returns:
 	Nothing
 
 Examples:
-    _result = [_heli] call fza_fnc_getAttackProfile;
+    [_heli] call fza_fnc_HellfireGetAttackProfile
 
 Author:
 	Rosd6(Dryden)

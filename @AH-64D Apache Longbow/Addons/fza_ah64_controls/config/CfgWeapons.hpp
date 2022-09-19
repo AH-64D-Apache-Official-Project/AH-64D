@@ -155,11 +155,11 @@ class CfgWeapons
 
 		//ACE Advanced Ballistics Cfg
 		ACE_barrelTwist 			= 177.8;
-        ACE_barrelLength 			= 1676;
+		ACE_barrelLength 			= 1676;
 		ACE_twistDirection 			= 1;
-        ace_overpressure_angle 		= 90;
-        ace_overpressure_range 		= 2;
-        ace_overpressure_damage 	= 0.265;
+		ace_overpressure_angle 		= 90;
+		ace_overpressure_range 		= 2;
+		ace_overpressure_damage 	= 0.265;
 
 		class GunParticles
 		{

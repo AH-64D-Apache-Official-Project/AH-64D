@@ -293,29 +293,36 @@ class CfgAmmo
 		activeSensorAlwaysOn        = 1;
 		missileLockCone				= 90;
 		missileKeepLockedCone		= 90;
-		maneuvrability				= 21;
+		maneuvrability				= 0;
+		
+        class ace_missileguidance {
+            enabled 							= 1;
 
-		flightProfiles[]	= {TopDown};
-		class Direct{};
-		class TopDown : Direct
-		{
-			minDistance = 1000; //Minimum distance required to do a top down attack
-			ascendHeight = 500;
-			ascendAngle  = 40;
-			descendDistance = 500;
-		};
-		class Eventhandlers: Eventhandlers
-		{
-			class FZA_EH
-			{
-				fired = "_this call fza_fnc_hellfireRadarguidance";
-				
-			};
-		};
+            minDeflection 						= 0.0005;      // Minium flap deflection for guidance
+            maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
+            incDeflection 						= 0.0005;      // The incrmeent in which deflection adjusts.
 
-		class ace_missileguidance {
-            enabled = 0;
+            canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+
+            // Guidance type for munitions
+            defaultSeekerType 					= "Fza_ARH";
+            seekerTypes[] 						= { "Fza_ARH" };
+            defaultSeekerLockMode				= "LOBL";
+            seekerLockModes[] 					= { "LOAL", "LOBL" };
+
+            seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
+            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAccuracy 						= 1;         // seeker accuracy multiplier
+
+            seekerMinRange 						= 1;
+            activeRadarEngageDistance 			= 1000;
+            seekerMaxRange 						= 2000; // distance that the hellfire internal radar can scan
+
+            // Attack profile type selection
+            defaultAttackProfile 				= "hellfire_hi";
+            attackProfiles[] 					= {"hellfire_hi"};
         };
+
 		class Components : Components
 		{
 			class SensorsManagerComponent
@@ -341,7 +348,7 @@ class CfgAmmo
 						angleRangeVertical 			= 90;
 						maxGroundNoiseDistance 		= 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
 						maxFogSeeThrough 			= 0.8;
-						allowsMarking				= 1;
+						allowsMarking				= 0;
 					};
 				};
 			};
@@ -379,18 +386,9 @@ class CfgAmmo
 		autoSeekTarget				= 1;
 		lockSeekDistanceFromParent  = 300;
 		lockSeekRadius 				= 500;
-
-		class Eventhandlers: Eventhandlers
-		{
-			class FZA_EH
-			{
-				fired = "_this call fza_fnc_hellfireLaserguidance";
-				
-			};
-		};
 		
         class ace_missileguidance {
-            enabled 							= 0;
+            enabled 							= 1;
 
             minDeflection 						= 0.0005;      // Minium flap deflection for guidance
             maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
@@ -399,10 +397,10 @@ class CfgAmmo
             canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
             // Guidance type for munitions
-            defaultSeekerType 					= "SALH";
-            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+            defaultSeekerType 					= "Fza_SALH";
+            seekerTypes[] 						= {"Fza_SALH"};
 
-            defaultSeekerLockMode				= "LOAL";
+            defaultSeekerLockMode				= "LOBL";
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
@@ -437,7 +435,7 @@ class CfgAmmo
 						typeRecognitionDistance 	= -1;
 						maxGroundNoiseDistance 		= 0;   // distance from the ground in meters, hard cap, above which the target will be visible even if still below groundNoiseDistanceCoef
 						maxFogSeeThrough 			= 0.3;
-						allowsMarking				= 1;
+						allowsMarking				= 0;
 					};
 				};
 			};
@@ -459,7 +457,7 @@ class CfgAmmo
 		//AI usage
 		cost 						= 500;
         class ace_missileguidance {
-            enabled 							= 0;
+            enabled 							= 1;
 
             minDeflection 						= 0.0005;      // Minium flap deflection for guidance
             maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
@@ -468,10 +466,10 @@ class CfgAmmo
             canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
             // Guidance type for munitions
-            defaultSeekerType 					= "SALH";
-            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+            defaultSeekerType 					= "Fza_SALH";
+            seekerTypes[] 						= { "Fza_SALH" };
 
-            defaultSeekerLockMode				= "LOAL";
+            defaultSeekerLockMode				= "LOBL";
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 0;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
@@ -501,7 +499,7 @@ class CfgAmmo
 		//AI usage
 		cost 						= 600;
         class ace_missileguidance {
-            enabled 							= 0;
+            enabled 							= 1;
 
             minDeflection 						= 0.0005;      // Minium flap deflection for guidance
             maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
@@ -510,10 +508,10 @@ class CfgAmmo
             canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
             // Guidance type for munitions
-            defaultSeekerType 					= "SALH";
-            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+            defaultSeekerType 					= "Fza_SALH";
+            seekerTypes[] 						= { "Fza_SALH" };
 
-            defaultSeekerLockMode				= "LOAL";
+            defaultSeekerLockMode				= "LOBL";
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
@@ -544,7 +542,7 @@ class CfgAmmo
 		//AI usage
 		cost 						= 700;
         class ace_missileguidance {
-            enabled 							= 0;
+            enabled 							= 1;
 
             minDeflection 						= 0.0005;      // Minium flap deflection for guidance
             maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
@@ -553,10 +551,10 @@ class CfgAmmo
             canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
             // Guidance type for munitions
-            defaultSeekerType 					= "SALH";
-            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+            defaultSeekerType 					= "Fza_SALH";
+            seekerTypes[] 						= { "Fza_SALH" };
 
-            defaultSeekerLockMode				= "LOAL";
+            defaultSeekerLockMode				= "LOBL";
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
@@ -585,7 +583,7 @@ class CfgAmmo
 		//AI usage
 		cost 						= 700;
         class ace_missileguidance {
-            enabled 							= 0;
+            enabled 							= 1;
 
             minDeflection 						= 0.0005;      // Minium flap deflection for guidance
             maxDeflection 						= 0.01;       // Maximum flap deflection for guidance
@@ -594,10 +592,10 @@ class CfgAmmo
             canVanillaLock 						= 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
 
             // Guidance type for munitions
-            defaultSeekerType 					= "SALH";
-            seekerTypes[] 						= { "SALH", "LIDAR", "SARH", "Optic", "Thermal", "GPS", "SACLOS", "MCLOS" };
+            defaultSeekerType 					= "Fza_SALH";
+            seekerTypes[] 						= { "Fza_SALH" };
 
-            defaultSeekerLockMode				= "LOAL";
+            defaultSeekerLockMode				= "LOBL";
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]

@@ -27,6 +27,8 @@ class CfgAddons
 /*extern*/ class SensorTemplateLaser;
 #include "config\defines.hpp"
 #include "config\misc.hpp"
+
+#include "config\ACE_GuidanceConfig.hpp"
 #include "config\CfgAnimationSourceSounds.hpp"
 #include "config\CfgSounds.hpp"
 #include "config\CfgMoves.hpp"
