@@ -24,8 +24,10 @@ private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
 
+private _tailRtrFixed      = false;
+
 private _priHydPumpDamage  = _heli getHitPointDamage "hit_hyd_pripump";
-private _priLevel_pct      = _heli getVariable "fza_systems_priLevel_pct";
+private _priHydPSI         = _heli getVariable "fza_systems_priHydPsi";
 
 private _utilHydPumpDamage = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
@@ -69,7 +71,11 @@ _pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
 private _foreAftTorque   = _cyclicFwdAft    *  _pitchTorque;
 private _leftRightTorque = _cyclicLeftRight * -_rollTorque;
 
-if (_tailRtrDamage == 1.0) then {
+if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
+	_tailRtrFixed = true;
+};
+
+if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 	_yawTorque = 0.0;
 };
 private _pedalTorque     = _pedalLeftRight  * _yawTorque;

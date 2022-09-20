@@ -62,3 +62,6 @@ _heli setVariable ["fza_systems_accHydPSI_pct",     1.0];
 private _accTime = SYS_ACC_TIMER * 60;
 _heli setVariable ["fza_systems_accTimer",          _accTime];
 _heli setVariable ["fza_systems_accHydPsi",         0.0];
+
+private _leakTimer = SYS_LEAK_TIMER * 60;
+_heli setVariable ["fza_systems_hydLeakTimer",      _leakTimer];

@@ -37,7 +37,9 @@ hintsilent format ["Battery State: %1
                     \nAC Bus State: %6
                     \nDC Bus State: %7
                     \nBatt Power = %8
-                    \nXmsn Dmg = %9", 
+                    \nXmsn Dmg = %9
+                    \nPri Lvl = %10
+                    \nUtil Lvl = %11", 
                     _heli getVariable "fza_systems_battSwitchState",
                     _heli getVariable "fza_systems_apuState",
                     _heli getVariable "fza_systems_apuRPM_pct",
@@ -46,4 +48,6 @@ hintsilent format ["Battery State: %1
                     _heli getVariable "fza_systems_ACBusState",
                     _heli getVariable "fza_systems_DCBusState",
                     _heli getVariable "fza_systems_battPower_pct",
-                    _heli getHitPointDamage "hit_drives_transmission"];
+                    _heli getHitPointDamage "hit_drives_transmission",
+                    _heli getVariable "fza_systems_priLevel_pct",
+                    _heli getVariable "fza_systems_utilLevel_pct"];

@@ -177,7 +177,7 @@ do {
             _tadsShouldBeStowed = false;
         };
 
-        //systemchat format ["Tads should stow? %1", _tadsShouldBeStowed];
+        systemchat format ["Tads should stow? %1", _tadsShouldBeStowed];
 
         if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
             [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;

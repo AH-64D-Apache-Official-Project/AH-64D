@@ -19,7 +19,7 @@ Author:
 params ["_heli", "_deltaTime"];
 
 private _apuState = _heli getVariable "fza_systems_apuState";
-private _rtrRPM   = _heli animationPhase "mainRotorRPM";
+private _rtrRPM   = (_heli animationPhase "mainRotorRPM") / 10;
 
 //Update the Battery
 [_heli, _deltaTime] call fza_systems_fnc_electricalBattery;

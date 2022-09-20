@@ -81,10 +81,10 @@ do {
 
         for "_i" from 0 to 5 do {
             _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
-                if (count _warnings > _i) then {_warnings # _i} else {"           "},
-                if (count _cautions > _i) then {_cautions # _i} else {"           "},
-                if (count _advisories > _i) then {_advisories # _i} else {"           "}
-            ]];
+                if (count _warnings > _i) then {_warnings # _i} else {"          "},       //10
+                if (count _cautions > _i) then {_cautions # _i} else {"             "},    //13
+                if (count _advisories > _i) then {_advisories # _i} else {"          "}    //10
+            ]];                                                                            //33
         };
 
 
