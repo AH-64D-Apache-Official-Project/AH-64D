@@ -115,7 +115,7 @@ _droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
 if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
 
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-if (cba_missionTime > _lastUpdate + 0.1 && _rtrRPM > 0.05) then {
+if (cba_missionTime > _lastUpdate + 0.3 && _rtrRPM > 0.05) then {
 	//systemChat str [_realRPM / 10, _rtrRPM];
 	_rtrRPM = _droopRPM;
 

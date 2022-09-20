@@ -504,7 +504,7 @@ class CfgVehicles
 				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.30;
 				name = "hit_apu";
 				material = 51;
 				passThrough = 0;
@@ -514,7 +514,7 @@ class CfgVehicles
 				armor = 1.62 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.67;
+				explosionShielding = 0.34;
 				name = "hit_drives_intermediategearbox";
 				material = 51;
 				passThrough = 0;
@@ -524,7 +524,7 @@ class CfgVehicles
 				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.24;
 				name = "hit_drives_noseGearbox1";
 				material = 51;
 				passThrough = 0;
@@ -534,7 +534,7 @@ class CfgVehicles
 				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.24;
 				name = "hit_drives_noseGearbox2";
 				material = 51;
 				passThrough = 0;
@@ -544,17 +544,17 @@ class CfgVehicles
 				armor = 1.62 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.67;
+				explosionShielding = 0.34;
 				name = "hit_drives_tailrotorgearbox";
 				material = 51;
 				passThrough = 0;
 			};	
 			class hit_drives_transmission	
 			{	
-				armor = 2.16 * ARMOR_SCALAR;
+				armor = 2.88 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.60;
+				explosionShielding = 0.30;
 				name = "hit_drives_transmission";
 				material = 51;
 				passThrough = 0;
@@ -564,7 +564,7 @@ class CfgVehicles
 				armor = 1.44 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.24;
 				name = "hit_elec_battery";
 				material = 51;
 				passThrough = 0;
@@ -574,7 +574,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.09;
 				name = "hit_elec_generator1";
 				material = 51;
 				passThrough = 0;
@@ -584,7 +584,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.09;
 				name = "hit_elec_generator2";
 				material = 51;
 				passThrough = 0;
@@ -594,7 +594,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.10;
 				name = "hit_elec_rectifier1";
 				material = 51;
 				passThrough = 0;
@@ -604,7 +604,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.10;
 				name = "hit_elec_rectifier2";
 				material = 51;
 				passThrough = 0;
@@ -614,7 +614,7 @@ class CfgVehicles
 				armor = 1.80 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.75;
+				explosionShielding = 0.30;
 				name = "hitengine1";
 				material = 51;
 				passThrough = 0;
@@ -624,7 +624,7 @@ class CfgVehicles
 				armor = 1.80 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_01;
 				minimalHit = 0.1;
-				explosionShielding = 0.75;
+				explosionShielding = 0.30;
 				name = "hitengine2";
 				material = 51;
 				passThrough = 0;
@@ -634,7 +634,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.20;
 				name = "hit_hyd_prireservoir";
 				material = 51;
 				passThrough = 0;
@@ -644,7 +644,7 @@ class CfgVehicles
 				armor = 0.90 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.75;
+				explosionShielding = 0.15;
 				name = "hit_hyd_priPump";
 				material = 51;
 				passThrough = 0;
@@ -654,7 +654,7 @@ class CfgVehicles
 				armor = 0.72 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.80;
+				explosionShielding = 0.20;
 				name = "hit_hyd_utilreservoir";
 				material = 51;
 				passThrough = 0;
@@ -664,7 +664,7 @@ class CfgVehicles
 				armor = 0.90 * ARMOR_SCALAR;
 				radius = HIT_RADIUS_02;
 				minimalHit = 0.1;
-				explosionShielding = 0.75;
+				explosionShielding = 0.15;
 				name = "hit_hyd_utilPump";
 				material = 51;
 				passThrough = 0;
