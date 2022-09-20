@@ -24,23 +24,20 @@ Author:
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params ["_heli", "_system", "_control"];
 
-private _apuBtnState     = _heli getVariable "fza_sfmplus_apuBtnState";
-private _battSwitchState = _heli getVariable "fza_sfmplus_battSwitchState";
-private _battBusState    = _heli getVariable "fza_sfmplus_battBusState";
+private _apuBtnState     = _heli getVariable "fza_systems_apuBtnState";
+private _battSwitchState = _heli getVariable "fza_systems_battSwitchState";
+private _battBusState    = _heli getVariable "fza_systems_battBusState";
 
 switch(_control) do {
 	case "apu": {
-		//if (!(_heli getVariable "fza_ah64_apu") && _heli getVariable "fza_ah64_battery") then {
 			if (_apuBtnState == "OFF" && _battBusState == "ON") then {
-			//[_heli, "fza_ah64_apu", true] call fza_fnc_animSetValue;
-			[_heli] call fza_sfmplus_fnc_interactAPUButton;
+			[_heli] call fza_systems_fnc_interactAPUButton;
 			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
 			[_heli] spawn fza_fnc_fxLoops;
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
 			if (_apuBtnState == "ON") then {
-				[_heli] call fza_sfmplus_fnc_interactAPUButton;
-				//[_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
+				[_heli] call fza_systems_fnc_interactAPUButton;
 				//If either of the apache's engines are in a mode where they are using APU, turn it off.
 				_heliData = _heli getVariable "fza_ah64_engineStates";
 				(_heliData # 0) params ["_e1state"];
@@ -56,15 +53,12 @@ switch(_control) do {
 		};
 	};
 	case "power": {
-	    //if !(_heli getVariable "fza_ah64_battery") then {
 		if (_battSwitchState == "OFF") then {
-			//[_heli, "fza_ah64_battery", true] call fza_fnc_animSetValue;
-			[_heli] call fza_sfmplus_fnc_interactBattSwitch;
+			[_heli] call fza_systems_fnc_interactBattSwitch;
 			[_heli] spawn fza_fnc_fxLoops;
 			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
 		} else {
-			//[_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
-			[_heli] call fza_sfmplus_fnc_interactBattSwitch;
+			[_heli] call fza_systems_fnc_interactBattSwitch;
 			[_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
 			_heli setCollisionLight false;
 			_heli setPilotLight false;

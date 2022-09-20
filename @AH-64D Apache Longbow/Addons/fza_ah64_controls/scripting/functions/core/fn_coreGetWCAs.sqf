@@ -30,7 +30,7 @@ Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\wcaConstants.h"
-#include "\fza_ah64_sfmplus\headers\systems.hpp"
+#include "\fza_ah64_systems\headers\systems.hpp"
 
 params ["_heli"];
 
@@ -42,9 +42,9 @@ private _wcas = [];
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--APU
-private _apuBtnState = _heli getVariable "fza_sfmplus_apuBtnState";
-private _apuState    = _heli getVariable "fza_sfmplus_apuState";
-private _apuRPM_pct  = _heli getVariable "fza_sfmplus_apuRPM_pct";
+private _apuBtnState = _heli getVariable "fza_systems_apuBtnState";
+private _apuState    = _heli getVariable "fza_systems_apuState";
+private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
@@ -86,11 +86,11 @@ private _battDamage = _heli getHitPointDamage "hit_elec_battery";
 private _stabDamage = _heli getHitPointDamage "hit_stabilator";
 //-Hydraulics
 private _priHydPumpDamage    = _heli getHitPointDamage "hit_hyd_pripump";
-private _priHydPSI           = _heli getVariable "fza_sfmplus_priHydPsi";
+private _priHydPSI           = _heli getVariable "fza_systems_priHydPsi";
 private _priReservoirDamage  = _heli getHitPointDamage "hit_hyd_prireservoir";
 
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
-private _utilHydPSI          = _heli getVariable "fza_sfmplus_utilHydPsi";
+private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilreservoir";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////

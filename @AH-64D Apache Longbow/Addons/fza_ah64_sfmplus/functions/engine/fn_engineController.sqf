@@ -18,11 +18,11 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
-#include "\fza_ah64_sfmplus\headers\systems.hpp"
+#include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 
-private _apuState  = _heli getVariable "fza_sfmplus_apuState";
+private _apuState  = _heli getVariable "fza_systems_apuState";
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;

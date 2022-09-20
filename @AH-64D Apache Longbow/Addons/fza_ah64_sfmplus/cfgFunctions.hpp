@@ -35,8 +35,6 @@ class CfgFunctions
 		};
 		class interact {
 			file = "\fza_ah64_sfmplus\functions\interact";
-			class interactAPUButton {R;};
-			class interactBattSwitch {R;};
 			class interactPowerLever {R;};
 			class interactStartSwitch {R;};
 		};
@@ -49,40 +47,6 @@ class CfgFunctions
 			class perfData {R;};
 			class perfVariables {R;};
 		};
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// Move to own .pbo /////////////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		class systems {
-			file = "\fza_ah64_sfmplus\functions\systems";	
-			class systemsAPU {R;};
-			class systemsVariables {R;};
-			class systemsRepair {R;};
-		};
-		class systemsCore {					
-			file = "\fza_ah64_sfmplus\functions\systems\core";
-			class systemsCoreUpdate {R;};
-		};
-		class systemsDamage {
-			file = "\fza_ah64_sfmplus\functions\systems\damage";
-			class systemsDamageUpdate {R;};
-		};
-		class systemsElectrical {
-			file = "\fza_ah64_sfmplus\functions\systems\electrical";
-			class systemsElectricalBattery {R;};
-			class systemsElectricalGenController {R;};
-		};
-		class systemsHydraulics {
-			file = "\fza_ah64_sfmplus\functions\systems\hydraulics";
-			class systemsHydraulicsAccumulator {R;};
-			class systemsHydraulicsController {R;};
-			class systemsHydraulicsPriPump {R;};
-			class systemsHydraulicsPriReservoir {R;};
-			class systemsHydraulicsUtilPump {R;};
-			class systemsHydraulicsUtilReservoir {R;};
-		};
-		/////////////////////////////////////////////////////////////////////////////////////////////
-		// End of move to own .pbo //////////////////////////////////////////////////////////////////
-		/////////////////////////////////////////////////////////////////////////////////////////////
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
 			class clampedMove {R;};

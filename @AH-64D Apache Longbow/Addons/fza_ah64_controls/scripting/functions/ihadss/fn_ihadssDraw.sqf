@@ -115,8 +115,8 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 
-private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
-private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+private _ACBusState = _heli getVariable "fza_systems_ACBusState";
+private _DCBusState = _heli getVariable "fza_systems_DCBusState";
 private _powerOnState = (_ACBusState == "ON" && _DCBusState == "ON");
 
 if !_powerOnState then {

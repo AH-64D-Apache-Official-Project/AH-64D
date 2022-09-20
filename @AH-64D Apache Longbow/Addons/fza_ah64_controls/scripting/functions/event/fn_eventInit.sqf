@@ -121,6 +121,7 @@ _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
+[_heli] call fza_systems_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
@@ -157,7 +158,7 @@ while {
     alive _heli
 }
 do {
-    private _battBusState       = _heli getVariable "fza_sfmplus_battBusState";
+    private _battBusState       = _heli getVariable "fza_systems_battBusState";
     if ((isLightOn [_heli,[0]]) && (_battBusState == "OFF")) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
@@ -168,8 +169,8 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        private _ACBusState         = _heli getVariable "fza_sfmplus_ACBusState";
-        private _DCBusState         = _heli getVariable "fza_sfmplus_DCBusState";
+        private _ACBusState         = _heli getVariable "fza_systems_ACBusState";
+        private _DCBusState         = _heli getVariable "fza_systems_DCBusState";
         private _tadsShouldBeStowed = true;
 
         if (_ACBusState == "ON" && _DCBusState == "ON") then {

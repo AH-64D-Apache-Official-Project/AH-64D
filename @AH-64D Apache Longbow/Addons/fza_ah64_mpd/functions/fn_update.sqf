@@ -21,7 +21,7 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
+private _ACBusState = _heli getVariable "fza_systems_ACBusState";
 
 private _lmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _rmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;

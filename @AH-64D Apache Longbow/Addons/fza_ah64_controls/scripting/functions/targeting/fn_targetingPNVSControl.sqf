@@ -20,8 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
-private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+private _ACBusState = _heli getVariable "fza_systems_ACBusState";
+private _DCBusState = _heli getVariable "fza_systems_DCBusState";
 
 if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
     if (player == driver _heli && (_ACBusState == "ON" && _DCBusState == "ON")) then {

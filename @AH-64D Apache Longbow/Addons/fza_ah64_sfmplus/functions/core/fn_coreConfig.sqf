@@ -56,6 +56,3 @@ if (fuel _heli > 0.99) then {
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;
-
-//Systems
-[_heli] call fza_sfmplus_fnc_systemsVariables;

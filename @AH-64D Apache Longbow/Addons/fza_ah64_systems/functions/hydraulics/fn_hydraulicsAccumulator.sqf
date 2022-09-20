@@ -32,11 +32,12 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
     _accHydPSI_pct = [_accHydPSI_pct, 0.0, (1 / _accTimer) * _deltaTime] call BIS_fnc_lerp;
 };
 
+_accHydPSI = _accHydPSI_pct  * 3000.0;
+
 if (_accHydPSI < SYS_MIN_ACC_PSI) then {
-    _accState = "OFF";
+    _accState      = "OFF";
     _accHydPSI_pct = 0.0;
 };
-_accHydPSI  = _accHydPSI_pct  * 3000.0;
 
 _heli setVariable ["fza_systems_accHydPSI_pct",  _accHydPSI_pct];
 _heli setVariable ["fza_systems_accHydPsi",      _accHydPSI];

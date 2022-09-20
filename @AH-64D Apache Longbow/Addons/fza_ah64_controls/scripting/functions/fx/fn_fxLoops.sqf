@@ -20,8 +20,8 @@ params["_heli"];
 private _timed_apu = time + 24;
 private _timed_bat = time + 0;
 
-private _apuState     = _heli getVariable "fza_sfmplus_apuState";
-private _battBusState = _heli getVariable "fza_sfmplus_battBusState";
+private _apuState     = _heli getVariable "fza_systems_apuState";
+private _battBusState = _heli getVariable "fza_systems_battBusState";
 
 if (_apuState == "ON") then {
     private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;

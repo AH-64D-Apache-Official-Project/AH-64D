@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_systems_fnc_systemsCoreUpdate
+Function: fza_systems_fnc_drivetrainTransmission
 
 Description:
 	Updates all of the modules core functions.
@@ -21,10 +21,10 @@ params ["_heli", "_deltaTime"];
 
 if (!local _heli) exitWith {};
 
-private _eng1PctTQ     = _heli getVariable "fza_systems_engPctTQ" select 0;
-private _eng2PctTQ     = _heli getVariable "fza_systems_engPctTQ" select 1;
+private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
+private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ      = _eng1PctTQ max _eng2PctTQ;
-private _isSingleEng   = _heli getVariable "fza_systems_isSingleEng";
+private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
 private _totXmsnDmg    = _heli getHitPointDamage "hit_drives_transmission";
 private _dmgTimerCont  = _heli getVariable "fza_systems_dmgTimerCont";
 private _dmgTimerTrans = _heli getVariable "fza_systems_dmgTimerTrans";
@@ -35,7 +35,7 @@ if (isEngineOn _heli) then {
         if (_engPctTQ <= 1.10) then {
             _dmgTimerCont  = 0;
             _dmgTimerTrans = 0;
-            _heli setVariable ["fza_systems_dmgTimerCont", _dmgTimerCont];
+            _heli setVariable ["fza_systems_dmgTimerCont",  _dmgTimerCont];
             _heli setVariable ["fza_systems_dmgTimerTrans", _dmgTimerTrans];
         };
         //2.5 min SE contingency

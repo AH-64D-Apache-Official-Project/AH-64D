@@ -33,9 +33,9 @@ do {
         ((driver(vehicle player) == player || gunner(vehicle player) == player))
     };
     ///end gunner weapon damage//
-    private _apuState     = _heli getVariable "fza_sfmplus_apuState";
-    private _battBusState = _heli getVariable "fza_sfmplus_battBusState";
-    private _DCBusState   = _heli getVariable "fza_sfmplus_DCBusState";
+    private _apuState     = _heli getVariable "fza_systems_apuState";
+    private _battBusState = _heli getVariable "fza_systems_battBusState";
+    private _DCBusState   = _heli getVariable "fza_systems_DCBusState";
 
     if (_apuState == "ON") then {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];

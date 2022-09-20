@@ -25,6 +25,7 @@ private _apuState      = _heli getVariable "fza_systems_apuState";
 private _apuDamage     = _heli getHitPointDamage "hit_apu";
 private _apuStartDelay = _heli getVariable "fza_systems_apuStartDelay";
 private _apuRPM_pct    = _heli getVariable "fza_systems_apuRPM_pct";
+private _apuFF_kgs     = 0.0;
 
 if (_apuBtnState == "ON" && _battBusState == "ON") then {
     _apuRPM_pct = [_apuRPM_pct, 1.0, (1.0 / _apuStartDelay) * _deltaTime] call BIS_fnc_lerp;
@@ -45,3 +46,8 @@ if (_apuRPM_pct > SYS_MIN_RPM) then {
 	};
 };
 _heli setVariable ["fza_systems_apuState", _apuState];
+
+if (_apuState == "ON") then {
+	_apuFF_kgs = 0.0220;	//175pph
+};
+_heli setVariable ["fza_systems_apuFF_kgs", _apuFF];

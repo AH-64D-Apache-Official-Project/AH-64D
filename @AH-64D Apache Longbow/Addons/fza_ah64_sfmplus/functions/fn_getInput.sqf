@@ -17,29 +17,29 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-#include "\fza_ah64_sfmplus\headers\systems.hpp"
+#include "\fza_ah64_systems\headers\systems.hpp"
 
-private _config          = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _pitchTorque     = getNumber (_config >> "cyclicPitchTorque");
-private _rollTorque      = getNumber (_config >> "cyclicRollTorque");
-private _yawTorque       = getNumber (_config >> "pedalYawTorque");
+private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
+private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
+private _yawTorque         = getNumber (_config >> "pedalYawTorque");
 
-private _priHydPumpDamage    = _heli getHitPointDamage "hit_hyd_pripump";
-private _priLevel_pct        = _heli getVariable "fza_sfmplus_priLevel_pct";
+private _priHydPumpDamage  = _heli getHitPointDamage "hit_hyd_pripump";
+private _priLevel_pct      = _heli getVariable "fza_systems_priLevel_pct";
 
-private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
-private _utilLevel_pct       = _heli getVariable "fza_sfmplus_utilLevel_pct";
+private _utilHydPumpDamage = _heli getHitPointDamage "hit_hyd_utilpump";
+private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
-private _accState 		     = _heli getVariable "fza_sfmplus_accState";
+private _accState 		   = _heli getVariable "fza_systems_accState";
 
-private _collectiveVal   = _heli animationSourcePhase "collective";
-private _cyclicFwdAft    = _heli animationSourcePhase "cyclicForward";
-private _cyclicLeftRight = _heli animationSourcePhase "cyclicAside";
-private _pedalLeftRight  = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+private _collectiveVal     = _heli animationSourcePhase "collective";
+private _cyclicFwdAft      = _heli animationSourcePhase "cyclicForward";
+private _cyclicLeftRight   = _heli animationSourcePhase "cyclicAside";
+private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 
-private _railRtrDamage   = _heli getHitPointDamage "hitvrotor";
+private _tailRtrDamage     = _heli getHitPointDamage "hitvrotor";
 
-private _collectiveOut   = 0.0;
+private _collectiveOut     = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveVal = [_collectiveVal, 0.5, 1.0] call BIS_fnc_clamp;
 	_collectiveOut = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
@@ -69,7 +69,7 @@ _pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
 private _foreAftTorque   = _cyclicFwdAft    *  _pitchTorque;
 private _leftRightTorque = _cyclicLeftRight * -_rollTorque;
 
-if (_railRtrDamage == 1.0) then {
+if (_tailRtrDamage == 1.0) then {
 	_yawTorque = 0.0;
 };
 private _pedalTorque     = _pedalLeftRight  * _yawTorque;

@@ -70,7 +70,7 @@ if (_usesound) then {
     [_audio1, 1.25, "fza_ah64_bt_fire", 0.65] spawn fza_fnc_playAudio;
 };
 
-private _apuState = _heli getVariable "fza_sfmplus_apuState";
+private _apuState = _heli getVariable "fza_systems_apuState";
 
 while {
     (alive _heli)

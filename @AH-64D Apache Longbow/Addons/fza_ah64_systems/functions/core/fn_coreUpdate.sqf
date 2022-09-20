@@ -16,18 +16,18 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 
-//Update the battery
-[_heli, _deltaTime] call fza_systems_fnc_electricalBattery;
+private _deltaTime = ((["systems_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+
+//Update the Electrical System
+[_heli, _deltaTime] call fza_systems_fnc_electricalController;
 //Update the APU
 [_heli, _deltaTime] call fza_systems_fnc_apu;
-//Update the Generators
-[_heli] call fza_systems_fnc_electricalGenController;
-//Update the Hydraulics
+//Update the Hydraulic System
 [_heli, _deltaTime] call fza_systems_fnc_hydraulicsController;
-//Update damage
-[_heli, _deltaTime] call fza_systems_fnc_damageUpdate;
+//Update the Drivetrain
+[_heli, _deltaTime] call fza_systems_fnc_drivetrainController;
 
 hintsilent format ["Battery State: %1
                     \nBattery Bus State: %4

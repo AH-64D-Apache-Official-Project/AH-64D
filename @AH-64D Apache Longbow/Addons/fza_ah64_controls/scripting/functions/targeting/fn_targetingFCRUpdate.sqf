@@ -1,8 +1,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-private _ACBusState = _heli getVariable "fza_sfmplus_ACBusState";
-private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+private _ACBusState = _heli getVariable "fza_systems_ACBusState";
+private _DCBusState = _heli getVariable "fza_systems_DCBusState";
 
 if (_ACBusState == "OFF" && _DCBusState == "OFF") exitwith {};
 

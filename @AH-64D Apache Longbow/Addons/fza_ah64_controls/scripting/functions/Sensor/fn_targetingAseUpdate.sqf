@@ -15,7 +15,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _DCBusState = _heli getVariable "fza_sfmplus_DCBusState";
+private _DCBusState = _heli getVariable "fza_systems_DCBusState";
 Private _asearray      = fza_ah64_AseRWR;
 Private _trackingarray = [];
 
