@@ -102,10 +102,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 
 
-    _heli setVariable ["fza_ah64_laserMissilePrimaryCode",    "A", true];
-    _heli setVariable ["fza_ah64_laserMissileAlternateCode",  "B", true];
-    _heli setVariable ["fza_ah64_laserLRFDCode",              "A", true];
-    _heli setVariable ["fza_ah64_laserLSTCode",               "B", true];
+    _heli setVariable ["fza_ah64_laserMissilePrimaryCode",    0, true];
+    _heli setVariable ["fza_ah64_laserMissileAlternateCode",  1, true];
+    _heli setVariable ["fza_ah64_laserLRFDCode",              0, true];
+    _heli setVariable ["fza_ah64_laserLSTCode",               1, true];
     _heli setVariable ["fza_ah64_laserChannelCodes",         ["A", "B", "C", "D"], true];
     _heli setVariable ["fza_ah64_LaserChannelIndex", createHashMapFromArray
         [ ["A",1111],["B",1112]

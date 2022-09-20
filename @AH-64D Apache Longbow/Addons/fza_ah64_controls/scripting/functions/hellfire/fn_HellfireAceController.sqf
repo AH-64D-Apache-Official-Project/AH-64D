@@ -19,7 +19,7 @@ Author:
 params ["_heli"];
 
 //Laser designator
-_Channel = _heli getvariable "fza_ah64_laserMissilePrimaryCode";
+_Channel = _heli getvariable "fza_ah64_laserLRFDCode";
 _hash = _heli getvariable "fza_ah64_LaserChannelIndex";
 _code = _hash get _Channel;
 _heli setVariable ["ace_laser_code", _code];

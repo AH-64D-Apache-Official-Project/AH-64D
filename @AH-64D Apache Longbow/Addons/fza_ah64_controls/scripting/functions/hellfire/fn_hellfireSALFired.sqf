@@ -38,6 +38,3 @@ private _hash 	 	= _heli getvariable "fza_ah64_LaserChannelIndex";
 private _laserCode 	= _hash get _Channel;
 private _laserInfo 	= [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
 _launchParams set [5, _laserInfo];
-
-
-_launchParams set [4, "LOBL"];
