@@ -37,5 +37,5 @@ private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 //Audio and Text Warning
 _heli vehiclechat format ["Missile %1 OClock %2 %3 Meters",_clock,_highLow,_range];
 private _VertAud = "fza_ah64_bt_" + _highLow;
-["fza_ah64_bt_missile", 0.65, _dirAud, 1.3, _VertAud, 0.62] call fza_fnc_playAudio;
+["fza_ah64_bt_missile", 0.65, _dirAud, 1.3, _VertAud, 0.62] spawn fza_fnc_playAudio;
 fza_ah64_incomingAudio = false;
