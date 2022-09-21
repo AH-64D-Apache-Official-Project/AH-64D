@@ -1546,12 +1546,16 @@ class CfgVehicles
 		////////RADAR///////
 		class fcr_enable
 		{
-			displayName = "Add FCR";
+			displayName = "Install FCR";
 			author = "Apache mod development team";
 			onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
+			/*lockCargoAnimationPhase = 1;
+			forceAnimate[] = {
+				"mast", 0
+			};*/
 		};
 		class msn_equip_american
 		{
@@ -1561,6 +1565,11 @@ class CfgVehicles
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
+			/*lockCargoAnimationPhase = 1;
+			forceAnimate[] = {
+				"msn_equip_american", 1,
+				"msn_equip_british", 0
+			};*/
 		};
 		class msn_equip_british
 		{
@@ -1570,6 +1579,18 @@ class CfgVehicles
 			source = "user";
 			initPhase = 0;
 			animPeriod = 0.001;
+			/*lockCargoAnimationPhase = 0;
+			forceAnimate[] = {
+				"msn_equip_american", 0,
+				"msn_equip_britsh", 1,
+				"fcr_enable", 1
+			};*/
+		};
+		class mast
+		{
+			source = "user";
+			animPeriod = 0.1;
+			initPhase=1;
 		};
 		class magazine_set_1200
 		{
