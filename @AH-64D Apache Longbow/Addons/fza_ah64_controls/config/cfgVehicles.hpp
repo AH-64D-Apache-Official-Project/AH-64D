@@ -628,7 +628,34 @@ class CfgVehicles
 				name = "hitengine2";
 				material = 51;
 				passThrough = 0;
-			};	
+			};
+			class hit_fuel_aft {
+				armor = 1.44 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
+				minimalHit = 0.1;
+				explosionShielding = 0.15;
+				name = "hit_fuel_aft";
+				material = 51;
+				passThrough = 0;
+			};
+			class hit_fuel_forward {
+				armor = 1.44 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
+				minimalHit = 0.1;
+				explosionShielding = 0.15;
+				name = "hit_fuel_forward";
+				material = 51;
+				passThrough = 0;
+			};
+			class hit_msnEquip_magandrobbie {
+				armor = 1.44 * ARMOR_SCALAR;
+				radius = HIT_RADIUS_01;
+				minimalHit = 0.1;
+				explosionShielding = 0.15;
+				name = "hit_msnEquip_magandrobbie";
+				material = 51;
+				passThrough = 0;
+			};
 			class hit_hyd_prireservoir	
 			{	
 				armor = 0.72 * ARMOR_SCALAR;
