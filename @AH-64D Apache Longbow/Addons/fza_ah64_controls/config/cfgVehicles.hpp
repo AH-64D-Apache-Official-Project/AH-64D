@@ -1553,6 +1553,24 @@ class CfgVehicles
 			initPhase = 1;
 			animPeriod = 0.001;
 		};
+		class msn_equip_american
+		{
+			displayName = "Install American Mission Equipment";
+			author = "Apache mod development team";
+			onPhaseChanged = "";
+			source = "user";
+			initPhase = 1;
+			animPeriod = 0.001;
+		};
+		class msn_equip_british
+		{
+			displayName = "Install British Mission Equipment";
+			author = "Apache mod development team";
+			onPhaseChanged = "";
+			source = "user";
+			initPhase = 0;
+			animPeriod = 0.001;
+		};
 		class magazine_set_1200
 		{
 			displayName = "Swap IAFS for 1200rnd magazine";
