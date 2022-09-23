@@ -2,7 +2,7 @@ class Fza_SfmPlus {
     emptyMassFCR    = 6609; //kg
     emptyMassNonFCR = 6314; //kg
 
-    cyclicPitchTorque = 3000.0; //Nm
+    cyclicPitchTorque = 4000.0; //Nm
     cyclicRollTorque  = 1500.0; //Nm
     pedalYawTorque    = 4000.0; //Nm
 
