@@ -1166,6 +1166,12 @@ class CfgVehicles
 				author = "Apache mod development team";
 				textures[]= {"\fza_ah64_us\tex\Ex\229arb_weather_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
 			};
+			class indian_air_force
+			{
+				displayName = "Indian Air Force";
+				author = "BradMick";
+				textures[]= {"\fza_ah64_us\tex\Ex\b2_india_co.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
+			};
 			class rnlaf_q_09
 			{
 				displayName = "RNLAF 301 Squadron Q-09";
