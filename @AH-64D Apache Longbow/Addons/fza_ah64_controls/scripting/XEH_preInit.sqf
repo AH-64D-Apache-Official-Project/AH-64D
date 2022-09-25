@@ -83,16 +83,6 @@ private _projName = "AH-64D Official Project";
 	0
 ] call CBA_fnc_addSetting;
 
-[
-	"fza_ah64_BladeSimulation",
-	"CHECKBOX",
-	["Blade Simulation", "Enabling this starts a dynamic simulation of the Rotor & tail rotor pitch based on cyclic, rudder & collective"],
-	[_projName, "Flight model"],
-	[false],
-	0
-] call CBA_fnc_addSetting;
-
-
 fza_ah64_rocketTable =
         [[0, 5]
         ,[500, 8]
