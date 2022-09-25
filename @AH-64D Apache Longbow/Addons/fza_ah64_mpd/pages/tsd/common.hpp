@@ -1,5 +1,4 @@
 #include "components\vabs_top.hpp"
-#include "\fza_ah64_controls\headers\systemConstants.h"
 
 class tsdCommon {
     class occluders {

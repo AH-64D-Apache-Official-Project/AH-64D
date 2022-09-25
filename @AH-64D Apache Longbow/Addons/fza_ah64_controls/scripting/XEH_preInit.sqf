@@ -52,7 +52,7 @@ private _projName = "AH-64D Official Project";
 	"LIST",
 	["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
 	[_projName, "Flight model"],
-	[[STABILTOR_MODE_ALWAYSENABLED,STABILTOR_MODE_JOYSTICKONLY,STABILTOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
+	[[STABILATOR_MODE_ALWAYSENABLED,STABILATOR_MODE_JOYSTICKONLY,STABILATOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
 	0
 ] call CBA_fnc_addSetting;
 

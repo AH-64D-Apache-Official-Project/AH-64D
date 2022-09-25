@@ -16,20 +16,20 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_apuState", "_rtrRPM"];
+params ["_heli", "_apuOn", "_rtrRPM"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _gen2State  = _heli getVariable "fza_systems_gen2State";
+private _gen2On  = _heli getVariable "fza_systems_gen2On";
 private _gen2Damage = _heli getHitPointDamage "hit_elec_generator2";
 
-if (_apuState == "ON" || _rtrRPM > SYS_MIN_RPM) then {
+if (_apuOn || _rtrRPM > SYS_MIN_RPM) then {
     //Generator 2
-    if (_gen2Damage <= SYS_GEN_DMG_VAL) then {
-        _gen2State = "ON";
+    if (_gen2Damage <= SYS_GEN_DMG_THRESH) then {
+        _gen2On = true;
     } else {
-        _gen2State = "OFF";
+        _gen2On = false;
     };
 } else {
-    _gen2State = "OFF";
+    _gen2On = false;
 };
-_heli setVariable ["fza_systems_gen2State", _gen2State];
+_heli setVariable ["fza_systems_gen2On", _gen2On];

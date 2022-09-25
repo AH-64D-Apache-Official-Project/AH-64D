@@ -23,7 +23,7 @@ private _priHydPumpDamage = _heli getHitPointDamage "hit_hyd_priPump";
 private _priHydPSI_pct    = _heli getVariable "fza_systems_priHydPSI_pct";
 private _priHydPSI        = _heli getVariable "fza_systems_priHydPsi";
 
-if (_priHydPumpDamage > SYS_HYD_DMG_VAL) then {
+if (_priHydPumpDamage > SYS_HYD_DMG_THRESH) then {
     _priHydPSI_pct = 0.0;
 } else {
     _priHydPSI_pct = 1.0; 

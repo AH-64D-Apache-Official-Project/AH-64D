@@ -18,22 +18,30 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _apuBtnState = _heli getVariable "fza_systems_apuBtnState";
+private _apuBtnOn = _heli getVariable "fza_systems_apuBtnOn";
 
-switch (_apuBtnState) do {
+if (_apuBtnOn) then {
+	_apuBtnOn = false;
+} else {
+	_apuBtnOn = true;
+};
+_heli setVariable ["fza_systems_apuBtnOn", _apuBtnOn, true];
+
+/*
+switch (_apuBtnOn) do {
 	case "OFF": {
-		_apuBtnState = "ON";
-		_heli setVariable ["fza_systems_apuBtnState", _apuBtnState, true];
+		_apuBtnOn = "ON";
+		_heli setVariable ["fza_systems_apuBtnOn", _apuBtnOn, true];
 
 		false;
 	};
 	case "ON": {
-		_apuBtnState = "OFF";
-		_heli setVariable ["fza_systems_apuBtnState", _apuBtnState, true];
+		_apuBtnOn = "OFF";
+		_heli setVariable ["fza_systems_apuBtnOn", _apuBtnOn, true];
 
 		true;
 	};
 	default {
-		true;
+		false;
 	}
-};
+};*/

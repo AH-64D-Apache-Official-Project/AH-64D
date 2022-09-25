@@ -18,11 +18,12 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
+#include "\fza_ah64_sfmplus\headers\core.hpp";
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 
-private _apuState  = _heli getVariable "fza_systems_apuState";
+private _apuOn     = _heli getVariable "fza_systems_apuOn";
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
@@ -32,7 +33,7 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-if (_apuState == "ON" && local _heli) then {
+if (_apuOn && local _heli) then {
 	if ((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) then {
 		_heli setVariable ["fza_ah64_estarted", true, true];
 		_heli engineOn true;
@@ -73,11 +74,11 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
-if (_no1EngDmg > SYS_ENG_DMG_VAL) then {
+if (_no1EngDmg > SYS_ENG_DMG_THRESH) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 };
 
-if (_no2EngDmg > SYS_ENG_DMG_VAL) then {
+if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 };
 
@@ -111,20 +112,15 @@ private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
 private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
 _droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
 
-//systemChat str [_droopRPM];
 if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
 
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-if (cba_missionTime > _lastUpdate + 0.3 && _rtrRPM > 0.05) then {
-	//systemChat str [_realRPM / 10, _rtrRPM];
+if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
 	_rtrRPM = _droopRPM;
 
-	//systemChat str ["adjusted RPM", _rtrRPM];
 	if ((_realRPM / 10)  > _rtrRPM) then {
-		//systemChat "breaking rotor!";
 		_heli setHitpointDamage ["hithrotor", 0.9];
 	} else {
-		//systemChat "fixing rotor";
 		_heli setHitpointDamage ["hithrotor", 0.0];
 		_heli engineOn true;
 	};

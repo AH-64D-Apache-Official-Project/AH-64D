@@ -22,6 +22,6 @@ params ["_heli"];
 private _IGBDamage  = _heli getHitPointDamage "hit_drives_intermediategearbox";
 private _TGBDamage  = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
 
-if (_IGBDamage >= SYS_IGB_DMG_VAL || _TGBDamage >= SYS_TGB_DMG_VAL) then {
+if (_IGBDamage >= SYS_IGB_DMG_THRESH || _TGBDamage >= SYS_TGB_DMG_THRESH) then {
     _heli setHitPointDamage ["hitvrotor", 1.0];
 };

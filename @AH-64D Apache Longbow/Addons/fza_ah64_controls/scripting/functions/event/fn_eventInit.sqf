@@ -158,8 +158,8 @@ while {
     alive _heli
 }
 do {
-    private _battBusState       = _heli getVariable "fza_systems_battBusState";
-    if ((isLightOn [_heli,[0]]) && (_battBusState == "OFF")) then {
+    private _battBusOn       = _heli getVariable "fza_systems_battBusOn";
+    if ((isLightOn [_heli,[0]]) && _battBusOn) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
@@ -169,11 +169,11 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        private _ACBusState         = _heli getVariable "fza_systems_ACBusState";
-        private _DCBusState         = _heli getVariable "fza_systems_DCBusState";
+        private _acBusOn         = _heli getVariable "fza_systems_acBusOn";
+        private _dcBusOn         = _heli getVariable "fza_systems_dcBusOn";
         private _tadsShouldBeStowed = true;
 
-        if (_ACBusState == "ON" && _DCBusState == "ON") then {
+        if (_acBusOn && _dcBusOn) then {
             _tadsShouldBeStowed = false;
         };
 

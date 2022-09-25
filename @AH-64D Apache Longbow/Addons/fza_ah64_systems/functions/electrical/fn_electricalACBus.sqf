@@ -18,16 +18,16 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _gen1State  = _heli getVariable "fza_systems_gen1State";
-private _gen2State  = _heli getVariable "fza_systems_gen2State";
+private _gen1On  = _heli getVariable "fza_systems_gen1On";
+private _gen2On  = _heli getVariable "fza_systems_gen2On";
 
-private _ACBusState = _heli getVariable "fza_systems_ACBusState";
-if (_gen1State == "ON" || _gen2State == "ON") then {
-    _ACBusState = "ON";
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+if (_gen1On || _gen2On) then {
+    _acBusOn = true;
 } else {
-    _ACBusState = "OFF";
+    _acBusOn = false;
 };
-_heli setVariable ["fza_systems_ACBusState", _ACBusState];
+_heli setVariable ["fza_systems_acBusOn", _acBusOn];
 //AC Bus powers the following
 //--(1) FCR
 //--(5) 30mm motor

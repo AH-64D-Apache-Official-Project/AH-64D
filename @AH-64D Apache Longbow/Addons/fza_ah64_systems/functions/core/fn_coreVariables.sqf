@@ -20,7 +20,7 @@ params ["_heli"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 //Switch states
-_heli setVariable ["fza_systems_battSwitchState",   "OFF"];
+_heli setVariable ["fza_systems_battSwitchOn",      false];
 
 //Electrical System
 //--Battery
@@ -28,21 +28,21 @@ _heli setVariable ["fza_systems_battPower_pct",     1.0];
 private _battTime = SYS_BATT_TIMER * 60;
 _heli setVariable ["fza_systems_battTimer",         _battTime];
 //--Buses
-_heli setVariable ["fza_systems_battBusState",      "OFF"];
-_heli setVariable ["fza_systems_ACBusState",        "OFF"];
-_heli setVariable ["fza_systems_DCBusState",        "OFF"];
+_heli setVariable ["fza_systems_battBusOn",         false];
+_heli setVariable ["fza_systems_acBusOn",           false];
+_heli setVariable ["fza_systems_dcBusOn",           false];
 //--Gen 1 and RTRU 1
-_heli setVariable ["fza_systems_gen1State",         "OFF"];
-_heli setVariable ["fza_systems_rtru1State",        "OFF"];
+_heli setVariable ["fza_systems_gen1On",            false];
+_heli setVariable ["fza_systems_rect1On",           false];
 //--Gen 2 and RTRU 2
-_heli setVariable ["fza_systems_gen2State",         "OFF"];
-_heli setVariable ["fza_systems_rtru2State",        "OFF"];
+_heli setVariable ["fza_systems_gen2On",            false];
+_heli setVariable ["fza_systems_rect2On",           false];
 
 //APU
-_heli setVariable ["fza_systems_apuBtnState",       "OFF"];
+_heli setVariable ["fza_systems_apuBtnOn",          false];
 _heli setVariable ["fza_systems_apuStartDelay",     5.0];
 _heli setVariable ["fza_systems_apuRPM_pct",        0.0];
-_heli setVariable ["fza_systems_apuState",          "OFF"];
+_heli setVariable ["fza_systems_apuOn",             false];
 _heli setVariable ["fza_systems_apuFF_kgs",         0.0];
 
 //Damage

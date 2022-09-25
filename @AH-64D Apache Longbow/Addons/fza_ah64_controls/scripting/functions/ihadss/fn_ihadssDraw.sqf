@@ -115,9 +115,9 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 
-private _ACBusState = _heli getVariable "fza_systems_ACBusState";
-private _DCBusState = _heli getVariable "fza_systems_DCBusState";
-private _powerOnState = (_ACBusState == "ON" && _DCBusState == "ON");
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+private _powerOnState = (_acBusOn && _dcBusOn);
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];

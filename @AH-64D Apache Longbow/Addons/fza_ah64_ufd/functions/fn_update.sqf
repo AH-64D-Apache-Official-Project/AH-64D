@@ -33,11 +33,11 @@ do {
         ((driver(vehicle player) == player || gunner(vehicle player) == player))
     };
     ///end gunner weapon damage//
-    private _apuState     = _heli getVariable "fza_systems_apuState";
-    private _battBusState = _heli getVariable "fza_systems_battBusState";
-    private _DCBusState   = _heli getVariable "fza_systems_DCBusState";
+    private _apuOn     = _heli getVariable "fza_systems_apuOn";
+    private _battBusOn = _heli getVariable "fza_systems_battBusOn";
+    private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
 
-    if (_apuState == "ON") then {
+    if (_apuOn) then {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_APU, ""];
@@ -72,7 +72,7 @@ do {
 
     ///EWCA//
     //pilot
-    if (_battBusState == "ON" || _DCBusState == "ON") then {
+    if (_battBusOn || _dcBusOn) then {
         _heli setUserMFDValue [MFD_IND_BATT, 1];
         private _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
         private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};

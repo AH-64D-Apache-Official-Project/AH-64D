@@ -19,15 +19,15 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _gen1State   = _heli getVariable "fza_systems_gen1State";
+private _gen1On      = _heli getVariable "fza_systems_gen1On";
 
-private _rect1State  = _heli getVariable "fza_systems_rect1State";
+private _rect1On     = _heli getVariable "fza_systems_rect1On";
 private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
 
 //Set RTRU 1 state
-if (_gen1State == "ON" && _rect1Damage <= SYS_RECT_DMG_VAL) then {
-    _rect1State = "ON";
+if (_gen1On && _rect1Damage <= SYS_RECT_DMG_THRESH) then {
+    _rect1On = true;
 } else {
-    _rect1State = "OFF";
+    _rect1On = false;
 };
-_heli setVariable ["fza_systems_rect1State", _rect1State];
+_heli setVariable ["fza_systems_rect1On", _rect1On];

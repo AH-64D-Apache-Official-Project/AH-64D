@@ -19,15 +19,15 @@ Author:
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _apuBtnState   = _heli getVariable "fza_systems_apuBtnState";
-private _battBusState  = _heli getVariable "fza_systems_battBusState";
-private _apuState      = _heli getVariable "fza_systems_apuState";
+private _apuBtnOn   = _heli getVariable "fza_systems_apuBtnOn";
+private _battBusOn  = _heli getVariable "fza_systems_battBusOn";
+private _apuOn      = _heli getVariable "fza_systems_apuOn";
 private _apuDamage     = _heli getHitPointDamage "hit_apu";
 private _apuStartDelay = _heli getVariable "fza_systems_apuStartDelay";
 private _apuRPM_pct    = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuFF_kgs     = 0.0;
 
-if (_apuBtnState == "ON" && _battBusState == "ON") then {
+if (_apuBtnOn && _battBusOn) then {
     _apuRPM_pct = [_apuRPM_pct, 1.0, (1.0 / _apuStartDelay) * _deltaTime] call BIS_fnc_lerp;
 } else {
     _apuRPM_pct = [_apuRPM_pct, 0.0, _deltaTime] call BIS_fnc_lerp;
@@ -36,18 +36,18 @@ _heli setVariable ["fza_systems_apuRPM_pct", _apuRPM_pct];
 
 //Set the APU state
 if (_apuRPM_pct <= SYS_MIN_RPM) then {
-    _apuState = "OFF";
+    _apuOn = false;
 };
 if (_apuRPM_pct > SYS_MIN_RPM) then {
-	if (_apuDamage <= SYS_APU_DMG_VAL) then {
-    	_apuState = "ON";
+	if (_apuDamage <= SYS_APU_DMG_THRESH) then {
+    	_apuOn = true;
 	} else {
-		_apuState = "OFF";
+		_apuOn = false;
 	};
 };
-_heli setVariable ["fza_systems_apuState", _apuState];
+_heli setVariable ["fza_systems_apuOn", _apuOn];
 
-if (_apuState == "ON") then {
+if (_apuOn) then {
 	_apuFF_kgs = 0.0220;	//175pph
 };
 _heli setVariable ["fza_systems_apuFF_kgs", _apuFF];

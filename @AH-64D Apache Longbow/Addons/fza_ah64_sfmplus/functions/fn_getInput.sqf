@@ -54,8 +54,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 	_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
 };
 
-//systemChat format ["_collectiveVal = %1 - _collectiveOutMod = %2 - _collectiveOut = %3", _collectiveVal, _collectiveOutMod, _collectiveOut];
-
 fza_sfmplus_collectiveOutput = _collectiveOut;
 
 //Cyclic and Pedal Torque
@@ -86,7 +84,7 @@ private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
 	//Primary and Utility Hydraulics
-	if (_priHydPumpDamage < SYS_HYD_DMG_VAL || _utilHydPumpDamage < SYS_HYD_DMG_VAL) then {
+	if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 	//Emergency Hydraulics
@@ -94,14 +92,3 @@ if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) th
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 };
-
-/*
-[] spawn { 
-	runLoop = true; 
-	while {runLoop} do { 
-	 systemChat str ("Engines Invulnerable!"); 
-	 vehicle player setHitPointDamage["hitengine1", 0.0]; 
-	 vehicle player setHitPointDamage["hitengine2", 0.0]; 
-	 sleep 0.03; 
-	}; 
-};*/

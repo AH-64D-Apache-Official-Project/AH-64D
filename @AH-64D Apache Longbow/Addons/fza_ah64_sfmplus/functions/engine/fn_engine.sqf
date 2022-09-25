@@ -130,11 +130,6 @@ private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
 private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
 private _maxTQ      = getNumber (_config >> "engMaxTQ");
-/*if (_isSingleEng) then {
-	_maxTQ = _maxTQ * 2;
-} else {
-	_maxTQ = _maxTQ;
-};*/
 
 private _engHvrTQTable = [[]];
 //----------------------Coll-----TQ---

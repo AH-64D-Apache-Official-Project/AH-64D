@@ -18,23 +18,29 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _battSwitchState = _heli getVariable "fza_systems_battSwitchState";
+private _battSwitchOn = _heli getVariable "fza_systems_battSwitchOn";
 
-switch (_battSwitchState
-) do {
+if (_battSwitchOn) then {
+	_battSwitchOn = false;
+} else {
+	_battSwitchOn = true;
+};
+_heli setVariable ["fza_systems_battSwitchOn", _battSwitchOn, true];
+/*
+switch (_battSwitchOn) do {
 	case "OFF": {
-		_battSwitchState = "ON";
-		_heli setVariable ["fza_systems_battSwitchState", _battSwitchState, true];
+		_battSwitchOn = "ON";
+		_heli setVariable ["fza_systems_battSwitchOn", _battSwitchOn, true];
 
 		false;
 	};
 	case "ON": {
-		_battSwitchState = "OFF";
-		_heli setVariable ["fza_systems_battSwitchState", _battSwitchState, true];
+		_battSwitchOn = "OFF";
+		_heli setVariable ["fza_systems_battSwitchOn", _battSwitchOn, true];
 
 		true;
 	};
 	default {
 		true;
 	}
-};
+};*/

@@ -18,16 +18,16 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _rect1State  = _heli getVariable "fza_systems_rect1State";
-private _rect2State  = _heli getVariable "fza_systems_rect2State";
+private _rect1On  = _heli getVariable "fza_systems_rect1On";
+private _rect2On  = _heli getVariable "fza_systems_rect2On";
 
-private _DCBusState = _heli getVariable "fza_systems_DCBusState";
-if (_rect1State == "ON" || _rect2State == "ON") then {
-    _DCBusState = "ON";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+if (_rect1On || _rect2On) then {
+    _dcBusOn = true;
 } else {
-    _DCBusState = "OFF";
+    _dcBusOn = false;
 };
-_heli setVariable ["fza_systems_DCBusState", _DCBusState];
+_heli setVariable ["fza_systems_dcBusOn", _dcBusOn];
 //DC Bus powers the following
 //--(1) PSP/LPRF (FCR)
 //--(3) Radar warning receiver

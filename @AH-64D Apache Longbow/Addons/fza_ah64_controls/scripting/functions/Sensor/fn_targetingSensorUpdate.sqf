@@ -19,10 +19,10 @@ Author:
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
 
-private _ACBusState = _heli getVariable "fza_systems_ACBusState";
-private _DCBusState = _heli getVariable "fza_systems_DCBusState";
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
 
-if (_ACBusState == "OFF" && _DCBusState == "OFF") exitwith {};
+if (_acBusOn && _dcBusOn) exitwith {};
 
 private _detectedActiveRadars = [];
 {

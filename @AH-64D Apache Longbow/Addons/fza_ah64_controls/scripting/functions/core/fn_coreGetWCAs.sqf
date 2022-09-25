@@ -42,8 +42,8 @@ private _wcas = [];
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--APU
-private _apuBtnState = _heli getVariable "fza_systems_apuBtnState";
-private _apuState    = _heli getVariable "fza_systems_apuState";
+private _apuBtnOn = _heli getVariable "fza_systems_apuBtnOn";
+private _apuOn    = _heli getVariable "fza_systems_apuOn";
 private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
@@ -120,7 +120,7 @@ if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
 	_wcas pushBack [WCA_WARNING, "LOW ROTOR RPM", "LOW RTR   "];
 };
 //--Hydraulics
-if (_priHydPumpDamage >= SYS_HYD_DMG_VAL && _utilHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
 	_wcas pushBack [WCA_WARNING, "HYD FAILURE", "HYD FAIL  "];
 };
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
@@ -130,35 +130,35 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 // CAUTIONS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--Generator 1 Fail
-if (_gen1Damage >= SYS_GEN_DMG_VAL) then {
+if (_gen1Damage >= SYS_GEN_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "GENERATOR 1 FAIL", "GEN1 FAIL    "];
 };
 //--Generator 2 Fail
-if (_gen2Damage >= SYS_GEN_DMG_VAL) then {
+if (_gen2Damage >= SYS_GEN_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "GENERATOR 2 FAIL", "GEN2 FAIL    "];
 };
 //--Rectifier 1 Fail
-if (_rect1Damage >= SYS_RECT_DMG_VAL) then {
+if (_rect1Damage >= SYS_RECT_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "RECTIFIER 1 FAIL", "RECT1 FAIL   "];
 };
 //--Rectifier 2 Fail
-if (_rect2Damage >= SYS_RECT_DMG_VAL) then {
+if (_rect2Damage >= SYS_RECT_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "RECTIFIER 2 FAIL", "RECT2 FAIL   "];
 };
 //--Intermediate and Tail Rotor Gearboxes
-if (_IGBDamage >= SYS_IGB_DMG_VAL || _TGBDamage >= SYS_TGB_DMG_VAL) then {
+if (_IGBDamage >= SYS_IGB_DMG_THRESH || _TGBDamage >= SYS_TGB_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "GEARBOX VIBRATION", "GRBX VIB     "];
 };
 //--Nose gearbox 1
-if (_NGB1Damage >= SYS_NGB_DMG_VAL) then {
+if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "GEARBOX 1 CHIPS", "GRBX1 CHIPS  "];
 };
 //--Nose Gearbox 2
-if (_NGB2Damage >= SYS_NGB_DMG_VAL) then {
+if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "GEARBOX 2 CHIPS", "GRBX2 CHIPS  "];
 };
 //--Transmission
-if (_xmsnDamage >= SYS_XMSN_DMG_VAL) then {
+if (_xmsnDamage >= SYS_XMSN_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "MAIN XMSN CHIPS", "XMSN CHIPS   "];
 };
 //--Fuel
@@ -169,7 +169,7 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
 	_wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO  "];
 };
 //--APU
-if (_apuState == "ON" && getpos _heli # 2 >= 3 && _apuBtnState == "ON") then {
+if (_apuOn && getpos _heli # 2 >= 3 && _apuBtnOn) then {
 	_wcas pushBack [WCA_CAUTION, "APU ON", "APU ON       "];
 };
 //--Mission Equipment
@@ -177,7 +177,7 @@ if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
 	_wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL   "];
 };
 //--Stabilator
-if (_stabDamage >= SYS_STAB_DMG_VAL) then {
+if (_stabDamage >= SYS_STAB_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "AUTO/MAN STAB FAIL", "STAB FAIL    "];
 };
 //--Hydraulics
@@ -195,10 +195,10 @@ if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 //--Flight Controls
-if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
 	_wcas pushBack [WCA_CAUTION, "BUCS FAIL", "BUCS FAIL    "];
 };
-if (_priHydPumpDamage >= SYS_HYD_DMG_VAL) then {
+if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
 		_wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG   "];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -208,20 +208,20 @@ if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
 	_wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY    "];
 };
 //--Battery
-if (_battDamage >= SYS_BATT_DMG_VAL) then {
+if (_battDamage >= SYS_BATT_DMG_THRESH) then {
 	_wcas pushBack [WCA_ADVISORY, "BATTERY", "BATTERY   "];
 };
 //--APU
-if (_apuRPM_pct >= 0.02 && _apuState != "ON" && _apuBtnState == "ON") then {
+if (_apuRPM_pct >= 0.02 && !_apuOn && _apuBtnOn) then {
 	_wcas pushBack [WCA_ADVISORY, "APU START", "APU START "];
 };
-if (_apuRPM_pct >= 0.04 && _apuState != "ON" && _apuBtnState == "ON") then {
+if (_apuRPM_pct >= 0.04 && !_apuOn && _apuBtnOn) then {
 	_wcas pushBack [WCA_ADVISORY, "APU POWER ON", "APU PWR ON"];
 };
-if (_apuState == "ON" && getpos _heli # 2 < 3 && _apuBtnState == "ON") then {
+if (_apuOn && getpos _heli # 2 < 3 && _apuBtnOn) then {
 	_wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON    "];
 };
-if (_apuRPM_pct >= 0.5 && _apuBtnState == "OFF") then {
+if (_apuRPM_pct >= 0.5 && !_apuBtnOn) then {
 	_wcas pushBack [WCA_ADVISORY, "APU STOP", "APU STOP  "];
 };
 //--Engine 1
@@ -239,7 +239,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
 	_wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };
 //--FCR 
-if (_fcrDamage >= SYS_FCR_DMG_VAL) then {
+if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
 	_wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT "];
 };
 

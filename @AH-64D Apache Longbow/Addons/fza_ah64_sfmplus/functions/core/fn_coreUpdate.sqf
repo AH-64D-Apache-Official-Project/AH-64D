@@ -82,8 +82,8 @@ _heli setVariable ["fza_sfmplus_GWT", _curMass];
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
-	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
+if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
+	|| fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
