@@ -1033,6 +1033,15 @@ class CfgVehicles
 				condition = "1";
 				typeName = "STRING";    
 			};
+			class fza_ah64_tailNumber {
+				displayName  = "Custom Tail Number";
+				tooltip 	 = "Enter a 7 character tail number. Leave a space to skip a position.";
+				property 	 = "fza_attribute_tailNumber";
+				control      = "Edit";
+				expression   = "[_this, _value] call fza_fnc_setTailNumber;";
+				defaultValue = "None";
+				condition    = "objectVehicle";
+			};
 		};
 	};
 	class fza_ah64d_b2e: fza_ah64base

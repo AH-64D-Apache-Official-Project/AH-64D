@@ -29,6 +29,7 @@ private _deltaTime = ((["systems_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 //Update the Drivetrain
 [_heli, _deltaTime] call fza_systems_fnc_drivetrainController;
 
+/*
 hintsilent format ["Battery State: %1
                     \nBattery Bus State: %4
                     \nAPU Button State: %5
@@ -51,3 +52,4 @@ hintsilent format ["Battery State: %1
                     _heli getHitPointDamage "hit_drives_transmission",
                     _heli getVariable "fza_systems_priLevel_pct",
                     _heli getVariable "fza_systems_utilLevel_pct"];
+*/
