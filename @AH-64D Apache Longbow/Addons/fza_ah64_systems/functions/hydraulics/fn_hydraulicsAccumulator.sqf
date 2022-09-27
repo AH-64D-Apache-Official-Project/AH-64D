@@ -24,21 +24,20 @@ private _utilHydPSI    = _heli getVariable "fza_systems_utilHydPsi";
 
 private _accHydPSI_pct = _heli getVariable "fza_systems_accHydPSI_pct";
 private _accHydPSI     = _heli getVariable "fza_systems_accHydPsi";
-private _accState      = _heli getVariable "fza_systems_accState";
+private _accOn         = _heli getVariable "fza_systems_accOn";
 private _accTimer      = _heli getVariable "fza_systems_accTimer";
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
-    _accState      = "ON";
+    _accOn         = true;
     _accHydPSI_pct = [_accHydPSI_pct, 0.0, (1 / _accTimer) * _deltaTime] call BIS_fnc_lerp;
 };
-
 _accHydPSI = _accHydPSI_pct  * 3000.0;
 
 if (_accHydPSI < SYS_MIN_ACC_PSI) then {
-    _accState      = "OFF";
+    _accOn         = false;
     _accHydPSI_pct = 0.0;
 };
 
 _heli setVariable ["fza_systems_accHydPSI_pct",  _accHydPSI_pct];
 _heli setVariable ["fza_systems_accHydPsi",      _accHydPSI];
-_heli setVariable ["fza_systems_accState",       _accState];
+_heli setVariable ["fza_systems_accOn",          _accOn];

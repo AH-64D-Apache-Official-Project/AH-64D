@@ -26,7 +26,7 @@ private _forcePos = _heli getVariable "fza_sfmplus_centerOfMass";
 _heli setCenterofMass [_forcePos];
 
 //Input
-[_heli] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;

@@ -16,7 +16,7 @@ Examples:
 Author:
 	BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli"];
+params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
@@ -32,7 +32,7 @@ private _priHydPSI         = _heli getVariable "fza_systems_priHydPsi";
 private _utilHydPumpDamage = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
-private _accState 		   = _heli getVariable "fza_systems_accState";
+private _accOn 		   	   = _heli getVariable "fza_systems_accOn";
 
 private _collectiveVal     = _heli animationSourcePhase "collective";
 private _cyclicFwdAft      = _heli animationSourcePhase "cyclicForward";
@@ -60,8 +60,14 @@ fza_sfmplus_collectiveOutput = _collectiveOut;
 _cyclicFwdAft    = [_cyclicFwdAft, -0.5, 0.5] call BIS_fnc_clamp;
 _cyclicFwdAft    = linearConversion[-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0];
 
+//Experimenting with FMC off
+//_cyclicFwdAft    = [0, _cyclicFwdAft, (1 / 0.15) * _deltaTime] call BIS_fnc_lerp;
+
 _cyclicLeftRight = [_cyclicLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
 _cyclicLeftRight = linearConversion[-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0];
+
+//Experimenting with FMC off
+//_cyclicLeftRight = [0, _cyclicLeftRight, (1 / 0.15) * _deltaTime] call BIS_fnc_lerp;
 
 _pedalLeftRight  = [_pedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
 _pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
@@ -88,7 +94,7 @@ if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) th
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 	//Emergency Hydraulics
-	if (_accState == "ON") then {
+	if (_accOn) then {
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 };
