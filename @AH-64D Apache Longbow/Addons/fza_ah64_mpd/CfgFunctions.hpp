@@ -18,6 +18,10 @@ class CfgFunctions
             class update {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
         };
+        class chan {
+            file = "\fza_ah64_mpd\functions\chan";
+            class chanShowFrequencies {RECOMPILE_FLAG;};
+        };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";
             class fuelGetData {RECOMPILE_FLAG;};
@@ -39,6 +43,10 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\page";
             class pageASEDraw {RECOMPILE_FLAG;};
             class pageASEHandleControl {RECOMPILE_FLAG;};
+            class pageCHANDraw {RECOMPILE_FLAG;};
+            class pageCHANHandleControl {RECOMPILE_FLAG;};
+            class pageCODEDraw {RECOMPILE_FLAG;};
+            class pageCODEHandleControl {RECOMPILE_FLAG;};
             class pageDMSDraw {RECOMPILE_FLAG;};
             class pageDMSHandleControl {RECOMPILE_FLAG;};
             class pageDTUDraw {RECOMPILE_FLAG;};
@@ -49,6 +57,8 @@ class CfgFunctions
             class pageFCRHandleControl {RECOMPILE_FLAG;};
             class pageFLTDraw {RECOMPILE_FLAG;};
             class pageFLTHandleControl {RECOMPILE_FLAG;};
+            class pageFREQDraw {RECOMPILE_FLAG;};
+            class pageFREQHandleControl {RECOMPILE_FLAG;};
             class pageFUELDraw {RECOMPILE_FLAG;};
             class pageFUELHandleControl {RECOMPILE_FLAG;};
             class pageMENUHandleControl {RECOMPILE_FLAG;};

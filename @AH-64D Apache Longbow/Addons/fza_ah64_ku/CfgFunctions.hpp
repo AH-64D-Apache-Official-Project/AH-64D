@@ -9,9 +9,10 @@ class CfgFunctions
         tag="fza_ku";
         class checkers {
             file = "\fza_ah64_ku\functions\checkers";
-            class checkerFree;
-            class checkerGrid;
-            class checkerInteger;
+            class checkerCode{R;};
+            class checkerFree{R;};
+            class checkerGrid{R;};
+            class checkerInteger{R;};
         };
         class functions {
             file = "\fza_ah64_ku\functions";

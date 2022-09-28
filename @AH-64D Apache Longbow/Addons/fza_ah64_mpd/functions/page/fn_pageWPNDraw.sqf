@@ -51,22 +51,26 @@ switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ACQ), _acq];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
 
 private _was = _heli getVariable "fza_ah64_was";
 private _selectedWeapon = _state get "selectedWeapon";
 private _wasOverride = _state get "wasOverride";
 
-if (_was != WAS_WEAPON_NONE) then {
+if (_was != WAS_WEAPON_NONE && _selectedWeapon != _was) then {
 	_wasOverride = 1;
 	_selectedWeapon = _was;
 	_state set ["selectedWeapon", _selectedWeapon];
 	_state set ["wasOverride", _wasOverride];
+	_state set ["variant", 0];
 };
-if (_was == WAS_WEAPON_NONE && _wasOverride == 1) then {
+if (_was == WAS_WEAPON_NONE && _wasOverride == 1 && _selectedWeapon != _was) then {
 	_wasOverride = 0;
 	_selectedWeapon = WAS_WEAPON_NONE;
 	_state set ["selectedWeapon", _selectedWeapon];
 	_state set ["wasOverride", _wasOverride];
+	_state set ["variant", 0];
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), _was];
@@ -158,26 +162,22 @@ if (_selectedWeapon == WAS_WEAPON_MSL) then {
 	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), _selectedMsl + 1];
 	_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_MSL_TYPE), [0,1] select (_seekerType == "rf")];
 
+	_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_MENU), _state get "variant"];
 	if (_seekerType != "rf") then { //Sal1, sal2
-		if (laserTarget _heli == _heli getVariable "fza_ah64_currentLase") then {
-			_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_PRI_CODE), "A PRF"];
-			_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_ALT_CODE), "B PRF"];
-			_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_PRI_CH), 1];
-			_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_ALT_CH), 2];
-		} else {
-			//This is where we need to get a list of designators to populate the CHAN page based on range
-			//If those designators are present, a 4-digit grid will display below the CODE letter
-			//this is temporarily set to B...until we build the WPN > CHAN page...we will eventually always be
-			//1 button push away from A at ALL times...until ACE laser
-			_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_PRI_CODE), "B PRF"];
-			_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_ALT_CODE), "A PRF"];
-			_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_PRI_CH), 2];
-			_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_ALT_CH), 1];
-		};
-		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_1_CODE), "A"];
-		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_2_CODE), "B"];
-		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE), "C"];
-		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), "R"];
+		private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
+		private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
+		private _chanCodes = _heli getVariable "fza_ah64_laserChannelCodes";
+
+		private _priCode = [_chanCodes # _pri, ""] select (_pri == -1);
+		private _altCode = [_chanCodes # _alt, ""] select (_alt == -1);
+		_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_PRI_CODE), _priCode + " PRF"];
+		_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_ALT_CODE), _altCode + " PRF"];
+		_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_PRI_CH), _pri + 1];
+		_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_ALT_CH), _alt + 1];
+		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_1_CODE), _chanCodes # 0];
+		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_2_CODE), _chanCodes # 1];
+		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE), _chanCodes # 2];
+		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), _chanCodes # 3];
 		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_SAL_SEL), toUpper _seekerType];
 		_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];
 	};
