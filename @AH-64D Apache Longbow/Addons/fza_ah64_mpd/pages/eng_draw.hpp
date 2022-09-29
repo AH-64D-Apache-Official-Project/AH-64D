@@ -273,8 +273,6 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_4, 0.05, 0.6, 3)
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_5, MPD_WCA_COLUMN_2_X, 0.6, 0)
     MPD_WCA_ITEM(MFD_IND_ENG_WCA_6, MPD_WCA_COLUMN_2_X, 0.6, 1)
-    //MPD_WCA_ITEM(MFD_IND_ENG_WCA_7, MPD_WCA_COLUMN_2_X, 0.6, 2)
-    //MPD_WCA_ITEM(MFD_IND_ENG_WCA_8, MPD_WCA_COLUMN_2_X, 0.6, 3)
 }
 
 class Hydraulics_Box {

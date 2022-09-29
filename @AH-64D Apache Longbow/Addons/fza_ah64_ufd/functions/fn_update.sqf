@@ -87,7 +87,6 @@ do {
             ]];                                                                            //33
         };
 
-
         if (isClass(configFile >> "cfgPatches" >> "acre_main") && {[_heli] call acre_api_fnc_areVehicleRacksInitialized}) then { //ACRE compatibility
             private _ptts = [] call acre_api_fnc_getMultiPushToTalkAssignment;
             private _racks = [_heli] call acre_api_fnc_getVehicleRacks;
