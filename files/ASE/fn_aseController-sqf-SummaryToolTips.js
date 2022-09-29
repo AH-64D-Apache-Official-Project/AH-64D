@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:ASE/fn_aseController.sqf",{196:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles all ASE systems on the aircraft</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:ASE/fn_aseController.sqf",{138:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles all ASE systems on the aircraft</div></div>"});
