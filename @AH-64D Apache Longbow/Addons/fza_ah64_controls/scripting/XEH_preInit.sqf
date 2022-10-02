@@ -105,7 +105,7 @@ fza_ah64_rocketTable =
         ,[3500, 75]
         ,[4500, 120]];
 fza_ah64_weaponDebug = false;
-fza_ah64_Incomingaudio = false;
+fza_ah64_aseAudioPlaying = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
 fza_ah64_mousevertpos = 0.5;
@@ -124,15 +124,11 @@ fza_ah64_tiron = false;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
 fza_ah64_pfzcache = ["none", "none", [], 0];
-fza_ah64_asethreatsdraw = [];
-fza_ah64_threattracking = [];
-fza_ah64_threatfiring = [];
 fza_ah64_AseRWR = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
 fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
-fza_ah64_incomingmissiles = [];
 
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_fnc_ihadssDraw, fza_mpd_fnc_update, fza_fnc_aseController];

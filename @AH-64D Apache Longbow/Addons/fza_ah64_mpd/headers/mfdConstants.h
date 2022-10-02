@@ -164,7 +164,8 @@
 #define MFD_IND_TSD_SHOW_ENDR 9
 #define MFD_IND_TSD_ASE_FOOTPRINT 10
 
-//Drawing goes here 10 to 15
+//Drawing goes here 10 to 14
+#define MFD_IND_TSD_CTR 15
 #define MFD_IND_TSD_SHOW_HSI 16
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18

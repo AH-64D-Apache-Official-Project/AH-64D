@@ -59,26 +59,20 @@ if (isNumber (_config >> "usesIcons")) then {
 	_usesIcons = getNumber (_config >> "usesIcons");
 };
 
-if (_mpdState # _side # 5 == 1) then {
+if (_mpdState # _side # 6 == 1) then {
 	[_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
 };
-_mpdState # _side # 3 set ["active", false];
 
-private _state = createHashMap;
-if (isClass (_config >> "InitState")) then {
-	_stateCfg = configProperties [_config >> "InitState", "true", true];
-	_state = createHashMapFromArray (_stateCfg apply {
-		private _ret = nil;
-		if (isNumber _x) then {_ret = getNumber _x};
-		if (isText _x) then {_ret = getText _x};
-		if (isArray _x) then {_ret = getArray _x};
-		[configName _x, _ret];
-	});
+private _persistState = _mpdState # _side # 4;
+
+private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
+
+if !(_page in _persistState) then {
+	_persistState set [_page, (_config >> "PersistState") call fza_fnc_configToHashMap]
 };
 _state set ["side", _side];
 _state set ["page", _page];
-_state set ["active", true];
-private _newState = [_page, _mfdIndex, _drawFunc, _state, _handleControlFunc, _usesIcons];
+private _newState = [_page, _mfdIndex, _drawFunc, _state, _persistState, _handleControlFunc, _usesIcons];
 
 _heli setUserMfdValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];

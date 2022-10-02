@@ -1,6 +1,11 @@
 class Tsd_Ownship {
-    type = fixed;
-    pos[] = {0, 0.25};
+    type = linear;
+    source = user;
+    sourceIndex = MFD_USER_NUM(MFD_IND_TSD_CTR);
+    min = 0;
+    max = 1;
+    maxPos[] = {0, 0.25};
+    minPos[] = {0, 0};
 };
 
 class Tsd_Ownship_Offset {

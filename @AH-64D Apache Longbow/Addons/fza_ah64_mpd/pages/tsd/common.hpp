@@ -9,64 +9,65 @@ class tsdCommon {
                 {
                     {{0.0, 0.0}, 1},
                     {{1.0, 0.0}, 1},
-                    {{1.0, 0.1}, 1},
-                    {{0.0, 0.1}, 1}
+                    {{1.0, 0.095}, 1},
+                    {{0.0, 0.095}, 1}
                 },
                 {
-                    {{0.0, 0.9}, 1},
-                    {{1.0, 0.9}, 1},
+                    {{0.0, 0.905}, 1},
+                    {{1.0, 0.905}, 1},
                     {{1.0, 1.0}, 1},
                     {{0.0, 1.0}, 1}
                 },
                 {
-                    {{0.0, 0.1}, 1},
-                    {{0.1, 0.1}, 1},
-                    {{0.1, 0.9}, 1},
-                    {{0.0, 0.9}, 1}
+                    {{0.0, 0.095}, 1},
+                    {{0.095, 0.095}, 1},
+                    {{0.095, 0.905}, 1},
+                    {{0.0, 0.905}, 1}
                 },
                 {
-                    {{0.9, 0.1}, 1},
-                    {{1.0, 0.1}, 1},
-                    {{1.0, 0.9}, 1},
-                    {{0.9, 0.9}, 1}
+                    {{0.905, 0.095}, 1},
+                    {{1.0, 0.095}, 1},
+                    {{1.0, 0.905}, 1},
+                    {{0.905, 0.905}, 1}
                 }
             };
         };
     };
 
     #define MPD_TSD_SCALE_BOX(posX, posY, bone)\
-        {{posX, posY}, 1},\
-        {bone, {posX + MPD_TEXT_WIDTH + 0.01, posY}, 1},\
-        {bone, {posX + MPD_TEXT_WIDTH + 0.01, posY + MPD_TEXT_HEIGHT}, 1},\
-        {{posX, posY +MPD_TEXT_HEIGHT}, 1},\
-        {{posX, posY}, 1}
+        {"Tsd_Ownship", 1, {posX, posY}, 1},\
+        {"Tsd_Ownship", 1, bone, {posX + MPD_TEXT_WIDTH + 0.01, posY}, 1},\
+        {"Tsd_Ownship", 1, bone, {posX + MPD_TEXT_WIDTH + 0.01, posY + MPD_TEXT_HEIGHT}, 1},\
+        {"Tsd_Ownship", 1, {posX, posY +MPD_TEXT_HEIGHT}, 1},\
+        {"Tsd_Ownship", 1, {posX, posY}, 1}
 
     class lines {
         type = line;
         width = 3;
         points[] = {
-            {{0.1, 0.1}, 1}, {{0.9, 0.1}, 1}, {{0.9, 0.9}, 1}, {{0.1, 0.9}, 1}, {{0.1, 0.1}, 1}, {}, //outside box
+            {{0.095, 0.095}, 1}, {{0.905, 0.095}, 1}, {{0.905, 0.9}, 1}, {{0.095, 0.905}, 1}, {{0.095, 0.095}, 1}, {}, //outside box
             
-            {{0.1, 0.115}, 1}, {{0.085, 0.115}, 1}, {}, //Left 5km indicator
-            {{0.1, 0.24}, 1}, {{0.085, 0.24}, 1}, {},   //Left 4km indicator
-            {{0.1, 0.365}, 1}, {{0.085, 0.365}, 1}, {}, //Left 3km indicator
-            {{0.1, 0.49}, 1}, {{0.085, 0.49}, 1}, {},   //Left 2km indicator
-            {{0.1, 0.615}, 1}, {{0.085, 0.615}, 1}, {}, //Left 1km indicator
-            {{0.1, 0.74}, 1}, {{0.085, 0.74}, 1}, {},   //Left 0km indicator
-            {{0.1, 0.865}, 1}, {{0.085, 0.865}, 1}, {}, //Left -1km indicator
+            {{0.095, 0.115}, 1}, {{0.08, 0.115}, 1}, {}, //Left 5km indicator
+            {{0.095, 0.24}, 1}, {{0.08, 0.24}, 1}, {},   //Left 4km indicator
+            {{0.095, 0.365}, 1}, {{0.08, 0.365}, 1}, {}, //Left 3km indicator
+            {{0.095, 0.49}, 1}, {{0.08, 0.49}, 1}, {},   //Left 2km indicator
+            {{0.095, 0.615}, 1}, {{0.08, 0.615}, 1}, {}, //Left 1km indicator
+            {{0.095, 0.74}, 1}, {{0.08, 0.74}, 1}, {},   //Left 0km indicator
+            {{0.095, 0.865}, 1}, {{0.08, 0.865}, 1}, {}, //Left -1km indicator
 
-            MPD_TSD_SCALE_BOX(0.1, 0.865-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
-            MPD_TSD_SCALE_BOX(0.1, 0.615-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
-            MPD_TSD_SCALE_BOX(0.1, 0.365-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize2), {},
-            MPD_TSD_SCALE_BOX(0.1, 0.1, Tsd_DigitSize1), {},
+            MPD_TSD_SCALE_BOX(0.095,  0.8675-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize2), {},
+            MPD_TSD_SCALE_BOX(0.095,  0.6175-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
+            MPD_TSD_SCALE_BOX(0.095,  0.3675-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize3), {},
+            MPD_TSD_SCALE_BOX(0.095,  0.1175-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize2), {},
+            MPD_TSD_SCALE_BOX(0.095, -0.1325-0.5*MPD_TEXT_HEIGHT, Tsd_DigitSize1), {},
 
-            {{0.125, 0.9}, 1}, {{0.125, 0.885}, 1}, {}, //Bottom -6km indicator
-            {{0.25, 0.9}, 1}, {{0.25, 0.885}, 1}, {},   //Bottom -4km indicator
-            {{0.375, 0.9}, 1}, {{0.375, 0.885}, 1}, {}, //Bottom -2km indicator
-            {{0.5, 0.9}, 1}, {{0.5, 0.885}, 1}, {},     //Bottom 0km indicator
-            {{0.625, 0.9}, 1}, {{0.625, 0.885}, 1}, {}, //Bottom 2km indicator
-            {{0.75, 0.9}, 1}, {{0.75, 0.885}, 1}, {},   //Bottom 4km indicator
-            {{0.875, 0.9}, 1}, {{0.875, 0.885}, 1}, {}, //Bottom 6km indicator
+            {{0.125, 0.905}, 1}, {{0.125, 0.89}, 1}, {}, //Bottom -6km indicator
+            {{0.25, 0.905}, 1}, {{0.25, 0.89}, 1}, {},   //Bottom -4km indicator
+            {{0.375, 0.905}, 1}, {{0.375, 0.89}, 1}, {}, //Bottom -2km indicator
+            {{0.5, 0.905}, 1}, {{0.5, 0.89}, 1}, {},     //Bottom 0km indicator
+            {{0.625, 0.905}, 1}, {{0.625, 0.89}, 1}, {}, //Bottom 2km indicator
+            {{0.75, 0.905}, 1}, {{0.75, 0.89}, 1}, {},   //Bottom 4km indicator
+            {{0.875, 0.905}, 1}, {{0.875, 0.89}, 1}, {}, //Bottom 6km indicator
 
             MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_B_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {}, //Heading
             MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01),     //Heading
@@ -86,38 +87,38 @@ class tsdCommon {
 
     class Scale_Boxes_5km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 5000));
-
-        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
-        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
-        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("1"))
+        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
     };
     
     class Scale_Boxes_10km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 10000));
-
-        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
-        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
-        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
-        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("3"))
+        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("2"))
+        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("6"))
+        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
     };
 
     class Scale_Boxes_25km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 25000));
-
-        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
-        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
-        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
-        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("25"))
+        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("5"))
+        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15"))
+        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("25"))
     };
 
     class Scale_Boxes_50km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 50000));
-
-        MPD_TEXT_R(ScaleBox1, 0.105, 0.865-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
-        MPD_TEXT_R(ScaleBox2, 0.105, 0.615-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
-        MPD_TEXT_R(ScaleBox3, 0.105, 0.365-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
-        MPD_TEXT_R(ScaleBox4, 0.105, 0.1, MPD_TEXT_STATIC("50"))
+        MPD_TEXT_BONE_R(ScaleBox1, Tsd_Ownship, 0.10,  0.87-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_BONE_R(ScaleBox2, Tsd_Ownship, 0.10,  0.62-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox3, Tsd_Ownship, 0.10,  0.37-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("10"))
+        MPD_TEXT_BONE_R(ScaleBox4, Tsd_Ownship, 0.10,  0.12-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("30"))
+        MPD_TEXT_BONE_R(ScaleBox5, Tsd_Ownship, 0.10, -0.13-0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("50"))
     };
 
     //Ownship Icon

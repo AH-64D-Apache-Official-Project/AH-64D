@@ -657,7 +657,16 @@ if (_was == WAS_WEAPON_GUN) then {
 };
 
 //Cscope Code Begin
-private _CscopeCount = 0;
+private _wasState           = _heli getVariable "fza_ah64_was";
+private _nts                = _heli getVariable "fza_ah64_fcrNts";
+private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
+private _nts                = _nts # 0;
+private _ntsIndex           = _fcrTargets findIf {_x # 3 == _nts};
+private _antsIndex          = 0;
+private _CscopeCount        = 0;
+if (count _fcrTargets > 0) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
+};
 {
     if (_CscopeCount > 15) exitwith {};
     _x params ["_pos", "_type", "_speed", "_obj"];
@@ -709,8 +718,19 @@ private _CscopeCount = 0;
             _unitStatus = "LOBL";
         };
     };
+    //Unit select status
+    if (_forEachIndex == _ntsIndex) then {
+        if (_wasState == WAS_WEAPON_NONE) then {
+            _unitSelAndWpnStatus = "_NTS_NoMSL";
+        } else {
+            _unitSelAndWpnStatus = "_NTS";
+        };
+    };
+    if (_forEachIndex == _antsIndex) then {
+        _unitSelAndWpnStatus = "_ANTS";
+    };
 
-    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2_ca.paa", _unitType, _unitStatus];
+    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2%3_ca.paa", _unitType, _unitStatus, _unitSelAndWpnStatus];
     
     if (_heli getVariable "fza_ah64_fcrcscope") then {
         if (count _GuiPos < 1) then {

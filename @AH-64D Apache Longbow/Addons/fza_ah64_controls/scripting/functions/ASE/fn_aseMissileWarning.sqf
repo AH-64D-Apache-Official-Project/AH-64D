@@ -18,24 +18,34 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli","_munition","_hostile"];
 
 if !(player == driver _heli || player == gunner _heli) exitwith {};
 
-fza_ah64_incomingAudio = true;
 private _missile = nearestobject [_hostile,_munition];
 private _posHeli = getpos _heli;
 private _posInc = getpos _missile;
-private _range = _posInc distance _posHeli;
 
-private _highLow = ["High", "Low"] select (_posHeli select 2 > _posInc select 2);
+private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
+if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
+        
+    _Classification = [_hostile] call fza_fnc_aseAdaClassification;
+    private _identity = format ["fza_ah64_bt_%1", _Classification];
 
-private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
-private _clock = [_theta] call fza_fnc_bearingClock;
-private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
+    //Detection range
+    waitUntil {(_heli distance _missile <= ASE_LNC_RANGE_M);};
 
-//Audio and Text Warning
-_heli vehiclechat format ["Missile %1 OClock %2 %3 Meters",_clock,_highLow,_range];
-private _VertAud = "fza_ah64_bt_";// + _highLow;
-["fza_ah64_bt_missile", 0.65, _dirAud, 1.3, _VertAud, 0.62] call fza_fnc_playAudio;
-fza_ah64_incomingAudio = false;
+    private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
+    private _clock = [_theta] call fza_fnc_bearingClock;
+    private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
+
+    //Audio
+    [_identity, 0.8, _dirAud, 1.3, "fza_ah64_launch", 0.65] spawn fza_fnc_playAudio;
+
+    private _future = time + 3;
+    while {(time >= _future)} do {
+        fza_ah64_aseAudioPlaying = true;
+    };
+    fza_ah64_aseAudioPlaying = false;
+};

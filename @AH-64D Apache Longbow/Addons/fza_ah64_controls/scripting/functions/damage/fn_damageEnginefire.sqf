@@ -45,19 +45,19 @@ switch _eng do {
         _side = [1.2, -0.8, -1.25];
         _sidef = [1.2, -0.6, -1.25];
         _mag = "fza_ah64_e2_fire";
-        _audio1 = "fza_ah64_bt_engine2";
+        _audio1 = "fza_ah64_engine_2_fire";
     };
     case "left": {
         _side = [-1, -0.8, -1.25];
         _sidef = [-1, -0.6, -1.25];
         _mag = "fza_ah64_e1_fire";
-        _audio1 = "fza_ah64_bt_engine1";
+        _audio1 = "fza_ah64_engine_1_fire";
     };
     case "apu": {
         _side = [0, -0.8, -1.25];
         _sidef = [0, 0.2, -1.25];
         _mag = "fza_ah64_apu_fire";
-        _audio1 = "fza_ah64_bt_apu";
+        _audio1 = "fza_ah64_APU_fire";
     };
 };
 
@@ -67,7 +67,7 @@ _heli setVariable[_mag, true, true];
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
 if (_usesound) then {
-    [_audio1, 1.25, "fza_ah64_bt_fire", 0.65] spawn fza_fnc_playAudio;
+    [_audio1, 1.25] spawn fza_fnc_playAudio;
 };
 
 private _apuOn = _heli getVariable "fza_systems_apuOn";

@@ -45,7 +45,9 @@ private _validChars = createHashmapFromArray [
 	["9", "\fza_ah64_us\tex\char\Y9_ca.paa"]
 ];
 
-_scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
+if (_scale == -1) then {
+	_scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
+};
 
 #define MPD_X_MIN 0.1
 #define MPD_X_MAX 0.9

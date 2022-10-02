@@ -1,9 +1,9 @@
-params["_heli", "_mpdIndex", "_state"];
+params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _phase = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
+private _phase = BOOLTONUM(_persistState get "mode" == "atk");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -18,7 +18,11 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli 
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];
 
-if (_heli getVariable "fza_mpd_tsdMode" == "atk") then {
+//TSD Centering
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CTR), _persistState get "ctr"];
+
+//TSD phase
+if (_persistState get "mode" == "atk") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute")];
 } else {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
@@ -56,4 +60,6 @@ private _pointsArray = [];
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
-[_heli, _pointsArray, _mpdIndex, (0.125 * 5 /5000)] call fza_mpd_fnc_drawIcons;
+
+
+[_heli, _pointsArray, _mpdIndex, -1, [0.5, 0.75 - 0.25 * (_persistState get "ctr")]] call fza_mpd_fnc_drawIcons;

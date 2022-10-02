@@ -79,14 +79,11 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_rfJamState",    0];
     _heli setVariable ["fza_ah64_ase_rfJamTimer",    0.0];
     //--Autopage    - Crewstation independent
-    _heli setVariable ["fza_ah64_ase_autopage",     1, true];
+    _heli setVariable ["fza_ah64_ase_autopage",     1];
+    _heli setVariable ["fza_ah64_ase_searchingObj",  []];
+    _heli setVariable ["fza_ah64_ase_AquisitionObj",  []];
+    _heli setVariable ["fza_ah64_ase_trackingobj",  []];
 
-    _heli setVariable ["fza_ah64_irjstate", 0, true];
-    _heli setVariable ["fza_ah64_rfjstate", 0, true];
-    _heli setVariable ["fza_ah64_irJamOn", false, true];
-    _heli setVariable ["fza_ah64_irJamCooldown", [0, 0], true];
-    _heli setVariable ["fza_ah64_rfJamOn", false, true];
-    _heli setVariable ["fza_ah64_rfJamCooldown", [0, 0], true];
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
@@ -104,7 +101,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
-_heli setVariable ["fza_ah64_aseautopage", 0];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];

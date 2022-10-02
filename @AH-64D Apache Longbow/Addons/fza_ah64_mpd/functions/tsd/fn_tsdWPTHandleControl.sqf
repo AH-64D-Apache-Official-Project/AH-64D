@@ -1,4 +1,4 @@
-params ["_heli", "_mpdIndex", "_control", "_state", "_isThrtPage"];
+params ["_heli", "_mpdIndex", "_control", "_state", "_persistStage"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
@@ -30,7 +30,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_isThrtPage"];
 
 #endif
 
-private _phase   = BOOLTONUM(_heli getVariable "fza_mpd_tsdMode" == "atk");
+private _phase   = BOOLTONUM(_persistState get "mode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 private _isThrtPage = _state get "subPageVarPage" select 0 == TSD_THRT # 0;
 
@@ -106,6 +106,9 @@ switch (_variant) do {
             };*/
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
+            };
+            case "r3": {
+                _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
         };
     };
@@ -275,7 +278,7 @@ switch (_variant) do {
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l1": {    //Store current flown-over position
-                private _storeTypeIsTarget = _isThrtPage && _heli getVariable "fza_mpd_tsdMode" == "atk";
+                private _storeTypeIsTarget = _isThrtPage && _persistState get "mode" == "atk";
                 private _storeType = [POINT_TYPE_WP, POINT_TYPE_TG] select _storeTypeIsTarget;
                 private _storeIdent = ["WP", "TG"] select _storeTypeIsTarget;
 
