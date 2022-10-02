@@ -38,7 +38,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_powerLever1", 0, true];
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
-    _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
@@ -169,21 +168,17 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        private _acBusOn         = _heli getVariable "fza_systems_acBusOn";
-        private _dcBusOn         = _heli getVariable "fza_systems_dcBusOn";
-        private _tadsShouldBeStowed = true;
+            private _acBusOn            = _heli getVariable "fza_systems_acBusOn";
+            private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
+            private _tadsShouldBeStowed = true;
 
-        if (_acBusOn && _dcBusOn) then {
-            _tadsShouldBeStowed = false;
-        };
+            if (_acBusOn && _dcBusOn) then {
+                _tadsShouldBeStowed = false;
+            };
 
-        systemchat format ["Tads should stow? %1", _tadsShouldBeStowed];
-
-        if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
-            [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;
-        };
-        if (_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
-            [_heli, "fza_ah64_tadsStow", false] call fza_fnc_animSetValue;
+            if (_tadsShouldBeShowed != _heli getVariable "fza_ah64_tadsStow") {
+                [_heli, "fza_ah64_tadsStow", _tadsShouldBeStowed] call fza_fnc_animSetValue;
+            };
         };
     };
     sleep 0.03;

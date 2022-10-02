@@ -35,7 +35,6 @@ private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 if (_apuOn && local _heli) then {
 	if ((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) then {
-		_heli setVariable ["fza_ah64_estarted", true, true];
 		_heli engineOn true;
 	};
 };
@@ -83,7 +82,6 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
 };
 
 if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
-	_heli setVariable ["fza_ah64_estarted", false, true];
 	_heli engineOn false;
 };
 
