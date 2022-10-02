@@ -19,22 +19,22 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
-_heli = _this select 0;
+private _heli = _this select 0;
 
 while {
     (time > -1)
 }
 do {
-    waituntil {
-        (vehicle player) iskindof "fza_ah64base"
+    waitUntil {
+        ((vehicle player) getVariable ["fza_ah64_aircraftInitialised", false]) && ((driver(vehicle player) == player || gunner(vehicle player) == player)) && ((vehicle player) iskindof "fza_ah64base");
     };
     _heli = vehicle player;
-    waitUntil {
-        ((driver(vehicle player) == player || gunner(vehicle player) == player))
-    };
-
     ///end gunner weapon damage//
-    if (_heli animationphase "plt_apu" > 0.5) then {
+    private _apuOn     = _heli getVariable "fza_systems_apuOn";
+    private _battBusOn = _heli getVariable "fza_systems_battBusOn";
+    private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
+
+    if (_apuOn) then {
         _heli setobjecttexture [SEL_IN_LT_APU, "\fza_ah64_us\tex\in\pushbut.paa"];
     } else {
         _heli setobjecttexture [SEL_IN_LT_APU, ""];
@@ -69,7 +69,7 @@ do {
 
     ///EWCA//
     //pilot
-    if (_heli animationphase "plt_batt" > 0.5 || isengineon _heli) then {
+    if (_battBusOn || _dcBusOn) then {
         _heli setUserMFDValue [MFD_IND_BATT, 1];
         private _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
         private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
@@ -78,12 +78,11 @@ do {
 
         for "_i" from 0 to 5 do {
             _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
-                if (count _warnings > _i) then {_warnings # _i} else {"          "},
-                if (count _cautions > _i) then {_cautions # _i} else {"           "},
-                if (count _advisories > _i) then {_advisories # _i} else {"          "}
-            ]];
+                if (count _warnings > _i) then {_warnings # _i} else {"          "},       //10
+                if (count _cautions > _i) then {_cautions # _i} else {"             "},    //13
+                if (count _advisories > _i) then {_advisories # _i} else {"          "}    //10
+            ]];                                                                            //33
         };
-
 
         if (isClass(configFile >> "cfgPatches" >> "acre_main") && {[_heli] call acre_api_fnc_areVehicleRacksInitialized}) then { //ACRE compatibility
             private _ptts = [] call acre_api_fnc_getMultiPushToTalkAssignment;

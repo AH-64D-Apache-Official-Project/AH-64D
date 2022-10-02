@@ -18,10 +18,15 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
-private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
+
+private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+
+//Set the center of mass
+private _forcePos = _heli getVariable "fza_sfmplus_centerOfMass";
+_heli setCenterofMass [_forcePos];
 
 //Input
-[_heli] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
@@ -35,6 +40,9 @@ private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
 private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
+//Performance
+[_heli] call fza_sfmplus_fnc_perfData;
+
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
@@ -44,9 +52,7 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli getVariable "fza_ah64_apu") then {
-	_apuFF = 0.0220;	//175pph
-};
+_apuFF_kgs = _heli getVariable "fza_systems_apuFF_kgs";
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
 private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
@@ -70,21 +76,16 @@ private _curMass = _emptyMass + _totFuelMass + _pylonMass;
 if (local _heli) then {
 	_heli setMass _curMass;
 };
+_heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
-	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
+if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
+	|| fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
-
-//Performance
-[_heli] call fza_sfmplus_fnc_perfData;
-
-//Apply a negative force to prevent the helicopter from taking off until the power levers are at fly
-[_heli, _deltaTime] call fza_sfmplus_fnc_antiLift;
 
 #ifdef __A3_DEBUG_
 /*

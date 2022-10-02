@@ -1,7 +1,10 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-if !isEngineOn _heli exitwith {};
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+
+if (_acBusOn && _dcBusOn) exitwith {};
 
 private _fcrTargets = [];
 {

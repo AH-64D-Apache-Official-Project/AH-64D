@@ -18,7 +18,11 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};
-if !(_heli getVariable "fza_ah64_apu" || (isEngineOn _heli)) exitwith {};
+
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+
+if (_acBusOn && _dcBusOn) exitwith {};
 
 private _detectedActiveRadars = [];
 {

@@ -48,10 +48,8 @@ private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli se
 private _theta = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = getNumber (_config >> "stabKeyTheta");
-    //systemChat format ["Stab keyboard!"];
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
-    //systemChat format ["Stab joystick!"];
 };
 
 //Animate the Horizontal stabilizer
