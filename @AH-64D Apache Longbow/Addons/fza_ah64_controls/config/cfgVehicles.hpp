@@ -466,19 +466,6 @@ class CfgVehicles
 				};
 			};
 		};
-		class Damage
-		{
-			tex[] = {
-				//"fza_ah64_us\tex\ex\rtrs_co.paa",
-				//"fza_ah64_us\tex\dam\mdam_Rtrs_co.paa",
-				//"fza_ah64_us\tex\dam\hdam_Rtrs_co.paa"
-			};
-			mat[] = {
-				//"fza_ah64_us\mat\body.rvmat",
-				//"fza_ah64_us\mat\body_damage.rvmat",
-				//"fza_ah64_us\mat\body_damage.rvmat"
-			};
-		};
 
 		#define HIT_RADIUS_01 0.14
 		#define HIT_RADIUS_02 0.05
@@ -1533,10 +1520,6 @@ class CfgVehicles
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
-			/*lockCargoAnimationPhase = 1;
-			forceAnimate[] = {
-				"mast", 0
-			};*/
 		};
 		class msn_equip_american
 		{
@@ -1546,11 +1529,6 @@ class CfgVehicles
 			source = "user";
 			initPhase = 1;
 			animPeriod = 0.001;
-			/*lockCargoAnimationPhase = 1;
-			forceAnimate[] = {
-				"msn_equip_american", 1,
-				"msn_equip_british", 0
-			};*/
 		};
 		class msn_equip_british
 		{
@@ -1560,12 +1538,6 @@ class CfgVehicles
 			source = "user";
 			initPhase = 0;
 			animPeriod = 0.001;
-			/*lockCargoAnimationPhase = 0;
-			forceAnimate[] = {
-				"msn_equip_american", 0,
-				"msn_equip_britsh", 1,
-				"fcr_enable", 1
-			};*/
 		};
 		class mast
 		{
