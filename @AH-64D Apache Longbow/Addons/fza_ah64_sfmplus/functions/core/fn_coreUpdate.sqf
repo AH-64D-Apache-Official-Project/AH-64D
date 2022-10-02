@@ -87,11 +87,7 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
 
-//#ifdef __A3_DEBUG_
-hintSilent format ["Engine 1 state = %1
-					\nEngine 2 state = %2", _heli getVariable "fza_sfmplus_engState" select 0,
-											_heli getVariable "fza_sfmplus_engState" select 1];
-
+#ifdef __A3_DEBUG_
 /*
 hintsilent format ["v0.11
 					\nEngine 1 Ng = %1
@@ -124,4 +120,4 @@ hintsilent format ["v0.11
 					_heli getVariable "fza_sfmplus_engFF",
 					_heli getVariable "fza_sfmplus_engBaseNG"];
 */
-//#endif
+#endif

@@ -19,19 +19,16 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
-_heli = _this select 0;
+private _heli = _this select 0;
 
 while {
     (time > -1)
 }
 do {
-    waituntil {
-        (vehicle player) iskindof "fza_ah64base"
+    waitUntil {
+        ((vehicle player) getVariable ["fza_ah64_aircraftInitialised", false]) && ((driver(vehicle player) == player || gunner(vehicle player) == player)) && ((vehicle player) iskindof "fza_ah64base");
     };
     _heli = vehicle player;
-    waitUntil {
-        ((driver(vehicle player) == player || gunner(vehicle player) == player))
-    };
     ///end gunner weapon damage//
     private _apuOn     = _heli getVariable "fza_systems_apuOn";
     private _battBusOn = _heli getVariable "fza_systems_battBusOn";
