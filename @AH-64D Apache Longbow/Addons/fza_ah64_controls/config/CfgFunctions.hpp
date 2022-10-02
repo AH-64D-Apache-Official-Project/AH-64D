@@ -81,6 +81,7 @@ class CfgFunctions
 			class HellfireGetAttackProfile {R;};
 			class hellfireSALFired {R;};
 			class hellfireARHSeeker {R;};
+			class hellfireARHFired {R;};
 		};
 		class ihadss
 		{
