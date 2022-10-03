@@ -66,7 +66,7 @@ COCKPIT_CONTROL("ctrlref_p_fbp", "ctrlref_g_fbp",fire, "Fire Panel",fbp, 0.03, "
 COCKPIT_CONTROL("ctrlref_p_fbr", "ctrlref_g_fbr",fire, "Fire Panel",fbr, 0.03, "Fire Bottle Reserve") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_p_swfiretst", "ctrlref_g_swfiretst",fire, "Fire Panel",test, 0.03, "Fire Test") COCKPIT_CONTROL_SEP
 
-COCKPIT_CONTROL("ctrlref_p_doorhandle", "ctrlref_g_doorhandle",door, "Door",handle, 0.03, "Pilot Door Handle") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_p_doorhandle", "ctrlref_g_doorhandle",door, "Door",handle, 0.1, "Pilot Door Handle") COCKPIT_CONTROL_SEP
 
 //COCKPIT_CONTROL("ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt",ihadss, "IHADSS",brt, 0.03, "IHADSS Brightness") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_p_monocle", "ctrlref_g_monocle",ihadss, "IHADSS",stow, 0.1, "IHADSS Monocle") COCKPIT_CONTROL_SEP

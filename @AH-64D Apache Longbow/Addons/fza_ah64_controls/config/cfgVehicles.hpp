@@ -20,6 +20,7 @@ class CfgVehicles
 		A3TI_ThermalSelections[] = {"skin"};	
 		
 		#include "cfgVehicles\sfmplus.hpp"
+		#include "cfgVehicles\CfgAce.hpp"
 		class itc_air 
 		{
 			class rover 
