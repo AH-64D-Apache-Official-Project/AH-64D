@@ -26,9 +26,8 @@ _heli setVariable ["ace_laser_code", _code];
 
 //attackprofile
 private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
-_heli setVariable ["ace_missileguidance_attackProfile", _attackProfile];
-
-/*
-private _attackConfig = configFile >> "Ace_missileguidance_attackprofiles" >> "hellfire_hi";
-private _configLaunchHeightClear = getNumber (_attackConfig >> "Ace_missileguidance_launchHeightClear");
-_configLaunchHeightClear;
+if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
+	_heli setVariable ["ace_missileguidance_attackProfile", "hellfire_hi"];
+} else {
+	_heli setVariable ["ace_missileguidance_attackProfile", _attackProfile];
+};

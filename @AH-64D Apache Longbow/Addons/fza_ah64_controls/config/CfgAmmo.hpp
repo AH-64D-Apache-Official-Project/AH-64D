@@ -186,20 +186,20 @@ class CfgAmmo
 		laserLock					= 0;
 		airLock						= 0;
 
-		maxSpeed					= 166;
+		maxSpeed					= 450;
 		simulationStep				= 0.005;
-		airFriction					= 0.03;
-		sideAirFriction				= 0.15;
+		airFriction 				= 0.085;
+		sideAirFriction 			= 0.15;
 		initTime					= 0;
-		thrustTime					= 3;
-		thrust						= 199;
+		thrustTime					= 6;
+		thrust						= 100;
 		fuseDistance				= 100;
 		manualControl 				= 0;
 		maxControlRange				= 8000;
 		trackOversteer				= 1;
 		trackLead					= 1;
 		maneuvrability				= 0;
-		timeToLive					= 70;
+		timeToLive					= 50;
 		cmImmunity					= 0.97;
 
 		//AI uasge
@@ -311,7 +311,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -320,7 +320,7 @@ class CfgAmmo
 
             // Attack profile type selection
             defaultAttackProfile 				= "hellfire_hi";
-            attackProfiles[] 					= {"hellfire_hi"};
+            attackProfiles[] 					= {"hellfire_hi", "hellfire"};
         };
 
 		class Components : Components
@@ -404,7 +404,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -473,7 +473,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 0;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -515,7 +515,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -558,7 +558,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -599,7 +599,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 90;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
@@ -660,7 +660,7 @@ class CfgAmmo
 		thrustTime					= 2;
 		thrust 						= 840;
 		fuseDistance 				= 75;
-		airFriction 				= 0.1;
+		airFriction 				= 0.05;
 		sideAirFriction 			= 0.004;
 		timeToLive					= 15;
 		whistleDist					= 24;
