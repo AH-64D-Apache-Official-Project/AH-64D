@@ -167,9 +167,16 @@ if (_selectedWeapon == WAS_WEAPON_MSL) then {
 		private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
 		private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
 		private _chanCodes = _heli getVariable "fza_ah64_laserChannelCodes";
+		private	_priCode = "";
+		private _altCode = "";
 
-		private _priCode = [_chanCodes # _pri, ""] select (_pri == -1);
-		private _altCode = [_chanCodes # _alt, ""] select (_alt == -1);
+		if !(_pri == -1) then {
+			_priCode = _chanCodes # _pri;
+		};
+		if !(_alt == -1) then {
+			_altCode = _chanCodes # _alt;
+		};
+		
 		_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_PRI_CODE), _priCode + " PRF"];
 		_heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_ALT_CODE), _altCode + " PRF"];
 		_heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_PRI_CH), _pri + 1];
