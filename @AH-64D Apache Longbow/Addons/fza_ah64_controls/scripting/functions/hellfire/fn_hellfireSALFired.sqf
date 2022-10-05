@@ -27,10 +27,7 @@ private _missilelobl = _heli getVariable "fza_ah64_missleLOBL";
 //AttackProfile
 private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
 
-if (_missilelobl == true && (lasertarget _heli distance2d _heli) <= 1500 && _attackProfile == "Hellfire_hi") then {
-	_attackProfile = "hellfire";
-};
-if (_missilelobl == true && (lasertarget _heli distance2d _heli) <= 750 && _attackProfile == "Hellfire_lo") then {
+if (_missilelobl == true) then {
 	_attackProfile = "hellfire";
 };
 

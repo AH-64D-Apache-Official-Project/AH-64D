@@ -50,7 +50,7 @@ if (count _fcrTargets == 0) then {
 
 //Dir Trajectorie at close range
 _attackProfile = "hellfire_hi";
-if (_missilelobl == true && (_targPos distance2d _heli) <= 1400) then {
+if (_missilelobl == true) then {
 	_attackProfile = "hellfire";
 };
 
