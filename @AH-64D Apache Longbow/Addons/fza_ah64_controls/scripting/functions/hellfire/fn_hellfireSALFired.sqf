@@ -34,17 +34,15 @@ if (_missilelobl == true) then {
 _launchParams set [3, _attackProfile];
 
 //Grab and set laser code for hellfire
+_index = _heli getvariable "fza_ah64_laserMissilePrimaryCode";
 
-private _index = 0;
-if !(isNull laserTarget _heli) then {
-	_index = _heli getvariable "fza_ah64_laserMissilePrimaryCode";
+if !(_index == -1) then {
+	private _channels = _heli getvariable "fza_ah64_laserChannelCodes";
+	private _hash = _heli getvariable "fza_ah64_LaserChannelIndex";
+	private _laserCode = _hash get _channels # _index;
+	private _laserInfo 	= [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
+	_launchParams set [5, _laserInfo];
 } else {
-	_index = _heli getvariable "fza_ah64_laserMissileAlternateCode";
+	//create no code launch	
+	_launchParams set [5, [99999999, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH]];
 };
-
-private _channels = _heli getvariable "fza_ah64_laserChannelCodes";
-private _hash = _heli getvariable "fza_ah64_LaserChannelIndex";
-private _laserCode = _hash get _channels # _index;
-private _laserInfo 	= [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
-
-_launchParams set [5, _laserInfo];
