@@ -9,7 +9,7 @@ class cfgVehicles {
         model = "\fza_ah64_us\fza_longbow.p3d";
         ace_cargo_canLoad = 1;
         ace_dragging_canCarry = 1;
-        ace_cargo_size = 1;
+        ace_cargo_size = 4;
         ace_cargo_noRename = 1;
         ace_dragging_carryDirection = -90;
     };
@@ -18,7 +18,7 @@ class cfgVehicles {
         displayName = "AH-64 IAFS";
         ace_cargo_canLoad = 1;
         ace_dragging_canCarry = 1;
-        ace_cargo_size = 1;
+        ace_cargo_size = 4;
         ace_cargo_noRename = 1;
         ace_dragging_carryDirection = -90;
     };
@@ -27,7 +27,7 @@ class cfgVehicles {
         displayName = "AH-64 1200 Magazine";
         ace_cargo_canLoad = 1;
         ace_dragging_canCarry = 1;
-        ace_cargo_size = 1;
+        ace_cargo_size = 4;
         ace_cargo_noRename = 1;
         ace_dragging_carryDirection = -90;  
     };
