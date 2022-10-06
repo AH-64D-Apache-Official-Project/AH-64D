@@ -62,7 +62,7 @@ _list params
     , ["_priority", 2], ["_audioReference", ""]];
 
 {
-    if ((_x select 7 == _audioReference) && (_x select 6 < _priority)/* && !(_x select 7 == "")*/) then {
+    if ((_x select 7 == _audioReference) && (_x select 6 <= (_priority + 1))) then {
         _quedAudioarray deleteAt _foreachindex;
     };
 } forEach _quedAudioarray;
