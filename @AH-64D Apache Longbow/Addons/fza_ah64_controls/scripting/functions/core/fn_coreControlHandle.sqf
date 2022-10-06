@@ -68,9 +68,6 @@ if (_value) then {
 		case "fza_ah64_targetStoreUpdate": {
 			// Todo: Implemen target store
 		};
-		case "fza_ah64_laserCycle": {
-			[_heli] call fza_fnc_laserCycle;
-		};
 		case "fza_ah64_missileAdvance": {
 			if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
 				[_heli] call fza_fnc_weaponMissileCycle
