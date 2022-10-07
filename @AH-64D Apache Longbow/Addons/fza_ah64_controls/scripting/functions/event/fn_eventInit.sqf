@@ -170,7 +170,7 @@ while {
 }
 do {
     private _battBusOn       = _heli getVariable "fza_systems_battBusOn";
-    if ((isLightOn [_heli,[0]]) && _battBusOn) then {
+    if ((isLightOn [_heli,[0]]) && !_battBusOn) then {
 
         _heli setobjecttextureGlobal ["in_backlight", ""];
         _heli setobjecttextureGlobal ["in_backlight2", ""];

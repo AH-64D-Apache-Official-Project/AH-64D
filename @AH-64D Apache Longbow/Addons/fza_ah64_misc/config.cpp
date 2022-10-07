@@ -10,4 +10,24 @@ class CfgPatches
     };
 };
 
-#include "Config\cfgvehicles.hpp"
+class CfgEditorCategories
+{
+	class EdCat_fza_ah64_Parts
+	{
+		displayName = "AH-64 Parts";
+	};
+};
+class CfgEditorSubcategories
+{
+	class EdSubcat_fza_ah64_Magazines
+	{
+		displayName = "AH-64 Magazines";
+	};
+	class EdSubcat_fza_ah64_Components
+	{
+		displayName = "AH-64 Components";
+	};
+};
+
+#include "Config\cfgVehicles.hpp"
+#include "Config\cfgFunctions.hpp"

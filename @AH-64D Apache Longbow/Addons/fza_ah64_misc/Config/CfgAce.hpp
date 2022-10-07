@@ -313,7 +313,7 @@ class ACE_Actions {
         statement = "_target animate ['pdoor', 1];";
         selection = "ctrlref_p_doorhandle";
     };
-    class close_pilot_door {
+    class Close_pilot_door {
         displayName = "close Pilot Door";
         distance  = 3;
         condition = "(_target animationPhase 'pdoor') == 1";
@@ -327,11 +327,59 @@ class ACE_Actions {
         statement = "_target animate ['gdoor', 1];";
         selection = "ctrlref_g_doorhandle";
     };
-    class close_Gunner_door {
+    class Close_Gunner_door {
         displayName = "close Gunner Door";
         distance  = 3;
         condition = "(_target animationPhase 'gdoor') == 1";
         statement = "_target animate ['gdoor', 0];";
         selection = "ctrlref_g_doorhandle";
+    };
+    class AddFCR {
+        displayName = "Attach Fire Control Radar";
+        distance    = 10;
+        condition   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseCanAdd";
+        statement   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseAdd";
+        selection   = "sensorPos";
+        posiiton    = "[3,2.1,1.5]";
+    };
+    class RemoveFCR {
+        displayName = "Detach Fire Control Radar";
+        distance    = 10;
+        condition   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseCanRemove";
+        statement   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseRemove";
+        selection   = "sensorPos";
+        posiiton    = "[0,2.1,1.5]";
+    };
+    class AddIAFS {
+        displayName = "Attach Internal Auxilary Fuel System";
+        distance    = 10;
+        condition   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseCanAdd";
+        statement   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseAdd";
+        selection   = "zamerny";
+        posiiton    = "[3,2.1,1.5]";
+    };
+    class RemoveIAFS {
+        displayName = "Detach Internal Auxilary Fuel System";
+        distance    = 10;
+        condition   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseCanRemove";
+        statement   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseRemove";
+        selection   = "zamerny";
+        posiiton    = "[0,2.1,1.5]";
+    };
+    class AddMag {
+        displayName = "Attach 1200 30mm Magazine";
+        distance    = 10;
+        condition   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseCanAdd";
+        statement   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseAdd";
+        selection   = "pilot_action";
+        posiiton    = "[3,2.1,1.5]";
+    };
+    class RemoveMag {
+        displayName = "Detach 1200 30mm Magazine";
+        distance    = 10;
+        condition   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseCanRemove";
+        statement   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseRemove";
+        selection   = "pilot_action";
+        posiiton    = "[0,2.1,1.5]";
     };
 };
