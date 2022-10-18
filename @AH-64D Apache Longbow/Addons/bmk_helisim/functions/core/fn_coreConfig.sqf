@@ -28,4 +28,4 @@ private _mainRotor_solidity = (_mainRotor_numBlades * _mainRotor_bladeChord) / (
 _heli setVariable ["bmk_helisim_mainRotor_s",          _mainRotor_solidity];
 _heli setVariable ["bmk_helisim_mainRotor_gearRatio",  _mainRotor_gearRatio];
 
-[_heli] call bmk_helisim_fnc_mainRotor_variables;
+[_heli] call bmk_helisim_fnc_rotorVariables;
