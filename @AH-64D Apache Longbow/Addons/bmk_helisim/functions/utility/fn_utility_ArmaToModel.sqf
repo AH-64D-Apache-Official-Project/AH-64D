@@ -10,7 +10,7 @@ params ["_heli", "_mastPitch", "_mastRoll"];
 //  +-----+  +Xy   Axes
 private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
                               [ 1.0, 0.0, 0.0],
-                              [ 0.0, 0.0, 1.0]];
+                              [ 0.0, 0.0,-1.0]];
 
 private _bodyToShaftMatrix = [[ cos _mastPitch, sin _mastPitch * sin _mastRoll, sin _mastPitch * cos _mastRoll],
                               [            0.0,                  cos _mastRoll,                 -sin _mastRoll],
