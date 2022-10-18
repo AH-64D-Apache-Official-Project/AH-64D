@@ -16,28 +16,18 @@ class CfgVehicles
 		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
 		mapSize = 10;
 		icon = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
-		
+		displayName="AH-64D";
+
 		A3TI_ThermalSelections[] = {"skin"};	
 		
 		#include "cfgVehicles\sfmplus.hpp"
-		class itc_air 
-		{
-			class rover 
-			{
-				capable = 1;
-				frequency_default = 5784;
-			};
-			targeting_user = "gunner";
-			hmd = 1;
-			tgp = 1;
-			wso = 0;
-			mfdApps[] = {"STAT","OPT"};
-			systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
-			mfdType = "classic";
-		};
+		#include "cfgVehicles\sounds.hpp"
+		#include "cfgVehicles\soundsExt.hpp"
+		#include "cfgVehicles\userActions.hpp"
+		#include "cfgVehicles\acre.hpp"
+		#include "cfgVehicles\itcAir.hpp"
 
 		//Sensors definition
-
     	receiveRemoteTargets    = 1;
     	reportRemoteTargets     = 1;
     	reportOwnPosition       = 1;
@@ -64,7 +54,6 @@ class CfgVehicles
 
 		side=1;
 		scope=0;
-		displayName="AH-64D";
 		simulation=helicopterRTD;
 		attenuationEffectType = "HeliAttenuation";
 		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
@@ -198,14 +187,8 @@ class CfgVehicles
 				};
 		};
 
-		#include "cfgVehicles\sounds.hpp"
-		#include "cfgVehicles\soundsExt.hpp"
-		#include "cfgVehicles\userActions.hpp"
-
 		class MFD {};
 		
-		#include "cfgVehicles\acre.hpp"
-
 		class Attributes
 		{
 			class fza_pylonLoadout
@@ -232,41 +215,28 @@ class CfgVehicles
 			};
 		};
 	};
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//AH-64D Radar        //////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 	class fza_ah64d_b2e: fza_ah64base
 	{
-		side=1;
-		scope=2;
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
-		displayName="AH-64D Apache Longbow";
-		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
-		model="\fza_ah64_US\fza_ah64d_b2.p3d";
-		#include "hiddenSelections.hpp"
-		//Ace Hitpoints
-		ace_repair_hitpointPositions[] = {
-			{"Hithull", 					{0,0,-1.5}},
-			{"HitEngine1", 					{-1,0.7,-1}},
-			{"HitEngine2", 					{1,0.7,-1}},
-			{"HitVRotor", 					{-0.6,-6.95,-0.1}},
-			{"HitHRotor", 					{0,2,0.7}},
-			{"HitTail", 					{0,-7,-2}},
-			{"HitVStabilizer1", 			{0,-7,-1}},
-			{"HitHStabilizerL1", 			{-2,1.8,-1.3}},
-			{"HitHStabilizerR1", 			{2,1.8,-1.3}},
-			{"Hitfuel", 					{0,1,-1.6}},
-			{"Hitfuel1", 					{0,5,-1.6}},
-			{"HitGun", 						{0,5,-2.3}},
-			{"HitTurret", 					{0,6.9,-1.5}},
-			{"PNVS", 						{0,6.8,-1}},
-			{"FCR", 						{0,2,1.6}},
-			{"TailBoom", 					{0,-3,-2}},
-			{"IrJammer", 					{-1,5,-1.6}},
-			{"RfJammer", 					{1,5,-1.6}},
-			{"Pylon1", 						{-2.385,2.4,-1.8}},
-			{"Pylon2", 						{-1.665,2.4,-1.8}},
-			{"Pylon3", 						{1.665,2.4,-1.8}},
-			{"Pylon4", 						{2.385,2.4,-1.8}}
-		};
+		side			=1;
+		scope			=2;
+		author			="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName		="AH-64D Apache Longbow";
+		editorPreview 	= "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
+		model			="\fza_ah64_US\fza_ah64d_b2.p3d";
 
+		#include "hiddenSelections.hpp"
+		#include "cfgVehicles\textureSources.hpp"
+		#include "cfgVehicles\turrets.hpp"		
+		#include "cfgVehicles\UVAnimations.hpp"
+		#include "cfgVehicles\animationSources.hpp"
+		#include "cfgVehicles\markerLights.hpp"
+		#include "cfgVehicles\reflectors.hpp"
+		#include "cfgVehicles\ace.hpp"
+		#include "sensor_b2e.hpp"
+		
 		allowTabLock = 0;
 		accuracy=5;
 		armor = 600;
@@ -338,9 +308,6 @@ class CfgVehicles
 			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
 
-		#include "cfgVehicles\textureSources.hpp"
-		#include "cfgVehicles\turrets.hpp"
-
 		class Library
 		{
 			libTextDesc = "The AH-64D Block II is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
@@ -394,110 +361,10 @@ class CfgVehicles
 			thermalmode[] = {2};
 			visionmode[] = {"Ti"}; //PNVS
 		};
-
-		#include "cfgVehicles\UVAnimations.hpp"
-		#include "cfgVehicles\animationSources.hpp"
-
-	class MarkerLights
-	{
-		class PositionWhite
-		{
-			name = "tail_light";
-			ambient[] = {0.1,0.1,0.1};
-			color[] = {1,1,1};
-			drawLightSize = 0.50;
-			drawLightCenterSize = 0.16;
-			activeLight = 0;
-			blinking = 0;
-			dayLight = 0;
-			drawLight = 1;
-			intensity = 75;
-			useFlare = 0;
-			class Attenuation
-			{
-				constant = 0;
-				hardLimitEnd = 1;
-				hardLimitStart = 0.75;
-				linear = 25;
-				quadratic = 50;
-				start = 0;
-			};
-		};
-		class PositionGreen: PositionWhite
-		{
-			name = "zeleny pozicni";
-			ambient[] = {0,0.08,0};
-			color[] = {0,0.8,0};
-			drawLightSize = 0.50;
-			drawLightCenterSize = 0.16;
-		};
-		class PositionRed: PositionWhite
-		{
-			name = "cerveny pozicni";
-			ambient[] = {0.08,0,0};
-			color[] = {0.8,0,0};
-			drawLightSize = 0.50;
-			drawLightCenterSize = 0.16;
-		};
-		class RedStrobe_1
-		{
-			name="cerveny pozicni blik_1";
-			color[]={0.89999998,0.15000001,0.1};
-			ambient[]={0.090000004,0.015,0.0099999998};
-			intensity=2500;
-			drawLightSize = 0.50;
-			drawLightCenterSize = 0.16;
-			blinking = 1;
-			blinkingPattern[]={0.03,2.10};
-			blinkingPatternGuarantee = 1;
-			daylight = 1;
-		};
-		class RedStrobe_2
-		{
-			name="cerveny pozicni blik_2";
-			color[]={0.89999998,0.15000001,0.1};
-			ambient[]={0.090000004,0.015,0.0099999998};
-			intensity=2500;
-			drawLightSize = 0.50;
-			drawLightCenterSize = 0.16;
-			blinking = 1;
-			blinkingPattern[]={0.03,2};
-			blinkingPatternGuarantee = 1;
-			daylight = 1;
-		};
 	};
-	class Reflectors
-	{
-		class Landing_Light
-		{
-			position = "landing_light";
-			direction = "landing_light_dir";
-			hitpoint = "landing_light";
-			selection = "Light";
-			color[] = {7000,7500,10000};
-			ambient[] = {70,75,100};
-			intensity = 100;
-			size = 1;
-			innerAngle = 15;
-			outerAngle = 90;
-			coneFadeCoef = 10;
-			useFlare = 1;
-			flareSize = 10;
-			flareMaxDistance = 500;
-			daylight = 1;		//added
-			class Attenuation
-			{
-				start = 0;
-				constant = 0;
-				linear = 1;
-				quadratic = 1;
-				hardLimitStart = 100;
-				hardLimitEnd = 200;
-			};
-		};
-	};
-	#include "sensor_b2e.hpp"
-	};
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//AH-64D No Radar     //////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
 		side=1;
@@ -505,12 +372,14 @@ class CfgVehicles
 		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName="AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
+		
 		class AnimationSources: AnimationSources {
 			class fcr_enable: fcr_enable
 			{
 				initPhase = 0;
 			};
 		};
+
 		class Components: Components
 		{
 			class TransportPylonsComponent : TransportPylonsComponent {
@@ -543,44 +412,19 @@ class CfgVehicles
 			};
 		};
 	};
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//AH-64D HeliSim      //////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
+	class fza_ah64d_b2e_heliSim: fza_ah64d_b2e
+	{
+		side=1;
+		scope=2;
+		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName="AH-64D Apache Longbow (HeliSim)";
+		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
-	/////////////////////////////////////////////////
-	///////////////////JAMMERS///////////////////////
-	/////////////////////////////////////////////////
-
-	class RoadCone_F;
-	class fza_ah64_ic: RoadCone_F
-	{
-		scope=1;
-		irtarget=0;
-		displayname="CONTROL";
-		model="\fza_ah64_US\fza_ic_box";
-		ladders[]={};
-		//make it indestructable til we delete it
-		armor=1000000000;
-		side=3;
-		simulation = "thing";
-	};
-	class fza_ah64_tailboom_debris: RoadCone_F
-	{
-		scope=1;
-		model = "\fza_ah64_us\prx\fza_dam_tailboom_debris";
-		displayName = "DEBRIS";
-		submerged = 0;
-		submergeSpeed = 0;
-		timeToLive = 30;
-		disappearAtContact = 0;
-	};
-	class fza_ah64_vtail_debris: fza_ah64_tailboom_debris
-	{
-		model = "\fza_ah64_us\prx\fza_dam_vtail_debris";
-	};
-	class fza_ah64_tr_debris: fza_ah64_tailboom_debris
-	{
-		model = "\fza_ah64_us\prx\dam_tr_debris";
-	};
-	class fza_ah64_hstab_debris: fza_ah64_tailboom_debris
-	{
-		model = "\fza_ah64_us\prx\fza_dam_hstab_debris";
+		//SFM Variables-------------/
+		liftForceCoef          = 0.00;
+		//SFM Variables-------------/
 	};
 };
