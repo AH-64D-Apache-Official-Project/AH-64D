@@ -7,9 +7,10 @@ private _omega  = ((2.0 * pi) * _RPM) / 60.0;
 private _omegaR = _omega * _R;
 
 //21109 needs to pull from the current transmission RPM
-_RPM = 21109 / _gearRatio;
-_heli setVariable ["bmk_helisim_mainRotor_RPM", _RPM];
+private _sfmPlusEng1_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 0;
+private _sfmPlusEng2_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 1;
 
-//systemChat format ["OmegaR: %1", _omegaR];
+_RPM = ((_sfmPlusEng1_NP max _sfmPlusEng2_NP) * 21109) / _gearRatio;
+_heli setVariable ["bmk_helisim_mainRotor_RPM", _RPM];
 
 [_omega, _omegaR];
