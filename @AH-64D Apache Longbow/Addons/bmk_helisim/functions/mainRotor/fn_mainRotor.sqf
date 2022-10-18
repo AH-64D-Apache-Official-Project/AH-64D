@@ -34,34 +34,48 @@ private _desiredRPM             = 1.01;
 private _bladeTipVelocity       = (2 * pi * (_designRPM * _desiredRPM)/60) * _bladeRadius;
 
 //--Update control angles
-private _collectiveMin  =  0.0;
-private _collectiveMax  =  10.0;
+private _cyclicPitchMin     = -10.0;
+private _cyclicPitchMax     =  10.0;
 
-private _cyclicPitchMin = -10.0;
-private _cyclicPitchMax =  10.0;
+private _cyclicRollMin      = -10.0;
+private _cyclicRollMax      =  10.0;
 
-private _cyclicRollMin  = -10.0;
-private _cyclicRollMax  =  10.0;
+private _collectivePitchMin =  0.0;
+private _collectivePitchMax =  10.0;
+
+//--Collect rotor params
+private _rotorParams = [ _heli getVariable "bmk_helisim_a",
+                         _heli getVariable "bmk_helisim_mainRotor_b",
+                         _heli getVariable "bmk_helisim_mainRotor_R",
+                         _heli getVariable "bmk_helisim_mainRotor_c",
+                         _heli getVariable "bmk_helisim_mainRotor_theta1",
+                         _heli getVariable "bmk_helisim_mainRotor_m",
+                         _heli getVariable "bmk_helisim_mainRotor_eR",
+                         _heli getVariable "bmk_helisim_mainRotor_e",
+                         _heli getVariable "bmk_helisim_mainRotor_gearRatio",
+                         _heli getVariable "bmk_helisim_mainRotor_s"];
 
 //--Update
-private _update = [_heli] call bmk_helisim_fnc_mainRotor_Update;
-private _omega  = _update # 0;
-private _omegaR = _update # 1;
-private _RPM    = _heli getVariable "bmk_helisim_mainRotorRPM";
-
+([_heli, _rotorParams] call bmk_helisim_fnc_mainRotor_update) 
+    params ["_omega", "_omegaR"];
+//--Get input
+private _controlInputs   = [_heli] call bmk_helisim_fnc_utility_getInput;
+//--Collect pitch params
+private _cyclicPitch     = [_cyclicPitchMin, _cyclicPitchMax];
+private _cyclicRoll      = [_cyclicRollMin, _cyclicRollMax];
+private _collectivePitch = [_collectivePitchMin, _collectivePitchMax];
 //--Update control angles
-private _controlAngles  = [_heli, _collectiveMin, _collectiveMax, _cyclicPitchMin, _cyclicPitchMax, _cyclicRollMin, _cyclicRollMax] call bmk_helisim_fnc_mainRotor_UpdateControlAngles;
-private _theta0_deg     = _controlAngles # 0;
-private _AIC_deg        = _controlAngles # 1;
-private _BIC_deg        = _controlAngles # 2;
+([_heli, _controlInputs, _cyclicPitch, _cyclicRoll, _collectivePitch] call bmk_helisim_fnc_mainRotor_updateControlAngles) 
+    params ["_theta0", "_AIC_deg", "_BIC_deg"];
 //--Calculate beta and control axis velocities
-private _controlAxes    = [_heli, 0.0, 0.0, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_mainRotor_HubToControlAxes;
-private _beta_deg       = _controlAxes # 0;
-private _u_w            = _controlAxes # 1;
-private _v_w            = _controlAxes # 2;
-private _w_w            = _controlAxes # 3;
+([_heli, 0.0, 0.0, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_mainRotor_hubToControlAxes) 
+    params ["_beta_deg", "_controlAxisVelocities"];
 //--Calculate thrust
-private _thrust         = [_heli, _u_w, _omegaR, 0.97] call bmk_helisim_fnc_mainRotor_CalculateThrust;
+([_heli, _deltaTime, _dryAirDensity, _controlAxisVelocities, _omegaR, _theta0, _rotorParams] call bmk_helisim_fnc_mainRotor_calculateThrust)
+    params ["_mu", "_thrust"];
+
+
+_controlAxisVelocities params ["_u_w", "_v_w", "_w_w"];
 
 hintsilent format ["Theta0: %8
                     \nAIC: %9
@@ -72,7 +86,9 @@ hintsilent format ["Theta0: %8
                     \nDens Alt: %4
                     \nDry Air Dens: %5
                     \nTip Velocity: %6
-                    \nBeta: %7",
+                    \nBeta: %7
+                    \nMu: %11,
+                    \nThrust: %12",
                     _u_w toFixed 2, 
                     _v_w toFixed 2 , 
                     _w_w toFixed 2, 
@@ -80,6 +96,8 @@ hintsilent format ["Theta0: %8
                     _dryAirDensity, 
                     _bladeTipVelocity, 
                     _beta_deg toFixed 2,
-                    _theta0_deg toFixed 2,
+                    (deg _theta0) toFixed 2,
                     _AIC_deg toFixed 2,
-                    _BIC_deg toFixed 2];
+                    _BIC_deg toFixed 2,
+                    _mu toFixed 2,
+                    _thrust toFixed 0];
