@@ -4,9 +4,9 @@ params ["_heli", "_deltaTime"];
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Environment    ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _altitude          = 0;     //ft
+private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg
-private _temperature       = 15;    //deg c 
+private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
@@ -87,7 +87,7 @@ DRAW_LINE = {
 };
 
 private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
-private _rotorPos  = [0.0, 2.08, 0.83]; //m
+private _rotorPos  = [0.0, 2.06, 0.83]; //m
 private _forceVec  = [0.0, 0.0, 1.0];   //X, Z, Y
 private _thrustVec = _forceVec vectorMultiply (_thrust * _deltaTime);
 
