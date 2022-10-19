@@ -417,14 +417,16 @@ class CfgVehicles
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	class fza_ah64d_b2e_heliSim: fza_ah64d_b2e
 	{
-		side=1;
-		scope=2;
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
-		displayName="AH-64D Apache Longbow (HeliSim)";
+		side 	      = 1;
+		scope		  = 2;
+		author	      = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName   = "AH-64D Apache Longbow (HeliSim)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
 		//SFM Variables-------------/
 		liftForceCoef          = 0.00;
 		//SFM Variables-------------/
+
+		#include "heliSim\heliSimOverrides.hpp"
 	};
 };
