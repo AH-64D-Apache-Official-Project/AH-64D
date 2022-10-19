@@ -1,4 +1,8 @@
-params ["_heli", "_mastPitch_deg", "_mastRoll_deg"];
+params ["_heli", "_deltaTime", "_mastPitch_deg", "_mastRoll_deg"];
+
+private _pitchPrev = _heli getVariable "bmk_helisim_pitchPrev";
+private _rollPrev  = _heli getVariable "bmk_helisim_rollPrev";
+private _yawPrev   = _heli getVariable "bmk_helisim_yawPrev";
 
 // X, Y, Z = ARMA
 // x, y, z = Model
@@ -24,4 +28,18 @@ private _u_s = _locVel # 0 # 0;
 private _v_s = _locVel # 1 # 0;
 private _w_s = _locVel # 2 # 0;
 
-[_u_s, _v_s, _w_s];
+//--Get angular velocities
+(_heli call bis_fnc_getPitchBank) params ["_pitch", "_roll"];
+private _yaw = getDir _heli;
+//--Convert from degrees to radians
+_pitch = rad _pitch; _roll = rad _roll; _yaw = rad _yaw;
+//--Calculate angular velocities
+private _p_s = if (_deltaTime == 0) then { 0.0; } else { (_rollPrev  - _roll)  / _deltaTime; };
+private _q_s = if (_deltaTime == 0) then { 0.0; } else { (_pitchPrev - _pitch) / _deltaTime; };
+private _r_s = if (_deltaTime == 0) then { 0.0; } else { (_yawPrev   - _yaw)   / _deltaTime; };
+
+_heli setVariable ["bmk_helisim_pitchPrev", _pitch];
+_heli setVariable ["bmk_helisim_rollPrev",  _roll];
+_heli setVariable ["bmk_helisim_yawPrev",   _yaw];
+
+[_u_s, _v_s, _w_s, -_p_s, _q_s, _r_s];

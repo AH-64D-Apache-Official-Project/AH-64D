@@ -19,11 +19,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Rotor          ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _designRPM              = 289;
-private _desiredRPM             = 1.01;
-
-private _bladeTipVelocity       = (2 * pi * (_designRPM * _desiredRPM)/60) * _bladeRadius;
-
 //--Update control angles
 private _cyclicPitchMin_deg     = -10.0;
 private _cyclicPitchMax_deg     =  10.0;
@@ -39,15 +34,16 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_mainRotor_b",
                          _heli getVariable "bmk_helisim_mainRotor_R",
                          _heli getVariable "bmk_helisim_mainRotor_c",
-                         _heli getVariable "bmk_helisim_mainRotor_theta1",
+                         _heli getVariable "bmk_helisim_mainRotor_theta1_deg",
                          _heli getVariable "bmk_helisim_mainRotor_m",
                          _heli getVariable "bmk_helisim_mainRotor_eR",
                          _heli getVariable "bmk_helisim_mainRotor_e",
                          _heli getVariable "bmk_helisim_mainRotor_gearRatio",
+                         _heli getVariable "bmk_helisim_mainRotor_Ib",
                          _heli getVariable "bmk_helisim_mainRotor_s"];
 //--Update
-([_heli, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
-    params ["_omega", "_omegaR"];
+([_heli, _dryAirDensity, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
+    params ["_omega", "_omegaR", "_gamma"];
 //--Get input
 private _controlInputs       = [_heli] call bmk_helisim_fnc_utilityGetInput;
 //--Collect pitch params
@@ -58,15 +54,21 @@ private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg
 ([_heli, _controlInputs, _cyclicPitch_deg, _cyclicRoll_deg, _collectivePitch_deg] call bmk_helisim_fnc_rotorUpdateControlAngles) 
     params ["_theta0_deg", "_AIC_deg", "_BIC_deg"];
 //--Transform ARMA coordinate system to model
-([_heli, 0.0, 0.0] call bmk_helisim_fnc_utilityArmaToModel)
-    params ["_u_s", "_v_s", "_w_s"];
-//--Calculate beta and control axis velocities
+([_heli, _deltaTime, 0.0, 0.0] call bmk_helisim_fnc_utilityArmaToModel)
+    params ["_u_s", "_v_s", "_w_s", "_p_s", "_q_s", "_r_s"];
+//--Calculate beta and linear velocities in control axes
 ([_heli, _u_s, _v_s, _w_s, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorHubVelocityToControlAxes) 
     params ["_beta_deg", "_u_w", "_v_w", "_w_w"];
+//--Calculate angular velocities in control axes
+([_heli, _p_s, _q_s, _r_s, _beta_deg] call bmk_helisim_fnc_rotorBodyAngularVelocityToControlAxes)
+    params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
 ([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams] call bmk_helisim_fnc_rotorCalculateThrust)
-    params ["_mu", "_thrust"];
-
+    params ["_mu", "_thrust", "_lambda"];
+//--Calculate coning angle
+([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
+    params ["_a0_deg"];
+ 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,24 +97,41 @@ _heli addForce[_heli vectorModelToWorld _thrustVec, _rotorPos];
 hintsilent format ["Theta0: %8
                     \nAIC: %9
                     \nBIC: %10
+                    \nA0_deg: %13
+                    \n-------------------------
                     \nVel X (FWD): %1
                     \nVelY (SIDE): %2
                     \nVelZ (UP): %3
+                    \n-------------------------
+                    \nAng VelX (Roll): %14
+                    \nAng VelY (Pitch): %15
+                    \nAng VelZ (Yaw): %16
+                    \n-------------------------
+                    \nAng VelX: %17
+                    \nAng VelY: %18
+                    \nAng VelZ: %19
+                    \n-------------------------
                     \nDens Alt: %4
                     \nDry Air Dens: %5
-                    \nTip Velocity: %6
                     \nBeta: %7
                     \nMu: %11,
                     \nThrust: %12",
-                    _u_w toFixed 2, 
-                    _v_w toFixed 2 , 
-                    _w_w toFixed 2, 
-                    _densityAltitude, 
-                    _dryAirDensity, 
-                    _bladeTipVelocity, 
-                    _beta_deg toFixed 2,
-                    _theta0_deg toFixed 2,
-                    _AIC_deg toFixed 2,
-                    _BIC_deg toFixed 2,
-                    _mu toFixed 2,
-                    _thrust toFixed 0];
+                    _u_w toFixed 2,         //1
+                    _v_w toFixed 2 ,        //2
+                    _w_w toFixed 2,         //3
+                    _densityAltitude,       //4
+                    _dryAirDensity,         //5
+                    _bladeTipVelocity,      //6
+                    _beta_deg toFixed 2,    //7
+                    _theta0_deg toFixed 2,  //8
+                    _AIC_deg toFixed 2,     //9
+                    _BIC_deg toFixed 2,     //10
+                    _mu toFixed 2,          //11
+                    _thrust toFixed 0,      //12
+                    _a0_deg toFixed 2,      //13
+                    _p_w toFixed 2,         //14
+                    _q_w toFixed 2,         //15
+                    _r_w toFixed 2,         //16
+                    _p_s toFixed 2,         //17
+                    _q_s toFixed 2,         //18
+                    _r_s toFixed 2];        //19
