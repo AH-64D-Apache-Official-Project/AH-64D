@@ -367,10 +367,10 @@ class CfgVehicles
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	class fza_ah64d_b2e_nr: fza_ah64d_b2e
 	{
-		side=1;
-		scope=2;
-		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
-		displayName="AH-64D Apache Longbow (no radar)";
+		side		  = 1;
+		scope		  = 1;
+		author		  = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName   = "AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
 		
 		class AnimationSources: AnimationSources {
