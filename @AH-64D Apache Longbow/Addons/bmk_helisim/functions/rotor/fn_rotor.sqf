@@ -65,10 +65,13 @@ private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg
 //--Calculate thrust
 ([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda"];
-//--Calculate coning angle
+//--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
     params ["_a0_deg"];
- 
+//--Calculate flapping angles
+([_heli, _theta0_deg, _rotorParams, _mu, _lambda, _p_w, _q_w, _omega, _gamma, _a0_deg] call bmk_helisim_fnc_rotorCalculateFlappingAngles)
+    params ["_a1_deg", "_b1_deg"];
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -98,6 +101,9 @@ hintsilent format ["Theta0: %8
                     \nAIC: %9
                     \nBIC: %10
                     \nA0_deg: %13
+                    \n-------------------------
+                    \na1_deg: %20
+                    \nb1_deg: %21
                     \n-------------------------
                     \nVel X (FWD): %1
                     \nVelY (SIDE): %2
@@ -134,4 +140,6 @@ hintsilent format ["Theta0: %8
                     _r_w toFixed 2,         //16
                     _p_s toFixed 2,         //17
                     _q_s toFixed 2,         //18
-                    _r_s toFixed 2];        //19
+                    _r_s toFixed 2,         //19
+                    _a1_deg toFixed 2,      //20
+                    _b1_deg toFixed 2];     //21
