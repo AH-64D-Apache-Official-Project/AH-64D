@@ -19,6 +19,7 @@ class CfgFunctions
 			class rotor {R;};
 			class rotorBodyAngularVelocityToControlAxes {R;};
 			class rotorCalculateConingAngles {R;};
+			class rotorCalculateFlappingAngles {R;};
 			class rotorCalculateThrust {R;};
 			class rotorHubVelocityToControlAxes {R;};
 			class rotorUpdate {R;};
