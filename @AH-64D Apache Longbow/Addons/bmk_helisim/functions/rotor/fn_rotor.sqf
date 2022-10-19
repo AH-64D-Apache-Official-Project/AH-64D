@@ -19,15 +19,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Rotor          ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _maxGrossWeight         = 2495;  //kg
-
-private _numberOfBlades         = 4;
-private _bladeRadius            = 7.315;
-private _bladeChord             = 0.533;
-
-private _bladeProfileDragMin    = 0.012;
-private _bladeProfileDragMax    = 0.017;
-
 private _designRPM              = 289;
 private _desiredRPM             = 1.01;
 
