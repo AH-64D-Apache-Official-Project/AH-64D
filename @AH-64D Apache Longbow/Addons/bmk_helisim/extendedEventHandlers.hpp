@@ -7,7 +7,7 @@ class Extended_PreInit_EventHandlers {
 class Extended_GetIn_EventHandlers {
 	class fza_ah64base {
 		class bmk_helisim_getin_eh {
-			getIn = "_this call fza_sfmplus_fnc_eventGetIn";
+			getIn = "_this call bmk_helisim_fnc_eventGetIn";
 		};
 	};
 };
