@@ -45,7 +45,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, _dryAirDensity, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
     params ["_omega", "_omegaR", "_gamma"];
 //--Get input
-private _controlInputs       = [_heli] call bmk_helisim_fnc_utilityGetInput;
+private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 //--Collect pitch params
 private _cyclicPitch_deg     = [_cyclicPitchMin_deg,     _cyclicPitchMax_deg];
 private _cyclicRoll_deg      = [_cyclicRollMin_deg,      _cyclicRollMax_deg];
