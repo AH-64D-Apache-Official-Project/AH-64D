@@ -83,6 +83,9 @@ private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg
 //--Calculate body moments
 ([_heli, _a1_deg, _beta_deg, _b1_deg, _AIC_deg, _BIC_deg, _omega, _rotorParams, _torque] call bmk_helisim_fnc_rotorCalculateBodyMoments)
     params ["_l_s", "_m_s", "_n_s"];
+//--Transform model coordinates back to ARMA coordinates
+([_x_s, _y_s, _z_s, _l_s, _m_s, _n_s] call bmk_helisim_fnc_utilityModelToArma)
+    params ["_out_x", "_out_y", "_out_z", "_out_l", "_out_m", "_out_n"];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
@@ -101,19 +104,19 @@ private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];   //X, Z, Y
 
-private _thrustX = _vecX vectorMultiply (_x_s * _deltaTime);
-private _thrustY = _vecY vectorMultiply (_y_s * _deltaTime);
-private _thrustZ = _vecZ vectorMultiply (_z_s * _deltaTime);
+private _forceX = _vecX vectorMultiply (-_out_x * _deltaTime);
+private _forceY = _vecY vectorMultiply (-_out_y * _deltaTime);
+private _forceZ = _vecZ vectorMultiply (_out_z * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _thrustX, _rotorPos];
-_heli addForce[_heli vectorModelToWorld _thrustY, _rotorPos];
-_heli addForce[_heli vectorModelToWorld _thrustZ, _rotorPos];
+_heli addForce[_heli vectorModelToWorld _forceX, _rotorPos];
+_heli addForce[_heli vectorModelToWorld _forceY, _rotorPos];
+_heli addForce[_heli vectorModelToWorld _forceZ, _rotorPos];
 
-private _torqueX = _l_s * _deltaTime;
-private _torqueY = _m_s * _deltaTime;
-private _torqueZ = _n_s * _deltaTime;
+private _torqueX = _out_l * _deltaTime;
+private _torqueY = _out_m * _deltaTime;
+private _torqueZ = _out_n * _deltaTime;
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, _torqueZ]);
+_heli addTorque (_heli vectorModelToWorld[_torqueX * 0.75, _torqueY * 0.20, _torqueZ * 0.0]);
 
 #ifdef __A3_DEBUG__
 //Draw the force vector
@@ -155,7 +158,11 @@ hintsilent format ["Theta0: %8
                     \nJ: = %23
                     \n-------------------------
                     \nTorque: %24
-                    \nOutput Torque: %25",
+                    \nOutput Torque: %25
+                    \n-------------------------
+                    \nTorque X: %26
+                    \nTorque Y: %27
+                    \nTorque Z: %28",
                     _u_w toFixed 2,         //1
                     _v_w toFixed 2 ,        //2
                     _w_w toFixed 2,         //3
@@ -180,4 +187,7 @@ hintsilent format ["Theta0: %8
                     _H,                     //22
                     _J,                     //23
                     _torque,                //24
-                    _outputTorque];         //25
+                    _outputTorque,          //25
+                    _torqueX toFixed 2,     //26
+                    _torqueY toFixed 2,     //27
+                    _torqueZ toFixed 2];    //28

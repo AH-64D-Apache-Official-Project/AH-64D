@@ -4,4 +4,4 @@ private _x_s =  _H * (cos _beta_deg) - _J * (sin _beta_deg) + _thrust * (rad _BI
 private _y_s = -_H * (sin _beta_deg) - _J * (cos _beta_deg) + _thrust * (rad _AIC_deg);
 private _z_s = _thrust;
 
-[_y_s, _x_s, _z_s];
+[_x_s, _y_s, _z_s];

@@ -34,6 +34,7 @@ class CfgFunctions
 			file = "\bmk_helisim\functions\utility";
 			class utilityArmaToModel {R;};
 			class utilityGetInput {R;};
+			class utilityModelToArma {R;};
 		};
     };
 };
