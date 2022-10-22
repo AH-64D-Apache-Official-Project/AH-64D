@@ -1,5 +1,8 @@
 params ["_heli"];
 
+private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
+//if ((getText _flightModel) != "HeliSim") exitWith {};
+
 private _liftCurveSlope             = 5.7;
 
 private _mainRotor_numBlades        = 4;

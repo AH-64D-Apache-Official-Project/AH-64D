@@ -24,4 +24,4 @@ private _b1_4 = if (_omega == 0) then { 0.0; } else { 16.0 * _q_w / ((B * B * B 
 private _b1_deg = _b1_1 * (_b1_2 - _b1_3 - _b1_4);
 _b1_deg = deg _b1_deg;
 
-[_a1_deg, _b1_deg];
+[_a1_deg, _b1_deg, _theta75_deg];

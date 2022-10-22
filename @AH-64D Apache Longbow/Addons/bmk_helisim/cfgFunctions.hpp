@@ -18,9 +18,13 @@ class CfgFunctions
 			file = "\bmk_helisim\functions\rotor";
 			class rotor {R;};
 			class rotorBodyAngularVelocityToControlAxes {R;};
+			class rotorCalculateBodyForces {R;};
+			class rotorCalculateBodyMoments {R;};
 			class rotorCalculateConingAngles {R;};
+			class rotorCalculateDragAndSideForces {R;};
 			class rotorCalculateFlappingAngles {R;};
 			class rotorCalculateThrust {R;};
+			class rotorCalculateTorque {R;};
 			class rotorHubVelocityToControlAxes {R;};
 			class rotorUpdate {R;};
 			class rotorUpdateControlAngles {R;};

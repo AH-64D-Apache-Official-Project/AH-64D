@@ -13,10 +13,10 @@ class CfgVehicles
 		class CargoTurret;
 
 		//Images
-		picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
-		mapSize = 10;
-		icon = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
-		displayName="AH-64D";
+		picture 	= "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
+		mapSize 	= 10;
+		icon 		= "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
+		displayName	="AH-64D";
 
 		A3TI_ThermalSelections[] = {"skin"};	
 		
@@ -40,7 +40,7 @@ class CfgVehicles
 
 		//SFM Variables-------------/
 		startDuration          = 15;
-		liftForceCoef          = 0.0;//1.25;
+		liftForceCoef          = 1.25;
 		bodyFrictionCoef       = 1.0;
 		cyclicAsideForceCoef   = 0.00;
 		cyclicForwardForceCoef = 0.00;
@@ -52,10 +52,11 @@ class CfgVehicles
 		altNoForce 			   = 9000;
 		//SFM Variables-------------/
 
-		side=1;
-		scope=0;
-		simulation=helicopterRTD;
-		attenuationEffectType = "HeliAttenuation";
+		side				  	   = 1;
+		scope				  	   = 0;
+		simulation			  	   = helicopterRTD;
+		flightModel 	      	   = "SFMPlus";
+		attenuationEffectType 	   = "HeliAttenuation";
 		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
 		cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
@@ -423,9 +424,9 @@ class CfgVehicles
 		displayName   = "AH-64D Apache Longbow (HeliSim)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
-		//SFM Variables-------------/
-		liftForceCoef          = 0.00;
-		//SFM Variables-------------/
+		//Flight model
+		liftForceCoef = 0.00;
+		flightModel   = "HeliSim";
 
 		#include "heliSim\heliSimOverrides.hpp"
 	};

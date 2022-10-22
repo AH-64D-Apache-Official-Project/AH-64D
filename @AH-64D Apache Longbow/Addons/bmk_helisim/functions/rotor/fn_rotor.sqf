@@ -64,13 +64,25 @@ private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg
     params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
 ([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams] call bmk_helisim_fnc_rotorCalculateThrust)
-    params ["_mu", "_thrust", "_lambda"];
+    params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
     params ["_a0_deg"];
 //--Calculate flapping angles
 ([_heli, _theta0_deg, _rotorParams, _mu, _lambda, _p_w, _q_w, _omega, _gamma, _a0_deg] call bmk_helisim_fnc_rotorCalculateFlappingAngles)
-    params ["_a1_deg", "_b1_deg"];
+    params ["_a1_deg", "_b1_deg", "_theta75_deg"];
+//--Calculate drag and side forces
+([_heli, _mu, _lambda, _theta75_deg, _q_w, _gamma, _omega, _omegaR, _CT, _rotorParams, _thrust, _dryAirDensity, _a0_deg, _a1_deg, _b1_deg] call bmk_helisim_fnc_rotorCalculateDragAndSideForces)
+    params ["_H", "_J"];
+//--Calculate torque
+([_heli, _CT, _rotorParams, _dryAirDensity, _omegaR, _mu, _thrust, _lambda, _H] call bmk_helisim_fnc_rotorCalculateTorque)
+    params ["_torque", "_outputTorque"];
+//--Calculate body forces
+([_heli, _H, _beta_deg, _J, _thrust, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorCalculateBodyForces)
+    params ["_x_s", "_y_s", "_z_s"];
+//--Calculate body moments
+([_heli, _a1_deg, _beta_deg, _b1_deg, _AIC_deg, _BIC_deg, _omega, _rotorParams, _torque] call bmk_helisim_fnc_rotorCalculateBodyMoments)
+    params ["_l_s", "_m_s", "_n_s"];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
@@ -84,14 +96,30 @@ DRAW_LINE = {
 
 private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
 private _rotorPos  = [0.0, 2.06, 0.83]; //m
-private _forceVec  = [0.0, 0.0, 1.0];   //X, Z, Y
-private _thrustVec = _forceVec vectorMultiply (_thrust * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _thrustVec, _rotorPos];
+private _vecX = [1.0, 0.0, 0.0];
+private _vecY = [0.0, 1.0, 0.0];
+private _vecZ = [0.0, 0.0, 1.0];   //X, Z, Y
+
+private _thrustX = _vecX vectorMultiply (_x_s * _deltaTime);
+private _thrustY = _vecY vectorMultiply (_y_s * _deltaTime);
+private _thrustZ = _vecZ vectorMultiply (_z_s * _deltaTime);
+
+_heli addForce[_heli vectorModelToWorld _thrustX, _rotorPos];
+_heli addForce[_heli vectorModelToWorld _thrustY, _rotorPos];
+_heli addForce[_heli vectorModelToWorld _thrustZ, _rotorPos];
+
+private _torqueX = _l_s * _deltaTime;
+private _torqueY = _m_s * _deltaTime;
+private _torqueZ = _n_s * _deltaTime;
+
+_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, _torqueZ]);
 
 #ifdef __A3_DEBUG__
 //Draw the force vector
-[_heli, _rotorPos, _rotorPos vectorAdd _forceVec, _colorGreen] call DRAW_LINE;
+[_heli, _rotorPos, _rotorPos vectorAdd _vecX, _colorRed] call DRAW_LINE;
+[_heli, _rotorPos, _rotorPos vectorAdd _vecY, _colorGreen] call DRAW_LINE;
+[_heli, _rotorPos, _rotorPos vectorAdd _vecZ, _colorBlue] call DRAW_LINE;
 #endif
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
@@ -121,7 +149,13 @@ hintsilent format ["Theta0: %8
                     \nDry Air Dens: %5
                     \nBeta: %7
                     \nMu: %11,
-                    \nThrust: %12",
+                    \nThrust: %12
+                    \n-------------------------
+                    \nH: = %22
+                    \nJ: = %23
+                    \n-------------------------
+                    \nTorque: %24
+                    \nOutput Torque: %25",
                     _u_w toFixed 2,         //1
                     _v_w toFixed 2 ,        //2
                     _w_w toFixed 2,         //3
@@ -142,4 +176,8 @@ hintsilent format ["Theta0: %8
                     _q_s toFixed 2,         //18
                     _r_s toFixed 2,         //19
                     _a1_deg toFixed 2,      //20
-                    _b1_deg toFixed 2];     //21
+                    _b1_deg toFixed 2,      //21
+                    _H,                     //22
+                    _J,                     //23
+                    _torque,                //24
+                    _outputTorque];         //25

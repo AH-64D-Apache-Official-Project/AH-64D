@@ -117,7 +117,7 @@ _heli setVariable ["fza_ah64_fire_apu_fx", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
-//[_heli] call BMK_fnc_coreConfig;
+[_heli] call bmk_helisim_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
     createDialog "RscFzaDisplayWelcome";
