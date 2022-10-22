@@ -1,6 +1,8 @@
 params ["_heli", "_deltaTime"];
 
-private _collectiveVal = _heli getVariable "bmk_helisim_collectiveVal";
+private _collectiveVal  = _heli getVariable "bmk_helisim_collectiveVal";
+private _cyclicPitchVal = 0.0;//_heli getVariable "bmk_helisim_cyclicPitchVal";
+private _cyclicRollVal  = 0.0;//_heli getVariable "bmk_helisim_cyclicRollVal";
 
 //Keyboard collective
 private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
@@ -23,17 +25,16 @@ if (!bmk_helisim_keyboardOnly) then {
 };
 _heli setVariable ["bmk_helisim_collectiveVal", _collectiveVal];
 
-systemChat format ["%1", fza_ah64_forceTrimSwitchUp];
-if (fza_ah64_forceTrimSwitchUp) then {
-    systemChat format ["Pressing the force trim!"];
-};
+private _joyCyclicForward  = inputAction "HeliCyclicForward";
+private _joyCyclicBackward = inputAction "HeliCyclicBack";
 
-private _cyclicPitchVal = _heli animationSourcePhase "cyclicForward";
-_cyclicPitchVal = [_cyclicPitchVal, -0.5, 0.5] call BIS_fnc_clamp;
-_cyclicPitchVal = linearConversion[-0.5, 0.5, _cyclicPitchVal, -1.0, 1.0];
+_cyclicPitchVal = _joyCyclicForward - _joyCyclicBackward;
+_cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
 
-private _cyclicRollVal  = _heli animationSourcePhase "cyclicAside";
-_cyclicRollVal  = [_cyclicRollVal, -0.5, 0.5] call BIS_fnc_clamp;
-_cyclicRollVal  = linearConversion[-0.5, 0.5, _cyclicRollVal, -1.0, 1.0];
+private _joyCyclicLeft     = inputAction "HeliCyclicLeft";
+private _joyCyclicRight    = inputAction "HeliCyclicRight";
+
+_cyclicRollVal  = _joyCyclicRight - _joyCyclicLeft;
+_cyclicRollVal  = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
 
 [_collectiveVal, _cyclicPitchVal, _cyclicRollVal];

@@ -10,6 +10,6 @@ private _eventTypes = ["Activate", "Deactivate", "Analog"];
 
 //HOTAS
 {
-addUserActionEventHandler ["HeliCollectiveRaiseCont", _x, {bmk_helisim_keyboardOnly = false;}];
-addUserActionEventHandler ["HeliCollectiveLowerCont", _x, {bmk_helisim_keyboardOnly = false;}];
+    addUserActionEventHandler ["HeliCollectiveRaiseCont", _x, {bmk_helisim_keyboardOnly = false;}];
+    addUserActionEventHandler ["HeliCollectiveLowerCont", _x, {bmk_helisim_keyboardOnly = false;}];
 } forEach _eventTypes;

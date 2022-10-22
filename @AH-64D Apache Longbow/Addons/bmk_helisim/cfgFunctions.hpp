@@ -9,6 +9,10 @@ class CfgFunctions
 	class bmk_helisim
 	{
         tag = "bmk_helisim";
+		class aeroGroundEffect {
+			file = "\bmk_helisim\functions\aero";
+			class aeroGroundEffect {R;};
+		};
 		class core {					
 			file = "\bmk_helisim\functions\core";
 			class coreConfig {R;};

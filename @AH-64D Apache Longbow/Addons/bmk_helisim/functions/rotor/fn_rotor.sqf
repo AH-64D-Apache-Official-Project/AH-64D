@@ -29,6 +29,20 @@ private _cyclicRollMax_deg      =  10.0;
 private _collectivePitchMin_deg =  0.0;
 private _collectivePitchMax_deg =  10.0;
 
+private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
+private _rotorPos  = [0.0, 2.06, 0.83]; //m
+
+private _vecX = [1.0, 0.0, 0.0];
+private _vecY = [0.0, 1.0, 0.0];
+private _vecZ = [0.0, 0.0, 1.0];
+
+//--Get input
+private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
+//--Collect pitch params
+private _cyclicPitch_deg     = [_cyclicPitchMin_deg,     _cyclicPitchMax_deg];
+private _cyclicRoll_deg      = [_cyclicRollMin_deg,      _cyclicRollMax_deg];
+private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg];
+
 //--Collect rotor params
 private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_mainRotor_b",
@@ -41,18 +55,16 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_mainRotor_gearRatio",
                          _heli getVariable "bmk_helisim_mainRotor_Ib",
                          _heli getVariable "bmk_helisim_mainRotor_s"];
+
 //--Update
 ([_heli, _dryAirDensity, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
     params ["_omega", "_omegaR", "_gamma"];
-//--Get input
-private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
-//--Collect pitch params
-private _cyclicPitch_deg     = [_cyclicPitchMin_deg,     _cyclicPitchMax_deg];
-private _cyclicRoll_deg      = [_cyclicRollMin_deg,      _cyclicRollMax_deg];
-private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 //--Update control angles
 ([_heli, _controlInputs, _cyclicPitch_deg, _cyclicRoll_deg, _collectivePitch_deg] call bmk_helisim_fnc_rotorUpdateControlAngles) 
     params ["_theta0_deg", "_AIC_deg", "_BIC_deg"];
+//--Calculate ground effect
+([_heli, 3.607, _rotorParams] call bmk_helisim_fnc_aeroGroundEffect)
+    params ["_gndEffScalar"];
 //--Transform ARMA coordinate system to model
 ([_heli, _deltaTime, 0.0, 0.0] call bmk_helisim_fnc_utilityArmaToModel)
     params ["_u_s", "_v_s", "_w_s", "_p_s", "_q_s", "_r_s"];
@@ -63,7 +75,7 @@ private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg
 ([_heli, _p_s, _q_s, _r_s, _beta_deg] call bmk_helisim_fnc_rotorBodyAngularVelocityToControlAxes)
     params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
-([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
@@ -96,13 +108,6 @@ DRAW_LINE = {
     params ["_heli", "_p1", "_p2", "_col"];
     drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
 };
-
-private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
-private _rotorPos  = [0.0, 2.06, 0.83]; //m
-
-private _vecX = [1.0, 0.0, 0.0];
-private _vecY = [0.0, 1.0, 0.0];
-private _vecZ = [0.0, 0.0, 1.0];
 
 private _forceX = _vecX vectorMultiply (_out_x * _deltaTime);
 private _forceY = _vecY vectorMultiply (_out_y * _deltaTime);

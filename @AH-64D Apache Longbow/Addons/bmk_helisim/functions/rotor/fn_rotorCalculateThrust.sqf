@@ -1,10 +1,10 @@
-params ["_heli", "_deltaTime", "_rho", "_u_w", "_v_w", "_w_w", "_omegaR", "_theta0_deg", "_rotorParams"];
+params ["_heli", "_deltaTime", "_rho", "_u_w", "_v_w", "_w_w", "_omegaR", "_theta0_deg", "_rotorParams", "_gndEffScalar"];
 #include "\bmk_helisim\headers\core.hpp"
 
 _rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s"];
 
-private _lambda  = _heli getVariable "bmk_helisim_mainRotor_lambda";
 private _nu      = _heli getVariable "bmk_helisim_mainRotor_nu";
+private _lambda  = _heli getVariable "bmk_helisim_mainRotor_lambda";
 private _thrust  = 0.0;
 private _CTSigma = 0.0; 
 private _CT      = 0.0;
@@ -22,7 +22,7 @@ _ct_1 = (1.0 / 2.0 * (B * B) + 1.0 / 4.0 * (_mu * _mu)) * _lambda;
 _ct_0 = (_a / 2.0) * (_ct_1 + _ct_2 + _ct_3) * _s;
 _ct_0 = if (_lambda == 0) then { 0.0; } else { _ct_0 / (2.0 * sqrt ((_mu * _mu) + (_lambda * _lambda))); + EPSILON; };
 
-_nu = ((_nu - _ct_0) * exp (-_deltaTime / TAU_LAMBDA) + _ct_0);
+_nu = _gndEffScalar * ((_nu - _ct_0) * exp (-_deltaTime / TAU_LAMBDA) + _ct_0);
 
 //SH79, eqn 25
 _lambda = if (_omegaR == 0) then { 0.0; } else { _w_w / _omegaR - _nu; };
@@ -35,7 +35,7 @@ _CT      = _CTSigma * _s;
 
 _thrust = _b * _c * _R * _rho * (_omegaR * _omegaR) * _CTSigma;
 
-_heli setVariable ["bmk_helsim_mainrotor_nu",     _nu];
-_heli setVariable ["bmk_helsim_mainrotor_lambda", _lambda];
+_heli setVariable ["bmk_helisim_mainrotor_nu",     _nu];
+_heli setVariable ["bmk_helisim_mainrotor_lambda", _lambda];
 
 [_mu, _thrust, _lambda, _CT];
