@@ -23,6 +23,11 @@ if (!bmk_helisim_keyboardOnly) then {
 };
 _heli setVariable ["bmk_helisim_collectiveVal", _collectiveVal];
 
+systemChat format ["%1", fza_ah64_forceTrimSwitchUp];
+if (fza_ah64_forceTrimSwitchUp) then {
+    systemChat format ["Pressing the force trim!"];
+};
+
 private _cyclicPitchVal = _heli animationSourcePhase "cyclicForward";
 _cyclicPitchVal = [_cyclicPitchVal, -0.5, 0.5] call BIS_fnc_clamp;
 _cyclicPitchVal = linearConversion[-0.5, 0.5, _cyclicPitchVal, -1.0, 1.0];

@@ -25,8 +25,8 @@ private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightMod
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
 //Set the center of mass
-//private _forcePos = _heli getVariable "fza_sfmplus_centerOfMass";
-//_heli setCenterofMass [_forcePos];
+private _forcePos = _heli getVariable "fza_sfmplus_centerOfMass";
+_heli setCenterofMass [_forcePos];
 
 //Input
 [_heli, _deltaTime] call fza_sfmplus_fnc_getInput;

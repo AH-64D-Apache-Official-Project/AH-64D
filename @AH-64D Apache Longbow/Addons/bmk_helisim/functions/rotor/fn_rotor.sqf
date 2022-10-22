@@ -102,10 +102,10 @@ private _rotorPos  = [0.0, 2.06, 0.83]; //m
 
 private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
-private _vecZ = [0.0, 0.0, 1.0];   //X, Z, Y
+private _vecZ = [0.0, 0.0, 1.0];
 
-private _forceX = _vecX vectorMultiply (-_out_x * _deltaTime);
-private _forceY = _vecY vectorMultiply (-_out_y * _deltaTime);
+private _forceX = _vecX vectorMultiply (_out_x * _deltaTime);
+private _forceY = _vecY vectorMultiply (_out_y * _deltaTime);
 private _forceZ = _vecZ vectorMultiply (_out_z * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _forceX, _rotorPos];

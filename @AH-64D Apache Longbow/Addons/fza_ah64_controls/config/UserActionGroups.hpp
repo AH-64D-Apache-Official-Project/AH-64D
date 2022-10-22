@@ -26,7 +26,8 @@ class UserActionGroups
 			fza_ah64_wasGun,
 			fza_ah64_wasRkt,
 			fza_ah64_wasMsl,
-			fza_ah64_masterSafe
+			fza_ah64_masterSafe,
+			fza_ah64_forceTrimSwitchUp
 		};
 	};
 	class fza_ah64_cockpit

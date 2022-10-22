@@ -34,5 +34,6 @@ class CfgUserActions
 	CfgUserActionDef(fza_ah64_wasRkt, "WAS Rockets", "Action the rockets in your crew station");
 	CfgUserActionDef(fza_ah64_wasMsl, "WAS Missiles", "Action the missiles in your crew station");
 	CfgUserActionDef(fza_ah64_masterSafe, "Toggle Master Safe", "Arms or Safes the aircraft");
+	CfgUserActionDef(fza_ah64_forceTrimSwitchUp, "Force Trim Switch Up", "Captures the current control input and holds it");
 	#include "\fza_ah64_controls\headers\controls.h"
 };
