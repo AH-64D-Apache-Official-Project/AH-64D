@@ -12,7 +12,7 @@ class cfgVehicles {
         ace_cargo_noRename = 1;
         ace_dragging_carryDirection = -90;
 		editorCategory = "EdCat_fza_ah64_Parts";
-		editorSubcategory = "EdSubcat_fza_ah64_Magazines";
+		editorSubcategory = "EdSubcat_fza_ah64_Components";
     };
     class fza_ah64_IAFS: Land_WoodenCrate_01_F {
         author = "Rosd6(Dryden)";
@@ -34,6 +34,6 @@ class cfgVehicles {
         ace_cargo_noRename = 1;
         ace_dragging_carryDirection = -90;  
 		editorCategory = "EdCat_fza_ah64_Parts";
-		editorSubcategory = "EdSubcat_fza_ah64_Components";
+		editorSubcategory = "EdSubcat_fza_ah64_Magazines";
     };
 };

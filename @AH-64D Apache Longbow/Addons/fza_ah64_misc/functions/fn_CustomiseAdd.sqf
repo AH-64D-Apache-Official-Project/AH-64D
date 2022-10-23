@@ -48,10 +48,14 @@ if (_targetComp == "IAFS") exitwith {
         {
 			params ["_args"];
 			_args params ["_target", "_player"];
+            //delete IAFS
             private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
-            _target Setvariable ["fza_ah64_IAFSInstalled", true];
             deleteVehicle _nearestObject;
-            _target animateSource ["IAFS", 1];
+            _target animateSource ["magazine_set_1200", 0];
+            [_target, 0] remoteExec ["fza_fnc_weaponSwapM230Mag", _target];
+            //Spawn 1200rnd Mag
+            private _object = "fza_ah64_1200Magazine" createVehicle [0,0,0];
+            [_player, _object] call ace_dragging_fnc_carryObject;
         },
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
@@ -72,10 +76,14 @@ if (_targetComp == "MAG") exitwith {
         {
 			params ["_args"];
 			_args params ["_target", "_player"];
+            //delete 1200rnd Mag
             private _nearestObject = nearestObject [_player, "fza_ah64_1200Magazine"];
-            if (_target animationSourcePhase "IAFS" == 1) exitwith {};
             deleteVehicle _nearestObject;
             _target animateSource ["magazine_set_1200", 1];
+            [_target, 1] remoteExec ["fza_fnc_weaponSwapM230Mag", _target];
+            //spawn IAFS
+            private _object = "fza_ah64_IAFS" createVehicle [0,0,0];
+            [_player, _object] call ace_dragging_fnc_carryObject;
         },
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",

@@ -510,6 +510,8 @@ class CfgVehicles
 		{
 			displayName = "Install American Mission Equipment";
 			author = "Apache mod development team";
+			forceAnimatePhase = 1;
+			forceAnimate[] = { "msn_equip_british", 0};
 			onPhaseChanged = "";
 			source = "user";
 			initPhase = 1;
@@ -519,6 +521,8 @@ class CfgVehicles
 		{
 			displayName = "Install British Mission Equipment";
 			author = "Apache mod development team";
+			forceAnimatePhase = 1;
+			forceAnimate[] = { "msn_equip_american", 0};
 			onPhaseChanged = "";
 			source = "user";
 			initPhase = 0;

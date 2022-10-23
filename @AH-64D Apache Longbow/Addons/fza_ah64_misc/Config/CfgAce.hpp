@@ -358,14 +358,6 @@ class ACE_Actions {
         selection   = "zamerny";
         posiiton    = "[3,2.1,1.5]";
     };
-    class RemoveIAFS {
-        displayName = "Detach Internal Auxilary Fuel System";
-        distance    = 10;
-        condition   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseCanRemove";
-        statement   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseRemove";
-        selection   = "zamerny";
-        posiiton    = "[0,2.1,1.5]";
-    };
     class AddMag {
         displayName = "Attach 1200 30mm Magazine";
         distance    = 10;
@@ -373,13 +365,5 @@ class ACE_Actions {
         statement   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseAdd";
         selection   = "pilot_action";
         posiiton    = "[3,2.1,1.5]";
-    };
-    class RemoveMag {
-        displayName = "Detach 1200 30mm Magazine";
-        distance    = 10;
-        condition   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseCanRemove";
-        statement   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseRemove";
-        selection   = "pilot_action";
-        posiiton    = "[0,2.1,1.5]";
     };
 };
