@@ -75,7 +75,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, _p_s, _q_s, _r_s, _beta_deg] call bmk_helisim_fnc_rotorBodyAngularVelocityToControlAxes)
     params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
-([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 1.88] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
