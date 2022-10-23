@@ -425,8 +425,9 @@ class CfgVehicles
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
 		//Flight model
-		liftForceCoef = 0.00;
-		flightModel   = "HeliSim";
+		liftForceCoef 	 = 0.0;
+		bodyFrictionCoef = 1.8;//1.0
+		flightModel   	 = "HeliSim";
 
 		#include "heliSim\heliSimOverrides.hpp"
 	};

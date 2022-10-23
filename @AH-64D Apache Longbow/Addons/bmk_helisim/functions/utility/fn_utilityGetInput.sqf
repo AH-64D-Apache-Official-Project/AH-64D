@@ -1,8 +1,11 @@
 params ["_heli", "_deltaTime"];
 
-private _collectiveVal  = _heli getVariable "bmk_helisim_collectiveVal";
-private _cyclicPitchVal = 0.0;//_heli getVariable "bmk_helisim_cyclicPitchVal";
-private _cyclicRollVal  = 0.0;//_heli getVariable "bmk_helisim_cyclicRollVal";
+private _collectiveVal      = _heli getVariable "bmk_helisim_collectiveVal";
+private _cyclicPitchVal     = 0.0;//_heli getVariable "bmk_helisim_cyclicPitchVal";
+private _cyclicPitchTrimVal = _heli getVariable ["bmk_helisim_cyclicPitchTrimVal", 0.0];
+
+private _cyclicRollVal      = 0.0;//_heli getVariable "bmk_helisim_cyclicRollVal";
+private _cyclicRollTrimVal  = _heli getVariable ["bmk_helisim_cyclicRollTrimVal", 0.0];
 
 //Keyboard collective
 private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
@@ -28,13 +31,29 @@ _heli setVariable ["bmk_helisim_collectiveVal", _collectiveVal];
 private _joyCyclicForward  = inputAction "HeliCyclicForward";
 private _joyCyclicBackward = inputAction "HeliCyclicBack";
 
-_cyclicPitchVal = _joyCyclicForward - _joyCyclicBackward;
-_cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
+if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {   
+    _cyclicPitchVal = (_joyCyclicForward - _joyCyclicBackward) + _cyclicPitchTrimVal;
+    _cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
+} else {
+    _cyclicPitchVal = (_joyCyclicForward - _joyCyclicBackward);
+    _cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
+    _heli setVariable ["bmk_helisim_cyclicPitchTrimVal", _cyclicPitchVal];
+};
+
+_cyclicPitchTrimVal = [_cyclicPitchTrimVal, -1.0, 1.0] call BIS_fnc_clamp;
 
 private _joyCyclicLeft     = inputAction "HeliCyclicLeft";
 private _joyCyclicRight    = inputAction "HeliCyclicRight";
 
-_cyclicRollVal  = _joyCyclicRight - _joyCyclicLeft;
-_cyclicRollVal  = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
+if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {    
+    _cyclicRollVal = (_joyCyclicRight - _joyCyclicLeft) + _cyclicRollTrimVal;
+    _cyclicRollVal = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
+} else {
+    _cyclicRollVal = (_joyCyclicRight - _joyCyclicLeft);
+    _cyclicRollVal = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
+    _heli setVariable ["bmk_helisim_cyclicRollTrimVal",  _cyclicRollVal];
+};
+
+systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
 
 [_collectiveVal, _cyclicPitchVal, _cyclicRollVal];

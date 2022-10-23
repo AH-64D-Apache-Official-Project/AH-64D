@@ -35,7 +35,7 @@ _CT      = _CTSigma * _s;
 
 _thrust = _thrustScalar * (_b * _c * _R * _rho * (_omegaR * _omegaR) * _CTSigma);
 
-systemChat format ["Vi: %1", _nu * _omegaR];
+//systemChat format ["Vi: %1", _nu * _omegaR];
 
 _heli setVariable ["bmk_helisim_mainrotor_nu",     _nu];
 _heli setVariable ["bmk_helisim_mainrotor_lambda", _lambda];

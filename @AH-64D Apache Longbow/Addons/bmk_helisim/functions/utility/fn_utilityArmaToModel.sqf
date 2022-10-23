@@ -34,12 +34,20 @@ private _yaw = getDir _heli;
 //--Convert from degrees to radians
 _pitch = rad _pitch; _roll = rad _roll; _yaw = rad _yaw;
 //--Calculate angular velocities
-private _p_s = if (_deltaTime == 0) then { 0.0; } else { (_rollPrev  - _roll)  / _deltaTime; };
-private _q_s = if (_deltaTime == 0) then { 0.0; } else { (_pitchPrev - _pitch) / _deltaTime; };
-private _r_s = if (_deltaTime == 0) then { 0.0; } else { (_yawPrev   - _yaw)   / _deltaTime; };
+private _locAngVelX = if (_deltaTime == 0) then { 0.0; } else { (_pitchPrev - _pitch) / _deltaTime; };
+private _locAngVelY = if (_deltaTime == 0) then { 0.0; } else { (_rollPrev  - _roll)  / _deltaTime; };
+private _locAngVelZ = if (_deltaTime == 0) then { 0.0; } else { (_yawPrev   - _yaw)   / _deltaTime; };
 
 _heli setVariable ["bmk_helisim_pitchPrev", _pitch];
 _heli setVariable ["bmk_helisim_rollPrev",  _roll];
 _heli setVariable ["bmk_helisim_yawPrev",   _yaw];
 
-[_u_s, _v_s, _w_s, -_p_s, _q_s, _r_s];
+private _locAngVel = [[_locAngVelX], [_locAngVelY], [_locAngVelZ]];
+_locAngVel         = _armaToModelMatrix matrixMultiply _locAngVel;
+_locAngVel         = _bodyToShaftMatrix matrixMultiply _locAngVel;
+
+private _p_s = _locAngVel # 0 # 0;
+private _q_s = _locAngVel # 1 # 0;
+private _r_s = _locAngVel # 2 # 0;
+
+[_u_s, _v_s, _w_s, _p_s, _q_s, _r_s];

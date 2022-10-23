@@ -32,7 +32,7 @@ class CfgDefaultKeysPresets {
 			fza_ah64_wasRkt[] = {0x03}; // 2
 			fza_ah64_wasMsl[] = {0x04}; // 3
 			fza_ah64_masterSafe[] = {0x05}; // 4
-			//fza_ah64_forceTrimSwitchUpp[] = ; //Ctrl + Shift + T
+			//fza_ah64_forceTrimSwitchUp[] = ; //Ctrl + Shift + T
 		};
 	};
 	class Arma3: Arma2 {

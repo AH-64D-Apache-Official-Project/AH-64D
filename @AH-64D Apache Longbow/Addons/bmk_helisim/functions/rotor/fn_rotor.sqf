@@ -26,11 +26,11 @@ private _cyclicPitchMax_deg     =  10.0;
 private _cyclicRollMin_deg      = -10.0;
 private _cyclicRollMax_deg      =  10.0;
 
-private _collectivePitchMin_deg =  0.0;
-private _collectivePitchMax_deg =  10.0;
+private _collectivePitchMin_deg =  1.0;
+private _collectivePitchMax_deg =  19.0;
 
 private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
-private _rotorPos  = [0.0, 2.06, 0.83]; //m
+private _rotorPos  = [0.0, 2.06, 0.70]; //m
 
 private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
@@ -75,7 +75,9 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, _p_s, _q_s, _r_s, _beta_deg] call bmk_helisim_fnc_rotorBodyAngularVelocityToControlAxes)
     params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
-([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 1.88] call bmk_helisim_fnc_rotorCalculateThrust)
+//Thrust scalar @ SL 15 dec C = 3.9, ground effect scalar min = 0.85
+//Thrust scalar @ 4000ft 35 deg C = 2.3, ground effect scalar min = 0.85
+([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 3.9] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
@@ -121,7 +123,7 @@ private _torqueX = _out_l * _deltaTime;
 private _torqueY = _out_m * _deltaTime;
 private _torqueZ = _out_n * _deltaTime;
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX * 0.75, _torqueY * 0.20, _torqueZ * 0.0]);
+_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, _torqueZ]);
 
 #ifdef __A3_DEBUG__
 //Draw the force vector
@@ -162,8 +164,9 @@ hintsilent format ["Theta0: %8
                     \nH: = %22
                     \nJ: = %23
                     \n-------------------------
-                    \nTorque: %24
-                    \nOutput Torque: %25
+                    \nTorque: %24 Nm
+                    \nOutput Torque: %25 Nm
+                    \nOutput Torque: %29 %
                     \n-------------------------
                     \nTorque X: %26
                     \nTorque Y: %27
@@ -195,4 +198,5 @@ hintsilent format ["Theta0: %8
                     _outputTorque,          //25
                     _torqueX toFixed 2,     //26
                     _torqueY toFixed 2,     //27
-                    _torqueZ toFixed 2];    //28
+                    _torqueZ toFixed 2,     //28
+                    _outputTorque / 481 * 100 toFixed 0];   //29

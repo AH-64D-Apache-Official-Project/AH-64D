@@ -125,6 +125,7 @@ if (_value) then {
 				_heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
 			};
 		}
+
 	};
 };
 
@@ -133,6 +134,10 @@ if !(_value) then {
 	switch (_name) do {
 		case "fza_ah64_laserDesig": {
 			[_heli] call fza_fnc_laserDisarm;
+		};
+		case "fza_ah64_forceTrimSwitchUp" :
+		{
+			[_heli] call bmk_helisim_forceTrim;
 		};
 	};
 };
