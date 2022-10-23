@@ -123,7 +123,7 @@ private _torqueX = _out_l * _deltaTime;
 private _torqueY = _out_m * _deltaTime;
 private _torqueZ = _out_n * _deltaTime;
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, _torqueZ]);
+_heli addTorque (_heli vectorModelToWorld[_torqueX * 0.85, _torqueY * 0.35, _torqueZ]);
 
 #ifdef __A3_DEBUG__
 //Draw the force vector
