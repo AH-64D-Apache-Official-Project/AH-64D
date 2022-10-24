@@ -1,14 +1,14 @@
 class ACE_Actions {
     class Fza_tail_numbers{
-        displayName = "Set Tail Numbers";
-        condition = "true";
-        statement = "";
-        distance  = 3;
-        position = "[0,-6.6,-1]";
+        displayName     = "Set Tail Numbers";
+        condition       = "true";
+        statement       = "";
+        distance        = 3;
+        position        = "[0,-6.6,-1]";
         class Set_Number_1 {
             displayName = "Position 1";
-            condition = "true";
-            statement = "";
+            condition   = "true";
+            statement   = "";
             class Zero {
                 displayName = "Zero";
                 condition = "true";
@@ -67,8 +67,8 @@ class ACE_Actions {
         };
         class Set_Number_2 {
             displayName = "Position 2";
-            condition = "true";
-            statement = "";
+            condition   = "true";
+            statement   = "";
             class Zero {
                 displayName = "Zero";
                 condition = "true";
@@ -127,8 +127,8 @@ class ACE_Actions {
         };
         class Set_Number_3 {
             displayName = "Position 3";
-            condition = "true";
-            statement = "";
+            condition   = "true";
+            statement   = "";
             class Zero {
                 displayName = "Zero";
                 condition = "true";
@@ -187,8 +187,8 @@ class ACE_Actions {
         };
         class Set_Number_4 {
             displayName = "Position 4";
-            condition = "true";
-            statement = "";
+            condition   = "true";
+            statement   = "";
             class Zero {
                 displayName = "Zero";
                 condition = "true";
@@ -247,8 +247,8 @@ class ACE_Actions {
         };
         class Set_Number_5 {
             displayName = "Position 5";
-            condition = "true";
-            statement = "";
+            condition   = "true";
+            statement   = "";
             class Zero {
                 displayName = "Zero";
                 condition = "true";
@@ -308,31 +308,31 @@ class ACE_Actions {
     };
     class Open_pilot_door {
         displayName = "Open Pilot Door";
-        distance  = 3;
-        condition = "(_target animationPhase 'pdoor') == 0";
-        statement = "_target animate ['pdoor', 1];";
-        selection = "ctrlref_p_doorhandle";
+        distance    = 3;
+        condition   = "(_target animationPhase 'pdoor') == 0";
+        statement   = "_target animate ['pdoor', 1];";
+        selection   = "ctrlref_p_doorhandle";
     };
     class Close_pilot_door {
         displayName = "close Pilot Door";
-        distance  = 3;
-        condition = "(_target animationPhase 'pdoor') == 1";
-        statement = "_target animate ['pdoor', 0];";
-        selection = "ctrlref_p_doorhandle";
+        distance    = 3;
+        condition   = "(_target animationPhase 'pdoor') == 1";
+        statement   = "_target animate ['pdoor', 0];";
+        selection   = "ctrlref_p_doorhandle";
     };
     class Open_Gunner_door {
         displayName = "Open Gunner Door";
-        distance  = 3;
-        condition = "(_target animationPhase 'gdoor') == 0";
-        statement = "_target animate ['gdoor', 1];";
-        selection = "ctrlref_g_doorhandle";
+        distance    = 3;
+        condition   = "(_target animationPhase 'gdoor') == 0";
+        statement   = "_target animate ['gdoor', 1];";
+        selection   = "ctrlref_g_doorhandle";
     };
     class Close_Gunner_door {
         displayName = "close Gunner Door";
-        distance  = 3;
-        condition = "(_target animationPhase 'gdoor') == 1";
-        statement = "_target animate ['gdoor', 0];";
-        selection = "ctrlref_g_doorhandle";
+        distance    = 3;
+        condition   = "(_target animationPhase 'gdoor') == 1";
+        statement   = "_target animate ['gdoor', 0];";
+        selection   = "ctrlref_g_doorhandle";
     };
     class AddFCR {
         displayName = "Attach Fire Control Radar";

@@ -20,7 +20,7 @@ params ["_target","_player","_targetComp"];
 
 if (_targetComp == "FCR") exitwith {
     [
-        2,
+        300,
         [_target, _player],
         {
 			params ["_args"];
