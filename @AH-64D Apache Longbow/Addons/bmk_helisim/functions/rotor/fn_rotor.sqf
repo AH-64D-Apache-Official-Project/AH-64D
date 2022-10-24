@@ -75,9 +75,9 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, _p_s, _q_s, _r_s, _beta_deg] call bmk_helisim_fnc_rotorBodyAngularVelocityToControlAxes)
     params ["_p_w", "_q_w", "_r_w"];
 //--Calculate thrust
-//Thrust scalar @ SL 15 dec C = 3.9, ground effect scalar min = 0.85
+//Thrust scalar @ SL 15 dec C = 2.2, ground effect scalar min = 0.85
 //Thrust scalar @ 4000ft 35 deg C = 2.3, ground effect scalar min = 0.85
-([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 3.9] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 2.20] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
