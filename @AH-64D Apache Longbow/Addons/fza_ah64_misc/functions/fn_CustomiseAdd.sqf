@@ -23,8 +23,8 @@ if (_targetComp == "FCR") exitwith {
         300,
         [_target, _player],
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             private _nearestObject = nearestObject [_player, "fza_ah64_FireControlRadar"];
             deleteVehicle _nearestObject;
             _target animateSource ["fcr_enable",1];
@@ -32,8 +32,8 @@ if (_targetComp == "FCR") exitwith {
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             _nearestObject = nearestObject [player, "fza_ah64_FireControlRadar"];
             if (_player distance _nearestObject > 10 ) exitWith {false};
             true;
@@ -46,8 +46,8 @@ if (_targetComp == "IAFS") exitwith {
         300,
         [_target, _player],
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             //delete IAFS
             private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
             deleteVehicle _nearestObject;
@@ -60,8 +60,8 @@ if (_targetComp == "IAFS") exitwith {
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
             if (_player distance _nearestObject > 10 ) exitWith {false};
             true;
@@ -74,8 +74,8 @@ if (_targetComp == "MAG") exitwith {
         300,
         [_target, _player],
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             //delete 1200rnd Mag
             private _nearestObject = nearestObject [_player, "fza_ah64_1200Magazine"];
             deleteVehicle _nearestObject;
@@ -88,8 +88,8 @@ if (_targetComp == "MAG") exitwith {
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             private _nearestObject = nearestObject [_player, "fza_ah64_1200Magazine"];
             if (_player distance _nearestObject > 10 ) exitWith {false};
             true;

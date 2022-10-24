@@ -23,8 +23,8 @@ if (_targetComp == "FCR") exitwith {
         300,
         [_target, _player],
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             _target animateSource ["fcr_enable", 0];
             private _object = "fza_ah64_FireControlRadar" createVehicle [0,0,0];
             [_player, _object] call ace_dragging_fnc_carryObject;
@@ -32,8 +32,8 @@ if (_targetComp == "FCR") exitwith {
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
         {
-			params ["_args"];
-			_args params ["_target", "_player"];
+            params ["_args"];
+            _args params ["_target", "_player"];
             if (_player distance _target > 10 ) exitWith {false};
             true;
         },

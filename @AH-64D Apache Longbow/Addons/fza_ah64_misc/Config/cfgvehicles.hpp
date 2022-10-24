@@ -11,32 +11,32 @@ class cfgVehicles {
         ace_cargo_size                      = 4;
         ace_cargo_noRename                  = 1;
         ace_dragging_carryDirection         = -90;
-		editorCategory                      = "EdCat_fza_ah64_Parts";
-		editorSubcategory                   = "EdSubcat_fza_ah64_Components";
+        editorCategory                      = "EdCat_fza_ah64_Parts";
+        editorSubcategory                   = "EdSubcat_fza_ah64_Components";
         maximumLoad                         = 0;
-		vehicleClass                        = "Objects";
-		simulation                          = "thingX";
-		class SimpleObject
-		{
-			eden                            = 1;
-			animate[]                       = {};
-			hide[]                          = {};
-			verticalOffset                  = 0.348;
-			verticalOffsetWorld             = 0;
-			init                            = "''";
-		};
+        vehicleClass                        = "Objects";
+        simulation                          = "thingX";
+        class SimpleObject
+        {
+        	eden                            = 1;
+        	animate[]                       = {};
+        	hide[]                          = {};
+        	verticalOffset                  = 0.348;
+        	verticalOffsetWorld             = 0;
+        	init                            = "''";
+        };
     };
     class fza_ah64_FireControlRadar: fza_ah64_ObjectBase {
         displayName                         = "AH-64 Fire Control Radar";
         model                               = "\fza_ah64_us\fza_longbow.p3d";
-		editorSubcategory                   = "EdSubcat_fza_ah64_Components";
+        editorSubcategory                   = "EdSubcat_fza_ah64_Components";
     };
     class fza_ah64_IAFS: fza_ah64_ObjectBase {
         displayName                         = "AH-64 IAFS";
-		editorSubcategory                   = "EdSubcat_fza_ah64_Components";
+        editorSubcategory                   = "EdSubcat_fza_ah64_Components";
     };
     class fza_ah64_1200Magazine: fza_ah64_ObjectBase {
         displayName                         = "AH-64 1200 Magazine";
-		editorSubcategory                   = "EdSubcat_fza_ah64_Magazines";
+        editorSubcategory                   = "EdSubcat_fza_ah64_Magazines";
     };
 };
