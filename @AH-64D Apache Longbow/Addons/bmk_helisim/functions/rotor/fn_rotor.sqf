@@ -1,30 +1,17 @@
-params ["_heli", "_deltaTime"];
+params ["_heli", "_deltaTime", "_rho"];
 #include "\bmk_helisim\headers\core.hpp"
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//Environment    ///////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
-private _altimeter         = 29.92; //in mg
-private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
-
-private _referencePressure = _altimeter * IN_MG_TO_HPA;
-private _referenceAltitude = 0;
-private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
-private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
-
-private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
-private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Rotor          ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //--Update control angles
-private _cyclicPitchMin_deg     = -10.0;
-private _cyclicPitchMax_deg     =  10.0;
+private _cyclicPitchMap_deg = [[-1.0,  10.0],
+                               [ 0.0,   0.0],
+                               [ 1.0, -20.0]];
 
-private _cyclicRollMin_deg      = -10.0;
-private _cyclicRollMax_deg      =  10.0;
+private _cyclicRollMap_deg  = [[-1.0,   7.0],
+                               [ 0.0,   0.0],
+                               [ 1.0, -10.5]];
 
 private _collectivePitchMin_deg =  1.0;
 private _collectivePitchMax_deg =  19.0;
@@ -39,8 +26,6 @@ private _vecZ = [0.0, 0.0, 1.0];
 //--Get input
 private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 //--Collect pitch params
-private _cyclicPitch_deg     = [_cyclicPitchMin_deg,     _cyclicPitchMax_deg];
-private _cyclicRoll_deg      = [_cyclicRollMin_deg,      _cyclicRollMax_deg];
 private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 
 //--Collect rotor params
@@ -57,10 +42,10 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_mainRotor_s"];
 
 //--Update
-([_heli, _dryAirDensity, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
+([_heli, _rho, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
     params ["_omega", "_omegaR", "_gamma"];
 //--Update control angles
-([_heli, _controlInputs, _cyclicPitch_deg, _cyclicRoll_deg, _collectivePitch_deg] call bmk_helisim_fnc_rotorUpdateControlAngles) 
+([_heli, _controlInputs, _cyclicPitchMap_deg, _cyclicRollMap_deg, _collectivePitch_deg] call bmk_helisim_fnc_rotorUpdateControlAngles) 
     params ["_theta0_deg", "_AIC_deg", "_BIC_deg"];
 //--Calculate ground effect
 ([_heli, 3.607, _rotorParams] call bmk_helisim_fnc_aeroGroundEffect)
@@ -77,7 +62,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 //--Calculate thrust
 //Thrust scalar @ SL 15 dec C = 2.2, ground effect scalar min = 0.85
 //Thrust scalar @ 4000ft 35 deg C = 2.3, ground effect scalar min = 0.85
-([_heli, _deltaTime, _dryAirDensity, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 2.20] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _rho, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 2.20] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
@@ -86,10 +71,10 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, _theta0_deg, _rotorParams, _mu, _lambda, _p_w, _q_w, _omega, _gamma, _a0_deg] call bmk_helisim_fnc_rotorCalculateFlappingAngles)
     params ["_a1_deg", "_b1_deg", "_theta75_deg"];
 //--Calculate drag and side forces
-([_heli, _mu, _lambda, _theta75_deg, _q_w, _gamma, _omega, _omegaR, _CT, _rotorParams, _thrust, _dryAirDensity, _a0_deg, _a1_deg, _b1_deg] call bmk_helisim_fnc_rotorCalculateDragAndSideForces)
+([_heli, _mu, _lambda, _theta75_deg, _q_w, _gamma, _omega, _omegaR, _CT, _rotorParams, _thrust, _rho, _a0_deg, _a1_deg, _b1_deg] call bmk_helisim_fnc_rotorCalculateDragAndSideForces)
     params ["_H", "_J"];
 //--Calculate torque
-([_heli, _CT, _rotorParams, _dryAirDensity, _omegaR, _mu, _thrust, _lambda, _H] call bmk_helisim_fnc_rotorCalculateTorque)
+([_heli, _CT, _rotorParams, _rho, _omegaR, _mu, _thrust, _lambda, _H] call bmk_helisim_fnc_rotorCalculateTorque)
     params ["_torque", "_outputTorque"];
 //--Calculate body forces
 ([_heli, _H, _beta_deg, _J, _thrust, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorCalculateBodyForces)
@@ -123,7 +108,7 @@ private _torqueX = _out_l * _deltaTime;
 private _torqueY = _out_m * _deltaTime;
 private _torqueZ = _out_n * _deltaTime;
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX * 0.85, _torqueY * 0.35, _torqueZ]);
+_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY * 0.5, _torqueZ]);
 
 #ifdef __A3_DEBUG__
 //Draw the force vector
@@ -175,7 +160,7 @@ hintsilent format ["Theta0: %8
                     _v_w toFixed 2 ,        //2
                     _w_w toFixed 2,         //3
                     _densityAltitude,       //4
-                    _dryAirDensity,         //5
+                    _rho,         //5
                     _bladeTipVelocity,      //6
                     _beta_deg toFixed 2,    //7
                     _theta0_deg toFixed 2,  //8

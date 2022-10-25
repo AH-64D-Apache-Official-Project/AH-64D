@@ -18,6 +18,13 @@ class CfgFunctions
 			class coreConfig {R;};
 			class coreUpdate {R;};
 		};
+		class environment {
+			
+		};
+		class fuselage {
+			file = "\bmk_helisim\functions\fuselage";
+			class fuselageDrag {R;};
+		};
 		class mainRotor {					
 			file = "\bmk_helisim\functions\rotor";
 			class rotor {R;};

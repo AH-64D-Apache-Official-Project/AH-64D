@@ -426,7 +426,7 @@ class CfgVehicles
 
 		//Flight model
 		liftForceCoef 	 = 0.0;
-		bodyFrictionCoef = 1.8;//1.0
+		bodyFrictionCoef = 0.0;//1.8;//1.0
 		flightModel   	 = "HeliSim";
 
 		#include "heliSim\heliSimOverrides.hpp"
