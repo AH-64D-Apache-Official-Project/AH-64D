@@ -37,20 +37,19 @@ class AnimationSources
         initPhase = 1;
         animPeriod = 0.001;
     };
-    class msn_equip_american
-    {
-        displayName = "Install American Mission Equipment";
-        author = "Apache mod development team";
-        onPhaseChanged = "";
-        source = "user";
-        initPhase = 1;
-        animPeriod = 0.001;
-    };
     class msn_equip_british
     {
-        displayName = "Install British Mission Equipment";
+        displayName = "Swap American Mission Equipment for British";
         author = "Apache mod development team";
-        onPhaseChanged = "";
+        forceAnimatePhase = 1;
+        forceAnimate[] = { "fcr_enable", 1};
+        onPhaseChanged = "if ((_this # 1) == 1) then {_this # 0 animatesource [""msn_equip_american"", 0];} else {_this # 0 animatesource [""msn_equip_american"", 1];};";
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class msn_equip_american
+    {
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
