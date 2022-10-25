@@ -23,4 +23,4 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 
 [_heli, _deltaTime, _dryAirDensity] call bmk_helisim_fnc_rotor;
 
-[_heli, _deltaTime, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;
+[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;

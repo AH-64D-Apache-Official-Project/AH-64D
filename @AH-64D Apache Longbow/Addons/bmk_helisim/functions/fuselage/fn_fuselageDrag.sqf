@@ -1,9 +1,23 @@
-params ["_heli", "_deltaTime", "_rho"];
+params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
 
 private _aerodynamicCenter  = [0.0, -1.94, -1.73]; //m
 
 private _fuselageDragCoefX  = 1.5;
-private _fuselageDragCoefY  = 1.55;//DRAG_COEF_Y;
+
+//MOVE TO CONFIG!                PA     -35      0      35
+private _dragCoefTableY       = [[    0,  1.2,   1.4,    1.7],   //ft 
+                                 [ 2000,  1.8,   1.9,    2.1],   //ft
+                                 [ 4000,  2.6,   2.7,    3.1],   //ft
+                                 [ 6000,  3.8,   3.8,    4.2],   //ft
+                                 [ 8000,  6.5,   5.2,    5.7]];  //ft
+private _interpDragCoefTableY = [_dragCoefTableY, _altitude] call fza_fnc_linearInterp;
+_dragCoefTableY               = [[-35, _interpDragCoefTableY # 1],
+                                 [  0, _interpDragCoefTableY # 2],
+                                 [ 35, _interpDragCoefTableY # 3]];
+_interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
+private _fuselageDragCoefY    = _interpDragCoefTableY # 1;
+systemChat format ["%1", _fuselageDragCoefY];
+
 private _fuselageDragCoefZ  = 0.5;
 
 private _fuselageAreaFront  =  6.254;
@@ -17,11 +31,11 @@ private _vecZ = [0.0, 0.0, 1.0];
 [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1, velocityModelSpace _heli # 2] 
     params ["_locVelX", "_locVelY", "_locVelZ"];
 
-private _dragX =  _fuselageDragCoefX * 0.5 * _rho * _fuselageAreaSide   * (_locVelX * _locVelX);
+private _dragX = -_fuselageDragCoefX * 0.5 * _rho * _fuselageAreaSide   * (_locVelX * _locVelX);
 private _dragY = -_fuselageDragCoefY * 0.5 * _rho * _fuselageAreaFront  * (_locVelY * _locVelY);
-private _dragZ =  _fuselageDragCoefZ * 0.5 * _rho * _fuselageAreaBottom * (_locVelZ * _locVelZ);
+private _dragZ = -_fuselageDragCoefZ * 0.5 * _rho * _fuselageAreaBottom * (_locVelZ * _locVelZ);
 
-systemChat format ["%1 -- %2 -- %3", _dragX toFixed 0, _dragY toFixed 0, _dragZ toFixed 0];
+//systemChat format ["%1 -- %2 -- %3", _dragX toFixed 0, _dragY toFixed 0, _dragZ toFixed 0];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
