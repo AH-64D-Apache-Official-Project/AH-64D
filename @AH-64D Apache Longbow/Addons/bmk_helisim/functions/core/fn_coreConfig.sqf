@@ -25,6 +25,14 @@ _heli setVariable ["bmk_helisim_mainRotor_m",          _mainRotor_bladeMass];
 _heli setVariable ["bmk_helisim_mainRotor_eR",         _mainRotor_hingeOffsetRatio];
 _heli setVariable ["bmk_helisim_mainRotor_e",          _mainRotor_bladeRadius * _mainRotor_hingeOffsetRatio];
 
+//--Engines
+private _engine1 = [_heli, 1066, 21109, 0.57, 1.01, 0.09, 0.18] call bmk_helisim_fnc_engineInit;
+_heli setVariable ["bmk_helisim_engine1", _engine1];
+
+private _engine2 = [_heli, 1066, 21109, 0.57, 1.01, 0.09, 0.18] call bmk_helisim_fnc_engineInit;
+_heli setVariable ["bmk_helisim_engine2", _engine2];
+
+
 //--Other variables
 private _mainRotor_solidity = (_mainRotor_numBlades * _mainRotor_bladeChord) / (pi * _mainRotor_bladeRadius);
 _heli setVariable ["bmk_helisim_mainRotor_s",          _mainRotor_solidity];
@@ -36,3 +44,4 @@ _heli setVariable ["bmk_helisim_mainRotor_Ib", _mainRotor_Ib];
 _heli setVariable ["bmk_helisim_mainRotor_gearRatio",  _mainRotor_gearRatio];
 
 [_heli] call bmk_helisim_fnc_rotorVariables;
+[_heli] call bmk_helisim_fnc_engineVariables;

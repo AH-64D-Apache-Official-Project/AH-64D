@@ -33,24 +33,15 @@ if (_state == "OFF") then {
 	if (_engState == "ON") then {
 		[_heli, _engNum] call fza_sfmplus_fnc_engineReset;
 	};
-
-	//HeliSim
-	//[_heli, _engNum, 0.0] call bmk_fnc_engineSetThrottle;
 };
 
 if (_state == "IDLE") then {
 	[_heli, _engPwrLeverAnimName, 0.25] call fza_fnc_animSetValue;
 	[_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state, true] call fza_sfmplus_fnc_setArrayVariable;
-
-	//HeliSim
-	//[_heli, _engNum, 0.25] call bmk_fnc_engineSetThrottle;
 };
 
 if (_state == "FLY") then {
 	//0.063 sets the power levers to fly in 16 seconds
 	[_heli, _engPwrLeverAnimName, 1, 0.25] call fza_fnc_animSetValue;
 	[_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state, true] call fza_sfmplus_fnc_setArrayVariable;
-
-	//HeliSim
-	//[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;
 };

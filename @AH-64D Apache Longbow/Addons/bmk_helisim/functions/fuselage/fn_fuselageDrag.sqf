@@ -1,6 +1,12 @@
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
 
+//MOVE TO CONFIG!
 private _aerodynamicCenter  = [0.0, -1.94, -1.73]; //m
+
+//MOVE TO CONFIG!
+private _fuselageAreaFront  =  6.254;
+private _fuselageAreaSide   = 22.332;
+private _fuselageAreaBottom = 33.129;
 
 private _fuselageDragCoefX  = 1.5;
 
@@ -16,13 +22,9 @@ _dragCoefTableY               = [[-35, _interpDragCoefTableY # 1],
                                  [ 35, _interpDragCoefTableY # 3]];
 _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 private _fuselageDragCoefY    = _interpDragCoefTableY # 1;
-systemChat format ["%1", _fuselageDragCoefY];
 
 private _fuselageDragCoefZ  = 0.5;
 
-private _fuselageAreaFront  =  6.254;
-private _fuselageAreaSide   = 22.332;
-private _fuselageAreaBottom = 33.129;
 
 private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
@@ -34,8 +36,6 @@ private _vecZ = [0.0, 0.0, 1.0];
 private _dragX = -_fuselageDragCoefX * 0.5 * _rho * _fuselageAreaSide   * (_locVelX * _locVelX);
 private _dragY = -_fuselageDragCoefY * 0.5 * _rho * _fuselageAreaFront  * (_locVelY * _locVelY);
 private _dragZ = -_fuselageDragCoefZ * 0.5 * _rho * _fuselageAreaBottom * (_locVelZ * _locVelZ);
-
-//systemChat format ["%1 -- %2 -- %3", _dragX toFixed 0, _dragY toFixed 0, _dragZ toFixed 0];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////

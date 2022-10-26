@@ -18,12 +18,25 @@ class CfgFunctions
 			class coreConfig {R;};
 			class coreUpdate {R;};
 		};
+		class drivetrain {
+			file = "\bmk_helisim\functions\drivetrain";
+		};
+		class engine {
+			file = "\bmk_helisim\functions\engine";
+			class engineInit {R;};
+			class engineUpdate {R;};
+			class engineVariables {R;};
+		};
 		class environment {
 			
 		};
 		class fuselage {
 			file = "\bmk_helisim\functions\fuselage";
 			class fuselageDrag {R;};
+		};
+		class interact {
+			file = "\bmk_helisim\functions\interact";
+			class interactSetThrottle {R;};
 		};
 		class mainRotor {					
 			file = "\bmk_helisim\functions\rotor";

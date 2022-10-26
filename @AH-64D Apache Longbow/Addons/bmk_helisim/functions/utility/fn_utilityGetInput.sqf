@@ -54,6 +54,9 @@ if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {
     _heli setVariable ["bmk_helisim_cyclicRollTrimVal",  _cyclicRollVal];
 };
 
-systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
+private _engineThrottleVal = [ _heli getVariable "bmk_helisim_engineThrottle" select 0, 
+                               _heli getVariable "bmk_helisim_engineThrottle" select 1];
 
-[_collectiveVal, _cyclicPitchVal, _cyclicRollVal];
+//systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
+
+[_collectiveVal, _cyclicPitchVal, _cyclicRollVal, _engineThrottleVal];

@@ -1,30 +1,29 @@
-params ["_heli", "_deltaTime", "_rho"];
+params ["_heli", "_deltaTime", "_rho", "_controlInputs"];
 #include "\bmk_helisim\headers\core.hpp"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Rotor          ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//--Update control angles
+//--Update control angles, MOVE TO CONFIG
 private _cyclicPitchMap_deg = [[-1.0,  10.0],
                                [ 0.0,   0.0],
                                [ 1.0, -20.0]];
-
+//MOVE TO CONFIG
 private _cyclicRollMap_deg  = [[-1.0,   7.0],
                                [ 0.0,   0.0],
                                [ 1.0, -10.5]];
-
+//MOVE TO CONFIG
 private _collectivePitchMin_deg =  1.0;
 private _collectivePitchMax_deg =  19.0;
 
-private _objCtr    = _heli selectionPosition ["modelCenter", "Memory"];
+//MOVE TO CONFIG
 private _rotorPos  = [0.0, 2.06, 0.70]; //m
 
 private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];
 
-//--Get input
-private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
+
 //--Collect pitch params
 private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 
@@ -185,3 +184,5 @@ hintsilent format ["Theta0: %8
                     _torqueY toFixed 2,     //27
                     _torqueZ toFixed 2,     //28
                     _outputTorque / 481 * 100 toFixed 0];   //29
+
+[_outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
