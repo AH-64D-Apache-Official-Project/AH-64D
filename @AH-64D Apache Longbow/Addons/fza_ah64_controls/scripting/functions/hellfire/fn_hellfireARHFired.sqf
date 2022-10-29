@@ -16,11 +16,11 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_firedEH", "_launchParams", "", "", "_stateParams"];
+params ["_firedEH", "", "", "", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _stateParams params ["", "_seekerStateParams"];
-_launchParams params ["","_targetLaunchParams"];
-_targetLaunchParams params ["_target"];
+_targetLaunchParams params ["", "_targetpos", "_launchPos"];
+
 
 private _heli 			= vehicle _shooter;
 private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
@@ -54,8 +54,15 @@ if (_missilelobl == true) then {
 	_attackProfile = "hellfire";
 };
 
+if (_projectile distance _targPos < 2000) then {
+    _seekerStateParams set [0, _targObj];
+    _seekerStateParams set [0, _targObj];
+} else {
+    _seekerStateParams set [0, objnull];
+    _seekerStateParams set [0, _targObj];
+};
+
 _launchParams set [3, _attackProfile];
-_seekerStateParams set [0, _targObj];
 _seekerStateParams set [1, _targPos];
 _seekerStateParams set [2, _targetType];
 _seekerStateParams set [3, _missilelobl];

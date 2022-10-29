@@ -17,31 +17,31 @@ Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["", "_args", "_seekerStateParams"];
-_args params ["_firedEH", "_launchParams ", "", "_seekerParams", ""];
+_args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 _seekerStateParams params ["_TargetObj", "_TargetPos", "_TargetType","_LaunchLobl"];
 
-copyToClipboard str _this;
 
 private _heli 				= vehicle _shooter;
 private _distance       	= _heli distance _targObj;
 private _armaRadarOn    	= isVehicleRadarOn _heli;
-private _searchRadius 		= 200;
 private _returnTargetPos  	= _TargetPos;
+private _SelectedTarget		= objNull;
+private _validTargets		= objNull;
 
-if (!(isNull _TargetObj) && [_projectile, _TargetObj, _seekerAngle] call ace_missileguidance_checkSeekerAngle && ([_heli, _TargetObj, false] call ace_missileguidance_fnc_checkLos || [_heli, _TargetObj, true] call ace_missileguidance_fnc_checkLos)) then {
-	_SelectedTarget = _TargetObj;
+if !(isNull _TargetObj) then {
+	if ([_projectile, _TargetObj, _seekerAngle] call ace_missileguidance_checkSeekerAngle && ([_heli, _TargetObj, false] call ace_missileguidance_fnc_checkLos || [_heli, _TargetObj, true] call ace_missileguidance_fnc_checkLos) && (_projectile distance _TargetPos < _seekerMaxRange)) then {
+		_SelectedTarget = _TargetObj;
+	} else {
+		_SelectedTarget = objNull;	
+	};
 } else {
-	if (_projectile distance _TargetPos < 2500) then {
+	if (_projectile distance _TargetPos < 2000) then {
 
-		private _newScanTargets  = nearestObjects [_TargetPos, ["allvehicles"],_searchRadius];
-		
+		private _newScanTargets  = nearestObjects [_TargetPos, ["allvehicles"], 500];
         private _validTargets = _newScanTargets apply {
-			private _LOS1 				= [_heli, _TargetObj, false] call ace_missileguidance_fnc_checkLos;
-			private _LOS2 				= [_heli, _TargetObj, true] call ace_missileguidance_fnc_checkLos;
-			private _seekerangleCheck 	= [_projectile, _TargetObj, _seekerAngle] call ace_missileguidance_checkSeekerAngle;
-            if (_seekerangleCheck && (_LOS1 || _LOS2)) then {
+            if ([_projectile, _x, _seekerAngle] call ace_missileguidance_checkSeekerAngle && ([_heli, _x, false] call ace_missileguidance_fnc_checkLos || [_heli, _x, true] call ace_missileguidance_fnc_checkLos)) then {
                 _x
             } else {
                 objNull
@@ -57,30 +57,28 @@ if (!(isNull _TargetObj) && [_projectile, _TargetObj, _seekerAngle] call ace_mis
 			!(_targetType isEqualTo _targTypeCompair)
 		};
 		If (_Primarytargets isNotEqualTo []) then {
-			_SelectedTarget = [_Primarytargets, _lastscantarget] call BIS_fnc_nearestPosition;
+			_SelectedTarget = [_Primarytargets, _TargetPos] call BIS_fnc_nearestPosition;
 		} else {
 			If (_secondarytargets isNotEqualTo []) then {
-				_SelectedTarget = [_secondarytargets, _lastscantarget] call BIS_fnc_nearestPosition;
+				_SelectedTarget = [_secondarytargets, _TargetPos] call BIS_fnc_nearestPosition;
 			};
 		};
-
-		If (_distance < 1000) then {
-			_searchRadius = 500;
-		};
-	};
+    };
 };
 
 if !(isNull _SelectedTarget) then {
-    private _centerOfObject = getCenterOfMass _SelectedTarget;
-    private _targetAdjustedPos = _SelectedTarget modelToWorldWorld _centerOfObject;
+	private _centerOfObject = getCenterOfMass _SelectedTarget;
+	private _targetAdjustedPos = _SelectedTarget modelToWorldWorld _centerOfObject;
 	private _projectileVelocity = velocity _projectile;
 	if (_projectileVelocity#2 < 0) then {
 		private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
 		private _timeUntilImpact = (_targetAdjustedPos distance getposasl _projectile) / _projectileSpeed;
 		_returnTargetPos = _returnTargetPos vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
 	};
-	_launchParams set [0, _SelectedTarget];
-	//_launchParams set [1, _returnTargetPos];
+	_seekerStateParams set [0, _SelectedTarget];
+	_seekerStateParams set [1, _returnTargetPos];
+} else {
+	_seekerStateParams set [0, objNull];
 };
 
 hintSilent format ["TargetObj = %1,
