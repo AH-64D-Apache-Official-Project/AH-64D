@@ -526,7 +526,6 @@ if (_was == WAS_WEAPON_MSL) then {
         if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
             if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 20]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0
             && (((speed _mistargPos >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_targetDist >= FCR_LIMIT_MIN_RANGE && _targetDist <= FCR_LIMIT_MOVING_RANGE)) || _targetDist < 2500 && _targetDist > 500)) then {
-                _heli setVariable ["fza_ah64_missleLOBL", true, true];
                 _w = 0.2202;
                 _h = 0.3;
                 _apx = 0.108;
@@ -537,7 +536,6 @@ if (_was == WAS_WEAPON_MSL) then {
                     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
                 };
             } else {
-                _heli setVariable ["fza_ah64_missleLOBL", false, true];
                 _w = 0.0734;
                 _h = 0.1;
                 _apx = 0.036;
@@ -551,7 +549,6 @@ if (_was == WAS_WEAPON_MSL) then {
             };
         } else {
             if (!_terrainobscure && (_obscureobjs - nearestObjects [getpos _mistargPos, ["All"], 20]) isEqualTo [] && _distOffAxis < 40 && _heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _targetDist < 8000 && _targetDist > 500) then {
-                _heli setVariable ["fza_ah64_missleLOBL", true, true];
                 _w = 0.2202;
                 _h = 0.3;
                 _apx = 0.108;
@@ -562,7 +559,6 @@ if (_was == WAS_WEAPON_MSL) then {
                     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
                 };
             } else {
-                _heli setVariable ["fza_ah64_missleLOBL", false, true];
                 _w = 0.0734;
                 _h = 0.1;
                 _apx = 0.036;

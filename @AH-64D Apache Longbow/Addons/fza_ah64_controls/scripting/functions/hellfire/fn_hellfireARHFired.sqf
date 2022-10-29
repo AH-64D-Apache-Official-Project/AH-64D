@@ -27,7 +27,6 @@ private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 private _targObj        = _targinfo #0;
 private _targPos        = _targinfo #1;
 private _targetType     = _targobj call BIS_fnc_objectType;
-private _missilelobl    = _heli getVariable "fza_ah64_missleLOBL";
 
 if (!(isNull _targObj) && _missilelobl == true) then {
 	_targPos = getposasl _targObj;

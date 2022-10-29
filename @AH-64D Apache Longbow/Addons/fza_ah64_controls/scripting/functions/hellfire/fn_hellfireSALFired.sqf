@@ -22,7 +22,6 @@ params ["", "_launchParams"];
 _launchParams params ["_shooter","","","_attackProfile","","_laserinfo"];
 
 _heli = vehicle _shooter;
-private _missilelobl = _heli getVariable "fza_ah64_missleLOBL";
 
 //AttackProfile
 private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
