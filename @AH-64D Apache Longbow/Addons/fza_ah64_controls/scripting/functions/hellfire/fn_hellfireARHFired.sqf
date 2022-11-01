@@ -27,8 +27,9 @@ private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 private _targObj        = _targinfo #0;
 private _targPos        = _targinfo #1;
 private _targetType     = _targobj call BIS_fnc_objectType;
+private _LoblCheckLima  = [_heli, [getpos _targObj, "", speed _targObj, _targObj]] call fza_fnc_hellfireLimaLoblCheck;
 
-if (!(isNull _targObj) && _missilelobl == true) then {
+if (!(isNull _targObj) && _LoblCheckLima #1 == true) then {
 	_targPos = getposasl _targObj;
 } else {
 	_targObj = Objnull;
@@ -49,7 +50,7 @@ if (count _fcrTargets == 0) then {
 
 //Dir Trajectorie at close range
 _attackProfile = "hellfire_hi";
-if (_missilelobl == true) then {
+if (_LoblCheckLima #1 == true) then {
 	_attackProfile = "hellfire";
 };
 
@@ -64,4 +65,4 @@ if (_projectile distance _targPos < 2000) then {
 _launchParams set [3, _attackProfile];
 _seekerStateParams set [1, _targPos];
 _seekerStateParams set [2, _targetType];
-_seekerStateParams set [3, _missilelobl];
+_seekerStateParams set [3, _LoblCheckLima #1];

@@ -82,6 +82,8 @@ class CfgFunctions
 			class hellfireSALFired {R;};
 			class hellfireARHSeeker {R;};
 			class hellfireARHFired {R;};
+			class hellfireLimaLoblCheck {R;};
+			class hellfireSalPrelaunch {R;};
 		};
 		class ihadss
 		{
