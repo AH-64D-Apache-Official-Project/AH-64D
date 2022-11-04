@@ -30,8 +30,8 @@ private _SelectedTarget		= objNull;
 private _validTargets		= objNull;
 
 if !(isNull _TargetObj) then {
-	private _LoblCheckLima = [_projectile, [getpos _TargetObj, "", speed _TargetObj, _TargetObj]] call fza_fnc_hellfireLimaLoblCheck;
-	if (_LoblCheckLima # 1 == true && (_projectile distance _TargetPos < _seekerMaxRange)) then {
+	private _LoblCheckLima = [_projectile, [getpos _TargetObj, "", speed _TargetObj, _TargetObj], true] call fza_fnc_hellfireLimaLoblCheck;
+	if (_LoblCheckLima # 1 == true) then {
 		_SelectedTarget = _TargetObj;
 	} else {
 		_SelectedTarget = objNull;	
@@ -39,17 +39,12 @@ if !(isNull _TargetObj) then {
 } else {
 	if (_projectile distance _TargetPos < 2000) then {
 
-		private _newScanTargets  = nearestObjects [_TargetPos, ["allvehicles"], 500];
+		private _newScanTargets  = nearestObjects [_TargetPos, ["land","air","ship"], 500];
         private _validTargets 	 = _newScanTargets apply {
-            if ((([_projectile, [getpos _x, "", speed _x, _x]] call fza_fnc_hellfireLimaLoblCheck) # 1) == true) then {
+            if ((([_projectile, [getpos _x, "", speed _x, _x], true] call fza_fnc_hellfireLimaLoblCheck) # 1) == true) then {
                 _x
-            } else {
-                objNull
             };
         };
-		
-		hintSilent format ["Newscan = %1,
-						\nValidTargets = %2", _newScanTargets, _validTargets];
 
 		private _Primarytargets = _validTargets select {
 			private _targTypeCompair = _x call BIS_fnc_objectType;
@@ -70,13 +65,12 @@ if !(isNull _TargetObj) then {
 };
 
 if !(isNull _SelectedTarget) then {
-	private _centerOfObject = getCenterOfMass _SelectedTarget;
-	private _targetAdjustedPos = _SelectedTarget modelToWorldWorld _centerOfObject;
+	private _aimPosTarget = aimPos _SelectedTarget;
 	private _projectileVelocity = velocity _projectile;
 	if (_projectileVelocity#2 < 0) then {
 		private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
-		private _timeUntilImpact = (_targetAdjustedPos distance getposasl _projectile) / _projectileSpeed;
-		_returnTargetPos = _returnTargetPos vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
+		private _timeUntilImpact = (_aimPosTarget distance getposasl _projectile) / _projectileSpeed;
+		_returnTargetPos = _aimPosTarget vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
 	};
 	_seekerStateParams set [0, _SelectedTarget];
 	_seekerStateParams set [1, _returnTargetPos];
@@ -84,10 +78,12 @@ if !(isNull _SelectedTarget) then {
 	_seekerStateParams set [0, objNull];
 };
 
-/*
+
 hintSilent format ["TargetObj = %1,
 				\nTargetPos = %2,
 				\nValidtarget = %3,
-				\nFinalTarget = %4
-				\nreturnTargetPos = %5", _TargetObj, _TargetPos, _validTargets, _SelectedTarget, _returnTargetPos];*/
+				\nPrimaryTargets = %4,
+				\nSecondarytargets = %5,
+				\nFinalTarget = %6,
+				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _validTargets, _Primarytargets, _secondarytargets, _SelectedTarget, _returnTargetPos];
 _returnTargetPos;

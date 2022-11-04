@@ -311,7 +311,7 @@ class CfgAmmo
             seekerLockModes[] 					= { "LOAL", "LOBL" };
 
             seekLastTargetPos 					= 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle 						= 40;           // Angle in front of the missile which can be searched
+            seekerAngle 						= 60;           // Angle in front of the missile which can be searched
             seekerAccuracy 						= 1;         // seeker accuracy multiplier
 
             seekerMinRange 						= 1;
