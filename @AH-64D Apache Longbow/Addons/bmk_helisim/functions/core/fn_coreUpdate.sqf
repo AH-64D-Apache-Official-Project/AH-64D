@@ -45,8 +45,7 @@ if (_eng1state in ["STARTING", "ON"]) then { _eng1On = true; } else { _eng1On = 
 [_heli, "bmk_helisim_engOn", 0, _eng1On] call fza_sfmplus_fnc_setArrayVariable;
 //--TEMP
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _engine1         = [_heli, _deltaTIme, 0, _engine1Input, _controlInputs, _eng1On, _outputTorque, 1.31] call bmk_helisim_fnc_engineUpdate; 
-
+private _engine1         = [_heli, _deltaTIme, 0, _engine1Input, _controlInputs, _eng1On, _outputTorque, 1.31] call bmk_helisim_fnc_engineUpdate;
 systemchat format ["Engine 1: %1", _engine1];
 
 private _engine2Input    = _heli getVariable "bmk_helisim_engine2";
@@ -59,7 +58,6 @@ if (_eng2state in ["STARTING", "ON"]) then { _eng2On = true; } else { _eng2On = 
 //--TEMP
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 private _engine2         = [_heli, _deltaTime, 1, _engine2Input, _controlInputs, _eng2On, _outputTorque, 1.31] call bmk_helisim_fnc_engineUpdate; 
-
 systemchat format ["Engine 2: %1", _engine2];
 
 //--Fuselage
