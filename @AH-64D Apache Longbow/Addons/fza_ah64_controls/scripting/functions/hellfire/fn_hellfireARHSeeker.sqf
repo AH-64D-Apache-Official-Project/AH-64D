@@ -28,15 +28,22 @@ private _armaRadarOn    	= isVehicleRadarOn _heli;
 private _returnTargetPos  	= _TargetPos;
 private _SelectedTarget		= objNull;
 private _validTargets		= objNull;
+private _LOSCounterVAR		= "fza_ah64_" + str _projectile + "_Los_Lost_FrameCounter";
+private _LosLostCounter 	= _heli getVariable [_LOSCounterVAR, 1];
 
 if !(isNull _TargetObj) then {
 	private _LoblCheckLima = [_projectile, [getpos _TargetObj, "", speed _TargetObj, _TargetObj], true] call fza_fnc_hellfireLimaLoblCheck;
-	if (_LoblCheckLima # 1 == true) then {
+	_heli setVariable [_LOSCounterVAR, (_LosLostCounter + 1) % 10];
+	if (_LoblCheckLima # 1 == true || !(_LosLostCounter % 10 == 0)) then {
 		_SelectedTarget = _TargetObj;
+		if (_LoblCheckLima # 1 == true) then {
+			_heli setVariable [_LOSCounterVAR, 1];
+		};
 	} else {
-		_SelectedTarget = objNull;	
+		_SelectedTarget = objNull;
 	};
 } else {
+	_heli setVariable [_LOSCounterVAR, 1];
 	if (_projectile distance _TargetPos < 2000) then {
 
 		private _newScanTargets  = nearestObjects [_TargetPos, ["land","air","ship"], 500];
@@ -64,14 +71,16 @@ if !(isNull _TargetObj) then {
     };
 };
 
+//needs attention, something amis with moving targets
+//akin to feedback loop on returned coords leading to missile flying for a target pos super far infront of targets direction of travel 
+//1000km + lead
 if !(isNull _SelectedTarget) then {
 	private _aimPosTarget = aimPos _SelectedTarget;
 	private _projectileVelocity = velocity _projectile;
-	if (_projectileVelocity#2 < 0) then {
-		private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
-		private _timeUntilImpact = (_aimPosTarget distance getposasl _projectile) / _projectileSpeed;
-		_returnTargetPos = _aimPosTarget vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
-	};
+	private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
+	private _timeUntilImpact = (_aimPosTarget distance getposasl _projectile) / _projectileSpeed;
+	systemchat str _timeUntilImpact;
+	_returnTargetPos = _aimPosTarget vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
 	_seekerStateParams set [0, _SelectedTarget];
 	_seekerStateParams set [1, _returnTargetPos];
 } else {
@@ -86,4 +95,5 @@ hintSilent format ["TargetObj = %1,
 				\nSecondarytargets = %5,
 				\nFinalTarget = %6,
 				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _validTargets, _Primarytargets, _secondarytargets, _SelectedTarget, _returnTargetPos];
+
 _returnTargetPos;
