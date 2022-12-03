@@ -1,7 +1,7 @@
 params ["_heli", "_deltaTime", "_engNum", "_engineInput", "_controlInputs", "_engOn", "_xmsnInputTq", "_maxTqScalar"];
 
 _engineInput   params ["_continuousPower", "_refTorque", "_idleRPM", "_flyRPM", "_engineIdleTqPct", "_engineFlyTqPct"];
-_controlInputs params ["_collectiveVal", "_cyclicPitchVal", "_cyclicRollVal", "_engineThrottleVal"];
+_controlInputs params ["_collectiveVal", "_cyclicPitchVal", "_cyclicRollVal", "_pedalVal", "_engineThrottleVal"];
 
 private _outputRPM = _heli getVariable "bmk_helisim_engineOutputRPM" select _engNum;
 private _outputTq  = _heli getVariable "bmk_helisim_engineOutputTq"  select _engNum;

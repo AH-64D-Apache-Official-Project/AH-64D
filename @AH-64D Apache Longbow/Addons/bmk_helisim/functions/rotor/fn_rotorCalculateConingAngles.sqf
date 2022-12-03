@@ -12,4 +12,6 @@ _a0_3 = (1.0 / 10.0 + 1.0 / 12.0 * (_mu * _mu)) * (rad _theta1_deg);
 _a0_deg = _gamma * (_a0_1 + _a0_2 + _a0_3);
 _a0_deg = deg _a0_deg;
 
+systemChat format ["a0_deg: %1", _a0_deg];
+
 [_a0_deg];

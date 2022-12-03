@@ -82,7 +82,7 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 	_yawTorque = 0.0;
 };
-private _pedalTorque     = _pedalLeftRight  * _yawTorque;
+private _pedalTorque     = 0.0;//_pedalLeftRight  * _yawTorque;
 
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;

@@ -1,10 +1,17 @@
-params ["_heli", "_deltaTime", "_rho", "_u_w", "_v_w", "_w_w", "_omegaR", "_theta0_deg", "_rotorParams", "_gndEffScalar", "_thrustScalar"];
+params ["_heli", "_deltaTime", "_rho", "_isTailRotor", "_u_w", "_v_w", "_w_w", "_omegaR", "_theta0_deg", "_rotorParams", "_gndEffScalar", "_thrustScalar"];
 #include "\bmk_helisim\headers\core.hpp"
 
 _rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s"];
 
-private _nu      = _heli getVariable "bmk_helisim_mainRotor_nu";
-private _lambda  = _heli getVariable "bmk_helisim_mainRotor_lambda";
+private _nu      = 0.0;
+private _lambda  = 0.0;
+if (!_isTailRotor) then {
+    _nu      = _heli getVariable "bmk_helisim_mainRotor_nu";
+    _lambda  = _heli getVariable "bmk_helisim_mainRotor_lambda";
+} else {
+    _nu      = _heli getVariable "bmk_helisim_tailRotor_nu";
+    _lambda  = _heli getVariable "bmk_helisim_tailRotor_lambda";
+};
 private _thrust  = 0.0;
 private _CTSigma = 0.0; 
 private _CT      = 0.0;
@@ -37,7 +44,12 @@ _thrust = _thrustScalar * (_b * _c * _R * _rho * (_omegaR * _omegaR) * _CTSigma)
 
 //systemChat format ["Vi: %1", _nu * _omegaR];
 
-_heli setVariable ["bmk_helisim_mainrotor_nu",     _nu];
-_heli setVariable ["bmk_helisim_mainrotor_lambda", _lambda];
+if (!_isTailRotor) then {
+    _heli setVariable ["bmk_helisim_mainRotor_nu",     _nu];
+    _heli setVariable ["bmk_helisim_mainRotor_lambda", _lambda];
+} else {
+    _heli setVariable ["bmk_helisim_tailRotor_nu",     _nu];
+    _heli setVariable ["bmk_helisim_tailRotor_lambda", _lambda];
+};
 
 [_mu, _thrust, _lambda, _CT];

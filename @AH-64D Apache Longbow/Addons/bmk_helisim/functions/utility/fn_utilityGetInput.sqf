@@ -28,6 +28,7 @@ if (!bmk_helisim_keyboardOnly) then {
 };
 _heli setVariable ["bmk_helisim_collectiveVal", _collectiveVal];
 
+//Cyclic
 private _joyCyclicForward  = inputAction "HeliCyclicForward";
 private _joyCyclicBackward = inputAction "HeliCyclicBack";
 
@@ -54,9 +55,17 @@ if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {
     _heli setVariable ["bmk_helisim_cyclicRollTrimVal",  _cyclicRollVal];
 };
 
+//Pedals
+private _pedalLeft  = inputAction "HeliRudderLeft";
+private _pedalRight = inputAction "HeliRudderRight";
+
+private _pedalVal   = _pedalRight - _pedalLeft;
+
+//Throttle
 private _engineThrottleVal = [ _heli getVariable "bmk_helisim_engineThrottle" select 0, 
                                _heli getVariable "bmk_helisim_engineThrottle" select 1];
 
 //systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
+systemChat format ["Pitch: %1 -- Roll: %2 -- Yaw: %3 -- Throttle: %4", _cyclicPitchVal, _cyclicRollVal, _pedalVal,_engineThrottleVal];
 
-[_collectiveVal, _cyclicPitchVal, _cyclicRollVal, _engineThrottleVal];
+[_collectiveVal, _cyclicPitchVal, _cyclicRollVal, _pedalVal, _engineThrottleVal];
