@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_playQuedAudio
+Function: fza_fnc_playQueuedAudio
 
 Description:
     sorts through an array or audio and plays thoese with the highest priority
@@ -25,7 +25,7 @@ Returns:
     No returns
 
 Examples:
-    _insert = [_audio1, _audio1delay, _audio2, _audio2Delay, _audio3, _audio3Delay, _priority, _audioReference];
+    _insert = [ _priority, _audioKey, _audio1, _audio1delay, _audio2, _audio2Delay, _audio3, _audio3Delay];
     _heli setvariable ["fza_ah64_audioQueList", (_heli getVariable "fza_ah64_audioQueList") pushback _insert]
 
 Author:
@@ -33,9 +33,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-if (fza_ah64_AudioPlaying == true) exitwith {};
-//Set audio playing
-fza_ah64_AudioPlaying = true;
+waitUntil {fza_ah64_audioPlaying == false};
+fza_ah64_audioPlaying = true;
 
 private _quedAudioarray = _heli getVariable "fza_ah64_audioQueList";
 private _maxIndex = -1;
@@ -50,22 +49,16 @@ private _maxPriority = -1;
 
 if (_maxIndex == -1) exitWith {
     //Couldnt play any audio
-    fza_ah64_AudioPlaying = false;
+    fza_ah64_audioPlaying = false;
 };
 
 
 _list = _quedAudioarray select _maxIndex;
 _list params
-    [ ["_audio1", ""], ["_audio1Delay", 0]
+    [ ["_priority", ""], ["_audioKey", 0]
+    , ["_audio1", ""], ["_audio1Delay", 0]
     , ["_audio2", ""], ["_audio2Delay", 0]
-    , ["_audio3", ""], ["_audio3Delay", 0]
-    , ["_priority", 2], ["_audioReference", ""]];
-
-{
-    if ((_x select 7 == _audioReference) && (_x select 6 <= (_priority + 1))) then {
-        _quedAudioarray deleteAt _foreachindex;
-    };
-} forEach _quedAudioarray;
+    , ["_audio3", ""], ["_audio3Delay", 0]];
 
 if (!(_audio1 == "")) then {
     playSound _audio1;
@@ -81,4 +74,4 @@ if (!(_audio3 == "")) then {
 };
 
 _quedAudioarray deleteAt _maxIndex;
-fza_ah64_AudioPlaying = false;
+fza_ah64_audioPlaying = false;

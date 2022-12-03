@@ -49,7 +49,7 @@ if (_rlwrPwr == "on") then {
         if ("marked" in _type) then {
             if (_distance_m <= ASE_ACQ_RANGE_M) then {
                 _rlwrObjects pushBack [ASE_ACQ, _heli getRelDir _object];
-                _rlwrAudio pushback [vehicle _object, "Aquisition"];
+                _rlwrAudio pushback [vehicle _object, "Acquisition"];
             };
         };
         //Track

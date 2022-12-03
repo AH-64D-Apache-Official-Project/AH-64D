@@ -82,7 +82,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",     1];
     _heli setVariable ["fza_ah64_ase_searchingObj",  []];
-    _heli setVariable ["fza_ah64_ase_AquisitionObj",  []];
+    _heli setVariable ["fza_ah64_ase_AcquisitionObj",  []];
     _heli setVariable ["fza_ah64_ase_trackingobj",  []];
 
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];

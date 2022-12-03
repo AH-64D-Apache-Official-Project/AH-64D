@@ -173,8 +173,8 @@ class CfgFunctions
 		class audio
 		{
 			file = "\fza_ah64_controls\scripting\functions\audio";
-			class playQuedAudio { R; description = "Plays Qued audio from array"; };
-			class addQuedAudio { R; description = "Adds audio to the que"; };
+			class playQueuedAudio { R; description = "Plays Queued audio from array"; };
+			class addQueuedAudio { R; description = "Adds audio to the Queue"; };
 		};
 	};
 };

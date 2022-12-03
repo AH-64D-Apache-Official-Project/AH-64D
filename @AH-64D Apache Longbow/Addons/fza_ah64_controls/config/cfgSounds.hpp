@@ -2,10 +2,10 @@ class CfgSounds
 {
 	/////////////BETTY AUDIO////////////
 	//Radar states
-	class fza_ah64_aquisition
+	class fza_ah64_Acquisition
 	{
-		name = "fza_ah64_aquisition";
-		sound[] = {"\fza_ah64_us\audio\betty\Radar_states\bt_aquisition.ogg",100,1,1};
+		name = "fza_ah64_Acquisition";
+		sound[] = {"\fza_ah64_us\audio\betty\Radar_states\bt_Acquisition.ogg",100,1,1};
 		titles[]={};
 	};
 	class fza_ah64_searching
