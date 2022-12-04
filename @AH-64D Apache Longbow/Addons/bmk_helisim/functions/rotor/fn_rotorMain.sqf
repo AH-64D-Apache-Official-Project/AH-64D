@@ -117,7 +117,7 @@ _heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY * 0.5, _torqueZ]);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
 hintsilent format ["-----MAIN ROTOR-----
                     \nTheta0: %8
                     \nAIC: %9
@@ -184,5 +184,5 @@ hintsilent format ["-----MAIN ROTOR-----
                     _torqueY toFixed 2,     //27
                     _torqueZ toFixed 2,     //28
                     _outputTorque / 481 * 100 toFixed 0];   //29
-
+*/
 [_outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];

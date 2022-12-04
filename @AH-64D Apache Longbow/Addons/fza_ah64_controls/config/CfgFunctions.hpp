@@ -58,17 +58,17 @@ class CfgFunctions
 			class eventIncomingMissile {R;};
 			class eventInit {R;};
 		};
-		class Sensor
-		{
-			file = "\fza_ah64_controls\scripting\functions\Sensor";
-			class targetingSensorUpdate {R;};
-		};
 		class fire
 		{
 			file = "\fza_ah64_controls\scripting\functions\fire";
 			class fireHandleControl {R;};
 			class fireHandleRearm {R;};
 			class fireHandlepanel {R;};
+		};
+		class fm
+		{
+			file = "\fza_ah64_controls\scripting\functions\fm";
+			class fmSimVars {R;};
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";
@@ -100,6 +100,11 @@ class CfgFunctions
 			class pfzCreate {R;};
 			class pfzReceive {R;};
 			class pfzSend {R;};
+		};
+		class Sensor
+		{
+			file = "\fza_ah64_controls\scripting\functions\Sensor";
+			class targetingSensorUpdate {R;};
 		};
 		class targeting
 		{

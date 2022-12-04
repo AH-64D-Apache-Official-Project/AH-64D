@@ -30,16 +30,17 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //--Main rotor
 private _mainRotorPos = [0.0, 2.06, 0.70]; //m -- MOVE TO CONFIG
 private _mainRotorRot = [0.0, 0.0]; //deg -- MOVE TO CONFIG
-_mainRotor = [_heli, _deltaTime, _dryAirDensity, _mainRotorPos, _mainRotorRot, _controlInputs] call bmk_helisim_fnc_rotorMain;
+private _mainRotor    = [_heli, _deltaTime, _dryAirDensity, _mainRotorPos, _mainRotorRot, _controlInputs] call bmk_helisim_fnc_rotorMain;
 _mainRotor params ["_mainRotor_outputTorque", "_mainRotor_out_x", "_mainRotor_out_y", "_mainRotor_out_z", "_mainRotor_out_l", "_mainRotor_out_m", "_mainRotor_out_n"];
 
 //--Tail rotor
 private _tailRotorPos = [-0.87, -6.98, -0.075]; //m -- MOVE TO CONFIG
 private _tailRotorRot = [0.0, 90.0]; //deg -- MOVE TO CONFIG
-_tainRotor = [_heli, _deltaTime, _dryAirDensity, _tailRotorPos, _tailRotorRot, _controlInputs] call bmk_helisim_fnc_rotorTail;
+private _tailRotor    = [_heli, _deltaTime, _dryAirDensity, _tailRotorPos, _tailRotorRot, _controlInputs] call bmk_helisim_fnc_rotorTail;
 _tailRotor params ["_tailRotor_outputTorque", "_tailRotor_out_x", "_tailRotor_out_y", "_tailRotor_out_z", "_tailRotor_out_l", "_tailRotor_out_m", "_tailRotor_out_n"];
 
 private _outputTorque = _mainRotor_outputTorque + _tailRotor_outputTorque;
+hintsilent format ["Output torque: %1 -- %2", _outputTorque toFixed 0, (_outputTorque / 481) * 100 toFixed 0];
 
 //--Transmission
 

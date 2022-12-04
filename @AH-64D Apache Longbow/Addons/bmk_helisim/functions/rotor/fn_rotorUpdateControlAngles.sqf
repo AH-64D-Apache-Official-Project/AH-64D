@@ -14,7 +14,6 @@ if (!isnil "_collectivePitch_deg") then {
 } else {
     //Tail rotor
     _theta0_deg = ([_pedalPitch_deg,  _pedalVal]  call fza_fnc_linearInterp) # 1;
-    systemChat format ["theta0_deg: %1", _theta0_deg];
 };
 
 if (!isnil "_cyclicPitchMap_deg" && !isnil "_cyclicRollMap_deg") then {

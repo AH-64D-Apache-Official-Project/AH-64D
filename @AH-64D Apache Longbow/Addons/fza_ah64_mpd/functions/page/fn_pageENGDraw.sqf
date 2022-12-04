@@ -4,11 +4,11 @@
 params ["_heli", "_mpdIndex"];
 
 // #region ENGINE 1
-private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
-private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
-private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
-private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
-private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
+private _e1np   = fza_simvars_e1np;
+private _e1ng   = fza_simvars_e1ng;
+private _e1tgt  = fza_simvars_e1tgt;
+private _e1trq  = fza_simvars_e1trq;
+private _e1opsi = fza_simvars_e1opsi;
 if (_e1np <= (0.37 * 100)) then {
 	_e1trq = 0;
 };
@@ -26,11 +26,11 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_1), (_e1ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_1), _e1opsi toFixed 0];
 
 // #region ENGINE 2
-private _e2np   = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
-private _e2ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
-private _e2tgt  = _heli getVariable "fza_sfmplus_engTGT" select 1;
-private _e2trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
-private _e2opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
+private _e2np   = fza_simvars_e2np;
+private _e2ng   = fza_simvars_e2ng;
+private _e2tgt  = fza_simvars_e2tgt;
+private _e2trq  = fza_simvars_e2trq;
+private _e2opsi = fza_simvars_e2opsi;
 if (_e2np <= (0.37 * 100)) then {
 	_e2trq = 0;
 };
@@ -48,8 +48,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_2), (_e2ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFixed 0];
 
 // #region ROTORS
-private _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
-_rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
+private _rotorRpm = fza_simvars_rtrRPM;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];

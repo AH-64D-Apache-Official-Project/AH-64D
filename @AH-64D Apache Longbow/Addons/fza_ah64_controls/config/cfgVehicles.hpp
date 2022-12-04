@@ -20,6 +20,7 @@ class CfgVehicles
 
 		A3TI_ThermalSelections[] = {"skin"};	
 		
+		#include "cfgVehicles\sfm.hpp"
 		#include "cfgVehicles\sfmplus.hpp"
 		#include "cfgVehicles\sounds.hpp"
 		#include "cfgVehicles\soundsExt.hpp"
@@ -39,17 +40,7 @@ class CfgVehicles
 		LESH_WheelOffset[] = {0,2.5};
 
 		//SFM Variables-------------/
-		startDuration          = 15;
-		liftForceCoef          = 1.25;
-		bodyFrictionCoef       = 1.0;
-		cyclicAsideForceCoef   = 0.00;
-		cyclicForwardForceCoef = 0.00;
-		backRotorForceCoef     = 0.00;
-	    fuelCapacity           = 1423;
-		fuelconsumptionrate    = 0.0;
-		maxSpeed               = 298;
-		altFullForce 		   = 1615;
-		altNoForce 			   = 9000;
+
 		//SFM Variables-------------/
 
 		side				  	   = 1;
