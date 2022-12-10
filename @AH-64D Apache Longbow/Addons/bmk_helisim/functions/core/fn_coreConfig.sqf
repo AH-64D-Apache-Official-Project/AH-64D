@@ -44,6 +44,9 @@ _mainRotor_Ib         = _mainRotor_Ib * (_hingeOffset * _hingeOffset * _hingeOff
 _heli setVariable ["bmk_helisim_mainRotor_Ib",         _mainRotor_Ib];
 _heli setVariable ["bmk_helisim_mainRotor_gearRatio",  _mainRotor_gearRatio];
 
+private _mainRotor_polarMomentOfInertia = _mainRotor_numBlades * _mainRotor_bladeMass * ((_mainRotor_bladeRadius * 0.55) * (_mainRotor_bladeRadius * 0.55));
+_heli setVariable ["bmk_helisim_mainRotor_polarMomentOfInertia",    _mainRotor_polarMomentOfInertia];
+
 //--Tail Rotor
 _heli setVariable ["bmk_helisim_tailRotor_b",          _tailRotor_numBlades];
 _heli setVariable ["bmk_helisim_tailRotor_R",          _tailRotor_bladeRadius];
@@ -69,6 +72,6 @@ _heli setVariable ["bmk_helisim_engine1", _engine1];
 private _engine2 = [_heli, 1066, 21109, 0.57, 1.01, 0.09, 0.18] call bmk_helisim_fnc_engineInit;
 _heli setVariable ["bmk_helisim_engine2", _engine2];
 
-
 [_heli] call bmk_helisim_fnc_rotorVariables;
 [_heli] call bmk_helisim_fnc_engineVariables;
+[_heli] call bmk_helisim_fnc_xmsnVariables;

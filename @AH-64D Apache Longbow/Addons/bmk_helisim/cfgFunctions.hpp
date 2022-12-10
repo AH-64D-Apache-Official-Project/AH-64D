@@ -38,7 +38,7 @@ class CfgFunctions
 			file = "\bmk_helisim\functions\interact";
 			class interactSetThrottle {R;};
 		};
-		class mainRotor {					
+		class rotor {					
 			file = "\bmk_helisim\functions\rotor";
 			class rotorBodyAngularVelocityToControlAxes {R;};
 			class rotorCalculateBodyForces {R;};
@@ -60,6 +60,11 @@ class CfgFunctions
 			class utilityArmaToModel {R;};
 			class utilityGetInput {R;};
 			class utilityModelToArma {R;};
+		};
+		class xmsn {
+			file = "\bmk_helisim\functions\xmsn";
+			class xmsn {R; };
+			class xmsnVariables {R; };
 		};
     };
 };

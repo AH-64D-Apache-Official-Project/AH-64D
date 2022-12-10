@@ -37,10 +37,12 @@ if ((getText _flightModel) == "SFMPlus") then {
     systemChat format ["HeliSim Sim Vars!"];
 
     fza_simvars_e1np   = ((_heli getVariable "bmk_helisim_engineOutputRPM" select 0) / 21109) * 100;
+    systemChat format ["Eng 1 Np: %1", fza_simvars_e1np];
     fza_simvars_e1trq  = ((_heli getVariable "bmk_helisim_engineOutputTq" select 0) / 481) * 100;
 
     fza_simvars_e2np   = ((_heli getVariable "bmk_helisim_engineOutputRPM" select 1) / 21109) * 100;
+    systemChat format ["Eng 2 Np: %1", fza_simvars_e2np];
     fza_simvars_e2trq  = ((_heli getVariable "bmk_helisim_engineOutputTq" select 1) / 481) * 100;
 
-    fza_simvars_rtrRPM = fza_simvars_e1np max fza_simvars_e2np;
+    fza_simvars_rtrRPM = ((_heli getVariable "bmk_helisim_xmsnOutputRPM") / 21109) * 100;
 };

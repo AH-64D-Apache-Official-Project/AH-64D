@@ -185,4 +185,4 @@ hintsilent format ["-----MAIN ROTOR-----
                     _torqueZ toFixed 2,     //28
                     _outputTorque / 481 * 100 toFixed 0];   //29
 */
-[_outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
+[_rotorParams, _outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];

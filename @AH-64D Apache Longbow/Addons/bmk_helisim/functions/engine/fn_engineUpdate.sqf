@@ -16,6 +16,8 @@ private _baseTq = _idleTq + (_flyTq - _idleTq) * (_engineThrottleVal select _eng
 private _setTq  = _baseTq + (_maxTq - _baseTq) * (_engineThrottleVal select _engNum) * _collectiveVal;
 
 _outputRPM = if (_xmsnInputTq == 0.0) then { 0.0; } else { (30.0 * (_continuousPower / 0.001)) / (_xmsnInputTq * pi); };
+_outputRPM = [_outputRPM, 0.0, _setRPM] call BIS_fnc_clamp;
+
 [_heli, "bmk_helisim_engineOutputRPM", _engNum, _outputRPM] call fza_sfmplus_fnc_setArrayVariable;
 
 if (_engOn) then {

@@ -66,6 +66,6 @@ private _engineThrottleVal = [ _heli getVariable "bmk_helisim_engineThrottle" se
                                _heli getVariable "bmk_helisim_engineThrottle" select 1];
 
 //systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
-systemChat format ["Pitch: %1 -- Roll: %2 -- Yaw: %3 -- Throttle: %4", _cyclicPitchVal, _cyclicRollVal, _pedalVal,_engineThrottleVal];
+//systemChat format ["Pitch: %1 -- Roll: %2 -- Yaw: %3 -- Throttle: %4", _cyclicPitchVal, _cyclicRollVal, _pedalVal,_engineThrottleVal];
 
 [_collectiveVal, _cyclicPitchVal, _cyclicRollVal, _pedalVal, _engineThrottleVal];
