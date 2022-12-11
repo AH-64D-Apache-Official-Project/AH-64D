@@ -11,7 +11,8 @@ class CfgFunctions
         tag = "FZA_weapons";
 		class pylon {
 			file = "\fza_ah64_weapons\functions\pylon";
-			class pylonswapper {R;};
+			class SetPylonOwnerInternal {R;};
+			class SetPylonOwner {R;};
 		};
     };
 };
