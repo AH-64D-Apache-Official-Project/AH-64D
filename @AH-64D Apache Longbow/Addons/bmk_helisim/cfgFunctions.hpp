@@ -23,8 +23,11 @@ class CfgFunctions
 		};
 		class engine {
 			file = "\bmk_helisim\functions\engine";
+			class engine {R;};
 			class engineInit {R;};
-			class engineUpdate {R;};
+			class engineStateOff {R;};
+			class engineStateOn {R;};
+			class engineStateStart {R;};
 			class engineVariables {R;};
 		};
 		class environment {

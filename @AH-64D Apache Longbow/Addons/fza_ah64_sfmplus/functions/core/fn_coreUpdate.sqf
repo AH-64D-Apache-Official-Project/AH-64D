@@ -19,6 +19,8 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+if (isGamePaused) exitwith {};
+
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "SFMPlus") exitWith {};
 
@@ -118,7 +120,7 @@ hintsilent format ["v0.11
 					_heli getVariable "fza_sfmplus_engState",
 					_heli getVariable "fza_sfmplus_isSingleEng",
 					_heli getVariable "fza_sfmplus_engPctNP",
-					_heli getVariable "fza_sfmplus_engPowerLeverState",
+					_heli getVariable "fza_sfmplus_engThrottlePos",
 					fza_sfmplus_collectiveOutput,
 					_heli getVariable "fza_sfmplus_engFF",
 					_heli getVariable "fza_sfmplus_engBaseNG"];

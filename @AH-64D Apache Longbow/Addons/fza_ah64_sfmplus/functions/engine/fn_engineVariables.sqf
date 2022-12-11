@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, IDLE, FLY
+_heli setVariable ["fza_sfmplus_engThrottlePos",  	    ["OFF", "OFF"]]; //OFF, IDLE, FLY
 _heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
 
 if(isMultiplayer) then {

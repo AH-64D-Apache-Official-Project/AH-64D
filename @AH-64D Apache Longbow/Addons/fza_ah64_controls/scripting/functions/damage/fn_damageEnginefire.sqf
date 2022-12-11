@@ -82,8 +82,8 @@ do {
     if (_eng == "left" && _heli getVariable "fza_ah64_fire1arm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
     if (_eng == "right" && _heli getVariable "fza_ah64_fire2arm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
     if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
-    if (_eng == "left" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 0 == "off") && _rand > 9.9) exitwith {};
-    if (_eng == "right" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 1 == "off") && _rand > 9.9) exitwith {};
+    if (_eng == "left" && (_heli getVariable "fza_sfmplus_engThrottlePos" select 0 == "off") && _rand > 9.9) exitwith {};
+    if (_eng == "right" && (_heli getVariable "fza_sfmplus_engThrottlePos" select 1 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "apu" && !_apuOn && _rand > 9.9) exitwith {};
     _helidamage = _helidamage + 0.0005;
     if (_helidamage > 0.5) then {

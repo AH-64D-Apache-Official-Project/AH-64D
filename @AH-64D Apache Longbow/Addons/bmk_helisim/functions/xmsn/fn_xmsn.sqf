@@ -13,8 +13,8 @@ private _mainRotorMOI = _heli getVariable "bmk_helisim_mainRotor_polarMomentOfIn
 
 //Single engine transmission
 if (_numEng == 1) then {
-    _engine select 0 params ["_eng1OutputRPM", "_eng1OutputTq"];
-    systemChat format ["Engine 1: %1 -- %2", _eng1OutputRPM, _eng1OutputTq];
+    _engine select 0 params ["_eng1OutputTq"];
+    //systemChat format ["Engine 1: %1 -- %2", _eng1OutputRPM, _eng1OutputTq];
 
     _engInputTq = _eng1OutputTq;
 
@@ -23,10 +23,8 @@ if (_numEng == 1) then {
 };
 
 if (_numEng == 2) then {
-    _engine select 0 params ["_eng1OutputRPM", "_eng1OutputTq"];
-    _engine select 1 params ["_eng2OutputRPM", "_eng2OutputTq"];
-    systemChat format ["Engine 1: %1 -- %2", _eng1OutputRPM, _eng1OutputTq];
-    systemChat format ["Engine 2: %1 -- %2", _eng2OutputRPM, _eng2OutputTq];
+    _engine select 0 params ["_eng1OutputTq"];
+    _engine select 1 params ["_eng2OutputTq"];
 
     _engInputTq = _eng1OutputTq + _eng2OutputTq;
 
@@ -34,5 +32,5 @@ if (_numEng == 2) then {
     _outputRPM  = _outputRPM + _deltaRPM;
 };
 
-systemChat format ["Output RPM: %1", _outputRPM];
+//systemChat format ["Output RPM: %1", _outputRPM];
 _heli setVariable ["bmk_helisim_xmsnOutputRPM", _outputRPM];

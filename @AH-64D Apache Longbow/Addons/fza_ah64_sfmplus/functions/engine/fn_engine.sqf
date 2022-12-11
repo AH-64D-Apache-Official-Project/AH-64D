@@ -23,15 +23,16 @@ params ["_heli", "_engNum", "_deltaTime"];
 
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 
-private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
-private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
-private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
-private _engPctNG            = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
-private _engPctNP            = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
-private _engPctTQ            = _heli getVariable "fza_sfmplus_engPctTQ" select _engNum;
-private _engTGT              = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
-private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
-private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
+private _engState        = _heli getVariable "fza_sfmplus_engState" select _engNum;
+private _engStart        = _heli getVariable "fza_sfmplus_engStart" select _engNum;
+private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _engThrottlePos  = _heli getVariable "fza_sfmplus_engThrottlePos" select _engNum;
+private _engPctNG        = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
+private _engPctNP        = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
+private _engPctTQ        = _heli getVariable "fza_sfmplus_engPctTQ" select _engNum;
+private _engTGT          = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
+private _engOilPSI       = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
+private _engFF           = _heli getVariable "fza_sfmplus_engFF" select _engNum;
 
 private _engThrottle         = 0.0;
 private _engSimTime 		 = getNumber (_config >> "engSimTime");
@@ -56,12 +57,12 @@ private _engBaseNP  = 0.0;
 private _engSetNP   = 0.0;
 
 //Throttle
-if (_engPowerLeverState in ["OFF", "IDLE"]) then {
+if (_engThrottlePos in ["OFF", "IDLE"]) then {
 	_engThrottle = 0.0;
 } else { _engThrottle = 1.0; };
 
 //Tq
-if (_engPowerLeverState != "OFF") then {
+if (_engThrottlePos != "OFF") then {
 	_engBaseTQ = _engIdleTQ + (_engFlyTQ - _engIdleTQ) * _engThrottle;
 } else {
 	_engBaseTQ = 0.0;
@@ -81,7 +82,7 @@ switch (_engState) do {
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
 	};
 	case "STARTING": {
-		if (_engPowerLeverState == "OFF") then {
+		if (_engThrottlePos == "OFF") then {
 			//Ng
 			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
 			//Np
@@ -98,13 +99,15 @@ switch (_engState) do {
 		//Transition state to ON
 		if (_engPctNG > 0.52) then {
 			_engState = "ON";
-			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
+			[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
+
+			[_heli, "fza_sfmplus_engStart", _engNum, false, true] call fza_sfmplus_fnc_setArrayVariable;
 		};
 	};
 	case "ON": {
-		if (_engPowerLeverState == "OFF") then {
+		if (_engThrottlePos == "OFF") then {
 			_engState = "OFF";
-			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
+			[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
 		};
 		//Ng
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;

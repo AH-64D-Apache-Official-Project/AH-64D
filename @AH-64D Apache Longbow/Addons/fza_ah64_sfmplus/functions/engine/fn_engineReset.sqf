@@ -21,7 +21,7 @@ params ["_heli", "_engNum"];
 
 if (!local _heli) exitWith {};
 
-[_heli, "fza_sfmplus_engPowerLeverState",  _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engThrottlePos",  _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engState", 		   _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engFF", 	 	 _engNum, 0.0, true] call fza_sfmplus_fnc_setArrayVariable;

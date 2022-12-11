@@ -7,5 +7,5 @@ if ((getText _flightModel) == "SFMPlus") then {
     [_heli, _engNum] call fza_sfmplus_fnc_interactStartSwitch;
 } else {
     //HeliSim
-    [_heli, _engNum] call fza_helisim_fnc_interactStartSwitch;
+    [_heli, _engNum] call bmk_helisim_fnc_interactStartSwitch;
 };

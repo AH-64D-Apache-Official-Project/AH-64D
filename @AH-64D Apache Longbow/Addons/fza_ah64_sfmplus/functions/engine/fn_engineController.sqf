@@ -25,13 +25,11 @@ private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 
-private _engState  = _heli getVariable "fza_sfmplus_engState";
-private _eng1State = _engState select 0;
-private _eng2State = _engState select 1;
+private _eng1State = fza_simvars_e1State;
+private _eng2State = fza_simvars_e2State;
 
-private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
+private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
+private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
 
 if (_apuOn && local _heli) then {
 	if ((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) then {

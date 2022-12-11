@@ -35,7 +35,7 @@ class CfgFunctions
 		};
 		class interact {
 			file = "\fza_ah64_sfmplus\functions\interact";
-			class interactPowerLever {R;};
+			class interactSetThrottle {R;};
 			class interactStartSwitch {R;};
 		};
 		class mass {

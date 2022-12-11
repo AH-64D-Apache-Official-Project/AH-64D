@@ -84,9 +84,8 @@ if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 };
 private _pedalTorque     = _pedalLeftRight  * _yawTorque;
 
-private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
-private _eng1PwrLvrState = _engPwrLvrState select 0;
-private _eng2PwrLvrState = _engPwrLvrState select 1;
+private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
+private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
 
 if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
 	//Primary and Utility Hydraulics

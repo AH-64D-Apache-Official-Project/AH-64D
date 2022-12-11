@@ -6,14 +6,14 @@ _controlInputs params ["_collectiveVal", "_cyclicPitchVal", "_cyclicRollVal", "_
 private _outputRPM = _heli getVariable "bmk_helisim_engineOutputRPM" select _engNum;
 private _outputTq  = _heli getVariable "bmk_helisim_engineOutputTq"  select _engNum;
 
-private _setRPM = _idleRPM + (_flyRPM - _idleRPM) * (_engineThrottleVal select _engNum);
-
 private _maxTq  = _refTorque * _maxTqScalar;
 private _idleTq = _engineIdleTqPct * _refTorque;
 private _flyTq  = _engineFlyTqPct  * _refTorque;
 
 private _baseTq = _idleTq + (_flyTq - _idleTq) * (_engineThrottleVal select _engNum);
+
 private _setTq  = _baseTq + (_maxTq - _baseTq) * (_engineThrottleVal select _engNum) * _collectiveVal;
+private _setRPM = _idleRPM + (_flyRPM - _idleRPM) * (_engineThrottleVal select _engNum);
 
 if (_engOn) then {
     //Engine power turbine speed (Np)

@@ -95,37 +95,28 @@ switch(_control) do {
 	};
 	//Power Lever
 	case "e1off": {
-		[_heli, 0, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-		[_heli, 0, 0.0] spawn bmk_helisim_fnc_interactSetThrottle;
+		[_heli, 0, "OFF", 0.00] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1idle": {
-		[_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-		[_heli, 0, 0.25] spawn bmk_helisim_fnc_interactSetThrottle;
+		[_heli, 0, "IDLE", 0.25] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1fly": {
 		private _eng2State       = fza_simvars_e2State;
-		private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+		private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
 		//is off OR when the opposite engine is on w/ it's power lever at fly
 		if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
-			[_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-			[_heli, 0, 1.0] spawn bmk_helisim_fnc_interactSetThrottle;
+			[_heli, 0, "FLY", 1.00] spawn fza_fnc_fmThrottle;
 		};
 		//Advance both power levers to fly together when the opposite engine is on and its
 		//power lever is at idle
 		if (_eng2State == "ON" && _eng2PwrLvrState == "IDLE") then {
-			[_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-			[_heli, 0, 1.00] spawn bmk_helisim_fnc_interactSetThrottle;
-			[_heli, 1, 1.00] spawn bmk_helisim_fnc_interactSetThrottle;
+			[_heli, 0, "FLY", 1.00] spawn fza_fnc_fmThrottle;
+			[_heli, 1, "FLY", 1.00] spawn fza_fnc_fmThrottle;
 		};
 		
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
@@ -154,37 +145,28 @@ switch(_control) do {
 	};
 	//Power Lever
 	case "e2off": {
-		[_heli, 1, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-		[_heli, 1, 0.00] spawn bmk_helisim_fnc_interactSetThrottle;
+		[_heli, 1, "OFF", 0.00] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2idle": {
-		[_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-		[_heli, 1, 0.25] spawn bmk_helisim_fnc_interactSetThrottle;
+		[_heli, 1, "IDLE", 0.25] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2fly": {
 		private _eng1State       = fza_simvars_e1State;
-		private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+		private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
 		//Allow the eng 1 power lever to be advanced individually when the opposite engine
 		//is off OR when the opposite engine is on w/ it's power lever at fly
 		if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {
-			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-			[_heli, 1, 1.00] spawn bmk_helisim_fnc_interactSetThrottle;
+			[_heli, 1, "FLY", 1.00] spawn fza_fnc_fmThrottle;
 		};
 		//Advance both power levers to fly together when the opposite engine is on and its
 		//power lever is at idle
 		if (_eng1State == "ON" && _eng1PwrLvrState == "IDLE") then {
-			[_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-
-			[_heli, 0, 1.00] spawn bmk_helisim_fnc_interactSetThrottle;
-			[_heli, 1, 1.00] spawn bmk_helisim_fnc_interactSetThrottle;
+			[_heli, 0, "FLY", 1.00] spawn fza_fnc_fmThrottle;
+			[_heli, 1, "FLY", 1.00] spawn fza_fnc_fmThrottle;
 		};
 		
 		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;

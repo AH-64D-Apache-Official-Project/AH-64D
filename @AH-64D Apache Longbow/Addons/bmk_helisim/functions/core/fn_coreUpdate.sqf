@@ -45,31 +45,18 @@ private _outputTorque = _mainRotor_outputTorque + _tailRotor_outputTorque;
 hintsilent format ["Output torque: %1 -- %2", _outputTorque toFixed 0, (_outputTorque / 481) * 100 toFixed 0];
 
 //--Engines
-private _engine1Input    = _heli getVariable "bmk_helisim_engine1";
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//--TEMP
-private _eng1state       = fza_simvars_e1State;
-private _eng1On          = _heli getVariable "bmk_helisim_engOn" select 0;
-if (_eng1state in ["STARTING", "ON"]) then { _eng1On = true; } else { _eng1On = false};
-[_heli, "bmk_helisim_engOn", 0, _eng1On] call fza_sfmplus_fnc_setArrayVariable;
-//--TEMP
-////////////////////////////////////////////////////////////////////////////////////////////////////
-private _engine1         = [_heli, _deltaTIme, 0, _engine1Input, _controlInputs, _eng1On, _outputTorque, 1.31] call bmk_helisim_fnc_engineUpdate;
+private _engine1Input = _heli getVariable "bmk_helisim_engine1";
+private _engine1      = [_heli, 0, _deltaTime, _engine1Input, _controlInputs, _outputTorque, 1.31] call bmk_helisim_fnc_engine;
 
-private _engine2Input    = _heli getVariable "bmk_helisim_engine2";
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//--TEMP
-private _eng2state       = fza_simvars_e2State;
-private _eng2On          = _heli getVariable "bmk_helisim_engOn" select 0;
-if (_eng2state in ["STARTING", "ON"]) then { _eng2On = true; } else { _eng2On = false};
-[_heli, "bmk_helisim_engOn", 1, _eng2On] call fza_sfmplus_fnc_setArrayVariable;
-//--TEMP
-////////////////////////////////////////////////////////////////////////////////////////////////////
-private _engine2         = [_heli, _deltaTime, 1, _engine2Input, _controlInputs, _eng2On, _outputTorque, 1.31] call bmk_helisim_fnc_engineUpdate; 
+private _engine2Input = _heli getVariable "bmk_helisim_engine2";
+private _engine2      = [_heli, 1, _deltaTime, _engine1Input, _controlInputs, _outputTorque, 1.31] call bmk_helisim_fnc_engine;
 
 //--Transmission
 private _engines = [ _engine1, _engine2];
 [_heli, _mainRotorParams, _engines, _outputTorque] call bmk_helisim_fnc_xmsn;
+
+//--Governor
+
 
 //--Fuselage
 [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;

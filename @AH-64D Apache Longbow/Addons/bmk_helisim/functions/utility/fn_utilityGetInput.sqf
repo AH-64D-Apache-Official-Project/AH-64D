@@ -62,8 +62,8 @@ private _pedalRight = inputAction "HeliRudderRight";
 private _pedalVal   = _pedalRight - _pedalLeft;
 
 //Throttle
-private _engineThrottleVal = [ _heli getVariable "bmk_helisim_engineThrottle" select 0, 
-                               _heli getVariable "bmk_helisim_engineThrottle" select 1];
+private _engineThrottleVal = [ _heli getVariable "bmk_helisim_engThrottleSetPoint" select 0, 
+                               _heli getVariable "bmk_helisim_engThrottleSetPoint" select 1];
 
 //systemChat format ["Pitch: %1 Trim: %2 -- Roll: %3 Trim %4", _cyclicPitchVal, _cyclicPitchTrimVal, _cyclicRollVal, _cyclicRollTrimVal];
 //systemChat format ["Pitch: %1 -- Roll: %2 -- Yaw: %3 -- Throttle: %4", _cyclicPitchVal, _cyclicRollVal, _pedalVal,_engineThrottleVal];

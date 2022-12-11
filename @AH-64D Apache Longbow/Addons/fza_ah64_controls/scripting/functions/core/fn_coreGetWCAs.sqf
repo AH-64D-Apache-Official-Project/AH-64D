@@ -55,13 +55,13 @@ private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
 private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
 private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 //--Engine 1
-private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
 private _eng1Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 0;
-private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
+private _eng1Start       = fza_simvars_e1Start;
 //--Engine 2
-private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
 private _eng2Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 1;
-private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
+private _eng2Start       = fza_simvars_e2Start;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
 private _onGnd           = true;
@@ -225,11 +225,11 @@ if (_apuRPM_pct >= 0.5 && !_apuBtnOn) then {
 	_wcas pushBack [WCA_ADVISORY, "APU STOP", "APU STOP  "];
 };
 //--Engine 1
-if (_eng1State == "STARTING") then {
+if (_eng1Start == true) then {
 	_wcas pushBack [WCA_ADVISORY, "ENGINE 1 START", "ENG1 START"];
 };
 //--Engine 2
-if (_eng2State == "STARTING") then {
+if (_eng2Start == true) then {
 	_wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
 if (isAutoHoverOn _heli) then {
