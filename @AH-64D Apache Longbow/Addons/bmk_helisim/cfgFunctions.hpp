@@ -37,6 +37,7 @@ class CfgFunctions
 		class interact {
 			file = "\bmk_helisim\functions\interact";
 			class interactSetThrottle {R;};
+			class interactStartSwitch {R;};
 		};
 		class rotor {					
 			file = "\bmk_helisim\functions\rotor";

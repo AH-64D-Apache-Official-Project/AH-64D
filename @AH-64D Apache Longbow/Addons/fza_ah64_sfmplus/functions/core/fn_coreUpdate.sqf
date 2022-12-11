@@ -20,7 +20,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
-//if ((getText _flightModel) != "SFMPlus") exitWith {};
+if ((getText _flightModel) != "SFMPlus") exitWith {};
 
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 

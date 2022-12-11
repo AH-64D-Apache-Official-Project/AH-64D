@@ -69,6 +69,8 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\fm";
 			class fmSimVars {R;};
+			class fmStartSwitch {R;};
+			class fmThrottle {R;};
 		};
 		class fx {
 			file = "\fza_ah64_controls\scripting\functions\fx";

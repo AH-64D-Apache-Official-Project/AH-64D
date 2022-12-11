@@ -89,7 +89,6 @@ private _maxTQ    = getNumber (_config >> "engMaxTQ");
 private _limitTQ  = 0.0;
 private _limitRPM = getNumber (_config >> "engIdleNP");
 
-
 private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
 private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 private _rtrRPM  = _eng1Np max _eng2Np;
