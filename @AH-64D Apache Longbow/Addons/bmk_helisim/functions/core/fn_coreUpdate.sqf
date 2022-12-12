@@ -55,8 +55,5 @@ private _engine2      = [_heli, 1, _deltaTime, _engine1Input, _controlInputs, _o
 private _engines = [ _engine1, _engine2];
 [_heli, _mainRotorParams, _engines, _outputTorque] call bmk_helisim_fnc_xmsn;
 
-//--Governor
-
-
 //--Fuselage
 [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;

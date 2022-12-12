@@ -1,20 +1,8 @@
-params ["_heli", "_engine"];
+params ["_heli", "_setRPM", "_xmsnOutputRPM", "_engTrimVal", "_collTrimVal", "_collectiveVal"];
 
-private _numEng        = count _engine;
-private _eng1GovOutput = 0.0;
-private _eng2GovOutput = 0.0;
+systemChat format ["%1 -- %2 -- %3 -- %4 -- %5", _setRPM, _xmsnOutputRPM, _engTrimVal, _collTrimVal, _collectiveVal];
 
-if (_numEng < 1 || _numEng > 2) exitWith { systemChat format ["Invalid engine configuration!"];  };
+private _deltaRPM  = _setRPM - _xmsnOutputRPM;
+private _govOutput = _deltaRPM * (_engTrimVal * (_collTrimVal * _collectiveVal));
 
-if (_numEng == 1) then {
-
-};
-
-if (_numEng == 2) then {
-    //Engine 1
-
-
-    //Engine 2
-    
-
-};
+[_govOutput];

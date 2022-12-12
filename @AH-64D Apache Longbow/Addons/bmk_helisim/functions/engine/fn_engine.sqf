@@ -18,8 +18,10 @@ private _maxTq     = _refTorque * _maxTqScalar;
 
 private _baseTq    = _idleTq + (_flyTq - _idleTq) * (_engineThrottleVal select _engNum);
 
-private _setTq     = _baseTq + (_maxTq - _baseTq) * (_engineThrottleVal select _engNum) * _collectiveVal;
+private _setTq     = _baseTq + (_maxTq - _baseTq)    * (_engineThrottleVal select _engNum) * _collectiveVal;
 private _setRPM    = _idleRPM + (_flyRPM - _idleRPM) * (_engineThrottleVal select _engNum);
+
+systemChat format ["_collectiveVal = %1", _collectiveVal];
 
 switch (_engState) do {
     case "OFF": {
@@ -29,7 +31,7 @@ switch (_engState) do {
         [_heli, _engNum, _deltaTime, _engState, _engStart, _engThrottlePos, _engThrottleSetPoint] call bmk_helisim_fnc_engineStateStart;
     };
     case "ON" : {
-        [_heli, _engNum, _deltaTime, _engState, _engThrottlePos, _outputRPM, _outputTq, _xmsnInputTq, _continuousPower, _setRPM, _setTq, _maxTq] call bmk_helisim_fnc_engineStateOn;
+        [_heli, _engNum, _deltaTime, _engState, _engThrottlePos, _outputRPM, _collectiveVal, _outputTq, _xmsnInputTq, _continuousPower, _setRPM, _setTq, _maxTq] call bmk_helisim_fnc_engineStateOn;
     };
 };
 

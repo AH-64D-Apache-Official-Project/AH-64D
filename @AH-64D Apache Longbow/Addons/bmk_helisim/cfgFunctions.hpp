@@ -63,6 +63,7 @@ class CfgFunctions
 			file = "\bmk_helisim\functions\utility";
 			class utilityArmaToModel {R;};
 			class utilityGetInput {R;};
+			class utilityGovernor {R;};
 			class utilityModelToArma {R;};
 		};
 		class xmsn {
