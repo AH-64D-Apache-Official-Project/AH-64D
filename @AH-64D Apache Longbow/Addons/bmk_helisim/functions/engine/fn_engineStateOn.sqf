@@ -16,7 +16,7 @@ _outputRPM = [_outputRPM, 0.0, _setRPM] call BIS_fnc_clamp;
 //Engine output torque
 
 
-([_heli, _setRPM, _xmsnOutputRPM, 0.35, 1.00, _collectiveVal] call bmk_helisim_fnc_utilityGovernor)
+([_heli, _setRPM, _xmsnOutputRPM, 0.15, 1.00, _collectiveVal] call bmk_helisim_fnc_utilityGovernor)
     params ["_govInput"];
 systemChat format ["Eng %1 governor %2", _engNum, _govInput];
 

@@ -104,7 +104,7 @@ _heli addForce[_heli vectorModelToWorld _forceZ, _rotorPos];
 
 private _torqueX = _out_l * _deltaTime;
 private _torqueY = _out_m * _deltaTime;
-private _torqueZ = 0.0;//_out_n * _deltaTime;
+private _torqueZ = _out_n * _deltaTime;
 
 _heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY * 0.5, _torqueZ]);
 

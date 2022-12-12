@@ -100,7 +100,7 @@ switch(_control) do {
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e1idle": {
-		[_heli, 0, "IDLE", 0.25] spawn fza_fnc_fmThrottle;
+		[_heli, 0, "IDLE", 0.00] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
@@ -150,7 +150,7 @@ switch(_control) do {
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};
 	case "e2idle": {
-		[_heli, 1, "IDLE", 0.25] spawn fza_fnc_fmThrottle;
+		[_heli, 1, "IDLE", 0.00] spawn fza_fnc_fmThrottle;
 
 		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
 	};

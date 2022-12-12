@@ -42,6 +42,7 @@ private _tailRotor    = [_heli, _deltaTime, _dryAirDensity, _tailRotorPos, _tail
 _tailRotor params ["_tailRotorParams", "_tailRotor_outputTorque", "_tailRotor_out_x", "_tailRotor_out_y", "_tailRotor_out_z", "_tailRotor_out_l", "_tailRotor_out_m", "_tailRotor_out_n"];
 
 private _outputTorque = _mainRotor_outputTorque + _tailRotor_outputTorque;
+_outputTorque = [_outputTorque, 0, 1500] call BIS_fnc_clamp;
 hintsilent format ["Output torque: %1 -- %2", _outputTorque toFixed 0, (_outputTorque / 481) * 100 toFixed 0];
 
 //--Engines
