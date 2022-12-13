@@ -19,7 +19,7 @@ params["_heli", "_heightAGL", "_rotorParams"];
 
 //Currently suspect, need to investigate that it's doing what it's supposed to do...
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s"];
+_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
 
 _heightAGL           = _heightAGL  + (ASLToAGL getPosASL _heli # 2);
 

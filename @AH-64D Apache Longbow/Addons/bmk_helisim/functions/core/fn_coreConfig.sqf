@@ -44,8 +44,8 @@ _mainRotor_Ib         = _mainRotor_Ib * (_hingeOffset * _hingeOffset * _hingeOff
 _heli setVariable ["bmk_helisim_mainRotor_Ib",         _mainRotor_Ib];
 _heli setVariable ["bmk_helisim_mainRotor_gearRatio",  _mainRotor_gearRatio];
 
-private _mainRotor_polarMomentOfInertia = _mainRotor_numBlades * _mainRotor_bladeMass * ((_mainRotor_bladeRadius * 0.55) * (_mainRotor_bladeRadius * 0.55));
-_heli setVariable ["bmk_helisim_mainRotor_polarMomentOfInertia",    _mainRotor_polarMomentOfInertia];
+private _mainRotor_polarMOI = _mainRotor_numBlades * _mainRotor_bladeMass * ((_mainRotor_bladeRadius * 0.55) * (_mainRotor_bladeRadius * 0.55));
+_heli setVariable ["bmk_helisim_mainRotor_polarMOI",   _mainRotor_polarMOI];
 
 //--Tail Rotor
 _heli setVariable ["bmk_helisim_tailRotor_b",          _tailRotor_numBlades];
@@ -58,6 +58,9 @@ _heli setVariable ["bmk_helisim_tailRotor_e",          _tailRotor_bladeRadius * 
 
 private _tailRotor_solidity = (_tailRotor_numBlades * _tailRotor_bladeChord) / (pi * _tailRotor_bladeRadius);
 _heli setVariable ["bmk_helisim_tailRotor_s",          _tailRotor_solidity];
+
+private _tailRotor_polarMOI = _tailRotor_numBlades * _tailRotor_bladeMass * ((_tailRotor_bladeRadius * 0.55) * (_tailRotor_bladeRadius * 0.55));
+_heli setVariable ["bmk_helisim_tainRotor_polarMOI",   _tailRotor_polarMOI];
 
 private _tailRotor_Ib = (1.0 / 3.0) * _tailRotor_bladeMass * (_tailRotor_bladeRadius * _tailRotor_bladeRadius);
 _hingeOffset          = 1.0 - _tailRotor_hingeOffsetRatio;

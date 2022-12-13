@@ -1,6 +1,6 @@
 params ["_heli", "_mu", "_lambda", "_theta0_deg", "_rotorParams", "_gamma"];
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s"];
+_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
 
 private _a0_deg = 0.0;
 private ["_a0_1", "_a0_2", "_a0_3"];

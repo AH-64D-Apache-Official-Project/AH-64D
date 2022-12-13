@@ -1,4 +1,4 @@
-params ["_heli", "_engNum", "_deltaTime", "_engState", "_engThrottlePos", "_outputRPM", "_collectiveVal", "_outputTq", "_xmsnInputTq", "_continuousPower", "_setRPM", "_setTq", "_maxTq"];
+params ["_heli", "_engNum", "_deltaTime", "_engState", "_engThrottlePos", "_outputRPM", "_collectiveVal", "_outputTq", "_xmsnInputTq", "_continuousPower", "_setRPM", "_setTq", "_refTq", "_maxTq"];
 
 systemChat format ["Eng %1 state is ON", _engNum];
 
@@ -9,16 +9,16 @@ if (_engThrottlePos == "OFF") then {
 };
 
 //Engine power turbine speed (Np)
-_outputRPM = if (_xmsnInputTq == 0.0) then { 0.0; } else { (30.0 * (_continuousPower / 0.001)) / (_xmsnInputTq * pi); };
-_outputRPM = [_outputRPM, _setRPM, _deltaTime] call BIS_fnc_lerp;
-_outputRPM = [_outputRPM, 0.0, _setRPM] call BIS_fnc_clamp;
+//_outputRPM = if (_xmsnInputTq == 0.0) then { 0.0; } else { (30.0 * (_continuousPower / 0.001)) / (_xmsnInputTq * pi); };
+//_outputRPM = [_outputRPM, _setRPM, _deltaTime] call BIS_fnc_lerp;
+//_outputRPM = [_outputRPM, 0.0, _setRPM] call BIS_fnc_clamp;
 
 //Engine output torque
-
-
-([_heli, _setRPM, _xmsnOutputRPM, 0.15, 1.00, _collectiveVal] call bmk_helisim_fnc_utilityGovernor)
+([_heli, _setRPM, _xmsnOutputRPM, 0.25, 1.20, _collectiveVal] call bmk_helisim_fnc_utilityGovernor)
     params ["_govInput"];
-systemChat format ["Eng %1 governor %2", _engNum, _govInput];
+_govInput = [_govInput, -_refTq * 1.0, _refTq * 0.75] call BIS_fnc_clamp;
+
+//systemChat format ["Eng %1 governor %2", _engNum, _govInput];
 
 _outputTq  = [_outputTq, _setTq + _govInput, _deltaTime] call BIS_fnc_lerp;
 _outputTq  = [_outputTq, 0.0, _maxTq] call BIS_fnc_clamp;

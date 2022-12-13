@@ -55,6 +55,7 @@ class CfgFunctions
 			class rotorHubVelocityToControlAxes {R;};
 			class rotorMain {R;};
 			class rotorTail {R;};
+			class rotorTest {R;};
 			class rotorUpdate {R;};
 			class rotorUpdateControlAngles {R;};
 			class rotorVariables {R;};

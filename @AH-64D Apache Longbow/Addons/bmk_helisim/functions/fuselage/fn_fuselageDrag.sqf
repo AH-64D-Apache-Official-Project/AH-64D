@@ -40,13 +40,6 @@ private _dragZ = -_fuselageDragCoefZ * 0.5 * _rho * _fuselageAreaBottom * (_locV
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //TESTING     //////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
-DRAW_LINE = {
-    params ["_heli", "_p1", "_p2", "_col"];
-    drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
 private _forceX = _vecX vectorMultiply (_dragX * _deltaTime);
 private _forceY = _vecY vectorMultiply (_dragY * _deltaTime);
 private _forceZ = _vecZ vectorMultiply (_dragZ * _deltaTime);
@@ -56,6 +49,13 @@ _heli addForce[_heli vectorModelToWorld _forceY, _aerodynamicCenter];
 _heli addForce[_heli vectorModelToWorld _forceZ, _aerodynamicCenter];
 
 #ifdef __A3_DEBUG__
+private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
+
+DRAW_LINE = {
+    params ["_heli", "_p1", "_p2", "_col"];
+    drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
+};
+
 //Draw the force vector
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, _colorRed] call DRAW_LINE;
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, _colorGreen] call DRAW_LINE;

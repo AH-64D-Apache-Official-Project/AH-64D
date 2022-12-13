@@ -2,7 +2,6 @@ params ["_heli"];
 #include "\bmk_helisim\headers\core.hpp"
 
 if (isGamePaused) exitwith {};
-
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "HeliSim") exitWith {};
 
@@ -14,9 +13,9 @@ private _controlInputs       = [_heli, _deltaTime] call bmk_helisim_fnc_utilityG
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Environment    ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
+private _altitude          = 0;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg
-private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+private _temperature       = 15;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
@@ -32,20 +31,20 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //--Main rotor
 private _mainRotorPos = [0.0, 2.06, 0.70]; //m -- MOVE TO CONFIG
 private _mainRotorRot = [0.0, 0.0]; //deg -- MOVE TO CONFIG
-private _mainRotor    = [_heli, _deltaTime, _dryAirDensity, _mainRotorPos, _mainRotorRot, _controlInputs] call bmk_helisim_fnc_rotorMain;
-_mainRotor params ["_mainRotorParams","_mainRotor_outputTorque", "_mainRotor_out_x", "_mainRotor_out_y", "_mainRotor_out_z", "_mainRotor_out_l", "_mainRotor_out_m", "_mainRotor_out_n"];
+//private _mainRotor    = [_heli, _deltaTime, _dryAirDensity, _mainRotorPos, _mainRotorRot, _controlInputs] call bmk_helisim_fnc_rotorMain;
+//_mainRotor params ["_mainRotorParams","_mainRotor_outputTorque", "_mainRotor_out_x", "_mainRotor_out_y", "_mainRotor_out_z", "_mainRotor_out_l", "_mainRotor_out_m", "_mainRotor_out_n"];
 
 //--Tail rotor
 private _tailRotorPos = [-0.87, -6.98, -0.075]; //m -- MOVE TO CONFIG
 private _tailRotorRot = [0.0, 90.0]; //deg -- MOVE TO CONFIG
-private _tailRotor    = [_heli, _deltaTime, _dryAirDensity, _tailRotorPos, _tailRotorRot, _controlInputs] call bmk_helisim_fnc_rotorTail;
-_tailRotor params ["_tailRotorParams", "_tailRotor_outputTorque", "_tailRotor_out_x", "_tailRotor_out_y", "_tailRotor_out_z", "_tailRotor_out_l", "_tailRotor_out_m", "_tailRotor_out_n"];
+//private _tailRotor    = [_heli, _deltaTime, _dryAirDensity, _tailRotorPos, _tailRotorRot, _controlInputs] call bmk_helisim_fnc_rotorTail;
+//_tailRotor params ["_tailRotorParams", "_tailRotor_outputTorque", "_tailRotor_out_x", "_tailRotor_out_y", "_tailRotor_out_z", "_tailRotor_out_l", "_tailRotor_out_m", "_tailRotor_out_n"];
 
-private _outputTorque = _mainRotor_outputTorque + _tailRotor_outputTorque;
-_outputTorque = [_outputTorque, 0, 1500] call BIS_fnc_clamp;
-hintsilent format ["Output torque: %1 -- %2", _outputTorque toFixed 0, (_outputTorque / 481) * 100 toFixed 0];
+//private _outputTorque = _mainRotor_outputTorque + _tailRotor_outputTorque;
+//hintsilent format ["Output torque: %1 -- %2", _outputTorque toFixed 0, (_outputTorque / 481) * 100 toFixed 0];
 
 //--Engines
+
 private _engine1Input = _heli getVariable "bmk_helisim_engine1";
 private _engine1      = [_heli, 0, _deltaTime, _engine1Input, _controlInputs, _outputTorque, 1.31] call bmk_helisim_fnc_engine;
 

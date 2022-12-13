@@ -1,6 +1,6 @@
 params ["_heli", "_rho", "_isTailRotor", "_rotorParams"];
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s"];
+_rotorParams params ["_a", "_b", "_R", "_c", "_theta1", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
 
 private _RPM    = 0.0;
 if (!_isTailRotor) then { 
@@ -21,9 +21,11 @@ private _gamma  = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;
 private _xmsnOutputRPM = _heli getVariable "bmk_helisim_xmsnOutputRPM";
 private _currentRPM    = _xmsnOutputRPM / _gearRatio;
 
-if (!_isTailRotor) then { 
+if (!_isTailRotor) then {
+    systemChat format ["Main rotor RPM: %1", _currentRPM];
     _heli setVariable ["bmk_helisim_mainRotor_RPM", _currentRPM];
 } else {
+    systemChat format ["Tail rotor RPM: %1", _currentRPM];
     _heli setVariable ["bmk_helisim_tailRotor_RPM", _currentRPM];
 };
 

@@ -27,7 +27,6 @@ fza_simvars_rtrRPM  = 0.0;
 
 //SFM+
 if ((getText _flightModel) == "SFMPlus") then {
-    systemChat format ["SFMPlus Sim Vars!"];
     //Engine 1
     fza_simvars_e1ThrottlePos = _heli getVariable "fza_sfmplus_engThrottlePos" select 0;
     fza_simvars_e1State = _heli getVariable "fza_sfmplus_engState" select 0;
@@ -51,8 +50,6 @@ if ((getText _flightModel) == "SFMPlus") then {
     fza_simvars_rtrRPM = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
     fza_simvars_rtrRPM = [fza_simvars_rtrRPM, 0.0, fza_simvars_e1np max fza_simvars_e2np] call BIS_fnc_clamp;
 } else {
-    systemChat format ["HeliSim Sim Vars!"];
-
     //Engine 1
     fza_simvars_e1ThrottlePos = _heli getVariable "bmk_helisim_engThrottlePos" select 0;
     fza_simvars_e1State = _heli getVariable "bmk_helisim_engState" select 0;

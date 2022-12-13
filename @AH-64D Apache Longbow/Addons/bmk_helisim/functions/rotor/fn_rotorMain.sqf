@@ -36,10 +36,11 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_mainRotor_e",
                          _heli getVariable "bmk_helisim_mainRotor_gearRatio",
                          _heli getVariable "bmk_helisim_mainRotor_Ib",
-                         _heli getVariable "bmk_helisim_mainRotor_s"];
+                         _heli getVariable "bmk_helisim_mainRotor_s",
+                         _heli getVariable "bmk_helisim_mainRotor_polarMOI"];
 
 //--Update
-([_heli, _rho, _isTailRotor, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
+([_heli, _rho, _isTailRotor, _rotorParams] call bmk_helisim_fnc_rotorUpdate)
     params ["_omega", "_omegaR", "_gamma"];
 //--Update control angles
 ([_heli, _controlInputs, _cyclicPitchMap_deg, _cyclicRollMap_deg, _collectivePitch_deg, nil] call bmk_helisim_fnc_rotorUpdateControlAngles) 
@@ -48,7 +49,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
 ([_heli, 3.607, _rotorParams] call bmk_helisim_fnc_aeroGroundEffect)
     params ["_gndEffScalar"];
 //--Transform ARMA coordinate system to model
-_rotorRot params ["_mastPitch_deg", "_mastRoll_deg"];
+_rotorRot params ["_mastPitch_deg", "_mastRoll_deg"]; 
 ([_heli, _deltaTime, _mastPitch_deg, _mastRoll_deg] call bmk_helisim_fnc_utilityArmaToModel)
     params ["_u_s", "_v_s", "_w_s", "_p_s", "_q_s", "_r_s"];
 //--Calculate beta and linear velocities in control axes

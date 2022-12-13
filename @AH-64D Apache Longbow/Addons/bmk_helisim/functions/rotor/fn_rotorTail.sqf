@@ -26,7 +26,8 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_a",
                          _heli getVariable "bmk_helisim_tailRotor_e",
                          _heli getVariable "bmk_helisim_tailRotor_gearRatio",
                          _heli getVariable "bmk_helisim_tailRotor_Ib",
-                         _heli getVariable "bmk_helisim_tailRotor_s"];
+                         _heli getVariable "bmk_helisim_tailRotor_s",
+                         _heli getVariable "bmk_helisim_tailRotor_polarMOI"];
 
 //--Update
 ([_heli, _rho, _isTailRotor, _rotorParams] call bmk_helisim_fnc_rotorUpdate) 
