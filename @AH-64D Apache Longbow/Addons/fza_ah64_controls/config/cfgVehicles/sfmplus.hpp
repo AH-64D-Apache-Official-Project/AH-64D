@@ -2,9 +2,9 @@ class Fza_SfmPlus {
     emptyMassFCR    = 6609; //kg
     emptyMassNonFCR = 6314; //kg
 
-    cyclicPitchTorque = 4000.0; //Nm
-    cyclicRollTorque  = 1500.0; //Nm
-    pedalYawTorque    = 4000.0; //Nm
+    cyclicPitchTorque = 700.0; //Nm
+    cyclicRollTorque  = 500.0; //Nm
+    pedalYawTorque    = 400.0; //Nm
 
     stabPos[]       = {0.0, -7.207, -0.50};  //m
     stabWidth       = 3.22;                  //m
@@ -12,8 +12,8 @@ class Fza_SfmPlus {
     centerOfMass[]  = {0.0, 2.08, 0.00};     //m
 
     //Fuel data
-    initFuelFracRobbie   = 0.39;
-    initFuelFracNoRobbie = 0.22;
+    initFuelFracRobbie   = 1.00;
+    initFuelFracNoRobbie = 1.00;
     maxFwdFuelMass       = 473;   //1043lbs in kg
     maxCtrFuelMass       = 301;   //663lbs in kg, net yet implemented, center robbie
     maxAftFuelMass       = 669;   //1474lbs in kg

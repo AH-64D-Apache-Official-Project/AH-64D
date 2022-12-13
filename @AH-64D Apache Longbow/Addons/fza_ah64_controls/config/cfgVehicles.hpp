@@ -41,7 +41,7 @@ class CfgVehicles
 		//SFM Variables-------------/
 		startDuration          = 15;
 		liftForceCoef          = 1.25;
-		bodyFrictionCoef       = 1.0;
+		bodyFrictionCoef       = 0.00;
 		cyclicAsideForceCoef   = 0.00;
 		cyclicForwardForceCoef = 0.00;
 		backRotorForceCoef     = 0.00;
