@@ -20,6 +20,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 if (isGamePaused) exitwith {};
+
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "SFMPlus") exitWith {};
 
@@ -27,8 +28,8 @@ systemChat format ["SFM+ is running!"];
 
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
-[_heli, 0, MAIN_RTR_POS, MAIN_RTR_PITCH, MAIN_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
-[_heli, 1, TAIL_RTR_POS, TAIL_RTR_PITCH, TAIL_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
+[_heli, _deltaTime, 0, MAIN_RTR_POS, MAIN_RTR_PITCH, MAIN_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
+[_heli, _deltaTime, 1, TAIL_RTR_POS, TAIL_RTR_PITCH, TAIL_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
 
 //Input
 [_heli, _deltaTime] call fza_sfmplus_fnc_getInput;

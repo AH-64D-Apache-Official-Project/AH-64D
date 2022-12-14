@@ -1,8 +1,6 @@
 params ["_heli", "_deltaTime", "_mastPitch_deg", "_mastRoll_deg"];
 
-private _pitchPrev = _heli getVariable "bmk_helisim_pitchPrev";
-private _rollPrev  = _heli getVariable "bmk_helisim_rollPrev";
-private _yawPrev   = _heli getVariable "bmk_helisim_yawPrev";
+
 
 // X, Y, Z = ARMA
 // x, y, z = Model
@@ -27,6 +25,11 @@ _locVel         = _bodyToShaftMatrix matrixMultiply _locVel;
 private _u_s = _locVel # 0 # 0;
 private _v_s = _locVel # 1 # 0;
 private _w_s = _locVel # 2 # 0;
+
+
+private _pitchPrev = _heli getVariable "bmk_helisim_pitchPrev";
+private _rollPrev  = _heli getVariable "bmk_helisim_rollPrev";
+private _yawPrev   = _heli getVariable "bmk_helisim_yawPrev";
 
 //--Get angular velocities
 (_heli call bis_fnc_getPitchBank) params ["_pitch", "_roll"];
