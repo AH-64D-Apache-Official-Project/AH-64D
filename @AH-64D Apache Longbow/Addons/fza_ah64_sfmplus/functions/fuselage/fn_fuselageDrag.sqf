@@ -12,16 +12,17 @@ private _fuselageAreaBottom = 33.129;
 
 private _fuselageDragCoefX  = 1.5;
 
-//MOVE TO CONFIG!                PA     -35      0      35
-private _dragCoefTableY       = [[    0,  1.2,   1.4,    1.7],   //ft 
-                                 [ 2000,  1.8,   1.9,    2.1],   //ft
-                                 [ 4000,  2.6,   2.7,    3.1],   //ft
-                                 [ 6000,  3.8,   3.8,    4.2],   //ft
-                                 [ 8000,  6.5,   5.2,    5.7]];  //ft
+
+//MOVE TO CONFIG!                   PA   -40     0    40
+private _dragCoefTableY       = [[   0, 0.54, 0.60, 0.60],   //ft 
+                                 [2000, 0.80, 0.70, 0.55],   //ft
+                                 [4000, 1.02, 0.92, 0.85],   //ft
+                                 [6000, 1.20, 1.00, 1.06],   //ft
+                                 [8000, 1.65, 1.25, 1.70]];  //ft
 private _interpDragCoefTableY = [_dragCoefTableY, _altitude] call fza_fnc_linearInterp;
-_dragCoefTableY               = [[-35, _interpDragCoefTableY # 1],
+_dragCoefTableY               = [[-40, _interpDragCoefTableY # 1],
                                  [  0, _interpDragCoefTableY # 2],
-                                 [ 35, _interpDragCoefTableY # 3]];
+                                 [ 40, _interpDragCoefTableY # 3]];
 _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 private _fuselageDragCoefY    = _interpDragCoefTableY # 1;
 
