@@ -1,25 +1,35 @@
-params ["_heli", "_deltaTime", "_rtrNum", "_rotorPos", "_mastPitch_deg", "_mastRoll_deg"];
+params ["_heli", "_deltaTime", "_rho", "_rtrNum", "_rotorPos", "_mastPitch_deg", "_mastRoll_deg"];
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//Linear Velocitis         ///////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
+//---Collect rotor parameters
+private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a",
+                         _heli getVariable "bmk_helisim_rotor_b" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_R" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_c" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_theta1_deg" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_m" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_eR" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_e" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_gearRatio" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_Ib" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_s" select _rtrNum,
+                         _heli getVariable "bmk_helisim_rotor_polarMOI" select _rtrNum];
 
-// ARMA               Model 
-//
-// +Z  +Y                +X
-//  +  +                 +
-//  | /                 /
-//  |/                 / 
-//  +-----+ +X        +-----+ +Y
-//                    |
-//                    |
-//                    +
-//                   +Z
+//---Linear velocities
+([_heli, _mastPitch_deg, _mastRoll_deg] call bmk_helisim_fnc_utilityGetLinearVelocities)
+    params ["_u_s", "_v_s", "_w_s"];
+//---Angular velocities
+([_heli, _deltaTime, _rtrNum, _mastPitch_deg, _mastRoll_deg] call bmk_helisim_fnc_utilityGetAngularVelocities)
+    params ["_p_s", "_q_s", "_r_s"];
+//---Update rotor rotational velocities
+([_heli, _rtrNum, _rho, _rotorParams] call bmk_helisim_fnc_rotorUpdate)
+    params ["_omega", "_omegaR", "_gamma"];
+//---Update control angles
 
-private _axisX = [1.0, 0.0, 0.0];
-private _axisY = [0.0, 1.0, 0.0];
-private _axisZ = [0.0, 0.0, 1.0];
 
+
+systemchat format ["Rotor %7 --- Us %1 Vs %2 Ws %3 --- Ps %4 Qs %5 Rs %6", _u_s toFixed 1, _v_s toFixed 1, _w_s toFixed 1, _p_s toFixed 1, _q_s toFixed 1, _r_s toFixed 1, _rtrNum];
+
+#ifdef __A3_DEBUG__
 private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
                               [ 1.0, 0.0, 0.0],
                               [ 0.0, 0.0,-1.0]];
@@ -28,53 +38,10 @@ private _bodyToShaftMatrix = [[ cos _mastPitch_deg, sin _mastPitch_deg * sin _ma
                               [                0.0,                      cos _mastRoll_deg,                     -sin _mastRoll_deg],
                               [-sin _mastPitch_deg, cos _mastPitch_deg * sin _mastRoll_deg, cos _mastPitch_deg * cos _mastRoll_deg]];
 
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//Linear Velocitis         /////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-private _linVel = [[velocityModelSpace _heli # 0], [velocityModelSpace _heli # 1], [velocityModelSpace _heli # 2]];
-_linVel         = _armaToModelMatrix matrixMultiply _linVel;
-_linVel         = _bodyToShaftMatrix matrixMultiply _linVel;
-_linVel         = [_linVel # 0 # 0, _linVel # 1 # 0, _linVel # 2 # 0];
+private _axisX = [1.0, 0.0, 0.0];
+private _axisY = [0.0, 1.0, 0.0];
+private _axisZ = [0.0, 0.0, 1.0];
 
-private _u_s = _linVel # 0;
-private _v_s = _linVel # 1;
-private _w_s = _linVel # 2;
-
-////////////////////////////////////////////////////////////////////////////////////////////////////
-//Angular Velocitis         ////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////
-private _pitchPrev = _heli getVariable "bmk_helisim_pitchPrev" select _rtrNum;
-private _rollPrev  = _heli getVariable "bmk_helisim_rollPrev" select _rtrNum;
-private _yawPrev   = _heli getVariable "bmk_helisim_yawPrev" select _rtrNum;
-
-(_heli call bis_fnc_getPitchBank)
-    params ["_pitch", "_roll"];
-private _yaw = getDir _heli;
-//--Convert from degrees to radians
-_pitch = rad _pitch; _roll = rad _roll; _yaw = rad _yaw;
-//--Calculate angular velocities
-private _angVelX = if (_deltaTime == 0) then { 0.0; } else { (_pitchPrev - _pitch) / _deltaTime; };
-private _angVelY = if (_deltaTime == 0) then { 0.0; } else { (_rollPrev  - _roll)  / _deltaTime; };
-private _angVelZ = if (_deltaTime == 0) then { 0.0; } else { (_yawPrev   - _yaw)   / _deltaTime; };
-
-[_heli, "bmk_helisim_pitchPrev", _rtrNum, _pitch] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "bmk_helisim_rollPrev",  _rtrNum, _roll] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "bmk_helisim_yawPrev",   _rtrNum, _yaw] call fza_sfmplus_fnc_setArrayVariable;
-
-private _angVel = [[_angVelX], [_angVelY], [_angVelZ]];
-_angVel         = _armaToModelMatrix matrixMultiply _angVel;
-_angVel         = _bodyToShaftMatrix matrixMultiply _angVel;
-_angVel         = [_angVel # 0 # 0, _angVel # 1 # 0, _angVel # 2 # 0];
-
-private _p_s = _angVel # 0;
-private _q_s = _angVel # 1;
-private _r_s = _angVel # 2;
-
-//systemChat format ["Rotor %1 Linear Velocity: %2 -- %3 -- %4 Beta: %5", _rtrNum, _u_s toFixed 2, _v_s toFixed 2, _w_s toFixed 2, _beta_deg toFixed 2];
-systemChat format ["Rotor %1 Angular Velocity: %2 -- %3 -- %4", _rtrNum, deg _angVelX toFixed 2, deg _angVelY toFixed 2, deg _angVelZ toFixed 2];
-systemChat format ["Rotor %1 Angular Velocity: %2 -- %3 -- %4", _rtrNum, deg _p_s toFixed 2, deg _q_s toFixed 2, deg _r_s toFixed 2];
-
-#ifdef __A3_DEBUG__
 _axisX = [[_axisX # 0], [_axisX # 1], [_axisX # 2]];
 _axisX = _bodyToShaftMatrix matrixMultiply _axisX;
 _axisX = _armaToModelMatrix matrixMultiply _axisX;

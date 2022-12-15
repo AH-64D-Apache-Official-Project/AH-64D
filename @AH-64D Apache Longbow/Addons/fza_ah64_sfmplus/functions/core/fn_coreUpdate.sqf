@@ -28,8 +28,8 @@ systemChat format ["SFM+ is running!"];
 
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
-[_heli, _deltaTime, 0, MAIN_RTR_POS, MAIN_RTR_PITCH, MAIN_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
-[_heli, _deltaTime, 1, TAIL_RTR_POS, TAIL_RTR_PITCH, TAIL_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
+[_heli, _deltaTime, 1.225, 0, MAIN_RTR_POS, MAIN_RTR_PITCH, MAIN_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
+[_heli, _deltaTime, 1.225, 1, TAIL_RTR_POS, TAIL_RTR_PITCH, TAIL_RTR_ROLL] call bmk_helisim_fnc_rotorTest;
 
 //Input
 [_heli, _deltaTime] call fza_sfmplus_fnc_getInput;

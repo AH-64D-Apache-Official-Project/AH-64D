@@ -1,72 +1,45 @@
 params ["_heli"];
 
-private _hingeOffset                = 0.0; 
-
-//---MOVE TO CONFIG
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 //if ((getText _flightModel) != "HeliSim") exitWith {};
-private _liftCurveSlope             = 5.7;
 
-private _mainRotor_numBlades        = 4;
-private _mainRotor_bladeRadius      = 7.315; //m
-private _mainRotor_bladeChord       = 0.533; //m
-private _mainRotor_bladeTwist       = 0.0;   //deg
-private _mainRotor_bladeMass        = 71.2;  //kg
-private _mainRotor_hingeOffsetRatio = 0.137;
-private _mainRotor_tipLoss          = 0.97;
-private _mainRotor_gearRatio        = 72.29;
+//--Initialize variables
+private _liftCurveSlope         = 5.7;
+private _rotor_numBlades        = [4,     4];
+private _rotor_bladeRadius      = [7.315, 1.402];   //m
+private _rotor_bladeChord       = [0.533, 0.253];   //m
+private _rotor_bladeTwist       = [0.0,   0.0];     //deg
+private _rotor_bladeMass        = [71.2,  17.7];    //kg
+private _rotor_hingeOffsetRatio = [0.137, 0.0];
+private _rotor_tipLos           = [0.97,  0.97];
+private _rotor_gearRatio        = [72.29, 14.90];
 
-private _tailRotor_numBlades        = 4;
-private _tailRotor_bladeRadius      = 1.402; //m
-private _tailRotor_bladeChord       = 0.253; //m
-private _tailRotor_bladeTwist       = 0.0;   //deg
-private _tailRotor_bladeMass        = 17.7;  //kg
-private _tailRotor_hingeOffsetRatio = 0.0;
-private _tailRotor_tipLoss          = 0.97;
-private _tailRotor_gearRatio        = 14.90;
+//---Set variables
+_heli setVariable ["bmk_helisim_rotor_a",          _liftCurveSlope];
+_heli setVariable ["bmk_helisim_rotor_b",          _rotor_numBlades];
+_heli setVariable ["bmk_helisim_rotor_R",          _rotor_bladeRadius];
+_heli setVariable ["bmk_helisim_rotor_c",          _rotor_bladeChord];
+_heli setVariable ["bmk_helisim_rotor_theta1_deg", _rotor_bladeTwist];
+_heli setVariable ["bmk_helisim_rotor_m",          _rotor_bladeMass];
+_heli setVariable ["bmk_helisim_rotor_eR",         _rotor_hingeOffsetRatio];
+private _rtr_0_e  = _rotor_bladeRadius # 0 * _rotor_hingeOffsetRatio # 0;
+private _rtr_1_e  = _rotor_bladeRadius # 1 * _rotor_hingeOffsetRatio # 1;
+_heli setVariable ["bmk_helisim_rotor_e",          [_rtr_0_e, _rtr_1_e]];
+private _rtr_0_s  = (_rotor_numBlades # 0 * _rotor_bladeChord # 0) / (pi * _rotor_bladeRadius # 0);
+private _rtr_1_s  = (_rotor_numBlades # 1 * _rotor_bladeChord # 1) / (pi * _rotor_bladeRadius # 1);
+_heli setVariable ["bmk_helisim_rotor_s",          [_rtr_0_s, _rtr_1_s]];
+private _rtr_0_Ib = (1.0 / 3.0) * _rotor_bladeMass # 0 * (_rotor_bladeRadius # 0 * _rotor_bladeRadius # 0);
+private _rtr_0_HO = 1.0 - _rotor_hingeOffsetRatio # 0;
+_rtr_0_Ib = _rtr_0_Ib * (_rtr_0_HO * _rtr_0_HO * _rtr_0_HO);
 
-_heli setVariable ["bmk_helisim_a",                    _liftCurveSlope];
-//--Main Rotor
-_heli setVariable ["bmk_helisim_mainRotor_b",          _mainRotor_numBlades];
-_heli setVariable ["bmk_helisim_mainRotor_R",          _mainRotor_bladeRadius];
-_heli setVariable ["bmk_helisim_mainRotor_c",          _mainRotor_bladeChord];
-_heli setVariable ["bmk_helisim_mainRotor_theta1_deg", _mainRotor_bladeTwist];
-_heli setVariable ["bmk_helisim_mainRotor_m",          _mainRotor_bladeMass];
-_heli setVariable ["bmk_helisim_mainRotor_eR",         _mainRotor_hingeOffsetRatio];
-_heli setVariable ["bmk_helisim_mainRotor_e",          _mainRotor_bladeRadius * _mainRotor_hingeOffsetRatio];
-
-private _mainRotor_solidity = (_mainRotor_numBlades * _mainRotor_bladeChord) / (pi * _mainRotor_bladeRadius);
-_heli setVariable ["bmk_helisim_mainRotor_s",          _mainRotor_solidity];
-
-private _mainRotor_Ib = (1.0 / 3.0) * _mainRotor_bladeMass * (_mainRotor_bladeRadius * _mainRotor_bladeRadius);
-_hingeOffset          = 1.0 - _mainRotor_hingeOffsetRatio;
-_mainRotor_Ib         = _mainRotor_Ib * (_hingeOffset * _hingeOffset * _hingeOffset);
-_heli setVariable ["bmk_helisim_mainRotor_Ib",         _mainRotor_Ib];
-_heli setVariable ["bmk_helisim_mainRotor_gearRatio",  _mainRotor_gearRatio];
-
-private _mainRotor_polarMOI = _mainRotor_numBlades * _mainRotor_bladeMass * ((_mainRotor_bladeRadius * 0.55) * (_mainRotor_bladeRadius * 0.55));
-_heli setVariable ["bmk_helisim_mainRotor_polarMOI",   _mainRotor_polarMOI];
-
-//--Tail Rotor
-_heli setVariable ["bmk_helisim_tailRotor_b",          _tailRotor_numBlades];
-_heli setVariable ["bmk_helisim_tailRotor_R",          _tailRotor_bladeRadius];
-_heli setVariable ["bmk_helisim_tailRotor_c",          _tailRotor_bladeChord];
-_heli setVariable ["bmk_helisim_tailRotor_theta1_deg", _tailRotor_bladeTwist];
-_heli setVariable ["bmk_helisim_tailRotor_m",          _tailRotor_bladeMass];
-_heli setVariable ["bmk_helisim_tailRotor_eR",         _tailRotor_hingeOffsetRatio];
-_heli setVariable ["bmk_helisim_tailRotor_e",          _tailRotor_bladeRadius * _tailRotor_hingeOffsetRatio];
-
-private _tailRotor_solidity = (_tailRotor_numBlades * _tailRotor_bladeChord) / (pi * _tailRotor_bladeRadius);
-_heli setVariable ["bmk_helisim_tailRotor_s",          _tailRotor_solidity];
-
-private _tailRotor_polarMOI = _tailRotor_numBlades * _tailRotor_bladeMass * ((_tailRotor_bladeRadius * 0.55) * (_tailRotor_bladeRadius * 0.55));
-_heli setVariable ["bmk_helisim_tainRotor_polarMOI",   _tailRotor_polarMOI];
-
-private _tailRotor_Ib = (1.0 / 3.0) * _tailRotor_bladeMass * (_tailRotor_bladeRadius * _tailRotor_bladeRadius);
-_hingeOffset          = 1.0 - _tailRotor_hingeOffsetRatio;
-_tailRotor_Ib         = _tailRotor_Ib * (_hingeOffset * _hingeOffset * _hingeOffset);
-_heli setVariable ["bmk_helisim_tailRotor_Ib",         _tailRotor_Ib];
-_heli setVariable ["bmk_helisim_tailRotor_gearRatio",  _tailRotor_gearRatio];
+private _rtr_1_Ib = (1.0 / 3.0) * _rotor_bladeMass # 1 * (_rotor_bladeRadius # 1 * _rotor_bladeRadius # 1);
+private _rtr_1_HO = 1.0 - _rotor_hingeOffsetRatio # 1;
+_rtr_1_Ib = _rtr_1_Ib * (_rtr_0_HO * _rtr_0_HO * _rtr_0_HO);
+_heli setVariable ["bmk_helisim_rotor_Ib",         [_rtr_0_Ib, _rtr_1_Ib]];
+_heli setVariable ["bmk_helisim_rotor_gearRatio",  _rotor_gearRatio];
+private _rtr_0_MOI = _rotor_numBlades # 0 * _rotor_bladeMass # 0 * ((_rotor_bladeRadius # 0 * 0.55) * (_rotor_bladeRadius # 0 * 0.55));
+private _rtr_1_MOI = _rotor_numBlades # 1 * _rotor_bladeMass # 1 * ((_rotor_bladeRadius # 1 * 0.55) * (_rotor_bladeRadius # 1 * 0.55));
+_heli setVariable ["bmk_helisim_rotor_polarMOI",   [_rtr_0_MOI, _rtr_1_MOI]];
 
 //--Engines
 private _engine1 = [_heli, 1066, 21109, 0.57, 1.01, 0.09, 0.18] call bmk_helisim_fnc_engineInit;

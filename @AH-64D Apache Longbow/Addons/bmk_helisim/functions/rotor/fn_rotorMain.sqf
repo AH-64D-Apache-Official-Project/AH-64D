@@ -26,18 +26,18 @@ private _collectivePitchMax_deg =  19.0;
 private _collectivePitch_deg = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 
 //--Collect rotor params
-private _rotorParams = [ _heli getVariable "bmk_helisim_a",
-                         _heli getVariable "bmk_helisim_mainRotor_b",
-                         _heli getVariable "bmk_helisim_mainRotor_R",
-                         _heli getVariable "bmk_helisim_mainRotor_c",
-                         _heli getVariable "bmk_helisim_mainRotor_theta1_deg",
-                         _heli getVariable "bmk_helisim_mainRotor_m",
-                         _heli getVariable "bmk_helisim_mainRotor_eR",
-                         _heli getVariable "bmk_helisim_mainRotor_e",
-                         _heli getVariable "bmk_helisim_mainRotor_gearRatio",
-                         _heli getVariable "bmk_helisim_mainRotor_Ib",
-                         _heli getVariable "bmk_helisim_mainRotor_s",
-                         _heli getVariable "bmk_helisim_mainRotor_polarMOI"];
+private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a",
+                         _heli getVariable "bmk_helisim_rotor_b",
+                         _heli getVariable "bmk_helisim_rotor_R",
+                         _heli getVariable "bmk_helisim_rotor_c",
+                         _heli getVariable "bmk_helisim_rotor_theta1_deg",
+                         _heli getVariable "bmk_helisim_rotor_m",
+                         _heli getVariable "bmk_helisim_rotor_eR",
+                         _heli getVariable "bmk_helisim_rotor_e",
+                         _heli getVariable "bmk_helisim_rotor_gearRatio",
+                         _heli getVariable "bmk_helisim_rotor_Ib",
+                         _heli getVariable "bmk_helisim_rotor_s",
+                         _heli getVariable "bmk_helisim_rotor_polarMOI"];
 
 //--Update
 ([_heli, _rho, _isTailRotor, _rotorParams] call bmk_helisim_fnc_rotorUpdate)
