@@ -26,6 +26,7 @@ switch (_type) do {
     case 1: {   //Tail rotor
         _inputMaps
             params ["_pedalPitchMap_deg"];
+            
         _theta0_deg = ([_pedalPitchMap_deg,  _pedalVal]  call fza_fnc_linearInterp) # 1;
 
         //systemChat format ["Tail Rotor theta0_deg %1", _theta0_deg toFixed 2];
