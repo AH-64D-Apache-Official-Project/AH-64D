@@ -14,7 +14,7 @@ private _a1_3 = if (_omega == 0) then { 0.0; } else { _p_w / _omega; };
 private _a1_4 = if (_omega == 0) then { 0.0; } else { 16.0 * _q_w / ((B * B * B * B) * _gamma * _omega); };
 
 private _a1_deg = _a1_1 * (_a1_2 + _a1_3 + _a1_4);
-if (not finite _a1_deg) then { _a1_deg = 0.0; };
+//if (not finite _a1_deg) then { _a1_deg = 0.0; };
 _a1_deg = deg _a1_deg;
 
 //SH79, eqn 32
@@ -24,7 +24,7 @@ private _b1_3 = if (_omega == 0) then { 0.0; } else { _q_w / _omega; };
 private _b1_4 = if (_omega == 0) then { 0.0; } else { 16.0 * _q_w / ((B * B * B * B) * _gamma * _omega); };
 
 private _b1_deg = _b1_1 * (_b1_2 - _b1_3 - _b1_4);
-if (not finite _b1_deg) then { _b1_deg = 0.0; };
+//if (not finite _b1_deg) then { _b1_deg = 0.0; };
 _b1_deg = deg _b1_deg;
 
 [_a1_deg, _b1_deg, _theta75_deg];
