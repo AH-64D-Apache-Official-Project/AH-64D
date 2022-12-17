@@ -63,13 +63,12 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a"
     params ["_l_s", "_m_s", "_n_s"];
 
 
-
 //systemchat format ["Rotor %7 --- Us %1 Vs %2 Ws %3 --- Ps %4 Qs %5 Rs %6 --- Gnd Eff Scalar %8", _u_s toFixed 1, _v_s toFixed 1, _w_s toFixed 1, _p_s toFixed 1, _q_s toFixed 1, _r_s toFixed 1, _rtrNum, _gndEffScalar toFixed 2];
 //systemchat format ["Rotor %7 --- Uw %1 Vw %2 Ww %3 --- Pw %4 Qw %5 Rw %6 --- beta_deg %8", _u_w toFixed 1, _v_w toFixed 1, _w_w toFixed 1, _p_w toFixed 1, _q_w toFixed 1, _r_w toFixed 1, _rtrNum, _beta_deg toFixed 2];
 //systemChat format ["Rotor %1 -- mu %2 -- thrust %3 -- lambda %4 -- ct %5", _rtrNum, _mu toFixed 2, _thrust toFixed 2, _lambda toFixed 2, _ct toFixed 2];
 systemChat format ["Rotor %1 -- Xs %2 Ys %3 Zs %4 -- Ls %5 Ms %6 Ns %7", _rtrNum, _x_s toFixed 2, _y_s toFixed 2, _z_s toFixed 2, _l_s toFixed 2, _m_s toFixed 2, _n_s toFixed 2];
 
-[_rotorParams, _outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
+//[_rotorParams, _outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
 
 #ifdef __A3_DEBUG__
 private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
