@@ -1,7 +1,8 @@
 params ["_heli", "_deltaTime", "_rho", "_isTailRotor", "_u_w", "_v_w", "_w_w", "_omegaR", "_theta0_deg", "_rotorParams", "_gndEffScalar", "_thrustScalar"];
 #include "\bmk_helisim\headers\core.hpp"
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
+_rotorParams 
+    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
 
 private _nu      = 0.0;
 private _lambda  = 0.0;

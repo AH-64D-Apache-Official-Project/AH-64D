@@ -1,6 +1,7 @@
 params ["_heli", "_deltaTime", "_rho", "_rotorPos", "_rotorRot", "_controlInputs"];
 #include "\bmk_helisim\headers\core.hpp"
 
+/*
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //Rotor          ///////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -17,6 +18,7 @@ private _pedalPitchMap_deg = [[-1.0,  27.0],
 
 //--Collect rotor params
 private _rotorParams = [ _heli getVariable "bmk_helisim_a",
+                         _heli getVariable "bmk_helisim_type"
                          _heli getVariable "bmk_helisim_tailRotor_b",
                          _heli getVariable "bmk_helisim_tailRotor_R",
                          _heli getVariable "bmk_helisim_tailRotor_c",
@@ -163,5 +165,6 @@ hintsilent format ["-----TAIL ROTOR-----
                     _torqueY toFixed 2,     //27
                     _torqueZ toFixed 2,     //28
                     _outputTorque / 481 * 100 toFixed 0];   //29
-*/
+
 [_rotorParams, _outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
+*/

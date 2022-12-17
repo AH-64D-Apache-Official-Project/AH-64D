@@ -1,8 +1,12 @@
-params ["_heli", "_continuousPower", "_engineRPM", "_engineIdleRPMPct", "_engineFlyRPMPct", "_engineIdleTqPct", "_engineFlyTqPct"];
+params ["_heli", "_engParams"];
 
-private _refTorque = (_continuousPower / 0.001) / 0.105 / _engineRPM;
+_engParams params ["_engContPwr", "_engPwrTurRPM", "_engGndIdleRPMSetPoint", "_engFltIdleRPMSetPoint", "_engFlyRPMSetPoint", "_engIdleTqSetPoint", "_engFlyTqSetPoint"];
 
-private _idleRPM   = _engineRPM * _engineIdleRPMPct;
-private _flyRPM    = _engineRPM * _engineFlyRPMPct;
+private _engRPM = _engPwrTurRPM * _engFlyRPMSetPoint;
+private _refTq  = (_engContPwr / 0.001) / 0.105 / _engRPM;
 
-[_continuousPower, _refTorque, _idleRPM, _flyRPM, _engineIdleTqPct, _engineFlyTqPct];
+private _gndIdleRPM = _engRPM * _engGndIdleRPMSetPoint;
+private _fltIdleRPM = _engRPM * _engFltIdleRPMSetPoint;
+private _flyRPM     = _engRPM * _engFlyRPMSetPoint;
+
+[_engContPwr, _refTq, _gndIdleRPM, _fltIdleRPM, _flyRPM, _engIdleTqSetPoint, _engFlyTqSetPoint];

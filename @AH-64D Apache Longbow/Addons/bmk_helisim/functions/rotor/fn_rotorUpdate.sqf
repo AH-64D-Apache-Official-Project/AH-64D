@@ -1,6 +1,7 @@
 params ["_heli", "_rtrNum", "_rho", "_rotorParams"];
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
+_rotorParams 
+    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
 
 private _RPM    = _heli getVariable "bmk_helisim_rotorRPM" select _rtrNum;
 private _omega  = ((2.0 * pi) * _RPM) / 60.0;

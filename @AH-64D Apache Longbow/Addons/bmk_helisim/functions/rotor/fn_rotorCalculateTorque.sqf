@@ -1,6 +1,7 @@
 params ["_heli", "_CT", "_rotorParams", "_rho", "_omegaR", "_mu", "_thrust", "_lambda", "_H"];
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
+_rotorParams 
+    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
 
 //From "Bramwell's Helicopter Dynamics", second edition, eqn 3.43 and 3.44
 //Replaces SH79 eqn 36 (sourced from JSBSim)

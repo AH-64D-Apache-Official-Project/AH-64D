@@ -1,7 +1,8 @@
 params ["_heli", "_theta0_deg", "_rotorParams", "_mu", "_lambda", "_p_w", "_q_w", "_omega", "_gamma", "_a0_deg"];
 #include "\bmk_helisim\headers\core.hpp"
 
-_rotorParams params ["_a", "_b", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI"];
+_rotorParams 
+    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_input"];
 
 //SH79, eqn 33
 private _theta75_deg = _theta0_deg + (0.75 * _theta1_deg);
