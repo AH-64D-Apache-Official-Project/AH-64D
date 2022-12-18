@@ -60,7 +60,6 @@ class CfgFunctions
 		};
 		class utility {
 			file = "\bmk_helisim\functions\utility";
-			class utilityArmaToModel {R;};
 			class utilityGetAngularVelocities {R;};
 			class utilityGetInput {R;};
 			class utilityGetLinearVelocities {R;};

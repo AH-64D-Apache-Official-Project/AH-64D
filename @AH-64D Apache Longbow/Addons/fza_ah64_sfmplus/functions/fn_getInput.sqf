@@ -72,8 +72,8 @@ _cyclicLeftRight = linearConversion[-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0];
 _pedalLeftRight  = [_pedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
 _pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
 
-private _foreAftTorque   = _cyclicFwdAft    *  PITCH_TORQUE;//_pitchTorque;
-private _leftRightTorque = _cyclicLeftRight * -ROLL_TORQUE;//_rollTorque;
+private _foreAftTorque   = _cyclicFwdAft    *  _pitchTorque;
+private _leftRightTorque = _cyclicLeftRight * -_rollTorque;
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 	_tailRtrFixed = true;
@@ -82,7 +82,7 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 	_yawTorque = 0.0;
 };
-private _pedalTorque     = _pedalLeftRight  * YAW_TORQUE;//_yawTorque;
+private _pedalTorque     = _pedalLeftRight  * _yawTorque;
 
 private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
 private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
@@ -90,10 +90,10 @@ private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
 if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
 	//Primary and Utility Hydraulics
 	if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+		//_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 	//Emergency Hydraulics
 	if (_accOn) then {
-		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+		//_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 };

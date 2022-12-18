@@ -82,7 +82,7 @@ if (local _heli) then {
 _heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
-[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
+//[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
 if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 

@@ -1,6 +1,6 @@
 params ["_heli", "_engNum", "_deltaTime", "_engState", "_engStart", "_engThrottlePos", "_engThrottleSetPoint",  "_outputRPM", "_outputTq"];
 
-systemChat format ["Eng %1 state is OFF", _engNum];
+//systemChat format ["Eng %1 state is OFF", _engNum];
 
 if (_engStart == true) then {
     if (_engThrottlePos == "IDLE") then {

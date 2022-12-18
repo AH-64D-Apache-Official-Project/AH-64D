@@ -1,4 +1,7 @@
-params ["_heli", "_deltaTime", "_rho", "_rtrNum", "_rotorPos", "_mastPitch_deg", "_mastRoll_deg", "_controlInputs"];
+params ["_heli", "_deltaTime", "_rho", "_rtrNum", "_rotorPos", "_rotorRot", "_controlInputs"];
+
+_rotorRot
+    params ["_mastPitch_deg", "_mastRoll_deg"];
 
 //---Collect rotor parameters
 private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a"
@@ -17,7 +20,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a"
                        , _heli getVariable "bmk_helisim_rotor_polarMOI" select _rtrNum
                        , _heli getVariable "bmk_helisim_inputMaps" select _rtrNum];
 
-//---Linear velocities
+                       //---Linear velocities
 ([_heli, _mastPitch_deg, _mastRoll_deg] call bmk_helisim_fnc_utilityGetLinearVelocities)
     params ["_u_s", "_v_s", "_w_s"];
 //---Angular velocities
@@ -53,24 +56,27 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a"
 ([_heli, _mu, _lambda, _theta75_deg, _q_w, _gamma, _omega, _omegaR, _CT, _rotorParams, _thrust, _rho, _a0_deg, _a1_deg, _b1_deg] call bmk_helisim_fnc_rotorCalculateDragAndSideForces)
     params ["_H", "_J"];
 //--Calculate torque
-([_heli, _CT, _rotorParams, _rho, _omegaR, _mu, _thrust, _lambda, _H] call bmk_helisim_fnc_rotorCalculateTorque)
-    params ["_torque", "_outputTorque"];
+([_heli, _rtrNum, _CT, _rotorParams, _rho, _omegaR, _mu, _thrust, _lambda, _H] call bmk_helisim_fnc_rotorCalculateTorque)
+    params ["_torque"];
 //--Calculate body forces
 ([_heli, _H, _beta_deg, _J, _thrust, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorCalculateBodyForces)
     params ["_x_s", "_y_s", "_z_s"];
 //--Calculate body moments
 ([_heli, _a1_deg, _beta_deg, _b1_deg, _AIC_deg, _BIC_deg, _omega, _rotorParams, _torque] call bmk_helisim_fnc_rotorCalculateBodyMoments)
     params ["_l_s", "_m_s", "_n_s"];
-
+([_x_s, _y_s, _z_s, _l_s, _m_s, _n_s] call bmk_helisim_fnc_utilityModelToArma)
+    params ["_out_x", "_out_y", "_out_z", "_out_l", "_out_m", "_out_n"];
 
 //systemchat format ["Rotor %7 --- Us %1 Vs %2 Ws %3 --- Ps %4 Qs %5 Rs %6 --- Gnd Eff Scalar %8", _u_s toFixed 1, _v_s toFixed 1, _w_s toFixed 1, _p_s toFixed 1, _q_s toFixed 1, _r_s toFixed 1, _rtrNum, _gndEffScalar toFixed 2];
 //systemchat format ["Rotor %7 --- Uw %1 Vw %2 Ww %3 --- Pw %4 Qw %5 Rw %6 --- beta_deg %8", _u_w toFixed 1, _v_w toFixed 1, _w_w toFixed 1, _p_w toFixed 1, _q_w toFixed 1, _r_w toFixed 1, _rtrNum, _beta_deg toFixed 2];
 //systemChat format ["Rotor %1 -- mu %2 -- thrust %3 -- lambda %4 -- ct %5", _rtrNum, _mu toFixed 2, _thrust toFixed 2, _lambda toFixed 2, _ct toFixed 2];
-systemChat format ["Rotor %1 -- Xs %2 Ys %3 Zs %4 -- Ls %5 Ms %6 Ns %7", _rtrNum, _x_s toFixed 2, _y_s toFixed 2, _z_s toFixed 2, _l_s toFixed 2, _m_s toFixed 2, _n_s toFixed 2];
-
-//[_rotorParams, _outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
+systemChat format ["Rotor %1 -- X %2 Y %3 Z %4 -- L %5 M %6 N %7", _rtrNum, _out_x toFixed 2, _out_y toFixed 2, _out_z toFixed 2, _out_l toFixed 2, _out_m toFixed 2, _out_n toFixed 2];
 
 #ifdef __A3_DEBUG__
+private _axisX = [1.0, 0.0, 0.0];
+private _axisY = [0.0, 1.0, 0.0];
+private _axisZ = [0.0, 0.0, 1.0];
+
 private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
                               [ 1.0, 0.0, 0.0],
                               [ 0.0, 0.0,-1.0]];
@@ -78,10 +84,6 @@ private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
 private _bodyToShaftMatrix = [[ cos _mastPitch_deg, sin _mastPitch_deg * sin _mastRoll_deg, sin _mastPitch_deg * cos _mastRoll_deg],
                               [                0.0,                      cos _mastRoll_deg,                     -sin _mastRoll_deg],
                               [-sin _mastPitch_deg, cos _mastPitch_deg * sin _mastRoll_deg, cos _mastPitch_deg * cos _mastRoll_deg]];
-
-private _axisX = [1.0, 0.0, 0.0];
-private _axisY = [0.0, 1.0, 0.0];
-private _axisZ = [0.0, 0.0, 1.0];
 
 _axisX = [[_axisX # 0], [_axisX # 1], [_axisX # 2]];
 _axisX = _bodyToShaftMatrix matrixMultiply _axisX;
@@ -110,3 +112,5 @@ DRAW_LINE = {
 [_heli, _rotorPos, _rotorPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
 [_heli, _rotorPos, _rotorPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
 #endif
+
+[_out_x, _out_y, _out_z, _out_l, _out_m, _out_n];

@@ -4,7 +4,7 @@ params ["_heli", "_deltaTime", "_rtrNum", "_rho", "_u_w", "_v_w", "_w_w", "_omeg
 _rotorParams 
     params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
 
-private _nu      = _heli getVariable "bmk_helisim_rotor_nu" select _rtrNum;
+private _nu      = _heli getVariable "bmk_helisim_rotor_nu"     select _rtrNum;
 private _lambda  = _heli getVariable "bmk_helisim_rotor_lambda" select _rtrNum;
 private _thrust  = 0.0;
 private _CTSigma = 0.0; 
@@ -36,7 +36,7 @@ _CT      = _CTSigma * _s;
 
 _thrust = _thrustScalar * (_b * _c * _R * _rho * (_omegaR * _omegaR) * _CTSigma);
 
-[_heli, "bmk_helisim_rotor_nu",     _rtrNum, _nu] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "bmk_helisim_rotor_nu",     _rtrNum, _nu]     call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_rotor_lambda", _rtrNum, _lambda] call fza_sfmplus_fnc_setArrayVariable;
 
 [_mu, _thrust, _lambda, _CT];

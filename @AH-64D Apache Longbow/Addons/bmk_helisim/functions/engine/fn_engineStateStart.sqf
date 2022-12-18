@@ -1,6 +1,6 @@
 params ["_heli", "_engNum", "_deltaTime", "_engState", "_engStart", "_engThrottlePos", "_engThrottleSetPoint"];
 
-systemChat format ["Eng %1 state is STARTING", _engNum];
+//systemChat format ["Eng %1 state is STARTING", _engNum];
 
 //This needs to check that Ng > min value and then transition to on...this is temporary
 _engStart = false;

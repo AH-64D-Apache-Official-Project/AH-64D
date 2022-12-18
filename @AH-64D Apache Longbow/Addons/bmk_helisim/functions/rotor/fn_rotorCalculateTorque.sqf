@@ -1,4 +1,4 @@
-params ["_heli", "_CT", "_rotorParams", "_rho", "_omegaR", "_mu", "_thrust", "_lambda", "_H"];
+params ["_heli", "_rtrNum", "_CT", "_rotorParams", "_rho", "_omegaR", "_mu", "_thrust", "_lambda", "_H"];
 
 _rotorParams 
     params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
@@ -12,5 +12,6 @@ private _torque = if (_mu == 0.0) then { 0.0; } else {_rho * _b * _c * _deltaDra
 
 private _outputTorque = _torque / _gearRatio;
 //if (not finite _outputTorque) then { _outputTorque = 0.0; };
+[_heli, "bmk_helisim_rotor_outputTorque", _rtrNum, _outputTorque] call fza_sfmplus_fnc_setArrayVariable;
 
-[_torque, _outputTorque];
+[_torque];

@@ -62,8 +62,7 @@ _heli setVariable ["bmk_helisim_rotor_gearRatio",  _rotor_gearRatio];
 private _rtr_0_MOI = _rotor_numBlades # 0 * _rotor_bladeMass # 0 * ((_rotor_bladeRadius # 0 * 0.55) * (_rotor_bladeRadius # 0 * 0.55));
 private _rtr_1_MOI = _rotor_numBlades # 1 * _rotor_bladeMass # 1 * ((_rotor_bladeRadius # 1 * 0.55) * (_rotor_bladeRadius # 1 * 0.55));
 _heli setVariable ["bmk_helisim_rotor_polarMOI",   [_rtr_0_MOI, _rtr_1_MOI]];
-_heli setVariable ["bmk_helisim_inputMaps",        [[_cyclicPitchMap_deg, _cyclicRollMap_deg, _collectivePitch_deg]
-                                                   ,[_pedalPitchMap_deg]]];
+_heli setVariable ["bmk_helisim_inputMaps",        [[_cyclicPitchMap_deg, _cyclicRollMap_deg, _collectivePitch_deg], [_pedalPitchMap_deg]]];
 
 //--Engines
 private _engContPwr             = 1066; //kW
