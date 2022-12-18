@@ -39,10 +39,6 @@ class CfgVehicles
 		LESH_AxisOffsetTarget[] = {0,-9.2,-2};
 		LESH_WheelOffset[] = {0,2.5};
 
-		//SFM Variables-------------/
-
-		//SFM Variables-------------/
-
 		side				  	   = 1;
 		scope				  	   = 0;
 		simulation			  	   = helicopterRTD;
@@ -416,10 +412,9 @@ class CfgVehicles
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
 		//Flight model
-		liftForceCoef 	 = 0.0;
-		bodyFrictionCoef = 0.0;//1.8;//1.0
 		flightModel   	 = "HeliSim";
 
+		#include "cfgVehicles\helisim.hpp"
 		#include "heliSim\heliSimOverrides.hpp"
 	};
 };

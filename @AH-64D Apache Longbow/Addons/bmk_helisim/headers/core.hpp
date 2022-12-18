@@ -1,4 +1,4 @@
-#define EPSILON                 0.000001
+#define EPSILON                 0.000000000000001
 #define FEET_TO_METERS          0.3048
 #define IN_MG_TO_HPA            33.8639
 

@@ -31,7 +31,9 @@ private _collectivePitch_deg    = [_collectivePitchMin_deg, _collectivePitchMax_
 
 //--Pedal table
 private _pedalPitchMap_deg  = [[-1.0,  27.0]
+                              ,[-0.5,  12.0]
                               ,[ 0.0,   0.0]
+                              ,[ 0.5,  -6.0]
                               ,[ 1.0, -15.0]];
 
 //---Set variables

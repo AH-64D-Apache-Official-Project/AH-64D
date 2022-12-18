@@ -20,7 +20,7 @@ if (_engThrottlePos == "OFF") then {
 
 //systemChat format ["Eng %1 governor %2", _engNum, _govInput];
 
-_outputTq  = [_outputTq, _setTq + _govInput, _deltaTime] call BIS_fnc_lerp;
+_outputTq  = [_outputTq, _setTq + _govInput,  _deltaTime] call BIS_fnc_lerp;
 _outputTq  = [_outputTq, 0.0, _maxTq] call BIS_fnc_clamp;
 
 [_heli, "bmk_helisim_engState",        _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;

@@ -14,7 +14,7 @@ params ["_x_s", "_y_s", "_z_s", "_l_s", "_m_s", "_n_s"];
 
 private _modelToArmaMatrix = [[ 0.0, 1.0, 0.0],
                               [ 1.0, 0.0, 0.0],
-                              [ 0.0, 0.0, 1.0]];
+                              [ 0.0, 0.0,-1.0]];
 
 private _bodyForces = [[_x_s], [_y_s], [_z_s]];
 _bodyForces         = _modelToArmaMatrix matrixMultiply _bodyForces;
