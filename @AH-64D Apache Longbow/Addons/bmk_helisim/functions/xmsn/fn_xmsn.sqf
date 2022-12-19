@@ -5,7 +5,6 @@ private _deltaRPM      = 0.0;
 private _engInputTq    = 0.0;
 private _xmsnInputTq   = 0.0;
 
-
 private _rtr0Tq        = _heli getVariable "bmk_helisim_rotor_outputTorque" select 0;
 _xmsnInputTq           = _rtr0Tq;
 private _rtr0MOI       = _heli getVariable "bmk_helisim_rotor_polarMOI" select 0;
@@ -35,6 +34,6 @@ if (_numEng == 2) then {
     _outputRPM  = _outputRPM + _deltaRPM;
 };
 
-//systemChat format ["Xmsn Output RPM: %1", _outputRPM];
+systemChat format ["Xmsn Output RPM: %1", _outputRPM];
 
 _heli setVariable ["bmk_helisim_xmsnOutputRPM", _outputRPM];

@@ -22,7 +22,7 @@ params ["_heli"];
 if (isGamePaused) exitwith {};
 
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
-//if ((getText _flightModel) != "SFMPlus") exitWith {};
+if ((getText _flightModel) != "SFMPlus") exitWith {};
 
 systemChat format ["SFM+ is running!"];
 

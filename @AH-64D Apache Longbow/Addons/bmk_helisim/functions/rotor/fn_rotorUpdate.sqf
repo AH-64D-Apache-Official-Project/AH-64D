@@ -5,12 +5,12 @@ _rotorParams
 
 
 //21109 needs to pull from the current transmission RPM
-private _sfmPlusEng1_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 0;
-private _sfmPlusEng2_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 1;
+//private _sfmPlusEng1_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 0;
+//private _sfmPlusEng2_NP = (_heli getVariable "fza_sfmplus_engPctNP") # 1;
 
-private _RPM = ((_sfmPlusEng1_NP max _sfmPlusEng2_NP) * 21109) / _gearRatio;
+//private _RPM = ((_sfmPlusEng1_NP max _sfmPlusEng2_NP) * 21109) / _gearRatio;
 
-//private _RPM    = (_heli getVariable "bmk_helisim_xmsnOutputRPM") / _gearRatio;
+private _RPM    = (_heli getVariable "bmk_helisim_xmsnOutputRPM") / _gearRatio;
 private _omega  = ((2.0 * pi) * _RPM) / 60.0;
 private _omegaR = _omega * _R;
 private _gamma  = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;

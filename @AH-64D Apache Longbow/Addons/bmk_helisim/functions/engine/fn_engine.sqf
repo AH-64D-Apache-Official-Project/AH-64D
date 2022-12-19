@@ -1,4 +1,4 @@
-params ["_heli", "_engNum", "_deltaTime", "_engInput", "_controlInputs", "_maxTqScalar"];
+params ["_heli", "_deltaTime", "_engNum", "_engInput", "_controlInputs", "_maxTqScalar"];
 
 _engInput      params ["_engContPwr", "_refTq", "_gndIdleRPM", "_fltIdleRPM", "_flyRPM", "_engIdleTqSetPoint", "_engFlyTqSetPoint"];
 _controlInputs params ["_collectiveVal", "_cyclicPitchVal", "_cyclicRollVal", "_pedalVal", "_engineThrottleVal"];
@@ -32,5 +32,6 @@ switch (_engState) do {
         [_heli, _engNum, _deltaTime, _engState, _engThrottlePos, _outputRPM, _collectiveVal, _outputTq, _engContPwr, _setRPM, _setTq, _refTq, _maxTq] call bmk_helisim_fnc_engineStateOn;
     };
 };
+
 
 [_outputTq];

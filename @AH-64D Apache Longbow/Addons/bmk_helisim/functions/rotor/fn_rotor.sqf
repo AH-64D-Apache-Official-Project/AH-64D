@@ -129,4 +129,4 @@ DRAW_LINE = {
 [_heli, _rotorPos, _rotorPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
 #endif
 
-[_out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
+//[_outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
