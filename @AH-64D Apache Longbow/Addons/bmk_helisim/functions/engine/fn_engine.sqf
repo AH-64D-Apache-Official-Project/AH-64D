@@ -33,5 +33,6 @@ switch (_engState) do {
     };
 };
 
+//[_heli, "bmk_helisim_engineOutputTq", _engNum, _outputTq] call fza_sfmplus_fnc_setArrayVariable;
 
 [_outputTq];
