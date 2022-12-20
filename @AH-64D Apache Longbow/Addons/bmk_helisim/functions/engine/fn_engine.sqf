@@ -9,8 +9,8 @@ private _engStart  = _heli getVariable "bmk_helisim_engStart" select _engNum;
 private _engThrottlePos      = _heli getVariable "bmk_helisim_engThrottlePos" select _engNum;
 private _engThrottleSetPoint = _heli getVariable "bmk_helisim_engThrottleSetPoint" select _engNum;
 
-private _outputRPM = _heli getVariable "bmk_helisim_engineOutputRPM" select _engNum;
-private _outputTq  = _heli getVariable "bmk_helisim_engineOutputTq"  select _engNum;
+private _outputRPM = _heli getVariable "bmk_helisim_engOutputRPM" select _engNum;
+private _outputTq  = _heli getVariable "bmk_helisim_engOutputTq"  select _engNum;
 
 private _idleTq    = _engIdleTqSetPoint * _refTq;
 private _flyTq     = _engFlyTqSetPoint  * _refTq;

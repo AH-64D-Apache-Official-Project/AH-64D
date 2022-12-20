@@ -15,7 +15,7 @@ private _omega  = ((2.0 * pi) * _RPM) / 60.0;
 private _omegaR = _omega * _R;
 private _gamma  = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;
 
-systemChat format ["Rotor %1 RPM %2", _rtrNum, _RPM];
+//systemChat format ["Rotor %1 RPM %2", _rtrNum, _RPM];
 
 [_heli, "bmk_helisim_rotorRPM", _rtrNum, _RPM] call fza_sfmplus_fnc_setArrayVariable;
 

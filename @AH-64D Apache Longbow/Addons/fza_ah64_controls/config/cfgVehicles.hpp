@@ -16,12 +16,10 @@ class CfgVehicles
 		picture 	= "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
 		mapSize 	= 10;
 		icon 		= "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
-		displayName	="AH-64D";
+		displayName	= "AH-64D";
 
 		A3TI_ThermalSelections[] = {"skin"};	
 		
-		#include "cfgVehicles\sfm.hpp"
-		#include "cfgVehicles\sfmplus.hpp"
 		#include "cfgVehicles\sounds.hpp"
 		#include "cfgVehicles\soundsExt.hpp"
 		#include "cfgVehicles\userActions.hpp"
@@ -42,7 +40,6 @@ class CfgVehicles
 		side				  	   = 1;
 		scope				  	   = 0;
 		simulation			  	   = helicopterRTD;
-		flightModel 	      	   = "SFMPlus";
 		attenuationEffectType 	   = "HeliAttenuation";
 		availableForSupportTypes[] = {"CAS_Heli", "Transport"};
 		cargoGetInAction[] = {"GetInHigh","GetInHigh"};
@@ -208,90 +205,93 @@ class CfgVehicles
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 	class fza_ah64d_b2e: fza_ah64base
 	{
-		side			=1;
-		scope			=2;
-		author			="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
-		displayName		="AH-64D Apache Longbow";
+		side			= 1;
+		scope			= 2;
+		author			= "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName		= "AH-64D Apache Longbow";
 		editorPreview 	= "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
-		model			="\fza_ah64_US\fza_ah64d_b2.p3d";
+		model			= "\fza_ah64_US\fza_ah64d_b2.p3d";
 
 		#include "hiddenSelections.hpp"
-		#include "cfgVehicles\textureSources.hpp"
-		#include "cfgVehicles\turrets.hpp"		
-		#include "cfgVehicles\UVAnimations.hpp"
+		#include "sensor_b2e.hpp"
+		#include "cfgVehicles\ace.hpp"
 		#include "cfgVehicles\animationSources.hpp"
 		#include "cfgVehicles\markerLights.hpp"
 		#include "cfgVehicles\reflectors.hpp"
-		#include "cfgVehicles\ace.hpp"
-		#include "sensor_b2e.hpp"
+		#include "cfgVehicles\sfm.hpp"
+		#include "cfgVehicles\sfmplus.hpp"
+		#include "cfgVehicles\textureSources.hpp"
+		#include "cfgVehicles\turrets.hpp"		
+		#include "cfgVehicles\UVAnimations.hpp"
 		
-		allowTabLock = 0;
-		accuracy=5;
-		armor = 600;
-		armorLights = 0.4;
-		armorStructural = 4;
-		audible=4;
-		attendant = 0;
-		camshakecoef = 0.3;
-		cargoAction[]={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
-		commanderUsesPilotView = false;
-		crewCrashProtection = 0.25;
-		crewVulnerable = 0;
+		allowTabLock 				= 0;
+		accuracy					= 5;
+		armor 						= 600;
+		armorLights 				= 0.4;
+		armorStructural 			= 4;
+		audible						= 4;
+		attendant 					= 0;
+		camshakecoef 				= 0.3;
+		cargoAction[]				={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
+		commanderUsesPilotView 		= false;
+		crewCrashProtection 		= 0.25;
+		crewVulnerable 				= 0;
 		//damageResistance=0.0055499999;
-		driverAction = "fza_ah64_pilot";
-		crew="fza_ah64_pilot";
-		driverOpticsColor[] = {1,1,1,1};
-		driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-		ejectDeadCargo=true;
-		ejectdeadgunner = false;
-		explosionShielding = 8;
-		gForceShakeAttenuation = 0.5;
-		gunnerUsesPilotView = false;
-		hasGunner=1;
-		impactEffectSpeedLimit = 8;
-		impactEffectsSea = "ImpactEffectsAir";
+		driverAction 				= "fza_ah64_pilot";
+		crew						= "fza_ah64_pilot";
+		driverOpticsColor[] 		= {1,1,1,1};
+		driveropticsmodel 			= "\fza_ah64_us\fza_ah64_optics_empty";
+		ejectDeadCargo				=true;
+		ejectdeadgunner 			= false;
+		explosionShielding 			= 8;
+		flightModel 				= "SFMPlus";
+		gForceShakeAttenuation 		= 0.5;
+		gunnerUsesPilotView 		= false;
+		hasGunner					= 1;
+		impactEffectSpeedLimit 		= 8;
+		impactEffectsSea 			= "ImpactEffectsAir";
 		incomingMissileDetectionSystem = 16;
 		countermeasureActivationRadius = 6000;
-		irScanGround = 1;
-		irScanRangeMax = 10000;
-		irScanRangeMin = 700;
-		irScanToEyeFactor = 2;
-		laserScanner=1;
-		laserTarget=0;
-		magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
-		lockdetectionsystem = "8+4";
-		gunAimDown = 0;
-		selectionHRotorStill = "mr_blades";
-		selectionHRotorMove = "mr_blur";
-		selectionVRotorStill = "tr_blades";
-		selectionVRotorMove = "tr_blur";
-		mainRotorSpeed = 1;
-		maxBackRotorDive = 0;
-		maxMainRotorDive = 0;
-		memoryPointLMissile = "l strela";
-		memoryPointLRocket = "l raketa";
-		memoryPointRMissile = "p strela";
-		memoryPointRRocket = "p raketa";
-		memoryPointsGetInCargo = "pos cargo";
-		memoryPointsGetInCargoDir = "pos cargo dir";
-		memoryPointsGetInDriver = "pos driver";
-		memoryPointsGetInDriverDir = "pos driver dir";
-		memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
-		memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-		memorypointdriveroptics[] = {"driverview", "pilot"};
-		minBackRotorDive = 0;
-		minMainRotorDive = 0;
-		nameSound="veh_Helicopter";
-		neutralBackRotorDive = 0;
-		neutralMainRotorDive = 0;
-		nightVision=1;
-		nvScanner = 0;
-		nvTarget = 0;
-		threat[] = {1,1,0.5};
-		transportSoldier=2;
-		visualTarget = 1;
-		visualTargetsize = 1.0;
-		weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		irScanGround 				= 1;
+		irScanRangeMax 				= 10000;
+		irScanRangeMin 				= 700;
+		irScanToEyeFactor 			= 2;
+		laserScanner				= 1;
+		laserTarget					= 0;
+		magazines[] 				= {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
+		lockdetectionsystem 		= "8+4";
+		gunAimDown 					= 0;
+		selectionHRotorStill 		= "mr_blades";
+		selectionHRotorMove 		= "mr_blur";
+		selectionVRotorStill 		= "tr_blades";
+		selectionVRotorMove 		= "tr_blur";
+		mainRotorSpeed 				= 1;
+		maxBackRotorDive 			= 0;
+		maxMainRotorDive 			= 0;
+		memoryPointLMissile 		= "l strela";
+		memoryPointLRocket 			= "l raketa";
+		memoryPointRMissile 		= "p strela";
+		memoryPointRRocket 			= "p raketa";
+		memoryPointsGetInCargo 		= "pos cargo";
+		memoryPointsGetInCargoDir 	= "pos cargo dir";
+		memoryPointsGetInDriver 	= "pos driver";
+		memoryPointsGetInDriverDir 	= "pos driver dir";
+		memorypointcm[] 			= {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] 			= {"flare_1_end","flare_2_end"};
+		memorypointdriveroptics[] 	= {"driverview", "pilot"};
+		minBackRotorDive 			= 0;
+		minMainRotorDive 			= 0;
+		nameSound					= "veh_Helicopter";
+		neutralBackRotorDive 		= 0;
+		neutralMainRotorDive 		= 0;
+		nightVision					= 1;
+		nvScanner 					= 0;
+		nvTarget 					= 0;
+		threat[] 					= {1,1,0.5};
+		transportSoldier			= 2;
+		visualTarget 				= 1;
+		visualTargetsize 			= 1.0;
+		weapons[] 					= {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
 		envelope[]={
 			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
@@ -360,7 +360,8 @@ class CfgVehicles
 		author		  = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		displayName   = "AH-64D Apache Longbow (no radar)";
 		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e_nr.jpg";
-		
+		model			="\fza_ah64_US\fza_ah64d_b2.p3d";
+
 		class AnimationSources: AnimationSources {
 			class fcr_enable: fcr_enable
 			{
@@ -403,18 +404,150 @@ class CfgVehicles
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //AH-64D HeliSim      //////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-	class fza_ah64d_b2e_heliSim: fza_ah64d_b2e
+	class fza_ah64d_b2e_heliSim: fza_ah64base
 	{
-		side 	      = 1;
-		scope		  = 2;
-		author	      = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
-		displayName   = "AH-64D Apache Longbow (HeliSim)";
-		editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
+		side			= 1;
+		scope			= 2;
+		author			= "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+		displayName		= "AH-64D Apache Longbow (HeliSim)";
+		editorPreview 	= "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
+		model			= "\fza_ah64_US\fza_ah64d_b2.p3d";
 
-		//Flight model
-		flightModel   	 = "HeliSim";
-
+		#include "hiddenSelections.hpp"
+		#include "sensor_b2e.hpp"
+		#include "cfgVehicles\ace.hpp"
+		#include "cfgVehicles\animationSources.hpp"
 		#include "cfgVehicles\helisim.hpp"
-		#include "heliSim\heliSimOverrides.hpp"
+		#include "cfgVehicles\markerLights.hpp"
+		#include "cfgVehicles\reflectors.hpp"
+		#include "cfgVehicles\textureSources.hpp"
+		#include "cfgVehicles\turrets.hpp"		
+		#include "cfgVehicles\UVAnimations.hpp"
+		
+		allowTabLock 				= 0;
+		accuracy					= 5;
+		armor 						= 600;
+		armorLights 				= 0.4;
+		armorStructural 			= 4;
+		audible						= 4;
+		attendant 					= 0;
+		camshakecoef 				= 0.3;
+		cargoAction[]				={"fza_ah64_leftcargo","fza_ah64_rightcargo"};
+		commanderUsesPilotView 		= false;
+		crewCrashProtection 		= 0.25;
+		crewVulnerable 				= 0;
+		//damageResistance=0.0055499999;
+		driverAction 				= "fza_ah64_pilot";
+		crew						= "fza_ah64_pilot";
+		driverOpticsColor[] 		= {1,1,1,1};
+		driveropticsmodel 			= "\fza_ah64_us\fza_ah64_optics_empty";
+		ejectDeadCargo				=true;
+		ejectdeadgunner 			= false;
+		explosionShielding 			= 8;
+		flightModel 				= "HeliSim";
+		gForceShakeAttenuation 		= 0.5;
+		gunnerUsesPilotView 		= false;
+		hasGunner					= 1;
+		impactEffectSpeedLimit 		= 8;
+		impactEffectsSea 			= "ImpactEffectsAir";
+		incomingMissileDetectionSystem = 16;
+		countermeasureActivationRadius = 6000;
+		irScanGround 				= 1;
+		irScanRangeMax 				= 10000;
+		irScanRangeMin 				= 700;
+		irScanToEyeFactor 			= 2;
+		laserScanner				= 1;
+		laserTarget					= 0;
+		magazines[] 				= {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
+		lockdetectionsystem 		= "8+4";
+		gunAimDown 					= 0;
+		selectionHRotorStill 		= "mr_blades";
+		selectionHRotorMove 		= "mr_blur";
+		selectionVRotorStill 		= "tr_blades";
+		selectionVRotorMove 		= "tr_blur";
+		mainRotorSpeed 				= 1;
+		maxBackRotorDive 			= 0;
+		maxMainRotorDive 			= 0;
+		memoryPointLMissile 		= "l strela";
+		memoryPointLRocket 			= "l raketa";
+		memoryPointRMissile 		= "p strela";
+		memoryPointRRocket 			= "p raketa";
+		memoryPointsGetInCargo 		= "pos cargo";
+		memoryPointsGetInCargoDir 	= "pos cargo dir";
+		memoryPointsGetInDriver 	= "pos driver";
+		memoryPointsGetInDriverDir 	= "pos driver dir";
+		memorypointcm[] 			= {"flare_1_beg","Flare_2_beg"};
+		memorypointcmdir[] 			= {"flare_1_end","flare_2_end"};
+		memorypointdriveroptics[] 	= {"driverview", "pilot"};
+		minBackRotorDive 			= 0;
+		minMainRotorDive 			= 0;
+		nameSound					= "veh_Helicopter";
+		neutralBackRotorDive 		= 0;
+		neutralMainRotorDive 		= 0;
+		nightVision					= 1;
+		nvScanner 					= 0;
+		nvTarget 					= 0;
+		threat[] 					= {1,1,0.5};
+		transportSoldier			= 2;
+		visualTarget 				= 1;
+		visualTargetsize 			= 1.0;
+		weapons[] 					= {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
+		envelope[]={
+			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
+		};
+
+		class Library
+		{
+			libTextDesc = "The AH-64D Block II is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
+		};
+
+		class HeadLimits
+		{
+			initanglex = 0;
+			initangley = 0;
+			maxanglex = 40;
+			maxangley = 90;
+			maxanglez = 45;
+			minanglex = -40;
+			minangley = -90;
+			minanglez = -45;
+			rotzradius = 0.2;
+		};
+		class ViewPilot
+		{
+			initFov=0.700000;
+			minFov=0.400000;
+			maxFov=0.850000;
+			initAngleX=0;
+			minAngleX=-75;
+			maxAngleX=50;
+			initAngleY=0;
+			minAngleY=-150;
+			maxAngleY=150;
+			maxmovex = 0.15;
+			maxmovey = 0.1;
+			maxmovez = 0.1;
+			minmovex = -0.15;
+			minmovey = -0.1;
+			minmovez = -0.1;
+		};
+
+		//PNVS TURRET OPTICS BACK UP
+		class ViewOptics
+		{
+			initFov=0.7;
+			minFov=0.7;
+			maxFov=0.7;			
+			initAngleX=0;
+			minAngleX=-90;
+			maxAngleX=90;
+			initAngleY=0;
+			minAngleY=-45;
+			maxAngleY=20;
+			maxXRotSpeed = 4;	// yawing speed
+			maxYRotSpeed = 4;	// pitching speed
+			thermalmode[] = {2};
+			visionmode[] = {"Ti"}; //PNVS
+		};
 	};
 };

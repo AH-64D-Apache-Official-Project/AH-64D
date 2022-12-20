@@ -34,6 +34,6 @@ if (_numEng == 2) then {
     _outputRPM  = _outputRPM + _deltaRPM;
 };
 
-systemChat format ["Xmsn Output RPM: %1", _outputRPM];
+//systemChat format ["Xmsn Output RPM: %1", _outputRPM];
 
 _heli setVariable ["bmk_helisim_xmsnOutputRPM", _outputRPM];

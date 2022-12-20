@@ -14,5 +14,5 @@ _outputTq  = [_outputTq, 0.0, _deltaTime] call BIS_fnc_lerp;
 
 [_heli, "bmk_helisim_engState",        _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engThrottlePos",  _engNum, _engThrottlePos] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "bmk_helisim_engineOutputRPM", _engNum, _outputRPM] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "bmk_helisim_engineOutputTq",  _engNum, _outputTq] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "bmk_helisim_engOutputRPM", _engNum, _outputRPM] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "bmk_helisim_engOutputTq",  _engNum, _outputTq] call fza_sfmplus_fnc_setArrayVariable;

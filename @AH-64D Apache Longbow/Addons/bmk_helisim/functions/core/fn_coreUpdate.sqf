@@ -11,6 +11,27 @@ systemChat format ["HeliSim is running!"];
 
 private _deltaTime   = ((["helisim_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
+//TEMP!!
+_heli setFuel 1.0;
+_heli setMass 7711;
+//TEMP!!
+
+private _apuOn           = _heli getVariable "fza_systems_apuOn";
+
+private _eng1State       = fza_simvars_e1State;
+private _eng2State       = fza_simvars_e2State;
+
+private _eng1PwrLvrState = fza_simvars_e1ThrottlePos;
+private _eng2PwrLvrState = fza_simvars_e2ThrottlePos;
+
+if (_apuOn && local _heli) then {
+	if ((_eng1State in ["STARTING", "ON"] && _eng1PwrLvrState == "IDLE") || (_eng2State in ["STARTING", "ON"] && _eng2PwrLvrState == "IDLE")) then {
+		_heli engineOn true;
+	};
+};
+
+systemChat format ["Apu: %1 -- Eng 1 State %2, Pwr Lvr %3 -- Eng 2 State %4, Pwr Lvr %5", _apuOn, _eng1State, _eng1PwrLvrState, _eng2State, _eng2PwrLvrState];
+
 //--Get input
 private _controlInputs     = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 

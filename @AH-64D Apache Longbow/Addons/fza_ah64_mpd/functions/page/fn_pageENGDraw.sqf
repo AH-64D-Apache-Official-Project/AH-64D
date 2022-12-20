@@ -9,9 +9,9 @@ private _e1ng   = fza_simvars_e1ng;
 private _e1tgt  = fza_simvars_e1tgt;
 private _e1trq  = fza_simvars_e1trq;
 private _e1opsi = fza_simvars_e1opsi;
-if (_e1np <= (0.37 * 100)) then {
-	_e1trq = 0;
-};
+//if (_e1np <= (0.37 * 100)) then {
+//	_e1trq = 0;
+//};
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_1), round _e1trq];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TORQUE_1), _e1trq toFixed 0];
@@ -31,9 +31,9 @@ private _e2ng   = fza_simvars_e2ng;
 private _e2tgt  = fza_simvars_e2tgt;
 private _e2trq  = fza_simvars_e2trq;
 private _e2opsi = fza_simvars_e2opsi;
-if (_e2np <= (0.37 * 100)) then {
-	_e2trq = 0;
-};
+//if (_e2np <= (0.37 * 100)) then {
+//	_e2trq = 0;
+//};
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_2), round _e2trq];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TORQUE_2), _e2trq toFixed 0];

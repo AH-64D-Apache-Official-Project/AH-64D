@@ -49,7 +49,7 @@ _p_w = 0.0; _q_w = 0.0; _r_w = 0.0;  //<--until a more stable/reliable means of 
 //--Calculate thrust
 //Thrust scalar @ SL 15 dec C = 2.2, ground effect scalar min = 0.85
 //Thrust scalar @ 4000ft 35 deg C = 2.3, ground effect scalar min = 0.85
-([_heli, _deltaTime, _rtrNum, _rho, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 2.20] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _rtrNum, _rho, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 1.0] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
@@ -69,14 +69,14 @@ _p_w = 0.0; _q_w = 0.0; _r_w = 0.0;  //<--until a more stable/reliable means of 
 //--Calculate body moments
 ([_heli, _a1_deg, _beta_deg, _b1_deg, _AIC_deg, _BIC_deg, _omega, _rotorParams, _torque] call bmk_helisim_fnc_rotorCalculateBodyMoments)
     params ["_l_s", "_m_s", "_n_s"];
-([_x_s, _y_s, _z_s, _l_s, _m_s, _n_s] call bmk_helisim_fnc_utilityModelToArma)
+([_mastPitch_deg, _mastRoll_deg, _x_s, _y_s, _z_s, _l_s, _m_s, _n_s] call bmk_helisim_fnc_utilityModelToArma)
     params ["_out_x", "_out_y", "_out_z", "_out_l", "_out_m", "_out_n"];
 
 //systemchat format ["Rotor %7 --- Us %1 Vs %2 Ws %3 --- Ps %4 Qs %5 Rs %6 --- Gnd Eff Scalar %8", _u_s toFixed 1, _v_s toFixed 1, _w_s toFixed 1, _p_s toFixed 1, _q_s toFixed 1, _r_s toFixed 1, _rtrNum, _gndEffScalar toFixed 2];
 //systemchat format ["Rotor %7 --- Uw %1 Vw %2 Ww %3 --- Pw %4 Qw %5 Rw %6 --- beta_deg %8", _u_w toFixed 1, _v_w toFixed 1, _w_w toFixed 1, _p_w toFixed 1, _q_w toFixed 1, _r_w toFixed 1, _rtrNum, _beta_deg toFixed 2];
 //systemChat format ["Rotor %1 -- mu %2 -- thrust %3 -- lambda %4 -- ct %5", _rtrNum, _mu toFixed 2, _thrust toFixed 2, _lambda toFixed 2, _ct toFixed 2];
 //systemChat format ["Rotor %1 -- X %2 Y %3 Z %4 -- L %5 M %6 N %7", _rtrNum, _out_x toFixed 0, _out_y toFixed 0, _out_z toFixed 0, _out_l toFixed 0, _out_m toFixed 0, _out_n toFixed 0];
-systemChat format ["Rotor %1 torque: %2", _rtrNum, (((_torque / 72.29) / 481.0) * 100) toFixed 2];
+//systemChat format ["Rotor %1 torque: %2", _rtrNum, (((_torque / 72.29) / 481.0) * 100) toFixed 2];
 
 private _forceX = _axisX vectorMultiply (_out_x * _deltaTime);
 private _forceY = _axisY vectorMultiply (_out_y * _deltaTime);
@@ -93,6 +93,7 @@ private _torqueZ = _out_n * _deltaTime;
 _heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, -_torqueZ]);
 
 #ifdef __A3_DEBUG__
+
 private _armaToModelMatrix = [[ 0.0, 1.0, 0.0],
                               [ 1.0, 0.0, 0.0],
                               [ 0.0, 0.0,-1.0]];
@@ -128,5 +129,3 @@ DRAW_LINE = {
 [_heli, _rotorPos, _rotorPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
 [_heli, _rotorPos, _rotorPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
 #endif
-
-//[_outputTorque, _out_x, _out_y, _out_z, _out_l, _out_m, _out_n];
