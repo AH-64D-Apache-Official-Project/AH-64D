@@ -1,7 +1,11 @@
 params ["_heli"];
 
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
-//if ((getText _flightModel) != "HeliSim") exitWith {};
+if ((getText _flightModel) != "HeliSim") exitWith {};
+
+//Debug colors
+bmk_global_colorRed   = [1,0,0,1]; bmk_global_colorOrange = [1,0.65,0,1];bmk_global_colorYellow = [1,1,0,1];
+bmk_global_colorGreen = [0,1,0,1]; bmk_global_colorBlue   = [0,0,1,1];   bmk_global_colorWhite  = [1,1,1,1];
 
 //--Rotor definitions
 private _liftCurveSlope         = 5.7;
@@ -15,27 +19,26 @@ private _rotor_bladeMass        = [71.2,  17.7];    //kg
 private _rotor_hingeOffsetRatio = [0.137, 0.0];
 private _rotor_tipLos           = [0.97,  0.97];
 private _rotor_gearRatio        = [72.29, 14.90];
-
+private _rotor_thrustScalar     = [1.0,   1.0];
 //--Cyclic tables
-private _cyclicPitchMap_deg = [[-1.0,  10.0]
-                              ,[ 0.0,   0.0]
-                              ,[ 1.0, -20.0]];
+private _cyclicPitchMap_deg     = [[-1.0,  10.0]
+                                  ,[ 0.0,   0.0]
+                                  ,[ 1.0, -20.0]];
 
-private _cyclicRollMap_deg  = [[-1.0,   7.0]
-                              ,[ 0.0,   0.0]
-                              ,[ 1.0, -10.5]];
+private _cyclicRollMap_deg      = [[-1.0,   7.0]
+                                  ,[ 0.0,   0.0]
+                                  ,[ 1.0, -10.5]];
 //--Collective
-private _collectivePitchMin_deg =  1.0;
-private _collectivePitchMax_deg =  19.0;
+private _collectivePitchMin_deg = 1.0;
+private _collectivePitchMax_deg = 19.0;
 private _collectivePitch_deg    = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 
 //--Pedal table
-private _pedalPitchMap_deg  = [[-1.0,  27.0]
-                              ,[-0.5,  12.0]
-                              ,[ 0.0,  -3.0]
-                              ,[ 0.5,  -8.0]
-                              ,[ 1.0, -15.0]];
-
+private _pedalPitchMap_deg      = [[-1.0,  27.0]
+                                  ,[-0.5,  12.0]
+                                  ,[ 0.0,  -3.0]
+                                  ,[ 0.5,  -8.0]
+                                  ,[ 1.0, -15.0]];
 //---Set variables
 _heli setVariable ["bmk_helisim_rotor_a",          _liftCurveSlope];
 _heli setVariable ["bmk_helisim_type",             _rotor_type];
@@ -61,11 +64,11 @@ private _rtr_1_HO = 1.0 - _rotor_hingeOffsetRatio # 1;
 _rtr_1_Ib = _rtr_1_Ib * (_rtr_0_HO * _rtr_0_HO * _rtr_0_HO);
 _heli setVariable ["bmk_helisim_rotor_Ib",         [_rtr_0_Ib, _rtr_1_Ib]];
 _heli setVariable ["bmk_helisim_rotor_gearRatio",  _rotor_gearRatio];
+_heli setVariable ["bmk_helisim_rotor_thrustScalar", _rotor_thrustScalar];
 private _rtr_0_MOI = _rotor_numBlades # 0 * _rotor_bladeMass # 0 * ((_rotor_bladeRadius # 0 * 0.55) * (_rotor_bladeRadius # 0 * 0.55));
 private _rtr_1_MOI = _rotor_numBlades # 1 * _rotor_bladeMass # 1 * ((_rotor_bladeRadius # 1 * 0.55) * (_rotor_bladeRadius # 1 * 0.55));
 _heli setVariable ["bmk_helisim_rotor_polarMOI",   [_rtr_0_MOI, _rtr_1_MOI]];
 _heli setVariable ["bmk_helisim_inputMaps",        [[_cyclicPitchMap_deg, _cyclicRollMap_deg, _collectivePitch_deg], [_pedalPitchMap_deg]]];
-
 //--Engines
 private _engContPwr             = 1066; //kW
 private _engPwrTurRPM           = 20900;
@@ -88,6 +91,9 @@ _heli setVariable ["bmk_helisim_engine1", _engine1];
 
 private _engine2 = [_heli, _engParams] call bmk_helisim_fnc_engineInit;
 _heli setVariable ["bmk_helisim_engine2", _engine2];
+//--Stabilator
+private _stabPosition   = [0.0, -6.50, -1.82];
+private _stabDimensions = [3.22, 1.07];
 
 [_heli] call bmk_helisim_fnc_rotorVariables;
 [_heli] call bmk_helisim_fnc_engineVariables;

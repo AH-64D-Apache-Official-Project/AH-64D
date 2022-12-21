@@ -81,7 +81,6 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
 
 if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli engineOn false;
-	systemChat format ["SFM+ wierd code is running"];
 };
 
 private _maxTQ    = getNumber (_config >> "engMaxTQ");

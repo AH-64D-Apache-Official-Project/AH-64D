@@ -6,7 +6,6 @@ if (isGamePaused) exitwith {};
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "HeliSim") exitWith {};
 
-
 systemChat format ["HeliSim is running!"];
 
 private _deltaTime   = ((["helisim_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
@@ -14,6 +13,7 @@ private _deltaTime   = ((["helisim_deltaTime"] call BIS_fnc_deltaTime) min 1/30)
 //TEMP!!
 _heli setFuel 1.0;
 _heli setMass 7711;
+_heli allowDamage false;
 //TEMP!!
 
 private _apuOn           = _heli getVariable "fza_systems_apuOn";
@@ -30,15 +30,15 @@ if (_apuOn && local _heli) then {
 	};
 };
 
-systemChat format ["Apu: %1 -- Eng 1 State %2, Pwr Lvr %3 -- Eng 2 State %4, Pwr Lvr %5", _apuOn, _eng1State, _eng1PwrLvrState, _eng2State, _eng2PwrLvrState];
+//systemChat format ["Apu: %1 -- Eng 1 State %2, Pwr Lvr %3 -- Eng 2 State %4, Pwr Lvr %5", _apuOn, _eng1State, _eng1PwrLvrState, _eng2State, _eng2PwrLvrState];
 
 //--Get input
 private _controlInputs     = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 
 //--Environment
-private _altitude          = 0;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
+private _altitude          = ALT;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg
-private _temperature       = 15;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+private _temperature       = TEMP;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
@@ -68,6 +68,18 @@ private _mainRotorRot = [0.0, 0.0]; //deg -- MOVE TO CONFIG
 private _tailRotorPos = [-0.87, -6.98, -0.075]; //m -- MOVE TO CONFIG
 private _tailRotorRot = [0.0, 90.0]; //deg -- MOVE TO CONFIG
 [_heli, _deltaTime, _dryAirDensity, 1, _tailRotorPos, _tailRotorRot, _controlInputs] call bmk_helisim_fnc_rotor;
+
+//--Stabilator
+private _stabPosition   = [0.0, -6.50, -1.82];  //m -- MOVE TO CONFIG
+private _stabDimensions = [3.22, 1.07];  //m -- MOVE TO CONFIG
+[_heli, _deltaTime, _controlInputs, _stabPosition, _stabDimensions] call bmk_helisim_fnc_aeroStabilator;
+
+//Vertical fin
+private _vertFinPosition   = [0.0, -6.50, -1.82];
+private _vertFinSweep      = 0.0;
+private _vertFinDimensions = [2.51, 0.90];
+private _vertFinRotation   = [WING_PITCH, WING_ROLL];
+[_heli, _deltaTime, _dryAirDensity, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRotation] call bmk_helisim_fnc_aeroWing;
 
 //--Fuselage
 [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;

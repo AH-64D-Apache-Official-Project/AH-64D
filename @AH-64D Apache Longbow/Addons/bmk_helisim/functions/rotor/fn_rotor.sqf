@@ -15,6 +15,7 @@ private _rotorParams = [ _heli getVariable "bmk_helisim_rotor_a"
                        , _heli getVariable "bmk_helisim_rotor_eR" select _rtrNum
                        , _heli getVariable "bmk_helisim_rotor_e" select _rtrNum
                        , _heli getVariable "bmk_helisim_rotor_gearRatio" select _rtrNum
+                       , _heli getVariable "bmk_helisim_rotor_thrustScalar" select _rtrNum
                        , _heli getVariable "bmk_helisim_rotor_Ib" select _rtrNum
                        , _heli getVariable "bmk_helisim_rotor_s" select _rtrNum
                        , _heli getVariable "bmk_helisim_rotor_polarMOI" select _rtrNum
@@ -49,7 +50,7 @@ _p_w = 0.0; _q_w = 0.0; _r_w = 0.0;  //<--until a more stable/reliable means of 
 //--Calculate thrust
 //Thrust scalar @ SL 15 dec C = 2.2, ground effect scalar min = 0.85
 //Thrust scalar @ 4000ft 35 deg C = 2.3, ground effect scalar min = 0.85
-([_heli, _deltaTime, _rtrNum, _rho, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar, 1.0] call bmk_helisim_fnc_rotorCalculateThrust)
+([_heli, _deltaTime, _rtrNum, _rho, _u_w, _v_w, _w_w, _omegaR, _theta0_deg, _rotorParams, _gndEffScalar] call bmk_helisim_fnc_rotorCalculateThrust)
     params ["_mu", "_thrust", "_lambda", "_CT"];
 //--Calculate coning angles
 ([_heli, _mu, _lambda, _theta0_deg, _rotorParams, _gamma] call bmk_helisim_fnc_rotorCalculateConingAngles)
@@ -90,7 +91,7 @@ private _torqueX = _out_l * _deltaTime;
 private _torqueY = _out_m * _deltaTime;
 private _torqueZ = _out_n * _deltaTime;
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, -_torqueZ]);
+_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, -_torqueZ]); //<-- this needs to be controlled by a direction variable to allow for clockwise rotating rotors
 
 #ifdef __A3_DEBUG__
 

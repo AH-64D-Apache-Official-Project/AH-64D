@@ -18,7 +18,7 @@ Author:
 params["_heli", "_rotorParams"];
 
 _rotorParams 
-    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_Ib", "_s", "_polarMOI", "_inputMaps"];
+    params ["_a", "_type", "_b", "_h", "_R", "_c", "_theta1_deg", "_m", "_eR", "_e", "_gearRatio", "_thrustScalar", "_Ib", "_s", "_polarMOI", "_inputMaps"];
 
 private _heightAGL   = _h  + (ASLToAGL getPosASL _heli # 2);
 

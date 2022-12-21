@@ -218,7 +218,18 @@ class CfgVehicles
 		#include "cfgVehicles\animationSources.hpp"
 		#include "cfgVehicles\markerLights.hpp"
 		#include "cfgVehicles\reflectors.hpp"
-		#include "cfgVehicles\sfm.hpp"
+		//#include "cfgVehicles\sfm.hpp"
+		startDuration          = 15;
+		liftForceCoef          = 1.25;
+		bodyFrictionCoef       = 1.0;
+		cyclicAsideForceCoef   = 0.00;
+		cyclicForwardForceCoef = 0.00;
+		backRotorForceCoef     = 0.00;
+		fuelCapacity           = 1423;
+		fuelconsumptionrate    = 0.0;
+		maxSpeed               = 298;
+		altFullForce 		   = 1615;
+		altNoForce 			   = 9000;
 		#include "cfgVehicles\sfmplus.hpp"
 		#include "cfgVehicles\textureSources.hpp"
 		#include "cfgVehicles\turrets.hpp"		
@@ -241,7 +252,7 @@ class CfgVehicles
 		crew						= "fza_ah64_pilot";
 		driverOpticsColor[] 		= {1,1,1,1};
 		driveropticsmodel 			= "\fza_ah64_us\fza_ah64_optics_empty";
-		ejectDeadCargo				=true;
+		ejectDeadCargo				= true;
 		ejectdeadgunner 			= false;
 		explosionShielding 			= 8;
 		flightModel 				= "SFMPlus";
@@ -292,9 +303,6 @@ class CfgVehicles
 		visualTarget 				= 1;
 		visualTargetsize 			= 1.0;
 		weapons[] 					= {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
-		envelope[]={
-			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
-		};
 
 		class Library
 		{
@@ -417,7 +425,18 @@ class CfgVehicles
 		#include "sensor_b2e.hpp"
 		#include "cfgVehicles\ace.hpp"
 		#include "cfgVehicles\animationSources.hpp"
-		#include "cfgVehicles\helisim.hpp"
+		//#include "cfgVehicles\helisim.hpp"
+		startDuration          = 15;
+		liftForceCoef          = 0.00;
+		bodyFrictionCoef       = 0.00;
+		cyclicAsideForceCoef   = 0.00;
+		cyclicForwardForceCoef = 0.00;
+		backRotorForceCoef     = 0.00;
+		fuelCapacity           = 1423;
+		fuelconsumptionrate    = 0.0;
+		maxSpeed               = 298;
+		altFullForce 		   = 1615;
+		altNoForce 			   = 9000;
 		#include "cfgVehicles\markerLights.hpp"
 		#include "cfgVehicles\reflectors.hpp"
 		#include "cfgVehicles\textureSources.hpp"
@@ -441,7 +460,7 @@ class CfgVehicles
 		crew						= "fza_ah64_pilot";
 		driverOpticsColor[] 		= {1,1,1,1};
 		driveropticsmodel 			= "\fza_ah64_us\fza_ah64_optics_empty";
-		ejectDeadCargo				=true;
+		ejectDeadCargo				= true;
 		ejectdeadgunner 			= false;
 		explosionShielding 			= 8;
 		flightModel 				= "HeliSim";
@@ -492,9 +511,6 @@ class CfgVehicles
 		visualTarget 				= 1;
 		visualTargetsize 			= 1.0;
 		weapons[] 					= {"fza_CMFlareLauncher","fza_AseIRjammer","fza_AseRFjammer"};
-		envelope[]={
-			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
-		};
 
 		class Library
 		{

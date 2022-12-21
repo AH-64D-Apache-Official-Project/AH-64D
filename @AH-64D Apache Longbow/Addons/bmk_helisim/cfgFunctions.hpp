@@ -12,11 +12,18 @@ class CfgFunctions
 		class aeroGroundEffect {
 			file = "\bmk_helisim\functions\aero";
 			class aeroGroundEffect {R;};
+			class aeroStabilator   {R;};
+			class aeroWing {R;};
 		};
 		class core {					
 			file = "\bmk_helisim\functions\core";
 			class coreConfig {R;};
 			class coreUpdate {R;};
+		};
+		class debug {
+			file = "\bmk_helisim\functions\debug";
+			class debugDrawLine {R;};
+			class debugDrawCircle {R;};
 		};
 		class drivetrain {
 			file = "\bmk_helisim\functions\drivetrain";
@@ -61,10 +68,12 @@ class CfgFunctions
 		class utility {
 			file = "\bmk_helisim\functions\utility";
 			class utilityGetAngularVelocities {R;};
+			class utilityGetArea {R;};
 			class utilityGetInput {R;};
 			class utilityGetLinearVelocities {R;};
 			class utilityGovernor {R;};
 			class utilityModelToArma {R;};
+			class utilityRotateVector {R;};
 		};
 		class xmsn {
 			file = "\bmk_helisim\functions\xmsn";
