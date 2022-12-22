@@ -24,16 +24,17 @@ private _shaftToBodyMatrix = matrixTranspose _bodyToShaftMatrix;
 
 
 private _bodyForces = [[_x_s], [_y_s], [_z_s]];
-_bodyForces         = _modelToArmaMatrix matrixMultiply _bodyForces;
 _bodyForces         = _shaftToBodyMatrix matrixMultiply _bodyForces;
+_bodyForces         = _modelToArmaMatrix matrixMultiply _bodyForces;
+
 
 private _out_x = _bodyForces # 0 # 0;
 private _out_y = _bodyForces # 1 # 0;
 private _out_z = _bodyForces # 2 # 0;
 
 private _bodyMoments = [[_l_s], [_m_s], [_n_s]];
-_bodyMoments         = _modelToArmaMatrix matrixMultiply _bodyMoments;
 _bodyMoments         = _shaftToBodyMatrix matrixMultiply _bodyMoments;
+_bodyMoments         = _modelToArmaMatrix matrixMultiply _bodyMoments;
 
 private _out_l = _bodyMoments # 0 # 0;
 private _out_m = _bodyMoments # 1 # 0;

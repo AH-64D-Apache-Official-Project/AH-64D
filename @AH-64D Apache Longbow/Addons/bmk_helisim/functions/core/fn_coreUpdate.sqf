@@ -36,9 +36,9 @@ if (_apuOn && local _heli) then {
 private _controlInputs     = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 
 //--Environment
-private _altitude          = ALT;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
+private _altitude          = 0;//ALT;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg
-private _temperature       = TEMP;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+private _temperature       = 15;//TEMP;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
@@ -78,8 +78,8 @@ private _stabDimensions = [3.22, 1.07];  //m -- MOVE TO CONFIG
 private _vertFinPosition   = [0.0, -6.50, -1.82];
 private _vertFinSweep      = 0.0;
 private _vertFinDimensions = [2.51, 0.90];
-private _vertFinRotation   = [WING_PITCH, WING_ROLL];
-[_heli, _deltaTime, _dryAirDensity, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRotation] call bmk_helisim_fnc_aeroWing;
+//private _vertFinRotation   = [WING_PITCH, WING_ROLL];
+//[_heli, _deltaTime, _dryAirDensity, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRotation] call bmk_helisim_fnc_aeroWing;
 
 //--Fuselage
 [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call bmk_helisim_fnc_fuselageDrag;

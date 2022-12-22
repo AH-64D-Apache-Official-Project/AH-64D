@@ -33,11 +33,6 @@ _C = _wingCtr vectorAdd _C;
 _D = _wingCtr vectorAdd _D;
 //systemChat format ["Wing velocities %1 -- %2 -- %3 -- AoA %4", _locVelX toFixed 2, _locVelY toFixed 2, _locVelZ tofixed 2, _AoA];
 
-systemChat format ["A %1", _A];
-systemChat format ["B %1", _B];
-systemChat format ["C %1", _C];
-systemChat format ["D %1", _D];
-
 #ifdef __A3_DEBUG__
 //Draw the wing
 [_heli, _A, _B, bmk_global_colorRed]   call bmk_helisim_fnc_debugDrawLine;

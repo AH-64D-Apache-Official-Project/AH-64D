@@ -22,12 +22,12 @@ _ct_3 = (1.0 / 4.0 * (B * B * B * B) + 1.0 / 4.0 * (B * B) * (_mu * _mu)) * (rad
 _ct_1 = (1.0 / 2.0 * (B * B) + 1.0 / 4.0 * (_mu * _mu)) * _lambda;
 
 _ct_0 = (_a / 2.0) * (_ct_1 + _ct_2 + _ct_3) * _s;
-_ct_0 =  if (_mu == 0) then { 0.0; } else { _ct_0 / (2.0 * sqrt ((_mu * _mu) + (_lambda * _lambda))); };
+_ct_0 =  if (_mu == 0 || _lambda == 0) then { 0.0; } else { _ct_0 / (2.0 * sqrt ((_mu * _mu) + (_lambda * _lambda))); };
 
 _nu = _gndEffScalar * ((_nu - _ct_0) * exp (-_deltaTime / TAU_LAMBDA) + _ct_0);
 
 //SH79, eqn 25
-_lambda = if (_omegaR == 0) then { 0.0; } else { _w_w / _omegaR - _nu; };
+_lambda = if (_omegaR == 0 || _nu == 0) then { 0.0; } else { _w_w / _omegaR - _nu; };
 
 _ct_1 = (1.0 / 2.0 * (B * B) + 1.0 / 4.0 * (_mu * _mu)) * _lambda;
 

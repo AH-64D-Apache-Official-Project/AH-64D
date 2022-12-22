@@ -92,7 +92,7 @@ _liftVec = _liftVec;
 private _stabLine = vectorNormalized _chordLine;
 _stabLine = _stabLine;
 
-private _relWind = vectornormalized(_heli vectorWorldToModel (velocity _heli));
+private _relWind = vectorNormalized(velocityModelSpace _heli);
 _relWind = _relWind;
 
 private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
@@ -129,7 +129,7 @@ private _CL = _intAirfoilTable select 1;
 private _area = [_A, _B, _C, _D] call bmk_helisim_fnc_utilityGetArea;
 private _liftForce = _CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
-private _lift = _liftVec vectorMultiply (_liftForce  * _deltaTime);
+private _lift = _liftVec vectorMultiply (-_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
 
 #ifdef __A3_DEBUG__
