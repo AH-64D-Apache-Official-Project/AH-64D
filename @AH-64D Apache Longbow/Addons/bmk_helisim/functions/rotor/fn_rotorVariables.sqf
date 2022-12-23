@@ -16,7 +16,7 @@ _heli setVariable ["bmk_helisim_rotor_lambda",       [0.0, 0.0]];
 _heli setVariable ["bmk_helisim_rotor_thrust",       [0.0, 0.0]];
 _heli setVariable ["bmk_helisim_rotor_CT",           [0.0, 0.0]];
 
-_heli setVariable ["bmk_helisim_rotor_dragH",        [0.0, 0.0]];
+_heli setVariable ["bmk_helisim_rotor_Hdrag",        [0.0, 0.0]];
 
 
 _heli setVariable ["bmk_helisim_rtrOutputTq", [0.0, 0.0]];

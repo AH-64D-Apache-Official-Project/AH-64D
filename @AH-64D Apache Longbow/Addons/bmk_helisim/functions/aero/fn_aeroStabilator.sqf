@@ -129,8 +129,8 @@ private _CL = _intAirfoilTable select 1;
 private _area = [_A, _B, _C, _D] call bmk_helisim_fnc_utilityGetArea;
 private _liftForce = _CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
-private _lift = _liftVec vectorMultiply (-_liftForce * _deltaTime);
-_heli addForce[_heli vectorModelToWorld _lift, _G];
+private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
+_heli addForce[_heli vectorModelToWorld _lift, _heli vectorModelToWorld _G];
 
 #ifdef __A3_DEBUG__
 /*

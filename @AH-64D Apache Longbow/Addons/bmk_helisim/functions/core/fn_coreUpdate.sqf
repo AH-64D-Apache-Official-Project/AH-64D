@@ -72,7 +72,7 @@ private _tailRotorRot = [0.0, 90.0]; //deg -- MOVE TO CONFIG
 //--Stabilator
 private _stabPosition   = [0.0, -6.50, -1.82];  //m -- MOVE TO CONFIG
 private _stabDimensions = [3.22, 1.07];  //m -- MOVE TO CONFIG
-//[_heli, _deltaTime, _controlInputs, _stabPosition, _stabDimensions] call bmk_helisim_fnc_aeroStabilator;
+[_heli, _deltaTime, _controlInputs, _stabPosition, _stabDimensions] call bmk_helisim_fnc_aeroStabilator;
 
 //Vertical fin
 private _vertFinPosition   = [0.0, -6.50, -1.82];

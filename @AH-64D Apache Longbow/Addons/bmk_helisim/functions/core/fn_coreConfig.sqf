@@ -14,10 +14,9 @@ private _rotor_numBlades        = [4,     4];
 private _rotor_height           = [3.607, 0];       //m
 private _rotor_bladeRadius      = [7.315, 1.402];   //m
 private _rotor_bladeChord       = [0.533, 0.253];   //m
-private _rotor_bladeTwist       = [-9.0,   0.0];     //deg
+private _rotor_bladeTwist       = [0.0,   0.0];     //deg
 private _rotor_bladeMass        = [71.2,  17.7];    //kg
 private _rotor_hingeOffsetRatio = [0.137, 0.0];
-private _rotor_tipLos           = [0.97,  0.97];
 private _rotor_gearRatio        = [72.29, 14.90];
 private _rotor_thrustScalar     = [1.0,   1.0];
 //--Cyclic tables

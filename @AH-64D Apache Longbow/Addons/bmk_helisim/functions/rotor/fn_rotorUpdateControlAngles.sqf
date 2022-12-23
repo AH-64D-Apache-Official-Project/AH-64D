@@ -21,7 +21,7 @@ switch (_type) do {
         _collectivePitch_deg params ["_collectivePitchMin_deg", "_collectivePitchMax_deg"];
         _theta0_deg = _collectivePitchMin_deg + (_collectivePitchMax_deg - _collectivePitchMin_deg) * _collectiveVal;
 
-        //systemChat format ["Main Rotor AIC_Deg: %1 -- BIC_deg %2 -- theta0_deg %3", _AIC_deg toFixed 2, _BIC_deg toFixed 2, _theta0_deg toFixed 2];
+        systemChat format ["Main Rotor AIC_Deg: %1 -- BIC_deg %2 -- theta0_deg %3", _AIC_deg toFixed 2, _BIC_deg toFixed 2, _theta0_deg toFixed 2];
     };
     case 1: {   //Tail rotor
         _inputMaps
@@ -29,7 +29,7 @@ switch (_type) do {
             
         _theta0_deg = ([_pedalPitchMap_deg,  _pedalVal]  call fza_fnc_linearInterp) # 1;
 
-        //systemChat format ["Tail Rotor theta0_deg %1", _theta0_deg toFixed 2];
+        systemChat format ["Tail Rotor theta0_deg %1", _theta0_deg toFixed 2];
     };
     case 2: {   //Propellor
         //Nothing yet...

@@ -14,7 +14,7 @@ private _xmsnOutputRPM = _heli getVariable "bmk_helisim_xmsnOutputRPM";
 private _RPM           = _xmsnOutputRPM / _gearRatio;
 private _omega         = ((2.0 * pi) * _RPM) / 60.0;
 private _omegaR        = _omega * _R;
-private _gamma         = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;
+private _gamma         = (_rho * _a * _c * _R^4) / _Ib;
 
 //systemChat format ["Rotor %1 Xmsn RPM %2 -- Rotor RPM %2", _rtrNum, _RPM];
 

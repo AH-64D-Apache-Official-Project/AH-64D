@@ -60,12 +60,12 @@ _p_w = 0.0; _q_w = 0.0; _r_w = 0.0;  //<--until a more stable/reliable means of 
     params ["_a1_deg", "_b1_deg", "_theta75_deg"];
 //--Calculate drag and side forces
 ([_heli, _mu, _lambda, _theta75_deg, _q_w, _gamma, _omega, _omegaR, _CT, _rotorParams, _thrust, _rho, _a0_deg, _a1_deg, _b1_deg] call bmk_helisim_fnc_rotorCalculateDragAndSideForces)
-    params ["_dragH", "_sideJ"];
+    params ["_Hdrag", "_Jside"];
 //--Calculate torque
-([_heli, _rtrNum, _CT, _rotorParams, _rho, _omegaR, _mu, _thrust, _lambda, _dragH] call bmk_helisim_fnc_rotorCalculateTorque)
+([_heli, _rtrNum, _CT, _rotorParams, _rho, _omegaR, _mu, _thrust, _lambda, _Hdrag] call bmk_helisim_fnc_rotorCalculateTorque)
     params ["_torque"];
 //--Calculate body forces
-([_heli, _dragH, _beta_deg, _sideJ, _thrust, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorCalculateBodyForces)
+([_heli, _Hdrag, _beta_deg, _Jside, _thrust, _AIC_deg, _BIC_deg] call bmk_helisim_fnc_rotorCalculateBodyForces)
     params ["_x_s", "_y_s", "_z_s"];
 //--Calculate body moments
 ([_heli, _a1_deg, _beta_deg, _b1_deg, _AIC_deg, _BIC_deg, _omega, _rotorParams, _torque] call bmk_helisim_fnc_rotorCalculateBodyMoments)

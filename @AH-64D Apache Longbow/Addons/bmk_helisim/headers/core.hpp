@@ -9,5 +9,5 @@
 #define SEA_LEVEL_PRESSURE      29.92
 #define STANDARD_TEMP           15
 
-#define B 0.97
+#define TIP_LOSS 0.97
 #define TAU_LAMBDA 0.1
