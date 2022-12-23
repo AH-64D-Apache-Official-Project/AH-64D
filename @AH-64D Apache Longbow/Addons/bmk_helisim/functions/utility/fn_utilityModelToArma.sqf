@@ -1,4 +1,10 @@
-params ["_mastPitch_deg", "_mastRoll_deg", "_x_s", "_y_s", "_z_s", "_l_s", "_m_s", "_n_s"];
+params ["_rotorRot", "_x_s", "_y_s", "_z_s", "_l_s", "_m_s", "_n_s"];
+
+_rotorRot
+    params ["_mastPitch_deg", "_mastRoll_deg"];
+
+_mastPitch_deg = _mastPitch_deg * -1;
+_mastRoll_deg  = _mastRoll_deg  * -1;
 
 // ARMA               Model 
 //
@@ -26,7 +32,6 @@ private _shaftToBodyMatrix = matrixTranspose _bodyToShaftMatrix;
 private _bodyForces = [[_x_s], [_y_s], [_z_s]];
 _bodyForces         = _shaftToBodyMatrix matrixMultiply _bodyForces;
 _bodyForces         = _modelToArmaMatrix matrixMultiply _bodyForces;
-
 
 private _out_x = _bodyForces # 0 # 0;
 private _out_y = _bodyForces # 1 # 0;

@@ -6,7 +6,7 @@ if (isGamePaused) exitwith {};
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "HeliSim") exitWith {};
 
-systemChat format ["HeliSim is running!"];
+//systemChat format ["HeliSim is running!"];
 
 private _deltaTime   = ((["helisim_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
@@ -50,10 +50,10 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 
 //--Engines
 private _engine1Input = _heli getVariable "bmk_helisim_engine1";
-private _engine1      = [_heli, _deltaTime, 0, _engine1Input, _controlInputs, 1.31] call bmk_helisim_fnc_engine;
+private _engine1      = [_heli, _deltaTime, 0, _engine1Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
 
 private _engine2Input = _heli getVariable "bmk_helisim_engine2";
-private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _controlInputs, 1.31] call bmk_helisim_fnc_engine;
+private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
 
 //--Transmission
 private _engines = [ _engine1, _engine2];
@@ -72,7 +72,7 @@ private _tailRotorRot = [0.0, 90.0]; //deg -- MOVE TO CONFIG
 //--Stabilator
 private _stabPosition   = [0.0, -6.50, -1.82];  //m -- MOVE TO CONFIG
 private _stabDimensions = [3.22, 1.07];  //m -- MOVE TO CONFIG
-[_heli, _deltaTime, _controlInputs, _stabPosition, _stabDimensions] call bmk_helisim_fnc_aeroStabilator;
+//[_heli, _deltaTime, _controlInputs, _stabPosition, _stabDimensions] call bmk_helisim_fnc_aeroStabilator;
 
 //Vertical fin
 private _vertFinPosition   = [0.0, -6.50, -1.82];

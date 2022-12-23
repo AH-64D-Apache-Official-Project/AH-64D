@@ -9,8 +9,8 @@ private _nu      = _heli getVariable "bmk_helisim_rotor_nu"     select _rtrNum;
 private _lambda  = _heli getVariable "bmk_helisim_rotor_lambda" select _rtrNum;
 private _thrust  = _heli getVariable "bmk_helisim_rotor_thrust" select _rtrNum;
 private _CTSigma = 0.0; 
-private _CT      = _heli getVariable "bmk_helisim_rotor_CT"     select _rtrNum;;
-private ["_ct_0", "_ct_1", "_ct_2", "_ct_3"];
+private _CT      = _heli getVariable "bmk_helisim_rotor_CT"     select _rtrNum;
+private _ct_0 = 0.0; private _ct_1 = 0.0; private _ct_2 = 0.0; private _ct_3 = 0.0;
 
 //SH79, eqn 24
 _mu = if (_omegaR == 0) then { 0.0; } else { _u_w / _omegaR; };

@@ -14,7 +14,7 @@ private _rotor_numBlades        = [4,     4];
 private _rotor_height           = [3.607, 0];       //m
 private _rotor_bladeRadius      = [7.315, 1.402];   //m
 private _rotor_bladeChord       = [0.533, 0.253];   //m
-private _rotor_bladeTwist       = [0.0,   0.0];     //deg
+private _rotor_bladeTwist       = [-9.0,   0.0];     //deg
 private _rotor_bladeMass        = [71.2,  17.7];    //kg
 private _rotor_hingeOffsetRatio = [0.137, 0.0];
 private _rotor_tipLos           = [0.97,  0.97];
@@ -55,13 +55,15 @@ _heli setVariable ["bmk_helisim_rotor_e",          [_rtr_0_e, _rtr_1_e]];
 private _rtr_0_s  = (_rotor_numBlades # 0 * _rotor_bladeChord # 0) / (pi * _rotor_bladeRadius # 0);
 private _rtr_1_s  = (_rotor_numBlades # 1 * _rotor_bladeChord # 1) / (pi * _rotor_bladeRadius # 1);
 _heli setVariable ["bmk_helisim_rotor_s",          [_rtr_0_s, _rtr_1_s]];
-private _rtr_0_Ib = (1.0 / 3.0) * _rotor_bladeMass # 0 * (_rotor_bladeRadius # 0 * _rotor_bladeRadius # 0);
+private _rtr_0_m  = _rotor_bladeMass # 0 / _rotor_bladeRadius # 0;
+private _rtr_0_Ib = (_rtr_0_m * (_rotor_bladeRadius # 0 * _rotor_bladeRadius # 0 * _rotor_bladeRadius # 0) / 3.0);//(1.0 / 3.0) * _rotor_bladeMass # 0 * (_rotor_bladeRadius # 0 * _rotor_bladeRadius # 0);
 private _rtr_0_HO = 1.0 - _rotor_hingeOffsetRatio # 0;
 _rtr_0_Ib = _rtr_0_Ib * (_rtr_0_HO * _rtr_0_HO * _rtr_0_HO);
 
-private _rtr_1_Ib = (1.0 / 3.0) * _rotor_bladeMass # 1 * (_rotor_bladeRadius # 1 * _rotor_bladeRadius # 1);
+private _rtr_1_m  = _rotor_bladeMass # 1 / _rotor_bladeRadius # 1;
+private _rtr_1_Ib = (_rtr_1_m * (_rotor_bladeRadius # 1 * _rotor_bladeRadius # 1 * _rotor_bladeRadius # 1) / 3.0);//(1.0 / 3.0) * _rotor_bladeMass # 1 * (_rotor_bladeRadius # 1 * _rotor_bladeRadius # 1);
 private _rtr_1_HO = 1.0 - _rotor_hingeOffsetRatio # 1;
-_rtr_1_Ib = _rtr_1_Ib * (_rtr_0_HO * _rtr_0_HO * _rtr_0_HO);
+_rtr_1_Ib = _rtr_1_Ib * (_rtr_1_HO * _rtr_1_HO * _rtr_1_HO);
 _heli setVariable ["bmk_helisim_rotor_Ib",         [_rtr_0_Ib, _rtr_1_Ib]];
 _heli setVariable ["bmk_helisim_rotor_gearRatio",  _rotor_gearRatio];
 _heli setVariable ["bmk_helisim_rotor_thrustScalar", _rotor_thrustScalar];
@@ -75,8 +77,8 @@ private _engPwrTurRPM           = 20900;
 private _engGndIdleRPMSetPoint  = 0.57;
 private _engFltIdleRPMSetPoint  = 0.95;
 private _engFlyRPMSetPoint      = 1.01;
-private _engIdleTqSetPoint      = 0.09;
-private _engFlyTqSetPoint       = 0.18;
+private _engIdleTqSetPoint      = 0.055;
+private _engFlyTqSetPoint       = 0.180;
 
 private _engParams = [ _engContPwr
                      , _engPwrTurRPM

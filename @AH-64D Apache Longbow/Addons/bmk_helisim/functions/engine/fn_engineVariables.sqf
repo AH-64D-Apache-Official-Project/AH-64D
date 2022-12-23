@@ -1,5 +1,8 @@
 params ["_heli"];
 
+
+
+
 _heli setVariable ["bmk_helisim_engState",              ["OFF", "OFF"]];
 _heli setVariable ["bmk_helisim_engStart",              [false, false]];
 _heli setVariable ["bmk_helisim_engOn",                 [false, false]];

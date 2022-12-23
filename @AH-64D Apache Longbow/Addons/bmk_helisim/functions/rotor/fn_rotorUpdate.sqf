@@ -10,12 +10,13 @@ _rotorParams
 
 //private _RPM = ((_sfmPlusEng1_NP max _sfmPlusEng2_NP) * 21109) / _gearRatio;
 
-private _RPM    = (_heli getVariable "bmk_helisim_xmsnOutputRPM") / _gearRatio;
-private _omega  = ((2.0 * pi) * _RPM) / 60.0;
-private _omegaR = _omega * _R;
-private _gamma  = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;
+private _xmsnOutputRPM = _heli getVariable "bmk_helisim_xmsnOutputRPM";
+private _RPM           = _xmsnOutputRPM / _gearRatio;
+private _omega         = ((2.0 * pi) * _RPM) / 60.0;
+private _omegaR        = _omega * _R;
+private _gamma         = (_rho * _a * _c * (_R * _R * _R * _R)) / _Ib;
 
-//systemChat format ["Rotor %1 RPM %2", _rtrNum, _RPM];
+//systemChat format ["Rotor %1 Xmsn RPM %2 -- Rotor RPM %2", _rtrNum, _RPM];
 
 [_heli, "bmk_helisim_rotorRPM", _rtrNum, _RPM] call fza_sfmplus_fnc_setArrayVariable;
 

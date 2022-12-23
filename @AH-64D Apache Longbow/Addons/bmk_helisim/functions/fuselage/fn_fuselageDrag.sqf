@@ -8,7 +8,7 @@ private _fuselageAreaFront  =  6.254;
 private _fuselageAreaSide   = 22.332;
 private _fuselageAreaBottom = 33.129;
 
-private _fuselageDragCoefX  = 1.5;
+private _fuselageDragCoefX  = 0.5;
 
 //MOVE TO CONFIG!                PA     -35      0      35
 private _dragCoefTableY       = [[    0,  1.2,   1.4,    1.7],   //ft 
@@ -31,8 +31,9 @@ private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];
 
-[velocityModelSpace _heli # 0, velocityModelSpace _heli # 1, velocityModelSpace _heli # 2] 
-    params ["_locVelX", "_locVelY", "_locVelZ"];
+private _locVelX = velocityModelSpace _heli # 0;
+private _locVelY = velocityModelSpace _heli # 1;
+private _locVelZ = velocityModelSpace _heli # 2;
 
 private _dragX = -_fuselageDragCoefX * 0.5 * _rho * _fuselageAreaSide   * (_locVelX * _locVelX);
 private _dragY = -_fuselageDragCoefY * 0.5 * _rho * _fuselageAreaFront  * (_locVelY * _locVelY);

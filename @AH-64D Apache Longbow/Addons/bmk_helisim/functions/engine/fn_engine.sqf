@@ -1,38 +1,16 @@
-params ["_heli", "_deltaTime", "_engNum", "_engInput", "_controlInputs", "_maxTqScalar"];
+params ["_heli", "_deltaTime", "_engNum", "_engInput", "_altitude", "_temperature", "_controlInputs"];
 
-_engInput      params ["_engContPwr", "_refTq", "_gndIdleRPM", "_fltIdleRPM", "_flyRPM", "_engIdleTqSetPoint", "_engFlyTqSetPoint"];
-_controlInputs params ["_collectiveVal", "_cyclicPitchVal", "_cyclicRollVal", "_pedalVal", "_engineThrottleVal"];
-
-private _engState  = _heli getVariable "bmk_helisim_engState" select _engNum;
-private _engStart  = _heli getVariable "bmk_helisim_engStart" select _engNum;
-
-private _engThrottlePos      = _heli getVariable "bmk_helisim_engThrottlePos" select _engNum;
-private _engThrottleSetPoint = _heli getVariable "bmk_helisim_engThrottleSetPoint" select _engNum;
-
-private _outputRPM = _heli getVariable "bmk_helisim_engOutputRPM" select _engNum;
-private _outputTq  = _heli getVariable "bmk_helisim_engOutputTq"  select _engNum;
-
-private _idleTq    = _engIdleTqSetPoint * _refTq;
-private _flyTq     = _engFlyTqSetPoint  * _refTq;
-private _maxTq     = _refTq * _maxTqScalar;
-
-private _baseTq    = _idleTq  + (_flyTq - _idleTq) * (_engineThrottleVal select _engNum);
-
-private _setTq     = _baseTq     + (_maxTq - _baseTq)   * (_engineThrottleVal select _engNum) * _collectiveVal;
-private _setRPM    = _gndIdleRPM + (_flyRPM - _gndIdleRPM) * (_engineThrottleVal select _engNum);
+private _engState        = _heli getVariable "bmk_helisim_engState" select _engNum;
+private _maxTorqueScalar = 1.31;
 
 switch (_engState) do {
     case "OFF": {
-        [_heli, _engNum, _deltaTime, _engState, _engStart, _engThrottlePos, _engThrottleSetPoint, _outputRPM, _outputTq] call bmk_helisim_fnc_engineStateOff;
+        [_heli, _engNum, _deltaTime, _engInput, _maxTorqueScalar, _controlInputs] call bmk_helisim_fnc_engineStateOff;
     };
     case "STARTING": {
-        [_heli, _engNum, _deltaTime, _engState, _engStart, _engThrottlePos, _engThrottleSetPoint] call bmk_helisim_fnc_engineStateStart;
+        [_heli, _engNum, _deltaTime, _engInput, _maxTorqueScalar, _controlInputs] call bmk_helisim_fnc_engineStateStart;
     };
     case "ON" : {
-        [_heli, _engNum, _deltaTime, _engState, _engThrottlePos, _outputRPM, _collectiveVal, _outputTq, _engContPwr, _setRPM, _setTq, _refTq, _maxTq] call bmk_helisim_fnc_engineStateOn;
+        [_heli, _engNum, _deltaTime, _engInput, _maxTorqueScalar, _controlInputs] call bmk_helisim_fnc_engineStateOn;
     };
 };
-
-//[_heli, "bmk_helisim_engineOutputTq", _engNum, _outputTq] call fza_sfmplus_fnc_setArrayVariable;
-
-[_outputTq];

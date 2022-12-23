@@ -24,7 +24,7 @@ if (isGamePaused) exitwith {};
 private _flightModel = configFile >> "CfgVehicles" >> typeof _heli >> "FlightModel";
 if ((getText _flightModel) != "SFMPlus") exitWith {};
 
-systemChat format ["SFM+ is running!"];
+//systemChat format ["SFM+ is running!"];
 
 private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
