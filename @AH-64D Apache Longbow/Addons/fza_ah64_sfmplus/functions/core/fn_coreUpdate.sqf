@@ -36,7 +36,6 @@ private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
 private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
-
 //Input
 [_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 

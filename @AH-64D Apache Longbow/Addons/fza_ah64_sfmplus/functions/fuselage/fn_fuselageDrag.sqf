@@ -14,6 +14,7 @@ private _dragCoefTableY       = [[   0, 0.54, 0.60, 0.60],   //ft
                                  [4000, 1.02, 0.92, 0.85],   //ft
                                  [6000, 1.20, 1.00, 1.06],   //ft
                                  [8000, 1.65, 1.25, 1.70]];  //ft
+
 private _interpDragCoefTableY = [_dragCoefTableY, _altitude] call fza_fnc_linearInterp;
 _dragCoefTableY               = [[-40, _interpDragCoefTableY # 1],
                                  [  0, _interpDragCoefTableY # 2],
