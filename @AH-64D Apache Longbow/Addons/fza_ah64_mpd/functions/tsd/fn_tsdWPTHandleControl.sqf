@@ -67,13 +67,13 @@ if (_control == "l1" && _variant == 0) exitWith {
 switch (_variant) do {
     case 0: {   //Top level TSD page
         switch (_control) do {
-            case "b4": {    //WPT
+            case "b3": {    //WPT
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l2": {    //WPT > ADD
@@ -114,13 +114,13 @@ switch (_variant) do {
     };
     case 1: {   //WPT > ADD
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l1": {    //Add wpt
@@ -171,13 +171,13 @@ switch (_variant) do {
     };
     case 2: {   //WPT > DEL no point selected
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l3": {    //Do not delete - "No", return to WPT page
@@ -190,13 +190,13 @@ switch (_variant) do {
     };
     case 3: {   //WPT > DEL point selected
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT]; //TSD_ROOT  TSD_WPT_ROOT  
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l2": {    //Delete - "Yes", return to WPT page
@@ -214,13 +214,13 @@ switch (_variant) do {
     };
     case 4: {   //WPT > EDT no point selected
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l4": {    //Return to WPT page
@@ -249,13 +249,13 @@ switch (_variant) do {
                 }];
                 [_heli, _state] call fza_mpd_fnc_tsdWptEnterDetails;
             };
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l4": {    //Return to WPT page
@@ -268,13 +268,13 @@ switch (_variant) do {
     };
     case 6: {   //WPT > STO page
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l1": {    //Store current flown-over position
@@ -297,13 +297,13 @@ switch (_variant) do {
     };
     case 7: {   //WPT > XMIT page
         switch (_control) do {
-            case "b4": {    //Return to top level TSD (root)
+            case "b3": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To RTE page
+            case "b4": {    //To RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b6": {    //To THRT page
+            case "b5": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "r6": {    //Temporary, will allow user to input point via KU, will return you to the WPT page
