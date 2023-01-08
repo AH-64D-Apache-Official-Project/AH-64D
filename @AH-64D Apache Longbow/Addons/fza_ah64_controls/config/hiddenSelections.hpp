@@ -35,10 +35,8 @@ hiddenselections[]={
 	GLUE(val,_icon),
 	LIST_OF_BONES(pl)
 	LIST_OF_BONES(pr)
-	"pl_mpd_back",
-	"pr_mpd_back",
-	"pl_mpd_tsd",
-	"pr_mpd_tsd",
+	"plt_pl_mpd_back",
+	"plt_pr_mpd_back",
 	"tailDigit_01",
 	"tailDigit_02",
 	"tailDigit_03",

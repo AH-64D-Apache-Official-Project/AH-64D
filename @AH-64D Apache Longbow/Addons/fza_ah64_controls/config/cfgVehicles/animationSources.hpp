@@ -41,8 +41,9 @@ class AnimationSources
     {
         displayName = "Install American Mission Equipment";
         author = "Apache mod development team";
-        onPhaseChanged = "";
         source = "user";
+        forceAnimatePhase = 1;
+        forceAnimate[] = {"msn_equip_british", 0};
         initPhase = 1;
         animPeriod = 0.001;
     };
@@ -50,8 +51,9 @@ class AnimationSources
     {
         displayName = "Install British Mission Equipment";
         author = "Apache mod development team";
-        onPhaseChanged = "";
         source = "user";
+        forceAnimatePhase = 1;
+        forceAnimate[] = {"msn_equip_american", 0};
         initPhase = 0;
         animPeriod = 0.001;
     };
@@ -429,6 +431,12 @@ class AnimationSources
         animPeriod = 1;
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
+    };
+    class plt_uiscale
+    {
+        source = "user";
+        animPeriod = 0.001;
+        initPhase=1;
     };
     //////////////MPD OBJECTS//////////////////
     #define SECTION(val) \

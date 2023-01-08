@@ -1,5 +1,18 @@
 class UVAnimations
 {
+    class plt_lmpd_uiscale {
+        type = scale;
+        source = plt_uiscale;
+        section = plt_pl_mpd_back;
+        minValue = 0.1;
+        maxValue = 10;
+        center[] = {0, 0};
+        scale0[] = {1, 0.1};
+        scale1[] = {1, 10};
+    };
+    class plt_rmpd_uiscale : plt_lmpd_uiscale {
+        section = plt_pr_mpd_back;
+    };
     class plt_mmap_01_tnsx
     {
         type			= translation;

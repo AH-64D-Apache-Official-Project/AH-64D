@@ -14,14 +14,8 @@ private _operationCompleted = false;
 switch (_valueType) do {
     case POINT_SET_FREE_TEXT: {
         _id params ["","_index"];
-
         private _ident = _dbRow # POINT_GET_IDENT;
-
-        [_ident] call fza_dms_fnc_pointGetIdentDetails params ["", "", "", "", "_iconText1", "_iconText2"];
-
         _dbRow set [POINT_GET_FREE_TEXT, _newValue];
-        _dbRow set [POINT_GET_ICON_TEXT_A, [_iconText1, _index, _newValue] call fza_dms_fnc_pointFillIconText];
-        _dbRow set [POINT_GET_ICON_TEXT_B, [_iconText2, _index, _newValue] call fza_dms_fnc_pointFillIconText];
         _operationCompleted = true;
     };
     case POINT_SET_ARMA_POS: {

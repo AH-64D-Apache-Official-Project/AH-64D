@@ -12,3 +12,4 @@ class CfgPatches
 
 #include "CfgVehicles.hpp"
 #include "CfgFunctions.hpp"
+#include "extendedEventHandlers.hpp"
