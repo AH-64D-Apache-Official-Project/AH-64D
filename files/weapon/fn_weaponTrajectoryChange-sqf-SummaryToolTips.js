@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponTrajectoryChange.sqf",{102:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Cycles through the available hellfire trajectories</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponTrajectoryChange.sqf",{4:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Cycles through the available hellfire trajectories</div></div>"});

@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseChaff.sqf","fn_aseChaff.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseChaff.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[185,0,1,"Functions","Functions"],[186,0,0,"fza_fnc_aseChaff","fza_fnc_aseChaff"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseChaff.sqf","fn_aseChaff.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseChaff.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_aseChaff","fza_fnc_aseChaff"]]);
