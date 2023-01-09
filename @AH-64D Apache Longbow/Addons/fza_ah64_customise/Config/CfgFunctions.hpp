@@ -6,10 +6,10 @@
 #endif
 class CfgFunctions
 {
-	class fza_ah64_Misc	{
+	class fza_ah64_customise	{
 		tag = "fza_misc";
 		class Customise {
-			file = "\fza_ah64_misc\functions";
+			file = "\fza_ah64_customise\functions";
 			class CustomiseCanAdd {R;};
 			class CustomiseCanRemove {R;};
 			class CustomiseAdd {R;};
