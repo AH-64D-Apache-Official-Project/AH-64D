@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:pfz/fn_pfzCreate.sqf","fn_pfzCreate.sqf");NDSummary.OnSummaryLoaded("File:pfz/fn_pfzCreate.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[163,0,1,"Functions","Functions"],[164,0,0,"fza_fnc_pfzCreate","fza_fnc_pfzCreate"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:pfz/fn_pfzCreate.sqf","fn_pfzCreate.sqf");NDSummary.OnSummaryLoaded("File:pfz/fn_pfzCreate.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[161,0,1,"Functions","Functions"],[162,0,0,"fza_fnc_pfzCreate","fza_fnc_pfzCreate"]]);
