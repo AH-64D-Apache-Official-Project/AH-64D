@@ -21,7 +21,7 @@
 #define SYS_MIN_ACC_PSI   1650
 #define SYS_HYD_MIN_LVL   0.1
  
-#define SYS_BATT_TIMER    3.0   //min
+#define SYS_BATT_TIMER    12.0  //min
 #define SYS_ACC_TIMER     1.5   //min
 #define SYS_LEAK_TIMER    2.0   //min
 
