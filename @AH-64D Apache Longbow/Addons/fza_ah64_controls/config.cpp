@@ -7,7 +7,7 @@ class CfgPatches
 		author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
 		weapons[] = {};
 		requiredVersion = 2.06;
-		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh", "fza_ah64_sfmplus", "fza_ah64_aiCrew", "fza_ah64_betty"};
+		requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh", "fza_ah64_sfmplus", "fza_ah64_aiCrew", "fza_ah64_audioSystem"};
 	};
 };
 class CfgAddons
@@ -17,7 +17,7 @@ class CfgAddons
 	{
 		class fza_ah64_controls
 		{
-			list[] = {"fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_AICrew","fza_ah64_betty"};
+			list[] = {"fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_AICrew","fza_ah64_audioSystem"};
 		};
 	};
 };

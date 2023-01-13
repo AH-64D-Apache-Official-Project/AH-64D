@@ -14,4 +14,12 @@ Examples:
 Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params["_heli"];
+params ["_heli", "_priority", "_Reference", "_audio1", "_delay1", "_audio2", "_delay2", "_audio3", "_delay3"];
+
+private _aseMsg = _heli getVariable "fza_audio_ase_message";
+
+if (_priority >= _aseMsg # 1) then {
+    _heli setvariable ["fza_audio_ase_message", [_this]];
+};
+
+[_heli] spawn fza_betty_fnc_systemAudioHandler

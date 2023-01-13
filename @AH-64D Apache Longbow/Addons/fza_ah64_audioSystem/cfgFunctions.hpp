@@ -1,4 +1,3 @@
-
 #ifdef __A3_DEBUG__
 #define R recompile = 1
 #else
@@ -9,13 +8,15 @@ class CfgFunctions
 	class fza_ah64_project_betty
 	{
 		tag = "FZA_betty";
-		class Functions {
-			file = "\fza_ah64_betty\functions";
+		class functions {
+			file = "\fza_ah64_audioSystem\functions";
 			class addASEMessage {R;};
 			class addCaution {R;};
 			class addWarning {R;};
+			class bettyinit {R;};
 			class getin {R;};
-			class playsystemAudio {R;};
+			class playaudio {R;};
+			class systemAudiohandler {R;};
         };
     };
 };

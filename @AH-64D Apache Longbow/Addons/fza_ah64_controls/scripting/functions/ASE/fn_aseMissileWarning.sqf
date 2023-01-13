@@ -42,5 +42,5 @@ if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == "on") then {
     private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 
     //Audio
-    [_heli, 9, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_fnc_addQueuedAudio;
+    [_heli, 6, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_betty_fnc_addASEMessage;
 };

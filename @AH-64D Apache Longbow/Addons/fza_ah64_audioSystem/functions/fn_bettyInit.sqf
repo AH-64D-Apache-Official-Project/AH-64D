@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_betty_fnc_addWarning
+Function: fza_betty_fnc_bettyInit
 
 Description:
 
@@ -15,3 +15,7 @@ Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
+
+_heli setvariable ["fza_audio_ase_message", []];
+_heli setvariable ["fza_audio_warning_message", []];
+_heli setvariable ["fza_audio_caution", false];

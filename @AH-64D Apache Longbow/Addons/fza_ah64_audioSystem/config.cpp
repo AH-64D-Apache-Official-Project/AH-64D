@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class fza_ah64_betty
+	class fza_ah64_audioSystem
 	{
         units[] = {};
 		author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
@@ -13,4 +13,4 @@ class CfgPatches
 #include "cfgFunctions.hpp"
 #include "cfgSounds.hpp"
 #include "cfgvehicle.hpp"
-#include "extendedEventHandlers.hpp";
+#include "extendedEventHandlers.hpp"
