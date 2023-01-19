@@ -30,7 +30,6 @@ private _searching     		= [];
 private _Acquisition     	= [];
 private _tracking     		= [];
 private _priority           = 0;
-hintsilent str _audioList;
 
 {
 	_x params ["_object", "_radarState"];
