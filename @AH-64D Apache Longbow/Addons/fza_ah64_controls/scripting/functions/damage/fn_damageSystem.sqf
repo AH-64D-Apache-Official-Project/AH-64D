@@ -39,7 +39,7 @@ if (_system == "mala vrtule") then {
         //Mastercaution here
     };
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        [_heli, 2, "EngineWarning", "fza_ah64_tail_rotor_hydraulic_failure", 2] call fza_betty_fnc_addASEMessage;
+        [_heli, 2, "EngineWarning", "fza_ah64_tail_rotor_hydraulic_failure", 2] call fza_audioSystem_fnc_addASEMessage;
     };
 };
 
@@ -48,7 +48,7 @@ if (_system == "velka vrtule") then {
         //Mastercaution here
     };
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        [_heli, 2, "EngineWarning", "fza_ah64_hydraulic_failure", 2] call fza_betty_fnc_addASEMessage;
+        [_heli, 2, "EngineWarning", "fza_ah64_hydraulic_failure", 2] call fza_audioSystem_fnc_addASEMessage;
     };
 };
 

@@ -12,5 +12,4 @@ class CfgPatches
 
 #include "cfgFunctions.hpp"
 #include "cfgSounds.hpp"
-#include "cfgvehicle.hpp"
 #include "extendedEventHandlers.hpp"

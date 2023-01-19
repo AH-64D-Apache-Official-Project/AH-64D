@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_betty_fnc_systemAudioHandler
+Function: fza_audioSystem_fnc_audioSystemHandler
 
 Description:
     1 - caution
@@ -16,7 +16,12 @@ Parameters:
 Returns:
     No returns
 
-Examples:
+Examples: 
+    private _FuncHook = _heli getVariable ["fza_audio_FuncHook", scriptNull];
+    if (scriptDone _FuncHook) then {
+        _FuncHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
+        _heli setVariable ["fza_audio_FuncHook", _FuncHook];
+    };
 
 Author:
     Rosd6(Dryden)
@@ -29,15 +34,17 @@ while {player != vehicle player} do {
     private _aseMsg = _heli getVariable "fza_audio_ase_message";
     private _wrnMsg = _heli getVariable "fza_audio_warning_message";
 
-    if (_aseMsg != []) then {
-        [_aseMsg] spawn fza_betty_fnc_playaudio;
-        _heli setvariable ["fza_audio_ase_message", []];
-        sleep (_aseMsg # 4 + _aseMsg # 6 + _aseMsg # 8);
+    if (_aseMsg isNotEqualTo "") then {
+        _heli setvariable ["fza_audio_ase_message", ""];
+        _aseMsg spawn fza_audioSystem_fnc_playaudio;
+        _aseMsg params ["","","","", ["_delay1", 1], "", ["_delay2", 1], "", ["_delay3", 1]];
+        sleep (_delay1 + _delay2 + _delay3);
         continue;
     };
-    if (_wrnMsg != []) then {
-        [_wrnMsg] spawn fza_betty_fnc_playaudio;
-        sleep (_wrnMsg # 4 + _wrnMsg # 6 + _wrnMsg # 8);
+    if (_wrnMsg isNotEqualTo "") then {
+        _wrnMsg spawn fza_audioSystem_fnc_playaudio;
+        _wrnMsg params ["","","","", ["_delay1", 1], "", ["_delay2", 1], "", ["_delay3", 1]];
+        sleep (_delay1 + _delay2 + _delay3);
         continue;
     };
     if (_heli getVariable "fza_audio_caution") then {

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_betty_fnc_bettyInit
+Function: fza_audioSystem_fnc_audioSystemInit
 
 Description:
 
@@ -16,6 +16,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setvariable ["fza_audio_ase_message", []];
-_heli setvariable ["fza_audio_warning_message", []];
-_heli setvariable ["fza_audio_caution", false];
+_heli setvariable ["fza_audio_ase_message", "", true];
+_heli setvariable ["fza_audio_warning_message", "", true];
+_heli setvariable ["fza_audio_caution", false, true];
+_heli setvariable ["fza_audio_FuncHook", scriptNull, true];

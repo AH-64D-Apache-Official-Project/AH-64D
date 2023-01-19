@@ -69,7 +69,7 @@ hintsilent str _audioList;
 	if (_object in _tracklist) then {continue;};
 
 	//Play audio
-	[_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_betty_fnc_addASEMessage;
+	[_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audioSystem_fnc_addASEMessage;
 
 	//ASE AUTOPAGE
 	if (_Autopage == 1 && _radarState == "Searching") then {

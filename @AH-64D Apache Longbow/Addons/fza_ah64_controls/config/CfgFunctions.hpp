@@ -170,11 +170,5 @@ class CfgFunctions
 			class aseRFJam {R;};
 			class aseRLWR {R;};
 		};
-		class audio
-		{
-			file = "\fza_ah64_controls\scripting\functions\audio";
-			class playQueuedAudio { R; description = "Plays Queued audio from array"; };
-			class addQueuedAudio { R; description = "Adds audio to the Queue"; };
-		};
 	};
 };

@@ -67,7 +67,7 @@ _heli setVariable[_mag, true, true];
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
 if (_usesound) then {
-    [_heli, 2, "", _audio1, 1.25] call fza_betty_fnc_addASEMessage;
+    [_heli, 2, "", _audio1, 1.25] call fza_audioSystem_fnc_addASEMessage;
 };
 
 while {

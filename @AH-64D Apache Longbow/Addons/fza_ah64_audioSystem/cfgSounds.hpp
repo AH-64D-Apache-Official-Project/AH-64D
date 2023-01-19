@@ -1,6 +1,6 @@
 class CfgSounds
 {
-	/////////////BETTY AUDIO////////////
+	/////////////System AUDIO////////////
 	//Radar states
 	class fza_ah64_Acquisition
 	{

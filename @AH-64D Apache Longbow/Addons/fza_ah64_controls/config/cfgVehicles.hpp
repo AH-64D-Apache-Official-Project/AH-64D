@@ -163,7 +163,7 @@ class CfgVehicles
 		};
 		class EventHandlers {
 			class fza_ah64 {
-				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_betty_fnc_bettyInit";
+				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_audioSystem_fnc_audioSystemInit";
 				handleDamage = "_this call fza_fnc_damageSystem";
 			};
 		};
@@ -286,13 +286,13 @@ class CfgVehicles
 				};
 				class damageAlarmInt
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_audioSystem\Audio\Systems\bt_rotor_rpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
 				class rotorLowAlarmInt
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_audioSystem\Audio\Systems\bt_rotor_rpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
 				};
@@ -472,7 +472,7 @@ class CfgVehicles
 				};
 				class damageAlarmInt
 				{
-					sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm.ogg", 1, 1.000000};
+					sound[] = {"\fza_ah64_audioSystem\Audio\Systems\bt_rotor_rpm_low.ogg", 1, 1.000000};
 					frequency = 1;
 					volume = "engineOn * (1 - camPos) * ( 1 - ((transmissionDamage factor [0.61, 0.60]) * (motorDamage factor [0.61, 0.60]) * (rotorDamage factor [0.51, 0.50]))) * (rotorSpeed factor [0.0, 0.001])";
 				};
