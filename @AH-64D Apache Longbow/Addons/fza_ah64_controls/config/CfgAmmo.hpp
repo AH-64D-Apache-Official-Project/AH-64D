@@ -188,8 +188,8 @@ class CfgAmmo
 
 		maxSpeed					= 450;
 		simulationStep				= 0.005;
-		airFriction 				= 0.085;
-		sideAirFriction 			= 0.15;
+		airFriction 				= -0.0350;
+		sideAirFriction 			= -0.0250;
 		initTime					= 0;
 		thrustTime					= 6;
 		thrust						= 100;

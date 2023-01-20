@@ -525,10 +525,10 @@ if (_was == WAS_WEAPON_MSL) then {
 
         if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
             _LoalLimitOfset = 5;
-            _LoblCheck = _LoblCheckLima;
+            _LoblCheck = _LoblCheckLima # 1;
         };
             
-        if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _LoblCheck # 1 == true) then {
+        if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _LoblCheck == true) then {
             _w = 0.2202;
             _h = 0.3;
             _apx = 0.108;

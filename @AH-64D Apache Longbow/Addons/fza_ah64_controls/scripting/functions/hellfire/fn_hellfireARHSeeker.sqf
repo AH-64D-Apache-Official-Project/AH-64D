@@ -24,10 +24,8 @@ _seekerStateParams params ["_TargetObj", "_TargetPos", "_TargetType","_LaunchLob
 
 
 private _heli 				= vehicle _shooter;
-private _armaRadarOn    	= isVehicleRadarOn _heli;
 private _returnTargetPos  	= _TargetPos;
 private _SelectedTarget		= objNull;
-private _validTargets		= objNull;
 private _LOSCounterVAR		= "fza_ah64_" + str _projectile + "_Los_Lost_FrameCounter";
 private _LosLostCounter 	= _heli getVariable [_LOSCounterVAR, 1];
 
@@ -71,14 +69,14 @@ if !(isNull _TargetObj) then {
     };
 };
 
-//needs attention, something amis with moving targets
-//akin to feedback loop on returned coords leading to missile flying for a target pos super far infront of targets direction of travel 
-//1000km + lead
 if !(isNull _SelectedTarget) then {
-	private _aimPosTarget = aimPos _SelectedTarget;
+	//private _aimPosTarget = aimpos _SelectedTarget;
+	private _centerOfObject = getCenterOfMass _SelectedTarget;
+    private _aimPosTarget = _SelectedTarget modelToWorldWorld _centerOfObject;
+
 	private _projectileVelocity = velocity _projectile;
 	private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
-	private _timeUntilImpact = (_aimPosTarget distance getposasl _projectile) / _projectileSpeed;
+	private _timeUntilImpact = (_aimPosTarget distance _projectile) / _projectileSpeed;
 	systemchat str _timeUntilImpact;
 	_returnTargetPos = _aimPosTarget vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
 	_seekerStateParams set [0, _SelectedTarget];
@@ -88,6 +86,7 @@ if !(isNull _SelectedTarget) then {
 };
 
 
+#ifdef __A3_DEBUG__
 hintSilent format ["TargetObj = %1,
 				\nTargetPos = %2,
 				\nValidtarget = %3,
@@ -95,5 +94,6 @@ hintSilent format ["TargetObj = %1,
 				\nSecondarytargets = %5,
 				\nFinalTarget = %6,
 				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _validTargets, _Primarytargets, _secondarytargets, _SelectedTarget, _returnTargetPos];
+#endif
 
 _returnTargetPos;
