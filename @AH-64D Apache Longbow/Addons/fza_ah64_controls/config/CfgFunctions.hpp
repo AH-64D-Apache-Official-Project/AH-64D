@@ -62,6 +62,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\Sensor";
 			class targetingSensorUpdate {R;};
+			class targetingsensorCycle {R;};
 		};
 		class fire
 		{
@@ -77,13 +78,13 @@ class CfgFunctions
 		};
 		class hellfire {
 			file = "\fza_ah64_controls\Scripting\functions\hellfire";
-			class HellfireAceController {R;};
+			class hellfireAceController {R;};
 			class HellfireGetAttackProfile {R;};
 			class hellfireSALFired {R;};
 			class hellfireARHSeeker {R;};
 			class hellfireARHFired {R;};
 			class hellfireLimaLoblCheck {R;};
-			class hellfireSalPrelaunch {R;};
+			class hellfireSALShouldStartLobl {R;};
 			class hellfireCheckSeekerAngle {R;};
 		};
 		class ihadss

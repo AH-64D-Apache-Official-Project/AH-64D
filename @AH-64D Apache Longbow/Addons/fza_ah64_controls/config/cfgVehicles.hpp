@@ -1119,7 +1119,7 @@ class CfgVehicles
 				primary = 1;
 				primaryGunner = 1;
 				stabilizedInAxes = 3;
-				weapons[] = {"fza_ma_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
+				weapons[] = {"fza_ma_safe", "fza_gun_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
 				magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
 				memoryPointsGetInGunner = "pos gunner";
 			    memoryPointsGetInGunnerDir = "pos gunner dir";

@@ -120,7 +120,7 @@ private _eng1Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0
 private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
 private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
 private _apuState = _heli getVariable "fza_ah64_apu";
-private _powerOnState = _apuState == true || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
+private _powerOnState = _apuState || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
@@ -514,21 +514,21 @@ if (_was == WAS_WEAPON_MSL) then {
     };
     _targpos = _scPos;
 
-    if (isNull _missileTarget || (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep" && isVehicleRadarOn _heli == false)) then {
+    if (isNull _missileTarget) then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
     } else {
         _targetDist = _heli distance getPos _missileTarget;
-        _LoblCheckLima = [_heli, [getpos _missileTarget, "", speed _missileTarget, _missileTarget]] call fza_fnc_hellfireLimaLoblCheck;
-        _LoblCheck = [_heli] call fza_fnc_hellfireSalPrelaunch;
+        _loblCheckLima = false;
+        _loblCheck = [_heli] call fza_fnc_hellfireSALShouldStartLobl;
         _distOffAxis = abs (_heli getRelDir _missileTarget call CBA_fnc_simplifyAngle180);
-        _LoalLimitOfset = 7.5;
+        _loalLimitOffset = 7.5;
 
         if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-            _LoalLimitOfset = 5;
-            _LoblCheck = _LoblCheckLima # 1;
+            _loblCheck = [_heli, [getpos _missileTarget, "", speed _missileTarget, _missileTarget]] call fza_fnc_hellfireLimaLoblCheck;
+            _loalLimitOffset = 5;
         };
             
-        if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _LoblCheck == true) then {
+        if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _LoblCheck) then {
             _w = 0.2202;
             _h = 0.3;
             _apx = 0.108;

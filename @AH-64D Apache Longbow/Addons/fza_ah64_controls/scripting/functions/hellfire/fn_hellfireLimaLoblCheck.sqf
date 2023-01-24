@@ -2,8 +2,8 @@
 Function: fza_fnc_hellfireLimaLoblCheck
 
 Description:
-    Defines what the radar can see. Can either be given a 
-
+    A logic path for returning if the Lima hellfire can see the intended target within the given parameters and if it can fire
+    
 Parameters:
 	_seeker - The object who is seeking
     _targ - The target array

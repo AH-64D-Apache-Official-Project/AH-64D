@@ -1,8 +1,9 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireSALPrelaunch
+Function: fza_fnc_hellfireSALShouldStartLobl
 
 Description:
-    Defines what the SAL missile can see.
+    Defines whether a SAL missile should start in LOBL
+    (can see valid laser energy)
 
 Parameters:
 	_heli - The object who is seeking
@@ -12,17 +13,17 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_hellfireSALPrelaunch
+    [_heli] call fza_fnc_hellfireSALShouldStartLobl
 	---
 
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-_index = _heli getvariable "fza_ah64_laserMissilePrimaryCode";
+_index = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
 
 if (_index == -1) exitWith {false};
 
-private _channels = _heli getvariable "fza_ah64_laserChannelCodes";
-private _hash = _heli getvariable "fza_ah64_LaserChannelIndex";
+private _channels = _heli getVariable "fza_ah64_laserChannelCodes";
+private _hash = _heli getVariable "fza_ah64_laserChannelIndex";
 private _laserCode = _hash get _channels # _index;
 
 private _ammotype = _heli getVariable "fza_ah64_selectedMissile";

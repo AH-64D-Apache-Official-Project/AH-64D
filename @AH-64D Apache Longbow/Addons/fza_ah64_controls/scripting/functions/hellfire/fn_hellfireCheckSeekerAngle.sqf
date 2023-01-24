@@ -6,7 +6,10 @@ Description:
     Derived from the ace check seeker angle but to use model vectoring instead of flight vector
 
 Parameters:
-
+    _seeker - object Considered to be the seeker head
+    _targetpos - Intended target to check LOS
+    _seekerMaxAngle - the cfg seeker angle for hellfire
+    
 Returns:
 	true || false
 

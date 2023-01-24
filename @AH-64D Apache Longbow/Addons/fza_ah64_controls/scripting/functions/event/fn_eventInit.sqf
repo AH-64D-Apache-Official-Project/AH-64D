@@ -106,7 +106,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_laserLRFDCode",              "A", true];
     _heli setVariable ["fza_ah64_laserLSTCode",               "B", true];
     _heli setVariable ["fza_ah64_laserChannelCodes",         ["A", "B", "C", "D"], true];
-    _heli setVariable ["fza_ah64_LaserChannelIndex", createHashMapFromArray
+    _heli setVariable ["fza_ah64_laserChannelIndex", createHashMapFromArray
         [ ["A",1111],["B",1112]
         , ["C",1113],["D",1114]
         , ["E",1121],["F",1122]
@@ -189,9 +189,4 @@ do {
         };
     };
     sleep 0.03;
-    
-    //Ace Map Lighting settings
-    ace_map_vehicleLightColor = [0.306, 0.878, 0.349,0.3]; 
-    ace_map_vehicleExteriorTurrets = [];
-    ace_map_vehicleLightCondition = (isLightOn [_heli, [0]]);
 };

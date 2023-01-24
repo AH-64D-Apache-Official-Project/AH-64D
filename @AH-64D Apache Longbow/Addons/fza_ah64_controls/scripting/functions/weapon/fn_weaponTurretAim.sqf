@@ -27,7 +27,7 @@ private _inhibit = "";
 private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
 
 private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
-private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter"];
+private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter","fza_gun_safe"];
 private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel = [0, 0, 0];
 private _targPos = -1;

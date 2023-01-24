@@ -18,6 +18,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_nextFireMode = [["LO","DIR","HI"], _heli getVariable "fza_ah64_hellfireTrajectory"] call fza_fnc_cycle;
+private _nextFireMode = [["LO","DIR","HI"], _heli getVariable "fza_ah64_hellfireTrajectory"] call fza_fnc_cycle;
 
 _heli setVariable ["fza_ah64_hellfireTrajectory", _nextFireMode, true];

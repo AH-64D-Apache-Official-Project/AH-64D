@@ -1,7 +1,7 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex"];
 
-private _laserFreqs = _heli getVariable "fza_ah64_LaserChannelIndex";
+private _laserFreqs = _heli getVariable "fza_ah64_laserChannelIndex";
 
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FREQ_A), str(_laserFreqs get "A")];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FREQ_B), str(_laserFreqs get "B")];

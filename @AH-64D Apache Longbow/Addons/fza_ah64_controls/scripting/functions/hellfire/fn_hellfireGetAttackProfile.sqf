@@ -8,7 +8,7 @@ Parameters:
     _heli - the helicopter
 
 Returns:
-	Nothing
+    grabs the apaches system trajectory setting & outputs the ace cfg Trajectory name
 
 Examples:
     [_heli] call fza_fnc_HellfireGetAttackProfile
@@ -18,8 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _trajectory = _heli getvariable "fza_ah64_hellfireTrajectory";
-Private _result = false;
+private _trajectory = _heli getVariable "fza_ah64_hellfireTrajectory";
+private _result = false;
 
 switch _trajectory do {
     case "DIR": {

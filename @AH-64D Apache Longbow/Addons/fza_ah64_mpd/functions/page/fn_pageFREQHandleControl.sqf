@@ -2,8 +2,8 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #define SET_CHANNEL_CODE(code) private _callback = { \
         params ["_input", "", "_heli"]; \
-        (_heli getVariable "fza_ah64_LaserChannelIndex") set [code,_input]; \
-        _heli setVariable ["fza_ah64_LaserChannelIndex", _heli getVariable "fza_ah64_LaserChannelIndex", true]; \
+        (_heli getVariable "fza_ah64_laserChannelIndex") set [code,_input]; \
+        _heli setVariable ["fza_ah64_laserChannelIndex", _heli getVariable "fza_ah64_laserChannelIndex", true]; \
     }; \
     [_heli, "CODE", _callback, fza_ku_fnc_checkerCode, _state, ""] call fza_ku_fnc_addPrompt;
 

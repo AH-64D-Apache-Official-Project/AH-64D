@@ -2,7 +2,7 @@
 Function: fza_fnc_hellfireSALFired
 
 Description:
-    The handling of Ace Laser Seeker for our Systems
+    Initialises the seeker of the ACE SAL hellfire for the apache
 
 Parameters:
     _heli - The helicopter to modify
@@ -26,18 +26,18 @@ _heli = vehicle _shooter;
 //AttackProfile
 private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
 
-if (_missilelobl == true) then {
+if (_missilelobl) then {
 	_attackProfile = "hellfire";
 };
 
 _launchParams set [3, _attackProfile];
 
 //Grab and set laser code for hellfire
-_index = _heli getvariable "fza_ah64_laserMissilePrimaryCode";
+_index = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
 
 if !(_index == -1) then {
-	private _channels = _heli getvariable "fza_ah64_laserChannelCodes";
-	private _hash = _heli getvariable "fza_ah64_LaserChannelIndex";
+	private _channels = _heli getVariable "fza_ah64_laserChannelCodes";
+	private _hash = _heli getVariable "fza_ah64_laserChannelIndex";
 	private _laserCode = _hash get _channels # _index;
 	private _laserInfo 	= [_laserCode, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH];
 	_launchParams set [5, _laserInfo];
