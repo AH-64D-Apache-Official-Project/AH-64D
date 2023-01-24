@@ -31,9 +31,15 @@ params["_heli"];
 while {player != vehicle player} do {
     waituntil {isGamePaused == false};   
     
+    private _advMsg = _heli getVariable "fza_audio_advisory_message";
     private _aseMsg = _heli getVariable "fza_audio_ase_message";
     private _wrnMsg = _heli getVariable "fza_audio_warning_message";
 
+    if (_advMsg isNotEqualTo "") then {
+        _heli setvariable ["fza_audio_advisory_message", ""];
+        playSound _advMsg # 3;
+        continue;
+    };
     if (_aseMsg isNotEqualTo "") then {
         _heli setvariable ["fza_audio_ase_message", ""];
         _aseMsg spawn fza_audioSystem_fnc_playaudio;

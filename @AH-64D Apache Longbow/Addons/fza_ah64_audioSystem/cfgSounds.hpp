@@ -103,7 +103,7 @@ class CfgSounds
 	class fza_ah64_tail_rotor_hydraulic_failure
 	{
 		name = "fza_ah64_tail_rotor_hydraulic_failure";
-		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_tail_rotor_hydraulic_failure.ogg",100,1,1};
+		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_tail_rotor_hydraulic_failure.ogg",200,1,1};
 		titles[]={};
 	};
 
@@ -483,13 +483,13 @@ class CfgSounds
 	class fza_ah64_Altitude_low
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_Altitude_low.ogg",100,1,10};
+		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_Altitude_low.ogg",60,1,10};
 		titles[]={};
 	};
 	class fza_ah64_APR_39_power_up
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_APR_39_power_up.ogg",100,1,10};
+		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_APR_39_power_up.ogg",60,1,10};
 		titles[]={};
 	};
 	class fza_ah64_Caution
