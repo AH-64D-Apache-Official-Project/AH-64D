@@ -2,10 +2,10 @@ class CfgSounds
 {
 	/////////////System AUDIO////////////
 	//Radar states
-	class fza_ah64_Acquisition
+	class fza_ah64_acquisition
 	{
-		name = "fza_ah64_Acquisition";
-		sound[] = {"\fza_ah64_audioSystem\audio\Radar_states\bt_Acquisition.ogg",100,1,1};
+		name = "fza_ah64_acquisition";
+		sound[] = {"\fza_ah64_audioSystem\audio\Radar_states\bt_acquisition.ogg",100,1,1};
 		titles[]={};
 	};
 	class fza_ah64_searching
@@ -486,10 +486,10 @@ class CfgSounds
 		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_Altitude_low.ogg",100,1,10};
 		titles[]={};
 	};
-	class fza_ah64_APR_39_Power_up
+	class fza_ah64_APR_39_power_up
 	{
 		name = "fza_ah64_";
-		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_APR_39_Power_up.ogg",100,1,10};
+		sound[] = {"\fza_ah64_audioSystem\audio\Systems\bt_APR_39_power_up.ogg",100,1,10};
 		titles[]={};
 	};
 	class fza_ah64_Caution

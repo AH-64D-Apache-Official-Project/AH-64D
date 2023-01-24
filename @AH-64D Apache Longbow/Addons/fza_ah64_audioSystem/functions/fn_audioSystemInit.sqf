@@ -19,4 +19,4 @@ params["_heli"];
 _heli setvariable ["fza_audio_ase_message", "", true];
 _heli setvariable ["fza_audio_warning_message", "", true];
 _heli setvariable ["fza_audio_caution", false, true];
-_heli setvariable ["fza_audio_FuncHook", scriptNull, true];
+_heli setvariable ["fza_audio_funcHook", scriptNull, true];

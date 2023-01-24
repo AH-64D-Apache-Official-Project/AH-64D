@@ -17,10 +17,10 @@ Returns:
     No returns
 
 Examples: 
-    private _FuncHook = _heli getVariable ["fza_audio_FuncHook", scriptNull];
-    if (scriptDone _FuncHook) then {
-        _FuncHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
-        _heli setVariable ["fza_audio_FuncHook", _FuncHook];
+    private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
+    if (scriptDone _funcHook) then {
+        _funcHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
+        _heli setVariable ["fza_audio_funcHook", _funcHook];
     };
 
 Author:

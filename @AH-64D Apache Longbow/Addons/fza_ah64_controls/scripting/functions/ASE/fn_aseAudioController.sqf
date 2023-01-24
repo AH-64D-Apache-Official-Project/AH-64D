@@ -24,10 +24,10 @@ if !(isEngineOn _heli) exitwith {};
 
 private _Autopage		    = _heli getVariable "fza_ah64_ase_autopage";
 private _Searchlist 		= _heli getVariable "fza_ah64_ase_searchingObj";
-private _aquirelist 		= _heli getVariable "fza_ah64_ase_AcquisitionObj";
+private _acquireList 		= _heli getVariable "fza_ah64_ase_acquisitionObj";
 private _tracklist 			= _heli getVariable "fza_ah64_ase_trackingobj";
 private _searching     		= [];
-private _Acquisition     	= [];
+private _acquisition     	= [];
 private _tracking     		= [];
 private _priority           = 0;
 
@@ -44,17 +44,17 @@ private _priority           = 0;
 	private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 
 	// State audio
-	if (_radarState == "Searching") then {
+	if (_radarState == "searching") then {
 		_searching pushback _object;
 		_heli setVariable ["fza_ah64_ase_searchingObj", _searching];
 		_priority = 4;
 	};
-	if (_radarState == "Acquisition") then {
-		_Acquisition pushback _object;
-		_heli setVariable ["fza_ah64_ase_AcquisitionObj", _Acquisition];
+	if (_radarState == "acquisition") then {
+		_acquisition pushback _object;
+		_heli setVariable ["fza_ah64_ase_acquisitionObj", _acquisition];
 		_priority = 5;
 	};
-	if (_radarState == "Tracking") then {
+	if (_radarState == "tracking") then {
 		_tracking pushback _object;
 		_object confirmSensorTarget [playerSide, true];
 		_heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
@@ -64,24 +64,24 @@ private _priority           = 0;
 
 	//_ADA audio Previously played check
 	if (_object in _Searchlist && _radarState == "searching") then {continue;};
-	if (_object in _aquirelist && !(_radarState == "tracking")) then {continue;};
+	if (_object in _acquireList && !(_radarState == "tracking")) then {continue;};
 	if (_object in _tracklist) then {continue;};
 
 	//Play audio
 	[_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audioSystem_fnc_addASEMessage;
 
 	//ASE AUTOPAGE
-	if (_Autopage == 1 && _radarState == "Searching") then {
+	if (_Autopage == 1 && _radarState == "searching") then {
 		[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 	};
-	if (_Autopage == 2 && _radarState == "Acquisition") then {
+	if (_Autopage == 2 && _radarState == "acquisition") then {
 		[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 	};
-	if (_Autopage == 3 && _radarState == "Tracking") then {
+	if (_Autopage == 3 && _radarState == "tracking") then {
 		[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
 	};
 } foreach _audioList;
 
 _heli setVariable ["fza_ah64_ase_searchingObj", _searching];
-_heli setVariable ["fza_ah64_ase_AcquisitionObj", _Acquisition];
+_heli setVariable ["fza_ah64_ase_acquisitionObj", _acquisition];
 _heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
