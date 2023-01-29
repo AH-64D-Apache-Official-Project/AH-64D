@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:sensor/fn_targetingSensorUpdate.sqf","fn_targetingSensorUpdate.sqf");NDSummary.OnSummaryLoaded("File:sensor/fn_targetingSensorUpdate.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[189,0,1,"Functions","Functions"],[190,0,0,"fza_fnc_targetingSensorUpdate","fza_fnc_targetingSensorUpdate"]]);

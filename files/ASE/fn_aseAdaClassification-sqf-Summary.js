@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:ASE/fn_aseAdaClassification.sqf","fn_aseAdaClassification.sqf");NDSummary.OnSummaryLoaded("File:ASE/fn_aseAdaClassification.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[177,0,1,"Functions","Functions"],[178,0,0,"fza_fnc_aseAdaClassification","fza_fnc_aseAdaClassification"]]);
