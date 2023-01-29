@@ -28,6 +28,7 @@ private _getOrCreateCtrl = {
 };
 
 private _yScale = (4/3) / (getResolution # 4);
+private _yOffset = (1-_yScale)/2;
 
 _heli animateSource ["plt_uiscale", _yScale];
 
@@ -51,12 +52,11 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     private _y = _heliCtr # 1 - cos _theta * (_r * _scale);
     _uiCtr = [_x, _y];
 };
-_uiCtr set [0, (_uiCtr # 0)];
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
 // Icon draw
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
-_iconCtrl ctrlSetPosition [_uiTop # 0, _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
 
@@ -79,14 +79,14 @@ private _drawText = {
         case "right": {_xOffset = -1;};
         case "center": {_xOffset = -0.5};
     };
-    private _yOffset = 0;
+    private _textYOffset = 0;
     switch _textYAlign do {
-        case "top": {TEXT_HEIGHT * 0.5};
-        case "bottom": {TEXT_HEIGHT * -0.5};
+        case "top": {_textYOffset = TEXT_HEIGHT * 0.5};
+        case "bottom": {_textYOffset = TEXT_HEIGHT * -0.5};
     };
     _textCtrl ctrlSetPosition
         [ _uiTop # 0 + (_textOffset # 0 * _iconSize) + _xOffset
-        , (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _yOffset - 0.5) * _yScale
+        , _yOffset + (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset - 0.5) * _yScale
         , 1
         , 1 * _yScale
         ];

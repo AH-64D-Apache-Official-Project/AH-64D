@@ -16,27 +16,10 @@ hiddenselections[]={
 	"in_lt_firerdis",
 	"in_lt_mstrcau",
 	"in_lt_mstrwrn",
-#define SECTION(val) \
-	GLUE(val,_digit01),\
-	GLUE(val,_digit02),\
-	GLUE(val,_digit03),\
-	GLUE(val,_digit04),\
-	GLUE(val,_digit05),\
-	GLUE(val,_digit06),\
-	GLUE(val,_digit07),\
-	GLUE(val,_digit08),\
-	GLUE(val,_digit09),\
-	GLUE(val,_digit10),\
-	GLUE(val,_digit11),\
-	GLUE(val,_digit12),\
-	GLUE(val,_digit13),\
-	GLUE(val,_digit14),\
-	GLUE(val,_digit15),\
-	GLUE(val,_icon),
-	LIST_OF_BONES(pl)
-	LIST_OF_BONES(pr)
 	"plt_pl_mpd_back",
 	"plt_pr_mpd_back",
+	"cpg_cl_mpd_back",
+	"cpg_cr_mpd_back",
 	"tailDigit_01",
 	"tailDigit_02",
 	"tailDigit_03",

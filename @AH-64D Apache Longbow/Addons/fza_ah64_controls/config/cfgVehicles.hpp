@@ -6,7 +6,6 @@ class CfgVehicles
 		class EventHandlers;
 	};
 	#include "cfgVehicles\crew.hpp"
-	#include "\fza_ah64_controls\headers\mpdSections.h"
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
@@ -41,7 +40,7 @@ class CfgVehicles
 		//SFM Variables-------------/
 		startDuration          = 15;
 		liftForceCoef          = 1.25;
-		bodyFrictionCoef       = 1.0;
+		bodyFrictionCoef       = 0.00;
 		cyclicAsideForceCoef   = 0.00;
 		cyclicForwardForceCoef = 0.00;
 		backRotorForceCoef     = 0.00;

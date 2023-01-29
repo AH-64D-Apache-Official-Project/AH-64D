@@ -6,9 +6,9 @@ class UVAnimations
         section = plt_pl_mpd_back;
         minValue = 0.1;
         maxValue = 10;
-        center[] = {0, 0};
-        scale0[] = {1, 0.1};
-        scale1[] = {1, 10};
+        center[] = {0.5, 0.5};
+        scale0[] = {1*1.030, 0.1*1.025};
+        scale1[] = {1*1.030, 10 *1.025};
     };
     class plt_rmpd_uiscale : plt_lmpd_uiscale {
         section = plt_pr_mpd_back;

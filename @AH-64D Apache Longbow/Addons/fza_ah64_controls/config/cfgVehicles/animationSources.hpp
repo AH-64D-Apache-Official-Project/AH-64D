@@ -438,20 +438,6 @@ class AnimationSources
         animPeriod = 0.001;
         initPhase=1;
     };
-    //////////////MPD OBJECTS//////////////////
-    #define SECTION(val) \
-    class val##_x {\
-        source= user;\
-        animPeriod = 0.001;\
-    };\
-    class val##_y {\
-        source=user;\
-        animPeriod = 0.001;\
-    };
-    LIST_OF_BONES(pl)
-    LIST_OF_BONES(pr)
-    LIST_OF_BONES(cl)
-    LIST_OF_BONES(cr)
     //////////////DOORS//////////////////
     class pdoor
     {

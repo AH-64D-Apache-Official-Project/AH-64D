@@ -35,8 +35,7 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-private _intStabTable = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
-
+private _intStabTable    = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
 private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
 							[36.01, _intStabTable select 2],  //70kts
 							[46.30, _intStabTable select 3],  //90kts

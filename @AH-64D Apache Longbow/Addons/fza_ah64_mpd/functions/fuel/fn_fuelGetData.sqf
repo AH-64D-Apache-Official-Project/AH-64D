@@ -15,7 +15,7 @@ private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 
 private _eng1FuelCons = 0;
 private _eng1State    = _heli getVariable "fza_sfmplus_engState" select 0;
-if (isEngineOn _heli && (_eng1State != "OFF" || _eng1State != "DEST")) then {
+if (_eng1State == "ON") then {
 	_eng1FuelCons = _eng1FF * FUEL_FLOW_LBS_PER_HOUR;
 } else {
 	_eng1FuelCons = 0;
@@ -23,7 +23,7 @@ if (isEngineOn _heli && (_eng1State != "OFF" || _eng1State != "DEST")) then {
 
 private _eng2FuelCons = 0;
 private _eng2State    = _heli getVariable "fza_sfmplus_engState" select 1;
-if (isEngineOn _heli && (_eng2State != "OFF" || _eng2State != "DEST")) then {
+if (_eng2State == "ON") then {
 	_eng2FuelCons = _eng2FF * FUEL_FLOW_LBS_PER_HOUR;
 } else {
 	_eng2FuelCons = 0;
