@@ -41,8 +41,9 @@ class AnimationSources
     {
         displayName = "Install American Mission Equipment";
         author = "Apache mod development team";
-        onPhaseChanged = "";
         source = "user";
+        forceAnimatePhase = 1;
+        forceAnimate[] = {"msn_equip_british", 0};
         initPhase = 1;
         animPeriod = 0.001;
     };
@@ -50,8 +51,9 @@ class AnimationSources
     {
         displayName = "Install British Mission Equipment";
         author = "Apache mod development team";
-        onPhaseChanged = "";
         source = "user";
+        forceAnimatePhase = 1;
+        forceAnimate[] = {"msn_equip_american", 0};
         initPhase = 0;
         animPeriod = 0.001;
     };
@@ -430,20 +432,12 @@ class AnimationSources
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
     };
-    //////////////MPD OBJECTS//////////////////
-    #define SECTION(val) \
-    class val##_x {\
-        source= user;\
-        animPeriod = 0.001;\
-    };\
-    class val##_y {\
-        source=user;\
-        animPeriod = 0.001;\
+    class plt_uiscale
+    {
+        source = "user";
+        animPeriod = 0.001;
+        initPhase=1;
     };
-    LIST_OF_BONES(pl)
-    LIST_OF_BONES(pr)
-    LIST_OF_BONES(cl)
-    LIST_OF_BONES(cr)
     //////////////DOORS//////////////////
     class pdoor
     {

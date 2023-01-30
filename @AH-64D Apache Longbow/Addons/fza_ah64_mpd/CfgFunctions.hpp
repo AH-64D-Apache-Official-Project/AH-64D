@@ -61,5 +61,10 @@ class CfgFunctions
             class pagePERFDraw {RECOMPILE_FLAG;};
             class pagePERFHandleControl {RECOMPILE_FLAG;};
         };
+        class ui {
+            file = "\fza_ah64_mpd\functions\ui"
+            class uiInit {RECOMPILE_FLAG;};
+            class uiDrawPoint {RECOMPILE_FLAG;};
+        }
     };
 };

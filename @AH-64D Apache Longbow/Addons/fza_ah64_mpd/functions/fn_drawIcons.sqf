@@ -28,235 +28,41 @@ Examples:
 Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli", "_points", "_display", ["_scale", -1], ["_center", [0.5, 0.75]], ["_heading", direction (_this # 0)], ["_heliPos", getPosASL (_this # 0)]];
-#include "\fza_ah64_controls\headers\selections.h"
-#include "\fza_ah64_dms\headers\constants.h"
+params
+    [ "_heli"
+    , "_dmsPoints"
+    , "_displayIdx"
+    , ["_scale", -1]
+    , ["_center", [0.5, 0.75]]
+    , ["_heading", direction (_this # 0)]
+    , ["_heliPos", getPosASL (_this # 0)]
+    ];
 
-private _validChars = createHashmapFromArray [
-	["0", "\fza_ah64_us\tex\char\Y0_ca.paa"],
-	["1", "\fza_ah64_us\tex\char\Y1_ca.paa"],
-	["2", "\fza_ah64_us\tex\char\Y2_ca.paa"],
-	["3", "\fza_ah64_us\tex\char\Y3_ca.paa"],
-	["4", "\fza_ah64_us\tex\char\Y4_ca.paa"],
-	["5", "\fza_ah64_us\tex\char\Y5_ca.paa"],
-	["6", "\fza_ah64_us\tex\char\Y6_ca.paa"],
-	["7", "\fza_ah64_us\tex\char\Y7_ca.paa"],
-	["8", "\fza_ah64_us\tex\char\Y0_ca.paa"],
-	["9", "\fza_ah64_us\tex\char\Y9_ca.paa"]
-];
+private _displaySide = ["left", "right"] select _displayIdx;
+private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
+
+private _ctrlPoints = _display getVariable "fza_points";
 
 if (_scale == -1) then {
 	_scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
 };
 
-#define MPD_X_MIN 0.1
-#define MPD_X_MAX 0.9
-#define MPD_Y_MIN 0.1
-#define MPD_Y_MAX 0.9
+//Set all current state to be not updated. This lets us know which ones can be removed
+{_y set ["updated", false]} forEach _ctrlPoints;
 
-private _pointsWithPos = _points apply {
-	private _pos = _x # 1;
-	private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _pos # 0, _pos # 1, _heading] call fza_fnc_relativeDirection;
-	if (_x # 0) then {
-		private _targxpos = _center # 0 + (sin _theta) * ((_heliPos distance2D _pos) * _scale);
-		private _targypos = _center # 1 - (cos _theta) * ((_heliPos distance2D _pos) * _scale);
-		_pos = [_targxpos, _targypos];
-	};
+//Draw each UI element
+{
+    if !(_forEachIndex in _ctrlPoints) then {_ctrlPoints set [_forEachIndex, createHashMap]};
+    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos] call fza_mpd_fnc_uiDrawPoint;
 
-	[_pos, _x];
-};
+    (_ctrlPoints get _forEachIndex) set ["updated", true];
+} forEach _dmsPoints;
 
-private _filter = {
-	(_x # 0) params ["_tx", "_ty"];
-	(MPD_X_MIN < _tx && _tx < MPD_X_MAX && MPD_Y_MIN < _ty && _ty < MPD_Y_MAX);
-};
-
-_pointsWithPos = [_pointsWithPos, [_heli], {_center distance2D _x # 0}, "ASCEND", _filter] call BIS_fnc_sortBy;
-
-#define SETTEXTURE(_ind, _tex) _heli setObjectTexture [_ind, _tex]
-#define SETICONTEXTURE(_ind, _tex) SETTEXTURE(_ind + _offset, _tex)
-
-private _prefix = [["pl", "pr"] select _display, ["cl", "cr"] select _display] select (gunner _heli == player);
-
-private _writeText = {
-	params ["_heli", "_offset", "_inds", "_text", "_rightJustified"];
-	private _textLen = count _text;
-	if (_rightJustified) then {
-		_text = reverse _text;
-		reverse _inds;
-	};
-
-	{
-		if (_forEachIndex >= _textLen) then {
-			SETICONTEXTURE(_x, "");
-			continue;
-		};
-		private _char = _text select [_forEachIndex,1];
-		private _tex = _validChars getOrDefault [_char, ""];
-		SETICONTEXTURE(_x, _tex);
-	} forEach _inds;
-};
-
-private _displayOffset = [0, 512] select _display;
-
-for "_i" from 0 to 31 do {
-	private _offset = (_i * 16) + _displayOffset;
-	if (_i >= count _pointsWithPos) then {
-		//Wipe all textures
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		SETICONTEXTURE(SEL_MPD_OBJ1_ICON, "");
-		continue;
-	};
-	private _pos = _pointsWithPos # _i # 0;
-	_pointsWithPos # _i # 1 params ["","", "_tex", "_color", "_textMode", "_text1", "_text2"];
-	// Set point texture
-	SETICONTEXTURE(SEL_MPD_OBJ1_ICON, _tex);
-	
-	// Set point position
-	_heli animate [format ["%1_mpdObj%2%3_x", _prefix, ["", "0"] select (_i < 8), _i + 1], _pos # 0];
-	_heli animate [format ["%1_mpdObj%2%3_y", _prefix, ["", "0"] select (_i < 8), _i + 1], _pos # 1];
-
-	switch (_textMode) do {
-		case MPD_ICON_TYPE_A : {
-			//[_heli, _offset, _inds, _text1, _rightJustified] call _writeText;
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT01, SEL_MPD_OBJ1_DIGIT02, SEL_MPD_OBJ1_DIGIT03], _text1, true] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_B : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT09, SEL_MPD_OBJ1_DIGIT10, SEL_MPD_OBJ1_DIGIT11], _text1, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_C : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT14, SEL_MPD_OBJ1_DIGIT15], _text1, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-		};
-		case MPD_ICON_TYPE_D : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT01, SEL_MPD_OBJ1_DIGIT02, SEL_MPD_OBJ1_DIGIT03], _text1, true] call _writeText;
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT04, SEL_MPD_OBJ1_DIGIT05, SEL_MPD_OBJ1_DIGIT06], _text2, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_E : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT04, SEL_MPD_OBJ1_DIGIT05, SEL_MPD_OBJ1_DIGIT06], _text1, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_F : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT12, SEL_MPD_OBJ1_DIGIT13], _text1, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_G : {
-			[_heli, _offset, [SEL_MPD_OBJ1_DIGIT07, SEL_MPD_OBJ1_DIGIT08], _text1, false] call _writeText;
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		case MPD_ICON_TYPE_H : {
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT01, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT02, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT03, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT04, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT05, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT06, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT07, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT08, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT09, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT10, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT11, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT12, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT13, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT14, "");
-			SETICONTEXTURE(SEL_MPD_OBJ1_DIGIT15, "");
-		};
-		default {
-			["Invalid text type %1", _textMode] call BIS_fnc_error;
-		};
-	};
-};
+// Any un-updated (stale and no longer in the DMS) points should be removed from the ctrl
+{
+    if (_y get "updated") then {continue;};
+    
+    {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _y;
+    _ctrlPoints deleteAt _x;
+} forEach _ctrlPoints;
+displayUpdate _display;
