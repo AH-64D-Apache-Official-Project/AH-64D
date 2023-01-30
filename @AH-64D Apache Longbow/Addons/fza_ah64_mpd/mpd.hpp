@@ -84,4 +84,8 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_CHAN));
         #include "pages\chan_draw.hpp"
     };
+    class PERF{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_PERF));
+        #include "pages\perf_draw.hpp"
+    }
 };

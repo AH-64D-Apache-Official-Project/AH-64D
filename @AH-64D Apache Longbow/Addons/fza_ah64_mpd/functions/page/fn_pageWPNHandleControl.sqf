@@ -132,7 +132,7 @@ switch (_control) do {
 			[_heli] spawn fza_fnc_laserDisarm;
 		};
 	};
-	case "b2": {
+	case "b1": {
 		//Select M230
 		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
 			if(_state get "selectedWeapon" != WAS_WEAPON_GUN) then {
@@ -144,7 +144,7 @@ switch (_control) do {
 			}
 		};
 	};
-	case "b3": {
+	case "b2": {
 		//Select Missile
 		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
 			if(_state get "selectedWeapon" != WAS_WEAPON_MSL) then {
@@ -156,7 +156,7 @@ switch (_control) do {
 			}
 		};
 	};
-	case "b5": {
+	case "b4": {
 		if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
 			if(_state get "selectedWeapon" != WAS_WEAPON_RKT) then {
 				_state set ["selectedWeapon", WAS_WEAPON_RKT];
@@ -167,7 +167,7 @@ switch (_control) do {
 			}
 		};
 	};
-	case "b1": {
+	case "menu": {
 		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
 };

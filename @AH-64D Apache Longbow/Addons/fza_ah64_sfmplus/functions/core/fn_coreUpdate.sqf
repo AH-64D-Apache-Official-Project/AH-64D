@@ -18,10 +18,26 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
-private _deltaTime = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
+
+if (isGamePaused) exitwith {};
+
+private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+
+//Environment
+private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
+private _altimeter         = 29.92; //in mg
+private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+
+private _referencePressure = _altimeter * IN_MG_TO_HPA;
+private _referenceAltitude = 0;
+private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
+private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
+
+private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
+private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
 //Input
-[_heli] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
@@ -35,6 +51,9 @@ private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
 private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
+//Performance
+[_heli] call fza_sfmplus_fnc_perfData;
+
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
@@ -44,9 +63,7 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-if (_heli getVariable "fza_ah64_apu") then {
-	_apuFF = 0.0220;	//175pph
-};
+_apuFF_kgs = _heli getVariable "fza_systems_apuFF_kgs";
 _curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
 private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
@@ -70,21 +87,19 @@ private _curMass = _emptyMass + _totFuelMass + _pylonMass;
 if (local _heli) then {
 	_heli setMass _curMass;
 };
+_heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
+//Drag
+[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
+
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_ALWAYSENABLED 
-	|| fza_ah64_sfmPlusStabilatorEnabled == STABILTOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
+if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
+	|| fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
 	[_heli, _deltaTime] call fza_sfmplus_fnc_aeroStabilator;
 };
-
-//Performance
-[_heli] call fza_sfmplus_fnc_perfData;
-
-//Apply a negative force to prevent the helicopter from taking off until the power levers are at fly
-[_heli, _deltaTime] call fza_sfmplus_fnc_antiLift;
 
 #ifdef __A3_DEBUG_
 /*

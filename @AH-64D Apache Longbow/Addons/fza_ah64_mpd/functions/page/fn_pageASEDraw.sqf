@@ -30,7 +30,6 @@ private _autopage = _heli getVariable "fza_ah64_ase_autopage";
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
 
 //RLWR
-
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
 private _rwlrObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";

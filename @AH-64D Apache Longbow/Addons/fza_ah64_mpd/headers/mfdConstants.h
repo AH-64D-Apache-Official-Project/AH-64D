@@ -57,8 +57,6 @@
 #define MFD_IND_ENG_WCA_4 14
 #define MFD_IND_ENG_WCA_5 15
 #define MFD_IND_ENG_WCA_6 16
-#define MFD_IND_ENG_WCA_7 17
-#define MFD_IND_ENG_WCA_8 18
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
@@ -78,8 +76,10 @@
 #define MFD_TEXT_IND_ENG_WCA_4 14
 #define MFD_TEXT_IND_ENG_WCA_5 15
 #define MFD_TEXT_IND_ENG_WCA_6 16
-#define MFD_TEXT_IND_ENG_WCA_7 17
-#define MFD_TEXT_IND_ENG_WCA_8 18
+
+#define MFD_TEXT_IND_ENG_PRI_HYD_PSI  17
+#define MFD_TEXT_IND_ENG_UTIL_HYD_PSI 18
+#define MFD_TEXT_IND_ENG_ACC_HYD_PSI  19
 
 //Weapon Page
 
@@ -166,6 +166,7 @@
 #define MFD_IND_TSD_SHOW_HAZ 7
 #define MFD_IND_TSD_SHOW_WIND 8
 #define MFD_IND_TSD_SHOW_ENDR 9
+#define MFD_IND_TSD_ASE_FOOTPRINT 10
 
 //Drawing goes here 10 to 14
 #define MFD_IND_TSD_CTR 15
@@ -254,6 +255,31 @@
 
 #define MFD_IND_CHAN_SELECTED 0 // Must be same as MFD_IND_CODE_SELECTED
 #define MFD_IND_CHAN 1 //0-1, 1-2, 2-3, 3-4
+//Perf page
+//--Conditions & Weight
+#define MFD_TEXT_IND_PERF_PA  0
+#define MFD_TEXT_IND_PERF_FAT 1
+#define MFD_TEXT_IND_PERF_GWT 2
+//--Hover Torque (TQ)
+#define MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE     3
+#define MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE 4
+#define MFD_TEXT_IND_PERF_IND_TQ          5
+//--Max Gross Weight
+#define MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE 6
+#define MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE 7
+//--Max Torque (TQ)
+#define MFD_TEXT_IND_PERF_MAX_TQ_DE 8
+#define MFD_TEXT_IND_PERF_MAX_TQ_SE 9
+//--Cruise
+#define MFD_TEXT_IND_PERF_MAX_RNG_END_TQ 10
+#define MFD_TEXT_IND_PERF_MAX_RNG_END_FF 11
+//--TAS
+#define MFD_TEXT_IND_PERF_VNE     12
+#define MFD_TEXT_IND_PERF_VSSE    13
+#define MFD_TEXT_IND_PERF_RNG_SPD 14
+#define MFD_TEXT_IND_PERF_END_SPD 15
+//--Wind Speed & Direction
+#define MFD_TEXT_IND_WIND 16
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
@@ -271,6 +297,7 @@
 #define MPD_PAGE_CODE 12
 #define MPD_PAGE_FREQ 13
 #define MPD_PAGE_CHAN 14
+#define MPD_PAGE_PERF 15
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

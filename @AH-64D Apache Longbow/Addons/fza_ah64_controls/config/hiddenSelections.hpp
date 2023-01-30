@@ -1,4 +1,5 @@
-hiddenselections[]={ "skin",
+hiddenselections[]={ 
+	"skin",
 	"skin_fcr",
 	"ufd_back",
 	"in_lt_apu",
@@ -38,4 +39,11 @@ hiddenselections[]={ "skin",
 	"pr_mpd_back",
 	"pl_mpd_tsd",
 	"pr_mpd_tsd",
+	"tailDigit_01",
+	"tailDigit_02",
+	"tailDigit_03",
+	"tailDigit_04",
+	"tailDigit_05",
+	"tailDigit_06",
+	"tailDigit_07",
 };

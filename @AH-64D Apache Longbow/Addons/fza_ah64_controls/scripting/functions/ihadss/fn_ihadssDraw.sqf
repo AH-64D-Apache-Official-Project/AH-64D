@@ -115,12 +115,9 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 
-private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
-private _eng1Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
-private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
-private _eng2Lever = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
-private _apuState = _heli getVariable "fza_ah64_apu";
-private _powerOnState = _apuState || (_eng1state == "ON" && _eng1Lever == "FLY") || (_eng2state == "ON" && _eng2Lever == "FLY");
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+private _powerOnState = (_acBusOn && _dcBusOn);
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
@@ -633,7 +630,16 @@ if (_was == WAS_WEAPON_GUN) then {
 };
 
 //Cscope Code Begin
-private _CscopeCount = 0;
+private _wasState           = _heli getVariable "fza_ah64_was";
+private _nts                = _heli getVariable "fza_ah64_fcrNts";
+private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
+private _nts                = _nts # 0;
+private _ntsIndex           = _fcrTargets findIf {_x # 3 == _nts};
+private _antsIndex          = 0;
+private _CscopeCount        = 0;
+if (count _fcrTargets > 0) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
+};
 {
     if (_CscopeCount > 15) exitwith {};
     _x params ["_pos", "_type", "_speed", "_obj"];
@@ -685,8 +691,19 @@ private _CscopeCount = 0;
             _unitStatus = "LOBL";
         };
     };
+    //Unit select status
+    if (_forEachIndex == _ntsIndex) then {
+        if (_wasState == WAS_WEAPON_NONE) then {
+            _unitSelAndWpnStatus = "_NTS_NoMSL";
+        } else {
+            _unitSelAndWpnStatus = "_NTS";
+        };
+    };
+    if (_forEachIndex == _antsIndex) then {
+        _unitSelAndWpnStatus = "_ANTS";
+    };
 
-    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2_ca.paa", _unitType, _unitStatus];
+    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2%3_ca.paa", _unitType, _unitStatus, _unitSelAndWpnStatus];
     
     if (_heli getVariable "fza_ah64_fcrcscope") then {
         if (count _GuiPos < 1) then {
