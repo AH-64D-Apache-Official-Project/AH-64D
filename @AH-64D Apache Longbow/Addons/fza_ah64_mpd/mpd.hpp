@@ -72,6 +72,18 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ASE));
         #include "pages\ase_draw.hpp"
     };
+    class CODE{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_CODE));
+        #include "pages\code_draw.hpp"
+    };
+    class FREQ{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_FREQ));
+        #include "pages\freq_draw.hpp"
+    };
+    class CHAN{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_CHAN));
+        #include "pages\chan_draw.hpp"
+    };
     class PERF{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_PERF));
         #include "pages\perf_draw.hpp"

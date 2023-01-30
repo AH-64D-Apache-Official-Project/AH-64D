@@ -57,14 +57,14 @@
 #define MPD_POS_BUTTON_LR_5_Y 0.66
 #define MPD_POS_BUTTON_LR_6_Y 0.775
 
-#define MPD_POS_BUTTON_T_Y (0.01 + MPD_ARROW_PAD)
+#define MPD_POS_BUTTON_T_Y (0.03 + MPD_ARROW_PAD)
 #define MPD_POS_BUTTON_B_Y (0.970-0.03)
-#define MPD_POS_BUTTON_TB_1_X 0.21
-#define MPD_POS_BUTTON_TB_2_X 0.33
-#define MPD_POS_BUTTON_TB_3_X 0.45
-#define MPD_POS_BUTTON_TB_4_X 0.57
-#define MPD_POS_BUTTON_TB_5_X 0.69
-#define MPD_POS_BUTTON_TB_6_X 0.81
+#define MPD_POS_BUTTON_TB_1_X 0.2
+#define MPD_POS_BUTTON_TB_2_X 0.32
+#define MPD_POS_BUTTON_TB_3_X 0.44
+#define MPD_POS_BUTTON_TB_4_X 0.56
+#define MPD_POS_BUTTON_TB_5_X 0.68
+#define MPD_POS_BUTTON_TB_6_X 0.80
 
 // Group: Misc Macros
 
@@ -556,7 +556,7 @@ Parameters:
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
-                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 }\
             }\
         };\
     };\

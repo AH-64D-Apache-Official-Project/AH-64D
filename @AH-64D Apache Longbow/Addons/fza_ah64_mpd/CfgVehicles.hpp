@@ -62,6 +62,7 @@ class CfgVehicles {
 				handleControl = "fza_mpd_fnc_pageWPNHandleControl";
 				class InitState {
 					selectedWeapon = 0;
+					variant = 0;
 					wasOverride = 0;
 				};
 			};
@@ -102,6 +103,27 @@ class CfgVehicles {
 				index = MPD_PAGE_ASE;
 				draw  = "fza_mpd_fnc_pageASEDraw";
 				handleControl = "fza_mpd_fnc_pageASEHandleControl";
+			};
+			class CHAN {
+				index = MPD_PAGE_CHAN;
+				draw = "fza_mpd_fnc_pageCHANDraw"
+				handleControl = "fza_mpd_fnc_pageCHANHandleControl"
+				class PersistState {
+					missileChannel = 1;
+				};
+			};
+			class FREQ {
+				index = MPD_PAGE_FREQ;
+				draw = "fza_mpd_fnc_pageFREQDraw"
+				handleControl = "fza_mpd_fnc_pageFREQHandleControl"
+			};
+			class CODE {
+				index = MPD_PAGE_CODE;
+				draw = "fza_mpd_fnc_pageCODEDraw"
+				handleControl = "fza_mpd_fnc_pageCODEHandleControl"
+				class PersistState {
+					set = "LRFD";
+				};
 			};
 			class PERF {
 				index = MPD_PAGE_PERF;

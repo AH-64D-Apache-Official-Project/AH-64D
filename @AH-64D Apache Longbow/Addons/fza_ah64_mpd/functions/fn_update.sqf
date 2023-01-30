@@ -24,7 +24,7 @@ params ["_heli"];
 private _acBusOn = _heli getVariable "fza_systems_acBusOn";
 
 private _lmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
-private _rmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
+private _rmpdCurr = [_heli, 1] call fza_mpd_fnc_currentPage;
 
 if (_acBusOn && _lmpdCurr == "off") then {
 	[_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;

@@ -27,7 +27,7 @@ switch (_heli getVariable "fza_ah64_was") do {
 		if (_heli getVariable "fza_ah64_armed") then {
 			_heli selectWeaponTurret ["fza_m230",[0]];
 		} else {
-			_heli selectWeaponTurret ["fza_ma_safe",[0]];
+			_heli selectWeaponTurret ["fza_gun_safe",[0]];
 		};
 	};
 	case WAS_WEAPON_RKT: {
@@ -50,20 +50,14 @@ switch (_heli getVariable "fza_ah64_was") do {
 	};
 	case WAS_WEAPON_MSL: {
 		if (_heli getVariable "fza_ah64_armed") then {
-			private _trajectory = switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
-				case "LO": {"TopDown"};
-				case "DIR": {"LoalDistance"};
-				case "HI": {"Cruise"};
-				default {""};
-			};
 			private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
 			if (_selectedMissile != "") then {
-				vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile,_trajectory];
+				vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile];
 			} else {
 				private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
 				if (count _missiles > 0) then {
 					_heli setVariable ["fza_ah64_selectedMissile", _missiles # 0, true];
-					vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0,_trajectory];
+					vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0];
 				} else {
 					_heli selectWeaponTurret ["fza_ma_safe",[0]];
 				};

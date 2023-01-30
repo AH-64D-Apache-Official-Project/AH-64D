@@ -62,6 +62,7 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\Sensor";
 			class targetingSensorUpdate {R;};
+			class targetingsensorCycle {R;};
 		};
 		class fire
 		{
@@ -75,6 +76,17 @@ class CfgFunctions
 			class fxMuzzle {R;};
 			class fxLoops {R;};
 		};
+		class hellfire {
+			file = "\fza_ah64_controls\Scripting\functions\hellfire";
+			class hellfireAceController {R;};
+			class HellfireGetAttackProfile {R;};
+			class hellfireSALFired {R;};
+			class hellfireARHSeeker {R;};
+			class hellfireARHFired {R;};
+			class hellfireLimaLoblCheck {R;};
+			class hellfireSALShouldStartLobl {R;};
+			class hellfireCheckSeekerAngle {R;};
+		};
 		class ihadss
 		{
 			file = "\fza_ah64_controls\scripting\functions\ihadss";
@@ -86,7 +98,6 @@ class CfgFunctions
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
 			class laserArm {R;};
-			class laserCycle {R;};
 			class laserDisarm {R;};
 		};
 		class light
@@ -126,7 +137,6 @@ class CfgFunctions
 			class weaponMissileGetSelected {R;};
 			class weaponMissileCycle {R;};
 			class weaponMissileInventory {R;};
-			class weaponMissileSlowDown {R;};
 			class weaponPylonCheckValid {R;};
 			class weaponRocketInventory {R;};
 			class weaponRocketSalvo {R;};

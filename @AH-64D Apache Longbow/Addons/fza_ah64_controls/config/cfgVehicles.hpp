@@ -235,6 +235,22 @@ class CfgVehicles
 		#include "cfgVehicles\reflectors.hpp"
 		#include "cfgVehicles\ace.hpp"
 		#include "sensor_b2e.hpp"
+
+		//map light condition not working
+		ace_map_vehicleExteriorTurrets[] = {-1,0,1,2}; // due to ace limits, this is set in script
+
+
+		ace_vehicle_damage_hullDetonationProb = 0.1;
+		ace_vehicle_damage_turretDetonationProb = 0.2;
+		ace_vehicle_damage_engineDetonationProb = 0.1;
+		ace_vehicle_damage_hullFireProb = 0;
+		ace_vehicle_damage_turretFireProb = 0;
+		ace_vehicle_damage_engineFireProb = 0;
+		ace_vehicle_damage_detonationDuringFireProb = 0.2;
+		ace_vehicle_damage_canHaveFireRing = 1;
+
+		ace_cargo_space 	= 0;
+        ace_cargo_hasCargo 	= 0;
 		
 		allowTabLock = 0;
 		accuracy=5;
@@ -306,7 +322,6 @@ class CfgVehicles
 		envelope[]={
 			0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
 		};
-
 		class Library
 		{
 			libTextDesc = "The AH-64D Block II is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";

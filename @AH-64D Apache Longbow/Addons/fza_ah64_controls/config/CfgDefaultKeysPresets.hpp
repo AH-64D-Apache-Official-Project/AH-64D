@@ -25,7 +25,6 @@ class CfgDefaultKeysPresets {
 			fza_ah64_crosshairInteract[] = {0x56}; // Backslash (\)
 			fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
 			fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
-			fza_ah64_laserCycle[] = {0x38130014}; //Alt+T
 			fza_ah64_countermeasure[] = {0x13}; //R
 			fza_ah64_missileAdvance[] = {0x21}; //F
 			fza_ah64_wasGun[] = {0x02}; // 1
