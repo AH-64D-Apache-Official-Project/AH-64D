@@ -133,25 +133,34 @@ class CfgWeapons
 
 	class fza_m230: CannonCore
 	{
-		scope = 1;
-		displayName="M230";
-		nameSound = "cannon";
-		cursor = "EmptyCursor";
-		cursorAim = "mg";
+		scope 				= 1;
+		displayName			= "M230-E1";
+		nameSound 			= "cannon";
+		cursor 				= "EmptyCursor";
+		cursorAim 			= "mg";
 		showAimCursorInternal = 0;
-		magazines[]={"fza_m230_300","fza_m230_1200"};
-        canLock = 1;
-		ballisticsComputer = "1 + 2 + 16";
-		FCSZeroingDelay = 0;
-		maxZeroing = 4200;
-		aiDispersionCoefY = 0.5;
-		aiDispersionCoefX = 0.5;
-		weaponLockDelay = 0;
-		multiplier = 1;
-		shotFromTurret = 0;
-		useAction = 0;
-		useActionTitle = "";
-		modes[] = {"manual","close","short","medium","far"};
+		magazines[]			={"fza_m230_300","fza_m230_1200"};
+        canLock 			= 1;
+		ballisticsComputer 	= "1 + 16";
+		FCSZeroingDelay 	= 0;
+		maxZeroing 			= 4200;
+		aiDispersionCoefY 	= 0.5;
+		aiDispersionCoefX 	= 0.5;
+		weaponLockDelay 	= 0;
+		multiplier 			= 1;
+		shotFromTurret 		= 0;
+		useAction 			= 0;
+		useActionTitle 		= "";
+		modes[] 			= {"manual","close","short","medium","far"};
+
+		//ACE Advanced Ballistics Cfg
+		ACE_barrelTwist 			= 177.8;
+		ACE_barrelLength 			= 1676;
+		ACE_twistDirection 			= 1;
+		ace_overpressure_angle 		= 90;
+		ace_overpressure_range 		= 2;
+		ace_overpressure_damage 	= 0.265;
+
 		class GunParticles
 		{
 			class Effect
@@ -270,13 +279,13 @@ class CfgWeapons
 		textureType = "single";
 	};
 	class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe";};
-	class fza_rkt_safe: fza_ma_safe {displayName = "Rkt Safe";};
-	class fza_msl_safe: fza_ma_safe {displayName = "Msl Safe";};
+	
 	///////////////////////////////////////////////////////////////////////
 	//////////////////////////////HELLFIRE/////////////////////////////////
 	///////////////////////////////////////////////////////////////////////
 	
-	class fza_hellfire: MissileLauncher
+	class ace_hellfire_launcher;
+	class fza_hellfire: ace_hellfire_launcher
 	{
 		scope = private;
 		displayName="AGM-114";
@@ -296,11 +305,11 @@ class CfgWeapons
 		{
 			soundSetShot[] = {"fza_agm114_soundset"};
 		};
-		modes[]	= {"TopDown","LoalDistance","Cruise"};
+		modes[]	= {"TopDown"};
 		class TopDown: MissileLauncher
 		{
-			textureType = "topDown";
-			displayName = "LOAL-Lo";
+			displayName = "LOAL-HI";
+			textureType = "terrain";
 			reloadTime = 0.1;
 			magazineReloadTime = 0.1;
             sounds[] = {"StandardSound"};
@@ -317,16 +326,11 @@ class CfgWeapons
 			maxRange = 8000;
 			maxRangeProbab = 0.95;
 		};
-		class LoalDistance: TopDown
-		{
-			displayName = "LOAL-DIR";
-			textureType = "semi";
-		};
-		class Cruise: TopDown
-		{
-			displayName = "LOAL-HI";
-			textureType = "terrain";
-		};
+		//ACE CFG
+		ace_overpressure_angle = 50;
+		ace_overpressure_range = 12;
+		ace_overpressure_damage = 0.7;
+		ace_overpressure_offset = 1;
 	};
 	#define HELLFIRE_MAGAZINES(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
 	#define HELLFIRE_WEAPON_CONFIG(ammoName, prettyName) \
@@ -361,6 +365,13 @@ class CfgWeapons
 		weight = 80;
 		useAction = 0;
 		useActionTitle = "";
+
+		//ACE CFG
+		ace_overpressure_angle = 50;
+		ace_overpressure_range = 5;
+		ace_overpressure_damage = 0.4;
+		ace_overpressure_offset = 1;
+
 		class Far_AI: RocketPods
 		{
 		    displayName="M261";

@@ -20,14 +20,16 @@ params["_heli"];
 private _timed_apu = time + 24;
 private _timed_bat = time + 0;
 
+private _apuOn     = _heli getVariable "fza_systems_apuOn";
+private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 
-if (_heli getVariable "fza_ah64_apu") then {
+if (_apuOn) then {
     private _apu = "Land_ClutterCutter_small_F" createVehicle position _heli;
     _apu attachTo[_heli, [0, 0, 0]];
     hideObjectGlobal _apu;
     
     while {
-        _heli getVariable "fza_ah64_apu"
+        _apuOn;
     }
     do {
         if (time > _timed_apu) then {
@@ -39,13 +41,13 @@ if (_heli getVariable "fza_ah64_apu") then {
     deleteVehicle _apu;
 };
 
-if (_heli getVariable "fza_ah64_battery") then {
+if (_battBusOn) then {
     private _bat = "Land_ClutterCutter_small_F" createVehicle[0, 0, 0];
     _bat attachTo[_heli, [0, 5, 0]];
     hideObjectGlobal _bat;
 
     while {
-        _heli getVariable "fza_ah64_battery"
+        _battBusOn;
     }
     do {
         if (time > _timed_bat) then {

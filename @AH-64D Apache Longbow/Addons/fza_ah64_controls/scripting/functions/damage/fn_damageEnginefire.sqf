@@ -70,6 +70,8 @@ if (_usesound) then {
     [_heli, 2, "", _audio1, 1.25] call fza_audioSystem_fnc_addASEMessage;
 };
 
+private _apuOn = _heli getVariable "fza_systems_apuOn";
+
 while {
     (alive _heli)
 }
@@ -82,7 +84,7 @@ do {
     if (_eng == "apu" && _heli getVariable "fza_ah64_fireapuarm" && ((_firepon && _firepstate) || (_fireron && _firerstate))) exitwith {};
     if (_eng == "left" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 0 == "off") && _rand > 9.9) exitwith {};
     if (_eng == "right" && (_heli getVariable "fza_sfmplus_engPowerLeverState" select 1 == "off") && _rand > 9.9) exitwith {};
-    if (_eng == "apu" && !(_heli getVariable "fza_ah64_apu") && _rand > 9.9) exitwith {};
+    if (_eng == "apu" && !_apuOn && _rand > 9.9) exitwith {};
     _helidamage = _helidamage + 0.0005;
     if (_helidamage > 0.5) then {
         _heli setHit["trans", 1];

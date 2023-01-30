@@ -1,4 +1,5 @@
 #include "components\vabs_top.hpp"
+
 class tsdCommon {
     class occluders {
         color[] = {0,0,0,1};
@@ -72,6 +73,17 @@ class tsdCommon {
             MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01),     //Heading
         };
     };
+    class ase_footPrint {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_TSD_ASE_FOOTPRINT)));
+        class ase_footprint_lines {
+            type = line;
+            width = 3;
+            points[] = {
+                {{0.18, 0.18}, 1}, {{0.82, 0.18}, 1}, {{0.82, 0.82}, 1}, {{0.18, 0.82}, 1}, {{0.18, 0.18}, 1}, {}, //inside box
+            };
+        };
+    };
+
 
     class Scale_Boxes_5km {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_SCALE_BOXES), 5000));

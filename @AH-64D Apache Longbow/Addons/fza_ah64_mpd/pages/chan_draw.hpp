@@ -1,0 +1,43 @@
+#define SUFFIX ""
+#include "code\codes.hpp"
+#include "code\barrier.hpp"
+#include "code\coderange.hpp"
+#include "code\codeselections.hpp"
+
+MPD_TEXT_C(Chan,MPD_POS_BUTTON_TB_1_X-0.02,MPD_POS_BUTTON_T_Y,MPD_TEXT_STATIC("CHAN"))
+MPD_ARROW_C(Chan,MPD_POS_BUTTON_TB_1_X-0.02,MPD_POS_BUTTON_T_Y,4)
+MPD_BOX_TALL_C(Chan,MPD_POS_BUTTON_TB_1_X-0.02,MPD_POS_BUTTON_T_Y,4)
+
+MPD_TEXT_C(Util,MPD_POS_BUTTON_TB_6_X+0.02,MPD_POS_BUTTON_T_Y,MPD_TEXT_STATIC("UTIL"))
+MPD_ARROW_C(Util,MPD_POS_BUTTON_TB_6_X+0.02,MPD_POS_BUTTON_T_Y,4)
+
+MPD_TEXT_C(WPN,MPD_POS_BUTTON_TB_1_X,MPD_POS_BUTTON_B_Y,MPD_TEXT_STATIC("WPN"))
+
+class Lines {
+    type = line;
+    width = 3;
+    points[] =
+        { {{0.24,0.02}, 1}
+        , {{0.24,0.1}, 1}
+        , {{0.76,0.1}, 1}
+        , {{0.76,0.02}, 1}
+        , {}
+        , MPD_POINTS_BOX_PAD(Null,(0.5-3*MPD_TEXT_WIDTH),0.2,6*MPD_TEXT_WIDTH,MPD_TEXT_HEIGHT-0.02,0.01)
+        };
+};
+
+MPD_TEXT_C(Chan_1,MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y+0.01, MPD_TEXT_STATIC("1"))
+MPD_TEXT_C(Chan_2,MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y+0.01, MPD_TEXT_STATIC("2"))
+MPD_TEXT_C(Chan_3,MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y+0.01, MPD_TEXT_STATIC("3"))
+MPD_TEXT_C(Chan_4,MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y+0.01, MPD_TEXT_STATIC("4"))
+
+#define MPD_CHAN_BOX(num,cond,box) class Chan_##num##_Sel { \
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_CHAN), cond)); \
+    box \
+    MPD_TEXT_C(ChanBox, 0.5, 0.19, MPD_TEXT_STATIC(STRINGIFY(CHAN num))) \
+};
+
+MPD_CHAN_BOX(1, 0, MPD_BOX_C(Chan, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y+0.01, 1))
+MPD_CHAN_BOX(2, 1, MPD_BOX_C(Chan, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y+0.01, 1))
+MPD_CHAN_BOX(3, 2, MPD_BOX_C(Chan, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y+0.01, 1))
+MPD_CHAN_BOX(4, 3, MPD_BOX_C(Chan, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y+0.01, 1))

@@ -34,24 +34,6 @@ if (!(alive _heli)) exitwith {
     false
 };
 
-if (_system == "mala vrtule") then {
-    if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
-        //Mastercaution here
-    };
-    if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        [_heli, 2, "engineWarning", "fza_ah64_tail_rotor_hydraulic_failure", 2] call fza_audioSystem_fnc_addASEMessage;
-    };
-};
-
-if (_system == "velka vrtule") then {
-    if (_usesound && _oldDam < 0.4 && _damage >= 0.4) then {
-        //Mastercaution here
-    };
-    if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
-        [_heli, 2, "engineWarning", "fza_ah64_hydraulic_failure", 2] call fza_audioSystem_fnc_addASEMessage;
-    };
-};
-
 if (_system == "pnvs") then {
     if (_usesound && _oldDam < 0.8 && _damage >= 0.8) then {
         //Mastercaution here

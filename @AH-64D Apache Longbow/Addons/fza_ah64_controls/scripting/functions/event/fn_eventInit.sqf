@@ -38,7 +38,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_powerLever1", 0, true];
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
-    _heli setVariable ["fza_ah64_estarted", false, true];
     _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
     _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
@@ -52,7 +51,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
     _heli setVariable ["fza_ah64_shotmissile_list", [], true];
-    _heli setVariable ["fza_ah64_missleLOBL", [], true];
     //
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
@@ -100,6 +98,23 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
+
+
+    _heli setVariable ["fza_ah64_laserMissilePrimaryCode",    0, true];
+    _heli setVariable ["fza_ah64_laserMissileAlternateCode",  1, true];
+    _heli setVariable ["fza_ah64_laserLRFDCode",              "A", true];
+    _heli setVariable ["fza_ah64_laserLSTCode",               "B", true];
+    _heli setVariable ["fza_ah64_laserChannelCodes",         ["A", "B", "C", "D"], true];
+    _heli setVariable ["fza_ah64_laserChannelIndex", createHashMapFromArray
+        [ ["A",1111],["B",1112]
+        , ["C",1113],["D",1114]
+        , ["E",1121],["F",1122]
+        , ["G",1123],["H",1124]
+        , ["J",1131],["K",1132]
+        , ["L",1133],["M",1134]
+        , ["N",1141],["P",1142]
+        , ["Q",1143],["R",1144]
+        ], true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
@@ -118,6 +133,7 @@ _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
+[_heli] call fza_systems_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
@@ -154,7 +170,8 @@ while {
     alive _heli
 }
 do {
-    if ((isLightOn [_heli,[0]]) && !(_heli getVariable "fza_ah64_battery")) then {
+    private _battBusOn       = _heli getVariable "fza_systems_battBusOn";
+    if ((isLightOn [_heli,[0]]) && _battBusOn) then {
 
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
         _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
@@ -164,13 +181,16 @@ do {
     _magsp = _heli magazinesturret[-1];
 
     if (local _heli) then {
-        _tadsShouldBeStowed = _heli getVariable "fza_ah64_apu" && !isEngineOn _heli;
-        
-        if (_tadsShouldBeStowed && !(_heli getVariable "fza_ah64_tadsStow")) then {
-            [_heli, "fza_ah64_tadsStow", true] call fza_fnc_animSetValue;
+        private _acBusOn            = _heli getVariable "fza_systems_acBusOn";
+        private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
+        private _tadsShouldBeStowed = true;
+
+        if (_acBusOn && _dcBusOn) then {
+            _tadsShouldBeStowed = false;
         };
-        if (!_tadsShouldBeStowed && _heli getVariable "fza_ah64_tadsStow") then {
-            [_heli, "fza_ah64_tadsStow", false] call fza_fnc_animSetValue;
+
+        if (_tadsShouldBeStowed != _heli getVariable "fza_ah64_tadsStow") then {
+            [_heli, "fza_ah64_tadsStow", _tadsShouldBeStowed] call fza_fnc_animSetValue;
         };
     };
     sleep 0.03;

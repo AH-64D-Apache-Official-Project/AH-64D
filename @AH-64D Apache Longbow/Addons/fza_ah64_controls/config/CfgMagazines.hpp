@@ -90,8 +90,9 @@ class CfgMagazines
 	///////////////////////////////HELLFIRE/////////////////////////////////
 	////////////////////////////////////////////////////////////////////////
 
+	class PylonRack_4Rnd_ACE_Hellfire_AGM114K;
 	#define HELLFIRE_MAGAZINE_CONFIG(ammoname, disp, descShort) \
-		class ammoname##_base: 6Rnd_Missile_AGM_02_F {\
+		class ammoname##_base: PylonRack_4Rnd_ACE_Hellfire_AGM114K {\
 			descriptionShort = descShort;\
 			ammo = ammoname;\
 			displayName = disp; \

@@ -1,0 +1,12 @@
+ignorePaths:
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_us" # fza_ah64_us is non-compliant with the ideal structure - requires long-term work
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_controls/font" # Fonts require specific filename structrures
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_mpd/tex/tsdIcons" # Icons have a specific filename structure
+ignoreFileNames:
+  - "$PBOPREFIX$"
+  - "$PREFIX$"
+  - "BIS_AddonInfo.hpp"
+  - "XEH_preInit.sqf"
+  - "UserActionGroups.hpp"
+  - "UserActionsConflictGroups.hpp"
+  - "ACE_GuidanceConfig.hpp"

@@ -29,13 +29,13 @@ class CfgFunctions
             class engineReset {R;};
 			class engineVariables {R;};
 		};
-		class forceGenerators {
-			file = "\fza_ah64_sfmplus\functions\forceGenerators";
-			class antiLift {R;};
-		};
 		class fuel {
 			file = "\fza_ah64_sfmplus\functions\fuel";
 			class fuelSet {R;};
+		};
+		class fuselage {
+			file = "\fza_ah64_sfmplus\functions\fuselage";
+			class fuselageDrag {R;};
 		};
 		class interact {
 			file = "\fza_ah64_sfmplus\functions\interact";
