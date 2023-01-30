@@ -1,6 +1,6 @@
 class CfgPatches
 {
-	class fza_ah64_audioSystem
+	class fza_ah64_audio
 	{
         units[] = {};
 		author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
