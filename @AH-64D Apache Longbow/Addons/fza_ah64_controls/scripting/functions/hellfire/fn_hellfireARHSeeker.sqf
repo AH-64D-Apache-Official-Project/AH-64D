@@ -36,16 +36,22 @@ private _heli				= vehicle _shooter;
 private _returnTargetPos  	= _TargetPos;
 private _selectedTarget		= objNull;
 
-if !(isNull _TargetObj) then {
-	private _loblCheckLima = [_projectile, [getpos _TargetObj, "", speed _TargetObj, _TargetObj], true] call fza_fnc_hellfireLimaLoblCheck;
-	_seekerStateParams set [4, (_LosLostCounter + 1) % 10];
-	if (_loblCheckLima # 1 || !(_LosLostCounter % 10 == 0)) then {
-		_SelectedTarget = _TargetObj;
+private _seekerConfig = configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance";
+private _seekerAngle = getNumber (_seekerConfig >> "seekerAngle");
+if !([_projectile, _targetPos, _seekerAngle*0.75] call fza_fnc_hellfireCheckSeekerAngle) exitWith {
+	_targetPos
+};
+
+if !(isNull _targetObj) then {
+	private _loblCheckLima = [_projectile, [getpos _targetObj, "", speed _targetObj, _targetObj], true] call fza_fnc_hellfireLimaLoblCheck;
+	_seekerStateParams set [4, (_losCounter + 1) % 10];
+	if (_loblCheckLima # 1 || !(_losCounter % 10 == 0)) then {
+		_selectedTarget = _targetObj;
 		if (_loblCheckLima # 1) then {
 			_seekerStateParams set [4, 1];
 		};
 	} else {
-		_SelectedTarget = objNull;
+		_selectedTarget = objNull;
 	};
 } else {
 	_seekerStateParams set [4, 1];
@@ -56,45 +62,35 @@ if !(isNull _TargetObj) then {
 		};
 	};
 
-	private _Primarytargets = _validTargets select {
+	private _primaryTargets = _validTargets select {
 		private _targTypeCompare = _x call BIS_fnc_objectType;
 		(_targetType isEqualTo _targTypeCompare)
 	};
-	private _secondarytargets = _validTargets select {
+	private _secondaryTargets = _validTargets select {
 		private _targTypeCompare = _x call BIS_fnc_objectType;
 		!(_targetType isEqualTo _targTypeCompare)
 	};
-	if (_Primarytargets isNotEqualTo []) then {
-		_SelectedTarget = [_Primarytargets, _TargetPos] call BIS_fnc_nearestPosition;
+	if (_primaryTargets isNotEqualTo []) then {
+		_selectedTarget = [_primaryTargets, _TargetPos] call BIS_fnc_nearestPosition;
 	} else {
-		If (_secondarytargets isNotEqualTo []) then {
-			_SelectedTarget = [_secondarytargets, _TargetPos] call BIS_fnc_nearestPosition;
+		if (_secondaryTargets isNotEqualTo []) then {
+			_selectedTarget = [_secondaryTargets, _TargetPos] call BIS_fnc_nearestPosition;
 		};
 	};
 };
 
-if !(isNull _SelectedTarget) then {
-	//private _aimPosTarget = aimpos _SelectedTarget;
-	private _centerOfObject = getCenterOfMass _SelectedTarget;
-	private _aimPosTarget = _SelectedTarget modelToWorldWorld _centerOfObject;
+if !(isNull _selectedTarget) then {
+	private _centerOfObject = getCenterOfMass _selectedTarget;
+	private _aimPosTarget = _selectedTarget modelToWorldWorld _centerOfObject;
 
 	private _projectileVelocity = velocity _projectile;
 	private _projectileSpeed = vectorMagnitude _projectileVelocity; // this gives a precise impact time versus using speed _projectile. Dont change
 	private _timeUntilImpact = (_aimPosTarget distance _projectile) / _projectileSpeed;
-	systemchat str _timeUntilImpact;
-	_returnTargetPos = _aimPosTarget vectorAdd (velocity _SelectedTarget vectorMultiply _timeUntilImpact);
-	_seekerStateParams set [0, _SelectedTarget];
+	_returnTargetPos = _aimPosTarget vectorAdd (velocity _selectedTarget vectorMultiply _timeUntilImpact);
+	_seekerStateParams set [0, _selectedTarget];
 	_seekerStateParams set [1, _returnTargetPos];
 } else {
 	_seekerStateParams set [0, objNull];
 };
-
-
-
-hintSilent format ["TargetObj = %1,
-				\nTargetPos = %2,
-				\nFinalTarget = %6,
-				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _SelectedTarget, _returnTargetPos];
-
 
 _returnTargetPos;

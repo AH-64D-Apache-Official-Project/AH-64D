@@ -21,11 +21,9 @@ Examples:
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_firedEH", "", "", "", "_stateParams"];
+params ["_firedEH", "_launchParams", "", "", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _stateParams params ["", "_seekerStateParams"];
-_targetLaunchParams params ["", "_targetpos", "_launchPos"];
-
 
 private _heli           = vehicle _shooter;
 private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
@@ -41,7 +39,7 @@ if (!(isNull _targObj) && _loblCheckLima #1) then {
 };
 
 //Cycle Radar targets
-[_heli] call fza_fnc_targetingsensorCycle;
+[_heli] call fza_fnc_targetingSensorCycle;
 
 //Dir trajectory at close range
 private _attackProfile = "hellfire_hi";
@@ -54,8 +52,8 @@ if (_projectile distance _targPos < 2000) then {
 } else {
     _seekerStateParams set [0, objnull];
 };
-
 _launchParams set [3, _attackProfile];
 _seekerStateParams set [1, _targPos];
 _seekerStateParams set [2, _targetType];
 _seekerStateParams set [3, _loblCheckLima #1];
+_seekerStateParams set [4, 0];
