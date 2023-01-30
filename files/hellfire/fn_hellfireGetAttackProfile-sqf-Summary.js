@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:hellfire/fn_hellfireGetAttackProfile.sqf","fn_hellfireGetAttackProfile.sqf");NDSummary.OnSummaryLoaded("File:hellfire/fn_hellfireGetAttackProfile.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[121,0,1,"Functions","Functions"],[122,0,0,"fza_fnc_HellfireGetAttackProfile","fza_fnc_HellfireGetAttackProfile"]]);

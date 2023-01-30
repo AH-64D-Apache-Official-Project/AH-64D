@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:hellfire/fn_hellfireCheckSeekerAngle.sqf",{114:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">returns true,false if target is in seeker angle of the object Derived from the ace check seeker angle but to use model vectoring instead of flight vector</div></div>"});
