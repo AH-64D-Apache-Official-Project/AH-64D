@@ -22,7 +22,7 @@ if (!(isNil "fza_ah64_nofcr")) exitwith {};
 private _acBusOn = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
 
-if (_acBusOn && _dcBusOn) exitwith {};
+if !(_acBusOn && _dcBusOn) exitwith {};
 
 private _detectedActiveRadars = [];
 {

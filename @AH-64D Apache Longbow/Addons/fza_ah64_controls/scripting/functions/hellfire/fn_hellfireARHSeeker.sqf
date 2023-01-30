@@ -90,14 +90,11 @@ if !(isNull _SelectedTarget) then {
 };
 
 
-#ifdef __A3_DEBUG__
+
 hintSilent format ["TargetObj = %1,
 				\nTargetPos = %2,
-				\nValidtarget = %3,
-				\nPrimaryTargets = %4,
-				\nSecondarytargets = %5,
 				\nFinalTarget = %6,
-				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _validTargets, _Primarytargets, _secondarytargets, _SelectedTarget, _returnTargetPos];
-#endif
+				\nreturnTargetPos = %7", _TargetObj, _TargetPos, _SelectedTarget, _returnTargetPos];
+
 
 _returnTargetPos;
