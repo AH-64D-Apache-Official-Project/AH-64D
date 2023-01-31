@@ -16,7 +16,6 @@ Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli"];
 
 private _turret = 0;
