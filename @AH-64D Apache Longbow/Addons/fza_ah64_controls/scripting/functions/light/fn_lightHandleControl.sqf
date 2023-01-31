@@ -21,20 +21,19 @@ Author:
 	Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 switch (_control) do {
 	case "floodlight": {
 		if (!(isLightOn [_heli,[0]]) && _heli getVariable "fza_ah64_battery") then {
-			_heli setObjectTextureGlobal [SEL_IN_BACKLIGHT, "\fza_ah64_us\tex\in\dlt.paa"];
-			_heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setObjectTextureGlobal ["in_backlight", "\fza_ah64_us\tex\in\dlt.paa"];
+			_heli setobjecttextureGlobal ["in_backlight2", "\fza_ah64_us\tex\in\pushbut.paa"];
 
 			[_heli, true] call fza_fnc_lightSetCockpitLight;
 
 		} else {
-			_heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
-			_heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
+			_heli setobjecttextureGlobal ["in_backlight", ""];
+			_heli setobjecttextureGlobal ["in_backlight2", ""];
 
 			[_heli, false] call fza_fnc_lightSetCockpitLight;
 

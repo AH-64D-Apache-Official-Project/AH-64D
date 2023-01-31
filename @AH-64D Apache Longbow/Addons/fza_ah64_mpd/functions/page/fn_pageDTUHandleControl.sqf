@@ -1,5 +1,4 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_mpdIndex", "_control"];
 
 switch(_control) do {
