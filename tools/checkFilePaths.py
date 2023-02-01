@@ -10,7 +10,7 @@ import sys
 
 #A valid PBO file name must start with "fza_ah64_" and then be all lower case letters
 reValidPboName = re.compile(r'^fza_ah64_[a-z]+$')
-# A valid folder name must start with lower case, and then be any 
+# A valid folder name must start with lower case, and then be any
 reValidFolderName = re.compile(r'^[a-z0-9][a-zA-Z0-9]*(_[a-z0-9][a-zA-Z0-9]*)*$')
 reValidFileName = re.compile(r'^[a-z0-9][a-zA-Z0-9]*(_[a-z0-9][a-zA-Z0-9]*)*\.[a-z]+$')
 reValidConfigName = re.compile(r'(Cfg|Fza|Rsc)[A-Z][a-z0-9A-Z]*\.hpp')

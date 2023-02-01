@@ -20,7 +20,6 @@ Examples:
 Author:
 	unknown, mattysmith22
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\selections.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
@@ -173,8 +172,8 @@ do {
     private _battBusOn       = _heli getVariable "fza_systems_battBusOn";
     if ((isLightOn [_heli,[0]]) && _battBusOn) then {
 
-        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT, ""];
-        _heli setobjecttextureGlobal [SEL_IN_BACKLIGHT2, ""];
+        _heli setobjecttextureGlobal ["in_backlight", ""];
+        _heli setobjecttextureGlobal ["in_backlight2", ""];
 
         [_heli, false] call fza_fnc_lightSetCockpitLight;
     };

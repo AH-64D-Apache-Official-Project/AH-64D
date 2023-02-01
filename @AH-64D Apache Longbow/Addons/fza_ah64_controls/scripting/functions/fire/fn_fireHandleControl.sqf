@@ -21,7 +21,6 @@ Author:
 	Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 private _turret = 0;
@@ -35,11 +34,11 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 		};
 		if (fza_ah64_firetest == 0) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrcau", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrwrn", "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
 
 			if (player == driver _heli) then {
@@ -54,13 +53,13 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrcau", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrwrn", "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
 
 			if (player == driver _heli) then {
@@ -73,16 +72,16 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, ""];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, ""];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
+			_heli setobjecttexture ["in_lt_fire1", ""];
+			_heli setobjecttexture ["in_lt_fire2", ""];
+			_heli setobjecttexture ["in_lt_fireapu", ""];
+			_heli setobjecttexture ["in_lt_mstrcau", ""];
+			_heli setobjecttexture ["in_lt_mstrwrn", ""];
 			if !(_heli getVariable "fza_ah64_firepdisch") then {
-				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
+				_heli setobjecttexture ["in_lt_firepdis", ""];
 			};
 			if !(_heli getVariable "fza_ah64_firerdisch") then {
-				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
+				_heli setobjecttexture ["in_lt_firerdis", ""];
 			};
 			fza_ah64_firetest = 0;
 
@@ -109,7 +108,7 @@ switch(_control) do {
 	};
 	case "fbp": {
 		if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firepdisch")) then {
-				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firepdisch", true, true];
 				_dmg = vehicle player getHit "leng";
 				vehicle player setHit ["leng", _dmg + 0.01];
@@ -118,7 +117,7 @@ switch(_control) do {
 		};
 		case "fbr": {
 			if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firerdisch")) then {
-				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firerdisch", true, true];
 				_dmg = vehicle player getHit "Reng";
 				vehicle player setHit ["Reng", _dmg + 0.01];
@@ -130,11 +129,11 @@ switch(_control) do {
 			fza_ah64_firetest = 0;
 		};
 		if (fza_ah64_firetest == 0) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrcau", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrwrn", "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 1;
 
 			if (player == driver _heli) then {
@@ -147,13 +146,13 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 1) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, "\fza_ah64_us\tex\in\pushbut.paa"];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrcau", "\fza_ah64_us\tex\in\pushbut.paa"];
+			_heli setobjecttexture ["in_lt_mstrwrn", "\fza_ah64_us\tex\in\pushbut.paa"];
 			fza_ah64_firetest = 2;
 
 			if (player == driver _heli) then {
@@ -166,16 +165,16 @@ switch(_control) do {
 			[player, "fza_ah64_warntest_3D"] remoteExec["say3d"];
 		};
 		if (fza_ah64_firetest == 2) exitwith {
-			_heli setobjecttexture [SEL_IN_LT_FIRE1, ""];
-			_heli setobjecttexture [SEL_IN_LT_FIRE2, ""];
-			_heli setobjecttexture [SEL_IN_LT_FIREAPU, ""];
-			_heli setobjecttexture [SEL_IN_LT_MSTRCAU, ""];
-			_heli setobjecttexture [SEL_IN_LT_MSTRWRN, ""];
+			_heli setobjecttexture ["in_lt_fire1", ""];
+			_heli setobjecttexture ["in_lt_fire2", ""];
+			_heli setobjecttexture ["in_lt_fireapu", ""];
+			_heli setobjecttexture ["in_lt_mstrcau", ""];
+			_heli setobjecttexture ["in_lt_mstrwrn", ""];
 			if !(_heli getVariable "fza_ah64_firepdisch") then {
-				_heli setobjecttexture [SEL_IN_LT_FIREPDIS, ""];
+				_heli setobjecttexture ["in_lt_firepdis", ""];
 			};
 			if !(_heli getVariable "fza_ah64_firerdisch") then {
-				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, ""];
+				_heli setobjecttexture ["in_lt_firerdis", ""];
 			};
 			fza_ah64_firetest = 0;
 

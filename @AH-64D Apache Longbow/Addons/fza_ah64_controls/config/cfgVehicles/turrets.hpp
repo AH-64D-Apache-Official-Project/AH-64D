@@ -1,4 +1,4 @@
-class Turrets
+class Turrets : Turrets
 {
     class MainTurret: NewTurret
     {
@@ -189,5 +189,6 @@ class Turrets
                 y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
             };
         };
+        class MFD {};
     };
 };

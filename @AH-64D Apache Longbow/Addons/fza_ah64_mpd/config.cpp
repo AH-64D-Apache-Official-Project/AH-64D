@@ -10,8 +10,8 @@ class CfgPatches
     };
 };
 
-#include "ui\BaseControls.hpp"
-#include "ui\Ctrls.hpp"
+#include "ui\baseControls.hpp"
+#include "ui\ctrls.hpp"
 #include "ui\RscFzaAH64MPD.hpp"
 
 

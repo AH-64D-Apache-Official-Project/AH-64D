@@ -151,7 +151,6 @@ class CfgFunctions
 			file = "\fza_ah64_controls\scripting\functions";
 			class linearInterp { R; description = "Linear interpolate a 2d array of keyframe values"; };
 			class displayTime {R;};
-			class drawNumberSelections {R;};
 			class setPitchBank {R;};
 			class getPitchBank {R;};
 			class relativeDirection {R;};
