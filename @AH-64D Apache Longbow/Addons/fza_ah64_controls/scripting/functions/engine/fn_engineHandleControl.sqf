@@ -30,9 +30,9 @@ private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
 
 switch(_control) do {
 	case "apu": {
-			if (!_apuBtnOn && _battBusOn) then {
+		if (!_apuBtnOn && _battBusOn) then {
 			[_heli] call fza_systems_fnc_interactAPUButton;
-			["fza_ah64_apubutton", 0.1, "", 0, "", 0] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_apubutton";
 			[_heli] spawn fza_fnc_fxLoops;
 			[_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
 		} else {
@@ -56,20 +56,20 @@ switch(_control) do {
 		if (_battSwitchOn) then {
 			[_heli] call fza_systems_fnc_interactBattSwitch;
 			[_heli] spawn fza_fnc_fxLoops;
-			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_battery";
 		} else {
 			[_heli] call fza_systems_fnc_interactBattSwitch;
 			[_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
 			_heli setCollisionLight false;
 			_heli setPilotLight false;
 			[_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
-			["fza_ah64_battery", 0.1] spawn fza_fnc_playAudio;
+			playsound "fza_ah64_battery";
 		};
 	};
 	
 	case "rtrbrake": {
 		[_heli, "fza_ah64_rtrbrake", !(_heli getVariable "fza_ah64_rtrbrake")] call fza_fnc_animSetValue;
-		["fza_ah64_switch_flip2", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_switch_flip2";
 	};
 
 	//--------------------ENGINE 1--------------------//
@@ -83,13 +83,13 @@ switch(_control) do {
 				_heli animateSource ["plt_eng1_start", 1];
 				sleep 0.15;
 				_heli animateSource ["plt_eng1_start", 0];
-				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+				playsound "fza_ah64_switch_flip4";
 			};
 			if (_eng1state == "STARTING") then {
 				_heli animateSource ["plt_eng1_start", -1];
 				sleep 0.15;
 				_heli animateSource ["plt_eng1_start", 0];
-				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+				playsound "fza_ah64_switch_flip4";
 			};
 		};
 	};
@@ -97,12 +97,12 @@ switch(_control) do {
 	case "e1off": {
 		[_heli, 0, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
 
-		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_throttle_idle";
 	};
 	case "e1idle": {
 		[_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
 
-		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_throttle_idle";
 	};
 	case "e1fly": {
 		private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
@@ -119,7 +119,7 @@ switch(_control) do {
 			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 		};
 		
-		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_fake_3D";
 	};
 	
 	//--------------------ENGINE 2--------------------//	
@@ -133,13 +133,13 @@ switch(_control) do {
 				_heli animateSource ["plt_eng2_start", 1];
 				sleep 0.15;
 				_heli animateSource ["plt_eng2_start", 0];
-				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+				playsound "fza_ah64_switch_flip4";
 			};
 			if (_eng2state == "STARTING") then {
 				_heli animateSource ["plt_eng2_start", -1];
 				sleep 0.15;
 				_heli animateSource ["plt_eng2_start", 0];
-				["fza_ah64_switch_flip4", 0.1] spawn fza_fnc_playAudio;
+				playsound "fza_ah64_switch_flip4";
 			};
 		};
 	};
@@ -147,12 +147,12 @@ switch(_control) do {
 	case "e2off": {
 		[_heli, 1, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
 
-		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_throttle_idle";
 	};
 	case "e2idle": {
 		[_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
 
-		["fza_ah64_throttle_idle", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_throttle_idle";
 	};
 	case "e2fly": {
 		private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
@@ -169,6 +169,6 @@ switch(_control) do {
 			[_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
 		};
 		
-		["fza_ah64_fake_3D", 0.1] spawn fza_fnc_playAudio;
+		playsound "fza_ah64_fake_3D";
 	};
 };

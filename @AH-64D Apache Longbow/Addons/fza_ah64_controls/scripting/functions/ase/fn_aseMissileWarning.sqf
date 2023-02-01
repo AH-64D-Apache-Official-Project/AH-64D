@@ -23,12 +23,13 @@ params ["_heli","_munition","_hostile"];
 
 if !(player == driver _heli || player == gunner _heli) exitwith {};
 
+private _rlwrPwr     = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _missile = nearestobject [_hostile,_munition];
 private _posHeli = getpos _heli;
 private _posInc = getpos _missile;
 
 private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
-if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
+if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == "on") then {
         
     _Classification = [_hostile] call fza_fnc_aseAdaClassification;
     private _identity = format ["fza_ah64_bt_%1", _Classification];
@@ -41,11 +42,5 @@ if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
     private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 
     //Audio
-    [_identity, 0.8, _dirAud, 1.3, "fza_ah64_launch", 0.65] spawn fza_fnc_playAudio;
-
-    private _future = time + 3;
-    while {(time >= _future)} do {
-        fza_ah64_aseAudioPlaying = true;
-    };
-    fza_ah64_aseAudioPlaying = false;
+    [_heli, 6, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_audio_fnc_addASEMessage;
 };

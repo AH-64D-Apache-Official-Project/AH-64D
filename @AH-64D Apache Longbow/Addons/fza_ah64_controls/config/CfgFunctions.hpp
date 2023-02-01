@@ -156,7 +156,6 @@ class CfgFunctions
 			class relativeDirection {R;};
 			class velocityVector {R;};
 			class addKeybind {R;};
-			class playAudio { R; description = "Plays audio file"; };
 			class compensateSafezone { R;};
 			class targetisADA {R;};
 			class doortoggleP {R;};

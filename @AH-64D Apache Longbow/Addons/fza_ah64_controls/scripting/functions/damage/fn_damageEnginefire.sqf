@@ -67,7 +67,7 @@ _heli setVariable[_mag, true, true];
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
 if (_usesound) then {
-    [_audio1, 1.25] spawn fza_fnc_playAudio;
+    [_heli, 2, "", _audio1, 1.25] call fza_audio_fnc_addASEMessage;
 };
 
 private _apuOn = _heli getVariable "fza_systems_apuOn";

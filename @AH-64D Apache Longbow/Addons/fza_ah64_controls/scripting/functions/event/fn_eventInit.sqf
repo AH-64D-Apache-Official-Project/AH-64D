@@ -79,7 +79,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",     1];
     _heli setVariable ["fza_ah64_ase_searchingObj",  []];
-    _heli setVariable ["fza_ah64_ase_AquisitionObj",  []];
+    _heli setVariable ["fza_ah64_ase_acquisitionObj",  []];
     _heli setVariable ["fza_ah64_ase_trackingobj",  []];
 
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
@@ -129,6 +129,7 @@ _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
+_heli setVariable ["fza_ah64_audioQueList", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;

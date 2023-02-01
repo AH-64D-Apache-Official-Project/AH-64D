@@ -87,7 +87,7 @@ class Sounds
         };
         class rotorLowAlarmInt
         {
-            sound[] = {"\fza_ah64_us\audio\betty\bt_rotorrpm_low.ogg", 1, 1.000000};
+            sound[] = {"\fza_ah64_audio\audio\systems\bt_rotor_rpm_low.ogg", 1, 1.000000};
             frequency = 1;
             volume = "engineOn * (1 - camPos) * (rotorSpeed factor [0.9, 0.8999]) * (rotorSpeed factor [-0.5, 1]) * (speed factor [3, 3.01])";
         };

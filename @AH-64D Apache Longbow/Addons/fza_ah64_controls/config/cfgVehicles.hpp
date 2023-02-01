@@ -152,7 +152,7 @@ class CfgVehicles
 		};
 		class EventHandlers {
 			class fza_ah64 {
-				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init";
+				init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_audio_fnc_audioInit";
 				handleDamage = "_this call fza_fnc_damageSystem";
 			};
 		};
@@ -186,7 +186,6 @@ class CfgVehicles
 					position = "exhaust2";
 				};
 		};
-
 		class MFD {};
 
 		class Turrets : Turrets {
