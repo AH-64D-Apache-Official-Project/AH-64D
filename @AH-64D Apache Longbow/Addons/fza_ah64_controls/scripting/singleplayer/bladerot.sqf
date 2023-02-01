@@ -1,4 +1,3 @@
-#include "\fza_ah64_controls\headers\selections.h"
 if (!(isNil "fza_ah64_noblades")) exitwith {};
 _estate = 0;
 _heli = _this select 0;

@@ -22,7 +22,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 
 if !fza_ah64_aiFirecontrol exitwith {};
 if (_heli getVariable "fza_ah64_aiFireHandling") exitWith {}; //Prevent this from being run multiple times simultaneously
@@ -48,7 +47,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
 	if !(_heli getVariable "fza_ah64_firepdisch") then {
-		_heli setobjecttexture [SEL_IN_LT_FIREPDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+		_heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
 		_heli setVariable ["fza_ah64_firepdisch", true, true];
 		_dmg = _heli getHit "leng";
 		_heli setHit ["leng", _dmg + 0.01];
@@ -56,7 +55,7 @@ if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire"
 		sleep 1;
 		if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
 			if !(_heli getVariable "fza_ah64_firerdisch") then {
-				_heli setobjecttexture [SEL_IN_LT_FIRERDIS, "\fza_ah64_us\tex\in\pushbut.paa"];
+				_heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
 				_heli setVariable ["fza_ah64_firerdisch", true, true];
 				_dmg = _heli getHit "Reng";
 				_heli setHit ["Reng", _dmg + 0.01];

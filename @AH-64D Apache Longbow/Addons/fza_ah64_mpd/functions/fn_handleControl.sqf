@@ -23,7 +23,6 @@ Author:
 	mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_controls\headers\selections.h"
 params ["_heli", "_system", "_control"];
 
 private _mpdIndex = [0,1] select (_system == "rmpd");
