@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_addCaution
+Function: fza_audio_fnc_addCaution
 
 Description:
 
@@ -10,7 +10,7 @@ Returns:
     No returns
 
 Examples:
-    [_heli] call fza_audioSystem_fnc_addCaution;
+    [_heli] call fza_audio_fnc_addCaution;
 Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
@@ -20,6 +20,6 @@ _heli setvariable ["fza_audio_caution", true];
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
 if (scriptDone _funcHook) then {
-    _funcHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
+    _funcHook = [_heli] spawn fza_audio_fnc_audioHandler;
     _heli setVariable ["fza_audio_funcHook", _funcHook];
 };

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_addAdvisoryMessage
+Function: fza_audio_fnc_addAdvisoryMessage
 
 Description:
 
@@ -12,7 +12,7 @@ Returns:
     No returns
 
 Examples:
-    [_heli, 1, "", "fza_ah64_Flight_control"] call fza_audioSystem_fnc_addASEMessage;
+    [_heli, 1, "", "fza_ah64_Flight_control"] call fza_audio_fnc_addASEMessage;
 
 Author:
     Rosd6(Dryden)
@@ -27,6 +27,6 @@ if (_aseMsg isEqualTo "" or {_priority > _aseMsg # 1}) then {
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
 if (scriptDone _funcHook) then {
-    _funcHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
+    _funcHook = [_heli] spawn fza_audio_fnc_audioHandler;
     _heli setVariable ["fza_audio_funcHook", _funcHook];
 };

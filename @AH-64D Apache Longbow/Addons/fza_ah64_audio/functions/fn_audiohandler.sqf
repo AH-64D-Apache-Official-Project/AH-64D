@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_audioSystemHandler
+Function: fza_audio_fnc_audioHandler
 
 Description:
     1 - caution
@@ -19,7 +19,7 @@ Returns:
 Examples: 
     private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
     if (scriptDone _funcHook) then {
-        _funcHook = [_heli] spawn fza_audioSystem_fnc_audioSystemHandler;
+        _funcHook = [_heli] spawn fza_audio_fnc_audioHandler;
         _heli setVariable ["fza_audio_funcHook", _funcHook];
     };
 
@@ -42,13 +42,13 @@ while {player != vehicle player} do {
     };
     if (_aseMsg isNotEqualTo "") then {
         _heli setvariable ["fza_audio_ase_message", ""];
-        _aseMsg spawn fza_audioSystem_fnc_playaudio;
+        _aseMsg spawn fza_audio_fnc_playaudio;
         _aseMsg params ["","","","", ["_delay1", 1], "", ["_delay2", 1], "", ["_delay3", 1]];
         sleep (_delay1 + _delay2 + _delay3);
         continue;
     };
     if (_wrnMsg isNotEqualTo "") then {
-        _wrnMsg spawn fza_audioSystem_fnc_playaudio;
+        _wrnMsg spawn fza_audio_fnc_playaudio;
         _wrnMsg params ["","","","", ["_delay1", 1], "", ["_delay2", 1], "", ["_delay3", 1]];
         sleep (_delay1 + _delay2 + _delay3);
         continue;

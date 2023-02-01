@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_playaudio
+Function: fza_audio_fnc_playaudio
 
 Description:
 

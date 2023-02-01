@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_audioSystemInit
+Function: fza_audio_fnc_audioInit
 
 Description:
 

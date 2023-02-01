@@ -57,7 +57,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0
 //TODO: Change so sound occurs even if not in engine page
 /*
 if (_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5 && !fza_ah64_warnHighRpm) then {
-	[_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audioSystem_fnc_addASEMessage;
+	[_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audio_fnc_addASEMessage;
 	
 	fza_ah64_warnHighRpm = true;
 };

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audioSystem_fnc_getin
+Function: fza_audio_fnc_getin
 
 Description:
 
