@@ -35,7 +35,7 @@ sleep fza_ah64_aiFireResponse;
 if !(_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") exitWith {};
 if (_heli getVariable "fza_ah64_e1_fire") then {
 	[_heli, "eng1", true] call fza_fnc_fireHandlepanel;
-};s
+};
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e2_fire") then {
 	[_heli, "eng2", true] call fza_fnc_fireHandlepanel;
