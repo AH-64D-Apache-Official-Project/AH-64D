@@ -4,6 +4,7 @@ class CfgVehicles
 	class Helicopter_Base_F : Helicopter {
 		class Components;
 		class EventHandlers;
+		class Turrets;
 	};
 	#include "cfgVehicles\crew.hpp"
 	class fza_ah64base : Helicopter_Base_F
@@ -187,6 +188,12 @@ class CfgVehicles
 		};
 
 		class MFD {};
+
+		class Turrets : Turrets {
+			class MainTurret : NewTurret {
+				class MFD;
+			};
+		};
 		
 		class Attributes
 		{

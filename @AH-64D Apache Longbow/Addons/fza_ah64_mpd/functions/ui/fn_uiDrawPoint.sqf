@@ -30,7 +30,12 @@ private _getOrCreateCtrl = {
 private _yScale = (4/3) / (getResolution # 4);
 private _yOffset = (1-_yScale)/2;
 
-_heli animateSource ["plt_uiscale", _yScale];
+if (_heli turretLocal [-1]) then {
+    _heli animateSource ["plt_uiscale", _yScale];
+};
+if (_heli turretLocal [0]) then {
+    _heli animateSource ["cpg_uiscale", _yScale];
+};
 
 private _iconType = _dmsPoint # POINT_GET_ICON_TYPE;
 // If an icon is now a different type, wipe the existing ctrls to rebuild

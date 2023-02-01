@@ -1,32 +1,5 @@
 class AnimationSources
 {
-    #define ANIMS_MMAP(seat) \
-    class seat##_mmap_tx \
-    { \
-        source = "user"; \
-        animPeriod = 0.001; \
-        initPhase=0; \
-    }; \
-    class seat##_mmap_ty \
-    { \
-        source = "user"; \
-        animPeriod = 0.001; \
-        initPhase=0; \
-    }; \
-    class seat##_mmap_r \
-    { \
-        source = "user"; \
-        animPeriod = 0.001; \
-        initPhase=0; \
-    }; \
-    class seat##_mmap_sc \
-    { \
-        source = "user"; \
-        animPeriod = 0.001; \
-        initPhase=1; \
-    }; 
-    ANIMS_MMAP(plt)
-    ANIMS_MMAP(cpg)
     ////////RADAR///////
     class fcr_enable
     {
@@ -438,6 +411,7 @@ class AnimationSources
         animPeriod = 0.001;
         initPhase=1;
     };
+    class cpg_uiscale : plt_uiscale {};
     //////////////DOORS//////////////////
     class pdoor
     {

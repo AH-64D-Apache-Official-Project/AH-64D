@@ -2,9 +2,18 @@ class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {
         class MFD;
-		class EventHandlers;
+        class Turrets;
     };
     class fza_ah64base : Helicopter_Base_F {
+        class NewTurret;
+        class Turrets : Turrets {
+            class MainTurret : NewTurret {
+                class MFD;
+            }
+        };
+		class EventHandlers;
+    };
+    class fza_ah64d_b2e : fza_ah64base {
         class MFD : MFD {
 			#define MFD_IND_PAGE MFD_IND_PAGE_LEFT
 			#define MFD_OFFSET MFD_OFFSET_L
@@ -21,6 +30,28 @@ class CfgVehicles {
 				topRight = "PLT_MPD_R_TR";
 				bottomLeft = "PLT_MPD_R_BL";
 				#include "mpd.hpp"
+			};
+		};
+		class Turrets : Turrets {
+			class MainTurret : NewTurret {
+				class MFD : MFD {
+					#define MFD_IND_PAGE MFD_IND_PAGE_LEFT
+					#define MFD_OFFSET MFD_OFFSET_L
+					class MPD_L {
+						topLeft = "CPG_MPD_L_TL";
+						topRight = "CPG_MPD_L_TR";
+						bottomLeft = "CPG_MPD_L_BL";
+						#include "mpd.hpp"
+					};
+					#define MFD_IND_PAGE MFD_IND_PAGE_RIGHT
+					#define MFD_OFFSET MFD_OFFSET_R
+					class MPD_R {
+						topLeft = "CPG_MPD_R_TL";
+						topRight = "CPG_MPD_R_TR";
+						bottomLeft = "CPG_MPD_R_BL";
+						#include "mpd.hpp"
+					};
+				};
 			};
 		};
 		class EventHandlers : EventHandlers {
