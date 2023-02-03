@@ -1,19 +1,19 @@
 params ["_heli", "_mpdIndex", "_control"];
 
 switch(_control) do {
-	case "menu": {
+	case "b1": {
 		[_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
 	};
-	case "b1": {
+	case "b2": {
 		[_heli, _mpdIndex, "eng"] call fza_mpd_fnc_setCurrentPage;
 	};
-	case "b2": {
+	case "b3": {
 		[_heli, _mpdIndex, "flt"] call fza_mpd_fnc_setCurrentPage;
 	};
-	case "b3": {
+	case "b4": {
 		[_heli, _mpdIndex, "fuel"] call fza_mpd_fnc_setCurrentPage;
 	};
-	case "b4": {
+	case "b5": {
 		[_heli, _mpdIndex, "perf"] call fza_mpd_fnc_setCurrentPage;
 	};
 	case "l3": {
