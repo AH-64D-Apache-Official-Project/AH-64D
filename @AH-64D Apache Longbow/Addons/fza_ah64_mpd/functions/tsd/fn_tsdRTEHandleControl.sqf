@@ -15,13 +15,13 @@ switch (_variant) do {
                     _state set ["subPageVarPage", TSD_RTE_DIR_POINTSEL];
                 }
             };
-            case "b3": {    //To WPT page
+            case "b4": {    //To WPT page
                 _state set ["subPageVarPage", TSD_WPT];
             };
-            case "b4": {    //Return to top level TSD (root)
+            case "b5": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To THRT page
+            case "b6": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
         };
@@ -60,13 +60,13 @@ switch (_variant) do {
             case "l4": {     //Return to RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
-            case "b3": {    //To WPT page
+            case "b4": {    //To WPT page
                 _state set ["subPageVarPage", TSD_WPT];
             };
-            case "b4": {    //Return to top level TSD (root)
+            case "b5": {    //Return to top level TSD (root)
                 _state set ["subPageVarPage", TSD_ROOT];
             };
-            case "b5": {    //To THRT page
+            case "b6": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
         };

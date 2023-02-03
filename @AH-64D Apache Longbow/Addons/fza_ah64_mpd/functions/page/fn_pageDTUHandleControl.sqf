@@ -5,7 +5,7 @@ switch(_control) do {
 	case "t1": {
 		[_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
 	};
-    case "menu": {
+    case "b1": {
 		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
 };

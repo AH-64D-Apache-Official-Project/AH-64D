@@ -24,23 +24,23 @@ switch (_control) do {
         private _val = (_heli getVariable "fza_mpd_tsdShowRlwr") ;
         _val set [_phase, !(_val # _phase)];
     };
-    case "b5": {
+    case "b6": {
         if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkHazard") ;
             _heli setVariable ["fza_mpd_tsdShowAtkHazard", _val];
         };
     };
-    case "b4": {
+    case "b5": {
         private _val = (_heli getVariable "fza_mpd_tsdShowWind") ;
         _val set [_phase, !(_val # _phase)];
     };
-    case "b3": {
+    case "b4": {
         if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkShot") ;
             _heli setVariable ["fza_mpd_tsdShowAtkShot", _val];
         };
     };
-    case "b2": {
+    case "b3": {
         private _val = (_heli getVariable "fza_mpd_tsdShowEndr") ;
         _val set [_phase, !(_val # _phase)];
     };

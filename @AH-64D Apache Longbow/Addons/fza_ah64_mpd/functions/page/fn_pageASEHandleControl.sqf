@@ -24,17 +24,17 @@ switch(_control) do {
 	case "t2": {
 		[_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
 	};
-	case "menu": {
+	case "b1": {
 		[_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
 	};
 	//RF Jammer
-	case "b3": {
+	case "b4": {
 		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_OFF];
 	};
-	case "b4": {
+	case "b5": {
 		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_WARM_STBY];
 	};
-	case "b5": {
+	case "b6": {
 		_heli setVariable ["fza_ah64_ase_rfJamState", ASE_RFJAM_STATE_WARM_OPER];
 	};
 	//Autopage
