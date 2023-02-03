@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT 0.045
+#define TEXT_HEIGHT 0.060
 disableSerialization;
 params
     ["_heli"
@@ -59,20 +59,21 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
 };
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
+private _colorMap = createHashMapFromArray
+    [ [MPD_ICON_COLOR_GREEN,  [0.0, 1.0, 0.5, 1]]
+    , [MPD_ICON_COLOR_CYAN,   [0.4, 0.6, 1.0, 1]]
+    , [MPD_ICON_COLOR_YELLOW, [1.0, 1.0, 0.0, 1]]
+    , [MPD_ICON_COLOR_RED,    [1.0, 0.0, 0.2, 1]]
+    ];
+
+private _color = _colorMap get _iconColor;
+
 // Icon draw
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
 _iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
-
-private _colorMap = createHashMapFromArray
-    [ [MPD_ICON_COLOR_GREEN, [0.2,1,0,1]]
-    , [MPD_ICON_COLOR_CYAN, [0,1,1,1]]
-    , [MPD_ICON_COLOR_YELLOW, [1,1,0,1]]
-    , [MPD_ICON_COLOR_RED, [1,0,0,1]]
-    ];
-
-private _textColor = _colorMap get _iconColor;
 
 private _drawText = {
     params ["_textPrefix", "_textData"];
@@ -95,7 +96,7 @@ private _drawText = {
         , 1
         , 1 * _yScale
         ];
-    _textCtrl ctrlSetTextColor _textColor;
+    _textCtrl ctrlSetTextColor _color;
     _textCtrl ctrlSetFontHeight (TEXT_HEIGHT*_yScale);
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;

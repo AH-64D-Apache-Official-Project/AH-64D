@@ -10,7 +10,7 @@
 #define MPD_ICON_TEXT_ID 0
 #define MPD_ICON_TEXT_FREE 1
 
-#define ICON_SIZE 0.07
+#define ICON_SIZE 0.11
 
 class FzaIconTypes {
     // Common templates to be used for generating icons.
@@ -18,8 +18,8 @@ class FzaIconTypes {
     class IconTypeA {
         size = ICON_SIZE;
 
-        textAOffset[] = {0,0.5};
-        textAHAlign = "right";
+        textAOffset[] = {0.90,0.5};
+        textAHAlign = "left";
         textAVAlign = "center";
     };
     class IconTypeB {
@@ -39,8 +39,8 @@ class FzaIconTypes {
     class IconTypeD {
         size = ICON_SIZE;
 
-        textAOffset[] = {0,0.5};
-        textAHAlign = "right";
+        textAOffset[] = {0.90,0.5};
+        textAHAlign = "left";
         textAVAlign = "center";
 
         textBOffset[] = {0.5,0};
@@ -50,21 +50,21 @@ class FzaIconTypes {
     class IconTypeE {
         size = ICON_SIZE;
 
-        textAOffset[] = {0.5, 0};
+        textAOffset[] = {0.5, 0.25};
         textAHAlign = "center";
         textAVAlign = "bottom"
     };
     class IconTypeF {
         size = ICON_SIZE;
 
-        textAOffset[] = {1, 0.5};
+        textAOffset[] = {0.90, 0.5};
         textAHAlign = "left";
         textAVAlign = "center";
     };
     class IconTypeG {
         size = ICON_SIZE;
 
-        textAOffset[] = {0, 0};
+        textAOffset[] = {0.0, 0};
         textAHAlign = "left";
         textAVAlign = "center";
         
@@ -79,7 +79,7 @@ class FzaIconTypes {
 //                          
 //                      +---------+
 //                      |         |
-//               00/AAA |   TEX   |  
+//                      |   TEX   | 00/AAA 
 //                      |         |
 //                      +---------+  
     //Waypoints
@@ -115,9 +115,14 @@ class FzaIconTypes {
         tex= "\fza_ah64_mpd\tex\tsdIcons\br_ca.paa";
         type = POINT_TYPE_CM;
     };
-    class EA:AA  { 
-        tex= "\fza_ah64_mpd\tex\tsdIcons\ea_ca.paa";
+    class AE:AA  { 
+        tex= "\fza_ah64_mpd\tex\tsdIcons\ae_ca.paa";
         color    = MPD_ICON_COLOR_RED;
+    };
+    class AM:AA  { 
+        tex= "\fza_ah64_mpd\tex\tsdIcons\am_ca.paa";
+        color    = MPD_ICON_COLOR_CYAN;
+        textAOffset[] = {0.83,0.5};
     };
     class EF:AA  { 
         tex= "\fza_ah64_mpd\tex\tsdIcons\ef_ca.paa";
@@ -134,14 +139,17 @@ class FzaIconTypes {
     class FI:AA  { 
         tex= "\fza_ah64_mpd\tex\tsdIcons\fi_ca.paa";
         color    = MPD_ICON_COLOR_CYAN;
+        textAOffset[] = {0.83,0.5};
     };
     class FL:AA  { 
         tex= "\fza_ah64_mpd\tex\tsdIcons\fl_ca.paa";
         color    = MPD_ICON_COLOR_CYAN;
+        textAOffset[] = {0.83,0.5};
     };
     class MI:AA  { 
         tex= "\fza_ah64_mpd\tex\tsdIcons\mi_ca.paa";
         color    = MPD_ICON_COLOR_CYAN;
+        textAOffset[] = {0.83,0.5};
     };
     //Target/Threats
     //ASE
@@ -195,7 +203,7 @@ class FzaIconTypes {
 //                          AAA
 //                      +---------+
 //                      |         |
-//                   00 |   TEX   |
+//                      |   TEX   | 00
 //                      |         |
 //                      +---------+
     //Waypoints
@@ -232,9 +240,11 @@ class FzaIconTypes {
     class AI:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\ai_ca.paa";};      //Airfield - Instrumented
     class AL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\al_ca.paa";};      //Light Airport
     class GL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\gl_ca.paa";};      //Ground Light
-    class IDM:AG {                                                  //IDM Subsriber
-        tex= "\fza_ah64_mpd\tex\tsdIcons\idmsub_ca.paa";
+    class IDM:AG {                                                     //IDM Subscriber
+        tex= "\fza_ah64_mpd\tex\tsdIcons\idm_ca.paa";
         color    = MPD_ICON_COLOR_CYAN;
+        textAOffset[] = {0.5, 0.70};
+        textAVAlign = "top";
     };
     //Target/Threats
     //ASE
