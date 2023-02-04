@@ -410,7 +410,7 @@ Parameters:
     and can fit an arrow within.
 
 Parameters:
-    name - Unique name to use in the class definition. Can be the same as that in <MPD_TEXT_x> as they areMPD_TEXT_HEIGHT
+    name - Unique name to use in the class definition. Can be the same as that in <MPD_TEXT_x> as they are
         deconflicted within the macros
     startX, startY - Position of the text the box should be drawn around
     numChars - Number of characters in the text to draw a box around, defines the size of the box
@@ -563,7 +563,7 @@ Parameters:
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
-                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 }\
             }\
         };\
     };\
