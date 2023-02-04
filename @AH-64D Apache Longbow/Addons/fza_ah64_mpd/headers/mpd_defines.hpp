@@ -1,5 +1,7 @@
 /* Constants: Text size constants
   MPD_TEXT_HEIGHT - Height of a single normal character
+  MPD_TEXT_HEIGHT_VEC - Height to put into type="text" for a character with width MPD_TEXT_WIDTH
+  MPD_TEXT_HEIGHT_PAD - Padding offset added to top of characters
   MPD_TEXT_WIDTH - Width of a single normal character
   MPD_TEXT_WIDTH_VEC - Width to put into type="text" for a character with width MPD_TEXT_WIDTH
   MPD_TEXT_SMALL_PAD - Padding offset when using small text
@@ -8,13 +10,18 @@
   MPD_TEXT_SMALL_WIDTH_VEC - Width to put into type="text" for a character with width MPD_TEXT_SMALL_WIDTH
 */
 #define MPD_TEXT_HEIGHT 0.045
+#define MPD_TEXT_HEIGHT_VEC 0.03
+#define MPD_TEXT_HEIGHT_PAD 0.0075
+
 #define MPD_TEXT_WIDTH 0.0205
-#define MPD_TEXT_WIDTH_VEC 0.045
+#define MPD_TEXT_WIDTH_VEC 0.025
 
 #define MPD_TEXT_SMALL_PAD 0.008
 #define MPD_TEXT_SMALL_HEIGHT 0.03
+#define MPD_TEXT_SMALL_HEIGHT_VEC 0.02
+
 #define MPD_TEXT_SMALL_WIDTH 0.018
-#define MPD_TEXT_SMALL_WIDTH_VEC 0.03
+#define MPD_TEXT_SMALL_WIDTH_VEC 0.02
 
 /* Constants: Misc size constants
   MPD_ARROW_PAD - Offset of an arrow above an MPD text character
@@ -57,14 +64,14 @@
 #define MPD_POS_BUTTON_LR_5_Y 0.66
 #define MPD_POS_BUTTON_LR_6_Y 0.775
 
-#define MPD_POS_BUTTON_T_Y (0.03 + MPD_ARROW_PAD)
+#define MPD_POS_BUTTON_T_Y (0.01 + MPD_ARROW_PAD)
 #define MPD_POS_BUTTON_B_Y (0.970-0.03)
-#define MPD_POS_BUTTON_TB_1_X 0.2
-#define MPD_POS_BUTTON_TB_2_X 0.32
-#define MPD_POS_BUTTON_TB_3_X 0.44
-#define MPD_POS_BUTTON_TB_4_X 0.56
-#define MPD_POS_BUTTON_TB_5_X 0.68
-#define MPD_POS_BUTTON_TB_6_X 0.80
+#define MPD_POS_BUTTON_TB_1_X 0.21
+#define MPD_POS_BUTTON_TB_2_X 0.33
+#define MPD_POS_BUTTON_TB_3_X 0.45
+#define MPD_POS_BUTTON_TB_4_X 0.57
+#define MPD_POS_BUTTON_TB_5_X 0.69
+#define MPD_POS_BUTTON_TB_6_X 0.81
 
 // Group: Misc Macros
 
@@ -353,7 +360,7 @@ Parameters:
 #define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
     type = line; \
     points[] = { \
-        {{startX, startY - MPD_ARROW_PAD}, 1}, \
+        {{startX + MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}, \
         {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}}; \
     width = 3; \
 }; \
@@ -403,7 +410,7 @@ Parameters:
     and can fit an arrow within.
 
 Parameters:
-    name - Unique name to use in the class definition. Can be the same as that in <MPD_TEXT_x> as they are
+    name - Unique name to use in the class definition. Can be the same as that in <MPD_TEXT_x> as they areMPD_TEXT_HEIGHT
         deconflicted within the macros
     startX, startY - Position of the text the box should be drawn around
     numChars - Number of characters in the text to draw a box around, defines the size of the box
@@ -422,9 +429,9 @@ Parameters:
 #define MPD_TEXT(name, bone, startX, startY, config) class Mpd_Text_##name { \
     type = text; \
     scale = 1; \
-    pos[] = {bone, {startX, startY}, 1}; \
-    right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY}, 1}; \
-    down[] = {bone, {startX, startY+(MPD_TEXT_HEIGHT)}, 1}; \
+    pos[] = {bone, {startX, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    right[] = {bone, {startX+MPD_TEXT_WIDTH_VEC, startY+MPD_TEXT_HEIGHT_PAD}, 1}; \
+    down[] = {bone, {startX, startY+(MPD_TEXT_HEIGHT_VEC)+MPD_TEXT_HEIGHT_PAD}, 1}; \
     config \
 };
 
@@ -556,7 +563,7 @@ Parameters:
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.4*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
                 { {startX + 0.2*MPD_TEXT_HEIGHT, startY + 1.25*MPD_TEXT_HEIGHT}, 1 },\
-                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 }\
+                { {startX + 0.2*MPD_TEXT_HEIGHT, startY - 0.25*MPD_TEXT_HEIGHT}, 1 },\
             }\
         };\
     };\
