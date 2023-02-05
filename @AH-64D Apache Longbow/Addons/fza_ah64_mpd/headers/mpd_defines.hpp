@@ -360,7 +360,7 @@ Parameters:
 #define MPD_ARROW_R(name, startX, startY, numChars) class Mpd_Arrow_##name##_Line { \
     type = line; \
     points[] = { \
-        {{startX + MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}, \
+        {{startX, startY - MPD_ARROW_PAD}, 1}, \
         {{startX + numChars * MPD_TEXT_WIDTH - 0.003 - MPD_ARROW_LENGTH, startY - MPD_ARROW_PAD}, 1}}; \
     width = 3; \
 }; \
