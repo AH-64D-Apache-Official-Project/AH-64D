@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fn_targetIsADA.sqf","fn_targetIsADA.sqf");NDSummary.OnSummaryLoaded("File:fn_targetIsADA.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[253,0,1,"Functions","Functions"],[254,0,0,"fza_fnc_targetIsADA","fza_fnc_targetIsADA"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fn_targetIsADA.sqf","fn_targetIsADA.sqf");NDSummary.OnSummaryLoaded("File:fn_targetIsADA.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[255,0,1,"Functions","Functions"],[256,0,0,"fza_fnc_targetIsADA","fza_fnc_targetIsADA"]]);
