@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT 0.060
+#define TEXT_HEIGHT 0.035
 disableSerialization;
 params
     ["_heli"
@@ -61,7 +61,7 @@ private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
 private _colorMap = createHashMapFromArray
     [ [MPD_ICON_COLOR_GREEN,  [0.0, 1.0, 0.5, 1]]
-    , [MPD_ICON_COLOR_CYAN,   [0.4, 0.6, 1.0, 1]]
+    , [MPD_ICON_COLOR_BLUE,   [0.4, 0.6, 1.0, 1]]
     , [MPD_ICON_COLOR_YELLOW, [1.0, 1.0, 0.0, 1]]
     , [MPD_ICON_COLOR_RED,    [1.0, 0.0, 0.2, 1]]
     ];
