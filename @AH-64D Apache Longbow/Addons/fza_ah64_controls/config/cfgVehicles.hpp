@@ -242,10 +242,6 @@ class CfgVehicles
 		#include "cfgVehicles\ace.hpp"
 		#include "sensor_b2e.hpp"
 
-		//map light condition not working
-		ace_map_vehicleExteriorTurrets[] = {-1,0,1,2}; // due to ace limits, this is set in script
-
-
 		ace_vehicle_damage_hullDetonationProb = 0.1;
 		ace_vehicle_damage_turretDetonationProb = 0.2;
 		ace_vehicle_damage_engineDetonationProb = 0.1;
