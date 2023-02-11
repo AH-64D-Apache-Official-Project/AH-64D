@@ -24,5 +24,4 @@ ace_repair_hitpointPositions[] = {
     {"Pylon4", 						{2.385,2.4,-1.8}}
 };
 ace_map_vehicleLightColor[]         = {0.306, 0.878, 0.349,0.3}; 
-ace_map_vehicleExteriorTurrets[]    = {1,2};
-ace_map_vehicleLightCondition       = "isLightOn [_vehicle, [0]]";
+ace_map_vehicleExteriorTurrets[]    = {-1,0,1,2};
