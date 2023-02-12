@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_ihadssDraw
+Function: fza_ihadss_fnc_ihadssDraw
 
 Description:
     Draws the IHADSS overlay for the player.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_ihadssDraw
+    [_heli] call fza_ihadss_fnc_ihadssDraw
 	---
 
 Author:

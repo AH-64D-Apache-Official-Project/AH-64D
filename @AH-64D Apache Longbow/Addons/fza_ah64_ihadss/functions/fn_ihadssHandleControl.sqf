@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_ihadssHandleControl
+Function: fza_ihadss_fnc_ihadssHandleControl
 
 Description:
     Handles any ihadss-related cockpit controls.
@@ -27,6 +27,6 @@ params ["_heli", "_system", "_control"];
 switch(_control) do {
 	case "stow": {
 		playsound "fza_ah64_monoclebox";
-		[_heli] call fza_fnc_monocletoggle;
+		[_heli] call fza_ihadss_fnc_monocletoggle;
 	};
 };

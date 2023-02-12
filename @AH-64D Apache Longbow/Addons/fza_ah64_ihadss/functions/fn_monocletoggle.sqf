@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_monocletoggle
+Function: fza_ihadss_fnc_monocletoggle
 
 Description:
     adds or removes player monicle
@@ -9,7 +9,7 @@ Returns:
     Nothing
     
 Examples:
-    [_heli] spawn fza_fnc_monocletoggle;
+    [_heli] spawn fza_ihadss_fnc_monocletoggle;
 
 Author:
     Unknown
