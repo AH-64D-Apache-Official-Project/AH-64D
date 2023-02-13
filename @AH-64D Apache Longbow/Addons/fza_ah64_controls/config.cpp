@@ -48,12 +48,6 @@ class CfgAddons
 #include "config\CfgSoundShaders.hpp"
 #include "config\CfgSoundSets.hpp"
 
-#include "uiConfig\defines.hpp"
-#include "uiConfig\baseClasses.hpp"
-#include "uiConfig\monocle.hpp"
-#include "uiConfig\rscTitles.hpp"
-#include "uiconfig\welcome.hpp"
-
 #include "config\CfgUserActions.hpp"
 #include "config\UserActionGroups.hpp"
 #include "config\UserActionsConflictGroups.hpp"

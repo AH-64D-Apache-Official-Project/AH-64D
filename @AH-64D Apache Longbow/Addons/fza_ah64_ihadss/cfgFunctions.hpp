@@ -9,7 +9,10 @@ class CfgFunctions
 	{
 		tag = "FZA_ihadss";
 		class functions {
-			file = "\fza_ah64_audio\ihadss";
+			file = "\fza_ah64_ihadss\functions";
+			class constraintBoxDraw {R;};
+			class cscopeDraw {R;};
+			class ihadssController {R;};
 			class ihadssDraw {R;};
 			class ihadssHandleControl {R;};
 			class monocletoggle {R;};

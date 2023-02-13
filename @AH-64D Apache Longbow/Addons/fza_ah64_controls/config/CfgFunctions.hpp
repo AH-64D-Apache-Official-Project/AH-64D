@@ -87,13 +87,6 @@ class CfgFunctions
 			class hellfireSALShouldStartLobl {R;};
 			class hellfireCheckSeekerAngle {R;};
 		};
-		class ihadss
-		{
-			file = "\fza_ah64_controls\scripting\functions\ihadss";
-			class ihadssHandleControl {R;};
-			class ihadssDraw {R;};
-			class monocleToggle {R;};
-		};
 		class laser
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
