@@ -26,24 +26,6 @@ class CfgVehicles
 		#include "cfgVehicles\userActions.hpp"
 		#include "cfgVehicles\acre.hpp"
 		#include "cfgVehicles\itcAir.hpp"
-		#include "cfgVehicles\CfgAce.hpp"
-		#include "\fza_ah64_misc\config\CfgAce.hpp"
-		#include "\fza_ah64_customise\config\CfgAce.hpp"
-		class itc_air 
-		{
-			class rover 
-			{
-				capable = 1;
-				frequency_default = 5784;
-			};
-			targeting_user = "gunner";
-			hmd = 1;
-			tgp = 1;
-			wso = 0;
-			mfdApps[] = {"STAT","OPT"};
-			systems[] = {"UFC","MFD","MFD_R","ROVER","ACMI"};
-			mfdType = "classic";
-		};
 
 		//Sensors definition
     	receiveRemoteTargets    = 1;

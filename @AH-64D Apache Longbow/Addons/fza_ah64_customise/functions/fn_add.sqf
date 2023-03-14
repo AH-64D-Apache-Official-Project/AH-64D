@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_misc_fnc_CustomiseAdd
+Function: fza_customise_fnc_add
 
 Description:
 	...

@@ -30,13 +30,24 @@ class cfgVehicles {
         displayName                         = "AH-64 Fire Control Radar";
         model                               = "\fza_ah64_us\fza_longbow.p3d";
         editorSubcategory                   = "EdSubcat_fza_ah64_Components";
+        scope                               = 2;
     };
     class fza_ah64_IAFS: fza_ah64_ObjectBase {
         displayName                         = "AH-64 IAFS";
         editorSubcategory                   = "EdSubcat_fza_ah64_Components";
+        scope                               = 2;
     };
     class fza_ah64_1200Magazine: fza_ah64_ObjectBase {
         displayName                         = "AH-64 1200 Magazine";
         editorSubcategory                   = "EdSubcat_fza_ah64_Magazines";
+        scope                               = 2;
+    };
+
+    class Helicopter;
+    class Helicopter_Base_F : Helicopter {
+        class ACE_Actions;
+    };
+    class fza_ah64base : Helicopter_Base_F {
+        #include "CfgAce.hpp"
     };
 };

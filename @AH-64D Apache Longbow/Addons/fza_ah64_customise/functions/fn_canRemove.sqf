@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_misc_fnc_customiseCanRemove
+Function: fza_customise_fnc_canRemove
 
 Description:
 	...

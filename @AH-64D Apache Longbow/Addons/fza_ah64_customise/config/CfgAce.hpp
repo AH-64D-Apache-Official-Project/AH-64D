@@ -1,5 +1,5 @@
-class ACE_Actions {
-    class Fza_tail_numbers{
+class ACE_Actions : ACE_Actions {
+    class fza_tail_numbers {
         displayName     = "Set Tail Numbers";
         condition       = "true";
         statement       = "";
@@ -337,32 +337,32 @@ class ACE_Actions {
     class AddFCR {
         displayName = "Attach Fire Control Radar";
         distance    = 10;
-        condition   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseCanAdd";
-        statement   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseAdd";
+        condition   = "[_target, _player, 'FCR'] call fza_customise_fnc_canAdd";
+        statement   = "[_target, _player, 'FCR'] call fza_customise_fnc_add";
         selection   = "sensorPos";
         posiiton    = "[3,2.1,1.5]";
     };
     class RemoveFCR {
         displayName = "Detach Fire Control Radar";
         distance    = 10;
-        condition   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseCanRemove";
-        statement   = "[_target, _player, 'FCR'] call fza_misc_fnc_CustomiseRemove";
+        condition   = "[_target, _player, 'FCR'] call fza_customise_fnc_canRemove";
+        statement   = "[_target, _player, 'FCR'] call fza_customise_fnc_remove";
         selection   = "sensorPos";
         posiiton    = "[0,2.1,1.5]";
     };
     class AddIAFS {
         displayName = "Attach Internal Auxilary Fuel System";
         distance    = 10;
-        condition   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseCanAdd";
-        statement   = "[_target, _player, 'IAFS'] call fza_misc_fnc_CustomiseAdd";
+        condition   = "[_target, _player, 'IAFS'] call fza_customise_fnc_canAdd";
+        statement   = "[_target, _player, 'IAFS'] call fza_customise_fnc_add";
         selection   = "zamerny";
         posiiton    = "[3,2.1,1.5]";
     };
     class AddMag {
         displayName = "Attach 1200 30mm Magazine";
         distance    = 10;
-        condition   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseCanAdd";
-        statement   = "[_target, _player, 'MAG'] call fza_misc_fnc_CustomiseAdd";
+        condition   = "[_target, _player, 'MAG'] call fza_customise_fnc_canAdd";
+        statement   = "[_target, _player, 'MAG'] call fza_customise_fnc_add";
         selection   = "pilot_action";
         posiiton    = "[3,2.1,1.5]";
     };
