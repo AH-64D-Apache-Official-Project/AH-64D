@@ -65,6 +65,15 @@ class CfgFunctions
 			class rotorUpdateControlAngles {R;};
 			class rotorVariables {R;};
 		};
+		class simpleEngine {
+			file = "\bmk_helisim\functions\simpleEngine";
+			class simpleEngine {R;};
+			class simpleEngineInit {R;};
+			class simpleEngineStateOff {R;};
+			class simpleEngineStateOn {R;};
+			class simpleEngineStateStart {R;};
+			class simpleEngineVariables {R;};
+		};
 		class utility {
 			file = "\bmk_helisim\functions\utility";
 			class utilityGetAngularVelocities {R;};

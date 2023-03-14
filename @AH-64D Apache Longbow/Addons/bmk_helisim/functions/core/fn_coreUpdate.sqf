@@ -36,9 +36,9 @@ if (_apuOn && local _heli) then {
 private _controlInputs     = [_heli, _deltaTime] call bmk_helisim_fnc_utilityGetInput;
 
 //--Environment
-private _altitude          = 0;//ALT;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
+private _altitude          = 0;		//ALT;//_heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg
-private _temperature       = 15;//TEMP;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+private _temperature       = 15;	//TEMP;//_heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
 
 private _referencePressure = _altimeter * IN_MG_TO_HPA;
 private _referenceAltitude = 0;
@@ -50,10 +50,12 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 
 //--Engines
 private _engine1Input = _heli getVariable "bmk_helisim_engine1";
-private _engine1      = [_heli, _deltaTime, 0, _engine1Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
+//private _engine1      = [_heli, _deltaTime, 0, _engine1Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
+private _engine1      = [_heli, _deltaTime, 0, _engine1Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_simpleEngine;
 
 private _engine2Input = _heli getVariable "bmk_helisim_engine2";
-private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
+//private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_engine;
+private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _altitude, _temperature, _controlInputs] call bmk_helisim_fnc_simpleEngine;
 
 //--Transmission
 private _engines = [ _engine1, _engine2];
