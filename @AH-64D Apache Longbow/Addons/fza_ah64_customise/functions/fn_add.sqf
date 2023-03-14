@@ -2,19 +2,19 @@
 Function: fza_customise_fnc_add
 
 Description:
-	...
+    Add the component to the apache
 
 Parameters:
-	...
+    _target - The apache
+    _player - The player
+    _targetcomp - desired components to add
 
 Returns:
-	...
 
 Examples:
-    ...
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_target","_player","_targetComp"];
 

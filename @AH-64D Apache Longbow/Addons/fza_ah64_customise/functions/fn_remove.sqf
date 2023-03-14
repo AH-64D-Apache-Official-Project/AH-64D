@@ -2,19 +2,20 @@
 Function: fza_customise_fnc_remove
 
 Description:
-	...
+    Remove the component to the apache
 
 Parameters:
-	...
+    _target - The apache
+    _player - The player
+    _targetcomp - desired components to remove
 
 Returns:
-	...
+    Nothing
 
 Examples:
-    ...
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_target","_player","_targetComp"];
 

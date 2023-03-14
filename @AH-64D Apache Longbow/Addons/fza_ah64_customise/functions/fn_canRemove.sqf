@@ -2,19 +2,20 @@
 Function: fza_customise_fnc_canRemove
 
 Description:
-	...
+    Can you add the relevent component
 
 Parameters:
-	...
+    _heli - The apache
+    _player - The player
+    _targetcomp - desired component to remove
 
 Returns:
-	...
-
+    Bool: if it can remove the component
+    
 Examples:
-    ...
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli","_player","_targetComp"];
 
