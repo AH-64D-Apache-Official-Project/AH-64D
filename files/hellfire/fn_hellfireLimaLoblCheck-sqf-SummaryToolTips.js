@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:hellfire/fn_hellfireLimaLoblCheck.sqf",{118:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">A logic path for returning if the Lima hellfire can see the intended target within the given parameters and if it can fire</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:hellfire/fn_hellfireLimaLoblCheck.sqf",{132:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">A logic path for returning if the Lima hellfire can see the intended target within the given parameters and if it can fire</div></div>"});

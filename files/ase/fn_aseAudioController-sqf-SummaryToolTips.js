@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:ase/fn_aseAudioController.sqf",{190:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles ASE audio</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:ase/fn_aseAudioController.sqf",{172:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles ASE audio</div></div>"});
