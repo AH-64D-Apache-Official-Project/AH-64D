@@ -45,7 +45,7 @@ if (!("type" in _ctrlPoint) || {_iconType isNotEqualTo (_ctrlPoint get "type")})
 };
 
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
-    params ["_iconTex", "_iconSize", "_iconColor", "_textA", "_textB"];
+    params ["_iconTex", "_iconTex2", "_iconSize", "_iconColor", "_textA", "_textB"];
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
@@ -68,12 +68,18 @@ private _colorMap = createHashMapFromArray
 
 private _color = _colorMap get _iconColor;
 
-// Icon draw
+// Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
 _iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
 _iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
+
+private _iconCtrl2 = [_display, _ctrlPoint, "icon2", "RscPicture"] call _getOrCreateCtrl;
+_iconCtrl2 ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl2 ctrlSetTextColor _color;
+_iconCtrl2 ctrlSetText (_iconTex2);
+_iconCtrl2 ctrlCommit 0;
 
 private _drawText = {
     params ["_textPrefix", "_textData"];
