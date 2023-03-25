@@ -52,7 +52,7 @@ class FzaIconTypes {
 
         textAOffset[] = {0.5, 0};
         textAHAlign = "center";
-        textAVAlign = "bottom"
+        textAVAlign = "bottom";
     };
     class IconTypeF {
         size = ICON_SIZE;
