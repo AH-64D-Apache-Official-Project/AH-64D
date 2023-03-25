@@ -25,6 +25,7 @@ class CfgPatches
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
 #include "CfgVehicles.hpp"
+#include "CfgFontFamilies.hpp"
 
 #include "FzaIconTypes.hpp"
 

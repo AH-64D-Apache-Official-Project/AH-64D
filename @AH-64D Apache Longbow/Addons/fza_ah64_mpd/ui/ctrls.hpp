@@ -1,5 +1,5 @@
 class FzaMpdRscTextLeft : RscText {
-    font = fza_ticketing;
+    font = fza_BMKApacheFont;
 };
 class FzaMpdRscTextCenter : FzaMpdRscTextLeft {
     style = 2;

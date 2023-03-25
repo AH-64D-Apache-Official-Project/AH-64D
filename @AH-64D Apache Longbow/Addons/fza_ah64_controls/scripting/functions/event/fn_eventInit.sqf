@@ -169,8 +169,9 @@ while {
     alive _heli
 }
 do {
-    private _battBusOn       = _heli getVariable "fza_systems_battBusOn";
-    if ((isLightOn [_heli,[0]]) && !_battBusOn) then {
+    private _battBusOn              = _heli getVariable "fza_systems_battBusOn";
+    ace_map_vehicleLightCondition   = {isLightOn [_vehicle, [0]]}; 
+    if ((isLightOn [_heli,[0]]) && _battBusOn) then {
 
         _heli setobjecttextureGlobal ["in_backlight", ""];
         _heli setobjecttextureGlobal ["in_backlight2", ""];
