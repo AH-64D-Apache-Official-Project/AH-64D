@@ -49,7 +49,7 @@ if (!("type" in _ctrlPoint) || {_iconType isNotEqualTo (_ctrlPoint get "type")})
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
-private _uiCtr = _armaPos;
+private _uiCtr   = _armaPos;
 if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _armaPos # 0, _armaPos # 1, _heading] call fza_fnc_relativeDirection;
     private _r = _heliPos distance2D _armaPos;
@@ -70,6 +70,12 @@ private _color = _colorMap get _iconColor;
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
+hintSilent format ["_armaPos %4
+                    \n_uiCtr %5
+                    \n_iconSize %6
+                    \n_uiTop %1
+                    \n_yOffset %2
+                    \n_yScale %3", _uiTop, _yOffset, _yScale, _armaPos, _uiCtr, _iconSize];
 _iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
 _iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);

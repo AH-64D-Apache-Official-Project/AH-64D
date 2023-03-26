@@ -10,7 +10,7 @@
 #define MPD_ICON_TEXT_ID 0
 #define MPD_ICON_TEXT_FREE 1
 
-#define ICON_SIZE 0.11
+#define ICON_SIZE 0.13
 
 class FzaIconTypes {
     // Common templates to be used for generating icons.
@@ -57,7 +57,7 @@ class FzaIconTypes {
     class IconTypeF {
         size = ICON_SIZE;
 
-        textAOffset[] = {0.5, 0.5};
+        textAOffset[] = {0.55, 0.5};
         textAHAlign = "left";
         textAVAlign = "center";
     };
@@ -96,33 +96,41 @@ class FzaIconTypes {
         tex= "\fza_ah64_mpd\tex\tsdIcons\waypoints\wp_ca.paa";
         textAOffset[] = {0.6, 0.5};
     };
-    class TP:CC  { //Turnpoint
-        tex= "\fza_ah64_mpd\tex\tsdIcons\waypoints\tp_ca.paa";
-        textAOffset[] = {0.52, 0.5};
-    };
     class LZ:CC  { //Landing Zone
         tex= "\fza_ah64_mpd\tex\tsdIcons\waypoints\lz_ca.paa";
         textAOffset[] = {0.8, 0.5};
     };
     //Hazards
     class TO : IconTypeA {                                          //Tower - Over 1000ft agl
-        tex= "\fza_ah64_mpd\tex\tsdIcons\hazards\to_ca.paa";
+        tex      = "\fza_ah64_mpd\tex\tsdIcons\hazards\to_ca.paa";
         color    = MPD_ICON_COLOR_YELLOW;
         type     = POINT_TYPE_HZ;
         textA    = MPD_ICON_TEXT_ID;
+        textAOffset[] = {0.59, 0.5};
     };
     class TU:TO  { tex= "\fza_ah64_mpd\tex\tsdIcons\hazards\tu_ca.paa";};  //Tower - Under 1000ft agl
-    class WL:TO  { tex= "\fza_ah64_mpd\tex\tsdIcons\hazards\wl_ca.paa";};  //Wires - Power transmission lines
-    class WS:TO  { tex= "\fza_ah64_mpd\tex\tsdIcons\hazards\ws_ca.paa";};  //Wires - Telephon & electric
+    class WL:IconTypeA {
+        tex   = "\fza_ah64_mpd\tex\tsdIcons\hazards\wl_ca.paa";
+        color = MPD_ICON_COLOR_YELLOW;
+        type  = POINT_TYPE_HZ;
+        textA = MPD_ICON_TEXT_ID;
+        textAOffset[] = {0.86, 0.5};
+    };  //Wires - Power transmission lines
+    class WS:WL {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\hazards\ws_ca.paa";
+        textAOffset[] = {0.81, 0.5};
+    };  //Wires - Telephon & electric
     //Control Measures
     class BR:IconTypeA  {         //Bridge
-        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\br_ca.paa";
+        tex   = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\br_ca.paa";
         type  = POINT_TYPE_CM;
         textA = MPD_ICON_TEXT_ID;
     };
     class AE:BR  {      //Enemy Armor
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ae_ca.paa";
         color    = MPD_ICON_COLOR_RED;
+        textA    = MPD_ICON_TEXT_FREE;  
+        textAOffset[] = {0.9,0.5}; 
     };
     class AM:BR  {      //Friendly Armor
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\friendly\am_ca.paa";
@@ -208,10 +216,10 @@ class FzaIconTypes {
         type     = POINT_TYPE_CM;
         textA    = MPD_ICON_TEXT_ID;
     };
-    class AP : AA { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ap_ca.paa";};  //Air Control Point
-    class BP:AP   { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\bp_ca.paa";};  //Battle Position
-    class FA:AP   { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\fa_ca.paa";};  //Forward Assembly Area
-    class HA:AP   { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ha_ca.paa";};  //Holding Area
+    class AP:AA { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ap_ca.paa";};  //Air Control Point
+    class BP:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\bp_ca.paa";};  //Battle Position
+    class FA:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\fa_ca.paa";};  //Forward Assembly Area
+    class HA:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ha_ca.paa";};  //Holding Area
     //Target/Threats
     //ASE
 
@@ -225,7 +233,7 @@ class FzaIconTypes {
     //Waypoints
     //Hazards
     //Control Measures
-    class FC : IconTypeD {                                          //FARP - Fuel and Ammo
+    class FC:IconTypeD {                                          //FARP - Fuel and Ammo
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\fc_ca.paa";
         color    = MPD_ICON_COLOR_GREEN;
         type     = POINT_TYPE_CM;
@@ -247,17 +255,17 @@ class FzaIconTypes {
     //Waypoints
     //Hazards
     //Control Measures
-    class AG : IconTypeE {                                                     //Airfield - General
-        tex= "\fza_ah64_mpd\tex\tsdIcons\\controlMeasures\general\ag_ca.paa";
+    class AG:IconTypeE {                                                                      //Airfield - General
+        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ag_ca.paa";
         color    = MPD_ICON_COLOR_GREEN;
         type     = POINT_TYPE_CM;
         textA    = MPD_ICON_TEXT_FREE;
     };
-    class AI:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ai_ca.paa";};      //Airfield - Instrumented
-    class AL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\al_ca.paa";};      //Light Airport
-    class GL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\gl_ca.paa";};      //Ground Light
-    class IDM:AG {                                                     //IDM Subscriber
-        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\idm_ca.paa";
+    class AI:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ai_ca.paa";};       //Airfield - Instrumented
+    class AL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\al_ca.paa";};       //Light Airport
+    class GL:AG  { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\gl_ca.paa";};       //Ground Light
+    class ID:AG {                                                                               //IDM Subscriber
+        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\id_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
         textAOffset[] = {0.5, 0.80};
         textAVAlign = "top";
@@ -276,7 +284,7 @@ class FzaIconTypes {
     //Hazards
     //Control Measures
     //Target/Threats
-    class TG : IconTypeF  {
+    class TG:IconTypeF  {
         tex= "\fza_ah64_mpd\tex\tsdIcons\targetThreats\tg_ca.paa";
         color    = MPD_ICON_COLOR_RED;
         type     = POINT_TYPE_TG;
@@ -401,7 +409,7 @@ class FzaIconTypes {
     
     //ASE
     //--SA1
-    class ASE_ADU_SRH_Icon1 : Icon1 {
+    class ASE_ADU_SRH_Icon1:Icon1 {
         tex = "\fza_ah64_mpd\tex\aseIcons\ADUSearch_ca.paa";
         color    = MPD_ICON_COLOR_RED;
         type     = POINT_TYPE_ASE;
@@ -572,40 +580,50 @@ class FzaIconTypes {
 
 //--------------------Icon Type H--------------------
 //
-//                      +---------+
-//                      |         |
-//                      |   TEX   |
-//                      |         |
-//                      +---------+
+//             +---------+    +---------+   
+//             |         |    |         |
+//             |   TEX   |    |  TEX 2  |
+//             |         |    |         |
+//             +---------+    +---------+
+    //----------TSD FCR ICON SCALE 25 & 50-----------
+        class FCR_TSD_SC25_50:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
+    };
     //--------------------FCR LOAL--------------------
     //ADU
-    class FCR_ADU_LOAL : IconTypeH { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\aduLOAL.paa";
-        type = POINT_TYPE_FCR;
+    class FCR_ADU_LOAL:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\aduLOAL.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_ADU_LOAL_ANTS:FCR_ADU_LOAL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_ADU_LOAL_NTS:FCR_ADU_LOAL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_ADU_LOAL_NTS_NOMSL:FCR_ADU_LOAL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};
     //Heli
     class FCR_HELI_LOAL { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\heliLOAL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\heliLOAL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_HELI_LOAL_ANTS:FCR_HELI_LOAL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_HELI_LOAL_NTS:FCR_HELI_LOAL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_HELI_LOAL_NTS_NOMSL:FCR_HELI_LOAL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};
     //Tracked
     class FCR_TRACK_LOAL {
-        tex = "\fza_ah64_mpd\tex\fcrIcons\trackLOAL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\trackLOAL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_TRACK_LOAL_ANTS:FCR_TRACK_LOAL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_TRACK_LOAL_NTS:FCR_TRACK_LOAL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_TRACK_LOAL_NTS_NOMSL:FCR_TRACK_LOAL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};    
     //Unknown
     class FCR_UNK_LOAL {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\unkLOAL_ca.paa";
-        type = POINT_TYPE_FCR; 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\unkLOAL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_UNK_LOAL_ANTS:FCR_UNK_LOAL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_UNK_LOAL_NTS:FCR_UNK_LOAL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
@@ -638,24 +656,27 @@ class FzaIconTypes {
     class FCR_HELI_LOBL_NTS_NOMSL:FCR_HELI_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};
     //Tracked
     class FCR_TRACK_LOBL {
-        tex = "\fza_ah64_mpd\tex\fcrIcons\trackLOBL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\trackLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_TRACK_LOBL_ANTS:FCR_TRACK_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_TRACK_LOBL_NTS:FCR_TRACK_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_TRACK_LOBL_NTS_NOMSL:FCR_TRACK_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};    
     //Unknown
     class FCR_UNK_LOBL {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\unkLOBL_ca.paa";
-        type = POINT_TYPE_FCR; 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\unkLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_UNK_LOBL_ANTS:FCR_UNK_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_UNK_LOBL_NTS:FCR_UNK_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_UNK_LOBL_NTS_NOMSL:FCR_UNK_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";}; 
     //Wheeled
     class FCR_WHEEL_LOBL {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\wheelLOBL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\wheelLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_WHEEL_LOBL_ANTS:FCR_WHEEL_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_WHEEL_LOBL_NTS:FCR_WHEEL_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
@@ -664,40 +685,45 @@ class FzaIconTypes {
     //--------------------FCR MOVE--------------------
     //ADU
     class FCR_ADU_MOVE : IconTypeH { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\aduMOVE.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\aduMOVE.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_ADU_MOVE_ANTS:FCR_ADU_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_ADU_MOVE_NTS:FCR_ADU_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_ADU_MOVE_NTS_NOMSL:FCR_ADU_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};
     //Heli
     class FCR_HELI_MOVE { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\heliMOVE_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\heliMOVE_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_HELI_MOVE_ANTS:FCR_HELI_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_HELI_MOVE_NTS:FCR_HELI_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_HELI_MOVE_NTS_NOMSL:FCR_HELI_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};
     //Tracked
     class FCR_TRACK_MOVE {
-        tex = "\fza_ah64_mpd\tex\fcrIcons\trackMOVE_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\trackMOVE_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_TRACK_MOVE_ANTS:FCR_TRACK_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_TRACK_MOVE_NTS:FCR_TRACK_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_TRACK_MOVE_NTS_NOMSL:FCR_TRACK_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";};    
     //Unknown
     class FCR_UNK_MOVE {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\unkMOVE_ca.paa";
-        type = POINT_TYPE_FCR; 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\unkMOVE_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_UNK_MOVE_ANTS:FCR_UNK_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_UNK_MOVE_NTS:FCR_UNK_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
     class FCR_UNK_MOVE_NTS_NOMSL:FCR_UNK_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_NoMSL_ca.paa";}; 
     //Wheeled
     class FCR_WHEEL_MOVE {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\wheelMOVE_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\wheelMOVE_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_WHEEL_MOVE_ANTS:FCR_WHEEL_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ANTS_ca.paa";};
     class FCR_WHEEL_MOVE_NTS:FCR_WHEEL_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\NTS_ca.paa";};
