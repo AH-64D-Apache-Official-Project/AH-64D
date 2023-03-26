@@ -309,7 +309,24 @@ class FzaIconTypes {
     //Hazards
 
     //Control Measures
-    
+    class F1:IconTypeG { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\f1_f2_ca.paa";
+        color    = MPD_ICON_COLOR_RED;
+        type     = POINT_TYPE_CM;
+        textAOffset[] = {0.56, 0.3};
+        textAHAlign = "right";
+        textAVAlign = "bottom";
+        textA    = MPD_ICON_TEXT_FREE;
+    };
+    class F2:IconTypeG { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\f1_f2_ca.paa";
+        color    = MPD_ICON_COLOR_RED;
+        type     = POINT_TYPE_CM;
+        textBOffset[] = {0.44, 0.3};
+        textBHAlign = "left";
+        textBVAlign = "bottom";
+        textB    = MPD_ICON_TEXT_FREE;
+    };
     //Target/Threats
     class GU:IconTypeG { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
