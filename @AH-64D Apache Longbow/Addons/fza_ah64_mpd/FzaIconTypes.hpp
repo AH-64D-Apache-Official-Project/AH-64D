@@ -39,11 +39,11 @@ class FzaIconTypes {
     class IconTypeD {
         size = ICON_SIZE;
 
-        textAOffset[] = {0.90,0.5};
+        textAOffset[] = {0.83,0.5};
         textAHAlign = "left";
         textAVAlign = "center";
 
-        textBOffset[] = {0.5,0};
+        textBOffset[] = {0.5,0.12};
         textBHAlign = "center";
         textBVAlign = "bottom";
     };
@@ -98,7 +98,7 @@ class FzaIconTypes {
     };
     class LZ:CC  { //Landing Zone
         tex= "\fza_ah64_mpd\tex\tsdIcons\waypoints\lz_ca.paa";
-        textAOffset[] = {0.8, 0.5};
+        textAOffset[] = {0.83, 0.5};
     };
     //Hazards
     class TO : IconTypeA {                                          //Tower - Over 1000ft agl
@@ -120,59 +120,59 @@ class FzaIconTypes {
         tex = "\fza_ah64_mpd\tex\tsdIcons\hazards\ws_ca.paa";
         textAOffset[] = {0.81, 0.5};
     };  //Wires - Telephon & electric
+    
     //Control Measures
     class BR:IconTypeA  {         //Bridge
         tex   = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\br_ca.paa";
         type  = POINT_TYPE_CM;
         textA = MPD_ICON_TEXT_ID;
+        textAOffset[] = {0.6,0.5}; 
     };
-    class AE:BR  {      //Enemy Armor
-        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ae_ca.paa";
+    class AE:IconTypeA {      //Enemy Armor
+        tex      = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ae_ca.paa";
+        type     = POINT_TYPE_CM;
         color    = MPD_ICON_COLOR_RED;
-        textA    = MPD_ICON_TEXT_FREE;  
-        textAOffset[] = {0.9,0.5}; 
+        textA    = MPD_ICON_TEXT_FREE;
+        textAOffset[] = {0.85,0.5}; 
     };
-    class AM:BR  {      //Friendly Armor
+    class AM:AE  {      //Friendly Armor
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\friendly\am_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.83,0.5}; 
+        textAOffset[] = {0.8,0.5}; 
     };
-    class EF:BR  {      //Enemy Artillery
+    class EF:AE  {      //Enemy Artillery
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ef_ca.paa";
         color    = MPD_ICON_COLOR_RED;
         textA    = MPD_ICON_TEXT_FREE;  
-        textAOffset[] = {0.9,0.5}; 
     };
-    class EI:BR  {      //Enemy Infantry
+    class EI:AE  {      //Enemy Infantry
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ei_ca.paa";
         color    = MPD_ICON_COLOR_RED;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.9,0.5}; 
     };
-    class EM:BR  {      //Enemy Mech Infantry
+    class EM:AE  {      //Enemy Mech Infantry
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\em_ca.paa";
         color    = MPD_ICON_COLOR_RED;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.9,0.5}; 
     };
-    class FI:BR  {      //Friendly Infantry
+    class FI:AE  {      //Friendly Infantry
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\friendly\fi_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.83,0.5}; 
+        textAOffset[] = {0.8,0.5}; 
     };
-    class FL:BR  {      //Friendly Artillery
+    class FL:AE  {      //Friendly Artillery
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\friendly\fl_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.83,0.5}; 
+        textAOffset[] = {0.8,0.5}; 
     };
-    class MI:BR  {      //Friendly Mech Infantry
+    class MI:AE  {      //Friendly Mech Infantry
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\friendly\mi_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
         textA    = MPD_ICON_TEXT_FREE;
-        textAOffset[] = {0.83,0.5}; 
+        textAOffset[] = {0.8,0.5}; 
     };
     //Target/Threats
     //ASE
@@ -267,7 +267,7 @@ class FzaIconTypes {
     class ID:AG {                                                                               //IDM Subscriber
         tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\id_ca.paa";
         color    = MPD_ICON_COLOR_BLUE;
-        textAOffset[] = {0.5, 0.80};
+        textAOffset[] = {0.5, 0.74};
         textAVAlign = "top";
     };
     //Target/Threats
