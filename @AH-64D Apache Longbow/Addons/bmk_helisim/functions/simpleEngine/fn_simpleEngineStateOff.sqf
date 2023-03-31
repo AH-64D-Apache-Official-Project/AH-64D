@@ -21,7 +21,8 @@ if (_engStart == true) then {
 };
 
 _engOutputNg  = [_engOutputNg, 0.0, _deltaTime] call BIS_fnc_lerp;
-    
+
+[_heli, "bmk_helisim_engStart",            _engNum, _engStart] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engState",            _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engThrottleSetPoint", _engNum, _engThrottleSetPoint] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engOutputNg",         _engNum, _engOutputNg] call fza_sfmplus_fnc_setArrayVariable;

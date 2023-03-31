@@ -53,7 +53,7 @@ if ((getText _flightModel) == "SFMPlus") then {
     //Engine 1
     fza_simvars_e1ThrottlePos = _heli getVariable "bmk_helisim_engThrottlePos" select 0;
     fza_simvars_e1State = _heli getVariable "bmk_helisim_engState" select 0;
-    fza_simvars_e1Start = fza_simvars_e1State == "STARTING";
+    fza_simvars_e1Start = _heli getVariable "bmk_helisim_engStart" select 0;
     fza_simvars_e1np    = ((_heli getVariable "bmk_helisim_engOutputRPM" select 0) / 21109) * 100;
     fza_simvars_e1ng    = (_heli getVariable "bmk_helisim_engOutputNg" select 0) * 1000;
     fza_simvars_e1trq   = ((_heli getVariable "bmk_helisim_engOutputTq" select 0) / 481) * 100;
@@ -61,7 +61,7 @@ if ((getText _flightModel) == "SFMPlus") then {
     //Engine 2
     fza_simvars_e2ThrottlePos = _heli getVariable "bmk_helisim_engThrottlePos" select 1;
     fza_simvars_e2State = _heli getVariable "bmk_helisim_engState" select 1;
-    fza_simvars_e2Start = fza_simvars_e2State == "STARTING";
+    fza_simvars_e2Start = _heli getVariable "bmk_helisim_engStart" select 1;
     fza_simvars_e2np    = ((_heli getVariable "bmk_helisim_engOutputRPM" select 1) / 21109) * 100;
     fza_simvars_e2ng    = (_heli getVariable "bmk_helisim_engOutputNg" select 1) * 1000;
     fza_simvars_e2trq   = ((_heli getVariable "bmk_helisim_engOutputTq" select 1) / 481) * 100;

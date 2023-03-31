@@ -24,7 +24,8 @@ if (_engStart == true && _engThrottlePos == "OFF") then {
 };
 
 _engOutputNg  = [_engOutputNg, _idleNg + ((_flyNg - _idleNg) * _engThrottleSetPoint), _deltaTime] call BIS_fnc_lerp;
-    
+
+[_heli, "bmk_helisim_engStart",            _engNum, _engStart] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engState",            _engNum, _engState] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engThrottleSetPoint", _engNum, _engThrottleSetPoint] call fza_sfmplus_fnc_setArrayVariable;
 [_heli, "bmk_helisim_engOutputNg",         _engNum, _engOutputNg] call fza_sfmplus_fnc_setArrayVariable;
