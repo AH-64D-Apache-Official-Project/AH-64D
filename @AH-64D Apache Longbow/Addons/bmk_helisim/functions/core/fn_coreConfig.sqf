@@ -92,7 +92,7 @@ private _engine1 = [_heli, _engParams] call bmk_helisim_fnc_simpleEngineInit;
 _heli setVariable ["bmk_helisim_engine1", _engine1];
 
 //private _engine2 = [_heli, _engParams] call bmk_helisim_fnc_engineInit;
-private _engine1 = [_heli, _engParams] call bmk_helisim_fnc_simpleEngineInit;
+private _engine2 = [_heli, _engParams] call bmk_helisim_fnc_simpleEngineInit;
 _heli setVariable ["bmk_helisim_engine2", _engine2];
 //--Stabilator
 private _stabPosition   = [0.0, -6.50, -1.82];
