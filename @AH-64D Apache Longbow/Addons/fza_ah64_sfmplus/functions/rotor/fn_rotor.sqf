@@ -7,6 +7,8 @@ DRAW_LINE = {
     drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
 };
 
+private _rotorPos            = [0.0, 2.06, 0.70];
+
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
@@ -26,8 +28,23 @@ private _rtrRPMInducedThrustScalar     = (_rtrRPM / _rtrRPM_max) * _rtrThrustSca
 private _airDensityThrustScalar        = 1 - ((1 / _altitude_max) * _altitude);
 
 private _rtrThrustScalar               = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar;
-private _thrust                        = _baseThrust * _rtrThrustScalar;
 
+private _thrustX = 0;
+private _thrustY = 0;
+private _thrustZ                       = _baseThrust * _rtrThrustScalar;
 
+private _axisX = [1.0, 0.0, 0.0];
+private _axisY = [0.0, 1.0, 0.0];
+private _axisZ = [0.0, 0.0, 1.0];
 
-systemChat format ["Rotor Thrust Scalar = %1", _rtrThrustScalar];
+[_heli, _rotorPos, _rotorPos vectorAdd _axisX, _colorRed]   call DRAW_LINE;
+[_heli, _rotorPos, _rotorPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
+[_heli, _rotorPos, _rotorPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
+
+_thrustX = _axisX vectorMultiply (_thrustX * _deltaTime);
+_thrustY = _axisY vectorMultiply (_thrustY * _deltaTime);
+_thrustZ = _axisZ vectorMultiply (_thrustZ * _deltaTime);
+
+_heli addForce[_heli vectorModelToWorld _thrustZ, _rotorPos];
+
+systemChat format ["v0.1 Rotor Thrust Scalar = %1", _rtrThrustScalar];
