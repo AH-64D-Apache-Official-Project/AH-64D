@@ -57,6 +57,9 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
+//Rotor - will require FM config option...
+[_heli, _deltaTime, _altitude, _temperature] call fza_sfmplus_fnc_rotor;
+
 //Fuel
 private _apuFF  = 0;
 private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;

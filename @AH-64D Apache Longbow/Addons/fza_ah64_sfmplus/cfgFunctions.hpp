@@ -51,6 +51,10 @@ class CfgFunctions
 			class perfData {R;};
 			class perfVariables {R;};
 		};
+		class rotor {
+			file = "\fza_ah64_sfmplus\functions\rotor";
+			class rotor;
+		};
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
 			class clampedMove {R;};
