@@ -68,6 +68,7 @@ class CfgFunctions
 		class simpleEngine {
 			file = "\bmk_helisim\functions\simpleEngine";
 			class simpleEngine {R;};
+			class simpleEngineCore {R;};
 			class simpleEngineInit {R;};
 			class simpleEngineStateOff {R;};
 			class simpleEngineStateOn {R;};
@@ -85,6 +86,7 @@ class CfgFunctions
 		};
 		class xmsn {
 			file = "\bmk_helisim\functions\xmsn";
+			class simpleXmsn {R;};
 			class xmsn {R; };
 			class xmsnVariables {R; };
 		};

@@ -18,7 +18,7 @@ private _rotor_bladeTwist       = [0.0,   0.0];     //deg
 private _rotor_bladeMass        = [71.2,  17.7];    //kg
 private _rotor_hingeOffsetRatio = [0.137, 0.0];
 private _rotor_gearRatio        = [72.29, 14.90];
-private _rotor_thrustScalar     = [1.0,   1.0];
+private _rotor_thrustScalar     = [0.527,   1.0];
 //--Cyclic tables
 private _cyclicPitchMap_deg     = [[-1.0,  10.0]
                                   ,[ 0.0,   0.0]
@@ -28,14 +28,14 @@ private _cyclicRollMap_deg      = [[-1.0,   7.0]
                                   ,[ 0.0,   0.0]
                                   ,[ 1.0, -10.5]];
 //--Collective
-private _collectivePitchMin_deg = 1.0;
+private _collectivePitchMin_deg = 1.5;
 private _collectivePitchMax_deg = 19.0;
 private _collectivePitch_deg    = [_collectivePitchMin_deg, _collectivePitchMax_deg];
 
 //--Pedal table
 private _pedalPitchMap_deg      = [[-1.0,  27.0]
                                   ,[-0.5,  12.0]
-                                  ,[ 0.0,  -3.0]
+                                  ,[ 0.0,  0.0]//-3.0]
                                   ,[ 0.5,  -8.0]
                                   ,[ 1.0, -15.0]];
 //---Set variables

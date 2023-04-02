@@ -87,11 +87,11 @@ _heli addForce[_heli vectorModelToWorld _forceX, _rotorPos];
 _heli addForce[_heli vectorModelToWorld _forceY, _rotorPos];
 _heli addForce[_heli vectorModelToWorld _forceZ, _rotorPos];
 
-private _torqueX = _out_l * _deltaTime;
-private _torqueY = _out_m * _deltaTime;
-private _torqueZ = _out_n * _deltaTime;
+private _torqueX = if (_out_l == 0.0) then { 0.0; } else { _out_l * _deltaTime; };
+private _torqueY = if (_out_m == 0.0) then { 0.0; } else { _out_m * _deltaTime; };
+private _torqueZ = if (_out_n == 0.0) then { 0.0; } else { _out_n * _deltaTime; };
 
-_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, -_torqueZ]); //<-- this needs to be controlled by a direction variable to allow for clockwise rotating rotors
+_heli addTorque (_heli vectorModelToWorld[_torqueX, _torqueY, 0.0]);//-_torqueZ]); //<-- this needs to be controlled by a direction variable to allow for clockwise rotating rotors
 
 #ifdef __A3_DEBUG__
 

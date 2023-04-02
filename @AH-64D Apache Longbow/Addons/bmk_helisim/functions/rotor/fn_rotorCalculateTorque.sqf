@@ -6,13 +6,10 @@ _rotorParams
 //From "Bramwell's Helicopter Dynamics", second edition, eqn 3.43 and 3.44
 //Replaces SH79 eqn 36 (sourced from JSBSim)
 private _deltaDrag_0 = 6.0 * _CT / (_a * _s);
-private _deltaDrag  = 0.009 + 0.3 * _deltaDrag_0^2;
+private _deltaDrag   = 0.009 + 0.3 * _deltaDrag_0^2;
 
-private _torque  = _rho * _b * _c * _deltaDrag * _omegaR^2 * _R^2 * (1.0 + 4.5 * _mu^2) / 8.0 - (_thrust * _lambda + _Hdrag * _mu) * _R;
-
+private _torque = _rho * _b * _c * _deltaDrag * _omegaR^2 * _R^2 * (1.0 + 4.5 * _mu^2) / 8.0 - (_thrust * _lambda + _Hdrag * _mu) * _R;
 if (_torque == 0.0) then { _torque = 0.0; };
-
-if (_torque < 0) exitWith { systemChat format ["Torque < 0!"]};
 /*
 hintSilent format ["Rotor %1
                    \ndeltaDrag2 %2

@@ -7,16 +7,16 @@ _rotorParams
 private _aI = 0.0; private _Hdrag = 0.0; 
 private _aI_1 = 0.0; private _aI_2 = 0.0; private _aI_3 = 0.0; private _aI_4 = 0.0;
 
-_aI_1 = if (_mu == 0.0) then { 0.0; } else { 1.0 / (1.0 - (_mu^2 / (2.0 * TIP_LOSS^2))); };
+_aI_1 = if (_mu    == 0.0) then { 0.0; } else { 1.0 / (1.0 - (_mu^2 / (2.0 * TIP_LOSS^2))); };
 _aI_2 = (2.0 * _lambda + (8.0 / 3.0) * (rad _theta75_deg)) * _mu;
 _aI_3 = if (_omega == 0.0) then { 0.0; } else { 24.0 * _q_w / (TIP_LOSS^4 * _gamma * _omega); };
-_aI_4 = 1.0 - ((0.29 * (rad _theta75_deg)) / (_CT / _s));
+_aI_4 = if (_CT    == 0.0) then { 0.0; } else { 1.0 - ((0.29 * (rad _theta75_deg)) / (_CT / _s)); };
 
 _aI = _aI_1 * (_aI_2 - _aI_3 * _aI_4);
 
 _Hdrag  = _thrust * _aI;
 
-private _CYSigma = 0.0; private _Jside = 0.0;
+private _CYSigma   = 0.0; private _Jside = 0.0;
 private _CYSigma_1 = 0.0; private _CYSigma_2 = 0.0; private _CYSigma_3 = 0.0; private _CYSigma_4 = 0.0; private _CYSigma_5 = 0.0; private _CYSigma_6 = 0.0;
 
 _CYSigma_1 = (3.0 / 4.0) * (rad _b1_deg) * _lambda;

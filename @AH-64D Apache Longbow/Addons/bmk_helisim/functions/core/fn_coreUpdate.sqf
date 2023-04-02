@@ -59,7 +59,8 @@ private _engine2      = [_heli, _deltaTime, 1, _engine2Input, _altitude, _temper
 
 //--Transmission
 private _engines = [ _engine1, _engine2];
-[_heli, _engines] call bmk_helisim_fnc_xmsn;
+//[_heli, _engines] call bmk_helisim_fnc_xmsn;
+[_heli, _engines] call bmk_helisim_fnc_simpleXmsn;
 
 //--Main rotor
 private _mainRotorPos = [0.0, 2.06, 0.70]; //m -- MOVE TO CONFIG

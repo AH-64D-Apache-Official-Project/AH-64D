@@ -56,7 +56,9 @@ if ((getText _flightModel) == "SFMPlus") then {
     fza_simvars_e1Start = _heli getVariable "bmk_helisim_engStart" select 0;
     fza_simvars_e1np    = ((_heli getVariable "bmk_helisim_engOutputRPM" select 0) / 21109) * 100;
     fza_simvars_e1ng    = (_heli getVariable "bmk_helisim_engOutputNg" select 0) * 1000;
+    fza_simvars_e1tgt   = _heli getVariable "bmk_helisim_engOutputTGT" select 0;
     fza_simvars_e1trq   = ((_heli getVariable "bmk_helisim_engOutputTq" select 0) / 481) * 100;
+    fza_simvars_e1opsi  = (_heli getVariable "bmk_helisim_engOutputOilPSI" select 1) * 100;
 
     //Engine 2
     fza_simvars_e2ThrottlePos = _heli getVariable "bmk_helisim_engThrottlePos" select 1;
@@ -64,7 +66,9 @@ if ((getText _flightModel) == "SFMPlus") then {
     fza_simvars_e2Start = _heli getVariable "bmk_helisim_engStart" select 1;
     fza_simvars_e2np    = ((_heli getVariable "bmk_helisim_engOutputRPM" select 1) / 21109) * 100;
     fza_simvars_e2ng    = (_heli getVariable "bmk_helisim_engOutputNg" select 1) * 1000;
+    fza_simvars_e2tgt   = _heli getVariable "bmk_helisim_engOutputTGT" select 1;
     fza_simvars_e2trq   = ((_heli getVariable "bmk_helisim_engOutputTq" select 1) / 481) * 100;
+    fza_simvars_e2opsi  = (_heli getVariable "bmk_helisim_engOutputOilPSI" select 1) * 100;
 
     fza_simvars_rtrRPM = ((_heli getVariable "bmk_helisim_xmsnOutputRPM") / 21109) * 100;
 };

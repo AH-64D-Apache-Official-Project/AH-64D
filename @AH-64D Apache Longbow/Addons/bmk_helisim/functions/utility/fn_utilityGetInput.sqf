@@ -34,11 +34,11 @@ private _joyCyclicBackward = inputAction "HeliCyclicBack";
 
 if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {   
     _cyclicPitchVal = (_joyCyclicForward - _joyCyclicBackward) + _cyclicPitchTrimVal;
-    _cyclicPitchVal = linearConversion[-0.5, 0.5, _cyclicPitchVal, -1.0, 1.0];
+    //_cyclicPitchVal = linearConversion[-1.0, 1.0, _cyclicPitchVal, -1.0, 1.0];
     _cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
 } else {
     _cyclicPitchVal = (_joyCyclicForward - _joyCyclicBackward);
-    _cyclicPitchVal = linearConversion[-0.5, 0.5, _cyclicPitchVal, -1.0, 1.0];
+    //_cyclicPitchVal = linearConversion[-0.5, 0.5, _cyclicPitchVal, -1.0, 1.0];
     _cyclicPitchVal = [_cyclicPitchVal, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["bmk_helisim_cyclicPitchTrimVal", _cyclicPitchVal];
 };
@@ -50,11 +50,11 @@ private _joyCyclicRight    = inputAction "HeliCyclicRight";
 
 if (inputAction "fza_ah64_forceTrimSwitchUp" == 0) then {    
     _cyclicRollVal = (_joyCyclicRight - _joyCyclicLeft) + _cyclicRollTrimVal;
-    _cyclicRollVal = linearConversion[-0.5, 0.5, _cyclicRollVal, -1.0, 1.0];
+    //_cyclicRollVal = linearConversion[-0.5, 0.5, _cyclicRollVal, -1.0, 1.0];
     _cyclicRollVal = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
 } else {
     _cyclicRollVal = (_joyCyclicRight - _joyCyclicLeft);
-    _cyclicRollVal = linearConversion[-0.5, 0.5, _cyclicRollVal, -1.0, 1.0];
+    //_cyclicRollVal = linearConversion[-0.5, 0.5, _cyclicRollVal, -1.0, 1.0];
     _cyclicRollVal = [_cyclicRollVal, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["bmk_helisim_cyclicRollTrimVal",  _cyclicRollVal];
 };

@@ -11,6 +11,7 @@ private _fltIdleTq  = 0.0;
 private _flyTq      = _refTq * _engFlyTqSetPoint;
 
 //Gas Generator (Ng) RPM
+private _startNg    = 0.243;
 private _idleNg     = 0.679;
 private _flyNg      = 0.834;
 private _maxNg      = 1.051;
@@ -20,4 +21,4 @@ private _gndIdleNp = _refRPM * _engGndIdleRPMSetPoint;
 private _fltIdleNp = _refRPM * _engFltIdleRPMSetPoint;
 private _flyNp     = _refRPM * _engFlyRPMSetPoint;
 
-[_refTq, _gndIdleTq, _fltIdleTq, _flyTq, _idleNg, _flyNg, _maxNg, _gndIdleNp, _fltIdleNp, _flyNp];
+[_refTq, _gndIdleTq, _fltIdleTq, _flyTq, _startNg, _idleNg, _flyNg, _maxNg, _gndIdleNp, _fltIdleNp, _flyNp];

@@ -10,3 +10,7 @@ _heli setVariable ["bmk_helisim_engOutputTq",           [0.0, 0.0]];
 _heli setVariable ["bmk_helisim_engOutputNg",           [0.0, 0.0]];
 _heli setVariable ["bmk_helisim_engThrottlePos",        ["OFF", "OFF"]];
 _heli setVariable ["bmk_helisim_engThrottleSetPoint",   [0.0, 0.0]];
+
+
+_heli setVariable ["bmk_helisim_engOutputTGT",          [0.0, 0.0]];
+_heli setVariable ["bmk_helisim_engOutputOilPSI",       [0.0, 0.0]];

@@ -33,7 +33,7 @@ private _gndEffScalar = 1 - ((_gndEffScalar_1 + _gndEffScalar_2 + _gndEffScalar_
 if (_h == 0) then {
   _gndEffScalar = 1.0;
 } else {
-  _gndEffScalar = [_gndEffScalar, 0.85, 1.0] call BIS_fnc_clamp;
+  _gndEffScalar = [_gndEffScalar, 0.89, 1.0] call BIS_fnc_clamp;
 };
 //systemChat format ["%1", _gndEffScalar toFixed 2];
 
