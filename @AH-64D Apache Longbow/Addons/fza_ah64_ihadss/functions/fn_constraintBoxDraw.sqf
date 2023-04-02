@@ -20,10 +20,14 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if !(_was == _heli getVariable "fza_ah64_was") exitwith {}
+if !(_was == _heli getVariable "fza_ah64_was") exitwith {};
 
 private _nts = _heli getVariable "fza_ah64_fcrNts";
 private _nts = _nts # 0;
+private _apx = 0;
+private _apy = 0;
+private _W = 0;
+private _h = 0;
 
 private ["_missileTarget"];
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
@@ -32,22 +36,8 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_missileTarget = _heli getVariable "fza_ah64_currentlase";
 };
 
-_targPos = [-100, -100];
-private _nts = _heli getVariable "fza_ah64_fcrNts";
-private _nts = _nts # 0;
-if(!isNull _nts) then {
-    _targPos = worldToScreen(getpos _nts);
-    if (count _targPos < 1) then {
-        _targPos = [-100, -100];
-    } else {
-        _targPos = [
-            [_targPos # 0, 0, 1] call BIS_fnc_clamp,
-            [_targPos # 1, 0, 1] call BIS_fnc_clamp];
-    };
-};
-
 _scPos = worldToScreen(getpos _missileTarget);
-if (count _scpos < 1) then {
+if (count _scPos < 1) then {
 	_scPos = [-100, -100];
 } else {
 	_scPos = [
@@ -91,8 +81,8 @@ if (isNull _missileTarget) then {
 		};
 	};
 };
-
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition[(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
+systemchat str _scPos;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition [(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_targpos select 0)-0.036,(_targpos select 1)-0.05] call fza_fnc_compensateSafezone);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlCommit 0;
