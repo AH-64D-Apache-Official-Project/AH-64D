@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponMissileGetSelected.sqf",{222:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the index of the missile that will be fired next, if the given ammo type is selected</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponMissileGetSelected.sqf",{218:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the index of the missile that will be fired next, if the given ammo type is selected</div></div>"});

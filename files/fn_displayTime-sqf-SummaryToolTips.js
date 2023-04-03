@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_displayTime.sqf",{234:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Converts a numeric time to a pretty string.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_displayTime.sqf",{232:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Converts a numeric time to a pretty string.</div></div>"});
