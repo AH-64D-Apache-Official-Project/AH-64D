@@ -26,9 +26,11 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 private _rtrRPM                        = _eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar     = (_rtrRPM / _rtrRPM_max) * _rtrThrustScalar_max;
 private _airDensityThrustScalar        = 1 - ((1 / _altitude_max) * _altitude);
+private _velY                          = velocityModelSpace _heli # 1;
+private _airspeedVelocityScalar        = (1 + (_velY / 36.0111)) ^ (1 / 2.65);
 private _velZ                          = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar         = 1 - (_velZ / 24.384);
-private _rtrThrustScalar               = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _inducedVelocityScalar;
+private _rtrThrustScalar               = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _inducedVelocityScalar * _airspeedVelocityScalar;
 
 private _thrustX                       = 0;
 private _thrustY                       = 0;
@@ -48,4 +50,4 @@ _thrustZ = _axisZ vectorMultiply (_thrustZ * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rotorPos];
 
-systemChat format ["v0.1 Rotor Thrust Scalar = %1", _rtrThrustScalar];
+systemChat format ["v0.3 Rotor Thrust Scalar = %1 -- %2", _rtrThrustScalar, _airspeedVelocityScalar];
