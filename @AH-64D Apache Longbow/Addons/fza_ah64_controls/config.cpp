@@ -17,7 +17,7 @@ class CfgAddons
 	{
 		class fza_ah64_controls
 		{
-			list[] = {"fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_AICrew", "fza_ah64_dms", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd", "fza_ah64_audio"};
+			list[] = {"fza_ah64_controls", "fza_ah64_sfmplus", "fza_ah64_AICrew", "fza_ah64_dms", "fza_ah64_ku", "fza_ah64_mpd", "fza_ah64_ufd", "fza_ah64_audio", "fza_ah64_customise"};
 		};
 	};
 };
