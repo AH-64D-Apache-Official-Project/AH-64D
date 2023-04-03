@@ -26,11 +26,12 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 private _rtrRPM                        = _eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar     = (_rtrRPM / _rtrRPM_max) * _rtrThrustScalar_max;
 private _airDensityThrustScalar        = 1 - ((1 / _altitude_max) * _altitude);
+private _velZ                          = velocityModelSpace _heli # 2;
+private _inducedVelocityScalar         = 1 - (_velZ / 24.384);
+private _rtrThrustScalar               = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _inducedVelocityScalar;
 
-private _rtrThrustScalar               = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar;
-
-private _thrustX = 0;
-private _thrustY = 0;
+private _thrustX                       = 0;
+private _thrustY                       = 0;
 private _thrustZ                       = _baseThrust * _rtrThrustScalar;
 
 private _axisX = [1.0, 0.0, 0.0];

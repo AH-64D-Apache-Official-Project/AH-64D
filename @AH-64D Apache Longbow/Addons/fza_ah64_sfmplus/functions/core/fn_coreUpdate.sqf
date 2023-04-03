@@ -58,7 +58,12 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
 //Rotor - will require FM config option...
-[_heli, _deltaTime, _altitude, _temperature] call fza_sfmplus_fnc_rotor;
+private _config      = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel = getText (_config >> "flightModel");
+if (_flightModel != "SFMPlus") then {
+	//systemChat format ["Running HeliSim!"]; 
+	[_heli, _deltaTime, _altitude, _temperature] call fza_sfmplus_fnc_rotor;
+};
 
 //Fuel
 private _apuFF  = 0;
@@ -66,8 +71,8 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-_apuFF_kgs = _heli getVariable "fza_systems_apuFF_kgs";
-_curFuelFlow    = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
+_apuFF_kgs   = _heli getVariable "fza_systems_apuFF_kgs";
+_curFuelFlow = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
 private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
 _totFuelMass          = _totFuelMass - _curFuelFlow;
