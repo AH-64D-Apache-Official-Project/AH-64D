@@ -62,7 +62,7 @@ private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "flightModel");
 if (_flightModel != "SFMPlus") then {
 	//systemChat format ["Running HeliSim!"]; 
-	[_heli, _deltaTime, _altitude, _temperature] call fza_sfmplus_fnc_rotor;
+	[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_rotor;
 };
 
 //Fuel
