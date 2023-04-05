@@ -42,19 +42,11 @@ private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;
 if (_velZ < -24.384 && _velXY < 12.35) then { 
     _inducedVelocityScalar = 0.0;
-    systemChat format ["VRS!"]; 
 } else { 
     _inducedVelocityScalar = 1 - (_velZ / 24.384);
-    //if (_inducedVelocityScalar >= 1.25) then {
-    //    _inducedVelocityScalar = 1.25;
-    //};
-    systemChat format ["Normal!"];
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
-
-//private _thrustX                       = 0;
-//private _thrustY                       = 0;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
