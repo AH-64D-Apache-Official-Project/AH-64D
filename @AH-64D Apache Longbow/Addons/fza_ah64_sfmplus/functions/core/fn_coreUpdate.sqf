@@ -57,11 +57,10 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
-//Rotor - will require FM config option...
+//Rotor
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "flightModel");
 if (_flightModel != "SFMPlus") then {
-	//systemChat format ["Running HeliSim!"]; 
 	[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_rotor;
 };
 
