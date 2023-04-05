@@ -32,14 +32,12 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 private _airDensityThrustScalar    = 1 - ((1 / _altitude_max) * _altitude);
-private _velXY                      = (velocityModelSpace _heli # 0) + (velocityModelSpace _heli # 1);
+private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.65);
 private _velZ                      = velocityModelSpace _heli # 2;
-private _inducedVelocityScalar     = 1.0;
-if (_velZ > 0.0) then { _inducedVelocityScalar = 1 - (_velZ / 24.384); };
-if (_velZ < 0.0) then { _inducedVelocityScalar = 1 + (_velZ / 24.384); };
-private _inducedVelocityClamp      = linearConversion [0.00, 12.35, _velXY, 0.0, 0.5, true];
-_inducedVelocityScalar             = [_inducedVelocityScalar, _inducedVelocityClamp, 1.0] call BIS_fnc_clamp;
+private _inducedVelocityScalar     = 1 - (_velZ / 24.384);
+_inducedVelocityScalar             = [_inducedVelocityScalar, 0.1, 1.25] call BIS_fnc_clamp;
+if (_velZ > 24.384) then { _inducedVelocityScalar = 0.0; };
 
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 
