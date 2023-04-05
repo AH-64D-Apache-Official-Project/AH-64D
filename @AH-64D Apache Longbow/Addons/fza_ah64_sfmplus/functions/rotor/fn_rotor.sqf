@@ -45,9 +45,9 @@ if (_velZ < -24.384 && _velXY < 12.35) then {
     systemChat format ["VRS!"]; 
 } else { 
     _inducedVelocityScalar = 1 - (_velZ / 24.384);
-    if (_inducedVelocityScalar >= 1.25) then {
-        _inducedVelocityScalar = 1.25;
-    };
+    //if (_inducedVelocityScalar >= 1.25) then {
+    //    _inducedVelocityScalar = 1.25;
+    //};
     systemChat format ["Normal!"];
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
