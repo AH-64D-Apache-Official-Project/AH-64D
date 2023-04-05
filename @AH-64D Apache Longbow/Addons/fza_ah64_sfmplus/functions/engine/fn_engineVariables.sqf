@@ -20,6 +20,7 @@ params ["_heli"];
 
 _heli setVariable ["fza_sfmplus_engPowerLeverState",  	["OFF", "OFF"]]; //OFF, IDLE, FLY
 _heli setVariable ["fza_sfmplus_engState",            	["OFF", "OFF"]]; //OFF, STARTING, ON
+_heli setVariable ["fza_sfmplus_collectiveVal",			0.0];
 
 if(isMultiplayer) then {
 	_heli setVariable ["fza_sfmplus_lastTimePropagated", 0];

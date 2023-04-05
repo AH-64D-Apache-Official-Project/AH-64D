@@ -20,6 +20,8 @@ params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _configVehicles	   = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel 	   = getText (_configVehicles>> "flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
@@ -34,7 +36,6 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn 		   	   = _heli getVariable "fza_systems_accOn";
 
-private _collectiveVal     = _heli animationSourcePhase "collective";
 private _cyclicFwdAft      = _heli animationSourcePhase "cyclicForward";
 private _cyclicLeftRight   = _heli animationSourcePhase "cyclicAside";
 private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
@@ -42,16 +43,42 @@ private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "Hel
 private _tailRtrDamage     = _heli getHitPointDamage "hitvrotor";
 
 private _collectiveOut     = 0.0;
-if (fza_ah64_sfmPlusKeyboardOnly) then {
-	_collectiveVal = [_collectiveVal, 0.5, 1.0] call BIS_fnc_clamp;
-	_collectiveOut = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
+if (_flightModel == "SFMPlus") then {
+	private _collectiveVal = _heli animationSourcePhase "collective";
 
-	private _V_mps            = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-	private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.775, 0.853, true];
+	if (fza_ah64_sfmPlusKeyboardOnly) then {
+		_collectiveVal 		   = [_collectiveVal, 0.5, 1.0] call BIS_fnc_clamp;
+		_collectiveOut 	       = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
 
-	_collectiveOut = [_collectiveOut, 0.0, _collectiveOutMod] call BIS_fnc_clamp;
+		private _V_mps            = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+		private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.775, 0.853, true];
+
+		_collectiveOut = [_collectiveOut, 0.0, _collectiveOutMod] call BIS_fnc_clamp;
+	} else {
+		_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
+	};
 } else {
-	_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
+	systemChat format ["HeliSim Input Handler"];
+	//Keyboard collective
+	private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
+	private _keyCollectiveDn = inputAction "HeliCollectiveLower";
+	//Joystick collective
+	private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
+	private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+	private _collectiveVal   = _heli getVariable "fza_sfmplus_collectiveVal";
+
+	if (fza_ah64_sfmPlusKeyboardOnly) then {
+		systemChat format ["Keyboard only!"];
+		if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
+		if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
+		_collectiveOut = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
+	} else {
+		systemChat format ["Joystick only!"];
+		_collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
+		_collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
+		_collectiveOut = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
+	};
+	_heli setVariable ["fza_sfmplus_collectiveVal", _collectiveVal];
 };
 
 fza_sfmplus_collectiveOutput = _collectiveOut;
@@ -98,3 +125,30 @@ if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) th
 		_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
 	};
 };
+
+
+
+
+
+
+
+//Keyboard collective
+private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
+private _keyCollectiveDn = inputAction "HeliCollectiveLower";
+
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+    if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
+    if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
+    _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
+};
+
+//HOTAS collective
+private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
+private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+
+if (!bmk_helisim_keyboardOnly) then {
+    _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
+    _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
+    _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
+};
+_heli setVariable ["bmk_helisim_collectiveVal", _collectiveVal];
