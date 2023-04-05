@@ -37,7 +37,7 @@ private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.65);
 private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1 - (_velZ / 24.384);
 _inducedVelocityScalar             = [_inducedVelocityScalar, 0.1, 1.25] call BIS_fnc_clamp;
-if (_velZ > 24.384) then { _inducedVelocityScalar = 0.0; };
+if (_velZ < -24.384) then { _inducedVelocityScalar = 0.0;  };
 
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 
