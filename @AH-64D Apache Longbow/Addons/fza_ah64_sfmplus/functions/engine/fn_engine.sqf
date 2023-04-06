@@ -123,7 +123,7 @@ private _engBaseOilPSI   = _intEngBaseTable select 4;
 private _hvrIGE     = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
 private _hvrOGE     = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
 
-private _heightAGL  = getPos _heli select 2;
+private _heightAGL  = ASLToAGL getPosASL _heli # 2;
 private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
 private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
