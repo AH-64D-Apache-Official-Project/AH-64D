@@ -16,12 +16,13 @@ private _rtrNumBlades        = 4;
 
 private _bladeRadius         = 7.315;   //m
 private _bladeChord          = 0.533;   //m
-private _bladeDragCoef       = 0.018;
+private _bladeDragCoef_min   = 0.0066;
+private _bladeDragCoef_max   = 0.0286;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
 private _rtrPowerScalar      = 1.102;
-private _rtrGndEffModifier   = 0.324;
+private _rtrGndEffModifier   = 0.280;
 private _rtrThrustScalar_min = 0.120;
 private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
 
@@ -56,22 +57,22 @@ private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) /
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
 private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
-_thrustCoef                        = _thrustCoef / _inducedVelocityScalar;
+_thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
                                       ,[ 5.14, 0.977]     //10 ktas
                                       ,[10.29, 0.860]     //20 ktas
-                                      ,[20.58, 0.555]     //40 ktas
-                                      ,[30.87, 0.391]     //60 ktas
-                                      ,[38.58, 0.358]     //75 ktas
-                                      ,[46.30, 0.349]     //90 ktas
-                                      ,[61.73, 0.339]     //120 ktas
-                                      ,[77.17, 0.330]];   //150 ktas
+                                      ,[20.58, 0.608]     //40 ktas
+                                      ,[30.87, 0.435]     //60 ktas
+                                      ,[38.58, 0.390]     //75 ktas
+                                      ,[46.30, 0.379]     //90 ktas
+                                      ,[61.73, 0.369]     //120 ktas
+                                      ,[77.17, 0.358]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
 private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
 private _rtrSolidity               = (_rtrNumBlades * _bladeChord) / (PI * _bladeRadius);
-private _profilePowerCoef          = (_rtrSolidity * _bladeDragCoef) / 8;
+private _profilePowerCoef          = (_rtrSolidity * (_bladeDragCoef_min + (_bladeDragCoef_max - _bladeDragCoef_min) * fza_sfmplus_collectiveOutput)) / 8;
 private _powerCoef                 = _inducedPowerCoef + _profilePowerCoef;
 private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_powerCoef * _dryAirDensity * _rtrArea * _rtrOmega^3 * _bladeRadius^3) * _rtrPowerScalar; };
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
@@ -96,7 +97,7 @@ private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _delt
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
 
-hintsilent format ["v0.3
+hintsilent format ["v0.4
                     \nRotor Omega = %1
                     \nBlade Tip Vel = %2
                     \nRotor Power Req = %3 kW
