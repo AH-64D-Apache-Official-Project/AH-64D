@@ -8,6 +8,7 @@ DRAW_LINE = {
 };
 
 private _rtrPos              = [0.0, 2.06, 0.70];
+private _rtrHeightAGL        = 3.606;   //m
 private _rtrDesignRPM        = 289.0;
 private _rtrRPMTrimVal       = 1.01;
 private _rtrGearRatio        = 72.29;
@@ -19,8 +20,10 @@ private _bladeDragCoef       = 0.018;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
+private _rtrPowerScalar      = 1.102;
+private _rtrGndEffModifier   = 0.324;
 private _rtrThrustScalar_min = 0.120;
-private _rtrThrustScalar_max = 1.279; //20,260lbs @ 5200ft and 80% collective
+private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
 
 private _altitude_max        = 30000;   //ft
 private _baseThrust          = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -48,11 +51,14 @@ if (_velZ < -24.384 && _velXY < 12.35) then {
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
+private _rtrThrustScalar2          = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar;
+private _rtrThrust2                = _baseThrust * _rtrThrustScalar2;
 
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
 private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
+private _thrustCoef2               = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust2 / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
                                       ,[15.43, 0.793]     //30 ktas
@@ -64,12 +70,12 @@ private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
                                       ,[72.02, 0.547]     //140 ktas
                                       ,[77.17, 0.540]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
-private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
+private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef2^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
 private _rtrSolidity               = (_rtrNumBlades * _bladeChord) / (PI * _bladeRadius);
 private _profilePowerCoef          = (_rtrSolidity * _bladeDragCoef) / 8;
 private _powerCoef                 = _inducedPowerCoef + _profilePowerCoef;
-private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_powerCoef * _dryAirDensity * _rtrArea * _rtrOmega^3 * _bladeRadius^3) * 1.115; };
+private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_powerCoef * _dryAirDensity * _rtrArea * _rtrOmega^3 * _bladeRadius^3) * _rtrPowerScalar; };
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 private _engTorque                 = _rtrTorque / _rtrGearRatio;
 
@@ -81,16 +87,23 @@ private _axisZ = [0.0, 0.0, 1.0];
 [_heli, _rtrPos, _rtrPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
 [_heli, _rtrPos, _rtrPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
 
-//private _thrustX = _axisX vectorMultiply (_thrustX * _deltaTime);
-//private _thrustY = _axisY vectorMultiply (_thrustY * _deltaTime);
-private _thrustZ = _axisZ vectorMultiply (_rtrThrust * _deltaTime);
+//Ground Effect
+private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
+private _rtrDiam      = _bladeRadius * 2;
+private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
+_gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
+private _gndEffThrust = _rtrThrust * _gndEffScalar;
+
+private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
 
-hintsilent format ["Rotor Omega = %1
+hintsilent format ["v0.1
+                    \nRotor Omega = %1
                     \nBlade Tip Vel = %2
                     \nRotor Power Req = %3 W
                     \nEngine Torque = %4 Nm 
                     \nE1 = %5 % E2 = %6 %
                     \nVelZ = %7
-                    \nInduced Vel Scalar = %8", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar];
+                    \nInduced Vel Scalar = %8
+                    \nGnd Eff Scalar = %9", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar];
