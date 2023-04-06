@@ -59,14 +59,14 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = _thrustCoef / _inducedVelocityScalar;
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
-                                      ,[15.43, 0.770]     //30 ktas
-                                      ,[30.87, 0.580]     //60 ktas
-                                      ,[38.58, 0.510]     //75 ktas
-                                      ,[46.30, 0.453]     //90 ktas
-                                      ,[51.44, 0.425]     //100 ktas
-                                      ,[61.73, 0.417]     //120 ktas
-                                      ,[72.02, 0.408]     //140 ktas
-                                      ,[77.17, 0.400]];   //150 ktas
+                                      ,[15.43, 0.750]     //30 ktas
+                                      ,[30.87, 0.485]     //60 ktas
+                                      ,[38.58, 0.376]     //75 ktas
+                                      ,[46.30, 0.348]     //90 ktas
+                                      ,[51.44, 0.345]     //100 ktas
+                                      ,[61.73, 0.342]     //120 ktas
+                                      ,[72.02, 0.339]     //140 ktas
+                                      ,[77.17, 0.336]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
 private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
