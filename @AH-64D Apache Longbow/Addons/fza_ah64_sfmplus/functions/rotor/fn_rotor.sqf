@@ -59,14 +59,14 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = _thrustCoef / _inducedVelocityScalar;
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
-                                      ,[15.43, 0.750]     //30 ktas
-                                      ,[30.87, 0.485]     //60 ktas
-                                      ,[38.58, 0.376]     //75 ktas
-                                      ,[46.30, 0.348]     //90 ktas
-                                      ,[51.44, 0.345]     //100 ktas
-                                      ,[61.73, 0.342]     //120 ktas
-                                      ,[72.02, 0.339]     //140 ktas
-                                      ,[77.17, 0.336]];   //150 ktas
+                                      ,[ 5.14, 0.977]     //10 ktas
+                                      ,[10.29, 0.860]     //20 ktas
+                                      ,[20.58, 0.555]     //40 ktas
+                                      ,[30.87, 0.391]     //60 ktas
+                                      ,[38.58, 0.358]     //75 ktas
+                                      ,[46.30, 0.349]     //90 ktas
+                                      ,[61.73, 0.339]     //120 ktas
+                                      ,[77.17, 0.330]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
 private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
@@ -96,12 +96,12 @@ private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _delt
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
 
-hintsilent format ["v0.2
+hintsilent format ["v0.3
                     \nRotor Omega = %1
                     \nBlade Tip Vel = %2
-                    \nRotor Power Req = %3 W
-                    \nEngine Torque = %4 Nm 
-                    \nE1 = %5 % E2 = %6 %
+                    \nRotor Power Req = %3 kW
+                    \nRotor Torque = %4 Nm 
+                    \nE1 Tq = %5 % E2 Tq = %6 %
                     \nVelZ = %7
                     \nInduced Vel Scalar = %8
                     \nGnd Eff Scalar = %9", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar];
