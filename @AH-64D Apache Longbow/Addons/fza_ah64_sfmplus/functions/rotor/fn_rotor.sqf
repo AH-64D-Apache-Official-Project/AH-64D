@@ -142,7 +142,7 @@ if (_velXY < 12.35) then {  //must be less than ETL
     };
 };
 
-hintsilent format ["v0.4
+hintsilent format ["v0.6 testing
                     \nRotor Omega = %1
                     \nBlade Tip Vel = %2
                     \nRotor Power Req = %3 kW

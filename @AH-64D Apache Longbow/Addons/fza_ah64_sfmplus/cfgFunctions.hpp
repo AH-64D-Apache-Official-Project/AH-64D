@@ -53,7 +53,7 @@ class CfgFunctions
 		};
 		class rotor {
 			file = "\fza_ah64_sfmplus\functions\rotor";
-			class rotor;
+			class rotor {R;};
 		};
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
