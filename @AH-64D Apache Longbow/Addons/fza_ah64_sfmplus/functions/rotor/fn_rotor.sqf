@@ -59,7 +59,7 @@ private _rtrArea                   = PI * _bladeRadius^2;
 private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 //Induced power is the power required to overcome the drag developed during the creation of thrust
-private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     //0 ktas
+private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     // 0 ktas
                                       ,[ 5.14, 0.977]     //10 ktas
                                       ,[10.29, 0.860]     //20 ktas
                                       ,[20.58, 0.608]     //40 ktas
@@ -73,9 +73,13 @@ private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrus
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
 private _rtrSolidity               = (_rtrNumBlades * _bladeChord) / (PI * _bladeRadius);
 private _profilePowerCoef          = (_rtrSolidity * (_bladeDragCoef_min + (_bladeDragCoef_max - _bladeDragCoef_min) * fza_sfmplus_collectiveOutput)) / 8;
+//The final power coeficient is the sum of the _inducedPowerCoef and _profilePowerCoef
 private _powerCoef                 = _inducedPowerCoef + _profilePowerCoef;
+//Rotor power required in kilowatts (kW)
 private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_powerCoef * _dryAirDensity * _rtrArea * _rtrOmega^3 * _bladeRadius^3) * _rtrPowerScalar; };
+//Rotor torque in newton meters (Nm)
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
+//Engine torque required in newton meters (Nm)
 private _engTorque                 = _rtrTorque / _rtrGearRatio;
 
 private _axisX = [1.0, 0.0, 0.0];
@@ -96,6 +100,47 @@ private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
+
+//Camera shake effect for ETL
+if (_velXY > 8.23 && _velXY < 12.35) then {
+    enableCamShake true;
+    setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
+    addCamShake       [2.5, 1, 5];
+    enableCamShake false;
+};
+
+//Camera shake effect for vortex ring sate
+if (_velXY < 12.35) then {  //must be less than ETL
+    systemChat format ["VRS shake effect start!"];
+    //2000 fpm to 2933fpm
+    if (_velZ < -10.16 && _velZ > -14.89) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
+        addCamShake       [2.5, 1, 5];
+        enableCamShake false;
+    };
+    //2933 fpm to 3867 
+    if (_velZ <= -14.89 && _velZ > -19.64) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
+        addCamShake       [4, 1, 7];
+        enableCamShake false;
+    };
+    //3867fpm to 4800 fpm
+    if (_velZ <= -19.64 && _velZ > -24.384) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
+        addCamShake       [5.5, 1, 9];
+        enableCamShake false;
+    };
+    //> 4800fpm
+    if (_velZ < -24.384) then {
+        enableCamShake true;
+        setCamShakeParams [0.0, 1.0, 0.0, 1.0, true];
+        addCamShake       [7, 1, 11];
+        enableCamShake false;
+    };
+};
 
 hintsilent format ["v0.4
                     \nRotor Omega = %1
