@@ -123,21 +123,21 @@ if (_velXY < 12.35) then {  //must be less than ETL
     if (_velZ <= -14.89 && _velZ > -19.64) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
-        addCamShake       [4, 1, 7];
+        addCamShake       [3, 1, 5.5];
         enableCamShake false;
     };
     //3867fpm to 4800 fpm
     if (_velZ <= -19.64 && _velZ > -24.384) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
-        addCamShake       [5.5, 1, 9];
+        addCamShake       [3.5, 1, 6.0];
         enableCamShake false;
     };
     //> 4800fpm
     if (_velZ < -24.384) then {
         enableCamShake true;
         setCamShakeParams [0.0, 1.0, 0.0, 1.0, true];
-        addCamShake       [7, 1, 11];
+        addCamShake       [4.0, 1, 6.5];
         enableCamShake false;
     };
 };
