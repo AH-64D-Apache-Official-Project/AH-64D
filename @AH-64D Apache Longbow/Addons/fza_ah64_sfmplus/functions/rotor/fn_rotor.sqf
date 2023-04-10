@@ -21,8 +21,8 @@ private _bladeDragCoef_max   = 0.0286;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
-private _rtrPowerScalar      = 1.102;
-private _rtrGndEffModifier   = 0.280;
+private _rtrPowerScalar      = 1.111;
+private _rtrGndEffModifier   = 0.295;
 private _rtrThrustScalar_min = 0.120;
 private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
 
@@ -60,14 +60,14 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     // 0 ktas
-                                      ,[ 5.14, 0.977]     //10 ktas
-                                      ,[10.29, 0.860]     //20 ktas
-                                      ,[20.58, 0.608]     //40 ktas
-                                      ,[30.87, 0.435]     //60 ktas
-                                      ,[38.58, 0.390]     //75 ktas
-                                      ,[46.30, 0.379]     //90 ktas
-                                      ,[61.73, 0.369]     //120 ktas
-                                      ,[77.17, 0.358]];   //150 ktas
+                                      ,[ 5.14, 0.979]     //10 ktas
+                                      ,[10.29, 0.855]     //20 ktas
+                                      ,[20.58, 0.580]     //40 ktas
+                                      ,[30.87, 0.407]     //60 ktas
+                                      ,[38.58, 0.343]     //75 ktas
+                                      ,[46.30, 0.317]     //90 ktas
+                                      ,[61.73, 0.317]     //120 ktas
+                                      ,[77.17, 0.317]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
 private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
@@ -111,7 +111,7 @@ if (_velXY > 8.23 && _velXY < 12.35) then {
 
 //Camera shake effect for vortex ring sate
 if (_velXY < 12.35) then {  //must be less than ETL
-    systemChat format ["VRS shake effect start!"];
+    //systemChat format ["VRS shake effect start!"];
     //2000 fpm to 2933fpm
     if (_velZ < -10.16 && _velZ > -14.89) then {
         enableCamShake true;
@@ -136,13 +136,13 @@ if (_velXY < 12.35) then {  //must be less than ETL
     //> 4800fpm
     if (_velZ < -24.384) then {
         enableCamShake true;
-        setCamShakeParams [0.0, 1.0, 0.0, 1.0, true];
+        setCamShakeParams [0.0, 1.0, 0.0, 2.0, true];
         addCamShake       [4.0, 1, 6.5];
         enableCamShake false;
     };
 };
 
-hintsilent format ["v0.6 testing
+hintsilent format ["v0.7 testing
                     \nRotor Omega = %1
                     \nBlade Tip Vel = %2
                     \nRotor Power Req = %3 kW
@@ -150,4 +150,5 @@ hintsilent format ["v0.6 testing
                     \nE1 Tq = %5 % E2 Tq = %6 %
                     \nVelZ = %7
                     \nInduced Vel Scalar = %8
-                    \nGnd Eff Scalar = %9", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar];
+                    \nGnd Eff Scalar = %9
+                    \nStab = %10", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput];

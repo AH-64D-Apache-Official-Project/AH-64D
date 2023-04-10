@@ -20,7 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-private _config = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 
 if (!local _heli) exitWith {};
 
@@ -35,14 +36,39 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-private _intStabTable    = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
-private _stabOutputTable = [[15.43, _intStabTable select 1],  //30kts
-							[36.01, _intStabTable select 2],  //70kts
-							[46.30, _intStabTable select 3],  //90kts
-							[56.59, _intStabTable select 4],  //110kts
-							[61.73, _intStabTable select 5],  //120kts
-                            [77.17, _intStabTable select 6]]; //150kts
-
+private _flightModel     = getText (_configVehicles >> "flightModel");
+private _stabOutputTable = [];
+if (_flightModel == "SFMPlus") then {
+    private _intStabTable    = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+    _stabOutputTable = [
+                         [15.43, _intStabTable select 1]  //30kts
+                        ,[36.01, _intStabTable select 2]  //70kts
+                        ,[46.30, _intStabTable select 3]  //90kts
+                        ,[56.59, _intStabTable select 4]  //110kts
+                        ,[61.73, _intStabTable select 5]  //120kts
+                        ,[77.17, _intStabTable select 6]  //150kts
+                        ];
+} else {
+    private _intStabTable    = [getArray (_config >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+    _stabOutputTable = [
+                        [15.43, _intStabTable select 1]   //30kts
+                       ,[20.58, _intStabTable select 2]   //40kts
+                       ,[25.72, _intStabTable select 3]   //50kts
+                       ,[29.58, _intStabTable select 4]   //57.5kts
+                       ,[30.87, _intStabTable select 5]   //60kts
+                       ,[41.16, _intStabTable select 6]   //80kts
+                       ,[42.44, _intStabTable select 7]   //82.5kts
+                       ,[51.44, _intStabTable select 8]   //100kts
+                       ,[59.16, _intStabTable select 9]   //115kts
+                       ,[61.73, _intStabTable select 10]  //120kts
+                       ,[72.02, _intStabTable select 11]  //140kts
+                       ,[77.17, _intStabTable select 12]  //150kts
+                       ,[82.31, _intStabTable select 13]  //160kts
+                       ,[84.88, _intStabTable select 14]  //165kts
+                       ,[92.60, _intStabTable select 15]  //180kts
+                       ];
+};
+    
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
@@ -50,6 +76,7 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
+systemChat format ["Stabilator Pos = %1", _theta];
 
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];

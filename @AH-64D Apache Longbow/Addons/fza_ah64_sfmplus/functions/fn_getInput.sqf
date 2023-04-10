@@ -60,7 +60,7 @@ if (_flightModel == "SFMPlus") then {
 		_collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
 	};
 } else {
-	systemChat format ["HeliSim Input Handler"];
+	//systemChat format ["HeliSim Input Handler"];
 	//Keyboard collective
 	private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
 	private _keyCollectiveDn = inputAction "HeliCollectiveLower";
@@ -75,12 +75,12 @@ if (_flightModel == "SFMPlus") then {
 
 	if (!_hydFailure) then {
 		if (fza_ah64_sfmPlusKeyboardOnly) then {
-			systemChat format ["Keyboard only!"];
+			//systemChat format ["Keyboard only!"];
 			if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
 			if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
 			_collectiveOut = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 		} else {
-			systemChat format ["Joystick only!"];
+			//systemChat format ["Joystick only!"];
 			_collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
 			_collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
 			_collectiveOut = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
