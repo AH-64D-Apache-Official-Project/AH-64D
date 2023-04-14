@@ -74,7 +74,7 @@ private _theta = 0.0;
 if (fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = getNumber (_config >> "stabKeyTheta");
 } else {
-    _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
+    _theta = THETA;//[_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
 systemChat format ["Stabilator Pos = %1", _theta];
 
