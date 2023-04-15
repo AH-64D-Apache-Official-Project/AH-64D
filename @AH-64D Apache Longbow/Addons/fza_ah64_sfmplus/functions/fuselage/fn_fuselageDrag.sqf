@@ -1,6 +1,7 @@
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
 
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel        = getText (_configVehicles >> "flightModel");
 
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m
 
@@ -22,9 +23,9 @@ if (_flightModel == "SFMPlus") then {
                                      ,[8000, 1.65, 1.25, 1.70]]; //ft
 
     _interpDragCoefTableY         = [_sfmPlusdragCoefTableY, _altitude] call fza_fnc_linearInterp;
-    _dragCoefTableY               = [[-40, _interpDragCoefTableY # 1]
-                                    ,[  0, _interpDragCoefTableY # 3]
-                                    ,[ 40, _interpDragCoefTableY # 5]];
+    private _dragCoefTableY       = [[-40, _interpDragCoefTableY # 1]
+                                    ,[  0, _interpDragCoefTableY # 2]
+                                    ,[ 40, _interpDragCoefTableY # 3]];
     _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 } else {
     //-------------------------------PA  -40   -20     0    20    40
@@ -35,7 +36,7 @@ if (_flightModel == "SFMPlus") then {
                                 ,[8000, 2.30, 1.70, 2.00, 1.90, 2.15]];
 
     _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp;
-    _dragCoefTableY            = [[-40, _interpDragCoefTableY # 1]
+    private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                                  ,[-20, _interpDragCoefTableY # 2]
                                  ,[  0, _interpDragCoefTableY # 3]
                                  ,[ 20, _interpDragCoefTableY # 4]

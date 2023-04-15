@@ -9,7 +9,7 @@ private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
 private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
 private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
 if (_e1np <= (0.37 * 100)) then {
-	_e1trq = 0;
+	_e1trq = 0.0;
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_1), round _e1trq];

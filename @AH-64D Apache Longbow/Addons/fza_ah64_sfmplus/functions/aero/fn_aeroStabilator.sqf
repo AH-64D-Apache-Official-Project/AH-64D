@@ -22,6 +22,7 @@ params ["_heli", "_deltaTime"];
 
 private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel    = getText (_configVehicles >> "flightModel");
 
 if (!local _heli) exitWith {};
 
@@ -36,8 +37,7 @@ private _objCtr  = _heli selectionPosition ["modelCenter", "Memory"];
 private _stabPos = _heli getVariable "fza_sfmplus_stabPos";
 private _stabPvt = _objCtr vectorAdd _stabPos;
 
-private _flightModel     = getText (_configVehicles >> "flightModel");
-private _stabOutputTable = [];
+private _stabOutputTable = [[]];
 if (_flightModel == "SFMPlus") then {
     private _intStabTable    = [getArray (_config >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     _stabOutputTable = [
@@ -79,7 +79,7 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
-systemChat format ["Stabilator Pos = %1", _theta];
+//systemChat format ["Stabilator Pos = %1", _theta];
 
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];

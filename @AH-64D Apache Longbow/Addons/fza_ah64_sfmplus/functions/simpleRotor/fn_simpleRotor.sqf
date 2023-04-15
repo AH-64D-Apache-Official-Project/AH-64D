@@ -62,12 +62,12 @@ _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     // 0 ktas
                                       ,[ 5.14, 0.979]     //10 ktas
                                       ,[10.29, 0.855]     //20 ktas
-                                      ,[20.58, 0.580]     //40 ktas
-                                      ,[30.87, 0.407]     //60 ktas
-                                      ,[38.58, 0.343]     //75 ktas
-                                      ,[46.30, 0.317]     //90 ktas
-                                      ,[61.73, 0.317]     //120 ktas
-                                      ,[77.17, 0.317]];   //150 ktas
+                                      ,[20.58, 0.440]     //40 ktas
+                                      ,[30.87, 0.420]     //60 ktas
+                                      ,[38.58, 0.400]     //75 ktas
+                                      ,[46.30, 0.380]     //90 ktas
+                                      ,[61.73, 0.380]     //120 ktas
+                                      ,[77.17, 0.380]];   //150 ktas
 private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
 private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
 //Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
@@ -80,7 +80,8 @@ private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_
 //Rotor torque in newton meters (Nm)
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Engine torque required in newton meters (Nm)
-private _engTorque                 = _rtrTorque / _rtrGearRatio;
+private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
+_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
@@ -142,6 +143,7 @@ if (_velXY < 12.35) then {  //must be less than ETL
     };
 };
 
+/*
 hintsilent format ["v0.7 testing
                     \nRotor Omega = %1
                     \nBlade Tip Vel = %2
@@ -152,4 +154,5 @@ hintsilent format ["v0.7 testing
                     \nInduced Vel Scalar = %8
                     \nGnd Eff Scalar = %9
                     \nStab = %10
-                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _engTorque, (_engTorque / 2) / 481, (_engTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput, _heli call BIS_fnc_getPitchBank select 0];
+                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput, _heli call BIS_fnc_getPitchBank select 0];
+                    */

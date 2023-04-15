@@ -58,5 +58,8 @@ if (fuel _heli > 0.99) then {
 //Engines
 [_heli] call fza_sfmplus_fnc_engineVariables;
 
+//Rotors
+[_heli] call fza_sfmplus_fnc_simpleRotorVariables;
+
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;
