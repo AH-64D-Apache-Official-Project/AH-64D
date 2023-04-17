@@ -21,7 +21,7 @@ private _bladeDragCoef_max   = 0.0286;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
-private _rtrPowerScalar      = 1.111;
+private _rtrPowerScalar      = 1.930;
 private _rtrGndEffModifier   = 0.295;
 private _rtrThrustScalar_min = 0.120;
 private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
@@ -68,7 +68,7 @@ private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
 private _rtrCorrInducedVelocity    = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
-private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * 1.93;
+private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
