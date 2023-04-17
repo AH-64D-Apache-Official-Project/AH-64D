@@ -54,6 +54,7 @@ class CfgFunctions
 		class simpleRotor {
 			file = "\fza_ah64_sfmplus\functions\simpleRotor";
 			class simpleRotor {R;};
+			class simpleRotorNewtRaphSolver {R;};
 			class simpleRotorVariables {R;};
 		};
 		class utility {

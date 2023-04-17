@@ -58,6 +58,24 @@ private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
 private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
+
+//Calculate the hover induced velocity
+private _rtrInducedVelocity        = sqrt(_rtrThrust / (2 * _dryAirDensity * _rtrArea));
+//Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
+private _w = _rtrInducedVelocity;
+private _u = if (_w == 0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
+private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
+private _rtrCorrInducedVelocity    = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
+_rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
+//Calculate the required rotor power
+private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * 1.93;
+//Calculate the required rotor torque
+private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
+//Calcualte the required engine torque
+private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
+_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+
+/*
 //Induced power is the power required to overcome the drag developed during the creation of thrust
 private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     // 0 ktas
                                       ,[ 5.14, 0.979]     //10 ktas
@@ -82,7 +100,7 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 //Engine torque required in newton meters (Nm)
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
-
+*/
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
