@@ -74,7 +74,7 @@ if (_flightModel == "SFMPlus") then {
     
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = 0.0;
-if (fza_ah64_sfmPlusKeyboardOnly) then {
+if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = getNumber (_config >> "stabKeyTheta");
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
