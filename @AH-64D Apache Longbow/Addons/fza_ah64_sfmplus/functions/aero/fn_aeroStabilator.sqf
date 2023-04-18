@@ -79,7 +79,6 @@ if (fza_ah64_sfmPlusKeyboardOnly) then {
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
-//systemChat format ["Stabilator Pos = %1", _theta];
 
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];

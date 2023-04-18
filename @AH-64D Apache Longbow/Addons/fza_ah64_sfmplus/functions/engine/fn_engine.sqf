@@ -177,24 +177,10 @@ if (_flightModel == "SFMPlus") then {
 	//HeliSim engine handling
 	_engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
 	if (_isSingleEng) then {
-		//if (_engPowerLeverState == "IDLE") then {
-		//	_engPctTQ = 0.0;
-		//} else {
 			_engPctTQ = _engPctTQ;
-		//};
 	} else {
 		_engPctTQ = _engPctTQ / 2.0;
 	};
-
-	//private _limitTQ = 0.0;
-	//if (_isSingleEng) then { 
-	//	_limitTQ = _maxTQ_SE; 
-	//} else { 
-	//	_limitTQ = _maxTQ_DE; 
-	//};
-	
-	//_engPctNP = (_limitTQ + ((1 - _engPctTQ) / _limitTQ))^2;
-	//_engPctNP = [_engPctNP, 0.0, _engBaseNP] call BIS_fnc_clamp;
 };
 
 private _engTable = [[  _engBaseTQ, _engBaseTGT, _engBaseNG, _engBaseOilPSI],

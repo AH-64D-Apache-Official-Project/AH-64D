@@ -1,3 +1,23 @@
+/* ----------------------------------------------------------------------------
+Function: fza_sfmplus_fnc_simpleRotor
+
+Description:
+	Simple rotor provides a simple, grounded in reality simulation of a
+    helicopters rotor. Translational Lift, Ground Effect and Vortex Ring State
+    are all simulated.
+
+Parameters:
+	_heli - The helicopter to get information from [Unit].
+
+Returns:
+	...
+
+Examples:
+	...
+
+Author:
+	BradMick
+---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity"];
 
 private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
@@ -75,32 +95,6 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
-/*
-//Induced power is the power required to overcome the drag developed during the creation of thrust
-private _inducedPowerScalarTable   =  [[ 0.00, 1.000]     // 0 ktas
-                                      ,[ 5.14, 0.979]     //10 ktas
-                                      ,[10.29, 0.855]     //20 ktas
-                                      ,[20.58, 0.440]     //40 ktas
-                                      ,[30.87, 0.420]     //60 ktas
-                                      ,[38.58, 0.400]     //75 ktas
-                                      ,[46.30, 0.380]     //90 ktas
-                                      ,[61.73, 0.380]     //120 ktas
-                                      ,[77.17, 0.380]];   //150 ktas
-private _inducedPowerScalar        = [_inducedPowerScalarTable, _velXY] call fza_fnc_linearInterp; 
-private _inducedPowerCoef          = (_inducedPowerScalar # 1) * ((1.15 * _thrustCoef^(3/2)) / (SQRT 2));
-//Profile power is the power required to matiain a given rotor RPM when the collective is at it's minimum setting and to overcome the drag produced by ancillary equipment
-private _rtrSolidity               = (_rtrNumBlades * _bladeChord) / (PI * _bladeRadius);
-private _profilePowerCoef          = (_rtrSolidity * (_bladeDragCoef_min + (_bladeDragCoef_max - _bladeDragCoef_min) * fza_sfmplus_collectiveOutput)) / 8;
-//The final power coeficient is the sum of the _inducedPowerCoef and _profilePowerCoef
-private _powerCoef                 = _inducedPowerCoef + _profilePowerCoef;
-//Rotor power required in kilowatts (kW)
-private _rtrPowerReq               = if (_rtrOmega == 0) then { 0.0; } else { (_powerCoef * _dryAirDensity * _rtrArea * _rtrOmega^3 * _bladeRadius^3) * _rtrPowerScalar; };
-//Rotor torque in newton meters (Nm)
-private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
-//Engine torque required in newton meters (Nm)
-private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
-_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
-*/
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
@@ -130,7 +124,6 @@ if (_velXY > 8.23 && _velXY < 12.35) then {
 
 //Camera shake effect for vortex ring sate
 if (_velXY < 12.35) then {  //must be less than ETL
-    //systemChat format ["VRS shake effect start!"];
     //2000 fpm to 2933fpm
     if (_velZ < -10.16 && _velZ > -14.89) then {
         enableCamShake true;

@@ -1,3 +1,22 @@
+/* ----------------------------------------------------------------------------
+Function: fza_sfmplus_fnc_simpleRotorNewtRaphSolver
+
+Description:
+	This newton raphson solver calculates the true induced flow of the simple 
+    rotor.
+
+Parameters:
+	_heli - The helicopter to get information from [Unit].
+
+Returns:
+	...
+
+Examples:
+	...
+
+Author:
+	BradMick
+---------------------------------------------------------------------------- */
 params ["_w", "_u", "_n"];
 
 private _epsilon = 0.0005;

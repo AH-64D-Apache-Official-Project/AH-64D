@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_perfVariables
+Function: fza_sfmplus_fnc_simpleRotorVariables
 
 Description:
-	Defines the initial performance page variables and initializes them.
+	Defines required simple rotor variables and initializes them.
 
 Parameters:
 	_heli - The helicopter to get information from [Unit].
