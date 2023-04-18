@@ -41,8 +41,8 @@ private _bladeDragCoef_max   = 0.0286;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
-private _rtrPowerScalar      = 1.930;
-private _rtrGndEffModifier   = 0.295;
+private _rtrPowerScalar      = 1.770;
+private _rtrGndEffModifier   = 0.235;
 private _rtrThrustScalar_min = 0.120;
 private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
 
@@ -50,6 +50,7 @@ private _altitude_max        = 30000;   //ft
 private _baseThrust          = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
+
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * fza_sfmplus_collectiveOutput;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
@@ -60,7 +61,7 @@ private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustSc
 private _airDensityThrustScalar    = 1 - ((1 / _altitude_max) * _altitude);
 //Additional thrust gained from increasing forward airspeed
 private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.65);
+private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.50);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;
@@ -109,6 +110,9 @@ private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
 _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
+
+systemChat format ["Collective = %1", fza_sfmplus_collectiveOutput];
+systemChat format ["Height AGL = %1 -- Gnd Eff Scalar = %2", _heightAGL, _gndEffScalar];
 
 private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
 
