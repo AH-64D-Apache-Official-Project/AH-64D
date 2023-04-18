@@ -95,6 +95,7 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 //Calcualte the required engine torque
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+systemChat format ["Rotor RPM = %1 -- Rtr RPM Ind Thrust = %2 -- Rtr TQ = %3", _inputRPM, _rtrRPMInducedThrustScalar, _reqEngTorque / 481];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
@@ -110,10 +111,6 @@ private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
 _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-
-systemChat format ["Collective = %1", fza_sfmplus_collectiveOutput];
-systemChat format ["Height AGL = %1 -- Gnd Eff Scalar = %2", _heightAGL, _gndEffScalar];
-
 private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];

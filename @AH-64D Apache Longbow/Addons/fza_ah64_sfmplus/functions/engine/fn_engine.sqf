@@ -43,6 +43,14 @@ private _engIdleTQ  = getNumber (_config >> "engIdleTQ");
 private _engFlyTQ   = getNumber (_config >> "engFlyTQ");
 private _engBaseTQ  = 0.0; 
 private _engSetTQ   = 0.0;
+private _engLimitTQ = 0.0;
+
+private _hvrIGE     = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
+private _hvrOGE     = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
+private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
+private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
+private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
+private _maxTQ      = getNumber (_config >> "engMaxTQ");
 //Gas producer - Ng
 private _engStartNG = getNumber (_config >> "engStartNG");
 private _engIdleNG  = getNumber (_config >> "engIdleNG");
@@ -72,6 +80,7 @@ if (_engPowerLeverState != "OFF") then {
 _engBaseNG = _engIdleNG + (_engFlyNG - _engIdleNG) * _engThrottle;
 //Np
 _engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle;
+
 
 switch (_engState) do {
 	case "OFF": {
@@ -112,7 +121,21 @@ switch (_engState) do {
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
 		_engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
 		//Np
-		_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
+		if (_flightModel == "SFMPlus") then {
+			_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
+		} else {
+			if (_isSingleEng) then {
+				_engLimitTQ = _maxTQ_SE;
+			} else {
+				_engLimitTQ = _maxTQ_DE;
+			};
+			
+			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
+			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
+
+			_engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+			systemChat format ["Eng Pct Np = %1", _engPctNP];
+		};
 	};
 };
 
@@ -122,16 +145,8 @@ private _engBaseTGT      = _intEngBaseTable select 1;
 //Base Oil
 private _engBaseOilPSI   = _intEngBaseTable select 4;
 //Torque
-private _hvrIGE     = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
-private _hvrOGE     = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
-
 private _heightAGL  = ASLToAGL getPosASL _heli # 2;
 private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
-
-private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
-private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
-private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
-private _maxTQ      = getNumber (_config >> "engMaxTQ");
 
 if (_flightModel == "SFMPlus") then {
 	private _engHvrTQTable = [[]];

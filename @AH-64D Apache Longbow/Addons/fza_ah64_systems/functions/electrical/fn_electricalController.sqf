@@ -18,8 +18,18 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
+private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel    = getText (_configVehicles >> "flightModel");
+
 private _apuOn  = _heli getVariable "fza_systems_apuOn";
-private _rtrRPM = (_heli animationPhase "mainRotorRPM") / 10;
+private _rtrRPM = 0.0; 
+if (_flightModel == "SFMPlus") then {
+	_rtrRPM = ((_heli animationPhase "mainRotorRPM") * 1.08) / 10;
+} else {
+	(_heli getVariable "fza_sfmplus_engPctNP") 
+		params ["_e1Np", "_e2Np"];
+	_rtrRPM = _e1Np max _e2Np;
+};
 
 //Update the Battery
 [_heli, _deltaTime] call fza_systems_fnc_electricalBattery;
