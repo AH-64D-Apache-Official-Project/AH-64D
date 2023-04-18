@@ -134,7 +134,6 @@ switch (_engState) do {
 			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
 
 			_engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
-			systemChat format ["Eng Pct Np = %1", _engPctNP];
 		};
 	};
 };

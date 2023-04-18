@@ -95,7 +95,6 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 //Calcualte the required engine torque
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
-systemChat format ["Rotor RPM = %1 -- Rtr RPM Ind Thrust = %2 -- Rtr TQ = %3", _inputRPM, _rtrRPMInducedThrustScalar, _reqEngTorque / 481];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
