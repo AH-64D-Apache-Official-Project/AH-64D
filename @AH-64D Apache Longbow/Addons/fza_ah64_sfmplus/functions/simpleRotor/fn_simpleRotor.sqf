@@ -36,21 +36,25 @@ private _rtrNumBlades        = 4;
 
 private _bladeRadius         = 7.315;   //m
 private _bladeChord          = 0.533;   //m
-private _bladeDragCoef_min   = 0.0066;
-private _bladeDragCoef_max   = 0.0286;
 private _bladePitch_min      = 1.0;     //deg
 private _bladePitch_max      = 19.0;    //deg
 
-private _rtrPowerScalar      = 1.770;
-private _rtrGndEffModifier   = 0.235;
+private _rtrPowerScalarTable = [
+                                [   0, 1.777]
+                               ,[2000, 1.617]
+                               ,[4000, 1.530]
+                               ,[6000, 1.377]
+                               ,[8000, 1.284]
+                               ];
+private _rtrGndEffModifier   = 0.238;
 private _rtrThrustScalar_min = 0.120;
-private _rtrThrustScalar_max = 1.232; //20,260lbs @ 5200ft and 80% collective
+private _rtrThrustScalar_max = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 
 private _altitude_max        = 30000;   //ft
 private _baseThrust          = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
-
+systemChat format ["Collective = %1", fza_sfmplus_collectiveOutput];
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * fza_sfmplus_collectiveOutput;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
@@ -58,7 +62,7 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
-private _airDensityThrustScalar    = 1 - ((1 / _altitude_max) * _altitude);
+private _airDensityThrustScalar    = _dryAirDensity / 1.225;
 //Additional thrust gained from increasing forward airspeed
 private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.50);
@@ -89,6 +93,7 @@ private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
 private _rtrCorrInducedVelocity    = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
+private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
