@@ -54,7 +54,6 @@ private _altitude_max        = 30000;   //ft
 private _baseThrust          = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
-systemChat format ["Collective = %1", fza_sfmplus_collectiveOutput];
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * fza_sfmplus_collectiveOutput;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
@@ -77,7 +76,6 @@ if (_velZ < -24.384 && _velXY < 12.35) then {
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
-
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;

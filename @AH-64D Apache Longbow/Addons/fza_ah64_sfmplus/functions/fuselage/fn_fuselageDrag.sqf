@@ -29,11 +29,13 @@ if (_flightModel == "SFMPlus") then {
     _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 } else {
     //-------------------------------PA  -40   -20     0    20    40
-    private _heliSimDragTableY =[[   0, 0.66, 0.70, 0.60, 0.60, 0.66] 
+    private _heliSimDragTableY =[
+                                 [   0, 0.66, 0.70, 0.60, 0.60, 0.66] 
                                 ,[2000, 0.95, 0.85, 0.80, 0.80, 0.90] 
                                 ,[4000, 1.30, 1.05, 1.10, 0.95, 1.15] 
                                 ,[6000, 1.70, 1.40, 1.40, 1.35, 1.55] 
-                                ,[8000, 2.30, 1.70, 2.00, 1.90, 2.15]];
+                                ,[8000, 2.30, 1.70, 2.00, 1.90, 2.15]
+                                ];
 
     _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp;
     private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
