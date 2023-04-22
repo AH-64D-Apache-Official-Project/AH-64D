@@ -20,13 +20,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity"];
 
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
-DRAW_LINE = {
-    params ["_heli", "_p1", "_p2", "_col"];
-    drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
 private _rtrPos              = [0.0, 2.06, 0.70];
 private _rtrHeightAGL        = 3.606;   //m
 private _rtrDesignRPM        = 289.0;
@@ -154,9 +147,9 @@ if (_velXY < 12.35) then {  //must be less than ETL
 };
 
 #ifdef __A3_DEBUG__
-[_heli, _rtrPos, _rtrPos vectorAdd _axisX, _colorRed]   call DRAW_LINE;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_sfmplus_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_sfmplus_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_sfmplus_fnc_drawLine;
 #endif
 
 /*

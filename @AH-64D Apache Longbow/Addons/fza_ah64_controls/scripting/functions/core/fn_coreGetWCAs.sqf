@@ -74,14 +74,7 @@ if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
 if (getpos _heli # 2 >= 3) then {
 	_onGnd = false;
 };
-private _rtrRPM = 0.0; 
-if (_flightModel == "SFMPlus") then {
-	_rtrRPM = ((_heli animationPhase "mainRotorRPM") * 1.08) / 10;
-} else {
-	(_heli getVariable "fza_sfmplus_engPctNP") 
-		params ["_e1Np", "_e2Np"];
-	_rtrRPM = _e1Np max _e2Np;
-};
+private _rtrRPM     = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 //--Transmission
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";
 //--Tail rotor & Intermediate gearboxes
