@@ -37,13 +37,6 @@ if (_heli turretLocal [0]) then {
     _heli animateSource ["cpg_uiscale", _yScale];
 };
 
-private _iconType = _dmsPoint # POINT_GET_ICON_TYPE;
-// If an icon is now a different type, wipe the existing ctrls to rebuild
-if (!("type" in _ctrlPoint) || {_iconType isNotEqualTo (_ctrlPoint get "type")}) then {
-    {if (typeName _y == "CONTROL") then {ctrlDelete _y; _ctrlPoint deleteAt _x};} forEach _ctrlPoint;
-    _ctrlPoint set ["type", _iconType];
-};
-
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
     params ["_iconTex", "_iconTex2", "_iconSize", "_iconColor", "_textA", "_textB"];
 
@@ -70,12 +63,6 @@ private _color = _colorMap get _iconColor;
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
-hintSilent format ["_armaPos %4
-                    \n_uiCtr %5
-                    \n_iconSize %6
-                    \n_uiTop %1
-                    \n_yOffset %2
-                    \n_yScale %3", _uiTop, _yOffset, _yScale, _armaPos, _uiCtr, _iconSize];
 _iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
 _iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
