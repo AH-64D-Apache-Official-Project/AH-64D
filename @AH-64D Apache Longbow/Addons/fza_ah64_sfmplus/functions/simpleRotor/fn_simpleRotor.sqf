@@ -103,10 +103,6 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-[_heli, _rtrPos, _rtrPos vectorAdd _axisX, _colorRed]   call DRAW_LINE;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
-
 //Ground Effect
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
@@ -156,6 +152,12 @@ if (_velXY < 12.35) then {  //must be less than ETL
         enableCamShake false;
     };
 };
+
+#ifdef __A3_DEBUG__
+[_heli, _rtrPos, _rtrPos vectorAdd _axisX, _colorRed]   call DRAW_LINE;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisY, _colorGreen] call DRAW_LINE;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, _colorBlue]  call DRAW_LINE;
+#endif
 
 /*
 hintsilent format ["v0.7 testing

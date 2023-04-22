@@ -21,9 +21,9 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum", "_deltaTime"];
 
-private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "flightModel");
+private _cfg           = configOf _heli;
+private _sfmPlusConfig = _sfmPlusConfig >> "Fza_SfmPlus";
+private _flightModel   = getText (_sfmPlusConfig >> "flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -36,11 +36,11 @@ private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select 
 private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
 
 private _engThrottle         = 0.0;
-private _engSimTime 		 = getNumber (_config >> "engSimTime");
+private _engSimTime 		 = getNumber (_sfmPlusConfig >> "engSimTime");
 
 //Torque - TQ
-private _engIdleTQ  = getNumber (_config >> "engIdleTQ");
-private _engFlyTQ   = getNumber (_config >> "engFlyTQ");
+private _engIdleTQ  = getNumber (_sfmPlusConfig >> "engIdleTQ");
+private _engFlyTQ   = getNumber (_sfmPlusConfig >> "engFlyTQ");
 private _engBaseTQ  = 0.0; 
 private _engSetTQ   = 0.0;
 private _engLimitTQ = 0.0;
@@ -50,18 +50,18 @@ private _hvrOGE     = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
 private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
 private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
-private _maxTQ      = getNumber (_config >> "engMaxTQ");
+private _maxTQ      = getNumber (_sfmPlusConfig >> "engMaxTQ");
 //Gas producer - Ng
-private _engStartNG = getNumber (_config >> "engStartNG");
-private _engIdleNG  = getNumber (_config >> "engIdleNG");
-private _engFlyNG   = getNumber (_config >> "engFlyNG");
-private _engMaxNG   = getNumber (_config >> "engMaxNG");
+private _engStartNG = getNumber (_sfmPlusConfig >> "engStartNG");
+private _engIdleNG  = getNumber (_sfmPlusConfig >> "engIdleNG");
+private _engFlyNG   = getNumber (_sfmPlusConfig >> "engFlyNG");
+private _engMaxNG   = getNumber (_sfmPlusConfig >> "engMaxNG");
 private _engBaseNG  = 0.0; 
 private _engSetNG   = 0.0;
 //Power turbine - Np
-private _engStartNP = getNumber (_config >> "engStartNP");
-private _engIdleNP  = getNumber (_config >> "engIdleNP");
-private _engFlyNP   = getNumber (_config >> "engFlyNP");
+private _engStartNP = getNumber (_sfmPlusConfig >> "engStartNP");
+private _engIdleNP  = getNumber (_sfmPlusConfig >> "engIdleNP");
+private _engFlyNP   = getNumber (_sfmPlusConfig >> "engFlyNP");
 private _engBaseNP  = 0.0; 
 private _engSetNP   = 0.0;
 
@@ -138,7 +138,7 @@ switch (_engState) do {
 	};
 };
 
-private _intEngBaseTable = [getArray (_config >> "engBaseTable"), _engPctNG] call fza_fnc_linearInterp;
+private _intEngBaseTable = [getArray (_sfmPlusConfig >> "engBaseTable"), _engPctNG] call fza_fnc_linearInterp;
 //Base TGT
 private _engBaseTGT      = _intEngBaseTable select 1;
 //Base Oil
@@ -210,7 +210,7 @@ if (_isSingleEng) then {
 };
 
 _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
-_engFF     = [getArray (_config >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
+_engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
 
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;

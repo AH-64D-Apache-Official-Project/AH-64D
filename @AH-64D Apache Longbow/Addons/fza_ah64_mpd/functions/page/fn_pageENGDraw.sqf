@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli", "_mpdIndex"];
 
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _configVehicles = configOf _heli >> "CfgVehicles";
 private _flightModel    = getText (_configVehicles >> "flightModel");
 
 // #region ENGINE 1
@@ -12,7 +12,7 @@ private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
 private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
 private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
 if (_e1np <= (0.37 * 100)) then {
-	_e1trq = 0.0;
+	_e1trq = 0;
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_1), round _e1trq];
