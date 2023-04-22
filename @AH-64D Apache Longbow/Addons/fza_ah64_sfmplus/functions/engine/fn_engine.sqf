@@ -22,7 +22,7 @@ Author:
 params ["_heli", "_engNum", "_deltaTime"];
 
 private _cfg           = configOf _heli;
-private _sfmPlusConfig = _sfmPlusConfig >> "Fza_SfmPlus";
+private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 private _flightModel   = getText (_sfmPlusConfig >> "flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;

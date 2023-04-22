@@ -39,7 +39,7 @@ private _stabPvt = _objCtr vectorAdd _stabPos;
 
 private _stabOutputTable = [[]];
 if (_flightModel == "SFMPlus") then {
-    private _intStabTable    = [getArray (_cfg >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+    private _intStabTable    = [getArray (_sfmPlusConfig >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     _stabOutputTable = [
                          [15.43, _intStabTable select 1]  //30kts
                         ,[36.01, _intStabTable select 2]  //70kts
@@ -49,7 +49,7 @@ if (_flightModel == "SFMPlus") then {
                         ,[77.17, _intStabTable select 6]  //150kts
                         ];
 } else {
-    private _intStabTable    = [getArray (_cfg >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+    private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     _stabOutputTable = [
                         [15.43, _intStabTable select 1]   //30kts
                        ,[20.58, _intStabTable select 2]   //40kts
@@ -75,7 +75,7 @@ if (_flightModel == "SFMPlus") then {
 private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 private _theta = 0.0;
 if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
-    _theta = getNumber (_cfg >> "stabKeyTheta");
+    _theta = getNumber (_sfmPlusConfig >> "stabKeyTheta");
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
@@ -122,7 +122,7 @@ _relWind = _relWind;
 private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
 _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
-private _intAirfoilTable = [getArray (_cfg >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
+private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
 private _CL = _intAirfoilTable select 1;
 
 private _area = [_A, _B, _C, _D] call fza_sfmplus_fnc_getArea;
