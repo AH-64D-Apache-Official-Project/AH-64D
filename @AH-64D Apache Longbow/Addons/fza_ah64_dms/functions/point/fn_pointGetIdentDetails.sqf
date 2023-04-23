@@ -28,6 +28,11 @@ if (isText (_config >> "tex")) then {
     _tex = getText (_config >> "tex");
 };
 
+private _tex2 = "";
+if (isText (_config >> "tex2")) then {
+    _tex2 = getText (_config >> "tex2");
+};
+
 private _color = MPD_ICON_COLOR_GREEN;
 if (isNumber (_config >> "color")) then {
     _color = getNumber (_config >> "color");
@@ -72,6 +77,6 @@ private _parseText = {
 private _textA = [_config, "textA"] call _parseText;
 private _textB = [_config, "textB"] call _parseText;
 
-private _result = [_tex, _size, _color, _textA, _textB, _type];
+private _result = [_tex, _tex2, _size, _color, _textA, _textB, _type];
 fza_dms_pointIdents set [_ident, _result];
 _result;
