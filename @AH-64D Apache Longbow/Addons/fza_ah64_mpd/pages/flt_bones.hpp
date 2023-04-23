@@ -95,3 +95,13 @@ class Flt_FCRCenterline : Flt_CommandHeading {
 class Flt_AltSensorBearing : Flt_CommandHeading {
     MPD_NUM_USER(MFD_IND_FLT_ALTERNATE_SENSOR)
 };
+
+class Flt_HeadingTape {
+    type = linear;
+    source = heading;
+    min = 0;
+    max = 360;
+    sourceScale = 1;
+    maxPos[] = {0.5, 0.15};
+    minPos[] = {-0.5, 0.15};
+};

@@ -1,8 +1,4 @@
 class fcr_draw {
-    class occluders{
-
-    };
-    
     class lines_GTM {
         type = line;
         width = 3;
@@ -371,38 +367,24 @@ class fcr_draw {
         };
     };
 
-    
-    ///////////////// Heading Tape ///////////////
-    /*
-    class headingTape {
-        //Source info
-        source = heading;
-        sourceScale = 1;
+    #include "common\headingtape.hpp"
 
-        //Tape setup
-        type = scale;
-        horizontal = 1;
-        neverEatSeaWeed = 1;
-        step = 10;
-        stepSize = __EVAL(0.5/18-0.001);
-        lineXLeft = 0.15;
-        lineYRight = 0.165;
-        lineXLeftMajor = 0.15;
-        lineYRightMajor = 0.18;
-        top = 0.25;
-        bottom = 0.75;
-        center = 0.5;
-        majorLineEach = 3;
-        numberEach = 3;
-        width = 3;
+    class Obscurants {
+        color[] = {0,0,0,1};
+        class HeadingTape {
+            type = polygon;
+            points[] = {
+                {
+                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.15 - MPD_TEXT_HEIGHT}, 1},
+                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.15 - MPD_TEXT_HEIGHT}, 1},
+                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.15}, 1},
+                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.15}, 1}
+                }
+            };
+        };
+    };
 
-        //Text config
-        align = center;
-        scale = 1;
-        pos[] = {0.25, 0.15-MPD_TEXT_HEIGHT};
-        right[] = {0.25 + MPD_TEXT_WIDTH_VEC, 0.15-MPD_TEXT_HEIGHT};
-        down[] = {0.25, 0.15};
-    };*/
+    MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     
     class vabs{
         //T1
@@ -457,8 +439,5 @@ class fcr_draw {
         MPD_TEXT_R(ACQ, 0.78 + MPD_TEXT_WIDTH,     0.939 - MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FCR_ACQ))
         //Weapon Status 12 chars
         MPD_TEXT_R(WS,  0.78 - (6*MPD_TEXT_WIDTH), 0.939,                   MPD_TEXT_USER(MFD_TEXT_IND_FCR_WS))
-
-        //Heading
-        MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
     };
 };
