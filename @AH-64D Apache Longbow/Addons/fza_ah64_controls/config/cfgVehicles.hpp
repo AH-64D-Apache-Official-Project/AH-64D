@@ -50,7 +50,7 @@ class CfgVehicles
 		maxSpeed               = 298;
 		altFullForce 		   = 1615;
 		altNoForce 			   = 9000;
-		flightModel			   = "SFMPlus";
+		fza_flightModel		   = "SFMPlus";
 		//SFM Variables-------------/
 
 		side=1;
@@ -244,7 +244,7 @@ class CfgVehicles
 		#include "sensor_b2e.hpp"
 
 		//SFM Variables-------------/
-		flightModel			   = "SFMPlus";
+		fza_flightModel			   = "SFMPlus";
 		//SFM Variables-------------/
 
 		ace_vehicle_damage_hullDetonationProb = 0.1;
@@ -446,7 +446,7 @@ class CfgVehicles
 
 		//SFM Variables-------------/
 		liftForceCoef          = 0.00;
-		flightModel			   = "HeliSim";
+		fza_flightModel			   = "HeliSim";
 		//SFM Variables-------------/
 	};
 };

@@ -23,7 +23,7 @@ params ["_heli", "_engNum", "_deltaTime"];
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel   = getText (_sfmPlusConfig >> "flightModel");
+private _flightModel   = getText (_sfmPlusConfig >> "fza_flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -80,7 +80,6 @@ if (_engPowerLeverState != "OFF") then {
 _engBaseNG = _engIdleNG + (_engFlyNG - _engIdleNG) * _engThrottle;
 //Np
 _engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle;
-
 
 switch (_engState) do {
 	case "OFF": {

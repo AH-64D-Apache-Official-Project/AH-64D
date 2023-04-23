@@ -19,7 +19,7 @@ Author:
 params ["_heli", "_deltaTime"];
 
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "flightModel");
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 private _apuOn  = _heli getVariable "fza_systems_apuOn";
 private _rtrRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;

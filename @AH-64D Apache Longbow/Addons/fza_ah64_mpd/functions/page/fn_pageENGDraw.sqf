@@ -3,7 +3,7 @@
 params ["_heli", "_mpdIndex"];
 
 private _configVehicles = configOf _heli >> "CfgVehicles";
-private _flightModel    = getText (_configVehicles >> "flightModel");
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 // #region ENGINE 1
 private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;

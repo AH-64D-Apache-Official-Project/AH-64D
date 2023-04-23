@@ -35,7 +35,7 @@ Author:
 params ["_heli"];
 
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "flightModel");
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 private _mags = _heli weaponsTurret [-1];
 

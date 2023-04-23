@@ -59,7 +59,7 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 //Rotor
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel = getText (_config >> "flightModel");
+private _flightModel = getText (_config >> "fza_flightModel");
 if (_flightModel != "SFMPlus") then {
 	[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_simpleRotor;
 };

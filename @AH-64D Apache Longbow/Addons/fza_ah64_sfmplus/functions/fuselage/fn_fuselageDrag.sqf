@@ -1,7 +1,7 @@
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
 
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel        = getText (_configVehicles >> "flightModel");
+private _flightModel        = getText (_configVehicles >> "fza_flightModel");
 
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m
 
@@ -64,7 +64,7 @@ private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];
 
 //Draw the force vector
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, "red"]   call fza_sfmplus_fnc_drawLine
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_sfmplus_fnc_drawLine
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_sfmplus_fnc_drawLine
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, "red"]   call fza_sfmplus_fnc_drawLine;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_sfmplus_fnc_drawLine;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_sfmplus_fnc_drawLine;
 #endif

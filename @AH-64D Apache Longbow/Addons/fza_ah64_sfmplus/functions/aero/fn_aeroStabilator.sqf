@@ -22,7 +22,7 @@ params ["_heli", "_deltaTime"];
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel    = getText (_cfg >> "flightModel");
+private _flightModel    = getText (_cfg >> "fza_flightModel");
 
 if (!local _heli) exitWith {};
 

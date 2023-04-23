@@ -58,7 +58,7 @@ switch (fza_ah64_sfmplusEnvironment) do {
 };
 private _pa      = round ((_baseAlt + _baroAlt) / 10) * 10; //feet
 _heli setVariable ["fza_sfmplus_PA", _pa];
-private _fat     = _baseFAT - round((_baroAlt / 1000) * 2);	//ambientTemperature select 0; //deg C
+private _fat     = _baseFAT - round((_baroAlt / 1000) * 2); //ambientTemperature select 0; //deg C
 _heli setVariable ["fza_sfmplus_FAT", _fat];
 
 /////////////////////////////////////////////////////////////////////////////////////////////

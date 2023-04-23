@@ -21,7 +21,7 @@ params ["_heli", "_deltaTime"];
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles	   = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel 	   = getText (_configVehicles>> "flightModel");
+private _flightModel 	   = getText (_configVehicles>> "fza_flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");

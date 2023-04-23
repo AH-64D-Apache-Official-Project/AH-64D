@@ -23,7 +23,7 @@ params ["_heli", "_deltaTime"];
 
 private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "flightModel");
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
