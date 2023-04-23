@@ -172,7 +172,6 @@ private _pointsArray = [];
         _unitSelAndWpnStatus = ["ANTS"];
     };
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
-
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach (_heli getVariable "fza_ah64_fcrTargets");
 
