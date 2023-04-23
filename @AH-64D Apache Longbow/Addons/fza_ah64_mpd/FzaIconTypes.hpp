@@ -647,8 +647,9 @@ class FzaIconTypes {
     class FCR_UNK_LOAL_NTS_NOMSL:FCR_UNK_LOAL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";}; 
     //Wheeled
     class FCR_WHEEL_LOAL:IconTypeH {
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\wheelLOAL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\wheelLOAL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_WHEEL_LOAL_ANTS:FCR_WHEEL_LOAL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_WHEEL_LOAL_NTS:FCR_WHEEL_LOAL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
@@ -657,16 +658,18 @@ class FzaIconTypes {
     //--------------------FCR LOBL--------------------
     //ADU
     class FCR_ADU_LOBL : IconTypeH { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\aduLOBL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\aduLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_ADU_LOBL_ANTS:FCR_ADU_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_ADU_LOBL_NTS:FCR_ADU_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_ADU_LOBL_NTS_NOMSL:FCR_ADU_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
     //Heli
     class FCR_HELI_LOBL:IconTypeH { 
-        tex  = "\fza_ah64_mpd\tex\fcrIcons\heliLOBL_ca.paa";
-        type = POINT_TYPE_FCR;
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\heliLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color = MPD_ICON_COLOR_YELLOW;
     };
     class FCR_HELI_LOBL_ANTS:FCR_HELI_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_HELI_LOBL_NTS:FCR_HELI_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};

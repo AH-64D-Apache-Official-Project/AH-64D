@@ -12,12 +12,12 @@
 #define WAS_WEAPON_RKT  2
 #define WAS_WEAPON_MSL  3
 
-//FCR 
-#define FCR_LIMIT_MIN_RANGE              500
-#define FCR_LIMIT_FORCE_LOBL_RANGE       1200
-#define FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE 2500
-#define FCR_LIMIT_STATIONARY_RANGE       6000
-#define FCR_LIMIT_MOVING_RANGE           8000
+//FCR
+#define FCR_LIMIT_MIN_RANGE              500  //For FCR/TSD display presentation only!
+#define FCR_LIMIT_FORCE_LOBL_RANGE       1000
+#define FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE 1500 //For FCR/TSD display presentation only!
+#define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
+#define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6
 //--FCR Priority
 #define FCR_TYPE_UNKNOWN    0
@@ -62,6 +62,3 @@
 //--Chaff dispenser
 #define ASE_CHAFF_STATE_SAFE 0
 #define ASE_CHAFF_STATE_ARM  1
-
-
-
