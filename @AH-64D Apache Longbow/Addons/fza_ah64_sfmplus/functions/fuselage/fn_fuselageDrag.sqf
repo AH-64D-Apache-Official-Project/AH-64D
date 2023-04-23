@@ -59,19 +59,12 @@ private _drag =
 _heli addForce[_heli vectorModelToWorld _drag, _aerodynamicCenter];
 
 #ifdef __A3_DEBUG__
-private _colorRed = [1,0,0,1]; private _colorGreen = [0,1,0,1]; private _colorBlue = [0,0,1,1]; private _colorWhite = [1,1,1,1];
-
 private _vecX = [1.0, 0.0, 0.0];
 private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];
 
-private _DRAW_LINE = {
-    params ["_heli", "_p1", "_p2", "_col"];
-    drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
-};
-
 //Draw the force vector
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, _colorRed] call   _DRAW_LINE;
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, _colorGreen] call _DRAW_LINE;
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, _colorBlue] call  _DRAW_LINE;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, "red"]   call fza_sfmplus_fnc_drawLine
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_sfmplus_fnc_drawLine
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_sfmplus_fnc_drawLine
 #endif
