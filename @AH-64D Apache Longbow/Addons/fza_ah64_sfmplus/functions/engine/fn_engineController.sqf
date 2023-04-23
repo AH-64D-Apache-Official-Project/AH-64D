@@ -21,7 +21,10 @@ params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp";
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
+
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 
@@ -85,42 +88,41 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
 	_heli engineOn false;
 };
 
-private _maxTQ    = getNumber (_config >> "engMaxTQ");
-private _limitTQ  = 0.0;
-private _limitRPM = getNumber (_config >> "engIdleNP");
+if (_flightModel == "SFMPlus") then {
+	private _maxTQ    = getNumber (_config >> "engMaxTQ");
+	private _limitTQ  = 0.0;
+	private _limitRPM = getNumber (_config >> "engIdleNP");
 
+	private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
+	private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+	private _rtrRPM  = _eng1Np max _eng2Np;
+	private _realRPM = _heli animationPhase "mainRotorRPM";
 
-private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
-private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
-private _rtrRPM  = _eng1Np max _eng2Np;
-private _realRPM = _heli animationPhase "mainRotorRPM";
+	private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
+	private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+	private _engPctTQ = _eng1TQ max _eng2TQ;
 
-private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
-private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
-private _engPctTQ = _eng1TQ max _eng2TQ;
-
-
-if (_isSingleEng) then {
-	_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
-} else {
-    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
-};
-
-private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
-private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
-_droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
-
-if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
-
-private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
-	_rtrRPM = _droopRPM;
-
-	if ((_realRPM / 10)  > _rtrRPM) then {
-		_heli setHitpointDamage ["hithrotor", 0.9];
+	if (_isSingleEng) then {
+		_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
 	} else {
-		_heli setHitpointDamage ["hithrotor", 0.0];
-		_heli engineOn true;
+		_limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
 	};
-	_heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
+
+	private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
+	private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
+	_droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
+
+	if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
+
+	private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
+	if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
+		_rtrRPM = _droopRPM;
+			if ((_realRPM / 10)  > _rtrRPM) then {
+			_heli setHitpointDamage ["hithrotor", 0.9];
+		} else {
+			_heli setHitpointDamage ["hithrotor", 0.0];
+			_heli engineOn true;
+		};
+		_heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
+	};
 };

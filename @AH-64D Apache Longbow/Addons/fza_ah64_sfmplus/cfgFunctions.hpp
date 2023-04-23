@@ -51,11 +51,19 @@ class CfgFunctions
 			class perfData {R;};
 			class perfVariables {R;};
 		};
+		class simpleRotor {
+			file = "\fza_ah64_sfmplus\functions\simpleRotor";
+			class simpleRotor {R;};
+			class simpleRotorNewtRaphSolver {R;};
+			class simpleRotorVariables {R;};
+		};
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
 			class clampedMove {R;};
+			class drawLine {R;};
 			class getArea {R;};
-			class getInput   {R;};
+			class getInput {R;};
+			class getRtrRPM {R;};
 			class setArrayVariable {R;};
 		};
     };
