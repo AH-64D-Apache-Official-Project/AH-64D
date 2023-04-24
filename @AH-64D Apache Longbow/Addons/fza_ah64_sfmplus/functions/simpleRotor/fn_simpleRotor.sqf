@@ -19,32 +19,34 @@ Author:
 	BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _rtrPos              = [0.0, 2.06, 0.70];
-private _rtrHeightAGL        = 3.606;   //m
-private _rtrDesignRPM        = 289.0;
-private _rtrRPMTrimVal       = 1.01;
-private _rtrGearRatio        = 72.29;
-private _rtrNumBlades        = 4;
+private _rtrPos                 = [0.0, 2.06, 0.70];
+private _rtrHeightAGL           = 3.606;   //m
+private _rtrDesignRPM           = 289.0;
+private _rtrRPMTrimVal          = 1.01;
+private _rtrGearRatio           = 72.29;
+private _rtrNumBlades           = 4;
 
-private _bladeRadius         = 7.315;   //m
-private _bladeChord          = 0.533;   //m
-private _bladePitch_min      = 1.0;     //deg
-private _bladePitch_max      = 19.0;    //deg
+private _bladeRadius            = 7.315;   //m
+private _bladeChord             = 0.533;   //m
+private _bladePitch_min         = 1.0;     //deg
+private _bladePitch_max         = 19.0;    //deg
 
-private _rtrPowerScalarTable = [
-                                [   0, 1.777]
-                               ,[2000, 1.617]
-                               ,[4000, 1.530]
-                               ,[6000, 1.377]
-                               ,[8000, 1.284]
-                               ];
-private _rtrGndEffModifier   = 0.238;
-private _rtrThrustScalar_min = 0.120;
-private _rtrThrustScalar_max = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrPowerScalarTable    = [
+                                   [   0, 1.777]
+                                  ,[2000, 1.617]
+                                  ,[4000, 1.530]
+                                  ,[6000, 1.377]
+                                  ,[8000, 1.284]
+                                  ];
+private _rtrGndEffModifier      = 0.238;
+private _rtrThrustScalar_min    = 0.120;
+private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrAirspeedVelocityMod = 0.4;
 
-private _altitude_max        = 30000;   //ft
-private _baseThrust          = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
+private _altitude_max           = 30000;   //ft
+private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * fza_sfmplus_collectiveOutput;
@@ -54,17 +56,17 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
-private _airDensityThrustScalar    = _dryAirDensity / 1.225;
+private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _airspeedVelocityScalar    = (1 + (_velXY / 36.0111)) ^ (1 / 2.50);
+private _airspeedVelocityScalar    = (1 + (_velXY / VEL_BEST_ENDURANCE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;
-if (_velZ < -24.384 && _velXY < 12.35) then { 
+if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;
 } else { 
-    _inducedVelocityScalar = 1 - (_velZ / 24.384);
+    _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
