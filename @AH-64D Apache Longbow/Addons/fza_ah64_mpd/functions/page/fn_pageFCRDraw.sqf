@@ -152,24 +152,30 @@ private _pointsArray = [];
         _unitStatus = "MOVE";
     } else {
         If (_unitType == "FLYER") then {
-            _unitType = "UNK";
+            _unitStatus = "BLANK";
         };
-        if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        } else {
+        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
             _unitStatus = "LOBL";
-        }
+        };
+        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "LOAL";
+        };
+        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "BLANK"
+        };
     };
     //Unit select status
-    if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
-            _unitSelAndWpnStatus = ["NTS", "NOMSL"];
-        } else {
-            _unitSelAndWpnStatus = ["NTS"];
+    if(_unitStatus !=  "BLANK") then {
+        if (_forEachIndex == _ntsIndex) then {
+            if (_wasState == WAS_WEAPON_NONE) then {
+                _unitSelAndWpnStatus = ["NTS", "NOMSL"];
+            } else {
+                _unitSelAndWpnStatus = ["NTS"];
+            };
         };
-    };
-    if (_forEachIndex == _antsIndex) then {
-        _unitSelAndWpnStatus = ["ANTS"];
+        if (_forEachIndex == _antsIndex) then {
+            _unitSelAndWpnStatus = ["ANTS"];
+        };
     };
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
