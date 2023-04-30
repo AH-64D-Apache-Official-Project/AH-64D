@@ -67,39 +67,43 @@ if (_flightModel == "SFMPlus") then {
 	//Joystick collective
 	private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
 	private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
-	private _collectiveVal   = _heli getVariable "fza_sfmplus_collectiveVal";
 
 	if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
 		_hydFailure = true;
 	};
 
 	if (!_hydFailure) then {
+		if (isNil "fza_sfmplus_collectiveOutput") then {
+			fza_sfmplus_collectiveOutput = 0;
+		};
+
 		if (fza_ah64_sfmPlusKeyboardOnly) then {
 			//systemChat format ["Keyboard only!"];
+			private _collectiveVal = fza_sfmplus_collectiveOutput;
 			if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
 			if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
-			_collectiveOut = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
+			fza_sfmplus_collectiveOutput = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 		} else {
 			//systemChat format ["Joystick only!"];
-			_collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
+			private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
 			_collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
-			_collectiveOut = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
+			_collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
+
+			private _isPlaying = isNull findDisplay 49;
+
+			if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
+				fza_sfmplus_collectiveOutput = _collectiveVal;
+			} else {
+				if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+					fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
+				};
+			};
+
+			fza_sfmplus_lastIsPlaying = _isPlaying;
+			fza_sfmplus_prevCollective = _collectiveVal;
 		};
-		_heli setVariable ["fza_sfmplus_collectiveVal", _collectiveVal];
 	};
 };
-private _isPlaying = isNull findDisplay 49;
-
-if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_collectiveOutput" || isNil "fza_sfmplus_lastIsPlaying") then {
-	fza_sfmplus_collectiveOutput = _collectiveOut;
-} else {
-	if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-		fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
-	};
-};
-
-fza_sfmplus_lastIsPlaying = _isPlaying;
-fza_sfmplus_prevCollective = _collectiveOut;
 
 //Cyclic and Pedal Torque
 _cyclicFwdAft    = [_cyclicFwdAft, -0.5, 0.5] call BIS_fnc_clamp;
