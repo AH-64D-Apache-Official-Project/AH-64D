@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:ase/fn_aseRLWR.sqf",{214:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the Radar/Laser Warning Receiver</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:ase/fn_aseRLWR.sqf",{124:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Handles the Radar/Laser Warning Receiver</div></div>"});
