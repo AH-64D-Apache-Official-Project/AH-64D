@@ -135,19 +135,4 @@ class CfgSounds
 		titles[]={};
 	};
 	///END OF DOOR SOUNDS///
-
-	///ETL AND VRS SOUNDS///
-	class ETL_VRS_Shake_01
-	{
-	    sound[] = {"\fza_ah64_us\audio\CreakingAirFrame.ogg", 1, 1};
-	    frequency = "CustomSoundController3";
-	    volume = "(1-camPos)*rotorSpeed*CustomSoundController4";
 	};
-	class ETL_VRS_Shake_02
-	{
-	    sound[] = {"A3\Sounds_F\vehicles\noises\vehicle_stress3", 1, 1};
-	    frequency = "CustomSoundController3";
-	    volume = "(1-camPos)*rotorSpeed*CustomSoundController4";
-	};
-	///END OF ETL AND VRS SOUNDS///
-};
