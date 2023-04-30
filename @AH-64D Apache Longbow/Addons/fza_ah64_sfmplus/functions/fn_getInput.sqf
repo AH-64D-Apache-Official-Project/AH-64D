@@ -88,8 +88,18 @@ if (_flightModel == "SFMPlus") then {
 		_heli setVariable ["fza_sfmplus_collectiveVal", _collectiveVal];
 	};
 };
+private _isPlaying = isNull findDisplay 49;
 
-fza_sfmplus_collectiveOutput = _collectiveOut;
+if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_collectiveOutput" || isNil "fza_sfmplus_lastIsPlaying") then {
+	fza_sfmplus_collectiveOutput = _collectiveOut;
+} else {
+	if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+		fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
+	};
+};
+
+fza_sfmplus_lastIsPlaying = _isPlaying;
+fza_sfmplus_prevCollective = _collectiveOut;
 
 //Cyclic and Pedal Torque
 _cyclicFwdAft    = [_cyclicFwdAft, -0.5, 0.5] call BIS_fnc_clamp;
