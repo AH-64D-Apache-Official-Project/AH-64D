@@ -609,18 +609,6 @@ class FzaIconTypes {
         color = MPD_ICON_COLOR_YELLOW;
     };
 
-    //--------------------FCR BLANK--------------------
-    class FCR_ADU_BLANK:IconTypeH { 
-        tex1 = ""; 
-        tex2 = "";
-        type  = POINT_TYPE_FCR;
-        color = MPD_ICON_COLOR_YELLOW;
-    };
-    class FCR_HELI_BLANK:FCR_ADU_BLANK {};
-    class FCR_TRACK_BLANK:FCR_ADU_BLANK {};
-    class FCR_UNK_BLANK:FCR_ADU_BLANK {};
-    class FCR_WHEEL_BLANK:FCR_ADU_BLANK {};
-    class FCR_FLYER_BLANK:FCR_ADU_BLANK {};
 
     //--------------------FCR LOAL--------------------
     //ADU
