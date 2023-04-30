@@ -162,17 +162,15 @@ private _pointsArray = [];
         };
     };
     //Unit select status
-    if(_unitStatus !=  "BLANK") then {
-        if (_forEachIndex == _ntsIndex) then {
-            if (_wasState == WAS_WEAPON_NONE) then {
-                _unitSelAndWpnStatus = ["NTS", "NOMSL"];
-            } else {
-                _unitSelAndWpnStatus = ["NTS"];
-            };
+    if (_forEachIndex == _ntsIndex) then {
+        if (_wasState == WAS_WEAPON_NONE) then {
+            _unitSelAndWpnStatus = ["NTS", "NOMSL"];
+        } else {
+            _unitSelAndWpnStatus = ["NTS"];
         };
-        if (_forEachIndex == _antsIndex) then {
-            _unitSelAndWpnStatus = ["ANTS"];
-        };
+    };
+    if (_forEachIndex == _antsIndex) then {
+        _unitSelAndWpnStatus = ["ANTS"];
     };
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];

@@ -608,8 +608,6 @@ class FzaIconTypes {
         type  = POINT_TYPE_FCR;
         color = MPD_ICON_COLOR_YELLOW;
     };
-
-
     //--------------------FCR LOAL--------------------
     //ADU
     class FCR_ADU_LOAL:IconTypeH { 
@@ -703,7 +701,6 @@ class FzaIconTypes {
     class FCR_WHEEL_LOBL_ANTS:FCR_WHEEL_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_WHEEL_LOBL_NTS:FCR_WHEEL_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_WHEEL_LOBL_NTS_NOMSL:FCR_WHEEL_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
-
     //--------------------FCR MOVE--------------------
     //ADU
     class FCR_ADU_MOVE : IconTypeH { 
