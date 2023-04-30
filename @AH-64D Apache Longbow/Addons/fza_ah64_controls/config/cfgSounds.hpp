@@ -135,5 +135,4 @@ class CfgSounds
 		titles[]={};
 	};
 	///END OF DOOR SOUNDS///
-
-};
+	};
