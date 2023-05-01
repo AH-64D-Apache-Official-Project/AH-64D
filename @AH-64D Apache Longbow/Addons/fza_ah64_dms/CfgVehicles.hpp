@@ -84,7 +84,7 @@ class CfgVehicles {
                 tooltip = "Control Measures are allowed to range from 51-99."; //Beware that Present Positions (PPOS) will overwrite CM 93 thru 99.
             };
             class fza_dms_point_ident : fza_dms_point_ident {
-                defaultValue = "'AG'";
+                defaultValue = "'CP'";
                 fza_point_type[] = {POINT_TYPE_CM};
             };
             class fza_dms_point_free : fza_dms_point_free {};
