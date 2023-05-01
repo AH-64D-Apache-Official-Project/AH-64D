@@ -227,7 +227,6 @@ class FzaIconTypes {
     };
     class AP:AA { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ap_ca.paa";};  //Air Control Point
     class BP:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\bp_ca.paa";};  //Battle Position
-    class FA:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\fa_ca.paa";};  //Forward Assembly Area
     class HA:AP { tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\ha_ca.paa";};  //Holding Area
     //Target/Threats
     //ASE
