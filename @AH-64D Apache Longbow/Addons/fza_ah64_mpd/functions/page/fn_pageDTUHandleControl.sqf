@@ -1,5 +1,6 @@
-#include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_mpdIndex", "_control", "_state"];
+#include "\fza_ah64_controls\headers\script_common.hpp"
+
 
 switch(_control) do {
 	case "t1": {

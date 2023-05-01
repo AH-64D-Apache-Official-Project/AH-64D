@@ -1,9 +1,10 @@
 #include "\fza_ah64_dms\headers\constants.h"
 
+//TSD Pages
 #define TSD_ROOT                [0, 0]
 #define TSD_SHOW                [1, 0]
 
-//Waypoint sub-page selections
+//--Waypoint sub-page selections
 #define TSD_WPT                 [2, 0]
 #define TSD_WPT_ADD             [2, 1]
 //--Delete
@@ -37,8 +38,12 @@
 #define TSD_THRT_STO            [4, 6]
 #define TSD_THRT_XMIT           [4, 7]
 
+//FCR Page
 #define FCR_ROOT                [5, 0]
 
+//ASE Page
 #define ASE_ROOT                [6, 0]
 
+//DTU Pages
 #define DTU_ROOT                [7, 0]
+#define DTU_LOAD_STATUS         [7, 1]
