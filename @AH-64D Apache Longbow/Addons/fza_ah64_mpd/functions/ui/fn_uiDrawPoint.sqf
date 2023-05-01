@@ -38,7 +38,7 @@ if (_heli turretLocal [0]) then {
 };
 
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
-    params ["_iconTex", "_iconTex2", "_iconSize", "_iconColor", "_textA", "_textB"];
+    params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
@@ -51,15 +51,6 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     _uiCtr = [_x, _y];
 };
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
-
-private _colorMap = createHashMapFromArray
-    [ [MPD_ICON_COLOR_GREEN,  [0.0, 1.0, 0.5, 1]]
-    , [MPD_ICON_COLOR_BLUE,   [0.4, 0.6, 1.0, 1]]
-    , [MPD_ICON_COLOR_YELLOW, [1.0, 1.0, 0.0, 1]]
-    , [MPD_ICON_COLOR_RED,    [1.0, 0.0, 0.2, 1]]
-    ];
-
-private _color = _colorMap get _iconColor;
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
