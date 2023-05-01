@@ -81,7 +81,6 @@ if (isNull _missileTarget) then {
 		};
 	};
 };
-systemchat str _scPos;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition [(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_targpos select 0)-0.036,(_targpos select 1)-0.05] call fza_fnc_compensateSafezone);
