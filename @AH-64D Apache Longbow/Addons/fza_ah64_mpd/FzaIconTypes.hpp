@@ -701,7 +701,6 @@ class FzaIconTypes {
     class FCR_WHEEL_LOBL_ANTS:FCR_WHEEL_LOBL      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_WHEEL_LOBL_NTS:FCR_WHEEL_LOBL       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_WHEEL_LOBL_NTS_NOMSL:FCR_WHEEL_LOBL { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
-
     //--------------------FCR MOVE--------------------
     //ADU
     class FCR_ADU_MOVE : IconTypeH { 
@@ -749,5 +748,5 @@ class FzaIconTypes {
     class FCR_WHEEL_MOVE_NTS:FCR_WHEEL_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_WHEEL_MOVE_NTS_NOMSL:FCR_WHEEL_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
     //Flyer
-    class FCR_FLYER_MOVE:FCR_ADU_LOAL           { tex = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";};
+    class FCR_FLYER_MOVE:FCR_ADU_LOAL             { tex = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";};
 };

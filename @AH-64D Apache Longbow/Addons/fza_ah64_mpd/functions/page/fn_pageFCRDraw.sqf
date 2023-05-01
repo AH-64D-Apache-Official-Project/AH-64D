@@ -151,14 +151,15 @@ private _pointsArray = [];
     if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
         _unitStatus = "MOVE";
     } else {
-        If (_unitType == "FLYER") then {
-            _unitType = "UNK";
-        };
-        if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        } else {
+        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
             _unitStatus = "LOBL";
-        }
+        };
+        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "LOAL";
+        };
+        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE || _unitType == "FLYER") then {
+            continue;
+        };
     };
     //Unit select status
     if (_forEachIndex == _ntsIndex) then {
