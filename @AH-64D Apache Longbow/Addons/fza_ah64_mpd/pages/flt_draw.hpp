@@ -39,36 +39,7 @@ class flt_draw {
     ///////////////// Airspeed ///////////////
     MPD_TEXT_L(Airspeed, 0.16, 0.5, MPD_TEXT_USER_SCALE(MFD_TEXT_IND_FLT_AIRSPEED, MPD_SCALE_MPS_KNOTS))
 
-    ///////////////// Heading Tape ///////////////
-    class HeadingTape {
-        //Source info
-        source = heading;
-        sourceScale = 1;
-
-        //Tape setup
-        type = scale;
-        horizontal = 1;
-        neverEatSeaWeed = 1;
-        step = 10;
-        stepSize = __EVAL(0.5/18-0.001);
-        lineXLeft = 0.15;
-        lineYRight = 0.165;
-        lineXLeftMajor = 0.15;
-        lineYRightMajor = 0.18;
-        top = 0.25;
-        bottom = 0.75;
-        center = 0.5;
-        majorLineEach = 3;
-        numberEach = 3;
-        width = 3;
-
-        //Text config
-        align = center;
-        scale = 1;
-        pos[] = {0.25, 0.15-MPD_TEXT_HEIGHT};
-        right[] = {0.25 + MPD_TEXT_WIDTH_VEC, 0.15-MPD_TEXT_HEIGHT};
-        down[] = {0.25, 0.15};
-    };
+    #include "common\headingtape.hpp"
 
     #define MPD_FLT_HORIZON_LINE_TEXT(angle, startX, startY, alignment) class text_##alignment {\
             type = text; \

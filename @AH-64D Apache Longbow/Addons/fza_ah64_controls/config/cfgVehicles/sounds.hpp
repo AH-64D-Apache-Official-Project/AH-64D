@@ -175,4 +175,16 @@ class Sounds
             frequency = 1;
             volume = "engineOn * (1-camPos) * ((gmeterZ factor[1.5, 2.5]) + (gmeterZ factor[0.5, -0.5]))";
         };
+        class ETL_VRS_Shake_01
+        {
+            sound[]   = {"\fza_ah64_us\audio\CreakingAirFrame.ogg", 1, 1};
+            frequency = "CustomSoundController3";
+            volume    = "(1-camPos)*rotorSpeed*CustomSoundController4";
+        };
+        class ETL_VRS_Shake_02
+        {
+            sound[]   = {"A3\Sounds_F\vehicles\noises\vehicle_stress3", 1, 1};
+            frequency = "CustomSoundController3";
+            volume    = "(1-camPos)*rotorSpeed*CustomSoundController4";
+        };
 };

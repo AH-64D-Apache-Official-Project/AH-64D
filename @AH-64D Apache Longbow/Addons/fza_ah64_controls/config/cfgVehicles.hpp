@@ -50,6 +50,7 @@ class CfgVehicles
 		maxSpeed               = 298;
 		altFullForce 		   = 1615;
 		altNoForce 			   = 9000;
+		fza_flightModel		   = "SFMPlus";
 		//SFM Variables-------------/
 
 		side=1;
@@ -242,9 +243,9 @@ class CfgVehicles
 		#include "cfgVehicles\ace.hpp"
 		#include "sensor_b2e.hpp"
 
-		//map light condition not working
-		ace_map_vehicleExteriorTurrets[] = {-1,0,1,2}; // due to ace limits, this is set in script
-
+		//SFM Variables-------------/
+		fza_flightModel			   = "SFMPlus";
+		//SFM Variables-------------/
 
 		ace_vehicle_damage_hullDetonationProb = 0.1;
 		ace_vehicle_damage_turretDetonationProb = 0.2;
@@ -445,6 +446,7 @@ class CfgVehicles
 
 		//SFM Variables-------------/
 		liftForceCoef          = 0.00;
+		fza_flightModel			   = "HeliSim";
 		//SFM Variables-------------/
 	};
 };

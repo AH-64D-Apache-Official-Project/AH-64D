@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT 0.045
+#define TEXT_HEIGHT 0.035
 disableSerialization;
 params
     ["_heli"
@@ -37,19 +37,12 @@ if (_heli turretLocal [0]) then {
     _heli animateSource ["cpg_uiscale", _yScale];
 };
 
-private _iconType = _dmsPoint # POINT_GET_ICON_TYPE;
-// If an icon is now a different type, wipe the existing ctrls to rebuild
-if (!("type" in _ctrlPoint) || {_iconType isNotEqualTo (_ctrlPoint get "type")}) then {
-    {if (typeName _y == "CONTROL") then {ctrlDelete _y; _ctrlPoint deleteAt _x};} forEach _ctrlPoint;
-    _ctrlPoint set ["type", _iconType];
-};
-
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
-    params ["_iconTex", "_iconSize", "_iconColor", "_textA", "_textB"];
+    params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
-private _uiCtr = _armaPos;
+private _uiCtr   = _armaPos;
 if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _armaPos # 0, _armaPos # 1, _heading] call fza_fnc_relativeDirection;
     private _r = _heliPos distance2D _armaPos;
@@ -59,20 +52,18 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
 };
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
-// Icon draw
+// Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
 _iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
 
-private _colorMap = createHashMapFromArray
-    [ [MPD_ICON_COLOR_GREEN, [0.2,1,0,1]]
-    , [MPD_ICON_COLOR_CYAN, [0,1,1,1]]
-    , [MPD_ICON_COLOR_YELLOW, [1,1,0,1]]
-    , [MPD_ICON_COLOR_RED, [1,0,0,1]]
-    ];
-
-private _textColor = _colorMap get _iconColor;
+private _iconCtrl2 = [_display, _ctrlPoint, "icon2", "RscPicture"] call _getOrCreateCtrl;
+_iconCtrl2 ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl2 ctrlSetTextColor _color;
+_iconCtrl2 ctrlSetText (_iconTex2);
+_iconCtrl2 ctrlCommit 0;
 
 private _drawText = {
     params ["_textPrefix", "_textData"];
@@ -95,7 +86,7 @@ private _drawText = {
         , 1
         , 1 * _yScale
         ];
-    _textCtrl ctrlSetTextColor _textColor;
+    _textCtrl ctrlSetTextColor _color;
     _textCtrl ctrlSetFontHeight (TEXT_HEIGHT*_yScale);
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;

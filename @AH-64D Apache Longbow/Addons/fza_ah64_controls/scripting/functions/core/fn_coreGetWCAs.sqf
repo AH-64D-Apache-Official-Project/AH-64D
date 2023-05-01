@@ -34,6 +34,9 @@ Author:
 
 params ["_heli"];
 
+private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
+
 private _mags = _heli weaponsTurret [-1];
 
 private _wcas = [];
@@ -71,7 +74,7 @@ if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
 if (getpos _heli # 2 >= 3) then {
 	_onGnd = false;
 };
-private _rtrRPM = ((_heli animationPhase "mainrotorRPM") * 1.08) / 10;
+private _rtrRPM     = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 //--Transmission
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";
 //--Tail rotor & Intermediate gearboxes

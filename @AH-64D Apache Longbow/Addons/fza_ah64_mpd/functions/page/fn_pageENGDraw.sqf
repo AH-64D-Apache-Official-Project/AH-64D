@@ -2,6 +2,9 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli", "_mpdIndex"];
 
+private _configVehicles = configOf _heli >> "CfgVehicles";
+private _flightModel    = getText (_configVehicles >> "fza_flightModel");
+
 // #region ENGINE 1
 private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
 private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
@@ -47,11 +50,15 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_2), (_e2ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFixed 0];
 
 // #region ROTORS
-private _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
-_rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
-
+private _rotorRpm = 0.0;
+if (_flightModel == "SFMPlus") then {
+ 	_rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
+	_rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
+} else {
+	_rotorRpm = _e1Np max _e2Np;
+};
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
+_heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
 
 //TODO: Change so sound occurs even if not in engine page
 /*

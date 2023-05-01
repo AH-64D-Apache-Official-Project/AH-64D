@@ -10,6 +10,11 @@ class CfgPatches
     };
 };
 
-#include "CfgVehicles.hpp"
-#include "CfgFunctions.hpp"
+#include "\fza_ah64_controls\config\defines.hpp"
+#include "headers\constants.h"
 #include "extendedEventHandlers.hpp"
+
+#include "Cfg3DEN.hpp"
+#include "CfgFunctions.hpp"
+#include "CfgVehicleClasses.hpp"
+#include "CfgVehicles.hpp"

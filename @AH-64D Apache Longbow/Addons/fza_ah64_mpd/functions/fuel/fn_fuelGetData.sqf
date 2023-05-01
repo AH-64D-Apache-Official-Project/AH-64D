@@ -4,8 +4,9 @@ params ["_heli"];
 #define FUEL_FLOW_LBS_PER_HOUR 7936.64;
 
 private _forwardCellWeight = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
+private _ctrFuelWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
 private _aftCellWeight     = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
-private _totFuelCellWeight = _forwardCellWeight + _aftCellWeight;
+private _totFuelCellWeight = _forwardCellWeight + _ctrFuelWeight + _aftCellWeight;
 _forwardCellWeight = _forwardCellWeight * KGTOLBS;
 _aftCellWeight     = _aftCellWeight * KGTOLBS;
 _totFuelCellWeight = _totFuelCellWeight * KGTOLBS;
