@@ -14,6 +14,7 @@ class CfgPatches
 #include "headers\constants.h"
 #include "extendedEventHandlers.hpp"
 
+#include "Cfg3DEN.hpp"
+#include "CfgFunctions.hpp"
 #include "CfgVehicleClasses.hpp"
 #include "CfgVehicles.hpp"
-#include "CfgFunctions.hpp"
