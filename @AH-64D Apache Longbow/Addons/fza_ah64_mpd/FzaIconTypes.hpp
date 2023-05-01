@@ -132,6 +132,7 @@ class FzaIconTypes {
     //Control Measures
     class BR:IconTypeA  {         //Bridge
         tex   = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\br_ca.paa";
+        color[] = MPD_ICON_COLOR_GREEN;
         type  = POINT_TYPE_CM;
         textA = MPD_ICON_TEXT_ID;
         textAOffset[] = {0.6,0.5}; 
