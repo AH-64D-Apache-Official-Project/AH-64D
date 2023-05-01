@@ -16,6 +16,7 @@ class FzaIconTypes {
     // Common templates to be used for generating icons.
     // Position text around the icons in standard locations
     class IconTypeA {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.7,0.5};
@@ -23,6 +24,7 @@ class FzaIconTypes {
         textAVAlign = "center";
     };
     class IconTypeB {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.5, 0.5};
@@ -30,6 +32,7 @@ class FzaIconTypes {
         textAVAlign = "center";
     };
     class IconTypeC {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.5, 0.51};
@@ -37,6 +40,7 @@ class FzaIconTypes {
         textAVAlign = "top";
     };
     class IconTypeD {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.83,0.5};
@@ -48,6 +52,7 @@ class FzaIconTypes {
         textBVAlign = "bottom";
     };
     class IconTypeE {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.5, 0.25};
@@ -55,6 +60,7 @@ class FzaIconTypes {
         textAVAlign = "bottom"
     };
     class IconTypeF {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.55, 0.5};
@@ -62,6 +68,7 @@ class FzaIconTypes {
         textAVAlign = "center";
     };
     class IconTypeG {
+        type = -1;
         size = ICON_SIZE;
 
         textAOffset[] = {0.2, 0.3};
@@ -73,6 +80,7 @@ class FzaIconTypes {
         textBVAlign = "center";
     };
     class IconTypeH {
+        type = -1;
         size = ICON_SIZE;
     };
 //--------------------Icon Type A--------------------

@@ -30,19 +30,19 @@ class CfgVehicles {
                 unique = 0;
                 validate = number;
                 typeName = NUMBER;
-                condition = "object";
+                condition = "1";
             };
             class fza_dms_point_ident {
                 displayName = "Point Ident";
                 tooltip = "The 2-character IDENT code describing the point";
-                control = "Edit"
+                control = fza_dms_ident;
                 property = "fza_dms_point_ident";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "";
                 unique = 0;
                 validate = none;
                 typeName = STRING;
-                condition = "object";
+                condition = "1";
             };
             class fza_dms_point_free {
                 displayName = "Point Free Text";
@@ -54,7 +54,7 @@ class CfgVehicles {
                 unique = 0;
                 validate = none;
                 typeName = STRING;
-                condition = "object";
+                condition = "1";
             };
         };
     };
@@ -69,6 +69,7 @@ class CfgVehicles {
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'WP'";
+                fza_point_type[] = {POINT_TYPE_WP, POINT_TYPE_HZ};
             };
             class fza_dms_point_free : fza_dms_point_free {};
             // I know this shouldn't need to be here, but it does
@@ -84,6 +85,7 @@ class CfgVehicles {
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'AG'";
+                fza_point_type[] = {POINT_TYPE_CM};
             };
             class fza_dms_point_free : fza_dms_point_free {};
             // I know this shouldn't need to be here, but it does
@@ -99,6 +101,7 @@ class CfgVehicles {
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'TG'";
+                fza_point_type[] = {POINT_TYPE_TG};
             };
             class fza_dms_point_free : fza_dms_point_free {};
             // I know this shouldn't need to be here, but it does
