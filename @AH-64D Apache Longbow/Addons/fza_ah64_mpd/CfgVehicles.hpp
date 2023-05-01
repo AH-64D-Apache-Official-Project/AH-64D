@@ -123,6 +123,9 @@ class CfgVehicles {
 				index = MPD_PAGE_DTU;
 				draw  = "fza_mpd_fnc_pageDTUDraw";
 				handleControl = "fza_mpd_fnc_pageDTUHandleControl";
+				class InitState {
+					subPageVarPage[] = {0,0};
+				};
 			};
 			class FCR {
 				index = MPD_PAGE_FCR;

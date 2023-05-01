@@ -281,6 +281,9 @@
 //--Wind Speed & Direction
 #define MFD_TEXT_IND_WIND 16
 
+//DTU Page
+#define MFD_IND_DTU_SUBPAGE 0
+
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1

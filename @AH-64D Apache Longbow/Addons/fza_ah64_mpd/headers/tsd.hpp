@@ -40,3 +40,5 @@
 #define FCR_ROOT                [5, 0]
 
 #define ASE_ROOT                [6, 0]
+
+#define DTU_ROOT                [7, 0]

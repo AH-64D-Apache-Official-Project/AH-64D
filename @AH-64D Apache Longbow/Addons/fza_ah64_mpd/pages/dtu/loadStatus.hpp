@@ -1,0 +1,15 @@
+class loadStatus_draw {
+    class vabs {
+        //T1
+        MPD_BOX_TALL_C(DTU, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 3)
+        MPD_ARROW_C(DTU, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 3)
+        MPD_TEXT_C(DTU,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("DTU"))
+        
+        //B1
+        MPD_TEXT_C(DMS,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("DMS"))
+
+        //L1
+        MPD_BOX_R(SHOW, MPD_POS_BUTTON_L_X,  MPD_POS_BUTTON_LR_1_Y, 3)
+        MPD_TEXT_R(LOAD,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("MTL"))
+    };
+};
