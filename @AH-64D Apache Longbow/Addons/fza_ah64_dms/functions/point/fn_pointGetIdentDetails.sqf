@@ -34,8 +34,8 @@ if (isText (_config >> "tex2")) then {
 };
 
 private _color = MPD_ICON_COLOR_GREEN;
-if (isNumber (_config >> "color")) then {
-    _color = getNumber (_config >> "color");
+if (isArray (_config >> "color")) then {
+    _color = getArray (_config >> "color");
 };
 
 private _type = POINT_TYPE_WP;
