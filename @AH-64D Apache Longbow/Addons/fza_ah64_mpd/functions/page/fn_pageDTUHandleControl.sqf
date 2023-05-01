@@ -8,4 +8,7 @@ switch(_control) do {
     case "b1": {
 		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
 	};
-};
+	case "l1": {
+		[missionNamespace, _heli] call fza_dms_fnc_copy;
+	};
+}; 
