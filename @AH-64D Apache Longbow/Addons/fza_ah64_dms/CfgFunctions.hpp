@@ -9,11 +9,16 @@ class CfgFunctions
         tag="fza_dms";
         class functions {
             file = "\fza_ah64_dms\functions";
+            class copy{R;};
             class gridToPos{R;};
             class init{R;};
             class latLongToString{R;};
             class posToGrid{R;};
             class posToLatLong{R;};
+        };
+        class eden {
+            file = "\fza_ah64_dms\functions\eden";
+            class edenPointModify{R;};
         };
         class point {
             file = "\fza_ah64_dms\functions\point";
@@ -28,6 +33,7 @@ class CfgFunctions
             class pointNextFree{R;};
             class pointParse{R;};
             class pointToString{R;};
+            class pointValidIndex{R;};
         };
         class route {
             file = "\fza_ah64_dms\functions\route";
