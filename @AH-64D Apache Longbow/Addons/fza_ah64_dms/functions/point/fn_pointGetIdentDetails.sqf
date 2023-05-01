@@ -33,12 +33,9 @@ if (isText (_config >> "tex2")) then {
     _tex2 = getText (_config >> "tex2");
 };
 
-private _color = MPD_ICON_COLOR_GREEN;
-if (isNumber (_config >> "color")) then {
-    _color = getNumber (_config >> "color");
-};
+private _color = getArray (_config >> "color");
 
-private _type = POINT_TYPE_WP;
+private _type = -1;
 if (isNumber (_config >> "type")) then {
     _type = getNumber (_config >> "type");
 };
