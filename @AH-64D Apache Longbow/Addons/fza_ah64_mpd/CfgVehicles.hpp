@@ -124,7 +124,8 @@ class CfgVehicles {
 				draw  = "fza_mpd_fnc_pageDTUDraw";
 				handleControl = "fza_mpd_fnc_pageDTUHandleControl";
 				class InitState {
-					subPageVarPage[] = {0,0};
+					subPage = DTU_ROOT;
+					loadState = MFD_DTU_LOAD_COMPLETE;
 				};
 			};
 			class FCR {

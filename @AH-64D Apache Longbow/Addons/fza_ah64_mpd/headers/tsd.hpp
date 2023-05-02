@@ -45,5 +45,5 @@
 #define ASE_ROOT                [6, 0]
 
 //DTU Pages
-#define DTU_ROOT                [7, 0]
-#define DTU_LOAD_STATUS         [7, 1]
+#define DTU_ROOT                0
+#define DTU_LOAD_STATUS         1
