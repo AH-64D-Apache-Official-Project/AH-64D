@@ -37,7 +37,6 @@ class fza_master: Default {
     weaponLockSystem = 0;
     lockType = 2;
 };
-};
 
 ///////////////////////////////////////////////////////////////////////
 ////////////////////////USAF Flares From AC130 Beta////////////////////
@@ -47,70 +46,71 @@ class fza_master: Default {
 //////////////////////////////// pingopete ////////////////////////////
 
 class fza_AC130_Flares {
-class fza_FlareSmokeLong_VERYLOW {
-    simulation = "particles";
-    type = "fza_FlareSmokeLong_LOW";
-    position[] = {
-        0,
-        0,
-        0
+    class fza_FlareSmokeLong_VERYLOW {
+        simulation = "particles";
+        type = "fza_FlareSmokeLong_LOW";
+        position[] = {
+            0,
+            0,
+            0
+        };
+        intensity = 1;
+        interval = 1;
+        lifeTime = 4.5;
+        qualityLevel = 0;
+        enabled = 1;
     };
-    intensity = 1;
-    interval = 1;
-    lifeTime = 4.5;
-    qualityLevel = 0;
-    enabled = 1;
-};
-class fza_FlareLightMain_LOW {
-    simulation = "light";
-    type = "fza_FlareLightMain";
-    position[] = {
-        0,
-        0,
-        0
+    class fza_FlareLightMain_LOW {
+        simulation = "light";
+        type = "fza_FlareLightMain";
+        position[] = {
+            0,
+            0,
+            0
+        };
+        intensity = 1;
+        interval = 1;
+        lifeTime = 3.5;
+        qualityLevel = 1;
+        enabled = 1;
     };
-    intensity = 1;
-    interval = 1;
-    lifeTime = 3.5;
-    qualityLevel = 1;
-    enabled = 1;
-};
-class fza_FlareLightMain {
-    simulation = "light";
-    type = "fza_FlareLightMain";
-    position[] = {
-        0,
-        0,
-        0
+    class fza_FlareLightMain {
+        simulation = "light";
+        type = "fza_FlareLightMain";
+        position[] = {
+            0,
+            0,
+            0
+        };
+        intensity = 1;
+        interval = 1;
+        lifeTime = 3.5;
+        qualityLevel = 0;
+        enabled = 1;
     };
-    intensity = 1;
-    interval = 1;
-    lifeTime = 3.5;
-    qualityLevel = 0;
-    enabled = 1;
-};
-class fza_FlareLightwhite {
-    simulation = "light";
-    type = "fza_FlareLightwhite";
-    position[] = {
-        0,
-        0,
-        0
+    class fza_FlareLightwhite {
+        simulation = "light";
+        type = "fza_FlareLightwhite";
+        position[] = {
+            0,
+            0,
+            0
+        };
+        intensity = 1;
+        interval = 1;
+        lifeTime = 4;
+        enabled = 1;
     };
-    intensity = 1;
-    interval = 1;
-    lifeTime = 4;
-    enabled = 1;
-};
-class fza_Flare_DayTime {
-    simulation = "particles";
-    type = "Cmeasures2";
-    position[] = {
-        0,
-        0,
-        0
+    class fza_Flare_DayTime {
+        simulation = "particles";
+        type = "Cmeasures2";
+        position[] = {
+            0,
+            0,
+            0
+        };
+        intensity = 4;
+        interval = 1;
+        lifeTime = 3.2;
     };
-    intensity = 4;
-    interval = 1;
-    lifeTime = 3.2;
 };
