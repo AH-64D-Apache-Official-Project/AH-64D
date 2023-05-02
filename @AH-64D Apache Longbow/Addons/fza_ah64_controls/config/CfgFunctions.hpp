@@ -170,7 +170,6 @@ class CfgFunctions
 			class aseGunnerFlare {R;};
 			class aseController {R;};
 			class aseIRJam {R;};
-			class aseRFJam {R;};
 			class aseRLWR {R;};
 		};
 	};

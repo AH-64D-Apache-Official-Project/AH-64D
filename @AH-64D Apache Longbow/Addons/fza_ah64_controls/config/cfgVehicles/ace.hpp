@@ -17,7 +17,6 @@ ace_repair_hitpointPositions[] = {
     {"FCR", 						{0,2,1.6}},
     {"TailBoom", 					{0,-3,-2}},
     {"IrJammer", 					{-1,5,-1.6}},
-    {"RfJammer", 					{1,5,-1.6}},
     {"Pylon1", 						{-2.385,2.4,-1.8}},
     {"Pylon2", 						{-1.665,2.4,-1.8}},
     {"Pylon3", 						{1.665,2.4,-1.8}},

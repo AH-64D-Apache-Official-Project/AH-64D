@@ -211,7 +211,6 @@
 #define MFD_IND_ASE_RLWR_PWR     1
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
-#define MFD_IND_ASE_RFJAM_STATE  4
 #define MFD_IND_ASE_AUTOPAGE     5
 //--Azimuth
 #define MFD_IND_ASE_OBJECT_01_AZ 6

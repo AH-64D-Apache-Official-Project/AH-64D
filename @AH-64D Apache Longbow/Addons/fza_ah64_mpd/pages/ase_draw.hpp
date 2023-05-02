@@ -64,15 +64,6 @@ class ase_draw {
             //Autopage bottom
             {{0.080, 0.870}, 1}, 
             {{0.002, 0.870}, 1}, {},
-            //RJAM left
-            {{0.545, 0.998}, 1}, 
-            {{0.545, 0.920}, 1}, {},
-            //RJAM top
-            {{0.545, 0.920}, 1}, 
-            {{0.890, 0.920}, 1}, {},
-            //RJAM right
-            {{0.890, 0.920}, 1}, 
-            {{0.890, 0.998}, 1}, {},
             //Heading box top
             MPD_POINTS_BOX(Null, 0.5-(1.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y+0.005, 3*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.01), {},
             //Heading box bottom
@@ -238,14 +229,6 @@ class ase_draw {
                 };
             };
             MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
-            //Draw ASE Objects    
-            ASE_OBJ(01, MFD_IND_ASE_OBJECT_01_MD)
-            ASE_OBJ(02, MFD_IND_ASE_OBJECT_02_MD)
-            ASE_OBJ(03, MFD_IND_ASE_OBJECT_03_MD)
-            ASE_OBJ(04, MFD_IND_ASE_OBJECT_04_MD)
-            ASE_OBJ(05, MFD_IND_ASE_OBJECT_05_MD)
-            ASE_OBJ(06, MFD_IND_ASE_OBJECT_06_MD)
-            ASE_OBJ(07, MFD_IND_ASE_OBJECT_07_MD)
         };
     };
 
@@ -312,16 +295,6 @@ class ase_draw {
         MPD_TEXT_L(RLWR_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RLWR "))
         //MPD_BOX_L(PGM,   MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, 2)
 
-
-        //B1 or M
-        MPD_TEXT_C(TSD,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("TSD"))
-        //B4
-        MPD_TEXT_C(OFF,  MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OFF"))
-        //B5
-        MPD_TEXT_C(STBY, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("STBY"))
-        //B6
-        MPD_TEXT_C(OPER, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OPER"))
-
         //L1
         MPD_TEXT_R(MODE,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF MODE"))
         MPD_BOX_R(PGM,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 7)
@@ -354,38 +327,6 @@ class ase_draw {
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
     };
 
-    //RF Jammer
-    class textBox_RFJAM_Off {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OFF));
-        MPD_BOX_C(OFF,  MPD_POS_BUTTON_TB_4_X+0.025, MPD_POS_BUTTON_B_Y, 3)
-    };
-    class polygon_RFJAM_Warm_Stby {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_WARM_STBY));
-         MPD_BOX_INV_C(WARM_STBY,  MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
-        //B5
-        color[] = {0,0,0,1};
-        class text_color {
-            MPD_TEXT_C(STBY_BLK, MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("STBY"))
-        };
-    };
-    class textBox_RFJAM_Stby {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_STBY));
-        MPD_BOX_C(STBY,  MPD_POS_BUTTON_TB_5_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
-    };
-    class polygon_RFJAM_Warm_Oper {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_WARM_OPER));
-         MPD_BOX_INV_C(WARM_OPER,  MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
-        //B5
-        color[] = {0,0,0,1};
-        class text_color {
-            MPD_TEXT_C(OPER_BLK, MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("OPER"))
-        };
-    };    
-    class textBox_RFJAM_Oper {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RFJAM_STATE), ASE_RFJAM_STATE_OPER));
-        MPD_BOX_C(OPER,  MPD_POS_BUTTON_TB_6_X+0.0125, MPD_POS_BUTTON_B_Y, 4)
-    };
-
     //ASE Autopage
     class textBox_AutopageSrh {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AUTOPAGE), ASE_AUTOPAGE_SRH));
@@ -415,12 +356,6 @@ class ase_draw {
         MPD_TEXT_R(AUTOPAGE_07, 0.08, 0.600+2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("G"))
         MPD_TEXT_R(AUTOPAGE_08, 0.08, 0.600+3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
 
-        //RJAM text
-        MPD_TEXT_C(RJAM_01,  0.718 - 1.5*MPD_TEXT_WIDTH, 0.93 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("R"))
-        MPD_TEXT_C(RJAM_02,  0.718 - 0.5*MPD_TEXT_WIDTH, 0.93 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("J"))
-        MPD_TEXT_C(RJAM_03,  0.718 + 0.5*MPD_TEXT_WIDTH, 0.93 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
-        MPD_TEXT_C(RJAM_04,  0.718 + 1.5*MPD_TEXT_WIDTH, 0.93 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
-
         //Chaff count box
         MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
         MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
@@ -431,13 +366,14 @@ class ase_draw {
     };
 };
 
-/*class ase_threats_gnd {
+class ase_threats_gnd {
+    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_RLWR_PWR)));
     color[] = {1,1,0,1};
     class sensor_group {
         type            = sensor;
         pos[]           = {{0.175, 0.175}, 1};  //top left of circle
         down[]          = {{0.825, 0.825}, 1};  //bottom right of circle
-        showTargetTypes = 2+4+8+16+32+64+128+1024;
+        showTargetTypes = 2+8+64+128;
         //1 - Sensor sectors,
         //2 - Threats, <--Lock/Launch cone
         //4 - Marked tgt symbol,
@@ -449,26 +385,11 @@ class ase_draw {
         //256 - Air tgts,
         //512 - Men,
         //1024 - Special (laser, NV)
-        
         width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
         sensorLineType    = 0;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
         sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
-        range             = 5000;
+        range             = 4000;
         
-        class MissileThreat { <-- No MWS so a whole lotta nope here.
-            color[] = {1,1,0,1};
-            class TargetLines {
-                type = line;
-                width = 3;
-                points[] = {
-                    {{-0.04,  0.04}, 1},
-                    {{ 0.04,  0.04}, 1},
-                    {{ 0.04, -0.04}, 1},
-                    {{-0.04, -0.04}, 1},
-                    {{-0.04,  0.04}, 1},
-                };
-            };
-        };
         class rwr { //Radar is emitting
             class TargetLines {
                 type = line;
@@ -484,7 +405,7 @@ class ase_draw {
             class Text {
                 type        ="text";
                 source      ="static";
-                text        ="S A";
+                text        ="SA";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
@@ -512,7 +433,7 @@ class ase_draw {
         class Text {
                 type        ="text";
                 source      ="static";
-                text        ="S A";
+                text        ="SA";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
@@ -540,7 +461,7 @@ class ase_draw {
             class Text {
                 type        ="text";
                 source      ="static";
-                text        ="S A";
+                text        ="SA";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
@@ -620,4 +541,4 @@ class ase_draw {
             };
         };
     };
-};*/
+};

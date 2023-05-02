@@ -21,10 +21,6 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
 private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
 
-//RF Jammer
-private _rfJamState = _heli getVariable "fza_ah64_ase_rfJamState";
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RFJAM_STATE), _rfJamState];
-
 //Autopage
 private _autopage = _heli getVariable "fza_ah64_ase_autopage";
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];

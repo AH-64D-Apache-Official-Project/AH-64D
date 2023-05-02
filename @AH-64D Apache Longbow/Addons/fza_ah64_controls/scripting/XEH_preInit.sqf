@@ -113,7 +113,6 @@ fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
 fza_ah64_locktargstate = 0;
 fza_ah64_irjammer = 0;
-fza_ah64_rfjammer = 0;
 fza_ah64_salvofired = 0;
 fza_ah64_mynum = 0;
 fza_ah64_lastdir = 0;
