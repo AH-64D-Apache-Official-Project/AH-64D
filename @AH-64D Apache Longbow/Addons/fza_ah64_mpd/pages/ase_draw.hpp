@@ -438,12 +438,12 @@ class ase_threats_gnd {
         class markingThreat: rwr {   //Radar tracking (acquisition)
             class TargetLines : TargetLines {
                 points[] = {
-                    //Acquistion/Tracking Box
-                    {{-0.04,  0.04}, 1},
-                    {{ 0.04,  0.04}, 1},
-                    {{ 0.04, -0.04}, 1},
-                    {{-0.04, -0.04}, 1},
-                    {{-0.04,  0.04}, 1},
+                    //Acquistion/Tracking Diamond
+                    {{ 0.00,  0.04}, 1},
+                    {{ 0.04,  0.00}, 1},
+                    {{ 0.00, -0.04}, 1},
+                    {{-0.04,  0.00}, 1},
+                    {{ 0.00,  0.04}, 1},
                 };
             };
         class Text {
@@ -461,12 +461,12 @@ class ase_threats_gnd {
         class lockingThreat: rwr {   //Radar is locked on (track/launch)
             class TargetLines : TargetLines {
                 points[] = {
-                    //Acquistion/Tracking Box
-                    {{-0.04,  0.04}, 1},
-                    {{ 0.04,  0.04}, 1},
-                    {{ 0.04, -0.04}, 1},
-                    {{-0.04, -0.04}, 1},
-                    {{-0.04,  0.04}, 1},
+                    //Acquistion/Tracking Diamond
+                    {{ 0.00,  0.04}, 1},
+                    {{ 0.04,  0.00}, 1},
+                    {{ 0.00, -0.04}, 1},
+                    {{-0.04,  0.00}, 1},
+                    {{ 0.00,  0.04}, 1},
                 };
             };
             class Text {
