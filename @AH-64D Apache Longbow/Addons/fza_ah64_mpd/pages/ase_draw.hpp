@@ -373,7 +373,7 @@ class ase_threats_gnd {
         type            = sensor;
         pos[]           = {{0.175, 0.175}, 1};  //top left of circle
         down[]          = {{0.825, 0.825}, 1};  //bottom right of circle
-        showTargetTypes = 2+8+64+128;
+        showTargetTypes = 1+2+8+64+128+256;
         //1 - Sensor sectors,
         //2 - Threats, <--Lock/Launch cone
         //4 - Marked tgt symbol,
@@ -386,42 +386,58 @@ class ase_threats_gnd {
         //512 - Men,
         //1024 - Special (laser, NV)
         width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
-        sensorLineType    = 0;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
+        sensorLineType    = 1;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
         sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
         range             = 4000;
         
-        class rwr { //Radar is emitting
+        /*
+        class MissileThreat { //<-- This shuold only be present on british mission equipment aircraft
+            color[] = {1,1,0,1};
             class TargetLines {
                 type = line;
                 width = 3;
                 points[] = {
-                    //ADU symbol
-                    {{ 0.000,-0.005}, 1},
-                    {{ 0.015, 0.025}, 1},
-                    {{-0.015, 0.025}, 1},
-                    {{ 0.000,-0.005}, 1}
+                    {{ 0.00,  0.04}, 1},
+                    {{ 0.04,  0.00}, 1},
+                    {{ 0.00, -0.04}, 1},
+                    {{-0.04,  0.00}, 1},
+                    {{ 0.00,  0.04}, 1},
                 };
             };
             class Text {
                 type        ="text";
                 source      ="static";
-                text        ="SA";
+                text        ="M";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
-                pos[]       = {{ 0.000,        -0.040       }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.040       }, 1};
-                down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                pos[]       = {{ 0.000,       -0.020       }, 1};
+                right[]     = {{ 0.000 + 0.04,-0.020       }, 1};
+                down[]      = {{ 0.000,       -0.020 + 0.04}, 1};
+            }; 
+        };
+        */
+        class rwr { //Radar is emitting
+            class TargetLines {
+                type = line;
+                width = 3;
+                points[] = {};
+            };
+            class Text {
+                type        ="text";
+                source      ="static";
+                text        ="R";
+                scale       =1;
+                sourceScale =1;
+                align       = "center";
+                pos[]       = {{ 0.000,        -0.020       }, 1};
+                right[]     = {{ 0.000 + 0.04, -0.020       }, 1};
+                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
             }; 
         };
         class markingThreat: rwr {   //Radar tracking (acquisition)
             class TargetLines : TargetLines {
                 points[] = {
-                    //ADU symbol
-                    {{ 0.000,-0.005}, 1},
-                    {{ 0.015, 0.025}, 1},
-                    {{-0.015, 0.025}, 1},
-                    {{ 0.000,-0.005}, 1}, {},
                     //Acquistion/Tracking Box
                     {{-0.04,  0.04}, 1},
                     {{ 0.04,  0.04}, 1},
@@ -433,23 +449,18 @@ class ase_threats_gnd {
         class Text {
                 type        ="text";
                 source      ="static";
-                text        ="SA";
+                text        ="R";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
-                pos[]       = {{ 0.000,        -0.040    }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
-                down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                pos[]       = {{ 0.000,        -0.020    }, 1};
+                right[]     = {{ 0.000 + 0.04, -0.020    }, 1};
+                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
             }; 
         };
         class lockingThreat: rwr {   //Radar is locked on (track/launch)
             class TargetLines : TargetLines {
                 points[] = {
-                    //ADU symbol
-                    {{ 0.000,-0.005}, 1},
-                    {{ 0.015, 0.025}, 1},
-                    {{-0.015, 0.025}, 1},
-                    {{ 0.000,-0.005}, 1}, {},
                     //Acquistion/Tracking Box
                     {{-0.04,  0.04}, 1},
                     {{ 0.04,  0.04}, 1},
@@ -461,13 +472,13 @@ class ase_threats_gnd {
             class Text {
                 type        ="text";
                 source      ="static";
-                text        ="SA";
+                text        ="R";
                 scale       =1;
                 sourceScale =1;
                 align       = "center";
-                pos[]       = {{ 0.000,        -0.040    }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.040    }, 1};
-                down[]      = {{ 0.000,        -0.040 + 0.04}, 1};
+                pos[]       = {{ 0.000,        -0.020    }, 1};
+                right[]     = {{ 0.000 + 0.04, -0.020    }, 1};
+                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
             };  
         };
         class markedTarget {
