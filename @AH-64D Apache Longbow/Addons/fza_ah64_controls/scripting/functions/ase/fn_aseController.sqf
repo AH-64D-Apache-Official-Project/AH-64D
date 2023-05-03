@@ -23,6 +23,5 @@ private _deltaTime = ["ase_deltaTime"] call BIS_fnc_deltaTime;
 
 [_heli] call fza_fnc_aseRLWR;
 [_heli, _deltaTime] call fza_fnc_aseIRJam;
-[_heli, _deltaTime] call fza_fnc_aseRFJam;
 [_heli] call fza_fnc_aseChaff;
 //[_heli] spawn fza_fnc_aseAudioController;

@@ -33,7 +33,7 @@ switch (_irJamState) do {
 		};
 	};
 	case ASE_IRJAM_STATE_WARM: {
-		_irJamTimer = [_irJamTimer, 1.0, (1.0 / ASE_RFJAM_PWR_ON_TIME) * _deltaTime] call BIS_fnc_lerp;
+		_irJamTimer = [_irJamTimer, 1.0, (1.0 / ASE_IRJAM_PWR_ON_TIME) * _deltaTime] call BIS_fnc_lerp;
 
 		if (_irJamTimer > 0.99) then {
 			_irJamState = ASE_IRJAM_STATE_OPER;
