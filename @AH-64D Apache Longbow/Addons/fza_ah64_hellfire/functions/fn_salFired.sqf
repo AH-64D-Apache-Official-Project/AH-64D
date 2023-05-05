@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireSALFired
+Function: fza_hellfire_fnc_salFired
 
 Description:
     Initialises the seeker of the ACE SAL hellfire for the apache
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_hellfireSALFired
+    [_heli] call fza_hellfire_fnc_salFired
 	---
 
 Author:
@@ -24,7 +24,7 @@ _launchParams params ["_shooter","","","_attackProfile","","_laserinfo"];
 _heli = vehicle _shooter;
 
 //AttackProfile
-private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
+private _attackProfile = [_heli] call fza_hellfire_fnc_getattackProfile;
 
 if (_missilelobl) then {
 	_attackProfile = "hellfire";

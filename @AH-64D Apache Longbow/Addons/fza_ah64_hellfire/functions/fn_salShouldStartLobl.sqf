@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireSALShouldStartLobl
+Function: fza_hellfire_fnc_salShouldStartLobl
 
 Description:
     Defines whether a SAL missile should start in LOBL
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
 	--- Code
-    [_heli] call fza_fnc_hellfireSALShouldStartLobl
+    [_heli] call fza_hellfire_fnc_salShouldStartLobl
 	---
 
 ---------------------------------------------------------------------------- */

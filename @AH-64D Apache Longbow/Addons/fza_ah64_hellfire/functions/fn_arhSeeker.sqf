@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireARHSeeker
+Function: fza_hellfire_fnc_arhSeeker
 
 Description:
     The Seeker Head for Radar Missile
@@ -38,12 +38,12 @@ private _selectedTarget		= objNull;
 
 private _seekerConfig = configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance";
 private _seekerAngle = getNumber (_seekerConfig >> "seekerAngle");
-if !([_projectile, _targetPos, _seekerAngle*0.75] call fza_fnc_hellfireCheckSeekerAngle) exitWith {
+if !([_projectile, _targetPos, _seekerAngle*0.75] call fza_hellfire_fnc_checkSeekerAngle) exitWith {
 	_targetPos
 };
 
 if !(isNull _targetObj) then {
-	private _loblCheckLima = [_projectile, [getpos _targetObj, "", speed _targetObj, _targetObj], true] call fza_fnc_hellfireLimaLoblCheck;
+	private _loblCheckLima = [_projectile, [getpos _targetObj, "", speed _targetObj, _targetObj], true] call fza_hellfire_fnc_limaLoblCheck;
 	_seekerStateParams set [4, (_losCounter + 1) % 10];
 	if (_loblCheckLima # 1 || !(_losCounter % 10 == 0)) then {
 		_selectedTarget = _targetObj;
@@ -57,7 +57,7 @@ if !(isNull _targetObj) then {
 	_seekerStateParams set [4, 1];
 	private _newScanTargets  = nearestObjects [_TargetPos, ["land","air","ship"], 500];
 	private _validTargets 	 = _newScanTargets apply {
-		if ((([_projectile, [getpos _x, "", speed _x, _x], true] call fza_fnc_hellfireLimaLoblCheck) # 1)) then {
+		if ((([_projectile, [getpos _x, "", speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck) # 1)) then {
 			_x
 		};
 	};

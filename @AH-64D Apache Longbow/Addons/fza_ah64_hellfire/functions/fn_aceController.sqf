@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireAceController
+Function: fza_hellfire_fnc_aceController
 
 Description:
 	Used to configure ace missile guidance elements to constantly align with Sal Missile variables
@@ -11,7 +11,7 @@ Returns:
 	Nothing
 
 Examples:
-	[_heli] call fza_fnc_hellfireAceController;
+	[_heli] call fza_hellfire_fnc_aceController;
 
 Author:
 	Rosd6(Dryden)
@@ -25,7 +25,7 @@ _code = _hash get _channel;
 _heli setVariable ["ace_laser_code", _code];
 
 //attackprofile
-private _attackProfile = [_heli] call fza_fnc_HellfireGetAttackProfile;
+private _attackProfile = [_heli] call fza_hellfire_fnc_getattackProfile;
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli setVariable ["ace_missileguidance_attackProfile", "hellfire_hi"];
 } else {
