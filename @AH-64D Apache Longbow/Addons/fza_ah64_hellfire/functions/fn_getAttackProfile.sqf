@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_HellfireGetAttackProfile
+Function: fza_hellfire_fnc_getattackProfile
 
 Description:
 	grabs the ace name for the current attack mode.
@@ -11,7 +11,7 @@ Returns:
     grabs the apaches system trajectory setting & outputs the ace cfg Trajectory name
 
 Examples:
-    [_heli] call fza_fnc_HellfireGetAttackProfile
+    [_heli] call fza_hellfire_fnc_getattackProfile
 
 Author:
 	Rosd6(Dryden)

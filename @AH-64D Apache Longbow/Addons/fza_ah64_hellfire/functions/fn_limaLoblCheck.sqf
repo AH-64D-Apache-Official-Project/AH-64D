@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireLimaLoblCheck
+Function: fza_hellfire_fnc_limaLoblCheck
 
 Description:
     A logic path for returning if the Lima hellfire can see the intended target within the given parameters and if it can fire
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
 	--- Code
-    _results = [_heli, [[0, 0, 0], FCR_TYPE_UNKNOWN, speed, targ]] call fza_fnc_hellfireLimaLoblCheck;
+    _results = [_heli, [[0, 0, 0], FCR_TYPE_UNKNOWN, speed, targ]] call fza_hellfire_fnc_limaLoblCheck;
 	---
 
 ---------------------------------------------------------------------------- */
@@ -24,7 +24,7 @@ _targ params ["_targPos", "_targType", "_targSpeed", "_targObj"];
 private _dist = _seeker distance _targPos;
 private _seekerConfig = configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance";
 private _seekerAngle = getNumber (_seekerConfig >> "seekerAngle");
-private _inConstraints = [_seeker, _targPos, _seekerAngle] call fza_fnc_hellfireCheckSeekerAngle;
+private _inConstraints = [_seeker, _targPos, _seekerAngle] call fza_hellfire_fnc_checkSeekerAngle;
 
 if (_dist <= 500 && _inFlight == false) exitWith {[false, false]};
 if (!_inConstraints) exitWith {[false, false]};

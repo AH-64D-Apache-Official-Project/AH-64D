@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireARHFired
+Function: fza_hellfire_fnc_arhFired
 
 Description:
     Sets the seeker params for our custom ARH hellfire seeker head
@@ -30,7 +30,7 @@ private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 private _targObj        = _targinfo #0;
 private _targPos        = _targinfo #1;
 private _targetType     = _targobj call BIS_fnc_objectType;
-private _loblCheckLima  = [_heli, [getpos _targObj, "", speed _targObj, _targObj]] call fza_fnc_hellfireLimaLoblCheck;
+private _loblCheckLima  = [_heli, [getpos _targObj, "", speed _targObj, _targObj]] call fza_hellfire_fnc_limaLoblCheck;
 
 if (!(isNull _targObj) && _loblCheckLima #1) then {
 	_targPos = getposasl _targObj;

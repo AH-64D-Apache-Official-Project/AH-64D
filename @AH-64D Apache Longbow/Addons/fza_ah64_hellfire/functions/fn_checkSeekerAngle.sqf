@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_hellfireCheckSeekerAngle
+Function: fza_hellfire_fnc_checkSeekerAngle
 
 Description:
     returns true,false if target is in seeker angle of the object
