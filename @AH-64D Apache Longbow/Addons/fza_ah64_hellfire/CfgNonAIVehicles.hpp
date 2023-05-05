@@ -1,5 +1,3 @@
-
-	
 class CfgNonAIVehicles {
 	class ProxyWeapon;
     
