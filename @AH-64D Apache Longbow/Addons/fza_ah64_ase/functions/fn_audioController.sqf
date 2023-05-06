@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseAudioController
+Function: fza_ase_fnc_audioController
 
 Description:
 	Handles ASE audio
@@ -12,7 +12,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli, _audioList] call fza_fnc_aseAudioController
+    [_heli, _audioList] call fza_ase_fnc_audioController
 
 Author:
 	Rosd6(Dryden)
@@ -35,7 +35,7 @@ private _priority           = 0;
 	_x params ["_object", "_radarState"];
 
 	// Classification Audio
-	_classification = [_object] call fza_fnc_aseAdaClassification;
+	_classification = [_object] call fza_ase_fnc_adaClassification;
 	private _identity = format ["fza_ah64_bt_%1", _classification];
 
 	// Direction Audio

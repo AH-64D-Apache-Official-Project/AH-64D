@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseMissileWarning
+Function: fza_ase_fnc_missileWarning
 
 Description:
     Audio & text warning of direction of incoming missile
@@ -13,7 +13,7 @@ Returns:
 	Nothing
 	
 Examples:
-	_this spawn fza_fnc_aseMissileWarning;
+	_this spawn fza_ase_fnc_missileWarning;
 	
 Author:
 	Rosd6(Dryden)
@@ -31,7 +31,7 @@ private _posInc = getpos _missile;
 private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
 if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == "on") then {
         
-    _Classification = [_hostile] call fza_fnc_aseAdaClassification;
+    _Classification = [_hostile] call fza_ase_fnc_adaClassification;
     private _identity = format ["fza_ah64_bt_%1", _Classification];
 
     //Detection range

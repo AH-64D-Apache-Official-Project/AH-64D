@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseController
+Function: fza_ase_fnc_controller
 
 
 Description:
@@ -12,7 +12,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseController
+    [_heli] call fza_ase_fnc_controller
 
 Author:
 	BradMick
@@ -21,7 +21,7 @@ params ["_heli"];
 
 private _deltaTime = ["ase_deltaTime"] call BIS_fnc_deltaTime;
 
-[_heli] call fza_fnc_aseRLWR;
-[_heli, _deltaTime] call fza_fnc_aseIRJam;
-[_heli] call fza_fnc_aseChaff;
-//[_heli] spawn fza_fnc_aseAudioController;
+[_heli] call fza_ase_fnc_rlwr;
+[_heli, _deltaTime] call fza_ase_fnc_irJam;
+[_heli] call fza_ase_fnc_chaff;
+//[_heli] spawn fza_ase_fnc_audioController;

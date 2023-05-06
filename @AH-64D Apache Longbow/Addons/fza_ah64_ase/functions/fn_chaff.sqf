@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseChaff
+Function: fza_ase_fnc_chaff
 
 Description:
 	Handles the launching of chaff
@@ -11,7 +11,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseChaff
+    [_heli] call fza_ase_fnc_chaff
 
 Author:
 	BradMick

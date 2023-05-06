@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseIRJAM
+Function: fza_ase_fnc_irJam
 
 Description:
 	Handles the AN/ALQ-144 IR Jammer
@@ -11,7 +11,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseIRJam
+    [_heli] call fza_ase_fnc_irJam
 
 Author:
 	BradMick

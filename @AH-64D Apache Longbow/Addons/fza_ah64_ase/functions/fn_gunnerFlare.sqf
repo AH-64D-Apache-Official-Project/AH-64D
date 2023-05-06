@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseGunnerFlare
+Function: fza_ase_fnc_gunnerFlare
 
 Description:
     Action for Gunner to deploy flares
@@ -10,7 +10,7 @@ Parameters:
     
 Returns:
 Examples:
-    _this Call fza_fnc_aseGunnerFlare;
+    _this Call fza_ase_fnc_gunnerFlare;
 Author:
 	Rosd6(Dryden)
 ---------------------------------------------------------------------------- */

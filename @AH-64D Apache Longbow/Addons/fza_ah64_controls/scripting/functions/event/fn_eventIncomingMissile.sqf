@@ -30,4 +30,4 @@ _Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
 _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
 if (_counter % 2 == 1) exitwith {};
 
-_this spawn fza_fnc_aseMissileWarning;
+_this spawn fza_ase_fnc_missileWarning;

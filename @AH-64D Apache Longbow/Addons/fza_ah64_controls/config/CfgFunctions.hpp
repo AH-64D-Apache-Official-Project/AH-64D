@@ -149,17 +149,5 @@ class CfgFunctions
 			class setTailNumber {R;};
 			class configToHashMap {R;};
 		};
-		class ase
-		{
-			file = "\fza_ah64_controls\scripting\functions\ase";
-			class aseAdaClassification {R;};
-			class aseAudioController {R;};
-			class aseMissileWarning {R;};
-			class aseChaff {R;};
-			class aseGunnerFlare {R;};
-			class aseController {R;};
-			class aseIRJam {R;};
-			class aseRLWR {R;};
-		};
 	};
 };

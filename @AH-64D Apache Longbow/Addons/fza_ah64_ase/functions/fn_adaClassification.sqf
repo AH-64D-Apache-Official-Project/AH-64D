@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseAdaClassification
+Function: fza_ase_fnc_adaClassification
 
 Description:
 	handles returns anti air classification
@@ -11,7 +11,7 @@ Returns:
 	_classification
 
 Examples:
-    _classification = [_object] call fza_fnc_aseAdaClassification
+    _classification = [_object] call fza_ase_fnc_adaClassification
 
 Author:
 	Rosd6(Dryden)
