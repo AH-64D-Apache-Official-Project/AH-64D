@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_aseRLWR
+Function: fza_ase_fnc_rlwr
 
 
 Description:
@@ -12,7 +12,7 @@ Returns:
 	Nothing
 
 Examples:
-    [_heli] call fza_fnc_aseRLWR
+    [_heli] call fza_ase_fnc_rlwr
 
 Author:
 	BradMick
@@ -75,4 +75,4 @@ _heli setVariable ["fza_ah64_ase_rlwrObjects", _rlwrObjects];
 _rlwrCount = count _rlwrObjects;
 _heli setVariable ["fza_ah64_ase_rlwrCount", _rlwrCount];
 
-[_heli,_rlwrAudio] spawn fza_fnc_aseAudioController;
+[_heli,_rlwrAudio] spawn fza_ase_fnc_audioController;
