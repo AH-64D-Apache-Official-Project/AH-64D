@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_bearingClock.sqf",{230:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Converts a relative bearing to a clock position</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_bearingClock.sqf",{214:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Converts a relative bearing to a clock position</div></div>"});

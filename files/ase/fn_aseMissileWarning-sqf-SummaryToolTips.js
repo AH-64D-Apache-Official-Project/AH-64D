@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:ase/fn_aseMissileWarning.sqf",{122:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Audio &amp; text warning of direction of incoming missile</div></div>"});
