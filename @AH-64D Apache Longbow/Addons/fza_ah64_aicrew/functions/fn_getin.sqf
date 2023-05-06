@@ -3,7 +3,7 @@ Function: fza_aiCrew_fnc_getin
 
 
 Description:
-	handles what the ai does when he GETS IN
+    handles what the ai does when he GETS IN
 
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
@@ -12,13 +12,13 @@ Parameters:
     turret: Array - turret path
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_aiCrew_fnc_getin
     
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_role", "_unit", "_turret"];
 

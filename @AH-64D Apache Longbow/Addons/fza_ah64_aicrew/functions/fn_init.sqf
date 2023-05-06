@@ -3,19 +3,19 @@ Function: fza_aiCrew_fnc_init
 
 
 Description:
-	To set up the aircraft for full ai crew
+    To set up the aircraft for full ai crew
 
 Parameters:
-	Heli: Object - The helicopter to modify
+    Heli: Object - The helicopter to modify
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_aiCrew_fnc_init
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

@@ -6,17 +6,17 @@
 
 class CfgFunctions
 {
-	class fza_ah64_project_AICrew
-	{
+    class fza_ah64_project_AICrew
+    {
         tag = "FZA_AICrew";
-		class functions {
-			file = "\fza_ah64_AICrew\functions";
-			class engineStart {R;};
-			class fireControl {R;};
-			class init {R;};
-			class getIn {R;};
-			class getOut {R;};
-			class floodlight {R;};
-		};
+        class functions {
+            file = "\fza_ah64_AICrew\functions";
+            class engineStart {R;};
+            class fireControl {R;};
+            class init {R;};
+            class getIn {R;};
+            class getOut {R;};
+            class floodlight {R;};
+        };
     };
 };
