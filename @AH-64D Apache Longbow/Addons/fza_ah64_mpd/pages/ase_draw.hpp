@@ -388,7 +388,7 @@ class ase_threats_gnd {
         width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
         sensorLineType    = 1;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
         sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
-        range             = 4000;
+        range             = ASE_DETECT_RANGE_M;
         
         /*
         class MissileThreat { //<-- This shuold only be present on british mission equipment aircraft
