@@ -2,19 +2,19 @@
 Function: fza_fnc_loadoutImportJson
 
 Description:
-	Import of website heicopter configuration and apply it to the helicopter
-	
+    Import of website heicopter configuration and apply it to the helicopter
+    
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
     _json - the Json string output from the website
 
 Returns:
 
 Examples:
-	[vehicle player, Json Data] call fza_loadoutImportJson
+    [vehicle player, Json Data] call fza_loadoutImportJson
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli","_json"];
 if (_json == "") exitwith {};

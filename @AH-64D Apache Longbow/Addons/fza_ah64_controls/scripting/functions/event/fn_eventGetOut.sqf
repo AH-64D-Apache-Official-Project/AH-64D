@@ -10,12 +10,12 @@ Parameters:
     _heli - the helicopter to modify
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
 
 Author:
-	unknown
+    unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 _isHeliDriver = !(player isEqualTo driver objectParent player);

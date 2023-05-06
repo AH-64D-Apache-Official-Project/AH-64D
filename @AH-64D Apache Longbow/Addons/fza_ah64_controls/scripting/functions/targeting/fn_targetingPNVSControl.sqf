@@ -2,21 +2,21 @@
 Function: fza_fnc_targetingPNVSControl
 
 Description:
-	Handles the movement of the PNVS when the player moves their head or mouse (depending on if they are in head tracking mode.)
+    Handles the movement of the PNVS when the player moves their head or mouse (depending on if they are in head tracking mode.)
 
 Parameters:
-	_heli - The helicopter to act on
+    _heli - The helicopter to act on
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_targetingPNVSControl
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
@@ -69,31 +69,31 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
             _heli animateSource["pnvs_vert", (_heli animationSourcePhase "pnvs_vert") + _tiltAdjust];
         }
     };
-	
-	// BACKUP TURRET OPTIC PNVS WITH BOTH LOGICS
-	if(player == driver _heli && (_acBusOn && _dcBusOn)) then
-	{
+    
+    // BACKUP TURRET OPTIC PNVS WITH BOTH LOGICS
+    if(player == driver _heli && (_acBusOn && _dcBusOn)) then
+    {
         if (isNil "fza_ah64_pnvsgreff") then {
             fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
         };
         fza_ah64_pnvsgreff ppEffectAdjust [1,1,0,[-2,2,-2,0.05],[-4.99,0.74,0.44,0.38],[0.33,0.33,0.33,0],[0,0,0,0,0,0,4]]; //GREEN PNVS (HDU LOGIC)
         fza_ah64_pnvsgreff ppEffectCommit 0;
         fza_ah64_pnvsgreff ppEffectEnable true;
-	
-	} else {
+    
+    } else {
             if (isNil "fza_ah64_pnvsgreff") then {
                 fza_ah64_pnvsgreff = ppEffectCreate ["colorCorrections",4000];
             };
             fza_ah64_pnvsgreff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
             fza_ah64_pnvsgreff ppEffectCommit 0;
             fza_ah64_pnvsgreff ppEffectEnable true;
-	};
-	
-	if(cameraView == "EXTERNAL" || cameraView == "INTERNAL") then {
+    };
+    
+    if(cameraView == "EXTERNAL" || cameraView == "INTERNAL") then {
         fza_ah64_pnvsgreff ppEffectEnable false;
-	};
+    };
 
-	if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
+    if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
         fza_ah64_pnvsgreff ppEffectEnable false;
-	};	
+    };	
 };

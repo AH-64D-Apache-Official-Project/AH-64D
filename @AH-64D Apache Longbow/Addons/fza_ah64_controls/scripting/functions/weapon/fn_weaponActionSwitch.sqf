@@ -2,22 +2,22 @@
 Function: fza_fnc_weaponActionSwitch
 
 Description:
-	Switches the player between different weapon types
+    Switches the player between different weapon types
 
 Parameters:
     _heli - The helicopter to act upon
     _weapon - One of the WAS_WEAPON_xxx options in systemConstants
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch
-	---
+    ---
 
 Author:
-	Mattysmith22
+    Mattysmith22
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon"];
 

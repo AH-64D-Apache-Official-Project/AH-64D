@@ -8,18 +8,18 @@ Parameters:
     _unit - The unit to check.
 
 Returns:
-	Bool - whether the aircraft is Air Defence Artillery or not.
+    Bool - whether the aircraft is Air Defence Artillery or not.
 
 Examples:
-	if ([_x] call fza_fnc_targetIsADA) then {
-		
+    if ([_x] call fza_fnc_targetIsADA) then {
+        
     --- Code
-	_ret = [_unit] call fza_fnc_targetIsADA
-	//_ret => true
+    _ret = [_unit] call fza_fnc_targetIsADA
+    //_ret => true
     ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_unit"];
 _unit = typeof _unit;

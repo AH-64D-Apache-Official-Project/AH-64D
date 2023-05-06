@@ -9,15 +9,15 @@ Parameters:
     _munition: String - Ammo type that was fired on the target
     _hostile: Object - Vehicle that fired the weapon. In case of soldier, unit is returned
     _instigator: Object - Person who pulled the trigger
-	
+    
 Returns:
-	Nothing
-	
+    Nothing
+    
 Examples:
-	_this call fza_fnc_aseJammer; //Incoming missile event args
-	
+    _this call fza_fnc_aseJammer; //Incoming missile event args
+    
 Author:
-	Rosd6(Dryden), mattysmith22
+    Rosd6(Dryden), mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli","_munition","_hostile", "_instigator"];
 

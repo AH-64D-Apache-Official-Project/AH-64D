@@ -1,7 +1,7 @@
 class Components: Components
 {
   class SensorsManagerComponent
-	{
+  {
     class Components
     {
       class ActiveRadarSensorComponent: SensorTemplateActiveRadar
@@ -40,7 +40,7 @@ class Components: Components
         aimDown = 5;
         allowsMarking= 1;
       };
-			class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{
+      class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{
                 componentType = "PassiveRadarSensorComponent";
         class AirTarget      // ranges for targets with sky background
         {

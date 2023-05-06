@@ -5,7 +5,7 @@ Description:
     Arms or disarms the fire panel
 
 Parameters:
-	heli - The helicopter to act on   
+    heli - The helicopter to act on   
     engine- the engine selected 
 
 Returns:
@@ -14,13 +14,13 @@ Examples:
     [_heli] call fza_fnc_firepanel
     
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli","_engine","_value"];
 
 switch(_engine) do {
-	case "eng1": {
+    case "eng1": {
         _heli setVariable ["fza_ah64_fire1arm", _value, true];
         _heli setObjectTextureGlobal ["in_lt_fire1rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _value];
     };

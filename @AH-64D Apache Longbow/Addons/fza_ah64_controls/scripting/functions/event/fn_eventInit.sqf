@@ -12,13 +12,13 @@ Parameters:
     _heli - the helicopter to initialise
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] spawn fza_fnc_eventInit
 
 Author:
-	unknown, mattysmith22
+    unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];

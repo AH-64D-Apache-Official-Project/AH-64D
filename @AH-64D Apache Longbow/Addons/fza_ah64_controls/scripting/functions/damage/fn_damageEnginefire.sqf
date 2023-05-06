@@ -9,15 +9,15 @@ Parameters:
     _eng - the engine that has been assigned to burn
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli, "right"] call fza_fnc_damageEngineFire
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli","_eng"];
 

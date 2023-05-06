@@ -1,17 +1,17 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_uiShowIntro
 Description:
-	onLoad event handler for the introduction popup
+    onLoad event handler for the introduction popup
 Parameters:
     _display - display that the dialog is opened up on
 Returns:
-	Nothing
+    Nothing
 Examples:
-	--- Code
+    --- Code
     call fza_fnc_uiShowIntro
-	---
+    ---
 Author:
-	Mattysmith22
+    Mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_display"];
 fza_ah64_introShownThisScenario = true;

@@ -5,18 +5,18 @@ Description:
     Arms the apache's LRFD, from either seat. Must be run in scheduled environment (involve sleep)
 
 Parameters:
-	_heli - The helicopter to act upon
+    _heli - The helicopter to act upon
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] spawn fza_fnc_laserArm
-	---
+    ---
 
 Author:
-	Unknown, mattysmith22
+    Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

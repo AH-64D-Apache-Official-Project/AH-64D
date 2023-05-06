@@ -13,16 +13,16 @@ Parameters:
     _sight - The sight ID
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli, 0] call fza_fnc_targetingSetSightSelect
     // The sigght is now 0 (FCR).
-	---
+    ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli", "_sight"];
 

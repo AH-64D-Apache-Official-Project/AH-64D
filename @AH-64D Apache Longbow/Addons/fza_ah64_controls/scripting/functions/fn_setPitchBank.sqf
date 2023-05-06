@@ -23,7 +23,7 @@ Parameters:
     _bank - The bank to apply
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     --- Code
@@ -31,7 +31,7 @@ Examples:
     ---
 
 Author:
-	General Barron, vektorboson
+    General Barron, vektorboson
 ---------------------------------------------------------------------------- */
 //extract parameters
 params ["_obj", "_pitch", "_bank"];

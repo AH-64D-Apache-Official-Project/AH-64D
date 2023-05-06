@@ -10,10 +10,10 @@ Parameters:
 Returns:
 
 Examples:
-	statement="[this] spawn weaponRocketsalvo";
+    statement="[this] spawn weaponRocketsalvo";
 
 Author:
-	
+    
 ---------------------------------------------------------------------------- */
 
 // Disables to reduce script running of disabled function
