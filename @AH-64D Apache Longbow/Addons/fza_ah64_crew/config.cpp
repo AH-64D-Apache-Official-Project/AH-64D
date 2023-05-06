@@ -11,4 +11,3 @@ class CfgPatches
 };
 
 #include "CfgWeapons.hpp"
-#include "Crew.hpp"
