@@ -31,7 +31,6 @@ class CfgAddons
 #include "config\CfgAnimationSourceSounds.hpp"
 #include "config\CfgSounds.hpp"
 #include "config\CfgMoves.hpp"
-#include "config\CfgWeapons.hpp"
 #include "config\CfgNonAIVehicles.hpp"
 #include "config\CfgVehicles.hpp"
 #include "config\CfgCloudlets.hpp"

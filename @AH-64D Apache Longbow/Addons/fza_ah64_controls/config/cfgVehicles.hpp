@@ -6,7 +6,6 @@ class CfgVehicles
 		class EventHandlers;
 		class Turrets;
 	};
-	#include "cfgVehicles\crew.hpp"
 	class fza_ah64base : Helicopter_Base_F
 	{
 		class NewTurret;
