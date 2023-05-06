@@ -4,7 +4,7 @@
 #define TSD_ROOT                [0, 0]
 #define TSD_SHOW                [1, 0]
 
-//--Waypoint sub-page selections
+//Waypoint sub-page selections
 #define TSD_WPT                 [2, 0]
 #define TSD_WPT_ADD             [2, 1]
 //--Delete

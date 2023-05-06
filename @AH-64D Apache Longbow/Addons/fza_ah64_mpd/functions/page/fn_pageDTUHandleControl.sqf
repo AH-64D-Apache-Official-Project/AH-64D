@@ -16,6 +16,7 @@ switch (_state get "subPage") do {
     case DTU_ROOT: { // Root
         switch (_control) do {
             case "l1": {
+                if (_state get "loadState" == MFD_DTU_LOADING) exitWith {};
                 _state set ["subPage", DTU_LOAD_STATUS];
                 _state set ["loadState", MFD_DTU_LOADING];
                 [_heli, _state] spawn {
@@ -31,6 +32,7 @@ switch (_state get "subPage") do {
 	case DTU_LOAD_STATUS: {
 		switch (_control) do {
             case "l1": {
+                if (_state get "loadState" == MFD_DTU_LOADING) exitWith {};
                 _state set ["subPage", DTU_ROOT];
             };
         };
