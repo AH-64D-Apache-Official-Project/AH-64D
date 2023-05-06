@@ -50,12 +50,12 @@ _targpos = _scPos;
 if (isNull _missileTarget) then {
 	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 } else {
-	private _loblCheck = [_heli] call fza_fnc_hellfireSALShouldStartLobl;
+	private _loblCheck = [_heli] call fza_hellfire_fnc_salShouldStartLobl;
 	private _distOffAxis = abs (_heli getRelDir _missileTarget call CBA_fnc_simplifyAngle180);
 	private _loalLimitOffset = 7.5;
 
 	if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-		_loblCheck = ([_heli, [getpos _missileTarget, "", speed _missileTarget, _missileTarget]] call fza_fnc_hellfireLimaLoblCheck) # 1;
+		_loblCheck = ([_heli, [getpos _missileTarget, "", speed _missileTarget, _missileTarget]] call fza_hellfire_fnc_limaLoblCheck) # 1;
 		_loalLimitOffset = 5;
 	};
 		

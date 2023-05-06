@@ -76,17 +76,6 @@ class CfgFunctions
 			class fxMuzzle {R;};
 			class fxLoops {R;};
 		};
-		class hellfire {
-			file = "\fza_ah64_controls\Scripting\functions\hellfire";
-			class hellfireAceController {R;};
-			class HellfireGetAttackProfile {R;};
-			class hellfireSALFired {R;};
-			class hellfireARHSeeker {R;};
-			class hellfireARHFired {R;};
-			class hellfireLimaLoblCheck {R;};
-			class hellfireSALShouldStartLobl {R;};
-			class hellfireCheckSeekerAngle {R;};
-		};
 		class laser
 		{
 			file = "\fza_ah64_controls\scripting\functions\laser";
@@ -159,18 +148,6 @@ class CfgFunctions
 			class loadoutImportJson {R;};
 			class setTailNumber {R;};
 			class configToHashMap {R;};
-		};
-		class ase
-		{
-			file = "\fza_ah64_controls\scripting\functions\ase";
-			class aseAdaClassification {R;};
-			class aseAudioController {R;};
-			class aseMissileWarning {R;};
-			class aseChaff {R;};
-			class aseGunnerFlare {R;};
-			class aseController {R;};
-			class aseIRJam {R;};
-			class aseRLWR {R;};
 		};
 	};
 };
