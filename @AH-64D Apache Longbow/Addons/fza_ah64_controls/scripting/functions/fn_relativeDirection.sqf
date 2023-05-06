@@ -12,7 +12,7 @@ Parameters:
     _relobjposy - The y position of the object to reference from
 
 Returns:
-	Degrees off the nose of the aircraft, normalised to (0 <= x <= 360)
+    Degrees off the nose of the aircraft, normalised to (0 <= x <= 360)
 
 Examples:
     --- Code
@@ -21,7 +21,7 @@ Examples:
     ---
 
 Author:
-	Unknown, mattysmith22
+    Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli", "_heliposx", "_heliposy", "_relobjposx", "_relobjposy", ["_heliDirection", direction (_this # 0)]];
 

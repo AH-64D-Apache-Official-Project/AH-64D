@@ -14,11 +14,11 @@ Parameters:
     _swapSeat - (optional) whether the other seat's sight should be found (default false)
 
 Returns:
-	The number of the sight source that is used, or -1 if the player is not in either seat
+    The number of the sight source that is used, or -1 if the player is not in either seat
 
 Examples:
     Getting your own seat's info
-	--- Code
+    --- Code
     _ret = [_heli] call fza_fnc_targetingGetSightSelect
     // _ret => 0
     ---
@@ -27,10 +27,10 @@ Examples:
     --- Code
     _ret = [_heli, true] call fza_fnc_targetingGetSightSelect
     // _ret => 0
-	---
+    ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli", ["_swapSeat", false]];
 

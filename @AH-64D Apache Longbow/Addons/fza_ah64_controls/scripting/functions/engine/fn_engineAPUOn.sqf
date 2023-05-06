@@ -5,19 +5,19 @@ Description:
     Returns whether the APU is on.
 
 Parameters:
-	_heli - The apache helicopter to check if the APU is on for
+    _heli - The apache helicopter to check if the APU is on for
 
 Returns:
-	Boolean - whether the APU is on
+    Boolean - whether the APU is on
 
 Examples:
-	--- Code
+    --- Code
     _ret = [_heli] call fza_fnc_engineAPUOn
     //_ret => true
-	---
+    ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 _heli getVariable "fza_ah64_apu"

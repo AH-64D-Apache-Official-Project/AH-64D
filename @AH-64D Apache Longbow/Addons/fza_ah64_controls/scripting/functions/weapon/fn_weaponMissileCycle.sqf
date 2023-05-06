@@ -2,19 +2,19 @@
 Function: fza_fnc_weaponMissileCycle
 
 Description:
-	Cycles through the available hellfire types
+    Cycles through the available hellfire types
 
 Parameters:
     _heli - the helicopter
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_fnc_weaponMissileCycle
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

@@ -2,21 +2,21 @@
 Function: fza_fnc_targetingPFZCycle
 
 Description:
-	Switches the current PFZ between all options.
+    Switches the current PFZ between all options.
 
 Parameters:
-	_heli - The helicopter to act on
+    _heli - The helicopter to act on
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_targetingPFZCycle
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 _count = _heli getVariable "fza_ah64_pfz_count";

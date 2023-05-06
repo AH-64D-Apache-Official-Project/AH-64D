@@ -8,15 +8,15 @@ Parameters:
     _heli - The helicopter to modify
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_coreDraw3Dscheduler
-	---
+    ---
 
 Author:
-	mattysmith22, Rosd6(Dryden)
+    mattysmith22, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];

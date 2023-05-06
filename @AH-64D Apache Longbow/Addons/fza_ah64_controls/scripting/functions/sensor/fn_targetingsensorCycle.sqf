@@ -5,7 +5,7 @@ Description:
     cycle the targeting system to the next FCR target
 
 Parameters:
-	_heli - the heli to act upon
+    _heli - the heli to act upon
 
 Returns:
     Nothing

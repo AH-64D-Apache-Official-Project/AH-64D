@@ -10,15 +10,15 @@ Parameters:
     _damage - The damage amount of the *HitPoint* (0-1)
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_damageSystem
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli", "_system", "_damage"];
 if(!alive _heli) exitwith {};

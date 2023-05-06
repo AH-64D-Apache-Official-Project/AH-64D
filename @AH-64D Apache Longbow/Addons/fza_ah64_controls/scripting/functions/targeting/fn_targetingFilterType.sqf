@@ -2,23 +2,23 @@
 Function: fza_fnc_targetingFilterType
 
 Description:
-	Filters the input array of targets based on the fza_ah64_tsdsort setting of the input apache 
+    Filters the input array of targets based on the fza_ah64_tsdsort setting of the input apache 
 
 Parameters:
     _heli - The helicopter to act on
     _targs - The helicopter to act on
 
 Returns:
-	Array of targets
+    Array of targets
 
 Examples:
-	--- Code
+    --- Code
     _ret = [_heli, [targ1, targ2, targ3]] call fza_fnc_targetingFilterType
     //_ret => [targ1, targ2] //Targ3 
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli", "_targs"];
 

@@ -4,7 +4,7 @@ class RscInGameUI
     class fza_ah64_rscInfoMinimal: RscUnitInfoAir
     {
         onLoad="";
-		controls[] = {
+        controls[] = {
         };
     };
     class RscUnitInfoAirRTDBasic;
@@ -13,7 +13,7 @@ class RscInGameUI
         onLoad="";
         controls[] = {
         };
-		controlsx[] = {
+        controlsx[] = {
         };
     };
     class RscUnitInfoAirRTDFull;

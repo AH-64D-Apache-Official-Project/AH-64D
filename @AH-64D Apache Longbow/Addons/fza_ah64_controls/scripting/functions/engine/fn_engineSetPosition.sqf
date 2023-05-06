@@ -2,23 +2,23 @@
 Function: fza_fnc_engineSetPosition
 
 Description:
-	Handles the controls for each individual engine
+    Handles the controls for each individual engine
 
 Parameters:
-	_heli - The apache helicopter [Unit].
-	_engNum - The engine that should be controlled. 0 or 1.
-	_position - The control you would like to apply. ENGINE_CONTROL_STARTER, ENGINE_CONTROL_THROTTLE_OFF, ENGINE_CONTROL_THROTTLE_IDLE or ENGINE_CONTROL_THROTTLE_FLY.
+    _heli - The apache helicopter [Unit].
+    _engNum - The engine that should be controlled. 0 or 1.
+    _position - The control you would like to apply. ENGINE_CONTROL_STARTER, ENGINE_CONTROL_THROTTLE_OFF, ENGINE_CONTROL_THROTTLE_IDLE or ENGINE_CONTROL_THROTTLE_FLY.
 
 Returns:
-	Whether the control actually did anything
+    Whether the control actually did anything
 
 Examples:
     --- Code
-	[_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
+    [_heli, 0, ENGINE_CONTROL_THROTTLE_IDLE] call fza_fnc_engineSetPosition;
     ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\engineConstants.h"
 

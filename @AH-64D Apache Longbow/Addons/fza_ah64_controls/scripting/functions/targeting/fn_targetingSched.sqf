@@ -1,17 +1,17 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_targetingSched
 Description:
-	Handles repetitive target management. Should be run regularly in the scheduler.
+    Handles repetitive target management. Should be run regularly in the scheduler.
 Parameters:
-	_heli - The helicopter to act on
+    _heli - The helicopter to act on
 Returns:
-	Nothing
+    Nothing
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_targetingSched
-	---
+    ---
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

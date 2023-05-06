@@ -9,15 +9,15 @@ Parameters:
     _system - the *HitPoint* that was damaged.
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_damageM230
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

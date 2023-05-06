@@ -2,19 +2,19 @@
 Function: fza_fnc_weaponTrajectoryChange
 
 Description:
-	Cycles through the available hellfire trajectories
+    Cycles through the available hellfire trajectories
 
 Parameters:
     _heli - the helicopter
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_fnc_weaponTrajectoryChange
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

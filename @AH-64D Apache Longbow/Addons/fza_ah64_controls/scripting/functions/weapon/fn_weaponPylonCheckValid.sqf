@@ -17,7 +17,7 @@ Returns:
 
 Examples:
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 #define ANY(_arr, _pred) (( _arr ) findIf ( _pred ) != -1)
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})

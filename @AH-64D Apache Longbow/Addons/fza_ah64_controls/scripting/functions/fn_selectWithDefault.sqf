@@ -10,11 +10,11 @@ Parameters:
     _default - the default if there isn't a valid element
 
 Returns:
-	Value at index of array, or the default
+    Value at index of array, or the default
 
 Examples:
     Valid and in index
-	--- Code
+    --- Code
     _ret = [[0,1,2,3], 0, -1] call fza_fnc_selectWithDefault
     //_ret => 0
     ---
@@ -31,7 +31,7 @@ Examples:
     //_ret => -1
     ---
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_arr", "_index", "_default"];
 

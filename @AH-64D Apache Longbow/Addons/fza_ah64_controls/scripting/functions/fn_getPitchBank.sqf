@@ -2,13 +2,13 @@
 Function: fza_fnc_getPitchBank
 
 Description:
-	Gets pitch bank of an object
+    Gets pitch bank of an object
 
 Parameters:
     _obj - obj to get the pitch and bank of
 
 Returns:
-	[_pitch, _bank]
+    [_pitch, _bank]
 
 Examples:
     --- Code
@@ -17,7 +17,7 @@ Examples:
     ---
 
 Author:
-	general barron
+    general barron
 ---------------------------------------------------------------------------- */
 comment "script by general barron";
 
