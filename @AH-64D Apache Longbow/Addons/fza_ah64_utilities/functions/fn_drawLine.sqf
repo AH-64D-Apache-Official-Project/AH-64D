@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_drawLine
+Function: fza_util_fnc_drawLine
 
 Description:
   Draws a debug line.

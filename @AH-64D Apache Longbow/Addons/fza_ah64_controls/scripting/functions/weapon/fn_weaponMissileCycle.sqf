@@ -22,7 +22,7 @@ private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFil
 
 if (_missiles isEqualTo []) exitWith {};
 
-private _nextMissile = [_missiles, _heli getVariable "fza_ah64_selectedMissile"] call fza_fnc_cycle;
+private _nextMissile = [_missiles, _heli getVariable "fza_ah64_selectedMissile"] call fza_util_fnc_cycle;
 
 _heli setVariable ["fza_ah64_selectedMissile", _nextMissile, true];
 [_heli] call fza_fnc_weaponUpdateSelected;

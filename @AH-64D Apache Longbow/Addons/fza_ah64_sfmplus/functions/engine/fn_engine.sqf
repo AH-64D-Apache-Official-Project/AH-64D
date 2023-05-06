@@ -97,7 +97,7 @@ switch (_engState) do {
 			//Np
 			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
 			//Set the engine state
-			//[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+			//[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_util_fnc_setArrayVariable;
 		} else {
 			//Ng
 			_engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
@@ -108,13 +108,13 @@ switch (_engState) do {
 		//Transition state to ON
 		if (_engPctNG > 0.52) then {
 			_engState = "ON";
-			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
+			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_util_fnc_setArrayVariable;
 		};
 	};
 	case "ON": {
 		if (_engPowerLeverState == "OFF") then {
 			_engState = "OFF";
-			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
+			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_util_fnc_setArrayVariable;
 		};
 		//Ng
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
@@ -137,7 +137,7 @@ switch (_engState) do {
 	};
 };
 
-private _intEngBaseTable = [getArray (_sfmPlusConfig >> "engBaseTable"), _engPctNG] call fza_fnc_linearInterp;
+private _intEngBaseTable = [getArray (_sfmPlusConfig >> "engBaseTable"), _engPctNG] call fza_util_fnc_linearInterp;
 //Base TGT
 private _engBaseTGT      = _intEngBaseTable select 1;
 //Base Oil
@@ -176,8 +176,8 @@ if (_flightModel == "SFMPlus") then {
 							[ 1.00, _maxTQ               ]];
 	};
 
-	private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
-	private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
+	private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_util_fnc_linearInterp select 1;
+	private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_util_fnc_linearInterp select 1;
 
 	private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
 	_engSetTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
@@ -201,24 +201,24 @@ private _engTable = [[  _engBaseTQ, _engBaseTGT, _engBaseNG, _engBaseOilPSI],
 					 [   _maxTQ_DE,         867,	  0.990,           0.94],	//10 min
 					 [   _maxTQ_SE,         896,	  0.997,           0.99]];	//2.5 Min
 
-_engTGT    = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 1;
+_engTGT    = [_engTable,   _engPctTQ] call fza_util_fnc_linearInterp select 1;
 if (_isSingleEng) then {
 	if (_engTGT > 896) then { _engTGT = 896; };
 } else {
 	if (_engTGT > 867) then { _engTGT = 867; };
 };
 
-_engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
-_engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
+_engOilPSI = [_engTable,   _engPctTQ] call fza_util_fnc_linearInterp select 3;
+_engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_util_fnc_linearInterp select 1;
 
 //Update variables
-[_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_util_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_util_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_util_fnc_setArrayVariable;
 
-[_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_util_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_util_fnc_setArrayVariable;
 
-[_heli, "fza_sfmplus_engTGT",        _engNum, _engTGT] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engOilPSI",     _engNum, _engOilPSI] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engFF",         _engNum, _engFF] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engTGT",        _engNum, _engTGT] call fza_util_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engOilPSI",     _engNum, _engOilPSI] call fza_util_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engFF",         _engNum, _engFF] call fza_util_fnc_setArrayVariable;

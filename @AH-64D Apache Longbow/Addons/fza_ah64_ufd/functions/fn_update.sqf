@@ -100,9 +100,9 @@ do {
                 private _frequencyTX = ([_radio, "getCurrentChannelData"] call acre_sys_data_fnc_dataEvent) getVariable "frequencyTx";
                 private _label = [_radioBase, "default", _radioChannel, "label"] call acre_api_fnc_getPresetChannelField;
                 if (isNil "_label") then {_label = "     "};
-                private _frequencyTXOut = [[_frequencyTX, 0, 3, false] call CBA_fnc_formatNumber, 7] call fza_fnc_padString;
-                private _radioChannelOut = [str _radioChannel, 6] call fza_fnc_padString;
-                private _labelOut = [_label select [0, 5], 5] call fza_fnc_padString; 
+                private _frequencyTXOut = [[_frequencyTX, 0, 3, false] call CBA_fnc_formatNumber, 7] call fza_util_fnc_padString;
+                private _radioChannelOut = [str _radioChannel, 6] call fza_util_fnc_padString;
+                private _labelOut = [_label select [0, 5], 5] call fza_util_fnc_padString; 
                 _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + 5 + _forEachIndex, format["%1-%2 %3* %4 %5 %6 "
                     ,_transmit, _radioName, _frequencyTXOut, _labelOut, _radioOther # _forEachIndex, _radioChannel
                 ]];

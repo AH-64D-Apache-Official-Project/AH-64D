@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_setArrayVariable
+Function: fza_util_fnc_setArrayVariable
 
 Description:
   Sets a multi-variable array.

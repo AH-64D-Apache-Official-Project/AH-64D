@@ -21,4 +21,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_dir"];
 
-_heli setVariable ["fza_ah64_rangesetting", [[5000, 10000, 25000, 50000], _heli getVariable "fza_ah64_rangesetting", 5000] call fza_fnc_cycle];
+_heli setVariable ["fza_ah64_rangesetting", [[5000, 10000, 25000, 50000], _heli getVariable "fza_ah64_rangesetting", 5000] call fza_util_fnc_cycle];

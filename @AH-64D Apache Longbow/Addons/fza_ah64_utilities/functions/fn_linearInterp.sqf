@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_linearInterp
+Function: fza_util_fnc_linearInterp
 
 Description:
     Performs linear interpolation given a 2d array of values.
@@ -28,13 +28,13 @@ Examples:
                        [2, -2, 6, 7]]
     //BAD, indexes are out of order
 
-    _result = [_interpArray, 1] call fza_fnc_linearInterp
+    _result = [_interpArray, 1] call fza_util_fnc_linearInterp
     //_result => [1, -1.5, 5, 6]
 
-    _result = [_interpArray, -2] call fza_fnc_linearInterp //Below range
+    _result = [_interpArray, -2] call fza_util_fnc_linearInterp //Below range
     //_result => [0, -1, 4, 5]
     
-    _result = [_interpArray, 10] call fza_fnc_linearInterp //Above range
+    _result = [_interpArray, 10] call fza_util_fnc_linearInterp //Above range
     //_result => [2, -2, 6, 7]
     ---
 
