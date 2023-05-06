@@ -3,19 +3,19 @@ Function: fza_ase_fnc_controller
 
 
 Description:
-	Handles all ASE systems on the aircraft
+    Handles all ASE systems on the aircraft
 
 Parameters:
-	heli: Object - Vehicle the event handler is assigned to
+    heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_ase_fnc_controller
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

@@ -8,15 +8,15 @@ Parameters:
     _heli - The helicopter that fired it
     _munition - Missile
     _hostile - is it hostile
-	
+    
 Returns:
-	Nothing
-	
+    Nothing
+    
 Examples:
-	_this spawn fza_ase_fnc_missileWarning;
-	
+    _this spawn fza_ase_fnc_missileWarning;
+    
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli","_munition","_hostile"];

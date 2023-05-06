@@ -2,18 +2,18 @@
 Function: fza_ase_fnc_chaff
 
 Description:
-	Handles the launching of chaff
+    Handles the launching of chaff
 
 Parameters:
-	heli: Object - Vehicle the event handler is assigned to
+    heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_ase_fnc_chaff
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];

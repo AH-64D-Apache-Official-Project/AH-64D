@@ -12,7 +12,7 @@ Returns:
 Examples:
     _this Call fza_ase_fnc_gunnerFlare;
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 if !(player == gunner _heli) exitwith {};

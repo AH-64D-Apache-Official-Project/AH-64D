@@ -3,19 +3,19 @@ Function: fza_ase_fnc_rlwr
 
 
 Description:
-	Handles the Radar/Laser Warning Receiver
+    Handles the Radar/Laser Warning Receiver
 
 Parameters:
-	heli: Object - Vehicle the event handler is assigned to
+    heli: Object - Vehicle the event handler is assigned to
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     [_heli] call fza_ase_fnc_rlwr
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 
