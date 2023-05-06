@@ -86,7 +86,7 @@ private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
 private _rtrCorrInducedVelocity    = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
-private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_util_fnc_linearInterp select 1;
+private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
@@ -168,9 +168,9 @@ if (_velXY < 12.35) then {  //must be less than ETL
 };;
 
 #ifdef __A3_DEBUG__
-[_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_util_fnc_drawLine;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_util_fnc_drawLine;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_util_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_drawLine;
 #endif
 
 /*

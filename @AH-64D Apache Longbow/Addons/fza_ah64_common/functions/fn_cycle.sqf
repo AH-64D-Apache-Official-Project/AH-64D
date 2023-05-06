@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_util_fnc_cycle
+Function: fza_fnc_cycle
 
 Description:
     Generic cycling implementation meant to be used by other functions that must cycle through modes.
@@ -14,16 +14,16 @@ Returns:
 
 Examples:
     (start code)
-    _ret = ["hi", "lo", "dir"], "hi"] call fza_util_fnc_cycle
+    _ret = ["hi", "lo", "dir"], "hi"] call fza_fnc_cycle
     //_ret => "lo"
 
-    _ret = ["hi", "lo", "dir"], "dir"] call fza_util_fnc_cycle
+    _ret = ["hi", "lo", "dir"], "dir"] call fza_fnc_cycle
     //_ret => "hi"
 
-    _ret = ["hi", "lo", "dir"], "error"] call fza_util_fnc_cycle
+    _ret = ["hi", "lo", "dir"], "error"] call fza_fnc_cycle
     //_ret => "hi"
 
-    _ret = ["hi", "lo", "dir"], "error", "dir"] call fza_util_fnc_cycle
+    _ret = ["hi", "lo", "dir"], "error", "dir"] call fza_fnc_cycle
     //_ret => "dir"
     (end)
 

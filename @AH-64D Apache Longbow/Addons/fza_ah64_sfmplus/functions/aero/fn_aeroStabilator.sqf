@@ -32,7 +32,7 @@ private _stabPvt = _objCtr vectorAdd _stabPos;
 
 private _stabOutputTable = [[]];
 if (_flightModel == "SFMPlus") then {
-    private _intStabTable    = [getArray (_sfmPlusConfig >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_util_fnc_linearInterp;
+    private _intStabTable    = [getArray (_sfmPlusConfig >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     _stabOutputTable = [
                          [15.43, _intStabTable select 1]  //30kts
                         ,[36.01, _intStabTable select 2]  //70kts
@@ -42,7 +42,7 @@ if (_flightModel == "SFMPlus") then {
                         ,[77.17, _intStabTable select 6]  //150kts
                         ];
 } else {
-    private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_util_fnc_linearInterp;
+    private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
     _stabOutputTable = [
                         [15.43, _intStabTable select 1]   //30kts
                        ,[20.58, _intStabTable select 2]   //40kts
@@ -70,7 +70,7 @@ private _theta = 0.0;
 if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = getNumber (_sfmPlusConfig >> "stabKeyTheta");
 } else {
-    _theta = [_stabOutputTable, _V_mps] call fza_util_fnc_linearInterp select 1;
+    _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
 
 //Animate the Horizontal stabilizer
@@ -115,10 +115,10 @@ _relWind = _relWind;
 private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
 _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
-private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_util_fnc_linearInterp;
+private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
 private _CL = _intAirfoilTable select 1;
 
-private _area = [_A, _B, _C, _D] call fza_util_fnc_getArea;
+private _area = [_A, _B, _C, _D] call fza_fnc_getArea;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
@@ -131,19 +131,19 @@ hintsilent format ["Collective Out = %1
                    \nCollective Low = %3
                    \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
 */
-[_heli, _objCtr, _stabPvt, "white"] call fza_util_fnc_drawLine;
+[_heli, _objCtr, _stabPvt, "white"] call fza_fnc_drawLine;
 
 //Draw the stabilator
-[_heli, _A, _B, "white"] call fza_util_fnc_drawLine;
-[_heli, _B, _C, "white"] call fza_util_fnc_drawLine;
-[_heli, _C, _D, "white"] call fza_util_fnc_drawLine;
-[_heli, _D, _A, "white"] call fza_util_fnc_drawLine;
+[_heli, _A, _B, "white"] call fza_fnc_drawLine;
+[_heli, _B, _C, "white"] call fza_fnc_drawLine;
+[_heli, _C, _D, "white"] call fza_fnc_drawLine;
+[_heli, _D, _A, "white"] call fza_fnc_drawLine;
 //Draw the fwd chord line originating from the pivot
-[_heli, _H, _H vectorAdd _stabLine, "white"] call fza_util_fnc_drawLine;
+[_heli, _H, _H vectorAdd _stabLine, "white"] call fza_fnc_drawLine;
 //Draw the lift line
-[_heli, _E, _F, "green"] call fza_util_fnc_drawLine;
+[_heli, _E, _F, "green"] call fza_fnc_drawLine;
 //Draw the lift vector
-[_heli, _G, _G vectorAdd _liftVec, "blue"] call fza_util_fnc_drawLine;
+[_heli, _G, _G vectorAdd _liftVec, "blue"] call fza_fnc_drawLine;
 //Draw the velocity vector
-[_heli, _H, _H vectorAdd _relWind, "red"] call fza_util_fnc_drawLine;
+[_heli, _H, _H vectorAdd _relWind, "red"] call fza_fnc_drawLine;
 #endif

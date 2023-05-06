@@ -1,6 +1,6 @@
 #include "\x\cba\addons\keybinding\script_component.hpp"
 /* ----------------------------------------------------------------------------
-Function: fza_util_fnc_addKeybind
+Function: fza_fnc_addKeybind
 
 Description:
     Adds or updates the keybind handler for a specified mod action, and associates
@@ -69,13 +69,13 @@ Examples:
             _this call mymod_fnc_keyDown
         }, {
             _this call mymod_fnc_keyUp
-        }, [DIK_TAB, [false, false, false]]] call fza_util_fnc_addKeybind;
+        }, [DIK_TAB, [false, false, false]]] call fza_fnc_addKeybind;
 
         ["MyMod", "MyOtherKey", "My Other Pretty Key Name", {
             _this call mymod_fnc_keyDownOther
         }, {
             _this call mymod_fnc_keyUpOther
-        }, [DIK_K, [false, false, false]]] call fza_util_fnc_addKeybind;
+        }, [DIK_K, [false, false, false]]] call fza_fnc_addKeybind;
     (end example)
 
 Author:
@@ -87,7 +87,7 @@ if (!hasInterface) exitWith {};
 
 // prevent race conditions. function could be called from scheduled env.
 if (canSuspend) exitWith {
-    [fza_util_fnc_addKeybind, _this] call CBA_fnc_directCall;
+    [fza_fnc_addKeybind, _this] call CBA_fnc_directCall;
 };
 
 params [

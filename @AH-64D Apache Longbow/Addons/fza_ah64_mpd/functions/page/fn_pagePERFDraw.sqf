@@ -17,7 +17,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GWT), _gwt toFixed 0];
 private _reqTQ_IGE     = round ((_heli getVariable "fza_sfmplus_hvrTQ_IGE") * 100);
 private _reqTQ_OGE     = round ((_heli getVariable "fza_sfmplus_hvrTQ_OGE") * 100);
 //Set required IGE/OGE torque
-private _reqTQ_text    = format["REQUIRED %1 %2", [str _reqTQ_IGE, 3] call fza_util_fnc_padString, [str _reqTQ_OGE, 3] call fza_util_fnc_padString];
+private _reqTQ_text    = format["REQUIRED %1 %2", [str _reqTQ_IGE, 3] call fza_fnc_padString, [str _reqTQ_OGE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Indicated torque /////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ
 private _eng1TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100);
 private _eng2TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100);
 private _indTQ         = _eng1TQ max _eng2TQ;
-private _indTQ_text    = format["INDICATED  %1", [str _indTQ, 3] call fza_util_fnc_padString];
+private _indTQ_text    = format["INDICATED  %1", [str _indTQ, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Go/no-go torque  /////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];
 private _goNoGoTQ_IGE  = round ((_heli getVariable "fza_sfmplus_goNoGoTQ_IGE") * 100);
 private _goNoGoTQ_OGE  = round ((_heli getVariable "fza_sfmplus_goNoGoTQ_OGE") * 100);
 //Set go/no-go torque
-private _goNoGoTQ_text = format["GO-NO/GO %1 %2", [str _goNoGoTQ_IGE, 3] call fza_util_fnc_padString, [str _goNoGoTQ_OGE, 3] call fza_util_fnc_padString];
+private _goNoGoTQ_text = format["GO-NO/GO %1 %2", [str _goNoGoTQ_IGE, 3] call fza_fnc_padString, [str _goNoGoTQ_OGE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _goNoGoTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max GWT          /////////////////////////////////////////////////////////////////////////
@@ -58,10 +58,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _ma
 private _maxTQ_DE      = round((_heli getVariable "fza_sfmplus_maxTQ_DE") * 100);
 private _maxTQ_SE      = round((_heli getVariable "fza_sfmplus_maxTQ_SE") * 100);
 //Set max torque DE
-private _maxTQ_DE_text = format["   %1", [str _maxTQ_DE, 3] call fza_util_fnc_padString];
+private _maxTQ_DE_text = format["   %1", [str _maxTQ_DE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_DE), _maxTQ_DE_text];
 //Set max troque SE
-private _maxTQ_SE_text = format["   %1", [str _maxTQ_SE, 3] call fza_util_fnc_padString];
+private _maxTQ_SE_text = format["   %1", [str _maxTQ_SE, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cruise Data      /////////////////////////////////////////////////////////////////////////
@@ -69,13 +69,13 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_t
 private _rngTQ = round((_heli getVariable "fza_sfmplus_TAS_rngTQ") * 100);
 private _endTQ = round((_heli getVariable "fza_sfmplus_TAS_endTQ") * 100);
 //Set max range and endurance torque
-private _maxRngEndTQ_text = format[" Q  %1  %2", [str _rngTQ, 3] call fza_util_fnc_padString, [str _endTQ, 3] call fza_util_fnc_padString];
+private _maxRngEndTQ_text = format[" Q  %1  %2", [str _rngTQ, 3] call fza_fnc_padString, [str _endTQ, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_TQ), _maxRngEndTQ_text];
 
 private _rngFF = round((_heli getVariable "fza_sfmplus_TAS_rngFF") / 10) * 10;
 private _endFF = round((_heli getVariable "fza_sfmplus_TAS_endFF") / 10) * 10;
 //Set max range and endurance fuel flow
-private _maxRngEndFF_text = format["FF %1 %2", [str _rngFF, 4] call fza_util_fnc_padString, [str _endFF, 4] call fza_util_fnc_padString];
+private _maxRngEndFF_text = format["FF %1 %2", [str _rngFF, 4] call fza_fnc_padString, [str _endFF, 4] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_FF), _maxRngEndFF_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // TAS Data         /////////////////////////////////////////////////////////////////////////
@@ -85,10 +85,10 @@ private _vsseTAS = round(_heli getVariable "fza_sfmplus_TAS_vsse");
 private _rngTAS  = round(_heli getVariable "fza_sfmplus_TAS_rngTAS");
 private _endTAS  = round(_heli getVariable "fza_sfmplus_TAS_endTAS");
 //Set vne, vsse, range and end airspeeds
-private _vne_text    = format[" VNE %1", [str _vneTAS, 3] call fza_util_fnc_padString];
-private _vsse_text   = format["VSSE %1", [str _vsseTAS, 3] call fza_util_fnc_padString];
-private _rngTAS_text = format[" RNG %1", [str _rngTAS, 3] call fza_util_fnc_padString];
-private _endTAS_text = format[" END %1", [str _endTAS, 3] call fza_util_fnc_padString];
+private _vne_text    = format[" VNE %1", [str _vneTAS, 3] call fza_fnc_padString];
+private _vsse_text   = format["VSSE %1", [str _vsseTAS, 3] call fza_fnc_padString];
+private _rngTAS_text = format[" RNG %1", [str _rngTAS, 3] call fza_fnc_padString];
+private _endTAS_text = format[" END %1", [str _endTAS, 3] call fza_fnc_padString];
 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VNE),     _vne_text];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VSSE),    _vsse_text];

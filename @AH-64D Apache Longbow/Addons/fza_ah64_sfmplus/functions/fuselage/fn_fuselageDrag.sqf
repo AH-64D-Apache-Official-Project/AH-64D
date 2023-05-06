@@ -22,11 +22,11 @@ if (_flightModel == "SFMPlus") then {
                                      ,[6000, 1.20, 1.00, 1.06]   //ft
                                      ,[8000, 1.65, 1.25, 1.70]]; //ft
 
-    _interpDragCoefTableY         = [_sfmPlusdragCoefTableY, _altitude] call fza_util_fnc_linearInterp;
+    _interpDragCoefTableY         = [_sfmPlusdragCoefTableY, _altitude] call fza_fnc_linearInterp;
     private _dragCoefTableY       = [[-40, _interpDragCoefTableY # 1]
                                     ,[  0, _interpDragCoefTableY # 2]
                                     ,[ 40, _interpDragCoefTableY # 3]];
-    _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_util_fnc_linearInterp;
+    _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 } else {
     //-------------------------------PA  -40   -20     0    20    40
     private _heliSimDragTableY =[
@@ -37,13 +37,13 @@ if (_flightModel == "SFMPlus") then {
                                 ,[8000, 2.30, 1.70, 2.00, 1.90, 2.15]
                                 ];
 
-    _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_util_fnc_linearInterp;
+    _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp;
     private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                                  ,[-20, _interpDragCoefTableY # 2]
                                  ,[  0, _interpDragCoefTableY # 3]
                                  ,[ 20, _interpDragCoefTableY # 4]
                                  ,[ 40, _interpDragCoefTableY # 5]];
-    _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_util_fnc_linearInterp;
+    _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 };
 private _fuselageDragCoefY     = _interpDragCoefTableY # 1;
 
@@ -64,7 +64,7 @@ private _vecY = [0.0, 1.0, 0.0];
 private _vecZ = [0.0, 0.0, 1.0];
 
 //Draw the force vector
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, "red"]   call fza_util_fnc_drawLine;
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_util_fnc_drawLine;
-[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_util_fnc_drawLine;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecX, "red"]   call fza_fnc_drawLine;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_fnc_drawLine;
+[_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_fnc_drawLine;
 #endif

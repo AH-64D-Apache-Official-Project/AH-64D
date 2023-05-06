@@ -131,7 +131,7 @@ private _heliPos = getPosAsl _heli;
 private _targDistance = _heliPos distance _targPos;
 
 if (_usingRocket) then {
-    private _elevationComp = ([fza_ah64_rocketTable, _heliPos distance2d _targPos] call fza_util_fnc_linearInterp) # 1;
+    private _elevationComp = ([fza_ah64_rocketTable, _heliPos distance2d _targPos] call fza_fnc_linearInterp) # 1;
 
     private _heliPylons = getPylonMagazines _heli;
 
