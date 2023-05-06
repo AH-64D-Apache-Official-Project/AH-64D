@@ -1,15 +1,15 @@
 /* ----------------------------------------------------------------------------
 Function: fza_AICrew_fnc_floodlight
 Description:
-	handles the floodlighting control for ai
+    handles the floodlighting control for ai
 Parameters:
-	Heli: Object - The helicopter to modify
+    Heli: Object - The helicopter to modify
 Returns:
-	Nothing
+    Nothing
 Examples:
     [_this] call fza_AICrew_fnc_floodlight;
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
