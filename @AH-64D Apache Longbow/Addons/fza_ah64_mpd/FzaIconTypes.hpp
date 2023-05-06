@@ -57,7 +57,7 @@ class FzaIconTypes {
 
         textAOffset[] = {0.5, 0.25};
         textAHAlign = "center";
-        textAVAlign = "bottom"
+        textAVAlign = "bottom";
     };
     class IconTypeF {
         type = -1;
