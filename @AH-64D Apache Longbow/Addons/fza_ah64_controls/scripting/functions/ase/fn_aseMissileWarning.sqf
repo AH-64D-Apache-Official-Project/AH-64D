@@ -35,7 +35,7 @@ if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == "on") then {
     private _identity = format ["fza_ah64_bt_%1", _Classification];
 
     //Detection range
-    waitUntil {(_heli distance _missile <= ASE_LNC_RANGE_M);};
+    waitUntil {(_heli distance _missile <= ASE_DETECT_RANGE_M);};
 
     private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
     private _clock = [_theta] call fza_fnc_bearingClock;

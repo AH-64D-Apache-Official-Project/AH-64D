@@ -34,11 +34,8 @@
 #define ASE_ACQ 1   //Acquisition
 #define ASE_SRH 0   //Search
 //--Detection ranges
-#define ASE_LSR_RANGE_M 4000
-#define ASE_LNC_RANGE_M 6000
-#define ASE_TRK_RANGE_M 6000
-#define ASE_ACQ_RANGE_M 8000
-#define ASE_SRH_RANGE_M 10000
+#define ASE_DETECT_RANGE_M 8000
+
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
 #define ASE_RLWR_STATE_ON  1

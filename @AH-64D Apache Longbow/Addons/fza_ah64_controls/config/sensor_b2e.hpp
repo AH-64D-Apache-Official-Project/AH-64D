@@ -40,7 +40,20 @@ class Components: Components
         aimDown = 5;
         allowsMarking= 1;
       };
-			class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{};
+			class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{
+                componentType = "PassiveRadarSensorComponent";
+        class AirTarget      // ranges for targets with sky background
+        {
+            minRange = 0;       // -1 if undef; in meters
+            maxRange = 8000;    // -1 if undef; in meter
+        };
+
+        class GroundTarget      // ranges for targets with ground background
+        {
+          minRange = 0;         // -1 if undef; in meters
+          maxRange = 8000;      // -1 if undef; in meters
+        };
+      };
       class LaserSensorComponent: SensorTemplateLaser
       {
         componentType = "LaserSensorComponent";

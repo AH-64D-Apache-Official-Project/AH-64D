@@ -19,6 +19,7 @@ Author:
 params ["_Object"];
 private _classification = "radar";
 
+/* Only until a good way to updating the displayed text can be worked out
 //Generic radar
 if (_Object iskindof "B_SAM_System_01_F") 				then {_classification = "radar"};
 if (_Object iskindof "B_SAM_System_02_F") 				then {_classification = "radar"};
@@ -73,10 +74,10 @@ if (_Object iskindof "gm_ge_army_gepard1a1") 			then {_classification = "gun"};
 if (_Object iskindof "pook_CRAM_BASE") 					then {_classification = "gun"};
 //hawk
 if (_Object iskindof "pook_BCP_root") 					then {_classification = "Hawk"};
-//Navel
-if (_Object iskindof "Ship") 							then {_classification = "Navel"};
-if (_Object iskindof "Ship_F") 							then {_classification = "Navel"};
-if (_Object iskindof "Boat_F") 							then {_classification = "Navel"};
-
+//Naval
+if (_Object iskindof "Ship") 							then {_classification = "Naval"};
+if (_Object iskindof "Ship_F") 							then {_classification = "Naval"};
+if (_Object iskindof "Boat_F") 							then {_classification = "Naval"};
+*/
 
 _classification;
