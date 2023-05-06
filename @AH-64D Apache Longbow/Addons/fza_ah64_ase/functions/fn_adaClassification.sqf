@@ -2,19 +2,19 @@
 Function: fza_ase_fnc_adaClassification
 
 Description:
-	handles returns anti air classification
+    handles returns anti air classification
 
 Parameters:
-	_object - Anti air unit
+    _object - Anti air unit
 
 Returns:
-	_classification
+    _classification
 
 Examples:
     _classification = [_object] call fza_ase_fnc_adaClassification
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_Object"];
 private _classification = "radar";
