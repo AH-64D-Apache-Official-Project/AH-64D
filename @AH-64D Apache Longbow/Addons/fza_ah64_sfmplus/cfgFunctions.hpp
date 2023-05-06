@@ -59,12 +59,8 @@ class CfgFunctions
 		};
 		class utility {
 			file = "\fza_ah64_sfmplus\functions";
-			class clampedMove {R;};
-			class drawLine {R;};
-			class getArea {R;};
 			class getInput {R;};
 			class getRtrRPM {R;};
-			class setArrayVariable {R;};
 		};
     };
 };

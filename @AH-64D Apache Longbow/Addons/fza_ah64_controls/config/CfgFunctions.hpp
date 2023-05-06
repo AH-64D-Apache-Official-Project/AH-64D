@@ -131,20 +131,15 @@ class CfgFunctions
         class functions
         {
             file = "\fza_ah64_controls\scripting\functions";
-            class linearInterp { R; description = "Linear interpolate a 2d array of keyframe values"; };
-            class displayTime {R;};
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};
             class velocityVector {R;};
-            class addKeybind {R;};
             class compensateSafezone { R;};
             class targetisADA {R;};
             class doortoggleP {R;};
             class doortoggleG {R;};
-            class cycle {R;};
             class bearingClock {R;};
-            class padString {R;};
             class loadoutImportJson {R;};
             class setTailNumber {R;};
             class configToHashMap {R;};
