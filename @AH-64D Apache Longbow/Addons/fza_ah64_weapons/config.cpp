@@ -11,5 +11,3 @@ class CfgPatches
 };
 
 #include "CfgFunctions.hpp"
-#include "CfgAmmo.hpp"
-#include "CfgMagazines.hpp"
