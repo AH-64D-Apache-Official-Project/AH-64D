@@ -176,13 +176,13 @@ class CfgAmmo {
 							minRange 				= 0;
 							maxRange 				= 2000;
 							viewDistanceLimitCoef 	= -1;
-							objectDistanceLimitCoef = -1
+							objectDistanceLimitCoef = -1;
 						};
 						class GroundTarget {
 							minRange 				= 0;
 							maxRange 				= 2000;
 							viewDistanceLimitCoef 	= -1;
-							objectDistanceLimitCoef = -1
+							objectDistanceLimitCoef = -1;
 						};
 						typeRecognitionDistance 	= -1;
 						angleRangeHorizontal 		= 90;

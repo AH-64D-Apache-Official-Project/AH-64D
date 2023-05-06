@@ -23,7 +23,7 @@ class CfgVehicles {
             class fza_dms_point_index {
                 displayName = "Point Index";
                 tooltip = "";
-                control = "Edit"
+                control = "Edit";
                 property = "fza_dms_point_index";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "''";
@@ -47,7 +47,7 @@ class CfgVehicles {
             class fza_dms_point_free {
                 displayName = "Point Free Text";
                 tooltip = "3 characters of free text describing the point";
-                control = "Edit"
+                control = "Edit";
                 property = "fza_dms_point_free";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
                 defaultValue = "''";
