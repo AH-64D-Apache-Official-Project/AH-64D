@@ -25,7 +25,7 @@ Examples:
     _ret2 = [_heli] call fza_fnc_weaponMissileInventory
     \\_ret2 => [-1,-1,-1,-1,"","fza_agm114k","","fza_agm114l","","fza_agm114k","","fza_agm114l",-1,-1,-1,-1]
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_inventory", "_ammo"];
 _priorities = [0,12,1,13,2,14,3,15,4,8,5,9,6,10,7,11];

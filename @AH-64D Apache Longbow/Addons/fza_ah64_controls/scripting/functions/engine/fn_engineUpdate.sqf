@@ -2,22 +2,22 @@
 Function: fza_fnc_engineUpdate
 
 Description:
-	Updates the state to the correct values.
+    Updates the state to the correct values.
 
-	You do not need to call manually, is internally used by other functions in this zone.
+    You do not need to call manually, is internally used by other functions in this zone.
 
 Parameters:
-	_heli - The apache helicopter [Unit].
-	_engNum - The engine that should be updated. 0 or 1.
+    _heli - The apache helicopter [Unit].
+    _engNum - The engine that should be updated. 0 or 1.
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
     You shouldn't need one
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\engineConstants.h"
 params["_heli", "_engNum"];

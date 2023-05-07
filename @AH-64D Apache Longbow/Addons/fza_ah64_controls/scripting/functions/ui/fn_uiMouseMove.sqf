@@ -1,20 +1,20 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_uiMouseMove
 Description:
-	Handles repetitive ASE targeting information management. Should be run regularly.
+    Handles repetitive ASE targeting information management. Should be run regularly.
 Parameters:
     (onMouseMoving display event handler schema)
     _display - Unused
     _mousex - the delta in x of movement
-	_mousey - the delta in y of movement
+    _mousey - the delta in y of movement
 Returns:
-	Nothing
+    Nothing
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_uiMouseMove
-	---
+    ---
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["", "_mousex", "_mousey"];
 if (vehicle player iskindof "fza_ah64base" && fza_ah64_tiron && fza_ah64_headTrackAllowCursorMove) then {

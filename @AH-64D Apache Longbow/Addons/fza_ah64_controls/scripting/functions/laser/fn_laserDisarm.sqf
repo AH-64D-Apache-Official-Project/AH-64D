@@ -5,18 +5,18 @@ Description:
     Disarms the apache's LRFD, from either seat.
 
 Parameters:
-	_heli - The helicopter to act upon
+    _heli - The helicopter to act upon
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_laserDisarm
-	---
+    ---
 
 Author:
-	Unknown, mattysmith22
+    Unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

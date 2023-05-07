@@ -5,13 +5,13 @@ Description:
 Parameters:
     _heli - The helicopter to modify
 Returns:
-	Nothing
+    Nothing
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_eachFrameScheduler
-	---
+    ---
 Author:
-	mattysmith22, Rosd6(Dryden), BradMick
+    mattysmith22, Rosd6(Dryden), BradMick
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli"];

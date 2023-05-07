@@ -9,15 +9,15 @@ Parameters:
     _system - the *HitPoint* that was damaged.
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_damageM230
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -86,7 +86,6 @@ if (_heatfactor > 1200) then {
 _rand = random _heatfactor;
 
 if (_rand > _heatchance) then {
-    ["fza_ah64_bt_gun", 0.5, "fza_ah64_bt_jammed", 1] spawn fza_fnc_playAudio;
     _heli setAmmo ["fza_m230", 0];
     fza_ah64_gunheat = 100;
 };

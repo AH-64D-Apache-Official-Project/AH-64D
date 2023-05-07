@@ -3,7 +3,7 @@ params ["_heli", "_system", "_control"];
 switch (_system) do {
     case "lmpd";
     case "rmpd" : {
-        [_heli, _system, _control] call fza_fnc_mpdHandleControl;
+        [_heli, _system, _control] call fza_mpd_fnc_handleControl;
     };
     case "fire": {
         [_heli, _system, _control] call fza_fnc_fireHandleControl;
@@ -21,13 +21,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_fnc_engineHandleControl;
     };
     case "ihadss": {
-        [_heli, _system, _control] call fza_fnc_ihadssHandleControl;
-    };
-    case "pnvs": {
-        if (_control == "daynight") then {
-            _heli setVariable ["fza_ah64_ihadss_pnvs_day", !(_heli getVariable "fza_ah64_ihadss_pnvs_day")];
-            ["fza_ah64_knob", 0.1] spawn fza_fnc_playAudio;
-        }
+        [_heli, _system, _control] call fza_ihadss_fnc_ihadssHandleControl;
     };
     case "nvs": {
         private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
@@ -39,10 +33,13 @@ switch (_system) do {
                 _heli animateSource[_nvsSwitch, 0];
                 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
             };
-            ["fza_ah64_switch_flip3", 0.1] spawn fza_fnc_playAudio;
-        }
+            playsound "fza_ah64_switch_flip3";
+        };
     };
     case "light": {
         [_heli, _system, _control] call fza_fnc_lightHandleControl;
+    };
+    case "ku": {
+        [_heli, _system, _control] call fza_ku_fnc_toggleInput;
     };
 };

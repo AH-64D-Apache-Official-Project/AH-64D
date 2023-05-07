@@ -8,15 +8,15 @@ Parameters:
     _heli - The helicopter to modify
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_coreDraw3Dscheduler
-	---
+    ---
 
 Author:
-	mattysmith22, Rosd6(Dryden)
+    mattysmith22, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];
@@ -37,7 +37,6 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
     }
     foreach fza_ah64_draw3DarraySlow;
     [_heli] spawn fza_fnc_targetingSensorUpdate;
-    [_heli] spawn fza_fnc_targetingAseUpdate;
 };
 
 if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {

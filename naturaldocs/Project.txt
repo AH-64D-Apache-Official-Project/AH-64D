@@ -39,8 +39,11 @@ Timestamp: yyyy-mm-dd
 # Source Code
 # ------------------------------------------------------------------------
 
-Source Folder: ..\@AH-64D Apache Longbow\Addons\fza_ah64_controls\scripting
-   Name: scripting
+Source Folder: ..\@AH-64D Apache Longbow\Addons\fza_ah64_controls\scripting\functions
+   Name: fza_ah64_controls functions
+
+Source Folder 2: ..\@AH-64D Apache Longbow\Addons\fza_ah64_mpd\headers
+   Name: fza_ah64_mpd headers
 
 
 # This is where you specify what files and folders Natural Docs should be

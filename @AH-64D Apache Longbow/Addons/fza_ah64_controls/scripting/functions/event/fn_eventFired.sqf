@@ -13,12 +13,12 @@ Parameters:
     Schema of the "fired" event handler.
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
 
 Author:
-	unknown, Rosd6(Dryden)
+    unknown, Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
 _mags = magazines _heli;

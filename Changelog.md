@@ -148,7 +148,6 @@
 * Updated Hellfire Penetrator (#135)
 * Move engine simulation to be local but globally synchronised. (#134)
 
-
 *06/11/2021*
 * ARMA 2.06 Update, FCR & ASE Streamlining (#113)
 * AI Crew Functionality, New default Gear, Armor Boost & Small fixes (#112)

@@ -7,20 +7,20 @@ Description:
     The first reading after switching helicopter / taking a reading for a while will always be inaccurate as these are both calculated as the difference between two readings of *direction*
 
 Parameters:
-	_heli - The apache helicopter to check.
+    _heli - The apache helicopter to check.
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_fnc_avionicsSlipIndicator
     // fza_ah64_dps => 5
     // fza_ah64_slip => 3
-	---
+    ---
 
 Author:
-	Unknown
+    Unknown
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
