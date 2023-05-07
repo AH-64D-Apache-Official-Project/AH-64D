@@ -1,8 +1,118 @@
 # Changelog Notes:
 
-*11/02/2022*
-* Service Ceiling adjustment from default
-* Start switch animation update
+*06/05/2023*
+* Added missing semicolons from rpt errors (#270)
+* Fixed missing includes (#269)
+* Remove tabs from fza_ah64_aicrew (#268)
+* Remove tabs from fza_ah64_controls (#266)
+* Remove tabs from fza_ah64_cannon (#265)
+* Remove tabs from fza_ah64_audio (#264)
+* Remove tabs from fza_ah64_ase (#263)
+* Remove tabs from fza_ah64_aicrew (#262)
+* Fix some files being in the 'addons' folder rather than 'Addons' (#267)
+* Split out crew pbo (#261)
+* Mpd ASE page update (#259)
+* Move misc weapon config to weapon pbo (#260)
+* MPD Add Load Status Page (#252)
+* Split ASE config into pbo (#258)
+* Separate Hydra rocket config into separate PBO (#256)
+* Separate M230 config to separate PBO (#257)
+* Separate hellfire into separate pbo (#255)
+
+*03/05/2023*
+* MPD-ASE-Page Update (#253)
+
+*01/05/2023*
+* HeliSim-MP-Collective-Fix (#242)
+* Fixed HeliSim Collective position not synchronising between joystick and keyboard and mouse (#246)
+* FCR page Icon Draw fix (#244)
+* Add the ability to create DMS points in the eden editor (#247)
+* Split out IHADSS into separate PBO (#228)
+
+*30/04/2023*
+* Simple Rotor Magic Number Fix (#243)
+* Sound Enhancement Add ETL/VRS Sound (#245)
+
+*23/04/2023*
+* Build custom version of the heading tape that doesn't use type=scale (#237)
+* SFMPlus - Simple Rotor (#232)
+* FCR Page Drawing Error Fix (#238)
+
+---20/04/2023---V2.1.2 Release---
+
+*18/04/2023*
+* Forced manual fire mode on before changing magazines (#235)
+
+*03/04/2023*
+* Ace Interaction & customization integration (#209)
+
+*14/03/2023*
+* Ace map flood lighting (#227)
+
+*04/02/2023*
+* Replaces existing font with BradMicks Custom Apache Font (#226)
+
+*03/02/2023*
+* Initial implementation of MP pylon swapping function (#223)
+* Increased the size of button activation (#225)  
+* B6 keybind is present for both MPD, but should not be. (#214)
+
+*01/02/2023*
+* Added MPD, UFD & KU to the Gunner's seat (#221)
+* Audio Function Update (#198)
+
+*30/01/2023* 
+* ACE Laser & Hellfire (#204)
+* Added r2t tsd icons (#219)
+
+*29/01/2023*
+* Add validation to ensure that all files follow the correct naming scheme (#218)
+
+*09/01/2023*
+* Replaces ARMAs helicopter drag with a custom solution (#213)
+
+*08/01/2023*
+* B6 keybind is present for both MPD, but should not be. (#214)
+
+*19/10/2022*
+* Split CfgVehicles Components (#205)
+
+*02/10/2022*
+* Performance Page, Aircraft Performance and Damage Update (#199)
+
+*29/09/2022*
+* Improved SCons to autodetect PBOs and be more reliable (#201)
+
+*18/09/2022*
+* Addition of NTS & ANTS in Cscope (#197)
+
+*02/09/2022*
+* ASE Audio Controller (#196)
+
+*27/08/2022*
+* Migration to config MFD (#159)
+* Correcting PNVS Settings for TI Dev Update (#183)
+* Deleted files that bleed through (#187)
+* Added HSI to TSD (#191)
+* Removed some RPT errors and an error-popup (#192)
+
+---23/08/2022---V2.1.1 Release---
+
+*22/08/2022*
+* Fixed anti lift issue during autorotation (#186)
+
+*28/06/2022*
+* Syntax fix (#184)
+
+*17/05/2022*
+* Initial Commit (#182)
+
+*16/05/2022*
+* Website loadout configuration import (#181)
+
+*9/04/2022*
+* New AAC Textures (#167)
+* Analogue Flight instruments calibration. (#165)
 
 *09/02/2022*
 * Fixed uninitialised aircraft breaking fn_animReset.sqf (#174)
