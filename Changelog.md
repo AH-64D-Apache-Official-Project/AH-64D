@@ -133,18 +133,8 @@
 *15/01/2022*
 * Hide vanilla UI (#152)
 
-*23/12/2021*
-* Updated hover torque values
-* Updated intro
-
-*16/12/2021*
-* Corrected weapon selection logic
-
 *08/12/2021*
 * SFM+ Engine Update (#143)
-
-*03/12/2021*
-* Reduced startup duration from 80 seconds to 45
 
 *02/12/2021*
 * Rocket salvo Unreliability fix (#141)
@@ -158,18 +148,10 @@
 * Updated Hellfire Penetrator (#135)
 * Move engine simulation to be local but globally synchronised. (#134)
 
-*15/11/2021*
-* Moved sight select to shift
-
-*07/11/2021*
-* Remove debug systemChats, fixed selected rocket
 
 *06/11/2021*
 * ARMA 2.06 Update, FCR & ASE Streamlining (#113)
 * AI Crew Functionality, New default Gear, Armor Boost & Small fixes (#112)
-
-*05/11/2021*
-* Error fixes
 
 *31/10/2021*
 * Update waypointadd.sqf to use map click event handler (#126)
