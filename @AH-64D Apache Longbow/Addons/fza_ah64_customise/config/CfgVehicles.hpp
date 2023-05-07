@@ -18,12 +18,12 @@ class cfgVehicles {
         simulation                          = "thingX";
         class SimpleObject
         {
-        	eden                            = 1;
-        	animate[]                       = {};
-        	hide[]                          = {};
-        	verticalOffset                  = 0.348;
-        	verticalOffsetWorld             = 0;
-        	init                            = "''";
+            eden                            = 1;
+            animate[]                       = {};
+            hide[]                          = {};
+            verticalOffset                  = 0.348;
+            verticalOffsetWorld             = 0;
+            init                            = "''";
         };
     };
     class fza_ah64_FireControlRadar: fza_ah64_ObjectBase {
