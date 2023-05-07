@@ -29,7 +29,7 @@ switch (_irJamState) do {
     case ASE_IRJAM_STATE_OFF: {
         if (_irJamPwr == "on") then {
             _irJamState = ASE_IRJAM_STATE_WARM;
-            _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];	
+            _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];
         };
     };
     case ASE_IRJAM_STATE_WARM: {
@@ -38,19 +38,19 @@ switch (_irJamState) do {
         if (_irJamTimer > 0.99) then {
             _irJamState = ASE_IRJAM_STATE_OPER;
         };
-        _heli setVariable ["fza_ah64_ase_irJamTimer", _irJamTimer];			
-        _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];	
+        _heli setVariable ["fza_ah64_ase_irJamTimer", _irJamTimer];
+        _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];
     };
     case ASE_IRJAM_STATE_OPER: {
         if (_irJamPwr == "off") then {
             _irJamTimer = 0.0;
             _irJamState = ASE_IRJAM_STATE_OFF;
-            _heli setVariable ["fza_ah64_ase_irJamTimer", _irJamTimer];			
-            _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];	
+            _heli setVariable ["fza_ah64_ase_irJamTimer", _irJamTimer];
+            _heli setVariable ["fza_ah64_ase_irJamState", _irJamState];
         } else {
             if (_heli getHitPointDamage "HitLFab" < 0.8 && (CBA_missionTime - _irJamLaunchTimer) >= 1) then {
                 [_heli, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
-                _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", _timeElapsed];	
+                _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", _timeElapsed];
             };
         };
     };

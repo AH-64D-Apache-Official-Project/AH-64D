@@ -22,13 +22,13 @@ params ["_heli","_audioList"];
 
 if !(isEngineOn _heli) exitwith {};
 
-private _Autopage		    = _heli getVariable "fza_ah64_ase_autopage";
-private _Searchlist 		= _heli getVariable "fza_ah64_ase_searchingObj";
-private _acquireList 		= _heli getVariable "fza_ah64_ase_acquisitionObj";
-private _tracklist 			= _heli getVariable "fza_ah64_ase_trackingobj";
-private _searching     		= [];
-private _acquisition     	= [];
-private _tracking     		= [];
+private _Autopage           = _heli getVariable "fza_ah64_ase_autopage";
+private _Searchlist         = _heli getVariable "fza_ah64_ase_searchingObj";
+private _acquireList        = _heli getVariable "fza_ah64_ase_acquisitionObj";
+private _tracklist          = _heli getVariable "fza_ah64_ase_trackingobj";
+private _searching          = [];
+private _acquisition        = [];
+private _tracking           = [];
 private _priority           = 0;
 
 {

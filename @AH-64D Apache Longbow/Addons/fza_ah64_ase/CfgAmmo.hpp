@@ -4,39 +4,39 @@ class CfgAmmo {
         
     class fza_ah64_flare_shot: Bulletbase
     {
-        hit 						= 1;
-        indirectHit 				= 0;
-        indirectHitRange 			= 0;
-        timeToLive 					= 14;
-        thrustTime 					= 4;
-        airFriction 				= -0.01;
-        simulation 					= "shotCM";
-        effectsSmoke 				= "fza_AC130_Flares";
-        weaponLockSystem 			= 2 + 8;
-        model 						= "\A3\weapons_f\empty";
-        maxControlRange 			= -1;
-        initTime 					= 0;
-        aiAmmoUsageFlags			= 8;	
+        hit                         = 1;
+        indirectHit                 = 0;
+        indirectHitRange            = 0;
+        timeToLive                  = 14;
+        thrustTime                  = 4;
+        airFriction                 = -0.01;
+        simulation                  = "shotCM";
+        effectsSmoke                = "fza_AC130_Flares";
+        weaponLockSystem            = 2 + 8;
+        model                       = "\A3\weapons_f\empty";
+        maxControlRange             = -1;
+        initTime                    = 0;
+        aiAmmoUsageFlags            = 8;
     };
     class fza_IR_JAMMING_shot: FlareCore 
     {
-        hit 						= 0;
-        indirectHit 				= 0;
-        indirectHitRange 			= 0;
-        timeToLive 					= 15;
-        thrustTime 					= 4;
-        airFriction 				= -0.01;
-        simulation 					= "shotCM";
-        effectsSmoke 				= "";
-        weaponLockSystem 			= 2;
-        model 						= "\A3\weapons_f\empty";
-        maxControlRange 			= -1;
-        initTime 					= 0;
-        aiAmmoUsageFlags			= 8;	
+        hit                         = 0;
+        indirectHit                 = 0;
+        indirectHitRange            = 0;
+        timeToLive                  = 15;
+        thrustTime                  = 4;
+        airFriction                 = -0.01;
+        simulation                  = "shotCM";
+        effectsSmoke                = "";
+        weaponLockSystem            = 2;
+        model                       = "\A3\weapons_f\empty";
+        maxControlRange             = -1;
+        initTime                    = 0;
+        aiAmmoUsageFlags            = 8;
     };
     class fza_RF_JAMMING_shot: fza_IR_JAMMING_shot
     {
-        weaponLockSystem 			= 8;
+        weaponLockSystem            = 8;
     };
 };
     ///////////////////////////////////////////////////////////////////////
