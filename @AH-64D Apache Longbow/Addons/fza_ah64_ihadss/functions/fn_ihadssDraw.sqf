@@ -5,15 +5,15 @@ Description:
     Draws the IHADSS overlay for the player.
 
 Parameters:
-	_heli - The heli object to draw the IHADSS for
+    _heli - The heli object to draw the IHADSS for
 
 Returns:
     Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_ihadss_fnc_ihadssDraw
-	---
+    ---
 
 Author:
     unknown
@@ -215,9 +215,9 @@ if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "f
 } else {
     if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
         1 cuttext["", "PLAIN"];
-		2 cuttext["", "PLAIN"];
+        2 cuttext["", "PLAIN"];
         3 cuttext["", "PLAIN"];
-		4 cuttext["", "PLAIN"];
+        4 cuttext["", "PLAIN"];
     };
 };
 
@@ -653,7 +653,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         };
     } else {
         //_visionTxt = _a3ti_vis;
-		_visionTxt = "FLIR";
+        _visionTxt = "FLIR";
     };
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt

@@ -5,18 +5,18 @@ Description:
     Controlls and draws the Cscope of the Ihadss
 
 Parameters:
-	_heli - The apache
+    _heli - The apache
 
 Returns:
     Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_ihadss_fnc_cscopeDraw
-	---
+    ---
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -105,12 +105,12 @@ if (count _fcrTargets > 0) then {
 
     private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2%3_ca.paa", _unitType, _unitStatus, _unitSelAndWpnStatus];
     
-	if (count _GuiPos < 1) then {
-		_GuiPos = [-100, -100];
-	};
-	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
-	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
-	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    if (count _GuiPos < 1) then {
+        _GuiPos = [-100, -100];
+    };
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
 
     _CscopeCount = _CscopeCount + 1;
 
@@ -126,7 +126,7 @@ if (count _fcrTargets > 0) then {
 private _UnusedCount = (count (_heli getVariable "fza_ah64_fcrTargets"));
 for "_i" from _UnusedCount to 15 do
 {
-	_GuiPos = [-100, -100];
-	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);
-	((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlCommit 0;
+    _GuiPos = [-100, -100];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlCommit 0;
 };
