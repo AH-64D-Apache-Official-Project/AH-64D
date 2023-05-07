@@ -2,33 +2,33 @@ class CfgWeapons {
     class CannonCore;
     class fza_m230: CannonCore
     {
-        scope 				= 1;
-        displayName			= "M230-E1";
-        nameSound 			= "cannon";
-        cursor 				= "EmptyCursor";
-        cursorAim 			= "mg";
+        scope               = 1;
+        displayName         = "M230-E1";
+        nameSound           = "cannon";
+        cursor              = "EmptyCursor";
+        cursorAim           = "mg";
         showAimCursorInternal = 0;
-        magazines[]			={"fza_m230_300","fza_m230_1200"};
-        canLock 			= 1;
-        ballisticsComputer 	= "1 + 16";
-        FCSZeroingDelay 	= 0;
-        maxZeroing 			= 4200;
-        aiDispersionCoefY 	= 0.5;
-        aiDispersionCoefX 	= 0.5;
-        weaponLockDelay 	= 0;
-        multiplier 			= 1;
-        shotFromTurret 		= 0;
-        useAction 			= 0;
-        useActionTitle 		= "";
-        modes[] 			= {"manual","close","short","medium","far"};
+        magazines[]         ={"fza_m230_300","fza_m230_1200"};
+        canLock             = 1;
+        ballisticsComputer  = "1 + 16";
+        FCSZeroingDelay     = 0;
+        maxZeroing          = 4200;
+        aiDispersionCoefY   = 0.5;
+        aiDispersionCoefX   = 0.5;
+        weaponLockDelay     = 0;
+        multiplier          = 1;
+        shotFromTurret      = 0;
+        useAction           = 0;
+        useActionTitle      = "";
+        modes[]             = {"manual","close","short","medium","far"};
 
         //ACE Advanced Ballistics Cfg
-        ACE_barrelTwist 			= 177.8;
-        ACE_barrelLength 			= 1676;
-        ACE_twistDirection 			= 1;
-        ace_overpressure_angle 		= 90;
-        ace_overpressure_range 		= 2;
-        ace_overpressure_damage 	= 0.265;
+        ACE_barrelTwist             = 177.8;
+        ACE_barrelLength            = 1676;
+        ACE_twistDirection          = 1;
+        ace_overpressure_angle      = 90;
+        ace_overpressure_range      = 2;
+        ace_overpressure_damage     = 0.265;
 
         class GunParticles
         {
@@ -48,7 +48,7 @@ class CfgWeapons {
             class StandardSound 
             {
                 soundSetShot[] = {"fza_m230_soundset"};
-            };	
+            };
             soundContinuous = 0;
             soundBurst = 0;
             reloadTime = 0.109;
@@ -126,17 +126,17 @@ class CfgWeapons {
             maxRange = 2500;
             maxRangeProbab = 0.05;
         };
-    };		
+    };
     
     class fza_burstlimiter: fza_m230
-    {	
+    {
         scope = 1;
         displayName="BURST LIMIT";
         cursor="";
         cursorAim="";
         magazines[]={"fza_burstlimit"};
         textureType = "single";
-    };	
+    };
         
     class fza_ma_safe: fza_m230
     {
