@@ -2,31 +2,31 @@
 Function: fza_mpd_fnc_drawIcons
 
 Description:
-	Draws the points inputted on the right hand MPD, performing all necessary positioning
+    Draws the points inputted on the right hand MPD, performing all necessary positioning
 
 Parameters:
-	_heli - The helicopter to draw this on (the player must be in it)
-	_points - the points to draw on the screen. An array with arrays in it that fit the following schema
-	    [_posMode, _pos, _tex, _color, _textMode, _text1, _text2]
-		where:
-		    _posMode is how to read the position, either MPD_POSMODE_WORLD or MPD_POSMODE_SCREEN
-			_pos is 2d position of the point, in the aforementioned mode
-			_tex is the texture to apply to the centre of the point
-			_color is the color to apply (MPD_ICON_COLOR_GREEN .. MPD_ICON_COLOR_YELLOW)
-			_textMode is the text mode (MPD_ICON_TYPE_A .. G)
-			_text1 is the first part of text
-			_text2 is the second part of text, where applicable
-	_display - 1 if right, 0 if left
-	_scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
-	_center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
+    _heli - The helicopter to draw this on (the player must be in it)
+    _points - the points to draw on the screen. An array with arrays in it that fit the following schema
+        [_posMode, _pos, _tex, _color, _textMode, _text1, _text2]
+        where:
+            _posMode is how to read the position, either MPD_POSMODE_WORLD or MPD_POSMODE_SCREEN
+            _pos is 2d position of the point, in the aforementioned mode
+            _tex is the texture to apply to the centre of the point
+            _color is the color to apply (MPD_ICON_COLOR_GREEN .. MPD_ICON_COLOR_YELLOW)
+            _textMode is the text mode (MPD_ICON_TYPE_A .. G)
+            _text1 is the first part of text
+            _text2 is the second part of text, where applicable
+    _display - 1 if right, 0 if left
+    _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
+    _center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params
     [ "_heli"
@@ -44,7 +44,7 @@ private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
 private _ctrlPoints = _display getVariable "fza_points";
 
 if (_scale == -1) then {
-	_scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
+    _scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
 };
 
 //Set all current state to be not updated. This lets us know which ones can be removed

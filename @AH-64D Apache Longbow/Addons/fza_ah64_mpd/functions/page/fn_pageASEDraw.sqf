@@ -8,10 +8,10 @@ private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == "
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState];
 private _chaffCount = 0; //<-- this is duplicated in the WPN page!!
 {
-	_x params ["_className", "_turretPath", "_ammoCount"];
-	if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
-		_chaffCount = _chaffCount + _ammoCount;
-	};
+    _x params ["_className", "_turretPath", "_ammoCount"];
+    if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
+        _chaffCount = _chaffCount + _ammoCount;
+    };
 } forEach magazinesAllTurrets _heli;
 _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CHAFF_QTY), _chaffCount toFixed 0];
 

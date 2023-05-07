@@ -4,12 +4,12 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 switch(_control) do {
-	case "t1": {
-		[_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
-	};
+    case "t1": {
+        [_heli, _mpdIndex, "dms"] call fza_mpd_fnc_setCurrentPage;
+    };
     case "b1": {
-		[_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
-	};
+        [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
+    };
 };
 
 switch (_state get "subPage") do {
@@ -29,12 +29,12 @@ switch (_state get "subPage") do {
             };
         };
     };
-	case DTU_LOAD_STATUS: {
-		switch (_control) do {
+    case DTU_LOAD_STATUS: {
+        switch (_control) do {
             case "l1": {
                 if (_state get "loadState" == MFD_DTU_LOADING) exitWith {};
                 _state set ["subPage", DTU_ROOT];
             };
         };
-	};
+    };
 };

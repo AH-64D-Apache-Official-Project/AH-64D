@@ -1,6 +1,6 @@
 class Gun {
-	class Selected {
-		condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1));
+    class Selected {
+        condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1));
         //Here
         class Polygon {
             type = polygon;
@@ -65,7 +65,7 @@ class Gun {
             MPD_TEXT_C(Gun_Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         };
     };
-	class Deselected {
+    class Deselected {
         condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1)));
         MPD_TEXT_C(Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         class Lines {
@@ -86,7 +86,7 @@ class Gun {
                 {{0.445, 0.372}, 1}, {{0.555, 0.372}, 1}, {{0.555, 0.372+0.06}, 1}, {{0.445, 0.372+0.06}, 1}, {{0.445, 0.372}, 1},
             };
         };
-	};
+    };
 };
 
 // Hellfire icons

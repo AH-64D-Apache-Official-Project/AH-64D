@@ -2,22 +2,22 @@
 Function: fza_mpd_fnc_handleZoom
 
 Description:
-	Zooms in and out the TSD.
+    Zooms in and out the TSD.
 
 Parameters:
-	_heli - The helicopter to act on
-	_dir - The direction to zoom. *"IN"* or *"OUT"*
+    _heli - The helicopter to act on
+    _dir - The direction to zoom. *"IN"* or *"OUT"*
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_mpd_fnc_handleZoom
-	---
+    ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params["_heli", "_dir"];
 

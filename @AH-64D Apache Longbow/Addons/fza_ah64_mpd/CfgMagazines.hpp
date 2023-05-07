@@ -33,7 +33,7 @@ class CfgMagazines {
 
     class fza_275_rocket_base : 6Rnd_Missile_AGM_02_F{
         class mfdElements {
-			#include "pylons\rocket.hpp"
-		};
+            #include "pylons\rocket.hpp"
+        };
     };
 };
