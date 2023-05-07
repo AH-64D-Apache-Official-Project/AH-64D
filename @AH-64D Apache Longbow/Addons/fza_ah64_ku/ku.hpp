@@ -10,9 +10,9 @@ helmetPosition[] = {-0.0375,0.0375,0.1};
 helmetRight[] = {0.075,0,0};
 class material
 {
-	ambient[]	= { 1, 1, 1, 1 };
-	diffuse[]	= { 1, 1, 1, 1 };
-	emissive[]	= { 30, 30, 30, 1 };
+    ambient[]   = { 1, 1, 1, 1 };
+    diffuse[]   = { 1, 1, 1, 1 };
+    emissive[]  = { 30, 30, 30, 1 };
 };
 class Bones {};
 // HUD-Elements definitions
