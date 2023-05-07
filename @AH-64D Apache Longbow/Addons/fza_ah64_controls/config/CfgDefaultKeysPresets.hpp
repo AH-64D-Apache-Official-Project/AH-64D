@@ -3,15 +3,15 @@ class CfgDefaultKeysPresets {
         class Mappings {
             /*
                 dik[] = 0xaaBBccDD
-                aa		= combo KB key (second key of combo always keyboard)
-                BB		= device type of first key (joy, mouse, KB,...) (or in case of combo, first half secondary combo type, second half main combo type)
-                cc		= offset for joys or double tap info for KB
-                DD		= key/button/axis identification
+                aa      = combo KB key (second key of combo always keyboard)
+                BB      = device type of first key (joy, mouse, KB,...) (or in case of combo, first half secondary combo type, second half main combo type)
+                cc      = offset for joys or double tap info for KB
+                DD      = key/button/axis identification
 
-                BBccDD	= whole info about first key
-                ccDD		= button info (doubleTap or joyID+btnID)
-                DD		= button local ID
-            */	
+                BBccDD  = whole info about first key
+                ccDD    = button info (doubleTap or joyID+btnID)
+                DD      = button local ID
+            */
             fza_ah64_sightSelectHMD[] = {0x2A130002}; //Shift+1
             fza_ah64_sightSelectTADS[] = {0x2A130003}; //Shift+2
             fza_ah64_sightSelectFXD[] = {0x2A130004}; //Shift+3

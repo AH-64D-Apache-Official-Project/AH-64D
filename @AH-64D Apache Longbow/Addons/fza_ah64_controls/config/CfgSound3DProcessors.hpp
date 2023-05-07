@@ -13,7 +13,7 @@ class CfgSound3DProcessors {
         innerrange = 0;
         range = 100;
         rangecurve = "fza_weapons_basic_volumecurve";
-    };	
+    };
     class fza_explosions_3dprocessor 
     {
         type = "panner";
@@ -27,26 +27,26 @@ class CfgSound3DProcessors {
         innerrange = 2;
         range = 500;
         rangecurve = "fza_wep_proc_pn_sin";
-    };	
+    };
     class fza_exp_stereo_medium_prc 
     {
         type = "panner";
         innerrange = 30;
         range = 400;
         rangecurve = "fza_basic_vl_sin";
-    };	
+    };
     class fza_explosion_tail_3dprocessor 
     {
         type = "panner";
         innerrange = 0;
         range = 200;
         rangecurve = "fza_fadeout_volumecurve";
-    };	
+    };
     class fza_exp_stereo_big_prc 
     {
         type = "panner";
         innerrange = 75;
         range = 700;
         rangecurve = "fza_basic_vl_sin";
-    };	
+    };
 };

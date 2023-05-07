@@ -95,5 +95,5 @@ if (player == driver _heli && (vehicle player) isKindOf "fza_ah64base") then {
 
     if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
         fza_ah64_pnvsgreff ppEffectEnable false;
-    };	
+    };
 };
