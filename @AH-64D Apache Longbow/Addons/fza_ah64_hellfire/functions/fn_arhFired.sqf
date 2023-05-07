@@ -13,13 +13,13 @@ Parameters:
     _launchPos - Apaches position at launch
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	Nothing
+    Nothing
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_firedEH", "_launchParams", "", "", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
@@ -33,9 +33,9 @@ private _targetType     = _targobj call BIS_fnc_objectType;
 private _loblCheckLima  = [_heli, [getpos _targObj, "", speed _targObj, _targObj]] call fza_hellfire_fnc_limaLoblCheck;
 
 if (!(isNull _targObj) && _loblCheckLima #1) then {
-	_targPos = getposasl _targObj;
+    _targPos = getposasl _targObj;
 } else {
-	_targObj = Objnull;
+    _targObj = Objnull;
 };
 
 //Cycle Radar targets
@@ -44,7 +44,7 @@ if (!(isNull _targObj) && _loblCheckLima #1) then {
 //Dir trajectory at close range
 private _attackProfile = "hellfire_hi";
 if (_loblCheckLima #1) then {
-	_attackProfile = "hellfire";
+    _attackProfile = "hellfire";
 };
 
 if (_projectile distance _targPos < 2000) then {

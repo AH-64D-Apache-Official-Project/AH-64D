@@ -2,7 +2,7 @@
 Function: fza_hellfire_fnc_getattackProfile
 
 Description:
-	grabs the ace name for the current attack mode.
+    grabs the ace name for the current attack mode.
 
 Parameters:
     _heli - the helicopter
@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_hellfire_fnc_getattackProfile
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
