@@ -23,9 +23,11 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_system", "_control"];
 
+private _battBusOn = _heli getVariable "fza_systems_battBusOn";
+
 switch (_control) do {
     case "floodlight": {
-        if (!(isLightOn [_heli,[0]]) && _heli getVariable "fza_ah64_battery") then {
+        if (!isLightOn [_heli,[0]] && _battBusOn) then {
             _heli setObjectTextureGlobal ["in_backlight", "\fza_ah64_us\tex\in\dlt.paa"];
             _heli setobjecttextureGlobal ["in_backlight2", "\fza_ah64_us\tex\in\pushbut.paa"];
 
@@ -41,7 +43,7 @@ switch (_control) do {
         playsound "fza_ah64_button_rotary";
     };
     case "anticollision": {
-        if (!(_heli getVariable "fza_ah64_anticollision") && _heli getVariable "fza_ah64_battery") then {
+        if (!(_heli getVariable "fza_ah64_anticollision") && _battBusOn) then {
             [_heli, "fza_ah64_anticollision", true] call fza_fnc_animSetValue;
             _heli setCollisionLight true;
         } else {
