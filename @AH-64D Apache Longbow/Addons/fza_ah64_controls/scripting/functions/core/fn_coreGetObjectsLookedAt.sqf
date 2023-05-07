@@ -33,7 +33,7 @@ params ["_heli"];
 
 #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name]
 #define COCKPIT_CONTROL_SEP ,
-private _controls =  [	//Schema of Pilot memory point, Gunner memory point, system, control, sensitivity, description]
+private _controls =  [ //Schema of Pilot memory point, Gunner memory point, system, control, sensitivity, description]
 #include "\fza_ah64_controls\headers\controls.h"
 ];
 _controls = _controls apply {

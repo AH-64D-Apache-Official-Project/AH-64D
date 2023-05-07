@@ -15,11 +15,11 @@ class CfgSoundCurves {
     class fza_explosions_volumecurve 
     {
         points[] = {{0, 1}, {0.100000, 0.850000}, {0.200000, 0.625000}, {0.300000, 0.550000}, {0.400000, 0.290000}, {0.500000, 0.145000}, {0.600000, 0.100000}, {1, 0}};
-    };	
+    };
     class fza_fadeout_volumecurve 
     {
         points[] = {{0, 1}, {1, 0}};
-    };	
+    };
     class fza_wep_proc_pn_sin 
     {
         points[] = {{0, 1}, {0.010000, 0.250000}, {1, 0}};

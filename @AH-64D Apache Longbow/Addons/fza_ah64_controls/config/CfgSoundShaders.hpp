@@ -31,7 +31,7 @@ class CfgSoundShaders {
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////AMMO/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////	
+    ///////////////////////////////////////////////////////////////////////
     
     class fza_sc_30x113_close_soundshader 
     {
@@ -39,7 +39,7 @@ class CfgSoundShaders {
         volume = 2;
         range = 5;
         rangeCurve[] = {{0, 1.500000}, {10, 1}, {20, 0}};
-    };	
+    };
 
     class fza_sc_30x113_medium_soundshader 
     {
@@ -55,11 +55,11 @@ class CfgSoundShaders {
         volume = 1;
         range = 700;
         rangeCurve[] = {{0, 0}, {20, 0}, {100, 1}, {700, 0}};
-    };	
+    };
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////EXPLOSIONS///////////////////////////////
-    ///////////////////////////////////////////////////////////////////////		
+    ///////////////////////////////////////////////////////////////////////
 
     class fza_20mm_explosion_close_distance_soundshader 
     {
@@ -98,7 +98,7 @@ class CfgSoundShaders {
         range = 1000;
         rangeCurve[] = {{0, 0}, {400, 1}, {1000, 0}};
         limitation = 1;
-    };	
+    };
     class fza_rocket_explosion_close_distance_soundshader 
     {
         samples[] = {{"fza_ah64_us\audio\Explosions\Rockets\close_distance_1.ogg", 1}, {"fza_ah64_us\audio\Explosions\Rockets\close_distance_2.ogg", 1}, {"fza_ah64_us\audio\Explosions\Rockets\close_distance_3.ogg", 1}, {"fza_ah64_us\audio\Explosions\Rockets\close_distance_4.ogg", 1}};
@@ -134,7 +134,7 @@ class CfgSoundShaders {
         volume = 1.500000;
         range = 65;
         limitation = 1;
-    };	
+    };
 
     class fza_missile_explosion_stereo_soundshader 
     {
@@ -180,11 +180,11 @@ class CfgSoundShaders {
         volume = 1;
         range = 2000;
         rangeCurve[] = {{0, 0}, {400, 0}, {800, 1}, {2000, 0}};
-    };	
+    };
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////DEBRIS///////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////	
+    ///////////////////////////////////////////////////////////////////////
 
     class fza_small_debris_regular_soundshader 
     {
@@ -222,7 +222,7 @@ class CfgSoundShaders {
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////ECHO/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////		
+    ///////////////////////////////////////////////////////////////////////
     
     class fza_explosion_echo_small_soundshader 
     {
@@ -230,25 +230,25 @@ class CfgSoundShaders {
         volume = 5.000000;
         range = 1000;
         rangeCurve[] = {{0, 0}, {30, 1}, {1000, 0}};
-    };	
+    };
     class fza_explosion_echo_medium_soundshader 
     {
         samples[] = {{"fza_ah64_us\audio\Echo\Medium\explo_m_1.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_2.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_3.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_4.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_5.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_6.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_7.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_8.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_9.ogg", 1}, {"fza_ah64_us\audio\Echo\Medium\explo_m_10.ogg", 1}};
         volume = 5.000000;
         range = 1000;
         rangeCurve[] = {{0, 0}, {30, 1}, {1000, 0}};
-    };	
+    };
     class fza_explosion_echo_houses_soundshader 
     {
         samples[] = {{"fza_ah64_us\audio\Echo\houses_1.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_2.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_3.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_4.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_5.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_6.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_7.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_8.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_9.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_10.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_11.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_12.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_14.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_15.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_16.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_17.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_18.ogg", 1}, {"fza_ah64_us\audio\Echo\houses_19.ogg", 1}};
         volume = "5 * houses";
         range = 1000;
         rangeCurve[] = {{0, 0}, {30, 1}, {1000, 0}};
-    };	
+    };
 
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////REVERB///////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////	
+    ///////////////////////////////////////////////////////////////////////
     
     class fza_shell_explosion_reverb_houses_soundshader 
     {
@@ -298,7 +298,7 @@ class CfgSoundShaders {
         range = 500;
         limitation = 1;
         rangeCurve[] = {{0, 1}, {100, 0.500000}, {500, 0}};
-    };	
+    };
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////M230/////////////////////////////////////
@@ -351,11 +351,11 @@ class CfgSoundShaders {
         range = 4000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
-    };	
+    };
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////ROCKETS//////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////	
+    ///////////////////////////////////////////////////////////////////////
     
     class fza_m261_close_soundshader 
     {
@@ -404,11 +404,11 @@ class CfgSoundShaders {
         range = 4000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
-    };		
+    };
 
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////MPSM/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////	
+    ///////////////////////////////////////////////////////////////////////
 
     class fza_he_explosion_stereo_soundshader 
     {
@@ -417,7 +417,7 @@ class CfgSoundShaders {
         range = 150;
         rangeCurve[] = {{0, 1}, {150, 0}};
         limitation = 1;
-    };	
+    };
     class fza_he_explosion_distance_soundshader 
     {
         samples[] = {{"fza_ah64_us\audio\Explosions\he_distance.ogg", 1}};
@@ -429,7 +429,7 @@ class CfgSoundShaders {
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////ATAS/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////		
+    ///////////////////////////////////////////////////////////////////////
 
     class fza_atas_close_soundshader 
     {
@@ -478,11 +478,11 @@ class CfgSoundShaders {
         range = 4000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
-    };		
+    };
     
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////HELLFIRE/////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////			
+    ///////////////////////////////////////////////////////////////////////
 
     class fza_agm114_close_soundshader 
     {
@@ -499,7 +499,7 @@ class CfgSoundShaders {
         range = 300;
         rangeCurve[] = {{0, 0}, {10, 0.25}, {20, 0.5}, {50, 1}, {100, 1}, {300, 0}};
         frequency = 1;
-    };		
+    };
     class fza_agm114_medium_distance_soundshader 
     {
         samples[] = {{"fza_ah64_us\audio\AGM114\distance\Missile_small_dist_1.ogg", 1},{"fza_ah64_us\audio\AGM114\distance\Missile_small_dist_2.ogg", 1},{"fza_ah64_us\audio\AGM114\distance\Missile_small_dist_3.ogg", 1}};
@@ -531,5 +531,5 @@ class CfgSoundShaders {
         range = 4000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
-    };			
+    };
 };

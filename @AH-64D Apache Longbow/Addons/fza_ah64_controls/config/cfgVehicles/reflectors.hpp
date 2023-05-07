@@ -16,7 +16,7 @@ class Reflectors
         useFlare = 1;
         flareSize = 10;
         flareMaxDistance = 500;
-        daylight = 1;		//added
+        daylight = 1; //added
         class Attenuation
         {
             start = 0;

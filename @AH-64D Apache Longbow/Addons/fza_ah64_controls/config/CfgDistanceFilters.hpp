@@ -17,7 +17,7 @@ class CfgDistanceFilters {
         innerrange = 30;
         range = 2000;
         powerfactor = 32;
-    };	
+    };
     class fza_wpn_echo_lp_dia 
     {
         type = "lowpassfilter";
@@ -26,7 +26,7 @@ class CfgDistanceFilters {
         innerrange = 30;
         range = 300;
         powerfactor = 75;
-    };	
+    };
     class fza_basic_lp_dia 
     {
         type = "lowpassfilter";

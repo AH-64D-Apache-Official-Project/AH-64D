@@ -27,8 +27,8 @@ class Turrets : Turrets
         minElev = -60;
         maxElev = 30;
         initElev= 0;
-        maxXRotSpeed = 1;	// yawing speed
-        maxYRotSpeed = 1;	// pitching speed
+        maxXRotSpeed = 1; // yawing speed
+        maxYRotSpeed = 1; // pitching speed
         maxMouseXRotSpeed= 0.5;
         maxMouseYRotSpeed= 0.5;
         minTurn = -120;
@@ -165,17 +165,17 @@ class Turrets : Turrets
             class VehicleSystemsDisplayManagerComponentLeft
             {
                 componentType = "VehicleSystemsDisplayManager";
-                x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"",	(safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
-                y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"",	(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
+                x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"", (safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
+                y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"", (safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
                 left = 1;
                 defaultDisplay = "CrewDisplay";
                 class Components
                 {
-                    class EmptyDisplay		// Empty display - hide panel
+                    class EmptyDisplay // Empty display - hide panel
                     {
                         componentType = "EmptyDisplayComponent";
                     };
-                    class MinimapDisplay	// GPS
+                    class MinimapDisplay // GPS
                     {
                         componentType = "MinimapDisplayComponent";
                         resource = "RscCustomInfoMiniMap";

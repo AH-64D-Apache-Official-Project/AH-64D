@@ -1,6 +1,6 @@
 class CfgSounds
 {
-    ///STARTING CLICKABLE SEQUENCE SOUNDS////	
+    ///STARTING CLICKABLE SEQUENCE SOUNDS////
     
     class fza_ah64_apustart_3D
     {
@@ -24,7 +24,7 @@ class CfgSounds
     {
         name = "fza_ah64_bat_loop_3D";
         sound[] = {"fza_ah64_us\audio\Avionics.ogg",10,1,10};
-        titles[]={};	
+        titles[]={};
     };
     class fza_ah64_estart_3D
     {
