@@ -683,9 +683,25 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 if !(_was == WAS_WEAPON_MSL) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition[(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_targpos select 0)-0.036,(_targpos select 1)-0.05] call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlCommit 0;
 };
+
+private _acqScreenPos = worldToScreen aslToAGL
+    (([_heli] call fza_fnc_targetingAcqVec) vectorAdd (aglToASL positionCameraToWorld [0,0,0]));
+if (_acqScreenPos isEqualTo [] 
+    //When the heli is in manual fire, the TADS LOS (what we currently render as the ACQ)
+    //is no longer valid due to us having to slave it to the sight of the pilot to ensure
+    //the weapons systems work. In that case, we'll hide it. This will be fixed when we
+    //no longer need manual fire to shoot from the pilot's seat.
+    || isManualFire _heli 
+    //When you are in the gunners seat and in the TADS< then the current hard-coded value
+    //of TADS for the ACQ is no longer valid. This will be fixed when multiple acquisition
+    //sources are set up
+    || player == gunner _heli && cameraView == "GUNNER") then {
+    _acqScreenPos = [-100,-100];
+};
+
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_acqScreenPos select 0)-0.036,(_acqScreenPos select 1)-0.05] call fza_fnc_compensateSafezone);
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlCommit 0;
 
 
 private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);

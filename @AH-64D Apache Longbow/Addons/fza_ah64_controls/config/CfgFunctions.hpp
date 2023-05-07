@@ -97,6 +97,7 @@ class CfgFunctions
         class targeting
         {
             file = "\fza_ah64_controls\scripting\functions\targeting";
+            class targetingAcqVec {R;};
             class targetingFCRUpdate {R;};
             class targetingFilterType {R;};
             class targetingGetSightSelect {R;};
