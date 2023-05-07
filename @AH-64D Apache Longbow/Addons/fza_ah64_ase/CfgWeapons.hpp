@@ -113,5 +113,5 @@ class CfgWeapons {
                 soundBegin[] = {"begin1", 1};
             };
         };
-    };	
+    };
 };
