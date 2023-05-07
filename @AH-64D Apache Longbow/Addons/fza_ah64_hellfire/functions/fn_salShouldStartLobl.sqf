@@ -6,15 +6,15 @@ Description:
     (can see valid laser energy)
 
 Parameters:
-	_heli - The object who is seeking
+    _heli - The object who is seeking
 
 Returns:
     startLobl
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_hellfire_fnc_salShouldStartLobl
-	---
+    ---
 
 ---------------------------------------------------------------------------- */
 params ["_heli"];

@@ -11,12 +11,12 @@ Parameters:
     _seekerMaxAngle - the cfg seeker angle for hellfire
     
 Returns:
-	true || false
+    true || false
 
 Examples:
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_seeker", "_targetPos", "_seekerMaxAngle"];
 
