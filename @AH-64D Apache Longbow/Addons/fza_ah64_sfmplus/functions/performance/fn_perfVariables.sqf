@@ -2,19 +2,19 @@
 Function: fza_sfmplus_fnc_perfVariables
 
 Description:
-	Defines the initial performance page variables and initializes them.
+    Defines the initial performance page variables and initializes them.
 
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
