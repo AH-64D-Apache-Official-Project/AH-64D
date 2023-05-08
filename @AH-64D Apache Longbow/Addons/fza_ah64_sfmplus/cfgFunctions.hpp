@@ -29,6 +29,10 @@ class CfgFunctions
             class engineReset {R;};
 			class engineVariables {R;};
 		};
+        class fmc  {
+            file = "\fza_ah64_sfmplus\functions\fmc";
+            class fmcAltitudeHold {R;};
+        };
 		class fuel {
 			file = "\fza_ah64_sfmplus\functions\fuel";
 			class fuelSet {R;};

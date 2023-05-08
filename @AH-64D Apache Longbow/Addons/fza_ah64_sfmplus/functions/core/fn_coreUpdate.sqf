@@ -37,7 +37,10 @@ private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
 //Input
-[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
+private _altHoldOutput     = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitudeHold;
+systemChat format ["Alt Hold Output = %1", _altHoldOutput];
+
+[_heli, _deltaTime, _altHoldOutput] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
