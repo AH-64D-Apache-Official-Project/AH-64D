@@ -32,7 +32,6 @@ _targhead      = 0;
 
 _sensor = "R ";
 _sensxm = "HMD";
-_acqihadss = ""; //TEST ACQ TADS DISPLAY
 _weapon = "GUN";
 _weaponstate = "";
 _rcd = "RCD      TADS";
@@ -372,7 +371,6 @@ if (!isNil "_nextPointPos") then {
 
 /////////////////////////////////////////////////////////
 _sensor = "R ";
-_acqihadss = "FCR/G";
 
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
@@ -662,9 +660,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };
 
-if !(_heli animationPhase "fcr_enable" == 1) then {
-    _acqihadss = "";
-};
+private _curTurret = [_heli] call fza_fnc_currentTurret;
+private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetText _speedkts;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetText _radaltft;
@@ -674,7 +671,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 129) ctrlSetText _waypointcode;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 184) ctrlSetText _gspdcode;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetText _baraltft;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText _acqihadss;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText _curAcq;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetPosition[(_sensorposx) + 0.4875, (_sensorposy) + 0.735];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
@@ -683,10 +680,17 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 if !(_was == WAS_WEAPON_MSL) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition[(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetPosition ([(_targpos select 0)-0.036,(_targpos select 1)-0.05] call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlCommit 0;
 };
 
+private _cuedLosCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132;
+
+private _cuedLosPos = worldToScreen aslToAgl (aglToAsl positionCameraToWorld [0,0,0] vectorAdd ([_heli, _curAcq] call fza_fnc_targetingAcqVec));
+if (_cuedLosPos isEqualTo []) then {
+    _cuedLosPos = [-100, -100];
+};
+
+_cuedLosCtrl ctrlSetPosition ([(_cuedLosPos select 0)-0.036,(_cuedLosPos select 1)-0.05] call fza_fnc_compensateSafezone);
+_cuedLosCtrl ctrlCommit 0;
 
 private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
 if (_headTrackerPos isEqualTo []) then {
