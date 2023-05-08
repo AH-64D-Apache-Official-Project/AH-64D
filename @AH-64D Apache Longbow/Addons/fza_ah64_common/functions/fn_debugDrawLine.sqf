@@ -38,4 +38,4 @@ switch (_col) do {
     };
 };
 
-debugDrawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
+drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
