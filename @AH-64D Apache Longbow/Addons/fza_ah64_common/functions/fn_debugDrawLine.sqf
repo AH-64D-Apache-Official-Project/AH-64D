@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_drawLine
+Function: fza_fnc_debugDrawLine
 
 Description:
   Draws a debug line.
@@ -38,4 +38,4 @@ switch (_col) do {
     };
 };
 
-drawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];
+debugDrawLine3D [_heli modelToWorldVisual _p1, _heli modelToWorldVisual _p2, _col];

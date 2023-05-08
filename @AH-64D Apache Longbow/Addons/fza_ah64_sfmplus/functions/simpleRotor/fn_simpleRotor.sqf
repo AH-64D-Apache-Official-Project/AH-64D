@@ -168,9 +168,9 @@ if (_velXY < 12.35) then {  //must be less than ETL
 };;
 
 #ifdef __A3_DEBUG__
-[_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_drawLine;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_fnc_drawLine;
-[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_drawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_fnc_debugDrawLine;
+[_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_debugDrawLine;
 #endif
 
 /*
