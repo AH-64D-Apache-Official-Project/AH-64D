@@ -18,6 +18,7 @@
 #define MFD_TEXT_IND_FLT_TIMETOGO     5
 #define MFD_TEXT_IND_FLT_BALT         6
 #define MFD_TEXT_IND_FLT_GALT         7
+#define MFD_TEXT_IND_FLT_ACQ_SRC      10
 
 #define MFD_IND_FLT_TURN 0
 #define MFD_IND_FLT_SLIP 1
@@ -28,6 +29,7 @@
 #define MFD_IND_FLT_FLY_TO_CUE_Y 6
 #define MFD_IND_FLT_FLIGHT_PATH_X 7
 #define MFD_IND_FLT_FLIGHT_PATH_Y 8
+#define MFD_IND_FLT_ACQ_BOX 9
 
 //Fuel page
 #define MFD_TEXT_IND_FUEL_FWD 0
@@ -56,7 +58,8 @@
 #define MFD_IND_ENG_WCA_3 13
 #define MFD_IND_ENG_WCA_4 14
 #define MFD_IND_ENG_WCA_5 15
-#define MFD_IND_ENG_WCA_6 16
+
+#define MFD_IND_ENG_ACQ_BOX 16
 
 #define MFD_TEXT_IND_ENG_TORQUE_1 0
 #define MFD_TEXT_IND_ENG_TORQUE_2 1
@@ -75,7 +78,8 @@
 #define MFD_TEXT_IND_ENG_WCA_3 13
 #define MFD_TEXT_IND_ENG_WCA_4 14
 #define MFD_TEXT_IND_ENG_WCA_5 15
-#define MFD_TEXT_IND_ENG_WCA_6 16
+
+#define MFD_TEXT_IND_ENG_ACQ_SRC 16
 
 #define MFD_TEXT_IND_ENG_PRI_HYD_PSI  17
 #define MFD_TEXT_IND_ENG_UTIL_HYD_PSI 18
@@ -97,20 +101,21 @@
 // Whether that rocket pod is present. 0 - neither pod is present, 1 - only (1/2) is present, 2 - only (3/4) is present, 3 - (1/2) and (3/4) present
 #define MFD_IND_WPN_RKT_1_4_STATE 6
 #define MFD_IND_WPN_RKT_2_3_STATE 7
+#define MFD_IND_WPN_ACQ_BOX 8
 
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_BURST_LIMIT 8
+#define MFD_IND_WPN_SELECTED_BURST_LIMIT 9
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_RKT_INV 8
+#define MFD_IND_WPN_SELECTED_RKT_INV 9
 // 0 for SAL, 1 for RF
-#define MFD_IND_WPN_SELECTED_MSL_TYPE 8
+#define MFD_IND_WPN_SELECTED_MSL_TYPE 9
 // 1-indexed missile channel selection for primary and alt
-#define MFD_IND_WPN_SELECTED_PRI_CH 9
-#define MFD_IND_WPN_SELECTED_ALT_CH 10
+#define MFD_IND_WPN_SELECTED_PRI_CH 10
+#define MFD_IND_WPN_SELECTED_ALT_CH 11
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
 
-#define MFD_TEXT_IND_WPN_ACQ 0
+#define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
 #define MFD_TEXT_IND_WPN_CHAFF_QTY 2
 #define MFD_TEXT_IND_WPN_RKT_1_4_TEXT 3
@@ -168,12 +173,14 @@
 #define MFD_IND_TSD_SHOW_ENDR 9
 #define MFD_IND_TSD_ASE_FOOTPRINT 10
 
-//Drawing goes here 10 to 14
+#define MFD_IND_TSD_ACQ_BOX 14
 #define MFD_IND_TSD_CTR 15
 #define MFD_IND_TSD_SHOW_HSI 16
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18
 #define MFD_IND_TSD_SUBPAGE 19
+
+#define MFD_TEXT_IND_TSD_ACQ_SRC 19
 
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
@@ -197,13 +204,14 @@
 //--User value
 #define MFD_IND_FCR_ANIM       0
 #define MFD_IND_FCR_SCAN_TYPE  1
+#define MFD_IND_FCR_ACQ_BOX    2
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1
 #define MFD_TEXT_IND_FCR_RRS   2
 #define MFD_TEXT_IND_FCR_SS    3
 #define MFD_TEXT_IND_FCR_WC    4
-#define MFD_TEXT_IND_FCR_ACQ   5
+#define MFD_TEXT_IND_FCR_ACQ_SRC 5
 #define MFD_TEXT_IND_FCR_WS    6
 
 //ASE Indices

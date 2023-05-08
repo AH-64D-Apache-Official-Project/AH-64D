@@ -75,3 +75,5 @@ private _slipFwdFlt = _airspeedModelRelative # 0 atan2 _airspeedModelRelative # 
 private _slip = linearConversion [0, 24, _groundSpeedKnots, _slipHvrFlt, _slipFwdFlt, true];
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _slip];
+
+[_heli, _mpdIndex, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC] call fza_mpd_fnc_acqDraw;

@@ -83,3 +83,5 @@ class Tsd_DigitSize3 : Tsd_DigitSize1 {
     min = 49000;
     max = 50000;
 };
+
+MPD_BONE_ACQ_SRC_BOX(Tsd_Acq, MFD_IND_TSD_ACQ_BOX)

@@ -105,3 +105,5 @@ class Flt_HeadingTape {
     maxPos[] = {0.5, 0.15};
     minPos[] = {-0.5, 0.15};
 };
+
+MPD_BONE_ACQ_SRC_BOX(Flt_Acq, MFD_IND_FLT_ACQ_BOX)

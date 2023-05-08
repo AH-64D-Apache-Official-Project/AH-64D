@@ -13,3 +13,5 @@ class Fcr_FarBar : Fcr_NearBar {
     minAngle=45;
     maxAngle=-45;
 };
+
+MPD_BONE_ACQ_SRC_BOX(Fcr_Acq, MFD_IND_FCR_ACQ_BOX)
