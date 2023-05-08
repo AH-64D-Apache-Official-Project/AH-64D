@@ -12,7 +12,7 @@ private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
 private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
 private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
 if (_e1np <= (0.37 * 100)) then {
-	_e1trq = 0;
+    _e1trq = 0;
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_1), round _e1trq];
@@ -34,7 +34,7 @@ private _e2tgt  = _heli getVariable "fza_sfmplus_engTGT" select 1;
 private _e2trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
 private _e2opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
 if (_e2np <= (0.37 * 100)) then {
-	_e2trq = 0;
+    _e2trq = 0;
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_2), round _e2trq];
@@ -52,10 +52,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFi
 // #region ROTORS
 private _rotorRpm = 0.0;
 if (_flightModel == "SFMPlus") then {
- 	_rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
-	_rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
+     _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
+    _rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
 } else {
-	_rotorRpm = _e1Np max _e2Np;
+    _rotorRpm = _e1Np max _e2Np;
 };
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
@@ -63,12 +63,12 @@ _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 
 //TODO: Change so sound occurs even if not in engine page
 /*
 if (_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5 && !fza_ah64_warnHighRpm) then {
-	[_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audio_fnc_addASEMessage;
-	
-	fza_ah64_warnHighRpm = true;
+    [_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audio_fnc_addASEMessage;
+    
+    fza_ah64_warnHighRpm = true;
 };
 if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
-	fza_ah64_warnHighRpm = false;
+    fza_ah64_warnHighRpm = false;
 };*/
 
 private _airMode = getpos _heli select 2 > 1;
@@ -90,13 +90,13 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 if (_airMode) then {
-	private _wcas = [_heli] call fza_fnc_coreGetWCAs;
-	_wcas resize 6;
-	_wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
-	{
-		_heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 1];
-		_heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 0];
-	} forEach _wcas;
+    private _wcas = [_heli] call fza_fnc_coreGetWCAs;
+    _wcas resize 6;
+    _wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
+    {
+        _heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 1];
+        _heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 0];
+    } forEach _wcas;
 };
 
 //Hydraulics
