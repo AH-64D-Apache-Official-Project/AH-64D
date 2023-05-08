@@ -118,7 +118,7 @@ _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
 private _CL = _intAirfoilTable select 1;
 
-private _area = [_A, _B, _C, _D] call fza_sfmplus_fnc_getArea;
+private _area = [_A, _B, _C, _D] call fza_fnc_getArea;
 private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
@@ -131,19 +131,19 @@ hintsilent format ["Collective Out = %1
                    \nCollective Low = %3
                    \nCollective High = %4", _collOut, _theta, inputAction "HeliCollectiveLowerCont", inputAction "HeliCollectiveRaiseCont"];
 */
-[_heli, _objCtr, _stabPvt, "white"] call fza_sfmplus_fnc_drawLine;
+[_heli, _objCtr, _stabPvt, "white"] call fza_fnc_debugDrawLine;
 
 //Draw the stabilator
-[_heli, _A, _B, "white"] call fza_sfmplus_fnc_drawLine;
-[_heli, _B, _C, "white"] call fza_sfmplus_fnc_drawLine;
-[_heli, _C, _D, "white"] call fza_sfmplus_fnc_drawLine;
-[_heli, _D, _A, "white"] call fza_sfmplus_fnc_drawLine;
+[_heli, _A, _B, "white"] call fza_fnc_debugDrawLine;
+[_heli, _B, _C, "white"] call fza_fnc_debugDrawLine;
+[_heli, _C, _D, "white"] call fza_fnc_debugDrawLine;
+[_heli, _D, _A, "white"] call fza_fnc_debugDrawLine;
 //Draw the fwd chord line originating from the pivot
-[_heli, _H, _H vectorAdd _stabLine, "white"] call fza_sfmplus_fnc_drawLine;
+[_heli, _H, _H vectorAdd _stabLine, "white"] call fza_fnc_debugDrawLine;
 //Draw the lift line
-[_heli, _E, _F, "green"] call fza_sfmplus_fnc_drawLine;
+[_heli, _E, _F, "green"] call fza_fnc_debugDrawLine;
 //Draw the lift vector
-[_heli, _G, _G vectorAdd _liftVec, "blue"] call fza_sfmplus_fnc_drawLine;
+[_heli, _G, _G vectorAdd _liftVec, "blue"] call fza_fnc_debugDrawLine;
 //Draw the velocity vector
-[_heli, _H, _H vectorAdd _relWind, "red"] call fza_sfmplus_fnc_drawLine;
+[_heli, _H, _H vectorAdd _relWind, "red"] call fza_fnc_debugDrawLine;
 #endif

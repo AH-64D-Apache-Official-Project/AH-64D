@@ -82,59 +82,59 @@ _engBaseNG = _engIdleNG + (_engFlyNG - _engIdleNG) * _engThrottle;
 _engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle;
 
 switch (_engState) do {
-    case "OFF": {
-        //Ng
-        _engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
-        //Np
-        _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
-        //Tq
-        _engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
-    };
-    case "STARTING": {
-        if (_engPowerLeverState == "OFF") then {
-            //Ng
-            _engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
-            //Np
-            _engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
-            //Set the engine state
-            //[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
-        } else {
-            //Ng
-            _engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
-            //Np
-            _engPctNP = [_engPctNP, _engBaseNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
-        };
+	case "OFF": {
+		//Ng
+		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
+		//Np
+		_engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
+		//Tq
+		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
+	};
+	case "STARTING": {
+		if (_engPowerLeverState == "OFF") then {
+			//Ng
+			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
+			//Np
+			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
+			//Set the engine state
+			//[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
+		} else {
+			//Ng
+			_engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
+			//Np
+			_engPctNP = [_engPctNP, _engBaseNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
+		};
 
-        //Transition state to ON
-        if (_engPctNG > 0.52) then {
-            _engState = "ON";
-            [_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
-        };
-    };
-    case "ON": {
-        if (_engPowerLeverState == "OFF") then {
-            _engState = "OFF";
-            [_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_sfmplus_fnc_setArrayVariable;
-        };
-        //Ng
-        _engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
-        _engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
-        //Np
-        if (_flightModel == "SFMPlus") then {
-            _engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
-        } else {
-            if (_isSingleEng) then {
-                _engLimitTQ = _maxTQ_SE;
-            } else {
-                _engLimitTQ = _maxTQ_DE;
-            };
-            
-            private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
-            _droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
+		//Transition state to ON
+		if (_engPctNG > 0.52) then {
+			_engState = "ON";
+			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_fnc_setArrayVariable;
+		};
+	};
+	case "ON": {
+		if (_engPowerLeverState == "OFF") then {
+			_engState = "OFF";
+			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_fnc_setArrayVariable;
+		};
+		//Ng
+		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
+		_engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
+		//Np
+		if (_flightModel == "SFMPlus") then {
+			_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
+		} else {
+			if (_isSingleEng) then {
+				_engLimitTQ = _maxTQ_SE;
+			} else {
+				_engLimitTQ = _maxTQ_DE;
+			};
+			
+			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
+			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
 
-            _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
-        };
-    };
+			_engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+		};
+	};
 };
 
 private _intEngBaseTable = [getArray (_sfmPlusConfig >> "engBaseTable"), _engPctNG] call fza_fnc_linearInterp;
@@ -212,13 +212,13 @@ _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
 _engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
 
 //Update variables
-[_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
 
-[_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_fnc_setArrayVariable;
 
-[_heli, "fza_sfmplus_engTGT",        _engNum, _engTGT] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engOilPSI",     _engNum, _engOilPSI] call fza_sfmplus_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engFF",         _engNum, _engFF] call fza_sfmplus_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engTGT",        _engNum, _engTGT] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engOilPSI",     _engNum, _engOilPSI] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engFF",         _engNum, _engFF] call fza_fnc_setArrayVariable;

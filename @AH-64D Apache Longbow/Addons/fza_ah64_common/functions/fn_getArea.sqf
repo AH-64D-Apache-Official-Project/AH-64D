@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_getArea
+Function: fza_fnc_mathGetArea
 
 Description:
     Returns the area of a four point polygon.

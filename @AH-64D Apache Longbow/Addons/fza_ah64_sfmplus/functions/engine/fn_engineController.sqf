@@ -77,11 +77,11 @@ private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
 
 if (_no1EngDmg > SYS_ENG_DMG_THRESH) then {
-    [_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
 if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
-    [_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_sfmplus_fnc_setArrayVariable;
+	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
 if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {

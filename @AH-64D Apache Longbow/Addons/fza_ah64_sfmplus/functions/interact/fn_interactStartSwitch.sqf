@@ -24,19 +24,19 @@ if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
 switch (_engState) do {
-    case "STARTING": {
-        _engState = "OFF";
-        [_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
+	case "STARTING": {
+		_engState = "OFF";
+		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
 
-        false;
-    };
-    case "OFF": {
-        _engState = "STARTING";
-        [_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_sfmplus_fnc_setArrayVariable;
+		false;
+	};
+	case "OFF": {
+		_engState = "STARTING";
+		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
 
-        true;
-    };
-    default {
-        true;
-    }
+		true;
+	};
+	default {
+		true;
+	}
 };
