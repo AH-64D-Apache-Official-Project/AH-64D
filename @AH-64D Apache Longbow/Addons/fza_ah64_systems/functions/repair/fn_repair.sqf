@@ -2,19 +2,19 @@
 Function: fza_systems_fnc_repair
 
 Description:
-	Updates all of the modules core functions.
-	
+    Updates all of the modules core functions.
+    
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -48,17 +48,17 @@ _heli setHitPointDamage ["hitengine2",                      0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Hydraulics       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-_heli setVariable ["fza_systems_priHydPSI_pct",     		1.0];
+_heli setVariable ["fza_systems_priHydPSI_pct",             1.0];
 _heli setHitPointDamage ["hit_hyd_prireservoir",            0.0];
-_heli setVariable ["fza_systems_priLevel_pct",      		1.0];
+_heli setVariable ["fza_systems_priLevel_pct",              1.0];
 _heli setHitPointDamage ["hit_hyd_priPump",                 0.0];
-_heli setVariable ["fza_systems_utilHydPSI_pct",     		1.0];
+_heli setVariable ["fza_systems_utilHydPSI_pct",            1.0];
 
 _heli setHitPointDamage ["hit_hyd_utilreservoir",           0.0];
-_heli setVariable ["fza_systems_utilLevel_pct",      		1.0];
+_heli setVariable ["fza_systems_utilLevel_pct",             1.0];
 _heli setHitPointDamage ["hit_hyd_utilPump",                0.0];
 
-_heli setVariable ["fza_systems_accHydPSI_pct",    			1.0];
+_heli setVariable ["fza_systems_accHydPSI_pct",             1.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Main Rotor       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,7 +76,7 @@ _heli setHitPointDamage ["hit_msnEquip_pylon4",             0.0];
 _heli setHitPointDamage ["hit_msnEquip_tads_dtv",           0.0];
 _heli setHitPointDamage ["hit_msnEquip_tads_flir",          0.0];
 _heli setHitPointDamage ["hit_msnEquip_tads_turret",        0.0];
-_heli setHitPointDamage ["hit_msnEquip_fcr",          		0.0];
+_heli setHitPointDamage ["hit_msnEquip_fcr",                0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Stabilator       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

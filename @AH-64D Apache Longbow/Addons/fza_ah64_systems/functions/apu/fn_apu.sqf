@@ -2,19 +2,19 @@
 Function: fza_systems_fnc_systemsAPU
 
 Description:
-	Defines key values for the simulation.
+    Defines key values for the simulation.
 
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
@@ -39,15 +39,15 @@ if (_apuRPM_pct <= SYS_MIN_RPM) then {
     _apuOn = false;
 };
 if (_apuRPM_pct > SYS_MIN_RPM) then {
-	if (_apuDamage <= SYS_APU_DMG_THRESH) then {
-    	_apuOn = true;
-	} else {
-		_apuOn = false;
-	};
+    if (_apuDamage <= SYS_APU_DMG_THRESH) then {
+        _apuOn = true;
+    } else {
+        _apuOn = false;
+    };
 };
 _heli setVariable ["fza_systems_apuOn", _apuOn];
 
 if (_apuOn) then {
-	_apuFF_kgs = 0.0220;	//175pph
+    _apuFF_kgs = 0.0220;//175pph
 };
 _heli setVariable ["fza_systems_apuFF_kgs", _apuFF];

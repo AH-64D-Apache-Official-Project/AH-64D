@@ -2,10 +2,10 @@
 #define HIT_RADIUS_02 0.05
 #define ARMOR_SCALAR  0.067
 
-class HitPoints		
-{		
-    class hit_apu	
-    {	
+class HitPoints
+{
+    class hit_apu
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -13,9 +13,9 @@ class HitPoints
         name = "hit_apu";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_drives_intermediategearbox	
-    {	
+    };
+    class hit_drives_intermediategearbox
+    {
         armor = 1.62 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -23,9 +23,9 @@ class HitPoints
         name = "hit_drives_intermediategearbox";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_drives_noseGearbox1	
-    {	
+    };
+    class hit_drives_noseGearbox1
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -33,9 +33,9 @@ class HitPoints
         name = "hit_drives_noseGearbox1";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_drives_noseGearbox2	
-    {	
+    };
+    class hit_drives_noseGearbox2
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -43,9 +43,9 @@ class HitPoints
         name = "hit_drives_noseGearbox2";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_drives_tailrotorgearbox	
-    {	
+    };
+    class hit_drives_tailrotorgearbox
+    {
         armor = 1.62 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -53,9 +53,9 @@ class HitPoints
         name = "hit_drives_tailrotorgearbox";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_drives_transmission	
-    {	
+    };
+    class hit_drives_transmission
+    {
         armor = 2.88 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -63,9 +63,9 @@ class HitPoints
         name = "hit_drives_transmission";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_elec_battery	
-    {	
+    };
+    class hit_elec_battery
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -73,9 +73,9 @@ class HitPoints
         name = "hit_elec_battery";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_elec_generator1	
-    {	
+    };
+    class hit_elec_generator1
+    {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -83,9 +83,9 @@ class HitPoints
         name = "hit_elec_generator1";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_elec_generator2	
-    {	
+    };
+    class hit_elec_generator2
+    {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -114,8 +114,8 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hitengine1	
-    {	
+    class hitengine1
+    {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -123,9 +123,9 @@ class HitPoints
         name = "hitengine1";
         material = 51;
         passThrough = 0;
-    };	
-    class hitengine2	
-    {	
+    };
+    class hitengine2
+    {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -161,8 +161,8 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hit_hyd_prireservoir	
-    {	
+    class hit_hyd_prireservoir
+    {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -170,9 +170,9 @@ class HitPoints
         name = "hit_hyd_prireservoir";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_hyd_priPump	
-    {	
+    };
+    class hit_hyd_priPump
+    {
         armor = 0.90 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -180,9 +180,9 @@ class HitPoints
         name = "hit_hyd_priPump";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_hyd_utilreservoir	
-    {	
+    };
+    class hit_hyd_utilreservoir
+    {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -190,9 +190,9 @@ class HitPoints
         name = "hit_hyd_utilreservoir";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_hyd_utilPump	
-    {	
+    };
+    class hit_hyd_utilPump
+    {
         armor = 0.90 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
         minimalHit = 0.1;
@@ -211,8 +211,8 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hit_msnEquip_gun_turret	
-    {	
+    class hit_msnEquip_gun_turret
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -220,9 +220,9 @@ class HitPoints
         name = "hit_msnEquip_gun_turret";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pnvs_flir	
-    {	
+    };
+    class hit_msnEquip_pnvs_flir
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -230,9 +230,9 @@ class HitPoints
         name = "hit_msnEquip_pnvs_flir";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pnvs_turret	
-    {	
+    };
+    class hit_msnEquip_pnvs_turret
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -240,9 +240,9 @@ class HitPoints
         name = "hit_msnEquip_pnvs_turret";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pylon1	
-    {	
+    };
+    class hit_msnEquip_pylon1
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -250,9 +250,9 @@ class HitPoints
         name = "hit_msnEquip_pylon1";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pylon2	
-    {	
+    };
+    class hit_msnEquip_pylon2
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -260,9 +260,9 @@ class HitPoints
         name = "hit_msnEquip_pylon2";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pylon3	
-    {	
+    };
+    class hit_msnEquip_pylon3
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -270,9 +270,9 @@ class HitPoints
         name = "hit_msnEquip_pylon3";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_pylon4	
-    {	
+    };
+    class hit_msnEquip_pylon4
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -280,9 +280,9 @@ class HitPoints
         name = "hit_msnEquip_pylon4";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_tads_dtv	
-    {	
+    };
+    class hit_msnEquip_tads_dtv
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -290,9 +290,9 @@ class HitPoints
         name = "hit_msnEquip_tads_dtv";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_tads_flir	
-    {	
+    };
+    class hit_msnEquip_tads_flir
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -300,9 +300,9 @@ class HitPoints
         name = "hit_msnEquip_tads_flir";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_tads_turret	
-    {	
+    };
+    class hit_msnEquip_tads_turret
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -310,9 +310,9 @@ class HitPoints
         name = "hit_msnEquip_tads_turret";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_msnEquip_fcr	
-    {	
+    };
+    class hit_msnEquip_fcr
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -320,9 +320,9 @@ class HitPoints
         name = "hit_msnEquip_fcr";
         material = 51;
         passThrough = 0;
-    };	
-    class hit_stabilator	
-    {	
+    };
+    class hit_stabilator
+    {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -332,7 +332,7 @@ class HitPoints
         passThrough = 0;
     };
     class hitvrotor
-    {	
+    {
         armor = 5.76 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
         minimalHit = 0.1;
@@ -340,5 +340,5 @@ class HitPoints
         name = "hitvrotor";
         material = 51;
         passThrough = 0;
-    };		
-};		
+    };
+};
