@@ -28,7 +28,7 @@ class CfgFunctions
         };
         class electrical {
             file = "\fza_ah64_systems\functions\electrical";
-            class electricalACBus {R;};#
+            class electricalACBus {R;};
             class electricalBattery {R;};
             class electricalController {R;};
             class electricalDCBus {R;};
