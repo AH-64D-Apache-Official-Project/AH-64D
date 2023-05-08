@@ -32,7 +32,6 @@ private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
 
 // SIGHT AND ACQ SOURCES
-private _acq   = "T01";
 private _sight = "TADS";
 
 switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
@@ -49,11 +48,11 @@ switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
         _sight = "FXD";
     };
 };
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ACQ), _acq];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
 
+[_heli, _mpdIndex, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 private _was = _heli getVariable "fza_ah64_was";
 private _selectedWeapon = _state get "selectedWeapon";
 private _wasOverride = _state get "wasOverride";

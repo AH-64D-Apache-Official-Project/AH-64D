@@ -91,7 +91,7 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 if (_airMode) then {
     private _wcas = [_heli] call fza_fnc_coreGetWCAs;
-    _wcas resize 6;
+    _wcas resize 5;
     _wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
     {
         _heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 1];
@@ -110,3 +110,5 @@ private _accHydPSI_text  = format["%1", [str _accHydPSI, 4] call fza_fnc_padStri
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_PRI_HYD_PSI),  _priHydPSI_text];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_UTIL_HYD_PSI), _utilHydPSI_text];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_ACC_HYD_PSI),  _accHydPSI_text];
+
+[_heli, _mpdIndex, MFD_IND_ENG_ACQ_BOX, MFD_TEXT_IND_ENG_ACQ_SRC] call fza_mpd_fnc_acqDraw;
