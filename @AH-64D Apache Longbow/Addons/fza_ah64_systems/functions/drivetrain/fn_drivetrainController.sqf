@@ -25,4 +25,4 @@ params ["_heli", "_deltaTime"];
 //Update Nose Gearbox 1
 [_heli] call fza_systems_fnc_drivetrainNoseGearbox1;
 //Update Nose Gearbox 2
-[_heli] call fza_systems_fnc_drivetrainNoseGearbox2;fza_ah64_systems/functions/drivetrain/fn_drivetrainNoseGearbox1.sqf
+[_heli] call fza_systems_fnc_drivetrainNoseGearbox2;

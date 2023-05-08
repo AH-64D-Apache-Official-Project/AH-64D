@@ -5,7 +5,7 @@ ace_repair_hitpointPositions[] = {
     {"HitEngine2",                  {1,0.7,-1}},
     {"HitVRotor",                   {-0.6,-6.95,-0.1}},
     {"HitHRotor",                   {0,2,0.7}},
-    {"HitTail"                      {0,-7,-2}},
+    {"HitTail",                     {0,-7,-2}},
     {"HitVStabilizer1",             {0,-7,-1}},
     {"HitHStabilizerL1",            {-2,1.8,-1.3}},
     {"HitHStabilizerR1",            {2,1.8,-1.3}},
@@ -22,5 +22,5 @@ ace_repair_hitpointPositions[] = {
     {"Pylon3",                      {1.665,2.4,-1.8}},
     {"Pylon4",                      {2.385,2.4,-1.8}}
 };
-ace_map_vehicleLightColor[]         = {0.306, 0.878, 0.349,0.3}; 
+ace_map_vehicleLightColor[]         = {0.306, 0.878, 0.349,0.3};
 ace_map_vehicleExteriorTurrets[]    = {-1,0,1,2};
