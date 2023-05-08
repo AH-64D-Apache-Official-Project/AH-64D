@@ -2,22 +2,22 @@
 Function: fza_sfmplus_fnc_fuelSet
 
 Description:
-	Sets the initial fuel state of the aircraft.
+    Sets the initial fuel state of the aircraft.
 
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	The mass of the forward and aft fuel cells.
+    The mass of the forward and aft fuel cells.
 
 Examples:
-	...
-	_fuelMass = [_heli] call fza_fnc_setFuel;
-	_fwdFuelMass = _fuelMass select 0;
-	_aftFuelMass = _fuelMass select 1;
+    ...
+    _fuelMass = [_heli] call fza_fnc_setFuel;
+    _fwdFuelMass = _fuelMass select 0;
+    _aftFuelMass = _fuelMass select 1;
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
@@ -34,20 +34,20 @@ private _ctrFuelMass    = 0.0;
 private _maxTotFuelMass = 0.0;
 
 if (_IAFSInstalled) then {
-	_maxTotFuelMass = _maxFwdFuelMass + _maxCtrFuelMass + _maxAftFuelMass;
-	_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
+    _maxTotFuelMass = _maxFwdFuelMass + _maxCtrFuelMass + _maxAftFuelMass;
+    _heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
 
-	_totFuelMass = _maxTotFuelMass * _percentFuel;
-	_fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
-	_aftFuelMass = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
-	_ctrFuelMass = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
+    _totFuelMass = _maxTotFuelMass * _percentFuel;
+    _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
+    _aftFuelMass = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
+    _ctrFuelMass = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
 } else {
-	_maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
-	_heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
+    _maxTotFuelMass = _maxFwdFuelMass + _maxAftFuelMass;
+    _heli setVariable ["fza_sfmplus_maxTotFuelMass", _maxTotFuelMass];
 
-	_totFuelMass = _maxTotFuelMass * _percentFuel;
-	_fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
-	_aftFuelMass = _totFuelMass - _fwdFuelMass;
+    _totFuelMass = _maxTotFuelMass * _percentFuel;
+    _fwdFuelMass = [_totFuelMass / 2, 0, _maxFwdFuelMass] call BIS_fnc_clamp;
+    _aftFuelMass = _totFuelMass - _fwdFuelMass;
 };
 
 [_fwdFuelMass, _ctrFuelMass, _aftFuelMass];
