@@ -5,17 +5,17 @@
 #endif
 class CfgFunctions
 {
-	class fza_ah64_project_ihadss
-	{
-		tag = "FZA_ihadss";
-		class functions {
-			file = "\fza_ah64_ihadss\functions";
-			class constraintBoxDraw {R;};
-			class cscopeDraw {R;};
-			class ihadssController {R;};
-			class ihadssDraw {R;};
-			class ihadssHandleControl {R;};
-			class monocletoggle {R;};
+    class fza_ah64_project_ihadss
+    {
+        tag = "FZA_ihadss";
+        class functions {
+            file = "\fza_ah64_ihadss\functions";
+            class constraintBoxDraw {R;};
+            class cscopeDraw {R;};
+            class ihadssController {R;};
+            class ihadssDraw {R;};
+            class ihadssHandleControl {R;};
+            class monocletoggle {R;};
         };
     };
 };
