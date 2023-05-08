@@ -6,11 +6,11 @@
 #endif
 class CfgFunctions
 {
-	class fza_ah64_weapons
-	{
-		tag = "fza_weapons";
+    class fza_ah64_weapons
+    {
+        tag = "fza_weapons";
         class pylon {
-			file = "\fza_ah64_weapons\functions\pylon";
+            file = "\fza_ah64_weapons\functions\pylon";
             class pylonSetOwner {R;};
         };
     };
