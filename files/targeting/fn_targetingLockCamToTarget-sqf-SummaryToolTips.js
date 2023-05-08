@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:targeting/fn_targetingLockCamToTarget.sqf",{124:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Locks the gunner\'s TADS to the current target Parameters: _heli - The helicopter to act on Returns: Nothing Examples:</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:targeting/fn_targetingLockCamToTarget.sqf",{126:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Locks the gunner\'s TADS to the current target Parameters: _heli - The helicopter to act on Returns: Nothing Examples:</div></div>"});
