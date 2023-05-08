@@ -1,4 +1,4 @@
-ambient[]={0.20,1.00,0.00,1};		
+ambient[]={0.20,1.00,0.00,1};
 diffuse[]={0.75,0.75,0.75,1};
 forcedDiffuse[]={0,0,0,0};
 emmisive[]={0,0,0,0};
@@ -9,13 +9,13 @@ VertexShaderID="Super";
 
 class Stage3
 {
-	texture="#(argb,8,8,3)color(0,0,0,0)";
-	uvSource="tex";
-	class uvTransform
-	{
-		aside[]={1,0,0};
-		up[]={0,1,0};
-		dir[]={0,0,0};
-		pos[]={0,0,0};
-	};
+    texture="#(argb,8,8,3)color(0,0,0,0)";
+    uvSource="tex";
+    class uvTransform
+    {
+        aside[]={1,0,0};
+        up[]={0,1,0};
+        dir[]={0,0,0};
+        pos[]={0,0,0};
+    };
 };

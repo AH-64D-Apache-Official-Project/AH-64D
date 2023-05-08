@@ -5,7 +5,7 @@ Description:
     ...
 
 Parameters:
-	_heli      - The helicopter to get information from [Unit].
+    _heli      - The helicopter to get information from [Unit].
 
 Returns:
     ...
@@ -14,7 +14,7 @@ Examples:
     ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_systems\headers\systems.hpp"

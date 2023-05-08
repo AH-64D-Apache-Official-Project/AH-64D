@@ -10,9 +10,9 @@ helmetPosition[] = {-0.0375,0.0375,0.1};
 helmetRight[] = {0.075,0,0};
 class material
 {
-	ambient[]	= { 0.8, 0.8, 0.8, 1 };
-	diffuse[]	= { 0.8, 0.8, 0.8, 1 };
-	emissive[]	= { 20, 20, 20, 1 };
+    ambient[]   = { 0.8, 0.8, 0.8, 1 };
+    diffuse[]   = { 0.8, 0.8, 0.8, 1 };
+    emissive[]  = { 20, 20, 20, 1 };
 };
 class Bones {
     class Null {

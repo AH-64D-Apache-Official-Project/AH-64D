@@ -72,7 +72,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_irJamPwr",      "off"];
     _heli setVariable ["fza_ah64_ase_irJamState",    0];
     _heli setVariable ["fza_ah64_ase_irJamTimer",    0.0];
-    _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", 0];	
+    _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", 0];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",     1];
     _heli setVariable ["fza_ah64_ase_searchingObj",  []];
@@ -168,7 +168,7 @@ while {
 do {
     private _battBusOn              = _heli getVariable "fza_systems_battBusOn";
     ace_map_vehicleLightCondition   = {isLightOn [_vehicle, [0]]}; 
-    if ((isLightOn [_heli,[0]]) && _battBusOn) then {
+    if (!isLightOn [_heli,[0]] || !_battBusOn) then {
 
         _heli setobjecttextureGlobal ["in_backlight", ""];
         _heli setobjecttextureGlobal ["in_backlight2", ""];

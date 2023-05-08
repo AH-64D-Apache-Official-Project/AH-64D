@@ -2,19 +2,19 @@
 Function: fza_systems_fnc_electricalBattery
 
 Description:
-	Updates all of the modules core functions.
-	
+    Updates all of the modules core functions.
+    
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
@@ -27,11 +27,11 @@ private _battDamage   = _heli getHitPointDamage "hit_elec_battery";
 private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
 
 if (_battSwitchOn) then {
-	if (_battDamage <= SYS_BATT_DMG_THRESH && _battPower >= 0.25) then {
-    	_battBusOn = true;
-	} else {
-		_battBusOn = false;
-	};
+    if (_battDamage <= SYS_BATT_DMG_THRESH && _battPower >= 0.25) then {
+        _battBusOn = true;
+    } else {
+        _battBusOn = false;
+    };
 } else {
     _battBusOn = false;
 };
@@ -39,11 +39,11 @@ if (_battSwitchOn) then {
 _heli setVariable ["fza_systems_battBusOn", _battBusOn];
 //Drain the battery
 if (_battBusOn && _acBusOn) then {
-	_battPower = [_battPower, 0.0, (1.0 / _battTimer) * _deltaTime] call BIS_fnc_lerp;
+    _battPower = [_battPower, 0.0, (1.0 / _battTimer) * _deltaTime] call BIS_fnc_lerp;
 };
 //Recharge the battery
 if (_battBusOn && _acBusOn) then {
-	_battPower = [_battPower, 1.0, _deltaTime] call BIS_fnc_lerp;
+    _battPower = [_battPower, 1.0, _deltaTime] call BIS_fnc_lerp;
 };
 _heli setVariable ["fza_systems_battPower_pct", _battPower];
 

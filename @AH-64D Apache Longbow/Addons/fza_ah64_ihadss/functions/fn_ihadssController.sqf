@@ -5,18 +5,18 @@ Description:
     Controls the varius elements of the Ihadss 
 
 Parameters:
-	_heli - The heli object to draw the IHADSS for
+    _heli - The heli object to draw the IHADSS for
 
 Returns:
     Nothing
 
 Examples:
-	--- Code
+    --- Code
     [_heli] call fza_ihadss_fnc_ihadssControler
-	---
+    ---
 
 Author:
-	Rosd6(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

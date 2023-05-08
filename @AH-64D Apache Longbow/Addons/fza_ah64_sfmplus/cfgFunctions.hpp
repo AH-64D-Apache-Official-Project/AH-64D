@@ -6,26 +6,26 @@
 
 class CfgFunctions
 {
-	class fza_ah64_project_sfmplus
-	{
+    class fza_ah64_project_sfmplus
+    {
         tag = "FZA_sfmplus";
-		class aero {
-			file = "\fza_ah64_sfmplus\functions\aero";
-			class aeroStabilator {R;};
-		};
-		class core {
-			file = "\fza_ah64_sfmplus\functions\core";
-			class coreConfig {R;};
-			class coreUpdate  {R;};
-		};
-		class damage {
-			file = "\fza_ah64_sfmplus\functions\damage";
-			class damageApply {R;};
-		};
-		class engine {
-			file = "\fza_ah64_sfmplus\functions\engine";
-			class engine  {R;};
-			class engineController {R;};
+        class aero {
+            file = "\fza_ah64_sfmplus\functions\aero";
+            class aeroStabilator {R;};
+        };
+        class core {
+            file = "\fza_ah64_sfmplus\functions\core";
+            class coreConfig {R;};
+            class coreUpdate  {R;};
+        };
+        class damage {
+            file = "\fza_ah64_sfmplus\functions\damage";
+            class damageApply {R;};
+        };
+        class engine {
+            file = "\fza_ah64_sfmplus\functions\engine";
+            class engine  {R;};
+            class engineController {R;};
             class engineReset {R;};
 			class engineVariables {R;};
 		};

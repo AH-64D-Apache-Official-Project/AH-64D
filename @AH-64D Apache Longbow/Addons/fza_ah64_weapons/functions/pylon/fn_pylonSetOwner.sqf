@@ -2,21 +2,21 @@
 Function: fza_weapons_fnc_pylonSetOwner
 
 Description:
-	Updates a pylon to be on a respective turret.
-	
+    Updates a pylon to be on a respective turret.
+    
 Parameters:
-	_heli - The helicopter to swap pylons for
+    _heli - The helicopter to swap pylons for
     _pylons - The pylon IDs to swap (1-indexed, number)
     _turret - The turret ID to swap pylons to
 
 Returns:
-	Nothing
+    Nothing
 
 Examples:
-	[_heli, [1], [0]] call fza_weapons_fnc_pylonSetOwner
+    [_heli, [1], [0]] call fza_weapons_fnc_pylonSetOwner
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli", "_pylons", "_turret", "_data"];
 

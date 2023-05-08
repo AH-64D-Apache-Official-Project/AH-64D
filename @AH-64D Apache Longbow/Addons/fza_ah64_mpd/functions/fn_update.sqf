@@ -2,21 +2,21 @@
 Function: fza_mpd_fnc_update
 
 Description:
-	Updates the MPDs inside the apache to show the correct visuals. Should be run regularly.
+    Updates the MPDs inside the apache to show the correct visuals. Should be run regularly.
 
 Parameters:
-	_heli - the apache to show the correct values for.
+    _heli - the apache to show the correct values for.
 
 Returns:
-	Nothing.
+    Nothing.
 
 Examples:
     --- Code
-	[_heli] call fza_mpd_fnc_update
+    [_heli] call fza_mpd_fnc_update
     ---
 
 Author:
-	mattysmith22
+    mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
@@ -27,17 +27,17 @@ private _lmpdCurr = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _rmpdCurr = [_heli, 1] call fza_mpd_fnc_currentPage;
 
 if (_acBusOn && _lmpdCurr == "off") then {
-	[_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;
+    [_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;
 };
 if (!_acBusOn && _lmpdCurr != "off") then {
-	[_heli, 0, "off"] call fza_mpd_fnc_setCurrentPage;
+    [_heli, 0, "off"] call fza_mpd_fnc_setCurrentPage;
 };
 
 if (_acBusOn && _rmpdCurr == "off") then {
-	[_heli, 1, "dtu"] call fza_mpd_fnc_setCurrentPage;
+    [_heli, 1, "dtu"] call fza_mpd_fnc_setCurrentPage;
 };
 if (!_acBusOn && _rmpdCurr != "off") then {
-	[_heli, 1, "off"] call fza_mpd_fnc_setCurrentPage;
+    [_heli, 1, "off"] call fza_mpd_fnc_setCurrentPage;
 };
 
 (_heli getVariable "fza_mpd_mpdState") # 0 params ["_lpage", "", "_ldrawFunc", "_lState", "_lPersistState"];

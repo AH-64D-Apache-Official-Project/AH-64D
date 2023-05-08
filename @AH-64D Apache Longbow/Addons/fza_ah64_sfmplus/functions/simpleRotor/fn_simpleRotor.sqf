@@ -2,21 +2,21 @@
 Function: fza_sfmplus_fnc_simpleRotor
 
 Description:
-	Simple rotor provides a simple, grounded in reality simulation of a
+    Simple rotor provides a simple, grounded in reality simulation of a
     helicopters rotor. Translational Lift, Ground Effect and Vortex Ring State
     are all simulated.
 
 Parameters:
-	_heli - The helicopter to get information from [Unit].
+    _heli - The helicopter to get information from [Unit].
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"

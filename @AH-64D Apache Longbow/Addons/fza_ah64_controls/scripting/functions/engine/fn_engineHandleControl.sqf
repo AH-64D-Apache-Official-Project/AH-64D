@@ -122,7 +122,7 @@ switch(_control) do {
         playsound "fza_ah64_fake_3D";
     };
     
-    //--------------------ENGINE 2--------------------//	
+    //--------------------ENGINE 2--------------------//
     //Start Switch
     case "e2start": {
         private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;

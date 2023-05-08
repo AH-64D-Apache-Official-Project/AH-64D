@@ -2,20 +2,20 @@
 Function: fza_sfmplus_fnc_engineReset
 
 Description:
-	Resets critical variables on the engine when the engine is turned off.
+    Resets critical variables on the engine when the engine is turned off.
 
 Parameters:
-	_heli   - The helicopter to get information from [Unit].
-	_engNum - The engine to reset
+    _heli   - The helicopter to get information from [Unit].
+    _engNum - The engine to reset
 
 Returns:
-	...
+    ...
 
 Examples:
-	...
+    ...
 
 Author:
-	BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum"];
 

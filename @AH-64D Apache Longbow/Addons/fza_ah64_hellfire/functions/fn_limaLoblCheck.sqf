@@ -5,16 +5,16 @@ Description:
     A logic path for returning if the Lima hellfire can see the intended target within the given parameters and if it can fire
     
 Parameters:
-	_seeker - The object who is seeking
+    _seeker - The object who is seeking
     _targ - The target array
 
 Returns:
     [canFire, startLobl]
 
 Examples:
-	--- Code
+    --- Code
     _results = [_heli, [[0, 0, 0], FCR_TYPE_UNKNOWN, speed, targ]] call fza_hellfire_fnc_limaLoblCheck;
-	---
+    ---
 
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"

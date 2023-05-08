@@ -14,13 +14,13 @@ class CfgVehicles {
     };
     class fza_ah64d_b2e : fza_ah64base {
         class MFD : MFD {
-			class UFD {
-				topLeft = "PLT_UFD_TL";
-				topRight = "PLT_UFD_TR";
-				bottomLeft = "PLT_UFD_BL";
-				#include "ufd.hpp"
-			};
-		};
+            class UFD {
+                topLeft = "PLT_UFD_TL";
+                topRight = "PLT_UFD_TR";
+                bottomLeft = "PLT_UFD_BL";
+                #include "ufd.hpp"
+            };
+        };
         class Turrets : Turrets {
             class MainTurret : NewTurret {
                 class MFD : MFD {

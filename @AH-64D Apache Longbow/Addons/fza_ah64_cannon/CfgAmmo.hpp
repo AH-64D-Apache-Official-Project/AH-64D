@@ -16,39 +16,39 @@ class CfgAmmo {
         ACE_barrelLengths[] = {1676};
         ace_vehicle_damage_incendiary = 0.7;
 
-        ace_frag_enabled			= 1;
-        ace_frag_skip 				= 0;
+        ace_frag_enabled            = 1;
+        ace_frag_skip               = 0;
 
-        hit 						= 60;
-        indirectHit 				= 20;
-        indirectHitRange 			= 3.5;		
-        typicalSpeed				= 800;
-        maxspeed 					= 825;
-        explosive					= 0.8;
+        hit                         = 60;
+        indirectHit                 = 20;
+        indirectHitRange            = 3.5;
+        typicalSpeed                = 800;
+        maxspeed                    = 825;
+        explosive                   = 0.8;
 
-        airFriction 				= -0.00036;
-        airlock 					= 0;
-        irlock						= 0;
-        weaponType 					= "cannon";
+        airFriction                 = -0.00036;
+        airlock                     = 0;
+        irlock                      = 0;
+        weaponType                  = "cannon";
         warheadName = "AP";
 
         //duel purpose warhead
-        submunitionAmmo				="ammo_Penetrator_30mm";
-        submunitionDirectionType	="SubmunitionModelDirection";
-        submunitionInitSpeed		=1000;
-        submunitionParentSpeedCoef	=0;
-        submunitionInitialOffset[]	={0,0,-0.2};
-        triggerOnImpact				=1;
-        deleteParentWhenTriggered	=0;
+        submunitionAmmo             ="ammo_Penetrator_30mm";
+        submunitionDirectionType    ="SubmunitionModelDirection";
+        submunitionInitSpeed        =1000;
+        submunitionParentSpeedCoef  =0;
+        submunitionInitialOffset[]  ={0,0,-0.2};
+        triggerOnImpact             =1;
+        deleteParentWhenTriggered   =0;
         
-        soundsetbulletfly[] 		= {"fza_sc_bullet_flyby_soundset"};
-        soundsetsoniccrack[] 		= {"fza_sc_30x113_soundset"};
-        soundsetexplosion[] 		= {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
+        soundsetbulletfly[]         = {"fza_sc_bullet_flyby_soundset"};
+        soundsetsoniccrack[]        = {"fza_sc_30x113_soundset"};
+        soundsetexplosion[]         = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
 
         //AI uasge
-        aiAmmoUsageFlags 			= "64+128+256";
-        allowAgainstInfantry 		= 1;
-        cost 						= 15;
+        aiAmmoUsageFlags            = "64+128+256";
+        allowAgainstInfantry        = 1;
+        cost                        = 15;
         visibleFire=32;
         audibleFire=200;
         visibleFireTime=3;

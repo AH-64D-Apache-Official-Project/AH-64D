@@ -1,9 +1,9 @@
 class CfgInGameUI
 {
-	class Cursor{
-		class Targeting
-		{
-			class MarkedTarget
+    class Cursor{
+        class Targeting
+        {
+            class MarkedTarget
             {
                 scale=1;
                 texture="\A3\ui_f\data\igui\cfg\targeting\MarkedTarget_ca.paa";
@@ -40,7 +40,7 @@ class CfgInGameUI
                     "(profilenamespace getvariable ['IGUI_TEXT_RGB_R',0])",
                     "(profilenamespace getvariable ['IGUI_TEXT_RGB_G',1])",
                     "(profilenamespace getvariable ['IGUI_TEXT_RGB_B',1])",
-					"(0.60000002 * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
+                    "(0.60000002 * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
                 textureLockable="\A3\ui_f\data\igui\cfg\targeting\empty_ca.paa";
                 colorLockable[]=
@@ -60,7 +60,7 @@ class CfgInGameUI
                 };
             };
 
-			class Seeker
+            class Seeker
             {
                 texture="\A3\ui_f\data\igui\cfg\targeting\seeker_ca.paa";
                 color[]=
@@ -84,7 +84,7 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-			class ImpactPoint: Seeker
+            class ImpactPoint: Seeker
             {
                 scale=0.5;
                 texture="\A3\ui_f\data\igui\cfg\targeting\ImpactPoint_ca.paa";
@@ -96,7 +96,7 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-			class ImpactPointNoLOS: ImpactPoint
+            class ImpactPointNoLOS: ImpactPoint
             {
                 texture="\A3\ui_f\data\igui\cfg\targeting\ImpactPointNoLOS_ca.paa";
                 color[]=
@@ -107,7 +107,7 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-			class HitPrediction: Seeker
+            class HitPrediction: Seeker
             {
                 scale=0.5;
                 texture="\A3\ui_f\data\igui\cfg\targeting\HitPrediction_ca.paa";
@@ -119,7 +119,7 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-			class HitConfirm: Seeker
+            class HitConfirm: Seeker
             {
                 texture="\A3\ui_f\data\igui\cfg\targeting\HitConfirm_ca.paa";
                 color[]=
@@ -130,7 +130,7 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',1]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-			class KnownTarget: Seeker
+            class KnownTarget: Seeker
             {
                 texture="\A3\ui_f\data\igui\cfg\targeting\KnownTarget_ca.paa";
                 color[]=
@@ -141,6 +141,6 @@ class CfgInGameUI
                     "((profilenamespace getvariable ['IGUI_TEXT_RGB_A',0.8]) * (profilenamespace getvariable ['fza_ah64_enableTargeting', 1]))"
                 };
             };
-		};
-	};
+        };
+    };
 };

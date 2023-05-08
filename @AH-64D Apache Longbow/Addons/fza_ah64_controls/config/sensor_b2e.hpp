@@ -63,18 +63,18 @@ class Components: Components
   class VehicleSystemsDisplayManagerComponentLeft
   {
     componentType = "VehicleSystemsDisplayManager";
-    x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"",	(safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
-    y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"",	(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
+    x = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_X"", (safezoneX + 0.5 * (((safezoneW / safezoneH) min 1.2) / 40))])";
+    y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFOLEFT_Y"", (safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
     left = 1;
     defaultDisplay = "EmptyDisplay";
     class Components
     {
-      class EmptyDisplay		// Empty display - hide panel
+      class EmptyDisplay // Empty display - hide panel
       {
         componentType = "EmptyDisplayComponent";
       };
-      class MinimapDisplay	// GPS
-      {
+      class MinimapDisplay // GPS
+    {
         componentType = "MinimapDisplayComponent";
         resource = "RscCustomInfoAirborneMiniMap"; //gives you the airborne nav version with coloured altitude display
       };
