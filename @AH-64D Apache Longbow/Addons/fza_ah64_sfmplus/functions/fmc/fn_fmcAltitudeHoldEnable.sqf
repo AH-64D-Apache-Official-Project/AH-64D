@@ -1,11 +1,11 @@
 params ["_heli"];
 
 if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
+    //Collect required inputs
     private _curVel    = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
     private _curVelZ   = velocity _heli # 2; 
     private _curAltAGL = ASLToAGL getPosASL _heli # 2;
     private _curAltASL = getPosASL _heli # 2;
-
     //If the vertical velocity is <= 200fpm and >= -200fpm, altitude hold can be engaged
     if (_curVelZ <= 1.016 && _curVelZ >= -1.016) then {
         //The collective reference is required to determine when to deactivate alt hold. If the
@@ -30,5 +30,4 @@ if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     _heli setVariable ["fza_ah64_altHoldDesiredAlt", 0.0];
     _heli setVariable ["fza_ah64_altHoldActive",     false];
     _heli setVariable ["fza_ah64_altHoldCollRef",    0.0];
-    
 };
