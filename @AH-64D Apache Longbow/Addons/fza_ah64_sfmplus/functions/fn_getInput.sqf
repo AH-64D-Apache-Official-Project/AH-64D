@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_altHoldInput"];
+params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
@@ -86,7 +86,7 @@ if (_flightModel == "SFMPlus") then {
         } else {
             //systemChat format ["Joystick only!"];
             private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
-            _collectiveVal = [_collectiveVal + _altHoldInput, -1.0, 1.0] call BIS_fnc_clamp;
+            _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
 
             private _isPlaying = isNull findDisplay 49;

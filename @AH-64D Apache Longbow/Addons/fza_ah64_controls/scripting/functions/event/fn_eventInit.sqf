@@ -129,6 +129,15 @@ _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
+_heli setVariable ["fza_ah64_attHoldActive",     false,    true];
+_heli setVariable ["fza_ah64_attHoldDesiredAtt", 0.0,      true];
+_heli setVariable ["fza_ah64_attHoldSubMode",    "pos",    true];   //pos, vel, att
+
+_heli setVariable ["fza_ah64_altHoldActive",     false,    true];
+_heli setVariable ["fza_ah64_altHoldDesiredAlt", 0.0,      true];
+_heli setVariable ["fza_ah64_altHoldSubMode",    "rad",    true];   //rad, bar
+_heli setVariable ["fza_ah64_altHoldCollRef",    0.0,      true];
+
 [_heli] call fza_systems_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;
 

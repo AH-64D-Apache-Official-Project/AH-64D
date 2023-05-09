@@ -31,7 +31,10 @@ class CfgFunctions
 		};
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
+			class fmc {R;};
             class fmcAltitudeHold {R;};
+			class fmcAltitudeHoldEnable {R;};
+			class fmcHoldModesDisable {R;};
         };
 		class fuel {
 			file = "\fza_ah64_sfmplus\functions\fuel";

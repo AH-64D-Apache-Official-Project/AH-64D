@@ -112,7 +112,23 @@ if (_value) then {
         };
         case "vehLockTargets": {
             [_heli] call fza_fnc_targetingsensorCycle;
-        }
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_up": {
+            //Currently nothing
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_right": {
+            [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_down": {
+            [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_left": {
+            if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
+                _heli setVariable ["fza_ah64_attHoldActive", true];
+            } else {
+                _heli setVariable ["fza_ah64_attHoldActive", false];
+            };
+        };
     };
 };
 
