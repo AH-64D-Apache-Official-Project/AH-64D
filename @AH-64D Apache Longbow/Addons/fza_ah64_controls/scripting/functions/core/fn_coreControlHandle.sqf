@@ -123,11 +123,7 @@ if (_value) then {
             [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
-            if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
-                _heli setVariable ["fza_ah64_attHoldActive", true];
-            } else {
-                _heli setVariable ["fza_ah64_attHoldActive", false];
-            };
+            //Currently nothing
         };
     };
 };

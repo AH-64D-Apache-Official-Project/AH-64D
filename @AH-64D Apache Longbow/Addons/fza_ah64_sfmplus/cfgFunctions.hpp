@@ -34,6 +34,7 @@ class CfgFunctions
 			class fmc {R;};
             class fmcAltitudeHold {R;};
 			class fmcAltitudeHoldEnable {R;};
+			class fmcAttitudeHoldEnable {R;};
 			class fmcHoldModesDisable {R;};
         };
 		class fuel {
