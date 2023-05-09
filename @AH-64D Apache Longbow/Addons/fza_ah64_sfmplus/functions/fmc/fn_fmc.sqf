@@ -1,7 +1,9 @@
 params ["_heli", "_deltaTime"];
 
-private _attHoldCycPitchOut = 0.0;
-private _attHoldCycRollOut  = 0.0;
+([_heli, _deltaTime] call fza_sfmplus_fnc_fmcAttitudeHold)
+    params ["_attHoldCycPitchOut", "_attHoldCycRollOut"];
+
+systemChat format ["Att Hold Active = %1 -- Sub-Mode = %2", _heli getVariable "fza_ah64_attHoldActive", _heli getVariable "fza_ah64_attHoldSubMode"];
 
 private _hdgHoldPedalYawOut = 0.0;
 

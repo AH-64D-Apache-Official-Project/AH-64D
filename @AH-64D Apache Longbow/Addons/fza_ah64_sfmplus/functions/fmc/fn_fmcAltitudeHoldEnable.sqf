@@ -2,7 +2,7 @@ params ["_heli"];
 
 if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     //Collect required inputs
-    private _curVel    = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+    private _curVel    = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
     private _curVelZ   = velocity _heli # 2; 
     private _curAltAGL = ASLToAGL getPosASL _heli # 2;
     private _curAltASL = getPosASL _heli # 2;

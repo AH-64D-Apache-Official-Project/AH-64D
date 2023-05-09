@@ -32,6 +32,7 @@ class CfgFunctions
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
 			class fmc {R;};
+			class fmcAttitudeHold {R;};
             class fmcAltitudeHold {R;};
 			class fmcAltitudeHoldEnable {R;};
 			class fmcAttitudeHoldEnable {R;};

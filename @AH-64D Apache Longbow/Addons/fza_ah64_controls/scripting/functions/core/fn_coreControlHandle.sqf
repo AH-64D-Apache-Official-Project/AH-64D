@@ -123,7 +123,7 @@ if (_value) then {
             [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
-            //Currently nothing
+            [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
     };
 };
