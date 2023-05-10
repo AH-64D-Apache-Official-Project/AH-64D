@@ -38,8 +38,8 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn             = _heli getVariable "fza_systems_accOn";
 
-private _cyclicFwdAft      = _heli animationSourcePhase "cyclicForward";
-private _cyclicLeftRight   = _heli animationSourcePhase "cyclicAside";
+private _cyclicFwdAft      = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
+private _cyclicLeftRight   = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
 private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 
 private _tailRtrDamage     = _heli getHitPointDamage "hitvrotor";
@@ -111,7 +111,7 @@ _cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 _pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
 
 private _foreAftTorque   = (_cyclicFwdAft    + _attHoldCycPitchOut) *  _pitchTorque;
-private _leftRightTorque = (_cyclicLeftRight + _attHoldCycRollOut)  * -_rollTorque;
+private _leftRightTorque = (_cyclicLeftRight + _attHoldCycRollOut)  *  _rollTorque;
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
     _tailRtrFixed = true;

@@ -235,7 +235,7 @@ if (_eng1State == "STARTING") then {
 if (_eng2State == "STARTING") then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
-if (isAutoHoverOn _heli) then {
+if (isAutoHoverOn _heli || _heli getVariable "fza_ah64_attHoldActive") then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD  "];
 };
 if (_heli getVariable "fza_ah64_altHoldActive") then {
