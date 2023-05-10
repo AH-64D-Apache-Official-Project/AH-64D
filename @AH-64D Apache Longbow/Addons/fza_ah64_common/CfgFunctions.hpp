@@ -11,6 +11,7 @@ class CfgFunctions
             file = "\fza_ah64_common\functions";
             class addKeybind {R;};
             class cycle {R;};
+            class debugDrawCircle {R;};
             class debugDrawLine {R;};
             class getArea {R;};
             class linearInterp {R;};

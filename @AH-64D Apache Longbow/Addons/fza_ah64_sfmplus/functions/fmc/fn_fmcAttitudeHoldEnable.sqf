@@ -6,7 +6,8 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
 
     //Position hold
     if (_curVel <= 2.572) then {
-        _heli setVariable ["fza_ah64_attHoldSubMode", "pos"];
+        _heli setVariable ["fza_ah64_attHoldSubMode",   "pos"];
+        _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli];
     };
     //Velocity hold
     //This needs to check if accelerating or decelerating...really it's
