@@ -106,22 +106,11 @@ if (_flightModel == "SFMPlus") then {
 };
 
 //Cyclic and Pedal Torque
-_cyclicFwdAft    = [_cyclicFwdAft, -0.5, 0.5] call BIS_fnc_clamp;
-_cyclicFwdAft    = linearConversion[-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0];
+_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
 
-//Experimenting with FMC off
-//_cyclicFwdAft    = [0, _cyclicFwdAft, (1 / 0.15) * _deltaTime] call BIS_fnc_lerp;
-
-_cyclicLeftRight = [_cyclicLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
-_cyclicLeftRight = linearConversion[-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0];
-
-//Experimenting with FMC off
-//_cyclicLeftRight = [0, _cyclicLeftRight, (1 / 0.15) * _deltaTime] call BIS_fnc_lerp;
-
-_pedalLeftRight  = [_pedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
-_pedalLeftRight  = linearConversion[-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
-
-private _foreAftTorque   = (_cyclicFwdAft    + _attHoldCycPitchOut) * _pitchTorque;
+private _foreAftTorque   = (_cyclicFwdAft    + _attHoldCycPitchOut) *  _pitchTorque;
 private _leftRightTorque = (_cyclicLeftRight + _attHoldCycRollOut)  * -_rollTorque;
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
