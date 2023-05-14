@@ -34,7 +34,7 @@ if ( _heli getVariable "fza_ah64_attHoldActive") then {
 
     //Attitude hold
 } else {
-    [_pidRoll] call fza_fnc_pidReset;
+    [_pidRoll]  call fza_fnc_pidReset;
     [_pidPitch] call fza_fnc_pidReset;
 };
 
