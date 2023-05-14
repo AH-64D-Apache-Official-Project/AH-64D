@@ -8,6 +8,6 @@ systemChat format ["Pitch out = %1 -- Roll out = %2", _attHoldCycPitchOut, _attH
 
 private _hdgHoldPedalYawOut = 0.0;
 
-private _altHoldCollOut = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitudeHold;
+private _altHoldCollOut     = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitudeHold;
 
 [_attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut, _altHoldCollOut];
