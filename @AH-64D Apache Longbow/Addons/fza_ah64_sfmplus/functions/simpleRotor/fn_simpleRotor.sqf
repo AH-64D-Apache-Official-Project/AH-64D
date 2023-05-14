@@ -94,9 +94,9 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
-private _axisX = [1.0, 0.0, 0.0];
-private _axisY = [0.0, 1.0, 0.0];
-private _axisZ = [0.0, 0.0, 1.0];
+private _axisX = [-1.0, 0.0, 0.0];
+private _axisY = [ 0.0, 1.0, 0.0];
+private _axisZ = [ 0.0, 0.0, 1.0];
 
 //Ground Effect
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
@@ -104,8 +104,17 @@ private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
 _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
-
+private _totalThrust  = _rtrThrust + _gndEffThrust;
+//Get the rotor disc pitch and roll orientation
+//private _rtrDiscPitch = (_heli call BIS_fnc_getPitchBank) # 0;
+//private _rtrDiscRoll  = (_heli call BIS_fnc_getPitchBank) # 1;
+//Get axis thrust
+//private _thrustX   = _axisX vectorMultiply ((_totalThrust * _rtrDiscRoll)  * _deltaTime);
+//private _thrustY   = _axisY vectorMultiply ((_totalThrust * _rtrDiscPitch) * _deltaTime);
+private _thrustZ   = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+//Apply forces
+//_heli addForce[_heli vectorModelToWorld _thrustX, _rtrPos];
+//_heli addForce[_heli vectorModelToWorld _thrustY, _rtrPos];
 _heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
 
 //Camera shake effect for ETL

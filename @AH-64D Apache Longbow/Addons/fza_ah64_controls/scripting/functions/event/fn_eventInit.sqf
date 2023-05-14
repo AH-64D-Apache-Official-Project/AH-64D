@@ -129,6 +129,9 @@ _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
+_heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0,      true];
+_heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0,      true];
+
 _heli setVariable ["fza_ah64_attHoldActive",     false,    true];
 _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli, true];
 _heli setVariable ["fza_ah64_attHoldDesiredVel", 0.0,      true];

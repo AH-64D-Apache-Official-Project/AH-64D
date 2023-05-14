@@ -113,9 +113,6 @@ if (_value) then {
         case "vehLockTargets": {
             [_heli] call fza_fnc_targetingsensorCycle;
         };
-        case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            //Currently nothing
-        };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
             [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
         };
@@ -133,6 +130,9 @@ if !(_value) then {
     switch (_name) do {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_up": {
+            [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };
 };
