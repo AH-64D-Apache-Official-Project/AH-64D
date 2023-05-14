@@ -1,10 +1,6 @@
 params ["_heli", "_deltaTime"];
 
 private _pid        = _heli getVariable "fza_sfmplus_pid_altHold";
-_pid set ["kp", KP];
-_pid set ["ki", KI];
-_pid set ["kd", KD];
-
 private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _curAltAGL  = ASLToAGL getPosASL _heli # 2;
 private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
