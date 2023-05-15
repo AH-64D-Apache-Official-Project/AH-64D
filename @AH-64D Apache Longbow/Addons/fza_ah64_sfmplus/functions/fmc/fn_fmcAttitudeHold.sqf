@@ -25,7 +25,9 @@ if ( _heli getVariable "fza_ah64_attHoldActive") then {
     //Position hold
     if (_subMode == "pos") then {
         private _roll  = [_pidRoll,  _deltaTime, 0.0, _curVelX] call fza_fnc_pidRun;    //(_curVelX + _distX) / 2.0
+        _roll          = [_roll, -1.0, 1.0] call BIS_fnc_clamp;
         private _pitch = [_pidPitch, _deltaTime, 0.0, _curVelY] call fza_fnc_pidRun;    //(_curVelY - _distY) / 2.0
+        _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch;
         _attHoldCycRollOut  = _roll;
