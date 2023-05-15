@@ -27,3 +27,6 @@
 #define VEL_BEST_ENDURANCE      36.0111 //70 kts
 #define VEL_VRS                 24.384
 #define ISA_STD_DAY_AIR_DENSITY 1.225
+
+#define RAD_ALT_MAX_ALT         435.254 //1428ft
+#define ALT_HOLD_SPEED_SWITCH   20.577  //40kts GS
