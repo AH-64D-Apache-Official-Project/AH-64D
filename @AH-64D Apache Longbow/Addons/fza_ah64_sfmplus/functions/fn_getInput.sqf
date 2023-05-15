@@ -118,10 +118,11 @@ if (_flightModel == "SFMPlus") then {
 fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
 fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
-
+//Cyclic pitch
 private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft    + _cyclicFwdAftTrim) * _pitchTorque;
 private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
 _foreAftTorque           = _foreAftTorque   + _fmcPitchTorque;
+//Cyclic roll
 private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
 private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
 _leftRightTorque         = _leftRightTorque + _fmcRollTorque;
