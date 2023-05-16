@@ -238,6 +238,12 @@ if (_eng2State == "STARTING") then {
 if (_heli getVariable "fza_ah64_attHoldActive") then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD  "];
 };
+private _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
+private _curPos     = getPos _heli;
+private _dist       = _heli distance2D _desiredPos;
+if (_dist >= 14.630) then {
+    _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];
+};
 if (_heli getVariable "fza_ah64_altHoldActive") then {
     if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
         _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
