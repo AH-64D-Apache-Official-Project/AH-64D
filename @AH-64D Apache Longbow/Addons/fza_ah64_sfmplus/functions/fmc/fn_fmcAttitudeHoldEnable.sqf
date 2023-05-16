@@ -6,21 +6,21 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
 
     //Position hold
     if (_curVel <= 2.572) then {
-        _heli setVariable ["fza_ah64_attHoldSubMode",   "pos"];
-        _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli];
+        _heli setVariable ["fza_ah64_attHoldSubMode",   "pos",         true];
+        _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli, true];
     };
     //Velocity hold
     //This needs to check if accelerating or decelerating...really it's
     //5 to 40 knots accelerating, 30 to 5 knots decelerating
     if (_curVel > 2.572 && _curVel <= 20.577) then {
-        _heli setVariable ["fza_ah64_attHoldSubMode", "vel"];
+        _heli setVariable ["fza_ah64_attHoldSubMode", "vel", true];
     };
     //Attitude hold
     if (_curVel > 20.577) then {
-        _heli setVariable ["fza_ah64_attHoldSubMode", "att"];
+        _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
     };
 
-    _heli setVariable ["fza_ah64_attHoldActive", true];
+    _heli setVariable ["fza_ah64_attHoldActive", true, true];
 } else {
-    _heli setVariable ["fza_ah64_attHoldActive", false];
+    _heli setVariable ["fza_ah64_attHoldActive", false, true];
 };
