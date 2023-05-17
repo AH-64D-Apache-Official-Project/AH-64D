@@ -238,8 +238,13 @@ if (_eng2State == "STARTING") then {
 if (_heli getVariable "fza_ah64_attHoldActive") then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD  "];
 };
-private _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
+private _desiredPos = 0.0;
 private _curPos     = getPos _heli;
+if ( !(_heli getVariable "fza_ah64_attHoldActive") || _heli getVariable "fza_ah64_forceTrimInterupted") then {
+    _desiredPos = _curPos;
+} else {
+    _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
+};
 private _dist       = _heli distance2D _desiredPos;
 if (_dist >= 14.630) then {
     _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];

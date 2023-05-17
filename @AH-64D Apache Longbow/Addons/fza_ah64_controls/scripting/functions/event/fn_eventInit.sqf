@@ -111,6 +111,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         , ["N",1141],["P",1142]
         , ["Q",1143],["R",1144]
         ], true];
+
+        _heli setVariable ["fza_ah64_forceTrimInterupted", false, true];
 };
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];

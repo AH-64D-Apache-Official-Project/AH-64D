@@ -6,9 +6,9 @@ private _pidRoll  = _heli getVariable "fza_sfmplus_pid_roll";
 private _pidPitch = _heli getVariable "fza_sfmplus_pid_pitch";
 
 //
-private _subMode    = _heli getVariable "fza_ah64_attHoldSubMode";
-private _curVelX    = (velocityModelSpace _heli # 0) * -1.0;
-private _curVelY    = velocityModelSpace _heli # 1;
+private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
+private _curVelX  = (velocityModelSpace _heli # 0) * -1.0;
+private _curVelY  = velocityModelSpace _heli # 1;
 
 //Position hold...doesn't work
 //private _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
@@ -21,9 +21,11 @@ private _curVelY    = velocityModelSpace _heli # 1;
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
 
-if ( _heli getVariable "fza_ah64_attHoldActive") then {
+//If the attitude hold is enabled, and the force trim isn't interupted, then attitude hold is actually active
+if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Position hold
     if (_subMode == "pos") then {
+
         private _roll  = [_pidRoll,  _deltaTime, 0.0, _curVelX] call fza_fnc_pidRun;    //(_curVelX + _distX) / 2.0
         _roll          = [_roll, -1.0, 1.0] call BIS_fnc_clamp;
         private _pitch = [_pidPitch, _deltaTime, 0.0, _curVelY] call fza_fnc_pidRun;    //(_curVelY - _distY) / 2.0
