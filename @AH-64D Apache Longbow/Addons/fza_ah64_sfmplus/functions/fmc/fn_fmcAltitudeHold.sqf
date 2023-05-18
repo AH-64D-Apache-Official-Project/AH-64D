@@ -32,9 +32,13 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //then set the desired altitude to the current AGL altitude, otherwise set it to the
     //current ASL altitude.
     if (_curAltAGL < RAD_ALT_MAX_ALT && _curVel < ALT_HOLD_SPEED_SWITCH) then {
-        _heli setVariable ["fza_ah64_altHoldSubMode", "rad", true];
+        if (_heli getVariable "fza_ah64_altHoldSubMode" isNotEqualTo "rad") then {
+            _heli setVariable ["fza_ah64_altHoldSubMode", "rad", true];
+        };
     } else {
+    if (_heli getVariable "fza_ah64_altHoldSubMode" isNotEqualTo "bar") then {
         _heli setVariable ["fza_ah64_altHoldSubMode", "bar", true];
+    };
     };
 
     if (_subMode == "rad") then {
