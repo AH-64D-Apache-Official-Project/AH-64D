@@ -36,9 +36,9 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
             _heli setVariable ["fza_ah64_altHoldSubMode", "rad", true];
         };
     } else {
-    if (_heli getVariable "fza_ah64_altHoldSubMode" isNotEqualTo "bar") then {
-        _heli setVariable ["fza_ah64_altHoldSubMode", "bar", true];
-    };
+        if (_heli getVariable "fza_ah64_altHoldSubMode" isNotEqualTo "bar") then {
+            _heli setVariable ["fza_ah64_altHoldSubMode", "bar", true];
+        };
     };
 
     if (_subMode == "rad") then {
