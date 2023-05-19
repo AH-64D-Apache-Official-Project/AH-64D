@@ -18,7 +18,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity"];
+params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_altHoldCollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
@@ -49,7 +49,7 @@ private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
-private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * fza_sfmplus_collectiveOutput;
+private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];

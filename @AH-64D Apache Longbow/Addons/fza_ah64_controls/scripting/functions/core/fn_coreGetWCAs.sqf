@@ -238,6 +238,13 @@ if (_eng2State == "STARTING") then {
 if (isAutoHoverOn _heli) then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD  "];
 };
+if (_heli getVariable "fza_ah64_altHoldActive") then {
+    if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
+        _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
+    } else {
+        _wcas pushBack [WCA_ADVISORY, "BAR ALT HOLD", "BAR HOLD  "];
+    };
+};
 if (_heli getVariable "fza_ah64_rtrbrake") then {
     _wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };

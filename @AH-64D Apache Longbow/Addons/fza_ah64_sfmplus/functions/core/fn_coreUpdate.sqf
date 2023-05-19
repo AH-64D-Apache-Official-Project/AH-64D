@@ -37,7 +37,9 @@ private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
 //Input
-[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
+([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
+    params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
+[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
@@ -61,7 +63,7 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "fza_flightModel");
 if (_flightModel != "SFMPlus") then {
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_simpleRotor;
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotor;
 };
 
 //Fuel

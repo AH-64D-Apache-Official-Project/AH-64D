@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
