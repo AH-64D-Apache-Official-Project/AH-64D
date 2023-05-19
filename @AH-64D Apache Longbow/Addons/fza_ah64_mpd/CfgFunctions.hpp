@@ -16,6 +16,7 @@ class CfgFunctions
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
+            class acqDraw {RECOMPILE_FLAG;};
         };
         class chan {
             file = "\fza_ah64_mpd\functions\chan";

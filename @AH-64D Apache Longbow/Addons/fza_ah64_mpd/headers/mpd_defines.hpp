@@ -708,3 +708,45 @@ class aseObj_##name {\
         };\
     };\
 };
+
+/* Macro: MPD_BONE_ACQ_SRC_BOX
+    Defines a bone for the acquisition source box to use
+
+Parameters:
+    name - Unique name to use in the class definition.
+    floatIndex - index of the float source
+*/
+#define MPD_BONE_ACQ_SRC_BOX(name,floatIndex) class name { \
+    type = linear; \
+    source=user; \
+    sourceIndex = MFD_USER_NUM(floatIndex); \
+    min=0; \
+    max=4; \
+    sourceScale=1; \
+    maxPos[]={0,0}; \
+    minPos[]={-4*MPD_TEXT_WIDTH,0}; \
+};
+
+/* Macro: MPD_ACQ_SRC
+    Defines an acquisition source button. It must be at the R6 position
+
+Parameters:
+    name - Unique name to use in the class definition.
+    floatIndex - index of the float source
+    stringIndex - index of the string source
+    boneName - name of the bone defined using MPD_BONE_ACQ_SRC_BOX
+*/
+#define MPD_ACQ_SRC(name,floatIndex,stringIndex,boneName) class name { \
+    MPD_TEXT_L(ACQ_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ACQ")) \
+    MPD_TEXT_L(ACQ,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(stringIndex)) \
+    class Box  { \
+        type = line; \
+        width = 2; \
+        points[] = { \
+            {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}, \
+            {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}, \
+            {{MPD_POS_BUTTON_R_X + MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y + 1.5*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+            {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y + 1.5*MPD_TEXT_HEIGHT + MPD_BOX_PAD_Y}, 1}, \
+            {boneName, {MPD_POS_BUTTON_R_X - MPD_BOX_PAD_X, MPD_POS_BUTTON_LR_6_Y +0.5*MPD_TEXT_HEIGHT - MPD_BOX_PAD_Y}, 1}}; \
+    }; \
+};

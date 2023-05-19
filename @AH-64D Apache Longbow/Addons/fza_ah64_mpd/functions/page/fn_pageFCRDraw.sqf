@@ -104,9 +104,6 @@ switch (_wasState) do {
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
 
-//Acquisition Source
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_ACQ), "T01"];
-
 //Weapon Status
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
@@ -177,5 +174,7 @@ private _pointsArray = [];
 } forEach (_heli getVariable "fza_ah64_fcrTargets");
 
 POINTSARRAY = _pointsArray;
+
+[_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
 [_heli, _pointsArray, _mpdIndex,  (0.08125 * 8 / 8000), [0.5, 0.87], _lastScanInfo # 0, _lastScanInfo #1] call fza_mpd_fnc_drawIcons;
