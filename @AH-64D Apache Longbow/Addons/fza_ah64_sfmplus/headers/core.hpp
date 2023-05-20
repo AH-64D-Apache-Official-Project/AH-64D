@@ -30,3 +30,7 @@
 
 #define RAD_ALT_MAX_ALT         435.254 //1428ft
 #define ALT_HOLD_SPEED_SWITCH   20.577  //40kts GS
+
+#define POS_HOLD_SPEED_SWITCH   2.572   //5kts GS
+#define VEL_HOLD_SPEED_SWITCH_DEVEL   15.433  //30kts GS
+#define VEL_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS

@@ -27,50 +27,50 @@ class CfgFunctions
             class engine  {R;};
             class engineController {R;};
             class engineReset {R;};
-			class engineVariables {R;};
-		};
+            class engineVariables {R;};
+        };
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
-			class fmc {R;};
-			class fmcAttitudeHold {R;};
+            class fmc {R;};
+            class fmcAttitudeHold {R;};
             class fmcAltitudeHold {R;};
-			class fmcAltitudeHoldEnable {R;};
-			class fmcAttitudeHoldEnable {R;};
-			class fmcForceTrimSet {R;};
-			class fmcHoldModesDisable {R;};
+            class fmcAltitudeHoldEnable {R;};
+            class fmcAttitudeHoldEnable {R;};
+            class fmcForceTrimSet {R;};
+            class fmcHoldModesDisable {R;};
         };
-		class fuel {
-			file = "\fza_ah64_sfmplus\functions\fuel";
-			class fuelSet {R;};
-		};
-		class fuselage {
-			file = "\fza_ah64_sfmplus\functions\fuselage";
-			class fuselageDrag {R;};
-		};
-		class interact {
-			file = "\fza_ah64_sfmplus\functions\interact";
-			class interactPowerLever {R;};
-			class interactStartSwitch {R;};
-		};
-		class mass {
-			file = "\fza_ah64_sfmplus\functions\mass";
-			class massSet {R;};
-		};
-		class performance {
-			file = "\fza_ah64_sfmplus\functions\performance";
-			class perfData {R;};
-			class perfVariables {R;};
-		};
-		class simpleRotor {
-			file = "\fza_ah64_sfmplus\functions\simpleRotor";
-			class simpleRotor {R;};
-			class simpleRotorNewtRaphSolver {R;};
-			class simpleRotorVariables {R;};
-		};
-		class utility {
-			file = "\fza_ah64_sfmplus\functions";
-			class getInput {R;};
-			class getRtrRPM {R;};
-		};
+        class fuel {
+            file = "\fza_ah64_sfmplus\functions\fuel";
+            class fuelSet {R;};
+        };
+        class fuselage {
+            file = "\fza_ah64_sfmplus\functions\fuselage";
+            class fuselageDrag {R;};
+        };
+        class interact {
+            file = "\fza_ah64_sfmplus\functions\interact";
+            class interactPowerLever {R;};
+            class interactStartSwitch {R;};
+        };
+        class mass {
+            file = "\fza_ah64_sfmplus\functions\mass";
+            class massSet {R;};
+        };
+        class performance {
+            file = "\fza_ah64_sfmplus\functions\performance";
+            class perfData {R;};
+            class perfVariables {R;};
+        };
+        class simpleRotor {
+            file = "\fza_ah64_sfmplus\functions\simpleRotor";
+            class simpleRotor {R;};
+            class simpleRotorNewtRaphSolver {R;};
+            class simpleRotorVariables {R;};
+        };
+        class utility {
+            file = "\fza_ah64_sfmplus\functions";
+            class getInput {R;};
+            class getRtrRPM {R;};
+        };
     };
 };

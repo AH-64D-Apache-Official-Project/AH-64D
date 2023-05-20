@@ -45,8 +45,8 @@ private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
-hintsilent format ["Pitch Trim = %1
-                    \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
+//hintsilent format ["Pitch Trim = %1
+//                  \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
 
 //Pedals
 private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");

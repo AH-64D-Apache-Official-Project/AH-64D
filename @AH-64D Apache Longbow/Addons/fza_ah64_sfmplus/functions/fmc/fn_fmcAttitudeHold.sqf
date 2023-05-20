@@ -7,16 +7,9 @@ private _pidPitch = _heli getVariable "fza_sfmplus_pid_pitch";
 
 //
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
-private _curVelX  = (velocityModelSpace _heli # 0) * -1.0;
-private _curVelY  = velocityModelSpace _heli # 1;
-
-//Position hold...doesn't work
-//private _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
-//private _curPos     = getPos _heli;
-//private _dist       = _heli distance2D _desiredPos;
-//private _dir        = _heli getRelDir [_desiredPos # 0, _desiredPos # 1];
-//private _distX      = _dist * (sin _dir);
-//private _distY      = _dist * (cos _dir);
+private _curVel   = velocityModelSpace _heli;
+private _curVelX  = (_curVel # 0) * -1.0;
+private _curVelY  = _curVel # 1;
 
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
