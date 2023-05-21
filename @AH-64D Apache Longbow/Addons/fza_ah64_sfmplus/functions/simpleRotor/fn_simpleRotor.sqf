@@ -106,8 +106,12 @@ _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+private _torqueZ      = _axisZ vectorMultiply (_rtrTorque   * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
+//Rotor thrust force
+_heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+//Main rotor torque effect
+_heli addTorque (_heli vectorModelToWorld _torqueZ);
 
 //Camera shake effect for ETL
 if (_velXY > 8.23 && _velXY < 12.35) then {
