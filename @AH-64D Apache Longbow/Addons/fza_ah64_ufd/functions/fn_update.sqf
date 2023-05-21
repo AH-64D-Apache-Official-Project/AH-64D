@@ -75,9 +75,9 @@ do {
         private _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
         private _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
 
-        private _blankWarning  = "          ";    //10
+        private _blankWarning  = "         ";     //9
         private _blankCaution  = "             "; //13
-        private _blankAdvisory = "          ";    //10
+        private _blankAdvisory = "           ";   //11
 
         for "_i" from 0 to 5 do {
             _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
