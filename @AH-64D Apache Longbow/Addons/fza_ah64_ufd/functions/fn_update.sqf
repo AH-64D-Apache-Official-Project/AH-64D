@@ -75,12 +75,16 @@ do {
         private _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
         private _advisories = (_wcas select {_x # 0 == WCA_ADVISORY}) apply {_x # 2};
 
+        private _blankWarning  = "          ";    //10
+        private _blankCaution  = "             "; //13
+        private _blankAdvisory = "          ";    //10
+
         for "_i" from 0 to 5 do {
             _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
-                if (count _warnings > _i) then {_warnings # _i} else {"          "},       //10
-                if (count _cautions > _i) then {_cautions # _i} else {"             "},    //13
-                if (count _advisories > _i) then {_advisories # _i} else {"          "}    //10
-            ]];                                                                            //33
+                if (count _warnings > _i) then {[_warnings # _i, _blankWarning, true] call fza_fnc_padString} else {_blankWarning},       
+                if (count _cautions > _i) then {[_cautions # _i, _blankCaution, true] call fza_fnc_padString} else {_blankCaution},
+                if (count _advisories > _i) then {[_advisories # _i, _blankAdvisory, true] call fza_fnc_padString} else {_blankAdvisory}
+            ]];
         };
 
         if (isClass(configFile >> "cfgPatches" >> "acre_main") && {[_heli] call acre_api_fnc_areVehicleRacksInitialized}) then { //ACRE compatibility
