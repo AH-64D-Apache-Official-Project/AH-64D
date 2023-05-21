@@ -12,6 +12,7 @@ class CfgFunctions
             class addKeybind {R;};
             class calculateSideslip {R;};
             class cycle {R;};
+            class debugDrawCircle {R;};
             class debugDrawLine {R;};
             class getArea {R;};
             class linearInterp {R;};

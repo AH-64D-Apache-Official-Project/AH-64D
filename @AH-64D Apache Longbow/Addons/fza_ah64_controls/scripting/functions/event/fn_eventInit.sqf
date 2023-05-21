@@ -112,14 +112,21 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         , ["Q",1143],["R",1144]
         ], true];
 
-    _heli setVariable ["fza_ah64_attHoldActive",     false,    true];
-    _heli setVariable ["fza_ah64_attHoldDesiredAtt", 0.0,      true];
-    _heli setVariable ["fza_ah64_attHoldSubMode",    "pos",    true];   //pos, vel, att
+    _heli setVariable ["fza_ah64_forceTrimInterupted", false, true];
+    _heli setVariable ["fza_ah64_forceTrimPosPitch",   0.0,   true];
+    _heli setVariable ["fza_ah64_forceTrimPosRoll",    0.0,   true];
 
-    _heli setVariable ["fza_ah64_altHoldActive",     false,    true];
-    _heli setVariable ["fza_ah64_altHoldDesiredAlt", 0.0,      true];
-    _heli setVariable ["fza_ah64_altHoldSubMode",    "rad",    true];   //rad, bar
-    _heli setVariable ["fza_ah64_altHoldCollRef",    0.0,      true];
+    _heli setVariable ["fza_ah64_attHoldActive",       false, true];
+    _heli setVariable ["fza_ah64_attHoldDesiredPos",   getPos _heli, true];
+    _heli setVariable ["fza_ah64_attHoldDesiredVel",   0.0,   true];
+    _heli setVariable ["fza_ah64_attHoldDesiredAtt",   0.0,   true];
+    _heli setVariable ["fza_ah64_attHoldSubMode",      "pos", true];   //pos, vel, att
+
+    _heli setVariable ["fza_ah64_altHoldActive",       false, true];
+    _heli setVariable ["fza_ah64_altHoldDesiredAlt",   0.0,   true];
+    _heli setVariable ["fza_ah64_altHoldSubMode",      "rad", true];   //rad, bar
+    _heli setVariable ["fza_ah64_altHoldCollRef",      0.0,   true];
+    
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];

@@ -44,6 +44,7 @@ private _rtrGndEffModifier      = 0.238;
 private _rtrThrustScalar_min    = 0.120;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
+private _rtrTorqueScalar        = 0.25;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -104,9 +105,14 @@ private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
 _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-private _thrustZ   = _axisZ vectorMultiply ((_rtrThrust + _gndEffThrust) * _deltaTime);
+private _totalThrust  = _rtrThrust + _gndEffThrust;
+private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _thrustZ, _rtrPos];
+//Rotor thrust force
+_heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+//Main rotor torque effect
+_heli addTorque (_heli vectorModelToWorld _torqueZ);
 
 //Camera shake effect for ETL
 if (_velXY > 8.23 && _velXY < 12.35) then {
@@ -171,6 +177,7 @@ if (_velXY < 12.35) then {  //must be less than ETL
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
 [_heli, _rtrPos, _rtrPos vectorAdd _axisY, "green"] call fza_fnc_debugDrawLine;
 [_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_debugDrawLine;
+[_heli, 24, _rtrPos, _bladeRadius, 2, "white", 0]   call fza_fnc_debugDrawCircle;
 #endif
 
 /*

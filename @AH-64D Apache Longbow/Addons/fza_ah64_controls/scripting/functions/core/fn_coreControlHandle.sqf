@@ -114,7 +114,7 @@ if (_value) then {
             [_heli] call fza_fnc_targetingsensorCycle;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            //Currently nothing
+            _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
             [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
@@ -123,7 +123,7 @@ if (_value) then {
             [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
-            //Currently nothing
+            [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
     };
 };
@@ -133,6 +133,11 @@ if !(_value) then {
     switch (_name) do {
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
+        };
+        case "fza_ah64_forceTrimHoldModeSwitch_up": {
+            _heli setVariable ["fza_ah64_forceTrimInterupted", false,      true];
+            _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli, true];
+            [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };
 };
