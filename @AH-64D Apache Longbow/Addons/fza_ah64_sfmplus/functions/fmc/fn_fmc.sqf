@@ -1,12 +1,5 @@
 params ["_heli", "_deltaTime"];
 
-private _velTot = vectorMagnitude velocity _heli;
-private _velY   = velocityModelSpace _heli # 0;
-
-private _beta   = if (_velTot == 0.0) then { 0.0; } else { asin (_velY / _velTot); };
-
-systemChat format ["Beta = %1 -- %2", _beta, _beta / 9.806];
-
 //Attitude Hold
 ([_heli, _deltaTime] call fza_sfmplus_fnc_fmcAttitudeHold)
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut"];

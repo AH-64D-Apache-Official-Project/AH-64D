@@ -10,6 +10,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_common\functions";
             class addKeybind {R;};
+            class calculateSideslip {R;};
             class cycle {R;};
             class debugDrawCircle {R;};
             class debugDrawLine {R;};
