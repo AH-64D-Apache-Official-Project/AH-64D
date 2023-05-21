@@ -49,11 +49,12 @@ private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 //                  \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
 
 //Pedals
-private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+private _pedalLeftRigthTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
 
-private _tailRtrDamage     = _heli getHitPointDamage "hitvrotor";
+private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
 
-private _collectiveOut     = 0.0;
+private _collectiveOut      = 0.0;
 if (_flightModel == "SFMPlus") then {
     private _collectiveVal = _heli animationSourcePhase "collective";
 
@@ -119,9 +120,9 @@ fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
 fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
 //Cyclic pitch
-private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft    + _cyclicFwdAftTrim) * _pitchTorque;
+private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
 private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
-_foreAftTorque           = _foreAftTorque   + _fmcPitchTorque;
+_foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
 //Cyclic roll
 private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
 private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
@@ -134,7 +135,9 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
     _yawTorque = 0.0;
 };
-private _pedalTorque     = fza_sfmplus_pedalLeftRight  * _yawTorque;
+private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
+private _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
+_pedalTorque             = _pedalTorque + _fmcPedalTorque;
 
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
