@@ -1,40 +1,111 @@
 # Changelog Notes:
 
-*11/02/2022*
-* Service Ceiling adjustment from default
-* Start switch animation update
+*08/05/2023*
+* Add Acquisition Source text box To MPDS
+
+*07/05/2023*
+* Fix flood lighting logic (#278)
+
+*06/05/2023*
+* Fix Some RPT errors (#270)
+* Update ASE MPD page to use vanilla systems (#259)
+* Remove RJAM (#259)
+* Add Load Status Page to MPD (#252)
+
+*01/05/2023*
+* Fix HeliSim collective input being wrong while paused in Multiplayer (#242)
+* Fix HeliSim collective position not synchronising between joystick and keyboard and mouse (#246)
+* Add the ability to create DMS points in the eden editor (#247)
+
+*30/04/2023*
+* Add ETL/VRS Sound (#245)
+
+*23/04/2023*
+* Update SFMPlus to use simple rotor simulation (#232)
+
+---20/04/2023---V2.1.2 Release---
+
+*18/04/2023*
+* Force Manual Fire when Pilot uses weapons systems (#235)
+
+*03/04/2023*
+* Add ACE interactions to Apache doors (#209)
+* Add ACE interactions to add and remove FCR/IAFS (#209)
+* Add ACE interactions to modify tail number (#209)
+
+*14/03/2023*
+* Add floodlighting to ACE maps for night time viewing (#227)
+
+*04/02/2023*
+* Replace MPD font with a custom Apache font (#226)
+
+*03/02/2023*
+* Implement MP pylon swapping function (not currently in use) (#223)
+* Increase the interaction zone of buttons (#225)  
+
+*01/02/2023*
+* Update audio playback system (#198)
+
+*30/01/2023* 
+* Add ACE Laser (#204)
+* Move Hellfires to use ACE missile guidance (#204)
+* Move TSD icon rendering to use [A3 UI On Texture](https://community.bistudio.com/wiki/Procedural_Textures#UI_On_Texture) (#219)
+
+*09/01/2023*
+* Replace ARMAs helicopter drag with a custom solution (#213)
+
+*02/10/2022*
+* Add PERF page to MPDs (#199)
+* Add aircraft environmental performance simulation (#199)
+* Improve damage simulation to electrical & hydraulics systems (#199)
+
+*18/09/2022*
+* Add NTS & ANTS indication C-Scope (#197)
+
+*02/09/2022*
+* Rebuild ASE Audio Controller (#196)
+
+*27/08/2022*
+* Swap all MPD pages to use [A3 MFD system](https://community.bistudio.com/wiki/Arma_3:_Multi-Function_Display_(MFD)_config_reference) (#159)
+* Correct PNVS Settings for new [A3 Thermals](https://dev.arma3.com/post/spotrep-00105) (#183)
+* Add HSI to TSD (#191)
+* Remove RPT errors and an error popup (#192)
+
+---23/08/2022---V2.1.1 Release---
+
+*22/08/2022*
+* Fix anti lift starting during autorotation (#186)
+
+*16/05/2022*
+* Add import for loadouts from website (#181)
+
+*9/04/2022*
+* Add new AAC Textures (#167)
+* Calibrate analogue flight instrument. (#165)
 
 *09/02/2022*
-* Fixed uninitialised aircraft breaking fn_animReset.sqf (#174)
-* Dead CFG Removal
-* Incoming missile duplicate warning fix (#170)
-* IHADSS power Change (#171)
+* Fix duplicate incoming missile warning (#170)
+* Remove IHADSS BRT switch (#171)
 
 *16/01/2022*
-* Robbie Tank and Default Magazine change, Default Fuel Adjustment (#162)
-* Animated Horizontal stabilizer (#156)
-* Animation state override (#163)
+* Add IAFS (#162)
+* Adjust default magazine depending on IAFS between 300 and 1200 rnds (#162)
+* Adjust default fuel level depending on IAFS (#162)
+* Animate the horizontal stabilator (#156)
+* Fix garage overriding animations (#163)
 
 *15/01/2022*
-* Power Lever Exploit Fix (#146)
-* SFM+ weight, damage and torque table fix (#154)
-* SFM+ Default Fuel, Performance and Damage Locality Update (#158)
+* Fix issue where flying with IDLE rotor causes no damage (#146)
+* Update weapon weights (#154)
+* Set default fuel level from config (#158)
+* Ensure transmission damage is correctly synchronised in MP (#158)
+* Update SFM+ performance data  (#158)
 
 *15/01/2022*
-* Hide vanilla UI (#152)
-
-*23/12/2021*
-* Updated hover torque values
-* Updated intro
-
-*16/12/2021*
-* Corrected weapon selection logic
+* Hid vanilla UI while in the aircraft (#152)
 
 *08/12/2021*
 * SFM+ Engine Update (#143)
-
-*03/12/2021*
-* Reduced startup duration from 80 seconds to 45
 
 *02/12/2021*
 * Rocket salvo Unreliability fix (#141)
@@ -48,18 +119,9 @@
 * Updated Hellfire Penetrator (#135)
 * Move engine simulation to be local but globally synchronised. (#134)
 
-*15/11/2021*
-* Moved sight select to shift
-
-*07/11/2021*
-* Remove debug systemChats, fixed selected rocket
-
 *06/11/2021*
 * ARMA 2.06 Update, FCR & ASE Streamlining (#113)
 * AI Crew Functionality, New default Gear, Armor Boost & Small fixes (#112)
-
-*05/11/2021*
-* Error fixes
 
 *31/10/2021*
 * Update waypointadd.sqf to use map click event handler (#126)
