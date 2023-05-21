@@ -44,6 +44,7 @@ private _rtrGndEffModifier      = 0.238;
 private _rtrThrustScalar_min    = 0.120;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
+private _rtrTorqueScalar        = 0.25;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -106,7 +107,7 @@ _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
-private _torqueZ      = _axisZ vectorMultiply (_rtrTorque   * _deltaTime);
+private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar)   * _deltaTime);
 
 //Rotor thrust force
 _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
