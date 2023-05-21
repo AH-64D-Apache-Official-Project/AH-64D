@@ -68,12 +68,8 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStand
 
 private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
 
-//This is good when < 24 kts
-private _slipHvrFlt = _bank;
-//This is good when > 24 kts
-private _slipFwdFlt = _airspeedModelRelative # 0 atan2 _airspeedModelRelative # 1;
-private _slip = linearConversion [0, 24, _groundSpeedKnots, _slipHvrFlt, _slipFwdFlt, true];
+private _sideslip = fza_ah64_slip;
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _slip];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _sideslip];
 
 [_heli, _mpdIndex, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC] call fza_mpd_fnc_acqDraw;

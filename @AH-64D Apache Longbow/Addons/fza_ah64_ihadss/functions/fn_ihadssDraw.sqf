@@ -457,7 +457,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrantennafor = -100;
     _showFcrLastScan = false;
 };
-_slip = (fza_ah64_slip * 0.30) + 0.492; //<-- 0.492 is the center for the trim ball <-- when slip = 0.15, it reaches the edge
+_slip = fza_ah64_slip * 0.3 + 0.492; //<-- 0.492 is the center for the trim ball <-- when slip = 0.15, it reaches the edge
 if (_slip > 0.54) then {
     _slip = 0.54;
 };
