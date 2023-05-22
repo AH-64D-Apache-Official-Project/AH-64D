@@ -23,7 +23,7 @@ if (_attSubMode == "pos") then {
 if (_attSubMode == "vel") then {
     _breakoutValue = VEL_HOLD_BREAKOUT_VALUE;
 };
-if (_attSubMode == "att") then {
+if (_attSubMode == "att" || _curVel > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
     _breakoutValue = ATT_HOLD_BREAKOUT_VALUE;
 };
 //If we are on the ground, or if the force trim is interupted, or the pilot has exceeded
