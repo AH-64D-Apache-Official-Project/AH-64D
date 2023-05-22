@@ -1,7 +1,11 @@
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _pid        = _heli getVariable "fza_sfmplus_pid_hdgHold";
+private _pidHdg     = _heli getVariable "fza_sfmplus_pid_hdgHold";
+private _pidTrn     = _heli getVariable "fza_sfmplus_pid_trnCoord";
+//_pidTrn set ["kp", KP];
+//_pidTrn set ["ki", KI];
+//_pidTrn set ["kd", KD];
 private _curHdg     = getDir _heli;
 private _desiredHdg = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError   = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
@@ -38,14 +42,17 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-        _output = [_pid,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _output = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
-
+    if (_subMode == "trn") then {
+        _output = [_pidTrn, _deltaTime, 0.0, -fza_ah64_sideslip] call fza_fnc_pidRun;
+        _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
+    };
 } else {
     [_pid] call fza_fnc_pidReset;
 };
 
-systemChat format ["Heading Hold = %1 -- Heading Error = %2 -- Pedal = %3 -- Sub-Mode = %4", _heli getVariable "fza_ah64_hdgHoldActive", _hdgError toFixed 2, fza_sfmplus_pedalLeftRight toFixed 2, _subMode];
+systemChat format ["Heading Hold = %1 -- Heading Error = %2 -- Pedal = %3 -- Sub-Mode = %4 -- Sideslip = %5", _heli getVariable "fza_ah64_hdgHoldActive", _hdgError toFixed 2, fza_sfmplus_pedalLeftRight toFixed 2, _subMode, fza_ah64_sideslip];
 _output;

@@ -10,5 +10,8 @@ private _altHoldCollOut     = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitu
 //Heading Hold
 private _hdgHoldPedalYawOut = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcHeadingHold;
 systemChat format ["Heading Hold Output = %1", _hdgHoldPedalYawOut];
+//systemChat format ["Pitch Trim = %1 -- Roll Trim = %2 -- Pedal Trim = %3", _heli getVariable "fza_ah64_forceTrimPosPitch" toFixed 2
+//                                                                         , _heli getVariable "fza_ah64_forceTrimPosRoll" toFixed 2
+//                                                                         , _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 2];
 
 [_attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut, _altHoldCollOut];
