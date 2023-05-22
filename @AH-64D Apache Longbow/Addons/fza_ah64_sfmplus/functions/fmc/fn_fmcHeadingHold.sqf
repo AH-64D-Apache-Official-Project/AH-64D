@@ -61,7 +61,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, 0.0, -fza_ah64_sideslip] call fza_fnc_pidRun;
+        _output = [_pidTrn, _deltaTime, 0.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun;
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {
