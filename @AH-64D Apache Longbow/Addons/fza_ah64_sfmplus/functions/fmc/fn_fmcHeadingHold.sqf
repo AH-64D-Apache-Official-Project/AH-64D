@@ -13,8 +13,8 @@ private _output     = 0.0;
 //otherwise, heading hold is ALWAYS active
 if (isTouchingGround _heli
     || _heli getVariable "fza_ah64_forceTrimInterupted" 
-    || fza_sfmplus_pedalLeftRight <= -0.05 
-    || fza_sfmplus_pedalLeftRight >= 0.05) then {
+    || fza_sfmplus_pedalLeftRight <= -HDG_HOLD_BREAKOUT_VALUE 
+    || fza_sfmplus_pedalLeftRight >=  HDG_HOLD_BREAKOUT_VALUE) then {
     if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
         _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
     };
