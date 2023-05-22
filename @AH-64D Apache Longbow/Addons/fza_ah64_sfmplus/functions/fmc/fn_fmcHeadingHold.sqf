@@ -3,9 +3,6 @@ params ["_heli", "_deltaTime"];
 
 private _pidHdg     = _heli getVariable "fza_sfmplus_pid_hdgHold";
 private _pidTrn     = _heli getVariable "fza_sfmplus_pid_trnCoord";
-//_pidTrn set ["kp", KP];
-//_pidTrn set ["ki", KI];
-//_pidTrn set ["kd", KD];
 private _curHdg     = getDir _heli;
 private _desiredHdg = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError   = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
@@ -14,7 +11,7 @@ private _subMode    = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode = _heli getVariable "fza_ah64_attHoldSubMode";
 private _output     = 0.0;
 //Breakout values expand as the aircraft goes faster to provide good pedal response
-//at a hover. The expanded range is meant to de-sensitize the pedasl in order to 
+//at a hover. The expanded range is meant to de-sensitize the pedals in order to 
 //prevent disengaging the heading hold mode during cruise flight
 private _breakoutValue = 0.0;
 if (_attSubMode == "pos") then {
