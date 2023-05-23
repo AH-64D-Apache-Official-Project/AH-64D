@@ -5,6 +5,7 @@ class Fza_SfmPlus {
     cyclicPitchTorque = 4500.0; //Nm
     cyclicRollTorque  = 1500.0; //Nm
     pedalYawTorque    = 5000.0; //Nm
+    inputLagValue     = 0.65;
 
     stabPos[]           = {0.0, -7.207, -0.50};  //m
     stabWidth           = 3.22;                  //m

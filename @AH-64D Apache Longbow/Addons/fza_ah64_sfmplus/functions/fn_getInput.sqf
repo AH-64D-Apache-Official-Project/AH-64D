@@ -25,6 +25,7 @@ private _flightModel       = getText (_configVehicles>> "fza_flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
+private _inputLagValue     = getNumber (_config >> "inputLagValue");
 
 private _hydFailure        = false;
 private _tailRtrFixed      = false;
@@ -38,6 +39,7 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn             = _heli getVariable "fza_systems_accOn";
 
+<<<<<<< Updated upstream
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
@@ -54,6 +56,30 @@ private _pedalLeftRight    = (inputAction "HeliRudderRight") - (inputAction "Hel
 private _tailRtrDamage     = _heli getHitPointDamage "hitvrotor";
 
 private _collectiveOut     = 0.0;
+=======
+private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
+
+//Cyclic pitch
+private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
+_cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
+private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
+fza_sfmplus_cyclicFwdAft     = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+
+//Cyclic roll
+private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
+_cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
+fza_sfmplus_cyclicLeftRight  = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+
+//Pedals
+private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+_pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+private _pedalLeftRigthTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
+fza_sfmplus_pedalLeftRight   = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+
+//Collective
+private _collectiveOut       = 0.0;
+>>>>>>> Stashed changes
 if (_flightModel == "SFMPlus") then {
     private _collectiveVal = _heli animationSourcePhase "collective";
 
@@ -114,6 +140,7 @@ if (_flightModel == "SFMPlus") then {
     };
 };
 
+<<<<<<< Updated upstream
 //Cyclic and Pedal Torque
 fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
 fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
@@ -123,8 +150,22 @@ private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft    + _cyclicFwdAftTrim) * _
 private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
 _foreAftTorque           = _foreAftTorque   + _fmcPitchTorque;
 //Cyclic roll
+=======
+//Cyclic pitch torque
+private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
+private _fmcPitchTorque  = 0.0;
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+    _fmcPitchTorque      = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
+};
+_foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
+
+//Cyclic roll torque
+>>>>>>> Stashed changes
 private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
-private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
+private _fmcRollTorque   = 0.0;
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+    _fmcRollTorque       = (_attHoldCycRollOut * (_rollTorque * 0.10));
+};
 _leftRightTorque         = _leftRightTorque + _fmcRollTorque;
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
@@ -134,8 +175,20 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
     _yawTorque = 0.0;
 };
+<<<<<<< Updated upstream
 private _pedalTorque     = fza_sfmplus_pedalLeftRight  * _yawTorque;
+=======
 
+//Yaw torque
+private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
+private _fmcPedalTorque  = 0.0;
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+    _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
+};
+_pedalTorque             = _pedalTorque + _fmcPedalTorque;
+>>>>>>> Stashed changes
+
+//State info
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;

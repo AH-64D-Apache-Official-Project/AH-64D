@@ -68,3 +68,6 @@ if (fuel _heli > 0.99) then {
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;
+
+//Actuators
+[_heli] call fza_sfmplus_fnc_actuatorVariables;
