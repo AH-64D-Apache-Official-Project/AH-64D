@@ -56,7 +56,7 @@ fza_sfmplus_cyclicLeftRight  = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 _pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-private _pedalLeftRigthTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
+//private _pedalLeftRigthTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
 fza_sfmplus_pedalLeftRight   = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
 
 //Collective
@@ -146,12 +146,14 @@ if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 };
 
 //Yaw torque
-private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
+private _pedalTorque     = fza_sfmplus_pedalLeftRight * _yawTorque;//(fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
 private _fmcPedalTorque  = 0.0;
 if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
     _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
 };
-_pedalTorque             = _pedalTorque + _fmcPedalTorque;
+_pedalTorque             = _pedalTorque;// + _fmcPedalTorque;
+
+systemChat format ["P = %1 -- R -- %2 -- Y = %3", _foreAftTorque toFixed 2, _leftRightTorque toFixed 2, _pedalTorque toFixed 2];
 
 //State info
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
