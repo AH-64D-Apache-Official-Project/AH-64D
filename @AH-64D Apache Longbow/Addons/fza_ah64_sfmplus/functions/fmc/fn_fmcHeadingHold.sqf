@@ -28,8 +28,7 @@ if (_attSubMode == "att" || _curVel > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
 //otherwise, heading hold is ALWAYS active
 if (isTouchingGround _heli
     || _heli getVariable "fza_ah64_forceTrimInterupted" 
-    || fza_sfmplus_pedalLeftRight <= -_breakoutValue 
-    || fza_sfmplus_pedalLeftRight >=  _breakoutValue) then {
+    || abs fza_sfmplus_pedalLeftRight <= _breakoutValue) then {
     if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
         _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
     };
