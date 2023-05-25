@@ -263,5 +263,8 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
 if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
+if (isTouchingGround _heli) then {
+    _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
+};
 
 _wcas;

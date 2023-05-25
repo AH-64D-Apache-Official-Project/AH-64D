@@ -137,6 +137,7 @@ if !(_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             _heli setVariable ["fza_ah64_forceTrimInterupted", false,      true];
             _heli setVariable ["fza_ah64_attHoldDesiredPos", getPos _heli, true];
+            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg", getDir _heli, true];
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };

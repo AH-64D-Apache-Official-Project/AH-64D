@@ -5,9 +5,13 @@ params ["_heli", "_deltaTime"];
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut"];
 //systemChat format ["Att Hold Active = %1 -- Sub-Mode = %2", _heli getVariable "fza_ah64_attHoldActive", _heli getVariable "fza_ah64_attHoldSubMode"];
 //systemChat format ["Pitch out = %1 -- Roll out = %2", _attHoldCycPitchOut, _attHoldCycRollOut];
-//Heading Hold
-private _hdgHoldPedalYawOut = 0.0;
 //Altitude Hold
 private _altHoldCollOut     = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitudeHold;
+//Heading Hold
+private _hdgHoldPedalYawOut = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcHeadingHold;
+//systemChat format ["Heading Hold Output = %1", _hdgHoldPedalYawOut];
+//systemChat format ["Pitch Trim = %1 -- Roll Trim = %2 -- Pedal Trim = %3", _heli getVariable "fza_ah64_forceTrimPosPitch" toFixed 2
+//                                                                         , _heli getVariable "fza_ah64_forceTrimPosRoll" toFixed 2
+//                                                                         , _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 2];
 
 [_attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut, _altHoldCollOut];

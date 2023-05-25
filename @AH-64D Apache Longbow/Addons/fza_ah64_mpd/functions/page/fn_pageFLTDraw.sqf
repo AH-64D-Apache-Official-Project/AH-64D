@@ -68,7 +68,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStand
 
 private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
 
-private _sideslip = fza_ah64_slip;
+private _sideslip = fza_ah64_sideslip;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _sideslip];
 
