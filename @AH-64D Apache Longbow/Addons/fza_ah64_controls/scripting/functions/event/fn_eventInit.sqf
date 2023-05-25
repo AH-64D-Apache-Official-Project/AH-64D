@@ -111,21 +111,27 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         , ["N",1141],["P",1142]
         , ["Q",1143],["R",1144]
         ], true];
-
+    //Force Trim
     _heli setVariable ["fza_ah64_forceTrimInterupted", false, true];
     _heli setVariable ["fza_ah64_forceTrimPosPitch",   0.0,   true];
     _heli setVariable ["fza_ah64_forceTrimPosRoll",    0.0,   true];
-
+    _heli setVariable ["fza_ah64_forceTrimPosPedal",   0.0,   true];
+    //Attitude Hold
     _heli setVariable ["fza_ah64_attHoldActive",       false, true];
     _heli setVariable ["fza_ah64_attHoldDesiredPos",   getPos _heli, true];
     _heli setVariable ["fza_ah64_attHoldDesiredVel",   0.0,   true];
     _heli setVariable ["fza_ah64_attHoldDesiredAtt",   0.0,   true];
     _heli setVariable ["fza_ah64_attHoldSubMode",      "pos", true];   //pos, vel, att
-
+    //Altitude Hold
     _heli setVariable ["fza_ah64_altHoldActive",       false, true];
     _heli setVariable ["fza_ah64_altHoldDesiredAlt",   0.0,   true];
     _heli setVariable ["fza_ah64_altHoldSubMode",      "rad", true];   //rad, bar
     _heli setVariable ["fza_ah64_altHoldCollRef",      0.0,   true];
+    //Heading Hold
+    _heli setVariable ["fza_ah64_hdgHoldActive",       false, true];
+    _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",   0.0,   true];
+    _heli setVariable ["fza_ah64_hdgHoldSubMode",      "hdg", true];    //hdg, trn
+    _heli setVariable ["fza_ah64_hdgHoldPedalRef",     0.0,   true];    //<-- probably not needed, kept just in case...
     
 };//fza_ah64_aircraftInitialised end
 
