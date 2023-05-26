@@ -1,5 +1,33 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
-    
+
+class fmc_lines {
+    type = line;
+    width = 3;
+    points[] =
+        { {{0.015, 0.15}, 1} //Top 
+        , {{0.17 , 0.15}, 1}
+        , {{0.17 , 0.40}, 1}
+        , {}
+        , {{0.17 , 0.60}, 1} //Bottom
+        , {{0.17 , 0.88}, 1}
+        , {{0.015, 0.88}, 1}
+        };
+};
+
+class aice_lines {
+    type = line;
+    width = 3;
+    points[] =
+        { {{0.985, 0.15}, 1} //Top 
+        , {{0.80 , 0.15}, 1}
+        , {{0.80 , 0.40}, 1}
+        , {}
+        , {{0.80 , 0.60}, 1} //Bottom
+        , {{0.80 , 0.88}, 1}
+        , {{0.985, 0.88}, 1}
+        };
+};
+
 //FMC
 #define FMC_X    MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
 #define PITCH_Y  MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
@@ -428,6 +456,21 @@ class vabs {
     //R6
     MPD_BOX_BAR_L(SNS, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
     MPD_TEXT_L(SNS, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("SENSOR"))
+
+    //B1
+    MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ENG"))
+    //B2
+    MPD_TEXT_C(ONE, MPD_POS_BUTTON_TB_2_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("1"))
+    //B3
+    MPD_TEXT_C(TWO, MPD_POS_BUTTON_TB_3_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("2"))
+    //B4
+    MPD_TEXT_C(TEMP1, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TEMP>"))
+    MPD_TEXT_C(TEMP2, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("70*C"))
+    //B5
+    MPD_TEXT_C(ECS, MPD_POS_BUTTON_TB_5_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ECS"))
+    //B6
+    MPD_TEXT_C(GND, MPD_POS_BUTTON_TB_6_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("GND"))
+
 
     //L1
     MPD_TEXT_R(PITCH, MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("PITCH"))
