@@ -111,6 +111,12 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         , ["N",1141],["P",1142]
         , ["Q",1143],["R",1144]
         ], true];
+    //FMC
+    _heli setVariable ["fza_ah64_fmcPitchOn",          true,  true];
+    _heli setVariable ["fza_ah64_fmcRollOn",           true,  true];
+    _heli setVariable ["fza_ah64_fmcYawOn",            true,  true];
+    _heli setVariable ["fza_ah64_fmcCollOn",           true,  true];
+    _heli setVariable ["fza_ah64_fmcTrimOn",           true,  true];
     //Force Trim
     _heli setVariable ["fza_ah64_forceTrimInterupted", false, true];
     _heli setVariable ["fza_ah64_forceTrimPosPitch",   0.0,   true];

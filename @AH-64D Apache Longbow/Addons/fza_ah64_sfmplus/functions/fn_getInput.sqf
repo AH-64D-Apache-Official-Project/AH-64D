@@ -88,7 +88,7 @@ if (_flightModel == "SFMPlus") then {
         _hydFailure = true;
     };
 
-    if (!_hydFailure) then {
+    if (!_hydFailure || _accOn) then {
         if (isNil "fza_sfmplus_collectiveOutput") then {
             fza_sfmplus_collectiveOutput = 0;
         };

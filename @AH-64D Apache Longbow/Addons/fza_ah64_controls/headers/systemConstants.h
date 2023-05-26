@@ -52,3 +52,20 @@
 //--Chaff dispenser
 #define ASE_CHAFF_STATE_SAFE 0
 #define ASE_CHAFF_STATE_ARM  1
+
+//FMC
+//--FMC Pitch
+#define FMC_PITCH_OFF 0
+#define FMC_PITCH_ON  1 
+//--FMC Roll
+#define FMC_ROLL_OFF 0
+#define FMC_ROLL_ON  1
+//--FMC Yaw
+#define FMC_YAW_OFF  0
+#define FMC_YAW_ON   1
+//--FMC Coll
+#define FMC_COLL_OFF 0
+#define FMC_COLL_ON  1
+//--FMC Trim
+#define FMC_TRIM_OFF 0
+#define FMC_TRIM_ON  1

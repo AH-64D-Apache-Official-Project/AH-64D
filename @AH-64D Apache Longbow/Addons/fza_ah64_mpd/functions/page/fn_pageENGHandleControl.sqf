@@ -11,6 +11,9 @@ switch(_control) do {
     case "t4": {
         [_heli, _mpdIndex, "perf"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "t6": {
+        [_heli, _mpdIndex, "acutil"] call fza_mpd_fnc_setCurrentPage;
+    };    
     case "b6": {
         [_heli, _mpdIndex, "wca"] call fza_mpd_fnc_setCurrentPage;
     };

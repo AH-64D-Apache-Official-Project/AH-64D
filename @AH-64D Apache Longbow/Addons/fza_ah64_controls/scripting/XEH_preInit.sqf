@@ -70,6 +70,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableTorqueSim",
+    "CHECKBOX",
+    ["Main Rotor Torque Simulation", "Turns on/off main rotor torque simulation. Meant for users who fly mouse & keyboard."],
+    [_projName, "Flight model"],
+    [true],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],

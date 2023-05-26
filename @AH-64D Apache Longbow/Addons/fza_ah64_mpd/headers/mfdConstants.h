@@ -294,6 +294,13 @@
 #define MFD_DTU_LOADING 0
 #define MFD_DTU_LOAD_COMPLETE 1
 
+//A/C Util Page
+#define ACUTIL_IND_PITCH 0
+#define ACUTIL_IND_ROLL  1
+#define ACUTIL_IND_YAW   2
+#define ACUTIL_IND_COLL  3
+#define ACUTIL_IND_TRIM  4
+
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1
@@ -311,6 +318,7 @@
 #define MPD_PAGE_FREQ 13
 #define MPD_PAGE_CHAN 14
 #define MPD_PAGE_PERF 15
+#define MPD_PAGE_ACUTIL 16
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))
