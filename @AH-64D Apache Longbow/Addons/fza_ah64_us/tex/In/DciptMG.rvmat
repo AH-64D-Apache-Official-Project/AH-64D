@@ -56,7 +56,7 @@ class Stage4
 };
 class Stage5
 {
-    texture="fza_ah64_us\tex\In\DcpitM_smdi.tga";
+    texture="fza_ah64_us\tex\In\DcpitM_smdi.paa";
     uvSource="tex";
     class uvTransform
     {
