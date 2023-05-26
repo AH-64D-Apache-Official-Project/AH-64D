@@ -124,7 +124,7 @@ if (_flightModel == "SFMPlus") then {
 //Cyclic pitch torque
 private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
 private _fmcPitchTorque  = 0.0;
-if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcPitchOn") then {
     _fmcPitchTorque      = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
 };
 _foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
@@ -132,7 +132,7 @@ _foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
 //Cyclic roll torque
 private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
 private _fmcRollTorque   = 0.0;
-if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcRollOn") then {
     _fmcRollTorque       = (_attHoldCycRollOut * (_rollTorque * 0.10));
 };
 _leftRightTorque         = _leftRightTorque + _fmcRollTorque;
@@ -148,7 +148,7 @@ if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
 //Yaw torque
 private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
 private _fmcPedalTorque  = 0.0;
-if (_priHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
     _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
 };
 _pedalTorque             = _pedalTorque + _fmcPedalTorque;

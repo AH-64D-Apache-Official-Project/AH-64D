@@ -11,10 +11,10 @@
     
 //Anti-Ice
 #define AICE_X   MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
-#define PITOT_Y  MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT
-#define INLET_Y  MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
-#define CANOPY_Y MPD_POS_BUTTON_LR_3_Y + 0.5*MPD_TEXT_HEIGHT
-#define SENSOR_Y MPD_POS_BUTTON_LR_4_Y + 0.5*MPD_TEXT_HEIGHT
+#define PITOT_Y  MPD_POS_BUTTON_LR_3_Y + 0.5*MPD_TEXT_HEIGHT
+#define INLET_Y  MPD_POS_BUTTON_LR_4_Y + 0.5*MPD_TEXT_HEIGHT
+#define CANOPY_Y MPD_POS_BUTTON_LR_5_Y + 0.5*MPD_TEXT_HEIGHT
+#define SENSOR_Y MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT
 
 //FMC Pitch
 class pitch_Off {
@@ -316,6 +316,86 @@ class noea_Off {
     };
 };//End FMC NOE/A
 
+//Anti-Ice Pitot
+class pitot_Off {
+    class lines_pitotOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{AICE_X - 0.010, PITOT_Y + 0.000}, 1},
+            {{AICE_X - 0.007, PITOT_Y - 0.007}, 1},
+            {{AICE_X - 0.000, PITOT_Y - 0.010}, 1},
+            {{AICE_X + 0.007, PITOT_Y - 0.007}, 1},
+            {{AICE_X + 0.010, PITOT_Y + 0.000}, 1},
+            {{AICE_X + 0.007, PITOT_Y + 0.007}, 1},
+            {{AICE_X + 0.000, PITOT_Y + 0.010}, 1},
+            {{AICE_X - 0.007, PITOT_Y + 0.007}, 1}, 
+            {{AICE_X - 0.010, PITOT_Y + 0.000}, 1},
+        };
+    };
+};//End Anti-Ice Pitot
+
+//Anti-Ice Inlet
+class inlet_Off {
+    class lines_inletOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{AICE_X - 0.010, INLET_Y + 0.000}, 1},
+            {{AICE_X - 0.007, INLET_Y - 0.007}, 1},
+            {{AICE_X - 0.000, INLET_Y - 0.010}, 1},
+            {{AICE_X + 0.007, INLET_Y - 0.007}, 1},
+            {{AICE_X + 0.010, INLET_Y + 0.000}, 1},
+            {{AICE_X + 0.007, INLET_Y + 0.007}, 1},
+            {{AICE_X + 0.000, INLET_Y + 0.010}, 1},
+            {{AICE_X - 0.007, INLET_Y + 0.007}, 1}, 
+            {{AICE_X - 0.010, INLET_Y + 0.000}, 1},
+        };
+    };
+};//End Anti-Ice Inlet
+
+//Anti-Ice Canopy
+class canopy_Off {
+    class lines_inletOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{AICE_X - 0.010, CANOPY_Y + 0.000}, 1},
+            {{AICE_X - 0.007, CANOPY_Y - 0.007}, 1},
+            {{AICE_X - 0.000, CANOPY_Y - 0.010}, 1},
+            {{AICE_X + 0.007, CANOPY_Y - 0.007}, 1},
+            {{AICE_X + 0.010, CANOPY_Y + 0.000}, 1},
+            {{AICE_X + 0.007, CANOPY_Y + 0.007}, 1},
+            {{AICE_X + 0.000, CANOPY_Y + 0.010}, 1},
+            {{AICE_X - 0.007, CANOPY_Y + 0.007}, 1}, 
+            {{AICE_X - 0.010, CANOPY_Y + 0.000}, 1},
+        };
+    };
+};//End Anti-Ice Canopy
+
+//Anti-Ice Sensor
+class sensor_Off {
+    class lines_sensorOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{AICE_X - 0.010, SENSOR_Y + 0.000}, 1},
+            {{AICE_X - 0.007, SENSOR_Y - 0.007}, 1},
+            {{AICE_X - 0.000, SENSOR_Y - 0.010}, 1},
+            {{AICE_X + 0.007, SENSOR_Y - 0.007}, 1},
+            {{AICE_X + 0.010, SENSOR_Y + 0.000}, 1},
+            {{AICE_X + 0.007, SENSOR_Y + 0.007}, 1},
+            {{AICE_X + 0.000, SENSOR_Y + 0.010}, 1},
+            {{AICE_X - 0.007, SENSOR_Y + 0.007}, 1}, 
+            {{AICE_X - 0.010, SENSOR_Y + 0.000}, 1},
+        };
+    };
+};//End Anti-Ice Sensor
+
 class vabs {
     //T2
     MPD_ARROW_C(FLT,     MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 3)
@@ -337,10 +417,13 @@ class vabs {
     MPD_BOX_BAR_L(MAN, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
     MPD_TEXT_L(MAN,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANUAL"))
     //R3
+    MPD_BOX_BAR_L(PIT, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y)
     MPD_TEXT_L(PIT, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("PITOT"))
     //R4
+    MPD_BOX_BAR_L(INL, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
     MPD_TEXT_L(INL, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("INLET"))
     //R5
+    MPD_BOX_BAR_L(CAN, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y)
     MPD_TEXT_L(CAN, MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("CANOPY"))
     //R6
     MPD_BOX_BAR_L(SNS, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)

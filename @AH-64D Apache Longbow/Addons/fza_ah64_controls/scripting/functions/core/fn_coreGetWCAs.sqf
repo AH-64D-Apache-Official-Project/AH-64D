@@ -201,7 +201,11 @@ if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
     _wcas pushBack [WCA_CAUTION, "BUCS FAIL", "BUCS FAIL"];
 };
-if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
+if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
+    || !(_heli getVariable "fza_ah64_fmcPitchOn")
+    || !(_heli getVariable "fza_ah64_fmcRollOn")
+    || !(_heli getVariable "fza_ah64_fmcYawOn")
+    || !(_heli getVariable "fza_ah64_fmcCollOn")) then {
         _wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG"];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
