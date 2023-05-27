@@ -6,9 +6,9 @@ class fmc_lines {
     points[] =
         { {{0.015, 0.15}, 1} //Top 
         , {{0.17 , 0.15}, 1}
-        , {{0.17 , 0.40}, 1}
+        , {{0.17 , 0.42}, 1}
         , {}
-        , {{0.17 , 0.60}, 1} //Bottom
+        , {{0.17 , 0.58}, 1} //Bottom
         , {{0.17 , 0.88}, 1}
         , {{0.015, 0.88}, 1}
         };
@@ -18,13 +18,27 @@ class aice_lines {
     type = line;
     width = 3;
     points[] =
-        { {{0.985, 0.15}, 1} //Top 
-        , {{0.80 , 0.15}, 1}
-        , {{0.80 , 0.40}, 1}
+        { {{0.985, 0.150}, 1} //Top 
+        , {{0.80 , 0.150}, 1}
+        , {{0.80 , 0.335}, 1}
         , {}
-        , {{0.80 , 0.60}, 1} //Bottom
-        , {{0.80 , 0.88}, 1}
-        , {{0.985, 0.88}, 1}
+        , {{0.80 , 0.715}, 1} //Bottom
+        , {{0.80 , 0.880}, 1}
+        , {{0.985, 0.880}, 1}
+        };
+};
+
+class bleedAir_lines {
+    type = line;
+    width = 3;
+    points[] =
+        { {{0.27, 0.985}, 1} //Left 
+        , {{0.27, 0.920}, 1}
+        , {{0.29, 0.920}, 1}
+        , {}
+        , {{0.49, 0.920}, 1} //Right
+        , {{0.51, 0.920}, 1}
+        , {{0.51, 0.985}, 1}
         };
 };
 
@@ -424,6 +438,166 @@ class sensor_Off {
     };
 };//End Anti-Ice Sensor
 
+//Bleed Air 1
+#define BLEED1_X MPD_POS_BUTTON_TB_2_X - 0.60 * MPD_TEXT_WIDTH
+#define BUBBLE_Y MPD_POS_BUTTON_B_Y + 0.5 * MPD_TEXT_HEIGHT
+class bleedAir1_On {
+    class bleedAir1_draw {
+        class polys_bleedAir1OnOff {
+            class Polygons {
+                type = polygon;
+                points[] = {
+                    { //Top left
+                        {{BLEED1_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED1_X - 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{BLEED1_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{BLEED1_X, BUBBLE_Y}, 1}
+                    },
+                    { //Top right
+                        {{BLEED1_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{BLEED1_X + 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{BLEED1_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED1_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom right
+                        {{BLEED1_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED1_X + 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{BLEED1_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{BLEED1_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom left
+                        {{BLEED1_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{BLEED1_X - 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{BLEED1_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED1_X, BUBBLE_Y}, 1}
+                    }
+                };
+            };
+        };
+    };
+};  //End Bleed Air 1
+
+//Bleed Air 2
+#define BLEED2_X  MPD_POS_BUTTON_TB_3_X - 0.60 * MPD_TEXT_WIDTH
+class bleedAir2_On {
+    class bleedAir2_draw {
+        class polys_bleedAir2OnOff {
+            class Polygons {
+                type = polygon;
+                points[] = {
+                    { //Top left
+                        {{BLEED2_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED2_X - 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{BLEED2_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{BLEED2_X, BUBBLE_Y}, 1}
+                    },
+                    { //Top right
+                        {{BLEED2_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{BLEED2_X + 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{BLEED2_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED2_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom right
+                        {{BLEED2_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED2_X + 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{BLEED2_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{BLEED2_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom left
+                        {{BLEED2_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{BLEED2_X - 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{BLEED2_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{BLEED2_X, BUBBLE_Y}, 1}
+                    }
+                };
+            };
+        };
+    };
+};  //End Bleed Air 2
+
+//ECS
+#define ECS_X  MPD_POS_BUTTON_TB_5_X - 1.1 * MPD_TEXT_WIDTH
+class ecs_On {
+    class ecs_draw {
+        class polys_ecsOnOff {
+            class Polygons {
+                type = polygon;
+                points[] = {
+                    { //Top left
+                        {{ECS_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{ECS_X - 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{ECS_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{ECS_X, BUBBLE_Y}, 1}
+                    },
+                    { //Top right
+                        {{ECS_X - 0.000, BUBBLE_Y - 0.010}, 1},
+                        {{ECS_X + 0.007, BUBBLE_Y - 0.007}, 1},
+                        {{ECS_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{ECS_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom right
+                        {{ECS_X + 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{ECS_X + 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{ECS_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{ECS_X, BUBBLE_Y}, 1}
+                    },
+                    { //Bottom left
+                        {{ECS_X + 0.000, BUBBLE_Y + 0.010}, 1},
+                        {{ECS_X - 0.007, BUBBLE_Y + 0.007}, 1}, 
+                        {{ECS_X - 0.010, BUBBLE_Y + 0.000}, 1},
+                        {{ECS_X, BUBBLE_Y}, 1}
+                    }
+                };
+            };
+        };
+    };
+};  //End ECS
+
+//Ground override
+#define GROUND_X  MPD_POS_BUTTON_TB_6_X - 1.1 * MPD_TEXT_WIDTH
+class ground_Off {
+    class lines_groundOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{GROUND_X - 0.010, BUBBLE_Y + 0.000}, 1},
+            {{GROUND_X - 0.007, BUBBLE_Y - 0.007}, 1},
+            {{GROUND_X - 0.000, BUBBLE_Y - 0.010}, 1},
+            {{GROUND_X + 0.007, BUBBLE_Y - 0.007}, 1},
+            {{GROUND_X + 0.010, BUBBLE_Y + 0.000}, 1},
+            {{GROUND_X + 0.007, BUBBLE_Y + 0.007}, 1},
+            {{GROUND_X + 0.000, BUBBLE_Y + 0.010}, 1},
+            {{GROUND_X - 0.007, BUBBLE_Y + 0.007}, 1}, 
+            {{GROUND_X - 0.010, BUBBLE_Y + 0.000}, 1},
+        };
+    };
+};//End ground override
+
+class fat_box_outline {
+    type = line;
+    width = 3;
+    points[] = {
+        MPD_POINTS_BOX(Null, 0.5 - 0.5*(5*MPD_TEXT_WIDTH), 0.25 - 0.5*MPD_TEXT_HEIGHT, 5.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+    };
+};
+
+class ice_box_outline {
+    type = line;
+    width = 3;
+    points[] = {
+        MPD_POINTS_BOX(Null, 0.5 - 0.5*(6*MPD_TEXT_WIDTH), 0.425 - 0.5*MPD_TEXT_HEIGHT, 6.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+    };
+};
+
+class cpt_box_outline {
+    type = line;
+    width = 3;
+    points[] = {
+        MPD_POINTS_BOX(Null, 0.5 - 0.5*(13*MPD_TEXT_WIDTH), 0.60 - 0.5*MPD_TEXT_HEIGHT, 13.0*MPD_TEXT_WIDTH, 2.0*MPD_TEXT_HEIGHT), {},
+    };
+};
+
 class vabs {
     //T2
     MPD_ARROW_C(FLT,     MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 3)
@@ -460,17 +634,21 @@ class vabs {
     //B1
     MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ENG"))
     //B2
+    MPD_BOX_BAR_B(ONE, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(ONE, MPD_POS_BUTTON_TB_2_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("1"))
-    //B3
-    MPD_TEXT_C(TWO, MPD_POS_BUTTON_TB_3_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("2"))
+    //B3 
+    MPD_BOX_BAR_B(TWO, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_B_Y)
+    MPD_TEXT_C(TWO, MPD_POS_BUTTON_TB_3_X + 0.5 * MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("2"))    
     //B4
+    MPD_BOX_BAR_B(TEMP, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(TEMP1, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TEMP>"))
-    MPD_TEXT_C(TEMP2, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("70*C"))
+    MPD_TEXT_C(TEMP2, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("69°C"))
     //B5
+    MPD_BOX_BAR_B(ECS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(ECS, MPD_POS_BUTTON_TB_5_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ECS"))
     //B6
+    MPD_BOX_BAR_B(GND, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y)
     MPD_TEXT_C(GND, MPD_POS_BUTTON_TB_6_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("GND"))
-
 
     //L1
     MPD_TEXT_R(PITCH, MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("PITCH"))
@@ -485,4 +663,37 @@ class vabs {
     //L1
     MPD_BOX_BAR_R(NOEA, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y)
     MPD_TEXT_R(NOEA,  MPD_POS_BUTTON_L_X + MPD_TEXT_WIDTH, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("NOE/A"))
+
+    //FMC Text
+    MPD_TEXT_R(FMCChar1, 0.17, 0.50 - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("F"))
+    MPD_TEXT_R(FMCChar2, 0.17, 0.50 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
+    MPD_TEXT_R(FMCChar3, 0.17, 0.50 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("C"))
+
+    //Bleed Air Text
+    MPD_TEXT_C(BLEED, 0.39, 0.925 - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("BLEED AIR"))
+
+    //Anti-Ice Text
+    MPD_TEXT_L(AIceChar1, 0.80, 0.50 - 3.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("A"))
+    MPD_TEXT_L(AIceChar2, 0.80, 0.50 - 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
+    MPD_TEXT_L(AIceChar3, 0.80, 0.50 - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+    MPD_TEXT_L(AIceChar4, 0.80, 0.50 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("I"))
+    MPD_TEXT_L(AIceChar5, 0.80, 0.50 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(" "))
+    MPD_TEXT_L(AIceChar6, 0.80, 0.50 + 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("I"))
+    MPD_TEXT_L(AIceChar7, 0.80, 0.50 + 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("C"))
+    MPD_TEXT_L(AIceChar8, 0.80, 0.50 + 3.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
+
+    //FAT box
+    MPD_TEXT_C(FAT1, 0.5, 0.25 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FAT"))
+    //This needs to be populated by the environment simulation
+    MPD_TEXT_C(FAT2, 0.5, 0.25 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("15°C"))
+
+    //ICE box
+    MPD_TEXT_C(ICE1, 0.5, 0.425 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ICE"))
+    //If i ever get around to simulating icing, this will need to be populated by the system,
+    //the following are the indications: TRACE, LIGHT, MODER, SEVERE
+    MPD_TEXT_C(ICE2, 0.5, 0.425 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("      ")) 
+
+    //Cockpit Temp Box
+    MPD_TEXT_C(CPT1, 0.5, 0.60 - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PLT CKPT TEMP"))
+    MPD_TEXT_C(CPT2, 0.5, 0.60 + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("69°F"))
 };
