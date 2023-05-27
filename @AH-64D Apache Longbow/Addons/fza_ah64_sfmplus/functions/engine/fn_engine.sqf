@@ -189,7 +189,11 @@ if (_flightModel == "SFMPlus") then {
 } else {    //End SFMPlus, begin HeliSim
     _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
     if (_isSingleEng) then {
+        if (_engPowerLeverState in ["OFF", "IDLE"]) then {
+            _engPctTQ = 0.0;
+        } else {
             _engPctTQ = _engPctTQ;
+        };
     } else {
         _engPctTQ = _engPctTQ / 2.0;
     };
