@@ -121,13 +121,17 @@ if (_flightModel == "SFMPlus") then {
         };
     };
 
+    (_heli getVariable "fza_sfmplus_engPctNP")
+    params ["_eng1PctNP", "_eng2PctNp"];
+    private _rtrRPM          = _eng1PctNP max _eng2PctNp;
+    
     //Cyclic pitch torque
     private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
     private _fmcPitchTorque  = 0.0;
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcPitchOn") then {
         _fmcPitchTorque      = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
     };
-    _foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
+    _foreAftTorque           = (_foreAftTorque + _fmcPitchTorque) * _rtrRPM;
 
     //Cyclic roll torque
     private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
@@ -135,7 +139,7 @@ if (_flightModel == "SFMPlus") then {
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcRollOn") then {
         _fmcRollTorque       = (_attHoldCycRollOut * (_rollTorque * 0.10));
     };
-    _leftRightTorque         = _leftRightTorque + _fmcRollTorque;
+    _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 
     if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
         _tailRtrFixed = true;
@@ -151,7 +155,7 @@ if (_flightModel == "SFMPlus") then {
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
         _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
     };
-    _pedalTorque             = _pedalTorque + _fmcPedalTorque;
+    _pedalTorque             = (_pedalTorque + _fmcPedalTorque) * _rtrRPM;
 
     //State info
     private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
