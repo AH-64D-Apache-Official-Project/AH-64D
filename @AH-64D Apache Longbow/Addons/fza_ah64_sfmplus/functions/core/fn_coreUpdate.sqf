@@ -21,7 +21,10 @@ params ["_heli"];
 
 if (isGamePaused) exitwith {};
 
-private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+private _config      = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel = getText (_config >> "fza_flightModel");
+
+private _deltaTime   = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
 //Environment
 private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
@@ -59,11 +62,11 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
-//Rotor
-private _config      = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel = getText (_config >> "fza_flightModel");
 if (_flightModel != "SFMPlus") then {
+    //Rotor
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotor;
+    //Drag
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 };
 
 //Fuel
@@ -100,9 +103,6 @@ _heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
-
-//Drag
-[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 
 //Stabilator
 if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 

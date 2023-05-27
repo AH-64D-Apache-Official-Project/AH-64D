@@ -23,7 +23,7 @@ params ["_heli", "_engNum", "_deltaTime"];
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel   = getText (_sfmPlusConfig >> "fza_flightModel");
+private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -186,15 +186,14 @@ if (_flightModel == "SFMPlus") then {
     } else {
         _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
     };
-} else {
-    //HeliSim engine handling
+} else {    //End SFMPlus, begin HeliSim
     _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
     if (_isSingleEng) then {
             _engPctTQ = _engPctTQ;
     } else {
         _engPctTQ = _engPctTQ / 2.0;
     };
-};
+};  //End HeliSim
 
 private _engTable = [[  _engBaseTQ, _engBaseTGT, _engBaseNG, _engBaseOilPSI],
                      [ _maxTQ_CONT,         810,      0.950,           0.91],   //30 min

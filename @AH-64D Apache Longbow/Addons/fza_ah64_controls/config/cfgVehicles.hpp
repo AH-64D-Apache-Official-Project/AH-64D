@@ -40,10 +40,10 @@ class CfgVehicles
         //SFM Variables-------------/
         startDuration          = 15;
         liftForceCoef          = 1.25;
-        bodyFrictionCoef       = 0.00;
-        cyclicAsideForceCoef   = 0.00;
-        cyclicForwardForceCoef = 0.00;
-        backRotorForceCoef     = 0.00;
+        bodyFrictionCoef       = 1.00;
+        cyclicAsideForceCoef   = 0.40;
+        cyclicForwardForceCoef = 0.50;
+        backRotorForceCoef     = 0.70;
         fuelCapacity           = 1423;
         fuelconsumptionrate    = 0.0;
         maxSpeed               = 298;
@@ -444,8 +444,12 @@ class CfgVehicles
         editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
         //SFM Variables-------------/
-        liftForceCoef          = 0.00;
         fza_flightModel        = "HeliSim";
+        liftForceCoef          = 0.00;
+        bodyFrictionCoef       = 0.00;
+        cyclicAsideForceCoef   = 0.00;
+        cyclicForwardForceCoef = 0.00;
+        backRotorForceCoef     = 0.00;
         //SFM Variables-------------/
     };
 };
