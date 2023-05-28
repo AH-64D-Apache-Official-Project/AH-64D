@@ -119,7 +119,7 @@ if (_flightModel == "SFMPlus") then {
     };
 
     (_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
+        params ["_eng1PctNP", "_eng2PctNp"];
     private _rtrRPM          = _eng1PctNP max _eng2PctNp;
     
     //Cyclic pitch torque
@@ -162,11 +162,11 @@ if (_flightModel == "SFMPlus") then {
     if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
         //Primary and Utility Hydraulics
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+            _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
         };
         //Emergency Hydraulics
         if (_accOn) then {
-            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+            _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
         };
     };
 };

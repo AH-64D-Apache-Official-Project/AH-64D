@@ -102,14 +102,15 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-private _totalThrust  = _rtrThrust;
-private _thrustX      = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
-private _torqueY      = _axisY vectorMultiply (((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime);
+private _totalThrust = _rtrThrust;
+private _thrustX     = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
+private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
+private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
 
 //Rotor thrust force
 _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
-//Main rotor torque effect
-_heli addTorque (_heli vectorModelToWorld _torqueY);
+//Tail rotor torque effect
+_heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
 
 #ifdef __A3_DEBUG__
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
