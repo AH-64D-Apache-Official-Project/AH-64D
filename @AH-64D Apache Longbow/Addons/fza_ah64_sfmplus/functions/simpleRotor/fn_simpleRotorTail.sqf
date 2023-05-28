@@ -40,20 +40,22 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrThrustScalar_min    = -0.360;
-private _rtrThrustScalar_max    =  0.390;
+private _rtrThrustScalar_min    = -0.500;
+private _rtrThrustScalar_max    =  0.580;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 0.25;
+private _rtrTorqueScalar        = 1.00;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-
-private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
+private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
+systemChat format ["Pedal Left/Right = %1", fza_sfmplus_pedalLeftRight toFixed 3];
+systemChat format ["Pedal Trim = %1", _pedalLeftRigthTrim toFixed 3];
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
-private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + ((fza_sfmplus_pedalLeftRight + _hdgHoldPedalYawOut) / (2 / (_rtrThrustScalar_max - _rtrThrustScalar_min)));
+private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur - _bladePitch_med) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
@@ -74,11 +76,6 @@ if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then {
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
-
-systemChat format ["Blade Pitch Cur = %1", _bladePitch_cur toFixed 2];
-systemChat format ["Blade Pitch Induced Thrust Scalar = %1", _bladePitchInducedThrustScalar toFixed 2];
-systemChat format ["Rotor Thrust Scalar = %1 -- %2 -- %3", _rtrThrustScalar toFixed 2, _rtrThrust toFixed 0, _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 3];
-
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
@@ -109,12 +106,12 @@ private _axisZ = [0.0, 0.0, 1.0];
 
 private _totalThrust  = _rtrThrust;
 private _thrustX      = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
-//private _torqueY      = _axisY vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
+private _torqueY      = _axisY vectorMultiply (((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
 _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
 //Main rotor torque effect
-//_heli addTorque (_heli vectorModelToWorld _torqueY);
+_heli addTorque (_heli vectorModelToWorld _torqueY);
 
 #ifdef __A3_DEBUG__
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;

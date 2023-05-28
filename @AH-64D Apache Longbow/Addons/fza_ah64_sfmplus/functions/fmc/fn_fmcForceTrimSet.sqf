@@ -11,4 +11,4 @@ _heli setVariable ["fza_ah64_forceTrimPosRoll",  _curCyclicLeftRight + _prevCycl
 //Pedal trim
 private _curPedalLeftRight  = fza_sfmplus_pedalLeftRight;
 private _prevPedalLeftRight = _heli getVariable "fza_ah64_forceTrimPosPedal";
-_heli setVariable ["fza_ah64_forceTrimPosPedal", _curPedalLeftRight - _prevPedalLeftRight, true];
+_heli setVariable ["fza_ah64_forceTrimPosPedal", _curPedalLeftRight + _prevPedalLeftRight, true];

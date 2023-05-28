@@ -97,7 +97,7 @@ private _pylonMass = 0;
     _pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
 } foreach magazinesAllTurrets _heli;
 
-private _curMass = _emptyMass + _totFuelMass + _pylonMass;
+private _curMass = _emptyMass + _totFuelMass + _pylonMass; //MASS * 0.453592;
 if (local _heli) then {
     _heli setMass _curMass;
 };

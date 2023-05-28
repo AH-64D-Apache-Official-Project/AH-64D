@@ -57,8 +57,7 @@ fza_sfmplus_cyclicLeftRight  = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 _pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-private _pedalLeftRigthTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
-fza_sfmplus_pedalLeftRight   = _pedalLeftRight + _pedalLeftRigthTrim;
+fza_sfmplus_pedalLeftRight   = _pedalLeftRight;
 
 //Collective
 if (_flightModel == "SFMPlus") then {
@@ -78,7 +77,6 @@ if (_flightModel == "SFMPlus") then {
     };
     fza_sfmplus_collectiveOutput = _collectiveOut;
 } else {
-    //systemChat format ["HeliSim Input Handler"];
     //Keyboard collective
     private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
     private _keyCollectiveDn = inputAction "HeliCollectiveLower";
@@ -96,13 +94,11 @@ if (_flightModel == "SFMPlus") then {
         };
 
         if (fza_ah64_sfmPlusKeyboardOnly) then {
-            //systemChat format ["Keyboard only!"];
             private _collectiveVal = fza_sfmplus_collectiveOutput;
             if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
             if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
             fza_sfmplus_collectiveOutput = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
         } else {
-            //systemChat format ["Joystick only!"];
             private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
