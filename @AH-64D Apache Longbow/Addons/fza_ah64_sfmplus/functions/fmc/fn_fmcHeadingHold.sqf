@@ -5,11 +5,10 @@ private _pidHdg      = _heli getVariable "fza_sfmplus_pid_hdgHold";
 private _pidTrn      = _heli getVariable "fza_sfmplus_pid_trnCoord";
 private _curHdg      = getDir _heli;
 private _desiredHdg  = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
-private _hdgError    = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
-private _curSlip     = fza_ah64_sideslip;
+//private _hdgError    = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
+//private _curSlip     = fza_ah64_sideslip;
 private _desiredSlip = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
-private _slipError   = _curSlip - _desiredSlip;
-systemChat format ["Desired Slip = %1 -- Slip error = %2", _desiredSlip, _slipError];
+//private _slipError   = _curSlip - _desiredSlip;
 private _curVel      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _subMode     = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode  = _heli getVariable "fza_ah64_attHoldSubMode";
@@ -57,16 +56,18 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-        _output = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _output = [_pidHdg, _deltaTime, _desiredHdg, _curHdg] call fza_fnc_pidRun;
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, 0.0, _slipError * -1.0] call fza_fnc_pidRun;
+        _output = [_pidTrn, _deltaTime, 0.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun; //0.0 needs to be replaced w/ _desiredSlip58
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {
     [_pid] call fza_fnc_pidReset;
 };
+
+//systemChat format ["Des Slip = %1 -- Cur Slip = %2", _desiredSlip toFixed 3, fza_ah64_sideslip toFixed 3];
 
 _output;

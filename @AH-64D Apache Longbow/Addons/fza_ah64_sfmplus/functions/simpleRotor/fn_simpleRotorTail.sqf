@@ -52,8 +52,6 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 //Thrust produced
 private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
 private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
-systemChat format ["Pedal Left/Right = %1", fza_sfmplus_pedalLeftRight toFixed 3];
-systemChat format ["Pedal Trim = %1", _pedalLeftRigthTrim toFixed 3];
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur - _bladePitch_med) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
 (_heli getVariable "fza_sfmplus_engPctNP")
