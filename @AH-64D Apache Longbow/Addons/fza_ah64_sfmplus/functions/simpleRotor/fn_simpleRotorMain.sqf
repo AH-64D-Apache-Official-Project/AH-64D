@@ -79,7 +79,8 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
-private _rtrInducedVelocity        = sqrt(_rtrThrust / (2 * _dryAirDensity * _rtrArea));
+private _sign                      = [_rtrThrust] call fza_fnc_sign;
+private _rtrInducedVelocity        = sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign;
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
 private _u = if (_w == 0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };

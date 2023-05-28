@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut"];
+params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
@@ -56,8 +56,9 @@ fza_sfmplus_cyclicLeftRight  = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 _pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 private _pedalLeftRigthTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
-fza_sfmplus_pedalLeftRight   = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+fza_sfmplus_pedalLeftRight   = _pedalLeftRight + _pedalLeftRigthTrim;
 
 //Collective
 if (_flightModel == "SFMPlus") then {
@@ -150,12 +151,12 @@ if (_flightModel == "SFMPlus") then {
     };
 
     //Yaw torque
-    private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
-    private _fmcPedalTorque  = 0.0;
-    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
-        _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
-    };
-    _pedalTorque             = 0.0;//(_pedalTorque + _fmcPedalTorque) * _rtrRPM;
+    //private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
+    //private _fmcPedalTorque  = 0.0;
+    //if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
+    //    _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
+    //};
+    //_pedalTorque             = 0.0;//(_pedalTorque + _fmcPedalTorque) * _rtrRPM;
 
     //State info
     private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
@@ -165,11 +166,11 @@ if (_flightModel == "SFMPlus") then {
     if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
         //Primary and Utility Hydraulics
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
         };
         //Emergency Hydraulics
         if (_accOn) then {
-            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
         };
     };
 };

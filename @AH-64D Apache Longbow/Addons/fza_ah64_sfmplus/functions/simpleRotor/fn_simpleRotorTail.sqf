@@ -40,8 +40,8 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrThrustScalar_min    = 0.150;
-private _rtrThrustScalar_max    = 0.390;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrThrustScalar_min    = -0.360;
+private _rtrThrustScalar_max    =  0.390;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 0.25;
@@ -51,9 +51,9 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 
 //Thrust produced
 
-private _bladePitch_cur                = _bladePitch_med + ((fza_sfmplus_pedalLeftRight) / (2 / (_bladePitch_max - _bladePitch_min))); //+ _hdgHoldPedalYawOut;
+private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
-private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + ((fza_sfmplus_pedalLeftRight) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / 2)); //+ _hdgHoldPedalYawOut;
+private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + ((fza_sfmplus_pedalLeftRight + _hdgHoldPedalYawOut) / (2 / (_rtrThrustScalar_max - _rtrThrustScalar_min)));
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
@@ -77,7 +77,7 @@ private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 
 systemChat format ["Blade Pitch Cur = %1", _bladePitch_cur toFixed 2];
 systemChat format ["Blade Pitch Induced Thrust Scalar = %1", _bladePitchInducedThrustScalar toFixed 2];
-systemChat format ["Rotor Thrust Scalar = %1 -- %2", _rtrThrustScalar, _rtrThrust];
+systemChat format ["Rotor Thrust Scalar = %1 -- %2 -- %3", _rtrThrustScalar toFixed 2, _rtrThrust toFixed 0, _heli getVariable "fza_ah64_forceTrimPosPedal" toFixed 3];
 
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
@@ -86,7 +86,8 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
-private _rtrInducedVelocity        = sqrt(_rtrThrust / (2 * _dryAirDensity * _rtrArea));
+private _sign                      = [_rtrThrust] call fza_fnc_sign;
+private _rtrInducedVelocity        = sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign;
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
 private _u = if (_w == 0) then { 0.0; } else { _velYZ / _rtrInducedVelocity; };
@@ -102,20 +103,18 @@ private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _r
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 //_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
-private _axisX = [0.0, 0.0,-1.0];
+private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
-private _axisZ = [1.0, 0.0, 0.0];
+private _axisZ = [0.0, 0.0, 1.0];
 
 private _totalThrust  = _rtrThrust;
-private _thrustZ      = _axisZ vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
+private _thrustX      = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
 //private _torqueY      = _axisY vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
-_heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+_heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
 //Main rotor torque effect
-//if (fza_ah64_sfmplusEnableTorqueSim) then {
-//    _heli addTorque (_heli vectorModelToWorld _torqueY);
-//};
+//_heli addTorque (_heli vectorModelToWorld _torqueY);
 
 #ifdef __A3_DEBUG__
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
