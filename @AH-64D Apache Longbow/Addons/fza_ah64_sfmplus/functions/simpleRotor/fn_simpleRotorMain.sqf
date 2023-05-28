@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_simpleRotor
+Function: fza_sfmplus_fnc_simpleRotorMain
 
 Description:
     Simple rotor provides a simple, grounded in reality simulation of a
