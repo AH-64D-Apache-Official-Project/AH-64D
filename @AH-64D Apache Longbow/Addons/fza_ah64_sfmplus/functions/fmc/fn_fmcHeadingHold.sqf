@@ -2,13 +2,16 @@ params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _pidHdg      = _heli getVariable "fza_sfmplus_pid_hdgHold";
+//_pidHdg set ["kp", H_KP];
+//_pidHdg set ["ki", H_KI];
+//_pidHdg set ["kd", H_KD];
 private _pidTrn      = _heli getVariable "fza_sfmplus_pid_trnCoord";
+//_pidTrn set ["kp", T_KP];
+//_pidTrn set ["ki", T_KI];
+//_pidTrn set ["kd", T_KD];
 private _curHdg      = getDir _heli;
 private _desiredHdg  = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
-//private _hdgError    = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
-//private _curSlip     = fza_ah64_sideslip;
 private _desiredSlip = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
-//private _slipError   = _curSlip - _desiredSlip;
 private _curVel      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _subMode     = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode  = _heli getVariable "fza_ah64_attHoldSubMode";
@@ -61,7 +64,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, 0.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun; //0.0 needs to be replaced w/ _desiredSlip
+        _output = [_pidTrn, _deltaTime, _desiredSlip * - 1.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun; //0.0 needs to be replaced w/ _desiredSlip
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {

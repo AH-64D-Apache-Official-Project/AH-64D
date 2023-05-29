@@ -46,8 +46,8 @@ _heli setVariable ["fza_sfmplus_pid_pitch",          [0.550, 0.250, 2.200] call 
 //Altitude Hold
 _heli setVariable ["fza_sfmplus_pid_altHold",        [0.015, 0.003, 0.025] call fza_fnc_pidCreate];
 //Heading Hold
-_heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.025, 0.050] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.500, 0.040, 0.200] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];
 
 //Fuel and Mass
 if (fuel _heli > 0.99) then {
