@@ -114,7 +114,7 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hitengine1
+    class hitEngine
     {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
@@ -124,7 +124,7 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hitengine2
+    class hitEngine1
     {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;

@@ -1,8 +1,8 @@
 //Ace Hitpoints
 ace_repair_hitpointPositions[] = {
     {"Hithull",                     {0,0,-1.5}},
-    {"HitEngine1",                  {-1,0.7,-1}},
-    {"HitEngine2",                  {1,0.7,-1}},
+    {"hitEngine",                  {-1,0.7,-1}},
+    {"hitEngine1",                  {1,0.7,-1}},
     {"HitVRotor",                   {-0.6,-6.95,-0.1}},
     {"HitHRotor",                   {0,2,0.7}},
     {"HitTail",                     {0,-7,-2}},

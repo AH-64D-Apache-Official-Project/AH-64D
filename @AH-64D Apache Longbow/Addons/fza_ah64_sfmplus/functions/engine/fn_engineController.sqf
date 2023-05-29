@@ -73,8 +73,8 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
 [_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
 [_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
 
-private _no1EngDmg = _heli getHitPointDamage "hitengine1";
-private _no2EngDmg = _heli getHitPointDamage "hitengine2";
+private _no1EngDmg = _heli getHitPointDamage "hitEngine";
+private _no2EngDmg = _heli getHitPointDamage "hitEngine1";
 
 if (_no1EngDmg > SYS_ENG_DMG_THRESH) then {
 	[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
