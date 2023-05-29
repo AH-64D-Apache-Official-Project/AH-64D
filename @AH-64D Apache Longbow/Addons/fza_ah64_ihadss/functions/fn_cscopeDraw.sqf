@@ -46,7 +46,6 @@ if (count _fcrTargets > 0) then {
     private _distance_m          = _heli distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
-    private _unitSelAndWpnStatus = ""; //nts, ants
     private _armaRadarOn         = isVehicleRadarOn _heli;
     private _GuiPos              = [-100, -100];
 
@@ -91,19 +90,8 @@ if (count _fcrTargets > 0) then {
             _unitStatus = "LOBL";
         };
     };
-    //Unit select status
-    if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
-            _unitSelAndWpnStatus = "_NTS_NoMSL";
-        } else {
-            _unitSelAndWpnStatus = "_NTS";
-        };
-    };
-    if (_forEachIndex == _antsIndex) then {
-        _unitSelAndWpnStatus = "_ANTS";
-    };
 
-    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2%3_ca.paa", _unitType, _unitStatus, _unitSelAndWpnStatus];
+    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2%3_ca.paa", _unitType, _unitStatus];
     
     if (count _GuiPos < 1) then {
         _GuiPos = [-100, -100];
