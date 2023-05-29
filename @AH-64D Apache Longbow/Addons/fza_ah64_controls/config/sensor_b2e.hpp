@@ -26,8 +26,8 @@ class Components: Components
                 typeRecognitionDistance = -1;
                 angleRangeHorizontal = 360;
                 angleRangeVertical = 60;
-                groundNoiseDistanceCoef = 0.0023;
-                maxGroundNoiseDistance = 3.2;
+                groundNoiseDistanceCoef = 0.0032;
+                maxGroundNoiseDistance = 3.56;
                 minSpeedThreshold = 7;
                 maxSpeedThreshold = 25;
                 minTrackableSpeed = -1e10;
