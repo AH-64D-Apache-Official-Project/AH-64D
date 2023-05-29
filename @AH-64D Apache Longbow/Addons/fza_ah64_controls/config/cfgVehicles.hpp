@@ -298,6 +298,7 @@ class CfgVehicles
         selectionHRotorMove = "mr_blur";
         selectionVRotorStill = "tr_blades";
         selectionVRotorMove = "tr_blur";
+		sensorPosition = "sensorPos";
         mainRotorSpeed = 1;
         maxBackRotorDive = 0;
         maxMainRotorDive = 0;
