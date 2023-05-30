@@ -116,7 +116,7 @@ _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
 if (fza_ah64_sfmplusEnableTorqueSim) then {
     _heli addTorque (_heli vectorModelToWorld _torqueZ);
 };
-//Camera shake effect for ETL
+//Camera shake effect for ETL (16 to 24 knots)
 if (_velXY > 8.23 && _velXY < 12.35) then {
     enableCamShake true;
     setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
