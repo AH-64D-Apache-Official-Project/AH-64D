@@ -130,6 +130,10 @@ class FzaIconTypes {
     };  //Wires - Telephon & electric
     
     //Control Measures
+    class CP : CC {                                          //Check point
+        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\cp_ca.paa";
+        type     = POINT_TYPE_CM;
+    };
     class BR:IconTypeA  {         //Bridge
         tex   = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\br_ca.paa";
         color[] = MPD_ICON_COLOR_GREEN;
