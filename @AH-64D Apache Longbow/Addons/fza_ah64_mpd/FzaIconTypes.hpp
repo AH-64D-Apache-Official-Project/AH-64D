@@ -137,6 +137,10 @@ class FzaIconTypes {
         textA = MPD_ICON_TEXT_ID;
         textAOffset[] = {0.6,0.5}; 
     };
+    class CP:CC  {
+        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\cp_ca.paa";
+        type  = POINT_TYPE_CM;
+    };
     class AE:IconTypeA {      //Enemy Armor
         tex      = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ae_ca.paa";
         type     = POINT_TYPE_CM;
