@@ -18,6 +18,7 @@ class CfgFunctions
             class linearInterp {R;};
             class padString {R;};
             class setArrayVariable {R;};
+            class currentTurret {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";
