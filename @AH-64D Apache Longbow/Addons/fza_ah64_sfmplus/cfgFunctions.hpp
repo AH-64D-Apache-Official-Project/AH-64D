@@ -9,6 +9,14 @@ class CfgFunctions
     class fza_ah64_project_sfmplus
     {
         tag = "FZA_sfmplus";
+        class actuator {
+            file = "\fza_ah64_sfmplus\functions\actuator";
+            class actuator {R;};
+            class actuatorGetLagCoefA {R;};
+            class actuatorGetLagCoefB {R;};
+            class actuatorLag {R;};
+            class actuatorVariables {R;};
+        };
         class aero {
             file = "\fza_ah64_sfmplus\functions\aero";
             class aeroStabilator {R;};
@@ -64,8 +72,9 @@ class CfgFunctions
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
-            class simpleRotor {R;};
+            class simpleRotorMain {R;};
             class simpleRotorNewtRaphSolver {R;};
+            class simpleRotorTail {R;};
             class simpleRotorVariables {R;};
         };
         class utility {
