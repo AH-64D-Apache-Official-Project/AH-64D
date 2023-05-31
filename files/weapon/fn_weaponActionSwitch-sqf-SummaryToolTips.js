@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponActionSwitch.sqf",{188:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the player between different weapon types</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponActionSwitch.sqf",{128:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Switches the player between different weapon types</div></div>"});

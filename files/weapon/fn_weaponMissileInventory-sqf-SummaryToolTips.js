@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponMissileInventory.sqf",{192:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gathers missile pylon information information.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponMissileInventory.sqf",{148:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gathers missile pylon information information.</div></div>"});
