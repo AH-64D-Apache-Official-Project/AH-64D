@@ -164,7 +164,12 @@ class CfgVehicles {
                 index = MPD_PAGE_PERF;
                 draw  = "fza_mpd_fnc_pagePERFDraw";
                 handleControl = "fza_mpd_fnc_pagePerfHandleControl";
-            }
+            };
+            class ACUTIL {
+                index = MPD_PAGE_ACUTIL;
+                draw  = "fza_mpd_fnc_pageACUtilDraw";
+                handleControl = "fza_mpd_fnc_pageACUtilHandleControl";
+            };
         };
     };
 };

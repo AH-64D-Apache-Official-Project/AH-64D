@@ -201,7 +201,11 @@ if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
     _wcas pushBack [WCA_CAUTION, "BUCS FAIL", "BUCS FAIL"];
 };
-if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
+if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
+    || !(_heli getVariable "fza_ah64_fmcPitchOn")
+    || !(_heli getVariable "fza_ah64_fmcRollOn")
+    || !(_heli getVariable "fza_ah64_fmcYawOn")
+    || !(_heli getVariable "fza_ah64_fmcCollOn")) then {
         _wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG"];
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -235,8 +239,14 @@ if (_eng1State == "STARTING") then {
 if (_eng2State == "STARTING") then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
-if (_heli getVariable "fza_ah64_attHoldActive") then {
-    _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
+if (_flightModel != "SFMPlus") then {
+    if (_heli getVariable "fza_ah64_attHoldActive") then {
+        _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
+    };
+} else {
+    if (isAutoHoverOn _heli) then {
+        _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
+    };
 };
 private _desiredPos = 0.0;
 private _curPos     = getPos _heli;
@@ -249,11 +259,13 @@ private _dist       = _heli distance2D _desiredPos;
 if (_dist >= 14.630) then {
     _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];
 };
-if (_heli getVariable "fza_ah64_altHoldActive") then {
-    if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
-        _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
-    } else {
-        _wcas pushBack [WCA_ADVISORY, "BAR ALT HOLD", "BAR HOLD  "];
+if (_flightModel != "SFMPlus") then {
+    if (_heli getVariable "fza_ah64_altHoldActive") then {
+        if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
+            _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
+        } else {
+            _wcas pushBack [WCA_ADVISORY, "BAR ALT HOLD", "BAR HOLD  "];
+        };
     };
 };
 if (_heli getVariable "fza_ah64_rtrbrake") then {

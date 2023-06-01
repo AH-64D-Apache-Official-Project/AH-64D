@@ -41,6 +41,8 @@ class CfgFunctions
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
+            class pageACUtilDraw {RECOMPILE_FLAG;};
+            class pageACUtilHandleControl {RECOMPILE_FLAG;};
             class pageASEDraw {RECOMPILE_FLAG;};
             class pageASEHandleControl {RECOMPILE_FLAG;};
             class pageCHANDraw {RECOMPILE_FLAG;};

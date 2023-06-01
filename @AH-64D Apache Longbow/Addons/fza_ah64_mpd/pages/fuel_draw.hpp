@@ -92,8 +92,27 @@ MPD_TEXT_SMALL_C(CrossfeedChar8, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 3
 MPD_TEXT_SMALL_C(CrossfeedChar9, PAGE_MPD_CROSSFEED_X, MPD_POS_BUTTON_LR_4_Y + 4 * MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("D"))
 
 // Fuel boost
-MPD_TEXT_L(FBOOST, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("BOOST°"))
-
+#define FUEL_X MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
+#define FUEL_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
+class fuel_Off {
+    class lines_fuelOnOff {
+        type = line;
+        width = 3;
+        points[] = {
+            //Power Indicator
+            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+            {{FUEL_X - 0.007, FUEL_Y - 0.007}, 1},
+            {{FUEL_X - 0.000, FUEL_Y - 0.010}, 1},
+            {{FUEL_X + 0.007, FUEL_Y - 0.007}, 1},
+            {{FUEL_X + 0.010, FUEL_Y + 0.000}, 1},
+            {{FUEL_X + 0.007, FUEL_Y + 0.007}, 1},
+            {{FUEL_X + 0.000, FUEL_Y + 0.010}, 1},
+            {{FUEL_X - 0.007, FUEL_Y + 0.007}, 1}, 
+            {{FUEL_X - 0.010, FUEL_Y + 0.000}, 1},
+        };
+    };
+};
+MPD_TEXT_L(FBOOST, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("BOOST "))
 
 MPD_TEXT_C(FWD_FUEL, 0.5, 0.19, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_FWD))
 MPD_TEXT_C(AFT_FUEL, 0.5, 0.53, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_AFT))
