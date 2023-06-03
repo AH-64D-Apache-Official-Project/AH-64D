@@ -291,7 +291,7 @@ class CfgVehicles
         irScanToEyeFactor = 2;
         laserScanner=1;
         laserTarget=0;
-        magazines[] = {"60Rnd_CMFlareMagazine","fza_IR_JAMMING","fza_RF_JAMMING"};
+        magazines[] = {"30Rnd_CMChaffMagazine","fza_IR_JAMMING"};
         lockdetectionsystem = "8+4";
         gunAimDown = 0;
         selectionHRotorStill = "mr_blades";
@@ -325,7 +325,7 @@ class CfgVehicles
         transportSoldier=2;
         visualTarget = 1;
         visualTargetsize = 1.0;
-        weapons[] = {"fza_CMFlareLauncher","fza_AseIRjammer"};
+        weapons[] = {"fza_CMChaffLauncher","fza_AseIRjammer"};
         envelope[]={
             0.0,0.6,1.6,3.2,3.8,5.0,5.25,5.4,5.6,5.7,5.8,5.9,6.0,4.0,1.5 // lift
         };
