@@ -382,32 +382,13 @@ class ase_draw {
     };
 
     //Chaff
-    class ChaffArming {
-        class Safe {
-            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
-            MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
-        };
-        class Arm {
-            condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
-            class Yellow {
-                color[] = {1,1,0,1};
-                class Polygon {
-                    type = polygon;
-                    points[] = {
-                        {
-                            {{MPD_POS_BUTTON_TB_1_X - (2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y + (2*MPD_TEXT_HEIGHT)}, 1},
-                            {{MPD_POS_BUTTON_TB_1_X - (2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y + (1*MPD_TEXT_HEIGHT)}, 1},
-                            {{MPD_POS_BUTTON_TB_1_X + (2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y + (1*MPD_TEXT_HEIGHT)}, 1},
-                            {{MPD_POS_BUTTON_TB_1_X + (2.5*MPD_TEXT_WIDTH), MPD_POS_BUTTON_T_Y + (2*MPD_TEXT_HEIGHT)}, 1}
-                        },
-                    };
-                };
-            };
-            class Black {
-                color[] = {0,0,0,1};
-                MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
-            };
-        };
+    class text_ChaffSafe {
+        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
+        MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
+    };
+    class text_ChaffArm {
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
+        MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
     };
 
     //ASE Autopage
@@ -474,7 +455,7 @@ class ase_threats_gnd {
         
         
         class MissileThreat {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_RLWR_PWR), MFD_IND_ASE_BRITISH));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
             color[] = {1,1,0,1};
             class TargetLines {
                 type = line;
