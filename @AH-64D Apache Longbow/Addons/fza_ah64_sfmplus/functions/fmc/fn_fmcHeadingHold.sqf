@@ -64,13 +64,11 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, _desiredSlip * - 1.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun; //0.0 needs to be replaced w/ _desiredSlip
+        _output = [_pidTrn, _deltaTime, _desiredSlip * -1.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun;
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {
     [_pid] call fza_fnc_pidReset;
 };
-
-//systemChat format ["Des Slip = %1 -- Cur Slip = %2", _desiredSlip toFixed 3, fza_ah64_sideslip toFixed 3];
 
 _output;

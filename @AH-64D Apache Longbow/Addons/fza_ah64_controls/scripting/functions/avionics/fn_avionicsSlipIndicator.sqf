@@ -26,5 +26,8 @@ params["_heli"];
 
 if (!(player in _heli)) exitwith {};
 
-private _sideslip = [_heli] call fza_fnc_calculateSideSlip;
-fza_ah64_sideslip = _sideslip / 9.806;
+([_heli] call fza_fnc_calculateAlphaAndBeta)
+    params ["_alpha", "_beta"];
+//Since alpha and beta are in degrees, and since 1 full ball width is appx 3 deg
+//30 degrees works as a scalar for the sideslip indication
+fza_ah64_sideslip = _beta / 30.0;

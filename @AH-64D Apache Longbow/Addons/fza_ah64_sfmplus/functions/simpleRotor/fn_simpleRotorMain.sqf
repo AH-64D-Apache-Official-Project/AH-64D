@@ -44,7 +44,7 @@ private _rtrGndEffModifier      = 0.238;
 private _rtrThrustScalar_min    = 0.120;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 0.25;
+private _rtrTorqueScalar        = 1.00;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
