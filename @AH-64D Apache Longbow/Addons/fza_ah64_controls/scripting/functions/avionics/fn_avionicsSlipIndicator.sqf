@@ -30,4 +30,4 @@ if (!(player in _heli)) exitwith {};
     params ["_alpha", "_beta"];
 //Since alpha and beta are in degrees, and since 1 full ball width is appx 3 deg
 //30 degrees works as a scalar for the sideslip indication
-fza_ah64_sideslip = _beta / 30.0;
+fza_ah64_sideslip = [_beta / 30.0, -1.0, 1.0] call BIS_fnc_clamp;
