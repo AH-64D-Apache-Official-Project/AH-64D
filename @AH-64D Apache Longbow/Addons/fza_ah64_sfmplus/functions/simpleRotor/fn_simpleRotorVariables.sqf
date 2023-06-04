@@ -19,3 +19,5 @@ Author:
 params ["_heli"];
 
 _heli setVariable ["fza_sfmplus_reqEngTorque",  0.0];
+
+_heli setVariable ["fza_sfmplus_rtrMain_phi_deg",   0.0];
