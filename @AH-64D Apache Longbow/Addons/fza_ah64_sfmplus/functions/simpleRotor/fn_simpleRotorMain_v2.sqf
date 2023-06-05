@@ -113,12 +113,12 @@ _heli setVariable ["fza_sfmplus_rtrMain_phi_deg", _phi_deg * _rtrPhiMod];
 private _inducedVelocityScalar  = 1.0;
 if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
     _inducedVelocityScalar     = 0.0;
-} else {    //Collective must be < 20%, velocity must be between 60 and 120 kts
-    if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 30.866 && _velXY < 61.733)) then {
+} else {    //Collective must be < 20%
+    if (fza_sfmplus_collectiveOutput < 0.20) then {
         systemChat "Autorotating!";
-        _inducedVelocityScalar     = 1 - (_velZ / 4.318);
+        _inducedVelocityScalar = 1 - (_velZ / 2.540);
     } else {
-        _inducedVelocityScalar     = 1 - (_velZ / VEL_VRS);
+        _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
     };
 };
 
