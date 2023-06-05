@@ -32,13 +32,26 @@ private _rtrTorqueScalar = 1.00;
 private _bladeRadius     = 7.315;   //m
 private _bladeChord      = 0.533;   //m
 
-private _rtrCoefTable  =
+private _rtrCoefTable  =  // Gnd Eff is based on 15 deg C and 18,000lbs
+                          // CL_min/max is based on OGE hover performance @ 15 deg C
                         [ //  PA Gnd Eff  CL_min  CL_max  CD_min  CD_max
                           [    0, 0.3225, 0.0320, 0.4153, 0.0027, 0.0186]
                         , [ 2000, 0.3482, 0.0320, 0.4166, 0.0037, 0.0161]
                         , [ 4000, 0.2997, 0.0320, 0.4218, 0.0049, 0.0141]
                         , [ 6000, 0.3226, 0.0320, 0.4200, 0.0064, 0.0123]
                         , [ 8000, 0.2798, 0.0320, 0.4480, 0.0084, 0.0103]
+                        ];
+
+private _rtrPhiModTable = 
+                        [
+                          [  0.00, 1.000]
+                        , [  5.14, 0.976]
+                        , [ 10.29, 0.883]
+                        , [ 20.58, 0.641]
+                        , [ 36.01, 0.363]
+                        , [ 46.30, 0.245]
+                        , [ 61.73, 0.355]
+                        , [ 77.17, 0.392]
                         ];
 
 private _rtrGndEffCoef  = [_rtrCoefTable, _altitude] call fza_fnc_linearInterp select 1;
@@ -90,16 +103,23 @@ private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
 private _rtrCorrInducedVelocity = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity         = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Update phi
-private _totVelZ =_velZ + _rtrCorrInducedVelocity;
-_phi_deg         = if (_bladeVel == 0.0) then { 0.0; } else { deg (_totVelZ / _bladeVel); };
-_heli setVariable ["fza_sfmplus_rtrMain_phi_deg", _phi_deg];
+private _totVelZ   =_velZ + _rtrCorrInducedVelocity;
+_phi_deg           = if (_bladeVel == 0.0) then { 0.0; } else { deg (_totVelZ / _bladeVel); };
+//Rotor drag coefficient modifier
+private _rtrPhiMod = [_rtrPhiModTable, _velXY] call fza_fnc_linearInterp select 1;
+_heli setVariable ["fza_sfmplus_rtrMain_phi_deg", _phi_deg * _rtrPhiMod];
 
 //Calculate induced velocity scalar
-private _inducedVelocityScalar     = 1.0;
+private _inducedVelocityScalar  = 1.0;
 if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
-    _inducedVelocityScalar = 0.0;
-} else { 
-    _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
+    _inducedVelocityScalar     = 0.0;
+} else {    //Collective must be < 20%, velocity must be between 70 and 110 kts
+    if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 36.011 && _velXY < 56.588)) then {
+        systemChat "Autorotating!";
+        _inducedVelocityScalar     = 1 - (_velZ / 8.636);
+    } else {
+        _inducedVelocityScalar     = 1 - (_velZ / VEL_VRS);
+    };
 };
 
 //Calculate ground effect thrust
@@ -147,7 +167,16 @@ hintsilent format ["Input RPM = %1
                     \nGnd Eff Scalar = %11
                     \nGnd Eff Thrust = %12
                     \n----------
-                    \nCollective Out = %13"
+                    \nCollective Out = %13
+                    \n----------
+                    \nPhi Mod = %14
+                    \n----------
+                    \nPitch = %15
+                    \nRoll = %16
+                    \n----------
+                    \nClimb/Descent = %17
+                    \n----------
+                    \nInd Vel Scalar = %18"
                     ,_inputRPM
                     ,_rtrRPM
                     ,_omega
@@ -160,7 +189,12 @@ hintsilent format ["Input RPM = %1
                     ,_phi_deg
                     ,_gndEffScalar
                     ,_gndEffThrust
-                    ,fza_sfmplus_collectiveOutput];
+                    ,fza_sfmplus_collectiveOutput
+                    ,_rtrPhiMod
+                    , (_heli call BIS_fnc_getPitchBank select 0) toFixed 2
+                    , (_heli call BIS_fnc_getPitchBank select 1) toFixed 2
+                    , ((velocity _heli) select 2) * 196.85 toFixed 0
+                    , _inducedVelocityScalar];
 
 #ifdef __A3_DEBUG__
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
