@@ -23,14 +23,22 @@ params ["_heli","_audioList"];
 if !(isEngineOn _heli) exitwith {};
 
 private _Autopage           = _heli getVariable "fza_ah64_ase_autopage";
+private _rlwrPower          = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _Searchlist         = _heli getVariable "fza_ah64_ase_searchingObj";
 private _acquireList        = _heli getVariable "fza_ah64_ase_acquisitionObj";
 private _tracklist          = _heli getVariable "fza_ah64_ase_trackingobj";
+Private _mpdLeft            = [_heli, 0] call fza_mpd_fnc_currentPage;
+Private _mpdright           = [_heli, 1] call fza_mpd_fnc_currentPage;
 private _searching          = [];
 private _acquisition        = [];
 private _tracking           = [];
 private _priority           = 0;
 
+if (_rlwrPower == "OFF") exitWith {
+    _heli setVariable ["fza_ah64_ase_searchingObj", _searching];
+    _heli setVariable ["fza_ah64_ase_acquisitionObj", _acquisition];
+    _heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
+};
 {
     _x params ["_object", "_radarState"];
 
@@ -71,14 +79,16 @@ private _priority           = 0;
     [_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audio_fnc_addASEMessage;
 
     //ASE AUTOPAGE
-    if (_Autopage == 1 && _radarState == "searching") then {
-        [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-    };
-    if (_Autopage == 2 && _radarState == "acquisition") then {
-        [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
-    };
-    if (_Autopage == 3 && _radarState == "tracking") then {
-        [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+    if (_mpdLeft != "ase" && _mpdRight != "ase") then {
+        if (_Autopage == 1 && _radarState == "searching") then {
+            [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+        };
+        if (_Autopage == 2 && _radarState == "acquisition") then {
+            [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+        };
+        if (_Autopage == 3 && _radarState == "tracking") then {
+            [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+        };
     };
 } foreach _audioList;
 
