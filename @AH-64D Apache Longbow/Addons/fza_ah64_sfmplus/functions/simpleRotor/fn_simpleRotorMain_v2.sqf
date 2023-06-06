@@ -3,8 +3,8 @@ Function: fza_sfmplus_fnc_simpleRotorMain
 
 Description:
     Simple rotor provides a simple, grounded in reality simulation of a
-    helicopters rotor. Translational Lift, Ground Effect and Vortex Ring State
-    are all simulated.
+    helicopters rotor. Translational Lift, Ground Effect, Vortex Ring State
+    and Autorotations are all simulated.
 
 Parameters:
     _heli - The helicopter to get information from [Unit].
@@ -42,16 +42,16 @@ private _rtrCoefTable  =  // Gnd Eff is based on 15 deg C and 18,000lbs
                         , [ 8000, 0.2798, 0.0320, 0.4480, 0.0084, 0.0103]
                         ];
 
-private _rtrPhiModTable = 
-                        [
-                          [  0.00, 1.000]
-                        , [  5.14, 0.976]
-                        , [ 10.29, 0.883]
-                        , [ 20.58, 0.641]
-                        , [ 36.01, 0.363]
-                        , [ 46.30, 0.245]
-                        , [ 61.73, 0.355]
-                        , [ 77.17, 0.392]
+private _rtrDragCoefModTable = 
+                        [ // TAS   0k ft  2k ft  4k ft  6k ft  8k ft
+                          [  0.00, 1.000, 1.000, 1.000, 1.000, 1.000]
+                        , [  5.14, 0.925, 0.992, 0.949, 0.975, 0.930]
+                        , [ 10.29, 0.870, 0.840, 0.850, 0.826, 0.882]
+                        , [ 20.58, 0.721, 0.680, 0.685, 0.540, 0.449]
+                        , [ 36.01, 0.533, 0.555, 0.390, 0.362, 0.250]
+                        , [ 46.30, 0.327, 0.273, 0.137, 0.071, 0.019]
+                        , [ 61.73, 0.310, 0.259, 0.164, 0.089, 0.221]
+                        , [ 77.17, 0.400, 0.300, 0.200, 0.022, 0.088]
                         ];
 
 private _rtrGndEffCoef  = [_rtrCoefTable, _altitude] call fza_fnc_linearInterp select 1;
@@ -81,12 +81,22 @@ private _bladeLiftCoef  = _rtrMinLiftCoef + (_rtrMaxLiftCoef - _rtrMinLiftCoef) 
 private _bladeLift      = _bladeLiftCoef * 0.5 * _dryAirDensity * _bladeArea * _bladeVel^2;
 
 //Calculate blade drag
-private _bladeDragCoef  = _rtrMinDragCoef + (_rtrMaxDragCoef - _rtrMinDragCoef) * fza_sfmplus_collectiveOutput;
-private _bladeDrag      = _bladeDragCoef * 0.5 * _dryAirDensity * _bladeArea * _bladeVel^2;
+private _bladeDragCoef    = _rtrMinDragCoef + (_rtrMaxDragCoef - _rtrMinDragCoef) * fza_sfmplus_collectiveOutput;
+private _rtrDragCoefModTable2 = 
+                        [
+                          [    0, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 1]
+                        , [ 2000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 2]
+                        , [ 4000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 3]
+                        , [ 6000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 4]
+                        , [ 8000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 5]
+                        ];
+private _bladeDragCoefMod = [_rtrDragCoefModTable2, _altitude] call fza_fnc_linearInterp select 1;
+_bladeDragCoef            = _bladeDragCoef * _bladeDragCoefMod;
+private _bladeDrag        = _bladeDragCoef * 0.5 * _dryAirDensity * _bladeArea * _bladeVel^2;
 
 //Calculate rotor thrust
 private _phi_deg        = _heli getVariable "fza_sfmplus_rtrMain_phi_deg";
-private _rtrThrust      = _rtrNumBlades * (_bladeLift * (cos _phi_deg) - _bladeDrag * (sin _phi_deg));
+private _rtrThrust      = _rtrNumBlades * ( _bladeLift * (cos _phi_deg) - _bladeDrag * (sin _phi_deg));
 private _rtrTorque      = _rtrNumBlades * ((_bladeLift * (sin _phi_deg) + _bladeDrag * (cos _phi_deg)) * _bladeRadius);
 
 //Calcualte the required engine torque
@@ -106,8 +116,7 @@ _rtrCorrInducedVelocity         = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 private _totVelZ   =_velZ + _rtrCorrInducedVelocity;
 _phi_deg           = if (_bladeVel == 0.0) then { 0.0; } else { deg (_totVelZ / _bladeVel); };
 //Rotor drag coefficient modifier
-private _rtrPhiMod = [_rtrPhiModTable, _velXY] call fza_fnc_linearInterp select 1;
-_heli setVariable ["fza_sfmplus_rtrMain_phi_deg", _phi_deg * _rtrPhiMod];
+_heli setVariable ["fza_sfmplus_rtrMain_phi_deg", _phi_deg];
 
 //Calculate induced velocity scalar
 private _inducedVelocityScalar  = 1.0;
@@ -115,7 +124,6 @@ if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then {
     _inducedVelocityScalar     = 0.0;
 } else {    //Collective must be < 20%
     if (fza_sfmplus_collectiveOutput < 0.20) then {
-        systemChat "Autorotating!";
         _inducedVelocityScalar = 1 - (_velZ / 2.540);
     } else {
         _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
@@ -241,7 +249,9 @@ hintsilent format ["Input RPM = %1
                     \n----------
                     \nClimb/Descent = %17
                     \n----------
-                    \nInd Vel Scalar = %18"
+                    \nInd Vel Scalar = %18
+                    \n----------
+                    \nBlade Drag Coef Mod = %19"
                     ,_inputRPM
                     ,_rtrRPM
                     ,_omega
@@ -259,5 +269,6 @@ hintsilent format ["Input RPM = %1
                     , (_heli call BIS_fnc_getPitchBank select 0) toFixed 2
                     , (_heli call BIS_fnc_getPitchBank select 1) toFixed 2
                     , ((velocity _heli) select 2) * 196.85 toFixed 0
-                    , _inducedVelocityScalar];
+                    , _inducedVelocityScalar
+                    , _bladeDragCoefMod];
 #endif
