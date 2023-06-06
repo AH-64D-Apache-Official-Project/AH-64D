@@ -1,6 +1,10 @@
 params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+
+private _showScale = (getUserMFDValue _heli) # MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE);
+hintSilent str _showScale;
 
 switch (_control) do {
     case "t2": {
@@ -30,11 +34,35 @@ switch (_state get "subPageVarPage" select 0) do {
             case "b6": {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
             };
+            case "r1": {
+                if (_showScale == -1) then {
+                } else {
+                    _heli setVariable ["fza_ah64_rangesetting", 50000];
+                    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
+                };
+            };
             case "r2": {
-                [_heli] call fza_mpd_fnc_handleZoom;
+                if (_showScale == -1) then {
+                    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), 1];
+                } else {
+                    _heli setVariable ["fza_ah64_rangesetting", 25000];
+                    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
+                };
             };
             case "r3": {
-                _persistState set ["ctr", 1 - (_persistState get "ctr")];
+                if (_showScale == -1) then {
+                    _persistState set ["ctr", 1 - (_persistState get "ctr")];
+                } else {
+                    _heli setVariable ["fza_ah64_rangesetting", 10000];
+                    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
+                };
+            };
+            case "r4": {
+                if (_showScale == -1) then {
+                } else {
+                    _heli setVariable ["fza_ah64_rangesetting", 5000];
+                    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
+                };
             };
         };
     };
