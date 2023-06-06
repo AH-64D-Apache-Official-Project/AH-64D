@@ -10,7 +10,7 @@ class thrtAdd{
     };
     class ScaleShow {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_TEXT_IND_TSD_ROOT_SCALE), 1));
-        #include"..\components\scale.hpp"
+        #include"..\scale\scale.hpp"
         MPD_TEXT_L(FRZ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("FRZ"))
     };
 
