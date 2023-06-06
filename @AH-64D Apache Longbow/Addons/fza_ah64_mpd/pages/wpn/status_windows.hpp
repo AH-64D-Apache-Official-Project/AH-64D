@@ -29,11 +29,11 @@ class StatusWindows {
 
     MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
     class CMTextUS {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 0));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 0));
         MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CHAFF"))
     };
     class CMTextUK {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 1));
         MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CH/FL"))
     };
 

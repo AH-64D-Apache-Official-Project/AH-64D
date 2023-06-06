@@ -112,6 +112,7 @@
 // 1-indexed missile channel selection for primary and alt
 #define MFD_IND_WPN_SELECTED_PRI_CH 10
 #define MFD_IND_WPN_SELECTED_ALT_CH 11
+#define MFD_IND_WPN_CMS_MODE_TYPE 12
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
 

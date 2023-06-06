@@ -37,6 +37,10 @@ if (_heli animationPhase "msn_equip_british" == 1) then {
     _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
 };
 
+//Mission equipment 
+_msn_equip_British = _heli animationPhase "msn_equip_british";
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_British];
+
 //GUN AMMO
 private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
