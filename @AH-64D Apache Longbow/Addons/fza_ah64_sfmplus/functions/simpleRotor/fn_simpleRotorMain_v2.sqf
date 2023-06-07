@@ -40,18 +40,19 @@ private _rtrCoefTable  =  // Gnd Eff is based on 15 deg C and 18,000lbs
                         , [ 4000, 0.2997, 0.0320, 0.4218, 0.0049, 0.0141]
                         , [ 6000, 0.3226, 0.0320, 0.4200, 0.0064, 0.0123]
                         , [ 8000, 0.2798, 0.0320, 0.4480, 0.0084, 0.0103]
+                        , [10000, 0.4580, 0.0320, 0.4610, 0.0108, 0.0146]
                         ];
 
 private _rtrDragCoefModTable = 
-                        [ // TAS   0k ft  2k ft  4k ft  6k ft  8k ft
-                          [  0.00, 1.000, 1.000, 1.000, 1.000, 1.000]
-                        , [  5.14, 0.925, 0.992, 0.949, 0.975, 0.930]
-                        , [ 10.29, 0.870, 0.840, 0.850, 0.826, 0.882]
-                        , [ 20.58, 0.721, 0.680, 0.685, 0.540, 0.449]
-                        , [ 36.01, 0.533, 0.555, 0.390, 0.362, 0.250]
-                        , [ 46.30, 0.327, 0.273, 0.137, 0.071, 0.019]
-                        , [ 61.73, 0.310, 0.259, 0.164, 0.089, 0.221]
-                        , [ 77.17, 0.400, 0.300, 0.200, 0.022, 0.088]
+                        [ // TAS   0k ft  2k ft  4k ft  6k ft  8k ft  10k ft
+                          [  0.00, 1.000, 1.000, 1.000, 1.000, 1.000, 1.000]
+                        , [  5.14, 0.925, 0.992, 0.949, 0.975, 0.930, 1.000]
+                        , [ 10.29, 0.870, 0.840, 0.850, 0.826, 0.882, 0.810]
+                        , [ 20.58, 0.721, 0.680, 0.685, 0.540, 0.449, 0.440]
+                        , [ 36.01, 0.533, 0.555, 0.390, 0.362, 0.250, 0.147]
+                        , [ 46.30, 0.327, 0.273, 0.137, 0.071, 0.019, 0.010]
+                        , [ 61.73, 0.310, 0.259, 0.164, 0.089, 0.221, 0.845]
+                        , [ 77.17, 0.400, 0.300, 0.200, 0.022, 0.088, 0.097]
                         ];
 
 private _rtrGndEffCoef  = [_rtrCoefTable, _altitude] call fza_fnc_linearInterp select 1;
@@ -84,11 +85,12 @@ private _bladeLift      = _bladeLiftCoef * 0.5 * _dryAirDensity * _bladeArea * _
 private _bladeDragCoef    = _rtrMinDragCoef + (_rtrMaxDragCoef - _rtrMinDragCoef) * fza_sfmplus_collectiveOutput;
 private _rtrDragCoefModTable2 = 
                         [
-                          [    0, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 1]
-                        , [ 2000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 2]
-                        , [ 4000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 3]
-                        , [ 6000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 4]
-                        , [ 8000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 5]
+                          [     0, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 1]
+                        , [  2000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 2]
+                        , [  4000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 3]
+                        , [  6000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 4]
+                        , [  8000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 5]
+                        , [ 10000, [_rtrDragCoefModTable, _velXY] call fza_fnc_linearInterp select 6]
                         ];
 private _bladeDragCoefMod = [_rtrDragCoefModTable2, _altitude] call fza_fnc_linearInterp select 1;
 _bladeDragCoef            = _bladeDragCoef * _bladeDragCoefMod;
