@@ -7,26 +7,35 @@ params ["_heli", "_mpdIndex"];
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-
+private _FcrTargetsarray = [];
+private _pointsArray = [];
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
+
+//ATM Rear block
+If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
+    if (_fcrScanStartTime + 2 >= time) then {
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 0];
+    };
+};
+
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = time - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 10];
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 7.7];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
+    if (_fcrScanDeltaTime % 10 >= 3.53) then {//recalc
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 1];
+    };
 };
 
 //FCR page draw
-private _nts  = _heli getVariable "fza_ah64_fcrNts";
-private _nts  = _nts # 0;
+private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex = 0;
 if (count _fcrTargets > 0) then {
     _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
 };
 
-private _FcrTargetsarray = [];
-private _pointsArray = [];
 {
     _x params ["_pos", "_type", "_speed", "_obj"];
     if (_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then {continue};

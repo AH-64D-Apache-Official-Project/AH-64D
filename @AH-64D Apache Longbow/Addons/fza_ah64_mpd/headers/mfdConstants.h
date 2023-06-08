@@ -206,6 +206,7 @@
 #define MFD_IND_FCR_SCAN_TYPE  1
 #define MFD_IND_FCR_ACQ_BOX    2
 #define MFD_IND_FCR_MODE       7
+#define MFD_IND_FCR_ATM_Block  8
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1

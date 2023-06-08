@@ -34,7 +34,7 @@ class Occluder {
     };
 };
 class ScanningBlockedOut {
-    condition = C_COND(C_AND(C_LESS(4.583,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 99999999999999999999999999999)));
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ATM_Block), 1));
     class blockoutbox {
         class lines {
             type = line;

@@ -17,7 +17,7 @@ class Fcr_ATMBar {
     type = rotational;
     MPD_NUM_USER(MFD_IND_FCR_ANIM)
     min=0;
-    max=10;
+    max=7.7;
     minAngle=0;
     maxAngle=-360;
     center[] = {0.5,0.5};

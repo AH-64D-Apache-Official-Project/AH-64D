@@ -22,8 +22,7 @@ private _fcrTgtCount  = count _fcrTargets;
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 //FCR page draw
-private _nts  = _heli getVariable "fza_ah64_fcrNts";
-private _nts  = _nts # 0;
+private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex = 0;
 if (count _fcrTargets > 0) then {
