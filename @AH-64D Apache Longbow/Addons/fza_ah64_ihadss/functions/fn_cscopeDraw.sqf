@@ -56,9 +56,6 @@ if (count _fcrTargets > 0) then {
         _GuiPos = worldtoscreen asltoagl _pos;
     };
 
-    //ATM Mode
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) exitwith {};
-
     //Unit type
     switch (_type) do {
         case FCR_TYPE_UNKNOWN: {
@@ -80,18 +77,16 @@ if (count _fcrTargets > 0) then {
             _unitType = "adu";
         };
     };
-    if (_unitType == "wheel") then {hintsilent str "FAIL";};
     //Unit status
-    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-        _unitStatus = "MOVE";
-    } else {
-        If (_unitType == "flyer") then {
-            _unitType = "unk";
-        };
-        if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
+    if ( _unitType != "FLYER") then {
+        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+            _unitStatus = "MOVE";
         } else {
-            _unitStatus = "LOBL";
+            if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+                _unitStatus = "LOAL";
+            } else {
+                _unitStatus = "LOBL";
+            };
         };
     };
 

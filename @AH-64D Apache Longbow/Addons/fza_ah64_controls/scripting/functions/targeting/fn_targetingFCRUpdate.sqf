@@ -29,6 +29,8 @@ private _fcrTargets = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue};
+
     _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
 } foreach getSensorTargets _heli;
 

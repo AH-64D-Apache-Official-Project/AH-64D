@@ -58,17 +58,19 @@ private _pointsArray = [];
         };
     };
     //Unit status
-    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE || _unitType == "FLYER") then {
-            continue;
+    if ( _unitType != "FLYER") then {
+        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+            _unitStatus = "MOVE";
+        } else {
+            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+                _unitStatus = "LOBL";
+            };
+            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+                _unitStatus = "LOAL";
+            };
+            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+                continue;
+            };
         };
     };
     //Unit select status
@@ -84,7 +86,7 @@ private _pointsArray = [];
     };
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach (_heli getVariable "fza_ah64_fcrTargets");
+} forEach _fcrTargets;
 
 POINTSARRAY = _pointsArray;
 

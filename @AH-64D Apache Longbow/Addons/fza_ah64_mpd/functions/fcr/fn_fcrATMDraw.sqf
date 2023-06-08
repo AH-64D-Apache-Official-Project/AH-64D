@@ -7,7 +7,6 @@ params ["_heli", "_mpdIndex"];
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _FcrTargetsarray = [];
 private _pointsArray = [];
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 
@@ -38,14 +37,8 @@ if (count _fcrTargets > 0) then {
 
 {
     _x params ["_pos", "_type", "_speed", "_obj"];
-    if (_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) then {continue};
-    _FcrTargetsarray pushBack _x;
-} forEach (_heli getVariable "fza_ah64_fcrTargets");
-
-{
-    _x params ["_pos", "_type", "_speed", "_obj"];
     private _distance_m          = _heli distance2d _pos;
-    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
+    private _unitType            = FCR_TYPE_UNKNOWN;
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
@@ -59,17 +52,19 @@ if (count _fcrTargets > 0) then {
         };
     };
     //Unit status
-    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE || _unitType == "FLYER") then {
-            continue;
+    if !(_unitType == "FLYER") then {
+        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+            _unitStatus = "MOVE";
+        } else {
+            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+                _unitStatus = "LOBL";
+            };
+            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+                _unitStatus = "LOAL";
+            };
+            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+                continue;
+            };
         };
     };
     //Unit select status
@@ -85,7 +80,7 @@ if (count _fcrTargets > 0) then {
     };
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach _FcrTargetsarray;
+} forEach _fcrTargets;
 
 POINTSARRAY = _pointsArray;
 
