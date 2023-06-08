@@ -24,17 +24,10 @@ params ["_heli"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _wasState           = _heli getVariable "fza_ah64_was";
-private _nts                = _heli getVariable "fza_ah64_fcrNts";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
 Private _fcrMode            = _heli Getvariable "fza_ah64_fcrMode";
-private _nts                = _nts # 0;
-private _ntsIndex           = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex          = 0;
 private _CscopeCount        = 0;
 
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
-};
 {
     if (_CscopeCount > 15) exitwith {};
     if !(_heli getVariable "fza_ah64_fcrcscope") exitwith {
@@ -100,14 +93,6 @@ if (count _fcrTargets > 0) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
 
     _CscopeCount = _CscopeCount + 1;
-
-    _ntsc = _heli getVariable "fza_ah64_fcrNts";
-    if (_obj == _ntsc # 0) then {
-        if (_was == WAS_WEAPON_MSL) then {
-            _targpos = _guipos;
-            _scPos = _guipos;
-        };
-    };
 } forEach (_heli getVariable "fza_ah64_fcrTargets");
 
 for "_i" from _CscopeCount to 15 do

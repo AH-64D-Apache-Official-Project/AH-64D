@@ -8,6 +8,7 @@ params ["_heli", "_mpdIndex"];
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
+private _SystemWas    = _heli getVariable "fza_ah64_was";
 
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 //FCR wiper
@@ -75,7 +76,7 @@ private _pointsArray = [];
     };
     //Unit select status
     if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
+        if (_SystemWas == WAS_WEAPON_NONE) then {
             _unitSelAndWpnStatus = ["NTS", "NOMSL"];
         } else {
             _unitSelAndWpnStatus = ["NTS"];

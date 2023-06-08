@@ -7,6 +7,7 @@ params ["_heli", "_mpdIndex"];
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
+private _SystemWas    = _heli getVariable "fza_ah64_was";
 private _pointsArray = [];
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 
@@ -38,7 +39,7 @@ if (count _fcrTargets > 0) then {
 {
     _x params ["_pos", "_type", "_speed", "_obj"];
     private _distance_m          = _heli distance2d _pos;
-    private _unitType            = FCR_TYPE_UNKNOWN;
+    private _unitType            = "unk";
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
@@ -52,7 +53,7 @@ if (count _fcrTargets > 0) then {
         };
     };
     //Unit status
-    if !(_unitType == "FLYER") then {
+    if (_unitType == "HELI") then {
         if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
             _unitStatus = "MOVE";
         } else {
@@ -69,7 +70,7 @@ if (count _fcrTargets > 0) then {
     };
     //Unit select status
     if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
+        if (_SystemWas == WAS_WEAPON_NONE) then {
             _unitSelAndWpnStatus = ["NTS", "NOMSL"];
         } else {
             _unitSelAndWpnStatus = ["NTS"];
