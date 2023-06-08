@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 params["_name", "_value"];
 
@@ -124,6 +125,12 @@ if (_value) then {
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
             [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
+        };
+        case "fza_ah64_fcrGTM": {
+            _heli setVariable ["fza_ah64_fcrMode", 1, true];
+        };
+        case "fza_ah64_fcrATM": {
+            _heli setVariable ["fza_ah64_fcrMode", 2, true];
         };
     };
 };

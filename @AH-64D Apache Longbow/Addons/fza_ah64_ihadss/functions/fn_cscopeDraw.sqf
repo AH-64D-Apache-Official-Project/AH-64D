@@ -26,6 +26,7 @@ params ["_heli"];
 private _wasState           = _heli getVariable "fza_ah64_was";
 private _nts                = _heli getVariable "fza_ah64_fcrNts";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
+Private _fcrMode            = _heli Getvariable "fza_ah64_fcrMode";
 private _nts                = _nts # 0;
 private _ntsIndex           = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex          = 0;
@@ -55,6 +56,9 @@ if (count _fcrTargets > 0) then {
         _GuiPos = worldtoscreen asltoagl _pos;
     };
 
+    //ATM Mode
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) exitwith {};
+
     //Unit type
     switch (_type) do {
         case FCR_TYPE_UNKNOWN: {
@@ -76,7 +80,7 @@ if (count _fcrTargets > 0) then {
             _unitType = "adu";
         };
     };
-
+    if (_unitType == "wheel") then {hintsilent str "FAIL";};
     //Unit status
     if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
         _unitStatus = "MOVE";
@@ -111,8 +115,7 @@ if (count _fcrTargets > 0) then {
     };
 } forEach (_heli getVariable "fza_ah64_fcrTargets");
 
-private _UnusedCount = (count (_heli getVariable "fza_ah64_fcrTargets"));
-for "_i" from _UnusedCount to 15 do
+for "_i" from _CscopeCount to 15 do
 {
     _GuiPos = [-100, -100];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);

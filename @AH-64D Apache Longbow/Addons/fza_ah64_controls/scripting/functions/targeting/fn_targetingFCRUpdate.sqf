@@ -1,8 +1,10 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
 
 private _acBusOn = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
 
 if !(_acBusOn && _dcBusOn) exitwith {};
 
@@ -13,8 +15,8 @@ private _fcrTargets = [];
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
-    if (_distOffAxis > 45) then { continue; };
-    if (_range < FCR_LIMIT_MIN_RANGE) then { continue; };
+    if (_distOffAxis >= 168) then { continue; };
+    if (_distOffAxis >= 45 && _fcrMode == 1) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_DIST) 
         then { continue; };

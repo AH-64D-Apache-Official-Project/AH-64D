@@ -32,7 +32,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
             if (time > _fcrstate # 1 + 3 && _lastScanState # 2 < _fcrState # 1) then {
                 [_heli] call fza_fnc_targetingFCRUpdate;
             } else {
-                if (time > (_fcrState # 1 + 4) && _lastScanState # 2 + 1 < time) then {
+                if (time > (_fcrState # 1 + 8) && _lastScanState # 2 + 1 < time) then {
                     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
                     player action ["ActiveSensorsOff", _heli];
                 };
