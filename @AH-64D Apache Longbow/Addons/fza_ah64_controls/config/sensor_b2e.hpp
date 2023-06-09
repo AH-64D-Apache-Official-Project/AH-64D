@@ -24,7 +24,7 @@ class Components: Components
                 };
 
                 typeRecognitionDistance = -1;
-                angleRangeHorizontal = 360;
+                angleRangeHorizontal = 336;
                 angleRangeVertical = 60;
                 groundNoiseDistanceCoef = 0.0032;
                 maxGroundNoiseDistance = 3.56;

@@ -13,7 +13,7 @@ _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 
 //ATM Rear block
 If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
-    if (_fcrScanStartTime + 2 >= time) then {
+    if (_fcrScanStartTime + 3.2 >= time) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 0];
     };
 };
@@ -23,7 +23,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = time - _fcrScanStartTime;
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 7.7];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    if (_fcrScanDeltaTime % 10 >= 3.53) then {//recalc
+    if (_fcrScanDeltaTime >= 3.53) then {//recalc
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 1];
     };
 };
@@ -43,6 +43,9 @@ if (count _fcrTargets > 0) then {
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
+    //Clear GMT target Bleedthrough
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue};
+    
     //Unit type
     switch (_type) do {
         case FCR_TYPE_HELICOPTER: {
@@ -53,19 +56,18 @@ if (count _fcrTargets > 0) then {
         };
     };
     //Unit status
-    if (_unitType == "HELI") then {
-        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-            _unitStatus = "MOVE";
-        } else {
-            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-                _unitStatus = "LOBL";
-            };
-            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-                _unitStatus = "LOAL";
-            };
-            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
-                continue;
-            };
+    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
+    if (((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
+        _unitStatus = "MOVE";
+    } else {
+        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+            _unitStatus = "LOBL";
+        };
+        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "LOAL";
+        };
+        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+            continue;
         };
     };
     //Unit select status
@@ -74,6 +76,8 @@ if (count _fcrTargets > 0) then {
             _unitSelAndWpnStatus = ["NTS", "NOMSL"];
         } else {
             _unitSelAndWpnStatus = ["NTS"];
+        };
+        if (_unitType == "FLYER") then {
         };
     };
     if (_forEachIndex == _antsIndex) then {

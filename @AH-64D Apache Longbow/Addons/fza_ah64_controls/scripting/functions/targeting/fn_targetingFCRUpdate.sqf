@@ -15,7 +15,6 @@ private _fcrTargets = [];
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
-    if (_distOffAxis >= 168) then { continue; };
     if (_distOffAxis >= 45 && _fcrMode == 1) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_DIST) 

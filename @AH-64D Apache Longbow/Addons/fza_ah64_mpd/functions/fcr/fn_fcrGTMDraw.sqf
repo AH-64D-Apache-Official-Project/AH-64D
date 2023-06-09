@@ -59,19 +59,18 @@ private _pointsArray = [];
         };
     };
     //Unit status
-    if ( _unitType != "FLYER") then {
-        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-            _unitStatus = "MOVE";
-        } else {
-            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-                _unitStatus = "LOBL";
-            };
-            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-                _unitStatus = "LOAL";
-            };
-            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
-                continue;
-            };
+    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
+    if (((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
+        _unitStatus = "MOVE";
+    } else {
+        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+            _unitStatus = "LOBL";
+        };
+        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+            _unitStatus = "LOAL";
+        };
+        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+            continue;
         };
     };
     //Unit select status
