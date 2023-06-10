@@ -25,7 +25,6 @@ params ["_heli"];
 
 private _wasState           = _heli getVariable "fza_ah64_was";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
-Private _fcrMode            = _heli Getvariable "fza_ah64_fcrMode";
 private _CscopeCount        = 0;
 
 {
@@ -71,7 +70,6 @@ private _CscopeCount        = 0;
         };
     };
     //Unit status
-    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
     if !(_unitType == "FLYER") then {
         if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
             _unitStatus = "MOVE";
@@ -88,7 +86,9 @@ private _CscopeCount        = 0;
         };
     };
 
-    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2%3_ca.paa", _unitType, _unitStatus];
+    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
+
+    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa", _unitType, _unitStatus];
     
     if (count _GuiPos < 1) then {
         _GuiPos = [-100, -100];

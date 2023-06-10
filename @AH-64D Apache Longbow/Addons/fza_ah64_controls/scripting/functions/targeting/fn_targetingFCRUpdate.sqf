@@ -35,8 +35,7 @@ private _fcrTargets = [];
 
 _fcrTargets = [_fcrTargets, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
 
-private _oldNts = _heli getVariable "fza_ah64_fcrNts";
-private _oldNts = _oldNts # 0;
+private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
 if (_newNtsIndex == -1) then {
     if (count _fcrTargets > 0) then {

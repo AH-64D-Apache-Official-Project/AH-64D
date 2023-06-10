@@ -56,7 +56,6 @@ if (count _fcrTargets > 0) then {
         };
     };
     //Unit status
-    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
     if (((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
         _unitStatus = "MOVE";
     } else {
@@ -83,6 +82,7 @@ if (count _fcrTargets > 0) then {
     if (_forEachIndex == _antsIndex) then {
         _unitSelAndWpnStatus = ["ANTS"];
     };
+    if (_unitType == "" || _unitStatus == "") exitwith {};
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _fcrTargets;
