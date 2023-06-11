@@ -88,6 +88,15 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
     _heli engineOn false;
 };
 
+private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
+    && fza_sfmplus_collectiveOutput < 0.20
+    && (_velXY > 23.15 && _velXY < 61.73)) then {
+    _heli setVariable ["fza_sfmplus_isAutorotating", true];
+} else {
+    _heli setVariable ["fza_sfmplus_isAutorotating", false];
+};
+
 if (_flightModel == "SFMPlus") then {
     private _maxTQ    = getNumber (_config >> "engMaxTQ");
     private _limitTQ  = 0.0;

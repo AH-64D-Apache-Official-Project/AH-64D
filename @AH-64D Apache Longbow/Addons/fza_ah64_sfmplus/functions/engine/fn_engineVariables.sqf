@@ -25,7 +25,8 @@ if(isMultiplayer) then {
     _heli setVariable ["fza_sfmplus_lastTimePropagated", 0];
 };
 
-_heli setVariable ["fza_sfmplus_isSingleEng",            false];
+_heli setVariable ["fza_sfmplus_isSingleEng",           false];
+_heli setVariable ["fza_sfmplus_isAutorotating",        false];
 
 //Outputs
 _heli setVariable ["fza_sfmplus_engFF",                 [0.0, 0.0]];
