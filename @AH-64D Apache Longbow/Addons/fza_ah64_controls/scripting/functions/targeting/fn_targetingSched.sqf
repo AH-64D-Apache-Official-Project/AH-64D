@@ -21,8 +21,8 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
     private _fcrState    = _heli getVariable "fza_ah64_fcrState";
     Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
     private _armaRadarOn = isVehicleRadarOn vehicle player;
-    private _Delay = 4;
-    if (_fcrMode == 2) then {_Delay = 7.7};
+    private _fcrUpdateDelay = 4;
+    if (_fcrMode == 2) then {_fcrUpdateDelay = 7.7};
 
     switch (_fcrState # 0) do {
         case FCR_MODE_OFF: {
@@ -32,7 +32,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
         };
         case FCR_MODE_ON_SINGLE: {
             private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
-            if (time > _fcrstate # 1 + _Delay && _lastScanState # 2 < _fcrState # 1) then {
+            if (time > _fcrstate # 1 + _fcrUpdateDelay && _lastScanState # 2 < _fcrState # 1) then {
                 [_heli] call fza_fnc_targetingFCRUpdate;
             } else {
                 if (time > (_fcrState # 1 + 8) && _lastScanState # 2 + 1 < time) then {
@@ -44,7 +44,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
         case FCR_MODE_ON_CONTINUOUS: {
             if (_armaRadarOn) then {
                 private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
-                if (time > _lastScanState # 2 + _Delay && time > _fcrState # 1 + _Delay) then {
+                if (time > _lastScanState # 2 + _fcrUpdateDelay && time > _fcrState # 1 + _fcrUpdateDelay) then {
                     [_heli] call fza_fnc_targetingFCRUpdate;
                 }
             } else {
