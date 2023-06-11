@@ -14,7 +14,7 @@ _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 //ATM Rear block
 If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
     if (_fcrScanStartTime + 3.2 >= time) then {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 0];
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
     };
 };
 
@@ -24,7 +24,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 7.7];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     if (_fcrScanDeltaTime >= 3.53) then {//recalc
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_Block), 1];
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
     };
 };
 
