@@ -39,7 +39,7 @@
 #define TSD_THRT_XMIT           [4, 7]
 
 //FCR Page
-#define FCR_GMT                 [5, 0]
+#define FCR_GTM                 [5, 0]
 #define FCR_ATM                 [5, 1]
 
 //ASE Page
