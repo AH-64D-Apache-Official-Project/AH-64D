@@ -2,21 +2,21 @@ class CfgAmmo {
     class Bulletbase;
     class FlareCore;
         
-    class fza_ah64_Chaff_shot: Bulletbase
+    class fza_ah64_chaff_shot: Bulletbase
     {
         hit                         = 1;
         timeToLive                  = 14;
         thrustTime                  = 4;
         airFriction                 = -0.01;
         simulation                  = "shotCM";
-        effectsSmoke                = "fza_CounterMeasureChaff";
+        effectsSmoke                = "fza_counterMeasureChaff";
         weaponLockSystem            = 8;
         model                       = "\A3\weapons_f\empty";
         maxControlRange             = -1;
         initTime                    = 0;
         aiAmmoUsageFlags            = 8;
     };
-    class fza_ah64_flare_shot: fza_ah64_Chaff_shot
+    class fza_ah64_flare_shot: fza_ah64_chaff_shot
     {
         effectsSmoke                = "fza_AC130_Flares";
         weaponLockSystem            = 2;
@@ -102,7 +102,7 @@ class fza_AC130_Flares
     };
 };
 
-class fza_CounterMeasureChaff
+class fza_counterMeasureChaff
 {
 	class Cmeasures3
 	{

@@ -3,7 +3,7 @@ class CfgMagazines {
     class 30Rnd_CMChaffMagazine: CA_Magazine
     {
         count = 60;
-        ammo = "fza_ah64_Chaff_shot";
+        ammo = "fza_ah64_chaff_shot";
         initSpeed = 30;
     };
     class 60Rnd_CMFlareMagazine: 30Rnd_CMChaffMagazine

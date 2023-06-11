@@ -7,14 +7,14 @@ params ["_heli", "_mpdIndex"];
 private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == "Arm");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState];
 private _chaffCount = 0;
-private _FlareCount = 0;
+private _flareCount= 0;
 {
     _x params ["_className", "_turretPath", "_ammoCount"];
     if (_className == "30Rnd_CMChaffMagazine" && _turretPath isEqualTo [-1]) then {
         _chaffCount = _chaffCount + _ammoCount;
     };
     if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
-        _FlareCount = _FlareCount + _ammoCount;
+        _flareCount= _flareCount+ _ammoCount;
     };
 } forEach magazinesAllTurrets _heli;
 
@@ -25,7 +25,7 @@ if (_heli animationPhase "msn_equip_british" == 1) then {
 };
 
 //IR Jammer
-private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_MsnEqpPwr" == "off");
+private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_msnEquipPwr" == "off");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
 private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];

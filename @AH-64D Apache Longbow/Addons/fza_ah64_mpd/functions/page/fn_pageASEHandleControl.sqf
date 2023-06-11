@@ -10,8 +10,8 @@ switch(_control) do {
     };
     //IR Jammer
     case "r1": {
-        private _newState = ["off", "on"] select (_heli getVariable "fza_ah64_ase_MsnEqpPwr" == "off");
-        _heli setVariable ["fza_ah64_ase_MsnEqpPwr", _newState];
+        private _newState = ["off", "on"] select (_heli getVariable "fza_ah64_ase_msnEquipPwr" == "off");
+        _heli setVariable ["fza_ah64_ase_msnEquipPwr", _newState];
     };
     //RLWR
     case "r6": {

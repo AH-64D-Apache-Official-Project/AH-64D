@@ -96,7 +96,7 @@ class ase_draw {
 
     #define IRJamX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define IRJamY MPD_POS_BUTTON_LR_1_Y - 0.05*MPD_TEXT_HEIGHT
-    class lines_Msn_equipOnOff {
+    class lines_msnEquipOnOff {
         type = line;
         width = 3;
         points[] = {
@@ -112,7 +112,7 @@ class ase_draw {
             {{IRJamX - 0.010, IRJamY + 0.000}, 1},
         };
     };
-    class ShowMWS {
+    class showMWS {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
         MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CH/FL"))
         MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MWS "))

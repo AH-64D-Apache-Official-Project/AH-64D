@@ -20,7 +20,7 @@ Author:
 
 params ["_heli", "_deltaTime"];
 
-private _irJamPwr   = _heli getVariable "fza_ah64_ase_MsnEqpPwr";
+private _irJamPwr   = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
 private _irJamTimer = _heli getVariable "fza_ah64_ase_irJamTimer";
 private _irJamLaunchTimer = _heli getVariable "fza_ah64_ase_irJamLaunchTimer";
