@@ -39,14 +39,7 @@ private _CscopeCount        = 0;
     private _distance_m          = _heli distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
-    private _armaRadarOn         = isVehicleRadarOn _heli;
-    private _GuiPos              = [-100, -100];
-
-    if (_armaRadarOn) then {
-        _GuiPos = worldtoscreen (getpos _obj);
-    } else {
-        _GuiPos = worldtoscreen asltoagl _pos;
-    };
+    private _GuiPos              = worldtoscreen asltoagl _pos;
 
     //Unit type
     switch (_type) do {

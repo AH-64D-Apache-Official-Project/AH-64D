@@ -43,9 +43,10 @@ if (count _fcrTargets > 0) then {
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
-    //Clear GMT target Bleedthrough
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue};
-    
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) exitwith {};
+    if ((vectorMagnitude velocity _obj) < 5) exitwith {};
+    if (getpos _obj # 2 < 4) exitwith {};
+
     //Unit type
     switch (_type) do {
         case FCR_TYPE_HELICOPTER: {
