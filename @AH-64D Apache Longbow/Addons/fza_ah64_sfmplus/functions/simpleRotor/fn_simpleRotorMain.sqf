@@ -69,7 +69,7 @@ if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then {
 } else {
     //Collective must be < 20% and TAS between 45 and 120 kts
     if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 23.15 && _velXY < 61.73)) then {
-        _inducedVelocityScalar = 1 - (_velZ / 3.81);
+        _inducedVelocityScalar = 1 - (_velZ / 7.62);
     } else {
         _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
     };

@@ -27,4 +27,4 @@ params["_heli"];
 if (!(player in _heli)) exitwith {};
 
 private _sideslip = [_heli] call fza_fnc_calculateSideSlip;
-fza_ah64_sideslip = _sideslip / 9.806;
+fza_ah64_sideslip = [_sideslip / 30.0,  -1.0, 1.0] call BIS_fnc_clamp;
