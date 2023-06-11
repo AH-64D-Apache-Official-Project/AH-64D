@@ -456,7 +456,7 @@ class ase_threats_gnd {
         
         class MissileThreat {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
-            color[] = {1,0,0,1};
+            color[] = {1,1,0,1};
             class TargetLines {
                 type = line;
                 width = 3;
