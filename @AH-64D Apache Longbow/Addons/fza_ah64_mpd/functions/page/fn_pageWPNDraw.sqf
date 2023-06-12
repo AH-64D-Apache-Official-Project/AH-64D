@@ -8,7 +8,8 @@ private _armed = _heli getVariable "fza_ah64_armed";
 //Set the arm/safe status of the aircraft
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MASTER_ARM), BOOLTONUM(_armed)];
 //Set the arm/safe status of the chaff dispenser
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_CHAFF_ARM), 1];
+private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == "arm");
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_CHAFF_ARM), _chaffState];
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), 0];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), 0];
@@ -17,15 +18,28 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), 0];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), 0];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), 0];
 
-//FLARES <-- this is really chaff...fix me
-private _flareCount = 0;
+//Chaff + Flares
+private _chaffCount = 0;
+private _flareCount= 0;
 {
     _x params ["_className", "_turretPath", "_ammoCount"];
+    if (_className == "30Rnd_CMChaffMagazine" && _turretPath isEqualTo [-1]) then {
+        _chaffCount = _chaffCount + _ammoCount;
+    };
     if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
-        _flareCount = _flareCount + _ammoCount;
+        _flareCount= _flareCount+ _ammoCount;
     };
 } forEach magazinesAllTurrets _heli;
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CHAFF_QTY), _flareCount toFixed 0];
+
+if (_heli animationPhase "msn_equip_british" == 1) then {
+    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount];
+} else {
+    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
+};
+
+//Mission equipment 
+_msn_equip_British = _heli animationPhase "msn_equip_british";
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_British];
 
 //GUN AMMO
 private _gunAmmo = _heli ammo "fza_m230";

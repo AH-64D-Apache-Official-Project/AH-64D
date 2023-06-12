@@ -26,7 +26,8 @@ class AnimationSources
         author = "Apache mod development team";
         source = "user";
         forceAnimatePhase = 1;
-        forceAnimate[] = {"msn_equip_american", 0};
+        onPhaseChanged =    "_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";
+        forceAnimate[] = {"msn_equip_american", 0,"fcr_enable", 1};
         initPhase = 0;
         animPeriod = 0.001;
     };
