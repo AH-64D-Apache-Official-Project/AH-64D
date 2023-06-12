@@ -160,6 +160,7 @@
 #define MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED 2
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
+#define MFD_TEXT_IND_TSD_ROOT_SCALE 5
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -186,6 +187,7 @@
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
 #define MFD_IND_TSD_WPT_ADD_TYPE 1
+#define MFD_IND_TSD_WPT_SHOW_SCALE 2
 
 //TSD RTE page indices
 #define MFD_IND_TSD_RTE_VARIANT 0
@@ -200,6 +202,7 @@
 //TSD THRT page indices
 #define MFD_IND_TSD_THRT_VARIANT 0
 #define MFD_IND_TSD_THRT_ADD_TYPE 1
+#define MFD_IND_TSD_THRT_SHOW_SCALE 2
 
 // FCR Indices
 //--User value
