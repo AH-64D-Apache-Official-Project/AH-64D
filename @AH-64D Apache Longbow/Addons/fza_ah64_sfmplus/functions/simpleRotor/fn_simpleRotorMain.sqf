@@ -30,6 +30,7 @@ private _rtrNumBlades           = 4;
 
 private _bladeRadius            = 7.315;   //m
 private _bladeChord             = 0.533;   //m
+private _bladeMass              = 71.2;    //kg
 private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 19.0;    //deg
 
@@ -49,12 +50,17 @@ private _rtrTorqueScalar        = 0.25;
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
+//Blade MOI
+private _bladeMOI = (1.0 / 3.0) * _bladeMass * _bladeRadius^2;
+_heli setVariable ["fza_sfmplus_mainRtrMOI",       _bladeMOI * _rtrNumBlades];
+_heli setVariable ["fza_sfmplus_mainRtrGearRatio", _rtrGearRatio];
+
 //Thrust produced 
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+//(_heli getVariable "fza_sfmplus_engPctNP")
+//    params ["_eng1PctNP", "_eng2PctNp"];
+private _inputRPM                  = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";//_eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -69,7 +75,7 @@ if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then {
 } else {
     //Collective must be < 20% and TAS between 45 and 120 kts
     if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 23.15 && _velXY < 61.73)) then {
-        _inducedVelocityScalar = 1 - (_velZ / 7.62);
+        _inducedVelocityScalar = 1 - (_velZ / 12.70);
     } else {
         _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
     };
@@ -98,8 +104,8 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
-private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
-_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+private _mainRtrTorque             = _rtrTorque / _rtrGearRatio;
+_heli setVariable ["fza_sfmplus_mainRtrTorque", _mainRtrTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];

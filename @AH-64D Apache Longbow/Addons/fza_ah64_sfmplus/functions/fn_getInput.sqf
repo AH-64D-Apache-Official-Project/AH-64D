@@ -38,6 +38,7 @@ private _utilHydPSI        = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn             = _heli getVariable "fza_systems_accOn";
+private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
 
@@ -159,7 +160,7 @@ if (_flightModel == "SFMPlus") then {
     private _eng1PwrLvrState = _engPwrLvrState select 0;
     private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-    if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
+    if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"] || _apuOn || _rtrRPM > SYS_MIN_RPM) then {
         //Primary and Utility Hydraulics
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
             _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);

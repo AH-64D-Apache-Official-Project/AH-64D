@@ -60,9 +60,16 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 [_heli] call fza_sfmplus_fnc_perfData;
 
 //Engines
-[_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
+//[_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
 if (_flightModel != "SFMPlus") then {
+    //Engines
+    private _engines = [
+                        [_heli, 0, _deltaTime, 481] call fza_sfmplus_fnc_simpleEngine
+                       ,[_heli, 1, _deltaTime, 481] call fza_sfmplus_fnc_simpleEngine
+                       ];
+    //Xmsn
+    [_heli, _engines] call fza_sfmplus_fnc_simpleXmsn;
     //Main Rotor
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor

@@ -70,12 +70,22 @@ class CfgFunctions
             class perfData {R;};
             class perfVariables {R;};
         };
+        class simpleEngine {
+            file = "\fza_ah64_sfmplus\functions\simpleEngine";
+            class simpleEngine {R;};
+            class simpleEngineVariables {R;};
+        };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
             class simpleRotorMain {R;};
             class simpleRotorNewtRaphSolver {R;};
             class simpleRotorTail {R;};
             class simpleRotorVariables {R;};
+        };
+        class simpleXmsn {
+            file = "\fza_ah64_sfmplus\functions\simpleXmsn";
+            class simpleXmsn {R;};
+            class simpleXmsnVariables {R;};
         };
         class utility {
             file = "\fza_ah64_sfmplus\functions";

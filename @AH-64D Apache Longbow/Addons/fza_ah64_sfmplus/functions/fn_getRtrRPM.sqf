@@ -25,9 +25,9 @@ private _rtrRPM = 0.0;
 if (_flightModel == "SFMPlus") then {
     _rtrRPM = ((_heli animationPhase "mainRotorRPM") * 1.08) / 10;
 } else {
-    (_heli getVariable "fza_sfmplus_engPctNP") 
-        params ["_e1Np", "_e2Np"];
-    _rtrRPM = _e1Np max _e2Np;
+    //(_heli getVariable "fza_sfmplus_engPctNP") 
+    //    params ["_e1Np", "_e2Np"];
+    _rtrRPM = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";//_e1Np max _e2Np;
 };
 
 _rtrRPM;

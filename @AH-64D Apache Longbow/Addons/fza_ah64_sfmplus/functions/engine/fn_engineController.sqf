@@ -21,16 +21,16 @@ params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp";
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "fza_flightModel");
+private _config          = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _configVehicles  = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel     = getText (_configVehicles >> "fza_flightModel");
 
+private _apuOn           = _heli getVariable "fza_systems_apuOn";
+private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
-private _apuOn     = _heli getVariable "fza_systems_apuOn";
-
-private _engState  = _heli getVariable "fza_sfmplus_engState";
-private _eng1State = _engState select 0;
-private _eng2State = _engState select 1;
+private _engState        = _heli getVariable "fza_sfmplus_engState";
+private _eng1State       = _engState select 0;
+private _eng2State       = _engState select 1;
 
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
@@ -84,13 +84,12 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
+if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
     _heli engineOn false;
 };
 
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
-    && fza_sfmplus_collectiveOutput < 0.20
     && (_velXY > 23.15 && _velXY < 61.73)) then {
     _heli setVariable ["fza_sfmplus_isAutorotating", true];
 } else {

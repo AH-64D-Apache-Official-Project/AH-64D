@@ -87,10 +87,22 @@ switch (_engState) do {
 		//Ng
 		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
-		_engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
-		//Tq
+		if (_flightModel == "SFMPlus") then {
+			_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
+		} else {
+            private _droopFactor = 0.0;
+            if (!_isAutorotating) then {
+                _engPctNP    = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
+            } else {
+                _droopFactor = 1 - (fza_sfmplus_collectiveOutput / 0.2);
+
+                _engPctNP    = [_engPctNP, 1.01 + (_droopFactor * 0.2), _deltaTime] call BIS_fnc_lerp;
+                //systemChat format ["Eng Off: Droop Factor = %1 -- Np = %2 -- Coll = %3", _droopFactor toFixed 2, _engPctNP toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
+            };
+	    };
+        //Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
-	};
+    };
 	case "STARTING": {
 		if (_engPowerLeverState == "OFF") then {
 			//Ng
@@ -129,14 +141,19 @@ switch (_engState) do {
 			} else {
 				_engLimitTQ = _maxTQ_DE;
 			};
-			
-			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
-			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
-
+		
+            private _droopFactor = 0.0;
             if (!_isAutorotating) then {
-			    _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+                _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
+                _droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
+        
+                _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             } else {
-                _engPctNP    = 1.01;
+                _droopFactor = 1 - (fza_sfmplus_collectiveOutput / 0.2);
+
+                _engPctNP    = [_engPctNP, 1.01 + (_droopFactor * 0.2), _deltaTime] call BIS_fnc_lerp;
+
+                //systemChat format ["Eng On: Droop Factor = %1 -- Np = %2 -- Coll = %3", _droopFactor toFixed 2, _engPctNP toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
             };
 		};
 	};
@@ -192,7 +209,7 @@ if (_flightModel == "SFMPlus") then {
         _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
     };
 } else {    //End SFMPlus, begin HeliSim
-    _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
+    _engPctTQ = (_heli getVariable "fza_sfmplus_mainRtrTorque") / 481.0;
     if (_isSingleEng) then {
         if (_engPowerLeverState in ["OFF", "IDLE"]) then {
             _engPctTQ = 0.0;
@@ -223,6 +240,11 @@ _engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
+//if (_engPctTQ < 0.10 && !(isTouchingGround _heli)) then {
+//    _heli setVariable ["fza_sfmplus_isAutorotating", true];
+//} else {
+//    _heli setVariable ["fza_sfmplus_isAutorotating", false];
+//};
 [_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_fnc_setArrayVariable;

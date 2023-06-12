@@ -55,9 +55,9 @@ private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPo
 private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur - _bladePitch_med) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+//(_heli getVariable "fza_sfmplus_engPctNP")
+//    params ["_eng1PctNP", "_eng2PctNp"];
+private _inputRPM                  = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";//_eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -97,7 +97,7 @@ private _rtrPowerReq               = (_rtrThrust * _velX + _rtrThrust * _rtrCorr
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
-//_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+//_heli setVariable ["fza_sfmplus_mainRtrTorque", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
