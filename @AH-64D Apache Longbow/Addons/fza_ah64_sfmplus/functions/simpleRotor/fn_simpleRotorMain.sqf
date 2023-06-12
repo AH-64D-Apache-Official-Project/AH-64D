@@ -42,7 +42,7 @@ private _rtrPowerScalarTable    = [
                                   ,[8000, 1.284]
                                   ];
 private _rtrGndEffModifier      = 0.238;
-private _rtrThrustScalar_min    = 0.120;
+private _rtrThrustScalar_min    = 0.100;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 0.25;
@@ -105,7 +105,7 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _mainRtrTorque             = _rtrTorque / _rtrGearRatio;
-_heli setVariable ["fza_sfmplus_mainRtrTorque", _mainRtrTorque];
+_heli setVariable ["fza_sfmplus_mainRtrTorque", _mainRtrTorque]; //0.8 > 0.77 > 0.79 
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];

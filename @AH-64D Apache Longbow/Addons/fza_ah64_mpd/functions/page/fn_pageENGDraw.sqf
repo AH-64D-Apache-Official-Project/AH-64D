@@ -55,7 +55,7 @@ if (_flightModel == "SFMPlus") then {
      _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
     _rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
 } else {
-    _rotorRpm = _e1Np max _e2Np;
+    _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
 };
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];

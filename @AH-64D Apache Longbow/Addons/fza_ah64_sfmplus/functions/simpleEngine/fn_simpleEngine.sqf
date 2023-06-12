@@ -1,7 +1,7 @@
 params ["_heli", "_engNum", "_deltaTime", "_refTq"];
 
-private _idleTq   = 0.06 * _refTq;
-private _flyTq    = 0.18 * _refTq;
+private _idleTq   = 0.0796 * _refTq;
+private _flyTq    = 0.1877 * _refTq;
 
 private _outputTq = _heli getVariable "fza_sfmplus_simpleEngOutputTq" select _engNum;
 
@@ -15,7 +15,7 @@ if (_engPwrLvrState in ["OFF", "IDLE"]) then {
 
 private _baseTq   = _idleTq + (_flyTq - _idleTq) * _throttlePos;
 
-_outputTq         = [_outputTq, _baseTq, (1 / 8.0) * _deltaTime] call BIS_fnc_lerp;
+_outputTq         = [_outputTq, _baseTq, (1 / 3.0) * _deltaTime] call BIS_fnc_lerp;
 [_heli, "fza_sfmplus_simpleEngOutputTq", _engNum, _outputTq, true] call fza_fnc_setArrayVariable;
 
 _outputTq;
