@@ -14,11 +14,27 @@ private _fcrTargets = [];
 
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
+    private _heliPos     = getposasl _heli;
+    private _targetpos   = getposasl _target;
+
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
-    if (_distOffAxis >= 45 && _fcrMode == 1) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
-        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_DIST) 
+        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
+
+    _targDir = _heliPos vectorFromTo _targetpos;
+    _zdist = _targDir vectorDotProduct vectorDir _heli;
+    _ydist = _targDir vectorDotProduct vectorUp _heli;
+    _xdist = sqrt (1 - _ydist^2 - _zdist^2);
+    _elevAngle = _ydist atan2 _zdist;
+    _aziAngle = _xdist atan2 _zdist;
+
+    //Elevation
+    if (_elevAngle > 25 && _fcrMode == 1) exitwith {};
+    if (_elevAngle < -22.5 && _fcrMode == 2) exitwith {};
+    //Azimuth
+    if (_aziAngle > 45 && _fcrMode == 1) exitwith {};
+
 
     // Find type
     private _type = FCR_TYPE_UNKNOWN;

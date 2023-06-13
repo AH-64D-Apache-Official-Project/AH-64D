@@ -129,56 +129,59 @@ class fcr_draw {
             {{0.743, 0.283}, 1}, {},
         };
     };
-    class lines_continuous {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
-        class nearBar {
-            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
-            class line {
-                type = line;
-                width = 3;
-                points[] = {
-                    {"FCR_NearBar", {0, 0.05}, 1},
-                    {"FCR_NearBar", {0, 0.325}, 1}
+    class lines_show {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
+        class lines_continuous {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
+            class nearBar {
+                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+                class line {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        {"FCR_NearBar", {0, 0.05}, 1},
+                        {"FCR_NearBar", {0, 0.325}, 1}
+                    };
+                };
+            };
+            class farBar {
+                condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
+                class line {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        {"FCR_FarBar", {0, 0.325}, 1},
+                        {"FCR_FarBar", {0, 0.650}, 1}
+                    };
                 };
             };
         };
-        class farBar {
-            condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
-            class line {
-                type = line;
-                width = 3;
-                points[] = {
-                    {"FCR_FarBar", {0, 0.325}, 1},
-                    {"FCR_FarBar", {0, 0.650}, 1}
+        class lines_single : lines_continuous {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
+            color[] = {1,1,1,1};
+            class nearBar {
+                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+                class line {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        {"FCR_NearBar", {0, 0.050}, 1},
+                        {"FCR_NearBar", {0, 0.325}, 1}
+                    };
+                };
+            };
+            class farBar {
+                condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
+                class line {
+                    type = line;
+                    width = 3;
+                    points[] = {
+                        {"FCR_FarBar", {0, 0.325}, 1},
+                        {"FCR_FarBar", {0, 0.650}, 1}
+                    };
                 };
             };
         };
+        //Wide = Near Bar, Far Bar, Near Bar, Far Bar starts left and moves right
     };
-    class lines_single : lines_continuous {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
-        color[] = {1,1,1,1};
-        class nearBar {
-            condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
-            class line {
-                type = line;
-                width = 3;
-                points[] = {
-                    {"FCR_NearBar", {0, 0.050}, 1},
-                    {"FCR_NearBar", {0, 0.325}, 1}
-                };
-            };
-        };
-        class farBar {
-            condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
-            class line {
-                type = line;
-                width = 3;
-                points[] = {
-                    {"FCR_FarBar", {0, 0.325}, 1},
-                    {"FCR_FarBar", {0, 0.650}, 1}
-                };
-            };
-        };
-    };
-    //Wide = Near Bar, Far Bar, Near Bar, Far Bar starts left and moves right
 };

@@ -32,19 +32,21 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
         };
         case FCR_MODE_ON_SINGLE: {
             private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
-            if (time > _fcrstate # 1 + _fcrUpdateDelay && _lastScanState # 2 < _fcrState # 1) then {
+            if (time >= _fcrstate # 1 + _fcrUpdateDelay && _lastScanState # 2 < _fcrState # 1) then {
                 [_heli] call fza_fnc_targetingFCRUpdate;
             } else {
-                if (time > (_fcrState # 1 + 8) && _lastScanState # 2 + 1 < time) then {
+                if (time >= (_fcrState # 1 + _fcrUpdateDelay) && _lastScanState # 2 <= time) then {
                     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
                     player action ["ActiveSensorsOff", _heli];
+                } else {
+                    player action ["ActiveSensorsOn", vehicle player];
                 };
             };
         };
         case FCR_MODE_ON_CONTINUOUS: {
             if (_armaRadarOn) then {
                 private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
-                if (time > _lastScanState # 2 + _fcrUpdateDelay && time > _fcrState # 1 + _fcrUpdateDelay) then {
+                if (time >= _lastScanState # 2 + _fcrUpdateDelay && time >= _fcrState # 1 + _fcrUpdateDelay) then {
                     [_heli] call fza_fnc_targetingFCRUpdate;
                 }
             } else {

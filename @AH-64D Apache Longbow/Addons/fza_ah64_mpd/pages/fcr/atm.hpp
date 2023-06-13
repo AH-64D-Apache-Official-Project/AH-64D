@@ -1,40 +1,32 @@
-class lines_continuous {
-    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
-    class line {
-        type = line;
-        width = 3;
-        points[] = {
-            {"Fcr_ATMBar", {0, 0.0203}, 1},
-            {"Fcr_ATMBar", {0, 0.325}, 1}
+
+class lines_show {
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LINE_SHOW), 1));
+    class lines_continuous {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
+        class line {
+            type = line;
+            width = 3;
+            points[] = {
+                {"Fcr_ATMBar", {0, 0.0203}, 1},
+                {"Fcr_ATMBar", {0, 0.325}, 1}
+            };
         };
     };
-};
-class lines_single : lines_continuous {
-    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
-    color[] = {1,1,1,1};
-    class line {
-        type = line;
-        width = 3;
-        points[] = {
-            {"Fcr_ATMBar", {0, 0.0203}, 1},
-            {"Fcr_ATMBar", {0, 0.325}, 1}
-        };
-    };
-};
-class Occluder {
-    color[] = {0,0,0,1};
-    class Polygons {
-        type = polygon;
-        points[] = {
-            {{0, 1}, 1},
-            {{1, 1}, 1},
-            {{1, 0}, 1},
-            {{0, 0}, 1},
+    class lines_single : lines_continuous {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
+        color[] = {1,1,1,1};
+        class line {
+            type = line;
+            width = 3;
+            points[] = {
+                {"Fcr_ATMBar", {0, 0.0203}, 1},
+                {"Fcr_ATMBar", {0, 0.325}, 1}
+            };
         };
     };
 };
 class ScanningBlockedOut {
-    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ATM_Block), 1));
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ATM_BLOCK), 1));
     class blockoutbox {
         class lines {
             type = line;

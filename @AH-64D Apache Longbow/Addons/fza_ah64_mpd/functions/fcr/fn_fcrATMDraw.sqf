@@ -26,6 +26,13 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     if (_fcrScanDeltaTime >= 3.53) then {//recalc
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
     };
+    if ((_fcrScanDeltaTime % 7.7) < 3.56 || (_fcrScanDeltaTime % 7.7) > 4.14 ) then {
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
+    } else {
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
+    };
+} else {
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
 };
 
 //FCR page draw
