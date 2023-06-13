@@ -33,6 +33,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_masterSafe[] = {0x05}; // 4
             fza_ah64_fcrModeSwitch_up[] = {0x2A130023}; //Shift+H
             fza_ah64_fcrModeSwitch_down[] = {0x1D130023}; //Ctrl+H
+            fza_ah64_flare[] = {0x13}; // R
         };
     };
     class Arma3: Arma2 {

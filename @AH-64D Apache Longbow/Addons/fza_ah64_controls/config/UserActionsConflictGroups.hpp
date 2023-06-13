@@ -25,7 +25,8 @@ class UserActionsConflictGroups{
             fza_ah64_forceTrimHoldModeSwitch_down,
             fza_ah64_forceTrimHoldModeSwitch_left,
             fza_ah64_fcrModeSwitch_up,
-            fza_ah64_fcrModeSwitch_down
+            fza_ah64_fcrModeSwitch_down,
+            fza_ah64_flare
         };
     };
 };

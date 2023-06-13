@@ -96,7 +96,7 @@ class ase_draw {
 
     #define IRJamX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define IRJamY MPD_POS_BUTTON_LR_1_Y - 0.05*MPD_TEXT_HEIGHT
-    class lines_IRJamOnOff {
+    class lines_msnEquipOnOff {
         type = line;
         width = 3;
         points[] = {
@@ -112,55 +112,120 @@ class ase_draw {
             {{IRJamX - 0.010, IRJamY + 0.000}, 1},
         };
     };
-    class IRJamON {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
-        class IRJamDraw {
-            class polys_IRJamOnOff {
-                class Polygons {
-                    type = polygon;
-                    points[] = {
-                        { //Top left
-                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX - 0.007, IRJamY - 0.007}, 1},
-                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Top right
-                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                            {{IRJamX + 0.007, IRJamY - 0.007}, 1},
-                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Bottom right
-                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
-                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Bottom left
-                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                            {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
-                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        }
+    class showMWS {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
+        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CH/FL"))
+        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MWS "))
+        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CMS"))
+        class MWS_ON {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+            class MWSDraw {
+                class polys_MWSOnOff {
+                    class Polygons {
+                        type = polygon;
+                        points[] = {
+                            { //Top left
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX - 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Top right
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX + 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom right
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom left
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            }
+                        };
+                    };
+                    class lines_IRJam {
+                        type = line;
+                        width = 3;
+                        points[] = {
+                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                        };
+                    };
+                    class text_IRJamWarm {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
+                    };
+                    class text_IRJamOper {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
                     };
                 };
-                class lines_IRJam {
-                    type = line;
-                    width = 3;
-                    points[] = {
-                        MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+            };
+        };
+    };
+    class ShowIRJam {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AMERICAN), 1));
+        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
+        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("IRJAM  "))
+        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CHAFF"))
+        class IRJam_ON {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+            class IRJamDraw {
+                class polys_IRJamOnOff {
+                    class Polygons {
+                        type = polygon;
+                        points[] = {
+                            { //Top left
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX - 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Top right
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX + 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom right
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom left
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            }
+                        };
                     };
-                };
-                class text_IRJamWarm {
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
-                    //R1
-                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
-                };
-                class text_IRJamOper {
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
-                    //R1
-                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
+                    class lines_IRJam {
+                        type = line;
+                        width = 3;
+                        points[] = {
+                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                        };
+                    };
+                    class text_IRJamWarm {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
+                    };
+                    class text_IRJamOper {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
+                    };
                 };
             };
         };
@@ -168,6 +233,8 @@ class ase_draw {
 
     #define RLWRX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define RLWRY MPD_POS_BUTTON_LR_6_Y - 0.05*MPD_TEXT_HEIGHT
+    
+    
     class RLWR_Off {
         class lines_RLWROnOff {
             type = line;
@@ -275,7 +342,6 @@ class ase_draw {
 
     class vabs {
         //T1
-        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CHAFF"))
         MPD_BOX_C(CHAFF_2,    MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, 4)
         //T2
         MPD_BOX_TALL_C(ASE, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 3)
@@ -286,8 +352,6 @@ class ase_draw {
         //MPD_ARROW_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
         MPD_TEXT_C(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
         
-        //R1
-        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("IRJAM "))
         //R4
         MPD_BOX_BAR_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
         MPD_TEXT_L(CTR,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))
@@ -319,11 +383,11 @@ class ase_draw {
 
     //Chaff
     class text_ChaffSafe {
-        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
     };
     class text_ChaffArm {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
+        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
     };
 
@@ -356,9 +420,8 @@ class ase_draw {
         MPD_TEXT_R(AUTOPAGE_07, 0.08, 0.600+2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("G"))
         MPD_TEXT_R(AUTOPAGE_08, 0.08, 0.600+3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
 
-        //Chaff count box
-        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
-        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
+        //CMS count box
+        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
 
         // Hdg info
         MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)
@@ -390,8 +453,9 @@ class ase_threats_gnd {
         sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
         range             = ASE_DETECT_RANGE_M;
         
-        /*
-        class MissileThreat { //<-- This shuold only be present on british mission equipment aircraft
+        
+        class MissileThreat {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
             color[] = {1,1,0,1};
             class TargetLines {
                 type = line;
@@ -416,7 +480,6 @@ class ase_threats_gnd {
                 down[]      = {{ 0.000,       -0.020 + 0.04}, 1};
             }; 
         };
-        */
         class rwr { //Radar is emitting
             class TargetLines {
                 type = line;

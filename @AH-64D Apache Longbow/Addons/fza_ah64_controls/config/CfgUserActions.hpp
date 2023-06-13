@@ -39,5 +39,6 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_left, "Force Trim/Hold Mode Switch Left", "Activates Attitude Hold");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
+    CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
     #include "\fza_ah64_controls\headers\controls.h"
 };

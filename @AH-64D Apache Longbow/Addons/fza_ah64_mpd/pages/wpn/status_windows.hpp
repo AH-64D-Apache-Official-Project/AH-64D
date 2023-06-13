@@ -26,8 +26,17 @@ class StatusWindows {
     MPD_TEXT_C(LRFD_Label, 0.695, 0.24, MPD_TEXT_STATIC("LRFD"))
     MPD_TEXT_C(LRFD, 0.695, 0.24+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_LRFD_CODE))
 
-    MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CHAFF"))
-    MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
+
+    MPD_TEXT_C(Chaff_Qty, 0.5, 0.59+MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
+    class CMTextUS {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 0));
+        MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CHAFF"))
+    };
+    class CMTextUK {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CMS_MODE_TYPE), 1));
+        MPD_TEXT_C(Chaff_Label, 0.5, 0.59, MPD_TEXT_STATIC("CH/FL"))
+    };
+
     class ChaffArming {
         class Safe {
             condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_WPN_CHAFF_ARM)));
