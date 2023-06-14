@@ -18,6 +18,7 @@ private _fcrTargets = [];
     private _targetpos   = getposasl _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
+    if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
@@ -30,11 +31,10 @@ private _fcrTargets = [];
     _aziAngle = _xdist atan2 _zdist;
 
     //Elevation
-    if (_elevAngle > 25 && _fcrMode == 1) exitwith {};
-    if (_elevAngle < -22.5 && _fcrMode == 2) exitwith {};
+    if (_elevAngle > 25 && _fcrMode == 1) then {continue;};
+    if (_elevAngle < -22.5 && _fcrMode == 2) then {continue;};
     //Azimuth
-    if (_aziAngle > 45 && _fcrMode == 1) exitwith {};
-
+    if ((abs _aziAngle) > 45 && _fcrMode == 1) then {continue;};
 
     // Find type
     private _type = FCR_TYPE_UNKNOWN;
@@ -44,7 +44,8 @@ private _fcrTargets = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue};
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
+    if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
 
     _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
 } foreach getSensorTargets _heli;

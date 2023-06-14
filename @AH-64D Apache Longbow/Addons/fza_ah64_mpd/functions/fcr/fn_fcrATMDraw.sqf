@@ -50,9 +50,7 @@ if (count _fcrTargets > 0) then {
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
 
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) exitwith {};
-    if ((vectorMagnitude velocity _obj) < 5) exitwith {};
-    if (getpos _obj # 2 < 4) exitwith {};
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue;};
 
     //Unit type
     switch (_type) do {
@@ -90,7 +88,7 @@ if (count _fcrTargets > 0) then {
     if (_forEachIndex == _antsIndex) then {
         _unitSelAndWpnStatus = ["ANTS"];
     };
-    if (_unitType == "" || _unitStatus == "") exitwith {};
+    if (_unitType == "" || _unitStatus == "") then {continue;};
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _fcrTargets;

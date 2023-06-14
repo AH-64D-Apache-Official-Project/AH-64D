@@ -126,6 +126,7 @@ if (_value) then {
         };
         case "fza_ah64_fcrModeSwitch_down": {
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
+        };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;
         };
