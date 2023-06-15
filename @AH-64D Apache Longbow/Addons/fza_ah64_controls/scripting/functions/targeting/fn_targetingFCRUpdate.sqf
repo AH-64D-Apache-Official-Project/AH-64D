@@ -35,6 +35,7 @@ private _fcrTargets = [];
     if (_elevAngle < -22.5 && _fcrMode == 2) then {continue;};
     //Azimuth
     if ((abs _aziAngle) > 45 && _fcrMode == 1) then {continue;};
+    if ((abs _aziAngle) > 168 && _fcrMode == 1) then {continue;};
 
     // Find type
     private _type = FCR_TYPE_UNKNOWN;
