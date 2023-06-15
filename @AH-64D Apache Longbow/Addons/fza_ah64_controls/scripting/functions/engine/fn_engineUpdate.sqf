@@ -70,5 +70,5 @@ switch (_state) do {
 if (_changeMade) then {
     _newVal = (_heli getVariable "fza_ah64_engineStates");
     (_newVal# _engNum) set[0, _nextState];
-    _heli setVariable["fza_ah64_engineStates", _newVal, true];
+    [_heli, "fza_ah64_engineStates", _newVal] call fza_fnc_updateNetworkGlobal;
 };

@@ -48,7 +48,7 @@ sleep 0.4;
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
     if !(_heli getVariable "fza_ah64_firepdisch") then {
         _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-        _heli setVariable ["fza_ah64_firepdisch", true, true];
+        [_heli, "fza_ah64_firepdisch", true] call fza_fnc_updateNetworkGlobal;
         _dmg = _heli getHit "leng";
         _heli setHit ["leng", _dmg + 0.01];
     } else {
@@ -56,7 +56,7 @@ if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire"
         if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
             if !(_heli getVariable "fza_ah64_firerdisch") then {
                 _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-                _heli setVariable ["fza_ah64_firerdisch", true, true];
+                [_heli, "fza_ah64_firerdisch", true] call fza_fnc_updateNetworkGlobal;
                 _dmg = _heli getHit "Reng";
                 _heli setHit ["Reng", _dmg + 0.01];
             };

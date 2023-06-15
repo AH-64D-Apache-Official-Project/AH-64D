@@ -42,10 +42,10 @@ if (_newNtsIndex == -1) then {
 };
 
 if(_newNtsIndex == -1) then {
-    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+    [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0]]] call fza_fnc_updateNetworkGlobal;
 } else {
-    _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
+    [_heli, "fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0]] call fza_fnc_updateNetworkGlobal;
 };
 
-_heli setVariable ["fza_ah64_fcrTargets", _fcrTargets, true];
-_heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time], true];
+[_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time]] call fza_fnc_updateNetworkGlobal;

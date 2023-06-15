@@ -109,7 +109,7 @@ switch(_control) do {
     case "fbp": {
         if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firepdisch")) then {
                 _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-                _heli setVariable ["fza_ah64_firepdisch", true, true];
+                [_heli, "fza_ah64_firepdisch", true] call fza_fnc_updateNetworkGlobal;
                 _dmg = vehicle player getHit "leng";
                 vehicle player setHit ["leng", _dmg + 0.01];
             };
@@ -118,7 +118,7 @@ switch(_control) do {
         case "fbr": {
             if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firerdisch")) then {
                 _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-                _heli setVariable ["fza_ah64_firerdisch", true, true];
+                [_heli, "fza_ah64_firerdisch", true] call fza_fnc_updateNetworkGlobal;
                 _dmg = vehicle player getHit "Reng";
                 vehicle player setHit ["Reng", _dmg + 0.01];
             };

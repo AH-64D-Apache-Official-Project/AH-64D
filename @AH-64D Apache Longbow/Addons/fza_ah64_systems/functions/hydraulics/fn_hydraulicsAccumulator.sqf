@@ -38,6 +38,6 @@ if (_accHydPSI < SYS_MIN_ACC_PSI) then {
     _accHydPSI_pct = 0.0;
 };
 
-_heli setVariable ["fza_systems_accHydPSI_pct",  _accHydPSI_pct, true];
+[_heli, "fza_systems_accHydPSI_pct", _accHydPSI_pct] call fza_fnc_updateNetworkGlobal;
 _heli setVariable ["fza_systems_accHydPsi",      _accHydPSI];
-_heli setVariable ["fza_systems_accOn",          _accOn, true];
+[_heli, "fza_systems_accOn", _accOn] call fza_fnc_updateNetworkGlobal;

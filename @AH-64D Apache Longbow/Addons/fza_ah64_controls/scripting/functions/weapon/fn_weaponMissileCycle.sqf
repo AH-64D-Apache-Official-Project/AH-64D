@@ -24,5 +24,5 @@ if (_missiles isEqualTo []) exitWith {};
 
 private _nextMissile = [_missiles, _heli getVariable "fza_ah64_selectedMissile"] call fza_fnc_cycle;
 
-_heli setVariable ["fza_ah64_selectedMissile", _nextMissile, true];
+[_heli, "fza_ah64_selectedMissile", _nextMissile] call fza_fnc_updateNetworkGlobal;
 [_heli] call fza_fnc_weaponUpdateSelected;

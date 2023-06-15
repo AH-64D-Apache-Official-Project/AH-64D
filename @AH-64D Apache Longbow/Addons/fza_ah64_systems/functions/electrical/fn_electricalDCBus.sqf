@@ -27,7 +27,7 @@ if (_rect1On || _rect2On) then {
 } else {
     _dcBusOn = false;
 };
-_heli setVariable ["fza_systems_dcBusOn", _dcBusOn, true];
+[_heli, "fza_systems_dcBusOn", _dcBusOn] call fza_fnc_updateNetworkGlobal;
 //DC Bus powers the following
 //--(1) PSP/LPRF (FCR)
 //--(3) Radar warning receiver

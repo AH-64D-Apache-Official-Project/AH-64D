@@ -30,13 +30,11 @@ if (isTouchingGround _heli
     || _heli getVariable "fza_ah64_forceTrimInterupted" 
     || fza_sfmplus_pedalLeftRight <= -_breakoutValue 
     || fza_sfmplus_pedalLeftRight >=  _breakoutValue) then {
-    if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
-        _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
-    };
+        [_heli, "fza_ah64_hdgHoldActive", false] call fza_fnc_updateNetworkGlobal;
 } else {
     if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo true) then {
-        _heli setVariable ["fza_ah64_hdgHoldActive", true, true];
-        _heli setVariable ["fza_ah64_hdgHoldDesiredHdg", getDir _heli, true];
+        [_heli, "fza_ah64_hdgHoldActive", true] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_hdgHoldDesiredHdg", getDir _heli] call fza_fnc_updateNetworkGlobal;
     };
 };
 //Finally, if the heading hold is active, perform the required functions
@@ -44,11 +42,11 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     //Heading and turn coordination logic...needs to take into account accel/decel
     if (_curVel < HDG_HOLD_SPEED_SWITCH_ACCEL) then {
         if (_subMode isNotEqualTo "hdg") then {
-            _heli setVariable ["fza_ah64_hdgHoldSubMode", "hdg", true];
+            [_heli, "fza_ah64_hdgHoldSubMode", "hdg"] call fza_fnc_updateNetworkGlobal;
         };
     } else {
         if (_subMode isNotEqualTo "trn") then {
-            _heli setVariable ["fza_ah64_hdgHoldSubMode", "trn", true];
+            [_heli, "fza_ah64_hdgHoldSubMode", "trn"] call fza_fnc_updateNetworkGlobal;
         };
     };
     //Heading Hold

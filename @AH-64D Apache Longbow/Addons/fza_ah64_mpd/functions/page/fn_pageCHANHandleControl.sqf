@@ -2,7 +2,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #define SET_CHANNEL_CODE(code) private _missileChannels = _heli getVariable "fza_ah64_laserChannelCodes"; \
     _missileChannels set [(_persistState get "missileChannel")-1, code]; \
-    _heli setVariable ["fza_ah64_laserChannelCodes", _missileChannels, true]; \
+    [_heli, "fza_ah64_laserChannelCodes", _missileChannels] call fza_fnc_updateNetworkGlobal; \
 
 switch _control do {
     case "t1": {

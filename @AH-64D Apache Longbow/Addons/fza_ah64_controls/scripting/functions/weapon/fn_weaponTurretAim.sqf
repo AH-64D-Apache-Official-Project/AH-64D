@@ -117,7 +117,7 @@ if (_sight == SIGHT_TADS && (gunner _heli == player) && !isNull (_heli getVariab
             params["_heli"];
             fza_ah64_tadsLockCheckRunning = false;
             if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked")) then {
-                _heli setVariable["fza_ah64_tadsLocked", objNull, true];
+                [_heli, "fza_ah64_tadsLocked", objNull] call fza_fnc_updateNetworkGlobal;
             }
         }, _heli, 2] call CBA_fnc_waitAndExecute;
     }

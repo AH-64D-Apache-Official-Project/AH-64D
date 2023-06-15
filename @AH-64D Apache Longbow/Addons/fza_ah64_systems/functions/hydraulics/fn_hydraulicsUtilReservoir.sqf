@@ -45,4 +45,4 @@ if (_utilHydLevel_pct < SYS_HYD_MIN_LVL) then {
     //CALL WCA here
 };
 
-_heli setVariable ["fza_systems_utilLevel_pct",  _utilHydLevel_pct, true];
+[_heli, "fza_systems_utilLevel_pct", _utilHydLevel_pct] call fza_fnc_updateNetworkGlobal;

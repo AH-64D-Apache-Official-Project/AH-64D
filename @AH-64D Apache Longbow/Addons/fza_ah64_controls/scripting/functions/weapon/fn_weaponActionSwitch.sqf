@@ -23,5 +23,5 @@ params["_heli", "_weapon"];
 
 if !(_heli turretLocal [0]) exitWith {};
 
-_heli setVariable ["fza_ah64_was", _weapon, true];
+[_heli, "fza_ah64_was", _weapon] call fza_fnc_updateNetworkGlobal;
 [_heli] call fza_fnc_weaponUpdateSelected;

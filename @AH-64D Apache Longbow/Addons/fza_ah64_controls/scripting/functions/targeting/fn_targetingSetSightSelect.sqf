@@ -27,8 +27,8 @@ Author:
 params ["_heli", "_sight"];
 
 if (player == driver _heli) then {
-    _heli setVariable ["fza_ah64_sight_plt", _sight, true];
+    [_heli, "fza_ah64_sight_plt", _sight] call fza_fnc_updateNetworkGlobal;
 };
 if (player == gunner _heli) then {
-    _heli setVariable ["fza_ah64_sight_cpg", _sight, true];
-}
+    [_heli, "fza_ah64_sight_cpg", _sight] call fza_fnc_updateNetworkGlobal;
+};

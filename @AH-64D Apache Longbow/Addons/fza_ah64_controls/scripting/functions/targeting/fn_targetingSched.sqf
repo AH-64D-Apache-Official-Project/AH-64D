@@ -24,7 +24,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
     switch (_fcrState # 0) do {
         case FCR_MODE_OFF: {
             if _armaRadarOn then {
-                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
+                [_heli, "fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time]] call fza_fnc_updateNetworkGlobal;
             };
         };
         case FCR_MODE_ON_SINGLE: {
@@ -33,7 +33,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
                 [_heli] call fza_fnc_targetingFCRUpdate;
             } else {
                 if (time > (_fcrState # 1 + 4) && _lastScanState # 2 + 1 < time) then {
-                    _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+                    [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, time]] call fza_fnc_updateNetworkGlobal;
                     player action ["ActiveSensorsOff", _heli];
                 };
             };
@@ -45,7 +45,7 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
                     [_heli] call fza_fnc_targetingFCRUpdate;
                 }
             } else {
-                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+                [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, time]] call fza_fnc_updateNetworkGlobal;
             };
         };
     };
@@ -53,5 +53,5 @@ if (_heli animationPhase "fcr_enable" == 1 && local _heli) then {
 
 // Auto self laser select
 if (isNull (_heli getVariable "fza_ah64_currentlase") && !isNull laserTarget _heli) then {
-    _heli setVariable ["fza_ah64_currentlase", laserTarget _heli, true];
+    [_heli, "fza_ah64_currentlase", laserTarget _heli] call fza_fnc_updateNetworkGlobal;
 };

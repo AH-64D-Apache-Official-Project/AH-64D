@@ -42,7 +42,7 @@ switch (_heli getVariable "fza_ah64_was") do {
             } else {
                 private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
                 if (count _rockets > 0) then {
-                    _heli setVariable ["fza_ah64_selectedRocket", _rockets # 0, true];
+                    [_heli, "fza_ah64_selectedRocket", _rockets # 0] call fza_fnc_updateNetworkGlobal;
                     _heli selectWeaponTurret [_rockets # 0,[0]];
                 } else {
                     _heli selectWeaponTurret ["fza_ma_safe",[0]];
@@ -60,7 +60,7 @@ switch (_heli getVariable "fza_ah64_was") do {
             } else {
                 private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
                 if (count _missiles > 0) then {
-                    _heli setVariable ["fza_ah64_selectedMissile", _missiles # 0, true];
+                    [_heli, "fza_ah64_selectedMissile", _missiles # 0] call fza_fnc_updateNetworkGlobal;
                     vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0];
                 } else {
                     _heli selectWeaponTurret ["fza_ma_safe",[0]];

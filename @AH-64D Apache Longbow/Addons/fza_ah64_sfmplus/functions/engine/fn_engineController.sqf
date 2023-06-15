@@ -53,7 +53,7 @@ _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
 if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 5 < time) then {
     {
-        _heli setVariable [_x, _heli getVariable _x, true];
+        [_heli, _x, _heli getVariable _x] call fza_fnc_updateNetworkGlobal;
     } forEach [
         "fza_sfmplus_engFF",
         "fza_sfmplus_engBaseNG",

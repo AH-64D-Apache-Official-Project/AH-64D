@@ -19,6 +19,7 @@ class CfgFunctions
             class padString {R;};
             class setArrayVariable {R;};
             class currentTurret {R;};
+            class updateNetworkGlobal {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";

@@ -6,5 +6,5 @@ private _inventory = [_heli] call fza_fnc_weaponRocketInventory;
 if (_inventory # _index isEqualTo []) exitWith {};
 
 private _weapon = getText (configFile >> "CfgAmmo" >> _inventory # _index # 0 >> "fza_weaponName");
-_heli setVariable ["fza_ah64_selectedRocket", _weapon, true];
+[_heli, "fza_ah64_selectedRocket", _weapon] call fza_fnc_updateNetworkGlobal;
 [_heli] call fza_fnc_weaponUpdateSelected;

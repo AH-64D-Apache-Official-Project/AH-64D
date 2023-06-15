@@ -63,7 +63,7 @@ switch _eng do {
 
 if (_heli getVariable _mag) exitwith {};
 
-_heli setVariable[_mag, true, true];
+[_heli, _mag, true] call fza_fnc_updateNetworkGlobal;
 ["fza_engineFire", [_heli, _eng]] call CBA_fnc_globalEvent;
 
 if (_usesound) then {
@@ -96,4 +96,4 @@ do {
 };
 
 ["fza_engineFireOut", [_heli, _eng]] call CBA_fnc_globalEvent;
-_heli setVariable[_mag, false, true];
+[_heli, _mag, false] call fza_fnc_updateNetworkGlobal;
