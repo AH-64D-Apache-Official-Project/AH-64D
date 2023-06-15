@@ -38,6 +38,6 @@ if (_accHydPSI < SYS_MIN_ACC_PSI) then {
     _accHydPSI_pct = 0.0;
 };
 
-_heli setVariable ["fza_systems_accHydPSI_pct",  _accHydPSI_pct];
+_heli setVariable ["fza_systems_accHydPSI_pct",  _accHydPSI_pct, true];
 _heli setVariable ["fza_systems_accHydPsi",      _accHydPSI];
-_heli setVariable ["fza_systems_accOn",          _accOn];
+_heli setVariable ["fza_systems_accOn",          _accOn, true];

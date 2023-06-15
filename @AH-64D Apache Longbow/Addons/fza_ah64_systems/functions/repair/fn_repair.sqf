@@ -30,7 +30,7 @@ _heli setHitPointDamage ["hit_drives_transmission",         0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Electrical       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-_heli setVariable ["fza_systems_battPower_pct",             1.0];
+_heli setVariable ["fza_systems_battPower_pct",             1.0, true];
 _heli setHitPointDamage ["hit_elec_battery",                0.0];
 _heli setHitPointDamage ["hit_elec_generator1",             0.0];
 _heli setHitPointDamage ["hit_elec_generator2",             0.0];
@@ -48,17 +48,17 @@ _heli setHitPointDamage ["hitengine2",                      0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Hydraulics       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-_heli setVariable ["fza_systems_priHydPSI_pct",             1.0];
+_heli setVariable ["fza_systems_priHydPSI_pct",             1.0, true];
 _heli setHitPointDamage ["hit_hyd_prireservoir",            0.0];
-_heli setVariable ["fza_systems_priLevel_pct",              1.0];
+_heli setVariable ["fza_systems_priLevel_pct",              1.0, true];
 _heli setHitPointDamage ["hit_hyd_priPump",                 0.0];
-_heli setVariable ["fza_systems_utilHydPSI_pct",            1.0];
+_heli setVariable ["fza_systems_utilHydPSI_pct",            1.0, true];
 
 _heli setHitPointDamage ["hit_hyd_utilreservoir",           0.0];
-_heli setVariable ["fza_systems_utilLevel_pct",             1.0];
+_heli setVariable ["fza_systems_utilLevel_pct",             1.0, true];
 _heli setHitPointDamage ["hit_hyd_utilPump",                0.0];
 
-_heli setVariable ["fza_systems_accHydPSI_pct",             1.0];
+_heli setVariable ["fza_systems_accHydPSI_pct",             1.0, true];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Main Rotor       /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -34,5 +34,5 @@ if (_priHydPSI < SYS_MIN_HYD_PSI) then {
     //CALL WCA here
 };
 
-_heli setVariable ["fza_systems_priHydPSI_pct",  _priHydPSI_pct];
+_heli setVariable ["fza_systems_priHydPSI_pct",  _priHydPSI_pct, true];
 _heli setVariable ["fza_systems_priHydPsi",      _priHydPSI];

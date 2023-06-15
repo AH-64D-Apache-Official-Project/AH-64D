@@ -27,7 +27,7 @@ if (_gen1On || _gen2On) then {
 } else {
     _acBusOn = false;
 };
-_heli setVariable ["fza_systems_acBusOn", _acBusOn];
+_heli setVariable ["fza_systems_acBusOn", _acBusOn, true];
 //AC Bus powers the following
 //--(1) FCR
 //--(5) 30mm motor

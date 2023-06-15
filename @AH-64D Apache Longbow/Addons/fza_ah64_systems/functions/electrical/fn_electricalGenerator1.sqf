@@ -32,4 +32,4 @@ if (_apuOn || _rtrRPM > SYS_MIN_RPM) then {
 } else {
     _gen1On = false;
 };
-_heli setVariable ["fza_systems_gen1On", _gen1On];
+_heli setVariable ["fza_systems_gen1On", _gen1On, true];

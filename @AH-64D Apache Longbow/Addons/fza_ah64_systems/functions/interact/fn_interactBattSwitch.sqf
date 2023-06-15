@@ -18,4 +18,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_systems_battSwitchOn",  !(_heli getVariable "fza_systems_battSwitchOn")];
+_heli setVariable ["fza_systems_battSwitchOn",  !(_heli getVariable "fza_systems_battSwitchOn"), true];

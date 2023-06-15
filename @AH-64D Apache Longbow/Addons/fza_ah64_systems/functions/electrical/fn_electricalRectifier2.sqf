@@ -30,4 +30,4 @@ if (_gen2On && _rect2Damage <= SYS_RECT_DMG_THRESH) then {
 } else {
     _rect2On = false;
 };
-_heli setVariable ["fza_systems_rect2On", _rect2On];
+_heli setVariable ["fza_systems_rect2On", _rect2On, true];

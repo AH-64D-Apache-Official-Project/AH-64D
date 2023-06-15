@@ -63,16 +63,15 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_firerdisch", false, true];
     //ASE Initial States
     //--Chaff       - Aircraft common
-    _heli setVariable ["fza_ah64_ase_chaffState",   "safe"];
+    _heli setVariable ["fza_ah64_ase_chaffState",   "safe", true];
     //--RLWR        - Aircraft Common
-    _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off"];
+    _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off", true];
     _heli setVariable ["fza_ah64_ase_rlwrCount",    0, true];
-    _heli setVariable ["fza_ah64_ase_rlwrObjects",  [], true];
     //--IR Jammer   - Aircraft Common
-    _heli setVariable ["fza_ah64_ase_msnEquipPwr",      "off"];
-    _heli setVariable ["fza_ah64_ase_irJamState",    0];
-    _heli setVariable ["fza_ah64_ase_irJamTimer",    0.0];
-    _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", 0];
+    _heli setVariable ["fza_ah64_ase_msnEquipPwr",      "off", true];
+    _heli setVariable ["fza_ah64_ase_irJamState",    0, true];
+    _heli setVariable ["fza_ah64_ase_irJamTimer",    0.0, true];
+    _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", 0, true];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",     1];
     _heli setVariable ["fza_ah64_ase_searchingObj",  []];

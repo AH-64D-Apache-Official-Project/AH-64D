@@ -36,7 +36,7 @@ if (_battSwitchOn) then {
     _battBusOn = false;
 };
 //Set the state of the battery bus
-_heli setVariable ["fza_systems_battBusOn", _battBusOn];
+_heli setVariable ["fza_systems_battBusOn", _battBusOn, true];
 //Drain the battery
 if (_battBusOn && _acBusOn) then {
     _battPower = [_battPower, 0.0, (1.0 / _battTimer) * _deltaTime] call BIS_fnc_lerp;
@@ -45,7 +45,7 @@ if (_battBusOn && _acBusOn) then {
 if (_battBusOn && _acBusOn) then {
     _battPower = [_battPower, 1.0, _deltaTime] call BIS_fnc_lerp;
 };
-_heli setVariable ["fza_systems_battPower_pct", _battPower];
+_heli setVariable ["fza_systems_battPower_pct", _battPower, true];
 
 //Components belonging to the battery bus include:
 //--FS/BS UFD
