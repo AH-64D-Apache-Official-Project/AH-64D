@@ -25,14 +25,14 @@ class Components: Components
 
                 typeRecognitionDistance = -1;
                 angleRangeHorizontal = 360;
-                angleRangeVertical = 60;
+                angleRangeVertical = 80;
                 groundNoiseDistanceCoef = 0.0032;
                 maxGroundNoiseDistance = 3.56;
                 minSpeedThreshold = 7;
                 maxSpeedThreshold = 25;
                 minTrackableSpeed = -1e10;
                 maxTrackableSpeed = 1500;
-                aimDown = 5;
+                aimDown = -5;
             };
             class PassiveRadarSensorComponent: SensorTemplatePassiveRadar{
                 componentType = "PassiveRadarSensorComponent";

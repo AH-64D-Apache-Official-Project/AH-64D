@@ -21,6 +21,11 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\chan";
             class chanShowFrequencies {RECOMPILE_FLAG;};
         };
+        class fcr {
+            file = "\fza_ah64_mpd\functions\fcr";
+            class fcrATMDraw {RECOMPILE_FLAG;};
+            class fcrGTMDraw {RECOMPILE_FLAG;};
+        };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";
             class fuelGetData {RECOMPILE_FLAG;};

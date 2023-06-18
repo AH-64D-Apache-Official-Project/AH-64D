@@ -133,6 +133,9 @@ class CfgVehicles {
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
                 usesIcons = 1;
+                class InitState {
+                    subPageVarPage[] = {5,0};
+                };
             };
             class ASE {
                 index = MPD_PAGE_ASE;

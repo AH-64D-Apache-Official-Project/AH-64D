@@ -1,8 +1,10 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
 
 private _acBusOn = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
 
 if !(_acBusOn && _dcBusOn) exitwith {};
 
@@ -12,12 +14,28 @@ private _fcrTargets = [];
 
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
+    private _heliPos     = getposasl _heli;
+    private _targetpos   = getposasl _target;
+
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
-    if (_distOffAxis > 45) then { continue; };
-    if (_range < FCR_LIMIT_MIN_RANGE) then { continue; };
+    if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
-        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_DIST) 
+        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
+
+    _targDir = _heliPos vectorFromTo _targetpos;
+    _zdist = _targDir vectorDotProduct vectorDir _heli;
+    _ydist = _targDir vectorDotProduct vectorUp _heli;
+    _xdist = sqrt (1 - _ydist^2 - _zdist^2);
+    _elevAngle = _ydist atan2 _zdist;
+    _aziAngle = _xdist atan2 _zdist;
+
+    //Elevation
+    if (_elevAngle > 25 && _fcrMode == 1) then {continue;};
+    if (_elevAngle < -22.5 && _fcrMode == 2) then {continue;};
+    //Azimuth
+    if ((abs _aziAngle) > 45 && _fcrMode == 1) then {continue;};
+    if ((abs _aziAngle) > 168 && _fcrMode == 2) then {continue;};
 
     // Find type
     private _type = FCR_TYPE_UNKNOWN;
@@ -27,13 +45,15 @@ private _fcrTargets = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
+    if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
+
     _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
 } foreach getSensorTargets _heli;
 
 _fcrTargets = [_fcrTargets, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
 
-private _oldNts = _heli getVariable "fza_ah64_fcrNts";
-private _oldNts = _oldNts # 0;
+private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
 if (_newNtsIndex == -1) then {
     if (count _fcrTargets > 0) then {
