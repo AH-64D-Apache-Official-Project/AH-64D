@@ -15,7 +15,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-<<<<<<< HEAD
 //Gravity in model space
 private _grav     = _heli vectorWorldToModel ([0.0, 0.0,-1.0] vectorMultiply 9.806);
 private _gravX    = _grav # 0;
@@ -31,12 +30,6 @@ private _totVel   = [_gravX, _gravY, _gravZ] vectorAdd [_heliVelX, _heliVelY, _h
 private _totVelX  = _totVel # 0;
 private _totVelY  = _totVel # 1;
 private _totVelZ  = _totVel # 2;
-=======
-private _grav   = _heli vectorWorldToModel ([0.0, 0.0,-1.0] vectorMultiply 9.806);
-private _velTot = vectorMagnitude ((velocityModelSpace _heli) vectorAdd _grav);
-private _velX   = velocityModelSpace _heli # 0;
-private _beta   = if (_velTot == 0.0) then { 0.0; } else { asin (_velX / _velTot); };
->>>>>>> master
 
 //Alpha is the angle between the helicopters forward velocity and vertical velocity
 private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };

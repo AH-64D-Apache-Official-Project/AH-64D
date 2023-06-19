@@ -290,19 +290,11 @@
 #define MFD_DTU_LOAD_COMPLETE 1
 
 //A/C Util Page
-<<<<<<< HEAD
-#define ACUTIL_IND_PITCH 0
-#define ACUTIL_IND_ROLL  1
-#define ACUTIL_IND_YAW   2
-#define ACUTIL_IND_COLL  3
-#define ACUTIL_IND_TRIM  4
-=======
 #define MFD_IND_ACUTIL_PITCH 0
 #define MFD_IND_ACUTIL_ROLL  1
 #define MFD_IND_ACUTIL_YAW   2
 #define MFD_IND_ACUTIL_COLL  3
 #define MFD_IND_ACUTIL_TRIM  4
->>>>>>> master
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
