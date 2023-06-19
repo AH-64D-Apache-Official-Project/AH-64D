@@ -20,6 +20,7 @@ class CfgFunctions
             class padString {R;};
             class setArrayVariable {R;};
             class sign {R;};
+            class currentTurret {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";

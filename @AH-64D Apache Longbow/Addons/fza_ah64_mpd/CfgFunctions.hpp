@@ -12,7 +12,6 @@ class CfgFunctions
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
-            class handleZoom {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
@@ -21,6 +20,11 @@ class CfgFunctions
         class chan {
             file = "\fza_ah64_mpd\functions\chan";
             class chanShowFrequencies {RECOMPILE_FLAG;};
+        };
+        class fcr {
+            file = "\fza_ah64_mpd\functions\fcr";
+            class fcrATMDraw {RECOMPILE_FLAG;};
+            class fcrGTMDraw {RECOMPILE_FLAG;};
         };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";

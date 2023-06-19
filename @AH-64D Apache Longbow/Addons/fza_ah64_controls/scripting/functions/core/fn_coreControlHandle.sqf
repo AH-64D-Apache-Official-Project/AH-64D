@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 params["_name", "_value"];
 
@@ -105,11 +106,6 @@ if (_value) then {
         case "prevWeapon": {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
-        case "launchCM": {
-            if (player == gunner _heli) then {
-                [_heli, "fza_CMFlareLauncher", [-1]] call BIS_fnc_fire;
-            }
-        };
         case "vehLockTargets": {
             [_heli] call fza_fnc_targetingsensorCycle;
         };
@@ -124,6 +120,18 @@ if (_value) then {
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
             [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
+        };
+        case "fza_ah64_fcrModeSwitch_up": {
+            _heli setVariable ["fza_ah64_fcrMode", 1, true];
+        };
+        case "fza_ah64_fcrModeSwitch_down": {
+            _heli setVariable ["fza_ah64_fcrMode", 2, true];
+        };
+        case "launchCM": {
+            [_heli] call fza_ase_fnc_Chaff;
+        };
+        case "fza_ah64_flare": {
+            [_heli] call fza_ase_fnc_Flare;
         };
     };
 };
