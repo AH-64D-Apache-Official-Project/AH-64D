@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File3:fn_sign.sqf",{6:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the sign of a number Parameters: _val = The number Returns: ...&nbsp; Examples: ...&nbsp; Author: BradMick</div></div>"});

@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File3:fn_sign.sqf","fn_sign.sqf");NDSummary.OnSummaryLoaded("File3:fn_sign.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[5,0,1,"Functions","Functions"],[6,0,0,"fza_fnc_sign","fza_fnc_sign"]]);
