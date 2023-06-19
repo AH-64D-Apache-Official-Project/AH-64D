@@ -1,7 +1,4 @@
-params ["_heli", "_simpleEgine"];
-
-private _numEng = count _simpleEgine;
-if (_numEng > 2) exitWith { systemChat "Invalid engine configuration!"; };
+params ["_heli", "_numEng"];
 
 private _mainRtrTq        = _heli getVariable "fza_sfmplus_mainRtrTorque";
 private _mainRtrMOI       = _heli getVariable "fza_sfmplus_mainRtrMOI";
@@ -12,15 +9,16 @@ private _outputRPM        = _heli getVariable "fza_sfmplus_xmsnOutputRPM";
 private _outputRPM_pct    = 0.0;
 
 if (_numEng == 1) then {
-    _simpleEgine 
+    //_simpleEgine 
 } else {
-    (_simpleEgine)
+    (_heli getVariable "fza_sfmplus_simpleEng_outputTq")
         params ["_eng1OutputTQ", "_eng2OutputTQ"];
     
     _engInputTq    = _eng1OutputTQ + _eng2OutputTQ;
 
     _deltaRPM      = (_engInputTq - _mainRtrTq) / (_mainRtrMOI / _mainRtrGearRatio^2);
     _outputRPM     = _outputRPM + _deltaRPM;
+    _outputRPM     = [_outputRPM, 0.0, 20900 * 1.20] call BIS_fnc_clamp;
     _outputRPM_pct = _outputRPM / 20900;
 
     hintsilent format ["Xmsn is running! 

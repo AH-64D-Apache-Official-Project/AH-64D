@@ -104,8 +104,8 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
-private _mainRtrTorque             = _rtrTorque / _rtrGearRatio;
-_heli setVariable ["fza_sfmplus_mainRtrTorque", _mainRtrTorque]; //0.8 > 0.77 > 0.79 
+private _mainRtrTorque             = if (_rtrOmega == 0) then { 0.0; } else { _rtrTorque / _rtrGearRatio; };
+_heli setVariable ["fza_sfmplus_mainRtrTorque", _mainRtrTorque]; //0.8 > 0.77 > 0.79 > 0.65
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];

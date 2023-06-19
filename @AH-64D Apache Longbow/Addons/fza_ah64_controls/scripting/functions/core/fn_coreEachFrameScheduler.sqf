@@ -17,8 +17,9 @@ if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli"];
 _heli = (vehicle player);
 
-if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
+fza_ah64_deltaTime = (["fza_ah64_deltaTime"] call BIS_fnc_deltaTime) min 1/30;
 
+if !(alive _heli && (player == driver _heli || player == gunner _heli) && (vehicle player) isKindOf "fza_ah64base" && _heli getVariable ["fza_ah64_aircraftInitialised",false]) exitwith {};
 {
     [_heli] call _x;
 }

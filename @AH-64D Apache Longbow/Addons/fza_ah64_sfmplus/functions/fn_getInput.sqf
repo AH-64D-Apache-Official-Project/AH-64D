@@ -119,9 +119,7 @@ if (_flightModel == "SFMPlus") then {
         };
     };
 
-    (_heli getVariable "fza_sfmplus_engPctNP")
-        params ["_eng1PctNP", "_eng2PctNp"];
-    private _rtrRPM          = _eng1PctNP max _eng2PctNp;
+    private _rtrRPM          = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";
     
     //Cyclic pitch torque
     private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
@@ -146,14 +144,6 @@ if (_flightModel == "SFMPlus") then {
     if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
         _yawTorque = 0.0;
     };
-
-    //Yaw torque
-    //private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
-    //private _fmcPedalTorque  = 0.0;
-    //if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
-    //    _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
-    //};
-    //_pedalTorque             = 0.0;//(_pedalTorque + _fmcPedalTorque) * _rtrRPM;
 
     //State info
     private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";

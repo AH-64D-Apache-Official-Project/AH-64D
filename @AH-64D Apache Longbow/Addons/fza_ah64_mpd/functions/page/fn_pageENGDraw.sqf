@@ -11,9 +11,9 @@ private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
 private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
 private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
 private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
-if (_e1np <= (0.37 * 100)) then {
-    _e1trq = 0;
-};
+//if (_e1np <= (0.37 * 100)) then {
+//    _e1trq = 0;
+//};
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_1), round _e1trq];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TORQUE_1), _e1trq toFixed 0];
@@ -33,9 +33,9 @@ private _e2ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
 private _e2tgt  = _heli getVariable "fza_sfmplus_engTGT" select 1;
 private _e2trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
 private _e2opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
-if (_e2np <= (0.37 * 100)) then {
-    _e2trq = 0;
-};
+//if (_e2np <= (0.37 * 100)) then {
+//    _e2trq = 0;
+//};
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_2), round _e2trq];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TORQUE_2), _e2trq toFixed 0];

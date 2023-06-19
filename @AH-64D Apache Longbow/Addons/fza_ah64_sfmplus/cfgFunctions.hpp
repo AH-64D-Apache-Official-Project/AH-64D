@@ -73,6 +73,7 @@ class CfgFunctions
         class simpleEngine {
             file = "\fza_ah64_sfmplus\functions\simpleEngine";
             class simpleEngine {R;};
+            class simpleEngineController {R;};
             class simpleEngineVariables {R;};
         };
         class simpleRotor {

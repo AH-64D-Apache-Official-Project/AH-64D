@@ -23,7 +23,6 @@ params ["_heli", "_engNum", "_deltaTime"];
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -87,19 +86,7 @@ switch (_engState) do {
 		//Ng
 		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
-		if (_flightModel == "SFMPlus") then {
-			_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
-		} else {
-            private _droopFactor = 0.0;
-            if (!_isAutorotating) then {
-                _engPctNP    = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
-            } else {
-                _droopFactor = 1 - (fza_sfmplus_collectiveOutput / 0.2);
-
-                _engPctNP    = [_engPctNP, 1.01 + (_droopFactor * 0.2), _deltaTime] call BIS_fnc_lerp;
-                //systemChat format ["Eng Off: Droop Factor = %1 -- Np = %2 -- Coll = %3", _droopFactor toFixed 2, _engPctNP toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
-            };
-	    };
+		_engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         //Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
     };
@@ -133,29 +120,7 @@ switch (_engState) do {
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
 		_engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
 		//Np
-		if (_flightModel == "SFMPlus") then {
-			_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
-		} else {
-			if (_isSingleEng) then {
-				_engLimitTQ = _maxTQ_SE;
-			} else {
-				_engLimitTQ = _maxTQ_DE;
-			};
-		
-            private _droopFactor = 0.0;
-            if (!_isAutorotating) then {
-                _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
-                _droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
-        
-                _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
-            } else {
-                _droopFactor = 1 - (fza_sfmplus_collectiveOutput / 0.2);
-
-                _engPctNP    = [_engPctNP, 1.01 + (_droopFactor * 0.2), _deltaTime] call BIS_fnc_lerp;
-
-                //systemChat format ["Eng On: Droop Factor = %1 -- Np = %2 -- Coll = %3", _droopFactor toFixed 2, _engPctNP toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
-            };
-		};
+		_engPctNP = [_engPctNP, _engBaseNP, _deltaTime] call BIS_fnc_lerp;
 	};
 };
 
@@ -168,58 +133,45 @@ private _engBaseOilPSI   = _intEngBaseTable select 4;
 private _heightAGL  = ASLToAGL getPosASL _heli # 2;
 private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
-if (_flightModel == "SFMPlus") then {
-    private _engHvrTQTable = [[]];
-    //----------------------Coll-----TQ---
-    if (fza_ah64_sfmPlusKeyboardOnly) then {
-        _engHvrTQTable = [[ 0.00, _engBaseTQ]
-                         ,[ 0.58,     _hvrTQ]
-                         ,[ 0.68,     _hvrTQ]
-                         ,[ 1.00,     _maxTQ]];
-    } else {
-        _engHvrTQTable = [[ 0.00, _engBaseTQ]
-                         ,[ 0.645,    _hvrTQ]
-                         ,[ 0.670,    _hvrTQ]
-                         ,[ 1.00,     _maxTQ]];
-    };
-    private _cruiseTable = _heli getVariable "fza_sfmplus_cruiseTable";
+private _engHvrTQTable = [[]];
+//----------------------Coll-----TQ---
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+    _engHvrTQTable = [[ 0.00, _engBaseTQ]
+                     ,[ 0.58,     _hvrTQ]
+                     ,[ 0.68,     _hvrTQ]
+                     ,[ 1.00,     _maxTQ]];
+} else {
+    _engHvrTQTable = [[ 0.00, _engBaseTQ]
+                     ,[ 0.645,    _hvrTQ]
+                     ,[ 0.670,    _hvrTQ]
+                     ,[ 1.00,     _maxTQ]];
+};
+private _cruiseTable = _heli getVariable "fza_sfmplus_cruiseTable";
 
-    private _engCruiseTQTable = [[]];
-    //-------------------------Coll-----TQ---
-    if (fza_ah64_sfmPlusKeyboardOnly) then {
-        _engCruiseTQTable = [[ 0.00,                 0.03],
-                            [ 0.82, _cruiseTable select 4],
-                            [ 0.90, _cruiseTable select 6],
-                            [ 1.00, _maxTQ               ]];
-    } else {
-        _engCruiseTQTable = [[ 0.00,                 0.03],
-                            [ 0.70, _cruiseTable select 4],  //
-                            [ 0.89, _cruiseTable select 6],  //
-                            [ 1.00, _maxTQ               ]];
-    };
+private _engCruiseTQTable = [[]];
+//-------------------------Coll-----TQ---
+if (fza_ah64_sfmPlusKeyboardOnly) then {
+    _engCruiseTQTable = [[ 0.00,                 0.03],
+                        [ 0.82, _cruiseTable select 4],
+                        [ 0.90, _cruiseTable select 6],
+                        [ 1.00, _maxTQ               ]];
+} else {
+    _engCruiseTQTable = [[ 0.00,                 0.03],
+                        [ 0.70, _cruiseTable select 4],  //
+                        [ 0.89, _cruiseTable select 6],  //
+                        [ 1.00, _maxTQ               ]];
+};
 
-    private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
-    private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
+private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
+private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
 
-    private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-    _engSetTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
-    if (_isSingleEng) then {
-        _engPctTQ = [_engPctTQ, (_engBaseTq * 2.0) + ((_engSetTQ - _engBaseTQ) * 2.0) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
-    } else {
-        _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
-    };
-} else {    //End SFMPlus, begin HeliSim
-    _engPctTQ = (_heli getVariable "fza_sfmplus_mainRtrTorque") / 481.0;
-    if (_isSingleEng) then {
-        if (_engPowerLeverState in ["OFF", "IDLE"]) then {
-            _engPctTQ = 0.0;
-        } else {
-            _engPctTQ = _engPctTQ;
-        };
-    } else {
-        _engPctTQ = _engPctTQ / 2.0;
-    };
-};  //End HeliSim
+private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
+_engSetTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
+if (_isSingleEng) then {
+    _engPctTQ = [_engPctTQ, (_engBaseTq * 2.0) + ((_engSetTQ - _engBaseTQ) * 2.0) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
+} else {
+    _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
+};
 _engPctTQ = [_engPctTQ, 0.0, 2.55] call BIS_fnc_clamp;
 
 private _engTable = [[  _engBaseTQ, _engBaseTGT, _engBaseNG, _engBaseOilPSI],
@@ -240,11 +192,6 @@ _engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
-//if (_engPctTQ < 0.10 && !(isTouchingGround _heli)) then {
-//    _heli setVariable ["fza_sfmplus_isAutorotating", true];
-//} else {
-//    _heli setVariable ["fza_sfmplus_isAutorotating", false];
-//};
 [_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_fnc_setArrayVariable;
