@@ -17,4 +17,10 @@ switch(_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
+
+    if (_heli getVariable "fza_ah64_IAFSInstalled") then {
+        case "l2": {
+            _heli setVariable ["fza_ah64_IAFSOn", !(_heli getVariable "fza_ah64_IAFSOn")];
+        };
+    };
 };

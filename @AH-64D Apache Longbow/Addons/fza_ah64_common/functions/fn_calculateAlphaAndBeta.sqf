@@ -36,4 +36,4 @@ private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _to
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
 private _beta     = if (_totVelY == 0.0 || _totVelZ == 0.0) then { 0.0; } else { atan (_totVelX / sqrt(_totVelY^2 + _totVelZ^2)); };
 
-_beta;//[_alpha, _beta];
+[_alpha, _beta];
