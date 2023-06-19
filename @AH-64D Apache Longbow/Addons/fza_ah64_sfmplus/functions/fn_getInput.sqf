@@ -135,9 +135,6 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
     _yawTorque = 0.0;
 };
-private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
-private _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
-_pedalTorque             = _pedalTorque + _fmcPedalTorque;
 
 private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
@@ -146,10 +143,10 @@ private _eng2PwrLvrState = _engPwrLvrState select 1;
 if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
     };
     //Emergency Hydraulics
     if (_accOn) then {
-        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, _pedalTorque]);
+        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
     };
 };
