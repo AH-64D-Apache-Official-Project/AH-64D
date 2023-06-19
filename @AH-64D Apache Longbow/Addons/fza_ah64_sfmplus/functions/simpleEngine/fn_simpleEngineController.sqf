@@ -81,3 +81,25 @@ if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["O
 } else {
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
+
+//Rotor animation speed control
+/*
+private _realRPM    = _heli animationPhase "mainRotorRPM";
+private _rtrRPM     = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";
+private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
+
+if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
+
+if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
+    _rtrRPM = 0.57;
+    systemChat "We should be drooping!";
+    if ((_realRPM / 10)  > _rtrRPM) then {
+        systemChat "Break rotor!";
+        _heli setHitpointDamage ["hithrotor", 0.9];
+    } else {
+        systemChat "Fix rotor!";
+        _heli setHitpointDamage ["hithrotor", 0.0];
+        _heli engineOn true;
+    };
+    _heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
+};*/

@@ -51,8 +51,8 @@ _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call 
 
 //Engine Governors
 _heli setVariable ["fza_sfmplus_pid_engine",         [
-                                                      [10.0, 5.0, 0.075] call fza_fnc_pidCreate
-                                                     ,[10.0, 5.0, 0.075] call fza_fnc_pidCreate
+                                                      [100.000, 0.150, 2.500] call fza_fnc_pidCreate
+                                                     ,[100.000, 0.150, 2.500] call fza_fnc_pidCreate
                                                      ]];
 
 //Fuel and Mass

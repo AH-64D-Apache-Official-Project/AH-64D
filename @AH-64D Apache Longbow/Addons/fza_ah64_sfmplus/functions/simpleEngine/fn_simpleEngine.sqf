@@ -169,9 +169,9 @@ switch (_state) do {
         private _tgtGoal     = [_tgtNgTable, (_ng_pct - _prev_ng_pct) * 30.0 + _ng_pct] call fza_fnc_linearInterp select 1;
         _tgt_degC            = [_tgt_degC, _tgtGoal, _tgtDelay, _tgtDelay * 1.2] call fza_fnc_expSeek;
         //Torque
-        _pidEng set ["kp", E_KP];
-        _pidEng set ["ki", E_KI];
-        _pidEng set ["kd", E_KD];
+        //_pidEng set ["kp", E_KP];
+        //_pidEng set ["ki", E_KI];
+        //_pidEng set ["kd", E_KD];
         private _govOutput   = [_pidEng, _deltaTime, _refRPM, _xmsnOutputRPM_pct] call fza_fnc_pidRun;
         private _tqGoal      = _govOutput + ([_tqNgTable, _ng_pct] call fza_fnc_linearInterp select 1);
         _tqGoal              = [_tqGoal, 0.0, 1.32] call BIS_fnc_clamp;  
