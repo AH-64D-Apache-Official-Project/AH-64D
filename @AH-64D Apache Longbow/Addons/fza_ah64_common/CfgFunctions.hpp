@@ -18,6 +18,7 @@ class CfgFunctions
             class linearInterp {R;};
             class padString {R;};
             class setArrayVariable {R;};
+            class sign {R;};
             class currentTurret {R;};
         };
         class pid {
