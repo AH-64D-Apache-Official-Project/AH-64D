@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_simpleRotor
+Function: fza_sfmplus_fnc_simpleRotorMain
 
 Description:
     Simple rotor provides a simple, grounded in reality simulation of a
@@ -44,7 +44,7 @@ private _rtrGndEffModifier      = 0.238;
 private _rtrThrustScalar_min    = 0.120;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.00;
+private _rtrTorqueScalar        = 0.25;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -79,7 +79,8 @@ private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _r
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
-private _rtrInducedVelocity        = sqrt(_rtrThrust / (2 * _dryAirDensity * _rtrArea));
+private _sign                      = [_rtrThrust] call fza_fnc_sign;
+private _rtrInducedVelocity        = sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign;
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
 private _u = if (_w == 0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
@@ -114,7 +115,7 @@ _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
 //Main rotor torque effect
 _heli addTorque (_heli vectorModelToWorld _torqueZ);
 
-//Camera shake effect for ETL
+//Camera shake effect for ETL (16 to 24 knots)
 if (_velXY > 8.23 && _velXY < 12.35) then {
     enableCamShake true;
     setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];

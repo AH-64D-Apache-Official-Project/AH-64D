@@ -21,7 +21,10 @@ params ["_heli"];
 
 if (isGamePaused) exitwith {};
 
-private _deltaTime = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+private _config      = configFile >> "CfgVehicles" >> typeof _heli;
+private _flightModel = getText (_config >> "fza_flightModel");
+
+private _deltaTime   = ((["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
 
 //Environment
 private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
@@ -39,7 +42,7 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Input
 ([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
 //Weight
 private _emptyMass = 0;
@@ -59,11 +62,13 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
-//Rotor
-private _config      = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel = getText (_config >> "fza_flightModel");
 if (_flightModel != "SFMPlus") then {
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotor;
+    //Main Rotor
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
+    //Tail Rotor
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+    //Drag
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 };
 
 //Fuel
@@ -92,7 +97,7 @@ private _pylonMass = 0;
     _pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
 } foreach magazinesAllTurrets _heli;
 
-private _curMass = _emptyMass + _totFuelMass + _pylonMass;
+private _curMass = _emptyMass + _totFuelMass + _pylonMass; //MASS * 0.453592;
 if (local _heli) then {
     _heli setMass _curMass;
 };
@@ -100,9 +105,6 @@ _heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
-
-//Drag
-[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 
 //Stabilator
 if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
