@@ -13,10 +13,11 @@ class CfgFunctions
             class audioController {RECOMPILE_FLAG;};
             class chaff {RECOMPILE_FLAG;};
             class controller {RECOMPILE_FLAG;};
-            class gunnerFlare {RECOMPILE_FLAG;};
+            class flare {RECOMPILE_FLAG;};
             class irJam {RECOMPILE_FLAG;};
             class missileWarning {RECOMPILE_FLAG;};
             class rlwr {RECOMPILE_FLAG;};
+            class swapFlares {RECOMPILE_FLAG;};
         };
     };
 };

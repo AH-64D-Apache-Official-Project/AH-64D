@@ -4,7 +4,7 @@ class CfgWeapons {
     class fza_CMFlareLauncher: SmokeLauncher 
     {
         scope = 2;
-        displayName = "$STR_A3_CMFlareLauncher0";
+        displayName = "Flares";
         magazines[] = {"60Rnd_CMFlareMagazine"};
         magazineReloadTime = 0.500000;
         simulation = "cmlauncher";
@@ -23,7 +23,7 @@ class CfgWeapons {
                 begin1[] = {"\fza_ah64_us\audio\Flares.ogg", 1.000000, 1, 300};
                 soundBegin[] = {"begin1", 1};
             };
-            showToPlayer = 1;
+            showToPlayer = 0;
             multiplier = 2;
             soundBurst = 0;
             dispersion = 0.4;
@@ -54,6 +54,11 @@ class CfgWeapons {
                 soundBegin[] = {"begin1", 1};
             };
         };
+    };
+    class fza_CMChaffLauncher: fza_CMFlareLauncher 
+    {
+        displayName = "Chaff";
+        magazines[] = {"30Rnd_CMChaffMagazine"};
     };
     class fza_AseIRjammer: SmokeLauncher 
     {

@@ -5,6 +5,7 @@ params ["_heli", "_mpdIndex"];
 
 //Pitch
 private _pitchOn = BOOLTONUM(_heli getVariable "fza_ah64_fmcPitchOn" == true);
+<<<<<<< HEAD
 _heli setUserMfdValue [MFD_INDEX_OFFSET(ACUTIL_IND_PITCH), _pitchOn];
 //Roll
 private _rollOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcRollOn" == true);
@@ -18,3 +19,18 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(ACUTIL_IND_COLL), _collOn];
 //Trim
 private _trimOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcTrimOn" == true);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(ACUTIL_IND_TRIM), _trimOn];
+=======
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_PITCH), _pitchOn];
+//Roll
+private _rollOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcRollOn" == true);
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_ROLL), _rollOn];
+//Yaw
+private _yawOn   = BOOLTONUM(_heli getVariable "fza_ah64_fmcYawOn" == true);
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_YAW), _yawOn];
+//Coll
+private _collOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcCollOn" == true);
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_COLL), _collOn];
+//Trim
+private _trimOn  = BOOLTONUM(_heli getVariable "fza_ah64_fmcTrimOn" == true);
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ACUTIL_TRIM), _trimOn];
+>>>>>>> master

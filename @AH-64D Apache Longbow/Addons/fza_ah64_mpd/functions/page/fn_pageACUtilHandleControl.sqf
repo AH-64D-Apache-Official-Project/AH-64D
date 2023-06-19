@@ -17,6 +17,7 @@ switch(_control) do {
 
     //Pitch
     case "l1": {
+<<<<<<< HEAD
         private _newState = [true, false] select (_heli getVariable "fza_ah64_fmcPitchOn" == true);
         _heli setVariable ["fza_ah64_fmcPitchOn", _newState];
     };
@@ -39,6 +40,25 @@ switch(_control) do {
     case "l5": {
         private _newState = [true, false] select (_heli getVariable "fza_ah64_fmcTrimOn" == true);
         _heli setVariable ["fza_ah64_fmcTrimOn", _newState];
+=======
+        _heli setVariable ["fza_ah64_fmcPitchOn", !(_heli getVariable "fza_ah64_fmcPitchOn")];
+    };
+    //Roll
+    case "l2": {
+        _heli setVariable ["fza_ah64_fmcRollOn", !(_heli getVariable "fza_ah64_fmcRollOn")];
+    };
+    //Yaw
+    case "l3": {
+        _heli setVariable ["fza_ah64_fmcYawOn", !(_heli getVariable "fza_ah64_fmcYawOn")];
+    };
+    //Coll
+    case "l4": {
+        _heli setVariable ["fza_ah64_fmcCollOn", !(_heli getVariable "fza_ah64_fmcCollOn")];
+    };
+    //Trim
+    case "l5": {
+        _heli setVariable ["fza_ah64_fmcTrimOn", !(_heli getVariable "fza_ah64_fmcTrimOn")];
+>>>>>>> master
     };
 
     case "b1": {

@@ -112,12 +112,13 @@
 // 1-indexed missile channel selection for primary and alt
 #define MFD_IND_WPN_SELECTED_PRI_CH 10
 #define MFD_IND_WPN_SELECTED_ALT_CH 11
+#define MFD_IND_WPN_CMS_MODE_TYPE 12
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
-#define MFD_TEXT_IND_WPN_CHAFF_QTY 2
+#define MFD_TEXT_IND_WPN_CMS_QTY 2
 #define MFD_TEXT_IND_WPN_RKT_1_4_TEXT 3
 #define MFD_TEXT_IND_WPN_RKT_2_3_TEXT 4
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
@@ -159,6 +160,7 @@
 #define MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED 2
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
+#define MFD_TEXT_IND_TSD_ROOT_SCALE 5
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -185,6 +187,7 @@
 //TSD WPT page indices
 #define MFD_IND_TSD_WPT_VARIANT 0
 #define MFD_IND_TSD_WPT_ADD_TYPE 1
+#define MFD_IND_TSD_WPT_SHOW_SCALE 2
 
 //TSD RTE page indices
 #define MFD_IND_TSD_RTE_VARIANT 0
@@ -199,12 +202,16 @@
 //TSD THRT page indices
 #define MFD_IND_TSD_THRT_VARIANT 0
 #define MFD_IND_TSD_THRT_ADD_TYPE 1
+#define MFD_IND_TSD_THRT_SHOW_SCALE 2
 
 // FCR Indices
 //--User value
 #define MFD_IND_FCR_ANIM       0
 #define MFD_IND_FCR_SCAN_TYPE  1
 #define MFD_IND_FCR_ACQ_BOX    2
+#define MFD_IND_FCR_MODE       7
+#define MFD_IND_FCR_ATM_BLOCK  8
+#define MFD_IND_FCR_LINE_SHOW  9
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1
@@ -221,21 +228,9 @@
 #define MFD_IND_ASE_IRJAM_STATE  3
 #define MFD_IND_ASE_AUTOPAGE     5
 //--Azimuth
-#define MFD_IND_ASE_OBJECT_01_AZ 6
-#define MFD_IND_ASE_OBJECT_02_AZ 7
-#define MFD_IND_ASE_OBJECT_03_AZ 8
-#define MFD_IND_ASE_OBJECT_04_AZ 9
-#define MFD_IND_ASE_OBJECT_05_AZ 10
-#define MFD_IND_ASE_OBJECT_06_AZ 11
-#define MFD_IND_ASE_OBJECT_07_AZ 12
-//--Mode
-#define MFD_IND_ASE_OBJECT_01_MD 13
-#define MFD_IND_ASE_OBJECT_02_MD 14
-#define MFD_IND_ASE_OBJECT_03_MD 15
-#define MFD_IND_ASE_OBJECT_04_MD 16
-#define MFD_IND_ASE_OBJECT_05_MD 17
-#define MFD_IND_ASE_OBJECT_06_MD 18
-#define MFD_IND_ASE_OBJECT_07_MD 19
+#define MFD_IND_ASE_BRITISH 6
+#define MFD_IND_ASE_AMERICAN 7
+
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
 #define MFD_TEXT_IND_ASE_RLWR_COUNT  1
@@ -295,11 +290,19 @@
 #define MFD_DTU_LOAD_COMPLETE 1
 
 //A/C Util Page
+<<<<<<< HEAD
 #define ACUTIL_IND_PITCH 0
 #define ACUTIL_IND_ROLL  1
 #define ACUTIL_IND_YAW   2
 #define ACUTIL_IND_COLL  3
 #define ACUTIL_IND_TRIM  4
+=======
+#define MFD_IND_ACUTIL_PITCH 0
+#define MFD_IND_ACUTIL_ROLL  1
+#define MFD_IND_ACUTIL_YAW   2
+#define MFD_IND_ACUTIL_COLL  3
+#define MFD_IND_ACUTIL_TRIM  4
+>>>>>>> master
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0

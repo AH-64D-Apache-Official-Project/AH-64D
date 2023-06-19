@@ -27,9 +27,13 @@ private _rlwrPwr     = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _missile = nearestobject [_hostile,_munition];
 private _posHeli = getpos _heli;
 private _posInc = getpos _missile;
+private _seekerHeadIR = 0;
+if (_heli animationPhase "msn_equip_British" == 1) then {
+    _seekerHeadIR = 2;
+};
 
 private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
-if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == "on") then {
+if (([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 || [_seekerhead, _seekerHeadIR] call BIS_fnc_bitwiseAND != 0 ) && _rlwrPwr == "on") then {
         
     _Classification = [_hostile] call fza_ase_fnc_adaClassification;
     private _identity = format ["fza_ah64_bt_%1", _Classification];

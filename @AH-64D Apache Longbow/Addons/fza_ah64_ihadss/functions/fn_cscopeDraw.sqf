@@ -24,16 +24,9 @@ params ["_heli"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _wasState           = _heli getVariable "fza_ah64_was";
-private _nts                = _heli getVariable "fza_ah64_fcrNts";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
-private _nts                = _nts # 0;
-private _ntsIndex           = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex          = 0;
 private _CscopeCount        = 0;
 
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
-};
 {
     if (_CscopeCount > 15) exitwith {};
     if !(_heli getVariable "fza_ah64_fcrcscope") exitwith {
@@ -46,15 +39,7 @@ if (count _fcrTargets > 0) then {
     private _distance_m          = _heli distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
-    private _unitSelAndWpnStatus = ""; //nts, ants
-    private _armaRadarOn         = isVehicleRadarOn _heli;
-    private _GuiPos              = [-100, -100];
-
-    if (_armaRadarOn) then {
-        _GuiPos = worldtoscreen (getpos _obj);
-    } else {
-        _GuiPos = worldtoscreen asltoagl _pos;
-    };
+    private _GuiPos              = worldtoscreen asltoagl _pos;
 
     //Unit type
     switch (_type) do {
@@ -77,33 +62,26 @@ if (count _fcrTargets > 0) then {
             _unitType = "adu";
         };
     };
-
     //Unit status
-    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-        _unitStatus = "MOVE";
-    } else {
-        If (_unitType == "flyer") then {
-            _unitType = "unk";
-        };
-        if (_distance_m >= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
+    if !(_unitType == "FLYER") then {
+        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+            _unitStatus = "MOVE";
         } else {
-            _unitStatus = "LOBL";
+            if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+                _unitStatus = "LOBL";
+            };
+            if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
+                _unitStatus = "LOAL";
+            };
+            if (_distance_m > FCR_LIMIT_STATIONARY_RANGE) then {
+                continue;
+            };
         };
-    };
-    //Unit select status
-    if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
-            _unitSelAndWpnStatus = "_NTS_NoMSL";
-        } else {
-            _unitSelAndWpnStatus = "_NTS";
-        };
-    };
-    if (_forEachIndex == _antsIndex) then {
-        _unitSelAndWpnStatus = "_ANTS";
     };
 
-    private _tex = format ["\fza_ah64_mpd\tex\tsdIcons\%1%2%3_ca.paa", _unitType, _unitStatus, _unitSelAndWpnStatus];
+    if (_distance_m <= FCR_LIMIT_MIN_RANGE) exitwith {};
+
+    private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa", _unitType, _unitStatus];
     
     if (count _GuiPos < 1) then {
         _GuiPos = [-100, -100];
@@ -113,18 +91,9 @@ if (count _fcrTargets > 0) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
 
     _CscopeCount = _CscopeCount + 1;
-
-    _ntsc = _heli getVariable "fza_ah64_fcrNts";
-    if (_obj == _ntsc # 0) then {
-        if (_was == WAS_WEAPON_MSL) then {
-            _targpos = _guipos;
-            _scPos = _guipos;
-        };
-    };
 } forEach (_heli getVariable "fza_ah64_fcrTargets");
 
-private _UnusedCount = (count (_heli getVariable "fza_ah64_fcrTargets"));
-for "_i" from _UnusedCount to 15 do
+for "_i" from _CscopeCount to 15 do
 {
     _GuiPos = [-100, -100];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);

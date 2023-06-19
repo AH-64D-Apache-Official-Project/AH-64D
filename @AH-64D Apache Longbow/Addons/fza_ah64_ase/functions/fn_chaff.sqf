@@ -17,3 +17,7 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+
+if (_heli getVariable "fza_ah64_ase_chaffState" == "safe") exitWith {};
+
+[vehicle player, "fza_CMChaffLauncher", [-1]] call BIS_fnc_fire;

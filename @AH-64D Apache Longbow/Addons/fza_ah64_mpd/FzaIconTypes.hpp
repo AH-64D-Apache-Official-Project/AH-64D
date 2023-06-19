@@ -137,6 +137,10 @@ class FzaIconTypes {
         textA = MPD_ICON_TEXT_ID;
         textAOffset[] = {0.6,0.5}; 
     };
+    class CP:CC  {
+        tex= "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\cp_ca.paa";
+        type  = POINT_TYPE_CM;
+    };
     class AE:IconTypeA {      //Enemy Armor
         tex      = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\enemy\ae_ca.paa";
         type     = POINT_TYPE_CM;
@@ -756,5 +760,12 @@ class FzaIconTypes {
     class FCR_WHEEL_MOVE_NTS:FCR_WHEEL_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_WHEEL_MOVE_NTS_NOMSL:FCR_WHEEL_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
     //Flyer
-    class FCR_FLYER_MOVE:FCR_ADU_LOAL             { tex = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";};
+    class FCR_FLYER_MOVE:IconTypeH {
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+    };
+    class FCR_FLYER_MOVE_ANTS:FCR_FLYER_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
+    class FCR_FLYER_MOVE_NTS:FCR_FLYER_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
+    class FCR_FLYER_MOVE_NTS_NOMSL:FCR_FLYER_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
 };

@@ -78,7 +78,11 @@ class pitch_Off {
     };
 };
 class pitch_On {
+<<<<<<< HEAD
     condition = C_COND(C_MPD_USER(ACUTIL_IND_PITCH));
+=======
+    condition = C_COND(C_MPD_USER(MFD_IND_ACUTIL_PITCH));
+>>>>>>> master
     class pitch_draw {
         class polys_pitchOnOff {
             class Polygons {
@@ -134,7 +138,11 @@ class roll_Off {
     };
 };
 class roll_On {
+<<<<<<< HEAD
     condition = C_COND(C_MPD_USER(ACUTIL_IND_ROLL));
+=======
+    condition = C_COND(C_MPD_USER(MFD_IND_ACUTIL_ROLL));
+>>>>>>> master
     class roll_draw {
         class polys_rollOnOff {
             class Polygons {
@@ -190,7 +198,11 @@ class yaw_Off {
     };
 };
 class yaw_On {
+<<<<<<< HEAD
     condition = C_COND(C_MPD_USER(ACUTIL_IND_YAW));
+=======
+    condition = C_COND(C_MPD_USER(MFD_IND_ACUTIL_YAW));
+>>>>>>> master
     class yaw_draw {
         class polys_yawOnOff {
             class Polygons {
@@ -246,7 +258,11 @@ class coll_Off {
     };
 };
 class coll_On {
+<<<<<<< HEAD
     condition = C_COND(C_MPD_USER(ACUTIL_IND_COLL));
+=======
+    condition = C_COND(C_MPD_USER(MFD_IND_ACUTIL_COLL));
+>>>>>>> master
     class coll_draw {
         class polys_collOnOff {
             class Polygons {
@@ -302,7 +318,11 @@ class trim_Off {
     };
 };
 class trim_On {
+<<<<<<< HEAD
     condition = C_COND(C_MPD_USER(ACUTIL_IND_TRIM));
+=======
+    condition = C_COND(C_MPD_USER(MFD_IND_ACUTIL_TRIM));
+>>>>>>> master
     class trim_draw {
         class polys_trimOnOff {
             class Polygons {

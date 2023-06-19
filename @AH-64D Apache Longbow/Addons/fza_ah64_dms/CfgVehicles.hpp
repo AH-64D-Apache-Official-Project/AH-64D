@@ -26,7 +26,7 @@ class CfgVehicles {
                 control = "Edit";
                 property = "fza_dms_point_index";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
-                defaultValue = "''";
+                defaultValue = "";
                 unique = 0;
                 validate = number;
                 typeName = NUMBER;
@@ -66,6 +66,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Waypoint/Hazards are allowed to range from 1-50";
+                defaultValue = "1";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'WP'";
@@ -82,6 +83,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Control Measures are allowed to range from 51-99."; //Beware that Present Positions (PPOS) will overwrite CM 93 thru 99.
+                defaultValue = "51";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'CP'";
@@ -98,6 +100,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Target/Threats are allowed to range from 1-50";
+                defaultValue = "1";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'TG'";
