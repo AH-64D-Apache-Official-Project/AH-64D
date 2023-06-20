@@ -43,6 +43,7 @@ private _rtrPowerScalarTable    = [
 private _rtrThrustScalar_min    = -0.500;
 private _rtrThrustScalar_max    =  0.580;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
+private _sideThrustScalar       = 0.7;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
 
@@ -54,9 +55,9 @@ private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPo
 private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur - _bladePitch_med) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+//(_heli getVariable "fza_sfmplus_engPctNP")
+//    params ["_eng1PctNP", "_eng2PctNp"];
+private _inputRPM                  = _heli getVariable "fza_sfmplus_xmsnOutputRPM_pct";//_eng1PctNP max _eng2PctNp;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -96,14 +97,15 @@ private _rtrPowerReq               = (_rtrThrust * _velX + _rtrThrust * _rtrCorr
 private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
-//_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+//_heli setVariable ["fza_sfmplus_mainRtrTorque", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 private _totalThrust = _rtrThrust;
-private _thrustX     = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
+private _sideThrust  = _totalThrust * _sideThrustScalar;
+private _thrustX     = _axisX vectorMultiply ((_sideThrust * -1.0) * _deltaTime);
 private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
 private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
 

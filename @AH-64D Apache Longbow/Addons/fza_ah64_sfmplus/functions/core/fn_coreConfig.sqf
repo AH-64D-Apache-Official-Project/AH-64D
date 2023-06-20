@@ -49,6 +49,12 @@ _heli setVariable ["fza_sfmplus_pid_altHold",        [0.015, 0.003, 0.025] call 
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];
 
+//Engine Governors
+_heli setVariable ["fza_sfmplus_pid_engine",         [
+                                                      [100.000, 0.150, 2.500] call fza_fnc_pidCreate
+                                                     ,[100.000, 0.150, 2.500] call fza_fnc_pidCreate
+                                                     ]];
+
 //Fuel and Mass
 if (fuel _heli > 0.99) then {
     private _initFuelFrac  = 0.0;
@@ -66,9 +72,13 @@ if (fuel _heli > 0.99) then {
 
 //Engines
 [_heli] call fza_sfmplus_fnc_engineVariables;
+[_heli] call fza_sfmplus_fnc_simpleEngineVariables;
 
 //Rotors
 [_heli] call fza_sfmplus_fnc_simpleRotorVariables;
+
+//Xmsn
+[_heli] call fza_sfmplus_fnc_simpleXmsnVariables;
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;

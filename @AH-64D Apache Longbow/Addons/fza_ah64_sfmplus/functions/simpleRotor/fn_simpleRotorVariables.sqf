@@ -18,4 +18,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_sfmplus_reqEngTorque",  0.0];
+_heli setVariable ["fza_sfmplus_mainRtrTorque",    0.0];
+_heli setVariable ["fza_sfmplus_mainRtrMOI",       0.0];
+_heli setVariable ["fza_sfmplus_mainRtrGearRatio", 0.0];
