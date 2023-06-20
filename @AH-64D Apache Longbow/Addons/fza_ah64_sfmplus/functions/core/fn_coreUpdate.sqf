@@ -109,12 +109,6 @@ if (local _heli) then {
 };
 _heli setVariable ["fza_sfmplus_GWT", _curMass];
 
-<<<<<<< HEAD
-=======
-//Damage
-[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
-
->>>>>>> master
 //Stabilator
 if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
     || fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
