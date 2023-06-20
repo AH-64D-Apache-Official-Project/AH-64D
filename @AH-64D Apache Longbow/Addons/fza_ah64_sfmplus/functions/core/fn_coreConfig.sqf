@@ -46,7 +46,6 @@ _heli setVariable ["fza_sfmplus_pid_pitch",          [0.550, 0.250, 2.200] call 
 //Attitude Hold
 _heli setVariable ["fza_sfmplus_pid_roll_att",       [0.500, 0.050, 0.050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.550, 0.250, 2.200] call fza_fnc_pidCreate];
-
 //Altitude Hold
 _heli setVariable ["fza_sfmplus_pid_altHold",        [0.015, 0.003, 0.025] call fza_fnc_pidCreate];
 //Heading Hold
