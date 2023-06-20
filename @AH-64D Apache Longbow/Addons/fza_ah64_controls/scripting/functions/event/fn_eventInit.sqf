@@ -82,6 +82,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_trackingobj",  []];
 
     _heli setVariable ["fza_ah64_IAFSInstalled", true, true];
+    _heli setVariable ["fza_ah64_IAFSOn", false, true];
     _heli setVariable["fza_ah64_engineStates", [
         ["OFF", 0],
         ["OFF", 0]

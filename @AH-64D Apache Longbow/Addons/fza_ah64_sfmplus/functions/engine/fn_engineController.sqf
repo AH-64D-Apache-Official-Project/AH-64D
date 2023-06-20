@@ -95,7 +95,6 @@ if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["O
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
 
-
 private _maxTQ    = getNumber (_config >> "engMaxTQ");
 private _limitTQ  = 0.0;
 private _limitRPM = getNumber (_config >> "engIdleNP");

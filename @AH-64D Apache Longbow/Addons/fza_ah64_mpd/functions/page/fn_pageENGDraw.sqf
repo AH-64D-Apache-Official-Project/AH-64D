@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli", "_mpdIndex"];
 
-private _configVehicles = configOf _heli >> "CfgVehicles";
+private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 // #region ENGINE 1
@@ -52,8 +52,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFi
 // #region ROTORS
 private _rotorRpm = 0.0;
 if (_flightModel == "SFMPlus") then {
-     _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
-    _rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
+    _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
 } else {
     _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
 };
