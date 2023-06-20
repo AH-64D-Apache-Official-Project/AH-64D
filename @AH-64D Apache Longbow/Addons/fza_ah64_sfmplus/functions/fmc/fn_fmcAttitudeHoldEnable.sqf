@@ -15,10 +15,20 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
     //5 to 40 knots accelerating, 30 to 5 knots decelerating
     if (_curVel > POS_HOLD_SPEED_SWITCH && _curVel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
         _heli setVariable ["fza_ah64_attHoldSubMode", "vel", true];
+
+        private _curVel   = velocityModelSpace _heli;
+        private _curVelX  = (_curVel # 0) * -1.0;
+        private _curVelY  = _curVel # 1;
+        _heli setVariable ["fza_ah64_attHoldDesiredVel", [_curVelX, _curVelY], true];
     };
     //Attitude hold
     if (_curVel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
-        _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
+    //    _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
+
+    //    private _curAtt   = _heli call BIS_fnc_getPitchBank;
+    //    private _curPitch = (_curAtt # 0) * -1.0;
+    //    private _curRoll  = (_curAtt # 1) * -1.0;
+    //    _heli setVariable ["fza_ah64_attHoldDesiredAtt", [_curPitch, _curRoll], true];
     };
 
     _heli setVariable ["fza_ah64_attHoldActive", true, true];

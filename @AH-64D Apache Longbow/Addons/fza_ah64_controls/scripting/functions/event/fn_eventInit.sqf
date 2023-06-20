@@ -128,8 +128,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     //Attitude Hold
     _heli setVariable ["fza_ah64_attHoldActive",       false, true];
     _heli setVariable ["fza_ah64_attHoldDesiredPos",   getPos _heli, true];
-    _heli setVariable ["fza_ah64_attHoldDesiredVel",   0.0,   true];
-    _heli setVariable ["fza_ah64_attHoldDesiredAtt",   0.0,   true];
+    _heli setVariable ["fza_ah64_attHoldDesiredVel",   [0.0, 0.0],   true];
+    _heli setVariable ["fza_ah64_attHoldDesiredAtt",   [0.0, 0.0],   true];
     _heli setVariable ["fza_ah64_attHoldSubMode",      "pos", true];   //pos, vel, att
     //Altitude Hold
     _heli setVariable ["fza_ah64_altHoldActive",       false, true];
