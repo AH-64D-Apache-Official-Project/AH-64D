@@ -4,7 +4,6 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 private _showScale = (getUserMFDValue _heli) # MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE);
-hintSilent str _showScale;
 
 switch (_control) do {
     case "t2": {

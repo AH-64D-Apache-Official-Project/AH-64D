@@ -296,6 +296,9 @@
 #define MFD_IND_ACUTIL_COLL  3
 #define MFD_IND_ACUTIL_TRIM  4
 
+#define MFD_IND_ABR_PAGE 0
+#define MFD_IND_ABR_PAGENUM 1
+
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
 #define MPD_PAGE_MENU 1
@@ -314,6 +317,7 @@
 #define MPD_PAGE_CHAN 14
 #define MPD_PAGE_PERF 15
 #define MPD_PAGE_ACUTIL 16
+#define MPD_PAGE_ABR 17
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

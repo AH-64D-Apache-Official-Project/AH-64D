@@ -4,6 +4,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _phase = BOOLTONUM(_persistState get "mode" == "atk");
+private _abrReturnTo    = _heli getvariable "fza_ah64_abr_StateReturn";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -50,6 +51,11 @@ switch (_state get "subPageVarPage" select 0) do {
     case 4: {   //THRT
         _this call fza_mpd_fnc_tsdThrtDraw;
     };
+};
+
+if (_abrReturnTo isNotEqualto "") then {
+    _state set ["subPageVarPage", _abrReturnTo];
+    _heli setvariable ["fza_ah64_abr_StateReturn", ""];
 };
 
 private _pointsArray = [];

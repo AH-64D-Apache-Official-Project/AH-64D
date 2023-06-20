@@ -96,6 +96,10 @@ switch (_control) do {
             _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
         };
     }; 
+    case "t4": {
+        [_heli, _mpdIndex, "abr"] call fza_mpd_fnc_setCurrentPage;
+        _heli Setvariable ["fza_ah64_abr_StateReturn", TSD_WPT];
+    };
 };
 
 switch (_variant) do {

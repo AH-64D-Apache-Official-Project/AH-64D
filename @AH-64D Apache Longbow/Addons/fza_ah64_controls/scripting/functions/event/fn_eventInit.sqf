@@ -21,6 +21,7 @@ Author:
     unknown, mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
@@ -159,6 +160,9 @@ _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
+_heli setvariable ["fza_ah64_abr_PageNum", [1, 1]];
+_heli setvariable ["fza_ah64_abr_StateReturn", ""];
+
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
