@@ -23,12 +23,12 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
     };
     //Attitude hold
     if (_curVel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
-    //    _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
+        _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
 
-    //    private _curAtt   = _heli call BIS_fnc_getPitchBank;
-    //    private _curPitch = (_curAtt # 0) * -1.0;
-    //    private _curRoll  = (_curAtt # 1) * -1.0;
-    //    _heli setVariable ["fza_ah64_attHoldDesiredAtt", [_curPitch, _curRoll], true];
+        private _curAtt   = _heli call BIS_fnc_getPitchBank;
+        private _curPitch = _curAtt # 0;
+        private _curRoll  = _curAtt # 1;
+        _heli setVariable ["fza_ah64_attHoldDesiredAtt", [_curPitch, _curRoll], true];
     };
 
     _heli setVariable ["fza_ah64_attHoldActive", true, true];

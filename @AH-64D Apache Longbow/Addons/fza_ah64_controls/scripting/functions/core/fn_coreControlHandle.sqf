@@ -148,13 +148,13 @@ if !(_value) then {
             private _curVelX  = (_curVel # 0) * -1.0;
             private _curVelY  = _curVel # 1;
             //Attitude Hold Pitch & Roll
-            //private _curAtt   = _heli call BIS_fnc_getPitchBank;
-            //private _curPitch = (_curAtt # 0) * -1.0;
-            //private _curRoll  = (_curAtt # 1) * -1.0;
+            private _curAtt   = _heli call BIS_fnc_getPitchBank;
+            private _curPitch = _curAtt # 0;
+            private _curRoll  = _curAtt # 1;
             _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                 true];
             _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,          true];
             _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
-            //_heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
+            _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
             _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
             _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
