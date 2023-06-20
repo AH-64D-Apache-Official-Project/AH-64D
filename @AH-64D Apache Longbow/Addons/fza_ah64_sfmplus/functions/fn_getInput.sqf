@@ -146,14 +146,6 @@ if (_flightModel == "SFMPlus") then {
         _yawTorque = 0.0;
     };
 
-    //Yaw torque
-    //private _pedalTorque     = (fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim) * _yawTorque;
-    //private _fmcPedalTorque  = 0.0;
-    //if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
-    //    _fmcPedalTorque  = (_hdgHoldPedalYawOut * (_yawTorque * 0.20));
-    //};
-    //_pedalTorque             = 0.0;//(_pedalTorque + _fmcPedalTorque) * _rtrRPM;
-
     //State info
     private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
     private _eng1PwrLvrState = _engPwrLvrState select 0;
