@@ -4,24 +4,21 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 private _abrPage        = _heli Getvariable "fza_ah64_abr_PageNum";
+private _abrPageReturn  = _heli Getvariable "fza_ah64_abr_PageReturn";
 private _abrPageNum     = _abrPage  # _mpdIndex;
 
 switch (_control) do {
     case "t2": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side, 1];
+        _abrPageReturn set [_mpdIndex, [1]];
         [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };
     case "t4": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side, 1];
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };
     case "b1": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side, 1];
+        _abrPageReturn set [_mpdIndex, [1]];
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };
@@ -36,20 +33,17 @@ switch (_control) do {
         _abrPage set [_mpdIndex, _set];
     };
     case "b4": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side,TSD_WPT];
+        _abrPageReturn set [_mpdIndex,TSD_WPT];
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };
     case "b5": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side,TSD_RTE];
+        _abrPageReturn set [_mpdIndex,TSD_RTE];
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };
     case "b6": {
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side,TSD_THRT];
+        _abrPageReturn set [_mpdIndex,TSD_THRT];
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
         _abrPage set [_mpdIndex, 1];
     };

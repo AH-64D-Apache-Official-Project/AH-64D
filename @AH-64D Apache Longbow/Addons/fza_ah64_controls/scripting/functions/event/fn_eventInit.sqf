@@ -161,7 +161,7 @@ _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
 _heli setvariable ["fza_ah64_abr_PageNum", [1, 1]];
-
+_heli setvariable ["fza_ah64_abr_PageReturn", [[1],[1]]];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;

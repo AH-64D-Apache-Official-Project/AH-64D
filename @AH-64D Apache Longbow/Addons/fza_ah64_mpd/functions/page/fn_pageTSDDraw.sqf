@@ -4,9 +4,8 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _phase = BOOLTONUM(_persistState get "mode" == "atk");
-private _ABRside = ["ABRL", "ABRR"] select _mpdIndex;
-private _abrReturnTo = _persistState get _ABRside;
-hintsilent str _abrReturnTo;
+private _abrReturnTo  = _heli Getvariable "fza_ah64_abr_PageReturn";
+private _abrReturn = _abrReturnTo # _mpdIndex;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -55,9 +54,9 @@ switch (_state get "subPageVarPage" select 0) do {
     };
 };
 
-if (_abrReturnTo # 1 isEqualTo 0) then {
-    _state set ["subPageVarPage", _abrReturnTo];
-    _persistState set [_ABRside, [1]];
+if (_abrReturn # 0 in [2,3,4]) then {
+    _state set ["subPageVarPage", _abrReturn];
+    _abrReturnTo set [_mpdIndex, [1]];
 };
 
 private _pointsArray = [];

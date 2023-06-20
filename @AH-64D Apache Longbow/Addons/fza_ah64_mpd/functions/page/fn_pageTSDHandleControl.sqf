@@ -15,7 +15,7 @@ switch (_control) do {
     case "b2": {
         private _newMode = ["atk", "nav"] select (_persistState get "mode" == "atk");
         _persistState set ["mode", _newMode];
-    };    
+    };
 };
 
 switch (_state get "subPageVarPage" select 0) do {

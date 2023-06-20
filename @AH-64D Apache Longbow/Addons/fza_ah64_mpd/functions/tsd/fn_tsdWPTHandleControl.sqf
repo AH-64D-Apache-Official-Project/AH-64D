@@ -33,6 +33,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistStage"];
 private _phase   = BOOLTONUM(_persistState get "mode" == "atk");
 private _variant = _state get "subPageVarPage" select 1;
 private _isThrtPage = _state get "subPageVarPage" select 0 == TSD_THRT # 0;
+private _abrPageReturn  = _heli Getvariable "fza_ah64_abr_PageReturn";
 
 if (_control == "l1" && _variant == 0) exitWith {
     private _callBack = {
@@ -98,8 +99,7 @@ switch (_control) do {
     }; 
     case "t4": {
         [_heli, _mpdIndex, "abr"] call fza_mpd_fnc_setCurrentPage;
-        private _side = ["ABRL", "ABRR"] select _mpdIndex;
-        _persistState set [_side, TSD_WPT];
+        _abrPageReturn set [_mpdIndex, TSD_WPT];
     };
 };
 
