@@ -2,8 +2,10 @@ params ["_heli", "_deltaTime"];
 
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
+private _pidRoll_att  = _heli getVariable "fza_sfmplus_pid_roll_att"; 
 //Pitch
 private _pidPitch     = _heli getVariable "fza_sfmplus_pid_pitch";
+private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
@@ -50,9 +52,9 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
        (_heli getVariable "fza_ah64_attHoldDesiredAtt")
               params ["_setPitch", "_setRoll"];
 
-        private _roll  = [_pidRoll,  _deltaTime, _setRoll, _curRoll] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll_att,  _deltaTime, _setRoll, _curRoll] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch, _deltaTime, _setPitch, _curPitch] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch_att, _deltaTime, _setPitch, _curPitch] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch * -1.0;
