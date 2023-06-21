@@ -30,10 +30,11 @@ private _totVel   = [_gravX, _gravY, _gravZ] vectorAdd [_heliVelX, _heliVelY, _h
 private _totVelX  = _totVel # 0;
 private _totVelY  = _totVel # 1;
 private _totVelZ  = _totVel # 2;
+private _vel      = vectorMagnitude _totVel;
 
 //Alpha is the angle between the helicopters forward velocity and vertical velocity
 private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
-private _beta     = if (_totVelY == 0.0 || _totVelZ == 0.0) then { 0.0; } else { atan (_totVelX / sqrt(_totVelY^2 + _totVelZ^2)); };
+private _beta     = if (_totVelY == 0.0 || _totVelZ == 0.0) then { 0.0; } else { asin (_totVelX / _vel); };
 
 [_alpha, _beta];
