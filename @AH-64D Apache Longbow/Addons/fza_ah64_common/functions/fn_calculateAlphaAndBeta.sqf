@@ -34,6 +34,6 @@ private _totVelZ  = _totVel # 2;
 //Alpha is the angle between the helicopters forward velocity and vertical velocity
 private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
-private _beta     = if (_totVelY == 0.0 || _totVelZ == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
+private _beta     = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
 
 [_alpha, _beta];
