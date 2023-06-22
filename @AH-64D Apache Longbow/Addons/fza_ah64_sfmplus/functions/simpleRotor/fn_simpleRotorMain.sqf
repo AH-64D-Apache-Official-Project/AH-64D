@@ -113,8 +113,9 @@ private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) 
 //Rotor thrust force
 _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
 //Main rotor torque effect
-_heli addTorque (_heli vectorModelToWorld _torqueZ);
-
+if (fza_ah64_sfmplusEnableTorqueSim) then {
+    _heli addTorque (_heli vectorModelToWorld _torqueZ);
+};
 //Camera shake effect for ETL (16 to 24 knots)
 if (_velXY > 8.23 && _velXY < 12.35) then {
     enableCamShake true;
