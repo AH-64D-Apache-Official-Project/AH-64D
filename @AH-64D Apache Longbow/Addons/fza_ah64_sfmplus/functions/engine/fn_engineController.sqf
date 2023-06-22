@@ -96,7 +96,7 @@ if (_flightModel == "SFMPlus") then {
     private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
     private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
     private _rtrRPM  = _eng1Np max _eng2Np;
-    private _realRPM = _heli animationPhase "mainRotorRPM";
+    private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
     private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
     private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
@@ -117,7 +117,7 @@ if (_flightModel == "SFMPlus") then {
     private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
     if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
         _rtrRPM = _droopRPM;
-            if ((_realRPM / 10)  > _rtrRPM) then {
+            if (_realRPM  > _rtrRPM) then {
             _heli setHitpointDamage ["hithrotor", 0.9];
         } else {
             _heli setHitpointDamage ["hithrotor", 0.0];
