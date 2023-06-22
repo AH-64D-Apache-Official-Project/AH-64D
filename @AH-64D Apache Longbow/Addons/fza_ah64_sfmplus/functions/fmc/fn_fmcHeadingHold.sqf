@@ -65,5 +65,4 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     [_pid] call fza_fnc_pidReset;
 };
 
-//systemChat format ["Heading Hold = %1 -- Heading Error = %2 -- Pedal = %3 -- Sub-Mode = %4 -- Sideslip = %5", _heli getVariable "fza_ah64_hdgHoldActive", _hdgError toFixed 2, fza_sfmplus_pedalLeftRight toFixed 2, _subMode, fza_ah64_sideslip];
 _output;
