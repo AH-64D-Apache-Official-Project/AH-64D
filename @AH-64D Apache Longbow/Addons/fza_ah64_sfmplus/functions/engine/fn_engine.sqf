@@ -27,6 +27,7 @@ private _flightModel   = getText (_sfmPlusConfig >> "fza_flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isAutorotating      = _heli getVariable "fza_sfmplus_isAutorotating";
 private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
 private _engPctNG            = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
 private _engPctNP            = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
@@ -132,7 +133,11 @@ switch (_engState) do {
 			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
 			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
 
-			_engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+            if (!_isAutorotating) then {
+			    _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+            } else {
+                _engPctNP    = 1.01;
+            };
 		};
 	};
 };
