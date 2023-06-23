@@ -25,6 +25,7 @@ private _flightModel       = getText (_configVehicles>> "fza_flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
+private _inputLagValue     = getNumber (_config >> "inputLagValue");
 
 private _hydFailure        = false;
 private _tailRtrFixed      = false;
@@ -40,17 +41,21 @@ private _accOn             = _heli getVariable "fza_systems_accOn";
 
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
+_cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
+fza_sfmplus_cyclicFwdAft     = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+
 //Cyclic roll
 private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
+_cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-
-//hintsilent format ["Pitch Trim = %1
-//                  \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
+fza_sfmplus_cyclicLeftRight  = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 
 //Pedals
-private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-private _pedalLeftRigthTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+_pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+fza_sfmplus_pedalLeftRight   = _pedalLeftRight;
 
 private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
 
@@ -82,7 +87,7 @@ if (_flightModel == "SFMPlus") then {
         _hydFailure = true;
     };
 
-    if (!_hydFailure) then {
+    if (!_hydFailure || _accOn) then {
         if (isNil "fza_sfmplus_collectiveOutput") then {
             fza_sfmplus_collectiveOutput = 0;
         };
