@@ -66,7 +66,8 @@ if (_mpdState # _side # 6 == 1) then {
 
 private _persistState = _mpdState # _side # 4;
 
-private _state = ((_config >> "InitState") call fza_fnc_configToHashMap) merge [_stateOverride, true];
+private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
+_state merge [_stateOverride, true];
 
 if !(_page in _persistState) then {
     _persistState set [_page, (_config >> "PersistState") call fza_fnc_configToHashMap]
