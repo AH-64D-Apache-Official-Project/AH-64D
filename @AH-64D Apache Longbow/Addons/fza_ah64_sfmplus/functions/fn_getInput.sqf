@@ -38,6 +38,7 @@ private _utilHydPSI        = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn             = _heli getVariable "fza_systems_accOn";
+private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
@@ -45,9 +46,6 @@ private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 //Cyclic roll
 private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-
-//hintsilent format ["Pitch Trim = %1
-//                  \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
 
 //Pedals
 private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
@@ -71,7 +69,6 @@ if (_flightModel == "SFMPlus") then {
         _collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
     };
 } else {
-    //systemChat format ["HeliSim Input Handler"];
     //Keyboard collective
     private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
     private _keyCollectiveDn = inputAction "HeliCollectiveLower";
@@ -89,13 +86,11 @@ if (_flightModel == "SFMPlus") then {
         };
 
         if (fza_ah64_sfmPlusKeyboardOnly) then {
-            //systemChat format ["Keyboard only!"];
             private _collectiveVal = fza_sfmplus_collectiveOutput;
             if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
             if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
             fza_sfmplus_collectiveOutput = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
         } else {
-            //systemChat format ["Joystick only!"];
             private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
@@ -141,7 +136,8 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-if (_rtrRPM > SYS_HYD_MIN_RTR_RPM then {
+if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
+    systemChat format ["Rtr RPM %1", _rtrRPM];
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
         _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
