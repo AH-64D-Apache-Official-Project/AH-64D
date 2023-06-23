@@ -66,8 +66,13 @@ private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;
 if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;
-} else { 
-    _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
+} else {
+    //Collective must be < 20% and TAS between 45 and 120 kts
+    if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 23.15 && _velXY < 61.73)) then {
+        _inducedVelocityScalar = 1 - (_velZ / 7.62);
+    } else {
+        _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
+    };
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
