@@ -25,6 +25,7 @@ private _flightModel       = getText (_configVehicles>> "fza_flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
+private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
 private _hydFailure        = false;
 private _tailRtrFixed      = false;
@@ -140,7 +141,7 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-if (_eng1PwrLvrState in ["IDLE","FLY"] || _eng2PwrLvrState in ["IDLE","FLY"]) then {
+if (_rtrRPM > SYS_HYD_MIN_RTR_RPM then {
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
         _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);

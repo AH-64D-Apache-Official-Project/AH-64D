@@ -67,8 +67,8 @@ private _inducedVelocityScalar     = 1.0;
 if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;
 } else {
-    //Collective must be < 20% and TAS between 45 and 120 kts
-    if (fza_sfmplus_collectiveOutput < 0.20 && (_velXY > 23.15 && _velXY < 61.73)) then {
+    //Collective must be < 20% and TAS must be < 145 kts
+    if (fza_sfmplus_collectiveOutput < 0.20 && _velXY < 74.59) then {
         _inducedVelocityScalar = 1 - (_velZ / 7.62);
     } else {
         _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
@@ -80,7 +80,7 @@ private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
-private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
+private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
