@@ -139,7 +139,6 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 
 //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
-    systemChat format ["Rtr RPM %1", _rtrRPM];
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
         _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
