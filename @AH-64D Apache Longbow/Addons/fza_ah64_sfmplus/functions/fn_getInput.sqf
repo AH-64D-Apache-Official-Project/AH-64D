@@ -120,14 +120,24 @@ if (_flightModel == "SFMPlus") then {
     };
 };
 
+private _isZeus = !isNull findDisplay 312;
+
+if (_isZeus) then {
+    systemChat "TRUE! No Control!";
+} else {
+    systemChat "FALSE! Control!";
+};
+
 //Cyclic and Pedals 
-if (!freelook) then {
+if (!freelook && !_isZeus) then {
+    systemChat "Control!";
     fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
     fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
     if (!_tailRtrFixed) then {
         fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {
+    systemChat "No Control!";
     fza_sfmplus_cyclicFwdAft    = 0.0;
     fza_sfmplus_cyclicLeftRight = 0.0;
     fza_sfmplus_pedalLeftRight  = 0.0;
