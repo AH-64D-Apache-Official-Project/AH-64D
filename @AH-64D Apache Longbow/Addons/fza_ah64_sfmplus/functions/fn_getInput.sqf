@@ -56,6 +56,7 @@ private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
 
 private _collectiveOut      = 0.0;
 if (_flightModel == "SFMPlus") then {
+    private _collectiveOut = 0.0;
     private _collectiveVal = _heli animationSourcePhase "collective";
 
     if (fza_ah64_sfmPlusKeyboardOnly) then {
@@ -69,6 +70,7 @@ if (_flightModel == "SFMPlus") then {
     } else {
         _collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
     };
+    fza_sfmplus_collectiveOutput = _collectiveOut;
 } else {
     //Keyboard collective
     private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
