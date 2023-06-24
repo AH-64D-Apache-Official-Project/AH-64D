@@ -120,6 +120,7 @@ if (_flightModel == "SFMPlus") then {
             fza_sfmplus_prevCollective = _collectiveVal;
         };
     };
+};
 
 //Cyclic and Pedals 
 fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
