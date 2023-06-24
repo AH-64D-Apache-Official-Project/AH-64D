@@ -8,6 +8,7 @@ Parameters:
     _heli - the apache to show the correct values for.
     _side - 0 for left MPD, 1 for right MPD
     _page - page name
+    _stateOverride - (Optional) modifications to apply to the config-defined state.
 
 Returns:
     True if change was made, false if not.
@@ -27,7 +28,7 @@ Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-params ["_heli", "_side", "_page"];
+params ["_heli", "_side", "_page", ["_stateOverride", createHashMap]];
 
 // fza_mpd_mpdState = [[_pageName, _pageIndex, _drawFunc, _state],[again]]
 
@@ -66,6 +67,7 @@ if (_mpdState # _side # 6 == 1) then {
 private _persistState = _mpdState # _side # 4;
 
 private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
+_state merge [_stateOverride, true];
 
 if !(_page in _persistState) then {
     _persistState set [_page, (_config >> "PersistState") call fza_fnc_configToHashMap]

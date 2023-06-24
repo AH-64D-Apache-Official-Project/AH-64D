@@ -104,8 +104,7 @@ private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 private _totalThrust = _rtrThrust;
-private _sideThrust  = _totalThrust * _sideThrustScalar;
-private _thrustX     = _axisX vectorMultiply ((_sideThrust * -1.0) * _deltaTime);
+private _thrustX     = _axisX vectorMultiply ((_totalThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
 private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
 

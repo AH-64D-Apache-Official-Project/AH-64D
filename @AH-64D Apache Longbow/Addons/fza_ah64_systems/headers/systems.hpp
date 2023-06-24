@@ -14,6 +14,7 @@
 #define SYS_HYD_RES_MIN_DMG 0.50
 #define SYS_HYD_RES_MOD_DMG 0.67
 #define SYS_HYD_RES_HVY_DMG 0.83
+#define SYS_HYD_MIN_RTR_RPM 0.45
 
 #define SYS_MIN_RPM       0.85
 

@@ -64,40 +64,6 @@ if (_control == "l1" && _variant == 0) exitWith {
 4. Choose type - WP (def), HZ, CM
 5. L1 Point select & input data via KU
 */
-
-switch (_control) do {
-    case "r1": {
-        if (_showScale == -1) then {
-        } else {
-            _heli setVariable ["fza_ah64_rangesetting", 50000];
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
-        };
-    };
-    case "r2": {
-        if (_showScale == -1) then {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), 1];
-        } else {
-            _heli setVariable ["fza_ah64_rangesetting", 25000];
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
-        };
-    };
-    case "r3": {
-        if (_showScale == -1) then {
-            _persistState set ["ctr", 1 - (_persistState get "ctr")];
-        } else {
-            _heli setVariable ["fza_ah64_rangesetting", 10000];
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
-        };
-    };
-    case "r4": {
-        if (_showScale == -1) then {
-        } else {
-            _heli setVariable ["fza_ah64_rangesetting", 5000];
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_SCALE), -1];
-        };
-    }; 
-};
-
 switch (_variant) do {
     case 0: {   //Top level TSD page
         switch (_control) do {
@@ -132,12 +98,18 @@ switch (_variant) do {
                     _state set ["subPageVarPage", POINT_PAGE_EDT_POINTSEL];
                 };
             };
-            case "l5": {    //WPT > ST
+            case "l5": {    //WPT > STO
                 _state set ["subPageVarPage", POINT_PAGE_STO];
             };
             /*case "l6": {    //WPT > XMIT
                 _state set ["subPageVarPage", TSD_WPT_XMIT];
             };*/
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
+            case "r3": {
+                _persistState set ["ctr", 1 - (_persistState get "ctr")];
+            };
         };
     };
     case 1: {   //WPT > ADD
@@ -192,6 +164,9 @@ switch (_variant) do {
                 _state set ["addType", POINT_TYPE_CM];
             };
             #endif
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 2: {   //WPT > DEL no point selected
@@ -207,6 +182,9 @@ switch (_variant) do {
             };
             case "l3": {    //Do not delete - "No", return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };
@@ -229,6 +207,9 @@ switch (_variant) do {
             case "l3": {    //Do not delete - "No", return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
             };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 4: {   //WPT > EDT no point selected
@@ -244,6 +225,9 @@ switch (_variant) do {
             };
             case "l4": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };
@@ -277,6 +261,9 @@ switch (_variant) do {
             case "l4": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
             };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
+            };
         };
     };
     case 6: {   //WPT > STO page
@@ -302,6 +289,9 @@ switch (_variant) do {
             };
             case "l5": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
+            };
+            case "r2": {
+                [_heli] call fza_mpd_fnc_handleZoom;
             };
         };
     };
