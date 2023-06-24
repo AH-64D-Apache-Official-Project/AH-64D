@@ -15,7 +15,7 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
     //5 to 40 knots accelerating, 30 to 5 knots decelerating
     if (_curVel > POS_HOLD_SPEED_SWITCH && _curVel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
         _heli setVariable ["fza_ah64_attHoldSubMode", "vel", true];
-
+        
         private _curVel   = velocityModelSpace _heli;
         private _curVelX  = (_curVel # 0) * -1.0;
         private _curVelY  = _curVel # 1;

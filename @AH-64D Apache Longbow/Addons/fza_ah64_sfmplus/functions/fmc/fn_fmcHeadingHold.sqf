@@ -2,13 +2,8 @@ params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _pidHdg      = _heli getVariable "fza_sfmplus_pid_hdgHold";
-//_pidHdg set ["kp", H_KP];
-//_pidHdg set ["ki", H_KI];
-//_pidHdg set ["kd", H_KD];
 private _pidTrn      = _heli getVariable "fza_sfmplus_pid_trnCoord";
-//_pidTrn set ["kp", T_KP];
-//_pidTrn set ["ki", T_KI];
-//_pidTrn set ["kd", T_KD];
+
 private _curHdg      = getDir _heli;
 private _desiredHdg  = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _desiredSlip = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
@@ -70,7 +65,5 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
 } else {
     [_pid] call fza_fnc_pidReset;
 };
-
-//systemChat format ["Des Slip = %1 -- Cur Slip = %2", _desiredSlip toFixed 3, fza_ah64_sideslip toFixed 3];
 
 _output;
