@@ -1,13 +1,18 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_sign
+
 Description:
     Returns the sign of a number
+
 Parameters:
     _val = The number  
+
 Returns:
     ...
+
 Examples:
     ...
+
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
