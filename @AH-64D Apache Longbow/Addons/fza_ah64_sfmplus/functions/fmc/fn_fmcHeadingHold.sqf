@@ -1,15 +1,16 @@
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _pidHdg     = _heli getVariable "fza_sfmplus_pid_hdgHold";
-private _pidTrn     = _heli getVariable "fza_sfmplus_pid_trnCoord";
-private _curHdg     = getDir _heli;
-private _desiredHdg = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
-private _hdgError   = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
-private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _subMode    = _heli getVariable "fza_ah64_hdgHoldSubMode";
-private _attSubMode = _heli getVariable "fza_ah64_attHoldSubMode";
-private _output     = 0.0;
+private _pidHdg      = _heli getVariable "fza_sfmplus_pid_hdgHold";
+private _pidTrn      = _heli getVariable "fza_sfmplus_pid_trnCoord";
+
+private _curHdg      = getDir _heli;
+private _desiredHdg  = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
+private _desiredSlip = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
+private _curVel      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+private _subMode     = _heli getVariable "fza_ah64_hdgHoldSubMode";
+private _attSubMode  = _heli getVariable "fza_ah64_attHoldSubMode";
+private _output      = 0.0;
 //Breakout values expand as the aircraft goes faster to provide good pedal response
 //at a hover. The expanded range is meant to de-sensitize the pedals in order to 
 //prevent disengaging the heading hold mode during cruise flight
@@ -53,12 +54,12 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-        _output = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _output = [_pidHdg, _deltaTime, _desiredHdg, _curHdg] call fza_fnc_pidRun;
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, 0.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun;
+        _output = [_pidTrn, _deltaTime, _desiredSlip * - 1.0, fza_ah64_sideslip * -1.0] call fza_fnc_pidRun; //0.0 needs to be replaced w/ _desiredSlip
         _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
     };
 } else {
