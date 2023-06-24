@@ -2,6 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli", "_mpdIndex"];
 
+
 // #region ENGINE 1
 private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
 private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
