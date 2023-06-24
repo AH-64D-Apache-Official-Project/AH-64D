@@ -78,7 +78,7 @@ private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
-private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
+private _thrustCoef                = if (_rtrOmega == EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
