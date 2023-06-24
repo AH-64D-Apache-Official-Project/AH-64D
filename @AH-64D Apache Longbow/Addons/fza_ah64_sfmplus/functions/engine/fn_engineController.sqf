@@ -25,7 +25,6 @@ private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_Sf
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
-
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
@@ -43,6 +42,7 @@ if (_apuOn && local _heli) then {
 };
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
     _isSingleEng = false;
