@@ -87,7 +87,11 @@ switch (_engState) do {
 		//Ng
 		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
-		_engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
+        if (!_isAutorotating) then { 
+		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
+        } else {
+            _engPctNP    = 1.01;
+        };
 		//Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
 	};
@@ -133,7 +137,7 @@ switch (_engState) do {
 			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
 			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
 
-            if (!_isAutorotating) then {
+            if (!_isAutorotating) then { 
 			    _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             } else {
                 _engPctNP    = 1.01;
