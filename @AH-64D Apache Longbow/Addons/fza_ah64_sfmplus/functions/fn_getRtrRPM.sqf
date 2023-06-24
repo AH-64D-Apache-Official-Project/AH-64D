@@ -18,8 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _cfg         = configOf _heli;
-private _flightModel = getText (_cfg >> "fza_flightModel");
+private _flightModel = getText (configOf _heli >> "fza_flightModel");
 
 private _rtrRPM = 0.0;
 if (_flightModel == "SFMPlus") then {

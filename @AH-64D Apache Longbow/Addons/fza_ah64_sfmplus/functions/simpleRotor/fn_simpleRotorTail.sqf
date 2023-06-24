@@ -43,6 +43,7 @@ private _rtrPowerScalarTable    = [
 private _rtrThrustScalar_min    = -0.500;
 private _rtrThrustScalar_max    =  0.580;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
+private _sideThrustScalar       = 0.7;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
 
@@ -103,7 +104,7 @@ private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 private _totalThrust = _rtrThrust;
-private _thrustX     = _axisX vectorMultiply ((_totalThrust * -1.0) * _deltaTime);
+private _thrustX     = _axisX vectorMultiply ((-1 * _totalThrust * _sideThrustScalar) * _deltaTime);
 private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
 private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
 

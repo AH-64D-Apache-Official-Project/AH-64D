@@ -25,7 +25,6 @@ private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_Sf
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
-
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
@@ -43,6 +42,7 @@ if (_apuOn && local _heli) then {
 };
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
     _isSingleEng = false;
@@ -84,8 +84,17 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_eng1State == "OFF" && _eng2State == "OFF" && local _heli) then {
+if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
     _heli engineOn false;
+};
+
+private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
+    && fza_sfmplus_collectiveOutput < 0.20
+    && !isTouchingGround _heli) then {
+    _heli setVariable ["fza_sfmplus_isAutorotating", true];
+} else {
+    _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
 
 if (_flightModel == "SFMPlus") then {
@@ -96,7 +105,7 @@ if (_flightModel == "SFMPlus") then {
     private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
     private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
     private _rtrRPM  = _eng1Np max _eng2Np;
-    private _realRPM = _heli animationPhase "mainRotorRPM";
+    private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
     private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
     private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
@@ -117,7 +126,7 @@ if (_flightModel == "SFMPlus") then {
     private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
     if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
         _rtrRPM = _droopRPM;
-            if ((_realRPM / 10)  > _rtrRPM) then {
+            if (_realRPM  > _rtrRPM) then {
             _heli setHitpointDamage ["hithrotor", 0.9];
         } else {
             _heli setHitpointDamage ["hithrotor", 0.0];
