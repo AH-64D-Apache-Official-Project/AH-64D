@@ -25,6 +25,7 @@ private _flightModel       = getText (_configVehicles>> "fza_flightModel");
 private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
 private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 private _yawTorque         = getNumber (_config >> "pedalYawTorque");
+private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
 private _hydFailure        = false;
 private _tailRtrFixed      = false;
@@ -37,6 +38,7 @@ private _utilHydPSI        = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
 private _accOn             = _heli getVariable "fza_systems_accOn";
+private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
 
@@ -110,28 +112,36 @@ if (_flightModel == "SFMPlus") then {
         };
     };
 
-    (_heli getVariable "fza_sfmplus_engPctNP")
-        params ["_eng1PctNP", "_eng2PctNp"];
-    private _rtrRPM          = _eng1PctNP max _eng2PctNp;
-    
-    //Ensure inputs remain within -1.0 to 1.0
-    fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-    fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-    fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+//Cyclic and Pedal Torque
+fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+//Cyclic pitch
+private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
+private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
+_foreAftTorque           = _foreAftTorque + _fmcPitchTorque;
+//Cyclic roll
+private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
+private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
+_leftRightTorque         = _leftRightTorque + _fmcRollTorque;
 
-    //Cyclic pitch torque
-    private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
-    private _fmcPitchTorque  = 0.0;
-    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcPitchOn") then {
-        _fmcPitchTorque      = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
-    };
-    _foreAftTorque           = (_foreAftTorque + _fmcPitchTorque) * _rtrRPM;
+if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
+    _tailRtrFixed = true;
+};
 
-    //Cyclic roll torque
-    private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) *  _rollTorque;
-    private _fmcRollTorque   = 0.0;
-    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcRollOn") then {
-        _fmcRollTorque       = (_attHoldCycRollOut * (_rollTorque * 0.10));
+if (_tailRtrDamage == 1.0 || _tailRtrFixed == true) then {
+    _yawTorque = 0.0;
+};
+
+private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
+private _eng1PwrLvrState = _engPwrLvrState select 0;
+private _eng2PwrLvrState = _engPwrLvrState select 1;
+
+if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
+    systemChat format ["Rtr RPM %1", _rtrRPM];
+    //Primary and Utility Hydraulics
+    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
     };
     _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 
