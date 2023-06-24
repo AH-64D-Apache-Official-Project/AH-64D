@@ -25,6 +25,7 @@ class Bones {
     #include "pages\ase_bones.hpp"
     #include "pages\fcr_bones.hpp"
     #include "pages\wpn_bones.hpp"
+    #include "pages\abr_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
@@ -92,5 +93,9 @@ class Draw
     class ACUTIL{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ACUTIL));
         #include "pages\acutil_draw.hpp"
+    };
+    class Abr{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ABR));
+        #include "pages\abr_draw.hpp"
     };
 };

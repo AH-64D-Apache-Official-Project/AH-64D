@@ -173,6 +173,14 @@ class CfgVehicles {
                 draw  = "fza_mpd_fnc_pageACUtilDraw";
                 handleControl = "fza_mpd_fnc_pageACUtilHandleControl";
             };
+            class ABR {
+                index = MPD_PAGE_ABR;
+                draw  = "fza_mpd_fnc_pageABRDraw";
+                handleControl = "fza_mpd_fnc_pageABRHandleControl";
+                class InitState {
+                    pageNumber = 1;
+                };
+            };
         };
     };
 };
