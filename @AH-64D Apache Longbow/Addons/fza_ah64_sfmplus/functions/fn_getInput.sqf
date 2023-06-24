@@ -121,10 +121,16 @@ if (_flightModel == "SFMPlus") then {
 };
 
 //Cyclic and Pedals 
-fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-if (!_tailRtrFixed) then {
-    fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+if (!freelook) then {
+    fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+    fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+    if (!_tailRtrFixed) then {
+        fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+    };
+} else {
+    fza_sfmplus_cyclicFwdAft    = 0.0;
+    fza_sfmplus_cyclicLeftRight = 0.0;
+    fza_sfmplus_pedalLeftRight  = 0.0;
 };
 
 //Cyclic pitch torque
