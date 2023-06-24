@@ -46,10 +46,6 @@ private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 //Cyclic roll
 private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-
-//hintsilent format ["Pitch Trim = %1
-//                  \nRoll Trim = %2", _cyclicFwdAftTrim, _cyclicLeftRightTrim];
-
 //Pedals
 private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 private _pedalLeftRigthTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
@@ -119,6 +115,11 @@ if (_flightModel == "SFMPlus") then {
         params ["_eng1PctNP", "_eng2PctNp"];
     private _rtrRPM          = _eng1PctNP max _eng2PctNp;
     
+    //Ensure inputs remain within -1.0 to 1.0
+    fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+    fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+    fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+
     //Cyclic pitch torque
     private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
     private _fmcPitchTorque  = 0.0;
