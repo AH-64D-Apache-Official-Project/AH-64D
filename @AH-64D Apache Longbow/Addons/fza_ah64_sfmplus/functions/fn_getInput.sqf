@@ -41,8 +41,6 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
-private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
-
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
@@ -120,6 +118,7 @@ if (_flightModel == "SFMPlus") then {
             fza_sfmplus_prevCollective = _collectiveVal;
         };
     };
+};
 
 //Cyclic and Pedals 
 fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
