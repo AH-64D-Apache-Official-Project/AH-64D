@@ -513,7 +513,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -536,7 +536,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -559,7 +559,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -582,7 +582,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -605,7 +605,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -628,7 +628,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -651,7 +651,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -674,7 +674,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -697,7 +697,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -720,7 +720,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -743,7 +743,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -766,7 +766,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -789,7 +789,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -812,7 +812,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -835,7 +835,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -858,7 +858,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\ICONS\ah64_ac.paa";
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = -100;
@@ -1536,7 +1536,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\MPD\cue_ca.paa";
+                        text = "\fza_ah64_US\tex\cue_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
