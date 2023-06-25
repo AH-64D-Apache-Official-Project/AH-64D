@@ -3,7 +3,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-private _abrPage        = _state get "pageNumber";
+private _abrPage        = _persistState get "pageNumber";
 private _tsdState      = _state get "tsdState";
 
 switch (_control) do {
@@ -18,11 +18,11 @@ switch (_control) do {
     };
     case "b2": {
         if (_abrPage > 1) then {_abrPage = _abrPage - 1;};
-        _state set ["pageNumber", _abrPage];
+        _persistState set ["pageNumber", _abrPage];
     };    
     case "b3": {
         if (_abrPage < 3) then {_abrPage = _abrPage + 1;};
-        _state set ["pageNumber", _abrPage];
+        _persistState set ["pageNumber", _abrPage];
     };
     case "b4": {
         [_heli, _mpdIndex, "tsd", ["subPageVarPage"] createHashMapFromArray [TSD_WPT]] call fza_mpd_fnc_setCurrentPage;

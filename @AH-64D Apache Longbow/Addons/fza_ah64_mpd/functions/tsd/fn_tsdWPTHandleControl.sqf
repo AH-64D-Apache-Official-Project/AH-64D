@@ -57,6 +57,11 @@ if (_control == "l1" && _variant == 0) exitWith {
     private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
     [_heli, "POINT", _callback, _checker, _state, _startValue, "point select"] call fza_ku_fnc_addPrompt;
 };
+
+if (_control == "t4") then {
+    [_heli, _mpdIndex, "abr", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
+};
+
 /*
 1. TSD - Select
 2. WPT - Select
@@ -109,9 +114,6 @@ switch (_variant) do {
             };
             case "r3": {
                 _persistState set ["ctr", 1 - (_persistState get "ctr")];
-            };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
             };
         };
     };
@@ -170,9 +172,6 @@ switch (_variant) do {
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
             };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
-            };
         };
     };
     case 2: {   //WPT > DEL no point selected
@@ -191,9 +190,6 @@ switch (_variant) do {
             };
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
-            };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
             };
         };
     };
@@ -219,9 +215,6 @@ switch (_variant) do {
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
             };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
-            };
         };
     };
     case 4: {   //WPT > EDT no point selected
@@ -240,9 +233,6 @@ switch (_variant) do {
             };
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
-            };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
             };
         };
     };
@@ -279,9 +269,6 @@ switch (_variant) do {
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
             };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
-            };
         };
     };
     case 6: {   //WPT > STO page
@@ -311,9 +298,6 @@ switch (_variant) do {
             case "r2": {
                 [_heli] call fza_mpd_fnc_handleZoom;
             };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
-            };
         };
     };
     case 7: {   //WPT > XMIT page
@@ -332,9 +316,6 @@ switch (_variant) do {
             };
             case "l6": {    //Return to WPT page
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
-            };
-            case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
             };
         };
     };

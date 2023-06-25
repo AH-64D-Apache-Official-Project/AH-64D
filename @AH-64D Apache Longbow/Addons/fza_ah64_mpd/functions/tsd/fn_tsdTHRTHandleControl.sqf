@@ -8,7 +8,7 @@ switch (_variant) do {
                 _state set ["subPageVarPage", TSD_ROOT];
             };
             case "t4": {
-                [_heli, _mpdIndex, "abr", createHashMapFromArray [["tsdState", _state]]] call fza_mpd_fnc_setCurrentPage;
+                [_heli, _mpdIndex, "abr", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
             };
         };
     };

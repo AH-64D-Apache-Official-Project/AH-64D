@@ -177,7 +177,7 @@ class CfgVehicles {
                 index = MPD_PAGE_ABR;
                 draw  = "fza_mpd_fnc_pageABRDraw";
                 handleControl = "fza_mpd_fnc_pageABRHandleControl";
-                class InitState {
+                class PersistState {
                     pageNumber = 1;
                 };
             };
