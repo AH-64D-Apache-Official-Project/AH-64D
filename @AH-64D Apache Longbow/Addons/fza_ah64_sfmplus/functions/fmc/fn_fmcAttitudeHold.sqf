@@ -28,7 +28,18 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
         _attHoldCycRollOut  = _roll;
     };
     //Velocity hold
+    if (_subMode == "vel") then {
+        (_heli getVariable "fza_ah64_attHoldDesiredVel")
+            params ["_setVelX", "_setVelY"];
 
+        private _roll  = [_pidRoll,  _deltaTime, _setVelX, _curVelX] call fza_fnc_pidRun;
+        _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
+        private _pitch = [_pidPitch, _deltaTime, _setVelY, _curVelY] call fza_fnc_pidRun;
+        _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
+
+        _attHoldCycPitchOut = _pitch;
+        _attHoldCycRollOut  = _roll;
+    };
     //Attitude hold
 } else {
     [_pidRoll]  call fza_fnc_pidReset;

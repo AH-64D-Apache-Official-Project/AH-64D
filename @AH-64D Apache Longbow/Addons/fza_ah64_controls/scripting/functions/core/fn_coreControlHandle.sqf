@@ -143,10 +143,15 @@ if !(_value) then {
             [_heli] call fza_fnc_laserDisarm;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            _heli setVariable ["fza_ah64_forceTrimInterupted",    false,      true];
-            _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli, true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli, true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip, true];
+            //Velocity Hold Velocities
+            private _curVel   = velocityModelSpace _heli;
+            private _curVelX  = (_curVel # 0) * -1.0;
+            private _curVelY  = _curVel # 1;
+            _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                true];
+            _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,         true];
+            _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY], true];
+            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,         true];
+            _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,    true];
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };
