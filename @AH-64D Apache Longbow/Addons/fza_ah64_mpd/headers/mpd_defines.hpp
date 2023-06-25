@@ -1,3 +1,8 @@
+#define MPD_COLOUR_GREEN  {0.2, 1, 0, 1}
+#define MPD_COLOUR_CYAN   {0,1,1,1}
+#define MPD_COLOUR_RED    {1,0,0,1}
+#define MPD_COLOUR_YELLOW {1,1,0,1}
+
 /* Constants: Text size constants
   MPD_TEXT_HEIGHT - Height of a single normal character
   MPD_TEXT_HEIGHT_VEC - Height to put into type="text" for a character with width MPD_TEXT_WIDTH
