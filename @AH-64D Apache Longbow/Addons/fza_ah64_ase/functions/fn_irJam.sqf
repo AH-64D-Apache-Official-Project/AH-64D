@@ -50,7 +50,7 @@ switch (_irJamState) do {
         } else {
             if (_heli getHitPointDamage "HitLFab" < 0.8 && (CBA_missionTime - _irJamLaunchTimer) >= 1 && _heli animationPhase "msn_equip_american" == 1) then {
                 [_heli, "fza_AseIRjammer", [-1]] call BIS_fnc_fire;
-                _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", _timeElapsed];
+                _heli setVariable ["fza_ah64_ase_irJamLaunchTimer", CBA_missionTime];
             };
         };
     };
