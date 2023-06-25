@@ -20,6 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYawOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_systems\headers\systems.hpp"
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;
@@ -43,7 +44,7 @@ private _rtrPowerScalarTable    = [
 private _rtrThrustScalar_min    = -0.500;
 private _rtrThrustScalar_max    =  0.580;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
-private _sideThrustScalar       = 0.7;
+private _sideThrustScalar       = 0.9;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
 
@@ -78,7 +79,7 @@ private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
-private _thrustCoef                = if (_rtrOmega == 0) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
+private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the hover induced velocity
@@ -103,15 +104,22 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
+
 private _totalThrust = _rtrThrust;
 private _thrustX     = _axisX vectorMultiply ((_totalThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
 private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
 
-//Rotor thrust force
-_heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
-//Tail rotor torque effect
-_heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
+private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
+private _TGBDamage     = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
+
+if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
+    //Rotor thrust force
+    _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+    //Tail rotor torque effect
+    _heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+};
 
 #ifdef __A3_DEBUG__
 [_heli, _rtrPos, _rtrPos vectorAdd _axisX, "red"]   call fza_fnc_debugDrawLine;
