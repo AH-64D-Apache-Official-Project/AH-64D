@@ -37,7 +37,7 @@ class lines {
     type = line;
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, 0.5 - MPD_TEXT_WIDTH * 6.5, 13 * MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT),
+        MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 6.5), 0.09, (13 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),
         {},
         {{0.495, 0.15}, 1},
         {{0.495, 0.90}, 1},
