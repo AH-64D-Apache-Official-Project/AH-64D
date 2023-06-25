@@ -426,60 +426,7 @@ class CfgSoundShaders {
         rangeCurve[] = {{0, 0}, {150, 1}, {500, 0}};
         limitation = 1;
     };
-    
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////ATAS/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
 
-    class fza_atas_close_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\Close_1.ogg", 1}};
-        volume = "4*(1-interior/1.4)";
-        range = 100;
-        //rangeCurve[] = {{0, 1}, {20, 1}, {50, 0}};
-        frequency = 1;
-    };
-    class fza_atas_close_distance_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\Close_Distance.ogg", 1}};
-        volume = "3.9810717*(1-interior/1.4)";
-        range = 300;
-        rangeCurve[] = {{0, 0}, {10, 0.25}, {20, 0.5}, {50, 1}, {100, 1}, {300, 0}};
-        frequency = 1;
-    };
-    class fza_atas_medium_distance_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\Medium_Distance.ogg", 1}};
-        volume = 3.9810717;
-        range = 600;
-        rangeCurve[] = {{0, 0}, {100, 0}, {300, 1}, {600, 0}};
-        frequency = 1;
-    };
-    class fza_atas_close_distance_pool_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_1.ogg", 1}};
-        volume = 3.9810717;
-        range = 1500;
-        rangeCurve[] = {{0, 0}, {300, 0}, {600, 1}, {1500, 0}};
-        frequency = 1;
-    };
-    class fza_atas_far_distance_pool_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_far_1.ogg", 1}};
-        volume = 3.9810717;
-        range = 2000;
-        rangeCurve[] = {{0, 0}, {600, 0}, {1500, 1}, {2000, 0}};
-        frequency = 1;
-    };
-    class fza_atas_very_far_distance_pool_soundshader 
-    {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_very_far_1.ogg", 1}};
-        volume = 3.9810717;
-        range = 4000;
-        rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
-        frequency = 1;
-    };
-    
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////HELLFIRE/////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
@@ -510,7 +457,7 @@ class CfgSoundShaders {
     };
     class fza_agm114_close_distance_pool_soundshader 
     {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_1.ogg", 1}};
+        samples[] = {{"fza_ah64_us\audio\AGM114\distance\shot_1.ogg", 1}};
         volume = 3.9810717;
         range = 1500;
         rangeCurve[] = {{0, 0}, {300, 0}, {600, 1}, {1500, 0}};
@@ -518,7 +465,7 @@ class CfgSoundShaders {
     };
     class fza_agm114_far_distance_pool_soundshader 
     {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_far_1.ogg", 1}};
+        samples[] = {{"fza_ah64_us\audio\AGM114\distance\shot_far_1.ogg", 1}};
         volume = 3.9810717;
         range = 2000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 1}, {2000, 0}};
@@ -526,7 +473,7 @@ class CfgSoundShaders {
     };
     class fza_agm114_very_far_distance_pool_soundshader 
     {
-        samples[] = {{"fza_ah64_us\audio\ATAS\distance\shot_very_far_1.ogg", 1}};
+        samples[] = {{"fza_ah64_us\audio\AGM114\distance\shot_very_far_1.ogg", 1}};
         volume = 3.9810717;
         range = 4000;
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
