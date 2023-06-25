@@ -37,8 +37,6 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
         private _pitch = [_pidPitch, _deltaTime, _setVelY, _curVelY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
-        systemChat format ["Vel Hold! Des X %1 -- Des Y %2", _setVelX, _setVelY];
-
         _attHoldCycPitchOut = _pitch;
         _attHoldCycRollOut  = _roll;
     };
