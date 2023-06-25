@@ -13,6 +13,7 @@
 #define MIN_TIME_BETWEEN_UPDATES 0.1
 
 #define EPSILON                 0.000001
+#define MIN_THRUST              1
 #define FEET_TO_METERS          0.3048
 #define IN_MG_TO_HPA            33.8639
 
