@@ -21,7 +21,7 @@ switch (_control) do {
         _persistState set ["pageNumber", _abrPage];
     };    
     case "b3": {
-        if (_abrPage < 3) then {_abrPage = _abrPage + 1;};
+        if (_abrPage < MFD_ABR_NUMPAGES) then {_abrPage = _abrPage + 1;};
         _persistState set ["pageNumber", _abrPage];
     };
     case "b4": {

@@ -94,7 +94,7 @@ class Draw
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ACUTIL));
         #include "pages\acutil_draw.hpp"
     };
-    class Abr{
+    class ABR{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ABR));
         #include "pages\abr_draw.hpp"
     };

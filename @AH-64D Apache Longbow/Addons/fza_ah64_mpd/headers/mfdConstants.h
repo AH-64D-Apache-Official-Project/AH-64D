@@ -302,7 +302,7 @@
 #define MFD_IND_ABR_PAGE 0
 #define MFD_IND_ABR_PAGENUM 1
 //abr pages
-#define MFD_ABR_PAGENUM 3
+#define MFD_ABR_NUMPAGES 3
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
