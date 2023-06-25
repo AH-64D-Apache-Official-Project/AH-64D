@@ -87,4 +87,12 @@ COCKPIT_CONTROL("nvs_mode_sw", "nvs_mode_swg",nvs, "NVS",mode, 0.04, "NVS Mode")
 
 COCKPIT_CONTROL("plt_flood", "cpg_flood",light, "Lighting",floodlight, 0.04, "Floodlight") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("plt_anticollision", "",light, "Lighting",anticollision, 0.04, "Anti-Collision Light") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("plt_ku_ctr", "cpg_ku_ctr",ku, "Keyboard Unit",activate, 0.15, "Activate KU input")
+COCKPIT_CONTROL("plt_ku_ctr", "cpg_ku_ctr",ku, "Keyboard Unit",activate, 0.15, "Activate KU input") COCKPIT_CONTROL_SEP
+
+COCKPIT_CONTROL("plt_btn_arm_safe", "cpg_btn_arm_safe",armSafeBtn, "Armament Panel",armSafe, 0.04, "ARM/SAFE Button") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("plt_btn_gnd_oride", "cpg_btn_gnd_oride",gndOrideBtn, "Armament Panel",gndOride, 0.04, "GND ORIDE Button") COCKPIT_CONTROL_SEP
+
+COCKPIT_CONTROL("plt_btn_emer_hyd", "cpg_btn_emer_hyd",emerHydBtn, "Emergency Panel",emerHyd, 0.04, "EMER HYD Button") COCKPIT_CONTROL_SEP
+
+COCKPIT_CONTROL("plt_btn_mstr_caut", "cpg_btn_mstr_caut",mstrCautBtn, "Master Warning/Caution Panel",mstrCaut, 0.04, "MSTR CAUT Button") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("plt_btn_mstr_warn", "cpg_btn_mstr_warn",mstrWarnBtn, "Master Warning/Caution Panel",mstrWarn, 0.04, "MSTR WARN Button")
