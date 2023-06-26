@@ -19,30 +19,32 @@ class Bones {};
 class Draw
 {
     #define CHAR_HEIGHT 0.1
-    class arm_top
-    {
-        type = "text"; 
-        source = "static";
-        sourceIndex = 0;
-        text = "ARM";
-        scale=1;
-        align="center";
-        sourceScale = 1;
-        pos[] = {{0, 0}, 1};
-        right[] = {{0.0, 0}, 1};
-        down[] = {{0, -0.5 * CHAR_HEIGHT}, 1};
-    };
-    class safe_bot
-    {
-        type = "text"; 
-        source = "static";
-        sourceIndex = 0;
-        text = "SAFE";
-        scale=1;
-        align="center";
-        sourceScale = 1;
-        pos[] = {{0, 0}, 1};
-        right[] = {{0.0, 0}, 1};
-        down[] = {{0, 0.5 * CHAR_HEIGHT}, 1};
+    class pushButton {
+        class arm_top
+        {
+            type = "text";
+            source = "static";
+            text = "ARM";
+            sourceIndex = 0;
+            scale=1;
+            align="right";
+            sourceScale = 1;
+            pos[] = {{0, 0}, 1};
+            right[] = {{0, 0}, 1};
+            down[] = {{0, -0.2}, 1};
+        };
+        class safe_bot
+        {
+            type = "text";
+            source = "static";
+            text = "SAFE";
+            sourceIndex = 0;
+            scale=1;
+            align="right";
+            sourceScale = 1;
+            pos[] = {{0, 0}, 1};
+            right[] = {{0, 0}, 1};
+            down[] = {{0, 0.2}, 1};
+        };
     };
 };

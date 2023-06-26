@@ -18,17 +18,19 @@ class Bones {};
 // HUD-Elements definitions
 class Draw
 {
-    class gnd_oride
-    {
-        type = "text"; 
-        source = "static";
-        sourceIndex = 0;
-        text = "ON";
-        scale=1;
-        align="center";
-        sourceScale = 1;
-        pos[] = {{0, 0}, 1};
-        right[] = {{0.0, 0}, 1};
-        down[] = {{0, 0}, 1};
+    class pushButton {
+        class gnd_oride
+        {
+            type = "text";
+            source = "static";
+            text = "ON";
+            sourceIndex = 0;
+            scale=1;
+            align="right";
+            sourceScale = 1;
+            pos[] = {{0, 0}, 1};
+            right[] = {{0, 0}, 1};
+            down[] = {{0, 0.0}, 1};
+        };
     };
 };
