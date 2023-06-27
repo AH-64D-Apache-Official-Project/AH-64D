@@ -41,8 +41,13 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
-if (currentPilot _heli != driver _heli) exitWith { systemChat "You're not the pilot!"; };
-systemChat format "You're the pilot!";
+if (gunner _heli isEqualTo player) exitWith { 
+    systemChat "You are the gunner and thus cannot fly! All inputs nulled!";
+    fza_sfmplus_cyclicFwdAft     = 0.0;
+    fza_sfmplus_cyclicLeftRight  = 0.0;
+    fza_sfmplus_pedalLeftRight   = 0.0;
+    fza_sfmplus_collectiveOutput = 0.0;
+};
 
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
