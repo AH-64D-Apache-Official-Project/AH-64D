@@ -41,6 +41,9 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
+if (currentPilot _heli != driver _heli) exitWith { systemChat "You're not the pilot!"; };
+systemChat format "You're the pilot!";
+
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
