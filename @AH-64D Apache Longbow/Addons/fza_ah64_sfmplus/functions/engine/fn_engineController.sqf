@@ -35,6 +35,10 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
+private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
+private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+private _rtrRPM  = _eng1Np max _eng2Np;
+
 if (_apuOn && local _heli) then {
     if ((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) then {
         _heli engineOn true;
@@ -88,23 +92,23 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _hel
     _heli engineOn false;
 };
 
+//Autorotation handler
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
     && fza_sfmplus_collectiveOutput < 0.20
-    && !isTouchingGround _heli) then {
+    && !isTouchingGround _heli
+    && _rtrRPM > EPSILON) then {
     _heli setVariable ["fza_sfmplus_isAutorotating", true];
 } else {
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
+//End Autorotation handler
 
 if (_flightModel == "SFMPlus") then {
     private _maxTQ    = getNumber (_config >> "engMaxTQ");
     private _limitTQ  = 0.0;
     private _limitRPM = getNumber (_config >> "engIdleNP");
 
-    private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
-    private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
-    private _rtrRPM  = _eng1Np max _eng2Np;
     private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
     private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;

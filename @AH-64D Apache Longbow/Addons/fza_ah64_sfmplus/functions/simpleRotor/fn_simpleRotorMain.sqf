@@ -44,7 +44,7 @@ private _rtrGndEffModifier      = 0.238;
 private _rtrThrustScalar_min    = 0.120;
 private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 0.25;
+private _rtrTorqueScalar        = 1.10;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -85,18 +85,18 @@ _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0
 
 //Calculate the hover induced velocity
 private _sign                      = [_rtrThrust] call fza_fnc_sign;
-private _rtrInducedVelocity        = sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign;
+private _rtrInducedVelocity        = if (_rtrThrust <= MIN_THRUST) then { 0.0; } else { sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign; };
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
-private _u = if (_w == 0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
-private _n = if (_w == 0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
-private _rtrCorrInducedVelocity    = if (_w == 0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
+private _u = if (_w <= EPSILON) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
+private _n = if (_w <= EPSILON) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
+private _rtrCorrInducedVelocity    = if (_w <= EPSILON) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
 private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
 //Calculate the required rotor torque
-private _rtrTorque                 = if (_rtrOmega == 0) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
+private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
