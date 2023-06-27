@@ -1,4 +1,4 @@
-color[] = {0.74, 0.85, 0, 1};
+color[] = {0.0, 0.80, 0.51, 1};
 helmetMountedDisplay=0;
 borderBottom=0;
 borderLeft=0;
@@ -16,21 +16,25 @@ class material
 };
 class Bones {};
 // HUD-Elements definitions
-class Draw
-{
+class Draw {
+    #define START_X 0.5
+    #define START_Y 0.5
+    
+    #define CHAR_WIDTH_VEC 0.32
+    #define CHAR_HEIGHT 0.5
+
     class pushButton {
-        class gnd_oride
-        {
+        class gnd_oride {
             type = "text";
             source = "static";
             text = "ON";
             sourceIndex = 0;
-            scale=1;
-            align="right";
+            scale=1.0;
+            align="center";
             sourceScale = 1;
-            pos[] = {{0, 0}, 1};
-            right[] = {{0, 0}, 1};
-            down[] = {{0, 0.0}, 1};
+            pos[]   = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT}, 1};
+            right[] = {{START_X + CHAR_WIDTH_VEC, START_Y - 0.5*CHAR_HEIGHT},1};
+            down[]  = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
         };
     };
 };

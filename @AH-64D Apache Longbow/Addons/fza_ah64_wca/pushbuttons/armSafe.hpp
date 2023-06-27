@@ -1,4 +1,4 @@
-color[] = {0.74, 0.85, 0, 1};
+color[] = {0.0, 0.80, 0.51, 1};
 helmetMountedDisplay=0;
 borderBottom=0;
 borderLeft=0;
@@ -16,35 +16,44 @@ class material
 };
 class Bones {};
 // HUD-Elements definitions
-class Draw
-{
-    #define CHAR_HEIGHT 0.1
+class Draw {
+    #define START_X     0.50
+    #define TOP_START_Y 0.275
+    #define BOT_START_Y 0.725
+    
+    #define CHAR_WIDTH_VEC 0.32
+    #define CHAR_HEIGHT 0.5
+
     class pushButton {
-        class arm_top
-        {
-            type = "text";
-            source = "static";
-            text = "ARM";
-            sourceIndex = 0;
-            scale=1;
-            align="right";
-            sourceScale = 1;
-            pos[] = {{0, 0}, 1};
-            right[] = {{0, 0}, 1};
-            down[] = {{0, -0.2}, 1};
+        class yellow {
+            color[] = {0.98, 0.80, 0.24, 1};
+            class arm_top {
+                type = "text";
+                source = "static";
+                text = "ARM";
+                sourceIndex = 0;
+                scale=1.0;
+                align="center";
+                sourceScale = 1;
+                pos[]   = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT}, 1};
+                right[] = {{START_X + CHAR_WIDTH_VEC, TOP_START_Y - 0.5*CHAR_HEIGHT},1};
+                down[]  = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+            };
         };
-        class safe_bot
-        {
-            type = "text";
-            source = "static";
-            text = "SAFE";
-            sourceIndex = 0;
-            scale=1;
-            align="right";
-            sourceScale = 1;
-            pos[] = {{0, 0}, 1};
-            right[] = {{0, 0}, 1};
-            down[] = {{0, 0.2}, 1};
+        class green {
+            color[] = {0.0, 0.80, 0.51, 1};
+            class arm_bot {
+                type = "text";
+                source = "static";
+                text = "SAFE";
+                sourceIndex = 0;
+                scale=1.0;
+                align="center";
+                sourceScale = 1;
+                pos[]   = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT}, 1};
+                right[] = {{START_X + CHAR_WIDTH_VEC, BOT_START_Y - 0.5*CHAR_HEIGHT},1};
+                down[]  = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+            };
         };
     };
 };

@@ -12,3 +12,5 @@ class CfgPatches
 
 #include "CfgFunctions.hpp"
 #include "CfgVehicles.hpp"
+
+#include "\fza_ah64_mpd\headers\mpd_defines.hpp"
