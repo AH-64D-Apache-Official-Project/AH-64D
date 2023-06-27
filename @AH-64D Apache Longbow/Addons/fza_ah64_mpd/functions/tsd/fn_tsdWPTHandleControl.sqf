@@ -57,6 +57,11 @@ if (_control == "l1" && _variant == 0) exitWith {
     private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
     [_heli, "POINT", _callback, _checker, _state, _startValue, "point select"] call fza_ku_fnc_addPrompt;
 };
+
+if (_control == "t4") then {
+    [_heli, _mpdIndex, "abr", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
+};
+
 /*
 1. TSD - Select
 2. WPT - Select

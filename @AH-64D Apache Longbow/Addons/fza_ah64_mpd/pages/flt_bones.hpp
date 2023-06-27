@@ -50,8 +50,8 @@ class Flt_SlipIndicator {
     type = linear;
     MPD_NUM_USER(MFD_IND_FLT_SLIP)
     sourceScale = 1;
-    min = -0.15;
-    max =  0.15;
+    min = -1.00;
+    max =  1.00;
     maxPos[] = {0.375, 0.9525};
     minPos[] = {0.625, 0.9525};
 };

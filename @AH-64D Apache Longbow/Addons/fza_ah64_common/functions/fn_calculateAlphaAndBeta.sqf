@@ -1,15 +1,24 @@
 /* ----------------------------------------------------------------------------
 Function: fza_fnc_calculateAlphaAndBeta
+
 Description:
     Calculates and returns _alpha (angle of attack) and _beta (sideslip) for the
-    helicopter.
+    helicopter. 
+
+    Reference: 
+    https://www.mathworks.com/help/aeroblks/incidencesideslipairspeed.html
+    https://trace.tennessee.edu/cgi/viewcontent.cgi?referer=&httpsredir=1&article=5851&context=utk_gradthes
+    
 Parameters:
     _heli - The apache helicopter to check.
+
 Returns:
     _alpha (angle of attack) in degrees
     _beta (sideslip) in degrees
+
 Examples:
     ...
+
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
@@ -34,6 +43,6 @@ private _totVelZ  = _totVel # 2;
 //Alpha is the angle between the helicopters forward velocity and vertical velocity
 private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
-private _beta     = if (_totVelY == 0.0 || _totVelZ == 0.0) then { 0.0; } else { atan (_totVelX / sqrt(_totVelY^2 + _totVelZ^2)); };
+private _beta     = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
 
 [_alpha, _beta];

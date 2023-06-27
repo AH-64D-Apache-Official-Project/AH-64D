@@ -41,8 +41,6 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
-private _tailRtrDamage      = _heli getHitPointDamage "hitvrotor";
-
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
@@ -122,11 +120,19 @@ if (_flightModel == "SFMPlus") then {
     };
 };
 
+private _isZeus = !isNull findDisplay 312;
+
 //Cyclic and Pedals 
-fza_sfmplus_cyclicFwdAft    = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-fza_sfmplus_cyclicLeftRight = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-if (!_tailRtrFixed) then {
-    fza_sfmplus_pedalLeftRight  = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+if (!freelook && !_isZeus) then {
+    fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+    fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+    if (!_tailRtrFixed) then {
+        fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+    };
+} else {
+    fza_sfmplus_cyclicFwdAft    = 0.0;
+    fza_sfmplus_cyclicLeftRight = 0.0;
+    fza_sfmplus_pedalLeftRight  = 0.0;
 };
 
 //Cyclic pitch torque
@@ -141,7 +147,6 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 
 //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
-    systemChat format ["Rtr RPM %1", _rtrRPM];
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
         _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
