@@ -18,8 +18,8 @@ class Bones {};
 // HUD-Elements definitions
 class Draw {
     #define START_X     0.50
-    #define TOP_START_Y 0.275
-    #define BOT_START_Y 0.725
+    #define TOP_START_Y 0.28
+    #define BOT_START_Y 0.72
     
     #define CHAR_WIDTH_VEC 0.32
     #define CHAR_HEIGHT 0.5
