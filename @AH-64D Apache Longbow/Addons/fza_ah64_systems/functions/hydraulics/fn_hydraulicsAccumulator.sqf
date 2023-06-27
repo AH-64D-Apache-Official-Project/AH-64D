@@ -28,8 +28,9 @@ private _accOn         = _heli getVariable "fza_systems_accOn";
 private _accTimer      = _heli getVariable "fza_systems_accTimer";
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
-    _accOn         = true;
-    _accHydPSI_pct = [_accHydPSI_pct, 0.0, (1 / _accTimer) * _deltaTime] call BIS_fnc_lerp;
+    if (_accOn) then {
+        _accHydPSI_pct = [_accHydPSI_pct, 0.0, (1 / _accTimer) * _deltaTime] call BIS_fnc_lerp;
+    };
 };
 _accHydPSI = _accHydPSI_pct  * 3000.0;
 

@@ -13,6 +13,13 @@ switch (_control) do {
     };
     case "emerHyd": {
         systemChat "Emer Hyd";
+
+        if (!(_heli getVariable "fza_systems_accOn")) then {
+            _heli setVariable ["fza_systems_accOn", true, true];
+        } else {
+            _heli setVariable ["fza_systems_accOn", false, true];
+        };
+
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrCaut": {
