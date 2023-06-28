@@ -44,7 +44,7 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
 
 if (gunner _heli isEqualTo player) exitWith { 
-    systemChat "You are the gunner and your FMC outputs are being ignored!";
+    //systemChat "You are the gunner and your FMC outputs are being ignored!";
     _attHoldCycPitchOut = 0.0;
     _attHoldCycRollOut  = 0.0;
     _hdgHoldPedalYawOut = 0.0;

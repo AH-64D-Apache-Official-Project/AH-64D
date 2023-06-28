@@ -42,7 +42,7 @@ private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 if (gunner _heli isEqualTo player) exitWith { 
-    systemChat "You are the gunner and thus cannot fly! All inputs nulled!";
+    //systemChat "You are the gunner and thus cannot fly! All inputs nulled!";
     fza_sfmplus_cyclicFwdAft     = 0.0;
     fza_sfmplus_cyclicLeftRight  = 0.0;
     fza_sfmplus_pedalLeftRight   = 0.0;
