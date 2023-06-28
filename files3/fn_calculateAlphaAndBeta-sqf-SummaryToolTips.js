@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_calculateAlphaAndBeta.sqf",{98:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Calculates and returns _alpha (angle of attack) and _beta (sideslip) for the helicopter.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_calculateAlphaAndBeta.sqf",{94:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Calculates and returns _alpha (angle of attack) and _beta (sideslip) for the helicopter.</div></div>"});
