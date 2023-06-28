@@ -41,6 +41,12 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
+if (currentPilot _heli != gunner _heli) then {
+    systemChat "The gunner is not flying!";
+} else {
+    systemChat "The gunner is flying!";
+};
+
 if (gunner _heli isEqualTo player) exitWith { 
     //systemChat "You are the gunner and thus cannot fly! All inputs nulled!";
     fza_sfmplus_cyclicFwdAft     = 0.0;
