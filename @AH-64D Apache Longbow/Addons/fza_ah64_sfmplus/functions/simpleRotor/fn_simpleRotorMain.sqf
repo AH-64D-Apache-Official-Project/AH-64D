@@ -113,7 +113,6 @@ _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
-systemChat format ["Thrust = %1 N -- Collective = %2", _totalThrust toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
