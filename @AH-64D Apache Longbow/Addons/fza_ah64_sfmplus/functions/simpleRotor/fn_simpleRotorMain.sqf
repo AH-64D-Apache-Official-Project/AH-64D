@@ -88,9 +88,9 @@ private _sign                      = [_rtrThrust] call fza_fnc_sign;
 private _rtrInducedVelocity        = if (_rtrThrust <= MIN_THRUST) then { 0.0; } else { sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign; };
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
-private _u = if (_w <= EPSILON) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
-private _n = if (_w <= EPSILON) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
-private _rtrCorrInducedVelocity    = if (_w <= EPSILON) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
+private _u = if (_w == 0.0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
+private _n = if (_w == 0.0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
+private _rtrCorrInducedVelocity    = if (_w == 0.0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
 private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
@@ -113,12 +113,11 @@ _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+systemChat format ["Thrust = %1 N -- Collective = %2", _totalThrust toFixed 2, fza_sfmplus_collectiveOutput toFixed 3];
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
 if (currentPilot _heli == player) then { 
-    systemChat "You are the pilot in command, applying main rotor forces!";
-
     _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
     //Main rotor torque effect
     if (fza_ah64_sfmplusEnableTorqueSim) then {
