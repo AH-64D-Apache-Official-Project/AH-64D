@@ -116,8 +116,13 @@ do {
             _heli setUserMFDText [6, "<>UH 240.500* -FCK- C3   L2 249.500"]; 
             _heli setUserMFDText [7, "<>F1  39.075  -UR-- C5 H T1  45.500"]; 
             _heli setUserMFDText [8, "<>F2  49.500  -SLF- C2   L3  69.525"];
-        }
+        };
 
+        if (_heli getVariable "fza_ah64_IAFSInstalled") then {
+            _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 1];
+        } else {
+            _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 0];
+        };
     } else {
         _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
     };

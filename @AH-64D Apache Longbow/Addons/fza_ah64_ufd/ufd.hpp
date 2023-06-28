@@ -59,11 +59,27 @@ class Draw
             right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
             down[] = {{0, __EVAL(10*UFD_CHAR_HEIGHT)}, 1};
         };
-        class Fuel : Line9
-        {
-            source = fuel;
-            sourceScale = 2518;
-            sourceLength = 4;
+        class FuelIAFSInstalled {
+            condition = "user4";
+            class Fuel
+            {
+                type = "text";
+                scale=1;
+                align="right";
+                source = fuel;
+                sourceScale = 3181;
+                sourceLength = 4;
+                pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
+                right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
+                down[] = {{0, __EVAL(10*UFD_CHAR_HEIGHT)}, 1};
+            };
+        };
+        class FuelIAFSNotInstalled : FuelIAFSInstalled {
+            condition = "1-user4";
+            class Fuel : Fuel
+            {
+                sourceScale = 2518;
+            };
         };
         class Time : Line9
         {
