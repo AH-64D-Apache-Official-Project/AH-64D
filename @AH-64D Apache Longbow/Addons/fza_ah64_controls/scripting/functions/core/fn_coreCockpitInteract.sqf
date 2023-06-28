@@ -42,4 +42,19 @@ switch (_system) do {
     case "ku": {
         [_heli, _system, _control] call fza_ku_fnc_toggleInput;
     };
+    case "armSafeBtn": {
+        [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
+    };
+    case "gndOrideBtn": {
+        [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
+    };
+    case "emerHydBtn": {
+        [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
+    };
+    case "mstrCautBtn": {
+        [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
+    };
+    case "mstrWarnBtn": {
+        [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
+    };
 };
