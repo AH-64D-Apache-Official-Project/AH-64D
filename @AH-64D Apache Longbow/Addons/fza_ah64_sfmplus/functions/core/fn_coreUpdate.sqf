@@ -24,7 +24,7 @@ if (isGamePaused) exitwith {};
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "fza_flightModel");
 
-private _deltaTime   = (["sfmplus_deltaTime"] call BIS_fnc_deltaTime) min EPSILON;
+private _deltaTime   = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 //Environment
 private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
