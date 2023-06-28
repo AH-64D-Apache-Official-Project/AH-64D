@@ -42,23 +42,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Input
 ([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-
-if ((gunner _heli isEqualTo player) && (currentPilot _heli != gunner _heli)) exitWith { 
-    systemChat "You are the gunner and your FMC outputs are being ignored!";
-    _attHoldCycPitchOut = 0.0;
-    _attHoldCycRollOut  = 0.0;
-    _hdgHoldPedalYawOut = 0.0;
-    _altHoldCollOut     = 0.0;
-};
-
-if (currentPilot _heli != driver _heli) exitWith {
-    systemChat "You are the pilot, but the gunner is flying NO FMC for you!";
-    _attHoldCycPitchOut = 0.0;
-    _attHoldCycRollOut  = 0.0;
-    _hdgHoldPedalYawOut = 0.0;
-    _altHoldCollOut     = 0.0;
-};
-
 [_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
 //Weight
