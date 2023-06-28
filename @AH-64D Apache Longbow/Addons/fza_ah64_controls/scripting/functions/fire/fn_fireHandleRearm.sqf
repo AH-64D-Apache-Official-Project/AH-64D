@@ -13,7 +13,7 @@ Examples:
     [_heli] call fireHandleRearm
     
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli"];

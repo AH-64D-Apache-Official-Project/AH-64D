@@ -18,7 +18,7 @@ Examples:
     [_heli] call fza_aiCrew_fnc_getout
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_role", "_unit", "_turret"];
 

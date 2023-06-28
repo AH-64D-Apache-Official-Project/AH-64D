@@ -3,7 +3,7 @@ class CfgWeapons
     class arifle_SPAR_01_blk_F;
     class arifle_SPAR_01_blk_MRCO_Flash_F: arifle_SPAR_01_blk_F
     {
-        author = "Rosd6(Dryden)";
+        author = "Snow(Dryden)";
         _generalMacro = "arifle_SPAR_01_blk_MRCO_Flash_F";
         baseWeapon = "arifle_SPAR_01_blk_F";
         scope = 1;

@@ -5,7 +5,7 @@ class CfgVehicles {
     #define REPEAT_6(a) a, a, a, a, a, a
     class fza_ah64_pilot: B_Helipilot_F
     {
-        author                  = "Rosd6(Dryden)";
+        author                  = "Snow(Dryden)";
         scope                   = 2;
         scopeCurator            = 2;
         displayName             = "AH-64D Pilot";

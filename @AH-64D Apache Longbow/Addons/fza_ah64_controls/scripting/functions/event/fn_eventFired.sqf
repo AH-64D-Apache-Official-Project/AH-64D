@@ -18,7 +18,7 @@ Returns:
 Examples:
 
 Author:
-    unknown, Rosd6(Dryden)
+    unknown, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
 _mags = magazines _heli;

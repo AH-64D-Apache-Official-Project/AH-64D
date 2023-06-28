@@ -14,7 +14,7 @@ Returns:
 Examples:
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_target","_player","_targetComp"];
 
