@@ -148,12 +148,11 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
     //Primary and Utility Hydraulics
-        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-            if (currentPilot _heli == player) then {
-                systemChat "You are the pilot in command, applying input torques!";
-                
-                _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
-            };
+    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+        if (currentPilot _heli == player) then {
+            systemChat "You are the pilot in command, applying input torques!";
+            
+            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
         };
     };
 };
