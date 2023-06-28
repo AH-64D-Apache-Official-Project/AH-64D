@@ -116,11 +116,16 @@ private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
-_heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
-//Main rotor torque effect
-if (fza_ah64_sfmplusEnableTorqueSim) then {
-    _heli addTorque (_heli vectorModelToWorld _torqueZ);
+if (currentPilot _heli == player) then { 
+    systemChat "You are the pilot in command, applying main rotor forces!";
+
+    _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+    //Main rotor torque effect
+    if (fza_ah64_sfmplusEnableTorqueSim) then {
+        _heli addTorque (_heli vectorModelToWorld _torqueZ);
+    };
 };
+
 //Camera shake effect for ETL (16 to 24 knots)
 if (_velXY > 8.23 && _velXY < 12.35) then {
     enableCamShake true;

@@ -41,14 +41,6 @@ private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 private _accOn             = _heli getVariable "fza_systems_accOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
-if (currentPilot _heli != player) exitWith { 
-    systemChat "You are not the the pilot in command, No fmc for you";
-    _attHoldCycPitchOut = 0.0;
-    _attHoldCycRollOut  = 0.0;
-    _hdgHoldPedalYawOut = 0.0;
-    _altHoldCollOut     = 0.0;
-};
-
 //Cyclic pitch
 private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
@@ -156,12 +148,18 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
     //Primary and Utility Hydraulics
-    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+    if (currentPilot _heli == player) then {
+        systemChat "You are the pilot in command, applying input torques!";
+
+        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+        };
     };
 };
 
 //Emergency Hydraulics
 if (_accOn) then {
-    _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
+    if (currentPilot _heli == player) then { 
+        _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
+    };
 };

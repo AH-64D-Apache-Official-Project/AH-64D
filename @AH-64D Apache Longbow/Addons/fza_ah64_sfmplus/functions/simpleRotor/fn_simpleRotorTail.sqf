@@ -114,11 +114,15 @@ private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
 private _TGBDamage     = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
 
-if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
-    //Rotor thrust force
-    _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
-    //Tail rotor torque effect
-    _heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+if (currentPilot _heli == player) then {
+    systemChat "You are the pilot in command, applying tail rotor forces!";
+    
+    if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
+        //Rotor thrust force
+        _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+        //Tail rotor torque effect
+        _heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+    };
 };
 
 #ifdef __A3_DEBUG__
