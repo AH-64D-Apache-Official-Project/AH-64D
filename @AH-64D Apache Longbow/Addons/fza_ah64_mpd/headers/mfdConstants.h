@@ -105,16 +105,16 @@
 #define MFD_IND_WPN_WAS 4
 #define MFD_IND_WPN_SELECTED_WPN 5
 // Whether that rocket pod is present. 0 - neither pod is present, 1 - only (1/2) is present, 2 - only (3/4) is present, 3 - (1/2) and (3/4) present
-#define MFD_IND_WPN_RKT_1_4_STATE 6
-#define MFD_IND_WPN_RKT_2_3_STATE 7
+#define MFD_IND_WPN_ROCKET_POD_1_4_STATE 6
+#define MFD_IND_WPN_ROCKET_POD_2_3_STATE 7
 #define MFD_IND_WPN_ACQ_BOX 8
 
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_BURST_LIMIT 9
+#define MFD_IND_WPN_GUN_BURST_LIMIT 9
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_RKT_INV 9
+#define MFD_IND_WPN_RKT_SELECTED_INV 9
 // 0 for SAL, 1 for RF
-#define MFD_IND_WPN_SELECTED_MSL_TYPE 9
+#define MFD_IND_WPN_MSL_SELECTED_TYPE 9
 // 1-indexed missile channel selection for primary and alt
 #define MFD_IND_WPN_SELECTED_PRI_CH 10
 #define MFD_IND_WPN_SELECTED_ALT_CH 11
@@ -125,8 +125,8 @@
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
 #define MFD_TEXT_IND_WPN_CMS_QTY 2
-#define MFD_TEXT_IND_WPN_RKT_1_4_TEXT 3
-#define MFD_TEXT_IND_WPN_RKT_2_3_TEXT 4
+#define MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT 3
+#define MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT 4
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
 #define MFD_TEXT_IND_WPN_LRFD_CODE 6
 #define MFD_TEXT_IND_WPN_LST_CODE 7
@@ -182,7 +182,7 @@
 
 #define MFD_IND_TSD_ACQ_BOX 14
 #define MFD_IND_TSD_CTR 15
-#define MFD_IND_TSD_SHOW_HSI 16
+#define MFD_IND_TSD_HSI 16
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18
 #define MFD_IND_TSD_SUBPAGE 19
@@ -284,7 +284,7 @@
 #define MFD_TEXT_IND_PERF_RNG_SPD 14
 #define MFD_TEXT_IND_PERF_END_SPD 15
 //--Wind Speed & Direction
-#define MFD_TEXT_IND_WIND 16
+#define MFD_TEXT_IND_PERF_WIND 16
 
 //DTU Page
 #define MFD_IND_DTU_SUBPAGE 0

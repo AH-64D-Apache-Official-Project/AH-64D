@@ -93,19 +93,19 @@ if (_selectedWeapon == WAS_WEAPON_GUN) then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), 1];
     switch (_heli getVariable "fza_ah64_burst_limit") do {
         case 10: {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_BURST_LIMIT), 0];
+            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_GUN_BURST_LIMIT), 0];
         };
         case 20: {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_BURST_LIMIT), 1];
+            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_GUN_BURST_LIMIT), 1];
         };
         case 50: {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_BURST_LIMIT), 2];
+            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_GUN_BURST_LIMIT), 2];
         };
         case 100: {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_BURST_LIMIT), 3];
+            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_GUN_BURST_LIMIT), 3];
         };
         case -1: {
-            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_BURST_LIMIT), 4];
+            _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_GUN_BURST_LIMIT), 4];
         };
     };
 };
@@ -119,10 +119,10 @@ _pylonsWithRockets = [];
     };
 } forEach (_rocketInventory);
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), ""];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), ""];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
 
 //Rockets actioned
 if (_selectedWeapon == WAS_WEAPON_RKT) then {
@@ -139,17 +139,17 @@ if (_selectedWeapon == WAS_WEAPON_RKT) then {
         private _rktSel = 0;
         if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then {
             _rktSel = _rktSel + 1;
-            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), _selectedRktText];
+            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText];
         };
         if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then {
             _rktSel = _rktSel + 2;
-            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_2_3_TEXT), _selectedRktText];
+            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText];
         };
 
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_TOT_QTY), _selectedRktQty toFixed 0];
     };
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT_INV), _rocketInvIndex];
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_SELECTED_INV), _rocketInvIndex];
     
     //Rkt inventory options (left side of WPN page)
     {
@@ -173,7 +173,7 @@ if (_selectedWeapon == WAS_WEAPON_MSL) then {
     private _seekerType = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_salType");
 
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), _selectedMsl + 1];
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_MSL_TYPE), [0,1] select (_seekerType == "rf")];
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_SELECTED_TYPE), [0,1] select (_seekerType == "rf")];
 
     _heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_MENU), _state get "variant"];
     if (_seekerType != "rf") then { //Sal1, sal2

@@ -101,4 +101,4 @@ private _windDir = round((windDir + 180) mod 360);
 private _windVel = round((vectorMagnitude wind) * 1.94);
 //Set wind data
 private _wind_text = format["WIND %1/%2", [_windDir, 3] call CBA_fnc_formatNumber, _windVel];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WIND), _wind_text];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_WIND), _wind_text];

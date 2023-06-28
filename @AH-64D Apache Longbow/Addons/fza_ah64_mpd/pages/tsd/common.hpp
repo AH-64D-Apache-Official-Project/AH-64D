@@ -244,7 +244,7 @@ class tsdCommon {
         clipTL[] = {0.1, 0.1};
         clipBR[] = {0.9, 0.9};
         class HSI {
-            condition = C_COND(C_MPD_USER(MFD_IND_TSD_SHOW_HSI));
+            condition = C_COND(C_MPD_USER(MFD_IND_TSD_HSI));
             class lines {
                 type = line;
                 points[] = {
