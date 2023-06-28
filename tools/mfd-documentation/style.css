@@ -1,0 +1,20 @@
+table th {
+    background-color: darkslategrey;
+    border-top: 2px solid darkslategrey;
+    border-bottom: 2px solid darkslategrey;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-collapse: collapse;
+    color: white;
+}
+
+table, table td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+table td:empty {
+    background-color: lightcyan;
+    border: 0px solid black;
+    border-bottom: 1px solid gray;
+}
