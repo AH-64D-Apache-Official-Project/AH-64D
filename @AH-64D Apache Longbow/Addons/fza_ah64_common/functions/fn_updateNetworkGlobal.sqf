@@ -3,8 +3,8 @@ Function: fza_fnc_updateNetworkGlobal
 
 Description:
     helps to reduce the network impact of using Public Variables
-    by checking if there already of equal value and only pushing 
-    those not different
+    by checking if there already of equal value and only sending
+    the difference
 
 Parameters:
     ...
