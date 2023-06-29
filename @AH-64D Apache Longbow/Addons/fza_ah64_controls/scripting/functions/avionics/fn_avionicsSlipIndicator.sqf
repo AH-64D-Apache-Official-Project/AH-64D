@@ -26,7 +26,7 @@ params["_heli"];
 
 if (!(player in _heli)) exitwith {};
 
-([_heli] call fza_fnc_calculateAlphaAndBeta)
+([_heli] call fza_sfmplus_fnc_calculateAlphaAndBeta)
     params ["_alpha", "_beta"];
 
 fza_ah64_sideslip = [_beta / 30.0, -1.0, 1.0] call BIS_fnc_clamp;

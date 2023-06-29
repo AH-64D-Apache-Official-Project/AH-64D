@@ -47,7 +47,8 @@ _heli setVariable ["fza_sfmplus_pid_pitch",          [0.550, 0.250, 2.200] call 
 _heli setVariable ["fza_sfmplus_pid_roll_att",       [0.500, 0.050, 0.050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.550, 0.250, 2.200] call fza_fnc_pidCreate];
 //Altitude Hold
-_heli setVariable ["fza_sfmplus_pid_altHold",        [0.015, 0.003, 0.025] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_radHold",        [0.015, 0.003,  0.025] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_barHold",        [0.015, 0.0075, 0.008] call fza_fnc_pidCreate];
 //Heading Hold
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];

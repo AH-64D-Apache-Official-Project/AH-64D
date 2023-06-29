@@ -255,8 +255,9 @@ if ( !(_heli getVariable "fza_ah64_attHoldActive") || _heli getVariable "fza_ah6
 } else {
     _desiredPos = _heli getVariable "fza_ah64_attHoldDesiredPos";
 };
-private _dist       = _heli distance2D _desiredPos;
-if (_dist >= 14.630) then {
+private _dist           = _heli distance2D _desiredPos;
+private _attHoldSubMode =_heli getVariable "fza_ah64_attHoldSubMode";
+if (_dist >= 14.630 && _attHoldSubMode == "POS") then {
     _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];
 };
 if (_flightModel != "SFMPlus") then {

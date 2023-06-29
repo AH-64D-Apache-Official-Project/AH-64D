@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_calculateAlphaAndBeta
+Function: fza_sfmplus_fnc_calculateAlphaAndBeta
 
 Description:
     Calculates and returns _alpha (angle of attack) and _beta (sideslip) for the
