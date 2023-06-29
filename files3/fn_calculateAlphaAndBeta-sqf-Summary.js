@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File3:fn_calculateAlphaAndBeta.sqf","fn_calculateAlphaAndBeta.sqf");NDSummary.OnSummaryLoaded("File3:fn_calculateAlphaAndBeta.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[93,0,1,"Functions","Functions"],[94,0,0,"fza_fnc_calculateAlphaAndBeta","fza_fnc_calculateAlphaAndBeta"]]);
