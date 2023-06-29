@@ -364,24 +364,6 @@ class CfgVehicles
             minmovey = -0.1;
             minmovez = -0.1;
         };
-
-        //PNVS TURRET OPTICS BACK UP
-        class ViewOptics
-        {
-            initFov=0.7;
-            minFov=0.7;
-            maxFov=0.7;
-            initAngleX=0;
-            minAngleX=-90;
-            maxAngleX=90;
-            initAngleY=0;
-            minAngleY=-45;
-            maxAngleY=20;
-            maxXRotSpeed = 4; // yawing speed
-            maxYRotSpeed = 4; // pitching speed
-            thermalmode[] = {2};
-            visionmode[] = {"Ti"}; //PNVS
-        };
     };
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //AH-64D No Radar     //////////////////////////////////////////////////////////////////////////////

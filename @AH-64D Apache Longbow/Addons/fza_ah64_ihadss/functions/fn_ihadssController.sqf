@@ -21,6 +21,9 @@ Author:
 params ["_heli"];
 
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
+if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
+    _heli setVariable ["fza_ah64_monocleinbox", true];
+};
 
 //Current Ihadss
 [_heli] call fza_ihadss_fnc_ihadssDraw;
