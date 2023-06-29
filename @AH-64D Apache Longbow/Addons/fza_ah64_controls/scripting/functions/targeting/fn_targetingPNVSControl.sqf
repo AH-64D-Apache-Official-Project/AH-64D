@@ -20,6 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
+if (player != driver _heli) exitwith {};
+
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _pnvsControl    = _heli getVariable "fza_ah64_ihadss_pnvs_cam";    
@@ -37,7 +39,7 @@ if (cameraView == "GUNNER") then {
 };
 
 //Pnvs Stowed
-if (player != driver _heli || !_pnvsControl || !(_acBusOn && _dcBusOn)) exitwith {
+if (!_pnvsControl || !(_acBusOn && _dcBusOn)) exitwith {
     _heli animateSource["pnvs", -120, 0.5];
     _heli animateSource["pnvs_vert", 0];
 };
