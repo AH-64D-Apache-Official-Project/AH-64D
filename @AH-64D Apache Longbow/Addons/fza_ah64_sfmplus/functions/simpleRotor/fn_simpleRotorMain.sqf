@@ -88,9 +88,9 @@ private _sign                      = [_rtrThrust] call fza_fnc_sign;
 private _rtrInducedVelocity        = if (_rtrThrust <= MIN_THRUST) then { 0.0; } else { sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign; };
 //Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
 private _w = _rtrInducedVelocity;
-private _u = if (_w <= EPSILON) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
-private _n = if (_w <= EPSILON) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
-private _rtrCorrInducedVelocity    = if (_w <= EPSILON) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
+private _u = if (_w == 0.0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
+private _n = if (_w == 0.0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
+private _rtrCorrInducedVelocity    = if (_w == 0.0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
 private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
@@ -116,11 +116,14 @@ private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
 //Rotor thrust force
-_heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
-//Main rotor torque effect
-if (fza_ah64_sfmplusEnableTorqueSim) then {
-    _heli addTorque (_heli vectorModelToWorld _torqueZ);
+if (currentPilot _heli == player) then { 
+    _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+    //Main rotor torque effect
+    if (fza_ah64_sfmplusEnableTorqueSim) then {
+        _heli addTorque (_heli vectorModelToWorld _torqueZ);
+    };
 };
+
 //Camera shake effect for ETL (16 to 24 knots)
 if (_velXY > 8.23 && _velXY < 12.35) then {
     enableCamShake true;

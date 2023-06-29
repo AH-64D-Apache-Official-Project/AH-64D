@@ -149,11 +149,15 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-        _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+        if (currentPilot _heli == player) then {
+            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+        };
     };
 };
 
 //Emergency Hydraulics
 if (_accOn) then {
-    _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
+    if (currentPilot _heli == player) then { 
+        _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
+    };
 };
