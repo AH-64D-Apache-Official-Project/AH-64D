@@ -16,7 +16,7 @@ Examples:
     [_heli, "FUNCTION", 1] call fza_fnc_updateNetworkGlobal;
     
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_function", "_value"];
 
