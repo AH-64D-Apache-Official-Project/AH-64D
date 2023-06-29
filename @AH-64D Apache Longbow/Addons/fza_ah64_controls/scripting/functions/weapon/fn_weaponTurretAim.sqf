@@ -24,20 +24,22 @@ if (!(isnil "fza_ah64_enableturrets")) exitwith {};
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 private _inhibit = "";
 
-private _weaponsProcessorFailed = _heli getVariable "fza_ah64_rwp_fail" && _heli getVariable "fza_ah64_lwp_fail";
+private _usingRocket            = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
+private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
+private _sight                  = [_heli] call fza_fnc_targetingGetSightSelect;
+private _targVel                = [0, 0, 0];
+private _targPos                = -1;
+private _lockCameraForwards     = false;
 
-private _usingRocket = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
-private _usingCannon = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
-private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
-private _targVel = [0, 0, 0];
-private _targPos = -1;
-private _lockCameraForwards = false;
+private _nts            = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _ntspos         = (_heli getVariable "fza_ah64_fcrNts") # 1;
+private _armaRadarOn    = isVehicleRadarOn _heli;
+private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 
-private _nts = _heli getVariable "fza_ah64_fcrNts";
-private _nts = _nts # 0;
-private _ntspos = _heli getVariable "fza_ah64_fcrNts";
-private _ntspos = _ntspos # 1;
-private _armaRadarOn         = isVehicleRadarOn _heli;
+if !(_acBusOn && _dcBusOn) then {
+    _sight = SIGHT_FXD;
+};
 
 switch (_sight) do {
     case SIGHT_FCR:{

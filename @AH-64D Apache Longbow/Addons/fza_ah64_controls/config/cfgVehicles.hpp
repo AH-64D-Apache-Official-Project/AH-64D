@@ -10,6 +10,7 @@ class CfgVehicles
     {
         class NewTurret;
         class CargoTurret;
+        delete PilotCamera;
 
         //Images
         picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
@@ -273,8 +274,6 @@ class CfgVehicles
         //damageResistance=0.0055499999;
         driverAction = "fza_ah64_pilot";
         crew="fza_ah64_pilot";
-        driverOpticsColor[] = {1,1,1,1};
-        driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
         ejectDeadCargo=true;
         ejectdeadgunner = false;
         explosionShielding = 8;
@@ -312,7 +311,6 @@ class CfgVehicles
         memoryPointsGetInDriverDir = "pos driver dir";
         memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
         memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-        memorypointdriveroptics[] = {"driverview", "pilot"};
         minBackRotorDive = 0;
         minMainRotorDive = 0;
         nameSound="veh_Helicopter";
@@ -363,24 +361,6 @@ class CfgVehicles
             minmovex = -0.15;
             minmovey = -0.1;
             minmovez = -0.1;
-        };
-
-        //PNVS TURRET OPTICS BACK UP
-        class ViewOptics
-        {
-            initFov=0.7;
-            minFov=0.7;
-            maxFov=0.7;
-            initAngleX=0;
-            minAngleX=-90;
-            maxAngleX=90;
-            initAngleY=0;
-            minAngleY=-45;
-            maxAngleY=20;
-            maxXRotSpeed = 4; // yawing speed
-            maxYRotSpeed = 4; // pitching speed
-            thermalmode[] = {2};
-            visionmode[] = {"Ti"}; //PNVS
         };
     };
 ////////////////////////////////////////////////////////////////////////////////////////////////////
