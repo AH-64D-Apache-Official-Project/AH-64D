@@ -1,11 +1,13 @@
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _pid        = _heli getVariable "fza_sfmplus_pid_altHold";
+private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
+private _pidBarAlt  = _heli getVariable "fza_sfmplus_pid_barHold";
 private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _curAltAGL  = ASLToAGL getPosASL _heli # 2;
 private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
 private _desiredAlt = _heli getVariable "fza_ah64_altHoldDesiredAlt";
+private _curAltMSL  = getPosASL _heli # 2;
 private _collRef    = _heli getVariable  "fza_ah64_altHoldCollRef";
 private _e1tq       = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _e2tq       = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
@@ -16,7 +18,9 @@ private _output     = 0.0;
 //activation until it it is below 98%
 if (_tq >= 0.98) then { 
     _heli setVariable ["fza_ah64_altHoldActive", false, true];
-    [_pid] call fza_fnc_pidReset;
+    [_pidRadAlt] call fza_fnc_pidReset;
+    [_pidBarAlt] call fza_fnc_pidReset;
+    //playsound "fza_ah64_flt_control";
 };
 
 if ( _heli getVariable "fza_ah64_altHoldActive") then {
@@ -43,13 +47,16 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
 
     if (_subMode == "rad") then {
         //Radar altitude hold uses AGL altitude
-        _output = [_pid, _deltaTime, _desiredAlt, ASLToAGL getPosASL _heli # 2] call fza_fnc_pidRun;
+        private _altError = _curAltAGL - _desiredAlt;
+        _output = [_pidRadAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     } else {
         //Barometric altitude hold uses the ASL altitude
-        _output = [_pid, _deltaTime, _desiredAlt, getPosASL _heli # 2] call fza_fnc_pidRun;
+        private _altError = _curAltAGL - _desiredAlt;
+        _output = [_pidBarAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     };
 } else {
-    [_pid] call fza_fnc_pidReset;
+    [_pidRadAlt] call fza_fnc_pidReset;
+    [_pidBarAlt] call fza_fnc_pidReset;
 };
 
 _output;
