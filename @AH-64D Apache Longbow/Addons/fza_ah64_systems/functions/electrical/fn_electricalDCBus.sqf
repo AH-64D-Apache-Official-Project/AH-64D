@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (Local _heli) exitwith {};
+if !(Local _heli) exitwith {};
 
 private _rect1On  = _heli getVariable "fza_systems_rect1On";
 private _rect2On  = _heli getVariable "fza_systems_rect2On";
