@@ -10,6 +10,7 @@ class CfgVehicles
     {
         class NewTurret;
         class CargoTurret;
+        delete PilotCamera;
 
         //Images
         picture = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
@@ -273,8 +274,6 @@ class CfgVehicles
         //damageResistance=0.0055499999;
         driverAction = "fza_ah64_pilot";
         crew="fza_ah64_pilot";
-        driverOpticsColor[] = {1,1,1,1};
-        driveropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
         ejectDeadCargo=true;
         ejectdeadgunner = false;
         explosionShielding = 8;
@@ -312,7 +311,6 @@ class CfgVehicles
         memoryPointsGetInDriverDir = "pos driver dir";
         memorypointcm[] = {"flare_1_beg","Flare_2_beg"};
         memorypointcmdir[] = {"flare_1_end","flare_2_end"};
-        memorypointdriveroptics[] = {"driverview", "pilot"};
         minBackRotorDive = 0;
         minMainRotorDive = 0;
         nameSound="veh_Helicopter";
