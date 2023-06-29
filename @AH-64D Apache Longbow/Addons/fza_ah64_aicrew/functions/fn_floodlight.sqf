@@ -9,7 +9,7 @@ Returns:
 Examples:
     [_this] call fza_AICrew_fnc_floodlight;
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

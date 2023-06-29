@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_weapons
     {
         units[] = {};
-        author = "Rosd6(Dryden)";
+        author = "Snow(Dryden)";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {};

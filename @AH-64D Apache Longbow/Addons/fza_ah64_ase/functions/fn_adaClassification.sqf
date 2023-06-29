@@ -14,7 +14,7 @@ Examples:
     _classification = [_object] call fza_ase_fnc_adaClassification
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_Object"];
 private _classification = "radar";

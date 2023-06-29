@@ -16,7 +16,7 @@ Examples:
     ---
 
 Author:
-    mattysmith22, Rosd6(Dryden)
+    mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli", "_ticker"];

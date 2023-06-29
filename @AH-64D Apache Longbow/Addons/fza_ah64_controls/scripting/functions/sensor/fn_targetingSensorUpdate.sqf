@@ -14,7 +14,7 @@ Examples:
     [_heli] spawn fza_fnc_targetingSensorUpdate;
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 if (!(isNil "fza_ah64_nofcr")) exitwith {};

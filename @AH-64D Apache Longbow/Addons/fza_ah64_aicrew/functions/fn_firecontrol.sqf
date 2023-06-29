@@ -18,7 +18,7 @@ Examples:
     ---
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_controls\headers\script_common.hpp"

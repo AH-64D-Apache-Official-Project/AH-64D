@@ -17,7 +17,7 @@ Examples:
     _this call fza_fnc_aseJammer; //Incoming missile event args
     
 Author:
-    Rosd6(Dryden), mattysmith22
+    Snow(Dryden), mattysmith22
 ---------------------------------------------------------------------------- */
 params ["_heli","_munition","_hostile", "_instigator"];
 

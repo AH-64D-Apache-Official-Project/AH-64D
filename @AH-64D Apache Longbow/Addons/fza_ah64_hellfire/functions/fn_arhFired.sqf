@@ -19,7 +19,7 @@ Examples:
     Nothing
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_firedEH", "_launchParams", "", "", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];

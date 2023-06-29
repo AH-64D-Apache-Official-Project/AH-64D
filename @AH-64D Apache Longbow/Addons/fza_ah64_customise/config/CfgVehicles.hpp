@@ -3,7 +3,7 @@ class cfgVehicles {
     class Box_NATO_Equip_F;
     class Land_WoodenCrate_01_F;
     class fza_ah64_ObjectBase: Land_WoodenCrate_01_F {
-        author                              = "Rosd6(Dryden)";
+        author                              = "Snow(Dryden)";
         displayName                         = "Apache Object Base";
         scope                               = 1;
         ace_cargo_canLoad                   = 1;

@@ -11,7 +11,7 @@ Examples:
     [_heli] call fza_fnc_targetingLockCamToTarget 
     ---
 Authors:
-    AngusLogan02, Rosd6(Dryden), mattysmith22
+    AngusLogan02, Snow(Dryden), mattysmith22
 ---------------------------------------------------------------------------- */
 params["_heli"];
 _tgt = cursorTarget;

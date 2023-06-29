@@ -18,6 +18,6 @@ Examples:
     (end)
 
 Author:
-    mattysmith22, Rosd6(Dryden)
+    mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 [_this # 0 - safeZoneX, _this # 1 - safeZoneY];

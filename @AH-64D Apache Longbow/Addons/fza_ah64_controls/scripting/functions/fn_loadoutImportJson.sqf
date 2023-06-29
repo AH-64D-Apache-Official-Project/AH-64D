@@ -14,7 +14,7 @@ Examples:
     [vehicle player, Json Data] call fza_loadoutImportJson
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli","_json"];
 if (_json == "") exitwith {};

@@ -45,19 +45,19 @@ class textureSources
     class UK_AAC
     {
         displayName = "United Kingdom Army Air Corps";
-        author = "Rosd6(Dryden) & NodUnit";
+        author = "Snow(Dryden) & NodUnit";
         textures[]= {"\fza_ah64_us\tex\Ex\UKAAC.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
     };
     class UK_AAC_weathered
     {
         displayName = "United Kingdom Army Air Corps (weathered)";
-        author = "Rosd6(Dryden) & NodUnit";
+        author = "Snow(Dryden) & NodUnit";
         textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_weathered.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
     };
     class UK_AAC_SF
     {
         displayName = "United Kingdom Army Air Corps Special Forces";
-        author = "Rosd6(Dryden) & NodUnit";
+        author = "Snow(Dryden) & NodUnit";
         textures[]= {"\fza_ah64_us\tex\Ex\UKAAC_SF.paa","\fza_ah64_us\tex\ex\fcr_co.paa"};
     };
     class 211th_clean

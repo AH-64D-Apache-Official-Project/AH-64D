@@ -11,7 +11,7 @@ Examples:
     [_heli] call fza_fnc_eachFrameScheduler
     ---
 Author:
-    mattysmith22, Rosd6(Dryden), BradMick
+    mattysmith22, Snow(Dryden), BradMick
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli"];

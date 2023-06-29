@@ -15,7 +15,7 @@ Examples:
     [_heli] call fza_aiCrew_fnc_init
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

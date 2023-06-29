@@ -16,7 +16,7 @@ Examples:
     _this spawn fza_ase_fnc_missileWarning;
     
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli","_munition","_hostile"];

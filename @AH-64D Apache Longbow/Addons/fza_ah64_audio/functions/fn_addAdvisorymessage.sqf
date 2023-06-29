@@ -15,7 +15,7 @@ Examples:
     [_heli, 1, "", "fza_ah64_Flight_control"] call fza_audio_fnc_addASEMessage;
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_priority","_reference"];
 

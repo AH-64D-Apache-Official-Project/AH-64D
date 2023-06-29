@@ -16,7 +16,7 @@ Returns:
 Examples:
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_seeker", "_targetPos", "_seekerMaxAngle"];
 

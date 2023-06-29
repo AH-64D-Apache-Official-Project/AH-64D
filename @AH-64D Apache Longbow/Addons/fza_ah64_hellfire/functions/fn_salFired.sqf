@@ -16,7 +16,7 @@ Examples:
     ---
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["", "_launchParams"];
 _launchParams params ["_shooter","","","_attackProfile","","_laserinfo"];

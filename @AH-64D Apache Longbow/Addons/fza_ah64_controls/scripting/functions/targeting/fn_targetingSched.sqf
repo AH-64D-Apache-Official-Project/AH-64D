@@ -11,7 +11,7 @@ Examples:
     [_heli] call fza_fnc_targetingSched
     ---
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

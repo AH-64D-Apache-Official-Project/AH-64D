@@ -23,7 +23,7 @@ Examples:
     Nothing
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["", "_args", "_seekerStateParams"];
 _args params ["_firedEH", "", "", "_seekerParams", ""];

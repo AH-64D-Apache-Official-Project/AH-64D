@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_fnc_targetingsensorCycle;
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

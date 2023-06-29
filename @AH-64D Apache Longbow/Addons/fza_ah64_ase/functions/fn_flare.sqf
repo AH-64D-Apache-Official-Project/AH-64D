@@ -11,7 +11,7 @@ Returns:
 Examples:
     _this Call fza_ase_fnc_Flare;
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

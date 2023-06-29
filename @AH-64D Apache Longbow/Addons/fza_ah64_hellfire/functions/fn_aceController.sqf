@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_hellfire_fnc_aceController;
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

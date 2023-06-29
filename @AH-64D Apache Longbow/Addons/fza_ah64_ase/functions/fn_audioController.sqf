@@ -15,7 +15,7 @@ Examples:
     [_heli, _audioList] call fza_ase_fnc_audioController
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli","_audioList"];
