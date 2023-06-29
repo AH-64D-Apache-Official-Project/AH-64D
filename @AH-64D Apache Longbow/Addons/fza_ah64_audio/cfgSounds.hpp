@@ -453,54 +453,29 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_gun.ogg",100,1,1};
         titles[]={};
     };
-
-    //rotor damage
-    class fza_ah64_tail_rotor_damaged_1
-    {
-        name = "fza_ah64_tail_rotor_damaged_1";
-        sound[] = {"\fza_ah64_us\audio\tail_rotor_damaged_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_tail_rotor_failure_1
-    {
-        name = "fza_ah64_tail_rotor_failure_1";
-        sound[] = {"\fza_ah64_us\audio\tail_rotor_failure_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_main_rotor_damaged_1
-    {
-        name = "fza_ah64_main_rotor_damaged_1";
-        sound[] = {"\fza_ah64_us\audio\main_rotor_damaged_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_main_rotor_failure_1
-    {
-        name = "fza_ah64_main_rotor_failure_1";
-        sound[] = {"\fza_ah64_us\audio\main_rotor_failure_1.ogg",100,1,1};
-        titles[]={};
-    };
+    
     //Caution sounds
     class fza_ah64_Altitude_low
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_Altitude_low";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_Altitude_low.ogg",60,1,10};
         titles[]={};
     };
     class fza_ah64_APR_39_power_up
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_APR_39_power_up";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_APR_39_power_up.ogg",60,1,10};
         titles[]={};
     };
     class fza_ah64_Caution
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_Caution";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_caution.ogg",100,1,10};
         titles[]={};
     };
     class fza_ah64_Flight_control
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_Flight_control";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_flt_ctrl.ogg",100,1,10};
         titles[]={};
     };
