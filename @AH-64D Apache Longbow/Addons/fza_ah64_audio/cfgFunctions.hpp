@@ -15,6 +15,7 @@ class CfgFunctions
             class addWarning {R;};
             class audiohandler {R;};
             class audioinit {R;};
+            class delCaution {R;};
             class getin {R;};
             class playaudio {R;};
             class playAdvisory {R;};
