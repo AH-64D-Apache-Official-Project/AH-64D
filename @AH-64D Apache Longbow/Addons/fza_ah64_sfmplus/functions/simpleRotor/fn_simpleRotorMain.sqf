@@ -40,9 +40,15 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrGndEffModifier      = 0.238;
-private _rtrThrustScalar_min    = 0.095;
-private _rtrThrustScalar_max    = 1.810;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrGndEffModifier        = 0.238;
+private _rtrThrustScalarTable_min = [
+                                     [   0, 0.104]
+                                    ,[2000, 0.143]
+                                    ,[4000, 0.186]
+                                    ,[6000, 0.248]
+                                    ,[8000, 0.317]
+                                    ];
+private _rtrThrustScalar_max    = 1.800;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.10;
 
@@ -51,6 +57,7 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 
 //Thrust produced 
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
+private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];

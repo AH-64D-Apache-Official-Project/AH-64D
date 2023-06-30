@@ -6,7 +6,7 @@ if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     private _curVelZ   = velocity _heli # 2; 
     private _curAltAGL = ASLToAGL getPosASL _heli # 2;
     if (_curAltAGL > 50) then {
-        _curAltAGL = (round (_curAltAGL / 10) * 10) toFixed 0;
+        _curAltAGL = round ((_curAltAGL / 10) * 10);
     };
     private _curAltASL = round(((getPosASL _heli # 2) / 10) * 10);
     //If the vertical velocity is <= 200fpm and >= -200fpm, altitude hold can be engaged
