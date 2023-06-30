@@ -18,4 +18,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-_heli setVariable ["fza_systems_apuBtnOn", !(_heli getVariable "fza_systems_apuBtnOn")];
+_heli setVariable ["fza_systems_apuBtnOn", !(_heli getVariable "fza_systems_apuBtnOn"), true];

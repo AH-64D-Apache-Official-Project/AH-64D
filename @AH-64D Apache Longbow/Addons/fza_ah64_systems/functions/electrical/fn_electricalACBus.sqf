@@ -18,6 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+if !(Local _heli) exitwith {};
+
 private _gen1On  = _heli getVariable "fza_systems_gen1On";
 private _gen2On  = _heli getVariable "fza_systems_gen2On";
 
@@ -27,7 +29,7 @@ if (_gen1On || _gen2On) then {
 } else {
     _acBusOn = false;
 };
-_heli setVariable ["fza_systems_acBusOn", _acBusOn];
+[_heli, "fza_systems_acBusOn", _acBusOn] call fza_fnc_updateNetworkGlobal;
 //AC Bus powers the following
 //--(1) FCR
 //--(5) 30mm motor

@@ -36,7 +36,10 @@ if (_battSwitchOn) then {
     _battBusOn = false;
 };
 //Set the state of the battery bus
-_heli setVariable ["fza_systems_battBusOn", _battBusOn];
+if (Local _heli) exitwith {
+    [_heli, "fza_systems_battBusOn", _battBusOn] call fza_fnc_updateNetworkGlobal;
+};
+
 //Drain the battery
 if (_battBusOn && _acBusOn) then {
     _battPower = [_battPower, 0.0, (1.0 / _battTimer) * _deltaTime] call BIS_fnc_lerp;
