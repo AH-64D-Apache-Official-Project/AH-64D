@@ -1,4 +1,5 @@
 params ["_heli", "_deltaTime"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
@@ -20,6 +21,23 @@ private _curRoll  = _curAtt # 1;
 
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
+
+
+private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
+//Position hold
+if (_vel <= POS_HOLD_SPEED_SWITCH) then {
+    _heli setVariable ["fza_ah64_attHoldSubMode", "pos", true];
+};
+//Velocity hold
+//This needs to check if accelerating or decelerating...really it's
+//5 to 40 knots accelerating, 30 to 5 knots decelerating
+if (_vel > POS_HOLD_SPEED_SWITCH && _vel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+    _heli setVariable ["fza_ah64_attHoldSubMode", "vel", true];
+};
+//Attitude hold
+if (_vel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+    _heli setVariable ["fza_ah64_attHoldSubMode", "att", true];
+};
 
 //If the attitude hold is enabled, and the force trim isn't interupted, then attitude hold is actually active
 if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
