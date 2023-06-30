@@ -37,9 +37,9 @@ while {player != vehicle player} do {
     private _volume     = _ComsVolume get "Master";
 
     if (_aseMsg isNotEqualTo "") then {
-        _heli setvariable ["fza_audio_ase_message", ""];
         _done = _aseMsg spawn fza_audio_fnc_playaudio;
         waitUntil {scriptDone _done};
+        _heli setvariable ["fza_audio_ase_message", ""];
         continue;
     };
     if (_wrnMsg isNotEqualTo "") then {

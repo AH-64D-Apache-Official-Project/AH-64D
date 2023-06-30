@@ -16,7 +16,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setvariable ["fza_audio_advisory_message", "", true];
 _heli setvariable ["fza_audio_ase_message", "", true];
 _heli setvariable ["fza_audio_warning_message", "", true];
 _heli setvariable ["fza_audio_caution", false, true];
