@@ -433,7 +433,10 @@ if (_collective == "scalar") then {
 _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
 private _baroAlt  = getPosASL _heli # 2 * SCALE_METERS_FEET;
 _baraltft         = format["%1", (round (_baroAlt / 10) * 10) toFixed 0];
-private _radarAlt = getPos _heli # 2 * SCALE_METERS_FEET;
+private _radarAlt = getPos _heli # 2 * SCALE_METERS_FEET; 
+if (_radarAlt > 50) then {
+    _radarAlt = round (_radarAlt / 10) * 10;
+};
 _radaltft         = format["%1", [_radarAlt toFixed 0, ""] select (_radarAlt > 1428)];
 
 private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
