@@ -41,8 +41,8 @@ private _rtrPowerScalarTable    = [
                                   ,[8000, 1.284]
                                   ];
 private _rtrGndEffModifier      = 0.238;
-private _rtrThrustScalar_min    = 0.120;
-private _rtrThrustScalar_max    = 1.830;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrThrustScalar_min    = 0.095;
+private _rtrThrustScalar_max    = 1.810;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.10;
 
