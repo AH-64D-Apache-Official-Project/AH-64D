@@ -1,25 +1,21 @@
 params ["_heli", "_system", "_control"];
 
-systemChat "WCA Button Handle Control!";
+private _onGnd      = isTouchingGround _heli;
+private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
 switch (_control) do {
     case "armSafe": {
-        systemChat "Arm/Safe";
+        if (!_gndOrideOn && _onGnd) exitWith {};
+
+        _heli setVariable ["fza_ah64_mstrArmArmed", !(_heli getVariable "fza_ah64_mstrArmArmed"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "gndOride": {
-        systemChat "Gnd Oride";
+        _heli setVariable ["fza_ah64_gndOrideOn", !(_heli getVariable "fza_ah64_gndOrideOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "emerHyd": {
-        systemChat "Emer Hyd";
-
-        if (!(_heli getVariable "fza_systems_accOn")) then {
-            _heli setVariable ["fza_systems_accOn", true, true];
-        } else {
-            _heli setVariable ["fza_systems_accOn", false, true];
-        };
-
+        _heli setVariable ["fza_ah64_emerHydOn", !(_heli getVariable "fza_ah64_emerHydOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrCaut": {
