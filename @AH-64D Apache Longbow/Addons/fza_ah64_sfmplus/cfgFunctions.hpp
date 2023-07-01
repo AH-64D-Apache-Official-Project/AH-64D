@@ -80,6 +80,7 @@ class CfgFunctions
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class calculateAlphaAndBeta {R;};
+            class getAltitude {R;};
             class getInput {R;};
             class getRtrRPM {R;};
         };
