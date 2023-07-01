@@ -145,7 +145,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     //Systems
     _heli setVariable ["fza_ah64_emerHydOn",              false, true];
     _heli setVariable ["fza_ah64_gndOrideOn",             false, true];
-    _heli setVariable ["fza_ah64_mstrArmArmed",           false, true];
+    _heli setVariable ["fza_ah64_armSafeArmed",           false, true];
     _heli setVariable ["fza_ah64_mstrCautAudioOn",        false, true];
     _heli setVariable ["fza_ah64_mstrWarnAudioOn",        false, true];
 };//fza_ah64_aircraftInitialised end

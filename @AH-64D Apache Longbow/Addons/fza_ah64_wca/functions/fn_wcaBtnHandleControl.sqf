@@ -7,7 +7,7 @@ switch (_control) do {
     case "armSafe": {
         if (!_gndOrideOn && _onGnd) exitWith {};
 
-        _heli setVariable ["fza_ah64_mstrArmArmed", !(_heli getVariable "fza_ah64_mstrArmArmed"), true];
+        _heli setVariable ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "gndOride": {

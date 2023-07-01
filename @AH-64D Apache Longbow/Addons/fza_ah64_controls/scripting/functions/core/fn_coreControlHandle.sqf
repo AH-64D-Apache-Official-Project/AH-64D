@@ -104,10 +104,10 @@ if (_value) then {
                 [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
             };
         };
-        case "fza_ah64_masterSafe": {
+        case "fza_ah64_armSafeButton": {
             if (!_gndOrideOn && _onGnd) exitWith { systemChat "Gnd Oride isn't on!"; };
 
-            _heli setVariable ["fza_ah64_mstrArmArmed", !(_heli getVariable "fza_ah64_mstrArmArmed"), true];
+            _heli setVariable ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
         };
         case "SwitchWeaponGrp1";
         case "SwitchWeaponGrp2";

@@ -22,12 +22,12 @@ params ["_heli"];
 
 hintsilent format ["Master Arm Armed? %1
                     \nGnd Orid On? %2
-                    \nEmer Hyd On? %3",_heli getVariable "fza_ah64_mstrArmArmed", _heli getVariable "fza_ah64_gndOrideOn", _heli getVariable "fza_ah64_emerHydOn"];
+                    \nEmer Hyd On? %3",_heli getVariable "fza_ah64_armSafeArmed", _heli getVariable "fza_ah64_gndOrideOn", _heli getVariable "fza_ah64_emerHydOn"];
 
 private _onGnd      = isTouchingGround _heli;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
 if (!_gndOrideOn && _onGnd) then {
-    _heli setVariable ["fza_ah64_mstrArmArmed", false, true];
+    _heli setVariable ["fza_ah64_armSafeArmed", false, true];
     [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 };
