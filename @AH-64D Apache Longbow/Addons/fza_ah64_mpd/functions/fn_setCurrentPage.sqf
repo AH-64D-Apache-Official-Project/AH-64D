@@ -61,7 +61,7 @@ if (isNumber (_config >> "usesIcons")) then {
 };
 
 if (_mpdState # _side # 6 == 1) then {
-    [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
+    [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
 private _persistState = _mpdState # _side # 4;
