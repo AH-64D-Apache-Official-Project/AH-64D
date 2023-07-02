@@ -23,6 +23,7 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
+#define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
 
 _locktargstate = 0;
@@ -430,8 +431,11 @@ if (_collective == "scalar") then {
     _collective = "0";
 };
 _speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
-_radaltft = format["%1", round(3.28084 * (getpos _heli select 2))];
-_baraltft = format["%1", round(3.28084 * (getposasl _heli select 2))];
+
+([_heli] call fza_sfmplus_fnc_getAltitude)
+    params ["_barAlt", "_radAlt"];
+_baraltft = format["%1",  _barAlt toFixed 0];
+_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
 private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
 if !isNil {_fcrLastScan # 0} then {
