@@ -25,9 +25,8 @@ class Draw {
     #define CHAR_HEIGHT 0.5
 
     class battOff {
-        condition = C_COND(C_USER(MFD_IND_BATT));
+        condition = C_COND(C_AND(C_USER(MFD_IND_BATT), C_USER(MFD_IND_MSTR_WARN)));    
         class pushButton {
-            condition = C_COND(C_USER(MFD_IND_MSTR_WARN));
             blinkingPattern[] = {0.125,0.125};
             blinkingStartsOn  = 0.125;
             class mstr_top {

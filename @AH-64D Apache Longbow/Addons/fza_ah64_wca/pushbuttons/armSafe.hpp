@@ -25,9 +25,8 @@ class Draw {
     #define CHAR_HEIGHT 0.5
 
     class battOff {
-        condition = C_COND(C_USER(MFD_IND_BATT));
+        condition = C_COND(C_AND(C_USER(MFD_IND_BATT), C_USER(MFD_IND_ARM_SAFE)));
         class pushButton_top {
-            condition = C_COND(C_USER(MFD_IND_ARM_SAFE));
             class yellow {
                 color[] = {0.98, 0.80, 0.24, 1};
                 class arm_top {

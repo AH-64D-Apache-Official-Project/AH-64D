@@ -25,9 +25,8 @@ class Draw {
     #define CHAR_HEIGHT 0.5
 
     class battOff {
-        condition = C_COND(C_USER(MFD_IND_BATT));
+        condition = C_COND(C_AND(C_USER(MFD_IND_BATT), C_USER(MFD_IND_MSTR_CAUT)));    
         class pushButton {
-            condition = C_COND(C_USER(MFD_IND_MSTR_CAUT));
             class mstr_top {
                 type = "text";
                 source = "static";
