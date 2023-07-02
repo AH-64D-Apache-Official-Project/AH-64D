@@ -25,7 +25,6 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 if (!_gndOrideOn && _onGnd) then {
     _heli setVariable ["fza_ah64_armSafeArmed", false, true];
     [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-    _heli setUserMfdValue [MFD_IND_ARM_SAFE, BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
 };
 
 _heli setUserMfdValue [MFD_IND_ARM_SAFE, BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
