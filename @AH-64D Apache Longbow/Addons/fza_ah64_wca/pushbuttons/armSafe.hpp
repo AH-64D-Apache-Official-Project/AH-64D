@@ -24,35 +24,42 @@ class Draw {
     #define CHAR_WIDTH_VEC 0.32
     #define CHAR_HEIGHT 0.5
 
-    class pushButton {
-        class yellow {
-            color[] = {0.98, 0.80, 0.24, 1};
-            class arm_top {
-                type = "text";
-                source = "static";
-                text = "ARM";
-                sourceIndex = 0;
-                scale=1.0;
-                align="center";
-                sourceScale = 1;
-                pos[]   = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT}, 1};
-                right[] = {{START_X + CHAR_WIDTH_VEC, TOP_START_Y - 0.5*CHAR_HEIGHT},1};
-                down[]  = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+    class battOff {
+        condition = C_COND(C_USER(MFD_IND_BATT));
+        class pushButton_top {
+            condition = C_COND(C_USER(MFD_IND_ARM_SAFE));
+            class yellow {
+                color[] = {0.98, 0.80, 0.24, 1};
+                class arm_top {
+                    type = "text";
+                    source = "static";
+                    text = "ARM";
+                    sourceIndex = 0;
+                    scale=1.0;
+                    align="center";
+                    sourceScale = 1;
+                    pos[]   = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT}, 1};
+                    right[] = {{START_X + CHAR_WIDTH_VEC, TOP_START_Y - 0.5*CHAR_HEIGHT},1};
+                    down[]  = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+                };
             };
         };
-        class green {
-            color[] = {0.0, 0.80, 0.51, 1};
-            class arm_bot {
-                type = "text";
-                source = "static";
-                text = "SAFE";
-                sourceIndex = 0;
-                scale=1.0;
-                align="center";
-                sourceScale = 1;
-                pos[]   = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT}, 1};
-                right[] = {{START_X + CHAR_WIDTH_VEC, BOT_START_Y - 0.5*CHAR_HEIGHT},1};
-                down[]  = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+        class pushButton_bot {
+            condition = C_COND(C_NOT(C_USER(MFD_IND_ARM_SAFE)));
+            class green {
+                color[] = {0.0, 0.80, 0.51, 1};
+                class arm_bot {
+                    type = "text";
+                    source = "static";
+                    text = "SAFE";
+                    sourceIndex = 0;
+                    scale=1.0;
+                    align="center";
+                    sourceScale = 1;
+                    pos[]   = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT}, 1};
+                    right[] = {{START_X + CHAR_WIDTH_VEC, BOT_START_Y - 0.5*CHAR_HEIGHT},1};
+                    down[]  = {{START_X,                  BOT_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+                };
             };
         };
     };

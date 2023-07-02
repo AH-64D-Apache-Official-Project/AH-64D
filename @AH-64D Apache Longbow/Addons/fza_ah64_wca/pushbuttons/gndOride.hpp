@@ -23,18 +23,22 @@ class Draw {
     #define CHAR_WIDTH_VEC 0.32
     #define CHAR_HEIGHT 0.5
 
-    class pushButton {
-        class gnd_oride {
-            type = "text";
-            source = "static";
-            text = "ON";
-            sourceIndex = 0;
-            scale=1.0;
-            align="center";
-            sourceScale = 1;
-            pos[]   = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT}, 1};
-            right[] = {{START_X + CHAR_WIDTH_VEC, START_Y - 0.5*CHAR_HEIGHT},1};
-            down[]  = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+    class battOff {
+        condition = C_COND(C_USER(MFD_IND_BATT));
+        class pushButton {
+            condition = C_COND(C_USER(MFD_IND_GND_ORIDE));
+            class gnd_oride {
+                type = "text";
+                source = "static";
+                text = "ON";
+                sourceIndex = 0;
+                scale=1.0;
+                align="center";
+                sourceScale = 1;
+                pos[]   = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT}, 1};
+                right[] = {{START_X + CHAR_WIDTH_VEC, START_Y - 0.5*CHAR_HEIGHT},1};
+                down[]  = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
+            };
         };
     };
 };

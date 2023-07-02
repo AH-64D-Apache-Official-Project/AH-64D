@@ -166,8 +166,9 @@ _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
 //Systems local to the crewstation
-_heli setVariable ["fza_ah64_mstrCautLightOn", [false, false]];
-_heli setVariable ["fza_ah64_mstrWarnLightOn", [false, false]];
+_heli setVariable ["fza_ah64_mstrCautLightOn", false];
+_heli setVariable ["fza_ah64_mstrWarnLightOn", false];
+
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;

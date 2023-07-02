@@ -78,7 +78,7 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasGun": {
-            if (!_gndOrideOn && _onGnd) exitWith { systemChat "Gnd Oride isn't on!";  [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
@@ -87,7 +87,7 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasRkt": {
-            if (!_gndOrideOn && _onGnd) exitWith { systemChat "Gnd Oride isn't on!"; [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
@@ -96,18 +96,13 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasMsl": {
-            if (!_gndOrideOn && _onGnd) exitWith { systemChat "Gnd Oride isn't on!"; [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
                 [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
             };
-        };
-        case "fza_ah64_armSafeButton": {
-            if (!_gndOrideOn && _onGnd) exitWith { systemChat "Gnd Oride isn't on!"; };
-
-            _heli setVariable ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
         };
         case "SwitchWeaponGrp1";
         case "SwitchWeaponGrp2";

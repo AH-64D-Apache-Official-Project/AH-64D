@@ -121,6 +121,7 @@ if (_eng2Ng < 0.63 && !_onGnd) then {
 //--Rotor RPM Low
 if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
     _wcas pushBack [WCA_WARNING, "LOW ROTOR RPM", "LOW RTR"];
+    
 };
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
