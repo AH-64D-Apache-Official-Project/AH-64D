@@ -16,6 +16,7 @@ class CfgFunctions
             class getAttackProfile {RECOMPILE_FLAG;};
             class limaLoblCheck {RECOMPILE_FLAG;};
             class salFired {RECOMPILE_FLAG;};
+            class salLasePos {RECOMPILE_FLAG;};
             class salShouldStartLobl {RECOMPILE_FLAG;};
         };
     };

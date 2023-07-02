@@ -18,68 +18,83 @@ Examples:
 Author:
     Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ihadss\headers\dimensions.h"
 params ["_heli"];
 
-if !(_was == _heli getVariable "fza_ah64_was") exitwith {};
+private _constraintBoxCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131;
+private _conW = 0;
+private _conH = 0;
+private _indicateLobl = false;
+private _vector = [];
+private _allowableAngle = 20;
+private _constraintBoxUseTads = false;
 
-private _nts = _heli getVariable "fza_ah64_fcrNts";
-private _nts = _nts # 0;
-private _apx = 0;
-private _apy = 0;
-private _W = 0;
-private _h = 0;
+if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitwith {
+	_constraintBoxCtrl ctrlSetPosition [-100,-100,0,0];
+	_constraintBoxCtrl ctrlCommit 0;
+};
 
-private ["_missileTarget"];
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-    _missileTarget = _nts;
+	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
+	if !isNull _ntsObj then {
+		_indicateLobl = ([_heli, [_ntsPos, "", speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_limaLoblCheck) # 1;
+		_vector = _heli worldToModelVisual (aslToAgl _ntsPos);
+		if (_indicateLobl && getPosAsl _heli distance _ntsPos < 1000) then {_allowableAngle = 5;};
+	};
 } else {
-    _missileTarget = _heli getVariable "fza_ah64_currentlase";
+	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+	if !isNil "_lasePos" then {
+		_vector = _heli worldToModelVisual (aslToAgl _lasePos);
+		_indicateLobl = true;
+	} else {
+		if (_heli getVariable "fza_ah64_hellfireTrajectory" == "DIR") then {
+			_constraintBoxUseTads = true;
+		} else {
+			//If we don't have a selected point, place the constraints box at the center
+			_vector = [0,1,0]
+		};
+	};
+	if !_indicateLobl then {_allowableAngle = 7.5};
 };
 
-_scPos = worldToScreen(getpos _missileTarget);
-if (count _scPos < 1) then {
-    _scPos = [-100, -100];
+private _angleOffAxis = [];
+if _constraintBoxUseTads then {
+	_angleOffAxis = [_heli, [0], true] call CBA_fnc_turretDir;
+	_angleOffAxis set [1, -(_angleOffAxis # 1)];
 } else {
-    _scPos = [
-        [_scPos # 0, 0, 1] call BIS_fnc_clamp,
-        [_scPos # 1, 0, 1] call BIS_fnc_clamp
-    ];
+	if (_vector isNotEqualTo []) then {
+		_angleOffAxis = [_vector#0 atan2 _vector#1, -(_vector#2) atan2 _vector#1];
+	};
 };
-_targpos = _scPos;
 
-if (isNull _missileTarget) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
+if (_angleOffAxis isNotEqualTo []) then {
+	_angleOffAxis set [0, [_angleOffAxis # 0] call CBA_fnc_simplifyAngle180];
+};
+
+private _distOffAxis = if (_angleOffAxis isEqualTo []) then {1000} else {abs (_angleOffAxis#0) max abs (_angleOffAxis#1)};
+
+if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") == 0) then {
+	_indicateLobl = false;
+};
+
+private _inConstraints = _distOffAxis < _allowableAngle;
+
+if _indicateLobl then {
+	_conW = 2*20*SYMB_DEG_SCALING_FACTOR/4*3;
+	_conH = 2*20*SYMB_DEG_SCALING_FACTOR;
+	private _tex = ["\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa", "\fza_ah64_us\tex\HDU\ah64_lobl.paa"] select _inConstraints;
+	_constraintBoxCtrl ctrlSetText _tex;
 } else {
-    private _loblCheck = [_heli] call fza_hellfire_fnc_salShouldStartLobl;
-    private _distOffAxis = abs (_heli getRelDir _missileTarget call CBA_fnc_simplifyAngle180);
-    private _loalLimitOffset = 7.5;
-
-    if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
-        _loblCheck = ([_heli, [getpos _missileTarget, "", speed _missileTarget, _missileTarget]] call fza_hellfire_fnc_limaLoblCheck) # 1;
-        _loalLimitOffset = 5;
-    };
-        
-    if (_heli ammo (_heli getVariable "fza_ah64_selectedMissile") > 0 && _LoblCheck) then {
-        _w = 0.2202;
-        _h = 0.3;
-        _apx = 0.108;
-        _apy = 0.15;
-        if (_distOffAxis <= 20) then {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl.paa";
-        } else {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa";
-        };
-    } else {
-        _w = 0.0734;
-        _h = 0.1;
-        _apx = 0.036;
-        _apy = 0.05;
-        if (_distOffAxis <= _LoalLimitOfset) then {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa";
-        } else {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa";
-        };
-    };
+	_conW = 2*7.5*SYMB_DEG_SCALING_FACTOR/4*3;
+	_conH = 2*7.5*SYMB_DEG_SCALING_FACTOR;
+	private _tex = ["\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa", "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa"] select _inConstraints;
+	_constraintBoxCtrl ctrlSetText _tex;
 };
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition [(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
+
+private _screenPos = [-100, -100];
+if (_angleOffAxis isNotEqualTo []) then {
+	_screenPos = _angleOffAxis call fza_ihadss_fnc_angleToScreen;
+};
+_constraintBoxCtrl ctrlSetPosition [_screenPos#0 - _conW/2, _screenPos#1 - _conH/2, _conW, _conH];
+_constraintBoxCtrl ctrlCommit 0;
