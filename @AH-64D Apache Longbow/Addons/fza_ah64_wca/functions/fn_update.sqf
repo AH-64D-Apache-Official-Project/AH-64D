@@ -27,3 +27,9 @@ if (!_gndOrideOn && _onGnd) then {
     [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
     _heli setUserMfdValue [MFD_IND_ARM_SAFE, BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
 };
+
+_heli setUserMfdValue [MFD_IND_ARM_SAFE, BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
+_heli setUserMfdValue [MFD_IND_GND_ORIDE, BOOLTONUM(_heli getVariable "fza_ah64_gndOrideOn")];
+_heli setUserMfdValue [MFD_IND_EMER_HYD, BOOLTONUM(_heli getVariable "fza_ah64_emerHydOn")];
+_heli setUserMfdValue [MFD_IND_MSTR_CAUT, BOOLTONUM(_heli getVariable "fza_ah64_mstrCautLightOn")];
+_heli setUserMfdValue [MFD_IND_MSTR_WARN, BOOLTONUM(_heli getVariable "fza_ah64_mstrWarnLightOn")];
