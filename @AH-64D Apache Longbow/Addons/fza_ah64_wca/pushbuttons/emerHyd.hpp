@@ -25,19 +25,17 @@ class Draw {
 
     class battOff {
         condition = C_COND(C_AND(C_USER(MFD_IND_BATT),C_USER(MFD_IND_EMER_HYD)));
-        class pushButton {
-            class emer_hyd {
-                type = "text";
-                source = "static";
-                text = "ON";
-                sourceIndex = 0;
-                scale=1.0;
-                align="center";
-                sourceScale = 1;
-                pos[]   = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT}, 1};
-                right[] = {{START_X + CHAR_WIDTH_VEC, START_Y - 0.5*CHAR_HEIGHT},1};
-                down[]  = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
-            };
+        class emer_hyd {
+            type = "text";
+            source = "static";
+            text = "ON";
+            sourceIndex = 0;
+            scale=1.0;
+            align="center";
+            sourceScale = 1;
+            pos[]   = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT}, 1};
+            right[] = {{START_X + CHAR_WIDTH_VEC, START_Y - 0.5*CHAR_HEIGHT},1};
+            down[]  = {{START_X,                  START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
         };
     };
 };
