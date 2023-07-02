@@ -42,12 +42,12 @@ private _emerHydOn         = _heli getVariable "fza_ah64_emerHydOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
-private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//animationSourcePhase "cyclicForward";
+private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 //Cyclic roll
-private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//_heli animationSourcePhase "cyclicAside";
+private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
@@ -74,6 +74,10 @@ if (_flightModel == "SFMPlus") then {
     };
     fza_sfmplus_collectiveOutput = _collectiveOut;
 } else {
+    if (isAutoHoverOn _heli) then {
+        _heli action ["AutoHoverCancel", _heli];  
+    };
+
     //Keyboard collective
     private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
     private _keyCollectiveDn = inputAction "HeliCollectiveLower";
@@ -123,7 +127,7 @@ if (_flightModel == "SFMPlus") then {
 private _isZeus = !isNull findDisplay 312;
 
 //Cyclic and Pedals 
-if (!freelook && !_isZeus) then {
+if (!_isZeus) then {
     fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
     fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
     if (!_tailRtrFixed) then {

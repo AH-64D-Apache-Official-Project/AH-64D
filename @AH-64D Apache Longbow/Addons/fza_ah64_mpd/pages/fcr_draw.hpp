@@ -209,8 +209,6 @@ class root {
     MPD_TEXT_C(Heading, 0.5, 0.105, source = heading; sourceScale = 1;)
     
     class vabs{
-        //T1
-        MPD_TEXT_C(C_SCP,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C SCP"))
         //T6
         MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
         MPD_TEXT_C(UTIL,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
@@ -254,6 +252,13 @@ class root {
         MPD_TEXT_R(ACQ, 0.78 + MPD_TEXT_WIDTH,     0.939 - MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FCR_ACQ))
         //Weapon Status 12 chars
         MPD_TEXT_R(WS,  0.78 - (6*MPD_TEXT_WIDTH), 0.939,                   MPD_TEXT_USER(MFD_TEXT_IND_FCR_WS))
+    };
+    class Cscope {
+        MPD_TEXT_C(C_SCP,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C SCP"))
+        class Boxed {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_CSCOPE), 1));
+            MPD_BOX_C(UTIL, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 5)
+        };
     };
     class GTM {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 1));

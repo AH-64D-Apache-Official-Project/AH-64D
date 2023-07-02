@@ -219,9 +219,10 @@
 #define MFD_IND_FCR_ANIM       0
 #define MFD_IND_FCR_SCAN_TYPE  1
 #define MFD_IND_FCR_ACQ_BOX    2
-#define MFD_IND_FCR_MODE       7
-#define MFD_IND_FCR_ATM_BLOCK  8
-#define MFD_IND_FCR_LINE_SHOW  9
+#define MFD_IND_FCR_MODE       3
+#define MFD_IND_FCR_ATM_BLOCK  4
+#define MFD_IND_FCR_LINE_SHOW  5
+#define MFD_IND_FCR_CSCOPE     6
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1

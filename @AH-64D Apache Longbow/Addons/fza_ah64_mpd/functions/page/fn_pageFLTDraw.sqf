@@ -21,10 +21,10 @@ private _torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
 private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * SCALE_MPS_KNOTS;
 private _airspeed = vectorMagnitude (velocity _heli vectorDiff wind);
-private _baroAlt  = getPosASL _heli # 2 * SCALE_METERS_FEET;
-private _radarAlt = getPos _heli # 2 * SCALE_METERS_FEET;
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT), (round (_baroAlt / 10) * 10) toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radarAlt toFixed 0, ""] select (_radarAlt > 1428)];
+([_heli] call fza_sfmplus_fnc_getAltitude)
+    params ["_barAlt", "_radAlt"];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
 
 // Waypoint status window

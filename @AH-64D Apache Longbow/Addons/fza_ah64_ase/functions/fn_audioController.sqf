@@ -79,7 +79,7 @@ if (_rlwrPower == "OFF") exitWith {
     [_heli, _priority, _object, _identity, 0.8, _dirAud, 0.6, _stateAudio, 0.7] call fza_audio_fnc_addASEMessage;
 
     //ASE AUTOPAGE
-    if (_mpdLeft != "ase" && _mpdRight != "ase") then {
+    if !(_mpdLeft == "ase" || _mpdRight == "ase") then {
         if (_Autopage == 1 && _radarState == "searching") then {
             [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
         };

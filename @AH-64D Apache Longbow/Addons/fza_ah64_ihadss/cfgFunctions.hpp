@@ -10,6 +10,7 @@ class CfgFunctions
         tag = "FZA_ihadss";
         class functions {
             file = "\fza_ah64_ihadss\functions";
+            class angleToScreen {R;};
             class constraintBoxDraw {R;};
             class cscopeDraw {R;};
             class ihadssController {R;};
