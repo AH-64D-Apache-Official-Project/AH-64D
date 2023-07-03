@@ -22,7 +22,7 @@ The ase Page will only Show 7 Threats at one time, if there are more than 7 it i
     * `ACQ` - A radar is Aquiring(Marked) you.
     * `TRK` - A radar is actively tracking you.
     * `OFF` - Never autopage.
-    {% include note.html content="In addition to this the ASE page will Always autopage when launched upon." %}
+    {% include note.html content="In addition to this, the ASE page will Always autopage when launched upon." %}
 3. Countermeasure count.
     * `American Mission Equipment` - Chaff Count.
     * `British Mission Equipment`  - Chaff & Flare Count.
@@ -43,6 +43,8 @@ The ase Page will only Show 7 Threats at one time, if there are more than 7 it i
 
 {% include important.html content="Currently in this new implementation of the Ase page there is only one Icon Type, You get distinction between them from the Audio which Will call out the type of radar." %}
 
-| Searching | Aquiring(Flashing) | Tracking(Flashing)
-| :- | :-: | :- |
-| ![](images/tex/icons/MPD-ASE-Radar-Searching.png) | ![](images/tex/icons/MPD-ASE-Radar-Aquiring.png) | ![](images/tex/MPD-ASE-Radar-Tracking.png)
+*  `*` Means the icons Flash
+
+| Searching | Aquiring `*`| Tracking `*`
+| :-: | :-: | :-: |
+| ![](images/tex/icons/MPD-ASE-Radar-Searching.png) | ![](images/tex/icons/MPD-ASE-Radar-Aquiring.png) | ![](images/tex/icons/MPD-ASE-Radar-Tracking.png) |

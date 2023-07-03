@@ -8,16 +8,16 @@ folder: mpd
 
 
 
-{% include image.html file="mpd/page_fcr_ground.jpg" alt="Image of the FCR Page" caption="Figure 1: The FCR page in GTM." %}
+{% include image.html file="mpd/MPD-FCR-GTM.jpg" alt="Image of the FCR Page" caption="Figure 1: FCR GTM." %}
 
-{% include image.html file="mpd/page_fcr_air.jpg" alt="Image of the FCR Page" caption="Figure 2: The FCR page in ATM." %}
+{% include image.html file="mpd/MPD-FCR-ATM.jpg" alt="Image of the FCR Page" caption="Figure 2: The FCR page in ATM." %}
 
-The FCR page shows all targets that have been discovered by the FCR, along with a number indicating the quantity of discovered targets in the top right.
+The FCR(Fire Control Radar) is the cheese wheel mounted ontop of the Rotor Mast, The Fire control Radar is Capbable of Tracking up to 256 Target at a range of 8 KM at any one time, The FCR page itself will only display the 16 closest Targets to be scanned, as the Apache Only carries 16 Hellfires.
+The Fire Control Radar has 4 Submodes ground targeting mode (GTM), radar map mode (RMAP), air targeting mode (ATM), or terrain profiles mode (TPM), of the 4 We currently Implement GTM & ATM.
 
-The FCR does not follow the same zoom levels as the TSD and ASE page, and is constantly scaled so that the edge of the radar is the maximum range of the radar.
-
-The background image showing FCR range and scan size will change depending on FCR mode.
 
 ## Operations
-
-No direct operations can be performed through the FCR page, but the FCR can be instead operated via [keybinds](keybinds.html)
+Cscope - This when enabled projects the FCRs 16 targets into your Ihadss.
+    {% include note.html content="The cscope only displays the icon on the Last scan position and does not predict the movement of targes." %}
+    
+The rest of the FCR can be operated via [keybinds](keybinds.html)
