@@ -7,50 +7,42 @@ folder: mpd
 ---
 
 
-{% include image.html file="mpd/ase_page_notracks_nojam.png" alt="Image of ASE MPD with no track" caption="Figure 1: The ASE mpd with no active jammers and no tracks" %}
+{% include image.html file="mpd/MPD-ASE.png" alt="Image of ASE MPD with no track" caption="Figure 1: The ASE MPD With Acitve IR jammer, No tracks" %}
 
 ## Introduction
 
-The ASE page allows for the operator to operate the aircraft's Aircraft Survivability Equipment. The central portion of the page displays all detected threats to the airframe, both airborne and grounded. The outer sections allows for the operator to operate the aircraft's countermeasures and decide how the aircraft should react to threats.
-
-{% include important.html content="In reality in the real aircraft the Jammer do not have the different modes as Standby is to warm the jammers up ready for activation & operation would be the equivilant of standby currantly in which it jammes when it detects a threat." %}
+The ASE page allows for the operator to operate the aircraft's Aircraft Survivability Equipment. The central portion of the page displays all detected threats to the airframe, both airborne & grounded. The outer sections allows for the operator to operate the aircraft's countermeasures & decide how the aircraft should react to threats.
 
 ## Info
-
+The ase Page will only Show 7 Threats at one time, if there are more than 7 it is ordered by detection order.
 ### ASE
 
-1. Autopage. This sets what situations this page will be automatically shown. It has 3 Modes
-    * `OFF` - Never autopage
-    * `TRACK` - Autopage when a threat begins tracking, or when a launch is detected.
-    * `LAUNCH` - Autopage when a launch is detected
-2. Range to show in the central dsplay
+1. Autopage. This sets what situations this page will be automatically shown if not already open. It has 4 Modes.
+    * `SRH` - A new radar has been detected in search mode.
+    * `ACQ` - A radar is Aquiring(Marked) you.
+    * `TRK` - A radar is actively tracking you.
+    * `OFF` - Never autopage.
+    {% include note.html content="In addition to this the ASE page will Always autopage when launched upon." %}
 3. Countermeasure count.
-4. IR Jammer Control.
-5. RF Jammer Control.
-6. Ownship icon.
+    * `American Mission Equipment` - Chaff Count.
+    * `British Mission Equipment`  - Chaff & Flare Count.
+4. RLWR Counter. - This will show how many Radar and laser threats there are total
+5. IRJam Control. - This will toggle the Infra Red Jammer On & Off, when turning on it may display "WARM", during which it is not functioning
+6. Ownship icon. - This represents the Apache.
+7. CHAff Control. Toggle Between ARM & SAFE.
+8. ASE Bezel. Unboxing this Takes you to the TSD Page.
 
-### Jammers
+### IR JAMMER
 
-<figure>
-    <div style="display:block;width:100%;display:flex;justify-content:center">
-    <img class="docimage" style="display:inline-block" src="images/mpd/ir_jam_panel.png"/>
-    <img class="docimage" style="display:inline-block" src="images/mpd/rf_jam_panel.png"/>
-    </div>
-    <figcaption>Figure 2: Jammer controls on the MPD</figcaption>
-</figure>
-
-1. OFF. jammers are Off.
-2. STBY. In this mode Jammers will Automaticaly switch to OPER after Missile is detected.
-3. OPER. The Jammers are Jamming, They have 120 seconds of operation before overheat & require 60 seconds cooldown, OPER can be interrupted.
-
-{% include warning.html content="Switching the Jammers from OFF to OPER & STBY to OPER has a 1.5 second activation delay, so being in either OFF or STBY mode will delay jammer enabling at short range, If heading into close proximity to known anti air it is recommended to have jammers in OPER beforehand." %}
+1. OFF. IR jammer are Off.
+2. WARM. The IR Jammer Is warming up & non Operational, takes 2 seconds to warm up.
+3. OPER. The IR Jammer Is operating and actively Jamming, The Jammer Does not have an operational limit.
+    {% include note.html content="The IR Jammer is a proactive system, working to stop anything locking you evan before launch" %}
 
 ## RWR Icons
 
-{% include important.html content="Currently in the aircraft there are only three types of anti air icons." %}
+{% include important.html content="Currently in this new implementation of the Ase page there is only one Icon Type, You get distinction between them from the Audio which Will call out the type of radar." %}
 
-| Type | Detected | Tracking | Firing | Description
-| :- | :-: | :-: | :-: | :- |
-| SA9 | ![](images/tex/icons/9D.png) | ![](images/tex/icons/9T.png) | ![](images/tex/icons/9L.png) | SA9 Are classified as R-750 Cronus, S-750 Rhea, MIM-145 Defender, AN/MPQ-105
-| SA19 | ![](images/tex/icons/19D.png) | ![](images/tex/icons/19T.png) | ![](images/tex/icons/19L.png) | SA19 Are classified as IFV-6a Cheetah, ZSU-39 Tigris, CUP 2S6M Tunguska    
-| SA23 | ![](images/tex/icons/23D.png) | ![](images/tex/icons/23T.png) | ![](images/tex/icons/23L.png) | SA23 Are classified as RHS & CUP ZSU-23-4
+| Searching | Aquiring(Flashing) | Tracking(Flashing)
+| :- | :-: | :- |
+| ![](images/tex/icons/MPD-ASE-Radar-Searching.png) | ![](images/tex/icons/MPD-ASE-Radar-Aquiring.png) | ![](images/tex/MPD-ASE-Radar-Tracking.png)
