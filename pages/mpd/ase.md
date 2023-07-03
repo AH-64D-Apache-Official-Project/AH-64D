@@ -39,7 +39,7 @@ The ase Page will only Show 7 Threats at one time, if there are more than 7 it i
 3. OPER. The IR Jammer Is operating and actively Jamming, The Jammer Does not have an operational limit.
     {% include note.html content="The IR Jammer is a proactive system, working to stop anything locking you evan before launch" %}
 
-## RWR Icons
+## RLWR Icons
 
 {% include important.html content="Currently in this new implementation of the Ase page there is only one Icon Type, You get distinction between them from the Audio which Will call out the type of radar." %}
 
