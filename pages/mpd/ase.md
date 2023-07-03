@@ -48,3 +48,8 @@ The ase Page will only Show 7 Threats at one time, if there are more than 7 it i
 | Searching | Aquiring `*`| Tracking `*`
 | :-: | :-: | :-: |
 | ![](images/tex/icons/MPD-ASE-Radar-Searching.png) | ![](images/tex/icons/MPD-ASE-Radar-Aquiring.png) | ![](images/tex/icons/MPD-ASE-Radar-Tracking.png) |
+
+## specifications
+- Azimuth 360°
+- Elevation +- 45°
+- Detection Range 8KM
