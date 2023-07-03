@@ -24,8 +24,10 @@ class Draw {
     #define CHAR_WIDTH_VEC 0.32
     #define CHAR_HEIGHT 0.5
 
-    class pushButton {
-        class yellow {
+    class battOff {
+        condition = C_COND(C_USER(MFD_IND_BATT));
+        class pushButton_arm {
+            condition = C_COND(C_USER(MFD_IND_ARM_SAFE));
             color[] = {0.98, 0.80, 0.24, 1};
             class arm_top {
                 type = "text";
@@ -40,7 +42,8 @@ class Draw {
                 down[]  = {{START_X,                  TOP_START_Y - 0.5*CHAR_HEIGHT + CHAR_HEIGHT},1};
             };
         };
-        class green {
+        class pushButton_safe {
+            condition = C_COND(C_NOT(C_USER(MFD_IND_ARM_SAFE)));
             color[] = {0.0, 0.80, 0.51, 1};
             class arm_bot {
                 type = "text";

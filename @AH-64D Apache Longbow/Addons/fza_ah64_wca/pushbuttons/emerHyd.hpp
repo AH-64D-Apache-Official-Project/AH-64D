@@ -23,7 +23,8 @@ class Draw {
     #define CHAR_WIDTH_VEC 0.32
     #define CHAR_HEIGHT 0.5
 
-    class pushButton {
+    class battOff {
+        condition = C_COND(C_AND(C_USER(MFD_IND_BATT),C_USER(MFD_IND_EMER_HYD)));
         class emer_hyd {
             type = "text";
             source = "static";

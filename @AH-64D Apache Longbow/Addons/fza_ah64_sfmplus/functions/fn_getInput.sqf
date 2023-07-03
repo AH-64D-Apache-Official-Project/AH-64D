@@ -38,7 +38,7 @@ private _utilHydPumpDamage = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI        = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
 
-private _accOn             = _heli getVariable "fza_systems_accOn";
+private _emerHydOn         = _heli getVariable "fza_ah64_emerHydOn";
 private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
@@ -93,7 +93,7 @@ if (_flightModel == "SFMPlus") then {
         _tailRtrFixed = true;
     };
     
-    if (!_hydFailure || _accOn) then {
+    if (!_hydFailure || _emerHydOn) then {
         if (isNil "fza_sfmplus_collectiveOutput") then {
             fza_sfmplus_collectiveOutput = 0;
         };
@@ -160,7 +160,7 @@ if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
 };
 
 //Emergency Hydraulics
-if (_accOn) then {
+if (_emerHydOn) then {
     if (currentPilot _heli == player) then { 
         _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
     };

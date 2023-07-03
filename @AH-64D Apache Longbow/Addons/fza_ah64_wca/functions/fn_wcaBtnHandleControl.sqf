@@ -1,33 +1,30 @@
 params ["_heli", "_system", "_control"];
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-systemChat "WCA Button Handle Control!";
+private _onGnd      = isTouchingGround _heli;
+private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
 switch (_control) do {
     case "armSafe": {
-        systemChat "Arm/Safe";
+        if (!_gndOrideOn && _onGnd) exitWith {};
+        _heli setVariable     ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
+        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], _heli turretUnit [1]]];
         playsound "fza_ah64_switch_flip4";
     };
     case "gndOride": {
-        systemChat "Gnd Oride";
+        _heli setVariable     ["fza_ah64_gndOrideOn", !(_heli getVariable "fza_ah64_gndOrideOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "emerHyd": {
-        systemChat "Emer Hyd";
-
-        if (!(_heli getVariable "fza_systems_accOn")) then {
-            _heli setVariable ["fza_systems_accOn", true, true];
-        } else {
-            _heli setVariable ["fza_systems_accOn", false, true];
-        };
-
+        _heli setVariable     ["fza_ah64_emerHydOn", !(_heli getVariable "fza_ah64_emerHydOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrCaut": {
-        systemChat "Master Caution";
+        _heli setVariable     ["fza_ah64_mstrCautLightOn", !(_heli getVariable "fza_ah64_mstrCautLightOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrWarn": {
-        systemChat "Master Warning";
+        _heli setVariable     ["fza_ah64_mstrWarnLightOn", !(_heli getVariable "fza_ah64_mstrWarnLightOn"), true];
         playsound "fza_ah64_switch_flip4";
     };
 };

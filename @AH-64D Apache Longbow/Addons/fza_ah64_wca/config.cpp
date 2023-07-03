@@ -10,7 +10,8 @@ class CfgPatches
     };
 };
 
+#include "\fza_ah64_mpd\headers\mpd_defines.hpp"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+
 #include "CfgFunctions.hpp"
 #include "CfgVehicles.hpp"
-
-#include "\fza_ah64_mpd\headers\mpd_defines.hpp"

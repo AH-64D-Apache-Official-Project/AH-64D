@@ -3,7 +3,7 @@
 #define SALVO_ALL 99
 params ["_heli", "_mpdIndex", "_state"];
 
-private _armed = _heli getVariable "fza_ah64_armed";
+private _armed = _heli getVariable "fza_ah64_armSafeArmed";
 
 //Set the arm/safe status of the aircraft
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MASTER_ARM), BOOLTONUM(_armed)];

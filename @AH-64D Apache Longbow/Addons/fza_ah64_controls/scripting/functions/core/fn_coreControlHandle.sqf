@@ -6,6 +6,9 @@ params["_name", "_value"];
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
+private _onGnd      = isTouchingGround _heli;
+private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+
 if (_value) then {
     //When button pressed
     switch (_name) do {
@@ -75,6 +78,8 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasGun": {
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
@@ -82,6 +87,8 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasRkt": {
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
@@ -89,14 +96,13 @@ if (_value) then {
             };
         };
         case "fza_ah64_wasMsl": {
+            if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
+
             if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
                 [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
             };
-        };
-        case "fza_ah64_masterSafe": {
-            _heli setVariable ["fza_ah64_armed", !(_heli getVariable "fza_ah64_armed"), true];
         };
         case "SwitchWeaponGrp1";
         case "SwitchWeaponGrp2";

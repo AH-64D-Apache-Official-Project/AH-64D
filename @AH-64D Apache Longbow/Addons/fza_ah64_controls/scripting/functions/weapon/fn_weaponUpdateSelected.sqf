@@ -23,19 +23,21 @@ if (player == driver _heli && !isPlayer gunner _heli && !isManualFire _heli) the
     player action ["ManualFire", vehicle player];
 };
 
+
+
 switch (_heli getVariable "fza_ah64_was") do {
     case WAS_WEAPON_NONE: {
         _heli selectWeaponTurret ["fza_ma_safe",[0]];
     };
     case WAS_WEAPON_GUN: {
-        if (_heli getVariable "fza_ah64_armed") then {
+        if (_heli getVariable "fza_ah64_armSafeArmed") then {
             _heli selectWeaponTurret ["fza_m230",[0]];
         } else {
             _heli selectWeaponTurret ["fza_gun_safe",[0]];
         };
     };
     case WAS_WEAPON_RKT: {
-        if (_heli getVariable "fza_ah64_armed") then {
+        if (_heli getVariable "fza_ah64_armSafeArmed") then {
             private _selectedRocket = _heli getVariable "fza_ah64_selectedRocket";
             if (_selectedRocket != "") then {
                 _heli selectWeaponTurret [_selectedRocket,[0]];
@@ -53,7 +55,7 @@ switch (_heli getVariable "fza_ah64_was") do {
         };
     };
     case WAS_WEAPON_MSL: {
-        if (_heli getVariable "fza_ah64_armed") then {
+        if (_heli getVariable "fza_ah64_armSafeArmed") then {
             private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
             if (_selectedMissile != "") then {
                 vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile];

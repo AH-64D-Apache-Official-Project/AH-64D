@@ -91,7 +91,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fire1arm", false, true];
     _heli setVariable ["fza_ah64_fire2arm", false, true];
     _heli setVariable ["fza_ah64_fireapuarm", false, true];
-    _heli setVariable ["fza_ah64_armed", false, true];
+
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
     private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
@@ -142,7 +142,12 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", 0.0,   true];
     _heli setVariable ["fza_ah64_hdgHoldSubMode",         "hdg", true];    //hdg, trn
     _heli setVariable ["fza_ah64_hdgHoldPedalRef",        0.0,   true];    //<-- probably not needed, kept just in case...
-    
+    //Systems
+    _heli setVariable ["fza_ah64_emerHydOn",              false, true];
+    _heli setVariable ["fza_ah64_gndOrideOn",             false, true];
+    _heli setVariable ["fza_ah64_armSafeArmed",           false, true];
+    _heli setVariable ["fza_ah64_mstrCautAudioOn",        false, true];
+    _heli setVariable ["fza_ah64_mstrWarnAudioOn",        false, true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
@@ -160,6 +165,10 @@ _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_audioQueList", []];
+//Systems local to the crewstation
+_heli setVariable ["fza_ah64_mstrCautLightOn", false];
+_heli setVariable ["fza_ah64_mstrWarnLightOn", false];
+
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
