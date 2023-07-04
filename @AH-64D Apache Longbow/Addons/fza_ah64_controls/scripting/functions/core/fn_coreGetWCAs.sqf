@@ -34,19 +34,28 @@ Author:
 
 params ["_heli"];
 
+#define HYD_FAIL_PRIORITY          1
+#define TAIL_RTR_HYD_FAIL_PRIORITY 1
+#define RTR_RPM_PRIORITY           2
+#define ENG_OUT_PRIORITY           3
+#define FIRE_PRIORITY              4
+
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 private _mags = _heli weaponsTurret [-1];
 
-private _wcas = [];
-
+private _wcas       = [];
+private _activeCaut = _heli getVariable "fza_ah64_activeCaut";
+private _activeWarn = _heli getVariable "fza_ah64_activeWarn";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
+private _playCautAudio = false;
+private _playWarnAudio = false;
 //--APU
-private _apuBtnOn = _heli getVariable "fza_systems_apuBtnOn";
-private _apuOn    = _heli getVariable "fza_systems_apuOn";
+private _apuBtnOn    = _heli getVariable "fza_systems_apuBtnOn";
+private _apuOn       = _heli getVariable "fza_systems_apuOn";
 private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
@@ -95,111 +104,252 @@ private _priLevel_pct        = _heli getVariable "fza_systems_priLevel_pct";
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
+
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--APU Warnings
 if (_heli getVariable "fza_ah64_apu_fire") then {
-    _wcas pushBack [WCA_WARNING, "APU FIRE", ""];
+    ([_heli, _activeWarn, "APU FIRE", "", FIRE_PRIORITY, "fza_ah64_APU_fire", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "APU FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 1 Out
 if (_eng1Ng < 0.63 && !_onGnd) then {
-    _wcas pushBack [WCA_WARNING, "ENGINE 1 OUT", "ENG1 OUT"];
+    ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENGINE 1 OUT"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 1 Fire
 if (_heli getVariable "fza_ah64_e1_fire") then {
-    _wcas pushBack [WCA_WARNING, "ENGINE 1 FIRE", ""];
-};
-//--Engine 2 Fire
-if (_heli getVariable "fza_ah64_e2_fire") then {
-    _wcas pushBack [WCA_WARNING, "ENGINE 2 FIRE", ""];
+    ([_heli, _activeWarn, "ENGINE 1 FIRE", "", FIRE_PRIORITY, "fza_ah64_engine_1_fire", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENGINE 1 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
 if (_eng2Ng < 0.63 && !_onGnd) then {
-    _wcas pushBack [WCA_WARNING, "ENGINE 2 OUT", "ENG2 OUT"];
+    ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENGINE 2 OUT"] call fza_wca_fnc_wcaDelWarning;
 };
+//--Engine 2 Fire
+if (_heli getVariable "fza_ah64_e2_fire") then {
+    ([_heli, _activeWarn, "ENGINE 2 FIRE", "", FIRE_PRIORITY, "fza_ah64_engine_2_fire", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
+};
+
 //--Rotor RPM Low
 if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
-    _wcas pushBack [WCA_WARNING, "LOW ROTOR RPM", "LOW RTR"];
+    ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_heli, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
-    _wcas pushBack [WCA_WARNING, "HYD FAILURE", "HYD FAIL"];
+    ([_heli, _activeWarn, "HYD FAILURE", "HYD FAIL", HYD_FAIL_PRIORITY, "fza_ah64_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "HYD FAILURE"] call fza_wca_fnc_wcaDelWarning;
 };
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
-    _wcas pushBack [WCA_WARNING, "TAIL ROTOR HYD", "TAIL RTR"];
+    ([_heli, _activeWarn, "TAIL ROTOR HYD", "TAIL RTR", TAIL_RTR_HYD_FAIL_PRIORITY, "fza_ah64_tail_rotor_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "TAIL ROTOR HYD"] call fza_wca_fnc_wcaDelWarning;
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // CAUTIONS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 //--Generator 1 Fail
 if (_gen1Damage >= SYS_GEN_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "GENERATOR 1 FAIL", "GEN1 FAIL"];
+    ([_heli, _activeCaut, "GENERATOR 1 FAIL", "GEN1 FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GEN1 FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Generator 2 Fail
 if (_gen2Damage >= SYS_GEN_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "GENERATOR 2 FAIL", "GEN2 FAIL"];
+    ([_heli, _activeCaut, "GENERATOR 2 FAIL", "GEN2 FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GEN2 FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Rectifier 1 Fail
 if (_rect1Damage >= SYS_RECT_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "RECTIFIER 1 FAIL", "RECT1 FAIL"];
+    ([_heli, _activeCaut, "RECTIFIER 1 FAIL", "RECT1 FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "RECT1 FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Rectifier 2 Fail
 if (_rect2Damage >= SYS_RECT_DMG_THRESH) then {
     _wcas pushBack [WCA_CAUTION, "RECTIFIER 2 FAIL", "RECT2 FAIL"];
+    ([_heli, _activeCaut, "RECTIFIER 2 FAIL", "RECT2 FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "RECT2 FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Intermediate and Tail Rotor Gearboxes
 if (_IGBDamage >= SYS_IGB_DMG_THRESH || _TGBDamage >= SYS_TGB_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "GEARBOX VIBRATION", "GRBX VIB"];
+    ([_heli, _activeCaut, "GEARBOX VIBRATION", "GRBX VIB", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX VIB"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose gearbox 1
 if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "GEARBOX 1 CHIPS", "GRBX1 CHIPS"];
+     ([_heli, _activeCaut, "GEARBOX 1 CHIPS", "GRBX1 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX1 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose Gearbox 2
 if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "GEARBOX 2 CHIPS", "GRBX2 CHIPS"];
+     ([_heli, _activeCaut, "GEARBOX 2 CHIPS", "GRBX2 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX2 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Transmission
 if (_xmsnDamage >= SYS_XMSN_DMG_THRESH) then {
     _wcas pushBack [WCA_CAUTION, "MAIN XMSN CHIPS", "XMSN CHIPS"];
+    ([_heli, _activeCaut, "MAIN XMSN CHIPS", "XMSN CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "XMSN CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Fuel
 if (fuel _heli < 0.05) then {
-    _wcas pushBack [WCA_CAUTION, "FORWARD FUEL LOW", "FWD FUEL LO"];
+    ([_heli, _activeCaut, "FORWARD FUEL LOW", "FWD FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "FWD FUEL LO"] call fza_wca_fnc_wcaDelCaution;
 };
 if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
-    _wcas pushBack [WCA_CAUTION, "AFT FUEL LOW", "AFT FUEL LO"];
+    ([_heli, _activeCaut, "AFT FUEL LOW", "AFT FUEL LO", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "AFT FUEL LO"] call fza_wca_fnc_wcaDelCaution;
 };
 //--APU
 if (_apuOn && getpos _heli # 2 >= 3 && _apuBtnOn) then {
-    _wcas pushBack [WCA_CAUTION, "APU ON", "APU ON"];
-};
-//--Mission Equipment
-if (_heli getHitPointDamage "IrJammer" >= 0.8) then {
-    _wcas pushBack [WCA_CAUTION, "IRJAM FAIL", "IRJAM FAIL"];
+    ([_heli, _activeCaut, "APU ON", "APU ON", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "APU ON"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Stabilator
 if (_stabDamage >= SYS_STAB_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "AUTO/MAN STAB FAIL", "STAB FAIL"];
+    ([_heli, _activeCaut, "AUTO/MAN STAB FAIL", "STAB FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "STAB FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Hydraulics
 if (_priHydPSI < SYS_MIN_HYD_PSI) then {
-    _wcas pushBack [WCA_CAUTION, "PRI HYD PSI LOW", "PRI HYD PSI"];
+    ([_heli, _activeCaut, "PRI HYD PSI LOW", "PRI HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "PRI HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_priLevel_pct < SYS_HYD_MIN_LVL) then {
-    _wcas pushBack [WCA_CAUTION, "PRI HYD LEVEL LOW", "PRI HYD LVL"];
+    ([_heli, _activeCaut, "PRI HYD LEVEL LOW", "PRI HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "PRI HYD LVL"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
-    _wcas pushBack [WCA_CAUTION, "UTIL HYD PSI LOW", "UTIL HYD PSI"];
+    ([_heli, _activeCaut, "UTIL HYD PSI LOW", "UTIL HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "UTIL HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
-    _wcas pushBack [WCA_CAUTION, "UTIL HYD LEVEL LOW", "UTIL HYD LVL"];
-};
+    ([_heli, _activeCaut, "UTIL HYD LEVEL LOW", "UTIL HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
 
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "UTIL HYD LVL"] call fza_wca_fnc_wcaDelCaution;
+};
 //--Flight Controls
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "BUCS FAIL", "BUCS FAIL"];
+    ([_heli, _activeCaut, "BUCS FAIL", "BUCS FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "BUCS FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
     || !(_heli getVariable "fza_ah64_fmcPitchOn")
@@ -207,6 +357,17 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
     || !(_heli getVariable "fza_ah64_fmcYawOn")
     || !(_heli getVariable "fza_ah64_fmcCollOn")) then {
         _wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG"];
+        ([_heli, _activeCaut, "FMC DISENGAGED", "FMC DISENG", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "FMC DISENG"] call fza_wca_fnc_wcaDelCaution;
+};
+
+if (_playCautAudio) then {
+    [_heli] call fza_audio_fnc_addCaution;
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////

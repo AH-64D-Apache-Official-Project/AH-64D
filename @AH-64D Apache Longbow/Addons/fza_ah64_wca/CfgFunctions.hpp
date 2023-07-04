@@ -10,7 +10,11 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_wca\functions";
             class update {R;};
+            class wcaAddCaution {R;};
+            class wcaAddWarning {R;};
             class wcaBtnHandleControl {R;};
+            class wcaDelCaution {R;};
+            class wcaDelWarning {R;};
         };
     };
 };
