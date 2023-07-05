@@ -1,3 +1,21 @@
+/*----------------------------------------------------------------------------
+Function: fza_fnc_targetingFCRUpdate
+
+Description:
+    cycle the targeting system to the next FCR target
+
+Parameters:
+    _heli - the heli to act upon
+
+Returns:
+    Nothing
+    
+Examples:
+    [_heli] call fza_fnc_targetingsensorCycle;
+
+Author:
+    BradMick, Snow(Dryden)
+---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
@@ -51,7 +69,7 @@ private _fcrTargets = [];
     _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
 } foreach getSensorTargets _heli;
 
-_fcrTargets = [_fcrTargets, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
+_fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
 
 private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
