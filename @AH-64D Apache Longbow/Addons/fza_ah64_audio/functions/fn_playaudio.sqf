@@ -7,24 +7,25 @@ Parameters:
     _heli: object - the apache the player is in
 
 Returns:
-    No returns
+    When complete - true
 
 Examples:
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params [["_heli", vehicle player], ["_priority", 1], ["_Reference", ""], ["_audio1", ""], ["_delay1", 1], ["_audio2", ""], ["_delay2", 1], ["_audio3", ""], ["_delay3", 1]];
+params [["_heli", vehicle player], ["_priority", 1], ["_Reference", ""], ["_volume", 1], ["_audio1", ""], ["_delay1", 1], ["_audio2", ""], ["_delay2", 1], ["_audio3", ""], ["_delay3", 1]];
 
 if (vehicle player == _heli && _audio1 isNotEqualTo "") then {
-    playSound _audio1;
+    playSoundUI [_audio1, _volume];
     sleep _delay1;
 };
 if (vehicle player == _heli && _audio2 isNotEqualTo "") then {
-    playSound _audio2;
+    playSoundUI [_audio2, _volume];
     sleep _delay2;
 };
 if (vehicle player == _heli && _audio3 isNotEqualTo "") then {
-    playSound _audio3;
+    playSoundUI [_audio3, _volume];
     sleep _delay3;
 };
+true;

@@ -10,14 +10,15 @@ class CfgFunctions
         tag = "FZA_audio";
         class functions {
             file = "\fza_ah64_audio\functions";
-            class addAdvisoryMessage {R;};
             class addASEMessage {R;};
             class addCaution {R;};
             class addWarning {R;};
+            class audiohandler {R;};
             class audioinit {R;};
+            class delCaution {R;};
             class getin {R;};
             class playaudio {R;};
-            class audiohandler {R;};
+            class playAdvisory {R;};
         };
     };
 };
