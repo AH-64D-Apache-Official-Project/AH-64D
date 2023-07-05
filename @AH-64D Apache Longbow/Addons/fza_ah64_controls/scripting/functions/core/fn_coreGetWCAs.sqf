@@ -35,7 +35,6 @@ Author:
 params ["_heli"];
 
 #define HYD_FAIL_PRIORITY          1
-#define TAIL_RTR_HYD_FAIL_PRIORITY 1
 #define RTR_RPM_PRIORITY           2
 #define ENG_OUT_PRIORITY           3
 #define FIRE_PRIORITY              4
@@ -76,13 +75,11 @@ private _eng2Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 1;
 private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
-private _onGnd           = true;
+private _onGnd           = isTouchingGround _heli;
 if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
     _pwrLvrAtFly = true; 
 };
-if (getpos _heli # 2 >= 3) then {
-    _onGnd = false;
-};
+
 private _rtrRPM     = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 //--Transmission
 private _xmsnDamage = _heli getHitPointDamage "hit_drives_transmission";
@@ -156,7 +153,7 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 };
 
 //--Rotor RPM Low
-
+/*
 if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
     ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
@@ -164,7 +161,7 @@ if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
     _wcas pushBack _wcaAddWarning;
 } else {
     [_heli, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
-};
+};*/
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
     ([_heli, _activeWarn, "HYD FAILURE", "HYD FAIL", HYD_FAIL_PRIORITY, "fza_ah64_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
@@ -175,7 +172,7 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG
     [_activeWarn, "HYD FAILURE"] call fza_wca_fnc_wcaDelWarning;
 };
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
-    ([_heli, _activeWarn, "TAIL ROTOR HYD", "TAIL RTR", TAIL_RTR_HYD_FAIL_PRIORITY, "fza_ah64_tail_rotor_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
+    ([_heli, _activeWarn, "TAIL ROTOR HYD", "TAIL RTR", HYD_FAIL_PRIORITY, "fza_ah64_tail_rotor_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
     _wcas pushBack _wcaAddWarning;
@@ -287,7 +284,7 @@ if (fuel _heli >= 0.05 && fuel _heli < 0.1) then {
     [_activeCaut, "AFT FUEL LO"] call fza_wca_fnc_wcaDelCaution;
 };
 //--APU
-if (_apuOn && getpos _heli # 2 >= 3 && _apuBtnOn) then {
+if (_apuOn && !_onGnd && _apuBtnOn) then {
     ([_heli, _activeCaut, "APU ON", "APU ON", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -439,7 +436,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
 if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
-if (isTouchingGround _heli) then {
+if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
 
