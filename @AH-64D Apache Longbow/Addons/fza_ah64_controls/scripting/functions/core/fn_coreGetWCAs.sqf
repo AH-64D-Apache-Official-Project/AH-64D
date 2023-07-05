@@ -212,7 +212,6 @@ if (_rect1Damage >= SYS_RECT_DMG_THRESH) then {
 };
 //--Rectifier 2 Fail
 if (_rect2Damage >= SYS_RECT_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "RECTIFIER 2 FAIL", "RECT2 FAIL"];
     ([_heli, _activeCaut, "RECTIFIER 2 FAIL", "RECT2 FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
