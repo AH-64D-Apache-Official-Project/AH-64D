@@ -338,7 +338,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.001;
-        initPhase=1;
+        initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
     };
     class plt_anticollision

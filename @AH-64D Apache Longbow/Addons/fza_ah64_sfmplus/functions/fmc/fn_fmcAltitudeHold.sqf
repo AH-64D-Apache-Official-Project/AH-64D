@@ -47,7 +47,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
         _output = [_pidRadAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     } else {
         //Barometric altitude hold uses the ASL altitude
-        private _altError = _curAltAGL - _desiredAlt;
+        private _altError = _curAltMSL - _desiredAlt;
         _output = [_pidBarAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     };
 } else {

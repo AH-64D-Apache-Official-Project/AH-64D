@@ -30,7 +30,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];
     _heli selectweapon "fza_ma_safe";
 
-    _heli setVariable ["fza_ah64_rtrbrake", true, true];
+    _heli setVariable ["fza_ah64_rtrbrake", false, true];
     _heli setVariable ["fza_ah64_battery", false, true];
     _heli setVariable ["fza_ah64_apu", false, true];
     _heli setVariable ["fza_ah64_tadsStow", true, true];

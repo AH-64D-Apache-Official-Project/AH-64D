@@ -61,8 +61,9 @@ class CfgFunctions
         class Sensor
         {
             file = "\fza_ah64_controls\scripting\functions\Sensor";
-            class targetingSensorUpdate {R;};
+            class targetingFCRUpdate {R;};
             class targetingsensorCycle {R;};
+            class targetingSensorUpdate {R;};
         };
         class fire
         {
@@ -99,7 +100,6 @@ class CfgFunctions
             file = "\fza_ah64_controls\scripting\functions\targeting";
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
-            class targetingFCRUpdate {R;};
             class targetingFilterType {R;};
             class targetingGetSightSelect {R;};
             class targetingLockCamToTarget {R;};
