@@ -51,7 +51,6 @@ private _activeWarn = _heli getVariable "fza_ah64_activeWarn";
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 private _playCautAudio = false;
-private _playWarnAudio = false;
 //--APU
 private _apuBtnOn    = _heli getVariable "fza_systems_apuBtnOn";
 private _apuOn       = _heli getVariable "fza_systems_apuOn";
@@ -153,15 +152,14 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 };
 
 //--Rotor RPM Low
-/*
-if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
+if (!_onGnd && (_rtrRPM < 0.95)) then {
     ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
     _wcas pushBack _wcaAddWarning;
 } else {
-    [_heli, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
-};*/
+    [_activeWarn, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
+};
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
     ([_heli, _activeWarn, "HYD FAILURE", "HYD FAIL", HYD_FAIL_PRIORITY, "fza_ah64_hydraulic_failure", 3] call fza_wca_fnc_wcaAddWarning)
