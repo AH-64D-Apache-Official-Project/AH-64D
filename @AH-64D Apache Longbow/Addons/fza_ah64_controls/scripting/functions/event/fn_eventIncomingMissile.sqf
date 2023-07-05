@@ -22,9 +22,13 @@ Author:
 params ["_heli","_munition","_hostile", "_instigator"];
 
 if(!(_munition isKindOf "missileBase") || !(isengineon _heli || (alive _heli))) exitwith {};
-private _missile = nearestobject [_hostile,_munition];
+private _missile            = nearestobject [_hostile,_munition];
+Private _mpdLeft            = [_heli, 0] call fza_mpd_fnc_currentPage;
+Private _mpdright           = [_heli, 1] call fza_mpd_fnc_currentPage;
 
-[_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+if !(_mpdLeft == "ase" || _mpdRight == "ase") then {
+    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+};
 
 _Counter = _heli getVariable ["fza_ah64_ASEAudiocounter", 0];
 _heli setVariable ["fza_ah64_ASEAudiocounter", (_counter + 1) % 2];
