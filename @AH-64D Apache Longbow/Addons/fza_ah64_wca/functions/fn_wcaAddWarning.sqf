@@ -12,4 +12,4 @@ if !(_mpdText in _activeWarn) then {
     [_heli, _priority, _audio, _audioLength] call fza_audio_fnc_addWarning;
 };
 
-_wcaAdd;
+[_wcaAdd];

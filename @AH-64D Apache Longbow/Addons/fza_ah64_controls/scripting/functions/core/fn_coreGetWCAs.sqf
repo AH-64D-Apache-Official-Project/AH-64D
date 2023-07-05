@@ -117,6 +117,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 } else {
     [_activeWarn, "APU FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
+
 //--Engine 1 Out
 if (_eng1Ng < 0.63 && !_onGnd) then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
@@ -155,6 +156,7 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 };
 
 //--Rotor RPM Low
+
 if (!_onGnd && _pwrLvrAtFly && (_rtrRPM < 0.95)) then {
     ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
