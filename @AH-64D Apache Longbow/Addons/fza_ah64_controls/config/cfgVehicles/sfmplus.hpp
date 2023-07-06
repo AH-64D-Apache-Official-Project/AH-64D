@@ -30,6 +30,7 @@ class Fza_SfmPlus {
     engIdleTQ   = 0.055;
     engFlyTQ    = 0.18;
     engMaxTQ    = 1.50;
+    engOvrspdTQ = 1.50;
 
     engStartNG  = 0.23;
     engIdleNG   = 0.679;
@@ -39,7 +40,8 @@ class Fza_SfmPlus {
     engStartNP  = 0.10;
     engIdleNP   = 0.57;
     engFlyNP    = 1.01;
-
+    engOvrspdNP = 1.50;
+ 
     //--------------------0-NG-----1-TGT----2-TQ----3-NP----4-Oil
     engBaseTable[] =    {{0.000,      0,    0.00,     0.00,    0.00}, //Off
                          {0.262,      3,    0.01,     0.00,    0.01},
