@@ -16,17 +16,17 @@ Examples:
     [_heli, 6, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_audio_fnc_addASEMessage;
 
 Author:
-    Snow(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
-params ["_heli", "_priority"];
+params ["_heli", "_priority", "_reference"];
 
-private _aseMsg     = _heli getVariable ["fza_audio_ase_message", ""];
+private _aseMsg     = _heli getVariable "fza_audio_ase_message";
 private _ComsVolume = _heli getVariable "fza_ah64_comsVolume";
 private _volume     = _ComsVolume get "RLWR";
-private _handoff    = _this insert [3, [_volume]];
+_this insert [3, [_volume]];
 
 if (_aseMsg isEqualTo "" || {_priority > _aseMsg # 1}) then {
-    _heli setvariable ["fza_audio_ase_message", _this + [_handoff]];
+    _heli setvariable ["fza_audio_ase_message", _this];
 };
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];

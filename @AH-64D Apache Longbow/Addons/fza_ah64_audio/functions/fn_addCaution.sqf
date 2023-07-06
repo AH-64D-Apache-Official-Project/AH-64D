@@ -12,7 +12,7 @@ Returns:
 Examples:
     [_heli] call fza_audio_fnc_addCaution;
 Author:
-    Snow(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

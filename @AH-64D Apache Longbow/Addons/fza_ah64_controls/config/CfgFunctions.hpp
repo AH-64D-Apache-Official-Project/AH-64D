@@ -100,7 +100,6 @@ class CfgFunctions
             file = "\fza_ah64_controls\scripting\functions\targeting";
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
-            class targetingFilterType {R;};
             class targetingGetSightSelect {R;};
             class targetingLockCamToTarget {R;};
             class targetingPFZCycle {R;};

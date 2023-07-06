@@ -12,7 +12,7 @@ Returns:
 Examples:
 
 Author:
-    Snow(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params [["_heli", vehicle player], ["_priority", 1], ["_Reference", ""], ["_volume", 1], ["_audio1", ""], ["_delay1", 1], ["_audio2", ""], ["_delay2", 1], ["_audio3", ""], ["_delay3", 1]];
 

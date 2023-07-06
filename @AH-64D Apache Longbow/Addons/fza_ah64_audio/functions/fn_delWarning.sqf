@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_audio_fnc_getin
+Function: fza_audio_fnc_delCaution
 
 Description:
 
@@ -10,8 +10,10 @@ Returns:
     No returns
 
 Examples:
-
+    [_heli] call fza_audio_fnc_delCaution;
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
+
+_heli setvariable ["fza_audio_warning_message", ""];
