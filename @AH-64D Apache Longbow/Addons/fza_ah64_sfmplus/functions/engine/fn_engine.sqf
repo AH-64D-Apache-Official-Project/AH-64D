@@ -136,17 +136,18 @@ switch (_engState) do {
 			} else {
 				_engLimitTQ = _maxTQ_DE;
 			};
-			
+			//If the engine isn't overspeed, do normal engine things
             if (!_engOverspeed) then {
                 private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
                 _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
-    
+                //Autorotation handler
                 if (!_isAutorotating) then { 
                     _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
                 } else {
                     _engPctNP   = 1.01;
                 };
             } else {
+                //If the engine is overspeeding, then do over speed things
                 _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
             };
 		};
@@ -203,6 +204,7 @@ if (_flightModel == "SFMPlus") then {
         _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
     };
 } else {    //End SFMPlus, begin HeliSim
+    //If the engine isn't overspeed, do normal engine things
     if (!_engOverspeed) then {
         _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
         if (_isSingleEng) then {
@@ -215,6 +217,7 @@ if (_flightModel == "SFMPlus") then {
             _engPctTQ = _engPctTQ / 2.0;
         };
     } else {
+        //If the engine is overspeeding, then do over speed things
         _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
     };
 };  //End HeliSim
@@ -237,10 +240,8 @@ _engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc
 
 if (_engPctNP >= 1.196) then {
     _engState     = "OFF";
-    _engOverspeed = false;
 
     [_heli, "fza_sfmplus_engState",     _engNum, _engState,     true] call fza_fnc_setArrayVariable;
-    [_heli, "fza_ah64_engineOverspeed", _engNum, _engOverspeed, true] call fza_fnc_setArrayVariable;
 };
 
 //Update variables

@@ -24,7 +24,9 @@ _heli setHitPointDamage ["hit_apu",                         0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 _heli setHitPointDamage ["hit_drives_intermediategearbox",  0.0];
 _heli setHitPointDamage ["hit_drives_nosegearbox1",         0.0];
+[_heli, "fza_ah64_engineOverspeed", 0, false, true] call fza_fnc_setArrayVariable;
 _heli setHitPointDamage ["hit_drives_nosegearbox2",         0.0];
+[_heli, "fza_ah64_engineOverspeed", 1, false, true] call fza_fnc_setArrayVariable;
 _heli setHitPointDamage ["hit_drives_tailrotorgearbox",     0.0];
 _heli setHitPointDamage ["hit_drives_transmission",         0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
