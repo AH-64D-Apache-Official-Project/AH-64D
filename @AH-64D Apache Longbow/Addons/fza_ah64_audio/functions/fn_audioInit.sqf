@@ -27,7 +27,7 @@ _heli setvariable ["fza_audio_funcHook", scriptNull, true];
 
 //Coms Panel Volume
 _heli setVariable ["fza_ah64_comsVolume", createHashMapFromArray
-    [ ["Master", 1],["RLWR", 1],
+    [ ["Master", 3],["RLWR", 3],
       ["VHF", 1],["UHF", 1],
       ["FM1", 1],["FM2", 1]
     ], true];
