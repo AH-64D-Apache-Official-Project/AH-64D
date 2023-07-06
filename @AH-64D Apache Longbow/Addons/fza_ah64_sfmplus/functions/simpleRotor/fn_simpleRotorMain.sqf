@@ -62,6 +62,7 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+//Rotor induced thrust as a function of RPM
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -122,12 +123,16 @@ private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
+private _mainRtrDamage  = _heli getHitPointDamage "hitvrotor";
+
 //Rotor thrust force
-if (currentPilot _heli == player) then { 
-    _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
-    //Main rotor torque effect
-    if (fza_ah64_sfmplusEnableTorqueSim) then {
-        _heli addTorque (_heli vectorModelToWorld _torqueZ);
+if (currentPilot _heli == player) then {
+    if (_mainRtrDamage < 0.99) then {
+        _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        //Main rotor torque effect
+        if (fza_ah64_sfmplusEnableTorqueSim) then {
+            _heli addTorque (_heli vectorModelToWorld _torqueZ);
+        };
     };
 };
 
