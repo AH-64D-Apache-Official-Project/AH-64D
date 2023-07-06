@@ -59,8 +59,6 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
-//If the main rotor has been destroyed, then we can assume the transmission has likely violently stopped, set RPM to 0
-if (_heli getHitPointDamage "hithrotor" == 1.0) then { _inputRPM = 0.0; };
 //Rotor induced thrust as a function of RPM
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
@@ -107,7 +105,6 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-
 private _totalThrust = _rtrThrust;
 private _thrustX     = _axisX vectorMultiply ((_totalThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
@@ -116,8 +113,6 @@ private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime;
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
 private _TGBDamage     = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
-
-
     
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
