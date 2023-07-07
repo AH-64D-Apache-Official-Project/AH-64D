@@ -8,7 +8,6 @@ _heli setVariable ["fza_mpd_tsdShowNavWptData", true];
 _heli setVariable ["fza_mpd_tsdShowAtkCurrRoute", false];
 _heli setVariable ["fza_mpd_tsdShowEnemy", [false, false]];
 _heli setVariable ["fza_mpd_tsdShowFriendly", [false, true]];
-_heli setVariable ["fza_mpd_tsdShowRlwr", [true, true]];
 _heli setVariable ["fza_mpd_tsdShowPlanTgts", [false, true]];
 _heli setVariable ["fza_mpd_tsdShowCtrlMeasures", [true, true]];
 _heli setVariable ["fza_mpd_tsdShowAtkShot", true];
