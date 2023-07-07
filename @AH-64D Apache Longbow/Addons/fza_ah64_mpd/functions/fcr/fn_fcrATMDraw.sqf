@@ -51,7 +51,7 @@ if (count _fcrTargets > 0) then {
     private _unitSelAndWpnStatus = []; //nts, ants
 
     //FCR max show
-    if (count _pointsArray > 16) exitwith {};
+    if (count _pointsArray > 15) exitwith {};
     
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER)) then {continue;};
 

@@ -42,7 +42,7 @@ private _pointsArray = [];
     private _unitSelAndWpnStatus = []; //nts, ants
 
     //FCR max show
-    if (count _pointsArray > 16) exitwith {};
+    if (count _pointsArray > 15) exitwith {};
     //Unit type
     switch (_type) do {
         case FCR_TYPE_UNKNOWN: {
