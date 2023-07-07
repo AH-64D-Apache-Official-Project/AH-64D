@@ -25,6 +25,6 @@ if (count _fcrTargets == 0) then {
     private _oldNts = _heli getVariable "fza_ah64_fcrNts";
     private _oldNts = _oldNts # 0;
     private _oldNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
-    private _newNtsIndex = (_oldNtsIndex + 1) mod count _fcrTargets;
+    private _newNtsIndex = (_oldNtsIndex + 1) mod (count _fcrTargets min 16);
     _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
 };
