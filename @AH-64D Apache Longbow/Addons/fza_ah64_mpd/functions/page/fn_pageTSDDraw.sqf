@@ -66,10 +66,34 @@ switch (_state get "subPageVarPage" select 0) do {
 };
 
 //TSD Points
-private _pointsArray = [];
+private _pointsArray      = [];
+private _showEnemy        = _heli getVariable "fza_mpd_tsdShowEnemy" select _phase;
+private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
+private _showPlanTgts     = _heli getVariable "fza_mpd_tsdShowPlanTgts" select _phase;
+private _showCtrlmeasures = _heli getVariable "fza_mpd_tsdShowCtrlMeasures" select _phase;
+private _showAtkShot      = _heli getVariable "fza_mpd_tsdShowAtkShot";
+private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
+private _tsdShowAtkRoute  = _heli getVariable "fza_mpd_tsdShowAtkCurrRoute";
+private _tsdShowNavPoint  = _heli getVariable "fza_mpd_tsdShowNavWptData";
 {
     {
+        _x params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong"];
         if (_x isEqualTo -1) then {continue;};
+        (_ident call fza_dms_fnc_pointGetIdentDetails)
+            params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
+        //Ctrl Measures
+        if (_type == POINT_TYPE_CM) then {
+            if (!_showEnemy && _color isEqualTo [1.0, 0.0, 0.2, 1]) then {continue;};
+            if (!_showFriendly && _color isEqualTo [0.4, 0.6, 1.0, 1]) then {continue;};
+            if (!_showCtrlmeasures && _color isEqualTo [0.0, 1.0, 0.5, 1]) then {continue;};
+        };
+        //Hazards
+        if (_type == POINT_TYPE_HZ && !_showAtkHazzard && _phase == 1) then {continue;};
+        //Waypoints
+        if (_type == POINT_TYPE_WP && !_tsdShowNavPoint && _phase == 0) then {continue;};
+        //PLANNED TGT/THRT
+        if (_type == POINT_TYPE_TG && !_showPlanTgts) then {continue;};
+        
         _pointsArray pushBack (_x select [0,7]);
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
