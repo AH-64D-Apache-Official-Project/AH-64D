@@ -90,7 +90,7 @@ if (count _fcrTargets > 0) then {
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
     private _ident               = "";
-    if (_forEachIndex >= 256) exitwith {};
+    
     if (_rangesetting < 25000) then {
         switch (_type) do {
             case FCR_TYPE_UNKNOWN: {
