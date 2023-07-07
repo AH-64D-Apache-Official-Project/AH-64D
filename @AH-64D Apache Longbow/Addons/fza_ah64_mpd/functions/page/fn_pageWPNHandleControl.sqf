@@ -135,11 +135,11 @@ switch (_control) do {
     case "b2": {
         //Select M230
         if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
-            if(_state get "selectedWeapon" != WAS_WEAPON_GUN) then {
+            if (_state get "selectedWeapon" != WAS_WEAPON_GUN) then {
                 _state set ["selectedWeapon", WAS_WEAPON_GUN];
                 _state set ["variant", 0];
             } else {
-                _state get ["selectedWeapon", WAS_WEAPON_NONE];
+                _state set ["selectedWeapon", WAS_WEAPON_NONE];
                 _state set ["variant", 0];
             }
         };
@@ -147,22 +147,22 @@ switch (_control) do {
     case "b3": {
         //Select Missile
         if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
-            if(_state get "selectedWeapon" != WAS_WEAPON_MSL) then {
+            if (_state get "selectedWeapon" != WAS_WEAPON_MSL) then {
                 _state set ["selectedWeapon", WAS_WEAPON_MSL];
                 _state set ["variant", 0];
             } else {
-                _state get ["selectedWeapon", WAS_WEAPON_NONE];
+                _state set ["selectedWeapon", WAS_WEAPON_NONE];
                 _state set ["variant", 0];
             }
         };
     };
     case "b5": {
         if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_NONE) then {
-            if(_state get "selectedWeapon" != WAS_WEAPON_RKT) then {
+            if (_state get "selectedWeapon" != WAS_WEAPON_RKT) then {
                 _state set ["selectedWeapon", WAS_WEAPON_RKT];
                 _state set ["variant", 0];
             } else {
-                _state get ["selectedWeapon", WAS_WEAPON_NONE];
+                _state set ["selectedWeapon", WAS_WEAPON_NONE];
                 _state set ["variant", 0];
             }
         };
