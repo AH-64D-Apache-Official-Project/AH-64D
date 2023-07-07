@@ -5,7 +5,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _phase          = BOOLTONUM(_persistState get "mode" == "atk");
-private _rangesetting   = _heli getVariable "fza_ah64_rangesetting";
+private _rangesetting   = _heli getVariable "fza_ah64_scaleRange";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -65,7 +65,8 @@ switch (_state get "subPageVarPage" select 0) do {
     };
 };
 
-//TSD Points
+_this call fza_mpd_fnc_tsdScaleDraw;
+
 private _pointsArray = [];
 {
     {

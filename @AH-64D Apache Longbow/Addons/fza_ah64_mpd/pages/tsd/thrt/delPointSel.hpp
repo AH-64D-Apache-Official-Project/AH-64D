@@ -36,7 +36,7 @@ class thrtDelPointSel {
     
     class vabs {
         #include "..\components\vabs_top.hpp"
-        #include "..\components\vabs_right.hpp"
+        #include "..\scale\scale.hpp"
         
         //L1
         MPD_TEXT_R(POINT_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("POINT>"))

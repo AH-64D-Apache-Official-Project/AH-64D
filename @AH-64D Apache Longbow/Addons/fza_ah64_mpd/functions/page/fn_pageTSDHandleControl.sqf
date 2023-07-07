@@ -12,7 +12,7 @@ switch (_control) do {
     case "b2": {
         private _newMode = ["atk", "nav"] select (_persistState get "mode" == "atk");
         _persistState set ["mode", _newMode];
-    };    
+    };
 };
 
 switch (_state get "subPageVarPage" select 0) do {
@@ -30,11 +30,10 @@ switch (_state get "subPageVarPage" select 0) do {
             case "b6": {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
             };
-            case "r2": {
-                [_heli] call fza_mpd_fnc_handleZoom;
-            };
             case "r3": {
-                _persistState set ["ctr", 1 - (_persistState get "ctr")];
+                if !(_heli getVariable "fza_ah64_showScale") then {
+                    _persistState set ["ctr", 1 - (_persistState get "ctr")];
+                };
             };
         };
     };
@@ -49,5 +48,21 @@ switch (_state get "subPageVarPage" select 0) do {
     };
     case 4: { // THRT
         _this call fza_mpd_fnc_tsdThrtHandleControl;
+    };
+};
+
+//Tsd Scale Control
+switch (_control) do {
+    case "r1": {
+        _this call fza_mpd_fnc_tsdScaleHandleControl;
+    };
+    case "r2": {
+        _this call fza_mpd_fnc_tsdScaleHandleControl;
+    };
+    case "r3": {
+        _this call fza_mpd_fnc_tsdScaleHandleControl;
+    };
+    case "r4": {
+        _this call fza_mpd_fnc_tsdScaleHandleControl;
     };
 };
