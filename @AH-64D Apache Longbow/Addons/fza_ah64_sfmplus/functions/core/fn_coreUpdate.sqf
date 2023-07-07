@@ -26,6 +26,10 @@ private _flightModel = getText (_config >> "fza_flightModel");
 
 private _deltaTime   = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
+if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
+    _heli action ["AutoHoverCancel", _heli];  
+};
+
 //Environment
 private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
 private _altimeter         = 29.92; //in mg

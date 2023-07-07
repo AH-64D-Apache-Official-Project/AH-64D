@@ -42,13 +42,23 @@ private _rtrPowerScalarTable    = [
                                   ];
 private _rtrGndEffModifier        = 0.238;
 private _rtrThrustScalarTable_min = [
-                                     [   0, 0.104]
-                                    ,[2000, 0.143]
-                                    ,[4000, 0.186]
-                                    ,[6000, 0.248]
-                                    ,[8000, 0.317]
+                                     [    0, 0.126]
+                                    ,[ 2000, 0.123]
+                                    ,[ 4000, 0.128]
+                                    ,[ 6000, 0.134]
+                                    ,[ 8000, 0.139]
+                                    ,[10000, 0.151]
+                                    ,[12000, 0.155]
                                     ];
-private _rtrThrustScalar_max    = 1.800;   //20,200lbs @ 6700ft, 15 deg C and 0.9 collective
+private _rtrThrustScalarTable_max = [
+                                     [    0, 1.534]
+                                    ,[ 2000, 1.940]
+                                    ,[ 4000, 2.290]
+                                    ,[ 6000, 2.780]
+                                    ,[ 8000, 3.320]
+                                    ,[10000, 3.645]
+                                    ,[12000, 4.175]
+                                    ];
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.10;
 
@@ -63,6 +73,7 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 //Rotor induced thrust as a function of RPM
+private _rtrThrustScalar_max           = [_rtrThrustScalarTable_max, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -75,8 +86,9 @@ private _inducedVelocityScalar     = 1.0;
 if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;
 } else {
+    private _isAutorotating = _heli getVariable "fza_sfmplus_isAutorotating";
     //Collective must be < 20% and TAS must be < 145 kts
-    if (fza_sfmplus_collectiveOutput < 0.20 && _velXY < 74.59) then {
+    if (_isAutorotating && _velXY < 74.59) then {
         _inducedVelocityScalar = 1 - (_velZ / 7.62);
     } else {
         _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
