@@ -45,7 +45,7 @@ if (count _fcrTargets > 0) then {
 
 {
     _x params ["_pos", "_type", "_speed", "_obj"];
-    private _distance_m          = _heli distance2d _pos;
+    private _distance_m          = _lastScanInfo #1 distance2d _pos;
     private _unitType            = "unk";
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
