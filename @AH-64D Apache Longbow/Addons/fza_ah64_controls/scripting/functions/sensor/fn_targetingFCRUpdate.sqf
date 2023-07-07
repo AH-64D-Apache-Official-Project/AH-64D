@@ -40,6 +40,7 @@ private _fcrTargets = [];
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
         speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
+    if (count _fcrTargets > 256) exitwith {};
 
     _targDir = _heliPos vectorFromTo _targetpos;
     _zdist = _targDir vectorDotProduct vectorDir _heli;

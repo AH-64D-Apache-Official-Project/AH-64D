@@ -30,7 +30,7 @@ private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex = 0;
 if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
+    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets min 16);
 };
 
 private _pointsArray = [];
@@ -40,6 +40,9 @@ private _pointsArray = [];
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
+
+    //FCR max show
+    if (count _pointsArray > 15) exitwith {};
     //Unit type
     switch (_type) do {
         case FCR_TYPE_UNKNOWN: {
