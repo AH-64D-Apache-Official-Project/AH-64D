@@ -177,7 +177,10 @@ _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
-    createDialog "RscFzaDisplayWelcome";
+    _heli spawn {
+        waitUntil {cba_missiontime != 0;};
+        createDialog "RscFzaDisplayWelcome";
+    };
 };
 
 //Fixes pylons that went onto the wrong turret (pilot, rather than gunner)
