@@ -24,7 +24,7 @@ private _rtrRPM = 0.0;
 if (_flightModel == "SFMPlus") then {
     _rtrRPM = ((_heli animationPhase "mainRotorRPM") * 1.08) / 10;
 } else {
-    private _mainRtrDamage  = _heli getHitPointDamage "hitvrotor";
+    private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
     if (_mainRtrDamage == 1.0) then {
         _rtrRPM = 0.0;
