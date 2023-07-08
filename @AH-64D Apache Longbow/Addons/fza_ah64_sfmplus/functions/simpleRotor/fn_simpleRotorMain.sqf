@@ -135,7 +135,7 @@ private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
 private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
 
-private _mainRtrDamage  = _heli getHitPointDamage "hitvrotor";
+private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
 //Rotor thrust force
 if (currentPilot _heli == player) then {
