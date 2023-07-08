@@ -73,8 +73,6 @@ private _showPlanTgts     = _heli getVariable "fza_mpd_tsdShowPlanTgts" select _
 private _showCtrlmeasures = _heli getVariable "fza_mpd_tsdShowCtrlMeasures" select _phase;
 private _showAtkShot      = _heli getVariable "fza_mpd_tsdShowAtkShot";
 private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
-private _tsdShowAtkRoute  = _heli getVariable "fza_mpd_tsdShowAtkCurrRoute";
-private _tsdShowNavPoint  = _heli getVariable "fza_mpd_tsdShowNavWptData";
 {
     {
         _x params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong"];
@@ -89,8 +87,6 @@ private _tsdShowNavPoint  = _heli getVariable "fza_mpd_tsdShowNavWptData";
         };
         //Hazards
         if (_type == POINT_TYPE_HZ && !_showAtkHazzard && _phase == 1) then {continue;};
-        //Waypoints
-        if (_type == POINT_TYPE_WP && !_tsdShowNavPoint && _phase == 0) then {continue;};
         //PLANNED TGT/THRT
         if (_type == POINT_TYPE_TG && !_showPlanTgts) then {continue;};
         
