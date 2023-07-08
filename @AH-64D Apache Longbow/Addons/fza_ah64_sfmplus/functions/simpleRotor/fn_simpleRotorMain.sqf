@@ -123,7 +123,6 @@ if (_inputRPM < 1.0 && !isTouchingGround _heli) then {
     _rtrRPMTorqueScalar = _inputRPM;
 };
 _rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
-systemChat format ["Rtr RPM Tq Scalar = %1", _rtrRPMTorqueScalar];
 private _reqEngTorque              = (_rtrTorque / _rtrGearRatio) / _rtrRPMTorqueScalar;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
