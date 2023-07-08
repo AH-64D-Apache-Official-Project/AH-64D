@@ -1,5 +1,6 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #define KG_TO_LBS 2.20462
+#define MAX_PA 8000
 
 params ["_heli", "_mpdIndex"];
 
@@ -18,6 +19,7 @@ private _reqTQ_IGE     = round ((_heli getVariable "fza_sfmplus_hvrTQ_IGE") * 10
 private _reqTQ_OGE     = round ((_heli getVariable "fza_sfmplus_hvrTQ_OGE") * 100);
 //Set required IGE/OGE torque
 private _reqTQ_text    = format["REQUIRED %1 %2", [str _reqTQ_IGE, 3] call fza_fnc_padString, [str _reqTQ_OGE, 3] call fza_fnc_padString];
+if (_pa > MAX_PA) then { _reqTQ_text = format["REQUIRED   ?   ?"]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Indicated torque /////////////////////////////////////////////////////////////////////////
@@ -34,6 +36,7 @@ private _goNoGoTQ_IGE  = round ((_heli getVariable "fza_sfmplus_goNoGoTQ_IGE") *
 private _goNoGoTQ_OGE  = round ((_heli getVariable "fza_sfmplus_goNoGoTQ_OGE") * 100);
 //Set go/no-go torque
 private _goNoGoTQ_text = format["GO-NO/GO %1 %2", [str _goNoGoTQ_IGE, 3] call fza_fnc_padString, [str _goNoGoTQ_OGE, 3] call fza_fnc_padString];
+if (_pa > MAX_PA) then { _goNoGoTQ_text = format["GO-NO/GO   ?   ?"]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _goNoGoTQ_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max GWT          /////////////////////////////////////////////////////////////////////////
@@ -43,6 +46,7 @@ private _maxGWT_DE_IGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_DE_IGE
 private _maxGWT_DE_OGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_DE_OGE") / 10) * 10;
 //Set max GWT IGE/OGE
 private _maxGWT_DE_text   = format["   %1   %2", _maxGWT_DE_IGE, _maxGWT_DE_OGE];
+if (_pa > MAX_PA) then { _maxGWT_DE_text = format["     ?       ?  "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE), _maxGWT_DE_text];
 //Single engine
 private _maxGWT_SE_IGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_SE_IGE") / 10) * 10;
@@ -51,6 +55,7 @@ private _maxGWT_SE_OGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_SE_OGE
 if (_maxGWT_SE_OGE < 11000) then { _maxGWT_SE_OGE = 11000; };
 //Set max GWT IGE/OGE
 private _maxGWT_SE_text   = format["   %1   %2", _maxGWT_SE_IGE, _maxGWT_SE_OGE];
+if (_pa > MAX_PA) then { _maxGWT_SE_text = format["     ?       ?  "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _maxGWT_SE_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max torque DE/SE /////////////////////////////////////////////////////////////////////////
@@ -70,12 +75,14 @@ private _rngTQ = round((_heli getVariable "fza_sfmplus_TAS_rngTQ") * 100);
 private _endTQ = round((_heli getVariable "fza_sfmplus_TAS_endTQ") * 100);
 //Set max range and endurance torque
 private _maxRngEndTQ_text = format[" Q  %1  %2", [str _rngTQ, 3] call fza_fnc_padString, [str _endTQ, 3] call fza_fnc_padString];
+if (_pa > MAX_PA) then { _maxRngEndTQ_text = format[" Q   ?    ? "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_TQ), _maxRngEndTQ_text];
 
 private _rngFF = round((_heli getVariable "fza_sfmplus_TAS_rngFF") / 10) * 10;
 private _endFF = round((_heli getVariable "fza_sfmplus_TAS_endFF") / 10) * 10;
 //Set max range and endurance fuel flow
 private _maxRngEndFF_text = format["FF %1 %2", [str _rngFF, 4] call fza_fnc_padString, [str _endFF, 4] call fza_fnc_padString];
+if (_pa > MAX_PA) then { _maxRngEndFF_text = format["FF   ?    ? "]; };
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_FF), _maxRngEndFF_text];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // TAS Data         /////////////////////////////////////////////////////////////////////////
@@ -90,6 +97,12 @@ private _vsse_text   = format["VSSE %1", [str _vsseTAS, 3] call fza_fnc_padStrin
 private _rngTAS_text = format[" RNG %1", [str _rngTAS, 3] call fza_fnc_padString];
 private _endTAS_text = format[" END %1", [str _endTAS, 3] call fza_fnc_padString];
 
+if (_pa > MAX_PA) then { 
+    _vne_text    = format[" VNE  ? "];
+    _vsse_text   = format["VSSE  ? "]; 
+    _rngTAS_text = format[" RNG  ? "]; 
+    _endTAS_text = format[" END  ? "];  
+};
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VNE),     _vne_text];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VSSE),    _vsse_text];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_RNG_SPD), _rngTAS_text];

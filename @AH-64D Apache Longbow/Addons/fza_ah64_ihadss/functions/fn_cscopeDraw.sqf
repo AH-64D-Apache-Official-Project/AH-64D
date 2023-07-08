@@ -25,6 +25,7 @@ params ["_heli"];
 
 private _wasState           = _heli getVariable "fza_ah64_was";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
+private _lastScanInfo       = _heli getVariable "fza_ah64_fcrLastScan";
 private _CscopeCount        = 0;
 
 {
@@ -36,7 +37,7 @@ private _CscopeCount        = 0;
     };
 
     _x params ["_pos", "_type", "_speed", "_obj"];
-    private _distance_m          = _heli distance2d _pos;
+    private _distance_m          = _lastScanInfo #1 distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _GuiPos              = worldtoscreen asltoagl _pos;

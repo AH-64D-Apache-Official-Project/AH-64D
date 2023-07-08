@@ -21,10 +21,12 @@ params ["_heli"];
 
 private _onGnd      = isTouchingGround _heli;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 
-if (!_gndOrideOn && _onGnd) then {
+if (!_gndOrideOn && _onGnd || !_battBusOn) then {
     _heli setVariable ["fza_ah64_armSafeArmed", false, true];
-    [_heli, WAS_WEAPON_NONE] remoteExec ["fza_fnc_weaponActionSwitch", [_heli turretUnit [0], _heli turretUnit [1]]];
+    _heli setVariable ["fza_ah64_gndOrideOn", false, true];
+    [_heli, WAS_WEAPON_NONE] remoteExec ["fza_fnc_weaponActionSwitch", [_heli turretUnit [0], driver _heli]];
 };
 
 _heli setUserMfdValue [MFD_IND_ARM_SAFE,  BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];

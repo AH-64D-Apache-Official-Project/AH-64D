@@ -74,10 +74,6 @@ if (_flightModel == "SFMPlus") then {
     };
     fza_sfmplus_collectiveOutput = _collectiveOut;
 } else {
-    if (isAutoHoverOn _heli) then {
-        _heli action ["AutoHoverCancel", _heli];  
-    };
-
     //Keyboard collective
     private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
     private _keyCollectiveDn = inputAction "HeliCollectiveLower";

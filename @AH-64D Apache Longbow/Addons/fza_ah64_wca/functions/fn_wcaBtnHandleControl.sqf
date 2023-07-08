@@ -3,12 +3,15 @@ params ["_heli", "_system", "_control"];
 
 private _onGnd      = isTouchingGround _heli;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+private _battBusOn = _heli getVariable "fza_systems_battBusOn";
+
+if !(_battBusOn) exitwith {};
 
 switch (_control) do {
     case "armSafe": {
         if (!_gndOrideOn && _onGnd) exitWith {};
         _heli setVariable  ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
-        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], _heli turretUnit [1]]];
+        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], Driver _heli]];
         playsound "fza_ah64_switch_flip4";
     };
     case "gndOride": {
@@ -20,13 +23,13 @@ switch (_control) do {
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrCaut": {
-        _heli setVariable ["fza_ah64_mstrCautLightOn", !(_heli getVariable "fza_ah64_mstrCautLightOn"), true];
+        _heli setVariable ["fza_ah64_mstrCautLightOn", false, true];
         [_heli] call fza_audio_fnc_delCaution;
 
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrWarn": {
-        _heli setVariable ["fza_ah64_mstrWarnLightOn", !(_heli getVariable "fza_ah64_mstrWarnLightOn"), true];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
         [_heli] call fza_audio_fnc_delWarning;
         playsound "fza_ah64_switch_flip4";
     };
