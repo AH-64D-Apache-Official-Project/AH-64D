@@ -160,7 +160,6 @@ _heli setVariable ["fza_ah64_fcrcscope", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
-_heli setVariable ["fza_ah64_showScale", false];
 _heli setVariable ["fza_ah64_scaleRange", 25000]; //25km
 _heli setVariable ["fza_ah64_rocketsalvo", 1];
 _heli setVariable ["fza_ah64_tsdmode", "nav"];

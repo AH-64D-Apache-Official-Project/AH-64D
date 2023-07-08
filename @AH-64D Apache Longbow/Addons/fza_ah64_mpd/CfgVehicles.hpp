@@ -105,6 +105,7 @@ class CfgVehicles {
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
+                    ShowScale = 0;
                 };
                 class PersistState {
                     mode = "nav";

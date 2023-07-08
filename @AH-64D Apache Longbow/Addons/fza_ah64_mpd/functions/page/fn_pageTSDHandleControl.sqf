@@ -31,7 +31,7 @@ switch (_state get "subPageVarPage" select 0) do {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
             };
             case "r3": {
-                if !(_heli getVariable "fza_ah64_showScale") then {
+                if (_state get "ShowScale" == 0) then {
                     _persistState set ["ctr", 1 - (_persistState get "ctr")];
                 };
             };
