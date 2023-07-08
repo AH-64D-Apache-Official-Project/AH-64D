@@ -16,6 +16,18 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_HSI),  BOOLTONUM(_heli 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowWind" select _phase)];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)];
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Wind Data        /////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _windDir = round((windDir + 180) mod 360);
+private _windVel = round((vectorMagnitude wind) * 1.94);
+//Set wind data
+private _wind_text = format["%1/%2", [_windDir, 3] call CBA_fnc_formatNumber, _windVel];
+if (_windvel < 5) then {_wind_text = "CALM";};
+systemchat str _windvel;
+systemchat str _wind_text;
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_Wind), _wind_text];
+
 //ASE footprint
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];

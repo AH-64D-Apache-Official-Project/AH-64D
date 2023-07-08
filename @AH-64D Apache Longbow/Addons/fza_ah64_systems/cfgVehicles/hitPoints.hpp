@@ -338,7 +338,7 @@ class HitPoints
         radius = HIT_RADIUS_01;
         minimalHit = MIN_HIT;
         explosionShielding = 0.80;
-        name = "hitvrotor";
+        name = "";
         material = 51;
         passThrough = 0;
     };
