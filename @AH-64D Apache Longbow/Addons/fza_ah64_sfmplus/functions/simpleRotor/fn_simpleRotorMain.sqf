@@ -118,7 +118,13 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
-private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
+private _rtrRPMTorqueScalar        = 1.0;
+if (_inputRPM < 1.0 && !isTouchingGround _heli) then {
+    _rtrRPMTorqueScalar = _inputRPM;
+};
+_rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
+systemChat format ["Rtr RPM Tq Scalar = %1", _rtrRPMTorqueScalar];
+private _reqEngTorque              = (_rtrTorque / _rtrGearRatio) / _rtrRPMTorqueScalar;
 _heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
