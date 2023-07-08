@@ -17,11 +17,13 @@ switch (_control) do {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
     case "b2": {
-        if (_abrPage > 1) then {_abrPage = _abrPage - 1;};
+        _abrPage = _abrPage - 1;
+        if (_abrPage <= 0) then {_abrPage = MFD_ABR_NUMPAGES;};
         _persistState set ["pageNumber", _abrPage];
     };    
     case "b3": {
-        if (_abrPage < MFD_ABR_NUMPAGES) then {_abrPage = _abrPage + 1;};
+        _abrPage = _abrPage + 1;
+        if (_abrPage > MFD_ABR_NUMPAGES) then {_abrPage = 1;};
         _persistState set ["pageNumber", _abrPage];
     };
     case "b4": {
