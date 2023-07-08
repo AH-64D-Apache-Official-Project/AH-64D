@@ -84,6 +84,11 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
+        };
+        class wpn {
+            file = "\fza_ah64_mpd\functions\wpn";
+            class wpnTrajDraw {RECOMPILE_FLAG;};
+            class wpnTrajHandleControl {RECOMPILE_FLAG;};
         }
     };
 };
