@@ -17,6 +17,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "", "_unit"];
 
-if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player) then {
+if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
     createDialog "RscFzaDisplayWelcome";
 }
