@@ -19,7 +19,7 @@ class InfoBoxes {
             };
         };
         class wind_text {
-            MPD_TEXT_R(WND, 0.712, 0.795, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_WIND))//MPD_TEXT_STATIC("WIND 067/15"))
+            MPD_TEXT_R(WND, 0.7, 0.795, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_WIND))
         };
     };
 
