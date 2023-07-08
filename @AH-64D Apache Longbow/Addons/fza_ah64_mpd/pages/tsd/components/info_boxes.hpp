@@ -7,7 +7,7 @@ class InfoBoxes {
             class Polygons {
                 type = polygon;
                 points[] = {
-                    MPD_POINTS_BOX_POLY(Null, 0.7, 0.8, 7*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
+                    MPD_POINTS_BOX_POLY(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
                 };
             };
         };
@@ -15,11 +15,11 @@ class InfoBoxes {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, 0.7, 0.8, 7*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
+                MPD_POINTS_BOX(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
             };
         };
         class wind_text {
-            MPD_TEXT_R(WND, 0.7, 0.795, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_WIND))
+            MPD_TEXT_R(WND, 0.68, 0.795, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_WIND))
         };
     };
 

@@ -21,7 +21,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli 
 /////////////////////////////////////////////////////////////////////////////////////////////
 _heli call fza_sfmplus_fnc_getWindDirVel
     params ["_windDir", "_windVel"]; //067°/15
-private _wind_text = format["%1°/%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
+private _wind_text = format["%1° /%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "  CALM  ";};
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WIND), _wind_text];
 
