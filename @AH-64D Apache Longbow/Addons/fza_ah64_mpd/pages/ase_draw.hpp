@@ -429,6 +429,7 @@ class ase_draw {
     };
 };
 
+/*
 class ase_threats_gnd {
     condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_RLWR_PWR)));
     color[] = {1,1,0,1};
@@ -615,4 +616,4 @@ class ase_threats_gnd {
             };
         };
     };
-};
+};*/

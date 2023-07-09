@@ -6,6 +6,7 @@
 #define MPD_ICON_TYPE_F 5
 #define MPD_ICON_TYPE_G 6
 #define MPD_ICON_TYPE_H 7
+#define MPD_ICON_TYPE_I 8
 
 #define MPD_ICON_TEXT_ID 0
 #define MPD_ICON_TEXT_FREE 1
@@ -82,6 +83,18 @@ class FzaIconTypes {
     class IconTypeH {
         type = -1;
         size = ICON_SIZE;
+    };
+    class IconTypeI {
+        type = -1;
+        size = ICON_SIZE;
+
+        textAOffset[] = {0.2, 0.3};
+        textAHAlign = "left";
+        textAVAlign = "center";
+        
+        textBOffset[] = {0.8, 0.3};
+        textBHAlign = "right";
+        textBVAlign = "center";
     };
 //--------------------Icon Type A--------------------
 //                          
@@ -353,74 +366,74 @@ class FzaIconTypes {
         type     = POINT_TYPE_TG;
         textB = "1";
     };
-        class Icon2:Icon1 { 
+    class Icon2:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "2";
     };
-        class Icon3:Icon1 { 
+    class Icon3:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "3";
     };
-        class Icon4:Icon1 { 
+    class Icon4:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "4";
     };
-        class Icon5:Icon1 { 
+    class Icon5:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "5";
     };
-        class Icon6:Icon1 { 
+    class Icon6:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "6";
     };
-        class Icon7:Icon1 { 
+    class Icon7:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "7";
     };
-        class Icon8:Icon1 { 
+    class Icon8:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "8";
     };
-        class Icon9:Icon1 { 
+    class Icon9:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textB = "9";
     };
-        class Icon10:Icon1 { 
+    class Icon10:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "0";
     };
-        class Icon11:Icon1 { 
+    class Icon11:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "1";
     };
-        class Icon12:Icon1 { 
+    class Icon12:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "2";
     };
-        class Icon13:Icon1 { 
+    class Icon13:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "3";
     };
-        class Icon14:Icon1 { 
+    class Icon14:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "4";
     };
-        class Icon15:Icon1 { 
+    class Icon15:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "5";
     };
-        class Icon16:Icon1 { 
+    class Icon16:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "6";
     };
-        class Icon17:Icon1 { 
+    class Icon17:Icon1 { 
         tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
         textA = "1";
         textB = "7";
@@ -436,177 +449,6 @@ class FzaIconTypes {
         textB = "U";
     };
     
-    //ASE
-    //--SA1
-    class ASE_ADU_SRH_Icon1:Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        color[]  = MPD_ICON_COLOR_RED;
-        type     = POINT_TYPE_ASE;
-        textB = "1";
-    };
-    class ASE_ADU_ACQ_Icon1:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA2
-    class ASE_ADU_SRH_Icon2:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "2";
-    };
-    class ASE_ADU_ACQ_Icon2:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA3
-    class ASE_ADU_SRH_Icon3:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "3";
-    };
-    class ASE_ADU_ACQ_Icon3:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA4
-    class ASE_ADU_SRH_Icon4:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "4";
-    };
-    class ASE_ADU_ACQ_Icon4:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA5
-    class ASE_ADU_SRH_Icon5:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "5";
-    };
-    class ASE_ADU_ACQ_Icon5:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA6
-    class ASE_ADU_SRH_Icon6:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "6";
-    };
-    class ASE_ADU_ACQ_Icon6:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA7
-    class ASE_ADU_SRH_Icon7:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "7";
-    };
-    class ASE_ADU_ACQ_Icon7:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA8
-    class ASE_ADU_SRH_Icon8:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "8";
-    };
-    class ASE_ADU_ACQ_Icon8:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA9
-    class ASE_ADU_SRH_Icon9:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textB = "9";
-    };
-    class ASE_ADU_ACQ_Icon9:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA10
-    class ASE_ADU_SRH_Icon10:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "0";
-    };
-    class ASE_ADU_ACQ_Icon10:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA11
-    class ASE_ADU_SRH_Icon11:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "1";
-    };
-    class ASE_ADU_ACQ_Icon11:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA12
-    class ASE_ADU_SRH_Icon12:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "2";
-    };
-    class ASE_ADU_ACQ_Icon12:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA13
-    class ASE_ADU_SRH_Icon13:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "3";
-    };
-    class ASE_ADU_ACQ_Icon13:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA14
-    class ASE_ADU_SRH_Icon14:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "4";
-    };
-    class ASE_ADU_ACQ_Icon14:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA15
-    class ASE_ADU_SRH_Icon15:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "5";
-    };
-    class ASE_ADU_ACQ_Icon15:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA16
-    class ASE_ADU_SRH_Icon16:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "6";
-    };
-    class ASE_ADU_ACQ_Icon16:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--SA17
-    class ASE_ADU_SRH_Icon17:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "1";
-        textB = "7";
-    };
-    class ASE_ADU_ACQ_Icon17:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--2S6
-    class ASE_ADU_SRH_S6:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "5";
-        textB = "6";
-    };
-    class ASE_ADU_ACQ_S6:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    //--ZSU-23-4
-    class ASE_ADU_SRH_ZU:ASE_ADU_SRH_Icon1 { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduSearch_ca.paa";
-        textA = "6";
-        textB = "6";
-    };
-    class ASE_ADU_ACQ_ZU:ASE_ADU_SRH_Icon1 {
-        tex = "\fza_ah64_mpd\tex\aseIcons\aduAcquisition_ca.paa";
-    };
-    class ASE_LSR_RNG:ASE_ADU_SRH_Icon1  { 
-        tex = "\fza_ah64_mpd\tex\aseIcons\lsrRanging_ca.paa";
-        textA = "";
-        textB = "";
-    };
-
 //--------------------Icon Type H--------------------
 //
 //             +---------+    +---------+   
@@ -768,4 +610,159 @@ class FzaIconTypes {
     class FCR_FLYER_MOVE_ANTS:FCR_FLYER_MOVE      { tex2 = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";};
     class FCR_FLYER_MOVE_NTS:FCR_FLYER_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_FLYER_MOVE_NTS_NOMSL:FCR_FLYER_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
+
+//--------------------Icon Type I--------------------
+//
+//             +---------+    +---------+   
+//             | 0     0 |    |         |
+//             |   TEX   |    |  TEX 2  |
+//             |         |    |         |
+//             +---------+    +---------+
+    //SA-2
+    class RLWR_SA2_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textB = "2";
+    };
+    class RLWR_SA2_ACQ_TRK:RLWR_SA2_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA2_LNC:RLWR_SA2_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-3
+    class RLWR_SA3_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textB = "3";
+    };
+    class RLWR_SA3_ACQ_TRK:RLWR_SA3_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA3_LNC:RLWR_SA3_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-8
+    class RLWR_SA8_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textB = "8";
+    };
+    class RLWR_SA8_ACQ_TRK:RLWR_SA8_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA8_LNC:RLWR_SA8_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-10
+    class RLWR_SA10_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1"
+        textB = "0";
+    };
+    class RLWR_SA10_ACQ_TRK:RLWR_SA10_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA10_LNC:RLWR_SA10_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-15
+    class RLWR_SA15_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1"
+        textB = "5";
+    };
+    class RLWR_SA15_ACQ_TRK:RLWR_SA15_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA15_LNC:RLWR_SA15_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-17
+    class RLWR_SA17_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1"
+        textB = "7";
+    };
+    class RLWR_SA17_ACQ_TRK:RLWR_SA17_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA17_LNC:RLWR_SA17_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-19
+    class RLWR_SA19_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1"
+        textB = "9";
+    };
+    class RLWR_SA19_ACQ_TRK:RLWR_SA19_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA19_LNC:RLWR_SA19_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-20
+    class RLWR_SA20_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "2"
+        textB = "0";
+    };
+    class RLWR_SA20_ACQ_TRK:RLWR_SA20_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA20_LNC:RLWR_SA20_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SA-21
+    class RLWR_SA21_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "2"
+        textB = "1";
+    };
+    class RLWR_SA21_ACQ_TRK:RLWR_SA21_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SA21_LNC:RLWR_SA21_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //GU
+    class RLWR_GU_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "G"
+        textB = "U";
+    };
+    class RLWR_GU_ACQ_TRK:RLWR_GU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_GU_LNC:RLWR_GU_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //HK
+    class RLWR_HK_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "H"
+        textB = "K";
+    };
+    class RLWR_HK_ACQ_TRK:RLWR_HK_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_HK_LNC:RLWR_HK_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //NV
+    class RLWR_NV_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "N"
+        textB = "V";
+    };
+    class RLWR_NV_ACQ_TRK:RLWR_NV_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_NV_LNC:RLWR_NV_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //2S6
+    class RLWR_2S6_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "S"
+        textB = "6";
+    };
+    class RLWR_2S6_ACQ_TRK:RLWR_2S6_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_2S6_LNC:RLWR_2S6_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //SR
+    class RLWR_SR_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "S"
+        textB = "R";
+    };
+    class RLWR_SR_ACQ_TRK:RLWR_SR_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_SR_LNC:RLWR_SR_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
+    //ZU
+    class RLWR_ZU_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "Z"
+        textB = "U";
+    };
+    class RLWR_ZU_ACQ_TRK:RLWR_ZU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    class RLWR_ZU_LNC:RLWR_ZU_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };     
 };

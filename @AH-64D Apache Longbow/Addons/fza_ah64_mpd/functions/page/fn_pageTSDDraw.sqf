@@ -174,6 +174,87 @@ if (count _fcrTargets > 0) then {
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _fcrTargets;
 
+//ASE Points
+
+private _aseObjects  = _heli getVariable "fza_ah64_ase_rlwrObjects";
+private _radius      = 1.00;
+{
+    _x params ["_state", "_bearing", "_classification"];
+    private _ident      = "";
+    private _unitStatus = "";
+    private _unitType   = "";
+    //Unit type
+    switch (_classification) do {
+        case "sa2": {
+            _unitType = "SA2";
+        };
+        case "sa3": {
+            _unitType = "SA3";
+        };
+        case "sa8": {
+            _unitType = "SA8";
+        };
+        case "sa10": {
+            _unitType = "SA10";
+        };
+        case "sa15": {
+            _unitType = "SA15";
+        };
+        case "sa17": {
+            _unitType = "SA17";
+        };
+        case "sa19": {
+            _unitType = "SA19";
+        };
+        case "sa20": {
+            _unitType = "SA20";
+        };
+        case "sa21": {
+            _unitType = "SA21";
+        };
+        case "gun": {
+            _unitType = "GU";
+        };
+        case "hawk": {
+            _unitType = "HK";
+        };
+        case "naval": {
+            _unitType = "NV";
+        };
+        case "2S6": {
+            _unitType = "2S6";
+        };
+        case "radar": {
+            _unitType = "SR";
+        };
+        case "zsu": {
+            _unitType = "ZU";
+        };
+    };
+    //Unit status
+    switch (_state) do {
+        case ASE_SRH: {
+            _unitStatus = "SRH";
+        };
+        case ASE_ACQ: {
+            _unitStatus = "ACQ_TRK";
+        };
+        case ASE_TRK: {
+            _unitStatus = "ACQ_TRK";
+        };
+        case ASE_LNC: {
+            _unitStatus = "LNC";
+        };
+    };
+
+    _ident           = (["RLWR", _unitType,_unitStatus]) joinString "_";
+    private _screenX =  _radius * sin _bearing + 0.5;
+    _screenX         = [_screenX, 0.23, 0.77] call BIS_fnc_clamp;
+    private _screenY = -_radius * cos _bearing + 0.75 - 0.25 * (_persistState get "ctr");
+    _screenY         = [_screenY, 0.23, 0.77] call BIS_fnc_clamp;
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
+} forEach _aseObjects;
+
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
 [_heli, _pointsArray, _mpdIndex, -1, [0.5, 0.75 - 0.25 * (_persistState get "ctr")]] call fza_mpd_fnc_drawIcons;
