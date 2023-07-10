@@ -1,5 +1,8 @@
 params ["_heli", "_deltaTime", "_dryAirDensity", "_wingType", "_wingPos", "_wingSweep", "_wingDim", "_wingRot"];
 
+private _cfg           = configOf _heli;
+private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
+
 _wingDim
     params ["_width", "_length"];
 
@@ -12,7 +15,12 @@ _wingDim
 private _wingRootCtr = _wingPos;
 private _halfLength  = _length / 2.0;
 
-private _A = []; private _B = []; private _C = []; private _D = [];
+private _A = []; private _B = []; private _C = []; private _D = []; 
+private _E = []; private _F = []; private _G = []; private _H = []; 
+private _I = [];
+
+private _liftLine = []; private _chordLine = []; private _liftVec = [];
+private _stabLine = []; private _relWind   = [];
 
 switch (_wingType) do {
     case 0: {   //Horizontal wing
@@ -35,51 +43,38 @@ switch (_wingType) do {
         _C = _wingTipCtr  vectorAdd [ -_halfLength * (sin _wingRot), -_halfLength * (cos _wingRot), 0];
         _D = _wingRootCtr vectorAdd [ -_halfLength * (sin _wingRot), -_halfLength * (cos _wingRot), 0];
 
+        _E = (_A vectorAdd _D) vectorMultiply 0.5;
+        _F = (_B vectorAdd _C) vectorMultiply 0.5;
+        _G = (_E vectorAdd _F) vectorMultiply 0.5;
+        
+        _H = (_A vectorAdd _B) vectorMultiply 0.5;
+        _I = (_D vectorAdd _C) vectorMultiply 0.5;
+
+        _liftLine  = _E vectorDiff _F;
+        _chordLine = _H vectorDiff _I;
+        
+        _liftVec   = vectorNormalized (_chordLine vectorCrossProduct _liftLine);
+        _liftVec   = _liftVec;
+
+        _stabLine  = vectorNormalized _chordLine;
+        _stabLine  = _stabLine;
+
         private _velXY = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
 
-        private _relWind = vectornormalized(velocityModelSpace _heli);
-        _relWind         = _relWind;
+        _relWind   = vectornormalized(velocityModelSpace _heli);
+        _relWind   = _relWind;
         
         private _AoA = (_relWind # 0 atan2 _relWind # 1) + _wingRot;
         _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
-
+        private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
+        private _CL              = _intAirfoilTable select 1;
         
-        systemChat format ["4 Vel YZ = %1 -- AoA = %2", _velXY * 1.94384, _AoA toFixed 2];
+        private _area      = [_A, _B, _C, _D] call fza_fnc_getArea;
+        private _liftForce = -_CL * 0.5 * 1.225 * _area * (_velXY * _velXY);
     };
 };
 
-/*
-private _normLocVel = vectorNormalized(velocityModelSpace _heli);
-([_normLocVel, _wingRot] call fza_fnc_rotateVector)
-    params ["_locVel"];
-private _locVelX = _locVel select 0;
-private _locVelY = _locVel select 1;
-private _locVelZ = _locVel select 2;
-
-private _AoA = _locVelY atan2 _locVelZ;
-_AoA = [_AoA, -180, 180] call BIS_fnc_clamp;
-
-//Wing coords
-//    A-------------H-------------B
-//    |             |             |
-//    E-------------G-------------F
-//    |             |             |
-//    D-------------I-------------C
-
-private _wingCtr    = _wingPos;
-private _halfLength = _length / 2.0;
-
-([[0,  _halfLength, 0],      _wingRot] call fza_fnc_rotateVector) params ["_A"];
-_A = _wingCtr vectorAdd _A;
-([[0,  _halfLength, _width], _wingRot] call fza_fnc_rotateVector) params ["_B"];
-_B = _wingCtr vectorAdd _B;
-([[0, -_halfLength, _width], _wingRot] call fza_fnc_rotateVector) params ["_C"];
-_C = _wingCtr vectorAdd _C;
-([[0, -_halfLength, 0],      _wingRot] call fza_fnc_rotateVector) params ["_D"];
-_D = _wingCtr vectorAdd _D;
-//systemChat format ["Wing velocities %1 -- %2 -- %3 -- AoA %4", _locVelX toFixed 2, _locVelY toFixed 2, _locVelZ tofixed 2, _AoA];
-*/
 #ifdef __A3_DEBUG__
 //Draw the wing
 [_heli, _A, _B, "red"]   call fza_fnc_debugDrawLine;
@@ -87,11 +82,11 @@ _D = _wingCtr vectorAdd _D;
 [_heli, _C, _D, "white"] call fza_fnc_debugDrawLine;
 [_heli, _D, _A, "white"] call fza_fnc_debugDrawLine;
 //Draw the fwd chord line originating from the pivot
-//[_heli, _H, _H vectorAdd _wingLine, bmk_global_colorWhite] call bmk_fnc_debugDrawLine;
+[_heli, _H, _H vectorAdd _stabLine, "white"] call fza_fnc_debugDrawLine;
 //Draw the lift line
-//[_heli, _E, _F, bmk_global_colorGreen] call bmk_fnc_debugDrawLine;
+[_heli, _E, _F, "green"] call fza_fnc_debugDrawLine;
 //Draw the lift vector
-//[_heli, _G, _G vectorAdd _liftVec, bmk_global_colorBlue] call bmk_fnc_debugDrawLine;
+[_heli, _G, _G vectorAdd _liftVec, "blue"] call fza_fnc_debugDrawLine;
 //Draw the velocity vector
-//[_heli, _H, _H vectorAdd _relWind, bmk_global_colorRed] call bmk_fnc_debugDrawLine;
+[_heli, _H, _H vectorAdd _relWind, "red"] call fza_fnc_debugDrawLine;
 #endif
