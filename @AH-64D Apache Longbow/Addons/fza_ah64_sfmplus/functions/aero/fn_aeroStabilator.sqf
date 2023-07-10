@@ -89,8 +89,8 @@ private _length = _heli getVariable "fza_sfmplus_stabLength";
 private _halfWidth = _width / 2;
 
 private _A = _stabPvt vectorAdd [-_halfWidth, 0, 0];
-private _B = _stabPvt vectorAdd [_halfWidth, 0, 0];
-private _C = _stabPvt vectorAdd [_halfWidth, cos _theta * (-_length), sin _theta * _length];
+private _B = _stabPvt vectorAdd [ _halfWidth, 0, 0];
+private _C = _stabPvt vectorAdd [ _halfWidth, cos _theta * (-_length), sin _theta * _length];
 private _D = _stabPvt vectorAdd [-_halfWidth, cos _theta * (-_length), sin _theta * _length];
 
 private _E = (_A vectorAdd _D) vectorMultiply 0.5;

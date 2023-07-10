@@ -16,6 +16,7 @@ class CfgFunctions
             class getArea {R;};
             class linearInterp {R;};
             class padString {R;};
+            class rotateVector {R;};
             class setArrayVariable {R;};
             class sign {R;};
             class currentTurret {R;};

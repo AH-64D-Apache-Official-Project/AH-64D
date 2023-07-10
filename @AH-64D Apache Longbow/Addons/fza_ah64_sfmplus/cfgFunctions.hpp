@@ -20,6 +20,7 @@ class CfgFunctions
         class aero {
             file = "\fza_ah64_sfmplus\functions\aero";
             class aeroStabilator {R;};
+            class aeroWing {R;};
         };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
