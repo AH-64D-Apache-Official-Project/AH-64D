@@ -13,6 +13,7 @@ class CfgFunctions
             class cycle {R;};
             class debugDrawCircle {R;};
             class debugDrawLine {R;};
+            class expSeek {R;};
             class getArea {R;};
             class linearInterp {R;};
             class padString {R;};

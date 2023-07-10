@@ -31,7 +31,14 @@ class UserActionGroups
             fza_ah64_forceTrimHoldModeSwitch_left,
             fza_ah64_fcrModeSwitch_up,
             fza_ah64_fcrModeSwitch_down,
-            fza_ah64_flare
+            fza_ah64_flare,
+            //Preston commands
+            fza_ah64_AIActnUp,
+            fza_ah64_AIActnDown,
+            fza_ah64_AIActnLeft,
+            fza_ah64_AIActnRight,
+            fza_ah64_AIActnOne,
+            fza_ah64_AIActnTwo
         };
     };
     class fza_ah64_cockpit

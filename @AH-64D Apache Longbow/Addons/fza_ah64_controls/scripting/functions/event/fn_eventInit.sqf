@@ -150,6 +150,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_activeCaut", createHashMapFromArray [["exists", true]], true];
     _heli setVariable ["fza_ah64_mstrWarnAudioOn",        false, true];
     _heli setVariable ["fza_ah64_activeWarn", createHashMapFromArray [["exists", true]], true];
+    //Sim vars
+    _heli setVariable ["fza_ah64_collectiveOutput",       0.0, true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
@@ -174,6 +176,7 @@ _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
+[_heli] call fza_prestonai_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {

@@ -94,28 +94,30 @@ if (_flightModel == "SFMPlus") then {
             fza_sfmplus_collectiveOutput = 0;
         };
 
-        if (fza_ah64_sfmPlusKeyboardOnly) then {
-            private _collectiveVal = fza_sfmplus_collectiveOutput;
-            if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
-            if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
-            fza_sfmplus_collectiveOutput = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
-        } else {
-            private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
-            _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
-            _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
-
-            private _isPlaying = isNull findDisplay 49;
-
-            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
-                fza_sfmplus_collectiveOutput = _collectiveVal;
+        if (currentPilot _heli == player ) then {
+            if (fza_ah64_sfmPlusKeyboardOnly) then {
+                private _collectiveVal = fza_sfmplus_collectiveOutput;
+                if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
+                if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
+                fza_sfmplus_collectiveOutput = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
             } else {
-                if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                    fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
-                };
-            };
+                private _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
+                _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
+                _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
 
-            fza_sfmplus_lastIsPlaying = _isPlaying;
-            fza_sfmplus_prevCollective = _collectiveVal;
+                private _isPlaying = isNull findDisplay 49;
+
+                if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
+                    fza_sfmplus_collectiveOutput = _collectiveVal;
+                } else {
+                    if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                        fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
+                    };
+                };
+
+                fza_sfmplus_lastIsPlaying = _isPlaying;
+                fza_sfmplus_prevCollective = _collectiveVal;
+            };
         };
     };
 };
@@ -123,7 +125,7 @@ if (_flightModel == "SFMPlus") then {
 private _isZeus = !isNull findDisplay 312;
 
 //Cyclic and Pedals 
-if (!_isZeus) then {
+if (!_isZeus && currentPilot _heli == player) then {
     fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
     fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
     if (!_tailRtrFixed) then {
@@ -149,7 +151,7 @@ _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
     //Primary and Utility Hydraulics
     if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-        if (currentPilot _heli == player) then {
+        if (currentPilot _heli == player || !isplayer driver _heli) then {
             _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
         };
     };
@@ -157,7 +159,7 @@ if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
 
 //Emergency Hydraulics
 if (_emerHydOn) then {
-    if (currentPilot _heli == player) then { 
+    if (currentPilot _heli == player || !isplayer driver _heli) then { 
         _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
     };
 };
