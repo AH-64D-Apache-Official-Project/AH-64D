@@ -2,6 +2,8 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
+if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitwith {};
+
 switch (_control) do {
     case "t2": {
         [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
@@ -31,7 +33,7 @@ switch (_state get "subPageVarPage" select 0) do {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
             };
             case "r3": {
-                if (_state get "ShowScale" == 0) then {
+                if (_state get "showScale" == 0) then {
                     _persistState set ["ctr", 1 - (_persistState get "ctr")];
                 };
             };
@@ -48,21 +50,5 @@ switch (_state get "subPageVarPage" select 0) do {
     };
     case 4: { // THRT
         _this call fza_mpd_fnc_tsdThrtHandleControl;
-    };
-};
-
-//Tsd Scale Control
-switch (_control) do {
-    case "r1": {
-        _this call fza_mpd_fnc_tsdScaleHandleControl;
-    };
-    case "r2": {
-        _this call fza_mpd_fnc_tsdScaleHandleControl;
-    };
-    case "r3": {
-        _this call fza_mpd_fnc_tsdScaleHandleControl;
-    };
-    case "r4": {
-        _this call fza_mpd_fnc_tsdScaleHandleControl;
     };
 };

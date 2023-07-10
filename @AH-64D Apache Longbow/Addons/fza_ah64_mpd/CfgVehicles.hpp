@@ -105,11 +105,12 @@ class CfgVehicles {
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
-                    ShowScale = 0;
+                    showScale = 0;
                 };
                 class PersistState {
                     mode = "nav";
                     ctr = 0;
+                    tsdScale = 25000;
                 };
             };
             class DMS {
