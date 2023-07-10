@@ -22,13 +22,25 @@ if (!_apuBtnOn) then {
     [_heli] call fza_systems_fnc_interactAPUButton;
 
     sleep 10;
+
+    systemChat "APU on...";
+
+    sleep 3;
 };
 ////////////////////////////////////////////////////////////////////////////////
 //Engine One  //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+systemChat "Area around one is clear...";
+
+sleep 1;
+
 systemChat "Starting engine number one...";
 
-sleep 2;
+sleep 1;
+
+systemChat "Start switch coming to start, start advisory, start box...";
+
+sleep 1;
 
 [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
 
@@ -64,9 +76,17 @@ sleep 5;
 ////////////////////////////////////////////////////////////////////////////////
 //Engine Two  //////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
+systemChat "Area around two is clear...";
+
+sleep 1;
+
 systemChat "Starting engine number two...";
 
-sleep 2;
+sleep 1;
+
+systemChat "Start switch coming to start, start advisory, start box...";
+
+sleep 1;
 
 [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
 

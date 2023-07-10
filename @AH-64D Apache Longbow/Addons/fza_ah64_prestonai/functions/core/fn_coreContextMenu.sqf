@@ -33,7 +33,7 @@ if (_mode == "GND") then {
                             \n-------------------------
                             \nUp    = N/A
                             \nDown  = N/A
-                            \nLeft  = Shutdown APU
+                            \nLeft  = Shutdown Helicopter
                             \nRight = Start Engines"];
     };
 
@@ -45,8 +45,8 @@ if (_mode == "GND") then {
                             \n-------------------------
                             \nUp    = N/A
                             \nDown  = N/A
-                            \nLeft  = Shutdown Engines
-                            \nRight = N/A"];
+                            \nLeft  = Shutdown Helicopter
+                            \nRight = Shutdown to APU"];
     };
 };
 
@@ -58,5 +58,8 @@ if (_mode == "HVR") then {
                         \nUp    = Climb
                         \nDown  = Descend
                         \nLeft  = Slide Left
-                        \nRight = Slide Right"];
+                        \nRight = Slide Right
+                        \n-------------------------
+                        \nSet Alt AGL = %1
+                        \nAlt Err AGL = %2", _heli getVariable "fza_prestonai_setAltAGL", _heli getVariable "fza_prestonai_altErrAGL"];
 };

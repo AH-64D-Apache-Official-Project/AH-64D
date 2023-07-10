@@ -17,12 +17,14 @@ class CfgFunctions
         };
         class actionsHover {
             file = "\fza_ah64_prestonai\functions\actions\hover";
-            class actionsHvrClimb {R;};
+            class actHvrAltDecrease {R;};
+            class actHvrAltIncrease {R;};
         };
         class core {
             file = "\fza_ah64_prestonai\functions\core";
             class coreContextMenu {R;};
             class coreGetInput {R;};
+            class coreOutput {R;};
             class coreUpdate  {R;};
             class coreVariables {R;};
         };

@@ -65,8 +65,9 @@ private _rtrTorqueScalar        = 1.10;
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
-//Thrust produced 
-private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
+//Thrust produced
+private _prestonCollOutput             = _heli getVariable "fza_prestonai_collOutput";
+private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut + _prestonCollOutput);
 private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
 (_heli getVariable "fza_sfmplus_engPctNP")
@@ -143,7 +144,7 @@ private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) 
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
 //Rotor thrust force
-if (currentPilot _heli == player) then {
+if (currentPilot _heli == player || !isplayer driver _heli) then {
     if (_mainRtrDamage < 0.99) then {
         _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
         //Main rotor torque effect
