@@ -43,6 +43,8 @@ switch (_wingType) do {
         private _AoA = (_relWind # 0 atan2 _relWind # 1) + _wingRot;
         _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
+
+        
         systemChat format ["4 Vel YZ = %1 -- AoA = %2", _velXY * 1.94384, _AoA toFixed 2];
     };
 };
