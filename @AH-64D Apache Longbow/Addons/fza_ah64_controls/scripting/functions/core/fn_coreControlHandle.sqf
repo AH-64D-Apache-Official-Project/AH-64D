@@ -139,6 +139,25 @@ if (_value) then {
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;
         };
+        //Preston commands
+        case "fza_ah64_AIActnUp": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
+        case "fza_ah64_AIActnDown": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
+        case "fza_ah64_AIActnLeft": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
+        case "fza_ah64_AIActnRight": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
+        case "fza_ah64_AIActnOne": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
+        case "fza_ah64_AIActnTwo": {
+            [_heli, _name] call fza_prestonai_fnc_coreGetInput;
+        };
     };
 };
 

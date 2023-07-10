@@ -39,5 +39,13 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
     CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
+    //Preston commands
+    CfgUserActionDef(fza_ah64_AIActnUp, "Preston Action Up", "");
+    CfgUserActionDef(fza_ah64_AIActnDown, "Preston Action Down", "");
+    CfgUserActionDef(fza_ah64_AIActnLeft, "Preston Action Left", "");
+    CfgUserActionDef(fza_ah64_AIActnRight, "Preston Action Right", "");
+    CfgUserActionDef(fza_ah64_AIActnOne, "Preston Action 1", "");
+    CfgUserActionDef(fza_ah64_AIActnTwo, "Preston Action 2", "");
+
     #include "\fza_ah64_controls\headers\controls.h"
 };

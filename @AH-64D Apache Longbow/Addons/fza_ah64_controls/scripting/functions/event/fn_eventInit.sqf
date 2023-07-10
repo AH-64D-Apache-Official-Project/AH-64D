@@ -174,6 +174,7 @@ _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
+[_heli] call fza_prestonai_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;
 
 if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
