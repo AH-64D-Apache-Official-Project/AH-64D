@@ -120,3 +120,5 @@ systemChat "APU identified, and seleced off.";
 sleep 3;
 
 [_heli] call fza_systems_fnc_interactAPUButton;
+
+_heli setVariable ["fza_prestonai_heliState", "ON"];  

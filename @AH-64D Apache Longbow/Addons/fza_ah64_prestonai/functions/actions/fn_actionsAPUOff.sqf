@@ -11,3 +11,5 @@ sleep 6;
 systemChat "Battery coming off...";
 
 [_heli] call fza_systems_fnc_interactBattSwitch;
+
+_heli setVariable ["fza_prestonai_heliState", "OFF"];  

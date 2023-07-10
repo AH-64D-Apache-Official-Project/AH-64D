@@ -15,6 +15,10 @@ class CfgFunctions
             class actionsAPUOn {R;};
             class actionsEnginesOn {R;};
         };
+        class actionsHover {
+            file = "\fza_ah64_prestonai\functions\actions\hover";
+            class actionsHvrClimb {R;};
+        };
         class core {
             file = "\fza_ah64_prestonai\functions\core";
             class coreContextMenu {R;};

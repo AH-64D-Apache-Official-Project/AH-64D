@@ -17,3 +17,5 @@ systemChat "APU coming on...";
 sleep 10;
 
 systemChat "APU on...";
+
+_heli setVariable ["fza_prestonai_heliState", "APU"];

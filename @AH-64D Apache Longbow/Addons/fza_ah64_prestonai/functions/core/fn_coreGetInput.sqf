@@ -1,14 +1,14 @@
 params ["_heli", "_name"];
 
 private _state = _heli getVariable "fza_prestonai_heliState";
+private _mode  = _heli getVariable "fza_prestonai_heliMode";
+private _onGnd = isTouchingGround _heli;
 
 switch (_name) do {
     //Preston commands
     case "fza_ah64_AIActnUp": {
-
     };
     case "fza_ah64_AIActnDown": {
-
     };
     case "fza_ah64_AIActnLeft": {
         if (_state == "OFF") then {
@@ -27,10 +27,16 @@ switch (_name) do {
         }
     };
     case "fza_ah64_AIActnOne": {
-
+        if (_mode == "HVR" && _onGnd) then {
+            _mode = "GND";
+            _heli setVariable ["fza_prestonai_heliMode", _mode];
+        };
     };
     case "fza_ah64_AIActnTwo": {
-
+        if (_mode == "GND") then {
+            _mode = "HVR";
+            _heli setVariable ["fza_prestonai_heliMode", _mode];
+        };
     };
 
 };
