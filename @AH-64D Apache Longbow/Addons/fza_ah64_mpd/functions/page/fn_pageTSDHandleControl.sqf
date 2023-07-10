@@ -33,9 +33,7 @@ switch (_state get "subPageVarPage" select 0) do {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
             };
             case "r3": {
-                if (_state get "showScale" == 0) then {
-                    _persistState set ["ctr", 1 - (_persistState get "ctr")];
-                };
+                _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
         };
     };

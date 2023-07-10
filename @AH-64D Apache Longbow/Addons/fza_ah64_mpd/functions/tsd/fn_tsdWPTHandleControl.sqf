@@ -111,9 +111,7 @@ switch (_variant) do {
                 _state set ["subPageVarPage", TSD_WPT_XMIT];
             };*/
             case "r3": {
-                if (_state get "showScale" == 0) then {
-                    _persistState set ["ctr", 1 - (_persistState get "ctr")];
-                };
+                _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
         };
     };
