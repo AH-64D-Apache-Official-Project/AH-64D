@@ -28,6 +28,7 @@ private _flightModel   = getText (_cfg >> "fza_flightModel");
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
 private _isAutorotating      = _heli getVariable "fza_sfmplus_isAutorotating";
+private _engOverspeed        = _heli getVariable "fza_ah64_engineOverspeed" select _engNum;
 private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
 private _engPctNG            = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
 private _engPctNP            = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
@@ -46,25 +47,27 @@ private _engBaseTQ  = 0.0;
 private _engSetTQ   = 0.0;
 private _engLimitTQ = 0.0;
 
-private _hvrIGE     = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
-private _hvrOGE     = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
-private _maxTQ_CONT = _heli getVariable "fza_sfmplus_maxTQ_CONT";
-private _maxTQ_DE   = _heli getVariable "fza_sfmplus_maxTQ_DE";
-private _maxTQ_SE   = _heli getVariable "fza_sfmplus_maxTQ_SE";
-private _maxTQ      = getNumber (_sfmPlusConfig >> "engMaxTQ");
+private _hvrIGE      = _heli getVariable "fza_sfmplus_hvrTQ_IGE";
+private _hvrOGE      = _heli getVariable "fza_sfmplus_hvrTQ_OGE";
+private _maxTQ_CONT  = _heli getVariable "fza_sfmplus_maxTQ_CONT";
+private _maxTQ_DE    = _heli getVariable "fza_sfmplus_maxTQ_DE";
+private _maxTQ_SE    = _heli getVariable "fza_sfmplus_maxTQ_SE";
+private _maxTQ       = getNumber (_sfmPlusConfig >> "engMaxTQ");
+private _ovrspdTQ    = getNumber (_sfmPlusConfig >> "engOvrspdTQ");
 //Gas producer - Ng
-private _engStartNG = getNumber (_sfmPlusConfig >> "engStartNG");
-private _engIdleNG  = getNumber (_sfmPlusConfig >> "engIdleNG");
-private _engFlyNG   = getNumber (_sfmPlusConfig >> "engFlyNG");
-private _engMaxNG   = getNumber (_sfmPlusConfig >> "engMaxNG");
-private _engBaseNG  = 0.0; 
-private _engSetNG   = 0.0;
+private _engStartNG  = getNumber (_sfmPlusConfig >> "engStartNG");
+private _engIdleNG   = getNumber (_sfmPlusConfig >> "engIdleNG");
+private _engFlyNG    = getNumber (_sfmPlusConfig >> "engFlyNG");
+private _engMaxNG    = getNumber (_sfmPlusConfig >> "engMaxNG");
+private _engBaseNG   = 0.0; 
+private _engSetNG    = 0.0;
 //Power turbine - Np
-private _engStartNP = getNumber (_sfmPlusConfig >> "engStartNP");
-private _engIdleNP  = getNumber (_sfmPlusConfig >> "engIdleNP");
-private _engFlyNP   = getNumber (_sfmPlusConfig >> "engFlyNP");
-private _engBaseNP  = 0.0; 
-private _engSetNP   = 0.0;
+private _engStartNP  = getNumber (_sfmPlusConfig >> "engStartNP");
+private _engIdleNP   = getNumber (_sfmPlusConfig >> "engIdleNP");
+private _engFlyNP    = getNumber (_sfmPlusConfig >> "engFlyNP");
+private _engOvrspdNP = getNumber (_sfmPlusConfig >> "engOvrspdNP");
+private _engBaseNP   = 0.0; 
+private _engSetNP    = 0.0;
 
 //Throttle
 if (_engPowerLeverState in ["OFF", "IDLE"]) then {
@@ -133,14 +136,19 @@ switch (_engState) do {
 			} else {
 				_engLimitTQ = _maxTQ_DE;
 			};
-			
-			private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
-			_droopFactor = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
-
-            if (!_isAutorotating) then { 
-			    _engPctNP    = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+			//If the engine isn't overspeed, do normal engine things
+            if (!_engOverspeed) then {
+                private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
+                _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
+                //Autorotation handler
+                if (!_isAutorotating) then { 
+                    _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+                } else {
+                    _engPctNP   = 1.01;
+                };
             } else {
-                _engPctNP    = 1.01;
+                //If the engine is overspeeding, then do over speed things
+                _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
             };
 		};
 	};
@@ -196,15 +204,21 @@ if (_flightModel == "SFMPlus") then {
         _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
     };
 } else {    //End SFMPlus, begin HeliSim
-    _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
-    if (_isSingleEng) then {
-        if (_engPowerLeverState in ["OFF", "IDLE"]) then {
-            _engPctTQ = 0.0;
+    //If the engine isn't overspeed, do normal engine things
+    if (!_engOverspeed) then {
+        _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
+        if (_isSingleEng) then {
+            if (_engPowerLeverState in ["OFF", "IDLE"]) then {
+                _engPctTQ = 0.0;
+            } else {
+                _engPctTQ = _engPctTQ;
+            };
         } else {
-            _engPctTQ = _engPctTQ;
+            _engPctTQ = _engPctTQ / 2.0;
         };
     } else {
-        _engPctTQ = _engPctTQ / 2.0;
+        //If the engine is overspeeding, then do over speed things
+        _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
     };
 };  //End HeliSim
 _engPctTQ = [_engPctTQ, 0.0, 2.55] call BIS_fnc_clamp;
@@ -223,6 +237,12 @@ if (_isSingleEng) then {
 
 _engOilPSI = [_engTable,   _engPctTQ] call fza_fnc_linearInterp select 3;
 _engFF     = [getArray (_sfmPlusConfig >> "engFFTable"), _engPctTQ] call fza_fnc_linearInterp select 1;
+
+if (_engPctNP >= 1.196) then {
+    _engState     = "OFF";
+
+    [_heli, "fza_sfmplus_engState",     _engNum, _engState,     true] call fza_fnc_setArrayVariable;
+};
 
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
