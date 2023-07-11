@@ -171,19 +171,16 @@ fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
             _side = [1.2, -0.8, -1.25];
             _sidef = [1.2, -0.6, -1.25];
             _mag = "fza_ah64_e2_fire";
-            _audio1 = "fza_ah64_bt_engine2";
         };
         case "left": {
             _side = [-1, -0.8, -1.25];
             _sidef = [-1, -0.6, -1.25];
             _mag = "fza_ah64_e1_fire";
-            _audio1 = "fza_ah64_bt_engine1";
         };
         case "apu": {
             _side = [0, -0.8, -1.25];
             _sidef = [0, 0.2, -1.25];
             _mag = "fza_ah64_apu_fire";
-            _audio1 = "fza_ah64_bt_apu";
         };
     };
 
