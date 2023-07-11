@@ -51,14 +51,14 @@ if(_selectedWeapon == WAS_WEAPON_MSL) then {
             [_heli] call fza_fnc_controlHandlelaserchange;
         };
         case "r1": {
-            if (_state get "Trajmenu" == 0) then {
+            if (_state get "trajmenu" == 0) then {
                 [_heli] call fza_fnc_weaponMissileCycle
             } else {
                 _this call fza_mpd_fnc_WpnTrajHandleControl;
             };
         };
         case "r2": {
-            if (_state get "Trajmenu" == 0) then {
+            if (_state get "trajmenu" == 0) then {
             } else {
                 _this call fza_mpd_fnc_WpnTrajHandleControl;
             };

@@ -95,7 +95,7 @@ class CfgVehicles {
                     selectedWeapon = 0;
                     variant = 0;
                     wasOverride = 0;
-                    Trajmenu = 0;
+                    trajmenu = 0;
                 };
             };
             #include "\fza_ah64_mpd\headers\tsd.hpp"
