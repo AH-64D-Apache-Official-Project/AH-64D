@@ -5,7 +5,7 @@ COCKPIT_CONTROL("ctrlref_rmpd_l3", "ctrlref_g_rmpd_l3",rmpd, "Right MPD",l3, 0.0
 COCKPIT_CONTROL("ctrlref_rmpd_l4", "ctrlref_g_rmpd_l4",rmpd, "Right MPD",l4, 0.035, "Right MPD L4") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_l5", "ctrlref_g_rmpd_l5",rmpd, "Right MPD",l5, 0.035, "Right MPD L5") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_l6", "ctrlref_g_rmpd_l6",rmpd, "Right MPD",l6, 0.035, "Right MPD L6") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_rmpd_m",  "ctrlref_g_rmpd_m", rmpd, "Right MPD",b1, 0.035, "Right MPD B1/Menu") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_rmpd_m", "ctrlref_g_rmpd_m",rmpd, "Right MPD",b1, 0.035, "Right MPD B1/Menu") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_b1", "ctrlref_g_rmpd_b1",rmpd, "Right MPD",b2, 0.035, "Right MPD B2") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_b2", "ctrlref_g_rmpd_b2",rmpd, "Right MPD",b3, 0.035, "Right MPD B3") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_rmpd_b3", "ctrlref_g_rmpd_b3",rmpd, "Right MPD",b4, 0.035, "Right MPD B4") COCKPIT_CONTROL_SEP
@@ -35,7 +35,7 @@ COCKPIT_CONTROL("ctrlref_lmpd_l3", "ctrlref_g_lmpd_l3",lmpd, "Left MPD",l3, 0.03
 COCKPIT_CONTROL("ctrlref_lmpd_l4", "ctrlref_g_lmpd_l4",lmpd, "Left MPD",l4, 0.035, "Left MPD L4") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_l5", "ctrlref_g_lmpd_l5",lmpd, "Left MPD",l5, 0.035, "Left MPD L5") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_l6", "ctrlref_g_lmpd_l6",lmpd, "Left MPD",l6, 0.035, "Left MPD L6") COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_lmpd_m",  "ctrlref_g_lmpd_m",lmpd,  "Left MPD",b1, 0.035, "Left MPD B1/Menu") COCKPIT_CONTROL_SEP
+COCKPIT_CONTROL("ctrlref_lmpd_m", "ctrlref_g_lmpd_m",lmpd,  "Left MPD",b1, 0.035, "Left MPD B1/Menu") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_b1", "ctrlref_g_lmpd_b1",lmpd, "Left MPD",b2, 0.035, "Left MPD B2") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_b2", "ctrlref_g_lmpd_b2",lmpd, "Left MPD",b3, 0.035, "Left MPD B3") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_lmpd_b3", "ctrlref_g_lmpd_b3",lmpd, "Left MPD",b4, 0.035, "Left MPD B4") COCKPIT_CONTROL_SEP
