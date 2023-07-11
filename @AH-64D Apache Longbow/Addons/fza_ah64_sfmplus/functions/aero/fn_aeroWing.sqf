@@ -71,7 +71,7 @@ switch (_wingType) do {
         private _CL              = _intAirfoilTable select 1;
         
         private _area      = [_A, _B, _C, _D] call fza_fnc_getArea;
-        private _liftForce = -_CL * 0.5 * 1.225 * _area * (_velXY * _velXY);
+        private _liftForce = -_CL * 0.5 * _dryAirDensity * _area * (_velXY * _velXY);
     };
 };
 

@@ -119,7 +119,7 @@ private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _Ao
 private _CL = _intAirfoilTable select 1;
 
 private _area = [_A, _B, _C, _D] call fza_fnc_getArea;
-private _liftForce = -_CL * 0.5 * 1.225 * _area * (_V_mps * _V_mps);
+private _liftForce = -_CL * 0.5 * _dryAirDensity * _area * (_V_mps * _V_mps);
 
 private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
 _heli addForce[_heli vectorModelToWorld _lift, _G];
