@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fn_setPitchBank.sqf","fn_setPitchBank.sqf");NDSummary.OnSummaryLoaded("File:fn_setPitchBank.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[231,0,1,"Functions","Functions"],[232,0,0,"fza_fnc_setPitchBank","fza_fnc_setPitchBank"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fn_setPitchBank.sqf","fn_setPitchBank.sqf");NDSummary.OnSummaryLoaded("File:fn_setPitchBank.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[233,0,1,"Functions","Functions"],[234,0,0,"fza_fnc_setPitchBank","fza_fnc_setPitchBank"]]);
