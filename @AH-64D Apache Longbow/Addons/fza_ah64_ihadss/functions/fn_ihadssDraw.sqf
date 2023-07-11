@@ -430,7 +430,7 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", round(1.94 * (sqrt(((velocity _heli select 0) + (0.836 * (abs(wind select 0) ^ 1.5))) ^ 2 + ((velocity _heli select 1) + (0.836 * (abs(wind select 2) ^ 1.5))) ^ 2 + ((velocity _heli select 2) + (0.836 * (abs(wind select 1) ^ 1.5))) ^ 2)))];
+_speedkts = format["%1", round(1.94384 * vectorMagnitude((velocity _heli) vectorDiff wind))];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
