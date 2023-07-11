@@ -32,8 +32,6 @@ switch (_wingType) do {
         _D = _wingRootCtr vectorAdd [ 0, -_halfLength * cos _wingRot, 0];
 
         private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
-
-        systemChat format ["4 Vel YZ = %1", _velYZ * 1.94384];
     };
     case 1: {   //Vertical wing
         private _wingTipCtr  = _wingRootCtr vectorAdd [0, _wingSweep, _width];
