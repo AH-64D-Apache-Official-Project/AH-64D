@@ -3,126 +3,18 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 
 private _selectedWeapon = _state get "selectedWeapon";
 
-if(_selectedWeapon == WAS_WEAPON_GUN) then {
-    switch (_control) do {
-        case "l1": {
-            _heli setVariable ["fza_ah64_burst_limit", 10];
-        };
-        case "l2": {
-            _heli setVariable ["fza_ah64_burst_limit", 20];
-        };
-        case "l3": {
-            _heli setVariable ["fza_ah64_burst_limit", 50];
-        };
-        case "l4": {
-            _heli setVariable ["fza_ah64_burst_limit", 100];
-        };
-        case "l5": {
-            _heli setVariable ["fza_ah64_burst_limit", -1];
-        };
+switch (_selectedWeapon) do {
+    case WAS_WEAPON_GUN: {
+        _this call fza_mpd_fnc_WpnGunHandleControl;
+    };
+    case WAS_WEAPON_RKT: {
+        _this call fza_mpd_fnc_WpnRktHandleControl;
+    };
+    case WAS_WEAPON_MSL: {
+        _this call fza_mpd_fnc_WpnMslHandleControl;
     };
 };
-if(_selectedWeapon == WAS_WEAPON_RKT) then {
-    switch (_control) do {
-        case "l1": {
-            [_heli, 0] call fza_fnc_weaponRocketSetSelected;
-        };
-        case "l2": {
-            [_heli, 1] call fza_fnc_weaponRocketSetSelected;
-        };
-        case "l3": {
-            [_heli, 2] call fza_fnc_weaponRocketSetSelected;
-        };
-        case "l4": {
-            [_heli, 3] call fza_fnc_weaponRocketSetSelected;
-        };
-        case "l5": {
-            [_heli, 4] call fza_fnc_weaponRocketSetSelected;
-        };
-        case "r1": {
-            [_heli] call fza_fnc_weaponRocketsalvo;
-        };
-    };
-};
-if(_selectedWeapon == WAS_WEAPON_MSL) then {
-    switch (_control) do {
-        case "l1": {
-            //Switch missile lase
-            [_heli] call fza_fnc_controlHandlelaserchange;
-        };
-        case "r1": {
-            if (_state get "trajmenu" == 0) then {
-                [_heli] call fza_fnc_weaponMissileCycle
-            } else {
-                _this call fza_mpd_fnc_WpnTrajHandleControl;
-            };
-        };
-        case "r2": {
-            if (_state get "trajmenu" == 0) then {
-            } else {
-                _this call fza_mpd_fnc_WpnTrajHandleControl;
-            };
-        };
-        case "r3": {
-            _this call fza_mpd_fnc_WpnTrajHandleControl;
-        };
-    };
 
-    switch (_state get "variant") do {
-        case 0: { // Root variant
-            switch (_control) do {
-                case "l1": {
-                    //Set primary channel
-                    _state set ["variant", 1];
-                };
-                case "l2": {
-                    //Set alternate channel
-                    if (_heli getVariable "fza_ah64_laserMissilePrimaryCode" != -1) then {
-                        _state set ["variant", 2];
-                    }
-                };
-            };
-        };
-        case 1: { // Primary channel set
-            private _keyMapping = createHashMapFromArray [["l1", 0], ["l2", 1], ["l3", 2], ["l4", 3], ["l5", -1]];
-            private _chanSelected = _keyMapping get _control;
-
-            if !(isNil "_chanSelected") then {
-                if (_chanSelected == -1) then {
-                    _heli setVariable ["fza_ah64_laserMissilePrimaryCode", -1];
-                    _heli setVariable ["fza_ah64_laserMissileAlternateCode", -1];
-                } else {
-                    private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
-                    if (_chanSelected == _alt) then {
-                        private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
-                        _heli setVariable ["fza_ah64_laserMissileAlternateCode", _pri, true];
-                    };
-                    _heli setVariable ["fza_ah64_laserMissilePrimaryCode", _chanSelected, true];
-                };
-                _state set ["variant", 0];
-            };
-        };
-        case 2: { // Alternate channel set
-            private _keyMapping = createHashMapFromArray [["l1", 0], ["l2", 1], ["l3", 2], ["l4", 3], ["l5", -1]];
-            private _chanSelected = _keyMapping get _control;
-
-            if !(isNil "_chanSelected") then {
-                if (_chanSelected == -1) then {
-                    _heli setVariable ["fza_ah64_laserMissileAlternateCode", -1];
-                } else {
-                    private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
-                    if (_chanSelected == _pri) then {
-                        private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
-                        private _newPri = [0,1] select (_chanSelected == 0);
-                        _heli setVariable ["fza_ah64_laserMissilePrimaryCode", _newPri, true];
-                    };
-                    _heli setVariable ["fza_ah64_laserMissileAlternateCode", _chanSelected, true];
-                };
-                _state set ["variant", 0];
-            };
-        };
-    };
-};
 switch (_control) do {
     case "t1": {
         [_heli, _mpdIndex, "chan"] call fza_mpd_fnc_setCurrentPage;
