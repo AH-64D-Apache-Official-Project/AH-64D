@@ -179,6 +179,10 @@ if (!_onGnd && (_rtrRPM < 0.95)) then {
     _wcas pushBack _wcaAddWarning;
 } else {
     [_activeWarn, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
+    if ("fza_ah64_rotor_rpm_low" in (_heli getVariable "fza_audio_warning_message")) then {
+        _heli setvariable ["fza_audio_warning_message", ""];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+    };
 };
 //--Rotor RPM High
 if (_rtrRPM > 1.06) then {
@@ -188,6 +192,10 @@ if (_rtrRPM > 1.06) then {
     _wcas pushBack _wcaAddWarning;
 } else {
     [_activeWarn, "HIGH ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
+    if ("fza_ah64_rotor_rpm_high" in (_heli getVariable "fza_audio_warning_message")) then {
+        _heli setvariable ["fza_audio_warning_message", ""];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+    };
 };
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
