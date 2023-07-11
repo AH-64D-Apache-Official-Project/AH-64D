@@ -1,0 +1,23 @@
+params ["_heli", "_mpdIndex", "_control", "_state"];
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+
+switch (_control) do {
+    case "l1": {
+        [_heli, 0] call fza_fnc_weaponRocketSetSelected;
+    };
+    case "l2": {
+        [_heli, 1] call fza_fnc_weaponRocketSetSelected;
+    };
+    case "l3": {
+        [_heli, 2] call fza_fnc_weaponRocketSetSelected;
+    };
+    case "l4": {
+        [_heli, 3] call fza_fnc_weaponRocketSetSelected;
+    };
+    case "l5": {
+        [_heli, 4] call fza_fnc_weaponRocketSetSelected;
+    };
+    case "r1": {
+        [_heli] call fza_fnc_weaponRocketsalvo;
+    };
+};
