@@ -118,46 +118,47 @@ if (_flightModel == "SFMPlus") then {
             fza_sfmplus_prevCollective = _collectiveVal;
         };
     };
-};
 
-private _isZeus = !isNull findDisplay 312;
+    private _isZeus = !isNull findDisplay 312;
 
-//Cyclic and Pedals 
-if (!_isZeus) then {
-    fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-    fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-    if (!_tailRtrFixed) then {
-        fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+    //Cyclic and Pedals 
+    if (!_isZeus) then {
+        fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+        fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+        if (!_tailRtrFixed) then {
+            fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+        };
+    } else {
+        fza_sfmplus_cyclicFwdAft    = 0.0;
+        fza_sfmplus_cyclicLeftRight = 0.0;
+        fza_sfmplus_pedalLeftRight  = 0.0;
     };
-} else {
-    fza_sfmplus_cyclicFwdAft    = 0.0;
-    fza_sfmplus_cyclicLeftRight = 0.0;
-    fza_sfmplus_pedalLeftRight  = 0.0;
-};
 
-//Cyclic pitch torque
-private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
-private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
-_foreAftTorque           = (_foreAftTorque + _fmcPitchTorque) * _rtrRPM;
+    //Cyclic pitch torque
+    private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
+    private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
+    _foreAftTorque           = (_foreAftTorque + _fmcPitchTorque) * _rtrRPM;
 
-//Cyclic roll torque
-private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) * _rollTorque;
-private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
-_leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
+    //Cyclic roll torque
+    private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) * _rollTorque;
+    private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
+    _leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
 
-//Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
-if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
-    //Primary and Utility Hydraulics
-    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-        if (currentPilot _heli == player) then {
-            _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+    //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
+    if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
+        //Primary and Utility Hydraulics
+        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
+            if (currentPilot _heli == player) then {
+                _heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
+            };
+        };
+    };
+
+    //Emergency Hydraulics
+    if (_emerHydOn) then {
+        if (currentPilot _heli == player) then { 
+            _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
         };
     };
 };
 
-//Emergency Hydraulics
-if (_emerHydOn) then {
-    if (currentPilot _heli == player) then { 
-        _heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
-    };
-};

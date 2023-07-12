@@ -35,6 +35,7 @@ Author:
 params ["_heli"];
 
 #define HYD_FAIL_PRIORITY          1
+#define OVRSPD_PRIORITY            1
 #define RTR_RPM_PRIORITY           2
 #define ENG_OUT_PRIORITY           3
 #define FIRE_PRIORITY              4
@@ -67,10 +68,12 @@ private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 //--Engine 1
 private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
 private _eng1Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 0;
+private _eng1Np          = _heli getVariable "fza_sfmplus_engPctNP" select 0;
 private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
 //--Engine 2
 private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
 private _eng2Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 1;
+private _eng2Np          = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
@@ -132,6 +135,15 @@ if (_heli getVariable "fza_ah64_e1_fire") then {
 } else {
     [_activeWarn, "ENGINE 1 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
+//--Engine 1 Overspeed
+if (_eng1Np >= 115.0) then {
+    ([_heli, _activeWarn, "ENG1 OVSP", "ENG1 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_1_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
+};
 //--Engine 2 Out
 if (_eng2Ng < 0.63 && !_onGnd) then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
@@ -150,7 +162,15 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 } else {
     [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
-
+//--Engine 2 Overspeed
+if (_eng2Np >= 115.0) then {
+    ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "ENG2 OVSP"] call fza_wca_fnc_wcaDelWarning;
+};
 //--Rotor RPM Low
 if (!_onGnd && (_rtrRPM < 0.95)) then {
     ([_heli, _activeWarn, "LOW ROTOR RPM", "LOW RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_low", 3] call fza_wca_fnc_wcaAddWarning)
@@ -159,6 +179,23 @@ if (!_onGnd && (_rtrRPM < 0.95)) then {
     _wcas pushBack _wcaAddWarning;
 } else {
     [_activeWarn, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
+    if ("fza_ah64_rotor_rpm_low" in (_heli getVariable "fza_audio_warning_message")) then {
+        _heli setvariable ["fza_audio_warning_message", ""];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+    };
+};
+//--Rotor RPM High
+if (_rtrRPM > 1.06) then {
+    ([_heli, _activeWarn, "HIGH ROTOR RPM", "HIGH RTR", RTR_RPM_PRIORITY, "fza_ah64_rotor_rpm_high", 3] call fza_wca_fnc_wcaAddWarning)
+        params ["_wcaAddWarning"];
+    
+    _wcas pushBack _wcaAddWarning;
+} else {
+    [_activeWarn, "HIGH ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
+    if ("fza_ah64_rotor_rpm_high" in (_heli getVariable "fza_audio_warning_message")) then {
+        _heli setvariable ["fza_audio_warning_message", ""];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+    };
 };
 //--Hydraulics
 if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH && _utilHydPumpDamage >= SYS_HYD_DMG_THRESH) then {
