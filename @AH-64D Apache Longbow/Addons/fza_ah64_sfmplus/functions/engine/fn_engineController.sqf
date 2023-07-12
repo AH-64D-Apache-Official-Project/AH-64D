@@ -92,7 +92,7 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if ((_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) || fuel _heli < 0.01) then {
+if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
     _heli engineOn false;
 };
 
