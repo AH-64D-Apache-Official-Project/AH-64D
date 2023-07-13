@@ -4,7 +4,7 @@ class tsdRoot {
 
     class vabs {
         #include "components\vabs_top.hpp"
-        #include "scale\scale.hpp"
+        #include "components\vabs_right.hpp"
         #include "components\vabs_bottom.hpp"
         //T4
         MPD_TEXT_C(PP, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC(" PP"))
@@ -21,6 +21,13 @@ class tsdRoot {
         //L6
         MPD_ARROW_R(SHOW, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, 4)
         MPD_TEXT_R(SHOW,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("SHOW"))
+        
+        class vabs_ScaleHide_CAQ {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOU), 0));
+            //R4
+            MPD_BOX_BAR_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+            MPD_TEXT_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))
+        };
     };
 };
 

@@ -1,7 +1,7 @@
 class wptSto {
     class vabs {
         #include "..\components\vabs_top.hpp"
-        #include "..\scale\scale.hpp"
+        #include "..\components\vabs_right.hpp"
 
         //L1
         MPD_TEXT_R(NOW,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("NOW"))
