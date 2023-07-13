@@ -2,7 +2,7 @@ class thrtDelNoPointSel {
     class vabs {
         #include "..\components\vabs_top.hpp"
         #include "..\components\vabs_right.hpp"
-
+        
         class l1Button {
             color[] = {1,1,1,1};
 
