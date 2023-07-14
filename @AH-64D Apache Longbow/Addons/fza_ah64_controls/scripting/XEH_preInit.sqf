@@ -154,7 +154,7 @@ fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
 
 ["fza_engineFire", {
     params ["_heli", "_location"];
-    [_heli] spawn fza_aiCrew_fnc_fireControl
+    [_heli] spawn fza_aiCrew_fnc_fireControl;
 }] call CBA_fnc_addEventHandler;
 
 ["fza_engineFire", {
