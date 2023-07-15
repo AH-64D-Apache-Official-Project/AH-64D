@@ -176,8 +176,7 @@ if (count _fcrTargets > 0) then {
 
 //ASE Points
 
-private _aseObjects  = _heli getVariable "fza_ah64_ase_rlwrObjects";
-private _radius      = 1.00;
+private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
 {
     _x params ["_state", "_bearing", "_classification"];
     private _ident      = "";
@@ -248,10 +247,45 @@ private _radius      = 1.00;
     };
 
     _ident           = (["RLWR", _unitType,_unitStatus]) joinString "_";
-    private _screenX =  _radius * sin _bearing + 0.5;
-    _screenX         = [_screenX, 0.23, 0.77] call BIS_fnc_clamp;
-    private _screenY = -_radius * cos _bearing + 0.75 - 0.25 * (_persistState get "ctr");
-    _screenY         = [_screenY, 0.23, 0.77] call BIS_fnc_clamp;
+
+    private _ctrX = 0.5;  private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
+    private _minX = 0.23; private _maxX = 0.77;
+    private _minY = 0.23; private _maxY = 0.77;
+
+    private _dirVecX = sin _bearing;
+    private _maxDstX = 0.0;
+    private _maxMagX = 0.0;
+    if (_dirVecX == 0) then { 
+        _maxDstX = 1000;
+        _maxMagX = 1000;
+    } else {
+        if (_dirVecX < 0) then {
+            _maxDstX = _minX - _ctrX;
+        } else {
+            _maxDstX = _maxX - _ctrX;
+        };
+        _maxMagX = _maxDstX / _dirVecX;
+    };
+
+    private _dirVecY = -cos _bearing;
+    private _maxDstY = 0.0;
+    private _maxMagY = 0.0;
+    if (_dirVecY == 0) then { 
+        _maxDstY = 1000;
+        _maxMagY = 1000;
+    } else {
+        if (_dirVecY < 0) then {
+            _maxDstY = _minY - _ctrY;
+        } else {
+            _maxDstY = _maxY - _ctrY;
+        };
+        _maxMagY = _maxDstY / _dirVecY;
+    };
+
+    private _magnitude = _maxMagX min _maxMagY;
+    private _screenX   = _ctrX + sin _bearing * _magnitude;
+    private _screenY   = _ctrY - cos _bearing * _magnitude; 
+
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
 } forEach _aseObjects;
 
