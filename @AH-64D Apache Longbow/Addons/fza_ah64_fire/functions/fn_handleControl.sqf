@@ -48,7 +48,7 @@ switch(_control) do {
     case "fbp": {
         if ((_engineOneArm || _engineTwoArm || _engineApuArm) && _PrimaryFBAvailable) then {
                 _heli setVariable ["fza_ah64_firepdisch", true, true];
-                if (_heli getHitPointDamage "hitengine1" isNotEqualTo 0) then {
+                if (_heli getHitPointDamage "hitengine1" == 0) then {
                     _heli setHitPointDamage  ["hitengine1", 0.01];
                 };
             };
@@ -57,7 +57,7 @@ switch(_control) do {
     case "fbr": {
         if ((_engineOneArm || _engineTwoArm || _engineApuArm) && _ReserveFBAvailable) then {
             _heli setVariable ["fza_ah64_firerdisch", true, true];
-            if (_heli getHitPointDamage "hitengine2" isNotEqualTo 0) then {
+            if (_heli getHitPointDamage "hitengine2" == 0) then {
                 _heli setHitPointDamage  ["hitengine2", 0.01];
             };
         };
