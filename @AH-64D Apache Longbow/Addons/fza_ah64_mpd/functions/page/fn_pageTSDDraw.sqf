@@ -5,7 +5,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_dms\headers\constants.h"
 
 private _phase          = BOOLTONUM(_persistState get "mode" == "atk");
-private _rangesetting   = _heli getVariable "fza_ah64_rangesetting";
+private _rangesetting   = _persistState get "tsdScale";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -74,6 +74,9 @@ switch (_state get "subPageVarPage" select 0) do {
     };
 };
 
+_this call fza_mpd_fnc_tsdScaleDraw;
+
+private _pointsArray = [];
 //TSD Points
 private _pointsArray      = [];
 private _showEnemy        = _heli getVariable "fza_mpd_tsdShowEnemy" select _phase;
@@ -82,6 +85,7 @@ private _showPlanTgts     = _heli getVariable "fza_mpd_tsdShowPlanTgts" select _
 private _showCtrlmeasures = _heli getVariable "fza_mpd_tsdShowCtrlMeasures" select _phase;
 private _showAtkShot      = _heli getVariable "fza_mpd_tsdShowAtkShot";
 private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
+
 {
     {
         _x params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong"];

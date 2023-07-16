@@ -12,7 +12,6 @@ class CfgFunctions
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
-            class handleZoom {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
@@ -35,6 +34,8 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\tsd";
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
+            class tsdScaleDraw {RECOMPILE_FLAG;};
+            class tsdScaleHandleControl {RECOMPILE_FLAG;};
             class tsdSHOWDraw {RECOMPILE_FLAG;};
             class tsdSHOWHandleControl {RECOMPILE_FLAG;};
             class tsdTHRTDraw {RECOMPILE_FLAG;};

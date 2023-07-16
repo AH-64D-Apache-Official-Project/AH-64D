@@ -17,7 +17,7 @@ Parameters:
             _text1 is the first part of text
             _text2 is the second part of text, where applicable
     _display - 1 if right, 0 if left
-    _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
+    _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *persist state "tsdScale" x 0.75*
     _center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
 
 Returns:
@@ -44,7 +44,8 @@ private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
 private _ctrlPoints = _display getVariable "fza_points";
 
 if (_scale == -1) then {
-    _scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
+    (_heli getVariable "fza_mpd_mpdState") # _displayIdx params ["","","","_state", "_persistState", ""];
+    _scale = (0.125 * 5 / (_persistState get "tsdScale"));
 };
 
 //Set all current state to be not updated. This lets us know which ones can be removed
