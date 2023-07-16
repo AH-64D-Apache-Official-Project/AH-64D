@@ -23,7 +23,7 @@ class tsdRoot {
         MPD_TEXT_R(SHOW,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y, MPD_TEXT_STATIC("SHOW"))
         
         class vabs_ScaleHide_CAQ {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOU), 0));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOUT), 0));
             //R4
             MPD_BOX_BAR_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
             MPD_TEXT_L(CAQ, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))

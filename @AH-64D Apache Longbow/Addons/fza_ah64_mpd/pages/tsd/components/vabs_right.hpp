@@ -1,10 +1,10 @@
 class VABSRight {
     class vabs_Scale {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOU), 1));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOUT), 1));
         #include "..\scale\scale.hpp"
     };
     class vabs_default {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOU), 0));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_OPEN_POPOUT), 0));
         //R1
         MPD_TEXT_L(ZOOM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Z"))
         MPD_TEXT_L(ZOOM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))

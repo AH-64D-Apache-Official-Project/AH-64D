@@ -4,7 +4,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistStage"];
 
 private _showScale = _state get "showScale";
 private _subpage = _state get "subPageVarPage" select 0;
-private _return = false;
+private _interactHandled = false;
 
 if !(_subpage in [0,2,4]) exitwith {};
 
@@ -13,33 +13,33 @@ switch (_control) do {
         if (_showScale == 1) then {
             _persistState set ["tsdScale", 50000];
             _state set ["showScale", 0];
-            _return = true;
+            _interactHandled = true;
         };
     };
     case "r2": { 
         if (_showScale == 0) then {
             _state set ["showScale", 1];
-            _return = true;
+            _interactHandled = true;
         } else {
             _persistState set ["tsdScale", 25000];
             _state set ["showScale", 0];
-            _return = true;
+            _interactHandled = true;
         };
     };
     case "r3": {
         if (_showScale == 1) then {
             _persistState set ["tsdScale", 10000];
             _state set ["showScale", 0];
-            _return = true;
+            _interactHandled = true;
         };
     };
     case "r4": {
         if (_showScale == 1) then {
             _persistState set ["tsdScale", 5000];
             _state set ["showScale", 0];
-            _return = true;
+            _interactHandled = true;
         };
     };
 };
 
-_return;
+_interactHandled;
