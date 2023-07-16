@@ -34,10 +34,10 @@ switch(_engine) do {
                 _heli setvariable ["fza_audio_warning_message", ""];
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
-            _heli setVariable ["fza_ah64_fireArmed1", [true, _crewStation], true];
+            _heli setVariable ["fza_ah64_fireArmed1", [true, _crewStation, CBA_missionTime], true];
         } else {
             if (_engineOneArm isEqualTo _crewStation) then {
-                _heli setVariable ["fza_ah64_fireArmed1", [false, _crewStation], true];
+                _heli setVariable ["fza_ah64_fireArmed1", [false, _crewStation, CBA_missionTime], true];
             };
         };
     };
@@ -47,10 +47,10 @@ switch(_engine) do {
                 _heli setvariable ["fza_audio_warning_message", ""];
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
-            _heli setVariable ["fza_ah64_fireArmed2", [true, _crewStation], true];
+            _heli setVariable ["fza_ah64_fireArmed2", [true, _crewStation, CBA_missionTime], true];
         } else {
             if (_engineTwoArm isEqualTo _crewStation) then {
-                _heli setVariable ["fza_ah64_fireArmed2", [false, _crewStation], true];
+                _heli setVariable ["fza_ah64_fireArmed2", [false, _crewStation, CBA_missionTime], true];
             };
         };
     };
@@ -60,10 +60,10 @@ switch(_engine) do {
                 _heli setvariable ["fza_audio_warning_message", ""];
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
-            _heli setVariable ["fza_ah64_fireArmedApu", [true, _crewStation], true];
+            _heli setVariable ["fza_ah64_fireArmedApu", [true, _crewStation, CBA_missionTime], true];
         } else {
             if (_engineApuArm isEqualTo _crewStation) then {
-                _heli setVariable ["fza_ah64_fireArmedApu", [false, _crewStation], true];
+                _heli setVariable ["fza_ah64_fireArmedApu", [false, _crewStation, CBA_missionTime], true];
             };
         };
     };
