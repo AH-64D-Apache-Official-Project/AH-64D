@@ -128,6 +128,10 @@
 #define MFD_IND_WPN_CMS_MODE_TYPE 12
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
+//Msl trajectory
+#define MFD_IND_WPN_MSL_POPOUT_MENU 13
+#define MFD_IND_WPN_MSL_POPOUT 14
+
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1

@@ -200,5 +200,8 @@ if (_selectedWeapon == WAS_WEAPON_MSL) then {
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), _chanCodes # 3];
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_SAL_SEL), toUpper _seekerType];
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];
+
+        //Trajectory draw
+        _this call fza_mpd_fnc_WpnTrajDraw;
     };
 };

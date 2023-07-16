@@ -51,12 +51,20 @@ if(_selectedWeapon == WAS_WEAPON_MSL) then {
             [_heli] call fza_fnc_controlHandlelaserchange;
         };
         case "r1": {
-            //Switch missile type
-            [_heli] call fza_fnc_weaponMissileCycle
+            if (_state get "trajmenu" == 0) then {
+                [_heli] call fza_fnc_weaponMissileCycle
+            } else {
+                _this call fza_mpd_fnc_WpnTrajHandleControl;
+            };
+        };
+        case "r2": {
+            if (_state get "trajmenu" == 0) then {
+            } else {
+                _this call fza_mpd_fnc_WpnTrajHandleControl;
+            };
         };
         case "r3": {
-            //Switch missile trajectory of current hellfire
-            [_heli] call fza_fnc_weaponTrajectoryChange;
+            _this call fza_mpd_fnc_WpnTrajHandleControl;
         };
     };
 
