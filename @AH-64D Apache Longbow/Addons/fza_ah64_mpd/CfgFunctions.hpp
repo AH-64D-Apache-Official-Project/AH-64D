@@ -88,8 +88,14 @@ class CfgFunctions
         };
         class wpn {
             file = "\fza_ah64_mpd\functions\wpn";
+            class wpnGunDraw {RECOMPILE_FLAG;};
+            class wpnGunHandlecontrol {RECOMPILE_FLAG;};
+            class wpnRktDraw {RECOMPILE_FLAG;};
+            class wpnRktHandlecontrol {RECOMPILE_FLAG;};
+            class wpnMslDraw {RECOMPILE_FLAG;};
+            class wpnMslHandlecontrol {RECOMPILE_FLAG;};
             class wpnTrajDraw {RECOMPILE_FLAG;};
             class wpnTrajHandleControl {RECOMPILE_FLAG;};
-        }
+        };
     };
 };
