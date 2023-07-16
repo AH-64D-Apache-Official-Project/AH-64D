@@ -27,7 +27,7 @@ private _apuStartDelay = _heli getVariable "fza_systems_apuStartDelay";
 private _apuRPM_pct    = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuFF_kgs     = 0.0;
 
-if (_apuBtnOn && _battBusOn) then {
+if (_apuBtnOn && _battBusOn && !(fuel _heli < 0.01)) then {
     _apuRPM_pct = [_apuRPM_pct, 1.0, (1.0 / _apuStartDelay) * _deltaTime] call BIS_fnc_lerp;
 } else {
     _apuRPM_pct = [_apuRPM_pct, 0.0, _deltaTime] call BIS_fnc_lerp;

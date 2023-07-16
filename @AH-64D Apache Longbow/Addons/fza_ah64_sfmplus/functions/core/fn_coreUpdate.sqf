@@ -83,12 +83,11 @@ if (_flightModel != "SFMPlus") then {
 };
 
 //Fuel
-private _apuFF  = 0;
+private _apuFF  = _heli getVariable "fza_systems_apuFF_kgs";
 private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow = 0;
 
-_apuFF_kgs   = _heli getVariable "fza_systems_apuFF_kgs";
 _curFuelFlow = (_apuFF + _eng1FF + _eng2FF) * _deltaTime;
 
 private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
