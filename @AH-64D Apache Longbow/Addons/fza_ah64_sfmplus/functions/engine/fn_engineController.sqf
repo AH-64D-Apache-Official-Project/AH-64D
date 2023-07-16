@@ -43,8 +43,8 @@ private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
-if (_apuOn && local _heli) then {
-    if ((_eng1State == "STARTING" && _eng1PwrLvrState == "IDLE") || (_eng2State == "STARTING" && _eng2PwrLvrState == "IDLE")) then {
+if (local _heli) then {
+    if (!_eng1State == "OFF" || !_eng2State == "OFF") then {
         _heli engineOn true;
     };
 };
