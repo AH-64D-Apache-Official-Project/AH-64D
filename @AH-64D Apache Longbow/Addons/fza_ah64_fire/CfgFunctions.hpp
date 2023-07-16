@@ -15,6 +15,7 @@ class CfgFunctions
             class HandleControl {R;};
             class HandleRearm {R;};
             class Handlepanel {R;};
+            class update {R;};
         };
     };
 };

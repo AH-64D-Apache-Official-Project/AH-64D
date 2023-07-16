@@ -26,10 +26,14 @@ params ["_heli"];
 if !fza_ah64_aiFirecontrol exitwith {};
 if (_heli getVariable "fza_ah64_aiFireHandling") exitWith {}; //Prevent this from being run multiple times simultaneously
 _heli setVariable ["fza_ah64_aiFireHandling", true];
+
 _driver = driver vehicle _heli;
 _gunner = gunner vehicle _heli;
-
 if !((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) exitWith {};
+
+Private _PrimaryFBAvailable = !(_heli getVariable "fza_ah64_firepdisch");
+Private _ReserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
+
 
 sleep fza_ah64_aiFireResponse;
 if !(_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") exitWith {};
@@ -46,27 +50,28 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-    if !(_heli getVariable "fza_ah64_firepdisch") then {
-        _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+    if _PrimaryFBAvailable then {
         _heli setVariable ["fza_ah64_firepdisch", true, true];
-        _dmg = _heli getHitPointDamage "hitengine1";
-        _heli setHitPointDamage  ["hitengine1", _dmg + 0.01];
+        if (_heli getHitPointDamage "hitengine2" isNotEqualTo 0) then {
+            _heli setHitPointDamage  ["hitengine2", 0.01];
+        };
     } else {
         sleep 1;
         if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-            if !(_heli getVariable "fza_ah64_firerdisch") then {
-                _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+            if !_ReserveFBAvailable then {
                 _heli setVariable ["fza_ah64_firerdisch", true, true];
-                _dmg = _heli getHitPointDamage "hitengine2";
-                _heli setHitPointDamage  ["hitengine2", _dmg + 0.01];
+                if (_heli getHitPointDamage "hitengine2" isNotEqualTo 0) then {
+                    _heli setHitPointDamage  ["hitengine2", 0.01];
+                };
             };
         };
     };
 };
-_heli setVariable ["fza_ah64_aiFireHandling", false];
 sleep 3;
 [_heli, "eng1", false] call fza_fire_fnc_HandlePanel;
 sleep 0.4;
 [_heli, "eng2", false] call fza_fire_fnc_HandlePanel;
 sleep 0.4;
 [_heli, "apu", false] call fza_fire_fnc_HandlePanel;
+
+_heli setVariable ["fza_ah64_aiFireHandling", false];
