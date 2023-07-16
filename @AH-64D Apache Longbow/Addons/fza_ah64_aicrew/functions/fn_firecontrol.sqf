@@ -34,39 +34,39 @@ if !((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner
 sleep fza_ah64_aiFireResponse;
 if !(_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") exitWith {};
 if (_heli getVariable "fza_ah64_e1_fire") then {
-    [_heli, "eng1", true] call fza_fnc_fireHandlepanel;
+    [_heli, "eng1", true] call fza_fire_fnc_HandlePanel;
 };
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e2_fire") then {
-    [_heli, "eng2", true] call fza_fnc_fireHandlepanel;
+    [_heli, "eng2", true] call fza_fire_fnc_HandlePanel;
 };
 sleep 0.4;
 if (_heli getVariable "fza_ah64_apu_fire") then {
-    [_heli, "apu", true] call fza_fnc_fireHandlepanel;
+    [_heli, "apu", true] call fza_fire_fnc_HandlePanel;
 };
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
     if !(_heli getVariable "fza_ah64_firepdisch") then {
         _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
         _heli setVariable ["fza_ah64_firepdisch", true, true];
-        _dmg = _heli getHit "leng";
-        _heli setHit ["leng", _dmg + 0.01];
+        _dmg = _heli getHitPointDamage "hitengine1";
+        _heli setHitPointDamage  ["hitengine1", _dmg + 0.01];
     } else {
         sleep 1;
         if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
             if !(_heli getVariable "fza_ah64_firerdisch") then {
                 _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
                 _heli setVariable ["fza_ah64_firerdisch", true, true];
-                _dmg = _heli getHit "Reng";
-                _heli setHit ["Reng", _dmg + 0.01];
+                _dmg = _heli getHitPointDamage "hitengine2";
+                _heli setHitPointDamage  ["hitengine2", _dmg + 0.01];
             };
         };
     };
 };
 _heli setVariable ["fza_ah64_aiFireHandling", false];
 sleep 3;
-[_heli, "eng1", false] call fza_fnc_fireHandlepanel;
+[_heli, "eng1", false] call fza_fire_fnc_HandlePanel;
 sleep 0.4;
-[_heli, "eng2", false] call fza_fnc_fireHandlepanel;
+[_heli, "eng2", false] call fza_fire_fnc_HandlePanel;
 sleep 0.4;
-[_heli, "apu", false] call fza_fnc_fireHandlepanel;
+[_heli, "apu", false] call fza_fire_fnc_HandlePanel;

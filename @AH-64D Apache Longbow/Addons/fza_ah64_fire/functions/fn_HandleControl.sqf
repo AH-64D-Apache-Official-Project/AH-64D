@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_fireHandleControl
+Function: fza_fire_fnc_HandleControl
 
 Description:
     Handles any fire-related cockpit controls.
@@ -95,23 +95,23 @@ switch(_control) do {
         };
     };
     case "fe1": {
-        [_heli, "eng1", !(_heli getVariable "fza_ah64_fire1arm")] call fza_fnc_fireHandlepanel;
+        [_heli, "eng1", !(_heli getVariable "fza_ah64_fire1arm")] call fza_fire_fnc_HandlePanel;
         ["fza_ah64_button_click2", 0.1];
     };
     case "fe2": {
-        [_heli, "eng2", !(_heli getVariable "fza_ah64_fire2arm")] call fza_fnc_fireHandlepanel;
+        [_heli, "eng2", !(_heli getVariable "fza_ah64_fire2arm")] call fza_fire_fnc_HandlePanel;
         ["fza_ah64_button_click2", 0.1];
     };
     case "fapu": {
-        [_heli, "apu", !(_heli getVariable "fza_ah64_fireapuarm")] call fza_fnc_fireHandlepanel;
+        [_heli, "apu", !(_heli getVariable "fza_ah64_fireapuarm")] call fza_fire_fnc_HandlePanel;
         ["fza_ah64_button_click2", 0.1];
     };
     case "fbp": {
         if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firepdisch")) then {
                 _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
                 _heli setVariable ["fza_ah64_firepdisch", true, true];
-                _dmg = vehicle player getHit "leng";
-                vehicle player setHit ["leng", _dmg + 0.01];
+                _dmg = _heli getHitPointDamage "hitengine1";
+                _heli setHitPointDamage  ["hitengine1", _dmg + 0.10];
             };
             ["fza_ah64_button_click2", 0.1];
         };
@@ -119,8 +119,8 @@ switch(_control) do {
             if ((_heli getVariable "fza_ah64_fireapuarm" || _heli getVariable "fza_ah64_fire2arm" || _heli getVariable "fza_ah64_fire1arm") && !(_heli getVariable "fza_ah64_firerdisch")) then {
                 _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
                 _heli setVariable ["fza_ah64_firerdisch", true, true];
-                _dmg = vehicle player getHit "Reng";
-                vehicle player setHit ["Reng", _dmg + 0.01];
+                _dmg = _heli getHitPointDamage "hitengine2";
+                _heli setHitPointDamage  ["hitengine2", _dmg + 0.10];
             };
             ["fza_ah64_button_click2", 0.1];
         };

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_damageEngineFire
+Function: fza_fire_fnc_damageEngineFire
 
 Description:
     damageEngineFire
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli, "right"] spawn fza_fnc_damageEngineFire
+    [_heli, "right"] spawn fza_fire_fnc_damageEngineFire
     ---
 
 Author:
@@ -21,9 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","_eng"];
 
-_rand = random 10;
-if (_rand > 5) exitwith {};
-systemchat str _heli;
+_rand = floor random 3;
+if (_rand > 1) exitwith {};
 
 private _side = [];
 private _sidef = [];
@@ -79,7 +78,7 @@ do {
             private _engineDamage  = _heli getHitPointDamage "hitengine1";
             if (_Engine1Arm && (_PrimaryFBActioned || _ReserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if ((_PowerLevelPos == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
-            _heli setHit ["hitengine1", _engineDamage + 0.001];
+            _heli setHitPointDamage ["hitengine1", _engineDamage + 0.001];
             if (_engineDamage == 1) then {
                 _heli setdamage _heliDamage + 0.001;
             };
@@ -90,8 +89,7 @@ do {
             private _engineDamage  = _heli getHitPointDamage "hitengine2";
             if (_Engine2Arm && (_PrimaryFBActioned || _ReserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if ((_PowerLevelPos == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
-            systemchat "2";
-            _heli setHit ["hitengine2", _engineDamage + 0.001];
+            _heli setHitPointDamage ["hitengine2", _engineDamage + 0.001];
             if (_engineDamage == 1) then {
                 _heli setdamage _heliDamage + 0.001;
             };
@@ -102,7 +100,7 @@ do {
             private _apuDamage = _heli getHitPointDamage "hit_apu";
             if (_apuArm && (_PrimaryFBActioned || _ReserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
             if (!_apuOn && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
-            _heli setHit ["hit_apu", _apuDamage + 0.001];
+            _heli setHitPointDamage ["hit_apu", _apuDamage + 0.001];
             if (_apuDamage == 1) then {
                 _heli setdamage _heliDamage + 0.001;
             };

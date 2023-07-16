@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_fireHandlePanel
+Function: fza_fire_fnc_HandlePanel
 
 Description:
     Arms or disarms the fire panel
@@ -17,7 +17,7 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
-params ["_heli","_engine","_value"];
+params ["_heli","_engine","_value","_station"];
 
 switch(_engine) do {
     case "eng1": {

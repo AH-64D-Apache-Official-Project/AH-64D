@@ -153,8 +153,8 @@ class CfgVehicles
         };
         class EventHandlers {
             class fza_ah64 {
-                init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_audio_fnc_audioInit";
-                handleDamage = "_this call fza_fnc_damageSystem";
+                init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_audio_fnc_audioInit; [_this # 0] spawn fza_fire_fnc_fireInit";
+                handleDamage = "_this call fza_fire_fnc_damageSystem";
             };
         };
         class RenderTargets

@@ -32,9 +32,7 @@ class CfgFunctions
         };
         class damage {
             file = "\fza_ah64_controls\scripting\functions\damage";
-            class damageSystem {R;};
             class damageM230 {R;};
-            class damageEnginefire {R;};
         };
         class engine
         {
@@ -64,13 +62,6 @@ class CfgFunctions
             class targetingFCRUpdate {R;};
             class targetingsensorCycle {R;};
             class targetingSensorUpdate {R;};
-        };
-        class fire
-        {
-            file = "\fza_ah64_controls\scripting\functions\fire";
-            class fireHandleControl {R;};
-            class fireHandleRearm {R;};
-            class fireHandlepanel {R;};
         };
         class fx {
             file = "\fza_ah64_controls\scripting\functions\fx";
