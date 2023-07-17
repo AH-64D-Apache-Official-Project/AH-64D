@@ -9,14 +9,15 @@ class CfgFunctions
         tag="fza_mpd";
         class functions {
             file = "\fza_ah64_mpd\functions";
+            class acqDraw {RECOMPILE_FLAG;};
+            class bearingToScreen {RECOMPILE_FLAG;};
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
             class handleZoom {RECOMPILE_FLAG;};
+            class init {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
-            class init {RECOMPILE_FLAG;};
-            class acqDraw {RECOMPILE_FLAG;};
         };
         class chan {
             file = "\fza_ah64_mpd\functions\chan";

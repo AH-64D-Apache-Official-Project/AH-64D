@@ -175,120 +175,17 @@ if (count _fcrTargets > 0) then {
 } forEach _fcrTargets;
 
 //ASE Points
-
+private _ctrX       = 0.5;  
+private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
 {
     _x params ["_state", "_bearing", "_classification"];
-    private _ident      = "";
-    private _unitStatus = "";
-    private _unitType   = "";
-    //Unit type
-    switch (_classification) do {
-        case "sa2": {
-            _unitType = "SA2";
-        };
-        case "sa3": {
-            _unitType = "SA3";
-        };
-        case "sa8": {
-            _unitType = "SA8";
-        };
-        case "sa10": {
-            _unitType = "SA10";
-        };
-        case "sa15": {
-            _unitType = "SA15";
-        };
-        case "sa17": {
-            _unitType = "SA17";
-        };
-        case "sa19": {
-            _unitType = "SA19";
-        };
-        case "sa20": {
-            _unitType = "SA20";
-        };
-        case "sa21": {
-            _unitType = "SA21";
-        };
-        case "gun": {
-            _unitType = "GU";
-        };
-        case "hawk": {
-            _unitType = "HK";
-        };
-        case "naval": {
-            _unitType = "NV";
-        };
-        case "2S6": {
-            _unitType = "2S6";
-        };
-        case "radar": {
-            _unitType = "SR";
-        };
-        case "zsu": {
-            _unitType = "ZU";
-        };
-    };
-    //Unit status
-    switch (_state) do {
-        case ASE_SRH: {
-            _unitStatus = "SRH";
-        };
-        case ASE_ACQ: {
-            _unitStatus = "ACQ_TRK";
-        };
-        case ASE_TRK: {
-            _unitStatus = "ACQ_TRK";
-        };
-        case ASE_LNC: {
-            _unitStatus = "LNC";
-        };
-    };
-
-    _ident           = (["RLWR", _unitType,_unitStatus]) joinString "_";
-
-    private _ctrX = 0.5;  private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
-    private _minX = 0.23; private _maxX = 0.77;
-    private _minY = 0.23; private _maxY = 0.77;
-
-    private _dirVecX = sin _bearing;
-    private _maxDstX = 0.0;
-    private _maxMagX = 0.0;
-    if (_dirVecX == 0) then { 
-        _maxDstX = 1000;
-        _maxMagX = 1000;
-    } else {
-        if (_dirVecX < 0) then {
-            _maxDstX = _minX - _ctrX;
-        } else {
-            _maxDstX = _maxX - _ctrX;
-        };
-        _maxMagX = _maxDstX / _dirVecX;
-    };
-
-    private _dirVecY = -cos _bearing;
-    private _maxDstY = 0.0;
-    private _maxMagY = 0.0;
-    if (_dirVecY == 0) then { 
-        _maxDstY = 1000;
-        _maxMagY = 1000;
-    } else {
-        if (_dirVecY < 0) then {
-            _maxDstY = _minY - _ctrY;
-        } else {
-            _maxDstY = _maxY - _ctrY;
-        };
-        _maxMagY = _maxDstY / _dirVecY;
-    };
-
-    private _magnitude = _maxMagX min _maxMagY;
-    private _screenX   = _ctrX + sin _bearing * _magnitude;
-    private _screenY   = _ctrY - cos _bearing * _magnitude; 
-
+    _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
+        params ["_screenX", "_screenY"];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
 } forEach _aseObjects;
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex, -1, [0.5, 0.75 - 0.25 * (_persistState get "ctr")]] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex, -1, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
