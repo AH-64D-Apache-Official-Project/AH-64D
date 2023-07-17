@@ -50,4 +50,4 @@ _heli setVariable ["fza_systems_apuOn", _apuOn];
 if (_apuOn) then {
     _apuFF_kgs = 0.0220;//175pph
 };
-_heli setVariable ["fza_systems_apuFF_kgs", _apuFF];
+_heli setVariable ["fza_systems_apuFF_kgs", _apuFF_kgs];
