@@ -36,6 +36,8 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\tsd";
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
+            class tsdScaleDraw {RECOMPILE_FLAG;};
+            class tsdScaleHandleControl {RECOMPILE_FLAG;};
             class tsdSHOWDraw {RECOMPILE_FLAG;};
             class tsdSHOWHandleControl {RECOMPILE_FLAG;};
             class tsdTHRTDraw {RECOMPILE_FLAG;};
@@ -85,6 +87,17 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
-        }
+        };
+        class wpn {
+            file = "\fza_ah64_mpd\functions\wpn";
+            class wpnGunDraw {RECOMPILE_FLAG;};
+            class wpnGunHandlecontrol {RECOMPILE_FLAG;};
+            class wpnRktDraw {RECOMPILE_FLAG;};
+            class wpnRktHandlecontrol {RECOMPILE_FLAG;};
+            class wpnMslDraw {RECOMPILE_FLAG;};
+            class wpnMslHandlecontrol {RECOMPILE_FLAG;};
+            class wpnTrajDraw {RECOMPILE_FLAG;};
+            class wpnTrajHandleControl {RECOMPILE_FLAG;};
+        };
     };
 };

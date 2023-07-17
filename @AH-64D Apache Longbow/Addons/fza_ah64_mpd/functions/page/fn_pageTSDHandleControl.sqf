@@ -2,6 +2,8 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
+if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitwith {};
+
 switch (_control) do {
     case "t2": {
         [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
@@ -12,7 +14,7 @@ switch (_control) do {
     case "b2": {
         private _newMode = ["atk", "nav"] select (_persistState get "mode" == "atk");
         _persistState set ["mode", _newMode];
-    };    
+    };
 };
 
 switch (_state get "subPageVarPage" select 0) do {
@@ -29,9 +31,6 @@ switch (_state get "subPageVarPage" select 0) do {
             };
             case "b6": {
                 _state set ["subPageVarPage", TSD_THRT]; //THRT subpage
-            };
-            case "r2": {
-                [_heli] call fza_mpd_fnc_handleZoom;
             };
             case "r3": {
                 _persistState set ["ctr", 1 - (_persistState get "ctr")];

@@ -95,6 +95,7 @@ class CfgVehicles {
                     selectedWeapon = 0;
                     variant = 0;
                     wasOverride = 0;
+                    trajmenu = 0;
                 };
             };
             #include "\fza_ah64_mpd\headers\tsd.hpp"
@@ -105,10 +106,12 @@ class CfgVehicles {
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
+                    showScale = 0;
                 };
                 class PersistState {
                     mode = "nav";
                     ctr = 0;
+                    tsdScale = 25000;
                 };
             };
             class DMS {
