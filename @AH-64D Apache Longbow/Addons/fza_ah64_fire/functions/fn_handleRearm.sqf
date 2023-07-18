@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fire_fnc_HandleRearm
+Function: fza_fire_fnc_handleRearm
 
 Description:
     Handles the reset of fire system when rearming

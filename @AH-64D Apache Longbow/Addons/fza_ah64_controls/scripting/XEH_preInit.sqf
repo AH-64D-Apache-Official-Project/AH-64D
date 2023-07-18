@@ -139,7 +139,7 @@ fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_ihadss_fnc_ihadssController, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_fire_fnc_update];
-fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fire_fnc_HandleRearm, fza_aiCrew_fnc_floodlight];
+fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fire_fnc_handleRearm, fza_aiCrew_fnc_floodlight];
 fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {

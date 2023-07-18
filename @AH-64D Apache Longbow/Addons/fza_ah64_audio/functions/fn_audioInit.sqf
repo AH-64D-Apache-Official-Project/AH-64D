@@ -12,7 +12,7 @@ Returns:
 Examples:
 
 Author:
-    Snow(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 

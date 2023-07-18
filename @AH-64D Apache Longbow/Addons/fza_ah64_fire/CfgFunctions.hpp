@@ -11,10 +11,10 @@ class CfgFunctions
             file = "\fza_ah64_fire\functions";
             class damageSystem {R;};
             class damageEnginefire {R;};
-            class fireInit {R;};
-            class HandleControl {R;};
-            class HandleRearm {R;};
-            class Handlepanel {R;};
+            class init {R;};
+            class handleControl {R;};
+            class handleRearm {R;};
+            class handlepanel {R;};
             class update {R;};
         };
     };

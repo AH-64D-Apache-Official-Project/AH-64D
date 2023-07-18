@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fire_fnc_fireInit
+Function: fza_fire_fnc_init
 
 Description:
 
@@ -32,5 +32,4 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
 _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
-
-fza_ah64_firetest = 0;
+_heli setVariable ["fza_ah64_firetest", 0];

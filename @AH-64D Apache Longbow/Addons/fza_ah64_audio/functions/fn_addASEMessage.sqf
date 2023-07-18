@@ -16,7 +16,7 @@ Examples:
     [_heli, 6, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_audio_fnc_addASEMessage;
 
 Author:
-    Snow(Dryden)
+    Rosd6(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_priority", "_reference"];
 

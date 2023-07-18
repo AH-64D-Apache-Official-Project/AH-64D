@@ -18,14 +18,14 @@ Author:
 params ["_heli"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
-Private _engineOneArm       = _heli getVariable "fza_ah64_fireArmed1";
-Private _engineTwoArm       = _heli getVariable "fza_ah64_fireArmed2";
-Private _engineApuArm       = _heli getVariable "fza_ah64_fireArmedApu";
-Private _PrimaryFBDispensed = _heli getVariable "fza_ah64_firepdisch";
-Private _ReserveFBDispensed = _heli getVariable "fza_ah64_firerdisch";
-Private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
-Private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
-Private _engineApuFire      = _heli getVariable "fza_ah64_apu_fire";
+private _engineOneArm       = _heli getVariable "fza_ah64_fireArmed1";
+private _engineTwoArm       = _heli getVariable "fza_ah64_fireArmed2";
+private _engineApuArm       = _heli getVariable "fza_ah64_fireArmedApu";
+private _PrimaryFBDispensed = _heli getVariable "fza_ah64_firepdisch";
+private _ReserveFBDispensed = _heli getVariable "fza_ah64_firerdisch";
+private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
+private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
+private _engineApuFire      = _heli getVariable "fza_ah64_apu_fire";
 
 if !_battBusOn exitwith {
     _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
@@ -55,12 +55,14 @@ if (_engineApuArm #0 && _engineApuArm #2 <= CBA_missionTime - 2) then {
 };
 
 //Fire test switch
-if (fza_ah64_firetest == 1) exitwith {
+if ((_heli getvariable "fza_ah64_firetest") == 1) exitwith {
     _heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
     _heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
     _heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
+    _heli setobjecttexture ["in_lt_firepdis", ""];
+    _heli setobjecttexture ["in_lt_firerdis", ""];
 };
-if (fza_ah64_firetest == 2) exitwith {
+if ((_heli getvariable "fza_ah64_firetest") == 2) exitwith {
     _heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
     _heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
     _heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];

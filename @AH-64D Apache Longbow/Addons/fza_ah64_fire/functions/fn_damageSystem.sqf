@@ -23,13 +23,13 @@ Author:
 params["_heli", "_system", "_damage"];
 
 if (_system == "hit_apu" && _damage >= 0.4) then {
-    [_heli, "apu"] spawn fza_fire_fnc_damageEngineFire;
+    [_heli, "fza_ah64_apu_fire"] spawn fza_fire_fnc_damageEngineFire;
 };
 
 if (_system == "hitengine1" && _damage >= 0.4) then {
-    [_heli, "left"] spawn fza_fire_fnc_damageEngineFire;
+    [_heli, "fza_ah64_e1_fire"] spawn fza_fire_fnc_damageEngineFire;
 };
 
 if (_system == "hitengine2" && _damage >= 0.4) then {
-    [_heli, "right"] spawn fza_fire_fnc_damageEngineFire;
+    [_heli, "fza_ah64_e2_fire"] spawn fza_fire_fnc_damageEngineFire;
 };

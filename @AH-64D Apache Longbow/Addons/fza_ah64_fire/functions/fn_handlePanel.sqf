@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fire_fnc_HandlePanel
+Function: fza_fire_fnc_handlePanel
 
 Description:
     Arms or disarms the fire panel
@@ -21,9 +21,9 @@ params ["_heli","_engine","_value"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _crewStation        = _heli call fza_fnc_currentTurret;
-Private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 1;
-Private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 1;
-Private _engineApuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
+private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 1;
+private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 1;
+private _engineApuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
 
 if !_battBusOn exitwith {};
 
