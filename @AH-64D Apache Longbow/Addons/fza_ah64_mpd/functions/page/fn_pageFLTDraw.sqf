@@ -15,7 +15,9 @@ _padLeft = {
 };
 
 /// Torque
-private _torque = ([_heli] call fza_fnc_sfmplusGetData select 0) * 100;
+private _torque = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100) toFixed 0];
+
 //Altitude and speed
 
 private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);

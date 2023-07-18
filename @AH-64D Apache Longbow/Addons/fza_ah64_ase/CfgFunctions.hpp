@@ -17,6 +17,7 @@ class CfgFunctions
             class irJam {RECOMPILE_FLAG;};
             class missileWarning {RECOMPILE_FLAG;};
             class rlwr {RECOMPILE_FLAG;};
+            class rlwrGetIdent {RECOMPILE_FLAG;};
             class swapFlares {RECOMPILE_FLAG;};
         };
     };

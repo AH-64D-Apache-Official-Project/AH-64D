@@ -39,6 +39,7 @@
 //--RLWR
 #define ASE_RLWR_STATE_OFF 0
 #define ASE_RLWR_STATE_ON  1
+
 //--IR Jammer
 #define ASE_IRJAM_STATE_OFF   0
 #define ASE_IRJAM_STATE_WARM  1
