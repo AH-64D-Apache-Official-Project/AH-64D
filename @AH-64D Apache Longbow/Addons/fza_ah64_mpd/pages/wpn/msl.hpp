@@ -1,7 +1,7 @@
 class VABs_Mode_Msl {
     condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3));
     class hide_mode {
-        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT_MENU), 0), C_NOT(C_MPD_USER(MFD_IND_WPN_SELECTED_MSL_TYPE))));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 0), C_NOT(C_MPD_USER(MFD_IND_WPN_SELECTED_MSL_TYPE))));
         MPD_TEXT_L(Mode_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MODE"))
         MPD_BOX_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, 3)
         MPD_TEXT_L(Mode, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MAN"))
@@ -166,18 +166,18 @@ class VABs_Mode_Msl_SAL {
     };
 
     class Hide_type {
-        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3), C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT_MENU), 0)));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 3), C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 0)));
         MPD_TEXT_L(Type_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TYPE"))
         MPD_BOX_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 3)
         MPD_TEXT_L(Type, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAL"))
 
         MPD_TEXT_L(Traj_Label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("TRAJ"))
         class TrajBox_3 {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT), 1));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT), 1));
             MPD_BOX_L(TrajBox_3, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y + 0.5*MPD_TEXT_HEIGHT, 3)
         };
         class TrajBox_2 {
-            condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT), 1)));
+            condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT), 1)));
             MPD_BOX_L(TrajBox_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y + 0.5*MPD_TEXT_HEIGHT, 2)
         };
         MPD_TEXT_L(Traj, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_MSL_TRAJ))
@@ -186,7 +186,7 @@ class VABs_Mode_Msl_SAL {
     MPD_TEXT_C(HFMSN, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("HFMSN"))
 
     class TrajectorySelect {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT_MENU), 1));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT_MENU), 1));
         class Box {
             color[] = {1,1,1,1};
             type = line;
@@ -214,15 +214,15 @@ class VABs_Mode_Msl_SAL {
         MPD_TEXT_L(DIR,MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("DIR"))
         //Selected Traj
         class Selected_traj_HI {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT), 3));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT), 3));
             MPD_BOX_L(Traj_select_3, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, 2)
         };
         class Selected_traj_LO {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT), 2));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT), 2));
             MPD_BOX_L(Traj_select_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, 2)
         };
         class Selected_traj_DIR {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_MSL_POPOUT), 1));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_POPOUT), 1));
             MPD_BOX_L(Traj_select_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, 3)
         };
     };
