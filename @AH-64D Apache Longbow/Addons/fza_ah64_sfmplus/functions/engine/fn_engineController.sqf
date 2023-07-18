@@ -48,6 +48,14 @@ if (local _heli) then {
         _heli engineOn true;
     };
 };
+if !_apuOn then {
+    if (_eng1State == "STARTING") then {
+		[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
+    };
+    if (_eng2State == "STARTING") then {
+		[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
+    };
+};
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
 private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
