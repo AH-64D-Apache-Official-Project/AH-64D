@@ -30,42 +30,32 @@ private _rlwrAudio   = [];
 if (_rlwrPwr == "on") then {
     //Sensor targets - Search
     {
-        _x params ["_target", "_type", "_relationship", "_sensor"];
-        private _distance_m = _heli distance2d _target;
+        _x params ["_object", "_type", "_relationship", "_sensor"];
         //Search
         if ("passiveradar" in _sensor) then {
-            if (_distance_m <= ASE_DETECT_RANGE_M) then {
-                _rlwrObjects pushBack [ASE_SRH, _heli getRelDir _target];
-                _rlwrAudio pushback [vehicle _target, "searching"];
-            };
+            _rlwrObjects pushBack [ASE_SRH, _heli getRelDir _object, [_object] call fza_ase_fnc_adaClassification];
+            _rlwrAudio pushback [vehicle _object, "searching"];
         };
     } foreach getSensorTargets _heli;
 
     //Sensor threats - acquisition, Track and Launch
     {
         _x params ["_object", "_type", "_sensor"];
-        private _distance_m = _heli distance2d _object;
         //acquisition
         if ("marked" in _type) then {
-            if (_distance_m <= ASE_DETECT_RANGE_M) then {
-                _rlwrObjects pushBack [ASE_ACQ, _heli getRelDir _object];
-                _rlwrAudio pushback [vehicle _object, "acquisition"];
-            };
+            _rlwrObjects pushBack [ASE_ACQ, _heli getRelDir _object, [_object] call fza_ase_fnc_adaClassification];
+            _rlwrAudio pushback [vehicle _object, "acquisition"];
         };
         //Track
         if ("locked" in _type) then {
-            if (_distance_m <= ASE_DETECT_RANGE_M) then {
-                _rlwrObjects pushBack [ASE_TRK, _heli getRelDir _object];
-                _rlwrAudio pushback [vehicle _object, "tracking"];
-            };
+            _rlwrObjects pushBack [ASE_TRK, _heli getRelDir _object, [_object] call fza_ase_fnc_adaClassification];
+            _rlwrAudio pushback [vehicle _object, "tracking"];
         };
         //Launch
         if (_type == "missile") then {
             private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _object >> "weaponLockSystem");
             if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) then {
-                if (_distance_m <= ASE_DETECT_RANGE_M) then {
-                    _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object];
-                };
+                _rlwrObjects pushBack [ASE_LNC, _heli getRelDir _object, [_object] call fza_ase_fnc_adaClassification];
             };
         };
     } foreach getSensorThreats _heli;

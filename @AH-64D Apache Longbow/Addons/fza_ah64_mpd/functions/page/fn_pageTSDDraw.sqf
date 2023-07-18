@@ -178,6 +178,18 @@ if (count _fcrTargets > 0) then {
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _fcrTargets;
 
+//ASE Points
+private _ctrX       = 0.5;  
+private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
+private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
+{
+    _x params ["_state", "_bearing", "_classification"];
+    _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
+        params ["_screenX", "_screenY"];
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
+} forEach _aseObjects;
+
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex, -1, [0.5, 0.75 - 0.25 * (_persistState get "ctr")]] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex, -1, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
