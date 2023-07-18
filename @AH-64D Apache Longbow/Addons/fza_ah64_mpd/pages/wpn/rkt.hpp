@@ -61,19 +61,19 @@ class VABs_Mode_Rkt {
             width = 3;
             points[] = {
                 {{0.98, 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1},
-                {{1 - (MPD_TEXT_WIDTH * 4.5), 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1},
-                {{1 - (MPD_TEXT_WIDTH * 4.5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) - MPD_TEXT_HEIGHT * 1.6}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 5), 0.1425 + (MPD_TEXT_HEIGHT / 2)}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) - MPD_TEXT_HEIGHT}, 1},
                 {},
-                {{1 - (MPD_TEXT_WIDTH * 4.5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) + MPD_TEXT_HEIGHT * 2.4}, 1},
-                {{1 - (MPD_TEXT_WIDTH * 4.5), 0.9}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) + MPD_TEXT_HEIGHT * 2}, 1},
+                {{1 - (MPD_TEXT_WIDTH * 5), 0.9}, 1},
                 {{((MPD_POS_BUTTON_TB_5_X + MPD_POS_BUTTON_TB_6_X) / 2), 0.9}, 1},
                 {{((MPD_POS_BUTTON_TB_5_X + MPD_POS_BUTTON_TB_6_X) / 2), 0.98}, 1},
                 {}
             };
         };
-        MPD_TEXT_L(QtyText_1, 1 - (MPD_TEXT_WIDTH * 4.5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) - MPD_TEXT_HEIGHT * 1.4, MPD_TEXT_STATIC("Q"))
-        MPD_TEXT_L(QtyText_2, 1 - (MPD_TEXT_WIDTH * 4.5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2), MPD_TEXT_STATIC("T"))
-        MPD_TEXT_L(QtyText_3, 1 - (MPD_TEXT_WIDTH * 4.5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) + MPD_TEXT_HEIGHT * 1.4, MPD_TEXT_STATIC("Y"))
+        MPD_TEXT_L(QtyText_1, 1 - (MPD_TEXT_WIDTH * 5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Q"))
+        MPD_TEXT_L(QtyText_2, 1 - (MPD_TEXT_WIDTH * 5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2), MPD_TEXT_STATIC("T"))
+        MPD_TEXT_L(QtyText_3, 1 - (MPD_TEXT_WIDTH * 5), ((MPD_POS_BUTTON_LR_3_Y + MPD_POS_BUTTON_LR_4_Y) / 2) + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Y"))
 
         MPD_TEXT_L(Quantity_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y, MPD_TEXT_STATIC("1"))
         MPD_TEXT_L(Quantity_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("2"))
