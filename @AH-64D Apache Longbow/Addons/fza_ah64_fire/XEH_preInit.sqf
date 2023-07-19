@@ -14,18 +14,18 @@
     private _audio1 = "";
     switch _location do {
         case "right": {
-            _side = [1.2, -0.8, -1.25];
-            _sidef = [1.2, -0.6, -1.25];
+            _side = [1.2, -0.6, -0.7];
+            _sidef = [1.2, -0.4, -0.7];
             _mag = "fza_ah64_e2_fire";
         };
         case "left": {
-            _side = [-1, -0.8, -1.25];
-            _sidef = [-1, -0.6, -1.25];
+            _side = [-1.2, -0.6, -0.7];
+            _sidef = [-1.2, -0.4, -0.7];
             _mag = "fza_ah64_e1_fire";
         };
         case "apu": {
-            _side = [0, -0.8, -1.25];
-            _sidef = [0, 0.2, -1.25];
+            _side = [0.5, -0.8, -1];
+            _sidef = [0.5, 0.2, -1];
             _mag = "fza_ah64_apu_fire";
         };
     };

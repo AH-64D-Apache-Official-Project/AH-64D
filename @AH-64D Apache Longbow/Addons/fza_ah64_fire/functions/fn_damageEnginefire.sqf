@@ -19,7 +19,7 @@ Examples:
 Author:
     Snow(dryden), Mattysmith22
 ---------------------------------------------------------------------------- */
-params ["_heli","_engine"];
+params ["_heli","_eng"];
 
 _rand = floor random 3;
 if (_rand > 1) exitwith {};
@@ -55,6 +55,7 @@ do {
     private _rand = random 10;
     private _primaryFBState = _heli getVariable "fza_ah64_firepdisch";
     private _reserveFBState = _heli getVariable "fza_ah64_firerdisch";
+    private _engState  = _heli getVariable "fza_sfmplus_engState";
     private _heliDamage = damage _heli;
     if (_primaryFBAvailable == _primaryFBState) then {
       _primaryFBActioned = true;  
@@ -64,11 +65,11 @@ do {
     };
     switch (_eng) do {
         case "left": {
-            private _rngine1Arm    = (_heli getVariable "fza_ah64_fireArmed1") #0;
-            private _powerLevelPos = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+            private _engine1Arm    = (_heli getVariable "fza_ah64_fireArmed1") #0;
             private _engineDamage  = _heli getHitPointDamage "hitengine1";
+            private _eng1State = _engState select 0;
             if (_engine1Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
-            if ((_powerLevelPos == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
+            if ((_eng1State == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine1", _engineDamage + 0.001];
             if (_engineDamage == 1) then {
                 _heli setdamage _heliDamage + 0.001;
@@ -76,10 +77,10 @@ do {
         };
         case "right": {
             private _engine2Arm    = (_heli getVariable "fza_ah64_fireArmed2") #0;
-            private _powerLevelPos = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
             private _engineDamage  = _heli getHitPointDamage "hitengine2";
+            private _eng2State = _engState select 1;
             if (_engine2Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
-            if ((_powerLevelPos == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
+            if ((_eng2State == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine2", _engineDamage + 0.001];
             if (_engineDamage == 1) then {
                 _heli setdamage _heliDamage + 0.001;
