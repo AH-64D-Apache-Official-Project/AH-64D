@@ -51,3 +51,5 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT_INV), _rocketIn
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_INV_1_QTY + _forEachIndex), ""];
     };
 } forEach (_rocketInventory);
+
+_this call fza_mpd_fnc_WpnQuantityDraw;

@@ -161,7 +161,7 @@ _heli setVariable ["fza_ah64_fcrcscope", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
-_heli setVariable ["fza_ah64_rocketsalvo", 1];
+_heli setVariable ["fza_ah64_rocketsalvo", 2];
 _heli setVariable ["fza_ah64_tsdmode", "nav"];
 _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];

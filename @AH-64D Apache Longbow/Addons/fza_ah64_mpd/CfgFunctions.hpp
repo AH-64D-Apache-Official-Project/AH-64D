@@ -93,6 +93,8 @@ class CfgFunctions
             class wpnGunHandlecontrol {RECOMPILE_FLAG;};
             class wpnRktDraw {RECOMPILE_FLAG;};
             class wpnRktHandlecontrol {RECOMPILE_FLAG;};
+            class wpnQuantityDraw {RECOMPILE_FLAG;};
+            class wpnQuantityHandleControl {RECOMPILE_FLAG;};
             class wpnMslDraw {RECOMPILE_FLAG;};
             class wpnMslHandlecontrol {RECOMPILE_FLAG;};
             class wpnTrajDraw {RECOMPILE_FLAG;};
