@@ -25,7 +25,7 @@ class tsdShow {
     };
     //T1
     class HSIBox {
-        condition = C_COND(C_MPD_USER(MFD_IND_TSD_SHOW_HSI));
+        condition = C_COND(C_MPD_USER(MFD_IND_TSD_HSI));
         MPD_BOX_C(HSI, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 4)
     };
     MPD_TEXT_C(HSI, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("HSI"))

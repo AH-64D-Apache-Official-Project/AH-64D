@@ -96,4 +96,4 @@ switch (_selectedWeapon) do {
     case WAS_WEAPON_MSL: {
         _this call fza_mpd_fnc_WpnMslDraw;
     };
-};
+};q 
