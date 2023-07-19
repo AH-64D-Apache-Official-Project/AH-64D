@@ -64,6 +64,5 @@ if (_scale == -1) then {
     if (_y get "updated") then {continue;};
     
     {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _y;
-    _ctrlPoints deleteAt _x;
 } forEach _ctrlPoints;
 displayUpdate _display;
