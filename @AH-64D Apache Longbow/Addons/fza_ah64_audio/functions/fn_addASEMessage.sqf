@@ -32,6 +32,6 @@ if (_aseMsg isEqualTo "" || {_priority > _aseMsg # 1}) then {
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
 if (scriptDone _funcHook) then {
-    _funcHook = [_heli] spawn fza_audio_fnc_audioHandler;
+    _funcHook = [_heli] spawn fza_audio_fnc_update;
     _heli setVariable ["fza_audio_funcHook", _funcHook];
 };

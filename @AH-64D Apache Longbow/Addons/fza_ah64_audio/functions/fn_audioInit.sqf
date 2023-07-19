@@ -20,6 +20,9 @@ _heli setvariable ["fza_audio_ase_message", "", true];
 _heli setvariable ["fza_audio_warning_message", "", true];
 _heli setvariable ["fza_audio_caution", false, true];
 _heli setvariable ["fza_audio_funcHook", scriptNull, true];
+_heli setvariable ["fza_audio_Spacer1", 0];
+_heli setvariable ["fza_audio_Spacer2", 0];
+_heli setvariable ["fza_audio_Spacer3", 0];
 
 //Todo
 //Creation of interactable coms panel

@@ -29,6 +29,11 @@ if (!_gndOrideOn && _onGnd || !_battBusOn) then {
     [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 };
 
+if !_battBusOn then {
+    _heli setvariable ["fza_audio_ase_message", ""];
+    [_heli] call fza_audio_fnc_delWarning;
+    [_heli] call fza_audio_fnc_delCaution;
+};
 _heli setUserMfdValue [MFD_IND_ARM_SAFE,  BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
 _heli setUserMfdValue [MFD_IND_GND_ORIDE, BOOLTONUM(_heli getVariable "fza_ah64_gndOrideOn")];
 _heli setUserMfdValue [MFD_IND_EMER_HYD,  BOOLTONUM(_heli getVariable "fza_ah64_emerHydOn")];
