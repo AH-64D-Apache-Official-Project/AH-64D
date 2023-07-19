@@ -71,10 +71,10 @@ switch(_control) do {
             playsound "fza_ah64_switch_flip4";
             if _battBusOn then {
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
-                player say3d "fza_ah64_aft_deck_fire";
                 player say3d "fza_ah64_engine_1_fire";
-                player say3d "fza_ah64_engine_2_fire";
                 player say3d "fza_ah64_APU_fire";
+                player say3d "fza_ah64_engine_2_fire";
+                player say3d "fza_ah64_aft_deck_fire";
             };
         };
         if (_fireTestState == 1) exitwith {
@@ -83,10 +83,10 @@ switch(_control) do {
             playsound "fza_ah64_switch_flip4";
             if _battBusOn then {
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
-                player say3d "fza_ah64_aft_deck_fire";
                 player say3d "fza_ah64_engine_1_fire";
-                player say3d "fza_ah64_engine_2_fire";
                 player say3d "fza_ah64_APU_fire";
+                player say3d "fza_ah64_engine_2_fire";
+                player say3d "fza_ah64_aft_deck_fire";
             };
         };
         if (_fireTestState == 2) exitwith {
