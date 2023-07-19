@@ -26,7 +26,7 @@ private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 if (!_gndOrideOn && _onGnd || !_battBusOn) then {
     _heli setVariable ["fza_ah64_armSafeArmed", false, true];
     _heli setVariable ["fza_ah64_gndOrideOn", false, true];
-    [_heli, WAS_WEAPON_NONE] remoteExec ["fza_fnc_weaponActionSwitch", [_heli turretUnit [0], driver _heli]];
+    [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 };
 
 _heli setUserMfdValue [MFD_IND_ARM_SAFE,  BOOLTONUM(_heli getVariable "fza_ah64_armSafeArmed")];
