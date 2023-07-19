@@ -20,12 +20,12 @@ params ["_heli"];
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _engineOneArm       = _heli getVariable "fza_ah64_fireArmed1";
 private _engineTwoArm       = _heli getVariable "fza_ah64_fireArmed2";
-private _engineApuArm       = _heli getVariable "fza_ah64_fireArmedApu";
+private _apuArm             = _heli getVariable "fza_ah64_fireArmedApu";
 private _PrimaryFBDispensed = _heli getVariable "fza_ah64_firepdisch";
 private _ReserveFBDispensed = _heli getVariable "fza_ah64_firerdisch";
 private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
 private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
-private _engineApuFire      = _heli getVariable "fza_ah64_apu_fire";
+private _apuFire            = _heli getVariable "fza_ah64_apu_fire";
 
 if !_battBusOn exitwith {
     _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
@@ -50,7 +50,7 @@ if (_engineOneArm #0 && _engineOneArm #2 <= CBA_missionTime - 2) then {
 if (_engineTwoArm #0 && _engineTwoArm #2 <= CBA_missionTime - 2) then {
     [_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
-if (_engineApuArm #0 && _engineApuArm #2 <= CBA_missionTime - 2) then {
+if (_apuArm #0 && _apuArm #2 <= CBA_missionTime - 2) then {
     _heli setVariable ["fza_systems_apuBtnOn", false];
 };
 
@@ -77,7 +77,7 @@ _heli setObjectTexture ["in_lt_fireapurdy", ["", "\fza_ah64_us\tex\in\pushbut.pa
 //FIRE Detected
 _heli setObjectTexture ["in_lt_fire1", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneFire];
 _heli setObjectTexture ["in_lt_fire2", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoFire];
-_heli setObjectTexture ["in_lt_fireapu", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneFire];
+_heli setObjectTexture ["in_lt_fireapu", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuFire];
 //Fire bottle Dispensed
 _heli setObjectTexture ["in_lt_firepdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _PrimaryFBDispensed];
 _heli setObjectTexture ["in_lt_firerdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _ReserveFBDispensed];
