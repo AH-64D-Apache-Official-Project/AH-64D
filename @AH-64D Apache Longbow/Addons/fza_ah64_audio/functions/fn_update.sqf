@@ -37,11 +37,11 @@ while {player != vehicle player} do {
     private _aseMsg      = _heli getVariable "fza_audio_ase_message";
     private _wrnMsg      = _heli getVariable "fza_audio_warning_message";
     private _ComsVolume  = _heli getVariable "fza_ah64_comsVolume";
+    private _spacer1     = _heli getVariable "fza_audio_Spacer1";
+    private _spacer2     = _heli getVariable "fza_audio_Spacer2";
+    private _spacer3     = _heli getVariable "fza_audio_Spacer3";
     private _volume      = _ComsVolume get "Master";
     private _missiontime = CBA_missionTime;
-    private _spacer1   = _heli getVariable "fza_audio_Spacer1";
-    private _spacer2   = _heli getVariable "fza_audio_Spacer2";
-    private _spacer3   = _heli getVariable "fza_audio_Spacer3";
 
     if (_aseMsg isNotEqualTo "" && (_missiontime >= _spacer1)) then {
         _aseMsg spawn fza_audio_fnc_playaudio;
