@@ -32,7 +32,7 @@ params
     [ "_heli"
     , "_dmsPoints"
     , "_displayIdx"
-    , ["_scale", -1]
+    , "_scale"
     , ["_center", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
@@ -42,11 +42,6 @@ private _displaySide = ["left", "right"] select _displayIdx;
 private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
 
 private _ctrlPoints = _display getVariable "fza_points";
-
-if (_scale == -1) then {
-    (_heli getVariable "fza_mpd_mpdState") # _displayIdx params ["","","","_state", "_persistState", ""];
-    _scale = (0.125 * 5 / (_persistState get "tsdScale"));
-};
 
 //Set all current state to be not updated. This lets us know which ones can be removed
 {_y set ["updated", false]} forEach _ctrlPoints;

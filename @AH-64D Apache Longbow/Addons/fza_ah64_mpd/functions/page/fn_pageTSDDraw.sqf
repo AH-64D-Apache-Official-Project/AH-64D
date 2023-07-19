@@ -192,4 +192,6 @@ private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex, -1, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
+private _tsdScale = 0.125 * 5 / (_persistState get "tsdScale");
+
+[_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
