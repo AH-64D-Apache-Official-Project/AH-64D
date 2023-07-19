@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:avionics/fn_avionicsSlipIndicator.sqf",{184:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates <b>fza_ah64_dps</b> and <b>fza_ah64_sideslip</b> to be the degrees per second and slip for the respective helicopter.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:avionics/fn_avionicsSlipIndicator.sqf",{182:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Updates <b>fza_ah64_dps</b> and <b>fza_ah64_sideslip</b> to be the degrees per second and slip for the respective helicopter.</div></div>"});
