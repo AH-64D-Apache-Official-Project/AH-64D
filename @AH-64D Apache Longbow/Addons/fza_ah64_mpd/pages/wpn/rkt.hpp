@@ -5,7 +5,7 @@ class VABs_Mode_Rkt {
         MPD_TEXT_R(Name, MPD_POS_BUTTON_L_X, posY - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(nameSource)) \
         MPD_TEXT_R(Qty, MPD_POS_BUTTON_L_X, posY + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_USER(qtySource)) \
         class Box {\
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT_INV), invIndex));\
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_RKT_SELECTED_INV), invIndex));\
             class Line { \
                 type = line;\
                 width = 3;\

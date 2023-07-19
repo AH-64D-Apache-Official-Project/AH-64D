@@ -7,7 +7,7 @@ private _selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileG
 private _seekerType = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_salType");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), _selectedMsl + 1];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_MSL_TYPE), [0,1] select (_seekerType == "rf")];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_SELECTED_TYPE), [0,1] select (_seekerType == "rf")];
 _heli setUserMfdValue[MFD_INDEX_OFFSET(MFD_IND_WPN_MSL_MENU), _state get "variant"];
 
 if (_seekerType != "rf") then { //Sal1, sal2

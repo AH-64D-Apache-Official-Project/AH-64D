@@ -10,10 +10,10 @@ _pylonsWithRockets = [];
     };
 } forEach (_rocketInventory);
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), ""];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), ""];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
 
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
 if (_heli getVariable "fza_ah64_rocketsalvo" == SALVO_ALL) then {
@@ -28,17 +28,17 @@ if (_rocketInvIndex != -1) then {
     private _rktSel = 0;
     if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then {
         _rktSel = _rktSel + 1;
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_1_4_TEXT), _selectedRktText];
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText];
     };
     if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then {
         _rktSel = _rktSel + 2;
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_2_3_TEXT), _selectedRktText];
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText];
     };
 
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_TOT_QTY), _selectedRktQty toFixed 0];
 };
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT_INV), _rocketInvIndex];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_SELECTED_INV), _rocketInvIndex];
 
 //Rkt inventory options (left side of WPN page)
 {

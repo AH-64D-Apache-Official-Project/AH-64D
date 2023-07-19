@@ -114,4 +114,4 @@ _heli call fza_sfmplus_fnc_getWindDirVel
     params ["_windDir", "_windVel"]; //WIND 067/15
 private _wind_text = format["WIND %1/%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "WIND  CALM ";};
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WIND), _wind_text];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_WIND), _wind_text];
