@@ -3,6 +3,7 @@ import re
 import sys
 from xml.etree import ElementTree as ET
 import os.path
+import argparse
 
 def log_error(msg):
     print(msg, file=sys.stderr)
@@ -162,15 +163,23 @@ def export_table_defs(page_def, index_keys):
 
 def main():
     """Read MFD page defs from header file and output definition"""
-    input_path = os.path.join('@AH-64D Apache Longbow', 'Addons', 'fza_ah64_mpd', 'headers', 'mfdConstants.h')
+    
 
-    if (len(sys.argv) >= 2):
-        input_path = sys.argv[1]
+    parser = argparse.ArgumentParser(description='Generate MFD documentation')
+    parser.add_argument('filepath', metavar="input", type=str, nargs='?', help="Path to mfdConstants.h")
+    parser.add_argument('--output', dest="output", action="store", nargs='?', help="Output path (by default prints to stdout)")
 
+    args=parser.parse_args()
+    run(args)
+
+def run(args):
     with open(os.path.join(os.path.dirname(__file__), 'style.css')) as file:
         css_str = file.read()
+    
+    if args.filepath is None:
+        args.filepath = os.path.join('@AH-64D Apache Longbow', 'Addons', 'fza_ah64_mpd', 'headers', 'mfdConstants.h')
 
-    with open(input_path, "r", encoding="utf-8") as file:
+    with open(args.filepath, "r", encoding="utf-8") as file:
         input_str = file.read()
 
     sources = init_page_defs()
@@ -200,8 +209,13 @@ def main():
     html.append(head)
     html.append(body)
 
-    ET.ElementTree(html).write(
-        sys.stdout, "unicode", method="html")
+    if (args.output is None):
+        ET.ElementTree(html).write(
+            sys.stdout, "unicode", method="html")
+    else:
+        with open(args.output, "w", encoding="utf-8") as file:
+            ET.ElementTree(html).write(
+                file, "unicode", method="html")
 
 
 if __name__ == "__main__":
