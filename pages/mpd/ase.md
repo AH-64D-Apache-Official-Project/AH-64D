@@ -28,14 +28,15 @@ The ase Page will only Show 7 Threats at one time, if there are more than 7 it i
     * `British Mission Equipment`  - Chaff & Flare Count.
 4. RLWR Counter. - This will show how many Radar and laser threats there are total
 5. IRJam Control. - This will toggle the Infra Red Jammer On & Off, when turning on it may display "WARM", during which it is not functioning
-6. Ownship icon. - This represents the Apache.
-7. CHAff Control. Toggle Between ARM & SAFE.
-8. ASE Bezel. Unboxing this Takes you to the TSD Page.
+6. MWS Control - When Equiped with the british mission Equipment, this takes place of the IRjam control, and this arms the Flare System
+7. Ownship icon. - This represents the Apache.
+8. CHAff Control. Toggle Between ARM & SAFE.
+9. ASE Bezel. Unboxing this Takes you to the TSD Page.
 
 ### IR JAMMER
 
 1. OFF. IR jammer are Off.
-2. WARM. The IR Jammer Is warming up & non Operational, takes 2 seconds to warm up.
+2. WARM. The IR Jammer Is warming up & non Operational, takes 10 seconds to warm up.
 3. OPER. The IR Jammer Is operating and actively Jamming, The Jammer Does not have an operational limit.
     {% include note.html content="The IR Jammer is a proactive system, working to stop anything locking you evan before launch" %}
 
