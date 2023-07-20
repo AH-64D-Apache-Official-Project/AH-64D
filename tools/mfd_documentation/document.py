@@ -213,7 +213,7 @@ def run(args):
         ET.ElementTree(html).write(
             sys.stdout, "unicode", method="html")
     else:
-        with open(args.output, "w", encoding="utf-8") as file:
+        with open(args.output, "x", encoding="utf-8") as file:
             ET.ElementTree(html).write(
                 file, "unicode", method="html")
 

@@ -9,13 +9,17 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
     - name: Generate naturaldocs
       uses: mattysmith22/Naturaldocs-github-action@master
       with:
         output-dir: docs
         project-config-dir: naturaldocs
     - name: Generate MFD indices documentation
-      run: python tools/mfd_documentation/document.py --output=docs/other/mfdindices.html
+      run: sudo python tools/mfd_documentation/document.py --output=docs/other/mfdindices.html
     - name: Push documentation to pages
       uses: JamesIves/github-pages-deploy-action@4.1.0
       with:
