@@ -14,6 +14,8 @@ jobs:
       with:
         output-dir: docs
         project-config-dir: naturaldocs
+    - name: Generate MFD indices documentation
+      run: python tools/mfd_documentation/document.py --output=docs/other/mfdindices.html
     - name: Push documentation to pages
       uses: JamesIves/github-pages-deploy-action@4.1.0
       with:

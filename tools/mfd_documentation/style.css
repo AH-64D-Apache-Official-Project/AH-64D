@@ -1,0 +1,34 @@
+h1 {
+    font-weight: bold;
+    color: white;
+}
+
+table th {
+    background-color: #c65911;
+    border-top: 2px solid #c65911;
+    border-bottom: 2px solid #c65911;
+    border-left: 2px solid #f8cbad;
+    border-right: 2px solid #f8cbad;
+    border-collapse: collapse;
+    color: white;
+}
+
+body {
+    background-color: #222222;
+}
+
+table, table td {
+    border: 2px solid #f8cbad;
+    border-collapse: collapse;
+    color: white;
+}
+
+table td {
+    background-color: #c65911;
+}
+
+table td:empty {
+    border: 0px solid black;
+    border-bottom: 1px solid gray;
+    background-color: #222222
+}

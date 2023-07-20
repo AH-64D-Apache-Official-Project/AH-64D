@@ -13,6 +13,7 @@ $RECYCLE.BIN/
 *.msi
 *.msm
 *.msp
+*.pyc
 
 # Windows shortcuts
 *.lnk

@@ -8,6 +8,7 @@ import os
 import zipfile
 import json
 import subprocess
+import tools.mfd_documentation.document as mfd_document
 
 env = Environment(tools=[])
 
@@ -88,11 +89,19 @@ def buildPbo(settings,env, pbo):
     return env.Alias(pbo.name, pbo.outputPath)
 
 def downloadNaturaldocs(target, source, env):
-    url = "https://www.naturaldocs.org/download/natural_docs/2.1.1/Natural_Docs_2.1.1.zip"
+    url = "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip"
     zipFilePath = r"buildTools\NaturalDocs.zip"
     urllib.request.urlretrieve(url, zipFilePath)
     with zipfile.ZipFile(zipFilePath, 'r') as zip_ref:
         zip_ref.extractall(r"buildTools")
+
+def generateMfdDocumentation(target, source, env):
+    class Namespace:
+        pass
+    args = Namespace()
+    args.output = "docs/other/mfdindices.html"
+    args.filepath = None
+    mfd_document.run(args)
 
 settings = getSettings()
 pbos = getPboInfo(settings)
@@ -108,7 +117,7 @@ targetDefinition("all", "Build all pbos.")
 
 buildDocs = env.Command(r"docs\index.html",
     [s for s in allFilesIn(settings["addonsFolder"]) if s.endswith(".sqf")] + [r"buildTools\Natural Docs"], 
-    [Mkdir("docs"), r'"buildTools\Natural Docs\NaturalDocs.exe" naturaldocs'])
+    [Mkdir("docs"), r'"buildTools\Natural Docs\NaturalDocs.exe" naturaldocs', generateMfdDocumentation])
 env.AlwaysBuild(buildDocs)
 
 env.Alias("docs", r"docs\index.html")
