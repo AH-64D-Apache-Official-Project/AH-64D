@@ -18,66 +18,68 @@ Author:
 params ["_heli"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
-private _engineOneArm       = _heli getVariable "fza_ah64_fireArmed1";
-private _engineTwoArm       = _heli getVariable "fza_ah64_fireArmed2";
-private _apuArm             = _heli getVariable "fza_ah64_fireArmedApu";
-private _PrimaryFBDispensed = _heli getVariable "fza_ah64_firepdisch";
-private _ReserveFBDispensed = _heli getVariable "fza_ah64_firerdisch";
+private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") #0;
+private _engineOneArmTimer  = (_heli getVariable "fza_ah64_fireArmed1") #2;
+private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") #0;
+private _engineTwoArmTimer  = (_heli getVariable "fza_ah64_fireArmed2") #2;
+private _apuArm             = (_heli getVariable "fza_ah64_fireArmedApu") #0;
+private _apuArmTimer        = (_heli getVariable "fza_ah64_fireArmedApu") #2;
+private _primaryFB          = _heli getVariable "fza_ah64_firepdisch";
+private _reserveFB          = _heli getVariable "fza_ah64_firerdisch";
 private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
 private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
 private _apuFire            = _heli getVariable "fza_ah64_apu_fire";
 
-if !_battBusOn exitwith {
-    _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
-    _heli setVariable ["fza_ah64_fireArmed2", [false, 0, CBA_missionTime], true];
-    _heli setVariable ["fza_ah64_fireArmedApu", [false, 0, CBA_missionTime], true];
-    //FIRE Arm
-    _heli setObjectTexture ["in_lt_fire1rdy", ""];
-    _heli setObjectTexture ["in_lt_fire2rdy", ""];
-    _heli setObjectTexture ["in_lt_fireapurdy", ""];
-    //FIRE Detected
-    _heli setObjectTexture ["in_lt_fire1", ""];
-    _heli setObjectTexture ["in_lt_fire2", ""];
-    _heli setObjectTexture ["in_lt_fireapu", ""];
-    //Fire bottle Dispensed
-    _heli setObjectTexture ["in_lt_firepdis", ""];
-    _heli setObjectTexture ["in_lt_firerdis", ""];
-};
-
-if (_engineOneArm #0 && _engineOneArm #2 <= CBA_missionTime - 2) then {
+if (_engineOneArm && _engineOneArmTimer <= CBA_missionTime - 2) then {
     [_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
 };
-if (_engineTwoArm #0 && _engineTwoArm #2 <= CBA_missionTime - 2) then {
+if (_engineTwoArm && _engineTwoArmTimer <= CBA_missionTime - 2) then {
     [_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
-if (_apuArm #0 && _apuArm #2 <= CBA_missionTime - 2) then {
+if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
     _heli setVariable ["fza_systems_apuBtnOn", false];
 };
 
 //Fire test switch
-if ((_heli getvariable "fza_ah64_firetest") == 1) exitwith {
-    _heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_firepdis", ""];
-    _heli setobjecttexture ["in_lt_firerdis", ""];
+if ((_heli getvariable "fza_ah64_firetest") == 1) then {
+    _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
+    _engineOneArm = true;
+    _engineTwoArm = true;
+    _apuArm       = true;
+    _primaryFB    = false;
+    _reserveFB    = false;
 };
-if ((_heli getvariable "fza_ah64_firetest") == 2) exitwith {
-    _heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-    _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
+if ((_heli getvariable "fza_ah64_firetest") == 2) then {
+    _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
+    _engineOneArm = true;
+    _engineTwoArm = true;
+    _apuArm       = true;
+    _primaryFB    = true;
+    _reserveFB    = true;
+};
+
+if !_battBusOn then {
+    _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
+    _heli setVariable ["fza_ah64_fireArmed2", [false, 0, CBA_missionTime], true];
+    _heli setVariable ["fza_ah64_fireArmedApu", [false, 0, CBA_missionTime], true];
+    _engineOneArm  = false;
+    _engineTwoArm  = false;
+    _apuArm        = false;
+    _primaryFB     = false;
+    _reserveFB     = false;
+    _engineOneFire = false;
+    _engineTwoFire = false;
+    _apuFire       = false;
 };
 
 //FIRE Arm
-_heli setObjectTexture ["in_lt_fire1rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneArm #0];
-_heli setObjectTexture ["in_lt_fire2rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoArm #0];
-_heli setObjectTexture ["in_lt_fireapurdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineApuArm #0];
+_heli setObjectTexture ["in_lt_fire1rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneArm];
+_heli setObjectTexture ["in_lt_fire2rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoArm];
+_heli setObjectTexture ["in_lt_fireapurdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuArm];
 //FIRE Detected
 _heli setObjectTexture ["in_lt_fire1", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneFire];
 _heli setObjectTexture ["in_lt_fire2", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoFire];
 _heli setObjectTexture ["in_lt_fireapu", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuFire];
 //Fire bottle Dispensed
-_heli setObjectTexture ["in_lt_firepdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _PrimaryFBDispensed];
-_heli setObjectTexture ["in_lt_firerdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _ReserveFBDispensed];
+_heli setObjectTexture ["in_lt_firepdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _primaryFB];
+_heli setObjectTexture ["in_lt_firerdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _reserveFB];

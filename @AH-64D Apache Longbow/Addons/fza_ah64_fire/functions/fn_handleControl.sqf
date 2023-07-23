@@ -67,10 +67,10 @@ switch(_control) do {
     case "test": {
         if (_fireTestState == 0) exitwith {
             _heli setVariable ["fza_ah64_firetest", 1];
+            _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1];
             playsound "fza_ah64_switch_flip4";
             if _battBusOn then {
-                _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
                 player say3d "fza_ah64_engine_1_fire";
                 player say3d "fza_ah64_APU_fire";
                 player say3d "fza_ah64_engine_2_fire";
@@ -79,10 +79,10 @@ switch(_control) do {
         };
         if (_fireTestState == 1) exitwith {
             _heli setVariable ["fza_ah64_firetest", 2];
+            _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0];
             playsound "fza_ah64_switch_flip4";
             if _battBusOn then {
-                _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
                 player say3d "fza_ah64_engine_1_fire";
                 player say3d "fza_ah64_APU_fire";
                 player say3d "fza_ah64_engine_2_fire";
@@ -91,6 +91,7 @@ switch(_control) do {
         };
         if (_fireTestState == 2) exitwith {
             _heli setVariable ["fza_ah64_firetest", 0];
+            _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0.5];
             _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             playsound "fza_ah64_switch_flip4";

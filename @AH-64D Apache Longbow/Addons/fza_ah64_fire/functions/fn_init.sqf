@@ -22,6 +22,7 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_apu_fire", false, true];
     _heli setVariable ["fza_ah64_e1_fire", false, true];
     _heli setVariable ["fza_ah64_e2_fire", false, true];
+    _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
     _heli setVariable ["fza_ah64_firepdisch", false, true];
     _heli setVariable ["fza_ah64_firerdisch", false, true];
     
