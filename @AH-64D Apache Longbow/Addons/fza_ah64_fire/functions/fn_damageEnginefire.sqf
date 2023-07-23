@@ -21,7 +21,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","_eng"];
 
-_rand = floor random 3;
+_rand = floor random 100;
 if (_rand > 1) exitwith {};
 
 private _componentId = "";
