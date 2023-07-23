@@ -58,10 +58,16 @@ do {
     private _engState  = _heli getVariable "fza_sfmplus_engState";
     private _heliDamage = damage _heli;
     if (_primaryFBAvailable == _primaryFBState) then {
-      _primaryFBActioned = true;  
+        if (floor random 11 > 7) exitwith {
+            _primaryFBAvailable = false; //extinguisher Fail
+        };
+        _primaryFBActioned = true;
     };
     if (_reserveFBAvailable == _reserveFBState) then {
-      _reserveFBActioned = true;  
+        if (floor random 11 > 7) exitwith {
+            _reserveFBAvailable = false; //extinguisher Fail
+        };
+        _reserveFBActioned = true;  
     };
     switch (_eng) do {
         case "left": {
@@ -69,33 +75,24 @@ do {
             private _engineDamage  = _heli getHitPointDamage "hitengine1";
             private _eng1State = _engState select 0;
             if (_engine1Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
-            if ((_eng1State == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
+            if ((_eng1State == "off") && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine1", _engineDamage + 0.001];
-            if (_engineDamage == 1) then {
-                _heli setdamage _heliDamage + 0.001;
-            };
         };
         case "right": {
             private _engine2Arm    = (_heli getVariable "fza_ah64_fireArmed2") #0;
             private _engineDamage  = _heli getHitPointDamage "hitengine2";
             private _eng2State = _engState select 1;
             if (_engine2Arm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
-            if ((_eng2State == "off") && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
+            if ((_eng2State == "off") && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hitengine2", _engineDamage + 0.001];
-            if (_engineDamage == 1) then {
-                _heli setdamage _heliDamage + 0.001;
-            };
         };
         case "apu": {
             private _engineApuArm = (_heli getVariable "fza_ah64_fireArmedApu") #0;
             private _apuOn        = _heli getVariable "fza_systems_apuOn";
             private _apuDamage    = _heli getHitPointDamage "hit_apu";
             if (_engineApuArm && (_primaryFBActioned || _reserveFBActioned)) then {breakOut  "fza_fireHandleScope"};
-            if (!_apuOn && _rand >= 9.9) then {breakOut  "fza_fireHandleScope"};
+            if (!_apuOn && _rand >= 9.96) then {breakOut  "fza_fireHandleScope"};
             _heli setHitPointDamage ["hit_apu", _apuDamage + 0.001];
-            if (_apuDamage == 1) then {
-                _heli setdamage _heliDamage + 0.001;
-            };
         };
     };
     sleep 0.1;
