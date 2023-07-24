@@ -20,6 +20,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 if (isGamePaused) exitwith {};
+if (CBA_missionTime < 0.1) exitwith {};
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "fza_flightModel");
