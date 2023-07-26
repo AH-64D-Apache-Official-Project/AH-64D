@@ -17,18 +17,21 @@ Author:
     BradMick, Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
 
-private _acBusOn = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
-Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
+private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
+Private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
 
 if !(_acBusOn && _dcBusOn) exitwith {};
 
 private _fcrTargets = [];
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
+    if (_fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {};
 
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
