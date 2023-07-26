@@ -20,6 +20,10 @@ switch (_control) do {
         private _val = (_heli getVariable "fza_mpd_tsdShowFriendly") ;
         _val set [_phase, !(_val # _phase)];
     };
+    case "r5": {
+        private _val = (_heli getVariable "fza_mpd_tsdShowRlwr") ;
+        _val set [_phase, !(_val # _phase)];
+    };
     case "b6": {
         if (_persistState get "mode" == "atk") then {
             private _val = !(_heli getVariable "fza_mpd_tsdShowAtkHazard") ;
