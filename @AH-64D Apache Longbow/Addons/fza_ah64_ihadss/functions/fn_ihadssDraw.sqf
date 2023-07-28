@@ -197,7 +197,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") th
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _powerOnState && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
     if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
