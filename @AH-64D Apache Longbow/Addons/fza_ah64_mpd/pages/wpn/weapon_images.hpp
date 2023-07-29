@@ -153,7 +153,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
                     pylon = num;\
                     name = fza_ah64_rocket;\
                 };\
-                MPD_TEXT_C(Name,posX, posY-MPD_TEXT_HEIGHT)\
+                MPD_TEXT_C(Name,posX, posY-MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(""))\
             };\
             class Selected {\
                 condition =  C_COND(C_OR(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState1), C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2)));\
