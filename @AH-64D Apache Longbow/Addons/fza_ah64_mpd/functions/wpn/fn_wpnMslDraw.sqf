@@ -33,6 +33,7 @@ if (_seekerType != "rf") then { //Sal1, sal2
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE), _chanCodes # 2];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), _chanCodes # 3];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_SAL_SEL), toUpper _seekerType];
+    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];
 
 	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
 	if !isNil "_lasePos" then {
