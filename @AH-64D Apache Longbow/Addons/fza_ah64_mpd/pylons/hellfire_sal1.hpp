@@ -77,7 +77,7 @@ class fza_ah64_hellfire {
                     { {0.02,  -0.038}, 1 }
                 };
             };
-            MPD_TEXT_C(Line2, 0, 0+0.063-MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
+            MPD_TEXT_C(Line2, 0, 0+0.07-2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
         };
     };
 };
@@ -160,7 +160,7 @@ class fza_ah64_hellfire_inverse {
                         { {0.02,  -0.038}, 1 }
                     };
                 };
-                MPD_TEXT_C(Line2, 0, 0+0.063-MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
+                MPD_TEXT_C(Line2, 0, 0+0.07-2*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
             };
         };
     };

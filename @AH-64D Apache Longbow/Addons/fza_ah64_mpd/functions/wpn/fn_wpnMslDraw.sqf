@@ -16,9 +16,19 @@ if (_seekerType != "rf") then { //Sal1, sal2
     private _chanCodes = _heli getVariable "fza_ah64_laserChannelCodes";
     private _priCode = "";
     private _altCode = "";
+    private _textLine1 = "L";
+    private _textLine2 = "S";
 
     if !(_pri == -1) then {
         _priCode = _chanCodes # _pri;
+        private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+        if !isNil "_lasePos" then {
+            _textLine1 = toUpper _priCode;
+            _textLine2 = "T";
+        } else {
+            _textLine1 = toUpper _priCode;
+            _textLine2 = "R";
+        };
     };
     if !(_alt == -1) then {
         _altCode = _chanCodes # _alt;
@@ -33,17 +43,9 @@ if (_seekerType != "rf") then { //Sal1, sal2
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_3_CODE), _chanCodes # 2];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_CHAN_4_CODE), _chanCodes # 3];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_SAL_SEL), toUpper _seekerType];
-    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];
-
-	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
-	if !isNil "_lasePos" then {
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), "B"];
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), "T"];
-    } else {
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), "L"];
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), "S"];
-    };
-    
+    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_TRAJ), toUpper (_heli getVariable "fza_ah64_hellfireTrajectory")];    
+    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_1), _textLine1];
+    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_MSL_IMAGE_LINE_2), _textLine2];
     _this call fza_mpd_fnc_WpnTrajDraw;
 };
 
