@@ -105,6 +105,7 @@ class CfgAmmo {
         triggerDistance             = 200;
         submunitionInitSpeed        = 500;
         deleteParentWhenTriggered   = 1;
+        submunitionInitialOffset[]  = {0,0,2};
 
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};

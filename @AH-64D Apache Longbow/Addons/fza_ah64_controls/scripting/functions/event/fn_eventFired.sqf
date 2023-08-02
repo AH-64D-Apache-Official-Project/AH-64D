@@ -4,7 +4,6 @@ Function: fza_fnc_eventFired
 Description:
     Event handler that handles any ammunition fired by the apache
 
-    - Starts custom missile guidance
     - Ensures correct number of rockets fired in salvo
     - Damages people holding on external stores if pylons fired
     - Checks for gun overheat
@@ -20,8 +19,7 @@ Examples:
 Author:
     unknown, Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_missobj"];
-_mags = magazines _heli;
+params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
 if (!(player == driver _heli || player == gunner _heli)) exitwith {};
 //SPECIAL SCRIPTS
@@ -68,4 +66,8 @@ if (player == gunner _heli || player == driver _heli) then {
     if !(currentWeapon vehicle player == _weapon) then {
         fza_ah64_salvofired = _heli getVariable "fza_ah64_rocketsalvo";
     };
+};
+
+if (_ammotype == "fza_275_m255") then {
+    _missobj addEventHandler ["SubmunitionCreated", {_this call fza_hydra_fnc_eventFired}];
 };
