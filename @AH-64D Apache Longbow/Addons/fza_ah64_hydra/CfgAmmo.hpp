@@ -14,6 +14,7 @@ class CfgAmmo {
         fza_wpnPageIconG            = "";
         fza_shortCode               = "";
         fza_weaponName              = "";
+
         soundfly[]                  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
         soundsetsoniccrack[]        = {"fza_sc_rocket_flyby_soundset"};
@@ -21,25 +22,17 @@ class CfgAmmo {
         effectsmissile              = "fza_ah64_rocketsmoke";
         effectsMissileInit          = "MissileDAR1";
         muzzleEffect                = "BIS_fnc_effectFiredHeliRocket";
+
         hit                         = 60;
         indirectHit                 = 20;
         indirectHitRange            = 10;
-        manualControl               = 0;
-        maxControlRange             = 0;
-        maneuvrability              = 0;
-        airLock                     = 0;
-        irLock                      = 0;
-        laserLock                   = 0;
-        nvLock                      = 0;
-        weaponLockSystem            = 0;
-        cmimmunity                  = 1;
 
         //AI uasge
         aiAmmoUsageFlags            = "128+512";
         allowAgainstInfantry        = 1;
         cost                        = 75;
-        aiRateOfFire = 0.3;
-        aiRateOfFireDistance = 0;
+        aiRateOfFire                = 0.3;
+        aiRateOfFireDistance        = 0;
 
         weaponType                  = "rocket";
         suppressionRadiusHit        = 15;
@@ -53,6 +46,7 @@ class CfgAmmo {
         sideAirFriction             = 0.004;
         timeToLive                  = 15;
         whistleDist                 = 24;
+
         class CamShakeExplode
         {
             power = 16;
@@ -92,40 +86,31 @@ class CfgAmmo {
         hit                         = 60;
         indirectHit                 = 40;
         indirectHitRange            = 13;
-    };
-    class fza_275_m229: fza_275_base
-    {
-        fza_shortCode               = "6RC";
-        fza_weaponName              = "fza_275_m229_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m229_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m229";
-        explosionEffects            = "GrenadeExplosion";
-        hit                         = 100;
-        indirectHit                 = 66;
-        indirectHitRange            = 20;
         suppressionRadiusHit        = 20;
-
     };
-    class fza_275_m261: fza_275_base 
+    class fza_275_m255: fza_275_base 
     {
-        fza_shortCode               = "6MP";
-        fza_weaponName              = "fza_275_m261_wep";
+        fza_shortCode               = "6FL";
+        fza_weaponName              = "fza_275_m255_wep";
         model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
         proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
-        explosionEffects            = "GrenadeExplosion";
+        CraterEffects               = "ATMissileCrater";
+        explosionEffects            = "";
         maxSpeed                    = 600;
         hit                         = 30;
-        indirectHit                 = 5;
-        indirectHitRange            = 5;
+        indirectHit                 = 0;
+        indirectHitRange            = 0;
 
-        submunitionDirectionType    = "SubmunitionModelDirection";
-        submunitionAmmo             = "fza_m73mpsm";
-        submunitionConeType[]       = {"randomcenter",9};
-        submunitionConeAngle        = 2;
-        triggerDistance             = 500;
+        submunitionDirectionType    ="SubmunitionModelDirection";
+        submunitionAmmo             = "fza_flec_cluster";
+        submunitionConeType[]       = {"randomcenter",100};
+        submunitionConeAngle        = 12;
+        triggerDistance             = 200;
         submunitionInitSpeed        = 500;
         deleteParentWhenTriggered   = 1;
-        
+
+        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
+        multiSoundHit[]             = {"soundHit1",1};
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128";
@@ -157,33 +142,56 @@ class CfgAmmo {
         aiAmmoUsageFlags            = "1";
         allowAgainstInfantry        = 0;
     };
-    class fza_275_m255: fza_275_base 
+    class fza_275_m261: fza_275_base 
     {
-        fza_shortCode               = "6FL";
-        fza_weaponName              = "fza_275_m255_wep";
+        fza_shortCode               = "6MP";
+        fza_weaponName              = "fza_275_m261_wep";
         model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
         proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
-        CraterEffects               = "ATMissileCrater";
-        explosionEffects            = "";
+        explosionEffects            = "GrenadeExplosion";
         maxSpeed                    = 600;
         hit                         = 30;
-        indirectHit                 = 0;
-        indirectHitRange            = 0;
+        indirectHit                 = 5;
+        indirectHitRange            = 5;
 
-        submunitionDirectionType    ="SubmunitionModelDirection";
-        submunitionAmmo             = "fza_flec_cluster";
-        submunitionConeType[]       = {"randomcenter",100};
-        submunitionConeAngle        = 12;
-        triggerDistance             = 200;
+        submunitionDirectionType    = "SubmunitionModelDirection";
+        submunitionAmmo             = "fza_m73mpsm";
+        submunitionConeType[]       = {"randomcenter",9};
+        submunitionConeAngle        = 2;
+        triggerDistance             = 500;
         submunitionInitSpeed        = 500;
         deleteParentWhenTriggered   = 1;
-
-        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
-        multiSoundHit[]             = {"soundHit1",1};
+        
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128";
         cost                        = 100;
+    };
+    class fza_275_m278: fza_275_base 
+    {
+        fza_shortCode               = "6IR";
+        fza_weaponName              = "fza_275_m278_wep";
+        model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
+        proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
+        CraterEffects               = "ATMissileCrater";
+        explosionEffects            = "";
+        hit                         = 30;
+        indirectHit                 = 0;
+        indirectHitRange            = 0;
+
+        submunitionAmmo             = "fza_m278_flare";
+        submunitionCount            = 1;
+        submunitionConeAngle        = 0;
+        deleteParentWhenTriggered   = 1;
+
+        triggerTime                 = 1.5;
+        maxSpeed                    = 450;
+        soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
+        multiSoundHit[]             = {"soundHit1",1};
+
+        //AI uasge
+        aiAmmoUsageFlags            = "1";
+        allowAgainstInfantry        = 0;
     };
     
     ///////////////////////////////////////////////////////////////////////
@@ -192,8 +200,8 @@ class CfgAmmo {
     
     class fza_m73mpsm: GrenadeBase
     {
-        ace_frag_enabled            = 0;
-        ace_frag_skip               = 1;
+        ace_frag_enabled            = 1;
+        ace_frag_skip               = 0;
 
         soundsetexplosion[]         = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
         simulation                  = "shotShell";
@@ -235,6 +243,11 @@ class CfgAmmo {
         triggerSpeedCoef            = 1;
         audibleFire                 = 20;
         intensity                   = 1000000;
+    };
+    class fza_m278_flare: fza_m257_flare
+    {
+        irLight = 1;
+        intensity                   = 300000;
     };
     class fza_flec_cluster: B_9x21_Ball
     {

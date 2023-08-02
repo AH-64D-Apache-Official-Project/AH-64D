@@ -6,9 +6,14 @@ class CfgNonAIVehicles {
         model = "\fza_ah64_us\fza_hydra_m151.p3d";
         simulation = "maverickweapon";
     };
-    class Proxyfza_hydra_m229: ProxyWeapon
+    class Proxyfza_hydra_m255: ProxyWeapon
     {
-        model = "\fza_ah64_us\fza_hydra_m229.p3d";
+        model = "\fza_ah64_us\fza_hydra_m261.p3d";
+        simulation = "maverickweapon";
+    };
+    class Proxyfza_hydra_m257: ProxyWeapon
+    {
+        model = "\fza_ah64_us\fza_hydra_m261.p3d";
         simulation = "maverickweapon";
     };
     class Proxyfza_hydra_m261: ProxyWeapon
@@ -16,12 +21,9 @@ class CfgNonAIVehicles {
         model = "\fza_ah64_us\fza_hydra_m261.p3d";
         simulation = "maverickweapon";
     };
-    class Proxyfza_hydra_m257: ProxyWeapon
+    class Proxyfza_hydra_m278: ProxyWeapon
     {
-        simulation = "maverickweapon";
-    };
-    class Proxyfza_hydra_m255: ProxyWeapon
-    {
+        model = "\fza_ah64_us\fza_hydra_m261.p3d";
         simulation = "maverickweapon";
     };
     

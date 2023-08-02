@@ -13,20 +13,20 @@ class TransportPylonsComponent {
             maxweight = 560;
             turret[] = {0};
             hardPoints[] = {"fza_hydra70_zone_AC", "fza_agm114_ul"};
-            attachment = "fza_275_m229_zoneA";
+            attachment = "fza_275_m151_zoneA";
             bay = -1;
             priority = 8;
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_1_Y};
         };
         class pylons2:pylons1 { //Pylon 1 rocket zone bravo
             hardPoints[] = {"fza_hydra70_zone_BD", "fza_agm114_ur"};
-            attachment = "fza_275_m229_zoneB";
+            attachment = "fza_275_m151_zoneB";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_2_Y};
             priority = 7;
         };
         class pylons3:pylons1 { //Pylon 1 rocket zone echo
             hardPoints[] = {"fza_hydra70_zone_E", "fza_agm114_ll"};
-            attachment = "fza_275_m229_zoneE";
+            attachment = "fza_275_m151_zoneE";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_3_Y};
             priority = 6;
         };
