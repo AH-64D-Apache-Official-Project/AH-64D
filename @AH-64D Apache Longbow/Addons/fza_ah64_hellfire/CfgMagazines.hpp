@@ -35,11 +35,10 @@ class CfgMagazines {
             hardpoints[] = {"fza_agm114_ur"} ; \
         };
     
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114a, "AGM-114A", "Semi-active laser guided missile with an effective range out to 7km. The A variant was the first built, capable of destroying non-reactive armor threats.");
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114c, "AGM-114C", "Semi-active laser guided missile with an effective range out to 7km. The C variant introduced an improved motor, seeker, and autopilot over the A variant.");
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114k, "AGM-114K", "Semi-active laser guided missile with an effective range out to 7km. This is the most advanced model of all the laser guided HELLFIRES available.");
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114l, "AGM-114L", "One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.");
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114m, "AGM-114M", "Semi-active laser guided missile with an effective range out to 7km, with a blast-fragmentation warhead. It is ideal for soft targets.");
-    HELLFIRE_MAGAZINE_CONFIG(fza_agm114n, "AGM-114N", "Semi-active laser guided missile with an effective range out to 7km, with a thermobaric warhead. It is very deadly when used against hardened targets.");
+    HELLFIRE_MAGAZINE_CONFIG(fza_agm114fa,  "AGM-114FA", "SAL 1 Guidance, effective range - 7km. The FA variant introduced a blast sleeve onto the C model for a cheap anti-personel missile.");
+    HELLFIRE_MAGAZINE_CONFIG(fza_agm114k,   "AGM-114K", "SAL 2 Guidance, effective range - 8km. This is the most advanced model of all the laser guided hellfires available.");
+    HELLFIRE_MAGAZINE_CONFIG(fza_agm114k2A, "AGM-114K2A", "SAL 2 Guidance, effective range - 8km. The K2A variant added a blast sleeve onto the K model for a cheap anti-personel missile.");
+    HELLFIRE_MAGAZINE_CONFIG(fza_agm114l,   "AGM-114L", "One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.");
+    HELLFIRE_MAGAZINE_CONFIG(fza_agm114n,   "AGM-114N", "SAL 2 Guidance, effective range - 8km. , The N variant is a K model with a thermobaric warhead. It is very deadly when used against hardened targets.");
 
 };
