@@ -28,13 +28,14 @@ if (!(player == driver _heli || player == gunner _heli)) exitwith {};
 
 //Damages any outside occupants if wing stores used
 
-if (!(_weapon == "fza_m230")) then {
+if (_weapon != "fza_m230") then {
     {
-        _x setdamage((damage _x) + 0.05);
+        _x setdamage((damage _x) + 0.1);
+        [_x, 0.3, "body", "backblast"] call ace_medical_fnc_addDamageToUnit
     }
     foreach(crew _heli - [gunner _heli, driver _heli]);
 };
-
+ 
 //OVERHEAT GUN FAULT
 
 if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || isNull gunner _heli)) then {
