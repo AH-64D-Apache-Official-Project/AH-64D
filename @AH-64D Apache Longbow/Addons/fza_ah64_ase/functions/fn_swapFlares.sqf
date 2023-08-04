@@ -18,10 +18,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_phase"];
 
+_heli removeWeaponTurret ["fza_CMFlareLauncher", [-1]];
+_heli removeMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
+
 if (_phase > 0.5) then {
     _heli addWeaponTurret ["fza_CMFlareLauncher", [-1]];
     _heli addMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
-} else {
-    _heli removeWeaponTurret ["fza_CMFlareLauncher", [-1]];
-    _heli removeMagazineTurret ["60Rnd_CMFlareMagazine",[-1]];
 };
