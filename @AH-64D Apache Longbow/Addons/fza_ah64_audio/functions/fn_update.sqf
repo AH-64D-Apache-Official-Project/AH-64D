@@ -40,7 +40,8 @@ while {player != vehicle player} do {
     private _spacer1     = _heli getVariable "fza_audio_Spacer1";
     private _spacer2     = _heli getVariable "fza_audio_Spacer2";
     private _spacer3     = _heli getVariable "fza_audio_Spacer3";
-    private _volume      = _ComsVolume get "Master";
+    //private _volume      = _ComsVolume get "Master";
+    private _volume      = fza_ah64_volumeMaster;
     private _missiontime = CBA_missionTime;
 
     if (_aseMsg isNotEqualTo "" && (_missiontime >= _spacer1)) then {
