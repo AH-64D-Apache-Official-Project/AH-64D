@@ -33,4 +33,8 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
     _heli setVariable ["fza_ah64_attHoldActive", true, true];
 } else {
     _heli setVariable ["fza_ah64_attHoldActive", false, true];
+
+    private _otherTurret = [_heli, true] call fza_fnc_currentTurret;
+    "fza_ah64_flight_control" remoteExec ["playsound", _heli turretUnit _otherTurret];
+    playsound "fza_ah64_flight_control";
 };
