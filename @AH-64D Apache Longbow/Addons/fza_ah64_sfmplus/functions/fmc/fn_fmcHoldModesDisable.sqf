@@ -2,9 +2,7 @@ params ["_heli"];
 
 //playsound "fza_ah64_flt_control";
 if (_heli getVariable "fza_ah64_altHoldActive" || _heli getVariable "fza_ah64_attHoldActive") then {
-    private _otherTurret = [_heli, true] call fza_fnc_currentTurret;
-    "fza_ah64_flight_control" remoteExec ["playsound", _heli turretUnit _otherTurret];
-    playsound "fza_ah64_flight_control";
+    [_heli] call fza_audio_fnc_flightTone;
 };
 
 //De-activate attitude hold and set the reference back to 0
