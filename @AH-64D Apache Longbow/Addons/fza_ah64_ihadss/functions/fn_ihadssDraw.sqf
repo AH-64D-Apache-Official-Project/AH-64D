@@ -587,31 +587,21 @@ if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _baraltft = "";
 };
+
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    private _thetabob = (360 + ((_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli)) Mod 360;
+    private _heliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos")) / 35.8588235;
+    private _distance = [_heliBobDist, 0, 0.17] call BIS_fnc_clamp;
+    private _coordX = sin _thetabob;
+    private _coordY = cos _thetabob;
+    private _offsetX = 0.480;
+    private _offsetY = 0.475;
 
-    _BobMultiGraph =  [[0,       0],
-                       [6.096,  0.17]];
-
-    _thetabob = (360 + ((_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli)) Mod 360;
-    _HeliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos"));
-    _distance = [_BobMultiGraph, _HeliBobDist] call fza_fnc_linearInterp;
-    _CoordX = (sin _thetabob);
-    _CoordY = (cos _thetabob);
-    _offsetX = 0.480;
-    _offsetY = 0.475;
-
-    _bobcoordsX = (_CoordX * _distance#1) + _offsetX;
-    _bobcoordsY = ((_CoordY * _distance#1) * -1) + _offsetY;
-    if (_bobcoordsx > 0.650) then {_bobcoordsx = 0.650;};
-    if (_bobcoordsx < 0.310) then {_bobcoordsx = 0.310;};
-
-    if (_bobcoordsy > 0.645) then {_bobcoordsy = 0.645;};
-    if (_bobcoordsy < 0.305) then {_bobcoordsy = 0.305;};
+    _bobcoordsX = [((_coordX * _distance) + _offsetX), 0.310, 0.650] call BIS_fnc_clamp;
+    _bobcoordsY = [((_coordY * -_distance) + _offsetY), 0.310, 0.650] call BIS_fnc_clamp;
     _bobcoords = [_bobcoordsx, _bobcoordsy];
 };
-
-
 
 ///HAD INHIBIT MESSAGES
 private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
