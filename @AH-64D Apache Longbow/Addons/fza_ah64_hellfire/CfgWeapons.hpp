@@ -57,8 +57,6 @@ class CfgWeapons {
             magazines[] = {HELLFIRE_MAGAZINES(ammoName)};\
             fza_ammoType = ammoName;\
         };
-    HELLFIRE_WEAPON_CONFIG(fza_agm114a, "AGM-114A")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114c, "AGM-114C")
     HELLFIRE_WEAPON_CONFIG(fza_agm114k, "AGM-114K")
     HELLFIRE_WEAPON_CONFIG(fza_agm114l, "AGM-114L")
     HELLFIRE_WEAPON_CONFIG(fza_agm114m, "AGM-114M")
