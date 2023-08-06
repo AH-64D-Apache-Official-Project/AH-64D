@@ -88,7 +88,6 @@ class CfgWeapons {
             fza_ammoType = ammoName;\
         };
     ROCKET_WEAPON_CONFIG(fza_275_m151, "M151 HEDP")
-    ROCKET_WEAPON_CONFIG(fza_275_m229, "M229 HEDP")
     ROCKET_WEAPON_CONFIG(fza_275_m255, "M255 FLEC")
     ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM")
     ROCKET_WEAPON_CONFIG(fza_275_m257, "M257 IL")

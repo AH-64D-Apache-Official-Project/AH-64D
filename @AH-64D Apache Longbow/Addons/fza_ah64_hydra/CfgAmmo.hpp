@@ -93,19 +93,6 @@ class CfgAmmo {
         indirectHit                 = 40;
         indirectHitRange            = 13;
     };
-    class fza_275_m229: fza_275_base
-    {
-        fza_shortCode               = "6RC";
-        fza_weaponName              = "fza_275_m229_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m229_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m229";
-        explosionEffects            = "GrenadeExplosion";
-        hit                         = 100;
-        indirectHit                 = 66;
-        indirectHitRange            = 20;
-        suppressionRadiusHit        = 20;
-
-    };
     class fza_275_m261: fza_275_base 
     {
         fza_shortCode               = "6MP";
