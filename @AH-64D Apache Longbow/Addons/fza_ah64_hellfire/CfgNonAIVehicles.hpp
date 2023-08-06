@@ -1,9 +1,9 @@
 class CfgNonAIVehicles {
     class ProxyWeapon;
     
-    class Proxyfza_agm114l: ProxyWeapon
+    class Proxyfza_agm114fa: ProxyWeapon
     {
-    model = "\fza_ah64_us\fza_agm114l.p3d";
+        model = "\fza_ah64_us\fza_agm114fa.p3d";
         simulation = "maverickweapon";
     };
     class Proxyfza_agm114k: ProxyWeapon
@@ -11,9 +11,14 @@ class CfgNonAIVehicles {
         model = "\fza_ah64_us\fza_agm114k.p3d";
         simulation = "maverickweapon";
     };
-    class Proxyfza_agm114m: ProxyWeapon
+    class Proxyfza_agm114k2a: ProxyWeapon
     {
-        model = "\fza_ah64_us\fza_agm114m.p3d";
+        model = "\fza_ah64_us\fza_agm114k2a.p3d";
+        simulation = "maverickweapon";
+    };
+    class Proxyfza_agm114l: ProxyWeapon
+    {
+        model = "\fza_ah64_us\fza_agm114l.p3d";
         simulation = "maverickweapon";
     };
     class Proxyfza_agm114n: ProxyWeapon
