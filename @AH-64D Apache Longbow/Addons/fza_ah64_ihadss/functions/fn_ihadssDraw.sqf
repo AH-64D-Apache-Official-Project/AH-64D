@@ -587,34 +587,22 @@ if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _baraltft = "";
 };
+
+#define BOBUP_EDGE_DISPLAY 0.17
+#define BOBUP_EDGE_FEET 40
+
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    private _thetabob = (_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli;
+    private _heliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos")) / BOBUP_EDGE_FEET * SCALE_METERS_FEET * BOBUP_EDGE_DISPLAY;
+    private _coordX = sin _thetabob;
+    private _coordY = cos _thetabob;
+    private _offsetX = 0.480;
+    private _offsetY = 0.475;
 
-    _thetabob = (360 + ((_heli getVariable "fza_ah64_bobhdg") - direction _heli)) Mod 360;
-
-    if (_thetabob >= 180) then {
-        _thetabob = _thetabob - 360;
-    } else {
-        _thetabob = _thetabob;
-    };
-
-    _curwpdir = _thetabob;
-
-    _bobcoordsx = (((_heli getVariable "fza_ah64_bobpos" select 0) - (getposasl _heli select 0)) * 0.017) + 0.480775;
-    if (_bobcoordsx > 0.7) then {
-        _bobcoordsx = 0.7;
-    };
-    if (_bobcoordsx < 0.3) then {
-        _bobcoordsx = 0.3;
-    };
-    _bobcoordsy = (((getposasl _heli select 1) - (_heli getVariable "fza_ah64_bobpos" select 1)) * 0.017) + 0.475;
-    if (_bobcoordsy > 0.7) then {
-        _bobcoordsy = 0.7;
-    };
-    if (_bobcoordsy < 0.3) then {
-        _bobcoordsy = 0.3;
-    };
-    _bobcoords = [_bobcoordsx, _bobcoordsy];
+    _bobcoordsX = _offsetX + ([((_coordX * _heliBobDist)), -BOBUP_EDGE_DISPLAY, BOBUP_EDGE_DISPLAY] call BIS_fnc_clamp)/4*3;
+    _bobcoordsY = _offsetY + ([((_coordY * -_heliBobDist)), -BOBUP_EDGE_DISPLAY, BOBUP_EDGE_DISPLAY] call BIS_fnc_clamp);
+    _bobcoords  = [_bobcoordsx, _bobcoordsy];
 };
 
 ///HAD INHIBIT MESSAGES
