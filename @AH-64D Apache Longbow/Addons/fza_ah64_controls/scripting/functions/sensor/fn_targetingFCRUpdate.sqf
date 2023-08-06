@@ -24,14 +24,17 @@ params ["_heli"];
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
-Private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrTracks   = getSensorTargets _heli;
 
 if !(_acBusOn && _dcBusOn) exitwith {};
+if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
+    _fcrTracks = [];
+};
 
 private _fcrTargets = [];
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
-    if (_fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {};
 
     private _distOffAxis = abs ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
     private _range       = _heli distance2d _target;
@@ -71,7 +74,7 @@ private _fcrTargets = [];
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
 
     _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
-} foreach getSensorTargets _heli;
+} foreach _fcrTracks;
 
 _fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
 
