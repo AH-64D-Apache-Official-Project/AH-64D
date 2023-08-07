@@ -90,10 +90,10 @@ class CfgAmmo {
         indirectHitRange            = 13;
         suppressionRadiusHit        = 20;
     };
-    class fza_275_m255: fza_275_base 
+    class fza_275_m255a1: fza_275_base 
     {
         fza_shortCode               = "6FL";
-        fza_weaponName              = "fza_275_m255_wep";
+        fza_weaponName              = "fza_275_m255a1_wep";
         model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
         proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
         CraterEffects               = "ATMissileCrater";

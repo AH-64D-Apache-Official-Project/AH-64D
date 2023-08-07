@@ -110,7 +110,7 @@ class TransportPylonsComponent {
             displayName = "Heavy Attack";
         };
         class coin {
-            attachment[] = {"fza_275_m151_zoneA","fza_275_m255_zoneB","fza_275_m257_zoneE","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
+            attachment[] = {"fza_275_m151_zoneA","fza_275_m255a1_zoneB","fza_275_m257_zoneE","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
             displayName = "COIN";
         };
         class Empty {
