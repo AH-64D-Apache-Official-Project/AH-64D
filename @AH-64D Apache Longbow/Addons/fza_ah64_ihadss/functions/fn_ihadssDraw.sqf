@@ -445,23 +445,32 @@ if (speed _heli < 5) then {
 };
 private _was = _heli getVariable "fza_ah64_was";
 if (_was == WAS_WEAPON_MSL) then {
+    private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
     _weapon = (["MSL", "PMSL"] select (isManualFire _heli));
+
     switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
-        case "dir": {
+        case "DIR": {
             _weaponstate = "DIR-MAN";
         };
-        case "lo": {
+        case "LO": {
             _weaponstate = "LO-MAN";
         };
-        case "hi": {
+        case "HI": {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
-    if (count _missileTOF > 0) then {
-        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
-        _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
+    if (_tofList isNotEqualTo []) then {
+        _tofNum = ceil (_tofList#0 - cba_missiontime);
+        if (_tofNum < 10) then {
+            _weaponstate = format["HF TOF=0%1", round _tofNum];
+        } else {
+            _weaponstate = format["HF TOF=%1", round _tofNum];
+        };
+        if (_tofNum < 1) then {
+            _tofList deleteAt 0;
+            _heli setVariable ["fza_ah64_tofCountDown", _tofList];
+        };
     };
 };
 
