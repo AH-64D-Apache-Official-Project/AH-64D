@@ -241,5 +241,6 @@ class CfgAmmo {
         indirectHitRange            = 4;
         deflecting                  = 0;
         fuseDistance                = 50;
+        effectFly                   = "fza_ah64_deploysmoke";
     };
 };
