@@ -55,4 +55,4 @@ class CfgAddons
 #include "config\CfgVideoOptions.hpp"
 #include "config\CfgUi.hpp"
 
-#include "config\CfgCba.hpp"
+#include "config\CfgSettings.hpp"
