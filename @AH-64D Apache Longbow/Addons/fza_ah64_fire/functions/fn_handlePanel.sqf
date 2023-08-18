@@ -23,7 +23,7 @@ private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _crewStation        = _heli call fza_fnc_currentTurret;
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 1;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 1;
-private _engineApuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
+private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 1;
 
 if !_battBusOn exitwith {};
 
@@ -62,7 +62,7 @@ switch(_engine) do {
             };
             _heli setVariable ["fza_ah64_fireArmedApu", [true, _crewStation, CBA_missionTime], true];
         } else {
-            if (_engineApuArm isEqualTo _crewStation) then {
+            if (_apuArm isEqualTo _crewStation) then {
                 _heli setVariable ["fza_ah64_fireArmedApu", [false, _crewStation, CBA_missionTime], true];
             };
         };

@@ -28,7 +28,7 @@ private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _crewStation        = _heli call fza_fnc_currentTurret;
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 0;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 0;
-private _engineApuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 0;
+private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 0;
 private _primaryFbAvailable = !(_heli getVariable "fza_ah64_firepdisch");
 private _reserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
 private _fireTestState      = _heli getvariable "fza_ah64_firetest";
@@ -43,11 +43,11 @@ switch(_control) do {
         ["fza_ah64_button_click2", 0.1];
     };
     case "fapu": {
-        [_heli, "apu", !_engineApuArm] call fza_fire_fnc_handlePanel;
+        [_heli, "apu", !_apuArm] call fza_fire_fnc_handlePanel;
         ["fza_ah64_button_click2", 0.1];
     };
     case "fbp": {
-        if ((_engineOneArm || _engineTwoArm || _engineApuArm) && _primaryFbAvailable) then {
+        if ((_engineOneArm || _engineTwoArm || _apuArm) && _primaryFbAvailable) then {
                 _heli setVariable ["fza_ah64_firepdisch", true, true];
                 if (_heli getHitPointDamage "hitengine1" == 0) then {
                     _heli setHitPointDamage  ["hitengine1", 0.01];
@@ -56,7 +56,7 @@ switch(_control) do {
             ["fza_ah64_button_click2", 0.1];
         };
     case "fbr": {
-        if ((_engineOneArm || _engineTwoArm || _engineApuArm) && _reserveFBAvailable) then {
+        if ((_engineOneArm || _engineTwoArm || _apuArm) && _reserveFBAvailable) then {
             _heli setVariable ["fza_ah64_firerdisch", true, true];
             if (_heli getHitPointDamage "hitengine2" == 0) then {
                 _heli setHitPointDamage  ["hitengine2", 0.01];
