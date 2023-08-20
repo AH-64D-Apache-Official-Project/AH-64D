@@ -65,6 +65,7 @@ switch (_state) do {
         _unitStatus = "ACQ_TRK";
     };
     case ASE_LNC: {
+        _unitType   = "MSL";
         _unitStatus = "LNC";
     };
 };

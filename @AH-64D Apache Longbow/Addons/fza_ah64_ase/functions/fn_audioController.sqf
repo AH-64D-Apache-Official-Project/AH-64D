@@ -55,18 +55,18 @@ if (_rlwrPower == "OFF") exitWith {
     if (_radarState == "searching") then {
         _searching pushback _object;
         _heli setVariable ["fza_ah64_ase_searchingObj", _searching];
-        _priority = 4;
+        _priority = ASE_SRH;
     };
     if (_radarState == "acquisition") then {
         _acquisition pushback _object;
         _heli setVariable ["fza_ah64_ase_acquisitionObj", _acquisition];
-        _priority = 5;
+        _priority = ASE_ACQ;
     };
     if (_radarState == "tracking") then {
         _tracking pushback _object;
         _object confirmSensorTarget [playerSide, true];
         _heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
-        _priority = 6;
+        _priority = ASE_TRK;
     };
     private _stateAudio = format ["fza_ah64_%1", _radarState];
 
