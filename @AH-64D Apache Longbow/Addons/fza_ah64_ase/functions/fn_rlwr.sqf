@@ -34,7 +34,7 @@ private _launching   = [];
     if (_object in _launching) then {continue;};
     if ("missile" in _type) then {
         private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _object >> "weaponLockSystem");
-        if ((_rlwrPwr == "on" && [_seekerhead, 8] call BIS_fnc_bitwiseAND != 0) || (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1)) then {
+        if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) then {
             private _launcher   = getShotParents _object;
             _launching append _launcher;
             _rlwrObjects deleteAt (_rlwrObjects findIf {_launcher in _x});
