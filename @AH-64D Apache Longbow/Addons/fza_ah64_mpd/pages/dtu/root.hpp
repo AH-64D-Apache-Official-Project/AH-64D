@@ -8,7 +8,7 @@ class dtu_draw {
         };
     };
 
-    MPD_TEXT_C(DATE, 0.5, 0.12, MPD_TEXT_STATIC("MM/DD/YY"))
+    MPD_TEXT_C(DATE, 0.5, 0.12, MPD_TEXT_USER(MFD_TEXT_DTU_DATE))
     
     class vabs {
         //T1

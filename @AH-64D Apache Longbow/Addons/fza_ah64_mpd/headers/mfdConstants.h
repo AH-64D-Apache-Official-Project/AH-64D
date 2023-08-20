@@ -304,6 +304,8 @@
 #define MFD_DTU_LOADING 0
 #define MFD_DTU_LOAD_COMPLETE 1
 
+#define MFD_TEXT_DTU_DATE 19
+
 //A/C Util Page
 #define MFD_IND_ACUTIL_PITCH 0
 #define MFD_IND_ACUTIL_ROLL  1
