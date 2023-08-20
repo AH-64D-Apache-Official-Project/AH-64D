@@ -7,8 +7,8 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_DTU_SUBPAGE), _state get "subPag
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_DTU_LOAD_STATUS), _state get "loadState"];
 
 date params ["_year", "_month", "_day", "_hours", "_minutes"];
-private _dtuDate = str _month + "/" + str _day + "/" + ((str _year) select [2,2]);
+private _dtuDate = ([([str _month, "00"] call fza_fnc_padString), ([str _day, "00"] call fza_fnc_padString),str (_year % 100)]) joinString "/";
 if (_heli animationPhase "msn_equip_british" == 1) then {
-    _dtuDate = str _day + "/" + str _month + "/" + ((str _year) select [2,2]);
+    _dtuDate = ([([str _day, "00"] call fza_fnc_padString), ([str _day, "00"] call fza_fnc_padString),str (_year % 100)]) joinString "/";
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_DTU_DATE), _dtuDate];
