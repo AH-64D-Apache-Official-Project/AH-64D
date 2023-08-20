@@ -119,7 +119,8 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _rtrRPMTorqueScalar        = 1.0;
-if (_inputRPM < 1.0 && !isTouchingGround _heli) then {
+private _onGnd                   = [_heli] call fza_sfmplus_fnc_onGround;
+if (_inputRPM < 1.0 && !_onGnd) then {
     _rtrRPMTorqueScalar = _inputRPM;
 };
 _rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;

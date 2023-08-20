@@ -1,7 +1,7 @@
 params ["_heli", "_system", "_control"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-private _onGnd      = isTouchingGround _heli;
+private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 
