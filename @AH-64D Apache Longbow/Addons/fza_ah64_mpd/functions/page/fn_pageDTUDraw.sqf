@@ -6,6 +6,6 @@ params ["_heli", "_mpdIndex", "_state"];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_DTU_SUBPAGE), _state get "subPage"];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_DTU_LOAD_STATUS), _state get "loadState"];
 
-date params ["_year", "_month", "_day", "_hours", "_minutes"];
+date params ["_year", "_month", "_day"];
 private _dtuDate = ([([str _month, "00"] call fza_fnc_padString), ([str _day, "00"] call fza_fnc_padString),str (_year % 100)]) joinString "/";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_DTU_DATE), _dtuDate];
