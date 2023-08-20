@@ -136,7 +136,7 @@ if (_heli getVariable "fza_ah64_e1_fire") then {
     [_activeWarn, "ENGINE 1 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 1 Overspeed
-if (_eng1Np >= 115.0) then {
+if (_eng1Np >= 1.15) then {
     ([_heli, _activeWarn, "ENG1 OVSP", "ENG1 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_1_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -163,7 +163,7 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
     [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Overspeed
-if (_eng2Np >= 115.0) then {
+if (_eng2Np >= 1.15) then {
     ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -389,7 +389,6 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
     || !(_heli getVariable "fza_ah64_fmcRollOn")
     || !(_heli getVariable "fza_ah64_fmcYawOn")
     || !(_heli getVariable "fza_ah64_fmcCollOn")) then {
-        _wcas pushBack [WCA_CAUTION, "FMC DISENGAGED", "FMC DISENG"];
         ([_heli, _activeCaut, "FMC DISENGAGED", "FMC DISENG", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 

@@ -30,6 +30,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     private _collRef_hi  = _collRef * 1.05;
     if (fza_sfmplus_collectiveOutput >= _collRef_hi || fza_sfmplus_collectiveOutput <= _collRef_low) then {
         _heli setVariable ["fza_ah64_altHoldActive", false, true];
+        [_heli] call fza_audio_fnc_flightTone;
     };
 
     //If the helicopters radar altitude is < 1428ft (435.25m) and current velocity is < 40kts
