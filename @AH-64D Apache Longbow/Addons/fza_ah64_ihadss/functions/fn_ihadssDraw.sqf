@@ -45,6 +45,14 @@ private _showFcrLastScan = false;
 private _fcrdir      = 0.5;
 private _headsdown   = false;
 
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) exitWith {
+    1 cuttext["", "PLAIN"];
+    2 cuttext["", "PLAIN"];
+    3 cuttext["", "PLAIN"];
+    4 cuttext["", "PLAIN"];
+    fza_ah64_bweff ppEffectEnable false;
+};
+
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
@@ -717,11 +725,3 @@ if (_curwpdir < -360 || _curwpdir > 360) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
-
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
-    1 cuttext["", "PLAIN"];
-    2 cuttext["", "PLAIN"];
-    3 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
-    fza_ah64_bweff ppEffectEnable false;
-};
