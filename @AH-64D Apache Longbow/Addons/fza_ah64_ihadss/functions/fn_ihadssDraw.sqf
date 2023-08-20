@@ -45,7 +45,7 @@ private _showFcrLastScan = false;
 private _fcrdir      = 0.5;
 private _headsdown   = false;
 
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) exitWith {
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera)) exitWith {
     1 cuttext["", "PLAIN"];
     2 cuttext["", "PLAIN"];
     3 cuttext["", "PLAIN"];
