@@ -8,7 +8,4 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_DTU_LOAD_STATUS), _state get "lo
 
 date params ["_year", "_month", "_day", "_hours", "_minutes"];
 private _dtuDate = ([([str _month, "00"] call fza_fnc_padString), ([str _day, "00"] call fza_fnc_padString),str (_year % 100)]) joinString "/";
-if (_heli animationPhase "msn_equip_american" == 0) then {
-    _dtuDate = ([([str _day, "00"] call fza_fnc_padString), ([str _day, "00"] call fza_fnc_padString),str (_year % 100)]) joinString "/";
-};
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_DTU_DATE), _dtuDate];
