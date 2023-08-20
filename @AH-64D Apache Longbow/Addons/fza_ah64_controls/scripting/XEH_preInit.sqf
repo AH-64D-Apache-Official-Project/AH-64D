@@ -105,6 +105,24 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_volumeMaster",
+    "SLIDER",
+    ["Master volume Knob", "Temporary Master volume control"],
+    [_projName, "Coms Panel"],
+    [0, 5, 3, 1],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_volumeRlwr",
+    "SLIDER",
+    ["RLWR volume Knob", "Temporary RLWR volume control"],
+    [_projName, "Coms Panel"],
+    [0, 5, 3, 1],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_rocketTable =
         [[0, 5]
         ,[500, 8]

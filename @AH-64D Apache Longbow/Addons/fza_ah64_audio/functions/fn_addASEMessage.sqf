@@ -21,8 +21,9 @@ Author:
 params ["_heli", "_priority", "_reference"];
 
 private _aseMsg     = _heli getVariable "fza_audio_ase_message";
-private _ComsVolume = _heli getVariable "fza_ah64_comsVolume";
-private _volume     = _ComsVolume get "RLWR";
+//private _ComsVolume = _heli getVariable "fza_ah64_comsVolume";
+//private _volume     = _ComsVolume get "RLWR";
+private _volume     = fza_ah64_volumeRlwr;
 _this insert [3, [_volume]];
 
 if (_aseMsg isEqualTo "" || {_priority > _aseMsg # 1}) then {

@@ -626,7 +626,6 @@ class FzaIconTypes {
         textB = "2";
     };
     class RLWR_SA2_ACQ_TRK:RLWR_SA2_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA2_LNC:RLWR_SA2_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-3
     class RLWR_SA3_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -635,7 +634,6 @@ class FzaIconTypes {
         textB = "3";
     };
     class RLWR_SA3_ACQ_TRK:RLWR_SA3_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA3_LNC:RLWR_SA3_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-8
     class RLWR_SA8_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -644,7 +642,6 @@ class FzaIconTypes {
         textB = "8";
     };
     class RLWR_SA8_ACQ_TRK:RLWR_SA8_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA8_LNC:RLWR_SA8_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-10
     class RLWR_SA10_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -654,7 +651,6 @@ class FzaIconTypes {
         textB = "0";
     };
     class RLWR_SA10_ACQ_TRK:RLWR_SA10_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA10_LNC:RLWR_SA10_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-15
     class RLWR_SA15_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -664,7 +660,6 @@ class FzaIconTypes {
         textB = "5";
     };
     class RLWR_SA15_ACQ_TRK:RLWR_SA15_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA15_LNC:RLWR_SA15_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-17
     class RLWR_SA17_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -674,7 +669,6 @@ class FzaIconTypes {
         textB = "7";
     };
     class RLWR_SA17_ACQ_TRK:RLWR_SA17_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA17_LNC:RLWR_SA17_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-19
     class RLWR_SA19_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -684,7 +678,6 @@ class FzaIconTypes {
         textB = "9";
     };
     class RLWR_SA19_ACQ_TRK:RLWR_SA19_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA19_LNC:RLWR_SA19_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-20
     class RLWR_SA20_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -694,7 +687,6 @@ class FzaIconTypes {
         textB = "0";
     };
     class RLWR_SA20_ACQ_TRK:RLWR_SA20_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA20_LNC:RLWR_SA20_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SA-21
     class RLWR_SA21_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -704,7 +696,6 @@ class FzaIconTypes {
         textB = "1";
     };
     class RLWR_SA21_ACQ_TRK:RLWR_SA21_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SA21_LNC:RLWR_SA21_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //GU
     class RLWR_GU_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -714,7 +705,6 @@ class FzaIconTypes {
         textB = "U";
     };
     class RLWR_GU_ACQ_TRK:RLWR_GU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_GU_LNC:RLWR_GU_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //HK
     class RLWR_HK_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -724,7 +714,6 @@ class FzaIconTypes {
         textB = "K";
     };
     class RLWR_HK_ACQ_TRK:RLWR_HK_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_HK_LNC:RLWR_HK_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //NV
     class RLWR_NV_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -734,7 +723,6 @@ class FzaIconTypes {
         textB = "V";
     };
     class RLWR_NV_ACQ_TRK:RLWR_NV_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_NV_LNC:RLWR_NV_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //2S6
     class RLWR_2S6_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -744,7 +732,6 @@ class FzaIconTypes {
         textB = "6";
     };
     class RLWR_2S6_ACQ_TRK:RLWR_2S6_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_2S6_LNC:RLWR_2S6_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //SR
     class RLWR_SR_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -754,7 +741,6 @@ class FzaIconTypes {
         textB = "R";
     };
     class RLWR_SR_ACQ_TRK:RLWR_SR_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_SR_LNC:RLWR_SR_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };
     //ZU
     class RLWR_ZU_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -764,5 +750,11 @@ class FzaIconTypes {
         textB = "U";
     };
     class RLWR_ZU_ACQ_TRK:RLWR_ZU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    class RLWR_ZU_LNC:RLWR_ZU_ACQ_TRK { blinkingPattern[] = {0.25,0.25}; blinkingStartsOn  = 0.25; };     
+    //SR
+    class RLWR_MSL_LNC : IconTypeB {
+        tex = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";
+        type  = POINT_TYPE_RLWR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "M";
+    };
 };
