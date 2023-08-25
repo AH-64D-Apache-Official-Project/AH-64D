@@ -15,6 +15,8 @@ private _rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {fa
 if (_rocketInvIndex != -1) then {
     (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"];
     _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_TOT_QTY), _selectedRktQty toFixed 0];
+} else {
+    _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_RKT_TOT_QTY), "0"];
 };
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_RKT_SELECTED_INV), _rocketInvIndex];
 
