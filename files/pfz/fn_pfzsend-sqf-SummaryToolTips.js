@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:pfz/fn_pfzsend.sqf",{198:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Broadcasts currently selected PFZ for other helis</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:pfz/fn_pfzsend.sqf",{156:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Broadcasts currently selected PFZ for other helis</div></div>"});
