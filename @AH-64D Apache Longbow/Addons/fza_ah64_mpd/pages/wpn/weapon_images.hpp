@@ -147,7 +147,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
         class Present {\
             condition =  C_COND(C_OR(C_EQ(C_MPD_USER(presentIndex),presentState1), C_EQ(C_MPD_USER(presentIndex),presentState2)));\
             class Deselected {\
-                condition =  C_COND(C_OR(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState1)), C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2))));\
+                condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),2)));\
                 class Pylon {\
                     type = pylonicon;\
                     pos[] = {{posX, posY}, 1};\
@@ -157,7 +157,7 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
                 MPD_TEXT_C(Name,posX, posY-MPD_TEXT_HEIGHT, MPD_TEXT_USER(textInd))\
             };\
             class Selected {\
-                condition =  C_COND(C_OR(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState1), C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_RKT),selectState2)));\
+                condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),2));\
                 class Pylon {\
                     type = pylonicon;\
                     pos[] = {{posX, posY}, 1};\
