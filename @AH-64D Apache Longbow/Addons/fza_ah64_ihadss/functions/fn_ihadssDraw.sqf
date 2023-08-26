@@ -462,11 +462,8 @@ if (_was == WAS_WEAPON_MSL) then {
     
     if (_tofList isNotEqualTo []) then {
         _tofNum = ceil (_tofList#0 - cba_missiontime);
-        if (_tofNum < 10) then {
-            _weaponstate = format["HF TOF=0%1", round _tofNum];
-        } else {
-            _weaponstate = format["HF TOF=%1", round _tofNum];
-        };
+        _tofStr = [str (round _tofNum), "00"] call fza_fnc_padString;
+        _weaponstate = "HF TOF=" + _tofStr;
         if (_tofNum < 1) then {
             _tofList deleteAt 0;
             _heli setVariable ["fza_ah64_tofCountDown", _tofList];
