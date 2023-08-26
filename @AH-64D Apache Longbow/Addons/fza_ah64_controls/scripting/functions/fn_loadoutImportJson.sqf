@@ -21,7 +21,7 @@ if (_json == "") exitwith {};
 if (_json == "true") exitwith {};
 
 private _settings = [_json] call CBA_fnc_parseJSON;
-private _nameCheck = ["M151","M229","M261","M257","M255","AGM114A","AGM114C","AGM114K","AGM114L","AGM114M","AGM114N"];
+private _nameCheck = ["M151","M255","M257","M261","M278","AGM114FA","AGM114k","AGM114K2A","AGM114L","AGM114N"];
 private _pylonArraycheck  = ["pylon1","pylon2","pylon3","pylon4"];
 private _pylonRktCheck = ["zoneE","zoneB","zoneA"];
 private _pylonMslCheck = ["lr","ll","ur","ul"];
