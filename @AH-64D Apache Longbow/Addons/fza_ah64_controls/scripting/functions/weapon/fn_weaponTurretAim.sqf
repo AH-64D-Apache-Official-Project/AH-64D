@@ -49,7 +49,11 @@ switch (_sight) do {
         };
     };
     case SIGHT_HMD:{
-        _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000])
+        if (gunner _heli == player && cameraView == "GUNNER") then {
+            _targPos = aglToAsl screentoworld[0.5, 0.5];
+        } else {
+            _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
+        };
     };
     case SIGHT_TADS:{
         if (gunner _heli == player && cameraView == "GUNNER" && !isNull cursorObject) then {
@@ -112,17 +116,17 @@ private _heliPos = getPosAsl _heli;
 private _targDistance = _heliPos distance _targPos;
 
 if (_usingRocket) then {
-    _rocketTable =   
-            [[0, 2] 
-            ,[500, 7] 
-            ,[750, 11] 
-            ,[1000, 16] 
-            ,[2000, 50] 
-            ,[3100, 116] 
-            ,[4200, 201] 
-            ,[5300, 313] 
-            ,[6400, 434] 
-            ,[7500, 600]];
+    private _rocketTable =   
+                [[0, 2] 
+                ,[500, 7] 
+                ,[750, 11] 
+                ,[1000, 16] 
+                ,[2000, 50] 
+                ,[3100, 116] 
+                ,[4200, 201] 
+                ,[5300, 313] 
+                ,[6400, 434] 
+                ,[7500, 600]];
     private _elevationComp = ([_rocketTable, _heliPos distance2d _targPos] call fza_fnc_linearInterp) # 1;
 
     private _heliPylons = getPylonMagazines _heli;

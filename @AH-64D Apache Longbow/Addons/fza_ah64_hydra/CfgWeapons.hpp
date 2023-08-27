@@ -62,7 +62,7 @@ class CfgWeapons {
             soundContinuous = 0;
             autoFire = 0;
             reloadTime = 0.09;
-            dispersion = 0.004;
+            dispersion = 0.0025;
             aiRateOfFire = 1;
             aiRateOfFireDistance = 10;
             minRange = 0;
