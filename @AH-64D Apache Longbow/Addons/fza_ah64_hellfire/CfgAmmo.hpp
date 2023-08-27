@@ -33,8 +33,8 @@ class CfgAmmo {
 		airFriction                 = 0.056; //-0.0350;
 		sideAirFriction             = 0.03;  //-0.0250;
         initTime                    = 0.1;
-        thrustTime                  = 2.5;
-        thrust                      = 200;
+        thrustTime                  = 3;
+        thrust                      = 160;
         fuseDistance                = 100;
         timeToLive                  = 40;
         explosionTime               = 39;
@@ -60,10 +60,10 @@ class CfgAmmo {
         triggerOnImpact             =1;
         deleteParentWhenTriggered   =0;
 
-        effectsmissile              = "fza_ah64_hellfiresmoke";
-        muzzleEffect                = "BIS_fnc_effectFiredHeliRocket";
-        effectsMissileInit          = "MissileDAR1";
-        explosionEffects            = "ATMissileExplosion"; 
+		effectsMissile              = "fza_hellfirelight";
+		effectsMissileInit          = "";
+        muzzleEffect                = "";
+        explosionEffects            = "BombExplosion"; 
         soundsetsoniccrack[]        = {"fza_sc_wire_flyby_soundset"};
         soundfly[]                  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};

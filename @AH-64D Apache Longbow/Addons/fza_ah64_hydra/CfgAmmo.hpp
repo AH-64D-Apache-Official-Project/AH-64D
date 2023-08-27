@@ -6,7 +6,7 @@ class CfgAmmo {
 
     class fza_275_base: MissileBase 
     {
-
+		simulation = "shotRocket";
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
@@ -19,10 +19,11 @@ class CfgAmmo {
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
         soundsetsoniccrack[]        = {"fza_sc_rocket_flyby_soundset"};
         model                       = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-        effectsmissile              = "fza_ah64_rocketsmoke";
-        effectsMissileInit          = "MissileDAR1";
-        muzzleEffect                = "BIS_fnc_effectFiredHeliRocket";
         explosionEffects            = "GrenadeExplosion";
+		effectsMissile              = "fza_hydraEffect";
+		effectsMissileInit          = "";
+        muzzleEffect                = "";
+        effectFly                   = "";
 
         hit                         = 30;
         indirectHit                 = 4;
@@ -40,8 +41,8 @@ class CfgAmmo {
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
         maxSpeed                    = 739;
-        thrustTime                  = 2;
-        thrust                      = 840;
+        thrustTime                  = 0.5;
+        thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
         sideAirFriction             = 0.004;
@@ -189,7 +190,7 @@ class CfgAmmo {
         model                       = "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
         explosionEffects            = "ExploAmmoExplosion";
         CraterEffects               = "ExploAmmoCrater";
-        muzzleEffect                = "BIS_fnc_effectFiredHeliRocket";
+        muzzleEffect                = "";
         hit                         = 30;
         indirectHit                 = 15;
         indirectHitRange            = 20;
