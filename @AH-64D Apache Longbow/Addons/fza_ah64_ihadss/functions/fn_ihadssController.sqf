@@ -31,4 +31,5 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 
 [_heli] call fza_ihadss_fnc_CscopeDraw;
 [_heli] call fza_ihadss_fnc_constraintBoxDraw;
+[_heli] call fza_ihadss_fnc_steeringCursorDraw;
 

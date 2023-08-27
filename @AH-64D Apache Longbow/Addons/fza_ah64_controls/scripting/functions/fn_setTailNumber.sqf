@@ -18,13 +18,9 @@ private _char02 = _tailNumber select [1, 1];
 private _char03 = _tailNumber select [2, 1];
 private _char04 = _tailNumber select [3, 1];
 private _char05 = _tailNumber select [4, 1];
-private _char06 = _tailNumber select [5, 1];
-private _char07 = _tailNumber select [6, 1];
 
 _heli setObjectTextureGlobal ["tailDigit_01", _validChars getOrDefault [_char01, ""]];
 _heli setObjectTextureGlobal ["tailDigit_02", _validChars getOrDefault [_char02, ""]];
 _heli setObjectTextureGlobal ["tailDigit_03", _validChars getOrDefault [_char03, ""]];
 _heli setObjectTextureGlobal ["tailDigit_04", _validChars getOrDefault [_char04, ""]];
 _heli setObjectTextureGlobal ["tailDigit_05", _validChars getOrDefault [_char05, ""]];
-_heli setObjectTextureGlobal ["tailDigit_06", _validChars getOrDefault [_char06, ""]];
-_heli setObjectTextureGlobal ["tailDigit_07", _validChars getOrDefault [_char07, ""]];

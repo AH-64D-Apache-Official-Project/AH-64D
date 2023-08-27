@@ -25,8 +25,12 @@ params ["_firedEH", "_launchParams", "", "", "_stateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _stateParams params ["", "_seekerStateParams"];
 
+#define SCALE_METERS_KM 0.001
+#define SCALE_KM_TOF 4
+
 private _heli           = vehicle _shooter;
 private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
+private _currentTof     = _heli getVariable "fza_ah64_tofCountDown";
 private _targObj        = _targinfo #0;
 private _targPos        = _targinfo #1;
 private _targetType     = _targobj call BIS_fnc_objectType;
@@ -45,6 +49,8 @@ if (!(isNull _targObj) && _loblCheckLima #1) then {
 private _attackProfile = "hellfire_hi";
 if (_loblCheckLima #1) then {
     _attackProfile = "hellfire";
+    _currentTof pushBack (cba_missiontime + (_targPos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
+    _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
 if (_projectile distance _targPos < 2000) then {
@@ -52,6 +58,7 @@ if (_projectile distance _targPos < 2000) then {
 } else {
     _seekerStateParams set [0, objnull];
 };
+
 _launchParams set [3, _attackProfile];
 _seekerStateParams set [1, _targPos];
 _seekerStateParams set [2, _targetType];

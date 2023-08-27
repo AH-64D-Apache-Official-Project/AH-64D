@@ -182,8 +182,10 @@ if (count _fcrTargets > 0) then {
 private _ctrX       = 0.5;  
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
+private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
     _x params ["_state", "_bearing", "_classification"];
+    if !_rlwrPower exitWith {};
     _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];

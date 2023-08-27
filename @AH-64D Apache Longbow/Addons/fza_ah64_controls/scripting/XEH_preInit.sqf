@@ -105,6 +105,24 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_volumeMaster",
+    "SLIDER",
+    ["Master volume Knob", "Temporary Master volume control"],
+    [_projName, "Coms Panel"],
+    [0, 5, 3, 1],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_volumeRlwr",
+    "SLIDER",
+    ["RLWR volume Knob", "Temporary RLWR volume control"],
+    [_projName, "Coms Panel"],
+    [0, 5, 3, 1],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_rocketTable =
         [[0, 5]
         ,[500, 8]
@@ -138,7 +156,7 @@ fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_fnc_navigationWaypointEta, fza_ihadss_fnc_ihadssController, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update];
+fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
 fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
 //Draw3d handler

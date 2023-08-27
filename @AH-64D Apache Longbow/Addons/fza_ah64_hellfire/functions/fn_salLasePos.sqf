@@ -29,5 +29,5 @@ private _ammotype = getText (configFile >> "CfgWeapons" >> _heli getVariable "fz
 private _seekerConfig = configFile >> "CfgAmmo" >> _ammotype >> "ace_missileguidance";
 private _seekerAngle = getNumber (_seekerConfig >> "seekerAngle");
 private _seekerMaxRange = getNumber (_seekerConfig >> "seekerMaxRange");
-([getPosASL _heli + [0,0,0.6], vectorDir _heli, _seekerAngle, _seekerMaxRange, [ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH], _laserCode, _heli] call ace_laser_fnc_seekerFindLaserSpot) params ["_laserPos"];
+([eyePos _heli, vectorDir _heli, _seekerAngle, _seekerMaxRange, [ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH], _laserCode, _heli] call ace_laser_fnc_seekerFindLaserSpot) params ["_laserPos"];
 _laserPos;

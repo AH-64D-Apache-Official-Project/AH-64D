@@ -39,11 +39,4 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
     [_heli] spawn fza_fnc_targetingSensorUpdate;
 };
 
-if (!(vehicle cameraOn isKindOf "fza_ah64base") || !(alive cameraon) || (driver _heli == player && !isNull curatorCamera)) then {
-    1 cuttext["", "PLAIN"];
-    2 cuttext["", "PLAIN"];
-    3 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
-    fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_pnvsgreff ppEffectEnable false;
-};
+[_heli] call fza_ihadss_fnc_ihadssController;

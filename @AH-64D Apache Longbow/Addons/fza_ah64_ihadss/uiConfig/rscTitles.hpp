@@ -1221,7 +1221,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg30_tickmark
                     {
-                        idc = 147;
+                        idc = 149;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1236,7 +1236,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg60_tickmark
                     {
-                        idc = 148;
+                        idc = 152;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1251,7 +1251,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg90_tickmark
                     {
-                        idc = 149;
+                        idc = 155;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1266,7 +1266,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg120_tickmark
                     {
-                        idc = 150;
+                        idc = 158;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1281,7 +1281,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg150_tickmark
                     {
-                        idc = 151;
+                        idc = 161;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1296,7 +1296,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg180_tickmark
                     {
-                        idc = 152;
+                        idc = 164;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1311,7 +1311,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg210_tickmark
                     {
-                        idc = 153;
+                        idc = 167;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1326,7 +1326,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg240_tickmark
                     {
-                        idc = 154;
+                        idc = 170;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1341,7 +1341,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg270_tickmark
                     {
-                        idc = 155;
+                        idc = 173;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1356,7 +1356,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg300_tickmark
                     {
-                        idc = 156;
+                        idc = 176;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1371,7 +1371,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg330_tickmark
                     {
-                        idc = 157;
+                        idc = 179;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1386,7 +1386,7 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 158;
+                        idc = 147;
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1401,87 +1401,87 @@ class RscTitles
                     };
                     class fza_ah64_raddisp_hdg20_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 159;
+                        idc = 148;
                     };
                         class fza_ah64_raddisp_hdg40_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 160;
+                        idc = 150;
                     };
                     class fza_ah64_raddisp_hdg50_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 161;
+                        idc = 151;
                     };
                     class fza_ah64_raddisp_hdg70_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 162;
+                        idc = 153;
                     };
                     class fza_ah64_raddisp_hdg80_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 163;
+                        idc = 154;
                     };
                     class fza_ah64_raddisp_hdg100_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 164;
+                        idc = 156;
                     };
                     class fza_ah64_raddisp_hdg110_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 165;
+                        idc = 157;
                     };
                     class fza_ah64_raddisp_hdg130_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 166;
+                        idc = 159;
                     };
                     class fza_ah64_raddisp_hdg140_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 167;
+                        idc = 160;
                     };
                     class fza_ah64_raddisp_hdg160_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 168;
+                        idc = 162;
                     };
                     class fza_ah64_raddisp_hdg170_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 169;
+                        idc = 163;
                     };
                     class fza_ah64_raddisp_hdg190_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 170;
+                        idc = 165;
                     };
                     class fza_ah64_raddisp_hdg200_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 171;
+                        idc = 166;
                     };
                     class fza_ah64_raddisp_hdg220_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 172;
+                        idc = 168;
                     };
                     class fza_ah64_raddisp_hdg230_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 173;
+                        idc = 169;
                     };
                     class fza_ah64_raddisp_hdg250_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 174;
+                        idc = 171;
                     };
                     class fza_ah64_raddisp_hdg260_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 175;
+                        idc = 172;
                     };
                     class fza_ah64_raddisp_hdg280_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 176;
+                        idc = 174;
                     };
                     class fza_ah64_raddisp_hdg290_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 177;
+                        idc = 175;
                     };
                     class fza_ah64_raddisp_hdg310_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 178;
+                        idc = 177;
                     };
                     class fza_ah64_raddisp_hdg320_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
-                        idc = 179;
+                        idc = 178;
                     };
                     class fza_ah64_raddisp_hdg340_tickmark: fza_ah64_raddisp_hdg10_tickmark
                     {
