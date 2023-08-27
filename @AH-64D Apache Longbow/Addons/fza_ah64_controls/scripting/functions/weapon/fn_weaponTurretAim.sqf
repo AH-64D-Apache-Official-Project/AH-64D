@@ -33,7 +33,6 @@ private _lockCameraForwards     = false;
 
 private _nts            = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntspos         = (_heli getVariable "fza_ah64_fcrNts") # 1;
-private _armaRadarOn    = isVehicleRadarOn _heli;
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 
@@ -44,12 +43,7 @@ if !(_acBusOn && _dcBusOn) then {
 switch (_sight) do {
     case SIGHT_FCR:{
        if (!isNull _nts) then {
-            if (_armaRadarOn) then {
-                _targPos = aimPos _nts;
-                _targVel = velocity _nts;
-            } else {
-                _targPos = _ntspos;
-            };
+            _targPos = _ntspos;
         } else {
             _lockCameraForwards = true;
         };
@@ -109,21 +103,6 @@ if (_sight == SIGHT_HMD && (gunner _heli == player && cameraView != "GUNNER" || 
     _heli lockCameraTo [_targPos, [0]];
 };
 
-#define NOTVISIBLEFROMTADS(_heli, _tgt) ([(_heli), "VIEW", (_tgt)] checkVisibility [eyePos player, getPosASL (_tgt)] == 0)
-if (_sight == SIGHT_TADS && (gunner _heli == player) && !isNull (_heli getVariable "fza_ah64_tadsLocked")) then {
-    _heli lockCameraTo [aimPos (_heli getVariable "fza_ah64_tadsLocked"), [0]];
-
-    if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked") && !fza_ah64_tadsLockCheckRunning) then {
-        fza_ah64_tadsLockCheckRunning = true;
-        [{
-            params["_heli"];
-            fza_ah64_tadsLockCheckRunning = false;
-            if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked")) then {
-                _heli setVariable["fza_ah64_tadsLocked", objNull, true];
-            }
-        }, _heli, 2] call CBA_fnc_waitAndExecute;
-    }
-};
 if(fza_ah64_weaponDebug) then {
     drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], aslToAgl _targPos, 0.5, 0.5, 0, "Target"];
 };
@@ -133,11 +112,22 @@ private _heliPos = getPosAsl _heli;
 private _targDistance = _heliPos distance _targPos;
 
 if (_usingRocket) then {
-    private _elevationComp = ([fza_ah64_rocketTable, _heliPos distance2d _targPos] call fza_fnc_linearInterp) # 1;
+    _rocketTable =   
+            [[0, 2] 
+            ,[500, 7] 
+            ,[750, 11] 
+            ,[1000, 16] 
+            ,[2000, 50] 
+            ,[3100, 116] 
+            ,[4200, 201] 
+            ,[5300, 313] 
+            ,[6400, 434] 
+            ,[7500, 600]];
+    private _elevationComp = ([_rocketTable, _heliPos distance2d _targPos] call fza_fnc_linearInterp) # 1;
 
     private _heliPylons = getPylonMagazines _heli;
 
-    private _tof = _targDistance / (1800 - (_targDistance ^ 0.6));
+    private _tof = _targDistance * 0.001 * 1.353;
     private _aimLocation = _targPos
     vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof)
     vectorAdd[0, 0, _elevationComp];

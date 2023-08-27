@@ -53,6 +53,14 @@ class Components: Components
             class LaserSensorComponent: SensorTemplateLaser
             {
                 componentType = "LaserSensorComponent";
+                class AirTarget
+                {
+                    maxRange = 8000;
+                };
+                class GroundTarget
+                {
+                    maxRange = 8000;
+                };
             };
         };
     };

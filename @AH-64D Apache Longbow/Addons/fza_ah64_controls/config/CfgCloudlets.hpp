@@ -50,26 +50,20 @@ class CfgCloudlets
 	class fzaHydraTrailSmoke: Missile4
 	{
 		weight = 1;
+        rubbing= 0.5;
         color[]=
         {
             {0.06,0.04,0.04, 0.06}
         };
 	};
-    class fzaHellFireTrailSmoke : fzaHydraTrailSmoke
-    {
-        color[]=
-        {
-            {1,1,1,0.005}
-        };
-    };
 	class hellfireHeatBlur: ObjectDestructionRefract
 	{
-		weight = 1.5;
+		weight = 1;
+        rubbing= 0;
 		size[] = {1.8,2.4};
 	};
     class hydraHeatBlur : hellfireHeatBlur
     {
-		weight = 1.5;
 		size[] = {0.25,0.5};
     };
 };
@@ -141,15 +135,6 @@ class fza_hellfirelight
 		simulation = "particles";
 		type = "hellfireHeatBlur";
 		lifeTime = 3;
-	};
-	class trailSmoke
-	{
-		simulation = "particles";
-		type = "fzaHellFireTrailSmoke";
-		position[] = {0,0,0};
-		intensity = 0.05;
-		interval = 1;
-		lifeTime = 1;
 	};
 };
 class fza_hydraEffect

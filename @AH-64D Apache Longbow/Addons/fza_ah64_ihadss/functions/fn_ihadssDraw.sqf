@@ -480,10 +480,17 @@ if (_was == WAS_WEAPON_MSL) then {
 };
 
 if (_was == WAS_WEAPON_RKT) then {
-    _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
-    _ammo = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedRocket") >> "fza_ammoType");
-    _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
-    _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(_heli getVariable "fza_ah64_selectedRocket")];
+    private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
+    private _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
+    private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+    private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
+    private _rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
+    if (_rocketInvIndex != -1) then {
+        (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"];
+        _weaponstate = format["%1 NORM %2", _rocketcode, _selectedRktQty];
+    } else {
+        _weaponstate = format["%1 NORM %2", _rocketcode, 0];
+    };
 };
 
 if (_was == WAS_WEAPON_NONE) then {
