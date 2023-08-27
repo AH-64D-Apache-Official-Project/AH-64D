@@ -18,5 +18,5 @@ Examples:
 
 ---------------------------------------------------------------------------- */
 params ["_heli"];
-private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
+private _laserPos = [_heli] call fza_hellfire_fnc_salLasePos;
 !isNil "_laserPos";
