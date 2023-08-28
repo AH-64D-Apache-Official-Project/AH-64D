@@ -26,7 +26,7 @@ private _flightModel       = getText (_configVehicles>> "fza_flightModel");
 //private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
 //private _yawTorque         = getNumber (_config >> "pedalYawTorque");
 private _inputLagValue     = getNumber (_config >> "inputLagValue");
-private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
+//private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
 private _hydFailure        = false;
 private _tailRtrFixed      = false;
