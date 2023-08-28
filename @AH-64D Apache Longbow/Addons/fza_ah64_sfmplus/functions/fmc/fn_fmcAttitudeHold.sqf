@@ -3,10 +3,23 @@ params ["_heli", "_deltaTime"];
 
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
-private _pidRoll_att  = _heli getVariable "fza_sfmplus_pid_roll_att"; 
+//_pidRoll set ["kp", R_KP];
+//_pidRoll set ["ki", R_KI];
+//_pidRoll set ["kd", R_KD];
+private _pidRoll_att  = _heli getVariable "fza_sfmplus_pid_roll_att";
+//_pidRoll_att set ["kp", R_KP];
+//_pidRoll_att set ["ki", R_KI];
+//_pidRoll_att set ["kd", R_KD];
+
 //Pitch
 private _pidPitch     = _heli getVariable "fza_sfmplus_pid_pitch";
+//_pidPitch set ["kp", P_KP];
+//_pidPitch set ["ki", P_KI];
+//_pidPitch set ["kd", P_KD];
 private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
+//_pidPitch_att set ["kp", R_KP];
+//_pidPitch_att set ["ki", R_KI];
+//_pidPitch_att set ["kd", R_KD];
 
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";

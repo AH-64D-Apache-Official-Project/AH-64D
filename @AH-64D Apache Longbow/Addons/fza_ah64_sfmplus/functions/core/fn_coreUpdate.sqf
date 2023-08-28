@@ -69,7 +69,7 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 if (_flightModel != "SFMPlus") then {
     //Main Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
     //Drag
