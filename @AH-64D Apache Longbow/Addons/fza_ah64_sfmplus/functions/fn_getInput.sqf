@@ -22,9 +22,9 @@ params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles    = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel       = getText (_configVehicles>> "fza_flightModel");
-private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
-private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
-private _yawTorque         = getNumber (_config >> "pedalYawTorque");
+//private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
+//private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
+//private _yawTorque         = getNumber (_config >> "pedalYawTorque");
 private _inputLagValue     = getNumber (_config >> "inputLagValue");
 private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
