@@ -148,7 +148,6 @@ fza_ah64_sideslip = 0;
 fza_ah64_tiron = false;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
-fza_ah64_pfzcache = ["none", "none", [], 0];
 fza_ah64_AseRWR = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
