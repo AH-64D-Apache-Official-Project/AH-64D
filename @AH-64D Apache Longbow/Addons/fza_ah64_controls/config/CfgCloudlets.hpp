@@ -195,6 +195,35 @@ class CfgCloudlets
         randomDirectionIntensityVar=0;
         destroyOnWaterSurface=1;
     };
+    class fza_ah64_redSmoke: Default
+    {
+        animationSpeed[] = {0};
+        animationSpeedCoef = 1;
+        circleRadius = 0;
+        circleVelocity[] = {0.2,0.2,0.2};
+        color[] = {{0.4,0,0,0.8},{0.4,0,0,0.7},{0.4,0,0,0.6},{0.4,0,0,0.5},{0,0,0,0}};
+        interval = 1;
+        lifeTime = 7;
+        particleFSNtieth = 16;
+        particleFSIndex = 12;
+        particleFSFrameCount = 40;
+        particleFSLoop = 1;
+        particleShape = "\A3\data_f\ParticleEffects\Universal\Universal";
+        particleType = "Billboard";
+        position[] = {0,0,0};
+        positionVar[] = {0.5,0.5,0.5};
+        randomDirectionIntensity = 0.2;
+        randomDirectionIntensityVar = 0;
+        randomDirectionPeriod = 0.1;
+        randomDirectionPeriodVar = 0;
+        rubbing = 0.2;
+        size[] = {0.6,1.2,1.5,1.75,1.85,2};
+        sizeCoef = 1;
+        sizeVar = 0.3;
+        timerPeriod = 0.5;
+        volume = 0.1;
+        weight = 0.1275;
+    };
 };
 
 
@@ -306,6 +335,20 @@ class fza_ah64_hellfiresmoke
         lifeTime = 1;
     };
 };
+
+class fza_ah64_deploysmoke
+{
+    class MissileEffects1
+    {
+        simulation = "particles";
+        type = "fza_ah64_redSmoke";
+        position[] = {0,0,0};
+        intensity = 1;
+        interval = 1;
+        lifeTime = 0.01;
+    };
+};
+
 class fza_ah64_stingersmoke
 {
     class Light1

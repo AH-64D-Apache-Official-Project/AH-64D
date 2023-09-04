@@ -105,6 +105,7 @@ class CfgAmmo {
         triggerDistance             = 200;
         submunitionInitSpeed        = 500;
         deleteParentWhenTriggered   = 1;
+        submunitionInitialOffset[]  = {0,0,2};
 
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
@@ -240,5 +241,6 @@ class CfgAmmo {
         indirectHitRange            = 4;
         deflecting                  = 0;
         fuseDistance                = 50;
+        effectFly                   = "fza_ah64_deploysmoke";
     };
 };
