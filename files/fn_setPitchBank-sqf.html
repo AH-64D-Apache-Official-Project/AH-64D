@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic225"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic227"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_setPitchBank"></a><a name="Topic226"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_setPitchBank"></a><a name="Topic228"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_setPitchBank</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Rotates an object, giving it the specified pitch and bank, in degrees.</p><p>Pitch is 0 when the object is level; 90 when pointing straight up; and -90 when pointing straight down.</p><p>Bank is 0 when level; 90 when the object is rolled to the right, -90 when rolled to the left, and 180 when rolled upside down.</p><p>Note that the object's yaw can be set with the setdir command, which should be issued before using this function, if required.</p><p>The pitch/bank can be leveled out (set to 0) by using the setdir command.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_obj</td><td class="CDLDefinition"><p>The object to rotate</p></td></tr><tr><td class="CDLEntry">_pitch</td><td class="CDLDefinition"><p>The pitch to apply</p></td></tr><tr><td class="CDLEntry">_bank</td><td class="CDLDefinition"><p>The bank to apply</p></td></tr></table><div class="CHeading">Returns</div><p>Nothing</p><div class="CHeading">Examples</div><pre class="CCode">[_obj, <span class="SHNumber">40</span>, <span class="SHNumber">20</span>] call fza_fnc_setPitchBank</pre><div class="CHeading">Author</div><p>General Barron, vektorboson</p></div>
 </div>
