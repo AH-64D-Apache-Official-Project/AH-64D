@@ -647,7 +647,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "1"
+        textA = "1";
         textB = "0";
     };
     class RLWR_SA10_ACQ_TRK:RLWR_SA10_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -656,7 +656,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "1"
+        textA = "1";
         textB = "5";
     };
     class RLWR_SA15_ACQ_TRK:RLWR_SA15_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -665,7 +665,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "1"
+        textA = "1";
         textB = "7";
     };
     class RLWR_SA17_ACQ_TRK:RLWR_SA17_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -674,7 +674,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "1"
+        textA = "1";
         textB = "9";
     };
     class RLWR_SA19_ACQ_TRK:RLWR_SA19_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -683,7 +683,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "2"
+        textA = "2";
         textB = "0";
     };
     class RLWR_SA20_ACQ_TRK:RLWR_SA20_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -692,7 +692,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "2"
+        textA = "2";
         textB = "1";
     };
     class RLWR_SA21_ACQ_TRK:RLWR_SA21_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -701,7 +701,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "G"
+        textA = "G";
         textB = "U";
     };
     class RLWR_GU_ACQ_TRK:RLWR_GU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -710,7 +710,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "H"
+        textA = "H";
         textB = "K";
     };
     class RLWR_HK_ACQ_TRK:RLWR_HK_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -719,7 +719,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "N"
+        textA = "N";
         textB = "V";
     };
     class RLWR_NV_ACQ_TRK:RLWR_NV_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -728,7 +728,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "S"
+        textA = "S";
         textB = "6";
     };
     class RLWR_2S6_ACQ_TRK:RLWR_2S6_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -737,7 +737,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "S"
+        textA = "S";
         textB = "R";
     };
     class RLWR_SR_ACQ_TRK:RLWR_SR_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
@@ -746,7 +746,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
         type  = POINT_TYPE_RLWR;
         color[] = MPD_ICON_COLOR_YELLOW;
-        textA = "Z"
+        textA = "Z";
         textB = "U";
     };
     class RLWR_ZU_ACQ_TRK:RLWR_ZU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
