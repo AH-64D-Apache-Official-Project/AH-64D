@@ -33,8 +33,8 @@ class CfgAmmo {
 		airFriction                 = 0.056; //-0.0350;
 		sideAirFriction             = 0.03;  //-0.0250;
         initTime                    = 0.1;
-        thrustTime                  = 2.5;
-        thrust                      = 200;
+        thrustTime                  = 3;
+        thrust                      = 160;
         fuseDistance                = 100;
         timeToLive                  = 40;
         explosionTime               = 39;
@@ -60,7 +60,7 @@ class CfgAmmo {
         triggerOnImpact             =1;
         deleteParentWhenTriggered   =0;
 
-        effectsmissile              = "fza_ah64_hellfiresmoke";
+        effectsmissile              = "fza_hellfirelight";
         muzzleEffect                = "BIS_fnc_effectFiredHeliRocket";
         effectsMissileInit          = "MissileDAR1";
         explosionEffects            = "ATMissileExplosion"; 
