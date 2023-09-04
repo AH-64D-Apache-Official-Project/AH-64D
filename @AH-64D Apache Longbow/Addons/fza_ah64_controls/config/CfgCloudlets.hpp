@@ -47,24 +47,24 @@ class CfgCloudlets
         randomDirectionIntensityVar=0;
         destroyOnWaterSurface=1;
     };
-	class fzaHydraTrailSmoke: Missile4
-	{
-		weight = 1;
+    class fzaHydraTrailSmoke: Missile4
+    {
+        weight = 1;
         rubbing= 0.5;
         color[]=
         {
             {0.06,0.04,0.04, 0.06}
         };
-	};
-	class hellfireHeatBlur: ObjectDestructionRefract
-	{
-		weight = 1;
+    };
+    class hellfireHeatBlur: ObjectDestructionRefract
+    {
+        weight = 1;
         rubbing= 0;
-		size[] = {1.8,2.4};
-	};
+        size[] = {1.8,2.4};
+    };
     class hydraHeatBlur : hellfireHeatBlur
     {
-		size[] = {0.25,0.5};
+        size[] = {0.25,0.5};
     };
 };
 
@@ -121,46 +121,46 @@ class CfgLights
 };
 class fza_hellfirelight
 {
-	class motorLight
-	{
-		simulation = "light";
-		type = "RocketLight";
-		position[] = {0,0,0};
-		intensity = 0.01;
-		interval = 1;
-		lifeTime = 1;
-	};
-	class heatblur
-	{
-		simulation = "particles";
-		type = "hellfireHeatBlur";
-		lifeTime = 3;
-	};
+    class motorLight
+    {
+        simulation = "light";
+        type = "RocketLight";
+        position[] = {0,0,0};
+        intensity = 0.01;
+        interval = 1;
+        lifeTime = 1;
+    };
+    class heatblur
+    {
+        simulation = "particles";
+        type = "hellfireHeatBlur";
+        lifeTime = 3;
+    };
 };
 class fza_hydraEffect
 {
-	class motorLight
-	{
-		simulation = "light";
-		type = "RocketLight";
-		position[] = {0,0,0};
-		intensity = 0.01;
-		interval = 1;
-		lifeTime = 1;
-	};
-	class heatblur
-	{
-		simulation = "particles";
-		type = "hydraHeatBlur";
-		lifeTime = 0.5;
-	};
-	class trailSmoke
-	{
-		simulation = "particles";
-		type = "fzaHydraTrailSmoke";
-		position[] = {0,0,0};
-		intensity = 0.005;
-		interval = 1;
-		lifeTime = 1;
-	};
+    class motorLight
+    {
+        simulation = "light";
+        type = "RocketLight";
+        position[] = {0,0,0};
+        intensity = 0.01;
+        interval = 1;
+        lifeTime = 1;
+    };
+    class heatblur
+    {
+        simulation = "particles";
+        type = "hydraHeatBlur";
+        lifeTime = 0.5;
+    };
+    class trailSmoke
+    {
+        simulation = "particles";
+        type = "fzaHydraTrailSmoke";
+        position[] = {0,0,0};
+        intensity = 0.005;
+        interval = 1;
+        lifeTime = 1;
+    };
 };
