@@ -70,28 +70,19 @@ class CfgAmmo {
             power = 6;
             duration = 1;
             frequency = 20;
-            distance = 67.8178;
         };
         class CamShakeHit
         {
             power = 30;
             duration = 0.4;
             frequency = 20;
-            distance = 1;
         };
         class CamShakeFire
         {
-            power = 2.23607;
+            power = 1.8;
             duration = 1;
-            frequency = 20;
-            distance = 40;
-        };
-        class CamShakePlayerFire
-        {
-            power = 0.01;
-            duration = 0.1;
-            frequency = 20;
-            distance = 1;
+            frequency = 16;
+            distance = 4;
         };
     };
 };
