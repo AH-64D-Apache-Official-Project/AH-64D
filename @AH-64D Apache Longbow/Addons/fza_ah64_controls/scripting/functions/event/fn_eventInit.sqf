@@ -153,7 +153,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_engineOverspeed",        [false, false], true];
 
     //Ihadss init
-    _heli setVariable ["fza_ah64_ihadssinit", false, true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];

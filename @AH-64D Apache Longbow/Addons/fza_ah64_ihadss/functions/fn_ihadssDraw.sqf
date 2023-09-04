@@ -139,14 +139,16 @@ if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
 };
 
 //IHADSS INIT
-if !(_heli getvariable "fza_ah64_ihadssinit") then {
+
+private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
+if (isNil "_initialized") then {
     1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
     for "_i" from 121 to 206 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
-    _heli setVariable ["fza_ah64_ihadssinit", true];
+    missionNamespace setVariable ["fza_ah64_raddisp", true];
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
