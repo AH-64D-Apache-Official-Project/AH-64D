@@ -39,13 +39,13 @@ class CfgAmmo {
         suppressionRadiusHit        = 15;
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
-        maxSpeed                    = 739;
-        thrustTime                  = 2;
-        thrust                      = 840;
+        maxSpeed                    = 840;
+        thrustTime                  = 0.5;
+        thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
         sideAirFriction             = 0.004;
-        timeToLive                  = 15;
+        timeToLive                  = 17;
         whistleDist                 = 24;
 
         class CamShakeExplode
