@@ -36,7 +36,6 @@ class CfgAmmo {
         aiRateOfFireDistance        = 0;
 
         weaponType                  = "rocket";
-        weaponLockSystem            = 0;
         suppressionRadiusHit        = 15;
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
