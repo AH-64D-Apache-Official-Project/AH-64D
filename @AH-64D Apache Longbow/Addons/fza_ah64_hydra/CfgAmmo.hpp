@@ -6,7 +6,7 @@ class CfgAmmo {
 
     class fza_275_base: MissileBase 
     {
-
+        simulation = "shotRocket";
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
@@ -36,6 +36,7 @@ class CfgAmmo {
         aiRateOfFireDistance        = 0;
 
         weaponType                  = "rocket";
+        weaponLockSystem            = 0;
         suppressionRadiusHit        = 15;
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
