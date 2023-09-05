@@ -27,7 +27,7 @@ if (isplayer _unit) exitWith {};
 if (_unit == driver _heli) then {
     sleep 1.2;
     _heli animateSource ["pdoor", 0];
-    [_heli, "fza_ah64_battery", true] call fza_fnc_animSetValue;
+    _heli setVariable ["fza_systems_battSwitchOn",  true, true];
 };
 
 if (_unit == gunner _heli) then {
