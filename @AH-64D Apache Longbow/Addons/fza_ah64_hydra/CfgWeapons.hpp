@@ -9,7 +9,7 @@ class CfgWeapons {
         canLock = 0;
         weaponLockDelay = 0.0;
         cursor = "EmptyCursor";
-        cursorAim = "EmptyCursor";
+        cursorAim = "rocket";
         holdsterAnimValue = 3;
         weight = 80;
         useAction = 0;
