@@ -127,7 +127,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.6;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
@@ -167,7 +167,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.4;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
