@@ -112,35 +112,40 @@ class Turrets : Turrets
             class Wide
             {
                 gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+                initfov = "(55.9 / 120)";
+                minfov = "(55.9 / 120)";
+                maxfov = "(55.9 / 120)";
+                visionmode[] = {"Normal","Ti"};
+                thermalmode[] = {0,1};
                 directionStabilized = 1;
+                minanglex = -60;
+                maxanglex = 30;
+                minangley = -120;
+                maxangley = 120;
                 initanglex = 0;
                 initangley = 0;
-                initfov = 0.466;
-                maxanglex = 30;
-                maxangley = 120;
-                maxfov = 0.466;
-                minanglex = -60;
-                minangley = -120;
-                minfov = 0.466;
                 opticsdisplayname = "W";
-                thermalmode[] = {0,1};
-                visionmode[] = {"Normal","Ti"};
             };
             class Medium: Wide
             {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                initfov = 0.09;
-                maxfov = 0.09;
-                minfov = 0.09;
+                initfov = "(10.8 / 120)";
+                minfov = "(10.8 / 120)";
+                maxfov = "(10.8 / 120)";
                 opticsdisplayname = "M";
             };
             class Narrow: Wide
             {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                initfov = 0.01;
-                maxfov = 0.01;
-                minfov = 0.01;
+                initfov = "(1.2 / 120)";
+                minfov = "(1.2 / 120)";
+                maxfov = "(1.2 / 120)";
                 opticsdisplayname = "N";
+            };
+            class Zoom: Wide
+            {
+                initfov = "(0.6 / 120)";
+                minfov = "(0.6 / 120)";
+                maxfov = "(0.6 / 120)";
+                opticsdisplayname = "Z";
             };
         };
         class OpticsOut
