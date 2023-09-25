@@ -39,13 +39,13 @@ class CfgAmmo {
         suppressionRadiusHit        = 15;
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
-        maxSpeed                    = 739;
-        thrustTime                  = 2;
-        thrust                      = 840;
+        maxSpeed                    = 840;
+        thrustTime                  = 0.5;
+        thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
         sideAirFriction             = 0.004;
-        timeToLive                  = 15;
+        timeToLive                  = 17;
         whistleDist                 = 24;
 
         class CamShakeExplode
@@ -111,7 +111,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.6;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
@@ -151,7 +151,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.4;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 

@@ -123,14 +123,6 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
-fza_ah64_rocketTable =
-        [[0, 5]
-        ,[500, 8]
-        ,[750, 12]
-        ,[1000, 15]
-        ,[2000, 28]
-        ,[3500, 75]
-        ,[4500, 120]];
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
