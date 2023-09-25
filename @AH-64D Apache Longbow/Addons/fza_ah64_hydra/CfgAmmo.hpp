@@ -6,6 +6,7 @@ class CfgAmmo {
 
     class fza_275_base: MissileBase 
     {
+        simulation                  = "shotRocket";
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
@@ -52,28 +53,12 @@ class CfgAmmo {
             power = 16;
             duration = 1.8;
             frequency = 20;
-            distance = 191.554;
         };
         class CamShakeHit
         {
             power = 80;
             duration = 0.6;
             frequency = 20;
-            distance = 1;
-        };
-        class CamShakeFire
-        {
-            power = 2.9907;
-            duration = 1.8;
-            frequency = 20;
-            distance = 71.5542;
-        };
-        class CamShakePlayerFire
-        {
-            power = 2;
-            duration = 0.1;
-            frequency = 20;
-            distance = 1;
         };
     };
     class fza_275_m151: fza_275_base

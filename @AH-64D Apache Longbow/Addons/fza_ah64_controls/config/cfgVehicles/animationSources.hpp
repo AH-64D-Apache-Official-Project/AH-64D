@@ -372,20 +372,6 @@ class AnimationSources
         animPeriod = 0.001;
         initPhase=0;
     };
-    class plt_batt
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
-    };
-    class plt_apu
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
-    };
     class cpg_ihadss_brt
     {
         source = "user";
