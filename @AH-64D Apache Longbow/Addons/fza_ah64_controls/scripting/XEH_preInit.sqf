@@ -151,7 +151,6 @@ fza_ah64_burst = 1;
 fza_ah64_AseRWR = [];
 fza_ah64_tsdmap = 0;
 fza_ah64_Cscopelist = [];
-fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
