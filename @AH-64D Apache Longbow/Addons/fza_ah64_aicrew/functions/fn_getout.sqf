@@ -34,7 +34,7 @@ if (_unit == driver _heli) then {
     _heli setVariable ["fza_sfmplus_engPowerLeverState",    ["OFF", "OFF"]];
     [_heli, "fza_ah64_powerLever1", 0, 10] call fza_fnc_animSetValue;
     [_heli, "fza_ah64_powerLever2", 0, 10] call fza_fnc_animSetValue;
-    [_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
-    [_heli, "fza_ah64_battery", false] call fza_fnc_animSetValue;
+    _heli setVariable ["fza_systems_apuBtnOn", false, true];
+    _heli setVariable ["fza_systems_battSwitchOn",  false, true];
     [_heli, "fza_ah64_rtrbrake", true] call fza_fnc_animSetValue;
 };
