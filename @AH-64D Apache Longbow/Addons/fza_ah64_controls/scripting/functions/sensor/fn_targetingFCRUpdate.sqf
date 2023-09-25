@@ -73,7 +73,7 @@ private _fcrTargets = [];
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
 
-    _fcrTargets pushBack [aimpos _target, _type, speed _target, _target];
+    _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
 } foreach _fcrTracks;
 
 _fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
