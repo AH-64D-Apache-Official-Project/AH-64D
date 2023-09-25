@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic137"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic203"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_targetingGetSightSelect"></a><a name="Topic138"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_targetingGetSightSelect"></a><a name="Topic204"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_targetingGetSightSelect</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Gets the player's seat's sight. Can optionally be used to find the other crewstation's seat</p><ul><li><p>0 is FCR</p></li><li><p>1 is HMD</p></li><li><p>2 is TADS</p></li><li><p>3 is FXD</p></li></ul><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_heli</td><td class="CDLDefinition"><p>The helicopter to act on</p></td></tr><tr><td class="CDLEntry">_swapSeat</td><td class="CDLDefinition"><p>(optional) whether the other seat's sight should be found (default false)</p></td></tr></table><div class="CHeading">Returns</div><p>The number of the sight source that is used, or -1 if the player is not in either seat</p><div class="CHeading">Examples</div><p>Getting your own seat's info</p><pre class="CCode">_ret = [_heli] call fza_fnc_targetingGetSightSelect<br /><span class="SHComment">// _ret =&gt; 0</span></pre><p>Getting the opposite crewstation's info</p><pre class="CCode">_ret = [_heli, <span class="SHKeyword">true</span>] call fza_fnc_targetingGetSightSelect<br /><span class="SHComment">// _ret =&gt; 0</span></pre><div class="CHeading">Author</div><p>mattysmith22</p></div>
 </div>
