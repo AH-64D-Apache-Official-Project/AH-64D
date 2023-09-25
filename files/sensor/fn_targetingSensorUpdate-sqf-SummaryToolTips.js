@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:sensor/fn_targetingSensorUpdate.sqf",{176:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Fire control Radar script that takes target from sens radar and adds it to</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:sensor/fn_targetingSensorUpdate.sqf",{174:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Fire control Radar script that takes target from sens radar and adds it to</div></div>"});

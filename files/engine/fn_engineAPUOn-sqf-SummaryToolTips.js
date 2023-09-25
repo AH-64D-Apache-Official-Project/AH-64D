@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:engine/fn_engineAPUOn.sqf",{124:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns whether the APU is on.</div></div>"});
