@@ -24,6 +24,7 @@ Hydra 70 warheads fall into two categories:
 ### Cargo Warheads
 - Multi-purpose submunition (MPSM).
 - Parachute illumination.
+- Infra red parachute illumination.
 - APERS (anti-personnel) warhead.
 
 ## Hydra Types
@@ -31,25 +32,30 @@ Hydra 70 warheads fall into two categories:
 ### M151
 - High explosive (HEDP) '10 pounder'.
 - Contact Fuse.
-- Range 4.5km.
+- Range 7.5km.
 
 ### M229
 - High explosive (HEDP); elongated M151 '17 pounder'.
 - Penetrating Fuze.
-- Range 4km.
+- Range 7.5km.
+{% include note.html content="No longer used in the latest version."%}
 
 ### M261
 - Multi-purpose submunition (MPSM) Contaings 9 bomblets capable of penetrating light armor and include fragmentation effects for anti-infantry purposes
 - Air burst distance 500.
-- range 4.5km.
+- range 7.5km.
 
 ### M255
 - APERS (anti-personnel) warhead contains over 1,000 flechettes that are capable of penetrating light armor.
 - Air burst distance 200.
-- Range 4.5km.
+- Range 7.5km.
 
 ### M257
 - Parachute illumination.
-- Triggers 1.5 seconds after launch, Equates to about 1.5km.
+- Triggers 5.5 seconds after launch, Equates to about 3.5km.
 
-{% include important.html content="The Range is the maximum range you can use the rockets before getting issues with the accuracy of your employment." %}
+### M278
+- Infra red parachute illumination.
+- Triggers 5.5 seconds after launch, Equates to about 3.5km.
+
+{% include important.html content="The range is the maximmum range that the computer can ballisticaly calulate" %}
