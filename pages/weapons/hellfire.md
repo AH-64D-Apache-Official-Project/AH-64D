@@ -52,7 +52,7 @@ To engage a target with a SAL Hellfire, use the following sequence, known as SWA
 
 1. **S**ight - Select TADS {% include keybind.html name="sight-select-tads"%}
 2. **W**eapon - WAS (Weapon Action Switch) the Missiles {% include keybind.html name="was-msl"%}
-3. **A**rm - The aircraft by pressing {% include keybind.html name="arm-safe"%}, verify ARM indication on WPN page
+3. **A**rm - The aircraft by pressing Arm button on the armament panel, verify ARM indication on WPN page
 4. **R**ange - Continuous Lase (Second Detent) (G). Verify outside of minimum (500m), within maximum (6000m)
 5. **M**essages - Verify trajectory (DIR/LO/HI), Mode (NORM/~~RIPL~~/~~MAN~~) and constraints box
 
@@ -64,6 +64,6 @@ Begin by orienting the aircraft in the threat direction and perform the followin
     1. Conduct a Single Scan {% include keybind.html name="radar-singlescan"%}
     2. Select the desired NTS (Next to Shoot) {% include keybind.html name="targeting-next"%}.
 2. **W**eapon - WAS (Weapon Action Switch) the Missiles {% include keybind.html name="was-msl"%}
-3. **A**rm - The aircraft by pressing {% include keybind.html name="arm-safe"%}, verify ARM indication on WPN page
+3. **A**rm - The aircraft by pressing Arm button on the armament panel, verify ARM indication on WPN page
 4. **R**ange - Verify outside of minimum (500m), within maximum (6000m) for Stationary, 8000m for Moving
 5. **M**essages - Verify constraints box

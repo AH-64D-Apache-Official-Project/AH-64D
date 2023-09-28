@@ -37,7 +37,7 @@ To engage a target with Rockets, use the following sequence, known as SWARM:
 
 1. **S**ight - Select HMD {% include keybind.html name="sight-select-hmd"%}, TADS {% include keybind.html name="sight-select-tads"%} or FCR {% include keybind.html name="sight-select-fcr"%}
 2. **W**eapon - WAS (Weapon Action Switch) the Rockets {% include keybind.html name="was-rkt"%}
-3. **A**rm - The aircraft by pressing {% include keybind.html name="arm-safe"%}, verify ARM indication on WPN page
+3. **A**rm - The aircraft by pressing Arm button on the armament panel, verify ARM indication on WPN page
 4. **R**ange - Single Detent Range {% include keybind.html name="target-range" %} if stationary or Continuous Lase (Second Detent) (G) if moving. Verify outside of minimum (500m), within maximum (7500m)
 5. **M**essages - Verify Type Selection (6RC, 6PD, 6FL, etc.), Mode (NORM/FXD) and Quantity OR no PYLON LIMIT, AZ LIMIT, etc. displayed
 

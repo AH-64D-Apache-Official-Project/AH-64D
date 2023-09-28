@@ -66,12 +66,6 @@ was-msl:
   category: Weapons
   keys: [3]
   mod: true
-arm-safe:
-  name: Arm/Safe
-  description: Toggles the aircraft between armed and safe
-  category: Weapons
-  keys: [4]
-  mod: true
 missile-advance:
   name: Missile Advance
   description: Selects next missile type
