@@ -119,3 +119,12 @@ li.sidebarTitle {
 .navbar-inverse .navbar-toggle {
     border-color: #015CAE;
 }
+
+body {
+    background-color: #333333;
+    color: #d0d0d0;
+}
+
+table {
+    color: #808080;
+}

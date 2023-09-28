@@ -38,15 +38,15 @@ entries:
     - title: FCR
       url: targeting-fcr.html
       output: [web]
+    - title: Sighting Systems
+      url: targeting-sights.html
+      output: [web]
 
   - title: Weapons
     output: web
     folderitems:
     - title: WAS Logic
       url: weapons-was.html
-      output: [web]
-    - title: Sighting Systems
-      url: weapons-sights.html
       output: [web]
     - title: M230 Chaingun
       url: weapons-m230.html

@@ -13,4 +13,4 @@ To WAS, or action, a weapon simply press its WAS button. To De-WAS, or De-action
 
 {% include warning.html content="Even if a weapon is actioned, you **cannot fire it until the aircraft is armed**." %}
 
-To arm/safe the aircraft, use the {% include keybind.html name="arm-safe"%} key.
+{% include important.html content="To arm/safe the aircraft, you click the arm/safe button on the **armament panel**." %}

@@ -116,7 +116,7 @@ margin-top: -40px
 }
 
 table {
-    background-color: transparent;
+    background-color: #333333;
 }
 caption {
     padding-top: 8px;
@@ -162,7 +162,7 @@ table > thead:first-child > tr:first-child > td {
 }
 
 table > tbody > tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
+    background-color: #333333;
 }
 
 table col[class*="col-"] {
@@ -743,7 +743,7 @@ a.dropdown-toggle.otherProgLangs {
 
 span.muted {color: #666;}
 
-table code {background-color: transparent;}
+table code {background-color: #333333;}
 
 .highlight .err {
     color: #a61717;
@@ -1029,7 +1029,7 @@ ol li ul li ol li ul li{
 }
 
 table thead th code.highlighter-rouge {
-    background-color: transparent;
+    background-color: #333333;
 }
 
 

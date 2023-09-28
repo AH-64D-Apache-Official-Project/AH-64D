@@ -94,13 +94,13 @@ radar-gtm:
   name: FCR Mode Select GTM
   description: Sets FCR mode to Ground Tracking Mode
   category: FCR
-  keys: [Ctrl,H]
+  keys: [Shift,H]
   mod: true
 radar-atm:
   name: FCR Mode Select ATM
   description: Sets FCR mode to Air Tracking Mode
   category: FCR
-  keys: [Shift,H]
+  keys: [Ctrl,H]
   mod: true
 radar-singlescan:
   name: FCR - Single Scan
