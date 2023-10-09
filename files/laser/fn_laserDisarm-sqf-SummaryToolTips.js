@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:laser/fn_laserDisarm.sqf",{202:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Disarms the apache\'s LRFD, from either seat.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:laser/fn_laserDisarm.sqf",{124:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Disarms the apache\'s LRFD, from either seat.</div></div>"});
