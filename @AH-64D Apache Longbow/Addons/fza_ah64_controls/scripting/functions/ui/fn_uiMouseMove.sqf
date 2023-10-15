@@ -17,7 +17,7 @@ Author:
     Unknown
 ---------------------------------------------------------------------------- */
 params ["", "_mousex", "_mousey"];
-if (vehicle player iskindof "fza_ah64base" && fza_ah64_tiron && fza_ah64_headTrackAllowCursorMove) then {
+if (vehicle player iskindof "fza_ah64base" && fza_ah64_tiron && fza_ah64_headTrackAllowCursorMove && !freeLook) then {
     fza_ah64_mousehorpos = fza_ah64_mousehorpos + _mousex * fza_ah64_headTrackSensitivity;
     fza_ah64_mousevertpos = fza_ah64_mousevertpos + _mousey * fza_ah64_headTrackSensitivity;
     if (fza_ah64_mousehorpos > (safezoneXabs + safezonew)) then {

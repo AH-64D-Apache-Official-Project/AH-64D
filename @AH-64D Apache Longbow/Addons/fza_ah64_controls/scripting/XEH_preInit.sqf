@@ -158,7 +158,7 @@ fza_ah64_introShownThisScenario = false;
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
+fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_ihadss_fnc_fovControl];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -259,3 +259,6 @@ OVERRIDE_ACTION("nextWeapon")
 OVERRIDE_ACTION("prevWeapon")
 OVERRIDE_ACTION("launchCM")
 OVERRIDE_ACTION("vehLockTargets")
+OVERRIDE_ACTION("zoomIn")
+OVERRIDE_ACTION("zoomOut")
+OVERRIDE_ACTION("NightVision")

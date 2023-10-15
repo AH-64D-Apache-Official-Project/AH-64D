@@ -39,5 +39,11 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
     CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_W, "TADS LHG FOV Switch - W", "Sets the Tads FOV to Wide");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_M, "TADS LHG FOV Switch - M", "Sets the Tads FOV to Medium");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_N, "TADS LHG FOV Switch - N", "Sets the Tads FOV to Narrow");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_Z, "TADS LHG FOV Switch - Z", "Sets the Tads FOV to Zoom");
+    CfgUserActionDef(fza_ah64_SensorSelect_FLIR, "LHG Sensor Select Switch - FLIR", "Sets the Tads Sensor to FLIR");
+    CfgUserActionDef(fza_ah64_SensorSelect_DTV, "LHG Sensor Select Switch - DTV", "Sets the Tads Sensor to DTV");
     #include "\fza_ah64_controls\headers\controls.h"
 };

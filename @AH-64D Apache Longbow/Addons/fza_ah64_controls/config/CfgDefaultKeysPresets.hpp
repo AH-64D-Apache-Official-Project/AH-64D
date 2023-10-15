@@ -33,6 +33,12 @@ class CfgDefaultKeysPresets {
             fza_ah64_fcrModeSwitch_up[] = {0x2A130023}; //Shift+H
             fza_ah64_fcrModeSwitch_down[] = {0x1D130023}; //Ctrl+H
             fza_ah64_flare[] = {0x13}; // R
+            fza_ah64_tadsLHGFov_W[] = {};
+            fza_ah64_tadsLHGFov_M[] = {};
+            fza_ah64_tadsLHGFov_N[] = {};
+            fza_ah64_tadsLHGFov_Z[] = {};
+            fza_ah64_SensorSelect_FLIR[] = {};
+            fza_ah64_SensorSelect_DTV[] = {};
         };
     };
     class Arma3: Arma2 {
