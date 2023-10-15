@@ -23,7 +23,6 @@ params ["_heli"];
 private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
 private _thermalM   = _heli getVariable "fza_ah64_tadsThermal";
 private _a3tiM      = _heli getVariable "fza_ah64_tadsA3ti";
-private _opticIndex = _heli getTurretOpticsMode [0];
 private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
 private _flirIndex  = [0,1,2,3];
 private _a3tiIndex  = [4,5,6,7];
