@@ -12,7 +12,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, [1]] call fza_weapons_fnc_pylonSetRockets
+    [_heli, -1] call fza_weapons_fnc_pylonSetRockets
 
 Author:
     Snow(Dryden)
@@ -31,5 +31,4 @@ private _rocketPylons = getAllPylonsInfo _heli select {
     _rktPylonIndex pushBack _pylId;
 } forEach _rocketPylons;
 
-
-[_heli, _rktPylonIndex, _turret] call fza_weapons_fnc_pylonSetOwner;
+[_heli, _rktPylonIndex, [_turret]] call fza_weapons_fnc_pylonSetOwner;

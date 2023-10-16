@@ -12,7 +12,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, [1]] call fza_weapons_fnc_pylonSetHellfire
+    [_heli, -1] call fza_weapons_fnc_pylonSetHellfire
 
 Author:
     Snow(Dryden)
@@ -31,4 +31,4 @@ private _HellfirePylons = getAllPylonsInfo _heli select {
     _hfPylonIndex pushBack _pylId;
 } forEach _HellfirePylons;
 
-[_heli, _hfPylonIndex, _turret] call fza_weapons_fnc_pylonSetOwner;
+[_heli, _hfPylonIndex, [_turret]] call fza_weapons_fnc_pylonSetOwner;
