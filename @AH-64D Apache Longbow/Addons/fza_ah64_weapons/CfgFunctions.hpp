@@ -11,7 +11,9 @@ class CfgFunctions
         tag = "fza_weapons";
         class pylon {
             file = "\fza_ah64_weapons\functions\pylon";
+            class pylonSetHellfire {R;};
             class pylonSetOwner {R;};
+            class pylonSetRocket {R;};
         };
     };
 };

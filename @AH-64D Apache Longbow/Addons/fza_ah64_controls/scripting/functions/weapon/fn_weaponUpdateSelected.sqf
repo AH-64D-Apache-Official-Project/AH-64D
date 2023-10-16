@@ -19,12 +19,6 @@ Author:
 params["_heli"];
 if !(_heli turretLocal [0]) exitWith {};
 
-if (player == driver _heli && !isPlayer gunner _heli && !isManualFire _heli) then {
-    player action ["ManualFire", vehicle player];
-};
-
-
-
 switch (_heli getVariable "fza_ah64_was") do {
     case WAS_WEAPON_NONE: {
         _heli selectWeaponTurret ["fza_ma_safe",[0]];
