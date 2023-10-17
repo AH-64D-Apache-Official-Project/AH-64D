@@ -37,7 +37,7 @@ switch (_seatwas) do {
     };
     case WAS_WEAPON_RKT: {
         if !(_heli getVariable "fza_ah64_armSafeArmed") exitwith {
-            _heli selectWeaponTurret ["fza_ma_safe",[0]];
+            _heli selectWeaponTurret ["fza_ma_safe",[_curTurret]];
         };
         if ((_curTurret in [[-1]] && _oSeatWas == WAS_WEAPON_RKT) || (_curTurret in [[0]] && _oSeatWas != WAS_WEAPON_RKT)) then {
             [_heli, _curTurret] call fza_weapons_fnc_pylonSetRocket;
@@ -55,7 +55,7 @@ switch (_seatwas) do {
     };
     case WAS_WEAPON_MSL: {
         if !(_heli getVariable "fza_ah64_armSafeArmed") exitwith {
-            _heli selectWeaponTurret ["fza_ma_safe",[0]];
+            _heli selectWeaponTurret ["fza_ma_safe",[_curTurret]];
         };
         if (_oSeatWas == WAS_WEAPON_MSL) then {
             [_heli, WAS_WEAPON_NONE, true] call fza_fnc_weaponActionSwitch;
@@ -63,13 +63,13 @@ switch (_seatwas) do {
         [_heli, _curTurret] call fza_weapons_fnc_pylonSethellfire;
         private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
         if (_selectedMissile != "") exitwith {
-            vehicle player selectWeaponTurret [_selectedMissile,[0],_selectedMissile];
+            vehicle player selectWeaponTurret [_selectedMissile,[_curTurret],_selectedMissile];
         };
         private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
         if (count _missiles > 0) exitwith {
             _heli setVariable ["fza_ah64_selectedMissile", _missiles # 0, true];
-            vehicle player selectWeaponTurret [_missiles # 0,[0],_missiles # 0];
+            vehicle player selectWeaponTurret [_missiles # 0,[_curTurret],_missiles # 0];
         };
-        _heli selectWeaponTurret ["fza_ma_safe",[0]];
+        _heli selectWeaponTurret ["fza_ma_safe",[_curTurret]];
     };
 };
