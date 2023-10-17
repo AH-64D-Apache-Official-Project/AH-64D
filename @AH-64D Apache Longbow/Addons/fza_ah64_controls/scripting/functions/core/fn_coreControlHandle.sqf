@@ -197,10 +197,14 @@ if (_value) then {
         };
         case "fza_ah64_SensorSelect_FLIR": {
             if (player != Gunner _heli) exitWith {};
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            if (_Visionmode == 1) exitwith {};
             _heli setvariable ["fza_ah64_tadsThermal", true];
         };
         case "fza_ah64_SensorSelect_DTV": {
             if (player != Gunner _heli) exitWith {};
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            if (_Visionmode == 1) exitwith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
             _heli setvariable ["fza_ah64_tadsThermal", false];
             if (_inputindex == 1) then {
