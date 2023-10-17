@@ -64,7 +64,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVar
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
 
 [_heli, _mpdIndex, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC] call fza_mpd_fnc_acqDraw;
-private _was = _heli getVariable "fza_ah64_was";
+private _was = [_heli] call fza_weapons_fnc_WeaponGetWas;
 private _selectedWeapon = _state get "selectedWeapon";
 private _wasOverride = _state get "wasOverride";
 

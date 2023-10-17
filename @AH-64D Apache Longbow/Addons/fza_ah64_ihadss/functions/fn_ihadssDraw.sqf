@@ -444,10 +444,11 @@ if (speed _heli < 5) then {
     _vertvect = -100;
     _horvect = -100;
 };
-private _was = _heli getVariable "fza_ah64_was";
-if (_was == WAS_WEAPON_MSL) then {
+private _seatWas    = [_heli] call fza_weapons_fnc_WeaponGetWas;
+private _oSeatWas    = [_heli, true] call fza_weapons_fnc_WeaponGetWas;
+if (_seatWas == WAS_WEAPON_MSL) then {
     private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
-    _weapon = (["MSL", "PMSL"] select (isManualFire _heli));
+    _weapon = (["MSL", "PMSL"] select (player == driver _heli));
 
     switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
         case "DIR": {
@@ -472,8 +473,13 @@ if (_was == WAS_WEAPON_MSL) then {
     };
 };
 
-if (_was == WAS_WEAPON_RKT) then {
-    private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
+if (_seatWas == WAS_WEAPON_RKT) then {
+    private _weapon = (["RKT", "PRKT"] select (player == driver _heli));
+    if (player == gunner _heli) then {
+        if (_oSeatWas != WAS_WEAPON_RKT) exitwith {};
+        _weapon = "PRKT";
+    };
+
     private _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
     private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
@@ -486,14 +492,14 @@ if (_was == WAS_WEAPON_RKT) then {
     };
 };
 
-if (_was == WAS_WEAPON_NONE) then {
+if (_seatWas == WAS_WEAPON_NONE) then {
     _weapon = "";
     _weaponstate = "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
-if (_was == WAS_WEAPON_GUN) then {
-    _weapon = (["GUN", "PGUN"] select (isManualFire _heli));
+if (_seatWas == WAS_WEAPON_GUN) then {
+    _weapon = (["GUN", "PGUN"] select (player == driver _heli));
     _weaponstate = format["ROUNDS %1", _heli ammo "fza_m230"];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };

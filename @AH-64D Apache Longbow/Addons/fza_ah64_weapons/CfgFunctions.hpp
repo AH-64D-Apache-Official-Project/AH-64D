@@ -15,5 +15,9 @@ class CfgFunctions
             class pylonSetOwner {R;};
             class pylonSetRocket {R;};
         };
+        class functions {
+            file = "\fza_ah64_weapons\functions";
+            class WeaponGetWas {R;};
+        };
     };
 };

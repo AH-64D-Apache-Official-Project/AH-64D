@@ -23,7 +23,6 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _wasState           = _heli getVariable "fza_ah64_was";
 private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo       = _heli getVariable "fza_ah64_fcrLastScan";
 private _CscopeCount        = 0;

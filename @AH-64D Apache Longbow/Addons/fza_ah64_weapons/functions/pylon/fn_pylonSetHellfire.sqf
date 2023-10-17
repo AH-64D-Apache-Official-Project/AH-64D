@@ -12,14 +12,14 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, -1] call fza_weapons_fnc_pylonSetHellfire
+    [_heli, [-1]] call fza_weapons_fnc_pylonSetHellfire
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_turret"];
 
-if !(_turret == 0 || _turret == -1) then {};
+if !(_turret in [[0]] || _turret in [[-1]]) then {};
 
 private _hfPylonIndex = [];
 private _HellfirePylons = getAllPylonsInfo _heli select {
@@ -31,4 +31,4 @@ private _HellfirePylons = getAllPylonsInfo _heli select {
     _hfPylonIndex pushBack _pylId;
 } forEach _HellfirePylons;
 
-[_heli, _hfPylonIndex, [_turret]] call fza_weapons_fnc_pylonSetOwner;
+[_heli, _hfPylonIndex, _turret] call fza_weapons_fnc_pylonSetOwner;

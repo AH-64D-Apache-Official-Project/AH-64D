@@ -53,7 +53,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
 
 //Weapon Control
-private _wasState = _heli getVariable "fza_ah64_was";
+private _wasState = [_heli] call fza_weapons_fnc_WeaponGetWas;
 private _mslTraj  = _heli getVariable "fza_ah64_hellfireTrajectory";
 private _wpnCtrl  = "";
 private _wpnStat  = "";
