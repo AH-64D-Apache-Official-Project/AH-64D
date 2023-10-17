@@ -58,7 +58,7 @@ switch (_seatwas) do {
             _heli selectWeaponTurret ["fza_ma_safe",[_curTurret]];
         };
         if (_oSeatWas == WAS_WEAPON_MSL) then {
-            [_heli, WAS_WEAPON_NONE, true] call fza_fnc_weaponActionSwitch;
+            //[_heli, WAS_WEAPON_NONE, true] call fza_fnc_weaponActionSwitch;
         };
         [_heli, _curTurret] call fza_weapons_fnc_pylonSethellfire;
         private _selectedMissile = _heli getVariable "fza_ah64_selectedMissile";
