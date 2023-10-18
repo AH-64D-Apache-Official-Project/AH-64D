@@ -17,6 +17,7 @@ class CfgFunctions
         };
         class functions {
             file = "\fza_ah64_weapons\functions";
+            class getTadsAimPosASL {R;};
             class WeaponGetWas {R;};
         };
     };
