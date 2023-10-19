@@ -176,6 +176,7 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 129) ctrlSetTextColor[0.1, 1, 0, 1];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 184) ctrlSetTextColor[0.1, 1, 0, 1];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0.1, 1, 0, 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 189) ctrlSetTextColor[0.1, 1, 0, 1];
         _rocketcode = "???";
     };
 } else {
@@ -272,6 +273,12 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
+    //LSC SYMBOLOGY FOR GUNNER
+    if (_heli getvariable "fza_ah64_LmcActive") then {
+        4 cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
+        ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
+        ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+    };
 
 } else {
 
@@ -279,6 +286,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
     ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 703) ctrlSetText "";
 
     _ihadssidx = 121;
 
