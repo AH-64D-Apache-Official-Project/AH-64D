@@ -74,7 +74,7 @@ if (player != gunner _heli && !(player == driver _heli && isManualFire _heli)) e
 };
 
 if (cameraView == "GUNNER" && (_sight in [SIGHT_HMD,SIGHT_TADS])) then {
-    _heli lockCameraTo [objNull, [0], false];
+    _heli lockCameraTo [objNull, [0]];
 };
 
 if (_targPos isEqualTo -1) exitWith {
@@ -97,21 +97,21 @@ if (_targPos isEqualTo -1) exitWith {
     _heli animateSource["pylon4", 0];
     _heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
     if (_lockCameraForwards) then {
-        _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0], false];
+        _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0]];
     };
 };
 
 if (_sight == SIGHT_FCR) then {
-    _heli lockCameraTo [_targPos, [0], false];
+    _heli lockCameraTo [_targPos, [0]];
 };
 
 if (_sight == SIGHT_HMD && (gunner _heli == player && cameraView != "GUNNER" || driver _heli == player && isManualFire _heli)) then {
-    _heli lockCameraTo [_targPos, [0], false];
+    _heli lockCameraTo [_targPos, [0]];
 };
 
 #define NOTVISIBLEFROMTADS(_heli, _tgt) ([(_heli), "VIEW", (_tgt)] checkVisibility [eyePos player, getPosASL (_tgt)] == 0)
 if (_sight == SIGHT_TADS && (gunner _heli == player) && !isNull (_heli getVariable "fza_ah64_tadsLocked")) then {
-    _heli lockCameraTo [aimPos (_heli getVariable "fza_ah64_tadsLocked"), [0], false];
+    _heli lockCameraTo [aimPos (_heli getVariable "fza_ah64_tadsLocked"), [0]];
 
     if (NOTVISIBLEFROMTADS(_heli, _heli getVariable "fza_ah64_tadsLocked") && !fza_ah64_tadsLockCheckRunning) then {
         fza_ah64_tadsLockCheckRunning = true;
