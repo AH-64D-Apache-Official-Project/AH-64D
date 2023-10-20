@@ -51,6 +51,7 @@ if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(al
     2 cuttext["", "PLAIN"];
     3 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
+    5 cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
     _heli setVariable ["fza_ah64_monocleinbox", true];
 };
@@ -99,6 +100,9 @@ if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
 };
 if (isNull laserTarget _heli) then {
     4 cuttext["", "PLAIN", 0.1];
+};
+if !(_heli getvariable "fza_ah64_LmcActive") then {
+    5 cuttext["", "PLAIN", 0.01, false];
 };
 
 
@@ -185,12 +189,14 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
         2 cuttext["", "PLAIN"];
         3 cuttext["", "PLAIN"];
         4 cuttext["", "PLAIN"];
+        5 cuttext["", "PLAIN"];
     };
 };
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
+    5 cuttext["", "PLAIN"];
 };
 
 //IHADSS FOR GUNNER HEADSDOWN
@@ -275,7 +281,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
     };
     //LSC SYMBOLOGY FOR GUNNER
     if (_heli getvariable "fza_ah64_LmcActive") then {
-        4 cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
+        5 cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
         ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     };
