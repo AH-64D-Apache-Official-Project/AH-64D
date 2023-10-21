@@ -97,57 +97,6 @@ class CfgCloudlets
     };
 };
 
-class CfgLights
-{
-    class fza_FlareLightMain
-    {
-        ambient[]={1,0.9,0.1,0.003,0};
-        diffuse[]={1,0.9,0.1};
-        color[]={1,0.9,0.1};
-        brightness=0.8;
-        size=1;
-        drawLight=0;
-        blinking="false";
-        flareSize=2;
-        flareMaxDistance=10000;
-        useFlare=1;
-        shape="fza_ah64_us\flare2single.p3d";
-        class Attenuation
-        {
-            start=0;
-            constant=0;
-            linear=0;
-            quadratic=0;
-            hardLimitStart=1;
-            hardLimitEnd=0;
-        };
-        position[]={0,0,0};
-    };
-    class fza_FlareLightwhite
-    {
-        diffuse[]={1,1,0.8};
-        color[]={1,1,0.8};
-        ambient[]={0,0,0,0};
-        brightness=1;
-        size=1;
-        drawLight=0;
-        blinking="false";
-        flareSize=3;
-        flareMaxDistance=10000;
-        useFlare=1;
-        shape="fza_ah64_us\flare2single.p3d";
-        class Attenuation
-        {
-            start=0;
-            constant=0;
-            linear=0;
-            quadratic=0;
-            hardLimitStart=0.0099999998;
-            hardLimitEnd=0.0099999998;
-        };
-        position[]={0,0,0};
-    };
-};
 class fza_hellfirelight
 {
     class motorLight
@@ -203,5 +152,57 @@ class fza_ah64_deploysmoke
         intensity = 1;
         interval = 1;
         lifeTime = 0.01;
+    };
+};
+
+class CfgLights
+{
+    class fza_FlareLightMain
+    {
+        ambient[]={1,0.9,0.1,0.003,0};
+        diffuse[]={1,0.9,0.1};
+        color[]={1,0.9,0.1};
+        brightness=0.8;
+        size=1;
+        drawLight=0;
+        blinking="false";
+        flareSize=2;
+        flareMaxDistance=10000;
+        useFlare=1;
+        shape="fza_ah64_us\flare2single.p3d";
+        class Attenuation
+        {
+            start=0;
+            constant=0;
+            linear=0;
+            quadratic=0;
+            hardLimitStart=1;
+            hardLimitEnd=0;
+        };
+        position[]={0,0,0};
+    };
+    class fza_FlareLightwhite
+    {
+        diffuse[]={1,1,0.8};
+        color[]={1,1,0.8};
+        ambient[]={0,0,0,0};
+        brightness=1;
+        size=1;
+        drawLight=0;
+        blinking="false";
+        flareSize=3;
+        flareMaxDistance=10000;
+        useFlare=1;
+        shape="fza_ah64_us\flare2single.p3d";
+        class Attenuation
+        {
+            start=0;
+            constant=0;
+            linear=0;
+            quadratic=0;
+            hardLimitStart=0.0099999998;
+            hardLimitEnd=0.0099999998;
+        };
+        position[]={0,0,0};
     };
 };
