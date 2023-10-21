@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:anim/fn_animReset.sqf","fn_animReset.sqf");NDSummary.OnSummaryLoaded("File:anim/fn_animReset.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[201,0,1,"Functions","Functions"],[202,0,0,"fza_fnc_animReset","fza_fnc_animReset"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:anim/fn_animReset.sqf","fn_animReset.sqf");NDSummary.OnSummaryLoaded("File:anim/fn_animReset.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[185,0,1,"Functions","Functions"],[186,0,0,"fza_fnc_animReset","fza_fnc_animReset"]]);
