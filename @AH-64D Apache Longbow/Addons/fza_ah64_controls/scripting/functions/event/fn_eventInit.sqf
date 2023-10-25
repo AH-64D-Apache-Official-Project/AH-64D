@@ -163,6 +163,12 @@ _heli setVariable ["fza_ah64_fire_apu_fx", []];
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
 
+//free cursor
+_heli setVariable ["fza_ah64_freeCursorEnabled", false];
+_heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
+_heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
+
+
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;

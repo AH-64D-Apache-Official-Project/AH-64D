@@ -139,6 +139,18 @@ if (_value) then {
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;
         };
+        case "fza_ah64_freeCursor": {
+            private _cursorEnabled = (_heli getVariable "fza_ah64_freeCursorEnabled");
+            _heli setVariable ["fza_ah64_freeCursorEnabled", !_cursorEnabled];
+            if (_cursorEnabled) then {
+                _heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
+                _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
+                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlSetPosition[0.5 - 0.005, 0.5 - 0.009];
+                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlSetPosition[0.5 - 0.25, 0.5 + 0.02];
+                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlCommit 0.01;
+                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlCommit 0.01;
+            };
+        };
     };
 };
 
