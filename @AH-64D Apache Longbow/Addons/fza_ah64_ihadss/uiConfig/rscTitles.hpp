@@ -1,29 +1,33 @@
 class RscTitles
 {
-    class fza_ah64_mapfake
+    class fza_ah64_nvsoverlay
     {
-        idd = 300;
-        movingEnable = 1;
-        enableSimulation = 1;
-        enableDisplay = 1;
+        idd = 800;
+        movingEnable =  1;
         duration     =  99999;
         fadein       =  0;
         fadeout      =  0;
-        name = "fza_ah64_mapfake";
-        class controlsBackground
+        name = "fza_ah64_nvsoverlay";
+        onLoad = "uiNameSpace setvariable ['fza_ah64_nvsoverlay',_this select 0];";
+        class controls
         {
-            class fza_ah64_cMap: fza_ah64_mapControl
+            //HDU PNVS WITH HDR OR NVG//
+            class fza_ah64_nvsoverlay
             {
-                idc = 3001;
-                moveOnEdges = 0;
-                x = -100;
-                y = -100;
-                w = 0.01;
-                h = 0.01;
+                idc = 120;
+                type = 0;
+                colorText[] = {-1, 1, 0, 0.85};
+                font = "EtelkaMonospaceProBold";
+                colorBackground[] = {1, 1, 1, 1};
+                text = "";
+                style = 48;
+                sizeEx = 1024;
+                x = 0.12;
+                y = 0.19;
+                w = 0.78;
+                h = 0.78;
             };
         };
-        class controls {};
-        class objects{};
     };
     class fza_ah64_click_helper
     {
@@ -881,22 +885,6 @@ class RscTitles
                 };
                 class controls
                 {
-                    //HDU PNVS WITH HDR OR NVG//
-                    class fza_ah64_raddisp_hdu_bg2
-                    {
-                        idc = 120;
-                        type = 0;
-                        colorText[] = {-1, 1, 0, 0.85};
-                        font = "EtelkaMonospaceProBold";
-                        colorBackground[] = {1, 1, 1, 1};
-                        text = "";
-                        style = 48;
-                        sizeEx = 1024;
-                        x = 0.12;
-                        y = 0.19;
-                        w = 0.78;
-                        h = 0.78;
-                    };
                     ///base///
                     class fza_ah64_raddisp_radrange //ACTIVE SENSOR + RANGE
                     {
