@@ -40,12 +40,16 @@ _heli setVariable ["fza_sfmplus_maxCtrFuelMass",     getNumber (_config >> "maxC
 _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxAftFuelMass")];  //1474lbs in kg
 //_heli setVariable ["fza_sfmplus_maxExtFuelMass", getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
+//Torque scalars
+//_heli setVariable ["fza_sfmplus_pitchTorqueScalar",  1.75];
+//_heli setVariable ["fza_sfmplus_rollTorqueScalar",   0.75];
+
 //Position Hold
-_heli setVariable ["fza_sfmplus_pid_roll",           [1.200, 0.048, 0.920] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_pitch",          [0.550, 0.250, 2.200] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_roll",           [0.0120, 0.0015, 0.0180] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_pitch",          [0.0750, 0.0025, 0.0450] call fza_fnc_pidCreate];
 //Attitude Hold
-_heli setVariable ["fza_sfmplus_pid_roll_att",       [0.500, 0.050, 0.050] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.550, 0.250, 2.200] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_roll_att",       [0.0800, 0.0015, 0.0180] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.1850, 0.0025, 0.0450] call fza_fnc_pidCreate];
 //Altitude Hold
 _heli setVariable ["fza_sfmplus_pid_radHold",        [0.015,  0.003,  0.025]  call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] call fza_fnc_pidCreate];

@@ -9,7 +9,7 @@ class CfgWeapons {
         canLock = 0;
         weaponLockDelay = 0.0;
         cursor = "EmptyCursor";
-        cursorAim = "rocket";
+        cursorAim = "EmptyCursor";
         holdsterAnimValue = 3;
         weight = 80;
         useAction = 0;
@@ -62,7 +62,7 @@ class CfgWeapons {
             soundContinuous = 0;
             autoFire = 0;
             reloadTime = 0.09;
-            dispersion = 0.015;
+            dispersion = 0.0025;
             aiRateOfFire = 1;
             aiRateOfFireDistance = 10;
             minRange = 0;
@@ -88,8 +88,8 @@ class CfgWeapons {
             fza_ammoType = ammoName;\
         };
     ROCKET_WEAPON_CONFIG(fza_275_m151, "M151 HEDP")
-    ROCKET_WEAPON_CONFIG(fza_275_m229, "M229 HEDP")
-    ROCKET_WEAPON_CONFIG(fza_275_m255, "M255 FLEC")
-    ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM")
+    ROCKET_WEAPON_CONFIG(fza_275_m255a1, "M255A1 FLEC")
     ROCKET_WEAPON_CONFIG(fza_275_m257, "M257 IL")
+    ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM")
+    ROCKET_WEAPON_CONFIG(fza_275_m278, "M278 IR IL")
 };

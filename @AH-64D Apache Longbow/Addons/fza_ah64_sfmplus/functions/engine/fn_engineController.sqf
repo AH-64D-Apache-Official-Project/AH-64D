@@ -26,6 +26,7 @@ private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
+private _onGnd     = [_heli] call fza_sfmplus_fnc_onGround;
 
 private _engState  = _heli getVariable "fza_sfmplus_engState";
 private _eng1State = _engState select 0;
@@ -108,7 +109,7 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _hel
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
     && _engPctTQ < 0.10
-    && !isTouchingGround _heli
+    && !_onGnd
     && _rtrRPM > EPSILON) then {
     _heli setVariable ["fza_sfmplus_isAutorotating", true];
 } else {

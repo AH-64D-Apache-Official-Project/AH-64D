@@ -27,8 +27,8 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
     _heli setVariable ["fza_ah64_aiESStop", false];
     //Ai Start up sequence
     [_heli, "fza_ah64_rtrbrake", false] call fza_fnc_animSetValue;
-    [_heli, "fza_ah64_battery", true] call fza_fnc_animSetValue;
-    [_heli, "fza_ah64_apu", true] call fza_fnc_animSetValue;
+    _heli setVariable ["fza_systems_battSwitchOn",  true, true];
+    _heli setVariable ["fza_systems_apuBtnOn", true, true];
 
     sleep 1;
     if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
@@ -59,7 +59,7 @@ if ((isplayer driver _heli == false) && _engineState == false && (_heli getVaria
     sleep 20;
     if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};
 
-    [_heli, "fza_ah64_apu", false] call fza_fnc_animSetValue;
+    _heli setVariable ["fza_systems_apuBtnOn", false, true];
 
     sleep 3;
     if (_heli getVariable "fza_ah64_aiESStop") exitwith {[_heli] call fza_aiCrew_fnc_getout};

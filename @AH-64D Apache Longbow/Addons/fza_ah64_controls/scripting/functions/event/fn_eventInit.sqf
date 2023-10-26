@@ -31,14 +31,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli selectweapon "fza_ma_safe";
 
     _heli setVariable ["fza_ah64_rtrbrake", false, true];
-    _heli setVariable ["fza_ah64_battery", false, true];
-    _heli setVariable ["fza_ah64_apu", false, true];
     _heli setVariable ["fza_ah64_tadsStow", true, true];
     _heli setVariable ["fza_ah64_powerLever1", 0, true];
     _heli setVariable ["fza_ah64_powerLever2", 0, true];
 
-    _heli setVariable ["fza_ah64_pfzs", [[],[],[],[],[],[],[],[]], true];
-    _heli setVariable ["fza_ah64_pfz_count", 0, true];
     _heli setVariable ["fza_ah64_sight_plt", 1, true];
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
@@ -49,7 +45,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
     _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     _heli setVariable ["fza_ah64_shotat_list", [], true];
-    _heli setVariable ["fza_ah64_shotmissile_list", [], true];
+    _heli setVariable ["fza_ah64_tofCountDown", [], true];
     _heli setVariable ["fza_ah64_fcrMode", 1, true];
 
     //
@@ -145,16 +141,15 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
-_heli setVariable ["fza_ah64_mpdPage", ["OFF", "OFF"]];
-_heli setVariable ["fza_ah64_mpdCurrPage", ["OFF", "OFF"]];
 _heli setVariable ["fza_ah64_burst_limit", 10];
 _heli setVariable ["fza_ah64_fcrcscope", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rocketsalvo", 2];
-_heli setVariable ["fza_ah64_tsdmode", "nav"];
-_heli setVariable ["fza_ah64_audioQueList", []];
+_heli setVariable ["fza_ah64_fire_left_fx", []];
+_heli setVariable ["fza_ah64_fire_right_fx", []];
+_heli setVariable ["fza_ah64_fire_apu_fx", []];
 //Systems local to the crewstation
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];

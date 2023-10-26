@@ -1,4 +1,7 @@
-#include "components\vabs_top.hpp"
+class vabs_show {
+    condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_TSD_SUBPAGE), 1)));
+    #include "components\vabs_top.hpp"
+};
 
 class tsdCommon {
     class occluders {

@@ -29,15 +29,9 @@ do {
     };
     _heli = vehicle player;
     ///end gunner weapon damage//
-    private _apuOn     = _heli getVariable "fza_systems_apuOn";
     private _battBusOn = _heli getVariable "fza_systems_battBusOn";
     private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
 
-    if (_apuOn) then {
-        _heli setobjecttexture ["in_lt_apu", "\fza_ah64_us\tex\in\pushbut.paa"];
-    } else {
-        _heli setobjecttexture ["in_lt_apu", ""];
-    };
     if (_heli getVariable "fza_ah64_rdp_fail" && !(_heli getVariable "fza_ah64_ldp_fail") && [_heli, 0] call fza_mpd_fnc_currentPage != "fail") then {
         [_heli, 1, "fail"] call fza_mpd_fnc_setCurrentPage;
     };

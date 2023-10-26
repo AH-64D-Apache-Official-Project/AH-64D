@@ -86,6 +86,47 @@ if (_was == WAS_WEAPON_NONE && _wasOverride == 1 && _selectedWeapon != _was) the
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), _was];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), _selectedWeapon];
 
+//Rocket pods draw
+
+private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType"); 
+private _rocketInvIndex  = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}}; 
+private _pylonsWithRockets = [];
+
+{
+    if !(_x isEqualTo []) then {
+        _pylonsWithRockets append (_x # 2);
+    };
+} forEach (_rocketInventory);
+
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), ""];
+
+if (_rocketInvIndex != -1) then { 
+    for "_invCount" from 0 to ((count _rocketInventory) - 1) do {
+        (_rocketInventory # _invCount) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText", "_selectedRktZones"]; 
+        if ((0 in _selectedRktPylons || 12 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
+            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
+        }; 
+        if ((4 in _selectedRktPylons || 8 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
+            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
+        }; 
+    };
+    (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"]; 
+    private _rktSel = 0; 
+    if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then { 
+        _rktSel = _rktSel + 1; 
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
+    }; 
+    if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then { 
+        _rktSel = _rktSel + 2; 
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
+    }; 
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
+};
+//Page draw
 switch (_selectedWeapon) do {
     case WAS_WEAPON_GUN: {
         _this call fza_mpd_fnc_WpnGunDraw;

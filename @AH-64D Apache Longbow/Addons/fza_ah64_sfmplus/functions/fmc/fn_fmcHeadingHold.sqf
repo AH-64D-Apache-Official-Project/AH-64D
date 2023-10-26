@@ -13,6 +13,8 @@ private _curVel        = vectorMagnitude [velocityModelSpace _heli # 0, velocity
 private _subMode       = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode    = _heli getVariable "fza_ah64_attHoldSubMode";
 private _output        = 0.0;
+
+private _onGnd         = [_heli] call fza_sfmplus_fnc_onGround;
 //Breakout values expand as the aircraft goes faster to provide good pedal response
 //at a hover. The expanded range is meant to de-sensitize the pedals in order to 
 //prevent disengaging the heading hold mode during cruise flight
@@ -29,7 +31,7 @@ if (_attSubMode == "att" || _curVel > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
 //If we are on the ground, or if the force trim is interupted, or the pilot has exceeded
 //the breakout values for the pedals, then heading hold is not active (doing work)
 //otherwise, heading hold is ALWAYS active
-if (isTouchingGround _heli
+if (_onGnd
     || _heli getVariable "fza_ah64_forceTrimInterupted" 
     || fza_sfmplus_pedalLeftRight <= -_breakoutValue 
     || fza_sfmplus_pedalLeftRight >=  _breakoutValue) then {

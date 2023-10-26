@@ -17,6 +17,7 @@ class CfgFunctions
             class ihadssDraw {R;};
             class ihadssHandleControl {R;};
             class monocletoggle {R;};
+            class steeringCursorDraw {R;};
         };
     };
 };

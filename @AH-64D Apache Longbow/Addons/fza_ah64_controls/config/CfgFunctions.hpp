@@ -37,7 +37,6 @@ class CfgFunctions
         class engine
         {
             file = "\fza_ah64_controls\scripting\functions\engine";
-            class engineAPUOn {R;};
             class engineHandleControl {R;};
             class engineSetPosition
             {
@@ -80,20 +79,12 @@ class CfgFunctions
             class lightHandleControl {R;};
             class lightSetCockpitLight {R;};
         };
-        class pfz {
-            file = "\fza_ah64_controls\scripting\functions\pfz";
-            class pfzCreate {R;};
-            class pfzReceive {R;};
-            class pfzSend {R;};
-        };
         class targeting
         {
             file = "\fza_ah64_controls\scripting\functions\targeting";
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
             class targetingGetSightSelect {R;};
-            class targetingLockCamToTarget {R;};
-            class targetingPFZCycle {R;};
             class targetingPNVSControl {R;};
             class targetingSched {R;};
             class targetingSetSightSelect {R;};

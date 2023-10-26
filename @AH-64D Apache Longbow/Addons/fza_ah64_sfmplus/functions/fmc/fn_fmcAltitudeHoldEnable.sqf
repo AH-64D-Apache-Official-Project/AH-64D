@@ -33,4 +33,5 @@ if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     _heli setVariable ["fza_ah64_altHoldDesiredAlt", 0.0,   true];
     _heli setVariable ["fza_ah64_altHoldActive",     false, true];
     _heli setVariable ["fza_ah64_altHoldCollRef",    0.0,   true];
+    [_heli] call fza_audio_fnc_flightTone;
 };

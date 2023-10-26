@@ -6,7 +6,7 @@ params["_name", "_value"];
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
-private _onGnd      = isTouchingGround _heli;
+private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 
 if (_value) then {

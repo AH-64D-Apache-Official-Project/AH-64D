@@ -18,7 +18,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_altHoldCollOut"];
+params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
@@ -61,6 +61,9 @@ private _rtrThrustScalarTable_max = [
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.10;
+
+private _pitchTorqueScalar      = 1.75;//PITCH_SCALAR;
+private _rollTorqueScalar       = 0.75;//ROLL_SCALAR;
 
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -119,7 +122,8 @@ private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorr
 private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
 private _rtrRPMTorqueScalar        = 1.0;
-if (_inputRPM < 1.0 && !isTouchingGround _heli) then {
+private _onGnd                   = [_heli] call fza_sfmplus_fnc_onGround;
+if (_inputRPM < 1.0 && !_onGnd) then {
     _rtrRPMTorqueScalar = _inputRPM;
 };
 _rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
@@ -138,17 +142,26 @@ _gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _totalThrust  = _rtrThrust + _gndEffThrust;
 private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
-private _torqueZ      = _axisZ vectorMultiply ((_rtrTorque  * _rtrTorqueScalar) * _deltaTime);
+
+//Pitch torque
+private _cyclicFwdAftTrim  = _heli getVariable "fza_ah64_forceTrimPosPitch";
+private _torqueX           = ((_rtrThrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+//Roll torque
+private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
+private _torqueY             = ((_rtrThrust * (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
+//Main rotor yaw torque
+private _torqueZ             = (_rtrTorque  * _rtrTorqueScalar) * _deltaTime;
 
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
 //Rotor thrust force
 if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
-        _heli addForce [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        _heli addTorque (_heli vectorModelToWorld [_torqueX, _torqueY, 0.0]);
         //Main rotor torque effect
         if (fza_ah64_sfmplusEnableTorqueSim) then {
-            _heli addTorque (_heli vectorModelToWorld _torqueZ);
+            _heli addTorque (_heli vectorModelToWorld [0.0, 0.0, _torqueZ]);
         };
     };
 };
@@ -158,11 +171,11 @@ if (cameraView == "INTERNAL") then {
     if (_velXY > 8.23 && _velXY < 12.35) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
-        addCamShake       [2.5, 1, 5];
+        addCamShake       [0.9, 0.4, 6.2];
         enableCamShake false;
 
-        setCustomSoundController[_heli, "CustomSoundController3", 6.4];
-        setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+        setCustomSoundController[_heli, "CustomSoundController3", 1.5];
+        setCustomSoundController[_heli, "CustomSoundController4", 0.8];
     } else {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };

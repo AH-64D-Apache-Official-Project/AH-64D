@@ -25,63 +25,34 @@ params ["_heli"];
 
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
+private _targhead    = 0;
+private _sensor      = "";
+private _sensxm      = "";
+private _weapon      = "";
+private _weaponstate = "";
+private _rcd         = "RCD      TADS";
+private _lsrcode     = "A 1688";
+private _safemessage = "";
+private _rocketcode  = "???";
+private _targrange   = "0";
+private _waypointcode = "";
+private _gspdcode    = "";
+private _curwpdir    = -1000;
+private _chevmark    = 0;
+private _fcrantennafor = -100;
+private _fcrhdg      = -1000;
+private _showFcrLastScan = false;   
+private _fcrdir      = 0.5;
+private _headsdown   = false;
+private _hduColour    = [0.1, 1, 0, 1];
 
-_locktargstate = 0;
-_modestate     = 0;
-_zoomstate     = 0;
-_targhead      = 0;
-
-_sensor = "R ";
-_sensxm = "HMD";
-_weapon = "GUN";
-_weaponstate = "";
-_rcd = "RCD      TADS";
-_lsrcode = "A 1688";
-_safemessage = "";
-_rocketcode = "???";
-_targrange = "0";
-if (isNil "fza_ah64_shottimer") then {
-    fza_ah64_shottimer = 0;
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera)) exitWith {
+    1 cuttext["", "PLAIN"];
+    2 cuttext["", "PLAIN"];
+    3 cuttext["", "PLAIN"];
+    4 cuttext["", "PLAIN"];
+    fza_ah64_bweff ppEffectEnable false;
 };
-_laseron = 0;
-///NAV/////
-_waypointcode = "";
-_gspdcode = "";
-
-_curwpdir = -1000;
-_chevmark = 0;
-_wpdistr = 0;
-_bobhdg = 0;
-_bobpos = [0, 0];
-///NAV/////
-///RANGES///
-///0.00002// 50km//
-///0.00004// 25km//
-///0.0001// 10km//
-///0.0002// 5km//
-///0.0005// 2km//
-///0.001// 1km//
-_fcrantennafor = -100;
-_fcrhdg = -1000;
-_showFcrLastScan = false;
-_radrange = "20";
-_nolosbox = "";
-_losbox = "";
-_w = 0.0734;
-_h = 0.1;
-_apx = 0.036;
-_apy = 0.05;
-_fcrdir = 0.5;
-_terrainintersect1 = [0, 0, 0];
-_gunintpos2 = [0, 0, 0];
-_TIST = 0;
-_ins = [];
-_ins1 = [];
-_VMurangle = [];
-_lrange = 0;
-_wptime = 0;
-_headsdown = false;
-_aratio = getResolution select 4;
 
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
@@ -146,12 +117,14 @@ if(!isNull _nts) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player) then {
-    if (ctrlText ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState) then {
+    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
     };
 } else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
+    0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
 };
 
 //A3TI FUNCTIONS
@@ -168,24 +141,16 @@ if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
 };
 
 //IHADSS INIT
-if (!(_heli getVariable "fza_ah64_monocleinbox") || _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox") || !(_heli getVariable "fza_ah64_monocleinbox")) then {
-    if (isNil "fza_ah64_ihadssinit") then {
-        1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
-        _ihadssidx = 121;
+private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
+if (isNil "_initialized") then {
+    1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
-        while {
-            (_ihadssidx < 206)
-        }
-        do {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor fza_ah64_hducolor;
-            _ihadssidx = _ihadssidx + 1;
-        };
-
-        _rocketcode = "???";
-        fza_ah64_ihadssinit = true;
+    for "_i" from 121 to 206 do {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
+    missionNamespace setVariable ["fza_ah64_raddisp", true];
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") then {
@@ -197,8 +162,8 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") th
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && !(_heli getVariable "fza_ah64_monocleinbox") && _powerOnState && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
-    if ((isNull(uiNameSpace getVariable "fza_ah64_raddisp")) && (cameraView == "INTERNAL" || cameraView == "GUNNER")) then {
+if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
+    if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];
@@ -245,7 +210,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
     _headsdown = true;
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
 
     //ADD STATIC DATA TO TADS
@@ -253,34 +218,34 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText _lsrcode;
 
     //COLOR WHITE TADS VIEW ACQ
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
 
     //HIDE CLICK HELPER FOR HEADSDOWN GUNNER
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
 
     //COLOR SET THESE
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 126) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 127) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 128) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 126) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 127) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 128) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
 
     _ihadssidx = 146;
     while {
         (_ihadssidx < 207)
     }
     do {
-        if (!(_ihadssidx == 135 || _ihadssidx == 136 || _ihadssidx == 182 || _ihadssidx == 186 || _ihadssidx == 123 || _ihadssidx == 124 || _ihadssidx == 125 || _ihadssidx == 120)) then {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+        if !(_ihadssidx == 135 || _ihadssidx == 136 || _ihadssidx == 182 || _ihadssidx == 186 || _ihadssidx == 123 || _ihadssidx == 124 || _ihadssidx == 125) then {
+            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
         };
         _ihadssidx = _ihadssidx + 1;
     };
@@ -306,7 +271,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
     if !(isNull laserTarget _heli) then {
         4 cutrsc["fza_ah64_laseit", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
-        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
 
 } else {
@@ -322,7 +287,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
         (_ihadssidx < 208)
     }
     do {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor fza_ah64_hducolor;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor _hduColour;
         _ihadssidx = _ihadssidx + 1;
     };
 
@@ -373,7 +338,6 @@ if (!isNil "_nextPointPos") then {
 };
 
 /////////////////////////////////////////////////////////
-_sensor = "R ";
 
 _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 if (_heli iskindof "fza_ah64base") then {
@@ -449,15 +413,7 @@ _sensorposy = (_heli animationphase "tads") * -0.015;
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
-_fcrdir = (_fcrDir * 1.6) + 0.5;
-if (_fcrdir > 0.7) then {
-    _fcrdir = 0.7;
-};
-if (_fcrdir < 0.3) then {
-    _fcrdir = 0.3;
-};
 if !(_heli animationPhase "fcr_enable" == 1) then {
-    _fcrdir = -100;
     _fcrantennafor = -100;
     _showFcrLastScan = false;
 };
@@ -492,87 +448,56 @@ if (speed _heli < 5) then {
 };
 private _was = _heli getVariable "fza_ah64_was";
 if (_was == WAS_WEAPON_MSL) then {
-    _weapon = "MSL";
-    if (isManualFire _heli) then {
-        _weapon = "PMSL";
-    };
+    private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
+    _weapon = (["MSL", "PMSL"] select (isManualFire _heli));
+
     switch (_heli getVariable "fza_ah64_hellfireTrajectory") do {
-        case "dir": {
+        case "DIR": {
             _weaponstate = "DIR-MAN";
         };
-        case "lo": {
+        case "LO": {
             _weaponstate = "LO-MAN";
         };
-        case "hi": {
+        case "HI": {
             _weaponstate = "HI-MAN";
         };
     };
-    _missileTOF = _heli getVariable "fza_ah64_shotmissile_list" select {!isNull _x && alive _x && !(isnull missileTarget (_x))};
     
-    if (count _missileTOF > 0) then {
-        _tof = (missileTarget (_missileTOF # 0) distance (_missileTOF # 0)) / 350;
-        _weaponstate = _weaponstate + format[" TOF=%1", round _tof];
+    if (_tofList isNotEqualTo []) then {
+        _tofNum = ceil (_tofList#0 - cba_missiontime);
+        _tofStr = [str (round _tofNum), "00"] call fza_fnc_padString;
+        _weaponstate = "HF TOF=" + _tofStr;
+        if (_tofNum < 1) then {
+            _tofList deleteAt 0;
+            _heli setVariable ["fza_ah64_tofCountDown", _tofList];
+        };
     };
-} else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
 if (_was == WAS_WEAPON_RKT) then {
-    //RKT FIX TADS AND/OR IHADSS DISPLAY
-    _w = 0.0734*2;
-    _h = 0.1*2;
-    _apx = 0.036*2;
-    _apy = 0.3/3;
-    _weapon = "RKT";
-    if (isManualFire _heli) then {
-        _weapon = "PRKT";
-    };
-    _ammo = getText (configFile >> "CfgWeapons" >> (_heli getVariable "fza_ah64_selectedRocket") >> "fza_ammoType");
-    _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
-    _weaponstate = format["%1 NORM %2", _rocketcode, _heli ammo(_heli getVariable "fza_ah64_selectedRocket")];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-    (["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
-    if (_sight == 3) then { //FXD
-        _scPos = worldToScreen (_heli modelToWorldVisual [0, 1000, 0]);
-        if (_scpos isEqualTo []) then {
-            _scpos = [-100, -100];
-        };
-    } else {;
-        _scPos = [ 0.5 - deg (_heli animationPhase "tads_tur")*3/64/4, 0.5-deg (_heli animationPhase "tads")*3/64/4];
+    private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
+    private _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
+    private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+    private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
+    private _rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
+    if (_rocketInvIndex != -1) then {
+        (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"];
+        _weaponstate = format["%1 NORM %2", _rocketcode, _selectedRktQty];
+    } else {
+        _weaponstate = format["%1 NORM %2", _rocketcode, 0];
     };
 };
 
 if (_was == WAS_WEAPON_NONE) then {
     _weapon = "";
     _weaponstate = "";
-};
-
-if (_was == WAS_WEAPON_GUN && player == driver _heli) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText
-        (["\fza_ah64_us\tex\HDU\ah64_gun.paa", "\fza_ah64_us\tex\HDU\ah64_gun_fxd.paa"] select ([_heli] call fza_fnc_targetingGetSightSelect == 3));
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
 if (_was == WAS_WEAPON_GUN) then {
-    _w = 0.0734;
-    _h = 0.1;
-    _apx = 0.036;
-    _apy = 0.05;
-    _angley = -0.5 * (_heli animationphase "maingun");
-    _angley = _angley + 0.5;
-    _anglex = -0.5 * (_heli animationphase "mainturret");
-    _anglex = _anglex + 0.5;
-    _gunpoint = worldtoscreen(_heli modelToWorldVisual[((sin(deg(_heli animationphase "mainturret") * (-1))) * (cos(deg(_heli animationphase "maingun"))) * 500), (((cos(deg(_heli animationphase "maingun")))) * (cos(deg(_heli animationphase "mainturret") * (-1))) * 500) + 4, ((sin(deg(_heli animationphase "maingun"))) * 500) - 1]);
-    if (count _gunpoint < 1) then {
-        _gunpoint = [0.5, 0.5];
-    };
-    _scPos = [(_gunpoint select 0), (_gunpoint select 1)];
-    _weapon = "GUN";
-
-    if (isManualFire _heli) then {
-        _weapon = "PGUN";
-    };
-
+    _weapon = (["GUN", "PGUN"] select (isManualFire _heli));
     _weaponstate = format["ROUNDS %1", _heli ammo "fza_m230"];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
 //IHADSS FLIGHT MODES
@@ -587,56 +512,25 @@ if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _baraltft = "";
 };
+
+#define BOBUP_EDGE_DISPLAY 0.17
+#define BOBUP_EDGE_FEET 40
+
 _bobcoords = [-100, -100];
 if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    private _thetabob = (_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli;
+    private _heliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos")) / BOBUP_EDGE_FEET * SCALE_METERS_FEET * BOBUP_EDGE_DISPLAY;
+    private _coordX = sin _thetabob;
+    private _coordY = cos _thetabob;
+    private _offsetX = 0.480;
+    private _offsetY = 0.475;
 
-    _thetabob = (360 + ((_heli getVariable "fza_ah64_bobhdg") - direction _heli)) Mod 360;
-
-    if (_thetabob >= 180) then {
-        _thetabob = _thetabob - 360;
-    } else {
-        _thetabob = _thetabob;
-    };
-
-    _curwpdir = _thetabob;
-
-    _bobcoordsx = (((_heli getVariable "fza_ah64_bobpos" select 0) - (getposasl _heli select 0)) * 0.017) + 0.480775;
-    if (_bobcoordsx > 0.7) then {
-        _bobcoordsx = 0.7;
-    };
-    if (_bobcoordsx < 0.3) then {
-        _bobcoordsx = 0.3;
-    };
-    _bobcoordsy = (((getposasl _heli select 1) - (_heli getVariable "fza_ah64_bobpos" select 1)) * 0.017) + 0.475;
-    if (_bobcoordsy > 0.7) then {
-        _bobcoordsy = 0.7;
-    };
-    if (_bobcoordsy < 0.3) then {
-        _bobcoordsy = 0.3;
-    };
-    _bobcoords = [_bobcoordsx, _bobcoordsy];
+    _bobcoordsX = _offsetX + ([((_coordX * _heliBobDist)), -BOBUP_EDGE_DISPLAY, BOBUP_EDGE_DISPLAY] call BIS_fnc_clamp)/4*3;
+    _bobcoordsY = _offsetY + ([((_coordY * -_heliBobDist)), -BOBUP_EDGE_DISPLAY, BOBUP_EDGE_DISPLAY] call BIS_fnc_clamp);
+    _bobcoords  = [_bobcoordsx, _bobcoordsy];
 };
 
 ///HAD INHIBIT MESSAGES
-private _burstLimit = _heli getVariable "fza_ah64_burst_limit";
-if (_burstLimit != -1 && fza_ah64_burst >= _burstLimit && currentweapon _heli == "fza_m230") then {
-    _heli selectweapon "fza_burstlimiter";
-};
-
-if (fza_ah64_gunheat > 0) then {
-    fza_ah64_gunheat = fza_ah64_gunheat - 0.05;
-};
-
-if (fza_ah64_gunheat < 0) then {
-    fza_ah64_gunheat = 0;
-    fza_ah64_burst = 0;
-};
-
-if (time - fza_ah64_firekeypressed > 1 && currentweapon _heli == "fza_burstlimiter") then {
-    fza_ah64_burst = 0;
-    _heli selectWeapon "fza_m230";
-};
-
 if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
     _safemessage = _heli getVariable "fza_ah64_weaponInhibited";
 };
@@ -680,13 +574,6 @@ private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText _curAcq;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetPosition[(_sensorposx) + 0.4875, (_sensorposy) + 0.735];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[_fcrdir - 0.01, 0.31];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
-
-if !(_was == WAS_WEAPON_MSL) then {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetPosition[(_scPos select 0) - (_apx), (_scPos select 1) - (_apy), _w, _h];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlCommit 0;
-};
 
 private _cuedLosCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132;
 
@@ -787,154 +674,6 @@ if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza
     foreach[250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269];
 };
 
-//HUD HEADINGS
-
-_helidir = (direction _heli);
-_10dir = _helidir - 10;
-_20dir = _helidir - 20;
-_30dir = _helidir - 30;
-_40dir = _helidir - 40;
-_50dir = _helidir - 50;
-_60dir = _helidir - 60;
-_70dir = _helidir - 70;
-_80dir = _helidir - 80;
-_90dir = _helidir - 90;
-_100dir = _helidir - 100;
-_110dir = _helidir - 110;
-_120dir = _helidir - 120;
-_130dir = _helidir - 130;
-_140dir = _helidir - 140;
-_150dir = _helidir - 150;
-_160dir = _helidir - 160;
-_170dir = _helidir - 170;
-_180dir = _helidir - 180;
-_190dir = _helidir - 190;
-_200dir = _helidir - 200;
-_210dir = _helidir - 210;
-_220dir = _helidir - 220;
-_230dir = _helidir - 230;
-_240dir = _helidir - 240;
-_250dir = _helidir - 250;
-_260dir = _helidir - 260;
-_270dir = _helidir - 270;
-_280dir = _helidir - 280;
-_290dir = _helidir - 290;
-_300dir = _helidir - 300;
-_310dir = _helidir - 310;
-_320dir = _helidir - 320;
-_330dir = _helidir - 330;
-_340dir = _helidir - 340;
-_350dir = _helidir - 350;
-_fcrdir = _helidir - _fcrhdg;
-if (_10dir < 0) then {
-    _10dir = _10dir + 360;
-};
-if (_20dir < 0) then {
-    _20dir = _20dir + 360;
-};
-if (_30dir < 0) then {
-    _30dir = _30dir + 360;
-};
-if (_40dir < 0) then {
-    _40dir = _40dir + 360;
-};
-if (_50dir < 0) then {
-    _50dir = _50dir + 360;
-};
-if (_60dir < 0) then {
-    _60dir = _60dir + 360;
-};
-if (_70dir < 0) then {
-    _70dir = _70dir + 360;
-};
-if (_80dir < 0) then {
-    _80dir = _80dir + 360;
-};
-if (_90dir < 0) then {
-    _90dir = _90dir + 360;
-};
-if (_100dir < 0) then {
-    _100dir = _100dir + 360;
-};
-if (_110dir < 0) then {
-    _110dir = _110dir + 360;
-};
-if (_120dir < 0) then {
-    _120dir = _120dir + 360;
-};
-if (_130dir < 0) then {
-    _130dir = _130dir + 360;
-};
-if (_140dir < 0) then {
-    _140dir = _140dir + 360;
-};
-if (_150dir < 0) then {
-    _150dir = _150dir + 360;
-};
-if (_160dir < 0) then {
-    _160dir = _160dir + 360;
-};
-if (_170dir < 0) then {
-    _170dir = _170dir + 360;
-};
-if (_180dir < 0) then {
-    _180dir = _180dir + 360;
-};
-if (_190dir < 0) then {
-    _190dir = _190dir + 360;
-};
-if (_200dir < 0) then {
-    _200dir = _200dir + 360;
-};
-if (_210dir < 0) then {
-    _210dir = _210dir + 360;
-};
-if (_220dir < 0) then {
-    _220dir = _220dir + 360;
-};
-if (_230dir < 0) then {
-    _230dir = _230dir + 360;
-};
-if (_240dir < 0) then {
-    _240dir = _240dir + 360;
-};
-if (_250dir < 0) then {
-    _250dir = _250dir + 360;
-};
-if (_260dir < 0) then {
-    _260dir = _260dir + 360;
-};
-if (_270dir < 0) then {
-    _270dir = _270dir + 360;
-};
-if (_280dir < 0) then {
-    _280dir = _280dir + 360;
-};
-if (_290dir < 0) then {
-    _290dir = _290dir + 360;
-};
-if (_300dir < 0) then {
-    _300dir = _300dir + 360;
-};
-if (_310dir < 0) then {
-    _310dir = _310dir + 360;
-};
-if (_320dir < 0) then {
-    _320dir = _320dir + 360;
-};
-if (_330dir < 0) then {
-    _330dir = _330dir + 360;
-};
-if (_340dir < 0) then {
-    _340dir = _340dir + 360;
-};
-if (_350dir < 0) then {
-    _350dir = _350dir + 360;
-};
-if (_fcrdir < 0) then {
-    _fcrdir = _fcrdir + 360;
-};
-
 // CAMERA HEADINGS FOR GUNNER
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
@@ -948,378 +687,49 @@ private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesens
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);
 private _alternatesensordir = (_worldAlternateSensorvect # 0) atan2(_worldAlternateSensorvect # 1);
 
-_alternatesensordir = _alternatesensordir - direction _heli;
+#define HEADING_TAPE_W 0.4
 
-if (_alternatesensordir > 180) then {
-    _alternatesensordir = _alternatesensordir - 360;
-};
-if (_alternatesensordir < -180) then {
-    _alternatesensordir = _alternatesensordir + 360;
+private _heliDir = direction _heli;
+private _drawHeading = {
+    params ["_ctrl", "_hdg", "_xOffset", "_yOffset", "_clamp"];
+    private _xHdg = ([_hdg - _heliDir] call CBA_fnc_simplifyAngle180) / 203 * HEADING_TAPE_W; // -0.5 0.5
+    if (_clamp) then {
+        _xHdg = [_xHdg, -HEADING_TAPE_W/2, HEADING_TAPE_W/2] call BIS_fnc_clamp;
+    } else {
+        private _range = HEADING_TAPE_W/2;
+        if (_xHdg < -_range || _xHdg > _range) then {
+            _xHdg = -100;
+        };
+    };
+    _ctrl ctrlSetPosition [0.5+_xHdg+_xOffset, _yOffset];
+    _ctrl ctrlCommit 0;
 };
 
-private _alternatesensor = (_alternatesensordir * (1 / 360)) + 0.5;
+for "_i" from 0 to 35 do {
+    private _ctrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (146+_i);
+    private _hdg = _i * 10;
+    private _major = _i mod 3 == 0;
+    private _xOffset = [-0.0015, -0.024] select _major;
+    private _yOffset = [0.29, 0.27] select _major;
+    [_ctrl, _hdg, _xOffset, _yOffset, false] call _drawHeading
+};
 
-_chevmark = (_curwpdir * (1 / 360)) + 0.5;
-_360mark = (_helidir * (-1 / 360)) + 1.5;
-_10mark = (_10dir * (-1 / 360)) + 1.5;
-_20mark = (_20dir * (-1 / 360)) + 1.5;
-_30mark = (_30dir * (-1 / 360)) + 1.5;
-_40mark = (_40dir * (-1 / 360)) + 1.5;
-_50mark = (_50dir * (-1 / 360)) + 1.5;
-_60mark = (_60dir * (-1 / 360)) + 1.5;
-_70mark = (_70dir * (-1 / 360)) + 1.5;
-_80mark = (_80dir * (-1 / 360)) + 1.5;
-_90mark = (_90dir * (-1 / 360)) + 1.5;
-_100mark = (_100dir * (-1 / 360)) + 1.5;
-_110mark = (_110dir * (-1 / 360)) + 1.5;
-_120mark = (_120dir * (-1 / 360)) + 1.5;
-_130mark = (_130dir * (-1 / 360)) + 1.5;
-_140mark = (_140dir * (-1 / 360)) + 1.5;
-_150mark = (_150dir * (-1 / 360)) + 1.5;
-_160mark = (_160dir * (-1 / 360)) + 1.5;
-_170mark = (_170dir * (-1 / 360)) + 1.5;
-_180mark = (_180dir * (-1 / 360)) + 1.5;
-_190mark = (_190dir * (-1 / 360)) + 1.5;
-_200mark = (_200dir * (-1 / 360)) + 1.5;
-_210mark = (_210dir * (-1 / 360)) + 1.5;
-_220mark = (_220dir * (-1 / 360)) + 1.5;
-_230mark = (_230dir * (-1 / 360)) + 1.5;
-_240mark = (_240dir * (-1 / 360)) + 1.5;
-_250mark = (_250dir * (-1 / 360)) + 1.5;
-_260mark = (_260dir * (-1 / 360)) + 1.5;
-_270mark = (_270dir * (-1 / 360)) + 1.5;
-_280mark = (_280dir * (-1 / 360)) + 1.5;
-_290mark = (_290dir * (-1 / 360)) + 1.5;
-_300mark = (_300dir * (-1 / 360)) + 1.5;
-_310mark = (_310dir * (-1 / 360)) + 1.5;
-_320mark = (_320dir * (-1 / 360)) + 1.5;
-_330mark = (_330dir * (-1 / 360)) + 1.5;
-_340mark = (_340dir * (-1 / 360)) + 1.5;
-_350mark = (_350dir * (-1 / 360)) + 1.5;
-_fcrmark = (_fcrdir * (-1 / 360)) + 1.5;
-if (_alternatesensor > 0.7) then {
-    _alternatesensor = 0.7;
+[(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
+
+if (_showFcrLastScan) then {
+    [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137, _fcrhdg, -0.0096, 0.31, true] call _drawHeading;
+} else {
+    (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
+    (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
 };
-if (_alternatesensor < 0.3) then {
-    _alternatesensor = 0.3;
-};
-if (_chevmark > 0.7) then {
-    _chevmark = 0.7;
-};
-if (_chevmark < 0.3) then {
-    _chevmark = 0.3;
-};
-if (_360mark > 0.7) then {
-    _360mark = _360mark - 1;
-};
-if (_360mark < 0.3) then {
-    _360mark = _360mark - 100;
-};
-if (_10mark > 0.7) then {
-    _10mark = _10mark - 1;
-};
-if (_10mark < 0.3) then {
-    _10mark = _10mark - 100;
-};
-if (_20mark > 0.7) then {
-    _20mark = _20mark - 1;
-};
-if (_20mark < 0.3) then {
-    _20mark = _20mark - 100;
-};
-if (_30mark > 0.7) then {
-    _30mark = _30mark - 1;
-};
-if (_30mark < 0.3) then {
-    _30mark = _30mark - 100;
-};
-if (_40mark > 0.7) then {
-    _40mark = _40mark - 1;
-};
-if (_40mark < 0.3) then {
-    _40mark = _40mark - 100;
-};
-if (_50mark > 0.7) then {
-    _50mark = _50mark - 1;
-};
-if (_50mark < 0.3) then {
-    _50mark = _50mark - 100;
-};
-if (_60mark > 0.7) then {
-    _60mark = _60mark - 1;
-};
-if (_60mark < 0.3) then {
-    _60mark = _60mark - 100;
-};
-if (_70mark > 0.7) then {
-    _70mark = _70mark - 1;
-};
-if (_70mark < 0.3) then {
-    _70mark = _70mark - 100;
-};
-if (_80mark > 0.7) then {
-    _80mark = _80mark - 1;
-};
-if (_80mark < 0.3) then {
-    _80mark = _80mark - 100;
-};
-if (_90mark > 0.7) then {
-    _90mark = _90mark - 1;
-};
-if (_90mark < 0.3) then {
-    _90mark = _90mark - 100;
-};
-if (_100mark > 0.7) then {
-    _100mark = _100mark - 1;
-};
-if (_100mark < 0.3) then {
-    _100mark = _100mark - 100;
-};
-if (_110mark > 0.7) then {
-    _110mark = _110mark - 1;
-};
-if (_110mark < 0.3) then {
-    _110mark = _110mark - 100;
-};
-if (_120mark > 0.7) then {
-    _120mark = _120mark - 1;
-};
-if (_120mark < 0.3) then {
-    _120mark = _120mark - 100;
-};
-if (_130mark > 0.7) then {
-    _130mark = _130mark - 1;
-};
-if (_130mark < 0.3) then {
-    _130mark = _130mark - 100;
-};
-if (_140mark > 0.7) then {
-    _140mark = _140mark - 1;
-};
-if (_140mark < 0.3) then {
-    _140mark = _140mark - 100;
-};
-if (_150mark > 0.7) then {
-    _150mark = _150mark - 1;
-};
-if (_150mark < 0.3) then {
-    _150mark = _150mark - 100;
-};
-if (_160mark > 0.7) then {
-    _160mark = _160mark - 1;
-};
-if (_160mark < 0.3) then {
-    _160mark = _160mark - 100;
-};
-if (_170mark > 0.7) then {
-    _170mark = _170mark - 1;
-};
-if (_170mark < 0.3) then {
-    _170mark = _170mark - 100;
-};
-if (_180mark > 0.7) then {
-    _180mark = _180mark - 1;
-};
-if (_180mark < 0.3) then {
-    _180mark = _180mark - 100;
-};
-if (_190mark > 0.7) then {
-    _190mark = _190mark - 1;
-};
-if (_190mark < 0.3) then {
-    _190mark = _190mark - 100;
-};
-if (_200mark > 0.7) then {
-    _200mark = _200mark - 1;
-};
-if (_200mark < 0.3) then {
-    _200mark = _200mark - 100;
-};
-if (_210mark > 0.7) then {
-    _210mark = _210mark - 1;
-};
-if (_210mark < 0.3) then {
-    _210mark = _210mark - 100;
-};
-if (_220mark > 0.7) then {
-    _220mark = _220mark - 1;
-};
-if (_220mark < 0.3) then {
-    _220mark = _220mark - 100;
-};
-if (_230mark > 0.7) then {
-    _230mark = _230mark - 1;
-};
-if (_230mark < 0.3) then {
-    _230mark = _230mark - 100;
-};
-if (_240mark > 0.7) then {
-    _240mark = _240mark - 1;
-};
-if (_240mark < 0.3) then {
-    _240mark = _240mark - 100;
-};
-if (_250mark > 0.7) then {
-    _250mark = _250mark - 1;
-};
-if (_250mark < 0.3) then {
-    _250mark = _250mark - 100;
-};
-if (_260mark > 0.7) then {
-    _260mark = _260mark - 1;
-};
-if (_260mark < 0.3) then {
-    _260mark = _260mark - 100;
-};
-if (_270mark > 0.7) then {
-    _270mark = _270mark - 1;
-};
-if (_270mark < 0.3) then {
-    _270mark = _270mark - 100;
-};
-if (_280mark > 0.7) then {
-    _280mark = _280mark - 1;
-};
-if (_280mark < 0.3) then {
-    _280mark = _280mark - 100;
-};
-if (_290mark > 0.7) then {
-    _290mark = _290mark - 1;
-};
-if (_290mark < 0.3) then {
-    _290mark = _290mark - 100;
-};
-if (_300mark > 0.7) then {
-    _300mark = _300mark - 1;
-};
-if (_300mark < 0.3) then {
-    _300mark = _300mark - 100;
-};
-if (_310mark > 0.7) then {
-    _310mark = _310mark - 1;
-};
-if (_310mark < 0.3) then {
-    _310mark = _310mark - 100;
-};
-if (_320mark > 0.7) then {
-    _320mark = _320mark - 1;
-};
-if (_320mark < 0.3) then {
-    _320mark = _320mark - 100;
-};
-if (_330mark > 0.7) then {
-    _330mark = _330mark - 1;
-};
-if (_330mark < 0.3) then {
-    _330mark = _330mark - 100;
-};
-if (_340mark > 0.7) then {
-    _340mark = _340mark - 1;
-};
-if (_340mark < 0.3) then {
-    _340mark = _340mark - 100;
-};
-if (_350mark > 0.7) then {
-    _350mark = _350mark - 1;
-};
-if (_350mark < 0.3) then {
-    _350mark = _350mark - 100;
-};
-if (_fcrmark > 0.7) then {
-    _fcrmark = _fcrmark - 1;
-};
-if (_fcrmark < 0.3) then {
-    _fcrmark = _fcrmark - 100;
-};
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetPosition[_alternatesensor - 0.025, 0.31];
 
 if (_curwpdir < -360 || _curwpdir > 360) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[-100, 0];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 } else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[_chevmark - 0.025, 0.31];
+     [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137, _curwpdir + _heliDir, -0.025, 0.31, true] call _drawHeading;
 };
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlSetPosition[_360mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlSetPosition[_30mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 148) ctrlSetPosition[_60mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 149) ctrlSetPosition[_90mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 150) ctrlSetPosition[_120mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 151) ctrlSetPosition[_150mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 152) ctrlSetPosition[_180mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 153) ctrlSetPosition[_210mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 154) ctrlSetPosition[_240mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 155) ctrlSetPosition[_270mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 156) ctrlSetPosition[_300mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 157) ctrlSetPosition[_330mark - 0.02, 0.27];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 158) ctrlSetPosition[_10mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 159) ctrlSetPosition[_20mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 160) ctrlSetPosition[_40mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 161) ctrlSetPosition[_50mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 162) ctrlSetPosition[_70mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 163) ctrlSetPosition[_80mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 164) ctrlSetPosition[_100mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 165) ctrlSetPosition[_110mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 166) ctrlSetPosition[_130mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 167) ctrlSetPosition[_140mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 168) ctrlSetPosition[_160mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 169) ctrlSetPosition[_170mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 170) ctrlSetPosition[_190mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 171) ctrlSetPosition[_200mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 172) ctrlSetPosition[_220mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 173) ctrlSetPosition[_230mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 174) ctrlSetPosition[_250mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 175) ctrlSetPosition[_260mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 176) ctrlSetPosition[_280mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 177) ctrlSetPosition[_290mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 178) ctrlSetPosition[_310mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlSetPosition[_320mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlSetPosition[_340mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlSetPosition[_350mark, 0.29];
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetPosition[[-100, _fcrmark - 0.01] select _showFcrLastScan, 0.31];
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 146) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 147) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 148) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 149) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 150) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 151) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 152) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 153) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 154) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 155) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 156) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 157) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 158) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 159) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 160) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 161) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 162) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 163) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 164) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 165) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 166) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 167) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 168) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 169) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 170) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 171) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 172) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 173) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 174) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 175) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 176) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 177) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 178) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 179) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 180) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 181) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlCommit 0;
-
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player)) then {
-    1 cuttext["", "PLAIN"];
-    2 cuttext["", "PLAIN"];
-    3 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
-    fza_ah64_bweff ppEffectEnable false;
-};
