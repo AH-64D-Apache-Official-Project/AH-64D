@@ -203,9 +203,9 @@ class Turrets : Turrets
             };
             class Dtv_Zoom: Dtv_wide
             {
-                initfov = "(0.5 / 120)";
-                minfov = "(0.5 / 120)";
-                maxfov = "(0.5 / 120)";
+                initfov = "(0.25 / 120)";
+                minfov = "(0.25 / 120)";
+                maxfov = "(0.25 / 120)";
                 opticsdisplayname = "Z";
             };
         };

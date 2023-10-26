@@ -160,6 +160,7 @@ if (_value) then {
         };
         case "NightVision": {
             if (player != Gunner _heli) exitWith {};
+            if !(fza_ah64_tadsCycleAllModes) exitwith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
             private _Visionmode = _heli currentVisionMode [0];
             private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
