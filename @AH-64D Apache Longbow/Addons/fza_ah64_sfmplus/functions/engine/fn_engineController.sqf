@@ -123,8 +123,6 @@ private _limitRPM = getNumber (_config >> "engIdleNP");
 
 private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
-systemChat format ["Real RPM = %1 -- Rtr RPM = %2", _realRPM, _rtrRPM];
-
 if (_isSingleEng) then {
     _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
 } else {
