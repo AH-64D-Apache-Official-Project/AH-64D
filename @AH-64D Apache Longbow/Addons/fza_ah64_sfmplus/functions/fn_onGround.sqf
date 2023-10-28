@@ -18,18 +18,13 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+([_heli] call fza_sfmplus_fnc_getAltitude)
+    params ["_barAlt", "_radAlt"];
+
 private _onGround = false;
 
-if (currentpilot _heli == player) then {
-    ([_heli] call fza_sfmplus_fnc_getAltitude)
-        params ["_barAlt", "_radAlt"];
-
-    if (isTouchingGround _heli || _radAlt < 1) then {
-        _onGround = true;
-    };
-    _heli setVariable ["fza_ah64_groundContact", _onGround];
-} else {
-    _onGround = _heli getvariable "fza_ah64_groundContact";
+if (isTouchingGround _heli || _radAlt < 0.5) then {
+    _onGround = true;
 };
 
 _onGround;
