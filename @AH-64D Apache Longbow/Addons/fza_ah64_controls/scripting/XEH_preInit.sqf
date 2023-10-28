@@ -123,6 +123,15 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_tadsCycleAllModes",
+    "CHECKBOX",
+    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
+    [_projName, "TADS Controls"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_mousehorpos = 0.5;
@@ -148,7 +157,7 @@ fza_ah64_introShownThisScenario = false;
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
+fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_ihadss_fnc_fovControl];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -249,3 +258,6 @@ OVERRIDE_ACTION("nextWeapon")
 OVERRIDE_ACTION("prevWeapon")
 OVERRIDE_ACTION("launchCM")
 OVERRIDE_ACTION("vehLockTargets")
+OVERRIDE_ACTION("zoomIn")
+OVERRIDE_ACTION("zoomOut")
+OVERRIDE_ACTION("NightVision")

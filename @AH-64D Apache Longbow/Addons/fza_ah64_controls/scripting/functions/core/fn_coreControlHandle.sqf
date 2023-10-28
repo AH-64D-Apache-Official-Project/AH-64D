@@ -2,7 +2,6 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 params["_name", "_value"];
-
 if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
@@ -138,6 +137,80 @@ if (_value) then {
         };
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;
+        };
+        case "zoomIn": {
+            if (player != Gunner _heli) exitWith {};
+            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            private _zoomindex  = 2;
+            if !(_Visionmode == 0 && _inputindex == 0) then {
+                _zoomindex = [_inputindex + 1, 0, 3] call BIS_fnc_clamp;
+            };
+            _heli setvariable ["fza_ah64_tadsZoom", _zoomindex];
+        };
+        case "zoomOut": {
+            if (player != Gunner _heli) exitWith {};
+            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            private _zoomindex  = 0;
+            if !(_Visionmode == 0 && _inputindex == 2) then {
+                _zoomindex = [_inputindex - 1, 0, 3] call BIS_fnc_clamp;
+            };
+            _heli setvariable ["fza_ah64_tadsZoom", _zoomindex];
+        };
+        case "NightVision": {
+            if (player != Gunner _heli) exitWith {};
+            if !(fza_ah64_tadsCycleAllModes) exitwith {};
+            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _Visionmode = _heli currentVisionMode [0];
+            private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
+            if !(isNil "_a3ti_vis") exitwith {};
+            if (_Visionmode#0 == 2 && _Visionmode#1 == 1) exitwith {
+                _heli setvariable ["fza_ah64_tadsThermal", false];
+                if (_inputindex == 1) then {
+                    _heli setvariable ["fza_ah64_tadsZoom", 0];
+                };
+            };
+            if (_Visionmode#0 == 0) exitwith {
+                _heli setvariable ["fza_ah64_tadsThermal", true];
+            };
+        };
+        case "fza_ah64_tadsLHGFov_W": {
+            if (player != Gunner _heli) exitWith {};
+            _heli setvariable ["fza_ah64_tadsZoom", 0];
+        };
+        case "fza_ah64_tadsLHGFov_M": {
+            if (player != Gunner _heli) exitWith {};
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            private _zoomindex  = 1;
+            if (_Visionmode == 0) then{
+                _zoomindex = 0;
+            };
+            _heli setvariable ["fza_ah64_tadsZoom", _zoomindex];
+        };
+        case "fza_ah64_tadsLHGFov_N": {
+            if (player != Gunner _heli) exitWith {};
+            _heli setvariable ["fza_ah64_tadsZoom", 2];
+        };
+        case "fza_ah64_tadsLHGFov_Z": {
+            if (player != Gunner _heli) exitWith {};
+            _heli setvariable ["fza_ah64_tadsZoom", 3];
+        };
+        case "fza_ah64_SensorSelect_FLIR": {
+            if (player != Gunner _heli) exitWith {};
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            if (_Visionmode == 1) exitwith {};
+            _heli setvariable ["fza_ah64_tadsThermal", true];
+        };
+        case "fza_ah64_SensorSelect_DTV": {
+            if (player != Gunner _heli) exitWith {};
+            private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
+            if (_Visionmode == 1) exitwith {};
+            private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            _heli setvariable ["fza_ah64_tadsThermal", false];
+            if (_inputindex == 1) then {
+                _heli setvariable ["fza_ah64_tadsZoom", 0];
+            };
         };
     };
 };
