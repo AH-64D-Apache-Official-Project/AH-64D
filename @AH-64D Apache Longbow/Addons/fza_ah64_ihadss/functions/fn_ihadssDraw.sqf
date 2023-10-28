@@ -46,12 +46,13 @@ private _fcrdir      = 0.5;
 private _headsdown   = false;
 private _hduColour    = [0.1, 1, 0, 1];
 
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera)) exitWith {
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera) || (gunner _heli != player && driver _heli != player)) exitWith {
     1 cuttext["", "PLAIN"];
     2 cuttext["", "PLAIN"];
     3 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
+    _heli setVariable ["fza_ah64_monocleinbox", true];
 };
 
 if (isNil "fza_ah64_helperinit") then {
