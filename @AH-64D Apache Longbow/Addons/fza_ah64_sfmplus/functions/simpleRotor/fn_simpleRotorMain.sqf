@@ -171,11 +171,11 @@ if (cameraView == "INTERNAL") then {
     if (_velXY > 8.23 && _velXY < 12.35) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
-        addCamShake       [2.5, 1, 5];
+        addCamShake       [0.9, 0.4, 6.2];
         enableCamShake false;
 
-        setCustomSoundController[_heli, "CustomSoundController3", 6.4];
-        setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+        setCustomSoundController[_heli, "CustomSoundController3", 1.5];
+        setCustomSoundController[_heli, "CustomSoundController4", 0.8];
     } else {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
     };

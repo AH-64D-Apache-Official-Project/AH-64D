@@ -11,6 +11,8 @@ class CfgWeapons {
         reloadTime = 0.1;
         magazineReloadTime = 0.1;
         showAimCursorInternal = 0;
+        cursor = "EmptyCursor";
+        cursorAim = "EmptyCursor";
         textureType = "semi";
         weaponLockDelay = 0;
         weaponLockSystem = 4;

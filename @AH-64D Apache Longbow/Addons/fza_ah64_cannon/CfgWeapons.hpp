@@ -6,7 +6,7 @@ class CfgWeapons {
         displayName         = "M230-E1";
         nameSound           = "cannon";
         cursor              = "EmptyCursor";
-        cursorAim           = "mg";
+        cursorAim           = "";
         showAimCursorInternal = 0;
         magazines[]         ={"fza_m230_300","fza_m230_1200"};
         canLock             = 1;

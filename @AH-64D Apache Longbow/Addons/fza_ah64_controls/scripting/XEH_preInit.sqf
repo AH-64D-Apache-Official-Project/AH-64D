@@ -9,20 +9,20 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_headTrackAllowCursorMove",
-    "CHECKBOX",
-    "Allow cursor movement while in head tracking mode",
+    "fza_ah64_freeCursorSensitivity",
+    "SLIDER",
+    "Free cursor mode sensitivity",
     [_projName, "Control"],
-    [true],
+    [0, 0.1, 0.05, 2],
     0
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_headTrackSensitivity",
-    "SLIDER",
-    "Head tracking mode cursor sensitivity",
+    "fza_ah64_freeCursorfreelooklock",
+    "CHECKBOX",
+    "Lock the cursor when in free look",
     [_projName, "Control"],
-    [0, 1, 0.5, 2],
+    [true],
     0
 ] call CBA_fnc_addSetting;
 
@@ -123,42 +123,31 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
-fza_ah64_rocketTable =
-        [[0, 5]
-        ,[500, 8]
-        ,[750, 12]
-        ,[1000, 15]
-        ,[2000, 28]
-        ,[3500, 75]
-        ,[4500, 120]];
+[
+    "fza_ah64_tadsCycleAllModes",
+    "CHECKBOX",
+    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
+    [_projName, "TADS Controls"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_mousehorpos = 0.5;
-fza_ah64_mousevertpos = 0.5;
 fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
-fza_ah64_locktargstate = 0;
-fza_ah64_irjammer = 0;
 fza_ah64_salvofired = 0;
-fza_ah64_mynum = 0;
-fza_ah64_lastdir = 0;
-fza_ah64_dps = 0;
 fza_ah64_sideslip = 0;
-fza_ah64_tiron = false;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
-fza_ah64_pfzcache = ["none", "none", [], 0];
 fza_ah64_AseRWR = [];
-fza_ah64_tsdmap = 0;
-fza_ah64_Cscopelist = [];
-fza_ah64_hducolor = [0.1, 1, 0, 1];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
+fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_ihadss_fnc_fovControl];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -259,3 +248,6 @@ OVERRIDE_ACTION("nextWeapon")
 OVERRIDE_ACTION("prevWeapon")
 OVERRIDE_ACTION("launchCM")
 OVERRIDE_ACTION("vehLockTargets")
+OVERRIDE_ACTION("zoomIn")
+OVERRIDE_ACTION("zoomOut")
+OVERRIDE_ACTION("NightVision")
