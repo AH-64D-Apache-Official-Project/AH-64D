@@ -18,8 +18,9 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
-if (!(isNil "fza_ah64_noufd")) exitwith {};
 
+if (!(isNil "fza_ah64_noufd")) exitwith {};
+if (cba_missiontime <= 0) exitWith {};
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) || ((driver _heli != player && gunner _heli != player)) || !(_heli iskindof "fza_ah64base")) exitwith {};
 
 ///end gunner weapon damage//
