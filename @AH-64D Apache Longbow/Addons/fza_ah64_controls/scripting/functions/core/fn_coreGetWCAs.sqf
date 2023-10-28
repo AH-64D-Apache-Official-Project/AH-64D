@@ -77,7 +77,7 @@ private _eng2Np          = _heli getVariable "fza_sfmplus_engPctNP" select 1;
 private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
-private _onGnd           = isTouchingGround _heli;
+private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
     _pwrLvrAtFly = true; 
 };

@@ -29,7 +29,7 @@ if (_apuOn) then {
     hideObjectGlobal _apu;
     
     while {
-        _apuOn;
+        _apuOn && alive _heli;
     }
     do {
         if (time > _timed_apu) then {
@@ -47,7 +47,7 @@ if (_battBusOn) then {
     hideObjectGlobal _bat;
 
     while {
-        _battBusOn;
+        _battBusOn && alive _heli;
     }
     do {
         if (time > _timed_bat) then {
