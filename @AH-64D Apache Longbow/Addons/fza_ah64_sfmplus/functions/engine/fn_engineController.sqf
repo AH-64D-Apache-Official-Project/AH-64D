@@ -117,34 +117,34 @@ if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["O
 };
 //End Autorotation handler
 
-if (_flightModel == "SFMPlus") then {
-    private _maxTQ    = getNumber (_config >> "engMaxTQ");
-    private _limitTQ  = 0.0;
-    private _limitRPM = getNumber (_config >> "engIdleNP");
+private _maxTQ    = getNumber (_config >> "engMaxTQ");
+private _limitTQ  = 0.0;
+private _limitRPM = getNumber (_config >> "engIdleNP");
 
-    private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
+private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 
-    if (_isSingleEng) then {
-        _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
+systemChat format ["Real RPM = %1 -- Rtr RPM = %2", _realRPM, _rtrRPM];
+
+if (_isSingleEng) then {
+    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_SE";
+} else {
+    _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
+};
+
+private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
+private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
+_droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
+
+if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
+
+private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
+if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
+    _rtrRPM = _droopRPM;
+        if (_realRPM  > _rtrRPM) then {
+        _heli setHitpointDamage ["hithrotor", 0.9];
     } else {
-        _limitTQ = _heli getVariable "fza_sfmplus_maxTQ_DE";
+        _heli setHitpointDamage ["hithrotor", 0.0];
+        _heli engineOn true;
     };
-
-    private _droopVal = (_rtrRPM - _limitRPM) / (_maxTQ - _limitTQ);
-    private _droopRPM = _rtrRPM - ((_engPctTQ - _limitTQ) * _droopVal);
-    _droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
-
-    if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
-
-    private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-    if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
-        _rtrRPM = _droopRPM;
-            if (_realRPM  > _rtrRPM) then {
-            _heli setHitpointDamage ["hithrotor", 0.9];
-        } else {
-            _heli setHitpointDamage ["hithrotor", 0.0];
-            _heli engineOn true;
-        };
-        _heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
-    };
+    _heli setVariable ["fza_sfmplus_lastUpdate", cba_missionTime];
 };
