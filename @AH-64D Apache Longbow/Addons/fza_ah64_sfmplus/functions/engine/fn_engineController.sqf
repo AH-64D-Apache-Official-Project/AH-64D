@@ -68,7 +68,7 @@ if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng
 };
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
-if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 5 < time) then {
+if (isMultiplayer && (currentPilot _heli == player) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 1 < time) then {
     {
         _heli setVariable [_x, _heli getVariable _x, true];
     } forEach [
