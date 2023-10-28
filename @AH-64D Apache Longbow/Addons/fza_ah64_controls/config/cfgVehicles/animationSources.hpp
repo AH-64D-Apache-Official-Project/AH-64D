@@ -392,13 +392,6 @@ class AnimationSources
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
     };
-    class plt_uiscale
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=1;
-    };
-    class cpg_uiscale : plt_uiscale {};
     //////////////DOORS//////////////////
     class pdoor
     {

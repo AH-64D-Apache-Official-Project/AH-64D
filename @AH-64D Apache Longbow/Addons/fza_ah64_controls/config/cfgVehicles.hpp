@@ -235,7 +235,6 @@ class CfgVehicles
         #include "hiddenSelections.hpp"
         #include "cfgVehicles\textureSources.hpp"
         #include "cfgVehicles\turrets.hpp"
-        #include "cfgVehicles\UVAnimations.hpp"
         #include "cfgVehicles\animationSources.hpp"
         #include "cfgVehicles\markerLights.hpp"
         #include "cfgVehicles\reflectors.hpp"
