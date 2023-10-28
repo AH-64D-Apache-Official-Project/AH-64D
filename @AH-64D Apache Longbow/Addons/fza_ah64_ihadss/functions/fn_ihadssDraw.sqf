@@ -46,12 +46,13 @@ private _fcrdir      = 0.5;
 private _headsdown   = false;
 private _hduColour    = [0.1, 1, 0, 1];
 
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera)) exitWith {
+if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera) || (gunner _heli != player && driver _heli != player)) exitWith {
     1 cuttext["", "PLAIN"];
     2 cuttext["", "PLAIN"];
     3 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
+    _heli setVariable ["fza_ah64_monocleinbox", true];
 };
 
 if (isNil "fza_ah64_helperinit") then {
@@ -117,12 +118,14 @@ if(!isNull _nts) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player) then {
-    if (ctrlText ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState) then {
+    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
     };
 } else {
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 120) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
+    0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
 };
 
 //A3TI FUNCTIONS
@@ -132,10 +135,8 @@ private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
 //TADS DISABLE IF ENGINE OFF
 if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
     fza_ah64_bweff ppEffectEnable true;
-    _heli disableTIEquipment true;
 } else {
     fza_ah64_bweff ppEffectEnable false;
-    _heli disableTIEquipment false;
 };
 
 //IHADSS INIT
@@ -242,7 +243,7 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
         (_ihadssidx < 207)
     }
     do {
-        if (!(_ihadssidx == 135 || _ihadssidx == 136 || _ihadssidx == 182 || _ihadssidx == 186 || _ihadssidx == 123 || _ihadssidx == 124 || _ihadssidx == 125 || _ihadssidx == 120)) then {
+        if !(_ihadssidx == 135 || _ihadssidx == 136 || _ihadssidx == 182 || _ihadssidx == 186 || _ihadssidx == 123 || _ihadssidx == 124 || _ihadssidx == 125) then {
             ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
         };
         _ihadssidx = _ihadssidx + 1;

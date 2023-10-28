@@ -13,6 +13,8 @@ class CfgFunctions
             class angleToScreen {R;};
             class constraintBoxDraw {R;};
             class cscopeDraw {R;};
+            class fovControl {R;};
+            class getVisionMode {R;};
             class ihadssController {R;};
             class ihadssDraw {R;};
             class ihadssHandleControl {R;};
