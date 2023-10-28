@@ -22,7 +22,6 @@ params ["_heli"];
 if (!(_heli getVariable ["fza_ah64_aircraftSystemsInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftSystemsInitialised", true, true];
 
-_heli setVariable ["fza_systems_rect2On",           false, true];
     //Switch states
     _heli setVariable ["fza_systems_battSwitchOn",      false, true];
 
