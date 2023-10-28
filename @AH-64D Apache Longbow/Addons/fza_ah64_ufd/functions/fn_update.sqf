@@ -15,6 +15,7 @@ Examples:
 Author:
     Unknown
 ---------------------------------------------------------------------------- */
+params ["_heli"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 if (!(isNil "fza_ah64_noufd")) exitwith {};
