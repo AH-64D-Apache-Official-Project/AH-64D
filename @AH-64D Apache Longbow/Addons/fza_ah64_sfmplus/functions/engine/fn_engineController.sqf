@@ -77,7 +77,6 @@ if (isMultiplayer && (currentPilot _heli == player) && (_heli getVariable "fza_s
         "fza_sfmplus_engPctNG",
         "fza_sfmplus_engBaseNP",
         "fza_sfmplus_engPctNP",
-        "fza_sfmplus_engBaseTQ",
         "fza_sfmplus_engPctTQ",
         "fza_sfmplus_engBaseTGT",
         "fza_sfmplus_engTGT",
@@ -87,8 +86,10 @@ if (isMultiplayer && (currentPilot _heli == player) && (_heli getVariable "fza_s
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };
 
-[_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
-[_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
+if (currentPilot _heli == player) then {
+    [_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
+    [_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
+};
 
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";
 private _no2EngDmg = _heli getHitPointDamage "hitengine2";
