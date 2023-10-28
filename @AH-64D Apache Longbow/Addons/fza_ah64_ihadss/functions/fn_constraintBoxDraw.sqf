@@ -23,6 +23,7 @@ Author:
 params ["_heli"];
 
 private _constraintBoxCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131;
+private _seatWas = [_heli] call fza_weapons_fnc_WeaponGetWas;
 private _conW = 0;
 private _conH = 0;
 private _indicateLobl = false;
@@ -30,7 +31,7 @@ private _vector = [];
 private _allowableAngle = 20;
 private _constraintBoxUseTads = false;
 
-if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitwith {};
+if (WAS_WEAPON_MSL != _seatWas) exitwith {};
 
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];

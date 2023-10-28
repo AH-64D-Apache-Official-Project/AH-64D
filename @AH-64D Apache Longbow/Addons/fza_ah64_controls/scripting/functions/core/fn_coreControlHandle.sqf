@@ -8,6 +8,7 @@ private _heli = vehicle player;
 
 private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+private _seatWas    = [_heli] call fza_weapons_fnc_WeaponGetWas;
 
 if (_value) then {
     //When button pressed
@@ -73,36 +74,33 @@ if (_value) then {
             // Todo: Implemen target store
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_seatWas == WAS_WEAPON_MSL) then {
                 [_heli] call fza_fnc_weaponMissileCycle
             };
         };
         case "fza_ah64_wasGun": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
+            if (_seatWas == WAS_WEAPON_GUN) exitwith {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
             };
+            [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
         };
         case "fza_ah64_wasRkt": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
+            if (_seatWas == WAS_WEAPON_RKT) exitwith {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
             };
+            [_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
         };
         case "fza_ah64_wasMsl": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_seatWas == WAS_WEAPON_MSL) exitwith {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
-            } else {
-                [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
             };
+            [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
         };
         case "SwitchWeaponGrp1";
         case "SwitchWeaponGrp2";

@@ -8,7 +8,7 @@ params ["_heli", "_mpdIndex"];
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _SystemWas    = _heli getVariable "fza_ah64_was";
+private _SystemWas    = [_heli] call fza_weapons_fnc_WeaponGetWas;
 
 _fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 //FCR wiper

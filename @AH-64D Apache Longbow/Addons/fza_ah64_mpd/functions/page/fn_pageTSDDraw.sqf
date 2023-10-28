@@ -108,9 +108,9 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
 //FCR Points
-private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
+private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _SystemWas      = _heli getVariable "fza_ah64_was";
+private _SystemWas    = [_heli] call fza_weapons_fnc_WeaponGetWas;
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
 private _antsIndex = 0;

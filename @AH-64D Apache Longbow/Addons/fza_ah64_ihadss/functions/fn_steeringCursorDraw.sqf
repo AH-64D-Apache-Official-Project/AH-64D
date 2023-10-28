@@ -22,6 +22,7 @@ Author:
 params ["_heli"];
 
 private _steeringCursorControl = ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131);
+private _seatWas = [_heli] call fza_weapons_fnc_WeaponGetWas;
 private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _screenPos = [-100, -100];
 private _conW  = 0.1468;
@@ -29,7 +30,7 @@ private _conH  = 0.2;
 private _apx   = 0.0746;
 private _apy   = 0.1;
 
-if (WAS_WEAPON_RKT != _heli getVariable "fza_ah64_was") exitwith {};
+if (WAS_WEAPON_RKT != _seatWas) exitwith {};
 if (cameraView != "GUNNER") then {_apx = 0.0728;}; // Internal hud is not aligned correctly
 
 private _tex = ["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select (_sight == 3);

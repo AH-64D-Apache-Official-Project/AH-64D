@@ -17,11 +17,17 @@ Examples:
     ---
 
 Author:
-    Mattysmith22
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params["_heli", "_weapon"];
+#include "\fza_ah64_controls\headers\systemConstants.h"
+params["_heli", "_weapon",["_invert", false, [true]]];
 
-if !(_heli turretLocal [0]) exitWith {};
+private _Turret = [_heli, _invert] call fza_fnc_currentTurret;
+private _sysWas = _heli getVariable "fza_ah64_was";
+_sysWas set [_Turret, _weapon];
 
-_heli setVariable ["fza_ah64_was", _weapon, true];
+_heli setVariable ["fza_ah64_was", _sysWas, true];
+if (_invert && (_heli turretunit _Turret != objnull)) exitwith {
+    [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", _heli turretunit _Turret];
+};
 [_heli] call fza_fnc_weaponUpdateSelected;
