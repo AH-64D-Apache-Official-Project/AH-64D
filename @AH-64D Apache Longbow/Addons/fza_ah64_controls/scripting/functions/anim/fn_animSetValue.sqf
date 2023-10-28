@@ -26,9 +26,7 @@ Author:
 params [["_heli", nil, [objNull]], ["_varName", nil, [""]], ["_value", nil, [0,false]], "_timing"];
 
 private _animNames = createHashMapFromArray
-    [["fza_ah64_battery", "plt_batt"]
-    ,["fza_ah64_apu", "plt_apu"]
-    ,["fza_ah64_rtrbrake", "plt_rtrbrake"]
+    [["fza_ah64_rtrbrake", "plt_rtrbrake"]
     ,["fza_ah64_anticollision", "plt_anticollision"]
     ,["fza_ah64_tadsStow", "tads_stow"]
     ,["fza_ah64_powerLever1", "plt_eng1_throttle"]
