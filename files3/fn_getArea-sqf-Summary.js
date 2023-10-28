@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File3:fn_getArea.sqf","fn_getArea.sqf");NDSummary.OnSummaryLoaded("File3:fn_getArea.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[3,0,1,"Functions","Functions"],[4,0,0,"fza_fnc_mathGetArea","fza_fnc_mathGetArea"]]);
+﻿NDFramePage.OnPageTitleLoaded("File3:fn_getArea.sqf","fn_getArea.sqf");NDSummary.OnSummaryLoaded("File3:fn_getArea.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[7,0,1,"Functions","Functions"],[8,0,0,"fza_fnc_mathGetArea","fza_fnc_mathGetArea"]]);
