@@ -31,7 +31,14 @@ class UserActionGroups
             fza_ah64_forceTrimHoldModeSwitch_left,
             fza_ah64_fcrModeSwitch_up,
             fza_ah64_fcrModeSwitch_down,
-            fza_ah64_flare
+            fza_ah64_flare,
+            fza_ah64_freeCursor,
+            fza_ah64_tadsLHGFov_W,
+            fza_ah64_tadsLHGFov_M,
+            fza_ah64_tadsLHGFov_N,
+            fza_ah64_tadsLHGFov_Z,
+            fza_ah64_SensorSelect_FLIR,
+            fza_ah64_SensorSelect_DTV
         };
     };
     class fza_ah64_cockpit

@@ -17,23 +17,19 @@ Author:
     Unknown
 ---------------------------------------------------------------------------- */
 params ["", "_mousex", "_mousey"];
-if (vehicle player iskindof "fza_ah64base" && fza_ah64_tiron && fza_ah64_headTrackAllowCursorMove) then {
-    fza_ah64_mousehorpos = fza_ah64_mousehorpos + _mousex * fza_ah64_headTrackSensitivity;
-    fza_ah64_mousevertpos = fza_ah64_mousevertpos + _mousey * fza_ah64_headTrackSensitivity;
-    if (fza_ah64_mousehorpos > (safezoneXabs + safezonew)) then {
-        fza_ah64_mousehorpos = safezoneXabs + safezonew;
-    };
-    if (fza_ah64_mousehorpos < safezoneXabs) then {
-        fza_ah64_mousehorpos = safezoneXabs;
-    };
-    if (fza_ah64_mousevertpos > (safezoneY + safezoneH)) then {
-        fza_ah64_mousevertpos = safezoneY + safezoneH;
-    };
-    if (fza_ah64_mousevertpos < safezoneY) then {
-        fza_ah64_mousevertpos = safezoneY;
-    };
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetPosition[fza_ah64_mousehorpos - 0.005, fza_ah64_mousevertpos - 0.009];
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetPosition[fza_ah64_mousehorpos - 0.25, fza_ah64_mousevertpos + 0.02];
+
+private _heli              = vehicle player;
+private _freeCursorEnabled = _heli getVariable "fza_ah64_freeCursorEnabled";
+private _horizontalPos     = _heli getVariable "fza_ah64_freeCursorHpos";
+private _verticalpos       = _heli getVariable "fza_ah64_freeCursorVpos";
+
+if (_heli iskindof "fza_ah64base" && _freeCursorEnabled && !(freelook && fza_ah64_freeCursorfreelooklock)) then {
+    _horizontalPos = [_horizontalPos + _mousex * fza_ah64_freeCursorSensitivity, safezoneXabs, (safezoneXabs + safezonew)] call BIS_fnc_clamp;
+    _verticalpos = [_verticalpos + _mousey * fza_ah64_freeCursorSensitivity, safezoneY, (safezoneY + safezoneH)] call BIS_fnc_clamp;
+    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetPosition[_horizontalPos - 0.005, _verticalpos - 0.009];
+    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetPosition[_horizontalPos - 0.25, _verticalpos + 0.02];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlCommit 0.01;
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlCommit 0.01;
+    _heli setVariable ["fza_ah64_freeCursorHpos", _horizontalPos];
+    _heli setVariable ["fza_ah64_freeCursorVpos", _verticalpos];
 };

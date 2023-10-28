@@ -33,6 +33,8 @@ params ["_heli"];
 
 #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name]
 #define COCKPIT_CONTROL_SEP ,
+private _horizontalPos = _heli getVariable "fza_ah64_freeCursorHpos";
+private _verticalpos = _heli getVariable "fza_ah64_freeCursorVpos";
 private _controls =  [ //Schema of Pilot memory point, Gunner memory point, system, control, sensitivity, description]
 #include "\fza_ah64_controls\headers\controls.h"
 ];
@@ -46,7 +48,7 @@ _controls = _controls apply {
         _point = _heli modelToWorldVisual (_heli selectionposition _gunnerPos);
     };
     _point =  (worldToScreen _point);
-    _distance = if (_point isEqualTo []) then {1000} else {_point distance [fza_ah64_mousehorpos, fza_ah64_mousevertpos]};
+    _distance = if (_point isEqualTo []) then {1000} else {_point distance [_horizontalPos, _verticalpos]};
     [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _distance];
 };
 _controls select {

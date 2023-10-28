@@ -27,16 +27,6 @@ private _getOrCreateCtrl = {
     _ctrlPoint get _key
 };
 
-private _yScale = (4/3) / (getResolution # 4);
-private _yOffset = (1-_yScale)/2;
-
-if (_heli turretLocal [-1]) then {
-    _heli animateSource ["plt_uiscale", _yScale];
-};
-if (_heli turretLocal [0]) then {
-    _heli animateSource ["cpg_uiscale", _yScale];
-};
-
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
     params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
 
@@ -54,13 +44,13 @@ private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
-_iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl ctrlSetPosition [_uiTop # 0, _uiTop # 1, _iconSize, _iconSize];
 _iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
 
 private _iconCtrl2 = [_display, _ctrlPoint, "icon2", "RscPicture"] call _getOrCreateCtrl;
-_iconCtrl2 ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl2 ctrlSetPosition [_uiTop # 0, _uiTop # 1, _iconSize, _iconSize];
 _iconCtrl2 ctrlSetTextColor _color;
 _iconCtrl2 ctrlSetText (_iconTex2);
 _iconCtrl2 ctrlCommit 0;
@@ -82,12 +72,12 @@ private _drawText = {
     };
     _textCtrl ctrlSetPosition
         [ _uiTop # 0 + (_textOffset # 0 * _iconSize) + _xOffset
-        , _yOffset + (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset - 0.5) * _yScale
+        , (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset - 0.5)
         , 1
-        , 1 * _yScale
+        , 1
         ];
     _textCtrl ctrlSetTextColor _color;
-    _textCtrl ctrlSetFontHeight (TEXT_HEIGHT*_yScale);
+    _textCtrl ctrlSetFontHeight TEXT_HEIGHT;
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;
 };

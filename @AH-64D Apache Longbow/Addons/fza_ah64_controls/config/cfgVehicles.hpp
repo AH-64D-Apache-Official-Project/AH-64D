@@ -23,7 +23,6 @@ class CfgVehicles
         #include "cfgVehicles\sfmplus.hpp"
         #include "cfgVehicles\sounds.hpp"
         #include "cfgVehicles\soundsExt.hpp"
-        #include "cfgVehicles\userActions.hpp"
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\itcAir.hpp"
 
@@ -236,7 +235,6 @@ class CfgVehicles
         #include "hiddenSelections.hpp"
         #include "cfgVehicles\textureSources.hpp"
         #include "cfgVehicles\turrets.hpp"
-        #include "cfgVehicles\UVAnimations.hpp"
         #include "cfgVehicles\animationSources.hpp"
         #include "cfgVehicles\markerLights.hpp"
         #include "cfgVehicles\reflectors.hpp"
