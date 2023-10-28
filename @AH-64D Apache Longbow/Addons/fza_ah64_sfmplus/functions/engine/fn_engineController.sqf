@@ -77,7 +77,6 @@ if (isMultiplayer && local _heli && (_heli getVariable "fza_sfmplus_lastTimeProp
         "fza_sfmplus_engPctNG",
         "fza_sfmplus_engBaseNP",
         "fza_sfmplus_engPctNP",
-        "fza_sfmplus_engBaseTQ",
         "fza_sfmplus_engPctTQ",
         "fza_sfmplus_engBaseTGT",
         "fza_sfmplus_engTGT",
