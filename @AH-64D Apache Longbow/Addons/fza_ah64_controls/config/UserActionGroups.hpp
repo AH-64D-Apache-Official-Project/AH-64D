@@ -32,6 +32,7 @@ class UserActionGroups
             fza_ah64_fcrModeSwitch_up,
             fza_ah64_fcrModeSwitch_down,
             fza_ah64_flare,
+            fza_ah64_freeCursor,
             fza_ah64_tadsLHGFov_W,
             fza_ah64_tadsLHGFov_M,
             fza_ah64_tadsLHGFov_N,

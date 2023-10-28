@@ -39,6 +39,7 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
     CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
+    CfgUserActionDef(fza_ah64_freeCursor, "Detach interact cursor", "Detaches the cursor from the head");
     CfgUserActionDef(fza_ah64_tadsLHGFov_W, "TADS LHG FOV Switch - W", "Sets the Tads FOV to Wide");
     CfgUserActionDef(fza_ah64_tadsLHGFov_M, "TADS LHG FOV Switch - M", "Sets the Tads FOV to Medium");
     CfgUserActionDef(fza_ah64_tadsLHGFov_N, "TADS LHG FOV Switch - N", "Sets the Tads FOV to Narrow");

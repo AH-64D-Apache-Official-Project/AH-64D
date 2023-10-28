@@ -9,20 +9,20 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_headTrackAllowCursorMove",
-    "CHECKBOX",
-    "Allow cursor movement while in head tracking mode",
+    "fza_ah64_freeCursorSensitivity",
+    "SLIDER",
+    "Free cursor mode sensitivity",
     [_projName, "Control"],
-    [true],
+    [0, 0.1, 0.05, 2],
     0
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_headTrackSensitivity",
-    "SLIDER",
-    "Head tracking mode cursor sensitivity",
+    "fza_ah64_freeCursorfreelooklock",
+    "CHECKBOX",
+    "Lock the cursor when in free look",
     [_projName, "Control"],
-    [0, 1, 0.5, 2],
+    [true],
     0
 ] call CBA_fnc_addSetting;
 
@@ -134,24 +134,14 @@ private _projName = "AH-64D Official Project";
 
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_mousehorpos = 0.5;
-fza_ah64_mousevertpos = 0.5;
 fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
-fza_ah64_locktargstate = 0;
-fza_ah64_irjammer = 0;
 fza_ah64_salvofired = 0;
-fza_ah64_mynum = 0;
-fza_ah64_lastdir = 0;
-fza_ah64_dps = 0;
 fza_ah64_sideslip = 0;
-fza_ah64_tiron = false;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
 fza_ah64_AseRWR = [];
-fza_ah64_tsdmap = 0;
-fza_ah64_Cscopelist = [];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays

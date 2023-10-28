@@ -23,7 +23,6 @@ class CfgVehicles
         #include "cfgVehicles\sfmplus.hpp"
         #include "cfgVehicles\sounds.hpp"
         #include "cfgVehicles\soundsExt.hpp"
-        #include "cfgVehicles\userActions.hpp"
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\itcAir.hpp"
 
