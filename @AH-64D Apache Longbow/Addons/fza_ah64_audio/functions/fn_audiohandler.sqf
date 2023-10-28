@@ -28,7 +28,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-while {player != vehicle player} do {
+while {player != vehicle player && alive player && alive _heli} do {
     waituntil {isGamePaused == false};   
     
     private _aseMsg     = _heli getVariable "fza_audio_ase_message";
