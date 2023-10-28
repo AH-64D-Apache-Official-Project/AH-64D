@@ -144,6 +144,7 @@ class CfgVehicles {
                 index = MPD_PAGE_ASE;
                 draw  = "fza_mpd_fnc_pageASEDraw";
                 handleControl = "fza_mpd_fnc_pageASEHandleControl";
+                usesIcons = 1;
             };
             class CHAN {
                 index = MPD_PAGE_CHAN;

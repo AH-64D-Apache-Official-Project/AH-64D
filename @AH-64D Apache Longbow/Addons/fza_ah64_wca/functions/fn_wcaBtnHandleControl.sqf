@@ -23,13 +23,13 @@ switch (_control) do {
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrCaut": {
-        _heli setVariable ["fza_ah64_mstrCautLightOn", false, true];
+        _heli setVariable ["fza_ah64_mstrCautLightOn", false];
         [_heli] call fza_audio_fnc_delCaution;
 
         playsound "fza_ah64_switch_flip4";
     };
     case "mstrWarn": {
-        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
         [_heli] call fza_audio_fnc_delWarning;
         playsound "fza_ah64_switch_flip4";
     };

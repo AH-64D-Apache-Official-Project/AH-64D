@@ -6,7 +6,7 @@ class CfgAmmo {
 
     class fza_275_base: MissileBase 
     {
-        simulation = "shotRocket";
+        simulation                  = "shotRocket";
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
@@ -40,13 +40,13 @@ class CfgAmmo {
         suppressionRadiusHit        = 15;
         dangerRadiusHit             = 40;
         initTime                    = 0.02;
-        maxSpeed                    = 739;
-        thrustTime                  = 2;
-        thrust                      = 840;
+        maxSpeed                    = 840;
+        thrustTime                  = 0.5;
+        thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
         sideAirFriction             = 0.004;
-        timeToLive                  = 15;
+        timeToLive                  = 17;
         whistleDist                 = 24;
 
         class CamShakeExplode
@@ -54,28 +54,12 @@ class CfgAmmo {
             power = 16;
             duration = 1.8;
             frequency = 20;
-            distance = 191.554;
         };
         class CamShakeHit
         {
             power = 80;
             duration = 0.6;
             frequency = 20;
-            distance = 1;
-        };
-        class CamShakeFire
-        {
-            power = 2.9907;
-            duration = 1.8;
-            frequency = 20;
-            distance = 71.5542;
-        };
-        class CamShakePlayerFire
-        {
-            power = 2;
-            duration = 0.1;
-            frequency = 20;
-            distance = 1;
         };
     };
     class fza_275_m151: fza_275_base
@@ -128,7 +112,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.6;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
@@ -168,7 +152,7 @@ class CfgAmmo {
         submunitionConeAngle        = 0;
         deleteParentWhenTriggered   = 1;
 
-        triggerTime                 = 3.5;
+        triggerTime                 = 5.4;
         soundHit1[]                 = {"A3\sounds_f\dummysound",2.5118864,1,5};
         multiSoundHit[]             = {"soundHit1",1};
 
