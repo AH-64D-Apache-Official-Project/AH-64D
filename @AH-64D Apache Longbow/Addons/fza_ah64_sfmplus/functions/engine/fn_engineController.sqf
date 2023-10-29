@@ -45,9 +45,10 @@ private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
 if (local _heli) then {
-    if (_eng1State != "OFF" || _eng2State != "OFF") then {
+    if (_eng1State != "OFF" || _eng2State != "OFF" || _isAutorotating) exitWith {
         _heli engineOn true;
     };
+    _heli engineOn false;
 };
 if !_apuOn then {
     if (_eng1State == "STARTING") then {
@@ -102,9 +103,6 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
-    _heli engineOn false;
-};
 
 //Autorotation handler
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
