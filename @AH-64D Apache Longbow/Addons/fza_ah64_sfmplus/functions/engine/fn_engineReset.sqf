@@ -29,7 +29,6 @@ if (!local _heli) exitWith {};
 [_heli, "fza_sfmplus_engPctNG",  	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseNP", 	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctNP",  	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engBaseTQ", 	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engPctTQ",   	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseTGT", 	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engTGT",		 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
