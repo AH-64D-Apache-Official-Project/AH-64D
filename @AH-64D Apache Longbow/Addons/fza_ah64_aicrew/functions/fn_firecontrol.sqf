@@ -50,7 +50,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 sleep 0.4;
 if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-    if _PrimaryFBAvailable then {
+    if _primaryFBAvailablethen {
         _heli setVariable ["fza_ah64_firepdisch", true, true];
         if (_heli getHitPointDamage "hitengine2" == 0) then {
             _heli setHitPointDamage  ["hitengine2", 0.01];
@@ -58,7 +58,7 @@ if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire"
         sleep 2;
     };
     if (_heli getVariable "fza_ah64_e1_fire" || _heli getVariable "fza_ah64_e2_fire" || _heli getVariable "fza_ah64_apu_fire") then {
-        if _ReserveFBAvailable then {
+        if _reserveFBAvailable then {
             _heli setVariable ["fza_ah64_firerdisch", true, true];
             if (_heli getHitPointDamage "hitengine2" == 0) then {
                 _heli setHitPointDamage  ["hitengine2", 0.01];

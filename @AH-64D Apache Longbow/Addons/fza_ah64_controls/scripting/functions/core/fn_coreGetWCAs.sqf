@@ -164,13 +164,8 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 };
 //--Aft Deck fire
 if (_heli getVariable "fza_ah64_aft_deck_fire") then {
-    /*([_heli, _activeWarn, "AFT DECK FIRE", "DECK FIRE", FIRE_PRIORITY, "fza_ah64_aft_deck_fire", 3] call fza_wca_fnc_wcaAddWarning)
-        params ["_wcaAddWarning"];*/
     _wcas pushBack [WCA_WARNING, "AFT DECK FIRE", "DECK FIRE"];
-} else {
-    //[_activeWarn, "DECK FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
-
 
 //--Engine 2 Overspeed
 if (_eng2Np >= 1.15) then {

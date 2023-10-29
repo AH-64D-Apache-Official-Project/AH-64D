@@ -147,9 +147,6 @@ _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rocketsalvo", 2];
-_heli setVariable ["fza_ah64_fire_left_fx", []];
-_heli setVariable ["fza_ah64_fire_right_fx", []];
-_heli setVariable ["fza_ah64_fire_apu_fx", []];
 //Systems local to the crewstation
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
