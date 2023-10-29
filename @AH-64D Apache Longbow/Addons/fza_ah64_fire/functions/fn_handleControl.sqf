@@ -28,7 +28,7 @@ private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _crewStation        = _heli call fza_fnc_currentTurret;
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 0;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 0;
-private _apuArm       = (_heli getVariable "fza_ah64_fireArmedApu") # 0;
+private _apuArm             = (_heli getVariable "fza_ah64_fireArmedApu") # 0;
 private _primaryFbAvailable = !(_heli getVariable "fza_ah64_firepdisch");
 private _reserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
 private _fireTestState      = _heli getvariable "fza_ah64_firetest";
@@ -66,7 +66,7 @@ switch(_control) do {
     };
     case "test": {
         if (_fireTestState == 0) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 1];
+            _heli setVariable ["fza_ah64_firetest", 1, true];
             _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1];
             playsound "fza_ah64_switch_flip4";
@@ -78,7 +78,7 @@ switch(_control) do {
             };
         };
         if (_fireTestState == 1) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 2];
+            _heli setVariable ["fza_ah64_firetest", 2, true];
             _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0];
             playsound "fza_ah64_switch_flip4";
@@ -90,7 +90,7 @@ switch(_control) do {
             };
         };
         if (_fireTestState == 2) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 0];
+            _heli setVariable ["fza_ah64_firetest", 0, true];
             _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
             _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0.5];
             _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];

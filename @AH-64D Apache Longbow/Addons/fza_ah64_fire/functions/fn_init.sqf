@@ -25,6 +25,7 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
     _heli setVariable ["fza_ah64_firepdisch", false, true];
     _heli setVariable ["fza_ah64_firerdisch", false, true];
+    _heli setVariable ["fza_ah64_firetest", 0, true];
     
     _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
     _heli setVariable ["fza_ah64_fireArmed2", [false, 0, CBA_missionTime], true];
@@ -33,4 +34,3 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
 _heli setVariable ["fza_ah64_fire_left_fx", []];
 _heli setVariable ["fza_ah64_fire_right_fx", []];
 _heli setVariable ["fza_ah64_fire_apu_fx", []];
-_heli setVariable ["fza_ah64_firetest", 0];
