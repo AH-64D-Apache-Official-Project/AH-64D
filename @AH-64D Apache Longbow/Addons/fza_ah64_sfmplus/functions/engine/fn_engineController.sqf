@@ -130,7 +130,7 @@ if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
 if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES) then {
     _rtrRPM = _droopRPM;
-        if (_realRPM  > _rtrRPM || (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating)) then {
+        if (_realRPM >= _rtrRPM || (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating)) then {
         _heli setHitpointDamage ["hithrotor", 0.9];
     } else {
         _heli setHitpointDamage ["hithrotor", 0.0];
