@@ -79,7 +79,7 @@ if (!(_acBusOn && _dcBusOn) || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
     
     _speed = speed _target;
-    if (_speed < 1) then {_speed = };
+    if (_speed < 1) then {_speed = 0};
     _fcrTargets pushBack [getPosAsl _target, _type, _speed, _target];
 } foreach _fcrTracks;
 
