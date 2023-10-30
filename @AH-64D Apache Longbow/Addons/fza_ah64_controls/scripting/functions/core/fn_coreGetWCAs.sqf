@@ -103,6 +103,8 @@ private _priLevel_pct        = _heli getVariable "fza_systems_priLevel_pct";
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
+//ASE
+private _irJammerDamage      = _heli getHitPointDamage "HitLFab";
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
@@ -400,6 +402,16 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
 
 if (_playCautAudio) then {
     [_heli] call fza_audio_fnc_addCaution;
+};
+//ASE
+if (_irJammerDamage >= SYS_ASE_DMG_THRESH) then {
+        ([_heli, _activeCaut, "IRJAM FAIL", "IRJAM FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "IRJAM FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////
