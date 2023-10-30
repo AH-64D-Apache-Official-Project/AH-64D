@@ -36,7 +36,6 @@ if !(_dcBusOn) exitwith {
     _heli setVariable ["fza_ah64_ase_rlwrObjects", [], true];
     _heli setVariable ["fza_ah64_ase_rlwrCount", 0, true];
     _heli setVariable ["fza_ah64_ase_audioList", [], true];
-    systemchat str ["ASE Propegation Update time:" + str time];
 };
 
 //Sensor threats - acquisition, Track and Launch
@@ -82,4 +81,3 @@ if (_rlwrObjects isEqualTo _existingThreats) exitwith {};
 _heli setVariable ["fza_ah64_ase_rlwrObjects", _rlwrObjects, true];
 _heli setVariable ["fza_ah64_ase_rlwrCount", count _rlwrObjects, true];
 _heli setVariable ["fza_ah64_ase_audioList", _rlwrAudio, true];
-systemchat str ["ASE Propegation Update time:" + str time];

@@ -35,7 +35,6 @@ if (!(_acBusOn && _dcBusOn) || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
     if (_currentTgts isEqualTo []) exitWith {};
     _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
-    systemchat str ["FCR Propegation Update time:" + str time];
 };
 
 {
@@ -102,4 +101,3 @@ if(_newNtsIndex == -1) then {
 
 _heli setVariable ["fza_ah64_fcrTargets", _fcrTargets, true];
 _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time], true];
-systemchat str ["FCR Propegation Update time:" + str time];
