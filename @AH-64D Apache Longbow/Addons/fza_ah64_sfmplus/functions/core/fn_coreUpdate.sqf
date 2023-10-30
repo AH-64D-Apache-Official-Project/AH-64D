@@ -72,13 +72,15 @@ if (_flightModel != "SFMPlus") then {
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+    //Accelerations
+    [_heli, _deltaTime] call fza_sfmplus_fnc_fuselageGetAccelerations;
     //Drag
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 
     //Vertical fin
     private _vertFinPosition   = [0.0, -6.40, -1.75];
     private _vertFinSweep      = -1.2;
-    private _vertFinRot        = 7.5;
+    private _vertFinRot        = 0.0;
     private _vertFinDimensions = [2.25, 0.90];
     [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
 };
