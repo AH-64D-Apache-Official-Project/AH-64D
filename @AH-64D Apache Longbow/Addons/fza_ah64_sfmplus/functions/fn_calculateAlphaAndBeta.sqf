@@ -32,7 +32,7 @@ params ["_heli"];
 //private _gravY    = _grav # 1;
 //private _gravZ    = _grav # 2;
 //Helicopter velocity in model space
-private _heliVel  = [velocity _heli, -getDir _heli, 2] call BIS_fnc_rotateVector3D;
+private _heliVel  = velocityModelSpace _heli;
 private _heliVelX = _heliVel # 0 + EPSILON;
 private _heliVelY = _heliVel # 1 + EPSILON;
 private _heliVelZ = _heliVel # 2 + EPSILON;//(_heliVel # 2) * -1.0;

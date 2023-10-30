@@ -21,6 +21,7 @@ private _accelX   = _heli getVariable "fza_sfmplus_fuselageAccelX";
 _accelX           = [_accelX, _deltaX, _deltaTime] call BIS_fnc_lerp;
 _heli setVariable ["fza_sfmplus_fuselageAccelX", _accelX];
 private _accelX_g = (_accelX + _gravityX) / 9.806;
+
 //Y Axis Acceleration
 private _prevVelY = _heli getVariable "fza_sfmplus_fuselagePrevVelY";
 private _curVelY  = _heliVelY;
@@ -44,9 +45,6 @@ _heli setVariable ["fza_sfmplus_fuselageAccelZ", _accelZ];
 private _accelZ_g = (_accelZ + _gravityZ) / 9.806;
 
 private _beta     = if (vectorMagnitude [_accelX, _accelY, _accelZ] < EPSILON) then { 0.0; } else { asin (_accelX / sqrt(vectorMagnitude [_accelX, _accelY, _accelZ])); };
-
+systemChat format ["_beta = %1", _beta toFixed 2];
 
 _heli setVariable ["fza_sfmplus_fuselageAccel", [_accelX_g, _accelY_g, _accelZ_g]];
-
-
-systemChat format ["_beta = %1", _beta toFixed 2];
