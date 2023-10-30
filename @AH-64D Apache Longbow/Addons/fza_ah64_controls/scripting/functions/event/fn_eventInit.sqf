@@ -66,6 +66,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off", true];
     _heli setVariable ["fza_ah64_ase_rlwrCount",    0, true];
     _heli setVariable ["fza_ah64_ase_rlwrObjects",  [], true];
+    _heli setVariable ["fza_ah64_ase_audioList",  [], true];
     //--IR Jammer   - Aircraft Common
     _heli setVariable ["fza_ah64_ase_msnEquipPwr",      "off", true];
     _heli setVariable ["fza_ah64_ase_irJamState",    0, true];
