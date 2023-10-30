@@ -2,367 +2,320 @@
 ////////////////////////////IHADSS///////////////////////////
 /////////////////////////////////////////////////////////////
 class RscControlsGroup;
-class fza_ah64_mapControl
+class RscMapControlEmpty;
+class fza_ah64_mapControl : RscMapControlEmpty
 {
-    idc = -1;
-    type = 100;
-    style = 48;
-    x = 0;
-    y = 0;
-    w = 1;
-    h = 1;
-    colorBackground[] = {1,1,1,0};
-    colorText[] = {0,0,0,0};
-    colorSea[] = {0.56,0.8,0.98,0};
-    colorForest[] = {0.6,0.8,0.2,0};
-    colorRocks[] = {0.5,0.5,0.5,0};
-    colorCountlines[] = {0.65,0.45,0.27,0};
-    colorMainCountlines[] = {0.65,0.45,0.27,0};
-    colorCountlinesWater[] = {0,0.53,1,0};
-    colorMainCountlinesWater[] = {0,0.53,1,0};
-    colorForestBorder[] = {0.4,0.8,0,0};
-    colorRocksBorder[] = {0.5,0.5,0.5,0};
-    colorPowerLines[] = {0,0,0,0};
-    colorNames[] = {0,0,0,0};
-    colorInactive[] = {1,1,1,0};
-    colorLevels[] = {0,0,0,0};
-    colorRailWay[] = {0,0,0,0};
-    colorOutside[] = {0.56,0.8,0.98,0};
-    //a3compat//
-    colorTracks[] = {0,0,0,0};
-    colorRoads[] = {0,0,0,0};
-    colorMainRoads[] = {0,0,0,0};
-    colorTracksFill[] = {0,0,0,0};
-    colorRoadsFill[] = {0,0,0,0};
-    colorMainRoadsFill[] = {0,0,0,0};
+    colorBackground[] = {0,0,0,0};
+    colorCountlines[] = {0,0,0,0};
+    colorCountlinesWater[] = {0,0,0,0};
+    colorForest[] = {0,0,0,0};
+    colorForestBorder[] = {0,0,0,0};
     colorGrid[] = {0,0,0,0};
     colorGridMap[] = {0,0,0,0};
-    ////////////
-    font = "TahomaB";
-    sizeEx = 0;
-    stickX[] = {0,{"Gamma",1,1.5 }};
-    stickY[] = {0,{"Gamma",1,1.5 }};
-    ptsPerSquareSea = 0;
-    ptsPerSquareTxt = 0;
-    ptsPerSquareCLn = 0;
-    ptsPerSquareExp = 0;
-    ptsPerSquareCost = 0;
-    ptsPerSquareFor = "0f";
-    ptsPerSquareForEdge = "0f";
-    ptsPerSquareRoad = 0;
-    ptsPerSquareObj = 0;
-    fontLabel = "PuristaMedium";
-    sizeExLabel = 0;
-    fontGrid = "PuristaMedium";
-    sizeExGrid = 0;
-    fontUnits = "PuristaMedium";
-    sizeExUnits = 0;
-    fontNames = "PuristaMedium";
-    sizeExNames = 0;
-    fontInfo = "PuristaMedium";
-    sizeExInfo = 0;
-    fontLevel = "PuristaMedium";
-    sizeExLevel = 0;
-    scaleMax = 1;
-    scaleMin = 0.125;
-    text = "";
-    maxSatelliteAlpha = 0;
-    alphaFadeStartScale = 1;
-    alphaFadeEndScale = 1.1;
-    showCountourInterval = 1;
-    scaleDefault = 2;
-    class Task
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {1,0.537,0,0};
-        size = 27;
-        importance = 1;
-        coefMin = 1;
-        coefMax = 1;
-        iconCreated = "";
-        iconCanceled = "";
-        iconDone = "";
-        iconFailed = "";
-        colorCreated[] = {1,1,1,0};
-        colorCanceled[] = {1,1,1,0};
-        colorDone[] = {1,1,1,0};
-        colorFailed[] = {1,1,1,0};
-    };
-    class CustomMark
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.6471,0.6706,0.6235,0};
-        size = 18;
-        importance = 1;
-        coefMin = 1;
-        coefMax = 1;
-    };
-    class Legend
-    {
-        x = "SafeZoneX";
-        y = "SafeZoneY";
-        w = 0.34;
-        h = 0.152;
-        font = "PuristaMedium";
-        sizeEx = 0.03921;
-        colorBackground[] = {0.906,0.901,0.88,0};
+    colorInactive[] = {0,0,0,0};
+    colorLevels[] = {0,0,0,0};
+    colorMainCountlines[] = {0,0,0,0};
+    colorMainCountlinesWater[] = {0,0,0,0};
+    colorMainRoads[] = {0,0,0,0};
+    colorMainRoadsFill[] = {0,0,0,0};
+    colorNames[] = {0,0,0,0};
+    colorOutside[] = {0,0,0,0};
+    colorPowerLines[] = {0,0,0,0};
+    colorRailWay[] = {0,0,0,0};
+    colorRoads[] = {0,0,0,0};
+    colorRoadsFill[] = {0,0,0,0};
+    colorRocks[] = {0,0,0,0};
+    colorRocksBorder[] = {0,0,0,0};
+    colorSea[] = {0,0,0,0};
+    colorText[] = {0,0,0,1};
+    colorTracks[] = {0,0,0,0};
+    colorTracksFill[] = {0,0,0,0};
+    colorTrails[] = {0,0,0,0};
+    colorTrailsFill[] = {0,0,0,0};
+
+    text = "#(argb,8,8,3)color(0,0,0,0)";
+    showMarkers = 0;
+    class ActiveMarker {
         color[] = {0,0,0,0};
+        size = 0;
     };
-    class Bunker
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.55,0.64,0.43,0};
-        size = 14;
+    class Bunker {
+        coefMax = 4;
+        coefMin = 0.25;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
         importance = "1.5 * 14 * 0.05";
-        coefMin = 0.25;
-        coefMax = 4;
+        size = 0;
     };
-    class Bush
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.45,0.64,0.33,0};
-        size = 14;
-        importance = "0.2 * 14 * 0.05";
-        coefMin = 0.25;
+    class Bush {
         coefMax = 4;
-    };
-    class BusStop
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.15,0.26,0.87,0};
-        size = 12;
-        importance = "1 * 10 * 0.05";
         coefMin = 0.25;
-        coefMax = 4;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "0.2 * 14 * 0.05 * 0.05";
+        size = 0;
     };
-    class Command
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.9,0,0};
-        size = 18;
-        importance = 1;
-        coefMin = 1;
+    class busstop {
         coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class Cross
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "0.7 * 16 * 0.05";
-        coefMin = 0.25;
-        coefMax = 4;
+    class Chapel {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class Fortress
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.25;
-        coefMax = 4;
+    class church {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class Fuelstation
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.75;
-        coefMax = 4;
-    };
-    class Fountain
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.2,0.45,0.7,0};
-        size = 11;
-        importance = "1 * 12 * 0.05";
-        coefMin = 0.25;
-        coefMax = 4;
-    };
-    class Hospital
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.78,0,0.05,0};
-        size = 16;
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
-    };
-    class Chapel
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.55,0.64,0.43,0};
-        size = 16;
-        importance = "1 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
-    };
-    class Church
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
-    };
-    class Lighthouse
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 14;
-        color[] = {0,0.9,0,0};
-        importance = "3 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
-    };
-    class Quay
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
-    };
-    class Rock
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.1,0.1,0.1,0};
-        size = 12;
-        importance = "0.5 * 12 * 0.05";
-        coefMin = 0.25;
-        coefMax = 4;
-    };
-    class Ruin
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 16;
-        color[] = {0,0.9,0,0};
-        importance = "1.2 * 16 * 0.05";
+    class Command {
+        coefMax = 1;
         coefMin = 1;
-        coefMax = 4;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class SmallTree
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.45,0.64,0.33,0};
-        size = 12;
-        importance = "0.6 * 12 * 0.05";
+    class Cross {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class CustomMark {
+        coefMax = 1;
+        coefMin = 1;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class Fortress {
+        coefMax = 4;
         coefMin = 0.25;
-        coefMax = 4;
-    };
-    class Stack
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        size = 20;
-        color[] = {0,0.9,0,0};
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
         importance = "2 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
+        size = 0;
     };
-    class Tree
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.45,0.64,0.33,0};
-        size = 12;
-        importance = "0.9 * 16 * 0.05";
+    class Fountain {
+        coefMax = 4;
         coefMin = 0.25;
-        coefMax = 4;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "1 * 12 * 0.05";
+        size = 0;
     };
-    class Tourism
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.78,0,0.05,0};
-        size = 16;
-        importance = "1 * 16 * 0.05";
-        coefMin = 0.7;
-        coefMax = 4;
+    class fuelstation {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class Transmitter
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.9,0,0};
-        size = 20;
-        importance = "2 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
+    class hospital {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class ViewTower
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.9,0,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
+    class Legend {
+        color[] = {0,0,0,0};
+        colorBackground[] = {0,0,0,0};
+        font = "RobotoCondensed";
+        h = "3.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
+        sizeEx = 0;
+        w = "10 * 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+        x = "SafeZoneX + 					(			((safezoneW / safezoneH) min 1.2) / 40)";
+        y = "SafeZoneY + safezoneH - 4.5 * 					(			(			((safezoneW / safezoneH) min 1.2) / 1.2) / 25)";
     };
-    class Watertower
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0.2,0.45,0.7,0};
-        size = 20;
+    class lighthouse {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class LineMarker {
+        lineDistanceMin = 3e-005;
+        lineLengthMin = 5;
+        lineWidthThick = 0.014;
+        lineWidthThin = 0.008;
+        textureComboBoxColor = "#(argb,8,8,3)color(0,0,0,0)";
+    };
+    class power {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class powersolar {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class powerwave {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class powerwind {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class quay {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class Rock {
+        coefMax = 4;
+        coefMin = 0.25;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "0.5 * 12 * 0.05";
+        size = 0;
+    };
+    class Ruin {
+        coefMax = 4;
+        coefMin = 1;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
         importance = "1.2 * 16 * 0.05";
-        coefMin = 0.9;
-        coefMax = 4;
+        size = 0;
     };
-    class Waypoint
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
+    class shipwreck {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class SmallTree {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class Stack {
+        coefMax = 2;
+        coefMin = 0.4;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "2 * 16 * 0.05";
+        size = 0;
+    };
+    class Task {
+        coefMax = 1;
+        coefMin = 1;
+        color[] = {0,0,0,0};
+        colorCanceled[] = {0,0,0,0};
+        colorCreated[] = {0,0,0,0};
+        colorDone[] = {0,0,0,0};
+        colorFailed[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        iconCanceled = "#(argb,8,8,3)color(0,0,0,0)";
+        iconCreated = "#(argb,8,8,3)color(0,0,0,0)";
+        iconDone = "#(argb,8,8,3)color(0,0,0,0)";
+        iconFailed = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+        taskAssigned = "#(argb,8,8,3)color(0,0,0,0)";
+        taskCanceled = "#(argb,8,8,3)color(0,0,0,0)";
+        taskCreated = "#(argb,8,8,3)color(0,0,0,0)";
+        taskFailed = "#(argb,8,8,3)color(0,0,0,0)";
+        taskNone = "#(argb,8,8,3)color(0,0,0,0)";
+        taskSucceeded = "#(argb,8,8,3)color(0,0,0,0)";
+    };
+    class Tourism {
+        coefMax = 4;
+        coefMin = 0.7;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "1 * 16 * 0.05";
+        size = 0;
+    };
+    class transmitter {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
+    };
+    class Tree {
+        coefMax = 4;
+        coefMin = 0.25;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = "0.9 * 16 * 0.05";
+        size = 0;
+    };
+    class ViewTower {
+        coefMax = 4;
         coefMin = 0.5;
-        coefMax = 4;
-    };
-    class WaypointCompleted
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
         importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
+        size = 0;
     };
-    class PowerSolar
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
+    class watertower {
+        coefMax = 1;
+        coefMin = 0.85;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class PowerWave
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
+    class Waypoint {
+        coefMax = 1;
+        coefMin = 1;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
-    class PowerWind
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
-    };
-    class Shipwreck
-    {
-        icon = "\fza_ah64_US\tex\ICONS\ah64_gen_pfz.paa";
-        color[] = {0,0.35,0.7,0};
-        size = 16;
-        importance = "2.5 * 16 * 0.05";
-        coefMin = 0.5;
-        coefMax = 4;
-    };
-    class ActiveMarker
-    {
-        color[] = {0.3,0.1,0.9,0};
-        size = 50;
+    class WaypointCompleted {
+        coefMax = 1;
+        coefMin = 1;
+        color[] = {0,0,0,0};
+        icon = "#(argb,8,8,3)color(0,0,0,0)";
+        importance = 1;
+        size = 0;
     };
 };
