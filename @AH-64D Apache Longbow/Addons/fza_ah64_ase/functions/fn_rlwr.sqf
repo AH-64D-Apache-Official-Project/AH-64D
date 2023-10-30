@@ -32,6 +32,9 @@ private _launching       = [];
 
 if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
 if !(_dcBusOn) exitwith {
+    if (_rlwrPwr == "on") then {
+        _heli setVariable ["fza_ah64_ase_rlwrPwr", "off", true];
+    };
     if (_existingThreats isEqualTo []) exitwith {};
     _heli setVariable ["fza_ah64_ase_rlwrObjects", [], true];
     _heli setVariable ["fza_ah64_ase_rlwrCount", 0, true];
