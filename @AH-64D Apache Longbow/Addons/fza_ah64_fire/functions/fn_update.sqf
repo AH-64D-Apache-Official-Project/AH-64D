@@ -29,6 +29,7 @@ private _reserveFB          = _heli getVariable "fza_ah64_firerdisch";
 private _engineOneFire      = _heli getVariable "fza_ah64_e1_fire";
 private _engineTwoFire      = _heli getVariable "fza_ah64_e2_fire";
 private _apuFire            = _heli getVariable "fza_ah64_apu_fire";
+private _mstrWarnLighton    = _heli getVariable "fza_ah64_mstrWarnLightOn";
 
 if (_engineOneArm && _engineOneArmTimer <= CBA_missionTime - 2) then {
     [_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
@@ -41,8 +42,10 @@ if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
 };
 
 //Fire test switch
-if ((_heli getvariable "fza_ah64_firetest") == 1) then {
-    _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
+if ((_heli getvariable "fza_ah64_firetest") >= 1) then {
+    if !_mstrWarnLighton then {
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
+    };
     _engineOneArm  = true;
     _engineTwoArm  = true;
     _apuArm        = true;
@@ -53,15 +56,8 @@ if ((_heli getvariable "fza_ah64_firetest") == 1) then {
     _apuFire       = true;
 };
 if ((_heli getvariable "fza_ah64_firetest") == 2) then {
-    _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
-    _engineOneArm  = true;
-    _engineTwoArm  = true;
-    _apuArm        = true;
     _primaryFB     = true;
     _reserveFB     = true;
-    _engineOneFire = true;
-    _engineTwoFire = true;
-    _apuFire       = true;
 };
 
 if !_battBusOn then {
