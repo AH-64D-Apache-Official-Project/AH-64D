@@ -60,7 +60,7 @@ private _rtrThrustScalarTable_max = [
                                     ,[12000, 4.175]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.10;
+private _rtrTorqueScalar        = TQ_SCALAR;//1.10;
 
 private _pitchTorqueScalar      = 2.25;//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
@@ -138,14 +138,16 @@ private _axisZ = [0.0, 0.0, 1.0];
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
-_gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
+_gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-private _totalThrust  = _rtrThrust + _gndEffThrust;
-private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+private _totThrust    = _heli getVariable "fza_sfmplus_rtrThrust" select 0;
+_totThrust            = [_totThrust, _rtrThrust + _gndEffThrust, _deltaTime] call BIS_fnc_lerp;
+[_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
+private _thrustZ      = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
 //Pitch torque
-private _cyclicFwdAftTrim  = _heli getVariable "fza_ah64_forceTrimPosPitch";
-private _torqueX           = ((_rtrThrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
+private _torqueX             = ((_rtrThrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 private _torqueY             = ((_rtrThrust * (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;

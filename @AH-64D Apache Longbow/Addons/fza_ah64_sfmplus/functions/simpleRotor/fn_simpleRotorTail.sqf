@@ -105,10 +105,12 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-private _totalThrust = _rtrThrust;
-private _thrustX     = _axisX vectorMultiply ((_totalThrust * _sideThrustScalar * -1.0) * _deltaTime);
-private _torqueY     = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
-private _torqueZ     = ((_rtrPos # 1) * _totalThrust * -1.0) * _deltaTime; 
+private _totThrust     = _heli getVariable "fza_sfmplus_rtrThrust" select 1;
+_totThrust             = [_totThrust, _rtrThrust, _deltaTime] call BIS_fnc_lerp;
+[_heli, "fza_sfmplus_rtrThrust", 1, _totThrust, true] call fza_fnc_setArrayVariable;
+private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
+private _torqueY       = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
+private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
