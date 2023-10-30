@@ -20,8 +20,6 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
-//if !(isEngineOn _heli) exitwith {}; ac && dc power
-
 private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
 private _audioList          = _heli getVariable "fza_ah64_ase_audioList";
 private _Autopage           = _heli getVariable "fza_ah64_ase_autopage";
