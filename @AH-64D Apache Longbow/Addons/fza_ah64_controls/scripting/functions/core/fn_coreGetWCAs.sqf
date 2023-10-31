@@ -106,7 +106,7 @@ private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
 //ASE
-private _MsnEquipState          = _heli getVariable "fza_ah64_ase_msnEquipPwr";
+private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
