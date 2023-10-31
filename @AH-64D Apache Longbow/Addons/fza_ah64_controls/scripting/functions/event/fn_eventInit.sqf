@@ -39,7 +39,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_hellfireTrajectory", "DIR", true];
-    _heli setVariable ["fza_ah64_laserPosCompaire", [0,0,0], true];
     //FCR initial states
     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
     _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
