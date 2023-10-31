@@ -21,18 +21,22 @@ Author:
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli"];
 
+if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
+
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
+private _currentTgts = _heli getVariable "fza_ah64_fcrTargets";
 private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
 private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
 private _fcrTracks   = getSensorTargets _heli;
+private _fcrTargets  = [];
 
-if !(_acBusOn && _dcBusOn) exitwith {};
-if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
-    _fcrTracks = [];
+if (!(_acBusOn && _dcBusOn) || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
+    if (_currentTgts isEqualTo []) exitWith {};
+    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+    _heli setVariable ["fza_ah64_fcrTargets", [], true];
 };
 
-private _fcrTargets = [];
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
 
@@ -40,11 +44,12 @@ private _fcrTargets = [];
     private _range       = _heli distance2d _target;
     private _heliPos     = getposasl _heli;
     private _targetpos   = getposasl _target;
+    private _targetSpeed = speed _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
-        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
+       _targetspeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
     if (count _fcrTargets > 256) exitwith {};
 
@@ -72,11 +77,14 @@ private _fcrTargets = [];
 
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
-
-    _fcrTargets pushBack [getPosAsl _target, _type, speed _target, _target];
+    
+    private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
+    if (_speed < 1) then {_speed = 0};
+    _fcrTargets pushBack [getPosAsl _target, _type, _moving, _target];
 } foreach _fcrTracks;
 
 _fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
+if (_fcrTargets isEqualTo _currentTgts) exitWith {};
 
 private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};

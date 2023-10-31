@@ -141,7 +141,6 @@ fza_ah64_salvofired = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
-fza_ah64_AseRWR = [];
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays

@@ -30,6 +30,7 @@ Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\wcaConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 params ["_heli"];
@@ -48,6 +49,7 @@ private _mags = _heli weaponsTurret [-1];
 private _wcas       = [];
 private _activeCaut = _heli getVariable "fza_ah64_activeCaut";
 private _activeWarn = _heli getVariable "fza_ah64_activeWarn";
+private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -103,6 +105,8 @@ private _priLevel_pct        = _heli getVariable "fza_systems_priLevel_pct";
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
+//ASE
+private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
@@ -400,6 +404,16 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
 
 if (_playCautAudio) then {
     [_heli] call fza_audio_fnc_addCaution;
+};
+//ASE
+if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH) && _MsnEquipState == "on" && _heli animationPhase "msn_equip_american" == 1) then {
+        ([_heli, _activeCaut, "IRJAM FAIL", "IRJAM FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "IRJAM FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////

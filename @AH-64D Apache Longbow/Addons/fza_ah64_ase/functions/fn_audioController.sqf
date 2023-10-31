@@ -18,10 +18,10 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli","_audioList"];
+params ["_heli"];
 
-if !(isEngineOn _heli) exitwith {};
-
+private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
+private _audioList          = _heli getVariable "fza_ah64_ase_audioList";
 private _Autopage           = _heli getVariable "fza_ah64_ase_autopage";
 private _rlwrPower          = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _Searchlist         = _heli getVariable "fza_ah64_ase_searchingObj";
@@ -34,7 +34,7 @@ private _acquisition        = [];
 private _tracking           = [];
 private _priority           = 0;
 
-if (_rlwrPower == "OFF") exitWith {
+if (_rlwrPower == "OFF" || !_dcBusOn) exitWith {
     _heli setVariable ["fza_ah64_ase_searchingObj", _searching];
     _heli setVariable ["fza_ah64_ase_acquisitionObj", _acquisition];
     _heli setVariable ["fza_ah64_ase_trackingobj", _tracking];
