@@ -44,11 +44,12 @@ if (!(_acBusOn && _dcBusOn) || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
     private _range       = _heli distance2d _target;
     private _heliPos     = getposasl _heli;
     private _targetpos   = getposasl _target;
+    private _targetSpeed = speed _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
-        speed _target > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
+       _targetspeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
     if (count _fcrTargets > 256) exitwith {};
 
@@ -77,9 +78,9 @@ if (!(_acBusOn && _dcBusOn) || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
     
-    _speed = speed _target;
+    private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
     if (_speed < 1) then {_speed = 0};
-    _fcrTargets pushBack [getPosAsl _target, _type, _speed, _target];
+    _fcrTargets pushBack [getPosAsl _target, _type, _moving, _target];
 } foreach _fcrTracks;
 
 _fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
