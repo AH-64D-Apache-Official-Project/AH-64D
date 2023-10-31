@@ -43,12 +43,14 @@ a_range = (getPosASL laserTarget _heli) distance _tadsPos;
 
 a_newPos = nil;
 
+#ifdef DEBUG_MODE_FULL
 drawIcon3D [
 	"a3\ui_f\data\Map\Markers\Military\circle_CA.paa",
 	[1,1,1,1],
 	positionCameraToWorld [a_lmcInput#0,-(a_lmcInput#1),10],
 	1,1,0
 ];
+#endif DEBUG_MODE_FULL
 
 private _range = (getPosASL laserTarget _heli) distance _tadsPos;
 a_rangeScale =  a_range / _range;
@@ -72,6 +74,8 @@ if (isNil "a_newPos") then {
 	} params ["_tadsX", "_tadsY", "_tadsZ"];
 
 _pos = ASLToAGL _tadsPos;
+
+#ifdef DEBUG_MODE_FULL
 {
 _colour = [0,0,0,1];
 _colour set [_forEachIndex , 1];
@@ -81,6 +85,7 @@ drawLine3D [
 	_colour
 ];
 } forEach [_tadsX, _tadsY, _tadsZ];
+#endif DEBUG_MODE_FULL
 
 // Rotate
 private _m = matrixTranspose [_tadsX, _tadsY, _tadsZ];
@@ -91,6 +96,8 @@ _m = matrixTranspose [_vX, _vY, _vZ];
 _newY = _newY vectorMultiply _range;
 a_newPos = _tadsPos vectorAdd (_heli vectorModelToWorldVisual _newY);
 a_newY = _newY;
+
+#ifdef DEBUG_MODE_FULL
 hintSilent str [a_newPos];
 drawIcon3D [
 	"\a3\ui_f\data\Map\MarkerBrushes\cross_ca.paa",
@@ -103,5 +110,6 @@ ASLToAGL _tadsPos,
 ASLToAGL a_newPos,
 [1,0,0,1]
 ];
+#endif DEBUG_MODE_FULL
 
 _heli lockCameraTo [a_newPos, [0], true];
