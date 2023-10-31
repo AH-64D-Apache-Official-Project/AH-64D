@@ -14,26 +14,26 @@ Examples:
 Author:
     Snow(Dryden), Ampersand
 ---------------------------------------------------------------------------- */
-#define INPUT_SENS 0.01 // Tweak this for responsiveness? - Ampersand
+#define INPUT_SENS 0.001 // Tweak this for responsiveness? - Ampersand
 #define INPUT_MAX 5.0
 
 params ["_heli"];
 
 if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
-    _heli setVariable ["fza_ah64_lmcConstant", [0, 0], true];
-    _heli setVariable ["fza_ah64_lmcStartRange", -1, true];
-    _heli setVariable ["fza_ah64_lmcPosition", [], true];
+    _heli setVariable ["fza_ah64_lmcConstant", [0, 0]];
+    _heli setVariable ["fza_ah64_lmcStartRange", -1];
+    _heli setVariable ["fza_ah64_lmcPosition", []];
 };
 
-_heli getVariable ["fza_ah64_lmcConstant", [0, 0]] params ["_azimuthC", "_elevationC"];
-private _lmcStartRange = _heli getVariable ["fza_ah64_lmcStartRange", -1];
-private _lmcPosition = _heli getVariable ["fza_ah64_lmcPosition", []];
+(_heli getVariable "fza_ah64_lmcConstant") params ["_azimuthC", "_elevationC"];
+private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
+private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
 private _fovVal = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
-private _inputX = -1 * [(((inputAction "AimLeft" - inputAction "AimRight") * INPUT_SENS) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * INPUT_SENS) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * INPUT_SENS) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
-_heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY], true];
+_heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY]];
 
 #ifdef __A3_DEBUG__
 drawIcon3D [
@@ -47,9 +47,10 @@ drawIcon3D [
 private _tadsPos = (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
 private _laserPos = getPosASL laserTarget _heli;
 private _range = _laserPos distance _tadsPos;
+if (_laserPos isEqualTo [0,0,0]) then {_range = 1000};
 
 if (_lmcStartRange == -1) then {
-	_heli setVariable ["fza_ah64_lmcStartRange", _range, true];
+	_heli setVariable ["fza_ah64_lmcStartRange", _range];
 	_lmcStartRange = _range;
 };
 
@@ -95,7 +96,7 @@ _m = matrixTranspose [_vX, _vY, _vZ];
 
 _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPos vectorAdd (_heli vectorModelToWorldVisual _newY);
-_heli setVariable ["fza_ah64_lmcPosition", _lmcPosition, true];
+_heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
 
 #ifdef __A3_DEBUG__
 hintSilent str [_lmcPosition];

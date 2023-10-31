@@ -150,6 +150,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     //Tads
     _heli setVariable ["fza_ah64_lmcConstant",            [0,0], true];
     _heli setVariable ["fza_ah64_LmcActive",              false, true];
+    _heli setVariable ["fza_ah64_lmcPosition",            [],    true];
+    _heli setVariable ["fza_ah64_lmcStartRange",          1000,    true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
