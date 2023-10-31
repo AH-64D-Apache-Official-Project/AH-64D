@@ -35,14 +35,14 @@ private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * INPUT_SENS)
 
 _heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY], true];
 
-#ifdef DEBUG_MODE_FULL
+#ifdef __A3_DEBUG__
 drawIcon3D [
 	"a3\ui_f\data\Map\Markers\Military\circle_CA.paa",
 	[1, 1, 1, 1],
 	positionCameraToWorld [_inputX, _inputY, 10],
 	1, 1, 0
 ];
-#endif DEBUG_MODE_FULL
+#endif
 
 private _tadsPos = (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
 private _laserPos = getPosASL laserTarget _heli;
@@ -75,7 +75,7 @@ if (_lmcPosition isEqualTo []) then {
 
 _pos = ASLToAGL _tadsPos;
 
-#ifdef DEBUG_MODE_FULL
+#ifdef __A3_DEBUG__
 {
 _colour = [0, 0, 0, 1];
 _colour set [_forEachIndex , 1];
@@ -85,7 +85,7 @@ drawLine3D [
 	_colour
 ];
 } forEach [_tadsX, _tadsY, _tadsZ];
-#endif DEBUG_MODE_FULL
+#endif
 
 // Rotate
 private _m = matrixTranspose [_tadsX, _tadsY, _tadsZ];
@@ -97,7 +97,7 @@ _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPos vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition, true];
 
-#ifdef DEBUG_MODE_FULL
+#ifdef __A3_DEBUG__
 hintSilent str [_lmcPosition];
 drawIcon3D [
 	"\a3\ui_f\data\Map\MarkerBrushes\cross_ca.paa",
@@ -110,6 +110,6 @@ ASLToAGL _tadsPos,
 ASLToAGL _lmcPosition,
 [1, 0, 0, 1]
 ];
-#endif DEBUG_MODE_FULL
+#endif
 
 _heli lockCameraTo [_lmcPosition, [0], true];
