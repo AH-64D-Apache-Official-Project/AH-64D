@@ -29,11 +29,7 @@ _heli getVariable ["fza_ah64_lmcConstant", [0, 0]] params ["_azimuthC", "_elevat
 private _lmcStartRange = _heli getVariable ["fza_ah64_lmcStartRange", -1];
 private _lmcPosition = _heli getVariable ["fza_ah64_lmcPosition", []];
 
-private _index = _heli getTurretOpticsMode [0];
-private _fovName = ["Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Narrow", "Dtv_Zoom"]#_index;
-private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn" >> _fovName;
-private _fovVal = getNumber (_fovConfig >> "initfov");
-
+private _fovVal = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
 private _inputX = -1 * [(((inputAction "AimLeft" - inputAction "AimRight") * INPUT_SENS) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * INPUT_SENS) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
