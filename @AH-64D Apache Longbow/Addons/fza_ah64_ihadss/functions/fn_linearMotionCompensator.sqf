@@ -12,8 +12,11 @@ Returns:
 Examples:
 
 Author:
-    Snow(Dryden), ampersand38
+    Snow(Dryden), Ampersand
 ---------------------------------------------------------------------------- */
+#define INPUT_SENS 0.01 // Tweak this for responsiveness? - Ampersand
+#define INPUT_MAX 5.0
+
 params ["_heli"];
 
 if !(_heli getvariable "fza_ah64_LmcActive") exitwith {
@@ -27,8 +30,8 @@ private _fovName = ["Flir_Wide","Flir_Medium","Flir_Narrow","Flir_Zoom","A3ti_Wi
 private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn" >> _fovName;
 private _fovVal = getNumber (_fovConfig >> "initfov");
 
-_inputX = [(((inputAction "AimLeft" - inputAction "AimRight") * 0.1) * _fovVal + _azimuthC), -5.0, 5.0] call BIS_fnc_clamp;
-_inputY = [(((inputAction "AimUp" - inputAction "AimDown")* 0.1) * _fovVal + _elevationC), -5.0, 5.0] call BIS_fnc_clamp;
+_inputX = [(((inputAction "AimLeft" - inputAction "AimRight") * INPUT_SENS) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+_inputY = [(((inputAction "AimUp" - inputAction "AimDown")* INPUT_SENS) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
 _heli setVariable ["fza_ah64_lmcConstant", [_inputX,_inputY],true];
 
