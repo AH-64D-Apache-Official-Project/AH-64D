@@ -105,9 +105,9 @@ private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-private _totThrust     = _heli getVariable "fza_sfmplus_rtrThrust" select 1;
-_totThrust             = [_totThrust, _rtrThrust, _deltaTime] call BIS_fnc_lerp;
-[_heli, "fza_sfmplus_rtrThrust", 1, _totThrust, true] call fza_fnc_setArrayVariable;
+//private _totThrust     = _heli getVariable "fza_sfmplus_rtrThrust" select 1;
+private _totThrust     = _rtrThrust;//[_totThrust, _rtrThrust, _deltaTime] call BIS_fnc_lerp;
+//[_heli, "fza_sfmplus_rtrThrust", 1, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY       = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
 private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
@@ -115,13 +115,17 @@ private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime;
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
 private _TGBDamage     = _heli getHitPointDamage "hit_drives_tailrotorgearbox";
-    
+
+private _outThrust = [0.0, 0.0, 0.0];
+private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
         //Rotor thrust force
-        _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+        //_heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+        _outThrust = _thrustX;
         //Tail rotor torque effect
-        _heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+        //_heli addTorque (_heli vectorModelToWorld [0.0, _torqueY, _torqueZ]);
+        _outTq     = [0.0, _torqueY, _torqueZ];
     };
 };
 
@@ -131,6 +135,8 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
 [_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_debugDrawLine;
 [_heli, 24, _rtrPos, _bladeRadius, 0, "white", 0]   call fza_fnc_debugDrawCircle;
 #endif
+
+[_outThrust, _outTq];
 
 /*
 hintsilent format ["v0.7 testing

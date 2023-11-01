@@ -69,9 +69,18 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 if (_flightModel != "SFMPlus") then {
     //Main Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
+    ([_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain)
+        params ["_mainRtrThrustOut", "_mainRtrTqOut"];
     //Tail Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+    ([_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail)
+        params ["_tailRtrThrustOut", "_tailRtrTqOut"];
+
+    private _totForce = _mainRtrThrustOut vectorAdd _tailRtrThrustOut;
+    private _totTq    = _mainRtrTqOut vectorAdd _tailRtrTqOut;
+
+    _heli addForce [_heli vectorModelToWorld _totForce, getCenterOfMass _heli];
+    _heli addTorque (_heli vectorModelToWorld _totTq);
+
     //Drag
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 
@@ -80,7 +89,7 @@ if (_flightModel != "SFMPlus") then {
     private _vertFinSweep      = -1.2;
     private _vertFinRot        = 7.5;
     private _vertFinDimensions = [2.25, 0.90];
-    //[_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
+    [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
 };
 
 //Fuel
