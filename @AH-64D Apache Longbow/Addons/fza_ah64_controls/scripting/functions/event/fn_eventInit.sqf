@@ -47,12 +47,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
     _heli setVariable ["fza_ah64_magazineAddLastValue", _heli animationSourcePhase "magazine_set_1200", true];
     _heli setVariable ["fza_ah64_currentSkippedLases", [], true];
-    //System States
-    _heli setVariable ["fza_ah64_apu_fire", false, true];
-    _heli setVariable ["fza_ah64_e1_fire", false, true];
-    _heli setVariable ["fza_ah64_e2_fire", false, true];
-    _heli setVariable ["fza_ah64_firepdisch", false, true];
-    _heli setVariable ["fza_ah64_firerdisch", false, true];
     //ASE Initial States
     //--Chaff       - Aircraft common
     _heli setVariable ["fza_ah64_ase_chaffState",   "safe", true];
@@ -79,9 +73,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         ["OFF", 0]
     ], true];
     _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
-    _heli setVariable ["fza_ah64_fire1arm", false, true];
-    _heli setVariable ["fza_ah64_fire2arm", false, true];
-    _heli setVariable ["fza_ah64_fireapuarm", false, true];
 
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
@@ -150,9 +141,6 @@ _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rocketsalvo", 2];
-_heli setVariable ["fza_ah64_fire_left_fx", []];
-_heli setVariable ["fza_ah64_fire_right_fx", []];
-_heli setVariable ["fza_ah64_fire_apu_fx", []];
 //Systems local to the crewstation
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];

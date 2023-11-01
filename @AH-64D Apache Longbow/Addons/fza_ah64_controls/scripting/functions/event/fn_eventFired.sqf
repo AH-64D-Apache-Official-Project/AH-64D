@@ -35,7 +35,7 @@ if (!(_weapon == "fza_m230")) then {
 
 //OVERHEAT GUN FAULT
 
-if (_weapon == "fza_m230" && (player == gunner _heli || local gunner _heli || isNull gunner _heli)) then {
+if (_weapon == "fza_m230" && (player  == gunner _heli || player == driver _heli)) then {
     if (time - fza_ah64_firekeypressed > 1) then {
         fza_ah64_burst = 0;
     };

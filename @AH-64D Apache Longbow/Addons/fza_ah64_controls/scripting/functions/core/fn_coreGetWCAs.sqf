@@ -167,6 +167,11 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 } else {
     [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
+//--Aft Deck fire
+if (_heli getVariable "fza_ah64_aft_deck_fire") then {
+    _wcas pushBack [WCA_WARNING, "AFT DECK FIRE", "DECK FIRE"];
+};
+
 //--Engine 2 Overspeed
 if (_eng2Np >= 1.15) then {
     ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
