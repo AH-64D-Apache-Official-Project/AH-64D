@@ -22,7 +22,6 @@ params["_heli"];
 if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_fcrInitialised", true, true];
 
-    _heli setVehicleRadar 2; // Kill Ai radar on spawn
     _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
     _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
     _heli setVariable ["fza_ah64_fcrTargets", [], true];
