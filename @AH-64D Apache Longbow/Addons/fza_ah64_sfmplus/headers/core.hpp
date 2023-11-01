@@ -10,7 +10,7 @@
 #define CENTRAL_ASIA_WINTER 5
 #define ASIA 6
 
-#define MIN_TIME_BETWEEN_UPDATES 0.1
+#define MIN_TIME_BETWEEN_UPDATES 0.3
 
 #define EPSILON                 0.000001
 #define MIN_THRUST              1
