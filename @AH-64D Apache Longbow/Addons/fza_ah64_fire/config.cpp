@@ -1,21 +1,19 @@
 class CfgPatches
 {
-    class fza_ah64_ase
+    class fza_ah64_fire
     {
         units[] = {};
         author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {};
+        requiredAddons[] = {"fza_ah64_controls"};
     };
 };
 
-class SensorTemplateActiveRadar;
-class SensorTemplateLaser;
-
-#include "\fza_ah64_controls\config\defines.hpp"
-
-#include "CfgAmmo.hpp"
 #include "CfgFunctions.hpp"
-#include "CfgMagazines.hpp"
-#include "CfgWeapons.hpp"
+
+class Extended_PreInit_EventHandlers {
+    class fza_fire_ah64_PreInits {
+        init = "call compile preprocessFileLineNumbers 'fza_ah64_fire\XEH_preInit.sqf';";
+    };
+};

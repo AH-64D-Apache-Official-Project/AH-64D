@@ -49,6 +49,7 @@ private _mags = _heli weaponsTurret [-1];
 private _wcas       = [];
 private _activeCaut = _heli getVariable "fza_ah64_activeCaut";
 private _activeWarn = _heli getVariable "fza_ah64_activeWarn";
+private _acBusOn    = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // System States    /////////////////////////////////////////////////////////////////////////
@@ -166,6 +167,11 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 } else {
     [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
+//--Aft Deck fire
+if (_heli getVariable "fza_ah64_aft_deck_fire") then {
+    _wcas pushBack [WCA_WARNING, "AFT DECK FIRE", "DECK FIRE"];
+};
+
 //--Engine 2 Overspeed
 if (_eng2Np >= 1.15) then {
     ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
@@ -480,7 +486,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
     _wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };
 //--FCR 
-if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
+if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {
