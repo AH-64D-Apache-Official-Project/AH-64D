@@ -1,6 +1,6 @@
 class CfgPatches
 {
-    class fza_ah64_ase
+    class fza_ah64_fcr
     {
         units[] = {};
         author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
@@ -15,7 +15,4 @@ class SensorTemplateLaser;
 
 #include "\fza_ah64_controls\config\defines.hpp"
 
-#include "CfgAmmo.hpp"
 #include "CfgFunctions.hpp"
-#include "CfgMagazines.hpp"
-#include "CfgWeapons.hpp"
