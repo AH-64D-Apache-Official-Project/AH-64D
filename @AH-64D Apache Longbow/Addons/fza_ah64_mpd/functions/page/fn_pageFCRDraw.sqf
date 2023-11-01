@@ -17,7 +17,7 @@ switch _fcrMode do {
 };
 
 //Sight Select Status
-private _sight        = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight        = [_heli] call fza_fnc_getSightSelect;
 private _sightSelStat = "HMD";
 switch (_sight) do {
     case 0: {

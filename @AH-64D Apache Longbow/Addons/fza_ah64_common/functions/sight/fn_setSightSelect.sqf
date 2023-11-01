@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingSetSightSelect
+Function: fza_fnc_setSightSelect
 
 Description:
     Sets the player's seat's sight to the source specified
@@ -17,7 +17,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli, 0] call fza_fnc_targetingSetSightSelect
+    [_heli, 0] call fza_fnc_setSightSelect
     // The sigght is now 0 (FCR).
     ---
 

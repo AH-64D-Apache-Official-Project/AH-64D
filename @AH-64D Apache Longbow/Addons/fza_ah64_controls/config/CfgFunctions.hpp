@@ -90,12 +90,8 @@ class CfgFunctions
         class targeting
         {
             file = "\fza_ah64_controls\scripting\functions\targeting";
-            class targetingAcqVec {R;};
-            class targetingCurAcq {R;};
-            class targetingGetSightSelect {R;};
             class targetingPNVSControl {R;};
             class targetingSched {R;};
-            class targetingSetSightSelect {R;};
         };
         class ui
         {

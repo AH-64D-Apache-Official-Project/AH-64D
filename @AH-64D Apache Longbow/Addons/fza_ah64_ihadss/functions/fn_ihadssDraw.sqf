@@ -338,7 +338,7 @@ if (!isNil "_nextPointPos") then {
 
 /////////////////////////////////////////////////////////
 
-_sight = [_heli] call fza_fnc_targetingGetSightSelect;
+_sight = [_heli] call fza_fnc_getSightSelect;
 if (_heli iskindof "fza_ah64base") then {
     switch (_sight) do {
         case 0: {
@@ -560,7 +560,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 };
 
 private _curTurret = [_heli] call fza_fnc_currentTurret;
-private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
+private _curAcq = [_heli, _curTurret] call fza_fnc_curAcq;
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetText _speedkts;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetText _radaltft;
@@ -576,7 +576,7 @@ private _curAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 
 private _cuedLosCtrl = (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132;
 
-private _cuedLosPos = worldToScreen aslToAgl (aglToAsl positionCameraToWorld [0,0,0] vectorAdd ([_heli, _curAcq] call fza_fnc_targetingAcqVec));
+private _cuedLosPos = worldToScreen aslToAgl (aglToAsl positionCameraToWorld [0,0,0] vectorAdd ([_heli, _curAcq] call fza_fnc_acqVec));
 if (_cuedLosPos isEqualTo []) then {
     _cuedLosPos = [-100, -100];
 };
