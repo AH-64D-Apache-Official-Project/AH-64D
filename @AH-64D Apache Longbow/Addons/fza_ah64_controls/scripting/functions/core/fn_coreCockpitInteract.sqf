@@ -21,7 +21,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_fnc_engineHandleControl;
     };
     case "ihadss": {
-        [_heli, _system, _control] call fza_ihadss_fnc_ihadssHandleControl;
+        [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };
     case "nvs": {
         private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});

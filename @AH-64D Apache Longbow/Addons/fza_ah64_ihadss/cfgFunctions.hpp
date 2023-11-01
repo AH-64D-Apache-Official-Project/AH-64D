@@ -15,9 +15,9 @@ class CfgFunctions
             class cscopeDraw {R;};
             class fovControl {R;};
             class getVisionMode {R;};
-            class ihadssController {R;};
-            class ihadssDraw {R;};
-            class ihadssHandleControl {R;};
+            class controller {R;};
+            class draw {R;};
+            class handleControl {R;};
             class monocletoggle {R;};
             class steeringCursorDraw {R;};
         };
