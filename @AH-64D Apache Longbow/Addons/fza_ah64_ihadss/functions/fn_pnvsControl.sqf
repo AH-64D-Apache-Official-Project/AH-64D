@@ -30,7 +30,7 @@ private _monocle        = _heli getVariable "fza_ah64_monocleinbox";
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
 //Pnvs Stowed
-if !(_pnvsControl || _acBusOn || _dcBusOn || !_monocle || _pnvsDamage > SYS_PNVS_DMG_THRESH) exitwith {
+if !(_pnvsControl || _acBusOn || _dcBusOn || !_monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitwith {
     _heli animateSource["pnvs", -120, 0.5];
     _heli animateSource["pnvs_vert", 0];
 };

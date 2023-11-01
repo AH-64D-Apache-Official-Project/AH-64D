@@ -41,7 +41,7 @@ if (Local _heli) exitwith {
 };
 
 //Drain the battery
-if (_battBusOn && _acBusOn) then {
+if (_battBusOn && !_acBusOn) then {
     _battPower = [_battPower, 0.0, (1.0 / _battTimer) * _deltaTime] call BIS_fnc_lerp;
 };
 //Recharge the battery

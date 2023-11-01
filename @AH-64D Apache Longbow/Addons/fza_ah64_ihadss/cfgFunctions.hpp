@@ -7,7 +7,7 @@ class CfgFunctions
 {
     class fza_ah64_project_ihadss
     {
-        tag = "FZA_ihadss";
+        tag = "fza_ihadss";
         class functions {
             file = "\fza_ah64_ihadss\functions";
             class angleToScreen {R;};
@@ -19,7 +19,9 @@ class CfgFunctions
             class draw {R;};
             class handleControl {R;};
             class monocletoggle {R;};
+            class pnvsControl {R;};
             class steeringCursorDraw {R;};
+            class tadsDraw {R;};
         };
         class canvas {
             file = "\fza_ah64_ihadss\functions\canvas";

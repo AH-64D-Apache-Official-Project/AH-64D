@@ -78,7 +78,6 @@ class CfgFunctions
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
             class targetingGetSightSelect {R;};
-            class targetingPNVSControl {R;};
             class targetingSetSightSelect {R;};
         };
         class ui

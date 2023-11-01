@@ -89,22 +89,16 @@ class Turrets : Turrets
             };
         };
         class HitPoints
-        {
+        {//utilize vanilla turret lock when tads component is destroyed
             class HitTurret
             {
-                armor = 0.9;
+                armor = 1.44 * 0.067;
+                radius = 0.14;
+                minimalHit = 0.05;
+                explosionShielding = 0.80;
+                name = "hit_msnEquip_tads_turret";
                 material = 51;
-                name = "tads_tur";
-                visual = "skin_tads1";
-                passThrough = 1;
-            };
-            class HitGun
-            {
-                armor = 1.3;
-                material = 52;
-                name = "otochlaven";
-                visual = "skin_otochlaven";
-                passThrough = 1;
+                passThrough = 0;
             };
         };
         class OpticsIn
