@@ -27,9 +27,9 @@ switch (_control) do {
     };
     case "r5": {
         if (isNull laserTarget _heli) then {
-            [_heli] spawn fza_fnc_laserArm;
+            [_heli] spawn fza_laser_fnc_arm;
         } else {
-            [_heli] spawn fza_fnc_laserDisarm;
+            [_heli] spawn fza_laser_fnc_disarm;
         };
     };
     case "b2": {

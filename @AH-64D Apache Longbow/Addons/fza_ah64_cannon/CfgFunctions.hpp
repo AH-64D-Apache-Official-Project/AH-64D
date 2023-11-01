@@ -11,6 +11,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_cannon\functions";
             class update {R;};
+            class init {R;};
         };
     };
 };
