@@ -65,8 +65,13 @@ if (_value) then {
             [_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;
         };
         case "fza_ah64_fcrSingleScan": {
-            player action ["ActiveSensorsOn", vehicle player];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
+                player action ["ActiveSensorsOn", vehicle player];
+                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
+            };
+            player action ["ActiveSensorsOff", vehicle player];
+            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
         };
         case "fza_ah64_targetStoreUpdate": {
             // Todo: Implemen target store
@@ -112,7 +117,7 @@ if (_value) then {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
         case "vehLockTargets": {
-            [_heli] call fza_fnc_targetingsensorCycle;
+            [_heli] call fza_fcr_fnc_cycleNTS;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];

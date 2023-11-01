@@ -239,7 +239,7 @@ class CfgVehicles
         #include "cfgVehicles\markerLights.hpp"
         #include "cfgVehicles\reflectors.hpp"
         #include "cfgVehicles\ace.hpp"
-        #include "sensor_b2e.hpp"
+        #include "\fza_ah64_fcr\CfgSensors.hpp"
 
         //SFM Variables-------------/
         fza_flightModel = "SFMPlus";

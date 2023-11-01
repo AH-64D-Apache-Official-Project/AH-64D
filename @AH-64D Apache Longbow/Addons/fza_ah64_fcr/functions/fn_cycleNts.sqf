@@ -1,5 +1,5 @@
 /*----------------------------------------------------------------------------
-Function: fza_fnc_targetingSensorCycle
+Function: fza_fcr_fnc_cycleNTS
 
 Description:
     cycle the targeting system to the next FCR target
@@ -11,7 +11,7 @@ Returns:
     Nothing
     
 Examples:
-    [_heli] call fza_fnc_targetingsensorCycle;
+    [_heli] call fza_fcr_fnc_cycleNTS;
 
 Author:
     Snow(Dryden)
