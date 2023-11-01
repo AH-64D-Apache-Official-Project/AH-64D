@@ -43,7 +43,7 @@ if (!(isNull _targObj) && _loblCheckLima #1) then {
 };
 
 //Cycle Radar targets
-[_heli] call fza_fnc_targetingSensorCycle;
+[_heli] call fza_fcr_fnc_cycleNTS;
 
 //Dir trajectory at close range
 private _attackProfile = "hellfire_hi";

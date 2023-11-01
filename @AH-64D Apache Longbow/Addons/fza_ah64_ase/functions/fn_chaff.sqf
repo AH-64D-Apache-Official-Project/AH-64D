@@ -18,6 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (_heli getVariable "fza_ah64_ase_chaffState" == "safe") exitWith {};
+private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
+if (_heli getVariable "fza_ah64_ase_chaffState" == "safe" || !_dcBusOn) exitWith {};
 
 [vehicle player, "fza_CMChaffLauncher", [-1]] call BIS_fnc_fire;

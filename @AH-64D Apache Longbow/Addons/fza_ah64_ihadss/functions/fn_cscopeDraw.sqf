@@ -36,7 +36,7 @@ private _CscopeCount        = 0;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
     };
 
-    _x params ["_pos", "_type", "_speed", "_obj"];
+    _x params ["_pos", "_type", "_moving", "_obj"];
     private _distance_m          = _lastScanInfo #1 distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
@@ -65,7 +65,7 @@ private _CscopeCount        = 0;
     };
     //Unit status
     if !(_unitType == "FLYER") then {
-        if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
+        if (_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
             _unitStatus = "MOVE";
         } else {
             if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {

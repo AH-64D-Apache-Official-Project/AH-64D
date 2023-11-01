@@ -2,6 +2,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+
 switch(_control) do {
     //Chaff
     case "t1": {
@@ -15,10 +17,11 @@ switch(_control) do {
     };
     //RLWR
     case "r6": {
+        if !(_dcBusOn) exitwith {};
         private _newState = ["off", "on"] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
         if (_newstate == "on") then {
-            [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] call fza_audio_fnc_addASEMessage;
+            [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] remoteExec ["fza_audio_fnc_addASEMessage", [driver _heli, gunner _heli]];
         };
     };
     case "t2": {

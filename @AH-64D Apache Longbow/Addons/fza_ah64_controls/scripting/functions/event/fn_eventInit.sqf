@@ -23,6 +23,9 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
+//Pbo initializations
+[_heli] call fza_fcr_fnc_init;
+
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
 
@@ -39,15 +42,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_sight_cpg", 1, true];
     _heli setVariable ["fza_ah64_hmdfsmode", "trans", true];
     _heli setVariable ["fza_ah64_hellfireTrajectory", "DIR", true];
-    //FCR initial states
-    _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
-    _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getPos _heli, time], true];
-    _heli setVariable ["fza_ah64_fcrTargets", [], true];
-    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
-    _heli setVariable ["fza_ah64_shotat_list", [], true];
-    _heli setVariable ["fza_ah64_tofCountDown", [], true];
-    _heli setVariable ["fza_ah64_fcrMode", 1, true];
-
     //
     _heli setVariable ["fza_ah64_tsdsort", 0, true];
     _heli setVariable ["fza_ah64_currentLase", objNull, true];
@@ -60,6 +54,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_ase_rlwrPwr",      "off", true];
     _heli setVariable ["fza_ah64_ase_rlwrCount",    0, true];
     _heli setVariable ["fza_ah64_ase_rlwrObjects",  [], true];
+    _heli setVariable ["fza_ah64_ase_audioList",  [], true];
     //--IR Jammer   - Aircraft Common
     _heli setVariable ["fza_ah64_ase_msnEquipPwr",      "off", true];
     _heli setVariable ["fza_ah64_ase_irJamState",    0, true];
@@ -142,7 +137,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_burst_limit", 10];
-_heli setVariable ["fza_ah64_fcrcscope", false];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
@@ -189,9 +183,6 @@ if (local _heli) then {
         }; 
     } foreach getAllPylonsInfo _heli; 
 };
-
-
-_heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
 
 if !(isMultiplayer) then {
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
