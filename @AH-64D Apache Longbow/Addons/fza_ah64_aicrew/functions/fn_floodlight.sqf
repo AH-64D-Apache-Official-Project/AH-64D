@@ -24,6 +24,5 @@ private _isNightTime = daytime > 20.0 || daytime < 4.20;
 if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) then {
     if (_isNightTime != isLightOn [_heli,[0]]) then {
         [_heli, "light", "floodlight"] call fza_fnc_lightHandleControl;
-        systemchat "2";
     };
 };

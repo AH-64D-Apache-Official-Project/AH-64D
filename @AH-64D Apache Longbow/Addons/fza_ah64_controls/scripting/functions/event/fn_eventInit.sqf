@@ -200,7 +200,6 @@ do {
         _heli setobjecttextureGlobal ["in_backlight2", ""];
 
         [_heli, false] call fza_fnc_lightSetCockpitLight;
-        systemchat "1";
     };
     _magsp = _heli magazinesturret[-1];
 
