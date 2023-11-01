@@ -112,7 +112,7 @@ if (_value) then {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
         case "vehLockTargets": {
-            [_heli] call fza_fnc_targetingsensorCycle;
+            [_heli] call fza_fcr_fnc_cycleNTS;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];

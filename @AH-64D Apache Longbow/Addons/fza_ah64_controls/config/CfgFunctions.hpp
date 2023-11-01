@@ -57,12 +57,6 @@ class CfgFunctions
             class eventIncomingMissile {R;};
             class eventInit {R;};
         };
-        class Sensor
-        {
-            file = "\fza_ah64_controls\scripting\functions\Sensor";
-            class targetingFCRUpdate {R;};
-            class targetingsensorCycle {R;};
-        };
         class fire
         {
             file = "\fza_ah64_controls\scripting\functions\fire";
@@ -94,7 +88,6 @@ class CfgFunctions
             class targetingCurAcq {R;};
             class targetingGetSightSelect {R;};
             class targetingPNVSControl {R;};
-            class targetingSched {R;};
             class targetingSetSightSelect {R;};
         };
         class ui
