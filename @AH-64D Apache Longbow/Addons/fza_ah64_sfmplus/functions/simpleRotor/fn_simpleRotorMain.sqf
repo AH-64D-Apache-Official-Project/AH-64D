@@ -60,7 +60,7 @@ private _rtrThrustScalarTable_max = [
                                     ,[12000, 4.175]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = TQ_SCALAR;//1.10;
+private _rtrTorqueScalar        = 1.10;
 
 private _pitchTorqueScalar      = 2.25;//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
