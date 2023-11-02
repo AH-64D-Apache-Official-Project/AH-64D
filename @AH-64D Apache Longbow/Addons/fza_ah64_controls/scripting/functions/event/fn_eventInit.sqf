@@ -194,12 +194,14 @@ while {
 do {
     private _battBusOn              = _heli getVariable "fza_systems_battBusOn";
     ace_map_vehicleLightCondition   = {isLightOn [_vehicle, [0]]}; 
-    if (!isLightOn [_heli,[0]] || !_battBusOn) then {
+    if !_battBusOn then {
 
         _heli setobjecttextureGlobal ["in_backlight", ""];
         _heli setobjecttextureGlobal ["in_backlight2", ""];
 
-        [_heli, false] call fza_fnc_lightSetCockpitLight;
+        if (isLightOn [_heli,[0]]) then {
+            [_heli, false] call fza_fnc_lightSetCockpitLight;
+        };
     };
     _magsp = _heli magazinesturret[-1];
 
