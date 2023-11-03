@@ -16,7 +16,7 @@ Examples:
     [_heli, 6, _audio, _audiolength] call fza_audio_fnc_addWarning;
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_priority", "_audio", "_audiolength"];
 
