@@ -152,7 +152,7 @@ class CfgVehicles
         };
         class EventHandlers {
             class fza_ah64 {
-                init = "[_this # 0] spawn fza_fnc_eventInit;
+                init = "[_this # 0] spawn fza_fnc_eventInit";
                 handleDamage = "_this call fza_fire_fnc_damageSystem";
             };
         };
