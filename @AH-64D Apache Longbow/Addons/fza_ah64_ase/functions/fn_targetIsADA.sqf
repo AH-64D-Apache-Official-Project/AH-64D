@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetIsADA
+Function: fza_ase_fnc_targetIsADA
 
 Description:
     Returns whether the object should be counted as air defence artillery.
@@ -11,10 +11,10 @@ Returns:
     Bool - whether the aircraft is Air Defence Artillery or not.
 
 Examples:
-    if ([_x] call fza_fnc_targetIsADA) then {
+    if ([_x] call fza_ase_fnc_targetIsADA) then {
         
     --- Code
-    _ret = [_unit] call fza_fnc_targetIsADA
+    _ret = [_unit] call fza_ase_fnc_targetIsADA
     //_ret => true
     ---
 

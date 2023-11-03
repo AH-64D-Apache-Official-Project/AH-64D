@@ -47,7 +47,7 @@ if (_rlwrPower == "OFF" || !_dcBusOn) exitWith {
     private _identity = format ["fza_ah64_bt_%1", _classification];
 
     // Direction Audio
-    private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (getpos _object select 0), (getpos _object select 1)] call fza_fnc_relativeDirection;
+    private _theta = _heli getRelDir _object;
     private _clock = [_theta] call fza_fnc_bearingClock;
     private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];
 

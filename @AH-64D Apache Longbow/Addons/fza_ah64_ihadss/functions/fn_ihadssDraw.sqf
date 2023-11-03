@@ -333,7 +333,7 @@ _waypointcode = format ["%1    %2", _waypointId, _waypointDist];
 _gspdcode = format ["%1    %2", _groundSpeed, _waypointEta];
 // Todo: Display current waypoint
 if (!isNil "_nextPointPos") then {
-    _curwpdir = [[_heli, getpos _heli # 0, getPos _heli # 1, _nextPointPos # 0, _nextPointPos # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
+    private _curwpdir = [_heli getRelDir _nextPointPos] call CBA_fnc_simplifyAngle180;
 };
 
 /////////////////////////////////////////////////////////
@@ -364,7 +364,7 @@ if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _nts select 0), (getposatl _nts select 1)] call fza_fnc_relativeDirection;
+private _thetatarg = _heli getRelDir _nts;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -612,7 +612,7 @@ _fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
-_pbvar = _heli call fza_fnc_getPitchBank;
+_pbvar = _heli call BIS_fnc_getPitchBank;
 
 _pbvar set [0, _pbvar # 0 + 5];
 

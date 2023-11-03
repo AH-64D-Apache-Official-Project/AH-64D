@@ -111,16 +111,10 @@ class CfgFunctions
         class functions
         {
             file = "\fza_ah64_controls\scripting\functions";
-            class setPitchBank {R;};
-            class getPitchBank {R;};
             class relativeDirection {R;};
             class velocityVector {R;};
-            class compensateSafezone { R;};
-            class targetisADA {R;};
             class doortoggleP {R;};
             class doortoggleG {R;};
-            class bearingClock {R;};
-            class loadoutImportJson {R;};
             class setTailNumber {R;};
             class configToHashMap {R;};
         };
