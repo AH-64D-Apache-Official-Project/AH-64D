@@ -28,15 +28,5 @@ class CfgFunctions
             class pidReset {R;};
             class pidRun {R;};
         };
-        class sight {
-            file = "\fza_ah64_common\functions\sight";
-            class getSightSelect {R;};
-            class setSightSelect {R;};
-        };
-        class acquisition {
-            file = "\fza_ah64_common\functions\acquisition";
-            class acqVec {R;};
-            class curAcq {R;};
-        };
     };
 };

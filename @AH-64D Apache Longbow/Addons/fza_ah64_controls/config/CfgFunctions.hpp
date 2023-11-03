@@ -9,6 +9,11 @@ class CfgFunctions
     class fza_ah64_project
     {
         tag = "FZA";
+            class acquisition {
+            file = "\fza_ah64_controls\scripting\functions\acquisition";
+            class acqVec {R;};
+            class curAcq {R;};
+        };
         class anim {
             file = "\fza_ah64_controls\scripting\functions\anim";
             class animSetValue {R;};
@@ -71,6 +76,11 @@ class CfgFunctions
             file = "\fza_ah64_controls\scripting\functions\light";
             class lightHandleControl {R;};
             class lightSetCockpitLight {R;};
+        };
+        class sight {
+            file = "\fza_ah64_controls\scripting\functions\sight";
+            class getSightSelect {R;};
+            class setSightSelect {R;};
         };
         class targeting
         {
