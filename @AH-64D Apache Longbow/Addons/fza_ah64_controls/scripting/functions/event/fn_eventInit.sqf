@@ -18,9 +18,8 @@ Examples:
     [_heli] spawn fza_fnc_eventInit
 
 Author:
-    unknown, mattysmith22
+    unknown, mattysmith22, Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};

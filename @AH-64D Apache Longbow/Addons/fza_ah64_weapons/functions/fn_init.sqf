@@ -16,6 +16,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];
 
 if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) then {
