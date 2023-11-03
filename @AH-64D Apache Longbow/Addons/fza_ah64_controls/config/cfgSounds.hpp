@@ -32,12 +32,6 @@ class CfgSounds
         sound[] = {"fza_ah64_us\audio\Start_Ext.ogg",1,1,300};
         titles[]={};
     };
-    class fza_ah64_warntest_3D
-    {
-        name = "fza_ah64_warntest_3D";
-        sound[] = {"\fza_ah64_audio\audio\systems\bt_warntest.ogg",5,1,1};
-        titles[]={};
-    };
     class fza_ah64_fake_3D
     {
         name = "fza_ah64_fake_3D";

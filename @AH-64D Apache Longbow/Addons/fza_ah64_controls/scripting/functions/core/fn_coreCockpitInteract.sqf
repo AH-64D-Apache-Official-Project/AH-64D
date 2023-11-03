@@ -6,7 +6,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_mpd_fnc_handleControl;
     };
     case "fire": {
-        [_heli, _system, _control] call fza_fnc_fireHandleControl;
+        [_heli, _system, _control] call fza_fire_fnc_handleControl;
     };
     case "door": {
         if (_control == "handle") then {

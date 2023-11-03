@@ -44,11 +44,6 @@ private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
-if (local _heli) then {
-    if (_eng1State != "OFF" || _eng2State != "OFF") then {
-        _heli engineOn true;
-    };
-};
 if !_apuOn then {
     if (_eng1State == "STARTING") then {
 		[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
@@ -102,10 +97,6 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 
-if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
-    _heli engineOn false;
-};
-
 //Autorotation handler
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
@@ -137,9 +128,9 @@ _droopRPM = [_droopRPM, _limitRPM, _rtrRPM] call BIS_fnc_clamp;
 if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
 
 private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) then {
+if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES) then {
     _rtrRPM = _droopRPM;
-        if (_realRPM  > _rtrRPM) then {
+        if (_realRPM >= _rtrRPM || (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating)) then {
         _heli setHitpointDamage ["hithrotor", 0.9];
     } else {
         _heli setHitpointDamage ["hithrotor", 0.0];

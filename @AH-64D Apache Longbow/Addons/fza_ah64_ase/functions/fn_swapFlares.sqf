@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_ase_fnc_swapFlares
 
 Author:
-    BradMick
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli", "_phase"];
 

@@ -21,5 +21,15 @@ class CfgFunctions
             class monocletoggle {R;};
             class steeringCursorDraw {R;};
         };
+        class canvas {
+            file = "\fza_ah64_ihadss\functions\canvas";
+            class canvasAdjust {R;};
+            class canvasDrawLine {R;};
+            class canvasDraw {R;};
+        };
+        class flight {
+            file = "\fza_ah64_ihadss\functions\flight";
+            class flightVelocityVector {R;};
+        };
     };
 };

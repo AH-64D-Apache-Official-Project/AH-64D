@@ -1,6 +1,6 @@
 class CfgPatches
 {
-    class fza_ah64_fza_ah64_ase
+    class fza_ah64_ase
     {
         units[] = {};
         author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";

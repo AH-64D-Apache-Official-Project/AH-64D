@@ -2,6 +2,8 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
+private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
+
 switch(_control) do {
     //Chaff
     case "t1": {
@@ -15,6 +17,7 @@ switch(_control) do {
     };
     //RLWR
     case "r6": {
+        if !(_dcBusOn) exitwith {};
         private _newState = ["off", "on"] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
         if (_newstate == "on") then {
