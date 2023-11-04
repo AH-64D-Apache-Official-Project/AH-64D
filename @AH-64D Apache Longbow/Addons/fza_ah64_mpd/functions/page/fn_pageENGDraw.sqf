@@ -64,8 +64,6 @@ if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
     fza_ah64_warnHighRpm = false;
 };*/
 
-private _airMode = getpos _heli select 2 > 1;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), [0, 1] select _airMode];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
@@ -82,14 +80,13 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
 };
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
-if (_airMode) then {
-    private _wcas = [_heli] call fza_fnc_coreGetWCAs;
-    _wcas resize 5;
-    _wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
-    {
-        _heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 1];
-        _heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 0];
-    } forEach _wcas;
+private _wcas = [_heli] call fza_fnc_coreGetWCAs;
+_wcas = _wcas select {!(WCA_ADVISORY in _x)};
+_wcas resize [5, [0," "]];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), BOOLTONUM(_wcas#0#0 isNotEqualTo [])];
+for "_x" from 0 to 4 do {
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#0];
 };
 
 //Hydraulics
