@@ -83,7 +83,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 private _wcas = [_heli] call fza_fnc_coreGetWCAs;
 _wcas = _wcas select {!(WCA_ADVISORY in _x)};
 _wcas resize [5, [0," "]];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), BOOLTONUM(_wcas#0#0 isNotEqualTo [])];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), BOOLTONUM(_wcas#0#1 isNotEqualTo " ")];
 for "_x" from 0 to 4 do {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#0];
