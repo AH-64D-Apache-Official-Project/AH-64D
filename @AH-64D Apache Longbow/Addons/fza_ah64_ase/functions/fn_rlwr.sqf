@@ -24,7 +24,6 @@ params ["_heli"];
 private _dcBusOn         = _heli getVariable "fza_systems_dcBusOn";
 private _rlwrPwr         = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _irJamState      = _heli getVariable "fza_ah64_ase_irJamState";
-private _existingThreats = _heli getVariable "fza_ah64_ase_rlwrObjects";
 private _rlwrObjects     = [];
 private _rlwrCount       = 0;
 private _rlwrAudio       = [];
@@ -32,13 +31,10 @@ private _launching       = [];
 
 if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
 if !(_dcBusOn) exitwith {
-    if (_rlwrPwr == "on") then {
-        _heli setVariable ["fza_ah64_ase_rlwrPwr", "off", true];
-    };
-    if (_existingThreats isEqualTo []) exitwith {};
-    _heli setVariable ["fza_ah64_ase_rlwrObjects", [], true];
-    _heli setVariable ["fza_ah64_ase_rlwrCount", 0, true];
-    _heli setVariable ["fza_ah64_ase_audioList", [], true];
+    [_heli, "fza_ah64_ase_rlwrPwr", "off"] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_ase_rlwrObjects", []] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_ase_rlwrCount", 0] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_ase_audioList", []] call fza_fnc_updateNetworkGlobal;
 };
 
 //Sensor threats - acquisition, Track and Launch
@@ -78,9 +74,6 @@ if !(_dcBusOn) exitwith {
 
 _rlwrObjects = [_rlwrObjects, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy;
 
-
-if (_rlwrObjects isEqualTo _existingThreats) exitwith {};
-
-_heli setVariable ["fza_ah64_ase_rlwrObjects", _rlwrObjects, true];
-_heli setVariable ["fza_ah64_ase_rlwrCount", count _rlwrObjects, true];
-_heli setVariable ["fza_ah64_ase_audioList", _rlwrAudio, true];
+[_heli, "fza_ah64_ase_rlwrObjects", _rlwrObjects] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_ase_rlwrCount", count _rlwrObjects] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_ase_audioList", _rlwrAudio] call fza_fnc_updateNetworkGlobal;

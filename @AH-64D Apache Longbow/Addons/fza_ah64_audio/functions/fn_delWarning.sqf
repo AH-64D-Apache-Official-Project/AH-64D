@@ -16,4 +16,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setvariable ["fza_audio_warning_message", "", true];
+[_heli, "fza_audio_warning_message", ""] call fza_fnc_updateNetworkGlobal;

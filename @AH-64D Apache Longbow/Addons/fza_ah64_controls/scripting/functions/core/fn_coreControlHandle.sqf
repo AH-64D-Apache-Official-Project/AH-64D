@@ -253,6 +253,7 @@ if !(_value) then {
             _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
             _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
             _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
+            [_heli, "fza_ah64_hdgHoldDesiredSideslip", false] call fza_fnc_updateNetworkGlobal;
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };
