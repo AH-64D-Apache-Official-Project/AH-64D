@@ -10,6 +10,9 @@ class CfgPatches
     };
 };
 
+class SensorTemplateActiveRadar;
+class SensorTemplateLaser;
+
 #include "\fza_ah64_controls\config\defines.hpp"
 
 #include "CfgAmmo.hpp"

@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_laser_fnc_disarm
+Function: fza_fnc_laserDisarm
 
 Description:
     Disarms the apache's LRFD, from either seat.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_laser_fnc_disarm
+    [_heli] call fza_fnc_laserDisarm
     ---
 
 Author:

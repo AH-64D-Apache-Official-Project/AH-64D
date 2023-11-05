@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_laser_fnc_arm
+Function: fza_fnc_laserArm
 
 Description:
     Arms the apache's LRFD, from either seat. Must be run in scheduled environment (involve sleep)
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] spawn fza_laser_fnc_arm
+    [_heli] spawn fza_fnc_laserArm
     ---
 
 Author:
@@ -22,4 +22,4 @@ params ["_heli"];
 
 if (isNull laserTarget _heli) then {
     [_heli, "Laserdesignator_mounted", [0]] call BIS_fnc_fire;
-};
+}

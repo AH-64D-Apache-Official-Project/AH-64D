@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_cannon_fnc_damage
+Function: fza_fnc_damageM230
 
 Description:
     Called upon M230 chaingun overheating. Decides whether it should jam.
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_cannon_fnc_damage
+    [_heli] call fza_fnc_damageM230
     ---
 
 Author:
