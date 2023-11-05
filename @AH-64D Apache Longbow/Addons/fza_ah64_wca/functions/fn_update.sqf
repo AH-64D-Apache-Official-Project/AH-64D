@@ -24,7 +24,7 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 
 if (!_gndOrideOn && _onGnd || !_battBusOn) then {
-    _heli setVariable ["fza_ah64_armSafeArmed", false, true];
+    [_heli, "fza_ah64_armSafeArmed", false] call fza_fnc_updateNetworkGlobal;
     [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
 };
 

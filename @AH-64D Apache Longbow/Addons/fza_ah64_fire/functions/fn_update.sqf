@@ -38,14 +38,12 @@ if (_engineTwoArm && _engineTwoArmTimer <= CBA_missionTime - 2) then {
     [_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
 };
 if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
-    _heli setVariable ["fza_systems_apuBtnOn", false];
+    [_heli, "fza_systems_apuBtnOn", false] call fza_fnc_updateNetworkGlobal;
 };
 
 //Fire test switch
 if ((_heli getvariable "fza_ah64_firetest") >= 1) then {
-    if !_mstrWarnLighton then {
-        _heli setVariable ["fza_ah64_mstrWarnLightOn", true, true];
-    };
+    [_heli, "fza_ah64_mstrWarnLightOn", true] call fza_fnc_updateNetworkGlobal;
     _engineOneArm  = true;
     _engineTwoArm  = true;
     _apuArm        = true;
@@ -61,9 +59,9 @@ if ((_heli getvariable "fza_ah64_firetest") == 2) then {
 };
 
 if !_battBusOn then {
-    _heli setVariable ["fza_ah64_fireArmed1", [false, 0, CBA_missionTime], true];
-    _heli setVariable ["fza_ah64_fireArmed2", [false, 0, CBA_missionTime], true];
-    _heli setVariable ["fza_ah64_fireArmedApu", [false, 0, CBA_missionTime], true];
+    [_heli, "fza_ah64_fireArmed1", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_fireArmed2", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_fireArmedApu", [false, 0, CBA_missionTime]] call fza_fnc_updateNetworkGlobal;
     _engineOneArm  = false;
     _engineTwoArm  = false;
     _apuArm        = false;

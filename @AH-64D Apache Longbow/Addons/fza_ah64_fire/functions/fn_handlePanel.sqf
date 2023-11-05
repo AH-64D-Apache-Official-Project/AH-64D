@@ -31,7 +31,7 @@ switch(_engine) do {
     case "eng1": {
         if _value then {
             if ("fza_ah64_engine_1_fire" in (_heli getVariable "fza_audio_warning_message")) then {
-                _heli setvariable ["fza_audio_warning_message", ""];
+                [_heli] call fza_audio_fnc_delwarning;
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
             _heli setVariable ["fza_ah64_fireArmed1", [true, _crewStation, CBA_missionTime], true];
@@ -44,7 +44,7 @@ switch(_engine) do {
     case "eng2": {
         if _value then {
             if ("fza_ah64_engine_1_fire" in (_heli getVariable "fza_audio_warning_message")) then {
-                _heli setvariable ["fza_audio_warning_message", ""];
+                [_heli] call fza_audio_fnc_delwarning;
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
             _heli setVariable ["fza_ah64_fireArmed2", [true, _crewStation, CBA_missionTime], true];
@@ -57,7 +57,7 @@ switch(_engine) do {
     case "apu": {
         if _value then {
             if ("fza_ah64_engine_1_fire" in (_heli getVariable "fza_audio_warning_message")) then {
-                _heli setvariable ["fza_audio_warning_message", ""];
+                [_heli] call fza_audio_fnc_delwarning;
                 _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
             };
             _heli setVariable ["fza_ah64_fireArmedApu", [true, _crewStation, CBA_missionTime], true];
