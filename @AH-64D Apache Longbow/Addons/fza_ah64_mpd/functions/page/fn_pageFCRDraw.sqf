@@ -5,7 +5,7 @@
 params["_heli", "_mpdIndex", "_state", "_persistState"];
 
 Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
-private _cScope  = _heli getVariable _heli getVariable "fza_ah64_fcrcscope";
+private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
 switch _fcrMode do {
