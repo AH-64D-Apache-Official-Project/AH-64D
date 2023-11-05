@@ -325,27 +325,27 @@
 - Removed pilot optic turret; PNVS is now usable trough NVS MODE switch from the frontseat & backseat (LVL knobs need to be rotated for daytime or night time toggle - default: day).
   The PiP HDU PNVS is shared between the front & the backseat
 - Fixed PiP HDU PNVS transparency
-- C-Scope container fix (by Rosd6)
-- ECM script rework (by Rosd6)
+- C-Scope container fix (by Snow(Dryden))
+- ECM script rework (by Snow(Dryden))
 - Added cam shake for MSL & RKTs
 
 *11/10/2020*
 - Improved AFM based on old logic (by BradMick)
 - Fixed alternate sensor icon
 - Added propper 3D M130 flares dispenser on tail 
-- Firing the M230 should no longer shake screen for all clients (by Rosd6)
+- Firing the M230 should no longer shake screen for all clients (by Snow(Dryden))
 
 *04/10/2020*
 - Fixed ACRE intercom preventing racks radio PTTs usage
 - Added targeting informations toggle - prior future CBA update (by mattysmith22)
 - Fixed headtracking toggle option appearing in action menu outside the aircraft
 - Fixed config inheritance and code cleaning in CfgVehicles (by mattysmith22)
-- Fixed AGM-144 max altitude launch (by Rosd6)
+- Fixed AGM-144 max altitude launch (by Snow(Dryden))
 - Fixed AFM rotor brake not applying (by AngusLogan)
 - Fixed animations reset when players JIP (by AngusLogan)
 - Fixed skin locality issue (by AngusLogan)
 - Updated AFM, damping, mixing and CG location (by Keplager) 
-- Fixed 300 rounds magazine upon rearming (by Rosd6)
+- Fixed 300 rounds magazine upon rearming (by Snow(Dryden))
 - Added IHADSS alternate sensors for CPG & PLT (by mattysmith22)
 
 
