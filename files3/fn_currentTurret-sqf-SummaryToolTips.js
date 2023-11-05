@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_currentTurret.sqf",{8:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the current turret of the player</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_currentTurret.sqf",{10:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Returns the current turret of the player</div></div>"});
