@@ -1,0 +1,1 @@
+﻿NDSummary.OnToolTipsLoaded("File:acquisition/fn_curAcq.sqf",{136:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get the currently selected acquisition source for a seat in the aircraft</div></div>"});
