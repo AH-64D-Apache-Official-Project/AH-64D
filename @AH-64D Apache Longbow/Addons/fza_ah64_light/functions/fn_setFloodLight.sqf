@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_lightSetCockpitLight
+Function: fza_light_fnc_setFloodLight
 
 Description:
     Sets the cockpit light to the correct state
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli, false] call fza_fnc_lightSetCockpitLight;
+    [_heli, false] call fza_light_fnc_setFloodLight;
     //Cockpit light is now off
     ---
 
@@ -24,17 +24,18 @@ params["_heli", "_state"];
 
 private _action = ["searchlightoff", "searchlighton"] select _state;
 
-if !(_heli turretLocal [0]) exitWith {
-    _this remoteExec ["fza_fnc_lightSetCockpitLight", _heli turretUnit [0]];
-};
-
-//spawn ai when no gunner
-if (isnull(_heli turretUnit [0])) then {
+/*if (isnull(_heli turretUnit [0])) exitwith {
     _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
     hideObject _ai;
     _ai moveIngunner _heli;
-    (vehicle player turretUnit [0]) action [_action,vehicle player];
-    _heli deleteVehicleCrew gunner _heli;
+    _heli action [_action, _heli];
+    _heli turretUnit [0] action [_action, _heli];
+    _heli deleteVehicleCrew _ai;
+    deleteVehicle _ai;
+};*/
+
+if (player == driver _heli) exitWith {
+    [_action, _heli] remoteExec ["action", _heli turretUnit [0]];
 };
 
-(vehicle player turretUnit [0]) action [_action, vehicle player];
+_heli action [_action, _heli];
