@@ -252,7 +252,7 @@ class Limits_Red {
 };
 
 class AirFormatOnly { //<-- This box should ONLY display when there are active warnings or cautions, it DOES NOT display advisories
-    condition=C_COND(C_MPD_USER(MFD_IND_ENG_MODE));
+    condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_ENG_MODE), 1));
     class WCA_Box{
         type = line;
         width = 3;
@@ -264,12 +264,15 @@ class AirFormatOnly { //<-- This box should ONLY display when there are active w
             MPD_POINTS_BOX(Null, (0.05), 0.60, (0.9), 6*MPD_TEXT_HEIGHT) 
         };
     };
-    MPD_WCA_ITEM(MFD_IND_ENG_WCA_1, 0.05, 0.6, 0)
-    MPD_WCA_ITEM(MFD_IND_ENG_WCA_2, 0.05, 0.6, 1)
-    MPD_WCA_ITEM(MFD_IND_ENG_WCA_3, 0.05, 0.6, 2)
-    MPD_WCA_ITEM(MFD_IND_ENG_WCA_4, 0.05, 0.6, 3)
-    MPD_WCA_ITEM(MFD_IND_ENG_WCA_5, 0.05, 0.6, 4)
-};
+    class WCA_Box{
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 3));
+        MPD_WCA_ITEM(MFD_IND_ENG_WCA_1, 0.05, 0.6, 0)
+        MPD_WCA_ITEM(MFD_IND_ENG_WCA_2, 0.05, 0.6, 1)
+        MPD_WCA_ITEM(MFD_IND_ENG_WCA_3, 0.05, 0.6, 2)
+        MPD_WCA_ITEM(MFD_IND_ENG_WCA_4, 0.05, 0.6, 3)
+        MPD_WCA_ITEM(MFD_IND_ENG_WCA_5, 0.05, 0.6, 4)
+    };
+}
 
 class Hydraulics_Box {
     type = line;
@@ -288,7 +291,7 @@ MPD_TEXT_BONE_R(Hydraulics_Util,       Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT
 MPD_TEXT_BONE_R(Hydraulics_Acc,        Eng_Hyd_Box, (ENG_HYDRAULICS_X+5*MPD_TEXT_WIDTH), (ENG_HYDRAULICS_Y+3*MPD_TEXT_HEIGHT+0.01), MPD_TEXT_USER(MFD_TEXT_IND_ENG_ACC_HYD_PSI))//MPD_TEXT_STATIC("3000"))
 
 class GroundFormatOnly {
-    condition=C_COND(C_NOT(C_MPD_USER(MFD_IND_ENG_MODE)));
+    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ENG_MODE), 1));
 
     class GroundFormatBoxes {
         type = line;

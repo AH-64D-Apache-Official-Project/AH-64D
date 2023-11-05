@@ -47,23 +47,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TGT_2), _e2tgt toFixed 0
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_2), (_e2ng/10) toFixed 1];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFixed 0];
 
-// #region ROTORS
 private _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
-
-//TODO: Change so sound occurs even if not in engine page
-/*
-if (_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5 && !fza_ah64_warnHighRpm) then {
-    [_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audio_fnc_addASEMessage;
-    
-    fza_ah64_warnHighRpm = true;
-};
-if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
-    fza_ah64_warnHighRpm = false;
-};*/
-
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
