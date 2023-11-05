@@ -22,7 +22,7 @@ Author:
 params ["_heli"];
 
 private _steeringCursorControl = ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131);
-private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight = [_heli] call fza_fnc_getSightSelect;
 private _screenPos = [-100, -100];
 private _conW  = 0.1468;
 private _conH  = 0.2;

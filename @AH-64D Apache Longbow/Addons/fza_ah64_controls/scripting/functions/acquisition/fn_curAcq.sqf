@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_targetingCurAcq
+Function: fza_fnc_curAcq
 
 Description:
     Get the currently selected acquisition source for a seat in the aircraft
@@ -12,7 +12,7 @@ Returns:
     The name of the currently selected acquisition source, valid for use in 
 
 Examples:
-    [_heli] call fza_fnc_targetingAcqVec
+    [_heli] call fza_fnc_acqVec
 
 Author:
     mattysmith22

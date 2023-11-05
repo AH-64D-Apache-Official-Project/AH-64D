@@ -9,6 +9,11 @@ class CfgFunctions
     class fza_ah64_project
     {
         tag = "FZA";
+            class acquisition {
+            file = "\fza_ah64_controls\scripting\functions\acquisition";
+            class acqVec {R;};
+            class curAcq {R;};
+        };
         class anim {
             file = "\fza_ah64_controls\scripting\functions\anim";
             class animSetValue {R;};
@@ -62,14 +67,15 @@ class CfgFunctions
             class lightHandleControl {R;};
             class lightSetCockpitLight {R;};
         };
+        class sight {
+            file = "\fza_ah64_controls\scripting\functions\sight";
+            class getSightSelect {R;};
+            class setSightSelect {R;};
+        };
         class targeting
         {
             file = "\fza_ah64_controls\scripting\functions\targeting";
-            class targetingAcqVec {R;};
-            class targetingCurAcq {R;};
-            class targetingGetSightSelect {R;};
             class targetingPNVSControl {R;};
-            class targetingSetSightSelect {R;};
         };
         class ui
         {
@@ -95,16 +101,10 @@ class CfgFunctions
         class functions
         {
             file = "\fza_ah64_controls\scripting\functions";
-            class setPitchBank {R;};
-            class getPitchBank {R;};
             class relativeDirection {R;};
             class velocityVector {R;};
-            class compensateSafezone { R;};
-            class targetisADA {R;};
             class doortoggleP {R;};
             class doortoggleG {R;};
-            class bearingClock {R;};
-            class loadoutImportJson {R;};
             class setTailNumber {R;};
             class configToHashMap {R;};
         };
