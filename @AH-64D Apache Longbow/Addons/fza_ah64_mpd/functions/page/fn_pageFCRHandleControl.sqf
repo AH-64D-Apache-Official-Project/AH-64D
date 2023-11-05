@@ -8,7 +8,6 @@ switch(_control) do {
     };
     case "t1": {
         _heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_heli getVariable "fza_ah64_fcrcscope")];
     };
 };
         
