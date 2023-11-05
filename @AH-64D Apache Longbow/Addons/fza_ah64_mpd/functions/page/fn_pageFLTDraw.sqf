@@ -43,7 +43,7 @@ if (isNil "_waypoint") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_COMMAND_HEADING), -360];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLY_TO_CUE_X), -100];
 } else {
-    private _waypointDirection = [_heli getRelDir _waypoint] call CBA_fnc_simplifyAngle180;
+    private _waypointDirection = [[_heli, (getposatl _heli # 0), (getposatl _heli # 1), (_waypoint # 0), (_waypoint # 1)] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_COMMAND_HEADING), _waypointDirection];
 
     // Navigation fly to cue
@@ -56,7 +56,8 @@ if (isNil "_waypoint") then {
 
 
 // Velocity Vector
-private _velocityX = (velocity _heli # 0) atan2 ([0,0,0] distance2D velocity _heli);
+
+private _velocityX = [[_heli, 0, 0, velocity _heli # 0, velocity _heli # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
 private _velocityY = (velocity _heli # 2) atan2 ([0,0,0] distance2D velocity _heli);
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLIGHT_PATH_X), _velocityX];

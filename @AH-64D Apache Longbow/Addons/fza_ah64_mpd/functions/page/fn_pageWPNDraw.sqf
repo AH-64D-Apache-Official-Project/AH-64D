@@ -45,7 +45,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo to
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
 
-switch ([_heli] call fza_fnc_getSightSelect) do {
+switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
     case 0: {
         _sight = "FCR"
     };

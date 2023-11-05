@@ -64,7 +64,7 @@ private _fcrTargets  = [];
     if (_target isKindOf "car")        then { _type = FCR_TYPE_WHEELED; };
     if (_target isKindOf "helicopter") then { _type = FCR_TYPE_HELICOPTER; };
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
-    if ([_target] call fza_ase_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
+    if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
     if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};

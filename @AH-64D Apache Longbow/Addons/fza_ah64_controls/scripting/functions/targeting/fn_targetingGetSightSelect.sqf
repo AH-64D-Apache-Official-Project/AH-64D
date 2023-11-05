@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_getSightSelect
+Function: fza_fnc_targetingGetSightSelect
 
 Description:
     Gets the player's seat's sight. Can optionally be used to find the other crewstation's seat
@@ -19,13 +19,13 @@ Returns:
 Examples:
     Getting your own seat's info
     --- Code
-    _ret = [_heli] call fza_fnc_getSightSelect
+    _ret = [_heli] call fza_fnc_targetingGetSightSelect
     // _ret => 0
     ---
 
     Getting the opposite crewstation's info
     --- Code
-    _ret = [_heli, true] call fza_fnc_getSightSelect
+    _ret = [_heli, true] call fza_fnc_targetingGetSightSelect
     // _ret => 0
     ---
 

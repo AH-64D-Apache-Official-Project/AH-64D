@@ -15,7 +15,6 @@ class CfgFunctions
             class canRemove {R;};
             class add {R;};
             class remove {R;};
-            class setTailNumber {R;};
         };
     };
 };

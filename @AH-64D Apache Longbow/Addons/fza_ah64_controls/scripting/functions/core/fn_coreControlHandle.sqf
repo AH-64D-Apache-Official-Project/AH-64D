@@ -28,16 +28,16 @@ if (_value) then {
             [_heli] call fza_fnc_laserArm;
         };
         case "fza_ah64_sightSelectHMD": {
-            [_heli, SIGHT_HMD] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_HMD] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectTADS": {
-            [_heli, SIGHT_TADS] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_TADS] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectFXD": {
-            [_heli, SIGHT_FXD] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_FXD] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectFCR": {
-            [_heli, SIGHT_FCR] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {
