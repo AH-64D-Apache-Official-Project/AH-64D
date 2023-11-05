@@ -151,7 +151,6 @@ fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_sfmplus_fnc_coreUpdate, fza_
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
 }];
-[0] spawn fza_ufd_fnc_update;
 
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
