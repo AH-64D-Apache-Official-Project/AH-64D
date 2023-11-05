@@ -11,7 +11,6 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_ihadss\functions";
             class angleToScreen {R;};
-            class compensateSafezone {R;};
             class constraintBoxDraw {R;};
             class cscopeDraw {R;};
             class fovControl {R;};

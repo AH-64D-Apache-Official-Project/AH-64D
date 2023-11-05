@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_weapons_fnc_loadoutImportJson
+Function: fza_fnc_loadoutImportJson
 
 Description:
     Import of website heicopter configuration and apply it to the helicopter

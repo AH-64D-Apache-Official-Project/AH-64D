@@ -202,7 +202,7 @@ class CfgVehicles
                 tooltip = "Loadout in JSON form to export";
                 property = "fza_ah64_loadout";
                 control = "Edit";
-                expression = "[_this, _value] call fza_weapons_fnc_loadoutImportJson;";
+                expression = "[_this, _value] call fza_fnc_loadoutImportJson;";
                 defaultValue = "''";
                 unique = 0;
                 validate = "none";
