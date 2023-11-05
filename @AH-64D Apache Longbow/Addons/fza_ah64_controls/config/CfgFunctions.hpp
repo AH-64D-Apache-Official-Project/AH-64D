@@ -30,10 +30,6 @@ class CfgFunctions
             class coreCockpitInteract {R;};
             class coreControlHandle {R;};
         };
-        class damage {
-            file = "\fza_ah64_controls\scripting\functions\damage";
-            class damageM230 {R;};
-        };
         class engine
         {
             file = "\fza_ah64_controls\scripting\functions\engine";
@@ -59,12 +55,6 @@ class CfgFunctions
             file = "\fza_ah64_controls\scripting\functions\fx";
             class fxMuzzle {R;};
             class fxLoops {R;};
-        };
-        class laser
-        {
-            file = "\fza_ah64_controls\scripting\functions\laser";
-            class laserArm {R;};
-            class laserDisarm {R;};
         };
         class light
         {

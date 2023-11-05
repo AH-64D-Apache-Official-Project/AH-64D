@@ -15,7 +15,7 @@ Examples:
     [_heli] call fza_ase_fnc_rlwr
 
 Author:
-    BradMick
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

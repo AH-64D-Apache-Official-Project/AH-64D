@@ -40,7 +40,7 @@ if (_weapon == "fza_m230" && (player  == gunner _heli || player == driver _heli)
         fza_ah64_burst = 0;
     };
     if (fza_ah64_gunheat > 105) then {
-        [_heli] call fza_fnc_damageM230;
+        [_heli] call fza_cannon_fnc_damage;
     };
     fza_ah64_burst = fza_ah64_burst + 1;
     fza_ah64_gunheat = fza_ah64_gunheat + 1;
