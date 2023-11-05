@@ -138,14 +138,16 @@ private _axisZ = [0.0, 0.0, 1.0];
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
-_gndEffScalar = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
+_gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-private _totalThrust  = _rtrThrust + _gndEffThrust;
-private _thrustZ      = _axisZ vectorMultiply (_totalThrust * _deltaTime);
+//private _totThrust    = _heli getVariable "fza_sfmplus_rtrThrust" select 0;
+private _totThrust    = _rtrThrust + _gndEffThrust;//[_totThrust, _rtrThrust + _gndEffThrust, _deltaTime] call BIS_fnc_lerp;
+[_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
+private _thrustZ      = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
 //Pitch torque
-private _cyclicFwdAftTrim  = _heli getVariable "fza_ah64_forceTrimPosPitch";
-private _torqueX           = ((_rtrThrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
+private _torqueX             = ((_rtrThrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 private _torqueY             = ((_rtrThrust * (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
@@ -154,14 +156,20 @@ private _torqueZ             = (_rtrTorque  * _rtrTorqueScalar) * _deltaTime;
 
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
-//Rotor thrust force
+//Rotor forces
+private _outThrust = [0.0, 0.0, 0.0];
+private _outTq     = [0.0, 0.0, 0.0];
 if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
-        _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
-        _heli addTorque (_heli vectorModelToWorld [_torqueX, _torqueY, 0.0]);
+        //_heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        //_heli addTorque (_heli vectorModelToWorld [_torqueX, _torqueY, 0.0]);
+        _outThrust = _thrustZ;
         //Main rotor torque effect
         if (fza_ah64_sfmplusEnableTorqueSim) then {
-            _heli addTorque (_heli vectorModelToWorld [0.0, 0.0, _torqueZ]);
+            //_heli addTorque (_heli vectorModelToWorld [0.0, 0.0, _torqueZ]);
+            _outTq = [_torqueX, _torqueY, _torqueZ];
+        } else {
+            _outTq = [_torqueX, _torqueY, 0.0];
         };
     };
 };
@@ -233,6 +241,8 @@ if (cameraView == "INTERNAL") then {
 [_heli, _rtrPos, _rtrPos vectorAdd _axisZ, "blue"]  call fza_fnc_debugDrawLine;
 [_heli, 24, _rtrPos, _bladeRadius, 2, "white", 0]   call fza_fnc_debugDrawCircle;
 #endif
+
+[_outThrust, _outTq];
 
 /*
 hintsilent format ["v0.7 testing

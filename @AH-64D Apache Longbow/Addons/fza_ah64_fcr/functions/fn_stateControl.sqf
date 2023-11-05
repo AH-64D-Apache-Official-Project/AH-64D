@@ -31,7 +31,7 @@ private _updateDelay = [4,7.7] select (_fcrMode == 2);
 
 if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
     private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
-    if (_fcrState != FCR_MODE_OFF) then {
+    if (_fcrState#0 != FCR_MODE_OFF) then {
         _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, _lastScanState # 2], true];
     };
     if _armaRadarOn then {

@@ -29,7 +29,6 @@ if (_unit == driver _heli) then {
     _heli setVariable ["fza_ah64_aiESStop", true];
 
     //engine
-    _heli setVariable ["fza_sfmplus_engStartSwihState",     ["OFF", "OFF"]];
     _heli setVariable ["fza_sfmplus_engState",              ["OFF", "OFF"]];
     _heli setVariable ["fza_sfmplus_engPowerLeverState",    ["OFF", "OFF"]];
     [_heli, "fza_ah64_powerLever1", 0, 10] call fza_fnc_animSetValue;

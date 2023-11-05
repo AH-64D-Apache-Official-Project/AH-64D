@@ -11,6 +11,7 @@ class CfgPatches
 };
 
 class SensorTemplateActiveRadar;
+class SensorTemplatePassiveRadar;
 class SensorTemplateLaser;
 
 #include "\fza_ah64_controls\config\defines.hpp"

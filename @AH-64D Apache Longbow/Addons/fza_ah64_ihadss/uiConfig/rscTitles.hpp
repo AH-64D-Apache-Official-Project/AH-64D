@@ -1682,6 +1682,15 @@ class RscTitles
                             shadow = false;
                         };
                     };
+                    class canvas : fza_ah64_mapControl {
+                        idc = 367;
+                        x = 0.25;
+                        y = 0.25;
+                        w = 0;
+                        h = 0;
+                        onLoad = "(_this # 0) ctrlMapSetPosition []; (_this # 0) ctrlMapAnimAdd [0, 0.000, [-1000,-1000]]; ctrlMapAnimCommit (_this # 0);";
+                        onDraw = "_this call fza_ihadss_fnc_canvasDraw";
+                    };
                 };
             };
         };
@@ -1715,7 +1724,7 @@ class RscTitles
             };
         };
     };
-    class fza_ah64_laseit
+    class fza_ah64_laseit  
     {
         idd = 700;
         movingEnable =  1;

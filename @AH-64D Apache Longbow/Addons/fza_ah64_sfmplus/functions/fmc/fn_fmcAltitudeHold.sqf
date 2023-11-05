@@ -17,7 +17,7 @@ private _output     = 0.0;
 //If the total torque exceeds 98%, de-activate altitude hold and don't allow its
 //activation until it it is below 98%
 if (_tq >= 0.98) then { 
-    _heli setVariable ["fza_ah64_altHoldActive", false, true];
+    [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
     [_pidRadAlt] call fza_fnc_pidReset;
     [_pidBarAlt] call fza_fnc_pidReset;
     //playsound "fza_ah64_flt_control";
@@ -29,7 +29,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     private _collRef_low = _collRef * 0.95;
     private _collRef_hi  = _collRef * 1.05;
     if (fza_sfmplus_collectiveOutput >= _collRef_hi || fza_sfmplus_collectiveOutput <= _collRef_low) then {
-        _heli setVariable ["fza_ah64_altHoldActive", false, true];
+        [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
         [_heli] call fza_audio_fnc_flightTone;
     };
 

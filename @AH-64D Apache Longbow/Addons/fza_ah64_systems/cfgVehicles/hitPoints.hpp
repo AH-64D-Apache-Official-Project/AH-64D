@@ -322,6 +322,16 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
+    class hit_msnEquip_irJam
+    {
+        armor = 1.44 * ARMOR_SCALAR;
+        radius = HIT_RADIUS_02;
+        minimalHit = MIN_HIT;
+        explosionShielding = 0.24;
+        name = "hit_msnEquip_irJam";
+        material = 51;
+        passThrough = 0;
+    };
     class hit_stabilator
     {
         armor = 1.44 * ARMOR_SCALAR;

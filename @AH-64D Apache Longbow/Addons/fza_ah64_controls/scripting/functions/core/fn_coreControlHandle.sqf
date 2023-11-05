@@ -25,7 +25,7 @@ if (_value) then {
             [_heli, _system, _control] call fza_fnc_coreCockpitInteract;
         };
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_fnc_laserArm;
+            [_heli] call fza_laser_fnc_arm;
         };
         case "fza_ah64_sightSelectHMD": {
             [_heli, SIGHT_HMD] call fza_fnc_setSightSelect;
@@ -236,7 +236,7 @@ if !(_value) then {
     //When button releassed
     switch (_name) do {
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_fnc_laserDisarm;
+            [_heli] call fza_laser_fnc_disarm;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             //Velocity Hold Velocities

@@ -9,7 +9,7 @@ if (_quantityMenu == 0 && _control != "r1") exitWith {false;};
 switch (_control) do {
     case "r1": {
         if (_quantityMenu == 1) then {
-            _heli setVariable ["fza_ah64_rocketsalvo", 1, true];
+            [_heli, "fza_ah64_rocketsalvo", 1] call fza_fnc_updateNetworkGlobal;
             _state set ["popOutMenu", 0];
             _controlHandled = true;
         } else {
@@ -18,32 +18,32 @@ switch (_control) do {
         };
     };
     case "r2": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 2, true];
+        [_heli, "fza_ah64_rocketsalvo", 2] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };
     case "r3": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 4, true];
+        [_heli, "fza_ah64_rocketsalvo", 4] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };
     case "r4": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 8, true];
+        [_heli, "fza_ah64_rocketsalvo", 8] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };
     case "r5": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 12, true];
+        [_heli, "fza_ah64_rocketsalvo", 12] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };
     case "r6": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 24, true];
+        [_heli, "fza_ah64_rocketsalvo", 24] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };
     case "b6": {
-        _heli setVariable ["fza_ah64_rocketsalvo", 99, true];
+        [_heli, "fza_ah64_rocketsalvo", 99] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _controlHandled = true;
     };

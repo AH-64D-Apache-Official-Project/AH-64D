@@ -24,7 +24,6 @@ params ["_heli"];
 if ((player != driver _heli) && (isplayer driver _heli)) exitwith {};
 
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
-private _currentTgts = _heli getVariable "fza_ah64_fcrTargets";
 private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
 private _fcrTracks   = getSensorTargets _heli;
 private _fcrTargets  = [];
@@ -76,9 +75,6 @@ private _fcrTargets  = [];
 } foreach _fcrTracks;
 
 _fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
-if (_fcrTargets isEqualTo _currentTgts) exitWith {
-    _heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time], true];
-};
 
 private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
@@ -94,5 +90,5 @@ if(_newNtsIndex == -1) then {
     _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
 };
 
-_heli setVariable ["fza_ah64_fcrTargets", _fcrTargets, true];
-_heli setVariable ["fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time], true];
+[_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
+[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time]] call fza_fnc_updateNetworkGlobal;

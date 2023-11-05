@@ -12,6 +12,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_weapons\functions";
             class loadoutImportJson {R;};
+            class init {R;};
         };
         class pylon {
             file = "\fza_ah64_weapons\functions\pylon";
