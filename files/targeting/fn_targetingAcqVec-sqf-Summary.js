@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:targeting/fn_targetingAcqVec.sqf","fn_targetingAcqVec.sqf");NDSummary.OnSummaryLoaded("File:targeting/fn_targetingAcqVec.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_targetingAcqVec","fza_fnc_targetingAcqVec"]]);

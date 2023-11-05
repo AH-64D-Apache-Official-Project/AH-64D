@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:sight/fn_getSightSelect.sqf",{180:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the player\'s seat\'s sight. Can optionally be used to find the other crewstation\'s seat</div></div>"});

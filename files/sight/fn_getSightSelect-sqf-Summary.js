@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:sight/fn_getSightSelect.sqf","fn_getSightSelect.sqf");NDSummary.OnSummaryLoaded("File:sight/fn_getSightSelect.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_getSightSelect","fza_fnc_getSightSelect"]]);

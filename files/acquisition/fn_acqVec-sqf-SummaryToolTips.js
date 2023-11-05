@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:acquisition/fn_acqVec.sqf",{132:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Get a vector from the aircraft to the acquisition source point (in world space)</div></div>"});

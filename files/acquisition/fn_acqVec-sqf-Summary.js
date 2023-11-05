@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:acquisition/fn_acqVec.sqf","fn_acqVec.sqf");NDSummary.OnSummaryLoaded("File:acquisition/fn_acqVec.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[131,0,1,"Functions","Functions"],[132,0,0,"fza_fnc_acqVec","fza_fnc_acqVec"]]);

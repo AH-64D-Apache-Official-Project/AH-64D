@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:acquisition/fn_curAcq.sqf","fn_curAcq.sqf");NDSummary.OnSummaryLoaded("File:acquisition/fn_curAcq.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[143,0,1,"Functions","Functions"],[144,0,0,"fza_fnc_curAcq","fza_fnc_curAcq"]]);
