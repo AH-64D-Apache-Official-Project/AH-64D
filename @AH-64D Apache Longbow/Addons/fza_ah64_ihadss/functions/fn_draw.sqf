@@ -23,7 +23,6 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli"];
 
-
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
 
@@ -31,7 +30,7 @@ private _monocleinbox   = _heli getVariable "fza_ah64_monocleinbox";
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
-private _weaponWas      = _heli getVariable "fza_ah64_weaponWas";
+private _weaponWas      = _heli getVariable "fza_ah64_was";
 private _ntsPosition    = (_heli getVariable "fza_ah64_fcrNts")#1;
 private _headsdown      = (cameraView == "GUNNER" && player == gunner _heli);
 private _a3ti_vis       = call A3TI_fnc_getA3TIVision;
@@ -40,6 +39,7 @@ private _Visionmode     = [_heli] call fza_ihadss_fnc_getVisionMode;
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 private _dtvDamage      = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage     = _heli getHitPointDamage "hit_msnEquip_tads_flir";
+private _tadsDamage     = _heli getHitPointDamage "hitturret";
 private _channel        = _heli getVariable "fza_ah64_laserLRFDCode";
 private _hash           = _heli getVariable "fza_ah64_laserChannelIndex";
 private _lsrcode        = _hash get _channel;
@@ -92,11 +92,6 @@ if (fza_ah64_enableClickHelper) then {
      _clickHint ctrlSetText "";
 };
 _clickHint ctrlCommit 0.001;
-
-
-private _acBusOn = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
-private _powerOnState = (_acBusOn && _dcBusOn);
 
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
@@ -219,10 +214,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
 
     //TADS DTV/FLIR Fail
-    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_powerOnState) then {
+    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
     };
-    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_powerOnState) then {
+    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
         _heli disableTIEquipment true;
     } else {
@@ -266,6 +261,10 @@ if _setDeadOptics then {
     fza_ah64_gweff ppEffectEnable true;
 } else {
     fza_ah64_gweff ppEffectEnable false;
+};
+
+if !_acBusOn then {
+    [_heli] call fza_fnc_laserDisarm;
 };
 
 _autohide = {
@@ -314,16 +313,15 @@ if (_heli iskindof "fza_ah64base") then {
     };
 };
 
-_targrange = format["%1", ((round((_heli distance _nts) * 0.01)) * 0.1)];
-systemchat _nts;
-if (_nts isEqualTo [0,0,0]) then {
+_targrange = format["%1", ((round((_heli distance _ntsPosition) * 0.01)) * 0.1)];
+if (_ntsPosition isEqualTo [0,0,0]) then {
     _targrange = "0.0";
 };
 if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _nts select 0), (getposatl _nts select 1)] call fza_fnc_relativeDirection;
+_thetatarg = [_heli, getposatl _heli#0, getposatl _heli#1, _ntsPosition#0, _ntsPosition#1] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
