@@ -24,7 +24,7 @@ params["_heli", "_state"];
 
 private _action = ["searchlightoff", "searchlighton"] select _state;
 
-/*if (isnull(_heli turretUnit [0])) exitwith {
+if (isnull(_heli turretUnit [0])) exitwith {
     _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
     hideObject _ai;
     _ai moveIngunner _heli;
@@ -32,10 +32,10 @@ private _action = ["searchlightoff", "searchlighton"] select _state;
     _heli turretUnit [0] action [_action, _heli];
     _heli deleteVehicleCrew _ai;
     deleteVehicle _ai;
-};*/
+};
 
 if (player == driver _heli) exitWith {
-    [_action, _heli] remoteExec ["action", _heli turretUnit [0]];
+    _heli turretUnit [0] action [_action, _heli];
 };
 
 _heli action [_action, _heli];
