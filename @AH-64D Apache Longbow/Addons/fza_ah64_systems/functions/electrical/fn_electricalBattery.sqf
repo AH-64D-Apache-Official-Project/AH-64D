@@ -36,7 +36,7 @@ if (_battSwitchOn) then {
     _battBusOn = false;
 };
 //Set the state of the battery bus
-if (Local _heli) exitwith {
+if (Local _heli) then {
     [_heli, "fza_systems_battBusOn", _battBusOn] call fza_fnc_updateNetworkGlobal;
 };
 
