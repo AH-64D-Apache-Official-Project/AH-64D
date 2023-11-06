@@ -26,6 +26,7 @@ if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(al
     3 cuttext["", "PLAIN"];
     4 cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
+    fza_ah64_gweff ppEffectEnable false;
     _heli setVariable ["fza_ah64_monocleinbox", true];
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
     0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
@@ -38,7 +39,6 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 
 //Current Ihadss
 [_heli] call fza_ihadss_fnc_draw;
-[_heli] call fza_ihadss_fnc_tadsDraw;
 [_heli] call fza_ihadss_fnc_CscopeDraw;
 [_heli] call fza_ihadss_fnc_constraintBoxDraw;
 [_heli] call fza_ihadss_fnc_steeringCursorDraw;
