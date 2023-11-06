@@ -36,7 +36,7 @@ private _headsdown      = (cameraView == "GUNNER" && player == gunner _heli);
 private _a3ti_vis       = call A3TI_fnc_getA3TIVision;
 private _a3ti_brt       = call A3TI_fnc_getA3TIBrightnessContrast;
 private _Visionmode     = [_heli] call fza_ihadss_fnc_getVisionMode;
-private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
+private _pnvsSensor     = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
 private _dtvDamage      = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage     = _heli getHitPointDamage "hit_msnEquip_tads_flir";
 private _tadsDamage     = _heli getHitPointDamage "hitturret";
@@ -104,7 +104,7 @@ if (isNull laserTarget _heli) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox") && _pnvsSensor < SYS_SIGHT_DMG_THRESH) then {
     if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
