@@ -66,11 +66,13 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
     _engineStarted = 2;
 };
 
+private _pagemode = [2,1] select ([_heli] call fza_sfmplus_fnc_onGround);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
 private _wcas = [_heli] call fza_fnc_coreGetWCAs;
 _wcas = _wcas select {!(WCA_ADVISORY in _x)};
 _wcas resize [5, [0," "]];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), BOOLTONUM(_wcas#0#1 isNotEqualTo " ")];
+if (_wcas#0#1 isNotEqualTo " ") then {_pagemode = 3;};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), _pagemode];
 for "_x" from 0 to 4 do {
     _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];
     _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#0];
