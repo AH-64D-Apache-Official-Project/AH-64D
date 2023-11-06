@@ -23,4 +23,5 @@ if (!(_heli getVariable ["fza_ah64_lightInitialised", false]) && local _heli) th
     _heli setVariable ["fza_ah64_lightInitialised", true, true];
     
     _heli setVariable ["fza_ah64_lightpilot", false, true];
+    _heli setVariable ["fza_ah64_anticollision", false, true];
 };
