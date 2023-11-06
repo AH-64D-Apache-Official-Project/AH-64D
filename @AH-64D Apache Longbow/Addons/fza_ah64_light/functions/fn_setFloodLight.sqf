@@ -28,7 +28,6 @@ if (isnull(_heli turretUnit [0])) exitwith {
     _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
     hideObject _ai;
     _ai moveIngunner _heli;
-    _heli action [_action, _heli];
     _heli turretUnit [0] action [_action, _heli];
     _heli deleteVehicleCrew _ai;
     deleteVehicle _ai;
