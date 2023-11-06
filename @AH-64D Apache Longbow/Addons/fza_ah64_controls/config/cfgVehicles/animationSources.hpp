@@ -50,7 +50,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.01;
-        initPhase  = 1;
+        initPhase  = -5.5;
     };
     class pnvs
     {

@@ -133,6 +133,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_mstrWarnAudioOn",        false, true];
     _heli setVariable ["fza_ah64_activeWarn", createHashMapFromArray [["exists", true]], true];
     _heli setVariable ["fza_ah64_engineOverspeed",        [false, false], true];
+    _heli setVariable ["fza_ah64_stabilatorPosition",     -5.5 , true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
