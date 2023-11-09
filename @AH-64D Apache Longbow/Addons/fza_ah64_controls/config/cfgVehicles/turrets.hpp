@@ -50,44 +50,6 @@ class Turrets : Turrets
         discreteDistanceInitIndex=5;
         isCopilot = 1;
         usePiP=1;
-        class Reflectors
-        {
-            class cabin
-            {
-                color[]={0.306, 0.878, 0.349};
-                ambient[] = {0.306, 0.878, 0.349};
-                intensity = 25;
-                size = 1;
-                innerAngle = 30;
-                outerAngle = 150;
-                coneFadeCoef = 1;
-                position = "plt_floodlamps";
-                direction = "plt_memflood";
-                hitpoint = "plt_floodlamps";
-                selection = "plt_floodlamps";
-                useFlare = 0;
-                flareSize = 0;
-                flareMaxDistance = 0;
-                dayLight = 1;
-                blinking = 0;
-                class Attenuation
-                {
-                    start           = 0;
-                    constant        = 0;
-                    linear          = 1;
-                    quadratic       = 2;
-                    hardLimitStart  = 0.65;
-                    hardLimitEnd    = 1.9;
-                };
-            };
-            class cargo_light_1: cabin
-            {
-                position = "cpg_flood";
-                direction = "cpg_memflood";
-                hitpoint = "cpg_flood";
-                selection = "cpg_flood";
-            };
-        };
         class HitPoints
         {
             class HitTurret

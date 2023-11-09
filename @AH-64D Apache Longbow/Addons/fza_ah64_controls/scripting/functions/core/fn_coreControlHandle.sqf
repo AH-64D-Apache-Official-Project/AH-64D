@@ -230,8 +230,8 @@ if (_value) then {
             };
         };
         case "Headlights": {
-            private _lightval = _heli getVariable "fza_ah64_lightpilot";
-            _heli setVariable ["fza_ah64_lightpilot", !_lightval, true];
+            private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
+            _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
         };
     };
 };

@@ -24,31 +24,50 @@ ace_map_vehicleLightCondition = {isLightOn [_vehicle, [0]]};
 private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
 private _acBusOn      = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn      = _heli getVariable "fza_systems_dcBusOn";
-private _landingLight = _heli getVariable "fza_ah64_lightpilot";
-private _anticollanim = _heli getVariable "fza_ah64_anticollision";
+private _landingLight = _heli getVariable "fza_ah64_lightSearchLight";
+private _anticollanim = _heli getVariable "fza_ah64_lightAntiColl";
+private _pltFloodVal  = _heli getVariable "fza_ah64_lightPltFlood";
+private _CpgFloodVal  = _heli getVariable "fza_ah64_lightCpgFlood";
+private _landlightval = _heli getHitPointDamage "#landing_light";
+private _pltFloodOn   = _heli getHitPointDamage "#plt_flood_sel";
+private _cpgFloodOn   = _heli getHitPointDamage "#cpg_flood_sel";
 private _anticollval  = isCollisionLightOn _heli;
-private _landlightval = isLightOn _heli;
-private _floodlight   = isLightOn [_heli, [0]];
 private _powerOnState = (_acBusOn && _dcBusOn);
 
+//force pilot light
+if !(isLightOn _heli) then {
+    _heli setPilotLight true;
+};
+
 if !_battBusOn then {
-    _heli setobjecttextureGlobal ["in_backlight", ""];
-    _heli setobjecttextureGlobal ["in_backlight2", ""];
-    if _floodlight then {
-        [_heli, false] call fza_light_fnc_setFloodLight;
+    if (_pltFloodOn == 0) then {
+        [_heli, [-1], false] call fza_light_fnc_setFloodLight;
     };
-    if (_landlightval) then {
-        _heli setPilotLight false;
+    if (_cpgFloodOn == 0) then {
+        [_heli, [0], false] call fza_light_fnc_setFloodLight;
+    };
+    if (_landlightval == 0) then {
+        _heli setHitPointDamage ["#landing_light", 1];
     };
 } else {
-    if (!_landlightval && _landingLight) then {
-        _heli setPilotLight true;
+    if (_pltFloodOn == 1 && _pltFloodVal == true) then {
+        [_heli, [-1], true] call fza_light_fnc_setFloodLight;
+    };
+    if (_cpgFloodOn == 1 && _cpgFloodVal == true) then {
+        [_heli, [0], true] call fza_light_fnc_setFloodLight;
+    };
+    if (_landlightval == 1 && _landingLight) then {
+        _heli setHitPointDamage ["#landing_light", 0];
+    };
+    if (_landlightval == 0 && !_landingLight) then {
+        _heli setHitPointDamage ["#landing_light", 1];
     };
 };
 
 if !_powerOnState then {
-    if !(_anticollval) exitwith {};
-    _heli setCollisionLight false;
+    if (_anticollval) then {
+        _heli setCollisionLight false;
+    };
 } else {
     if (!_anticollval && _anticollanim) then {
         _heli setCollisionLight true;

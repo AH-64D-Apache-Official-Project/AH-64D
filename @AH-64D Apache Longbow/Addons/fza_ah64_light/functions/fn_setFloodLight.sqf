@@ -6,35 +6,26 @@ Description:
 
 Parameters:
     _heli - The heli to act upon
+    _turret - the seat to toggle
     _state - whether the cockpit light should be off. 0 or false for off, 1 or true for on.
 
 Returns:
     Nothing
 
 Examples:
-    --- Code
-    [_heli, false] call fza_light_fnc_setFloodLight;
-    //Cockpit light is now off
-    ---
 
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-params["_heli", "_state"];
+params["_heli", "_turret", "_state"];
 
-private _action = ["searchlightoff", "searchlighton"] select _state;
+private _value     = [false, true] select (_turret isEqualTo [-1]);
+private _hitpoint  = ["#cpg_flood_sel", "#plt_flood_sel"] select _value;
+private _variable  = ["fza_ah64_lightCpgFlood", "fza_ah64_lightPltFlood"] select _value;
+private _texture   = ["\fza_ah64_us\tex\in\pushbut.pa", "\fza_ah64_us\tex\in\dlt.paa"] select _value;
+private _selection = ["in_backlight2", "in_backlight"] select _value;
+private _damageval = [1,0] select _state;
 
-if (isnull(_heli turretUnit [0])) exitwith {
-    _ai = group player createUnit ["B_RangeMaster_F", [0,0,0], [], 0, "NONE"];
-    hideObject _ai;
-    _ai moveIngunner _heli;
-    _heli turretUnit [0] action [_action, _heli];
-    _heli deleteVehicleCrew _ai;
-    deleteVehicle _ai;
-};
-
-if (player == driver _heli) exitWith {
-    _heli turretUnit [0] action [_action, _heli];
-};
-
-_heli action [_action, _heli];
+_heli setHitPointDamage [_hitpoint, _damageval];
+_heli setVariable [_variable, _state];
+_heli setObjectTextureGlobal [_selection, _texture];

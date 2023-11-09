@@ -22,6 +22,12 @@ params["_heli"];
 if (!(_heli getVariable ["fza_ah64_lightInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_lightInitialised", true, true];
     
-    _heli setVariable ["fza_ah64_lightpilot", false, true];
-    _heli setVariable ["fza_ah64_anticollision", false, true];
+    _heli setVariable ["fza_ah64_lightSearchLight", false, true];
+    _heli setVariable ["fza_ah64_lightAntiColl", false, true];
+    _heli setVariable ["fza_ah64_lightPltFlood", false, true];
+    _heli setVariable ["fza_ah64_lightCpgFlood", false, true];
+
+    _heli setHitPointDamage ["#plt_flood_sel", 1];
+    _heli setHitPointDamage ["#cpg_flood_sel", 1];
+    _heli setHitPointDamage ["#landing_light", 1];
 };

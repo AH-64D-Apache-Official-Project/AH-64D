@@ -17,12 +17,25 @@ if !fza_ah64_aiFloodlight exitWith {};
 if (isplayer driver _heli && isplayer gunner _heli) exitWith {};
 if !(_heli getVariable "fza_systems_battBusOn") exitWith {};
 
-private _driver = driver vehicle _heli;
-private _gunner = gunner vehicle _heli;
+private _pltFloodOn  = _heli getHitPointDamage "#plt_flood_sel";
+private _cpgFloodOn  = _heli getHitPointDamage "#cpg_flood_sel";
+private _driver      = driver vehicle _heli;
+private _gunner      = gunner vehicle _heli;
 private _isNightTime = daytime > 20.0 || daytime < 4.20;
 
-if ((alive _driver && !isPlayer _driver) || (alive _gunner && !isPlayer _gunner)) then {
-    if (_isNightTime != isLightOn [_heli,[0]]) then {
-        [_heli, "light", "floodlight"] call fza_light_fnc_handleControl;
+if ((alive _driver && !isPlayer _driver)) then {
+    if (_pltFloodOn == 1 && _isNightTime) then {
+        [_heli, [-1], true] call fza_light_fnc_setFloodLight;
+    };
+    if (_pltFloodOn == 0 && !_isNightTime) then {
+        [_heli, [-1], false] call fza_light_fnc_setFloodLight;
+    };
+};
+if ((alive _gunner && !isPlayer _gunner)) then {
+    if (_pltFloodOn == 1 && _isNightTime) then {
+        [_heli, [0], true] call fza_light_fnc_setFloodLight;
+    };
+    if (_cpgFloodOn == 0 && !_isNightTime) then {
+        [_heli, [0], false] call fza_light_fnc_setFloodLight;
     };
 };
