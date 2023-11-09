@@ -32,7 +32,7 @@ if ((alive _driver && !isPlayer _driver)) then {
     };
 };
 if ((alive _gunner && !isPlayer _gunner)) then {
-    if (_pltFloodOn == 1 && _isNightTime) then {
+    if (_cpgFloodOn == 1 && _isNightTime) then {
         [_heli, [0], true] call fza_light_fnc_setFloodLight;
     };
     if (_cpgFloodOn == 0 && !_isNightTime) then {
