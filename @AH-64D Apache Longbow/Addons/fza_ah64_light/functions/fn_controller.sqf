@@ -50,10 +50,10 @@ if !_battBusOn then {
         _heli setHitPointDamage ["#landing_light", 1];
     };
 } else {
-    if (_pltFloodOn == 1 && _pltFloodVal == true) then {
+    if (_pltFloodOn == 1 && _pltFloodVal) then {
         [_heli, [-1], true] call fza_light_fnc_setFloodLight;
     };
-    if (_cpgFloodOn == 1 && _cpgFloodVal == true) then {
+    if (_cpgFloodOn == 1 && _cpgFloodVal) then {
         [_heli, [0], true] call fza_light_fnc_setFloodLight;
     };
     if (_landlightval == 1 && _landingLight) then {

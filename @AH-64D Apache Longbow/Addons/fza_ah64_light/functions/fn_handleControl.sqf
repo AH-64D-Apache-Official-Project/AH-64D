@@ -31,11 +31,13 @@ private _powerOnState = (_acBusOn && _dcBusOn);
 switch (_control) do {
     case "floodlight": {
         private _turret   = ((_heli call fza_fnc_currentTurret) isEqualTo [-1]);
-        private _seat     = [[0],[-1]] select _turret;
+        private _variable  = ["fza_ah64_lightCpgFlood", "fza_ah64_lightPltFlood"] select _turret;
         private _hitpoint = ["#cpg_flood_sel", "#plt_flood_sel"] select _turret;
         private _hitval   = _heli getHitPointDamage _hitpoint;
+        private _seat     = [[0],[-1]] select _turret;
         private _toggleon = (_hitval > 0.5);
         [_heli, _seat, _toggleon] call fza_light_fnc_setFloodLight;
+        _heli setVariable [_variable, _toggleon];
         playsound "fza_ah64_button_rotary";
     };
     case "anticollision": {
