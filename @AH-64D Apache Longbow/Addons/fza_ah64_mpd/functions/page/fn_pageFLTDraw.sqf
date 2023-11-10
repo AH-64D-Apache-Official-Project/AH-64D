@@ -60,6 +60,9 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_ALTERNATE_SENSOR), _alternat
 
 private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
 private _fcrHeading = [(_fcrLastScan#0 - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrHeading = -1000;
+};
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FCR_CENTERLINE), _fcrHeading];
 
 // Velocity Vector

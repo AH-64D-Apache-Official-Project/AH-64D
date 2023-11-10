@@ -480,54 +480,57 @@ class flt_draw {
     };
 
     class Flt_FCRCenterline {
-        type = polygon;
-        points[] = {
-            {
-                //Main rectangles
-                {"Flt_FCRCenterline", {-0.0065, 0}, 1},
-                {"Flt_FCRCenterline", {-0.0025, 0}, 1},
-                {"Flt_FCRCenterline", {-0.0025, 0.012}, 1},
-                {"Flt_FCRCenterline", {-0.0065, 0.012}, 1}
-            },  {
-                {"Flt_FCRCenterline", {0.0065, 0}, 1},
-                {"Flt_FCRCenterline", {0.0025, 0}, 1},
-                {"Flt_FCRCenterline", {0.0025, 0.012}, 1},
-                {"Flt_FCRCenterline", {0.0065, 0.012}, 1}
-            },
-                //Left curve
-            {
-                {"Flt_FCRCenterline", {-0.0065, 0}, 1},
-                {"Flt_FCRCenterline", {-0.0094, 0.0007}, 1},
-                {"Flt_FCRCenterline", {-0.0094, 0.0113}, 1},
-                {"Flt_FCRCenterline", {-0.0065, 0.012}, 1}
-            }, {
-                {"Flt_FCRCenterline", {-0.0094, 0.0007}, 1},
-                {"Flt_FCRCenterline", {-0.0116, 0.0027}, 1},
-                {"Flt_FCRCenterline", {-0.0116, 0.0093}, 1},
-                {"Flt_FCRCenterline", {-0.0094, 0.0113}, 1}
-            }, {
-                {"Flt_FCRCenterline", {-0.0116, 0.0027}, 1},
-                {"Flt_FCRCenterline", {-0.0125, 0.0056}, 1},
-                {"Flt_FCRCenterline", {-0.0125, 0.0064}, 1},
-                {"Flt_FCRCenterline", {-0.0116, 0.0093}, 1}
-            },
-                //Right curve
-            {
-                {"Flt_FCRCenterline", {0.0065, 0}, 1},
-                {"Flt_FCRCenterline", {0.0094, 0.0007}, 1},
-                {"Flt_FCRCenterline", {0.0094, 0.0113}, 1},
-                {"Flt_FCRCenterline", {0.0065, 0.012}, 1}
-            }, {
-                {"Flt_FCRCenterline", {0.0094, 0.0007}, 1},
-                {"Flt_FCRCenterline", {0.0116, 0.0027}, 1},
-                {"Flt_FCRCenterline", {0.0116, 0.0093}, 1},
-                {"Flt_FCRCenterline", {0.0094, 0.0113}, 1}
-            }, {
-                {"Flt_FCRCenterline", {0.0116, 0.0027}, 1},
-                {"Flt_FCRCenterline", {0.0125, 0.0056}, 1},
-                {"Flt_FCRCenterline", {0.0125, 0.0064}, 1},
-                {"Flt_FCRCenterline", {0.0116, 0.0093}, 1}
-            }
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FLT_FCR_CENTERLINE), -180));
+        class Flt_FCRCenterline {
+            type = polygon;
+            points[] = {
+                {
+                    //Main rectangles
+                    {"Flt_FCRCenterline", {-0.0065, 0}, 1},
+                    {"Flt_FCRCenterline", {-0.0025, 0}, 1},
+                    {"Flt_FCRCenterline", {-0.0025, 0.012}, 1},
+                    {"Flt_FCRCenterline", {-0.0065, 0.012}, 1}
+                },  {
+                    {"Flt_FCRCenterline", {0.0065, 0}, 1},
+                    {"Flt_FCRCenterline", {0.0025, 0}, 1},
+                    {"Flt_FCRCenterline", {0.0025, 0.012}, 1},
+                    {"Flt_FCRCenterline", {0.0065, 0.012}, 1}
+                },
+                    //Left curve
+                {
+                    {"Flt_FCRCenterline", {-0.0065, 0}, 1},
+                    {"Flt_FCRCenterline", {-0.0094, 0.0007}, 1},
+                    {"Flt_FCRCenterline", {-0.0094, 0.0113}, 1},
+                    {"Flt_FCRCenterline", {-0.0065, 0.012}, 1}
+                }, {
+                    {"Flt_FCRCenterline", {-0.0094, 0.0007}, 1},
+                    {"Flt_FCRCenterline", {-0.0116, 0.0027}, 1},
+                    {"Flt_FCRCenterline", {-0.0116, 0.0093}, 1},
+                    {"Flt_FCRCenterline", {-0.0094, 0.0113}, 1}
+                }, {
+                    {"Flt_FCRCenterline", {-0.0116, 0.0027}, 1},
+                    {"Flt_FCRCenterline", {-0.0125, 0.0056}, 1},
+                    {"Flt_FCRCenterline", {-0.0125, 0.0064}, 1},
+                    {"Flt_FCRCenterline", {-0.0116, 0.0093}, 1}
+                },
+                    //Right curve
+                {
+                    {"Flt_FCRCenterline", {0.0065, 0}, 1},
+                    {"Flt_FCRCenterline", {0.0094, 0.0007}, 1},
+                    {"Flt_FCRCenterline", {0.0094, 0.0113}, 1},
+                    {"Flt_FCRCenterline", {0.0065, 0.012}, 1}
+                }, {
+                    {"Flt_FCRCenterline", {0.0094, 0.0007}, 1},
+                    {"Flt_FCRCenterline", {0.0116, 0.0027}, 1},
+                    {"Flt_FCRCenterline", {0.0116, 0.0093}, 1},
+                    {"Flt_FCRCenterline", {0.0094, 0.0113}, 1}
+                }, {
+                    {"Flt_FCRCenterline", {0.0116, 0.0027}, 1},
+                    {"Flt_FCRCenterline", {0.0125, 0.0056}, 1},
+                    {"Flt_FCRCenterline", {0.0125, 0.0064}, 1},
+                    {"Flt_FCRCenterline", {0.0116, 0.0093}, 1}
+                }
+            };
         };
-    }
+    };
 };
