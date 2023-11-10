@@ -139,7 +139,7 @@ if (_flightModel == "sfmplus") then {
     if (_heli getHitPointDamage "hithrotor" == 1.0) exitWith {};
 
     private _lastUpdate = _heli getVariable ["fza_sfmplus_lastUpdate", 0];
-    if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES && _rtrRPM > 0.05) exitWith {
+    if (cba_missionTime > _lastUpdate + MIN_TIME_BETWEEN_UPDATES) exitWith {
         _rtrRPM = _droopRPM;
         if (_realRPM > _rtrRPM) then {
             _heli setHitpointDamage ["hithrotor", 0.9];
