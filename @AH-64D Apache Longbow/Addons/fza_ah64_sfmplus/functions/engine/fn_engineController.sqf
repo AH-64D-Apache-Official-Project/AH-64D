@@ -119,7 +119,7 @@ if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["O
 };
 //End Autorotation handler
 
-if (_flightModel != "sfmplus") then {
+if (_flightModel == "sfmplus") then {
     private _maxTQ    = getNumber (_config >> "engMaxTQ");
     private _limitTQ  = 0.0;
     private _limitRPM = getNumber (_config >> "engIdleNP");
