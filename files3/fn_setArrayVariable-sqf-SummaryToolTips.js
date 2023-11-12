@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_setArrayVariable.sqf",{4:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets a multi-variable array.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_setArrayVariable.sqf",{94:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets a multi-variable array.</div></div>"});
