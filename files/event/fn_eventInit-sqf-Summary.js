@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:event/fn_eventInit.sqf","fn_eventInit.sqf");NDSummary.OnSummaryLoaded("File:event/fn_eventInit.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[159,0,1,"Functions","Functions"],[160,0,0,"fza_fnc_eventInit","fza_fnc_eventInit"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:event/fn_eventInit.sqf","fn_eventInit.sqf");NDSummary.OnSummaryLoaded("File:event/fn_eventInit.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[157,0,1,"Functions","Functions"],[158,0,0,"fza_fnc_eventInit","fza_fnc_eventInit"]]);

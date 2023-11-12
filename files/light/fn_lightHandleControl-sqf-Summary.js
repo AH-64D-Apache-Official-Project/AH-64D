@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:light/fn_lightHandleControl.sqf","fn_lightHandleControl.sqf");NDSummary.OnSummaryLoaded("File:light/fn_lightHandleControl.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[141,0,1,"Functions","Functions"],[142,0,0,"fza_fnc_lightHandleControl","fza_fnc_lightHandleControl"]]);
