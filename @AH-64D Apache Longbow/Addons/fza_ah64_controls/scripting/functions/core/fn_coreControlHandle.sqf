@@ -229,6 +229,10 @@ if (_value) then {
                 _heli setvariable ["fza_ah64_tadsZoom", 0];
             };
         };
+        case "Headlights": {
+            private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
+            _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
+        };
     };
 };
 
