@@ -123,7 +123,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 
 //--Engine 1 Out
-if (_eng1Ng < 0.63 && !_onGnd) then {
+if (_eng1Ng < 0.63 && _eng1PwrLvrState == "FLY" && !_onGnd) then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -150,7 +150,7 @@ if (_eng1Np >= 1.15) then {
     [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
-if (_eng2Ng < 0.63 && !_onGnd) then {
+if (_eng2Ng < 0.63 && _eng2PwrLvrState == "FLY" && !_onGnd) then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
