@@ -61,7 +61,7 @@ private _apuOn       = _heli getVariable "fza_systems_apuOn";
 private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
-private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
+private _fcrState    = _heli getVariable "fza_ah64_fcrState";
 //--Generators
 private _gen1Damage  = _heli getHitPointDamage "hit_elec_generator1";
 private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
@@ -486,7 +486,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
     _wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };
 //--FCR 
-if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH) then {
+if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {
