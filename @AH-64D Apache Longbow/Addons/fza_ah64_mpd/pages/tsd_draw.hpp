@@ -61,21 +61,29 @@ class Rte {
     };
 
     //ADD sub page
-    class RteAdd {
-
+    class RteAddNoPointSel {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 1));
+        #include "tsd\rte\addNoPointSel.hpp"
+    };
+    //ADD sub page
+    class RteAddPointSel {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 2));
+        #include "tsd\rte\addPointSel.hpp"
     };
     //DEL sub page
     class RteDel {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 3));
+        #include "tsd\rte\del.hpp"
 
     };
     //DIR sub page
     class RteDirNoPointSel {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 3));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 4));
         #include "tsd\rte\dirNoPointSel.hpp"
     };
         //DIR sub page
     class RteDirPointSel {
-        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 4));
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 5));
         #include "tsd\rte\dirPointSel.hpp"
     };
         //RVW sub page

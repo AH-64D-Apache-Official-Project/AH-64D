@@ -107,6 +107,8 @@ class CfgVehicles {
                 class InitState {
                     subPageVarPage[] = {0,0};
                     showScale = 0;
+                    routeScroll = 0;
+                    routePoint = [];
                 };
                 class PersistState {
                     mode = "nav";

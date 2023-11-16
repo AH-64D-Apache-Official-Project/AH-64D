@@ -3,10 +3,50 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 private _variant = _state get "subPageVarPage" select 1;
+private _routeData    = _heli getVariable "fza_ah64_routeData";
+private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
+private _routeInfo    = _routeData get _routeCurrent;
+
+private _addRoutePoint = {
+    params ["_heli", "_btnIndex"];
+    private _routePoint = _state get "routePoint";
+    if (isNil "_routePoint") exitWith {};
+    private _index      = ((_state get "routeScroll") + _btnIndex);
+    if ((count _routeInfo) < _index) exitWith {};
+    private _insertPoint   = _routeInfo#_index;
+    private _previousPoint = if (count _routeInfo > 0) then {_routeInfo#(_index - 1);} else {[];};
+    private _databaseType  = [_heli, _routePoint, 3] call fza_dms_fnc_pointGetValue;
+    if (isNil "_databaseType") exitWith {};
+    if (_routePoint isEqualTo []) exitwith {};
+    if (_routePoint isEqualTo _insertPoint) exitwith {};
+    if (_routePoint isEqualTo _previousPoint && _index != 0) exitwith {};
+    _routeInfo insert [_index, [_routePoint]];
+    _routeData set [_routeCurrent, _routeInfo];
+};
+
+private _delRoutePoint = {
+    params ["_heli", "_btnIndex"];
+    private _routePoint = _state get "routePoint";
+    private _index      = ((_state get "routeScroll") + _btnIndex);
+    _routeInfo deleteAt _index;
+    _routeData set [_routeCurrent, _routeInfo];
+
+};
 
 switch (_variant) do {
     case 0: {   //RTE page
         switch (_control) do {
+            case "l2": {     //RTE ADD sub-page
+                private _currentPoint = _heli getVariable "fza_dms_routeNext";
+                if (_currentPoint isEqualTo []) then {
+                    _state set ["subPageVarPage", TSD_RTE_ADD_NOPOINTSEL];
+                } else {
+                    _state set ["subPageVarPage", TSD_RTE_ADD_POINTSEL];
+                }
+            };
+            case "l3": {     //RTE DEL sub-page
+                _state set ["subPageVarPage", TSD_RTE_DEL];
+            };
             case "l4": {     //RTE DIR sub-page
                 private _currentDir = _heli getVariable "fza_dms_routeNext";
                 if (_currentDir isEqualTo []) then {
@@ -26,18 +66,74 @@ switch (_variant) do {
             };
         };
     };
-    case 1: {   //ADD sub-page
+    case 1;
+    case 2: {   //ADD  point selected sub-page
         switch (_control) do {
-            //Not implemented
+            case "l1": {    //Select Point
+                private _callBack = {
+                    params ["_input", "_state", "_heli"];
+                    _state set ["routePoint", _input];
+                };
+                private _checker = {
+                    params ["_input", "", "_heli"];
+                    private _id = [_heli, _input] call fza_dms_fnc_pointParse;
+                    if (_id isEqualTo []) exitWith {false};
+                    private _databaseType = [_heli, _id, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+                    if (isNil "_databaseType") exitWith {false;};
+                    if (_databaseType > 2) exitWith {false;};
+                    [true, _id];
+                };
+                private _currentValue = _state get "routePoint";
+                private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
+                [_heli, "POINT", _callback, _checker, _state, _startValue] call fza_ku_fnc_addPrompt;
+            };
+            case "l2": {     //Return to RTE page
+                _state set ["subPageVarPage", TSD_RTE];
+            };
+            case "b4": {    //To WPT page
+                _state set ["subPageVarPage", TSD_WPT];
+            };
+            case "b5": {    //Return to top level TSD (root)
+                _state set ["subPageVarPage", TSD_ROOT];
+            };
+            case "b6": {    //To THRT page
+                _state set ["subPageVarPage", TSD_THRT];
+            };
+            case "r2": {
+                [_heli, 3] call _addRoutePoint;
+            };
+            case "r3": {
+                [_heli, 2] call _addRoutePoint;
+            };
+            case "r4": {
+                [_heli, 1] call _addRoutePoint;
+            };
+            case "r5": {
+                [_heli, 0] call _addRoutePoint;
+            };
         };
     };
-    case 2: {   //DEL sub-page
+    case 3: {   //DEL sub-page
         switch (_control) do {
-            //Not implemented
+            case "l3": {     //RTE DEL sub-page
+                _state set ["subPageVarPage", TSD_RTE];
+            };
+            case "r2": {
+                [_heli, 3] call _delRoutePoint;
+            };
+            case "r3": {
+                [_heli, 2] call _delRoutePoint;
+            };
+            case "r4": {
+                [_heli, 1] call _delRoutePoint;
+            };
+            case "r5": {
+                [_heli, 0] call _delRoutePoint;
+            };
         };
     };
-    case 3;   //DIR no point selected sub-page
-    case 4: {   //DIR point selected sub-page
+    case 4;   //DIR no point selected sub-page
+    case 5: {   //DIR point selected sub-page
         switch (_control) do {
             case "l1": {    //Select Point
                 private _callBack = {
@@ -50,6 +146,7 @@ switch (_variant) do {
                     private _id = [_heli, _input] call fza_dms_fnc_pointParse;
                     if (_id isEqualTo []) exitWith {false};
                     private _databaseType = [_heli, _id, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+                    systemchat str _databaseType;
                     if (isNil "_databaseType") exitWith {false;};
                     [true, _id];
                 };
@@ -71,12 +168,12 @@ switch (_variant) do {
             };
         };
     };
-    case 5: {   //RVW sub-page
+    case 6: {   //RVW sub-page
         switch (_control) do {
             //Not implemented
         };
     };
-    case 6: {   //RTM sub-page
+    case 7: {   //RTM sub-page
         switch (_control) do {
             //Not implemented
         };
