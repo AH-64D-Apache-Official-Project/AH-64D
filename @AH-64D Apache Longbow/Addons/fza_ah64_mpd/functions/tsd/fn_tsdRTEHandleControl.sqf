@@ -1,5 +1,6 @@
 params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 
 private _variant = _state get "subPageVarPage" select 1;
@@ -11,11 +12,11 @@ private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
     if (isNil "_routePoint") exitWith {};
-    private _index      = ((_state get "routeScroll") + _btnIndex);
+    private _index = ((_state get "routeScroll") + _btnIndex);
     if ((count _routeInfo) < _index) exitWith {};
     private _insertPoint   = _routeInfo#_index;
     private _previousPoint = if (count _routeInfo > 0) then {_routeInfo#(_index - 1);} else {[];};
-    private _databaseType  = [_heli, _routePoint, 3] call fza_dms_fnc_pointGetValue;
+    private _databaseType  = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
     if (isNil "_databaseType") exitWith {};
     if (_routePoint isEqualTo []) exitwith {};
     if (_routePoint isEqualTo _insertPoint) exitwith {};
@@ -30,9 +31,18 @@ private _addRoutePoint = {
 
 private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
-    private _index      = ((_state get "routeScroll") + _btnIndex);
+    private _index = ((_state get "routeScroll") + _btnIndex);
+    if ((count _routeInfo) <= _index) exitWith {};
     _routeInfo deleteAt _index;
     _routeData set [_routeCurrent, _routeInfo];
+};
+
+private _setRouteDir = {
+    params ["_heli", "_btnIndex"];
+    private _index = ((_state get "routeScroll") + _btnIndex);
+    if ((count _routeInfo) <= _index) exitWith {};
+    private _routePoint = _routeInfo#_index;
+    [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
 };
 
 switch (_variant) do {
@@ -117,7 +127,7 @@ switch (_variant) do {
     };
     case 3: {   //DEL sub-page
         switch (_control) do {
-            case "l4": {     //Return to RTE page
+            case "l3": {     //Return to RTE page
                 _state set ["subPageVarPage", TSD_RTE];
             };
             case "b4": {    //To WPT page
@@ -157,8 +167,8 @@ switch (_variant) do {
                     private _id = [_heli, _input] call fza_dms_fnc_pointParse;
                     if (_id isEqualTo []) exitWith {false};
                     private _databaseType = [_heli, _id, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
-                    systemchat str _databaseType;
                     if (isNil "_databaseType") exitWith {false;};
+                    if (_databaseType > 2) exitWith {false;};
                     [true, _id];
                 };
                 private _currentValue = _heli getVariable "fza_dms_routeNext";
@@ -176,6 +186,18 @@ switch (_variant) do {
             };
             case "b6": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
+            };
+            case "r2": {
+                [_heli, 3] call _setRouteDir;
+            };
+            case "r3": {
+                [_heli, 2] call _setRouteDir;
+            };
+            case "r4": {
+                [_heli, 1] call _setRouteDir;
+            };
+            case "r5": {
+                [_heli, 0] call _setRouteDir;
             };
         };
     };

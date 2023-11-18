@@ -12,6 +12,6 @@ class rteDirNoPointSel {
         };
         //L4
         MPD_BOX_R(DIR,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, 3)
-        MPD_TEXT_R(DIR,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("DIR"))
+        MPD_TEXT_R(DIR, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("DIR"))
     };    
 };

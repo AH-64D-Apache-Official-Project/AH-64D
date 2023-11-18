@@ -85,4 +85,44 @@ class rteCommon {
         //B5
         MPD_BOX_TALL_C(THRT, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_B_Y, 3)
     };
+    class routeEnd {
+        class index1 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_END_INDEX), 0));
+            MPD_TEXT_L(END_TEXT_01, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("END "))
+            MPD_BOX_BAR_R(END_BAR_01, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y)
+        };
+        class index2 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_END_INDEX), 1));
+            MPD_TEXT_L(END_TEXT_02, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("END "))
+            MPD_BOX_BAR_R(END_BAR_02, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
+        };
+        class index3 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_END_INDEX), 2));
+            MPD_TEXT_L(END_TEXT_03, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("END "))
+            MPD_BOX_BAR_R(END_BAR_03, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_3_Y)
+        };
+        class index4 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_END_INDEX), 3));
+            MPD_TEXT_L(END_TEXT_04, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("END "))
+            MPD_BOX_BAR_R(END_BAR_04, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
+        };
+    class routeSelected {
+        class index1 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_POINT), 0));
+            MPD_BOX_BAR_B(Selected_Point_1, MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 2.5), MPD_POS_BUTTON_LR_5_Y)
+        };
+        class index2 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_POINT), 1));
+            MPD_BOX_BAR_B(Selected_Point_2, MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 2.4), MPD_POS_BUTTON_LR_4_Y)
+        };
+        class index3 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_POINT), 2));
+            MPD_BOX_BAR_B(Selected_Point_3, MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 2.3), MPD_POS_BUTTON_LR_3_Y)
+        };
+        class index4 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_POINT), 3));
+            MPD_BOX_BAR_B(Selected_Point_4, MPD_POS_BUTTON_R_X - (MPD_TEXT_WIDTH * 2.2), MPD_POS_BUTTON_LR_2_Y)
+        };
+    };
+    };
 };

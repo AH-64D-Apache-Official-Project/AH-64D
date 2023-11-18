@@ -9,6 +9,7 @@ private _routeInfo    = _routeData # _routeCurrent;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_VARIANT), _variant];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_SELECTED), _routeCurrent];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_END_INDEX), (count _routeInfo - (_state get "routeScroll"))];
 
 if (count _routeInfo > 0) then {
     private _point1 = _routeInfo# (_state get "routeScroll");
