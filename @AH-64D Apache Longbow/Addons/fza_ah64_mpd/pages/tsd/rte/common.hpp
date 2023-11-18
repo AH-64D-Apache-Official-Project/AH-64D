@@ -50,7 +50,7 @@ class rteCommon {
             };
         };
         class oneCharacter {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 5));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 1));
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5                       , MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             class lines {
                 type  = line;
@@ -58,15 +58,15 @@ class rteCommon {
                 points[] = {
                     {{0.97, 0.270},1},
                     {{0.87, 0.270},1},
-                    {{0.87, (0.52 - (MPD_TEXT_HEIGHT * 1))},1}, {},
-                    {{0.87, (0.52 + (MPD_TEXT_HEIGHT * 1))},1},
+                    {{0.87, (0.52 - (MPD_TEXT_HEIGHT * 0.5))},1}, {},
+                    {{0.87, (0.52 + (MPD_TEXT_HEIGHT * 0.5))},1},
                     {{0.87, 0.750},1},
                     {{0.97, 0.750},1}
                 };
             };
         };
         class twoCharacter {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 5));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 2));
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5 - 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             MPD_TEXT_L(SELRTE_02, 0.87, 0.5 + 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T2))
             class lines {
@@ -83,7 +83,7 @@ class rteCommon {
             };
         };
         class threeCharacter {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 5));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 3));
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5 - 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             MPD_TEXT_L(SELRTE_02, 0.87, 0.5                       , MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T2))
             MPD_TEXT_L(SELRTE_03, 0.87, 0.5 + 1.01*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T3))
@@ -101,7 +101,7 @@ class rteCommon {
             };
         };
         class fourCharacter {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 5));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_TEXT_POINTS), 4));
             MPD_TEXT_L(SELRTE_01, 0.87, 0.5 - 1.515*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T1))
             MPD_TEXT_L(SELRTE_02, 0.87, 0.5 - 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T2))
             MPD_TEXT_L(SELRTE_03, 0.87, 0.5 + 0.505*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_TSD_RTE_NAME_T3))
