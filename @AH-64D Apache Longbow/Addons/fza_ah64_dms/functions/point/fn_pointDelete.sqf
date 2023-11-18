@@ -9,5 +9,23 @@ private _db = _heli getVariable _dbName;
 _db set [_dbIndex, -1];
 
 _heli setVariable [_dbName, _db, true];
+
+private _routeData = _heli getVariable "fza_ah64_routeData";
+{
+    private _routeIndex = _foreachindex;
+    private _routeArray = _x;
+    {
+        if (_x isEqualTo _id) then {
+            _routeArray deleteAt _foreachindex;
+            _routeData set [_routeIndex, _routeArray];
+        };
+    } forEachReversed _x;
+} foreach _routeData;
+
+private _currentDir = _heli getVariable "fza_dms_routeNext";
+if (_currentDir isEqualTo _id) then {
+    [_heli, []] call fza_dms_fnc_routeSetDir;
+};
+
 ["fza_dms_pointDeleted", [_heli, _id]] call CBA_fnc_globalEvent;
 true;

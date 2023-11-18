@@ -5,7 +5,7 @@ params["_heli", "_mpdIndex", "_state"];
 private _variant      = _state get "subPageVarPage" select 1;
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
-private _routeInfo    = _routeData get _routeCurrent;
+private _routeInfo    = _routeData # _routeCurrent;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_VARIANT), _variant];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_RTE_SELECTED), _routeCurrent];
@@ -46,8 +46,9 @@ if (count _routeInfo > 3) then {
 switch (_variant) do {
     case 1;
     case 2: {
-        private _strPoint = (_state get "routePoint") call fza_dms_fnc_pointToString;
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT), _strPoint];
+        private _curPoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
+            _curPoint call fza_dms_fnc_pointToString];
     };
     case 3;
     case 4: {

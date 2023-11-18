@@ -5,11 +5,11 @@ params ["_heli", "_mpdIndex", "_control", "_state"];
 private _variant = _state get "subPageVarPage" select 1;
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
-private _routeInfo    = _routeData get _routeCurrent;
+private _routeInfo    = _routeData # _routeCurrent;
 
 private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
-    private _routePoint = _state get "routePoint";
+    private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
     if (isNil "_routePoint") exitWith {};
     private _index      = ((_state get "routeScroll") + _btnIndex);
     if ((count _routeInfo) < _index) exitWith {};
@@ -22,15 +22,17 @@ private _addRoutePoint = {
     if (_routePoint isEqualTo _previousPoint && _index != 0) exitwith {};
     _routeInfo insert [_index, [_routePoint]];
     _routeData set [_routeCurrent, _routeInfo];
+    private _currentValue = _heli getVariable "fza_dms_routeNext";
+    if (_currentValue isEqualTo []) then {
+        [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
+    };  
 };
 
 private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
-    private _routePoint = _state get "routePoint";
     private _index      = ((_state get "routeScroll") + _btnIndex);
     _routeInfo deleteAt _index;
     _routeData set [_routeCurrent, _routeInfo];
-
 };
 
 switch (_variant) do {
@@ -72,7 +74,7 @@ switch (_variant) do {
             case "l1": {    //Select Point
                 private _callBack = {
                     params ["_input", "_state", "_heli"];
-                    _state set ["routePoint", _input];
+                    _heli setVariable ["fza_mpd_tsdRteCurrentSel", _input];
                 };
                 private _checker = {
                     params ["_input", "", "_heli"];
@@ -83,7 +85,7 @@ switch (_variant) do {
                     if (_databaseType > 2) exitWith {false;};
                     [true, _id];
                 };
-                private _currentValue = _state get "routePoint";
+                private _currentValue = _heli getVariable "fza_mpd_tsdRteCurrentSel";
                 private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
                 [_heli, "POINT", _callback, _checker, _state, _startValue] call fza_ku_fnc_addPrompt;
             };
@@ -115,8 +117,17 @@ switch (_variant) do {
     };
     case 3: {   //DEL sub-page
         switch (_control) do {
-            case "l3": {     //RTE DEL sub-page
+            case "l4": {     //Return to RTE page
                 _state set ["subPageVarPage", TSD_RTE];
+            };
+            case "b4": {    //To WPT page
+                _state set ["subPageVarPage", TSD_WPT];
+            };
+            case "b5": {    //Return to top level TSD (root)
+                _state set ["subPageVarPage", TSD_ROOT];
+            };
+            case "b6": {    //To THRT page
+                _state set ["subPageVarPage", TSD_THRT];
             };
             case "r2": {
                 [_heli, 3] call _delRoutePoint;
