@@ -76,6 +76,16 @@ switch (_variant) do {
             case "b6": {    //To THRT page
                 _state set ["subPageVarPage", TSD_THRT];
             };
+            case "r1": {    //Scroll up
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
+            case "r6": {    //Scroll down
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
         };
     };
     case 1;
@@ -123,6 +133,16 @@ switch (_variant) do {
             case "r5": {
                 [_heli, 0] call _addRoutePoint;
             };
+            case "r1": {    //Scroll up
+                private _upper = if (count _routeInfo > 4) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
+            case "r6": {    //Scroll down
+                private _upper = if (count _routeInfo > 4) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
         };
     };
     case 3: {   //DEL sub-page
@@ -150,6 +170,16 @@ switch (_variant) do {
             };
             case "r5": {
                 [_heli, 0] call _delRoutePoint;
+            };
+            case "r1": {    //Scroll up
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
+            case "r6": {    //Scroll down
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
             };
         };
     };
@@ -198,6 +228,16 @@ switch (_variant) do {
             };
             case "r5": {
                 [_heli, 0] call _setRouteDir;
+            };
+            case "r1": {    //Scroll up
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
+            case "r6": {    //Scroll down
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
             };
         };
     };
