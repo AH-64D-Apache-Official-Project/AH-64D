@@ -209,6 +209,7 @@
 #define MFD_IND_TSD_RTE_TEXT_POINTS     1
 #define MFD_IND_TSD_RTE_END_INDEX       2
 #define MFD_IND_TSD_RTE_POINT           3
+#define MFD_IND_TSD_RTE_POINTEDIT       4
 
 #define MFD_TEXT_IND_TSD_RTE_CURPNT     0
 #define MFD_TEXT_IND_TSD_RTE_POINT_R5   1

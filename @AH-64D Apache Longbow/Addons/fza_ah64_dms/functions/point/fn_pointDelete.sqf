@@ -16,8 +16,15 @@ private _routeData = _heli getVariable "fza_ah64_routeData";
     private _routeArray = _x;
     {
         if (_x isEqualTo _id) then {
+            _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
             _routeArray deleteAt _foreachindex;
             _routeData set [_routeIndex, _routeArray];
+            if (_foreachindex == _rteIndex) then {
+                [_heli, "fza_ah64_routeCurPnt", -1] call fza_fnc_updateNetworkGlobal;
+            };
+            if (_foreachindex < _rteIndex) then {
+                [_heli, "fza_ah64_routeCurPnt", (_rteIndex - 1)] call fza_fnc_updateNetworkGlobal;
+            };
         };
     } forEachReversed _x;
 } foreach _routeData;
