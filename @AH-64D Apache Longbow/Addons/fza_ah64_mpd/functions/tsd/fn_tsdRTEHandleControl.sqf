@@ -29,7 +29,7 @@ private _addRoutePoint = {
         [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
         _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
     };
-    if (_index <= _rteIndex) then {
+    if (_index < _rteIndex && _rteIndex != -1) then {
         _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex + 1), true];
     };
 };
@@ -44,7 +44,7 @@ private _delRoutePoint = {
     if (_rteIndex == _index) then {
         _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
     };
-    if (_index < _rteIndex) then {
+    if (_index < _rteIndex && _rteIndex != -1) then {
         _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex - 1), true];
     };
 };
@@ -148,12 +148,12 @@ switch (_variant) do {
                 [_heli, 0] call _addRoutePoint;
             };
             case "r1": {    //Scroll up
-                private _upper = if (count _routeInfo > 4) then {(count _routeInfo - 3);} else {0;};
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
                 private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
                 _state set ["routeScroll", _scrollV];
             };
             case "r6": {    //Scroll down
-                private _upper = if (count _routeInfo > 4) then {(count _routeInfo - 3);} else {0;};
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
                 private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
                 _state set ["routeScroll", _scrollV];
             };
@@ -204,6 +204,7 @@ switch (_variant) do {
                 private _callBack = {
                     params ["_input", "_state", "_heli"];
                     [_heli, _input] call fza_dms_fnc_routeSetDir;
+                    _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
                     _state set ["subPageVarPage", TSD_RTE];
                 };
                 private _checker = {
