@@ -11,20 +11,15 @@ private _routeInfo    = _routeData # _routeCurrent;
 private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
     if (isNil "_routePoint") exitWith {};
-    private _index = ((_state get "routeScroll") + _btnIndex);
+    private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
+    private _index    = ((_state get "routeScroll") + _btnIndex);
+    private _dataType = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+    private _dmsNext  = _heli getVariable "fza_dms_routeNext";
     if ((count _routeInfo) < _index) exitWith {};
-    private _insertPoint   = _routeInfo#_index;
-    private _previousPoint = if (count _routeInfo > 0) then {_routeInfo#(_index - 1);} else {[];};
-    private _databaseType  = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
-    if (isNil "_databaseType") exitWith {};
-    if (_routePoint isEqualTo []) exitwith {};
-    if (_routePoint isEqualTo _insertPoint) exitwith {};
-    if (_routePoint isEqualTo _previousPoint && _index != 0) exitwith {};
+    if (isNil "_dataType") exitWith {};
     _routeInfo insert [_index, [_routePoint]];
     _routeData set [_routeCurrent, _routeInfo];
-    private _currentValue = _heli getVariable "fza_dms_routeNext";
     if (_currentValue isEqualTo []) then {
         [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
         _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
