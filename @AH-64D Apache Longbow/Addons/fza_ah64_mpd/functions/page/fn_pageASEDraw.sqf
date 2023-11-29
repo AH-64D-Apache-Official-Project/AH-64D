@@ -56,6 +56,7 @@ private _radius      = 0.27;
     _x params ["_state", "_object", "_classification"];
     private _bearing = _heli getRelDir _object;
     _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    if (_ident == "") then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
 } forEach _aseObjects;
 
