@@ -71,10 +71,9 @@ switch (_state) do {
 };
 
 private _milisecondVal = (CBA_missionTime - (floor CBA_missionTime));
-if (((_milisecondVal > 0.25 && _milisecondVal < 0.50) || (_milisecondVal > 0.75 && _milisecondVal < 1)) && _state > 1) exitWith {
+if (((_milisecondVal > 0.25 && _milisecondVal < 0.50) || (_milisecondVal > 0.75 && _milisecondVal < 1)) && _state > 2) exitWith {
     "";
 };
-
 
 _ident = (["RLWR", _unitType,_unitStatus]) joinString "_";
 
