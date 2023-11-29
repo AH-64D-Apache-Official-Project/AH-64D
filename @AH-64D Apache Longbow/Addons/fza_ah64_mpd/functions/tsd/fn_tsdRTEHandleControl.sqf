@@ -20,11 +20,11 @@ private _addRoutePoint = {
     if (isNil "_dataType") exitWith {};
     _routeInfo insert [_index, [_routePoint]];
     _routeData set [_routeCurrent, _routeInfo];
-    if (_currentValue isEqualTo []) then {
+    if (_dmsNext isEqualTo []) then {
         [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
         _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
     };
-    if (_index < _rteIndex && _rteIndex != -1) then {
+    if (_index <= _rteIndex && _rteIndex != -1) then {
         _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex + 1), true];
     };
 };
@@ -63,7 +63,7 @@ switch (_variant) do {
                     _state set ["subPageVarPage", TSD_RTE_ADD_NOPOINTSEL];
                 } else {
                     _state set ["subPageVarPage", TSD_RTE_ADD_POINTSEL];
-                }
+                };
             };
             case "l3": {     //RTE DEL sub-page
                 _state set ["subPageVarPage", TSD_RTE_DEL];
@@ -104,6 +104,7 @@ switch (_variant) do {
                 private _callBack = {
                     params ["_input", "_state", "_heli"];
                     _heli setVariable ["fza_mpd_tsdRteCurrentSel", _input];
+                    _state set ["subPageVarPage", TSD_RTE_ADD_POINTSEL];
                 };
                 private _checker = {
                     params ["_input", "", "_heli"];

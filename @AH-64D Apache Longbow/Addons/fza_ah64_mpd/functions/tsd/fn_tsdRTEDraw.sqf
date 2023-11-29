@@ -1,6 +1,7 @@
 params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
+#include "\fza_ah64_mpd\headers\tsd.hpp"
 
 private _variant      = _state get "subPageVarPage" select 1;
 private _routeData    = _heli getVariable "fza_ah64_routeData";
@@ -55,6 +56,23 @@ switch (_variant) do {
         private _curPoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
         _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
             _curPoint call fza_dms_fnc_pointToString];
+        if (_curPoint isequalto [] && _variant != 1) then {
+            _state set ["subPageVarPage", TSD_RTE_ADD_NOPOINTSEL];
+        };
+        if (_curPoint isNotEqualTo [] && _variant != 2) then {
+            _state set ["subPageVarPage", TSD_RTE_ADD_POINTSEL];
+        };
+    };
+    case 4;
+    case 5: {
+        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_RTE_CURPNT),
+            _directTo call fza_dms_fnc_pointToString];
+        if (_directTo isequalto [] && _variant != 4) then {
+            _state set ["subPageVarPage", TSD_RTE_DIR_NOPOINTSEL];
+        };
+        if (_directTo isNotEqualTo [] && _variant != 5) then {
+            _state set ["subPageVarPage", TSD_RTE_DIR_POINTSEL];
+        };
     };
     case 3;
     case 4: {
