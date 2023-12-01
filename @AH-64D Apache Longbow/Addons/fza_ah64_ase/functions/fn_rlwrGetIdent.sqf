@@ -58,21 +58,15 @@ switch (_state) do {
     case ASE_SRH: {
         _unitStatus = "SRH";
     };
-    case ASE_ACQ: {
-        _unitStatus = "ACQ_TRK";
-    };
-    case ASE_TRK: {
-        _unitStatus = "ACQ_TRK";
-    };
+    case ASE_ACQ;
+    case ASE_TRK;
     case ASE_LNC: {
+        _unitStatus = "ACQ_TRK";
+    };
+    case ASE_MSL: {
         _unitType   = "MSL";
         _unitStatus = "LNC";
     };
-};
-
-private _milisecondVal = (CBA_missionTime - (floor CBA_missionTime));
-if (((_milisecondVal > 0.25 && _milisecondVal < 0.50) || (_milisecondVal > 0.75 && _milisecondVal < 1)) && _state > 2) exitWith {
-    "";
 };
 
 _ident = (["RLWR", _unitType,_unitStatus]) joinString "_";

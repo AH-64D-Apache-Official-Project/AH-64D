@@ -188,6 +188,7 @@ private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
     private _bearing = _heli getRelDir _object;
     if !_rlwrPower exitWith {};
     _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
     if (_ident == "") then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
