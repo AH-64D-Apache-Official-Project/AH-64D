@@ -178,6 +178,17 @@ if (count _fcrTargets > 0) then {
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _fcrTargets;
 
+private _fcrState = _heli getVariable "fza_ah64_fcrState";
+Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _tsdFcrState = 0;
+if (_fcrState#0 == FCR_MODE_ON_CONTINUOUS) then {
+    _tsdFcrState = _fcrMode;
+};
+if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
+    _tsdFcrState = (_fcrMode + 2);
+};
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
+
 //ASE Points
 private _ctrX       = 0.5;  
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");

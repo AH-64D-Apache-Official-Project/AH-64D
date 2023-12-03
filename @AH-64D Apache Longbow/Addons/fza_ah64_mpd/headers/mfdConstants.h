@@ -176,6 +176,7 @@
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
 #define MFD_TEXT_IND_TSD_ROOT_WIND 5
+#define MFD_TEXT_IND_TSD_ROOT_FCR 11 //deconflict with show page
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
