@@ -92,17 +92,27 @@ if (_leftMpd != "TSD" && _rightMpd != "TSD" && _approachETA <= 60 && _wptAprch#0
 //waypoint passed
 {
     if (_count == 0) exitwith {};
-    if (_nextPnt isEqualTo -1) exitwith {};
-    if (_closestPoint distance2D _heli > 20) exitwith {};
-    if (_x isNotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitWith {
-        if (_leftMpd != "TSD" && _rightMpd != "TSD" && (_closestPoint distance2D _heli > 20)) then {
-            [_heli, "fza_ah64_wptpassed", true] call fza_fnc_updateNetworkGlobal;
-        };
-        if (_count > 1 && (_count > (_rteCycleIndex + 1))) then {
+    if (_closestPoint distance2D _heli > 200) exitwith {};
+    if (_leftMpd != "TSD" && _rightMpd != "TSD") then {
+        [_heli, "fza_ah64_wptpassed", true] call fza_fnc_updateNetworkGlobal;
+    };
+    if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {
+        if (_count > 1 && (_count > (_rteCycleIndex + 1)) && (_nextPnt isnotEqualTo -1)) then {
             [_heli, _x] call fza_dms_fnc_routeSetDir;
             _heli setVariable ["fza_ah64_routeCurPnt", _foreachindex, true];
         };
     };
 } foreach _routeInfo;
 
-systemchat str ["Angle :" + str _angle,"Closest Intersect :" + str _closestPoint,"Distance:" + str (_heli distance2d _closestPoint), "Point Pos ETA :" + str _approachETA];
+hintsilent format ["\nCurrent Point = %6
+                    \nBearing 1 = %1
+                    \nBearing 2 = %2
+                    \nPoint Passage = %3
+                    \nDistance to PP = %4
+                    \nETA to PP = %5",
+                    _angle,
+                    (_angle + 180) mod 360,
+                    [round(_closestPoint#0),round(_closestPoint#1)],
+                    (_heli distance2d _closestPoint),
+                    _approachETA,
+                    _currentPnt];
