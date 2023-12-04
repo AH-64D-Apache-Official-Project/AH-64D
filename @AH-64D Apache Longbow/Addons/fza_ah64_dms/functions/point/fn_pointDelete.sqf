@@ -29,10 +29,5 @@ private _routeData = _heli getVariable "fza_ah64_routeData";
     } forEachReversed _x;
 } foreach _routeData;
 
-private _currentDir = _heli getVariable "fza_dms_routeNext";
-if (_currentDir isEqualTo _id) then {
-    [_heli, []] call fza_dms_fnc_routeSetDir;
-};
-
 ["fza_dms_pointDeleted", [_heli, _id]] call CBA_fnc_globalEvent;
 true;

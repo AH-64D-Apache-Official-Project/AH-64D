@@ -30,31 +30,79 @@ private _Course2      = -1;
 
 if (_rteIndex == -1) exitwith {};
 
-private _previousPnt = if (count _routeInfo > 1 && _rteIndex > 0) then {_routeInfo#(_rteIndex - 1);} else {-1;};
-private _currentPnt  = if (count _routeInfo > 0 && _rteIndex > -1) then {_routeInfo#_rteIndex;} else {-1;};
-private _nextPnt     = if (count _routeInfo > (_rteIndex + 1)) then {_routeInfo#(_rteIndex + 1);} else {-1;};
+//create Route without A/B/B/C side/side duplicates
+private _rteCycleList = [];
+private _rteCycleIndex = _rteIndex;
+{
+    private _previousIndex = (_foreachindex - 1);
+    private _previousPoint = (_routeInfo#_previousIndex);
+    if (_previousPoint isEqualTo _x && _previousIndex > -1) then { 
+        if (_previousIndex < _rteIndex) then {
+            _rteCycleIndex = _rteCycleIndex - 1;
+        };
+        continue;
+    };
+    _rteCycleList pushBack _X;
+} foreach _routeInfo;
 
-private _previousPntPos = [_heli, _previousPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
-private _currentPntPos  = [_heli, _currentPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
-private _nextPntPos     = [_heli, _nextPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+private _previousPnt = if (count _rteCycleList > 1 && _rteCycleIndex > 0) then {_rteCycleList#(_rteCycleIndex - 1);} else {-1;};
+private _currentPnt  = if (count _rteCycleList > 0 && _rteCycleIndex > -1) then {_rteCycleList#_rteCycleIndex;} else {-1;};
+private _nextPnt     = if (count _rteCycleList > (_rteCycleIndex + 1)) then {_rteCycleList#(_rteCycleIndex + 1);} else {-1;};
+_previousPnt;
+private _previousPntPos = [_heli, _previousPnt, 1] call fza_dms_fnc_pointGetValue;
+private _currentPntPos  = [_heli, _currentPnt, 1] call fza_dms_fnc_pointGetValue;
+private _nextPntPos     = [_heli, _nextPnt, 1] call fza_dms_fnc_pointGetValue;
 
-if (_previousPnt isNotEqualTo -1 && _currentPnt isNotEqualTo -1 && _previousPntPos != _currentPntPos) then {
+if (_previousPnt isNotEqualTo -1 && _currentPnt isNotEqualTo -1 && _previousPntPos isNotEqualTo _currentPntPos) then {
     _Course1 = _previousPntPos getDir _currentPntPos;
 };
-if (_currentPnt isNotEqualTo -1 && _nextPnt isNotEqualTo -1 && _currentPntPos != _nextPntPos) then {
+if (_currentPnt isNotEqualTo -1 && _nextPnt isNotEqualTo -1 && _currentPntPos isNotEqualTo _nextPntPos) then {
     _Course2 = _currentPntPos getDir _nextPntPos;
 };
 
-private _angle1 = abs((_Course1 - _Course2) mod 360)/2;
-private _angle1 = if (_Course1 == -1 || _Course2 == -1) then {90;} else {_angle1;};
-private _angle2 = (_Course1 + _Course2 + _angle1 + 360) mod 360;
-private _angle3 = (_angle2 + 180 + 360) mod 360;
-if (_Course1 isEqualTo -1) then {
-    _angle2 = (_Course2 + _angle1 + 360) mod 360;
-    _angle3 = (_Course2 - _angle1 + 360) mod 360;
+private _angle = ((_Course1 + _Course2 + 180) mod 360) / 2;
+private _angle = if (_Course1 == -1 || _Course2 == -1) then {90;} else {_angle;};
+
+if (_Course2 isEqualTo -1) then {//end point
+    _angle = (_Course1 + _angle + 360) mod 360;
 };
-if (_Course2 isEqualTo -1) then {
-    _angle2 = (_Course1 + _angle1 + 360) mod 360;
-    _angle3 = (_Course1 - _angle1 + 360) mod 360;
+if (_Course1 isEqualTo -1) then {//start point
+    _angle = (_Course2 + _angle + 360) mod 360;
 };
-systemchat str [_angle1, _angle2, _angle3];
+
+//Calculate Line Direction and Normalize
+_lineDirection = [sin _angle, cos _angle, 0];
+_lineDirection = vectorNormalized _lineDirection;
+
+//Calculate Closest Point
+_diffVector = (position _heli) vectorDiff _currentPntPos;
+_dotProduct = _diffVector vectorDotProduct _lineDirection;
+_closestPoint = _currentPntPos vectorAdd [(_dotProduct * _lineDirection#0), (_dotProduct * _lineDirection#1), 0];
+
+private _speed = round(vectorMagnitude (velocity _heli));
+private _approachETA = if (_speed > 0) then {round((_heli distance2d _currentPntPos) / _speed);} else {99;};
+private _leftMpd = [_heli, 0] call fza_mpd_fnc_currentPage;
+private _rightMpd = [_heli, 1] call fza_mpd_fnc_currentPage;
+private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
+private _count = count _rteCycleList;
+//wpt approach 
+if (_leftMpd != "TSD" && _rightMpd != "TSD" && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
+    [_heli, "fza_ah64_wptAprch", [_currentPnt, true]] call fza_fnc_updateNetworkGlobal;
+};
+//waypoint passed
+{
+    if (_count == 0) exitwith {};
+    if (_nextPnt isEqualTo -1) exitwith {};
+    if (_closestPoint distance2D _heli > 20) exitwith {};
+    if (_x isNotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitWith {
+        if (_leftMpd != "TSD" && _rightMpd != "TSD" && (_closestPoint distance2D _heli > 20)) then {
+            [_heli, "fza_ah64_wptpassed", true] call fza_fnc_updateNetworkGlobal;
+        };
+        if (_count > 1 && (_count > (_rteCycleIndex + 1))) then {
+            [_heli, _x] call fza_dms_fnc_routeSetDir;
+            _heli setVariable ["fza_ah64_routeCurPnt", _foreachindex, true];
+        };
+    };
+} foreach _routeInfo;
+
+systemchat str ["Angle :" + str _angle,"Closest Intersect :" + str _closestPoint,"Distance:" + str (_heli distance2d _closestPoint), "Point Pos ETA :" + str _approachETA];

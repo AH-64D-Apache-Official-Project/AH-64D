@@ -33,6 +33,7 @@ private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
     private _index = ((_state get "routeScroll") + _btnIndex);
+    private _routePoint = _routeInfo#_index;
     if ((count _routeInfo) <= _index) exitWith {};
     _routeInfo deleteAt _index;
     _routeData set [_routeCurrent, _routeInfo];
@@ -41,6 +42,10 @@ private _delRoutePoint = {
     };
     if (_index < _rteIndex && _rteIndex != -1) then {
         _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex - 1), true];
+    };
+    private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
+    if (_routePoint isEqualTo _wptAprch#0) then {
+        [_heli, "fza_ah64_wptAprch", [-1, false]] call fza_fnc_updateNetworkGlobal;
     };
 };
 
