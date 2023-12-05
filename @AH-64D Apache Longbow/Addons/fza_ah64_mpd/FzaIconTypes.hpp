@@ -11,7 +11,7 @@
 #define MPD_ICON_TEXT_ID 0
 #define MPD_ICON_TEXT_FREE 1
 
-#define ICON_SIZE 0.13
+#define ICON_SIZE 0.085
 
 class FzaIconTypes {
     // Common templates to be used for generating icons.
