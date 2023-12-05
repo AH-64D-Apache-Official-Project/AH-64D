@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT 0.035
+#define TEXT_HEIGHT 0.0253
 disableSerialization;
 params
     ["_heli"
