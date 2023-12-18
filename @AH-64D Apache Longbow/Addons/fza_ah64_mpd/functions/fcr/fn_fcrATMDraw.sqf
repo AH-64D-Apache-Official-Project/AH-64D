@@ -5,7 +5,6 @@
 params ["_heli", "_mpdIndex"];
 
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
-private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
 private _SystemWas    = _heli getVariable "fza_ah64_was";
 private _pointsArray = [];
@@ -21,12 +20,12 @@ If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUO
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = time - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 7.7];
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    if (_fcrScanDeltaTime >= 3.53) then {//recalc
+    if (_fcrScanDeltaTime >= 2.93) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
     };
-    if ((_fcrScanDeltaTime % 7.7) < 3.56 || (_fcrScanDeltaTime % 7.7) > 4.14 ) then {
+    if ((_fcrScanDeltaTime % 6.4) < 2.96 || (_fcrScanDeltaTime % 6.4) > 3.44 ) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
@@ -35,12 +34,15 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
 };
 
+//fcr post proccess display
+private _displayTargets = [_heli, (0.040625 * 8 / 8000), [0.5, 0.5]] call fza_fcr_fnc_PostProccess;
+
 //FCR page draw
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex = 0;
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets min 16);
+private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
+private _antsIndex = -1;
+if (count _displayTargets > 0 && _ntsIndex != -1) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
 {
@@ -94,7 +96,7 @@ if (count _fcrTargets > 0) then {
     if (_unitType == "" || _unitStatus == "") then {continue;};
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach _fcrTargets;
+} forEach _displayTargets;
 
 POINTSARRAY = _pointsArray;
 

@@ -19,6 +19,7 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli"];
 
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
@@ -26,10 +27,12 @@ private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
 private _fcrState    = _heli getVariable "fza_ah64_fcrState";
 Private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
-private _armaRadarOn = isVehicleRadarOn vehicle player;
-private _updateDelay = [4,7.7] select (_fcrMode == 2);
+private _armaRadarOn = isVehicleRadarOn _heli;
+private _updateDelay = [3.2,6.4] select (_fcrMode == 2);
+private _onGnd       = [_heli] call fza_sfmplus_fnc_onGround;
+private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
 
-if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH) exitwith {
+if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH || (!_gndOrideOn && _onGnd)) exitwith {
     private _lastScanState = _heli getVariable "fza_ah64_fcrLastScan";
     if (_fcrState#0 != FCR_MODE_OFF) then {
         _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, _lastScanState # 2], true];
@@ -43,6 +46,8 @@ switch (_fcrState # 0) do {
     case FCR_MODE_OFF: {
         if _armaRadarOn then {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
+            _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
+            _heli setVariable ["fza_ah64_fcrTargets", [], true];
         };
     };
     case FCR_MODE_ON_SINGLE: {
@@ -50,7 +55,7 @@ switch (_fcrState # 0) do {
         if (time >= _fcrstate # 1 + _updateDelay && _lastScanState # 2 < _fcrState # 1) exitwith {
             [_heli] call fza_fcr_fnc_update;
         };
-        if (time >= (_fcrState # 1 + _updateDelay) && _lastScanState # 2 <= time) exitwith {
+        if (time >= (_fcrState # 1 + (_updateDelay * 2)) && _lastScanState # 2 <= time) exitwith {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
             _heli action ["ActiveSensorsOff", _heli];
         };

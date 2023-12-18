@@ -30,7 +30,10 @@ class GTM {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.508, -0.894}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.598, -0.836}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.684, -0.774}, 1},
-                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.764, -0.704}, 1}
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.764, -0.704}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -1.200}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -1.140}, 1}
                 };
             };
         };
@@ -70,7 +73,10 @@ class GTM {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.254, -0.447}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.299, -0.418}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.342, -0.387}, 1},
-                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.382, -0.352}, 1}
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.382, -0.352}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.510}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.485}, 1}
                 };
             };
         };
@@ -110,7 +116,10 @@ class GTM {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.102, -0.179}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.120, -0.167}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.137, -0.155}, 1},
-                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.153, -0.141}, 1}
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.153, -0.141}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.204}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.194}, 1}
                 };
             };
         };
@@ -150,7 +159,10 @@ class GTM {
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.051, -0.089}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.060, -0.084}, 1},
                     {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.068, -0.077}, 1},
-                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.076, -0.070}, 1}
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.076, -0.070}, 1},
+                    {},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.102}, 1},
+                    {"Tsd_Ownship_Offset", 1, "Tsd_Ownship", {00.000, -0.097}, 1}
                 };
             };
         };

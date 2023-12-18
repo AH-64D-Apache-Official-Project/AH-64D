@@ -4,8 +4,11 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _phase          = BOOLTONUM(_persistState get "mode" == "atk");
-private _rangesetting   = _persistState get "tsdScale";
+private _phase        = BOOLTONUM(_persistState get "mode" == "atk");
+private _rangesetting = _persistState get "tsdScale";
+private _tsdScale     = 0.125 * 5 / (_persistState get "tsdScale");
+private _ctrX         = 0.5;  
+private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
@@ -109,14 +112,16 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 
 //FCR Points
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
+private _displayTargets = [_heli,_fcrTargets, _tsdScale, [_ctrX, _ctrY]] call fza_fcr_fnc_PostProccess;
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
 private _SystemWas      = _heli getVariable "fza_ah64_was";
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex = 0;
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets min 16);
+private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
+private _antsIndex = -1;
+if (count _displayTargets > 0 && _ntsIndex != -1) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
+
 {
     _x params ["_pos", "_type", "_moving", "_obj"];
     private _distance_m          = _lastScanInfo #1 distance2d _pos;
@@ -176,12 +181,13 @@ if (count _fcrTargets > 0) then {
         _ident= "FCR_TSD_SC25_50";
     };
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach _fcrTargets;
+} forEach _displayTargets;
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";
 Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _tsdFcrState = 0;
-if (_fcrState#0 == FCR_MODE_ON_CONTINUOUS) then {
+if (_sight == SIGHT_FCR) then {
     _tsdFcrState = _fcrMode;
 };
 if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
@@ -190,8 +196,6 @@ if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
 
 //ASE Points
-private _ctrX       = 0.5;  
-private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
 private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
@@ -206,6 +210,5 @@ private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-private _tsdScale = 0.125 * 5 / (_persistState get "tsdScale");
 
 [_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
