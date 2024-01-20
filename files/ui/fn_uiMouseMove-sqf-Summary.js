@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:ui/fn_uiMouseMove.sqf","fn_uiMouseMove.sqf");NDSummary.OnSummaryLoaded("File:ui/fn_uiMouseMove.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_uiMouseMove","fza_fnc_uiMouseMove"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:ui/fn_uiMouseMove.sqf","fn_uiMouseMove.sqf");NDSummary.OnSummaryLoaded("File:ui/fn_uiMouseMove.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[141,0,1,"Functions","Functions"],[142,0,0,"fza_fnc_uiMouseMove","fza_fnc_uiMouseMove"]]);

@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_doortoggleG.sqf",{198:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">opens/closes the gunner door</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_doortoggleG.sqf",{194:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">opens/closes the gunner door</div></div>"});
