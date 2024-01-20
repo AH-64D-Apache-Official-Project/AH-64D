@@ -50,7 +50,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.01;
-        initPhase  = 1;
+        initPhase  = -5.5;
     };
     class pnvs
     {
@@ -346,7 +346,7 @@ class AnimationSources
         source = "user";
         animPeriod = 0.001;
         initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
+        onPhaseChanged = "[_this # 0, ""fza_ah64_lightAntiColl"", ""plt_anticollision""] call fza_fnc_animReset";
     };
     class plt_firesw
     {

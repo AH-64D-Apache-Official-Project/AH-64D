@@ -86,7 +86,6 @@ class CfgFunctions
             class getRtrRPM {R;};
             class getwindDirVel {R;};
             class onGround {R;};
-            class init {R;};
         };
     };
 };

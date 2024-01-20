@@ -36,7 +36,7 @@ private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "
 private _identity   = format ["fza_ah64_bt_%1", [_hostile] call fza_ase_fnc_adaClassification];
 
 waitUntil {(_heli distance _missile <= ASE_DETECT_RANGE_M);};
-private _theta = _heli getRelDir _posInc;
+private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_posInc select 0), (_posInc select 1)] call fza_fnc_relativeDirection;
 private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_fnc_bearingClock];
 
 if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) exitWith {

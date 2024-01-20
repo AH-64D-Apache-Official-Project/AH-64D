@@ -14,7 +14,7 @@ class CfgFunctions
             class addCaution {R;};
             class addWarning {R;};
             class audiohandler {R;};
-            class init {R;};
+            class audioinit {R;};
             class delCaution {R;};
             class delWarning {R;};
             class flightTone {R;};

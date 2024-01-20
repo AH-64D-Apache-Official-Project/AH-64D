@@ -25,19 +25,19 @@ if (_value) then {
             [_heli, _system, _control] call fza_fnc_coreCockpitInteract;
         };
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_laser_fnc_arm;
+            [_heli] call fza_fnc_laserArm;
         };
         case "fza_ah64_sightSelectHMD": {
-            [_heli, SIGHT_HMD] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_HMD] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectTADS": {
-            [_heli, SIGHT_TADS] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_TADS] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectFXD": {
-            [_heli, SIGHT_FXD] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_FXD] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_sightSelectFCR": {
-            [_heli, SIGHT_FCR] call fza_fnc_setSightSelect;
+            [_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {
@@ -229,6 +229,10 @@ if (_value) then {
                 _heli setvariable ["fza_ah64_tadsZoom", 0];
             };
         };
+        case "Headlights": {
+            private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
+            _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
+        };
     };
 };
 
@@ -236,7 +240,7 @@ if !(_value) then {
     //When button releassed
     switch (_name) do {
         case "fza_ah64_laserDesig": {
-            [_heli] call fza_laser_fnc_disarm;
+            [_heli] call fza_fnc_laserDisarm;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             //Velocity Hold Velocities

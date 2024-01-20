@@ -18,11 +18,14 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli", "_deltaTime"];
 
+private _stabDamage    = _heli getHitPointDamage "hit_stabilator";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel    = getText (_cfg >> "fza_flightModel");
+private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 if (!local _heli) exitWith {};
 
@@ -71,6 +74,12 @@ if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = getNumber (_sfmPlusConfig >> "stabKeyTheta");
 } else {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
+};
+
+if (_stabDamage >= SYS_STAB_DMG_THRESH || !_dcBusOn) then {
+    _theta = _heli getvariable "fza_ah64_stabilatorPosition";
+} else {
+    _heli setVariable ["fza_ah64_stabilatorPosition",_theta];
 };
 
 //Animate the Horizontal stabilizer

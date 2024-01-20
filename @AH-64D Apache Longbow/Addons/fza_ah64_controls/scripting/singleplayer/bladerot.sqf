@@ -75,7 +75,7 @@ do {
 
         _vertvect = ((_velair select 2) atan2 sqrt(((_velair select 0) * (_velair select 0)) + ((_velair select 1) * (_velair select 1))));
         _vertvect = (_vertvect * _velfactor) + _weight;
-        _helipb = _heli call BIS_fnc_getPitchBank;
+        _helipb = _heli call fza_fnc_getPitchBank;
         _vertvect = (_vertvect - (_helipb select 0));
         _horveldir = (velocity _heli select 0) atan2(velocity _heli select 1);
         if (_horveldir < 0) then {

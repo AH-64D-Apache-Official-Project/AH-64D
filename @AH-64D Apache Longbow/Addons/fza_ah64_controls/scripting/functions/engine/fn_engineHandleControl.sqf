@@ -59,9 +59,6 @@ switch(_control) do {
             playsound "fza_ah64_battery";
         } else {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli, "fza_ah64_anticollision", false] call fza_fnc_animSetValue;
-            _heli setCollisionLight false;
-            _heli setPilotLight false;
             [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
             playsound "fza_ah64_battery";
         };

@@ -152,7 +152,7 @@ class CfgVehicles
         };
         class EventHandlers {
             class fza_ah64 {
-                init = "[_this # 0] spawn fza_fnc_eventInit";
+                init = "[_this # 0] spawn fza_fnc_eventInit; [_this # 0] spawn fza_aiCrew_fnc_init; [_this # 0] spawn fza_audio_fnc_audioInit; [_this # 0] spawn fza_fire_fnc_init";
                 handleDamage = "_this call fza_fire_fnc_damageSystem";
             };
         };
@@ -202,7 +202,7 @@ class CfgVehicles
                 tooltip = "Loadout in JSON form to export";
                 property = "fza_ah64_loadout";
                 control = "Edit";
-                expression = "[_this, _value] call fza_weapons_fnc_loadoutImportJson;";
+                expression = "[_this, _value] call fza_fnc_loadoutImportJson;";
                 defaultValue = "''";
                 unique = 0;
                 validate = "none";
