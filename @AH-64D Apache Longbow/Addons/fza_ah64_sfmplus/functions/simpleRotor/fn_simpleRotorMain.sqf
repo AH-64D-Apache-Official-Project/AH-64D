@@ -117,7 +117,10 @@ private _rtrCorrInducedVelocity    = if (_w == 0.0) then { 0.0; } else { [_w, _u
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
 private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
-private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
+private _velZClamped               = [_velZ, -5.0, 10.0] call BIS_fnc_clamp;
+systemchat format ["Clamped Z Vel: %1", _velZClamped];
+private _rtrPowerReq               = ((_rtrThrust * _rtrCorrInducedVelocity) + (_rtrThrust * _velZClamped)) * _rtrPowerScalar;
+//_rtrPowerReq                       = _rtrPowerReq / velZ;
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
