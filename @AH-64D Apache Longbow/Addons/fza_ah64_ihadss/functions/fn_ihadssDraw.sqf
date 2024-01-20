@@ -40,8 +40,7 @@ private _gspdcode    = "";
 private _curwpdir    = -1000;
 private _chevmark    = 0;
 private _fcrantennafor = -100;
-private _fcrhdg      = -1000;
-private _showFcrLastScan = false;   
+private _fcrhdg      = -360; 
 private _fcrdir      = 0.5;
 private _headsdown   = false;
 private _hduColour    = [0.1, 1, 0, 1];
@@ -403,7 +402,6 @@ _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
 if !isNil {_fcrLastScan # 0} then {
     _fcrhdg = _fcrLastScan # 0;
-    _showFcrLastScan = true;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
@@ -413,8 +411,8 @@ if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
 if !(_heli animationPhase "fcr_enable" == 1) then {
-    _fcrantennafor = -100;
-    _showFcrLastScan = false;
+    _fcrantennafor = -1000;
+    _fcrhdg = -360
 };
 _slip = fza_ah64_sideslip * 0.1 + 0.492; //<-- 0.492 is the center for the trim ball <-- when slip = 0.15, it reaches the edge
 if (_slip > 0.54) then {
@@ -715,18 +713,18 @@ for "_i" from 0 to 35 do {
 
 [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
 
-if (_showFcrLastScan) then {
-    [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137, _fcrhdg, -0.0096, 0.31, true] call _drawHeading;
-} else {
+if (_fcrhdg < -180 || _fcrhdg > 180) then {
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
+} else {
+    [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137, _fcrhdg, -0.0096, 0.31, true] call _drawHeading;
 };
 
-if (_curwpdir < -360 || _curwpdir > 360) then {
+if (_curwpdir < -180 || _curwpdir > 180) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetPosition[-100, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlCommit 0;
 } else {
-     [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137, _curwpdir + _heliDir, -0.025, 0.31, true] call _drawHeading;
+     [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134, _curwpdir + _heliDir, -0.025, 0.31, true] call _drawHeading;
 };
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlCommit 0;
