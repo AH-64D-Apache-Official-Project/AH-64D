@@ -185,13 +185,14 @@ if (_value) then {
             private _Visionmode = _heli currentVisionMode [0];
             private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
             if !(isNil "_a3ti_vis") exitwith {};
-            if (_Visionmode#0 == 2 && _Visionmode#1 == 1 && _dtvDamage < SYS_SIGHT_DMG_THRESH || _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
+            if (_dtvDamage >= SYS_SIGHT_DMG_THRESH && _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {};
+            if (_Visionmode#0 == 2 && _Visionmode#1 == 1 || _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", false];
                 if (_inputindex == 1) then {
                     _heli setvariable ["fza_ah64_tadsZoom", 0];
                 };
             };
-            if (_Visionmode#0 == 0) exitwith {
+            if (_Visionmode#0 == 0 || _dtvDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", true];
             };
         };
