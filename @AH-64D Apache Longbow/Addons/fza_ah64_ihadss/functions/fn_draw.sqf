@@ -376,33 +376,9 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 };
 
 //Flight Path Vector
-
-/*
-private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
-if (_headTrackerPos isEqualTo []) then {
-    _headTrackerPos = [-100, -100];
-} else {
-    _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
-};
-*/
-
 _fpv         = ([_heli] call fza_fnc_velocityVector) call fza_fnc_compensateSafezone;
 _fpvVertVect = (_fpv select 0) * -1;
 _fpvHorVect  = _fpv select 1;
-/*
-if (_fpvVertVect > 0.65) then {
-    _fpvVertVect = 0.65;
-};
-if (_fpvVertVect < 0.35) then {
-    _fpvVertVect = 0.35;
-};
-if (_fpvHorVect > 0.65) then {
-    _fpvHorVect = 0.65;
-};
-if (_fpvHorVect < 0.35) then {
-    _fpvHorVect = 0.35;
-};
-*/
 
 if (speed _heli < 5) then {
     _fpvVertVect = -100;
@@ -559,6 +535,7 @@ if (_headTrackerPos isEqualTo []) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_fpvHorVect, _fpvVertVect];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
+_slip = [fza_ah64_sideslip * 0.1 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 187) ctrlSetPosition _bobcoords;
