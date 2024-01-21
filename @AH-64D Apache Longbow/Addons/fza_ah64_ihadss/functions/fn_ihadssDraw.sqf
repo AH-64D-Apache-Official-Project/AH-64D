@@ -310,11 +310,11 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
 
 
 _autohide = {
-    _partid = _this select 0;
+    _partid  = _this select 0;
     _pitchid = _this select 1;
-    _bankid = _this select 2;
+    _bankid  = _this select 2;
 
-    if ((_pitchid < -20 || _pitchid > 20)) then {
+    if ((_pitchid < -25 || _pitchid > 25)) then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _partid) ctrlSetPosition[100, 10, 100];
     } else {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _partid) ctrlSetPosition[0.5 + (((_pitchid) * 0.00556) * (sin _bankid)), 10, 0.5 + (((_pitchid) * 0.00556) * (cos _bankid))];
@@ -422,26 +422,38 @@ if (_slip < 0.44) then {
     _slip = 0.44;
 };
 
-_vvect = [_heli] call fza_fnc_velocityVector;
-_vertvect = ((_vvect select 0) * -1) + 0.5;
-_horvect = (_vvect select 1) + 0.485;
+//Flight Path Vector
 
-if (_vertvect > 0.65) then {
-    _vertvect = 0.65;
+/*
+private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
+if (_headTrackerPos isEqualTo []) then {
+    _headTrackerPos = [-100, -100];
+} else {
+    _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
 };
-if (_vertvect < 0.35) then {
-    _vertvect = 0.35;
+*/
+
+_fpv         = ([_heli] call fza_fnc_velocityVector) call fza_fnc_compensateSafezone;
+_fpvVertVect = (_fpv select 0) * -1;
+_fpvHorVect  = _fpv select 1;
+/*
+if (_fpvVertVect > 0.65) then {
+    _fpvVertVect = 0.65;
 };
-if (_horvect > 0.65) then {
-    _horvect = 0.65;
+if (_fpvVertVect < 0.35) then {
+    _fpvVertVect = 0.35;
 };
-if (_horvect < 0.35) then {
-    _horvect = 0.35;
+if (_fpvHorVect > 0.65) then {
+    _fpvHorVect = 0.65;
 };
+if (_fpvHorVect < 0.35) then {
+    _fpvHorVect = 0.35;
+};
+*/
 
 if (speed _heli < 5) then {
-    _vertvect = -100;
-    _horvect = -100;
+    _fpvVertVect = -100;
+    _fpvHorVect  = -100;
 };
 private _was = _heli getVariable "fza_ah64_was";
 if (_was == WAS_WEAPON_MSL) then {
@@ -502,8 +514,8 @@ if (_was == WAS_WEAPON_GUN) then {
 if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "fza_ah64_hmdfsmode") != "cruise") || (_headsdown)) then {
     _waypointcode = "";
     _gspdcode = "";
-    _horvect = -100;
-    _vertvect = -100;
+    _fpvHorVect = -100;
+    _fpvVertVect = -100;
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
@@ -593,7 +605,7 @@ if (_headTrackerPos isEqualTo []) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_horvect, _vertvect];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_fpvHorVect, _fpvVertVect];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlCommit 0;
@@ -612,7 +624,7 @@ _fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlCommit 0;
 _pbvar = _heli call fza_fnc_getPitchBank;
 
-_pbvar set [0, _pbvar # 0 + 5];
+_pbvar set [0, [_pbvar # 0 + 5, -25, 25] call BIS_fnc_clamp];
 
 //HUD HORIZON OBJECTS
 
