@@ -242,9 +242,16 @@
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
 #define MFD_IND_ASE_AUTOPAGE     5
+#define MFD_IND_ASE_BRITISH      6
+#define MFD_IND_ASE_AMERICAN     7
 //--Azimuth
-#define MFD_IND_ASE_BRITISH 6
-#define MFD_IND_ASE_AMERICAN 7
+#define MFD_IND_ASE_01_AZ 13
+#define MFD_IND_ASE_02_AZ 14
+#define MFD_IND_ASE_03_AZ 15
+#define MFD_IND_ASE_04_AZ 16
+#define MFD_IND_ASE_05_AZ 17
+#define MFD_IND_ASE_06_AZ 18
+#define MFD_IND_ASE_07_AZ 19
 
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0

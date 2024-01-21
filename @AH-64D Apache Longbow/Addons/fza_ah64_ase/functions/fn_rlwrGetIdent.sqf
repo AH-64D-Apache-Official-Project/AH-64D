@@ -58,13 +58,12 @@ switch (_state) do {
     case ASE_SRH: {
         _unitStatus = "SRH";
     };
-    case ASE_ACQ: {
-        _unitStatus = "ACQ_TRK";
-    };
-    case ASE_TRK: {
-        _unitStatus = "ACQ_TRK";
-    };
+    case ASE_ACQ;
+    case ASE_TRK;
     case ASE_LNC: {
+        _unitStatus = "ACQ_TRK";
+    };
+    case ASE_MSL: {
         _unitType   = "MSL";
         _unitStatus = "LNC";
     };

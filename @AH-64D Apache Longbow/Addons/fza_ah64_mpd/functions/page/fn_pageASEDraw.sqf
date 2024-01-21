@@ -50,13 +50,26 @@ _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_AMERICAN), _msn_equip_ameri
 
 //ASE Points
 private _pointsArray = [];
+private _linesArray  = [];
 private _aseObjects  = _heli getVariable "fza_ah64_ase_rlwrObjects";
 private _radius      = 0.27;
 {
     _x params ["_state", "_object", "_classification"];
     private _bearing = _heli getRelDir _object;
     _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
+    if (_state < 2) then {continue;};
+    _linesArray pushBack [_bearing];
 } forEach _aseObjects;
+
+for "_i" from 0 to 6 do {
+    if (_i >= count _linesArray) then {
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), -1];
+    } else {
+        (_linesArray select _i) params ["_azimuth"];
+        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), _azimuth];
+    };
+};
 
 [_heli, _pointsArray, _mpdIndex, 1, [0.5, 0.5]] call fza_mpd_fnc_drawIcons;
