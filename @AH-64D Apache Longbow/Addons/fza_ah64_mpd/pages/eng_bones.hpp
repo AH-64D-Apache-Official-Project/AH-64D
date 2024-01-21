@@ -75,8 +75,8 @@
 class Eng_Hyd_Box {
     type = linear;
     MPD_NUM_USER(MFD_IND_ENG_MODE)
-    min=0;
-    max=1;
+    min=1;
+    max=2;
     maxPos[] = {0, 0};
     minPos[] = {0.26, -0.51};
 };

@@ -79,6 +79,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableHeadingHold",
+    "CHECKBOX",
+    ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
+    [_projName, "Flight model"],
+    [true],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
@@ -144,15 +153,13 @@ fza_ah64_burst = 1;
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update];
+fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_ihadss_fnc_controller, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController];
-
+fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_controller, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
 }];
-[0] spawn fza_ufd_fnc_update;
 
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
@@ -174,3 +181,4 @@ OVERRIDE_ACTION("vehLockTargets")
 OVERRIDE_ACTION("zoomIn")
 OVERRIDE_ACTION("zoomOut")
 OVERRIDE_ACTION("NightVision")
+OVERRIDE_ACTION("Headlights")

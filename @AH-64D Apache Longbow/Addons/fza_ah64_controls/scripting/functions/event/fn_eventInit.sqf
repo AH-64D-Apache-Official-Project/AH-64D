@@ -25,6 +25,7 @@ params["_heli"];
 
 //Pbo initializations
 [_heli] call fza_fcr_fnc_init;
+[_heli] call fza_light_fnc_init;
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
 _heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
@@ -133,6 +134,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_mstrWarnAudioOn",        false, true];
     _heli setVariable ["fza_ah64_activeWarn", createHashMapFromArray [["exists", true]], true];
     _heli setVariable ["fza_ah64_engineOverspeed",        [false, false], true];
+    _heli setVariable ["fza_ah64_stabilatorPosition",     -5.5 , true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
@@ -192,17 +194,7 @@ while {
     alive _heli
 }
 do {
-    private _battBusOn              = _heli getVariable "fza_systems_battBusOn";
-    ace_map_vehicleLightCondition   = {isLightOn [_vehicle, [0]]}; 
-    if (!isLightOn [_heli,[0]] || !_battBusOn) then {
-
-        _heli setobjecttextureGlobal ["in_backlight", ""];
-        _heli setobjecttextureGlobal ["in_backlight2", ""];
-
-        [_heli, false] call fza_fnc_lightSetCockpitLight;
-    };
     _magsp = _heli magazinesturret[-1];
-
     if (local _heli) then {
         private _acBusOn            = _heli getVariable "fza_systems_acBusOn";
         private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
