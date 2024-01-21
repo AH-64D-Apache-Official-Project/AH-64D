@@ -103,7 +103,7 @@ if (isNull laserTarget _heli) then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)";
     };
