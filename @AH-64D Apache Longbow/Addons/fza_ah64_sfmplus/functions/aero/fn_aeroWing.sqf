@@ -20,7 +20,7 @@ private _E = []; private _F = []; private _G = []; private _H = [];
 private _I = [];
 
 private _liftLine = []; private _chordLine = []; private _liftVec = [];
-private _stabLine = []; private _relWind   = [];
+private _stabLine = []; private _relWind   = []; private _dragVec = [];
 
 switch (_wingType) do {
     case 0: {   //Horizontal wing
@@ -62,6 +62,8 @@ switch (_wingType) do {
         _relWind   = vectornormalized(velocityModelSpace _heli);
         _relWind   = _relWind;
         
+        _dragVec   = vectorNormalized _relWind;
+
         private _AoA = (_relWind # 1 atan2 _relWind # 0) + _wingRot;
         _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
@@ -70,12 +72,17 @@ switch (_wingType) do {
         
         private _area      = [_A, _B, _C, _D] call fza_fnc_getArea;
         private _liftForce = _CL * 0.5 * _dryAirDensity * _area * (_velXY * _velXY);
+        private _lift      = _liftVec vectorMultiply (_liftForce * _deltaTime);
 
-        private _lift     = _liftVec vectorMultiply (_liftForce * _deltaTime);
-        private _deltaPos = _G vectorDiff (getCenterOfMass _heli);
-        private _moment   = _lift vectorCrossProduct _deltaPos;
+        private _CD        = _intAirfoilTable select 2;
+        private _dragForce = _CD * 0.5 * _dryAirDensity * _area * (_velXY * _velXY);
+        private _drag      = _dragVec vectorMultiply (_dragForce * _deltaTime);
+
+        private _deltaPos  = _G vectorDiff (getCenterOfMass _heli);
+        private _moment    = _lift vectorCrossProduct _deltaPos;
         
         _heli addForce[_heli vectorModelToWorld _lift, getCenterOfMass _heli];
+        _heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
         _heli addTorque (_heli vectorModelToWorld _moment);
     };
 };
