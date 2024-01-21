@@ -6,6 +6,7 @@
 #define FCR_MODE_OFF           0
 #define FCR_MODE_ON_SINGLE     1
 #define FCR_MODE_ON_CONTINUOUS 2
+#define FCR_MODE_FAULT     3
 
 #define WAS_WEAPON_NONE 0
 #define WAS_WEAPON_GUN  1
