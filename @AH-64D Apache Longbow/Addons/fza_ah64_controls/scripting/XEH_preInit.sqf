@@ -79,6 +79,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableHeadingHold",
+    "CHECKBOX",
+    ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
+    [_projName, "Flight model"],
+    [true],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],

@@ -59,12 +59,12 @@ velocityModelSpace _heli
     params ["_locVelX", "_locVelY", "_locVelZ"];
 
 private _drag = 
-            [ _fuselageDragCoefX * _fuselageAreaSide   * (_locVelX * _locVelX)
+            [ 0.0//_fuselageDragCoefX * _fuselageAreaSide   * (_locVelX * _locVelX)
             , _fuselageDragCoefY * _fuselageAreaFront  * (_locVelY * _locVelY)
-            , _fuselageDragCoefZ * _fuselageAreaBottom * (_locVelZ * _locVelZ)
+            , 0.0//_fuselageDragCoefZ * _fuselageAreaBottom * (_locVelZ * _locVelZ)
             ] vectorMultiply (-0.5 * _rho * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _drag, _aerodynamicCenter];
+_heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
 
 #ifdef __A3_DEBUG__
 private _vecX = [1.0, 0.0, 0.0];
