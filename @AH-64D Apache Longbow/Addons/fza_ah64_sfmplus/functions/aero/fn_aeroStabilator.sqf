@@ -130,8 +130,12 @@ private _CL = _intAirfoilTable select 1;
 private _area = [_A, _B, _C, _D] call fza_fnc_getArea;
 private _liftForce = -_CL * 0.5 * _dryAirDensity * _area * (_V_mps * _V_mps);
 
-private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
-_heli addForce[_heli vectorModelToWorld _lift, _G];
+private _lift     = _liftVec vectorMultiply (_liftForce * _deltaTime);
+private _deltaPos = _G vectorDiff (getCenterOfMass _heli);
+private _moment   = _lift vectorCrossProduct _deltaPos;
+
+_heli addForce[_heli vectorModelToWorld _lift, getCenterOfMass _heli];
+_heli addTorque (_heli vectorModelToWorld _moment);
 
 #ifdef __A3_DEBUG__
 /*

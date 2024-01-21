@@ -62,7 +62,7 @@ switch (_wingType) do {
         _relWind   = vectornormalized(velocityModelSpace _heli);
         _relWind   = _relWind;
         
-        private _AoA = (_relWind # 0 atan2 _relWind # 1) + _wingRot;
+        private _AoA = (_relWind # 1 atan2 _relWind # 0) + _wingRot;
         _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
         private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
@@ -71,8 +71,12 @@ switch (_wingType) do {
         private _area      = [_A, _B, _C, _D] call fza_fnc_getArea;
         private _liftForce = _CL * 0.5 * _dryAirDensity * _area * (_velXY * _velXY);
 
-        private _lift = _liftVec vectorMultiply (_liftForce* _deltaTime);
-        _heli addForce[_heli vectorModelToWorld _lift, _G];
+        private _lift     = _liftVec vectorMultiply (_liftForce * _deltaTime);
+        private _deltaPos = _G vectorDiff (getCenterOfMass _heli);
+        private _moment   = _lift vectorCrossProduct _deltaPos;
+        
+        _heli addForce[_heli vectorModelToWorld _lift, getCenterOfMass _heli];
+        _heli addTorque (_heli vectorModelToWorld _moment);
     };
 };
 
