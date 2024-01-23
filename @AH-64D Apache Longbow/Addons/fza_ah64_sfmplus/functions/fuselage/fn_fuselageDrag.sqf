@@ -64,7 +64,7 @@ private _drag =
             , _fuselageDragCoefZ * _fuselageAreaBottom * (_locVelZ * _locVelZ)
             ] vectorMultiply (-0.5 * _rho * _deltaTime);
 
-_heli addForce[_heli vectorModelToWorld _drag, _aerodynamicCenter];
+_heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
 
 #ifdef __A3_DEBUG__
 private _vecX = [1.0, 0.0, 0.0];

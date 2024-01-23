@@ -66,6 +66,7 @@ if (_value) then {
         };
         case "fza_ah64_fcrSingleScan": {
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            if (_fcrState#0 == FCR_MODE_FAULT) exitwith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
                 player action ["ActiveSensorsOn", vehicle player];
                 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];

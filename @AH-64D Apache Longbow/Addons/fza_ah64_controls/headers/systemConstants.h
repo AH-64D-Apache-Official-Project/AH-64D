@@ -6,6 +6,7 @@
 #define FCR_MODE_OFF           0
 #define FCR_MODE_ON_SINGLE     1
 #define FCR_MODE_ON_CONTINUOUS 2
+#define FCR_MODE_FAULT     3
 
 #define WAS_WEAPON_NONE 0
 #define WAS_WEAPON_GUN  1
@@ -28,7 +29,8 @@
 #define FCR_TYPE_ADU        5
 
 //ASE
-#define ASE_LSR 4   //Laser
+#define ASE_LSR 5   //Laser
+#define ASE_MSL 4   //Missile
 #define ASE_LNC 3   //Launch
 #define ASE_TRK 2   //Track
 #define ASE_ACQ 1   //Acquisition

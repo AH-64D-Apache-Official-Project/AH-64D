@@ -61,7 +61,7 @@ private _apuOn       = _heli getVariable "fza_systems_apuOn";
 private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
-private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
+private _fcrState    = _heli getVariable "fza_ah64_fcrState";
 //--Generators
 private _gen1Damage  = _heli getHitPointDamage "hit_elec_generator1";
 private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
@@ -123,7 +123,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 
 //--Engine 1 Out
-if (_eng1Ng < 0.63 && !_onGnd) then {
+if (_eng1Ng < 0.63 && _eng1PwrLvrState == "FLY") then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -150,7 +150,7 @@ if (_eng1Np >= 1.15) then {
     [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
-if (_eng2Ng < 0.63 && !_onGnd) then {
+if (_eng2Ng < 0.63 && _eng2PwrLvrState == "FLY") then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -486,7 +486,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
     _wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };
 //--FCR 
-if (!_acBusOn || !_dcBusOn || _fcrDamage >= SYS_FCR_DMG_THRESH) then {
+if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {
