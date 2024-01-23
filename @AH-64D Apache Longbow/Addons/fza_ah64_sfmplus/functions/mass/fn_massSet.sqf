@@ -18,7 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _emptyMass = 0;
+private _emptyMass = 0; 
 if (_heli animationPhase "fcr_enable" == 1) then {
     _emptyMass = _heli getVariable "fza_sfmplus_emptyMassFCR";
 } else {
@@ -36,7 +36,7 @@ private _pylonMass = 0;
     private _magConfig    = configFile >> "cfgMagazines" >> _magName;
     private _magMaxWeight = getNumber (_magConfig >> "weight");
     private _magMaxAmmo   = getNumber (_magConfig >> "count");
-    _pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
+    _pylonMass            = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
 } foreach magazinesAllTurrets _heli;
 
 private _totalMass = _emptyMass + _fwdFuelMass + _ctrFuelMass + _aftFuelMass + _pylonMass;

@@ -23,13 +23,26 @@ private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 fza_sfmplus_liftLossTimer = 0;
 
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
+_heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];
+_heli setVariable ["fza_sfmplus_emptyCoMFCR",        getArray (_config >> "emptyCoMFCR")];
+
 _heli setVariable ["fza_sfmplus_emptyMassNonFCR",    getNumber (_config >> "emptyMassNonFCR")];     //kg
+_heli setVariable ["fza_sfmplus_emptyMomNonFCR",     getNumber (_config >> "emptyMomNonFCR")];
+_heli setVariable ["fza_sfmplus_emptyCoMNonFCR",     getArray (_config >> "emptyCoMNonFCR")];
+
+private _emptyCoM = 0.0;
+if (_heli animationPhase "fcr_enable" == 1) then {
+    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMFCR";
+} else {
+    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMNonFCR";
+};
+_heli setVariable ["fza_sfmplus_emptyCoM",          _emptyCoM];
+_heli setCenterOfMass [_emptyCoM];
 
 _heli setVariable ["fza_sfmplus_stabPos",            getArray  (_config >> "stabPos")];
 _heli setVariable ["fza_sfmplus_stabWidth",          getNumber (_config >> "stabWidth")];           //m
 _heli setVariable ["fza_sfmplus_stabLength",         getNumber (_config >> "stabLength")];          //m
 
-_heli setVariable ["fza_sfmplus_centerOfMass",       getArray  (_config >> "centerOfMass")];        //m
 _heli setVariable ["fza_sfmplus_aerodynamicCenter",  getArray  (_config >> "aerodynamicCenter")];   //m
 _heli setVariable ["fza_sfmplus_fuselageAreaFront",  getNumber (_config >> "fuselageAreaFront")];
 _heli setVariable ["fza_sfmplus_fuselageAreaSide",   getNumber (_config >> "fuselageAreaSide")];

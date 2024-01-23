@@ -49,7 +49,17 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
 [_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
-//Weight
+//Weight & Balance
+private _emptyCoM = 0.0;
+if (_heli animationPhase "fcr_enable" == 1) then {
+    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMFCR";
+} else {
+    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMNonFCR";
+};
+_heli setCenterOfMass [_emptyCoM];
+
+systemChat format ["CoM: %1", _emptyCoM];
+
 private _emptyMass = 0;
 if (_heli animationPhase "fcr_enable" == 1) then {
     _emptyMass = _heli getVariable "fza_sfmplus_emptyMassFCR";

@@ -1,7 +1,13 @@
 class Fza_SfmPlus {
-    emptyMassFCR    = 6609; //kg
-    emptyMassNonFCR = 6314; //kg
-
+    //FCR
+    emptyMassFCR      = 6609; //kg
+    emptyMomFCR       = 34889.81;
+    emptyCoMFCR[]     = {0.0, 1.938, -1.121};     //m
+    //Non-FCR
+    emptyMassNonFCR   = 6314; //kg
+    emptyMomNonFCR    = 33358.12;
+    emptyCoMNonFCR[]  = {0.0, 1.938, -1.117};     //m
+    
     cyclicPitchTorque = 4500.0; //Nm
     cyclicRollTorque  = 1500.0; //Nm
     pedalYawTorque    = 5000.0; //Nm
@@ -10,7 +16,6 @@ class Fza_SfmPlus {
     stabPos[]           = {0.0, -7.207, -0.50};  //m
     stabWidth           = 3.22;                  //m
     stabLength          = 1.07;                  //m
-    centerOfMass[]      = {0.0, 2.08, 0.00};     //m
     aerodynamicCenter[] = {0.0, -1.94, -1.73};   //m
     fuselageAreaFront   = 6.254;
     fuselageAreaSide    = 22.332;
