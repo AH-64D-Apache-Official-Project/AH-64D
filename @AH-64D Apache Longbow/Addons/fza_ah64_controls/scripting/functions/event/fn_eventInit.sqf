@@ -135,6 +135,13 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_activeWarn", createHashMapFromArray [["exists", true]], true];
     _heli setVariable ["fza_ah64_engineOverspeed",        [false, false], true];
     _heli setVariable ["fza_ah64_stabilatorPosition",     -5.5 , true];
+
+    _heli setVariable ["fza_ah64_routeSelected",          0, true];
+    _heli setVariable ["fza_ah64_routeData",[[],[],[],[],[],[],[],[],[],[]], true];
+    _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
+
+    _heli setVariable ["fza_ah64_wptAprch", [-1,false], true];
+    _heli setVariable ["fza_ah64_wptpassed", false, true];
 };//fza_ah64_aircraftInitialised end
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
