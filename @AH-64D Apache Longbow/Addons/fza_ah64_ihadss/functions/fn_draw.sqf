@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_ihadss_fnc_ihadssDraw
+Function: fza_ihadss_fnc_draw
 
 Description:
     Draws the IHADSS overlay for the player.
@@ -12,29 +12,47 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_ihadss_fnc_ihadssDraw
+    [_heli] call fza_ihadss_fnc_draw
     ---
 
 Author:
     unknown
 ---------------------------------------------------------------------------- */
-params ["_heli"];
-
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
+params ["_heli"];
 
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
+
+private _monocleinbox   = _heli getVariable "fza_ah64_monocleinbox";
+private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
+private _powerOnState   = (_acBusOn && _dcBusOn);
+private _weaponWas      = _heli getVariable "fza_ah64_was";
+private _ntsPosition    = (_heli getVariable "fza_ah64_fcrNts")#1;
+private _headsdown      = (cameraView == "GUNNER" && player == gunner _heli);
+private _a3ti_vis       = call A3TI_fnc_getA3TIVision;
+private _a3ti_brt       = call A3TI_fnc_getA3TIBrightnessContrast;
+private _Visionmode     = [_heli] call fza_ihadss_fnc_getVisionMode;
+private _pnvsSensor     = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
+private _dtvDamage      = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
+private _flirDamage     = _heli getHitPointDamage "hit_msnEquip_tads_flir";
+private _tadsDamage     = _heli getHitPointDamage "hitturret";
+private _channel        = _heli getVariable "fza_ah64_laserLRFDCode";
+private _hash           = _heli getVariable "fza_ah64_laserChannelIndex";
+private _lsrcode        = _hash get _channel;
+private _hduColour      = [0.1, 1, 0, 1];
+private _setDeadOptics  = false;
+
 private _targhead    = 0;
 private _sensor      = "";
 private _sensxm      = "";
 private _weapon      = "";
 private _weaponstate = "";
-private _rcd         = "RCD      TADS";
-private _lsrcode     = "A 1688";
 private _safemessage = "";
 private _rocketcode  = "???";
-private _targrange   = "0";
 private _waypointcode = "";
 private _gspdcode    = "";
 private _curwpdir    = -1000;
@@ -42,17 +60,6 @@ private _chevmark    = 0;
 private _fcrantennafor = -100;
 private _fcrhdg      = -360; 
 private _fcrdir      = 0.5;
-private _headsdown   = false;
-private _hduColour    = [0.1, 1, 0, 1];
-
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera) || (gunner _heli != player && driver _heli != player)) exitWith {
-    1 cuttext["", "PLAIN"];
-    2 cuttext["", "PLAIN"];
-    3 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
-    fza_ah64_bweff ppEffectEnable false;
-    _heli setVariable ["fza_ah64_monocleinbox", true];
-};
 
 if (isNil "fza_ah64_helperinit") then {
     2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
@@ -85,11 +92,6 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-
-private _acBusOn = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn = _heli getVariable "fza_systems_dcBusOn";
-private _powerOnState = (_acBusOn && _dcBusOn);
-
 if !_powerOnState then {
     1 cuttext["", "PLAIN", 0.1];
 };
@@ -100,46 +102,21 @@ if (isNull laserTarget _heli) then {
     4 cuttext["", "PLAIN", 0.1];
 };
 
-
-
-_targPos = [-100, -100];
-private _nts = _heli getVariable "fza_ah64_fcrNts";
-private _nts = _nts # 0;
-if(!isNull _nts) then {
-    _targPos = worldToScreen(getpos _nts);
-    if (count _targPos < 1) then {
-        _targPos = [-100, -100];
-    } else {
-        _targPos = [
-            [_targPos # 0, 0, 1] call BIS_fnc_clamp,
-            [_targPos # 1, 0, 1] call BIS_fnc_clamp];
-    };
-};
-
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView != "GUNNER" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
     if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
-        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)"; //DTV HDU
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)";
     };
+    if (_pnvsSensor >= SYS_SIGHT_DMG_THRESH) exitwith {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0,0,0,0];
+    };
+    ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
 } else {
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
     0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
 };
 
-//A3TI FUNCTIONS
-private _a3ti_vis = call A3TI_fnc_getA3TIVision;
-private _a3ti_brt = call A3TI_fnc_getA3TIBrightnessContrast;
-
-//TADS DISABLE IF ENGINE OFF
-if (cameraView == "GUNNER" && player == gunner _heli && !_powerOnState) then {
-    fza_ah64_bweff ppEffectEnable true;
-} else {
-    fza_ah64_bweff ppEffectEnable false;
-};
-
 //IHADSS INIT
-
 private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
 if (isNil "_initialized") then {
     1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
@@ -164,15 +141,9 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
     if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
         1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
 
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 126) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 127) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 128) ctrlSetTextColor[0.1, 1, 0, 1];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 129) ctrlSetTextColor[0.1, 1, 0, 1];
+        for "_i" from 121 to 129 do {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[0.1, 1, 0, 1];
+        };
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 184) ctrlSetTextColor[0.1, 1, 0, 1];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0.1, 1, 0, 1];
         _rocketcode = "???";
@@ -191,66 +162,38 @@ if !_powerOnState then {
     4 cuttext["", "PLAIN"];
 };
 
-//IHADSS FOR GUNNER HEADSDOWN
-if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
-
+if (cameraView == "GUNNER" && player == gunner _heli) then {
     if !(isNil "_a3ti_vis") then {
         if !(isNil "fza_ah64_bweff") then {
             fza_ah64_bweff ppEffectEnable false;
         };
     } else {
+        if !(isNil "fza_ah64_bweff") exitwith {
+            fza_ah64_bweff ppEffectEnable true;
+        };
         fza_ah64_bweff = ppEffectCreate["colorCorrections", 4000];
         fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
         fza_ah64_bweff ppEffectCommit 0;
         fza_ah64_bweff ppEffectEnable true;
     };
 
-    _headsdown = true;
-
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
-
-    //ADD STATIC DATA TO TADS
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText _rcd;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText _lsrcode;
-
-    //COLOR WHITE TADS VIEW ACQ
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-
-    //HIDE CLICK HELPER FOR HEADSDOWN GUNNER
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0];
-
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText (_channel + " " + str _lsrcode) ; // LRFD code
+    
     //COLOR SET THESE
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 122) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 125) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 126) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 127) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 128) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 132) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 133) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 134) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-
-    _ihadssidx = 146;
-    while {
-        (_ihadssidx < 207)
-    }
-    do {
-        if !(_ihadssidx == 135 || _ihadssidx == 136 || _ihadssidx == 182 || _ihadssidx == 186 || _ihadssidx == 123 || _ihadssidx == 124 || _ihadssidx == 125) then {
-            ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
-        };
-        _ihadssidx = _ihadssidx + 1;
+    for "_i" from 121 to 207 do {
+        //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitwith {};
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    };
+    for "_i" from 802 to 804 do {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1]; //COLOR WHITE TADS VIEW ACQ
     };
 
+    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0]; // Hide interact action
+
     //RELOCATE TEXTURES AS FOLLOWS
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123)
-    ctrlsetposition[0.31, 0.345, 0.5, 0.12];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlsetposition[0.31, 0.345, 0.5, 0.12];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlCommit 0;
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlsetposition[0.4, 0.7, 0.5, 0.12];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 124) ctrlCommit 0;
@@ -272,27 +215,29 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
 
+    //TADS DTV/FLIR Fail
+    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+        _setDeadOptics = true;
+    };
+    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+        _setDeadOptics = true;
+        _heli disableTIEquipment true;
+    } else {
+        _heli disableTIEquipment false;
+    };
 } else {
+    fza_ah64_bweff ppEffectEnable false;
+    fza_ah64_gweff ppEffectEnable false;
 
-    _headsdown = false;
-
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
-    ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "";
-
-    _ihadssidx = 121;
-
-    while {
-        (_ihadssidx < 208)
-    }
-    do {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _ihadssidx) ctrlSetTextColor _hduColour;
-        _ihadssidx = _ihadssidx + 1;
+    for "_i" from 121 to 207 do {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
     //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601)
     ctrlSetTextColor[1, 1, 1, 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
+    ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText "";
@@ -308,6 +253,21 @@ if (cameraView == "GUNNER" && player == gunner _heli && _powerOnState) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 206) ctrlSetTextColor[0, 0, 0, 0];
 };
 
+if _setDeadOptics then {
+    if !(isNil "fza_ah64_gweff") exitwith {
+        fza_ah64_gweff ppEffectEnable true;
+    };
+    fza_ah64_gweff = ppEffectCreate ["colorCorrections",1498];
+    fza_ah64_gweff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    fza_ah64_gweff ppEffectCommit 0;
+    fza_ah64_gweff ppEffectEnable true;
+} else {
+    fza_ah64_gweff ppEffectEnable false;
+};
+
+if !_acBusOn then {
+    [_heli] call fza_fnc_laserDisarm;
+};
 
 _autohide = {
     _partid  = _this select 0;
@@ -355,15 +315,15 @@ if (_heli iskindof "fza_ah64base") then {
     };
 };
 
-_targrange = format["%1", ((round((_heli distance _nts) * 0.01)) * 0.1)];
-if (isNull _nts) then {
+_targrange = format["%1", ((round((_heli distance _ntsPosition) * 0.01)) * 0.1)];
+if (_ntsPosition isEqualTo [0,0,0]) then {
     _targrange = "0.0";
 };
 if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, (getposatl _heli select 0), (getposatl _heli select 1), (getposatl _nts select 0), (getposatl _nts select 1)] call fza_fnc_relativeDirection;
+_thetatarg = [_heli, getposatl _heli#0, getposatl _heli#1, _ntsPosition#0, _ntsPosition#1] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -414,49 +374,17 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrantennafor = -1000;
     _fcrhdg = -360
 };
-_slip = fza_ah64_sideslip * 0.1 + 0.492; //<-- 0.492 is the center for the trim ball <-- when slip = 0.15, it reaches the edge
-if (_slip > 0.54) then {
-    _slip = 0.54;
-};
-if (_slip < 0.44) then {
-    _slip = 0.44;
-};
 
 //Flight Path Vector
-
-/*
-private _headTrackerPos = worldToScreen (_heli modelToWorldVisual [0, 1000000, 0]);
-if (_headTrackerPos isEqualTo []) then {
-    _headTrackerPos = [-100, -100];
-} else {
-    _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
-};
-*/
-
 _fpv         = ([_heli] call fza_fnc_velocityVector) call fza_fnc_compensateSafezone;
 _fpvVertVect = (_fpv select 0) * -1;
 _fpvHorVect  = _fpv select 1;
-/*
-if (_fpvVertVect > 0.65) then {
-    _fpvVertVect = 0.65;
-};
-if (_fpvVertVect < 0.35) then {
-    _fpvVertVect = 0.35;
-};
-if (_fpvHorVect > 0.65) then {
-    _fpvHorVect = 0.65;
-};
-if (_fpvHorVect < 0.35) then {
-    _fpvHorVect = 0.35;
-};
-*/
 
 if (speed _heli < 5) then {
     _fpvVertVect = -100;
     _fpvHorVect  = -100;
 };
-private _was = _heli getVariable "fza_ah64_was";
-if (_was == WAS_WEAPON_MSL) then {
+if (_weaponWas == WAS_WEAPON_MSL) then {
     private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
     _weapon = (["MSL", "PMSL"] select (isManualFire _heli));
 
@@ -483,7 +411,7 @@ if (_was == WAS_WEAPON_MSL) then {
     };
 };
 
-if (_was == WAS_WEAPON_RKT) then {
+if (_weaponWas == WAS_WEAPON_RKT) then {
     private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
     private _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
     private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
@@ -497,13 +425,13 @@ if (_was == WAS_WEAPON_RKT) then {
     };
 };
 
-if (_was == WAS_WEAPON_NONE) then {
+if (_weaponWas == WAS_WEAPON_NONE) then {
     _weapon = "";
     _weaponstate = "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
 };
 
-if (_was == WAS_WEAPON_GUN) then {
+if (_weaponWas == WAS_WEAPON_GUN) then {
     _weapon = (["GUN", "PGUN"] select (isManualFire _heli));
     _weaponstate = format["ROUNDS %1", _heli ammo "fza_m230"];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131) ctrlSetText "";
@@ -607,6 +535,7 @@ if (_headTrackerPos isEqualTo []) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_fpvHorVect, _fpvVertVect];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
+_slip = [fza_ah64_sideslip * 0.1 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 187) ctrlSetPosition _bobcoords;

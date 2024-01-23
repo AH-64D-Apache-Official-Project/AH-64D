@@ -302,16 +302,6 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
-    class hit_msnEquip_tads_turret
-    {
-        armor = 1.44 * ARMOR_SCALAR;
-        radius = HIT_RADIUS_01;
-        minimalHit = MIN_HIT;
-        explosionShielding = 0.80;
-        name = "hit_msnEquip_tads_turret";
-        material = 51;
-        passThrough = 0;
-    };
     class hit_msnEquip_fcr
     {
         armor = 1.44 * ARMOR_SCALAR;

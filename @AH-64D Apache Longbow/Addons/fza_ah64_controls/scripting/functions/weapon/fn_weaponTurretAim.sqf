@@ -37,7 +37,7 @@ private _armaRadarOn    = isVehicleRadarOn _heli;
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 
-if !(_acBusOn && _dcBusOn) then {
+if !_acBusOn then {
     _sight = SIGHT_FXD;
 };
 
