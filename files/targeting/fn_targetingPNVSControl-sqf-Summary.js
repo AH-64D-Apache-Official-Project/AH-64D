@@ -1,1 +1,0 @@
-﻿NDFramePage.OnPageTitleLoaded("File:targeting/fn_targetingPNVSControl.sqf","fn_targetingPNVSControl.sqf");NDSummary.OnSummaryLoaded("File:targeting/fn_targetingPNVSControl.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[133,0,1,"Functions","Functions"],[134,0,0,"fza_fnc_targetingPNVSControl","fza_fnc_targetingPNVSControl"]]);
