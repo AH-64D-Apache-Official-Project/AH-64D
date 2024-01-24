@@ -69,8 +69,8 @@ switch (_fcrMode) do {
     if (_search != -1) then {
         _displayTargets deleteAt _search;
     };
-    private _x = _heliCtr # 0 + sin _aziAngle * (_range * _scale);
-    private _y = _heliCtr # 1 - cos _aziAngle * (_range * _scale);
+    private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
+    private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
     private _uiCtr = [_x, _y, 0];
     _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _uiCtr];
 } foreach _fcrTargets;
