@@ -21,4 +21,4 @@ params["_heli"];
 _isHeliDriver = !(player isEqualTo driver objectParent player);
 _isHeliGunner = !(player isEqualTo gunner objectParent player);
 
-[_heli] call fza_ihadss_fnc_ihadssController;
+[_heli] call fza_ihadss_fnc_controller;

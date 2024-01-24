@@ -38,5 +38,3 @@ if ((diag_ticktime - fza_ah64_overallticker) > _ticker) then {
     foreach fza_ah64_draw3DarraySlow;
     [_heli] spawn fza_fnc_targetingSensorUpdate;
 };
-
-[_heli] call fza_ihadss_fnc_ihadssController;

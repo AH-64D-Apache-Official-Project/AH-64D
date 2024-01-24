@@ -40,7 +40,7 @@ private _theta = [_heli, (getpos _heli select 0), (getpos _heli select 1), (_pos
 private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_fnc_bearingClock];
 
 if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) exitWith {
-    [_heli, ASE_LNC, _hostile, "fza_ah64_launch", 0.65, "fza_ah64_launch", 0.65, _dirAud, 1.3] call fza_audio_fnc_addASEMessage;
+    [_heli, ASE_MSL, _hostile, "fza_ah64_launch", 0.65, "fza_ah64_launch", 0.65, _dirAud, 1.3] call fza_audio_fnc_addASEMessage;
     if !(_mpdLeft == "ase" || _mpdRight == "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };

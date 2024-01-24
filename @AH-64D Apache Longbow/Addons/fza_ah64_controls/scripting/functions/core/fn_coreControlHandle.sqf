@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 params["_name", "_value"];
@@ -68,7 +69,7 @@ if (_value) then {
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
             private _onGnd = [_heli] call fza_sfmplus_fnc_onGround;
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
-            if (!_gndOrideOn && _onGnd) exitwith {};
+            if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitwith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
                 player action ["ActiveSensorsOn", vehicle player];
                 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
@@ -188,16 +189,19 @@ if (_value) then {
             if (player != Gunner _heli) exitWith {};
             if !(fza_ah64_tadsCycleAllModes) exitwith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _flirDamage = _heli getHitPointDamage "hit_msnEquip_tads_flir";
+            private _dtvDamage  = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
             private _Visionmode = _heli currentVisionMode [0];
             private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
             if !(isNil "_a3ti_vis") exitwith {};
-            if (_Visionmode#0 == 2 && _Visionmode#1 == 1) exitwith {
+            if (_dtvDamage >= SYS_SIGHT_DMG_THRESH && _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {};
+            if (_Visionmode#0 == 2 && _Visionmode#1 == 1 || _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", false];
                 if (_inputindex == 1) then {
                     _heli setvariable ["fza_ah64_tadsZoom", 0];
                 };
             };
-            if (_Visionmode#0 == 0) exitwith {
+            if (_Visionmode#0 == 0 || _dtvDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", true];
             };
         };

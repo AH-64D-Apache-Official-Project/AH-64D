@@ -60,7 +60,7 @@ private _rtrThrustScalarTable_max = [
                                     ,[12000, 4.175]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.10;
+private _rtrTorqueScalar        = 1.10; //0.95, 1.10
 
 private _pitchTorqueScalar      = 2.25;//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
@@ -117,7 +117,9 @@ private _rtrCorrInducedVelocity    = if (_w == 0.0) then { 0.0; } else { [_w, _u
 _rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
 private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
-private _rtrPowerReq               = (_rtrThrust * _velZ + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
+private _velZClamped               = [_velZ, -5.0, 10.0] call BIS_fnc_clamp;
+private _rtrPowerReq               = ((_rtrThrust * _rtrCorrInducedVelocity) + (_rtrThrust * _velZClamped)) * _rtrPowerScalar;
+//_rtrPowerReq                       = _rtrPowerReq / velZ;
 //Calculate the required rotor torque
 private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
 //Calcualte the required engine torque
