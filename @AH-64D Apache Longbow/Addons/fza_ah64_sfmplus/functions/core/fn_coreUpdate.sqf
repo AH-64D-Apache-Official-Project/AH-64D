@@ -129,7 +129,8 @@ if (local _heli) then {
 //Station 4
 ([_heli, 12, 13, 16] call fza_sfmplus_fnc_massUpdateStation) 
     params ["_station4mass", "_station4Moment"];
-private _pylonMass = 0;
+
+    private _pylonMass = 0;
 {
     _x params ["_magName","", "_magAmmo"];
     private _magConfig    = configFile >> "cfgMagazines" >> _magName;
