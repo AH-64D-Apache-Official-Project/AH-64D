@@ -58,7 +58,7 @@ if (_heli animationPhase "fcr_enable" == 1) then {
 };
 _heli setCenterOfMass [_emptyCoM];
 
-systemChat format ["CoM: %1", _emptyCoM];
+//systemChat format ["CoM: %1", _emptyCoM];
 
 private _emptyMass = 0;
 if (_heli animationPhase "fcr_enable" == 1) then {
@@ -117,7 +117,18 @@ if (local _heli) then {
     _heli setFuel _armaFuelFrac;
 };
 
-//Pylons
+//Station 1
+([_heli, 0, 1, 4] call fza_sfmplus_fnc_massUpdateStation) 
+    params ["_station1mass", "_station1Moment"];
+//Station 2
+([_heli, 4, 5, 8] call fza_sfmplus_fnc_massUpdateStation) 
+    params ["_station2mass", "_station2Moment"];
+//Station 3
+([_heli, 8, 9, 12] call fza_sfmplus_fnc_massUpdateStation) 
+    params ["_station3mass", "_station3Moment"];
+//Station 4
+([_heli, 12, 13, 16] call fza_sfmplus_fnc_massUpdateStation) 
+    params ["_station4mass", "_station4Moment"];
 private _pylonMass = 0;
 {
     _x params ["_magName","", "_magAmmo"];
