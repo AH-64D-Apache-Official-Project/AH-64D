@@ -71,17 +71,6 @@ _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call 
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];
 
 //Fuel and Mass
-if (fuel _heli > 0.99) then {
-    private _initFuelFrac  = 0.0;
-    private _IAFSInstalled = _heli getVariable "fza_ah64_IAFSInstalled";
-    if (_IAFSInstalled) then {
-        _initFuelFrac = getNumber (_config >> "initFuelFracRobbie");
-    } else {
-        _initFuelFrac = getNumber (_config >> "initFuelFracNoRobbie");
-    };
-    _heli setFuel _initFuelFrac;
-};
-
 [_heli] call fza_sfmplus_fnc_fuelSet;
 [_heli] call fza_sfmplus_fnc_massSet;
 
