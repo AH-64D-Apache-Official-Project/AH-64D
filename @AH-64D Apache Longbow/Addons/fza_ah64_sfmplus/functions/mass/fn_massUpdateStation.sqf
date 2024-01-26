@@ -29,7 +29,7 @@ if (["agm114", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
     private _magAmmo          = 0;
 
     for "_i" from _pylonIndexStart to _pylonIndexEnd do {
-        private _magName = _pylonMagazines select (_i - 1) ;
+        private _magName = _pylonMagazines select (_i - 1);
         if (_magName == "") then {
             _magAmmo = _magAmmo;
         } else {

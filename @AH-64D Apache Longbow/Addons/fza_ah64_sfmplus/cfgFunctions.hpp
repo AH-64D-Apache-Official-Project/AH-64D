@@ -65,6 +65,7 @@ class CfgFunctions
         class mass {
             file = "\fza_ah64_sfmplus\functions\mass";
             class massSet {R;};
+            class massUpdate {R;};
             class massUpdateStation {R;};
         };
         class performance {
