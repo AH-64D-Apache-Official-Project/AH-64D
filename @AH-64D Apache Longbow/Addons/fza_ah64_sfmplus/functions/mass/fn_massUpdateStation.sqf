@@ -37,7 +37,7 @@ if (["agm114", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
         };
     };
     _stationMass = _m299launcherMass + (_magAmmo * _agm114Mass);
-    systemChat format ["Mag Ammo = %1 -- Station 1 Mass = %2", _magAmmo, _stationMass];
+    //systemChat format ["Mag Ammo = %1 -- Station 1 Mass = %2", _magAmmo, _stationMass];
 };
 
 //M261 Rocket Pod
@@ -55,10 +55,10 @@ if (["275", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
         };
     };
     _stationMass = _m261launcherMass + (_magAmmo * _hydraMass);
-    systemChat format ["Mag Ammo = %1 -- Station 1 Mass = %2", _magAmmo, _stationMass];
+    //systemChat format ["Mag Ammo = %1 -- Station 1 Mass = %2", _magAmmo, _stationMass];
 };
 
 //230-gal Auxiliary Tanks
 
 
-[_stationMass, _stationMoment];
+_stationMass;

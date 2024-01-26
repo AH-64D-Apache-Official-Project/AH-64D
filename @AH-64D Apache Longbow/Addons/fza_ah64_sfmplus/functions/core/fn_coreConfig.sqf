@@ -72,7 +72,7 @@ _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call 
 
 //Fuel and Mass
 [_heli] call fza_sfmplus_fnc_fuelSet;
-[_heli] call fza_sfmplus_fnc_massSet;
+//[_heli] call fza_sfmplus_fnc_massSet;
 
 //Engines
 [_heli] call fza_sfmplus_fnc_engineVariables;

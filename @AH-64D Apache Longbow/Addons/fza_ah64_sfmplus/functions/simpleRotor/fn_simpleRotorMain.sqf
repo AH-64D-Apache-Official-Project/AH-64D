@@ -159,20 +159,19 @@ private _torqueZ             = (_rtrTorque  * _rtrTorqueScalar) * _deltaTime;
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
 //Rotor forces
-private _outThrust = [0.0, 0.0, 0.0];
-private _outTq     = [0.0, 0.0, 0.0];
 if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
-        //_heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
-        //_heli addTorque (_heli vectorModelToWorld [_torqueX, _torqueY, 0.0]);
-        _outThrust = _thrustZ;
-        //Main rotor torque effect
+        //Main rotor thrust
+        _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        private _torque = [0.0, 0.0, 0.0];
+
+        //Main rotor torque
         if (fza_ah64_sfmplusEnableTorqueSim) then {
-            //_heli addTorque (_heli vectorModelToWorld [0.0, 0.0, _torqueZ]);
-            _outTq = [_torqueX, _torqueY, _torqueZ];
+            _torque = [_torqueX, _torqueY, _torqueZ];
         } else {
-            _outTq = [_torqueX, _torqueY, 0.0];
+            _torque = [_torqueX, _torqueY, 0.0];
         };
+        _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 
@@ -244,7 +243,7 @@ if (cameraView == "INTERNAL") then {
 [_heli, 24, _rtrPos, _bladeRadius, 2, "white", 0]   call fza_fnc_debugDrawCircle;
 #endif
 
-[_outThrust, _outTq];
+//[_outThrust, _outTq];
 
 /*
 hintsilent format ["v0.7 testing
