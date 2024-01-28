@@ -96,7 +96,7 @@ _curLongCG  = _curLongMom / _curMass;
 _curLatMom  = _station1LatMom + _station2LatMom + _station3LatMom + _station4LatMom;
 _curLatCG   = _curLatMom / _curMass;
 
-_heli setCenterOfMass [_curLatCG, 6.4 - _curLongCG, 0.0];
+_heli setCenterOfMass [_curLatCG, 7.12 - _curLongCG, -1.34];
 
 systemChat format ["Total Mass = %1 lbs (%2 kg) -- Total Moment = %3 -- Long CG = %4 -- Lat CG = %5", (_curMass * 2.20462) toFixed 1, _curMass toFixed 1, _curLongMom toFixed 3, _curLongCG toFixed 3, _curLatCG toFixed 3];
 
@@ -104,3 +104,17 @@ if (local _heli) then {
     _heli setMass _curMass;
 };
 _heli setVariable ["fza_sfmplus_GWT", _curMass];
+
+
+#ifdef __A3_DEBUG__
+private _vecX = [5.0, 0.0, 0.0];
+private _vecY = [0.0, 5.0, 0.0];
+private _vecZ = [0.0, 0.0, 5.0];
+
+//Draw the force vector
+private _heliCoM = getCenterOfMass _heli;
+
+[_heli, _heliCoM, _heliCoM vectorAdd _vecX, "red"]   call fza_fnc_debugDrawLine;
+[_heli, _heliCoM, _heliCoM vectorAdd _vecY, "green"] call fza_fnc_debugDrawLine;
+[_heli, _heliCoM, _heliCoM vectorAdd _vecZ, "blue"]  call fza_fnc_debugDrawLine;
+#endif
