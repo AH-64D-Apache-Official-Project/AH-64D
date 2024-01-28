@@ -18,9 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_magIndex", "_pylonIndexStart", "_pylonIndexEnd"];
 
-private _pylonMagazines   = getPylonMagazines _heli;
-private _stationMass     = 0.0;
-private _stationMoment   = 0.0;
+private _pylonMagazines = getPylonMagazines _heli;
+private _stationMass    = 0.0;
 
 //M299 Hellfire Missile Launcher
 if (["agm114", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
@@ -59,6 +58,5 @@ if (["275", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
 };
 
 //230-gal Auxiliary Tanks
-
 
 _stationMass;

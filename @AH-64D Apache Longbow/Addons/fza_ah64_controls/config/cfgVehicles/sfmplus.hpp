@@ -1,12 +1,12 @@
 class Fza_SfmPlus {
     //FCR
     emptyMassFCR      = 6609; //kg
-    emptyMomFCR       = 34889.81;
-    emptyCoMFCR[]     = {0.0, 1.938, -1.121};     //m
+    emptyMomFCR       = 34889.810;
+    //emptyCoMFCR[]     = {0.0, -1.121, 0.0};     //m
     //Non-FCR
     emptyMassNonFCR   = 6314; //kg
-    emptyMomNonFCR    = 33358.12;
-    emptyCoMNonFCR[]  = {0.0, 1.938, -1.117};     //m
+    emptyMomNonFCR    = 33358.125;
+    //emptyCoMNonFCR[]  = {0.0, -1.117, 0.0};     //m
     
     cyclicPitchTorque = 4500.0; //Nm
     cyclicRollTorque  = 1500.0; //Nm

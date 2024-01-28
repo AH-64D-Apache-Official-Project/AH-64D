@@ -52,14 +52,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
 
-private _emptyCoM = 0.0;
-if (_heli animationPhase "fcr_enable" == 1) then {
-    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMFCR";
-} else {
-    _emptyCoM = _heli getVariable "fza_sfmplus_emptyCoMNonFCR";
-};
-_heli setCenterOfMass [_emptyCoM];
-
 //systemChat format ["CoM: %1", _emptyCoM];
 
 private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
