@@ -22,6 +22,8 @@ class Fza_SfmPlus {
     fuselageAreaBottom  = 33.129;
 
     //Fuel data
+    initFuelFracRobbie   = 0.39;
+    initFuelFracNoRobbie = 0.22;
     maxFwdFuelMass       = 473.1;   //1043lbs in kg
     maxCtrFuelMass       = 300.9;   //663lbs in kg, net yet implemented, center robbie
     maxAftFuelMass       = 668.6;   //1474lbs in kg

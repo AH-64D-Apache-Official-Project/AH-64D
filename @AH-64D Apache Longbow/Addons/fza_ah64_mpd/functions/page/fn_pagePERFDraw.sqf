@@ -1,5 +1,6 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #define KG_TO_LBS 2.20462
+#define M_TO_INCHES 39.3701
 #define MAX_PA 8000
 
 params ["_heli", "_mpdIndex"];
@@ -9,9 +10,11 @@ private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _pa      = _heli getVariable "fza_sfmplus_PA";  //feet
 private _fat     = _heli getVariable "fza_sfmplus_FAT";
 private _gwt     = (_heli getVariable "fza_sfmplus_GWT") * KG_TO_LBS;
+private _cg      = (_heli getVariable "fza_sfmplus_CG") * M_TO_INCHES;
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_PA),  _pa  toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_FAT), _fat toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GWT), _gwt toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_CG), _cg toFixed 1];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Required torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

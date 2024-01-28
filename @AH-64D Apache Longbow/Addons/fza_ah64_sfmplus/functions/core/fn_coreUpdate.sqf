@@ -52,13 +52,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
 
-//systemChat format ["CoM: %1", _emptyCoM];
-
-private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
-private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
-private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
-
 //Performance
 [_heli] call fza_sfmplus_fnc_perfData;
 
