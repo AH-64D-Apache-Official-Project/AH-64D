@@ -49,7 +49,7 @@ private _cpgMom      = _cpgMass * (_armCPG select 1);
 private _pltMass     = 113.4;   //kg - 250lbs
 private _pltMom      = _pltMass * (_armPLT select 1);
 
-private _crewMass    = (count (fullcrew _heli)) * 113.4; //kg - 250lbs per individual
+private _crewMass    = _cpgMass + _pltMass;//(count (fullcrew _heli)) * 113.4; //kg - 250lbs per individual
 
 //Fwd and Aft Fuel Cells
 private _fwdFuelMass = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
