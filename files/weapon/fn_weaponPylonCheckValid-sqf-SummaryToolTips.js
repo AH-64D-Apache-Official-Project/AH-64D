@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponPylonCheckValid.sqf",{168:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Validates the loadouts on the pylons to make sure that it is valid.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:weapon/fn_weaponPylonCheckValid.sqf",{122:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Validates the loadouts on the pylons to make sure that it is valid.</div></div>"});
