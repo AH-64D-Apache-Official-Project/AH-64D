@@ -10,6 +10,14 @@ class AnimationSources
         initPhase = 1;
         animPeriod = 0.001;
     };
+    class plt_flood_light
+    {
+        displayName = "pilot flood lighting hide animation";
+        author = "Apache mod development team";
+        source = "user";
+        initPhase = 1;
+        animPeriod = 0.001;
+    };
     class msn_equip_american
     {
         displayName = "Install American Mission Equipment";
