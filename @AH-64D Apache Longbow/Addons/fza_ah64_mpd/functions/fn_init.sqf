@@ -17,6 +17,7 @@ _heli setVariable ["fza_mpd_tsdShowAtkHazard", true];
 _heli setVariable ["fza_mpd_tsdWptCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdThrtCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdRteCurrentSel", []];
+_heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
 
 _heli setVariable ["fza_mpd_mpdState", [["Off", 0, {}, createHashMap, createHashMap, {}, 0], ["Off", 0, {}, createHashMap, createHashMap, {}, 0]]];
 

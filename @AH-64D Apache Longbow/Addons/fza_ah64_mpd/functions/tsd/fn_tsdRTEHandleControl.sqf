@@ -50,13 +50,24 @@ private _delRoutePoint = {
 };
 
 private _setRouteDir = {
-    params ["_heli", "_btnIndex", "_setRoute"];
+    params ["_heli", "_btnIndex"];
     private _index = ((_state get "routeScroll") + _btnIndex);
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
     if ((count _routeInfo) <= _index) exitWith {};
     private _routePoint = _routeInfo#_index;
     [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
     _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
+};
+
+
+private _selRvwPnt = {
+    params ["_heli", "_btnIndex"];
+    private _rvwIndex = _heli getVariable "fza_mpd_tsdRteCurrentRvw";
+    private _index = ((_state get "routeScroll") + _btnIndex);
+    if ((count _routeInfo) <= _index) exitWith {};
+    if (_rvwIndex == _index) exitwith {
+        _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1, true];
+    };
+    _heli setVariable ["fza_mpd_tsdRteCurrentRvw", _index, true];
 };
 
 switch (_variant) do {
@@ -80,6 +91,9 @@ switch (_variant) do {
                 } else {
                     _state set ["subPageVarPage", TSD_RTE_DIR_POINTSEL];
                 }
+            };
+            case "l5": {     //RVW sub-page
+                _state set ["subPageVarPage", TSD_RTE_RVW];
             };
             case "b4": {    //To WPT page
                 _state set ["subPageVarPage", TSD_WPT];
@@ -259,7 +273,32 @@ switch (_variant) do {
     };
     case 6: {   //RVW sub-page
         switch (_control) do {
-            //Not implemented
+            case "l5": {     //RVW sub-page
+                _state set ["subPageVarPage", TSD_RTE];
+                _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
+            };
+            case "r2": {
+                [_heli, 3] call _selRvwPnt;
+            };
+            case "r3": {
+                [_heli, 2] call _selRvwPnt;
+            };
+            case "r4": {
+                [_heli, 1] call _selRvwPnt;
+            };
+            case "r5": {
+                [_heli, 0] call _selRvwPnt;
+            };
+            case "r1": {    //Scroll up
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") + 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
+            case "r6": {    //Scroll down
+                private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
+                private _scrollV = [(_state get "routeScroll") - 1, 0, _upper] call BIS_fnc_clamp;
+                _state set ["routeScroll", _scrollV];
+            };
         };
     };
     case 7: {   //RTM sub-page

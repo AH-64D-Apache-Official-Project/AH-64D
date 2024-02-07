@@ -199,4 +199,23 @@ class rteCommon {
             MPD_BOX_BAR_L(PointNoEdit, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
         };
     };
+    class routeReview {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_TSD_RTE_RVW_INDEX), -1));
+        class index1 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_RVW_INDEX), 0));
+            MPD_BOX_L(PointReview, (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_5_Y, 3)
+        };
+        class index2 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_RVW_INDEX), 1));
+            MPD_BOX_L(PointReview, (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_4_Y, 3)
+        };
+        class index3 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_RVW_INDEX), 2));
+            MPD_BOX_L(PointReview, (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_3_Y, 3)
+        };
+        class index4 {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_RVW_INDEX), 3));
+            MPD_BOX_L(PointReview, (MPD_POS_BUTTON_R_X - MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_2_Y, 3)
+        };
+    };
 };

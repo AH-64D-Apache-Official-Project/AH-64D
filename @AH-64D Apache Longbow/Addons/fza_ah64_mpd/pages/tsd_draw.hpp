@@ -88,7 +88,8 @@ class Rte {
     };
         //RVW sub page
     class RteRvw {
-
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_TSD_RTE_VARIANT), 6));
+        #include "tsd\rte\routeReview.hpp"
     };
         //RTM sub page
     class RteRtm {
