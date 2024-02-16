@@ -82,7 +82,9 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         "fza_sfmplus_engBaseTGT",
         "fza_sfmplus_engTGT",
         "fza_sfmplus_engBaseOilPSI",
-        "fza_sfmplus_engOilPSI"
+        "fza_sfmplus_engOilPSI",
+        "fza_sfmplus_engState",
+        "fza_sfmplus_engFF"
     ];
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };
