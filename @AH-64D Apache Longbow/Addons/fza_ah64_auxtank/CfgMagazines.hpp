@@ -17,5 +17,3 @@ class CfgMagazines {
     
     AUXTANK_MAGAZINE_CONFIG(fza_230gal_auxTank, "230gal Aux Tank", "An unarmored external fuel tank that provides 230gal (1,541lbs) of fuel. Total additional weight is 1681lbs");
 };
-
-//fza_hydra70_zone_AC
