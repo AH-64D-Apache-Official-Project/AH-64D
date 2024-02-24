@@ -58,5 +58,12 @@ if (["275", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
 };
 
 //230-gal Auxiliary Tanks
+if (["auxTank", _pylonMagazines select _magIndex] call BIS_fnc_inString) then {
+    private _auxTankEmptyMass = 63.5;   //kg
+    private _fuelMass         = 699.0;  //kg - 1541 lbs
+
+    _stationMass = _auxTankEmptyMass + _fuelMass;
+    //systemChat format ["Fuel Mass = %1 -- Station 1 Mass = %2", _fuelMass, _stationMass];
+};
 
 _stationMass;

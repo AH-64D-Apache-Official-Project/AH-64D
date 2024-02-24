@@ -76,3 +76,18 @@ private _vecZ = [0.0, 0.0, 1.0];
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_fnc_debugDrawLine;
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_fnc_debugDrawLine;
 #endif
+
+/*
+private _accelInG   = 1.125;  //G 
+private _deltaTime  = ["JP_deltaTime"] call BIS_fnc_deltaTime;
+private _vecVel     = (9.806 * _accelInG) * _deltaTime;
+
+private _pitchAngle = 15.0; //deg
+
+private _velY       = _vecVel * (cos _pitchAngle);
+private _velZ       = _vecVel * (sin _pitchAngle);
+private _velVec     = [0.0, _velY, _velZ];
+_velVec             = _velVec vectorAdd (velocity player);
+
+player setVelocityModelSpace _velVec;
+*/

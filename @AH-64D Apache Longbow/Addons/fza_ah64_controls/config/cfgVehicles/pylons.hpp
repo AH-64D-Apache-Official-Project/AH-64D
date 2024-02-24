@@ -12,7 +12,7 @@ class TransportPylonsComponent {
         class pylons1 { //Pylon 1 rocket zone alpha
             maxweight = 560;
             turret[] = {0};
-            hardPoints[] = {"fza_hydra70_zone_AC", "fza_agm114_ul"};
+            hardPoints[] = {"fza_hydra70_zone_AC", "fza_agm114_ul", "fza_auxTank"};
             attachment = "fza_275_m151_zoneA";
             bay = -1;
             priority = 8;
@@ -36,7 +36,7 @@ class TransportPylonsComponent {
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_4_Y};
             priority = 5;
         };
-        
+        ////////////////////////////////////////////////////////////
         class pylons5: pylons1 { //Pylon 2 missile upper left
             attachment = "fza_agm114k_ul";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_1_Y};
@@ -57,7 +57,7 @@ class TransportPylonsComponent {
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_4_Y};
             priority = 1;
         };
-        
+        ////////////////////////////////////////////////////////////
         class pylons9: pylons5 { //Pylon 3 rocket zone charlie
             mirroredMissilePos = 5;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_SUBPYLON_1_Y};
