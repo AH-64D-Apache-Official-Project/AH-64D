@@ -304,6 +304,8 @@
 #define MFD_TEXT_IND_PERF_END_SPD 15
 //--Wind Speed & Direction
 #define MFD_TEXT_IND_PERF_WIND 16
+//--CG
+#define MFD_TEXT_IND_PERF_CG   17
 
 //DTU Page
 #define MFD_IND_DTU_SUBPAGE 0

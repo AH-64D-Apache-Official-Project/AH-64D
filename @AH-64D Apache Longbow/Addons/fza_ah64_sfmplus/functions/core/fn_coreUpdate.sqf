@@ -49,17 +49,8 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
 [_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
-//Weight
-private _emptyMass = 0;
-if (_heli animationPhase "fcr_enable" == 1) then {
-    _emptyMass = _heli getVariable "fza_sfmplus_emptyMassFCR";
-} else {
-    _emptyMass = _heli getVariable "fza_sfmplus_emptyMassNonFCR";
-};
-private _maxTotFuelMass = _heli getVariable "fza_sfmplus_maxTotFuelMass";
-private _fwdFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 0;
-private _ctrFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 1;
-private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
+//Mass and Balance
+[_heli] call fza_sfmplus_fnc_massUpdate;
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfData;
@@ -69,21 +60,11 @@ private _aftFuelMass    = [_heli] call fza_sfmplus_fnc_fuelSet select 2;
 
 if (_flightModel != "SFMPlus") then {
     //Main Rotor
-    ([_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain)
-        params ["_mainRtrThrustOut", "_mainRtrTqOut"];
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor
-    ([_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail)
-        params ["_tailRtrThrustOut", "_tailRtrTqOut"];
-
-    private _totForce = _mainRtrThrustOut vectorAdd _tailRtrThrustOut;
-    private _totTq    = _mainRtrTqOut vectorAdd _tailRtrTqOut;
-
-    _heli addForce [_heli vectorModelToWorld _totForce, getCenterOfMass _heli];
-    _heli addTorque (_heli vectorModelToWorld _totTq);
-
+    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
     //Drag
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
-
     //Vertical fin
     private _vertFinPosition   = [0.0, -6.40, -1.75];
     private _vertFinSweep      = -1.2;
@@ -106,22 +87,6 @@ private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
 if (local _heli) then {
     _heli setFuel _armaFuelFrac;
 };
-
-//Pylons
-private _pylonMass = 0;
-{
-    _x params ["_magName","", "_magAmmo"];
-    private _magConfig    = configFile >> "cfgMagazines" >> _magName;
-    private _magMaxWeight = getNumber (_magConfig >> "weight");
-    private _magMaxAmmo   = getNumber (_magConfig >> "count");
-    _pylonMass = _pylonMass + linearConversion [0, _magMaxAmmo, _magAmmo, 0, _magMaxWeight];
-} foreach magazinesAllTurrets _heli;
-
-private _curMass = _emptyMass + _totFuelMass + _pylonMass; //GWT * 0.453592;
-if (local _heli) then {
-    _heli setMass _curMass;
-};
-_heli setVariable ["fza_sfmplus_GWT", _curMass];
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
