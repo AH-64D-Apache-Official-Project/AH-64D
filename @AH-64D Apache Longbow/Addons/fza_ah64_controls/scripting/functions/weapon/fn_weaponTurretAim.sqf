@@ -73,14 +73,12 @@ switch (_sight)	do {
 	};
 	case SIGHT_FXD:{
 		_heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0]];
-        //_tgtPosASL = _heli modelToWorldVisual [0,10000,0];
-		//_targPos = terrainIntersectAtASL [getposasl _heli, _tgtPosASL];
 	};
 };
 
 private	_targDistance =	if (_targPos isequalto [0,0,0]) then {500;} else {_heli distance _targPos;};
 
-if (_usingRocket) then {
+if (_usingRocket && _sight != SIGHT_FXD) then {
 	private	_rocketTable = [[0,	2],[500, 7],[750, 11],[1000, 16],[2000,	50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
 	private	_elevationComp = ([_rocketTable, _heli distance2d _targPos] call fza_fnc_linearInterp) # 1;
 	private	_tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
@@ -88,7 +86,7 @@ if (_usingRocket) then {
 	_pylonAdjustment = ([0,	-0.35, -1.69] vectorAdd	((_heli	worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
 };
 
-if (_usingHellfire) then {
+if (_usingHellfire && _sight != SIGHT_FXD) then {
 	private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
 	private _hellfiretable = [[33, 4],[1000, -15]];
 	private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
@@ -118,7 +116,7 @@ for	"_i" from 0	to 3 do {
 };
 
 if (_usingCannon) then {
-	if (_sight == SIGHT_FIXED) exitwith	{
+	if (_sight == SIGHT_FXD) exitwith	{
 		_heli animateSource["mainTurret", 0];
 		_heli animateSource["mainGun", 0];
 		_inhibit = "GUN	FIXED";
@@ -153,5 +151,4 @@ _heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 
 #ifdef __A3_DEBUG__
 drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], aslToAgl	_targPos, 0.5, 0.5,	0, "Target"];
-drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 1, 1], aslToAgl	_targPos, 0.5, 0.5,	0, "Pylon Aim Pos"];
 #endif
