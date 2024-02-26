@@ -17,10 +17,12 @@ Author:
 	Unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params["_heli"];
 
 #define	WEP_TYPE(_mag) (if ((_mag) == "") then {""}	else {getText (configFile >> "cfgMagazines"	>> (_mag) >> "fza_pylonType")})
-#define	SCALE_KM_M 0.001
+#define SCALE_METERS_FEET 3.28084
+#define	SCALE_KM_METERS 0.001
 #define	HYDRA_TIME_KM 1.353
 
 private	_usingRocket			= currentweapon	_heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
@@ -81,14 +83,19 @@ private	_targDistance =	if (_targPos isequalto [0,0,0]) then {500;} else {_heli 
 if (_usingRocket) then {
 	private	_rocketTable = [[0,	2],[500, 7],[750, 11],[1000, 16],[2000,	50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
 	private	_elevationComp = ([_rocketTable, _heli distance2d _targPos] call fza_fnc_linearInterp) # 1;
-	private	_tof = _targDistance * SCALE_KM_M *	HYDRA_TIME_KM;
+	private	_tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
 	private	_aimLocation = _targPos	vectorAdd((_targVel	vectorDiff velocity	_heli) vectorMultiply _tof)	vectorAdd[0, 0, _elevationComp];
 	_pylonAdjustment = ([0,	-0.35, -1.69] vectorAdd	((_heli	worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
 };
 
 if (_usingHellfire) then {
-	_pylonAdjustment = ([0,	-0.35, -1.69] vectorAdd	((_heli	worldToModel aslToAgl _targPos)) call CBA_fnc_vect2Polar)# 2;
+	private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
+	private _hellfiretable = [[33, 4],[1000, -15]];
+	private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
+	private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
+	_pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
+systemchat str _pylonAdjustment;
 
 if !(-15 < _pylonAdjustment	&& _pylonAdjustment	< 4) then {
 	_inhibit = "PYLON LIMIT"
