@@ -102,6 +102,7 @@ if (_usingHellfire && _sight != SIGHT_FXD) then {
 if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
     _inhibit = "PYLON LIMIT"
 };
+_pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp
 
 for "_i" from 0 to 3 do {
     private _pylon = "pylon" + str(_i + 1);
