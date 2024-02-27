@@ -98,7 +98,6 @@ if (_usingHellfire && _sight != SIGHT_FXD) then {
     private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
-systemchat str _pylonAdjustment;
 
 if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
     _inhibit = "PYLON LIMIT"
