@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_fnc_weaponTurretAim
 
 Author:
-    Unknown
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_sfmplus\headers\core.hpp"
@@ -61,12 +61,12 @@ switch (_sight) do {
         };
     };
     case SIGHT_HMD:{
-		if (cameraView == "GUNNER") then {
+        if (cameraView == "GUNNER") then {
             _targPos = aglToAsl screentoworld[0.5, 0.5];
-			_heli lockCameraTo [objNull, [0]];
+            _heli lockCameraTo [objNull, [0]];
         } else {
             _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
-			_heli lockCameraTo [_targPos, [0]];
+            _heli lockCameraTo [_targPos, [0]];
         };
     };
     case SIGHT_TADS:{
