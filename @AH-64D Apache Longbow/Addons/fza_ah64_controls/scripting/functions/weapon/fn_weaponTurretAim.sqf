@@ -94,66 +94,66 @@ if (_usingRocket && _sight != SIGHT_FXD) then {
 };
 
 if (_usingHellfire && _sight != SIGHT_FXD) then {
-    private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
-    private _hellfiretable = [[33, 4],[1000, -15]];
-    private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
-    private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
-    _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
+	private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
+	private _hellfiretable = [[33, 4],[1000, -15]];
+	private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
+	private _velocityComp  = [[0, _hellfireZero], [VEL_ETL, 0]];
+	_pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
 
-if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
-    _inhibit = "PYLON LIMIT"
+if (-15 > _pylonAdjustment	&& _pylonAdjustment	< 4) then {
+	_inhibit = "PYLON LIMIT"
 };
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
     if (_utilHydPSI < SYS_MIN_HYD_PSI) exitwith {};
-    private _pylon = "pylon" + str(_i + 1);
+	private _pylon = "pylon" + str(_i +	1);
     private _pylonD = if _onGnd then {0;} else {4;};
-    if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-        if (_usingRocket) exitwith {
-            _heli animateSource[_pylon, _pylonAdjustment];
-        };
-        _heli animateSource[_pylon, _pylonD];
-    };
-    if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
-        if (_usingHellfire) exitwith {
-            _heli animateSource[_pylon, _pylonAdjustment];
-        };
-        _heli animateSource[_pylon, _pylonD];
-    };
+	if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
+		if (_usingRocket) exitwith {
+			[_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+		};
+		[_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+	};
+	if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
+		if (_usingHellfire)	exitwith {
+			[_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+		};
+		[_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+	};
 };
 
 if (_usingCannon) then {
-    if (_sight == SIGHT_FXD) exitwith   {
-        _heli animateSource["mainTurret", 0];
-        _heli animateSource["mainGun", 0];
-        _inhibit = "GUN FIXED";
-    };
-    private _pan = _heli animationPhase "tads_tur";
-    private _tilt = _heli animationPhase "tads";
-    if !(-86 < deg _pan && deg _pan < 86) then {
-        _inhibit = "AZ LIMIT";
-    };
-    if !(-60 < deg _tilt && deg _tilt < 11) then {
-        _inhibit = "EL LIMIT";
-    };
-    if (_inhibit != "") then {
-        _safemessage = "_inhibit";
-        _heli selectweapon "fza_burstlimiter";
-    };
-    _heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
-    _heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
+	if (_sight == SIGHT_FXD) exitwith	{
+			[_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
+			[_heli, "mainGun", 0] call fza_fnc_updateAnimations;
+		_inhibit = "GUN	FIXED";
+	};
+	private	_pan = _heli animationPhase	"tads_tur";
+	private	_tilt =	_heli animationPhase "tads";
+	if !(-86 < deg _pan	&& deg _pan	< 86) then {
+		_inhibit = "AZ LIMIT";
+	};
+	if !(-60 < deg _tilt && deg	_tilt <	11)	then {
+		_inhibit = "EL LIMIT";
+	};
+	if (_inhibit != "")	then {
+		_safemessage = "_inhibit";
+		_heli selectweapon "fza_burstlimiter";
+	};
+	[_heli, "mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
+	[_heli, "mainTurret", [_tilt, rad -60,	rad	11]	call BIS_fnc_clamp] call fza_fnc_updateAnimations;
 } else {
-    _heli animateSource["mainTurret", 0];
-    _heli animateSource["mainGun", 0.298];
+	[_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
+	[_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
 };
 
-for "_i" from 0 to 3 do {
-    if (WEP_TYPE(_firstPylonMags#_i) == "auxTank") then {
-        _pylon = "pylon" + str(_i + 1);
-        _heli animateSource[_pylon, +4, true];
-    };
+for	"_i" from 0	to 3 do {
+	if (WEP_TYPE(_firstPylonMags#_i) == "auxTank") then	{
+		_pylon = "pylon" + str(_i +	1);
+		[_heli, _pylon, +4] call fza_fnc_updateAnimations;
+	};
 };
 
 _heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
