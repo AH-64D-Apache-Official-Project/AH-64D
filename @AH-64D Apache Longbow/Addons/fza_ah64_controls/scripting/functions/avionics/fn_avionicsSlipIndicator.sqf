@@ -29,4 +29,7 @@ if (!(player in _heli)) exitwith {};
 ([_heli] call fza_sfmplus_fnc_calculateAlphaAndBeta)
     params ["_alpha", "_beta"];
 
-fza_ah64_sideslip = [_beta / 30.0, -1.0, 1.0] call BIS_fnc_clamp;
+(_heli getVariable "fza_sfmplus_fuselageAccel")
+    params ["_accelX", "_accelY", "_accelZ"];
+
+fza_ah64_sideslip = [_accelX / 0.15, -1.0, 1.0] call BIS_fnc_clamp;

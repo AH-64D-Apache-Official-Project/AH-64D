@@ -59,6 +59,8 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
 if (_flightModel != "SFMPlus") then {
+    //Accelerations
+    [_heli, _deltaTime] call fza_sfmplus_fnc_fuselageGetAccelerations;
     //Main Rotor
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor
@@ -68,7 +70,7 @@ if (_flightModel != "SFMPlus") then {
     //Vertical fin
     private _vertFinPosition   = [0.0, -6.40, -1.75];
     private _vertFinSweep      = -1.2;
-    private _vertFinRot        = 7.5;
+    private _vertFinRot        = 0.0;
     private _vertFinDimensions = [2.25, 0.90];
     [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
 };
