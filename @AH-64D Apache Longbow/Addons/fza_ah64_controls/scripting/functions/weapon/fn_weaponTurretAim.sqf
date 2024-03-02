@@ -27,7 +27,7 @@ params["_heli"];
 #define HYDRA_TIME_KM 1.353
 
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
+private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
 private _utilHydPSI      = _heli getVariable "fza_systems_utilHydPSI";
@@ -141,10 +141,14 @@ if (_usingCannon) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_burstlimiter";
+        _heli selectweapon "fza_gun_inhibit";
+    } else {
+        if (Currentweapon _heli == "fza_gun_inhibit") then {
+            _heli selectweapon "fza_m230";
+        };
     };
-    [_heli, "mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
-    [_heli, "mainTurret", [_tilt, rad -60,  rad 11] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
+    _heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
+    _heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
 } else {
     [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
     [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;

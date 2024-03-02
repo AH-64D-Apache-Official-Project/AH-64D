@@ -147,5 +147,5 @@ class CfgWeapons {
         magazines[]={"fza_safe"};
         textureType = "single";
     };
-    class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe";};
+    class fza_gun_inhibit: fza_burstlimiter {displayName = "Cannon Inhibit";};
 };
