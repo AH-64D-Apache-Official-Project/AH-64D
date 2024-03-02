@@ -139,6 +139,7 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_burst_limit", 10];
+_heli setVariable ["fza_ah64_burst_fired", 0];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];

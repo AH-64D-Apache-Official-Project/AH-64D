@@ -14,7 +14,10 @@ if (_value) then {
     switch (_name) do {
         case "defaultAction": {
             _heli setVariable ["fza_ah64_trigger", true];
+
+            //reset Weapon limits
             _heli setVariable ["fza_ah64_salvofired", 0];
+            _heli setVariable ["fza_ah64_burst_fired", 0];
         };
         case "fza_ah64_crosshairInteract": {
             private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;

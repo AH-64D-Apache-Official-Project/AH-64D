@@ -143,12 +143,9 @@ private _projName = "AH-64D Official Project";
 
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_gunheat = 0;
-fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
-fza_ah64_burst = 1;
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays

@@ -25,7 +25,7 @@ if (!(isnil "fza_ah64_enableturrets")) exitwith {};
 private _inhibit = "";
 
 private _usingRocket            = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
-private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
+private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe", "fza_gun_inhibit"];
 private _sight                  = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel                = [0, 0, 0];
 private _targPos                = -1;
@@ -201,7 +201,11 @@ if (_usingCannon) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_burstlimiter";
+        _heli selectweapon "fza_gun_inhibit";
+    } else {
+        if (Currentweapon _heli == "fza_gun_inhibit") then {
+            _heli selectweapon "fza_m230";
+        };
     };
     _heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
     _heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
