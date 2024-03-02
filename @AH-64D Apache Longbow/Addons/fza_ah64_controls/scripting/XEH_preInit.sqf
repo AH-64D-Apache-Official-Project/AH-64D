@@ -146,7 +146,6 @@ fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_gunheat = 0;
 fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
-fza_ah64_salvofired = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_burst = 1;
@@ -170,6 +169,7 @@ fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
     addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
     addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
 
+OVERRIDE_ACTION("defaultAction")
 OVERRIDE_ACTION("SwitchWeaponGrp1")
 OVERRIDE_ACTION("SwitchWeaponGrp2")
 OVERRIDE_ACTION("SwitchWeaponGrp3")

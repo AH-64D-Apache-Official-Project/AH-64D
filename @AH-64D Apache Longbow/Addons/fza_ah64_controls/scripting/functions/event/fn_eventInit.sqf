@@ -142,6 +142,7 @@ _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rocketsalvo", 2];
+_heli setVariable ["fza_ah64_salvoFired", 0];
 //Systems local to the crewstation
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];
@@ -154,6 +155,8 @@ _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
 _heli setVariable ["fza_ah64_tadsThermal", true];
 _heli setVariable ["fza_ah64_tadsZoom", 0];
 _heli setVariable ["fza_ah64_tadsA3ti", false];
+
+_heli setVariable ["fza_ah64_trigger", false];
 
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
