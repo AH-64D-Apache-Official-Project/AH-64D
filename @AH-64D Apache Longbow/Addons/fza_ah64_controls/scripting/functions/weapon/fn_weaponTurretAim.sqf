@@ -29,6 +29,7 @@ private _usingRocket            = currentweapon _heli isKindOf["fza_hydra70", co
 private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
 private _usingHellfire          = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight                  = [_heli] call fza_fnc_targetingGetSightSelect;
+private _onGnd                  = [_heli] call fza_sfmplus_fnc_onGround;
 private _targVel                = [0, 0, 0];
 private _targPos                = [0, 0, 0];
 
@@ -102,21 +103,22 @@ if (_usingHellfire && _sight != SIGHT_FXD) then {
 if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
     _inhibit = "PYLON LIMIT"
 };
-_pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp
+_pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
     private _pylon = "pylon" + str(_i + 1);
+    private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
         if (_usingRocket) exitwith {
             _heli animateSource[_pylon, _pylonAdjustment];
         };
-        _heli animateSource[_pylon, 0];
+        _heli animateSource[_pylon, _pylonD];
     };
     if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
         if (_usingHellfire) exitwith {
             _heli animateSource[_pylon, _pylonAdjustment];
         };
-        _heli animateSource[_pylon, 0];
+        _heli animateSource[_pylon, _pylonD];
     };
 };
 
