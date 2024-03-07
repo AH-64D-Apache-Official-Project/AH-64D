@@ -30,7 +30,8 @@ private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFil
 private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
-private _utilLevel_pct   = _heli getVariable "fza_systems_utilHydPSI";
+private _utilHydPSI      = _heli getVariable "fza_systems_utilHydPSI";
+private _utilLevel_pct   = _heli getVariable "fza_systems_utilLevel_pct";
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 private _nts             = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntspos          = (_heli getVariable "fza_ah64_fcrNts") # 1;
@@ -107,7 +108,7 @@ if (-15 > _pylonAdjustment  && _pylonAdjustment < 4) then {
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
-    if (_utilHydPSI < SYS_MIN_HYD_PSI) exitwith {};
+    if (_utilHydPSI < SYS_MIN_HYD_PSI || _utilLevel_pct < SYS_HYD_MIN_LVL) exitwith {};
 	private _pylon = "pylon" + str(_i +	1);
     private _pylonD = if _onGnd then {0;} else {4;};
 	if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
