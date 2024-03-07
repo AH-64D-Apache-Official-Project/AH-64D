@@ -73,7 +73,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         ["OFF", 0],
         ["OFF", 0]
     ], true];
-    _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
 
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
