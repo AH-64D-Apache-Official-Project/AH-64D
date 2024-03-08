@@ -17,15 +17,16 @@ Author:
     Unknown
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
-
+#include "\fza_ah64_systems\headers\systems.hpp"
 params["_heli"];
+
 if (!(player in _heli)) exitwith {};
 if (!(isnil "fza_ah64_enableturrets")) exitwith {};
 #define WEP_TYPE(_mag) (if ((_mag) == "") then {""} else {getText (configFile >> "cfgMagazines" >> (_mag) >> "fza_pylonType")})
 private _inhibit = "";
 
 private _usingRocket            = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"] || currentWeapon _heli == "fza_rkt_safe";
-private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe", "fza_gun_inhibit"];
+private _usingCannon            = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_inhibit"];
 private _sight                  = [_heli] call fza_fnc_targetingGetSightSelect;
 private _targVel                = [0, 0, 0];
 private _targPos                = -1;
@@ -191,6 +192,9 @@ if (_usingRocket) then {
 };
 
 if (_usingCannon) then {
+    if (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH) exitWith {
+        _heli selectweapon "fza_gun_inhibit";
+    };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
     if !(-86 < deg _pan && deg _pan < 86) then {

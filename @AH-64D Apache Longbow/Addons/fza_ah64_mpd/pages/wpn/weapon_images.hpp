@@ -1,6 +1,6 @@
 class Gun {
     class Selected {
-        condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
         //Here
         class Polygon {
             type = polygon;
@@ -66,7 +66,7 @@ class Gun {
         };
     };
     class Deselected {
-        condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),1)));
+        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 0), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
         MPD_TEXT_C(Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         class Lines {
             type = line;
@@ -85,6 +85,73 @@ class Gun {
                 //Gun Ammo Box
                 {{0.445, 0.372}, 1}, {{0.555, 0.372}, 1}, {{0.555, 0.372+0.06}, 1}, {{0.445, 0.372+0.06}, 1}, {{0.445, 0.372}, 1},
             };
+        };
+    }; 
+    class failed {
+        condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE),1));
+        color[] = {1,1,0,1};
+        class Yellow_Box
+        {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.4775, 0.3220}, 1 },
+                    { {0.4788, 0.3170}, 1 },
+                    { {0.4875, 0.3220}, 1 },
+                }, {
+                    { {0.4788, 0.3170}, 1 },
+                    { {0.4825, 0.3133}, 1 },
+                    { {0.4875, 0.3220}, 1 },
+                }, {
+                    { {0.4825, 0.3133}, 1 },
+                    { {0.4875, 0.3120}, 1 },
+                    { {0.4875, 0.3220}, 1 },
+                }, {
+                    { {0.4875, 0.3220}, 1 },
+                    { {0.4875, 0.3133}, 1 },
+                    { {0.5125, 0.3133}, 1 },
+                    { {0.5125, 0.3220}, 1 },
+                }, {
+                    { {0.5125, 0.3120}, 1 },
+                    { {0.5175, 0.3133}, 1 },
+                    { {0.5125, 0.3220}, 1 },
+                }, {
+                    { {0.5175, 0.3133}, 1 },
+                    { {0.5212, 0.3170}, 1 },
+                    { {0.5125, 0.3220}, 1 },
+                }, {
+                    { {0.5212, 0.3170}, 1 },
+                    { {0.5225, 0.3220}, 1 },
+                    { {0.5125, 0.3220}, 1 },
+                }, {
+                    { {0.4775, 0.3220}, 1 },
+                    { {0.5225, 0.3220}, 1 },
+                    { {0.5225, 0.3720}, 1 },
+                    { {0.4775, 0.3720}, 1 },
+                }, {
+                    //Gun Tip
+                    {{0.507, 0.236}, 1}, 
+                    {{0.492, 0.236}, 1}, 
+                    {{0.492, 0.254}, 1}, 
+                    {{0.507, 0.254}, 1},
+                }, {
+                    //Gun Barrel
+                    {{0.505, 0.254}, 1}, 
+                    {{0.495, 0.254}, 1}, 
+                    {{0.495, 0.312}, 1}, 
+                    {{0.505, 0.312}, 1},
+                }, {
+                    //Gun Ammo Box
+                    {{0.445, 0.372}, 1}, 
+                    {{0.555, 0.372}, 1}, 
+                    {{0.555, 0.372+0.06}, 1}, 
+                    {{0.445, 0.372+0.06}, 1},
+                },
+            };
+        };
+        class Fail {
+            color[] = {0,0,0,0};
+            MPD_TEXT_C(Gun_FAIL, 0.5, 0.382, MPD_TEXT_STATIC("FAIL"))
         };
     };
 };
