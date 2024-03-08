@@ -41,3 +41,9 @@ if (_burstLimit != -1) then {
     };
     _heli setVariable ["fza_ah64_burst_fired", _CannonFired];
 };
+
+
+//ACE3 OVERHEATING
+//Author: Commy2 and esteldunedain
+[_heli, "fza_m230", 3500] call ace_overheating_fnc_updateTemperature;
+[_heli] call fza_cannon_fnc_update;

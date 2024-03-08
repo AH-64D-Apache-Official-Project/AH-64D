@@ -29,6 +29,7 @@ class CfgWeapons {
         ace_overpressure_angle      = 90;
         ace_overpressure_range      = 2;
         ace_overpressure_damage     = 0.265;
+        ace_overheating_barrelMass  = 16;   //16kg
 
         class GunParticles
         {

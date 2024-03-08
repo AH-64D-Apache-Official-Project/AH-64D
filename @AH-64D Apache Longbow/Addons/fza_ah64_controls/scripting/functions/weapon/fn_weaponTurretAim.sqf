@@ -126,6 +126,11 @@ for "_i" from 0 to 3 do {
 };
 
 if (_usingCannon) then {
+    if (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH) exitWith {
+        _heli selectweapon "fza_gun_inhibit";
+        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
+        [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
+    };
     if (_sight == SIGHT_FXD) exitwith   {
         [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
         [_heli, "mainGun", 0] call fza_fnc_updateAnimations;

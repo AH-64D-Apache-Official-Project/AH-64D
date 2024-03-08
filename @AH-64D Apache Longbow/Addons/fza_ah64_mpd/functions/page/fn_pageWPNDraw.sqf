@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_state"];
 
@@ -41,6 +42,10 @@ _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_
 //GUN AMMO
 private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
+
+//GUN FAILED
+private _GunFailed = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_GunFailed)];
 
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
