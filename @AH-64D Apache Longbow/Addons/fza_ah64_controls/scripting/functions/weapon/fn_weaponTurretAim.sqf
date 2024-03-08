@@ -126,15 +126,10 @@ for "_i" from 0 to 3 do {
 };
 
 if (_usingCannon) then {
-    if (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH) exitWith {
+    if (_heli getHitPointDamage "hit_msnEquip_gun_turret" >= SYS_WPN_DMG_THRESH) exitWith {
         _heli selectweapon "fza_gun_inhibit";
         [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
         [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
-    };
-    if (_sight == SIGHT_FXD) exitwith   {
-        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
-        _inhibit = "GUN FIXED";
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
@@ -151,6 +146,11 @@ if (_usingCannon) then {
         if (Currentweapon _heli == "fza_gun_inhibit") then {
             _heli selectweapon "fza_m230";
         };
+    };
+    if (_sight == SIGHT_FXD) exitwith   {
+        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
+        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
+        _inhibit = "GUN FIXED";
     };
     _heli animateSource["mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp];
     _heli animateSource["mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp];
