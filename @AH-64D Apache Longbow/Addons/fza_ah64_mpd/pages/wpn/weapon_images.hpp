@@ -238,7 +238,42 @@ MFD_WPN_HF_PYLON(16, 0.755, 0.565)
             };\
         };\
     };
-MFD_WPN_ROCKET_PYLON(1, 0.27, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 1, 3, MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT)
-MFD_WPN_ROCKET_PYLON(5, 0.37, 0.5, 2, 3, MFD_IND_WPN_ROCKET_POD_2_3_STATE, 1, 3, MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT)
-MFD_WPN_ROCKET_PYLON(9, 0.63, 0.5, 2, 3, MFD_IND_WPN_ROCKET_POD_2_3_STATE, 2, 3, MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT)
-MFD_WPN_ROCKET_PYLON(13, 0.73, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 2, 3, MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT)
+MFD_WPN_ROCKET_PYLON(1, 0.267, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 1, 3, MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT)
+MFD_WPN_ROCKET_PYLON(5, 0.367, 0.5, 2, 3, MFD_IND_WPN_ROCKET_POD_2_3_STATE, 1, 3, MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT)
+MFD_WPN_ROCKET_PYLON(9, 0.633, 0.5, 2, 3, MFD_IND_WPN_ROCKET_POD_2_3_STATE, 2, 3, MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT)
+MFD_WPN_ROCKET_PYLON(13, 0.733, 0.5, 1, 3, MFD_IND_WPN_ROCKET_POD_1_4_STATE, 2, 3, MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT)
+
+#define MFD_WPN_FAILED_PYLON(num, posX, posY, presentIndex, presentState1, presentState2) \
+    class FailedPylon##num { \
+        condition = C_COND(C_OR(C_EQ(C_MPD_USER(presentIndex),presentState1), C_EQ(C_MPD_USER(presentIndex),presentState2)));\
+        color[] = {1,1,0,1};\
+        class outline {\
+            type = line;\
+            width = 2;\
+            points[] = {\
+                {{-0.045 + posX, 0.14 + posY}, 1},\
+                {{-0.045 + posX, -0.14 + posY}, 1},\
+                {{0.045 + posX, -0.14 + posY}, 1},\
+                {{0.045 + posX, 0.14 + posY}, 1},\
+                {{-0.045 + posX, 0.14 + posY}, 1}\
+            };\
+        };\
+        class box {\
+            type = polygon;\
+            points[] = {{\
+                {{-0.045 + posX, 0.14 + posY}, 1},\
+                {{0.045 + posX, 0.14 + posY}, 1},\
+                {{0.045 + posX, 0.18 + posY}, 1},\
+                {{-0.045 + posX, 0.18 + posY}, 1},\
+            }};\
+        };\
+        class text {\
+            color[] = {0,0,0,0};\
+            MPD_TEXT_C(Name,posX, posY + 0.14, MPD_TEXT_STATIC("FAIL"))\
+        };\
+    };
+
+MFD_WPN_FAILED_PYLON(1, 0.267, 0.5, MFD_IND_WPN_PYLON_1_4_FAILURE, 1, 3)
+MFD_WPN_FAILED_PYLON(2, 0.367, 0.5, MFD_IND_WPN_PYLON_2_3_FAILURE, 1, 3)
+MFD_WPN_FAILED_PYLON(3, 0.633, 0.5, MFD_IND_WPN_PYLON_2_3_FAILURE, 2, 3)
+MFD_WPN_FAILED_PYLON(4, 0.733, 0.5, MFD_IND_WPN_PYLON_1_4_FAILURE, 2, 3)

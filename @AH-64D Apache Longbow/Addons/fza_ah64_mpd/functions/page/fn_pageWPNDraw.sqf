@@ -131,6 +131,18 @@ if (_rocketInvIndex != -1) then {
     }; 
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
 };
+
+//pylon Failure
+private _pylonFailure = [];
+for "_i" from 1 to 4 do {
+    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
+    if (_pylonDamage >= SYS_WPN_DMG_THRESH) then {
+        _pylonFailure pushback _i;
+    };
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
+
 //Page draw
 switch (_selectedWeapon) do {
     case WAS_WEAPON_GUN: {
@@ -142,4 +154,4 @@ switch (_selectedWeapon) do {
     case WAS_WEAPON_MSL: {
         _this call fza_mpd_fnc_WpnMslDraw;
     };
-};q 
+};

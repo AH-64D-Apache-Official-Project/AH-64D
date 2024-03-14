@@ -131,6 +131,8 @@
 #define MFD_IND_WPN_POPOUT 14
 //Weapons failures
 #define MFD_IND_WPN_CANNON_FAILURE 15
+#define MFD_IND_WPN_PYLON_1_4_FAILURE 16
+#define MFD_IND_WPN_PYLON_2_3_FAILURE 17
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
 
