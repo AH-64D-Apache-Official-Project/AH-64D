@@ -44,8 +44,24 @@ private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
 
 //GUN FAILED
-private _GunFailed = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_GunFailed)];
+private _gunDamage = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
+private _utilLevel_pct = _heli getVariable "fza_systems_utilLevel_pct"
+private _utilHydPSI    = _heli getVariable "fza_systems_utilHydPSI";
+private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _gunFailed = (_utilHydPSI < SYS_MIN_HYD_PSI || _utilLevel_pct < SYS_HYD_MIN_LVL || _gunDamage >= SYS_WPN_DMG_THRESH || !_acBusOn || !_dcBusOn)
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
+
+//pylon Failure
+private _pylonFailure = [];
+for "_i" from 1 to 4 do {
+    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
+    if (_pylonDamage >= SYS_WPN_DMG_THRESH || _utilHydPSI < SYS_MIN_HYD_PSI || _utilLevel_pct < SYS_HYD_MIN_LVL) then {
+        _pylonFailure pushback _i;
+    };
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
 
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
@@ -131,17 +147,6 @@ if (_rocketInvIndex != -1) then {
     }; 
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
 };
-
-//pylon Failure
-private _pylonFailure = [];
-for "_i" from 1 to 4 do {
-    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
-    if (_pylonDamage >= SYS_WPN_DMG_THRESH) then {
-        _pylonFailure pushback _i;
-    };
-};
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
 
 //Page draw
 switch (_selectedWeapon) do {
