@@ -44,8 +44,13 @@ private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
 
 //GUN FAILED
-private _GunFailed = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_GunFailed)];
+private _gunDamage = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
+private _utilLevel_pct = _heli getVariable "fza_systems_utilLevel_pct"
+private _utilHydPSI    = _heli getVariable "fza_systems_utilHydPSI";
+private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _gunFailed = (_utilHydPSI < SYS_MIN_HYD_PSI || _utilLevel_pct < SYS_HYD_MIN_LVL || _gunDamage >= SYS_WPN_DMG_THRESH || !_acBusOn || !_dcBusOn)
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
 
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
