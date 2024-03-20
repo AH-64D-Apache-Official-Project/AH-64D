@@ -12,4 +12,5 @@ class CfgPatches
 
 #include "\fza_ah64_controls\config\defines.hpp"
 
+#include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
