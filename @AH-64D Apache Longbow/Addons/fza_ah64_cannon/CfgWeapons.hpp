@@ -29,6 +29,7 @@ class CfgWeapons {
         ace_overpressure_angle      = 90;
         ace_overpressure_range      = 2;
         ace_overpressure_damage     = 0.265;
+        ace_overheating_barrelMass  = 16;   //16kg
 
         class GunParticles
         {
@@ -147,5 +148,5 @@ class CfgWeapons {
         magazines[]={"fza_safe"};
         textureType = "single";
     };
-    class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe";};
+    class fza_gun_inhibit: fza_burstlimiter {displayName = "Cannon Inhibit";};
 };

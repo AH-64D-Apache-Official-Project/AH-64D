@@ -12,6 +12,13 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 if (_value) then {
     //When button pressed
     switch (_name) do {
+        case "defaultAction": {
+            _heli setVariable ["fza_ah64_trigger", true];
+
+            //reset Weapon limits
+            _heli setVariable ["fza_ah64_salvofired", 0];
+            _heli setVariable ["fza_ah64_burst_fired", 0];
+        };
         case "fza_ah64_crosshairInteract": {
             private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
             if (_controls isEqualTo []) exitWith {};
@@ -244,6 +251,9 @@ if (_value) then {
 if !(_value) then {
     //When button releassed
     switch (_name) do {
+        case "defaultAction": {
+            _heli setVariable ["fza_ah64_trigger", false];
+        };
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserDisarm;
         };
