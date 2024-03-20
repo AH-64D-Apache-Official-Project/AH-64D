@@ -25,26 +25,26 @@ params ["_heli", "_system", "_damage"];
 
 if (_system == "hit_msnEquip_pylon1" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#0] call BIS_fnc_inString) exitwith {};
-    _AuxtankExplosion = "M_Mo_155mm_AT" createVehicle (_heli modelToWorld [-2.38,3,-1.54]);   
+    _AuxtankExplosion = "ammo_Missile_mim145" createVehicle (_heli modelToWorld [-2.38,2.3,-2]);   
     triggerAmmo _AuxtankExplosion;
     _heli setPylonLoadout [1, ""];
     
 };
 if (_system == "hit_msnEquip_pylon2") then {
     if !(["auxTank", (getPylonMagazines _heli)#4] call BIS_fnc_inString) exitwith {};
-    _AuxtankExplosion = "M_Mo_155mm_AT" createVehicle (_heli modelToWorld [-1.66,3,-1.54]);   
+    _AuxtankExplosion = "fza_auxTank_explosion" createVehicle (_heli modelToWorld [-1.66,2.3,-2]);   
     triggerAmmo _AuxtankExplosion;
     _heli setPylonLoadout [5, ""];
 };
 if (_system == "hit_msnEquip_pylon3" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#8] call BIS_fnc_inString) exitwith {};
-    _AuxtankExplosion = "M_Mo_155mm_AT" createVehicle (_heli modelToWorld [1.66,3,-1.54]);   
+    _AuxtankExplosion = "fza_auxTank_explosion" createVehicle (_heli modelToWorld [1.66,2.3,-2]);   
     triggerAmmo _AuxtankExplosion;
     _heli setPylonLoadout [9, ""];
 };
 if (_system == "hit_msnEquip_pylon4" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#12] call BIS_fnc_inString) exitwith {};
-    _AuxtankExplosion = "M_Mo_155mm_AT" createVehicle (_heli modelToWorld [2.38,3,-1.54]);   
+    _AuxtankExplosion = "fza_auxTank_explosion" createVehicle (_heli modelToWorld [2.38,2.3,-2]);   
     triggerAmmo _AuxtankExplosion; 
     _heli setPylonLoadout [13, ""];
 };

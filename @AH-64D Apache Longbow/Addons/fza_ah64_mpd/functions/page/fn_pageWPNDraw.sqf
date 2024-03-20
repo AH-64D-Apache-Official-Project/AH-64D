@@ -45,18 +45,19 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo to
 
 //GUN FAILED
 private _gunDamage     = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
-private _utilLevel_pct = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
-private _utilHydPSI    = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
+private _magDamage     = (_heli getHitPointDamage "hit_msnEquip_magandrobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1);
+private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
+private _utilHydFailed = (_heli getVariable "fza_systems_utilHydFailed" < SYS_MIN_HYD_PSI);
 private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
-private _gunFailed = (_utilHydPSI || _utilLevel_pct || _gunDamage || !_acBusOn || !_dcBusOn);
+private _gunFailed     = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
 _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
 
 //pylon Failure
 private _pylonFailure = [];
 for "_i" from 1 to 4 do {
     private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
-    if (_pylonDamage >= SYS_WPN_DMG_THRESH || _utilHydPSI || _utilLevel_pct) then {
+    if (_pylonDamage >= SYS_WPN_DMG_THRESH || _utilHydFailed || _utilLevelMin) then {
         _pylonFailure pushback _i;
     };
 };
