@@ -157,8 +157,6 @@ _heli setVariable ["fza_ah64_tadsThermal", true];
 _heli setVariable ["fza_ah64_tadsZoom", 0];
 _heli setVariable ["fza_ah64_tadsA3ti", false];
 
-_heli setVariable ["fza_ah64_trigger", false];
-
 [_heli] call fza_sfmplus_fnc_coreConfig;
 [_heli] call fza_systems_fnc_coreVariables;
 //[_heli] call BMK_fnc_coreConfig;

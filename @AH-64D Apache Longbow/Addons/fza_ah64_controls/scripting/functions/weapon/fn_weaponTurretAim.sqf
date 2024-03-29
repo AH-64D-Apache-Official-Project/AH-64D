@@ -27,7 +27,7 @@ params["_heli"];
 #define HYDRA_TIME_KM 1.353
 
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_inhibit"];
+private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_gun_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;

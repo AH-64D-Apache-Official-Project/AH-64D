@@ -20,4 +20,3 @@ Author:
 params["_heli"];
 
 [_heli] call fza_ihadss_fnc_controller;
-_heli setVariable ["fza_ah64_trigger", false];
