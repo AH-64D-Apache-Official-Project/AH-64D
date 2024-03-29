@@ -66,7 +66,7 @@ class Gun {
         };
     };
     class Deselected {
-        condition = C_COND(C_AND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 0), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
+        condition = C_COND(C_AND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 1)), C_EQ(C_MPD_USER(MFD_IND_WPN_CANNON_FAILURE), 0)));
         MPD_TEXT_C(Ammo, 0.5, 0.382, MPD_TEXT_USER(MFD_TEXT_IND_WPN_GUN_ROUNDS))
         class Lines {
             type = line;
