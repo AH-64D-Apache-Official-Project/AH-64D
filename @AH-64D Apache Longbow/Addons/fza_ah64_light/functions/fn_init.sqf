@@ -26,8 +26,4 @@ if (!(_heli getVariable ["fza_ah64_lightInitialised", false]) && local _heli) th
     _heli setVariable ["fza_ah64_lightAntiColl", false, true];
     _heli setVariable ["fza_ah64_lightPltFlood", false, true];
     _heli setVariable ["fza_ah64_lightCpgFlood", false, true];
-
-    _heli setHitPointDamage ["#plt_flood_sel", 1];
-    _heli setHitPointDamage ["#cpg_flood_sel", 1];
-    _heli setHitPointDamage ["#landing_light", 1];
 };

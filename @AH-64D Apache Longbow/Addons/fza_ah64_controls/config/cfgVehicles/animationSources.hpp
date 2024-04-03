@@ -10,6 +10,30 @@ class AnimationSources
         initPhase = 1;
         animPeriod = 0.001;
     };
+    class Plt_flood
+    {
+        displayName = "PLT FLOOD LIGHT";
+        author = "Apache mod development team";
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class cpg_flood
+    {
+        displayName = "cpg FLOOD LIGHT";
+        author = "Apache mod development team";
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class landing_light
+    {
+        displayName = "landing light";
+        author = "Apache mod development team";
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
     class msn_equip_american
     {
         displayName = "Install American Mission Equipment";
