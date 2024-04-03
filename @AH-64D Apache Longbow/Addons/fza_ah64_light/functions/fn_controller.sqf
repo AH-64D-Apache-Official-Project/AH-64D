@@ -35,7 +35,7 @@ private _anticollval  = isCollisionLightOn _heli;
 private _powerOnState = (_acBusOn && _dcBusOn);
 
 //force pilot light
-if !(isLightOn _heli) then {
+if (!isLightOn _heli && CBA_missionTime > 0) then {
     _heli setPilotLight true;
 };
 
