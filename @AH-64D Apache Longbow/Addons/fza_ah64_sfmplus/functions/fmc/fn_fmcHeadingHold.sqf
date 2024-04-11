@@ -12,6 +12,8 @@ private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplif
 private _curVel        = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _subMode       = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode    = _heli getVariable "fza_ah64_attHoldSubMode";
+private _hdgOutput     = 0.0;
+private _trnOutput     = 0.0;
 private _output        = 0.0;
 
 private _onGnd         = [_heli] call fza_sfmplus_fnc_onGround;
@@ -58,15 +60,16 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-
-        _output = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-        _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
+        _hdgOutput = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _hdgOutput = [_hdgOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _output = [_pidTrn, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
-        _output = [_output, -1.0, 1.0] call BIS_fnc_clamp;
+        _trnOutput = [_pidTrn, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+        _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
+
+    _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _curVel, _hdgOutput, _trnOutput];
 } else {
     [_pid] call fza_fnc_pidReset;
 };
