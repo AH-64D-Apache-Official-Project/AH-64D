@@ -13,6 +13,9 @@ private _fuselageDragCoefX    = 1.5;
 private _fuselageDragCoefZ    = 0.5;
 
 private _interpDragCoefTableY = [];
+private _interpSideSlipTable  = [];
+
+private _fuselageYawTorque    = 0.0;
 
 if (_flightModel == "SFMPlus") then {
     //                                  PA   -40     0    40
@@ -52,6 +55,21 @@ DRAG_TABLE =[
                                  ,[ 20, _interpDragCoefTableY # 4]
                                  ,[ 40, _interpDragCoefTableY # 5]];
     _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
+
+    ([_heli] call fza_sfmplus_fnc_calculateAlphaAndBeta)
+        params ["_alpha", "_beta"];
+
+    private _sideslipTable     = [[-90, -0.100]
+                                 ,[-20, -0.050]
+                                 ,[  0,  0.000]
+                                 ,[ 20,  0.050]
+                                 ,[ 90,  0.100]];
+    _interpSideSlipTable       = [_sideslipTable, _beta] call fza_fnc_linearInterp;
+    _interpSideSlipVal         = _interpSideSlipTable select 1;
+
+    _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpSideSlipVal * 15000) * _deltaTime);
+
+    systemChat format ["_interpSideSlipTable = %1 -- _interpSideSlipVal %2", _interpSideSlipTable select 1 toFixed 3, _interpSideSlipVal tofixed 3];
 };
 private _fuselageDragCoefY     = _interpDragCoefTableY # 1;
 
@@ -65,6 +83,7 @@ private _drag =
             ] vectorMultiply (-0.5 * _rho * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
+_heli addTorque (_heli vectorModelToWorld _fuselageYawTorque);
 
 #ifdef __A3_DEBUG__
 private _vecX = [1.0, 0.0, 0.0];
