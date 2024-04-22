@@ -8,7 +8,8 @@ Description:
     Reference: 
     https://www.mathworks.com/help/aeroblks/incidencesideslipairspeed.html
     https://trace.tennessee.edu/cgi/viewcontent.cgi?referer=&httpsredir=1&article=5851&context=utk_gradthes
-    
+    https://aviation.stackexchange.com/questions/70871/how-is-the-fpa-flight-path-angle-computed
+
 Parameters:
     _heli - The apache helicopter to check.
 
