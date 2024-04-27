@@ -69,10 +69,10 @@ switch (_sight) do {
     case SIGHT_HMD:{
         if (cameraView == "GUNNER") then {
             _targPos = aglToAsl screentoworld[0.5, 0.5];
-			_heli lockCameraTo [objNull, [0]];
+            _heli lockCameraTo [objNull, [0]];
         } else {
             _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
-      	 	_heli lockCameraTo [_targPos, [0]];
+            _heli lockCameraTo [_targPos, [0]];
         };
     };
     case SIGHT_TADS:{
@@ -112,20 +112,20 @@ _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
     if (_utilHydFailed || _utilLevelMin) exitwith {};
-	private _pylon = "pylon" + str(_i +	1);
+    private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
-	if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-		if (_usingRocket) exitwith {
-			[_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
-		};
-		[_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
-	};
-	if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
-		if (_usingHellfire)	exitwith {
-			[_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
-		};
-		[_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
-	};
+    if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
+        if (_usingRocket) exitwith {
+            [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+        };
+        [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+    };
+    if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
+        if (_usingHellfire) exitwith {
+            [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+        };
+        [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+    };
 };
 
 if (_usingCannon) then {
