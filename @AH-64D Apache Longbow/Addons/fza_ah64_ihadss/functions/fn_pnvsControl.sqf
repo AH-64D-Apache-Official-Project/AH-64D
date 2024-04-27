@@ -31,14 +31,14 @@ private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
 //Pnvs Stowed
 if !(_pnvsControl || _acBusOn || _dcBusOn || !_monocle || _pnvsDamage > SYS_SIGHT_DMG_THRESH) exitwith {
-    if (_heli animationsourcephase "pnvs" != -120) then {
-        _heli animateSource["pnvs", -120];
-    };
-    if (_heli animationsourcephase "pnvs_vert" != 0) then {
-        _heli animateSource["pnvs_vert", 0];
-    };
+    [_heli, "pnvs", -120] call fza_fnc_updateAnimations;
+    [_heli, "pnvs_vert", 0] call fza_fnc_updateAnimations;
 };
 
 (( _heli vectorWorldToModelVisual getCameraViewDirection player) call CBA_fnc_vect2Polar) params ["_mag", "_az", "_el"];
-_heli animateSource["pnvs", rad ([_az] call CBA_fnc_simplifyAngle180)];
-_heli animateSource["pnvs_vert", rad ([_el] call CBA_fnc_simplifyAngle180)];
+
+_az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_clamp;
+_el = [([_el] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
+
+[_heli, "pnvs", rad _az] call fza_fnc_updateAnimations;
+[_heli, "pnvs_vert", rad _el] call fza_fnc_updateAnimations;
