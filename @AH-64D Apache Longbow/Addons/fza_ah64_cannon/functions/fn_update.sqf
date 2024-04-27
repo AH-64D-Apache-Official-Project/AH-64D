@@ -23,7 +23,7 @@ if (_ammoTemperature < _barrelTemperature) then {
 };
 
 // cookoff if too hot
-if (_ammoTemperature > (GUNPOWDER_IGNITION_TEMP * ace_overheating_cookoffCoef)) then {
+if (_ammoTemperature > GUNPOWDER_IGNITION_TEMP) then {
     _heli sethitpointdamage ["hit_msnEquip_gun_turret", 1];
 
     // since a cookoff happened then the next round should start at the ambient temperature.
