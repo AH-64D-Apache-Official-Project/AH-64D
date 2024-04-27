@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic103"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic5"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_cycle"></a><a name="Topic104"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_cycle"></a><a name="Topic6"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_cycle</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Generic cycling implementation meant to be used by other functions that must cycle through modes.</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_modes</td><td class="CDLDefinition"><p>Array of modes to be cycled between</p></td></tr><tr><td class="CDLEntry">_current</td><td class="CDLDefinition"><p>Current value</p></td></tr><tr><td class="CDLEntry">_default</td><td class="CDLDefinition"><p>Default value if the current one isn't in modes. Returns mode at index 0 if not.</p></td></tr></table><div class="CHeading">Returns</div><p>Next mode from list of modes</p><div class="CHeading">Examples</div><pre class="CCode">_ret = [<span class="SHString">&quot;hi&quot;</span>, <span class="SHString">&quot;lo&quot;</span>, <span class="SHString">&quot;dir&quot;</span>], <span class="SHString">&quot;hi&quot;</span>] call fza_fnc_cycle<br /><span class="SHComment">//_ret =&gt; &quot;lo&quot;</span><br /><br />_ret = [<span class="SHString">&quot;hi&quot;</span>, <span class="SHString">&quot;lo&quot;</span>, <span class="SHString">&quot;dir&quot;</span>], <span class="SHString">&quot;dir&quot;</span>] call fza_fnc_cycle<br /><span class="SHComment">//_ret =&gt; &quot;hi&quot;</span><br /><br />_ret = [<span class="SHString">&quot;hi&quot;</span>, <span class="SHString">&quot;lo&quot;</span>, <span class="SHString">&quot;dir&quot;</span>], <span class="SHString">&quot;error&quot;</span>] call fza_fnc_cycle<br /><span class="SHComment">//_ret =&gt; &quot;hi&quot;</span><br /><br />_ret = [<span class="SHString">&quot;hi&quot;</span>, <span class="SHString">&quot;lo&quot;</span>, <span class="SHString">&quot;dir&quot;</span>], <span class="SHString">&quot;error&quot;</span>, <span class="SHString">&quot;dir&quot;</span>] call fza_fnc_cycle<br /><span class="SHComment">//_ret =&gt; &quot;dir&quot;</span></pre><div class="CHeading">Author</div><p>mattysmith22</p></div>
 </div>
