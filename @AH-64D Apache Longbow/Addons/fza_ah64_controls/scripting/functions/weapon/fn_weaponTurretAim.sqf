@@ -102,7 +102,7 @@ if (_usingHellfire && _sight != SIGHT_FXD) then {
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
 
-if (-15 > _pylonAdjustment  && _pylonAdjustment < 4) then {
+if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
     _inhibit = "PYLON LIMIT"
 };
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
