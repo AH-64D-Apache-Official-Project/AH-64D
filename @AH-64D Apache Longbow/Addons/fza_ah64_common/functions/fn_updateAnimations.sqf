@@ -24,5 +24,4 @@ private _value = [_value, 3] call BIS_fnc_cutDecimals;
 private _currentVal = _heli animationPhase _animation;
 
 if (_currentVal == _value) exitwith {};
-
 _heli animateSource [_animation, _value, _speed];

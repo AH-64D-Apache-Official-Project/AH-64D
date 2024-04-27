@@ -1,11 +1,11 @@
 class Reflectors
 {
-    class Landing_Light
+    class landing_light
     {
-        position = "landing_light";
-        direction = "landing_light_dir";
-        hitpoint = "landing_light";
-        selection = "landing_light";
+        position  = "landing_light_beg";
+        direction = "landing_light_end";
+        hitpoint  = "landing_light_sel";
+        selection = "landing_light_sel";
         color[] = {7000,7500,10000};
         ambient[] = {70,75,100};
         intensity = 100;
