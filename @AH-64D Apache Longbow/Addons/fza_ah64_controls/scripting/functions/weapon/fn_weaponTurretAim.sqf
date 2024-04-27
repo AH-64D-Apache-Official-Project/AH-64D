@@ -27,22 +27,25 @@ params["_heli"];
 #define HYDRA_TIME_KM 1.353
 
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_burstlimiter", "fza_gun_safe"];
+private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_gun_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
-private _utilHydPSI      = _heli getVariable "fza_systems_utilHydPSI";
-private _utilLevel_pct   = _heli getVariable "fza_systems_utilLevel_pct";
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 private _nts             = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntspos          = (_heli getVariable "fza_ah64_fcrNts") # 1;
-private _acBusOn         = _heli getVariable "fza_systems_acBusOn";
-private _dcBusOn         = _heli getVariable "fza_systems_dcBusOn";
 private _pylonMagazines  = getPylonMagazines _heli;
 private _firstPylonMags  = [_pylonMagazines#0,_pylonMagazines#4,_pylonMagazines#8,_pylonMagazines#12];
 private _inhibit         = "";
 private _pylonAdjustment = 0;
 private _targVel         = [0, 0, 0];
 private _targPos         = [0, 0, 0];
+
+private _gunDamage     = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
+private _magDamage     = (_heli getHitPointDamage "hit_msnEquip_magandrobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1);
+private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
+private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
+private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 
 if !_acBusOn then {
     _sight = SIGHT_FXD;
@@ -108,7 +111,7 @@ if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
-    if (_utilHydPSI < SYS_MIN_HYD_PSI || _utilLevel_pct < SYS_HYD_MIN_LVL) exitwith {};
+    if (_utilHydFailed || _utilLevelMin) exitwith {};
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
@@ -119,17 +122,17 @@ for "_i" from 0 to 3 do {
     };
     if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
         if (_usingHellfire) exitwith {
-        [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+            [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
         };
         [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
     };
 };
 
 if (_usingCannon) then {
-    if (_sight == SIGHT_FXD) exitwith   {
+    if (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage) exitWith {
+        _heli selectweapon "fza_gun_inhibit";
         [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
-        _inhibit = "GUN FIXED";
+        [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
@@ -141,10 +144,19 @@ if (_usingCannon) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_burstlimiter";
+        _heli selectweapon "fza_gun_inhibit";
+    } else {
+        if (Currentweapon _heli == "fza_gun_inhibit") then {
+            _heli selectweapon "fza_m230";
+        };
+    };
+    if (_sight == SIGHT_FXD) exitwith {
+        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
+        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
+        _inhibit = "GUN FIXED";
     };
     [_heli, "mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
-    [_heli, "mainTurret", [_tilt, rad -60,  rad 11] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
+    [_heli, "mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp] call fza_fnc_updateAnimations
 } else {
     [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
     [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;

@@ -12,6 +12,10 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 if (_value) then {
     //When button pressed
     switch (_name) do {
+        case "defaultAction": {
+            _heli setVariable ["fza_ah64_salvofired", 0];
+            _heli setVariable ["fza_ah64_burst_fired", 0];
+        };
         case "fza_ah64_crosshairInteract": {
             private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
             if (_controls isEqualTo []) exitWith {};

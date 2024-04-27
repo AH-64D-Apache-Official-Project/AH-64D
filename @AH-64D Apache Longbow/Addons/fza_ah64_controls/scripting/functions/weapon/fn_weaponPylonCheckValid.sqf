@@ -62,6 +62,14 @@ for "_i" from 0 to 15 step 4 do {
                 };
             };
         };
+        case (_primaryMagType == "auxTank"): {
+            if (ANY(_otherMags, {_x != ""})) then {
+                systemChat "Apache Pylon Issue: Your first pylon magazine is an Aux Tank, all subsequent pylons must be empty";
+                for "_indexToClear" from 2 to 4 do {
+                    _heli setPylonLoadout[_i + _indexToClear, "", false, [0]];
+                };
+            };
+        };
     };
 };
 
