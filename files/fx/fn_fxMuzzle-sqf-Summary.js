@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fx/fn_fxMuzzle.sqf","fn_fxMuzzle.sqf");NDSummary.OnSummaryLoaded("File:fx/fn_fxMuzzle.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[173,0,1,"Functions","Functions"],[174,0,0,"fza_fnc_fxMuzzle","fza_fnc_fxMuzzle"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fx/fn_fxMuzzle.sqf","fn_fxMuzzle.sqf");NDSummary.OnSummaryLoaded("File:fx/fn_fxMuzzle.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[177,0,1,"Functions","Functions"],[178,0,0,"fza_fnc_fxMuzzle","fza_fnc_fxMuzzle"]]);
