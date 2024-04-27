@@ -133,7 +133,6 @@ if (_usingCannon) then {
         _heli selectweapon "fza_gun_inhibit";
         [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
         [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
-        
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";

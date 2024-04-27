@@ -28,39 +28,39 @@ private _landingLight = _heli getVariable "fza_ah64_lightSearchLight";
 private _anticollanim = _heli getVariable "fza_ah64_lightAntiColl";
 private _pltFloodVal  = _heli getVariable "fza_ah64_lightPltFlood";
 private _CpgFloodVal  = _heli getVariable "fza_ah64_lightCpgFlood";
-private _landlightval = _heli getHitPointDamage "#landing_light";
-private _pltFloodOn   = _heli getHitPointDamage "#plt_flood_sel";
-private _cpgFloodOn   = _heli getHitPointDamage "#cpg_flood_sel";
+private _landlightval = _heli animationSourcePhase "landing_light";
+private _pltFloodOn   = _heli animationSourcePhase "plt_flood";
+private _cpgFloodOn   = _heli animationSourcePhase "cpg_flood";
 private _anticollval  = isCollisionLightOn _heli;
 private _powerOnState = (_acBusOn && _dcBusOn);
 
 //force pilot light
-if !(isLightOn _heli) then {
+if (!isLightOn _heli && CBA_missionTime > 0) then {
     _heli setPilotLight true;
 };
 
 if !_battBusOn then {
-    if (_pltFloodOn == 0) then {
+    if (_pltFloodOn == 1) then {
         [_heli, [-1], false] call fza_light_fnc_setFloodLight;
     };
-    if (_cpgFloodOn == 0) then {
+    if (_cpgFloodOn == 1) then {
         [_heli, [0], false] call fza_light_fnc_setFloodLight;
     };
-    if (_landlightval == 0) then {
-        _heli setHitPointDamage ["#landing_light", 1];
+    if (_landlightval == 1) then {
+        _heli animateSource ["landing_light", 0];
     };
 } else {
-    if (_pltFloodOn == 1 && _pltFloodVal) then {
+    if (_pltFloodOn == 0 && _pltFloodVal) then {
         [_heli, [-1], true] call fza_light_fnc_setFloodLight;
     };
-    if (_cpgFloodOn == 1 && _cpgFloodVal) then {
+    if (_cpgFloodOn == 0 && _cpgFloodVal) then {
         [_heli, [0], true] call fza_light_fnc_setFloodLight;
     };
-    if (_landlightval == 1 && _landingLight) then {
-        _heli setHitPointDamage ["#landing_light", 0];
+    if (_landlightval == 0 && _landingLight) then {
+        _heli animateSource ["landing_light", 1];
     };
-    if (_landlightval == 0 && !_landingLight) then {
-        _heli setHitPointDamage ["#landing_light", 1];
+    if (_landlightval == 1 && !_landingLight) then {
+        _heli animateSource ["landing_light", 0];
     };
 };
 
