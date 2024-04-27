@@ -8,7 +8,8 @@ Description:
     Reference: 
     https://www.mathworks.com/help/aeroblks/incidencesideslipairspeed.html
     https://trace.tennessee.edu/cgi/viewcontent.cgi?referer=&httpsredir=1&article=5851&context=utk_gradthes
-    
+    https://aviation.stackexchange.com/questions/70871/how-is-the-fpa-flight-path-angle-computed
+
 Parameters:
     _heli - The apache helicopter to check.
 
@@ -44,5 +45,7 @@ private _totVelZ  = _totVel # 2;
 private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
 private _beta     = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
+//Gamme, or flight path angle, is the angle between 
+private _gamma    = if(velocityModelSpace _heli # 1 == 0) then { 0.0; } else { asin ( (velocity _heli # 2) / (velocityModelSpace _heli # 1)); };
 
-[_alpha, _beta];
+[_alpha, _beta, _gamma];
