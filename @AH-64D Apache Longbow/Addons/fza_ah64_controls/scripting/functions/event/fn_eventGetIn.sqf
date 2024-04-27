@@ -19,4 +19,7 @@ params ["_heli", "", "_unit"];
 
 if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
     createDialog "RscFzaDisplayWelcome";
-}
+};
+
+[_heli,[], 0, 1] call fza_mpd_fnc_drawIcons;
+[_heli,[], 1, 1] call fza_mpd_fnc_drawIcons;
