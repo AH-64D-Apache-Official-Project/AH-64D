@@ -55,6 +55,9 @@ private _crewMass    = _cpgMass + _pltMass;//(count (fullcrew _heli)) * 113.4; /
 ([_heli] call fza_sfmplus_fnc_fuelSet)
     params ["_fwdFuelMass", "_ctrFuelMass", "_aftFuelMass"];
 
+_fwdFuelMass = _fwdFuelMass - 158;
+_aftFuelMass = _aftFuelMass - 158;
+
 private _fwdFuelMom = _fwdFuelMass * (_armFwdFuelCell select 1);
 private _ctrFuelMom = _ctrFuelMass * (_armAmmoBay select 1);
 private _aftFuelMom = _aftFuelMass * (_armAftFuelCell select 1);
