@@ -51,7 +51,7 @@ _heli setVariable ["fza_sfmplus_fuselageAreaBottom", getNumber (_config >> "fuse
 _heli setVariable ["fza_sfmplus_maxFwdFuelMass",     getNumber (_config >> "maxFwdFuelMass")];  //1043lbs in kg
 _heli setVariable ["fza_sfmplus_maxCtrFuelMass",     getNumber (_config >> "maxCtrFuelMass")];  //663lbs in kg, net yet implemented, center robbie
 _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxAftFuelMass")];  //1474lbs in kg
-//_heli setVariable ["fza_sfmplus_maxExtFuelMass", getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
+_heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
 //Torque scalars
 //_heli setVariable ["fza_sfmplus_pitchTorqueScalar",  1.75];
@@ -70,18 +70,8 @@ _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] ca
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];
 
-if (fuel _heli > 0.99) then {
-    private _initFuelFrac  = 0.0;
-    private _IAFSInstalled = _heli getVariable "fza_ah64_IAFSInstalled";
-    if (_IAFSInstalled) then {
-        _initFuelFrac = getNumber (_config >> "initFuelFracRobbie");
-    } else {
-        _initFuelFrac = getNumber (_config >> "initFuelFracNoRobbie");
-    };
-    _heli setFuel _initFuelFrac;
-};
-
 //Fuel
+[_heli] call fza_sfmplus_fnc_fuelVariables;
 [_heli] call fza_sfmplus_fnc_fuelSet;
 
 //Engines

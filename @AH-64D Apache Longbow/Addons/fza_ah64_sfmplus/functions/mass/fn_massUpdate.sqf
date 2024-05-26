@@ -51,15 +51,20 @@ private _pltMom      = _pltMass * (_armPLT select 1);
 
 private _crewMass    = _cpgMass + _pltMass;//(count (fullcrew _heli)) * 113.4; //kg - 250lbs per individual
 
-//Fwd and Aft Fuel Cells
-([_heli] call fza_sfmplus_fnc_fuelSet)
-    params ["_fwdFuelMass", "_ctrFuelMass", "_aftFuelMass"];
+//Fuel
+private _fwdFuelMass  = _heli getVariable "fza_sfmplus_fwdFuelMass";
+private _aftFuelMass  = _heli getVariable "fza_sfmplus_aftFuelMass";
+private _ctrFuelMass  = _heli getVariable "fza_sfmplus_ctrFuelMass";
+private _stn1FuelMass = _heli getVariable "fza_sfmplus_stn1FuelMass";
+private _stn2FuelMass = _heli getVariable "fza_sfmplus_stn2FuelMass";
+private _stn3FuelMass = _heli getVariable "fza_sfmplus_stn3FuelMass";
+private _stn4FuelMass = _heli getVariable "fza_sfmplus_stn4FuelMass";
 
-private _fwdFuelMom = _fwdFuelMass * (_armFwdFuelCell select 1);
-private _ctrFuelMom = _ctrFuelMass * (_armAmmoBay select 1);
-private _aftFuelMom = _aftFuelMass * (_armAftFuelCell select 1);
+private _fwdFuelMom   = _fwdFuelMass * (_armFwdFuelCell select 1);
+private _ctrFuelMom   = _ctrFuelMass * (_armAmmoBay select 1);
+private _aftFuelMom   = _aftFuelMass * (_armAftFuelCell select 1);
 
-private _fuelMass   = _fwdFuelMass + _aftFuelMass;
+private _fuelMass     = _fwdFuelMass + _aftFuelMass;
 
 //1200rd Magazine or Robbie Tank
 private _magMass         = [_heli] call fza_sfmplus_fnc_massUpdateMagazine;
@@ -69,30 +74,30 @@ private _ammoBayMass     = _ctrFuelMass + _magMass;
 private _ammoBayMom      = _ctrFuelMom + _magMom;
 
 //Station 1
-private _station1Mass    = [_heli,  0,  1,  4] call fza_sfmplus_fnc_massUpdateStation;
-private _station1LatMom  = _station1Mass * (_armStation01 select 0);
-private _station1LongMom = _station1Mass * (_armStation01 select 1);
+private _stn1Mass    = [_heli,  0,  1,  4, _stn1FuelMass] call fza_sfmplus_fnc_massUpdateStation;
+private _stn1LatMom  = _stn1Mass * (_armStation01 select 0);
+private _stn1LongMom = _stn1Mass * (_armStation01 select 1);
 //Station 2
-private _station2Mass    = [_heli,  4,  5,  8] call fza_sfmplus_fnc_massUpdateStation;
-private _station2LatMom  = _station2Mass * (_armStation02 select 0);
-private _station2LongMom = _station2Mass * (_armStation02 select 1);
+private _stn2Mass    = [_heli,  4,  5,  8, _stn2FuelMass] call fza_sfmplus_fnc_massUpdateStation;
+private _stn2LatMom  = _stn2Mass * (_armStation02 select 0);
+private _stn2LongMom = _stn2Mass * (_armStation02 select 1);
 //Station 3
-private _station3Mass    = [_heli,  8,  9, 12] call fza_sfmplus_fnc_massUpdateStation;
-private _station3LatMom  = _station3Mass * (_armStation03 select 0);
-private _station3LongMom = _station3Mass * (_armStation03 select 1);
+private _stn3Mass    = [_heli,  8,  9, 12, _stn3FuelMass] call fza_sfmplus_fnc_massUpdateStation;
+private _stn3LatMom  = _stn3Mass * (_armStation03 select 0);
+private _stn3LongMom = _stn3Mass * (_armStation03 select 1);
 //Station 4
-private _station4Mass    = [_heli, 12, 13, 16] call fza_sfmplus_fnc_massUpdateStation;
-private _station4LatMom  = _station4Mass * (_armStation04 select 0);
-private _station4LongMom = _station4Mass * (_armStation04 select 1);
+private _stn4Mass    = [_heli, 12, 13, 16, _stn4FuelMass] call fza_sfmplus_fnc_massUpdateStation;
+private _stn4LatMom  = _stn4Mass * (_armStation04 select 0);
+private _stn4LongMom = _stn4Mass * (_armStation04 select 1);
 
-private _stationMass     = _station1Mass + _station2Mass + _station3Mass + _station4Mass;
+private _stnMass     = _stn1Mass + _stn2Mass + _stn3Mass + _stn4Mass;
 
 //Calculate the total current mass of the helicopter
-_curMass    = _emptyMass + _crewMass + _fuelMass + _ammoBayMass + _stationMass;
-_curLongMom = _emptyMom + _cpgMom + _pltMom + _fwdFuelMom + _ammoBayMom + _aftFuelMom + _station1LongMom + _station2LongMom + _station3LongMom + _station4LongMom;
+_curMass    = _emptyMass + _crewMass + _fuelMass + _ammoBayMass + _stnMass;
+_curLongMom = _emptyMom + _cpgMom + _pltMom + _fwdFuelMom + _ammoBayMom + _aftFuelMom + _stn1LongMom + _stn2LongMom + _stn3LongMom + _stn4LongMom;
 _curLongCG  = _curLongMom / _curMass;
 
-_curLatMom  = _station1LatMom + _station2LatMom + _station3LatMom + _station4LatMom;
+_curLatMom  = _stn1LatMom + _stn2LatMom + _stn3LatMom + _stn4LatMom;
 _curLatCG   = _curLatMom / _curMass;
 
 _heli setCenterOfMass [_curLatCG, 7.12 - _curLongCG, -1.34];

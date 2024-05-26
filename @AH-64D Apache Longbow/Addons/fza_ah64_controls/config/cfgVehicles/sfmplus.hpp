@@ -27,7 +27,7 @@ class Fza_SfmPlus {
     maxFwdFuelMass       = 473.1;   //1043lbs in kg
     maxCtrFuelMass       = 300.9;   //663lbs in kg, net yet implemented, center robbie
     maxAftFuelMass       = 668.6;   //1474lbs in kg
-    //maxExtFuelMass = 690; //1541lbs in kg, not yet implemented, 230gal external tank
+    maxExtFuelMass       = 699.0; //1541lbs in kg, not yet implemented, 230gal external tank
 
     //Engine Data
     engSimTime  = 8.0;
