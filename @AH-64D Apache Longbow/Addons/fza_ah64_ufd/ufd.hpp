@@ -67,7 +67,7 @@ class Draw
                 scale=1;
                 align="right";
                 source = fuel;
-                sourceScale = 4238.6;
+                sourceScale = 3180;
                 sourceLength = 4;
                 pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
                 right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
@@ -78,7 +78,7 @@ class Draw
             condition = "1-user4";
             class Fuel : Fuel
             {
-                sourceScale = 3937.7;
+                sourceScale = 2517;
             };
         };
         class Time : Line9
