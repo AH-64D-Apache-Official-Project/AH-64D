@@ -107,8 +107,8 @@ private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } els
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the required rotor power
-private _vel_vbe =  38.583;
-private _vel_vne = 128.611;
+private _vel_vbe     =  38.583;
+private _vel_vne     = 128.611;
 
 private _profile_min = 0.1330;
 private _profile_max = 0.2080;
