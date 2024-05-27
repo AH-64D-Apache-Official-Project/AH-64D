@@ -30,6 +30,7 @@ private _maxTnkFuelMass  = _heli getVariable "fza_sfmplus_maxExtFuelMass";
 private _fwdFuelMass     = 0.0;
 private _aftFuelMass     = 0.0;
 private _ctrFuelMass     = 0.0;
+private _extFuelMass     = 0.0;
 private _stn1FuelMass    = 0.0;
 private _stn2FuelMass    = 0.0;
 private _stn3FuelMass    = 0.0;
@@ -79,19 +80,18 @@ if (_IAFSInstalled) then {
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
     _extFuelMass    = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// External Tanks Final /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 if (_stn1HasTank == 1) then {
     _stn1FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn2HasTank == 1) then {
     _stn2FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn3HasTank == 1) then {
     _stn3FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn4HasTank == 1) then {
     _stn4FuelMass = _extFuelMass / _numExtTanks;
 };
@@ -102,7 +102,9 @@ private _armaFuelFrac    = _totFuelMass / _maxTotFuelMass;
 if (local _heli) then {
     _heli setFuel _armaFuelFrac;
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Update Variables     /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 _heli setVariable ["fza_sfmplus_fwdFuelMass",    _fwdFuelMass];
 _heli setVariable ["fza_sfmplus_ctrFuelMass",    _ctrFuelMass];
 _heli setVariable ["fza_sfmplus_aftFuelMass",    _aftFuelMass];
@@ -114,7 +116,7 @@ _heli setVariable ["fza_sfmplus_stn4FuelMass",   _stn4FuelMass];
 
 _heli setVariable ["fza_sfmplus_totFuelMass"   , _totFuelMass];
 
-
+/*
 systemChat format ["ArmA Fuel Fraction = %1 -- ApuFF = %2 -- Eng1 FF = %3 -- Eng2 FF = %4", _armaFuelFrac, _apuFF_kgs, _eng1FF_kgs, _eng2FF_kgs];
 
 hintsilent format ["Fwd Fuel Mass = %1
@@ -139,3 +141,4 @@ hintsilent format ["Fwd Fuel Mass = %1
                     , _heli getVariable "fza_sfmplus_totFuelMass"
                     , _heli getVariable "fza_sfmplus_maxTotFuelMass"
                     , (_heli getVariable "fza_sfmplus_totFuelMass") / (_heli getVariable "fza_sfmplus_maxTotFuelMass")];
+*/
