@@ -116,7 +116,7 @@ _heli setVariable ["fza_sfmplus_stn4FuelMass",   _stn4FuelMass];
 
 _heli setVariable ["fza_sfmplus_totFuelMass"   , _totFuelMass];
 
-
+/*
 systemChat format ["ArmA Fuel Fraction = %1 -- ApuFF = %2 -- Eng1 FF = %3 -- Eng2 FF = %4", _armaFuelFrac, _apuFF_kgs, _eng1FF_kgs, _eng2FF_kgs];
 
 hintsilent format ["Fwd Fuel Mass = %1
@@ -141,3 +141,4 @@ hintsilent format ["Fwd Fuel Mass = %1
                     , _heli getVariable "fza_sfmplus_totFuelMass"
                     , _heli getVariable "fza_sfmplus_maxTotFuelMass"
                     , (_heli getVariable "fza_sfmplus_totFuelMass") / (_heli getVariable "fza_sfmplus_maxTotFuelMass")];
+*/
