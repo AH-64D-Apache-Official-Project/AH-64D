@@ -1,3 +1,6 @@
+#include "\fza_ah64_mpd\headers\mpd_defines.hpp"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+
 color[] = {0.74, 0.85, 0, 1};
 helmetMountedDisplay = 0;
 borderBottom=0;
@@ -60,25 +63,81 @@ class Draw
             down[] = {{0, __EVAL(10*UFD_CHAR_HEIGHT)}, 1};
         };
         class FuelIAFSInstalled {
-            condition = "user4";
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 0));
             class Fuel
             {
                 type = "text";
                 scale=1;
                 align="right";
                 source = fuel;
-                sourceScale = 3181;
+                sourceScale = 3180.4;
                 sourceLength = 4;
                 pos[] = {{0, 9*UFD_CHAR_HEIGHT}, 1};
                 right[] = {{UFD_CHAR_WIDTH_VEC, 9*UFD_CHAR_HEIGHT}, 1};
                 down[] = {{0, __EVAL(10*UFD_CHAR_HEIGHT)}, 1};
             };
         };
-        class FuelIAFSNotInstalled : FuelIAFSInstalled {
-            condition = "1-user4";
+        class FuelIAFSInstalled1Tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 1));
             class Fuel : Fuel
             {
-                sourceScale = 2518;
+                sourceScale = 4721.4;
+            };
+        };
+        class FuelIAFSInstalled2Tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 2));
+            class Fuel : Fuel
+            {
+                sourceScale = 6262.4;
+            };
+        };
+        class FuelIAFSInstalled3Tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 3));
+            class Fuel : Fuel
+            {
+                sourceScale = 7803.5;
+            };
+        };
+        class FuelIAFSInstalled4Tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 4));
+            class Fuel : Fuel
+            {
+                sourceScale = 9344.5;
+            };
+        };
+        class FuelIAFSNotInstalled : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 5));
+            class Fuel : Fuel
+            {
+                sourceScale = 2517;
+            };
+        };
+        class FuelIAFSNotInstalled1tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 6));
+            class Fuel : Fuel
+            {
+                sourceScale = 4058;
+            };
+        };
+        class FuelIAFSNotInstalled2tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 7));
+            class Fuel : Fuel
+            {
+                sourceScale = 5599.1;
+            };
+        };
+        class FuelIAFSNotInstalled3tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 8));
+            class Fuel : Fuel
+            {
+                sourceScale = 7140.1;
+            };
+        };
+        class FuelIAFSNotInstalled4tank : FuelIAFSInstalled {
+            condition = C_COND(C_EQ(C_USER(MFD_IND_IAFS_INSTALLED), 9));
+            class Fuel : Fuel
+            {
+                sourceScale = 8681.1;
             };
         };
         class Time : Line9

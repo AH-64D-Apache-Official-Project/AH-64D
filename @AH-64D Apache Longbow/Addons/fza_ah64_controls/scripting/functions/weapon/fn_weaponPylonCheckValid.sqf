@@ -102,4 +102,7 @@ _rocketZones = [_zoneA, _zoneB, _zoneC, _zoneD, _zoneE];
     } forEach _indices;
 } forEach _rocketZones;
 
+//SFM Weight sim
+[_heli] call fza_sfmplus_fnc_fuelSet;
+
 fza_ah64_pylonsLastCheckMags = _mags;
