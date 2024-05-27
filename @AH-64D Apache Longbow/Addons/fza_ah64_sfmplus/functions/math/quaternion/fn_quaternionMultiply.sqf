@@ -1,7 +1,7 @@
-// bmkhs_fnc_quaternionMultiply by MadRussian (created long ago, updated 2/11/19)
+// fza_sfmplus_fnc_quaternionMultiply by MadRussian (created long ago, updated 2/11/19)
 // This performs a simple quaternion multiplication.
-// Call with: [Quaternion1, Quaternion2] call bmkhs_fnc_quaternionMultiply;
-// Example: _quaternion = [ [1,1,1,0], [0,0,0,1] ] call bmkhs_fnc_quaternionMultiply;
+// Call with: [Quaternion1, Quaternion2] call fza_sfmplus_fnc_quaternionMultiply;
+// Example: _quaternion = [ [1,1,1,0], [0,0,0,1] ] call fza_sfmplus_fnc_quaternionMultiply;
 // Result is [1,1,1,0]
 //
 //https://forums.bohemia.net/forums/topic/221791-quaternion-rotation-functions-release/

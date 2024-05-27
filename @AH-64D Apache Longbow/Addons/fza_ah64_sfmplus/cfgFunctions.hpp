@@ -31,6 +31,15 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\damage";
             class damageApply {R;};
         };
+        class debug {
+            file = "\fza_ah64_sfmplus\functions\debug";
+            class debugDrawCircle {R;};
+            class debugDrawLine {R;};
+        };
+        class effects {
+            file = "\fza_ah64_sfmplus\functions\effects";
+            class effectsCamShake {R;};
+        };
         class engine {
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
@@ -83,6 +92,8 @@ class CfgFunctions
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
+            class simpleRotor {R;};
+            class simpleRotorControl {R;};
             class simpleRotorMain {R;};
             class simpleRotorNewtRaphSolver {R;};
             class simpleRotorTail {R;};
@@ -94,6 +105,7 @@ class CfgFunctions
             class getAltitude {R;};
             class getInput {R;};
             class getRtrRPM {R;};
+            class getVelocities {R;};
             class getwindDirVel {R;};
             class onGround {R;};
             class rotateVector {R;};

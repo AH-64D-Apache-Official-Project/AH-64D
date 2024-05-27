@@ -5,7 +5,7 @@ _pitchRoll
 
 private _outVec = _inVec;
 
-_outVec = [_outVec, [1.0, 0.0, 0.0], _pitch] call bmkhs_fnc_quaternion;
-_outVec = [_outVec, [0.0, 1.0, 0.0], _roll]  call bmkhs_fnc_quaternion;
+_outVec = [_outVec, [1.0, 0.0, 0.0], _pitch] call fza_sfmplus_fnc_quaternion;
+_outVec = [_outVec, [0.0, 1.0, 0.0], _roll]  call fza_sfmplus_fnc_quaternion;
 
 _outVec;

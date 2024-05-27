@@ -24,8 +24,9 @@
 #define SEA_LEVEL_PRESSURE      29.92
 #define STANDARD_TEMP           15
 
-#define VEL_ETL                 12.35
-#define VEL_BEST_ENDURANCE      36.0111 //70 kts
+#define VEL_ETL                 12.35   //24kts
+#define VEL_VBE                 38.583  //75kts
+#define VEL_VNE                 128.611 //250kts
 #define VEL_VRS                 24.384
 #define ISA_STD_DAY_AIR_DENSITY 1.225
 
@@ -41,3 +42,24 @@
 #define HDG_HOLD_BREAKOUT_VALUE       0.03
 #define VEL_HOLD_BREAKOUT_VALUE       0.06
 #define ATT_HOLD_BREAKOUT_VALUE       0.09
+
+#define CONVENTIONAL                    0
+#define TANDEM                          1
+#define COAXIAL                         2
+#define TILTROTOR                       3
+#define COMPOUND                        4
+#define TURBOPROP                       5
+
+#define CW                              0
+#define CCW                             1
+
+#define MAIN                            0
+#define TAIL                            1
+#define PROP                            2
+
+#define FRONT                           0
+#define REAR                            1
+#define TOP                             2
+#define BOTTOM                          3
+#define LEFT                            4
+#define RIGHT                           5

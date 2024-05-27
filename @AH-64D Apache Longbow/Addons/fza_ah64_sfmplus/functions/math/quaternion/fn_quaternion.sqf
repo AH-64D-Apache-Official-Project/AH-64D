@@ -13,15 +13,15 @@ params ["_origV","_rotAxis","_rotAng"];
 
 private ["_origQ","_rotAxisQ","_rotAxisNormQ","_sinAD","_rotAxisTransQ","_rotAxisConjQ","_preResultQ","_resultQ"];
 
-_origQ         = [_origV] call bmkhs_fnc_quaternionFromVec3;
-_rotAxisQ      = [_rotAxis] call bmkhs_fnc_quaternionFromVec3;
+_origQ         = [_origV] call fza_sfmplus_fnc_quaternionFromVec3;
+_rotAxisQ      = [_rotAxis] call fza_sfmplus_fnc_quaternionFromVec3;
 
-_rotAxisNormQ  = [_rotAxisQ] call bmkhs_fnc_quaternionNormalize;
+_rotAxisNormQ  = [_rotAxisQ] call fza_sfmplus_fnc_quaternionNormalize;
 _sinAD         = sin(_rotAng/2);
 _rotAxisTransQ = [ (_rotAxisNormQ select 0)*_sinAD, (_rotAxisNormQ select 1)*_sinAD, (_rotAxisNormQ select 2)*_sinAD, cos(_rotAng/2) ];
-_rotAxisConjQ  = [_rotAxisTransQ] call bmkhs_fnc_quaternionConjugate;
+_rotAxisConjQ  = [_rotAxisTransQ] call fza_sfmplus_fnc_quaternionConjugate;
 
-_preResultQ    = [_rotAxisTransQ, _origQ] call bmkhs_fnc_quaternionMultiply;
-_resultQ       = [_preResultQ, _rotAxisConjQ] call bmkhs_fnc_quaternionMultiply;
+_preResultQ    = [_rotAxisTransQ, _origQ] call fza_sfmplus_fnc_quaternionMultiply;
+_resultQ       = [_preResultQ, _rotAxisConjQ] call fza_sfmplus_fnc_quaternionMultiply;
 
 [_resultQ select 0, _resultQ select 1, _resultQ select 2]

@@ -1,7 +1,7 @@
-// bmkhs_fnc_quaternionConjugate by MadRussian (created long ago, updated 2/11/19)
+// fza_sfmplus_fnc_quaternionConjugate by MadRussian (created long ago, updated 2/11/19)
 // This returns a simple quaternion conjugate.
-// Call with: [Quaternion] call bmkhs_fnc_quaternionConjugate;
-// Example: _quaternionConjugate = [[1,1,1,0]] call bmkhs_fnc_quaternionConjugate;
+// Call with: [Quaternion] call fza_sfmplus_fnc_quaternionConjugate;
+// Example: _quaternionConjugate = [[1,1,1,0]] call fza_sfmplus_fnc_quaternionConjugate;
 // Result is [-1,-1,-1,0]
 //
 //https://forums.bohemia.net/forums/topic/221791-quaternion-rotation-functions-release/

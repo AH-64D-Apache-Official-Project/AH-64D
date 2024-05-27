@@ -1,7 +1,7 @@
-// bmkhs_fnc_quaternionNormalize by MadRussian (created long ago, updated 2/11/19)
+// fza_sfmplus_fnc_quaternionNormalize by MadRussian (created long ago, updated 2/11/19)
 // This performs a simple quaternion normalize.
-// Call with: [Quaternion] call bmkhs_fnc_quaternionNormalize;
-// Example: _quaternionNormal = [[7,0,0,0]] call bmkhs_fnc_quaternionNormalize;
+// Call with: [Quaternion] call fza_sfmplus_fnc_quaternionNormalize;
+// Example: _quaternionNormal = [[7,0,0,0]] call fza_sfmplus_fnc_quaternionNormalize;
 // Result is [1,0,0,0]
 //
 //https://forums.bohemia.net/forums/topic/221791-quaternion-rotation-functions-release/    

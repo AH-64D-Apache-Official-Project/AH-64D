@@ -1,7 +1,7 @@
-// bmkhs_fnc_quaternionFromV3 by MadRussian (created long ago, updated 2/11/19)
+// fza_sfmplus_fnc_quaternionFromV3 by MadRussian (created long ago, updated 2/11/19)
 // This is a simple vector to quaternion conversion.
-// Call with: [Vector3] call bmkhs_fnc_quaternionFromV3;
-// Example: _quaternion = [[1,1,1]] call bmkhs_fnc_quaternionFromV3;
+// Call with: [Vector3] call fza_sfmplus_fnc_quaternionFromV3;
+// Example: _quaternion = [[1,1,1]] call fza_sfmplus_fnc_quaternionFromV3;
 // Result is [1,1,1,0]
 //
 //https://forums.bohemia.net/forums/topic/221791-quaternion-rotation-functions-release/
