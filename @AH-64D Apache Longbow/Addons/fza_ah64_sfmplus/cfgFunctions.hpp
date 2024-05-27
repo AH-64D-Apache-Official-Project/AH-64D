@@ -68,6 +68,14 @@ class CfgFunctions
             class massUpdateMagazine {R;};
             class massUpdateStation {R;};
         };
+        class mathQuaternion {
+            file = "\fza_ah64_sfmplus\functions\math\quaternion";
+            class quaternion {R;};
+            class quaternionConjugate {R;};
+            class quaternionFromVec3 {R;};
+            class quaternionMultiply {R;};
+            class quaternionNormalize {R;};
+        };
         class performance {
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
@@ -88,6 +96,7 @@ class CfgFunctions
             class getRtrRPM {R;};
             class getwindDirVel {R;};
             class onGround {R;};
+            class rotateVector {R;};
         };
     };
 };
