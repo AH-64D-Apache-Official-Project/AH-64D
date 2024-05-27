@@ -86,15 +86,12 @@ if (_IAFSInstalled) then {
 if (_stn1HasTank == 1) then {
     _stn1FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn2HasTank == 1) then {
     _stn2FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn3HasTank == 1) then {
     _stn3FuelMass = _extFuelMass / _numExtTanks;
 };
-
 if (_stn4HasTank == 1) then {
     _stn4FuelMass = _extFuelMass / _numExtTanks;
 };
@@ -105,7 +102,9 @@ private _armaFuelFrac    = _totFuelMass / _maxTotFuelMass;
 if (local _heli) then {
     _heli setFuel _armaFuelFrac;
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Update Variables     /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 _heli setVariable ["fza_sfmplus_fwdFuelMass",    _fwdFuelMass];
 _heli setVariable ["fza_sfmplus_ctrFuelMass",    _ctrFuelMass];
 _heli setVariable ["fza_sfmplus_aftFuelMass",    _aftFuelMass];
