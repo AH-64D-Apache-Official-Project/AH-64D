@@ -42,14 +42,14 @@ if (_eng2State == "ON") then {
 private _totalFuelConsumption = _eng1FuelCons + _eng2FuelCons;
 
 private _mainEnduranceNumber = if(_totalFuelConsumption > 0) then {
-    private _enduranceTotal = 540 min (_mainFuelCellWeight / _totalFuelConsumption * 60); //Minutes
+    private _enduranceTotal = 599 min (_mainFuelCellWeight / _totalFuelConsumption * 60); //Minutes
     private _enduranceMinutes = _enduranceTotal % 60;
     private _enduranceHours = floor(_enduranceTotal / 60);
     format["%1:%2", _enduranceHours toFixed 0, [_enduranceMinutes, 2] call CBA_fnc_formatNumber];
 } else {"9:99"};
 
 private _totalEnduranceNumber = if(_totalFuelConsumption > 0) then {
-    private _enduranceTotal = 540 min (_totalFuelCellWeight / _totalFuelConsumption * 60); //Minutes
+    private _enduranceTotal = 599 min (_totalFuelCellWeight / _totalFuelConsumption * 60); //Minutes
     private _enduranceMinutes = _enduranceTotal % 60;
     private _enduranceHours = floor(_enduranceTotal / 60);
     format["%1:%2", _enduranceHours toFixed 0, [_enduranceMinutes, 2] call CBA_fnc_formatNumber];

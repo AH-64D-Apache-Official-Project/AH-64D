@@ -74,42 +74,26 @@ if (_IAFSInstalled) then {
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass,                  0, _maxAftFuelMass] call BIS_fnc_clamp;
     _ctrFuelMass    = [_totFuelMass - (_fwdFuelMass + _aftFuelMass), 0, _maxCtrFuelMass] call BIS_fnc_clamp;
     _extFuelMass    = _totFuelMass - (_fwdFuelMass + _ctrFuelMass + _aftFuelMass);
-
-    if (_stn1HasTank == 1) then {
-        _stn1FuelMass = _extFuelMass / _numExtTanks;
-    };
-
-    if (_stn2HasTank == 1) then {
-        _stn2FuelMass = _extFuelMass / _numExtTanks;
-    };
-
-    if (_stn3HasTank == 1) then {
-        _stn3FuelMass = _extFuelMass / _numExtTanks;
-    };
-
-    if (_stn4HasTank == 1) then {
-        _stn4FuelMass = _extFuelMass / _numExtTanks;
-    };
 } else {
     _fwdFuelMass    = [_totFuelMass / 2,            0, _maxFwdFuelMass] call BIS_fnc_clamp;
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
     _extFuelMass    = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
+};
 
-    if (_stn1HasTank == 1) then {
-        _stn1FuelMass = _extFuelMass / _numExtTanks;
-    };
+if (_stn1HasTank == 1) then {
+    _stn1FuelMass = _extFuelMass / _numExtTanks;
+};
 
-    if (_stn2HasTank == 1) then {
-        _stn2FuelMass = _extFuelMass / _numExtTanks;
-    };
+if (_stn2HasTank == 1) then {
+    _stn2FuelMass = _extFuelMass / _numExtTanks;
+};
 
-    if (_stn3HasTank == 1) then {
-        _stn3FuelMass = _extFuelMass / _numExtTanks;
-    };
+if (_stn3HasTank == 1) then {
+    _stn3FuelMass = _extFuelMass / _numExtTanks;
+};
 
-    if (_stn4HasTank == 1) then {
-        _stn4FuelMass = _extFuelMass / _numExtTanks;
-    };
+if (_stn4HasTank == 1) then {
+    _stn4FuelMass = _extFuelMass / _numExtTanks;
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Update Fuel          /////////////////////////////////////////////////////////////////////
