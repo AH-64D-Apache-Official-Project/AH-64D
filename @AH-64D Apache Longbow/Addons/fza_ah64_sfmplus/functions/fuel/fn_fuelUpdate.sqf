@@ -30,6 +30,7 @@ private _maxTnkFuelMass  = _heli getVariable "fza_sfmplus_maxExtFuelMass";
 private _fwdFuelMass     = 0.0;
 private _aftFuelMass     = 0.0;
 private _ctrFuelMass     = 0.0;
+private _extFuelMass     = 0.0;
 private _stn1FuelMass    = 0.0;
 private _stn2FuelMass    = 0.0;
 private _stn3FuelMass    = 0.0;
@@ -79,7 +80,9 @@ if (_IAFSInstalled) then {
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass, 0, _maxAftFuelMass] call BIS_fnc_clamp;
     _extFuelMass    = _totFuelMass - (_fwdFuelMass + _aftFuelMass);
 };
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// External Tanks Final /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 if (_stn1HasTank == 1) then {
     _stn1FuelMass = _extFuelMass / _numExtTanks;
 };
