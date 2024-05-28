@@ -70,7 +70,7 @@ if (_flightModel != "SFMPlus") then {
     //Tail Rotor
     //[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
     //Drag
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
+    [_heli, _deltaTime] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
     private _vertFinPosition   = [0.0, -6.40, -1.75];
     private _vertFinSweep      = -1.2;

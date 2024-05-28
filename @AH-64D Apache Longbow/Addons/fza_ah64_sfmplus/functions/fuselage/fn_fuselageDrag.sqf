@@ -1,7 +1,11 @@
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
+params ["_heli", "_deltaTime"];
 
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel        = getText (_configVehicles >> "fza_flightModel");
+
+private _altitude           = _heli getVariable "fza_sfmplus_PA";
+private _temperature        = _heli getVariable "fza_sfmplus_FAT";
+private _rho                = _heli getVariable "fza_sfmplus_rho";
 
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m
 

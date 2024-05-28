@@ -21,6 +21,7 @@ params ["_heli"];
 _heli setVariable ["fza_sfmplus_PA",            0.0];
 _heli setVariable ["fza_sfmplus_FAT",           0.0];
 _heli setVariable ["fza_sfmplus_GWT",           0.0];
+_heli setVariable ["fza_sfmplus_rho",           0.0];
 
 _heli setVariable ["fza_sfmplus_maxTQ_CONT",    0.0];
 _heli setVariable ["fza_sfmplus_maxTQ_DE",      0.0];

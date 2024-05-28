@@ -54,6 +54,7 @@ class Fza_SfmPlus {
     rotorThrustScalar[]  = {1.0, 0.45};
     rotorAltitudeMax     = 30000;               
     rotorBaseThrust      = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
+    rotorHitPoints[]        = {"HitHRotor", "HitVRotor"};
 
     rotorBladeRadius[]   = { 7.315, 1.402};
     rotorBladeChord[]    = { 0.533, 0.253};

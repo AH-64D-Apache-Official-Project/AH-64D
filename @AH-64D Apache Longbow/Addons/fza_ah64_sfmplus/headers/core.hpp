@@ -15,6 +15,7 @@
 #define EPSILON                 0.000001
 #define MIN_THRUST              1
 #define FEET_TO_METERS          0.3048
+#define METERS_TO_FEET          3.28084
 #define IN_MG_TO_HPA            33.8639
 
 #define GRAVITY                 9.806
@@ -23,17 +24,17 @@
 #define DEG_C_TO_KELVIN         273.15
 #define SEA_LEVEL_PRESSURE      29.92
 #define STANDARD_TEMP           15
+#define ISA_STD_DAY_AIR_DENSITY 1.225
 
 #define VEL_ETL                 12.35   //24kts
 #define VEL_VBE                 38.583  //75kts
 #define VEL_VNE                 128.611 //250kts
 #define VEL_VRS                 24.384
-#define ISA_STD_DAY_AIR_DENSITY 1.225
 
 #define RAD_ALT_MAX_ALT         435.254 //1428ft
 #define ALT_HOLD_SPEED_SWITCH   20.577  //40kts GS
 
-#define POS_HOLD_SPEED_SWITCH   2.572   //5kts GS
+#define POS_HOLD_SPEED_SWITCH         2.572   //5kts GS
 #define VEL_HOLD_SPEED_SWITCH_DEVEL   15.433  //30kts GS
 #define VEL_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS
 

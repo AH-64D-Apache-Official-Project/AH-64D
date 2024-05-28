@@ -19,11 +19,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
-#define SCALE_METERS_FEET 3.28084
 
 private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 
-private _baroAlt = getPosASL _heli # 2 * SCALE_METERS_FEET;
+private _baroAlt = getPosASL _heli # 2 * METERS_TO_FEET;
 private _baseAlt = 0.0;
 private _baseFAT = 0.0;
 switch (fza_ah64_sfmplusEnvironment) do {
@@ -57,11 +56,21 @@ switch (fza_ah64_sfmplusEnvironment) do {
     };
 };
 
-private _pa      = round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
-_heli setVariable ["fza_sfmplus_PA", _pa];
-private _fat     = _baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
-_heli setVariable ["fza_sfmplus_FAT", _fat];
+private _pa                = round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
+private _fat               = _baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
 
+private _altimeter         = 29.92; //in mg
+private _referencePressure = _altimeter * IN_MG_TO_HPA;
+private _referenceAltitude = 0;
+private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_pa - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_fat + DEG_C_TO_KELVIN));
+private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
+
+private _densityAltitude   = (_pa + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_fat - (STANDARD_TEMP - ((_pa / 1000) * 2))));
+private _rho               = (_pressure / 0.01) / (287.05 * (_fat + DEG_C_TO_KELVIN));
+
+_heli setVariable ["fza_sfmplus_PA",  _pa];
+_heli setVariable ["fza_sfmplus_FAT", _fat];
+_heli setVariable ["fza_sfmplus_rho", _rho];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Base Data        /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
