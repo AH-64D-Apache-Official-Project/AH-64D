@@ -58,6 +58,8 @@ if (_type == MAIN) then {
 };
 
 if (_type == TAIL) then {
+    private _pedalLeftRigthTrim    = _heli getVariable "fza_ah64_forceTrimPosPedal";
+
     private _bladePitchMed         = (_bladePitchMin + _bladePitchMax) / 2;
     _rtrThrustScalarMin            = _thrustScalarMin select 0;
     _rtrThrustScalarMax            = _thrustScalarMax select 0;
