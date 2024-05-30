@@ -40,29 +40,25 @@ private _axisZ           = [[0.0, 0.0, 1.0], _rot] call fza_sfmplus_fnc_rotateVe
 ([_heli, false] call fza_sfmplus_fnc_getVelocities)
     params ["_gndSpeed", "_vel2D", "_vel3D", "_vertVel", "_velModelSpace"];
 private _heliVel            = [_velModelSpace, _rot] call fza_sfmplus_fnc_rotateVector;
+//Get Input
+([_sfmPlusConfig, _rtrNum, _deltaTime, _vel2D] call fza_sfmplus_fnc_rotorControl)
+    params ["_AIC", "_BIC", "_theta0", "_mastPitchRoll"];
 //Get rotor RPM
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM           = _eng1PctNP max _eng2PctNp;
 //Thrust produced as a function collective input
-private _rtrThrustScalarMin            = [];
-private _rtrThrustScalarMax            = [];
-private _bladePitchCur                 = 0.0;
-private _bladePitchInducedThrustScalar = 0.0;
-if (_type == MAIN) then {
-    _rtrThrustScalarMin     = [_thrustScalarMin, _altitude] call fza_fnc_linearInterp select 1;
-    _rtrThrustScalarMax     = [_thrustScalarMax, _altitude] call fza_fnc_linearInterp select 1;
+private _altitude       = _heli getVariable "fza_sfmplus_PA";
+_rtrThrustScalarMin     = [_thrustScalarMin, _altitude] call fza_fnc_linearInterp select 1;
+_rtrThrustScalarMax     = [_thrustScalarMax, _altitude] call fza_fnc_linearInterp select 1;
 
+if (_type == MAIN) then {
     _bladePitchCur      = _bladePitchMin + (_bladePitchMax - _bladePitchMin) * (fza_sfmplus_collectiveOutput + _altHoldCollOut); 
     _bladePitchInducedThrustScalar = _rtrThrustScalarMin + ((1 - _rtrThrustScalarMin) / _bladePitchMax)  * _bladePitchCur;
 };
 
 if (_type == TAIL) then {
-    private _pedalLeftRigthTrim    = _heli getVariable "fza_ah64_forceTrimPosPedal";
-
     private _bladePitchMed         = (_bladePitchMin + _bladePitchMax) / 2;
-    _rtrThrustScalarMin            = _thrustScalarMin select 0;
-    _rtrThrustScalarMax            = _thrustScalarMax select 0;
     private _rtrThrustScalarMed    = (_rtrThrustScalarMin + _rtrThrustScalarMax) / 2;
 
     _bladePitchCur                 = _bladePitchMed      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitchMax - _bladePitchMin)));
