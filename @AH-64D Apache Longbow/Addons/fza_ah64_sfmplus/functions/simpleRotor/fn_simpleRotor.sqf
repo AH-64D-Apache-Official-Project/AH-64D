@@ -36,7 +36,7 @@ private _axisX           = [[1.0, 0.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVe
 private _axisY           = [[0.0, 1.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVector;
 private _axisZ           = [[0.0, 0.0, 1.0], _rot] call fza_sfmplus_fnc_rotateVector;
 
-//Gather velocities
+//Get velocities
 ([_heli, false] call fza_sfmplus_fnc_getVelocities)
     params ["_gndSpeed", "_vel2D", "_vel3D", "_vertVel", "_velModelSpace"];
 private _heliVel            = [_velModelSpace, _rot] call fza_sfmplus_fnc_rotateVector;
