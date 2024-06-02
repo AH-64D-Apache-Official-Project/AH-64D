@@ -49,6 +49,8 @@ if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
+private _dryAirDensity = _heli getVariable "fza_sfmplus_rho";
+
 if (_flightModel != "SFMPlus") then {
     //Main Rotor
     for "_i" from 0 to (_numRtrs - 1) do {
@@ -61,7 +63,7 @@ if (_flightModel != "SFMPlus") then {
     private _vertFinSweep      = -1.2;
     private _vertFinRot        = 7.5;
     private _vertFinDimensions = [2.25, 0.90];
-    [_heli, _deltaTime, _heli getVariable "fza_sfmplus_rho", 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
+    [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
 };
 
 //Damage
