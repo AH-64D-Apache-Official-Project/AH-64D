@@ -17,23 +17,23 @@ switch(_control) do {
 
     //Pitch
     case "l1": {
-        _heli setVariable ["fza_ah64_fmcPitchOn", !(_heli getVariable "fza_ah64_fmcPitchOn"), true];
+        _heli setVariable ["fza_sfmplus_fmcPitchOn", !(_heli getVariable "fza_sfmplus_fmcPitchOn"), true];
     };
     //Roll
     case "l2": {
-        _heli setVariable ["fza_ah64_fmcRollOn", !(_heli getVariable "fza_ah64_fmcRollOn"), true];
+        _heli setVariable ["fza_sfmplus_fmcPitchOn", !(_heli getVariable "fza_sfmplus_fmcPitchOn"), true];
     };
     //Yaw
     case "l3": {
-        _heli setVariable ["fza_ah64_fmcYawOn", !(_heli getVariable "fza_ah64_fmcYawOn"), true];
+        _heli setVariable ["fza_sfmplus_fmcYawOn", !(_heli getVariable "fza_sfmplus_fmcYawOn"), true];
     };
     //Coll
     case "l4": {
-        _heli setVariable ["fza_ah64_fmcCollOn", !(_heli getVariable "fza_ah64_fmcCollOn"), true];
+        _heli setVariable ["fza_sfmplus_fmcCollOn", !(_heli getVariable "fza_sfmplus_fmcCollOn"), true];
     };
     //Trim
     case "l5": {
-        _heli setVariable ["fza_ah64_fmcTrimOn", !(_heli getVariable "fza_ah64_fmcTrimOn"), true];
+        _heli setVariable ["fza_sfmplus_fmcTrimOn", !(_heli getVariable "fza_sfmplus_fmcTrimOn"), true];
     };
 
     case "b1": {

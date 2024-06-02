@@ -26,21 +26,21 @@ private _output            = 0.0;
 //FMC or Primary hydraulics are NOT working, then there is input lag.
 switch (_inputAxis) do {
     case "pitch" : {
-        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcPitchOn") then {
+        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_sfmplus_fmcPitchOn") then {
             _output = _input;
         } else {
             _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
         };
     };
     case "roll" : {
-        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcRollOn") then {
+        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_sfmplus_fmcPitchOn") then {
             _output = _input;
         } else {
             _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
         };
     };
     case "yaw" : {
-        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
+        if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_sfmplus_fmcYawOn") then {
             _output = _input;
         } else {
             _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;

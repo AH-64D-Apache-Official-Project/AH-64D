@@ -206,7 +206,7 @@ if (_flightModel == "SFMPlus") then {
 } else {    //End SFMPlus, begin HeliSim
     //If the engine isn't overspeed, do normal engine things
     if (!_engOverspeed) then {
-        _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
+        _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque" select 0) / 481.0;
         if (_isSingleEng) then {
             if (_engPowerLeverState in ["OFF", "IDLE"]) then {
                 _engPctTQ = 0.0;

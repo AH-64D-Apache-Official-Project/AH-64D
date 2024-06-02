@@ -126,7 +126,7 @@ if (_value) then {
             [_heli] call fza_fcr_fnc_cycleNTS;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
-            _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
+            _heli setVariable ["fza_sfmplus_forceTrimInterupted", true, true];
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
             [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
@@ -260,12 +260,12 @@ if !(_value) then {
             private _curAtt   = _heli call BIS_fnc_getPitchBank;
             private _curPitch = _curAtt # 0;
             private _curRoll  = _curAtt # 1;
-            _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                 true];
-            _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,          true];
-            _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
-            _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
-            _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
+            _heli setVariable ["fza_sfmplus_forceTrimInterupted",    false,                 true];
+            _heli setVariable ["fza_sfmplus_attHoldDesiredPos",      getPos _heli,          true];
+            _heli setVariable ["fza_sfmplus_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
+            _heli setVariable ["fza_sfmplus_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
+            _heli setVariable ["fza_sfmplus_hdgHoldDesiredHdg",      getDir _heli,          true];
+            _heli setVariable ["fza_sfmplus_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
     };

@@ -57,6 +57,35 @@ _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxA
 //_heli setVariable ["fza_sfmplus_pitchTorqueScalar",  1.75];
 //_heli setVariable ["fza_sfmplus_rollTorqueScalar",   0.75];
 
+//FMC
+_heli setVariable ["fza_sfmplus_fmcPitchOn",               true,  true];
+_heli setVariable ["fza_sfmplus_fmcRollOn",                true,  true];
+_heli setVariable ["fza_sfmplus_fmcYawOn",                 true,  true];
+_heli setVariable ["fza_sfmplus_fmcCollOn",                true,  true];
+_heli setVariable ["fza_sfmplus_fmcTrimOn",                true,  true];
+//Force Trim
+_heli setVariable ["fza_sfmplus_forceTrimInterupted",      false, true];
+_heli setVariable ["fza_sfmplus_forceTrimPosPitch",        0.0,   true];
+_heli setVariable ["fza_sfmplus_forceTrimPosRoll",         0.0,   true];
+_heli setVariable ["fza_sfmplus_forceTrimPosPedal",        0.0,   true];
+//Attitude Hold
+_heli setVariable ["fza_sfmplus_attHoldActive",            false, true];
+_heli setVariable ["fza_sfmplus_attHoldDesiredPos",        getPos _heli, true];
+_heli setVariable ["fza_sfmplus_attHoldDesiredVel",        [0.0, 0.0],   true];
+_heli setVariable ["fza_sfmplus_attHoldDesiredAtt",        [0.0, 0.0],   true];
+_heli setVariable ["fza_sfmplus_attHoldSubMode",           "pos", true];   //pos, vel, att
+//Altitude Hold
+_heli setVariable ["fza_sfmplus_altHoldActive",            false, true];
+_heli setVariable ["fza_sfmplus_altHoldDesiredAlt",        0.0,   true];
+_heli setVariable ["fza_sfmplus_altHoldSubMode",           "rad", true];   //rad, bar
+_heli setVariable ["fza_sfmplus_altHoldCollRef",           0.0,   true];
+//Heading Hold
+_heli setVariable ["fza_sfmplus_hdgHoldActive",            false, true];
+_heli setVariable ["fza_sfmplus_hdgHoldDesiredHdg",        0.0,   true];
+_heli setVariable ["fza_sfmplus_hdgHoldDesiredSideslip",   0.0,   true];
+_heli setVariable ["fza_sfmplus_hdgHoldSubMode",           "hdg", true];    //hdg, trn
+_heli setVariable ["fza_sfmplus_hdgHoldPedalRef",          0.0,   true];    //<-- probably not needed, kept just in case...
+
 //Position Hold
 _heli setVariable ["fza_sfmplus_pid_roll",           [0.0120, 0.0015, 0.0180] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch",          [0.0750, 0.0025, 0.0450] call fza_fnc_pidCreate];
@@ -69,17 +98,6 @@ _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] ca
 //Heading Hold
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.075, 0.020, 0.005] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.050, 0.010, 0.100] call fza_fnc_pidCreate];
-
-if (fuel _heli > 0.99) then {
-    private _initFuelFrac  = 0.0;
-    private _IAFSInstalled = _heli getVariable "fza_ah64_IAFSInstalled";
-    if (_IAFSInstalled) then {
-        _initFuelFrac = getNumber (_config >> "initFuelFracRobbie");
-    } else {
-        _initFuelFrac = getNumber (_config >> "initFuelFracNoRobbie");
-    };
-    _heli setFuel _initFuelFrac;
-};
 
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelSet;

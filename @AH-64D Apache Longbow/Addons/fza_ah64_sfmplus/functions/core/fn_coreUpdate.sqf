@@ -34,23 +34,8 @@ if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
     _heli action ["AutoHoverCancel", _heli];  
 };
 
-//Environment
-private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
-private _altimeter         = 29.92; //in mg
-private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
-
-private _referencePressure = _altimeter * IN_MG_TO_HPA;
-private _referenceAltitude = 0;
-private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
-private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
-
-private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
-private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
-
 //Input
-([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
-    params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
@@ -66,9 +51,6 @@ if (_flightModel != "SFMPlus") then {
     for "_i" from 0 to (_numRtrs - 1) do {
         [_heli, _i, _deltaTime] call fza_sfmplus_fnc_simpleRotor;
     };
-    //[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
-    //Tail Rotor
-    //[_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
     //Drag
     [_heli, _deltaTime] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
@@ -77,10 +59,10 @@ if (_flightModel != "SFMPlus") then {
     private _vertFinRot        = 7.5;
     private _vertFinDimensions = [2.25, 0.90];
     [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
-
-    //Effects
-    [_heli] call fza_sfmplus_fnc_effectsCamShake;
 };
+
+//Effects
+[_heli] call fza_sfmplus_fnc_effectsCamShake;
 
 //Fuel
 private _apuFF_kgs  = _heli getVariable "fza_systems_apuFF_kgs";
