@@ -61,6 +61,8 @@ class CfgFunctions
         class fuel {
             file = "\fza_ah64_sfmplus\functions\fuel";
             class fuelSet {R;};
+            class fuelUpdate {R;};
+            class fuelVariables {R;};
         };
         class fuselage {
             file = "\fza_ah64_sfmplus\functions\fuselage";

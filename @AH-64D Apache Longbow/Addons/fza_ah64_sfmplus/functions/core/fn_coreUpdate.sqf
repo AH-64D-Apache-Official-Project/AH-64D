@@ -37,6 +37,9 @@ if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
 //Input
 [_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
+//Fuel
+[_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
+
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
 
@@ -59,24 +62,6 @@ if (_flightModel != "SFMPlus") then {
     private _vertFinRot        = 7.5;
     private _vertFinDimensions = [2.25, 0.90];
     [_heli, _deltaTime, _heli getVariable "fza_sfmplus_rho", 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
-};
-
-//Effects
-[_heli] call fza_sfmplus_fnc_effectsCamShake;
-
-//Fuel
-private _apuFF_kgs  = _heli getVariable "fza_systems_apuFF_kgs";
-private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
-private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
-private _curFuelFlow = 0;
-
-_curFuelFlow = (_apuFF_kgs + _eng1FF + _eng2FF) * _deltaTime;
-
-private _totFuelMass  = _fwdFuelMass + _ctrFuelMass + _aftFuelMass;
-_totFuelMass          = _totFuelMass - _curFuelFlow;
-private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
-if (local _heli) then {
-    _heli setFuel _armaFuelFrac;
 };
 
 //Damage
