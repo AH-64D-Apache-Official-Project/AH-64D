@@ -35,49 +35,53 @@ class Fza_SfmPlus {
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Flight Control Data        ///////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-    collectivePitch[]    = {
-                            {  1.0, 19.0, 0.0}
-                           ,{-15.0, 27.0, 0.0}
-                           };
+    collectivePitch[]       = {
+                               {  1.0, 19.0, 0.0}
+                              ,{-15.0, 27.0, 0.0}
+                              };
 
-    cyclicPitch[]        = {
-                            {-12.0, 12.0}
-                           ,{  0.0,  0.0};
-                           };
+    cyclicPitch[]           = {
+                               {-12.0, 12.0}
+                              ,{  0.0,  0.0};
+                              };
+    cyclicPitchTorqueScalar = 0.25;
 
-    cyclicRoll[]        = {
-                            {-7.5, 7.5}
-                           ,{ 0.0, 0.0};
-                           };                         
+    cyclicRoll[]            = {
+                                {-7.5, 7.5}
+                               ,{ 0.0, 0.0};
+                               };
+    cyclicRollTorqueScalar  = 0.15;
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Rotor Data           /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-    numRotors            = 2;
-    rotorPos[]           = {
-                             { 0.000,  2.060,  0.700}
-                           , {-0.870, -6.980, -0.075}
-                           };
-    rotorRot[]           = {
-                             { 0.0,  0.0}
-                           , { 0.0, 90.0}
-                           };
+    numRotors              = 2;
+    rotorPos[]             = {
+                               { 0.000,  2.060,  0.700}
+                             , {-0.870, -6.980, -0.075}
+                             };
+    rotorRot[]             = {
+                               { 0.0,  0.0}
+                             , { 0.0, 90.0}
+                             };
 
-    rotorNumBlades[]     = { 4, 4};
-    rotorDesignRPM[]     = { 292.0, 1417.0};
-    rotorRPMTrimVal      = 1.01;
-    rotorDirection[]     = { 0, 1};              //0 = ccw, 1 = cw
-    rotorType[]          = { 0, 1};              //0 = main, 1 = tail 
-    rotorGearRatio[]     = { 72.29,  14.90};
-    rotorHeightAGL[]     = { 3.606,  0.000};
-    rotorGndEffMod[]     = { 0.238,  0.000};
-    rotorVelModifier     = 0.4;
-    rotorThrustScalar[]  = {1.0, 0.45};
-    rotorAltitudeMax     = 30000;               
-    rotorBaseThrust      = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
-    rotorHitPoints[]        = {"HitHRotor", "HitVRotor"};
+    rotorNumBlades[]       = { 4, 4};
+    rotorDesignRPM[]       = { 292.0, 1417.0};
+    rotorRPMTrimVal        = 1.01;
+    rotorDirection[]       = { 0, 1};              //0 = ccw, 1 = cw
+    rotorType[]            = { 0, 1};              //0 = main, 1 = tail 
+    rotorGearRatio[]       = { 72.29,  14.90};
+    rotorHeightAGL[]       = { 3.606,  0.000};
+    rotorGndEffMod[]       = { 0.238,  0.000};
+    rotorVelModifier       = 0.4;
+    rotorThrustScalar[]    = {1.0, 0.45};
+    rotorAltitudeMax       = 30000;               
+    rotorBaseThrust        = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
+    rotorHitPoints[]       = {"HitHRotor", "HitVRotor"};
+    rotorYawTorqueScalar[] = {0.5, 0.0};
 
-    rotorBladeRadius[]   = { 7.315, 1.402};
-    rotorBladeChord[]    = { 0.533, 0.253};
+    rotorBladeRadius[]     = { 7.315, 1.402};
+    rotorBladeChord[]      = { 0.533, 0.253};
 
     rotorThrustScalar_min[] = {
                               {
