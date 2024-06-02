@@ -1,40 +1,40 @@
 params ["_heli", "_rtrNum", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _cfg           = configOf _heli;
-private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
+private _cfg              = configOf _heli;
+private _sfmPlusConfig    = _cfg >> "Fza_SfmPlus";
 
-private _numBlades       = getArray  (_sfmPlusConfig >> "rotorNumBlades")         select _rtrNum;
-private _designRPM       = getArray  (_sfmPlusConfig >> "rotorDesignRPM")         select _rtrNum;
-private _rpmTrimVal      = getNumber (_sfmPlusConfig >> "rotorRPMTrimVal");
-private _direction       = getArray  (_sfmPlusConfig >> "rotorDirection")         select _rtrNum;
-private _type            = getArray  (_sfmPlusConfig >> "rotorType")              select _rtrNum;
-private _hitPoint        = getArray  (_sfmPlusConfig >> "rotorHitPoints")         select _rtrNum;
+private _numBlades        = getArray  (_sfmPlusConfig >> "rotorNumBlades")         select _rtrNum;
+private _designRPM        = getArray  (_sfmPlusConfig >> "rotorDesignRPM")         select _rtrNum;
+private _rpmTrimVal       = getNumber (_sfmPlusConfig >> "rotorRPMTrimVal");
+private _direction        = getArray  (_sfmPlusConfig >> "rotorDirection")         select _rtrNum;
+private _type             = getArray  (_sfmPlusConfig >> "rotorType")              select _rtrNum;
+private _hitPoint         = getArray  (_sfmPlusConfig >> "rotorHitPoints")         select _rtrNum;
 
-private _pos             = getArray  (_sfmPlusConfig >> "rotorPos")               select _rtrNum;
-private _rot             = getArray  (_sfmPlusConfig >> "rotorRot")               select _rtrNum;
-private _gearRatio       = getArray  (_sfmPlusConfig >> "rotorGearRatio")         select _rtrNum;
-private _rtrHeightAGL    = getArray  (_sfmPlusConfig >> "rotorHeightAGL")         select _rtrNum;
-private _velocityMod     = getNumber (_sfmPlusConfig >> "rotorVelModifier");
-private _rtrGndEffMod    = getArray  (_sfmPlusConfig >> "rotorGndEffMod")         select _rtrNum;
-private _baseThrust      = getNumber (_sfmPlusConfig >> "rotorBaseThrust");
-private _thrustScalarMin = getArray  (_sfmPlusConfig >> "rotorThrustScalarMin")   select _rtrNum;
-private _thrustScalarMax = getArray  (_sfmPlusConfig >> "rotorThrustScalarMax")   select _rtrNum;
+private _pos              = getArray  (_sfmPlusConfig >> "rotorPos")               select _rtrNum;
+private _rot              = getArray  (_sfmPlusConfig >> "rotorRot")               select _rtrNum;
+private _gearRatio        = getArray  (_sfmPlusConfig >> "rotorGearRatio")         select _rtrNum;
+private _rtrHeightAGL     = getArray  (_sfmPlusConfig >> "rotorHeightAGL")         select _rtrNum;
+private _velocityMod      = getNumber (_sfmPlusConfig >> "rotorVelModifier");
+private _rtrGndEffMod     = getArray  (_sfmPlusConfig >> "rotorGndEffMod")         select _rtrNum;
+private _baseThrust       = getNumber (_sfmPlusConfig >> "rotorBaseThrust");
+private _thrustScalar_min = getArray  (_sfmPlusConfig >> "rotorThrustScalar_min")   select _rtrNum;
+private _thrustScalar_max = getArray  (_sfmPlusConfig >> "rotorThrustScalar_max")   select _rtrNum;
 
-private _bladeRadius     = getArray  (_sfmPlusConfig >> "rotorBladeRadius")       select _rtrNum;
-private _bladeChord      = getArray  (_sfmPlusConfig >> "rotorBladeChord")        select _rtrNum;
-private _bladePitchMin   = getArray  (_sfmPlusConfig >> "rotorBladePitch")        select _rtrNum select 0;
-private _bladePitchMax   = getArray  (_sfmPlusConfig >> "rotorBladePitch")        select _rtrNum select 1;
+private _bladeRadius      = getArray  (_sfmPlusConfig >> "rotorBladeRadius")       select _rtrNum;
+private _bladeChord       = getArray  (_sfmPlusConfig >> "rotorBladeChord")        select _rtrNum;
+private _bladePitch_min   = getArray  (_sfmPlusConfig >> "collectivePitch")        select _rtrNum select 0;
+private _bladePitch_max   = getArray  (_sfmPlusConfig >> "collectivePitch")        select _rtrNum select 1;
 
-private _profilePwrMin   = getArray  (_sfmPlusConfig >> "bladeProfilePowerMin")   select _rtrNum;
-private _profilePwrMax   = getArray  (_sfmPlusConfig >> "bladeProfilePowerMax")   select _rtrNum;
+private _profilePwr_min   = getArray  (_sfmPlusConfig >> "bladeProfilePower_min")   select _rtrNum;
+private _profilePwr_max   = getArray  (_sfmPlusConfig >> "bladeProfilePower_max")   select _rtrNum;
 
-private _inducedPwrMin   = getArray  (_sfmPlusConfig >> "bladeInducedPowerMin")   select _rtrNum;
-private _inducedPwrMax   = getArray  (_sfmPlusConfig >> "bladeInducedPowerMax")   select _rtrNum;
+private _inducedPwr_min   = getArray  (_sfmPlusConfig >> "bladeInducedPower_min")   select _rtrNum;
+private _inducedPwr_max   = getArray  (_sfmPlusConfig >> "bladeInducedPower_max")   select _rtrNum;
 
-private _axisX           = [[1.0, 0.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVector;
-private _axisY           = [[0.0, 1.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVector;
-private _axisZ           = [[0.0, 0.0, 1.0], _rot] call fza_sfmplus_fnc_rotateVector;
+private _axisX            = [[1.0, 0.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVector;
+private _axisY            = [[0.0, 1.0, 0.0], _rot] call fza_sfmplus_fnc_rotateVector;
+private _axisZ            = [[0.0, 0.0, 1.0], _rot] call fza_sfmplus_fnc_rotateVector;
 
 //Get velocities
 ([_heli, false] call fza_sfmplus_fnc_getVelocities)
@@ -46,27 +46,25 @@ private _heliVel            = [_velModelSpace, _rot] call fza_sfmplus_fnc_rotate
 //Get rotor RPM
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM           = _eng1PctNP max _eng2PctNp;
+private _inputRPM       = _eng1PctNP max _eng2PctNp;
 //Thrust produced as a function collective input
 private _altitude       = _heli getVariable "fza_sfmplus_PA";
-_rtrThrustScalarMin     = [_thrustScalarMin, _altitude] call fza_fnc_linearInterp select 1;
-_rtrThrustScalarMax     = [_thrustScalarMax, _altitude] call fza_fnc_linearInterp select 1;
+_rtrThrustScalar_min    = [_thrustScalar_min, _altitude] call fza_fnc_linearInterp select 1;
+_rtrThrustScalar_max    = [_thrustScalar_max, _altitude] call fza_fnc_linearInterp select 1;
+
+
+_bladePitchInducedThrustScalar = 
 
 if (_type == MAIN) then {
-    _bladePitchCur      = _bladePitchMin + (_bladePitchMax - _bladePitchMin) * (fza_sfmplus_collectiveOutput + _altHoldCollOut); 
-    _bladePitchInducedThrustScalar = _rtrThrustScalarMin + ((1 - _rtrThrustScalarMin) / _bladePitchMax)  * _bladePitchCur;
+    _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _theta0;
 };
 
 if (_type == TAIL) then {
-    private _bladePitchMed         = (_bladePitchMin + _bladePitchMax) / 2;
-    private _rtrThrustScalarMed    = (_rtrThrustScalarMin + _rtrThrustScalarMax) / 2;
-
-    _bladePitchCur                 = _bladePitchMed      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitchMax - _bladePitchMin)));
-    _bladePitchCur                 = [_bladePitchCur, _bladePitchMin, _bladePitchMax] call BIS_fnc_clamp;
-    _bladePitchInducedThrustScalar = _rtrThrustScalarMed + (_bladePitchCur - _bladePitchMed) * ((_rtrThrustScalarMax - _rtrThrustScalarMin) / (_bladePitchMax - _bladePitchMin));
+    private _rtrThrustScalar_med   = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
+    _bladePitchInducedThrustScalar = _rtrThrustScalar_med  + _theta0 * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
 };
 //Rotor induced thrust as a function of RPM
-private _rtrRPMInducedThrustScalar = (_inputRPM / _rpmTrimVal) * _rtrThrustScalarMax;
+private _rtrRPMInducedThrustScalar = (_inputRPM / _rpmTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _dryAirDensity             = _heli getVariable "fza_sfmplus_rho";
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;

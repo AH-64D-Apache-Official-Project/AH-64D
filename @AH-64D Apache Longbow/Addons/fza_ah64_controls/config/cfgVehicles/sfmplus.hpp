@@ -1,4 +1,7 @@
 class Fza_SfmPlus {
+    heliType          = 0;  //0 = conventional, 1 = tandem, 2 = coaxial, 3 = tilt rotor, 4 = compound
+
+
     //FCR
     emptyMassFCR      = 6609; //kg
     emptyMomFCR       = 34889.810;
@@ -46,7 +49,7 @@ class Fza_SfmPlus {
     rotorDesignRPM[]     = { 292.0, 1417.0};
     rotorRPMTrimVal      = 1.01;
     rotorDirection[]     = { 0, 1};              //0 = ccw, 1 = cw
-    rotorType[]          = { 0, 1};              //0 = main, 1 = tail, 2 = prop rotor 
+    rotorType[]          = { 0, 1};              //0 = main, 1 = tail 
     rotorGearRatio[]     = { 72.29,  14.90};
     rotorHeightAGL[]     = { 3.606,  0.000};
     rotorGndEffMod[]     = { 0.238,  0.000};
@@ -58,12 +61,12 @@ class Fza_SfmPlus {
 
     rotorBladeRadius[]   = { 7.315, 1.402};
     rotorBladeChord[]    = { 0.533, 0.253};
-    rotorBladePitch[]    = {
+    collectivePitch[]    = {
                             {  1.0, 19.0}
                            ,{-15.0, 27.0}
                            };
 
-    rotorThrustScalarMin[] = {
+    rotorThrustScalar_min[] = {
                               {
                                {    0, 0.126}
                               ,{ 2000, 0.123}
@@ -84,7 +87,7 @@ class Fza_SfmPlus {
                               }   
                              };
 
-    rotorThrustScalarMax[] = {
+    rotorThrustScalar_max[] = {
                               {
                                {    0, 1.534}
                               ,{ 2000, 1.940}
@@ -105,11 +108,11 @@ class Fza_SfmPlus {
                               }
                              };
 
-    bladeProfilePowerMin[] = { 0.1330, 0.0};
-    bladeProfilePowerMax[] = { 0.2080, 0.0};
+    bladeProfilePower_min[] = { 0.1330, 0.0};
+    bladeProfilePower_max[] = { 0.2080, 0.0};
 
-    bladeInducedPowerMin[] = { 1.4000, 0.0};
-    bladeInducedPowerMax[] = { 0.6100, 0.0};
+    bladeInducedPower_min[] = { 1.4000, 0.0};
+    bladeInducedPower_max[] = { 0.6100, 0.0};
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Engine Data          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,6 +121,8 @@ class Fza_SfmPlus {
     engDesignRPM    = 21109;
     eng100PctTq     = 481;  //Nm
     
+
+    //OLD ENGINE DATA
     engSimTime  = 8.0;
 
     engIdleTQ   = 0.055;
