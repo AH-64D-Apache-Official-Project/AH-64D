@@ -3,6 +3,7 @@ params ["_heli", "_sfmPlusConfig", "_rtrNum", "_deltaTime", "_vel2D"];
 
 private _heliType            = getNumber (_sfmPlusConfig >> "heliType");
 private _rtrType             = getArray  (_sfmPlusConfig >> "rotorType")         select _rtrNum;
+private _direction           = getArray  (_sfmPlusConfig >> "rotorDirection")    select _rtrNum;
 
 private _collective_min      = getArray  (_sfmPlusConfig >> "collectivePitch")   select _rtrNum select 0;
 private _collective_max      = getArray  (_sfmPlusConfig >> "collectivePitch")   select _rtrNum select 1;
@@ -37,8 +38,8 @@ switch (_heliType) do {
     case CONVENTIONAL: {
         if (_rtrType == MAIN) then {
             _theta0 = _collective_min + ((_collective_max - _collective_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut));
-            _AIC    = linearConversion[-1.0, 1.0, fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut,  _cyclicRoll_min,  _cyclicRoll_max,  true];
-            _BIC    = linearConversion[-1.0, 1.0, fza_sfmplus_cyclicFwdAft    + _cyclicFwdAftTrim    + _attHoldCycPitchOut, _cyclicPitch_min, _cyclicPitch_max,  true];
+            _AIC    = linearConversion[ 1.0,-1.0, fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut,  _cyclicRoll_min,  _cyclicRoll_max,  true];
+            _BIC    = linearConversion[ 1.0,-1.0, fza_sfmplus_cyclicFwdAft    + _cyclicFwdAftTrim    + _attHoldCycPitchOut, _cyclicPitch_min, _cyclicPitch_max,  true];
             
             //systemChat format ["Collective Min = %1 -- Collective Max = %2", _collective_min, _collective_max];
             //systemChat format ["Cyclic Roll Min = %1 -- Cyclic Roll Max = %2", _cyclicRoll_min, _cyclicRoll_max];
@@ -47,7 +48,6 @@ switch (_heliType) do {
 
         if (_rtrType == TAIL) then {
             _theta0 = linearConversion[ 1.0,-1.0, fza_sfmplus_pedalLeftRight + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _pedal_min,  _pedal_max,  true];
-
             //systemChat format ["Pedal Min = %1 -- Pedal Max = %2", _pedal_min, _pedal_max];
         };
     };

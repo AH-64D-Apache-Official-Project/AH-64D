@@ -51,8 +51,8 @@ if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
 
 private _dryAirDensity = _heli getVariable "fza_sfmplus_rho";
 
-if (_flightModel != "SFMPlus") then {
-    //Main Rotor
+if (_flightModel != "SFMPlus") then {   
+    //Rotors
     for "_i" from 0 to (_numRtrs - 1) do {
         [_heli, _i, _deltaTime] call fza_sfmplus_fnc_simpleRotor;
     };

@@ -62,26 +62,26 @@ class Fza_SfmPlus {
                              };
     rotorRot[]             = {
                                { 0.0,  0.0}
-                             , { 0.0, 90.0}
+                             , { 0.0,-90.0}
                              };
 
-    rotorNumBlades[]       = { 4, 4};
-    rotorDesignRPM[]       = { 292.0, 1417.0};
-    rotorRPMTrimVal        = 1.01;
-    rotorDirection[]       = { 0, 1};              //0 = ccw, 1 = cw
-    rotorType[]            = { 0, 1};              //0 = main, 1 = tail 
-    rotorGearRatio[]       = { 72.29,  14.90};
-    rotorHeightAGL[]       = { 3.606,  0.000};
-    rotorGndEffMod[]       = { 0.238,  0.000};
-    rotorVelModifier       = 0.4;
-    rotorThrustScalar[]    = {1.0, 0.45};
-    rotorAltitudeMax       = 30000;               
-    rotorBaseThrust        = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
-    rotorHitPoints[]       = {"HitHRotor", "HitVRotor"};
-    rotorYawTorqueScalar[] = {0.5, 0.0};
+    rotorNumBlades[]        = { 4, 4};
+    rotorDesignRPM[]        = { 292.0, 1417.0};
+    rotorRPMTrimVal         = 1.01;
+    rotorDirection[]        = { 1, 0};              //0 = cw, 1 = ccw
+    rotorType[]             = { 0, 1};              //0 = main, 1 = tail 
+    rotorGearRatio[]        = { 72.29,  14.90};
+    rotorHeightAGL[]        = { 3.606,  0.000};
+    rotorGndEffMod[]        = { 0.238,  0.000};
+    rotorVelModifier        = 0.4;
+    rotorAltitudeMax        = 30000;  
+    rotorBaseThrustScalar[] = {1.0, 1.0};         
+    rotorBaseThrust         = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
+    rotorHitPoints[]        = {"HitHRotor", "HitVRotor"};
+    rotorYawTorqueScalar[]  = {1.0, 1.0};
 
-    rotorBladeRadius[]     = { 7.315, 1.402};
-    rotorBladeChord[]      = { 0.533, 0.253};
+    rotorBladeRadius[]      = { 7.315, 1.402};
+    rotorBladeChord[]       = { 0.533, 0.253};
 
     rotorThrustScalar_min[] = {
                               {
@@ -94,13 +94,13 @@ class Fza_SfmPlus {
                               ,{12000, 0.155}
                               }
                              , {
-                               {    0, -0.625}
-                              ,{ 2000, -0.625}
-                              ,{ 4000, -0.625}
-                              ,{ 6000, -0.625}
-                              ,{ 8000, -0.625}
-                              ,{10000, -0.625}
-                              ,{12000, -0.625}
+                               {    0, -0.1000}
+                              ,{ 2000, -0.1000}
+                              ,{ 4000, -0.1000}
+                              ,{ 6000, -0.1000}
+                              ,{ 8000, -0.1000}
+                              ,{10000, -0.1000}
+                              ,{12000, -0.1000}
                               }   
                              };
 
@@ -115,13 +115,13 @@ class Fza_SfmPlus {
                               ,{12000, 4.175}
                               }
                              , {
-                               {    0, 0.581}
-                              ,{ 2000, 0.581}
-                              ,{ 4000, 0.581}
-                              ,{ 6000, 0.581}
-                              ,{ 8000, 0.581}
-                              ,{10000, 0.581}
-                              ,{12000, 0.581}
+                               {    0, 0.0497}
+                              ,{ 2000, 0.0497}
+                              ,{ 4000, 0.0497}
+                              ,{ 6000, 0.0497}
+                              ,{ 8000, 0.0497}
+                              ,{10000, 0.0497}
+                              ,{12000, 0.0497}
                               }
                              };
 
