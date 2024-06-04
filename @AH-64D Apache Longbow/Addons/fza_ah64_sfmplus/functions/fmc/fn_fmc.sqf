@@ -11,4 +11,8 @@ if (!fza_ah64_sfmplusEnableHeadingHold) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 
+
+
+
+
 [_attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut, _altHoldCollOut];

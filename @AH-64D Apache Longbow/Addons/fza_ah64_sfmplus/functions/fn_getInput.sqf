@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
+params ["_heli", "_deltaTime"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
@@ -44,12 +44,10 @@ private _apuOn             = _heli getVariable "fza_systems_apuOn";
 //Cyclic pitch
 private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
-//private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 //Cyclic roll
 private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-//private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
@@ -104,18 +102,25 @@ if (_flightModel == "SFMPlus") then {
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
 
-            private _isPlaying = isNull findDisplay 49;
+            private _isPlaying   = isNull findDisplay 49;
+            private _isChatting  = isNull findDisplay 24;
+            private _isInOptions = isNull findDisplay 3;
 
-            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
+            systemChat format ["Is Chatting = %1",   _isChatting];
+            systemChat format ["Is in options = %1", _isInOptions];
+
+            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying" || isNil "fza_sfmplus_lastIsChatting" || isNil "fza_sfmplus_lastIsInOptions") then {
                 fza_sfmplus_collectiveOutput = _collectiveVal;
             } else {
-                if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                if ((_isPlaying && fza_sfmplus_lastIsPlaying) || (_isPlaying && fza_sfmplus_lastIsChatting) || (_isPlaying && fza_sfmplus_lastIsInOptions)) then {
                     fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
                 };
             };
 
-            fza_sfmplus_lastIsPlaying = _isPlaying;
-            fza_sfmplus_prevCollective = _collectiveVal;
+            fza_sfmplus_lastIsPlaying   = _isPlaying;
+            fza_sfmplus_lastIsChatting  = _isChatting;
+            fza_sfmplus_lastIsInOptions = _isInOptions;
+            fza_sfmplus_prevCollective  = _collectiveVal;
         };
     };
 

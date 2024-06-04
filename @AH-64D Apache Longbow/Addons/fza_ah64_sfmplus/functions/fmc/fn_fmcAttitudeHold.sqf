@@ -22,7 +22,7 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 //_pidPitch_att set ["kd", R_KD];
 
 //Position & Velocity hold
-private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
+private _subMode  = _heli getVariable "fza_sfmplus_attHoldSubMode";
 private _curVel   = velocityModelSpace _heli;
 private _curVelX  = (_curVel # 0) * -1.0;
 private _curVelY  = _curVel # 1;
@@ -39,21 +39,21 @@ private _attHoldCycRollOut  = 0.0;
 private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
 //Position hold
 if (_vel <= POS_HOLD_SPEED_SWITCH) then {
-    [_heli, "fza_ah64_attHoldSubMode", "pos"] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_sfmplus_attHoldSubMode", "pos"] call fza_fnc_updateNetworkGlobal;
 };
 //Velocity hold
 //This needs to check if accelerating or decelerating...really it's
 //5 to 40 knots accelerating, 30 to 5 knots decelerating
 if (_vel > POS_HOLD_SPEED_SWITCH && _vel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
-    [_heli, "fza_ah64_attHoldSubMode", "vel"] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_sfmplus_attHoldSubMode", "vel"] call fza_fnc_updateNetworkGlobal;
 };
 //Attitude hold
 if (_vel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
-    [_heli, "fza_ah64_attHoldSubMode", "att"] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_sfmplus_attHoldSubMode", "att"] call fza_fnc_updateNetworkGlobal;
 };
 
 //If the attitude hold is enabled, and the force trim isn't interupted, then attitude hold is actually active
-if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
+if ( _heli getVariable "fza_sfmplus_attHoldActive" && !(_heli getVariable "fza_sfmplus_forceTrimInterupted")) then {
     //Position hold
     if (_subMode == "pos") then {
 
@@ -67,7 +67,7 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     };
     //Velocity hold
     if (_subMode == "vel") then {
-        (_heli getVariable "fza_ah64_attHoldDesiredVel")
+        (_heli getVariable "fza_sfmplus_attHoldDesiredVel")
             params ["_setVelX", "_setVelY"];
 
         private _roll  = [_pidRoll,  _deltaTime, _setVelX, _curVelX] call fza_fnc_pidRun;
@@ -80,7 +80,7 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     };
     //Attitude hold
     if (_subMode == "att") then {
-       (_heli getVariable "fza_ah64_attHoldDesiredAtt")
+       (_heli getVariable "fza_sfmplus_attHoldDesiredAtt")
               params ["_setPitch", "_setRoll"];
         private _pitchError = [_curPitch - _setPitch] call CBA_fnc_simplifyAngle180;
         private _rollError  = [_curRoll  - _setRoll]  call CBA_fnc_simplifyAngle180;

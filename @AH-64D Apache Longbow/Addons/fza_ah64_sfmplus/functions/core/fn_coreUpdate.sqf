@@ -25,29 +25,17 @@ if (CBA_missionTime < 0.1) exitwith {};
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "fza_flightModel");
 
+private _sfmPlusConfig = _config >> "Fza_SfmPlus";
+private _numRtrs       = getNumber (_sfmPlusConfig >> "numRotors");
+
 private _deltaTime   = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
 
 if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
     _heli action ["AutoHoverCancel", _heli];  
 };
 
-//Environment
-private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
-private _altimeter         = 29.92; //in mg
-private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
-
-private _referencePressure = _altimeter * IN_MG_TO_HPA;
-private _referenceAltitude = 0;
-private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
-private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
-
-private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
-private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
-
 //Input
-([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
-    params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
+[_heli, _deltaTime] call fza_sfmplus_fnc_getInput;
 
 //Fuel
 [_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
@@ -61,13 +49,15 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Engines
 [_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
 
-if (_flightModel != "SFMPlus") then {
-    //Main Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
-    //Tail Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+private _dryAirDensity = _heli getVariable "fza_sfmplus_rho";
+
+if (_flightModel != "SFMPlus") then {   
+    //Rotors
+    for "_i" from 0 to (_numRtrs - 1) do {
+        [_heli, _i, _deltaTime] call fza_sfmplus_fnc_simpleRotor;
+    };
     //Drag
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
+    [_heli, _deltaTime] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
     private _vertFinPosition   = [0.0, -6.40, -1.75];
     private _vertFinSweep      = -1.2;

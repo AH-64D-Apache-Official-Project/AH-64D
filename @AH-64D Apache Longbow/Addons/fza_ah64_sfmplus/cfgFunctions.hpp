@@ -31,6 +31,15 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions\damage";
             class damageApply {R;};
         };
+        class debug {
+            file = "\fza_ah64_sfmplus\functions\debug";
+            class debugDrawCircle {R;};
+            class debugDrawLine {R;};
+        };
+        class effects {
+            file = "\fza_ah64_sfmplus\functions\effects";
+            class effectsCamShake {R;};
+        };
         class engine {
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
@@ -70,6 +79,14 @@ class CfgFunctions
             class massUpdateMagazine {R;};
             class massUpdateStation {R;};
         };
+        class mathQuaternion {
+            file = "\fza_ah64_sfmplus\functions\math\quaternion";
+            class quaternion {R;};
+            class quaternionConjugate {R;};
+            class quaternionFromVec3 {R;};
+            class quaternionMultiply {R;};
+            class quaternionNormalize {R;};
+        };
         class performance {
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
@@ -77,9 +94,8 @@ class CfgFunctions
         };
         class simpleRotor {
             file = "\fza_ah64_sfmplus\functions\simpleRotor";
-            class simpleRotorMain {R;};
-            class simpleRotorNewtRaphSolver {R;};
-            class simpleRotorTail {R;};
+            class simpleRotor {R;};
+            class simpleRotorControl {R;};
             class simpleRotorVariables {R;};
         };
         class utility {
@@ -88,8 +104,10 @@ class CfgFunctions
             class getAltitude {R;};
             class getInput {R;};
             class getRtrRPM {R;};
+            class getVelocities {R;};
             class getwindDirVel {R;};
             class onGround {R;};
+            class rotateVector {R;};
         };
     };
 };

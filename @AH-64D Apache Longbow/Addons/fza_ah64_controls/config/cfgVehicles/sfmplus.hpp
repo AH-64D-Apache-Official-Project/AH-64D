@@ -1,4 +1,7 @@
 class Fza_SfmPlus {
+    heliType          = 0;  //0 = conventional, 1 = tandem, 2 = coaxial, 3 = tilt rotor, 4 = compound
+
+
     //FCR
     emptyMassFCR      = 6609; //kg
     emptyMomFCR       = 34889.810;
@@ -29,7 +32,114 @@ class Fza_SfmPlus {
     maxAftFuelMass       = 668.6;   //1474lbs in kg
     maxExtFuelMass       = 699.0; //1541lbs in kg, not yet implemented, 230gal external tank
 
-    //Engine Data
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Flight Control Data        ///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+    collectivePitch[]       = {
+                               {  1.0, 19.0, 0.0}
+                              ,{-15.0, 27.0, 0.0}
+                              };
+
+    cyclicPitch[]           = {
+                               {-12.0, 12.0}
+                              ,{  0.0,  0.0};
+                              };
+    cyclicPitchTorqueScalar = 0.25;
+
+    cyclicRoll[]            = {
+                                {-7.5, 7.5}
+                               ,{ 0.0, 0.0};
+                               };
+    cyclicRollTorqueScalar  = 0.15;
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Rotor Data           /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+    numRotors              = 2;
+    rotorPos[]             = {
+                               { 0.000,  2.060,  0.700}
+                             , {-0.870, -6.980, -0.075}
+                             };
+    rotorRot[]             = {
+                               { 0.0,  0.0}
+                             , { 0.0,-90.0}
+                             };
+
+    rotorNumBlades[]        = { 4, 4};
+    rotorDesignRPM[]        = { 292.0, 1417.0};
+    rotorRPMTrimVal         = 1.01;
+    rotorDirection[]        = { 1, 0};              //0 = cw, 1 = ccw
+    rotorType[]             = { 0, 1};              //0 = main, 1 = tail 
+    rotorGearRatio[]        = { 72.29,  14.90};
+    rotorHeightAGL[]        = { 3.606,  0.000};
+    rotorGndEffMod[]        = { 0.238,  0.000};
+    rotorVelModifier        = 0.4;
+    rotorAltitudeMax        = 30000;  
+    rotorBaseThrustScalar[] = {1.0, 1.0};         
+    rotorBaseThrust         = 102302;              //N - max gross weight (kg) * gravity (9.806 m/s)
+    rotorHitPoints[]        = {"HitHRotor", "HitVRotor"};
+    rotorYawTorqueScalar[]  = {1.0, 1.0};
+
+    rotorBladeRadius[]      = { 7.315, 1.402};
+    rotorBladeChord[]       = { 0.533, 0.253};
+
+    rotorThrustScalar_min[] = {
+                              {
+                               {    0, 0.126}
+                              ,{ 2000, 0.123}
+                              ,{ 4000, 0.128}
+                              ,{ 6000, 0.134}
+                              ,{ 8000, 0.139}
+                              ,{10000, 0.151}
+                              ,{12000, 0.155}
+                              }
+                             , {
+                               {    0, -0.1000}
+                              ,{ 2000, -0.1000}
+                              ,{ 4000, -0.1000}
+                              ,{ 6000, -0.1000}
+                              ,{ 8000, -0.1000}
+                              ,{10000, -0.1000}
+                              ,{12000, -0.1000}
+                              }   
+                             };
+
+    rotorThrustScalar_max[] = {
+                              {
+                               {    0, 1.534}
+                              ,{ 2000, 1.940}
+                              ,{ 4000, 2.290}
+                              ,{ 6000, 2.780}
+                              ,{ 8000, 3.320}
+                              ,{10000, 3.645}
+                              ,{12000, 4.175}
+                              }
+                             , {
+                               {    0, 0.0497}
+                              ,{ 2000, 0.0497}
+                              ,{ 4000, 0.0497}
+                              ,{ 6000, 0.0497}
+                              ,{ 8000, 0.0497}
+                              ,{10000, 0.0497}
+                              ,{12000, 0.0497}
+                              }
+                             };
+
+    bladeProfilePower_min[] = { 0.1330, 0.0};
+    bladeProfilePower_max[] = { 0.2080, 0.0};
+
+    bladeInducedPower_min[] = { 1.4000, 0.0};
+    bladeInducedPower_max[] = { 0.6100, 0.0};
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Engine Data          /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+    numEngines      = 2;
+    engContPwrAvail = 1066; //kW
+    engDesignRPM    = 21109;
+    eng100PctTq     = 481;  //Nm
+    
+
+    //OLD ENGINE DATA
     engSimTime  = 8.0;
 
     engIdleTQ   = 0.055;
