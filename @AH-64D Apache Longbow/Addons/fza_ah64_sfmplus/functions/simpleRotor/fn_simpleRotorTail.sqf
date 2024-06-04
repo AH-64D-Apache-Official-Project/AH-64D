@@ -47,8 +47,6 @@ private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) 
 private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
-
-private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
@@ -61,7 +59,7 @@ if (_bladePitch_cur >= 0.0) then {
 } else {
     _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_min) * _bladePitch_cur;
 };
-systemChat format ["Blade Pitch Induced Thrust Scalar = %1 -- Blade Pitch = %2", _bladePitchInducedThrustScalar toFixed 3, _bladePitch_cur toFixed 0];
+//systemChat format ["Blade Pitch Induced Thrust Scalar = %1 -- Blade Pitch = %2", _bladePitchInducedThrustScalar toFixed 3, _bladePitch_cur toFixed 0];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
