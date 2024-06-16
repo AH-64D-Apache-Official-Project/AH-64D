@@ -64,7 +64,7 @@ private _fcrdir      = 0.5;
 //layers
 private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
 private _clickhelper = "fza_ah64_click_helper" call BIS_fnc_rscLayer;
-private _monocle = "fza_ah64_monocle" call BIS_fnc_rscLayer;
+private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
 private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
 
 if (isNil "fza_ah64_helperinit") then {
@@ -99,13 +99,13 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 if !_powerOnState then {
-    _raddisp cuttext["fza_ah64_raddisp", "PLAIN"];
+    _raddisp cuttext["", "PLAIN", 0, false];
 };
 if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
-    _raddisp cuttext["fza_ah64_raddisp", "PLAIN"];
+    _raddisp cuttext["", "PLAIN", 0, false];
 };
 if (isNull laserTarget _heli) then {
-    _laseit cuttext["fza_ah64_laseit", "PLAIN", 0.1];
+    _laseit cuttext["", "PLAIN", 0.1, false];
 };
 
 //PNVS HDU
@@ -138,7 +138,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
     _monocle cutrsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
 } else {
-    _monocle cuttext["fza_ah64_monocleinbox", "PLAIN"];
+    _monocle cuttext["", "PLAIN", -1, false];
 };
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
@@ -156,16 +156,16 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
     };
 } else {
     if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
-        _raddisp cuttext["fza_ah64_raddisp", "PLAIN"];
-        _clickhelper cuttext["fza_ah64_click_helper", "PLAIN"];
-        _monocle cuttext["fza_ah64_monocleinbox", "PLAIN"];
-        _laseit cuttext["fza_ah64_laseit", "PLAIN"];
+        _raddisp cuttext["", "PLAIN", 0, false];
+        _clickhelper cuttext["", "PLAIN", 0, false];
+        _monocle cuttext["", "PLAIN", 0, false];
+        _laseit cuttext["", "PLAIN", 0, false];
     };
 };
 
 if !_powerOnState then {
-    _raddisp cuttext["fza_ah64_raddisp", "PLAIN"];
-    _laseit cuttext["fza_ah64_laseit", "PLAIN"];
+    _raddisp cuttext["", "PLAIN", 0, false];
+    _laseit cuttext["", "PLAIN", 0, false];
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
