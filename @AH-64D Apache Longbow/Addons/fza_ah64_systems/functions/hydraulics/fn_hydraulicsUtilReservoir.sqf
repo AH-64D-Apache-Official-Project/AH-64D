@@ -22,7 +22,7 @@ params ["_heli", "_deltaTime"];
 private _utilReservoirDamage = _heli getHitPointDamage "hit_hyd_utilReservoir";
 private _utilHydLevel_pct    = _heli getVariable "fza_systems_utilLevel_pct";
 private _curLeakTimer       = 0.0;
-private _pylonDamage        = 0.0;
+private _pylonLeak        = 0.0;
 private _leakTimer          = _heli getVariable "fza_systems_hydLeakTimer";
 private _gunDamage          = _heli getHitPointDamage "hit_msnEquip_gun_turret";
 
@@ -30,10 +30,10 @@ private _gunDamage          = _heli getHitPointDamage "hit_msnEquip_gun_turret";
 for "_i" from 0 to 3 do {
     private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str(_i + 1));
     if (_pylonDamage >= SYS_WPN_DMG_THRESH) then {
-        _pylonDamage = _pylonDamage + 0.25;
+        _pylonLeak = _pylonLeak + 0.5;
     };
 };
-private _utilReservoirDamage = _utilReservoirDamage + _pylonDamage + _gunDamage;
+private _utilReservoirDamage = _utilReservoirDamage + _pylonLeak + _gunDamage;
 
 //Small leak
 if (_utilReservoirDamage > SYS_HYD_RES_MIN_DMG && _utilReservoirDamage <= SYS_HYD_RES_MOD_DMG) then {

@@ -27,7 +27,7 @@ params["_heli"];
 #define HYDRA_TIME_KM 1.353
 
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_gun_inhibit"];
+private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_cannon_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
@@ -114,11 +114,14 @@ if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
-    if (_utilHydFailed || _utilLevelMin) exitwith {};
+    if (_utilHydFailed || _utilLevelMin) exitwith {
+        _heli selectweapon "fza_Pylon_inhibit";
+    };
+    if (Currentweapon _heli == "fza_Pylon_inhibit") then {
+        [_heli] call fza_fnc_weaponUpdateSelected;
+    };
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
-    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str(_i + 1));
-    if (_pylonDamage >= SYS_WPN_DMG_THRESH) then {continue;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
         if (_usingRocket) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
@@ -135,7 +138,7 @@ for "_i" from 0 to 3 do {
 
 if (_usingCannon) then {
     if (_gunFailed) exitwith {
-        _heli selectweapon "fza_gun_inhibit";
+        _heli selectweapon "fza_cannon_inhibit";
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
@@ -147,9 +150,9 @@ if (_usingCannon) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_gun_inhibit";
+        _heli selectweapon "fza_cannon_inhibit";
     } else {
-        if (Currentweapon _heli == "fza_gun_inhibit") then {
+        if (Currentweapon _heli == "fza_cannon_inhibit") then {
             _heli selectweapon "fza_m230";
         };
     };
