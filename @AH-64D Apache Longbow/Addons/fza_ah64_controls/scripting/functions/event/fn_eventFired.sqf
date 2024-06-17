@@ -21,7 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
-if !(local _heli) exitwith {};
+_gunner = getShotParents _missobj#1;//EH Gunner PARAM is fucked
+if (player != _gunner) exitwith {};
 
 _this call fza_cannon_fnc_fired;
 _this call fza_hydra_fnc_fired;
