@@ -18,6 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+if (CBA_missionTime < 0.1) exitwith {};
+
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 
 fza_sfmplus_liftLossTimer = 0;
