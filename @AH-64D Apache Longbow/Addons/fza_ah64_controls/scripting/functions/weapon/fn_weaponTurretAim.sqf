@@ -46,6 +46,9 @@ private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HY
 private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
 private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _gunFailed = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
+private _mainturret = 0;
+private _maingun = 0.298;
 
 if !_acBusOn then {
     _sight = SIGHT_FXD;
@@ -114,6 +117,8 @@ for "_i" from 0 to 3 do {
     if (_utilHydFailed || _utilLevelMin) exitwith {};
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
+    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str(_i + 1));
+    if (_pylonDamage >= SYS_WPN_DMG_THRESH) then {continue;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
         if (_usingRocket) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
@@ -129,10 +134,8 @@ for "_i" from 0 to 3 do {
 };
 
 if (_usingCannon) then {
-    if (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage) exitWith {
+    if (_gunFailed) exitwith {
         _heli selectweapon "fza_gun_inhibit";
-        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
@@ -151,16 +154,20 @@ if (_usingCannon) then {
         };
     };
     if (_sight == SIGHT_FXD) exitwith {
-        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
+        _mainturret = 0;
+        _maingun = 0;
         _inhibit = "GUN FIXED";
     };
-    [_heli, "mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
-    [_heli, "mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp] call fza_fnc_updateAnimations
-} else {
-    [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-    [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
+    _mainturret = [_pan, rad -86, rad 86] call BIS_fnc_clamp;
+    _maingun = [_tilt, rad -60, rad 11] call BIS_fnc_clamp;
 };
+if (_gunFailed) then {
+    _mainturret = _heli animationphase "mainTurret";
+    _maingun = 0.298;
+};
+
+[_heli, "mainTurret", _mainturret] call fza_fnc_updateAnimations;
+[_heli, "mainGun", _maingun] call fza_fnc_updateAnimations;
 
 for "_i" from 0 to 3 do {
     if (WEP_TYPE(_firstPylonMags#_i) == "auxTank") then {
