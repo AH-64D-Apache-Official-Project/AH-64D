@@ -382,13 +382,12 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 };
 
 //Flight Path Vector
-_fpv         = ([_heli] call fza_fnc_velocityVector) call fza_fnc_compensateSafezone;
-_fpvVertVect = (_fpv select 0) * -1;
-_fpvHorVect  = _fpv select 1;
-
-if (speed _heli < 5) then {
-    _fpvVertVect = -100;
-    _fpvHorVect  = -100;
+private _fpv = [-100,-100];
+if (speed _heli > 5) then {
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
+    if (_fpv isEqualTo []) then {
+        _fpv = [-100,-100];
+    }
 };
 if (_weaponWas == WAS_WEAPON_MSL) then {
     private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
@@ -448,8 +447,7 @@ if (_weaponWas == WAS_WEAPON_GUN) then {
 if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "fza_ah64_hmdfsmode") != "cruise") || (_headsdown)) then {
     _waypointcode = "";
     _gspdcode = "";
-    _fpvHorVect = -100;
-    _fpvVertVect = -100;
+    _fpv = [-100, -100];
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
@@ -539,7 +537,7 @@ if (_headTrackerPos isEqualTo []) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_fpvHorVect, _fpvVertVect];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition _fpv;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
 _slip = [fza_ah64_sideslip * 0.1 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
