@@ -21,7 +21,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_missobj"];
 
-_gunner = getShotParents _missobj#1;//EH Gunner PARAM is fucked
+_gunner = getShotParents _missobj#1;//unable to retrieve correct gunner from EH
 if (player != _gunner) exitwith {};
 
 _this call fza_cannon_fnc_fired;
