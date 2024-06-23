@@ -50,7 +50,7 @@ while {player != vehicle player && alive player && alive _heli} do {
     };
     if (_heli getVariable "fza_audio_caution") then {
         playSoundUI ["fza_ah64_Caution", _volume];
-        sleep 3.5;
+        sleep 1.8;
         continue;
     };
     break;
