@@ -21,6 +21,8 @@ Author:
 #include "\fza_ah64_dms\headers\constants.h"
 params ["_heli"];
 
+if !(local _heli) exitWith {};
+
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
 private _routeInfo    = _routeData # _routeCurrent;
@@ -103,16 +105,3 @@ if (_leftMpd != "TSD" && _rightMpd != "TSD" && _approachETA <= 60 && _wptAprch#0
         };
     };
 } foreach _routeInfo;
-
-hintsilent format ["\nCurrent Point = %6
-                    \nBearing 1 = %1
-                    \nBearing 2 = %2
-                    \nPoint Passage = %3
-                    \nDistance to PP = %4
-                    \nETA to PP = %5",
-                    _angle,
-                    (_angle + 180) mod 360,
-                    [round(_closestPoint#0),round(_closestPoint#1)],
-                    (_heli distance2d _closestPoint),
-                    _approachETA,
-                    _currentPnt];
