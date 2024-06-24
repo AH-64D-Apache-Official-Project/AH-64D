@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_ihadss_fnc_routeCycle
+Function: fza_dms_fnc_routeCycle
 
 Description:
     Cycle to the next route under the correct conditioning
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_ihadss_fnc_routeCycle
+    [_heli] call fza_dms_fnc_routeCycle
     ---
 
 Author:

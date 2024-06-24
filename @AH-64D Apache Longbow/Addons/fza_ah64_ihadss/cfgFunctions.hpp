@@ -21,7 +21,6 @@ class CfgFunctions
             class monocletoggle {R;};
             class pnvsControl {R;};
             class steeringCursorDraw {R;};
-            class routeCycle {R;};
         };
         class canvas {
             file = "\fza_ah64_ihadss\functions\canvas";
