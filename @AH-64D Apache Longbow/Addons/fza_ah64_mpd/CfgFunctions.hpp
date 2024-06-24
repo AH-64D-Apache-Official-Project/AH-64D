@@ -16,6 +16,7 @@ class CfgFunctions
             class handleControl {RECOMPILE_FLAG;};
             class iconBlink {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
+            class propagatePage {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
         };
