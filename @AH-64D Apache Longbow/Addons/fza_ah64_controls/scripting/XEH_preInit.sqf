@@ -143,19 +143,15 @@ private _projName = "AH-64D Official Project";
 
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_gunheat = 0;
-fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
-fza_ah64_salvofired = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
-fza_ah64_burst = 1;
 fza_ah64_introShownThisScenario = false;
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update];
-fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_ihadss_fnc_fovControl, fza_light_fnc_controller];
+fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_controller, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update];
+fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update];
+fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -170,6 +166,7 @@ fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
     addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
     addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
 
+OVERRIDE_ACTION("defaultAction")
 OVERRIDE_ACTION("SwitchWeaponGrp1")
 OVERRIDE_ACTION("SwitchWeaponGrp2")
 OVERRIDE_ACTION("SwitchWeaponGrp3")

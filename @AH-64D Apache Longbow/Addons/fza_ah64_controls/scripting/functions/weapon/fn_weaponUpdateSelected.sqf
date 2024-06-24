@@ -33,7 +33,7 @@ switch (_heli getVariable "fza_ah64_was") do {
         if (_heli getVariable "fza_ah64_armSafeArmed") then {
             _heli selectWeaponTurret ["fza_m230",[0]];
         } else {
-            _heli selectWeaponTurret ["fza_gun_safe",[0]];
+            _heli selectWeaponTurret ["fza_ma_safe",[0]];
         };
     };
     case WAS_WEAPON_RKT: {

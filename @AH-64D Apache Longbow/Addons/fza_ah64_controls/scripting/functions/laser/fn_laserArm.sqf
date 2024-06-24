@@ -20,6 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (isNull laserTarget _heli) then {
+private _acBusOn = _heli getVariable "fza_systems_acBusOn";
+
+if (isNull laserTarget _heli && _acBusOn) then {
     [_heli, "Laserdesignator_mounted", [0]] call BIS_fnc_fire;
 }

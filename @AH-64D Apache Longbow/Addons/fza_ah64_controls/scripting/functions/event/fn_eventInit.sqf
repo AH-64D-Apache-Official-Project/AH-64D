@@ -73,7 +73,6 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
         ["OFF", 0],
         ["OFF", 0]
     ], true];
-    _heli setVariable ["fza_ah64_tadsLocked", objNull, true];
 
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
@@ -146,10 +145,12 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
 
 _heli setVariable ["fza_ah64_weaponInhibited", ""];
 _heli setVariable ["fza_ah64_burst_limit", 10];
+_heli setVariable ["fza_ah64_burst_fired", 0];
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 _heli setVariable ["fza_ah64_mpdbrightness", 1];
 _heli setVariable ["fza_ah64_rocketsalvo", 2];
+_heli setVariable ["fza_ah64_salvoFired", 0];
 //Systems local to the crewstation
 _heli setVariable ["fza_ah64_mstrCautLightOn", false];
 _heli setVariable ["fza_ah64_mstrWarnLightOn", false];

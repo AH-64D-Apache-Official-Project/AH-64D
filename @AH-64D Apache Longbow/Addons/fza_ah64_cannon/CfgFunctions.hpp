@@ -10,6 +10,7 @@ class CfgFunctions
         tag = "fza_cannon";
         class functions {
             file = "\fza_ah64_cannon\functions";
+            class fired {R;};
             class update {R;};
         };
     };

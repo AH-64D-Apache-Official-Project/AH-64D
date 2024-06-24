@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_ihadss_fnc_ihadssHandleControl
+Function: fza_ihadss_fnc_handleControl
 
 Description:
     Handles any ihadss-related cockpit controls.

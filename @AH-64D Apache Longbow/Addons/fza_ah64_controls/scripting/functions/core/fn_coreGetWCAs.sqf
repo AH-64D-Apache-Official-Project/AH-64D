@@ -438,7 +438,7 @@ if (_apuRPM_pct >= 0.02 && !_apuOn && _apuBtnOn) then {
 if (_apuRPM_pct >= 0.04 && !_apuOn && _apuBtnOn) then {
     _wcas pushBack [WCA_ADVISORY, "APU POWER ON", "APU PWR ON"];
 };
-if (_apuOn && getpos _heli # 2 < 3 && _apuBtnOn) then {
+if (_apuOn && _onGnd && _apuBtnOn) then {
     _wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON"];
 };
 if (_apuRPM_pct >= 0.5 && !_apuBtnOn) then {

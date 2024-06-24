@@ -10,6 +10,24 @@ class AnimationSources
         initPhase = 1;
         animPeriod = 0.001;
     };
+    class Plt_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class cpg_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class landing_light
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
     class msn_equip_american
     {
         displayName = "Install American Mission Equipment";
