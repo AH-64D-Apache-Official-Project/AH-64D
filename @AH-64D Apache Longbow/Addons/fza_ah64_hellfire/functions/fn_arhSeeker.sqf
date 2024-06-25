@@ -30,7 +30,7 @@ _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 _seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_lockTypes"];
 
 //temp stuff till ace missile update
-if (_timestep isEqualTo []) then {
+if (isnil "_timestep") then {
     private _timestep = diag_deltaTime * accTime;
 };
 
@@ -102,11 +102,6 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
 
     _projectile setMissileTarget _target;
 };
-systemchat str [_target, _expectedTargetPos, time];
-systemchat str _attackProfileStateParams;
-systemChat str _timestep;
-
-
 
 if !(isNull _target) then {
     private _centerOfObject = getCenterOfMass _target;
@@ -117,7 +112,6 @@ if !(isNull _target) then {
     _seekerStateParams set [8, CBA_missionTime];
     _seekerStateParams set [9, false];
 
-    _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
     _targetData set [1, getpos _projectile vectorFromTo _profileAdjustedTargetPos];
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
@@ -128,25 +122,16 @@ if !(isNull _target) then {
     };
 
     //disabled internal leading guidance upon presence of new ace guidance update, so there is no double leading effort
-    if (_navigationStateData isEqualTo [] && _attackProfileStateParams#0 >= 3) then {
-        _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
-        private _vectorToTarget = _attackProfileDirection vectorMultiply _targetRange;
-        private _closingVelocity = _targetVelocity vectorDiff velocity _projectile;
-        private _timeToGo = _targetRange / vectorMagnitude _closingVelocity;
-
-        if (_timeToGo == 0) then {
-            _timeToGo = 0.001;
-        };
-
-        private _zeroEffortMiss = _vectorToTarget vectorAdd (_closingVelocity vectorMultiply _timeToGo);
-        private _zeroEffortMissProjectiled = _attackProfileDirection vectorMultiply (_zeroEffortMiss vectorDotProduct _attackProfileDirection);
-        private _zeroEffortMissNormal = _zeroEffortMiss vectorDiff _zeroEffortMissProjectiled;
-
-        private _commandedAcceleration = _zeroEffortMissNormal vectorMultiply (1 / (_timeToGo * _timeToGo));
-        _expectedTargetPos = _projectile vectorWorldToModelVisual _commandedAcceleration;
+    if (isnil "_navigationGain" && _attackProfileStateParams#0 >= 3) then {
+        private _projectileVelocity = velocity _projectile;
+        private _projectileSpeed = vectorMagnitude _projectileVelocity;
+        if (_shooter distance _projectile < 100) then {_projectileSpeed = 250;};
+        private _timeUntilImpact = (_expectedTargetPos distance _projectile) / _projectileSpeed;
+        _expectedTargetPos = _expectedTargetPos vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
     };
 };
 
+_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 
 _seekerStateParams set [3, _expectedTargetPos];
 _launchParams set [0, _target];

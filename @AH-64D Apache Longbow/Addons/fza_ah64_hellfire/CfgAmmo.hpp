@@ -114,7 +114,7 @@ class CfgAmmo {
 
             class navigationStates {
                 class initial {
-                    transitionCondition = QFUNC(midCourseTransition);
+                    transitionCondition = "ace_hellfire_fnc_midCourseTransition";
                     navigationType = "Direct";
                 };
                 class terminal {
