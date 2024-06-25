@@ -2,38 +2,38 @@
 Function: fza_hellfire_fnc_arhSeeker
 
 Description:
-    The Seeker Head for Radar Missile
+    Using data available upon launch, returns the targets expected positon || caluclated position if LOBL on target
+    utilises Ace millimeterWaveRadar function rewritten to fit purpose
 
 Parameters:
+    _shooter - The helicopter that shot the missile
     _args - contains all of the main following paramaters
     _firedEH - the intirety of the fired eh event handler output
-    _stateParams - contains an array of custom hellfire varaibels [Target object, Target position, Target type, Lima Lobl StartLobl]
-    _shooter - the Apache 
+    _stateParams - contains the current hellfire guidance state
     _projectile - the projectile object
     _seekerAngle - cfg seeker max angle
     _seekerMaxRange - cfg seeker max range
-    _targetObj - Target object
-    _targetPos - Target last position
-    _targetType - Target type
 
 Returns:
-    Nothing
 
 Examples:
-    Nothing
 
 Author:
-    Snow(Dryden)
+    Snow(Dryden), ACE3
 ---------------------------------------------------------------------------- */
 params ["", "_args", "_seekerStateParams", "", "_timestep"];
-_args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams", "_targetData"];
+_args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams"];
+_stateParams params ["", "", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 _seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_lockTypes"];
 
 //temp stuff till ace missile update
-private _timestep = diag_deltaTime * accTime;
+if (_timestep isEqualTo []) then {
+    private _timestep = diag_deltaTime * accTime;
+};
+
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 30
 
 if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
@@ -102,8 +102,11 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
 
     _projectile setMissileTarget _target;
 };
-systemchat str _target;
-systemchat str _expectedTargetPos;
+systemchat str [_target, _expectedTargetPos, time];
+systemchat str _attackProfileStateParams;
+systemChat str _timestep;
+
+
 
 if !(isNull _target) then {
     private _centerOfObject = getCenterOfMass _target;
@@ -114,6 +117,8 @@ if !(isNull _target) then {
     _seekerStateParams set [8, CBA_missionTime];
     _seekerStateParams set [9, false];
 
+    _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
+    _targetData set [1, getpos _projectile vectorFromTo _profileAdjustedTargetPos];
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
 
@@ -121,9 +126,17 @@ if !(isNull _target) then {
         private _acceleration = ((velocity _target) vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
         _targetData set [4, _acceleration];
     };
+
+    //disabled internal leading guidance upon presence of new ace guidance update, so there is no double leading effort
+    if (_navigationStateData isEqualTo [] && _attackProfileStateParams#0 >= 3) then {
+        private _aimPosTarget = aimpos _target;
+        private _projectileVelocity = velocity _projectile;
+        private _projectileSpeed = vectorMagnitude _projectileVelocity;
+        private _timeUntilImpact = (_aimPosTarget distance _projectile) / _projectileSpeed;
+        _expectedTargetPos = _aimPosTarget vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
+    };
 };
 
-_targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 
 _seekerStateParams set [3, _expectedTargetPos];
 _launchParams set [0, _target];
