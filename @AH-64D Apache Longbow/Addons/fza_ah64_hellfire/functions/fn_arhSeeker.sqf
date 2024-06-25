@@ -129,11 +129,21 @@ if !(isNull _target) then {
 
     //disabled internal leading guidance upon presence of new ace guidance update, so there is no double leading effort
     if (_navigationStateData isEqualTo [] && _attackProfileStateParams#0 >= 3) then {
-        private _aimPosTarget = aimpos _target;
-        private _projectileVelocity = velocity _projectile;
-        private _projectileSpeed = vectorMagnitude _projectileVelocity;
-        private _timeUntilImpact = (_aimPosTarget distance _projectile) / _projectileSpeed;
-        _expectedTargetPos = _aimPosTarget vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
+        _targetData params ["_targetDirection", "_attackProfileDirection", "_targetRange", "_targetVelocity", "_targetAcceleration"];
+        private _vectorToTarget = _attackProfileDirection vectorMultiply _targetRange;
+        private _closingVelocity = _targetVelocity vectorDiff velocity _projectile;
+        private _timeToGo = _targetRange / vectorMagnitude _closingVelocity;
+
+        if (_timeToGo == 0) then {
+            _timeToGo = 0.001;
+        };
+
+        private _zeroEffortMiss = _vectorToTarget vectorAdd (_closingVelocity vectorMultiply _timeToGo);
+        private _zeroEffortMissProjectiled = _attackProfileDirection vectorMultiply (_zeroEffortMiss vectorDotProduct _attackProfileDirection);
+        private _zeroEffortMissNormal = _zeroEffortMiss vectorDiff _zeroEffortMissProjectiled;
+
+        private _commandedAcceleration = _zeroEffortMissNormal vectorMultiply (1 / (_timeToGo * _timeToGo));
+        _expectedTargetPos = _projectile vectorWorldToModelVisual _commandedAcceleration;
     };
 };
 

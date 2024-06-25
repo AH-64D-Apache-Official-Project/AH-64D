@@ -81,13 +81,15 @@ class CfgAmmo {
             duration = 0.6;
             frequency = 20;
         };
-        class ace_missileguidance {
+        class ace_missileguidance { //Mixture or current and future cfg 
             enabled = 1;
 
-            pitchRate = 30; // degrees per second
+            pitchRate = 30;
             yawRate = 30;
-
-            canVanillaLock = 0;          // Can this default vanilla lock? Only applicable to non-cadet mode
+            minDeflection = 0.0005;
+            maxDeflection = 0.01;
+            incDeflection = 0.0005; 
+            canVanillaLock = 0;
 
             // Guidance type for munitions
             defaultSeekerType = "fza_SALH";
@@ -99,9 +101,9 @@ class CfgAmmo {
             defaultNavigationType = "Direct";
             navigationTypes[] = { "Direct", "ZeroEffortMiss" };
 
-            seekLastTargetPos = 1;      // seek last target position [if seeker loses LOS of target, continue to last known pos]
-            seekerAngle       = 45;           // Angle in front of the missile which can be searched
-            seekerAccuracy    = 1;         // seeker accuracy multiplier
+            seekLastTargetPos = 1;
+            seekerAngle       = 45;
+            seekerAccuracy    = 1;
 
             seekerMinRange = 1;
             seekerMaxRange = 8000;      // Range from the missile which the seeker can visually search
