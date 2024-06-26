@@ -27,7 +27,7 @@ params["_heli"];
 #define HYDRA_TIME_KM 1.353
 
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_gun_inhibit"];
+private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_cannon_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
@@ -46,6 +46,9 @@ private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HY
 private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
 private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _gunFailed = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
+private _mainturret = 0;
+private _maingun = 0.298;
 
 if !_acBusOn then {
     _sight = SIGHT_FXD;
@@ -111,7 +114,12 @@ if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
 _pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
-    if (_utilHydFailed || _utilLevelMin) exitwith {};
+    if (_utilHydFailed || _utilLevelMin) exitwith {
+        _heli selectweapon "fza_Pylon_inhibit";
+    };
+    if (Currentweapon _heli == "fza_Pylon_inhibit") then {
+        [_heli] call fza_fnc_weaponUpdateSelected;
+    };
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
@@ -129,10 +137,8 @@ for "_i" from 0 to 3 do {
 };
 
 if (_usingCannon) then {
-    if (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage) exitWith {
-        _heli selectweapon "fza_gun_inhibit";
-        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
+    if (_gunFailed) exitwith {
+        _heli selectweapon "fza_cannon_inhibit";
     };
     private _pan = _heli animationPhase "tads_tur";
     private _tilt = _heli animationPhase "tads";
@@ -144,23 +150,27 @@ if (_usingCannon) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_gun_inhibit";
+        _heli selectweapon "fza_cannon_inhibit";
     } else {
-        if (Currentweapon _heli == "fza_gun_inhibit") then {
+        if (Currentweapon _heli == "fza_cannon_inhibit") then {
             _heli selectweapon "fza_m230";
         };
     };
     if (_sight == SIGHT_FXD) exitwith {
-        [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-        [_heli, "mainGun", 0] call fza_fnc_updateAnimations;
+        _mainturret = 0;
+        _maingun = 0;
         _inhibit = "GUN FIXED";
     };
-    [_heli, "mainTurret", [_pan, rad -86, rad 86] call BIS_fnc_clamp] call fza_fnc_updateAnimations;
-    [_heli, "mainGun", [_tilt, rad -60, rad 11] call BIS_fnc_clamp] call fza_fnc_updateAnimations
-} else {
-    [_heli, "mainTurret", 0] call fza_fnc_updateAnimations;
-    [_heli, "mainGun", 0.298] call fza_fnc_updateAnimations;
+    _mainturret = [_pan, rad -86, rad 86] call BIS_fnc_clamp;
+    _maingun = [_tilt, rad -60, rad 11] call BIS_fnc_clamp;
 };
+if (_gunFailed) then {
+    _mainturret = _heli animationphase "mainTurret";
+    _maingun = 0.298;
+};
+
+[_heli, "mainTurret", _mainturret] call fza_fnc_updateAnimations;
+[_heli, "mainGun", _maingun] call fza_fnc_updateAnimations;
 
 for "_i" from 0 to 3 do {
     if (WEP_TYPE(_firstPylonMags#_i) == "auxTank") then {
