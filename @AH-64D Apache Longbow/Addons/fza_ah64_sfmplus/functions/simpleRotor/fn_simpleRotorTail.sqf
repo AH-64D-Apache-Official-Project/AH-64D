@@ -41,26 +41,36 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrThrustScalar_min    = -0.625;
-private _rtrThrustScalar_max    =  0.581;
+private _rtrThrustScalar_min    = -0.0625;
+private _rtrThrustScalar_max    =  0.0581;
 private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
-private _sideThrustScalar       = 0.45;
+private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
-
-private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
 private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
 private _bladePitch_cur                = _bladePitch_med      + ((fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut) / (2 / (_bladePitch_max - _bladePitch_min)));
 _bladePitch_cur                        = [_bladePitch_cur, _bladePitch_min, _bladePitch_max] call BIS_fnc_clamp;
-private _bladePitchInducedThrustScalar = _rtrThrustScalar_med + (_bladePitch_cur - _bladePitch_med) * ((_rtrThrustScalar_max - _rtrThrustScalar_min) / (_bladePitch_max - _bladePitch_min));
+private _bladePitchInducedThrustScalar = 0.0;
+if (_bladePitch_cur >= 0.0) then {
+    _bladePitchInducedThrustScalar = _rtrThrustScalar_max + ((1 - _rtrThrustScalar_max) / _bladePitch_max) * _bladePitch_cur;
+} else {
+    _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_min) * _bladePitch_cur;
+};
+//systemChat format ["Blade Pitch Induced Thrust Scalar = %1 -- Blade Pitch = %2", _bladePitchInducedThrustScalar toFixed 3, _bladePitch_cur toFixed 0];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 //Rotor induced thrust as a function of RPM
-private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
+private _rtrRPMInducedThrustScalar = 0.0;
+if (_bladePitch_cur >= 0.0) then {
+    _rtrRPMInducedThrustScalar = _rtrThrustScalar_max * (_inputRPM / _rtrRPMTrimVal);
+} else {
+    _rtrRPMInducedThrustScalar = _rtrThrustScalar_min * (_inputRPM / _rtrRPMTrimVal);
+};
+
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
@@ -77,39 +87,14 @@ if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then {
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
-private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
-private _bladeTipVel               = _rtrOmega * _bladeRadius;
-private _rtrArea                   = PI * _bladeRadius^2;
-private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
-_thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
-
-//Calculate the hover induced velocity
-private _sign                      = [_rtrThrust] call fza_fnc_sign;
-private _rtrInducedVelocity        = if (_rtrThrust <= MIN_THRUST) then { 0.0; } else { sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign; };
-//Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
-private _w = _rtrInducedVelocity;
-private _u = if (_w <= EPSILON) then { 0.0; } else { _velYZ / _rtrInducedVelocity; };
-private _n = if (_w <= EPSILON) then { 0.0; } else { _velX  / _rtrInducedVelocity; };
-private _rtrCorrInducedVelocity    = if (_w <= EPSILON) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
-_rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
-//Calculate the required rotor power
-private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
-private _rtrPowerReq               = (_rtrThrust * _velX + _rtrThrust * _rtrCorrInducedVelocity) * _rtrPowerScalar;
-//Calculate the required rotor torque
-private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
-//Calcualte the required engine torque
-private _reqEngTorque              = _rtrTorque / _rtrGearRatio;
-//_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
-//private _totThrust     = _heli getVariable "fza_sfmplus_rtrThrust" select 1;
-private _totThrust     = _rtrThrust;//[_totThrust, _rtrThrust, _deltaTime] call BIS_fnc_lerp;
-//[_heli, "fza_sfmplus_rtrThrust", 1, _totThrust, true] call fza_fnc_setArrayVariable;
+private _totThrust     = _rtrThrust;
 private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
-private _torqueY       = ((_rtrTorque  * -1.0) * _rtrTorqueScalar) * _deltaTime;
+private _torqueY       = 0.0;
 private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
