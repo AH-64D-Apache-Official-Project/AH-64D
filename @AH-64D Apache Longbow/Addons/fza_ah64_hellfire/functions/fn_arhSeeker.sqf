@@ -129,6 +129,7 @@ if !(isNull _target) then {
         _expectedTargetPos = _expectedTargetPos vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
     };
 };
+systemchat str (vectorMagnitude (velocity _projectile));
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 

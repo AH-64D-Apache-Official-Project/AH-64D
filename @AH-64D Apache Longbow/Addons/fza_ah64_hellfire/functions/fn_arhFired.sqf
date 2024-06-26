@@ -35,48 +35,36 @@ private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
 private _currentTof     = _heli getVariable "fza_ah64_tofCountDown";
 private _target         = _targinfo #0;
 private _targetPos      = _targinfo #1;
-
-if !(_target isKindOf "AllVehicles") then {
-    _target = nil;
-};
-_launchParams set [0, _target];
-_projectile setMissileTarget objNull; // to emulate a no launch warning
+private _attackProfile  = "hellfire_hi";
+private _isActive       = false;
+private _timeToActive   = 0;
 
 private _projectileConfig = configOf _projectile;
 private _config = _projectileConfig >> "ace_missileguidance";
-
-private _isActive = false;
 private _activeRadarDistance = [_config >> "activeRadarEngageDistance", "NUMBER", 500] call CBA_fnc_getConfigEntry;
-private _projectileThrust = [_projectileConfig >> "thrust", "NUMBER", 0] call CBA_fnc_getConfigEntry;
-private _projectileThrustTime = [_projectileConfig >> "thrustTime", "NUMBER", 0] call CBA_fnc_getConfigEntry;
-
 private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["Air", "LandVehicle", "Ship"]] call CBA_fnc_getConfigEntry;
+private _velocityAtImpact = 450;
 
-private _velocityAtImpact = _projectileThrust * _projectileThrustTime;
-private _timeToActive = 0;
 if (!isNil "_target") then {
-    private _distanceUntilActive = (((getPosASL _shooter) vectorDistance (getPosASL _target)) - _activeRadarDistance);
+    private _timeUntilImpact = (_targetPos distance _projectile) / _velocityAtImpact;
+    _expectedTargetPos = _targetPos vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
+
+    private _distanceUntilActive = (((getPosASL _shooter) vectorDistance _expectedTargetPos) - _activeRadarDistance);
     _timeToActive = 0 max (_distanceUntilActive / _velocityAtImpact);
-    _currentTof pushBack (cba_missiontime + (_targetPos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
+    
+    _currentTof pushBack (cba_missiontime + (_expectedTargetPos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
     _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
-if (isNil "_target") then {
+if (isNil "_target" || !(_target isKindOf "AllVehicles")) then {
     _timeToActive = 999;
-    _isActive = false;
     _target = objNull;
 };
 
-//Dir trajectory ON LOBL
-private _loblCheckLima  = [_heli, [getpos _target, speed _target, _target]] call fza_hellfire_fnc_limaLoblCheck;
-private _attackProfile = "hellfire_hi";
-if (_loblCheckLima #1) then {
+if (([_heli, [getpos _target, speed _target, _target]] call fza_hellfire_fnc_limaLoblCheck)#1) then {
     _attackProfile = "hellfire";
     _isActive = true;
 };
-//Cycle Radar targets
-[_heli] call fza_fcr_fnc_cycleNTS;
-_launchParams set [3, _attackProfile];
 
 _seekerStateParams set [0, _isActive];
 _seekerStateParams set [1, _activeRadarDistance];
@@ -89,3 +77,8 @@ _seekerStateParams set [7, [0, 0, 0]];
 _seekerStateParams set [8, CBA_missionTime];
 _seekerStateParams set [9, isNull _target];
 _seekerStateParams set [10, _lockTypes];
+
+_launchParams set [0, _target];
+_launchParams set [3, _attackProfile];
+_projectile setMissileTarget objNull;
+[_heli] call fza_fcr_fnc_cycleNTS;
