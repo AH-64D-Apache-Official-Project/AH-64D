@@ -50,7 +50,7 @@ private _activeRadarDistance = [_config >> "activeRadarEngageDistance", "NUMBER"
 private _projectileThrust = [_projectileConfig >> "thrust", "NUMBER", 0] call CBA_fnc_getConfigEntry;
 private _projectileThrustTime = [_projectileConfig >> "thrustTime", "NUMBER", 0] call CBA_fnc_getConfigEntry;
 
-private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["AllVehicles"]] call CBA_fnc_getConfigEntry;
+private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["Air", "LandVehicle", "Ship"]] call CBA_fnc_getConfigEntry;
 
 private _velocityAtImpact = _projectileThrust * _projectileThrustTime;
 private _timeToActive = 0;
@@ -67,7 +67,7 @@ if (isNil "_target") then {
     _target = objNull;
 };
 
-//Dir trajectory at close range
+//Dir trajectory ON LOBL
 private _loblCheckLima  = [_heli, [getpos _target, speed _target, _target]] call fza_hellfire_fnc_limaLoblCheck;
 private _attackProfile = "hellfire_hi";
 if (_loblCheckLima #1) then {

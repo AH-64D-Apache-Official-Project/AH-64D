@@ -75,7 +75,6 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
         // Look in front of seeker for any targets
         private _nearestObjects = nearestObjects [ASLtoAGL _searchPos, _lockTypes, _seekerBaseRadiusAdjusted, false];
         _nearestObjects = _nearestObjects apply {
-            // I check both Line of Sight versions to make sure that a single bush doesnt make the target lock dissapear but at the same time ensure that this can see through smoke. Should work 80% of the time
             if (([_projectile, [getpos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck) # 1) then {
                 _x
             } else {
@@ -125,7 +124,7 @@ if !(isNull _target) then {
     if (isnil "_navigationGain" && _attackProfileStateParams#0 >= 3) then {
         private _projectileVelocity = velocity _projectile;
         private _projectileSpeed = vectorMagnitude _projectileVelocity;
-        if (_shooter distance _projectile < 100) then {_projectileSpeed = 250;};
+        if (_shooter distance _projectile < 100) then {_projectileSpeed = 450;};
         private _timeUntilImpact = (_expectedTargetPos distance _projectile) / _projectileSpeed;
         _expectedTargetPos = _expectedTargetPos vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
     };
