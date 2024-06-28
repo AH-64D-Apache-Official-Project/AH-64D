@@ -31,34 +31,11 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli"];
 
-if (!(_heli getVariable ["fza_ah64_controlHInitilised", false]) && local _heli) then { // Build data
-    _heli setVariable ["fza_ah64_controlHInitilised", true, true];
-
-    #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, movable) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name, movable]
-    #define COCKPIT_CONTROL_SEP ,
-    private _data =  [
-        #include "\fza_ah64_controls\headers\controls.h"
-    ];
-    
-    private _controls = [];
-    {
-        _x params [["_pilotPos", ""], ["_gunnerPos", ""], "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
-        if (_pilotPos != "" && !_movable) then {
-            _pilotPos = _heli selectionposition _pilotPos;
-        };
-        if (_gunnerPos != "" && !_movable) then {
-            _gunnerPos = _heli selectionposition _gunnerPos;
-        };
-        _controls pushback [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _movable];
-    } foreach _data;
-    _heli setvariable ["fza_ah64_objectsDataArray", _controls];
-};
-
-
 private _controls = _heli getvariable "fza_ah64_objectsDataArray";
 private _horizontalPos = _heli getVariable "fza_ah64_freeCursorHpos";
 private _verticalpos = _heli getVariable "fza_ah64_freeCursorVpos";
-_controls = _controls apply {
+
+_controls select {
     _x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
     private _point = [];
     if(driver _heli == player) then {
@@ -76,12 +53,7 @@ _controls = _controls apply {
         _point = _heli modelToWorldVisual _gunnerPos;
     };
     _point =  (worldToScreen _point);
-    _distance = if (_point isEqualTo []) then {continue};
+    if (_point isEqualTo []) then {continue};
     _distance = _point distance [_horizontalPos, _verticalpos];
-    [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _distance];
-};
-
-_controls select {
-    _x params ["", "", "", "", "_sensitivity", "", "_distance"];
-    _distance < _sensitivity;
+    (_distance <= _sensitivity)
 };
