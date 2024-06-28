@@ -3,7 +3,7 @@ Function: fza_ase_fnc_rlwr
 
 
 Description:
-    Handles the Radar/Laser Warning Receiver
+    proccessor for the ase background systems by, grabing the radar threats and sorting them into and output array order by threat value
 
 Parameters:
     heli: Object - Vehicle the event handler is assigned to
@@ -15,7 +15,7 @@ Examples:
     [_heli] call fza_ase_fnc_rlwr
 
 Author:
-    BradMick
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli"];

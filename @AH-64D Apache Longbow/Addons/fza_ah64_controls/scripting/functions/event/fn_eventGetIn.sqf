@@ -25,3 +25,8 @@ if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player &&
 [_heli,[], 1, 1] call fza_mpd_fnc_drawIcons;
 
 [_heli] call fza_mpd_fnc_propagatePage;
+
+//reset values
+[_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
+_heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
+_heli setVariable ["fza_ah64_monocleinbox", true];
