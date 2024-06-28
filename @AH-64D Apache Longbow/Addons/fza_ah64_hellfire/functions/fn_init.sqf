@@ -20,15 +20,15 @@ Author:
 params ["_heli"];
 
 if (!(_heli getVariable ["fza_ah64_hellfireInitialised", false]) && local _heli) then {
-    _heli setVariable ["fza_ah64_hellfireInitialised", true, true];
+    _heli setVariable ["fza_ah64_hellfireInitialised",        true,  true];
 
-    _heli setVariable ["fza_ah64_hellfireTrajectory", "DIR", true];
+    _heli setVariable ["fza_ah64_hellfireTrajectory",         "DIR", true];
 
-    _heli setVariable ["fza_ah64_laserMissilePrimaryCode",    0, true];
-    _heli setVariable ["fza_ah64_laserMissileAlternateCode",  1, true];
-    _heli setVariable ["fza_ah64_laserLRFDCode",              "A", true];
-    _heli setVariable ["fza_ah64_laserLSTCode",               "B", true];
-    _heli setVariable ["fza_ah64_laserChannelCodes",         ["A", "B", "C", "D"], true];
+    _heli setVariable ["fza_ah64_laserMissilePrimaryCode",    0,     true];
+    _heli setVariable ["fza_ah64_laserMissileAlternateCode",  1,     true];
+    _heli setVariable ["fza_ah64_laserLRFDCode",              "A",   true];
+    _heli setVariable ["fza_ah64_laserLSTCode",               "B",   true];
+    _heli setVariable ["fza_ah64_laserChannelCodes",          ["A", "B", "C", "D"], true];
     _heli setVariable ["fza_ah64_laserChannelIndex", createHashMapFromArray
         [ ["A",1111],["B",1112]
         , ["C",1113],["D",1114]
