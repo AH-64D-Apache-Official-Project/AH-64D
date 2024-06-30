@@ -7,3 +7,5 @@ class FzaMpdRscTextCenter : FzaMpdRscTextLeft {
 class FzaMpdRscTextRight : FzaMpdRscTextLeft {
     style = 1;
 };
+
+class fza_ah64_mapControl;

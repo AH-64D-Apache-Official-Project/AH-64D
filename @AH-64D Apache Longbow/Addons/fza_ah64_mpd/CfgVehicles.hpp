@@ -102,6 +102,7 @@ class CfgVehicles {
             class TSD {
                 index = MPD_PAGE_TSD;
                 draw  = "fza_mpd_fnc_pageTSDDraw";
+                drawCanvas = "fza_mpd_fnc_pageTSDDrawCanvas";
                 handleControl = "fza_mpd_fnc_pageTSDHandleControl";
                 usesIcons = 1;
                 class InitState {

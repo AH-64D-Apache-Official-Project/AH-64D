@@ -40,8 +40,8 @@ if (!_acBusOn && _rmpdCurr != "off") then {
     [_heli, 1, "off"] call fza_mpd_fnc_setCurrentPage;
 };
 
-(_heli getVariable "fza_mpd_mpdState") # 0 params ["_lpage", "", "_ldrawFunc", "_lState", "_lPersistState"];
-(_heli getVariable "fza_mpd_mpdState") # 1 params ["_rpage", "", "_rdrawFunc", "_rState", "_rPersistState"];
+(_heli getVariable "fza_mpd_mpdState") # 0 params ["_lpage", "", "_ldrawFunc", "", "_lState", "_lPersistState"];
+(_heli getVariable "fza_mpd_mpdState") # 1 params ["_rpage", "", "_rdrawFunc", "", "_rState", "_rPersistState"];
 
 [_heli,0,_lState, _lPersistState get _lpage] call _ldrawFunc;
 [_heli,1,_rState, _rPersistState get _rpage] call _rdrawFunc;
