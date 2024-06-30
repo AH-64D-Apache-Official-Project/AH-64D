@@ -36,7 +36,7 @@ private _horizontalPos = _heli getVariable "fza_ah64_freeCursorHpos";
 private _verticalpos = _heli getVariable "fza_ah64_freeCursorVpos";
 
 _controls select {
-    _x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
+    _x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description", "_movable", "_distance"];
     private _point = [];
     if(driver _heli == player) then {
         if (_pilotPos isEqualTo "") then {continue;};
@@ -55,5 +55,6 @@ _controls select {
     _point =  (worldToScreen _point);
     if (_point isEqualTo []) then {continue};
     _distance = _point distance [_horizontalPos, _verticalpos];
-    (_distance <= _sensitivity)
+    _x set [7, _distance];
+    (_distance <= _sensitivity);
 };
