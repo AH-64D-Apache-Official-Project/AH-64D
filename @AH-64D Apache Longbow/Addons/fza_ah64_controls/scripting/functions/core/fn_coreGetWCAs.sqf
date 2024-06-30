@@ -493,4 +493,19 @@ if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
 
+private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
+private _wptPassed = _heli getvariable "fza_ah64_wptpassed";
+private _leftMpd = [_heli, 0] call fza_mpd_fnc_currentPage;
+private _rightMpd = [_heli, 1] call fza_mpd_fnc_currentPage;
+if (_leftMpd != "TSD" && _rightMpd != "TSD" && _wptAprch#1) then {
+    _wcas pushBack [WCA_ADVISORY, "WAYPOINT APPROACH", "WPT APRCH"];
+} else {
+    [_heli, "fza_ah64_wptAprch", [_wptAprch#0, false]] call fza_fnc_updateNetworkGlobal;
+};
+if (_leftMpd != "TSD" && _rightMpd != "TSD" && _wptPassed) then {
+    _wcas pushBack [WCA_ADVISORY, "WAYPOINT PASSED", "WPT PASSED"];
+} else {
+    [_heli, "fza_ah64_wptpassed", false] call fza_fnc_updateNetworkGlobal;
+};
+
 _wcas;
