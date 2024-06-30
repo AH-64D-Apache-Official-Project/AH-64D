@@ -9,6 +9,7 @@ class CfgFunctions
         tag="fza_wca";
         class functions {
             file = "\fza_ah64_wca\functions";
+            class init {R;};
             class update {R;};
             class wcaAddCaution {R;};
             class wcaAddWarning {R;};

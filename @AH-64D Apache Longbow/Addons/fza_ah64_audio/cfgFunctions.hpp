@@ -14,11 +14,11 @@ class CfgFunctions
             class addCaution {R;};
             class addWarning {R;};
             class audiohandler {R;};
-            class audioinit {R;};
             class delCaution {R;};
             class delWarning {R;};
             class flightTone {R;};
             class getin {R;};
+            class init {R;};
             class playaudio {R;};
             class playAdvisory {R;};
         };
