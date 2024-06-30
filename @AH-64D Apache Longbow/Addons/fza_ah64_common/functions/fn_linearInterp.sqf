@@ -43,17 +43,30 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_arr", "_key"];
 
-private _upperIndex = _arr findIf {
-    _x select 0 > _key
-}; //Find the index of the value above key
+private _find = {
+    private ["_arr", "_key", "_low", "_high"];
+    _low = 0;
+    _high = count _arr - 1;
 
-if (_upperIndex == 0) exitWith {
+    while {_low <= _high} do {
+        private _mid = _low + floor ((_high - _low) / 2);
+        if (_arr select _mid select 0 > _key) then {
+            _high = _mid - 1;
+        } else {
+            _low = _mid + 1;
+        };
+    };
+    _low
+};
+_upperIndex = [_arr, _key] call _find; 
+
+if (_upperIndex == 1) exitWith {
     _arr select 0;
-}; //If it is below the values that can be interpolated
+};
 
-if (_upperIndex == -1) exitWith {
+if (_upperIndex > _key) exitWith {
     _arr select(count _arr - 1);
-}; //If it is below the values that can be interpolated
+};
 
 private _lowerIndex = _upperIndex - 1;
 
