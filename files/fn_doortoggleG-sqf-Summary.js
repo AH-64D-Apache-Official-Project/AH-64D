@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:fn_doortoggleG.sqf","fn_doortoggleG.sqf");NDSummary.OnSummaryLoaded("File:fn_doortoggleG.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[181,0,1,"Functions","Functions"],[182,0,0,"fza_fnc_doortoggleG","fza_fnc_doortoggleG"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:fn_doortoggleG.sqf","fn_doortoggleG.sqf");NDSummary.OnSummaryLoaded("File:fn_doortoggleG.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[179,0,1,"Functions","Functions"],[180,0,0,"fza_fnc_doortoggleG","fza_fnc_doortoggleG"]]);
