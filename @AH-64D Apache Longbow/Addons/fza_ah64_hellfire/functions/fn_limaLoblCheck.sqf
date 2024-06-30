@@ -13,13 +13,13 @@ Returns:
 
 Examples:
     --- Code
-    _results = [_heli, [[0, 0, 0], FCR_TYPE_UNKNOWN, speed, targ]] call fza_hellfire_fnc_limaLoblCheck;
+    _results = [_heli, [[0, 0, 0], speed, targ]] call fza_hellfire_fnc_limaLoblCheck;
     ---
 
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_seeker", "_targ",["_inFlight", false]];
-_targ params ["_targPos", "_targType", "_targSpeed", "_targObj"];
+_targ params ["_targPos", "_targSpeed", "_targObj"];
 
 private _dist = _seeker distance _targPos;
 private _seekerConfig = configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance";
