@@ -172,7 +172,7 @@ class CfgSoundSets {
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////REVERB///////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
-    
+
     class fza_shell_explosion_reverb_soundset 
     {
         soundShaders[] = {"fza_explosion_echo_medium_soundshader", "fza_explosion_echo_houses_soundshader", "fza_explosion_big_shockwave_soundshader", "fza_shell_explosion_reverb_houses_soundshader", "fza_shell_explosion_reverb_forest_soundshader", "fza_shell_explosion_reverb_meadow_soundshader"};
@@ -223,5 +223,46 @@ class CfgSoundSets {
     class fza_agm114_soundset: fza_basic_soundset
     {
         soundShaders[] = {"fza_agm114_close_soundshader","fza_agm114_close_distance_soundshader","fza_agm114_medium_distance_soundshader","fza_agm114_close_distance_pool_soundshader","fza_agm114_far_distance_pool_soundshader","fza_agm114_very_far_distance_pool_soundshader"};
+    };
+
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////////////////NEW AUDIO////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_Internal_Base {
+        volumefactor=0.3;
+        spatial=0;
+        loop=1;
+    };
+    class fza_External_Base {
+        sound3dprocessingtype="fza_Close_3DProcessor";
+        distancefilter="fza_Close_Engine_Filter";
+        volumecurve="fza_Ext_Base_Curve";
+        occlusionfactor=0.35;
+        obstructionfactor=0;
+        volumefactor=1;
+        spatial=1;
+        loop=1;
+    };
+
+    ///////////////////////////////////////////////////////////////////////
+    /////////////////////////////////APU///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+    
+    class fza_apuInt_soundset: fza_Internal_Base {
+        soundshaders[] = {"fza_apuInt_soundshader"};
+        volumefactor = 0.12; // Door open 0.15
+    };
+    class fza_apuExt_soundset: fza_External_Base {
+        soundshaders[] = {"fza_apuExt_soundshader"};
+        volumefactor = 0.22;
+    };
+    
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////Battery/////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_battery_soundset: fza_Internal_Base {
+        soundshaders[] = {"fza_battery_soundshader"};
     };
 };

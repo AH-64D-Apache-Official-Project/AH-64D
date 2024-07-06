@@ -479,4 +479,41 @@ class CfgSoundShaders {
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
     };
+
+    ///////////////////////////////////////////////////////////////////////
+    /////////////////////////////////APU///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_apuInt_soundshader {
+        samples[]={
+            {"fza_ah64_us\audio\APU_Loop.ogg",1}
+        };
+        frequency = "CustomSoundController5 * (((CustomSoundController1 max CustomSoundController2) * 0.2) + 1)";
+        volume = "CustomSoundController6 * (((CustomSoundController1 max CustomSoundController2) * 0.2) + 1)";  
+        range=200;
+        rangecurve[] = {{0,1}, {100,0.6}, {200,0}};
+    };
+    class fza_apuExt_soundshader {
+        samples[]={
+            {"fza_ah64_us\audio\APU_Loop.ogg",1}
+        };
+        frequency = "CustomSoundController5";
+        volume = "CustomSoundController6";  
+        range=200;
+        rangecurve[] = {{0,1}, {100,0.6}, {200,0}};
+    };
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////Battery/////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_battery_soundshader {
+        samples[]={
+            {"fza_ah64_us\audio\Avionics.ogg",3}
+        };
+        frequency = "CustomSoundController7";
+        volume = "CustomSoundController7";  
+        range=20;
+        rangecurve[] = {{0,1}, {10,0.6}, {20,0} };
+    };
 };

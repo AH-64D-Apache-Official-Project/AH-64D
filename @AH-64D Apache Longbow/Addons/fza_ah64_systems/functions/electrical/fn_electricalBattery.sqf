@@ -39,6 +39,8 @@ if (_battSwitchOn) then {
 if (Local _heli) then {
     [_heli, "fza_systems_battBusOn", _battBusOn] call fza_fnc_updateNetworkGlobal;
 };
+//Set the Avionic sound state 
+setCustomSoundController [_heli, "CustomSoundController7", [0,1] select _battBusOn];
 
 //Drain the battery
 if (_battBusOn && !_acBusOn) then {

@@ -33,6 +33,9 @@ if (_apuBtnOn && _battBusOn && !(fuel _heli < 0.01)) then {
     _apuRPM_pct = [_apuRPM_pct, 0.0, _deltaTime] call BIS_fnc_lerp;
 };
 _heli setVariable ["fza_systems_apuRPM_pct", _apuRPM_pct];
+setCustomSoundController [_heli, "CustomSoundController5", _apuRPM_pct * 2];
+setCustomSoundController [_heli, "CustomSoundController6", _apuRPM_pct * 2];
+systemchat str _apuRPM_pct;
 
 //Set the APU state
 if (_apuRPM_pct <= SYS_MIN_RPM) then {

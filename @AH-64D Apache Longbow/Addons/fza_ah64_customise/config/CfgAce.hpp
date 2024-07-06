@@ -310,28 +310,28 @@ class ACE_Actions : ACE_Actions {
         displayName = "Open Pilot Door";
         distance    = 3;
         condition   = "(_target animationPhase 'pdoor') == 0";
-        statement   = "_target animate ['pdoor', 1];";
+        statement   = "[_target] spawn fza_fnc_doortoggleP;";
         selection   = "ctrlref_p_doorhandle";
     };
     class Close_pilot_door {
         displayName = "close Pilot Door";
         distance    = 3;
         condition   = "(_target animationPhase 'pdoor') == 1";
-        statement   = "_target animate ['pdoor', 0];";
+        statement   = "[_target] spawn fza_fnc_doortoggleP;";
         selection   = "ctrlref_p_doorhandle";
     };
     class Open_Gunner_door {
         displayName = "Open Gunner Door";
         distance    = 3;
         condition   = "(_target animationPhase 'gdoor') == 0";
-        statement   = "_target animate ['gdoor', 1];";
+        statement   = "[_target] spawn fza_fnc_doortoggleG;";
         selection   = "ctrlref_g_doorhandle";
     };
     class Close_Gunner_door {
         displayName = "close Gunner Door";
         distance    = 3;
         condition   = "(_target animationPhase 'gdoor') == 1";
-        statement   = "_target animate ['gdoor', 0];";
+        statement   = "[_target] spawn fza_fnc_doortoggleG;";
         selection   = "ctrlref_g_doorhandle";
     };
     class AddFCR {

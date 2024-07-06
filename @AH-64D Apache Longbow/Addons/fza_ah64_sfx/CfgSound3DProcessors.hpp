@@ -49,4 +49,22 @@ class CfgSound3DProcessors {
         range = 700;
         rangecurve = "fza_basic_vl_sin";
     };
+    class fza_Close_3DProcessor
+    {
+        type="panner";
+        rangeCurve="Smooth1Curve";
+        innerRange=0;
+        range=800;
+    };
+    class fza_Distant_3DProcessor: fza_Close_3DProcessor
+    {
+        innerrange = 2000;
+        range = 3000;
+    };
+    class fza_TailRotor_3DProcessor: fza_Close_3DProcessor
+    {
+        innerrange = 1;
+        range = 5;
+        rangecurve="LinearCurve";
+    };
 };

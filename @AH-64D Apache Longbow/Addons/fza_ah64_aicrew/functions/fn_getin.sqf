@@ -26,11 +26,10 @@ if (isplayer _unit) exitWith {};
 
 if (_unit == driver _heli) then {
     sleep 1.2;
-    _heli animateSource ["pdoor", 0];
-    _heli setVariable ["fza_systems_battSwitchOn",  true, true];
+    [_heli] spawn fza_fnc_doortoggleP;
 };
 
 if (_unit == gunner _heli) then {
     sleep 1.2;
-    _heli animateSource ["gdoor", 0];
+    [_heli] spawn fza_fnc_doortoggleG;
 };

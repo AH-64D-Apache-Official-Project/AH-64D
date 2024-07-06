@@ -20,12 +20,6 @@ class CfgSounds
         sound[] = {"fza_ah64_us\audio\APU_End.ogg",1,1,300};
         titles[]={};
     };
-    class fza_ah64_bat_loop_3D
-    {
-        name = "fza_ah64_bat_loop_3D";
-        sound[] = {"fza_ah64_us\audio\Avionics.ogg",10,1,10};
-        titles[]={};
-    };
     class fza_ah64_estart_3D
     {
         name = "fza_ah64_estart_3D";
