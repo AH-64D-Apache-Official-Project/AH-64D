@@ -226,7 +226,7 @@ class CfgSoundSets {
     };
 
     ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////NEW AUDIO////////////////////////////////
+    /////////////////////////////Base Classes//////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 
     class fza_Internal_Base {
@@ -241,28 +241,53 @@ class CfgSoundSets {
         occlusionfactor=0.35;
         obstructionfactor=0;
         volumefactor=1;
+        doppler = 1;
         spatial=1;
         loop=1;
     };
+    class fza_external_Plt: fza_External_Base {
+        posoffset[] = {0,-0.6,4};
+        shape = "fza_ckpt_shape";
+    }
+    class fza_external_Cpg: fza_External_Base {
+        posoffset[] = {0,-1,5.6};
+        shape = "fza_ckpt_shape";
+    }
 
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////////////APU///////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
     
-    class fza_apuInt_soundset: fza_Internal_Base {
-        soundshaders[] = {"fza_apuInt_soundshader"};
-        volumefactor = 0.12; // Door open 0.15
-    };
     class fza_apuExt_soundset: fza_External_Base {
         soundshaders[] = {"fza_apuExt_soundshader"};
+        sound3dprocessingtype="fza_Apu_3DProcessor";
+        distancefilter="fza_Distant_Apu_Filter";
+        posoffset[] = {0.5,-0.9,-0.5};
+        shape = "fza_apu_shape";
         volumefactor = 0.22;
+    };
+    class fza_apuIntPlt_soundset: fza_apuExt_soundset {
+        soundshaders[] = {"fza_apuIntPlt_soundshader"};
+        volumefactor = 0.15;
+        shape = "";
+    };
+    class fza_apuIntCpg_soundset: fza_apuIntPlt_soundset {
+        soundshaders[] = {"fza_apuIntCpg_soundshader"};
     };
     
     ///////////////////////////////////////////////////////////////////////
     ///////////////////////////////Battery/////////////////////////////////
     ///////////////////////////////////////////////////////////////////////
 
-    class fza_battery_soundset: fza_Internal_Base {
-        soundshaders[] = {"fza_battery_soundshader"};
+    class fza_batteryInt_soundset: fza_Internal_Base {
+        soundshaders[] = {"fza_batteryInt_soundshader"};
+    };
+    class fza_batteryExtPlt_soundset: fza_external_Plt {
+        soundshaders[] = {"fza_batteryExtPlt_soundshader"};
+        volumefactor=0.3;
+    };
+    class fza_batteryExtCpg_soundset: fza_external_Cpg {
+        soundshaders[] = {"fza_batteryExtCpg_soundshader"};
+        volumefactor=0.3;
     };
 };

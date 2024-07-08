@@ -17,6 +17,7 @@ class CfgPatches
 #include "cfgSounds.hpp"
 #include "CfgSoundSets.hpp"
 #include "CfgSoundShaders.hpp"
+#include "CfgSoundShapes.hpp"
 
 class CfgVehicles
 {
@@ -28,8 +29,16 @@ class CfgVehicles
         soundEngineOnInt[] = {"a3\sounds_f\dummysound",1,1};
         class Sounds {
             soundSets[] = {""};
-            soundSetsInt[] = {"fza_battery_soundset", "fza_apuInt_soundset"};
-            soundSetsExt[] = {"fza_apuExt_soundset"};
+            soundSetsInt[] = {
+                "fza_batteryInt_soundset",
+                "fza_apuIntPlt_soundset",
+                "fza_apuIntCpg_soundset"
+            };
+            soundSetsExt[] = {
+                "fza_batteryExtPlt_soundset",
+                "fza_batteryExtCpg_soundset",
+                "fza_apuExt_soundset"
+            };
         };
     };
 };
