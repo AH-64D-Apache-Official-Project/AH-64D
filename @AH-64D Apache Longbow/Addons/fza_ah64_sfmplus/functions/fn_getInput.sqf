@@ -104,7 +104,7 @@ if (_flightModel == "SFMPlus") then {
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
 
-            private _isPlaying = isNull findDisplay 49;
+            private _isPlaying  = isNull findDisplay 49 && isNull findDisplay 24 && !dialog;
 
             if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
                 fza_sfmplus_collectiveOutput = _collectiveVal;
@@ -114,7 +114,7 @@ if (_flightModel == "SFMPlus") then {
                 };
             };
 
-            fza_sfmplus_lastIsPlaying = _isPlaying;
+            fza_sfmplus_lastIsPlaying  = _isPlaying;
             fza_sfmplus_prevCollective = _collectiveVal;
         };
     };

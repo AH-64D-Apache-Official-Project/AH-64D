@@ -303,7 +303,7 @@ if (!isNil "_nextPointPos") then {
 
 /////////////////////////////////////////////////////////
 
-_sight = [_heli] call fza_fnc_targetingGetSightSelect;
+_sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_heli iskindof "fza_ah64base") then {
     switch (_sight) do {
         case 0: {

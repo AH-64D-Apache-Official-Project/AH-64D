@@ -67,7 +67,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] 
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
 
-switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
+switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
     case 0: {
         _sight = "FCR"
     };
