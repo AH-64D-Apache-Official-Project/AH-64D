@@ -34,9 +34,15 @@ params
     , "_displayIdx"
     , "_scale"
     , ["_center", [0.5, 0.75]]
-    , ["_heading", direction (_this # 0)]
-    , ["_heliPos", getPosASL (_this # 0)]
+    , ["_heading", direction _heli]
+    , ["_heliPos", [round ((getPosASL _heli)#0), round ((getPosASL _heli)#1), round ((getPosASL _heli)#2)]]
     ];
+
+//check change before draw 
+private _drawstr = str _dmsPoints + str _scale + str _center + str _heading + str _heliPos;
+private _drawcompairestr = _heli getVariable "fza_mpd_drawIconsUpdate";
+if (_drawcompairestr#_displayIdx == _drawstr) exitwith {};
+[_heli, "fza_mpd_drawIconsUpdate", _displayIdx, _drawstr] call fza_fnc_setArrayVariable;
 
 private _displaySide = ["left", "right"] select _displayIdx;
 private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
