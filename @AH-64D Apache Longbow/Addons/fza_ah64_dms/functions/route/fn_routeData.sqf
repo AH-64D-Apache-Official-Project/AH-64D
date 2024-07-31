@@ -1,8 +1,8 @@
 /* ----------------------------------------------------------------------------
-Function: fza_dms_fnc_routeCycle
+Function: fza_dms_fnc_routeData
 
 Description:
-    Cycle to the next route under the correct conditioning
+    Handles the cycling and data proccessing for routes
 
 Parameters:
     _heli - The apache
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_dms_fnc_routeCycle
+    [_heli] call fza_dms_fnc_routeData
     ---
 
 Author:
@@ -30,10 +30,10 @@ private _rteIndex     = _heli getVariable "fza_ah64_routeCurPnt";
 private _Course1      = -1;
 private _Course2      = -1;
 
-if (_rteIndex == -1) exitwith {};
 
 //create Route without A/B/B/C side/side duplicates
 private _rteCycleList = [];
+private _rteDrawList = [];
 private _rteCycleIndex = _rteIndex;
 {
     private _previousIndex = (_foreachindex - 1);
@@ -45,15 +45,19 @@ private _rteCycleIndex = _rteIndex;
         continue;
     };
     _rteCycleList pushBack _X;
+    _rteDrawList pushback ([_heli, _X, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue);
 } foreach _routeInfo;
+
+_heli setVariable ["fza_dms_routeDrawArray", _rteDrawList];
+
+if (_rteIndex == -1) exitwith {};
 
 private _previousPnt = if (count _rteCycleList > 1 && _rteCycleIndex > 0) then {_rteCycleList#(_rteCycleIndex - 1);} else {-1;};
 private _currentPnt  = if (count _rteCycleList > 0 && _rteCycleIndex > -1) then {_rteCycleList#_rteCycleIndex;} else {-1;};
 private _nextPnt     = if (count _rteCycleList > (_rteCycleIndex + 1)) then {_rteCycleList#(_rteCycleIndex + 1);} else {-1;};
-_previousPnt;
-private _previousPntPos = [_heli, _previousPnt, 1] call fza_dms_fnc_pointGetValue;
-private _currentPntPos  = [_heli, _currentPnt, 1] call fza_dms_fnc_pointGetValue;
-private _nextPntPos     = [_heli, _nextPnt, 1] call fza_dms_fnc_pointGetValue;
+private _previousPntPos = [_heli, _previousPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+private _currentPntPos  = [_heli, _currentPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+private _nextPntPos     = [_heli, _nextPnt, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 
 if (_previousPnt isNotEqualTo -1 && _currentPnt isNotEqualTo -1 && _previousPntPos isNotEqualTo _currentPntPos) then {
     _Course1 = _previousPntPos getDir _currentPntPos;

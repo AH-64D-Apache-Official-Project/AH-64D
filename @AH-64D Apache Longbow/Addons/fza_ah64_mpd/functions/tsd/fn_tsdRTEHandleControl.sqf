@@ -15,7 +15,7 @@ private _addRoutePoint = {
     private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
     private _index    = ((_state get "routeScroll") + _btnIndex);
     private _dataType = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
-    private _dmsNext  = _heli getVariable "fza_dms_routeNext";
+    private _dmsNext  = (_heli getVariable "fza_dms_routeNext")#0;
     if ((count _routeInfo) < _index) exitWith {};
     if (isNil "_dataType") exitWith {};
     _routeInfo insert [_index, [_routePoint]];
@@ -54,7 +54,7 @@ private _setRouteDir = {
     private _index = ((_state get "routeScroll") + _btnIndex);
     if ((count _routeInfo) <= _index) exitWith {};
     private _routePoint = _routeInfo#_index;
-    [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
+    [_heli, _routePoint, true] call fza_dms_fnc_routeSetDir;
     _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
 };
 
@@ -74,7 +74,7 @@ switch (_variant) do {
     case 0: {   //RTE page
         switch (_control) do {
             case "l2": {     //RTE ADD sub-page
-                private _currentPoint = _heli getVariable "fza_dms_routeNext";
+                private _currentPoint = (_heli getVariable "fza_dms_routeNext")#0;
                 if (_currentPoint isEqualTo []) then {
                     _state set ["subPageVarPage", TSD_RTE_ADD_NOPOINTSEL];
                 } else {
@@ -85,7 +85,7 @@ switch (_variant) do {
                 _state set ["subPageVarPage", TSD_RTE_DEL];
             };
             case "l4": {     //RTE DIR sub-page
-                private _currentDir = _heli getVariable "fza_dms_routeNext";
+                private _currentDir = (_heli getVariable "fza_dms_routeNext")#0;
                 if (_currentDir isEqualTo []) then {
                     _state set ["subPageVarPage", TSD_RTE_DIR_NOPOINTSEL];
                 } else {
@@ -218,7 +218,7 @@ switch (_variant) do {
             case "l1": {    //Select Point
                 private _callBack = {
                     params ["_input", "_state", "_heli"];
-                    [_heli, _input] call fza_dms_fnc_routeSetDir;
+                    [_heli, _input, true] call fza_dms_fnc_routeSetDir;
                     _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
                     _state set ["subPageVarPage", TSD_RTE];
                 };
@@ -231,7 +231,7 @@ switch (_variant) do {
                     if (_databaseType > 2) exitWith {false;};
                     [true, _id];
                 };
-                private _currentValue = _heli getVariable "fza_dms_routeNext";
+                private _currentValue = (_heli getVariable "fza_dms_routeNext")#0;
                 private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
                 [_heli, "POINT", _callback, _checker, _state, _startValue] call fza_ku_fnc_addPrompt;
             };
