@@ -19,11 +19,15 @@ _canvas params ["_canvasCtrl", "_canvasCenter", "_canvasVect"];
 private _ctr = (_from vectorAdd _to) vectorMultiply 0.5;
 
 if (_posMode == MPD_POSMODE_WORLD) then {
-    _canvasCtrl drawLine 
-        [ _from
-        , _to
-        , _color
-    ];
+    private _theta = [_heli, _heliPos # 0, _heliPos # 1,  _ctr # 0, _ctr # 1, _heading] call fza_fnc_relativeDirection;
+    private _r = _heli distance2d _ctr;
+    _ctr =
+        [ _heliCtr # 0 + sin _theta * (_r * _scale)
+        , _heliCtr # 1 + -cos _theta * (_r * _scale)];
+
+    _length = (_from distance2D _to) * _scale;
+
+    _dir = (_from getDir _to) - _heading;
 } else {
     _length = _from distance2D _to;
     _dir = (_from getDir _to);
