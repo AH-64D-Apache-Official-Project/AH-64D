@@ -25,6 +25,7 @@ class CfgVehicles
         #include "cfgVehicles\soundsExt.hpp"
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\itcAir.hpp"
+        #include "cfgVehicles\wheels.hpp"
 
         //Sensors definition
         receiveRemoteTargets    = 1;
@@ -60,7 +61,6 @@ class CfgVehicles
         cargoGetInAction[] = {"GetInHigh","GetInHigh"};
         cargoGetOutAction[] = {"GetOutHigh","GetOutHigh"};
         destrtype = "DestructWreck";
-        driveOnComponent[] = {"Wheels"};
         driverCanSee = 1+2+4+8;
         driverlefthandanimname = "p_collective";
         driverleftleganimname = "pedalL";
