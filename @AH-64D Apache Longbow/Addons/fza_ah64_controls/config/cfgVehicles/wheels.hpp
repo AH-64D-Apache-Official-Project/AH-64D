@@ -1,20 +1,3 @@
-
-gearRetracting      = 0;
-gearMinAlt          = 999999;
-
-turnCoef            = 4; // Rolling Friction, higher stops more quickly
-terrainCoef         = 1;
-damperSize          = 1;
-damperForce         = 10;
-damperDamping       = 100;
-wheelWeight         = 30;
-driveOnComponent[]={
-    "wheels"
-};
-minOmega            = 0;
-maxOmega            =2000;
-numberPhysicalWheels = 3;
-
 class wheel_base {
     steering                    = false;
     width                       = 0.2;
@@ -32,9 +15,9 @@ class wheel_base {
     maxCompression              = 0.3;
     maxDroop                    = 0.1;
 
-    sprungMass                  = 3000;
-    springStrength              = 20000;
-    springDamperRate            = 50000;
+    sprungMass                  = 3685;
+    springStrength              = 18425;
+    springDamperRate            = (8239 * 2 * 1);
 
     longitudinalStiffnessPerUnitGravity = 500;
     latStiffX                   = 2.5;
@@ -78,7 +61,7 @@ class wheels
         maxDroop                    = 0.03;
         maxBrakeTorque              = 0;
 
-        sprungMass                  = 200;
+        sprungMass                  = 800;
         springStrength              = 5000;
         springDamperRate            = 1000;
     };
