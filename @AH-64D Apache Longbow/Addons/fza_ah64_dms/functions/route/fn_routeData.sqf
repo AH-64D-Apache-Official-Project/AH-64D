@@ -87,19 +87,19 @@ _closestPoint = _currentPntPos vectorAdd [(_dotProduct * _lineDirection#0), (_do
 
 private _speed = round(vectorMagnitude (velocity _heli));
 private _approachETA = if (_speed > 0) then {round((_heli distance2d _currentPntPos) / _speed);} else {99;};
-private _leftMpd = [_heli, 0] call fza_mpd_fnc_currentPage;
-private _rightMpd = [_heli, 1] call fza_mpd_fnc_currentPage;
+private _pltMpd = _heli getVariable "fza_mpd_page_plt";
+private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _count = count _rteCycleList;
 //wpt approach 
-if (_leftMpd != "TSD" && _rightMpd != "TSD" && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
+if (!("TSD" in _pltMpd && "TSD" in _cpgMpd) && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
     [_heli, "fza_ah64_wptAprch", [_currentPnt, true]] call fza_fnc_updateNetworkGlobal;
 };
 //waypoint passed
 {
     if (_count == 0) exitwith {};
     if (_closestPoint distance2D _heli > 20) exitwith {};
-    if (_leftMpd != "TSD" && _rightMpd != "TSD") then {
+    if !("TSD" in _pltMpd && "TSD" in _cpgMpd) then {
         [_heli, "fza_ah64_wptpassed", true] call fza_fnc_updateNetworkGlobal;
     };
     if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {

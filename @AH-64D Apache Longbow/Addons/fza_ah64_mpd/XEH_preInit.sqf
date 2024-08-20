@@ -16,7 +16,7 @@
     private _currentDir = (_heli getVariable "fza_dms_routeNext")#0;
     private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
     if (_id isEqualTo _wptAprch#0) then {
-        [_heli, "fza_ah64_wptAprch", [-1, false]] call fza_fnc_updateNetworkGlobal;
+        _heli setVariable ["fza_ah64_wptAprch", [-1, false]];
     };
     if (_currentDir isEqualTo _id) then {
         [_heli, []] call fza_dms_fnc_routeSetDir;

@@ -495,17 +495,17 @@ if (_onGnd) then {
 
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _wptPassed = _heli getvariable "fza_ah64_wptpassed";
-private _leftMpd = [_heli, 0] call fza_mpd_fnc_currentPage;
-private _rightMpd = [_heli, 1] call fza_mpd_fnc_currentPage;
-if (_leftMpd != "TSD" && _rightMpd != "TSD" && _wptAprch#1) then {
+private _pltMpd = _heli getVariable "fza_mpd_page_plt";
+private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
+if (!("TSD" in _pltMpd && "TSD" in _cpgMpd) && _wptAprch#1) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT APPROACH", "WPT APRCH"];
 } else {
-    [_heli, "fza_ah64_wptAprch", [_wptAprch#0, false]] call fza_fnc_updateNetworkGlobal;
+    _heli setVariable ["fza_ah64_wptAprch", [_wptAprch#0, false]];
 };
-if (_leftMpd != "TSD" && _rightMpd != "TSD" && _wptPassed) then {
+if (!("TSD" in _pltMpd && "TSD" in _cpgMpd) && _wptPassed) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT PASSED", "WPT PASSED"];
 } else {
-    [_heli, "fza_ah64_wptpassed", false] call fza_fnc_updateNetworkGlobal;
+    _heli setVariable ["fza_ah64_wptpassed", false];
 };
 
 _wcas;
