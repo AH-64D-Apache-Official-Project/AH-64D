@@ -48,7 +48,7 @@ private _rteCycleIndex = _rteIndex;
     _rteDrawList pushback ([_heli, _X, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue);
 } foreach _routeInfo;
 
-_heli setVariable ["fza_dms_routeDrawArray", _rteDrawList];
+[_heli, "fza_dms_routeDrawArray", _rteDrawList] call fza_fnc_updateNetworkGlobal;
 
 if (_rteIndex == -1) exitwith {};
 
