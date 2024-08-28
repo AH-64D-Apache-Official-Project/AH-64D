@@ -27,6 +27,7 @@ private _addRoutePoint = {
     if (_index <= _rteIndex && _rteIndex != -1) then {
         _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex + 1), true];
     };
+    _heli setVariable ["fza_ah64_routeData", _routeData, true];
 };
 
 private _delRoutePoint = {
@@ -47,6 +48,7 @@ private _delRoutePoint = {
     if (_routePoint isEqualTo _wptAprch#0) then {
         [_heli, "fza_ah64_wptAprch", [-1, false]] call fza_fnc_updateNetworkGlobal;
     };
+    _heli setVariable ["fza_ah64_routeData", _routeData, true];
 };
 
 private _setRouteDir = {
