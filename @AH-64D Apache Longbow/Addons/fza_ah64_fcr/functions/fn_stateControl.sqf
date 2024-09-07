@@ -47,7 +47,7 @@ switch (_fcrState # 0) do {
     case FCR_MODE_OFF: {
         if _armaRadarOn then {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
-            _heli setVariable ["fza_ah64_fcrDisplayTargets", [], true];
+            _heli setVariable ["fza_ah64_fcrDisplayTargets", [[],[],[]], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
         };
     };

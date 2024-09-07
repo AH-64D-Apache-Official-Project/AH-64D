@@ -73,6 +73,12 @@ private _fcrTargets  = [];
     _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range];
 } foreach _fcrTracks;
  
-_fcrTargets = [_fcrTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
+//Fcr post effect proccess order
+private _eval = {if(_x#6 < 4000)then{_x#4}else{_x#4 * -1 + 90};};
+if (_fcrMode == 2) then {
+    _eval = {if (_x#4 < 0) then {_x#4 * -1} else {_x#4};};
+};
+_fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
+
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
 [_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time]] call fza_fnc_updateNetworkGlobal;

@@ -107,6 +107,7 @@ class CfgVehicles {
                 class InitState {
                     subPageVarPage[] = {0,0};
                     showScale = 0;
+                    displayTargets[] = {};
                 };
                 class PersistState {
                     mode = "nav";
@@ -138,6 +139,7 @@ class CfgVehicles {
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {5,0};
+                    displayTargets[] = {};
                 };
             };
             class ASE {

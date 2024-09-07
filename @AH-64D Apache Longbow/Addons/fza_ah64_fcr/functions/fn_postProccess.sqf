@@ -19,9 +19,8 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-params ["_heli","_scale","_heliCtr"];
+params ["_heli","_scale","_heliCtr","_displayTargets"];
 
-private _displayTargets = _heli getvariable "fza_ah64_fcrDisplayTargets";
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
 private _fcrState       = _heli getVariable "fza_ah64_fcrState";
 private _lastScanInfo   = _heli getVariable "fza_ah64_fcrLastScan";
@@ -48,6 +47,20 @@ switch (_fcrMode) do {
     };
 };
 
+if (count _fcrtargets > 0) then {
+    _fcrTargets#(count _displayTargets) params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    if !(call _eval) then {
+        _search = _displayTargets findif {_x#3 isEqualTo _target;};
+        if (_search != -1) then {
+            _displayTargets deleteAt _search;
+        };
+        private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
+        private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
+        private _uiCtr = [_x, _y, 0];
+        _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _uiCtr];
+    };
+};
+
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range", "_uiCtr"];
     if ([] call _eval) then {continue;};
@@ -60,24 +73,11 @@ switch (_fcrMode) do {
             _displayTargets deleteAt _foreachindex;
         };
     };
-} foreach _displayTargets;
+} foreach _displaytargets;
 
-{
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    if ([] call _eval) then {continue;};
-    _search = _displayTargets findif {_x#3 isEqualTo _target;};
-    if (_search != -1) then {
-        _displayTargets deleteAt _search;
-    };
-    private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
-    private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
-    private _uiCtr = [_x, _y, 0];
-    _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _uiCtr];
-} foreach _fcrTargets;
-
-_displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
 _heli setvariable ["fza_ah64_fcrDisplayTargets", _displayTargets];
 
+/*
 if (_scanPercentage > 95) then {
     private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
     private _newNtsIndex = _displayTargets findIf {_x # 3 == _oldNts};
@@ -87,7 +87,7 @@ if (_scanPercentage > 95) then {
     if(count _displayTargets == 0) then {
         _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
     };
-};
+};*/
 
 hintsilent format ["Relative Bearing =%1
                     \nScan Percent = %2
@@ -96,5 +96,4 @@ hintsilent format ["Relative Bearing =%1
                     ,round _scanPercentage
                     ,_displayTargets];
 
-_displayTargets;
-
+_displayTargets

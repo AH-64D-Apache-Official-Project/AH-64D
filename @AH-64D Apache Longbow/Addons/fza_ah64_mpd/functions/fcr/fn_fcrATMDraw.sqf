@@ -35,7 +35,14 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 };
 
 //fcr post proccess display
-private _displayTargets = [_heli, (0.040625 * 8 / 8000), [0.5, 0.5]] call fza_fcr_fnc_PostProccess;
+private _displayTargets = _state get "displayTargets";
+private _displayTargets = [_heli, (0.040625 * 8 / 8000), [0.5, 0.5], _displayTargets] call fza_fcr_fnc_PostProccess;
+private _initialise = _state get "initialise";
+if (_initialise == 1) then {
+    _state set ["initialise", 2];
+    _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+};
+_state set ["displayTargets", _displayTargets];
 
 //FCR page draw
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;

@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex"];
+params ["_heli", "_mpdIndex", "_state"];
 
 private _fcrState     = _heli getVariable "fza_ah64_fcrState";
 private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
@@ -20,7 +20,10 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 };
 
 //fcr post proccess display
-private _displayTargets = [_heli, (0.08125 * 8 / 8000), [0.5, 0.87]] call fza_fcr_fnc_PostProccess;
+private _displayTargets = _state get "displayTargets";
+private _displayTargets = [_heli, (0.08125 * 8 / 8000), [0.5, 0.87], _displayTargets] call fza_fcr_fnc_PostProccess;
+_state set ["displayTargets", _displayTargets];
+_displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
 
 //Total target count
 private _fcrTgtCount  = count _displayTargets;
