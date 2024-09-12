@@ -111,27 +111,14 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
 //FCR Points
-private _displayTargets = _state get "displayTargets";
-private _displayTargets = [_heli, _tsdScale, [_ctrX, _ctrY], _displayTargets] call fza_fcr_fnc_PostProccess;
-private _initialise = _state get "initialise";
-if (_initialise == 1) then {
-    _state set ["initialise", 2];
-    _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-};
-_state set ["displayTargets", _displayTargets];
-
-private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _SystemWas      = _heli getVariable "fza_ah64_was";
-private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
-private _antsIndex = -1;
-if (count _displayTargets > 0 && _ntsIndex != -1) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
-};
+_heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
+private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+private _SystemWas = _heli getVariable "fza_ah64_was";
 
 {
-    _x params ["_pos", "_type", "_moving", "_obj"];
-    private _distance_m          = _lastScanInfo #1 distance2d _pos;
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    private _distance_m          = _scanPos distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
@@ -187,7 +174,12 @@ if (count _displayTargets > 0 && _ntsIndex != -1) then {
     } else {
         _ident= "FCR_TSD_SC25_50";
     };
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
+
+    private _x = _ctrX + sin _aziAngle * (_range * _tsdScale);
+    private _y = _ctrY - cos _aziAngle * (_range * _tsdScale);
+    private _uiCtr = [_x, _y, 0];
+
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";

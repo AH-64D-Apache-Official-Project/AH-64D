@@ -4,11 +4,11 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex", "_state"];
 
-private _fcrState     = _heli getVariable "fza_ah64_fcrState";
-private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _SystemWas    = _heli getVariable "fza_ah64_was";
+_heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
+private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+private _SystemWas = _heli getVariable "fza_ah64_was";
 
-_fcrState params ["_fcrScanState", "_fcrScanStartTime"];
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = time - _fcrScanStartTime;
@@ -19,16 +19,6 @@ if (_fcrScanState != FCR_MODE_OFF) then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
 };
 
-//fcr post proccess display
-private _displayTargets = _state get "displayTargets";
-private _displayTargets = [_heli, (0.08125 * 8 / 8000), [0.5, 0.87], _displayTargets] call fza_fcr_fnc_PostProccess;
-_state set ["displayTargets", _displayTargets];
-_displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
-
-//Total target count
-private _fcrTgtCount  = count _displayTargets;
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
-
 //FCR page draw
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
@@ -38,9 +28,11 @@ if (count _displayTargets > 0 && _ntsIndex != -1) then {
 };
 
 private _pointsArray = [];
+private _scale = (0.08125 * 8 / 8000);
+private _heliCtr = [0.5, 0.87];
 {
-    _x params ["_pos", "_type", "_moving", "_obj","","","","_uiCtr"];
-    private _distance_m          = _lastScanInfo #1 distance2d _pos;
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    private _distance_m          = _scanPos distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
@@ -95,11 +87,17 @@ private _pointsArray = [];
     };
     if (_unitType == "" || _unitStatus == "") exitwith {};
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
+    
+    private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
+    private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
+    private _uiCtr = [_x, _y, 0];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
 
-POINTSARRAY = _pointsArray;
+//Total target count
+private _fcrTgtCount  = count _displayTargets;
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
 [_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
-[_heli, _pointsArray, _mpdIndex,  (0.08125 * 8 / 8000), [0.5, 0.87], _lastScanInfo#0, _lastScanInfo #1] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

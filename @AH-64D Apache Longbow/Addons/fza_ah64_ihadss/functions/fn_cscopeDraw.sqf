@@ -23,10 +23,10 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _wasState           = _heli getVariable "fza_ah64_was";
-private _fcrTargets         = _heli getVariable "fza_ah64_fcrDisplayTargets";
-private _lastScanInfo       = _heli getVariable "fza_ah64_fcrLastScan";
-private _CscopeCount        = 0;
+private _wasState       = _heli getVariable "fza_ah64_was";
+private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
+private _CscopeCount    = 0;
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 
 {
     if (_CscopeCount > 15) exitwith {};
@@ -36,8 +36,8 @@ private _CscopeCount        = 0;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
     };
 
-    _x params ["_pos", "_type", "_moving", "_obj"];
-    private _distance_m          = _lastScanInfo #1 distance2d _pos;
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    private _distance_m          = _scanPos distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
     private _GuiPos              = worldtoscreen asltoagl _pos;
@@ -92,7 +92,7 @@ private _CscopeCount        = 0;
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
 
     _CscopeCount = _CscopeCount + 1;
-} forEach (_heli getVariable "fza_ah64_fcrTargets");
+} forEach _fcrTargets;
 
 for "_i" from _CscopeCount to 15 do
 {

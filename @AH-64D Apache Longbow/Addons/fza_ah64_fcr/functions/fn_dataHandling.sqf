@@ -1,17 +1,15 @@
 /*----------------------------------------------------------------------------
-Function: fza_fcr_fnc_PostProccess;
+Function: fza_fcr_fnc_dataHandling
 
 Description:
-    cycle the targeting system to the next FCR target
+    Handling of Data to be revealed by Radar Sweep
 
 Parameters:
-    _heli - the heli to act upon
 
 Returns:
     Nothing
     
 Examples:
-    [_heli] call fza_fcr_fnc_PostProccess;
 
 Author:
     Snow(Dryden)
@@ -19,18 +17,19 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-params ["_heli","_scale","_heliCtr","_displayTargets"];
+params ["_heli"];
 
-private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
-private _fcrState       = _heli getVariable "fza_ah64_fcrState";
-private _lastScanInfo   = _heli getVariable "fza_ah64_fcrLastScan";
-Private _fcrMode        = _heli Getvariable "fza_ah64_fcrMode";
-_fcrState params ["_fcrScanState", "_fcrScanStartTime"];
+_heli getVariable "fza_ah64_fcrLastScan"    params ["_dir", "_pos", "_time"]; 
+_heli getVariable "fza_ah64_fcrState"       params ["_state", "_fcrScanStartTime"]; 
+private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+private _fcrData    = _heli getVariable "fza_ah64_fcrData";
+Private _fcrMode    = _heli Getvariable "fza_ah64_fcrMode";
+
+//Condition calulations
 private _fcrScanDeltaTime = time - _fcrScanStartTime;
 private _scanrelBearing = 0;
 private _scanPercentage = 0;
 private _eval = {true};
-private _posHeli = Getposasl _heli;
 
 //Fcr Bar info
 switch (_fcrMode) do {
@@ -47,47 +46,35 @@ switch (_fcrMode) do {
     };
 };
 
-if (count _fcrtargets > 0) then {
-    _fcrTargets#(count _displayTargets) params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+//Pushback Updates to target array, remove old target if known
+{
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     if !(call _eval) then {
         _search = _displayTargets findif {_x#3 isEqualTo _target;};
         if (_search != -1) then {
             _displayTargets deleteAt _search;
         };
-        private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
-        private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
-        private _uiCtr = [_x, _y, 0];
-        _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _uiCtr];
+        _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range];
     };
-};
+} foreach _fcrData;
 
 {
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range", "_uiCtr"];
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     if ([] call _eval) then {continue;};
-    _search = _fcrTargets findif {_x#3 isEqualTo _target;};
+    _search = _fcrData findif {_x#3 isEqualTo _target;};
     if (_search == -1) then {
         _displayTargets deleteAt _foreachindex;
     } else {
-        private _aziAngle = _fcrTargets#_search#4;
+        private _aziAngle = _fcrData#_search#4;
         if ([] call _eval) then {
             _displayTargets deleteAt _foreachindex;
         };
     };
 } foreach _displaytargets;
 
-_heli setvariable ["fza_ah64_fcrDisplayTargets", _displayTargets];
+private _displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
 
-/*
-if (_scanPercentage > 95) then {
-    private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
-    private _newNtsIndex = _displayTargets findIf {_x # 3 == _oldNts};
-    if (_newNtsIndex == -1) then {
-        _heli setVariable ["fza_ah64_fcrNts", [_displayTargets # 0 # 3,_displayTargets # 0 # 0], true];
-    };
-    if(count _displayTargets == 0) then {
-        _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
-    };
-};*/
+_heli setvariable ["fza_ah64_fcrTargets", _displayTargets];
 
 hintsilent format ["Relative Bearing =%1
                     \nScan Percent = %2
@@ -95,5 +82,3 @@ hintsilent format ["Relative Bearing =%1
                     ,round _scanrelBearing
                     ,round _scanPercentage
                     ,_displayTargets];
-
-_displayTargets
