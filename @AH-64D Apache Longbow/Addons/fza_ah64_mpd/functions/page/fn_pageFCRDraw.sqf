@@ -38,6 +38,53 @@ switch (_sight) do {
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
+//Command Heading Chevron
+private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+if (isNil "_nextPointPos") then {
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360];
+} else {
+    private _waypointDirection = [(_heli getRelDir _nextPointPos)] call CBA_fnc_simplifyAngle180;
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection];
+};
+
+//Alternate Sensor Bearing
+private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")});
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
+
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"]; 
+private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrHeading = -1000;
+    _lastHeading = -1000;
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
+
+//TADS POS
+private _tadsX = deg (_heli animationphase "tads_tur");
+private _tadsY = deg (_heli animationphase "tads");
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), -_tadsX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
+
+//Cued LOS
+_currentAcq = [_heli] call fza_fnc_targetingCurAcq;
+_acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqVec;
+_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CuedLOS_X), _quedLosX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CuedLOS_Y), -_quedLosY];
+
+//Arrows
+private _arrowL = _state get "arrowL";
+systemchat str _arrowL;
+private _arrowR = _state get "arrowR";
+systemchat str _arrowR;
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LEFT_ARROW), _arrowL];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_RIGHT_ARROW), _arrowR];
+
+
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
 private _nts     = _nts # 0;

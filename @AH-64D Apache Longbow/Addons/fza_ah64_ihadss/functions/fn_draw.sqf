@@ -359,9 +359,10 @@ _speedkts = format["%1", round(1.94384 * vectorMagnitude((velocity _heli) vector
 _baraltft = format["%1",  _barAlt toFixed 0];
 _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
-private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
-if !isNil {_fcrLastScan # 0} then {
-    _fcrhdg = _fcrLastScan # 0;
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+if !isNil {_dir} then {
+    _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
@@ -654,7 +655,7 @@ for "_i" from 0 to 35 do {
 
 [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
 
-if (_fcrhdg < -180 || _fcrhdg > 180) then {
+if (_fcrhdg > 360) then {
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
 } else {

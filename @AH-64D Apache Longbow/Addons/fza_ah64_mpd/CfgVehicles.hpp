@@ -138,6 +138,8 @@ class CfgVehicles {
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {5,0};
+                    arrowL = 1;
+                    arrowR = 1;
                 };
             };
             class ASE {

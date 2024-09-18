@@ -37,23 +37,22 @@ if (_armaRadarOn) then {
     if (_fcrDamage >= SYS_FCR_DMG_THRESH || ((!_acBusOn || !_dcBusOn) && !_onGnd)) exitwith {
         [_heli, "fza_ah64_fcrState", [FCR_MODE_FAULT, _lastScanState # 2]] call fza_fnc_updateNetworkGlobal;
     };
-    if (((!_acBusOn || !_dcBusOn) && _onGnd) || (!_gndOrideOn && _onGnd)) then {
+    if (((!_acBusOn || !_dcBusOn) && _onGnd) || (!_gndOrideOn && _onGnd)) exitwith {
         [_heli, "fza_ah64_fcrState", [FCR_MODE_OFF, _lastScanState # 2]] call fza_fnc_updateNetworkGlobal;
         _heli action ["ActiveSensorsOff", _heli];
     };
 };
 
-//data proccessing
-_heli call fza_fcr_fnc_dataHandling;
-
-switch (_fcrState # 0) do {
+switch _fcrScanState do {
     case FCR_MODE_OFF: {
         if _armaRadarOn then {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
+            _heli setVariable ["fza_ah64_fcrData", [], true];
         };
     };
     case FCR_MODE_ON_SINGLE: {
+        _heli call fza_fcr_fnc_dataHandling;
         if (time >= _fcrScanStartTime + _updateDelay && _time < _fcrScanStartTime) exitwith {
             [_heli] call fza_fcr_fnc_update;
         };
@@ -64,6 +63,7 @@ switch (_fcrState # 0) do {
         _heli action ["ActiveSensorsOn", vehicle player];
     };
     case FCR_MODE_ON_CONTINUOUS: {
+        _heli call fza_fcr_fnc_dataHandling;
         if _armaRadarOn exitwith {
             if (time >= _time + _updateDelay && time >= _fcrScanStartTime + _updateDelay) then {
                 [_heli] call fza_fcr_fnc_update;

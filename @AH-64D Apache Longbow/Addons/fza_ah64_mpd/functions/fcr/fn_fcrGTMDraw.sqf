@@ -23,7 +23,7 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
 private _antsIndex = -1;
-if (count _displayTargets > 0 && _ntsIndex != -1) then {
+if (count _displayTargets > 1 && _ntsIndex != -1) then {
     _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 

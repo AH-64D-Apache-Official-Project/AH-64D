@@ -221,13 +221,24 @@
 
 // FCR Indices
 //--User value
-#define MFD_IND_FCR_ANIM       0
-#define MFD_IND_FCR_SCAN_TYPE  1
-#define MFD_IND_FCR_ACQ_BOX    2
-#define MFD_IND_FCR_MODE       3
-#define MFD_IND_FCR_ATM_BLOCK  4
-#define MFD_IND_FCR_LINE_SHOW  5
-#define MFD_IND_FCR_CSCOPE     6
+#define MFD_IND_FCR_ANIM        0
+#define MFD_IND_FCR_SCAN_TYPE   1
+#define MFD_IND_FCR_ACQ_BOX     2
+#define MFD_IND_FCR_MODE        3
+#define MFD_IND_FCR_ATM_BLOCK   4
+#define MFD_IND_FCR_LINE_SHOW   5
+#define MFD_IND_FCR_CSCOPE      6
+#define MFD_IND_FCR_LEFT_ARROW  7
+#define MFD_IND_FCR_Right_ARROW 8
+#define MFD_IND_FCR_FOV_X       9
+#define MFD_IND_FCR_FOV_Y       10
+#define MFD_IND_FCR_CuedLOS_X   11
+#define MFD_IND_FCR_CuedLOS_Y   12
+#define MFD_IND_FCR_CENTERLINE  13
+#define MFD_IND_FCR_PREV_CENTER 14
+#define MFD_IND_FCR_COMMAND_HEADING  15
+#define MFD_IND_FCR_ALTERNATE_SENSOR 16
+
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1

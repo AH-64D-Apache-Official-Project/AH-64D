@@ -82,4 +82,5 @@ if (_fcrMode == 2) then {
 _fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
 
 [_heli, "fza_ah64_fcrData", _fcrTargets] call fza_fnc_updateNetworkGlobal;
-[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time]] call fza_fnc_updateNetworkGlobal;
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time, _dir]] call fza_fnc_updateNetworkGlobal;

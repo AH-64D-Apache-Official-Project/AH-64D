@@ -121,93 +121,174 @@ class root {
         };
     };
 
-    class lines_CurScanLine {
-        //Needs bone
-        type = line;
-        width = 3;
-        points[] = {
-            {{0.450, 0.894}, 1}, 
-            {{0.450, 0.984}, 1}, {},
-        };
-    };
-
-    class lines_PrevScanLine {
-        //Needs bone
-        type = line;
-        width = 3;
-        points[] = {
-            //1
-            {{0.580, 0.894}, 1}, 
-            {{0.580, 0.904}, 1}, {},
-            //2
-            {{0.580, 0.914}, 1}, 
-            {{0.580, 0.924}, 1}, {},
-            //3
-            {{0.580, 0.934}, 1}, 
-            {{0.580, 0.944}, 1}, {},
-            //4
-            {{0.580, 0.954}, 1}, 
-            {{0.580, 0.964}, 1}, {},
-            //5
-            {{0.580, 0.974}, 1}, 
-            {{0.580, 0.984}, 1}, {},
-        };
-    };
-
     class polys_CuedLOS {
-        //Needs bone
         class Polygon {
             type = polygon;
             points[] = {
                 {
-                    { {0.495, 0.939}, 1 },
-                    { {0.500, 0.934}, 1 },
-                    { {0.505, 0.939}, 1 },
-                    { {0.500, 0.944}, 1 }
+                    {"FCR_CuedLOS_X", 1, "FCR_CuedLOS_Y", {-0.005, 0.000}, 1 },
+                    {"FCR_CuedLOS_X", 1, "FCR_CuedLOS_Y", {0.000, -0.005}, 1 },
+                    {"FCR_CuedLOS_X", 1, "FCR_CuedLOS_Y", {0.005, 0.000}, 1 },
+                    {"FCR_CuedLOS_X", 1, "FCR_CuedLOS_Y", {0.000, 0.005}, 1 }
                 },
             };
         };
     };
 
     class lines_FOVBox {
-        //Needs bone
         type = line;
         width = 3;
         points[] = {
             //Top
-            {{0.480, 0.926}, 1}, 
-            {{0.520, 0.926}, 1},
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, -0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, -0.013}, 1},
             //Right
-            {{0.520, 0.926}, 1}, 
-            {{0.520, 0.952}, 1},
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, -0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, 0.013}, 1},
             //Bottom
-            {{0.520, 0.952}, 1}, 
-            {{0.480, 0.952}, 1},
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {0.020, 0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, 0.013}, 1},
             //Left
-            {{0.480, 0.952}, 1}, 
-            {{0.480, 0.926}, 1}, {},
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, 0.013}, 1}, 
+            {"FCR_FOV_X", 1, "FCR_FOV_Y", {-0.020, -0.013}, 1}, {},
         };
     };
 
-    #include "common\headingtape.hpp"
-
+    #include "common\fcrHeadingTape.hpp"
     class Obscurants {
         color[] = {0,0,0,1};
         class HeadingTape {
             type = polygon;
             points[] = {
                 {
-                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.144 - MPD_TEXT_HEIGHT}, 1},
-                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.144 - MPD_TEXT_HEIGHT}, 1},
-                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.144}, 1},
-                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.144}, 1}
+                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.06 - MPD_TEXT_HEIGHT}, 1},
+                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.06 - MPD_TEXT_HEIGHT}, 1},
+                    {{0.5 + MPD_TEXT_WIDTH * 1.5, 0.06}, 1},
+                    {{0.5 - MPD_TEXT_WIDTH * 1.5, 0.06}, 1}
                 }
             };
         };
     };
+    MPD_TEXT_C(Heading, 0.5, 0.015, source = heading; sourceScale = 1;)
 
-    MPD_TEXT_C(Heading, 0.5, 0.105, source = heading; sourceScale = 1;)
+    class CommandHeading {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_COMMAND_HEADING), -180));
+        class CommandHeading {
+            type = line;
+            width = 3;
+            points[] = {
+                {"FCR_CommandHeading", {-0.0075, 0.015}, 1},
+                {"FCR_CommandHeading", {0, 0}, 1},
+                {"FCR_CommandHeading", {0.0075, 0.015}, 1}
+            };
+        };
+    };
+
+    class AltSensorBearing {
+        type = polygon;
+        points[] = {
+            {
+                {"FCR_AltSensorBearing", {-0.0075, 0.015}, 1},
+                {"FCR_AltSensorBearing", {0, 0}, 1},
+                {"FCR_AltSensorBearing", {0.0075, 0.015}, 1}
+            }
+        };
+    };
+
+    class FCRCenterline {
+        condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_FCR_CENTERLINE), -180));
+        class FCRCenterline {
+            type = polygon;
+            points[] = {
+                {
+                    //Main rectangles
+                    {"FCRCenterline", {-0.0065, 0}, 1},
+                    {"FCRCenterline", {-0.0025, 0}, 1},
+                    {"FCRCenterline", {-0.0025, 0.012}, 1},
+                    {"FCRCenterline", {-0.0065, 0.012}, 1}
+                },  {
+                    {"FCRCenterline", {0.0065, 0}, 1},
+                    {"FCRCenterline", {0.0025, 0}, 1},
+                    {"FCRCenterline", {0.0025, 0.012}, 1},
+                    {"FCRCenterline", {0.0065, 0.012}, 1}
+                },
+                    //Left curve
+                {
+                    {"FCRCenterline", {-0.0065, 0}, 1},
+                    {"FCRCenterline", {-0.0094, 0.0007}, 1},
+                    {"FCRCenterline", {-0.0094, 0.0113}, 1},
+                    {"FCRCenterline", {-0.0065, 0.012}, 1}
+                }, {
+                    {"FCRCenterline", {-0.0094, 0.0007}, 1},
+                    {"FCRCenterline", {-0.0116, 0.0027}, 1},
+                    {"FCRCenterline", {-0.0116, 0.0093}, 1},
+                    {"FCRCenterline", {-0.0094, 0.0113}, 1}
+                }, {
+                    {"FCRCenterline", {-0.0116, 0.0027}, 1},
+                    {"FCRCenterline", {-0.0125, 0.0056}, 1},
+                    {"FCRCenterline", {-0.0125, 0.0064}, 1},
+                    {"FCRCenterline", {-0.0116, 0.0093}, 1}
+                },
+                    //Right curve
+                {
+                    {"FCRCenterline", {0.0065, 0}, 1},
+                    {"FCRCenterline", {0.0094, 0.0007}, 1},
+                    {"FCRCenterline", {0.0094, 0.0113}, 1},
+                    {"FCRCenterline", {0.0065, 0.012}, 1}
+                }, {
+                    {"FCRCenterline", {0.0094, 0.0007}, 1},
+                    {"FCRCenterline", {0.0116, 0.0027}, 1},
+                    {"FCRCenterline", {0.0116, 0.0093}, 1},
+                    {"FCRCenterline", {0.0094, 0.0113}, 1}
+                }, {
+                    {"FCRCenterline", {0.0116, 0.0027}, 1},
+                    {"FCRCenterline", {0.0125, 0.0056}, 1},
+                    {"FCRCenterline", {0.0125, 0.0064}, 1},
+                    {"FCRCenterline", {0.0116, 0.0093}, 1}
+                }
+            };
+        };
+        class lines_CurScanLine {
+            type = line;
+            width = 3;
+            sourceScale = 0.5;
+            points[] = {
+                {"FCR_Fov_Centerline", {0.0, 0.045}, 1}, 
+                {"FCR_Fov_Centerline", {0.0, -0.045}, 1}
+            };
+        };
+        class lines_PrevScanLine {
+            type = line;
+            width = 3;
+            points[] = {
+                //1
+                {"FCR_Fov_PrevCenter", {0.0, -0.045}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, -0.035}, 1}, {},
+                //2
+                {"FCR_Fov_PrevCenter", {0.0, -0.025}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, -0.015}, 1}, {},
+                //3
+                {"FCR_Fov_PrevCenter", {0.0, -0.005}, 1},
+                {"FCR_Fov_PrevCenter", {0.0, 0.005}, 1}, {},
+                //4
+                {"FCR_Fov_PrevCenter", {0.0, 0.015}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, 0.025}, 1}, {},
+                //5
+                {"FCR_Fov_PrevCenter", {0.0, 0.035}, 1}, 
+                {"FCR_Fov_PrevCenter", {0.0, 0.045}, 1}, {},
+            };
+        };
+    };
     
+    class headingTapeNotch {
+        type = line;
+        width = 8;
+        points[] = {
+            {{0.5, 0.09}, 1},
+            {{0.5, 0.13}, 1},
+        };
+    };
+
     class vabs{
         //T6
         MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
@@ -216,6 +297,7 @@ class root {
         //R4
         MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
         MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
+        MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
         //R6
         MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, Fcr_Acq)
 
@@ -227,10 +309,12 @@ class root {
         MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
         MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
         MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+        MPD_BOX_BAR_R(TGT,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
         //L5
         MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
         MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
         MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
+        MPD_BOX_BAR_R(ELEV,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
     };
 
     class text {
@@ -254,12 +338,100 @@ class root {
         MPD_TEXT_R(WS,  0.78 - (6*MPD_TEXT_WIDTH), 0.939,                   MPD_TEXT_USER(MFD_TEXT_IND_FCR_WS))
     };
     class Cscope {
-        MPD_TEXT_C(C_SCP,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C SCP"))
+        MPD_TEXT_C(C_SCP,  MPD_POS_BUTTON_TB_1_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C SCP"))
         class Boxed {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_CSCOPE), 1));
-            MPD_BOX_C(UTIL, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 5)
+            MPD_BOX_C(UTIL, MPD_POS_BUTTON_TB_1_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_T_Y, 5)
         };
     };
+    
+    class fcrOffsetArrows {
+        class leftArrowHollow {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 1));
+            type = line;
+            width = 3;
+            points[] = {
+                {{0.025, 0.335}, 1},
+                {{0.054, 0.320}, 1},
+                {{0.060, 0.320}, 1},
+                {{0.060, 0.328}, 1},
+                {{0.078, 0.328}, 1},
+                {{0.078, 0.344}, 1},
+                {{0.060, 0.344}, 1},
+                {{0.060, 0.352}, 1},
+                {{0.054, 0.352}, 1},
+                {{0.025, 0.335}, 1},
+            };
+        };
+        class leftArrowsolid {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 2));
+            type = polygon;
+            points[] = {
+                {
+                    {{0.025, 0.335}, 1},
+                    {{0.054, 0.320}, 1},
+                    {{0.054, 0.352}, 1},
+                },{
+                    {{0.054, 0.352}, 1},
+                    {{0.054, 0.320}, 1},
+                    {{0.060, 0.320}, 1},
+                    {{0.060, 0.352}, 1},
+                },{
+                    {{0.060, 0.328}, 1},
+                    {{0.078, 0.328}, 1},
+                    {{0.078, 0.344}, 1},
+                    {{0.060, 0.344}, 1}
+                }
+            };
+        };
+        class leftArrowBrick {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 3));
+            MPD_BOX_BAR_R(leftArrowBrick, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
+        };
+        class rightArrowHollow {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 1));
+            type = line;
+            points[] = {
+                {{0.975, 0.335}, 1},
+                {{0.946, 0.320}, 1},
+                {{0.940, 0.320}, 1},
+                {{0.940, 0.328}, 1},
+                {{0.922, 0.328}, 1},
+                {{0.922, 0.344}, 1},
+                {{0.940, 0.344}, 1},
+                {{0.940, 0.352}, 1},
+                {{0.946, 0.352}, 1},
+                {{0.975, 0.335}, 1},
+            };
+        };
+        class rightArrowSolid {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 2));
+            type = polygon;
+            points[] = {
+                {
+                    {{0.975, 0.335}, 1},
+                    {{0.946, 0.320}, 1},
+                    {{0.946, 0.352}, 1},
+                },{
+                    {{0.946, 0.352}, 1},
+                    {{0.946, 0.320}, 1},
+                    {{0.940, 0.320}, 1},
+                    {{0.940, 0.352}, 1},
+                },{
+                    {{0.940, 0.328}, 1},
+                    {{0.922, 0.328}, 1},
+                    {{0.922, 0.344}, 1},
+                    {{0.940, 0.344}, 1},
+                }
+            };
+        };
+        class rightArrowBrick {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 3));
+            MPD_BOX_BAR_L(leftArrowBrick, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
+        };
+    };
+
+
     class GTM {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 1));
         #include "fcr\gtm.hpp"

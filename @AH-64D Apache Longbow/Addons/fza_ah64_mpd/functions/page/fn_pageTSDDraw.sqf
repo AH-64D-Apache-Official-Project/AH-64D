@@ -175,15 +175,11 @@ private _SystemWas = _heli getVariable "fza_ah64_was";
         _ident= "FCR_TSD_SC25_50";
     };
 
-    private _x = _ctrX + sin _aziAngle * (_range * _tsdScale);
-    private _y = _ctrY - cos _aziAngle * (_range * _tsdScale);
-    private _uiCtr = [_x, _y, 0];
-
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";
-Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
 private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {

@@ -30,6 +30,7 @@ private _fcrScanDeltaTime = time - _fcrScanStartTime;
 private _scanrelBearing = 0;
 private _scanPercentage = 0;
 private _eval = {true};
+private _lifetime = 1;
 
 //Fcr Bar info
 switch (_fcrMode) do {
@@ -46,39 +47,39 @@ switch (_fcrMode) do {
     };
 };
 
-//Pushback Updates to target array, remove old target if known
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     if !(call _eval) then {
         _search = _displayTargets findif {_x#3 isEqualTo _target;};
-        if (_search != -1) then {
-            _displayTargets deleteAt _search;
+        if (_search != -1) exitwith {
+            _displayTargets set [_search, [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _lifetime]];   //Update existing targets 
         };
-        _displayTargets pushBackunique [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range];
+        _search = _displayTargets findif {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001)) < (_type + (((_range * -1) + 8000)* 0.0001))};  
+        _displayTargets insert [_search, [[_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _lifetime]]];  //insert new targets into correctly sorted position
     };
 } foreach _fcrData;
 
 {
-    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range","_remaininglife"];
     if ([] call _eval) then {continue;};
     _search = _fcrData findif {_x#3 isEqualTo _target;};
     if (_search == -1) then {
-        _displayTargets deleteAt _foreachindex;
-    } else {
-        private _aziAngle = _fcrData#_search#4;
-        if ([] call _eval) then {
+        if (_remaininglife <= 0) exitwith {
             _displayTargets deleteAt _foreachindex;
         };
+        _displayTargets set [_search, [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, (_remaininglife - 1)]];
     };
+    //possibly a need for data validation to remove any remaining target tracks not checked
 } foreach _displaytargets;
 
-private _displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
+//private _displayTargets = [_displayTargets, [], {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001))}, "DESCEND"] call BIS_fnc_sortBy;
 
 _heli setvariable ["fza_ah64_fcrTargets", _displayTargets];
 
+/*
 hintsilent format ["Relative Bearing =%1
                     \nScan Percent = %2
                     \nDisplay Targets = %3"
                     ,round _scanrelBearing
                     ,round _scanPercentage
-                    ,_displayTargets];
+                    ,_displayTargets];*/
