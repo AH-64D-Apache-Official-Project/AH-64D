@@ -1,6 +1,6 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-params ["_heli", "_mpdIndex", "_control"];
+params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
 
@@ -15,24 +15,10 @@ switch(_control) do {
         [_heli] call fza_fcr_fnc_cycleNTS;
     };
     case "l2": {
-        private _arrowL = _state get "arrowL";
-        if (_arrowL == 1) then {
-            _state set ["arrowL", 2];
-            _state spawn {
-                sleep 0.5;
-                _this#0 set ["arrowL", 1];
-            };
-        };
+        _state set ["arrowL", time];
     };
     case "r2": {
-        private _arrowR = _state get "arrowR";
-        if (_arrowR == 1) then {
-            _state set ["arrowR", 2];
-            _state spawn {
-                sleep 0.5;
-                _this#0 set ["arrowR", 1];
-            };
-        };
+        _state set ["arrowR", time];
     };
 };
  

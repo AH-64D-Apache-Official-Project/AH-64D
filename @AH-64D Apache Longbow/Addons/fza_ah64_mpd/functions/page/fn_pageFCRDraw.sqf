@@ -70,20 +70,19 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), -_tadsX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
 
 //Cued LOS
-_currentAcq = [_heli] call fza_fnc_targetingCurAcq;
-_acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqVec;
+private _currentAcq = [_heli] call fza_fnc_targetingCurAcq;
+private _acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqVec;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CuedLOS_X), _quedLosX];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CuedLOS_Y), -_quedLosY];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
 
-//Arrows
+//Arrow Animation
 private _arrowL = _state get "arrowL";
-systemchat str _arrowL;
 private _arrowR = _state get "arrowR";
-systemchat str _arrowR;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LEFT_ARROW), _arrowL];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_RIGHT_ARROW), _arrowR];
-
+if (time > (_arrowL + 1)) then {_arrowL = 1;} else {_arrowL = 2;};
+if (time > (_arrowR + 1)) then {_arrowR = 1;} else {_arrowR = 2;};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_L), _arrowL];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ARROW_R), _arrowR];
 
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";

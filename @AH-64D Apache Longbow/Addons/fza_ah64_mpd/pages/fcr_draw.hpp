@@ -347,90 +347,98 @@ class root {
     
     class fcrOffsetArrows {
         class leftArrowHollow {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 1));
-            type = line;
-            width = 3;
-            points[] = {
-                {{0.025, 0.335}, 1},
-                {{0.054, 0.320}, 1},
-                {{0.060, 0.320}, 1},
-                {{0.060, 0.328}, 1},
-                {{0.078, 0.328}, 1},
-                {{0.078, 0.344}, 1},
-                {{0.060, 0.344}, 1},
-                {{0.060, 0.352}, 1},
-                {{0.054, 0.352}, 1},
-                {{0.025, 0.335}, 1},
-            };
-        };
-        class leftArrowsolid {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 2));
-            type = polygon;
-            points[] = {
-                {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));
+            class lines {
+                type = line;
+                width = 3;
+                points[] = {
                     {{0.025, 0.335}, 1},
                     {{0.054, 0.320}, 1},
-                    {{0.054, 0.352}, 1},
-                },{
-                    {{0.054, 0.352}, 1},
-                    {{0.054, 0.320}, 1},
                     {{0.060, 0.320}, 1},
-                    {{0.060, 0.352}, 1},
-                },{
                     {{0.060, 0.328}, 1},
                     {{0.078, 0.328}, 1},
                     {{0.078, 0.344}, 1},
-                    {{0.060, 0.344}, 1}
-                }
+                    {{0.060, 0.344}, 1},
+                    {{0.060, 0.352}, 1},
+                    {{0.054, 0.352}, 1},
+                    {{0.025, 0.335}, 1},
+                };
+            };
+        };
+        class leftArrowsolid {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 2));
+            class poly {
+                type = polygon;
+                points[] = {
+                    {
+                        {{0.025, 0.335}, 1},
+                        {{0.054, 0.320}, 1},
+                        {{0.054, 0.352}, 1},
+                    },{
+                        {{0.054, 0.352}, 1},
+                        {{0.054, 0.320}, 1},
+                        {{0.060, 0.320}, 1},
+                        {{0.060, 0.352}, 1},
+                    },{
+                        {{0.060, 0.328}, 1},
+                        {{0.078, 0.328}, 1},
+                        {{0.078, 0.344}, 1},
+                        {{0.060, 0.344}, 1}
+                    }
+                };
             };
         };
         class leftArrowBrick {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_LEFT_ARROW), 3));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 3));
             MPD_BOX_BAR_R(leftArrowBrick, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
         };
         class rightArrowHollow {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 1));
-            type = line;
-            points[] = {
-                {{0.975, 0.335}, 1},
-                {{0.946, 0.320}, 1},
-                {{0.940, 0.320}, 1},
-                {{0.940, 0.328}, 1},
-                {{0.922, 0.328}, 1},
-                {{0.922, 0.344}, 1},
-                {{0.940, 0.344}, 1},
-                {{0.940, 0.352}, 1},
-                {{0.946, 0.352}, 1},
-                {{0.975, 0.335}, 1},
-            };
-        };
-        class rightArrowSolid {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 2));
-            type = polygon;
-            points[] = {
-                {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 1));
+            class lines {
+                type = line;
+                width = 3;
+                points[] = {
                     {{0.975, 0.335}, 1},
                     {{0.946, 0.320}, 1},
-                    {{0.946, 0.352}, 1},
-                },{
-                    {{0.946, 0.352}, 1},
-                    {{0.946, 0.320}, 1},
                     {{0.940, 0.320}, 1},
-                    {{0.940, 0.352}, 1},
-                },{
                     {{0.940, 0.328}, 1},
                     {{0.922, 0.328}, 1},
                     {{0.922, 0.344}, 1},
                     {{0.940, 0.344}, 1},
-                }
+                    {{0.940, 0.352}, 1},
+                    {{0.946, 0.352}, 1},
+                    {{0.975, 0.335}, 1},
+                };
+            };
+        };
+        class rightArrowSolid {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 2));
+            class poly {
+                type = polygon;
+                points[] = {
+                    {
+                        {{0.975, 0.335}, 1},
+                        {{0.946, 0.320}, 1},
+                        {{0.946, 0.352}, 1},
+                    },{
+                        {{0.946, 0.352}, 1},
+                        {{0.946, 0.320}, 1},
+                        {{0.940, 0.320}, 1},
+                        {{0.940, 0.352}, 1},
+                    },{
+                        {{0.940, 0.328}, 1},
+                        {{0.922, 0.328}, 1},
+                        {{0.922, 0.344}, 1},
+                        {{0.940, 0.344}, 1},
+                    }
+                };
             };
         };
         class rightArrowBrick {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_Right_ARROW), 3));
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 3));
             MPD_BOX_BAR_L(leftArrowBrick, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
         };
     };
-
 
     class GTM {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 1));

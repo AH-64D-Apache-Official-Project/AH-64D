@@ -65,7 +65,7 @@ class FCR_FOV_Y : FCR_FOV_X {
 
 class FCR_CuedLOS_X {
     type = linear;
-    MPD_NUM_USER(MFD_IND_FCR_CuedLOS_X)
+    MPD_NUM_USER(MFD_IND_FCR_CUEDLOS_X)
     min = -120;
     max = 120;
     maxPos[] = {0.4, 0};
@@ -73,7 +73,7 @@ class FCR_CuedLOS_X {
 };
 
 class FCR_CuedLOS_Y : FCR_CuedLOS_X {
-    MPD_NUM_USER(MFD_IND_FCR_CuedLOS_Y)
+    MPD_NUM_USER(MFD_IND_FCR_CUEDLOS_Y)
     min = -30;
     max = 60;
     maxPos[] = {0, 0.907};
