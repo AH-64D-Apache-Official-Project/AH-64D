@@ -119,17 +119,7 @@ if !(isNull _target) then {
         private _acceleration = ((velocity _target) vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
         _targetData set [4, _acceleration];
     };
-
-    //disabled internal leading guidance upon presence of new ace guidance update, so there is no double leading effort
-    if (isnil "_navigationGain" && _attackProfileStateParams#0 >= 3) then {
-        private _projectileVelocity = velocity _projectile;
-        private _projectileSpeed = vectorMagnitude _projectileVelocity;
-        if (_shooter distance _projectile < 100) then {_projectileSpeed = 450;};
-        private _timeUntilImpact = (_expectedTargetPos distance _projectile) / _projectileSpeed;
-        _expectedTargetPos = _expectedTargetPos vectorAdd (velocity _target vectorMultiply _timeUntilImpact);
-    };
 };
-systemchat str (vectorMagnitude (velocity _projectile));
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 

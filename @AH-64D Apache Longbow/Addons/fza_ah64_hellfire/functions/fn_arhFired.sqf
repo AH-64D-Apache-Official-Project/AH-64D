@@ -63,6 +63,7 @@ if (isNil "_target" || !(_target isKindOf "AllVehicles")) then {
 
 if (([_heli, [getpos _target, speed _target, _target]] call fza_hellfire_fnc_limaLoblCheck)#1) then {
     _attackProfile = "hellfire";
+    systemchat "DIRECT";
     _isActive = true;
 };
 

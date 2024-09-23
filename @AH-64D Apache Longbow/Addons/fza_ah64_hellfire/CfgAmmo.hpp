@@ -4,6 +4,7 @@ class CfgAmmo {
 
     class ACE_Hellfire_AGM114K: M_Scalpel_AT {
         class Components;
+        class ace_missileguidance;
     };
     class Fza_Penetrator_9KG_Tandem: ammo_Penetrator_Base
     {
@@ -29,9 +30,8 @@ class CfgAmmo {
         fza_salType                 = "sal2";
 
         maxSpeed                    = 450;
-        simulationStep              = 0.005;
-		airFriction                 = 0.056; //-0.0350;
-		sideAirFriction             = 0.03;  //-0.0250;
+        airFriction                 = 0.056;
+        sideAirFriction             = 0.18;
         initTime                    = 0.1;
         thrustTime                  = 3;
         thrust                      = 180;
@@ -39,6 +39,7 @@ class CfgAmmo {
         timeToLive                  = 40;
         explosionTime               = 39;
         cmImmunity                  = 0.97;
+        maneuvrability              = 0;
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128+512";
@@ -48,7 +49,7 @@ class CfgAmmo {
         minRangeProbab              = 0.7;
         midRange                    = 3500;
         midRangeProbab              = 1.0;
-        xRange                    = 8000;
+        maxRange                    = 8000;
         maxRangeProbab              = 0.8;
 
         //Penetrator
@@ -81,49 +82,17 @@ class CfgAmmo {
             duration = 0.6;
             frequency = 20;
         };
-        class ace_missileguidance { //Mixture or current and future cfg 
+        class ace_missileguidance: ace_missileguidance {
             enabled = 1;
 
-            pitchRate = 30;
-            yawRate = 30;
-            minDeflection = 0.0005;
-            maxDeflection = 0.01;
-            incDeflection = 0.0005; 
-            canVanillaLock = 0;
+            pitchRate = 45;
+            yawRate = 45;
+            seekerAngle = 45;
 
-            // Guidance type for munitions
             defaultSeekerType = "fza_SALH";
             seekerTypes[] = { "fza_SALH" };
 
             defaultSeekerLockMode = "LOBL";
-            seekerLockModes[] = { "LOAL", "LOBL" };
-
-            defaultNavigationType = "Direct";
-            navigationTypes[] = { "Direct", "ZeroEffortMiss" };
-
-            seekLastTargetPos = 1;
-            seekerAngle       = 45;
-            seekerAccuracy    = 1;
-
-            seekerMinRange = 1;
-            seekerMaxRange = 8000;      // Range from the missile which the seeker can visually search
-
-            // Attack profile type selection
-            defaultAttackProfile = "hellfire";
-            attackProfiles[] = {"hellfire", "hellfire_hi", "hellfire_lo"};
-
-            class navigationStates {
-                class initial {
-                    transitionCondition = "ace_hellfire_fnc_midCourseTransition";
-                    navigationType = "Direct";
-                };
-                class terminal {
-                    transitionCondition = "";
-                    navigationType = "ZeroEffortMiss";
-                };
-                // transitions from initial -> termimal
-                states[] = {"initial", "terminal"};
-            };
         };
     };
     class fza_agm114fa : fza_agm114base
@@ -218,7 +187,7 @@ class CfgAmmo {
         
         class ace_missileguidance: ace_missileguidance {
             enabled                             = 1;
-            // Guidance type for munitions
+
             defaultSeekerType                   = "Fza_ARH";
             seekerTypes[]                       = { "Fza_ARH" };
 
