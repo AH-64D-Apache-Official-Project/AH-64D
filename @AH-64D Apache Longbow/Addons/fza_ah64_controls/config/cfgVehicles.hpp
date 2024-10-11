@@ -21,8 +21,6 @@ class CfgVehicles
         A3TI_ThermalSelections[] = {"skin"};
         
         #include "cfgVehicles\sfmplus.hpp"
-        #include "cfgVehicles\sounds.hpp"
-        #include "cfgVehicles\soundsExt.hpp"
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\itcAir.hpp"
 
@@ -119,16 +117,6 @@ class CfgVehicles
         soundDammage[] = {"\fza_ah64_US\audio\Crash.ogg", 3.162278, 1, 100};
         soundgetin[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_in2",1,1,1};
         soundgetout[] = {"A3\Sounds_F\vehicles\air\noises\heli_get_out2",1,1,1};
-        soundEngineOffExt[] = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,300};
-        soundEngineOffInt[] = {"emptySound", 0};
-        soundEngineOnExt[] = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,300};
-        soundEngineOnInt[] = {"fza_ah64_us\audio\Int_Start.ogg",1,0.6};
-        rotorDamageInt[] = {"\fza_ah64_US\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
-        rotorDamageOut[] = {"\fza_ah64_US\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
-        rotorDamage[] = {"rotorDamageInt", "rotorDamageOut"};
-        tailDamageInt[] = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000};
-        tailDamageOut[] = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000, 100};
-        tailDamage[] = {"tailDamageInt", "tailDamageOut"};
         landingSoundInt0[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
         landingSoundInt1[] = {"A3\Sounds_F\vehicles\air\noises\landing_skids_int1_open", 1.000000, 1.000000};
         landingSoundInt[] = {"landingSoundInt0", 0.500000, "landingSoundInt1", 0.500000};

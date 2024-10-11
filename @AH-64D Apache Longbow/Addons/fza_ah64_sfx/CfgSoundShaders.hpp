@@ -479,4 +479,48 @@ class CfgSoundShaders {
         rangeCurve[] = {{0, 0}, {600, 0}, {1500, 0}, {3000, 1}, {4000, 0}};
         frequency = 1;
     };
+
+    ///////////////////////////////////////////////////////////////////////
+    /////////////////////////////////APU///////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_apuExt_soundshader {
+        samples[]={
+            {"fza_ah64_us\audio\APU_Loop.ogg",1}
+        };
+        frequency = "CustomSoundController5";
+        volume = "CustomSoundController6";  
+        range=200;
+        rangecurve[] = {{0,1}, {100,0.6}, {200,0}};
+    };
+    class fza_apuIntPlt_soundshader:fza_apuExt_soundshader {
+        frequency = "((playerpos <= 0) * (playerpos >= 0)) * CustomSoundController5 * ((CustomSoundController1 * 0.2) + 1)";
+        volume = "((playerpos <= 0) * (playerpos >= 0)) * CustomSoundController5 * ((CustomSoundController1 * 0.2) + 1)";
+    };
+    class fza_apuIntCpg_soundshader: fza_apuExt_soundshader {
+        frequency = "((playerpos <= 3) * (playerpos >= 3)) * CustomSoundController5 * ((CustomSoundController2 * 0.2) + 1)";
+        volume = "((playerpos <= 3) * (playerpos >= 3)) * CustomSoundController5 * ((CustomSoundController2 * 0.2) + 1)";  
+    };
+
+    ///////////////////////////////////////////////////////////////////////
+    ///////////////////////////////Battery/////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////
+
+    class fza_batteryInt_soundshader {
+        samples[]={
+            {"fza_ah64_us\audio\Avionics.ogg",3}
+        };
+        frequency = "(((playerpos <= 0) * (playerpos >= 0)) max ((playerpos <= 3) * (playerpos >= 3))) * CustomSoundController7";
+        volume = "(((playerpos <= 0) * (playerpos >= 0)) max ((playerpos <= 3) * (playerpos >= 3))) * CustomSoundController7";  
+        range=10;
+        rangecurve[] = {{0,1}, {5,0.6}, {10,0} };
+    };
+    class fza_batteryExtPlt_soundshader: fza_batteryInt_soundshader {
+        frequency = "CustomSoundController7";
+        volume = "CustomSoundController7 * customSoundController1)";  
+    };
+    class fza_batteryExtCpg_soundshader: fza_batteryInt_soundshader {
+        frequency = "CustomSoundController7";
+        volume = "CustomSoundController7 * customSoundController2)";  
+    };
 };
