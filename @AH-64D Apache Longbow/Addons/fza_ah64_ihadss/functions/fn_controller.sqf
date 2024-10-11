@@ -43,3 +43,17 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 [_heli] call fza_ihadss_fnc_steeringCursorDraw;
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_draw;
+
+
+if !(player != vehicle player || alive _heli || local _heli) exitwith {};
+private _acBusOn            = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn            = _heli getVariable "fza_systems_dcBusOn";
+private _tadsShouldBeStowed = true;
+
+if (_acBusOn && _dcBusOn) then {
+    _tadsShouldBeStowed = false;
+};
+
+if (_tadsShouldBeStowed != _heli getVariable "fza_ah64_tadsStow") then {
+    [_heli, "fza_ah64_tadsStow", _tadsShouldBeStowed] call fza_fnc_animSetValue;
+};
