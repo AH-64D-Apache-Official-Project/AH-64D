@@ -1,1 +1,1 @@
-﻿NDFramePage.OnPageTitleLoaded("File:ui/fn_uiShowIntro.sqf","fn_uiShowIntro.sqf");NDSummary.OnSummaryLoaded("File:ui/fn_uiShowIntro.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[143,0,1,"Functions","Functions"],[144,0,0,"fza_fnc_uiShowIntro","fza_fnc_uiShowIntro"]]);
+﻿NDFramePage.OnPageTitleLoaded("File:ui/fn_uiShowIntro.sqf","fn_uiShowIntro.sqf");NDSummary.OnSummaryLoaded("File:ui/fn_uiShowIntro.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[147,0,1,"Functions","Functions"],[148,0,0,"fza_fnc_uiShowIntro","fza_fnc_uiShowIntro"]]);
