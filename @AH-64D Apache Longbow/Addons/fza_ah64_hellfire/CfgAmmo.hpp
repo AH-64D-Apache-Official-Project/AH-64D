@@ -87,7 +87,7 @@ class CfgAmmo {
 
             pitchRate = 45;
             yawRate = 45;
-            seekerAngle = 45;
+            seekerAngle = 70;
 
             defaultSeekerType = "fza_SALH";
             seekerTypes[] = { "fza_SALH" };
@@ -191,7 +191,7 @@ class CfgAmmo {
             defaultSeekerType                   = "Fza_ARH";
             seekerTypes[]                       = { "Fza_ARH" };
 
-            seekerAngle                         = 60;
+            seekerAngle                         = 70;
             activeRadarEngageDistance           = 2500;
             seekerMaxRange                      = 2500;
         };

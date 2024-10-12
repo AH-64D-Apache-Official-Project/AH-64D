@@ -29,11 +29,6 @@ _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 _seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_lockTypes"];
 
-//temp stuff till ace missile update
-if (isnil "_timestep") then {
-    private _timestep = diag_deltaTime * accTime;
-};
-
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 30
 
 if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
@@ -101,8 +96,9 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
 
     _projectile setMissileTarget _target;
 };
-
+systemchat str [_target,_expectedTargetPos];
 if !(isNull _target) then {
+    hintsilent "WHY ARE WE HERE";
     private _centerOfObject = getCenterOfMass _target;
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
     _expectedTargetPos = _targetAdjustedPos;
@@ -111,7 +107,6 @@ if !(isNull _target) then {
     _seekerStateParams set [8, CBA_missionTime];
     _seekerStateParams set [9, false];
 
-    _targetData set [1, getpos _projectile vectorFromTo _profileAdjustedTargetPos];
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
 
