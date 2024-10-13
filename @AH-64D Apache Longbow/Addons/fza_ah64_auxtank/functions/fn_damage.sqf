@@ -30,7 +30,7 @@ if (_system == "hit_msnEquip_pylon1" && _damage > SYS_WPN_DMG_THRESH) then {
     _heli setPylonLoadout [1, ""];
     
 };
-if (_system == "hit_msnEquip_pylon2") then {
+if (_system == "hit_msnEquip_pylon2" && _damage > SYS_WPN_DMG_THRESH) then {
     if !(["auxTank", (getPylonMagazines _heli)#4] call BIS_fnc_inString) exitwith {};
     _AuxtankExplosion = "ammo_Missile_mim145" createVehicle (_heli modelToWorld [-1.66,2.3,-2]);   
     triggerAmmo _AuxtankExplosion;
