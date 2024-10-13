@@ -29,7 +29,7 @@ _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 _seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_lockTypes"];
 
-#define ACTIVE_RADAR_MINIMUM_SCAN_AREA 30
+#define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 
 if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
     if !(_isActive) then {
@@ -43,7 +43,7 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
     // For performance reasons only poll for target every so often instead of each frame
     if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
         private _searchPos = _expectedTargetPos;
-        if (_searchPos isEqualTo [0, 0, 0] || { _doesntHaveTarget }) then {
+        if (_searchPos isEqualTo [0, 0, 0]) then {
             _seekerStateParams set [9, true];
             // no target pos - shot without lock. Have the missile's radar search infront of it on the ground
             _searchPos = (getPosASL _projectile) vectorAdd (_projectile vectorModelToWorld [0, _seekerMaxRange, -((getPos _projectile)#2)]);
@@ -61,7 +61,7 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
         if (_rotatedYaw isEqualTo 0) then { _rotatedYaw = 0.001 };
         private _projPitch = atan ((_projDir select 2) / _rotatedYaw);
         private _a1 = abs _projPitch;
-        private _a2 = 180 - ((_seekerAngle / 2) + _a1);
+        private _a2 = 180 - ((_seekerAngle / 3) + _a1);
         private _seekerBaseRadiusAtGround = ACTIVE_RADAR_MINIMUM_SCAN_AREA max (_distanceToExpectedTarget / sin(_a2) * sin(_seekerAngle / 2));
         private _seekerBaseRadiusAdjusted = linearConversion [0, _seekerBaseRadiusAtGround, (CBA_missionTime - _lastTimeSeen) * vectorMagnitude _lastKnownVelocity, ACTIVE_RADAR_MINIMUM_SCAN_AREA, _seekerBaseRadiusAtGround, false];
         if (_doesntHaveTarget) then {
@@ -96,9 +96,7 @@ if (_isActive || { CBA_missionTime >= _timeWhenActive }) then {
 
     _projectile setMissileTarget _target;
 };
-systemchat str [_target,_expectedTargetPos];
 if !(isNull _target) then {
-    hintsilent "WHY ARE WE HERE";
     private _centerOfObject = getCenterOfMass _target;
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
     _expectedTargetPos = _targetAdjustedPos;

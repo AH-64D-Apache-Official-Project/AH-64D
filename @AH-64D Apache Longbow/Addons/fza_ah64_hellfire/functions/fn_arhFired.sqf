@@ -38,6 +38,7 @@ private _targetPos      = _targinfo #1;
 private _attackProfile  = "hellfire_hi";
 private _isActive       = false;
 private _timeToActive   = 0;
+private _targetVel      = [0,0,0];
 
 private _projectileConfig = configOf _projectile;
 private _config = _projectileConfig >> "ace_missileguidance";
@@ -66,6 +67,7 @@ if (isNil "_target" || !(_target isKindOf "AllVehicles")) then {
 if (([_heli, [getpos _target, speed _target, _target]] call fza_hellfire_fnc_limaLoblCheck)#1) then {
     _attackProfile = "hellfire";
     _isActive = true;
+    _targetVel = velocity _target;
 };
 
 _seekerStateParams set [0, _isActive];
@@ -75,12 +77,11 @@ _seekerStateParams set [3, _expectedTargetPos];
 _seekerStateParams set [4, CBA_missionTime];
 _seekerStateParams set [5, true];
 _seekerStateParams set [6, false];
-_seekerStateParams set [7, [0,0,0]];
+_seekerStateParams set [7, _targetVel];
 _seekerStateParams set [8, _lastScanTime];
-_seekerStateParams set [9, isNull _target];
+_seekerStateParams set [9, !_isActive];
 _seekerStateParams set [10, _lockTypes];
 
-copyToClipboard str _seekerStateParams;
 _launchParams set [0, objNull];
 _launchParams set [3, _attackProfile];
 _projectile setMissileTarget objNull;
