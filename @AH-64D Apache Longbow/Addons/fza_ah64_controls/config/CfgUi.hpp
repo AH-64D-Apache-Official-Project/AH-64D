@@ -21,11 +21,6 @@ class RscInGameUI
     {
         onLoad="";
         controls[] = {
-            "CA_Speed_Analogue",
-            "CA_Altitude_Analogue",
-            "CA_Horizon_Analogue",
-            "CA_Stability_Analogue",
-            "CA_Compass_Analogue",
             "WeaponInfoControlsGroupRight"
         };
     };

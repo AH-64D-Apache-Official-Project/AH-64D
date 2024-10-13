@@ -6,7 +6,7 @@ class CfgPatches
         author ="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {"fza_ah64_controls","ace_laser"};
+        requiredAddons[] = {"fza_ah64_controls","fza_ah64_common","ace_laser"};
     };
 };
 
