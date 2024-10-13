@@ -27,7 +27,6 @@ _stateParams params ["", "_seekerStateParams"];
 _launchParams params ["",""];
 
 #define SCALE_METERS_KM 0.001
-#define SCALE_KM_TOF 4
 
 private _heli           = vehicle _shooter;
 private _targinfo       = _heli getVariable "fza_ah64_fcrNts";
@@ -44,7 +43,7 @@ private _projectileConfig = configOf _projectile;
 private _config = _projectileConfig >> "ace_missileguidance";
 private _activeRadarDistance = [_config >> "activeRadarEngageDistance", "NUMBER", 500] call CBA_fnc_getConfigEntry;
 private _lockTypes = [_config >> "lockableTypes", "ARRAY", ["Air", "LandVehicle", "Ship"]] call CBA_fnc_getConfigEntry;
-private _velocityAtImpact = 450;
+private _velocityAtImpact = 380;
 private _expectedTargetPos = [0,0,0];
 
 if (!isNil "_target") then {
@@ -53,8 +52,9 @@ if (!isNil "_target") then {
 
     private _distanceUntilActive = (((getPosASL _shooter) vectorDistance _expectedTargetPos) - _activeRadarDistance);
     _timeToActive = 0 max (_distanceUntilActive / _velocityAtImpact);
-    
-    _currentTof pushBack (cba_missiontime + (_expectedTargetPos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
+
+    private _hellfireTOF = [[0, 1],[1, 3],[2, 7],[3, 10],[4, 14],[5, 19],[6, 24],[7, 29],[8, 36],[9, 44]];
+    _currentTof pushBack (([_hellfireTOF, (_expectedTargetPos distance _heli) * SCALE_METERS_KM] call fza_fnc_linearInterp) # 1 + CBA_missionTime);
     _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
 };
 

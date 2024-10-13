@@ -30,7 +30,7 @@ class CfgAmmo {
         fza_salType                 = "sal2";
 
         maxSpeed                    = 450;
-        airFriction                 = 0.056;
+        airFriction                 = 0.08;
         sideAirFriction             = 0.18;
         initTime                    = 0.1;
         thrustTime                  = 3;
