@@ -15,6 +15,7 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "", "_unit"];
 
 if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
