@@ -34,6 +34,7 @@ params["_heli"];
 [_heli] call fza_light_fnc_init;
 [_heli] call fza_sfmplus_fnc_init;
 [_heli] call fza_wca_fnc_init;
+[_heli] spawn fza_weapons_fnc_init;
 
 //flight setup
 [_heli] call fza_sfmplus_fnc_coreConfig;
