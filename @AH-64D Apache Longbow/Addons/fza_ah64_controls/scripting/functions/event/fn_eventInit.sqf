@@ -205,7 +205,7 @@ do {
             _tadsShouldBeStowed = false;
         };
 
-        if (_tadsShouldBeStowed != _heli getVariable "fza_ah64_tadsStow") then {
+        if (_tadsShouldBeStowed != _heli getVariable ["fza_ah64_tadsStow", false]) then {
             [_heli, "fza_ah64_tadsStow", _tadsShouldBeStowed] call fza_fnc_animSetValue;
         };
     };

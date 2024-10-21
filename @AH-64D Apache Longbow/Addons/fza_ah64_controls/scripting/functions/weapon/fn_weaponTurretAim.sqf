@@ -82,15 +82,14 @@ switch (_sight) do {
         _heli lockCameraTo [objNull, [0]];
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
-        _tgtPosASL = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
-        _targPos = terrainIntersectAtASL [_camPosASL, _tgtPosASL];
+        _targPos = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
     };
     case SIGHT_FXD:{
         _heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0]];
     };
 };
 
-private _targDistance = if (_targPos isequalto [0,0,0]) then {500;} else {_heli distance _targPos;};
+private _targDistance = if (_targPos isequalto [0,0,0] || (_heli distance _targPos) > 10000) then {500;} else {_heli distance _targPos;};
 
 if (_usingRocket && _sight != SIGHT_FXD) then {
     private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
