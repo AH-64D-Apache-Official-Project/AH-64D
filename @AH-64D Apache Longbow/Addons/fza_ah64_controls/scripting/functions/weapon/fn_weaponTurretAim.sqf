@@ -29,7 +29,7 @@ params["_heli"];
 private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
 private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_cannon_inhibit"];
 private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
-private _sight           = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 private _nts             = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntspos          = (_heli getVariable "fza_ah64_fcrNts") # 1;
