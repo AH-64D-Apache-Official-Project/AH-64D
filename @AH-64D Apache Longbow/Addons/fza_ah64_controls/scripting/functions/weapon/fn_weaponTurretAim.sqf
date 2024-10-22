@@ -71,11 +71,10 @@ switch (_sight) do {
         };
     };
     case SIGHT_HMD:{
+        _targPos = aglToAsl (positionCameraToWorld [0, 0, 500]);
         if (cameraView == "GUNNER") then {
-            _targPos = aglToAsl screentoworld[0.5, 0.5];
             _heli lockCameraTo [objNull, [0]];
         } else {
-            _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
             _heli lockCameraTo [_targPos, [0]];
         };
     };
@@ -84,21 +83,24 @@ switch (_sight) do {
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
         _worldTargetpos = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
-        _targPos = asltoagl terrainIntersectAtASL [_camPosASL, _worldTargetpos];
+        _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
     };
     case SIGHT_FXD:{
         _heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0]];
     };
 };
 
-private _targDistance = if (_targPos isequalto [0,0,0]) then {500;} else {_heli distance _targPos;};
+private _targDistance = _heli distance _targPos;
+if (_targPos isequalto [0,0,0] && _sight == SIGHT_TADS) then {
+    _targDistance = 500;
+    _targPos = _worldTargetpos;
+};
 
 if (_usingRocket && _sight != SIGHT_FXD) then {
     private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
     private _elevationComp = ([_rocketTable, _targDistance] call fza_fnc_linearInterp) # 1;
     private _tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
-    if (_targPos isequalto [0,0,0]) then {_targPos = _worldTargetpos;};
-    private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];
+    private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];    
     _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
 };
 
@@ -184,6 +186,6 @@ for "_i" from 0 to 3 do {
 _heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
 
 #ifdef __A3_DEBUG__
-drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], _targPos, 0.5, 0.5, 0, "Target pos ATL"];
+drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], asltoagl _targPos, 0.5, 0.5, 0, "Target pos ATL"];
 drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], _worldTargetpos, 0.5, 0.5, 0, "Target vector"];
 #endif
