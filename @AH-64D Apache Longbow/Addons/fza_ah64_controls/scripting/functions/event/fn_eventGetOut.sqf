@@ -17,6 +17,6 @@ Examples:
 Author:
     unknown
 ---------------------------------------------------------------------------- */
-params["_heli"];
+params["_heli","","_unit"];
 
 [_heli] call fza_ihadss_fnc_controller;

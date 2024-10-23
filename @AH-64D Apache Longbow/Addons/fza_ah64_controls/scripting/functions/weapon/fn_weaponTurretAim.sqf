@@ -26,9 +26,7 @@ params["_heli"];
 #define SCALE_KM_METERS 0.001
 #define HYDRA_TIME_KM 1.353
 
-private _usingRocket     = currentweapon _heli isKindOf["fza_hydra70", configFile >> "CfgWeapons"];
-private _usingCannon     = currentweapon _heli in ["fza_m230", "fza_cannon_limit", "fza_cannon_inhibit"];
-private _usingHellfire   = currentweapon _heli isKindOf["fza_hellfire", configFile >> "CfgWeapons"];
+private _was             = _heli getVariable "fza_ah64_was";
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 private _nts             = (_heli getVariable "fza_ah64_fcrNts") # 0;
@@ -57,26 +55,24 @@ if !_acBusOn then {
 
 switch (_sight) do {
     case SIGHT_FCR:{
-       if (!isNull _nts) then {
+        _targpos = _heli modelToWorldVisual [0,1000,0];
+        if (!isNull _nts) exitwith {
+            _targPos = _ntspos;
             if (isVehicleRadarOn _heli) then {
                 _targPos = aimPos _nts;
                 _targVel = velocity _nts;
-            } else {
-                _targPos = _ntspos;
             };
             _heli lockCameraTo [_targPos, [0]];
-        } else {
-            _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0]];
-            _inhibit = "NO TARGET";
         };
+        _heli lockCameraTo [_targpos, [0]];
+        _inhibit = "NO TARGET";
     };
     case SIGHT_HMD:{
-        _targPos = aglToAsl (positionCameraToWorld [0, 0, 500]);
-        if (cameraView == "GUNNER") then {
+        _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
+        if (cameraView == "GUNNER") exitwith {
             _heli lockCameraTo [objNull, [0]];
-        } else {
-            _heli lockCameraTo [_targPos, [0]];
         };
+        _heli lockCameraTo [_targPos, [0]];
     };
     case SIGHT_TADS:{
         _heli lockCameraTo [objNull, [0]];
@@ -86,25 +82,33 @@ switch (_sight) do {
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
     };
     case SIGHT_FXD:{
-        _heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0]];
+        _heli lockCameraTo [_heli modelToWorldVisual [0,1000,0],[0]];
     };
 };
 
 private _targDistance = _heli distance _targPos;
 if (_targPos isequalto [0,0,0] && _sight == SIGHT_TADS) then {
-    _targDistance = 500;
+    _targDistance = 1000;
     _targPos = _worldTargetpos;
 };
 
-if (_usingRocket && _sight != SIGHT_FXD) then {
+if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
     private _elevationComp = ([_rocketTable, _targDistance] call fza_fnc_linearInterp) # 1;
     private _tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
     private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];    
     _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
+    
+    if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
+        _inhibit = "PYLON LIMIT";
+        _heli selectweapon "fza_Pylon_inhibit";
+    };
+    if (_utilHydFailed || _utilLevelMin) exitwith {
+        _heli selectweapon "fza_Pylon_inhibit";
+    };
 };
 
-if (_usingHellfire && _sight != SIGHT_FXD) then {
+if (_was == WAS_WEAPON_MSL && _sight != SIGHT_FXD) then {
     private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
     private _hellfiretable = [[33, 4],[1000, -15]];
     private _hellfireZero = ([_hellfiretable, ((getpos _heli)#2*SCALE_METERS_FEET)] call fza_fnc_linearInterp) # 1;
@@ -112,35 +116,31 @@ if (_usingHellfire && _sight != SIGHT_FXD) then {
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
 
-if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
-    _inhibit = "PYLON LIMIT"
+if (Currentweapon _heli == "fza_Pylon_inhibit" && _inhibit == "") then {
+    [_heli] call fza_fnc_weaponUpdateSelected;
 };
-_pylonAdjustment = [_pylonAdjustment, -15, 4] call BIS_fnc_clamp;
 
 for "_i" from 0 to 3 do {
-    if (_utilHydFailed || _utilLevelMin) exitwith {
-        _heli selectweapon "fza_Pylon_inhibit";
-    };
-    if (Currentweapon _heli == "fza_Pylon_inhibit") then {
-        [_heli] call fza_fnc_weaponUpdateSelected;
-    };
+    if ((_utilHydFailed || _utilLevelMin)) exitwith {};
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-        if (_usingRocket) exitwith {
+        _heli setVariable ["fza_ah64_RocketPylonElev", _pylonAdjustment];
+        if (_was == WAS_WEAPON_RKT) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
         };
         [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
+        
     };
     if (WEP_TYPE(_firstPylonMags#_i) == "hellfire") then {
-        if (_usingHellfire) exitwith {
+        if (_was == WAS_WEAPON_MSL) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
         };
         [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
     };
 };
 
-if (_usingCannon) then {
+if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
         _heli selectweapon "fza_cannon_inhibit";
     };
