@@ -12,7 +12,7 @@ private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
     if (isNil "_routePoint") exitWith {};
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
+    private _rteIndex = _heli getVariable "fza_ah64_routeCurPoint";
     private _index    = ((_state get "routeScroll") + _btnIndex);
     private _dataType = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
     private _dmsNext  = (_heli getVariable "fza_dms_routeNext")#0;
@@ -22,27 +22,27 @@ private _addRoutePoint = {
     _routeData set [_routeCurrent, _routeInfo];
     if (_dmsNext isEqualTo []) then {
         [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
-        _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
+        _heli setVariable ["fza_ah64_routeCurPoint", _index, true];
     };
     if (_index <= _rteIndex && _rteIndex != -1) then {
-        _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex + 1), true];
+        _heli setVariable ["fza_ah64_routeCurPoint", (_rteIndex + 1), true];
     };
     _heli setVariable ["fza_ah64_routeData", _routeData, true];
 };
 
 private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPnt";
+    private _rteIndex = _heli getVariable "fza_ah64_routeCurPoint";
     private _index = ((_state get "routeScroll") + _btnIndex);
     private _routePoint = _routeInfo#_index;
     if ((count _routeInfo) <= _index) exitWith {};
     _routeInfo deleteAt _index;
     _routeData set [_routeCurrent, _routeInfo];
     if (_rteIndex == _index) then {
-        _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
+        _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
     };
     if (_index < _rteIndex && _rteIndex != -1) then {
-        _heli setVariable ["fza_ah64_routeCurPnt", (_rteIndex - 1), true];
+        _heli setVariable ["fza_ah64_routeCurPoint", (_rteIndex - 1), true];
     };
     private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
     if (_routePoint isEqualTo _wptAprch#0) then {
@@ -57,7 +57,7 @@ private _setRouteDir = {
     if ((count _routeInfo) <= _index) exitWith {};
     private _routePoint = _routeInfo#_index;
     [_heli, _routePoint, true] call fza_dms_fnc_routeSetDir;
-    _heli setVariable ["fza_ah64_routeCurPnt", _index, true];
+    _heli setVariable ["fza_ah64_routeCurPoint", _index, true];
 };
 
 
@@ -221,7 +221,7 @@ switch (_variant) do {
                 private _callBack = {
                     params ["_input", "_state", "_heli"];
                     [_heli, _input, true] call fza_dms_fnc_routeSetDir;
-                    _heli setVariable ["fza_ah64_routeCurPnt", -1, true];
+                    _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
                     _state set ["subPageVarPage", TSD_RTE];
                 };
                 private _checker = {

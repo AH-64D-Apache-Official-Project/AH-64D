@@ -26,7 +26,7 @@ if !(local _heli) exitWith {};
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
 private _routeInfo    = _routeData # _routeCurrent;
-private _rteIndex     = _heli getVariable "fza_ah64_routeCurPnt";
+private _rteIndex     = _heli getVariable "fza_ah64_routeCurPoint";
 private _Course1      = -1;
 private _Course2      = -1;
 
@@ -105,7 +105,7 @@ if (!("TSD" in _pltMpd && "TSD" in _cpgMpd) && _approachETA <= 60 && _wptAprch#0
     if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {
         if (_count > 1 && (_count > (_rteCycleIndex + 1)) && (_nextPnt isnotEqualTo -1)) then {
             [_heli, _x] call fza_dms_fnc_routeSetDir;
-            _heli setVariable ["fza_ah64_routeCurPnt", _foreachindex, true];
+            _heli setVariable ["fza_ah64_routeCurPoint", _foreachindex, true];
         };
     };
 } foreach _routeInfo;

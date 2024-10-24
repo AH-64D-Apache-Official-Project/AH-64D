@@ -6,7 +6,7 @@ params["_heli", "_mpdIndex", "_state"];
 private _variant      = _state get "subPageVarPage" select 1;
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
-private _rteIndex     = _heli getVariable "fza_ah64_routeCurPnt";
+private _rteIndex     = _heli getVariable "fza_ah64_routeCurPoint";
 private _routeInfo    = _routeData # _routeCurrent;
 private _directTo     = (_heli getVariable "fza_dms_routeNext")#0;
 private _routeScroll  = _state get "routeScroll";
