@@ -12,6 +12,10 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 if (_value) then {
     //When button pressed
     switch (_name) do {
+        case "defaultAction": {
+            _heli setVariable ["fza_ah64_salvofired", 0];
+            _heli setVariable ["fza_ah64_burst_fired", 0];
+        };
         case "fza_ah64_crosshairInteract": {
             private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
             if (_controls isEqualTo []) exitWith {};
@@ -29,16 +33,16 @@ if (_value) then {
             [_heli] call fza_fnc_laserArm;
         };
         case "fza_ah64_sightSelectHMD": {
-            [_heli, SIGHT_HMD] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectTADS": {
-            [_heli, SIGHT_TADS] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFXD": {
-            [_heli, SIGHT_FXD] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_FXD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFCR": {
-            [_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {

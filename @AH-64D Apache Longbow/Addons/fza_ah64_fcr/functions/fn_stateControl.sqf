@@ -58,7 +58,7 @@ switch _fcrScanState do {
         };
         if (time >= (_fcrScanStartTime + (_updateDelay * 2)) && _time <= time) exitwith {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
-            _heli player ["ActiveSensorsOff", _heli];
+            player action ["ActiveSensorsOff", _heli];
         };
         player action ["ActiveSensorsOn", vehicle player];
     };

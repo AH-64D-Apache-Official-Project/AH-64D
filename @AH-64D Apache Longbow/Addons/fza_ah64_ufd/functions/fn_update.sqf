@@ -86,10 +86,25 @@ if (_battBusOn || _dcBusOn) then {
         _heli setUserMFDText [8, "<>F2  49.500  -SLF- C2   L3  69.525"];
     };
 
+    private _pylonMagazines  = getPylonMagazines _heli;
+    private _numExtTanks     = 0;
+    if (["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    
     if (_heli getVariable "fza_ah64_IAFSInstalled") then {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 1];
+        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, _numExtTanks];
     } else {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 0];
+        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)];
     };
 } else {
     _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");

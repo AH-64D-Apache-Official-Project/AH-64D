@@ -60,9 +60,9 @@ private _rtrThrustScalarTable_max = [
                                     ,[12000, 4.175]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.10; //0.95, 1.10
+private _rtrTorqueScalar        = 1.0; //0.95, 1.10
 
-private _pitchTorqueScalar      = 2.25;//1.75;//PITCH_SCALAR;
+private _pitchTorqueScalar      = 2.75;//2.25//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
 
 private _altitude_max           = 30000;   //ft
@@ -106,22 +106,27 @@ private _rtrArea                   = PI * _bladeRadius^2;
 private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
-//Calculate the hover induced velocity
-private _sign                      = [_rtrThrust] call fza_fnc_sign;
-private _rtrInducedVelocity        = if (_rtrThrust <= MIN_THRUST) then { 0.0; } else { sqrt((abs _rtrThrust) / (2 * _dryAirDensity * _rtrArea)) * _sign; };
-//Gather the velocities required to determine the actual induced flow velocity using the newton-raphson method
-private _w = _rtrInducedVelocity;
-private _u = if (_w == 0.0) then { 0.0; } else { _velXY / _rtrInducedVelocity; };
-private _n = if (_w == 0.0) then { 0.0; } else { _velZ  / _rtrInducedVelocity; };
-private _rtrCorrInducedVelocity    = if (_w == 0.0) then { 0.0; } else { [_w, _u, _n] call fza_sfmplus_fnc_simpleRotorNewtRaphSolver; };
-_rtrCorrInducedVelocity            = _rtrCorrInducedVelocity * _rtrInducedVelocity;
 //Calculate the required rotor power
-private _rtrPowerScalar            = [_rtrPowerScalarTable, _altitude] call fza_fnc_linearInterp select 1;
-private _velZClamped               = [_velZ, -5.0, 10.0] call BIS_fnc_clamp;
-private _rtrPowerReq               = ((_rtrThrust * _rtrCorrInducedVelocity) + (_rtrThrust * _velZClamped)) * _rtrPowerScalar;
-//_rtrPowerReq                       = _rtrPowerReq / velZ;
-//Calculate the required rotor torque
-private _rtrTorque                 = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrPowerReq / _rtrOmega; };
+private _vel_vbe     =  38.583;
+private _vel_vne     = 128.611;
+
+private _profile_min = 0.1330;
+private _profile_max = 0.2080;
+
+private _induced_min = 1.4000;//IND_MIN;//0.8110;
+private _induced_max = 0.6100;//IND_MAX;//0.6072;
+
+private _profile_cur = _profile_min + ((_profile_max - _profile_min) / _vel_vne) * _velXY;
+
+private _induced_val = _induced_min * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
+private _induced_cur = ((_induced_val - _induced_max) / _vel_vbe) * _velXY + _induced_val;
+
+private _power_val   = _profile_cur + _induced_cur;
+
+private _power_req   = _power_val * 2857.17;
+private _torque_req  = (_power_req / 0.001) / 0.105 / 21109;
+private _rtrTorque   = _torque_req * _rtrGearRatio;
+
 //Calcualte the required engine torque
 private _rtrRPMTorqueScalar        = 1.0;
 private _onGnd                   = [_heli] call fza_sfmplus_fnc_onGround;
@@ -159,20 +164,19 @@ private _torqueZ             = (_rtrTorque  * _rtrTorqueScalar) * _deltaTime;
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 
 //Rotor forces
-private _outThrust = [0.0, 0.0, 0.0];
-private _outTq     = [0.0, 0.0, 0.0];
 if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
-        //_heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
-        //_heli addTorque (_heli vectorModelToWorld [_torqueX, _torqueY, 0.0]);
-        _outThrust = _thrustZ;
-        //Main rotor torque effect
+        //Main rotor thrust
+        _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+        private _torque = [0.0, 0.0, 0.0];
+
+        //Main rotor torque
         if (fza_ah64_sfmplusEnableTorqueSim) then {
-            //_heli addTorque (_heli vectorModelToWorld [0.0, 0.0, _torqueZ]);
-            _outTq = [_torqueX, _torqueY, _torqueZ];
+            _torque = [_torqueX, _torqueY, _torqueZ];
         } else {
-            _outTq = [_torqueX, _torqueY, 0.0];
+            _torque = [_torqueX, _torqueY, 0.0];
         };
+        _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 
@@ -244,7 +248,7 @@ if (cameraView == "INTERNAL") then {
 [_heli, 24, _rtrPos, _bladeRadius, 2, "white", 0]   call fza_fnc_debugDrawCircle;
 #endif
 
-[_outThrust, _outTq];
+//[_outThrust, _outTq];
 
 /*
 hintsilent format ["v0.7 testing

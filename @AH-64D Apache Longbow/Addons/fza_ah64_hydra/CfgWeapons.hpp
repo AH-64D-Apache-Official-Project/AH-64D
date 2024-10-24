@@ -60,7 +60,7 @@ class CfgWeapons {
         {
             displayName="M261";
             soundContinuous = 0;
-            autoFire = 0;
+            autoFire = 1;
             reloadTime = 0.09;
             dispersion = 0.0025;
             aiRateOfFire = 1;

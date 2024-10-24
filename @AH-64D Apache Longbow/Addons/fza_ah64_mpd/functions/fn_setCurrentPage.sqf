@@ -30,8 +30,6 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_side", "_page", ["_stateOverride", createHashMap]];
 
-// fza_mpd_mpdState = [[_pageName, _pageIndex, _drawFunc, _state],[again]]
-
 private _mpdState = _heli getVariable "fza_mpd_mpdState";
 
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "FzaMpdPages" >> _page;
@@ -50,6 +48,11 @@ if (isText (_config >> "draw")) then {
     _drawFunc = missionNamespace getVariable getText (_config >> "draw");
 };
 
+private _drawCanvasFunc = {};
+if (isText (_config >> "drawCanvas")) then {
+    _drawCanvasFunc = missionNamespace getVariable getText (_config >> "drawCanvas");
+};
+
 private _handleControlFunc = {};
 if (isText (_config >> "handleControl")) then {
     _handleControlFunc = missionNamespace getVariable getText (_config >> "handleControl");
@@ -60,7 +63,7 @@ if (isNumber (_config >> "usesIcons")) then {
     _usesIcons = getNumber (_config >> "usesIcons");
 };
 
-if (_mpdState # _side # 6 == 1) then {
+if (_mpdState # _side # 7 == 1) then {
     [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
@@ -74,7 +77,8 @@ if !(_page in _persistState) then {
 };
 _state set ["side", _side];
 _state set ["page", _page];
-private _newState = [_page, _mfdIndex, _drawFunc, _state, _persistState, _handleControlFunc, _usesIcons];
+private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons];
 
 _heli setUserMfdValue [_side + 1, _mfdIndex];
 _mpdState set [_side, _newState];
+[_heli] call fza_mpd_fnc_propagatePage;

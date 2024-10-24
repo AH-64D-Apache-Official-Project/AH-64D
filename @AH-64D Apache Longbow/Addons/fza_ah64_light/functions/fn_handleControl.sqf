@@ -32,24 +32,13 @@ switch (_control) do {
     case "floodlight": {
         private _turret   = ((_heli call fza_fnc_currentTurret) isEqualTo [-1]);
         private _variable  = ["fza_ah64_lightCpgFlood", "fza_ah64_lightPltFlood"] select _turret;
-        private _hitpoint = ["#cpg_flood_sel", "#plt_flood_sel"] select _turret;
-        private _hitval   = _heli getHitPointDamage _hitpoint;
-        private _seat     = [[0],[-1]] select _turret;
-        private _toggleon = (_hitval > 0.5);
-        [_heli, _seat, _toggleon] call fza_light_fnc_setFloodLight;
-        _heli setVariable [_variable, _toggleon];
+        private _value = !(_heli getvariable _variable);
+        _heli setVariable [_variable, _value];
+        [_heli, (_heli call fza_fnc_currentTurret), _value] call fza_light_fnc_setFloodLight;
         playsound "fza_ah64_button_rotary";
     };
     case "anticollision": {
-        if !(_heli getVariable "fza_ah64_lightAntiColl") then {
-            [_heli, "fza_ah64_lightAntiColl", true] call fza_fnc_animSetValue;
-            if _powerOnState then {
-                _heli setCollisionLight true;
-            };
-        } else {
-            [_heli, "fza_ah64_lightAntiColl", false] call fza_fnc_animSetValue;
-            _heli setCollisionLight false;
-        };
+        [_heli, "fza_ah64_lightAntiColl", !(_heli getVariable "fza_ah64_lightAntiColl")] call fza_fnc_animSetValue;
         playsound "fza_ah64_switch_flip3";
     };
 };

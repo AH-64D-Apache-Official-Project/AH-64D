@@ -61,8 +61,14 @@ private _fcrantennafor = -100;
 private _fcrhdg      = -360; 
 private _fcrdir      = 0.5;
 
+//layers
+private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
+private _clickhelper = "fza_ah64_click_helper" call BIS_fnc_rscLayer;
+private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
+private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
+
 if (isNil "fza_ah64_helperinit") then {
-    2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
+    _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
     if (isNil "fza_ah64_mousetracker") then {
         fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
@@ -71,7 +77,7 @@ if (isNil "fza_ah64_helperinit") then {
 };
 
 if (isNull(uiNameSpace getVariable "fza_ah64_click_helper")) then {
-    2 cutrsc["fza_ah64_click_helper", "PLAIN", 0.01, false];
+    _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
 };
 
@@ -93,13 +99,13 @@ if (fza_ah64_enableClickHelper) then {
 _clickHint ctrlCommit 0.001;
 
 if !_powerOnState then {
-    1 cuttext["", "PLAIN", 0.1];
+    _raddisp cuttext["", "PLAIN", 0, false];
 };
 if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
-    1 cuttext["", "PLAIN", 0.1];
+    _raddisp cuttext["", "PLAIN", 0, false];
 };
 if (isNull laserTarget _heli) then {
-    4 cuttext["", "PLAIN", 0.1];
+    _laseit cuttext["", "PLAIN", 0.1, false];
 };
 
 //PNVS HDU
@@ -113,13 +119,13 @@ if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && 
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0.1, 1, 0, 0.7];
 } else {
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
-    0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
+    cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0, false];
 };
 
 //IHADSS INIT
 private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
 if (isNil "_initialized") then {
-    1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
+    _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
     for "_i" from 121 to 206 do {
@@ -129,17 +135,17 @@ if (isNil "_initialized") then {
 };
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && (gunner _heli == player || driver _heli == player)) then {
-    3 cutrsc["fza_ah64_monocleinbox", "PLAIN", 0.01, false];
+    _monocle cutrsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
 } else {
-    3 cuttext["", "PLAIN"];
+    _monocle cuttext["", "PLAIN", -1, false];
 };
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
 if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
     if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
-        1 cutrsc["fza_ah64_raddisp", "PLAIN", 0.01, false];
+        _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
 
         for "_i" from 121 to 129 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[0.1, 1, 0, 1];
@@ -150,16 +156,16 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
     };
 } else {
     if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
-        1 cuttext["", "PLAIN"];
-        2 cuttext["", "PLAIN"];
-        3 cuttext["", "PLAIN"];
-        4 cuttext["", "PLAIN"];
+        _raddisp cuttext["", "PLAIN", 0, false];
+        _clickhelper cuttext["", "PLAIN", 0, false];
+        _monocle cuttext["", "PLAIN", 0, false];
+        _laseit cuttext["", "PLAIN", 0, false];
     };
 };
 
 if !_powerOnState then {
-    1 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
+    _raddisp cuttext["", "PLAIN", 0, false];
+    _laseit cuttext["", "PLAIN", 0, false];
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
@@ -210,7 +216,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 
     //LASER SYMBOLOGY FOR GUNNER
     if !(isNull laserTarget _heli) then {
-        4 cutrsc["fza_ah64_laseit", "PLAIN", 0.01, false];
+        _laseit cutrsc["fza_ah64_laseit", "PLAIN", 0, false];
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
@@ -297,7 +303,7 @@ if (!isNil "_nextPointPos") then {
 
 /////////////////////////////////////////////////////////
 
-_sight = [_heli] call fza_fnc_targetingGetSightSelect;
+_sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 if (_heli iskindof "fza_ah64base") then {
     switch (_sight) do {
         case 0: {
@@ -377,13 +383,12 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 };
 
 //Flight Path Vector
-_fpv         = ([_heli] call fza_fnc_velocityVector) call fza_fnc_compensateSafezone;
-_fpvVertVect = (_fpv select 0) * -1;
-_fpvHorVect  = _fpv select 1;
-
-if (speed _heli < 5) then {
-    _fpvVertVect = -100;
-    _fpvHorVect  = -100;
+private _fpv = [-100,-100];
+if (speed _heli > 5) then {
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
+    if (_fpv isEqualTo []) then {
+        _fpv = [-100,-100];
+    }
 };
 if (_weaponWas == WAS_WEAPON_MSL) then {
     private _tofList        = _heli getVariable "fza_ah64_tofCountDown";
@@ -443,8 +448,7 @@ if (_weaponWas == WAS_WEAPON_GUN) then {
 if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "fza_ah64_hmdfsmode") != "cruise") || (_headsdown)) then {
     _waypointcode = "";
     _gspdcode = "";
-    _fpvHorVect = -100;
-    _fpvVertVect = -100;
+    _fpv = [-100, -100];
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
@@ -534,7 +538,7 @@ if (_headTrackerPos isEqualTo []) then {
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlCommit 0;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition[_fpvHorVect, _fpvVertVect];
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlSetPosition _fpv;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 185) ctrlCommit 0;
 _slip = [fza_ah64_sideslip * 0.1 + 0.492, 0.44, 0.54] call BIS_fnc_clamp;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetPosition[_slip, 0.695];
