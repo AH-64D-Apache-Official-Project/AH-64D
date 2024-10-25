@@ -76,7 +76,9 @@ switch (_sight) do {
         };
     };
     case SIGHT_TADS:{
-        _heli lockCameraTo [objNull, [0], false];
+        if !(_heli getVariable "fza_ah64_LmcActive") then {    
+            _heli lockCameraTo [objNull, [0], false];
+        };
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
         _tgtPosASL = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);

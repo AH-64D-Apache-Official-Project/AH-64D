@@ -229,7 +229,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
     //LSC SYMBOLOGY FOR GUNNER
     if (_heli getvariable "fza_ah64_LmcActive") then {
-        5 cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
+        _LMCLayer cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
         ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
         ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
     };

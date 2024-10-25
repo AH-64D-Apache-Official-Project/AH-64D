@@ -24,6 +24,8 @@ if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
     _heli setVariable ["fza_ah64_lmcPosition", []];
 };
+private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+if (_sight != SIGHT_TADS || !(local gunner _heli)) exitwith {};
 
 (_heli getVariable "fza_ah64_lmcConstant") params ["_azimuthC", "_elevationC"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
@@ -45,16 +47,15 @@ drawIcon3D [
 #endif
 
 //AUTO RANGING USING ATL ON 2D Model
-private _heli = vehicle player;
 private _TadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
 private _TadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
 private _tadsDirection = (_TadsPosition vectorFromTo _TadsAimPos) vectorMultiply 50000;
 _tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
-private _autorange = [(_TadsPosition)#2 /sin(-_elevation),100,50000] call BIS_fnc_clamp;
+private _autorange = [(_TadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
 
 private _range = 1000;
 private _laserPos = getPosASL laserTarget _heli;
-if (_elevation < 0) exitwith {
+if (_elevation < -1 && ([_heli] call fza_sfmplus_fnc_getAltitude)#1 < 1428) then {
 	_range = _autorange;
 };
 if (_laserPos isnotEqualTo [0,0,0]) then {
