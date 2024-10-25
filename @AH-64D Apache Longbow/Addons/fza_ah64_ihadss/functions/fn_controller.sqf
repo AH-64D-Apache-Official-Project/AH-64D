@@ -43,6 +43,7 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 [_heli] call fza_ihadss_fnc_steeringCursorDraw;
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_draw;
+[_heli] call fza_ihadss_fnc_linearMotionCompensator;
 
 
 if !(player != vehicle player || alive _heli || local _heli) exitwith {};
