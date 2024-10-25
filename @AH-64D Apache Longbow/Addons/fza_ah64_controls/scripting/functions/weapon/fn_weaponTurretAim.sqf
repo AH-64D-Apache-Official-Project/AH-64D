@@ -60,30 +60,30 @@ switch (_sight) do {
             } else {
                 _targPos = _ntspos;
             };
-            _heli lockCameraTo [_targPos, [0]];
+            _heli lockCameraTo [_targPos, [0], false];
         } else {
-            _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0]];
+            _heli lockCameraTo[_heli modelToWorldVisual [0,100000,0],[0], false];
             _inhibit = "NO TARGET";
         };
     };
     case SIGHT_HMD:{
         if (cameraView == "GUNNER") then {
             _targPos = aglToAsl screentoworld[0.5, 0.5];
-            _heli lockCameraTo [objNull, [0]];
+            _heli lockCameraTo [objNull, [0], false];
         } else {
             _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
-            _heli lockCameraTo [_targPos, [0]];
+            _heli lockCameraTo [_targPos, [0], false];
         };
     };
     case SIGHT_TADS:{
-        _heli lockCameraTo [objNull, [0]];
+        _heli lockCameraTo [objNull, [0], false];
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
         _tgtPosASL = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _tgtPosASL];
     };
     case SIGHT_FXD:{
-        _heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0]];
+        _heli lockCameraTo [_heli modelToWorldVisual [0,10000,0],[0], false];
     };
 };
 

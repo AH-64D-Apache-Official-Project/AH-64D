@@ -44,20 +44,21 @@ drawIcon3D [
 ];
 #endif
 
-//Private AUTO RANGING USING ATL ON 2D Model
+//AUTO RANGING USING ATL ON 2D Model
+private _heli = vehicle player;
 private _TadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
 private _TadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
 private _tadsDirection = (_TadsPosition vectorFromTo _TadsAimPos) vectorMultiply 50000;
-private _TerrainIntersect = terrainIntersectAtASL [_TadsPosition, _tadsDirection];
-private _autorange = [_TadsPosition distance _TerrainIntersect,0,50000] call BIS_fnc_clamp;
+_tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
+private _autorange = [(_TadsPosition)#2 /sin(-_elevation),100,50000] call BIS_fnc_clamp;
 
+private _range = 1000;
 private _laserPos = getPosASL laserTarget _heli;
-private _range = _TadsPosition distance _laserPos;
-if (_laserPos isEqualTo [0,0,0]) then {
-    if (_TerrainIntersect != [0,0,0]) exitwith {
-        _range = _autorange;
-    };
-    _range = 1000;
+if (_elevation < 0) exitwith {
+	_range = _autorange;
+};
+if (_laserPos isnotEqualTo [0,0,0]) then {
+	_range = _TadsPosition distance _laserPos;
 };
 
 if (_lmcStartRange == -1) then {
@@ -79,24 +80,23 @@ if (_lmcPosition isEqualTo []) then {
 	private _tadsX = _tadsY vectorCrossProduct _tadsZ;
 	[_tadsX, _tadsY, _tadsZ]
 } else {
-	private _tadsY = _heli vectorWorldToModelVisual (_tadsPos vectorFromTo _lmcPosition);
+	private _tadsY = _heli vectorWorldToModelVisual (_TadsPosition vectorFromTo _lmcPosition);
 	private _tadsX = _tadsY vectorCrossProduct [0, 0, 1];
 	private _tadsZ = _tadsX vectorCrossProduct _tadsY;
 	[_tadsX, _tadsY, _tadsZ]
 } params ["_tadsX", "_tadsY", "_tadsZ"];
 
-_pos = ASLToAGL _tadsPos;
-
 #ifdef __A3_DEBUG__
-{
-_colour = [0, 0, 0, 1];
-_colour set [_forEachIndex , 1];
-drawLine3D [
-	_pos,
-	_pos vectorAdd (_heli vectorModelToWorldVisual (_x vectorMultiply _range)),
-	_colour
-];
-} forEach [_tadsX, _tadsY, _tadsZ];
+	private _pos = ASLToAGL _TadsPosition;
+	{
+		_colour = [0, 0, 0, 1];
+		_colour set [_forEachIndex , 1];
+		drawLine3D [
+			_pos,
+			_pos vectorAdd (_heli vectorModelToWorldVisual (_x vectorMultiply _range)),
+			_colour
+		];
+	} forEach [_tadsX, _tadsY, _tadsZ];
 #endif
 
 // Rotate
@@ -106,22 +106,22 @@ _m = matrixTranspose [_vX, _vY, _vZ];
  [_deltaX, _deltaY, _deltaZ] matrixMultiply _m params ["", "_newY"];
 
 _newY = _newY vectorMultiply _range;
-_lmcPosition = _tadsPos vectorAdd (_heli vectorModelToWorldVisual _newY);
+_lmcPosition = _TadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
 
 #ifdef __A3_DEBUG__
-hintSilent str [_lmcPosition];
-drawIcon3D [
-	"\a3\ui_f\data\Map\MarkerBrushes\cross_ca.paa",
-	[1, 0, 0, 1],
-	ASLToAGL _lmcPosition,
-	1, 1, 0
-];
-drawLine3D [
-ASLToAGL _tadsPos,
-ASLToAGL _lmcPosition,
-[1, 0, 0, 1]
-];
+	hintSilent str [_lmcPosition];
+	drawIcon3D [
+		"\a3\ui_f\data\Map\MarkerBrushes\cross_ca.paa",
+		[1, 0, 0, 1],
+		ASLToAGL _lmcPosition,
+		1, 1, 0
+	];
+	drawLine3D [
+		ASLToAGL _TadsPosition,
+		ASLToAGL _lmcPosition,
+		[1, 0, 0, 1]
+	];
 #endif
 
 _heli lockCameraTo [_lmcPosition, [0], true];
