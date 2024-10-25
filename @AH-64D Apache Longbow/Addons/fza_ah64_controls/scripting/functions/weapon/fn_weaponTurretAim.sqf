@@ -101,10 +101,10 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     
     if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
         _inhibit = "PYLON LIMIT";
-        _heli selectweapon "fza_Pylon_inhibit";
+        _heli selectweapon "fza_pylon_inhibit";
     };
     if (_utilHydFailed || _utilLevelMin) exitwith {
-        _heli selectweapon "fza_Pylon_inhibit";
+        _heli selectweapon "fza_pylon_inhibit";
     };
 };
 
@@ -116,7 +116,7 @@ if (_was == WAS_WEAPON_MSL && _sight != SIGHT_FXD) then {
     _pylonAdjustment = ([_velocityComp, _velYZ] call fza_fnc_linearInterp) # 1;
 };
 
-if (Currentweapon _heli == "fza_Pylon_inhibit" && _inhibit == "") then {
+if (Currentweapon _heli == "fza_pylon_inhibit" && _inhibit == "") then {
     [_heli] call fza_fnc_weaponUpdateSelected;
 };
 
