@@ -44,10 +44,21 @@ drawIcon3D [
 ];
 #endif
 
-private _tadsPos = (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
+//Private AUTO RANGING USING ATL ON 2D Model
+private _TadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
+private _TadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
+private _tadsDirection = (_TadsPosition vectorFromTo _TadsAimPos) vectorMultiply 50000;
+private _TerrainIntersect = terrainIntersectAtASL [_TadsPosition, _tadsDirection];
+private _autorange = [_TadsPosition distance _TerrainIntersect,0,50000] call BIS_fnc_clamp;
+
 private _laserPos = getPosASL laserTarget _heli;
-private _range = _laserPos distance _tadsPos;
-if (_laserPos isEqualTo [0,0,0]) then {_range = 1000};
+private _range = _TadsPosition distance _laserPos;
+if (_laserPos isEqualTo [0,0,0]) then {
+    if (_TerrainIntersect != [0,0,0]) exitwith {
+        _range = _autorange;
+    };
+    _range = 1000;
+};
 
 if (_lmcStartRange == -1) then {
 	_heli setVariable ["fza_ah64_lmcStartRange", _range];
