@@ -230,12 +230,9 @@ switch (_variant) do {
                     if (_id isEqualTo []) exitWith {false};
                     private _databaseType = [_heli, _id, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
                     if (isNil "_databaseType") exitWith {false;};
-                    if (_databaseType > 2) exitWith {false;};
                     [true, _id];
                 };
-                private _currentValue = (_heli getVariable "fza_dms_routeNext")#0;
-                private _startValue = ["", _currentValue call fza_dms_fnc_pointToString] select (_currentValue isNotEqualTo []);
-                [_heli, "POINT", _callback, _checker, _state, _startValue] call fza_ku_fnc_addPrompt;
+                [_heli, "POINT", _callback, _checker, _state, ""] call fza_ku_fnc_addPrompt;
             };
             case "l4": {     //Return to RTE page
                 _state set ["subPageVarPage", TSD_RTE];
