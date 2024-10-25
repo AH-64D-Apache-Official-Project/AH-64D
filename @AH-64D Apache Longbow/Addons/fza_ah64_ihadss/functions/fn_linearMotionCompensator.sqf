@@ -22,6 +22,7 @@ params ["_heli"];
 if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
     _heli setVariable ["fza_ah64_lmcConstant", [0, 0]];
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
+    _heli setVariable ["fza_ah64_lmcRange", 1000];
     _heli setVariable ["fza_ah64_lmcPosition", []];
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
@@ -53,7 +54,7 @@ private _tadsDirection = (_TadsPosition vectorFromTo _TadsAimPos) vectorMultiply
 _tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
 private _autorange = [(_TadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
 
-private _range = 1000;
+private _range = -1;
 private _laserPos = getPosASL laserTarget _heli;
 if (_elevation < -1 && ([_heli] call fza_sfmplus_fnc_getAltitude)#1 < 1428) then {
 	_range = _autorange;
@@ -62,6 +63,10 @@ if (_laserPos isnotEqualTo [0,0,0]) then {
 	_range = _TadsPosition distance _laserPos;
 };
 
+if (_range == -1) then {
+	_range = _heli getVariable "fza_ah64_lmcRange";
+};
+_heli setVariable ["fza_ah64_lmcRange", _range];
 if (_lmcStartRange == -1) then {
 	_heli setVariable ["fza_ah64_lmcStartRange", _range];
 	_lmcStartRange = _range;

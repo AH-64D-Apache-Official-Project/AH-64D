@@ -37,4 +37,5 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_LmcActive",              false, true];
     _heli setVariable ["fza_ah64_lmcPosition",            [],    true];
     _heli setVariable ["fza_ah64_lmcStartRange",          1000,    true];
+    _heli setVariable ["fza_ah64_lmcRange",          1000,    true];
 };
