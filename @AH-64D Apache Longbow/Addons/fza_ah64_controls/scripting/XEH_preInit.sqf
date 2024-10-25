@@ -79,6 +79,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableHeadingHold",
+    "CHECKBOX",
+    ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
+    [_projName, "Flight model"],
+    [true],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
@@ -134,14 +143,9 @@ private _projName = "AH-64D Official Project";
 
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_gunheat = 0;
-fza_ah64_firekeypressed = 0;
 fza_ah64_overallticker = 0;
-fza_ah64_salvofired = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
-fza_ah64_burst = 1;
-fza_ah64_AseRWR = [];
 fza_ah64_introShownThisScenario = false;
 private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn";
 fza_ah64_tadsFOVs = [
@@ -149,101 +153,24 @@ fza_ah64_tadsFOVs = [
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_fnc_weaponTurretAim, fza_fnc_targetingPNVSControl, fza_fnc_targetingSched, fza_fnc_avionicsSlipIndicator, fza_mpd_fnc_update, fza_ase_fnc_controller, fza_wca_fnc_update, fza_cannon_fnc_update, fza_ufd_fnc_update];
-fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight];
-fza_ah64_eachFrameArray  = [fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_ihadss_fnc_fovControl];
+fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_controller, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update];
+fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update];
+fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
 }];
-[0] spawn fza_ufd_fnc_update;
 
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
     [0] call fza_fnc_coreEachFrameScheduler;
 }];
 
-["fza_engineFire", {
-    params ["_heli", "_location"];
-    [_heli] spawn fza_aiCrew_fnc_fireControl
-}] call CBA_fnc_addEventHandler;
-
-["fza_engineFire", {
-    params ["_heli", "_location"];
-
-    //If the effects are already present, don't overwrite
-    if (_heli getVariable [format ["fza_ah64_fire_%1_fx", _location], []] isNotEqualTo []) exitWith {};
-    private _side = [];
-    private _sidef = [];
-    private _mag = "";
-    private _audio1 = "";
-    switch _location do {
-        case "right": {
-            _side = [1.2, -0.8, -1.25];
-            _sidef = [1.2, -0.6, -1.25];
-            _mag = "fza_ah64_e2_fire";
-            _audio1 = "fza_ah64_bt_engine2";
-        };
-        case "left": {
-            _side = [-1, -0.8, -1.25];
-            _sidef = [-1, -0.6, -1.25];
-            _mag = "fza_ah64_e1_fire";
-            _audio1 = "fza_ah64_bt_engine1";
-        };
-        case "apu": {
-            _side = [0, -0.8, -1.25];
-            _sidef = [0, 0.2, -1.25];
-            _mag = "fza_ah64_apu_fire";
-            _audio1 = "fza_ah64_bt_apu";
-        };
-    };
-
-    private _smokefx = "#particlesource" createVehicleLocal getpos _heli;
-    _smokefx attachto[_heli, [0, 0, 0]];
-
-    private _firefx = "#particlesource" createVehicleLocal getpos _heli;
-    _firefx attachto[_heli, [0, 0, 0]];
-
-    _smokefx setParticleCircle[0, [0, 0, 0]];
-    _smokefx setParticleRandom[0, [0.25, 0.25, 0], [0.2, 0.2, 0], 0, 0.25, [0, 0, 0, 0.1], 0, 0];
-    _smokefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 12, 9, 1], "", "Billboard", 1, 3, _side, [0, 0, 1], 0, 10, 7.9, 0.066, [2, 3, 4], [
-        [0.1, 0.1, 0.1, 1],
-        [0.2, 0.2, 0.2, 0.5],
-        [0.3, 0.3, 0.3, 0]
-    ], [0.125], 1, 0, "", "", _heli];
-    _smokefx setDropInterval 0.03;
-
-    _firefx setParticleCircle[0, [0, 0, 0]];
-    _firefx setParticleRandom[0.5, [0.25, 0.25, 0.1], [0, 0, 1], 0, 0.5, [0, 0, 0, 0], 0, 0];
-    _firefx setDropInterval 0.01;
-    _firefx setParticleParams[["\A3\data_f\ParticleEffects\Universal\Universal", 16, 10, 32, 1], "", "Billboard", 1, 0.2, _sidef, [0, 0, 0.5], 5, 1, 0.9, 0.3, [1], [
-        [1, 1, 1, 1],
-        [1, 1, 1, 0.75],
-        [1, 1, 1, 0]
-    ], [0.5, 0.5, 0], 0.5, 0.5, "", "", _heli];
-
-    _heli setVariable [format ["fza_ah64_fire_%1_fx", _location], [_smokefx, _firefx]];
-}] call CBA_fnc_addEventHandler;
-
-["fza_engineFireOut", {
-    params ["_heli", "_location"];
-
-    private _fx = _heli getVariable [format ["fza_ah64_fire_%1_fx", _location], []];
-    if (count _fx != 2) exitWith {};
-
-    detach (_fx # 0);
-    detach (_fx # 1);
-
-    deletevehicle (_fx # 0);
-    deletevehicle (_fx # 1);
-
-    _heli setVariable [format ["fza_ah64_fire_%1_fx", _location], []];
-}] call CBA_fnc_addEventHandler;
-
 #define OVERRIDE_ACTION(actn) \
     addUserActionEventHandler [actn, "Activate", {[actn, true] call fza_fnc_coreControlHandle}]; \
     addUserActionEventHandler [actn, "Deactivate", {[actn, false] call fza_fnc_coreControlHandle}];
 
+OVERRIDE_ACTION("defaultAction")
 OVERRIDE_ACTION("SwitchWeaponGrp1")
 OVERRIDE_ACTION("SwitchWeaponGrp2")
 OVERRIDE_ACTION("SwitchWeaponGrp3")
@@ -256,3 +183,4 @@ OVERRIDE_ACTION("zoomIn")
 OVERRIDE_ACTION("zoomOut")
 OVERRIDE_ACTION("NightVision")
 OVERRIDE_ACTION("vehLockTurretView")
+OVERRIDE_ACTION("Headlights")

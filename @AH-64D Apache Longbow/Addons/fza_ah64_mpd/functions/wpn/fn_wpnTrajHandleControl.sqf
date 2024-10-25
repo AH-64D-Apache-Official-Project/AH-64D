@@ -8,18 +8,18 @@ if (_popOutMenu == 0 && _control != "R3") exitWith {false;};
 
 switch (_control) do {
     case "r1": {
-        _heli setVariable ["fza_ah64_hellfireTrajectory", "HI", true];
+        [_heli, "fza_ah64_hellfireTrajectory", "HI"] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _return = true;
     };
     case "r2": {
-        _heli setVariable ["fza_ah64_hellfireTrajectory", "LO", true];
+        [_heli, "fza_ah64_hellfireTrajectory", "LO"] call fza_fnc_updateNetworkGlobal;
         _state set ["popOutMenu", 0];
         _return = true;
     };
     case "r3": {
         if (_popOutMenu == 1) then {
-            _heli setVariable ["fza_ah64_hellfireTrajectory", "DIR", true];
+        [_heli, "fza_ah64_hellfireTrajectory", "DIR"] call fza_fnc_updateNetworkGlobal;
             _state set ["popOutMenu", 0];
             _return = true;
         } else {

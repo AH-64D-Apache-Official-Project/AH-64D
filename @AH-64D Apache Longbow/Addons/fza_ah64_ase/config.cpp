@@ -1,6 +1,6 @@
 class CfgPatches
 {
-    class fza_ah64_fza_ah64_ase
+    class fza_ah64_ase
     {
         units[] = {};
         author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
@@ -9,9 +9,6 @@ class CfgPatches
         requiredAddons[] = {};
     };
 };
-
-class SensorTemplateActiveRadar;
-class SensorTemplateLaser;
 
 #include "\fza_ah64_controls\config\defines.hpp"
 

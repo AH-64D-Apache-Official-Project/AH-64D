@@ -118,7 +118,7 @@ if (count _fcrTargets > 0) then {
     _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
 };
 {
-    _x params ["_pos", "_type", "_speed", "_obj"];
+    _x params ["_pos", "_type", "_moving", "_obj"];
     private _distance_m          = _lastScanInfo #1 distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
@@ -147,7 +147,7 @@ if (count _fcrTargets > 0) then {
             };
         };
         //Unit status
-        if (((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
+        if ((_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
             _unitStatus = "MOVE";
         } else {
             if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
@@ -184,9 +184,12 @@ private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
 private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
-    _x params ["_state", "_bearing", "_classification"];
+    _x params ["_state", "_object", "_classification"];
+    private _bearing = _heli getRelDir _object;
     if !_rlwrPower exitWith {};
     _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
+    if (_ident == "") then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];

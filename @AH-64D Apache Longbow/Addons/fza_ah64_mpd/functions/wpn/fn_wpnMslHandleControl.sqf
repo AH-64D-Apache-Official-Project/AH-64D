@@ -34,15 +34,15 @@ switch (_state get "variant") do {
 
         if !(isNil "_chanSelected") then {
             if (_chanSelected == -1) then {
-                _heli setVariable ["fza_ah64_laserMissilePrimaryCode", -1];
-                _heli setVariable ["fza_ah64_laserMissileAlternateCode", -1];
+                    [_heli, "fza_ah64_laserMissilePrimaryCode", -1] call fza_fnc_updateNetworkGlobal;
+                    [_heli, "fza_ah64_laserMissileAlternateCode", -1] call fza_fnc_updateNetworkGlobal;
             } else {
                 private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
                 if (_chanSelected == _alt) then {
                     private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
-                    _heli setVariable ["fza_ah64_laserMissileAlternateCode", _pri, true];
+                    [_heli, "fza_ah64_laserMissileAlternateCode", _pri] call fza_fnc_updateNetworkGlobal;
                 };
-                _heli setVariable ["fza_ah64_laserMissilePrimaryCode", _chanSelected, true];
+                [_heli, "fza_ah64_laserMissilePrimaryCode", _chanSelected] call fza_fnc_updateNetworkGlobal;
             };
             _state set ["variant", 0];
         };
@@ -53,15 +53,15 @@ switch (_state get "variant") do {
 
         if !(isNil "_chanSelected") then {
             if (_chanSelected == -1) then {
-                _heli setVariable ["fza_ah64_laserMissileAlternateCode", -1];
+                [_heli, "fza_ah64_laserMissileAlternateCode", -1] call fza_fnc_updateNetworkGlobal;
             } else {
                 private _pri = _heli getVariable "fza_ah64_laserMissilePrimaryCode";
                 if (_chanSelected == _pri) then {
                     private _alt = _heli getVariable "fza_ah64_laserMissileAlternateCode";
                     private _newPri = [0,1] select (_chanSelected == 0);
-                    _heli setVariable ["fza_ah64_laserMissilePrimaryCode", _newPri, true];
+                    [_heli, "fza_ah64_laserMissilePrimaryCode", _newPri] call fza_fnc_updateNetworkGlobal;
                 };
-                _heli setVariable ["fza_ah64_laserMissileAlternateCode", _chanSelected, true];
+                [_heli, "fza_ah64_laserMissileAlternateCode", _chanSelected] call fza_fnc_updateNetworkGlobal;
             };
             _state set ["variant", 0];
         };

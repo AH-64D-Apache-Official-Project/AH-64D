@@ -12,11 +12,11 @@ Returns:
 Examples:
     [_heli] call fza_audio_fnc_addCaution;
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setvariable ["fza_audio_caution", true];
+[_heli, "fza_audio_caution", true] call fza_fnc_updateNetworkGlobal;
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];
 if (scriptDone _funcHook) then {

@@ -126,11 +126,15 @@
 #define MFD_IND_WPN_SELECTED_PRI_CH 10
 #define MFD_IND_WPN_SELECTED_ALT_CH 11
 #define MFD_IND_WPN_CMS_MODE_TYPE 12
-// 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
-#define MFD_IND_WPN_MSL_MENU 19
 //Msl trajectory
 #define MFD_IND_WPN_POPOUT_MENU 13
 #define MFD_IND_WPN_POPOUT 14
+//Weapons failures
+#define MFD_IND_WPN_CANNON_FAILURE 15
+#define MFD_IND_WPN_PYLON_1_4_FAILURE 16
+#define MFD_IND_WPN_PYLON_2_3_FAILURE 17
+// 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
+#define MFD_IND_WPN_MSL_MENU 19
 
 
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
@@ -242,9 +246,16 @@
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
 #define MFD_IND_ASE_AUTOPAGE     5
+#define MFD_IND_ASE_BRITISH      6
+#define MFD_IND_ASE_AMERICAN     7
 //--Azimuth
-#define MFD_IND_ASE_BRITISH 6
-#define MFD_IND_ASE_AMERICAN 7
+#define MFD_IND_ASE_01_AZ 13
+#define MFD_IND_ASE_02_AZ 14
+#define MFD_IND_ASE_03_AZ 15
+#define MFD_IND_ASE_04_AZ 16
+#define MFD_IND_ASE_05_AZ 17
+#define MFD_IND_ASE_06_AZ 18
+#define MFD_IND_ASE_07_AZ 19
 
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
@@ -297,6 +308,8 @@
 #define MFD_TEXT_IND_PERF_END_SPD 15
 //--Wind Speed & Direction
 #define MFD_TEXT_IND_PERF_WIND 16
+//--CG
+#define MFD_TEXT_IND_PERF_CG   17
 
 //DTU Page
 #define MFD_IND_DTU_SUBPAGE 0

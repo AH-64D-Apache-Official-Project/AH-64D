@@ -24,7 +24,7 @@ Examples:
     };
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
@@ -50,7 +50,7 @@ while {player != vehicle player && alive player && alive _heli} do {
     };
     if (_heli getVariable "fza_audio_caution") then {
         playSoundUI ["fza_ah64_Caution", _volume];
-        sleep 1.8;
+        sleep 3.5;
         continue;
     };
     break;

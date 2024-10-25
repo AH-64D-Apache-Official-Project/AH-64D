@@ -5,6 +5,9 @@
 params["_heli", "_mpdIndex", "_state", "_persistState"];
 
 Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
+
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
 switch _fcrMode do {
     case 1: { //Gtm
         _this call fza_mpd_fnc_fcrGTMDraw;
@@ -17,7 +20,7 @@ switch _fcrMode do {
 };
 
 //Sight Select Status
-private _sight        = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight        = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _sightSelStat = "HMD";
 switch (_sight) do {
     case 0: {

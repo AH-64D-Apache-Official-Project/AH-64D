@@ -18,11 +18,14 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+#include "\fza_ah64_systems\headers\systems.hpp"
+params ["_heli", "_deltaTime", "_dryAirDensity"];
 
+private _stabDamage    = _heli getHitPointDamage "hit_stabilator";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel    = getText (_cfg >> "fza_flightModel");
+private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 if (!local _heli) exitWith {};
 
@@ -73,6 +76,12 @@ if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
     _theta = [_stabOutputTable, _V_mps] call fza_fnc_linearInterp select 1;
 };
 
+if (_stabDamage >= SYS_STAB_DMG_THRESH || !_dcBusOn) then {
+    _theta = _heli getvariable "fza_ah64_stabilatorPosition";
+} else {
+    _heli setVariable ["fza_ah64_stabilatorPosition",_theta];
+};
+
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];
 
@@ -112,17 +121,28 @@ _stabLine = _stabLine;
 private _relWind = vectornormalized(_heli vectorWorldToModel (velocity _heli));
 _relWind = _relWind;
 
-private _AoA = (_relWind # 2 atan2 _relWind # 1) + _theta;
+private _dragVec = vectorNormalized _relWind;
+
+private _AoA = (_relWind # 1 atan2 _relWind # 2) + _theta;
 _AoA = [_AoA] call CBA_fnc_simplifyAngle180;
 
 private _intAirfoilTable = [getArray (_sfmPlusConfig >> "stabAirfoilTable"), _AoA] call fza_fnc_linearInterp;
 private _CL = _intAirfoilTable select 1;
 
 private _area = [_A, _B, _C, _D] call fza_fnc_getArea;
-private _liftForce = -_CL * 0.5 * _dryAirDensity * _area * (_V_mps * _V_mps);
+private _liftForce = _CL * 0.5 * _dryAirDensity * _area * (_V_mps * _V_mps);
 
-private _lift = _liftVec vectorMultiply (_liftForce * _deltaTime);
-_heli addForce[_heli vectorModelToWorld _lift, _G];
+private _CD        = _intAirfoilTable select 2;
+private _dragForce = _CD * 0.5 * _dryAirDensity * _area * (_V_mps * _V_mps);
+private _drag      = _dragVec vectorMultiply (_dragForce * _deltaTime);
+
+private _lift     = _liftVec vectorMultiply (_liftForce * _deltaTime);
+private _deltaPos = _G vectorDiff (getCenterOfMass _heli);
+private _moment   = _lift vectorCrossProduct _deltaPos;
+
+_heli addForce[_heli vectorModelToWorld _lift, getCenterOfMass _heli];
+_heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
+_heli addTorque (_heli vectorModelToWorld _moment);
 
 #ifdef __A3_DEBUG__
 /*

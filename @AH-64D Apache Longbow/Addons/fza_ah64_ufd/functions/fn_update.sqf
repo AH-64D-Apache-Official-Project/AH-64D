@@ -33,27 +33,6 @@ if (_heli getVariable "fza_ah64_rdp_fail" && !(_heli getVariable "fza_ah64_ldp_f
 if (_heli getVariable "fza_ah64_ldp_fail" && !(_heli getVariable "fza_ah64_rdp_fail") && [_heli, 1] call fza_mpd_fnc_currentPage != "fail") then {
     [_heli, 0, "fail"] call fza_mpd_fnc_setCurrentPage;
 };
-if (_heli getVariable "fza_ah64_e1_fire") then {
-    _heli setobjecttexture ["in_lt_fire1", "\fza_ah64_us\tex\in\pushbut.paa"];
-} else {
-    _heli setobjecttexture ["in_lt_fire1", ""];
-};
-if (_heli getVariable "fza_ah64_e2_fire") then {
-    _heli setobjecttexture ["in_lt_fire2", "\fza_ah64_us\tex\in\pushbut.paa"];
-} else {
-    _heli setobjecttexture ["in_lt_fire2", ""];
-};
-if (_heli getVariable "fza_ah64_apu_fire") then {
-    _heli setobjecttexture ["in_lt_fireapu", "\fza_ah64_us\tex\in\pushbut.paa"];
-} else {
-    _heli setobjecttexture ["in_lt_fireapu", ""];
-};
-if (_heli getVariable "fza_ah64_firepdisch") then {
-    _heli setobjecttexture ["in_lt_firepdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-};
-if (_heli getVariable "fza_ah64_firerdisch") then {
-    _heli setobjecttexture ["in_lt_firerdis", "\fza_ah64_us\tex\in\pushbut.paa"];
-};
 
 ///EWCA//
 //pilot
@@ -107,10 +86,25 @@ if (_battBusOn || _dcBusOn) then {
         _heli setUserMFDText [8, "<>F2  49.500  -SLF- C2   L3  69.525"];
     };
 
+    private _pylonMagazines  = getPylonMagazines _heli;
+    private _numExtTanks     = 0;
+    if (["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    if (["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) then {
+        _numExtTanks  = _numExtTanks + 1;
+    };
+    
     if (_heli getVariable "fza_ah64_IAFSInstalled") then {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 1];
+        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, _numExtTanks];
     } else {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, 0];
+        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)];
     };
 } else {
     _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");

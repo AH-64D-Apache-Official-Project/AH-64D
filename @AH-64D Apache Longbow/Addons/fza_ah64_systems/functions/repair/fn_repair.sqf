@@ -77,7 +77,7 @@ _heli setHitPointDamage ["hit_msnEquip_pylon3",             0.0];
 _heli setHitPointDamage ["hit_msnEquip_pylon4",             0.0];
 _heli setHitPointDamage ["hit_msnEquip_tads_dtv",           0.0];
 _heli setHitPointDamage ["hit_msnEquip_tads_flir",          0.0];
-_heli setHitPointDamage ["hit_msnEquip_tads_turret",        0.0];
+_heli setHitPointDamage ["HitTurret",        0.0];
 _heli setHitPointDamage ["hit_msnEquip_fcr",                0.0];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Stabilator       /////////////////////////////////////////////////////////////////////////

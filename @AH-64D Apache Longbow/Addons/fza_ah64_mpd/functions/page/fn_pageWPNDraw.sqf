@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_state"];
 
@@ -42,10 +43,31 @@ _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_
 private _gunAmmo = _heli ammo "fza_m230";
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
 
+//GUN FAILED
+private _gunDamage     = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
+private _magDamage     = (_heli getHitPointDamage "hit_msnEquip_magandrobbie" > SYS_WPN_DMG_THRESH && _heli animationPhase "magazine_set_1200" == 1);
+private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
+private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
+private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
+private _gunFailed     = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
+_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
+
+//pylon Failure
+private _pylonFailure = [];
+for "_i" from 1 to 4 do {
+    private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
+    if (_pylonDamage >= SYS_WPN_DMG_THRESH || _utilHydFailed || _utilLevelMin) then {
+        _pylonFailure pushback _i;
+    };
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
+
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
 
-switch ([_heli] call fza_fnc_targetingGetSightSelect) do {
+switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
     case 0: {
         _sight = "FCR"
     };
@@ -126,6 +148,7 @@ if (_rocketInvIndex != -1) then {
     }; 
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
 };
+
 //Page draw
 switch (_selectedWeapon) do {
     case WAS_WEAPON_GUN: {
@@ -137,4 +160,4 @@ switch (_selectedWeapon) do {
     case WAS_WEAPON_MSL: {
         _this call fza_mpd_fnc_WpnMslDraw;
     };
-};q 
+};

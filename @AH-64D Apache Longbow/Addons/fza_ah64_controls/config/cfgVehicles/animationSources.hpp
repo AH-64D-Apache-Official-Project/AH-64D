@@ -10,6 +10,24 @@ class AnimationSources
         initPhase = 1;
         animPeriod = 0.001;
     };
+    class Plt_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class cpg_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class landing_light
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
     class msn_equip_american
     {
         displayName = "Install American Mission Equipment";
@@ -50,7 +68,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.01;
-        initPhase  = 1;
+        initPhase  = -5.5;
     };
     class pnvs
     {
@@ -92,25 +110,25 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon2
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon3
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon4
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class swashplate_up_tns
     {
@@ -346,7 +364,7 @@ class AnimationSources
         source = "user";
         animPeriod = 0.001;
         initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
+        onPhaseChanged = "[_this # 0, ""fza_ah64_lightAntiColl"", ""plt_anticollision""] call fza_fnc_animReset";
     };
     class plt_firesw
     {

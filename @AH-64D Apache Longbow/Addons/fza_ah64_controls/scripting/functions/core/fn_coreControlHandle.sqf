@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
 params["_name", "_value"];
@@ -11,6 +12,10 @@ private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
 if (_value) then {
     //When button pressed
     switch (_name) do {
+        case "defaultAction": {
+            _heli setVariable ["fza_ah64_salvofired", 0];
+            _heli setVariable ["fza_ah64_burst_fired", 0];
+        };
         case "fza_ah64_crosshairInteract": {
             private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
             if (_controls isEqualTo []) exitWith {};
@@ -28,16 +33,16 @@ if (_value) then {
             [_heli] call fza_fnc_laserArm;
         };
         case "fza_ah64_sightSelectHMD": {
-            [_heli, SIGHT_HMD] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectTADS": {
-            [_heli, SIGHT_TADS] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_TADS] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFXD": {
-            [_heli, SIGHT_FXD] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_FXD] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_sightSelectFCR": {
-            [_heli, SIGHT_FCR] call fza_fnc_targetingSetSightSelect;
+            [_heli, "fza_ah64_sight", SIGHT_FCR] call fza_fnc_setSeatVariable;
         };
         case "fza_ah64_symbologySelectUp": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {
@@ -65,8 +70,14 @@ if (_value) then {
             [_heli, 0, "flt"] call fza_mpd_fnc_setCurrentPage;
         };
         case "fza_ah64_fcrSingleScan": {
-            player action ["ActiveSensorsOn", vehicle player];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
+            private _fcrState = _heli getVariable "fza_ah64_fcrState";
+            if (_fcrState#0 == FCR_MODE_FAULT) exitwith {};
+            if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
+                player action ["ActiveSensorsOn", vehicle player];
+                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
+            };
+            player action ["ActiveSensorsOff", vehicle player];
+            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
         };
         case "fza_ah64_targetStoreUpdate": {
             // Todo: Implemen target store
@@ -112,7 +123,7 @@ if (_value) then {
             ["fza_ah64_weaponUpdate", {[vehicle player] call fza_fnc_weaponUpdateSelected}, 1, "frames"] call BIS_fnc_runLater;
         };
         case "vehLockTargets": {
-            [_heli] call fza_fnc_targetingsensorCycle;
+            [_heli] call fza_fcr_fnc_cycleNTS;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
@@ -174,16 +185,19 @@ if (_value) then {
             if (player != Gunner _heli) exitWith {};
             if !(fza_ah64_tadsCycleAllModes) exitwith {};
             private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
+            private _flirDamage = _heli getHitPointDamage "hit_msnEquip_tads_flir";
+            private _dtvDamage  = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
             private _Visionmode = _heli currentVisionMode [0];
             private _a3ti_vis   = call A3TI_fnc_getA3TIVision;
             if !(isNil "_a3ti_vis") exitwith {};
-            if (_Visionmode#0 == 2 && _Visionmode#1 == 1) exitwith {
+            if (_dtvDamage >= SYS_SIGHT_DMG_THRESH && _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {};
+            if (_Visionmode#0 == 2 && _Visionmode#1 == 1 || _flirDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", false];
                 if (_inputindex == 1) then {
                     _heli setvariable ["fza_ah64_tadsZoom", 0];
                 };
             };
-            if (_Visionmode#0 == 0) exitwith {
+            if (_Visionmode#0 == 0 || _dtvDamage >= SYS_SIGHT_DMG_THRESH) exitwith {
                 _heli setvariable ["fza_ah64_tadsThermal", true];
             };
         };
@@ -228,6 +242,10 @@ if (_value) then {
             if (player != Gunner _heli) exitWith {};
             private _lmc = _heli getvariable "fza_ah64_LmcActive";
             _heli setVariable ["fza_ah64_LmcActive", !_lmc, true];
+        };
+        case "Headlights": {
+            private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
+            _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
         };
     };
 };

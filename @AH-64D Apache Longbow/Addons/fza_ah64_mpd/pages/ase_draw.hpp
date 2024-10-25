@@ -296,6 +296,43 @@ class ase_draw {
                 };
             };
             MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
+
+            //Draw ASE Lines
+            #define ASE_AZ(name, mpdVal)\
+            class aseaz_##name {\
+                color[] = {1,1,0,1};\
+                class line##name {\
+                condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
+                    class trackLine {\
+                        type     = line;\
+                        width    = 3;\
+                        points[] = {\
+                            {ase_az_##name, { 0.000, 0.018}, 1},\
+                            {ase_az_##name, { 0.000, 0.036}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.054}, 1},\
+                            {ase_az_##name, { 0.000, 0.071}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.089}, 1},\
+                            {ase_az_##name, { 0.000, 0.107}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.125}, 1},\
+                            {ase_az_##name, { 0.000, 0.143}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.161}, 1},\
+                            {ase_az_##name, { 0.000, 0.179}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.196}, 1},\
+                            {ase_az_##name, { 0.000, 0.214}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.232}, 1},\
+                            {ase_az_##name, { 0.000, 0.250}, 1}, {},\
+                        };\
+                    };\
+                };\
+            };
+
+            ASE_AZ(01, MFD_IND_ASE_01_AZ)
+            ASE_AZ(02, MFD_IND_ASE_02_AZ)
+            ASE_AZ(03, MFD_IND_ASE_03_AZ)
+            ASE_AZ(04, MFD_IND_ASE_04_AZ)
+            ASE_AZ(05, MFD_IND_ASE_05_AZ)
+            ASE_AZ(06, MFD_IND_ASE_06_AZ)
+            ASE_AZ(07, MFD_IND_ASE_07_AZ)
         };
     };
 

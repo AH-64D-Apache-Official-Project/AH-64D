@@ -6,7 +6,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_mpd_fnc_handleControl;
     };
     case "fire": {
-        [_heli, _system, _control] call fza_fnc_fireHandleControl;
+        [_heli, _system, _control] call fza_fire_fnc_handleControl;
     };
     case "door": {
         if (_control == "handle") then {
@@ -21,7 +21,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_fnc_engineHandleControl;
     };
     case "ihadss": {
-        [_heli, _system, _control] call fza_ihadss_fnc_ihadssHandleControl;
+        [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };
     case "nvs": {
         private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
@@ -37,7 +37,7 @@ switch (_system) do {
         };
     };
     case "light": {
-        [_heli, _system, _control] call fza_fnc_lightHandleControl;
+        [_heli, _system, _control] call fza_light_fnc_handleControl;
     };
     case "ku": {
         [_heli, _system, _control] call fza_ku_fnc_toggleInput;

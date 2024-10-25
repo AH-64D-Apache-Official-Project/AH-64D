@@ -30,6 +30,7 @@ Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\wcaConstants.h"
+#include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 params ["_heli"];
@@ -48,6 +49,8 @@ private _mags = _heli weaponsTurret [-1];
 private _wcas       = [];
 private _activeCaut = _heli getVariable "fza_ah64_activeCaut";
 private _activeWarn = _heli getVariable "fza_ah64_activeWarn";
+private _acBusOn    = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // System States    /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -58,7 +61,7 @@ private _apuOn       = _heli getVariable "fza_systems_apuOn";
 private _apuRPM_pct  = _heli getVariable "fza_systems_apuRPM_pct";
 private _apuDamage   = _heli getHitPointDamage "hit_apu";
 //--FCR
-private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
+private _fcrState    = _heli getVariable "fza_ah64_fcrState";
 //--Generators
 private _gen1Damage  = _heli getHitPointDamage "hit_elec_generator1";
 private _gen2Damage  = _heli getHitPointDamage "hit_elec_generator2";
@@ -103,6 +106,8 @@ private _priLevel_pct        = _heli getVariable "fza_systems_priLevel_pct";
 private _utilHydPumpDamage   = _heli getHitPointDamage "hit_hyd_utilpump";
 private _utilHydPSI          = _heli getVariable "fza_systems_utilHydPsi";
 private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
+//ASE
+private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
@@ -118,7 +123,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 
 //--Engine 1 Out
-if (_eng1Ng < 0.63 && !_onGnd) then {
+if (_eng1Ng < 0.63 && _eng1PwrLvrState == "FLY") then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -145,7 +150,7 @@ if (_eng1Np >= 1.15) then {
     [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
-if (_eng2Ng < 0.63 && !_onGnd) then {
+if (_eng2Ng < 0.63 && _eng2PwrLvrState == "FLY") then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -162,6 +167,11 @@ if (_heli getVariable "fza_ah64_e2_fire") then {
 } else {
     [_activeWarn, "ENGINE 2 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
+//--Aft Deck fire
+if (_heli getVariable "fza_ah64_aft_deck_fire") then {
+    _wcas pushBack [WCA_WARNING, "AFT DECK FIRE", "DECK FIRE"];
+};
+
 //--Engine 2 Overspeed
 if (_eng2Np >= 1.15) then {
     ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
@@ -180,8 +190,8 @@ if (!_onGnd && (_rtrRPM < 0.95)) then {
 } else {
     [_activeWarn, "LOW ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
     if ("fza_ah64_rotor_rpm_low" in (_heli getVariable "fza_audio_warning_message")) then {
-        _heli setvariable ["fza_audio_warning_message", ""];
-        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+        [_heli] call fza_audio_fnc_delwarning;
+        [_heli, "fza_ah64_mstrWarnLightOn", false] call fza_fnc_updateNetworkGlobal;
     };
 };
 //--Rotor RPM High
@@ -193,8 +203,8 @@ if (_rtrRPM > 1.06) then {
 } else {
     [_activeWarn, "HIGH ROTOR RPM"] call fza_wca_fnc_wcaDelWarning;
     if ("fza_ah64_rotor_rpm_high" in (_heli getVariable "fza_audio_warning_message")) then {
-        _heli setvariable ["fza_audio_warning_message", ""];
-        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+        [_heli] call fza_audio_fnc_delwarning;
+        [_heli, "fza_ah64_mstrWarnLightOn", false] call fza_fnc_updateNetworkGlobal;
     };
 };
 //--Hydraulics
@@ -401,6 +411,16 @@ if (_priHydPumpDamage >= SYS_HYD_DMG_THRESH
 if (_playCautAudio) then {
     [_heli] call fza_audio_fnc_addCaution;
 };
+//ASE
+if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH) && _MsnEquipState == "on" && _heli animationPhase "msn_equip_american" == 1) then {
+        ([_heli, _activeCaut, "IRJAM FAIL", "IRJAM FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "IRJAM FAIL"] call fza_wca_fnc_wcaDelCaution;
+};
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -418,7 +438,7 @@ if (_apuRPM_pct >= 0.02 && !_apuOn && _apuBtnOn) then {
 if (_apuRPM_pct >= 0.04 && !_apuOn && _apuBtnOn) then {
     _wcas pushBack [WCA_ADVISORY, "APU POWER ON", "APU PWR ON"];
 };
-if (_apuOn && getpos _heli # 2 < 3 && _apuBtnOn) then {
+if (_apuOn && _onGnd && _apuBtnOn) then {
     _wcas pushBack [WCA_ADVISORY, "APU ON", "APU ON"];
 };
 if (_apuRPM_pct >= 0.5 && !_apuBtnOn) then {
@@ -466,7 +486,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") then {
     _wcas pushBack [WCA_ADVISORY, "ROTOR BRAKE ON", "RTR BRK ON"];
 };
 //--FCR 
-if (_fcrDamage >= SYS_FCR_DMG_THRESH) then {
+if (_fcrState#0 == FCR_MODE_FAULT) then {
     _wcas pushBack [WCA_ADVISORY, "FCR FAULT", "FCR FAULT"];
 };
 if (_onGnd) then {

@@ -14,10 +14,17 @@ class CfgFunctions
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
+            class iconBlink {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
+            class propagatePage {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
         };
+        class canvas {
+            file = "\fza_ah64_mpd\functions\canvas";
+            class canvasDraw {RECOMPILE_FLAG;};
+            class canvasDrawLine {RECOMPILE_FLAG;};
+        }
         class chan {
             file = "\fza_ah64_mpd\functions\chan";
             class chanShowFrequencies {RECOMPILE_FLAG;};
@@ -74,6 +81,7 @@ class CfgFunctions
             class pageFUELHandleControl {RECOMPILE_FLAG;};
             class pageMENUHandleControl {RECOMPILE_FLAG;};
             class pageTSDDraw {RECOMPILE_FLAG;};
+            class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};
             class pageWCADraw {RECOMPILE_FLAG;};
             class pageWCAHandleControl {RECOMPILE_FLAG;};
