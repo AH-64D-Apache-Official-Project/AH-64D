@@ -92,14 +92,14 @@ private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _count = count _rteCycleList;
 //wpt approach 
-if (!("TSD" in _pltMpd && "TSD" in _cpgMpd) && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
+if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
     [_heli, "fza_ah64_wptAprch", [_currentPnt, true]] call fza_fnc_updateNetworkGlobal;
 };
 //waypoint passed
 {
     if (_count == 0) exitwith {};
     if (_closestPoint distance2D _heli > 20) exitwith {};
-    if !("TSD" in _pltMpd && "TSD" in _cpgMpd) then {
+    if !("tsd" in _pltMpd || "tsd" in _cpgMpd) then {
         [_heli, "fza_ah64_wptpassed", true] call fza_fnc_updateNetworkGlobal;
     };
     if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {
