@@ -66,7 +66,6 @@ private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
 private _clickhelper = "fza_ah64_click_helper" call BIS_fnc_rscLayer;
 private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
 private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
-private _LMCLayer = "fza_ah64_LMC" call BIS_fnc_rscLayer;
 
 if (isNil "fza_ah64_helperinit") then {
     _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
@@ -109,7 +108,7 @@ if (isNull laserTarget _heli) then {
     _laseit cuttext["", "PLAIN", 0.1, false];
 };
 if !(_heli getvariable "fza_ah64_LmcActive") then {
-    _LMCLayer cuttext["", "PLAIN", 0.01, false];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
 };
 
 //PNVS HDU
@@ -165,14 +164,12 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
         _clickhelper cuttext["", "PLAIN", 0, false];
         _monocle cuttext["", "PLAIN", 0, false];
         _laseit cuttext["", "PLAIN", 0, false];
-        _LMCLayer cuttext["", "PLAIN", 0, false];
     };
 };
 
 if !_powerOnState then {
     _raddisp cuttext["", "PLAIN", 0, false];
     _laseit cuttext["", "PLAIN", 0, false];
-    _LMCLayer cuttext["", "PLAIN"];
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
@@ -229,9 +226,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
     //LSC SYMBOLOGY FOR GUNNER
     if (_heli getvariable "fza_ah64_LmcActive") then {
-        _LMCLayer cutrsc["fza_ah64_LMC", "PLAIN", 0.01, false];
-        ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
-        ((uiNameSpace getVariable "fza_ah64_LMC") displayCtrl 703) ctrlSetTextColor[(fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), (fza_ah64_hducolor select 1), 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
 
     //TADS DTV/FLIR Fail

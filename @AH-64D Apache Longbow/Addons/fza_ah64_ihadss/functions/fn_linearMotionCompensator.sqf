@@ -14,27 +14,27 @@ Examples:
 Author:
     Snow(Dryden), Ampersand
 ---------------------------------------------------------------------------- */
-#define INPUT_SENS 0.05 // Tweak this for responsiveness? - Ampersand
-#define INPUT_MAX 5.0
+params ["_heli", "_deltaTime"];
 
-params ["_heli"];
+#define INPUT_SENS 5
+#define INPUT_MAX 5.0
 
 if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
     _heli setVariable ["fza_ah64_lmcConstant", [0, 0]];
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
-    _heli setVariable ["fza_ah64_lmcRange", 1000];
+    _heli setVariable ["fza_ah64_lmcRange", 3000];
     _heli setVariable ["fza_ah64_lmcPosition", []];
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-if (_sight != SIGHT_TADS || !(local gunner _heli)) exitwith {};
+if (_sight != SIGHT_tads || !(local gunner _heli)) exitwith {};
 
 (_heli getVariable "fza_ah64_lmcConstant") params ["_azimuthC", "_elevationC"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
 private _fovVal = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
-private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * INPUT_SENS) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
-private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * INPUT_SENS) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * (INPUT_SENS * _deltaTime)) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * (INPUT_SENS * _deltaTime)) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
 _heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY]];
 
@@ -48,11 +48,11 @@ drawIcon3D [
 #endif
 
 //AUTO RANGING USING ATL ON 2D Model
-private _TadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
-private _TadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
-private _tadsDirection = (_TadsPosition vectorFromTo _TadsAimPos) vectorMultiply 50000;
+private _tadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
+private _tadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
+private _tadsDirection = (_tadsPosition vectorFromTo _tadsAimPos) vectorMultiply 50000;
 _tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
-private _autorange = [(_TadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
+private _autorange = [(asltoagl _tadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
 
 private _range = -1;
 private _laserPos = getPosASL laserTarget _heli;
@@ -60,7 +60,7 @@ if (_elevation < -1 && ([_heli] call fza_sfmplus_fnc_getAltitude)#1 < 1428) then
     _range = _autorange;
 };
 if (_laserPos isnotEqualTo [0,0,0]) then {
-    _range = _TadsPosition distance _laserPos;
+    _range = _tadsPosition distance _laserPos;
 };
 
 if (_range == -1) then {
@@ -86,14 +86,14 @@ if (_lmcPosition isEqualTo []) then {
     private _tadsX = _tadsY vectorCrossProduct _tadsZ;
     [_tadsX, _tadsY, _tadsZ]
 } else {
-    private _tadsY = _heli vectorWorldToModelVisual (_TadsPosition vectorFromTo _lmcPosition);
+    private _tadsY = _heli vectorWorldToModelVisual (_tadsPosition vectorFromTo _lmcPosition);
     private _tadsX = _tadsY vectorCrossProduct [0, 0, 1];
     private _tadsZ = _tadsX vectorCrossProduct _tadsY;
     [_tadsX, _tadsY, _tadsZ]
 } params ["_tadsX", "_tadsY", "_tadsZ"];
 
 #ifdef __A3_DEBUG__
-    private _pos = ASLToAGL _TadsPosition;
+    private _pos = ASLToAGL _tadsPosition;
     {
         _colour = [0, 0, 0, 1];
         _colour set [_forEachIndex , 1];
@@ -112,7 +112,7 @@ _m = matrixTranspose [_vX, _vY, _vZ];
  [_deltaX, _deltaY, _deltaZ] matrixMultiply _m params ["", "_newY"];
 
 _newY = _newY vectorMultiply _range;
-_lmcPosition = _TadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
+_lmcPosition = _tadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
 
 #ifdef __A3_DEBUG__
@@ -124,7 +124,7 @@ _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
         1, 1, 0
     ];
     drawLine3D [
-        ASLToAGL _TadsPosition,
+        ASLToAGL _tadsPosition,
         ASLToAGL _lmcPosition,
         [1, 0, 0, 1]
     ];

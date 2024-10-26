@@ -1691,6 +1691,21 @@ class RscTitles
                         onLoad = "(_this # 0) ctrlMapSetPosition []; (_this # 0) ctrlMapAnimAdd [0, 0.000, [-1000,-1000]]; ctrlMapAnimCommit (_this # 0);";
                         onDraw = "_this call fza_ihadss_fnc_canvasDraw";
                     };
+                    class fza_ah64_raddisp_LMConoff
+                    {
+                        idc = 703;
+                        type = 0;
+                        colorText[] = {0.1, 1, 0, 1};
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = {1, 1, 1, 1};
+                        text = "";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = 0.2485;
+                        y = 0.16;
+                        w = 0.5;
+                        h = 0.68;
+                    };
                 };
             };
         };
@@ -1738,34 +1753,6 @@ class RscTitles
             class fza_ah64_laseonoff
             {
                 idc = 701;
-                type = 0;
-                colorText[] = {0.1, 1, 0, 1};
-                font = "EtelkaMonospaceProBold";
-                colorBackground[] = {1, 1, 1, 1};
-                text = "";
-                style = 48;
-                sizeEx = 1024;
-                x = 0.2485;
-                y = 0.16;
-                w = 0.5;
-                h = 0.68;
-            };
-        };
-    };
-    class fza_ah64_LMC
-    {
-        idd = 702;
-        movingEnable =  1;
-        duration     =  99999;
-        fadein       =  0;
-        fadeout      =  0;
-        name = "fza_ah64_LMC";
-        onLoad = "uiNameSpace setvariable ['fza_ah64_LMC',_this select 0];";
-        class controls
-        {
-            class fza_ah64_LMConoff
-            {
-                idc = 703;
                 type = 0;
                 colorText[] = {0.1, 1, 0, 1};
                 font = "EtelkaMonospaceProBold";
