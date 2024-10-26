@@ -41,45 +41,45 @@ Examples:
 Author:
     mattysmith22
 ---------------------------------------------------------------------------- */
-params["_arr", "_key"];
+params ["_arr", "_key"]; 
+ 
+// Function to find the upper index 
+private _find = { 
+    params ["_arr", "_key"]; 
+    private _low = 0; 
+    private _high = count _arr; 
+    while { _low < _high } do { 
+        private _mid = _low + floor((_high - _low) / 2); 
+        if ((_arr select _mid select 0) < _key) then { 
+            _low = _mid + 1; 
+        } else { 
+            _high = _mid; 
+        }; 
+    }; 
+    _low 
+}; 
 
-private _find = {
-    private ["_arr", "_key", "_low", "_high"];
-    _low = 0;
-    _high = count _arr - 1;
+private _upperIndex = [_arr, _key] call _find; 
 
-    while {_low <= _high} do {
-        private _mid = _low + floor ((_high - _low) / 2);
-        if (_arr select _mid select 0 > _key) then {
-            _high = _mid - 1;
-        } else {
-            _low = _mid + 1;
-        };
-    };
-    _low
-};
-_upperIndex = [_arr, _key] call _find; 
+// Ensure proper bounds 
+if (_upperIndex == 0) exitWith { _arr select 0 }; 
+if (_upperIndex >= (count _arr)) exitWith { _arr select ((count _arr) - 1) }; 
 
-if (_upperIndex == 1) exitWith {
-    _arr select 0;
-};
+private _lowerIndex = _upperIndex - 1; 
+private _lowerRow = _arr select _lowerIndex; 
+private _upperRow = _arr select _upperIndex; 
 
-if (_upperIndex > _key) exitWith {
-    _arr select(count _arr - 1);
-};
+// Interpolation function 
+private _lerp = { 
+    params ["_lowKey", "_highKey", "_lowVal", "_highVal", "_intendedKey"]; 
+    _lowVal + ((_highVal - _lowVal) / (_highKey - _lowKey)) * (_intendedKey - _lowKey) 
+}; 
 
-private _lowerIndex = _upperIndex - 1;
+// Compute the interpolated values 
+private _out = [_key]; 
+for "_i" from 1 to (count _lowerRow - 1) do { 
+    private _interpValue = [_lowerRow select 0, _upperRow select 0, _lowerRow select _i, _upperRow select _i, _key] call _lerp; 
+    _out pushBack _interpValue; 
+}; 
 
-private _lowerRow = (_arr select _lowerIndex);
-private _upperRow = (_arr select _upperIndex);
-
-private _lerp = {
-    params["_lowKey", "_highKey", "_lowVal", "_highVal", "_intendedKey"];
-    _lowVal + (_highVal - _lowVal) / (_highKey - _lowKey) * (_intendedKey - _lowKey);
-};
-
-_out = []; {
-    _out pushBack([_lowerRow select 0, _upperRow select 0, _x, _upperRow select _forEachIndex, _key] call _lerp);
-}
-forEach(_lowerRow);
-_out;
+_out
