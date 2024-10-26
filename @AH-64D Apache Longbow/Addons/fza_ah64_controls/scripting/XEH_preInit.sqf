@@ -141,6 +141,15 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_LMCSensitivity",
+    "SLIDER",
+    ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
+    [_projName, "TADS Controls"],
+    [1, 10, 5, 1],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_overallticker = 0;

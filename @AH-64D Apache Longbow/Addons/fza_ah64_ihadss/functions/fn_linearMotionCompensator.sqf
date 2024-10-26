@@ -16,7 +16,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime"];
 
-#define INPUT_SENS 5
 #define INPUT_MAX 5.0
 
 if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
@@ -33,8 +32,8 @@ private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
 private _fovVal = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
-private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * (INPUT_SENS * _deltaTime)) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
-private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * (INPUT_SENS * _deltaTime)) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * (fza_ah64_LMCSensitivity * _deltaTime)) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * (fza_ah64_LMCSensitivity * _deltaTime)) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
 
 _heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY]];
 

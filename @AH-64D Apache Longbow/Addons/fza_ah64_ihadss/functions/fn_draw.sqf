@@ -253,7 +253,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ctrlSetTextColor[1, 1, 1, 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
     ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
-    ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 703) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText "";
