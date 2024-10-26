@@ -24,7 +24,7 @@ params ["_heli"];
 
 private _steeringCursorControl = ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131);
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-private _pylonelev = _heli getVariable "fza_ah64_RocketPylonElev";
+private _pylonelev = _heli getVariable "fza_ah64_rocketPylonElev";
 private _screenPos = [-100, -100];
 private _conW = 2*14*SYMB_DEG_SCALING_FACTOR;
 private _conH = 2*19*SYMB_DEG_SCALING_FACTOR;

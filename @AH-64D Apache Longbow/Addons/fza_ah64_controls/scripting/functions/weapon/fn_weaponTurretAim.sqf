@@ -125,7 +125,7 @@ for "_i" from 0 to 3 do {
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-        _heli setVariable ["fza_ah64_RocketPylonElev", _pylonAdjustment];
+        _heli setVariable ["fza_ah64_rocketPylonElev", _pylonAdjustment];
         if (_was == WAS_WEAPON_RKT) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
         };
