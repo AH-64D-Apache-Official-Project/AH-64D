@@ -53,14 +53,19 @@ private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _gunFailed     = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
 _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
 
-//pylon Failure
+//pylon SERVO Failure
 private _pylonFailure = [];
+/*
 for "_i" from 1 to 4 do {
     private _pylonDamage = _heli getHitPointDamage ("hit_msnEquip_pylon" + str _i);
     if (_pylonDamage >= SYS_WPN_DMG_THRESH || _utilHydFailed || _utilLevelMin) then {
         _pylonFailure pushback _i;
     };
+};*/
+if (_utilHydFailed || _utilLevelMin) then {
+    _pylonFailure = [1,2,3,4];
 };
+
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
 

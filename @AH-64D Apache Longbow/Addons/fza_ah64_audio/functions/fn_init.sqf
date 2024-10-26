@@ -2,9 +2,11 @@
 Function: fza_audio_fnc_audioInit
 
 Description:
+    Initialize public variables on mission startup
+    To set up information accessible by all crew members
 
 Parameters:
-    _heli: object - the apache the player is in
+    _heli - The helicopter upon which to execute the code
 
 Returns:
     No returns
@@ -12,14 +14,14 @@ Returns:
 Examples:
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-_heli setvariable ["fza_audio_ase_message", "", true];
-_heli setvariable ["fza_audio_warning_message", "", true];
-_heli setvariable ["fza_audio_caution", false, true];
-_heli setvariable ["fza_audio_funcHook", scriptNull, true];
+_heli setvariable ["fza_audio_ase_message",     "",         true];
+_heli setvariable ["fza_audio_warning_message", "",         true];
+_heli setvariable ["fza_audio_caution",         false,      true];
+_heli setvariable ["fza_audio_funcHook",        scriptNull, true];
 
 //Todo
 //Creation of interactable coms panel
