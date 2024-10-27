@@ -61,7 +61,7 @@ private _setRouteDir = {
 };
 
 
-private _selRvwPnt = {
+private _selReviewPoint = {
     params ["_heli", "_btnIndex"];
     private _rvwIndex = _heli getVariable "fza_mpd_tsdRteCurrentRvw";
     private _index = ((_state get "routeScroll") + _btnIndex);
@@ -275,16 +275,16 @@ switch (_variant) do {
                 _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
             };
             case "r2": {
-                [_heli, 3] call _selRvwPnt;
+                [_heli, 3] call _selReviewPoint;
             };
             case "r3": {
-                [_heli, 2] call _selRvwPnt;
+                [_heli, 2] call _selReviewPoint;
             };
             case "r4": {
-                [_heli, 1] call _selRvwPnt;
+                [_heli, 1] call _selReviewPoint;
             };
             case "r5": {
-                [_heli, 0] call _selRvwPnt;
+                [_heli, 0] call _selReviewPoint;
             };
             case "r1": {    //Scroll up
                 private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};

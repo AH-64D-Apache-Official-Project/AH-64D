@@ -9,7 +9,19 @@ private _ctrX = 0.5;
 private _ctrY = 0.75 - 0.25 * (_persistState get "ctr");
 
 //Route Draw
-private _drawArray = _heli getVariable "fza_dms_routeDrawArray";
+private _routeData    = _heli getVariable "fza_ah64_routeData";
+private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";
+private _routeInfo    = _routeData # _routeCurrent;
+private _drawArray = [];
+{
+    private _previousIndex = (_foreachindex - 1);
+    private _previousPoint = (_routeInfo#_previousIndex);
+    if (_previousPoint isEqualTo _x && _previousIndex > -1) then {
+        continue;
+    };
+    _drawArray pushback ([_heli, _X, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue);
+} foreach _routeInfo;
+
 {
     if ((_foreachindex + 1) >= count _drawArray) then {continue;};
     [_heli, _canvas, _X, _drawArray #(_foreachindex+1), [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine;

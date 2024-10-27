@@ -15,7 +15,6 @@ if (!(_heli getVariable ["fza_dms_aircraftInitialised", false]) && _isLocal) the
     _heli setVariable ["fza_dms_aircraftInitialised", true, true];
 
     _heli setVariable ["fza_dms_routeNext", [[],[0,0,0]], true];
-    _heli setVariable ["fza_dms_routeDrawArray", [], true];
 
     _heli setVariable ["fza_dms_waypointsHazards", [POINT_COUNT_WP_HZ] call _newPointsArray, true];
     _heli setVariable ["fza_dms_controlMeasures", [POINT_COUNT_CM] call _newPointsArray, true];
