@@ -98,12 +98,6 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-if !_powerOnState then {
-    _raddisp cuttext["", "PLAIN", 0, false];
-};
-if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
-    _raddisp cuttext["", "PLAIN", 0, false];
-};
 if (isNull laserTarget _heli) then {
     _laseit cuttext["", "PLAIN", 0.1, false];
 };
@@ -146,7 +140,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
+    if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
     if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
         _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
 
@@ -159,12 +153,12 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
         _rocketcode = "???";
     };
 } else {
-    if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
-        _raddisp cuttext["", "PLAIN", 0, false];
+    if (cameraView != "INTERNAL") then {
         _clickhelper cuttext["", "PLAIN", 0, false];
         _monocle cuttext["", "PLAIN", 0, false];
-        _laseit cuttext["", "PLAIN", 0, false];
     };
+    _raddisp cuttext["", "PLAIN", 0, false];
+    _laseit cuttext["", "PLAIN", 0, false];
 };
 
 if !_powerOnState then {
