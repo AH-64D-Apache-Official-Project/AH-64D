@@ -18,37 +18,15 @@ private _addRoutePoint = {
     private _dmsNext  = (_heli getVariable "fza_dms_routeNext")#0;
     if ((count _routeInfo) < _index) exitWith {};
     if (isNil "_dataType") exitWith {};
-    _routeInfo insert [_index, [_routePoint]];
-    _routeData set [_routeCurrent, _routeInfo];
-    if (_dmsNext isEqualTo []) then {
-        [_heli, _routePoint] call fza_dms_fnc_routeSetDir;
-        _heli setVariable ["fza_ah64_routeCurPoint", _index, true];
-    };
-    if (_index <= _rteIndex && _rteIndex != -1) then {
-        _heli setVariable ["fza_ah64_routeCurPoint", (_rteIndex + 1), true];
-    };
-    _heli setVariable ["fza_ah64_routeData", _routeData, true];
+    [_heli, _routePoint, _index] call fza_dms_fnc_routeAddPoint;
 };
 
 private _delRoutePoint = {
     params ["_heli", "_btnIndex"];
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPoint";
     private _index = ((_state get "routeScroll") + _btnIndex);
     private _routePoint = _routeInfo#_index;
     if ((count _routeInfo) <= _index) exitWith {};
-    _routeInfo deleteAt _index;
-    _routeData set [_routeCurrent, _routeInfo];
-    if (_rteIndex == _index) then {
-        _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
-    };
-    if (_index < _rteIndex && _rteIndex != -1) then {
-        _heli setVariable ["fza_ah64_routeCurPoint", (_rteIndex - 1), true];
-    };
-    private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
-    if (_routePoint isEqualTo _wptAprch#0) then {
-        [_heli, "fza_ah64_wptAprch", [-1, false]] call fza_fnc_updateNetworkGlobal;
-    };
-    _heli setVariable ["fza_ah64_routeData", _routeData, true];
+    [_heli, _routePoint, _index] call fza_dms_fnc_routeDelPoint;
 };
 
 private _setRouteDir = {
