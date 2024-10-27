@@ -24,6 +24,12 @@ _heli setVariable ["fza_mpd_tsdThrtCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdRteCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
 
+_heli setVariable ["fza_ah64_routeSelected",          0, true];
+_heli setVariable ["fza_ah64_routeData",[[],[],[],[],[],[],[],[],[],[]], true];
+_heli setVariable ["fza_ah64_routeCurPoint", -1, true];
+_heli setVariable ["fza_ah64_wptAprch", [-1,false], true];
+_heli setVariable ["fza_ah64_wptpassed", false, true];
+
 _heli setVariable ["fza_mpd_mpdState", [["Off", 0, {}, {}, createHashMap, createHashMap, {}, 0], ["Off", 0, {}, {}, createHashMap, createHashMap, {}, 0]]];
 
 _heli setObjectTexture ["plt_pl_mpd_back", "#(rgb,1024,1024,1)uiEx(display:RscFzaAH64MPD,uniqueName:left)"];

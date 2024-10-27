@@ -13,7 +13,6 @@ class CfgFunctions
             file = "\fza_ah64_AICrew\functions";
             class engineStart {R;};
             class fireControl {R;};
-            class init {R;};
             class getIn {R;};
             class getOut {R;};
             class floodlight {R;};
