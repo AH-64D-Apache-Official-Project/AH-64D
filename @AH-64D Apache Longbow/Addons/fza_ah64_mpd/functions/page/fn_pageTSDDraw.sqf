@@ -116,6 +116,13 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
 private _SystemWas = _heli getVariable "fza_ah64_was";
 
+private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
+private _antsIndex = -1;
+if (count _displayTargets > 1 && _ntsIndex != -1) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
+};
+
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     private _distance_m          = _scanPos distance2d _pos;
@@ -180,7 +187,7 @@ private _SystemWas = _heli getVariable "fza_ah64_was";
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";
 private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
-private _sight = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
     _tsdFcrState = _fcrMode;

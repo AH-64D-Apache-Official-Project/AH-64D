@@ -42,8 +42,8 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 };
 
 private _pointsArray = [];
-private _scale = (0.08125 * 8 / 8000);
-private _heliCtr = [0.5, 0.87];
+private _scale = (0.040625 * 8 / 8000);
+private _heliCtr = [0.5, 0.5];
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     private _distance_m          = _scanPos distance2d _pos;
