@@ -13,6 +13,16 @@ entries:
     - title: Glossary
       url: glossary.html
       output: [web]
+    - title: Initialisation
+      url: flight-model-initialisation.html
+      output: [web]
+    - title: FAQ
+      url: faq.html
+      output: [web]
+
+  - title: Mod Overview
+    output: web
+    folderitems:
     - title: Keybinds
       url: keybinds.html
       output: [web]
@@ -22,14 +32,63 @@ entries:
     - title: Cockpit Overview
       url: cockpit.html
       output: [web]
-    - title: Startup
-      url: flight-model-startup.html
-      output: [web]
     - title: Settings
       url: Settings.html
       output: [web]
-    - title: FAQ
-      url: faq.html
+
+  - title: User Interface
+    output: web
+    folderitems:
+    - title: Head Tracking Mode
+      url: ui-headtracking.html
+      output: [web]
+
+  - title: Startup and Shutdown
+    output: web
+    folderitems:
+    - title: Startup
+      url: startup.html
+      output: [web]
+    - title: Shutdown
+      url: shutdown.html
+      output: [web]
+
+  - title: Displays
+    output: web
+    folderitems:
+    - title: MPDs
+      url: mpd.html
+      output: [web]
+    - title: "MPD Page: ASE"
+      url: mpd-ase.html
+      output: [web]
+    - title: "MPD Page: ENG"
+      url: mpd-eng.html
+      output: [web]
+    - title: "MPD Page: FCR"
+      url: mpd-fcr.html
+      output: [web]
+    - title: "MPD Page: FLT"
+      url: mpd-flt.html
+      output: [web]
+    - title: "MPD Page: FUEL"
+      url: mpd-fuel.html
+      output: [web]
+    - title: "MPD Page: TSD"
+      url: mpd-tsd.html
+      output: [web]
+    - title: "MPD Page: WCA"
+      url: mpd-wca.html
+      output: [web]
+    - title: "MPD Page: WPN"
+      url: mpd-wpn.html
+      output: [web]
+
+  - title: Flight Model
+    output: web
+    folderitems:
+    - title: SFM+
+      url: flight-model-sfm-plus.html
       output: [web]
 
   - title: Targeting
@@ -70,54 +129,6 @@ entries:
         - title: M789 30MM
           url: weapons-ammo-m789.html
           output: [web]
-  
-  - title: Displays
-    output: web
-    folderitems:
-    - title: MPDs
-      url: mpd.html
-      output: [web]
-    - title: "MPD Page: ASE"
-      url: mpd-ase.html
-      output: [web]
-    - title: "MPD Page: ENG"
-      url: mpd-eng.html
-      output: [web]
-    - title: "MPD Page: FCR"
-      url: mpd-fcr.html
-      output: [web]
-    - title: "MPD Page: FLT"
-      url: mpd-flt.html
-      output: [web]
-    - title: "MPD Page: FUEL"
-      url: mpd-fuel.html
-      output: [web]
-    - title: "MPD Page: TSD"
-      url: mpd-tsd.html
-      output: [web]
-    - title: "MPD Page: WCA"
-      url: mpd-wca.html
-      output: [web]
-    - title: "MPD Page: WPN"
-      url: mpd-wpn.html
-      output: [web]
-
-  - title: Flight Model
-    output: web
-    folderitems:
-    - title: SFM+
-      url: flight-model-sfm-plus.html
-      output: [web]
-    - title: Startup
-      url: flight-model-startup.html
-      output: [web]
-  
-  - title: User Interface
-    output: web
-    folderitems:
-    - title: Head Tracking Mode
-      url: ui-headtracking.html
-      output: [web]
   
   - title: Changelogs
     output: web
