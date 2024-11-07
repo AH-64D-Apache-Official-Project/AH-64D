@@ -75,6 +75,9 @@ entries:
     - title: "MPD Page: FUEL"
       url: mpd-fuel.html
       output: [web]
+    - title: "MPD Page: UTIL"
+      url: mpd-util.html
+      output: [web]
     - title: "MPD Page: TSD"
       url: mpd-tsd.html
       output: [web]

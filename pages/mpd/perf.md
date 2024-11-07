@@ -6,7 +6,7 @@ permalink: mpd-perf.html
 folder: mpd
 ---
 
-{% include image.html file="mpd/page_perf.jpg" alt="Image of ASE MPD with no track" caption="Figure 1: The PERF MPD" %}
+{% include image.html file="mpd/page_perf.jpg" alt="" caption="Figure 1: The PERF MPD" %}
 
 ## Introduction
 
@@ -39,7 +39,7 @@ This block displays the maximum torque for the helicopter in dual engine (DE) an
 ## Other Information
 The PERF page also displays more information than just operating conditions for the helicopter.
 1. PA : Outside pressure
-2. FAT : Free air temperature. The current temperature of the air surrounding the helicopter.
+2. FAT : Free air temperature. The current temperature of the air surrounding the helicopter. This is controlled by changing the `Aircraft Environmental Settings` under `AH-64D Official Project` in `Addon Options`.
 3. GWT : Current gross weight of the helicopter. This takes into account munitions and fuel load.
 
 CG : Displays the location of the center of gravity of the helicopter. Is useful when entering a hover.
