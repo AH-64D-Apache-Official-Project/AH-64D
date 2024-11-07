@@ -43,6 +43,7 @@ Here is a list of all the pages and where you can open them:
 | DMS | {{check}} | {{check}} | [WCA](./mpd-wca) | {{check}} | {{check}}
 | [WPN](./mpd-wpn) | {{check}} | {{cross}} | [TSD](./mpd-tsd) | {{cross}} | {{check}} |
 | FUEL | {{check}} | {{cross}} | FCR |  {{cross}} | {{check}} |
-| FLT | {{check}} | {{cross}} | [ENG](./mpd-eng) |  {{cross}} | {{check}} |
+| FLT | {{check}} | {{cross}} | [ENG](./mpd-eng) |  {{check}} | {{check}} |
+| [PERF](./mpd-perf) | {{check}} | {{check}}
 
 <sup>1</sup> Not all of these navigations are currently implemented. We are currently working on it.

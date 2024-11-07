@@ -2,7 +2,7 @@
 
 entries:
 - title: Sidebar
-  levels: one
+  levels: two
   folders:
   - title: Getting started
     output: web
@@ -53,20 +53,21 @@ entries:
       url: shutdown.html
       output: [web]
 
-  - title: Displays
+  - title: Flight and Navigation Displays
     output: web
     folderitems:
     - title: MPDs
       url: mpd.html
       output: [web]
-    - title: "MPD Page: ASE"
-      url: mpd-ase.html
-      output: [web]
+    # subfolders:
+    # - title: Flight and Navigation
+    #   output: web
+    #   subfolderitems:
     - title: "MPD Page: ENG"
       url: mpd-eng.html
       output: [web]
-    - title: "MPD Page: FCR"
-      url: mpd-fcr.html
+    - title: "MPD Page: PERF"
+      url: mpd-perf.html
       output: [web]
     - title: "MPD Page: FLT"
       url: mpd-flt.html
@@ -79,6 +80,15 @@ entries:
       output: [web]
     - title: "MPD Page: WCA"
       url: mpd-wca.html
+      output: [web]
+  - title: Weapons Systems Displays
+    output: web
+    folderitems:
+    - title: "MPD Page: ASE"
+      url: mpd-ase.html
+      output: [web]
+    - title: "MPD Page: FCR"
+      url: mpd-fcr.html
       output: [web]
     - title: "MPD Page: WPN"
       url: mpd-wpn.html

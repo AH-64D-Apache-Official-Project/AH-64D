@@ -7,24 +7,20 @@ folder: mpd
 ---
 
 
-{% include image.html file="mpd/fuel_idle.png" alt="Image of Fuel page with full Internal fuel" caption="Figure 1: The Fuel Page" %}
+{% include image.html file="mpd/page-fuel.png" alt="Image of Fuel page with full Internal fuel" caption="Figure 1: The Fuel Page" %}
 
 
 ## Introduction
 The FUEL page is used to manage and view the aircraft's fuel. On the FUEL page you can see fuel levels, consumption rates and endurance times.
 
-{% include important.html content="Currently the mod does not contain additional fuel tanks like the Internal Auxilliary Fuel System (IAFS, or 'Robbie Tank') along with pylon mounted fuel tanks. The latter are mainly used for service flights which are to move the aircraft from one place to another far away, The external tanks are not self sealing so they are not designed to be used in combat." %}
+{% include important.html content="Currently the mod does include the auxillary fuel tanks which are pylon mounted. These are not self-sealing so when under fire they will blow up." %}
 
-## Info
-
-1. Forward fuel tank quantity (lbs)
-2. Aft fuel tank quantity (lbs)
-3. Total fuel quantity (total & internal only) (lbs)
-4. Engine fuel flows (lbs/hr)
-5. Engine endurance times
-
-{% include important.html content="When meantioning the total quantity of fuel and endurance it meant the Total of the interior fuel tanks and the external fuel tanks." %}
+### Info
+1. INT and TOT : Displays the internal fuel of the helicopter and internal plus external stores.. The external stores also indclude the robbie tanks which can be mounted on pylons.
+2. CALC FLOW : This displays the fuel flow (pounds per hour) for each engine and total for both engines. This will change with changing engine parameters.
+3. ENDR : Displays the loitering time for internal fuel only and total fuel in the helicopter.
+4. TYPE : JP8, static placeholder showing what type of fuel the helicopter takes.
 
 ## Operations
 
-Currently you cannot perform any operations through this page.
+The page can access FLT, ENG, PERF and UTIL pages. To access the ENG page, click on the FUEL page button.

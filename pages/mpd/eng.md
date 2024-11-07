@@ -13,16 +13,16 @@ The ENG page is your view into the engines, drivetrain and rotor system. It is i
 Most information here is provided both visually and graphically, via the vertical tapes. Many of them are also colour-coded (red, amber, green) to give another indication of help
 
 ## Info
+The boxes in Figure 1 are numbered and their explanations are provided below.
+1. Torque % : It shows the torque level for each engine, with their numerical values being displayed above the tapes. The player can exceed the maximum value of 100% for each or both engines for a maximum of 6-8 seconds after which the engine will start to fail with a loss of torque.
+2. TGT \*C : Indicates the turbine gas temperature. This value will increase with the torque value.
+3. NP % and NR % : Engine turbine and main rotor RPM values and tapes respectively. Normal values are 101% for both NP and NR. The numerical value for NR is shown in the centre but for NP it is shown beside and under as seen in Box 4.
+4. NP % : Numerical values for NP for engines 1 and 2.
+5. NG % : Generator turbine shaft's RPM shown in percentage of maximum shft RPM.
+6. Engine Oil PSI : Oil pressure for engines 1 and 2.
+7. Hydraulic PSI : Hydraulic pressure for Primary, utilities and accumulator pressure. These values are important as they dictate the usage of control surfaces for the helicopter. If the hydraulic pressure starts to fall, land immediately and repair the helicopter.
 
-1. Engine torque levels, where 100% is the maximum normal value. You can exceed this value for small periods of time, but extended usage in this area is not recommended.
-2. Turbine Gas Temperature. This is not simulated by the flight model, and as such is only important during startup
-3. Np is the turbine engine's RPM. It is given as a percentage of the normal value.
-4. Numeric format of the engine's Np
-5. Ng is the generator turbine shaft's RPM, as a percentage of the normal value. This is only important during startup.
-6. The engine oil PSI. This is only important during startup.
-7. :construction: This is the pressure indicators for all 4 of the hydraulics systems. This is static, and not currently implemented.
-8. Nr is the main rotor rpm.
 
 ## Operations
 
-You cannot perform any tasks through this page, the pilot controls the engines via the power lever quadrant near their left leg.
+The player can access the FLT, FUEL, PERF and UTIL pages from here.

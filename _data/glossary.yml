@@ -1,4 +1,6 @@
 items:
+- name: Detent
+  description: "Press of a switch. A short detent means press it once and release. A long detent means hold and press until the second button within the switch is pressed. When using a keyboard, they mean the same thing. For joysticks, it is different stages of triggers."
 - name: APU
   description: "Auxiliary Power unit - a small gas turbine engine that doesn't provide propulsion, and is only used to provide the power and pressure necessary to start up the Apache. It is turned off during flight"
 - name: CPG
