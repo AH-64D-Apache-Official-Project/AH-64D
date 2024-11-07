@@ -16,9 +16,6 @@ entries:
     - title: Initialisation
       url: flight-model-initialisation.html
       output: [web]
-    - title: MPDs
-      url: mpd.html
-      output: [web]
     - title: FAQ
       url: faq.html
       output: [web]
@@ -44,6 +41,9 @@ entries:
     folderitems:
     - title: Head Tracking Mode
       url: ui-headtracking.html
+      output: [web]
+    - title: MPDs
+      url: mpd.html
       output: [web]
 
   - title: Startup and Shutdown

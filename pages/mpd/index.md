@@ -18,7 +18,7 @@ If you are in the CPG seat and your view of one of the MPDs is obstructed by the
 
 Since the buttons are unlabelled, they are hard to describe when explaining what to do. The standard is to describe them using a 2 character code, like T2 or R4. The letter is the side, so either Top, Bottom, Left or Right. The numbering is done either from top to bottom or from left to right depending on the side. We will be using this explanation from here on.
 
-![Button layout](images/mpd/button_layout.png)
+{% include image.html file="mpd/button_layout.png" alt="" caption="Figure 1: MPD Button Layout" %}
 
 ## Navigation
 
@@ -47,3 +47,11 @@ Here is a list of all the pages and where you can open them:
 | [PERF](./mpd-perf) | {{check}} | {{check}}
 
 <sup>1</sup> Not all of these navigations are currently implemented. We are currently working on it.
+
+## Main Menu Screen
+
+{% include image.html file="mpd/mpd-main-menu.png" alt="" caption="Figure 2: Main Menu Screen for MPDs" %}
+
+The main menu screen has all the subpages except the DTU and WCA pages. Mission and Aircraft pages can be accessed from here and the sidebar is also split up to reflect that.
+
+The DTU page is accessed from the DMS page. The WCA page is accessed from the [ENG](./mpd-eng) page.
