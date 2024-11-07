@@ -16,6 +16,9 @@ entries:
     - title: Initialisation
       url: flight-model-initialisation.html
       output: [web]
+    - title: MPDs
+      url: mpd.html
+      output: [web]
     - title: FAQ
       url: faq.html
       output: [web]
@@ -53,12 +56,9 @@ entries:
       url: shutdown.html
       output: [web]
 
-  - title: Flight and Navigation Displays
+  - title: Aircraft MPDs
     output: web
     folderitems:
-    - title: MPDs
-      url: mpd.html
-      output: [web]
     # subfolders:
     # - title: Flight and Navigation
     #   output: web
@@ -78,13 +78,10 @@ entries:
     - title: "MPD Page: UTIL"
       url: mpd-util.html
       output: [web]
-    - title: "MPD Page: TSD"
-      url: mpd-tsd.html
-      output: [web]
     - title: "MPD Page: WCA"
       url: mpd-wca.html
       output: [web]
-  - title: Weapons Systems Displays
+  - title: Mission MPDs
     output: web
     folderitems:
     - title: "MPD Page: ASE"
@@ -95,6 +92,9 @@ entries:
       output: [web]
     - title: "MPD Page: WPN"
       url: mpd-wpn.html
+      output: [web]
+    - title: "MPD Page: TSD"
+      url: mpd-tsd.html
       output: [web]
 
   - title: Flight Model
