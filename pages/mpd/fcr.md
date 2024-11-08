@@ -38,4 +38,5 @@ The rest of the FCR can be operated via [keybinds](keybinds.html)
 ## ATM
 - Azimuth +-168°.
 - Elevation +45° -22°.
-
+- MIN Trackable Speed 6 Km/h.
+{% include note.html content="In ATM, Only targets moving greater that 6km/h will be detected" %}
