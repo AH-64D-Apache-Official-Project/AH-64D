@@ -29,25 +29,6 @@ There are a few ways to get to each MPD page:
 * Some pages have their multi-purpose buttons as links to page, as shown by the presence of a small green arrow and the page name next to the button. You can click the respective button to go to that page<sup>1</sup>
 
 
-## Pages
-
-{% include warning.html content="for most pages, you can only access them on one MPD. The following table lists all pages and where they can be accessed" %}
-
-Here is a list of all the pages and where you can open them:
-
-{% capture check %}<i class="fa fa-check text-success"></i>{% endcapture %}
-{% capture cross %}<i class="fa fa-times text-danger"></i>{% endcapture %}
-
-| Page | Left? | Right? | Page | Left? | Right? |
-| :-- | :-: | :-: | :-- | :-: | :-: |
-| DMS | {{check}} | {{check}} | [WCA](./mpd-wca) | {{check}} | {{check}}
-| [WPN](./mpd-wpn) | {{check}} | {{cross}} | [TSD](./mpd-tsd) | {{cross}} | {{check}} |
-| FUEL | {{check}} | {{cross}} | FCR |  {{cross}} | {{check}} |
-| FLT | {{check}} | {{cross}} | [ENG](./mpd-eng) |  {{check}} | {{check}} |
-| [PERF](./mpd-perf) | {{check}} | {{check}}
-
-<sup>1</sup> Not all of these navigations are currently implemented. We are currently working on it.
-
 ## Main Menu Screen
 
 {% include image.html file="mpd/mpd-main-menu.png" alt="" caption="Figure 2: Main Menu Screen for MPDs" %}
