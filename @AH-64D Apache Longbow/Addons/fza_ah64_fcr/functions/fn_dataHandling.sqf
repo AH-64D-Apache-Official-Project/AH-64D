@@ -38,12 +38,12 @@ switch (_fcrMode) do {
         _fcrBearing = [[0, -45],[50, 45],[100, -45]];
         _scanPercentage = (_fcrScanDeltaTime % 3.2) * 31.25;
         _scanrelBearing = ([_fcrBearing, _scanPercentage] call fza_fnc_linearInterp)#1;
-        _eval = [{_aziAngle <= _scanrelBearing || _range <= 4000}, {_aziAngle >= _scanrelBearing || _range >= 4000}] select (_scanPercentage <= 50);
+        _eval = [{_aziAngle <= _scanrelBearing || _range <= 4000}, {_aziAngle >= _scanrelBearing || _range >= 4000}] select !(_scanPercentage > 50);
     };
     case 2: {
         _scanPercentage = (_fcrScanDeltaTime % 6.4) * 15.625;
         _scanrelBearing = ([_scanPercentage * -3.6] call CBA_fnc_simplifyAngle180);
-        _eval = [{_aziAngle < _scanrelBearing || _aziAngle < 0}, {_aziAngle < _scanrelBearing || _aziAngle > 0}] select (_scanPercentage <= 50);
+        _eval = [{_aziAngle < _scanrelBearing || _aziAngle < 0}, {_aziAngle < _scanrelBearing || _aziAngle > 0}] select !(_scanPercentage > 50);
     };
 };
 

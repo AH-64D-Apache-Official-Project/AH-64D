@@ -64,14 +64,15 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 
 //TADS POS
-private _tadsX = deg (_heli animationphase "tads_tur");
-private _tadsY = deg (_heli animationphase "tads");
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), -_tadsX];
+private _acqVector = [_heli, "TADS"] call fza_fnc_targetingAcqModelVec;
+_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_tadsX", "_tadsY"];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
 
 //Cued LOS
-private _currentAcq = [_heli] call fza_fnc_targetingCurAcq;
-private _acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqVec;
+private _curTurret = [_heli] call fza_fnc_currentTurret;
+private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
+private _acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqModelVec;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
