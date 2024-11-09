@@ -132,7 +132,7 @@ class CfgWeapons {
     class fza_cannon_limit: fza_m230
     {
         scope = 1;
-        displayName="BURST LIMIT";
+        displayName="Burst Limit";
         cursor="";
         cursorAim="";
         magazines[]={"fza_burstlimit"};
@@ -149,8 +149,6 @@ class CfgWeapons {
         textureType = "single";
     };
     class fza_gun_inhibit: fza_cannon_limit {displayName = "Cannon Inhibit";};
-    class fza_hydra_limit: fza_cannon_limit
-    {
-        displayName="SALVO LIMIT";
-    };
+    class fza_hydra_limit: fza_cannon_limit {displayName = "Salvo Limit";};
+    class fza_pylon_inhibit: fza_cannon_limit {displayName = "Pylon Inhibit";};
 };
