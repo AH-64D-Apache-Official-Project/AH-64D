@@ -21,6 +21,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli","_routePoint","_index"];
 
+private _rteIndex     = _heli getVariable "fza_ah64_routeCurPoint";
 private _dmsNext      = (_heli getVariable "fza_dms_routeNext")#0;
 private _routeData    = _heli getVariable "fza_ah64_routeData";
 private _routeCurrent = _heli getVariable "fza_ah64_routeSelected";

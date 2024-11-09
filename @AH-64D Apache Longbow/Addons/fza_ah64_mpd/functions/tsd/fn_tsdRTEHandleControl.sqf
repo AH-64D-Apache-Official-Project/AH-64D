@@ -12,7 +12,6 @@ private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
     if (isNil "_routePoint") exitWith {};
-    private _rteIndex = _heli getVariable "fza_ah64_routeCurPoint";
     private _index    = ((_state get "routeScroll") + _btnIndex);
     private _dataType = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
     if ((count _routeInfo) < _index) exitWith {};
