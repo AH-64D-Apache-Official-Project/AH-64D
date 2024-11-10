@@ -79,6 +79,7 @@ _closestPoint = _currentPntPos vectorAdd [(_dotProduct * _lineDirection#0), (_do
 
 private _speed = round(vectorMagnitude (velocity _heli));
 private _approachETA = if (_speed > 0) then {round((_heli distance2d _currentPntPos) / _speed);} else {99;};
+private _passageETA = if (_speed > 0) then {round((_heli distance2d _closestPoint) / _speed);} else {99;};
 private _pltMpd = _heli getVariable "fza_mpd_page_plt";
 private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
@@ -91,7 +92,7 @@ if (_approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
 };
 //waypoint passed
 if (_count == 0) exitwith {};
-if (_closestPoint distance2D _heli > 20) exitwith {};
+if (_passageETA > 1) exitwith {};
 if !("tsd" in _pltMpd || "tsd" in _cpgMpd) then {
     _heli setVariable ["fza_ah64_wptpassed",  true];
 } else {
@@ -101,6 +102,7 @@ if !("tsd" in _pltMpd || "tsd" in _cpgMpd) then {
     if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {
         if (_count > 1 && (_count > (_rteCycleIndex + 1)) && (_nextPnt isnotEqualTo -1) && local _heli) then {
             [_heli, _x] call fza_dms_fnc_routeSetDir;
+            _heli setVariable ["fza_ah64_routeCurPoint", _foreachindex, true];
         };
     };
 } foreach _routeInfo;
