@@ -7,7 +7,7 @@ params ["_heli", "_mpdIndex", "_state"];
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-private _SystemWas = _heli getVariable "fza_ah64_was";
+private _systemWas = _heli getVariable "fza_ah64_was";
 
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {

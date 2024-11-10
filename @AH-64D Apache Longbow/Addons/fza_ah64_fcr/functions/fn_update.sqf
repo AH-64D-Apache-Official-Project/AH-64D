@@ -35,7 +35,7 @@ private _fcrTargets  = [];
     private _range       = _heli distance2d _target;
     private _heliPos     = getposasl _heli;
     private _targetpos   = getposasl _target;
-    private _targetSpeed = speed _target;
+    private _targetSpeed = vectorMagnitude velocity _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
@@ -66,8 +66,7 @@ private _fcrTargets  = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
-    //if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then {continue;};
     
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
     _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range];

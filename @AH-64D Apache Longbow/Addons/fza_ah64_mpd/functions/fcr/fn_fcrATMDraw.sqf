@@ -7,7 +7,7 @@ params ["_heli", "_mpdIndex"];
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-private _SystemWas = _heli getVariable "fza_ah64_was";
+private _systemWas = _heli getVariable "fza_ah64_was";
 
 //ATM Rear block
 If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {

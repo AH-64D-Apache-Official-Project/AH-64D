@@ -25,15 +25,15 @@ params ["_heli"];
 
 private _wasState       = _heli getVariable "fza_ah64_was";
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
-private _CscopeCount    = 0;
+private _cScopeCount    = 0;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 
 {
-    if (_CscopeCount > 15) exitwith {};
+    if (_cScopeCount > 15) exitwith {};
     if !(_heli getVariable "fza_ah64_fcrcscope") exitwith {
         _GuiPos = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition _GuiPos;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition _GuiPos;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
     };
 
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
@@ -87,14 +87,14 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
     if (count _GuiPos < 1) then {
         _GuiPos = [-100, -100];
     };
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetText _tex;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
 
-    _CscopeCount = _CscopeCount + 1;
+    _cScopeCount = _cScopeCount + 1;
 } forEach _fcrTargets;
 
-for "_i" from _CscopeCount to 15 do
+for "_i" from _cScopeCount to 15 do
 {
     _GuiPos = [-100, -100];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);

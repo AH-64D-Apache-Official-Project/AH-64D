@@ -2,7 +2,7 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
-Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 
 switch(_control) do {
     case "b1": {
@@ -13,12 +13,6 @@ switch(_control) do {
     };
     case "l1": {
         [_heli] call fza_fcr_fnc_cycleNTS;
-    };
-    case "l2": {
-        _state set ["arrowL", time];
-    };
-    case "r2": {
-        _state set ["arrowR", time];
     };
 };
  

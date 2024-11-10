@@ -25,7 +25,7 @@ params ["_heli"];
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
-Private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode     = _heli getVariable "fza_ah64_fcrMode";
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _armaRadarOn = isVehicleRadarOn _heli;

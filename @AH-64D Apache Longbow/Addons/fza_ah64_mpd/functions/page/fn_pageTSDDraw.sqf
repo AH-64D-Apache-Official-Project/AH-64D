@@ -114,7 +114,7 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
-private _SystemWas = _heli getVariable "fza_ah64_was";
+private _systemWas = _heli getVariable "fza_ah64_was";
 
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
 private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
@@ -186,7 +186,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 } forEach _displayTargets;
 
 private _fcrState = _heli getVariable "fza_ah64_fcrState";
-private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
