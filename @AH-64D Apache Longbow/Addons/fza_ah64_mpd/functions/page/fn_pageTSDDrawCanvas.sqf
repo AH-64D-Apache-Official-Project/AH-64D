@@ -21,7 +21,7 @@ private _drawArray = [];
     };
     _drawArray pushback ([_heli, _X, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue);
 } foreach _routeInfo;
-
+systemchat str _drawArray;
 {
     if ((_foreachindex + 1) >= count _drawArray) then {continue;};
     [_heli, _canvas, _X, _drawArray #(_foreachindex+1), [0, 1, 0, 1], MPD_POSMODE_WORLD, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_canvasDrawLine;
