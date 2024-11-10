@@ -84,15 +84,13 @@ private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _count = count _rteCycleList;
 //wpt approach 
-if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
+if (_approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
     _heli setVariable ["fza_ah64_wptAprch",  [_currentPnt, true]];
 };
 //waypoint passed
 if (_count == 0) exitwith {};
-if (_closestPoint distance2D _heli > 20) exitwith {};
-if !("tsd" in _pltMpd || "tsd" in _cpgMpd) then {
-    _heli setVariable ["fza_ah64_wptpassed",  true];
-};
+if (_closestPoint distance2D _heli > 20 || _approachETA < 1) exitwith {};
+_heli setVariable ["fza_ah64_wptpassed",  true];
 {
     if (_x isnotEqualTo _currentPnt && _rteIndex <= _foreachindex) exitwith {
         if (_count > 1 && (_count > (_rteCycleIndex + 1)) && (_nextPnt isnotEqualTo -1) && local _heli) then {
