@@ -499,13 +499,9 @@ private _pltMpd = _heli getVariable "fza_mpd_page_plt";
 private _cpgMpd = _heli getVariable "fza_mpd_page_cpg";
 if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptAprch#1) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT APPROACH", "WPT APRCH"];
-} else {
-    _heli setVariable ["fza_ah64_wptAprch", [_wptAprch#0, false]];
 };
 if (!("tsd" in _pltMpd || "tsd" in _cpgMpd) && _wptPassed) then {
     _wcas pushBack [WCA_ADVISORY, "WAYPOINT PASSED", "WPT PASSED"];
-} else {
-    _heli setVariable ["fza_ah64_wptpassed", false];
 };
 
 _wcas;
