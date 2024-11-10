@@ -91,7 +91,7 @@ if (_approachETA <= 60 && _wptAprch#0 isNotEqualTo _currentPnt) then {
 };
 //waypoint passed
 if (_count == 0) exitwith {};
-if (_closestPoint distance2D _heli > 20 || _approachETA > 1) exitwith {};
+if (_closestPoint distance2D _heli > 20) exitwith {};
 if !("tsd" in _pltMpd || "tsd" in _cpgMpd) then {
     _heli setVariable ["fza_ah64_wptpassed",  true];
 } else {
