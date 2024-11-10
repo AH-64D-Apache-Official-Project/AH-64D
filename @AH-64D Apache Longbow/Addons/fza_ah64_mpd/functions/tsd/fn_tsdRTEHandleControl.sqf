@@ -12,10 +12,8 @@ private _addRoutePoint = {
     params ["_heli", "_btnIndex"];
     private _routePoint = _heli getVariable "fza_mpd_tsdRteCurrentSel";
     if (isNil "_routePoint") exitWith {};
-    private _index    = ((_state get "routeScroll") + _btnIndex);
-    private _dataType = [_heli, _routePoint, POINT_GET_TYPE] call fza_dms_fnc_pointGetValue;
+    private _index = ((_state get "routeScroll") + _btnIndex);
     if ((count _routeInfo) < _index) exitWith {};
-    if (isNil "_dataType") exitWith {};
     [_heli, _routePoint, _index] call fza_dms_fnc_routeAddPoint;
 };
 
@@ -37,7 +35,7 @@ private _setRouteDir = {
 };
 
 
-private _selReviewPoint = {
+private _selRvwPoint = {
     params ["_heli", "_btnIndex"];
     private _rvwIndex = _heli getVariable "fza_mpd_tsdRteCurrentRvw";
     private _index = ((_state get "routeScroll") + _btnIndex);
@@ -251,16 +249,16 @@ switch (_variant) do {
                 _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
             };
             case "r2": {
-                [_heli, 3] call _selReviewPoint;
+                [_heli, 3] call _selRvwPoint;
             };
             case "r3": {
-                [_heli, 2] call _selReviewPoint;
+                [_heli, 2] call _selRvwPoint;
             };
             case "r4": {
-                [_heli, 1] call _selReviewPoint;
+                [_heli, 1] call _selRvwPoint;
             };
             case "r5": {
-                [_heli, 0] call _selReviewPoint;
+                [_heli, 0] call _selRvwPoint;
             };
             case "r1": {    //Scroll up
                 private _upper = if (count _routeInfo > 3) then {(count _routeInfo - 3);} else {0;};
