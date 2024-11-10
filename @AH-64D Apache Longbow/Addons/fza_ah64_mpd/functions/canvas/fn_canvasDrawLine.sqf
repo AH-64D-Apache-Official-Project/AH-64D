@@ -33,7 +33,6 @@ if (_posMode == MPD_POSMODE_WORLD) then {
     _dir = (_from getDir _to);
 };
 _ctr = [_canvas, _ctr] call fza_ihadss_fnc_canvasAdjust;
-systemchat str _canvasVect;
 _canvasCtrl drawRectangle
     [ _ctr
     , (_width/2)* abs (_canvasVect#0)
