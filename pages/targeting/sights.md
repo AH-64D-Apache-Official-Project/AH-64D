@@ -14,11 +14,10 @@ Alternatively, an acquisition source is some data source that you can use to hel
 ## Sights
 
 * **HMD** - The HMD sight will sight whatever you are looking at with the IHADSS. It is selectable using {% include keybind.html name="sight-select-hmd"%}.
-{% include important.html content="The ranging for weapons like rockets is always 1km away." %}
-* **TADS** - The TADS sight will select what the TADS is aiming at.. It is selectable using {% include keybind.html name="sight-select-tads"%}.
-{% include warning.html content="Unexpected results may occur when using this mode if the TADS is pointed at the air." %}
 * **FXD** - The FXD sight will fix the weapon system to the nose of the aircraft (including the camera).. It is selectable using {% include keybind.html name="sight-select-fxd"%}.
-* **FCR** - The FCR sight will sight whatever the Next-To-Shoot (NTS) target is, from the FCR. If the FCR does not have an NTS, then the weapons systems won't be actionable.. It is selectable using {% include keybind.html name="sight-select-fcr"%}.
+{% include important.html content="in HMD or FXD, The ranging for weapons like rockets is always 1km away." %}
+* **TADS** - The TADS sight will select what the TADS is aiming at.. It is selectable using {% include keybind.html name="sight-select-tads"%}.
+* **FCR** - The FCR sight will sight whatever the Next-To-Shoot (NTS) target is from the FCR. It is selectable using {% include keybind.html name="sight-select-fcr"%}.
 
 ## Viewing selected sight
 

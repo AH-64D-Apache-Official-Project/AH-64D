@@ -5,35 +5,37 @@ sidebar: ah64d_sidebar
 permalink: weapons-hellfire.html
 folder: weapons
 ---
-The flight profile system for the AGM-114 hellfires (SAL and RF) has been re-done with the CBA compat. Both the way you operate laser-guided hellfires and the way the IHADSS displays the missile symbology has changed significantly
+The flight profile system for the AGM-114 hellfires (SAL and RF) has been re-done with the Ace compat. Both the way you operate laser-guided hellfires and the way the IHADSS displays the missile symbology has changed significantly
 
 ## Turning on the LRFD
 
 The laser can be turned on in the following methods:
 
-* Custom control 5 (Arm) and 10 (Disarm)
 * WPN page (on the right hand side of the MFD)
-* Switching the LRFD using the `F` key and then turning it on the normal way
+* Holding {% include keybind.html name="lrfd-second-detent" %}.
 
 ## Missile operation
 
-Missle trajectories can be changed either using the TRAJ button on the right hand side of the MPD whe, or by cycling using the `F` key. The 3 available trajectories are `LO`, `HI` and `DIR`. The same modes are available for both missile types.
+Missle trajectories are changed by using the TRAJ button on the right hand side of the MPD. The 3 available trajectories are `LO`, `HI` and `DIR`. These modes are only available for the Laser hellfires.
+
+Regardless of Trajectory selected, If a hellfire Is LOBL, it will fly a direct trajectory
 
 ### Select target RF missile types
 
 This is as simple as the current system, just select the target on the FCR using the `R` key.
 
+1. Switch to the WPN page
+2. Select the missile you would like to use
+3. select your target
+
 ### Select target for SAL missile types
 
-Lasers are able to be locked on if they are on the friendly side's datalink. To select a target, follow these steps:
+We now use the Ace laser code system allowing you to buddy laser with any other asset capable of configuring a laser code
 
 1. Switch to the WPN page
 2. Select the missile you would like to use
-3. Hit the `L1` button on the MPD and the selected laser will be displayed in the chat. It will tell you  whether it is remote or local, and the grid reference that the laser is at
-
-If you haven't selected the right laser, repeat step 3 until the correct lase is displayed.
-
-{% include todo.html content="ACE laser integration is being looked into."%}
+3. Check the LRFD laser codes against the hellfires laser codes
+4. Designate your target
 
 ### IHADSS Symbology
 
