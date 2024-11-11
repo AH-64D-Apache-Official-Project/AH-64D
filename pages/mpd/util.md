@@ -18,8 +18,10 @@ On the left, the pilot can change which systems the flight managment computer (F
 1. Pitch
 2. Roll
 3. Yaw
-4. Coll [?]
+4. Coll : Collective
 5. Trim
+
+If anyone turns off then the AP modes are disabled and the control inputs are delayed. Pilot oscillation is more prominent.
 
 ### Anti-Ice
 Icing is not simulated in Arma 3, so these do not have any effect nor do they function. They are mostly used to heat the systems to prevent ice from forming on or in them.
@@ -31,6 +33,3 @@ These display the Free air temperature (FAT) and the temperature inside the cock
 This controls from which engine is bleed air being used from. Bleed air is used for maintaining environmental control allowing for optimum usage.
 
 ECS denotes whether the environmental control system is active. Cannot be changed by the player.
-
-### GND
-[?]

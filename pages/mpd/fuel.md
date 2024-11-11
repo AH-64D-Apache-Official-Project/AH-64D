@@ -16,7 +16,7 @@ The FUEL page is used to manage and view the aircraft's fuel. On the FUEL page y
 {% include important.html content="Currently the mod does include the auxillary fuel tanks which are pylon mounted. These are not self-sealing so when under fire they will blow up." %}
 
 ### Info
-1. INT and TOT : Displays the internal fuel of the helicopter and internal plus external stores.. The external stores also indclude the robbie tanks which can be mounted on pylons.
+1. INT and TOT : Displays the internal fuel of the helicopter and internal plus external stores.. The external stores also indclude the robbie tanks and pylon mounted bags which can be mounted on pylons.
 2. CALC FLOW : This displays the fuel flow (pounds per hour) for each engine and total for both engines. This will change with changing engine parameters.
 3. ENDR : Displays the loitering time for internal fuel only and total fuel in the helicopter.
 4. TYPE : JP8, static placeholder showing what type of fuel the helicopter takes.

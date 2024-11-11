@@ -54,4 +54,6 @@ Here is a list of all the pages and where you can open them:
 
 The main menu screen has all the subpages except the DTU and WCA pages. Mission and Aircraft pages can be accessed from here and the sidebar is also split up to reflect that.
 
-The DTU page is accessed from the DMS page. The WCA page is accessed from the [ENG](./mpd-eng) page.
+The DTU page is accessed from the [DMS](./mpd-dms) page. The WCA page is accessed from the [ENG](./mpd-eng) page and the [DMS](./mpd-dms) page.
+
+Blocked pages are represented with vertical or horizontal thick lines next to their name. These pages are either not simulated or not present in the mod.
