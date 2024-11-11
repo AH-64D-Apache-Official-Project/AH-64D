@@ -55,8 +55,9 @@ DRAG_TABLE =[
                                  ,[ 40, _interpDragCoefTableY # 5]];
     _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
  
-    ([_heli] call fza_sfmplus_fnc_calculateAlphaAndBeta)
-        params ["_alpha", "_beta", "_gamma"];
+    private _alpha = _heli getVariable "fza_sfmplus_aero_alpha";
+    private _beta  = _heli getVariable "fza_sfmplus_aero_beta";
+    private _gamma = _heli getVariable "fza_sfmplus_aero_gamma";
 
     private _betaTable         = [[-90, -0.100]
                                  ,[-20, -0.050]

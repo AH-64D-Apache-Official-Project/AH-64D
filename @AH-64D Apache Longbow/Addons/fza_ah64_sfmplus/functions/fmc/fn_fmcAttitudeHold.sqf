@@ -1,6 +1,18 @@
 params ["_heli", "_deltaTime"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)   //<-- needs wind enabled flag
+    params [ 
+             "_gndSpeed"
+           , "_vel2D"
+           , "_vel3D"
+           , "_vertVel"
+           , "_velModelSpace"
+           , "_angVelModelSpace"
+           , "_velWorldSpace"
+           , "_angVelWorldSpace"
+           ];
+
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
 //_pidRoll set ["kp", R_KP];
@@ -23,9 +35,23 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
-private _curVel   = velocityModelSpace _heli;
-private _curVelX  = (_curVel # 0) * -1.0;
-private _curVelY  = _curVel # 1;
+//private _curVel   = velocityModelSpace _heli;
+//private _curVelX  = (_curVel # 0) * -1.0;
+//private _curVelY  = _curVel # 1;
+
+(_velModelSpace)
+    params [
+             "_velX"
+           , "_velY"
+           , "_velZ"
+           ];
+
+(_angVelModelSpace)
+    params [
+             "_angVelX"
+           , "_angVelY"
+           , "_angVelZ"
+           ];
 
 //Attitude hold
 private _curAtt   = _heli call BIS_fnc_getPitchBank;
@@ -34,7 +60,6 @@ private _curRoll  = _curAtt # 1;
 
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
-
 
 private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
 //Position hold
@@ -56,10 +81,9 @@ if (_vel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
 if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Position hold
     if (_subMode == "pos") then {
-
-        private _roll  = [_pidRoll,  _deltaTime, 0.0, _curVelX] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll,  _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch, _deltaTime, 0.0, _curVelY] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch, _deltaTime, 0.0,  _velY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch;
@@ -69,7 +93,6 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     if (_subMode == "vel") then {
         (_heli getVariable "fza_ah64_attHoldDesiredVel")
             params ["_setVelX", "_setVelY"];
-
         private _roll  = [_pidRoll,  _deltaTime, _setVelX, _curVelX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
         private _pitch = [_pidPitch, _deltaTime, _setVelY, _curVelY] call fza_fnc_pidRun;

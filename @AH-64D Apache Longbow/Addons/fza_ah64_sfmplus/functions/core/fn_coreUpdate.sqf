@@ -49,6 +49,10 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
 [_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
+//
+[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAeroValues;
+//[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAcceleration;
+
 //Fuel
 [_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
 

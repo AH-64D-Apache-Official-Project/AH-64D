@@ -15,7 +15,12 @@
 #define EPSILON                 0.000001
 #define MIN_THRUST              1
 #define FEET_TO_METERS          0.3048
+#define METERS_TO_FEET          3.28084
 #define IN_MG_TO_HPA            33.8639
+#define MPS_TO_KNOTS            1.94384
+#define MPS_TO_FPM              196.85
+#define FPM_TO_MPS              0.00508
+#define KNOTS_TO_MPS            0.51444
 
 #define GRAVITY                 9.806
 #define MOLAR_MASS_OF_AIR       0.0289644
