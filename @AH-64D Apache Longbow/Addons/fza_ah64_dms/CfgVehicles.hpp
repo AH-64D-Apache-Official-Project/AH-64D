@@ -7,8 +7,6 @@ class CfgVehicles {
         class EventHandlers: EventHandlers {
             class fza_dms {
                 init = "[_this # 0] call fza_dms_fnc_init"; //<-- C51 always is the user positio
-                CuratorObjectDeleted = "_this call fza_dms_fnc_edenPointDeleted";
-                Deleted = "_this call fza_dms_fnc_edenPointDeleted";
             };
         };
     };
@@ -59,12 +57,6 @@ class CfgVehicles {
                 condition = "1";
             };
         };
-        class EventHandlers: EventHandlers {
-            class fza_dms {
-                CuratorObjectDeleted = "_this call fza_dms_fnc_edenPointDeleted";
-                Deleted = "_this call fza_dms_fnc_edenPointDeleted";
-            };
-        };
     };
 
     class fza_dms_point_wp_hz : fza_dms_point_base {
@@ -74,7 +66,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Waypoint/Hazards are allowed to range from 1-50";
-                defaultValue = "([""waypointsHazards""] call fza_dms_fnc_edenPointNext)+1;";
+                defaultValue = "[_this, 'fza_dms_point_wp_hz'] call fza_dms_fnc_edenPointNext;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'WP'";
@@ -91,7 +83,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Control Measures are allowed to range from 51-99."; //Beware that Present Positions (PPOS) will overwrite CM 93 thru 99.
-                defaultValue = "([""controlMeasures""] call fza_dms_fnc_edenPointNext)+51;";
+                defaultValue = "([_this, 'fza_dms_point_cm'] call fza_dms_fnc_edenPointNext)+50;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'CP'";
@@ -108,7 +100,7 @@ class CfgVehicles {
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
                 tooltip = "Target/Threats are allowed to range from 1-50";
-                defaultValue = "([""targetsThreats""] call fza_dms_fnc_edenPointNext)+1;";
+                defaultValue = "[ _this, 'fza_dms_point_tg'] call fza_dms_fnc_edenPointNext;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
                 defaultValue = "'TG'";
