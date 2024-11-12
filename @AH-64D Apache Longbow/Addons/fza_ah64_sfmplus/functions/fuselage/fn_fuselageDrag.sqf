@@ -4,14 +4,40 @@ private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel        = getText (_configVehicles >> "fza_flightModel");
 
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m
+private _heliCOM            = getCenterOfMass _heli;
 
 private _fuselageAreaFront  = _heli getVariable "fza_sfmplus_fuselageAreaFront";
-private _fuselageAreaSide   = _heli getVariable "fza_sfmplus_fuselageAreaSide";
-private _fuselageAreaBottom = _heli getVariable "fza_sfmplus_fuselageAreaBottom";
+//private _fuselageAreaSide   = _heli getVariable "fza_sfmplus_fuselageAreaSide";
+//private _fuselageAreaBottom = _heli getVariable "fza_sfmplus_fuselageAreaBottom";
 
-private _fuselageDragCoefX    = 1.5;
-private _fuselageDragCoefZ    = 0.5;
+//private _fuselageDragCoefX    = 1.5;
+//private _fuselageDragCoefZ    = 0.5;
 
+([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
+    params [ 
+             "_gndSpeed"
+           , "_vel2D"
+           , "_vel3D"
+           , "_vertVel"
+           , "_velModelSpace"
+           , "_angVelModelSpace"
+           , "_velWorldSpace"
+           , "_angVelWorldSpace"
+           ];
+
+private _vectorRight            = [1.0, 0.0, 0.0];
+private _vectorForward          = [0.0, 1.0, 0.0];
+private _vectorUp               = [0.0, 0.0, 1.0];
+
+private _relativeWind           = _velModelSpace vectorMultiply -1.0;//_velWorldSpace vectorMultiply -1.0;
+
+private _relativeWindCorrection = _vectorRight;
+private _dotProduct             = _relativeWindCorrection vectorDotProduct _relativeWind;
+_relativeWindCorrection         = _relativeWindCorrection vectorMultiply _dotProduct;
+_relativeWind                   = _relativeWind vectorDiff _relativeWindCorrection;
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Fuselage Drag        /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 private _interpDragCoefTableY = [];
 
 private _fuselageTorque       = [];
@@ -31,30 +57,43 @@ if (_flightModel == "SFMPlus") then {
     _interpDragCoefTableY         = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 } else {
     //-------------------------------PA   -40   -20     0    20    40
-    private _heliSimDragTableY =[
-                                 [    0, 0.83, 0.79, 0.74, 0.75, 0.78]
-                                ,[ 2000, 1.19, 1.02, 1.00, 1.03, 0.88]
-                                ,[ 4000, 1.48, 1.32, 1.25, 1.28, 1.46]
-                                ,[ 6000, 2.02, 1.72, 1.65, 1.86, 2.00]
-                                ,[ 8000, 2.24, 1.99, 1.97, 2.32, 2.57]
-                                ];
-/*
-DRAG_TABLE =[ 
- [    0,0.83,0.79,0.74,0.75,0.78]  
-,[ 2000,1.19,1.02,1.00,1.03,0.88]  
-,[ 4000,1.48,1.32,1.25,1.28,1.46]  
-,[ 6000,2.02,1.72,1.65,1.86,2.00]  
-,[ 8000,2.24,1.99,1.97,2.32,2.57]
-];
-*/
-    _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp;
+    private _heliSimDragTableY = [
+                                  [    0, 0.83, 0.79, 0.74, 0.75, 0.78]
+                                 ,[ 2000, 1.19, 1.02, 1.00, 1.03, 0.88]
+                                 ,[ 4000, 1.48, 1.32, 1.25, 1.28, 1.46]
+                                 ,[ 6000, 2.02, 1.72, 1.65, 1.86, 2.00]
+                                 ,[ 8000, 2.24, 1.99, 1.97, 2.32, 2.57]
+                                 ];
+    /*
+    DRAG_TABLE =[ 
+    [     0,0.00,0.00,0.00,0.01,0.00]  
+    ,[ 2000,0.00,0.00,0.00,0.01,0.00]  
+    ,[ 4000,0.00,0.00,0.00,0.01,0.00]  
+    ,[ 6000,0.00,0.00,0.00,0.01,0.00]  
+    ,[ 8000,0.00,0.00,0.00,0.01,0.00]
+    ];
+    */
+    _interpDragCoefTableY      = [DRAG_TABLE, _altitude] call fza_fnc_linearInterp; //heliSimDragTableY
     private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                                  ,[-20, _interpDragCoefTableY # 2]
                                  ,[  0, _interpDragCoefTableY # 3]
                                  ,[ 20, _interpDragCoefTableY # 4]
                                  ,[ 40, _interpDragCoefTableY # 5]];
     _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
- 
+
+    private _CD         = _interpDragCoefTableY # 1;
+
+    private _v          = vectorMagnitude _relativeWind;
+    private _drag       = _CD * 0.5 * _rho * _fuselageAreaFront * (_v * _v);
+
+    private _dragVector = _relativeWind;
+    _dragVector         = vectorNormalized _dragVector;
+    _dragVector         = _dragVector vectorMultiply _drag;
+
+    _heli addForce[_heli vectorModelToWorld _dragVector, _heliCOM];
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Fuselage Torque      /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
     private _alpha = _heli getVariable "fza_sfmplus_aero_alpha";
     private _beta  = _heli getVariable "fza_sfmplus_aero_beta";
     private _gamma = _heli getVariable "fza_sfmplus_aero_gamma";
@@ -86,20 +125,9 @@ DRAG_TABLE =[
     //systemChat format ["_interpGammaTable = %1 -- _interpGammaVal %2", _interpGammaTable select 1 toFixed 3, _interpGammaVal tofixed 3];
 
     _fuselageTorque = _fuselagePitchTorque vectorAdd _fuselageYawTorque;
+
+    //_heli addTorque (_heli vectorModelToWorld _fuselageTorque);
 };
-private _fuselageDragCoefY     = _interpDragCoefTableY # 1;
-
-velocityModelSpace _heli
-    params ["_locVelX", "_locVelY", "_locVelZ"];
-
-private _drag = 
-            [ _fuselageDragCoefX * _fuselageAreaSide   * (_locVelX * _locVelX)
-            , _fuselageDragCoefY * _fuselageAreaFront  * (_locVelY * _locVelY)
-            , _fuselageDragCoefZ * _fuselageAreaBottom * (_locVelZ * _locVelZ)
-            ] vectorMultiply (-0.5 * _rho * _deltaTime);
-
-_heli addForce[_heli vectorModelToWorld _drag, getCenterOfMass _heli];
-_heli addTorque (_heli vectorModelToWorld _fuselageTorque);
 
 #ifdef __A3_DEBUG__
 private _vecX = [1.0, 0.0, 0.0];
