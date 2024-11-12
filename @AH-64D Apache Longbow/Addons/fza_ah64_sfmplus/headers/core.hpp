@@ -29,8 +29,9 @@
 #define SEA_LEVEL_PRESSURE      29.92
 #define STANDARD_TEMP           15
 
-#define VEL_ETL                 12.35
-#define VEL_BEST_ENDURANCE      36.0111 //70 kts
+#define VEL_ETL                 12.347
+#define VEL_VBE                 38.583  //75 kts
+#define VEL_VNE                 128.611 //250 kts
 #define VEL_VRS                 24.384
 #define ISA_STD_DAY_AIR_DENSITY 1.225
 

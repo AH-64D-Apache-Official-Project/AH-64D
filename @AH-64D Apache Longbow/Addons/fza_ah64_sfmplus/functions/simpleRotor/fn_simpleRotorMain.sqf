@@ -82,7 +82,7 @@ private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustSc
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _airspeedVelocityScalar    = (1 + (_velXY / VEL_BEST_ENDURANCE)) ^ (_rtrAirspeedVelocityMod);
+private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;

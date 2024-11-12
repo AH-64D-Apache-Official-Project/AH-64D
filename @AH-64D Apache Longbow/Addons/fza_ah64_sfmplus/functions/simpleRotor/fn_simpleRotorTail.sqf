@@ -75,7 +75,7 @@ if (_bladePitch_cur >= 0.0) then {
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velYZ                      = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
-private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_BEST_ENDURANCE)) ^ (_rtrAirspeedVelocityMod);
+private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velX                      = velocityModelSpace _heli # 0;
 private _inducedVelocityScalar     = 1.0;

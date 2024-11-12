@@ -282,7 +282,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round(_gndSpeed)] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -352,7 +352,20 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", round(1.94384 * vectorMagnitude((velocity _heli) vectorDiff wind))];
+
+([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
+    params [ 
+             "_gndSpeed"
+           , "_vel2D"
+           , "_vel3D"
+           , "_vertVel"
+           , "_velModelSpace"
+           , "_angVelModelSpace"
+           , "_velWorldSpace"
+           , "_angVelWorldSpace"
+           ];
+
+_speedkts = format["%1", _vel3D];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
@@ -377,7 +390,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if (speed _heli > 5) then {
+if (_vel3D > 5) then {
     _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
