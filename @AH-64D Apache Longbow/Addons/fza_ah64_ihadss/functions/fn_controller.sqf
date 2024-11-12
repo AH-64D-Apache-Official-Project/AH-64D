@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (!(vehicle player isKindOf "fza_ah64base") || !(alive _heli) || !(alive player) || !(isNull curatorCamera)) exitWith {
+if (!(vehicle player isKindOf "fza_ah64base") || !(alive _heli) || !(alive player) || !(isNull curatorCamera) || is3DEN || !(cameraView in ["INTERNAL", "GUNNER"]) || (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"))) exitWith {
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
     ("fza_ah64_click_helper" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
