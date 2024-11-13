@@ -366,4 +366,38 @@ class ACE_Actions : ACE_Actions {
         selection   = "pilot_action";
         posiiton    = "[3,2.1,1.5]";
     };
+    class ACE_MainActions: ACE_MainActions {
+        class fuel_siphon {
+            displayName = "Siphon Fuel";
+            condition   = "true";
+            statement   = "";
+            distance    = 3;
+            posiiton    = "[0,0,0]";
+            class siphon_50 {
+                displayName = "Siphon 50%";
+                condition = "true";
+                statement = "_fuellevel = fuel _target; _target setfuel (_fuellevel - 0.5);";
+            };
+            class siphon_25 {
+                displayName = "Siphon 25%";
+                condition = "true";
+                statement = "_fuellevel = fuel _target; _target setfuel (_fuellevel - 0.25);";
+            };
+            class siphon_10 {
+                displayName = "Siphon 10%";
+                condition = "true";
+                statement = "_fuellevel = fuel _target; _target setfuel (_fuellevel - 0.10);";
+            };
+            class siphon_5 {
+                displayName = "Siphon 5%";
+                condition = "true";
+                statement = "_fuellevel = fuel _target; _target setfuel (_fuellevel - 0.05);";
+            };
+            class siphon_1 {
+                displayName = "Siphon 1%";
+                condition = "true";
+                statement = "_fuellevel = fuel _target; _target setfuel (_fuellevel - 0.01);";
+            };
+        };
+    };
 };
