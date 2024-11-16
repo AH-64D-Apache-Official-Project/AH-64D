@@ -3,14 +3,12 @@ params ["_entity", "_type"];
 
 private _usedIndex = [];
 private _index = -1;
-private _fzalogic = allMissionObjects "Logic" select { 
-    ("fza" in str(_x get3DENAttribute "ItemClass")) 
-};
+private _fzalogic = allMissionObjects _type;
 
 {
     _x params ["_logic"];
     if (_logic isEqualTo _entity) then {continue;};
-    private _LogicType = (_logic get3DENAttribute "ItemClass");
+    private _logicType = (_logic get3DENAttribute "ItemClass");
     if !(_type in _logictype) then {continue;};
     private _logicPointIndex = (_logic get3DENAttribute "fza_dms_point_index")#0;
     if (_type isEqualTo "fza_dms_point_cm") then {_logicPointIndex = _logicPointIndex - 50;};
