@@ -58,9 +58,9 @@ switch (fza_ah64_sfmplusEnvironment) do {
     };
 };
 
-private _pa      = PA;//round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
+private _pa      = round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
 _heli setVariable ["fza_sfmplus_PA", _pa];
-private _fat     = FAT;//_baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
+private _fat     = _baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
 _heli setVariable ["fza_sfmplus_FAT", _fat];
 
 private _perfDataUpdatestr = str  round _curGWT_kg + str _pa + str _fat + str fza_ah64_sfmplusEnvironment;

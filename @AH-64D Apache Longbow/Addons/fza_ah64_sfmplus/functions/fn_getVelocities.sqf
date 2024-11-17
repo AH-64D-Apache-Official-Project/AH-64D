@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: bmkhs_fnc_rotorMain
+Function: fza_sfmplus_fnc_rotorMain
 
 Description:
     Simple rotor provides a simple, grounded in reality simulation of a

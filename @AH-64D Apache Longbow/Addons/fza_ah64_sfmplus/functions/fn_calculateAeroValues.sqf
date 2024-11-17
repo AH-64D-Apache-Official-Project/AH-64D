@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: bmkhs_fnc_calculateAeroValues
+Function: fza_sfmplus_fnc_calculateAeroValues
 
 Description:
     Calculates and returns _alpha (angle of attack) and _beta (sideslip) for the
@@ -67,10 +67,11 @@ private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _to
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
 private _sideslip = if ((vectorMagnitude _velModelSpace) == 0.0) then { 0.0; } else { asin (_modelVelX / (vectorMagnitude _velModelSpace)); };
 private _beta     = ((vectorMagnitude _velModelSpace) * (sin _sideslip)) / GRAVITY;
-systemChat format ["Sidelsip = %1 - Beta = %2", _sideslip, _beta];
+//systemChat format ["Sidelsip = %1 - Beta = %2", _sideslip, _beta];
 //Gamme, or flight path angle, is the angle between
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_velZ / _modelVelY); };
 
-_heli setVariable ["fza_sfmplus_aero_alpha", _alpha, true];
-_heli setVariable ["fza_sfmplus_aero_beta",  _beta,  true];
-_heli setVariable ["fza_sfmplus_aero_gamma", _gamma, true];
+_heli setVariable ["fza_sfmplus_aero_alpha",    _alpha,    true];
+_heli setVariable ["fza_sfmplus_aero_sideslip", _sideslip, true];
+_heli setVariable ["fza_sfmplus_aero_beta",     _beta,     true];
+_heli setVariable ["fza_sfmplus_aero_gamma",    _gamma,    true];

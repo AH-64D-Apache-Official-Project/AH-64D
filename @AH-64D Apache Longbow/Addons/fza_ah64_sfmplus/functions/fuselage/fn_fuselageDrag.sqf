@@ -1,4 +1,8 @@
+#include "\fza_ah64_sfmplus\headers\core.hpp"
+
 params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
+
+if (!local _heli) exitWith {};
 
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel        = getText (_configVehicles >> "fza_flightModel");
@@ -58,11 +62,11 @@ if (_flightModel == "SFMPlus") then {
 } else {
     //-------------------------------PA   -40   -20     0    20    40
     private _heliSimDragTableY = [
-                                  [    0, 0.000, 0.000, 0.000, 0.0125, 0.000]
-                                 ,[ 2000, 0.000, 0.000, 0.000, 0.0145, 0.000]
-                                 ,[ 4000, 0.000, 0.000, 0.000, 0.0185, 0.000]
-                                 ,[ 6000, 0.000, 0.000, 0.000, 0.0205, 0.000]
-                                 ,[ 8000, 0.000, 0.000, 0.000, 0.0230, 0.000]
+                                  [    0,0.0220,0.0170,0.0145,0.0125,0.0100]  
+                                 ,[ 2000,0.0255,0.0210,0.0185,0.0145,0.0140]  
+                                 ,[ 4000,0.0260,0.0250,0.0185,0.0185,0.0185]  
+                                 ,[ 6000,0.0260,0.0225,0.0205,0.0205,0.0240]  
+                                 ,[ 8000,0.0235,0.0200,0.0250,0.0230,0.0310] 
                                  ];
     /*
     DRAG_TABLE =[ 
@@ -73,7 +77,7 @@ if (_flightModel == "SFMPlus") then {
     ,[ 8000,0.00,0.00,0.00,0.01,0.00]
     ];
     */
-    _interpDragCoefTableY      = [DRAG_TABLE, _altitude] call fza_fnc_linearInterp; //heliSimDragTableY
+    _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp; //_heliSimDragTableY
     private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                                  ,[-20, _interpDragCoefTableY # 2]
                                  ,[  0, _interpDragCoefTableY # 3]
@@ -94,19 +98,23 @@ if (_flightModel == "SFMPlus") then {
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Fuselage Torque      /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-    private _alpha = _heli getVariable "fza_sfmplus_aero_alpha";
-    private _beta  = _heli getVariable "fza_sfmplus_aero_beta";
-    private _gamma = _heli getVariable "fza_sfmplus_aero_gamma";
+    private _alpha    = _heli getVariable "fza_sfmplus_aero_alpha";
+    private _sideslip = _heli getVariable "fza_sfmplus_aero_sideslip";
+    private _beta     = _heli getVariable "fza_sfmplus_aero_beta";
+    private _gamma    = _heli getVariable "fza_sfmplus_aero_gamma";
 
-    private _betaTable         = [[-90, -0.100]
+    private _vScalar  = linearConversion [0.0, VEL_VBE, _v, 0.0, 1.0];
+    _vScalar          = [_vScalar, 0.0, 1.0] call BIS_fnc_clamp;
+
+    private _sideslipTable     = [[-90, -0.100]
                                  ,[-20, -0.050]
-                                 ,[  0,  0.000]
+                                 ,[  3,  0.000]
                                  ,[ 20,  0.050]
                                  ,[ 90,  0.100]];
-    _interpBetaTable           = [_betaTable, _beta] call fza_fnc_linearInterp;
-    _interpBetaVal             = _interpBetaTable select 1;
+    _interpSidelsipTable       = [_sideslipTable, _sideslip] call fza_fnc_linearInterp;
+    _interpSideslipVal         = _interpSidelsipTable select 1;
 
-    private _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpBetaVal * 25000) * _deltaTime);
+    private _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpSideslipVal * 25000) * _vScalar);
 
     private _gammaTable       = [[-180, -0.100]
                                 ,[ -90, -0.075]
@@ -119,14 +127,16 @@ if (_flightModel == "SFMPlus") then {
     _interpGammaTable           = [_gammaTable, _gamma] call fza_fnc_linearInterp;
     _interpGammaVal             = _interpGammaTable select 1;
 
-   private _fuselagePitchTorque = [1.0, 0.0, 0.0] vectorMultiply ((_interpGammaVal * 25000) * _deltaTime);
+   private _fuselagePitchTorque = [1.0, 0.0, 0.0] vectorMultiply ((_interpGammaVal * 25000) * _vScalar);
 
+
+    //systemChat format ["_gamma = %1 -- _sideslip = %2 -- _vScalar = %3", _gamma, _sideslip, _vScalar];
     //systemChat format ["_interpBetaTable = %1 -- _interpBetaVal %2", _interpBetaTable select 1 toFixed 3, _interpBetaVal tofixed 3];
     //systemChat format ["_interpGammaTable = %1 -- _interpGammaVal %2", _interpGammaTable select 1 toFixed 3, _interpGammaVal tofixed 3];
 
     _fuselageTorque = _fuselagePitchTorque vectorAdd _fuselageYawTorque;
 
-    //_heli addTorque (_heli vectorModelToWorld _fuselageTorque);
+    _heli addTorque (_heli vectorModelToWorld _fuselageTorque);
 };
 
 #ifdef __A3_DEBUG__

@@ -73,11 +73,7 @@ if (_flightModel != "SFMPlus") then {
     //Drag
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
-    private _vertFinPosition   = [0.0, -6.40, -1.75];
-    private _vertFinSweep      = -1.2;
-    private _vertFinRot        = 7.5;
-    private _vertFinDimensions = [2.25, 0.90];
-    [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
+    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
 };
 
 //Damage
