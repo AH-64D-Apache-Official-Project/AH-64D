@@ -20,7 +20,6 @@ class CfgFunctions
             file = "\fza_ah64_dms\functions\eden";
             class edenPointModify{R;};
             class edenPointNext{R;};
-            class edenPointDeleted{R;};
         };
         class point {
             file = "\fza_ah64_dms\functions\point";
