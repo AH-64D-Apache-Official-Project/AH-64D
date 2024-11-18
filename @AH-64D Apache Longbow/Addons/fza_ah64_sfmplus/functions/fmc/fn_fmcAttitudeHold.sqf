@@ -35,9 +35,6 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
-//private _curVel   = velocityModelSpace _heli;
-//private _curVelX  = (_curVel # 0) * -1.0;
-//private _curVelY  = _curVel # 1;
 
 (_velModelSpace)
     params [

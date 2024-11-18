@@ -113,18 +113,11 @@ private _vectorUp      = [0.0, 0.0, 1.0];
 //    |             |             |
 //  - D-------------+-------------C
 
-private _A_wingRootLeadingEdge   = [];
-private _B_wingTipLeadingEdge    = [];
-private _C_wingTipTrailingEdge   = [];
-private _D_wingRootTrailingEdge  = [];
-private _F_wingRootLiftPosition  = [];
-private _G_wingTipLiftPosition   = [];
-
 //First draw the wing
-_A_wingRootLeadingEdge  = _stabPos vectorDiff (_vectorRight vectorMultiply (_span * 0.5));
-_B_wingTipLeadingEdge   = _stabPos vectorAdd  (_vectorRight vectorMultiply (_span * 0.5));
-_C_wingTipTrailingEdge  = _B_wingTipLeadingEdge  vectorDiff (_vectorForward vectorMultiply _chord);
-_D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff (_vectorForward vectorMultiply _chord);
+private _A_wingRootLeadingEdge  = _stabPos vectorDiff (_vectorRight vectorMultiply (_span * 0.5));
+private _B_wingTipLeadingEdge   = _stabPos vectorAdd  (_vectorRight vectorMultiply (_span * 0.5));
+private _C_wingTipTrailingEdge  = _B_wingTipLeadingEdge  vectorDiff (_vectorForward vectorMultiply _chord);
+private _D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff (_vectorForward vectorMultiply _chord);
 
 _theta                  = _theta * -1.0;
 
@@ -189,9 +182,9 @@ for "_j" from 0 to (_numElements - 1) do {
     #endif
 
     private _relativeWindNormalized = vectorNormalized _relativeWind;
-    private _AoA = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
-    _AoA = [_AoA, -1.0, 1.0] call BIS_fnc_clamp;
-    _AoA = acos _AoA;
+    private _aoa = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
+    _aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
+    _aoa = acos _aoa;
 
     private _up = _chordLine vectorCrossProduct (vectorNormalized (_g vectorDiff _f));
     _up         = vectorNormalized _up;
@@ -201,14 +194,14 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _yAxisDotRelativeWind = _up vectorDotProduct _relativeWindNormalized;
     if (_yAxisDotRelativeWind < 0.0) then {
-        _AoA = _AoA * -1.0;
+        _aoa = _aoa * -1.0;
     };
 
     //Lift coefficient
     private _span        = vectorMagnitude (_g vectorDiff _f);
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
     private _aspectRatio = (_span * _span) / _area;
-    private _CL           = _liftCurveSlope * (_aspectRatio / (_aspectRatio + 2.0)) * (rad _AoA);
+    private _CL           = _liftCurveSlope * (_aspectRatio / (_aspectRatio + 2.0)) * (rad _aoa);
     private _v            = vectorMagnitude _relativeWind;
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 

@@ -282,7 +282,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round(_gndSpeed)] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round _gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;

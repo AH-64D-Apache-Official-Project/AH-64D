@@ -51,7 +51,6 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 
 //
 [_heli, _deltaTime] call fza_sfmplus_fnc_calculateAeroValues;
-//[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAcceleration;
 
 //Fuel
 [_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;

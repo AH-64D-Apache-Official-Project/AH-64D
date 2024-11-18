@@ -33,18 +33,18 @@ private _vel3D         = 0.0;
 private _vel2D         = 0.0;
 private _velModelSpace = [];
 private _velWorldSpace = [];
+private _velWind       = [];
 
 if (_useWind) then {
-    _vel3D         = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli vectorDiff wind));
-    _vel2D         = round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff wind) select 1));
-    _velModelSpace = velocityModelSpace _heli vectorDiff wind;
-    _velWorldSpace = velocity _heli vectorDiff wind;
+    _velWind = wind;
 } else {
-    _vel3D         = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli));
-    _vel2D         = round(MPS_TO_KNOTS * (velocityModelSpace _heli select 1));
-    _velModelSpace = velocityModelSpace _heli;
-    _velWorldSpace = velocity _heli;
+    _velWind = [0.0, 0.0, 0.0];
 };
+
+_vel3D         = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli vectorDiff _velWind));
+_vel2D         = round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff _velWind) select 1));
+_velModelSpace = velocityModelSpace _heli vectorDiff _velWind;
+_velWorldSpace = velocity _heli vectorDiff _velWind;
 
 private _velVert   = (velocity _heli select 2) * MPS_TO_FPM;
 

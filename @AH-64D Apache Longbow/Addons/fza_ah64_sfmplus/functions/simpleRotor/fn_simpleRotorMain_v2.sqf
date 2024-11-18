@@ -138,7 +138,7 @@ private _inducedScalarTable =
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM          = _eng1PctNP max _eng2PctNp;
 //Calculate omega
-private _omega             = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
+private _omega             = 2.0 * pi * ((_rtrDesignRPM * _inputRPM) / 60);
 
 //Profile power scalar
 private _profileScalar     = _profileScalar_min + ((_profileScalar_max - _profileScalar_min) / VEL_VNE) * _velXY;

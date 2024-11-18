@@ -41,22 +41,15 @@ private _vectorUp      = [[0.0, 0.0, 1.0], _pitch, _roll] call fza_fnc_rotateVec
 //    |             |             |
 //  - D-------------+-------------C
 
-private _A_wingRootLeadingEdge   = [];
-private _B_wingTipLeadingEdge    = [];
-private _C_wingTipTrailingEdge   = [];
-private _D_wingRootTrailingEdge  = [];
-private _F_wingRootLiftPosition  = [];
-private _G_wingTipLiftPosition   = [];
-
 //First draw the wing
 private _wingRootCenter = _wingPos       vectorDiff (_vectorRight   vectorMultiply (_span * 0.5));
 private _wingTipCenter  = _wingPos       vectorAdd  (_vectorRight   vectorMultiply (_span * 0.5)); 
 _wingTipCenter          = _wingTipCenter vectorAdd  (_vectorForward vectorMultiply _sweep);
 
-_A_wingRootLeadingEdge  = _wingRootCenter vectorAdd  (_vectorForward vectorMultiply  (_chord * 0.5));
-_B_wingTipLeadingEdge   = _wingTipCenter  vectorAdd  (_vectorForward vectorMultiply ((_chord * 0.5) * _tipWidthScalar));
-_C_wingTipTrailingEdge  = _wingTipCenter  vectorDiff (_vectorForward vectorMultiply ((_chord * 0.5) * _tipWidthScalar));
-_D_wingRootTrailingEdge = _wingRootCenter vectorDiff (_vectorForward vectorMultiply  (_chord * 0.5));
+private _A_wingRootLeadingEdge  = _wingRootCenter vectorAdd  (_vectorForward vectorMultiply  (_chord * 0.5));
+private _B_wingTipLeadingEdge   = _wingTipCenter  vectorAdd  (_vectorForward vectorMultiply ((_chord * 0.5) * _tipWidthScalar));
+private _C_wingTipTrailingEdge  = _wingTipCenter  vectorDiff (_vectorForward vectorMultiply ((_chord * 0.5) * _tipWidthScalar));
+private _D_wingRootTrailingEdge = _wingRootCenter vectorDiff (_vectorForward vectorMultiply  (_chord * 0.5));
 
 private _wingTip        = _B_wingTipLeadingEdge vectorDiff _C_wingTipTrailingEdge;
 _wingTip                = [_wingTip, _vectorRight, _twist] call fza_sfmplus_fnc_quaternion;
@@ -64,8 +57,8 @@ _wingTip                = [_wingTip, _vectorRight, _twist] call fza_sfmplus_fnc_
 _B_wingTipLeadingEdge   = _wingTipCenter vectorAdd  (_wingTip vectorMultiply 0.5);
 _C_wingTipTrailingEdge  = _wingTipCenter vectorDiff (_wingTip vectorMultiply 0.5);
 
-_F_wingRootLiftPosition = _D_wingRootTrailingEdge vectorAdd ((_A_wingRootLeadingEdge vectorDiff _D_wingRootTrailingEdge) vectorMultiply (1.0 - _chordLinePos));
-_G_wingTipLiftPosition  = _C_wingTipTrailingEdge  vectorAdd ((_B_wingTipLeadingEdge  vectorDiff _C_wingTipTrailingEdge)  vectorMultiply (1.0 - _chordLinePos));
+private _F_wingRootLiftPosition = _D_wingRootTrailingEdge vectorAdd ((_A_wingRootLeadingEdge vectorDiff _D_wingRootTrailingEdge) vectorMultiply (1.0 - _chordLinePos));
+private _G_wingTipLiftPosition  = _C_wingTipTrailingEdge  vectorAdd ((_B_wingTipLeadingEdge  vectorDiff _C_wingTipTrailingEdge)  vectorMultiply (1.0 - _chordLinePos));
 
 private _debugLineScale = 1.0 / 30.0;
 
