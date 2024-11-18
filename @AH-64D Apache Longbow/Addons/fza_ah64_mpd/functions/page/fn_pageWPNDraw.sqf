@@ -1,10 +1,11 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli", "_mpdIndex", "_state"];
 
 private _armed      = _heli getVariable "fza_ah64_armSafeArmed";
-private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == "arm");
+private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_ARM);
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MASTER_ARM), BOOLTONUM(_armed)];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_CHAFF_ARM), _chaffState];

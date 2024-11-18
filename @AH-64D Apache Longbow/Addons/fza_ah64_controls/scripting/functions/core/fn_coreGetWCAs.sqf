@@ -412,7 +412,7 @@ if (_playCautAudio) then {
     [_heli] call fza_audio_fnc_addCaution;
 };
 //ASE
-if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH) && _MsnEquipState == "on" && _heli animationPhase "msn_equip_american" == 1) then {
+if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_THRESH) && _MsnEquipState == ASE_MSNEQUIP_STATE_ON && _heli animationPhase "msn_equip_american" == 1) then {
         ([_heli, _activeCaut, "IRJAM FAIL", "IRJAM FAIL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
