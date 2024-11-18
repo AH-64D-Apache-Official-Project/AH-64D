@@ -1,3 +1,4 @@
+#include "\fza_ah64_ase\headers\ase.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
@@ -5,7 +6,7 @@
 params ["_heli", "_mpdIndex"];
 
 //Chaff + Flares
-private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == "Arm");
+private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_ARM);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState];
 private _chaffCount = 0;
 private _flareCount= 0;
@@ -26,9 +27,9 @@ if (_heli animationPhase "msn_equip_british" == 1) then {
 };
 
 //IR Jammer
-private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_msnEquipPwr" == "off");
+private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_msnEquipPwr" == ASE_MSNEQUIP_STATE_OFF);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
-private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
+_heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
 
 //Autopage
@@ -36,9 +37,9 @@ private _autopage = _heli getVariable "fza_ah64_ase_autopage";
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
 
 //RLWR
-private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
+private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
-private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrCount";
+private _rlwrCount = count(_heli getVariable "fza_ah64_ase_rlwrObjects");
 _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
 
 //Mission equipment 
@@ -54,11 +55,10 @@ private _linesArray  = [];
 private _aseObjects  = _heli getVariable "fza_ah64_ase_rlwrObjects";
 private _radius      = 0.27;
 {
-    _x params ["_state", "_object", "_classification"];
-    private _bearing = _heli getRelDir _object;
-    _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
+    _x params ["_state", "_objectPos","_iconClass"];
+    private _bearing = _heli getRelDir _objectPos;
     if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
     if (_state < 2) then {continue;};
     _linesArray pushBack [_bearing];
 } forEach _aseObjects;
