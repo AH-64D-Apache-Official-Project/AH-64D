@@ -27,14 +27,6 @@ class Extended_GetOut_EventHandlers {
     };
 };
 
-class Extended_IncomingMissile_EventHandlers {
-    class fza_ah64base {
-        class fza_ah64base_incomingMissile_eh {
-            incomingMissile = "_this call fza_fnc_eventIncomingMissile";
-        };
-    };
-};
-
 class Extended_Killed_EventHandlers {
     class fza_ah64base {
         class fza_ah64base_killed_eh {

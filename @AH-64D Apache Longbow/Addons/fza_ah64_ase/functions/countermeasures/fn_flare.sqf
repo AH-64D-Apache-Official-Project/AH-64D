@@ -13,11 +13,11 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli"];
 
 private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
-private _irJamState = _heli getVariable "fza_ah64_ase_irJamState";
+_heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 
 if (_irJamState == ASE_IRJAM_STATE_OPER && _dcBusOn) exitWith {
     [vehicle player, "fza_CMFlareLauncher", [-1]] call BIS_fnc_fire;

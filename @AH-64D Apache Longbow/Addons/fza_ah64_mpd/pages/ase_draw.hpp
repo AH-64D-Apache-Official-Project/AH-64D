@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 
 class ase_draw {
     class lines {
