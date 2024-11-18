@@ -51,7 +51,6 @@ class CfgFunctions
             class eventFired {R;};
             class eventGetIn {R;};
             class eventGetOut {R;};
-            class eventIncomingMissile {R;};
             class eventInit {R;};
         };
         class fx {
