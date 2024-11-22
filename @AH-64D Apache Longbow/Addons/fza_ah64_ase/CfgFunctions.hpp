@@ -27,6 +27,7 @@ class CfgFunctions
         };
         class sensors {
             file = "\fza_ah64_ase\functions\sensors";
+            class mws {RECOMPILE_FLAG;};
             class rwr {RECOMPILE_FLAG;};
         };
     };
