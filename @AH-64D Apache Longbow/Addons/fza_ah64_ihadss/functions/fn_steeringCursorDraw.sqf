@@ -19,28 +19,23 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ihadss\headers\dimensions.h"
 params ["_heli"];
 
 private _steeringCursorControl = ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 131);
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
+private _pylonelev = _heli getVariable "fza_ah64_rocketPylonElev";
 private _screenPos = [-100, -100];
-private _conW  = 0.1468;
-private _conH  = 0.2;
-private _apx   = 0.0746;
-private _apy   = 0.1;
+private _conW = 2*14*SYMB_DEG_SCALING_FACTOR;
+private _conH = 2*19*SYMB_DEG_SCALING_FACTOR;
+private _Offset = -0.35;
 
-if (WAS_WEAPON_RKT != _heli getVariable "fza_ah64_was") exitwith {};
-if (cameraView != "GUNNER") then {_apx = 0.0728;}; // Internal hud is not aligned correctly
+if (WAS_WEAPON_RKT != _heli getVariable "fza_ah64_was") exitwith {};    
+if (cameraView != "GUNNER") then {_Offset = 0.14;};
 
 private _tex = ["\fza_ah64_us\tex\HDU\ah64_rkt.paa", "\fza_ah64_us\tex\HDU\ah64_rkt_fxd"] select (_sight == 3);
 _steeringCursorControl ctrlSetText _tex;
-if (_sight == 3) then { //FXD
-	_screenPos = worldToScreen (_heli modelToWorldVisual [0, 1000, 0]);
-	if (_screenPos isEqualTo []) then {
-		_screenPos = [-100, -100];
-	};
-} else {
-	_screenPos = [0.5 - deg (_heli animationPhase "tads_tur")*3/64/4, 0.5-deg (_heli animationPhase "tads")*3/64/4];
-};
-_steeringCursorControl ctrlSetPosition [_screenPos#0 - _apx, _screenPos#1 - _apy, _conW, _conH];
+_screenPos = [_Offset + deg (_heli animationPhase "tads_tur")*-4, 9.2 + (_pylonelev/0.64)] call fza_ihadss_fnc_angleToScreen;
+
+_steeringCursorControl ctrlSetPosition [_screenPos#0 - _conW/2, _screenPos#1 - _conH/2, _conW, _conH];
 _steeringCursorControl ctrlCommit 0;

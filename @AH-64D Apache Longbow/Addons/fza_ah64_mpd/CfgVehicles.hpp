@@ -102,11 +102,13 @@ class CfgVehicles {
             class TSD {
                 index = MPD_PAGE_TSD;
                 draw  = "fza_mpd_fnc_pageTSDDraw";
+                drawCanvas = "fza_mpd_fnc_pageTSDDrawCanvas";
                 handleControl = "fza_mpd_fnc_pageTSDHandleControl";
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
                     showScale = 0;
+                    routeScroll = 0;
                 };
                 class PersistState {
                     mode = "nav";

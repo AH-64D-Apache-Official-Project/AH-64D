@@ -22,6 +22,7 @@ params ["_heli"];
 #define SCALE_METERS_FEET 3.28084
 
 private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _curGWT_kg = _heli getVariable "fza_sfmplus_GWT";
 
 private _baroAlt = getPosASL _heli # 2 * SCALE_METERS_FEET;
 private _baseAlt = 0.0;
@@ -61,6 +62,11 @@ private _pa      = round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
 _heli setVariable ["fza_sfmplus_PA", _pa];
 private _fat     = _baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
 _heli setVariable ["fza_sfmplus_FAT", _fat];
+
+private _perfDataUpdatestr = str  round _curGWT_kg + str _pa + str _fat + str fza_ah64_sfmplusEnvironment;
+private _perfDatacompareStr = _heli getVariable ["fza_sfmplus_perfDataChange", ""];
+if (_perfDataUpdatestr == _perfDatacompareStr) exitwith {};
+_heli setvariable ["fza_sfmplus_perfDataChange", _perfDataUpdatestr];
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Base Data        /////////////////////////////////////////////////////////////////////////
@@ -109,7 +115,6 @@ private _intHoverTable = [_hoverTable, _fat] call fza_fnc_linearInterp;
                              [  7711, _intHoverTable # 3, _intHoverTable # 4],
                              [  8618, _intHoverTable # 5, _intHoverTable # 6],
                              [  9525, _intHoverTable # 7, _intHoverTable # 8]];
-private _curGWT_kg      = _heli getVariable "fza_sfmplus_GWT";
 private _intHoverTable2 = [_hoverTable_GWT, _curGWT_kg] call fza_fnc_linearInterp;
 //Set hover TQ IGE/OGE
 _heli setVariable ["fza_sfmplus_hvrTQ_IGE", _intHoverTable2 select 1];

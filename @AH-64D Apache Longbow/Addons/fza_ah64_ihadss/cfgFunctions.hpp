@@ -18,6 +18,8 @@ class CfgFunctions
             class controller {R;};
             class draw {R;};
             class handleControl {R;};
+            class init {R;};
+            class linearMotionCompensator {R;}
             class monocletoggle {R;};
             class pnvsControl {R;};
             class steeringCursorDraw {R;};

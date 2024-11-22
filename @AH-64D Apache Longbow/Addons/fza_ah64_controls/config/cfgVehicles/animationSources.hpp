@@ -110,25 +110,25 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon2
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon3
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon4
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class swashplate_up_tns
     {

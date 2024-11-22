@@ -98,14 +98,11 @@ if (fza_ah64_enableClickHelper) then {
 };
 _clickHint ctrlCommit 0.001;
 
-if !_powerOnState then {
-    _raddisp cuttext["", "PLAIN", 0, false];
-};
-if (_powerOnState && _heli getVariable "fza_ah64_monocleinbox") then {
-    _raddisp cuttext["", "PLAIN", 0, false];
-};
 if (isNull laserTarget _heli) then {
     _laseit cuttext["", "PLAIN", 0.1, false];
+};
+if !(_heli getvariable "fza_ah64_LmcActive") then {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
 };
 
 //PNVS HDU
@@ -143,7 +140,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
+    if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
     if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
         _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
 
@@ -152,15 +149,16 @@ if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable 
         };
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 184) ctrlSetTextColor[0.1, 1, 0, 1];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0.1, 1, 0, 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 189) ctrlSetTextColor[0.1, 1, 0, 1];
         _rocketcode = "???";
     };
 } else {
-    if (cameraView == "EXTERNAL" || !(vehicle player isKindOf "fza_ah64base" || alive player)) then {
-        _raddisp cuttext["", "PLAIN", 0, false];
+    if (cameraView != "INTERNAL") then {
         _clickhelper cuttext["", "PLAIN", 0, false];
         _monocle cuttext["", "PLAIN", 0, false];
-        _laseit cuttext["", "PLAIN", 0, false];
     };
+    _raddisp cuttext["", "PLAIN", 0, false];
+    _laseit cuttext["", "PLAIN", 0, false];
 };
 
 if !_powerOnState then {
@@ -220,6 +218,11 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
+    //LSC SYMBOLOGY FOR GUNNER
+    if (_heli getvariable "fza_ah64_LmcActive") then {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    };
 
     //TADS DTV/FLIR Fail
     if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
@@ -244,6 +247,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ctrlSetTextColor[1, 1, 1, 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
     ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText "";
@@ -290,7 +294,7 @@ _autohide = {
 
 _gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
-private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 [_heli] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
 

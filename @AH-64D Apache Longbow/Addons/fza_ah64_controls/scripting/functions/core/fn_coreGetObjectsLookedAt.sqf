@@ -31,27 +31,30 @@ Author:
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli"];
 
-#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name]
-#define COCKPIT_CONTROL_SEP ,
+private _controls = _heli getvariable "fza_ah64_objectsDataArray";
 private _horizontalPos = _heli getVariable "fza_ah64_freeCursorHpos";
 private _verticalpos = _heli getVariable "fza_ah64_freeCursorVpos";
-private _controls =  [ //Schema of Pilot memory point, Gunner memory point, system, control, sensitivity, description]
-#include "\fza_ah64_controls\headers\controls.h"
-];
-_controls = _controls apply {
-    _x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description"];
+
+_controls select {
+    _x params ["_pilotPos", "_gunnerPos", "_systemName", "_eventName", "_sensitivity", "_description", "_movable", "_distance"];
     private _point = [];
-    if(driver _heli == player && _pilotPos != "") then {
-        _point = _heli modelToWorldVisual (_heli selectionposition _pilotPos);
+    if(driver _heli == player) then {
+        if (_pilotPos isEqualTo "") then {continue;};
+        if (_movable) exitwith {
+            _point = _heli modelToWorldVisual (_heli selectionposition _pilotPos);
+        };
+        _point = _heli modelToWorldVisual _pilotPos;
     };
-    if(gunner _heli == player && _gunnerPos != "") then {
-        _point = _heli modelToWorldVisual (_heli selectionposition _gunnerPos);
+    if(gunner _heli == player) then {
+        if (_gunnerPos isEqualTo "") then {continue;};
+        if (_movable) exitwith {
+            _point = _heli modelToWorldVisual (_heli selectionposition _gunnerPos);
+        };
+        _point = _heli modelToWorldVisual _gunnerPos;
     };
     _point =  (worldToScreen _point);
-    _distance = if (_point isEqualTo []) then {1000} else {_point distance [_horizontalPos, _verticalpos]};
-    [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _distance];
-};
-_controls select {
-    _x params ["", "", "", "", "_sensitivity", "", "_distance"];
-    _distance < _sensitivity;
+    if (_point isEqualTo []) then {continue};
+    _distance = _point distance [_horizontalPos, _verticalpos];
+    _x set [7, _distance];
+    (_distance <= _sensitivity);
 };
