@@ -67,6 +67,8 @@ private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _to
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
 private _sideslip = if ((vectorMagnitude _velModelSpace) == 0.0) then { 0.0; } else { asin (_modelVelX / (vectorMagnitude _velModelSpace)); };
 private _beta     = ((vectorMagnitude _velModelSpace) * (sin _sideslip)) / GRAVITY;
+
+//private _sideslipAccel = (-9.806 * (tan _sideslip)) / 9.8
 //systemChat format ["Sidelsip = %1 - Beta = %2", _sideslip, _beta];
 //Gamme, or flight path angle, is the angle between
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_velZ / _modelVelY); };
