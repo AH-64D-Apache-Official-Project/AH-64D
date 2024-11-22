@@ -1,9 +1,10 @@
 class fcr_draw {
     //R1
-    MPD_TEXT_L(ZOOM_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 2.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Z"))
-    MPD_TEXT_L(ZOOM_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
-    MPD_TEXT_L(ZOOM_3,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
-    MPD_TEXT_L(ZOOM_4,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
+    MPD_TEXT_L(ZOOM_1,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("Z"))
+    MPD_TEXT_L(ZOOM_2,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
+    MPD_TEXT_L(ZOOM_3,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.375 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("O"))
+    MPD_TEXT_L(ZOOM_4,  MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 1.125 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("M"))
+    MPD_BOX_BAR_L(ZOOM, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y)
     class lines_GTM {
         type = line;
         width = 3;
@@ -134,7 +135,7 @@ class fcr_draw {
         class lines_continuous {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_CONTINUOUS));
             class nearBar {
-                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM),1.6)));
                 class line {
                     type = line;
                     width = 3;
@@ -145,7 +146,7 @@ class fcr_draw {
                 };
             };
             class farBar {
-                condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
+                condition = C_COND(C_AND(C_LESS(1.6,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 3.2)));
                 class line {
                     type = line;
                     width = 3;
@@ -160,7 +161,7 @@ class fcr_draw {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_SCAN_TYPE), FCR_MODE_ON_SINGLE));
             color[] = {1,1,1,1};
             class nearBar {
-                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 2)));
+                condition = C_COND(C_AND(C_LESS(0,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 1.6)));
                 class line {
                     type = line;
                     width = 3;
@@ -171,7 +172,7 @@ class fcr_draw {
                 };
             };
             class farBar {
-                condition = C_COND(C_AND(C_LESS(2,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 4)));
+                condition = C_COND(C_AND(C_LESS(1.6,C_MPD_USER(MFD_IND_FCR_ANIM)), C_LESS(C_MPD_USER(MFD_IND_FCR_ANIM), 3.2)));
                 class line {
                     type = line;
                     width = 3;

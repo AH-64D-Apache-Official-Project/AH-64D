@@ -38,6 +38,7 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 };
 
 //Current Ihadss
+[_heli] call fza_ihadss_fnc_fovControl;
 [_heli] call fza_ihadss_fnc_CscopeDraw;
 [_heli] call fza_ihadss_fnc_constraintBoxDraw;
 [_heli] call fza_ihadss_fnc_steeringCursorDraw;

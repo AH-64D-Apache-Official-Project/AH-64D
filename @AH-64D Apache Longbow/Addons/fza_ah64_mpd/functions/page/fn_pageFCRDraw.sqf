@@ -4,7 +4,7 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli", "_mpdIndex", "_state", "_persistState"];
 
-Private _fcrMode = _heli Getvariable "fza_ah64_fcrMode";
+private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
@@ -37,6 +37,45 @@ switch (_sight) do {
     };
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
+
+//Command Heading Chevron
+private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+if (isNil "_nextPointPos") then {
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360];
+} else {
+    private _waypointDirection = [(_heli getRelDir _nextPointPos)] call CBA_fnc_simplifyAngle180;
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection];
+};
+
+//Alternate Sensor Bearing
+private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")});
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
+
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"]; 
+private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrHeading = -1000;
+    _lastHeading = -1000;
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
+
+//TADS POS
+private _acqVector = [_heli, "TADS"] call fza_fnc_targetingAcqModelVec;
+_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_tadsX", "_tadsY"];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
+
+//Cued LOS
+private _curTurret = [_heli] call fza_fnc_currentTurret;
+private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
+private _acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqModelVec;
+_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
 
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
