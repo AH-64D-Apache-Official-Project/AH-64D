@@ -64,7 +64,7 @@ switch (_sight) do {
             };
             _heli lockCameraTo [_targPos, [0]];
         };
-        _heli lockCameraTo [_targpos, [0]];
+        _heli lockCameraTo [_targpos, [0], false];
         _inhibit = "NO TARGET";
     };
     case SIGHT_HMD:{
@@ -72,17 +72,19 @@ switch (_sight) do {
         if (cameraView == "GUNNER") exitwith {
             _heli lockCameraTo [objNull, [0]];
         };
-        _heli lockCameraTo [_targPos, [0]];
+        _heli lockCameraTo [_targPos, [0], false];
     };
     case SIGHT_TADS:{
-        _heli lockCameraTo [objNull, [0]];
+        if !(_heli getVariable "fza_ah64_LmcActive") then {    
+            _heli lockCameraTo [objNull, [0], false];
+        };
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
         _worldTargetpos = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
     };
     case SIGHT_FXD:{
-        _heli lockCameraTo [_heli modelToWorldVisual [0,1000,0],[0]];
+        _heli lockCameraTo [_heli modelToWorldVisual [0,1000,0],[0], false];
     };
 };
 

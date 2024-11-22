@@ -141,12 +141,25 @@ private _projName = "AH-64D Official Project";
     0
 ] call CBA_fnc_addSetting;
 
+[
+    "fza_ah64_LMCSensitivity",
+    "SLIDER",
+    ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
+    [_projName, "TADS Controls"],
+    [0, 1, 0.5, 1],
+    0
+] call CBA_fnc_addSetting;
+
 fza_ah64_weaponDebug = false;
 fza_ah64_pylonsLastCheckMags = [];
 fza_ah64_overallticker = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_introShownThisScenario = false;
+private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn";
+fza_ah64_tadsFOVs = [
+    "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom"
+] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_controller, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
@@ -178,4 +191,5 @@ OVERRIDE_ACTION("vehLockTargets")
 OVERRIDE_ACTION("zoomIn")
 OVERRIDE_ACTION("zoomOut")
 OVERRIDE_ACTION("NightVision")
+OVERRIDE_ACTION("vehLockTurretView")
 OVERRIDE_ACTION("Headlights")

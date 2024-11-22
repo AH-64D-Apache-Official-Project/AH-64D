@@ -27,10 +27,8 @@ class Turrets : Turrets
         minElev = -60;
         maxElev = 30;
         initElev= 0;
-        maxXRotSpeed = 1; // yawing speed
-        maxYRotSpeed = 1; // pitching speed
-        maxMouseXRotSpeed= 0.5;
-        maxMouseYRotSpeed= 0.5;
+        maxHorizontalRotSpeed = 1.047;
+        maxVerticalRotSpeed = 1.047;
         minTurn = -120;
         maxTurn = 120;
         initTurn = 0;
@@ -73,7 +71,7 @@ class Turrets : Turrets
                 maxfov = "(46.25 / 120)";
                 visionmode[] = {"Ti"};
                 thermalmode[] = {0,1};
-                directionStabilized = 1;
+                directionStabilized = 0;
                 minanglex = -60;
                 maxanglex = 30;
                 minangley = -120;
@@ -103,21 +101,12 @@ class Turrets : Turrets
                 maxfov = "(1.5 / 120)";
                 opticsdisplayname = "Z";
             };
-            class A3ti_Wide
+            class A3ti_Wide: Flir_Wide
             {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
                 initfov = "(46.25 / 120)";
                 minfov = "(46.25 / 120)";
                 maxfov = "(46.25 / 120)";
                 visionmode[] = {"Normal"};
-                thermalmode[] = {0,1};
-                directionStabilized = 1;
-                minanglex = -60;
-                maxanglex = 30;
-                minangley = -120;
-                maxangley = 120;
-                initanglex = 0;
-                initangley = 0;
                 opticsdisplayname = "W";
             };
             class A3ti_Medium: A3ti_Wide
