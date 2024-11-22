@@ -57,7 +57,7 @@ private _radius      = 0.27;
 {
     _x params ["_state", "_object","_iconClass"];
     private _bearing = _heli getRelDir _object;
-    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
+    if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
     if (_state <= ASE_ACQ) then {continue;};
     _linesArray pushBack [_bearing];

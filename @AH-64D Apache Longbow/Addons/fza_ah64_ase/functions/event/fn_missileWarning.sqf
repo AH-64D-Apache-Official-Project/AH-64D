@@ -38,7 +38,7 @@ private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_fnc_bearingC
 
 _heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) exitWith {
-    [_heli, ASE_MSL, _hostile, "fza_ah64_launch", 0.6, "fza_ah64_launch", 0.6, _dirAud, 1] call fza_audio_fnc_addASEMessage;
+    [_heli, ASE_MSL, _hostile, "fza_ah64_missile", 0.6, "fza_ah64_missile", 0.6, _dirAud, 1] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };
