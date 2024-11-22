@@ -39,7 +39,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
 //RLWR
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
-private _rlwrCount = count(_heli getVariable "fza_ah64_ase_rlwrObjects");
+private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrcount";
 _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
 
 //Mission equipment 
@@ -52,14 +52,14 @@ _heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_AMERICAN), _msn_equip_ameri
 //ASE Points
 private _pointsArray = [];
 private _linesArray  = [];
-private _aseObjects  = _heli getVariable "fza_ah64_ase_rlwrObjects";
+private _aseObjects  = _heli getVariable "fza_ah64_ase_objects";
 private _radius      = 0.27;
 {
-    _x params ["_state", "_objectPos","_iconClass"];
-    private _bearing = _heli getRelDir _objectPos;
+    _x params ["_state", "_object","_iconClass"];
+    private _bearing = _heli getRelDir _object;
     if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_radius * sin _bearing + 0.5, -_radius * cos _bearing + 0.5, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
-    if (_state < 2) then {continue;};
+    if (_state <= ASE_ACQ) then {continue;};
     _linesArray pushBack [_bearing];
 } forEach _aseObjects;
 

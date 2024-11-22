@@ -35,6 +35,9 @@ switch (_irJamData#0) do {
     case ASE_IRJAM_STATE_OFF: {
         if (_irJamPwr == ASE_MSNEQUIP_STATE_ON) then {
             _irJamData set [0, ASE_IRJAM_STATE_WARM];
+            if (_heli animationPhase "msn_equip_british" == 1) then {
+                _irJamData set [0, ASE_IRJAM_STATE_OPER];
+            };
             _heli setVariable ["fza_ah64_ase_irJamState", _irJamData];
         };
     };
