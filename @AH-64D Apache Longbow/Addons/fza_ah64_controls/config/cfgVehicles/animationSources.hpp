@@ -456,4 +456,29 @@ class AnimationSources
     {
         source = "user";
     };
+    //wheels
+    class damper_left {
+        source="damper";
+        wheel="wheel_1";
+    };
+    class damper_right {
+        source="damper";
+        wheel="wheel_2";
+    };
+    class damper_rear {
+        source="damper";
+        wheel="wheel_3";
+    };
+    class wheel_1_1_source {
+        source="wheel";
+        wheel="wheel_1";
+    };
+    class wheel_1_2_source {
+        source="wheel";
+        wheel="wheel_2";
+    };
+    class wheel_2_1_source {
+        source="wheel";
+        wheel="wheel_3";
+    };
 };
