@@ -326,16 +326,16 @@ class ase_draw {
                     };\
                 };\
             };
-
-            ASE_AZ(01, MFD_IND_ASE_01_AZ)
-            ASE_AZ(02, MFD_IND_ASE_02_AZ)
-            ASE_AZ(03, MFD_IND_ASE_03_AZ)
-            ASE_AZ(04, MFD_IND_ASE_04_AZ)
-            ASE_AZ(05, MFD_IND_ASE_05_AZ)
-            ASE_AZ(06, MFD_IND_ASE_06_AZ)
-            ASE_AZ(07, MFD_IND_ASE_07_AZ)
         };
     };
+
+    ASE_AZ(01, MFD_IND_ASE_01_AZ)
+    ASE_AZ(02, MFD_IND_ASE_02_AZ)
+    ASE_AZ(03, MFD_IND_ASE_03_AZ)
+    ASE_AZ(04, MFD_IND_ASE_04_AZ)
+    ASE_AZ(05, MFD_IND_ASE_05_AZ)
+    ASE_AZ(06, MFD_IND_ASE_06_AZ)
+    ASE_AZ(07, MFD_IND_ASE_07_AZ)
 
     //Ownship Icon
     class lines_ownshipIcon {

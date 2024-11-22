@@ -179,12 +179,12 @@ if (count _fcrTargets > 0) then {
 //ASE Points
 private _ctrX       = 0.5;  
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
-private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
+private _aseObjects = _heli getVariable "fza_ah64_ase_objects";
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
     if !_showRLWR exitWith {};
-    _x params ["_state", "_objectPos","_iconClass"];
-    private _bearing = _heli getRelDir _objectPos;
+    _x params ["_state", "_object","_iconClass"];
+    private _bearing = _heli getRelDir _object;
     if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
