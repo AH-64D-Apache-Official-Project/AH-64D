@@ -146,7 +146,7 @@ private _projName = "AH-64D Official Project";
     "SLIDER",
     ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
     [_projName, "TADS Controls"],
-    [0, 2, 1, 1],
+    [0, 1, 0.5, 1],
     0
 ] call CBA_fnc_addSetting;
 

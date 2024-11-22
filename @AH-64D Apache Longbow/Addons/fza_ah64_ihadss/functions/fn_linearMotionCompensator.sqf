@@ -12,45 +12,39 @@ Returns:
 Examples:
 
 Author:
-    Snow(Dryden), Ampersand
+    BradMick, Snow(Dryden), Ampersand
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli", "_deltaTime"];
 
-#define INPUT_MAX 5.0
+#define INPUT_MAX 10.0
 
 if !(_heli getVariable "fza_ah64_LmcActive") exitwith {
-    _heli setVariable ["fza_ah64_lmcConstant", [0, 0]];
+    _heli setVariable ["fza_ah64_lmcPrevInputs", [0, 0]];
     _heli setVariable ["fza_ah64_lmcStartRange", -1];
     _heli setVariable ["fza_ah64_lmcRange", 3000];
     _heli setVariable ["fza_ah64_lmcPosition", []];
 };
 private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
-if (_sight != SIGHT_tads || !(local gunner _heli)) exitwith {};
+if (_sight != SIGHT_tads || (player != gunner _heli)) exitwith {};
 
-(_heli getVariable "fza_ah64_lmcConstant") params ["_azimuthC", "_elevationC"];
+(_heli getVariable "fza_ah64_lmcPrevInputs") params ["_prevInputX", "_prevInputY"];
 private _lmcStartRange = _heli getVariable "fza_ah64_lmcStartRange";
 private _lmcPosition = _heli getVariable "fza_ah64_lmcPosition";
 
-private _fovVal = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
-private _inputX = [((((inputAction "AimRight" - inputAction "AimLeft")) * ((fza_ah64_LMCSensitivity * 10) * _deltaTime)) * _fovVal + _azimuthC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
-private _inputY = [(((inputAction "AimUp" - inputAction "AimDown") * ((fza_ah64_LMCSensitivity * 10) * _deltaTime)) * _fovVal + _elevationC), -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+private _lmcSensitivity = linearConversion [0.0, 1.0, fza_ah64_LMCSensitivity, 1.0, 20.0];
+private _fovScalar      = fza_ah64_tadsFOVs select (_heli getTurretOpticsMode [0]);
 
-_heli setVariable ["fza_ah64_lmcConstant", [_inputX, _inputY]];
+//Get the velocities of the aircraft on the respective axes
+private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+private _velYZ = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
 
-#ifdef __A3_DEBUG__
-drawIcon3D [
-    "a3\ui_f\data\Map\Markers\Military\circle_CA.paa",
-    [1, 1, 1, 1],
-    positionCameraToWorld [_inputX, _inputY, 10],
-    1, 1, 0
-];
-#endif
-
-//AUTO RANGING USING ATL ON 2D Model
+//Get range
 private _tadsPosition  = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
 private _tadsAimPos    = _heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin");
 private _tadsDirection = (_tadsPosition vectorFromTo _tadsAimPos) vectorMultiply 50000;
 _tadsDirection call CBA_fnc_vect2Polar Params ["","","_elevation"];
+private _elevation = _elevation min -EPSILON;
 private _autorange = [(asltoagl _tadsPosition)#2 /sin(-_elevation),0,50000] call BIS_fnc_clamp;
 
 private _range = -1;
@@ -65,11 +59,25 @@ if (_laserPos isnotEqualTo [0,0,0]) then {
 if (_range == -1) then {
     _range = _heli getVariable "fza_ah64_lmcRange";
 };
+_range         = _range max 500;
 _heli setVariable ["fza_ah64_lmcRange", _range];
 if (_lmcStartRange == -1) then {
     _heli setVariable ["fza_ah64_lmcStartRange", _range];
     _lmcStartRange = _range;
 };
+
+//Calculate the angular velocity
+private _angVelHorizontal = _velXY / _range;
+private _angVelVertical   = _velYZ / _range;
+
+//Get horizontal input
+private _inputX = ((((inputAction "AimRight" - inputAction "AimLeft") - _angVelHorizontal) * _lmcSensitivity) * _fovScalar) * _deltaTime +  _prevInputX;
+_inputX         = [_inputX, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+//Get vertical input
+private _inputY = ((((inputAction "AimUp" - inputAction "AimDown")    + _angVelVertical)   * _lmcSensitivity) * _fovScalar) * _deltaTime + _prevInputY;
+_inputY         = [_inputY, -INPUT_MAX, INPUT_MAX] call BIS_fnc_clamp;
+
+_heli setVariable ["fza_ah64_lmcPrevInputs", [_inputX, _inputY]];
 
 private _rangeScale =  _lmcStartRange / _range^2;
 
@@ -77,7 +85,6 @@ private _rangeScale =  _lmcStartRange / _range^2;
 private _deltaY = vectorNormalized [_inputX * _rangeScale, 1, _inputY * _rangeScale];
 private _deltaX = _deltaY vectorCrossProduct [0, 0, 1];
 private _deltaZ = _deltaX vectorCrossProduct _deltaY;
-
 
 // Get TADS orientation
 if (_lmcPosition isEqualTo []) then {
@@ -91,19 +98,6 @@ if (_lmcPosition isEqualTo []) then {
     [_tadsX, _tadsY, _tadsZ]
 } params ["_tadsX", "_tadsY", "_tadsZ"];
 
-#ifdef __A3_DEBUG__
-    private _pos = ASLToAGL _tadsPosition;
-    {
-        _colour = [0, 0, 0, 1];
-        _colour set [_forEachIndex , 1];
-        drawLine3D [
-            _pos,
-            _pos vectorAdd (_heli vectorModelToWorldVisual (_x vectorMultiply _range)),
-            _colour
-        ];
-    } forEach [_tadsX, _tadsY, _tadsZ];
-#endif
-
 // Rotate
 private _m = matrixTranspose [_tadsX, _tadsY, _tadsZ];
 [[1, 0, 0], [0, 1, 0], [0, 0, 1]] matrixMultiply _m params ["_vX", "_vY", "_vZ"];
@@ -113,20 +107,5 @@ _m = matrixTranspose [_vX, _vY, _vZ];
 _newY = _newY vectorMultiply _range;
 _lmcPosition = _tadsPosition vectorAdd (_heli vectorModelToWorldVisual _newY);
 _heli setVariable ["fza_ah64_lmcPosition", _lmcPosition];
-
-#ifdef __A3_DEBUG__
-    hintSilent str [_lmcPosition];
-    drawIcon3D [
-        "\a3\ui_f\data\Map\MarkerBrushes\cross_ca.paa",
-        [1, 0, 0, 1],
-        ASLToAGL _lmcPosition,
-        1, 1, 0
-    ];
-    drawLine3D [
-        ASLToAGL _tadsPosition,
-        ASLToAGL _lmcPosition,
-        [1, 0, 0, 1]
-    ];
-#endif
 
 _heli lockCameraTo [_lmcPosition, [0], true];
