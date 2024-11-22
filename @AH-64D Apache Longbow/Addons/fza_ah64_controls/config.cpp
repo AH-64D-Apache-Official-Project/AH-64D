@@ -32,7 +32,6 @@ class CfgAddons
 #include "config\misc.hpp"
 
 #include "config\CfgAnimationSourceSounds.hpp"
-#include "config\CfgSounds.hpp"
 #include "config\CfgMoves.hpp"
 #include "config\CfgNonAIVehicles.hpp"
 #include "config\CfgVehicles.hpp"
@@ -40,12 +39,6 @@ class CfgAddons
 
 #include "config\CfgFunctions.hpp"
 #include "config\extendedEventHandlers.hpp"
-
-#include "config\CfgSound3DProcessors.hpp"
-#include "config\CfgSoundCurves.hpp"
-#include "config\cfgDistanceFilters.hpp"
-#include "config\CfgSoundShaders.hpp"
-#include "config\CfgSoundSets.hpp"
 
 #include "config\CfgUserActions.hpp"
 #include "config\UserActionGroups.hpp"

@@ -33,8 +33,6 @@ switch(_control) do {
         if (!_apuBtnOn && _battBusOn) then {
             [_heli] call fza_systems_fnc_interactAPUButton;
             playsound "fza_ah64_apubutton";
-            [_heli] spawn fza_fnc_fxLoops;
-            [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
         } else {
             if (_apuBtnOn) then {
                 [_heli] call fza_systems_fnc_interactAPUButton;
@@ -48,20 +46,16 @@ switch(_control) do {
                 if (_e2state in ENGINE_STATE_USING_STARTER) then {
                     [_heli, 1, ENGINE_CONTROL_STARTER] spawn fza_fnc_engineSetPosition;
                 };
-                [_heli, ["fza_ah64_apustop_3D", 100]] remoteExec["say3d"];
             };
         };
     };
     case "power": {
         if (_battSwitchOn) then {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli] spawn fza_fnc_fxLoops;
-            playsound "fza_ah64_battery";
         } else {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
-            playsound "fza_ah64_battery";
         };
+        playsound "fza_ah64_battery";
     };
     
     case "rtrbrake": {
