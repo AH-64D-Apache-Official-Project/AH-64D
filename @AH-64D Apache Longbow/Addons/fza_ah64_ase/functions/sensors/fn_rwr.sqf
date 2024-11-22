@@ -35,7 +35,6 @@ params ["_heli"];
                 _launching pushBack _launcher;
                 _rwrObjects deleteAt (_rwrObjects findIf {_x isEqualTo _launcher;});
                 [_heli, _launcher, ASE_LNC] call fza_ase_fnc_classification params ["_soundclass","_iconClass"];
-                systemchat str _iconClass;
                 _rwrObjects pushBack [ASE_LNC, _object, _iconClass];
                 continue;
             };
