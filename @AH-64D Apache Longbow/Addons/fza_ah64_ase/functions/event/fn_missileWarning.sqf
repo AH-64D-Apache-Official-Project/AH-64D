@@ -33,12 +33,12 @@ waitUntil {(_heli distance _missile <= ASE_DETECT_RANGE_M);};
 private _rlwrPwr  = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
-private _theta = _heli getRelDir getpos _missile;
+private _theta = _heli getRelDir _missile;
 private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_fnc_bearingClock];
 
 _heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) exitWith {
-    [_heli, ASE_MSL, _hostile, "fza_ah64_launch", 0.65, "fza_ah64_launch", 0.65, _dirAud, 1.3] call fza_audio_fnc_addASEMessage;
+    [_heli, ASE_MSL, _hostile, "fza_ah64_launch", 0.6, "fza_ah64_launch", 0.6, _dirAud, 1] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };
@@ -47,7 +47,7 @@ if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_Briti
 [_heli, _hostile] call fza_ase_fnc_classification params ["_soundclass"];
 private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
 if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == ASE_RLWR_STATE_ON) exitWith {
-    [_heli, ASE_LNC, _hostile, _soundclass, 1, _dirAud, 1.3, "fza_ah64_launch", 0.65] call fza_audio_fnc_addASEMessage;
+    [_heli, ASE_LNC, _hostile, _soundclass, 1, _dirAud, 1.3, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };

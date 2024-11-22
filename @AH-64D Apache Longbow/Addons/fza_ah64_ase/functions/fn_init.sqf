@@ -29,7 +29,8 @@ if (!(_heli getVariable ["fza_ah64_aseInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_ase_chaffState",       ASE_CHAFF_STATE_SAFE,   true];
     //--RLWR        - Aircraft Common
     _heli setVariable ["fza_ah64_ase_rlwrPwr",          ASE_RLWR_STATE_OFF,     true];
-    _heli setVariable ["fza_ah64_ase_rlwrObjects",      [],                     true];
+    _heli setVariable ["fza_ah64_ase_objects",          [],                     true];
+    _heli setVariable ["fza_ah64_ase_rlwrcount",        [],                     true];
     //--IR Jammer   - Aircraft Common
     _heli setVariable ["fza_ah64_ase_msnEquipPwr",      ASE_MSNEQUIP_STATE_OFF, true];
     _heli setVariable ["fza_ah64_ase_irJamState",       [0,0,0],                true];
