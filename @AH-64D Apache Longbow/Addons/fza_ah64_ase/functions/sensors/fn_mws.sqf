@@ -22,7 +22,7 @@ params ["_heli"];
 
 private _mwsObjects = [];
 
-private _mwsDetected = nearestObjects [_heli, ["missilebase", "rocketbase"], 3000] apply {
+nearestObjects [_heli, ["missilebase", "rocketbase"], 3000] apply {
     if (abs([_x getRelDir _heli] call CBA_fnc_simplifyAngle180) > 20) then {continue;};
     _heliToMsl = (getPosASL _heli) vectorFromTo getPosASL _x;
     _vectorModel = _heli vectorWorldToModelVisual _heliToMsl;

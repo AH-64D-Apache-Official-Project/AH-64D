@@ -34,13 +34,14 @@ if (_dcBusOn) then {
         _heli setVariable ["fza_ah64_ase_updateTimer", CBA_missionTime];
 
         [_heli] call fza_ase_fnc_rwr params [["_rwrObjects", []], ["_rwrAudio", []]];
+        [_heli] call fza_ase_fnc_lwr params [["_lwrObjects", []], ["_lwrAudio", []]];
         [_heli] call fza_ase_fnc_mws params [["_mwsObjects", []]];
-        if (_rlwrPwr == ASE_RLWR_STATE_OFF) then {_rwrObjects = [];};
+        if (_rlwrPwr == ASE_RLWR_STATE_OFF) then {_lwrObjects = []; _rwrObjects = [];};
         if !_mwsPwr then {_mwsObjects = [];};
 
-        _heli setVariable ["fza_ah64_ase_objects", (_rwrObjects + _mwsObjects)];
-        _heli setVariable ["fza_ah64_ase_rlwrcount", count(_rwrObjects)];
-        [_heli, _rwrAudio] call fza_ase_fnc_audioController;
+        _heli setVariable ["fza_ah64_ase_objects", (_rwrObjects + _lwrObjects + _mwsObjects)];
+        _heli setVariable ["fza_ah64_ase_rlwrcount", count(_rwrObjects + _lwrObjects)];
+        [_heli, (_rwrAudio + _lwrAudio)] call fza_ase_fnc_audioController;
     };
 };
 

@@ -1,4 +1,4 @@
-#define ASE_LSR 5   //Laser
+#define ASE_LSR 5   //Designating
 #define ASE_MSL 4   //Missile
 #define ASE_LNC 3   //Launch
 #define ASE_TRK 2   //Track

@@ -54,12 +54,6 @@ class CfgRadio
         sound[] = {"fza_ah64_us\audio\lb2_rdr_track.ogg",1,1,1};
         title = ;
     };
-    class fza_ah64_bt_sa9
-    {
-        name = "";
-        sound[] = {"fza_ah64_us\audio\betty\bt_sa9c.ogg",1,1,1};
-        title = ;
-    };
     class fza_ah64_bt_sa19
     {
         name = "";

@@ -634,22 +634,6 @@ class FzaIconTypes {
         textB = "3";
     };
     class RLWR_SA3_ACQ_TRK:RLWR_SA3_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    //SA-4
-    class RLWR_SA4_SRH : IconTypeI {
-        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
-        type  = POINT_TYPE_ASE;
-        color[] = MPD_ICON_COLOR_YELLOW;
-        textB = "4";
-    };
-    class RLWR_SA4_ACQ_TRK:RLWR_SA4_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    //SA-5
-    class RLWR_SA5_SRH : IconTypeI {
-        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
-        type  = POINT_TYPE_ASE;
-        color[] = MPD_ICON_COLOR_YELLOW;
-        textB = "5";
-    };
-    class RLWR_SA5_ACQ_TRK:RLWR_SA5_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //SA-8
     class RLWR_SA8_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -799,5 +783,11 @@ class FzaIconTypes {
         type  = POINT_TYPE_ASE;
         color[] = MPD_ICON_COLOR_YELLOW;
         textA = "M";
+    };
+    class RLWR_LSR_DES : IconTypeI {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\GL_ca.paa";
+        tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
     };
 };
