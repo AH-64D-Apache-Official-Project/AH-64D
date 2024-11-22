@@ -36,5 +36,5 @@ if (!(_heli getVariable ["fza_ah64_aseInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_ase_irJamState",       [0,0,0],                true];
     //--Autopage    - Crewstation independent
     _heli setVariable ["fza_ah64_ase_autopage",         ASE_AUTOPAGE_OFF,       true];
-    _heli setVariable ["fza_ah64_ase_data",             [[],[],[]],             true];
+    _heli setVariable ["fza_ah64_ase_data",             [[],[],[],[]],             true];
 };

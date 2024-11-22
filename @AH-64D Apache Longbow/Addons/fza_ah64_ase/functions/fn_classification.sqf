@@ -49,6 +49,10 @@ switch (_state) do {
         _unitType   = "MSL";
         _unitStatus = "LNC";
     };
+    case ASE_LSR: {
+        _unitType   = "LSR";
+        _unitStatus = "DES";
+    };
 };
 
 private _ident = (["RLWR", _unitType,_unitStatus]) joinString "_";

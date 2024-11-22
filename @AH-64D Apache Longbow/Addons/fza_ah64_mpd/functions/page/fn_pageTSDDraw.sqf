@@ -185,7 +185,7 @@ private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
     if !_showRLWR exitWith {};
     _x params ["_state", "_object","_iconClass"];
     private _bearing = _heli getRelDir _object;
-    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
+    if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];

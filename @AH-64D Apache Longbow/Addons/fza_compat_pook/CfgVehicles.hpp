@@ -2,6 +2,7 @@ class CfgVehicles {
     class pook_NASAMS_battery_BASE;
     class pook_SA20_static_base;
     class pook_30N6E2_Root;
+    class pook_PRV11_base;
     class pook_92N6E_Root;
     class pook_5P85S_Base;
     class pook_P12_root;
@@ -71,22 +72,6 @@ class CfgVehicles {
     class pook_SA3_static_root: StaticAAWeapon {
         fza_aseClass = "SA3";
         fza_aseIcon = "SA3";
-    };
-    class pook_1S32_Base: Tank_F {
-        fza_aseClass = "SA4";
-        fza_aseIcon = "SA4";
-    };
-    class pook_2P24_Base: Tank_F {
-        fza_aseClass = "SA4";
-        fza_aseIcon = "SA4";
-    };
-    class pook_1S12_Base: Tank_F {
-        fza_aseClass = "SA4";
-        fza_aseIcon = "SA4";
-    };
-    class pook_PRV11_base: StaticAAWeapon {
-        fza_aseClass = "SA5";
-        fza_aseIcon = "SA5";
     };
     class pook_PRV16_base: pook_PRV11_base {
         fza_aseClass = "SA8";
