@@ -38,6 +38,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_tadsLHGFov_M[] = {0x38130003};
             fza_ah64_tadsLHGFov_N[] = {0x38130004};
             fza_ah64_tadsLHGFov_Z[] = {0x38130005};
+            fza_ah64_tadsLHGLmc[] = {0x1D130014};
             fza_ah64_SensorSelect_FLIR[] = {0x1D130031};
             fza_ah64_SensorSelect_DTV[] = {0x2A130031};
         };

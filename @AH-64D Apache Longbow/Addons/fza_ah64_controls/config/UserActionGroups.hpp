@@ -38,7 +38,8 @@ class UserActionGroups
             fza_ah64_tadsLHGFov_N,
             fza_ah64_tadsLHGFov_Z,
             fza_ah64_SensorSelect_FLIR,
-            fza_ah64_SensorSelect_DTV
+            fza_ah64_SensorSelect_DTV,
+            fza_ah64_tadsLHGLmc
         };
     };
     class fza_ah64_cockpit
