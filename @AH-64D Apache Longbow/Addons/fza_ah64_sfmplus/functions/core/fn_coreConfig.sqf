@@ -76,8 +76,8 @@ _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.0000, 0.00000, 0.0000] c
 
 //Aerodynamic State Variables
 _heli setVariable ["fza_sfmplus_aero_alpha",         0.0];
-_heli setVariable ["fza_sfmplus_aero_sideslip",      0.0];
-_heli setVariable ["fza_sfmplus_aero_beta",          0.0];
+_heli setVariable ["fza_sfmplus_aero_beta_deg",      0.0];
+_heli setVariable ["fza_sfmplus_aero_beta_g",        0.0];
 _heli setVariable ["fza_sfmplus_aero_gamma",         0.0];
 
 _heli setVariable ["fza_sfmplus_aero_prevVelX",      0.0];

@@ -99,8 +99,8 @@ if (_flightModel == "SFMPlus") then {
 // Fuselage Torque      /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
     private _alpha    = _heli getVariable "fza_sfmplus_aero_alpha";
-    private _sideslip = _heli getVariable "fza_sfmplus_aero_sideslip";
-    private _beta     = _heli getVariable "fza_sfmplus_aero_beta";
+    private _beta_deg = _heli getVariable "fza_sfmplus_aero_beta_deg";
+    private _beta_g   = _heli getVariable "fza_sfmplus_aero_beta_g";
     private _gamma    = _heli getVariable "fza_sfmplus_aero_gamma";
 
     private _vScalar  = linearConversion [0.0, VEL_VBE, _v, 0.0, 1.0];
@@ -111,7 +111,7 @@ if (_flightModel == "SFMPlus") then {
                                  ,[  3,  0.000]
                                  ,[ 20,  0.050]
                                  ,[ 90,  0.100]];
-    _interpSidelsipTable       = [_sideslipTable, _sideslip] call fza_fnc_linearInterp;
+    _interpSidelsipTable       = [_sideslipTable, _beta_deg] call fza_fnc_linearInterp;
     _interpSideslipVal         = _interpSidelsipTable select 1;
 
     private _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpSideslipVal * 25000) * _vScalar);
@@ -130,7 +130,7 @@ if (_flightModel == "SFMPlus") then {
    private _fuselagePitchTorque = [1.0, 0.0, 0.0] vectorMultiply ((_interpGammaVal * 25000) * _vScalar);
 
 
-    //systemChat format ["_gamma = %1 -- _sideslip = %2 -- _vScalar = %3", _gamma, _sideslip, _vScalar];
+    //systemChat format ["_gamma = %1 -- _beta_deg = %2 -- _vScalar = %3", _gamma, _beta_deg, _vScalar];
     //systemChat format ["_interpBetaTable = %1 -- _interpBetaVal %2", _interpBetaTable select 1 toFixed 3, _interpBetaVal tofixed 3];
     //systemChat format ["_interpGammaTable = %1 -- _interpGammaVal %2", _interpGammaTable select 1 toFixed 3, _interpGammaVal tofixed 3];
 
