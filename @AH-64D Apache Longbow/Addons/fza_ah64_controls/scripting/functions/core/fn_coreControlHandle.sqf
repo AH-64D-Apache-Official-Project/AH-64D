@@ -238,7 +238,7 @@ if (_value) then {
                 _heli setvariable ["fza_ah64_tadsZoom", 0];
             };
         };
-        case "vehLockTurretView": {
+        case "fza_ah64_tadsLHGLmc": {
             if (player != gunner _heli) exitWith {};
             private _lmc = _heli getvariable "fza_ah64_LmcActive";
             _heli setVariable ["fza_ah64_LmcActive", !_lmc, true];

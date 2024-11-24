@@ -62,7 +62,7 @@ switch (_sight) do {
                 _targPos = aimPos _nts;
                 _targVel = velocity _nts;
             };
-            _heli lockCameraTo [_targPos, [0]];
+            _heli lockCameraTo [_targPos, [0], false];
         };
         _heli lockCameraTo [_targpos, [0], false];
         _inhibit = "NO TARGET";
@@ -70,7 +70,7 @@ switch (_sight) do {
     case SIGHT_HMD:{
         _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
         if (cameraView == "GUNNER") exitwith {
-            _heli lockCameraTo [objNull, [0]];
+            _heli lockCameraTo [objNull, [0], false];
         };
         _heli lockCameraTo [_targPos, [0], false];
     };
