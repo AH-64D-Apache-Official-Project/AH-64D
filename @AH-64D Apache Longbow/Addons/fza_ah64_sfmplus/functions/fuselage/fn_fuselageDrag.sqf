@@ -62,13 +62,14 @@ if (_flightModel == "SFMPlus") then {
 } else {
     //-------------------------------PA   -40   -20     0    20    40
     private _heliSimDragTableY = [
-                                  [    0,0.0220,0.0170,0.0145,0.0125,0.0100]  
-                                 ,[ 2000,0.0255,0.0210,0.0185,0.0145,0.0140]  
-                                 ,[ 4000,0.0260,0.0250,0.0185,0.0185,0.0185]  
-                                 ,[ 6000,0.0260,0.0225,0.0205,0.0205,0.0240]  
-                                 ,[ 8000,0.0235,0.0200,0.0250,0.0230,0.0310] 
+                                  [    0,0.90,0.75,0.60,0.55,0.50]   
+                                 ,[ 2000,1.10,0.95,0.75,0.70,0.60]   
+                                 ,[ 4000,1.15,1.00,0.85,0.70,0.75]   
+                                 ,[ 6000,1.20,1.05,1.00,0.95,0.95]   
+                                 ,[ 8000,1.15,0.95,0.90,1.10,1.10] 
                                  ];
-    /*
+    
+                                 /*
     DRAG_TABLE =[ 
     [     0,0.00,0.00,0.00,0.01,0.00]  
     ,[ 2000,0.00,0.00,0.00,0.01,0.00]  
@@ -92,7 +93,7 @@ if (_flightModel == "SFMPlus") then {
 
     private _dragVector = _relativeWind;
     _dragVector         = vectorNormalized _dragVector;
-    _dragVector         = _dragVector vectorMultiply _drag;
+    _dragVector         = _dragVector vectorMultiply (_drag * _deltaTime);
 
     _heli addForce[_heli vectorModelToWorld _dragVector, _heliCOM];
 /////////////////////////////////////////////////////////////////////////////////////////////
