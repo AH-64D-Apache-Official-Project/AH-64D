@@ -39,8 +39,9 @@ while {player != vehicle player && alive player && alive _heli} do {
 
     if (_aseMsg isNotEqualTo "") then {
         _done = _aseMsg spawn fza_audio_fnc_playaudio;
-        waitUntil {scriptDone _done};
+        sleep 1;
         _heli setvariable ["fza_audio_ase_message", ""];
+        waitUntil {scriptDone _done};
         continue;
     };
     if (_wrnMsg isNotEqualTo "") then {

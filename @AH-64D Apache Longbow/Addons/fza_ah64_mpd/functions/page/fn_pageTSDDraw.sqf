@@ -3,6 +3,7 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_mpd\headers\tsd.hpp"
 #include "\fza_ah64_dms\headers\constants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 
 private _phase          = BOOLTONUM(_persistState get "mode" == "atk");
 private _rangesetting   = _persistState get "tsdScale";
@@ -23,7 +24,7 @@ private _wind_text = format["%1° /%2", [_windDir, 3] call CBA_fnc_formatNumber,
 if (_windvel < 5) then {_wind_text = "  CALM  ";};
 
 //ASE footprint
-private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == "off");
+private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];
 
 //TSD Centering
@@ -178,18 +179,16 @@ if (count _fcrTargets > 0) then {
 //ASE Points
 private _ctrX       = 0.5;  
 private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
-private _aseObjects = _heli getVariable "fza_ah64_ase_rlwrObjects";
-private _rlwrPower = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
+private _aseObjects = _heli getVariable "fza_ah64_ase_objects";
+private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {
-    _x params ["_state", "_object", "_classification"];
+    if !_showRLWR exitWith {};
+    _x params ["_state", "_object","_iconClass"];
     private _bearing = _heli getRelDir _object;
-    if !_rlwrPower exitWith {};
-    _ident = [_state, _classification] call fza_ase_fnc_rlwrGetIdent;
-    if (([] call fza_mpd_fnc_iconBlink) && _state >= ASE_LNC) then {continue;};
-    if (_ident == "") then {continue;};
+    if (([] call fza_mpd_fnc_iconBlink) && (_state >= ASE_LNC && _state != ASE_LSR)) then {continue;};
     ([_ctrX, _ctrY, 0.23, 0.77, 0.23, 0.77, _bearing] call fza_mpd_fnc_bearingToScreen)
         params ["_screenX", "_screenY"];
-    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _ident];
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
 } forEach _aseObjects;
 
 [_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;

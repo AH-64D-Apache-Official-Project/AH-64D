@@ -651,6 +651,15 @@ class FzaIconTypes {
         textB = "0";
     };
     class RLWR_SA10_ACQ_TRK:RLWR_SA10_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //SA-11
+    class RLWR_SA11_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1";
+        textB = "1";
+    };
+    class RLWR_SA11_ACQ_TRK:RLWR_SA11_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //SA-15
     class RLWR_SA15_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -750,11 +759,35 @@ class FzaIconTypes {
         textB = "U";
     };
     class RLWR_ZU_ACQ_TRK:RLWR_ZU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
-    //SR
+    //ST
+    class RLWR_ST_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "S";
+        textB = "T";
+    };
+    class RLWR_ST_ACQ_TRK:RLWR_ST_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //VU
+    class RLWR_VU_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "V";
+        textB = "U";
+    };
+    class RLWR_VU_ACQ_TRK:RLWR_VU_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    
     class RLWR_MSL_LNC : IconTypeB {
         tex = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";
         type  = POINT_TYPE_ASE;
         color[] = MPD_ICON_COLOR_YELLOW;
         textA = "M";
+    };
+    class RLWR_LSR_DES : IconTypeI {
+        tex = "\fza_ah64_mpd\tex\tsdIcons\controlMeasures\general\GL_ca.paa";
+        tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
     };
 };

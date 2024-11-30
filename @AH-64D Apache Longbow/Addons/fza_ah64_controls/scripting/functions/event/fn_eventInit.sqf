@@ -97,25 +97,22 @@ if !(isMultiplayer) then {
     _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
 };
 
-if (!(_heli getVariable ["fza_ah64_controlHInitilised", false]) && local _heli) then { // Build data
-    _heli setVariable ["fza_ah64_controlHInitilised", true, true];
 
-    #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, movable) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name, movable]
-    #define COCKPIT_CONTROL_SEP ,
-    private _data =  [
-        #include "\fza_ah64_controls\headers\controls.h"
-    ];
-    
-    private _controls = [];
-    {
-        _x params [["_pilotPos", ""], ["_gunnerPos", ""], "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
-        if (_pilotPos != "" && !_movable) then {
-            _pilotPos = _heli selectionposition _pilotPos;
-        };
-        if (_gunnerPos != "" && !_movable) then {
-            _gunnerPos = _heli selectionposition _gunnerPos;
-        };
-        _controls pushback [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _movable];
-    } foreach _data;
-    _heli setvariable ["fza_ah64_objectsDataArray", _controls];
-};
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, movable) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name, movable]
+#define COCKPIT_CONTROL_SEP ,
+private _data =  [
+    #include "\fza_ah64_controls\headers\controls.h"
+];
+
+private _controls = [];
+{
+    _x params [["_pilotPos", ""], ["_gunnerPos", ""], "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
+    if (_pilotPos != "" && !_movable) then {
+        _pilotPos = _heli selectionposition _pilotPos;
+    };
+    if (_gunnerPos != "" && !_movable) then {
+        _gunnerPos = _heli selectionposition _gunnerPos;
+    };
+    _controls pushback [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _movable];
+} foreach _data;
+_heli setvariable ["fza_ah64_objectsDataArray", _controls];
