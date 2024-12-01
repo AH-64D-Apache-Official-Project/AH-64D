@@ -28,9 +28,21 @@ _this call fza_cannon_fnc_fired;
 _this call fza_hydra_fnc_fired;
 
 //Damages any outside occupants if wing stores used
-if (!(_weapon == "fza_m230")) then {
-    {
-        _x setdamage((damage _x) + 0.05);
-    }
-    foreach(crew _heli - [gunner _heli, driver _heli]);
-};
+{
+    _x params ["_unit"];
+    switch _weapon do {
+        case (_x iskindof "fza_hydra70"): {
+            [_unit, 0.12, (selectRandom ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"]), "thermalburn", _unit] call ace_medical_fnc_addDamageToUnit;
+            [_unit, 0.1] call ace_medical_fnc_adjustPainLevel;
+        };
+        case (_x iskindof "fza_hellfire"): {{
+                [_unit, 0.3, _x, "backblast", _unit] call ace_medical_fnc_addDamageToUnit;
+            } foreach ["Head", "Body", "LeftArm", "RightArm", "LeftLeg", "RightLeg"];
+            [_unit, 0.3] call ace_medical_fnc_adjustPainLevel;
+        };
+        case (_x iskindof "fza_m230"): {
+            [_unit, 0.1] call ace_medical_fnc_adjustPainLevel;
+        };
+    };  
+}
+foreach(crew _heli - [gunner _heli, driver _heli]);
