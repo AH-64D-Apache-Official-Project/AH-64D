@@ -95,7 +95,7 @@ if (_targPos isequalto [0,0,0] && _sight == SIGHT_TADS) then {
 };
 
 if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
-    private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 600]];
+    private _rocketTable = [[0, 2],[500, 7],[750, 11],[1000, 16],[2000, 50],[3100, 116],[4200, 201],[5300, 313],[6400, 434],[7500, 580]];
     private _elevationComp = ([_rocketTable, _targDistance] call fza_fnc_linearInterp) # 1;
     private _tof = _targDistance * SCALE_KM_METERS * HYDRA_TIME_KM;
     private _aimLocation = _targPos vectorAdd((_targVel vectorDiff velocity _heli) vectorMultiply _tof) vectorAdd[0, 0, _elevationComp];    
