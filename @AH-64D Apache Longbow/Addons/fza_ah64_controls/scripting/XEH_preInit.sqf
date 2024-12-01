@@ -70,6 +70,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableWind",
+    "CHECKBOX",
+    ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmplusEnableTorqueSim",
     "CHECKBOX",
     ["Main Rotor Torque Simulation", "Turns off main rotor torque simulation to prevent the nose from turning right when collective is increased. Meant for users who fly mouse & keyboard and do not have rudder pedals."],

@@ -1,15 +1,8 @@
-params ["_inVec", "_rot"];
+params ["_inVec", "_xAxis", "_yAxis"];
 
-_wingRot 
-    params ["_pitch", "_roll"];
+private _outVec = _inVec;
 
-private _rotMat = [[ cos _pitch, sin _pitch * sin _roll, sin _pitch * cos _roll]
-                  ,[        0.0,              cos _roll,             -sin _roll]
-                  ,[-sin _pitch, cos _pitch * sin _roll, cos _pitch * cos _roll]];
+_outVec = [_outVec, [1.0, 0.0, 0.0], _xAxis] call fza_sfmplus_fnc_quaternion;
+_outVec = [_outVec, [0.0, 1.0, 0.0], _yAxis] call fza_sfmplus_fnc_quaternion;
 
-private _temp = [[_inVec # 0], [_inVec # 1], [_inVec # 2]];
-_temp = _rotMat matrixMultiply _temp;
-
-private _outVec = [_temp # 0 # 0, _temp # 1 # 0, _temp # 2 # 0];
-
-[_outVec];
+_outVec;

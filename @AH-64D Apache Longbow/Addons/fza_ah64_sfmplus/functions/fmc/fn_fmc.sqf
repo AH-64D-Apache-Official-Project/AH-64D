@@ -11,4 +11,7 @@ if (!fza_ah64_sfmplusEnableHeadingHold) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 
-[_attHoldCycPitchOut, _attHoldCycRollOut, _hdgHoldPedalYawOut, _altHoldCollOut];
+([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
+    params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
+
+[_attHoldCycPitchOut + _SASPitchOutput, _attHoldCycRollOut + _SASRollOutput, _hdgHoldPedalYawOut + _SASYawOutput, _altHoldCollOut];

@@ -48,6 +48,7 @@ class CfgFunctions
             class fmcForceTrimSet {R;};
             class fmcHeadingHold {R;};
             class fmcHoldModesDisable {R;};
+            class fmcSAS {R;};
         };
         class fuel {
             file = "\fza_ah64_sfmplus\functions\fuel";
@@ -70,6 +71,14 @@ class CfgFunctions
             class massUpdateMagazine {R;};
             class massUpdateStation {R;};
         };
+        class mathQuaternion {
+            file = "\fza_ah64_sfmplus\functions\math\quaternion";
+            class quaternion {R;};
+            class quaternionConjugate {R;};
+            class quaternionFromVec3 {R;};
+            class quaternionMultiply {R;};
+            class quaternionNormalize {R;};
+        };
         class performance {
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
@@ -84,10 +93,11 @@ class CfgFunctions
         };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
-            class calculateAlphaAndBeta {R;};
+            class calculateAeroValues {R;};
             class getAltitude {R;};
             class getInput {R;};
             class getRtrRPM {R;};
+            class getVelocities {R;};
             class getwindDirVel {R;};
             class init {R;};
             class onGround {R;};

@@ -41,9 +41,9 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrThrustScalar_min    = -0.0625;
-private _rtrThrustScalar_max    =  0.0581;
-private _rtrThrustScalar_med    = (_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
+private _rtrThrustScalar_min    = -0.125;
+private _rtrThrustScalar_max    =  0.1162;
+private _rtrThrustScalar_med    = -0.0022;//(_rtrThrustScalar_min + _rtrThrustScalar_max) / 2;
 private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
@@ -75,7 +75,7 @@ if (_bladePitch_cur >= 0.0) then {
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velYZ                      = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
-private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_BEST_ENDURANCE)) ^ (_rtrAirspeedVelocityMod);
+private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velX                      = velocityModelSpace _heli # 0;
 private _inducedVelocityScalar     = 1.0;

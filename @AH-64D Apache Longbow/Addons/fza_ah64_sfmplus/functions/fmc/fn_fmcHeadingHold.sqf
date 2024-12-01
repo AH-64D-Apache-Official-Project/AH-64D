@@ -3,6 +3,9 @@ params ["_heli", "_deltaTime"];
 
 private _pidHdg        = _heli getVariable "fza_sfmplus_pid_hdgHold";
 private _pidTrn        = _heli getVariable "fza_sfmplus_pid_trnCoord";
+//_pidTrn set ["kp", T_KP];
+//_pidTrn set ["ki", T_KI];
+//_pidTrn set ["kd", T_KD];
 
 private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
