@@ -15,7 +15,7 @@ Examples:
     [_heli] call fza_fnc_SimulateBlades;
 
 Author:
-	Rosd6(Dryden), BradMick
+	Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
