@@ -22,6 +22,11 @@ class CfgFunctions
             class aeroStabilator {R;};
             class aeroWing {R;};
         };
+        class animation {
+            file = "\fza_ah64_sfmplus\functions\animiation";
+            class blades {R;};
+            class probes {R;};
+        };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
             class coreConfig {R;};
