@@ -93,11 +93,6 @@ if (local _heli) then {
     } foreach getAllPylonsInfo _heli; 
 };
 
-if !(isMultiplayer) then {
-    _blades = [_heli] execvm "\fza_ah64_controls\scripting\singleplayer\bladerot.sqf";
-};
-
-
 #define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, movable) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name, movable]
 #define COCKPIT_CONTROL_SEP ,
 private _data =  [
