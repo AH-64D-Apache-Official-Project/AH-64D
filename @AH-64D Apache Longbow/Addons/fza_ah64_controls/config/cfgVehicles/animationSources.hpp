@@ -428,7 +428,7 @@ class AnimationSources
     class l_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class l_ads_b : l_ads_p
@@ -442,7 +442,7 @@ class AnimationSources
     class r_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class r_ads_b : r_ads_p

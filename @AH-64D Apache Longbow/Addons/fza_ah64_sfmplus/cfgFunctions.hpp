@@ -23,7 +23,7 @@ class CfgFunctions
             class aeroWing {R;};
         };
         class animation {
-            file = "\fza_ah64_sfmplus\functions\animiation";
+            file = "\fza_ah64_sfmplus\functions\animation";
             class blades {R;};
             class probes {R;};
         };

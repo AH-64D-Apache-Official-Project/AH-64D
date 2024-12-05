@@ -85,7 +85,6 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED
 };
 
 [_heli] call fza_sfmplus_fnc_probes;
-[_heli] call fza_sfmplus_fnc_blades;
 
 #ifdef __A3_DEBUG_
 /*
