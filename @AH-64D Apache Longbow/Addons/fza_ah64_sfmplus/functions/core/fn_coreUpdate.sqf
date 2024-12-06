@@ -84,7 +84,9 @@ if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED
     [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
 };
 
-[_heli] call fza_sfmplus_fnc_probes;
+if !(isMultiplayer) then {
+    [_heli] call fza_sfmplus_fnc_probes;
+};
 
 #ifdef __A3_DEBUG_
 /*

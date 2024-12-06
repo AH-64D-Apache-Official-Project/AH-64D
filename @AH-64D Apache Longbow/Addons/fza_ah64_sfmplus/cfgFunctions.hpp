@@ -24,7 +24,6 @@ class CfgFunctions
         };
         class animation {
             file = "\fza_ah64_sfmplus\functions\animation";
-            class blades {R;};
             class probes {R;};
         };
         class core {
