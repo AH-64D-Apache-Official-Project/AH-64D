@@ -25,6 +25,11 @@ class CfgMagazines {
             #include "pylons\hellfire_sal2.hpp"
         };
     };
+    class fza_agm114_rail : 6Rnd_Missile_AGM_02_F{
+        class mfdElements {
+            #include "pylons\hellfire_sal1.hpp"
+        };
+    };
 
     class fza_275_rocket_base : 6Rnd_Missile_AGM_02_F{
         class mfdElements {

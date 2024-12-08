@@ -9,7 +9,7 @@ class CfgMagazines {
             descriptionShort = dispShort; \
             model = \fza_ah64_us\fza_ah64_auxtank.p3d; \
             count = 1; \
-            hardpoints[] = {"fza_auxTank"}; \
+            hardpoints[] = {"fza_railzone"}; \
             reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \
             weight = 762.5; \
             fza_pylonType = "auxTank"; \

@@ -156,6 +156,44 @@ class Gun {
     };
 };
 
+#define HF_PYLON_RAIL(num, pylonnum, posY, posZ) \
+    class Rail_##num {\
+        type = pylonicon;\
+        pos[] = {{posY, posZ}, 1};\
+        pylon = pylonnum;\
+        name = fza_ah64_M299;\
+    };\
+    
+#define HF_PYLON_RAIL_READY(num, pylonnum, posY, posZ) \
+    class Rail_##num {\
+        type = pylonicon;\
+        pos[] = {{posY, posZ}, 1};\
+        pylon = pylonnum;\
+        name = fza_ah64_M299_inverse;\
+    };\
+
+#define MFD_WPN_HF_PYLON_RAIL(num, posX) \
+    class HellfireRail##num { \
+        class Deselected {\
+            condition =  C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3)));\
+            HF_PYLON_RAIL(1, num, posX + 0.145, 0.43)\
+            HF_PYLON_RAIL(2, num, posX + 0.19,  0.43)\
+            HF_PYLON_RAIL(3, num, posX + 0.145, 0.565)\
+            HF_PYLON_RAIL(4, num, posX + 0.19,  0.565)\
+        };\
+        class Ready: Deselected {\
+            condition =  C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN),3));\
+            HF_PYLON_RAIL_READY(1, num, posX + 0.145, 0.43)\
+            HF_PYLON_RAIL_READY(2, num, posX + 0.19,  0.43)\
+            HF_PYLON_RAIL_READY(3, num, posX + 0.145, 0.565)\
+            HF_PYLON_RAIL_READY(4, num, posX + 0.19,  0.565)\
+        };\
+    };
+MFD_WPN_HF_PYLON_RAIL(1, 0.1)
+MFD_WPN_HF_PYLON_RAIL(5, 0.2)
+MFD_WPN_HF_PYLON_RAIL(9, 0.465)
+MFD_WPN_HF_PYLON_RAIL(13, 0.565)
+
 // Hellfire icons
 #define MFD_WPN_HF_PYLON(num, posX, posY) \
     class HellfirePylon##num { \
@@ -205,7 +243,6 @@ MFD_WPN_HF_PYLON(13, 0.71, 0.43)
 MFD_WPN_HF_PYLON(14, 0.755, 0.43)
 MFD_WPN_HF_PYLON(15, 0.71, 0.565)
 MFD_WPN_HF_PYLON(16, 0.755, 0.565)
-
 // Rocket Pylons
 
 #define MFD_WPN_ROCKET_PYLON(num, posX, posY, selectState1, selectState2, presentIndex, presentState1, presentState2, textInd) \
