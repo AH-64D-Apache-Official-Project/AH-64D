@@ -63,7 +63,7 @@ if (_loblCheckLima#1) then {
     _isActive = true;
     _targetVel = velocity _targObj;
 };
-
+systemchat str _expectedTargetPos;
 _seekerStateParams set [0, _isActive];
 _seekerStateParams set [1, _activeRadarDistance];
 _seekerStateParams set [2, (CBA_missionTime + _timeToActive)];
