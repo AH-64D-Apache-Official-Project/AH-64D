@@ -93,7 +93,7 @@ class CfgFunctions
         };
         class functions
         {
-            file = "\fza_ah64_controls\scripting\functions";
+            file = "\fza_ah64_controls\functions";
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};
