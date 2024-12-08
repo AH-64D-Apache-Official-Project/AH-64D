@@ -32,20 +32,19 @@ if (!_inConstraints) exitWith {[false, false]};
 private _canSee = [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos
     || [_seeker, _targObj, true] call ace_missileguidance_fnc_checkLos;
 
-if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) then {
-    if (_dist >= FCR_LIMIT_MOVING_RANGE || !_canSee) then {[false, false]} else {[true, true]};
-} else {
-    if (_dist <= FCR_LIMIT_FORCE_LOBL_RANGE) then  {
-        [_canSee, _canSee];
-    } else {
-        if (_dist <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            [true, _canSee];
-        } else {
-            if (_dist <= FCR_LIMIT_STATIONARY_RANGE) then {
-                [true, false];
-            } else {
-                [false, false];
-            };
-        };
+if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) exitwith {
+    if (_dist >= FCR_LIMIT_MOVING_RANGE || !_canSee) exitwith {
+        [false, false]
     };
+    [true, true];
 };
+if (_dist <= FCR_LIMIT_FORCE_LOBL_RANGE) exitwith {
+    [_canSee, _canSee];
+};
+if (_dist <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) exitwith {
+    [true, _canSee];
+};
+if (_dist <= FCR_LIMIT_STATIONARY_RANGE) exitwith {
+    [true, false];
+};
+[false, false];
