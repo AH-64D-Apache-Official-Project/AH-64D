@@ -241,6 +241,29 @@ class CfgVehicles
         #include "cfgVehicles\ace.hpp"
         #include "\fza_ah64_fcr\CfgSensors.hpp"
 
+        class UVAnimations {
+            class mpd_pl {
+                type = scale;
+                source = mpd_scale;
+                section = plt_pl_mpd_back;
+                minValue = 1;
+                maxValue = 1;
+                center[] = {0,0};
+                scale0[] = {0.5,0.5};
+                scale1[] = {0.5,0.5};
+            };
+            class mpd_pr: mpd_pl {
+                center[] = {1,0};
+                section = plt_pr_mpd_back;
+            };
+            class mpd_cl: mpd_pl {
+                section = cpg_cl_mpd_back
+            };
+            class mpd_cr: mpd_pr {
+                section = cpg_cr_mpd_back
+            };
+        };
+
         //SFM Variables-------------/
         fza_flightModel = "SFMPlus";
         //SFM Variables-------------/

@@ -1,11 +1,13 @@
-params ["_ctrl"];
+params ["_p", "_side"];
+_p params ["_ctrl"];
 
 private _heli = vehicle player;
 
-
 if ((driver _heli != player && gunner _heli != player) || !(_heli iskindof "fza_ah64base")) exitwith {};
 
-_ctrl ctrlMapSetPosition [0,0,1,1];
+private _xOffset = [0,0.5] select (_side == "right");
+
+_ctrl ctrlMapSetPosition [_xOffset,0,0.5,0.5];
 _ctrl ctrlMapAnimAdd [0, 0.000, [-1000,-1000]];
 ctrlMapAnimCommit _ctrl;
 _ctrl ctrlCommit 0;
@@ -15,8 +17,6 @@ private _ctrlPosTopLeft = _ctrl ctrlMapScreenToWorld [_ctrlPos#0, _ctrlPos#1];
 private _ctrlPosBottomRight = _ctrl ctrlMapScreenToWorld [_ctrlPos#0+_ctrlPos#2, _ctrlPos#1+_ctrlPos#3];
 
 private _ctrlVect = _ctrlPosBottomRight vectorDiff _ctrlPosTopLeft;
-
-private _side = displayUniqueName ctrlParent _ctrl;
 
 private _idx = [0,1] select (_side == "right");
 
