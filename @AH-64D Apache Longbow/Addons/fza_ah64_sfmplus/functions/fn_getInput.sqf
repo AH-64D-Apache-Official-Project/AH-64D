@@ -17,6 +17,7 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
@@ -44,11 +45,13 @@ private _apuOn             = _heli getVariable "fza_systems_apuOn";
 //Cyclic pitch
 private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicFwdAft                = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
 //private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 //Cyclic roll
 private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 //private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 //Pedals
@@ -123,10 +126,15 @@ if (_flightModel == "SFMPlus") then {
 
     //Cyclic and Pedals 
     if (!_isZeus && (!_hydFailure || _emerHydOn)) then {
-        fza_sfmplus_cyclicFwdAft       = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-        fza_sfmplus_cyclicLeftRight    = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+        //if (fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
+        //    fza_sfmplus_cyclicFwdAft       = linearConversion[ -1.0, 1.0, _cyclicFwdAft,    -0.25, 0.25];
+        //    fza_sfmplus_cyclicLeftRight    = linearConversion[ -1.0, 1.0, _cyclicLeftRight, -0.25, 0.25];
+        //} else {
+            fza_sfmplus_cyclicFwdAft       = _cyclicFwdAft;
+            fza_sfmplus_cyclicLeftRight    = _cyclicLeftRight;
+        //};
         if (!_tailRtrFixed) then {
-            fza_sfmplus_pedalLeftRight = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
+            fza_sfmplus_pedalLeftRight = _pedalLeftRight;
         };
     } else {
         fza_sfmplus_cyclicFwdAft    = 0.0;
