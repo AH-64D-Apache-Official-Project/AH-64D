@@ -48,6 +48,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusControlScheme",
+    "LIST",
+    ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard."],
+    [_projName, "Flight model"],
+    [[HOTAS,KEYBOARD],["HOTAS","Keyboard"],1],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusStabilatorEnabled",
     "LIST",
     ["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
