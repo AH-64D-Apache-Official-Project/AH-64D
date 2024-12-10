@@ -9,7 +9,8 @@ private _altHoldCollOut     = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcAltitu
 //Heading Hold
 private _hdgHoldPedalYawOut = [_heli, _deltaTime] call fza_sfmplus_fnc_fmcHeadingHold;
 if (!fza_ah64_sfmplusEnableHeadingHold
-    || fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
+    || fza_ah64_sfmPlusControlScheme == KEYBOARD
+    || fza_ah64_sfmPlusControlScheme == MOUSE) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 

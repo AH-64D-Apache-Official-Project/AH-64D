@@ -101,7 +101,7 @@ _curLongCG  = _curLongMom / _curMass;
 _curLatMom  = _stn1LatMom + _stn2LatMom + _stn3LatMom + _stn4LatMom;
 _curLatCG   = _curLatMom / _curMass;
 
-if (fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
+if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
     _heli setCenterOfMass [0.0, 2.06, -1.34];
 } else {
     _heli setCenterOfMass [_curLatCG, 7.12 - _curLongCG, -1.34];

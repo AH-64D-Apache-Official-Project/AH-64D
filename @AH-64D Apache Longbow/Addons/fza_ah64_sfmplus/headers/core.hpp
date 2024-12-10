@@ -4,6 +4,7 @@
 
 #define HOTAS                   0
 #define KEYBOARD                1
+#define MOUSE                   2
 
 #define ISA_STD                 0
 #define EUROPE_SUMMER           1
