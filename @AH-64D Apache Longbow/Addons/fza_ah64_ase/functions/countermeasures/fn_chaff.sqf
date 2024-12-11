@@ -16,6 +16,7 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_ase\headers\ase.h"
 params ["_heli"];
 
 private _dcBusOn    = _heli getVariable "fza_systems_dcBusOn";
