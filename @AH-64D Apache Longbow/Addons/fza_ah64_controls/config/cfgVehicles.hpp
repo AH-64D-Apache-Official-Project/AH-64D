@@ -226,7 +226,7 @@ class CfgVehicles
     class fza_ah64d_b2e: fza_ah64base
     {
         side            =1;
-        scope           =2;
+        scope           =1;
         author          ="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
         displayName     ="AH-64D Apache Longbow (SFM+)";
         editorPreview   = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";

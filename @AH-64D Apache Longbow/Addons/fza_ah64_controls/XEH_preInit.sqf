@@ -57,15 +57,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusStabilatorEnabled",
-    "LIST",
-    ["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
-    [_projName, "Flight model"],
-    [[STABILATOR_MODE_ALWAYSENABLED,STABILATOR_MODE_JOYSTICKONLY,STABILATOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
-    0
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_sfmplusEnvironment",
     "LIST",
     ["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C.
@@ -84,15 +75,6 @@ private _projName = "AH-64D Official Project";
     ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
     [_projName, "Flight model"],
     [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmplusEnableTorqueSim",
-    "CHECKBOX",
-    ["Main Rotor Torque Simulation", "Turns off main rotor torque simulation to prevent the nose from turning right when collective is increased. Meant for users who fly mouse & keyboard and do not have rudder pedals."],
-    [_projName, "Flight model"],
-    [true],
     0
 ] call CBA_fnc_addSetting;
 
