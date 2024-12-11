@@ -26,7 +26,6 @@ params ["_heli"];
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
 
-private _monocleinbox   = _heli getVariable "fza_ah64_monocleinbox";
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
@@ -39,7 +38,6 @@ private _Visionmode     = [_heli] call fza_ihadss_fnc_getVisionMode;
 private _pnvsSensor     = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
 private _dtvDamage      = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage     = _heli getHitPointDamage "hit_msnEquip_tads_flir";
-private _tadsDamage     = _heli getHitPointDamage "hitturret";
 private _channel        = _heli getVariable "fza_ah64_laserLRFDCode";
 private _hash           = _heli getVariable "fza_ah64_laserChannelIndex";
 private _lsrcode        = _hash get _channel;
@@ -56,10 +54,8 @@ private _rocketcode  = "???";
 private _waypointcode = "";
 private _gspdcode    = "";
 private _curwpdir    = -1000;
-private _chevmark    = 0;
 private _fcrantennafor = -100;
-private _fcrhdg      = -360; 
-private _fcrdir      = 0.5;
+private _fcrhdg      = -360;
 
 //layers
 private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
