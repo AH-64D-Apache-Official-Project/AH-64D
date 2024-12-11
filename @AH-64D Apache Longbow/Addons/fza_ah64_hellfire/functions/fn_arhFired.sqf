@@ -79,8 +79,6 @@ _seekerStateParams set [6, false];
 _seekerStateParams set [7, _targetVel];
 _seekerStateParams set [8, _lastScanTime];
 _seekerStateParams set [9, !_isActive];
-_seekerStateParams set [10, _lockTypes];
-_seekerStateParams set [11, _targObj call BIS_fnc_objectType];
 
 _launchParams set [0, _targObj];
 _launchParams set [3, _attackProfile];
