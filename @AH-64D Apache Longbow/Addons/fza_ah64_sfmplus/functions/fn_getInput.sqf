@@ -127,8 +127,8 @@ if (_flightModel == "SFMPlus") then {
     //Cyclic and Pedals 
     if (!_isZeus && (!_hydFailure || _emerHydOn)) then {
         if (fza_ah64_sfmPlusControlScheme == MOUSE) then {
-            fza_sfmplus_cyclicFwdAft       = linearConversion[ -1.0, 1.0, _cyclicFwdAft,    -0.25, 0.25];
-            fza_sfmplus_cyclicLeftRight    = linearConversion[ -1.0, 1.0, _cyclicLeftRight, -0.25, 0.25];
+            fza_sfmplus_cyclicFwdAft       = _cyclicFwdAft    * fza_ah64_sfmPlusMouseSense;
+            fza_sfmplus_cyclicLeftRight    = _cyclicLeftRight * fza_ah64_sfmPlusMouseSense;
         } else {
             fza_sfmplus_cyclicFwdAft       = _cyclicFwdAft;
             fza_sfmplus_cyclicLeftRight    = _cyclicLeftRight;

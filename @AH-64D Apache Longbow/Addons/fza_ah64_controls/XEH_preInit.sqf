@@ -57,6 +57,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusMouseSense",
+    "SLIDER",
+    ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
+    [_projName, "Flight model"],
+    [0.1, 1.0, 0.5, 1],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmplusEnvironment",
     "LIST",
     ["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C.
