@@ -95,7 +95,7 @@ private _projName = "AH-64D Official Project";
     ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
     [_projName, "Flight model"],
     [true],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
