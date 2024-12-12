@@ -171,7 +171,7 @@ if (currentPilot _heli == player) then {
         private _torque = [0.0, 0.0, 0.0];
 
         //Main rotor torque
-        if (fza_ah64_sfmplusEnableTorqueSim) then {
+        if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
             _torque = [_torqueX, _torqueY, _torqueZ];
         } else {
             _torque = [_torqueX, _torqueY, 0.0];
