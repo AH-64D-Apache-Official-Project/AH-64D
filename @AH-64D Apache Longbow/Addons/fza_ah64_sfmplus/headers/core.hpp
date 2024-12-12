@@ -1,14 +1,18 @@
-#define STABILATOR_MODE_ALWAYSENABLED 2
-#define STABILATOR_MODE_JOYSTICKONLY 1
-#define STABILATOR_MODE_ALWAYSDISABLED 0
+#define STABILATOR_MODE_ALWAYSENABLED   2
+#define STABILATOR_MODE_JOYSTICKONLY    1
+#define STABILATOR_MODE_ALWAYSDISABLED  0
 
-#define ISA_STD 0
-#define EUROPE_SUMMER 1
-#define EUROPE_WINTER 2
-#define MIDDLE_EAST 3
-#define CENTRAL_ASIA_SUMMER 4
-#define CENTRAL_ASIA_WINTER 5
-#define ASIA 6
+#define HOTAS                   0
+#define KEYBOARD                1
+#define MOUSE                   2
+
+#define ISA_STD                 0
+#define EUROPE_SUMMER           1
+#define EUROPE_WINTER           2
+#define MIDDLE_EAST             3
+#define CENTRAL_ASIA_SUMMER     4
+#define CENTRAL_ASIA_WINTER     5
+#define ASIA                    6
 
 #define MIN_TIME_BETWEEN_UPDATES 0.3
 
