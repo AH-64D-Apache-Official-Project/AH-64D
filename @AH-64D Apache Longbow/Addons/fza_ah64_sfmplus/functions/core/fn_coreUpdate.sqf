@@ -79,10 +79,7 @@ if (_flightModel != "SFMPlus") then {
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
-    || fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
-    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
-};
+[_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
 
 if !(isMultiplayer) then {
     [_heli] call fza_sfmplus_fnc_probes;

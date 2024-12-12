@@ -50,11 +50,20 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusStabilatorEnabled",
+    "fza_ah64_sfmPlusControlScheme",
     "LIST",
-    ["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
+    ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
     [_projName, "Flight model"],
-    [[STABILATOR_MODE_ALWAYSENABLED,STABILATOR_MODE_JOYSTICKONLY,STABILATOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
+    [[HOTAS,KEYBOARD,MOUSE],["HOTAS","Keyboard","Mouse"],1],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusMouseSense",
+    "SLIDER",
+    ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
+    [_projName, "Flight model"],
+    [0.1, 1.0, 0.5, 1],
     2
 ] call CBA_fnc_addSetting;
 
@@ -77,15 +86,6 @@ private _projName = "AH-64D Official Project";
     ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
     [_projName, "Flight model"],
     [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmplusEnableTorqueSim",
-    "CHECKBOX",
-    ["Main Rotor Torque Simulation", "Turns off main rotor torque simulation to prevent the nose from turning right when collective is increased. Meant for users who fly mouse & keyboard and do not have rudder pedals."],
-    [_projName, "Flight model"],
-    [true],
     0
 ] call CBA_fnc_addSetting;
 
