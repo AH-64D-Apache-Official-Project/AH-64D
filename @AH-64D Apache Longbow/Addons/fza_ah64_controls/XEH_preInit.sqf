@@ -5,7 +5,8 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Show Popup Intro", "Show popup when the player gets into an Apache"],
     [_projName, "UI"],
-    true
+    true,
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -14,7 +15,7 @@ private _projName = "AH-64D Official Project";
     "Free cursor mode sensitivity",
     [_projName, "Control"],
     [0, 0.1, 0.05, 2],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -23,7 +24,7 @@ private _projName = "AH-64D Official Project";
     "Lock the cursor when in free look",
     [_projName, "Control"],
     [true],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -31,7 +32,8 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
     [_projName, "UI"],
-    [true]
+    [true],
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -53,7 +55,7 @@ private _projName = "AH-64D Official Project";
     ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
     [_projName, "Flight model"],
     [[HOTAS,KEYBOARD,MOUSE],["HOTAS","Keyboard","Mouse"],1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -62,7 +64,7 @@ private _projName = "AH-64D Official Project";
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
     [_projName, "Flight model"],
     [0.1, 1.0, 0.5, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -93,7 +95,7 @@ private _projName = "AH-64D Official Project";
     ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
     [_projName, "Flight model"],
     [true],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -129,7 +131,7 @@ private _projName = "AH-64D Official Project";
     ["Master volume Knob", "Temporary Master volume control"],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -138,7 +140,7 @@ private _projName = "AH-64D Official Project";
     ["RLWR volume Knob", "Temporary RLWR volume control"],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -147,7 +149,7 @@ private _projName = "AH-64D Official Project";
     ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -156,7 +158,7 @@ private _projName = "AH-64D Official Project";
     ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
     [_projName, "TADS Controls"],
     [0, 1, 0.5, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 fza_ah64_weaponDebug = false;
