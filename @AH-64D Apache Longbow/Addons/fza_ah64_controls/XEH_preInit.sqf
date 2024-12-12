@@ -5,7 +5,8 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Show Popup Intro", "Show popup when the player gets into an Apache"],
     [_projName, "UI"],
-    true
+    true,
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -14,7 +15,7 @@ private _projName = "AH-64D Official Project";
     "Free cursor mode sensitivity",
     [_projName, "Control"],
     [0, 0.1, 0.05, 2],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -23,7 +24,7 @@ private _projName = "AH-64D Official Project";
     "Lock the cursor when in free look",
     [_projName, "Control"],
     [true],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -31,7 +32,8 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
     [_projName, "UI"],
-    [true]
+    [true],
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -53,7 +55,7 @@ private _projName = "AH-64D Official Project";
     ["Enable stabilator simulation", "The stabilator provides an expanded pitch range allowing for more accurate cruise speeds during flight. The stabilator is optimized for Joysticks and may be more difficult to use with a Keyboard & Mouse."],
     [_projName, "Flight model"],
     [[STABILATOR_MODE_ALWAYSENABLED,STABILATOR_MODE_JOYSTICKONLY,STABILATOR_MODE_ALWAYSDISABLED],["Always Enabled", "Joystick Only","Always Disabled"],1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -129,7 +131,7 @@ private _projName = "AH-64D Official Project";
     ["Master volume Knob", "Temporary Master volume control"],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -138,7 +140,7 @@ private _projName = "AH-64D Official Project";
     ["RLWR volume Knob", "Temporary RLWR volume control"],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -147,7 +149,7 @@ private _projName = "AH-64D Official Project";
     ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -156,7 +158,7 @@ private _projName = "AH-64D Official Project";
     ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
     [_projName, "TADS Controls"],
     [0, 1, 0.5, 1],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 fza_ah64_weaponDebug = false;
