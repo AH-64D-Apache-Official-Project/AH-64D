@@ -442,7 +442,7 @@ class CfgVehicles
         side=1;
         scope=2;
         author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
-        displayName="AH-64D Apache Longbow (HeliSim)";
+        displayName="AH-64D Apache Longbow";
         editorPreview = "\fza_ah64_us\editorPreview\fza_ah64d_b2e.jpg";
 
         //SFM Variables-------------/
