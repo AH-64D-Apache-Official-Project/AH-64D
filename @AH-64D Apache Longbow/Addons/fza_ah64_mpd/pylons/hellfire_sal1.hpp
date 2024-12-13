@@ -7,38 +7,6 @@ class fza_ah64_hellfire {
     };
     class Draw
     {
-        class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class BackgroundGroup
-            {
-                color[] = { 0.0, 0.0, 0.0, 1.0 };
-                class Background
-                {
-                    type = polygon;
-                    points[] =
-                    {
-                        {
-                            { {-0.0075,-0.062}, 1 },
-                            { { 0.0075,-0.062}, 1 },
-                            { { 0.0075,0.062}, 1 },
-                            { {-0.0075,0.062}, 1 }
-                        };
-                    };
-                };
-            };
-            class Lines {
-                type = line;
-                width=3;
-                points[] = 
-                {
-                    { {-0.0075, -0.062}, 1 },
-                    { { 0.0075, -0.062}, 1 },
-                    { { 0.0075,  0.062}, 1 },
-                    { {-0.0075,  0.062}, 1 },
-                    { {-0.0075, -0.062}, 1 }
-                };
-            };
-        };
         class Present {
             condition = "1-pylonMagazineEmpty";
             class BackgroundGroup
@@ -91,22 +59,6 @@ class fza_ah64_hellfire_inverse {
     };
     class Draw
     {
-        class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class Background
-            {
-                type = polygon;
-                points[] =
-                {
-                    {
-                        { {-0.0075,-0.062}, 1 },
-                        { { 0.0075,-0.062}, 1 },
-                        { { 0.0075,0.062}, 1 },
-                        { {-0.0075,0.062}, 1 }
-                    }
-                };
-            };
-        };
         class Present {
             condition = "1-pylonMagazineEmpty";
             class Background
@@ -176,38 +128,6 @@ class fza_ah64_hellfire_selected {
     class Draw
     {
         color[] = {1,1,1,1};
-        class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class BackgroundGroup
-            {
-                color[] = { 0.0, 0.0, 0.0, 1.0 };
-                class Background
-                {
-                    type = polygon;
-                    points[] =
-                    {
-                        {
-                            { {-0.0075,-0.062}, 1 },
-                            { { 0.0075,-0.062}, 1 },
-                            { { 0.0075,0.062}, 1 },
-                            { {-0.0075,0.062}, 1 }
-                        };
-                    };
-                };
-            };
-            class Lines {
-                type = line;
-                width=3;
-                points[] = 
-                {
-                    { {-0.0075, -0.062}, 1 },
-                    { { 0.0075, -0.062}, 1 },
-                    { { 0.0075,  0.062}, 1 },
-                    { {-0.0075,  0.062}, 1 },
-                    { {-0.0075, -0.062}, 1 }
-                };
-            };
-        };
         class Present {
             condition = "1-pylonMagazineEmpty";
             class BackgroundGroup
@@ -245,6 +165,72 @@ class fza_ah64_hellfire_selected {
                     { {-0.02, -0.038}, 1 },
                     { {0.02,  -0.038}, 1 }
                 };
+            };
+        };
+    };
+};
+
+class fza_ah64_M299 {
+    class Bones {
+        class Null {
+            type = fixed;
+            pos[] = {0, 0};
+        };
+    };
+    class Draw
+    {
+        class BackgroundGroup
+        {
+            color[] = { 0.0, 0.0, 0.0, 1.0 };
+            class Background
+            {
+                type = polygon;
+                points[] =
+                {
+                    {
+                        { {-0.0075,-0.062}, 1 },
+                        { { 0.0075,-0.062}, 1 },
+                        { { 0.0075,0.062}, 1 },
+                        { {-0.0075,0.062}, 1 }
+                    };
+                };
+            };
+        };
+        class Lines {
+            type = line;
+            width=3;
+            points[] = 
+            {
+                { {-0.0075, -0.062}, 1 },
+                { { 0.0075, -0.062}, 1 },
+                { { 0.0075,  0.062}, 1 },
+                { {-0.0075,  0.062}, 1 },
+                { {-0.0075, -0.062}, 1 }
+            };
+        };
+    };
+};
+
+class fza_ah64_M299_inverse {
+    class Bones {
+        class Null {
+            type = fixed;
+            pos[] = {0, 0};
+        };
+    };
+    class Draw
+    {
+        class Background
+        {
+            type = polygon;
+            points[] =
+            {
+                {
+                    { {-0.0075,-0.062}, 1 },
+                    { {0.0075,-0.062}, 1 },
+                    { {0.0075,0.062}, 1 },
+                    { {-0.0075,0.062}, 1 }
+                },
             };
         };
     };
