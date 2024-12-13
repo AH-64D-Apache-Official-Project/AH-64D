@@ -27,7 +27,7 @@ _stateParams params ["", "", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
-_seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget"];
+_seekerStateParams params ["_isActive", "_activeRadarEngageDistance", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_shooterHasRadar", "_wasActive", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
 
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 
@@ -65,15 +65,37 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
     };
     // Look in front of seeker for any targets
     private _nearestObjects = nearestObjects [ASLtoAGL _searchPos, ["all"], _seekerBaseRadiusAdjusted, false];
-    _nearestObjects = _nearestObjects select {[_projectile, [getpos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck};
+    _nearestObjects = _nearestObjects select {([_projectile, [getpos _x, speed _x, _x], true] call fza_hellfire_fnc_limaLoblCheck)#1};
     // Select closest object to the expected position to be the current radar target
     if (_nearestObjects isEqualTo []) exitWith {
         _projectile setMissileTarget objNull;
         _searchPos
     };
-    
+
     _nearestObjects = [_nearestObjects, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
-    _target = _nearestObjects#0;
+
+    private _primaryTargets = _nearestObjects select {
+        private _targTypeCompare = (_x call BIS_fnc_objectType)#1;
+        (_targetType isEqualTo _targTypeCompare)
+    };
+    private _secondaryTargets = _nearestObjects - _primaryTargets;
+
+    if (_primaryTargets isNotEqualTo []) then {
+        _target = _primaryTargets#0;
+    } else {
+        if (_secondaryTargets isNotEqualTo []) then {
+            _target = _secondaryTargets#0;
+            _seekerStateParams set [10, (_target call BIS_fnc_objectType)#1];
+        };
+    };
+    
+    hintsilent format ["_expectedTargetPos = %1
+                    \n_seekerBaseRadiusAdjusted = %2
+                    \n_nearestObjects = %3
+                    \n_searchPos = %4
+                    \n_primaryTargets = %5
+                    \n_secondaryTargets = %6
+                    \n_target = %7", _expectedTargetPos, _seekerBaseRadiusAdjusted, _nearestObjects, _searchPos, _primaryTargets, _secondaryTargets, _target]; 
 };
 
 _projectile setMissileTarget _target;
@@ -94,10 +116,11 @@ if !(isNull _target) then {
         private _acceleration = ((velocity _target) vectorDiff _lastKnownVelocity) vectorMultiply (1 / _timestep);
         _targetData set [4, _acceleration];
     };
+} else {
+    _launchParams set [0, objnull];
 };
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 
 _seekerStateParams set [3, _expectedTargetPos];
-_launchParams set [0, _target];
 _expectedTargetPos

@@ -40,7 +40,7 @@ private _isActive       = true;
 private _timeToActive   = 9999999;
 private _targetVel      = [0,0,0];
 private _lastScanTime   = 0;
-private _lockTypes      = ["all"];
+private _targetType     = (_targObj call BIS_fnc_objectType)#1;
 
 if (!(isNull _targObj) && _loblCheckLima #1) then {
     _targPos = getposasl _targObj;
@@ -79,6 +79,7 @@ _seekerStateParams set [6, false];
 _seekerStateParams set [7, _targetVel];
 _seekerStateParams set [8, _lastScanTime];
 _seekerStateParams set [9, !_isActive];
+_seekerStateParams set [10, _targetType];
 
 _launchParams set [0, _targObj];
 _launchParams set [3, _attackProfile];
