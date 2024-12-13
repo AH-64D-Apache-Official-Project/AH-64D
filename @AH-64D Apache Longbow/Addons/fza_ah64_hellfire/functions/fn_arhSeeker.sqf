@@ -88,14 +88,6 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
             _seekerStateParams set [10, (_target call BIS_fnc_objectType)#1];
         };
     };
-    
-    hintsilent format ["_expectedTargetPos = %1
-                    \n_seekerBaseRadiusAdjusted = %2
-                    \n_nearestObjects = %3
-                    \n_searchPos = %4
-                    \n_primaryTargets = %5
-                    \n_secondaryTargets = %6
-                    \n_target = %7", _expectedTargetPos, _seekerBaseRadiusAdjusted, _nearestObjects, _searchPos, _primaryTargets, _secondaryTargets, _target]; 
 };
 
 _projectile setMissileTarget _target;
