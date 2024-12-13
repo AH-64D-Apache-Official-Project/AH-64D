@@ -9,9 +9,12 @@ class CfgAmmo {
         airLock                     = 0;
         irLock                      = 0;
         laserLock                   = 0;
-        manueuvrability             = 0;
-        weaponLockSystem            = "";
+        maneuvrability              = 0;
+        weaponLockSystem            = 0;
         simulation                  = "shotRocket";
+        manualControl               = 0;
+        maxControlRange             = 0;
+
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 
@@ -50,7 +53,7 @@ class CfgAmmo {
         thrust                      = 1700;
         fuseDistance                = 75;
         airFriction                 = 0.05;
-        sideAirFriction             = 0.000;
+        sideAirFriction             = 0.004;
         timeToLive                  = 17;
         whistleDist                 = 24;
 
