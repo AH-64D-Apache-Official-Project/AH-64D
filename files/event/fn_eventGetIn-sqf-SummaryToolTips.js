@@ -1,1 +1,0 @@
-﻿NDSummary.OnToolTipsLoaded("File:event/fn_eventGetIn.sqf",{170:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Event handler that sets up apache when someone gets inside.</div></div>"});

@@ -1,1 +1,0 @@
-﻿NDSearch.OnPrefixDataLoaded("sca",["Constant"],[["scales",,[[,"Source scales",,,0,"File2:mpd_defines.hpp:Source_scales"]]]]);
