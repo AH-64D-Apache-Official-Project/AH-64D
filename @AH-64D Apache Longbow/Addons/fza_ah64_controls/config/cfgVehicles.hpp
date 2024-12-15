@@ -94,7 +94,7 @@ class CfgVehicles
         transportMaxBackpacks = 2;
         transportMaxMagazines = 10;
         transportMaxWeapons = 3;
-        type = 2;
+        type = VAir;
         unitinfotype = "fza_ah64_rscInfoMinimal";
         unitInfoTypeLite = "fza_ah64_rscInfoBasic";
         unitInfoTypeRTD = "fza_ah64_rscInfoRTD";
