@@ -25,26 +25,28 @@ private _dist = _seeker distance _targPos;
 private _seekerConfig = configFile >> "CfgAmmo" >> "fza_agm114l" >> "ace_missileguidance";
 private _seekerAngle = getNumber (_seekerConfig >> "seekerAngle");
 private _inConstraints = [_seeker, _targPos, _seekerAngle] call fza_hellfire_fnc_checkSeekerAngle;
+private _canSee = [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos || [_seeker, _targObj, true] call ace_missileguidance_fnc_checkLos;
 
 if (_dist <= 500 && _inFlight == false) exitWith {[false, false]};
 if (!_inConstraints) exitWith {[false, false]};
 
-private _canSee = [_seeker, _targObj, false] call ace_missileguidance_fnc_checkLos
-    || [_seeker, _targObj, true] call ace_missileguidance_fnc_checkLos;
-
-if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) exitwith {
+if (_targSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH && !_inFlight) exitwith {
     if (_dist >= FCR_LIMIT_MOVING_RANGE || !_canSee) exitwith {
         [false, false]
     };
     [true, true];
 };
+
 if (_dist <= FCR_LIMIT_FORCE_LOBL_RANGE) exitwith {
     [_canSee, _canSee];
 };
+
 if (_dist <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) exitwith {
     [true, _canSee];
 };
+
 if (_dist <= FCR_LIMIT_STATIONARY_RANGE) exitwith {
     [true, false];
 };
+
 [false, false];

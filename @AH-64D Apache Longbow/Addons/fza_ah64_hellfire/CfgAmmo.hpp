@@ -31,7 +31,7 @@ class CfgAmmo {
 
         maxSpeed                    = 450;
         airFriction                 = 0.08;
-        sideAirFriction             = 0.18;
+        sideAirFriction             = 0.22;
         initTime                    = 0.1;
         thrustTime                  = 3;
         thrust                      = 180;
@@ -85,8 +85,8 @@ class CfgAmmo {
         class ace_missileguidance: ace_missileguidance {
             enabled = 1;
 
-            pitchRate = 45;
-            yawRate = 45;
+            pitchRate = 25;
+            yawRate = 25;
             seekerAngle = 70;
 
             defaultSeekerType = "fza_SALH";

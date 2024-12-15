@@ -21,17 +21,20 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_controls\headers\systemConstants.h"
 params ["", "_args", "_seekerStateParams", "", "_timestep"];
 _args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams"];
 _stateParams params ["", "", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
-_seekerStateParams params ["_isActive", "_timeWhenActive", "_expectedTargetPos", "_lastTargetPollTime", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
+(_projectile getVariable "fza_ah64_SeekerstateData") params ["_isActive", "_timeWhenActive", "_expectedTargetPos", "_calulatedSearchPos", "_lastTargetPollTime", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
 
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 
-if (!_isActive || { CBA_missionTime <= _timeWhenActive }) exitwith {
+drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,1,1], _calulatedSearchPos vectorAdd [0, 0, 0], 0.75, 0.75, 0, "SEARCH POS", 1, 0.025, "TahomaB"];
+
+if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitwith {
     _expectedTargetPos
 };
 
@@ -40,11 +43,12 @@ if !_isActive then {
 };
 
 if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
-    _seekerStateParams set [3, CBA_missionTime];
-    private _searchPos = _expectedTargetPos;
+    systemchat "GUIDING";
+    _seekerStateParams set [4, CBA_missionTime];
+    private _searchPos = _calulatedSearchPos;
     if (_searchPos isEqualTo [0, 0, 0]) exitwith {};
     _target = objNull;
-    private _distanceToExpectedTarget = _seekerMaxRange min ((getPosASL _projectile) vectorDistance _searchPos);
+    private _distanceToExpectedTarget = FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE min ((getPosASL _projectile) vectorDistance _searchPos);
 
     // Simulate how much the seeker can see at the ground
     private _projDir = vectorDir _projectile;
@@ -74,14 +78,12 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
     };
     private _secondaryTargets = _nearestObjects - _primaryTargets;
 
-    _primaryTargets = [_primaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
-    _secondaryTargets = [_secondaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
     if (_primaryTargets isNotEqualTo []) then {
-        _target = _primaryTargets#0;
+        _target = [_primaryTargets, _searchPos] call BIS_fnc_nearestPosition;
     } else {
         if (_secondaryTargets isNotEqualTo []) then {
-            _target = _secondaryTargets#0;
-            //_seekerStateParams set [7, (_target call BIS_fnc_objectType)#1]; // Might cause unexpected behaviour in terminal, uncomment in future if needed
+            _target = [_secondaryTargets, _searchPos] call BIS_fnc_nearestPosition;
+            //_seekerStateParams set [8, (_target call BIS_fnc_objectType)#1]; // Might cause unexpected behaviour in terminal, uncomment in future if needed
         };
     };
 };
@@ -93,9 +95,10 @@ if !(isNull _target) then {
     private _targetAdjustedPos = _target modelToWorldVisualWorld _centerOfObject;
     _expectedTargetPos = _targetAdjustedPos;
 
-    _seekerStateParams set [4, velocity _target];
-    _seekerStateParams set [5, CBA_missionTime];
-    _seekerStateParams set [6, false];
+    _seekerStateParams set [3, _expectedTargetPos];
+    _seekerStateParams set [5, velocity _target];
+    _seekerStateParams set [6, CBA_missionTime];
+    _seekerStateParams set [7, false];
 
     _targetData set [2, _projectile distance _target];
     _targetData set [3, velocity _target];
@@ -106,9 +109,12 @@ if !(isNull _target) then {
     };
 } else {
     _launchParams set [0, objnull];
+    _seekerStateParams set [7, true];
 };
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
-
 _seekerStateParams set [2, _expectedTargetPos];
+_projectile setvariable ["fza_ah64_SeekerstateData", _seekerStateParams];
+
+
 _expectedTargetPos
