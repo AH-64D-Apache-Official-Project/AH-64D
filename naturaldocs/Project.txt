@@ -83,7 +83,7 @@ Home Page: home.html
 # Source Code
 # ------------------------------------------------------------------------
 
-Source Folder: ..\@AH-64D Apache Longbow\Addons\fza_ah64_controls\scripting\functions
+Source Folder: ..\@AH-64D Apache Longbow\Addons\fza_ah64_controls\functions
    Name: fza_ah64_controls functions
 
 Source Folder 3: ..\@AH-64D Apache Longbow\Addons\fza_ah64_common\functions
