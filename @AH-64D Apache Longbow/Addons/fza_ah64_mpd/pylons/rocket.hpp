@@ -96,3 +96,14 @@ class fza_ah64_rocket_inverse {
             };
         };
     };
+
+//Empty pylon icon definitions to supress RPT warnings that they are missing
+//even though these are for a different type of weapon
+class fza_ah64_M299 {
+    class Bones{};
+    class Draw{};
+};
+class fza_ah64_M299_inverse: fza_ah64_M299 {};
+class fza_ah64_hellfire: fza_ah64_M299 {};
+class fza_ah64_hellfire_inverse: fza_ah64_M299 {};
+class fza_ah64_hellfire_selected: fza_ah64_M299 {};
