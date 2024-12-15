@@ -1,0 +1,1 @@
+﻿NDSearch.OnPrefixDataLoaded("pos",["Information","Constant"],[["Positioning",,[[,"Coordinate Positioning",,,0,"File2:mpd_defines.hpp:Coordinate_Positioning"]]],["positions",,[[,"MPD VAB positions",,,1,"File2:mpd_defines.hpp:MPD_VAB_positions"]]]]);
