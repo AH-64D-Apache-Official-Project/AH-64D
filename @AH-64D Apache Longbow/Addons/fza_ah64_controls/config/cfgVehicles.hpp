@@ -52,10 +52,10 @@ class CfgVehicles {
                 section = plt_pr_mpd_back;
             };
             class mpd_cl: mpd_pl {
-                section = cpg_cl_mpd_back
+                section = cpg_cl_mpd_back;
             };
             class mpd_cr: mpd_pr {
-                section = cpg_cr_mpd_back
+                section = cpg_cr_mpd_back;
             };
         };
 
