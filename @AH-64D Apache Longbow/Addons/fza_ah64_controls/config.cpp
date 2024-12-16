@@ -3,7 +3,7 @@ class CfgPatches
 {
     class fza_ah64_controls
     {
-        units[] = {"fza_ah64base","fza_ah64d_b2e","fza_ah64d_b2e_heliSim","fza_ah64_pilot"};
+        units[] = {"fza_ah64base","fza_ah64d_b1","fza_ah64d_b2e","fza_ah64_pilot"};
         author="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
         weapons[] = {};
         requiredVersion = 2.10;

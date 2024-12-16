@@ -46,12 +46,6 @@ class AnimationSources
         initPhase = 0;
         animPeriod = 0.001;
     };
-    class mast
-    {
-        source = "user";
-        animPeriod = 0.1;
-        initPhase=1;
-    };
     class magazine_set_1200
     {
         displayName = "Swap IAFS for 1200rnd magazine";
