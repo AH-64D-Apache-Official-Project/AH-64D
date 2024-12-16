@@ -1,19 +1,16 @@
 class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {
+        class EventHandlers;
         class MFD;
-        class Turrets;
+        class NewTurret;
+        class Turrets {
+            class MainTurret {
+                class MFD;
+            };
+        };
     };
     class fza_ah64base : Helicopter_Base_F {
-        class NewTurret;
-        class Turrets : Turrets {
-            class MainTurret : NewTurret {
-                class MFD;
-            }
-        };
-        class EventHandlers;
-    };
-    class fza_ah64d_b2e : fza_ah64base {
         class MFD : MFD {
             #define MFD_IND_PAGE MFD_IND_PAGE_LEFT
             #define MFD_OFFSET MFD_OFFSET_L
