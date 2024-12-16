@@ -137,7 +137,7 @@ class CfgVehicles {
         laserScanner             = 1;
         laserTarget              = 0;
         lockdetectionsystem      = "8+4";
-        magazines[]              = {"30Rnd_CMChaffMagazine","fza_IR_JAMMING"};
+        magazines[]              = {"fza_chaff_30_mag","fza_IR_JAMMING"};
         mainBladeRadius          = 7.3;
         maxFordingDepth          = 0.55;
         memorypointcm[]          = {"flare_1_beg","Flare_2_beg"};
