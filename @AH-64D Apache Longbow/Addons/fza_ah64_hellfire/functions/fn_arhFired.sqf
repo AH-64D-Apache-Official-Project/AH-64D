@@ -81,8 +81,6 @@ _seekerStateParams set [5, _targetVel];
 _seekerStateParams set [6, 0];
 _seekerStateParams set [7, !_isActive];
 _seekerStateParams set [8, _targetType];
+_launchParams set [3, _attackProfile];
 
 _projectile setvariable ["fza_ah64_SeekerstateData", _seekerStateParams];
-
-_launchParams set [0, _targObj];
-_launchParams set [3, _attackProfile];

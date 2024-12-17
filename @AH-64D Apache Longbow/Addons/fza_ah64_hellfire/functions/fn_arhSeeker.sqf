@@ -32,9 +32,7 @@ _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
 
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,1,1], _calulatedSearchPos vectorAdd [0, 0, 0], 0.75, 0.75, 0, "SEARCH POS", 1, 0.025, "TahomaB"];
-
-if (!_isActive && { CBA_missionTime <= _timeWhenActive }) exitwith {
+if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitwith {
     _expectedTargetPos
 };
 
@@ -43,7 +41,6 @@ if !_isActive then {
 };
 
 if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
-    systemchat "GUIDING";
     _seekerStateParams set [4, CBA_missionTime];
     private _searchPos = _calulatedSearchPos;
     if (_searchPos isEqualTo [0, 0, 0]) exitwith {};
@@ -72,17 +69,19 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
         _searchPos
     };
 
-    private _targTypeCompare = {(_x call BIS_fnc_objectType)#1};
     private _primaryTargets = _nearestObjects select {
+        _targTypeCompare = (_x call BIS_fnc_objectType)#1;
         (_targetType isEqualTo _targTypeCompare)
     };
     private _secondaryTargets = _nearestObjects - _primaryTargets;
+    _primaryTargets = [_primaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
+    _secondaryTargets = [_secondaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
 
     if (_primaryTargets isNotEqualTo []) then {
-        _target = [_primaryTargets, _searchPos] call BIS_fnc_nearestPosition;
+        _target = _primaryTargets#0
     } else {
         if (_secondaryTargets isNotEqualTo []) then {
-            _target = [_secondaryTargets, _searchPos] call BIS_fnc_nearestPosition;
+            _target = _secondaryTargets#0
             //_seekerStateParams set [8, (_target call BIS_fnc_objectType)#1]; // Might cause unexpected behaviour in terminal, uncomment in future if needed
         };
     };
