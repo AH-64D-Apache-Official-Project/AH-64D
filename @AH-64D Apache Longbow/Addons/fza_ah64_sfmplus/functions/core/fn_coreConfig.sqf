@@ -20,7 +20,8 @@ params ["_heli"];
 
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 
-fza_sfmplus_liftLossTimer = 0;
+fza_sfmplus_liftLossTimer    = 0;
+fza_sfmplus_collectiveOutput = 0.0;
 
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
 _heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];
