@@ -1,7 +1,8 @@
 class Cfg3DEN {
     class Attributes {
         class Default; // Empty template with pre-defined width and single line height
-        class Combo: Default {};
+        class title : Default {};
+        class Combo: title {};
         class fza_dms_ident : Combo {
             attributeLoad = "\
                 private _ctrl = _this controlsGroupCtrl 100; \

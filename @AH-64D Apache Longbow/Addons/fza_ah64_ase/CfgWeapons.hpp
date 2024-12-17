@@ -5,7 +5,7 @@ class CfgWeapons {
     {
         scope = 2;
         displayName = "Flares";
-        magazines[] = {"60Rnd_CMFlareMagazine"};
+        magazines[] = {"fza_flare_30_mag"};
         magazineReloadTime = 0.500000;
         simulation = "cmlauncher";
         modes[] = {"Single","AIBurst"};
@@ -58,7 +58,7 @@ class CfgWeapons {
     class fza_CMChaffLauncher: fza_CMFlareLauncher 
     {
         displayName = "Chaff";
-        magazines[] = {"30Rnd_CMChaffMagazine"};
+        magazines[] = {"fza_chaff_30_mag"};
     };
     class fza_AseIRjammer: SmokeLauncher 
     {

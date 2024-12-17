@@ -1,7 +1,9 @@
+class MFD {};
 class Turrets : Turrets
 {
     class MainTurret: NewTurret
     {
+        class MFD {};
         gunnerAction = "fza_ah64_copilot";
         gunnerGetInAction = "pilot_Heli_Light_02_Enter";
         gunnerGetOutAction = "GetOutHigh";
@@ -200,6 +202,5 @@ class Turrets : Turrets
                 y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
             };
         };
-        class MFD {};
     };
 };
