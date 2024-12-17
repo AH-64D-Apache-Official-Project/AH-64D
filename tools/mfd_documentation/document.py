@@ -215,7 +215,7 @@ def run(args):
             sys.stdout, "unicode", method="html")
     else:
         os.makedirs(os.path.dirname(args.output), exist_ok=True)
-        with open(args.output, "x", encoding="utf-8") as file:
+        with open(args.output, "w", encoding="utf-8") as file:
             ET.ElementTree(html).write(
                 file, "unicode", method="html")
 
