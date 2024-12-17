@@ -35,9 +35,12 @@ if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitwith {};
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];
 	if !isNull _ntsObj then {
-		_indicateLobl = ([_heli, [_ntsPos, "", speed _ntsObj, _ntsObj]] call fza_hellfire_fnc_limaLoblCheck) # 1;
+		_indicateLobl = ([_heli, [_ntsPos, speed _ntsObj, _ntsObj], true] call fza_hellfire_fnc_limaLoblCheck) # 1;
 		_vector = _heli worldToModelVisual (aslToAgl _ntsPos);
-		if (_indicateLobl && getPosAsl _heli distance _ntsPos < 1000) then {_allowableAngle = 5;};
+		if _indicateLobl then {
+			_vector = _heli worldToModelVisual (aslToAgl getPosASL _ntsObj);
+			_allowableAngle = 5;
+		};
 	};
 } else {
 	private _lasePos = [_heli] call fza_hellfire_fnc_salLasePos;
