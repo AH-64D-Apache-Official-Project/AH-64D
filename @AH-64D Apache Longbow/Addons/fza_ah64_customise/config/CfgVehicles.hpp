@@ -43,9 +43,16 @@ class cfgVehicles {
         scope                               = 2;
     };
 
-    class Helicopter;
+    class Air;
+    class Helicopter: Air {
+        class ACE_Actions {
+            class ACE_MainActions;
+        };
+    };
     class Helicopter_Base_F : Helicopter {
-        class ACE_Actions;
+        class ACE_Actions: ACE_Actions {
+            class ACE_MainActions;
+        };
     };
     class fza_ah64base : Helicopter_Base_F {
         #include "CfgAce.hpp"
