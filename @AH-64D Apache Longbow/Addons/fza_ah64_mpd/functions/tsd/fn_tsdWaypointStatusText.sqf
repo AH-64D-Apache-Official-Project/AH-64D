@@ -1,7 +1,7 @@
 params ["_heli", ["_addKm", false]];
 #include "\fza_ah64_dms\headers\constants.h"
 #define SCALE_MPS_KNOTS 1.94
-private _waypointIndex = _heli getVariable "fza_dms_routeNext";
+private _waypointIndex = (_heli getVariable "fza_dms_routeNext")#0;
 private _waypoint = [_heli, _waypointIndex, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 private _waypointId = _waypointIndex call fza_dms_fnc_pointToString;
 private _groundSpeed = vectorMagnitude velocity _heli;

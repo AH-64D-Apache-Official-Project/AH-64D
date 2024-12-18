@@ -39,9 +39,9 @@ params
     ];
 
 private _displaySide = ["left", "right"] select _displayIdx;
-private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
+private _display = uiNamespace getVariable "fza_mpd_display";
 
-private _ctrlPoints = _display getVariable "fza_points";
+private _ctrlPoints = _display getVariable ("fza_points_"+_displaySide);
 
 //Set all current state to be not updated. This lets us know which ones can be removed
 {_y set ["updated", false]} forEach _ctrlPoints;
@@ -49,7 +49,7 @@ private _ctrlPoints = _display getVariable "fza_points";
 //Draw each UI element
 {
     if !(_forEachIndex in _ctrlPoints) then {_ctrlPoints set [_forEachIndex, createHashMap]};
-    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos] call fza_mpd_fnc_uiDrawPoint;
+    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos, _displayIdx] call fza_mpd_fnc_uiDrawPoint;
 
     (_ctrlPoints get _forEachIndex) set ["updated", true];
 } forEach _dmsPoints;

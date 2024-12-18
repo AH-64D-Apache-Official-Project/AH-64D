@@ -1,15 +1,12 @@
 class rteRoot {  
     class vabs {      
          //L2
-        MPD_BOX_BAR_R(ADD,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
         MPD_TEXT_R(ADD,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("ADD"))
         //L3
-        MPD_BOX_BAR_R(DEL,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y)
         MPD_TEXT_R(DEL,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("DEL"))
         //L4
         MPD_TEXT_R(DIR,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("DIR"))
         //L5
-        MPD_BOX_BAR_R(RVW,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
         MPD_TEXT_R(RVW,         MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y, MPD_TEXT_STATIC("RVW"))
         //L6
         MPD_BOX_BAR_R(RTM,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_6_Y)

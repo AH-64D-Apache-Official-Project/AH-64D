@@ -26,7 +26,6 @@ params ["_heli"];
 #define SCALE_METERS_FEET 3.28084
 #define SCALE_MPS_KNOTS 1.94
 
-private _monocleinbox   = _heli getVariable "fza_ah64_monocleinbox";
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
@@ -39,7 +38,6 @@ private _Visionmode     = [_heli] call fza_ihadss_fnc_getVisionMode;
 private _pnvsSensor     = _heli getHitPointDamage "hit_msnEquip_pnvs_flir";
 private _dtvDamage      = _heli getHitPointDamage "hit_msnEquip_tads_dtv";
 private _flirDamage     = _heli getHitPointDamage "hit_msnEquip_tads_flir";
-private _tadsDamage     = _heli getHitPointDamage "hitturret";
 private _channel        = _heli getVariable "fza_ah64_laserLRFDCode";
 private _hash           = _heli getVariable "fza_ah64_laserChannelIndex";
 private _lsrcode        = _hash get _channel;
@@ -56,10 +54,8 @@ private _rocketcode  = "???";
 private _waypointcode = "";
 private _gspdcode    = "";
 private _curwpdir    = -1000;
-private _chevmark    = 0;
 private _fcrantennafor = -100;
-private _fcrhdg      = -360; 
-private _fcrdir      = 0.5;
+private _fcrhdg      = -360;
 
 //layers
 private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
@@ -100,6 +96,9 @@ _clickHint ctrlCommit 0.001;
 
 if (isNull laserTarget _heli) then {
     _laseit cuttext["", "PLAIN", 0.1, false];
+};
+if !(_heli getvariable "fza_ah64_LmcActive") then {
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
 };
 
 //PNVS HDU
@@ -146,6 +145,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
         };
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 184) ctrlSetTextColor[0.1, 1, 0, 1];
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0.1, 1, 0, 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 189) ctrlSetTextColor[0.1, 1, 0, 1];
         _rocketcode = "???";
     };
 } else {
@@ -214,6 +214,11 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
+    //LSC SYMBOLOGY FOR GUNNER
+    if (_heli getvariable "fza_ah64_LmcActive") then {
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+    };
 
     //TADS DTV/FLIR Fail
     if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
@@ -238,6 +243,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ctrlSetTextColor[1, 1, 1, 1];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
     ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 804) ctrlSetText "";
@@ -282,9 +288,9 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round(0.53996 * (speed _heli))] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round _gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
-private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 [_heli] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
 
@@ -352,7 +358,20 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", round(1.94384 * vectorMagnitude((velocity _heli) vectorDiff wind))];
+
+([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
+    params [ 
+             "_gndSpeed"
+           , "_vel2D"
+           , "_vel3D"
+           , "_vertVel"
+           , "_velModelSpace"
+           , "_angVelModelSpace"
+           , "_velWorldSpace"
+           , "_angVelWorldSpace"
+           ];
+
+_speedkts = format["%1", _vel3D];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
@@ -378,7 +397,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if (speed _heli > 5) then {
+if (_vel3D > 5) then {
     _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];

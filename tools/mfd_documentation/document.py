@@ -3,6 +3,7 @@ import re
 import sys
 from xml.etree import ElementTree as ET
 import os.path
+import os
 import argparse
 
 def log_error(msg):
@@ -213,7 +214,8 @@ def run(args):
         ET.ElementTree(html).write(
             sys.stdout, "unicode", method="html")
     else:
-        with open(args.output, "x", encoding="utf-8") as file:
+        os.makedirs(os.path.dirname(args.output), exist_ok=True)
+        with open(args.output, "w", encoding="utf-8") as file:
             ET.ElementTree(html).write(
                 file, "unicode", method="html")
 

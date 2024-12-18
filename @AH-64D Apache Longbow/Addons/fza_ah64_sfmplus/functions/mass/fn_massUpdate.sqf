@@ -17,6 +17,7 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _armCPG         = [ 0.00, 2.09];
 private _armPLT         = [ 0.00, 3.64];
@@ -100,11 +101,16 @@ _curLongCG  = _curLongMom / _curMass;
 _curLatMom  = _stn1LatMom + _stn2LatMom + _stn3LatMom + _stn4LatMom;
 _curLatCG   = _curLatMom / _curMass;
 
-_heli setCenterOfMass [_curLatCG, 7.12 - _curLongCG, -1.34];
-
+if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
+    _heli setCenterOfMass [0.0, 2.06, -1.34];
+} else {
+    _heli setCenterOfMass [_curLatCG, 7.12 - _curLongCG, -1.34];
+};
 //systemChat format ["Total Mass = %1 lbs (%2 kg) -- Total Moment = %3 -- Long CG = %4 in -- Lat CG = %5 in", (_curMass * 2.20462) toFixed 1, _curMass toFixed 1, _curLongMom toFixed 3, (_curLongCG * 39.3701) toFixed 1, (_curLatCG * 39.3701) toFixed 1];
+//systemChat format ["Center of Mass = %1", getCenterOfMass _heli];
 
 if (local _heli) then {
+    //_curMass = 8165;
     _heli setMass _curMass;
 };
 _heli setVariable ["fza_sfmplus_GWT", _curMass];

@@ -49,6 +49,9 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
 [_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
+//
+[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAeroValues;
+
 //Fuel
 [_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
 
@@ -69,20 +72,17 @@ if (_flightModel != "SFMPlus") then {
     //Drag
     [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
-    private _vertFinPosition   = [0.0, -6.40, -1.75];
-    private _vertFinSweep      = -1.2;
-    private _vertFinRot        = 7.5;
-    private _vertFinDimensions = [2.25, 0.90];
-    [_heli, _deltaTime, _dryAirDensity, 1, _vertFinPosition, _vertFinSweep, _vertFinDimensions, _vertFinRot] call fza_sfmplus_fnc_aeroWing;
+    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
 };
 
 //Damage
 [_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-if(fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_ALWAYSENABLED 
-    || fza_ah64_sfmPlusStabilatorEnabled == STABILATOR_MODE_JOYSTICKONLY && !fza_ah64_sfmPlusKeyboardOnly) then {
-    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
+[_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
+
+if !(isMultiplayer) then {
+    [_heli] call fza_sfmplus_fnc_probes;
 };
 
 #ifdef __A3_DEBUG_

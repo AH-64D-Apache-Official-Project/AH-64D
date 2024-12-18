@@ -7,38 +7,6 @@ class fza_ah64_hellfire {
     };
     class Draw
     {
-            class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class BackgroundGroup
-            {
-                color[] = { 0.0, 0.0, 0.0, 1.0 };
-                class Background
-                {
-                    type = polygon;
-                    points[] =
-                    {
-                        {
-                            { {-0.0075,-0.062}, 1 },
-                            { { 0.0075,-0.062}, 1 },
-                            { { 0.0075,0.062}, 1 },
-                            { {-0.0075,0.062}, 1 }
-                        };
-                    };
-                };
-            };
-            class Lines {
-                type = line;
-                width=3;
-                points[] = 
-                {
-                    { {-0.0075, -0.062}, 1 },
-                    { { 0.0075, -0.062}, 1 },
-                    { { 0.0075,  0.062}, 1 },
-                    { {-0.0075,  0.062}, 1 },
-                    { {-0.0075, -0.062}, 1 }
-                };
-            };
-        };
         class Present {
             condition = "1-pylonMagazineEmpty";
             class BackgroundGroup
@@ -93,22 +61,6 @@ class fza_ah64_hellfire_inverse {
     };
     class Draw
     {
-            class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class Background
-            {
-                type = polygon;
-                points[] =
-                {
-                    {
-                        { {-0.0075,-0.062}, 1 },
-                        { {0.0075,-0.062}, 1 },
-                        { {0.0075,0.062}, 1 },
-                        { {-0.0075,0.062}, 1 }
-                    }
-                };
-            };
-        };
         class Present{
             condition = "1-pylonMagazineEmpty";
             class Background
@@ -180,39 +132,7 @@ class fza_ah64_hellfire_selected {
     };
     class Draw
     {
-            color[] = {1,1,1,1};
-            class NotPresent {
-            condition = "pylonMagazineEmpty";
-            class BackgroundGroup
-            {
-                color[] = { 0.0, 0.0, 0.0, 1.0 };
-                class Background
-                {
-                    type = polygon;
-                    points[] =
-                    {
-                        {
-                            { {-0.0075,-0.062}, 1 },
-                            { { 0.0075,-0.062}, 1 },
-                            { { 0.0075,0.062}, 1 },
-                            { {-0.0075,0.062}, 1 }
-                        };
-                    };
-                };
-            };
-            class Lines {
-                type = line;
-                width=3;
-                points[] = 
-                {
-                    { {-0.0075, -0.062}, 1 },
-                    { { 0.0075, -0.062}, 1 },
-                    { { 0.0075,  0.062}, 1 },
-                    { {-0.0075,  0.062}, 1 },
-                    { {-0.0075, -0.062}, 1 }
-                };
-            };
-        };
+        color[] = {1,1,1,1};
         class Present {
             condition = "1-pylonMagazineEmpty";
             class BackgroundGroup
@@ -256,3 +176,77 @@ class fza_ah64_hellfire_selected {
         };
     };
 };
+
+class fza_ah64_M299 {
+    class Bones {
+        class Null {
+            type = fixed;
+            pos[] = {0, 0};
+        };
+    };
+    class Draw
+    {
+        class BackgroundGroup
+        {
+            color[] = { 0.0, 0.0, 0.0, 1.0 };
+            class Background
+            {
+                type = polygon;
+                points[] =
+                {
+                    {
+                        { {-0.0075,-0.062}, 1 },
+                        { { 0.0075,-0.062}, 1 },
+                        { { 0.0075,0.062}, 1 },
+                        { {-0.0075,0.062}, 1 }
+                    };
+                };
+            };
+        };
+        class Lines {
+            type = line;
+            width=3;
+            points[] = 
+            {
+                { {-0.0075, -0.062}, 1 },
+                { { 0.0075, -0.062}, 1 },
+                { { 0.0075,  0.062}, 1 },
+                { {-0.0075,  0.062}, 1 },
+                { {-0.0075, -0.062}, 1 }
+            };
+        };
+    };
+};
+
+class fza_ah64_M299_inverse {
+    class Bones {
+        class Null {
+            type = fixed;
+            pos[] = {0, 0};
+        };
+    };
+    class Draw
+    {
+        class Background
+        {
+            type = polygon;
+            points[] =
+            {
+                {
+                    { {-0.0075,-0.062}, 1 },
+                    { {0.0075,-0.062}, 1 },
+                    { {0.0075,0.062}, 1 },
+                    { {-0.0075,0.062}, 1 }
+                },
+            };
+        };
+    };
+};
+
+//Empty pylon icon definitions to supress RPT warnings that they are missing
+//even though these are for a different type of weapon
+class fza_ah64_rocket {
+    class Bones{};
+    class Draw{};
+};
+class fza_ah64_rocket_inverse: fza_ah64_rocket {};

@@ -20,7 +20,6 @@ class CfgFunctions
             file = "\fza_ah64_dms\functions\eden";
             class edenPointModify{R;};
             class edenPointNext{R;};
-            class edenPointDeleted{R;};
         };
         class point {
             file = "\fza_ah64_dms\functions\point";
@@ -39,7 +38,10 @@ class CfgFunctions
         };
         class route {
             file = "\fza_ah64_dms\functions\route";
-            class routeSetDir{R;};
+            class routeAddPoint {R;};
+            class routeData {R;};
+            class routeDelPoint {R;};
+            class routeSetDir {R;};
         };
     };
 };

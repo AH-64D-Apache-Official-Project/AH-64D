@@ -6,13 +6,15 @@ class CfgAmmo {
 
     class fza_275_base: MissileBase 
     {
-        canLock                     = 0;
         airLock                     = 0;
         irLock                      = 0;
         laserLock                   = 0;
-        manueuvrability             = 0;
-
+        maneuvrability              = 0;
+        weaponLockSystem            = 0;
         simulation                  = "shotRocket";
+        manualControl               = 0;
+        maxControlRange             = 0;
+
         ace_frag_enabled            = 0;
         ace_frag_skip               = 1;
 

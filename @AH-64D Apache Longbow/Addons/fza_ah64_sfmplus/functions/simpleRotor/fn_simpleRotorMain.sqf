@@ -60,7 +60,7 @@ private _rtrThrustScalarTable_max = [
                                     ,[12000, 4.175]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.0; //0.95, 1.10
+private _rtrTorqueScalar        = 0.8; //0.95, 1.10
 
 private _pitchTorqueScalar      = 2.75;//2.25//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
@@ -82,7 +82,7 @@ private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustSc
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _airspeedVelocityScalar    = (1 + (_velXY / VEL_BEST_ENDURANCE)) ^ (_rtrAirspeedVelocityMod);
+private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
 private _inducedVelocityScalar     = 1.0;
@@ -171,7 +171,7 @@ if (currentPilot _heli == player) then {
         private _torque = [0.0, 0.0, 0.0];
 
         //Main rotor torque
-        if (fza_ah64_sfmplusEnableTorqueSim) then {
+        if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
             _torque = [_torqueX, _torqueY, _torqueZ];
         } else {
             _torque = [_torqueX, _torqueY, 0.0];

@@ -7,6 +7,10 @@
 #define TFriendly 6
 #define TLogic 7
 
+#define VSoft 0
+#define VArmor 1
+#define VAir 2
+
 #define true 1
 #define false 0
 

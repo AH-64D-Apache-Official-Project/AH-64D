@@ -3,11 +3,11 @@ class AnimationSources
     ////////RADAR///////
     class fcr_enable
     {
-        displayName = "Install FCR";
+        displayName = "Mount FCR (Fire Control Radar)";
         author = "Apache mod development team";
         onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
         source = "user";
-        initPhase = 1;
+        initPhase = 0;
         animPeriod = 0.001;
     };
     class Plt_flood
@@ -30,21 +30,18 @@ class AnimationSources
     };
     class msn_equip_american
     {
-        displayName = "Install American Mission Equipment";
-        author = "Apache mod development team";
         source = "user";
-        forceAnimatePhase = 1;
-        forceAnimate[] = {"msn_equip_british", 0};
         initPhase = 1;
         animPeriod = 0.001;
+        onPhaseChanged = "if (_this#1 == 1) then {_this#0 animateSource [""msn_equip_british"", 0];};";//Future Note:force deselect all other ase equipment upon Amerian == 1
     };
     class msn_equip_british
     {
-        displayName = "Install British Mission Equipment";
+        displayName = "Mount British Mission Equipment";
         author = "Apache mod development team";
         source = "user";
         forceAnimatePhase = 1;
-        onPhaseChanged =    "_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";
+        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
         forceAnimate[] = {"msn_equip_american", 0,"fcr_enable", 1};
         initPhase = 0;
         animPeriod = 0.001;
@@ -413,7 +410,7 @@ class AnimationSources
     //////////////DOORS//////////////////
     class pdoor
     {
-        displayName = "Open Pilot door";
+        displayName = "Toggle Pilot door";
         author = "Apache mod development team";
         source = "user";
         animPeriod = 1;
@@ -421,7 +418,7 @@ class AnimationSources
     };
     class gdoor
     {
-        displayName = "Open Gunner door";
+        displayName = "Toggle Gunner door";
         author = "Apache mod development team";
         source = "user";
         animPeriod = 1;
@@ -431,29 +428,27 @@ class AnimationSources
     class l_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class l_ads_b : l_ads_p
     {
         source = "user";
     };
-    class l_ads_y : l_ads_p
-    {
-        source = "user";
-    };
     class r_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class r_ads_b : r_ads_p
     {
         source = "user";
     };
-    class r_ads_y : r_ads_p
+    class mpd_scale
     {
-        source = "user";
-    };
+        source = user;
+        initPhase = 1;
+        animPeriod = 0.01;
+    }
 };

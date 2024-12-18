@@ -30,7 +30,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
 
 // Waypoint status window
-private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPoint = _currentDir;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 private _nextPointMSL = [_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue;
 [_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
@@ -79,8 +79,8 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStand
 
 private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
 
-private _sideslip = fza_ah64_sideslip;
+private _beta_deg = fza_ah64_sideslip;
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _sideslip];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_SLIP), _beta_deg];
 
 [_heli, _mpdIndex, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC] call fza_mpd_fnc_acqDraw;

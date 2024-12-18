@@ -20,22 +20,31 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-if (vehicle player != _heli && !(vehicle player isKindOf "fza_ah64base") || !(alive _heli) && !(vehicle player isKindOf "fza_ah64base") || !(alive player) || !(isNull curatorCamera)) exitWith {
-    1 cuttext["", "PLAIN"];
-    2 cuttext["", "PLAIN"];
-    3 cuttext["", "PLAIN"];
-    4 cuttext["", "PLAIN"];
+private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
+    || !(alive _heli)
+    || !(alive player)
+    || !(isNull curatorCamera)
+    || is3DEN
+    || !(cameraView in ["INTERNAL", "GUNNER"])
+    || (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
+
+if _hideMonocle exitWith {
+    ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
+    ("fza_ah64_click_helper" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
+    ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
+    ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
+    ("fza_ah64_raddisp" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
+    ("fza_ah64_laseit" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     fza_ah64_bweff ppEffectEnable false;
     fza_ah64_gweff ppEffectEnable false;
-    _heli setVariable ["fza_ah64_monocleinbox", true];
-    ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
-    0 cutrsc["fza_ah64_nvsoverlay", "PLAIN", 0.01, false];
 };
 
 if (!(isNil "fza_ah64_notargeting")) exitwith {};
 if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
     _heli setVariable ["fza_ah64_monocleinbox", true];
 };
+
+private _deltaTime  = ["ihadss_deltaTime"] call BIS_fnc_deltaTime;
 
 //Current Ihadss
 [_heli] call fza_ihadss_fnc_fovControl;
@@ -44,6 +53,7 @@ if (currentVisionMode player != 0 && cameraView != "GUNNER") then {
 [_heli] call fza_ihadss_fnc_steeringCursorDraw;
 [_heli] call fza_ihadss_fnc_pnvsControl;
 [_heli] call fza_ihadss_fnc_draw;
+[_heli, _deltaTime] call fza_ihadss_fnc_linearMotionCompensator;
 
 
 if !(player != vehicle player || alive _heli || local _heli) exitwith {};

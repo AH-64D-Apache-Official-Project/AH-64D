@@ -10,18 +10,18 @@ class CfgFunctions
     {
         tag = "FZA";
         class anim {
-            file = "\fza_ah64_controls\scripting\functions\anim";
+            file = "\fza_ah64_controls\functions\anim";
             class animSetValue {R;};
             class animReset {R;};
         };
         class avionics
         {
-            file = "\fza_ah64_controls\scripting\functions\avionics";
+            file = "\fza_ah64_controls\functions\avionics";
             class avionicsSlipIndicator {R;};
         };
         class core
         {
-            file = "\fza_ah64_controls\scripting\functions\core";
+            file = "\fza_ah64_controls\functions\core";
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
             class coreGetObjectsLookedAt {R;};
@@ -31,11 +31,11 @@ class CfgFunctions
             class coreControlHandle {R;};
         };
         class damage {
-            file = "\fza_ah64_controls\scripting\functions\damage";
+            file = "\fza_ah64_controls\functions\damage";
         };
         class engine
         {
-            file = "\fza_ah64_controls\scripting\functions\engine";
+            file = "\fza_ah64_controls\functions\engine";
             class engineHandleControl {R;};
             class engineSetPosition
             {
@@ -47,40 +47,39 @@ class CfgFunctions
         };
         class event
         {
-            file = "\fza_ah64_controls\scripting\functions\event";
+            file = "\fza_ah64_controls\functions\event";
             class eventFired {R;};
             class eventGetIn {R;};
             class eventGetOut {R;};
-            class eventIncomingMissile {R;};
             class eventInit {R;};
         };
         class fx {
-            file = "\fza_ah64_controls\scripting\functions\fx";
+            file = "\fza_ah64_controls\functions\fx";
             class fxMuzzle {R;};
             class fxLoops {R;};
         };
         class laser
         {
-            file = "\fza_ah64_controls\scripting\functions\laser";
+            file = "\fza_ah64_controls\functions\laser";
             class laserArm {R;};
             class laserDisarm {R;};
         };
         class targeting
         {
-            file = "\fza_ah64_controls\scripting\functions\targeting";
+            file = "\fza_ah64_controls\functions\targeting";
             class targetingAcqModelVec {R;};
             class targetingAcqVec {R;};
             class targetingCurAcq {R;};
         };
         class ui
         {
-            file = "\fza_ah64_controls\scripting\functions\ui";
+            file = "\fza_ah64_controls\functions\ui";
             class uiMouseMove {R;};
             class uiShowIntro {R;};
         };
         class weapon
         {
-            file = "\fza_ah64_controls\scripting\functions\weapon";
+            file = "\fza_ah64_controls\functions\weapon";
             class weaponActionSwitch {R;};
             class weaponMissileGetSelected {R;};
             class weaponMissileCycle {R;};
@@ -95,7 +94,7 @@ class CfgFunctions
         };
         class functions
         {
-            file = "\fza_ah64_controls\scripting\functions";
+            file = "\fza_ah64_controls\functions";
             class setPitchBank {R;};
             class getPitchBank {R;};
             class relativeDirection {R;};

@@ -80,10 +80,13 @@ if (_battBusOn || _dcBusOn) then {
             ]];
         } forEach _radios;
     } else {
-        _heli setUserMFDText [5, "<>VH 139.500* -GO--      L1 149.500"]; 
-        _heli setUserMFDText [6, "<>UH 240.500* -FCK- C3   L2 249.500"]; 
-        _heli setUserMFDText [7, "<>F1  39.075  -UR-- C5 H T1  45.500"]; 
-        _heli setUserMFDText [8, "<>F2  49.500  -SLF- C2   L3  69.525"];
+        private _labelNames = profileNamespace getVariable ["fza_ah64_ufd_labels", ["GLBL-", "SIDE-", "-CMD-", "GROUP"]];
+        private _activeChan = [".>", "<."] select (driver _heli == player);
+        private _currentChan = currentChannel;
+        _heli setUserMFDText [5, format["%1VH 139.500* %2      L1 149.500",["..", _activeChan] select (_currentChan == 0) , [_labelNames#0, "-----"] call fza_fnc_padString]]; 
+        _heli setUserMFDText [6, format["%1UH 240.500* %2 C3   L2 249.500",["..", _activeChan] select (_currentChan == 1) , [_labelNames#1, "-----"] call fza_fnc_padString]]; 
+        _heli setUserMFDText [7, format["%1F1  39.075  %2 C5 H T1  45.500",["..", _activeChan] select (_currentChan == 2) , [_labelNames#2, "-----"] call fza_fnc_padString]]; 
+        _heli setUserMFDText [8, format["%1F2  49.500  %2 C2   L3  69.525",["..", _activeChan] select (_currentChan == 3) , [_labelNames#3, "-----"] call fza_fnc_padString]];
     };
 
     private _pylonMagazines  = getPylonMagazines _heli;
