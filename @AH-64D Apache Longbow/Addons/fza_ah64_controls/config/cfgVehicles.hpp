@@ -238,7 +238,6 @@ class CfgVehicles
         #include "cfgVehicles\animationSources.hpp"
         #include "cfgVehicles\markerLights.hpp"
         #include "cfgVehicles\reflectors.hpp"
-        #include "cfgVehicles\ace.hpp"
         #include "\fza_ah64_fcr\CfgSensors.hpp"
 
         class UVAnimations {
