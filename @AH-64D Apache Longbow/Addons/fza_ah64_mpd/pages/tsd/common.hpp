@@ -4,6 +4,9 @@ class vabs_show {
 };
 
 class tsdCommon {
+    class fcr_outlines {
+    #include "fcr.hpp"
+    };
     class occluders {
         color[] = {0,0,0,1};
         class Polygons {
