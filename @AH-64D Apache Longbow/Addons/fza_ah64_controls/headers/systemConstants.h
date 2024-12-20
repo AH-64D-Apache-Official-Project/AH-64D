@@ -15,8 +15,8 @@
 
 //FCR
 #define FCR_LIMIT_MIN_RANGE              500  //For FCR/TSD display presentation only!
-#define FCR_LIMIT_FORCE_LOBL_RANGE       1000
-#define FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE 1500 //For FCR/TSD display presentation only!
+#define FCR_LIMIT_FORCE_LOBL_RANGE       2000
+#define FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE 2500 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_STATIONARY_RANGE       6000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_RANGE           8000 //For FCR/TSD display presentation only!
 #define FCR_LIMIT_MOVING_MIN_SPEED_KMH   6

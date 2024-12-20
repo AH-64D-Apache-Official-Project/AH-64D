@@ -192,8 +192,6 @@ class CfgAmmo {
             seekerTypes[]                       = { "Fza_ARH" };
 
             seekerAngle                         = 70;
-            activeRadarEngageDistance           = 2500;
-            seekerMaxRange                      = 2500;
         };
     };
     class fza_agm114n : fza_agm114base

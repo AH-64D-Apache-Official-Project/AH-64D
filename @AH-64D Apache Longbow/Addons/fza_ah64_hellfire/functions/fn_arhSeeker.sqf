@@ -31,24 +31,20 @@ _seekerStateParams params ["_isActive", "_timeWhenActive", "_expectedTargetPos",
 
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
 
-drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,1,1], _calulatedSearchPos vectorAdd [0, 0, 0], 0.75, 0.75, 0, "SEARCH POS", 1, 0.025, "TahomaB"];
-
 if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitwith {
     _expectedTargetPos
 };
 
 if !_isActive then {
-    _seekerStateParams set [0, true]; // _isactive
-    systemchat "live";
+    _seekerStateParams set [0, true];
 };
 
 if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
-    systemchat "GUIDING";
     _seekerStateParams set [4, CBA_missionTime];
     private _searchPos = _calulatedSearchPos;
     if (_searchPos isEqualTo [0, 0, 0]) exitwith {};
     _target = objNull;
-    private _distanceToExpectedTarget = FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE min ((getPosASL _projectile) vectorDistance _searchPos);
+    private _distanceToExpectedTarget = FCR_LIMIT_FORCE_LOBL_RANGE min ((getPosASL _projectile) vectorDistance _searchPos);
 
     // Simulate how much the seeker can see at the ground
     private _projDir = vectorDir _projectile;
@@ -79,8 +75,6 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
     private _secondaryTargets = _nearestObjects - _primaryTargets;
     _primaryTargets = [_primaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
     _secondaryTargets = [_secondaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
-    systemchat str _primaryTargets;
-    systemchat str _secondaryTargets;
 
     if (_primaryTargets isNotEqualTo []) then {
         _target = _primaryTargets#0
