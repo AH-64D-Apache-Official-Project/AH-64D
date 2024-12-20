@@ -20,7 +20,8 @@ params ["_heli"];
 
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 
-fza_sfmplus_liftLossTimer = 0;
+fza_sfmplus_liftLossTimer    = 0;
+fza_sfmplus_collectiveOutput = 0.0;
 
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
 _heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];
@@ -53,9 +54,7 @@ _heli setVariable ["fza_sfmplus_maxCtrFuelMass",     getNumber (_config >> "maxC
 _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxAftFuelMass")];  //1474lbs in kg
 _heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
-//Torque scalars
-//_heli setVariable ["fza_sfmplus_pitchTorqueScalar",  1.75];
-//_heli setVariable ["fza_sfmplus_rollTorqueScalar",   0.75];
+_heli setVariable ["fza_sfmplus_collectiveVal",      0.0];
 
 //Position Hold
 _heli setVariable ["fza_sfmplus_pid_roll",           [0.0240, 0.0030, 0.0360] call fza_fnc_pidCreate];

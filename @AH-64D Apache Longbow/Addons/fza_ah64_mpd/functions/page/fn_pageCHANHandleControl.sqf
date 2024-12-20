@@ -9,6 +9,10 @@ switch _control do {
         [_heli, _mpdIndex, "wpn"] call fza_mpd_fnc_setCurrentPage
     };
 
+    case "b1": {
+        [_heli, _mpdIndex, "WPN"] call fza_mpd_fnc_setCurrentPage
+    };
+
     // Missile channel selections
     case "t2": {
         _persistState set ["missileChannel", 1];
