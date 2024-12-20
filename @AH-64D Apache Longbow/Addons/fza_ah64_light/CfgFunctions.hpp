@@ -16,3 +16,5 @@ class CfgFunctions
         };
     };
 };
+
+#include "CfgVehicles.hpp"
