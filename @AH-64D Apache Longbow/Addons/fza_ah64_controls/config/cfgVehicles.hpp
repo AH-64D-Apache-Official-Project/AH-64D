@@ -18,7 +18,6 @@ class CfgVehicles {
 
         A3TI_ThermalSelections[] = {"skin"};
         
-        #include "cfgVehicles\ace.hpp"
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\animationSources.hpp"
         #include "cfgVehicles\itcAir.hpp"
@@ -101,7 +100,7 @@ class CfgVehicles {
         armor                    = 600;
         attenuationEffectType    = "HeliAttenuation";
         audible                  = 4;
-        author                   = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
+        author                   = "AH-64D Development Team";
         availableForSupportTypes[] = {"CAS_Heli", "Transport"};
         camshakecoef             = 0.3;
         cargoAction[]            = {"fza_ah64_leftcargo","fza_ah64_rightcargo"};
@@ -298,7 +297,7 @@ class CfgVehicles {
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;
         scope           = 2;
-        author          = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
+        author          = "AH-64D Development Team";
         displayName     = "AH-64D BLOCK I";
         editorPreview   = "\fza_ah64_us\editorPreview\fza_ah64d_b1.jpg";
         model           = "\fza_ah64_US\fza_ah64d_b2.p3d";
