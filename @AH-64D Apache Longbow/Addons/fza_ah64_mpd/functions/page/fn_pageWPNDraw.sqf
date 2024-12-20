@@ -22,10 +22,10 @@ private _chaffCount = 0;
 private _flareCount= 0;
 {
     _x params ["_className", "_turretPath", "_ammoCount"];
-    if (_className == "30Rnd_CMChaffMagazine" && _turretPath isEqualTo [-1]) then {
+    if (_className == "fza_chaff_30_mag" && _turretPath isEqualTo [-1]) then {
         _chaffCount = _chaffCount + _ammoCount;
     };
-    if (_className == "60Rnd_CMFlareMagazine" && _turretPath isEqualTo [-1]) then {
+    if (_className == "fza_flare_30_mag" && _turretPath isEqualTo [-1]) then {
         _flareCount= _flareCount+ _ammoCount;
     };
 } forEach magazinesAllTurrets _heli;
