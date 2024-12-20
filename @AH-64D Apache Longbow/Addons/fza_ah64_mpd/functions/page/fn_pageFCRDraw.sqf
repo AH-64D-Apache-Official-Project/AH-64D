@@ -39,7 +39,7 @@ switch (_sight) do {
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
 
 //Command Heading Chevron
-private _nextPoint = _heli getVariable "fza_dms_routeNext";
+private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 if (isNil "_nextPointPos") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360];
