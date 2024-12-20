@@ -24,13 +24,14 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["", "_args", "_seekerStateParams", "", "_timestep"];
 _args params ["_firedEH", "_launchParams", "", "_seekerParams", "_stateParams", "_targetData", "_navigationStateParams"];
-_stateParams params ["", "", "_attackProfileStateParams"];
 _firedEH params ["_shooter","","","","","","_projectile"];
 _launchParams params ["_target","","","",""];
 _seekerParams params ["_seekerAngle", "", "_seekerMaxRange"];
-(_projectile getVariable "fza_ah64_SeekerstateData") params ["_isActive", "_timeWhenActive", "_expectedTargetPos", "_calulatedSearchPos", "_lastTargetPollTime", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
+_seekerStateParams params ["_isActive", "_timeWhenActive", "_expectedTargetPos", "_calulatedSearchPos", "_lastTargetPollTime", "_lastKnownVelocity", "_lastTimeSeen", "_doesntHaveTarget", "_targetType"];
 
 #define ACTIVE_RADAR_MINIMUM_SCAN_AREA 50
+
+drawIcon3D ["\a3\ui_f\data\IGUI\Cfg\Cursors\selectover_ca.paa", [1,0,1,1], _calulatedSearchPos vectorAdd [0, 0, 0], 0.75, 0.75, 0, "SEARCH POS", 1, 0.025, "TahomaB"];
 
 if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitwith {
     _expectedTargetPos
@@ -38,9 +39,11 @@ if (!_isActive && { CBA_missionTime  <= _timeWhenActive }) exitwith {
 
 if !_isActive then {
     _seekerStateParams set [0, true]; // _isactive
+    systemchat "live";
 };
 
 if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
+    systemchat "GUIDING";
     _seekerStateParams set [4, CBA_missionTime];
     private _searchPos = _calulatedSearchPos;
     if (_searchPos isEqualTo [0, 0, 0]) exitwith {};
@@ -66,7 +69,7 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
     // Select closest object to the expected position to be the current radar target
     if (_nearestObjects isEqualTo []) exitWith {
         _projectile setMissileTarget objNull;
-        _searchPos
+        _expectedTargetPos
     };
 
     private _primaryTargets = _nearestObjects select {
@@ -76,6 +79,8 @@ if ((_lastTargetPollTime + (1 / 7)) - CBA_missionTime < 0) then {
     private _secondaryTargets = _nearestObjects - _primaryTargets;
     _primaryTargets = [_primaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
     _secondaryTargets = [_secondaryTargets, [], {_x distance _searchPos}, "ASCEND"] call BIS_fnc_sortBy;
+    systemchat str _primaryTargets;
+    systemchat str _secondaryTargets;
 
     if (_primaryTargets isNotEqualTo []) then {
         _target = _primaryTargets#0
@@ -113,7 +118,5 @@ if !(isNull _target) then {
 
 _targetData set [0, (getPosASLVisual _projectile) vectorFromTo _expectedTargetPos];
 _seekerStateParams set [2, _expectedTargetPos];
-_projectile setvariable ["fza_ah64_SeekerstateData", _seekerStateParams];
-
 
 _expectedTargetPos
