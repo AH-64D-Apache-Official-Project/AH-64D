@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_getSeat.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the seat of a current player Allows for swapping seat position</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_getSeat.sqf",{106:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Gets the seat of a current player Allows for swapping seat position</div></div>"});
