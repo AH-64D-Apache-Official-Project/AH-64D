@@ -26,6 +26,6 @@ params["_heli"];
 
 if (!(player in _heli)) exitwith {};
 
-private _beta_g     = _heli getVariable "fza_sfmplus_aero_beta_g";
+private _beta_deg = _heli getVariable 'fza_sfmplus_aero_beta_deg';
 
-fza_ah64_sideslip = [_beta_g / 0.15, -1.0, 1.0] call BIS_fnc_clamp;
+fza_ah64_sideslip = [_beta_deg / 30.0, -1.0, 1.0] call BIS_fnc_clamp;
