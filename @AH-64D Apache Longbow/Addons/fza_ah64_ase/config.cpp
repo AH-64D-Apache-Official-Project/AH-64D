@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_ase
     {
         units[] = {};
-        author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Snow(Dryden) & Community";
+        author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder"};
