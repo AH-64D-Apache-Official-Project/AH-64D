@@ -13,6 +13,7 @@ class CfgVehicles {
         icon        = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
         picture     = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
         displayName = "AH-64 Offical Project Base class";
+        model       = "\fza_ah64_US\fza_ah64d_b2.p3d";
         scope       = 0;
         mapSize     = 10;
 
@@ -300,7 +301,6 @@ class CfgVehicles {
         author          = "AH-64D Development Team";
         displayName     = "AH-64D BLOCK I";
         editorPreview   = "\fza_ah64_us\editorPreview\fza_ah64d_b1.jpg";
-        model           = "\fza_ah64_US\fza_ah64d_b2.p3d";
     };
 
 
