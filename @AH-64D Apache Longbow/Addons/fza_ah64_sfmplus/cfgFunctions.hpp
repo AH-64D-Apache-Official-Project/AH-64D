@@ -95,6 +95,7 @@ class CfgFunctions
             file = "\fza_ah64_sfmplus\functions";
             class calculateAeroValues {R;};
             class getAltitude {R;};
+            class getDeltaTime {R;};
             class getInput {R;};
             class getRtrRPM {R;};
             class getVelocities {R;};

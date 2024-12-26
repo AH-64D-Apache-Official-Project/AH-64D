@@ -18,7 +18,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYawOut"];
+params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYawOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
@@ -99,9 +99,9 @@ private _axisZ = [0.0, 0.0, 1.0];
 
 private _totThrust     = _rtrThrust;
 
-private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
+private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * fza_sfmplus_deltaTime);
 private _torqueY       = 0.0;
-private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
+private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * fza_sfmplus_deltaTime; 
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
