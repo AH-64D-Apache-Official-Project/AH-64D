@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_sfmplus_fnc_getFixedDeltaTime
+Function: fza_sfmplus_fnc_getDeltaTime
 
 Description:
     Custom time handler
