@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
+params ["_heli", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
@@ -41,19 +41,19 @@ private _apuOn             = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
 private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
-_cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicFwdAft                = [_heli, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _cyclicFwdAft                = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
 //private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 //Cyclic roll
 private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
-_cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicLeftRight             = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 //private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-_pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_pedalLeftRight              = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 
 //Keyboard collective
@@ -84,8 +84,8 @@ if (!_hydFailure || _emerHydOn) then {
     };
 
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
-        if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
-        if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
+        if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
         _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 
         if (_isPlaying) then {

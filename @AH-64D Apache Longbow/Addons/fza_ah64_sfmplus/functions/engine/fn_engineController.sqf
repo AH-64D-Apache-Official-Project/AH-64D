@@ -6,7 +6,6 @@ Description:
 
 Parameters:
     _heli      - The helicopter to get information from [Unit].
-    _deltaTime - Passed delta time from core update.
 
 Returns:
     ...
@@ -17,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp";
 #include "\fza_ah64_systems\headers\systems.hpp"
 
@@ -89,8 +88,8 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
 };
 
 if (currentPilot _heli == player || local _heli) then {
-    [_heli, 0, _deltaTime] call fza_sfmplus_fnc_engine;
-    [_heli, 1, _deltaTime] call fza_sfmplus_fnc_engine;
+    [_heli, 0] call fza_sfmplus_fnc_engine;
+    [_heli, 1] call fza_sfmplus_fnc_engine;
 };
 
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";

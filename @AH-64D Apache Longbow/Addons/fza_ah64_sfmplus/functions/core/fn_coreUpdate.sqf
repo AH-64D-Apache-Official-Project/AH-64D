@@ -25,7 +25,7 @@ if (CBA_missionTime < 0.1) exitwith {};
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 private _flightModel = getText (_config >> "fza_flightModel");
 
-private _deltaTime   = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
+[] call fza_sfmplus_fnc_getDeltaTime;
 
 if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
     _heli action ["AutoHoverCancel", _heli];  
@@ -45,15 +45,15 @@ private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
 //Input
-([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
+([_heli] call fza_sfmplus_fnc_fmc)
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
+[_heli, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
 
 //
-[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAeroValues;
+[_heli] call fza_sfmplus_fnc_calculateAeroValues;
 
 //Fuel
-[_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
+[_heli] call fza_sfmplus_fnc_fuelUpdate;
 
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
@@ -62,24 +62,24 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 [_heli] call fza_sfmplus_fnc_perfData;
 
 //Engines
-[_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
+[_heli] call fza_sfmplus_fnc_engineController;
 
 if (_flightModel != "SFMPlus") then {
     //Main Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
+    [_heli, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
     //Tail Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+    [_heli, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
     //Drag
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
+    [_heli, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
     //Vertical fin
-    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
+    [_heli, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
 };
 
 //Damage
-[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
+[_heli] call fza_sfmplus_fnc_damageApply;
 
 //Stabilator
-[_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
+[_heli, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
 
 if !(isMultiplayer) then {
     [_heli] call fza_sfmplus_fnc_probes;

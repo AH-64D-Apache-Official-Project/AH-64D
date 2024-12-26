@@ -1,6 +1,6 @@
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_rho"];
+params ["_heli", "_altitude", "_temperature", "_rho"];
 
 if (!local _heli) exitWith {};
 
@@ -93,7 +93,7 @@ if (_flightModel == "SFMPlus") then {
 
     private _dragVector = _relativeWind;
     _dragVector         = vectorNormalized _dragVector;
-    _dragVector         = _dragVector vectorMultiply (_drag * _deltaTime);
+    _dragVector         = _dragVector vectorMultiply (_drag * fza_sfmplus_deltaTime);
 
     _heli addForce[_heli vectorModelToWorld _dragVector, _heliCOM];
 /////////////////////////////////////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 

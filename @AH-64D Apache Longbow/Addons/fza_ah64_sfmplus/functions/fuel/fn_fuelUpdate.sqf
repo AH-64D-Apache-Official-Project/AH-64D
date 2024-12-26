@@ -19,7 +19,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 
 private _percentFuel     = fuel _heli;
 private _IAFSInstalled   = _heli getVariable "fza_ah64_IAFSInstalled";
@@ -44,7 +44,7 @@ private _apuFF_kgs       = _heli getVariable "fza_systems_apuFF_kgs";
 private _eng1FF_kgs      = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF_kgs      = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow_kgs = 0;
-_curFuelFlow_kgs         = (_apuFF_kgs + _eng1FF_kgs + _eng2FF_kgs) * _deltaTime;
+_curFuelFlow_kgs         = (_apuFF_kgs + _eng1FF_kgs + _eng2FF_kgs) * fza_sfmplus_deltaTime;
 _totFuelMass             = (_maxTotFuelMass * _percentFuel) - _curFuelFlow_kgs;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // External Tanks       /////////////////////////////////////////////////////////////////////

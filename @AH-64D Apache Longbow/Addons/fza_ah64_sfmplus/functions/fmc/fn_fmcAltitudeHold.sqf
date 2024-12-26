@@ -1,4 +1,4 @@
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
@@ -45,11 +45,11 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     if (_subMode == "rad") then {
         //Radar altitude hold uses AGL altitude
         private _altError = _curAltAGL - _desiredAlt;
-        _output = [_pidRadAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
+        _output = [_pidRadAlt, fza_sfmplus_deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     } else {
         //Barometric altitude hold uses the ASL altitude
         private _altError = _curAltMSL - _desiredAlt;
-        _output = [_pidBarAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
+        _output = [_pidBarAlt, fza_sfmplus_deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     };
 } else {
     [_pidRadAlt] call fza_fnc_pidReset;

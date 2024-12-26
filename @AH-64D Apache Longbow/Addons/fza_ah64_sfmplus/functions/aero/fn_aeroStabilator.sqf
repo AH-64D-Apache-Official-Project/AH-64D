@@ -7,7 +7,6 @@ Description:
 
 Parameters:
     _heli      - The helicopter to get information from [Unit].
-    _deltaTime - Passed delta time from core update.
 
 Returns:
     ...
@@ -19,7 +18,7 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_systems\headers\systems.hpp"
-params ["_heli", "_deltaTime", "_rho"];
+params ["_heli", "_rho"];
 
 private _stabDamage    = _heli getHitPointDamage "hit_stabilator";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
@@ -195,11 +194,11 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _liftVector = _vectorRight vectorCrossProduct _relativeWind;
     _liftVector = vectorNormalized _liftVector;
-    _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
+    _liftVector = _liftVector vectorMultiply (_lift * fza_sfmplus_deltaTime);
 
     private _dragVector = _relativeWind;
     _dragVector = vectorNormalized _dragVector;
-    _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
+    _dragVector = _dragVector vectorMultiply (_drag * fza_sfmplus_deltaTime);
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorAdd (_liftVector vectorMultiply _debugLineScale), _e, "green"] call fza_fnc_debugDrawLine;
