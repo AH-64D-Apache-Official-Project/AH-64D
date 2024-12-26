@@ -349,38 +349,46 @@ if (_stabDamage >= SYS_STAB_DMG_THRESH) then {
 };
 //--Hydraulics
 if (_priHydPSI < SYS_MIN_HYD_PSI) then {
-    ([_heli, _activeCaut, "PRI HYD PSI LOW", "PRI HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
-        params ["_wcaAddCaution", "_playAudio"];
+    if !_onGnd then {
+        ([_heli, _activeCaut, "PRI HYD PSI LOW", "PRI HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+            params ["_wcaAddCaution", "_playAudio"];
 
-    _playCautAudio = _playAudio;
-    _wcas pushBack _wcaAddCaution;
+        _playCautAudio = _playAudio;
+        _wcas pushBack _wcaAddCaution;
+    };
 } else {
     [_activeCaut, "PRI HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_priLevel_pct < SYS_HYD_MIN_LVL) then {
-    ([_heli, _activeCaut, "PRI HYD LEVEL LOW", "PRI HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
-        params ["_wcaAddCaution", "_playAudio"];
+    if !_onGnd then {
+        ([_heli, _activeCaut, "PRI HYD LEVEL LOW", "PRI HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+            params ["_wcaAddCaution", "_playAudio"];
 
-    _playCautAudio = _playAudio;
-    _wcas pushBack _wcaAddCaution;
+        _playCautAudio = _playAudio;
+        _wcas pushBack _wcaAddCaution;
+    };
 } else {
     [_activeCaut, "PRI HYD LVL"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
-    ([_heli, _activeCaut, "UTIL HYD PSI LOW", "UTIL HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
-        params ["_wcaAddCaution", "_playAudio"];
+    if !_onGnd then {
+        ([_heli, _activeCaut, "UTIL HYD PSI LOW", "UTIL HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+            params ["_wcaAddCaution", "_playAudio"];
 
-    _playCautAudio = _playAudio;
-    _wcas pushBack _wcaAddCaution;
+        _playCautAudio = _playAudio;
+        _wcas pushBack _wcaAddCaution;
+    };
 } else {
     [_activeCaut, "UTIL HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
 if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
-    ([_heli, _activeCaut, "UTIL HYD LEVEL LOW", "UTIL HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
-        params ["_wcaAddCaution", "_playAudio"];
+    if !_onGnd then {
+        ([_heli, _activeCaut, "UTIL HYD LEVEL LOW", "UTIL HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+            params ["_wcaAddCaution", "_playAudio"];
 
-    _playCautAudio = _playAudio;
-    _wcas pushBack _wcaAddCaution;
+        _playCautAudio = _playAudio;
+        _wcas pushBack _wcaAddCaution;
+    };
 } else {
     [_activeCaut, "UTIL HYD LVL"] call fza_wca_fnc_wcaDelCaution;
 };
