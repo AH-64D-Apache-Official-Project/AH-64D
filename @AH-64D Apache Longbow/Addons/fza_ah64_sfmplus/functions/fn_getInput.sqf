@@ -75,9 +75,8 @@ private _paused       = isNull findDisplay 49;
 private _chatting     = isNull findDisplay 24;
 private _inDialog     = !dialog;
 private _isZeus       = !isNull findDisplay 312;
-private _isUAVControl = (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
 
-private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && !_isUAVControl;
+private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus;
 
 if (!_hydFailure || _emerHydOn) then {
     if (isNil "fza_sfmplus_collectiveOutput") then {
