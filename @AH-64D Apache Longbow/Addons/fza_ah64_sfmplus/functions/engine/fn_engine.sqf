@@ -175,7 +175,7 @@ if (!_engOverspeed) then {
     };
 } else {
     //If the engine is overspeeding, then do over speed things
-    _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
+    _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
 };
 _engPctTQ = [_engPctTQ, 0.0, 2.55] call BIS_fnc_clamp;
 

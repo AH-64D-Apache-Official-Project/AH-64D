@@ -84,8 +84,8 @@ if (!_hydFailure || _emerHydOn) then {
     };
 
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
-        if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
-        if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
+        if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
         _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 
         if (_isPlaying) then {
