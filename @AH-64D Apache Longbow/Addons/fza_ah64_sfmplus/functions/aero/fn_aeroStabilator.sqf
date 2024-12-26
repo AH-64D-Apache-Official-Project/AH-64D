@@ -17,8 +17,9 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-#include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli", "_rho"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
+#include "\fza_ah64_systems\headers\systems.hpp"
 
 private _stabDamage    = _heli getHitPointDamage "hit_stabilator";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
