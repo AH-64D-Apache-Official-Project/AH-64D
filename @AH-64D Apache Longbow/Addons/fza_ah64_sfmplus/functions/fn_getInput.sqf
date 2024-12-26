@@ -98,6 +98,8 @@ if (_flightModel == "SFMPlus") then {
     private _chatting = isNull findDisplay 24;
     private _inDialog = !dialog;
     private _isZeus   = !isNull findDisplay 312;
+    private _isUAVControl = (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
+    private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus && !_isUAVControl;
 
     if (!_hydFailure || _emerHydOn) then {
         if (isNil "fza_sfmplus_collectiveOutput") then {
@@ -109,9 +111,8 @@ if (_flightModel == "SFMPlus") then {
             if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
             _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 
-            private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
-
             if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
+            if _isPlaying then {
                 fza_sfmplus_collectiveOutput = _collectiveVal;
             } else {
                 if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
@@ -125,8 +126,6 @@ if (_flightModel == "SFMPlus") then {
             _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
             _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
-
-            private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
 
             if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
                 fza_sfmplus_collectiveOutput = _collectiveVal;
