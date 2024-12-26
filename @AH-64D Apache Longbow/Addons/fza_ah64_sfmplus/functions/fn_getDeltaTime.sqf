@@ -22,5 +22,5 @@ fza_sfmplus_currentTime    = diag_tickTime;
 fza_sfmplus_deltaTime      = (fza_sfmplus_currentTime - fza_sfmplus_previousTime);
 fza_sfmplus_previousTime   = fza_sfmplus_currentTime;
 
-if (fza_sfmplus_deltaTime > (1.0 / 10.0)) then { fza_sfmplus_deltaTime = (1.0 / 10.0)};
+if (fza_sfmplus_deltaTime > (1.0 / 5.0)) then { fza_sfmplus_deltaTime = (1.0 / 5.0)};
 fza_sfmplus_deltaTime = fza_sfmplus_deltaTime * accTime;
