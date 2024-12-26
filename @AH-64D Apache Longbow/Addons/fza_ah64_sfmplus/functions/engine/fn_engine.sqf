@@ -23,7 +23,6 @@ params ["_heli", "_engNum", "_deltaTime"];
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
 private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -163,64 +162,22 @@ private _engBaseOilPSI   = _intEngBaseTable select 4;
 private _heightAGL  = ASLToAGL getPosASL _heli # 2;
 private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIGE, true];
 
-if (_flightModel == "SFMPlus") then {
-    private _engHvrTQTable = [[]];
-    //----------------------Coll-----TQ---
-    if (fza_ah64_sfmPlusKeyboardOnly) then {
-        _engHvrTQTable = [[ 0.00, _engBaseTQ]
-                         ,[ 0.58,     _hvrTQ]
-                         ,[ 0.68,     _hvrTQ]
-                         ,[ 1.00,     _maxTQ]];
-    } else {
-        _engHvrTQTable = [[ 0.00, _engBaseTQ]
-                         ,[ 0.645,    _hvrTQ]
-                         ,[ 0.670,    _hvrTQ]
-                         ,[ 1.00,     _maxTQ]];
-    };
-    private _cruiseTable = _heli getVariable "fza_sfmplus_cruiseTable";
-
-    private _engCruiseTQTable = [[]];
-    //-------------------------Coll-----TQ---
-    if (fza_ah64_sfmPlusKeyboardOnly) then {
-        _engCruiseTQTable = [[ 0.00,                 0.03],
-                            [ 0.82, _cruiseTable select 4],
-                            [ 0.90, _cruiseTable select 6],
-                            [ 1.00, _maxTQ               ]];
-    } else {
-        _engCruiseTQTable = [[ 0.00,                 0.03],
-                            [ 0.70, _cruiseTable select 4],  //
-                            [ 0.89, _cruiseTable select 6],  //
-                            [ 1.00, _maxTQ               ]];
-    };
-
-    private _curHvrTQ = [_engHvrTQTable,    fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
-    private _cruiseTQ = [_engCruiseTQTable, fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp select 1;
-
-    private _V_mps = abs vectorMagnitude [velocity _heli select 0, velocity _heli select 1];
-    _engSetTQ      = linearConversion [0.00, 12.35, _V_mps, _curHvrTQ, _cruiseTQ, true];
+//If the engine isn't overspeed, do normal engine things
+if (!_engOverspeed) then {
+    _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
     if (_isSingleEng) then {
-        _engPctTQ = [_engPctTQ, (_engBaseTq * 2.0) + ((_engSetTQ - _engBaseTQ) * 2.0) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
-    } else {
-        _engPctTQ = [_engPctTQ, _engBaseTq + (_engSetTQ - _engBaseTQ) * _engThrottle, _deltaTime] call BIS_fnc_lerp;
-    };
-} else {    //End SFMPlus, begin HeliSim
-    //If the engine isn't overspeed, do normal engine things
-    if (!_engOverspeed) then {
-        _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
-        if (_isSingleEng) then {
-            if (_engPowerLeverState in ["OFF", "IDLE"]) then {
-                _engPctTQ = 0.0;
-            } else {
-                _engPctTQ = _engPctTQ;
-            };
+        if (_engPowerLeverState in ["OFF", "IDLE"]) then {
+            _engPctTQ = 0.0;
         } else {
-            _engPctTQ = _engPctTQ / 2.0;
+            _engPctTQ = _engPctTQ;
         };
     } else {
-        //If the engine is overspeeding, then do over speed things
-        _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
+        _engPctTQ = _engPctTQ / 2.0;
     };
-};  //End HeliSim
+} else {
+    //If the engine is overspeeding, then do over speed things
+    _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
+};
 _engPctTQ = [_engPctTQ, 0.0, 2.55] call BIS_fnc_clamp;
 
 private _engTable = [[  _engBaseTQ, _engBaseTGT, _engBaseNG, _engBaseOilPSI],
