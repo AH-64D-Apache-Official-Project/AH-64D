@@ -71,10 +71,13 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
     _tailRtrFixed = true;
 };
 
-private _paused   = isNull findDisplay 49;
-private _chatting = isNull findDisplay 24;
-private _inDialog = !dialog;
-private _isZeus   = !isNull findDisplay 312;
+private _paused       = isNull findDisplay 49;
+private _chatting     = isNull findDisplay 24;
+private _inDialog     = !dialog;
+private _isZeus       = !isNull findDisplay 312;
+private _isUAVControl = (isRemoteControlling player && !(getConnectedUAV player isKindOf "fza_ah64base"));
+
+private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && !_isUAVControl;
 
 if (!_hydFailure || _emerHydOn) then {
     if (isNil "fza_sfmplus_collectiveOutput") then {
@@ -86,23 +89,13 @@ if (!_hydFailure || _emerHydOn) then {
         if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
         _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 
-        private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
-
-        if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
+        if (_isPlaying) then {
             fza_sfmplus_collectiveOutput = _collectiveVal;
-        } else {
-            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                fza_sfmplus_collectiveOutput = _collectiveVal;
-            };
         };
-
-        fza_sfmplus_lastIsPlaying  = _isPlaying;
     } else {
         _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
         _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
-
-        private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
 
         if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
             fza_sfmplus_collectiveOutput = _collectiveVal;
@@ -116,6 +109,7 @@ if (!_hydFailure || _emerHydOn) then {
         fza_sfmplus_prevCollective = _collectiveVal;
     };
 };
+
 fza_sfmplus_collectiveOutput = (round (fza_sfmplus_collectiveOutput / 0.005)) * 0.005;
 _heli setVariable ["fza_sfmplus_collectiveVal", fza_sfmplus_collectiveOutput];
 
