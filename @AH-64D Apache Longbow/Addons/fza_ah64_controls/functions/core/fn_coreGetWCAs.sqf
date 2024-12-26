@@ -348,7 +348,7 @@ if (_stabDamage >= SYS_STAB_DMG_THRESH) then {
     [_activeCaut, "STAB FAIL"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Hydraulics
-if (_priHydPSI < SYS_MIN_HYD_PSI) then {
+if (_priHydPSI < SYS_MIN_HYD_PSI && !_onGnd) then {
     ([_heli, _activeCaut, "PRI HYD PSI LOW", "PRI HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -357,7 +357,7 @@ if (_priHydPSI < SYS_MIN_HYD_PSI) then {
 } else {
     [_activeCaut, "PRI HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
-if (_priLevel_pct < SYS_HYD_MIN_LVL) then {
+if (_priLevel_pct < SYS_HYD_MIN_LVL && !_onGnd) then {
     ([_heli, _activeCaut, "PRI HYD LEVEL LOW", "PRI HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -366,7 +366,7 @@ if (_priLevel_pct < SYS_HYD_MIN_LVL) then {
 } else {
     [_activeCaut, "PRI HYD LVL"] call fza_wca_fnc_wcaDelCaution;
 };
-if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
+if (_utilHydPSI < SYS_MIN_HYD_PSI && !_onGnd) then {
     ([_heli, _activeCaut, "UTIL HYD PSI LOW", "UTIL HYD PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -375,7 +375,7 @@ if (_utilHydPSI < SYS_MIN_HYD_PSI) then {
 } else {
     [_activeCaut, "UTIL HYD PSI"] call fza_wca_fnc_wcaDelCaution;
 };
-if (_utilLevel_pct < SYS_HYD_MIN_LVL) then {
+if (_utilLevel_pct < SYS_HYD_MIN_LVL && !_onGnd) then {
     ([_heli, _activeCaut, "UTIL HYD LEVEL LOW", "UTIL HYD LVL", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
