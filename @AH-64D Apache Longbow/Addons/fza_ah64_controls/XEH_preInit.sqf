@@ -167,7 +167,7 @@ fza_ah64_overallticker = 0;
 fza_ah64_sideslip = 0;
 fza_ah64_tadsLockCheckRunning = false;
 fza_ah64_introShownThisScenario = false;
-private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn";
+private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64base" >> "Turrets" >> "MainTurret" >> "OpticsIn";
 fza_ah64_tadsFOVs = [
     "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom"
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
@@ -175,7 +175,7 @@ fza_ah64_tadsFOVs = [
 //Scheduler arrays
 fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
 fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
-fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller];
+fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes];
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;

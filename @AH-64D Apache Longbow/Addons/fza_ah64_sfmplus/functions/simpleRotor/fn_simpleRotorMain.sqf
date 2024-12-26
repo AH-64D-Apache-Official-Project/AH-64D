@@ -40,7 +40,13 @@ private _rtrPowerScalarTable    = [
                                   ,[6000, 1.377]
                                   ,[8000, 1.284]
                                   ];
-private _rtrGndEffModifier        = 0.238;
+private _rtrGndEffTable        = [
+                                     [ 6804, 0.300]
+                                    ,[ 7711, 0.285]
+                                    ,[ 8165, 0.295]
+                                    ,[ 8618, 0.285]
+                                    ,[ 9525, 0.300]
+                                    ];
 private _rtrThrustScalarTable_min = [
                                      [    0, 0.126]
                                     ,[ 2000, 0.123]
@@ -144,7 +150,10 @@ private _axisZ = [0.0, 0.0, 1.0];
 //Ground Effect
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
-private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffModifier;
+
+private _rtrGndEffScalar = [_rtrGndEffTable, getMass _heli] call fza_fnc_linearInterp select 1;
+
+private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
 //private _totThrust    = _heli getVariable "fza_sfmplus_rtrThrust" select 0;

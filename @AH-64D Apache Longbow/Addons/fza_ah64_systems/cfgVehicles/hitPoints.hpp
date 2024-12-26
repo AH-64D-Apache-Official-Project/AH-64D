@@ -135,6 +135,17 @@ class HitPoints
         material = 51;
         passThrough = 0;
     };
+    class hitengine
+    {
+        armor = 999;
+        depends = "0.5 * (HitEngine1 + HitEngine2)";
+        explosionShielding = 1;
+        material = 51;
+        minimalHit = 1;
+        name = "engine_hit";
+        passThrough = 0;
+        radius = 0.05;
+    };
     class hit_fuel_aft {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
