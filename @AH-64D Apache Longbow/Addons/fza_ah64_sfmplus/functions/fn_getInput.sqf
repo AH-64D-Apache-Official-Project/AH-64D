@@ -111,17 +111,9 @@ if (_flightModel == "SFMPlus") then {
             if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
             _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
 
-            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
             if _isPlaying then {
                 fza_sfmplus_collectiveOutput = _collectiveVal;
-            } else {
-                if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                    fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
-                };
             };
-
-            fza_sfmplus_lastIsPlaying  = _isPlaying;
-            fza_sfmplus_prevCollective = _collectiveVal;
         } else {
             _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
             _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
