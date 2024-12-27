@@ -42,7 +42,6 @@ params ["_heli"];
 #define FIRE_PRIORITY              4
 
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 private _mags = _heli weaponsTurret [-1];
 
@@ -452,14 +451,8 @@ if (_eng1State == "STARTING") then {
 if (_eng2State == "STARTING") then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
-if (_flightModel != "SFMPlus") then {
-    if (_heli getVariable "fza_ah64_attHoldActive") then {
-        _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
-    };
-} else {
-    if (isAutoHoverOn _heli) then {
-        _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
-    };
+if (_heli getVariable "fza_ah64_attHoldActive") then {
+    _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
 };
 private _desiredPos = 0.0;
 private _curPos     = getPos _heli;
@@ -473,13 +466,11 @@ private _attHoldSubMode =_heli getVariable "fza_ah64_attHoldSubMode";
 if (_dist >= 14.630 && _attHoldSubMode == "POS") then {
     _wcas pushBack [WCA_ADVISORY, "HOVER DRIFT", "HOVER DRIFT"];
 };
-if (_flightModel != "SFMPlus") then {
-    if (_heli getVariable "fza_ah64_altHoldActive") then {
-        if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
-            _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
-        } else {
-            _wcas pushBack [WCA_ADVISORY, "BAR ALT HOLD", "BAR HOLD  "];
-        };
+if (_heli getVariable "fza_ah64_altHoldActive") then {
+    if (_heli getVariable "fza_ah64_altHoldSubMode" == "rad") then {
+        _wcas pushBack [WCA_ADVISORY, "RAD ALT HOLD", "RAD HOLD  "];
+    } else {
+        _wcas pushBack [WCA_ADVISORY, "BAR ALT HOLD", "BAR HOLD  "];
     };
 };
 if (_heli getVariable "fza_ah64_rtrbrake") then {

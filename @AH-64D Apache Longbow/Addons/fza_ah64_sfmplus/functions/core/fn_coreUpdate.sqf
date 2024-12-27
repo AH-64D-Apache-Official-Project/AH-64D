@@ -23,11 +23,10 @@ if (isGamePaused) exitwith {};
 if (CBA_missionTime < 0.1) exitwith {};
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel = getText (_config >> "fza_flightModel");
 
 [] call fza_sfmplus_fnc_getDeltaTime;
 
-if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
+if (isAutoHoverOn _heli) then {
     _heli action ["AutoHoverCancel", _heli];  
 };
 
@@ -64,16 +63,17 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Engines
 [_heli] call fza_sfmplus_fnc_engineController;
 
-if (_flightModel != "SFMPlus") then {
-    //Main Rotor
-    [_heli, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
-    //Tail Rotor
-    [_heli, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
-    //Drag
-    [_heli, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
-    //Vertical fin
-    [_heli, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
-};
+//Main Rotor
+[_heli, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
+
+//Tail Rotor
+[_heli, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
+
+//Drag
+[_heli, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
+
+//Vertical fin
+[_heli, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
 
 //Damage
 [_heli] call fza_sfmplus_fnc_damageApply;
