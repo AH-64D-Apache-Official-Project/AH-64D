@@ -126,29 +126,25 @@ switch (_engState) do {
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
 		_engPctNG = [_engPctNG, _engSetNG, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
 		//Np
-		if (_flightModel == "SFMPlus") then {
-			_engPctNP = [_engPctNP, _engBaseNP, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
-		} else {
-			if (_isSingleEng) then {
-				_engLimitTQ = _maxTQ_SE;
-			} else {
-				_engLimitTQ = _maxTQ_DE;
-			};
-			//If the engine isn't overspeed, do normal engine things
-            if (!_engOverspeed) then {
-                private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
-                _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
-                //Autorotation handler
-                if (!_isAutorotating) then { 
-                    _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
-                } else {
-                    _engPctNP   = 1.01;
-                };
+        if (_isSingleEng) then {
+            _engLimitTQ = _maxTQ_SE;
+        } else {
+            _engLimitTQ = _maxTQ_DE;
+        };
+        //If the engine isn't overspeed, do normal engine things
+        if (!_engOverspeed) then {
+            private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
+            _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
+            //Autorotation handler
+            if (!_isAutorotating) then { 
+                _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
             } else {
-                //If the engine is overspeeding, then do over speed things
-                _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+                _engPctNP   = 1.01;
             };
-		};
+        } else {
+            //If the engine is overspeeding, then do over speed things
+            _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+        };
 	};
 };
 
