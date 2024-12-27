@@ -636,8 +636,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")}); 
-private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (_heli animationPhase "pnvs_vert"), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")}); 
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);

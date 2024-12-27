@@ -49,7 +49,7 @@ if (isNil "_nextPointPos") then {
 };
 
 //Alternate Sensor Bearing
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")});
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")});
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
 //FCR CenterLine
@@ -64,16 +64,17 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 
 //TADS POS
-private _acqVector = [_heli, "TADS"] call fza_fnc_targetingAcqModelVec;
-_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_tadsX", "_tadsY"];
+([_heli, [0], true] call CBA_fnc_turretDir) params ["_tadsX", "_tadsY"];
+private _tadsX = _tadsX call CBA_fnc_simplifyAngle180;
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
 
 //Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;
 private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
-private _acqVector = [_heli,_currentAcq] call fza_fnc_targetingAcqModelVec;
+private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqModelVec;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
+private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
 

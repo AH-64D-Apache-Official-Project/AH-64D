@@ -26,7 +26,7 @@ switch _acq do {
         ([1] + ([_heli, [0], true] call CBA_fnc_turretDir)) call CBA_fnc_polar2vect
     };
     case "PHS" : {
-        if (isNull driver _heli) exitWith {[_heli, "FXD"] call targetingAcqModelVec};
+        if (isNull driver _heli) exitWith {[_heli, "FXD"] call fza_fnc_targetingAcqModelVec};
         _heli vectorWorldToModelVisual eyeDirection driver _heli;
     };
     case "FXD" : {

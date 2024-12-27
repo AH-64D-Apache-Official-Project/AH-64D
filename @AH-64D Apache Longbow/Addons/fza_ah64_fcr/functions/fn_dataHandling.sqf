@@ -49,25 +49,29 @@ switch (_fcrMode) do {
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    if !(call _eval) then {
-        _search = _displayTargets findif {_x#3 isEqualTo _target;};
-        if (_search != -1) exitwith {
-            _displayTargets set [_search, [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _lifetime]];   //Update existing targets 
-        };
-        _search = _displayTargets findif {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001)) < (_type + (((_range * -1) + 8000)* 0.0001))};  
-        _displayTargets insert [_search, [[_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, _lifetime]]];  //insert new targets into correctly sorted position
+    if (call _eval) then {continue;};
+    
+    _x set [7, _lifetime]; // Add lifetime value
+    private _search = _displayTargets findif {_x#3 isEqualTo _target;};
+    if (_search != -1) exitwith {
+        _displayTargets set [_search, _x];
     };
+    private _insertfinder = {(_x#1 + (((_x#6 * -1) + 8000)* 0.0001)) < (_type + (((_range * -1) + 8000)* 0.0001))};
+    private _search = _displayTargets findif _insertfinder;  
+    _displayTargets insert [_search, [_x]];
 } foreach _fcrData;
 
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range","_remaininglife"];
-    if ([] call _eval) then {continue;};
-    _search = _fcrData findif {_x#3 isEqualTo _target;};
+    if (call _eval) then {continue;};
+
+    private _search = _fcrData findif {_x#3 isEqualTo _target;};
     if (_search == -1) then {
         if (_remaininglife <= 0) exitwith {
             _displayTargets deleteAt _foreachindex;
         };
-        _displayTargets set [_search, [_pos, _type, _moving, _target, _aziAngle, _elevAngle, _range, (_remaininglife - 1)]];
+        _x set [7, (_remaininglife - 1)];
+        _displayTargets set [_search, _x];
     };
     //possibly a need for data validation to remove any remaining target tracks not checked
 } foreach _displaytargets;

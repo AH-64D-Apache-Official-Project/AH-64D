@@ -27,6 +27,7 @@ private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
 private _fcrTracks   = getSensorTargets _heli;
 private _fcrTargets  = [];
+private _displayLife = 1;
 
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
@@ -69,7 +70,7 @@ private _fcrTargets  = [];
     if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then {continue;};
     
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
-    _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range];
+    _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range, _displayLife];
 } foreach _fcrTracks;
  
 
