@@ -121,7 +121,7 @@ if (isNil "_initialized") then {
     _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
-    for "_i" from 121 to 206 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
     missionNamespace setVariable ["fza_ah64_raddisp", true];
@@ -182,7 +182,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText (_channel + " " + str _lsrcode) ; // LRFD code
     
     //COLOR SET THESE
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitwith {};
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
@@ -234,7 +234,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     fza_ah64_bweff ppEffectEnable false;
     fza_ah64_gweff ppEffectEnable false;
 
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
