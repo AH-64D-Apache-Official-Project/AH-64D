@@ -48,7 +48,6 @@ private _displayLife = 1;
     _targDir = _heliPos vectorFromTo _targetpos;
     _zdist = _targDir vectorDotProduct vectorDir _heli;
     _ydist = _targDir vectorDotProduct vectorUp _heli;
-    _xdist = sqrt (1 - _ydist^2 - _zdist^2);
     _elevAngle = _ydist atan2 _zdist;
     _aziAngle = ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
 
@@ -74,7 +73,7 @@ private _displayLife = 1;
 } foreach _fcrTracks;
  
 
-//proccess order
+//process order
 private _eval = {if(_x#6 < 4000)then{_x#4}else{_x#4 * -1 + 90};};
 if (_fcrMode == 2) then {
     _eval = {if (_x#4 < 0) then {_x#4 * -1} else {_x#4};};

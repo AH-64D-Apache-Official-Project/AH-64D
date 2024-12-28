@@ -2,7 +2,7 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex", "_state"];
+params ["_heli", "_mpdIndex"];
 
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];

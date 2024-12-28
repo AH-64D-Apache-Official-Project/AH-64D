@@ -380,7 +380,7 @@ _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
 //FCR CenterLine
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
-if !isNil {_dir} then {
+if !isNil "_dir" then {
     _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];

@@ -1,6 +1,6 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
-params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
+params ["_heli", "_mpdIndex", "_control"];
 
 private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 

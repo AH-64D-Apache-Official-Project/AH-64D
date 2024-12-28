@@ -75,11 +75,11 @@ if (_value) then {
             private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitwith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
-                player action ["ActiveSensorsOn", vehicle player];
+                _heli action ["ActiveSensorsOn", vehicle player];
                 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
             };
-            player action ["ActiveSensorsOff", vehicle player];
+            _heli action ["ActiveSensorsOff", vehicle player];
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
         };
         case "fza_ah64_targetStoreUpdate": {
