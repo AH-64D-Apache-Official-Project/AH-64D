@@ -1,4 +1,4 @@
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _pidHdg        = _heli getVariable "fza_sfmplus_pid_hdgHold";
@@ -63,12 +63,12 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-        _hdgOutput = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _hdgOutput = [_pidHdg, fza_sfmplus_deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
         _hdgOutput = [_hdgOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _trnOutput = [_pidTrn, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+        _trnOutput = [_pidTrn, fza_sfmplus_deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
         _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
 

@@ -24,10 +24,10 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_useWind"];
-
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _gndSpeed = round(MPS_TO_KNOTS * (velocityModelSpace _heli select 1));
+private _gndSpeedVec   = [velocityModelSpace _heli select 0, velocityModelSpace _heli select 1];
+private _gndSpeed      = round(MPS_TO_KNOTS * (vectorMagnitude _gndSpeedVec));
 
 private _vel3D         = 0.0;
 private _vel2D         = 0.0;
@@ -43,6 +43,7 @@ if (_useWind) then {
 
 _vel3D         = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli vectorDiff _velWind));
 _vel2D         = round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff _velWind) select 1));
+_vel2D         = [_vel2D, 0.0, 180.0] call BIS_fnc_clamp;
 _velModelSpace = velocityModelSpace _heli vectorDiff _velWind;
 _velWorldSpace = velocity _heli vectorDiff _velWind;
 

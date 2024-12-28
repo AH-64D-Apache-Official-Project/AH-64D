@@ -70,8 +70,7 @@ class CfgVehicles {
         LESH_AxisOffsetTarget[] = {0,-9.2,-2};
         LESH_WheelOffset[]      = {0,2.5};
 
-        //SFM Variables-------------/
-        fza_flightModel        = "HeliSim";
+        //HeliSim Variables-------------/
         startDuration          = 15;
         fuelCapacity           = 1423;
         fuelconsumptionrate    = 0.0;
@@ -83,7 +82,7 @@ class CfgVehicles {
         cyclicAsideForceCoef   = 0.00;
         cyclicForwardForceCoef = 0.00;
         backRotorForceCoef     = 0.00;
-        //SFM Variables-------------/
+        //HeliSim Variables-------------/
 
         accuracy                                    = 5;
         ace_cargo_hasCargo                          = 0;

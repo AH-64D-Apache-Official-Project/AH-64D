@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_inputAxis", "_input", "_lagVal"];
+params ["_heli", "_inputAxis", "_input", "_lagVal"];
 
 private _output = 0.0;
 switch (_inputAxis) do {
@@ -24,8 +24,8 @@ switch (_inputAxis) do {
         private _prevLagInput  = _heli getVariable "fza_sfmplus_prevLagInputPitch";
         private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagOutputPitch";
 
-        private _ca = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
-        private _cb = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
+        private _ca = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
+        private _cb = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
 
         _output     = _ca * (_input + _prevLagInput) + _prevLagOutput * _cb;
 
@@ -36,8 +36,8 @@ switch (_inputAxis) do {
         private _prevLagInput  = _heli getVariable "fza_sfmplus_prevLagInputRoll";
         private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagInputRoll";
 
-        private _ca = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
-        private _cb = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
+        private _ca = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
+        private _cb = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
 
         _output     = _ca * (_input + _prevLagInput) + _prevLagOutput * _cb;
 
@@ -48,8 +48,8 @@ switch (_inputAxis) do {
         private _prevLagInput  = _heli getVariable "fza_sfmplus_prevLagInputYaw";
         private _prevLagOutput = _heli getVariable "fza_sfmplus_prevLagInputYaw";
 
-        private _ca = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
-        private _cb = [_deltaTime, _lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
+        private _ca = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefA;
+        private _cb = [_lagVal] call fza_sfmplus_fnc_actuatorGetLagCoefB;
 
         _output     = _ca * (_input + _prevLagInput) + _prevLagOutput * _cb;
 
