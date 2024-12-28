@@ -49,7 +49,7 @@ private _elCorTbl =
 ];
 
 private _elCor = [_elCorTbl, _az] call fza_fnc_linearInterp select 1;
-private _el    = [([_el + _elCor + EL] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
+private _el    = [([_el + _elCor] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
 
 [_heli, "pnvs", rad _az] call fza_fnc_updateAnimations;
 [_heli, "pnvs_vert", rad _el] call fza_fnc_updateAnimations;
