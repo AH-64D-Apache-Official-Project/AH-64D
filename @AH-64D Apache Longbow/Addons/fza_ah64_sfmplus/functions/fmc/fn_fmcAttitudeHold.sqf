@@ -1,18 +1,6 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)   //<-- needs wind enabled flag
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
 //_pidRoll set ["kp", R_KP];
@@ -36,14 +24,14 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
 
-(_velModelSpace)
+(fza_sfmplus_velModelSpace)
     params [
              "_velX"
            , "_velY"
            , "_velZ"
            ];
 
-(_angVelModelSpace)
+(fza_sfmplus_angVelModelSpace)
     params [
              "_angVelX"
            , "_angVelY"

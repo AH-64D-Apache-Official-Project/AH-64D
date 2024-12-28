@@ -1563,6 +1563,21 @@ class RscTitles
                         w = 0.03845;
                         h = 0.05;
                     };
+                    class fza_ah64_raddisp_accelerationCue
+                    {
+                        idc = 300;
+                        type = 0;
+                        colorText[] = {0.1, 1, 0, 1};
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = {1, 1, 1, 1};
+                        text = "\fza_ah64_mpd\tex\fcrIcons\wheelLOAL_ca.paa";
+                        style = 48;
+                        sizeEx = 128;
+                        x = 0.481;
+                        y = 0.476;
+                        w = 0.03845;
+                        h = 0.05;
+                    };
                     class fza_ah64_raddisp_baroalt
                     {
 
