@@ -16,23 +16,11 @@ private _fuselageAreaFront  = _heli getVariable "fza_sfmplus_fuselageAreaFront";
 //private _fuselageDragCoefX    = 1.5;
 //private _fuselageDragCoefZ    = 0.5;
 
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
 private _vectorRight            = [1.0, 0.0, 0.0];
 private _vectorForward          = [0.0, 1.0, 0.0];
 private _vectorUp               = [0.0, 0.0, 1.0];
 
-private _relativeWind           = _velModelSpace vectorMultiply -1.0;//_velWorldSpace vectorMultiply -1.0;
+private _relativeWind           = fza_sfmplus_velModelSpace vectorMultiply -1.0;//fza_sfmplus_velWorldSpace vectorMultiply -1.0;
 
 private _relativeWindCorrection = _vectorRight;
 private _dotProduct             = _relativeWindCorrection vectorDotProduct _relativeWind;

@@ -22,9 +22,8 @@ if !(player == currentPilot _heli) exitwith {};
 
 private _realRPM = [_heli] call fza_sfmplus_fnc_getRtrRPM;
 private _inducedFlow = [0.0, 0.0, _realRPM * 1.0];
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities) params ["","","","","_velModelSpace"];
 private _gravity = _heli worldtomodelVisual (getPosVisual _heli vectoradd [0,0,1]);
-private _outputvector = (_velModelSpace vectoradd _inducedFlow vectoradd _gravity) vectormultiply 1;
+private _outputvector = (fza_sfmplus_velModelSpace vectoradd _inducedFlow vectoradd _gravity) vectormultiply 1;
 private _outputvectorNormalized = vectorNormalized _outputvector;
 private _pitch = asin ([0,-1,0] vectorDotProduct _outputvectorNormalized);
 private _bank = asin ([-1,0,0] vectorDotProduct _outputvectorNormalized);
