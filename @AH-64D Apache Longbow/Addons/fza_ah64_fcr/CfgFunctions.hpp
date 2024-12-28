@@ -11,7 +11,6 @@ class CfgFunctions
             file = "\fza_ah64_fcr\functions";
             class controller {RECOMPILE_FLAG;};
             class cycleNts {RECOMPILE_FLAG;};
-            class dataHandling {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class stateControl {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;}; 

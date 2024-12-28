@@ -48,11 +48,9 @@ switch _fcrScanState do {
         if _armaRadarOn then {
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
-            _heli setVariable ["fza_ah64_fcrData", [], true];
         };
     };
     case FCR_MODE_ON_SINGLE: {
-        _heli call fza_fcr_fnc_dataHandling;
         if (time >= _fcrScanStartTime + _updateDelay && _time < _fcrScanStartTime) exitwith {
             [_heli] call fza_fcr_fnc_update;
         };
@@ -63,7 +61,6 @@ switch _fcrScanState do {
         player action ["ActiveSensorsOn", vehicle player];
     };
     case FCR_MODE_ON_CONTINUOUS: {
-        _heli call fza_fcr_fnc_dataHandling;
         if _armaRadarOn exitwith {
             if (time >= _time + _updateDelay && time >= _fcrScanStartTime + _updateDelay) then {
                 [_heli] call fza_fcr_fnc_update;

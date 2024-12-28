@@ -77,7 +77,6 @@ if (_value) then {
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
                 player action ["ActiveSensorsOn", vehicle player];
                 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
-                _heli setVariable ["fza_ah64_fcrData", [], true];
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
             };
             player action ["ActiveSensorsOff", vehicle player];
@@ -143,12 +142,10 @@ if (_value) then {
         };
         case "fza_ah64_fcrModeSwitch_up": {
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
-            _heli setVariable ["fza_ah64_fcrData", [], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
         };
         case "fza_ah64_fcrModeSwitch_down": {
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
-            _heli setVariable ["fza_ah64_fcrData", [], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
         };
         case "launchCM": {
