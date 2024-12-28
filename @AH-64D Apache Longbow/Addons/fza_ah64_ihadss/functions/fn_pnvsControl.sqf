@@ -37,8 +37,19 @@ if (!_pnvsControl || !_acBusOn || !_dcBusOn || _monocle || _pnvsDamage > SYS_SIG
 
 (( _heli vectorWorldToModelVisual getCameraViewDirection player) call CBA_fnc_vect2Polar) params ["_mag", "_az", "_el"];
 
-_az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_clamp;
-_el = [([_el] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
+private _az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_clamp;
+
+private _elCorTbl = 
+[
+ [-90.0,  3.2]
+,[-45.0, -0.4] 
+,[  0.0, -1.9]
+,[ 45.0, -0.4]
+,[ 90.0,  3.2]
+];
+
+private _elCor = [_elCorTbl, _az] call fza_fnc_linearInterp select 1;
+private _el    = [([_el + _elCor + EL] call CBA_fnc_simplifyAngle180), -45, 20] call BIS_fnc_clamp;
 
 [_heli, "pnvs", rad _az] call fza_fnc_updateAnimations;
 [_heli, "pnvs_vert", rad _el] call fza_fnc_updateAnimations;
