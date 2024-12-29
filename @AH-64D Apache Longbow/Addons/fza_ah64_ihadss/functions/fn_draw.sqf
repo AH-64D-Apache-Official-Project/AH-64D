@@ -121,7 +121,7 @@ if (isNil "_initialized") then {
     _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
-    for "_i" from 121 to 206 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
     missionNamespace setVariable ["fza_ah64_raddisp", true];
@@ -182,7 +182,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText (_channel + " " + str _lsrcode) ; // LRFD code
     
     //COLOR SET THESE
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitwith {};
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
@@ -234,7 +234,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     fza_ah64_bweff ppEffectEnable false;
     fza_ah64_gweff ppEffectEnable false;
 
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
@@ -288,7 +288,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round _gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round fza_sfmplus_gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -358,20 +358,7 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
-_speedkts = format["%1", _vel3D];
+_speedkts = format["%1", fza_sfmplus_vel3D];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
@@ -397,7 +384,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if (_vel3D > 5) then {
+if (fza_sfmplus_vel3D > 5) then {
     _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
@@ -547,6 +534,48 @@ if (_headTrackerPos isEqualTo []) then {
     _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
 };
 
+//Acceleration Cue
+private _accelCueX       = 0.0; 
+private _accelCueY       = 0.0; 
+private _accelCueScalar  = 1.0;
+private _accelCueXOrigin = 0.481; 
+private _accelCueYOrigin = 0.476;
+private _accelCueWidth   = 0.336 * 0.86; 
+private _accelCueHeight  = 0.336 * 1.10;
+private _velX   = 0.0; 
+private _velY   = 0.0;
+private _accelX = 0.0; 
+private _accelY = 0.0;
+
+if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    _velX = (fza_sfmplus_velModelSpace select 0) / 3.08667;
+    _velY = (fza_sfmplus_velModelSpace select 1) / 3.08667;
+};
+
+if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
+    _velX = (fza_sfmplus_velModelSpace select 0) / 30.8667;
+    _velY = (fza_sfmplus_velModelSpace select 1) / 30.8667;
+};
+_velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
+_velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
+
+if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
+    _accelX    = fza_sfmplus_accelX / 6.0;
+    _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
+
+    _accelY    = fza_sfmplus_accelY / 6.0;
+    _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
+
+    _accelCueX = (_velX * 0.168) + (_accelX * 0.168);
+    _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
+
+    _accelCueY = -(_velY * 0.168) - (_accelY * 0.168);
+    _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition [_accelCueX, _accelCueY];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlCommit 0;
+};
+//End Acceleration Cue
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];

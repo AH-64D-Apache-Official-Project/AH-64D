@@ -870,6 +870,52 @@ class RscTitles
                         w = 0.072;
                         h = 0.096;
                     };
+                    class fza_ah64_raddisp_NTS
+                    {
+                        idc = 208;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_mpd\tex\fcrIcons\flyer_ca.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.072;
+                        h = 0.096;
+                    };
+                    class fza_ah64_raddisp_ANTS
+                    {
+                        idc = 209;
+                        type = 0;
+                        colorText[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = { 1,
+                            1,
+                            1,
+                            1
+                        };
+                        text = "\fza_ah64_mpd\tex\fcrIcons\ants_ca.paa";
+                        style = 48;
+                        sizeEx = 1024;
+                        x = -100;
+                        y = -100;
+                        w = 0.072;
+                        h = 0.096;
+                    };
                 };
             };
             class fza_raddisp_container: RscControlsGroup // OFFSET OR EDIT WHOLE HUD CONTAINER
@@ -1560,6 +1606,21 @@ class RscTitles
                         sizeEx = 256;
                         x = 0.49;
                         y = 0.5;
+                        w = 0.03845;
+                        h = 0.05;
+                    };
+                    class fza_ah64_raddisp_accelerationCue
+                    {
+                        idc = 300;
+                        type = 0;
+                        colorText[] = {0.1, 1, 0, 1};
+                        font = "EtelkaMonospaceProBold";
+                        colorBackground[] = {1, 1, 1, 1};
+                        text = "\fza_ah64_mpd\tex\fcrIcons\wheelLOAL_ca.paa";
+                        style = 48;
+                        sizeEx = 128;
+                        x = 0.481;
+                        y = 0.476;
                         w = 0.03845;
                         h = 0.05;
                     };

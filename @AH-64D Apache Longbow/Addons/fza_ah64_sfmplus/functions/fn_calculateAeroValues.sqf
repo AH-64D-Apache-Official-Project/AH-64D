@@ -27,18 +27,6 @@ params ["_heli"];
 
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
 //Gravity in model space
 private _curAtt   = _heli call BIS_fnc_getPitchBank;
 private _curPitch = _curAtt # 0;
@@ -49,13 +37,13 @@ private _gravX    = _grav # 0;
 private _gravY    = _grav # 1;
 private _gravZ    = _grav # 2;
 //Helicopter velocity in model space
-private _modelVelX = _velModelSpace # 0;
-private _modelVelY = _velModelSpace # 1;
-private _modelVelZ = _velModelSpace # 2;//(_heliVel # 2) * -1.0;
+private _modelVelX = fza_sfmplus_velModelSpace # 0;
+private _modelVelY = fza_sfmplus_velModelSpace # 1;
+private _modelVelZ = fza_sfmplus_velModelSpace # 2;//(_heliVel # 2) * -1.0;
 //Helicopter velocity in world space
-private _velX = _velWorldSpace # 0;
-private _velY = _velWorldSpace # 1;
-private _velZ = _velWorldSpace # 2;
+private _velX = fza_sfmplus_velWorldSpace # 0;
+private _velY = fza_sfmplus_velWorldSpace # 1;
+private _velZ = fza_sfmplus_velWorldSpace # 2;
 //The total velocity of the helicopter in model space
 private _totVel   = [_modelVelX, _modelVelY, _modelVelZ] vectorAdd [_gravX, _gravY, _gravZ];
 private _totVelX  = _totVel # 0;
@@ -70,7 +58,7 @@ private _beta_g   = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 
 //private _beta_degAccel = (-9.806 * (tan _beta_deg)) / 9.8
 //systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
-//Gamme, or flight path angle, is the angle between
+//Gamma, or flight path angle, is the angle between
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_velZ / _modelVelY); };
 
 _heli setVariable ["fza_sfmplus_aero_alpha",    _alpha,    true];

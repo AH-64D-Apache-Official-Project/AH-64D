@@ -14,20 +14,7 @@ private _pidSASYaw   = _heli getVariable "fza_sfmplus_pid_sas_yaw";
 //_pidSASRoll set ["ki", Y_KI];
 //_pidSASRoll set ["kd", Y_KD];
 
-
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)   //<-- needs wind enabled flag
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
-(_angVelModelSpace)
+(fza_sfmplus_angVelModelSpace)
     params [
              "_angVelX"
            , "_angVelY"

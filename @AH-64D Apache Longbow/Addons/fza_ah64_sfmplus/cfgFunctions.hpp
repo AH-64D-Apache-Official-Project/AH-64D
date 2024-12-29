@@ -79,6 +79,12 @@ class CfgFunctions
             class quaternionMultiply {R;};
             class quaternionNormalize {R;};
         };
+        class mathSmoothAverage {
+            file = "\fza_ah64_sfmplus\functions\math\smoothAverage";
+            class smoothAverageAdd {R;};
+            class smoothAverageGet {R;};
+            class smoothAverageInit {R;};
+        };
         class performance {
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
@@ -94,6 +100,7 @@ class CfgFunctions
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class calculateAeroValues {R;};
+            class getAccelerations {R;};
             class getAltitude {R;};
             class getDeltaTime {R;};
             class getInput {R;};

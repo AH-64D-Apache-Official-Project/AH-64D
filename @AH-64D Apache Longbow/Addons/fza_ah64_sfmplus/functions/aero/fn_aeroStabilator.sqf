@@ -63,19 +63,7 @@ _stabOutputTable = [
                    ,[102.9, _intStabTable select 18]  //200kts
                    ];
 
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
-_theta = [_stabOutputTable, _vel2D * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
+_theta = [_stabOutputTable, fza_sfmplus_vel2D * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
 
 if (_stabDamage >= SYS_STAB_DMG_THRESH || !_dcBusOn) then {
     _theta = _heli getvariable "fza_ah64_stabilatorPosition";
@@ -143,10 +131,10 @@ for "_j" from 0 to (_numElements - 1) do {
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWind = _velModelSpace vectorMultiply -1.0;
+    private _relativeWind = fza_sfmplus_velModelSpace vectorMultiply -1.0;
 
     private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel = _angVelWorldSpace;
+    private _angularVel = fza_sfmplus_angVelWorldSpace;
 
     private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
     _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
