@@ -34,11 +34,11 @@ fza_sfmplus_deltaTime        = 0.0;
 fza_sfmplus_gndSpeed         = 0.0;
 fza_sfmplus_vel2D            = 0.0;
 fza_sfmplus_vel3D            = 0.0;
-fza_sfmplus_velModelSpace    = [];
-fza_sfmplus_velWorldSpace    = [];
+fza_sfmplus_velModelSpace    = [0.0,0.0,0.0];
+fza_sfmplus_velWorldSpace    = [0.0,0.0,0.0];
 fza_sfmplus_velClimb         = 0.0;
-fza_sfmplus_angVelModelSpace = [];
-fza_sfmplus_angVelWorldSpace = [];
+fza_sfmplus_angVelModelSpace = [0.0,0.0,0.0];
+fza_sfmplus_angVelWorldSpace = [0.0,0.0,0.0];
 
 private _movingAverageSize   = 10;
 fza_sfmplus_accelX           = 0.0;
