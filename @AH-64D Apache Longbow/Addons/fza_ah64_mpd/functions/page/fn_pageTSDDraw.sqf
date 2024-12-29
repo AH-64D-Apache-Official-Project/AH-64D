@@ -193,6 +193,7 @@ if (_sight == SIGHT_FCR) then {
 if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
     _tsdFcrState = (_fcrMode + 2);
 };
+if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
 
 //ASE Points

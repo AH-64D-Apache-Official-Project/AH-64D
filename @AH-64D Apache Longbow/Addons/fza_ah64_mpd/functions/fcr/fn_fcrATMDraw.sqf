@@ -106,6 +106,4 @@ private _heliCtr = [0.5, 0.5];
 private _fcrTgtCount  = count _displayTargets;
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
-[_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;
-
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

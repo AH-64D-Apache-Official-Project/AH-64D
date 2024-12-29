@@ -8,7 +8,15 @@ private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
+if (_heli animationPhase "fcr_enable" == 0) then {_fcrMode = 0;};
+
 switch _fcrMode do {
+    case 0: { //NOT INSTALLED
+        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0];
+        _heli setVariable ["fza_ah64_fcrTargets", [], true];
+        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+        [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
+    };
     case 1: { //Gtm
         _this call fza_mpd_fnc_fcrGTMDraw;
         _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 1];
@@ -145,3 +153,6 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
 
 //Weapon Status
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
+
+
+[_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;

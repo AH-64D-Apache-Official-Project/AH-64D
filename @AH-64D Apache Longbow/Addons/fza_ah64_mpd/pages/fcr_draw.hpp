@@ -1,51 +1,4 @@
 class root {
-    class polys_elev {
-        class Polygon {
-            type = polygon;
-            points[] = {
-                {
-                    { {0.060, 0.860}, 1 },
-                    { {0.072, 0.850}, 1 },
-                    { {0.072, 0.870}, 1 },
-                },
-            };
-        };
-    };
-
-    class lines_elev {
-        type = line;
-        width = 3;
-        points[] = {
-            //25 deg
-            {{0.030, 0.800}, 1}, 
-            {{0.060, 0.800}, 1}, {},
-            //18.75 deg
-            {{0.030, 0.815}, 1}, 
-            {{0.050, 0.815}, 1}, {},
-            //12.5 deg
-            {{0.030, 0.830}, 1}, 
-            {{0.050, 0.830}, 1}, {},
-            //6.25 deg
-            {{0.030, 0.845}, 1}, 
-            {{0.050, 0.845}, 1}, {},
-            //0 deg
-            {{0.030, 0.860}, 1}, 
-            {{0.050, 0.860}, 1}, {},
-            //6.25 deg
-            {{0.030, 0.875}, 1}, 
-            {{0.060, 0.875}, 1}, {},
-            //12.5 deg
-            {{0.030, 0.890}, 1}, 
-            {{0.050, 0.890}, 1}, {},
-            //18.75 deg
-            {{0.030, 0.905}, 1}, 
-            {{0.050, 0.905}, 1}, {},
-            //25 deg
-            {{0.030, 0.920}, 1}, 
-            {{0.060, 0.920}, 1}, {},
-        };
-    };
-
     class lines_HAD {
         type = line;
         width = 3;
@@ -66,8 +19,6 @@ class root {
             MPD_POINTS_BOX(Null, 0.22-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
             //Right HAD box
             MPD_POINTS_BOX(Null, 0.78-(6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, 12*MPD_TEXT_WIDTH, 2*MPD_TEXT_HEIGHT), {},
-            //Target count box
-            MPD_POINTS_BOX(Null, 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
         };
     };
 
@@ -289,38 +240,11 @@ class root {
         };
     };
 
-    class vabs{
-        //T6
-        MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
-        MPD_TEXT_C(UTIL,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
-        
-        //R4
-        MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
-        MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
-        MPD_BOX_BAR_L(RFHO,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
-        //R6
+    class acq {
         MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, Fcr_Acq)
-
-        //L1
-        MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
-        MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
-        MPD_TEXT_R(NTS_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
-        //L4
-        MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-        MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
-        MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
-        MPD_BOX_BAR_R(TGT,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y)
-        //L5
-        MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
-        MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
-        MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
-        MPD_BOX_BAR_R(ELEV,     MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y)
     };
 
     class text {
-        //Target count
-        MPD_TEXT_L(COUNT, 0.95, 0.04, MPD_TEXT_USER(MFD_TEXT_IND_FCR_COUNT))
-
         //HAD left
         //Sight Select Status (6 chars)
         MPD_TEXT_R(SSS, 0.22 - (6*MPD_TEXT_WIDTH), 0.939 - MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FCR_SSS))
@@ -342,102 +266,181 @@ class root {
             MPD_BOX_C(UTIL, MPD_POS_BUTTON_TB_1_X - MPD_TEXT_WIDTH, MPD_POS_BUTTON_T_Y, 5)
         };
     };
-    
-    class fcrOffsetArrows {
-        class leftArrowHollow {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));
-            class lines {
-                type = line;
-                width = 3;
-                points[] = {
-                    {{0.025, 0.335}, 1},
-                    {{0.054, 0.320}, 1},
-                    {{0.060, 0.320}, 1},
-                    {{0.060, 0.328}, 1},
-                    {{0.078, 0.328}, 1},
-                    {{0.078, 0.344}, 1},
-                    {{0.060, 0.344}, 1},
-                    {{0.060, 0.352}, 1},
-                    {{0.054, 0.352}, 1},
-                    {{0.025, 0.335}, 1},
-                };
+
+    class fcrInstalled {
+        condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 0)));
+        class polys_elev {
+            type = polygon;
+            points[] = {
+                {
+                    { {0.060, 0.860}, 1 },
+                    { {0.072, 0.850}, 1 },
+                    { {0.072, 0.870}, 1 },
+                },
             };
         };
-        class leftArrowsolid {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 2));
-            class poly {
-                type = polygon;
-                points[] = {
-                    {
+        class lines_elev {
+            type = line;
+            width = 3;
+            points[] = {
+                //25 deg
+                {{0.030, 0.800}, 1}, 
+                {{0.060, 0.800}, 1}, {},
+                //18.75 deg
+                {{0.030, 0.815}, 1}, 
+                {{0.050, 0.815}, 1}, {},
+                //12.5 deg
+                {{0.030, 0.830}, 1}, 
+                {{0.050, 0.830}, 1}, {},
+                //6.25 deg
+                {{0.030, 0.845}, 1}, 
+                {{0.050, 0.845}, 1}, {},
+                //0 deg
+                {{0.030, 0.860}, 1}, 
+                {{0.050, 0.860}, 1}, {},
+                //6.25 deg
+                {{0.030, 0.875}, 1}, 
+                {{0.060, 0.875}, 1}, {},
+                //12.5 deg
+                {{0.030, 0.890}, 1}, 
+                {{0.050, 0.890}, 1}, {},
+                //18.75 deg
+                {{0.030, 0.905}, 1}, 
+                {{0.050, 0.905}, 1}, {},
+                //25 deg
+                {{0.030, 0.920}, 1}, 
+                {{0.060, 0.920}, 1}, {},
+                //Target count box
+                MPD_POINTS_BOX(Null, 0.95-(4*MPD_TEXT_WIDTH), 0.04, 4*MPD_TEXT_WIDTH, 0.9*MPD_TEXT_HEIGHT), {},
+            };
+        };        
+        class installedFCRText {
+            //Target count
+            MPD_TEXT_L(COUNT, 0.95, 0.04, MPD_TEXT_USER(MFD_TEXT_IND_FCR_COUNT))
+        };
+        class installedFCRVabs {
+            //T6
+            MPD_BOX_BAR_T(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
+            MPD_TEXT_C(UTIL,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
+            
+            //R4
+            MPD_TEXT_L(RFHO_1,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("RF"))
+            MPD_TEXT_L(RFHO_2,     MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("HO"))
+            //L1
+            MPD_TEXT_R(NTS_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("N"))
+            MPD_TEXT_R(NTS_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y,                        MPD_TEXT_STATIC("T"))
+            MPD_TEXT_R(NTS_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
+            //L4
+            MPD_TEXT_R(TGT_1,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+            MPD_TEXT_R(TGT_2,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y,                        MPD_TEXT_STATIC("G"))
+            MPD_TEXT_R(TGT_3,      MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_4_Y + 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+            //L5
+            MPD_TEXT_R(ELEV_Label, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ELEV"))
+            MPD_BOX_R(ELEV,        MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 4)
+            MPD_TEXT_R(ELEV,       MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("AUTO"))
+        };
+
+        class fcrOffsetArrows {
+            class leftArrowHollow {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 1));
+                class lines {
+                    type = line;
+                    width = 3;
+                    points[] = {
                         {{0.025, 0.335}, 1},
                         {{0.054, 0.320}, 1},
-                        {{0.054, 0.352}, 1},
-                    },{
-                        {{0.054, 0.352}, 1},
-                        {{0.054, 0.320}, 1},
                         {{0.060, 0.320}, 1},
-                        {{0.060, 0.352}, 1},
-                    },{
                         {{0.060, 0.328}, 1},
                         {{0.078, 0.328}, 1},
                         {{0.078, 0.344}, 1},
-                        {{0.060, 0.344}, 1}
-                    }
+                        {{0.060, 0.344}, 1},
+                        {{0.060, 0.352}, 1},
+                        {{0.054, 0.352}, 1},
+                        {{0.025, 0.335}, 1},
+                    };
                 };
             };
-        };
-        class leftArrowBrick {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 3));
-            MPD_BOX_BAR_R(leftArrowBrick, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
-        };
-        class rightArrowHollow {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 1));
-            class lines {
-                type = line;
-                width = 3;
-                points[] = {
-                    {{0.975, 0.335}, 1},
-                    {{0.946, 0.320}, 1},
-                    {{0.940, 0.320}, 1},
-                    {{0.940, 0.328}, 1},
-                    {{0.922, 0.328}, 1},
-                    {{0.922, 0.344}, 1},
-                    {{0.940, 0.344}, 1},
-                    {{0.940, 0.352}, 1},
-                    {{0.946, 0.352}, 1},
-                    {{0.975, 0.335}, 1},
+            class leftArrowsolid {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 2));
+                class poly {
+                    type = polygon;
+                    points[] = {
+                        {
+                            {{0.025, 0.335}, 1},
+                            {{0.054, 0.320}, 1},
+                            {{0.054, 0.352}, 1},
+                        },{
+                            {{0.054, 0.352}, 1},
+                            {{0.054, 0.320}, 1},
+                            {{0.060, 0.320}, 1},
+                            {{0.060, 0.352}, 1},
+                        },{
+                            {{0.060, 0.328}, 1},
+                            {{0.078, 0.328}, 1},
+                            {{0.078, 0.344}, 1},
+                            {{0.060, 0.344}, 1}
+                        }
+                    };
                 };
             };
-        };
-        class rightArrowSolid {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 2));
-            class poly {
-                type = polygon;
-                points[] = {
-                    {
+            class leftArrowBrick {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_L), 3));
+                MPD_BOX_BAR_R(leftArrowBrick, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y)
+            };
+            class rightArrowHollow {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 1));
+                class lines {
+                    type = line;
+                    width = 3;
+                    points[] = {
                         {{0.975, 0.335}, 1},
                         {{0.946, 0.320}, 1},
-                        {{0.946, 0.352}, 1},
-                    },{
-                        {{0.946, 0.352}, 1},
-                        {{0.946, 0.320}, 1},
                         {{0.940, 0.320}, 1},
-                        {{0.940, 0.352}, 1},
-                    },{
                         {{0.940, 0.328}, 1},
                         {{0.922, 0.328}, 1},
                         {{0.922, 0.344}, 1},
                         {{0.940, 0.344}, 1},
-                    }
+                        {{0.940, 0.352}, 1},
+                        {{0.946, 0.352}, 1},
+                        {{0.975, 0.335}, 1},
+                    };
                 };
             };
-        };
-        class rightArrowBrick {
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 3));
-            MPD_BOX_BAR_L(leftArrowBrick, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
+            class rightArrowSolid {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 2));
+                class poly {
+                    type = polygon;
+                    points[] = {
+                        {
+                            {{0.975, 0.335}, 1},
+                            {{0.946, 0.320}, 1},
+                            {{0.946, 0.352}, 1},
+                        },{
+                            {{0.946, 0.352}, 1},
+                            {{0.946, 0.320}, 1},
+                            {{0.940, 0.320}, 1},
+                            {{0.940, 0.352}, 1},
+                        },{
+                            {{0.940, 0.328}, 1},
+                            {{0.922, 0.328}, 1},
+                            {{0.922, 0.344}, 1},
+                            {{0.940, 0.344}, 1},
+                        }
+                    };
+                };
+            };
+            class rightArrowBrick {
+                condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_ARROW_R), 3));
+                MPD_BOX_BAR_L(leftArrowBrick, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_2_Y)
+            };
         };
     };
 
+    class fcrNotInstalled {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 0));
+        MPD_TEXT_C(FCR_NOT_INSTALLED, 0.5, 0.4, MPD_TEXT_STATIC("FCR NOT INSTALLED"))
+        MPD_BOX_C(FCR_NOT_INSTALLEDBOX, 0.5, 0.4, 17)
+    };
     class GTM {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_FCR_MODE), 1));
         #include "fcr\gtm.hpp"
