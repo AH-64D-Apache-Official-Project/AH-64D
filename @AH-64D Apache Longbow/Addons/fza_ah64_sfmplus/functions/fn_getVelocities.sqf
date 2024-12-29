@@ -38,12 +38,13 @@ fza_sfmplus_vel3D            = round(MPS_TO_KNOTS * vectorMagnitude(velocityMode
 //2D velocity of the aircraft
 fza_sfmplus_vel2D            = [round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff _velWind) select 1)), 0.0, 180.0] call BIS_fnc_clamp;
 //Velocity model space
-fza_sfmplus_velModelSpace    = velocityModelSpace _heli vectorDiff _velWind;
+fza_sfmplus_velModelSpace     = velocityModelSpace _heli;
+fza_sfmplus_velModelSpaceWind = velocityModelSpace _heli vectorDiff _velWind;
 //Velocity world space
-fza_sfmplus_velWorldSpace    = velocity _heli vectorDiff _velWind;
+fza_sfmplus_velWorldSpace     = velocity _heli vectorDiff _velWind;
 //Climb velocity
-fza_sfmplus_velClimb         = (velocity _heli select 2) * MPS_TO_FPM;
+fza_sfmplus_velClimb          = (velocity _heli select 2) * MPS_TO_FPM;
 //Angular velocity in model space
-fza_sfmplus_angVelModelSpace = angularVelocityModelSpace _heli;
+fza_sfmplus_angVelModelSpace  = angularVelocityModelSpace _heli;
 //Angular velocity in world space
-fza_sfmplus_angVelWorldSpace = angularVelocity _heli;
+fza_sfmplus_angVelWorldSpace  = angularVelocity _heli;

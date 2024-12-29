@@ -20,7 +20,7 @@ private _vectorRight            = [1.0, 0.0, 0.0];
 private _vectorForward          = [0.0, 1.0, 0.0];
 private _vectorUp               = [0.0, 0.0, 1.0];
 
-private _relativeWind           = fza_sfmplus_velModelSpace vectorMultiply -1.0;//fza_sfmplus_velWorldSpace vectorMultiply -1.0;
+private _relativeWind           = fza_sfmplus_velModelSpaceWind vectorMultiply -1.0;//fza_sfmplus_velWorldSpace vectorMultiply -1.0;
 
 private _relativeWindCorrection = _vectorRight;
 private _dotProduct             = _relativeWindCorrection vectorDotProduct _relativeWind;
