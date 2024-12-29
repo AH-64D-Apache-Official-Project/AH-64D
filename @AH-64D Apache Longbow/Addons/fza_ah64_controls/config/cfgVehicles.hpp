@@ -191,8 +191,8 @@ class CfgVehicles {
         transportSoldier         = 2;
         type                     = VAir;
         unitinfotype             = "fza_ah64_rscInfoMinimal";
-        unitInfoTypeLite         = "fza_ah64_rscInfoBasic";
-        unitInfoTypeRTD          = "fza_ah64_rscInfoRTD";
+        unitInfoTypeLite         = "fza_ah64_rscInfoMinimal";
+        unitInfoTypeRTD          = "fza_ah64_rscInfoMinimal";
         usePreciseGetInAction    = 1;
         vehicleclass             = "fza_helicopters";
         weapons[]                = {"fza_CMChaffLauncher","fza_AseIRjammer"};
