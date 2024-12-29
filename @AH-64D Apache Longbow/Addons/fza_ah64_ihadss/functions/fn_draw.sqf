@@ -207,6 +207,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 129) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0, 0, 0, 0]; //HIDING BAROALT FT
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetTextColor[0, 0, 0, 0]; //Hide Acceleration Cue
 
     //LASER SYMBOLOGY FOR GUNNER
     if !(isNull laserTarget _heli) then {
