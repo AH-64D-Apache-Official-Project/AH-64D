@@ -19,6 +19,7 @@ Author:
 params ["_heli"];
 
 private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _movingAverageSize   = 10;
 
 fza_sfmplus_liftLossTimer    = 0;
 
@@ -30,6 +31,7 @@ fza_sfmplus_collectiveOutput = 0.0;
 fza_sfmplus_currentTime      = 0.0;
 fza_sfmplus_previousTime     = 0.0;
 fza_sfmplus_deltaTime        = 0.0;
+fza_sfmplus_deltaTime_avg    = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
 
 fza_sfmplus_gndSpeed         = 0.0;
 fza_sfmplus_vel2D            = 0.0;
@@ -40,7 +42,6 @@ fza_sfmplus_velClimb         = 0.0;
 fza_sfmplus_angVelModelSpace = 0.0;
 fza_sfmplus_angVelWorldSpace = 0.0;
 
-private _movingAverageSize   = 10;
 fza_sfmplus_accelX           = 0.0;
 fza_sfmplus_accelX_avg       = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
 fza_sfmplus_accelY           = 0.0;

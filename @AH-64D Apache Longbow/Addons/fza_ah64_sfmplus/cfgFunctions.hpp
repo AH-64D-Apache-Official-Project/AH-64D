@@ -105,6 +105,7 @@ class CfgFunctions
             class getDeltaTime {R;};
             class getInput {R;};
             class getRtrRPM {R;};
+            class getSmoothAverage {R;};
             class getVelocities {R;};
             class getwindDirVel {R;};
             class init {R;};
