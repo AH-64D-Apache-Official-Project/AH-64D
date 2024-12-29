@@ -110,7 +110,7 @@ if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme =
 //systemChat format ["Center of Mass = %1", getCenterOfMass _heli];
 
 if (local _heli) then {
-    //_curMass = 8165;
+    //_curMass = MASS;//8165;
     _heli setMass _curMass;
 };
 _heli setVariable ["fza_sfmplus_GWT", _curMass];
