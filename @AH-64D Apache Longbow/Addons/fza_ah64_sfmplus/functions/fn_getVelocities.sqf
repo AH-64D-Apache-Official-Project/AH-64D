@@ -23,8 +23,7 @@ params ["_heli", "_useWind"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 //Ground speed
-fza_sfmplus_gndSpeed = vectorMagnitude [velocityModelSpace _heli select 0, velocityModelSpace _heli select 1];
-fza_sfmplus_gndSpeed = round(_gndSpeed * MPS_TO_KNOTS);
+fza_sfmplus_gndSpeed = round(vectorMagnitude [velocityModelSpace _heli select 0, velocityModelSpace _heli select 1] * MPS_TO_KNOTS);
 
 private _velWind     = [];
 
