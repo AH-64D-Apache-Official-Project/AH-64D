@@ -566,25 +566,26 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _accelY    = fza_sfmplus_accelY / 6.0;
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
+    private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
         if (fza_sfmplus_gndSpeed <= 6) then {
-            _accelCueX = (_velX * 0.168) + (_accelX * 0.168);
+            _accelCueX = (_velX * _accelScaling) + (_accelX * _accelScaling);
             _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
 
-            _accelCueY = -(_velY * 0.168) - (_accelY * 0.168);
+            _accelCueY = -(_velY * _accelScaling) - (_accelY * _accelScaling);
             _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
         } else {
-            _accelCueX = (_accelX * 0.168);
+            _accelCueX = (_accelX * _accelScaling);
             _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
 
-            _accelCueY = -(_accelY * 0.168);
+            _accelCueY = -(_accelY * _accelScaling);
             _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
         };
     } else {
-        _accelCueX = (_velX * 0.168) + (_accelX * 0.168);
+        _accelCueX = (_velX * _accelScaling) + (_accelX * _accelScaling);
         _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
 
-        _accelCueY = -(_velY * 0.168) - (_accelY * 0.168);
+        _accelCueY = -(_velY * _accelScaling) - (_accelY * _accelScaling);
         _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
     };
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition [_accelCueX, _accelCueY];
