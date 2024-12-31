@@ -41,11 +41,11 @@ private _az = [([_az] call CBA_fnc_simplifyAngle180), -120, 120] call BIS_fnc_cl
 
 private _elCorTbl = 
 [
- [-90.0,  3.2]
-,[-45.0, -0.4] 
-,[  0.0, -1.9]
-,[ 45.0, -0.4]
-,[ 90.0,  3.2]
+ [-90.0,  2.2]
+,[-45.0, -1.7] 
+,[  0.0, -2.7]
+,[ 45.0, -1.7]
+,[ 90.0,  2.2]
 ];
 
 private _elCor = [_elCorTbl, _az] call fza_fnc_linearInterp select 1;
