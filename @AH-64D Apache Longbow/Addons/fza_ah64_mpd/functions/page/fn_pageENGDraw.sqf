@@ -1,15 +1,16 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #include "\fza_ah64_controls\headers\wcaConstants.h"
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli", "_mpdIndex"];
 
 
 // #region ENGINE 1
-private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
-private _e1ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 0) * 1000;
-private _e1tgt  = _heli getVariable "fza_sfmplus_engTGT" select 0;
-private _e1trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100;
+private _e1np   = (_heli getVariable "fza_sfmplus_engNp" select 0);
+private _e1ng   = (_heli getVariable "fza_sfmplus_engNg" select 0) * 10;
+private _e1tgt  = _heli getVariable "fza_sfmplus_tgt" select 0;
+private _e1trq  = (_heli getVariable "fza_sfmplus_engTq_req" select 0) * 100;
 private _e1opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 0) * 100;
-if (_e1np <= (0.37 * 100)) then {
+if (_e1np <= 37.0) then {
     _e1trq = 0;
 };
 
@@ -26,12 +27,12 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_1), (_e1ng/10) toFixe
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_1), _e1opsi toFixed 0];
 
 // #region ENGINE 2
-private _e2np   = (_heli getVariable "fza_sfmplus_engPctNP" select 1) * 100;
-private _e2ng   = (_heli getVariable "fza_sfmplus_engPctNG" select 1) * 1000;
-private _e2tgt  = _heli getVariable "fza_sfmplus_engTGT" select 1;
-private _e2trq  = (_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100;
+private _e2np   = (_heli getVariable "fza_sfmplus_engNp" select 1);
+private _e2ng   = (_heli getVariable "fza_sfmplus_engNg" select 1) * 10;
+private _e2tgt  = _heli getVariable "fza_sfmplus_tgt" select 1;
+private _e2trq  = (_heli getVariable "fza_sfmplus_engTq_req" select 1) * 100;
 private _e2opsi = (_heli getVariable "fza_sfmplus_engOilPSI" select 1) * 100;
-if (_e2np <= (0.37 * 100)) then {
+if (_e2np <= 37.0) then {
     _e2trq = 0;
 };
 
@@ -54,15 +55,15 @@ _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
-private _engineStates = _heli getVariable "fza_sfmplus_engState";
+private _engineStates = _heli getVariable "fza_sfmplus_engState_new";
 
 private _engineStarted = 0;
 
-if (_engineStates # 0 in ["STARTING", "STARTED"]) then {
+if (_engineStates # 0 in [ENG_MOTORING, ENG_STARTING]) then {
     _engineStarted = 1;
 };
 
-if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
+if (_engineStates # 1 in [ENG_MOTORING, ENG_STARTING]) then {
     _engineStarted = 2;
 };
 

@@ -21,17 +21,17 @@ params ["_heli", "_deltaTime"];
 
 if (!local _heli) exitWith {};
 
-private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
-private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _eng1PctTQ     = _heli getVariable "fza_sfmplus_engTq_req" select 0;
+private _eng2PctTQ     = _heli getVariable "fza_sfmplus_engTq_req" select 1;
 private _engPctTQ      = _eng1PctTQ max _eng2PctTQ;
-private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isOEI   = _heli getVariable "fza_sfmplus_engIsOEI";
 private _totXmsnDmg    = _heli getHitPointDamage "hit_drives_transmission";
 private _dmgTimerCont  = _heli getVariable "fza_systems_dmgTimerCont";
 private _dmgTimerTrans = _heli getVariable "fza_systems_dmgTimerTrans";
 private _applyDamage   = false;
 
 if (isEngineOn _heli) then {
-    if (_isSingleEng == true) then {
+    if (_isOEI == true) then {
         if (_engPctTQ <= 1.10) then {
             _dmgTimerCont  = 0;
             _dmgTimerTrans = 0;

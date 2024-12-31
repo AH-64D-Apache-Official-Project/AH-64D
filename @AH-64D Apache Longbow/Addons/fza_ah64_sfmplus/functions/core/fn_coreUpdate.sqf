@@ -73,6 +73,9 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Tail Rotor
 [_heli, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
 
+//Transmission
+//[_heli] call fza_sfmplus_fnc_transmission;
+
 //Drag
 [_heli, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
 
@@ -121,7 +124,7 @@ hintsilent format ["v0.11
                     _heli getVariable "fza_sfmplus_engPctTQ" select 1, 
                     _heli getVariable "fza_sfmplus_engTGT" select 1,
                     _heli getVariable "fza_sfmplus_engState",
-                    _heli getVariable "fza_sfmplus_isSingleEng",
+                    _heli getVariable "fza_sfmplus_engIsOEI",
                     _heli getVariable "fza_sfmplus_engPctNP",
                     _heli getVariable "fza_sfmplus_engPowerLeverState",
                     fza_sfmplus_collectiveOutput,

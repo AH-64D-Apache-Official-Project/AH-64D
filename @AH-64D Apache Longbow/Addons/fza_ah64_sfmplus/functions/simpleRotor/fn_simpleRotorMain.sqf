@@ -74,20 +74,26 @@ private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
 private _altitude_max           = 30000;   //ft
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
+private _bladeMass              = 71.2; //kg
+private _bladeHingeOffset       = 0.07; //pct of radius
+private _bladeMOI               = ((1.0 / 3.0) * _bladeMass * _bladeRadius^2) - (_bladeMass * _bladeHingeOffset);
+[_heli, "fza_sfmplus_rtrMOI", 0, _bladeMOI * _rtrNumBlades, true] call fza_fnc_setArrayVariable;
+
 //Thrust produced 
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * (fza_sfmplus_collectiveOutput + _altHoldCollOut);
 private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+(_heli getVariable "fza_sfmplus_engNp")
+    params ["_eng1Np", "_eng2Np"];
+private _inputRPM                  = _eng1Np max _eng2Np;
+_inputRPM                          = _inputRPM * 0.01;
 //Rotor induced thrust as a function of RPM
-private _rtrThrustScalar_max           = [_rtrThrustScalarTable_max, _altitude] call fza_fnc_linearInterp select 1;
+private _rtrThrustScalar_max       = [_rtrThrustScalarTable_max, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
-private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+private _velXY                     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
@@ -141,7 +147,7 @@ if (_inputRPM < 1.0 && !_onGnd) then {
 };
 _rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
 private _reqEngTorque              = (_rtrTorque / _rtrGearRatio) / _rtrRPMTorqueScalar;
-_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+_heli setVariable ["fza_sfmplus_rtrEngTq", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];

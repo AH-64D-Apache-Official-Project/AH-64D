@@ -27,8 +27,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Indicated torque /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _eng1TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100);
-private _eng2TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100);
+private _eng1TQ        = round ((_heli getVariable "fza_sfmplus_engTq_req" select 0) * 100);
+private _eng2TQ        = round ((_heli getVariable "fza_sfmplus_engTq_req" select 1) * 100);
 private _indTQ         = _eng1TQ max _eng2TQ;
 private _indTQ_text    = format["INDICATED  %1", [str _indTQ, 3] call fza_fnc_padString];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];

@@ -24,9 +24,9 @@ private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 if (_mainRtrDamage == 1.0) then {
     _rtrRPM = 0.0;
 } else {
-    (_heli getVariable "fza_sfmplus_engPctNP") 
+    (_heli getVariable "fza_sfmplus_engNp") 
     params ["_e1Np", "_e2Np"];
-    _rtrRPM = _e1Np max _e2Np;
+    _rtrRPM = (_e1Np max _e2Np) * 0.01;
 };
 
 _rtrRPM;

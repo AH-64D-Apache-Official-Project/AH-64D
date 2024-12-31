@@ -9,8 +9,8 @@ private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
 private _desiredAlt = _heli getVariable "fza_ah64_altHoldDesiredAlt";
 private _curAltMSL  = getPosASL _heli # 2;
 private _collRef    = _heli getVariable  "fza_ah64_altHoldCollRef";
-private _e1tq       = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
-private _e2tq       = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _e1tq       = _heli getVariable "fza_sfmplus_engTq_req" select 0;
+private _e2tq       = _heli getVariable "fza_sfmplus_engTq_req" select 1;
 private _tq         = _e1tq max _e2tq;
 private _output     = 0.0;
 

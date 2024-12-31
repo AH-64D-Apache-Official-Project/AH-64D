@@ -22,11 +22,18 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 #include "\fza_ah64_controls\headers\engineConstants.h"
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 params ["_heli", "_system", "_control"];
 
-private _apuBtnOn     = _heli getVariable "fza_systems_apuBtnOn";
-private _battSwitchOn = _heli getVariable "fza_systems_battSwitchOn";
-private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
+private _apuBtnOn      = _heli getVariable "fza_systems_apuBtnOn";
+private _battSwitchOn  = _heli getVariable "fza_systems_battSwitchOn";
+private _battBusOn     = _heli getVariable "fza_systems_battBusOn";
+private _bothEngAtIdle = false;
+(_heli getVariable "fza_sfmplus_engNg")
+    params ["_eng1Ng", "_eng2Ng"];
+if (_eng1Ng >= 63.0 && _eng2Ng >= 63.0) then {
+    _bothEngAtIdle = true;
+};
 
 switch(_control) do {
     case "apu": {
@@ -72,17 +79,17 @@ switch(_control) do {
     //--------------------ENGINE 1--------------------//
     //Start Switch
     case "e1start": {
-        private _eng1state = _heli getVariable "fza_sfmplus_engstate" select 0;
+        private _eng1state = _heli getVariable "fza_sfmplus_engState_new" select 0;
         [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
         [_heli,_eng1state] spawn {
             params ["_heli","_eng1state"];
-            if (_eng1state == "OFF") then {
+            if (_eng1state == ENG_OFF) then {
                 _heli animateSource ["plt_eng1_start", 1];
                 sleep 0.15;
                 _heli animateSource ["plt_eng1_start", 0];
                 playsound "fza_ah64_switch_flip4";
             };
-            if (_eng1state == "STARTING") then {
+            if (_eng1state == ENG_STARTING) then {
                 _heli animateSource ["plt_eng1_start", -1];
                 sleep 0.15;
                 _heli animateSource ["plt_eng1_start", 0];
@@ -92,28 +99,28 @@ switch(_control) do {
     };
     //Power Lever
     case "e1off": {
-        [_heli, 0, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+        [_heli, 0, PWR_LEVER_OFF] spawn fza_sfmplus_fnc_interactPowerLever;
 
         playsound "fza_ah64_throttle_idle";
     };
     case "e1idle": {
-        [_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+        [_heli, 0, PWR_LEVER_IDLE] spawn fza_sfmplus_fnc_interactPowerLever;
 
         playsound "fza_ah64_throttle_idle";
     };
     case "e1fly": {
-        private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
+        private _eng2State       = _heli getVariable "fza_sfmplus_engState_new" select 1;
         private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
         //Allow the eng 1 power lever to be advanced individually when the opposite engine
         //is off OR when the opposite engine is on w/ it's power lever at fly
-        if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        if (_eng2State == ENG_OFF || (_eng2State == ENG_ON && _eng2PwrLvrState == PWR_LEVER_FLY)) then {
+            [_heli, 0, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
         };
         //Advance both power levers to fly together when the opposite engine is on and its
         //power lever is at idle
-        if (_eng2State == "ON" && _eng2PwrLvrState == "IDLE") then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        if (_eng2State == ENG_ON && _eng2PwrLvrState == PWR_LEVER_IDLE && _bothEngAtIdle) then {
+            [_heli, 0, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
+            [_heli, 1, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
         };
         
         playsound "fza_ah64_fake_3D";
@@ -122,17 +129,17 @@ switch(_control) do {
     //--------------------ENGINE 2--------------------//
     //Start Switch
     case "e2start": {
-        private _eng2state = _heli getVariable "fza_sfmplus_engstate" select 1;
+        private _eng2state = _heli getVariable "fza_sfmplus_engState_new" select 1;
         [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
         [_heli,_eng2state] spawn {
             params ["_heli","_eng2state"];
-            if (_eng2state == "OFF") then {
+            if (_eng2state == ENG_OFF) then {
                 _heli animateSource ["plt_eng2_start", 1];
                 sleep 0.15;
                 _heli animateSource ["plt_eng2_start", 0];
                 playsound "fza_ah64_switch_flip4";
             };
-            if (_eng2state == "STARTING") then {
+            if (_eng2state == ENG_STARTING) then {
                 _heli animateSource ["plt_eng2_start", -1];
                 sleep 0.15;
                 _heli animateSource ["plt_eng2_start", 0];
@@ -142,28 +149,28 @@ switch(_control) do {
     };
     //Power Lever
     case "e2off": {
-        [_heli, 1, "OFF"] spawn fza_sfmplus_fnc_interactPowerLever;
+        [_heli, 1, PWR_LEVER_OFF] spawn fza_sfmplus_fnc_interactPowerLever;
 
         playsound "fza_ah64_throttle_idle";
     };
     case "e2idle": {
-        [_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
+        [_heli, 1, PWR_LEVER_IDLE] spawn fza_sfmplus_fnc_interactPowerLever;
 
         playsound "fza_ah64_throttle_idle";
     };
     case "e2fly": {
-        private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
+        private _eng1State       = _heli getVariable "fza_sfmplus_engState_new" select 0;
         private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
         //Allow the eng 1 power lever to be advanced individually when the opposite engine
         //is off OR when the opposite engine is on w/ it's power lever at fly
-        if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        if (_eng1State == ENG_OFF || (_eng1State == ENG_ON && _eng1PwrLvrState == PWR_LEVER_FLY)) then {
+            [_heli, 1, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
         };
         //Advance both power levers to fly together when the opposite engine is on and its
         //power lever is at idle
-        if (_eng1State == "ON" && _eng1PwrLvrState == "IDLE") then {
-            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
-            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        if (_eng1State == ENG_ON && _eng1PwrLvrState == PWR_LEVER_IDLE && _bothEngAtIdle) then {
+            [_heli, 0, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
+            [_heli, 1, PWR_LEVER_FLY] spawn fza_sfmplus_fnc_interactPowerLever;
         };
         
         playsound "fza_ah64_fake_3D";

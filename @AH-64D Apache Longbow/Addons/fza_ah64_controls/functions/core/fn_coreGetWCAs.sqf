@@ -32,7 +32,7 @@ Author:
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
-
+#include "\fza_ah64_sfmplus\headers\core.hpp";
 params ["_heli"];
 
 #define HYD_FAIL_PRIORITY          1
@@ -69,18 +69,18 @@ private _rect1Damage = _heli getHitPointDamage "hit_elec_rectifier1";
 private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 //--Engine 1
 private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
-private _eng1Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 0;
-private _eng1Np          = _heli getVariable "fza_sfmplus_engPctNP" select 0;
-private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
+private _eng1Ng          = _heli getVariable "fza_sfmplus_engNg" select 0;
+private _eng1Np          = _heli getVariable "fza_sfmplus_engNp" select 0;
+private _eng1State       = _heli getVariable "fza_sfmplus_engState_new" select 0;
 //--Engine 2
 private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
-private _eng2Ng          = _heli getVariable "fza_sfmplus_engPctNG" select 1;
-private _eng2Np          = _heli getVariable "fza_sfmplus_engPctNP" select 1;
-private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
+private _eng2Ng          = _heli getVariable "fza_sfmplus_engNg" select 1;
+private _eng2Np          = _heli getVariable "fza_sfmplus_engNp" select 1;
+private _eng2State       = _heli getVariable "fza_sfmplus_engState_new" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
-if (_eng1PwrLvrState == "FLY" || _eng2PwrLvrState == "FLY") then {
+if (_eng1PwrLvrState == PWR_LEVER_FLY || _eng2PwrLvrState == PWR_LEVER_FLY) then {
     _pwrLvrAtFly = true; 
 };
 
@@ -122,7 +122,7 @@ if (_heli getVariable "fza_ah64_apu_fire") then {
 };
 
 //--Engine 1 Out
-if (_eng1Ng < 0.63 && _eng1PwrLvrState == "FLY") then {
+if (_eng1Ng < 63.0 && _eng1PwrLvrState == PWR_LEVER_FLY) then {
     ([_heli, _activeWarn, "ENGINE 1 OUT", "ENG1 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_1_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -140,7 +140,7 @@ if (_heli getVariable "fza_ah64_e1_fire") then {
     [_activeWarn, "ENGINE 1 FIRE"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 1 Overspeed
-if (_eng1Np >= 1.15) then {
+if (_eng1Np >= 115.0) then {
     ([_heli, _activeWarn, "ENG1 OVSP", "ENG1 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_1_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -149,7 +149,7 @@ if (_eng1Np >= 1.15) then {
     [_activeWarn, "ENG1 OVSP"] call fza_wca_fnc_wcaDelWarning;
 };
 //--Engine 2 Out
-if (_eng2Ng < 0.63 && _eng2PwrLvrState == "FLY") then {
+if (_eng2Ng < 63.0 && _eng2PwrLvrState == PWR_LEVER_FLY) then {
     ([_heli, _activeWarn, "ENGINE 2 OUT", "ENG2 OUT", ENG_OUT_PRIORITY, "fza_ah64_engine_2_out", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -172,7 +172,7 @@ if (_heli getVariable "fza_ah64_aft_deck_fire") then {
 };
 
 //--Engine 2 Overspeed
-if (_eng2Np >= 1.15) then {
+if (_eng2Np >= 115.0) then {
     ([_heli, _activeWarn, "ENG2 OVSP", "ENG2 OVSP", OVRSPD_PRIORITY, "fza_ah64_engine_2_overspeed", 3] call fza_wca_fnc_wcaAddWarning)
         params ["_wcaAddWarning"];
     
@@ -443,11 +443,11 @@ if (_apuRPM_pct >= 0.5 && !_apuBtnOn) then {
     _wcas pushBack [WCA_ADVISORY, "APU STOP", "APU STOP"];
 };
 //--Engine 1
-if (_eng1State == "STARTING") then {
+if (_eng1State == ENG_STARTING) then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 1 START", "ENG1 START"];
 };
 //--Engine 2
-if (_eng2State == "STARTING") then {
+if (_eng2State == ENG_STARTING) then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
 if (_heli getVariable "fza_ah64_attHoldActive") then {

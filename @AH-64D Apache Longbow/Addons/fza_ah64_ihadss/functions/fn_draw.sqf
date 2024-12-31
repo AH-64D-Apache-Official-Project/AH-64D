@@ -356,7 +356,7 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
 };
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+_TQVal = (_heli getVariable "fza_sfmplus_engTq_req" select 0) max (_heli getVariable "fza_sfmplus_engTq_req" select 1);
 _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";

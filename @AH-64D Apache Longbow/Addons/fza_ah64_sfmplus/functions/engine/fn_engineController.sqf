@@ -18,8 +18,45 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp";
-#include "\fza_ah64_systems\headers\systems.hpp"
 
+private _numEng = 2;
+
+//Get the engine states
+(_heli getVariable "fza_sfmplus_engState_new")
+    params ["_eng1State_new", "_eng2State_new"];
+//Get the engine power lever states
+(_heli getVariable "fza_sfmplus_engPowerLeverState")
+    params ["_eng1PwrLvrState", "_eng2PwrLvrState"];
+//Get the required engine torque
+(_heli getVariable "fza_sfmplus_engTq_req")
+    params ["_eng1Tq_req", "_eng2Tq_req"];
+
+private _isOEI = _heli getVariable "fza_sfmplus_engIsOEI";
+
+if (currentPilot _heli == player || local _heli) then {
+    for "_i" from 0 to (_numEng - 1) do {
+        [_heli, _i] call fza_sfmplus_fnc_engine;
+    };
+
+    if (_eng1State_new != ENG_OFF || _eng2State_new != ENG_OFF) then {
+        _heli engineOn true;
+    };
+
+    if (_eng1State_new == ENG_OFF && _eng2State_new == ENG_OFF) then {
+        _heli engineOn false;
+    };
+
+    if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State_new == ENG_ON && _eng2State_new == ENG_ON)) then {
+        _isOEI = false;
+    } else {
+        _isOEI = true;
+    };
+
+    _heli setVariable ["fza_sfmplus_engIsOEI", _isOEI];
+};
+
+//Old
+/*
 private _config         = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles = configFile >> "CfgVehicles" >> typeof _heli;
 
@@ -34,9 +71,10 @@ private _engPwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState";
 private _eng1PwrLvrState = _engPwrLvrState select 0;
 private _eng2PwrLvrState = _engPwrLvrState select 1;
 
-private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
-private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
+private _eng1Np  = _heli getVariable "fza_sfmplus_engNp" select 0;
+private _eng2Np  = _heli getVariable "fza_sfmplus_engNp" select 1;
 private _rtrRPM  = _eng1Np max _eng2Np;
+_rtrRPM = _rtrRPM * 0.01;
 
 private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
@@ -57,15 +95,15 @@ if !_apuOn then {
     };
 };
 
-private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isOEI     = _heli getVariable "fza_sfmplus_engIsOEI";
 private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
-    _isSingleEng = false;
+    _isOEI = false;
 } else {
-    _isSingleEng = true;
+    _isOEI = true;
 };
-_heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
+_heli setVariable ["fza_sfmplus_engIsOEI", _isOEI];
 
 if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 1 < time) then {
     {
@@ -109,7 +147,7 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _hel
 
 //Autorotation handler
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
+if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in [PWR_LEVER_OFF, PWR_LEVER_IDLE] && _eng2PwrLvrState in [PWR_LEVER_OFF, PWR_LEVER_IDLE]))
     && _engPctTQ < 0.10
     && !_onGnd
     && _rtrRPM > EPSILON) then {
@@ -118,3 +156,4 @@ if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["O
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
 //End Autorotation handler
+*/

@@ -122,6 +122,9 @@ _heli setVariable ["fza_sfmplus_aero_accel",         [0.0, 0.0, 0.0]];
 //Rotors
 [_heli] call fza_sfmplus_fnc_simpleRotorVariables;
 
+//Transmission
+//[_heli] call fza_sfmplus_fnc_transmissionVariables;
+
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;
 

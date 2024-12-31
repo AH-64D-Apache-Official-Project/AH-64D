@@ -21,23 +21,23 @@ params ["_heli"];
 
 if (!local _heli) exitWith {};
 
-private _pctNR       = (_heli getVariable "fza_sfmplus_engPctNP" select 0) max (_heli getVariable "fza_sfmplus_engPctNP" select 1);
-private _eng1PctTQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
-private _eng2PctTQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _pctNR       = (_heli getVariable "fza_sfmplus_engNp" select 0) max (_heli getVariable "fza_sfmplus_engNp" select 1);
+private _eng1PctTQ   = _heli getVariable "fza_sfmplus_engTq_req" select 0;
+private _eng2PctTQ   = _heli getVariable "fza_sfmplus_engTq_req" select 1;
 private _engPctTQ    = _eng1PctTQ max _eng2PctTQ;
-private _isSingleEng = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isOEI = _heli getVariable "fza_sfmplus_engIsOEI";
 private _maxTQ_DE    = _heli getVariable "fza_sfmplus_maxTQ_DE";
 private _maxTQ_SE    = _heli getVariable "fza_sfmplus_maxTQ_SE";
 private _droopRotor  = false;
 
 if (isEngineOn _heli) then {
     //With the power levers at idle
-    if (_pctNR <= 0.50 && _engPctTQ >= 0.30) then {
+    if (_pctNR <= 50.0 && _engPctTQ >= 30.0) then {
         _droopRotor = true;
     };
 
-    if (_pctNR > 0.9) then {
-        if (_isSingleEng) then {
+    if (_pctNR > 90.0) then {
+        if (_isOEI) then {
             if (_engPctTQ > _maxTQ_SE) then {
                 _droopRotor = true;
             } else {

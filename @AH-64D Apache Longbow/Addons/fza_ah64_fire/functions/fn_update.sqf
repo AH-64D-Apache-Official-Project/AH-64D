@@ -16,6 +16,7 @@ Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") #0;
@@ -32,10 +33,10 @@ private _apuFire            = _heli getVariable "fza_ah64_apu_fire";
 private _mstrWarnLighton    = _heli getVariable "fza_ah64_mstrWarnLightOn";
 
 if (_engineOneArm && _engineOneArmTimer <= CBA_missionTime - 2) then {
-    [_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
+    [_heli, "fza_sfmplus_engState_new", 0, ENG_OFF, true] call fza_fnc_setArrayVariable;
 };
 if (_engineTwoArm && _engineTwoArmTimer <= CBA_missionTime - 2) then {
-    [_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
+    [_heli, "fza_sfmplus_engState_new", 1, ENG_OFF, true] call fza_fnc_setArrayVariable;
 };
 if (_apuArm && _apuArmTimer <= CBA_missionTime - 2) then {
     [_heli, "fza_systems_apuBtnOn", false] call fza_fnc_updateNetworkGlobal;

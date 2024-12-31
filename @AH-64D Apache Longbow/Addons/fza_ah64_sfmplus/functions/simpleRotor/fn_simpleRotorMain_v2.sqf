@@ -122,9 +122,10 @@ private _inducedScalarTable =
 ];
 
 //Get engine RPM
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM          = _eng1PctNP max _eng2PctNp;
+(_heli getVariable "fza_sfmplus_engNp")
+    params ["_eng1Np", "_eng2Np"];
+private _inputRPM          = _eng1Np max _eng2Np;
+_inputRPM                  = _inputRPM * 0.01;
 //Calculate omega
 private _omega             = 2.0 * pi * ((_rtrDesignRPM * _inputRPM) / 60);
 
@@ -198,7 +199,7 @@ if (_inputRPM < 1.0 && !_onGnd) then {
 };
 _rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
 private _reqEngTorque              = (_rtrTorque / _gearRatio) / _rtrRPMTorqueScalar;
-_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+_heli setVariable ["fza_sfmplus_rtrEngTq", _reqEngTorque];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
