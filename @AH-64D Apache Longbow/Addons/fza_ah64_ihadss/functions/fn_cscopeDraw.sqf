@@ -88,7 +88,8 @@ _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
         _guiPos = [-100, -100];
     };
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetText _tex;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+    private _position = [(_GuiPos select 0)-0.03,(_GuiPos select 1)-0.05] call fza_fnc_compensateSafezone;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
 
     _cScopeCount = _cScopeCount + 1;
@@ -120,7 +121,8 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 if (_SystemWas == WAS_WEAPON_NONE) then {_noMsl = "_noMsl"};
 private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\nts%1_ca.paa", _noMsl];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([(_guiPos select 0)-0.036,(_guiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+private _position = [(_GuiPos select 0)-0.03,(_GuiPos select 1)-0.05] call fza_fnc_compensateSafezone;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
 
 private _guiPos = [-100, -100];
@@ -128,5 +130,6 @@ if (_fcrcount > _antsIndex && _antsIndex != -1 && _heli getVariable "fza_ah64_fc
     private _antsPos = _fcrTargets # _antsIndex # 0;
     if (!isNil "_antsPos") then {_guiPos = worldtoscreen asltoagl _antsPos;};
 };
-((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([(_guiPos select 0)-0.036,(_guiPos select 1)-0.054] call fza_fnc_compensateSafezone);
+private _position = [(_GuiPos select 0)-0.03,(_GuiPos select 1)-0.05] call fza_fnc_compensateSafezone;
+((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
