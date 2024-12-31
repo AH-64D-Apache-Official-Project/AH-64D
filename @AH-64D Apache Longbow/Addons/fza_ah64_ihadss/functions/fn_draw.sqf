@@ -103,8 +103,10 @@ if !(_heli getvariable "fza_ah64_LmcActive") then {
 
 //PNVS HDU
 if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
-    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)";
+    private _aspect = getResolution#4;
+    private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
+    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText _pnvsTexture;
     };
     if (_pnvsSensor >= SYS_SIGHT_DMG_THRESH) exitwith {
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0,0,0,0];
