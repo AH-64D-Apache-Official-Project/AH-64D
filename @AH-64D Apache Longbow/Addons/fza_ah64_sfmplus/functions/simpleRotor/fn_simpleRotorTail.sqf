@@ -48,6 +48,11 @@ private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
+private _bladeMass              = 17.7; //kg
+private _bladeHingeOffset       = 0.00; //pct of radius
+private _bladeMOI               = ((1.0 / 3.0) * _bladeMass * _bladeRadius^2) - (_bladeMass * _bladeHingeOffset);
+[_heli, "fza_sfmplus_rtrMOI", 1, _bladeMOI * _rtrNumBlades, true] call fza_fnc_setArrayVariable;
+
 //Thrust produced
 private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
 private _bladePitch_cur                = 0.0;
@@ -65,9 +70,10 @@ if (_bladePitch_cur < 0.0) then {
     _bladePitchInducedThrustScalar = _rtrThrustScalar_max + ((1 - _rtrThrustScalar_max) / _bladePitch_max) * _bladePitch_cur;
 };
 
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+(_heli getVariable "fza_sfmplus_engNp")
+    params ["_eng1Np", "_eng2Np"];
+private _inputRPM                  = _eng1Np max _eng2Np;
+_inputRPM                          = _inputRPM * 0.01;
 //Rotor induced thrust as a function of RPM
 private _rtrRPMInducedThrustScalar = 0.0;
 if (_bladePitch_cur >= 0.0) then {

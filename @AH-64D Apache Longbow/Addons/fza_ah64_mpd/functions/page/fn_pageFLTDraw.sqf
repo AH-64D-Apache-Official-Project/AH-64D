@@ -15,7 +15,7 @@ _padLeft = {
 };
 
 /// Torque
-private _torque = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+private _torque = (_heli getVariable "fza_sfmplus_engTq_req" select 0) max (_heli getVariable "fza_sfmplus_engTq_req" select 1);
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100) toFixed 0];
 
 //Altitude and speed

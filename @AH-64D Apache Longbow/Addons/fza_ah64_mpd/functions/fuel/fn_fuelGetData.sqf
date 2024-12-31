@@ -1,4 +1,5 @@
 params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 #define KGTOLBS 2.20462
 #define FUEL_FLOW_LBS_PER_HOUR 7936.64;
@@ -24,16 +25,16 @@ private _eng1FF = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF = _heli getVariable "fza_sfmplus_engFF" select 1;
 
 private _eng1FuelCons = 0;
-private _eng1State    = _heli getVariable "fza_sfmplus_engState" select 0;
-if (_eng1State == "ON") then {
+private _eng1State    = _heli getVariable "fza_sfmplus_engState_new" select 0;
+if (_eng1State == ENG_ON) then {
     _eng1FuelCons = _eng1FF * FUEL_FLOW_LBS_PER_HOUR;
 } else {
     _eng1FuelCons = 0;
 };
 
 private _eng2FuelCons = 0;
-private _eng2State    = _heli getVariable "fza_sfmplus_engState" select 1;
-if (_eng2State == "ON") then {
+private _eng2State    = _heli getVariable "fza_sfmplus_engState_new" select 1;
+if (_eng2State == ENG_ON) then {
     _eng2FuelCons = _eng2FF * FUEL_FLOW_LBS_PER_HOUR;
 } else {
     _eng2FuelCons = 0;
