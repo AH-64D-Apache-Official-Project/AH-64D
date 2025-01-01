@@ -28,6 +28,7 @@ private _np_idle        = 57.0;
 private _np_gov         = 101.0;
 private _np_max         = 121.0;
 
+private _tgt_off        = 225.0;
 private _tgt_start      = 641.0;
 private _tgt_idle       = 445.0;
 private _tgt_fly        = 517.0;
@@ -134,8 +135,12 @@ switch(_engState) do {
         _ng       = [_ng, 0.0, _ng / 2.0 + 0.1, _ng / 2.0] call fza_sfmplus_fnc_seek;
         _np       = [_np, 0.0, _np / 2.0 + 0.1, _np / 2.0] call fza_sfmplus_fnc_seek;
         _oil_psi  = _np * 0.62;
-        //_oil_temp = [_oil_temp, _FAT, (1 / 15.0) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
-        _tgt      = [_tgt, _FAT, _tgt_off_accel, _tgt_off_decel] call fza_sfmplus_fnc_seek;
+        //_oil_temp = [_oil_temp, _FAT, (1 / 15.0) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;        
+        if (_tgt > _tgt_off) then {
+            _tgt  = [_tgt, _tgt_off, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
+        } else {
+            _tgt  = [_tgt, 0.0, _tgt_off_accel, _tgt_off_decel] call fza_sfmplus_fnc_seek;
+        };
         _fuelFlow = 0.0;
         _tq_out   = 0.0;
     };
@@ -190,7 +195,7 @@ switch(_engState) do {
         _np       = [_np, _np_motor, _np_motor_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
         _oil_psi  = _np * 0.62;
         //_oil_temp = [_oil_temp, _FAT, (1 / 25.0) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
-        _tgt      = [_tgt, _FAT, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
+        _tgt      = [_tgt, 0.0, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
 
         _tq_val   = (_tq_max * _tq_100pct) * _throttlePos;
         _tq_out   = [_tq_out, _tq_val, _np_motor_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
