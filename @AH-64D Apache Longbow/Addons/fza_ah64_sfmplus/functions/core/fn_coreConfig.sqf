@@ -54,6 +54,9 @@ fza_sfmplus_velX_prev         = 0.0;
 fza_sfmplus_velY_prev         = 0.0;
 fza_sfmplus_velZ_prev         = 0.0;
 
+_heli setVariable ["fza_sfmplus_alt_baro",           0.0];
+_heli setVariable ["fza_sfmplus_alt_radar",          0.0];
+
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
 _heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];
 _heli setVariable ["fza_sfmplus_emptyCoMFCR",        getArray (_config >> "emptyCoMFCR")];

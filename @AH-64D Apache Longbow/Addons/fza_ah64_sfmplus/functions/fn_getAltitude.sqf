@@ -31,4 +31,5 @@ if (_radAlt > 50) then {
 };
 _radAlt     = [_radAlt, 0.0, 1420.0] call bis_fnc_clamp;
 
-[_barAlt, _radAlt];
+_heli setVariable ["fza_sfmplus_alt_baro",  _barAlt, true];
+_heli setVariable ["fza_sfmplus_alt_radar", _radAlt, true];
