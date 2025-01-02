@@ -23,8 +23,8 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100
 private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _groundSpeedKnots = _groundSpeed * SCALE_MPS_KNOTS;
 private _airspeed = vectorMagnitude (velocity _heli vectorDiff wind);
-([_heli] call fza_sfmplus_fnc_getAltitude)
-    params ["_barAlt", "_radAlt"];
+private _barAlt   = _heli getVariable "fza_sfmplus_alt_baro";
+private _radAlt   = _heli getVariable "fza_sfmplus_alt_radar";
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];

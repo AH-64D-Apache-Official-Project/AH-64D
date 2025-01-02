@@ -18,9 +18,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-([_heli] call fza_sfmplus_fnc_getAltitude)
-    params ["_barAlt", "_radAlt"];
-
+private _radAlt   = _heli getVariable "fza_sfmplus_alt_radar";
 private _onGround = false;
 
 if (isTouchingGround _heli || _radAlt < 0.5) then {
