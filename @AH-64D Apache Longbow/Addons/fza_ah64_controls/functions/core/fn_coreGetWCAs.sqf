@@ -71,12 +71,12 @@ private _rect2Damage = _heli getHitPointDamage "hit_elec_rectifier2";
 private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
 private _eng1Ng          = _heli getVariable "fza_sfmplus_engNg" select 0;
 private _eng1Np          = _heli getVariable "fza_sfmplus_engNp" select 0;
-private _eng1State       = _heli getVariable "fza_sfmplus_engState_new" select 0;
+private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
 //--Engine 2
 private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
 private _eng2Ng          = _heli getVariable "fza_sfmplus_engNg" select 1;
 private _eng2Np          = _heli getVariable "fza_sfmplus_engNp" select 1;
-private _eng2State       = _heli getVariable "fza_sfmplus_engState_new" select 1;
+private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
 //--Rotor RPM
 private _pwrLvrAtfly     = false;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
