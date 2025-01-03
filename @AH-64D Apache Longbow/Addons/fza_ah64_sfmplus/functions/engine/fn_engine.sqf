@@ -10,12 +10,20 @@ private _ng_accel       = 1.71;
 private _ng_decel       = 2.0;
 //--Target values
 private _ng_fuel        = 20.0;
+private _ng_np          = 31.0;
 private _ng_motor       = 24.0;
 private _ng_start       = 52.0;
 private _ng_idle        = 67.4;
 private _ng_fly         = 85.6;
-private _ng_max         = 105.1;
-
+private _ng_max_tbl     = //105.1;
+[
+ [-40.0,  93.7]
+,[-20.0,  95.8]
+,[  0.0,  98.0]
+,[ 20.0, 100.1]
+,[ 40.0, 102.2]
+];
+private _ng_max         = 0.0;
 //Np
 //--Accel rate
 private _np_accel       = 0.93;
@@ -37,23 +45,29 @@ private _tgt_off        = 225.0;
 private _tgt_start      = 641.0;
 private _tgt_idle       = 445.0;
 private _tgt_fly        = 517.0;
-private _tgt_de         = 867.0;
-private _tgt_se         = 896.0;
-private _tgt_max        = 949.0;
-
+private _tgt_max_tbl    = //949.0;
+[
+ [-40.0, 721.0, 721.0] 
+,[-20.0, 837.0, 837.0]
+,[  0.0, 864.0, 893.0]
+,[ 20.0, 867.0, 896.0]
+,[ 40.0, 867.0, 896.0]
+];
+private _tgt_de         = 0.0;
+private _tgt_se         = 0.0;
 //Fuel flow
 //--Target values
 private _fuelFlow_idle  = 125.0;    //lbs per hour
 private _fuelFlow_fly   = 200.0;    //lbs per hour
 private _tq_100pct      = 481.0;
 
-//
+//Simulation variables
 private _isApuOn      = _heli getVariable "fza_systems_apuOn";
 private _FAT          = _heli getVariable "fza_sfmplus_FAT";
 private _PA           = _heli getVariable "fza_sfmplus_alt_baro";
 
 private _isOEI        = _heli getVariable "fza_sfmplus_engIsOEI";
-private _engState     = _heli getVariable "fza_sfmplus_engState_new"         select _engNum;
+private _engState     = _heli getVariable "fza_sfmplus_engState"         select _engNum;
 private _switchState  = _heli getVariable "fza_sfmplus_engStartSwitchState"  select _engNum;
 private _throttlePos  = _heli getVariable "fza_sfmplus_engThrottlePos"       select _engNum;
 private _pwrLvrState  = _heli getVariable "fza_sfmplus_engPowerLeverState"   select _engNum;
@@ -75,7 +89,7 @@ private _tgt          = _heli getVariable "fza_sfmplus_tgt"                  sel
 private _tgt_val      = 0.0;
 private _fuelFlow     = _heli getVariable "fza_sfmplus_fuelFlow"             select _engNum;
 private _fuelFlow_val = 0.0;
-private _tq_val       = 0.0;
+private _tq_target    = 0.0;
 private _tq_max       = 0.0;
 private _tq_scalar    = 0.0;
 private _tq_out       = _heli getVariable "fza_sfmplus_engTq_out"            select _engNum;
@@ -83,15 +97,16 @@ private _tq_req       = _heli getVariable "fza_sfmplus_engTq_req"            sel
 private _tq_rtr       = _heli getVariable "fza_sfmplus_rtrEngTq";
 
 if (_isOEI) then {
-    _tq_max = _heli getVariable "fza_sfmplus_maxTQ_SE";
-    _tq_req = (_tq_rtr / _tq_100pct) * _throttlePos;
+    _tq_max    = _heli getVariable "fza_sfmplus_maxTQ_SE";
+    _tq_target = (_tq_rtr / _tq_100pct) * _throttlePos;
     _tq_scalar = linearConversion [0.36, _tq_max, _tq_req, 0.0, 1.0];
 } else {
-    _tq_max = _heli getVariable "fza_sfmplus_maxTQ_DE";
-    _tq_req = (_tq_rtr / _tq_100pct) / 2.0;
+    _tq_max    = _heli getVariable "fza_sfmplus_maxTQ_DE";
+    _tq_target = (_tq_rtr / _tq_100pct) / 2.0;
     _tq_scalar = linearConversion [0.18, _tq_max, _tq_req, 0.0, 1.0];
 };
 _tq_scalar     = [_tq_scalar, 0.0, 1.0] call BIS_fnc_clamp;
+_tq_req        = _tq_target;//[_tq_req, _tq_target, ACCEL + ((1.0 - ACCEL) * _throttlePos), DECEL + ((1.0 - DECEL) * _throttlePos)] call fza_sfmplus_fnc_seek;
 
 if (fuel _heli == 0.0) then { 
     _hasFuel = false; 
@@ -159,17 +174,17 @@ switch(_engState) do {
         _tq_out   = 0.0;
     };
     case ENG_MOTORING : {
-        _isOn     = false;
+        _isOn      = false;
 
-        _fuelFlow = 0.0;
-        _ng       = [_ng, _ng_motor, _ng_accel, _ng / 2.0] call fza_sfmplus_fnc_seek;
-        _np       = [_np, _np_motor, _np_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
-        _oil_psi  = _np * 0.62;
+        _fuelFlow  = 0.0;
+        _ng        = [_ng, _ng_motor, _ng_accel, _ng / 2.0] call fza_sfmplus_fnc_seek;
+        _np        = [_np, _np_motor, _np_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
+        _oil_psi   = _np * 0.62;
         //_oil_temp = [_oil_temp, _FAT, (1 / 25.0) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
-        _tgt      = [_tgt, 0.0, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
+        _tgt       = [_tgt, 0.0, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
 
-        _tq_val   = (_tq_max * _tq_100pct) * _throttlePos;
-        _tq_out   = [_tq_out, _tq_val, _np_motor_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
+        _tq_target = (_tq_max * _tq_100pct) * _throttlePos;
+        _tq_out    = [_tq_out, _tq_target, _np_motor_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
 
         if (!_isStarting) then {
             _engState = ENG_OFF;
@@ -179,11 +194,15 @@ switch(_engState) do {
         if (_ng < _ng_start) then {
             _tgt_val      = _FAT + _tgt_start;
             _fuelFlow_val = _fuelFlow_idle * _np / _np_idle;
-            _tq_val       = (_tq_max * _tq_100pct) * _throttlePos;
+            _tq_target    = (_tq_max * _tq_100pct) * _throttlePos;
 
-            _ng       = [_ng, _ng_idle, _ng_accel, _ng / 2.0] call fza_sfmplus_fnc_seek;
-            _np       = [_np, _np_idle, _np_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
-            _oil_psi  = _np * 0.62;
+            _ng           = [_ng, _ng_idle, _ng_accel, _ng / 2.0] call fza_sfmplus_fnc_seek;
+            if (_ng < _ng_np) then {
+               _np        = [_np, 0.0, _np_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
+            } else {
+                _np       = [_np, _np_idle, _np_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
+            };
+            _oil_psi      = _np * 0.62;
             //_oil_temp = [_oil_temp, _FAT, (1 / _startTime) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
             if (_ng < _ng_fuel) then {
                 _tgt      = [_tgt, 0.0, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
@@ -191,7 +210,7 @@ switch(_engState) do {
                 _tgt      = [_tgt, _tgt_val, _tgt_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
                 _fuelFlow = _fuelFlow_val;
             };
-            _tq_out   = [_tq_out, _tq_val, _np_start_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
+            //_tq_out   = [_tq_out, _tq_target, _np_start_accel, _np / 2.0] call fza_sfmplus_fnc_seek;
 
             if (_isFuelCutoff) then { _engState = ENG_OFF; [_heli, _engNum] call fza_sfmplus_fnc_interactStartSwitch; };
             
@@ -205,25 +224,30 @@ switch(_engState) do {
     case ENG_ON : {
         _isOn             = true;
 
+        //Output function calculations
         _ng_base          = _ng_idle + ((_ng_fly - _ng_idle) * _throttlePos);
-        _ng_val           = _ng_base + ((_ng_max - _ng_base) * fza_sfmplus_collectiveOutput);
+        _ng_max           = ([_ng_max_tbl, _FAT] call fza_fnc_linearInterp) select 1;
+        _ng_val           = _ng_base + ((_ng_max - _ng_base) * _tq_scalar);
         _np_val           = _np_idle + (_np_gov - _np_idle) * _throttlePos;
+        _tgt_de           = ([_tgt_max_tbl, _FAT] call fza_fnc_linearInterp) select 1;
+        _tgt_se           = ([_tgt_max_tbl, _FAT] call fza_fnc_linearInterp) select 2;
         private _tgt_base = _FAT + _tgt_idle + ((_tgt_fly - _tgt_idle) * _throttlePos);
         if (_isOEI) then {
-            _tgt_val  = _tgt_base + ((_tgt_se - _tgt_base) * _tq_scalar);
+            _tgt_val      = _tgt_base + ((_tgt_se - _tgt_base) * _tq_scalar);
         } else {
-            _tgt_val  = _tgt_base + ((_tgt_de - _tgt_base) * _tq_scalar);
+            _tgt_val      = _tgt_base + ((_tgt_de - _tgt_base) * _tq_scalar);
         };
-        _fuelFlow_val = _fuelFlow_idle * _np / _np_idle + (fza_sfmplus_collectiveOutput * 500.0);
-        _tq_val       = (_tq_max * _tq_100pct) * _throttlePos;
+        _fuelFlow_val     = _fuelFlow_idle * _np / _np_idle + (fza_sfmplus_collectiveOutput * 500.0);
+        _tq_target        = (_tq_max * _tq_100pct) * _throttlePos;
         
+        //Output functions
         _ng       = [_ng, _ng_val, _ng_accel, _ng_decel] call fza_sfmplus_fnc_seek;
         _np       = [_np, _np_val + (_droopFactor * 100), _np_accel + ((10.0 - _np_accel) * _throttlePos), _np / 2.0] call fza_sfmplus_fnc_seek;
         _oil_psi  = _np * 0.62;
         //_oil_temp = [_oil_temp, _FAT, (1 / 15.0) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
         _tgt      = [_tgt, _tgt_val, _tgt_on_accel, _tgt_decel] call fza_sfmplus_fnc_seek;
         _fuelFlow = _fuelFlow_val;
-        _tq_out   = [_tq_out, _tq_val, _np_on_accel, _np_on_accel / 2.0] call fza_sfmplus_fnc_seek;
+        //_tq_out   = [_tq_out, _tq_target, 100.0, 80]; call fza_sfmplus_fnc_seek;
 
         if (_isFuelCutoff) then { _engState = ENG_OFF;};
     };
@@ -241,7 +265,7 @@ switch(_engState) do {
 [_heli, "fza_sfmplus_engTq_out",       _engNum, _tq_out,       true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engTq_req",       _engNum, _tq_req,       true] call fza_fnc_setArrayVariable;
 
-[_heli, "fza_sfmplus_engState_new",    _engNum, _engState,     true] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engState",    _engNum, _engState,     true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engIsOn",         _engNum, _isOn,         true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engIsStarting",   _engNum, _isStarting,   true] call fza_fnc_setArrayVariable;
 

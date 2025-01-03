@@ -55,7 +55,7 @@ _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
-private _engineStates = _heli getVariable "fza_sfmplus_engState_new";
+private _engineStates = _heli getVariable "fza_sfmplus_engState";
 
 private _engineStarted = 0;
 

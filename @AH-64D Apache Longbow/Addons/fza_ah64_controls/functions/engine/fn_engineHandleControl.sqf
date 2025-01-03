@@ -79,7 +79,7 @@ switch(_control) do {
     //--------------------ENGINE 1--------------------//
     //Start Switch
     case "e1start": {
-        private _eng1state = _heli getVariable "fza_sfmplus_engState_new" select 0;
+        private _eng1state = _heli getVariable "fza_sfmplus_engState" select 0;
         [_heli, 0] call fza_sfmplus_fnc_interactStartSwitch;
         [_heli,_eng1state] spawn {
             params ["_heli","_eng1state"];
@@ -109,7 +109,7 @@ switch(_control) do {
         playsound "fza_ah64_throttle_idle";
     };
     case "e1fly": {
-        private _eng2State       = _heli getVariable "fza_sfmplus_engState_new" select 1;
+        private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
         private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
         //Allow the eng 1 power lever to be advanced individually when the opposite engine
         //is off OR when the opposite engine is on w/ it's power lever at fly
@@ -129,7 +129,7 @@ switch(_control) do {
     //--------------------ENGINE 2--------------------//
     //Start Switch
     case "e2start": {
-        private _eng2state = _heli getVariable "fza_sfmplus_engState_new" select 1;
+        private _eng2state = _heli getVariable "fza_sfmplus_engState" select 1;
         [_heli, 1] call fza_sfmplus_fnc_interactStartSwitch;
         [_heli,_eng2state] spawn {
             params ["_heli","_eng2state"];
@@ -159,7 +159,7 @@ switch(_control) do {
         playsound "fza_ah64_throttle_idle";
     };
     case "e2fly": {
-        private _eng1State       = _heli getVariable "fza_sfmplus_engState_new" select 0;
+        private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
         private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
         //Allow the eng 1 power lever to be advanced individually when the opposite engine
         //is off OR when the opposite engine is on w/ it's power lever at fly

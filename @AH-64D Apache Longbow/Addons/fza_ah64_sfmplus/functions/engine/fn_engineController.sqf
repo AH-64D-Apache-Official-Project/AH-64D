@@ -22,7 +22,7 @@ params ["_heli"];
 private _numEng = 2;
 
 //Get the engine states
-(_heli getVariable "fza_sfmplus_engState_new")
+(_heli getVariable "fza_sfmplus_engState")
     params ["_eng1State_new", "_eng2State_new"];
 //Get the engine power lever states
 (_heli getVariable "fza_sfmplus_engPowerLeverState")
