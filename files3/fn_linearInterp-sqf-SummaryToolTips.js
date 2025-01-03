@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_linearInterp.sqf",{112:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Performs linear interpolation given a 2d array of values.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_linearInterp.sqf",{106:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Performs linear interpolation given a 2d array of values.</div></div>"});
