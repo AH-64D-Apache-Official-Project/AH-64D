@@ -51,3 +51,19 @@
 #define HDG_HOLD_BREAKOUT_VALUE       0.03
 #define VEL_HOLD_BREAKOUT_VALUE       0.06
 #define ATT_HOLD_BREAKOUT_VALUE       0.09
+
+//Engine start switch states
+#define START_SWITCH_OFF   0
+#define START_SWITCH_START 1
+#define START_SWITCH_ORIDE 2
+
+//Power lever states
+#define PWR_LEVER_OFF  0
+#define PWR_LEVER_IDLE 1
+#define PWR_LEVER_FLY  2
+
+//Engine states
+#define ENG_OFF      0
+#define ENG_ON       1
+#define ENG_STARTING 2
+#define ENG_MOTORING 3

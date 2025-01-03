@@ -18,10 +18,11 @@ Author:
     BradMick
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum"];
+#include "\fza_ah64_sfmplus\headers\core.hpp";
 
 if (!local _heli) exitWith {};
 
-[_heli, "fza_sfmplus_engPowerLeverState",  _engNum, "OFF", true] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_engPowerLeverState",  _engNum, PWR_LEVER_OFF, true] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engState", 		   _engNum, "OFF", true] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engFF", 	 	 _engNum, 0.0, true] call fza_fnc_setArrayVariable;
