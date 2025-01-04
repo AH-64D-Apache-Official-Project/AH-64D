@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic97"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic11"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_padString"></a><a name="Topic98"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_padString"></a><a name="Topic12"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_padString</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Pads a string to ensure that it is within a fixed size</p><p>_to being string is slightly more performant</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_str</td><td class="CDLDefinition"><p>(String) The string to pad or trim</p></td></tr><tr><td class="CDLEntry">_to</td><td class="CDLDefinition"><p>(String or Number) the expected output size as a number or a string of n characters to use as blank spaces</p></td></tr><tr><td class="CDLEntry">_right</td><td class="CDLDefinition"><p>(Bool) (Optional) (Default: false) whether the spaces should be placed on the right</p></td></tr></table><div class="CHeading">Returns</div><p>A padded string</p><div class="CHeading">Examples</div><pre class="CCode">[<span class="SHString">&quot;test&quot;</span>, <span class="SHNumber">5</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot; test&quot;</span><br /><br />[<span class="SHString">&quot;test&quot;</span>, <span class="SHNumber">5</span>, <span class="SHKeyword">true</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot;test &quot;</span><br /><br />[<span class="SHString">&quot;test&quot;</span>, <span class="SHNumber">3</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot;est&quot;</span><br /><br />[<span class="SHString">&quot;test&quot;</span>, <span class="SHNumber">3</span>, <span class="SHKeyword">true</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot;tes&quot;</span><br /><br />[<span class="SHString">&quot;test&quot;</span>, <span class="SHString">&quot;     &quot;</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot; test&quot;</span><br /><br />[<span class="SHString">&quot;test&quot;</span>, <span class="SHString">&quot;     &quot;</span>, <span class="SHKeyword">true</span>] call fza_fnc_padString<br /><span class="SHComment">// &quot;test &quot;</span></pre><div class="CHeading">Author</div><p>mattysmith22</p></div>
 </div>
