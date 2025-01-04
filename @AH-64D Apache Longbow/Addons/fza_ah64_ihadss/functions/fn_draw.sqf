@@ -569,27 +569,19 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
         if (fza_sfmplus_gndSpeed <= 6) then {
-            _accelCueX = (_velX * _accelScaling) + (_accelX * _accelScaling);
-            _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-            _accelCueY = -(_velY * _accelScaling) - (_accelY * _accelScaling);
-            _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+            _accelCueX = _velX + _accelX;
+            _accelCueY = - _velY -  _accelY;
         } else {
-            _accelCueX = (_accelX * _accelScaling);
-            _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-            _accelCueY = -(_accelY * _accelScaling);
-            _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+            _accelCueX = _accelX;
+            _accelCueY = _accelY;
         };
     } else {
-        _accelCueX = (_velX * _accelScaling) + (_accelX * _accelScaling);
-        _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-        _accelCueY = -(_velY * _accelScaling) - (_accelY * _accelScaling);
-        _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+        _accelCueX = _velX + _accelX;
+        _accelCueY = -_velY - _accelY;
     };
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition [_accelCueX, _accelCueY];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlCommit 0;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition
+        [ [_accelCueXOrigin + _accelCueX * _accelScaling, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp
+        , [_accelCueYOrigin + _accelCueY * _accelScaling, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp];
 };
 //End Acceleration Cue
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
