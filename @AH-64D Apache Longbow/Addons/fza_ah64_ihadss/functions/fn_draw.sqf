@@ -356,16 +356,16 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
 };
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+_TQVal = (_heli getVariable "fza_sfmplus_engTq_req" select 0) max (_heli getVariable "fza_sfmplus_engTq_req" select 1);
 _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
 _speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel3D")];
 
-([_heli] call fza_sfmplus_fnc_getAltitude)
-    params ["_barAlt", "_radAlt"];
-_baraltft = format["%1",  _barAlt toFixed 0];
+private _barAlt = _heli getVariable "fza_sfmplus_alt_baro";
+private _radAlt = _heli getVariable "fza_sfmplus_alt_radar";
+_baraltft = format["%1",  (_barAlt) toFixed 0];
 _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
 //FCR CenterLine

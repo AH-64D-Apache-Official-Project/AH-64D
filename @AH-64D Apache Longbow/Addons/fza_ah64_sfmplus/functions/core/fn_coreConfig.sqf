@@ -55,6 +55,9 @@ _heli setVariable ["fza_sfmplus_velZ_prev",         0.0];
 _heli setVariable ["fza_sfmplus_accelZ",            0.0];
 _heli setVariable ["fza_sfmplus_accelZ_avg",        [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
+_heli setVariable ["fza_sfmplus_alt_baro",           0.0];
+_heli setVariable ["fza_sfmplus_alt_radar",          0.0];
+
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
 _heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];
 _heli setVariable ["fza_sfmplus_emptyCoMFCR",        getArray (_config >> "emptyCoMFCR")];
@@ -122,6 +125,9 @@ _heli setVariable ["fza_sfmplus_aero_accel",         [0.0, 0.0, 0.0]];
 
 //Rotors
 [_heli] call fza_sfmplus_fnc_simpleRotorVariables;
+
+//Transmission
+//[_heli] call fza_sfmplus_fnc_transmissionVariables;
 
 //Performance
 [_heli] call fza_sfmplus_fnc_perfVariables;

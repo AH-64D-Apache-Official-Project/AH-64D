@@ -97,6 +97,11 @@ class CfgFunctions
             class simpleRotorTail {R;};
             class simpleRotorVariables {R;};
         };
+        class transmission {
+            file = "\fza_ah64_sfmplus\functions\transmission";
+            class transmission {R;};
+            class transmissionVariables {R;};
+        };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class calculateAeroValues {R;};
@@ -112,6 +117,7 @@ class CfgFunctions
             class isINF {R;};
             class isNAN {R;};
             class onGround {R;};
+            class seek {R;};
         };
     };
 };
