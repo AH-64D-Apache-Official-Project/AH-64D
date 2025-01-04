@@ -29,7 +29,7 @@ private _tailRtrFixed       = false;
 
 private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
-private _collectiveVal      = _heli getVariable "fza_sfmplus_collectiveVal";
+private _collectiveValue    = _heli getVariable "fza_sfmplus_collectiveValue";
 
 private _priHydPumpDamage   = _heli getHitPointDamage "hit_hyd_pripump";
 private _priHydPSI          = _heli getVariable "fza_systems_priHydPsi";
@@ -82,20 +82,20 @@ private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus;
 
 if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
-        if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
-        if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
-        _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
+        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
+        _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
 
         if (_isPlaying) then {
-            _collectiveOutput = _collectiveVal;
+            _collectiveOutput = _collectiveValue;
         };
     } else {
-        _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
-        _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
-        _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
+        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
 
         if (isNil "fza_sfmplus_lastIsPlaying") then {
-            _collectiveOutput = _collectiveVal;
+            _collectiveOutput = _collectiveValue;
         } else {
             if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
                 _collectiveOutput = _collectivePrevious;
@@ -103,11 +103,11 @@ if (!_hydFailure || _emerHydOn) then {
         };
 
         fza_sfmplus_lastIsPlaying  = _isPlaying;
-        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveVal];
+        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
     };
 };
 _heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
-_heli setVariable ["fza_sfmplus_collectiveVal", _collectiveOutput];
+_heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
 
 //Cyclic and Pedals 
 if (!_isZeus && (!_hydFailure || _emerHydOn)) then {

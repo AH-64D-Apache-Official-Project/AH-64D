@@ -28,7 +28,7 @@ _heli setVariable ["fza_sfmplus_cyclicLeftRight",    0.0];
 _heli setVariable ["fza_sfmplus_pedalLeftRight",     0.0];
 _heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
 _heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
-_heli setVariable ["fza_sfmplus_collectiveVal",      0.0];
+_heli setVariable ["fza_sfmplus_collectiveValue",    0.0];
 
 fza_sfmplus_currentTime      = 0.0;
 fza_sfmplus_previousTime     = 0.0;
