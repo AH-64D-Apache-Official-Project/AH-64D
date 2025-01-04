@@ -1,14 +1,14 @@
 /* ----------------------------------------------------------------------------
-Function: bmkhs_sfmplus_fnc_getRtrRPM
+Function: bmkhs_sfmplus_fnc_isNAN
 
 Description:
-    Returns the rotor RPM depending on the simulation being used
+    Returns true or false if a value is not a number
 
 Parameters:
-    _heli - The helicopter to get information from [Unit].
+    _val - The value that needs to be checked.
 
 Returns:
-    Rotor rpm
+    true or false
 
 Examples:
     ...
