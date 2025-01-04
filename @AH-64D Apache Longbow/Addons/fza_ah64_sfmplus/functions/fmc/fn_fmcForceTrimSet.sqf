@@ -1,6 +1,5 @@
 params ["_heli"];
 
-
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //Cyclic pitch trim
     private _curCyclicFwdAft  = (_heli getVariable "fza_sfmplus_cyclicFwdAft");
