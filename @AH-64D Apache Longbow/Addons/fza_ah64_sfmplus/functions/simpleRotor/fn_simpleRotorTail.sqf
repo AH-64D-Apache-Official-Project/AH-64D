@@ -51,10 +51,10 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 //Thrust produced
 private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
 private _bladePitch_cur                = 0.0;
-if (fza_sfmplus_pedalLeftRight < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
+if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
+    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
 } else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
+    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
 };
 _bladePitch_cur = _bladePitch_cur + _bladePitch_med;
 
@@ -140,5 +140,5 @@ hintsilent format ["v0.7 testing
                     \nInduced Vel Scalar = %8
                     \nGnd Eff Scalar = %9
                     \nStab = %10
-                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput, _heli call BIS_fnc_getPitchBank select 0];
+                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, (_heli getVariable "fza_sfmplus_collectiveOutput"), _heli call BIS_fnc_getPitchBank select 0];
                     */

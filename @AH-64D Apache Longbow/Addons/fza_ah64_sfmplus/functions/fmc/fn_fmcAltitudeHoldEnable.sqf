@@ -14,7 +14,7 @@ if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
         //The collective reference is required to determine when to deactivate alt hold. If the
         //pilot moves the collective > 0.25 inches up/down from the ref, alt hold will be 
         //de-activate.
-        [_heli, "fza_ah64_altHoldCollRef", fza_sfmplus_collectiveOutput] call fza_fnc_updateNetworkGlobal;
+        [_heli, "fza_ah64_altHoldCollRef", (_heli getVariable "fza_sfmplus_collectiveOutput")] call fza_fnc_updateNetworkGlobal;
         //If the helicopters radar altitude is < 1428ft (435.25m) and current velocity is < 40kts
         //then set the desired altitude to the current AGL altitude, otherwise set it to the
         //current ASL altitude.

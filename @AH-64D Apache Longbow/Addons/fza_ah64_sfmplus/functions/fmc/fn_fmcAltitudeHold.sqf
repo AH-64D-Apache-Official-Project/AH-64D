@@ -28,7 +28,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //hold and allow them to do so
     private _collRef_low = _collRef * 0.95;
     private _collRef_hi  = _collRef * 1.05;
-    if (fza_sfmplus_collectiveOutput >= _collRef_hi || fza_sfmplus_collectiveOutput <= _collRef_low) then {
+    if ((_heli getVariable "fza_sfmplus_collectiveOutput") >= _collRef_hi || (_heli getVariable "fza_sfmplus_collectiveOutput") <= _collRef_low) then {
         [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
         [_heli] call fza_audio_fnc_flightTone;
     };

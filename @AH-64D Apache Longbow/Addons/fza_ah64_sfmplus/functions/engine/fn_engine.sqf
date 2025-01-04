@@ -123,7 +123,7 @@ switch (_engState) do {
 			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_fnc_setArrayVariable;
 		};
 		//Ng
-		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * fza_sfmplus_collectiveOutput;
+		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * (_heli getVariable "fza_sfmplus_collectiveOutput");
 		_engPctNG = [_engPctNG, _engSetNG, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
 		//Np
         if (_isSingleEng) then {
