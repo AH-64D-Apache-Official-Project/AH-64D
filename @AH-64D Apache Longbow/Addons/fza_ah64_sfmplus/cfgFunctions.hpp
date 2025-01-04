@@ -109,6 +109,8 @@ class CfgFunctions
             class getVelocities {R;};
             class getwindDirVel {R;};
             class init {R;};
+            class isINF {R;};
+            class isNAN {R;};
             class onGround {R;};
         };
     };
