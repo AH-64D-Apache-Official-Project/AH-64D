@@ -199,7 +199,7 @@ class flt_draw {
     };
 
     ///////////////// Heading ///////////////
-    MPD_TEXT_C(Heading, 0.5, 0.11, source = heading; sourceScale = 1;)
+    MPD_TEXT_C(Heading, 0.5, 0.1, source = heading; sourceScale = 1;)
 
     class HorizonMiddle {
         type = line;

@@ -368,9 +368,10 @@ _speedkts = format["%1", fza_sfmplus_vel3D];
 _baraltft = format["%1",  _barAlt toFixed 0];
 _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
-private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
-if !isNil {_fcrLastScan # 0} then {
-    _fcrhdg = _fcrLastScan # 0;
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+if !isNil "_dir" then {
+    _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
@@ -667,8 +668,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")}); 
-private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (_heli animationPhase "pnvs_vert"), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")}); 
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);
@@ -703,7 +704,7 @@ for "_i" from 0 to 35 do {
 
 [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
 
-if (_fcrhdg < -180 || _fcrhdg > 180) then {
+if (_fcrhdg > 360) then {
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
 } else {
