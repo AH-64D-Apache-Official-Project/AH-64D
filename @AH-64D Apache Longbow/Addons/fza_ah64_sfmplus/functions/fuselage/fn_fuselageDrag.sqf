@@ -59,7 +59,20 @@ private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                              ,[ 40, _interpDragCoefTableY # 5]];
 _interpDragCoefTableY      = [_dragCoefTableY, _temperature] call fza_fnc_linearInterp;
 
-private _CD         = _interpDragCoefTableY # 1;
+private _dragCoefVelScalarTable =
+[
+ [  0.0, 0.40]  //0kts
+,[20.58, 0.40]  //40kts
+,[36.01, 0.44]  //70kts
+,[46.30, 0.52]  //90kts
+,[54.02, 0.61]  //105kts
+,[61.73, 0.75]  //120kts
+,[72.02, 1.00]  //140kts
+];
+
+private _dragCoefVelScalar = ([_dragCoefVelScalarTable, fza_sfmplus_vel3D] call fza_fnc_linearInterp) select 1;
+
+private _CD         = (_interpDragCoefTableY # 1) * _dragCoefVelScalar;
 
 private _v          = vectorMagnitude _relativeWind;
 private _drag       = _CD * 0.5 * _rho * _fuselageAreaFront * (_v * _v);
