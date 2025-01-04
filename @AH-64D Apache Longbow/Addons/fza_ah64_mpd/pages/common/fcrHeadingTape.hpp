@@ -9,7 +9,7 @@ class HeadingTape {
     horizontal = 1;
     neverEatSeaWeed = 1;
     step = 10;
-    stepSize = __EVAL(0.5/18-0.001);
+    stepSize = __EVAL(0.4/18-0.001);
     lineXLeft = 0.15;
     lineYRight = 0.165;
     lineXLeftMajor = 0.15;
@@ -36,8 +36,8 @@ class HeadingTape {
             type = line; \
             width = 3; \
             points[] = \
-                { {Flt_HeadingTape, {(bearing)*0.5/180,0.005    }, 1} \
-                , {Flt_HeadingTape, {(bearing)*0.5/180,0.020}, 1} \
+                { {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0.005 }, 1} \
+                , {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0.020}, 1} \
                 }; \
         }; \
     };
@@ -47,11 +47,11 @@ class HeadingTape {
             type = line; \
             width = 3; \
             points[] = \
-                { {Flt_HeadingTape, {(bearing)*0.5/180,0}, 1} \
-                , {Flt_HeadingTape, {(bearing)*0.5/180,0.025}, 1} \
+                { {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0}, 1} \
+                , {FCR_HeadingTape, {(bearing)*0.4/180+0.1,0.025}, 1} \
                 }; \
         }; \
-        MPD_TEXT_BONE_C(Text, Flt_HeadingTape, (bearing)*0.5/180, -MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(txt)) \
+        MPD_TEXT_BONE_C(Text, FCR_HeadingTape, (bearing)*0.4/180+0.1, -MPD_TEXT_HEIGHT, MPD_TEXT_STATIC(txt)) \
     };
 
     MAJOR_LINE(N180, -180, "S")

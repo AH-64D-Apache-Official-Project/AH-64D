@@ -103,8 +103,10 @@ if !(_heli getvariable "fza_ah64_LmcActive") then {
 
 //PNVS HDU
 if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
-    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)";
+    private _aspect = getResolution#4;
+    private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
+    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText _pnvsTexture;
     };
     if (_pnvsSensor >= SYS_SIGHT_DMG_THRESH) exitwith {
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0,0,0,0];
@@ -366,9 +368,10 @@ _speedkts = format["%1", fza_sfmplus_vel3D];
 _baraltft = format["%1",  _barAlt toFixed 0];
 _radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
 
-private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
-if !isNil {_fcrLastScan # 0} then {
-    _fcrhdg = _fcrLastScan # 0;
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+if !isNil "_dir" then {
+    _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
@@ -566,29 +569,22 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _accelY    = fza_sfmplus_accelY / 6.0;
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
+    private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
         if (fza_sfmplus_gndSpeed <= 6) then {
-            _accelCueX = (_velX * 0.168) + (_accelX * 0.168);
-            _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-            _accelCueY = -(_velY * 0.168) - (_accelY * 0.168);
-            _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+            _accelCueX = _velX + _accelX;
+            _accelCueY = - _velY -  _accelY;
         } else {
-            _accelCueX = (_accelX * 0.168);
-            _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-            _accelCueY = -(_accelY * 0.168);
-            _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+            _accelCueX = _accelX;
+            _accelCueY = _accelY;
         };
     } else {
-        _accelCueX = (_velX * 0.168) + (_accelX * 0.168);
-        _accelCueX = [_accelCueXOrigin + _accelCueX, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp;
-
-        _accelCueY = -(_velY * 0.168) - (_accelY * 0.168);
-        _accelCueY = [_accelCueYOrigin + _accelCueY, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp;
+        _accelCueX = _velX + _accelX;
+        _accelCueY = -_velY - _accelY;
     };
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition [_accelCueX, _accelCueY];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlCommit 0;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition
+        [ [_accelCueXOrigin + _accelCueX * _accelScaling, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp
+        , [_accelCueYOrigin + _accelCueY * _accelScaling, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp];
 };
 //End Acceleration Cue
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
@@ -680,8 +676,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")}); 
-private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (_heli animationPhase "pnvs_vert"), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")}); 
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);
@@ -716,7 +712,7 @@ for "_i" from 0 to 35 do {
 
 [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
 
-if (_fcrhdg < -180 || _fcrhdg > 180) then {
+if (_fcrhdg > 360) then {
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
 } else {

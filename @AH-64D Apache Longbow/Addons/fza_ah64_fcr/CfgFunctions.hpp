@@ -13,7 +13,7 @@ class CfgFunctions
             class cycleNts {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class stateControl {RECOMPILE_FLAG;};
-            class update {RECOMPILE_FLAG;};
+            class update {RECOMPILE_FLAG;}; 
         };
     };
 };

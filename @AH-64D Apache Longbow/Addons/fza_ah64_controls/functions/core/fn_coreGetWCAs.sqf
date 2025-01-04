@@ -298,7 +298,6 @@ if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
 };
 //--Transmission
 if (_xmsnDamage >= SYS_XMSN_DMG_THRESH) then {
-    _wcas pushBack [WCA_CAUTION, "MAIN XMSN CHIPS", "XMSN CHIPS"];
     ([_heli, _activeCaut, "MAIN XMSN CHIPS", "XMSN CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 

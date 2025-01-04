@@ -54,11 +54,11 @@ if (isNil "_nextPointPos") then {
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLY_TO_CUE_Y), _flyToCueY];
 };
 
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")});
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")});
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_ALTERNATE_SENSOR), _alternatesensorpan];
 
-private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
-private _fcrHeading = [(_fcrLastScan#0 - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir"]; 
+private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
 if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrHeading = -1000;
 };
