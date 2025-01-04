@@ -31,5 +31,3 @@ if (!(_heli getVariable ["fza_ah64_fcrInitialised", false]) && local _heli) then
     _heli setVariable ["fza_ah64_fcrMode", 1, true];
     _heli setVariable ["fza_ah64_fcrcscope", false, true];
 };
-
-_heli enableVehicleSensor ["ActiveRadarSensorComponent", _heli animationPhase "fcr_enable" == 1];
