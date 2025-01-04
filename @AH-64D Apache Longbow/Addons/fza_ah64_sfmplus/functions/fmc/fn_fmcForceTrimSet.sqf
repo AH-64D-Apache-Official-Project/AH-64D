@@ -1,6 +1,6 @@
 params ["_heli"];
 
-if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+//if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //Cyclic pitch trim
     private _curCyclicFwdAft  = (_heli getVariable "fza_sfmplus_cyclicFwdAft");
     private _prevCyclicFwdAft = _heli getVariable "fza_ah64_forceTrimPosPitch";
@@ -21,8 +21,8 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _pedalTrimVal       = _curPedalLeftRight + _prevPedalLeftRight;
     _pedalTrimVal               = [_pedalTrimVal, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_ah64_forceTrimPosPedal", _pedalTrimVal, true];
-} else {
-    _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
-    _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
-    _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
-};
+//} else {
+//    _heli setVariable ["fza_ah64_forceTrimPosPitch", 0.0, true];
+//    _heli setVariable ["fza_ah64_forceTrimPosRoll",  0.0, true];
+//    _heli setVariable ["fza_ah64_forceTrimPosPedal", 0.0, true];
+//};
