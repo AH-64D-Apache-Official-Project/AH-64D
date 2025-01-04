@@ -1,4 +1,5 @@
 params ["_heli", "_rho"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
@@ -9,7 +10,7 @@ private _liftCurveSlope     = 5.7;//getArray  (_heliSimCfg >> "wingLiftCurveSlop
 private _baseDragCoef       = 0.025;//getArray  (_heliSimCfg >> "wingBaseDragCoef")           select _wingNum;
 private _K                  = 0.07;//getArray  (_heliSimCfg >> "wingK")                      select _wingNum;
 private _wingPos            = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
-private _pitch              = -5.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
+private _pitch              = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
 private _roll               = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
 private _span               = 2.25;//getArray  (_heliSimCfg >> "wingSpan")                   select _wingNum;    //SPN
 private _chord              = 0.95;//getArray  (_heliSimCfg >> "wingChord")                  select _wingNum;    //CRD
@@ -78,7 +79,7 @@ for "_j" from 0 to (_numElements - 1) do {
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWind = fza_sfmplus_velModelSpace vectorMultiply -1.0;
+    private _relativeWind = fza_sfmplus_velModelSpaceWind vectorMultiply -1.0;
 
     private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
     private _angularVel = fza_sfmplus_angVelWorldSpace;

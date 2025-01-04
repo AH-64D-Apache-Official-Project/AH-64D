@@ -20,14 +20,13 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100
 
 //Altitude and speed
 
-private _groundSpeed = vectorMagnitude (velocity _heli call _2dvectTo3D);
-private _groundSpeedKnots = _groundSpeed * SCALE_MPS_KNOTS;
-private _airspeed = vectorMagnitude (velocity _heli vectorDiff wind);
+private _groundSpeed = fza_sfmplus_gndSpeed;//vectorMagnitude (velocity _heli call _2dvectTo3D);
+private _airspeed    = fza_sfmplus_vel3D;//vectorMagnitude (velocity _heli vectorDiff wind);
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), (_airspeed * SCALE_MPS_KNOTS) toFixed 0];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), _airspeed toFixed 0];
 
 // Waypoint status window
 private _nextPoint = _currentDir;
