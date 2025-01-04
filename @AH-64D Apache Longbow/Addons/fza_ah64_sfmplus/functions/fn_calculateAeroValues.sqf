@@ -60,6 +60,7 @@ private _beta_g   = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 //systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
 //Gamma, or flight path angle, is the angle between
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_velZ / _modelVelY); };
+if ([_gamma] call fza_sfmplus_fnc_isNAN || [_gamma] call fza_sfmplus_fnc_isINF) then { _gamma = 0.0; };
 
 _heli setVariable ["fza_sfmplus_aero_alpha",    _alpha,    true];
 _heli setVariable ["fza_sfmplus_aero_beta_deg", _beta_deg, true];
