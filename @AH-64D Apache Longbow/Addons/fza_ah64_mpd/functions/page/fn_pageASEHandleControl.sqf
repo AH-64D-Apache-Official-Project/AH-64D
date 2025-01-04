@@ -22,7 +22,10 @@ switch(_control) do {
         private _newState = [ASE_RLWR_STATE_OFF, ASE_RLWR_STATE_ON] select (_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
         _heli setVariable ["fza_ah64_ase_rlwrPwr", _newState, true];
         if (_newstate == ASE_RLWR_STATE_ON) then {
-            [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] remoteExec ["fza_audio_fnc_addASEMessage", [driver _heli, gunner _heli]];
+            [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] call fza_audio_fnc_addASEMessage;
+            private _otherTurret = [_heli, true] call fza_fnc_currentTurret;
+            private _turretUnit = _heli turretUnit _otherTurret;
+            [_heli, 7, "APR-39", "fza_ah64_APR_39_power_up", 1.8] remoteExec ["fza_audio_fnc_addASEMessage", [_turretUnit]];
         };
     };
     case "t2": {
