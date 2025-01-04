@@ -33,26 +33,27 @@ fza_sfmplus_previousTime     = 0.0;
 fza_sfmplus_deltaTime        = 0.0;
 fza_sfmplus_deltaTime_avg    = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
 
-fza_sfmplus_gndSpeed          = 0.0;
-fza_sfmplus_vel2D             = 0.0;
-fza_sfmplus_vel3D             = 0.0;
-fza_sfmplus_velModelSpace     = [0.0,0.0,0.0];
-fza_sfmplus_velModelSpaceWind = [0.0,0.0,0.0];
-fza_sfmplus_velWorldSpace     = [0.0,0.0,0.0];
-fza_sfmplus_velClimb          = 0.0;
-fza_sfmplus_angVelModelSpace  = [0.0,0.0,0.0];
-fza_sfmplus_angVelWorldSpace  = [0.0,0.0,0.0];
+_heli setVariable ["fza_sfmplus_gndSpeed",          0.0];
+_heli setVariable ["fza_sfmplus_vel2D",             0.0];
+_heli setVariable ["fza_sfmplus_vel3D",             0.0];
+_heli setVariable ["fza_sfmplus_velModelSpace",     [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velModelSpaceWind", [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velWorldSpace",     [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velClimb",          0.0];
+_heli setVariable ["fza_sfmplus_angVelModelSpace",  [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_angVelWorldSpace",  [0.0,0.0,0.0]];
 
-fza_sfmplus_accelX           = 0.0;
-fza_sfmplus_accelX_avg       = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
-fza_sfmplus_accelY           = 0.0;
-fza_sfmplus_accelY_avg       = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
-fza_sfmplus_accelZ           = 0.0;
-fza_sfmplus_accelZ_avg       = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
+_heli setVariable ["fza_sfmplus_velX_prev",         0.0];
+_heli setVariable ["fza_sfmplus_accelX",            0.0];
+_heli setVariable ["fza_sfmplus_accelX_avg",        [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
-fza_sfmplus_velX_prev         = 0.0;
-fza_sfmplus_velY_prev         = 0.0;
-fza_sfmplus_velZ_prev         = 0.0;
+_heli setVariable ["fza_sfmplus_velY_prev",         0.0];
+_heli setVariable ["fza_sfmplus_accelY",            0.0];
+_heli setVariable ["fza_sfmplus_accelY_avg",        [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+
+_heli setVariable ["fza_sfmplus_velZ_prev",         0.0];
+_heli setVariable ["fza_sfmplus_accelZ",            0.0];
+_heli setVariable ["fza_sfmplus_accelZ_avg",        [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
 _heli setVariable ["fza_sfmplus_emptyMassFCR",       getNumber (_config >> "emptyMassFCR")];        //kg
 _heli setVariable ["fza_sfmplus_emptyMomFCR",        getNumber (_config >> "emptyMomFCR")];

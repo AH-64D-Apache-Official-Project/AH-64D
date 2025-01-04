@@ -22,10 +22,19 @@ Author:
 params ["_heli", "_useWind"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-//Ground speed
-fza_sfmplus_gndSpeed = round(vectorMagnitude [velocityModelSpace _heli select 0, velocityModelSpace _heli select 1] * MPS_TO_KNOTS);
+private _vel3D             = _heli getVariable "fza_sfmplus_vel3D";
+private _vel2D             = _heli getVariable "fza_sfmplus_vel2D";
+private _velModelSpace     = _heli getVariable "fza_sfmplus_velModelSpace";
+private _velModelSpaceWind = _heli getVariable "fza_sfmplus_velModelSpaceWind";
+private _velWorldSpace     = _heli getVariable "fza_sfmplus_velWorldSpace";
+private _velClimb          = _heli getVariable "fza_sfmplus_velClimb";
+private _angVelModelSpace  = _heli getVariable "fza_sfmplus_angVelModelSpace";
+private _angVelWorldSpace  = _heli getVariable "fza_sfmplus_angVelWorldSpace";
 
-private _velWind     = [];
+//Ground speed
+_gndSpeed        = round(vectorMagnitude [velocityModelSpace _heli select 0, velocityModelSpace _heli select 1] * MPS_TO_KNOTS);
+
+private _velWind = [];
 
 if (_useWind) then {
     _velWind = wind;
@@ -34,17 +43,27 @@ if (_useWind) then {
 };
 
 //3D velocity of the aircraft
-fza_sfmplus_vel3D            = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli vectorDiff _velWind));
+_vel3D             = round(MPS_TO_KNOTS * vectorMagnitude(velocityModelSpace _heli vectorDiff _velWind));
 //2D velocity of the aircraft
-fza_sfmplus_vel2D            = [round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff _velWind) select 1)), 0.0, 180.0] call BIS_fnc_clamp;
+_vel2D             = [round(MPS_TO_KNOTS * ((velocityModelSpace _heli vectorDiff _velWind) select 1)), 0.0, 180.0] call BIS_fnc_clamp;
 //Velocity model space
-fza_sfmplus_velModelSpace     = velocityModelSpace _heli;
-fza_sfmplus_velModelSpaceWind = velocityModelSpace _heli vectorDiff _velWind;
+_velModelSpace     = velocityModelSpace _heli;
+_velModelSpaceWind = velocityModelSpace _heli vectorDiff _velWind;
 //Velocity world space
-fza_sfmplus_velWorldSpace     = velocity _heli vectorDiff _velWind;
+_velWorldSpace     = velocity _heli vectorDiff _velWind;
 //Climb velocity
-fza_sfmplus_velClimb          = (velocity _heli select 2) * MPS_TO_FPM;
+_velClimb          = (velocity _heli select 2) * MPS_TO_FPM;
 //Angular velocity in model space
-fza_sfmplus_angVelModelSpace  = angularVelocityModelSpace _heli;
+_angVelModelSpace  = angularVelocityModelSpace _heli;
 //Angular velocity in world space
-fza_sfmplus_angVelWorldSpace  = angularVelocity _heli;
+_angVelWorldSpace  = angularVelocity _heli;
+
+_heli setVariable ["fza_sfmplus_gndSpeed",          _gndSpeed];
+_heli setVariable ["fza_sfmplus_vel2D",             _vel3D];
+_heli setVariable ["fza_sfmplus_vel3D",             _vel2D];
+_heli setVariable ["fza_sfmplus_velModelSpace",     _velModelSpace];
+_heli setVariable ["fza_sfmplus_velModelSpaceWind", _velModelSpaceWind];
+_heli setVariable ["fza_sfmplus_velWorldSpace",     _velWorldSpace];
+_heli setVariable ["fza_sfmplus_velClimb",          _velClimb];
+_heli setVariable ["fza_sfmplus_angVelModelSpace",  _angVelModelSpace];
+_heli setVariable ["fza_sfmplus_angVelWorldSpace",  _angVelWorldSpace];

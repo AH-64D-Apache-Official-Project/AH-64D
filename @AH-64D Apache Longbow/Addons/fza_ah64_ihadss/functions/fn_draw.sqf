@@ -291,7 +291,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round fza_sfmplus_gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round (_heli getVariable "fza_sfmplus_gndSpeed")] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -361,7 +361,7 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", fza_sfmplus_vel3D];
+_speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel3D")];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
@@ -387,7 +387,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if (fza_sfmplus_vel3D > 5) then {
+if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
     _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
@@ -551,27 +551,27 @@ private _accelX = 0.0;
 private _accelY = 0.0;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-    _velX = (fza_sfmplus_velModelSpace select 0) / 3.08667;
-    _velY = (fza_sfmplus_velModelSpace select 1) / 3.08667;
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpace") select 0) / 3.08667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpace") select 1) / 3.08667;
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
-    _velX = (fza_sfmplus_velModelSpace select 0) / 30.8667;
-    _velY = (fza_sfmplus_velModelSpace select 1) / 30.8667;
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpace") select 0) / 30.8667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpace") select 1) / 30.8667;
 };
 _velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
 _velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
-    _accelX    = fza_sfmplus_accelX / 6.0;
+    _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 12.0;
     _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
 
-    _accelY    = fza_sfmplus_accelY / 6.0;
+    _accelY    = (_heli getVariable "fza_sfmplus_accelY") / 12.0;
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
     private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-        if (fza_sfmplus_gndSpeed <= 6) then {
+        if ((_heli getVariable "fza_sfmplus_gndSpeed") <= 6) then {
             _accelCueX = _velX + _accelX;
             _accelCueY = - _velY - _accelY;
         } else {

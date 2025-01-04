@@ -14,7 +14,7 @@ private _pidSASYaw   = _heli getVariable "fza_sfmplus_pid_sas_yaw";
 //_pidSASRoll set ["ki", Y_KI];
 //_pidSASRoll set ["kd", Y_KD];
 
-(fza_sfmplus_angVelModelSpace)
+((_heli getVariable "fza_sfmplus_angVelModelSpace"))
     params [
              "_angVelX"
            , "_angVelY"

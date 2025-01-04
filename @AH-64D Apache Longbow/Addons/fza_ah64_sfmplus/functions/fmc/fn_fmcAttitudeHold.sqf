@@ -24,14 +24,14 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
 
-(fza_sfmplus_velModelSpace)
+((_heli getVariable "fza_sfmplus_velModelSpace"))
     params [
              "_velX"
            , "_velY"
            , "_velZ"
            ];
 
-(fza_sfmplus_angVelModelSpace)
+((_heli getVariable "fza_sfmplus_angVelModelSpace"))
     params [
              "_angVelX"
            , "_angVelY"
@@ -48,17 +48,17 @@ private _attHoldCycRollOut  = 0.0;
 
 private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
 //Position hold
-if (fza_sfmplus_gndSpeed <= POS_HOLD_SPEED_SWITCH) then {
+if ((_heli getVariable "fza_sfmplus_gndSpeed") <= POS_HOLD_SPEED_SWITCH) then {
     [_heli, "fza_ah64_attHoldSubMode", "pos"] call fza_fnc_updateNetworkGlobal;
 };
 //Velocity hold
 //This needs to check if accelerating or decelerating...really it's
 //5 to 40 knots accelerating, 30 to 5 knots decelerating
-if (fza_sfmplus_gndSpeed > POS_HOLD_SPEED_SWITCH && _vel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+if ((_heli getVariable "fza_sfmplus_gndSpeed") > POS_HOLD_SPEED_SWITCH && _vel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
     [_heli, "fza_ah64_attHoldSubMode", "vel"] call fza_fnc_updateNetworkGlobal;
 };
 //Attitude hold
-if (fza_sfmplus_gndSpeed > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+if ((_heli getVariable "fza_sfmplus_gndSpeed") > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
     [_heli, "fza_ah64_attHoldSubMode", "att"] call fza_fnc_updateNetworkGlobal;
 };
 

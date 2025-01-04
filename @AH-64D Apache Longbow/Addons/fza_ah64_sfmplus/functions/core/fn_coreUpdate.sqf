@@ -45,7 +45,7 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 
 //Velocities
 [_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities;
-[] call fza_sfmplus_fnc_getAccelerations;
+[_heli] call fza_sfmplus_fnc_getAccelerations;
 
 //Input
 ([_heli] call fza_sfmplus_fnc_fmc)
