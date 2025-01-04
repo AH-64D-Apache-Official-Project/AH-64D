@@ -80,7 +80,8 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
 //Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;
 private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
-private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqModelVec;
+private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqVec;
+private _acqVector = _heli vectorWorldToModelVisual _acqVector;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
 private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];

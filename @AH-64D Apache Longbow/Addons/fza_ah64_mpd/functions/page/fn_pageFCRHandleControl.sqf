@@ -2,8 +2,6 @@
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
-private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
-
 switch(_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
