@@ -1,7 +1,7 @@
 private _projName = "AH-64D Official Project";
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 [
-    "fza_ah64_showPopup",
+    "fza_ah64_showPopupv2_2",
     "CHECKBOX",
     ["Show Popup Intro", "Show popup when the player gets into an Apache"],
     [_projName, "UI"],

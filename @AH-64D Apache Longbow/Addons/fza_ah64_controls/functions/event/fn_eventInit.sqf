@@ -67,7 +67,7 @@ _heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
 _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
 
 
-if (player in _heli && !is3den && {fza_ah64_showPopup && !fza_ah64_introShownThisScenario}) then {
+if (player in _heli && !is3den && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
         waitUntil {cba_missiontime != 0;};
         createDialog "RscFzaDisplayWelcome";
