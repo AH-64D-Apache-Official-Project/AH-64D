@@ -77,8 +77,10 @@ private _paused       = isNull findDisplay 49;
 private _chatting     = isNull findDisplay 24;
 private _inDialog     = !dialog;
 private _isZeus       = !isNull findDisplay 312;
+private _inMap        = !visibleMap;
+private _inInventory  = isNull findDisplay 602; 
 
-private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus;
+private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && _inMap && _inInventory; 
 
 if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
