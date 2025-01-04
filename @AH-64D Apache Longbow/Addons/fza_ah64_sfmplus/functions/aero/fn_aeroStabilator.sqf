@@ -131,10 +131,10 @@ for "_j" from 0 to (_numElements - 1) do {
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWind = fza_sfmplus_velModelSpaceWind vectorMultiply -1.0;
+    private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpaceWind") vectorMultiply -1.0;
 
     private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel = fza_sfmplus_angVelWorldSpace;
+    private _angularVel = (_heli getVariable "fza_sfmplus_angVelWorldSpace");
 
     private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
     _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));

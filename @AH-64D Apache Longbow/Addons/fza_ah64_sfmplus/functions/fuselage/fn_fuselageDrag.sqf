@@ -20,7 +20,7 @@ private _vectorRight            = [1.0, 0.0, 0.0];
 private _vectorForward          = [0.0, 1.0, 0.0];
 private _vectorUp               = [0.0, 0.0, 1.0];
 
-private _relativeWind           = fza_sfmplus_velModelSpaceWind vectorMultiply -1.0;//fza_sfmplus_velWorldSpace vectorMultiply -1.0;
+private _relativeWind           = (_heli getVariable "fza_sfmplus_velModelSpaceWind") vectorMultiply -1.0;//(_heli getVariable "fza_sfmplus_velWorldSpace") vectorMultiply -1.0;
 
 private _relativeWindCorrection = _vectorRight;
 private _dotProduct             = _relativeWindCorrection vectorDotProduct _relativeWind;
@@ -70,7 +70,7 @@ private _dragCoefVelScalarTable =
 ,[72.02, 1.00]  //140kts
 ];
 
-private _dragCoefVelScalar = ([_dragCoefVelScalarTable, fza_sfmplus_vel3D] call fza_fnc_linearInterp) select 1;
+private _dragCoefVelScalar = ([_dragCoefVelScalarTable, (_heli getVariable "fza_sfmplus_vel3D")] call fza_fnc_linearInterp) select 1;
 
 private _CD         = (_interpDragCoefTableY # 1) * _dragCoefVelScalar;
 

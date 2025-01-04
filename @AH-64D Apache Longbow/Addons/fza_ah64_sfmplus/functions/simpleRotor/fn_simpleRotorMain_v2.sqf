@@ -39,8 +39,8 @@ private _bladeLiftCurveSlope    = 5.7;
 //Get the current collective value
 private _collectiveOut          = fza_sfmplus_collectiveOutput + _altHoldCollOut;
 
-private _velXY                  = vectorMagnitude [fza_sfmplus_velModelSpaceWind # 0, fza_sfmplus_velModelSpaceWind # 1];
-private _velZ                   = fza_sfmplus_velModelSpaceWind # 2;
+private _velXY                  = vectorMagnitude [(_heli getVariable "fza_sfmplus_velModelSpaceWind") # 0, (_heli getVariable "fza_sfmplus_velModelSpaceWind") # 1];
+private _velZ                   = (_heli getVariable "fza_sfmplus_velModelSpaceWind") # 2;
 //Get the current gross weight
 private _curGWT_kg              = _heli getVariable "fza_sfmplus_GWT";
 
