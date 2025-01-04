@@ -15,12 +15,12 @@ private _ng_motor       = 24.0;
 private _ng_start       = 52.0;
 private _ng_idle        = 67.4;
 private _ng_fly         = 85.6;
-private _ng_max_tbl     = //105.1;
+private _ng_max_tbl     =
 [
  [-40.0,  93.7]
 ,[-20.0,  95.8]
-,[  0.0,  98.0]
-,[ 20.0, 100.1]
+,[  0.0, 101.5]
+,[ 20.0, 102.2]
 ,[ 40.0, 102.2]
 ];
 private _ng_max         = 0.0;
@@ -45,7 +45,7 @@ private _tgt_off        = 225.0;
 private _tgt_start      = 641.0;
 private _tgt_idle       = 445.0;
 private _tgt_fly        = 517.0;
-private _tgt_max_tbl    = //949.0;
+private _tgt_max_tbl    =
 [
  [-40.0, 721.0, 721.0] 
 ,[-20.0, 837.0, 837.0]
