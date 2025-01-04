@@ -17,32 +17,27 @@ params ["_display"];
 fza_ah64_introShownThisScenario = true;
 
 private _content = parseText
-"<t align='center' size='2'>AH-64D Official Project V2.1</t><br/>
+"<t align='center' size='2'>AH-64D Official Project V2.2</t><br/>
 <br/>
 <t align='center'><img size='10' image='\fza_ah64_us\tex\intro.jpg'/></t><br/>
 <br/>
-We are excited to give to the community our first release since the massive V2.0 update. In this update, we have built upon V2.0 to revolutionise some areas of the mod:<br/>
+After over three years of development, we are happy to announce V2.2. This has been a large release with changes ranging from the displays being rewritten, to a new flight model and damage handling being implemented.<br/>
 <br/>
 <t align='center' size='1.5'>Documentation</t><br/>
-To support the new release, we have revised and rewritten all of our documentation, and it has since been moved to <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
+To support the new release, we have revised and rewritten all of our documentation, which can be still found at <a href='https://ah-64d-apache-official-project.github.io/'>https://ah-64d-apache-official-project.github.io</a>. For more information on the mod, we recommend going here.<br/>
 <br/>
-<t align='center' size='1.5'>Keybindings</t><br/>
-We are happy to release a new keybinding update, which has redone every control to be closer to the real aircraft. They are now also all mappable to joystick buttons, and for those people with home cockpits each button in the aircraft is mappable to a keybind. To see the list of keybindings, and their default values, go to <a href='https://ah-64d-apache-official-project.github.io/keybinds.html'>keybinds</a><br/>
+<t align='center' size='1.5'>Displays</t><br/>
+We have rewritten all the MPDs using a combination of Arma's MFD config system, and the new UI to texture system. This has given us the ability to have increased fidelity for our displays, both in improving existing pages and also adding new ones. All pages are also available on both MPDs. We also have a functional UFD and KU, along with other buttons in the cockpit like the ARM/SAFE and caution lights working as expected<br/>
 <br/>
-<t align='center' size='1.5'>SFM+</t><br/>
-We have improved how the collective is read for both keyboard and joystick users.<br/>
-The stabilator is now, by default, only on for joystick users. Keyboard users that still want it, will still be able to enable it in the settings.<br/>
-Engine overtorque damage is now simulated. With a full fuel and ammo load, you will NOT be able to hover out of ground effect. Burn some fuel, or fire some ammo beforehand!<br/>
-The general rules are don’t spend longer than 6 seconds over 101-115% torque, and do not exceed 115% torque at any point. When in a single engine situation, the limits are more forgiving. for more information please see <a href='https://ah-64d-apache-official-project.github.io/flight-model-sfm-plus.html'>here</a>.<br/>
+<t align='center' size='1.5'>Helisim</t><br/>
+SFM+ has been replaced with a full new custom flight model with SFM fully disabled. It accurately simulates phenomena like Ground Effect, Main Rotor Torque Effect, ETL, and VRS in a variety of situations. The CG and mass of the aircraft are updated and correctly simulated.<br/>
+A Flight Management Computer with Force Trim, Hold Modes (Heading, Altitude, Attitude), CAS and SAS has been added, to give you a smoother ride.
 <br/>
-<t align='center' size='1.5'>AI Update</t><br/>
-AI will now be able to operate basic systems of the aircraft - an AI pilot will be able to start the aircraft, and will be able to operate the fire panel.<br/>
-AI should also better use the aircraft’s weapons, and should be compatible with other AI mods.<br/>
+<t align='center' size='1.5'>Damage model</t><br/>
+Our damage model is better tied into the aircraft's systems, you can expect to lose certain abilities depending on what damage you take.<br/>
 <br/>
-<t align='center' size='1.5'>ASE Update</t><br/>
-Threats to the aircraft should better appear on the ASE page, and the jammers have been improved also.<br/>
-<br/>
-There is now a 1.5 second activation delay for the jammers whenever activating them.<br/>
+<t align='center' size='1.5'>Audio update</t><br/>
+The audio you encounter in the aircraft has been improved, so you will get better audible feedback from systems in the aircraft<br/>
 <br/>
 Fly safe! <br/>
 <br/>
