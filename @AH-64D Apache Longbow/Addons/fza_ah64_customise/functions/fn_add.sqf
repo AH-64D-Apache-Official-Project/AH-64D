@@ -28,6 +28,7 @@ if (_targetComp == "FCR") exitwith {
             private _nearestObject = nearestObject [_player, "fza_ah64_FireControlRadar"];
             deleteVehicle _nearestObject;
             _target animateSource ["fcr_enable",1];
+            _target enableVehicleSensor ["ActiveRadarSensorComponent", true];
         },
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
