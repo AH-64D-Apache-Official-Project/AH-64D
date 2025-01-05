@@ -24,3 +24,4 @@ _temp set [_index, _value];
 if _public then {
     [_heli, _variableName, _temp] call fza_fnc_updateNetworkGlobal;
 };
+_heli setVariable[_variableName, _temp];
