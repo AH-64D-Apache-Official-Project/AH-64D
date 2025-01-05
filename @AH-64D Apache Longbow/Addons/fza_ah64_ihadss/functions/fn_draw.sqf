@@ -375,8 +375,10 @@ if !isNil "_dir" then {
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
-_sensorposx = (_heli animationphase "tads_tur") * -0.025;
-_sensorposy = (_heli animationphase "tads") * -0.015;
+private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+_sensorposx = _tadsAzimuth * -0.025;
+_sensorposy = _tadsElevation * -0.015;
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
@@ -672,12 +674,11 @@ if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza
 };
 
 // CAMERA HEADINGS FOR GUNNER
-
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
+    _tadsdir = (deg _tadsAzimuth * -1);
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg (_heli animationSourcePhase "tads_tur")}); 
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg _tadsAzimuth}); 
 private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];

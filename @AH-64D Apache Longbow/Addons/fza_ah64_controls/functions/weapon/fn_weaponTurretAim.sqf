@@ -146,12 +146,12 @@ if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
         _heli selectweapon "fza_cannon_inhibit";
     };
-    private _pan = _heli animationPhase "tads_tur";
-    private _tilt = _heli animationPhase "tads";
-    if !(-86 < deg _pan && deg _pan < 86) then {
+    private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+    private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+    if !(-86 < deg _tadsAzimuth && deg _tadsAzimuth < 86) then {
         _inhibit = "AZ LIMIT";
     };
-    if !(-60 < deg _tilt && deg _tilt < 11) then {
+    if !(-60 < deg _tadsElevation && deg _tadsElevation < 11) then {
         _inhibit = "EL LIMIT";
     };
     if (_inhibit != "") then {
@@ -167,8 +167,8 @@ if (_was == WAS_WEAPON_GUN) then {
         _maingun = 0;
         _inhibit = "GUN FIXED";
     };
-    _mainturret = [_pan, rad -86, rad 86] call BIS_fnc_clamp;
-    _maingun = [_tilt, rad -60, rad 11] call BIS_fnc_clamp;
+    _mainturret = [_tadsAzimuth, rad -86, rad 86] call BIS_fnc_clamp;
+    _maingun = [_tadsElevation, rad -60, rad 11] call BIS_fnc_clamp;
 };
 if (_gunFailed) then {
     _mainturret = _heli animationphase "mainTurret";
