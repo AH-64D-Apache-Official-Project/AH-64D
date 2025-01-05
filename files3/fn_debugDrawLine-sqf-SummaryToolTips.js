@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_debugDrawLine.sqf",{30:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws a debug line.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_debugDrawLine.sqf",{116:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Draws a debug line.</div></div>"});
