@@ -167,13 +167,13 @@ private _thrustZ      = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
 //Pitch torque
 private _cyclicFwdAftTrim    = 0.0;
-if (local _heli) then {
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _cyclicFwdAftTrim = _heli getVariable "fza_ah64_forceTrimPosPitch";
 };
 private _torqueX             = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = 0.0;
-if (local _heli) then {
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 };
 private _torqueY             = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;

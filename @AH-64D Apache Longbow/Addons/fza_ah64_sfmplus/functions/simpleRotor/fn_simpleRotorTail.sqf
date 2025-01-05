@@ -54,7 +54,7 @@ private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity
 
 //Thrust produced
 private _pedalLeftRightTrim            = 0.0;
-if (local _heli) then {
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
 };
 private _bladePitch_cur                = 0.0;
