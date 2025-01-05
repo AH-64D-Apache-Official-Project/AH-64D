@@ -21,17 +21,18 @@ private _pidSASYaw   = _heli getVariable "fza_sfmplus_pid_sas_yaw";
            , "_angVelZ"
            ];
 
+private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";
 private _sasPitchOutput = 0.0;
 private _sasRollOutput  = 0.0;
 private _sasYawOutput   = 0.0;
 
 if (!(_heli getVariable "fza_ah64_attHoldActive") && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Pitch & Roll SAS
-    private _roll  = [_pidSASRoll, fza_sfmplus_deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
+    private _roll  = [_pidSASRoll, _deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
     _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-    private _pitch = [_pidSASPitch, fza_sfmplus_deltaTime, 0.0, _angVelX] call fza_fnc_pidRun;
+    private _pitch = [_pidSASPitch, _deltaTime, 0.0, _angVelX] call fza_fnc_pidRun;
     _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
-    private _yaw   = [_pidSASYaw,  fza_sfmplus_deltaTime,  0.0, _angVelZ] call fza_fnc_pidRun;
+    private _yaw   = [_pidSASYaw,  _deltaTime,  0.0, _angVelZ] call fza_fnc_pidRun;
     _yaw           = [_yaw, -1.0, 1.0] call BIS_fnc_clamp;
 
     _sasPitchOutput = _pitch;

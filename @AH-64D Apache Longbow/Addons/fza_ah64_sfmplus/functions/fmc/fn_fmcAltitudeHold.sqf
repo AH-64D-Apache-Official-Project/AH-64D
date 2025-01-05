@@ -1,9 +1,10 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
 private _pidBarAlt  = _heli getVariable "fza_sfmplus_pid_barHold";
-private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _curAltAGL  = ASLToAGL getPosASL _heli # 2;
 private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
 private _desiredAlt = _heli getVariable "fza_ah64_altHoldDesiredAlt";
@@ -28,7 +29,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //hold and allow them to do so
     private _collRef_low = _collRef * 0.95;
     private _collRef_hi  = _collRef * 1.05;
-    if (fza_sfmplus_collectiveOutput >= _collRef_hi || fza_sfmplus_collectiveOutput <= _collRef_low) then {
+    if ((_heli getVariable "fza_sfmplus_collectiveOutput") >= _collRef_hi || (_heli getVariable "fza_sfmplus_collectiveOutput") <= _collRef_low) then {
         [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
         [_heli] call fza_audio_fnc_flightTone;
     };
@@ -36,7 +37,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //If the helicopters radar altitude is < 1428ft (435.25m) and current velocity is < 40kts
     //then set the desired altitude to the current AGL altitude, otherwise set it to the
     //current ASL altitude.
-    if (_curAltAGL < RAD_ALT_MAX_ALT && _curVel < ALT_HOLD_SPEED_SWITCH) then {
+    if (_curAltAGL < RAD_ALT_MAX_ALT && _gndSpeed < ALT_HOLD_SPEED_SWITCH) then {
         [_heli, "fza_ah64_altHoldSubMode", "rad"] call fza_fnc_updateNetworkGlobal;
     } else {
         [_heli, "fza_ah64_altHoldSubMode", "bar"] call fza_fnc_updateNetworkGlobal;
@@ -45,11 +46,11 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     if (_subMode == "rad") then {
         //Radar altitude hold uses AGL altitude
         private _altError = _curAltAGL - _desiredAlt;
-        _output = [_pidRadAlt, fza_sfmplus_deltaTime, 0.0, _altError] call fza_fnc_pidRun;
+        _output = [_pidRadAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     } else {
         //Barometric altitude hold uses the ASL altitude
         private _altError = _curAltMSL - _desiredAlt;
-        _output = [_pidBarAlt, fza_sfmplus_deltaTime, 0.0, _altError] call fza_fnc_pidRun;
+        _output = [_pidBarAlt, _deltaTime, 0.0, _altError] call fza_fnc_pidRun;
     };
 } else {
     [_pidRadAlt] call fza_fnc_pidReset;

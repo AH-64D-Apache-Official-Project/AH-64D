@@ -28,6 +28,7 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 if (!local _heli) exitWith {};
 
+private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;
 private _liftCurveSlope = 5.7;
@@ -41,7 +42,7 @@ private _chordLinePos   = 0.25;
 private _stabOutputTable = [[]];
 private _theta           = 0.0;
 
-private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
+private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), (_heli getVariable "fza_sfmplus_collectiveOutput")] call fza_fnc_linearInterp;
 _stabOutputTable = [
                     [15.43, _intStabTable select 1]   //30kts
                    ,[20.58, _intStabTable select 2]   //40kts
@@ -183,11 +184,11 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _liftVector = _vectorRight vectorCrossProduct _relativeWind;
     _liftVector = vectorNormalized _liftVector;
-    _liftVector = _liftVector vectorMultiply (_lift * fza_sfmplus_deltaTime);
+    _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
     private _dragVector = _relativeWind;
     _dragVector = vectorNormalized _dragVector;
-    _dragVector = _dragVector vectorMultiply (_drag * fza_sfmplus_deltaTime);
+    _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorAdd (_liftVector vectorMultiply _debugLineScale), _e, "green"] call fza_fnc_debugDrawLine;
@@ -208,7 +209,7 @@ for "_j" from 0 to (_numElements - 1) do {
 #ifdef __A3_DEBUG__
 /*
 hintsilent format ["Collective Out = %1
-                   \nStab Pos = %2", fza_sfmplus_collectiveOutput, _theta];
+                   \nStab Pos = %2", (_heli getVariable "fza_sfmplus_collectiveOutput"), _theta];
 */
 //Draw the wing
 [_heli, _A_wingRootLeadingEdge,  _B_wingTipLeadingEdge,   "red"]   call fza_fnc_debugDrawLine;

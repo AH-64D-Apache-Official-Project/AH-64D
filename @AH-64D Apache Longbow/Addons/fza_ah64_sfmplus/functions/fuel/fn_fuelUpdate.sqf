@@ -21,6 +21,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+
+private _deltaTime       = _heli getVariable "fza_sfmplus_deltaTime";
 private _percentFuel     = fuel _heli;
 private _IAFSInstalled   = _heli getVariable "fza_ah64_IAFSInstalled";
 private _maxFwdFuelMass  = _heli getVariable "fza_sfmplus_maxFwdFuelMass";
@@ -44,7 +46,7 @@ private _apuFF_kgs       = _heli getVariable "fza_systems_apuFF_kgs";
 private _eng1FF_kgs      = _heli getVariable "fza_sfmplus_engFF" select 0;
 private _eng2FF_kgs      = _heli getVariable "fza_sfmplus_engFF" select 1;
 private _curFuelFlow_kgs = 0;
-_curFuelFlow_kgs         = (_apuFF_kgs + _eng1FF_kgs + _eng2FF_kgs) * fza_sfmplus_deltaTime;
+_curFuelFlow_kgs         = (_apuFF_kgs + _eng1FF_kgs + _eng2FF_kgs) * _deltaTime;
 _totFuelMass             = (_maxTotFuelMass * _percentFuel) - _curFuelFlow_kgs;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // External Tanks       /////////////////////////////////////////////////////////////////////
@@ -70,6 +72,8 @@ _numExtTanks      = _stn1HasTank  + _stn2HasTank  + _stn3HasTank  + _stn4HasTank
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Internal Tanks       /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
+if (isNil "_IAFSInstalled") exitWith {};
+
 if (_IAFSInstalled) then {
     _fwdFuelMass    = [_totFuelMass / 2,                             0, _maxFwdFuelMass] call BIS_fnc_clamp;
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass,                  0, _maxAftFuelMass] call BIS_fnc_clamp;
@@ -98,7 +102,9 @@ if (_stn4HasTank == 1) then {
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Update Fuel          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _armaFuelFrac    = _totFuelMass / _maxTotFuelMass;
+if (_maxTotFuelMass == 0.0) exitWith {};
+
+private _armaFuelFrac = _totFuelMass / _maxTotFuelMass;
 if (local _heli) then {
     _heli setFuel _armaFuelFrac;
 };

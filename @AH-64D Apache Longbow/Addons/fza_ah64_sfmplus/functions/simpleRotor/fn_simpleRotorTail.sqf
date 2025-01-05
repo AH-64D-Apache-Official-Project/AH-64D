@@ -22,6 +22,10 @@ params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYa
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
+if (!local _heli) exitWith {};
+
+private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
+
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;
 private _rtrRPMTrimVal          = 1.01;
@@ -49,12 +53,15 @@ private _rtrTorqueScalar        = 1.00;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-private _pedalLeftRigthTrim            = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _pedalLeftRightTrim            = 0.0;
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+    _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
+};
 private _bladePitch_cur                = 0.0;
-if (fza_sfmplus_pedalLeftRight < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
+if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
+    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
 } else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, fza_sfmplus_pedalLeftRight + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
+    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
 };
 _bladePitch_cur = _bladePitch_cur + _bladePitch_med;
 
@@ -99,9 +106,9 @@ private _axisZ = [0.0, 0.0, 1.0];
 
 private _totThrust     = _rtrThrust;
 
-private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * fza_sfmplus_deltaTime);
+private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY       = 0.0;
-private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * fza_sfmplus_deltaTime; 
+private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
@@ -140,5 +147,5 @@ hintsilent format ["v0.7 testing
                     \nInduced Vel Scalar = %8
                     \nGnd Eff Scalar = %9
                     \nStab = %10
-                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput, _heli call BIS_fnc_getPitchBank select 0];
+                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, (_heli getVariable "fza_sfmplus_collectiveOutput"), _heli call BIS_fnc_getPitchBank select 0];
                     */
