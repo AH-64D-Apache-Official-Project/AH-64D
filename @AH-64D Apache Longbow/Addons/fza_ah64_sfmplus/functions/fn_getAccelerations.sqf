@@ -18,6 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
+private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+
 private _velX_prev  = _heli getVariable "fza_sfmplus_velX_prev";
 private _accelX     = _heli getVariable "fza_sfmplus_accelX";
 private _accelX_avg = _heli getVariable "fza_sfmplus_accelX_avg";

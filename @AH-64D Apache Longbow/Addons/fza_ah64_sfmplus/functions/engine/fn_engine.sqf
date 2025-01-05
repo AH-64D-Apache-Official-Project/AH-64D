@@ -23,20 +23,20 @@ params ["_heli", "_engNum"];
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
-private _engState            = _heli getVariable "fza_sfmplus_engState" select _engNum;
-private _isSingleEng         = _heli getVariable "fza_sfmplus_isSingleEng";
-private _isAutorotating      = _heli getVariable "fza_sfmplus_isAutorotating";
-private _engOverspeed        = _heli getVariable "fza_ah64_engineOverspeed" select _engNum;
-private _engPowerLeverState  = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
-private _engPctNG            = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
-private _engPctNP            = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
-private _engPctTQ            = _heli getVariable "fza_sfmplus_engPctTQ" select _engNum;
-private _engTGT              = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
-private _engOilPSI           = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
-private _engFF               = _heli getVariable "fza_sfmplus_engFF" select _engNum;
-
-private _engThrottle         = 0.0;
-private _engSimTime          = getNumber (_sfmPlusConfig >> "engSimTime");
+private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
+private _engState           = _heli getVariable "fza_sfmplus_engState" select _engNum;
+private _isSingleEng        = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isAutorotating     = _heli getVariable "fza_sfmplus_isAutorotating";
+private _engOverspeed       = _heli getVariable "fza_ah64_engineOverspeed" select _engNum;
+private _engPowerLeverState = _heli getVariable "fza_sfmplus_engPowerLeverState" select _engNum;
+private _engPctNG           = _heli getVariable "fza_sfmplus_engPctNG" select _engNum;
+private _engPctNP           = _heli getVariable "fza_sfmplus_engPctNP" select _engNum;
+private _engPctTQ           = _heli getVariable "fza_sfmplus_engPctTQ" select _engNum;
+private _engTGT             = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
+private _engOilPSI          = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
+private _engFF              = _heli getVariable "fza_sfmplus_engFF" select _engNum;
+private _engThrottle        = 0.0;
+private _engSimTime         = getNumber (_sfmPlusConfig >> "engSimTime");
 
 //Torque - TQ
 private _engIdleTQ  = getNumber (_sfmPlusConfig >> "engIdleTQ");
