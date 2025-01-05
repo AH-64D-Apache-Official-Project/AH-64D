@@ -51,15 +51,15 @@ private _rtrTorqueScalar        = 1.00;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-private _pedalLeftRigthTrim            = 0.0;
+private _pedalLeftRightTrim            = 0.0;
 if (local _heli) then {
     _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
 };
 private _bladePitch_cur                = 0.0;
 if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
+    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
 } else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRigthTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
+    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
 };
 _bladePitch_cur = _bladePitch_cur + _bladePitch_med;
 
