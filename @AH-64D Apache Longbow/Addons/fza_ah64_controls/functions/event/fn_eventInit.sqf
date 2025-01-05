@@ -65,7 +65,9 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
 _heli setVariable ["fza_ah64_freeCursorEnabled", false];
 _heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
 _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
-
+_heli setVariable ["fza_ah64_lastTimePropagated", 0];
+_heli setVariable ["fza_ah64_tadsElevation", 0];
+_heli setVariable ["fza_ah64_tadsAzimuth",   0];
 
 if (player in _heli && !is3den && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {

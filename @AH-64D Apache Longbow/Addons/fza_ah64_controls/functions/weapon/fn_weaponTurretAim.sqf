@@ -26,6 +26,26 @@ params["_heli"];
 #define SCALE_KM_METERS 0.001
 #define HYDRA_TIME_KM 1.353
 
+private _currentTurret = _heli call fza_fnc_currentTurret;
+private _gunnnerUnit = _heli turretUnit [0];
+
+if (_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) then {
+    private _azimuth = _heli animationPhase "tads_tur";
+    private _elevation = _heli animationPhase "tads";
+    _heli setVariable ["fza_ah64_tadsElevation", _elevation];
+    _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
+
+    if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < time) then {
+    {
+        _heli setVariable [_x, _heli getVariable _x, true];
+    } forEach [
+        "fza_ah64_tadsAzimuth",
+        "fza_ah64_tadsElevation"
+    ];
+    _heli setVariable ["fza_ah64_lastTimePropagated", time, true];
+    };
+};
+
 private _was             = _heli getVariable "fza_ah64_was";
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;

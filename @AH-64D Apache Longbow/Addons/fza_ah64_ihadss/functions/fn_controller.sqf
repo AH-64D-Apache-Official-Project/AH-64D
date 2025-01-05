@@ -68,13 +68,3 @@ if (_acBusOn && _dcBusOn) then {
 if (_tadsShouldBeStowed != _heli getVariable "fza_ah64_tadsStow") then {
     [_heli, "fza_ah64_tadsStow", _tadsShouldBeStowed] call fza_fnc_animSetValue;
 };
-
-private _currentTurret = _heli call fza_fnc_currentTurret;
-private _gunnnerUnit = _heli turretUnit [0];
-
-if (_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) then {
-    private _azimuth = _heli animationPhase "tads_tur";
-    private _elevation = _heli animationPhase "tads";
-    _heli setVariable ["fza_ah64_tadsElevation", _elevation, true];
-    _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth,   true];
-};
