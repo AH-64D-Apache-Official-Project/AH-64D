@@ -52,7 +52,7 @@ if (_targetComp == "IAFS") exitwith {
             private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
             deleteVehicle _nearestObject;
             _target animateSource ["magazine_set_1200", 0];
-            [_target, 0] remoteExec ["fza_fnc_weaponSwapM230Mag", _target];
+            [_target, 0] remoteExec ["fza_fnc_weaponSwapM230Mag", [gunner _target, driver _target]];
             //Spawn 1200rnd Mag
             private _object = "fza_ah64_1200Magazine" createVehicle [0,0,0];
             [_player, _object] call ace_dragging_fnc_carryObject;
@@ -80,7 +80,7 @@ if (_targetComp == "MAG") exitwith {
             private _nearestObject = nearestObject [_player, "fza_ah64_1200Magazine"];
             deleteVehicle _nearestObject;
             _target animateSource ["magazine_set_1200", 1];
-            [_target, 1] remoteExec ["fza_fnc_weaponSwapM230Mag", _target];
+            [_target, 1] remoteExec ["fza_fnc_weaponSwapM230Mag", [gunner _target, driver _target]];
             //spawn IAFS
             private _object = "fza_ah64_IAFS" createVehicle [0,0,0];
             [_player, _object] call ace_dragging_fnc_carryObject;
