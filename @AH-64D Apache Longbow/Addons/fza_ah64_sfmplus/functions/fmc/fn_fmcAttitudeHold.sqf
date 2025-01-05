@@ -48,7 +48,6 @@ private _curRoll  = _curAtt # 1;
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
 
-private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
 //Position hold
 if (_gndSpeed <= POS_HOLD_SPEED_SWITCH) then {
     [_heli, "fza_ah64_attHoldSubMode", "pos"] call fza_fnc_updateNetworkGlobal;
