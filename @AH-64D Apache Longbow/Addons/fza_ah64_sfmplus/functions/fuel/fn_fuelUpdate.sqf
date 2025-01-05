@@ -72,6 +72,8 @@ _numExtTanks      = _stn1HasTank  + _stn2HasTank  + _stn3HasTank  + _stn4HasTank
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Internal Tanks       /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
+if (isNil "_IAFSInstalled") exitWith {};
+
 if (_IAFSInstalled) then {
     _fwdFuelMass    = [_totFuelMass / 2,                             0, _maxFwdFuelMass] call BIS_fnc_clamp;
     _aftFuelMass    = [_totFuelMass - _fwdFuelMass,                  0, _maxAftFuelMass] call BIS_fnc_clamp;
