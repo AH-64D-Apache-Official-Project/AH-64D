@@ -4,8 +4,9 @@ params ["_heli", "_altitude", "_temperature", "_rho"];
 
 if (!local _heli) exitWith {};
 
-private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
+private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 
+private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m
 private _heliCOM            = getCenterOfMass _heli;
 
@@ -79,7 +80,7 @@ private _drag       = _CD * 0.5 * _rho * _fuselageAreaFront * (_v * _v);
 
 private _dragVector = _relativeWind;
 _dragVector         = vectorNormalized _dragVector;
-_dragVector         = _dragVector vectorMultiply (_drag * fza_sfmplus_deltaTime);
+_dragVector         = _dragVector vectorMultiply (_drag * _deltaTime);
 
 _heli addForce[_heli vectorModelToWorld _dragVector, _heliCOM];
 /////////////////////////////////////////////////////////////////////////////////////////////

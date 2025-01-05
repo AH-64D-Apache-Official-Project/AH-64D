@@ -16,11 +16,22 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-if (isGamePaused) exitWith { fza_sfmplus_deltaTime = 0.0; };
+params ["_heli"];
 
-fza_sfmplus_currentTime    = diag_tickTime;
-fza_sfmplus_deltaTime      = [fza_sfmplus_deltaTime_avg, (fza_sfmplus_currentTime - fza_sfmplus_previousTime)] call fza_sfmplus_fnc_getSmoothAverage;
-fza_sfmplus_previousTime   = fza_sfmplus_currentTime;
+private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
+private _previousTime  = _heli getVariable "fza_sfmplus_previousTime";
+private _deltaTime_avg = _heli getVariable "fza_sfmplus_deltaTime_avg";
 
-if (fza_sfmplus_deltaTime > (1.0 / 5.0)) then { fza_sfmplus_deltaTime = (1.0 / 5.0)};
-fza_sfmplus_deltaTime = fza_sfmplus_deltaTime * accTime;
+if (isGamePaused) exitWith { _deltaTime = 0.0; };
+
+private _currentTime = diag_tickTime;
+
+_deltaTime    = [_deltaTime_avg, (_currentTime - _previousTime)] call fza_sfmplus_fnc_getSmoothAverage;
+_previousTime = _currentTime;
+
+if (_deltaTime > (1.0 / 5.0)) then { _deltaTime = (1.0 / 5.0)};
+_deltaTime    = _deltaTime * accTime;
+
+_heli setVariable ["fza_sfmplus_currentTime",  _currentTime];
+_heli setVariable ["fza_sfmplus_previousTime", _previousTime];
+_heli setVariable ["fza_sfmplus_deltaTime",    _deltaTime];

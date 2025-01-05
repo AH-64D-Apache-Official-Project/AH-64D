@@ -1,6 +1,8 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
+
 //Attitude Hold
 ([_heli] call fza_sfmplus_fnc_fmcAttitudeHold)
     params ["_attHoldCycPitchOut", "_attHoldCycRollOut"];
@@ -14,7 +16,7 @@ if (!fza_ah64_sfmplusEnableHeadingHold
     _hdgHoldPedalYawOut = 0.0;
 };
 
-([_heli, fza_sfmplus_deltaTime] call fza_sfmplus_fnc_fmcSAS)
+([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
     params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
 
 if (!(_heli getVariable "fza_ah64_fmcPitchOn")) then {

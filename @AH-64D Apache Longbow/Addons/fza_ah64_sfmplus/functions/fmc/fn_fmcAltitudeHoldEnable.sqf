@@ -1,8 +1,8 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
-private _velClimb = (_heli getVariable "fza_sfmplus_velClimb") * FPM_TO_MPS;
+private _gndSpeed  = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+private _velClimb  = (_heli getVariable "fza_sfmplus_velClimb") * FPM_TO_MPS;
 
 if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     //Collect required inputs

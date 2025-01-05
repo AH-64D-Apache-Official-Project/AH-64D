@@ -21,6 +21,8 @@ Author:
 params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
+
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
 private _rtrDesignRPM           = 289.0;
@@ -205,16 +207,16 @@ private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 [_heli, "fza_sfmplus_rtrThrust", 0, _thrust, true] call fza_fnc_setArrayVariable;
-private _thrustZ             = _axisZ vectorMultiply (_thrust * fza_sfmplus_deltaTime);
+private _thrustZ             = _axisZ vectorMultiply (_thrust * _deltaTime);
 
 //Pitch torque
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
-private _torqueX             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * fza_sfmplus_deltaTime;
+private _torqueX             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-private _torqueY             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * fza_sfmplus_deltaTime;
+private _torqueY             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
 //Main rotor yaw torque
-private _torqueZ             = (_rtrTorque  * _yawTorqueScalar) * fza_sfmplus_deltaTime;
+private _torqueZ             = (_rtrTorque  * _yawTorqueScalar) * _deltaTime;
 
 private _mainRtrDamage  = _heli getHitPointDamage "HitHRotor";
 

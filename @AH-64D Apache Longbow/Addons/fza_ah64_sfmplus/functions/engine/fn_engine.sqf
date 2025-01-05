@@ -86,29 +86,29 @@ _engBaseNP = _engIdleNP + (_engFlyNP - _engIdleNP) * _engThrottle;
 switch (_engState) do {
 	case "OFF": {
 		//Ng
-		_engPctNG = [_engPctNG, 0.0, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
         if (!_isAutorotating) then { 
-		    _engPctNP = [_engPctNP, 0.0, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         } else {
             _engPctNP    = 1.01;
         };
 		//Tq
-		_engPctTQ = [_engPctTQ, 0.0, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
 	};
 	case "STARTING": {
 		if (_engPowerLeverState == "OFF") then {
 			//Ng
-			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+			_engPctNG = [_engPctNG, _engStartNG, (1.0 / (_engSimTime / 2.0)) * _deltaTime] call BIS_fnc_lerp;
 			//Np
-			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+			_engPctNP = [_engPctNP, _engStartNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
 			//Set the engine state
 			//[_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
 		} else {
 			//Ng
-			_engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+			_engPctNG = [_engPctNG, _engBaseNG, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
 			//Np
-			_engPctNP = [_engPctNP, _engBaseNP, (1.0 / _engSimTime) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+			_engPctNP = [_engPctNP, _engBaseNP, (1.0 / _engSimTime) * _deltaTime] call BIS_fnc_lerp;
 		};
 
 		//Transition state to ON
@@ -124,7 +124,7 @@ switch (_engState) do {
 		};
 		//Ng
 		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * (_heli getVariable "fza_sfmplus_collectiveOutput");
-		_engPctNG = [_engPctNG, _engSetNG, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+		_engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
 		//Np
         if (_isSingleEng) then {
             _engLimitTQ = _maxTQ_SE;
@@ -137,13 +137,13 @@ switch (_engState) do {
             _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
             //Autorotation handler
             if (!_isAutorotating) then { 
-                _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+                _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             } else {
                 _engPctNP   = 1.01;
             };
         } else {
             //If the engine is overspeeding, then do over speed things
-            _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+            _engPctNP   = [_engPctNP, _engOvrspdNP, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
         };
 	};
 };
@@ -171,7 +171,7 @@ if (!_engOverspeed) then {
     };
 } else {
     //If the engine is overspeeding, then do over speed things
-    _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * fza_sfmplus_deltaTime] call BIS_fnc_lerp;
+    _engPctTQ = [_engPctTQ, _ovrspdTQ, (1 / 6) * _deltaTime] call BIS_fnc_lerp;
 };
 _engPctTQ = [_engPctTQ, 0.0, 2.55] call BIS_fnc_clamp;
 

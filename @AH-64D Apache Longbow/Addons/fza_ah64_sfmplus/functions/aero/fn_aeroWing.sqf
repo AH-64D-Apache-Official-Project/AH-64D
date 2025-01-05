@@ -131,11 +131,11 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _liftVector = _vectorRight vectorCrossProduct _relativeWind;
     _liftVector = vectorNormalized _liftVector;
-    _liftVector = _liftVector vectorMultiply (_lift * fza_sfmplus_deltaTime);
+    _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
     private _dragVector = _relativeWind;
     _dragVector = vectorNormalized _dragVector;
-    _dragVector = _dragVector vectorMultiply (_drag * fza_sfmplus_deltaTime);
+    _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorAdd (_liftVector vectorMultiply _debugLineScale), _e, "green"] call fza_fnc_debugDrawLine;

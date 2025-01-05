@@ -30,10 +30,10 @@ _heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
 _heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
 _heli setVariable ["fza_sfmplus_collectiveValue",    0.0];
 
-fza_sfmplus_currentTime      = 0.0;
-fza_sfmplus_previousTime     = 0.0;
-fza_sfmplus_deltaTime        = 0.0;
-fza_sfmplus_deltaTime_avg    = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
+_heli setVariable ["fza_sfmplus_currentTime",       0.0];
+_heli setVariable ["fza_sfmplus_previousTime",      0.0];
+_heli setVariable ["fza_sfmplus_deltaTime",         0.0];
+_heli setVariable ["fza_sfmplus_deltaTime_avg",     [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
 _heli setVariable ["fza_sfmplus_gndSpeed",          0.0];
 _heli setVariable ["fza_sfmplus_vel2D",             0.0];

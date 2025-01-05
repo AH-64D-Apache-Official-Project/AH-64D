@@ -32,17 +32,17 @@ private _accelZ_avg = _heli getVariable "fza_sfmplus_accelZ_avg";
 
 //X Axis Acceleration
 private _velX = (_heli getVariable "fza_sfmplus_velModelSpace") select 0;
-_accelX       = [_accelX_avg, (_velX - _velX_prev) / fza_sfmplus_deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
+_accelX       = [_accelX_avg, (_velX - _velX_prev) / _deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
 _velX_prev    = _velX;
 
 //Y Axis Acceleration
 private _velY = (_heli getVariable "fza_sfmplus_velModelSpace") select 1;
-_accelY       = [_accelY_avg, (_velY - _velY_prev) / fza_sfmplus_deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
+_accelY       = [_accelY_avg, (_velY - _velY_prev) / _deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
 _velY_prev    = _velY;
 
 //Z Axis Acceleration
 private _velZ = (_heli getVariable "fza_sfmplus_velModelSpace") select 2;
-_accelZ       = [_accelZ_avg, (_velZ - _velZ_prev) / fza_sfmplus_deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
+_accelZ       = [_accelZ_avg, (_velZ - _velZ_prev) / _deltaTime] call fza_sfmplus_fnc_getSmoothAverage;
 _velZ_prev    = _velZ;
 
 _heli setVariable ["fza_sfmplus_velX_prev", _velX_prev];

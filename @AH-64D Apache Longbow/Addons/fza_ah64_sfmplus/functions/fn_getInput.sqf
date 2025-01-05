@@ -27,6 +27,8 @@ private _inputLagValue      = getNumber (_config >> "inputLagValue");
 private _hydFailure         = false;
 private _tailRtrFixed       = false;
 
+private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
+
 private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
 private _collectiveValue    = _heli getVariable "fza_sfmplus_collectiveValue";
@@ -84,8 +86,8 @@ private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && _inMap 
 
 if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
-        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
-        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 3.0) * fza_sfmplus_deltaTime); };
+        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 3.0) * _deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 3.0) * _deltaTime); };
         _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
 
         if (_isPlaying) then {

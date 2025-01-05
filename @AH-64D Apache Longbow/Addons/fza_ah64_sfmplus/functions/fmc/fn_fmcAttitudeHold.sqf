@@ -38,7 +38,8 @@ private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
            , "_angVelZ"
            ];
 
-private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
+private _gndSpeed  = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 
 //Attitude hold
 private _curAtt   = _heli call BIS_fnc_getPitchBank;
@@ -67,9 +68,9 @@ if (_gndSpeed > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
 if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Position hold
     if (_subMode == "pos") then {
-        private _roll  = [_pidRoll,  fza_sfmplus_deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll,  _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch, fza_sfmplus_deltaTime, 0.0,  _velY] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch, _deltaTime, 0.0,  _velY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch;
@@ -79,9 +80,9 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     if (_subMode == "vel") then {
         (_heli getVariable "fza_ah64_attHoldDesiredVel")
             params ["_setVelX", "_setVelY"];
-        private _roll  = [_pidRoll,  fza_sfmplus_deltaTime, _setVelX, _velX] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll,  _deltaTime, _setVelX, _velX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch, fza_sfmplus_deltaTime, _setVelY, _velY] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch, _deltaTime, _setVelY, _velY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch;
@@ -94,9 +95,9 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
         private _pitchError = [_curPitch - _setPitch] call CBA_fnc_simplifyAngle180;
         private _rollError  = [_curRoll  - _setRoll]  call CBA_fnc_simplifyAngle180;
 
-        private _roll  = [_pidRoll_att,  fza_sfmplus_deltaTime, 0.0, _rollError] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll_att,  _deltaTime, 0.0, _rollError] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch_att, fza_sfmplus_deltaTime, 0.0, _pitchError] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch_att, _deltaTime, 0.0, _pitchError] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch * -1.0;

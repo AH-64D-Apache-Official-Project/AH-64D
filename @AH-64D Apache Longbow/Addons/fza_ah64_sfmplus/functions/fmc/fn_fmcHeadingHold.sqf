@@ -7,6 +7,7 @@ private _pidTrn        = _heli getVariable "fza_sfmplus_pid_trnCoord";
 //_pidTrn set ["ki", T_KI];
 //_pidTrn set ["kd", T_KD];
 
+private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
@@ -63,12 +64,12 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     };
     //Heading Hold
     if (_subMode == "hdg") then {
-        _hdgOutput = [_pidHdg, fza_sfmplus_deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+        _hdgOutput = [_pidHdg, _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
         _hdgOutput = [_hdgOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
     //Turn Coordination
     if (_subMode == "trn") then {
-        _trnOutput = [_pidTrn, fza_sfmplus_deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+        _trnOutput = [_pidTrn, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
         _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
 
