@@ -1,9 +1,9 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
 private _pidBarAlt  = _heli getVariable "fza_sfmplus_pid_barHold";
-private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 private _curAltAGL  = ASLToAGL getPosASL _heli # 2;
 private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
 private _desiredAlt = _heli getVariable "fza_ah64_altHoldDesiredAlt";
@@ -36,7 +36,7 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //If the helicopters radar altitude is < 1428ft (435.25m) and current velocity is < 40kts
     //then set the desired altitude to the current AGL altitude, otherwise set it to the
     //current ASL altitude.
-    if (_curAltAGL < RAD_ALT_MAX_ALT && _curVel < ALT_HOLD_SPEED_SWITCH) then {
+    if (_curAltAGL < RAD_ALT_MAX_ALT && _gndSpeed < ALT_HOLD_SPEED_SWITCH) then {
         [_heli, "fza_ah64_altHoldSubMode", "rad"] call fza_fnc_updateNetworkGlobal;
     } else {
         [_heli, "fza_ah64_altHoldSubMode", "bar"] call fza_fnc_updateNetworkGlobal;

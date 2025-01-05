@@ -22,6 +22,7 @@ Author:
 params ["_heli", "_useWind"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _gndSpeed          = _heli getVariable "fza_sfmplus_gndSpeed";
 private _vel3D             = _heli getVariable "fza_sfmplus_vel3D";
 private _vel2D             = _heli getVariable "fza_sfmplus_vel2D";
 private _velModelSpace     = _heli getVariable "fza_sfmplus_velModelSpace";

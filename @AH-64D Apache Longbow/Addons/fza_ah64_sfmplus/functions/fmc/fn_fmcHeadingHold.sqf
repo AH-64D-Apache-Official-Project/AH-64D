@@ -7,12 +7,13 @@ private _pidTrn        = _heli getVariable "fza_sfmplus_pid_trnCoord";
 //_pidTrn set ["ki", T_KI];
 //_pidTrn set ["kd", T_KD];
 
+private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
 private _desiredSlip   = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
 private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
-private _curVel        = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+private _curVel        = vectorMagnitude [(_heli getVariable "fza_sfmplus_velModelSpace") # 0, (_heli getVariable "fza_sfmplus_velModelSpace") # 1];
 private _subMode       = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode    = _heli getVariable "fza_ah64_attHoldSubMode";
 private _hdgOutput     = 0.0;
@@ -30,7 +31,7 @@ if (_attSubMode == "pos") then {
 if (_attSubMode == "vel") then {
     _breakoutValue = VEL_HOLD_BREAKOUT_VALUE;
 };
-if (_attSubMode == "att" || _curVel > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
+if (_attSubMode == "att" || _gndSpeed > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
     _breakoutValue = ATT_HOLD_BREAKOUT_VALUE;
 };
 //If we are on the ground, or if the force trim is interupted, or the pilot has exceeded
@@ -52,7 +53,7 @@ if (_onGnd
 //Finally, if the heading hold is active, perform the required functions
 if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     //Heading and turn coordination logic...needs to take into account accel/decel
-    if (_curVel < HDG_HOLD_SPEED_SWITCH_ACCEL) then {
+    if (_gndSpeed < HDG_HOLD_SPEED_SWITCH_ACCEL) then {
         if (_subMode isNotEqualTo "hdg") then {
             _heli setVariable ["fza_ah64_hdgHoldSubMode", "hdg", true];
         };
