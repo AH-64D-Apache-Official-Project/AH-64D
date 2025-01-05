@@ -1,6 +1,8 @@
 params ["_heli", "_rho"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+if (!local _heli) exitWith {};
+
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 

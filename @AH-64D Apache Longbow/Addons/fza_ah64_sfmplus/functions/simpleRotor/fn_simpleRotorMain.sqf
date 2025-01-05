@@ -21,6 +21,8 @@ Author:
 params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+if (!local _heli) exitWith {};
+
 private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];

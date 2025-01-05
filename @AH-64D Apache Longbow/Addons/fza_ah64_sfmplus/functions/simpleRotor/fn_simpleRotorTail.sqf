@@ -22,6 +22,8 @@ params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYa
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
+if (!local _heli) exitWith {};
+
 private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
