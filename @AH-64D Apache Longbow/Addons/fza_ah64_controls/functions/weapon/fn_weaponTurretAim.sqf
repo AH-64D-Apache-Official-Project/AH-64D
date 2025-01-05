@@ -26,6 +26,26 @@ params["_heli"];
 #define SCALE_KM_METERS 0.001
 #define HYDRA_TIME_KM 1.353
 
+private _currentTurret = _heli call fza_fnc_currentTurret;
+private _gunnnerUnit = _heli turretUnit [0];
+
+if (_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) then {
+    private _azimuth = -deg(_heli animationPhase "tads_tur");
+    private _elevation = deg(_heli animationPhase "tads");
+    _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
+    _heli setVariable ["fza_ah64_tadsElevation", _elevation];
+
+    if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < time) then {
+    {
+        _heli setVariable [_x, _heli getVariable _x, true];
+    } forEach [
+        "fza_ah64_tadsAzimuth",
+        "fza_ah64_tadsElevation"
+    ];
+    _heli setVariable ["fza_ah64_lastTimePropagated", time, true];
+    };
+};
+
 private _was             = _heli getVariable "fza_ah64_was";
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
@@ -148,12 +168,12 @@ if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
         _heli selectweapon "fza_cannon_inhibit";
     };
-    private _pan = _heli animationPhase "tads_tur";
-    private _tilt = _heli animationPhase "tads";
-    if !(-86 < deg _pan && deg _pan < 86) then {
+    private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+    private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+    if !(-86 < _tadsAzimuth && _tadsAzimuth < 86) then {
         _inhibit = "AZ LIMIT";
     };
-    if !(-60 < deg _tilt && deg _tilt < 11) then {
+    if !(-60 < _tadsElevation && _tadsElevation < 11) then {
         _inhibit = "EL LIMIT";
     };
     if (_inhibit != "") then {
@@ -169,8 +189,8 @@ if (_was == WAS_WEAPON_GUN) then {
         _maingun = 0;
         _inhibit = "GUN FIXED";
     };
-    _mainturret = [_pan, rad -86, rad 86] call BIS_fnc_clamp;
-    _maingun = [_tilt, rad -60, rad 11] call BIS_fnc_clamp;
+    _mainturret = -rad ([_tadsAzimuth, -86, 86] call BIS_fnc_clamp);
+    _maingun = rad ([_tadsElevation, -60, 11] call BIS_fnc_clamp);
 };
 if (_gunFailed) then {
     _mainturret = _heli animationphase "mainTurret";

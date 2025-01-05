@@ -23,7 +23,9 @@ params ["_heli", "_acq"];
 
 switch _acq do {
     case "TADS" : {
-        _heli vectorModelToWorldVisual (([1] + ([_heli, [0], true] call CBA_fnc_turretDir)) call CBA_fnc_polar2vect)
+        private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+        private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+        _heli vectorModelToWorldVisual ([1, _tadsAzimuth, _tadsElevation] call CBA_fnc_polar2vect)
     };
     case "PHS" : {
         if (isNull driver _heli) exitWith {[_heli, "FXD"] call fza_fnc_targetingAcqVec};
