@@ -377,8 +377,8 @@ if !isNil "_dir" then {
 };
 private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
-_sensorposx = _tadsAzimuth * -0.025;
-_sensorposy = _tadsElevation * -0.015;
+_sensorposx = rad(_tadsAzimuth * 0.025);
+_sensorposy = rad(_tadsElevation * -0.015);
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
@@ -675,7 +675,7 @@ if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza
 
 // CAMERA HEADINGS FOR GUNNER
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    _tadsdir = (deg _tadsAzimuth * -1);
+    _tadsdir = _tadsAzimuth;
     _curwpdir = _tadsdir;
 };
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg _tadsAzimuth}); 

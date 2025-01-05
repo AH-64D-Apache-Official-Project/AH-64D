@@ -58,7 +58,7 @@ if (isNil "_nextPointPos") then {
 
 //Alternate Sensor Bearing
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
-private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg _tadsAzimuth});
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
 //FCR CenterLine

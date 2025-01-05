@@ -55,7 +55,7 @@ if (isNil "_nextPointPos") then {
 };
 
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
-private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {-deg _tadsAzimuth});
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_ALTERNATE_SENSOR), _alternatesensorpan];
 
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir"]; 
