@@ -123,6 +123,10 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+    } else {
+        private _guiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
     };
 
     if (_antsIndex != -1) then {
@@ -132,6 +136,10 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         if (count _guiPos < 1) then {_guiPos = [-100, -100];};
         private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+    } else {
+        private _guiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
     };
 } else {
