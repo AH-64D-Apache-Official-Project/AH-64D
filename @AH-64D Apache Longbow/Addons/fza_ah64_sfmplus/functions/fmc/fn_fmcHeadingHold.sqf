@@ -13,7 +13,6 @@ private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
 private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
 private _desiredSlip   = _heli getVariable "fza_ah64_hdgHoldDesiredSideslip";
 private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
-private _curVel        = vectorMagnitude [(_heli getVariable "fza_sfmplus_velModelSpace") # 0, (_heli getVariable "fza_sfmplus_velModelSpace") # 1];
 private _subMode       = _heli getVariable "fza_ah64_hdgHoldSubMode";
 private _attSubMode    = _heli getVariable "fza_ah64_attHoldSubMode";
 private _hdgOutput     = 0.0;
@@ -73,7 +72,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
         _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
 
-    _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _curVel, _hdgOutput, _trnOutput];
+    _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOutput, _trnOutput];
 } else {
     [_pid] call fza_fnc_pidReset;
 };
