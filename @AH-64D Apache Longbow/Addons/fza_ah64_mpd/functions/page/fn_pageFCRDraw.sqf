@@ -58,6 +58,7 @@ if (isNil "_nextPointPos") then {
 
 //Alternate Sensor Bearing
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
 
@@ -73,10 +74,8 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
 
 //TADS POS
-([_heli, [0], true] call CBA_fnc_turretDir) params ["_tadsX", "_tadsY"];
-private _tadsX = _tadsX call CBA_fnc_simplifyAngle180;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsX];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsY];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
 
 //Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;

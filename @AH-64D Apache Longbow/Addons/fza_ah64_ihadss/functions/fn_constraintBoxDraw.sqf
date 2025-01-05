@@ -60,7 +60,9 @@ if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 
 private _angleOffAxis = [];
 if _constraintBoxUseTads then {
-	_angleOffAxis = [_heli, [0], true] call CBA_fnc_turretDir;
+	private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+	private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+	_angleOffAxis = [_tadsAzimuth, _tadsElevation];
 	_angleOffAxis set [1, -(_angleOffAxis # 1)];
 } else {
 	if (_vector isNotEqualTo []) then {
