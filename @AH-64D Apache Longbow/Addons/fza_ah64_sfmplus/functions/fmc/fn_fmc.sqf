@@ -10,14 +10,15 @@ private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
 private _altHoldCollOut     = [_heli] call fza_sfmplus_fnc_fmcAltitudeHold;
 //Heading Hold
 private _hdgHoldPedalYawOut = [_heli] call fza_sfmplus_fnc_fmcHeadingHold;
+//Stability Augmentation System (SAS)
+([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
+    params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
+
 if (!fza_ah64_sfmplusEnableHeadingHold
     || fza_ah64_sfmPlusControlScheme == KEYBOARD
     || fza_ah64_sfmPlusControlScheme == MOUSE) then {
     _hdgHoldPedalYawOut = 0.0;
 };
-
-([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
-    params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
 
 if (!(_heli getVariable "fza_ah64_fmcPitchOn")) then {
     _attHoldCycPitchOut = 0.0;
