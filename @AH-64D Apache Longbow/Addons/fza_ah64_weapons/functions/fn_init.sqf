@@ -35,6 +35,9 @@ if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) 
     private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
     _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
+
+    _heli setVariable ["fza_ah64_tadsElevation", 0];
+    _heli setVariable ["fza_ah64_tadsAzimuth",   0];
 };
 
 while {player != vehicle player && alive player && alive _heli && local _heli} do {
