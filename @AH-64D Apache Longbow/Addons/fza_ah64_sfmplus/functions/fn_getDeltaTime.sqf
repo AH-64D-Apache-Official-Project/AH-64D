@@ -22,8 +22,6 @@ private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
 private _previousTime  = _heli getVariable "fza_sfmplus_previousTime";
 private _deltaTime_avg = _heli getVariable "fza_sfmplus_deltaTime_avg";
 
-if (isGamePaused) exitWith { _deltaTime = 0.0; };
-
 private _currentTime = diag_tickTime;
 
 _deltaTime    = [_deltaTime_avg, (_currentTime - _previousTime)] call fza_sfmplus_fnc_getSmoothAverage;

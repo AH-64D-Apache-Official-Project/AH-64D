@@ -19,7 +19,10 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-if (isGamePaused) exitwith {};
+if (isGamePaused) exitwith {
+    _heli setVariable ["fza_sfmplus_previousTime",  diag_tickTime];
+    _heli setVariable ["fza_sfmplus_deltaTime_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit]
+};
 if (CBA_missionTime < 0.1) exitwith {};
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
