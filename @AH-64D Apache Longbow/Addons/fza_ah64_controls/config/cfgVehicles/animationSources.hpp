@@ -5,7 +5,6 @@ class AnimationSources
     {
         displayName = "Mount FCR (Fire Control Radar)";
         author = "AH-64D Development Team";
-        onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
