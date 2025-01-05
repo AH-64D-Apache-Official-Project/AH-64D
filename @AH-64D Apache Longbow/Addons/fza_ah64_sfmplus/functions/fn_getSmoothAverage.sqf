@@ -15,4 +15,5 @@ Author:
 params ["_array", "_values"];
 
 [_array, _values] call fza_sfmplus_fnc_smoothAverageAdd;
+
 [_array] call fza_sfmplus_fnc_smoothAverageGet;
