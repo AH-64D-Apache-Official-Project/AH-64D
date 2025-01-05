@@ -48,6 +48,7 @@ private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _gunFailed = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
 private _mainturret = 0;
 private _maingun = 0.298;
+private _cameraTarget = objNull;
 
 if !_acBusOn then {
     _sight = SIGHT_FXD;
@@ -62,30 +63,31 @@ switch (_sight) do {
                 _targPos = aimPos _nts;
                 _targVel = velocity _nts;
             };
-            _heli lockCameraTo [_targPos, [0], false];
+            _cameraTarget = _targPos;
         };
-        _heli lockCameraTo [_targpos, [0], false];
+        _cameraTarget = _targPos;
         _inhibit = "NO TARGET";
     };
     case SIGHT_HMD:{
         _targPos = aglToAsl (positionCameraToWorld [0, 0, 1000]);
-        if (cameraView == "GUNNER") exitwith {
-            _heli lockCameraTo [objNull, [0], false];
-        };
-        _heli lockCameraTo [_targPos, [0], false];
+        if (cameraView == "GUNNER") exitwith {};
+        _cameraTarget = _targPos;
     };
     case SIGHT_TADS:{
-        if !(_heli getVariable "fza_ah64_LmcActive") then {    
-            _heli lockCameraTo [objNull, [0], false];
-        };
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
         _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
         _worldTargetpos = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
     };
     case SIGHT_FXD:{
-        _heli lockCameraTo [_heli modelToWorldVisual [0,1000,0],[0], false];
+        _cameraTarget = _heli modelToWorldVisual [0,1000,0];
     };
+};
+
+private _currentTurret = _heli call fza_fnc_currentTurret;
+private _gunnnerUnit = _heli turretUnit [0];
+if ((_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) && !(_heli getVariable "fza_ah64_LmcActive")) then {
+    _heli lockCameraTo [_cameraTarget, [0], false];
 };
 
 private _targDistance = _heli distance _targPos;
