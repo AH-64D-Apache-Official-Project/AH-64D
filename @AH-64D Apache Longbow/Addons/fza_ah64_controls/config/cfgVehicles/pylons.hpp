@@ -48,12 +48,12 @@ class TransportPylonsComponent {
             priority = 3;
         };
         class pylons7: pylons3 { //Pylon 2 missile lower left
-            attachment = "fza_agm114l_ll";
+            attachment = "fza_agm114k_ll";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_3_Y};
             priority = 2;
         };
         class pylons8: pylons4 { //Pylon 2 missile lower right
-            attachment = "fza_agm114l_lr";
+            attachment = "fza_agm114k_lr";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_4_Y};
             priority = 1;
         };
