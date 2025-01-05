@@ -11,7 +11,7 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
-    private _fcrScanDeltaTime = time - _fcrScanStartTime;
+    private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 3.2];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];

@@ -76,11 +76,12 @@ if (_value) then {
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitwith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
                 player action ["ActiveSensorsOn", _heli];
-                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, time], true];
+                _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, CBA_missionTime], true];
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
+                _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
             };
             player action ["ActiveSensorsOff", _heli];
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
         };
         case "fza_ah64_targetStoreUpdate": {
             // Todo: Implemen target store
@@ -143,10 +144,12 @@ if (_value) then {
         case "fza_ah64_fcrModeSwitch_up": {
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
+            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
         };
         case "fza_ah64_fcrModeSwitch_down": {
             _heli setVariable ["fza_ah64_fcrMode", 2, true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
+            _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
         };
         case "launchCM": {
             [_heli] call fza_ase_fnc_Chaff;

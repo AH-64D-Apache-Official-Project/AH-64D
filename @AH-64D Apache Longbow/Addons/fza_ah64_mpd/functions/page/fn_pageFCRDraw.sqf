@@ -14,7 +14,7 @@ switch _fcrMode do {
     case 0: { //NOT INSTALLED
         _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0];
         _heli setVariable ["fza_ah64_fcrTargets", [], true];
-        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
         [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
     };
     case 1: { //Gtm
