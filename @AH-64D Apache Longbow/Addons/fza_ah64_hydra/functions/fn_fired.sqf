@@ -22,12 +22,14 @@ private _rocketsalvo = _heli getVariable "fza_ah64_rocketsalvo";
 
 if (_rocketsalvo != 1) then {
     if (_salvofired >= _rocketsalvo) then {
-        _heli selectweapon "fza_hydra_limit";
         [_heli,_weapon] spawn {
             params["_heli","_weapon"];
-            waitUntil {inputAction "defaultAction" < 0.5};
+            waitUntil {
+                _heli selectWeaponTurret ["fza_hydra_limit", [0]];
+                inputAction "defaultAction" < 0.5
+            };
             if (currentweapon _heli != "fza_hydra_limit") exitwith {};
-            _heli selectWeapon _weapon;
+            _heli selectWeaponTurret [_weapon, [0]];;
         };
     };
     _heli setVariable ["fza_ah64_salvofired", _salvofired];
