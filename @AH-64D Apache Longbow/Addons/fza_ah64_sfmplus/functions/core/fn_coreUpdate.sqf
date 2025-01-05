@@ -24,7 +24,7 @@ if (CBA_missionTime < 0.1) exitwith {};
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
 
-[] call fza_sfmplus_fnc_getDeltaTime;
+[_heli] call fza_sfmplus_fnc_getDeltaTime;
 
 if (isAutoHoverOn _heli) then {
     _heli action ["AutoHoverCancel", _heli];  

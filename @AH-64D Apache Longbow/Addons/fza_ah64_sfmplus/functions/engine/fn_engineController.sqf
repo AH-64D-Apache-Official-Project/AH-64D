@@ -67,7 +67,7 @@ if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng
 };
 _heli setVariable ["fza_sfmplus_isSingleEng", _isSingleEng];
 
-if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 1 < time) then {
+if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli getVariable "fza_sfmplus_lastTimePropagated") + 0.1 < time) then {
     {
         _heli setVariable [_x, _heli getVariable _x, true];
     } forEach [
@@ -82,7 +82,8 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         "fza_sfmplus_engBaseOilPSI",
         "fza_sfmplus_engOilPSI",
         "fza_sfmplus_engState",
-        "fza_sfmplus_engFF"
+        "fza_sfmplus_engFF",
+        "fza_sfmplus_collectiveOutput"
     ];
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };

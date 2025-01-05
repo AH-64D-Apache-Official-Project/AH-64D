@@ -27,7 +27,6 @@ if (_targetComp == "FCR") exitwith {
             params ["_args"];
             _args params ["_target", "_player"];
             _target animateSource ["fcr_enable", 0];
-            _target enableVehicleSensor ["ActiveRadarSensorComponent", false];
             private _object = "fza_ah64_FireControlRadar" createVehicle [0,0,0];
             [_player, _object] call ace_dragging_fnc_carryObject;
         },

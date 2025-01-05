@@ -23,15 +23,17 @@ private _movingAverageSize   = 10;
 
 fza_sfmplus_liftLossTimer     = 0;
 
-fza_sfmplus_cyclicFwdAft      = 0.0;
-fza_sfmplus_cyclicLeftRight   = 0.0;
-fza_sfmplus_pedalLeftRight    = 0.0;
-fza_sfmplus_collectiveOutput  = 0.0;
+_heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
+_heli setVariable ["fza_sfmplus_cyclicLeftRight",    0.0];
+_heli setVariable ["fza_sfmplus_pedalLeftRight",     0.0];
+_heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
+_heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
+_heli setVariable ["fza_sfmplus_collectiveValue",    0.0];
 
-fza_sfmplus_currentTime      = 0.0;
-fza_sfmplus_previousTime     = 0.0;
-fza_sfmplus_deltaTime        = 0.0;
-fza_sfmplus_deltaTime_avg    = [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit;
+_heli setVariable ["fza_sfmplus_currentTime",       0.0];
+_heli setVariable ["fza_sfmplus_previousTime",      0.0];
+_heli setVariable ["fza_sfmplus_deltaTime",         0.0];
+_heli setVariable ["fza_sfmplus_deltaTime_avg",     [_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
 _heli setVariable ["fza_sfmplus_gndSpeed",          0.0];
 _heli setVariable ["fza_sfmplus_vel2D",             0.0];
@@ -76,8 +78,6 @@ _heli setVariable ["fza_sfmplus_maxFwdFuelMass",     getNumber (_config >> "maxF
 _heli setVariable ["fza_sfmplus_maxCtrFuelMass",     getNumber (_config >> "maxCtrFuelMass")];  //663lbs in kg, net yet implemented, center robbie
 _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxAftFuelMass")];  //1474lbs in kg
 _heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
-
-_heli setVariable ["fza_sfmplus_collectiveVal",      0.0];
 
 //Position Hold
 _heli setVariable ["fza_sfmplus_pid_roll",           [0.0240, 0.0030, 0.0360] call fza_fnc_pidCreate];
