@@ -22,6 +22,8 @@ Author:
 #include "\fza_ah64_systems\headers\systems.hpp"
 params ["_heli"];
 
+if (!local _heli) exitwith {};
+
 private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 private _acBusOn     = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn     = _heli getVariable "fza_systems_dcBusOn";
@@ -46,27 +48,27 @@ if (_armaRadarOn) then {
 switch _fcrScanState do {
     case FCR_MODE_OFF: {
         if _armaRadarOn then {
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, time], true];
+            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_CONTINUOUS, CBA_missionTime], true];
             _heli setVariable ["fza_ah64_fcrTargets", [], true];
         };
     };
     case FCR_MODE_ON_SINGLE: {
-        if (time >= _fcrScanStartTime + _updateDelay && _time < _fcrScanStartTime) exitwith {
+        if (CBA_missionTime >= _fcrScanStartTime + _updateDelay && _time < _fcrScanStartTime) exitwith {
             [_heli] call fza_fcr_fnc_update;
         };
-        if (time >= (_fcrScanStartTime + (_updateDelay * 2)) && _time <= time) exitwith {
-            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+        if (CBA_missionTime >= (_fcrScanStartTime + (_updateDelay * 2)) && _time <= CBA_missionTime) exitwith {
+            _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
             player action ["ActiveSensorsOff", _heli];
         };
         player action ["ActiveSensorsOn", _heli];
     };
     case FCR_MODE_ON_CONTINUOUS: {
         if _armaRadarOn exitwith {
-            if (time >= _time + _updateDelay && time >= _fcrScanStartTime + _updateDelay) then {
+            if (CBA_missionTime >= _time + _updateDelay && CBA_missionTime >= _fcrScanStartTime + _updateDelay) then {
                 [_heli] call fza_fcr_fnc_update;
             };
         };
-        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, time], true];
+        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
     };
     case FCR_MODE_FAULT: {
         if _armaRadarOn then {

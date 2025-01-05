@@ -11,14 +11,14 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 
 //ATM Rear block
 If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
-    if (_fcrScanStartTime + 3.2 >= time) then {
+    if (_fcrScanStartTime + 3.2 >= CBA_missionTime) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
     };
 };
 
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
-    private _fcrScanDeltaTime = time - _fcrScanStartTime;
+    private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
     if (_fcrScanDeltaTime >= 2.93) then {
