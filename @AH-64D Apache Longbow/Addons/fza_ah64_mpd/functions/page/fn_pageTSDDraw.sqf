@@ -189,9 +189,9 @@ private _sight = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _tsdFcrState = 0;
 if (_sight == SIGHT_FCR) then {
     _tsdFcrState = _fcrMode;
-};
-if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
-    _tsdFcrState = (_fcrMode + 2);
+    if (_fcrState#0 == FCR_MODE_ON_SINGLE) then {
+        _tsdFcrState = (_fcrMode + 2);
+    };
 };
 if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
