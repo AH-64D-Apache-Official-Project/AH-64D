@@ -44,16 +44,14 @@ private _emerHydOn          = _heli getVariable "fza_ah64_emerHydOn";
 private _apuOn              = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
-private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
+private _cyclicFwdAft        = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");//_heli animationSourcePhase "cyclicForward";
 _cyclicFwdAft                = [_heli, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _cyclicFwdAft                = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
-//private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 //Cyclic roll
-private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
+private _cyclicLeftRight     = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");//(_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight             = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-//private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
