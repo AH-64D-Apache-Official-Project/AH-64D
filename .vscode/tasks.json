@@ -5,17 +5,17 @@
     "tasks": [
         {
             "label": "Serve Site",
-            "group": "test",
+            "group": "build",
             "type": "process",
             "command": "bundle",
-            "args": ["exec", "jekyll", "serve"]
+            "args": ["exec", "jekyll", "serve", "--incremental"]
         },
         {
             "label": "Build Site",
             "group": "build",
             "type": "process",
             "command": "bundle",
-            "args": ["exec", "jekyll", "build"]
+            "args": ["exec", "jekyll", "build", "--incremental"]
         },
         {
             "group": "test",
