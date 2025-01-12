@@ -1,0 +1,24 @@
+name: Push Branch to Another Repo
+
+on:
+  push:
+    branches:
+      - develop  # You can modify this to the branch you want to trigger the action
+
+jobs:
+  push-to-repo:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the source repository
+      uses: actions/checkout@v2
+
+    - name: Add the destination repository
+      run: |
+        git remote add target https://github.com/AH-64D-Apache-Official-Project/docs-dev.git
+        git fetch target
+
+    - name: Push branch to the destination repository
+      run: |
+        git push target develop
+
