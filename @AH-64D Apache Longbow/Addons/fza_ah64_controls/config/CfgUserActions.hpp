@@ -6,7 +6,7 @@ class vname {\
     onDeactivate = __EVAL(format["['%1', false] call fza_fnc_coreControlHandle", #vname]);\
 }
 
-#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) \
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving_point) \
 class fza_ah64_cockpit_##system##_##control {\
     displayName = __EVAL(format["%1: %2", system_name, control_name]);\
     tooltip = "";\
