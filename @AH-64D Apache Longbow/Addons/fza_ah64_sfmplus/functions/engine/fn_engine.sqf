@@ -92,7 +92,7 @@ switch (_engState) do {
         if (!_isAutorotating) then { 
 		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         } else {
-            private _autoNp = linearConversion[0.0, 1.0, _collectiveOutput, 1.10, 0.0, true];
+            private _autoNp = linearConversion[0.0, 0.5, _collectiveOutput, 1.10, 0.0, true];
             _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
         };
 		//Tq
