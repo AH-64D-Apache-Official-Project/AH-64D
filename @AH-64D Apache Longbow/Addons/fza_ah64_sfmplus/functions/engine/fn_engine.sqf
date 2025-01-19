@@ -89,11 +89,11 @@ switch (_engState) do {
 		//Ng
 		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
-        if (!_isAutorotating) then { 
-		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
-        } else {
+        if (_isAutorotating) then {
             private _autoNp = linearConversion[0.0, 0.5, _collectiveOutput, 1.10, 0.0, true];
             _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
+        } else {
+		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         };
 		//Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
@@ -138,11 +138,11 @@ switch (_engState) do {
             private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
             _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
             //Autorotation handler
-            if (!_isAutorotating) then { 
-                _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
-            } else {
+            if (_isAutorotating) then { 
                 private _autoNp = linearConversion[0.0, 0.23, _collectiveOutput, 1.10, 1.01, true];
                 _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
+            } else {
+                _engPctNP       = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             };
         } else {
             //If the engine is overspeeding, then do over speed things
