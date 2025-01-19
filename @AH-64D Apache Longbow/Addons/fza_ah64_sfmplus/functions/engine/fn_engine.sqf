@@ -35,6 +35,7 @@ private _engPctTQ           = _heli getVariable "fza_sfmplus_engPctTQ" select _e
 private _engTGT             = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
 private _engOilPSI          = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
 private _engFF              = _heli getVariable "fza_sfmplus_engFF" select _engNum;
+private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _engThrottle        = 0.0;
 private _engSimTime         = getNumber (_sfmPlusConfig >> "engSimTime");
 
@@ -91,7 +92,8 @@ switch (_engState) do {
         if (!_isAutorotating) then { 
 		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         } else {
-            _engPctNP    = 1.01;
+            private _autoNp = linearConversion[0.0, 1.0, _collectiveOutput, 1.10, 0.0, true];
+            _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
         };
 		//Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
@@ -139,7 +141,8 @@ switch (_engState) do {
             if (!_isAutorotating) then { 
                 _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             } else {
-                _engPctNP   = 1.01;
+                private _autoNp = linearConversion[0.0, 0.23, _collectiveOutput, 1.10, 1.01, true];
+                _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
             };
         } else {
             //If the engine is overspeeding, then do over speed things
