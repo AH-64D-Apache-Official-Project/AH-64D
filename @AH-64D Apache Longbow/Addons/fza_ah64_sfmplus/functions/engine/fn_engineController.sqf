@@ -110,12 +110,12 @@ if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _hel
 
 //Autorotation handler
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-if (   ((_eng1State == "OFF" && _eng2State == "OFF") || (_eng1PwrLvrState in ["OFF", "IDLE"] && _eng2PwrLvrState in ["OFF", "IDLE"]))
-    && _engPctTQ < 0.10
+if (   _engPctTQ < 0.10
     && !_onGnd
     && _rtrRPM > EPSILON) then {
     _heli setVariable ["fza_sfmplus_isAutorotating", true];
 } else {
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
+//systemChat format ["_isAutorotating = %1", _heli getVariable "fza_sfmplus_isAutorotating"];
 //End Autorotation handler

@@ -35,6 +35,7 @@ private _engPctTQ           = _heli getVariable "fza_sfmplus_engPctTQ" select _e
 private _engTGT             = _heli getVariable "fza_sfmplus_engTGT" select _engNum;
 private _engOilPSI          = _heli getVariable "fza_sfmplus_engOilPSI" select _engNum; 
 private _engFF              = _heli getVariable "fza_sfmplus_engFF" select _engNum;
+private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _engThrottle        = 0.0;
 private _engSimTime         = getNumber (_sfmPlusConfig >> "engSimTime");
 
@@ -88,10 +89,11 @@ switch (_engState) do {
 		//Ng
 		_engPctNG = [_engPctNG, 0.0, _deltaTime] call BIS_fnc_lerp;
 		//Np
-        if (!_isAutorotating) then { 
-		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
+        if (_isAutorotating) then {
+            private _autoNp = linearConversion[0.0, 0.5, _collectiveOutput, 1.10, 0.0, true];
+            _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
         } else {
-            _engPctNP    = 1.01;
+		    _engPctNP = [_engPctNP, 0.0, _deltaTime] call BIS_fnc_lerp;
         };
 		//Tq
 		_engPctTQ = [_engPctTQ, 0.0, _deltaTime] call BIS_fnc_lerp;
@@ -123,7 +125,7 @@ switch (_engState) do {
 			[_heli, "fza_sfmplus_engState", _engNum, "ON", true] call fza_fnc_setArrayVariable;
 		};
 		//Ng
-		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * (_heli getVariable "fza_sfmplus_collectiveOutput");
+		_engSetNG = _engBaseNG + (_engMaxNG - _engBaseNG) * _engThrottle * _collectiveOutput;
 		_engPctNG = [_engPctNG, _engSetNG, _deltaTime] call BIS_fnc_lerp;
 		//Np
         if (_isSingleEng) then {
@@ -136,10 +138,11 @@ switch (_engState) do {
             private _droopFactor = 1 - (_engPctTQ / _engLimitTQ);
             _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
             //Autorotation handler
-            if (!_isAutorotating) then { 
-                _engPctNP   = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
+            if (_isAutorotating) then { 
+                private _autoNp = linearConversion[0.0, 0.23, _collectiveOutput, 1.10, 1.01, true];
+                _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
             } else {
-                _engPctNP   = 1.01;
+                _engPctNP       = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
             };
         } else {
             //If the engine is overspeeding, then do over speed things

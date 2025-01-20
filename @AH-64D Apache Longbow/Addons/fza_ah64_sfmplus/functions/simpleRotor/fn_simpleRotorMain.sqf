@@ -160,10 +160,50 @@ private _rtrGndEffScalar = [_rtrGndEffTable, getMass _heli] call fza_fnc_linearI
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
-//private _totThrust    = _heli getVariable "fza_sfmplus_rtrThrust" select 0;
-private _totThrust    = _rtrThrust + _gndEffThrust;//[_totThrust, _rtrThrust + _gndEffThrust, _deltaTime] call BIS_fnc_lerp;
+
+private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
+private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _engPctTQ = _eng1TQ max _eng2TQ;
+
+private _cruiseTqTable = 
+[
+ [ 0.00, 0.94]
+,[ 5.14, 0.90]
+,[10.29, 0.82]
+,[20.58, 0.62]
+,[27.78, 0.53]
+,[36.01, 0.49]
+,[38.07, 0.49]
+,[46.30, 0.52]
+,[51.44, 0.56]
+,[56.59, 0.64]
+,[61.73, 0.72]
+,[66.88, 0.85]
+,[69.96, 0.94]
+,[72.02, 1.01]
+,[77.17, 1.18]
+];
+private _cruiseTq   = [_cruiseTqTable, _velXY] call fza_fnc_linearInterp select 1;
+private _tqChange   = _engPctTq - _cruiseTq;
+_tqChange           = [_tqChange, 0.0, 0.8] call BIS_fnc_clamp;
+private _tqRoCTable =
+[
+ [0.0, 0.00]
+,[0.1, 0.11]
+,[0.2, 0.22]
+,[0.3, 0.32]
+,[0.4, 0.43]
+,[0.5, 0.54]
+,[0.6, 0.65]
+,[0.7, 0.75]
+,[0.8, 0.86]
+];
+private _RoCScalar   = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
+//systemChat format ["_tqChange = %1 -- RoC = %2", _tqChange, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
+private _climbThrust = _rtrThrust * _RoCScalar;
+private _totThrust   = _rtrThrust + _gndEffThrust + _climbThrust;
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
-private _thrustZ      = _axisZ vectorMultiply (_totThrust * _deltaTime);
+private _thrustZ     = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
 //Pitch torque
 private _cyclicFwdAftTrim    = 0.0;
