@@ -44,7 +44,9 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     _uiCtr = [_x, _y];
 };
 
-if (_uiCtr#0 < 0.04 || _uiCtr#0 > 0.96 || _uiCtr#1 <0.04 || _uiCtr # 1 > 0.96) exitWith {};
+if (_uiCtr#0 < 0.04 || _uiCtr#0 > 0.96 || _uiCtr#1 <0.04 || _uiCtr # 1 > 0.96) exitWith {
+    {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
+};
 //There for while we are rendering both MPDs on one texture to prevent icons bleeding onto second screen
 
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
