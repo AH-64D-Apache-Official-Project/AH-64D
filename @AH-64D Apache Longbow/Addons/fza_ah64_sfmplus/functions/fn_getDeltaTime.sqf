@@ -27,7 +27,6 @@ private _currentTime = diag_tickTime;
 _deltaTime    = [_deltaTime_avg, (_currentTime - _previousTime)] call fza_sfmplus_fnc_getSmoothAverage;
 _previousTime = _currentTime;
 
-if (_deltaTime > (1.0 / 5.0)) then { _deltaTime = (1.0 / 5.0)};
 _deltaTime    = _deltaTime * accTime;
 
 _heli setVariable ["fza_sfmplus_currentTime",  _currentTime];
