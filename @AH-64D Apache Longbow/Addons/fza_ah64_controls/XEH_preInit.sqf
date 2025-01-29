@@ -173,9 +173,10 @@ fza_ah64_tadsFOVs = [
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
-fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
-fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes];
+fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
+fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
+fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes];
+
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -184,6 +185,15 @@ fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
     [0] call fza_fnc_coreEachFrameScheduler;
+}];
+
+//fixedUpdated handler
+fza_ah64_currentTime        = 0.0;
+fza_ah64_deltaTime          = 0.0;
+fza_ah64_previousTime       = 0.0;
+fza_ah64_accumulator        = 0.0;
+fza_ah64_fixedUpdateHandler = addMissionEventHandler["EachFrame", {
+    [0] call fza_fnc_coreFixedUpdateScheduler;
 }];
 
 #define OVERRIDE_ACTION(actn) \
