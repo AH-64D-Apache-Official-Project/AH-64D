@@ -14,6 +14,7 @@ private _freeTextCallback = {
             params ["_input", "_state", "_heli"];
             private _alt = _input / SCALE_METERS_FEET;
             [_heli, _state, _state get "addFree", _state get "addGrid", _alt] call (_state get "enterCallback");
+            [] call fza_ku_fnc_stopInput;
         };
         private _alt = _state getOrDefault ["defaultHeight", getTerrainHeightASL _input max 0];
         [_heli, "ALTITUDE", _altitudeCallback, fza_ku_fnc_checkerInteger, _state, str round (_alt * SCALE_METERS_FEET), "point add"] call fza_ku_fnc_addPrompt;

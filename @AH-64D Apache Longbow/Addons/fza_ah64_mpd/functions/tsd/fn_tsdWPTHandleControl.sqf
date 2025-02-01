@@ -38,6 +38,7 @@ if (_control == "l1" && _variant == 0) exitWith {
     private _callBack = {
         params ["_input", "", "_heli"];
         _heli setVariable [POINT_CURRENTSEL, _input];
+        [] call fza_ku_fnc_stopInput;
     };
     private _checker = {
         params ["_input", "", "_heli"];

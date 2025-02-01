@@ -100,6 +100,7 @@ switch (_variant) do {
                     params ["_input", "_state", "_heli"];
                     _heli setVariable ["fza_mpd_tsdRteCurrentSel", _input];
                     _state set ["subPageVarPage", TSD_RTE_ADD_POINTSEL];
+                    [] call fza_ku_fnc_stopInput;
                 };
                 private _checker = {
                     params ["_input", "", "_heli"];
@@ -195,6 +196,7 @@ switch (_variant) do {
                     [_heli, _input, true] call fza_dms_fnc_routeSetDir;
                     _heli setVariable ["fza_ah64_routeCurPoint", -1, true];
                     _state set ["subPageVarPage", TSD_RTE];
+                    [] call fza_ku_fnc_stopInput;
                 };
                 private _checker = {
                     params ["_input", "", "_heli"];

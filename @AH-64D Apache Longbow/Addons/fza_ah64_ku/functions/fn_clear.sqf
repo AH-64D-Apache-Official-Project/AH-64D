@@ -9,3 +9,4 @@ _heli setVariable ["fza_ku_input", ""];
 _heli setVariable ["fza_ku_user", nil];
 _heli setVariable ["fza_ku_inputType", ""];
 [_heli] call fza_ku_fnc_updateScreen;
+[] call fza_ku_fnc_stopInput;
