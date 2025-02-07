@@ -79,4 +79,4 @@ private _turret = _heli call fza_fnc_currentTurret;
 private _aceMapLighting = false;
 if (_turret isEqualTo [-1] && _pltFloodOn == 1) then {_aceMapLighting = true;};
 if (_turret isEqualTo [0] && _cpgFloodOn == 1) then {_aceMapLighting = true;};
-ace_map_vehicleLightCondition = {_aceMapLighting};
+ace_map_vehicleLightCondition = _aceMapLighting;
