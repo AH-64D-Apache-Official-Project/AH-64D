@@ -67,7 +67,7 @@ if (_mpdState # _side # 7 == 1) then {
     [_heli,[], _side, 1] call fza_mpd_fnc_drawIcons;
 };
 
-private _persistState = _mpdState # _side # 4;
+private _persistState = _mpdState # _side # 5;
 
 private _state = (_config >> "InitState") call fza_fnc_configToHashMap;
 _state merge [_stateOverride, true];
