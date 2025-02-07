@@ -70,6 +70,9 @@ if !_powerOnState then {
     if (!_anticollval && _anticollanim) then {
         _heli setCollisionLight true;
     };
+    if (_anticollval && !_anticollanim) then {
+        _heli setCollisionLight false;
+    };
 };
 
 private _turret = _heli call fza_fnc_currentTurret;
