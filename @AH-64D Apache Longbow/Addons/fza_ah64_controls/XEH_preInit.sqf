@@ -68,6 +68,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusKeyboardSense",
+    "SLIDER",
+    ["KeyBoard Collective Sensitivity", "Controls the Keyboard Collective Sensitivity"],
+    [_projName, "Flight model"],
+    [1.0, 2.0, 1, 1],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmplusEnvironment",
     "LIST",
     ["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C.
