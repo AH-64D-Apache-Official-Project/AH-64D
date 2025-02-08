@@ -4,6 +4,7 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
         params ["_input", "", "_heli"]; \
         (_heli getVariable "fza_ah64_laserChannelIndex") set [code,_input]; \
         _heli setVariable ["fza_ah64_laserChannelIndex", _heli getVariable "fza_ah64_laserChannelIndex", true]; \
+        [] call fza_ku_fnc_stopInput;\
     }; \
     [_heli, "CODE", _callback, fza_ku_fnc_checkerCode, _state, ""] call fza_ku_fnc_addPrompt;
 

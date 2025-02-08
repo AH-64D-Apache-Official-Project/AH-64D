@@ -21,6 +21,7 @@ class CfgFunctions
             class enter{R;};
             class handleInput{R;};
             class init{R;};
+            class stopInput{R;};
             class toggleInput{R;};
             class updateScreen{R;};
         };
