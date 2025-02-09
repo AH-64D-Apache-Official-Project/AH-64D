@@ -1,17 +1,21 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_coreEachFramescheduler
+Function: fza_fnc_coreFixedUpdatecheduler
 Description:
-    Schedules updates to all tasks in fza_ah64_eachFrameArray*
+    Provides a fixed time interval to smooth out physics calculations while also handling
+    frame drops to ensure consistency.
+
 Parameters:
     _heli - The helicopter to modify
+
 Returns:
     Nothing
+
 Examples:
     --- Code
-    [_heli] call fza_fnc_eachFrameScheduler
+    [_heli] call fza_fnc_coreFixedUpdateScheduler
     ---
 Author:
-    mattysmith22, Snow(Dryden), BradMick
+    BradMick
 ---------------------------------------------------------------------------- */
 if (!(isNil "fza_ah64_nopfsched")) exitwith {};
 params["", "_heli"];
