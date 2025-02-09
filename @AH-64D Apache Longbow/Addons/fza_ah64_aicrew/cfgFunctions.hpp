@@ -11,7 +11,6 @@ class CfgFunctions
         tag = "FZA_AICrew";
         class functions {
             file = "\fza_ah64_AICrew\functions";
-            class engineStart {R;};
             class fireControl {R;};
             class getIn {R;};
             class getOut {R;};
