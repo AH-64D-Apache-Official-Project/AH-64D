@@ -48,6 +48,10 @@ private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 if (local _heli) then {
     if (_eng1State != "OFF" || _eng2State != "OFF" || _isAutorotating) then {
         _heli engineOn true;
+        _heli setHitpointDamage ["hithrotor", 0.0];
+    } else {
+        _heli engineOn false;
+        _heli setHitpointDamage ["hithrotor", 0.9];
     };
 };
 
@@ -102,10 +106,6 @@ if (_no1EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 
 if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 	[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
-};
-
-if (_eng1State == "OFF" && _eng2State == "OFF" && !_isAutorotating && local _heli) then {
-    _heli engineOn false;
 };
 
 //Autorotation handler
