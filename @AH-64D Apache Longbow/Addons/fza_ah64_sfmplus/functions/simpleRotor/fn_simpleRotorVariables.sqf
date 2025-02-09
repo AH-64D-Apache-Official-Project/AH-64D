@@ -21,3 +21,4 @@ params ["_heli"];
 _heli setVariable ["fza_sfmplus_reqEngTorque",  0.0];
 
 _heli setVariable ["fza_sfmplus_rtrThrust",     [0.0, 0.0]];
+_heli setVariable ["fza_sfmplus_rtrRPM",        0.0];

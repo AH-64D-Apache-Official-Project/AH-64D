@@ -36,14 +36,17 @@ private _eng2PwrLvrState = _engPwrLvrState select 1;
 
 private _eng1Np  = _heli getVariable "fza_sfmplus_engPctNP" select 0;
 private _eng2Np  = _heli getVariable "fza_sfmplus_engPctNP" select 1;
-private _rtrRPM  = _eng1Np max _eng2Np;
+private _rtrRPM  = _heli getVariable "fza_sfmplus_rtrRPM";
 
 private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
+private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
+private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
+
 if (local _heli) then {
-    if (_eng1State != "OFF" || _eng2State != "OFF") then {
+    if (_eng1State != "OFF" || _eng2State != "OFF" || _isAutorotating) then {
         _heli engineOn true;
         _heli setHitpointDamage ["hithrotor", 0.0];
     } else {
@@ -60,9 +63,6 @@ if !_apuOn then {
 		[_heli, "fza_sfmplus_engState", 1, "OFF", true] call fza_fnc_setArrayVariable;
     };
 };
-
-private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
-private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
     _isSingleEng = false;
