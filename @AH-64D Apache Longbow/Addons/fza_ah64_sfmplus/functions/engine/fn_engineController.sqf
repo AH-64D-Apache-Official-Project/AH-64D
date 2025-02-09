@@ -117,5 +117,5 @@ if (   _engPctTQ < 0.10
 } else {
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
-systemChat format ["_isAutorotating = %1", _heli getVariable "fza_sfmplus_isAutorotating"];
+//systemChat format ["_isAutorotating = %1", _heli getVariable "fza_sfmplus_isAutorotating"];
 //End Autorotation handler
