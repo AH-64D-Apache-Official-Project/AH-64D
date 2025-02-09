@@ -1,0 +1,1 @@
+﻿NDFramePage.OnPageTitleLoaded("File:core/fn_coreFixedUpdateScheduler.sqf","fn_coreFixedUpdateScheduler.sqf");NDSummary.OnSummaryLoaded("File:core/fn_coreFixedUpdateScheduler.sqf",[["SQF","SQF"]],[["Functions","Function"],["Groups","Group"]],[[141,0,1,"Functions","Functions"],[142,0,0,"fza_fnc_coreFixedUpdatecheduler","fza_fnc_coreFixedUpdatecheduler"]]);
