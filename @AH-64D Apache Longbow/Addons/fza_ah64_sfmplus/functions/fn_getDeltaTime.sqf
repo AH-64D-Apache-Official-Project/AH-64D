@@ -23,12 +23,10 @@ private _previousTime  = _heli getVariable "fza_sfmplus_previousTime";
 private _deltaTime_avg = _heli getVariable "fza_sfmplus_deltaTime_avg";
 
 private _currentTime = diag_tickTime;
+_deltaTime           = _currentTime - _previousTime;
+_previousTime        = _currentTime;
 
-_deltaTime    = [_deltaTime_avg, (_currentTime - _previousTime)] call fza_sfmplus_fnc_getSmoothAverage;
-_previousTime = _currentTime;
-
-if (_deltaTime > (1.0 / 5.0)) then { _deltaTime = (1.0 / 5.0)};
-_deltaTime    = _deltaTime * accTime;
+_deltaTime           = _deltaTime * accTime;
 
 _heli setVariable ["fza_sfmplus_currentTime",  _currentTime];
 _heli setVariable ["fza_sfmplus_previousTime", _previousTime];
