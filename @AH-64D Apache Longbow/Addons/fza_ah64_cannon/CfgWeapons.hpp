@@ -129,26 +129,9 @@ class CfgWeapons {
         };
     };
     
-    class fza_cannon_limit: fza_m230
-    {
-        scope = 1;
-        displayName="Burst Limit";
-        cursor="";
-        cursorAim="";
-        magazines[]={"fza_burstlimit"};
-        textureType = "single";
-    };
-        
-    class fza_ma_safe: fza_m230
-    {
-        scope = 1;
-        displayName="MASTER ARM SAFE";
-        cursor="";
-        cursorAim="";
-        magazines[]={"fza_safe"};
-        textureType = "single";
-    };
-    class fza_gun_inhibit: fza_cannon_limit {displayName = "Cannon Inhibit";};
-    class fza_hydra_limit: fza_cannon_limit {displayName = "Salvo Limit";};
-    class fza_pylon_inhibit: fza_cannon_limit {displayName = "Pylon Inhibit";};
+    class fza_cannon_limit: fza_m230{displayName="Burst Limit";magazines[]={"fza_cannon_limit"};};
+    class fza_ma_safe: fza_cannon_limit{ displayName="MASTER ARM SAFE";magazines[]={"fza_safe"};};
+    class fza_gun_inhibit: fza_cannon_limit {displayName = "Cannon Inhibit";magazines[]={"fza_gun_inhibit"};};
+    class fza_hydra_limit: fza_cannon_limit {displayName = "Salvo Limit";magazines[]={"fza_hydra_limit"};};
+    class fza_pylon_inhibit: fza_cannon_limit {displayName = "Pylon Inhibit";magazines[]={"fza_pylon_inhibit"};};
 };

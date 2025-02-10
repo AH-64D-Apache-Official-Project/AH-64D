@@ -25,7 +25,7 @@ if (_burstLimit != -1) then {
         [_heli] spawn {
             params["_heli"];
             waitUntil {
-                _heli selectWeaponTurret ["fza_cannon_limit", [0], "fza_cannon_limit"];
+                _heli selectWeaponTurret ["fza_cannon_limit", [0], "fza_cannon_limit"]; // Select weapon Must use the first 3 inputs
                 inputAction "defaultAction" < 0.5
             };
             if (currentweapon _heli != "fza_cannon_limit") exitwith {};
