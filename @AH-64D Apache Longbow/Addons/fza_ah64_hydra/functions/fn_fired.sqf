@@ -25,11 +25,11 @@ if (_rocketsalvo != 1) then {
         [_heli,_weapon] spawn {
             params["_heli","_weapon"];
             waitUntil {
-                _heli selectWeaponTurret ["fza_hydra_limit", [0]];
+                _heli selectWeaponTurret ["fza_hydra_limit", [0], "fza_hydra_limit"];
                 inputAction "defaultAction" < 0.5
             };
             if (currentweapon _heli != "fza_hydra_limit") exitwith {};
-            _heli selectWeaponTurret [_weapon, [0]];;
+            _heli selectWeaponTurret [_weapon, [0], _weapon];;
         };
     };
     _heli setVariable ["fza_ah64_salvofired", _salvofired];
