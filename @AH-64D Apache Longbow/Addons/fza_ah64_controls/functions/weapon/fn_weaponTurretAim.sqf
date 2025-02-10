@@ -166,7 +166,7 @@ for "_i" from 0 to 3 do {
 
 if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
-        _heli selectWeaponTurret ["fza_cannon_inhibit", [0], "fza_cannon_inhibit"];
+        _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     };
     private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
     private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
@@ -178,9 +178,9 @@ if (_was == WAS_WEAPON_GUN) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectWeaponTurret ["fza_cannon_inhibit", [0], "fza_cannon_inhibit"];
+        _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     } else {
-        if (Currentweapon _heli == "fza_cannon_inhibit") then {
+        if (Currentweapon _heli == "fza_gun_inhibit") then {
             _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
