@@ -80,7 +80,7 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     if (_subMode == "vel") then {
         (_heli getVariable "fza_ah64_attHoldDesiredVel")
             params ["_setVelX", "_setVelY"];
-        private _roll  = [_pidRoll,  _deltaTime, _setVelX, _velX] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll,  _deltaTime, _setVelX, -_velX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
         private _pitch = [_pidPitch, _deltaTime, _setVelY, _velY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
