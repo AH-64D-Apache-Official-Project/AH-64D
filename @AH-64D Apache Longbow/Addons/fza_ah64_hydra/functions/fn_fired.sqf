@@ -20,7 +20,7 @@ if !(["fza_275_", _weapon] call BIS_fnc_inString) exitwith {};
 private _salvofired = (_heli getVariable "fza_ah64_salvofired") + 1;
 private _rocketsalvo = _heli getVariable "fza_ah64_rocketsalvo";
 
-if (_rocketsalvo != 1) then {
+if (_rocketsalvo != 99) then {
     if (_salvofired >= _rocketsalvo) then {
         [_heli,_weapon] spawn {
             params["_heli","_weapon"];
