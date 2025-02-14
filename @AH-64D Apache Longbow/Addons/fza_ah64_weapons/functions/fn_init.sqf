@@ -23,7 +23,7 @@ params ["_heli"];
 if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_weaponsInitialised", true, true];
 
-    _heli selectweapon "fza_ma_safe";
+    _heli selectWeaponTurret ["fza_ma_safe", [0], "fza_ma_safe"];
 
     _heli setVariable ["fza_ah64_weaponInhibited", "", true];
     _heli setVariable ["fza_ah64_rocketsalvo",      2, true];

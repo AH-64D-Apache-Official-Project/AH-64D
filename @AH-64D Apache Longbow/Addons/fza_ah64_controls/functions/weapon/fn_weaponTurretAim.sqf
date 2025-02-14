@@ -125,10 +125,10 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     
     if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
         _inhibit = "PYLON LIMIT";
-        _heli selectweapon "fza_pylon_inhibit";
+        _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
     };
     if (_utilHydFailed || _utilLevelMin) exitwith {
-        _heli selectweapon "fza_pylon_inhibit";
+        _heli selectWeaponTurret ["fza_pylon_inhibit", [0], "fza_pylon_inhibit"];
     };
 };
 
@@ -166,7 +166,7 @@ for "_i" from 0 to 3 do {
 
 if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
-        _heli selectweapon "fza_cannon_inhibit";
+        _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     };
     private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
     private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
@@ -178,10 +178,10 @@ if (_was == WAS_WEAPON_GUN) then {
     };
     if (_inhibit != "") then {
         _safemessage = "_inhibit";
-        _heli selectweapon "fza_cannon_inhibit";
+        _heli selectWeaponTurret ["fza_gun_inhibit", [0], "fza_gun_inhibit"];
     } else {
-        if (Currentweapon _heli == "fza_cannon_inhibit") then {
-            _heli selectweapon "fza_m230";
+        if (Currentweapon _heli == "fza_gun_inhibit") then {
+            _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
     if (_sight == SIGHT_FXD) exitwith {

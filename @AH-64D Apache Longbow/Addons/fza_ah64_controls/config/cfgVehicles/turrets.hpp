@@ -13,7 +13,7 @@ class Turrets : Turrets
         primaryGunner = 1;
         stabilizedInAxes = 3;
         weapons[] = {"fza_ma_safe", "Laserdesignator_mounted","fza_m230", "fza_cannon_limit", "fza_gun_inhibit", "fza_hydra_limit", "fza_pylon_inhibit"};
-        magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
+        magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300", "fza_cannon_limit", "fza_gun_inhibit", "fza_hydra_limit", "fza_pylon_inhibit"};
         memoryPointsGetInGunner = "pos gunner";
         memoryPointsGetInGunnerDir = "pos gunner dir";
         memoryPointGun = "laserBegin";
