@@ -7,7 +7,9 @@ params ["_heli", "_mpdIndex"];
 
 private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 
-private _pa      = _heli getVariable "fza_sfmplus_PA";  //feet
+([_heli] call fza_sfmplus_fnc_getAltitude)
+    params ["_barAlt", "_radAlt"];
+private _pa      = _barAlt;  //feet
 private _fat     = _heli getVariable "fza_sfmplus_FAT";
 private _gwt     = (_heli getVariable "fza_sfmplus_GWT") * KG_TO_LBS;
 private _cg      = (_heli getVariable "fza_sfmplus_CG") * M_TO_INCHES;

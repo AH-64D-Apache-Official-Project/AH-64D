@@ -21,7 +21,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #define SCALE_METERS_FEET 3.28084
 
-private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 private _curGWT_kg = _heli getVariable "fza_sfmplus_GWT";
 
 private _baroAlt = getPosASL _heli # 2 * SCALE_METERS_FEET;
