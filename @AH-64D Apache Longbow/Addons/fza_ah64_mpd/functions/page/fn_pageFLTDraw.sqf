@@ -25,7 +25,7 @@ private _airspeed    = (_heli getVariable "fza_sfmplus_vel3D");//vectorMagnitude
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
+_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt == 1420)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), _airspeed toFixed 0];
 
 // Waypoint status window

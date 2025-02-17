@@ -366,7 +366,7 @@ _speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel3D")];
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
 _baraltft = format["%1",  _barAlt toFixed 0];
-_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
+_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt == 1420)];
 
 //FCR CenterLine
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 

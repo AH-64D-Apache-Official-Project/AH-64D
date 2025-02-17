@@ -20,9 +20,7 @@ params ["_heli"];
 
 #define SCALE_METERS_FEET 3.28084
 
-private _baseAlt =_heli getVariable "fza_sfmplus_PA";
-private _barAlt  = getPosASL _heli # 2 * SCALE_METERS_FEET;
-_barAlt = round ((_barAlt + _baseAlt) / 10) * 10;
+private _barAlt  = _heli getVariable "fza_sfmplus_PA";
 _barAlt = [_barAlt, 0.0, 20000] call bis_fnc_clamp;
 
 private _radAlt = getPos _heli # 2 * SCALE_METERS_FEET;
