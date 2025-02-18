@@ -72,13 +72,19 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         switch (_heli getVariable "fza_ah64_ase_autopage") do {
             case ASE_AUTOPAGE_SRH: {
-                [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                if ("searching" in _state) then {
+                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                };
             };
             case ASE_AUTOPAGE_ACQ: {
-                [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                if ("acquisition" in _state) then {
+                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                };
             };
             case ASE_AUTOPAGE_TRK: {
-                [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                if ("tracking" in _state) then {
+                    [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
+                };
             };
         };
     };

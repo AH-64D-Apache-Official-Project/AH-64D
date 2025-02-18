@@ -32,7 +32,7 @@ switch(_control) do {
         [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
     };
     case "b1": {
-        [_heli, _mpdIndex, "tsd"] call fza_mpd_fnc_setCurrentPage;
+        [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
     //Autopage
     case "l3": {
