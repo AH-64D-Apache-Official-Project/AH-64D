@@ -45,9 +45,10 @@ if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_Briti
 };
 
 [_heli, _hostile] call fza_ase_fnc_classification params ["_soundclass"];
+private _identity = format ["fza_ah64_bt_%1", _soundclass];
 private _seekerhead = getNumber (configFile >> "CfgAmmo" >> typeof _missile >> "weaponLockSystem");
 if ([_seekerhead, 8] call BIS_fnc_bitwiseAND != 0 && _rlwrPwr == ASE_RLWR_STATE_ON) exitWith {
-    [_heli, ASE_LNC, _hostile, _soundclass, 1, _dirAud, 1.3, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
+    [_heli, ASE_LNC, _hostile, _identity, 1, _dirAud, 1.3, "fza_ah64_launch", 0.6] call fza_audio_fnc_addASEMessage;
     if (_mpdLeft != "ase" && _mpdRight != "ase") then {
         [_heli, 1, "ase"] call fza_mpd_fnc_setCurrentPage;
     };
