@@ -82,7 +82,7 @@ private _isZeus       = !isNull findDisplay 312;
 private _inMap        = !visibleMap;
 private _inInventory  = isNull findDisplay 602; 
 
-private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && _inMap && _inInventory; 
+private _isPlaying    = _paused && _chatting && _inDialog && !_isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
 
 if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
@@ -130,4 +130,8 @@ if (!_isZeus && (!_hydFailure || _emerHydOn)) then {
     _heli setVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
     _heli setVariable ["fza_sfmplus_pedalLeftRight",   0.0];
     _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveOutput];
+};
+
+if (fza_ah64_lastFrameGetIn) then {
+    fza_ah64_lastFrameGetIn = false;
 };
