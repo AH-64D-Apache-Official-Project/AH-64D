@@ -33,4 +33,5 @@ if (fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario && _unit == playe
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
 
-fza_ah64_previousTime = diag_tickTime;
+fza_ah64_previousTime   = diag_tickTime;
+fza_ah64_lastFrameGetIn = true;
