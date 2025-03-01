@@ -35,3 +35,5 @@ _heli setVariable ["fza_ah64_monocleinbox", true];
 
 fza_ah64_previousTime   = diag_tickTime;
 fza_ah64_lastFrameGetIn = true;
+
+_heli setVariable ["fza_sfmplus_previousTime", diag_tickTime];
