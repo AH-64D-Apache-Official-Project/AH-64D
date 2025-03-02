@@ -136,6 +136,7 @@ private _power_val   = _profile_cur + _induced_cur;
 private _power_req   = _power_val * 2857.17;
 private _torque_req  = (_power_req / 0.001) / 0.105 / 21109;
 private _rtrTorque   = _torque_req * _rtrGearRatio;
+_rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];
 
 //Calcualte the required engine torque
 private _rtrRPMTorqueScalar        = 1.0;
