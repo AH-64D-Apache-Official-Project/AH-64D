@@ -390,7 +390,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 //Flight Path Vector
 private _fpv = [-100,-100];
 if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
-    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpace"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
     }
@@ -607,7 +607,7 @@ if (_radalt > 0.26) then {
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetPosition[0.709, (0.6321 - _radalt), 0.01, _radalt];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlCommit 0;
-_fpm = (velocity _heli select 2) * 0.0255;
+_fpm = ((_heli getVariable "fza_sfmplus_velWorldSpace") select 2) * 0.0255;
 _fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
