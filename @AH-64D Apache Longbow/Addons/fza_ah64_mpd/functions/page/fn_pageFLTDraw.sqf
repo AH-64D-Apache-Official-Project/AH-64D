@@ -19,7 +19,6 @@ private _torque = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100) toFixed 0];
 
 //Altitude and speed
-
 private _groundSpeed = (_heli getVariable "fza_sfmplus_gndSpeed");//vectorMagnitude (velocity _heli call _2dvectTo3D);
 private _airspeed    = (_heli getVariable "fza_sfmplus_vel3D");//vectorMagnitude (velocity _heli vectorDiff wind);
 ([_heli] call fza_sfmplus_fnc_getAltitude)
@@ -27,6 +26,7 @@ private _airspeed    = (_heli getVariable "fza_sfmplus_vel3D");//vectorMagnitude
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_GALT), [_radAlt toFixed 0, ""] select (_radAlt == 1420)];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), _airspeed toFixed 0];
+
 
 // Waypoint status window
 private _nextPoint = _currentDir;
@@ -66,18 +66,20 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FCR_CENTERLINE), _fcrHeading];
 
 // Velocity Vector
-private _velocityX = [[_heli, 0, 0, velocity _heli # 0, velocity _heli # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
-private _velocityY = (velocity _heli # 2) atan2 ([0,0,0] distance2D velocity _heli);
+private _velocity  = _heli getVariable "fza_sfmplus_velWorldSpace";
+private _velocityX = [[_heli, 0, 0, _velocity # 0, _velocity # 1] call fza_fnc_relativeDirection] call CBA_fnc_simplifyAngle180;
+private _velocityY = (_velocity # 2) atan2 ([0,0,0] distance2D _velocity);
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLIGHT_PATH_X), _velocityX];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_FLIGHT_PATH_Y), _velocityY];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_VERT_SPEED),    _velocity#2];
 
 // Turn and slip indicator
 private _bank = (_heli call BIS_fnc_getPitchBank) # 1;
 private _bankForStandardTurn = (_airspeed * 1.944) / 10 + 7;
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FLT_TURN), _bank / _bankForStandardTurn];
 
-private _airspeedModelRelative = _heli vectorWorldToModel (velocity _heli);
+private _airspeedModelRelative = _heli vectorWorldToModel (_velocity);
 
 private _beta_deg = fza_ah64_sideslip;
 
