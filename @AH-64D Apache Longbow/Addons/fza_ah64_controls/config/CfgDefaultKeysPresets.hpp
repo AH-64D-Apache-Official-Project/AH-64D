@@ -41,6 +41,7 @@ class CfgDefaultKeysPresets {
             fza_ah64_tadsLHGLmc[] = {0x1D130014};
             fza_ah64_SensorSelect_FLIR[] = {0x1D130031};
             fza_ah64_SensorSelect_DTV[] = {0x2A130031};
+            fza_ah64_SensorSelect_DVO[] = {0x38130031};
         };
     };
     class Arma3: Arma2 {

@@ -144,9 +144,18 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_tadsCycleAllModes",
+    "fza_ah64_tadsCycleIncludeDTV",
     "CHECKBOX",
-    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
+    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through DTV and not just BHOT & WHOT"],
+    [_projName, "TADS Controls"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_tadsCycleIncludeDVO",
+    "CHECKBOX",
+    ["NV Cycle Include DVO", "With this the Night vision button will also cycle through DVO and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
     [false],
     2
