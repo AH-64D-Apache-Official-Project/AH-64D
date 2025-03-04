@@ -165,11 +165,10 @@ if !_powerOnState then {
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    if !(isNil "_a3ti_vis") then {
-        if !(isNil "fza_ah64_bweff") then {
-            fza_ah64_bweff ppEffectEnable false;
-        };
+    if (!(isNil "_a3ti_vis" || isNil "fza_ah64_bweff") || ((_heli getVariable "fza_ah64_tadsVision") == "DVO")) then {
+        fza_ah64_bweff ppEffectEnable false;
     } else {
+        
         if !(isNil "fza_ah64_bweff") exitwith {
             fza_ah64_bweff ppEffectEnable true;
         };
@@ -224,10 +223,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
 
     //TADS DTV/FLIR Fail
-    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [0,3] && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
     };
-    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [1,2] && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
         _heli disableTIEquipment true;
     } else {
@@ -488,21 +487,11 @@ if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
 
 //VISION MODE CPG HEADSDOWN
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    private _visionTxt = "";
-
-    if (isNil "_a3ti_vis") then {
-        if (currentVisionMode player == 0) then {
-            _visionTxt = "DTV";
-        } else {
-            _visionTxt = "FLIR";
-        };
-    } else {
-        //_visionTxt = _a3ti_vis;
-        _visionTxt = "FLIR";
-    };
+    private _visionTxt = "FLIR";
+    if (_Visionmode == 0) then {_visionTxt = "DTV";};
+    if (_Visionmode == 3) then {_visionTxt = "DVO";};
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
-
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };

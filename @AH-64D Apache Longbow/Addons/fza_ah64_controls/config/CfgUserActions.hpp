@@ -46,6 +46,7 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_tadsLHGFov_Z, "TADS LHG FOV Switch - Z", "Sets the Tads FOV to Zoom");
     CfgUserActionDef(fza_ah64_SensorSelect_FLIR, "LHG Sensor Select Switch - FLIR", "Sets the Tads Sensor to FLIR");
     CfgUserActionDef(fza_ah64_SensorSelect_DTV, "LHG Sensor Select Switch - DTV", "Sets the Tads Sensor to DTV");
+    CfgUserActionDef(fza_ah64_SensorSelect_DVO, "LHG Sensor Select Switch - DVO", "Sets the Tads Sensor to DVO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
     #include "\fza_ah64_controls\headers\controls.h"
 };
