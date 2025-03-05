@@ -165,18 +165,24 @@ if !_powerOnState then {
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    if !(isNil "_a3ti_vis") then {
-        if !(isNil "fza_ah64_bweff") then {
-            fza_ah64_bweff ppEffectEnable false;
+    if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
+        fza_ah64_flirResolutionEffect ppEffectEnable true;
+        fza_ah64_monoChromeEffect ppEffectEnable false;
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+            fza_ah64_flirResolutionEffect ppEffectAdjust [210];
+            fza_ah64_flirResolutionEffect ppEffectCommit 0;
+        } else {
+            fza_ah64_flirResolutionEffect ppEffectAdjust [420];
+            fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
     } else {
-        if !(isNil "fza_ah64_bweff") exitwith {
-            fza_ah64_bweff ppEffectEnable true;
+        fza_ah64_flirResolutionEffect ppEffectEnable false;
+        if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+            fza_ah64_monoChromeEffect ppEffectEnable true;
         };
-        fza_ah64_bweff = ppEffectCreate["colorCorrections", 4000];
-        fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
-        fza_ah64_bweff ppEffectCommit 0;
-        fza_ah64_bweff ppEffectEnable true;
+        if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+            fza_ah64_monoChromeEffect ppEffectEnable false;
+        };
     };
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
@@ -234,8 +240,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         _heli disableTIEquipment false;
     };
 } else {
-    fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_gweff ppEffectEnable false;
+    fza_ah64_monoChromeEffect ppEffectEnable false;
+    fza_ah64_blackScreenEffect ppEffectEnable false;
 
     for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
@@ -263,15 +269,15 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 };
 
 if _setDeadOptics then {
-    if !(isNil "fza_ah64_gweff") exitwith {
-        fza_ah64_gweff ppEffectEnable true;
+    if !(isNil "fza_ah64_blackScreenEffect") exitwith {
+        fza_ah64_blackScreenEffect ppEffectEnable true;
     };
-    fza_ah64_gweff = ppEffectCreate ["colorCorrections",1498];
-    fza_ah64_gweff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    fza_ah64_gweff ppEffectCommit 0;
-    fza_ah64_gweff ppEffectEnable true;
+    fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
+    fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+    fza_ah64_blackScreenEffect ppEffectCommit 0;
+    fza_ah64_blackScreenEffect ppEffectEnable true;
 } else {
-    fza_ah64_gweff ppEffectEnable false;
+    fza_ah64_blackScreenEffect ppEffectEnable false;
 };
 
 if !_acBusOn then {

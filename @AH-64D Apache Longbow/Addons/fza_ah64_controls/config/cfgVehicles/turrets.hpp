@@ -81,6 +81,7 @@ class Turrets : Turrets
                 initanglex = 0;
                 initangley = 0;
                 opticsdisplayname = "W";
+                thermalResolution[] = {0.0, 420, 1.0, 420};
             };
             class Flir_Medium: Flir_Wide
             {
@@ -102,6 +103,7 @@ class Turrets : Turrets
                 minfov = "(1.5 / 120)";
                 maxfov = "(1.5 / 120)";
                 opticsdisplayname = "Z";
+                thermalResolution[] = {0.0, 210, 1.0, 210};
             };
             class A3ti_Wide: Flir_Wide
             {
