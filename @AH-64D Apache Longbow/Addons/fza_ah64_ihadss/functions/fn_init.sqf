@@ -28,7 +28,7 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
     _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false,   true];
        
-    _heli setVariable ["fza_ah64_tadsThermal",     true,    true];
+    _heli setVariable ["fza_ah64_tadsVision",     "FLIR",    true];
     _heli setVariable ["fza_ah64_tadsZoom",        0,       true];
     _heli setVariable ["fza_ah64_tadsA3ti",        false,   true];
     
@@ -47,3 +47,7 @@ fza_ah64_monoChromeEffect ppEffectCommit 0;
 fza_ah64_flirResolutionEffect = ppEffectCreate["Resolution", 4001];
 fza_ah64_flirResolutionEffect ppEffectAdjust [420];
 fza_ah64_flirResolutionEffect ppEffectCommit 0;
+
+fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
+fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
+fza_ah64_blackScreenEffect ppEffectCommit 0;

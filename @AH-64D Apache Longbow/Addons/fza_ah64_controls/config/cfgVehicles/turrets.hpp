@@ -63,14 +63,12 @@ class Turrets : Turrets
                 passThrough = 0;
             };
         };
-        class OpticsIn
-        {
-            class Flir_Wide
-            {
+        class OpticsIn {
+            class Flir_Wide {
                 gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                initfov = "(46.25 / 120)";
-                minfov = "(46.25 / 120)";
-                maxfov = "(46.25 / 120)";
+                initfov = "(50 / 100)";
+                minfov  = "(50 / 100)";
+                maxfov  = "(50 / 100)";
                 visionmode[] = {"Ti"};
                 thermalmode[] = {0,1};
                 directionStabilized = 0;
@@ -83,79 +81,72 @@ class Turrets : Turrets
                 opticsdisplayname = "W";
                 thermalResolution[] = {0.0, 420, 1.0, 420};
             };
-            class Flir_Medium: Flir_Wide
-            {
-                initfov = "(9.5 / 120)";
-                minfov = "(9.5 / 120)";
-                maxfov = "(9.5 / 120)";
+            class Flir_Medium: Flir_Wide {
+                initfov = "(10.1 / 100)";
+                minfov  = "(10.1 / 100)";
+                maxfov  = "(10.1 / 100)";
                 opticsdisplayname = "M";
             };
-            class Flir_Narrow: Flir_Wide
-            {
-                initfov = "(2.75 / 120)";
-                minfov = "(2.75 / 120)";
-                maxfov = "(2.75 / 120)";
+            class Flir_Narrow: Flir_Wide {
+                initfov = "(3.1 / 100)";
+                minfov  = "(3.1 / 100)";
+                maxfov  = "(3.1 / 100)";
                 opticsdisplayname = "N";
             };  
-            class Flir_Zoom: Flir_Wide
-            {
-                initfov = "(1.5 / 120)";
-                minfov = "(1.5 / 120)";
-                maxfov = "(1.5 / 120)";
+            class Flir_Zoom: Flir_Wide {
+                initfov = "(1.6 / 100)";
+                minfov  = "(1.6 / 100)";
+                maxfov  = "(1.6 / 100)";
                 opticsdisplayname = "Z";
                 thermalResolution[] = {0.0, 210, 1.0, 210};
             };
-            class A3ti_Wide: Flir_Wide
-            {
-                initfov = "(46.25 / 120)";
-                minfov = "(46.25 / 120)";
-                maxfov = "(46.25 / 120)";
+            class A3ti_Wide: Flir_Wide {
                 visionmode[] = {"Normal"};
                 opticsdisplayname = "W";
             };
-            class A3ti_Medium: A3ti_Wide
-            {
-                initfov = "(9.5 / 120)";
-                minfov = "(9.5 / 120)";
-                maxfov = "(9.5 / 120)";
+            class A3ti_Medium: Flir_Medium {
+                visionmode[] = {"Normal"};
                 opticsdisplayname = "M";
             };
-            class A3ti_Narrow: A3ti_Wide
-            {
-                initfov = "(2.75 / 120)";
-                minfov = "(2.75 / 120)";
-                maxfov = "(2.75 / 120)";
+            class A3ti_Narrow: Flir_Narrow {
+                visionmode[] = {"Normal"};
                 opticsdisplayname = "N";
             };  
-            class A3ti_Zoom: A3ti_Wide
-            {
-                initfov = "(1.5 / 120)";
-                minfov = "(1.5 / 120)";
-                maxfov = "(1.5 / 120)";
+            class A3ti_Zoom: Flir_Zoom {
+                visionmode[] = {"Normal"};
                 opticsdisplayname = "Z";
             };
-            class Dtv_wide: Flir_Wide
-            {
+            class Dtv_wide: Flir_Wide {
                 visionmode[] = {"Normal"};
-                initfov = "(4.25 / 120)";
-                minfov = "(4.25 / 120)";
-                maxfov = "(4.25 / 120)";
+                initfov = "(4 / 100)";
+                minfov  = "(4 / 100)";
+                maxfov  = "(4 / 100)";
                 opticsdisplayname = "w";
             };
             class Dtv_dummyFOV: Dtv_wide {};
-            class Dtv_Narrow: Dtv_wide
-            {
-                initfov = "(1.5 / 120)";
-                minfov = "(1.5 / 120)";
-                maxfov = "(1.5 / 120)";
+            class Dtv_Narrow: Dtv_wide {
+                initfov = "(0.9 / 100)";
+                minfov  = "(0.9 / 100)";
+                maxfov  = "(0.9 / 100)";
                 opticsdisplayname = "N";
             };
-            class Dtv_Zoom: Dtv_wide
-            {
-                initfov = "(0.6 / 120)";
-                minfov = "(0.6 / 120)";
-                maxfov = "(0.6 / 120)";
+            class Dtv_Zoom: Dtv_wide {
+                initfov = "(0.45 / 100)";
+                minfov  = "(0.45 / 100)";
+                maxfov  = "(0.45 / 100)";
                 opticsdisplayname = "Z";
+            };
+            class Dvo_Wide: Dtv_wide {
+                initfov = "(18 / 100)";
+                minfov  = "(18 / 100)";
+                maxfov  = "(18 / 100)";
+                opticsdisplayname = "W";
+            };
+            class Dvo_Narrow: Dtv_wide {
+                initfov = "(4 / 100)";
+                minfov  = "(4 / 100)";
+                maxfov  = "(4 / 100)";
+                opticsdisplayname = "N";
             };
         };
         class OpticsOut

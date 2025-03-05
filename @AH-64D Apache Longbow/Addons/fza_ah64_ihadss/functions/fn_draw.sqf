@@ -230,10 +230,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
 
     //TADS DTV/FLIR Fail
-    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [0,3] && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
     };
-    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [1,2] && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
         _heli disableTIEquipment true;
     } else {
@@ -268,17 +268,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 206) ctrlSetTextColor[0, 0, 0, 0];
 };
 
-if _setDeadOptics then {
-    if !(isNil "fza_ah64_blackScreenEffect") exitwith {
-        fza_ah64_blackScreenEffect ppEffectEnable true;
-    };
-    fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
-    fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    fza_ah64_blackScreenEffect ppEffectCommit 0;
-    fza_ah64_blackScreenEffect ppEffectEnable true;
-} else {
-    fza_ah64_blackScreenEffect ppEffectEnable false;
-};
+fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 
 if !_acBusOn then {
     [_heli] call fza_fnc_laserDisarm;
@@ -494,21 +484,11 @@ if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
 
 //VISION MODE CPG HEADSDOWN
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    private _visionTxt = "";
-
-    if (isNil "_a3ti_vis") then {
-        if (currentVisionMode player == 0) then {
-            _visionTxt = "DTV";
-        } else {
-            _visionTxt = "FLIR";
-        };
-    } else {
-        //_visionTxt = _a3ti_vis;
-        _visionTxt = "FLIR";
-    };
+    private _visionTxt = "FLIR";
+    if (_Visionmode == 0) then {_visionTxt = "DTV";};
+    if (_Visionmode == 3) then {_visionTxt = "DVO";};
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
-
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };
