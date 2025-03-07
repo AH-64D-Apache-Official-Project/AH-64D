@@ -1,4 +1,3 @@
-class MFD {};
 class Turrets : Turrets
 {
     class MainTurret: NewTurret
@@ -80,6 +79,7 @@ class Turrets : Turrets
                 initangley = 0;
                 opticsdisplayname = "W";
                 thermalResolution[] = {0.0, 420, 1.0, 420};
+                thermalNoise[] = {0.2,0.6,0.5,0.5,0.5,0,0,1}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
             };
             class Flir_Medium: Flir_Wide {
                 initfov = "(10.1 / 100)";
