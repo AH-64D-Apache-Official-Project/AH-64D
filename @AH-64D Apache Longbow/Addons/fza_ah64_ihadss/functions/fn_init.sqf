@@ -45,7 +45,7 @@ fza_ah64_monoChromeEffect ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0
 fza_ah64_monoChromeEffect ppEffectCommit 0;
 
 fza_ah64_flirResolutionEffect = ppEffectCreate["Resolution", 4001];
-fza_ah64_flirResolutionEffect ppEffectAdjust [420];
+fza_ah64_flirResolutionEffect ppEffectAdjust [360];
 fza_ah64_flirResolutionEffect ppEffectCommit 0;
 
 fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
