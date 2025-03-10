@@ -23,7 +23,7 @@ class Turrets : Turrets
         animationsourcegun = "tads";
         gunBeg = "laserBegin";
         gunEnd = "laserEnd";
-        gunnerOpticsModel = "";
+        gunnerOpticsModel = "\fza_ah64_ihadss\sight\apacheHeadsDownMask.p3d";
         gunnerOpticsColor[] = {1,1,1,1};
         minElev = -60;
         maxElev = 30;
@@ -64,7 +64,7 @@ class Turrets : Turrets
         };
         class OpticsIn {
             class Flir_Wide {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+                gunnerOpticsModel = "\fza_ah64_ihadss\sight\apacheHeadsDownMask.p3d";
                 initfov = "(50 / 100)";
                 minfov  = "(50 / 100)";
                 maxfov  = "(50 / 100)";
