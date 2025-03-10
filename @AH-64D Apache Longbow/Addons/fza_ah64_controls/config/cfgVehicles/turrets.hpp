@@ -78,8 +78,11 @@ class Turrets : Turrets
                 initanglex = 0;
                 initangley = 0;
                 opticsdisplayname = "W";
-                thermalResolution[] = {0.0, 420, 1.0, 420};
-                thermalNoise[] = {0.2,0.6,0.5,0.5,0.5,0,0,1}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
+                thermalResolution[] = {0.0, 360, 1.0, 360};
+                //intensity, sharpness, grainSize, intensityX0, intensityX1, monochromatic, static, blurCoef
+                //ix0 and ix1 effect the intensity of the grain pattern
+                //----------------inten-sharp-grain--ix0---ix1---mono--stat--blur
+                thermalNoise[] = { 0.50, 0.25, 0.25, 0.05, 0.15, 1.00, 0.00, 0.50}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
             };
             class Flir_Medium: Flir_Wide {
                 initfov = "(10.1 / 100)";
@@ -98,7 +101,7 @@ class Turrets : Turrets
                 minfov  = "(1.6 / 100)";
                 maxfov  = "(1.6 / 100)";
                 opticsdisplayname = "Z";
-                thermalResolution[] = {0.0, 210, 1.0, 210};
+                thermalResolution[] = {0.0, 180, 1.0, 180};
             };
             class A3ti_Wide: Flir_Wide {
                 visionmode[] = {"Normal"};
