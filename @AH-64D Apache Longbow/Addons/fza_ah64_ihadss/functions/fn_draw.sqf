@@ -169,10 +169,10 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         fza_ah64_flirResolutionEffect ppEffectEnable true;
         fza_ah64_monoChromeEffect ppEffectEnable false;
         if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
-            fza_ah64_flirResolutionEffect ppEffectAdjust [210];
+            fza_ah64_flirResolutionEffect ppEffectAdjust [180];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         } else {
-            fza_ah64_flirResolutionEffect ppEffectAdjust [420];
+            fza_ah64_flirResolutionEffect ppEffectAdjust [360];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
     } else {
