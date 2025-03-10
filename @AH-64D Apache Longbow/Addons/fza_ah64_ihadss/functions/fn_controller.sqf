@@ -35,8 +35,9 @@ if _hideMonocle exitWith {
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_raddisp" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_laseit" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
-    fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_gweff ppEffectEnable false;
+    fza_ah64_monoChromeEffect ppEffectEnable false;
+    fza_ah64_blackScreenEffect ppEffectEnable false;
+    fza_ah64_flirResolutionEffect ppEffectEnable false;
 };
 
 if (!(isNil "fza_ah64_notargeting")) exitwith {};

@@ -1,4 +1,3 @@
-class MFD {};
 class Turrets : Turrets
 {
     class MainTurret: NewTurret
@@ -24,7 +23,7 @@ class Turrets : Turrets
         animationsourcegun = "tads";
         gunBeg = "laserBegin";
         gunEnd = "laserEnd";
-        gunnerOpticsModel = "";
+        gunnerOpticsModel = "\fza_ah64_ihadss\sight\apacheHeadsDownMask.p3d";
         gunnerOpticsColor[] = {1,1,1,1};
         minElev = -60;
         maxElev = 30;
@@ -65,7 +64,7 @@ class Turrets : Turrets
         };
         class OpticsIn {
             class Flir_Wide {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
+                gunnerOpticsModel = "\fza_ah64_ihadss\sight\apacheHeadsDownMask.p3d";
                 initfov = "(50 / 100)";
                 minfov  = "(50 / 100)";
                 maxfov  = "(50 / 100)";
@@ -79,6 +78,11 @@ class Turrets : Turrets
                 initanglex = 0;
                 initangley = 0;
                 opticsdisplayname = "W";
+                thermalResolution[] = {0.0, 360, 1.0, 360};
+                //intensity, sharpness, grainSize, intensityX0, intensityX1, monochromatic, static, blurCoef
+                //ix0 and ix1 effect the intensity of the grain pattern
+                //----------------inten-sharp-grain--ix0---ix1---mono--stat--blur
+                thermalNoise[] = { 0.50, 0.25, 0.25, 0.05, 0.15, 1.00, 0.00, 0.50}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
             };
             class Flir_Medium: Flir_Wide {
                 initfov = "(10.1 / 100)";
@@ -97,6 +101,7 @@ class Turrets : Turrets
                 minfov  = "(1.6 / 100)";
                 maxfov  = "(1.6 / 100)";
                 opticsdisplayname = "Z";
+                thermalResolution[] = {0.0, 180, 1.0, 180};
             };
             class A3ti_Wide: Flir_Wide {
                 visionmode[] = {"Normal"};
