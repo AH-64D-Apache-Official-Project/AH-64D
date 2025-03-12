@@ -168,6 +168,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
         fza_ah64_flirResolutionEffect ppEffectEnable true;
         fza_ah64_monoChromeEffect ppEffectEnable false;
+        fza_ah64_dvoEffect ppEffectEnable false;
+        fza_ah64_chromAberrationEffect ppEffectEnable false;
         if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
             fza_ah64_flirResolutionEffect ppEffectAdjust [180];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
@@ -178,10 +180,14 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     } else {
         fza_ah64_flirResolutionEffect ppEffectEnable false;
         if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+            fza_ah64_dvoEffect ppEffectEnable false;
             fza_ah64_monoChromeEffect ppEffectEnable true;
+            fza_ah64_chromAberrationEffect ppEffectEnable true;
         };
         if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+            fza_ah64_dvoEffect ppEffectEnable true;
             fza_ah64_monoChromeEffect ppEffectEnable false;
+            fza_ah64_chromAberrationEffect ppEffectEnable true;
         };
     };
 
@@ -242,6 +248,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 } else {
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
+    fza_ah64_dvoEffect ppEffectEnable false;
+    fza_ah64_chromAberrationEffect ppEffectEnable false;
 
     for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;

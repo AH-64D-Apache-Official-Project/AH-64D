@@ -41,12 +41,19 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 };
 
 fza_ah64_monoChromeEffect = ppEffectCreate["colorCorrections", 4000];
-fza_ah64_monoChromeEffect ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]];
+fza_ah64_monoChromeEffect ppEffectAdjust[0.95, 0.75, -0.05, [0.25, 0.25, 0.25, 0.0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]];
 fza_ah64_monoChromeEffect ppEffectCommit 0;
 
 fza_ah64_flirResolutionEffect = ppEffectCreate["Resolution", 4001];
-fza_ah64_flirResolutionEffect ppEffectAdjust [360];
 fza_ah64_flirResolutionEffect ppEffectCommit 0;
+
+fza_ah64_dvoEffect = ppEffectCreate["colorCorrections", 4002];
+fza_ah64_dvoEffect ppEffectAdjust[1.00, 0.95, -0.05, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], [0.55, 0.55, 0.55, 0], [0, 0, 0, 0, 0, 0, 4]];
+fza_ah64_dvoEffect ppEffectCommit 0;
+
+fza_ah64_chromAberrationEffect = ppEffectCreate["ChromAberration", 4003];
+fza_ah64_chromAberrationEffect ppEffectAdjust [0.0075, 0.0075, false];
+fza_ah64_chromAberrationEffect ppEffectCommit 0;
 
 fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
 fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
