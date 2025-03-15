@@ -250,6 +250,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     fza_ah64_blackScreenEffect ppEffectEnable false;
     fza_ah64_dvoEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
+    fza_ah64_flirResolutionEffect ppEffectEnable false;
 
     for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
