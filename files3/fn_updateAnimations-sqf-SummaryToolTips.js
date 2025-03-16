@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_updateAnimations.sqf",{110:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">helps to reduce the network impact of using animations by checking if there already of equal value and only sending the difference</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_updateAnimations.sqf",{108:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">helps to reduce the network impact of using animations by checking if there already of equal value and only sending the difference</div></div>"});
