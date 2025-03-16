@@ -23,7 +23,7 @@ params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitc
 
 if (!local _heli) exitWith {};
 
-private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime              = fza_ah64_fixedTimeStep;
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m

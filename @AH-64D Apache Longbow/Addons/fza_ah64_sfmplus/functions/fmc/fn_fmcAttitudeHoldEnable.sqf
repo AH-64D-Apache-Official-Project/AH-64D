@@ -15,8 +15,8 @@ if (_heli getVariable "fza_ah64_attHoldActive" == false) then {
     if (_gndSpeed > POS_HOLD_SPEED_SWITCH && _gndSpeed <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
         _heli setVariable ["fza_ah64_attHoldSubMode", "vel", true];
         
-        private _velX  = ((_heli getVariable "fza_sfmplus_velModelSpace") # 0) * -1.0;
-        private _velY  =  (_heli getVariable "fza_sfmplus_velModelSpace") # 1;
+        private _velX  = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 0) * -1.0;
+        private _velY  =  (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 1;
         _heli setVariable ["fza_ah64_attHoldDesiredVel", [_velX, _velY], true];
     };
     //Attitude hold

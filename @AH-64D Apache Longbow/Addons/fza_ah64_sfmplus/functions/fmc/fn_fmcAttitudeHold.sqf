@@ -24,7 +24,7 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
 
-((_heli getVariable "fza_sfmplus_velModelSpace"))
+((_heli getVariable "fza_sfmplus_velModelSpaceNoWind"))
     params [
              "_velX"
            , "_velY"

@@ -24,7 +24,7 @@ params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYa
 
 if (!local _heli) exitWith {};
 
-private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime              = fza_ah64_fixedTimeStep;
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;

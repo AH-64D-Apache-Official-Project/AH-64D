@@ -28,7 +28,7 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 if (!local _heli) exitWith {};
 
-private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime      = fza_ah64_fixedTimeStep;
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;
 private _liftCurveSlope = 5.7;
