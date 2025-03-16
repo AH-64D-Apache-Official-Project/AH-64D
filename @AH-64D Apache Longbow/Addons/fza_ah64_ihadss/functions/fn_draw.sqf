@@ -548,13 +548,13 @@ private _accelX = 0.0;
 private _accelY = 0.0;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpace") select 0) / 3.08667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpace") select 1) / 3.08667;
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 3.08667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 3.08667;
 };
 
 if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpace") select 0) / 30.8667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpace") select 1) / 30.8667;
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 30.8667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 30.8667;
 };
 _velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
 _velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
@@ -569,14 +569,14 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     private _accelScaling = 0.168;
     if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
         if ((_heli getVariable "fza_sfmplus_gndSpeed") <= 6) then {
-            _accelCueX = _velX + _accelX;
-            _accelCueY = - _velY - _accelY;
+            _accelCueX =  _velX + _accelX;
+            _accelCueY = -_velY - _accelY;
         } else {
             _accelCueX = _accelX;
             _accelCueY = _accelY;
         };
     } else {
-        _accelCueX = _velX + _accelX;
+        _accelCueX =  _velX + _accelX;
         _accelCueY = -_velY - _accelY;
     };
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition

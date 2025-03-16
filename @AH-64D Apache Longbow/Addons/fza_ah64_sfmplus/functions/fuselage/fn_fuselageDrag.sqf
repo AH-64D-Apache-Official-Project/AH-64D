@@ -4,7 +4,7 @@ params ["_heli", "_altitude", "_temperature", "_rho"];
 
 if (!local _heli) exitWith {};
 
-private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime          = fza_ah64_fixedTimeStep;
 
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _aerodynamicCenter  = _heli getVariable "fza_sfmplus_aerodynamicCenter"; //m

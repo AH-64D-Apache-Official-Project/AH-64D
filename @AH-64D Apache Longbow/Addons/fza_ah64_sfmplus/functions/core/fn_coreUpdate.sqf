@@ -73,6 +73,9 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 //Main Rotor
 [_heli, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
 
+[_heli] call bmkhs_fnc_getVelocities;
+[_heli] call bmkhs_rotor_fnc_update;
+
 //Tail Rotor
 [_heli, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
 
