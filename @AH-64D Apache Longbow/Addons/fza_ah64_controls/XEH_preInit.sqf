@@ -148,7 +148,7 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["NV Cycle Include DTV", "With this the Night vision button will also cycle through DTV and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
-    [false],
+    [true],
     2
 ] call CBA_fnc_addSetting;
 
@@ -157,7 +157,7 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["NV Cycle Include DVO", "With this the Night vision button will also cycle through DVO and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
-    [false],
+    [true],
     2
 ] call CBA_fnc_addSetting;
 
