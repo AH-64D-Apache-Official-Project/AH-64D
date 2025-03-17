@@ -44,7 +44,7 @@ _velModelSpaceZ                = [_velModelSpaceZ_avg, _velModelSpaceZ] call fza
 private _velModelSpace         = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ] vectorDiff _velWind;
 private _velModelSpaceNoWind   = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ];
 //Ground speed
-private _gndSpeed              = round(vectorMagnitude [_velModelSpace select 0, _velModelSpace select 1] * MPS_TO_KNOTS);
+private _gndSpeed              = round(vectorMagnitude [_velModelSpaceNoWind select 0, _velModelSpaceNoWind select 1] * MPS_TO_KNOTS);
 //3D velocity of the aircraft
 private _vel3D                 = round(MPS_TO_KNOTS * vectorMagnitude _velModelSpace);
 //2D velocity of the aircraft

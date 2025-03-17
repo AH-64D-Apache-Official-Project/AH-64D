@@ -59,11 +59,10 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 private _bladePitch_cur                = 0.0;
 if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_min];
+    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_min];
 } else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, 0.0, _bladePitch_max];
+    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_max];
 };
-_bladePitch_cur = _bladePitch_cur + _bladePitch_med;
 
 private _bladePitchInducedThrustScalar = 0.0;
 if (_bladePitch_cur < 0.0) then {
