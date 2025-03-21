@@ -9,9 +9,7 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 private _deltaTime      = fza_ah64_fixedTimeStep;
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;//getArray  (_heliSimCfg >> "wingElements")               select _wingNum;
-private _liftCurveSlope = 5.7;//getArray  (_heliSimCfg >> "wingLiftCurveSlope")         select _wingNum;
-private _baseDragCoef   = 0.025;//getArray  (_heliSimCfg >> "wingBaseDragCoef")           select _wingNum;
-private _K              = 0.07;//getArray  (_heliSimCfg >> "wingK")                      select _wingNum;
+private _airfoilTable   = getArray (_sfmPlusConfig >> "stabAirfoilTable");
 private _wingPos        = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
 private _pitch          = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
 private _roll           = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
@@ -121,15 +119,13 @@ for "_j" from 0 to (_numElements - 1) do {
     };
 
     //Lift coefficient
-    private _span        = vectorMagnitude (_g vectorDiff _f);
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
-    private _aspectRatio = (_span * _span) / _area;
-    private _CL           = _liftCurveSlope * (_aspectRatio / (_aspectRatio + 2.0)) * (rad _AoA);
+    private _CL          = [_airfoilTable, _AoA] call fza_fnc_linearInterp select 1;
     private _v            = vectorMagnitude _relativeWind;
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
     //Drag coefficient
-    private _CD           = _baseDragCoef + _K * (_CL * _CL);
+    private _CD          = [_airfoilTable, _AoA] call fza_fnc_linearInterp select 2;
     private _drag         = _CD * 0.5 * _rho * _area * (_v * _v);
 
     private _liftVector = _vectorRight vectorCrossProduct _relativeWind;

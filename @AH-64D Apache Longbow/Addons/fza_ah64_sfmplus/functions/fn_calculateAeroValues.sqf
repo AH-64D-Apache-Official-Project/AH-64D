@@ -37,13 +37,10 @@ private _gravX    = _grav # 0;
 private _gravY    = _grav # 1;
 private _gravZ    = _grav # 2;
 //Helicopter velocity in model space
-private _modelVelX = (_heli getVariable "fza_sfmplus_velModelSpace") # 0;
-private _modelVelY = (_heli getVariable "fza_sfmplus_velModelSpace") # 1;
-private _modelVelZ = (_heli getVariable "fza_sfmplus_velModelSpace") # 2;//(_heliVel # 2) * -1.0;
-//Helicopter velocity in world space
-private _velX = (_heli getVariable "fza_sfmplus_velWorldSpace") # 0;
-private _velY = (_heli getVariable "fza_sfmplus_velWorldSpace") # 1;
-private _velZ = (_heli getVariable "fza_sfmplus_velWorldSpace") # 2;
+private _modelVelX = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 0;
+private _modelVelY = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 1;
+private _modelVelZ = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 2;//(_heliVel # 2) * -1.0;
+
 //The total velocity of the helicopter in model space
 private _totVel   = [_modelVelX, _modelVelY, _modelVelZ] vectorAdd [_gravX, _gravY, _gravZ];
 private _totVelX  = _totVel # 0;
@@ -59,7 +56,7 @@ private _beta_g   = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 //private _beta_degAccel = (-9.806 * (tan _beta_deg)) / 9.8
 //systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
 //Gamma, or flight path angle, is the angle between
-private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_velZ / _modelVelY); };
+private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_totVelZ / _modelVelY); };
 if ([_gamma] call fza_sfmplus_fnc_isNAN || [_gamma] call fza_sfmplus_fnc_isINF) then { _gamma = 0.0; };
 
 _heli setVariable ["fza_sfmplus_aero_alpha",    _alpha,    true];
