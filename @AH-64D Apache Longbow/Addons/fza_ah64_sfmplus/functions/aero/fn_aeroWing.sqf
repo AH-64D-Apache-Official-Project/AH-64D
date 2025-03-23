@@ -82,12 +82,12 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
-    //private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    //private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
+    private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
+    private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
-    //private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
-    //_localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
-    //_relativeWind         = _relativeWind vectorAdd _localRelWind;
+    private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
+    _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
+    _relativeWind         = _relativeWind vectorAdd _localRelWind;
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "red"] call fza_fnc_debugDrawLine;
