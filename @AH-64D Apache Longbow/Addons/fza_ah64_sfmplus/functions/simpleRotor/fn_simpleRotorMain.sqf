@@ -38,31 +38,35 @@ private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 19.0;    //deg
 
 private _rtrGndEffTable            = [
-                                     [ 6804, 0.411]
-                                    ,[ 7711, 0.411]
-                                    ,[ 8165, 0.411]
-                                    ,[ 8618, 0.411]
-                                    ,[ 9525, 0.411]
+                                     [    0, 0.410]
+                                    ,[ 2000, 0.413]
+                                    ,[ 4000, 0.428]
+                                    ,[ 6000, 0.407]
+                                    ,[ 8000, 0.438]
                                     ];
 private _rtrThrustScalarTable_min = [
                                      [    0, 0.032]
-                                    ,[ 2000, 0.032]
-                                    ,[ 4000, 0.032]
-                                    ,[ 6000, 0.032]
-                                    ,[ 8000, 0.032]
-                                    ,[10000, 0.032]
-                                    ,[12000, 0.032]
+                                    ,[ 2000, 0.052]
+                                    ,[ 4000, 0.037]
+                                    ,[ 6000, 0.041]
+                                    ,[ 8000, 0.045]
                                     ];
 private _rtrThrustScalarTable_max = [
-                                     [    0, 1.149]
-                                    ,[ 2000, 1.149]
-                                    ,[ 4000, 1.149]
-                                    ,[ 6000, 1.149]
-                                    ,[ 8000, 1.149]
-                                    ,[10000, 1.149]
-                                    ,[12000, 1.149]
+                                     [    0, 1.152]
+                                    ,[ 2000, 1.422]
+                                    ,[ 4000, 1.748]
+                                    ,[ 6000, 2.132]
+                                    ,[ 8000, 2.561]
                                     ];
-private _rtrAirspeedVelocityMod = 0.4;
+private _rtrTipLossTable          = [
+                                     [ 6804, 1.108]
+                                    ,[ 7711, 1.050]
+                                    ,[ 8165, 1.000]
+                                    ,[ 8618, 0.989]
+                                    ,[ 9525, 0.940]
+                                    ];
+
+                                    private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.0;//0.8; //0.95, 1.10
 
 private _fwdPitchTorqueScalar   = 3.00;
@@ -158,7 +162,7 @@ private _axisZ = [0.0, 0.0, 1.0];
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
 
-private _rtrGndEffScalar = ([_rtrGndEffTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp) select 1;
+private _rtrGndEffScalar = ([_rtrGndEffTable, _altitude] call fza_fnc_linearInterp) select 1;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
@@ -169,7 +173,7 @@ private _engPctTQ = _eng1TQ max _eng2TQ;
 
 private _cruiseTqTable = 
 [
- [ 0.00, 0.94]
+ [ 0.00, _heli getVariable "fza_sfmplus_hvrTQ_OGE"]
 ,[ 5.14, 0.90]
 ,[10.29, 0.82]
 ,[20.58, 0.62]
@@ -200,12 +204,14 @@ private _tqRoCTable =
 ,[0.7, 0.75]
 ,[0.8, 0.86]
 ];
-private _RoCScalar   = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
+private _RoCScalar     = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tqChange = %1 -- RoC = %2", _tqChange, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
-private _climbThrust = _rtrThrust * _RoCScalar;
-private _totThrust   = _rtrThrust + _gndEffThrust + _climbThrust;
+private _climbThrust   = _rtrThrust * _RoCScalar;
+private _tipLossScalar = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
+//systemChat format ["_tipLossScalar = %1", _tipLossScalar];
+private _totThrust     = ((_rtrThrust + _gndEffThrust) * _tipLossScalar) + _climbThrust;
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
-private _thrustZ     = _axisZ vectorMultiply (_totThrust * _deltaTime);
+private _thrustZ       = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
 //systemChat format ["_rtrThrust = %1 -- _gndEffThrust = %2 -- _totThrust = %3", _rtrThrust toFixed 0, _gndEffThrust toFixed 0, _totThrust toFixed 0];
 //systemChat format ["_gndEffScalar = %1 -- _collectiveOuptut = %2", _gndEffScalar toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput")];

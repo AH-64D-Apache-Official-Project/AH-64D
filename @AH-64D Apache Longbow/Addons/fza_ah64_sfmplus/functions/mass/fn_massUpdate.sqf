@@ -111,7 +111,7 @@ _curLatCG   = _curLatMom / _curMass;
 //systemChat format ["Total Mass = %1 lbs (%2 kg) -- Total Moment = %3 -- Long CG = %4 in -- Lat CG = %5 in", (_curMass * 2.20462) toFixed 1, _curMass toFixed 1, _curLongMom toFixed 3, (_curLongCG * 39.3701) toFixed 1, (_curLatCG * 39.3701) toFixed 1];
 //systemChat format ["Center of Mass = %1", getCenterOfMass _heli];
 
-//_curMass = 8165;//MASS;//8165;
+//_curMass = MASS;//MASS;//8165;
 _heli setMass _curMass;
 
 _heli setVariable ["fza_sfmplus_GWT", _curMass,   true];
