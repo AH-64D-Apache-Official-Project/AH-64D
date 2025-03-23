@@ -80,13 +80,25 @@ _stabOutputTable = [
                    ,[84.88, _intStabTable select 13]  //165kts
                    ,[92.60, _intStabTable select 14]  //180kts
                    ];
+/*
+_stabOutputTable = [
+                    [15.43, -25.0]   //30kts
+                   ,[20.58,   0.0]   //40kts
+                   ,[36.01,  -2.5]   //70kts
+                   ,[46.30,  -5.0]   //90kts
+                   ,[61.73,  -7.8]   //120kts
+                   ,[66.88, -10.0]  //130kts
+                   ];
+*/
                    
 if (_stabDamage < SYS_STAB_DMG_THRESH || _dcBusOn) then {
     _desiredTheta = [_stabOutputTable, (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
-    _theta = [_theta, _desiredTheta, (1.0 / 1.5) * _deltaTime] call BIS_fnc_lerp;
+    _theta        = [_theta, _desiredTheta, (1.0 / 1.5) * _deltaTime] call BIS_fnc_lerp;
     _heli setVariable ["fza_ah64_stabilatorPosition", _theta];
 };
 
+//_theta = THETA;
+//systemChat format ["_theta = %1 -- _collectiveOutput = %2", _theta, (_heli getVariable "fza_sfmplus_collectiveOutput")];
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];
 
@@ -107,6 +119,7 @@ private _B_wingTipLeadingEdge   = _stabPos vectorAdd  (_vectorRight vectorMultip
 private _C_wingTipTrailingEdge  = _B_wingTipLeadingEdge  vectorDiff (_vectorForward vectorMultiply _chord);
 private _D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff (_vectorForward vectorMultiply _chord);
 
+//_theta                  = THETA;
 _theta                  = _theta * -1.0;
 
 private _stabRoot       = _A_wingRootLeadingEdge vectorDiff _D_wingRootTrailingEdge;
@@ -141,7 +154,7 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _chordLine   = (_a vectorAdd ((_b vectorDiff _a) vectorMultiply 0.5)) vectorDiff (_d vectorAdd ((_c vectorDiff _d) vectorMultiply 0.5));
     private _chordLength = vectorMagnitude _chordLine;
-    _chordLine = vectorNormalized _chordLine;
+    _chordLine           = vectorNormalized _chordLine;
 
     #ifdef __A3_DEBUG__
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
@@ -149,12 +162,12 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
-    private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel = (_heli getVariable "fza_sfmplus_angVelWorldSpace");
+    //private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
+    //private _angularVel   = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
-    private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
-    _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
-    _relativeWind         = _relativeWind vectorAdd _localRelWind;
+    //private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
+    //_localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
+    //_relativeWind         = _relativeWind vectorAdd _localRelWind;
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "red"] call fza_fnc_debugDrawLine;
@@ -170,7 +183,7 @@ for "_j" from 0 to (_numElements - 1) do {
     #endif
 
     private _relativeWindNormalized = vectorNormalized _relativeWind;
-    private _aoa = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
+    private _aoa                    = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
     _aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
     _aoa = acos _aoa;
 
@@ -190,7 +203,6 @@ for "_j" from 0 to (_numElements - 1) do {
     private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
     private _v           = vectorMagnitude _relativeWind;
     private _lift        = _CL * 0.5 * _rho * _area * (_v * _v);
-
     //Drag coefficient
     private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
     private _drag        = _CD * 0.5 * _rho * _area * (_v * _v);

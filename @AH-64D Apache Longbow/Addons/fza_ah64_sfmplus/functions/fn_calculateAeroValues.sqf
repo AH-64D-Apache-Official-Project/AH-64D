@@ -48,10 +48,10 @@ private _totVelY  = _totVel # 1;
 private _totVelZ  = _totVel # 2;
 
 //Alpha is the angle between the helicopters forward velocity and vertical velocity
-private _alpha    = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
+private _alpha_deg = if (_totVelY == 0) then { 0.0; } else { atan (_totVelZ / _totVelY); };
 //Beta, or sideslip, is the difference betwen the helicopters sideward velocity and the total velocity
-private _beta_deg = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
-private _beta_g   = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
+private _beta_deg  = if ((vectorMagnitude _totVel) == 0.0) then { 0.0; } else { asin (_totVelX / (vectorMagnitude _totVel)); };
+private _beta_g    = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 
 //private _beta_degAccel = (-9.806 * (tan _beta_deg)) / 9.8
 //systemChat format ["Sidelsip = %1 - Beta = %2", _beta_deg, _beta_g];
@@ -59,7 +59,7 @@ private _beta_g   = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_totVelZ / _modelVelY); };
 if ([_gamma] call fza_sfmplus_fnc_isNAN || [_gamma] call fza_sfmplus_fnc_isINF) then { _gamma = 0.0; };
 
-_heli setVariable ["fza_sfmplus_aero_alpha",    _alpha,    true];
-_heli setVariable ["fza_sfmplus_aero_beta_deg", _beta_deg, true];
-_heli setVariable ["fza_sfmplus_aero_beta_g",   _beta_g,   true];
-_heli setVariable ["fza_sfmplus_aero_gamma",    _gamma,    true];
+_heli setVariable ["fza_sfmplus_aero_alpha_deg", _alpha_deg, true];
+_heli setVariable ["fza_sfmplus_aero_beta_deg",  _beta_deg,  true];
+_heli setVariable ["fza_sfmplus_aero_beta_g",    _beta_g,    true];
+_heli setVariable ["fza_sfmplus_aero_gamma",     _gamma,     true];
