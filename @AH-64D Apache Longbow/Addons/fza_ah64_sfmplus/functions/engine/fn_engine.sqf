@@ -139,7 +139,13 @@ switch (_engState) do {
             _droopFactor    = [_droopFactor, -1.0, 0.0] call BIS_fnc_clamp;
             //Autorotation handler
             if (_isAutorotating) then { 
-                private _autoNp = linearConversion[0.0, 0.23, _collectiveOutput, 1.10, 1.01, true];
+                private _autoNp = 1.01;
+                if (_collectiveOutput < 0.295 && _collectiveOutput > 0.10) then {
+                    _autoNp = linearConversion[0.295, 0.100, _collectiveOutput, 1.01, 1.05, true];
+                };
+                if (_collectiveOutput <= 0.10) then {
+                    _autoNp = linearConversion[0.100, 0.0, _collectiveOutput, 1.05, 1.15, true];
+                };
                 _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
             } else {
                 _engPctNP       = [_engPctNP, _engBaseNP + _droopFactor, _deltaTime] call BIS_fnc_lerp;
@@ -162,15 +168,15 @@ private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIG
 
 //If the engine isn't overspeed, do normal engine things
 if (!_engOverspeed) then {
-    _engPctTQ = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.0;
+    private _rtrTq = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.109;
     if (_isSingleEng) then {
         if (_engPowerLeverState in ["OFF", "IDLE"]) then {
             _engPctTQ = 0.0;
         } else {
-            _engPctTQ = _engPctTQ;
+            _engPctTQ = _rtrTq;
         };
     } else {
-        _engPctTQ = _engPctTQ / 2.0;
+        _engPctTQ = _rtrTq / 2.0;
     };
 } else {
     //If the engine is overspeeding, then do over speed things

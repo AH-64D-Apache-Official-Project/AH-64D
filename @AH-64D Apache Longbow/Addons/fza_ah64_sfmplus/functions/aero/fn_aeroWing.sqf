@@ -74,7 +74,7 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _chordLine   = (_a vectorAdd ((_b vectorDiff _a) vectorMultiply 0.5)) vectorDiff (_d vectorAdd ((_c vectorDiff _d) vectorMultiply 0.5));
     private _chordLength = vectorMagnitude _chordLine;
-    _chordLine = vectorNormalized _chordLine;
+    _chordLine           = vectorNormalized _chordLine;
 
     #ifdef __A3_DEBUG__
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
@@ -82,12 +82,12 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
-    private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel = (_heli getVariable "fza_sfmplus_angVelWorldSpace");
+    //private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
+    //private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
-    private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
-    _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
-    _relativeWind         = _relativeWind vectorAdd _localRelWind;
+    //private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
+    //_localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
+    //_relativeWind         = _relativeWind vectorAdd _localRelWind;
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "red"] call fza_fnc_debugDrawLine;
@@ -103,7 +103,7 @@ for "_j" from 0 to (_numElements - 1) do {
     #endif
 
     private _relativeWindNormalized = vectorNormalized _relativeWind;
-    private _AoA = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
+    private _AoA                    = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
     _AoA = [_AoA, -1.0, 1.0] call BIS_fnc_clamp;
     _AoA = acos _AoA;
 

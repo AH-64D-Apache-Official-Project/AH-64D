@@ -29,7 +29,7 @@ private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
 private _rtrDesignRPM           = 289.0;
 private _rtrRPMTrimVal          = 1.01;
-private _rtrGearRatio           = 72.29;
+private _rtrGearRatio           = 72.291;
 private _rtrNumBlades           = 4;
 
 private _bladeRadius            = 7.315;   //m
@@ -37,46 +37,39 @@ private _bladeChord             = 0.533;   //m
 private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 19.0;    //deg
 
-private _rtrPowerScalarTable    = [
-                                   [   0, 1.777]
-                                  ,[2000, 1.617]
-                                  ,[4000, 1.530]
-                                  ,[6000, 1.377]
-                                  ,[8000, 1.284]
-                                  ];
-private _rtrGndEffTable        = [
-                                     [ 6804, 0.300]
-                                    ,[ 7711, 0.285]
-                                    ,[ 8165, 0.295]
-                                    ,[ 8618, 0.285]
-                                    ,[ 9525, 0.300]
+private _rtrGndEffTable            = [
+                                     [ 6804, 0.411]
+                                    ,[ 7711, 0.411]
+                                    ,[ 8165, 0.411]
+                                    ,[ 8618, 0.411]
+                                    ,[ 9525, 0.411]
                                     ];
 private _rtrThrustScalarTable_min = [
-                                     [    0, 0.126]
-                                    ,[ 2000, 0.123]
-                                    ,[ 4000, 0.128]
-                                    ,[ 6000, 0.134]
-                                    ,[ 8000, 0.139]
-                                    ,[10000, 0.151]
-                                    ,[12000, 0.155]
+                                     [    0, 0.032]
+                                    ,[ 2000, 0.032]
+                                    ,[ 4000, 0.032]
+                                    ,[ 6000, 0.032]
+                                    ,[ 8000, 0.032]
+                                    ,[10000, 0.032]
+                                    ,[12000, 0.032]
                                     ];
 private _rtrThrustScalarTable_max = [
-                                     [    0, 1.534]
-                                    ,[ 2000, 1.940]
-                                    ,[ 4000, 2.290]
-                                    ,[ 6000, 2.780]
-                                    ,[ 8000, 3.320]
-                                    ,[10000, 3.645]
-                                    ,[12000, 4.175]
+                                     [    0, 1.149]
+                                    ,[ 2000, 1.149]
+                                    ,[ 4000, 1.149]
+                                    ,[ 6000, 1.149]
+                                    ,[ 8000, 1.149]
+                                    ,[10000, 1.149]
+                                    ,[12000, 1.149]
                                     ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 0.8; //0.95, 1.10
+private _rtrTorqueScalar        = 1.0;//0.8; //0.95, 1.10
 
-private _pitchTorqueScalar      = 2.75;//2.25//1.75;//PITCH_SCALAR;
-private _rollTorqueScalar       = 1.00;//0.75;//ROLL_SCALAR;
+private _fwdPitchTorqueScalar   = 3.00;
+private _aftPitchTorqueScalar   = 2.75;//2.48;//2.25//1.75;//PITCH_SCALAR;
+private _rollTorqueScalar       = 0.90;//1.00;//0.75;//ROLL_SCALAR;
 
-private _altitude_max           = 30000;   //ft
-private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
+private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced 
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * ((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
@@ -117,36 +110,45 @@ private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } els
 _thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the required rotor power
-private _vel_vbe     =  38.583;
+private _vel_vbe     =  36.011;
 private _vel_vne     = 128.611;
 
-private _profile_min = 0.1330;
-private _profile_max = 0.2080;
+private _profile_min = 0.180;
+private _profile_max = 0.704;
 
-private _induced_min = 1.4000;//IND_MIN;//0.8110;
-private _induced_max = 0.6100;//IND_MAX;//0.6072;
+private _induced_min = 1.171;//IND_MIN;//0.8110;
+private _induced_max = 0.918;//IND_MAX;//0.6072;
 
 private _profile_cur = _profile_min + ((_profile_max - _profile_min) / _vel_vne) * _velXY;
 
-private _induced_val = _induced_min * ((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
+private _induced_val = _induced_min * (_heli getVariable "fza_sfmplus_collectiveOutput");//((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
 private _induced_cur = ((_induced_val - _induced_max) / _vel_vbe) * _velXY + _induced_val;
 
 private _power_val   = _profile_cur + _induced_cur;
-
-private _power_req   = _power_val * 2857.17;
+if (_power_val < 0.0) then {
+    _power_val = 0.0;
+};
+private _power_req   = _power_val * 2133.0;
 private _torque_req  = (_power_req / 0.001) / 0.105 / 21109;
 private _rtrTorque   = _torque_req * _rtrGearRatio;
 _rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];
-
-//Calcualte the required engine torque
-private _rtrRPMTorqueScalar        = 1.0;
-private _onGnd                   = [_heli] call fza_sfmplus_fnc_onGround;
-if (_inputRPM < 1.0 && !_onGnd) then {
-    _rtrRPMTorqueScalar = _inputRPM;
-};
-_rtrRPMTorqueScalar                = [_rtrRPMTorqueScalar, EPSILON, 1.0] call BIS_fnc_clamp;
-private _reqEngTorque              = (_rtrTorque / _rtrGearRatio) / _rtrRPMTorqueScalar;
-_heli setVariable ["fza_sfmplus_reqEngTorque", _reqEngTorque];
+/*
+hintSilent format ["_profile_cur = % 1
+                    \n_induced_val = %2
+                    \n_induced_cur = %3
+                    \n_power_val = %4
+                    \n_power_req = %5
+                    \n_torque_req = %6
+                    \n_torque_req = %7 pct"
+                    ,_profile_cur
+                    ,_induced_val
+                    ,_induced_cur
+                    ,_power_val
+                    ,_power_req
+                    ,_torque_req
+                    ,(_torque_req / 481.109) * 100 toFixed 1];
+*/
+_heli setVariable ["fza_sfmplus_reqEngTorque", _torque_req];
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
@@ -156,8 +158,7 @@ private _axisZ = [0.0, 0.0, 1.0];
 private _heightAGL    = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam      = _bladeRadius * 2;
 
-private _rtrGndEffScalar = [_rtrGndEffTable, getMass _heli] call fza_fnc_linearInterp select 1;
-
+private _rtrGndEffScalar = ([_rtrGndEffTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp) select 1;
 private _gndEffScalar = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar         = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust = _rtrThrust * _gndEffScalar;
@@ -206,12 +207,18 @@ private _totThrust   = _rtrThrust + _gndEffThrust + _climbThrust;
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ     = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
+//systemChat format ["_rtrThrust = %1 -- _gndEffThrust = %2 -- _totThrust = %3", _rtrThrust toFixed 0, _gndEffThrust toFixed 0, _totThrust toFixed 0];
+//systemChat format ["_gndEffScalar = %1 -- _collectiveOuptut = %2", _gndEffScalar toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput")];
+
 //Pitch torque
 private _cyclicFwdAftTrim    = 0.0;
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _cyclicFwdAftTrim = _heli getVariable "fza_ah64_forceTrimPosPitch";
 };
-private _torqueX             = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+
+private _pitchTorqueScalar = linearConversion [-1.0, 1.0, (_heli getVariable "fza_sfmplus_cyclicFwdAft"), _aftPitchTorqueScalar, _fwdPitchTorqueScalar, true];
+//systemChat format ["_pitchTorqueScalar = %1", _pitchTorqueScalar];
+private _torqueX           = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = 0.0;
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {

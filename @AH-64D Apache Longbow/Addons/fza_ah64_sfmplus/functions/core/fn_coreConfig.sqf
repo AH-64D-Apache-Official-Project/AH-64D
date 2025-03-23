@@ -23,7 +23,9 @@ fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
+_heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
 _heli setVariable ["fza_sfmplus_cyclicLeftRight",    0.0];
+_heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
 _heli setVariable ["fza_sfmplus_pedalLeftRight",     0.0];
 _heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
 _heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
@@ -48,6 +50,9 @@ _heli setVariable ["fza_sfmplus_velWorldSpaceY_avg",  [fza_sfmplus_movingAverage
 _heli setVariable ["fza_sfmplus_velWorldSpaceZ_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velClimb",            0.0];
 _heli setVariable ["fza_sfmplus_angVelModelSpace",    [0.0,0.0,0.0]];
+//_heli setVariable ["fza_sfmplus_angVelWorldSpaceX_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+//_heli setVariable ["fza_sfmplus_angVelWorldSpaceY_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+//_heli setVariable ["fza_sfmplus_angVelWorldSpaceZ_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_angVelWorldSpace",    [0.0,0.0,0.0]];
 
 _heli setVariable ["fza_sfmplus_velX_prev",         0.0];
@@ -102,7 +107,7 @@ _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.0450, 0.00002, 0.0100] c
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.0000, 0.00000, 0.0000] call fza_fnc_pidCreate];
 
 //Aerodynamic State Variables
-_heli setVariable ["fza_sfmplus_aero_alpha",         0.0];
+_heli setVariable ["fza_sfmplus_aero_alpha_deg",         0.0];
 _heli setVariable ["fza_sfmplus_aero_beta_deg",      0.0];
 _heli setVariable ["fza_sfmplus_aero_beta_g",        0.0];
 _heli setVariable ["fza_sfmplus_aero_gamma",         0.0];
