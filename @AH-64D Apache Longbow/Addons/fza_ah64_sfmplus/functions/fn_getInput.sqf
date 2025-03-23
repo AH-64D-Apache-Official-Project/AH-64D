@@ -60,7 +60,6 @@ if (fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
     if (_cyclicFwdAft < -0.1) then {
         _cyclicPitchValue = _cyclicPitchValue - ((1.0 / 3.0) * _deltaTime);
     };
-    systemChat format ["_cyclicPitchValue = %1 -- _cyclicFwdAft = %2", _cyclicPitchValue, _cyclicFwdAft];
     //Set pitch
     _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
@@ -73,7 +72,6 @@ if (fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
     if (_cyclicLeftRight < -0.1) then {
         _cyclicRollValue = _cyclicRollValue - ((1.0 / 3.0) * _deltaTime);
     };
-    systemChat format ["_cyclicRollValue = %1 -- _cyclicLeftRight = %2", _cyclicRollValue, _cyclicLeftRight];
     //Set roll
     _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
