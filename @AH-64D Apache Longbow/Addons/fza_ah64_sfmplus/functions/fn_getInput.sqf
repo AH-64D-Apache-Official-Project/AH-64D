@@ -51,30 +51,36 @@ _cyclicFwdAft                = [_heli, "pitch", _cyclicFwdAft, _inputLagValue] c
 private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight             = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 
-if (fza_ah64_sfmPlusControlScheme == KEYBOARD) then {
+if (fza_ah64_sfmPlusControlScheme == KEYBOARD && fza_ah64_sfmplusEnableKbPitchTrim) then {
     //Cyclic Pitch
+    private _divisor  = 3;
+    private _inputVal = 0.001;
+
     private _cyclicPitchValue = _heli getVariable "fza_sfmplus_cyclicPitchValue";
     if (_cyclicFwdAft > 0.1) then {
-        _cyclicPitchValue = _cyclicPitchValue + ((1.0 / 3.0) * _deltaTime);
+        _cyclicPitchValue = _cyclicPitchValue + ((1 / _divisor) * _deltaTime);
     };
     if (_cyclicFwdAft < -0.1) then {
-        _cyclicPitchValue = _cyclicPitchValue - ((1.0 / 3.0) * _deltaTime);
+        _cyclicPitchValue = _cyclicPitchValue - ((1 / _divisor) * _deltaTime);
     };
     //Set pitch
+    _cyclicPitchValue     = (round (_cyclicPitchValue / _inputVal)) * _inputVal;
     _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
     
     //Cyclic Roll
-    private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
-    if (_cyclicLeftRight > 0.1) then {
-        _cyclicRollValue = _cyclicRollValue + ((1.0 / 3.0) * _deltaTime);
-    };
-    if (_cyclicLeftRight < -0.1) then {
-        _cyclicRollValue = _cyclicRollValue - ((1.0 / 3.0) * _deltaTime);
-    };
+    //private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
+    //if (_cyclicLeftRight > 0.1) then {
+    //    _cyclicRollValue = _cyclicRollValue + ((1 / _divisor) * _deltaTime);
+    //};
+    //if (_cyclicLeftRight < -0.1) then {
+    //    _cyclicRollValue = _cyclicRollValue - ((1 / _divisor) * _deltaTime);
+    //};
     //Set roll
-    _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
-    _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
+    //_cyclicRollValue     = (round (_cyclicRollValue / _inputVal)) * _inputVal;
+    //_cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
+    //_heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
+    _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 } else {;
     _cyclicFwdAft        = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
     _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
