@@ -66,11 +66,12 @@ private _rtrTipLossTable          = [
                                     ,[ 9525, 0.940]
                                     ];
 
-                                    private _rtrAirspeedVelocityMod = 0.4;
+private _rtrAirspeedVelocityMod = 0.4;
+private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;//0.8; //0.95, 1.10
 
-private _fwdPitchTorqueScalar   = 3.00;
-private _aftPitchTorqueScalar   = 2.75;//2.48;//2.25//1.75;//PITCH_SCALAR;
+private _fwdPitchTorqueScalar   = 3.5;//3.25;//3.5;//3.00;
+private _aftPitchTorqueScalar   = 3.0;//3.75;//4.5;//3.0;//2.75;//2.48;//2.25//1.75;//PITCH_SCALAR;
 private _rollTorqueScalar       = 0.90;//1.00;//0.75;//ROLL_SCALAR;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -92,16 +93,21 @@ private _velXY                      = vectorMagnitude [velocityModelSpace _heli 
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velZ                      = velocityModelSpace _heli # 2;
+
 private _inducedVelocityScalar     = 1.0;
-if (_velZ < -VEL_VRS && _velXY < VEL_ETL) then { 
-    _inducedVelocityScalar = 0.0;
+private _vrsVelMin                 = _heli getVariable "fza_sfmplus_vrsVelocityMin";
+private _vrsVelMax                 = _heli getVariable "fza_sfmplus_vrsVelocityMax";
+private _vrsVel                    = linearConversion[0.0, VEL_ETL, _velXY, _vrsVelMax, VEL_VRS, true];
+if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
+    private _vrsScalar = if(_velZ == 0.0) then { 0.0; } else { abs(_vrsVelMin / _velZ)^_vrsScalarExponent; };
+    _inducedVelocityScalar   = if(_vrsVelMax == 0.0) then { 1.0; } else { (1 - (_velZ / _vrsVelMax)) * _vrsScalar; };
 } else {
-    private _isAutorotating = _heli getVariable "fza_sfmplus_isAutorotating";
+     private _isAutorotating = _heli getVariable "fza_sfmplus_isAutorotating";
     //Collective must be < 20% and TAS must be < 145 kts
     if (_isAutorotating && _velXY < 74.59) then {
         _inducedVelocityScalar = 1 - (_velZ / 7.62);
     } else {
-        _inducedVelocityScalar = 1 - (_velZ / VEL_VRS);
+        _inducedVelocityScalar = if(_vrsVel == 0.0) then { 1.0; } else { 1 - (_velZ / _vrsVel); };
     };
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
@@ -110,8 +116,6 @@ private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
 private _rtrOmega                  = (2.0 * PI) * ((_rtrDesignRPM * _inputRPM) / 60);
 private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
-private _thrustCoef                = if (_rtrOmega <= EPSILON) then { 0.0; } else { _rtrThrust / (_dryAirDensity * _rtrArea * _rtrOmega^2 * _bladeRadius^2); };
-_thrustCoef                        = if (_inducedVelocityScalar == 0.0) then { 0.0; } else { _thrustCoef / _inducedVelocityScalar; };
 
 //Calculate the required rotor power
 private _vel_vbe     =  36.011;
@@ -213,6 +217,11 @@ private _totThrust     = ((_rtrThrust + _gndEffThrust) * _tipLossScalar) + _clim
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ       = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
+private _inducedVelocity = sqrt(_totThrust / (2 * _dryAirDensity * _rtrArea));
+if ([_inducedVelocity] call fza_sfmplus_fnc_isNAN || [_inducedVelocity] call fza_sfmplus_fnc_isINF) then { _inducedVelocity = 0.0; };
+_heli setVariable ["fza_sfmplus_vrsVelocityMin", _inducedVelocity * 0.23];
+_heli setVariable ["fza_sfmplus_vrsVelocityMax", _inducedVelocity * 1.25];
+
 //systemChat format ["_rtrThrust = %1 -- _gndEffThrust = %2 -- _totThrust = %3", _rtrThrust toFixed 0, _gndEffThrust toFixed 0, _totThrust toFixed 0];
 //systemChat format ["_gndEffScalar = %1 -- _collectiveOuptut = %2", _gndEffScalar toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput")];
 
@@ -268,9 +277,9 @@ if (cameraView == "INTERNAL") then {
     };
 
     //Camera shake effect for vortex ring sate
-    if (_velXY < 12.35) then {  //must be less than ETL
+    if (_velXY < 12.35 && _inputRPM > EPSILON) then {  //must be less than ETL
         //2000 fpm to 2933fpm
-        if (_velZ < -10.16 && _velZ > -14.89) then {
+        if (_velZ < -(_vrsVelMax * 0.40) && _velZ > -(_vrsVelMax * 0.60)) then {
             enableCamShake true;
             setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
             addCamShake       [2.5, 1, 5];
@@ -278,9 +287,13 @@ if (cameraView == "INTERNAL") then {
 
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+
+            if (fza_ah64_sfmPlusVrsWarning) then {
+                hintSilent format ["Warning! Entering VRS Conditions!"];
+            };
         };
         //2933 fpm to 3867 
-        if (_velZ <= -14.89 && _velZ > -19.64) then {
+        if (_velZ <= -(_vrsVelMax * 0.60) && _velZ > -(_vrsVelMax * 0.80)) then {
             enableCamShake true;
             setCamShakeParams [0.0, 0.5, 0.0, 0.5, true];
             addCamShake       [3, 1, 5.5];
@@ -288,9 +301,13 @@ if (cameraView == "INTERNAL") then {
 
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+
+            if (fza_ah64_sfmPlusVrsWarning) then {
+                hintSilent format ["Warning! VRS Developing!"];
+            };
         };
         //3867fpm to 4800 fpm
-        if (_velZ <= -19.64 && _velZ > -24.384) then {
+        if (_velZ <= -(_vrsVelMax * 0.80) && _velZ > -_vrsVelMax) then {
             enableCamShake true;
             setCamShakeParams [0.0, 0.75, 0.0, 0.75, true];
             addCamShake       [3.5, 1, 6.0];
@@ -298,9 +315,12 @@ if (cameraView == "INTERNAL") then {
 
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+            if (fza_ah64_sfmPlusVrsWarning) then {
+                hintSilent format ["Warning! Fully Developed VRS Imminent!"];
+            };
         };
         //> 4800fpm
-        if (_velZ < -24.384) then {
+        if (_velZ < -_vrsVelMax) then {
             enableCamShake true;
             setCamShakeParams [0.0, 1.0, 0.0, 2.0, true];
             addCamShake       [4.0, 1, 6.5];
@@ -308,6 +328,10 @@ if (cameraView == "INTERNAL") then {
 
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
+
+            if (fza_ah64_sfmPlusVrsWarning) then {
+                hintSilent format ["Warning! VRS Fully Developed!"];
+            };
         };
     } else {
         setCustomSoundController[_heli, "CustomSoundController4", 0.0];
