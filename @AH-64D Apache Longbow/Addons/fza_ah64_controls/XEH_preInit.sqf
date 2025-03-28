@@ -59,6 +59,24 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusSpringlessCyclic",
+    "CHECKBOX",
+    ["Disable Cyclic Force Trim", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusSpringlessPedals",
+    "CHECKBOX",
+    ["Disable Pedal Force Trim", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmplusEnableKbPitchTrim",
     "CHECKBOX",
     ["[EXPERIMENTAL] Enable KB Pitch Trim", "When enabled, retains the position of the cyclic."],
@@ -96,15 +114,6 @@ private _projName = "AH-64D Official Project";
     [_projName, "Flight model"],
     [false],
     0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmplusEnableHeadingHold",
-    "CHECKBOX",
-    ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
-    [_projName, "Flight model"],
-    [true],
-    2
 ] call CBA_fnc_addSetting;
 
 [
