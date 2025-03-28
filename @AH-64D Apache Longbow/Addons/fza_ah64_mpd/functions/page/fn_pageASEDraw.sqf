@@ -7,7 +7,7 @@ params ["_heli", "_mpdIndex"];
 
 //Chaff + Flares
 private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_ARM);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_CHAFF_STATE), _chaffState] call fza_mpd_fnc_updateMfdValue;
 private _chaffCount = 0;
 private _flareCount= 0;
 {
@@ -21,33 +21,33 @@ private _flareCount= 0;
 } forEach magazinesAllTurrets _heli;
 
 if (_heli animationPhase "msn_equip_british" == 1) then {
-    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount];
+    [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount] call fza_mpd_fnc_updateMfdText;
 } else {
-    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
+    [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))] call fza_mpd_fnc_updateMfdText;
 };
 
 //IR Jammer
 private _irJamPwr   = BOOLTONUM(_heli getVariable "fza_ah64_ase_msnEquipPwr" == ASE_MSNEQUIP_STATE_OFF);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_PWR), _irJamPwr] call fza_mpd_fnc_updateMfdValue;
 _heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_IRJAM_STATE), _irJamState] call fza_mpd_fnc_updateMfdValue;
 
 //Autopage
 private _autopage = _heli getVariable "fza_ah64_ase_autopage";
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_AUTOPAGE), _autopage] call fza_mpd_fnc_updateMfdValue;
 
 //RLWR
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_RLWR_PWR), _rlwrPwr] call fza_mpd_fnc_updateMfdValue;
 private _rlwrCount = _heli getVariable "fza_ah64_ase_rlwrcount";
-_heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_ASE_RLWR_COUNT), _rlwrCount toFixed 0] call fza_mpd_fnc_updateMfdText;
 
 //Mission equipment 
 _msn_equip_British = _heli animationPhase "msn_equip_british";
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_BRITISH), _msn_equip_British];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_BRITISH), _msn_equip_British] call fza_mpd_fnc_updateMfdValue;
 
 _msn_equip_american = _heli animationPhase "msn_equip_American";
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_ASE_AMERICAN), _msn_equip_american];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_AMERICAN), _msn_equip_american] call fza_mpd_fnc_updateMfdValue;
 
 //ASE Points
 private _pointsArray = [];
@@ -65,10 +65,10 @@ private _radius      = 0.27;
 
 for "_i" from 0 to 6 do {
     if (_i >= count _linesArray) then {
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), -1];
+        [_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), -1] call fza_mpd_fnc_updateMfdValue;
     } else {
         (_linesArray select _i) params ["_azimuth"];
-        _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), _azimuth];
+        [_heli, MFD_INDEX_OFFSET(MFD_IND_ASE_01_AZ + _i), _azimuth] call fza_mpd_fnc_updateMfdValue;
     };
 };
 

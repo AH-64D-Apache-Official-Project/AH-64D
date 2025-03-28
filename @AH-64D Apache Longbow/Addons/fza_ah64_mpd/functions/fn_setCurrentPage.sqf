@@ -79,6 +79,6 @@ _state set ["side", _side];
 _state set ["page", _page];
 private _newState = [_page, _mfdIndex, _drawFunc, _drawCanvasFunc, _state, _persistState, _handleControlFunc, _usesIcons];
 
-_heli setUserMfdValue [_side + 1, _mfdIndex];
+[_heli, _side + 1, _mfdIndex] call fza_mpd_fnc_updateMfdValue;
 _mpdState set [_side, _newState];
 [_heli] call fza_mpd_fnc_propagatePage;

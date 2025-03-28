@@ -13,10 +13,10 @@ private _pa      = _barAlt;  //feet
 private _fat     = _heli getVariable "fza_sfmplus_FAT";
 private _gwt     = (_heli getVariable "fza_sfmplus_GWT") * KG_TO_LBS;
 private _cg      = (_heli getVariable "fza_sfmplus_CG") * M_TO_INCHES;
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_PA),  _pa  toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_FAT), _fat toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GWT), _gwt toFixed 0];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_CG), _cg toFixed 1];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_PA),  _pa  toFixed 0] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_FAT), _fat toFixed 0] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GWT), _gwt toFixed 0] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_CG), _cg toFixed 1] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Required torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ private _reqTQ_OGE     = round ((_heli getVariable "fza_sfmplus_hvrTQ_OGE") * 10
 //Set required IGE/OGE torque
 private _reqTQ_text    = format["REQUIRED %1 %2", [str _reqTQ_IGE, 3] call fza_fnc_padString, [str _reqTQ_OGE, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _reqTQ_text = format["REQUIRED   ?   ?"]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_HVR_TQ_IGE_OGE), _reqTQ_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Indicated torque /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,7 @@ private _eng1TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select
 private _eng2TQ        = round ((_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100);
 private _indTQ         = _eng1TQ max _eng2TQ;
 private _indTQ_text    = format["INDICATED  %1", [str _indTQ, 3] call fza_fnc_padString];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_IND_TQ), _indTQ_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Go/no-go torque  /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -42,7 +42,7 @@ private _goNoGoTQ_OGE  = round ((_heli getVariable "fza_sfmplus_goNoGoTQ_OGE") *
 //Set go/no-go torque
 private _goNoGoTQ_text = format["GO-NO/GO %1 %2", [str _goNoGoTQ_IGE, 3] call fza_fnc_padString, [str _goNoGoTQ_OGE, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _goNoGoTQ_text = format["GO-NO/GO   ?   ?"]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _goNoGoTQ_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_GO_NOGO_TQ_IGE_OGE), _goNoGoTQ_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max GWT          /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,7 +52,7 @@ private _maxGWT_DE_OGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_DE_OGE
 //Set max GWT IGE/OGE
 private _maxGWT_DE_text   = format["   %1   %2", _maxGWT_DE_IGE, _maxGWT_DE_OGE];
 if (_pa > MAX_PA) then { _maxGWT_DE_text = format["     ?       ?  "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE), _maxGWT_DE_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_DE_IGE_OGE), _maxGWT_DE_text] call fza_mpd_fnc_updateMfdText;
 //Single engine
 private _maxGWT_SE_IGE    = round ((_heli getVariable "fza_sfmplus_maxGWT_SE_IGE") / 10) * 10;
 if (_maxGWT_SE_IGE < 11000) then { _maxGWT_SE_IGE = 11000; };
@@ -61,7 +61,7 @@ if (_maxGWT_SE_OGE < 11000) then { _maxGWT_SE_OGE = 11000; };
 //Set max GWT IGE/OGE
 private _maxGWT_SE_text   = format["   %1   %2", _maxGWT_SE_IGE, _maxGWT_SE_OGE];
 if (_pa > MAX_PA) then { _maxGWT_SE_text = format["     ?       ?  "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _maxGWT_SE_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAXGWT_SE_IGE_OGE), _maxGWT_SE_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Max torque DE/SE /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,10 +69,10 @@ private _maxTQ_DE      = round((_heli getVariable "fza_sfmplus_maxTQ_DE") * 100)
 private _maxTQ_SE      = round((_heli getVariable "fza_sfmplus_maxTQ_SE") * 100);
 //Set max torque DE
 private _maxTQ_DE_text = format["   %1", [str _maxTQ_DE, 3] call fza_fnc_padString];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_DE), _maxTQ_DE_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_DE), _maxTQ_DE_text] call fza_mpd_fnc_updateMfdText;
 //Set max troque SE
 private _maxTQ_SE_text = format["   %1", [str _maxTQ_SE, 3] call fza_fnc_padString];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_TQ_SE), _maxTQ_SE_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cruise Data      /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,14 +81,14 @@ private _endTQ = round((_heli getVariable "fza_sfmplus_TAS_endTQ") * 100);
 //Set max range and endurance torque
 private _maxRngEndTQ_text = format[" Q  %1  %2", [str _rngTQ, 3] call fza_fnc_padString, [str _endTQ, 3] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _maxRngEndTQ_text = format[" Q   ?    ? "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_TQ), _maxRngEndTQ_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_TQ), _maxRngEndTQ_text] call fza_mpd_fnc_updateMfdText;
 
 private _rngFF = round((_heli getVariable "fza_sfmplus_TAS_rngFF") / 10) * 10;
 private _endFF = round((_heli getVariable "fza_sfmplus_TAS_endFF") / 10) * 10;
 //Set max range and endurance fuel flow
 private _maxRngEndFF_text = format["FF %1 %2", [str _rngFF, 4] call fza_fnc_padString, [str _endFF, 4] call fza_fnc_padString];
 if (_pa > MAX_PA) then { _maxRngEndFF_text = format["FF   ?    ? "]; };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_FF), _maxRngEndFF_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_MAX_RNG_END_FF), _maxRngEndFF_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // TAS Data         /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -108,10 +108,10 @@ if (_pa > MAX_PA) then {
     _rngTAS_text = format[" RNG  ? "]; 
     _endTAS_text = format[" END  ? "];  
 };
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VNE),     _vne_text];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VSSE),    _vsse_text];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_RNG_SPD), _rngTAS_text];
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_END_SPD), _endTAS_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VNE),     _vne_text] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_VSSE),    _vsse_text] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_RNG_SPD), _rngTAS_text] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_END_SPD), _endTAS_text] call fza_mpd_fnc_updateMfdText;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Wind Data        /////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -119,4 +119,4 @@ _heli call fza_sfmplus_fnc_getWindDirVel
     params ["_windDir", "_windVel"]; //WIND 067/15
 private _wind_text = format["WIND %1/%2", [_windDir, 3] call CBA_fnc_formatNumber, [_windVel, 2] call CBA_fnc_formatNumber];
 if (_windvel < 5) then {_wind_text = "WIND  CALM ";};
-_heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_WIND), _wind_text];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_PERF_WIND), _wind_text] call fza_mpd_fnc_updateMfdText;

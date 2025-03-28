@@ -37,7 +37,7 @@ if (_heli getVariable "fza_ah64_ldp_fail" && !(_heli getVariable "fza_ah64_rdp_f
 ///EWCA//
 //pilot
 if (_battBusOn || _dcBusOn) then {
-    _heli setUserMFDValue [MFD_IND_BATT, 1];
+    [_heli, MFD_IND_BATT, 1] call fza_mpd_fnc_updateMfdValue;
     private _wcas = ([_heli] call fza_fnc_coreGetWCAs) select {_x # 2 != ""}; //Removes any WCAs that shouldn't be shown on the EUFD
     private _warnings = (_wcas select {_x # 0 == WCA_WARNING}) apply {_x # 2};
     private _cautions = (_wcas select {_x # 0 == WCA_CAUTION}) apply {_x # 2};
@@ -48,11 +48,11 @@ if (_battBusOn || _dcBusOn) then {
     private _blankAdvisory = "           ";   //11
 
     for "_i" from 0 to 5 do {
-        _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
+        [_heli, MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
             if (count _warnings > _i) then {[_warnings # _i, _blankWarning, true] call fza_fnc_padString} else {_blankWarning},       
             if (count _cautions > _i) then {[_cautions # _i, _blankCaution, true] call fza_fnc_padString} else {_blankCaution},
             if (count _advisories > _i) then {[_advisories # _i, _blankAdvisory, true] call fza_fnc_padString} else {_blankAdvisory}
-        ]];
+        ]] call fza_mpd_fnc_updateMfdText;
     };
 
     if (isClass(configFile >> "cfgPatches" >> "acre_main") && {[_heli] call acre_api_fnc_areVehicleRacksInitialized}) then { //ACRE compatibility
@@ -75,18 +75,18 @@ if (_battBusOn || _dcBusOn) then {
             private _frequencyTXOut = [[_frequencyTX, 0, 3, false] call CBA_fnc_formatNumber, 7] call fza_fnc_padString;
             private _radioChannelOut = [str _radioChannel, 6] call fza_fnc_padString;
             private _labelOut = [_label select [0, 5], 5] call fza_fnc_padString; 
-            _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + 5 + _forEachIndex, format["%1-%2 %3* %4 %5 %6 "
+            [_heli, (MFD_TEXT_IND_UFDTEXT0 + 5 + _forEachIndex), format["%1-%2 %3* %4 %5 %6 "
                 ,_transmit, _radioName, _frequencyTXOut, _labelOut, _radioOther # _forEachIndex, _radioChannel
-            ]];
+            ]] call fza_mpd_fnc_updateMfdText;
         } forEach _radios;
     } else {
         private _labelNames = profileNamespace getVariable ["fza_ah64_ufd_labels", ["GLBL-", "SIDE-", "-CMD-", "GROUP"]];
         private _activeChan = [".>", "<."] select (driver _heli == player);
         private _currentChan = currentChannel;
-        _heli setUserMFDText [5, format["%1VH 139.500* %2      L1 149.500",["..", _activeChan] select (_currentChan == 0) , [_labelNames#0, "-----"] call fza_fnc_padString]]; 
-        _heli setUserMFDText [6, format["%1UH 240.500* %2 C3   L2 249.500",["..", _activeChan] select (_currentChan == 1) , [_labelNames#1, "-----"] call fza_fnc_padString]]; 
-        _heli setUserMFDText [7, format["%1F1  39.075  %2 C5 H T1  45.500",["..", _activeChan] select (_currentChan == 2) , [_labelNames#2, "-----"] call fza_fnc_padString]]; 
-        _heli setUserMFDText [8, format["%1F2  49.500  %2 C2   L3  69.525",["..", _activeChan] select (_currentChan == 3) , [_labelNames#3, "-----"] call fza_fnc_padString]];
+        ([_heli, 5, format["%1VH 139.500* %2      L1 149.500",["..", _activeChan] select (_currentChan == 0) , [_labelNames#0, "-----"] call fza_fnc_padString]]) call fza_mpd_fnc_updateMfdText; 
+        ([_heli, 6, format["%1UH 240.500* %2 C3   L2 249.500",["..", _activeChan] select (_currentChan == 1) , [_labelNames#1, "-----"] call fza_fnc_padString]]) call fza_mpd_fnc_updateMfdText; 
+        ([_heli, 7, format["%1F1  39.075  %2 C5 H T1  45.500",["..", _activeChan] select (_currentChan == 2) , [_labelNames#2, "-----"] call fza_fnc_padString]]) call fza_mpd_fnc_updateMfdText; 
+        ([_heli, 8, format["%1F2  49.500  %2 C2   L3  69.525",["..", _activeChan] select (_currentChan == 3) , [_labelNames#3, "-----"] call fza_fnc_padString]]) call fza_mpd_fnc_updateMfdText;
     };
 
     private _pylonMagazines  = getPylonMagazines _heli;
@@ -105,10 +105,10 @@ if (_battBusOn || _dcBusOn) then {
     };
     
     if (_heli getVariable "fza_ah64_IAFSInstalled") then {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, _numExtTanks];
+        [_heli, MFD_IND_IAFS_INSTALLED, _numExtTanks] call fza_mpd_fnc_updateMfdValue;
     } else {
-        _heli setUserMFDValue [MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)];
+        [_heli, MFD_IND_IAFS_INSTALLED, (_numExtTanks + 5)] call fza_mpd_fnc_updateMfdValue;
     };
 } else {
-    _heli setUserMFDValue [MFD_IND_BATT, 0]; //isClass(configFile >> "cfgPatches" >> "acre_main");
+    [_heli, MFD_IND_BATT, 0] call fza_mpd_fnc_updateMfdValue; //isClass(configFile >> "cfgPatches" >> "acre_main");
 };

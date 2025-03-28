@@ -19,6 +19,8 @@ class CfgFunctions
             class propagatePage {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
+            class updateMfdText {RECOMPILE_FLAG;};
+            class updateMfdValue {RECOMPILE_FLAG;};
         };
         class canvas {
             file = "\fza_ah64_mpd\functions\canvas";

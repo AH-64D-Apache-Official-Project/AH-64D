@@ -7,23 +7,23 @@ params["_heli", "_mpdIndex", "_state", "_persistState"];
 private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
 private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)] call fza_mpd_fnc_updateMfdValue;
 if (_heli animationPhase "fcr_enable" == 0) then {_fcrMode = 0;};
 
 switch _fcrMode do {
     case 0: { //NOT INSTALLED
-        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0];
+        [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0] call fza_mpd_fnc_updateMfdValue;
         _heli setVariable ["fza_ah64_fcrTargets", [], true];
         _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
         [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
     };
     case 1: { //Gtm
         _this call fza_mpd_fnc_fcrGTMDraw;
-        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 1];
+        [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 1] call fza_mpd_fnc_updateMfdValue;
     };
     case 2: {  //ATM
         _this call fza_mpd_fnc_fcrATMDraw;
-        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 2];
+        [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 2] call fza_mpd_fnc_updateMfdValue;
     };
 };
 
@@ -44,23 +44,23 @@ switch (_sight) do {
         _sightSelStat = "FXD ";
     };
 };
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat] call fza_mpd_fnc_updateMfdText;
 
 //Command Heading Chevron
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
 if (isNil "_nextPointPos") then {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360] call fza_mpd_fnc_updateMfdValue;
 } else {
     private _waypointDirection = [(_heli getRelDir _nextPointPos)] call CBA_fnc_simplifyAngle180;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection] call fza_mpd_fnc_updateMfdValue;
 };
 
 //Alternate Sensor Bearing
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
 private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan] call fza_mpd_fnc_updateMfdValue;
 
 //FCR CenterLine
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"]; 
@@ -70,12 +70,12 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
     _fcrHeading = -1000;
     _lastHeading = -1000;
 };
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading] call fza_mpd_fnc_updateMfdValue;
 
 //TADS POS
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation] call fza_mpd_fnc_updateMfdValue;
 
 //Cued LOS
 private _curTurret = [_heli] call fza_fnc_currentTurret;
@@ -84,8 +84,8 @@ private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqVec;
 private _acqVector = _heli vectorWorldToModelVisual _acqVector;
 _acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
 private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY] call fza_mpd_fnc_updateMfdValue;
 
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
@@ -99,10 +99,10 @@ if (isNull _nts) then {
 if (!isNull laserTarget _heli) then {
     _rngSrce = format["*%1", round(_heli distance laserTarget _heli)];
 };
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_RRS), _rngSrce] call fza_mpd_fnc_updateMfdText;
 
 //Sight Status
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SS), ""] call fza_mpd_fnc_updateMfdText;
 
 //Weapon Control
 private _wasState = _heli getVariable "fza_ah64_was";
@@ -150,10 +150,10 @@ switch (_wasState) do {
         };
     };
 };
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl] call fza_mpd_fnc_updateMfdText;
 
 //Weapon Status
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat] call fza_mpd_fnc_updateMfdText;
 
 
 [_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;

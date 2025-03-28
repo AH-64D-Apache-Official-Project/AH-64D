@@ -7,6 +7,6 @@ _wcas resize 18;
 _wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
 
 {
-    _heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex), _x # 1];
-    _heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex), _x # 0];
+    [_heli, MFD_INDEX_OFFSET(_forEachIndex), _x # 1] call fza_mpd_fnc_updateMfdText;
+    [_heli, MFD_INDEX_OFFSET(_forEachIndex), _x # 0] call fza_mpd_fnc_updateMfdValue;
 } forEach _wcas;
