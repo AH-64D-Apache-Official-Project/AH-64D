@@ -7,15 +7,15 @@ params ["_heli", "_mpdIndex", "_state"];
 private _armed      = _heli getVariable "fza_ah64_armSafeArmed";
 private _chaffState = BOOLTONUM(_heli getVariable "fza_ah64_ase_chaffState" == ASE_CHAFF_STATE_ARM);
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_MASTER_ARM), BOOLTONUM(_armed)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_CHAFF_ARM), _chaffState];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_MASTER_ARM), BOOLTONUM(_armed)] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_CHAFF_ARM), _chaffState] call fza_mpd_fnc_updateMfdValue;
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), 0];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), 0];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), 0] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), 0] call fza_mpd_fnc_updateMfdValue;
 
 //Set the weapon state
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), 0];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), 0];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), 0] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), 0] call fza_mpd_fnc_updateMfdValue;
 
 //Chaff + Flares
 private _chaffCount = 0;
@@ -31,18 +31,18 @@ private _flareCount= 0;
 } forEach magazinesAllTurrets _heli;
 
 if (_heli animationPhase "msn_equip_british" == 1) then {
-    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount];
+    [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2)) + "/" + str _FlareCount] call fza_mpd_fnc_updateMfdText;
 } else {
-    _heli setUserMfdText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))];
+    [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_CMS_QTY), (str (_chaffCount/2))] call fza_mpd_fnc_updateMfdText;
 };
 
 //Mission equipment 
 _msn_equip_British = _heli animationPhase "msn_equip_british";
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_British];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_CMS_MODE_TYPE), _msn_equip_British] call fza_mpd_fnc_updateMfdValue;
 
 //GUN AMMO
 private _gunAmmo = _heli ammo "fza_m230";
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_GUN_ROUNDS), _gunAmmo toFixed 0] call fza_mpd_fnc_updateMfdText;
 
 //GUN FAILED
 private _gunDamage     = (_heli getHitPointDamage "hit_msnEquip_gun_turret" > SYS_WPN_DMG_THRESH);
@@ -52,7 +52,7 @@ private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_H
 private _acBusOn       = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _gunFailed     = (_utilHydFailed || _utilLevelMin || _gunDamage || !_acBusOn || !_dcBusOn || _magDamage);
-_heli setUserMfdValue  [MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_CANNON_FAILURE), BOOLTONUM(_gunFailed)] call fza_mpd_fnc_updateMfdValue;
 
 //pylon SERVO Failure
 private _pylonFailure = [];
@@ -67,8 +67,8 @@ if (_utilHydFailed || _utilLevelMin) then {
     _pylonFailure = [1,2,3,4];
 };
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_1_4_FAILURE), ([0, 1] select (1 in _pylonFailure))+([0, 2] select (4 in _pylonFailure))] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_PYLON_2_3_FAILURE), ([0, 1] select (2 in _pylonFailure))+([0, 2] select (3 in _pylonFailure))] call fza_mpd_fnc_updateMfdValue;
 
 // SIGHT AND ACQ SOURCES
 private _sight = "TADS";
@@ -87,9 +87,9 @@ switch ([_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable) do {
         _sight = "FXD";
     };
 };
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_SIGHT), _sight] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVariable "fza_ah64_laserLRFDCode"] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"] call fza_mpd_fnc_updateMfdText;
 
 [_heli, _mpdIndex, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 private _was = _heli getVariable "fza_ah64_was";
@@ -111,8 +111,8 @@ if (_was == WAS_WEAPON_NONE && _wasOverride == 1 && _selectedWeapon != _was) the
     _state set ["variant", 0];
 };
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), _was];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), _selectedWeapon];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_WAS), _was] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), _selectedWeapon] call fza_mpd_fnc_updateMfdValue;
 
 //Rocket pods draw
 
@@ -127,32 +127,32 @@ private _pylonsWithRockets = [];
     };
 } forEach (_rocketInventory);
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""];
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), ""];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_1_4_STATE), ([0, 1] select (0 in _pylonsWithRockets))+([0, 2] select (12 in _pylonsWithRockets))] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_ROCKET_POD_2_3_STATE), ([0, 1] select (4 in _pylonsWithRockets))+([0, 2] select (8 in _pylonsWithRockets))] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), ""] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), ""] call fza_mpd_fnc_updateMfdText;
 
 if (_rocketInvIndex != -1) then { 
     for "_invCount" from 0 to ((count _rocketInventory) - 1) do {
         (_rocketInventory # _invCount) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText", "_selectedRktZones"]; 
         if ((0 in _selectedRktPylons || 12 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
-            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
+            [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText] call fza_mpd_fnc_updateMfdText; 
         }; 
         if ((4 in _selectedRktPylons || 8 in _selectedRktPylons) && 0 in _selectedRktZones) then { 
-            _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
+            [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText] call fza_mpd_fnc_updateMfdText; 
         }; 
     };
     (_rocketInventory # _rocketInvIndex) params ["", "_selectedRktQty", "_selectedRktPylons", "_selectedRktText"]; 
     private _rktSel = 0; 
     if (0 in _selectedRktPylons || 12 in _selectedRktPylons) then { 
         _rktSel = _rktSel + 1; 
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText]; 
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT), _selectedRktText] call fza_mpd_fnc_updateMfdText; 
     }; 
     if (4 in _selectedRktPylons || 8 in _selectedRktPylons) then { 
         _rktSel = _rktSel + 2; 
-        _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText]; 
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT), _selectedRktText] call fza_mpd_fnc_updateMfdText; 
     }; 
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_RKT), _rktSel] call fza_mpd_fnc_updateMfdValue;
 };
 
 //Page draw

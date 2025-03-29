@@ -11,14 +11,14 @@ private _tsdScale     = 0.125 * 5 / (_persistState get "tsdScale");
 private _ctrX         = 0.5;  
 private _ctrY         = 0.75 - 0.25 * (_persistState get "ctr");
 
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_PHASE), _phase] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SUBPAGE), _state get "subPageVarPage" select 0] call fza_mpd_fnc_updateMfdValue;
 
 //Show options
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SCALE_BOXES), _rangesetting];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_HSI),  BOOLTONUM(_heli getVariable "fza_mpd_tsdShowHsi" select _phase)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowWind" select _phase)];
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SCALE_BOXES), _rangesetting] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_HSI),  BOOLTONUM(_heli getVariable "fza_mpd_tsdShowHsi" select _phase)] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WIND), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowWind" select _phase)] call fza_mpd_fnc_updateMfdValue;
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_ENDR), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowEndr" select _phase)] call fza_mpd_fnc_updateMfdValue;
 
 // Wind Data
 _heli call fza_sfmplus_fnc_getWindDirVel
@@ -28,16 +28,16 @@ if (_windvel < 5) then {_wind_text = "  CALM  ";};
 
 //ASE footprint
 private _rlwrPwr = BOOLTONUM(_heli getVariable "fza_ah64_ase_rlwrPwr" == ASE_RLWR_STATE_OFF);
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_ASE_FOOTPRINT), _rlwrPwr] call fza_mpd_fnc_updateMfdValue;
 
 //TSD Centering
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_TSD_CTR), _persistState get "ctr"];
+[_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_CTR), _persistState get "ctr"] call fza_mpd_fnc_updateMfdValue;
 
 //TSD phase
 if (_persistState get "mode" == "atk") then {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute")];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowAtkCurrRoute")] call fza_mpd_fnc_updateMfdValue;
 } else {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_TSD_SHOW_WPT_DATA_CURRTE), BOOLTONUM(_heli getVariable "fza_mpd_tsdShowNavWptData")] call fza_mpd_fnc_updateMfdValue;
 };
 switch (_state get "subPageVarPage" select 0) do {
     case 0: { //Root
@@ -54,12 +54,12 @@ switch (_state get "subPageVarPage" select 0) do {
                                                     , ""
                                                     , "_totalEnduranceNumber"
                                                     ];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDEST), _waypointId];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDIST), _waypointDist];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPETA),  _waypointEta];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED), _groundSpeed];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_ENDR), _totalEnduranceNumber];
-        _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WIND), _wind_text];
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDEST), _waypointId] call fza_mpd_fnc_updateMfdText;
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPDIST), _waypointDist] call fza_mpd_fnc_updateMfdText;
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WPETA),  _waypointEta] call fza_mpd_fnc_updateMfdText;
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED), _groundSpeed] call fza_mpd_fnc_updateMfdText;
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_ENDR), _totalEnduranceNumber] call fza_mpd_fnc_updateMfdText;
+        [_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_WIND), _wind_text] call fza_mpd_fnc_updateMfdText;
     };
     case 1: {   //SHOW
         _this call fza_mpd_fnc_tsdShowDraw;
@@ -194,7 +194,7 @@ if (_sight == SIGHT_FCR) then {
     };
 };
 if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
-_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState] call fza_mpd_fnc_updateMfdValue;
 
 //ASE Points
 private _ctrX       = 0.5;  
