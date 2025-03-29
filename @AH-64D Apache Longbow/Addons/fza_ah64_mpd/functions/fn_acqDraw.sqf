@@ -20,5 +20,5 @@ params ["_heli", "_mpdIndex", "_floatIndex", "_stringIndex"];
 private _curTurret = [_heli] call fza_fnc_currentTurret;
 private _acq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
 
-_heli setUserMFDText [MFD_INDEX_OFFSET(_stringIndex), _acq];
-_heli setUserMFDValue [MFD_INDEX_OFFSET(_floatIndex), count _acq];
+[_heli, MFD_INDEX_OFFSET(_stringIndex), _acq] call fza_mpd_fnc_updateMfdText;
+[_heli, MFD_INDEX_OFFSET(_floatIndex), count _acq] call fza_mpd_fnc_updateMfdValue;

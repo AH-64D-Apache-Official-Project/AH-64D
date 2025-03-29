@@ -12,11 +12,11 @@ private _systemWas = _heli getVariable "fza_ah64_was";
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
     private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 3.2];
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 3.2] call fza_mpd_fnc_updateMfdValue;
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState] call fza_mpd_fnc_updateMfdValue;
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1] call fza_mpd_fnc_updateMfdValue;
 } else {
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
+    [_heli, MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0] call fza_mpd_fnc_updateMfdValue;
 };
 
 //FCR page draw
@@ -96,6 +96,6 @@ private _heliCtr = [0.5, 0.87];
 
 //Total target count
 private _fcrTgtCount  = count _displayTargets;
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
+[_heli, MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount] call fza_mpd_fnc_updateMfdText;
 
 [_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;
