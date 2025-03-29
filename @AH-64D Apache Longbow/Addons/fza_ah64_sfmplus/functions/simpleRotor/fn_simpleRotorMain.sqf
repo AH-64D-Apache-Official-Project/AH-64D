@@ -277,7 +277,7 @@ if (cameraView == "INTERNAL") then {
     };
 
     //Camera shake effect for vortex ring sate
-    if (_velXY < 12.35 && _inputRPM > EPSILON) then {  //must be less than ETL
+    if (_velXY < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround)) then {  //must be less than ETL
         //2000 fpm to 2933fpm
         if (_velZ < -(_vrsVelMax * 0.40) && _velZ > -(_vrsVelMax * 0.60)) then {
             enableCamShake true;
