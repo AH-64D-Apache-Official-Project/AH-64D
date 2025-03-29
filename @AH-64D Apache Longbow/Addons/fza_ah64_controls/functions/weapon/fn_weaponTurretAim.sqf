@@ -29,22 +29,23 @@ params["_heli"];
 private _currentTurret = _heli call fza_fnc_currentTurret;
 private _gunnnerUnit = _heli turretUnit [0];
 
-if (_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) then {
-    private _azimuth = -deg(_heli animationPhase "tads_tur");
-    private _elevation = deg(_heli animationPhase "tads");
-    _heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
-    _heli setVariable ["fza_ah64_tadsElevation", _elevation];
+if (_currentTurret isnotEqualTo [0] && (isplayer _gunnnerUnit)) exitwith {};
 
-    if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < time) then {
-    {
-        _heli setVariable [_x, _heli getVariable _x, true];
-    } forEach [
-        "fza_ah64_tadsAzimuth",
-        "fza_ah64_tadsElevation"
-    ];
-    _heli setVariable ["fza_ah64_lastTimePropagated", time, true];
-    };
+private _azimuth = -deg(_heli animationPhase "tads_tur");
+private _elevation = deg(_heli animationPhase "tads");
+_heli setVariable ["fza_ah64_tadsAzimuth",   _azimuth];
+_heli setVariable ["fza_ah64_tadsElevation", _elevation];
+
+if (isMultiplayer && (_heli getVariable "fza_ah64_lastTimePropagated") + 0.1 < time) then {
+{
+    _heli setVariable [_x, _heli getVariable _x, true];
+} forEach [
+    "fza_ah64_tadsAzimuth",
+    "fza_ah64_tadsElevation"
+];
+_heli setVariable ["fza_ah64_lastTimePropagated", time, true];
 };
+    
 
 private _was             = _heli getVariable "fza_ah64_was";
 private _sight           = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
@@ -95,8 +96,7 @@ switch (_sight) do {
     };
     case SIGHT_TADS:{
         _camPosASL = _heli modelToWorldVisualWorld (_heli selectionPosition "laserEnd");
-        _flirDir   = _camPosASL vectorFromTo (_heli modelToWorldVisualWorld (_heli selectionPosition "laserBegin"));
-        _worldTargetpos = _camPosASL vectorAdd (_flirDir vectorMultiply 50000);
+        _worldTargetpos = _camPosASL vectorAdd (([_heli, "TADS"] call fza_fnc_targetingAcqVec) vectorMultiply 50000);
         _targPos = terrainIntersectAtASL [_camPosASL, _worldTargetpos];
     };
     case SIGHT_FXD:{
@@ -104,8 +104,6 @@ switch (_sight) do {
     };
 };
 
-private _currentTurret = _heli call fza_fnc_currentTurret;
-private _gunnnerUnit = _heli turretUnit [0];
 if ((_currentTurret isEqualTo [0] || !(isplayer _gunnnerUnit)) && !(_heli getVariable "fza_ah64_LmcActive")) then {
     _heli lockCameraTo [_cameraTarget, [0], false];
 };
@@ -149,9 +147,10 @@ for "_i" from 0 to 3 do {
     private _pylon = "pylon" + str(_i + 1);
     private _pylonD = if _onGnd then {0;} else {4;};
     if (WEP_TYPE(_firstPylonMags#_i) == "rocket") then {
-        _heli setVariable ["fza_ah64_rocketPylonElev", _pylonAdjustment];
         if (_was == WAS_WEAPON_RKT) exitwith {
             [_heli, _pylon, _pylonAdjustment] call fza_fnc_updateAnimations;
+            [_heli, "fza_ah64_rocketPylonElev", _pylonAdjustment] call fza_fnc_updateNetworkGlobal;
+            
         };
         [_heli, _pylon, _pylonD] call fza_fnc_updateAnimations;
         
@@ -207,7 +206,7 @@ for "_i" from 0 to 3 do {
     };
 };
 
-_heli setVariable ["fza_ah64_weaponInhibited", _inhibit];
+[_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;
 
 #ifdef __A3_DEBUG__
 drawIcon3d["\A3\ui_f\data\map\markers\handdrawn\dot_CA.paa", [1, 0, 0, 1], asltoagl _targPos, 0.5, 0.5, 0, "Target pos ATL"];
