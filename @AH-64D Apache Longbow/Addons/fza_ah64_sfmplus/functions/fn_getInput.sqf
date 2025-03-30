@@ -45,10 +45,16 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 
 //Cyclic pitch
 private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+    _cyclicFwdAft = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0];
+};
 _cyclicFwdAft                = [_heli, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
 
 //Cyclic roll
 private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+    _cyclicLeftRight = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0];
+};
 _cyclicLeftRight             = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 
 if (fza_ah64_sfmPlusControlScheme == KEYBOARD && fza_ah64_sfmplusEnableKbPitchTrim) then {
@@ -82,11 +88,14 @@ if (fza_ah64_sfmPlusControlScheme == KEYBOARD && fza_ah64_sfmplusEnableKbPitchTr
     //_heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
     _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 } else {;
-    _cyclicFwdAft        = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
+    _cyclicFwdAft        = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
     _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 };
 //Pedals
 private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+    _pedalLeftRight = linearConversion [-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
+};
 _pedalLeftRight              = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 
@@ -112,7 +121,7 @@ private _isZeus       = isNull findDisplay 312;
 private _inMap        = !visibleMap;
 private _inInventory  = isNull findDisplay 602;
 
-private _isPlaying    = !isGamePaused && isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
+private _isPlaying    = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
 
 if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusControlScheme == KEYBOARD || fza_ah64_sfmPlusControlScheme == MOUSE) then {
@@ -124,14 +133,20 @@ if (!_hydFailure || _emerHydOn) then {
             _collectiveOutput = _collectiveValue;
         };
     } else {
-        _collectiveValue  = _joyCollectiveUp - _joyCollectiveDn;
-        _collectiveValue  = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
-        _collectiveValue  = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
+        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
 
-        _collectiveOutput = _collectivePrevious;
-        if (_isPlaying) then {
-            _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
+        if (isNil "fza_sfmplus_lastIsPlaying") then {
+            _collectiveOutput = _collectiveValue;
+        } else {
+            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                _collectiveOutput = _collectivePrevious;
+            };
         };
+
+        fza_sfmplus_lastIsPlaying  = _isPlaying;
+        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
     };
 };
 _heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];

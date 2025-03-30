@@ -90,8 +90,8 @@ _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxA
 _heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
 //Position Hold
-_heli setVariable ["fza_sfmplus_pid_roll",           [0.0240, 0.0030, 0.0360] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_pitch",          [0.1500, 0.0050, 0.0900] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_roll",           [0.1000, 0.0060, 0.0720] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_pitch",          [0.3000, 0.0300, 0.1800] call fza_fnc_pidCreate];
 //Attitude Hold
 _heli setVariable ["fza_sfmplus_pid_roll_att",       [0.0400, 0.0015, 0.0180] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.0925, 0.0025, 0.0450] call fza_fnc_pidCreate];
@@ -102,12 +102,12 @@ _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] ca
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.0600, 0.0002, 0.0050] call fza_fnc_pidCreate];
 //SAS Functions
-_heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.0750, 0.00002, 0.0100] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.0450, 0.00002, 0.0100] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.0000, 0.00000, 0.0000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
 
 //Aerodynamic State Variables
-_heli setVariable ["fza_sfmplus_aero_alpha_deg",         0.0];
+_heli setVariable ["fza_sfmplus_aero_alpha_deg",     0.0];
 _heli setVariable ["fza_sfmplus_aero_beta_deg",      0.0];
 _heli setVariable ["fza_sfmplus_aero_beta_g",        0.0];
 _heli setVariable ["fza_sfmplus_aero_gamma",         0.0];

@@ -26,7 +26,7 @@ private _sasPitchOutput = 0.0;
 private _sasRollOutput  = 0.0;
 private _sasYawOutput   = 0.0;
 
-if (!(_heli getVariable "fza_ah64_attHoldActive") && !(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
+if (!(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Pitch & Roll SAS
     private _roll  = [_pidSASRoll, _deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
     _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
@@ -46,6 +46,7 @@ if (!(_heli getVariable "fza_ah64_attHoldActive") && !(_heli getVariable "fza_ah
 
 
 //systemChat format ["Pitch SAS = %1 -- Roll SAS = %2", _SASPitchOutput, _SASRollOutput];
+//systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2 -- _pedalLeftRight = %3", _heli getVariable "fza_sfmplus_cyclicFwdAft" toFixed 2, _heli getVariable "fza_sfmplus_cyclicLeftRight" toFixed 2, _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 2];
 //systemChat format ["_angVelX = %1 - _angVelY = %2 - _angVelZ = %3", _angVelX, _angVelY, _angVelZ];
 
 [_sasPitchOutput, _sasRollOutput, _sasYawOutput];

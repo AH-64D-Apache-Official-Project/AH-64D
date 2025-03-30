@@ -102,15 +102,15 @@ private _sideslipTable     = [[-90, -0.100]
 _interpSidelsipTable       = [_sideslipTable, _beta_deg] call fza_fnc_linearInterp;
 _interpSideslipVal         = _interpSidelsipTable select 1;
 
-private _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpSideslipVal * 2500) * _vScalar);
+private _fuselageYawTorque = [0.0, 0.0, 1.0] vectorMultiply ((_interpSideslipVal * 10000) * _vScalar);
 
-private _alphaTable       = [[-180.000,  1.00]
-                            ,[ -90.000,  0.10]
-                            ,[ -20.000,  0.08]
-                            ,[  -5.365,  0.00]
-                            ,[   0.000, -0.08]
-                            ,[  90.000, -0.10]
-                            ,[ 180.000, -1.00]];
+private _alphaTable       = [[-180.000,  0.100]
+                            ,[ -90.000,  0.075]
+                            ,[ -20.000,  0.050]
+                            ,[  -5.365,  0.000]
+                            ,[   0.000, -0.050]
+                            ,[  90.000, -0.075]
+                            ,[ 180.000, -0.100]];
 
 _interpAlphaTable           = [_alphaTable, _alpha] call fza_fnc_linearInterp;
 _interpAlphaVal             = _interpAlphaTable select 1;
@@ -144,7 +144,7 @@ private _fuselagePitchTorque  = [1.0, 0.0, 0.0] vectorMultiply ((_interpAlphaVal
 //systemChat format ["_gamma = %1 -- _beta_deg = %2 -- _vScalar = %3", _gamma, _beta_deg, _vScalar];
 //systemChat format ["_interpBetaTable = %1 -- _interpBetaVal %2", _interpBetaTable select 1 toFixed 3, _interpBetaVal tofixed 3];
 //systemChat format ["_interpGammaTable = %1 -- _interpGammaVal %2", _interpGammaTable select 1 toFixed 3, _interpGammaVal tofixed 3];
-_fuselageTorque = _fuselagePitchTorque;// vectorAdd _fuselageYawTorque;
+_fuselageTorque = _fuselagePitchTorque vectorAdd _fuselageYawTorque;
 
 _heli addTorque (_heli vectorModelToWorld _fuselageTorque);
 

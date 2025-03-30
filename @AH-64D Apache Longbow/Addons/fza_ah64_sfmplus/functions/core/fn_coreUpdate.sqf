@@ -19,7 +19,7 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-if (isGamePaused || isPaused || !isGameFocused) exitwith {
+if (isGamePaused || !isGameFocused) exitwith {
     _heli setVariable ["fza_sfmplus_previousTime",  diag_tickTime];
     _heli setVariable ["fza_sfmplus_deltaTime_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit]
 };
