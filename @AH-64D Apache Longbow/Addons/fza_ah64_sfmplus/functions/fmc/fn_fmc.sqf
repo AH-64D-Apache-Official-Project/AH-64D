@@ -39,6 +39,7 @@ if (!(_heli getVariable "fza_ah64_fmcCollOn")) then {
     _altHoldCollOut = 0.0;
 };
 
-//_SASPitchOutput = 0.0; _SASRollOutput = 0.0; _SASYawOutput = 0.0;
-
-[_attHoldCycPitchOut + _SASPitchOutput, _attHoldCycRollOut + _SASRollOutput, _hdgHoldPedalYawOut + _SASYawOutput, _altHoldCollOut];
+_heli setVariable ["fza_sfmplus_attHoldCycPitchOut",   _attHoldCycPitchOut + _SASPitchOutput];
+_heli setVariable ["fza_sfmplus_attHoldCycRollOut",    _attHoldCycRollOut  + _SASRollOutput];
+_heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut",   _hdgHoldPedalYawOut + _SASYawOutput];
+_heli setVariable ["fza_sfmplus_altHoldCollOut",       _altHoldCollOut];

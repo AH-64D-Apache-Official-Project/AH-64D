@@ -32,7 +32,7 @@ fza_ah64_accumulator    = fza_ah64_accumulator + fza_ah64_deltaTime;
 
 while {fza_ah64_accumulator >= fza_ah64_fixedTimeStep} do {
     
-    [_heli] call fza_sfmplus_fnc_coreUpdate;
+    [_heli] call fza_sfmplus_fnc_coreFixedUpdate;
 
     fza_ah64_accumulator = fza_ah64_accumulator - fza_ah64_fixedTimeStep;
 };

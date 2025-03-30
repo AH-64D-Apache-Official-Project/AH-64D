@@ -18,12 +18,17 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+
+params ["_heli", "_altitude", "_temperature", "_dryAirDensity"];
 
 if (!local _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
+
+private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_attHoldCycPitchOut";
+private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_attHoldCycRollOut";
+private _altHoldCollOut         = _heli getVariable "fza_sfmplus_altHoldCollOut";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
@@ -83,17 +88,22 @@ private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrust
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
+
 //Rotor induced thrust as a function of RPM
 private _rtrThrustScalar_max           = [_rtrThrustScalarTable_max, _altitude] call fza_fnc_linearInterp select 1;
 private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
+
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
-//Additional thrust gained from increasing forward airspeed
-private _velXY                      = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
-//Induced flow handler
-private _velZ                      = velocityModelSpace _heli # 2;
 
+//Additional thrust gained from increasing forward airspeed
+private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
+private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
+private _velXY                     = vectorMagnitude [_velX, _velY];
+private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
+
+//Induced flow handler
+private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
 private _inducedVelocityScalar     = 1.0;
 private _vrsVelMin                 = _heli getVariable "fza_sfmplus_vrsVelocityMin";
 private _vrsVelMax                 = _heli getVariable "fza_sfmplus_vrsVelocityMax";
@@ -110,6 +120,7 @@ if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
         _inducedVelocityScalar = if(_vrsVel == 0.0) then { 1.0; } else { 1 - (_velZ / _vrsVel); };
     };
 };
+
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
 private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
 private _rtrThrust                 = _baseThrust * _rtrThrustScalar;

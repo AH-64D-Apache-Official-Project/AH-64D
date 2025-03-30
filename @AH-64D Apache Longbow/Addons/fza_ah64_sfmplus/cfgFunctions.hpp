@@ -25,6 +25,7 @@ class CfgFunctions
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
             class coreConfig {R;};
+            class coreFixedUpdate {R;};
             class coreUpdate  {R;};
         };
         class damage {

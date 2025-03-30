@@ -123,6 +123,12 @@ _heli setVariable ["fza_sfmplus_aero_accelZ",        0.0];
 
 _heli setVariable ["fza_sfmplus_aero_accel",         [0.0, 0.0, 0.0]];
 
+//FMC variables
+_heli setVariable ["fza_sfmplus_attHoldCycPitchOut", 0.0];
+_heli setVariable ["fza_sfmplus_attHoldCycRollOut",  0.0];
+_heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut", 0.0];
+_heli setVariable ["fza_sfmplus_altHoldCollOut",     0.0];
+
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelVariables;
 [_heli] call fza_sfmplus_fnc_fuelSet;
