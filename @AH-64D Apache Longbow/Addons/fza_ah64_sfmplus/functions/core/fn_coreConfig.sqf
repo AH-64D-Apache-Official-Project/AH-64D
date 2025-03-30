@@ -50,9 +50,9 @@ _heli setVariable ["fza_sfmplus_velWorldSpaceY_avg",  [fza_sfmplus_movingAverage
 _heli setVariable ["fza_sfmplus_velWorldSpaceZ_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velClimb",            0.0];
 _heli setVariable ["fza_sfmplus_angVelModelSpace",    [0.0,0.0,0.0]];
-//_heli setVariable ["fza_sfmplus_angVelWorldSpaceX_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
-//_heli setVariable ["fza_sfmplus_angVelWorldSpaceY_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
-//_heli setVariable ["fza_sfmplus_angVelWorldSpaceZ_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+_heli setVariable ["fza_sfmplus_angVelModelSpaceX_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+_heli setVariable ["fza_sfmplus_angVelModelSpaceY_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
+_heli setVariable ["fza_sfmplus_angVelModelSpaceZ_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_angVelWorldSpace",    [0.0,0.0,0.0]];
 
 _heli setVariable ["fza_sfmplus_velX_prev",         0.0];

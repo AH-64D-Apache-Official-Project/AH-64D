@@ -140,7 +140,7 @@ private _induced_max = 0.918;//IND_MAX;//0.6072;
 
 private _profile_cur = _profile_min + ((_profile_max - _profile_min) / _vel_vne) * _velXY;
 
-private _induced_val = _induced_min * (_heli getVariable "fza_sfmplus_collectiveOutput");//((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
+private _induced_val = _induced_min * ((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
 private _induced_cur = ((_induced_val - _induced_max) / _vel_vbe) * _velXY + _induced_val;
 
 private _power_val   = _profile_cur + _induced_cur;

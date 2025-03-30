@@ -64,16 +64,16 @@ private _velWorldSpace         = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpa
 //Climb velocity
 private _velClimb              = (_velWorldSpace select 2) * MPS_TO_FPM;
 //Angular velocity in model space
-//private _angVelModelSpaceX_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceX_avg";
-//private _angVelModelSpaceY_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceY_avg";
-//private _angVelModelSpaceZ_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceZ_avg";
+private _angVelModelSpaceX_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceX_avg";
+private _angVelModelSpaceY_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceY_avg";
+private _angVelModelSpaceZ_avg    = _heli getVariable "fza_sfmplus_angVelModelSpaceZ_avg";
 
 private _angVelModelSpaceX     = angularVelocityModelSpace _heli select 0;
-//_angVelModelSpaceX             = [_angVelModelSpaceX_avg, _angVelModelSpaceX] call fza_sfmplus_fnc_getSmoothAverage;
+_angVelModelSpaceX             = [_angVelModelSpaceX_avg, _angVelModelSpaceX] call fza_sfmplus_fnc_getSmoothAverage;
 private _angVelModelSpaceY     = angularVelocityModelSpace _heli select 1;
-//_angVelModelSpaceY             = [_angVelModelSpaceY_avg, _angVelModelSpaceY] call fza_sfmplus_fnc_getSmoothAverage;
+_angVelModelSpaceY             = [_angVelModelSpaceY_avg, _angVelModelSpaceY] call fza_sfmplus_fnc_getSmoothAverage;
 private _angVelModelSpaceZ     = angularVelocityModelSpace _heli select 2;
-//_angVelModelSpaceZ             = [_angVelModelSpaceZ_avg, _angVelModelSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
+_angVelModelSpaceZ             = [_angVelModelSpaceZ_avg, _angVelModelSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
 private _angVelModelSpace      = [_angVelModelSpaceX, _angVelModelSpaceY, _angVelModelSpaceZ];
 //Angular velocity in world space
 private _angVelWorldSpace      = angularVelocity _heli;
