@@ -1,6 +1,8 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
 if (fza_ah64_sfmPlusControlScheme == HOTAS || fza_ah64_sfmPlusControlScheme == MOUSE) then {
     //Cyclic pitch trim
     private _curCyclicFwdAft  = (_heli getVariable "fza_sfmplus_cyclicFwdAft");

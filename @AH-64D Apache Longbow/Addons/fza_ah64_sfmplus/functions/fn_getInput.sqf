@@ -20,6 +20,8 @@ params ["_heli", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
+if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
 private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
 private _inputLagValue      = getNumber (_config >> "inputLagValue");
