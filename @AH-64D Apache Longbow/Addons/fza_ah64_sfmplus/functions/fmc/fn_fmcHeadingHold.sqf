@@ -2,6 +2,10 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 private _pidHdg        = _heli getVariable "fza_sfmplus_pid_hdgHold";
+//_pidHdg set ["kp", H_KP];
+//_pidHdg set ["ki", H_KI];
+//_pidHdg set ["kd", H_KD];
+
 private _pidTrn        = _heli getVariable "fza_sfmplus_pid_trnCoord";
 //_pidTrn set ["kp", T_KP];
 //_pidTrn set ["ki", T_KI];
@@ -37,10 +41,18 @@ if (_attSubMode == "att" || _gndSpeed > HDG_HOLD_SPEED_SWITCH_ACCEL) then {
 //If we are on the ground, or if the force trim is interupted, or the pilot has exceeded
 //the breakout values for the pedals, then heading hold is not active (doing work)
 //otherwise, heading hold is ALWAYS active
-if (_onGnd
+private _breakout = false;
+if ((_heli getVariable "fza_sfmplus_pedalLeftRight") <= -_breakoutValue && (_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
+    _breakout = true;
+};
+
+if ((_heli getVariable "fza_sfmplus_pedalLeftRight") >= _breakoutValue && (_heli getVariable "fza_sfmplus_pedalLeftRight") > 0.0) then {
+    _breakout = true;
+};
+//systemChat format ["_breakoutValue = %1 -- fza_sfmplus_pedalLeftRight = %2", _breakoutValue, (_heli getVariable "fza_sfmplus_pedalLeftRight") toFixed 2];
+if (   _onGnd
     || _heli getVariable "fza_ah64_forceTrimInterupted" 
-    || (_heli getVariable "fza_sfmplus_pedalLeftRight") <= -_breakoutValue 
-    || (_heli getVariable "fza_sfmplus_pedalLeftRight") >=  _breakoutValue) then {
+    || _breakout) then {
     if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
         _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
     };
@@ -73,7 +85,7 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
         _trnOutput = [_trnOutput, -1.0, 1.0] call BIS_fnc_clamp;
     };
 
-    _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOutput, _trnOutput];
+    _output = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOutput, _trnOutput, true];
 } else {
     [_pid] call fza_fnc_pidReset;
 };

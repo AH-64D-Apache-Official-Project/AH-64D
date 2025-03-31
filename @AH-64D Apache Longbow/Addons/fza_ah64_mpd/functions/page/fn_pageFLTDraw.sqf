@@ -20,7 +20,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_TORQUE), ( _torque * 100
 
 //Altitude and speed
 private _groundSpeed = (_heli getVariable "fza_sfmplus_gndSpeed");//vectorMagnitude (velocity _heli call _2dvectTo3D);
-private _airspeed    = (_heli getVariable "fza_sfmplus_vel3D");//vectorMagnitude (velocity _heli vectorDiff wind);
+private _airspeed    = (_heli getVariable "fza_sfmplus_vel2D");//vectorMagnitude (velocity _heli vectorDiff wind);
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_BALT),  _barAlt toFixed 0];

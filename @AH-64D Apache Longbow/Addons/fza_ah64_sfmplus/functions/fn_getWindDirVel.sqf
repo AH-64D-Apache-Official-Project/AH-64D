@@ -20,7 +20,7 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _windDir = round((windDir + 180) mod 360);
-private _windVel = round((vectorMagnitude wind) * 1.94);
+private _windDir = fza_ah64_sfmPlusWindDirection;
+private _windVel = fza_ah64_sfmPlusWindSpeed;
 
 [_windDir,_windVel];

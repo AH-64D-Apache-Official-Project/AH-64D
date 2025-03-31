@@ -39,6 +39,11 @@ class CfgFunctions
             class engineReset {R;};
             class engineVariables {R;};
         };
+        class environment {
+            file = "\fza_ah64_sfmplus\functions\environment";
+            class environment {R;};
+            class environmentVariables {R;};
+        };
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
             class fmc {R;};

@@ -117,6 +117,33 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusWindDirection",
+    "SLIDER",
+    ["Wind Direction", "The direction the wind is coming from."],
+    [_projName, "Flight model"],
+    [0.0, 360.0, 0.0, 360.0],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusWindSpeed",
+    "SLIDER",
+    ["Wind Speed", "The wind speed in knots."],
+    [_projName, "Flight model"],
+    [0.0, 50.0, 0.0, 50.0],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusWindGustSpeed",
+    "SLIDER",
+    ["Gust Speed", "The wind gust speed in knots."],
+    [_projName, "Flight model"],
+    [0.0, 50.0, 0.0, 50.0],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
     ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],

@@ -18,13 +18,17 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_altitude", "_temperature", "_dryAirDensity"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 if (!local _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
+
+private _altitude               = _heli getVariable "fza_sfmplus_PA";
+private _temperature            = _heli getVariable "fza_sfmplus_FAT";
+private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
 
 private _hdgHoldPedalYawOut     = _heli getVariable "fza_sfmplus_hdgHoldPedalYawOut";
 
@@ -38,33 +42,45 @@ private _bladeRadius            = 1.402;   //m
 private _bladeChord             = 0.253;   //m
 private _bladePitch_min         = -15.0;   //deg
 private _bladePitch_max         =  27.0;   //deg
-private _bladePitch_med         = -1.668;
-
-private _rtrPowerScalarTable    = [
-                                   [   0, 1.777]
-                                  ,[2000, 1.617]
-                                  ,[4000, 1.530]
-                                  ,[6000, 1.377]
-                                  ,[8000, 1.284]
-                                  ];
-private _rtrThrustScalar_min    = -0.125;
-private _rtrThrustScalar_max    =  0.1162;
+private _bladePitchTable = [
+    [-1.0, -15.0]
+   ,[-0.9, -14.5]
+   ,[-0.8, -14.0]
+   ,[-0.7, -13.0]
+   ,[-0.6, -11.9]
+   ,[-0.5, -10.5]
+   ,[-0.4,  -9.0]
+   ,[-0.3,  -7.0]
+   ,[-0.2,  -4.0]
+   ,[-0.1,   0.5]
+   ,[-0.0,   6.0]
+   ,[ 0.1,  11.0]
+   ,[ 0.2,  15.0]
+   ,[ 0.3,  18.0]
+   ,[ 0.4,  20.5]
+   ,[ 0.5,  22.5]
+   ,[ 0.6,  24.0]
+   ,[ 0.7,  25.0]
+   ,[ 0.8,  25.8]
+   ,[ 0.9,  26.5]
+   ,[ 1.0,  27.0]
+  ];
+private _rtrThrustScalar_min    = -0.125;//-0.067;
+private _rtrThrustScalar_max    =  0.063;// 0.267;
 private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-private _pedalLeftRightTrim            = 0.0;
+private _pedalLeftRightTrim     = 0.0;
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
 };
-private _bladePitch_cur                = 0.0;
-if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_min];
-} else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_max];
-};
+private _pedalPosition  = (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
+private _bladePitch_cur = [_bladePitchTable, _pedalPosition] call fza_fnc_linearInterp select 1;
+
+systemChat format ["_bladePitch_cur = %1 -- _pedalPosition = %2", _bladePitch_cur, _pedalPosition];
 
 private _bladePitchInducedThrustScalar = 0.0;
 if (_bladePitch_cur < 0.0) then {
@@ -87,10 +103,13 @@ if (_bladePitch_cur >= 0.0) then {
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
-private _velYZ                      = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
+private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
+private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
+private _velYZ                      = vectorMagnitude [_velY, _velZ];
 private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
-private _velX                      = velocityModelSpace _heli # 0;
+private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
+_velX = _velX * sin (_heli getVariable "fza_sfmplus_aero_beta_deg");
 private _inducedVelocityScalar     = 1.0;
 if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;

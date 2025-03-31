@@ -26,7 +26,14 @@ params ["_heli", "_useWind"];
 private _velWind = [];
 
 if (_useWind) then {
-    _velWind = wind;
+    private _velWindX = _heli getVariable "fza_sfmplus_wind" select 0;
+    private _velWindY = _heli getVariable "fza_sfmplus_wind" select 1;
+    private _dir      = direction _heli;
+    
+    private _adjVelWindX = (_velWindX * cos _dir) - (_velWindY * sin _dir);
+    private _adjVelWindY = (_velWindX * sin _dir) + (_velWindY * cos _dir);
+    //systemChat format ["_adjVelWindX = %1 -- _adjVelWindY = %2 -- _dir = %3", _adjVelWindX toFixed 0, _adjVelWindY toFixed 0, _dir toFixed 0];
+    _velWind = [_adjVelWindX, _adjVelWindY, 0.0];
 } else {
     _velWind = [0.0, 0.0, 0.0];
 };
@@ -42,6 +49,7 @@ _velModelSpaceY                = [_velModelSpaceY_avg, _velModelSpaceY] call fza
 private _velModelSpaceZ        = velocityModelSpace _heli select 2;
 _velModelSpaceZ                = [_velModelSpaceZ_avg, _velModelSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
 private _velModelSpace         = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ] vectorDiff _velWind;
+
 private _velModelSpaceNoWind   = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ];
 //Ground speed
 private _gndSpeed              = round(vectorMagnitude [_velModelSpaceNoWind select 0, _velModelSpaceNoWind select 1] * MPS_TO_KNOTS);
@@ -60,7 +68,7 @@ private _velWorldSpaceY        = velocity _heli select 1;
 _velWorldSpaceY                = [_velWorldSpaceY_avg, _velWorldSpaceY] call fza_sfmplus_fnc_getSmoothAverage;
 private _velWorldSpaceZ        = velocity _heli select 2;
 _velWorldSpaceZ                = [_velWorldSpaceZ_avg, _velWorldSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
-private _velWorldSpace         = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpaceZ];// vectorDiff _velWind;
+private _velWorldSpace         = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpaceZ];
 //Climb velocity
 private _velClimb              = (_velWorldSpace select 2) * MPS_TO_FPM;
 //Angular velocity in model space
@@ -79,8 +87,8 @@ private _angVelModelSpace      = [_angVelModelSpaceX, _angVelModelSpaceY, _angVe
 private _angVelWorldSpace      = angularVelocity _heli;
 
 _heli setVariable ["fza_sfmplus_gndSpeed",            _gndSpeed];
-_heli setVariable ["fza_sfmplus_vel2D",               _vel3D];
-_heli setVariable ["fza_sfmplus_vel3D",               _vel2D];
+_heli setVariable ["fza_sfmplus_vel2D",               _vel2D];
+_heli setVariable ["fza_sfmplus_vel3D",               _vel3D];
 _heli setVariable ["fza_sfmplus_velModelSpace",       _velModelSpace];
 _heli setVariable ["fza_sfmplus_velModelSpaceNoWind", _velModelSpaceNoWind];
 _heli setVariable ["fza_sfmplus_velWorldSpace",       _velWorldSpace];

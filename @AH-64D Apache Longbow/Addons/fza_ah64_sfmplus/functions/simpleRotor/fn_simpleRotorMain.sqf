@@ -20,15 +20,20 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-params ["_heli", "_altitude", "_temperature", "_dryAirDensity"];
+params ["_heli"];
 
 if (!local _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
 
+private _altitude               = _heli getVariable "fza_sfmplus_PA";
+private _temperature            = _heli getVariable "fza_sfmplus_FAT";
+private _dryAirDensity          = _heli getVariable "fza_sfmplus_RHO";
+
 private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_attHoldCycPitchOut";
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_attHoldCycRollOut";
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_altHoldCollOut";
+private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
@@ -75,9 +80,9 @@ private _rtrAirspeedVelocityMod = 0.4;
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;//0.8; //0.95, 1.10
 
-private _fwdPitchTorqueScalar   = 3.5;//3.25;//3.5;//3.00;
-private _aftPitchTorqueScalar   = 3.0;//3.75;//4.5;//3.0;//2.75;//2.48;//2.25//1.75;//PITCH_SCALAR;
-private _rollTorqueScalar       = 0.90;//1.00;//0.75;//ROLL_SCALAR;
+private _fwdPitchTorqueScalar   = 3.00;//3.50;//3.0;//2.5;//3.5;//3.25;//3.5;//3.00;
+private _aftPitchTorqueScalar   = 2.75;//3.25;//2.5;//2.0;//3.0;//3.75;//4.5;//3.0;//2.75;//2.48;//2.25//1.75;//PITCH_SCALAR;
+private _rollTorqueScalar       = 0.80;//0.75;//0.90;//1.00;//0.75;//ROLL_SCALAR;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
@@ -112,7 +117,6 @@ if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
     private _vrsScalar = if(_velZ == 0.0) then { 0.0; } else { abs(_vrsVelMin / _velZ)^_vrsScalarExponent; };
     _inducedVelocityScalar   = if(_vrsVelMax == 0.0) then { 1.0; } else { (1 - (_velZ / _vrsVelMax)) * _vrsScalar; };
 } else {
-     private _isAutorotating = _heli getVariable "fza_sfmplus_isAutorotating";
     //Collective must be < 20% and TAS must be < 145 kts
     if (_isAutorotating && _velXY < 74.59) then {
         _inducedVelocityScalar = 1 - (_velZ / 7.62);
@@ -138,10 +142,14 @@ private _profile_max = 0.704;
 private _induced_min = 1.171;//IND_MIN;//0.8110;
 private _induced_max = 0.918;//IND_MAX;//0.6072;
 
-private _profile_cur = _profile_min + ((_profile_max - _profile_min) / _vel_vne) * _velXY;
+private _velXNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 0;
+private _velYNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 1;
+private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind];
+
+private _profile_cur = _profile_min + ((_profile_max - _profile_min) / _vel_vne) * _velXYNoWind;
 
 private _induced_val = _induced_min * ((_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut);
-private _induced_cur = ((_induced_val - _induced_max) / _vel_vbe) * _velXY + _induced_val;
+private _induced_cur = ((_induced_val - _induced_max) / _vel_vbe) * _velXYNoWind + _induced_val;
 
 private _power_val   = _profile_cur + _induced_cur;
 if (_power_val < 0.0) then {
@@ -149,6 +157,28 @@ if (_power_val < 0.0) then {
 };
 private _power_req   = _power_val * 2133.0;
 private _torque_req  = (_power_req / 0.001) / 0.105 / 21109;
+
+private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
+private _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _hdgHoldPedalYawOut = _heli getVariable "fza_sfmplus_hdgHoldPedalYawOut";
+private _tailRtrScalar      = [
+                               [-1.00, 1.20]
+                              ,[-0.80, 1.05] 
+                              ,[-0.25, 1.00]
+                              ,[ 0.00, 1.00]
+                              ,[ 0.25, 1.00]
+                              ,[ 0.80, 0.95]
+                              ,[ 1.00, 0.80]
+                              ];
+private _pedalPosition = _pedalLeftRight + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
+private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
+private _pedalTqScalar = 1.0;
+if (_tailRtrDamage < 0.85) then {
+    _pedalTqScalar = [_tailRtrScalar, _pedalPosition] call fza_fnc_linearInterp select 1;
+};
+_torque_req = _torque_req * _pedalTqScalar;
+//systemChat format ["_pedalPosition = %1", _pedalPosition];
+
 private _rtrTorque   = _torque_req * _rtrGearRatio;
 _rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];
 /*
@@ -186,6 +216,7 @@ private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
+private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
 private _cruiseTqTable = 
 [
  [ 0.00, _heli getVariable "fza_sfmplus_hvrTQ_OGE"]
@@ -205,6 +236,9 @@ private _cruiseTqTable =
 ,[77.17, 1.18]
 ];
 private _cruiseTq   = [_cruiseTqTable, _velXY] call fza_fnc_linearInterp select 1;
+if (_isSingleEng) then {
+    _cruiseTq = _cruiseTq * 2.0;
+};
 private _tqChange   = _engPctTq - _cruiseTq;
 _tqChange           = [_tqChange, 0.0, 0.8] call BIS_fnc_clamp;
 private _tqRoCTable =
@@ -275,7 +309,7 @@ if (currentPilot _heli == player) then {
 
 if (cameraView == "INTERNAL") then {
     //Camera shake effect for ETL (16 to 24 knots)
-    if (_velXY > 8.23 && _velXY < 12.35) then {
+    if (_velXYNoWind > 8.23 && _velXYNoWind < 12.35) then {
         enableCamShake true;
         setCamShakeParams [0.0, 0.5, 0.0, 0.0, true];
         addCamShake       [0.9, 0.4, 6.2];
@@ -288,7 +322,7 @@ if (cameraView == "INTERNAL") then {
     };
 
     //Camera shake effect for vortex ring sate
-    if (_velXY < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround)) then {  //must be less than ETL
+    if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround) && !_isAutorotating) then {  //must be less than ETL
         //2000 fpm to 2933fpm
         if (_velZ < -(_vrsVelMax * 0.40) && _velZ > -(_vrsVelMax * 0.60)) then {
             enableCamShake true;

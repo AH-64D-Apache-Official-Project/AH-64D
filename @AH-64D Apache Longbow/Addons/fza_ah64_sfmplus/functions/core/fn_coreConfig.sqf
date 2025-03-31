@@ -129,6 +129,9 @@ _heli setVariable ["fza_sfmplus_attHoldCycRollOut",  0.0];
 _heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut", 0.0];
 _heli setVariable ["fza_sfmplus_altHoldCollOut",     0.0];
 
+//Environment
+[_heli] call fza_sfmplus_fnc_environmentVariables;
+
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelVariables;
 [_heli] call fza_sfmplus_fnc_fuelSet;

@@ -17,7 +17,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_rho"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
@@ -29,9 +29,11 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 if (!local _heli) exitWith {};
 
 private _deltaTime       = fza_ah64_fixedTimeStep;
+private _rho             = _heli getVariable "fza_sfmplus_rho";
+
 private _heliCOM         = getCenterOfMass _heli;
 private _numElements     = 5;
-private _airfoilTable    = getArray (_sfmPlusConfig >> "stabAirfoilTable");
+private _airfoilTable    = getArray (_sfmPlusConfig >> "airfoilTable01");
 private _stabPos         = [0.0, -6.45, -1.85];//_heli getVariable "fza_sfmplus_stabPos";
 private _span            = _heli getVariable "fza_sfmplus_stabWidth";
 private _chord           = _heli getVariable "fza_sfmplus_stabLength";

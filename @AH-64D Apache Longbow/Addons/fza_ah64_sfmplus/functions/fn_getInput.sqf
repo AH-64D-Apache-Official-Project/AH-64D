@@ -100,6 +100,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 _pedalLeftRight              = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_cyclicLeftRight = %1 -- _cyclicFwdAft = %2 -- _pedalLeftRight = %3", _cyclicLeftRight toFixed 2, _cyclicFwdAft toFixed 2, _pedalLeftRight toFixed 2];
 
 //Keyboard collective
 private _keyCollectiveUp = inputAction "HeliCollectiveRaise";

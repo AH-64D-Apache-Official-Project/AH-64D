@@ -1,4 +1,4 @@
-params ["_heli", "_rho"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 if (!local _heli) exitWith {};
@@ -7,9 +7,10 @@ private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 private _deltaTime      = fza_ah64_fixedTimeStep;
+private _rho            = _heli getVariable "fza_sfmplus_rho";
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;//getArray  (_heliSimCfg >> "wingElements")               select _wingNum;
-private _airfoilTable   = getArray (_sfmPlusConfig >> "stabAirfoilTable");
+private _airfoilTable   = getArray (_sfmPlusConfig >> "airfoilTable02");
 private _wingPos        = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
 private _pitch          = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
 private _roll           = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
