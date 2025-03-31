@@ -55,7 +55,7 @@ _heli setVariable ["fza_sfmplus_rho",   _dryAirDensity];
 
 //Wind
 private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
-private _gustSpeed     = _heli getVariable "fza_sfmplus_windGustSpeed";
+//private _gustSpeed     = _heli getVariable "fza_sfmplus_windGustSpeed";
 
 private _windDir       = fza_ah64_sfmPlusWindDirection;
 private _windSpeed     = fza_ah64_sfmPlusWindSpeed;
@@ -72,5 +72,5 @@ private _windY     = -((_windSpeed + _gustSpeed) * cos _windDir);
 
 private _windVec   = [_windX, _windY, 0.0];
 
-_heli setVariable ["fza_sfmplus_wind", _windVec];
-_heli setVariable ["fza_sfmplus_windGustSpeed", _gustSpeed];
+_heli setVariable ["fza_sfmplus_velWind", _windVec];
+//_heli setVariable ["fza_sfmplus_windGustSpeed", _gustSpeed];

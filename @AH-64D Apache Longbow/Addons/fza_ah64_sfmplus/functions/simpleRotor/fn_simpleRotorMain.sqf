@@ -104,7 +104,12 @@ private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
 private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
-private _velXY                     = vectorMagnitude [_velX, _velY];
+private _velWindY                  = _heli getVariable "fza_sfmplus_velWind" select 1;
+private _velWindX                  = _heli getVariable "fza_sfmplus_velWind" select 0;
+if (_velWindY < 0.0) then {
+    _velWindY = 0.0;
+};
+private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 
 //Induced flow handler

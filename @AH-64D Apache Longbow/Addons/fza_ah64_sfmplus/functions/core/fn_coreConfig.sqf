@@ -39,6 +39,7 @@ _heli setVariable ["fza_sfmplus_deltaTime_avg",       [fza_sfmplus_movingAverage
 _heli setVariable ["fza_sfmplus_gndSpeed",            0.0];
 _heli setVariable ["fza_sfmplus_vel2D",               0.0];
 _heli setVariable ["fza_sfmplus_vel3D",               0.0];
+_heli setVariable ["fza_sfmplus_velWind",             [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpace",       [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceNoWind", [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceX_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];

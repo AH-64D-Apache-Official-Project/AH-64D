@@ -79,8 +79,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 private _pedalPosition  = (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
 private _bladePitch_cur = [_bladePitchTable, _pedalPosition] call fza_fnc_linearInterp select 1;
-
-systemChat format ["_bladePitch_cur = %1 -- _pedalPosition = %2", _bladePitch_cur, _pedalPosition];
+//systemChat format ["_bladePitch_cur = %1 -- _pedalPosition = %2", _bladePitch_cur, _pedalPosition];
 
 private _bladePitchInducedThrustScalar = 0.0;
 if (_bladePitch_cur < 0.0) then {
@@ -105,7 +104,11 @@ private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
 private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
 private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
-private _velYZ                      = vectorMagnitude [_velY, _velZ];
+private _velWindY                  = _heli getVariable "fza_sfmplus_velWind" select 1;
+if (_velWindY < 0.0) then {
+    _velWindY = 0.0;
+};
+private _velYZ                      = vectorMagnitude [_velY + velWindY, _velZ];
 private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
 private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
