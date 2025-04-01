@@ -75,6 +75,7 @@ private _rtrTipLossTable          = [
                                     ,[ 8618, 0.989]
                                     ,[ 9525, 0.940]
                                     ];
+/*                                 
 private _velocityThrustExpTable   = [
                                      [ 0.00, 0.000]
                                     ,[ 2.57, 0.290]
@@ -94,10 +95,8 @@ private _velocityThrustExpTable   = [
                                     ,[66.88, 0.000]
                                     ,[72.02, 0.000]
                                     ];
-
-
-
-private _rtrAirspeedVelocityMod = 0.4;
+*/
+private _velocityThrustExponent = 0.386;
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;//0.8; //0.95, 1.10
 
@@ -131,9 +130,8 @@ if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
 private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
-private _velocityThrustExponent    = [_velocityThrustExpTable, _velXY] call fza_fnc_linearInterp select 1;
-
-systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+//private _velocityThrustExponent    = [_velocityThrustExpTable, _velXY] call fza_fnc_linearInterp select 1;
+//systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
 
 //Induced flow handler
@@ -193,9 +191,9 @@ private _hdgHoldPedalYawOut = _heli getVariable "fza_sfmplus_hdgHoldPedalYawOut"
 private _tailRtrScalar      = [
                                [-1.00, 1.20]
                               ,[-0.80, 1.05] 
-                              ,[-0.25, 1.00]
+                              ,[-0.05, 1.00]
                               ,[ 0.00, 1.00]
-                              ,[ 0.25, 1.00]
+                              ,[ 0.50, 1.00]
                               ,[ 0.80, 0.95]
                               ,[ 1.00, 0.80]
                               ];
@@ -206,7 +204,7 @@ if (_tailRtrDamage < 0.85) then {
     _pedalTqScalar = [_tailRtrScalar, _pedalPosition] call fza_fnc_linearInterp select 1;
 };
 _torque_req = _torque_req * _pedalTqScalar;
-//systemChat format ["_pedalPosition = %1", _pedalPosition];
+systemChat format ["_pedalPosition = %1", _pedalPosition];
 
 private _rtrTorque   = _torque_req * _rtrGearRatio;
 _rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];
@@ -244,24 +242,27 @@ private _gndEffThrust = _rtrThrust * _gndEffScalar;
 private _eng1TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
 private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
-/*
+
 private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
 
 private _cruiseTqTable = 
 [
- [ 0.00, _heli getVariable "fza_sfmplus_hvrTQ_OGE"]
+ [ 0.00, 0.94]
+,[ 2.57, 0.93] 
 ,[ 5.14, 0.90]
+,[ 7.72, 0.87]
 ,[10.29, 0.82]
+,[12.86, 0.78]
 ,[20.58, 0.62]
-,[27.78, 0.53]
+,[25.72, 0.54]
+,[30.87, 0.50]
 ,[36.01, 0.49]
-,[38.07, 0.49]
+,[41.16, 0.50]
 ,[46.30, 0.52]
 ,[51.44, 0.56]
 ,[56.59, 0.64]
 ,[61.73, 0.72]
 ,[66.88, 0.85]
-,[69.96, 0.94]
 ,[72.02, 1.01]
 ,[77.17, 1.18]
 ];
@@ -286,10 +287,10 @@ private _tqRoCTable =
 private _RoCScalar     = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tqChange = %1 -- RoC = %2", _tqChange, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
 private _climbThrust   = _rtrThrust * _RoCScalar;
-*/
+
 private _tipLossScalar = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tipLossScalar = %1", _tipLossScalar];
-private _totThrust     = ((_rtrThrust + _gndEffThrust) * _tipLossScalar);// + _climbThrust;
+private _totThrust     = ((_rtrThrust + _gndEffThrust) * _tipLossScalar) + _climbThrust;
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ       = _axisZ vectorMultiply (_totThrust * _deltaTime);
 

@@ -65,8 +65,8 @@ private _bladePitchTable = [
    ,[ 0.9,  26.5]
    ,[ 1.0,  27.0]
   ];
-private _rtrThrustScalar_min    = -0.125;//-0.067;
-private _rtrThrustScalar_max    =  0.063;// 0.267;
+private _rtrThrustScalar_min    = -0.120;//THRUST_MIN;//-0.050;//-0.125;//-0.067;
+private _rtrThrustScalar_max    =  0.075;//THRUST_MAX;// 0.050;//0.063;// 0.267;
 private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
