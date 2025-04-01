@@ -21,21 +21,17 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-params ["_heli", "_useWind"];
+params ["_heli"];
 
 //Wind
-private _velWind            = [];
-if (_useWind) then {
-    private _velWindX = _heli getVariable "fza_sfmplus_velWind" select 0;
-    private _velWindY = _heli getVariable "fza_sfmplus_velWind" select 1;
-    private _dir      = direction _heli;
+private _velWindX = _heli getVariable "fza_sfmplus_velWind" select 0;
+private _velWindY = _heli getVariable "fza_sfmplus_velWind" select 1;
+private _dir      = direction _heli;
     
-    private _adjVelWindX = (_velWindX * cos _dir) - (_velWindY * sin _dir);
-    private _adjVelWindY = (_velWindX * sin _dir) + (_velWindY * cos _dir);
-    _velWind             = [_adjVelWindX, _adjVelWindY, 0.0];
-} else {
-    _velWind = [0.0, 0.0, 0.0];
-};
+private _adjVelWindX = (_velWindX * cos _dir) - (_velWindY * sin _dir);
+private _adjVelWindY = (_velWindX * sin _dir) + (_velWindY * cos _dir);
+private _velWind     = [_adjVelWindX, _adjVelWindY, 0.0];
+
 //Velocity model space
 private _velModelSpaceX_avg  = _heli getVariable "fza_sfmplus_velModelSpaceX_avg";
 private _velModelSpaceY_avg  = _heli getVariable "fza_sfmplus_velModelSpaceY_avg";

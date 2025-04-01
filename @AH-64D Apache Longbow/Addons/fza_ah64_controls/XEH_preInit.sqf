@@ -108,15 +108,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableWind",
-    "CHECKBOX",
-    ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
-    [_projName, "Flight model"],
-    [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_sfmPlusWindDirection",
     "SLIDER",
     ["Wind Direction", "The direction the wind is coming from."],

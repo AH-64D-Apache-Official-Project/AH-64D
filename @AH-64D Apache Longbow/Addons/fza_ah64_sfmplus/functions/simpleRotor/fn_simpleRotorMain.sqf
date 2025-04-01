@@ -204,7 +204,7 @@ if (_tailRtrDamage < 0.85) then {
     _pedalTqScalar = [_tailRtrScalar, _pedalPosition] call fza_fnc_linearInterp select 1;
 };
 _torque_req = _torque_req * _pedalTqScalar;
-systemChat format ["_pedalPosition = %1", _pedalPosition];
+//systemChat format ["_pedalPosition = %1", _pedalPosition];
 
 private _rtrTorque   = _torque_req * _rtrGearRatio;
 _rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];

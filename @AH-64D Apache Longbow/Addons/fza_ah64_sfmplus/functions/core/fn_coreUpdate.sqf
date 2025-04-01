@@ -33,7 +33,7 @@ if (isAutoHoverOn _heli) then {
 [_heli] call fza_sfmplus_fnc_environment;
 
 //Velocities
-[_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities;
+[_heli] call fza_sfmplus_fnc_getVelocities;
 [_heli] call fza_sfmplus_fnc_getAccelerations;
 
 //Input
