@@ -274,15 +274,15 @@ private _tqChange   = _engPctTq - _cruiseTq;
 _tqChange           = [_tqChange, 0.0, 0.8] call BIS_fnc_clamp;
 private _tqRoCTable =
 [
- [0.0, 0.000]
-,[0.1, 0.078]
-,[0.2, 0.151]
-,[0.3, 0.224]
-,[0.4, 0.297]
-,[0.5, 0.369]
-,[0.6, 0.457]
-,[0.7, 0.000]
-,[0.8, 0.000]
+ [0.0, 0.000]   //0fpm
+,[0.1, 0.078]   //400fpm
+,[0.2, 0.151]   //800fpm
+,[0.3, 0.224]   //1200fpm
+,[0.4, 0.297]   //1600fpm
+,[0.5, 0.369]   //2000fpm
+,[0.6, 0.457]   //2400fpm
+,[0.7, 0.000]   //2800fpm
+,[0.8, 0.000]   //3200fpm
 ];
 private _RoCScalar     = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tqChange = %1 -- RoC = %2", (_tqChange * 100) toFixed 0, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
