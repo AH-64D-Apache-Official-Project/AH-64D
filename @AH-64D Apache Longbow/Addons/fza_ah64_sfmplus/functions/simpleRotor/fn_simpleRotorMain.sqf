@@ -274,23 +274,23 @@ private _tqChange   = _engPctTq - _cruiseTq;
 _tqChange           = [_tqChange, 0.0, 0.8] call BIS_fnc_clamp;
 private _tqRoCTable =
 [
- [0.0, 0.00]
-,[0.1, 0.11]
-,[0.2, 0.22]
-,[0.3, 0.32]
-,[0.4, 0.43]
-,[0.5, 0.54]
-,[0.6, 0.65]
-,[0.7, 0.75]
-,[0.8, 0.86]
+ [0.0, 0.000]
+,[0.1, 0.078]
+,[0.2, 0.151]
+,[0.3, 0.224]
+,[0.4, 0.297]
+,[0.5, 0.369]
+,[0.6, 0.457]
+,[0.7, 0.000]
+,[0.8, 0.000]
 ];
 private _RoCScalar     = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
-//systemChat format ["_tqChange = %1 -- RoC = %2", _tqChange, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
-private _climbThrust   = _rtrThrust * _RoCScalar;
+//systemChat format ["_tqChange = %1 -- RoC = %2", (_tqChange * 100) toFixed 0, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
+private _climbThrust   = _baseThrust * _RoCScalar;
 
 private _tipLossScalar = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tipLossScalar = %1", _tipLossScalar];
-private _totThrust     = ((_rtrThrust + _gndEffThrust) * _tipLossScalar) + _climbThrust;
+private _totThrust     = (_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar;
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ       = _axisZ vectorMultiply (_totThrust * _deltaTime);
 
