@@ -37,9 +37,9 @@ private _gravX    = _grav # 0;
 private _gravY    = _grav # 1;
 private _gravZ    = _grav # 2;
 //Helicopter velocity in model space
-private _modelVelX = (_heli getVariable "fza_sfmplus_velModelSpace") # 0;
-private _modelVelY = (_heli getVariable "fza_sfmplus_velModelSpace") # 1;
-private _modelVelZ = (_heli getVariable "fza_sfmplus_velModelSpace") # 2;//(_heliVel # 2) * -1.0;
+private _modelVelX = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 0;
+private _modelVelY = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 1;
+private _modelVelZ = (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") # 2;//(_heliVel # 2) * -1.0;
 
 //The total velocity of the helicopter in model space
 private _totVel   = [_modelVelX, _modelVelY, _modelVelZ] vectorAdd [_gravX, _gravY, _gravZ];
