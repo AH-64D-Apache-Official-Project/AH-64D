@@ -281,8 +281,8 @@ private _tqRoCTable =
 ,[0.4, 0.297]   //1600fpm
 ,[0.5, 0.369]   //2000fpm
 ,[0.6, 0.457]   //2400fpm
-,[0.7, 0.000]   //2800fpm
-,[0.8, 0.000]   //3200fpm
+,[0.7, 0.517]   //2800fpm
+,[0.8, 0.587]   //3200fpm
 ];
 private _RoCScalar     = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp select 1;
 //systemChat format ["_tqChange = %1 -- RoC = %2", (_tqChange * 100) toFixed 0, (_heli getVariable "fza_sfmplus_velClimb") toFixed 0];
