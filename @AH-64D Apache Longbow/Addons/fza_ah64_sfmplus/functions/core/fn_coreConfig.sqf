@@ -101,7 +101,7 @@ _heli setVariable ["fza_sfmplus_pid_radHold",        [0.015,  0.003,  0.025]  ca
 _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] call fza_fnc_pidCreate];
 //Heading Hold
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.0600, 0.0002, 0.0050] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.3130, 0.0050, 0.0200] call fza_fnc_pidCreate];
 //SAS Functions
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
