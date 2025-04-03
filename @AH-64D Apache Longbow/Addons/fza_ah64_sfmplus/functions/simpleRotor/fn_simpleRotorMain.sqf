@@ -311,12 +311,18 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 private _pitchTorqueScalar = linearConversion [-1.0, 1.0, (_heli getVariable "fza_sfmplus_cyclicFwdAft"), _aftPitchTorqueScalar, _fwdPitchTorqueScalar, true];
 //systemChat format ["_pitchTorqueScalar = %1", _pitchTorqueScalar];
 private _torqueX           = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+_torqueX = [_torqueX, -4500, 4500] call BIS_fnc_clamp;
+//_torqueX = ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut) * 236553 * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = 0.0;
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
 };
 private _torqueY             = ((_rtrThrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
+_torqueY = [_torqueY, -1500, 1500] call BIS_fnc_clamp;
+//_torqueY = ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut) * 33436 * _deltaTime;
+
+systemChat format ["_torqueX = %1 -- _torqueY = %2", _torqueX toFixed 0, _torqueY toFixed 2];
 //Main rotor yaw torque
 private _torqueZ             = (_rtrTorque  * _rtrTorqueScalar) * _deltaTime;
 
