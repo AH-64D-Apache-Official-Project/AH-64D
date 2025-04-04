@@ -67,10 +67,10 @@ private _gustSpeed     = 0.0;//[_gustSpeed, _randGust, (1.0 / 3.0) * _deltaTime]
 _windSpeed = _windSpeed * KNOTS_TO_MPS;
 _gustSpeed = _gustSpeed * KNOTS_TO_MPS;
 
-private _windX     = -((_windSpeed + _gustSpeed) * sin _windDir);
-private _windY     = -((_windSpeed + _gustSpeed) * cos _windDir);
+private __velWindWorldSpaceX = -((_windSpeed + _gustSpeed) * sin _windDir);
+private __velWindWorldSpaceY = -((_windSpeed + _gustSpeed) * cos _windDir);
 
-private _windVec   = [_windX, _windY, 0.0];
+private _velWindWorldSpace   = [__velWindWorldSpaceX, __velWindWorldSpaceY, 0.0];
 
-_heli setVariable ["fza_sfmplus_velWind", _windVec];
+_heli setVariable ["fza_sfmplus_velWindWorldSpace", _velWindWorldSpace];
 //_heli setVariable ["fza_sfmplus_windGustSpeed", _gustSpeed];

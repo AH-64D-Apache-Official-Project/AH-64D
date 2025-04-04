@@ -54,7 +54,7 @@ private _projName = "AH-64D Official Project";
     "LIST",
     ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
     [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD,MOUSE],["HOTAS","Keyboard","Mouse"],1],
+    [[HOTAS,MNKB],["HOTAS","Mouse & Keyboard"],1],
     2
 ] call CBA_fnc_addSetting;
 
@@ -77,9 +77,9 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableKbPitchTrim",
+    "fza_ah64_sfmplusEnableKbTrim",
     "CHECKBOX",
-    ["[EXPERIMENTAL] Enable KB Pitch Trim", "When enabled, retains the position of the cyclic."],
+    ["[EXPERIMENTAL] Enable KB Trim", "When enabled, retains the position of the cyclic."],
     [_projName, "Flight model"],
     [false],
     0
@@ -90,7 +90,7 @@ private _projName = "AH-64D Official Project";
     "SLIDER",
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
     [_projName, "Flight model"],
-    [0.1, 1.0, 0.5, 1],
+    [0.1, 1.0, 1.0, 1],
     2
 ] call CBA_fnc_addSetting;
 

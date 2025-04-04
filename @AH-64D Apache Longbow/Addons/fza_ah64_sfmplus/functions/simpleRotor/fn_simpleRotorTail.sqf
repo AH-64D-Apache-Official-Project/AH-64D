@@ -43,27 +43,27 @@ private _bladeChord             = 0.253;   //m
 private _bladePitch_min         = -15.0;   //deg
 private _bladePitch_max         =  27.0;   //deg
 private _bladePitchTable = [
-    [-1.0, -15.0]
-   ,[-0.9, -14.5]
-   ,[-0.8, -14.0]
-   ,[-0.7, -13.0]
-   ,[-0.6, -11.9]
-   ,[-0.5, -10.5]
-   ,[-0.4,  -9.0]
-   ,[-0.3,  -7.0]
-   ,[-0.2,  -4.0]
-   ,[-0.1,   0.5]
-   ,[-0.0,   6.0]
-   ,[ 0.1,  11.0]
-   ,[ 0.2,  15.0]
-   ,[ 0.3,  18.0]
-   ,[ 0.4,  20.5]
-   ,[ 0.5,  22.5]
-   ,[ 0.6,  24.0]
-   ,[ 0.7,  25.0]
-   ,[ 0.8,  25.8]
-   ,[ 0.9,  26.5]
-   ,[ 1.0,  27.0]
+    [-1.00, -15.0]
+   ,[-0.90, -14.8]
+   ,[-0.80, -14.5]
+   ,[-0.70, -14.2]
+   ,[-0.60, -14.0]
+   ,[-0.50, -13.5]
+   ,[-0.40, -12.8]
+   ,[-0.30, -11.9]
+   ,[-0.20, -10.5]
+   ,[-0.10,  -8.0]
+   ,[ 0.00,  -3.4]
+   ,[ 0.10,   3.4]
+   ,[ 0.20,  13.0]
+   ,[ 0.30,  18.0]
+   ,[ 0.40,  20.5]
+   ,[ 0.50,  22.5]
+   ,[ 0.60,  24.0]
+   ,[ 0.70,  25.0]
+   ,[ 0.80,  25.8]
+   ,[ 0.90,  26.5]
+   ,[ 1.00,  27.0]
   ];
 private _rtrThrustScalar_min    = -0.120;//THRUST_MIN;//-0.050;//-0.125;//-0.067;
 private _rtrThrustScalar_max    =  0.075;//THRUST_MAX;// 0.050;//0.063;// 0.267;
@@ -79,7 +79,6 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 private _pedalPosition  = (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
 private _bladePitch_cur = [_bladePitchTable, _pedalPosition] call fza_fnc_linearInterp select 1;
-//systemChat format ["_bladePitch_cur = %1 -- _pedalPosition = %2", _bladePitch_cur, _pedalPosition];
 
 private _bladePitchInducedThrustScalar = 0.0;
 if (_bladePitch_cur < 0.0) then {
@@ -105,7 +104,7 @@ private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
 private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
 /*
-private _velWindY                  = _heli getVariable "fza_sfmplus_velWind" select 1;
+private _velWindY                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 1;
 if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
@@ -135,6 +134,7 @@ private _totThrust     = _rtrThrust;
 private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
 private _torqueY       = 0.0;
 private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
+//systemChat format ["tail rotor _torqueZ = %1", _torqueZ toFixed 0];
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";

@@ -24,13 +24,14 @@ Author:
 params ["_heli"];
 
 //Wind
-private _velWindX = _heli getVariable "fza_sfmplus_velWind" select 0;
-private _velWindY = _heli getVariable "fza_sfmplus_velWind" select 1;
-private _dir      = direction _heli;
+private _velWindWorldSpace   = _heli getVariable "fza_sfmplus_velWindWorldSpace";
+private _velWindWorldSpaceX  = _velWindWorldSpace select 0;
+private _velWindWorldSpaceY  = _velWindWorldSpace select 1;
+private _hdg                 = direction _heli;
     
-private _adjVelWindX = (_velWindX * cos _dir) - (_velWindY * sin _dir);
-private _adjVelWindY = (_velWindX * sin _dir) + (_velWindY * cos _dir);
-private _velWind     = [_adjVelWindX, _adjVelWindY, 0.0];
+private _velWindModelSpaceX  = (_velWindWorldSpaceX * cos _hdg) - (_velWindWorldSpaceY * sin _hdg);
+private _velWindModelSpaceY  = (_velWindWorldSpaceX * sin _hdg) + (_velWindWorldSpaceY * cos _hdg);
+private _velWindModelSpace   = [_velWindModelSpaceX, _velWindModelSpaceY, 0.0];
 
 //Velocity model space
 private _velModelSpaceX_avg  = _heli getVariable "fza_sfmplus_velModelSpaceX_avg";
@@ -42,7 +43,7 @@ private _velModelSpaceY      = velocityModelSpace _heli select 1;
 _velModelSpaceY              = [_velModelSpaceY_avg, _velModelSpaceY] call fza_sfmplus_fnc_getSmoothAverage;
 private _velModelSpaceZ      = velocityModelSpace _heli select 2;
 _velModelSpaceZ              = [_velModelSpaceZ_avg, _velModelSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
-private _velModelSpace       = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ] vectorDiff _velWind;
+private _velModelSpace       = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ] vectorDiff _velWindModelSpace;
 private _velModelSpaceNoWind = [_velModelSpaceX, _velModelSpaceY, _velModelSpaceZ];
 //Ground speed
 private _gndSpeed            = round(vectorMagnitude [_velModelSpaceNoWind select 0, _velModelSpaceNoWind select 1] * MPS_TO_KNOTS);
@@ -61,7 +62,8 @@ private _velWorldSpaceY      = velocity _heli select 1;
 _velWorldSpaceY              = [_velWorldSpaceY_avg, _velWorldSpaceY] call fza_sfmplus_fnc_getSmoothAverage;
 private _velWorldSpaceZ      = velocity _heli select 2;
 _velWorldSpaceZ              = [_velWorldSpaceZ_avg, _velWorldSpaceZ] call fza_sfmplus_fnc_getSmoothAverage;
-private _velWorldSpace       = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpaceZ];
+private _velWorldSpace       = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpaceZ] vectorDiff _velWindWorldSpace;
+private _velWorldSpaceNoWind = [_velWorldSpaceX, _velWorldSpaceY, _velWorldSpaceZ];
 //Climb velocity
 private _velClimb              = (_velWorldSpace select 2) * MPS_TO_FPM;
 //Angular velocity in model space
@@ -82,10 +84,11 @@ private _angVelWorldSpace      = angularVelocity _heli;
 _heli setVariable ["fza_sfmplus_gndSpeed",            _gndSpeed];
 _heli setVariable ["fza_sfmplus_vel2D",               _vel2D];
 _heli setVariable ["fza_sfmplus_vel3D",               _vel3D];
-_heli setVariable ["fza_sfmplus_velWind",             _velWind];
+_heli setVariable ["fza_sfmplus_velWindModelSpace",   _velWindModelSpace];
 _heli setVariable ["fza_sfmplus_velModelSpace",       _velModelSpace];
 _heli setVariable ["fza_sfmplus_velModelSpaceNoWind", _velModelSpaceNoWind];
 _heli setVariable ["fza_sfmplus_velWorldSpace",       _velWorldSpace];
+_heli setVariable ["fza_sfmplus_velWorldSpaceNoWind", _velWorldSpaceNoWind];
 _heli setVariable ["fza_sfmplus_velClimb",            _velClimb];
 _heli setVariable ["fza_sfmplus_angVelModelSpace",    _angVelModelSpace];
 _heli setVariable ["fza_sfmplus_angVelWorldSpace",    _angVelWorldSpace];

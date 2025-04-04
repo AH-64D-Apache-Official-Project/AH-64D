@@ -3,7 +3,7 @@ params ["_heli"];
 
 if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-if (fza_ah64_sfmPlusControlScheme == HOTAS || fza_ah64_sfmPlusControlScheme == MOUSE) then {
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //Cyclic pitch trim
     private _curCyclicFwdAft  = (_heli getVariable "fza_sfmplus_cyclicFwdAft");
     private _prevCyclicFwdAft = _heli getVariable "fza_ah64_forceTrimPosPitch";

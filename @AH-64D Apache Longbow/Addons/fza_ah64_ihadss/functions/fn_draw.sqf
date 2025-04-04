@@ -395,7 +395,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 //Flight Path Vector
 private _fpv = [-100,-100];
 if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
-    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpace"));
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
     }

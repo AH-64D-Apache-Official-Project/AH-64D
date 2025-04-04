@@ -14,9 +14,7 @@ private _hdgHoldPedalYawOut = [_heli] call fza_sfmplus_fnc_fmcHeadingHold;
 ([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
     params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
 
-if (fza_ah64_sfmPlusSpringlessPedals
-    || fza_ah64_sfmPlusControlScheme == KEYBOARD
-    || fza_ah64_sfmPlusControlScheme == MOUSE) then {
+if (fza_ah64_sfmPlusSpringlessPedals) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 

@@ -50,12 +50,13 @@ if ((_heli getVariable "fza_sfmplus_pedalLeftRight") >= _breakoutValue && (_heli
     _breakout = true;
 };
 //systemChat format ["_breakoutValue = %1 -- fza_sfmplus_pedalLeftRight = %2", _breakoutValue, (_heli getVariable "fza_sfmplus_pedalLeftRight") toFixed 2];
-if (   _onGnd
-    || _heli getVariable "fza_ah64_forceTrimInterupted" 
-    || _breakout) then {
-    if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
-        _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
-    };
+if (   ( _onGnd && fza_ah64_sfmPlusControlScheme == HOTAS)
+    || (_heli getVariable "fza_ah64_forceTrimInterupted" && fza_ah64_sfmPlusControlScheme == HOTAS)
+    || _breakout
+    ) then {
+        if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo false) then {
+            _heli setVariable ["fza_ah64_hdgHoldActive", false, true];
+        };
 } else {
     if (_heli getVariable "fza_ah64_hdgHoldActive" isNotEqualTo true) then {
         _heli setVariable ["fza_ah64_hdgHoldActive", true, true];

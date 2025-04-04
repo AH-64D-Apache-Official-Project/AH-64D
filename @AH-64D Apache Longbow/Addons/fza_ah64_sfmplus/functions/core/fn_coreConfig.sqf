@@ -39,13 +39,15 @@ _heli setVariable ["fza_sfmplus_deltaTime_avg",       [fza_sfmplus_movingAverage
 _heli setVariable ["fza_sfmplus_gndSpeed",            0.0];
 _heli setVariable ["fza_sfmplus_vel2D",               0.0];
 _heli setVariable ["fza_sfmplus_vel3D",               0.0];
-_heli setVariable ["fza_sfmplus_velWind",             [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velWindWorldSpace",   [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velWindModelSpace",   [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpace",       [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceNoWind", [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velModelSpaceX_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velModelSpaceY_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velModelSpaceZ_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velWorldSpace",       [0.0,0.0,0.0]];
+_heli setVariable ["fza_sfmplus_velWorldSpaceNoWind", [0.0,0.0,0.0]];
 _heli setVariable ["fza_sfmplus_velWorldSpaceX_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velWorldSpaceY_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 _heli setVariable ["fza_sfmplus_velWorldSpaceZ_avg",  [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
