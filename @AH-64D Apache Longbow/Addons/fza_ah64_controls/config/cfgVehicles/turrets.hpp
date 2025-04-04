@@ -17,8 +17,8 @@ class Turrets : Turrets
         memoryPointsGetInGunnerDir = "pos gunner dir";
         memoryPointGun = "laserBegin";
         memoryPointGunnerOptics = "gunnerview";
-        body = "tads_tur";
-        gun = "tads";
+        body = "mainTurret";
+        gun = "mainGun";
         animationsourcebody = "tads_tur";
         animationsourcegun = "tads";
         gunBeg = "laserBegin";
