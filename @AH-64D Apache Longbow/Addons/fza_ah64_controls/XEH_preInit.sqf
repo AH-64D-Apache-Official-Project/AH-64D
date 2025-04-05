@@ -86,6 +86,16 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusEnableKbRollTrim",
+    "CHECKBOX",
+    ["[EXPERIMENTAL] Enable KB Roll Trim", "When enabled, retains the cyclic roll position."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+
+[
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],

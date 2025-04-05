@@ -110,6 +110,21 @@ if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbPitchTrim) 
     _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
 } else {;
     _cyclicFwdAft      = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+};
+
+if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbRollTrim) then {
+    private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
+    if (_cyclicLeftRight > 0.1) then {
+        _cyclicRollValue = _cyclicRollValue + ((1 / _divisor) * _deltaTime);
+    };
+    if (_cyclicLeftRight < -0.1) then {
+        _cyclicRollValue = _cyclicRollValue - ((1 / _divisor) * _deltaTime);
+    };
+    //Set pitch
+    _cyclicRollValue     = (round (_cyclicRollValue / _inputVal)) * _inputVal;
+    _cyclicLeftRight         = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
+    _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
+} else {;
     _cyclicLeftRight   = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 };
 
@@ -219,20 +234,29 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
-    if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 6.0) * _deltaTime); };
-    if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 6.0) * _deltaTime); };
-    _collectiveValue = [_collectiveValue, 0.0, 1.0]    call bis_fnc_clamp;
+    if (fza_ah64_sfmPlusControlScheme == MNKB) then {
+        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 6.0) * _deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 6.0) * _deltaTime); };
+        _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
 
-    _hotasCollectiveValue = _joyCollectiveUp - _joyCollectiveDn;
-    if (_heli getVariable ["fza_sfmplus_AnalogueCollective", 0] != _hotasCollectiveValue) then {
-        _heli setVariable ["fza_sfmplus_AnalogueCollective", _hotasCollectiveValue];
-
-        _collectiveValue = [_hotasCollectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
+        if (_isPlaying) then {
+            _collectiveOutput = _collectiveValue;
+        };
+    } else {
+        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
         _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
-    };
-    if (_isPlaying) then {
-        _collectiveOutput = _collectiveValue;
-    };
+
+        if (isNil "fza_sfmplus_lastIsPlaying") then {
+            _collectiveOutput = _collectiveValue;
+        } else {
+            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                _collectiveOutput = _collectivePrevious;
+            };
+        };
+
+        fza_sfmplus_lastIsPlaying  = _isPlaying;
+        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
 };
 _heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
 _heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
