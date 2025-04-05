@@ -117,7 +117,7 @@ _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] ca
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.0060, 0.0020, 0.0200] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [0.8000, 0.0500, 0.0700] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfpmplus_autoPedalHdg",      0.0];
+_heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 
 //Aerodynamic State Variables
 _heli setVariable ["fza_sfmplus_aero_alpha_deg",     0.0];

@@ -105,7 +105,6 @@ if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbPitchTrim) 
     _cyclicPitchValue     = (round (_cyclicPitchValue / _inputVal)) * _inputVal;
     _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
-    systemChat format ["trimming pitch!"];
 } else {;
     _cyclicFwdAft      = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
     _cyclicLeftRight   = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
@@ -113,14 +112,14 @@ if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbPitchTrim) 
 //Autopedals
 if (fza_ah64_sfmPlusControlScheme == MNKB) then {
     private _pidAutoPedalHdg = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
-    _pidAutoPedalHdg set ["kp", APH_KP];
-    _pidAutoPedalHdg set ["ki", APH_KI];
-    _pidAutoPedalHdg set ["kd", APH_KD];
+    //_pidAutoPedalHdg set ["kp", APH_KP];
+    //_pidAutoPedalHdg set ["ki", APH_KI];
+    //_pidAutoPedalHdg set ["kd", APH_KD];
     
     private _pidAutoPedalSlip = _heli getVariable "fza_sfmplus_pid_autoPedalSlip";
-    _pidAutoPedalSlip set ["kp", APS_KP];
-    _pidAutoPedalSlip set ["ki", APS_KI];
-    _pidAutoPedalSlip set ["kd", APS_KD];
+    //_pidAutoPedalSlip set ["kp", APS_KP];
+    //_pidAutoPedalSlip set ["ki", APS_KI];
+    //_pidAutoPedalSlip set ["kd", APS_KD];
 
     private _hdgOut        = 0.0;
     private _sideslipOut   = 0.0;
@@ -128,7 +127,7 @@ if (fza_ah64_sfmPlusControlScheme == MNKB) then {
 
     private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
     private _curHdg        = getDir _heli;
-    private _desiredHdg    = _heli getVariable "fza_sfpmplus_autoPedalHdg";
+    private _desiredHdg    = _heli getVariable "fza_sfmPlus_autoPedalHdg";
     private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     private _desiredSlip   = 0.0;
     private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
