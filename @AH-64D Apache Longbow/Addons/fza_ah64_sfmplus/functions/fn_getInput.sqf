@@ -80,13 +80,20 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 _cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 _cyclicLeftRight             = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 /////////////////////////////////////////////////////////////////////////////////////////////
-// "Sticky" cyclic       /////////////////////////////////////////////////////////////////////
+// Pedal Yaw            /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbTrim && (_heli getVariable "fza_ah64_forceTrimInterupted")) then {
-    //Cyclic Pitch
-    private _divisor  = 3;
-    private _inputVal = 0.001;
-
+private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
+    _pedalLeftRight = linearConversion [-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
+};
+_pedalLeftRight              = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Mouse & Keyboard     /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _divisor  = 3.0;
+private _inputVal = 0.001;
+//Cyclic Pitch
+if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbPitchTrim) then {
     private _cyclicPitchValue = _heli getVariable "fza_sfmplus_cyclicPitchValue";
     if (_cyclicFwdAft > 0.1) then {
         _cyclicPitchValue = _cyclicPitchValue + ((1 / _divisor) * _deltaTime);
@@ -98,36 +105,62 @@ if (fza_ah64_sfmPlusControlScheme == MNKB && fza_ah64_sfmplusEnableKbTrim && (_h
     _cyclicPitchValue     = (round (_cyclicPitchValue / _inputVal)) * _inputVal;
     _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
     _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
-
-    //Cyclic Roll
-    private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
-    if (_cyclicLeftRight > 0.1) then {
-        _cyclicRollValue = _cyclicRollValue + ((1 / _divisor) * _deltaTime);
-    };
-    if (_cyclicLeftRight < -0.1) then {
-        _cyclicRollValue = _cyclicRollValue - ((1 / _divisor) * _deltaTime);
-    };
-    //Set roll
-    _cyclicRollValue     = (round (_cyclicRollValue / _inputVal)) * _inputVal;
-    _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
-    _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
-    _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+    systemChat format ["trimming pitch!"];
 } else {;
-    _cyclicFwdAft        = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
-    _cyclicLeftRight     = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+    _cyclicFwdAft      = [_cyclicFwdAft,    -1.0, 1.0] call BIS_fnc_clamp;
+    _cyclicLeftRight   = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 };
+//Autopedals
+if (fza_ah64_sfmPlusControlScheme == MNKB) then {
+    private _pidAutoPedalHdg = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
+    _pidAutoPedalHdg set ["kp", APH_KP];
+    _pidAutoPedalHdg set ["ki", APH_KI];
+    _pidAutoPedalHdg set ["kd", APH_KD];
+    
+    private _pidAutoPedalSlip = _heli getVariable "fza_sfmplus_pid_autoPedalSlip";
+    _pidAutoPedalSlip set ["kp", APS_KP];
+    _pidAutoPedalSlip set ["ki", APS_KI];
+    _pidAutoPedalSlip set ["kd", APS_KD];
 
-/////////////////////////////////////////////////////////////////////////////////////////////
-// Pedal Yaw            /////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////
-private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-    _pedalLeftRight = linearConversion [-0.5, 0.5, _pedalLeftRight, -1.0, 1.0];
+    private _hdgOut        = 0.0;
+    private _sideslipOut   = 0.0;
+    private _output        = 0.0;
+
+    private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    private _curHdg        = getDir _heli;
+    private _desiredHdg    = _heli getVariable "fza_sfpmplus_autoPedalHdg";
+    private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
+    private _desiredSlip   = 0.0;
+    private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+
+    private _breakout = false;
+    if ((inputAction "HeliRudderRight") > 0.1 || (inputAction "HeliRudderLeft") > 0.1) then {
+        _breakout = true;
+    };
+ 
+    if (_breakout) then {
+        _heli setVariable ["fza_sfpmplus_autoPedalHdg", getDir _heli, true];
+    };
+
+    if (_gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+        _heli setVariable ["fza_sfpmplus_autoPedalHdg", getDir _heli, true];
+    };
+
+    _hdgOut      = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+    //if ([_hdgOut] call fza_sfmplus_fnc_isNAN || [_hdgOut] call fza_sfmplus_fnc_isINF) then { _hdgOut = 0.0; };
+    _sideslipOut = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+    //if ([_sideslipOut] call fza_sfmplus_fnc_isNAN || [_sideslipOut] call fza_sfmplus_fnc_isINF) then { _sideslipOut = 0.0; };
+    //if ([_gndSpeed] call fza_sfmplus_fnc_isNAN || [_gndSpeed] call fza_sfmplus_fnc_isINF) then { _gndSpeed = 0.0; };
+    _output         = linearConversion[0.0, HDG_HOLD_SPEED_SWITCH_ACCEL, _gndSpeed, _hdgOut, _sideslipOut, true];
+    _output         = [_output, -1.0, 1.0] call BIS_fnc_clamp;
+    _pedalLeftRight = [_pedalLeftRight + _output, -1.0, 1.0] call BIS_fnc_clamp;
+   //systemChat format ["_pedalLeftRight = %1 -- _right %2 -- _left %3", _pedalLeftRight, (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
+} else {;
+    _pedalLeftRight    = [_pedalLeftRight,  -1.0, 1.0] call BIS_fnc_clamp;
 };
-_pedalLeftRight              = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-//systemChat format ["_cyclicLeftRight = %1 -- _cyclicFwdAft = %2 -- _pedalLeftRight = %3", _cyclicLeftRight toFixed 2, _cyclicFwdAft toFixed 2, _pedalLeftRight toFixed 2];
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Collective           /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
 //Keyboard collective
 private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
 private _keyCollectiveDn = inputAction "HeliCollectiveLower";

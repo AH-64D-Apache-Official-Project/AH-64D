@@ -77,9 +77,9 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableKbTrim",
+    "fza_ah64_sfmplusEnableKbPitchTrim",
     "CHECKBOX",
-    ["[EXPERIMENTAL] Enable KB Trim", "When enabled, retains the position of the cyclic."],
+    ["[EXPERIMENTAL] Enable KB Pitch Trim", "When enabled, retains the cyclic pitch position."],
     [_projName, "Flight model"],
     [false],
     0

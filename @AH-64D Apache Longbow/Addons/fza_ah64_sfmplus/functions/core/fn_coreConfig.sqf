@@ -24,9 +24,15 @@ fza_sfmplus_liftLossTimer     = 0;
 
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
 _heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
+
 _heli setVariable ["fza_sfmplus_cyclicLeftRight",    0.0];
 _heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
+
 _heli setVariable ["fza_sfmplus_pedalLeftRight",     0.0];
+_heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
+
+
+
 _heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
 _heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
 _heli setVariable ["fza_sfmplus_collectiveValue",    0.0];
@@ -108,6 +114,10 @@ _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.1500, 0.0020, 0.0500] ca
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
+//Auto pedal
+_heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.0060, 0.0020, 0.0200] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [0.8000, 0.0500, 0.0700] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfpmplus_autoPedalHdg",      0.0];
 
 //Aerodynamic State Variables
 _heli setVariable ["fza_sfmplus_aero_alpha_deg",     0.0];
