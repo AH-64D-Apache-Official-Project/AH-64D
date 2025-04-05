@@ -66,6 +66,10 @@ if (   _onGnd
 //Finally, if the heading hold is active, perform the required functions
 if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     //Heading and turn coordination logic...needs to take into account accel/decel
+    if (_gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+        _heli setVariable ["fza_ah64_hdgHoldDesiredHdg", getDir _heli, true];
+    };
+
     if (_gndSpeed < HDG_HOLD_SPEED_SWITCH_ACCEL) then {
         if (_subMode isNotEqualTo "hdg") then {
             _heli setVariable ["fza_ah64_hdgHoldSubMode", "hdg", true];

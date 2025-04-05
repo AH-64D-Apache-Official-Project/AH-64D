@@ -32,6 +32,7 @@ Author:
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_systems\headers\systems.hpp"
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 
 params ["_heli"];
 
@@ -450,7 +451,7 @@ if (_eng1State == "STARTING") then {
 if (_eng2State == "STARTING") then {
     _wcas pushBack [WCA_ADVISORY, "ENGINE 2 START", "ENG2 START"];
 };
-if (_heli getVariable "fza_ah64_attHoldActive") then {
+if (_heli getVariable "fza_ah64_attHoldActive" || fza_ah64_sfmPlusControlScheme == MNKB) then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
 };
 private _desiredPos = 0.0;

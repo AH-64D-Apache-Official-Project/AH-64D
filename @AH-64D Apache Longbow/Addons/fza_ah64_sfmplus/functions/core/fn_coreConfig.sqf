@@ -99,8 +99,8 @@ _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxA
 _heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
 //Position Hold
-_heli setVariable ["fza_sfmplus_pid_roll",           [0.1000, 0.0060, 0.0720] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_pitch",          [0.3000, 0.0300, 0.1800] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_roll",           [0.0700, 0.0100, 0.1500] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_pitch",          [0.0900, 0.0150, 0.1800] call fza_fnc_pidCreate];
 //Attitude Hold
 _heli setVariable ["fza_sfmplus_pid_roll_att",       [0.0400, 0.0015, 0.0180] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch_att",      [0.0925, 0.0025, 0.0450] call fza_fnc_pidCreate];
@@ -114,9 +114,13 @@ _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.1500, 0.0020, 0.0500] ca
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
+//Auto cyclic
+_heli setVariable ["fza_sfmplus_pid_autoCyclicRollPos", [0.0500, 0.0120, 0.1000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoCyclicRollVel", [0.0200, 0.0005, 0.0001] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoCyclicPitch",   [0.0500, 0.0100, 0.1000] call fza_fnc_pidCreate];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.0060, 0.0020, 0.0200] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [0.8000, 0.0500, 0.0700] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [0.0900, 0.1000, 0.1500] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 
 //Aerodynamic State Variables
