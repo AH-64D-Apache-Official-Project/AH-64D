@@ -133,16 +133,13 @@ if (fza_ah64_sfmPlusControlScheme == MNKB) then {
     private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
 
     private _breakout = false;
-    if ((inputAction "HeliRudderRight") > 0.1 || (inputAction "HeliRudderLeft") > 0.1) then {
+    private _autoPedalBreakoutVal = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+    if (_autoPedalBreakoutVal < -0.1 || _autoPedalBreakoutVal > 0.1) then {
         _breakout = true;
     };
- 
-    if (_breakout) then {
-        _heli setVariable ["fza_sfpmplus_autoPedalHdg", getDir _heli, true];
-    };
 
-    if (_gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
-        _heli setVariable ["fza_sfpmplus_autoPedalHdg", getDir _heli, true];
+    if (_breakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+        _heli setVariable ["fza_sfmPlus_autoPedalHdg", getDir _heli, true];
     };
 
     _hdgOut      = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
