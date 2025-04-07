@@ -138,7 +138,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _pitchVelOutput = [_pidAutoCyclicPitchVel,  _deltaTime, 0.0, -_pitchError] call fza_fnc_pidRun;
     _pitchVelOutput         = [_pitchVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
 
-    private _pitchOutput    = linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, 0.0, true];
+    private _pitchOutput    = linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, _pitchVelOutput, true];
     _pitchOutput            = [_pitchOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
     if (_pitchBreakout) then {
@@ -240,7 +240,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
         _desiredHdg = getDir _heli;
     };
 
-    systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
+    //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
     _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
     _sideslipError  = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;

@@ -117,11 +117,11 @@ _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] ca
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
 //Auto cyclic
 _heli setVariable ["fza_sfmplus_pid_autoCyclicRollPos",   [0.0500, 0.0120, 0.1000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoCyclicRollVel",   [0.0100, 0.0005, 0.0050] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoCyclicRollVel",   [0.0300, 0.0005, 0.0040] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_autoCyclic_desiredRoll",  0.0];
 
 _heli setVariable ["fza_sfmplus_pid_autoCyclicPitchPos",  [0.0900, 0.0150, 0.1800] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoCyclicPitchVel",  [0.0100, 0.0001, 0.0025] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoCyclicPitchVel",  [0.0500, 0.0005, 0.0080] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", 0.0];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.0060, 0.0020, 0.0200] call fza_fnc_pidCreate];
