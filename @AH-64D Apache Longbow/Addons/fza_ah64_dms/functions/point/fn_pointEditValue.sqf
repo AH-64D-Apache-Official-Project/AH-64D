@@ -32,6 +32,10 @@ switch (_valueType) do {
         _dbRow set [POINT_GET_ALT_AGL, (_altMsl - getTerrainHeightASL _armaPos) max 0];
         _operationCompleted = true;
     };
+    case POINT_SET_IDENT: {
+        _dbRow set [POINT_GET_IDENT, _newValue];
+        _operationCompleted = true;
+    };
 };
 
 if !(_operationCompleted) exitWith {false};

@@ -128,31 +128,24 @@ switch (_variant) do {
                 _state set ["subPageVarPage", TSD_THRT];
             };
             case "l1": {    //Add wpt
-                private _checker = {
-                    params ["_input", "_state"];
-                    [_state get "addType", _input] call fza_dms_fnc_pointIsValidIdent;
-                };
-                private _callback = {
-                    params ["_input", "_state"];
-                    _state set ["addIdent", _input];
-                    _state set ["defaultFree", ""];
-                    _state set ["defaultGrid", [getPos player] call fza_dms_fnc_posToGrid];
-                    _state deleteAt "defaultHeight";
-                    _state set ["enterCallback", {
-                        params ["_heli", "_state", "_free", "_pos", "_alt"];
-                        private _nextIndex = [_heli, _state get "addType"] call fza_dms_fnc_pointNextFree;
-                        copyToClipboard format ["_this %1, _nextIndex %2", _this, _nextIndex];
-                        [_heli, _nextIndex
-                            , _state get "addIdent"
-                            , _free
-                            , _pos
-                            ,_alt] call fza_dms_fnc_pointCreate;
-                        _heli setVariable [POINT_CURRENTSEL, _nextIndex];
-                        _state set ["subPageVarPage", POINT_PAGE_ROOT];
-                    }];
-                    [_heli, _state] call fza_mpd_fnc_tsdWptEnterDetails;
-                };
-                [_heli, "IDENT", _callback, _checker, _state, "", "point add"] call fza_ku_fnc_addPrompt;
+                _state set ["defaultIdent", ""];
+                _state set ["defaultFree", ""];
+                _state set ["defaultGrid", [getPos player] call fza_dms_fnc_posToGrid];
+                _state deleteAt "defaultHeight";
+                _state set ["enterCallback", {
+                    params ["_heli", "_state", "_ident", "_free", "_pos", "_alt"];
+                    private _nextIndex = [_heli, _state get "addType"] call fza_dms_fnc_pointNextFree;
+                    copyToClipboard format ["_this %1, _nextIndex %2", _this, _nextIndex];
+                    systemChat format ["Ident: '%1', Free: '%2'", _ident, _free];
+                    [_heli, _nextIndex
+                        , _ident
+                        , _free
+                        , _pos
+                        ,_alt] call fza_dms_fnc_pointCreate;
+                    _heli setVariable [POINT_CURRENTSEL, _nextIndex];
+                    _state set ["subPageVarPage", POINT_PAGE_ROOT];
+                }];
+                [_heli, _state] call fza_mpd_fnc_tsdWptEnterDetails;
             };
             case "l2": {    //Return to WPT > ADD
                 _state set ["subPageVarPage", POINT_PAGE_ROOT];
@@ -228,12 +221,15 @@ switch (_variant) do {
             case "l1": {
                 private _current = _heli getVariable POINT_CURRENTSEL;
                 private _dbRow = [_heli, _current, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
+                _state set ["addType", _dbRow # POINT_GET_TYPE];
+                _state set ["defaultIdent", _dbRow # POINT_GET_IDENT];
                 _state set ["defaultFree", _dbRow # POINT_GET_FREE_TEXT];
                 _state set ["defaultGrid", _dbRow # POINT_GET_GRID_COORD];
                 _state set ["defaultHeight", _dbRow # POINT_GET_ALT_MSL];
                 _state set ["enterCallback", {
-                    params ["_heli", "_state", "_free", "_pos", "_alt"];
+                    params ["_heli", "_state", "_ident", "_free", "_pos", "_alt"];
                     private _selection = _heli getVariable POINT_CURRENTSEL;
+                    [_heli, _selection, POINT_SET_IDENT, _ident] call fza_dms_fnc_pointEditValue;
                     [_heli, _selection, POINT_SET_FREE_TEXT, _free] call fza_dms_fnc_pointEditValue;
                     [_heli, _selection, POINT_SET_ARMA_POS, _pos] call fza_dms_fnc_pointEditValue;
                     [_heli, _selection, POINT_SET_ALT_MSL, _alt] call fza_dms_fnc_pointEditValue;
