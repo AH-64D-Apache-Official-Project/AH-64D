@@ -75,7 +75,7 @@ private _projName = "AH-64D Official Project";
     [false],
     0
 ] call CBA_fnc_addSetting;
-
+/*
 [
     "fza_ah64_sfmplusEnableKbPitchTrim",
     "CHECKBOX",
@@ -93,8 +93,7 @@ private _projName = "AH-64D Official Project";
     [false],
     0
 ] call CBA_fnc_addSetting;
-
-
+*/
 [
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
