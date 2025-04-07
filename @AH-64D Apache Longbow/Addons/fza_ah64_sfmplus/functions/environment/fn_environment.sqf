@@ -49,28 +49,19 @@ private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
 private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
 private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
 
-_heli setVariable ["fza_sfmplus_PA",    _altitude];
-_heli setVariable ["fza_sfmplus_FAT",   _temperature];
-_heli setVariable ["fza_sfmplus_rho",   _dryAirDensity];
+_heli setVariable ["fza_sfmplus_PA",  _altitude];
+_heli setVariable ["fza_sfmplus_FAT", _temperature];
+_heli setVariable ["fza_sfmplus_rho", _dryAirDensity];
 
 //Wind
-private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
-//private _gustSpeed     = _heli getVariable "fza_sfmplus_windGustSpeed";
+private _windDir       = (windDir + 180) mod 360;
+private _windSpeed     = vectorMagnitude wind;
 
-private _windDir       = fza_ah64_sfmPlusWindDirection;
-private _windSpeed     = fza_ah64_sfmPlusWindSpeed;
-private _randGust      = 0.0;//random fza_ah64_sfmPlusWindGustSpeed;
-private _gustSpeed     = 0.0;//[_gustSpeed, _randGust, (1.0 / 3.0) * _deltaTime] call BIS_fnc_lerp;
+systemChat format ["_windDir = %1 -- _windSpeed = %2", _windDir toFixed 0, _windSpeed toFixed 0];
 
-//systemChat format ["_windDir = %1 -- _windSpeed = %2 -- _gustSpeed = %3 -- _randGust = %4", _windDir toFixed 0, _windSpeed toFixed 0, _gustSpeed toFixed 0, _randGust toFixed 0];
+private _velWindWorldSpaceX = -(_windSpeed * sin _windDir);
+private _velWindWorldSpaceY = -(_windSpeed * cos _windDir);
 
-_windSpeed = _windSpeed * KNOTS_TO_MPS;
-_gustSpeed = _gustSpeed * KNOTS_TO_MPS;
-
-private __velWindWorldSpaceX = -((_windSpeed + _gustSpeed) * sin _windDir);
-private __velWindWorldSpaceY = -((_windSpeed + _gustSpeed) * cos _windDir);
-
-private _velWindWorldSpace   = [__velWindWorldSpaceX, __velWindWorldSpaceY, 0.0];
+private _velWindWorldSpace  = [_velWindWorldSpaceX, _velWindWorldSpaceY, 0.0];
 
 _heli setVariable ["fza_sfmplus_velWindWorldSpace", _velWindWorldSpace];
-//_heli setVariable ["fza_sfmplus_windGustSpeed", _gustSpeed];

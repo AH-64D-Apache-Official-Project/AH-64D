@@ -75,25 +75,7 @@ private _projName = "AH-64D Official Project";
     [false],
     0
 ] call CBA_fnc_addSetting;
-/*
-[
-    "fza_ah64_sfmplusEnableKbPitchTrim",
-    "CHECKBOX",
-    ["[EXPERIMENTAL] Enable KB Pitch Trim", "When enabled, retains the cyclic pitch position."],
-    [_projName, "Flight model"],
-    [false],
-    0
-] call CBA_fnc_addSetting;
 
-[
-    "fza_ah64_sfmplusEnableKbRollTrim",
-    "CHECKBOX",
-    ["[EXPERIMENTAL] Enable KB Roll Trim", "When enabled, retains the cyclic roll position."],
-    [_projName, "Flight model"],
-    [false],
-    0
-] call CBA_fnc_addSetting;
-*/
 [
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
@@ -114,33 +96,6 @@ private _projName = "AH-64D Official Project";
     [_projName, "Flight model"],
     [[ISA_STD, EUROPE_SUMMER, EUROPE_WINTER, MIDDLE_EAST, CENTRAL_ASIA_SUMMER, CENTRAL_ASIA_WINTER, ASIA],["Standard Day", "Europe - Summer", "Europe - Winter", "Middle East", "Cental Asia - Summer", "Central Asia - Winter", "Asia"],1],
     0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmPlusWindDirection",
-    "SLIDER",
-    ["Wind Direction", "The direction the wind is coming from."],
-    [_projName, "Flight model"],
-    [0.0, 360.0, 0.0, 360.0],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmPlusWindSpeed",
-    "SLIDER",
-    ["Wind Speed", "The wind speed in knots."],
-    [_projName, "Flight model"],
-    [0.0, 50.0, 0.0, 50.0],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmPlusWindGustSpeed",
-    "SLIDER",
-    ["Gust Speed", "The wind gust speed in knots."],
-    [_projName, "Flight model"],
-    [0.0, 50.0, 0.0, 50.0],
-    2
 ] call CBA_fnc_addSetting;
 
 [

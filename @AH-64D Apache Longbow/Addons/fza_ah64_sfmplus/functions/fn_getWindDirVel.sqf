@@ -18,9 +18,11 @@ Examples:
 Author:
     Snow(Dryden)
 ---------------------------------------------------------------------------- */
+#include "\fza_ah64_sfmplus\headers\core.hpp"
+
 params ["_heli"];
 
-private _windDir = fza_ah64_sfmPlusWindDirection;
-private _windVel = fza_ah64_sfmPlusWindSpeed;
+private _windDir = round((windDir + 180) mod 360);
+private _windVel = round((vectorMagnitude wind) * MPS_TO_KNOTS);
 
 [_windDir,_windVel];
