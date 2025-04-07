@@ -117,7 +117,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Auto Pitch /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    //private _pidAutoCyclicPitchPos = _heli getVariable "fza_sfmplus_pid_autoCyclicPitchPos";
+    private _pidAutoCyclicPitchPos = _heli getVariable "fza_sfmplus_pid_autoCyclicPitchPos";
     //_pidAutoCyclicPitchPos set ["kp", APCP_KP];
     //_pidAutoCyclicPitchPos set ["ki", APCP_KI];
     //_pidAutoCyclicPitchPos set ["kd", APCP_KD];
@@ -127,8 +127,9 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //_pidAutoCyclicPitchVel set ["kd", APCP_KD];
 
     //systemChat format ["_desiredPitch = %1 -- _curPitch = %2", _desiredPitch toFixed 2, _curPitch toFixed 2];
-    //private _pitchPosOutput = [_pidAutoCyclicPitchPos,  _deltaTime, 0.0, _velY] call fza_fnc_pidRun;
-    //_pitchPosOutput         = [_pitchPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
+    private _pitchPosOutput = [_pidAutoCyclicPitchPos,  _deltaTime, 0.0, _velY] call fza_fnc_pidRun;
+    _pitchPosOutput         = [_pitchPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
+    
     if (_pitchBreakout) then {
         _desiredPitch = _curPitch;
     };
@@ -137,11 +138,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _pitchVelOutput = [_pidAutoCyclicPitchVel,  _deltaTime, 0.0, -_pitchError] call fza_fnc_pidRun;
     _pitchVelOutput         = [_pitchVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
 
-    private _pitchOutput    = _pitchVelOutput;//linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, 0.0, true];
+    private _pitchOutput    = linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, 0.0, true];
     _pitchOutput            = [_pitchOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
     if (_pitchBreakout) then {
         _pitchOutput = 0.0;
+        [_pidAutoCyclicPitchPos] call fza_fnc_pidReset;
         [_pidAutoCyclicPitchVel] call fza_fnc_pidReset;
     };
 
@@ -165,7 +167,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Auto Roll  /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    //private _pidAutoCyclicRollPos  = _heli getVariable "fza_sfmplus_pid_autoCyclicRollPos";
+    private _pidAutoCyclicRollPos  = _heli getVariable "fza_sfmplus_pid_autoCyclicRollPos";
     //_pidAutoCyclicRollPos set ["kp", APCR_KP];
     //_pidAutoCyclicRollPos set ["ki", APCR_KI];
     //_pidAutoCyclicRollPos set ["kd", APCR_KD];
@@ -175,8 +177,8 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //_pidAutoCyclicRollVel set ["kd", APCR_KD];
 
     //systemChat format ["_desiredRoll = %1 -- _curRoll = %2", _desiredRoll toFixed 2, _curRoll toFixed 2];
-    //private _rollPosOutput = [_pidAutoCyclicRollPos, _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
-    //_rollPosOutput         = [_rollPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
+    private _rollPosOutput = [_pidAutoCyclicRollPos, _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
+    _rollPosOutput         = [_rollPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
     if (_rollBreakout) then {
         _desiredRoll = _curRoll;
@@ -186,11 +188,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _rollVelOutput = [_pidAutoCyclicRollVel, _deltaTime, 0.0, -_rollError] call fza_fnc_pidRun;
     _rollVelOutput         = [_rollVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
-    private _rollOutput    = _rollVelOutput;//linearConversion[0.0, _kbRollSwitchVel, _gndSpeed, _rollPosOutput, _rollVelOutput, true];
+    private _rollOutput    = linearConversion[0.0, _kbRollSwitchVel, _gndSpeed, _rollPosOutput, _rollVelOutput, true];
     _rollOutput            = [_rollOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
     if (_rollBreakout) then {
         _rollOutput = 0.0;
+        [_pidAutoCyclicRollPos] call fza_fnc_pidReset;
         [_pidAutoCyclicRollVel] call fza_fnc_pidReset;
     };
 
@@ -247,7 +250,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 
     if (_yawBreakout) then {
         _yawOutput = 0.0;
-        [_pidAutoPedalHdg] call fza_fnc_pidReset;
+        [_pidAutoPedalHdg]  call fza_fnc_pidReset;
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
     };
 
