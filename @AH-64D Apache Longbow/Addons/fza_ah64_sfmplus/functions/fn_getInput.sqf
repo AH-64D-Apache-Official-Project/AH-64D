@@ -85,9 +85,9 @@ if (!_isPlaying) then {
 };
 
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-    _cyclicFwdAft    = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0, true];
+    _cyclicFwdAft    = linearConversion [-0.5, 0.5, _cyclicFwdAft,    -1.0, 1.0, true];
     _cyclicLeftRight = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0, true];
-    _pedalLeftRight  = linearConversion [-0.5, 0.5, _pedalLeftRight, -1.0, 1.0, true];
+    _pedalLeftRight  = linearConversion [-0.5, 0.5, _pedalLeftRight,  -1.0, 1.0, true];
 } else {
     ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind"))
     params [
@@ -117,7 +117,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Auto Pitch /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    private _pidAutoCyclicPitchPos = _heli getVariable "fza_sfmplus_pid_autoCyclicPitchPos";
+    //private _pidAutoCyclicPitchPos = _heli getVariable "fza_sfmplus_pid_autoCyclicPitchPos";
     //_pidAutoCyclicPitchPos set ["kp", APCP_KP];
     //_pidAutoCyclicPitchPos set ["ki", APCP_KI];
     //_pidAutoCyclicPitchPos set ["kd", APCP_KD];
@@ -126,10 +126,13 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //_pidAutoCyclicPitchVel set ["ki", APCP_KI];
     //_pidAutoCyclicPitchVel set ["kd", APCP_KD];
 
-    systemChat format ["_desiredPitch = %1 -- _curPitch = %2", _desiredPitch toFixed 2, _curPitch toFixed 2];
+    //systemChat format ["_desiredPitch = %1 -- _curPitch = %2", _desiredPitch toFixed 2, _curPitch toFixed 2];
     //private _pitchPosOutput = [_pidAutoCyclicPitchPos,  _deltaTime, 0.0, _velY] call fza_fnc_pidRun;
     //_pitchPosOutput         = [_pitchPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
-    
+    if (_pitchBreakout) then {
+        _desiredPitch = _curPitch;
+    };
+
     private _pitchError     = [_curPitch - _desiredPitch]  call CBA_fnc_simplifyAngle180;
     private _pitchVelOutput = [_pidAutoCyclicPitchVel,  _deltaTime, 0.0, -_pitchError] call fza_fnc_pidRun;
     _pitchVelOutput         = [_pitchVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
@@ -139,11 +142,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 
     if (_pitchBreakout) then {
         _pitchOutput = 0.0;
-        _heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", _curPitch, true];
+        [_pidAutoCyclicPitchVel] call fza_fnc_pidReset;
     };
 
-    _cyclicFwdAft   = _kbCyclicFwdAft + _pitchOutput;
-    _heli setVariable ["fza_sfmplus_kbCyclicFwdAft", _cyclicFwdAft];
+    _cyclicFwdAft           = _kbCyclicFwdAft + _pitchOutput;
+    _heli setVariable ["fza_sfmplus_kbCyclicFwdAft",          _cyclicFwdAft];
+    _heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", _desiredPitch, true];
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Roll       /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,7 +165,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Auto Roll  /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    private _pidAutoCyclicRollPos  = _heli getVariable "fza_sfmplus_pid_autoCyclicRollPos";
+    //private _pidAutoCyclicRollPos  = _heli getVariable "fza_sfmplus_pid_autoCyclicRollPos";
     //_pidAutoCyclicRollPos set ["kp", APCR_KP];
     //_pidAutoCyclicRollPos set ["ki", APCR_KI];
     //_pidAutoCyclicRollPos set ["kd", APCR_KD];
@@ -170,10 +174,14 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //_pidAutoCyclicRollVel set ["ki", APCR_KI];
     //_pidAutoCyclicRollVel set ["kd", APCR_KD];
 
-    systemChat format ["_desiredRoll = %1 -- _curRoll = %2", _desiredRoll toFixed 2, _curRoll toFixed 2];
+    //systemChat format ["_desiredRoll = %1 -- _curRoll = %2", _desiredRoll toFixed 2, _curRoll toFixed 2];
     //private _rollPosOutput = [_pidAutoCyclicRollPos, _deltaTime, 0.0, -_velX] call fza_fnc_pidRun;
     //_rollPosOutput         = [_rollPosOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
+    if (_rollBreakout) then {
+        _desiredRoll = _curRoll;
+    };
+
     private _rollError     = [_curRoll - _desiredRoll]  call CBA_fnc_simplifyAngle180;
     private _rollVelOutput = [_pidAutoCyclicRollVel, _deltaTime, 0.0, -_rollError] call fza_fnc_pidRun;
     _rollVelOutput         = [_rollVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
@@ -183,11 +191,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     
     if (_rollBreakout) then {
         _rollOutput = 0.0;
-        _heli setVariable ["fza_sfmplus_autoCyclic_desiredRoll", _curRoll, true];
+        [_pidAutoCyclicRollVel] call fza_fnc_pidReset;
     };
 
-    _cyclicLeftRight   = _kbCyclicLeftRight + _rollOutput;
-    _heli setVariable ["fza_sfmplus_kbCyclicLeftRight", _cyclicLeftRight];
+     _cyclicLeftRight   = _kbCyclicLeftRight + _rollOutput;
+    _heli setVariable ["fza_sfmplus_kbCyclicLeftRight",      _cyclicLeftRight];
+    _heli setVariable ["fza_sfmplus_autoCyclic_desiredRoll", _desiredRoll, true];
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Pedal Yaw         /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -220,24 +229,35 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 
     private _curHdg        = getDir _heli;
     private _desiredHdg    = _heli getVariable "fza_sfmPlus_autoPedalHdg";
-    private _hdgError      = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
+    private _hdgError      = 0.0;
     private _desiredSlip   = 0.0;
-    private _sideslipError = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+    private _sideslipError = 0.0;
 
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
-        _heli setVariable ["fza_sfmPlus_autoPedalHdg", getDir _heli, true];
+        _desiredHdg = getDir _heli;
     };
+
+    systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
+    _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+    _sideslipError  = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
+    if (_yawBreakout) then {
+        _yawOutput = 0.0;
+        [_pidAutoPedalHdg] call fza_fnc_pidReset;
+        [_pidAutoPedalSlip] call fza_fnc_pidReset;
+    };
+
     _pedalLeftRight   = _kbPedalLeftRight + _yawOutput;
     _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _pedalLeftRight];
+    _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
 };
-_cyclicFwdAft    = [_heli, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_cyclicLeftRight = [_heli, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_pedalLeftRight  = [_heli, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicFwdAft    = [_heli, "pitch", _cyclicFwdAft,    _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicLeftRight = [_heli, "roll",  _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_pedalLeftRight  = [_heli, "yaw",   _pedalLeftRight,  _inputLagValue] call fza_sfmplus_fnc_actuator;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective           /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
