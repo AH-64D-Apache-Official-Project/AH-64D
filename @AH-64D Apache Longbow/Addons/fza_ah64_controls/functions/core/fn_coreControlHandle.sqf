@@ -136,9 +136,7 @@ if (_value) then {
             };
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
-            };
+            [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_down": {
             if (fza_ah64_sfmPlusControlScheme == HOTAS) then {

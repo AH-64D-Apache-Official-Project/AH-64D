@@ -33,7 +33,7 @@ if (!(_heli getVariable "fza_ah64_fmcYawOn") || fza_ah64_sfmPlusControlScheme ==
     _SASYawOutput       = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcCollOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
+if (!(_heli getVariable "fza_ah64_fmcCollOn")) then {
     _altHoldCollOut = 0.0;
 };
 
