@@ -57,7 +57,7 @@ _heli setVariable ["fza_sfmplus_rho", _dryAirDensity];
 private _windDir       = (windDir + 180) mod 360;
 private _windSpeed     = vectorMagnitude wind;
 
-systemChat format ["_windDir = %1 -- _windSpeed = %2", _windDir toFixed 0, _windSpeed toFixed 0];
+//systemChat format ["_windDir = %1 -- _windSpeed = %2", _windDir toFixed 0, _windSpeed toFixed 0];
 
 private _velWindWorldSpaceX = -(_windSpeed * sin _windDir);
 private _velWindWorldSpaceY = -(_windSpeed * cos _windDir);
