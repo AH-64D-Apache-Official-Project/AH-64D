@@ -1,4 +1,4 @@
-params ["_heli", "_rho"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 if (!local _heli) exitWith {};
@@ -7,9 +7,10 @@ private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 private _deltaTime      = fza_ah64_fixedTimeStep;
+private _rho            = _heli getVariable "fza_sfmplus_rho";
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;//getArray  (_heliSimCfg >> "wingElements")               select _wingNum;
-private _airfoilTable   = getArray (_sfmPlusConfig >> "stabAirfoilTable");
+private _airfoilTable   = getArray (_sfmPlusConfig >> "airfoilTable02");
 private _wingPos        = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
 private _pitch          = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
 private _roll           = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
@@ -82,12 +83,12 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
-    //private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    //private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
+    private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
+    private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
-    //private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
-    //_localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
-    //_relativeWind         = _relativeWind vectorAdd _localRelWind;
+    private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
+    _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
+    _relativeWind         = _relativeWind vectorAdd _localRelWind;
 
     #ifdef __A3_DEBUG__
     [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "red"] call fza_fnc_debugDrawLine;

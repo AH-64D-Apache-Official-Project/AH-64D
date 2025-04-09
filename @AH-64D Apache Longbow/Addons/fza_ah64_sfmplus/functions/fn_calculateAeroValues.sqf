@@ -58,6 +58,27 @@ private _beta_g    = ((vectorMagnitude _totVel) * (sin _beta_deg)) / GRAVITY;
 //Gamma, or flight path angle, is the angle between
 private _gamma    = if (_modelVelY == 0) then { 0.0; } else { asin (_totVelZ / _modelVelY); };
 if ([_gamma] call fza_sfmplus_fnc_isNAN || [_gamma] call fza_sfmplus_fnc_isINF) then { _gamma = 0.0; };
+/*
+private _vx    = (_heli getVariable "fza_sfmplus_velModelSpace") # 0;
+private _vy    = (_heli getVariable "fza_sfmplus_velModelSpace") # 1;
+private _vz    = (_heli getVariable "fza_sfmplus_velModelSpace") # 2;
+//Angle-of-attack (alpha)
+private _alpha = _vz atan2 _vy;
+
+private _v     = sqrt (_vx * _vx + _vy * _vy + _vz * _vz);
+private _ay    = if (_v == 0) then { 0.0; } else { (_vy * GRAVITY) / _v; };
+//Angle-of-sideslip (beta)
+private _beta  = _vx  atan2 sqrt(_ay * _ay + _vz * _vz);
+
+systemChat format ["_oldAlpha = %1 -- _oldBeta = %2", _alpha_deg toFixed 2, _beta_deg toFixed 2];
+systemChat format ["_alpha = %1 -- _beta = %2", _alpha toFixed 2, _beta toFixed 2];
+
+private _ax   = _heli getVariable "fza_sfmplus_accelX";
+private _ay   = _heli getVariable "fza_sfmplus_accelY";
+private _beta = _ax / GRAVITY;//_ax atan2 (_ay - GRAVITY);
+
+systemChat format ["_beta = %1", _beta];
+*/
 
 _heli setVariable ["fza_sfmplus_aero_alpha_deg", _alpha_deg, true];
 _heli setVariable ["fza_sfmplus_aero_beta_deg",  _beta_deg,  true];

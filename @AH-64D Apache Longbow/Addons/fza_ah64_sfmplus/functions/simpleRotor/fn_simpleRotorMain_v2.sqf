@@ -18,7 +18,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
 if (!local _heli) exitWith {};
@@ -39,6 +39,15 @@ private _bladeChord             = 0.533;   //m
 private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 7.9341;  //deg
 private _bladeLiftCurveSlope    = 5.7;
+
+private _altitude               = _heli getVariable "fza_sfmplus_PA";
+private _temperature            = _heli getVariable "fza_sfmplus_FAT";
+private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
+
+private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_attHoldCycPitchOut";
+private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_attHoldCycRollOut";
+private _altHoldCollOut         = _heli getVariable "fza_sfmplus_altHoldCollOut";
+private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 //Get the current collective value
 private _collectiveOut          = (_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut;

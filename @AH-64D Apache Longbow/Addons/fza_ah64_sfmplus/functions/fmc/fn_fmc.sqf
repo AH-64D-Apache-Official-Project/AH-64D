@@ -14,23 +14,21 @@ private _hdgHoldPedalYawOut = [_heli] call fza_sfmplus_fnc_fmcHeadingHold;
 ([_heli, _deltaTime] call fza_sfmplus_fnc_fmcSAS)
     params ["_SASPitchOutput", "_SASRollOutput", "_SASYawOutput"];
 
-if (fza_ah64_sfmPlusSpringlessPedals
-    || fza_ah64_sfmPlusControlScheme == KEYBOARD
-    || fza_ah64_sfmPlusControlScheme == MOUSE) then {
+if (fza_ah64_sfmPlusSpringlessPedals) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcPitchOn")) then {
+if (!(_heli getVariable "fza_ah64_fmcPitchOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
     _attHoldCycPitchOut = 0.0;
     _SASPitchOutput     = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcRollOn")) then {
+if (!(_heli getVariable "fza_ah64_fmcRollOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
     _attHoldCycRollOut = 0.0;
     _SASRollOutput     = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcYawOn")) then {
+if (!(_heli getVariable "fza_ah64_fmcYawOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
     _hdgHoldPedalYawOut = 0.0;
     _SASYawOutput       = 0.0;
 };
@@ -39,6 +37,7 @@ if (!(_heli getVariable "fza_ah64_fmcCollOn")) then {
     _altHoldCollOut = 0.0;
 };
 
-//_SASPitchOutput = 0.0; _SASRollOutput = 0.0; _SASYawOutput = 0.0;
-
-[_attHoldCycPitchOut + _SASPitchOutput, _attHoldCycRollOut + _SASRollOutput, _hdgHoldPedalYawOut + _SASYawOutput, _altHoldCollOut];
+_heli setVariable ["fza_sfmplus_attHoldCycPitchOut",   _attHoldCycPitchOut + _SASPitchOutput];
+_heli setVariable ["fza_sfmplus_attHoldCycRollOut",    _attHoldCycRollOut  + _SASRollOutput];
+_heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut",   _hdgHoldPedalYawOut + _SASYawOutput];
+_heli setVariable ["fza_sfmplus_altHoldCollOut",       _altHoldCollOut];
