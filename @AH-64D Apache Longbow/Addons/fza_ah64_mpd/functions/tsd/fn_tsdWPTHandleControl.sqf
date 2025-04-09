@@ -135,8 +135,6 @@ switch (_variant) do {
                 _state set ["enterCallback", {
                     params ["_heli", "_state", "_ident", "_free", "_pos", "_alt"];
                     private _nextIndex = [_heli, _state get "addType"] call fza_dms_fnc_pointNextFree;
-                    copyToClipboard format ["_this %1, _nextIndex %2", _this, _nextIndex];
-                    systemChat format ["Ident: '%1', Free: '%2'", _ident, _free];
                     [_heli, _nextIndex
                         , _ident
                         , _free
