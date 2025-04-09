@@ -13,11 +13,12 @@ params["_heli", "_mpdIndex", "_state"];
 
 private _currentPoint    = _heli getVariable POINT_CURRENTSEL;
 private _currentPointStr = _currentPoint call fza_dms_fnc_pointToString;
+private _pointDetails    = [_heli, _currentPoint, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_TSD_WPT_VARIANT), _state get "subPageVarPage" select 1];
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_CURRENT_POINT), _currentPointStr];
+_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_CURRENT_POINT_ID), str (_pointDetails select POINT_GET_IDENT)];
 
-private _pointDetails = [_heli, _currentPoint, POINT_GET_FULL] call fza_dms_fnc_pointGetValue;
 
 if (isNil "_pointDetails") then {
     _heli setUserMfdText[MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_WPT_DETAILS_1), format["?01 %1 AAA ETE 00:00:00 ETA 00:00:00L", POINT_DEFAULTIDENT]];

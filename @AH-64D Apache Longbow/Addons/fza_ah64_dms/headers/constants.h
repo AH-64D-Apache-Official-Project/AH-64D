@@ -34,6 +34,7 @@
 #define POINT_SET_FREE_TEXT 0
 #define POINT_SET_ARMA_POS 1
 #define POINT_SET_ALT_MSL 2
+#define POINT_SET_IDENT 3
 
 #define MPD_ICON_COLOR_GREEN {0.0, 1.0, 0.5, 1}
 #define MPD_ICON_COLOR_BLUE {0.4, 0.6, 1.0, 1}
