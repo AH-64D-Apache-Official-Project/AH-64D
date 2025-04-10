@@ -31,7 +31,7 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_AIRSPEED), _airspeed toF
 // Waypoint status window
 private _nextPoint = _currentDir;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
-private _nextPointMSL = [_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue;
+private _nextPointMSL = ([_heli, _nextPoint, POINT_GET_ALT_MSL] call fza_dms_fnc_pointGetValue) * SCALE_METERS_FEET;
 [_heli, true] call fza_mpd_fnc_tsdWaypointStatusText params ["_waypointId", "_groundspeed", "_waypointDist", "_waypointEta"];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FLT_DISTANCETOGO), _waypointDist];
 

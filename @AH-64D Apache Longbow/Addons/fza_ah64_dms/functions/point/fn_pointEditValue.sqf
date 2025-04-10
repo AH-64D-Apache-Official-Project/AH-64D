@@ -29,7 +29,7 @@ switch (_valueType) do {
     case POINT_SET_ALT_MSL: {
         private _pos = _dbRow # POINT_GET_ARMA_POS;
         _dbRow set [POINT_GET_ALT_MSL, _newValue];
-        _dbRow set [POINT_GET_ALT_AGL, (_altMsl - getTerrainHeightASL _armaPos) max 0];
+        _dbRow set [POINT_GET_ALT_AGL, (_newValue - getTerrainHeightASL _pos) max 0];
         _operationCompleted = true;
     };
     case POINT_SET_IDENT: {
