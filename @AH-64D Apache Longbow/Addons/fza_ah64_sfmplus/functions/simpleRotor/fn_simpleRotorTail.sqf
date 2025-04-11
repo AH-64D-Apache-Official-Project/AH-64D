@@ -40,8 +40,8 @@ private _rtrNumBlades           = 4;
 
 private _bladeRadius            = 1.402;   //m
 private _bladeChord             = 0.253;   //m
-private _bladePitch_min         = -15.0;   //deg
-private _bladePitch_max         =  27.0;   //deg
+//private _bladePitch_min         = -15.0;   //deg
+//private _bladePitch_max         =  27.0;   //deg
 private _bladePitchTable = [
     [-1.00, -15.0]
    ,[-0.90, -14.8]
@@ -65,8 +65,33 @@ private _bladePitchTable = [
    ,[ 0.90,  26.5]
    ,[ 1.00,  27.0]
   ];
-private _rtrThrustScalar_min    = -0.120;//THRUST_MIN;//-0.050;//-0.125;//-0.067;
-private _rtrThrustScalar_max    =  0.075;//THRUST_MAX;// 0.050;//0.063;// 0.267;
+
+  private _bladePitchInducedThrustTable = [
+    [-15.0,  0.1500]
+   ,[-14.8,  0.1000]
+   ,[-14.5,  0.0700]
+   ,[-14.2,  0.0500]
+   ,[-14.0,  0.0350]
+   ,[-13.5,  0.0250]
+   ,[-12.8,  0.0190]
+   ,[-11.9,  0.0145]
+   ,[-10.5,  0.0139]
+   ,[ -8.0,  0.0134]
+   ,[ -3.4,  0.0133]
+   ,[  3.4,  0.0120]
+   ,[ 13.0,  0.0110]
+   ,[ 18.0,  0.0090]
+   ,[ 20.5,  0.0070]
+   ,[ 22.5,  0.0040]
+   ,[ 24.0, -0.0015]
+   ,[ 25.0, -0.0100]
+   ,[ 25.8, -0.0220]
+   ,[ 26.5, -0.0420]
+   ,[ 27.0, -0.0700]
+  ];
+
+//private _rtrThrustScalar_min    = THRUST_MIN;//-0.120;//THRUST_MIN;//-0.050;//-0.125;//-0.067;
+//private _rtrThrustScalar_max    = THRUST_MAX;// 0.075;//THRUST_MAX;// 0.050;//0.063;// 0.267;
 private _sideThrustScalar       = 1.0;
 private _rtrAirspeedVelocityMod = 0.4;
 private _rtrTorqueScalar        = 1.00;
@@ -79,24 +104,13 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 private _pedalPosition  = (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
 private _bladePitch_cur = [_bladePitchTable, _pedalPosition] call fza_fnc_linearInterp select 1;
-
-private _bladePitchInducedThrustScalar = 0.0;
-if (_bladePitch_cur < 0.0) then {
-    _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_min) * _bladePitch_cur;
-} else {
-    _bladePitchInducedThrustScalar = _rtrThrustScalar_max + ((1 - _rtrThrustScalar_max) / _bladePitch_max) * _bladePitch_cur;
-};
-
+private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _bladePitch_cur] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
+//systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, (_heli getVariable "fza_sfmplus_pedalLeftRight")];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 //Rotor induced thrust as a function of RPM
-private _rtrRPMInducedThrustScalar = 0.0;
-if (_bladePitch_cur >= 0.0) then {
-    _rtrRPMInducedThrustScalar = _rtrThrustScalar_max * (_inputRPM / _rtrRPMTrimVal);
-} else {
-    _rtrRPMInducedThrustScalar = _rtrThrustScalar_min * (_inputRPM / _rtrRPMTrimVal);
-};
+private _rtrRPMInducedThrustScalar = _inputRPM / _rtrRPMTrimVal;// * _rtrThrustScalar_max;//0.0;
 
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -130,11 +144,11 @@ private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 private _totThrust     = _rtrThrust;
+private _deltaPos      = _rtrPos vectorDiff (getCenterOfMass _heli);
 
-private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
-private _torqueY       = 0.0;
-private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
-//systemChat format ["tail rotor _torqueZ = %1", _torqueZ toFixed 0];
+private _thrustVector  = _axisX vectorMultiply (_totThrust * _deltaTime);
+private _moment        = _thrustVector vectorCrossProduct _deltaPos;
+//systemChat format ["tail rotor _torqueZ = %1 -- _totThrust = %2 -- _deltaPos = %3 zz", (_moment select 2) toFixed 0, _totThrust toFixed 0, _deltaPos];
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
@@ -145,11 +159,10 @@ private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
         //Tail rotor thrust force
-        _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+        _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
 
         //Tail rotor torque
-        private _torque   = [0.0, _torqueY, _torqueZ];
-        _heli addTorque (_heli vectorModelToWorld _torque);
+        _heli addTorque (_heli vectorModelToWorld _moment);
     };
 };
 
