@@ -23,6 +23,8 @@ fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
 _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
+_heli getVariable ["fza_sfmplus_rollTimer",          0.0];
+_heli getVariable ["fza_sfmplus_pitchTimer",         0.0];
 
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
 _heli setVariable ["fza_sfmplus_kbCyclicFwdAft",     0.0];
