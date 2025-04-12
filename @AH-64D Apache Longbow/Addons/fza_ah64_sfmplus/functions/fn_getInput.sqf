@@ -111,7 +111,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Pitch      /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////    
+    private _pitchTimer = _heli getVariable "fza_sfmplus_pitchTimer";
     if (_cyclicFwdAft < -0.1 || _cyclicFwdAft > 0.1) then {
+        _heli setVariable ["fza_sfmplus_pitchTimer", CBA_missionTime + 0.2];
+    };
+
+    if (_pitchTimer > CBA_missionTime) then {
         _pitchBreakout = true;
     };
 
@@ -160,7 +165,12 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Roll       /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
+    private _rollTimer = _heli getVariable "fza_sfmplus_rollTimer";
     if (_cyclicLeftRight < -0.1 || _cyclicLeftRight > 0.1) then {
+        _heli setVariable ["fza_sfmplus_rollTimer", CBA_missionTime + 0.2];
+    };
+
+    if (_rollTimer > CBA_missionTime) then {
         _rollBreakout = true;
     };
 
@@ -188,6 +198,10 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     
     if (_rollBreakout) then {
         _desiredRoll = _curRoll;
+    };
+
+    if (_rollTimer > CBA_missionTime) then {
+        _rollBreakout = true;
     };
 
     private _rollError     = [_curRoll - _desiredRoll]  call CBA_fnc_simplifyAngle180;

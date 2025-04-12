@@ -110,7 +110,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusDisableFreelook",
     "CHECKBOX",
-    ["Disable Free Look", "When enabled, prevents the use of freelook."],
+    ["Disable Free Look Control", "When enabled, prevents the Inputs being fed to the FM while in freelook, Relevant to those who have mouse bound to cyclic."],
     [_projName, "Flight model"],
     [true],
     0
