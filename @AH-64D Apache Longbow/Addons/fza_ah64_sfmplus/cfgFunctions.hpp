@@ -110,6 +110,7 @@ class CfgFunctions
             class getAltitude {R;};
             class getDeltaTime {R;};
             class getInput {R;};
+            class getInterpInput {R;};
             class getRtrRPM {R;};
             class getSmoothAverage {R;};
             class getVelocities {R;};
