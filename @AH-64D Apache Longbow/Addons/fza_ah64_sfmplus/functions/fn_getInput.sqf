@@ -33,10 +33,7 @@ private _isFreeLook         = freeLook;
 if (fza_ah64_sfmPlusDisableFreelook) then {
     _isFreeLook = false;
 };
-
 private _isPlaying          = !_isFreeLook && isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
-
-systemChat format ["freeLook = %1 -- _isPlaying = %2", freelook, _isPlaying];
 
 private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
