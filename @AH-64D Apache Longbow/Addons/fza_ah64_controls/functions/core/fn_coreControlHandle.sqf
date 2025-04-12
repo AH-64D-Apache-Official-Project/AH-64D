@@ -298,6 +298,9 @@ if (_value) then {
             private _lmc = _heli getvariable "fza_ah64_LmcActive";
             _heli setVariable ["fza_ah64_LmcActive", !_lmc, true];
         };
+        case "fza_ah64_kbAttHoldDisengage": {
+            _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", true];
+        };
         case "Headlights": {
             private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
             _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
@@ -329,6 +332,9 @@ if !(_value) then {
                 _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
                 [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
             };
+        };
+        case "fza_ah64_kbAttHoldDisengage": {
+            _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
         };
     };
 };

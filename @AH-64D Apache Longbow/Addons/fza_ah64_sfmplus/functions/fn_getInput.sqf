@@ -99,7 +99,9 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     (_heli call BIS_fnc_getPitchBank)
     params ["_curPitch", "_curRoll"];
 
-    private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    private _kbBreakout = _heli getVariable "fza_sfmplus_kbAttHoldDisengage";
+    systemChat format ["_kbBreakout = %1", _kbBreakout];
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Pitch      /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////    
@@ -141,7 +143,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _pitchOutput    = linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, _pitchVelOutput, true];
     _pitchOutput            = [_pitchOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
-    if (_pitchBreakout) then {
+    if (_pitchBreakout || _kbBreakout) then {
         _pitchOutput = 0.0;
         [_pidAutoCyclicPitchPos] call fza_fnc_pidReset;
         [_pidAutoCyclicPitchVel] call fza_fnc_pidReset;
@@ -191,7 +193,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _rollOutput    = linearConversion[0.0, _kbRollSwitchVel, _gndSpeed, _rollPosOutput, _rollVelOutput, true];
     _rollOutput            = [_rollOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
-    if (_rollBreakout) then {
+    if (_rollBreakout || _kbBreakout) then {
         _rollOutput = 0.0;
         [_pidAutoCyclicRollPos] call fza_fnc_pidReset;
         [_pidAutoCyclicRollVel] call fza_fnc_pidReset;

@@ -22,6 +22,8 @@ private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
+_heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
+
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
 _heli setVariable ["fza_sfmplus_kbCyclicFwdAft",     0.0];
 _heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
