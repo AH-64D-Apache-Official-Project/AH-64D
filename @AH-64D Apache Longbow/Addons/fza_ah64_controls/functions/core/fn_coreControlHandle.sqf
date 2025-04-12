@@ -300,6 +300,7 @@ if (_value) then {
         };
         case "fza_ah64_kbAttHoldDisengage": {
             _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", true];
+            [_heli] call fza_audio_fnc_flightTone;
         };
         case "Headlights": {
             private _lightval = _heli getVariable "fza_ah64_lightSearchLight";

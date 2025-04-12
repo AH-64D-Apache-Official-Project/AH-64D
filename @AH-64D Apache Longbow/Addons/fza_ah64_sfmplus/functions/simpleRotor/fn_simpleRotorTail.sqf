@@ -40,52 +40,28 @@ private _rtrNumBlades           = 4;
 
 private _bladeRadius            = 1.402;   //m
 private _bladeChord             = 0.253;   //m
-private _bladePitchTable = [
-    [-1.00, -15.0]
-   ,[-0.90, -14.8]
-   ,[-0.80, -14.5]
-   ,[-0.70, -14.2]
-   ,[-0.60, -14.0]
-   ,[-0.50, -13.5]
-   ,[-0.40, -12.8]
-   ,[-0.30, -11.9]
-   ,[-0.20, -10.5]
-   ,[-0.10,  -8.0]
-   ,[ 0.00,  -3.4]
-   ,[ 0.10,   3.4]
-   ,[ 0.20,  13.0]
-   ,[ 0.30,  18.0]
-   ,[ 0.40,  20.5]
-   ,[ 0.50,  22.5]
-   ,[ 0.60,  24.0]
-   ,[ 0.70,  25.0]
-   ,[ 0.80,  25.8]
-   ,[ 0.90,  26.5]
-   ,[ 1.00,  27.0]
-  ];
-
-  private _bladePitchInducedThrustTable = [
-    [-15.0,  0.3000]
-   ,[-14.8,  0.2200]
-   ,[-14.5,  0.1500]
-   ,[-14.2,  0.1000]
-   ,[-14.0,  0.0620]
-   ,[-13.5,  0.0380]
-   ,[-12.8,  0.0250]
-   ,[-11.9,  0.0190]
-   ,[-10.5,  0.0145]
-   ,[ -8.0,  0.0134]
-   ,[ -3.4,  0.0133]
-   ,[  3.4,  0.0060]
-   ,[ 13.0, -0.0145]
-   ,[ 18.0, -0.0377]
-   ,[ 20.5, -0.0609]
-   ,[ 22.5, -0.0841]
-   ,[ 24.0, -0.1073]
-   ,[ 25.0, -0.1304]
-   ,[ 25.8, -0.1536]
-   ,[ 26.5, -0.1768]
-   ,[ 27.0, -0.2000]
+private _bladePitchInducedThrustTable = [
+    [-1.00,  0.3000]
+   ,[-0.90,  0.2200]
+   ,[-0.80,  0.1500]
+   ,[-0.70,  0.1000]
+   ,[-0.60,  0.0620]
+   ,[-0.50,  0.0380]
+   ,[-0.40,  0.0250]
+   ,[-0.30,  0.0190]
+   ,[-0.20,  0.0145]
+   ,[-0.10,  0.0134]
+   ,[ 0.00,  0.0133]
+   ,[ 0.10,  0.0060]
+   ,[ 0.20, -0.0145]
+   ,[ 0.30, -0.0377]
+   ,[ 0.40, -0.0609]
+   ,[ 0.50, -0.0841]
+   ,[ 0.60, -0.1073]
+   ,[ 0.70, -0.1304]
+   ,[ 0.80, -0.1536]
+   ,[ 0.90, -0.1768]
+   ,[ 1.00, -0.2000]
   ];
 private _rtrAirspeedVelocityMod = 0.4;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -98,9 +74,8 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 };
 private _pedalInput     = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _hdgHoldPedalYawOut;
 _pedalInput             = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _bladePitch_cur = [_bladePitchTable, _pedalInput] call fza_fnc_linearInterp select 1;
-private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _bladePitch_cur] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
-//systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, _pedalLeftRight];
+private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _pedalInput] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
+systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, _pedalLeftRight];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;

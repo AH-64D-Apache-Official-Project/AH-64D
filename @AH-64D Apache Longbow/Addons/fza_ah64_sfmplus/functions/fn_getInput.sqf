@@ -28,8 +28,15 @@ private _inDialog           = !dialog;
 private _isZeus             = isNull findDisplay 312;
 private _inMap              = !visibleMap;
 private _inInventory        = isNull findDisplay 602;
+private _isFreeLook         = freeLook;
 
-private _isPlaying          = !freeLook && isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
+if (fza_ah64_sfmPlusDisableFreelook) then {
+    _isFreeLook = false;
+};
+
+private _isPlaying          = !_isFreeLook && isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
+
+systemChat format ["freeLook = %1 -- _isPlaying = %2", freelook, _isPlaying];
 
 private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
@@ -80,8 +87,11 @@ private _cyclicLeftRight    = (inputAction "HeliCyclicLeft")  - (inputAction "He
 private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 
 if (!_isPlaying) then {
-    _cyclicFwdAft    = 0.0;
-    _cyclicLeftRight = 0.0;
+    _cyclicFwdAft      = 0.0;
+    _cyclicLeftRight   = 0.0;
+
+    _kbCyclicFwdAft    = 0.0;
+    _kbCyclicLeftRight = 0.0;
 };
 
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
@@ -101,12 +111,10 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
 
     private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
     private _kbBreakout = _heli getVariable "fza_sfmplus_kbAttHoldDisengage";
-    systemChat format ["_kbBreakout = %1", _kbBreakout];
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Pitch      /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////    
-    private _pitchBreakoutVal = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");
-    if (_pitchBreakoutVal < -0.1 || _pitchBreakoutVal > 0.1) then {
+    if (_cyclicFwdAft < -0.1 || _cyclicFwdAft > 0.1) then {
         _pitchBreakout = true;
     };
 
@@ -155,8 +163,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Roll       /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    private _rollBreakoutVal = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");
-    if (_rollBreakoutVal < -0.1 || _rollBreakoutVal > 0.1) then {
+    if (_cyclicLeftRight < -0.1 || _cyclicLeftRight > 0.1) then {
         _rollBreakout = true;
     };
 
