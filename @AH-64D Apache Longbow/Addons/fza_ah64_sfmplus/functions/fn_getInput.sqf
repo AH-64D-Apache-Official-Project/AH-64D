@@ -113,7 +113,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     /////////////////////////////////////////////////////////////////////////////////////////////    
     private _pitchTimer = _heli getVariable "fza_sfmplus_pitchTimer";
     if (_cyclicFwdAft < -0.1 || _cyclicFwdAft > 0.1) then {
-        _heli setVariable ["fza_sfmplus_pitchTimer", CBA_missionTime + 0.2];
+        _heli setVariable ["fza_sfmplus_pitchTimer", CBA_missionTime + 0.3];
     };
 
     if (_pitchTimer > CBA_missionTime) then {

@@ -129,7 +129,7 @@ _heli setVariable ["fza_sfmplus_pid_autoCyclicPitchVel",  [0.0500, 0.0005, 0.008
 _heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", 0.0];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [2.5000, 0.4000, 0.3000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [2.2000, 0.3000, 0.7000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 
 //Aerodynamic State Variables
