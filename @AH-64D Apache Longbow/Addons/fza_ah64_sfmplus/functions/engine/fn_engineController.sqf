@@ -55,7 +55,11 @@ if (local _heli) then {
     };
 };
 
-if !_apuOn then {
+private _acBusOn   = _heli getVariable "fza_systems_acBusOn";
+private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
+private _powerOnState = (_acBusOn && _dcBusOn);
+
+if !_powerOnState then {
     if (_eng1State == "STARTING") then {
 		[_heli, "fza_sfmplus_engState", 0, "OFF", true] call fza_fnc_setArrayVariable;
     };
