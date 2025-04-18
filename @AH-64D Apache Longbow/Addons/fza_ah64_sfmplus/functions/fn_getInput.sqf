@@ -28,8 +28,12 @@ private _inDialog           = !dialog;
 private _isZeus             = isNull findDisplay 312;
 private _inMap              = !visibleMap;
 private _inInventory        = isNull findDisplay 602;
+private _isFreeLook         = freeLook;
 
-private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
+if (fza_ah64_sfmPlusDisableFreelook) then {
+    _isFreeLook = false;
+};
+private _isPlaying          = !_isFreeLook && isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; 
 
 private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
@@ -76,12 +80,15 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft       = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");
-private _cyclicLeftRight    = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");
+private _cyclicLeftRight    = (inputAction "HeliCyclicLeft")  - (inputAction "HeliCyclicRight");
 private _pedalLeftRight     = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
 
 if (!_isPlaying) then {
-    _cyclicFwdAft    = 0.0;
-    _cyclicLeftRight = 0.0;
+    _cyclicFwdAft      = 0.0;
+    _cyclicLeftRight   = 0.0;
+
+    _kbCyclicFwdAft    = 0.0;
+    _kbCyclicLeftRight = 0.0;
 };
 
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
@@ -99,12 +106,17 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     (_heli call BIS_fnc_getPitchBank)
     params ["_curPitch", "_curRoll"];
 
-    private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    private _kbBreakout = _heli getVariable "fza_sfmplus_kbAttHoldDisengage";
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Pitch      /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////    
-    private _pitchBreakoutVal = (inputAction "HeliCyclicForward") - (inputAction "HeliCyclicBack");
-    if (_pitchBreakoutVal < -0.1 || _pitchBreakoutVal > 0.1) then {
+    private _pitchTimer = _heli getVariable "fza_sfmplus_pitchTimer";
+    if (_cyclicFwdAft < -0.1 || _cyclicFwdAft > 0.1) then {
+        _heli setVariable ["fza_sfmplus_pitchTimer", CBA_missionTime + 0.3];
+    };
+
+    if (_pitchTimer > CBA_missionTime) then {
         _pitchBreakout = true;
     };
 
@@ -141,20 +153,24 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _pitchOutput    = linearConversion[0.0, _kbPitchSwitchVel, _gndSpeed, _pitchPosOutput, _pitchVelOutput, true];
     _pitchOutput            = [_pitchOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
-    if (_pitchBreakout) then {
+    if (_pitchBreakout || _kbBreakout) then {
         _pitchOutput = 0.0;
         [_pidAutoCyclicPitchPos] call fza_fnc_pidReset;
         [_pidAutoCyclicPitchVel] call fza_fnc_pidReset;
     };
 
-    _cyclicFwdAft           = _kbCyclicFwdAft + _pitchOutput;
+    _cyclicFwdAft           = [_kbCyclicFwdAft, _pitchOutput] call fza_sfmplus_fnc_getInterpInput;//_kbCyclicFwdAft + _pitchOutput;
     _heli setVariable ["fza_sfmplus_kbCyclicFwdAft",          _cyclicFwdAft];
     _heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", _desiredPitch, true];
     /////////////////////////////////////////////////////////////////////////////////////////////
     // KB Cyclic Roll       /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
-    private _rollBreakoutVal = (inputAction "HeliCyclicLeft") - (inputAction "HeliCyclicRight");
-    if (_rollBreakoutVal < -0.1 || _rollBreakoutVal > 0.1) then {
+    private _rollTimer = _heli getVariable "fza_sfmplus_rollTimer";
+    if (_cyclicLeftRight < -0.1 || _cyclicLeftRight > 0.1) then {
+        _heli setVariable ["fza_sfmplus_rollTimer", CBA_missionTime + 0.2];
+    };
+
+    if (_rollTimer > CBA_missionTime) then {
         _rollBreakout = true;
     };
 
@@ -184,6 +200,10 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
         _desiredRoll = _curRoll;
     };
 
+    if (_rollTimer > CBA_missionTime) then {
+        _rollBreakout = true;
+    };
+
     private _rollError     = [_curRoll - _desiredRoll]  call CBA_fnc_simplifyAngle180;
     private _rollVelOutput = [_pidAutoCyclicRollVel, _deltaTime, 0.0, -_rollError] call fza_fnc_pidRun;
     _rollVelOutput         = [_rollVelOutput,  -1.0, 1.0] call BIS_fnc_clamp;
@@ -191,13 +211,13 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     private _rollOutput    = linearConversion[0.0, _kbRollSwitchVel, _gndSpeed, _rollPosOutput, _rollVelOutput, true];
     _rollOutput            = [_rollOutput,  -1.0, 1.0] call BIS_fnc_clamp;
     
-    if (_rollBreakout) then {
+    if (_rollBreakout || _kbBreakout) then {
         _rollOutput = 0.0;
         [_pidAutoCyclicRollPos] call fza_fnc_pidReset;
         [_pidAutoCyclicRollVel] call fza_fnc_pidReset;
     };
 
-     _cyclicLeftRight   = _kbCyclicLeftRight + _rollOutput;
+     _cyclicLeftRight   = [_kbCyclicLeftRight, _rollOutput] call fza_sfmplus_fnc_getInterpInput;//_kbCyclicLeftRight + _rollOutput;
     _heli setVariable ["fza_sfmplus_kbCyclicLeftRight",      _cyclicLeftRight];
     _heli setVariable ["fza_sfmplus_autoCyclic_desiredRoll", _desiredRoll, true];
     /////////////////////////////////////////////////////////////////////////////////////////////
@@ -243,7 +263,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
     _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
     _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
-    _sideslipError  = [_desiredSlip - fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+    _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
     _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
     _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
@@ -254,7 +274,7 @@ if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
     };
 
-    _pedalLeftRight   = _kbPedalLeftRight + _yawOutput;
+    _pedalLeftRight   = [_kbPedalLeftRight, _yawOutput] call fza_sfmplus_fnc_getInterpInput;//_kbPedalLeftRight + _yawOutput;
     _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _pedalLeftRight];
     _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
 };

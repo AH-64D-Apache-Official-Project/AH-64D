@@ -108,6 +108,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusDisableFreelook",
+    "CHECKBOX",
+    ["Disable Free Look Control", "When enabled, prevents the Inputs being fed to the FM while in freelook, Relevant to those who have mouse bound to cyclic."],
+    [_projName, "Flight model"],
+    [true],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
