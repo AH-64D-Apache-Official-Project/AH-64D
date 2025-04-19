@@ -54,7 +54,7 @@ private _projName = "AH-64D Official Project";
     "LIST",
     ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
     [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD,MOUSE],["HOTAS","Keyboard","Mouse"],1],
+    [[HOTAS,MNKB],["HOTAS","Mouse & Keyboard"],1],
     2
 ] call CBA_fnc_addSetting;
 
@@ -77,20 +77,11 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableKbPitchTrim",
-    "CHECKBOX",
-    ["[EXPERIMENTAL] Enable KB Pitch Trim", "When enabled, retains the position of the cyclic."],
-    [_projName, "Flight model"],
-    [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
     [_projName, "Flight model"],
-    [0.1, 1.0, 0.5, 1],
+    [0.1, 1.0, 1.0, 1],
     2
 ] call CBA_fnc_addSetting;
 
@@ -108,20 +99,20 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableWind",
+    "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
-    ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
+    ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
     [_projName, "Flight model"],
     [false],
     0
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusVrsWarning",
+    "fza_ah64_sfmPlusDisableFreelook",
     "CHECKBOX",
-    ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
+    ["Disable Free Look Control", "When enabled, prevents the Inputs being fed to the FM while in freelook, Relevant to those who have mouse bound to cyclic."],
     [_projName, "Flight model"],
-    [false],
+    [true],
     0
 ] call CBA_fnc_addSetting;
 
@@ -212,7 +203,7 @@ fza_ah64_tadsFOVs = [
 //Scheduler arrays
 fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
 fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
-fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes];
+fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes, fza_sfmplus_fnc_coreUpdate];
 
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {

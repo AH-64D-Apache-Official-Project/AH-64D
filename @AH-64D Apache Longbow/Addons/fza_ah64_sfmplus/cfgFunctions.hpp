@@ -25,6 +25,7 @@ class CfgFunctions
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
             class coreConfig {R;};
+            class coreFixedUpdate {R;};
             class coreUpdate  {R;};
         };
         class damage {
@@ -37,6 +38,11 @@ class CfgFunctions
             class engineController {R;};
             class engineReset {R;};
             class engineVariables {R;};
+        };
+        class environment {
+            file = "\fza_ah64_sfmplus\functions\environment";
+            class environment {R;};
+            class environmentVariables {R;};
         };
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
@@ -104,6 +110,7 @@ class CfgFunctions
             class getAltitude {R;};
             class getDeltaTime {R;};
             class getInput {R;};
+            class getInterpInput {R;};
             class getRtrRPM {R;};
             class getSmoothAverage {R;};
             class getVelocities {R;};

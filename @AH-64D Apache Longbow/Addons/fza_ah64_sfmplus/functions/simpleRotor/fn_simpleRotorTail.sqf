@@ -18,13 +18,19 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_altitude", "_temperature", "_dryAirDensity", "_hdgHoldPedalYawOut"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 if (!local _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
+
+private _altitude               = _heli getVariable "fza_sfmplus_PA";
+private _temperature            = _heli getVariable "fza_sfmplus_FAT";
+private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
+
+private _hdgHoldPedalYawOut     = _heli getVariable "fza_sfmplus_hdgHoldPedalYawOut";
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;
@@ -34,61 +40,66 @@ private _rtrNumBlades           = 4;
 
 private _bladeRadius            = 1.402;   //m
 private _bladeChord             = 0.253;   //m
-private _bladePitch_min         = -15.0;   //deg
-private _bladePitch_max         =  27.0;   //deg
-private _bladePitch_med         = -1.668;
-
-private _rtrPowerScalarTable    = [
-                                   [   0, 1.777]
-                                  ,[2000, 1.617]
-                                  ,[4000, 1.530]
-                                  ,[6000, 1.377]
-                                  ,[8000, 1.284]
-                                  ];
-private _rtrThrustScalar_min    = -0.125;
-private _rtrThrustScalar_max    =  0.1162;
-private _sideThrustScalar       = 1.0;
+private _bladePitchInducedThrustTable = [
+    [-1.00,  0.3000]
+   ,[-0.90,  0.2200]
+   ,[-0.80,  0.1500]
+   ,[-0.70,  0.1000]
+   ,[-0.60,  0.0620]
+   ,[-0.50,  0.0380]
+   ,[-0.40,  0.0250]
+   ,[-0.30,  0.0190]
+   ,[-0.20,  0.0145]
+   ,[-0.10,  0.0134]
+   ,[ 0.00,  0.0133]
+   ,[ 0.10,  0.0060]
+   ,[ 0.20, -0.0145]
+   ,[ 0.30, -0.0377]
+   ,[ 0.40, -0.0609]
+   ,[ 0.50, -0.0841]
+   ,[ 0.60, -0.1073]
+   ,[ 0.70, -0.1304]
+   ,[ 0.80, -0.1536]
+   ,[ 0.90, -0.1768]
+   ,[ 1.00, -0.2000]
+  ];
 private _rtrAirspeedVelocityMod = 0.4;
-private _rtrTorqueScalar        = 1.00;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-private _pedalLeftRightTrim            = 0.0;
+private _pedalLeftRight         = _heli getVariable "fza_sfmplus_pedalLeftRight";
+private _pedalLeftRightTrim     = 0.0;
 if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
     _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
 };
-private _bladePitch_cur                = 0.0;
-if ((_heli getVariable "fza_sfmplus_pedalLeftRight") < 0.0) then {
-    _bladePitch_cur = linearConversion[ 0.0, -1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_min];
-} else {
-    _bladePitch_cur = linearConversion[ 0.0,  1.0, (_heli getVariable "fza_sfmplus_pedalLeftRight") + _pedalLeftRightTrim + _hdgHoldPedalYawOut, _bladePitch_med, _bladePitch_max];
-};
-
-private _bladePitchInducedThrustScalar = 0.0;
-if (_bladePitch_cur < 0.0) then {
-    _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_min) * _bladePitch_cur;
-} else {
-    _bladePitchInducedThrustScalar = _rtrThrustScalar_max + ((1 - _rtrThrustScalar_max) / _bladePitch_max) * _bladePitch_cur;
-};
-
+private _pedalInput     = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _hdgHoldPedalYawOut;
+_pedalInput             = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
+private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _pedalInput] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
+//systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, _pedalLeftRight];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];
 private _inputRPM                  = _eng1PctNP max _eng2PctNp;
 //Rotor induced thrust as a function of RPM
-private _rtrRPMInducedThrustScalar = 0.0;
-if (_bladePitch_cur >= 0.0) then {
-    _rtrRPMInducedThrustScalar = _rtrThrustScalar_max * (_inputRPM / _rtrRPMTrimVal);
-} else {
-    _rtrRPMInducedThrustScalar = _rtrThrustScalar_min * (_inputRPM / _rtrRPMTrimVal);
-};
+private _rtrRPMInducedThrustScalar = _inputRPM / _rtrRPMTrimVal;
 
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 //Additional thrust gained from increasing forward airspeed
-private _velYZ                      = vectorMagnitude [velocityModelSpace _heli # 1, velocityModelSpace _heli # 2];
+private _deltaPos                  = _rtrPos vectorDiff (getCenterOfMass _heli);
+private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
+private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
+private _velWindY                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 1;
+private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 0;
+if (_velWindY < 0.0) then {
+    _velWindY = 0.0;
+};
+private _velYZ                     = vectorMagnitude [_velY + _velWindY, _velZ];
 private _airspeedVelocityScalar    = (1 + (_velYZ / VEL_VBE)) ^ (_rtrAirspeedVelocityMod);
 //Induced flow handler
-private _velX                      = velocityModelSpace _heli # 0;
+private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
+_velX = _velX * sin (_heli getVariable "fza_sfmplus_aero_beta_deg");
+_velX = _velX + _velWindX;
+
 private _inducedVelocityScalar     = 1.0;
 if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then { 
     _inducedVelocityScalar = 0.0;
@@ -96,18 +107,17 @@ if (_velX < -VEL_VRS && _velYZ < VEL_ETL) then {
     _inducedVelocityScalar = 1 - (_velX / VEL_VRS);
 };
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
-private _rtrThrustScalar           = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
-private _rtrThrust                 = _baseThrust * _rtrThrustScalar;
+private _rtrThrustScalar   = _bladePitchInducedThrustScalar * _rtrRPMInducedThrustScalar * _airDensityThrustScalar * _airspeedVelocityScalar * _inducedVelocityScalar;
+private _rtrThrust         = _baseThrust * _rtrThrustScalar;
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
 private _axisZ = [0.0, 0.0, 1.0];
 
 private _totThrust     = _rtrThrust;
-
-private _thrustX       = _axisX vectorMultiply ((_totThrust * _sideThrustScalar * -1.0) * _deltaTime);
-private _torqueY       = 0.0;
-private _torqueZ       = ((_rtrPos # 1) * _totThrust * -1.0) * _deltaTime; 
+private _thrustVector  = _axisX vectorMultiply (_totThrust * _deltaTime);
+private _moment        = _thrustVector vectorCrossProduct _deltaPos;
+//systemChat format ["tail rotor _torqueZ = %1 -- _totThrust = %2 -- _deltaPos = %3 zz", (_moment select 2) toFixed 0, _totThrust toFixed 0, _deltaPos];
 
 private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
 private _IGBDamage     = _heli getHitPointDamage "hit_drives_intermediategearbox";
@@ -118,11 +128,10 @@ private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
         //Tail rotor thrust force
-        _heli addForce [_heli vectorModelToWorld _thrustX, _rtrPos];
+        _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
 
         //Tail rotor torque
-        private _torque   = [0.0, _torqueY, _torqueZ];
-        _heli addTorque (_heli vectorModelToWorld _torque);
+        _heli addTorque (_heli vectorModelToWorld _moment);
     };
 };
 

@@ -34,4 +34,6 @@ if (!(_heli getVariable ["fza_fire_aircraftInitialised", false]) && local _heli)
     _heli setVariable ["fza_ah64_fire_left_fx",  [], true];
     _heli setVariable ["fza_ah64_fire_right_fx", [], true];
     _heli setVariable ["fza_ah64_fire_apu_fx",   [], true];
+
+    _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
 };

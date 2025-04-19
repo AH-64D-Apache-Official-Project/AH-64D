@@ -366,7 +366,7 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-_speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel3D")];
+_speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel2D")];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
@@ -395,7 +395,7 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 //Flight Path Vector
 private _fpv = [-100,-100];
 if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
-    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpace"));
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
     }
@@ -560,10 +560,10 @@ _velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
 _velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
 
 if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
-    _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 3.0;
+    _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 12.0;
     _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
 
-    _accelY    = (_heli getVariable "fza_sfmplus_accelY") / 3.0;
+    _accelY    = (_heli getVariable "fza_sfmplus_accelY") / 12.0;
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
     private _accelScaling = 0.168;
