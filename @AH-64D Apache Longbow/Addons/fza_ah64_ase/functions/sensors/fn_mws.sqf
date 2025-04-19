@@ -29,11 +29,10 @@ nearestObjects [_heli, ["missilebase", "rocketbase"], 3000] apply {
     _vectorModel = _heli vectorWorldToModelVisual _heliToMsl;
     if (abs((_vectorModel call CBA_fnc_vect2Polar)#2) > 45) then {continue;};
     _mwsObjects pushBack [ASE_MSL, _x, "RLWR_MSL_LNC"];
-    private _missilelog = _x getVariable ["fza_ah64_missilelog", []];
-    if !(_heli in _missilelog) then {
-        _x setvariable ["fza_ah64_missilelog", (_missilelog + [_x])];
+    private _missilelog = _heli getVariable ["fza_ah64_missilelog", []];
+    if !(_x in _missilelog) then {
+        _heli setvariable ["fza_ah64_missilelog", (_missilelog + [_x])];
         [_heli, objnull, _x] spawn fza_ase_fnc_missileWarning;
-        _x;
     };
 };
 
