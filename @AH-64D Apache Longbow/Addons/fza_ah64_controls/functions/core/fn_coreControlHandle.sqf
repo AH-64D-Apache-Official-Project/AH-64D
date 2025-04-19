@@ -131,19 +131,27 @@ if (_value) then {
             [_heli] call fza_fcr_fnc_cycleNTS;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
+            if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
             if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
                 _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
             };
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
+            if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
             [_heli] call fza_sfmplus_fnc_fmcAltitudeHoldEnable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_down": {
+            if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
             if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
                 [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
             };
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
+            if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
             if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
                 [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
             };
@@ -316,6 +324,8 @@ if !(_value) then {
             [_heli] call fza_fnc_laserDisarm;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
+            if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
+
             if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
                 //Velocity Hold Velocities
                 private _curVel   = velocityModelSpace _heli;
