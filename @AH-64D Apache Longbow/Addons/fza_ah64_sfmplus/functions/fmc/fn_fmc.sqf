@@ -18,17 +18,17 @@ if (fza_ah64_sfmPlusSpringlessPedals) then {
     _hdgHoldPedalYawOut = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcPitchOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
+if (!(_heli getVariable "fza_ah64_fmcPitchOn") || fza_ah64_sfmPlusControlScheme != MNKB) then {
     _attHoldCycPitchOut = 0.0;
     _SASPitchOutput     = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcRollOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
+if (!(_heli getVariable "fza_ah64_fmcRollOn") || fza_ah64_sfmPlusControlScheme != MNKB) then {
     _attHoldCycRollOut = 0.0;
     _SASRollOutput     = 0.0;
 };
 
-if (!(_heli getVariable "fza_ah64_fmcYawOn") || fza_ah64_sfmPlusControlScheme == MNKB) then {
+if (!(_heli getVariable "fza_ah64_fmcYawOn") || fza_ah64_sfmPlusControlScheme != MNKB) then {
     _hdgHoldPedalYawOut = 0.0;
     _SASYawOutput       = 0.0;
 };

@@ -22,7 +22,6 @@ private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
-_heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
 _heli getVariable ["fza_sfmplus_rollTimer",          0.0];
 _heli getVariable ["fza_sfmplus_pitchTimer",         0.0];
 
@@ -117,8 +116,8 @@ _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050] ca
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.5500, 0.0400, 0.2000] call fza_fnc_pidCreate];
 //SAS Functions
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.3250, 0.0010, 0.1000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.3250, 0.0010, 0.0250] call fza_fnc_pidCreate];
 //Auto cyclic
 _heli setVariable ["fza_sfmplus_pid_autoCyclicRollPos",   [0.0950, 0.0350, 0.0900] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_autoCyclicRollVel",   [0.0300, 0.0005, 0.0040] call fza_fnc_pidCreate];

@@ -32,7 +32,7 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");
     CfgUserActionDef(fza_ah64_wasRkt, "WAS Rockets", "Action the rockets in your crew station");
     CfgUserActionDef(fza_ah64_wasMsl, "WAS Missiles", "Action the missiles in your crew station");
-    CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_up, "Force Trim/Hold Mode Switch Up", "NOT CURRENTLY USED");
+    CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_up, "Force Trim/Hold Mode Switch Up", "Trim the helicopter to the current position of the cyclic stick and if held interrupts the heading hold");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_right, "Force Trim/Hold Mode Switch Right", "Activates Altitude Hold");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_down, "Force Trim/Hold Mode Switch Down", "De-Activates both Attitude and Altitude Hold");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_left, "Force Trim/Hold Mode Switch Left", "Activates Attitude Hold");
@@ -48,6 +48,5 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_SensorSelect_DTV, "LHG Sensor Select Switch - DTV", "Sets the Tads Sensor to DTV");
     CfgUserActionDef(fza_ah64_SensorSelect_DVO, "LHG Sensor Select Switch - DVO", "Sets the Tads Sensor to DVO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
-    CfgUserActionDef(fza_ah64_kbAttHoldDisengage, "Keyboard Attitude Hold Disengage", "Disengages keyboard attitude hold.");
     #include "\fza_ah64_controls\headers\controls.h"
 };
