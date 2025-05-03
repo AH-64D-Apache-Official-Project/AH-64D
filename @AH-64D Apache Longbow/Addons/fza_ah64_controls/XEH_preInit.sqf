@@ -77,6 +77,42 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusKeyboardStickyPitch",
+    "CHECKBOX",
+    ["Keyboard Sticky Pitch", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyRoll",
+    "CHECKBOX",
+    ["Keyboard Sticky Roll", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyYaw",
+    "CHECKBOX",
+    ["Keyboard Sticky Yaw", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusMouseAsJoystick",
+    "CHECKBOX",
+    ["Mouse as Joystick", "Enables the mouse sensitivity option."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],

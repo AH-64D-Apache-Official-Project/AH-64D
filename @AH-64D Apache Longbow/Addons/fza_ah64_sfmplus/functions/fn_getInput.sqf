@@ -83,42 +83,44 @@ if (!_isPlaying) then {
 
 if (fza_ah64_sfmPlusControlScheme == MNKB) then {
     //Cyclic Pitch
-    private _cyclicPitchValue = _heli getVariable "fza_sfmplus_cyclicPitchValue";
-    if (_cyclicFwdAft > 0.1) then {
-        _cyclicPitchValue = _cyclicPitchValue + (_keyboardTimeScalar * _deltaTime);
-
+    if (fza_ah64_sfmPlusKeyboardStickyPitch) then {
+        private _cyclicPitchValue = _heli getVariable "fza_sfmplus_cyclicPitchValue";
+        if (_cyclicFwdAft > 0.1) then {
+            _cyclicPitchValue = _cyclicPitchValue + (_keyboardTimeScalar * _deltaTime);
+        };
+        if (_cyclicFwdAft < -0.1) then {
+            _cyclicPitchValue = _cyclicPitchValue - (_keyboardTimeScalar * _deltaTime);
+        };
+        //Set pitch
+        _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
     };
-    if (_cyclicFwdAft < -0.1) then {
-        _cyclicPitchValue = _cyclicPitchValue - (_keyboardTimeScalar * _deltaTime);
-    };
-    //Set pitch
-    _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
-    _heli setVariable ["fza_sfmplus_cyclicPitchValue", [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
-
     //Cyclic Roll
-    private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
-    if (_cyclicLeftRight > 0.1) then {
-        _cyclicRollValue = _cyclicRollValue + (_keyboardTimeScalar * _deltaTime);
+    if (fza_ah64_sfmPlusKeyboardStickyRoll) then {
+        private _cyclicRollValue = _heli getVariable "fza_sfmplus_cyclicRollValue";
+        if (_cyclicLeftRight > 0.1) then {
+            _cyclicRollValue = _cyclicRollValue + (_keyboardTimeScalar * _deltaTime);
+        };
+        if (_cyclicLeftRight < -0.1) then {
+            _cyclicRollValue = _cyclicRollValue - (_keyboardTimeScalar * _deltaTime);
+        };
+        //Set roll
+        _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
     };
-    if (_cyclicLeftRight < -0.1) then {
-        _cyclicRollValue = _cyclicRollValue - (_keyboardTimeScalar * _deltaTime);
-    };
-    //Set roll
-    _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
-    _heli setVariable ["fza_sfmplus_cyclicRollValue", [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
-    
     //Pedal yaw
-    private _pedalYawValue = _heli getVariable "fza_sfmplus_pedalYawValue";
-    if (_pedalLeftRight > 0.1) then {
-        _pedalYawValue = _pedalYawValue + (_keyboardTimeScalar * _deltaTime);
+    if (fza_ah64_sfmPlusKeyboardStickyYaw) then {
+        private _pedalYawValue = _heli getVariable "fza_sfmplus_pedalYawValue";
+        if (_pedalLeftRight > 0.1) then {
+            _pedalYawValue = _pedalYawValue + (_keyboardTimeScalar * _deltaTime);
+        };
+        if (_pedalLeftRight < -0.1) then {
+            _pedalYawValue = _pedalYawValue - (_keyboardTimeScalar * _deltaTime);
+        };
+        //Set yaw
+        _pedalLeftRight     = [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_pedalYawValue", [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp];
     };
-    if (_pedalLeftRight < -0.1) then {
-        _pedalYawValue = _pedalYawValue - (_keyboardTimeScalar * _deltaTime);
-    };
-    //Set yaw
-    _pedalLeftRight     = [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp;
-    _heli setVariable ["fza_sfmplus_pedalYawValue", [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp];
-
     //systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2 -- _pedalLeftRight = %3", _cyclicFwdAft, _cyclicLeftRight, _pedalLeftRight];
 };
 _cyclicFwdAft    = [_heli, "pitch", _cyclicFwdAft,    _inputLagValue] call fza_sfmplus_fnc_actuator;
