@@ -66,10 +66,12 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
-_cyclicFwdAft                = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
+_cyclicFwdAft               = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0, true];
 
 private _cyclicLeftRight    = (_heli animationSourcePhase "cyclicAside") * -1.0;
-_cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+_cyclicLeftRight            = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0, true];
+
+systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2", _cyclicFwdAft toFixed 2, _cyclicLeftRight toFixed 2];
 
 private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
 _pedalLeftRight             = linearConversion [-0.5, 0.5, _pedalLeftRight,  -1.0, 1.0, true];
