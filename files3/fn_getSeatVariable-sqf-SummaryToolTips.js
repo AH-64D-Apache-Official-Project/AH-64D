@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File3:fn_getSeatVariable.sqf",{112:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets a public but seat-specific variable Defaults to the player\'s seat, but can be overriden by passing a specific seat name</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File3:fn_getSeatVariable.sqf",{18:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Sets a public but seat-specific variable Defaults to the player\'s seat, but can be overriden by passing a specific seat name</div></div>"});
