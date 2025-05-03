@@ -1,1 +1,1 @@
-fza_ah64_sfmPlusKeyboardOnly = true;
+fza_sfmplus_keyboardCollective = true;
