@@ -35,5 +35,5 @@ if (_heli getVariable "fza_ah64_altHoldActive" == false) then {
     [_heli, "fza_ah64_altHoldDesiredAlt", 0.0] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
     [_heli, "fza_ah64_altHoldCollRef", 0.0] call fza_fnc_updateNetworkGlobal;
-    [_heli] call fza_audio_fnc_flightTone;
+    [_heli] spawn fza_audio_fnc_flightTone;
 };
