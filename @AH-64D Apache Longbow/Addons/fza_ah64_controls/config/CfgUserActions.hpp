@@ -48,6 +48,5 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_SensorSelect_DTV, "LHG Sensor Select Switch - DTV", "Sets the Tads Sensor to DTV");
     CfgUserActionDef(fza_ah64_SensorSelect_DVO, "LHG Sensor Select Switch - DVO", "Sets the Tads Sensor to DVO");
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
-    CfgUserActionDef(fza_ah64_kbAttHoldDisengage, "Keyboard Attitude Hold Disengage", "Disengages keyboard attitude hold.");
     #include "\fza_ah64_controls\headers\controls.h"
 };

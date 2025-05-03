@@ -454,9 +454,6 @@ if (_eng2State == "STARTING") then {
 if (_heli getVariable "fza_ah64_attHoldActive") then {
     _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
 };
-if (fza_ah64_sfmplusControlScheme == MNKB && !(_heli getVariable "fza_sfmplus_kbAttHoldDisengage")) then {
-    _wcas pushBack [WCA_ADVISORY, "ATTITUDE HOLD", "ATT HOLD"];
-};
 private _desiredPos = 0.0;
 private _curPos     = getPos _heli;
 if ( !(_heli getVariable "fza_ah64_attHoldActive") || _heli getVariable "fza_ah64_forceTrimInterupted") then {

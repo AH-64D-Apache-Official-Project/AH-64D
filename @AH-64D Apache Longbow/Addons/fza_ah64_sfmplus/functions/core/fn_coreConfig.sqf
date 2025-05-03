@@ -149,14 +149,10 @@ _heli setVariable ["fza_sfmplus_aero_accelZ",        0.0];
 
 _heli setVariable ["fza_sfmplus_aero_accel",         [0.0, 0.0, 0.0]];
 
-//FMC variables
-_heli setVariable ["fza_sfmplus_attHoldCycPitchOut", 0.0];
-_heli setVariable ["fza_sfmplus_attHoldCycRollOut",  0.0];
-_heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut", 0.0];
-_heli setVariable ["fza_sfmplus_altHoldCollOut",     0.0];
-
-//Environment
-[_heli] call fza_sfmplus_fnc_environmentVariables;
+//Keyboard
+_heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
+_heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
+_heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
 
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelVariables;

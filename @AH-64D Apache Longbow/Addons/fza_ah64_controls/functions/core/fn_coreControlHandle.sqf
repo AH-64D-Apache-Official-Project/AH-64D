@@ -133,9 +133,7 @@ if (_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
-            };
+            _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
@@ -145,16 +143,12 @@ if (_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_down": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
-            };
+            [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
-            };
+            [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
         case "fza_ah64_fcrModeSwitch_up": {
             _heli setVariable ["fza_ah64_fcrMode", 1, true];

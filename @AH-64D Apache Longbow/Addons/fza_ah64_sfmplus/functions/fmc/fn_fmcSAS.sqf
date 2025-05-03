@@ -26,7 +26,7 @@ private _sasPitchOutput = 0.0;
 private _sasRollOutput  = 0.0;
 private _sasYawOutput   = 0.0;
 
-if (!(_heli getVariable "fza_ah64_forceTrimInterupted") && fza_ah64_sfmPlusControlScheme == HOTAS) then {
+if (!(_heli getVariable "fza_ah64_forceTrimInterupted")) then {
     //Pitch & Roll SAS
     private _roll  = [_pidSASRoll, _deltaTime,  0.0, _angVelY] call fza_fnc_pidRun;
     _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
