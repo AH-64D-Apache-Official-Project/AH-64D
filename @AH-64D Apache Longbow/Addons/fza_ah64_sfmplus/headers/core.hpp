@@ -3,7 +3,7 @@
 #define STABILATOR_MODE_ALWAYSDISABLED  0
 
 #define HOTAS                   0
-#define MNKB                    1
+#define KEYBOARD                1
 
 #define ISA_STD                 0
 #define EUROPE_SUMMER           1

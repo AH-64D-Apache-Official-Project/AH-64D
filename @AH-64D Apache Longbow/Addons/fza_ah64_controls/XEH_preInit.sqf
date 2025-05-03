@@ -50,11 +50,11 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusControlScheme",
+    "fza_ah64_sfmPlusCollectiveControl",
     "LIST",
-    ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals or Gamepad. Mouse & Keyboard is for users without any additional input device."],
+    ["Collective Control", "HOTAS is for users a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
     [_projName, "Flight model"],
-    [[HOTAS,MNKB],["HOTAS/Gamepad","Mouse & Keyboard"],1],
+    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
     2
 ] call CBA_fnc_addSetting;
 

@@ -54,7 +54,6 @@ class CfgFunctions
             class eventGetIn {R;};
             class eventGetOut {R;};
             class eventInit {R;};
-            class eventPreInit {R;};
         };
         class fx {
             file = "\fza_ah64_controls\functions\fx";
