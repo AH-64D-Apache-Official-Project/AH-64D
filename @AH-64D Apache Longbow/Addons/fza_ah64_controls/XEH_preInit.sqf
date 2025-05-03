@@ -52,7 +52,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusCollectiveControl",
     "LIST",
-    ["Collective Control", "HOTAS is for users a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
+    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
     [_projName, "Flight model"],
     [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
     2
@@ -79,7 +79,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyPitch",
     "CHECKBOX",
-    ["Keyboard Sticky Pitch", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    ["Keyboard Sticky Pitch", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down"],
     [_projName, "Flight model"],
     [false],
     0
@@ -88,7 +88,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyRoll",
     "CHECKBOX",
-    ["Keyboard Sticky Roll", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    ["Keyboard Sticky Roll", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down."],
     [_projName, "Flight model"],
     [false],
     0
@@ -97,7 +97,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyYaw",
     "CHECKBOX",
-    ["Keyboard Sticky Yaw", "When enabled, keyboard input is continously updated while the input key is held down. Will only work when Control scheme is set to Mouse & Keyboard"],
+    ["Keyboard Sticky Yaw", "When enabled, keyboard input is continously updated while the input key is held down."],
     [_projName, "Flight model"],
     [false],
     0
@@ -106,7 +106,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",
-    ["Mouse as Joystick", "Enables the mouse sensitivity option."],
+    ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
     [_projName, "Flight model"],
     [false],
     0
