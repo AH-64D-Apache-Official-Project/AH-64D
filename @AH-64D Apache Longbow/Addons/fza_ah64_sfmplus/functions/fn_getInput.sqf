@@ -28,12 +28,8 @@ private _inDialog           = !dialog;
 private _isZeus             = isNull findDisplay 312;
 private _inMap              = !visibleMap;
 private _inInventory        = isNull findDisplay 602;
-//private _isFreeLook         = freeLook;
 
-//if (fza_ah64_sfmPlusDisableFreelook) then {
-//    _isFreeLook = false;
-//};
-private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn; //&& !_isFreeLook
+private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn;
 
 private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
 private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
