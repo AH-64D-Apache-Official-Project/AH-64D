@@ -1,4 +1,3 @@
-
 fza_ah64_sfmPlusKeyboardOnly = true;
 
 private _eventTypes = ["Activate", "Deactivate", "Analog"];

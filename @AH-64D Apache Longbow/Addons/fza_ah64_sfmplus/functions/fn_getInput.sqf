@@ -141,7 +141,7 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
-    if (fza_ah64_sfmPlusControlScheme == MNKB) then {
+    if (fza_ah64_sfmPlusKeyboardOnly) then {
         if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 6.0) * _deltaTime); };
         if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 6.0) * _deltaTime); };
         _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;

@@ -1,0 +1,1 @@
+fza_ah64_sfmPlusKeyboardOnly = true;
