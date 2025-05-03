@@ -71,7 +71,7 @@ _cyclicFwdAft               = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 
 private _cyclicLeftRight    = (_heli animationSourcePhase "cyclicAside") * -1.0;
 _cyclicLeftRight            = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0, true];
 
-systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2", _cyclicFwdAft toFixed 2, _cyclicLeftRight toFixed 2];
+//systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2", _cyclicFwdAft toFixed 2, _cyclicLeftRight toFixed 2];
 
 private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
 _pedalLeftRight             = linearConversion [-0.5, 0.5, _pedalLeftRight,  -1.0, 1.0, true];
@@ -145,7 +145,7 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
-    if (fza_sfmplus_keyboardCollective) then {
+    if (fza_ah64_sfmPlusControlScheme == MNKB) then {
         if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 6.0) * _deltaTime); };
         if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 6.0) * _deltaTime); };
         _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
@@ -160,16 +160,12 @@ if (!_hydFailure || _emerHydOn) then {
     } else {
         if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
             _collectiveOutput = _collectivePrevious;
-            fza_sfmplus_prevKeyboardCollective = fza_sfmplus_keyboardCollective;
         };
     };
 
     fza_sfmplus_lastIsPlaying          = _isPlaying;
     _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
 };
-systemChat format ["fza_sfmplus_keyboardCollective = %1", fza_sfmplus_keyboardCollective];
-systemChat format ["fza_sfmplus_prevKeyboardCollective = %1", fza_sfmplus_prevKeyboardCollective];
-
 _heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
 _heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
 /////////////////////////////////////////////////////////////////////////////////////////////
