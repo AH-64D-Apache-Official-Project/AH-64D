@@ -97,11 +97,21 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyYaw",
     "CHECKBOX",
-    ["Keyboard Sticky Yaw", "When enabled, keyboard input is continously updated while the input key is held down."],
+    ["Keyboard Sticky Yaw", "DOES NOT WORK WITH AUTO PEDAL! When enabled, keyboard input is continously updated while the input key is held down."],
     [_projName, "Flight model"],
     [false],
     0
 ] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusAutoPedal",
+    "CHECKBOX",
+    ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
 
 [
     "fza_ah64_sfmPlusMouseAsJoystick",
@@ -142,15 +152,6 @@ private _projName = "AH-64D Official Project";
     [false],
     0
 ] call CBA_fnc_addSetting;
-
-//[
-//    "fza_ah64_sfmPlusDisableFreelook",
-//    "CHECKBOX",
-//    ["Disable Free Look Control", "When enabled, prevents the Inputs being fed to the FM while in freelook, Relevant to those who have mouse bound to cyclic."],
-//    [_projName, "Flight model"],
-//    [true],
-//    0
-//] call CBA_fnc_addSetting;
 
 [
     "fza_ah64_aiFireControl",
