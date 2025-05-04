@@ -229,23 +229,24 @@ if (!_hydFailure || _emerHydOn) then {
     if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) then {
         if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 4.0) * _deltaTime); };
         if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 4.0) * _deltaTime); };
-        _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
+        _collectiveOutput = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
     } else {
         _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
         _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
-    };
 
-    if (isNil "fza_sfmplus_lastIsPlaying") then {
-        _collectiveOutput     = _collectiveValue;
-    } else {
-        if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-            _collectiveOutput = _collectivePrevious;
+        if (isNil "fza_sfmplus_lastIsPlaying") then {
+            _collectiveOutput     = _collectiveValue;
+        } else {
+            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                _collectiveOutput = _collectivePrevious;
+            };
         };
+
+        fza_sfmplus_lastIsPlaying = _isPlaying;
+        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
     };
 
-    fza_sfmplus_lastIsPlaying = _isPlaying;
-    _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
 };
 _heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
 _heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
