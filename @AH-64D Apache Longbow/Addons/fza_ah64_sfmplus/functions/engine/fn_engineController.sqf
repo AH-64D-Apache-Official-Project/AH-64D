@@ -51,10 +51,10 @@ if (local _heli) then {
     } else {
         if (_eng1State != "OFF" || _eng2State != "OFF" || _isAutorotating) then {
             _heli engineOn true;
-            _heli setHitpointDamage ["hithrotor", 0.0];
+            //_heli setHitpointDamage ["hithrotor", 0.0];
         } else {
             _heli engineOn false;
-            _heli setHitpointDamage ["hithrotor", 0.9];
+            //_heli setHitpointDamage ["hithrotor", 0.0];
         };
     };
 };
