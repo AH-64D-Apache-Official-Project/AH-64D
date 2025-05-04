@@ -87,6 +87,8 @@ if (fza_ah64_sfmPlusKeyboardStickyPitch) then {
 
     if (_kbStickyInterupt) then {
         _cyclicFwdAft         = [_cyclicFwdAft, _prevCyclicPitchValue] call fza_sfmplus_fnc_getInterpInput;
+        _cyclicFwdAft         = [_cyclicFwdAft, -0.7, 0.7] call BIS_fnc_clamp;
+
     } else {
         if (_cyclicFwdAft > 0.1) then {
             _cyclicPitchValue = _cyclicPitchValue + (_keyboardTimeScalar * _deltaTime);
@@ -107,6 +109,7 @@ if (fza_ah64_sfmPlusKeyboardStickyRoll) then {
 
     if (_kbStickyInterupt) then {
         _cyclicLeftRight     = [_cyclicLeftRight, _prevCyclicRollValue] call fza_sfmplus_fnc_getInterpInput;
+        _cyclicLeftRight     = [_cyclicLeftRight, -0.7, 0.7] call BIS_fnc_clamp;
     } else {
         if (_cyclicLeftRight > 0.1) then {
             _cyclicRollValue = _cyclicRollValue + (_keyboardTimeScalar * _deltaTime);
@@ -127,6 +130,7 @@ if (fza_ah64_sfmPlusKeyboardStickyYaw && !fza_ah64_sfmPlusAutoPedal) then {
 
     if (_kbStickyInterupt) then {
         _pedalLeftRight    = [_pedalLeftRight, _prevPedalYawValue] call fza_sfmplus_fnc_getInterpInput;
+        _pedalLeftRight    = [_pedalLeftRight, -0.7, 0.7] call BIS_fnc_clamp;
     } else {
         if (_pedalLeftRight > 0.1) then {
             _pedalYawValue = _pedalYawValue + (_keyboardTimeScalar * _deltaTime);
