@@ -64,7 +64,7 @@ private _projName = "AH-64D Official Project";
     ["Springless Cyclic", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -73,7 +73,7 @@ private _projName = "AH-64D Official Project";
     ["Springless Pedals", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -82,7 +82,7 @@ private _projName = "AH-64D Official Project";
     ["Keyboard Sticky Pitch", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down"],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -91,7 +91,7 @@ private _projName = "AH-64D Official Project";
     ["Keyboard Sticky Roll", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -100,7 +100,7 @@ private _projName = "AH-64D Official Project";
     ["Keyboard Sticky Yaw", "DOES NOT WORK WITH AUTO PEDAL! When enabled, keyboard input is continously updated while the input key is held down."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -109,7 +109,7 @@ private _projName = "AH-64D Official Project";
     ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 
@@ -119,7 +119,7 @@ private _projName = "AH-64D Official Project";
     ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
@@ -150,7 +150,7 @@ private _projName = "AH-64D Official Project";
     ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
     [_projName, "Flight model"],
     [false],
-    0
+    2
 ] call CBA_fnc_addSetting;
 
 [
