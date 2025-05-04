@@ -159,7 +159,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
 
     if (_yawBreakout) then {
         _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, _keyboardTimeScalar * _deltaTime] call BIS_fnc_lerp;
-        _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, -0.7, 0.7] call BIS_fnc_clamp;
     } else {
         _kbPedalLeftRight = 0.0;
     };
