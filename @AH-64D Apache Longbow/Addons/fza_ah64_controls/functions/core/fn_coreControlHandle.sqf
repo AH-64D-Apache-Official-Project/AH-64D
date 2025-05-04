@@ -133,9 +133,7 @@ if (_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
-            };
+            _heli setVariable ["fza_ah64_forceTrimInterupted", true, true];
         };
         case "fza_ah64_forceTrimHoldModeSwitch_right": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
@@ -145,16 +143,12 @@ if (_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_down": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
-            };
+            [_heli] call fza_sfmplus_fnc_fmcHoldModesDisable;
         };
         case "fza_ah64_forceTrimHoldModeSwitch_left": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
-            };
+            [_heli] call fza_sfmplus_fnc_fmcAttitudeHoldEnable;
         };
         case "fza_ah64_fcrModeSwitch_up": {
             _heli setVariable ["fza_ah64_fcrMode", 1, true];
@@ -306,9 +300,8 @@ if (_value) then {
             private _lmc = _heli getvariable "fza_ah64_LmcActive";
             _heli setVariable ["fza_ah64_LmcActive", !_lmc, true];
         };
-        case "fza_ah64_kbAttHoldDisengage": {
-            _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", true];
-            [_heli] call fza_audio_fnc_flightTone;
+        case "fza_ah64_stickyControlInterupt": {
+            _heli setVariable ["fza_sfmplus_kbStickyInterupt", true];
         };
         case "Headlights": {
             private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
@@ -326,26 +319,24 @@ if !(_value) then {
         case "fza_ah64_forceTrimHoldModeSwitch_up": {
             if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-            if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-                //Velocity Hold Velocities
-                private _curVel   = velocityModelSpace _heli;
-                private _curVelX  = (_curVel # 0) * -1.0;
-                private _curVelY  = _curVel # 1;
-                //Attitude Hold Pitch & Roll
-                private _curAtt   = _heli call BIS_fnc_getPitchBank;
-                private _curPitch = _curAtt # 0;
-                private _curRoll  = _curAtt # 1;
-                _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                 true];
-                _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,          true];
-                _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
-                _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
-                _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
-                _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
-                [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
-            };
+            //Velocity Hold Velocities
+            private _curVel   = velocityModelSpace _heli;
+            private _curVelX  = (_curVel # 0) * -1.0;
+            private _curVelY  = _curVel # 1;
+            //Attitude Hold Pitch & Roll
+            private _curAtt   = _heli call BIS_fnc_getPitchBank;
+            private _curPitch = _curAtt # 0;
+            private _curRoll  = _curAtt # 1;
+            _heli setVariable ["fza_ah64_forceTrimInterupted",    false,                 true];
+            _heli setVariable ["fza_ah64_attHoldDesiredPos",      getPos _heli,          true];
+            _heli setVariable ["fza_ah64_attHoldDesiredVel",      [_curVelX, _curVelY],  true];
+            _heli setVariable ["fza_ah64_attHoldDesiredAtt",      [_curPitch, _curRoll], true];
+            _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
+            _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
+            [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
         };
-        case "fza_ah64_kbAttHoldDisengage": {
-            _heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
+        case "fza_ah64_stickyControlInterupt": {
+            _heli setVariable ["fza_sfmplus_kbStickyInterupt", false];
         };
     };
 };

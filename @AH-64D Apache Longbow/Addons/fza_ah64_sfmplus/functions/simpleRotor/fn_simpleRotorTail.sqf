@@ -67,13 +67,12 @@ private _rtrAirspeedVelocityMod = 0.4;
 private _baseThrust             = 102302;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
 //Thrust produced
-private _pedalLeftRight         = _heli getVariable "fza_sfmplus_pedalLeftRight";
-private _pedalLeftRightTrim     = 0.0;
-if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-    _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
-};
-private _pedalInput     = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _hdgHoldPedalYawOut;
-_pedalInput             = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
+private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
+private _pedalLeftRightTrim = 0.0;
+_pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosPedal";
+
+private _pedalInput         = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _hdgHoldPedalYawOut;
+_pedalInput                 = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _pedalInput] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
 //systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, _pedalLeftRight];
 (_heli getVariable "fza_sfmplus_engPctNP")

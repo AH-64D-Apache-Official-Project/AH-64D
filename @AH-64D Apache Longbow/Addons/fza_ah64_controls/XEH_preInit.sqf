@@ -50,18 +50,18 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusControlScheme",
+    "fza_ah64_sfmPlusCollectiveControl",
     "LIST",
-    ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
+    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
     [_projName, "Flight model"],
-    [[HOTAS,MNKB],["HOTAS","Mouse & Keyboard"],1],
+    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
     2
 ] call CBA_fnc_addSetting;
 
 [
     "fza_ah64_sfmPlusSpringlessCyclic",
     "CHECKBOX",
-    ["Disable Cyclic Force Trim", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
+    ["Springless Cyclic", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
     [_projName, "Flight model"],
     [false],
     0
@@ -70,7 +70,53 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusSpringlessPedals",
     "CHECKBOX",
-    ["Disable Pedal Force Trim", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
+    ["Springless Pedals", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyPitch",
+    "CHECKBOX",
+    ["Keyboard Sticky Pitch", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down"],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyRoll",
+    "CHECKBOX",
+    ["Keyboard Sticky Roll", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyYaw",
+    "CHECKBOX",
+    ["Keyboard Sticky Yaw", "DOES NOT WORK WITH AUTO PEDAL! When enabled, keyboard input is continously updated while the input key is held down."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusAutoPedal",
+    "CHECKBOX",
+    ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
+    [_projName, "Flight model"],
+    [false],
+    0
+] call CBA_fnc_addSetting;
+
+
+[
+    "fza_ah64_sfmPlusMouseAsJoystick",
+    "CHECKBOX",
+    ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
     [_projName, "Flight model"],
     [false],
     0
@@ -104,15 +150,6 @@ private _projName = "AH-64D Official Project";
     ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
     [_projName, "Flight model"],
     [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmPlusDisableFreelook",
-    "CHECKBOX",
-    ["Disable Free Look Control", "When enabled, prevents the Inputs being fed to the FM while in freelook, Relevant to those who have mouse bound to cyclic."],
-    [_projName, "Flight model"],
-    [true],
     0
 ] call CBA_fnc_addSetting;
 

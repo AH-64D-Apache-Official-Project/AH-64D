@@ -1,0 +1,1 @@
+fza_sfmplus_keyboardCollective = true;

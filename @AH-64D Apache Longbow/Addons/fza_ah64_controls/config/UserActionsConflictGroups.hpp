@@ -35,7 +35,7 @@ class UserActionsConflictGroups{
             fza_ah64_SensorSelect_DTV,
             fza_ah64_SensorSelect_DVO,
             fza_ah64_tadsLHGLmc,
-            fza_ah64_kbAttHoldDisengage
+            fza_ah64_stickyControlInterupt
         };
     };
 };

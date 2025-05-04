@@ -278,29 +278,26 @@ _heli setVariable ["fza_sfmplus_vrsVelocityMax", _inducedVelocity * 1.25];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Pitch Torque         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _cyclicFwdAft        = _heli getVariable "fza_sfmplus_cyclicFwdAft";
-private _cyclicFwdAftTrim    = 0.0;
-if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-    _cyclicFwdAftTrim  = _heli getVariable "fza_ah64_forceTrimPosPitch";
-};
-private _pitchTorque   = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _pitchTorqueScalar, true];
-private _pitchInput    = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycPitchOut;
-_pitchInput            = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _torqueX       = _pitchTorque * _pitchInput * _deltaTime; 
+private _cyclicFwdAft     = _heli getVariable "fza_sfmplus_cyclicFwdAft";
+private _cyclicFwdAftTrim = 0.0;
+_cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
+
+private _pitchTorque      = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _pitchTorqueScalar, true];
+private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycPitchOut;
+_pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
+private _torqueX          = _pitchTorque * _pitchInput * _deltaTime; 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Roll Torque          /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicLeftRight     = _heli getVariable "fza_sfmplus_cyclicLeftRight";
 private _cyclicLeftRightTrim = 0.0;
-if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-    _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-};
-private _rollInput       = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycRollOut;
-_rollInput               = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _rollTorque      = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _rollTorqueScalar, true];
-private _torqueY         = _rollTorque * _rollInput * _deltaTime; 
-//systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
+_cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
+private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycRollOut;
+_rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
+private _rollTorque          = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _rollTorqueScalar, true];
+private _torqueY             = _rollTorque * _rollInput * _deltaTime; 
+//systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw Torque           /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

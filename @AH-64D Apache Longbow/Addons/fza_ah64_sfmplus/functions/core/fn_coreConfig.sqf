@@ -22,25 +22,26 @@ private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
-_heli setVariable ["fza_sfmplus_kbAttHoldDisengage", false];
-_heli getVariable ["fza_sfmplus_rollTimer",          0.0];
-_heli getVariable ["fza_sfmplus_pitchTimer",         0.0];
+_heli setVariable ["fza_sfmplus_kbStickyInterupt",      false];
+_heli getVariable ["fza_sfmplus_rollTimer",             0.0];
+_heli getVariable ["fza_sfmplus_pitchTimer",            0.0];
 
-_heli setVariable ["fza_sfmplus_cyclicFwdAft",       0.0];
-_heli setVariable ["fza_sfmplus_kbCyclicFwdAft",     0.0];
-_heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
+_heli setVariable ["fza_sfmplus_cyclicFwdAft",          0.0];
+_heli setVariable ["fza_sfmplus_cyclicPitchValue",      0.0];
+_heli getVariable ["fza_sfmplus_prevCyclicPitchValue",  0.0];
 
-_heli setVariable ["fza_sfmplus_cyclicLeftRight",    0.0];
-_heli setVariable ["fza_sfmplus_kbCyclicLeftRight",  0.0];
-_heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
+_heli setVariable ["fza_sfmplus_cyclicLeftRight",       0.0];
+_heli setVariable ["fza_sfmplus_cyclicRollValue",       0.0];
+_heli setVariable ["fza_sfmplus_prevCyclicRollValue",   0.0];
 
-_heli setVariable ["fza_sfmplus_pedalLeftRight",     0.0];
-_heli setVariable ["fza_sfmplus_kbPedalLeftRight",   0.0];
-_heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
+_heli setVariable ["fza_sfmplus_pedalLeftRight",        0.0];
+_heli setVariable ["fza_sfmplus_kbPedalLeftRight",      0.0];
+_heli setVariable ["fza_sfmplus_pedalYawValue",         0.0];
+_heli setVariable ["fza_sfmplus_prevPedalYawValue",     0.0];
 
-_heli setVariable ["fza_sfmplus_collectiveOutput",   0.0];
-_heli setVariable ["fza_sfmplus_collectivePrevious", 0.0];
-_heli setVariable ["fza_sfmplus_collectiveValue",    0.0];
+_heli setVariable ["fza_sfmplus_collectiveOutput",      0.0];
+_heli setVariable ["fza_sfmplus_collectivePrevious",    0.0];
+_heli setVariable ["fza_sfmplus_collectiveValue",       0.0];
 
 _heli setVariable ["fza_sfmplus_currentTime",         0.0];
 _heli setVariable ["fza_sfmplus_previousTime",        0.0];
@@ -119,17 +120,9 @@ _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.5500, 0.0400, 0.2000] ca
 _heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
-//Auto cyclic
-_heli setVariable ["fza_sfmplus_pid_autoCyclicRollPos",   [0.0950, 0.0350, 0.0900] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoCyclicRollVel",   [0.0300, 0.0005, 0.0040] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_autoCyclic_desiredRoll",  0.0];
-
-_heli setVariable ["fza_sfmplus_pid_autoCyclicPitchPos",  [0.0900, 0.0150, 0.1800] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoCyclicPitchVel",  [0.0500, 0.0005, 0.0080] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_autoCyclic_desiredPitch", 0.0];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [2.2000, 0.3000, 0.7000] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.1000, 0.1500, 0.3500] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmPlus_autoPedalHdg",       getDir _heli];
 
 //Aerodynamic State Variables
@@ -149,14 +142,10 @@ _heli setVariable ["fza_sfmplus_aero_accelZ",        0.0];
 
 _heli setVariable ["fza_sfmplus_aero_accel",         [0.0, 0.0, 0.0]];
 
-//FMC variables
-_heli setVariable ["fza_sfmplus_attHoldCycPitchOut", 0.0];
-_heli setVariable ["fza_sfmplus_attHoldCycRollOut",  0.0];
-_heli setVariable ["fza_sfmplus_hdgHoldPedalYawOut", 0.0];
-_heli setVariable ["fza_sfmplus_altHoldCollOut",     0.0];
-
-//Environment
-[_heli] call fza_sfmplus_fnc_environmentVariables;
+//Keyboard
+_heli setVariable ["fza_sfmplus_cyclicPitchValue",   0.0];
+_heli setVariable ["fza_sfmplus_cyclicRollValue",    0.0];
+_heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
 
 //Fuel
 [_heli] call fza_sfmplus_fnc_fuelVariables;
