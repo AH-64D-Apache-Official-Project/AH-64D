@@ -30,11 +30,15 @@ private _altitude               = _heli getVariable "fza_sfmplus_PA";
 private _temperature            = _heli getVariable "fza_sfmplus_FAT";
 private _dryAirDensity          = _heli getVariable "fza_sfmplus_RHO";
 
-private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_attHoldCycPitchOut";
-//if ([_attHoldCycPitchOut] call fza_sfmplus_fnc_isNAN || [_attHoldCycPitchOut] call fza_sfmplus_fnc_isINF) then { _attHoldCycPitchOut = 0.0; };
-private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_attHoldCycRollOut";
-//if ([_attHoldCycRollOut] call fza_sfmplus_fnc_isNAN || [_attHoldCycRollOut] call fza_sfmplus_fnc_isINF) then { _attHoldCycRollOut = 0.0; };
-private _altHoldCollOut         = _heli getVariable "fza_sfmplus_altHoldCollOut";
+private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
+private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
+private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut;
+
+private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
+private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
+private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut;
+
+private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
@@ -82,7 +86,7 @@ private _velocityThrustExponent = 0.386;
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;
 
-private _pitchTorqueScalar      = 3.00;
+private _pitchTorqueScalar      = 2.50;
 private _rollTorqueScalar       = 0.75;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
@@ -283,7 +287,7 @@ private _cyclicFwdAftTrim = 0.0;
 _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
 private _pitchTorque      = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _pitchTorqueScalar, true];
-private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycPitchOut;
+private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
 _pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _torqueX          = _pitchTorque * _pitchInput * _deltaTime; 
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -293,7 +297,7 @@ private _cyclicLeftRight     = _heli getVariable "fza_sfmplus_cyclicLeftRight";
 private _cyclicLeftRightTrim = 0.0;
 _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
-private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _attHoldCycRollOut;
+private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
 _rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _rollTorque          = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _rollTorqueScalar, true];
 private _torqueY             = _rollTorque * _rollInput * _deltaTime; 

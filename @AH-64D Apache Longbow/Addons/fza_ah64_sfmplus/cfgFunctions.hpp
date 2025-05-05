@@ -106,6 +106,7 @@ class CfgFunctions
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class calculateAeroValues {R;};
+            class centerTrimMode {R;};
             class getAccelerations {R;};
             class getAltitude {R;};
             class getDeltaTime {R;};
