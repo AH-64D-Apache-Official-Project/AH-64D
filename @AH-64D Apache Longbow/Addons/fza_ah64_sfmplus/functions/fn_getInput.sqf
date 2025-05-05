@@ -205,9 +205,9 @@ if (fza_ah64_sfmPlusAutoPedal) then {
 
 if (_fltControlLockout) then {
     if (
-        (_cyclicFwdAft    < 0.05 && _cyclicFwdAft    > -0.05) &&
-        (_cyclicLeftRight < 0.05 && _cyclicLeftRight > -0.05) &&
-        (_pedalLeftRight  < 0.05 && _pedalLeftRight  > -0.05)
+        (_cyclicFwdAft    < CENTER_TRIM_VAL && _cyclicFwdAft    > -CENTER_TRIM_VAL) &&
+        (_cyclicLeftRight < CENTER_TRIM_VAL && _cyclicLeftRight > -CENTER_TRIM_VAL) &&
+        (_pedalLeftRight  < CENTER_TRIM_VAL && _pedalLeftRight  > -CENTER_TRIM_VAL)
        ) then {
             _heli setVariable ["fza_sfmplus_flightControlLockOut", false];
        };
