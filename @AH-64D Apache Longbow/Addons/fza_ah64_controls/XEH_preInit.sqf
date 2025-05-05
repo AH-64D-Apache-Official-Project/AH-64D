@@ -59,6 +59,24 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_sfmplus_cyclicCenterTrimMode",
+    "CHECKBOX",
+    ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_sfmplus_pedalCenterTrimMode",
+    "CHECKBOX",
+    ["Pedal Center Trim Mode", "When enabled, the pedals are locked out until re-centered."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusSpringlessCyclic",
     "CHECKBOX",
     ["Springless Cyclic", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
@@ -111,7 +129,6 @@ private _projName = "AH-64D Official Project";
     [false],
     2
 ] call CBA_fnc_addSetting;
-
 
 [
     "fza_ah64_sfmPlusMouseAsJoystick",

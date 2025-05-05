@@ -22,9 +22,8 @@ private _config = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 fza_sfmplus_movingAverageSize = 10;
 fza_sfmplus_liftLossTimer     = 0;
 
-_heli setVariable ["fza_sfmplus_kbStickyInterupt",      false];
-_heli getVariable ["fza_sfmplus_rollTimer",             0.0];
-_heli getVariable ["fza_sfmplus_pitchTimer",            0.0];
+_heli setVariable ["fza_sfmplus_kbStickyInterupt",     false];
+_heli setVariable ["fza_sfmplus_flightControlLockOut", false];
 
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",          0.0];
 _heli setVariable ["fza_sfmplus_cyclicPitchValue",      0.0];
@@ -104,6 +103,14 @@ _heli setVariable ["fza_sfmplus_maxCtrFuelMass",     getNumber (_config >> "maxC
 _heli setVariable ["fza_sfmplus_maxAftFuelMass",     getNumber (_config >> "maxAftFuelMass")];  //1474lbs in kg
 _heli setVariable ["fza_sfmplus_maxExtFuelMass",     getNumber (_config >> "maxExtFuelMass")];     //1541lbs in kg, not yet implemented, 230gal external tank
 
+_heli setVariable ["fza_sfmplus_fmcAttHoldCycPitchOut", 0.0];
+_heli setVariable ["fza_sfmplus_fmcSasPitchOut",        0.0];
+_heli setVariable ["fza_sfmplus_fmcCttHoldCycRollOut",  0.0];
+_heli setVariable ["fza_sfmplus_fmcSasRollOut",         0.0];
+_heli setVariable ["fza_sfmplus_fmcHdgHoldPedalYawOut", 0.0];
+_heli setVariable ["fza_sfmplus_fmcSasYawOut",          0.0];
+_heli setVariable ["fza_sfmplus_fmcAltHoldCollOut",     0.0];
+
 //Position Hold
 _heli setVariable ["fza_sfmplus_pid_roll",           [0.0550, 0.0070, 0.0900] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_pitch",          [0.1500, 0.0070, 0.1200] call fza_fnc_pidCreate];
@@ -117,9 +124,9 @@ _heli setVariable ["fza_sfmplus_pid_barHold",        [0.0075, 0.0001, 0.0025] ca
 _heli setVariable ["fza_sfmplus_pid_hdgHold",        [0.0750, 0.0200, 0.0050] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_trnCoord",       [0.5500, 0.0400, 0.2000] call fza_fnc_pidCreate];
 //SAS Functions
-_heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.6250, 0.0250, 0.1000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.1250, 0.0010, 0.1000] call fza_fnc_pidCreate];
-_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0010, 0.0250] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_pitch",      [0.1000, 0.0000, 0.0020] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_roll",       [0.5000, 0.0000, 0.0020] call fza_fnc_pidCreate];
+_heli setVariable ["fza_sfmplus_pid_sas_yaw",        [0.1250, 0.0000, 0.0250] call fza_fnc_pidCreate];
 //Auto pedal
 _heli setVariable ["fza_sfmplus_pid_autoPedalHdg",   [0.1000, 0.0010, 0.0500] call fza_fnc_pidCreate];
 _heli setVariable ["fza_sfmplus_pid_autoPedalSlip",  [1.1000, 0.1500, 0.3500] call fza_fnc_pidCreate];

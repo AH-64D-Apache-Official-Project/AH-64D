@@ -44,9 +44,15 @@ private _altitude               = _heli getVariable "fza_sfmplus_PA";
 private _temperature            = _heli getVariable "fza_sfmplus_FAT";
 private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
 
-private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_attHoldCycPitchOut";
-private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_attHoldCycRollOut";
-private _altHoldCollOut         = _heli getVariable "fza_sfmplus_altHoldCollOut";
+private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
+private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
+private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut;
+
+private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
+private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
+private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut;
+
+private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 //Get the current collective value
@@ -222,10 +228,10 @@ private _thrustZ             = _axisZ vectorMultiply (_thrust * _deltaTime);
 
 //Pitch torque
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
-private _torqueX             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+private _torqueX             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _fmcPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-private _torqueY             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
+private _torqueY             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _fmcRollOut)) * _rollTorqueScalar) * _deltaTime;
 //Main rotor yaw torque
 private _torqueZ             = (_rtrTorque  * _yawTorqueScalar) * _deltaTime;
 

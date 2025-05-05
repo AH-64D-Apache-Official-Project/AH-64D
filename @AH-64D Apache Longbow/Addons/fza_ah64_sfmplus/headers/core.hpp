@@ -50,3 +50,5 @@
 #define HDG_HOLD_BREAKOUT_VALUE       0.05//0.03
 #define VEL_HOLD_BREAKOUT_VALUE       0.10//0.06
 #define ATT_HOLD_BREAKOUT_VALUE       0.20//0.09
+
+#define CENTER_TRIM_VAL               0.05

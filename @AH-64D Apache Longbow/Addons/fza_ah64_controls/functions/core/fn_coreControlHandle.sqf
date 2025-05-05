@@ -334,6 +334,8 @@ if !(_value) then {
             _heli setVariable ["fza_ah64_hdgHoldDesiredHdg",      getDir _heli,          true];
             _heli setVariable ["fza_ah64_hdgHoldDesiredSideslip", fza_ah64_sideslip,     true];
             [_heli] call fza_sfmplus_fnc_fmcForceTrimSet;
+
+            [_heli] call fza_sfmplus_fnc_centerTrimMode;
         };
         case "fza_ah64_stickyControlInterupt": {
             _heli setVariable ["fza_sfmplus_kbStickyInterupt", false];

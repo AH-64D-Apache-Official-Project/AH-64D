@@ -45,6 +45,7 @@ private _keyboardTimeScalar = 1.0 / 3.00;
 private _keyboardLimitVal   = 1.0;
 
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
+private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
 private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
 private _collectiveValue    = _heli getVariable "fza_sfmplus_collectiveValue";
@@ -202,6 +203,23 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
 };
 
+if (_fltControlLockout) then {
+    if (
+        (_cyclicFwdAft    < CENTER_TRIM_VAL && _cyclicFwdAft    > -CENTER_TRIM_VAL) &&
+        (_cyclicLeftRight < CENTER_TRIM_VAL && _cyclicLeftRight > -CENTER_TRIM_VAL) &&
+        (_pedalLeftRight  < CENTER_TRIM_VAL && _pedalLeftRight  > -CENTER_TRIM_VAL)
+       ) then {
+            _heli setVariable ["fza_sfmplus_flightControlLockOut", false];
+       };
+       if (fza_sfmplus_cyclicCenterTrimMode) then {
+            _cyclicFwdAft    = 0.0;
+            _cyclicLeftRight = 0.0;
+       };
+
+       if (fza_sfmplus_pedalCenterTrimMode) then {
+            _pedalLeftRight  = 0.0;
+       };
+};
 _cyclicFwdAft    = [_heli, "pitch", _cyclicFwdAft,    _inputLagValue] call fza_sfmplus_fnc_actuator;
 _cyclicLeftRight = [_heli, "roll",  _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
 _pedalLeftRight  = [_heli, "yaw",   _pedalLeftRight,  _inputLagValue] call fza_sfmplus_fnc_actuator;
