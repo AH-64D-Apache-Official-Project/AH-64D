@@ -42,8 +42,6 @@ private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 
 //Keyboard
 private _keyboardTimeScalar  = 1.0 / 3.00;
-private _autoPedalTimeScalar = 1.0 / 1.50;
-private _keyboardLimitVal    = 1.0;
 
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
 private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
@@ -175,7 +173,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
 
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
         _desiredHdg       = getDir _heli;
-        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, _autoPedalTimeScalar * _deltaTime] call BIS_fnc_lerp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / fza_ah64_sfmPlusAutoPedalTimeScalar) * _deltaTime] call BIS_fnc_lerp;
         _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
         _pedalLeftRight   = _kbPedalLeftRight;
 
