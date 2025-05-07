@@ -67,13 +67,22 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
-_cyclicFwdAft               = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0, true];
+private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
+private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
+_cyclicFwdAft               = linearConversion [-_heliCyclicFwdOut, _heliCyclicBackOut, _cyclicFwdAft, -1.0, 1.0, true];
 
-private _cyclicLeftRight    = (_heli animationSourcePhase "cyclicAside") * -1.0;
-_cyclicLeftRight            = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0, true];
+private _cyclicLeftRight    = _heli animationSourcePhase "cyclicAside";
+private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
+private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
+_cyclicLeftRight            = linearConversion [-_heliCyclicLeftOut, _heliCyclicRightOut, _cyclicLeftRight, 1.0, -1.0, true];
 
 private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
-_pedalLeftRight             = linearConversion [-0.5, 0.5, _pedalLeftRight,  -1.0, 1.0, true];
+private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
+private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
+_pedalLeftRight             = linearConversion [-_heliRudderLeftOut, _heliRudderRightOut, _pedalLeftRight,  -1.0, 1.0, true];
+
+//systemChat format ["HeliCyclicForward = %1 -- HeliCyclicBack = %2", (inputAction "HeliCyclicForward"), (inputAction "HeliCyclicBack")];
+//systemChat format ["HeliRudderRight = %1 -- HeliRudderLeft = %2", (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
 
 if (!_isPlaying) then {
     _cyclicFwdAft      = 0.0;

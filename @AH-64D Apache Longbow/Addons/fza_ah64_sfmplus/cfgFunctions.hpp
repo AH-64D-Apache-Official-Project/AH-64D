@@ -109,6 +109,7 @@ class CfgFunctions
             class centerTrimMode {R;};
             class getAccelerations {R;};
             class getAltitude {R;};
+            class getConnectedAxes {R;};
             class getDeltaTime {R;};
             class getInput {R;};
             class getInterpInput {R;};
