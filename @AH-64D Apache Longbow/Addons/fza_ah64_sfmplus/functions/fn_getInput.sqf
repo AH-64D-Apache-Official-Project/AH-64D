@@ -256,7 +256,9 @@ if (!_hydFailure || _emerHydOn) then {
     } else {
         _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
-        _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
+        private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
+        private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
+        _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
 
         if (isNil "fza_sfmplus_lastIsPlaying") then {
             _collectiveOutput     = _collectiveValue;

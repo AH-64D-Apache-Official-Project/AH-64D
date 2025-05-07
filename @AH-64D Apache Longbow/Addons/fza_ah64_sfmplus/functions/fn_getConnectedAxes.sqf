@@ -66,3 +66,25 @@ private _heliRudderLeftOut  = if ((count _heliRudderRightDevices) == 0) then { 1
 
 _heli setVariable ["fza_sfmplus_heliRudderRightOut", _heliRudderRightOut];
 _heli setVariable ["fza_sfmplus_heliRudderLeftOut",  _heliRudderLeftOut];
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Collective Input     /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _heliCollectiveRaiseDevices = [];
+{ 
+    if ("JOYSTICK_AXIS" in (_x select 0 select 1)) then {
+        _heliCollectiveRaiseDevices pushBackUnique _x;
+    };
+} forEach actionKeysEx "HeliCollectiveRaise";
+
+private _heliCollectiveLowerDevices = [];
+{ 
+    if ("JOYSTICK_AXIS" in (_x select 0 select 1)) then {
+        _heliCollectiveLowerDevices pushBackUnique _x;
+    };
+} forEach actionKeysEx "HeliCollectiveLower";
+
+private _heliCollectiveRaiseOut = if ((count _heliCollectiveLowerDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveLowerDevices); };
+private _heliCollectiveLowerOut = if ((count _heliCollectiveRaiseDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveRaiseDevices); };
+
+_heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
+_heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", _heliCollectiveLowerOut];
