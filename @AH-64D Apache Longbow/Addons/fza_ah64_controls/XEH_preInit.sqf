@@ -131,6 +131,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusAutoPedalTimeScalar",
+    "SLIDER",
+    ["Auto Pedal Time Scalar", "When auto pedal is enabled, controls the time it takes to wash in player input. A setting of 1.0 means maximum throw is washed in immediately on pressing the pedal key. 1.5 is the default and recommended for keyboard only, a setting of 1.0 is recommended for pedals and gamepad users."],
+    [_projName, "Flight model"],
+    [1.0, 2.0, 1.5, 1],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",
     ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
