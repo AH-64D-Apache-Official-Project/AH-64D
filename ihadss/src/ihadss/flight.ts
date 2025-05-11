@@ -19,6 +19,7 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawVsiScale(ctx, model);
   drawRadAltScale(ctx, model);
   drawVsiIndexer(ctx, model);
+  drawAltHoldIndicator(ctx, model);
 }
 
 function drawTrimBall(ctx: CanvasRenderingContext2D, sideslip: number) {
@@ -160,12 +161,34 @@ function drawVsiIndexer (ctx: CanvasRenderingContext2D, model: model) {
 
   const vsiMax       = 2000; //fpp
   const vsiScale     = (vsiScaleBotY - vsiScaleTopY) / vsiMax;
-  const curRoC       = -333;
+  const curRoC       = 333;
 
   ctx.beginPath();
-  ctx.moveTo(posX - 7, (posY - (vsiScale * curRoC)) - 8);
-  ctx.lineTo(posX + 6,  posY - (vsiScale * curRoC));
-  ctx.lineTo(posX - 7, (posY - (vsiScale * curRoC))+ 8);
-  ctx.lineTo(posX - 7, (posY - (vsiScale * curRoC)) - 9);
+  ctx.moveTo(posX - 7, posY - (vsiScale * curRoC) - 8);
+  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) - 8);
+  ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) - 1);
+  ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) + 1);
+  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
+  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
+  ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) + 8);
+  ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) - 8);
   ctx.fill();
+}
+
+function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
+  const vsiScaleTopY = 104;
+  const vsiScaleBotY = 347;
+  
+  const posX = 523;
+  const posY = (vsiScaleTopY + vsiScaleBotY) / 2;
+
+  ctx.beginPath();
+  ctx.moveTo(posX - 10, posY - 9);
+  ctx.lineTo(posX - 3, posY - 9);
+  ctx.lineTo(posX + 6, posY - 2);
+  ctx.lineTo(posX + 6, posY + 2);
+  ctx.lineTo(posX - 3, posY + 9);
+  ctx.lineTo(posX - 10, posY + 9);
+  ctx.lineTo(posX - 10, posY - 10);
+  ctx.stroke();
 }

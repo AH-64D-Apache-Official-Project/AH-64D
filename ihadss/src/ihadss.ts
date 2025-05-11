@@ -35,6 +35,50 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 
+  //VSI > 1000 FPM Climb Text
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "center";
+  ctx.fillText("2500", 513, 111);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //VSI > 1000 FPM Descent Text
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "center";
+  ctx.fillText("-2500", 513, 354);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //Owner Cue
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("AAAAAAAAAA", 320, 395);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //WPN Inhibit
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("AAAAAAAAAAAA", 320, 412);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
   const adjustment  = 5;
   const adjustment2 = 3;
   //HAD Sight Select Status
