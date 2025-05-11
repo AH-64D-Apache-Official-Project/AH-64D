@@ -1,8 +1,8 @@
 export function draw(ctx: CanvasRenderingContext2D) {
-  drawLOSProbe(ctx);
+  drawLos(ctx);
 }
 
-function drawLOSProbe(ctx: CanvasRenderingContext2D) {
+function drawLos(ctx: CanvasRenderingContext2D) {
   ctx.save();
   ctx.translate(320, 240);
   ctx.beginPath();

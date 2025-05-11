@@ -10,13 +10,17 @@ export const exampleModel: model = {
 
 export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawFieldOfRegardPilot(ctx, model);
+  drawFieldOfRegardCuedLosDot(ctx);
+  drawFieldOfRegardFieldOfViewBox(ctx);
+
   drawHeadTracker(ctx, model);
-  drawFieldOfView(ctx);
+  drawHeadingTape(ctx);
+
+  drawCuedLos(ctx);
   drawCueingDotTop(ctx);
   drawCueingDotRight(ctx);
   drawCueingDotBottom(ctx);
   drawCueingDotLeft(ctx);
-  drawHeadingTape(ctx);
 }
 
 export function drawFieldOfRegardPilot(ctx: CanvasRenderingContext2D, _model: model) {
@@ -75,9 +79,9 @@ export function drawFieldOfRegardGunner(ctx: CanvasRenderingContext2D, _model: m
   ctx.stroke();
 }
 
-export function drawFieldOfView(ctx: CanvasRenderingContext2D) {
-  const fovPosX = 300;
-  const fovPosY = 452;
+export function drawFieldOfRegardFieldOfViewBox(ctx: CanvasRenderingContext2D) {
+  const fovPosX = 320 - 30;
+  const fovPosY = 448 - 5;
 
   ctx.beginPath();
   ctx.moveTo(fovPosX - 9, fovPosY - 7);
@@ -86,6 +90,17 @@ export function drawFieldOfView(ctx: CanvasRenderingContext2D) {
   ctx.lineTo(fovPosX - 9, fovPosY + 7);
   ctx.lineTo(fovPosX - 9, fovPosY - 8);
   ctx.stroke();
+}
+
+export function drawFieldOfRegardCuedLosDot (ctx: CanvasRenderingContext2D) {
+  const fovPosX = 320 + 20;
+  const fovPosY = 452 + 10;
+  
+  const radius  = 2;
+
+  ctx.beginPath();
+  ctx.arc(fovPosX, fovPosY, radius, 0, 2 * Math.PI);
+  ctx.fill();
 }
 
 export function drawHeadTracker(ctx: CanvasRenderingContext2D, model: model) {
@@ -103,7 +118,6 @@ export function drawHeadTracker(ctx: CanvasRenderingContext2D, model: model) {
     ctx.rotate(0.5 * Math.PI);
   }
   ctx.stroke();
-
   ctx.restore();
 }
 
@@ -167,4 +181,19 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D) {
     }
   }
   ctx.stroke();
+}
+
+function drawCuedLos(ctx: CanvasRenderingContext2D) {
+  ctx.save();
+  ctx.translate(320 + 80, 240 + 40);
+  ctx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    ctx.moveTo(0, 9 + 19);
+    ctx.lineTo(0, 9 + 12);
+    ctx.moveTo(0, 9 + 7);
+    ctx.lineTo(0, 9);
+    ctx.rotate(0.5 * Math.PI);
+  }
+  ctx.stroke();
+  ctx.restore();
 }

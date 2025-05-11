@@ -16,6 +16,9 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawLubberLine(ctx);
   drawAccelerationCue(ctx, model);
   drawVelocityVector(ctx, model);
+  drawVsiScale(ctx, model);
+  drawRadAltScale(ctx, model);
+  drawVsiIndexer(ctx, model);
 }
 
 function drawTrimBall(ctx: CanvasRenderingContext2D, sideslip: number) {
@@ -89,4 +92,80 @@ function drawVelocityVector(ctx: CanvasRenderingContext2D, model: model) {
   ctx.moveTo(velVecOriginX, velVecOriginY);
   ctx.lineTo(velVecTipPosX, velVecTipPosY);
   ctx.stroke();
+}
+
+function drawVsiScale(ctx: CanvasRenderingContext2D, model: model) {
+  const posX         = 533;
+  const vsiScaleTopY = 104;
+  const vsiScaleBotY = 347;
+
+  const width        = 10;
+  const numTicks     = 20;
+  const spacing      = (vsiScaleBotY - vsiScaleTopY) / numTicks;
+
+  ctx.beginPath();
+    //Large ticks
+  for (let i = 6; i <= numTicks - 6; i++) {
+    ctx.moveTo(posX              , vsiScaleTopY + (i * spacing));
+    ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+  }
+  //Large ticks
+  for (let i = 0; i <= numTicks; i++) {
+    if (i % 5 == 0) {
+      ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+      ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+    }
+  }
+  ctx.stroke();
+}
+
+function drawRadAltScale(ctx: CanvasRenderingContext2D, model: model) {
+  const posX         = 551;
+  const vsiScaleTopY = 104;
+  const vsiScaleBotY = 347;
+
+  const width        = 10;
+  const altBarWidth  = 6;
+  const numTicks     = 20;
+  const spacing      = (vsiScaleBotY - vsiScaleTopY) / numTicks;
+
+  const maxAlt       = 200; //ft agl
+  const altScale     = (vsiScaleBotY - vsiScaleTopY) / maxAlt;
+  const curAltAgl    = 50;
+
+  ctx.beginPath();
+  ctx.rect(542 - (altBarWidth / 2), vsiScaleBotY, altBarWidth, -altScale * curAltAgl);
+  ctx.fill();
+  //Large ticks
+  for (let i = 16; i <= numTicks - 1; i++) {
+    ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+    ctx.lineTo(posX,               vsiScaleTopY + (i * spacing));
+  }
+  //Large ticks
+  for (let i = 0; i <= numTicks; i++) {
+    if (i % 5 == 0) {
+      ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+      ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+    }
+  }
+  ctx.stroke();
+}
+
+function drawVsiIndexer (ctx: CanvasRenderingContext2D, model: model) {
+  const vsiScaleTopY = 104;
+  const vsiScaleBotY = 347;
+
+  const posX = 523;
+  const posY = (vsiScaleTopY + vsiScaleBotY) / 2;
+
+  const vsiMax       = 2000; //fpp
+  const vsiScale     = (vsiScaleBotY - vsiScaleTopY) / vsiMax;
+  const curRoC       = -333;
+
+  ctx.beginPath();
+  ctx.moveTo(posX - 7, (posY - (vsiScale * curRoC)) - 8);
+  ctx.lineTo(posX + 6,  posY - (vsiScale * curRoC));
+  ctx.lineTo(posX - 7, (posY - (vsiScale * curRoC))+ 8);
+  ctx.lineTo(posX - 7, (posY - (vsiScale * curRoC)) - 9);
+  ctx.fill();
 }
