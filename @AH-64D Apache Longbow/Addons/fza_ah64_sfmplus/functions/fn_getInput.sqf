@@ -41,8 +41,7 @@ private _tailRtrFixed       = false;
 private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 
 //Keyboard
-private _keyboardTimeScalar = 1.0 / 3.00;
-private _keyboardLimitVal   = 1.0;
+private _keyboardTimeScalar  = 1.0 / 3.00;
 
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
 private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
@@ -68,13 +67,22 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
-_cyclicFwdAft               = linearConversion [-0.5, 0.5, _cyclicFwdAft, -1.0, 1.0, true];
+private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
+private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
+_cyclicFwdAft               = linearConversion [-_heliCyclicFwdOut, _heliCyclicBackOut, _cyclicFwdAft, -1.0, 1.0, true];
 
-private _cyclicLeftRight    = (_heli animationSourcePhase "cyclicAside") * -1.0;
-_cyclicLeftRight            = linearConversion [-0.5, 0.5, _cyclicLeftRight, -1.0, 1.0, true];
+private _cyclicLeftRight    = _heli animationSourcePhase "cyclicAside";
+private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
+private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
+_cyclicLeftRight            = linearConversion [-_heliCyclicLeftOut, _heliCyclicRightOut, _cyclicLeftRight, 1.0, -1.0, true];
 
 private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
-_pedalLeftRight             = linearConversion [-0.5, 0.5, _pedalLeftRight,  -1.0, 1.0, true];
+private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
+private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
+_pedalLeftRight             = linearConversion [-_heliRudderLeftOut, _heliRudderRightOut, _pedalLeftRight,  -1.0, 1.0, true];
+
+//systemChat format ["HeliCyclicForward = %1 -- HeliCyclicBack = %2", (inputAction "HeliCyclicForward"), (inputAction "HeliCyclicBack")];
+//systemChat format ["HeliRudderRight = %1 -- HeliRudderLeft = %2", (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
 
 if (!_isPlaying) then {
     _cyclicFwdAft      = 0.0;
@@ -150,17 +158,10 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     // KB Pedal Yaw         /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
     private _yawBreakoutVal = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-    if (_yawBreakoutVal < -0.1 || _yawBreakoutVal > 0.1) then {
+    if (_yawBreakoutVal < -0.05 || _yawBreakoutVal > 0.05) then {
         _yawBreakout = true;
     };
 
-    if (_yawBreakout) then {
-        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, _keyboardTimeScalar * _deltaTime] call BIS_fnc_lerp;
-        _kbPedalLeftRight = [_kbPedalLeftRight, -0.7, 0.7] call BIS_fnc_clamp;
-    } else {
-        _kbPedalLeftRight = 0.0;
-    };
-   
     private _pidAutoPedalHdg = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
     //_pidAutoPedalHdg set ["kp", APH_KP];
     //_pidAutoPedalHdg set ["ki", APH_KI];
@@ -173,7 +174,6 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     private _hdgOut        = 0.0;
     private _sideslipOut   = 0.0;
     private _yawOutput     = 0.0;
-
     private _curHdg        = getDir _heli;
     private _desiredHdg    = _heli getVariable "fza_sfmPlus_autoPedalHdg";
     private _hdgError      = 0.0;
@@ -181,7 +181,15 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     private _sideslipError = 0.0;
 
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
-        _desiredHdg = getDir _heli;
+        _desiredHdg       = getDir _heli;
+        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / fza_ah64_sfmPlusAutoPedalTimeScalar) * _deltaTime] call BIS_fnc_lerp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+        _pedalLeftRight   = _kbPedalLeftRight;
+
+        _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _kbPedalLeftRight];
+        _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
+    } else {
+        _heli setVariable ["fza_sfmplus_kbPedalLeftRight", 0.0];
     };
 
     //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
@@ -193,14 +201,11 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
 
     if (_yawBreakout) then {
-        _yawOutput = 0.0;
         [_pidAutoPedalHdg]  call fza_fnc_pidReset;
         [_pidAutoPedalSlip] call fza_fnc_pidReset;
+    } else {
+        _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
     };
-
-    _pedalLeftRight   = [_kbPedalLeftRight, _yawOutput] call fza_sfmplus_fnc_getInterpInput;//_kbPedalLeftRight + _yawOutput;
-    _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _pedalLeftRight];
-    _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
 };
 
 if (_fltControlLockout) then {
@@ -251,7 +256,9 @@ if (!_hydFailure || _emerHydOn) then {
     } else {
         _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
-        _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
+        private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
+        private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
+        _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
 
         if (isNil "fza_sfmplus_lastIsPlaying") then {
             _collectiveOutput     = _collectiveValue;

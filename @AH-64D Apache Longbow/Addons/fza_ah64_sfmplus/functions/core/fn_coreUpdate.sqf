@@ -42,6 +42,7 @@ if (isAutoHoverOn _heli) then {
 
 //Input
 [_heli] call fza_sfmplus_fnc_fmc;
+[_heli] call fza_sfmplus_fnc_getConnectedAxes;
 [_heli] call fza_sfmplus_fnc_getInput;
 
 //
