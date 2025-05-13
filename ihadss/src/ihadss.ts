@@ -18,9 +18,20 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.strokeStyle = "#0F0";
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("52%", 129, 115);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //TGT
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
-  ctx.fillText("100%", 174, 115);
+  ctx.fillText("860C", 174, 115 + 17);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 
@@ -31,18 +42,29 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
-  ctx.fillText("100", 154, 232);
+  ctx.fillText("102", 154, 232);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 
-  //VSI > 1000 FPM Climb Text
+  //G-meter
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("1.2G", 154+6, 232 + 20);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //MSL Altitude
   ctx.save();
   ctx.strokeStyle = "#0F0";
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
   ctx.textBaseline = "center";
-  ctx.fillText("2500", 513, 111);
+  ctx.fillText("5200", 513, 115);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 
@@ -158,6 +180,28 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 
+  //HI Altitude Alert
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "center";
+  ctx.fillText("HI", 510, 232 - 22);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //LO Altitude Alert
+  ctx.save();
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "center";
+  ctx.fillText("LO", 510, 232 + 21);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
   //Center Heading
   ctx.strokeStyle = "#0F0";
   ctx.fillStyle = "#0F0";
@@ -219,6 +263,46 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.textAlign = "center";
   ctx.textBaseline = "bottom";
   ctx.fillText("E", 199+230, 57);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //Waypoint Selection
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "left";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("W19", 86, 365);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //Waypoint Distance
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("14.4KM", 222, 365);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //Ground Speed
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("44", 134, 389);
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+
+  //Waypoint Time to Go
+  ctx.strokeStyle = "#0F0";
+  ctx.fillStyle = "#0F0";
+  ctx.font = "15px BMKApacheFont";
+  ctx.textAlign = "right";
+  ctx.textBaseline = "bottom";
+  ctx.fillText("5:52", 215, 389);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 

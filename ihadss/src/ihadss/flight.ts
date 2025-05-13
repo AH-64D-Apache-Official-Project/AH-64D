@@ -20,6 +20,9 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawRadAltScale(ctx, model);
   drawVsiIndexer(ctx, model);
   drawAltHoldIndicator(ctx, model);
+  drawFlightPathVector(ctx);
+  drawTransitionHorizonLine(ctx);
+  drawNavigationFlyToCue(ctx);
 }
 
 function drawTrimBall(ctx: CanvasRenderingContext2D, sideslip: number) {
@@ -191,4 +194,82 @@ function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
   ctx.lineTo(posX - 10, posY + 9);
   ctx.lineTo(posX - 10, posY - 10);
   ctx.stroke();
+}
+
+function drawFlightPathVector(ctx: CanvasRenderingContext2D) {
+  const posX = 320 + 130;
+  const posY = 240 - 20;
+
+  const radius = 9;
+
+  ctx.beginPath();
+  ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  ctx.save();
+  ctx.translate(posX, posY);
+  ctx.beginPath();
+  for (let i = 0; i < 3; i++) {
+    ctx.moveTo(9, 0);
+    ctx.lineTo(9 + 9, 0);
+    ctx.rotate(-0.5 * Math.PI);
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D) {
+  const posX = 320;
+  const posY = 240 + 40;
+
+  const horizonStart = 142;
+  const horizonWidth = 110;
+  const horizonIncrement = horizonWidth / 8;
+
+  ctx.save();
+  ctx.translate(posX, posY);
+  ctx.rotate(0.05 * Math.PI);
+  ctx.beginPath();
+  for (let i = 0; i < 8; i++) {
+    if ((i % 2) == 0) {
+      ctx.moveTo(-horizonStart + (horizonIncrement * i), 0);
+      ctx.lineTo(-horizonStart + (horizonIncrement * (i + 1)), 0);
+    }
+    if ((i % 2) == 0) {
+      ctx.moveTo(horizonStart - (horizonIncrement * i), 0);
+      ctx.lineTo(horizonStart - (horizonIncrement * (i + 1)), 0);
+    }
+  }
+  ctx.stroke();
+  ctx.restore();
+}
+
+function drawNavigationFlyToCue(ctx: CanvasRenderingContext2D) {
+  const posX = 320 + 130;
+  const posY = 240 - 20;
+
+  ctx.save();
+  ctx.translate(posX, posY);
+  ctx.beginPath();
+  ctx.moveTo(-27, 5);
+  ctx.lineTo(-27,-3);
+  ctx.lineTo(-2, -29);
+  ctx.lineTo( 2, -29);
+  ctx.lineTo( 27,-3);
+  ctx.lineTo( 27, 4);
+  ctx.lineTo( 17, 13);
+  ctx.lineTo(-17, 13);
+  ctx.lineTo(-27, 4);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.moveTo(-3,0);
+  ctx.lineTo(0,-3);
+  ctx.lineTo(3,0);
+  ctx.lineTo(3,2);
+  ctx.lineTo(-3,2);
+  ctx.lineTo(-3,0);
+  ctx.fill();
+
+  ctx.restore();
 }

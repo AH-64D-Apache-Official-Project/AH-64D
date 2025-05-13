@@ -8,7 +8,7 @@ function drawLos(ctx: CanvasRenderingContext2D) {
   ctx.beginPath();
   for (let i = 0; i < 4; i++) {
     ctx.moveTo(0, 9);
-    ctx.lineTo(0, 9 + 19);
+    ctx.lineTo(0, 9 + 18);
     ctx.rotate(0.5 * Math.PI);
   }
   ctx.stroke();
