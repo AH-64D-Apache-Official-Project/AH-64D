@@ -192,7 +192,7 @@ const headingTapeRightX  = 441;
 const headingTapeDegrees = 200;
 
 export function drawHeadingTape(ctx: CanvasRenderingContext2D) {
-  const posY      = 64;
+  const posY      = 66;
 
   const shortTickHeight = 3;
   const longTickHeight  = 5;
@@ -243,9 +243,9 @@ function drawCommandBobupHeading(ctx: CanvasRenderingContext2D) {
   const posY = 83;
 
   ctx.beginPath();
-  ctx.moveTo(posX - 7, posY + 7);
+  ctx.moveTo(posX - 6, posY + 6);
   ctx.lineTo(posX, posY - 7);
-  ctx.lineTo(posX + 7, posY + 7);
+  ctx.lineTo(posX + 6, posY + 6);
   ctx.stroke();
 }
 

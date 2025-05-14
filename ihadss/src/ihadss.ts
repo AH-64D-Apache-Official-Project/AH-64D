@@ -53,7 +53,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
   ctx.textBaseline = "bottom";
-  ctx.fillText("1.2G", 154+6, 232 + 20);
+  ctx.fillText("1.2G", 154+6, 232 + 22);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
 

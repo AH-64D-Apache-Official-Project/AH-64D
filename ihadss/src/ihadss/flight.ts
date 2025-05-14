@@ -19,10 +19,12 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawVsiScale(ctx, model);
   drawRadAltScale(ctx, model);
   drawVsiIndexer(ctx, model);
+  drawAttHoldIndicator(ctx, model);
   drawAltHoldIndicator(ctx, model);
   drawFlightPathVector(ctx);
   drawTransitionHorizonLine(ctx);
   drawNavigationFlyToCue(ctx);
+  drawBobUpBox(ctx);
 }
 
 function drawTrimBall(ctx: CanvasRenderingContext2D, sideslip: number) {
@@ -59,9 +61,12 @@ function drawTrimBall(ctx: CanvasRenderingContext2D, sideslip: number) {
 
 function drawLubberLine(ctx: CanvasRenderingContext2D) {
   ctx.beginPath();
-  ctx.moveTo(320, 73);
-  ctx.lineTo(320, 96);
-  ctx.stroke();
+  ctx.moveTo(318, 73);
+  ctx.lineTo(322, 73);
+  ctx.lineTo(322, 96);
+  ctx.lineTo(318, 96);
+  ctx.lineTo(318, 73);
+  ctx.fill();
 }
 
 function drawAccelerationCue(ctx: CanvasRenderingContext2D, model: model) {
@@ -196,6 +201,20 @@ function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
   ctx.stroke();
 }
 
+function drawAttHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
+  ctx.beginPath();
+  ctx.moveTo(119, 214);
+  ctx.lineTo(156, 214);
+  ctx.lineTo(158, 216);
+  ctx.lineTo(158, 234);
+  ctx.lineTo(156, 236);
+  ctx.lineTo(119, 236);
+  ctx.lineTo(117, 234);
+  ctx.lineTo(117, 216);
+  ctx.lineTo(119, 214);
+  ctx.stroke();
+}
+
 function drawFlightPathVector(ctx: CanvasRenderingContext2D) {
   const posX = 320 + 130;
   const posY = 240 - 20;
@@ -272,4 +291,21 @@ function drawNavigationFlyToCue(ctx: CanvasRenderingContext2D) {
   ctx.fill();
 
   ctx.restore();
+}
+
+function drawBobUpBox(ctx: CanvasRenderingContext2D) {
+  const posX = 320 - 60;
+  const posY = 240 + 30;
+
+  ctx.beginPath();
+  ctx.moveTo(posX - 10, posY - 20);
+  ctx.lineTo(posX + 10, posY - 20);
+  ctx.lineTo(posX + 20, posY - 10);
+  ctx.lineTo(posX + 20, posY + 10);
+  ctx.lineTo(posX + 10, posY + 20);
+  ctx.lineTo(posX - 10, posY + 20);
+  ctx.lineTo(posX - 20, posY + 10);
+  ctx.lineTo(posX - 20, posY - 10);
+  ctx.lineTo(posX - 10, posY - 20);
+  ctx.stroke();
 }
