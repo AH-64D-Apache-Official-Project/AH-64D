@@ -6,7 +6,7 @@ if (!local _heli) exitWith {};
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
-private _deltaTime      = fza_ah64_fixedTimeStep;
+private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;;
 private _rho            = _heli getVariable "fza_sfmplus_rho";
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;//getArray  (_heliSimCfg >> "wingElements")               select _wingNum;

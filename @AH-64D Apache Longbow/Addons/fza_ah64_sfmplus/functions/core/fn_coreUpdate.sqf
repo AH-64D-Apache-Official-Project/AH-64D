@@ -67,6 +67,25 @@ if !(isMultiplayer) then {
     [_heli] call fza_sfmplus_fnc_probes;
 };
 
+//TEMP TEST for MP
+
+//Main Rotor
+[_heli] call fza_sfmplus_fnc_simpleRotorMain;
+
+//Tail Rotor
+[_heli] call fza_sfmplus_fnc_simpleRotorTail;
+
+//Drag
+[_heli] call fza_sfmplus_fnc_fuselageDrag;
+
+//Vertical fin
+[_heli] call fza_sfmplus_fnc_aeroWing;
+
+//Stabilator
+[_heli] call fza_sfmplus_fnc_aeroStabilator;
+
+//END TEMP TEST for MP
+
 #ifdef __A3_DEBUG_
 /*
 (_heli call BIS_fnc_getPitchBank)
