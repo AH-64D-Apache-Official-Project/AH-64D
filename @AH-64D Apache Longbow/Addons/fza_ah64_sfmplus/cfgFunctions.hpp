@@ -51,6 +51,7 @@ class CfgFunctions
             class fmcAltitudeHold {R;};
             class fmcAltitudeHoldEnable {R;};
             class fmcAttitudeHoldEnable {R;};
+            class fmcControlMixing {R;};
             class fmcForceTrimSet {R;};
             class fmcHeadingHold {R;};
             class fmcHoldModesDisable {R;};
