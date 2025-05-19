@@ -2,8 +2,6 @@
 
 params ["_heli"];
 
-private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
-
 //Collective to pitch - compensates for rotor downwash on stabilator <- Not currently used or simulated in helisim
 //Collective to roll  - compensates for translating tendency (right rolling moment). Applies left cyclic w/ increased collective.
 //Collective to yaw   - compensates for torque effect. Increase colletive, increases left pedal.
@@ -12,31 +10,66 @@ private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 //                             pitch by the use of the yaw trim actuator. Is a function of the SAS/FPS computer. 0 to 40 knots 100% tail rotor mixing, from 
 //                             40 to 100 knots goes from 100% to 0% tail rotor mixing
 //Yaw to Roll          - compensates for fuselage roll when pedal is applied. 
+private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+private _pedalOut = _heli getVariable "fza_sfmplus_pedalLeftRight";
+private _collOut  = _heli getVariable "fza_sfmplus_collectiveOutput";
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective To Pitch  /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _collToPitch = 0.0;
+private _collToPitchTable = //move to config!
+[
+ [0.0, 0.000]
+,[0.1, 0.009]
+,[0.2, 0.018]
+,[0.3, 0.027]
+,[0.4, 0.036]
+,[0.5, 0.045]
+,[0.6, 0.054]
+,[0.7, 0.063]
+,[0.8, 0.072]
+,[0.9, 0.081]
+,[1.0, 0.090]
+];
+private _collToPitch = [_collToPitchTable, _collOut] call fza_fnc_linearInterp select 1;
+_collToPitch         = linearConversion [0, 20.58, _gndSpeed, _collToPitch, 0.0, true];
+//systemChat format ["_collToPitch = %1", _collToPitch];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective To Roll   /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _collToRollTable = 
+private _collToRollTable = //move to config!
 [
- [0.0, 0.00]
-,[0.1, 0.01]
-,[0.2, 0.02]
-,[0.3, 0.03]
-,[0.4, 0.04]
-,[0.5, 0.05]
-,[0.6, 0.06]
-,[0.7, 0.07]
-,[0.8, 0.08]
-,[0.9, 0.09]
-,[1.0, 0.10]
+ [0.0, 0.000]
+,[0.1, 0.018]
+,[0.2, 0.035]
+,[0.3, 0.053]
+,[0.4, 0.070]
+,[0.5, 0.088]
+,[0.6, 0.106]
+,[0.7, 0.123]
+,[0.8, 0.141]
+,[0.9, 0.158]
+,[1.0, 0.176]
 ];
-private _collOut    = _heli getVariable "fza_sfmplus_collectiveOutput";
 private _collToRoll = [_collToRollTable, _collOut] call fza_fnc_linearInterp select 1;
-_collToRoll         = linearConversion [0, 40, _gndSpeed, _collToRoll, 0.0, true];
-
+/*
+SPD_TBL = 
+[ 
+ [  0.00, 1.00] //0kts
+,[ 20.58, 1.00] //40kts
+,[ 51.44, 0.54] //100kts 
+,[ 66.88, 0.66] //130kts
+,[ 77.17, 0.66] //150kts
+];
+*/
+private _speedToRollTable = //move to config!
+[ 
+ [  0.00, 1.00] //0kts
+,[ 20.58, 1.00] //40kts
+,[ 51.44, 0.54] //100kts 
+,[ 66.88, 0.66] //130kts
+,[ 77.17, 0.66] //150kts
+];
+_collToRoll = _collToRoll * ([_speedToRollTable, _gndSpeed] call fza_fnc_linearInterp select 1);
 //systemChat format ["_collToRoll = %1", _collToRoll];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective To Yaw    /////////////////////////////////////////////////////////////////////
@@ -45,7 +78,7 @@ private _collToYaw = 0.0;
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw To Pitch         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _yawToPitchTable = 
+private _yawToPitchTable = //move to config!
 [
  [-1.0, -0.060]
 ,[-0.9, -0.054]
@@ -69,14 +102,12 @@ private _yawToPitchTable =
 ,[ 0.9,  0.054]
 ,[ 1.0,  0.060]
 ];
-private _pedalOut   = _heli getVariable "fza_sfmplus_pedalLeftRight";
 private _yawToPitch = [_yawToPitchTable, _pedalOut] call fza_fnc_linearInterp select 1;
-
 //systemChat format ["_yawToPitch = %1", _yawToPitch];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw To Roll         /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _yawToRollTable = 
+private _yawToRollTable = //move to config!
 [
  [-1.0,  0.167,  0.270]
 ,[-0.9,  0.150,  0.240]
@@ -100,7 +131,6 @@ private _yawToRollTable =
 ,[ 0.9, -0.150, -0.324]
 ,[ 1.0, -0.167, -0.360]
 ];
-private _pedalOut  = _heli getVariable "fza_sfmplus_pedalLeftRight";
 private _yawToRoll = 0.0;
 
 if (fza_ah64_sfmPlusAutoPedal) then {

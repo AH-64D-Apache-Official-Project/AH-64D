@@ -31,9 +31,10 @@ private _temperature            = _heli getVariable "fza_sfmplus_FAT";
 private _dryAirDensity          = _heli getVariable "fza_sfmplus_RHO";
 
 private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
+private _collToPitchOut         = _heli getVariable "fza_sfmplus_fmcCollectiveToPitch";
 private _yawToPitchOut          = _heli getVariable "fza_sfmplus_fmcYawToPitch";
 private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
-private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _yawToPitchOut;
+private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _collToPitchOut + _yawToPitchOut;
 
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
 private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
