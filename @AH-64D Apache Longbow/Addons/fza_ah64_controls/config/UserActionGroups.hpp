@@ -41,7 +41,8 @@ class UserActionGroups
             fza_ah64_SensorSelect_DTV,
             fza_ah64_SensorSelect_DVO,
             fza_ah64_tadsLHGLmc,
-            fza_ah64_stickyControlInterupt
+            fza_ah64_stickyControlInterupt,
+            fza_ah64_forceTrimPanicButton
         };
     };
     class fza_ah64_cockpit
