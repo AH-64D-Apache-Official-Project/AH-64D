@@ -9,10 +9,12 @@ params ["_heli"];
 //Collective airspeed to yaw - helps compensate for torque effect in addition to collective to yaw mechanical mixing by increasing or decreasing tail rotor 
 //                             pitch by the use of the yaw trim actuator. Is a function of the SAS/FPS computer. 0 to 40 knots 100% tail rotor mixing, from 
 //                             40 to 100 knots goes from 100% to 0% tail rotor mixing
-//Yaw to Roll          - compensates for fuselage roll when pedal is applied. 
-private _gndSpeed = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
-private _pedalOut = _heli getVariable "fza_sfmplus_pedalLeftRight";
-private _collOut  = _heli getVariable "fza_sfmplus_collectiveOutput";
+//Yaw to Roll          - compensates for fuselage roll when pedal is applied. This is a keboard only function.
+private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+private _pedalInput = _heli getVariable "fza_sfmplus_pedalLeftRight";
+private _pedalTrim  = _heli getVariable "fza_ah64_forceTrimPosPedal";
+private _pedalOut   = _pedalInput + _pedalTrim;
+private _collOut    = _heli getVariable "fza_sfmplus_collectiveOutput";
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective To Pitch  /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,16 +41,16 @@ _collToPitch         = linearConversion [0, 20.58, _gndSpeed, _collToPitch, 0.0,
 private _collToRollTable = //move to config!
 [
  [0.0, 0.000]
-,[0.1, 0.018]
-,[0.2, 0.035]
-,[0.3, 0.053]
-,[0.4, 0.070]
-,[0.5, 0.088]
-,[0.6, 0.106]
-,[0.7, 0.123]
-,[0.8, 0.141]
-,[0.9, 0.158]
-,[1.0, 0.176]
+,[0.1, 0.009]
+,[0.2, 0.018]
+,[0.3, 0.026]
+,[0.4, 0.035]
+,[0.5, 0.044]
+,[0.6, 0.053]
+,[0.7, 0.062]
+,[0.8, 0.070]
+,[0.9, 0.079]
+,[1.0, 0.088]
 ];
 private _collToRoll = [_collToRollTable, _collOut] call fza_fnc_linearInterp select 1;
 /*
@@ -109,33 +111,31 @@ private _yawToPitch = [_yawToPitchTable, _pedalOut] call fza_fnc_linearInterp se
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _yawToRollTable = //move to config!
 [
- [-1.0,  0.167,  0.270]
-,[-0.9,  0.150,  0.240]
-,[-0.8,  0.133,  0.220]
-,[-0.7,  0.117,  0.190]
-,[-0.6,  0.100,  0.160]
-,[-0.5,  0.083,  0.140]
-,[-0.4,  0.067,  0.110]
-,[-0.3,  0.050,  0.080]
-,[-0.2,  0.033,  0.050]
-,[-0.1,  0.017,  0.030]
-,[ 0.0,  0.000,  0.000]
-,[ 0.1, -0.017, -0.036]
-,[ 0.2, -0.033, -0.072]
-,[ 0.3, -0.050, -0.108]
-,[ 0.4, -0.067, -0.144]
-,[ 0.5, -0.083, -0.180]
-,[ 0.6, -0.100, -0.216]
-,[ 0.7, -0.117, -0.252]
-,[ 0.8, -0.133, -0.288]
-,[ 0.9, -0.150, -0.324]
-,[ 1.0, -0.167, -0.360]
+ [-1.0,  0.244]
+,[-0.9,  0.220]
+,[-0.8,  0.195]
+,[-0.7,  0.171]
+,[-0.6,  0.146]
+,[-0.5,  0.122]
+,[-0.4,  0.098]
+,[-0.3,  0.073]
+,[-0.2,  0.049]
+,[-0.1,  0.024]
+,[ 0.0,  0.000]
+,[ 0.1, -0.024]
+,[ 0.2, -0.049]
+,[ 0.3, -0.073]
+,[ 0.4, -0.098]
+,[ 0.5, -0.122]
+,[ 0.6, -0.146]
+,[ 0.7, -0.171]
+,[ 0.8, -0.195]
+,[ 0.9, -0.220]
+,[ 1.0, -0.244]
 ];
 private _yawToRoll = 0.0;
 
 if (fza_ah64_sfmPlusAutoPedal) then {
-    _yawToRoll = [_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 2;
-} else {
     _yawToRoll = [_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 1;
 };
 
@@ -143,6 +143,6 @@ if (fza_ah64_sfmPlusAutoPedal) then {
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective Airspeed to Yaw ///////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _collAirspeedToYaw = 0.0;
+private _collAirspeedToYaw = linearConversion [0, 20.58, _gndSpeed, _collToPitch, 0.0, true];;
 
 [_collToPitch, _collToRoll, _collToYaw, _yawToPitch, _yawToRoll, _collAirspeedToYaw];
