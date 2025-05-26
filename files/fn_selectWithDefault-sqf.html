@@ -8,11 +8,11 @@
 
 <body onload="NDLoader.OnLoad('Content');" class="NDPage NDContentPage">
 
-<a name="Functions"></a><a name="Topic183"></a><div class="CTopic TGroup LSQF first">
+<a name="Functions"></a><a name="Topic189"></a><div class="CTopic TGroup LSQF first">
  <div class="CTitle">Functions</div>
 </div>
 
-<a name="fza_fnc_selectWithDefault"></a><a name="Topic184"></a><div class="CTopic TFunction LSQF last">
+<a name="fza_fnc_selectWithDefault"></a><a name="Topic190"></a><div class="CTopic TFunction LSQF last">
  <div class="CTitle">fza_fnc_selectWithDefault</div>
  <div class="CBody"><div class="CHeading">Description</div><p>Allows for you to run a select operation while providing a default for if the index is out of range</p><div class="CHeading">Parameters</div><table class="CDefinitionList"><tr><td class="CDLEntry">_arr</td><td class="CDLDefinition"><p>the array to search</p></td></tr><tr><td class="CDLEntry">_index</td><td class="CDLDefinition"><p>the index to get an element from</p></td></tr><tr><td class="CDLEntry">_default</td><td class="CDLDefinition"><p>the default if there isn't a valid element</p></td></tr></table><div class="CHeading">Returns</div><p>Value at index of array, or the default</p><div class="CHeading">Examples</div><p>Valid and in index</p><pre class="CCode">_ret = [[<span class="SHNumber">0</span>,<span class="SHNumber">1</span>,<span class="SHNumber">2</span>,<span class="SHNumber">3</span>], <span class="SHNumber">0</span>, <span class="SHNumber">-1</span>] call fza_fnc_selectWithDefault<br /><span class="SHComment">//_ret =&gt; 0</span></pre><p>Below valid index</p><pre class="CCode">_ret = [[<span class="SHNumber">0</span>,<span class="SHNumber">1</span>,<span class="SHNumber">2</span>,<span class="SHNumber">3</span>], <span class="SHNumber">-2</span>, <span class="SHNumber">-1</span>] call fza_fnc_selectWithDefault<br /><span class="SHComment">//_ret =&gt; -1</span></pre><p>Above valid index</p><pre class="CCode">_ret = [[<span class="SHNumber">0</span>,<span class="SHNumber">1</span>,<span class="SHNumber">2</span>,<span class="SHNumber">3</span>], <span class="SHNumber">4</span>, <span class="SHNumber">-1</span>] call fza_fnc_selectWithDefault<br /><span class="SHComment">//_ret =&gt; -1</span></pre><p>Author: mattysmith22</p></div>
 </div>
