@@ -98,11 +98,13 @@ if (fza_ah64_sfmPlusKeyboardStickyPitch) then {
         _cyclicFwdAft         = [_cyclicFwdAft, _prevCyclicPitchValue] call fza_sfmplus_fnc_getInterpInput;
     } else {
         if (_cyclicFwdAft > 0.1) then {
-            _cyclicPitchValue = _cyclicPitchValue + (_keyboardTimeScalar * _deltaTime);
+            _cyclicPitchValue = _cyclicPitchValue + 0.01;
         };
         if (_cyclicFwdAft < -0.1) then {
-            _cyclicPitchValue = _cyclicPitchValue - (_keyboardTimeScalar * _deltaTime);
+            _cyclicPitchValue = _cyclicPitchValue - 0.01;
         };
+
+       //_cyclicPitcValue = 
 
         _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
         _heli setVariable ["fza_sfmplus_cyclicPitchValue",    [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
@@ -118,10 +120,10 @@ if (fza_ah64_sfmPlusKeyboardStickyRoll) then {
         _cyclicLeftRight     = [_cyclicLeftRight, _prevCyclicRollValue] call fza_sfmplus_fnc_getInterpInput;
     } else {
         if (_cyclicLeftRight > 0.1) then {
-            _cyclicRollValue = _cyclicRollValue + (_keyboardTimeScalar * _deltaTime);
+            _cyclicRollValue = _cyclicRollValue + 0.01;
         };
         if (_cyclicLeftRight < -0.1) then {
-            _cyclicRollValue = _cyclicRollValue - (_keyboardTimeScalar * _deltaTime);
+            _cyclicRollValue = _cyclicRollValue - 0.01;
         };
     
         _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
@@ -138,10 +140,10 @@ if (fza_ah64_sfmPlusKeyboardStickyYaw && !fza_ah64_sfmPlusAutoPedal) then {
         _pedalLeftRight    = [_pedalLeftRight, _prevPedalYawValue] call fza_sfmplus_fnc_getInterpInput;
     } else {
         if (_pedalLeftRight > 0.1) then {
-            _pedalYawValue = _pedalYawValue + (_keyboardTimeScalar * _deltaTime);
+            _pedalYawValue = _pedalYawValue + 0.01;
         };
         if (_pedalLeftRight < -0.1) then {
-            _pedalYawValue = _pedalYawValue - (_keyboardTimeScalar * _deltaTime);
+            _pedalYawValue = _pedalYawValue - 0.01;
         };
 
         _pedalLeftRight        = [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp;
@@ -158,7 +160,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     // KB Pedal Yaw         /////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////
     private _yawBreakoutVal = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-    if (_yawBreakoutVal < -0.05 || _yawBreakoutVal > 0.05) then {
+    if (_yawBreakoutVal < -0.01 || _yawBreakoutVal > 0.01) then {
         _yawBreakout = true;
     };
 
@@ -183,7 +185,7 @@ if (fza_ah64_sfmPlusAutoPedal) then {
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
         _desiredHdg       = getDir _heli;
         _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / fza_ah64_sfmPlusAutoPedalTimeScalar) * _deltaTime] call BIS_fnc_lerp;
-        _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
         _pedalLeftRight   = _kbPedalLeftRight;
 
         _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _kbPedalLeftRight];

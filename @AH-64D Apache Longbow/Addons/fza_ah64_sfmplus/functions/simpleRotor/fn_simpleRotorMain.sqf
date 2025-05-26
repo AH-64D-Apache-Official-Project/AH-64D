@@ -31,12 +31,16 @@ private _temperature            = _heli getVariable "fza_sfmplus_FAT";
 private _dryAirDensity          = _heli getVariable "fza_sfmplus_RHO";
 
 private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
+private _collToPitchOut         = _heli getVariable "fza_sfmplus_fmcCollectiveToPitch";
+private _yawToPitchOut          = _heli getVariable "fza_sfmplus_fmcYawToPitch";
 private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
-private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut;
+private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _collToPitchOut + _yawToPitchOut;
 
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
 private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
-private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut;
+private _collToRollOut          = _heli getVariable "fza_sfmplus_fmcCollectiveToRoll";
+private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
+private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
 
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
