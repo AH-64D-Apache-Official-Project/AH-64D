@@ -21,7 +21,7 @@ _heli setVariable ["fza_mpd_tsdShowAtkHazard", true];
 
 _heli setVariable ["fza_mpd_tsdWptCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdThrtCurrentSel", []];
-_heli setVariable ["fza_mpd_tsdRteCu rrentSel", []];
+_heli setVariable ["fza_mpd_tsdRteCurrentSel", []];
 _heli setVariable ["fza_mpd_tsdRteCurrentRvw", -1];
 
 _heli setVariable ["fza_ah64_routeSelected",          0, true];

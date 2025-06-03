@@ -22,13 +22,10 @@ class CfgFunctions
             class aeroStabilator {R;};
             class aeroWing {R;};
         };
-        class animation {
-            file = "\fza_ah64_sfmplus\functions\animation";
-            class probes {R;};
-        };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
             class coreConfig {R;};
+            class coreFixedUpdate {R;};
             class coreUpdate  {R;};
         };
         class damage {
@@ -42,6 +39,11 @@ class CfgFunctions
             class engineReset {R;};
             class engineVariables {R;};
         };
+        class environment {
+            file = "\fza_ah64_sfmplus\functions\environment";
+            class environment {R;};
+            class environmentVariables {R;};
+        };
         class fmc  {
             file = "\fza_ah64_sfmplus\functions\fmc";
             class fmc {R;};
@@ -49,6 +51,7 @@ class CfgFunctions
             class fmcAltitudeHold {R;};
             class fmcAltitudeHoldEnable {R;};
             class fmcAttitudeHoldEnable {R;};
+            class fmcControlMixing {R;};
             class fmcForceTrimSet {R;};
             class fmcHeadingHold {R;};
             class fmcHoldModesDisable {R;};
@@ -83,6 +86,12 @@ class CfgFunctions
             class quaternionMultiply {R;};
             class quaternionNormalize {R;};
         };
+        class mathSmoothAverage {
+            file = "\fza_ah64_sfmplus\functions\math\smoothAverage";
+            class smoothAverageAdd {R;};
+            class smoothAverageGet {R;};
+            class smoothAverageInit {R;};
+        };
         class performance {
             file = "\fza_ah64_sfmplus\functions\performance";
             class perfData {R;};
@@ -98,12 +107,20 @@ class CfgFunctions
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class calculateAeroValues {R;};
+            class centerTrimMode {R;};
+            class getAccelerations {R;};
             class getAltitude {R;};
+            class getConnectedAxes {R;};
+            class getDeltaTime {R;};
             class getInput {R;};
+            class getInterpInput {R;};
             class getRtrRPM {R;};
+            class getSmoothAverage {R;};
             class getVelocities {R;};
             class getwindDirVel {R;};
             class init {R;};
+            class isINF {R;};
+            class isNAN {R;};
             class onGround {R;};
         };
     };

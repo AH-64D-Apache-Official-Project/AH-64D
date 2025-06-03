@@ -16,7 +16,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_inputAxis", "_input", "_lagVal"];
+params ["_heli", "_inputAxis", "_input", "_lagVal"];
 #include "\fza_ah64_systems\headers\systems.hpp"
 
 private _priHydPumpDamage  = _heli getHitPointDamage "hit_hyd_pripump";
@@ -29,21 +29,21 @@ switch (_inputAxis) do {
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcPitchOn") then {
             _output = _input;
         } else {
-            _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
+            _output = [_heli, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
         };
     };
     case "roll" : {
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcRollOn") then {
             _output = _input;
         } else {
-            _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
+            _output = [_heli, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
         };
     };
     case "yaw" : {
         if (_priHydPumpDamage < SYS_HYD_DMG_THRESH && _heli getVariable "fza_ah64_fmcYawOn") then {
             _output = _input;
         } else {
-            _output = [_heli, _deltaTime, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
+            _output = [_heli, _inputAxis, _input, _lagVal] call fza_sfmplus_fnc_actuatorLag;
         };
     };
 };

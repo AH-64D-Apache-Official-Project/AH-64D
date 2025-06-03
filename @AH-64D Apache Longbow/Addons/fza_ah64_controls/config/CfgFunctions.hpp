@@ -13,6 +13,7 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\anim";
             class animSetValue {R;};
             class animReset {R;};
+            class probes {R;};
         };
         class avionics
         {
@@ -24,6 +25,7 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\core";
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
+            class coreFixedUpdateScheduler {R;};
             class coreGetObjectsLookedAt {R;};
             class coreGetWCAs {R;};
             class coreCockpitControlHandle {R;};

@@ -55,8 +55,8 @@ if (!(_heli getVariable ["fza_ah64_aircraftSystemsInitialised", false]) && local
 
 _heli setVariable ["fza_systems_apuStartDelay",     5.0];
 _heli setVariable ["fza_systems_apuFF_kgs",         0.0];
-_heli setVariable ["fza_systems_priHydPsi",         0.0];
-_heli setVariable ["fza_systems_utilHydPsi",        0.0];
+_heli setVariable ["fza_systems_priHydPsi",         1.0];
+_heli setVariable ["fza_systems_utilHydPsi",        1.0];
 _heli setVariable ["fza_systems_dmgTimerCont",      0.0];
 _heli setVariable ["fza_systems_dmgTimerTrans",     0.0];
 _heli setVariable ["fza_systems_accHydPsi",         0.0];

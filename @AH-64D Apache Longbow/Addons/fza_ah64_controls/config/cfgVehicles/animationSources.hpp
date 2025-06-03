@@ -4,8 +4,7 @@ class AnimationSources
     class fcr_enable
     {
         displayName = "Mount FCR (Fire Control Radar)";
-        author = "Apache mod development team";
-        onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
+        author = "AH-64D Development Team";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
@@ -38,7 +37,7 @@ class AnimationSources
     class msn_equip_british
     {
         displayName = "Mount British Mission Equipment";
-        author = "Apache mod development team";
+        author = "AH-64D Development Team";
         source = "user";
         forceAnimatePhase = 1;
         onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
@@ -55,8 +54,8 @@ class AnimationSources
     class magazine_set_1200
     {
         displayName = "Swap IAFS for 1200rnd magazine";
-        author = "Apache mod development team";
-        onPhaseChanged = "_this remoteExec [""fza_fnc_weaponSwapM230Mag"",_this # 0];";
+        author = "AH-64D Development Team";
+        onPhaseChanged = "_this call fza_fnc_weaponSwapM230Mag";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
@@ -411,7 +410,7 @@ class AnimationSources
     class pdoor
     {
         displayName = "Toggle Pilot door";
-        author = "Apache mod development team";
+        author = "AH-64D Development Team";
         source = "user";
         animPeriod = 1;
         initPhase=0;
@@ -419,7 +418,7 @@ class AnimationSources
     class gdoor
     {
         displayName = "Toggle Gunner door";
-        author = "Apache mod development team";
+        author = "AH-64D Development Team";
         source = "user";
         animPeriod = 1;
         initPhase=0;

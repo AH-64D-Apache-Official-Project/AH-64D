@@ -1,9 +1,16 @@
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
+private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
+//_pidRadAlt set ["kp", RAD_KP];
+//_pidRadAlt set ["ki", RAD_KI];
+//_pidRadAlt set ["kd", RAD_KD];
 private _pidBarAlt  = _heli getVariable "fza_sfmplus_pid_barHold";
-private _curVel     = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
+//_pidBarAlt set ["kp", BAR_KP];
+//_pidBarAlt set ["ki", BAR_KI];
+//_pidBarAlt set ["kd", BAR_KD];
 private _curAltAGL  = ASLToAGL getPosASL _heli # 2;
 private _subMode    = _heli getVariable "fza_ah64_altHoldSubMode";
 private _desiredAlt = _heli getVariable "fza_ah64_altHoldDesiredAlt";
@@ -28,15 +35,15 @@ if ( _heli getVariable "fza_ah64_altHoldActive") then {
     //hold and allow them to do so
     private _collRef_low = _collRef * 0.95;
     private _collRef_hi  = _collRef * 1.05;
-    if (fza_sfmplus_collectiveOutput >= _collRef_hi || fza_sfmplus_collectiveOutput <= _collRef_low) then {
+    if ((_heli getVariable "fza_sfmplus_collectiveOutput") >= _collRef_hi || (_heli getVariable "fza_sfmplus_collectiveOutput") <= _collRef_low) then {
         [_heli, "fza_ah64_altHoldActive", false] call fza_fnc_updateNetworkGlobal;
-        [_heli] call fza_audio_fnc_flightTone;
+        [_heli] spawn fza_audio_fnc_flightTone;
     };
 
     //If the helicopters radar altitude is < 1428ft (435.25m) and current velocity is < 40kts
     //then set the desired altitude to the current AGL altitude, otherwise set it to the
     //current ASL altitude.
-    if (_curAltAGL < RAD_ALT_MAX_ALT && _curVel < ALT_HOLD_SPEED_SWITCH) then {
+    if (_curAltAGL < RAD_ALT_MAX_ALT && _gndSpeed < ALT_HOLD_SPEED_SWITCH) then {
         [_heli, "fza_ah64_altHoldSubMode", "rad"] call fza_fnc_updateNetworkGlobal;
     } else {
         [_heli, "fza_ah64_altHoldSubMode", "bar"] call fza_fnc_updateNetworkGlobal;

@@ -19,51 +19,13 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
-#define SCALE_METERS_FEET 3.28084
 
-private _config  = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
+private _config    = configFile >> "CfgVehicles" >> typeof _heli >> "fza_sfmplus";
 private _curGWT_kg = _heli getVariable "fza_sfmplus_GWT";
+private _pa        = _heli getVariable "fza_sfmplus_PA";
+private _fat       = _heli getVariable "fza_sfmplus_FAT";
 
-private _baroAlt = getPosASL _heli # 2 * SCALE_METERS_FEET;
-private _baseAlt = 0.0;
-private _baseFAT = 0.0;
-switch (fza_ah64_sfmplusEnvironment) do {
-    case ISA_STD: {
-        _baseAlt = 0;
-        _baseFAT = 15.0;
-    };
-    case EUROPE_SUMMER: {
-        _baseAlt = 800;
-        _baseFAT = 20.0;
-    };
-    case EUROPE_WINTER: {
-        _baseAlt = 800;
-        _baseFAT = 0.0;
-    };
-    case MIDDLE_EAST: {
-        _baseAlt = 1800;
-        _baseFAT = 30.0;
-    };
-    case CENTRAL_ASIA_SUMMER: {
-        _baseAlt = 5000;
-        _baseFAT = 30.0;
-    };
-    case CENTRAL_ASIA_WINTER: {
-        _baseAlt = 5000;
-        _baseFAT = -5.0;
-    };
-    case ASIA: {
-        _baseAlt = 3100;
-        _baseFAT = 25.0;
-    };
-};
-
-private _pa      = round ((_baseAlt + _baroAlt) / 10) * 10; //PA  //feet
-_heli setVariable ["fza_sfmplus_PA", _pa];
-private _fat     = _baseFAT - round((_baroAlt / 1000) * 2); //FAT //deg C
-_heli setVariable ["fza_sfmplus_FAT", _fat];
-
-private _perfDataUpdatestr = str  round _curGWT_kg + str _pa + str _fat + str fza_ah64_sfmplusEnvironment;
+private _perfDataUpdatestr  = str  round _curGWT_kg + str _pa + str _fat + str fza_ah64_sfmplusEnvironment;
 private _perfDatacompareStr = _heli getVariable ["fza_sfmplus_perfDataChange", ""];
 if (_perfDataUpdatestr == _perfDatacompareStr) exitwith {};
 _heli setvariable ["fza_sfmplus_perfDataChange", _perfDataUpdatestr];

@@ -1,17 +1,5 @@
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
-
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)   //<-- needs wind enabled flag
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
 
 //Roll
 private _pidRoll      = _heli getVariable "fza_sfmplus_pid_roll";
@@ -36,19 +24,22 @@ private _pidPitch_att = _heli getVariable "fza_sfmplus_pid_pitch_att";
 //Position & Velocity hold
 private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
 
-(_velModelSpace)
+((_heli getVariable "fza_sfmplus_velModelSpaceNoWind"))
     params [
              "_velX"
            , "_velY"
            , "_velZ"
            ];
 
-(_angVelModelSpace)
+((_heli getVariable "fza_sfmplus_angVelModelSpace"))
     params [
              "_angVelX"
            , "_angVelY"
            , "_angVelZ"
            ];
+
+private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
+private _gndSpeed  = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 
 //Attitude hold
 private _curAtt   = _heli call BIS_fnc_getPitchBank;
@@ -58,19 +49,18 @@ private _curRoll  = _curAtt # 1;
 private _attHoldCycPitchOut = 0.0;
 private _attHoldCycRollOut  = 0.0;
 
-private _vel = vectorMagnitude [velocity _heli # 0, velocity _heli # 1];
 //Position hold
-if (_vel <= POS_HOLD_SPEED_SWITCH) then {
+if (_gndSpeed <= POS_HOLD_SPEED_SWITCH) then {
     [_heli, "fza_ah64_attHoldSubMode", "pos"] call fza_fnc_updateNetworkGlobal;
 };
 //Velocity hold
 //This needs to check if accelerating or decelerating...really it's
 //5 to 40 knots accelerating, 30 to 5 knots decelerating
-if (_vel > POS_HOLD_SPEED_SWITCH && _vel <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+if (_gndSpeed > POS_HOLD_SPEED_SWITCH && _gndSpeed <= VEL_HOLD_SPEED_SWITCH_ACCEL) then {
     [_heli, "fza_ah64_attHoldSubMode", "vel"] call fza_fnc_updateNetworkGlobal;
 };
 //Attitude hold
-if (_vel > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
+if (_gndSpeed > VEL_HOLD_SPEED_SWITCH_ACCEL) then {
     [_heli, "fza_ah64_attHoldSubMode", "att"] call fza_fnc_updateNetworkGlobal;
 };
 
@@ -90,9 +80,9 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
     if (_subMode == "vel") then {
         (_heli getVariable "fza_ah64_attHoldDesiredVel")
             params ["_setVelX", "_setVelY"];
-        private _roll  = [_pidRoll,  _deltaTime, _setVelX, _curVelX] call fza_fnc_pidRun;
+        private _roll  = [_pidRoll,  _deltaTime, _setVelX, -_velX] call fza_fnc_pidRun;
         _roll          = [_roll,  -1.0, 1.0] call BIS_fnc_clamp;
-        private _pitch = [_pidPitch, _deltaTime, _setVelY, _curVelY] call fza_fnc_pidRun;
+        private _pitch = [_pidPitch, _deltaTime, _setVelY, _velY] call fza_fnc_pidRun;
         _pitch         = [_pitch, -1.0, 1.0] call BIS_fnc_clamp;
 
         _attHoldCycPitchOut = _pitch;

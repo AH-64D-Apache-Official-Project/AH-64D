@@ -18,8 +18,12 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_altitude", "_temperature", "_dryAirDensity", "_attHoldCycPitchOut", "_attHoldCycRollOut", "_altHoldCollOut"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+
+if (!local _heli) exitWith {};
+
+private _deltaTime              = fza_ah64_fixedTimeStep;
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
@@ -36,23 +40,26 @@ private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 7.9341;  //deg
 private _bladeLiftCurveSlope    = 5.7;
 
-//Get the current collective value
-private _collectiveOut          = fza_sfmplus_collectiveOutput + _altHoldCollOut;
-//Gather velocities
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
+private _altitude               = _heli getVariable "fza_sfmplus_PA";
+private _temperature            = _heli getVariable "fza_sfmplus_FAT";
+private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
 
-private _velXY                  = vectorMagnitude [_velModelSpace # 0, _velModelSpace # 1];
-private _velZ                   = _velModelSpace # 2;
+private _attHoldCycPitchOut     = _heli getVariable "fza_sfmplus_fmcAttHoldCycPitchOut";
+private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
+private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut;
+
+private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
+private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
+private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut;
+
+private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
+private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
+
+//Get the current collective value
+private _collectiveOut          = (_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut;
+
+private _velXY                  = vectorMagnitude [(_heli getVariable "fza_sfmplus_velModelSpace") # 0, (_heli getVariable "fza_sfmplus_velModelSpace") # 1];
+private _velZ                   = (_heli getVariable "fza_sfmplus_velModelSpace") # 2;
 //Get the current gross weight
 private _curGWT_kg              = _heli getVariable "fza_sfmplus_GWT";
 
@@ -221,10 +228,10 @@ private _thrustZ             = _axisZ vectorMultiply (_thrust * _deltaTime);
 
 //Pitch torque
 private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
-private _torqueX             = ((_thrust * (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim + _attHoldCycPitchOut)) * _pitchTorqueScalar) * _deltaTime;
+private _torqueX             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicFwdAft") + _cyclicFwdAftTrim + _fmcPitchOut)) * _pitchTorqueScalar) * _deltaTime;
 //Roll torque
 private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
-private _torqueY             = ((_thrust * (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim + _attHoldCycRollOut)) * _rollTorqueScalar) * _deltaTime;
+private _torqueY             = ((_thrust * ((_heli getVariable "fza_sfmplus_cyclicLeftRight") + _cyclicLeftRightTrim + _fmcRollOut)) * _rollTorqueScalar) * _deltaTime;
 //Main rotor yaw torque
 private _torqueZ             = (_rtrTorque  * _yawTorqueScalar) * _deltaTime;
 
@@ -238,11 +245,7 @@ if (currentPilot _heli == player) then {
         private _torque = [0.0, 0.0, 0.0];
 
         //Main rotor torque
-        if (fza_ah64_sfmPlusControlScheme == HOTAS) then {
-            _torque = [_torqueX, _torqueY, _torqueZ];
-        } else {
-            _torque = [_torqueX, _torqueY, 0.0];
-        };
+        _torque = [_torqueX, _torqueY, _torqueZ];
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
@@ -328,5 +331,5 @@ hintsilent format ["v0.7 testing
                     \nInduced Vel Scalar = %8
                     \nGnd Eff Scalar = %9
                     \nStab = %10
-                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, fza_sfmplus_collectiveOutput, _heli call BIS_fnc_getPitchBank select 0];
+                    \nPitch = %11", _rtrOmega, _bladeTipVel, _rtrPowerReq * 0.001, _reqEngTorque, (_reqEngTorque / 2) / 481, (_reqEngTorque / 2) / 481, _velZ, _inducedVelocityScalar, _gndEffScalar, (_heli getVariable "fza_sfmplus_collectiveOutput"), _heli call BIS_fnc_getPitchBank select 0];
                     */

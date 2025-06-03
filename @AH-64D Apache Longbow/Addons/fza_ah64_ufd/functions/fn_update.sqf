@@ -47,6 +47,23 @@ if (_battBusOn || _dcBusOn) then {
     private _blankCaution  = "             "; //13
     private _blankAdvisory = "           ";   //11
 
+    //Engine Autopage
+    private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
+    private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
+    private _autoPageCheck = _heli getVariable ["fza_ah64_engineAutoPageCheck", []];
+    private _autoPageList = _warnings + _cautions;
+    private _autoPageEngine = false;
+    {if !(_x in _autoPageCheck) then {_autoPageEngine = true;};} forEach _autoPageList;
+    _heli setVariable ["fza_ah64_engineAutoPageCheck", _autoPageList];
+
+    if _autoPageEngine then {
+        if (_mpdLeft == "eng" || _mpdRight == "eng") exitwith {};
+        if (_mpdLeft == "flt") exitwith {
+            [_heli, 1, "eng"] call fza_mpd_fnc_setCurrentPage;
+        };
+        [_heli, 0, "eng"] call fza_mpd_fnc_setCurrentPage;
+    };
+
     for "_i" from 0 to 5 do {
         _heli setUserMFDText [MFD_TEXT_IND_UFDTEXT0 + _i, format["%1|%2|%3",
             if (count _warnings > _i) then {[_warnings # _i, _blankWarning, true] call fza_fnc_padString} else {_blankWarning},       

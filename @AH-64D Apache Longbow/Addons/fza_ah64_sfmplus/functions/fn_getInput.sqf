@@ -16,177 +16,288 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime", "_attHoldCycPitchOut", "_attHoldCycRollOut"];
+params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-private _config            = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
-private _configVehicles    = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel       = getText (_configVehicles>> "fza_flightModel");
-//private _pitchTorque       = getNumber (_config >> "cyclicPitchTorque");
-//private _rollTorque        = getNumber (_config >> "cyclicRollTorque");
-//private _yawTorque         = getNumber (_config >> "pedalYawTorque");
-private _inputLagValue     = getNumber (_config >> "inputLagValue");
-//private _rtrRPM            = [_heli] call fza_sfmplus_fnc_getRtrRPM;
+if (!(currentPilot _heli == player) || !(local _heli)) exitWith {};
 
-private _hydFailure        = false;
-private _tailRtrFixed      = false;
+private _paused             = isNull findDisplay 49;
+private _chatting           = isNull findDisplay 24;
+private _inDialog           = !dialog;
+private _isZeus             = isNull findDisplay 312;
+private _inMap              = !visibleMap;
+private _inInventory        = isNull findDisplay 602;
 
-private _collectiveVal     = _heli getVariable "fza_sfmplus_collectiveVal";
+private _isPlaying          = isGameFocused && _paused && _chatting && _inDialog && _isZeus && _inMap && _inInventory && !fza_ah64_lastFrameGetIn;
 
-private _priHydPumpDamage  = _heli getHitPointDamage "hit_hyd_pripump";
-private _priHydPSI         = _heli getVariable "fza_systems_priHydPsi";
+private _config             = configFile >> "CfgVehicles" >> typeof _heli >> "Fza_SfmPlus";
+private _configVehicles     = configFile >> "CfgVehicles" >> typeof _heli;
+private _inputLagValue      = getNumber (_config >> "inputLagValue");
 
-private _utilHydPumpDamage = _heli getHitPointDamage "hit_hyd_utilpump";
-private _utilHydPSI        = _heli getVariable "fza_systems_utilHydPsi";
-private _utilLevel_pct     = _heli getVariable "fza_systems_utilLevel_pct";
+private _hydFailure         = false;
+private _tailRtrFixed       = false;
 
-private _emerHydOn         = _heli getVariable "fza_ah64_emerHydOn";
-private _apuOn             = _heli getVariable "fza_systems_apuOn";
+private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 
-//Cyclic pitch
-private _cyclicFwdAft        = _heli animationSourcePhase "cyclicForward";
-_cyclicFwdAft                = [_heli, _deltaTime, "pitch", _cyclicFwdAft, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_cyclicFwdAft                = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
-//private _cyclicFwdAftTrim    = _heli getVariable "fza_ah64_forceTrimPosPitch";
+//Keyboard
+private _keyboardTimeScalar  = 1.0 / 3.00;
 
-//Cyclic roll
-private _cyclicLeftRight     = (_heli animationSourcePhase "cyclicAside") * -1.0;
-_cyclicLeftRight             = [_heli, _deltaTime, "roll", _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_cyclicLeftRight             = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-//private _cyclicLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosRoll";
+private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
+private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
+private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
+private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
+private _collectiveValue    = _heli getVariable "fza_sfmplus_collectiveValue";
 
-//Pedals
-private _pedalLeftRight      = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
-_pedalLeftRight              = [_heli, _deltaTime, "yaw", _pedalLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
-_pedalLeftRight              = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+private _kbYawSwitchVel     = 5.14444 * 2.4;  //10kts = 5.1444 m/s
+private _yawBreakout        = false;
+private _kbPedalLeftRight   = _heli getVariable "fza_sfmplus_kbPedalLeftRight";
 
-//Collective
-if (_flightModel == "SFMPlus") then {
-    private _collectiveOut = 0.0;
-    private _collectiveVal = _heli animationSourcePhase "collective";
+private _priHydPumpDamage   = _heli getHitPointDamage "hit_hyd_pripump";
+private _priHydPSI          = _heli getVariable "fza_systems_priHydPsi";
 
-    if (fza_ah64_sfmPlusKeyboardOnly) then {
-        _collectiveVal         = [_collectiveVal, 0.5, 1.0] call BIS_fnc_clamp;
-        _collectiveOut         = linearConversion[ 0.5, 1.0, _collectiveVal, 0.0, 2.0];
+private _utilHydPumpDamage  = _heli getHitPointDamage "hit_hyd_utilpump";
+private _utilHydPSI         = _heli getVariable "fza_systems_utilHydPsi";
+private _utilLevel_pct      = _heli getVariable "fza_systems_utilLevel_pct";
 
-        private _V_mps            = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
-        private _collectiveOutMod = linearConversion [0.00, 12.35, _V_mps, 0.775, 0.853, true];
+private _emerHydOn          = _heli getVariable "fza_ah64_emerHydOn";
+private _apuOn              = _heli getVariable "fza_systems_apuOn";
 
-        _collectiveOut = [_collectiveOut, 0.0, _collectiveOutMod] call BIS_fnc_clamp;
-    } else {
-        _collectiveOut = linearConversion[-1.0, 1.0, _collectiveVal, 0.0, 1.0];
-    };
-    fza_sfmplus_collectiveOutput = _collectiveOut;
-} else {
-    //Keyboard collective
-    private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
-    private _keyCollectiveDn = inputAction "HeliCollectiveLower";
-    //Joystick collective
-    private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
-    private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
+private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
+private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
+_cyclicFwdAft               = linearConversion [-_heliCyclicFwdOut, _heliCyclicBackOut, _cyclicFwdAft, -1.0, 1.0, true];
 
-    if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
-        _hydFailure = true;
-    };
+private _cyclicLeftRight    = _heli animationSourcePhase "cyclicAside";
+private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
+private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
+_cyclicLeftRight            = linearConversion [-_heliCyclicLeftOut, _heliCyclicRightOut, _cyclicLeftRight, 1.0, -1.0, true];
 
-    if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
-        _tailRtrFixed = true;
-    };
-    
-    private _paused   = isNull findDisplay 49;
-    private _chatting = isNull findDisplay 24;
-    private _inDialog = !dialog;
-    private _isZeus   = !isNull findDisplay 312;
+private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
+private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
+private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
+_pedalLeftRight             = linearConversion [-_heliRudderLeftOut, _heliRudderRightOut, _pedalLeftRight,  -1.0, 1.0, true];
 
-    if (!_hydFailure || _emerHydOn) then {
-        if (isNil "fza_sfmplus_collectiveOutput") then {
-            fza_sfmplus_collectiveOutput = 0;
-        };
+//systemChat format ["HeliCyclicForward = %1 -- HeliCyclicBack = %2", (inputAction "HeliCyclicForward"), (inputAction "HeliCyclicBack")];
+//systemChat format ["HeliRudderRight = %1 -- HeliRudderLeft = %2", (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
 
-        if (fza_ah64_sfmPlusKeyboardOnly) then {
-            if (_keyCollectiveUp > 0.1) then { _collectiveVal = _collectiveVal + ((1.0 / 3.0) * _deltaTime); };
-            if (_keyCollectiveDn > 0.1) then { _collectiveVal = _collectiveVal - ((1.0 / 3.0) * _deltaTime); };
-            _collectiveVal = [_collectiveVal, 0.0, 1.0] call bis_fnc_clamp;
-
-            private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
-
-            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
-                fza_sfmplus_collectiveOutput = _collectiveVal;
-            } else {
-                if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                    fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
-                };
-            };
-
-            fza_sfmplus_lastIsPlaying  = _isPlaying;
-            fza_sfmplus_prevCollective = _collectiveVal;
-        } else {
-            _collectiveVal = _joyCollectiveUp - _joyCollectiveDn;
-            _collectiveVal = [_collectiveVal, -1.0, 1.0] call BIS_fnc_clamp;
-            _collectiveVal = linearConversion[ -1.0, 1.0, _collectiveVal, 0.0, 1.0];
-
-            private _isPlaying  = _paused && _chatting && _inDialog && !_isZeus;
-
-            if (isNil "fza_sfmplus_prevCollective" || isNil "fza_sfmplus_lastIsPlaying") then {
-                fza_sfmplus_collectiveOutput = _collectiveVal;
-            } else {
-                if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                    fza_sfmplus_collectiveOutput = fza_sfmplus_prevCollective;
-                };
-            };
-
-            fza_sfmplus_lastIsPlaying  = _isPlaying;
-            fza_sfmplus_prevCollective = _collectiveVal;
-        };
-    };
-
-    _heli setVariable ["fza_sfmplus_collectiveVal", fza_sfmplus_collectiveOutput];
-
-    //Cyclic and Pedals 
-    if (!_isZeus && (!_hydFailure || _emerHydOn)) then {
-        if (fza_ah64_sfmPlusControlScheme == MOUSE) then {
-            fza_sfmplus_cyclicFwdAft       = _cyclicFwdAft    * fza_ah64_sfmPlusMouseSense;
-            fza_sfmplus_cyclicLeftRight    = _cyclicLeftRight * fza_ah64_sfmPlusMouseSense;
-        } else {
-            fza_sfmplus_cyclicFwdAft       = _cyclicFwdAft;
-            fza_sfmplus_cyclicLeftRight    = _cyclicLeftRight;
-        };
-        if (!_tailRtrFixed) then {
-            fza_sfmplus_pedalLeftRight = _pedalLeftRight;
-        };
-    } else {
-        fza_sfmplus_cyclicFwdAft     = 0.0;
-        fza_sfmplus_cyclicLeftRight  = 0.0;
-        fza_sfmplus_pedalLeftRight   = 0.0;
-        fza_sfmplus_collectiveOutput = fza_sfmplus_collectiveOutput;
-    };
-
-    //Cyclic pitch torque
-    //private _foreAftTorque   = (fza_sfmplus_cyclicFwdAft + _cyclicFwdAftTrim) * _pitchTorque;
-    //private _fmcPitchTorque  = (_attHoldCycPitchOut * (_pitchTorque * 0.20));
-    //_foreAftTorque           = (_foreAftTorque + _fmcPitchTorque) * _rtrRPM;
-
-    //Cyclic roll torque
-    //private _leftRightTorque = (fza_sfmplus_cyclicLeftRight + _cyclicLeftRightTrim) * _rollTorque;
-    //private _fmcRollTorque   = (_attHoldCycRollOut  * (_rollTorque  * 0.10));
-    //_leftRightTorque         = (_leftRightTorque + _fmcRollTorque) * _rtrRPM;
-
-    //Hydrualic power is provided by the APU turnign the accesory gearbox or by the transmission
-    //if (_apuOn || (_rtrRPM > SYS_HYD_MIN_RTR_RPM)) then {
-    //    //Primary and Utility Hydraulics
-    //    if (_priHydPumpDamage < SYS_HYD_DMG_THRESH || _utilHydPumpDamage < SYS_HYD_DMG_THRESH) then {
-    //        if (currentPilot _heli == player) then {
-    //            //_heli addTorque (_heli vectorModelToWorld[_foreAftTorque, _leftRightTorque, 0.0]);
-    //        };
-    //    };
-    //};
-
-    //Emergency Hydraulics
-    //if (_emerHydOn) then {
-    //    if (currentPilot _heli == player) then { 
-    //        //_heli addTorque (_heli vectorModelToWorld [_foreAftTorque, _leftRightTorque, 0.0]);
-    //    };
-    //};
+if (!_isPlaying) then {
+    _cyclicFwdAft      = 0.0;
+    _cyclicLeftRight   = 0.0;
 };
 
+//Cyclic Pitch
+if (fza_ah64_sfmPlusKeyboardStickyPitch) then {
+    private _cyclicPitchValue     = _heli getVariable "fza_sfmplus_cyclicPitchValue";
+    private _prevCyclicPitchValue = _heli getVariable "fza_sfmplus_prevCyclicPitchValue";
+
+    if (_kbStickyInterupt) then {
+        _cyclicFwdAft         = [_cyclicFwdAft, _prevCyclicPitchValue] call fza_sfmplus_fnc_getInterpInput;
+    } else {
+        if (_cyclicFwdAft > 0.1) then {
+            _cyclicPitchValue = _cyclicPitchValue + 0.01;
+        };
+        if (_cyclicFwdAft < -0.1) then {
+            _cyclicPitchValue = _cyclicPitchValue - 0.01;
+        };
+
+       //_cyclicPitcValue = 
+
+        _cyclicFwdAft         = [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_cyclicPitchValue",    [_cyclicPitchValue, -1.0, 1.0] call BIS_fnc_clamp];
+        _heli setVariable ["fza_sfmplus_prevCyclicPitchValue", _cyclicPitchValue];
+    };
+};
+//Cyclic Roll
+if (fza_ah64_sfmPlusKeyboardStickyRoll) then {
+    private _cyclicRollValue     = _heli getVariable "fza_sfmplus_cyclicRollValue";
+    private _prevCyclicRollValue = _heli getVariable "fza_sfmplus_prevCyclicRollValue";
+
+    if (_kbStickyInterupt) then {
+        _cyclicLeftRight     = [_cyclicLeftRight, _prevCyclicRollValue] call fza_sfmplus_fnc_getInterpInput;
+    } else {
+        if (_cyclicLeftRight > 0.1) then {
+            _cyclicRollValue = _cyclicRollValue + 0.01;
+        };
+        if (_cyclicLeftRight < -0.1) then {
+            _cyclicRollValue = _cyclicRollValue - 0.01;
+        };
+    
+        _cyclicLeftRight     = [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_cyclicRollValue",    [_cyclicRollValue, -1.0, 1.0] call BIS_fnc_clamp];
+        _heli setVariable ["fza_sfmplus_prevCyclicRollValue", _cyclicRollValue];
+    };
+};
+//Pedal yaw
+if (fza_ah64_sfmPlusKeyboardStickyYaw && !fza_ah64_sfmPlusAutoPedal) then {
+    private _pedalYawValue     = _heli getVariable "fza_sfmplus_pedalYawValue";
+    private _prevPedalYawValue = _heli getVariable "fza_sfmplus_prevPedalYawValue";
+
+    if (_kbStickyInterupt) then {
+        _pedalLeftRight    = [_pedalLeftRight, _prevPedalYawValue] call fza_sfmplus_fnc_getInterpInput;
+    } else {
+        if (_pedalLeftRight > 0.1) then {
+            _pedalYawValue = _pedalYawValue + 0.01;
+        };
+        if (_pedalLeftRight < -0.1) then {
+            _pedalYawValue = _pedalYawValue - 0.01;
+        };
+
+        _pedalLeftRight        = [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_pedalYawValue", [_pedalYawValue, -1.0, 1.0] call BIS_fnc_clamp];
+        _heli setVariable ["fza_sfmplus_prevPedalYawValue", _pedalYawValue];
+    };
+};
+/////////////////////////////////////////////////////////////////////////////////////////////
+// KB Auto Pedal        /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+if (fza_ah64_sfmPlusAutoPedal) then {
+    private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    // KB Pedal Yaw         /////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////
+    private _yawBreakoutVal = (inputAction "HeliRudderRight") - (inputAction "HeliRudderLeft");
+    if (_yawBreakoutVal < -0.01 || _yawBreakoutVal > 0.01) then {
+        _yawBreakout = true;
+    };
+
+    private _pidAutoPedalHdg = _heli getVariable "fza_sfmplus_pid_autoPedalHdg";
+    //_pidAutoPedalHdg set ["kp", APH_KP];
+    //_pidAutoPedalHdg set ["ki", APH_KI];
+    //_pidAutoPedalHdg set ["kd", APH_KD];
+    private _pidAutoPedalSlip = _heli getVariable "fza_sfmplus_pid_autoPedalSlip";
+    //_pidAutoPedalSlip set ["kp", APS_KP];
+    //_pidAutoPedalSlip set ["ki", APS_KI];
+    //_pidAutoPedalSlip set ["kd", APS_KD];
+
+    private _hdgOut        = 0.0;
+    private _sideslipOut   = 0.0;
+    private _yawOutput     = 0.0;
+    private _curHdg        = getDir _heli;
+    private _desiredHdg    = _heli getVariable "fza_sfmPlus_autoPedalHdg";
+    private _hdgError      = 0.0;
+    private _desiredSlip   = 0.0;
+    private _sideslipError = 0.0;
+
+    if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
+        _desiredHdg       = getDir _heli;
+        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / fza_ah64_sfmPlusAutoPedalTimeScalar) * _deltaTime] call BIS_fnc_lerp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
+        _pedalLeftRight   = _kbPedalLeftRight;
+
+        _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _kbPedalLeftRight];
+        _heli setVariable ["fza_sfmPlus_autoPedalHdg",     _desiredHdg, true];
+    } else {
+        _heli setVariable ["fza_sfmplus_kbPedalLeftRight", 0.0];
+    };
+
+    //systemChat format ["_desiredHdg = %1 -- _curHdg = %2 -- _yawBreakout = %3", _desiredHdg toFixed 2, _curHdg toFixed 2, _yawBreakout]; 
+    _hdgError       = [_curHdg - _desiredHdg] call CBA_fnc_simplifyAngle180;
+    _hdgOut         = [_pidAutoPedalHdg,  _deltaTime, 0.0, _hdgError] call fza_fnc_pidRun;
+    _sideslipError  = [_desiredSlip -fza_ah64_sideslip] call CBA_fnc_simplifyAngle180;
+    _sideslipOut    = [_pidAutoPedalSlip, _deltaTime, 0.0, _sideslipError] call fza_fnc_pidRun;
+    _yawOutput      = linearConversion[0.0, _kbYawSwitchVel, _gndSpeed, _hdgOut, _sideslipOut, true];
+    _yawOutput      = [_yawOutput, -1.0, 1.0] call BIS_fnc_clamp;
+
+    if (_yawBreakout) then {
+        [_pidAutoPedalHdg]  call fza_fnc_pidReset;
+        [_pidAutoPedalSlip] call fza_fnc_pidReset;
+    } else {
+        _heli setVariable ["fza_ah64_forceTrimPosPedal", _yawOutput, true];
+    };
+};
+
+if (_fltControlLockout) then {
+    if (
+        (_cyclicFwdAft    < CENTER_TRIM_VAL && _cyclicFwdAft    > -CENTER_TRIM_VAL) &&
+        (_cyclicLeftRight < CENTER_TRIM_VAL && _cyclicLeftRight > -CENTER_TRIM_VAL) &&
+        (_pedalLeftRight  < CENTER_TRIM_VAL && _pedalLeftRight  > -CENTER_TRIM_VAL)
+       ) then {
+            _heli setVariable ["fza_sfmplus_flightControlLockOut", false];
+       };
+       if (fza_sfmplus_cyclicCenterTrimMode) then {
+            _cyclicFwdAft    = 0.0;
+            _cyclicLeftRight = 0.0;
+       };
+
+       if (fza_sfmplus_pedalCenterTrimMode) then {
+            _pedalLeftRight  = 0.0;
+       };
+};
+_cyclicFwdAft    = [_heli, "pitch", _cyclicFwdAft,    _inputLagValue] call fza_sfmplus_fnc_actuator;
+_cyclicLeftRight = [_heli, "roll",  _cyclicLeftRight, _inputLagValue] call fza_sfmplus_fnc_actuator;
+_pedalLeftRight  = [_heli, "yaw",   _pedalLeftRight,  _inputLagValue] call fza_sfmplus_fnc_actuator;
+
+//systemChat format ["_cyclicFwdAft = %1 -- _cyclicLeftRight = %2 -- _pedalLeftRight = %3", _cyclicFwdAft, _cyclicLeftRight, _pedalLeftRight];
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Collective           /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Keyboard collective
+private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
+private _keyCollectiveDn = inputAction "HeliCollectiveLower";
+//Joystick collective
+private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
+private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+
+if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
+    _hydFailure = true;
+};
+
+if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
+    _tailRtrFixed = true;
+};
+
+if (!_hydFailure || _emerHydOn) then {
+    if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) then {
+        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 4.0) * _deltaTime); };
+        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 4.0) * _deltaTime); };
+        _collectiveOutput = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
+    } else {
+        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
+        private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
+        private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
+        _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
+
+        if (isNil "fza_sfmplus_lastIsPlaying") then {
+            _collectiveOutput     = _collectiveValue;
+        } else {
+            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
+                _collectiveOutput = _collectivePrevious;
+            };
+        };
+
+        fza_sfmplus_lastIsPlaying = _isPlaying;
+        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
+    };
+
+};
+_heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
+_heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
+/////////////////////////////////////////////////////////////////////////////////////////////
+// Cyclic and Pedals    /////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////
+if (_isZeus && (!_hydFailure || _emerHydOn)) then {
+    if (fza_ah64_sfmPlusMouseAsJoystick) then {
+        _heli setVariable ["fza_sfmplus_cyclicFwdAft",    _cyclicFwdAft    * fza_ah64_sfmPlusMouseSense];
+        _heli setVariable ["fza_sfmplus_cyclicLeftRight", _cyclicLeftRight * fza_ah64_sfmPlusMouseSense];
+    } else {
+        _heli setVariable ["fza_sfmplus_cyclicFwdAft",    _cyclicFwdAft];
+        _heli setVariable ["fza_sfmplus_cyclicLeftRight", _cyclicLeftRight];
+    };
+    if (!_tailRtrFixed) then {
+        _heli setVariable ["fza_sfmplus_pedalLeftRight", _pedalLeftRight];
+    };
+} else {
+    _heli setVariable ["fza_sfmplus_cyclicFwdAft",     0.0];
+    _heli setVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
+    _heli setVariable ["fza_sfmplus_pedalLeftRight",   0.0];
+    _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveOutput];
+};
+
+if (fza_ah64_lastFrameGetIn) then {
+    fza_ah64_lastFrameGetIn = false;
+};

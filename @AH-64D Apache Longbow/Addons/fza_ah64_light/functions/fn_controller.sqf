@@ -19,8 +19,6 @@ Author:
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params["_heli"];
 
-ace_map_vehicleLightCondition = {isLightOn [_vehicle, [0]]}; 
-
 private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
 private _acBusOn      = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn      = _heli getVariable "fza_systems_dcBusOn";
@@ -72,4 +70,13 @@ if !_powerOnState then {
     if (!_anticollval && _anticollanim) then {
         _heli setCollisionLight true;
     };
+    if (_anticollval && !_anticollanim) then {
+        _heli setCollisionLight false;
+    };
 };
+
+private _turret = _heli call fza_fnc_currentTurret;
+private _aceMapLighting = false;
+if (_turret isEqualTo [-1] && _pltFloodOn == 1) then {_aceMapLighting = true;};
+if (_turret isEqualTo [0] && _cpgFloodOn == 1) then {_aceMapLighting = true;};
+ace_map_vehicleLightCondition = _aceMapLighting;

@@ -103,8 +103,10 @@ if !(_heli getvariable "fza_ah64_LmcActive") then {
 
 //PNVS HDU
 if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
-    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)") then {
-        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "#(argb,512,512,1)r2t(fza_ah64_pnvscam2,1)";
+    private _aspect = getResolution#4;
+    private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
+    if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
+        ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText _pnvsTexture;
     };
     if (_pnvsSensor >= SYS_SIGHT_DMG_THRESH) exitwith {
         ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetTextColor [0,0,0,0];
@@ -121,7 +123,7 @@ if (isNil "_initialized") then {
     _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
 
-    for "_i" from 121 to 206 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
     missionNamespace setVariable ["fza_ah64_raddisp", true];
@@ -163,26 +165,37 @@ if !_powerOnState then {
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    if !(isNil "_a3ti_vis") then {
-        if !(isNil "fza_ah64_bweff") then {
-            fza_ah64_bweff ppEffectEnable false;
+    if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
+        fza_ah64_flirResolutionEffect ppEffectEnable true;
+        fza_ah64_monoChromeEffect ppEffectEnable false;
+        fza_ah64_dvoEffect ppEffectEnable false;
+        fza_ah64_chromAberrationEffect ppEffectEnable false;
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+            fza_ah64_flirResolutionEffect ppEffectAdjust [180];
+            fza_ah64_flirResolutionEffect ppEffectCommit 0;
+        } else {
+            fza_ah64_flirResolutionEffect ppEffectAdjust [360];
+            fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
     } else {
-        if !(isNil "fza_ah64_bweff") exitwith {
-            fza_ah64_bweff ppEffectEnable true;
+        fza_ah64_flirResolutionEffect ppEffectEnable false;
+        if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+            fza_ah64_dvoEffect ppEffectEnable false;
+            fza_ah64_monoChromeEffect ppEffectEnable true;
+            fza_ah64_chromAberrationEffect ppEffectEnable true;
         };
-        fza_ah64_bweff = ppEffectCreate["colorCorrections", 4000];
-        fza_ah64_bweff ppEffectAdjust[1, 1, 0, [0, 0, 0, 0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]; //MONOCHROME TADS EXP
-        fza_ah64_bweff ppEffectCommit 0;
-        fza_ah64_bweff ppEffectEnable true;
+        if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+            fza_ah64_dvoEffect ppEffectEnable true;
+            fza_ah64_monoChromeEffect ppEffectEnable false;
+            fza_ah64_chromAberrationEffect ppEffectEnable true;
+        };
     };
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 803) ctrlSetText (_channel + " " + str _lsrcode) ; // LRFD code
     
     //COLOR SET THESE
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitwith {};
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
@@ -207,6 +220,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 186) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 129) ctrlSetTextColor[0, 0, 0, 0];
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 188) ctrlSetTextColor[0, 0, 0, 0]; //HIDING BAROALT FT
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetTextColor[0, 0, 0, 0]; //Hide Acceleration Cue
 
     //LASER SYMBOLOGY FOR GUNNER
     if !(isNull laserTarget _heli) then {
@@ -221,20 +235,23 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     };
 
     //TADS DTV/FLIR Fail
-    if (_Visionmode == 0 && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [0,3] && _dtvDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
     };
-    if (_Visionmode != 0 && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
+    if (_Visionmode in [1,2] && _flirDamage >= SYS_SIGHT_DMG_THRESH || !_acBusOn) then {
         _setDeadOptics = true;
         _heli disableTIEquipment true;
     } else {
         _heli disableTIEquipment false;
     };
 } else {
-    fza_ah64_bweff ppEffectEnable false;
-    fza_ah64_gweff ppEffectEnable false;
+    fza_ah64_monoChromeEffect ppEffectEnable false;
+    fza_ah64_blackScreenEffect ppEffectEnable false;
+    fza_ah64_dvoEffect ppEffectEnable false;
+    fza_ah64_chromAberrationEffect ppEffectEnable false;
+    fza_ah64_flirResolutionEffect ppEffectEnable false;
 
-    for "_i" from 121 to 207 do {
+    for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
@@ -259,17 +276,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 206) ctrlSetTextColor[0, 0, 0, 0];
 };
 
-if _setDeadOptics then {
-    if !(isNil "fza_ah64_gweff") exitwith {
-        fza_ah64_gweff ppEffectEnable true;
-    };
-    fza_ah64_gweff = ppEffectCreate ["colorCorrections",1498];
-    fza_ah64_gweff ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-    fza_ah64_gweff ppEffectCommit 0;
-    fza_ah64_gweff ppEffectEnable true;
-} else {
-    fza_ah64_gweff ppEffectEnable false;
-};
+fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 
 if !_acBusOn then {
     [_heli] call fza_fnc_laserDisarm;
@@ -288,7 +295,7 @@ _autohide = {
 
 };
 
-_gspdcode = format["%1", round _gndSpeed] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
+_gspdcode = format["%1", round (_heli getVariable "fza_sfmplus_gndSpeed")] + "    " + format["%1:%2%3", fza_ah64_wptimhr, fza_ah64_wptimtm, fza_ah64_wptimsm];
 
 private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
 private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
@@ -358,34 +365,24 @@ _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
 };
-
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
-_speedkts = format["%1", _vel3D];
+_speedkts = format["%1", (_heli getVariable "fza_sfmplus_vel2D")];
 
 ([_heli] call fza_sfmplus_fnc_getAltitude)
     params ["_barAlt", "_radAlt"];
 _baraltft = format["%1",  _barAlt toFixed 0];
-_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt > 1428)];
+_radaltft = format["%1", [_radAlt toFixed 0, ""] select (_radAlt == 1420)];
 
-private _fcrLastScan = _heli getVariable "fza_ah64_fcrLastScan";
-if !isNil {_fcrLastScan # 0} then {
-    _fcrhdg = _fcrLastScan # 0;
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+if !isNil "_dir" then {
+    _fcrhdg = _dir;
     _fcrDir = [_fcrhdg - direction _heli] call CBA_fnc_simplifyAngle180;
     _fcrantennafor = linearConversion [-120,120,_fcrDir,0.44,0.56,true];
 };
-_sensorposx = (_heli animationphase "tads_tur") * -0.025;
-_sensorposy = (_heli animationphase "tads") * -0.015;
+private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+_sensorposx = rad(_tadsAzimuth * 0.025);
+_sensorposy = rad(_tadsElevation * -0.015);
 if (_sensorposy < 0) then {
     _sensorposy = (_heli animationphase "tads") * -0.026;
 };
@@ -396,8 +393,8 @@ if !(_heli animationPhase "fcr_enable" == 1) then {
 
 //Flight Path Vector
 private _fpv = [-100,-100];
-if (_vel3D > 5) then {
-    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd velocity _heli);
+if ((_heli getVariable "fza_sfmplus_vel3D") > 5) then {
+    _fpv = worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind"));
     if (_fpv isEqualTo []) then {
         _fpv = [-100,-100];
     }
@@ -495,21 +492,11 @@ if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
 
 //VISION MODE CPG HEADSDOWN
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    private _visionTxt = "";
-
-    if (isNil "_a3ti_vis") then {
-        if (currentVisionMode player == 0) then {
-            _visionTxt = "DTV";
-        } else {
-            _visionTxt = "FLIR";
-        };
-    } else {
-        //_visionTxt = _a3ti_vis;
-        _visionTxt = "FLIR";
-    };
+    private _visionTxt = "FLIR";
+    if (_Visionmode == 0) then {_visionTxt = "DTV";};
+    if (_Visionmode == 3) then {_visionTxt = "DVO";};
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _visionTxt
-
 } else {
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlSetText _collective + "%";
 };
@@ -546,6 +533,57 @@ if (_headTrackerPos isEqualTo []) then {
     _headTrackerPos = ([-0.019225, -0.025] vectorAdd _headTrackerPos) call fza_fnc_compensateSafezone;
 };
 
+//Acceleration Cue
+private _accelCueX       = 0.0; 
+private _accelCueY       = 0.0; 
+private _accelCueScalar  = 1.0;
+private _accelCueXOrigin = 0.481; 
+private _accelCueYOrigin = 0.476;
+private _accelCueWidth   = 0.336 * 0.86; 
+private _accelCueHeight  = 0.336 * 1.10;
+private _velX   = 0.0; 
+private _velY   = 0.0;
+private _accelX = 0.0; 
+private _accelY = 0.0;
+
+if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 3.08667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 3.08667;
+};
+
+if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
+    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 30.8667;
+    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 30.8667;
+};
+_velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
+_velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
+
+if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
+    _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 12.0;
+    _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
+
+    _accelY    = (_heli getVariable "fza_sfmplus_accelY") / 12.0;
+    _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
+
+    private _accelScaling = 0.168;
+    if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+        if ((_heli getVariable "fza_sfmplus_gndSpeed") <= 6) then {
+            _accelCueX =  _velX + _accelX;
+            _accelCueY = -_velY - _accelY;
+        } else {
+            _accelCueX = _accelX;
+            _accelCueY = _accelY;
+        };
+    } else {
+        _accelCueX =  _velX + _accelX;
+        _accelCueY = -_velY - _accelY;
+    };
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlSetPosition
+        [ [_accelCueXOrigin + _accelCueX * _accelScaling, _accelCueXOrigin - (_accelCueWidth / 2.0), _accelCueYOrigin + (_accelCueWidth / 2.0)] call BIS_fnc_clamp
+        , [_accelCueYOrigin + _accelCueY * _accelScaling, _accelCueYOrigin - (_accelCueHeight / 2.0), _accelCueYOrigin + (_accelCueHeight / 2.0)] call BIS_fnc_clamp];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 300) ctrlCommit 0;
+};
+//End Acceleration Cue
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlSetPosition (_headTrackerPos);
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 182) ctrlCommit 0;
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 183) ctrlSetPosition[_fcrantennafor, 0.72];
@@ -563,7 +601,7 @@ if (_radalt > 0.26) then {
 };
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlSetPosition[0.709, (0.6321 - _radalt), 0.01, _radalt];
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 136) ctrlCommit 0;
-_fpm = (velocity _heli select 2) * 0.0255;
+_fpm = ((_heli getVariable "fza_sfmplus_velWorldSpace") select 2) * 0.0255;
 _fpm = [_fpm, -0.13, 0.13] call BIS_fnc_clamp;
 
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 135) ctrlSetPosition[0.678, 0.49 - _fpm];
@@ -630,13 +668,12 @@ if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza
 };
 
 // CAMERA HEADINGS FOR GUNNER
-
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    _tadsdir = (deg(_heli animationphase "tads_tur") * -1);
+    _tadsdir = _tadsAzimuth;
     _curwpdir = _tadsdir;
 };
-private _alternatesensorpan = (if (player == gunner _heli) then {(_heli animationPhase "pnvs")*120} else {-deg (_heli animationSourcePhase "tads_tur")}); 
-private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (_heli animationPhase "pnvs_vert"), -45, 20]} else {deg (_heli animationSourcePhase "tads")}; 
+private _alternatesensorpan = if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth}; 
+private _alternatesensortilt = if (player == gunner _heli) then {linearConversion [-1, 1, (deg(_heli animationPhase "pnvs_vert")), -45, 20]} else {_tadsElevation}; 
 
 private _modelAlternateSensorVect = [sin _alternatesensorpan, cos _alternatesensorpan, sin _alternatesensortilt];
 private _worldAlternateSensorVect = (_heli modelToWorld _modelAlternateSensorVect) vectorDiff (_heli modelToWorld [0,0,0]);
@@ -671,7 +708,7 @@ for "_i" from 0 to 35 do {
 
 [(uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 207, _alternatesensordir, -0.0075, 0.31, true] call _drawHeading;
 
-if (_fcrhdg < -180 || _fcrhdg > 180) then {
+if (_fcrhdg > 360) then {
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlSetPosition [-100, -100];
     (uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 137 ctrlCommit 0;
 } else {

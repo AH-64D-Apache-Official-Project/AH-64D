@@ -33,7 +33,10 @@ class UserActionsConflictGroups{
             fza_ah64_tadsLHGFov_Z,
             fza_ah64_SensorSelect_FLIR,
             fza_ah64_SensorSelect_DTV,
-            fza_ah64_tadsLHGLmc
+            fza_ah64_SensorSelect_DVO,
+            fza_ah64_tadsLHGLmc,
+            fza_ah64_stickyControlInterupt,
+            fza_ah64_forceTrimPanicButton
         };
     };
 };

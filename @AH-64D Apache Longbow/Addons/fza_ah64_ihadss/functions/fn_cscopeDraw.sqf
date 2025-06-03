@@ -23,24 +23,24 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _wasState           = _heli getVariable "fza_ah64_was";
-private _fcrTargets         = _heli getVariable "fza_ah64_fcrTargets";
-private _lastScanInfo       = _heli getVariable "fza_ah64_fcrLastScan";
-private _CscopeCount        = 0;
+private _wasState       = _heli getVariable "fza_ah64_was";
+private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
+private _cScopeCount    = 0;
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
 
 {
-    if (_CscopeCount > 15) exitwith {};
+    if (_cScopeCount > 15) exitwith {};
     if !(_heli getVariable "fza_ah64_fcrcscope") exitwith {
-        _GuiPos = [-100, -100];
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition _GuiPos;
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+        _guiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition _guiPos;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
     };
 
-    _x params ["_pos", "_type", "_moving", "_obj"];
-    private _distance_m          = _lastScanInfo #1 distance2d _pos;
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    private _distance_m          = _scanPos distance2d _pos;
     private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
     private _unitStatus          = ""; //loal, lobl, move
-    private _GuiPos              = worldtoscreen asltoagl _pos;
+    private _guiPos              = worldtoscreen asltoagl _pos;
 
     //Unit type
     switch (_type) do {
@@ -84,19 +84,68 @@ private _CscopeCount        = 0;
 
     private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\%1%2_ca.paa", _unitType, _unitStatus];
     
-    if (count _GuiPos < 1) then {
-        _GuiPos = [-100, -100];
+    if (count _guiPos < 1) then {
+        _guiPos = [-100, -100];
     };
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetText _tex;
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlSetPosition ([(_GuiPos select 0)-0.036,(_GuiPos select 1)-0.054] call fza_fnc_compensateSafezone);
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_CscopeCount + 190)) ctrlCommit 0;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetText _tex;
+    private _position = [(_GuiPos select 0)-0.03,(_GuiPos select 1)-0.05] call fza_fnc_compensateSafezone;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_cScopeCount + 190)) ctrlCommit 0;
 
-    _CscopeCount = _CscopeCount + 1;
-} forEach (_heli getVariable "fza_ah64_fcrTargets");
+    _cScopeCount = _cScopeCount + 1;
+} forEach _fcrTargets;
 
-for "_i" from _CscopeCount to 15 do
+for "_i" from _cScopeCount to 15 do
 {
-    _GuiPos = [-100, -100];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_GuiPos call fza_fnc_compensateSafezone);
+    _guiPos = [-100, -100];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl (_i + 190)) ctrlCommit 0;
+};
+
+
+private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
+private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
+private _fcrcount = count _fcrTargets;
+private _antsIndex = -1;
+if (_fcrcount > 1 && _ntsIndex != -1) then {
+    _antsIndex = (_ntsIndex + 1) mod (_fcrcount min 16);
+};
+
+if (_heli getVariable "fza_ah64_fcrcscope") then {
+    if (_ntsIndex != -1) then {
+        private _guiPos = [-100, -100];
+        private _ntsPos = _fcrTargets # _ntsIndex # 0;
+        if (!isNil "_ntsPos") then {_guiPos = worldtoscreen asltoagl _ntsPos;};
+        if (count _guiPos < 1) then {_guiPos = [-100, -100];};
+        private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\nts%1_ca.paa", (["", "_noMsl"] select ((_heli getVariable "fza_ah64_was") == WAS_WEAPON_NONE))];
+        private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
+
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+    } else {
+        private _guiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+    };
+
+    if (_antsIndex != -1) then {
+        private _guiPos = [-100, -100];
+        private _antsPos = _fcrTargets # _antsIndex # 0;
+        if (!isNil "_antsPos") then {_guiPos = worldtoscreen asltoagl _antsPos;};
+        if (count _guiPos < 1) then {_guiPos = [-100, -100];};
+        private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition ([_position#0, _position#1, 0.0576, 0.0768]);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+    } else {
+        private _guiPos = [-100, -100];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
+    };
+} else {
+    private _guiPos = [-100, -100];
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlCommit 0;
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlSetPosition (_guiPos call fza_fnc_compensateSafezone);
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 209) ctrlCommit 0;
 };

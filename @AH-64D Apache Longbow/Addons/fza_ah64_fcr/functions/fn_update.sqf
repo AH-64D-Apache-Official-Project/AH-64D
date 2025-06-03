@@ -1,17 +1,17 @@
 /*----------------------------------------------------------------------------
-Function: fza_fcr_fnc_update
+Function: fza_fcr_fnc_update;
 
 Description:
-    cycle the targeting system to the next FCR target
+    preprocess a snapshot of the FCR Final Scan for later post proccessing
 
 Parameters:
-    _heli - the heli to act upon
+    _heli
 
 Returns:
     Nothing
     
 Examples:
-    [_heli] call fza_fcr_fnc_cycleNTS;
+    [_heli] call fza_fcr_fnc_update;
 
 Author:
     BradMick, Snow(Dryden)
@@ -27,6 +27,7 @@ private _fcrDamage   = _heli getHitPointDamage "hit_msnequip_fcr";
 private _fcrMode     = _heli Getvariable "fza_ah64_fcrMode";
 private _fcrTracks   = getSensorTargets _heli;
 private _fcrTargets  = [];
+private _displayLife = 1;
 
 {
     _x params ["_target", "_type", "_relationship", "_sensor"];
@@ -35,21 +36,20 @@ private _fcrTargets  = [];
     private _range       = _heli distance2d _target;
     private _heliPos     = getposasl _heli;
     private _targetpos   = getposasl _target;
-    private _targetSpeed = speed _target;
+    private _targetSpeed = vectorMagnitude velocity _target;
 
     if (!("activeradar" in _sensor) || _heli getHit "radar" > 0.9) then { continue; };
     if (_range <= FCR_LIMIT_MIN_RANGE) then { continue; };
     if !(_range < FCR_LIMIT_STATIONARY_RANGE ||
-       _targetspeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
+    _targetspeed > FCR_LIMIT_MOVING_MIN_SPEED_KMH && _range < FCR_LIMIT_MOVING_RANGE) 
         then { continue; };
     if (count _fcrTargets > 256) exitwith {};
 
     _targDir = _heliPos vectorFromTo _targetpos;
     _zdist = _targDir vectorDotProduct vectorDir _heli;
     _ydist = _targDir vectorDotProduct vectorUp _heli;
-    _xdist = sqrt (1 - _ydist^2 - _zdist^2);
     _elevAngle = _ydist atan2 _zdist;
-    _aziAngle = _xdist atan2 _zdist;
+    _aziAngle = ([_heli getRelDir _target] call CBA_fnc_simplifyAngle180);
 
     //Elevation
     if (_elevAngle > 25 && _fcrMode == 1) then {continue;};
@@ -66,29 +66,29 @@ private _fcrTargets  = [];
     if (_target isKindOf "plane")      then { _type = FCR_TYPE_FLYER; };
     if ([_target] call fza_fnc_targetIsADA) then { _type = FCR_TYPE_ADU; };
 
-    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _fcrMode == 2) then {continue;};
-    if ((vectorMagnitude velocityModelSpace _target) < 5 && _fcrMode == 2) then {continue;};
+    if ((_type != FCR_TYPE_FLYER && _type != FCR_TYPE_HELICOPTER) && _targetSpeed < 5 && _fcrMode == 2) then {continue;};
     
     private _moving = (_targetSpeed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH);
-    if (_speed < 1) then {_speed = 0};
-    _fcrTargets pushBack [getPosAsl _target, _type, _moving, _target];
+    _fcrTargets pushBack [[round (_targetpos#0),round (_targetpos#1),round (_targetpos#2)], _type, _moving, _target, [_aziAngle, 1] call BIS_fnc_cutDecimals, [_elevAngle, 1] call BIS_fnc_cutDecimals, _range, _displayLife];
 } foreach _fcrTracks;
+ 
 
-_fcrTargets = [_fcrTargets, [], {_x # 1}, "DESCEND"] call BIS_fnc_sortBy;
-
-private _oldNts = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _newNtsIndex = _fcrTargets findIf {_x # 3 == _oldNts};
-if (_newNtsIndex == -1) then {
-    if (count _fcrTargets > 0) then {
-        _newNtsIndex = 0; // If there isn't currently an NTS, pick the first
-    };
+//process order
+private _eval = {if(_x#6 < 4000)then{_x#4}else{_x#4 * -1 + 90};};
+if (_fcrMode == 2) then {
+    _eval = {if (_x#4 < 0) then {_x#4 * -1} else {_x#4};};
 };
-
-if(_newNtsIndex == -1) then {
-    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
-} else {
-    _heli setVariable ["fza_ah64_fcrNts", [_fcrTargets # _newNtsIndex # 3,_fcrTargets # _newNtsIndex # 0], true];
-};
+_fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
 
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
-[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, time]] call fza_fnc_updateNetworkGlobal;
+if (count _fcrTargets == 0) then {
+    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+};
+
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
+[_heli, "fza_ah64_fcrLastScan", [direction _heli, getposasl _heli, CBA_missionTime, _dir]] call fza_fnc_updateNetworkGlobal;
+
+private _nts = _heli getVariable "fza_ah64_fcrNts";
+if (_nts#0 isEqualTo objNull) then {
+    _heli call fza_fcr_fnc_cycleNTS;
+};

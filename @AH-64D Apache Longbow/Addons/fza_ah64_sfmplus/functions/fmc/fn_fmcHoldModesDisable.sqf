@@ -2,7 +2,7 @@ params ["_heli"];
 
 //playsound "fza_ah64_flt_control";
 if (_heli getVariable "fza_ah64_altHoldActive" || _heli getVariable "fza_ah64_attHoldActive") then {
-    [_heli] call fza_audio_fnc_flightTone;
+    [_heli] spawn fza_audio_fnc_flightTone;
 };
 
 //De-activate attitude hold and set the reference back to 0

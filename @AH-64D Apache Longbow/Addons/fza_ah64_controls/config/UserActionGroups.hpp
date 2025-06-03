@@ -1,4 +1,4 @@
-#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) \
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving_point) \
     fza_ah64_cockpit_##system##_##control
 
 #define COCKPIT_CONTROL_SEP ,
@@ -39,7 +39,10 @@ class UserActionGroups
             fza_ah64_tadsLHGFov_Z,
             fza_ah64_SensorSelect_FLIR,
             fza_ah64_SensorSelect_DTV,
-            fza_ah64_tadsLHGLmc
+            fza_ah64_SensorSelect_DVO,
+            fza_ah64_tadsLHGLmc,
+            fza_ah64_stickyControlInterupt,
+            fza_ah64_forceTrimPanicButton
         };
     };
     class fza_ah64_cockpit

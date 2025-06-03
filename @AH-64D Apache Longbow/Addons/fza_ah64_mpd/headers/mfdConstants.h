@@ -37,6 +37,7 @@
 #define MFD_IND_FLT_FLIGHT_PATH_X 7
 #define MFD_IND_FLT_FLIGHT_PATH_Y 8
 #define MFD_IND_FLT_ACQ_BOX 9
+#define MFD_IND_FLT_VERT_SPEED 10
 
 //Fuel page
 #define MFD_IND_FUEL_IAFS_INSTALLED 0
@@ -180,6 +181,7 @@
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
 #define MFD_TEXT_IND_TSD_ROOT_WIND 5
+#define MFD_TEXT_IND_TSD_ROOT_FCR 11 //deconflict with show page
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -235,6 +237,7 @@
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_1 1
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_2 2
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_3 3
+#define MFD_TEXT_IND_TSD_WPT_CURRENT_POINT_ID 4
 
 //TSD THRT page indices
 #define MFD_IND_TSD_THRT_VARIANT 0
@@ -242,13 +245,26 @@
 
 // FCR Indices
 //--User value
-#define MFD_IND_FCR_ANIM       0
-#define MFD_IND_FCR_SCAN_TYPE  1
-#define MFD_IND_FCR_ACQ_BOX    2
-#define MFD_IND_FCR_MODE       3
-#define MFD_IND_FCR_ATM_BLOCK  4
-#define MFD_IND_FCR_LINE_SHOW  5
-#define MFD_IND_FCR_CSCOPE     6
+#define MFD_IND_FCR_ANIM        0
+#define MFD_IND_FCR_SCAN_TYPE   1
+#define MFD_IND_FCR_ACQ_BOX     2
+#define MFD_IND_FCR_MODE        3
+#define MFD_IND_FCR_ATM_BLOCK   4
+#define MFD_IND_FCR_LINE_SHOW   5
+#define MFD_IND_FCR_CSCOPE      6
+#define MFD_IND_FCR_ARROW_L     7
+#define MFD_IND_FCR_ARROW_R     8
+#define MFD_IND_FCR_FOV_X       9
+#define MFD_IND_FCR_FOV_Y       10
+#define MFD_IND_FCR_CUEDLOS_X   11
+#define MFD_IND_FCR_CUEDLOS_Y   12
+#define MFD_IND_FCR_CENTERLINE  13
+#define MFD_IND_FCR_PREV_CENTER 14
+#define MFD_IND_FCR_COMMAND_HEADING  15
+#define MFD_IND_FCR_ALTERNATE_SENSOR 16
+
+#define MFD_IND_FCR_INSTALLED 19
+
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1

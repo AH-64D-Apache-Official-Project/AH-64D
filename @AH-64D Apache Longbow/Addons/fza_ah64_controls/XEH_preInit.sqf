@@ -1,7 +1,7 @@
 private _projName = "AH-64D Official Project";
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 [
-    "fza_ah64_showPopup",
+    "fza_ah64_showPopupv2_2",
     "CHECKBOX",
     ["Show Popup Intro", "Show popup when the player gets into an Apache"],
     [_projName, "UI"],
@@ -50,11 +50,101 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusControlScheme",
+    "fza_ah64_sfmPlusCollectiveControl",
     "LIST",
-    ["Select Control Scheme", "HOTAS is for users with Joystick, Throttle and Pedals. Keyboard is for users with a keyboard. Mouse is for users who use the Mouse as their Joystick, DO NOT select this if you intend to use the keyboard at any point to fly, this option will dampen the keyboard output."],
+    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
     [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD,MOUSE],["HOTAS","Keyboard","Mouse"],1],
+    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_sfmplus_cyclicCenterTrimMode",
+    "CHECKBOX",
+    ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_sfmplus_pedalCenterTrimMode",
+    "CHECKBOX",
+    ["Pedal Center Trim Mode", "When enabled, the pedals are locked out until re-centered."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusSpringlessCyclic",
+    "CHECKBOX",
+    ["Springless Cyclic", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusSpringlessPedals",
+    "CHECKBOX",
+    ["Springless Pedals", "When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyPitch",
+    "CHECKBOX",
+    ["Keyboard Sticky Pitch", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down"],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyRoll",
+    "CHECKBOX",
+    ["Keyboard Sticky Roll", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusKeyboardStickyYaw",
+    "CHECKBOX",
+    ["Keyboard Sticky Yaw", "DOES NOT WORK WITH AUTO PEDAL! When enabled, keyboard input is continously updated while the input key is held down."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusAutoPedal",
+    "CHECKBOX",
+    ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusAutoPedalTimeScalar",
+    "SLIDER",
+    ["Auto Pedal Time Scalar", "When auto pedal is enabled, controls the time it takes to wash in player input. A setting of 1.0 means maximum throw is washed in immediately on pressing the pedal key. 1.5 is the default and recommended for keyboard only, a setting of 1.0 is recommended for pedals and gamepad users."],
+    [_projName, "Flight model"],
+    [0.1, 2.0, 1.5, 1],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusMouseAsJoystick",
+    "CHECKBOX",
+    ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
+    [_projName, "Flight model"],
+    [false],
     2
 ] call CBA_fnc_addSetting;
 
@@ -63,7 +153,7 @@ private _projName = "AH-64D Official Project";
     "SLIDER",
     ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
     [_projName, "Flight model"],
-    [0.1, 1.0, 0.5, 1],
+    [0.1, 1.0, 1.0, 1],
     2
 ] call CBA_fnc_addSetting;
 
@@ -81,20 +171,11 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmplusEnableWind",
+    "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
-    ["Enable Wind Simulation", "When enabled, winds are factored into the FM calculations."],
+    ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
     [_projName, "Flight model"],
     [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_sfmplusEnableHeadingHold",
-    "CHECKBOX",
-    ["FMC Heading Hold Enabled", "Turns off the FMC Heading Hold. Meant for users with pedal dampers or who prefer to physically hold their pedals in place with their feet."],
-    [_projName, "Flight model"],
-    [true],
     2
 ] call CBA_fnc_addSetting;
 
@@ -144,11 +225,20 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_tadsCycleAllModes",
+    "fza_ah64_tadsCycleIncludeDTV",
     "CHECKBOX",
-    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through dtv and not just BHOT & WHOT"],
+    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through DTV and not just BHOT & WHOT"],
     [_projName, "TADS Controls"],
-    [false],
+    [true],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_tadsCycleIncludeDVO",
+    "CHECKBOX",
+    ["NV Cycle Include DVO", "With this the Night vision button will also cycle through DVO and not just BHOT & WHOT"],
+    [_projName, "TADS Controls"],
+    [true],
     2
 ] call CBA_fnc_addSetting;
 
@@ -161,21 +251,23 @@ private _projName = "AH-64D Official Project";
     2
 ] call CBA_fnc_addSetting;
 
-fza_ah64_weaponDebug = false;
-fza_ah64_pylonsLastCheckMags = [];
-fza_ah64_overallticker = 0;
-fza_ah64_sideslip = 0;
-fza_ah64_tadsLockCheckRunning = false;
+fza_ah64_weaponDebug            = false;
+fza_ah64_pylonsLastCheckMags    = [];
+fza_ah64_overallticker          = 0;
+fza_ah64_sideslip               = 0;
+fza_ah64_tadsLockCheckRunning   = false;
 fza_ah64_introShownThisScenario = false;
-private _fovConfig = configFile >> "CfgVehicles" >> "fza_ah64d_b2e" >> "Turrets" >> "MainTurret" >> "OpticsIn";
+fza_ah64_lastFrameGetIn         = false;
+private _fovConfig              = configFile >> "CfgVehicles" >> "fza_ah64base" >> "Turrets" >> "MainTurret" >> "OpticsIn";
 fza_ah64_tadsFOVs = [
-    "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom"
+    "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom", "Dvo_Wide", "Dvo_Narrow"
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 
 //Scheduler arrays
-fza_ah64_draw3Darray     = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
-fza_ah64_draw3DarraySlow = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
-fza_ah64_eachFrameArray  = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_sfmplus_fnc_coreUpdate, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller];
+fza_ah64_draw3Darray      = [fza_ihadss_fnc_controller, fza_fnc_weaponTurretAim, fza_fcr_fnc_controller, fza_fnc_avionicsSlipIndicator, fza_ase_fnc_aseManager, fza_wca_fnc_update, fza_fire_fnc_update, fza_ufd_fnc_update, fza_dms_fnc_routeData];
+fza_ah64_draw3DarraySlow  = [fza_fnc_weaponPylonCheckValid, fza_fnc_fireHandleRearm, fza_aiCrew_fnc_floodlight, fza_cannon_fnc_update, fza_systems_fnc_repair];
+fza_ah64_eachFrameArray   = [fza_mpd_fnc_update, fza_ihadss_fnc_fovControl, fza_systems_fnc_coreUpdate, fza_hellfire_fnc_aceController, fza_light_fnc_controller, fza_sfmplus_fnc_probes, fza_sfmplus_fnc_coreUpdate];
+
 //Draw3d handler
 fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
     [0] call fza_fnc_coreDraw3Dscheduler;
@@ -184,6 +276,15 @@ fza_ah64_draw3Dhandler = addMissionEventHandler["Draw3d", {
 //EachFrame handler
 fza_ah64_eachFrameHandler = addMissionEventHandler["EachFrame", {
     [0] call fza_fnc_coreEachFrameScheduler;
+}];
+
+//fixedUpdated handler
+fza_ah64_currentTime        = 0.0;
+fza_ah64_deltaTime          = 0.0;
+fza_ah64_previousTime       = 0.0;
+fza_ah64_accumulator        = 0.0;
+fza_ah64_fixedUpdateHandler = addMissionEventHandler["EachFrame", {
+    [0] call fza_fnc_coreFixedUpdateScheduler;
 }];
 
 #define OVERRIDE_ACTION(actn) \

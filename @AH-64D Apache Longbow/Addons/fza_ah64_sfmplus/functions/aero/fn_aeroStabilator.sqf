@@ -7,7 +7,6 @@ Description:
 
 Parameters:
     _heli      - The helicopter to get information from [Unit].
-    _deltaTime - Passed delta time from core update.
 
 Returns:
     ...
@@ -18,87 +17,90 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
+params ["_heli"];
+#include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
-params ["_heli", "_deltaTime", "_rho"];
 
 private _stabDamage    = _heli getHitPointDamage "hit_stabilator";
 private _dcBusOn       = _heli getVariable "fza_systems_dcBusOn";
 private _cfg           = configOf _heli;
 private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
-private _flightModel   = getText (_cfg >> "fza_flightModel");
 
 if (!local _heli) exitWith {};
 
-private _heliCOM        = getCenterOfMass _heli;
-private _numElements    = 5;
-private _liftCurveSlope = 5.7;
-private _baseDragCoef   = 0.025;
-private _K              = 0.07;
-private _stabPos        = [0.0, -6.45, -1.85];//_heli getVariable "fza_sfmplus_stabPos";
-private _span           = _heli getVariable "fza_sfmplus_stabWidth";
-private _chord          = _heli getVariable "fza_sfmplus_stabLength";
-private _chordLinePos   = 0.25;
+private _deltaTime       = fza_ah64_fixedTimeStep;
+private _rho             = _heli getVariable "fza_sfmplus_rho";
+
+private _heliCOM         = getCenterOfMass _heli;
+private _numElements     = 5;
+private _airfoilTable    = getArray (_sfmPlusConfig >> "airfoilTable01");
+private _stabPos         = [0.0, -6.45, -1.85];//_heli getVariable "fza_sfmplus_stabPos";
+private _span            = _heli getVariable "fza_sfmplus_stabWidth";
+private _chord           = _heli getVariable "fza_sfmplus_stabLength";
+private _chordLinePos    = 0.25;
 
 private _stabOutputTable = [[]];
-private _theta           = 0.0;
-if (_flightModel == "SFMPlus") then {
-    private _intStabTable    = [getArray (_sfmPlusConfig >> "stabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
-    _stabOutputTable = [
-                         [15.43, _intStabTable select 1]  //30kts
-                        ,[36.01, _intStabTable select 2]  //70kts
-                        ,[46.30, _intStabTable select 3]  //90kts
-                        ,[56.59, _intStabTable select 4]  //110kts
-                        ,[61.73, _intStabTable select 5]  //120kts
-                        ,[77.17, _intStabTable select 6]  //150kts
-                        ];
-} else {
-    private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), fza_sfmplus_collectiveOutput] call fza_fnc_linearInterp;
-    _stabOutputTable = [
-                        [15.43, _intStabTable select 1]   //30kts
-                       ,[20.58, _intStabTable select 2]   //40kts
-                       ,[25.72, _intStabTable select 3]   //50kts
-                       ,[30.87, _intStabTable select 4]   //60kts
-                       ,[36.01, _intStabTable select 5]   //70kts
-                       ,[41.16, _intStabTable select 6]   //80kts
-                       ,[46.30, _intStabTable select 7]   //90kts
-                       ,[51.44, _intStabTable select 8]   //100kts
-                       ,[56.59, _intStabTable select 9]   //110kts
-                       ,[61.73, _intStabTable select 10]  //120kts
-                       ,[66.88, _intStabTable select 11]  //130kts
-                       ,[72.02, _intStabTable select 12]  //140kts
-                       ,[77.17, _intStabTable select 13]  //150kts
-                       ,[82.31, _intStabTable select 14]  //160kts
-                       ,[87.46, _intStabTable select 15]  //170kts
-                       ,[92.60, _intStabTable select 16]  //180kts
-                       ,[97.74, _intStabTable select 17]  //190kts
-                       ,[102.9, _intStabTable select 18]  //200kts
-                       ];
-};
+private _desiredTheta    = 0.0;
+private _theta           = _heli getvariable "fza_ah64_stabilatorPosition";
 
-([_heli, fza_ah64_sfmplusEnableWind] call fza_sfmplus_fnc_getVelocities)
-    params [ 
-             "_gndSpeed"
-           , "_vel2D"
-           , "_vel3D"
-           , "_vertVel"
-           , "_velModelSpace"
-           , "_angVelModelSpace"
-           , "_velWorldSpace"
-           , "_angVelWorldSpace"
-           ];
-
-if (_flightModel == "SFMPlus" && fza_ah64_sfmPlusKeyboardOnly) then {
-    _theta = getNumber (_sfmPlusConfig >> "stabKeyTheta");
-} else {
-    _theta = [_stabOutputTable, _vel2D * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
-};
-
-if (_stabDamage >= SYS_STAB_DMG_THRESH || !_dcBusOn) then {
-    _theta = _heli getvariable "fza_ah64_stabilatorPosition";
-} else {
+private _intStabTable    = [getArray (_sfmPlusConfig >> "heliSimStabTable"), (_heli getVariable "fza_sfmplus_collectiveOutput")] call fza_fnc_linearInterp;
+/*
+_stabOutputTable = [
+                    [15.43, _intStabTable select 1]   //30kts
+                   ,[20.58, _intStabTable select 2]   //40kts
+                   ,[25.72, _intStabTable select 3]   //50kts
+                   ,[30.87, _intStabTable select 4]   //60kts
+                   ,[36.01, _intStabTable select 5]   //70kts
+                   ,[41.16, _intStabTable select 6]   //80kts
+                   ,[46.30, _intStabTable select 7]   //90kts
+                   ,[51.44, _intStabTable select 8]   //100kts
+                   ,[56.59, _intStabTable select 9]   //110kts
+                   ,[61.73, _intStabTable select 10]  //120kts
+                   ,[66.88, _intStabTable select 11]  //130kts
+                   ,[72.02, _intStabTable select 12]  //140kts
+                   ,[77.17, _intStabTable select 13]  //150kts
+                   ,[82.31, _intStabTable select 14]  //160kts
+                   ,[87.46, _intStabTable select 15]  //170kts
+                   ,[92.60, _intStabTable select 16]  //180kts
+                   ,[97.74, _intStabTable select 17]  //190kts
+                   ,[102.9, _intStabTable select 18]  //200kts
+                   ];
+*/
+_stabOutputTable = [
+                    [15.43, _intStabTable select 1]   //30kts
+                   ,[20.58, _intStabTable select 2]   //40kts
+                   ,[25.72, _intStabTable select 3]   //50kts
+                   ,[29.58, _intStabTable select 4]   //57.5kts
+                   ,[41.16, _intStabTable select 5]   //80kts
+                   ,[42.44, _intStabTable select 6]   //82.5kts
+                   ,[51.44, _intStabTable select 7]   //100kts
+                   ,[59.16, _intStabTable select 8]   //115kts
+                   ,[61.73, _intStabTable select 9]   //120kts
+                   ,[72.02, _intStabTable select 10]  //140kts
+                   ,[77.17, _intStabTable select 11]  //150kts
+                   ,[82.31, _intStabTable select 12]  //160kts
+                   ,[84.88, _intStabTable select 13]  //165kts
+                   ,[92.60, _intStabTable select 14]  //180kts
+                   ];
+/*
+_stabOutputTable = [
+                    [15.43, -25.0]   //30kts
+                   ,[20.58,   0.0]   //40kts
+                   ,[36.01,  -2.5]   //70kts
+                   ,[46.30,  -5.0]   //90kts
+                   ,[61.73,  -7.8]   //120kts
+                   ,[66.88, -10.0]  //130kts
+                   ];
+*/
+                   
+if (_stabDamage < SYS_STAB_DMG_THRESH || _dcBusOn) then {
+    _desiredTheta = [_stabOutputTable, (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
+    _theta        = [_theta, _desiredTheta, (1.0 / 1.5) * _deltaTime] call BIS_fnc_lerp;
     _heli setVariable ["fza_ah64_stabilatorPosition", _theta];
 };
 
+//_theta = THETA;
+//systemChat format ["_theta = %1 -- _collectiveOutput = %2", _theta, (_heli getVariable "fza_sfmplus_collectiveOutput")];
 //Animate the Horizontal stabilizer
 _heli animate ["Hstab", _theta];
 
@@ -119,6 +121,7 @@ private _B_wingTipLeadingEdge   = _stabPos vectorAdd  (_vectorRight vectorMultip
 private _C_wingTipTrailingEdge  = _B_wingTipLeadingEdge  vectorDiff (_vectorForward vectorMultiply _chord);
 private _D_wingRootTrailingEdge = _A_wingRootLeadingEdge vectorDiff (_vectorForward vectorMultiply _chord);
 
+//_theta                  = THETA;
 _theta                  = _theta * -1.0;
 
 private _stabRoot       = _A_wingRootLeadingEdge vectorDiff _D_wingRootTrailingEdge;
@@ -153,16 +156,16 @@ for "_j" from 0 to (_numElements - 1) do {
 
     private _chordLine   = (_a vectorAdd ((_b vectorDiff _a) vectorMultiply 0.5)) vectorDiff (_d vectorAdd ((_c vectorDiff _d) vectorMultiply 0.5));
     private _chordLength = vectorMagnitude _chordLine;
-    _chordLine = vectorNormalized _chordLine;
+    _chordLine           = vectorNormalized _chordLine;
 
     #ifdef __A3_DEBUG__
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWind = _velModelSpace vectorMultiply -1.0;
+    private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
     private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel = _angVelWorldSpace;
+    private _angularVel   = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
     private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
     _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
@@ -182,7 +185,7 @@ for "_j" from 0 to (_numElements - 1) do {
     #endif
 
     private _relativeWindNormalized = vectorNormalized _relativeWind;
-    private _aoa = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
+    private _aoa                    = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
     _aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
     _aoa = acos _aoa;
 
@@ -198,18 +201,15 @@ for "_j" from 0 to (_numElements - 1) do {
     };
 
     //Lift coefficient
-    private _span        = vectorMagnitude (_g vectorDiff _f);
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
-    private _aspectRatio = (_span * _span) / _area;
-    private _CL           = _liftCurveSlope * (_aspectRatio / (_aspectRatio + 2.0)) * (rad _aoa);
-    private _v            = vectorMagnitude _relativeWind;
-    private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
-
+    private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
+    private _v           = vectorMagnitude _relativeWind;
+    private _lift        = _CL * 0.5 * _rho * _area * (_v * _v);
     //Drag coefficient
-    private _CD           = _baseDragCoef + _K * (_CL * _CL);
-    private _drag         = _CD * 0.5 * _rho * _area * (_v * _v);
+    private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
+    private _drag        = _CD * 0.5 * _rho * _area * (_v * _v);
 
-    private _liftVector = _vectorRight vectorCrossProduct _relativeWind;
+    private _liftVector  = _vectorRight vectorCrossProduct _relativeWind;
     _liftVector = vectorNormalized _liftVector;
     _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
@@ -236,7 +236,7 @@ for "_j" from 0 to (_numElements - 1) do {
 #ifdef __A3_DEBUG__
 /*
 hintsilent format ["Collective Out = %1
-                   \nStab Pos = %2", fza_sfmplus_collectiveOutput, _theta];
+                   \nStab Pos = %2", (_heli getVariable "fza_sfmplus_collectiveOutput"), _theta];
 */
 //Draw the wing
 [_heli, _A_wingRootLeadingEdge,  _B_wingTipLeadingEdge,   "red"]   call fza_fnc_debugDrawLine;

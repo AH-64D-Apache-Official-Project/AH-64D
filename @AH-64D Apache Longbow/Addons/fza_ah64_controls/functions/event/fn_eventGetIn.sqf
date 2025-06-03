@@ -19,7 +19,7 @@ Author:
 params ["_heli", "", "_unit"];
 
 if (player != _unit) exitwith {};
-if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
+if (fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario && _unit == player && cba_missiontime != 0) then {
     createDialog "RscFzaDisplayWelcome";
 };
 
@@ -32,3 +32,8 @@ if (fza_ah64_showPopup && !fza_ah64_introShownThisScenario && _unit == player &&
 [_heli, "fza_ah64_sight", SIGHT_HMD] call fza_fnc_setSeatVariable;
 _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
 _heli setVariable ["fza_ah64_monocleinbox", true];
+
+fza_ah64_previousTime   = diag_tickTime;
+fza_ah64_lastFrameGetIn = true;
+
+_heli setVariable ["fza_sfmplus_previousTime", diag_tickTime];

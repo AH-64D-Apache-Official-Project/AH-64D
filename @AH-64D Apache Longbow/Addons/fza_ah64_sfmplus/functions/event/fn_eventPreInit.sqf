@@ -1,13 +1,14 @@
-fza_ah64_sfmPlusKeyboardOnly = true;
+
+fza_sfmplus_keyboardCollective = true;
 
 private _eventTypes = ["Activate", "Deactivate", "Analog"];
 
 {
-    addUserActionEventHandler ["HeliCollectiveRaise", _x, {fza_ah64_sfmPlusKeyboardOnly = true;}];
-    addUserActionEventHandler ["HeliCollectiveLower", _x, {fza_ah64_sfmPlusKeyboardOnly = true;}];
+    addUserActionEventHandler ["HeliCollectiveRaise", _x, {fza_sfmplus_keyboardCollective = true;}];
+    addUserActionEventHandler ["HeliCollectiveLower", _x, {fza_sfmplus_keyboardCollective = true;}];
 } forEach _eventTypes;
 
 {
-    addUserActionEventHandler ["HeliCollectiveRaiseCont", _x, {fza_ah64_sfmPlusKeyboardOnly = false;}];
-    addUserActionEventHandler ["HeliCollectiveLowerCont", _x, {fza_ah64_sfmPlusKeyboardOnly = false;}];
+    addUserActionEventHandler ["HeliCollectiveRaiseCont", _x, {fza_sfmplus_keyboardCollective = false;}];
+    addUserActionEventHandler ["HeliCollectiveLowerCont", _x, {fza_sfmplus_keyboardCollective = false;}];
 } forEach _eventTypes;

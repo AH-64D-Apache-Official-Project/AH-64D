@@ -19,41 +19,37 @@ Author:
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-if (isGamePaused) exitwith {};
-if (CBA_missionTime < 0.1) exitwith {};
+if (isGamePaused || CBA_missionTime < 0.1) exitwith {
+    fza_ah64_previousTime = diag_tickTime;
+    _heli setVariable ["fza_sfmplus_previousTime",  diag_tickTime];
+    _heli setVariable ["fza_sfmplus_deltaTime_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit]
+};
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;
-private _flightModel = getText (_config >> "fza_flightModel");
 
-private _deltaTime   = ["sfmplus_deltaTime"] call BIS_fnc_deltaTime;
+[_heli] call fza_sfmplus_fnc_getDeltaTime;
 
-if (isAutoHoverOn _heli && _flightModel != "SFMPlus") then {
+if (isAutoHoverOn _heli) then {
     _heli action ["AutoHoverCancel", _heli];  
 };
 
 //Environment
-private _altitude          = _heli getVariable "fza_sfmplus_PA"; //0;     //ft
-private _altimeter         = 29.92; //in mg
-private _temperature       = _heli getVariable "fza_sfmplus_FAT"; //15;    //deg c 
+[_heli] call fza_sfmplus_fnc_environment;
 
-private _referencePressure = _altimeter * IN_MG_TO_HPA;
-private _referenceAltitude = 0;
-private _exp               = -GRAVITY * MOLAR_MASS_OF_AIR * (_altitude - _referenceAltitude) / (UNIVERSAL_GAS_CONSTANT * (_temperature + DEG_C_TO_KELVIN));
-private _pressure          = ((_referencePressure / 0.01) * (EXP _exp)) * 0.01;
-
-private _densityAltitude   = (_altitude + ((SEA_LEVEL_PRESSURE - _altimeter) * 1000)) + (120 * (_temperature - (STANDARD_TEMP - ((_altitude / 1000) * 2))));
-private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_C_TO_KELVIN));
+//Velocities
+[_heli] call fza_sfmplus_fnc_getVelocities;
+[_heli] call fza_sfmplus_fnc_getAccelerations;
 
 //Input
-([_heli, _deltaTime] call fza_sfmplus_fnc_fmc)
-    params ["_attHoldCycPitchOut", "_attHoldCycRollOut", "_hdgHoldPedalYawOut", "_altHoldCollOut"];
-[_heli, _deltaTime, _attHoldCycPitchOut, _attHoldCycRollOut] call fza_sfmplus_fnc_getInput;
+[_heli] call fza_sfmplus_fnc_fmc;
+[_heli] call fza_sfmplus_fnc_getConnectedAxes;
+[_heli] call fza_sfmplus_fnc_getInput;
 
 //
-[_heli, _deltaTime] call fza_sfmplus_fnc_calculateAeroValues;
+[_heli] call fza_sfmplus_fnc_calculateAeroValues;
 
 //Fuel
-[_heli,_deltaTime] call fza_sfmplus_fnc_fuelUpdate;
+[_heli] call fza_sfmplus_fnc_fuelUpdate;
 
 //Mass and Balance
 [_heli] call fza_sfmplus_fnc_massUpdate;
@@ -62,24 +58,10 @@ private _dryAirDensity     = (_pressure / 0.01) / (287.05 * (_temperature + DEG_
 [_heli] call fza_sfmplus_fnc_perfData;
 
 //Engines
-[_heli, _deltaTime] call fza_sfmplus_fnc_engineController;
-
-if (_flightModel != "SFMPlus") then {
-    //Main Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _attHoldCycPitchOut, _attHoldCycRollOut, _altHoldCollOut] call fza_sfmplus_fnc_simpleRotorMain;
-    //Tail Rotor
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity, _hdgHoldPedalYawOut] call fza_sfmplus_fnc_simpleRotorTail;
-    //Drag
-    [_heli, _deltaTime, _altitude, _temperature, _dryAirDensity] call fza_sfmplus_fnc_fuselageDrag;
-    //Vertical fin
-    [_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroWing;
-};
+[_heli] call fza_sfmplus_fnc_engineController;
 
 //Damage
-[_heli, _deltaTime] call fza_sfmplus_fnc_damageApply;
-
-//Stabilator
-[_heli, _deltaTime, _dryAirDensity] call fza_sfmplus_fnc_aeroStabilator;
+[_heli] call fza_sfmplus_fnc_damageApply;
 
 if !(isMultiplayer) then {
     [_heli] call fza_sfmplus_fnc_probes;

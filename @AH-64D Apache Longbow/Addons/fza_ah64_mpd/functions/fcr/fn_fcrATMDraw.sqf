@@ -4,29 +4,27 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
 params ["_heli", "_mpdIndex"];
 
-private _fcrState     = _heli getVariable "fza_ah64_fcrState";
-private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
-private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
-private _SystemWas    = _heli getVariable "fza_ah64_was";
-private _pointsArray = [];
-_fcrState params ["_fcrScanState", "_fcrScanStartTime"];
+_heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
+private _displayTargets = _heli getVariable "fza_ah64_fcrTargets";
+private _systemWas = _heli getVariable "fza_ah64_was";
 
 //ATM Rear block
 If (_fcrScanState == FCR_MODE_ON_SINGLE || _fcrScanState == FCR_MODE_ON_CONTINUOUS) then {
-    if (_fcrScanStartTime + 3.2 >= time) then {
+    if (_fcrScanStartTime + 3.2 >= CBA_missionTime) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 0];
     };
 };
 
 //FCR wiper
 if (_fcrScanState != FCR_MODE_OFF) then {
-    private _fcrScanDeltaTime = time - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 7.7];
+    private _fcrScanDeltaTime = CBA_missionTime - _fcrScanStartTime;
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 6.4];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
-    if (_fcrScanDeltaTime >= 3.53) then {//recalc
+    if (_fcrScanDeltaTime >= 2.93) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ATM_BLOCK), 1];
     };
-    if ((_fcrScanDeltaTime % 7.7) < 3.56 || (_fcrScanDeltaTime % 7.7) > 4.14 ) then {
+    if ((_fcrScanDeltaTime % 6.4) < 2.96 || (_fcrScanDeltaTime % 6.4) > 3.44 ) then {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 1];
     } else {
         _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_LINE_SHOW), 0];
@@ -37,15 +35,18 @@ if (_fcrScanState != FCR_MODE_OFF) then {
 
 //FCR page draw
 private _nts  = (_heli getVariable "fza_ah64_fcrNts") # 0;
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex = 0;
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets min 16);
+private _ntsIndex  = _displayTargets findIf {_x # 3 == _nts};
+private _antsIndex = -1;
+if (count _displayTargets > 1 && _ntsIndex != -1) then {
+    _antsIndex = (_ntsIndex + 1) mod (count _displayTargets min 16);
 };
 
+private _pointsArray = [];
+private _scale = (0.040625 * 8 / 8000);
+private _heliCtr = [0.5, 0.5];
 {
-    _x params ["_pos", "_type", "_moving", "_obj"];
-    private _distance_m          = _lastScanInfo #1 distance2d _pos;
+    _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+    private _distance_m          = _scanPos distance2d _pos;
     private _unitType            = "unk";
     private _unitStatus          = ""; //loal, lobl, move
     private _unitSelAndWpnStatus = []; //nts, ants
@@ -93,15 +94,16 @@ if (count _fcrTargets > 0) then {
     };
     if (_unitType == "" || _unitStatus == "") then {continue;};
     private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach _fcrTargets;
+    
+    private _x = _heliCtr#0 + sin _aziAngle * (_range * _scale);
+    private _y = _heliCtr#1 - cos _aziAngle * (_range * _scale);
+    private _uiCtr = [_x, _y, 0];
 
-POINTSARRAY = _pointsArray;
+    _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
+} forEach _displayTargets;
 
 //Total target count
-private _fcrTgtCount  = count _pointsArray;
+private _fcrTgtCount  = count _displayTargets;
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
 
-[_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;
-
-[_heli, _pointsArray, _mpdIndex,  (0.040625 * 8 / 8000), [0.5, 0.5], _lastScanInfo # 0, _lastScanInfo #1] call fza_mpd_fnc_drawIcons;
+[_heli, _pointsArray, _mpdIndex,  _scale, _heliCtr, _dir, _scanPos] call fza_mpd_fnc_drawIcons;

@@ -16,9 +16,10 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_deltaTime", "_lagVal"];
+params ["_lagVal"];
 
-private _denom = 2.00 + _deltaTime * _lagVal;
-private _ca    = _deltaTime * _lagVal / _denom;
+private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+private _denom      = 2.00 + _deltaTime * _lagVal;
+private _ca         = _deltaTime * _lagVal / _denom;
 
 _ca;

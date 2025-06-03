@@ -22,12 +22,14 @@ private _CannonFired = (_heli getVariable "fza_ah64_burst_fired") + 1;
 
 if (_burstLimit != -1) then {
     if (_CannonFired >= _burstLimit) then {
-        _heli selectweapon "fza_cannon_limit";
         [_heli] spawn {
             params["_heli"];
-            waitUntil {inputAction "defaultAction" < 0.5};
+            waitUntil {
+                _heli selectWeaponTurret ["fza_cannon_limit", [0], "fza_cannon_limit"]; // Select weapon Must use the first 3 inputs
+                inputAction "defaultAction" < 0.5
+            };
             if (currentweapon _heli != "fza_cannon_limit") exitwith {};
-            _heli selectWeapon "fza_m230";
+            _heli selectWeaponTurret ["fza_m230", [0], "fza_m230"];
         };
     };
     _heli setVariable ["fza_ah64_burst_fired", _CannonFired];

@@ -4,7 +4,6 @@
 
 #define HOTAS                   0
 #define KEYBOARD                1
-#define MOUSE                   2
 
 #define ISA_STD                 0
 #define EUROPE_SUMMER           1
@@ -42,12 +41,14 @@
 #define RAD_ALT_MAX_ALT         435.254 //1428ft
 #define ALT_HOLD_SPEED_SWITCH   20.577  //40kts GS
 
-#define POS_HOLD_SPEED_SWITCH   2.572   //5kts GS
-#define VEL_HOLD_SPEED_SWITCH_DEVEL   15.433  //30kts GS
+#define POS_HOLD_SPEED_SWITCH         2.572   //5kts GS
+#define VEL_HOLD_SPEED_SWITCH_DECEL   15.433  //30kts GS
 #define VEL_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS
 
 #define HDG_HOLD_SPEED_SWITCH_DECEL   15.433  //30kts GS
 #define HDG_HOLD_SPEED_SWITCH_ACCEL   20.577  //40kts GS
-#define HDG_HOLD_BREAKOUT_VALUE       0.03
-#define VEL_HOLD_BREAKOUT_VALUE       0.06
-#define ATT_HOLD_BREAKOUT_VALUE       0.09
+#define HDG_HOLD_BREAKOUT_VALUE       0.05//0.03
+#define VEL_HOLD_BREAKOUT_VALUE       0.10//0.06
+#define ATT_HOLD_BREAKOUT_VALUE       0.20//0.09
+
+#define CENTER_TRIM_VAL               0.05

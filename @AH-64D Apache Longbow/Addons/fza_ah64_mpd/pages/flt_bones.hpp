@@ -17,7 +17,7 @@ class Flt_RadarAlt {
 
 class Flt_VerticalSpeed {
     type = linear;
-    source = vspeed;
+    MPD_NUM_USER(MFD_IND_FLT_VERT_SPEED)
     sourceScale = MPD_SCALE_METERS_PER_SECOND_FEET_PER_MINUTE;
     max = 1000;
     min = -1000;
