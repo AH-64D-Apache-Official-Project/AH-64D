@@ -5,12 +5,9 @@ class CfgVehicles
     class fza_ah64base : Helicopter_Base_F {
         class vxf_driver {
             class interaction {
-                //class groupForEngineOn {
-                    //condition = "true";
-                    #include "components\CfgEnginePanel.hpp"
-                //}; // groupForEngineOn
-            }; // interaction
-        }; // vxf_driver
+                #include "components\CfgEnginePanel.hpp"
+            };
+        };
     class vxf_copilot: vxf_driver {};
     };
 };

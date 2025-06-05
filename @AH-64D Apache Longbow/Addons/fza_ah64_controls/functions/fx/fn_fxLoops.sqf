@@ -17,8 +17,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli"];
 
-private _timed_apu = time + 24;
-private _timed_bat = time + 0;
+private _timed_apu = cba_missiontime + 24;
+private _timed_bat = cba_missiontime;
 
 private _apuOn     = _heli getVariable "fza_systems_apuOn";
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
@@ -32,8 +32,8 @@ if (_apuOn) then {
         _apuOn && alive _heli;
     }
     do {
-        if (time > _timed_apu) then {
-            _timed_apu = time + 60;
+        if (cba_missiontime > _timed_apu) then {
+            _timed_apu = cba_missiontime + 60;
             [_apu, ["fza_ah64_apu_loop_3D", 100]] remoteExec["say3d"];
         };
         sleep 1;
@@ -50,8 +50,8 @@ if (_battBusOn) then {
         _battBusOn && alive _heli;
     }
     do {
-        if (time > _timed_bat) then {
-            _timed_bat = time + 13;
+        if (cba_missiontime > _timed_bat) then {
+            _timed_bat = cba_missiontime + 13;
             [_bat, ["fza_ah64_bat_loop_3D", 10]] remoteExec["say3d"];
         };
         sleep 1;

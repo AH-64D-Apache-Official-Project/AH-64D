@@ -38,14 +38,8 @@ class CfgFunctions
         class engine
         {
             file = "\fza_ah64_controls\functions\engine";
-            class engineHandleControl {R;};
-            class engineSetPosition
-            {
-                R;
-                description = "Sets up engine to be at Off, Idle, Fly";
-            };
-            class engineUpdate
-            { R; description = "Updates internal engine state"; };
+            class engineSetPosition { R; description = "Sets up engine to be at Off, Idle, Fly"; };
+            class engineUpdate {R; description = "Updates internal engine state"; };
         };
         class event
         {

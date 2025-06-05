@@ -17,9 +17,6 @@ switch (_system) do {
             };
         }
     };
-    case "engine": {
-        [_heli, _system, _control] call fza_fnc_engineHandleControl;
-    };
     case "ihadss": {
         [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };

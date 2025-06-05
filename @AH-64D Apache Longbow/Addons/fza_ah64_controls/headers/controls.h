@@ -71,18 +71,6 @@ COCKPIT_CONTROL("ctrlref_p_doorhandle", "ctrlref_g_doorhandle",door, "Door",hand
 //COCKPIT_CONTROL("ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt",ihadss, "IHADSS",brt, 0.03, "IHADSS Brightness") COCKPIT_CONTROL_SEP
 COCKPIT_CONTROL("ctrlref_p_monocle", "ctrlref_g_monocle",ihadss, "IHADSS",stow, 0.1, "IHADSS Monocle", false) COCKPIT_CONTROL_SEP
 
-COCKPIT_CONTROL("ctrlref_p_apu", "",engine, "Engine Panel",apu, 0.04, "APU Toggle", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_mstrign", "",engine, "Engine Panel",power, 0.04, "Battery Toggle", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_rtrbrake", "",engine, "Engine Panel",rtrbrake, 0.04, "Rotor Brake", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e1start", "",engine, "Engine Panel",e1start, 0.04, "Engine 1 Start", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e1off", "",engine, "Engine Panel",e1off, 0.03, "Engine 1 Off", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e1idle", "",engine, "Engine Panel",e1idle, 0.03, "Engine 1 Idle", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e1fly", "",engine, "Engine Panel",e1fly, 0.04, "Engine 1 Fly", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e2start", "",engine, "Engine Panel",e2start, 0.04, "Engine 2 Start", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e2off", "",engine, "Engine Panel",e2off, 0.03, "Engine 2 Off", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e2idle", "",engine, "Engine Panel",e2idle, 0.03, "Engine 2 Idle", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_e2fly", "",engine, "Engine Panel",e2fly, 0.04, "Engine 2 Fly", false) COCKPIT_CONTROL_SEP
-
 COCKPIT_CONTROL("nvs_mode_sw", "nvs_mode_swg",nvs, "NVS",mode, 0.04, "NVS Mode", false) COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("plt_flood", "cpg_flood",light, "Lighting",floodlight, 0.04, "Floodlight", false) COCKPIT_CONTROL_SEP

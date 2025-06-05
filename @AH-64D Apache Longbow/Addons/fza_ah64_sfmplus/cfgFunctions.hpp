@@ -69,6 +69,8 @@ class CfgFunctions
         };
         class interact {
             file = "\fza_ah64_sfmplus\functions\interact";
+            class interactApuSwitch {R;};
+            class interactBatterySwitch {R;};
             class interactPowerLever {R;};
             class interactStartSwitch {R;};
         };
