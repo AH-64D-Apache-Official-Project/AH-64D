@@ -1,3 +1,10 @@
+
+
+//CfgStaticButtonDown(BatteryToggle, "ctrlref_p_mstrign", "Battery Toggle", 0.025, _this#0 call fza_sfmplus_fnc_interactBatterySwitch;, "fza_ah64_battery");
+
+//CfgTwoStateSwitch(rotorBrakeToggle, "ctrlref_p_rtrbrake", "Rotor Brake", "plt_rtrbrake", 0, 1, "OFF", "LOCK", 0.025, "[_this#0, "fza_ah64_rtrbrake", (_this#3 == 1)] call fza_fnc_animSetValue;", "fza_ah64_switch_flip4");
+
+
 class rotorBrakeToggle {
     positionType = "anim";
     position = "ctrlref_p_rtrbrake";

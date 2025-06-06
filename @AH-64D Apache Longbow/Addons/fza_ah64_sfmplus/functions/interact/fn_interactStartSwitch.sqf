@@ -21,7 +21,6 @@ params ["_heli", "_engNum", "_action"];
 
 if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
-		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
 private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
 switch (_action) do {
