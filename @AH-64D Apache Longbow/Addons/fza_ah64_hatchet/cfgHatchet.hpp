@@ -9,6 +9,7 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\pilot\cfgDoor.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgEnginePanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgFirePanel.hpp"
+                #include "\fza_ah64_hatchet\components\pilot\cfgLightPanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\CfgMfd.hpp"
             };
         };

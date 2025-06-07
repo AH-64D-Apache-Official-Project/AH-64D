@@ -1,23 +1,8 @@
 params ["_heli", "_system", "_control"];
 
 switch (_system) do {
-
-    };
     case "ihadss": {
         [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
-    };
-    case "nvs": {
-        private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
-        if (_control == "mode") then {
-            if (_heli animationphase _nvsSwitch < 1) then {
-                _heli animateSource[_nvsSwitch, 1];
-                _heli setVariable ["fza_ah64_ihadss_pnvs_cam", true];
-            } else {
-                _heli animateSource[_nvsSwitch, 0];
-                _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
-            };
-            playsound "fza_ah64_switch_flip3";
-        };
     };
     case "light": {
         [_heli, _system, _control] call fza_light_fnc_handleControl;

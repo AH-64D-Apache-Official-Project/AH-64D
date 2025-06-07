@@ -1,0 +1,2 @@
+CfgButtonDown(Floodlighting, plt_flood, "Flood Light", 0.05, [ARR_3(_this#0, QUOTE(light), QUOTE(FLOODLIGHTING))] call fza_light_fnc_handleControl, "fza_ah64_button_rotary");
+CfgSwitch(AntiCollision, plt_anticollision, "Anti-Collision Light", "plt_anticollision", 0.05, ARR_2(1, 0), ARR_2("ANTI-COLLISION ON", "ANTI-COLLISION OFF"), [ARR_3(_this#0, QUOTE(light), _this#2)] call fza_light_fnc_handleControl, "fza_ah64_switch_flip3");
