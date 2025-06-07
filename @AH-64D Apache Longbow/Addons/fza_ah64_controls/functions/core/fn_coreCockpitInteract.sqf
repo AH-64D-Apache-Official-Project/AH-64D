@@ -1,14 +1,7 @@
 params ["_heli", "_system", "_control"];
 
 switch (_system) do {
-    case "door": {
-        if (_control == "handle") then {
-            if (player == gunner _heli) then {
-                [_heli] spawn fza_fnc_doortoggleG;
-            } else {
-                [_heli] spawn fza_fnc_doortogglep;
-            };
-        }
+
     };
     case "ihadss": {
         [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
