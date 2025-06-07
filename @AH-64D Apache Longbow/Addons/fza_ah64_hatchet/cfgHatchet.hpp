@@ -1,4 +1,5 @@
-#include "\fza_ah64_hatchet\components\cfgHatchet.hpp"
+#include "\fza_ah64_hatchet\components\CfgHatchet.hpp"
+
 class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {};
@@ -6,12 +7,14 @@ class CfgVehicles {
         class vxf_driver {
             class interaction {
                 #include "\fza_ah64_hatchet\components\pilot\cfgEnginePanel.hpp"
-                #include "\fza_ah64_hatchet\components\pilot\CfgMfdPilot.hpp"
+                #include "\fza_ah64_hatchet\components\pilot\cfgFirePanel.hpp"
+                #include "\fza_ah64_hatchet\components\pilot\CfgMfd.hpp"
             };
         };
         class vxf_gunner: vxf_driver {
             class interaction {
-                #include "\fza_ah64_hatchet\components\Gunner\CfgMfdGunner.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\cfgFirePanel.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\CfgMfd.hpp"
             };
         };
     };

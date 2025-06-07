@@ -24,14 +24,11 @@ Author:
 params ["_heli", "_system", "_control"];
 
 private _battBusOn          = _heli getVariable "fza_systems_battBusOn";
-
-private _crewStation        = _heli call fza_fnc_currentTurret;
 private _engineOneArm       = (_heli getVariable "fza_ah64_fireArmed1") # 0;
 private _engineTwoArm       = (_heli getVariable "fza_ah64_fireArmed2") # 0;
 private _apuArm             = (_heli getVariable "fza_ah64_fireArmedApu") # 0;
 private _primaryFbAvailable = !(_heli getVariable "fza_ah64_firepdisch");
 private _reserveFBAvailable = !(_heli getVariable "fza_ah64_firerdisch");
-private _fireTestState      = _heli getvariable "fza_ah64_firetest";
 
 switch(_control) do {
     case "fe1": {
@@ -64,55 +61,47 @@ switch(_control) do {
         };
         ["fza_ah64_button_click2", 0.1];
     };
-    case "test": {
-        if (_fireTestState == 0) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 1, true];
-            _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
-            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1];
-            playsound "fza_ah64_switch_flip4";
-            if _battBusOn then {
-                [_heli] spawn {
-                    params ["_heli"];
-                    private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
-                    if (!_audioPlaying) then {
-                        _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
-                        player say3d "fza_ah64_engine_1_fire";
-                        player say3d "fza_ah64_APU_fire";
-                        player say3d "fza_ah64_engine_2_fire";
-                        player say3d "fza_ah64_aft_deck_fire";
-                        sleep 5;
-                        _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
-                    };
+    case 0: {
+        _heli setVariable ["fza_ah64_firetest", 1, true];
+        _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
+        if _battBusOn then {
+            [_heli] spawn {
+                params ["_heli"];
+                private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
+                if (!_audioPlaying) then {
+                    _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
+                    player say3d "fza_ah64_engine_1_fire";
+                    player say3d "fza_ah64_APU_fire";
+                    player say3d "fza_ah64_engine_2_fire";
+                    player say3d "fza_ah64_aft_deck_fire";
+                    sleep 5;
+                    _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
                 };
             };
         };
-        if (_fireTestState == 1) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 2, true];
-            _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
-            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0];
-            playsound "fza_ah64_switch_flip4";
-            if _battBusOn then {
-                [_heli] spawn {
-                    params ["_heli"];
-                    private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
-                    if (!_audioPlaying) then {
-                        _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
-                        player say3d "fza_ah64_engine_1_fire";
-                        player say3d "fza_ah64_APU_fire";
-                        player say3d "fza_ah64_engine_2_fire";
-                        player say3d "fza_ah64_aft_deck_fire";
-                        sleep 5;
-                        _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
-                    };
+    };
+    case 1: {
+        _heli setVariable ["fza_ah64_firetest", 2, true];
+        _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
+        if _battBusOn then {
+            [_heli] spawn {
+                params ["_heli"];
+                private _audioPlaying = _heli getvariable "fza_ah64_firetestAudioPlaying";
+                if (!_audioPlaying) then {
+                    _heli setVariable ["fza_ah64_firetestAudioPlaying", true, true];
+                    player say3d "fza_ah64_engine_1_fire";
+                    player say3d "fza_ah64_APU_fire";
+                    player say3d "fza_ah64_engine_2_fire";
+                    player say3d "fza_ah64_aft_deck_fire";
+                    sleep 5;
+                    _heli setVariable ["fza_ah64_firetestAudioPlaying", false, true];
                 };
             };
         };
-        if (_fireTestState == 2) exitwith {
-            _heli setVariable ["fza_ah64_firetest", 0, true];
-            _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
-            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0.5];
-            _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
-            playsound "fza_ah64_switch_flip4";
-        };
+    };
+    case 0.5: {
+        _heli setVariable ["fza_ah64_firetest", 0, true];
+        _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
+        _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
     };
 };

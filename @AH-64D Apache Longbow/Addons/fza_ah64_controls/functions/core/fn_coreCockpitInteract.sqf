@@ -1,13 +1,6 @@
 params ["_heli", "_system", "_control"];
 
 switch (_system) do {
-    case "lmpd";
-    case "rmpd" : {
-        [_heli, _system, _control] call fza_mpd_fnc_handleControl;
-    };
-    case "fire": {
-        [_heli, _system, _control] call fza_fire_fnc_handleControl;
-    };
     case "door": {
         if (_control == "handle") then {
             if (player == gunner _heli) then {

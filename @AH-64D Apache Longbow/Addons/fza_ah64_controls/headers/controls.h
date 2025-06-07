@@ -1,10 +1,4 @@
 //COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving point)
-COCKPIT_CONTROL("ctrlref_p_fe1", "ctrlref_g_fe1",fire, "Fire Panel",fe1, 0.04, "Fire Engine 1", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_fapu", "ctrlref_g_fapu",fire, "Fire Panel",fapu, 0.04, "Fire APU", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_fe2", "ctrlref_g_fe2",fire, "Fire Panel",fe2, 0.04, "Fire Engine 2", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_fbp", "ctrlref_g_fbp",fire, "Fire Panel",fbp, 0.04, "Fire Bottle Primary", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_fbr", "ctrlref_g_fbr",fire, "Fire Panel",fbr, 0.04, "Fire Bottle Reserve", false) COCKPIT_CONTROL_SEP
-COCKPIT_CONTROL("ctrlref_p_swfiretst", "ctrlref_g_swfiretst",fire, "Fire Panel",test, 0.04, "Fire Test", false) COCKPIT_CONTROL_SEP
 
 COCKPIT_CONTROL("ctrlref_p_doorhandle", "ctrlref_g_doorhandle",door, "Door",handle, 0.09, "Pilot Door Handle", true) COCKPIT_CONTROL_SEP
 

@@ -19,6 +19,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_engNum", "_action"];
 
+_heli animateSource ["plt_eng1_start", 0.5];
+_heli animateSource ["plt_eng2_start", 0.5];
 if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
