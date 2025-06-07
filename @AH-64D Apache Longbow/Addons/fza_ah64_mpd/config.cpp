@@ -6,7 +6,7 @@ class CfgPatches
         author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {"fza_ah64_controls","fza_ah64_common","ace_laser"};
+        requiredAddons[] = {"fza_ah64_controls", "ace_laser"};
     };
 };
 

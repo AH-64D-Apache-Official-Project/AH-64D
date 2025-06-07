@@ -2,10 +2,8 @@
     fza_ah64_cockpit_##system##_##control
 
 #define COCKPIT_CONTROL_SEP ,
-class UserActionGroups
-{
-    class fza_ah64 // unique classname for your category
-    {
+class UserActionGroups {
+    class fza_ah64 {// unique classname for your category
         name = "AH-64D Apache Official"; // display name of your category
         group[] = {
             fza_ah64_sightSelectHMD,
@@ -43,11 +41,10 @@ class UserActionGroups
             fza_ah64_forceTrimPanicButton
         };
     };
-    class fza_ah64_cockpit
-    {
+    class fza_ah64_cockpit {
         name = "AH-64D Apache Official: Cockpit Controls";
         group[] = {
             #include "\fza_ah64_controls\headers\controls.h"
         };
-    }
+    } 
 };

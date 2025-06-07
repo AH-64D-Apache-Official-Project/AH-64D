@@ -1,8 +1,6 @@
-CfgButtonDown(MonicleToggle, "ctrlref_p_monocle", "EQUIP MONICLE", 0.025, [ARR_3(_this#0, QUOTE(ihadss), QUOTE(stow))] call fza_ihadss_fnc_handleControl, "fza_ah64_switch_flip4");
+CfgButtonDown(MonicleToggle, "ctrlref_p_monocle", "EQUIP MONICLE", 0.5, [ARR_3(_this#0, QUOTE(ihadss), QUOTE(stow))] call fza_ihadss_fnc_handleControl, "fza_ah64_switch_flip4");
 CfgButtonDown(ArmSafeToggle, "plt_btn_arm_safe", "ARM/SAFE Button", 0.025, [ARR_3(_this#0, QUOTE(armSafeBtn), QUOTE(armSafe))] call fza_wca_fnc_wcaBtnHandleControl, "fza_ah64_switch_flip4");
 CfgButtonDown(GroundOverrideToggle, "plt_btn_gnd_oride", "GND ORIDE Button", 0.025, [ARR_3(_this#0, QUOTE(gndOrideBtn), QUOTE(gndOride))] call fza_wca_fnc_wcaBtnHandleControl, "fza_ah64_switch_flip4");
 CfgButtonDown(MasterCautionButton, "plt_btn_mstr_caut", "MASTER CAUTION", 0.025, [ARR_3(_this#0, QUOTE(mstrCautBtn), QUOTE(mstrCaut))] call fza_wca_fnc_wcaBtnHandleControl, "fza_ah64_switch_flip4");
 CfgButtonDown(MasterWarningButton, "plt_btn_mstr_warn", "MASTER WARNING", 0.025, [ARR_3(_this#0, QUOTE(mstrWarnBtn), QUOTE(mstrWarn))] call fza_wca_fnc_wcaBtnHandleControl, "fza_ah64_switch_flip4");
-CfgButtonDown(KeyboardUnit, "plt_ku_ctr", "Keyboard Unit", 0.025, [ARR_3(_this#0, QUOTE(ku), QUOTE(activate))] call fza_ku_fnc_toggleInput, "fza_ah64_switch_flip4");
-
-//COCKPIT_CONTROL("ctrlref_p_ihadss_brt", "ctrlref_g_ihadss_brt",ihadss, "IHADSS",brt, 0.03, "IHADSS Brightness") COCKPIT_CONTROL_SEP
+CfgButtonDown(KeyboardUnit, "plt_ku_ctr", "Keyboard Unit", 0.5, [ARR_3(_this#0, QUOTE(ku), QUOTE(activate))] call fza_ku_fnc_toggleInput, "fza_ah64_switch_flip4");

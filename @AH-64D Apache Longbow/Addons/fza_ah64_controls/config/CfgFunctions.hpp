@@ -27,6 +27,8 @@ class CfgFunctions
             class coreEachFrameScheduler {R;};
             class coreFixedUpdateScheduler {R;};
             class coreGetWCAs {R;};
+            class coreCockpitControlHandle {R;};
+            class coreCockpitInteract {R;};
             class coreControlHandle {R;};
         };
         class damage {

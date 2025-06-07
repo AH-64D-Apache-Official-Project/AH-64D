@@ -6,7 +6,7 @@ class CfgPatches
         author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {"pook_SAM_Base"};
+        requiredAddons[] = {"fza_ah64_controls", "pook_SAM_Base"};
         skipWhenMissingDependencies = 1;
     };
 };

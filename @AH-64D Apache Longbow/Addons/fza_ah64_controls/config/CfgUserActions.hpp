@@ -6,6 +6,16 @@ class vname {\
     onDeactivate = __EVAL(format["['%1', false] call fza_fnc_coreControlHandle", #vname]);\
 }
 
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving_point) \
+class fza_ah64_cockpit_##system##_##control {\
+    displayName = __EVAL(format["%1: %2", system_name, control_name]);\
+    tooltip = "";\
+    onActivate = __EVAL(format["['%1', '%2', '%3', '%4', true] call fza_fnc_coreCockpitControlHandle", #system, #control]);\
+    onDeactivate = __EVAL(format["['%1', '%2', '%3', '%4', false] call fza_fnc_coreCockpitControlHandle", #system, #control]);\
+};
+#define COCKPIT_CONTROL_SEP 
+
+
 class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectHMD, "Sight Select HMD", "Sets the current sight to HMD");
     CfgUserActionDef(fza_ah64_sightSelectTADS, "Sight Select TADS", "Sets the current sight to TADS");
@@ -38,4 +48,5 @@ class CfgUserActions {
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
     CfgUserActionDef(fza_ah64_stickyControlInterupt, "Sticky Control Interupt", "When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.");
     CfgUserActionDef(fza_ah64_forceTrimPanicButton, "Force Trim Panic Button", "Zeroes out the force trim values.");
+    #include "\fza_ah64_controls\headers\controls.h"
 };
