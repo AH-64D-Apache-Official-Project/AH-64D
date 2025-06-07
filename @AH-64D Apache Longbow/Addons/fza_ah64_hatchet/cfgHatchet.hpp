@@ -9,12 +9,14 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\pilot\cfgDoor.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgEnginePanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgFirePanel.hpp"
+                #include "\fza_ah64_hatchet\components\pilot\cfgLightPanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\CfgMfd.hpp"
             };
         };
         class vxf_gunner: vxf_driver {
             class interaction {
-                #include "\fza_ah64_hatchet\components\pilot\cfgDoor.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\cfgDoor.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\cfgEnginePanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\cfgFirePanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\CfgMfd.hpp"
             };

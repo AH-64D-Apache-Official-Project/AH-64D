@@ -13,4 +13,5 @@ CfgButtonDown(engine2PositionIdle, "ctrlref_p_e2idle",  "Engine 2 Idle",  0.025,
 CfgButtonDown(engine2PositionFly,  "ctrlref_p_e2fly",   "Engine 2 Fly",   0.025, [ARR_3(_this#0, 1, QUOTE(FLY))] call fza_sfmplus_fnc_interactPowerLever,  "fza_ah64_fake_3D");
 CfgSwitch(engine2StartToggle, "ctrlref_p_e2start", "Engine 2 Start", "plt_eng2_start", 0.025, ARR_3(1, 0.5, 0), ARR_3("START", "OFF", "IGN ORDIE"), [ARR_3(_this#0, 1, _this#2)] call fza_sfmplus_fnc_interactStartSwitch, "fza_ah64_switch_flip4");
 
-
+//NVS CONTROLS
+CfgSwitch(nvsModeToggle, "nvs_mode_sw", "NVS SWITCH", "plt_nvsmode", 0.025, ARR_3(1, 0.5, 0), ARR_3(QUOTE(FIXED), QUOTE(NORM), QUOTE(OFF)), _this#0 setVariable [ARR_2(QUOTE(fza_ah64_ihadss_pnvs_cam), (_this#3))], "fza_ah64_switch_flip3");
