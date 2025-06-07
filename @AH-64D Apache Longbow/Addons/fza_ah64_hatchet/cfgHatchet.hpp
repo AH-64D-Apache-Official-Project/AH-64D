@@ -11,6 +11,7 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\pilot\cfgFirePanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgLightPanel.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\CfgMfd.hpp"
+                #include "\fza_ah64_hatchet\components\pilot\CfgMisc.hpp"
             };
         };
         class vxf_gunner: vxf_driver {
@@ -19,6 +20,7 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\Gunner\cfgEnginePanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\cfgFirePanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\CfgMfd.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\CfgMisc.hpp"
             };
         };
     };

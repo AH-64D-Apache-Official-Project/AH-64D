@@ -1,6 +1,7 @@
 CfgSwitch(rotorBrakeToggle, "ctrlref_p_rtrbrake", "Rotor Brake", "plt_rtrbrake", 0.025, ARR_2(0, 1), ARR_2("OFF", "LOCK"), [ARR_3(_this#0, QUOTE(fza_ah64_rtrbrake), _this#3 == 1)] call fza_fnc_animSetValue, "fza_ah64_switch_flip4");
 CfgButtonDown(BatteryToggle, "ctrlref_p_mstrign", "Battery Toggle", 0.025, _this#0 call fza_sfmplus_fnc_interactBatterySwitch, "fza_ah64_battery");
 CfgButtonDown(ApuToggle, "ctrlref_p_apu", "APU Toggle", 0.025, "_this#0 call fza_sfmplus_fnc_interactApuSwitch", "fza_ah64_apubutton");
+CfgButtonDown(EmergencyHydraulics, "plt_btn_emer_hyd", "Emergency Hydraulics", 0.025, [ARR_3(_this#0, QUOTE(emerHydBtn), QUOTE(emerHyd))] call fza_wca_fnc_wcaBtnHandleControl, "fza_ah64_switch_flip4");
 
 //ENGINE ONE CONTROLS
 CfgButtonDown(engine1PositionOff,  "ctrlref_p_e1off",   "Engine 1 Off",   0.025, [ARR_3(_this#0, 0, QUOTE(OFF))] call fza_sfmplus_fnc_interactPowerLever,  "fza_ah64_throttle_idle");

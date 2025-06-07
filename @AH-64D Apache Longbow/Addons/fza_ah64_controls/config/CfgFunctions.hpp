@@ -26,10 +26,7 @@ class CfgFunctions
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
             class coreFixedUpdateScheduler {R;};
-            class coreGetObjectsLookedAt {R;};
             class coreGetWCAs {R;};
-            class coreCockpitControlHandle {R;};
-            class coreCockpitInteract {R;};
             class coreControlHandle {R;};
         };
         class damage {
@@ -69,7 +66,6 @@ class CfgFunctions
         class ui
         {
             file = "\fza_ah64_controls\functions\ui";
-            class uiMouseMove {R;};
             class uiShowIntro {R;};
         };
         class weapon
