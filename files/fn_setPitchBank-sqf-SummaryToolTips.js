@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:fn_setPitchBank.sqf",{198:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Rotates an object, giving it the specified pitch and bank, in degrees.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:fn_setPitchBank.sqf",{200:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Rotates an object, giving it the specified pitch and bank, in degrees.</div></div>"});
