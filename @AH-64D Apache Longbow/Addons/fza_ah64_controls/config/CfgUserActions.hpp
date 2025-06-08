@@ -10,8 +10,8 @@ class vname {\
 class fza_ah64_cockpit_##system##_##control {\
     displayName = __EVAL(format["%1: %2", system_name, control_name]);\
     tooltip = "";\
-    onActivate = __EVAL(format["['%1', '%2', '%3', '%4', true] call fza_fnc_coreCockpitControlHandle", #system, #control]);\
-    onDeactivate = __EVAL(format["['%1', '%2', '%3', '%4', false] call fza_fnc_coreCockpitControlHandle", #system, #control]);\
+    onActivate = __EVAL(format["['%1', '%2', '%3', '%4', true] call fza_fnc_coreCockpitControlHandle", #system, #control, pilot_mempoint, gunner_mempoint]);\
+    onDeactivate = __EVAL(format["['%1', '%2', '%3', '%4', false] call fza_fnc_coreCockpitControlHandle", #system, #control, pilot_mempoint, gunner_mempoint]);\
 };
 #define COCKPIT_CONTROL_SEP 
 

@@ -61,7 +61,7 @@ switch(_control) do {
         };
         ["fza_ah64_button_click2", 0.1];
     };
-    case 0: {
+    case "FIRE TEST 1": {
         _heli setVariable ["fza_ah64_firetest", 1, true];
         _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
         if _battBusOn then {
@@ -80,7 +80,7 @@ switch(_control) do {
             };
         };
     };
-    case 1: {
+    case "FIRE TEST 2": {
         _heli setVariable ["fza_ah64_firetest", 2, true];
         _heli setVariable ["fza_ah64_aft_deck_fire", true, true];
         if _battBusOn then {
@@ -99,9 +99,24 @@ switch(_control) do {
             };
         };
     };
-    case 0.5: {
+    case "OFF": {
         _heli setVariable ["fza_ah64_firetest", 0, true];
         _heli setVariable ["fza_ah64_aft_deck_fire", false, true];
         _heli setVariable ["fza_ah64_mstrWarnLightOn", false, true];
+    };
+    case "fireTestToggle": {
+        private _fireTest = _heli getVariable "fza_ah64_firetest";
+        if (_fireTest == 0) then {
+            [_heli, _system, "FIRE TEST 1"] call fza_fnc_coreCockpitInteract;
+            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0];
+        };
+        if (_fireTest == 1) then {
+            [_heli, _system, "FIRE TEST 2"] call fza_fnc_coreCockpitInteract;
+            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1]
+        };
+        if (_fireTest == 2) then {
+            [_heli, _system, "OFF"] call fza_fnc_coreCockpitInteract;
+            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0.5]
+        };
     };
 };
