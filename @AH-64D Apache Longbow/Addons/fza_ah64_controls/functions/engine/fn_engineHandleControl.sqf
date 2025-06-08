@@ -98,7 +98,18 @@ switch(_control) do {
         [_heli, 0, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
     };
     case "e1fly": {
-        [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        private _eng2State       = _heli getVariable "fza_sfmplus_engState" select 1;
+        private _eng2PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 1;
+
+        if (_eng2State == "OFF" || (_eng2State == "ON" && _eng2PwrLvrState == "FLY")) then {
+            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        };
+        
+        if (_eng2State == "ON" && _eng2PwrLvrState == "IDLE") then {
+            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        };
+        [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
     };
     
     //--------------------ENGINE 2--------------------//
@@ -125,6 +136,16 @@ switch(_control) do {
         [_heli, 1, "IDLE"] spawn fza_sfmplus_fnc_interactPowerLever;
     };
     case "e2fly": {
-        [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        private _eng1State       = _heli getVariable "fza_sfmplus_engState" select 0;
+        private _eng1PwrLvrState = _heli getVariable "fza_sfmplus_engPowerLeverState" select 0;
+
+        if (_eng1State == "OFF" || (_eng1State == "ON" && _eng1PwrLvrState == "FLY")) then {
+            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        };
+        
+        if (_eng1State == "ON" && _eng1PwrLvrState == "IDLE") then {
+            [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+            [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
+        };
     };
 };
