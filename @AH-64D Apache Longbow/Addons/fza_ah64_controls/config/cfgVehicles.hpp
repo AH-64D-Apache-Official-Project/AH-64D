@@ -10,10 +10,10 @@ class CfgVehicles {
         delete PilotCamera;
     };
     class fza_ah64base : Helicopter_Base_F {
-        icon        = "\fza_ah64_us\icons\b2_topdown_128x128_ca.paa";
-        picture     = "\fza_ah64_us\icons\b2_silloheutte_128x64_ca.paa";
+        icon        = "\fza_ah64_model\icons\b2_topdown_128x128_ca.paa";
+        picture     = "\fza_ah64_model\icons\b2_silloheutte_128x64_ca.paa";
         displayName = "AH-64 Offical Project Base class";
-        model       = "\fza_ah64_US\fza_ah64d_b2.p3d";
+        model       = "\fza_ah64_model\fza_ah64d_b2.p3d";
         scope       = 0;
         mapSize     = 10;
 
@@ -149,8 +149,8 @@ class CfgVehicles {
         radarTarget              = 1;
         radarTargetSize          = 0.700000;
         rotorDamage[]            = {"rotorDamageInt", "rotorDamageOut"};
-        rotorDamageInt[]         = {"\fza_ah64_US\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
-        rotorDamageOut[]         = {"\fza_ah64_US\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
+        rotorDamageInt[]         = {"\fza_ah64_model\audio\Int_Rotor_Damage.ogg", 1.000000, 1.000000};
+        rotorDamageOut[]         = {"\fza_ah64_model\audio\Ext_Rotor_Damage.ogg", 2.511886, 1.000000, 100};
         selectionHRotorMove      = "mr_blur";
         selectionHRotorStill     = "mr_blades";
         selectionVRotorMove      = "tr_blur";
@@ -164,12 +164,12 @@ class CfgVehicles {
         soundBushCollision2[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_2", 1.000000, 1, 10};
         soundBushCollision3[]    = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_bush_int_3", 1.000000, 1, 10};
         soundBushCrash[]         = {"soundBushCollision1", 0.330000, "soundBushCollision2", 0.330000, "soundBushCollision3", 0.330000};
-        soundDammage[]           = {"\fza_ah64_US\audio\Crash.ogg", 3.162278, 1, 100};
+        soundDammage[]           = {"\fza_ah64_model\audio\Crash.ogg", 3.162278, 1, 100};
         soundCrashes[]           = {"soundGeneralCollision1", 0.330000, "soundGeneralCollision2", 0.330000, "soundGeneralCollision3", 0.330000};
-        soundEngineOffExt[]      = {"fza_ah64_us\audio\Ext_Off.ogg",1,0.6,300};
+        soundEngineOffExt[]      = {"fza_ah64_model\audio\Ext_Off.ogg",1,0.6,300};
         soundEngineOffInt[]      = {"emptySound", 0};
-        soundEngineOnExt[]       = {"fza_ah64_us\audio\Ext_Start.ogg",1,0.6,300};
-        soundEngineOnInt[]       = {"fza_ah64_us\audio\Int_Start.ogg",1,0.6};
+        soundEngineOnExt[]       = {"fza_ah64_model\audio\Ext_Start.ogg",1,0.6,300};
+        soundEngineOnInt[]       = {"fza_ah64_model\audio\Int_Start.ogg",1,0.6};
         soundenviron[]           = {"", 1, 1};
         soundGeneralCollision1[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_1", 1.000000, 1, 10};
         soundGeneralCollision2[] = {"A3\Sounds_F\vehicles\crashes\helis\Heli_coll_default_int_2", 1.000000, 1, 10};
@@ -182,8 +182,8 @@ class CfgVehicles {
         soundWaterCrashes[]      = {"soundWaterCollision1", 0.500000, "soundWaterCollision2", 0.500000};
         soundWoodCrash[]         = {"soundGeneralCollision1", 1, "soundGeneralCollision2", 1, "soundGeneralCollision3", 1};
         tailDamage[]             = {"tailDamageInt", "tailDamageOut"};
-        tailDamageInt[]          = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000};
-        tailDamageOut[]          = {"\fza_ah64_US\audio\Tail_Damage.ogg", 1.000000, 1.000000, 100};
+        tailDamageInt[]          = {"\fza_ah64_model\audio\Tail_Damage.ogg", 1.000000, 1.000000};
+        tailDamageOut[]          = {"\fza_ah64_model\audio\Tail_Damage.ogg", 1.000000, 1.000000, 100};
         threat[]                 = {1,1,0.5};
         transportMaxBackpacks    = 2;
         transportMaxMagazines    = 10;
@@ -299,7 +299,7 @@ class CfgVehicles {
         scope           = 2;
         author          = "AH-64D Development Team";
         displayName     = "AH-64D BLOCK I";
-        editorPreview   = "\fza_ah64_us\editorPreview\fza_ah64d_b1.jpg";
+        editorPreview   = "\fza_ah64_model\editorPreview\fza_ah64d_b1.jpg";
     };
 
 

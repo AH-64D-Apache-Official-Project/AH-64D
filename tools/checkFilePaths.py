@@ -1,4 +1,4 @@
-# Checks that all files within the mod folder (@AH-64D Apache Longbow/Addons/fza_ah64_us) match the
+# Checks that all files within the mod folder (@AH-64D Apache Longbow/Addons/fza_ah64_model) match the
 # file conventions, as defined by regex
 
 import subprocess

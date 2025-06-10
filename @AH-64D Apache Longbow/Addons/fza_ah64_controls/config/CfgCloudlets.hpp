@@ -8,7 +8,7 @@ class CfgCloudlets
         interval=0.02;
         circleRadius=0;
         circleVelocity[]={0,0,0};
-        particleShape="fza_ah64_us\cloudSmall1.p3d";
+        particleShape="fza_ah64_model\cloudSmall1.p3d";
         particleFSNtieth=1;
         particleFSIndex=0;
         particleFSFrameCount=1;
@@ -169,7 +169,7 @@ class CfgLights
         flareSize=2;
         flareMaxDistance=10000;
         useFlare=1;
-        shape="fza_ah64_us\flare2single.p3d";
+        shape="fza_ah64_model\flare2single.p3d";
         class Attenuation
         {
             start=0;
@@ -193,7 +193,7 @@ class CfgLights
         flareSize=3;
         flareMaxDistance=10000;
         useFlare=1;
-        shape="fza_ah64_us\flare2single.p3d";
+        shape="fza_ah64_model\flare2single.p3d";
         class Attenuation
         {
             start=0;

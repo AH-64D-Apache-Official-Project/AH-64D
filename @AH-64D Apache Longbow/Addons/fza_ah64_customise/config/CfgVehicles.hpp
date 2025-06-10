@@ -28,7 +28,7 @@ class cfgVehicles {
     };
     class fza_ah64_FireControlRadar: fza_ah64_ObjectBase {
         displayName                         = "AH-64 Fire Control Radar";
-        model                               = "\fza_ah64_us\fza_longbow.p3d";
+        model                               = "\fza_ah64_model\fza_longbow.p3d";
         editorSubcategory                   = "EdSubcat_fza_ah64_Components";
         scope                               = 2;
     };

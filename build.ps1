@@ -232,7 +232,7 @@ $gitPath = (Get-Location).Path
 
 
 # $ModsToPack = Get-ChildItem "${gitPath}\@AH-64D Apache Longbow\Addons" -Directory | % Name
-$ModsToPack = @("fza_ah64_controls", "fza_ah64_us")
+$ModsToPack = @("fza_ah64_controls", "fza_ah64_model")
 
 $Choice = $host.ui.PromptForChoice(
 	"AH-64 BUILD TOOL",

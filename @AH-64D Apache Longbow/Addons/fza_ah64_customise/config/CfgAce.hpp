@@ -12,52 +12,52 @@ class ACE_Actions : ACE_Actions {
             class Zero {
                 displayName = "Zero";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\0_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\0_ca.paa'];";
             };
             class one {
                 displayName = "one";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\1_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\1_ca.paa'];";
             };
             class two {
                 displayName = "two";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\2_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\2_ca.paa'];";
             };
             class three {
                 displayName = "three";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\3_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\3_ca.paa'];";
             };
             class four {
                 displayName = "four";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\4_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\4_ca.paa'];";
             };
             class five {
                 displayName = "five";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\5_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\5_ca.paa'];";
             };
             class six {
                 displayName = "six";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\6_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\6_ca.paa'];";
             };
             class seven {
                 displayName = "seven";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\7_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\7_ca.paa'];";
             };
             class eight {
                 displayName = "eight";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\8_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\8_ca.paa'];";
             };
             class nine {
                 displayName = "nine";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_us\tex\tailNumbers\9_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_01', '\fza_ah64_model\tex\tailNumbers\9_ca.paa'];";
             };
             class clear {
                 displayName = "clear";
@@ -72,52 +72,52 @@ class ACE_Actions : ACE_Actions {
             class Zero {
                 displayName = "Zero";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\0_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\0_ca.paa'];";
             };
             class one {
                 displayName = "one";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\1_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\1_ca.paa'];";
             };
             class two {
                 displayName = "two";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\2_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\2_ca.paa'];";
             };
             class three {
                 displayName = "three";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\3_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\3_ca.paa'];";
             };
             class four {
                 displayName = "four";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\4_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\4_ca.paa'];";
             };
             class five {
                 displayName = "five";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\5_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\5_ca.paa'];";
             };
             class six {
                 displayName = "six";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\6_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\6_ca.paa'];";
             };
             class seven {
                 displayName = "seven";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\7_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\7_ca.paa'];";
             };
             class eight {
                 displayName = "eight";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\8_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\8_ca.paa'];";
             };
             class nine {
                 displayName = "nine";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_us\tex\tailNumbers\9_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_02', '\fza_ah64_model\tex\tailNumbers\9_ca.paa'];";
             };
             class clear {
                 displayName = "clear";
@@ -132,52 +132,52 @@ class ACE_Actions : ACE_Actions {
             class Zero {
                 displayName = "Zero";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\0_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\0_ca.paa'];";
             };
             class one {
                 displayName = "one";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\1_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\1_ca.paa'];";
             };
             class two {
                 displayName = "two";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\2_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\2_ca.paa'];";
             };
             class three {
                 displayName = "three";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\3_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\3_ca.paa'];";
             };
             class four {
                 displayName = "four";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\4_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\4_ca.paa'];";
             };
             class five {
                 displayName = "five";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\5_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\5_ca.paa'];";
             };
             class six {
                 displayName = "six";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\6_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\6_ca.paa'];";
             };
             class seven {
                 displayName = "seven";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\7_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\7_ca.paa'];";
             };
             class eight {
                 displayName = "eight";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\8_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\8_ca.paa'];";
             };
             class nine {
                 displayName = "nine";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_us\tex\tailNumbers\9_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_03', '\fza_ah64_model\tex\tailNumbers\9_ca.paa'];";
             };
             class clear {
                 displayName = "clear";
@@ -192,52 +192,52 @@ class ACE_Actions : ACE_Actions {
             class Zero {
                 displayName = "Zero";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\0_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\0_ca.paa'];";
             };
             class one {
                 displayName = "one";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\1_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\1_ca.paa'];";
             };
             class two {
                 displayName = "two";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\2_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\2_ca.paa'];";
             };
             class three {
                 displayName = "three";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\3_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\3_ca.paa'];";
             };
             class four {
                 displayName = "four";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\4_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\4_ca.paa'];";
             };
             class five {
                 displayName = "five";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\5_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\5_ca.paa'];";
             };
             class six {
                 displayName = "six";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\6_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\6_ca.paa'];";
             };
             class seven {
                 displayName = "seven";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\7_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\7_ca.paa'];";
             };
             class eight {
                 displayName = "eight";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\8_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\8_ca.paa'];";
             };
             class nine {
                 displayName = "nine";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_us\tex\tailNumbers\9_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_04', '\fza_ah64_model\tex\tailNumbers\9_ca.paa'];";
             };
             class clear {
                 displayName = "clear";
@@ -252,52 +252,52 @@ class ACE_Actions : ACE_Actions {
             class Zero {
                 displayName = "Zero";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\0_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\0_ca.paa'];";
             };
             class one {
                 displayName = "one";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\1_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\1_ca.paa'];";
             };
             class two {
                 displayName = "two";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\2_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\2_ca.paa'];";
             };
             class three {
                 displayName = "three";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\3_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\3_ca.paa'];";
             };
             class four {
                 displayName = "four";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\4_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\4_ca.paa'];";
             };
             class five {
                 displayName = "five";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\5_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\5_ca.paa'];";
             };
             class six {
                 displayName = "six";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\6_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\6_ca.paa'];";
             };
             class seven {
                 displayName = "seven";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\7_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\7_ca.paa'];";
             };
             class eight {
                 displayName = "eight";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\8_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\8_ca.paa'];";
             };
             class nine {
                 displayName = "nine";
                 condition = "true";
-                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_us\tex\tailNumbers\9_ca.paa'];";
+                statement = "_target setObjectTextureGlobal ['tailDigit_05', '\fza_ah64_model\tex\tailNumbers\9_ca.paa'];";
             };
             class clear {
                 displayName = "clear";

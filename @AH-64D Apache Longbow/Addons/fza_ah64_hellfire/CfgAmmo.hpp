@@ -66,7 +66,7 @@ class CfgAmmo {
         effectsMissileInit          = "";
         explosionEffects            = "ATMissileExplosion"; 
         soundsetsoniccrack[]        = {"fza_sc_wire_flyby_soundset"};
-        soundfly[]                  = {"fza_ah64_us\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
+        soundfly[]                  = {"fza_ah64_model\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
         whistledist                 = 300;
 
@@ -98,8 +98,8 @@ class CfgAmmo {
     class fza_agm114fa : fza_agm114base
     {
         fza_salType                 = "sal1";
-        model                       = "\fza_ah64_US\fza_agm114fa";
-        proxyShape                  = "\fza_ah64_US\fza_agm114fa";
+        model                       = "\fza_ah64_model\fza_agm114fa";
+        proxyShape                  = "\fza_ah64_model\fza_agm114fa";
         submunitionAmmo             = "Fza_Penetrator_8KG";
 
         hit                         = 260;
@@ -125,8 +125,8 @@ class CfgAmmo {
     };
     class fza_agm114k : fza_agm114base
     {
-        model                       = "\fza_ah64_us\fza_agm114k"; 
-        proxyShape                  = "\fza_ah64_us\fza_agm114k";
+        model                       = "\fza_ah64_model\fza_agm114k"; 
+        proxyShape                  = "\fza_ah64_model\fza_agm114k";
 
         //AI usage
         aiAmmoUsageFlags            = "64+128+512";
@@ -142,8 +142,8 @@ class CfgAmmo {
     };
     class fza_agm114k2a : fza_agm114base
     {
-        model                       = "\fza_ah64_us\fza_agm114k2a"; 
-        proxyShape                  = "\fza_ah64_us\fza_agm114k2a";
+        model                       = "\fza_ah64_model\fza_agm114k2a"; 
+        proxyShape                  = "\fza_ah64_model\fza_agm114k2a";
 
         //AI usage
         aiAmmoUsageFlags            = "64+128+512";
@@ -172,8 +172,8 @@ class CfgAmmo {
     class fza_agm114l : fza_agm114base
     {
         fza_salType                 = "rf";
-        model                       = "\fza_ah64_US\fza_agm114l";
-        proxyShape                  = "\fza_ah64_US\fza_agm114l";
+        model                       = "\fza_ah64_model\fza_agm114l";
+        proxyShape                  = "\fza_ah64_model\fza_agm114l";
         simulation                  = "shotMissile";
 
         //AI usage
@@ -196,8 +196,8 @@ class CfgAmmo {
     };
     class fza_agm114n : fza_agm114base
     {
-        model                       = "\fza_ah64_US\fza_agm114n";
-        proxyShape                  = "\fza_ah64_US\fza_agm114n";
+        model                       = "\fza_ah64_model\fza_agm114n";
+        proxyShape                  = "\fza_ah64_model\fza_agm114n";
         hit                         = 300;
         indirecthit                 = 300;
         indirecthitrange            = 20;

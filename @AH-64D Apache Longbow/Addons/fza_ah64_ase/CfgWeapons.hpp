@@ -20,7 +20,7 @@ class CfgWeapons {
             burst = 1;
             sounds[] = {"StandardSound"};
             class StandardSound {
-                begin1[] = {"\fza_ah64_us\audio\Flares.ogg", 1.000000, 1, 300};
+                begin1[] = {"\fza_ah64_model\audio\Flares.ogg", 1.000000, 1, 300};
                 soundBegin[] = {"begin1", 1};
             };
             showToPlayer = 0;
