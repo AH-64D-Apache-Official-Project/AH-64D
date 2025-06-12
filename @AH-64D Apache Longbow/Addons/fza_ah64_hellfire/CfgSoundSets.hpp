@@ -1,20 +1,8 @@
 class CfgSoundSets {
 
-    class fza_basic_soundset {
-        volumeFactor = 1;
-        volumecurve = "fza_weapons_basic_volumecurve";
-        sound3dprocessingtype = "fza_weapons_3dprocessor";
-        distancefilter = "fza_weapons_lowpass_filter";
-        occlusionFactor = 0.250000;
-        obstructionFactor = 0.300000;
-        spatial = 1;
-        doppler = 0;
-        loop = 0;
-        frequencyrandomizer = 0.500000;
-    };
-
-    class fza_missile_explosion_stereo_soundset {
-        soundShaders[] = {"fza_missile_explosion_stereo_soundshader", "fza_missile_explosion_distance_soundshader"};
+    class fza_basic_soundset;
+    class fza_soundset_hellfire_explosion {
+        soundShaders[] = {"fza_soundshader_hellfire_explosion_stereo", "fza_soundshader_hellfire_explosion_distance"};
         volumefactor = 0.750000;
         volumecurve = "fza_basic_vl_sin";
         spatial = 1;
@@ -27,12 +15,7 @@ class CfgSoundSets {
         occlusionfactor = 0.250000;
         obstructionfactor = 0.250000;
     };
-
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////WEAPONS//////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    
-    class fza_agm114_soundset: fza_basic_soundset {
-        soundShaders[] = {"fza_agm114_close_soundshader","fza_agm114_close_distance_soundshader","fza_agm114_medium_distance_soundshader","fza_agm114_close_distance_pool_soundshader","fza_agm114_far_distance_pool_soundshader","fza_agm114_very_far_distance_pool_soundshader"};
+    class fza_soundset_hellfire_shot: fza_basic_soundset {
+        soundShaders[] = {"fza_soundshader_hellfire_close","fza_soundshader_hellfire_close_distance","fza_soundshader_hellfire_medium_distance","fza_soundshader_hellfire_close_distance_pool","fza_soundshader_hellfire_far_distance_pool","fza_soundshader_hellfire_very_far_distance_pool"};
     };
 };

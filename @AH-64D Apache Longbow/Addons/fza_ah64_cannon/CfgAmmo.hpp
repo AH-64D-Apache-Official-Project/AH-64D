@@ -40,9 +40,9 @@ class CfgAmmo {
         triggerOnImpact             =1;
         deleteParentWhenTriggered   =0;
         
-        soundsetbulletfly[]         = {"fza_sc_bullet_flyby_soundset"};
-        soundsetsoniccrack[]        = {"fza_sc_30x113_soundset"};
-        soundsetexplosion[]         = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
+        soundsetbulletfly[]         = {"fza_soundset_cannon_flyby"};
+        soundsetsoniccrack[]        = {"fza_soundset_cannon_flyby_1"};
+        soundsetexplosion[]         = {"fza_soundset_cannon_explosion", "fza_soundset_cannon_explosion_echo"};
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128+256";

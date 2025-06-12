@@ -67,7 +67,7 @@ class CfgAmmo {
         explosionEffects            = "ATMissileExplosion"; 
         soundsetsoniccrack[]        = {"fza_sc_wire_flyby_soundset"};
         soundfly[]                  = {"fza_ah64_hellfire\audio\Flyby\soundfly1.ogg", 1, 1.500000, 400};
-        soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_missile_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
+        soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_soundset_hellfire_explosion", "fza_shell_explosion_reverb_soundset"};
         whistledist                 = 300;
 
         class CamShakeExplode

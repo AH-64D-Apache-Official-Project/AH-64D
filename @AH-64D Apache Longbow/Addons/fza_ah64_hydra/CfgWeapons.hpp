@@ -27,7 +27,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_m261_soundset"};
+                soundSetShot[] = {"fza_soundset_hydra_shot"};
             };
             autoFire = 0;
             reloadTime = 0.09;
@@ -74,7 +74,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_m261_soundset"};
+                soundSetShot[] = {"fza_soundset_hydra_shot"};
             };
             textureType = "semi";
         };

@@ -1,48 +1,16 @@
 class CfgSoundSets {
-
-    class fza_basic_soundset {
-        volumeFactor = 1;
-        volumecurve = "fza_weapons_basic_volumecurve";
-        sound3dprocessingtype = "fza_weapons_3dprocessor";
-        distancefilter = "fza_weapons_lowpass_filter";
-        occlusionFactor = 0.250000;
-        obstructionFactor = 0.300000;
-        spatial = 1;
-        doppler = 0;
-        loop = 0;
-        frequencyrandomizer = 0.500000;
-    };
-    
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////SONICCRACKS//////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    
-    class fza_basic_soniccrack_soundset {
-        volumefactor = 1.250000;
-        volumerandomizer = 1;
-        volumecurve = "fza_basic_vl_sin";
-        spatial = 1;
-        doppler = 0;
-        loop = 0;
-        sound3dprocessingtype = "fza_snaps_3dprocessor";
-        distancefilter = "fza_weapons_lowpass_filter";
-        frequencyrandomizer = 4;
-    };
-    class fza_sc_bullet_flyby_soundset: fza_basic_soniccrack_soundset {
-        soundShaders[]  = {"fza_sc_bullet_flyby_soundshader"};
+    class fza_basic_soundset;
+    class fza_basic_soniccrack_soundset;
+    class fza_soundset_cannon_flyby: fza_basic_soniccrack_soundset {
+        soundShaders[]  = {"fza_soundshader_cannon_flyby"};
         volumefactor = 1;
         soundshaderslimit = 2;
     };
-    class fza_sc_30x113_soundset: fza_basic_soniccrack_soundset {
-        soundShaders[] = {"fza_sc_30x113_close_soundshader", "fza_sc_30x113_medium_soundshader", "fza_sc_30x113_far_soundshader"};
+    class fza_soundset_cannon_flyby_1: fza_basic_soniccrack_soundset {
+        soundShaders[] = {"fza_soundshader_cannon_sonic_crack_close", "fza_soundshader_cannon_sonic_crack_medium", "fza_soundshader_cannon_sonic_crack_far"};
     };
-    
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////EXPLOSIONS///////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    
-    class fza_20mm_explosion_soundset {
-        soundShaders[] = {"fza_20mm_explosion_close_distance_soundshader", "fza_20mm_explosion_medium_distance_soundshader", "fza_20mm_explosion_far_distance_soundshader", "fza_small_debris_regular_soundshader", "fza_small_debris_houses_soundshader"};
+    class fza_soundset_cannon_explosion {
+        soundShaders[] = {"fza_soundshader_cannon_explosion_close_distance", "fza_soundshader_cannon_explosion_medium_distance", "fza_soundshader_cannon_explosion_far_distance", "fza_small_debris_regular_soundshader", "fza_small_debris_houses_soundshader"};
         volumefactor = 1.500000;
         volumecurve = "fza_explosions_volumecurve";
         sound3dprocessingtype = "fza_explosions_3dprocessor";
@@ -54,12 +22,7 @@ class CfgSoundSets {
         obstructionfactor = 0.100000;
         frequencyrandomizer = 3;
     };
-    
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////ECHO/////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    
-    class fza_explosion_echo_small_soundset {
+    class fza_soundset_cannon_explosion_echo {
         soundShaders[] = {"fza_explosion_echo_small_soundshader", "fza_explosion_echo_houses_soundshader"};
         volumefactor = 1.400000;
         volumecurve = "fza_basic_vl_sin";
@@ -74,12 +37,7 @@ class CfgSoundSets {
         occlusionfactor = 0.200000;
         obstructionfactor = 0;
     };
-    
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////WEAPONS//////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////
-    
-    class fza_m230_soundset: fza_basic_soundset {
-        soundShaders[] = {"fza_m230_close_soundshader","fza_m230_close_distance_soundshader","fza_m230_medium_distance_soundshader","fza_m230_close_distance_pool_soundshader","fza_m230_far_distance_pool_soundshader","fza_m230_very_far_distance_pool_soundshader"};
+    class fza_soundset_cannon_shot: fza_basic_soundset {
+        soundShaders[] = {"fza_soundshader_cannon_close","fza_soundshader_cannon_close_distance","fza_soundshader_cannon_medium_distance","fza_soundshader_cannon_close_distance_pool","fza_soundshader_cannon_far_distance_pool","fza_soundshader_cannon_very_far_distance_pool"};
     };
 };
