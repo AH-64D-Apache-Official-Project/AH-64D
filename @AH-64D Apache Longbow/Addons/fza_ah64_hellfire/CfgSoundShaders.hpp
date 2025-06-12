@@ -44,7 +44,7 @@ class CfgSoundShaders {
 
     class fza_soundshader_hellfire_explosion_stereo 
     {
-        samples[] = {{"fza_ah64_hellfire\data\audio\missile.ogg", 1}};
+        samples[] = {{"fza_ah64_hellfire\data\audio\explosion\missile.ogg", 1}};
         volume = 1;
         range = 700;
         rangeCurve[] = {{0, 1}, {700, 0}};
@@ -52,7 +52,7 @@ class CfgSoundShaders {
     };
     class fza_soundshader_hellfire_explosion_distance 
     {
-        samples[] = {{"fza_ah64_hellfire\data\audio\missile_distance.ogg", 1}};
+        samples[] = {{"fza_ah64_hellfire\data\audio\explosion\missile_distance.ogg", 1}};
         volume = 1;
         range = 1500;
         rangeCurve[] = {{0, 0}, {700, 1}, {1500, 0}};

@@ -265,32 +265,6 @@ class CfgVehicles {
                 position  = "exhaust2";
             };
         };
-        
-        class Attributes
-        {
-            class fza_pylonLoadout
-            {
-                displayName  = "Loadout Config";
-                tooltip      = "Loadout in JSON form to export";
-                property     = "fza_ah64_loadout";
-                control      = "Edit";
-                expression   = "[_this, _value] call fza_fnc_loadoutImportJson;";
-                defaultValue = "''";
-                unique       = 0;
-                validate     = "none";
-                condition    = "1";
-                typeName     = "STRING";    
-            };
-            class fza_ah64_tailNumber {
-                displayName  = "Custom Tail Number";
-                tooltip      = "Enter a 7 character tail number. Leave a space to skip a position.";
-                property     = "fza_attribute_tailNumber";
-                control      = "Edit";
-                expression   = "[_this, _value] call fza_fnc_setTailNumber;";
-                defaultValue = "None";
-                condition    = "objectVehicle";
-            };
-        };
     };
 
     

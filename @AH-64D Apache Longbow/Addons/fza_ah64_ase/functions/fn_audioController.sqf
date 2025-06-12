@@ -57,7 +57,7 @@ if (_rlwrPower == ASE_IRJAM_STATE_OFF || !_dcBusOn) exitWith {
     };
     if !(isnil "_objectpos") then {_object = _objectpos;};
     private _theta = _heli getRelDir _object;
-    private _clock = [_theta] call fza_fnc_bearingClock;
+    private _clock = [_theta] call fza_ase_fnc_bearingClock;
     
     private _identity = format ["fza_ah64_bt_%1", _soundclass];
     private _dirAud = format ["fza_ah64_bt_%1oclock", _clock];

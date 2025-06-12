@@ -68,19 +68,19 @@ class CfgSoundShaders {
 
     ///////////////////////soniccracks////////////////////////////////
     class fza_soundshader_cannon_sonic_crack_close {
-        samples[] = {{"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_1", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_2", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_3", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_4", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_5", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_6", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_7", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_very_close_distance_8", 1}};
+        samples[] = {{"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_1", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_2", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_3", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_4", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_5", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_6", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_7", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_very_close_distance_8", 1}};
         volume = 2;
         range = 5;
         rangeCurve[] = {{0, 1.500000}, {10, 1}, {20, 0}};
     };
     class fza_soundshader_cannon_sonic_crack_medium {
-        samples[] = {{"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_1", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_2", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_3", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_4", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_5", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_6", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_7", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_close_distance_8", 1}};
+        samples[] = {{"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_1", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_2", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_3", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_4", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_5", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_6", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_7", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_close_distance_8", 1}};
         volume = 1.500000;
         range = 20;
         rangeCurve[] = {{0, 0}, {20, 1}, {100, 0}};
     };
     class fza_soundshader_cannon_sonic_crack_far {
-        samples[] = {{"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_1", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_2", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_3", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_4", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_5", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_6", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_7", 1}, {"fza_ah64_model\audio\Soniccracks\soniccrack_medium_distance_8", 1}};
+        samples[] = {{"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_1", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_2", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_3", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_4", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_5", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_6", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_7", 1}, {"fza_ah64_cannon\data\sonic_cracks\soniccrack_medium_distance_8", 1}};
         volume = 1;
         range = 700;
         rangeCurve[] = {{0, 0}, {20, 0}, {100, 1}, {700, 0}};
@@ -89,7 +89,7 @@ class CfgSoundShaders {
     ////////////////////////Bullet Flyby////////////////////////////////
     class fza_soundshader_cannon_flyby 
     {
-        samples[] = {{"fza_ah64_model\audio\Flyby\20mm_Flyby_1.ogg", 1}, {"fza_ah64_model\audio\Flyby\20mm_Flyby_2.ogg", 1}, {"fza_ah64_model\audio\Flyby\20mm_Flyby_3.ogg", 1}, {"fza_ah64_model\audio\Flyby\20mm_Flyby_4.ogg", 1}, {"fza_ah64_model\audio\Flyby\20mm_Flyby_5.ogg", 1}, {"fza_ah64_model\audio\Flyby\20mm_Flyby_6.ogg", 1}};
+        samples[] = {{"fza_ah64_cannon\data\flyby\30mm_Flyby_1.ogg", 1}, {"fza_ah64_cannon\data\flyby\30mm_Flyby_2.ogg", 1}, {"fza_ah64_cannon\data\flyby\30mm_Flyby_3.ogg", 1}, {"fza_ah64_cannon\data\flyby\30mm_Flyby_4.ogg", 1}, {"fza_ah64_cannon\data\flyby\30mm_Flyby_5.ogg", 1}, {"fza_ah64_cannon\data\flyby\30mm_Flyby_6.ogg", 1}};
         volume = 1.000000;
         range = 200;
     };
