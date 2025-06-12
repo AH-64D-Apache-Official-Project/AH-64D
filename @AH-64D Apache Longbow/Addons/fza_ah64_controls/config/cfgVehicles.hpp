@@ -10,8 +10,8 @@ class CfgVehicles {
         delete PilotCamera;
     };
     class fza_ah64base : Helicopter_Base_F {
-        icon        = "\fza_ah64_model\icons\b2_topdown_128x128_ca.paa";
-        picture     = "\fza_ah64_model\icons\b2_silloheutte_128x64_ca.paa";
+        icon        = "fza_ah64_controls\data\icons\b1_topdown_128x128_ca.paa";
+        picture     = "fza_ah64_controls\data\icons\b1_silloheutte_128x64_ca.paa";
         displayName = "AH-64 Offical Project Base class";
         model       = "\fza_ah64_model\fza_ah64d_b2.p3d";
         scope       = 0;
@@ -299,7 +299,7 @@ class CfgVehicles {
         scope           = 2;
         author          = "AH-64D Development Team";
         displayName     = "AH-64D BLOCK I";
-        editorPreview   = "\fza_ah64_model\editorPreview\fza_ah64d_b1.jpg";
+        editorPreview   = "\fza_ah64_controls\data\editorpreview\fza_ah64d_b1.jpg";
     };
 
 
