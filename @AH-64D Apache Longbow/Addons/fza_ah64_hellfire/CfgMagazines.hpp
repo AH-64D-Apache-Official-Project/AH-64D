@@ -16,22 +16,22 @@ class CfgMagazines {
         };\
         class ammoname##_ll: ammoname##_base { \
             scope = public;\
-            model = \fza_ah64_model\weps\pylons\fza_rail_ll.p3d; \
+            model = \fza_ah64_hellfire\data\pylon\fza_rail_ll.p3d; \
             hardpoints[] = {"fza_agm114_ll"}; \
         }; \
         class ammoname##_lr: ammoname##_base { \
             scope = public;\
-            model = \fza_ah64_model\weps\pylons\fza_rail_lr.p3d; \
+            model = \fza_ah64_hellfire\data\pylon\fza_rail_lr.p3d; \
             hardpoints[] = {"fza_agm114_lr"}; \
         }; \
         class ammoname##_ul: ammoname##_base { \
             scope = public;\
-            model = \fza_ah64_model\weps\pylons\fza_rail_ul.p3d; \
+            model = \fza_ah64_hellfire\data\pylon\fza_rail_ul.p3d; \
             hardpoints[] = {"fza_agm114_ul"}; \
         }; \
         class ammoname##_ur: ammoname##_base { \
             scope = public;\
-            model = \fza_ah64_model\weps\pylons\fza_rail_ur.p3d; \
+            model = \fza_ah64_hellfire\data\pylon\fza_rail_ur.p3d; \
             hardpoints[] = {"fza_agm114_ur"} ; \
         };
 
@@ -43,7 +43,7 @@ class CfgMagazines {
     
     class fza_agm114_rail: fza_agm114k_ur {
         descriptionShort = "The M299 is a 4-Rail Hellfire Launcher";
-        model = "\fza_ah64_model\weps\pylons\fza_rail_ul.p3d";
+        model = "\fza_ah64_model\weps\pylon\fza_rail_ul.p3d";
         hardpoints[] = {"fza_railzone"};
         fza_pylonType = "hellfire";
         displayName = "M299"; 
