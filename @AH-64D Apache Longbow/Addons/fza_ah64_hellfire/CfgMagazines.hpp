@@ -43,7 +43,7 @@ class CfgMagazines {
     
     class fza_agm114_rail: fza_agm114k_ur {
         descriptionShort = "The M299 is a 4-Rail Hellfire Launcher";
-        model = "\fza_ah64_model\weps\pylon\fza_rail_ul.p3d";
+        model = "\fza_ah64_hellfire\data\pylon\fza_rail_ul.p3d";
         hardpoints[] = {"fza_railzone"};
         fza_pylonType = "hellfire";
         displayName = "M299"; 

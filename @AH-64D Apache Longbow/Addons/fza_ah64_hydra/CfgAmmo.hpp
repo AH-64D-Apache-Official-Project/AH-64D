@@ -23,7 +23,7 @@ class CfgAmmo {
         fza_shortCode               = "";
         fza_weaponName              = "";
 
-        soundfly[]                  = {"fza_ah64_model\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
+        soundfly[]                  = {"fza_ah64_control\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
         soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_soundset_hydra_explosion_stereo", "fza_shell_explosion_reverb_soundset"};
         soundsetsoniccrack[]        = {"fza_soundset_hydra_flyby"};
         model                       = "\fza_ah64_hydra\fza_hydra_m151_wep";

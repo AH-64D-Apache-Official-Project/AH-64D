@@ -54,7 +54,7 @@ class CfgSoundShaders {
 
     class fza_soundshader_hydra_reverb_houses 
     {
-        samples[] = {{"fza_ah64_model\audio\Echo\Reflections\Small\houses.ogg", 1}};
+        samples[] = {{"fza_ah64_control\audio\Echo\Reflections\Small\houses.ogg", 1}};
         volume = "houses";
         range = 500;
         limitation = 1;
@@ -62,7 +62,7 @@ class CfgSoundShaders {
     };
     class fza_soundshader_hydra_reverb_meadow 
     {
-        samples[] = {{"fza_ah64_model\audio\Echo\Reflections\Small\meadow.ogg", 1}};
+        samples[] = {{"fza_ah64_control\audio\Echo\Reflections\Small\meadow.ogg", 1}};
         volume = "meadows max sea";
         range = 500;
         limitation = 1;
@@ -70,7 +70,7 @@ class CfgSoundShaders {
     };
     class fza_soundshader_hydra_reverb_forest 
     {
-        samples[] = {{"fza_ah64_model\audio\Echo\Reflections\Small\forest.ogg", 1}};
+        samples[] = {{"fza_ah64_control\audio\Echo\Reflections\Small\forest.ogg", 1}};
         volume = "forest";
         range = 500;
         limitation = 1;

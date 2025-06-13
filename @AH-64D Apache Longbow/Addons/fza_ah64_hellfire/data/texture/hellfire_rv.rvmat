@@ -8,7 +8,7 @@ PixelShaderID="Super";
 VertexShaderID="Super";
 class Stage1
 {
-    texture="fza_ah64_model\tex\Ex\B2_nohq.paa";
+    texture="fza_ah64_hellfire\data\texture\B2_nohq.paa";
     uvSource="tex";
     class uvTransform
     {
@@ -56,7 +56,7 @@ class Stage4
 };
 class Stage5
 {
-    texture="fza_ah64_model\tex\NM_smdi.paa";
+    texture="fza_ah64_hellfire\data\texture\NM_smdi.paa";
     uvSource="tex";
     class uvTransform
     {
@@ -80,7 +80,7 @@ class Stage6
 };
 class Stage7
 {
-    texture="fza_ah64_model\tex\env_land_co.paa";
+    texture="fza_ah64_hellfire\data\texture\env_land_co.paa";
     uvSource="tex";
     class uvTransform
     {
