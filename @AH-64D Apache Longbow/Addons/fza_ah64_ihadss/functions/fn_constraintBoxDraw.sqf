@@ -85,12 +85,12 @@ private _inConstraints = _distOffAxis < _allowableAngle;
 if _indicateLobl then {
 	_conW = 2*20*SYMB_DEG_SCALING_FACTOR/4*3;
 	_conH = 2*20*SYMB_DEG_SCALING_FACTOR;
-	private _tex = ["\fza_ah64_us\tex\HDU\ah64_lobl_nolos.paa", "\fza_ah64_us\tex\HDU\ah64_lobl.paa"] select _inConstraints;
+	private _tex = ["\fza_ah64_model\tex\HDU\ah64_lobl_nolos.paa", "\fza_ah64_model\tex\HDU\ah64_lobl.paa"] select _inConstraints;
 	_constraintBoxCtrl ctrlSetText _tex;
 } else {
 	_conW = 2*7.5*SYMB_DEG_SCALING_FACTOR/4*3;
 	_conH = 2*7.5*SYMB_DEG_SCALING_FACTOR;
-	private _tex = ["\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa", "\fza_ah64_us\tex\HDU\f16_rsc_jhmcs_targ.paa"] select _inConstraints;
+	private _tex = ["\fza_ah64_model\tex\HDU\f16_rsc_jhmcs_targ_nolos.paa", "\fza_ah64_model\tex\HDU\f16_rsc_jhmcs_targ.paa"] select _inConstraints;
 	_constraintBoxCtrl ctrlSetText _tex;
 };
 

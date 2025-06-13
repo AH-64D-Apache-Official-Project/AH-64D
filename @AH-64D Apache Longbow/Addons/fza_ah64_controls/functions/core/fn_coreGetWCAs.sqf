@@ -23,7 +23,7 @@ Examples:
 
     // Helicoper with an engine fire and the rotor brake on
     _data = [_heli] call fza_fnc_coreGetWCAs
-    // _data = [[WCA_WARNING, "\fza_ah64_us\tex\MPD\E1Fire.paa"], 
+    // _data = [[WCA_WARNING, "\fza_ah64_model\tex\MPD\E1Fire.paa"], 
     ---
 
 Author:

@@ -1,7 +1,5 @@
-class CfgPatches
-{
-    class fza_ah64_cannon
-    {
+class CfgPatches {
+    class fza_ah64_cannon{
         units[] = {};
         author = "AH-64D Development Team";
         weapons[] = {};
@@ -15,4 +13,6 @@ class CfgPatches
 #include "CfgAmmo.hpp"
 #include "CfgFunctions.hpp"
 #include "CfgMagazines.hpp"
+#include "CfgSoundSets.hpp"
+#include "CfgSoundShaders.hpp"
 #include "CfgWeapons.hpp"

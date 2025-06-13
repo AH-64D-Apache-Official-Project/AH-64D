@@ -48,7 +48,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_m230_soundset"};
+                soundSetShot[] = {"fza_soundset_cannon_shot"};
             };
             soundContinuous = 0;
             soundBurst = 0;

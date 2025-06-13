@@ -22,12 +22,12 @@ class CfgMovesMaleSdr: CfgMovesBasic
             speed = 0.5;
             looped = "false";
             terminal = 1;
-            file = "\fza_ah64_us\anim\fza_ah64_leftcargo_dead.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_leftcargo_dead.rtm";
             connectTo[] = {"DeadState",0.1};
         };
         class fza_ah64_leftcargo: Crew
         {
-            file = "\fza_ah64_us\anim\fza_ah64_leftcargo.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_leftcargo.rtm";
             interpolateTo[] = {"fza_ah64_leftcargo_dead",1};
         };
         class fza_ah64_rightcargo_dead: DefaultDie
@@ -36,24 +36,24 @@ class CfgMovesMaleSdr: CfgMovesBasic
             speed = 0.5;
             looped = "false";
             terminal = 1;
-            file = "\fza_ah64_us\anim\fza_ah64_rightcargo_dead.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_rightcargo_dead.rtm";
             connectTo[] = {"DeadState",0.1};
         };
         class fza_ah64_rightcargo: Crew
         {
-            file = "\fza_ah64_us\anim\fza_ah64_rightcargo.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_rightcargo.rtm";
             interpolateTo[] = {"fza_ah64_rightcargo_dead",1};
         };
         class fza_ah64_plt_movearm: Crew
         {
-            file = "\fza_ah64_us\anim\fza_ah64_plt_movearm.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_plt_movearm.rtm";
             interpolateTo[] = {};
             speed = 0.5;
             looped = 0;
         };
         class fza_ah64_pilot: Crew
         {
-            file = "\fza_ah64_us\anim\fza_ah64_pilot.rtm";
+            file = "\fza_ah64_controls\data\animations\fza_ah64_pilot.rtm";
             interpolateTo[] = {"KIA_pilot_Heli_Transport_01",1};
         };
         class fza_ah64_copilot: Crew

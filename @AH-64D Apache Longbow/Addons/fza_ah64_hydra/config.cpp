@@ -14,6 +14,8 @@ class CfgPatches
 
 #include "CfgAmmo.hpp"
 #include "CfgFunctions.hpp"
-#include "CfgNonAIVehicles.hpp"
 #include "CfgMagazines.hpp"
+#include "CfgNonAIVehicles.hpp"
+#include "CfgSoundSets.hpp"
+#include "CfgSoundShaders.hpp"
 #include "CfgWeapons.hpp"

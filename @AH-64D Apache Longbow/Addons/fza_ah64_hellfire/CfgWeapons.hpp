@@ -22,7 +22,7 @@ class CfgWeapons {
         sounds[] = {"StandardSound"};
         class StandardSound 
         {
-            soundSetShot[] = {"fza_agm114_soundset"};
+            soundSetShot[] = {"fza_soundset_hellfire_shot"};
         };
         modes[] = {"TopDown"};
         class TopDown: MissileLauncher
@@ -34,7 +34,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_agm114_soundset"};
+                soundSetShot[] = {"fza_soundset_hellfire_shot"};
             };
             lockedtargetsound[] = {"", 1, 1};
             lockingtargetsound[] = {"", 1, 1};

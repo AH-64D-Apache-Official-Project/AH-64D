@@ -29,5 +29,5 @@ class CfgEditorSubcategories
     };
 };
 
-#include "Config\cfgVehicles.hpp"
-#include "Config\cfgFunctions.hpp"
+#include "cfgVehicles.hpp"
+#include "cfgFunctions.hpp"

@@ -7,7 +7,7 @@
 #define PYLON_UI_PYLON_3 0.3
 #define PYLON_UI_PYLON_4 0.1
 class TransportPylonsComponent {
-    uiPicture = "\fza_ah64_us\tex\pylonmenu.paa";
+    uiPicture = "\fza_ah64_model\tex\pylonmenu.paa";
     class pylons {
         class pylons1 { //Pylon 1 rocket zone alpha
             maxweight = 560;

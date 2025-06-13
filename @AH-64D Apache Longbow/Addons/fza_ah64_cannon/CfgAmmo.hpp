@@ -1,7 +1,6 @@
 class CfgAmmo {
     class B_30mm_HE;
-    class fza_30x113: B_30mm_HE
-    {
+    class fza_30x113: B_30mm_HE {
         //Ace Cfg
         ACE_caliber = 30.00;
         ACE_bulletLength = 104;
@@ -41,9 +40,9 @@ class CfgAmmo {
         triggerOnImpact             =1;
         deleteParentWhenTriggered   =0;
         
-        soundsetbulletfly[]         = {"fza_sc_bullet_flyby_soundset"};
-        soundsetsoniccrack[]        = {"fza_sc_30x113_soundset"};
-        soundsetexplosion[]         = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
+        soundsetbulletfly[]         = {"fza_soundset_cannon_flyby"};
+        soundsetsoniccrack[]        = {"fza_soundset_cannon_flyby_1"};
+        soundsetexplosion[]         = {"fza_soundset_cannon_explosion", "fza_soundset_cannon_explosion_echo"};
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128+256";
@@ -65,20 +64,17 @@ class CfgAmmo {
         midRangeProbab = 0.8;
         maxRange = 3500;
         maxRangeProbab = 0.6;
-        class CamShakeExplode
-        {
+        class CamShakeExplode {
             power = 6;
             duration = 1;
             frequency = 20;
         };
-        class CamShakeHit
-        {
+        class CamShakeHit {
             power = 30;
             duration = 0.4;
             frequency = 20;
         };
-        class CamShakeFire
-        {
+        class CamShakeFire {
             power = 1.8;
             duration = 1;
             frequency = 16;

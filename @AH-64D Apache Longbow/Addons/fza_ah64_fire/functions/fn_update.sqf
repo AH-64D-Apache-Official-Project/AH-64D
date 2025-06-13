@@ -73,13 +73,13 @@ if !_battBusOn then {
 };
 
 //FIRE Arm
-_heli setObjectTexture ["in_lt_fire1rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneArm];
-_heli setObjectTexture ["in_lt_fire2rdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoArm];
-_heli setObjectTexture ["in_lt_fireapurdy", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuArm];
+_heli setObjectTexture ["in_lt_fire1rdy", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _engineOneArm];
+_heli setObjectTexture ["in_lt_fire2rdy", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _engineTwoArm];
+_heli setObjectTexture ["in_lt_fireapurdy", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _apuArm];
 //FIRE Detected
-_heli setObjectTexture ["in_lt_fire1", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineOneFire];
-_heli setObjectTexture ["in_lt_fire2", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _engineTwoFire];
-_heli setObjectTexture ["in_lt_fireapu", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuFire];
+_heli setObjectTexture ["in_lt_fire1", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _engineOneFire];
+_heli setObjectTexture ["in_lt_fire2", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _engineTwoFire];
+_heli setObjectTexture ["in_lt_fireapu", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _apuFire];
 //Fire bottle Dispensed
-_heli setObjectTexture ["in_lt_firepdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _primaryFB];
-_heli setObjectTexture ["in_lt_firerdis", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _reserveFB];
+_heli setObjectTexture ["in_lt_firepdis", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _primaryFB];
+_heli setObjectTexture ["in_lt_firerdis", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _reserveFB];
