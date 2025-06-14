@@ -17,19 +17,6 @@ if (_value) then {
             _heli setVariable ["fza_ah64_salvofired", 0];
             _heli setVariable ["fza_ah64_burst_fired", 0];
         };
-        case "fza_ah64_crosshairInteract": {
-            private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
-            if (_controls isEqualTo []) exitWith {};
-            
-            //If there are multiple controls in the range, make sure we use the closest one
-            if(count _controls > 1) then {
-                _controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
-            };
-            
-            (_controls # 0) params ["", "", "_system", "_control"];
-
-            [_heli, _system, _control] call fza_fnc_coreCockpitInteract;
-        };
         case "fza_ah64_laserDesig": {
             [_heli] call fza_fnc_laserArm;
         };
@@ -165,18 +152,6 @@ if (_value) then {
         };
         case "fza_ah64_flare": {
             [_heli] call fza_ase_fnc_Flare;
-        };
-        case "fza_ah64_freeCursor": {
-            private _cursorEnabled = (_heli getVariable "fza_ah64_freeCursorEnabled");
-            _heli setVariable ["fza_ah64_freeCursorEnabled", !_cursorEnabled];
-            if (_cursorEnabled) then {
-                _heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
-                _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
-                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlSetPosition[0.5 - 0.005, 0.5 - 0.009];
-                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlSetPosition[0.5 - 0.25, 0.5 + 0.02];
-                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 601) ctrlCommit 0.01;
-                ((uiNameSpace getVariable 'fza_ah64_click_helper') displayCtrl 602) ctrlCommit 0.01;
-            };
         };
         case "zoomIn": {
             if (player != gunner _heli) exitWith {};

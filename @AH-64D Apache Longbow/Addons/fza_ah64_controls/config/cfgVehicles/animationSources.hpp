@@ -338,14 +338,14 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.15;
-        initPhase=0;
+        initPhase = 0.5;
         sound = "eng1_start_sound";
     };
     class plt_eng2_start
     {
         source = "user";
         animPeriod = 0.15;
-        initPhase=0;
+        initPhase = 0.5;
         sound = "eng2_start_sound";
     };
     class plt_rtrbrake

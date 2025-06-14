@@ -22,7 +22,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_laserDesig[] = {0x22}; //G
             fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
             fza_ah64_targetStoreUpdate[] = {0x2A130022}; //Shift+G
-            fza_ah64_crosshairInteract[] = {0x56}; // Backslash (\)
             fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
             fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
             fza_ah64_countermeasure[] = {0x13}; //R
@@ -32,7 +31,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_wasMsl[] = {0x04}; // 3
             fza_ah64_fcrModeSwitch_up[] = {0x2A130023}; //Shift+H
             fza_ah64_fcrModeSwitch_down[] = {0x1D130023}; //Ctrl+H
-            fza_ah64_freeCursor[] = {0x16}; // U
             fza_ah64_flare[] = {0x13}; // R
             fza_ah64_tadsLHGFov_W[] = {0x38130002};
             fza_ah64_tadsLHGFov_M[] = {0x38130003};

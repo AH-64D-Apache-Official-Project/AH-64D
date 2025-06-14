@@ -10,33 +10,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_freeCursorSensitivity",
-    "SLIDER",
-    "Free cursor mode sensitivity",
-    [_projName, "Control"],
-    [0, 0.1, 0.05, 2],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_freeCursorfreelooklock",
-    "CHECKBOX",
-    "Lock the cursor when in free look",
-    [_projName, "Control"],
-    [true],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_enableClickHelper",
-    "CHECKBOX",
-    ["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
-    [_projName, "UI"],
-    [true],
-    2
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_vanillaTargetingEnable",
     "CHECKBOX",
     ["Show vanilla targeting information (restart required)", "Disabling this will hide vanilla targeting information (restart needed)"],
