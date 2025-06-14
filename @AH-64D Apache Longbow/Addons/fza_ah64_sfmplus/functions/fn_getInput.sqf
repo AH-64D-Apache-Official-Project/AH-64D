@@ -66,23 +66,23 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
 private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
 private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
-_cyclicFwdAft               = linearConversion [-_heliCyclicFwdOut, _heliCyclicBackOut, _cyclicFwdAft, -1.0, 1.0, true];
+private _cyclicFwdAft       = _heliCyclicFwdOut - _heliCyclicBackOut;
+_cyclicFwdAft               = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_cyclicFwdAft = %1", _cyclicFwdAft toFixed 2];
 
-private _cyclicLeftRight    = _heli animationSourcePhase "cyclicAside";
 private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
 private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
-_cyclicLeftRight            = linearConversion [-_heliCyclicLeftOut, _heliCyclicRightOut, _cyclicLeftRight, 1.0, -1.0, true];
+private _cyclicLeftRight    = _heliCyclicLeftOut - _heliCyclicRightOut;
+_cyclicLeftRight            = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_cyclicLeftRight = %1", _cyclicLeftRight toFixed 2];
 
-private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
 private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
 private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
-_pedalLeftRight             = linearConversion [-_heliRudderLeftOut, _heliRudderRightOut, _pedalLeftRight,  -1.0, 1.0, true];
-
-//systemChat format ["HeliCyclicForward = %1 -- HeliCyclicBack = %2", (inputAction "HeliCyclicForward"), (inputAction "HeliCyclicBack")];
-//systemChat format ["HeliRudderRight = %1 -- HeliRudderLeft = %2", (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
+private _pedalLeftRight     = _heliRudderRightOut - _heliRudderLeftOut;
+_pedalLeftRight             = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_pedalLeftRight = %1", _pedalLeftRight toFixed 2];
 
 if (!_isPlaying) then {
     _cyclicFwdAft      = 0.0;
@@ -235,12 +235,8 @@ _pedalLeftRight  = [_heli, "yaw",   _pedalLeftRight,  _inputLagValue] call fza_s
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Collective           /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-//Keyboard collective
-private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
-private _keyCollectiveDn = inputAction "HeliCollectiveLower";
-//Joystick collective
-private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
-private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+private _collectiveUp = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
+private _collectiveDn = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
     _hydFailure = true;
@@ -251,32 +247,17 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
-    if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) then {
-        if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 4.0) * _deltaTime); };
-        if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 4.0) * _deltaTime); };
-        _collectiveOutput = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
-    } else {
-        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
-        _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
-        private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
-        private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
-        _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
+    _collectiveValue = _collectiveUp - _collectiveDn;
+    _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
+    _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
 
-        if (isNil "fza_sfmplus_lastIsPlaying") then {
-            _collectiveOutput     = _collectiveValue;
-        } else {
-            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                _collectiveOutput = _collectivePrevious;
-            };
-        };
-
-        fza_sfmplus_lastIsPlaying = _isPlaying;
-        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
+    if (_isPlaying) then {
+        _collectiveOutput = _collectiveValue;
     };
-
 };
-_heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
+_heli setVariable ["fza_sfmplus_collectiveOutput",_collectiveOutput];
 _heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cyclic and Pedals    /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
