@@ -33,16 +33,18 @@ if (_value) then {
         //    systemChat format ["KEYBOARD Pedal Right"];
         //};
         case "fza_ah64_collectiveUp": {
-            _heliCollectiveRaiseOut = _heliCollectiveRaiseOut + 0.005;
-            _heliCollectiveRaiseOut = [_heliCollectiveRaiseOut, 0.0, 1.0] call BIS_fnc_clamp;
-            _heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
-            systemChat format ["_heliCollectiveRaiseOut = %1", _heliCollectiveRaiseOut];
+            //_heliCollectiveRaiseOut = _heliCollectiveRaiseOut + 0.005;
+            //_heliCollectiveRaiseOut = [_heliCollectiveRaiseOut, 0.0, 1.0] call BIS_fnc_clamp;
+            //_heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
+            //systemChat format ["_heliCollectiveRaiseOut = %1", _heliCollectiveRaiseOut];
+            systemChat format ["increasing collective!"];
         };
         case "fza_ah64_collectiveDn": {
-            _heliCollectiveLowerOut = _heliCollectiveLowerOut + 0.005;
-            _heliCollectiveLowerOut = [_heliCollectiveLowerOut, 0.0, 1.0] call BIS_fnc_clamp;
-            _heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", _heliCollectiveLowerOut];
-            systemChat format ["_heliCollectiveLowerOut = %1", _heliCollectiveLowerOut];
+            //_heliCollectiveLowerOut = _heliCollectiveLowerOut + 0.005;
+            //_heliCollectiveLowerOut = [_heliCollectiveLowerOut, 0.0, 1.0] call BIS_fnc_clamp;
+            //_heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", _heliCollectiveLowerOut];
+            //systemChat format ["_heliCollectiveLowerOut = %1", _heliCollectiveLowerOut];
+            systemChat format ["decreasing collective!"];
         };
     };
 };
@@ -64,9 +66,11 @@ if !(_value) then {
         //};
         case "fza_ah64_collectiveUp": {
             //_heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", 0.0];
+            systemChat format ["no longer increasing collective!"];
         };
         case "fza_ah64_collectiveDn": {
             //_heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", 0.0];
+            systemChat format ["no longer decreasing collective!"];
         };        
     };
 };
