@@ -106,7 +106,7 @@ class CfgFunctions
         };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
-            class analogHanlder {R;};
+            class analogHandler {R;};
             class calculateAeroValues {R;};
             class centerTrimMode {R;};
             class getAccelerations {R;};
@@ -121,7 +121,7 @@ class CfgFunctions
             class init {R;};
             class isINF {R;};
             class isNAN {R;};
-            class nonAnalogHanlder {R;};
+            class nonAnalogHandler {R;};
             class onGround {R;};
         };
     };
