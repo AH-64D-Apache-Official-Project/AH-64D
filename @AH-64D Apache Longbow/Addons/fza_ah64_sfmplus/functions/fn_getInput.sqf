@@ -231,11 +231,11 @@ _pedalLeftRight  = [_heli, "yaw",   _pedalLeftRight,  _inputLagValue] call fza_s
 // Collective           /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Keyboard collective
-private _keyCollectiveUp = inputAction "HeliCollectiveRaise";
-private _keyCollectiveDn = inputAction "HeliCollectiveLower";
+private _keyCollectiveUp = _heli getVariable "fza_sfmplus_kbHeliCollectiveRaiseOut";
+private _keyCollectiveDn = _heli getVariable "fza_sfmplus_kbHeliCollectiveLowerOut";
 //Joystick collective
-private _joyCollectiveUp = inputAction "HeliCollectiveRaiseCont";
-private _joyCollectiveDn = inputAction "HeliCollectiveLowerCont";
+private _joyCollectiveUp = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
+private _joyCollectiveDn = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
 
 if (_priHydPSI < SYS_MIN_HYD_PSI && _utilHydPSI < SYS_MIN_HYD_PSI) then {
     _hydFailure = true;

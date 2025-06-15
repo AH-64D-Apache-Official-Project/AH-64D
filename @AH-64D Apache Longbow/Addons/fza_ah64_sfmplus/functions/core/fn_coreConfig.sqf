@@ -25,6 +25,18 @@ fza_sfmplus_liftLossTimer     = 0;
 _heli setVariable ["fza_sfmplus_kbStickyInterupt",     false];
 _heli setVariable ["fza_sfmplus_flightControlLockOut", false];
 
+//Cyclic input
+_heli setVariable ["fza_sfmplus_heliCyclicForwardOut",   0.0];
+_heli setVariable ["fza_sfmplus_heliCyclicBackOut",      0.0];
+_heli setVariable ["fza_sfmplus_heliCyclicLeftOut",      0.0];  
+_heli setVariable ["fza_sfmplus_heliCyclicRightOut",     0.0];
+//Pedal input
+_heli setVariable ["fza_sfmplus_heliRudderLeftOut",      0.0];
+_heli setVariable ["fza_sfmplus_heliRudderRightOut",     0.0];
+//Collective input
+_heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", 0.0];
+_heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", 0.0];   
+
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",          0.0];
 _heli setVariable ["fza_sfmplus_cyclicPitchValue",      0.0];
 _heli getVariable ["fza_sfmplus_prevCyclicPitchValue",  0.0];
