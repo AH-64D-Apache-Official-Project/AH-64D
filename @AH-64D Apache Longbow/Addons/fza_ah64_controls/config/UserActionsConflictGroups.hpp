@@ -36,7 +36,15 @@ class UserActionsConflictGroups{
             fza_ah64_SensorSelect_DVO,
             fza_ah64_tadsLHGLmc,
             fza_ah64_stickyControlInterupt,
-            fza_ah64_forceTrimPanicButton
+            fza_ah64_forceTrimPanicButton,
+            fza_ah64_cyclicForward,
+            fza_ah64_cyclicBackward,
+            fza_ah64_cyclicLeft,
+            fza_ah64_cyclicRight,
+            fza_ah64_pedalLeft,
+            fza_ah64_pedalRight,
+            fza_ah64_collectiveUp,
+            fza_ah64_collectiveDn
         };
     };
 };

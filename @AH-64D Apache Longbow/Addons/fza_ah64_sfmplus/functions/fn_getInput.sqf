@@ -41,13 +41,8 @@ private _tailRtrFixed       = false;
 private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
 
 //Keyboard
-private _keyboardTimeScalar  = 1.0 / 3.00;
-
 private _kbStickyInterupt   = _heli getVariable "fza_sfmplus_kbStickyInterupt";
 private _fltControlLockout  = _heli getVariable "fza_sfmplus_flightControlLockOut";
-private _collectiveOutput   = _heli getVariable "fza_sfmplus_collectiveOutput";
-private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
-private _collectiveValue    = _heli getVariable "fza_sfmplus_collectiveValue";
 
 private _kbYawSwitchVel     = 5.14444 * 2.4;  //10kts = 5.1444 m/s
 private _yawBreakout        = false;
@@ -251,32 +246,43 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
-    if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) then {
+    //if (!fza_sfmplus_keyboardCollectivePrevious) then {
+    //    fza_sfmplus_keyboardCollective = true;
+    //};
+
+    if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) then {   //if (fza_sfmplus_keyboardCollective) then {
+        private _collectiveValue = _heli getVariable "fza_sfmplus_collectiveOutput";
         if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 4.0) * _deltaTime); };
         if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 4.0) * _deltaTime); };
-        _collectiveOutput = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
+        _collectiveValue = (round (_collectiveValue / 0.005)) * 0.005;
+        _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
+        _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
+
+        //fza_sfmplus_keyboardCollectivePrevious = fza_sfmplus_keyboardCollective;
+        //systemChat format ["KB collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     } else {
-        _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
+        private _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
         private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
         private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
         _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
 
         if (isNil "fza_sfmplus_lastIsPlaying") then {
-            _collectiveOutput     = _collectiveValue;
+            _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
         } else {
             if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                _collectiveOutput = _collectivePrevious;
+                private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
+                _heli setVariable ["fza_sfmplus_collectiveOutput", _collectivePrevious];
+
+                //fza_sfmplus_keyboardCollectivePrevious = fza_sfmplus_keyboardCollective;
             };
         };
 
         fza_sfmplus_lastIsPlaying = _isPlaying;
         _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
+        //systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     };
-
 };
-_heli setVariable ["fza_sfmplus_collectiveOutput", (round (_collectiveOutput / 0.005)) * 0.005];
-_heli setVariable ["fza_sfmplus_collectiveValue", _collectiveOutput];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cyclic and Pedals    /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////

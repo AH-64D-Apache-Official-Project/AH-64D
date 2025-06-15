@@ -15,6 +15,16 @@ class fza_ah64_cockpit_##system##_##control {\
 };
 #define COCKPIT_CONTROL_SEP 
 
+#define CfgUserAxisDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onActivate            = __EVAL(format["['%1', true] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+    onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+    onAnalog              = __EVAL(format["['%1', _this] call fza_sfmplus_fnc_analogHandler", #vname]);\
+    analogChangeThreshold = 0.01; \
+}
+
 class CfgUserActions
 {
     CfgUserActionDef(fza_ah64_sightSelectHMD, "Sight Select HMD", "Sets the current sight to HMD");
@@ -50,5 +60,13 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
     CfgUserActionDef(fza_ah64_stickyControlInterupt, "Sticky Control Interupt", "When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.");
     CfgUserActionDef(fza_ah64_forceTrimPanicButton, "Force Trim Panic Button", "Zeroes out the force trim values.");
+    CfgUserActionDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
+    CfgUserActionDef(fza_ah64_cyclicBackward, "Cyclic Backward", "Cyclic Backward");
+    CfgUserActionDef(fza_ah64_cyclicLeft, "Cyclic Left", "Cyclic Left");
+    CfgUserActionDef(fza_ah64_cyclicRight, "Cyclic Right", "Cyclic Right");
+    CfgUserActionDef(fza_ah64_pedalLeft, "Pedal Left", "Pedal Left");
+    CfgUserActionDef(fza_ah64_pedalRight, "Pedal Right", "Pedal Right");
+    CfgUserActionDef(fza_ah64_collectiveUp, "Collective Up", "Collective Up");
+    CfgUserActionDef(fza_ah64_collectiveDn, "Collective Down", "Collective Down");   
     #include "\fza_ah64_controls\headers\controls.h"
 };

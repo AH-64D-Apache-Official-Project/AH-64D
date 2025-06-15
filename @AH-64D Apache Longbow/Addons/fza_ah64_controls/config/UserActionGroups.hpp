@@ -51,5 +51,20 @@ class UserActionGroups
         group[] = {
             #include "\fza_ah64_controls\headers\controls.h"
         };
-    }
+    };
+
+    class fza_ah64_input
+    {
+        name = "AH-64D Apache Official: Input";
+        group[] = {
+            fza_ah64_cyclicForward,
+            fza_ah64_cyclicBackward,
+            fza_ah64_cyclicLeft,
+            fza_ah64_cyclicRight,
+            fza_ah64_pedalLeft,
+            fza_ah64_pedalRight,
+            fza_ah64_collectiveUp,
+            fza_ah64_collectiveDn
+        };
+    };
 };
