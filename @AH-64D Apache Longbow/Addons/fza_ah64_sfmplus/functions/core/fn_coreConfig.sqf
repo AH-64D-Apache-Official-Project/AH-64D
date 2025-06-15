@@ -37,6 +37,9 @@ _heli setVariable ["fza_sfmplus_heliRudderRightOut",     0.0];
 _heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", 0.0];
 _heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", 0.0];     
 
+_heli setVariable ["fza_sfmplus_kbHeliCollectiveRaiseOut", 0.0];
+_heli setVariable ["fza_sfmplus_kbHeliCollectiveLowerOut", 0.0];   
+
 _heli setVariable ["fza_sfmplus_cyclicFwdAft",          0.0];
 _heli setVariable ["fza_sfmplus_cyclicPitchValue",      0.0];
 _heli getVariable ["fza_sfmplus_prevCyclicPitchValue",  0.0];
