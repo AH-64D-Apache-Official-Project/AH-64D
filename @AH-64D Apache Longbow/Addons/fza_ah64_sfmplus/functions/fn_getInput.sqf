@@ -61,23 +61,23 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
-private _cyclicFwdAft       = _heli animationSourcePhase "cyclicForward";
 private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
 private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
-_cyclicFwdAft               = linearConversion [-_heliCyclicFwdOut, _heliCyclicBackOut, _cyclicFwdAft, -1.0, 1.0, true];
+private _cyclicFwdAft       = _heliCyclicFwdOut - _heliCyclicBackOut;
+_cyclicFwdAft               = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_cyclicFwdAft = %1", _cyclicFwdAft toFixed 2];
 
-private _cyclicLeftRight    = _heli animationSourcePhase "cyclicAside";
 private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
 private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
-_cyclicLeftRight            = linearConversion [-_heliCyclicLeftOut, _heliCyclicRightOut, _cyclicLeftRight, 1.0, -1.0, true];
+private _cyclicLeftRight    = _heliCyclicLeftOut - _heliCyclicRightOut;
+_cyclicLeftRight            = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_cyclicLeftRight = %1", _cyclicLeftRight toFixed 2];
 
-private _pedalLeftRight     = (inputAction "HeliRudderRight")   - (inputAction "HeliRudderLeft");
 private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
 private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
-_pedalLeftRight             = linearConversion [-_heliRudderLeftOut, _heliRudderRightOut, _pedalLeftRight,  -1.0, 1.0, true];
-
-//systemChat format ["HeliCyclicForward = %1 -- HeliCyclicBack = %2", (inputAction "HeliCyclicForward"), (inputAction "HeliCyclicBack")];
-//systemChat format ["HeliRudderRight = %1 -- HeliRudderLeft = %2", (inputAction "HeliRudderRight"), (inputAction "HeliRudderLeft")];
+private _pedalLeftRight     = _heliRudderRightOut - _heliRudderLeftOut;
+_pedalLeftRight             = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
+//systemChat format ["_pedalLeftRight = %1", _pedalLeftRight toFixed 2];
 
 if (!_isPlaying) then {
     _cyclicFwdAft      = 0.0;
