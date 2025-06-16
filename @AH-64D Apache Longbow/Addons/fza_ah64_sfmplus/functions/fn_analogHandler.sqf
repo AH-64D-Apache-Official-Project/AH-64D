@@ -86,7 +86,7 @@ switch (_name) do {
         _heli setVariable ["fza_sfmplus_heliRudderRightOut", _heliRudderRightOut];
     };
     case "fza_ah64_collectiveUp": {
-       if (fza_sfmplus_keyboardCollective) exitWith {};
+       if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) exitWith {};
 
         private _heliCollectiveRaiseDevices = [];
         { 
@@ -100,7 +100,7 @@ switch (_name) do {
         _heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
     };
     case "fza_ah64_collectiveDn": {
-        if (fza_sfmplus_keyboardCollective) exitWith {};
+        if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) exitWith {};
 
         private _heliCollectiveLowerDevices = [];
         { 
