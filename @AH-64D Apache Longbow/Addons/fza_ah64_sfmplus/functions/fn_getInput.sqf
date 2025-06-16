@@ -62,22 +62,22 @@ private _apuOn              = _heli getVariable "fza_systems_apuOn";
 // Cyclic & Pedal Input /////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _heliCyclicFwdOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
-private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
+private _heliCyclicBackOut  = _heli getVariable "fza_sfmplus_heliCyclicBackwardOut";
 private _cyclicFwdAft       = _heliCyclicFwdOut - _heliCyclicBackOut;
 _cyclicFwdAft               = [_cyclicFwdAft, -1.0, 1.0] call BIS_fnc_clamp;
-//systemChat format ["_cyclicFwdAft = %1", _cyclicFwdAft toFixed 2];
+systemChat format ["_cyclicFwdAft = %1", _cyclicFwdAft toFixed 2];
 
 private _heliCyclicLeftOut  = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";
 private _heliCyclicRightOut = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
 private _cyclicLeftRight    = _heliCyclicLeftOut - _heliCyclicRightOut;
 _cyclicLeftRight            = [_cyclicLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-//systemChat format ["_cyclicLeftRight = %1", _cyclicLeftRight toFixed 2];
+systemChat format ["_cyclicLeftRight = %1", _cyclicLeftRight toFixed 2];
 
 private _heliRudderLeftOut  = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
 private _heliRudderRightOut = _heli getVariable "fza_sfmplus_heliRudderRightOut";
 private _pedalLeftRight     = _heliRudderRightOut - _heliRudderLeftOut;
 _pedalLeftRight             = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
-//systemChat format ["_pedalLeftRight = %1", _pedalLeftRight toFixed 2];
+systemChat format ["_pedalLeftRight = %1", _pedalLeftRight toFixed 2];
 
 if (!_isPlaying) then {
     _cyclicFwdAft      = 0.0;
@@ -259,13 +259,11 @@ if (!_hydFailure || _emerHydOn) then {
         _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
 
         //fza_sfmplus_keyboardCollectivePrevious = fza_sfmplus_keyboardCollective;
-        //systemChat format ["KB collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+        systemChat format ["KB collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     } else {
         private _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
-        private _heliCyclicRaiseOut = _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut";
-        private _heliCyclicLowerOut = _heli getVariable "fza_sfmplus_heliCollectiveLowerOut";
-        _collectiveValue = linearConversion[ -_heliCyclicLowerOut, _heliCyclicRaiseOut, _collectiveValue, 0.0, 1.0];
+        _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
 
         if (isNil "fza_sfmplus_lastIsPlaying") then {
             _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
@@ -280,7 +278,7 @@ if (!_hydFailure || _emerHydOn) then {
 
         fza_sfmplus_lastIsPlaying = _isPlaying;
         _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
-        //systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+        systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     };
 };
 /////////////////////////////////////////////////////////////////////////////////////////////

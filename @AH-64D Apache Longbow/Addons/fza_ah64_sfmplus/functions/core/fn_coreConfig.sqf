@@ -27,7 +27,7 @@ _heli setVariable ["fza_sfmplus_flightControlLockOut", false];
 
 //Cyclic input
 _heli setVariable ["fza_sfmplus_heliCyclicForwardOut",   0.0];
-_heli setVariable ["fza_sfmplus_heliCyclicBackOut",      0.0];
+_heli setVariable ["fza_sfmplus_heliCyclicBackwardOut",  0.0];
 _heli setVariable ["fza_sfmplus_heliCyclicLeftOut",      0.0];  
 _heli setVariable ["fza_sfmplus_heliCyclicRightOut",     0.0];
 //Pedal input

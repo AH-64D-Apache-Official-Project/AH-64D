@@ -3,7 +3,7 @@ if !(vehicle player isKindOf "fza_ah64base") exitWith {};
 private _heli = vehicle player;
 
 private _heliCyclicForwardOut   = _heli getVariable "fza_sfmplus_heliCyclicForwardOut";
-private _heliCyclicBackOut      = _heli getVariable "fza_sfmplus_heliCyclicBackOut";
+private _heliCyclicBackOut      = _heli getVariable "fza_sfmplus_heliCyclicBackwardOut";
 private _heliCyclicLeftOut      = _heli getVariable "fza_sfmplus_heliCyclicLeftOut";  
 private _heliCyclicRightOut     = _heli getVariable "fza_sfmplus_heliCyclicRightOut";
 private _heliRudderLeftOut      = _heli getVariable "fza_sfmplus_heliRudderLeftOut";
@@ -35,7 +35,7 @@ switch (_name) do {
 
         _heliCyclicBackOut = if ((count _heliCyclicBackDevices) == 0) then { 1.0; } else {1.0 / (count _heliCyclicBackDevices); };
         _heliCyclicBackOut = linearConversion [0.0, _heliCyclicBackOut, _value, 0.0, 1.0, true];
-        _heli setVariable ["fza_sfmplus_heliCyclicBackOut", _heliCyclicBackOut];
+        _heli setVariable ["fza_sfmplus_heliCyclicBackwardOut", _heliCyclicBackOut];
     };
     case "fza_ah64_cyclicLeft": {
         private _heliCyclicLeftDevices = [];
