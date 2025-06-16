@@ -60,7 +60,7 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
     CfgUserActionDef(fza_ah64_stickyControlInterupt, "Sticky Control Interupt", "When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.");
     CfgUserActionDef(fza_ah64_forceTrimPanicButton, "Force Trim Panic Button", "Zeroes out the force trim values.");
-    CfgUserActionDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
+    CfgUserAxisDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
     CfgUserAxisDef(fza_ah64_cyclicBackward, "Cyclic Backward", "Cyclic Backward");
     CfgUserAxisDef(fza_ah64_cyclicLeft, "Cyclic Left", "Cyclic Left");
     CfgUserAxisDef(fza_ah64_cyclicRight, "Cyclic Right", "Cyclic Right");
