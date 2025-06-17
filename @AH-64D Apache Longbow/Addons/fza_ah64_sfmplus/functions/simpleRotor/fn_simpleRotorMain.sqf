@@ -57,13 +57,15 @@ private _bladeChord             = 0.533;   //m
 private _bladePitch_min         = 1.0;     //deg
 private _bladePitch_max         = 19.0;    //deg
 
-private _rtrGndEffTable            = [
-                                     [    0, 0.205]
-                                    ,[ 2000, 0.413]
-                                    ,[ 4000, 0.428]
-                                    ,[ 6000, 0.407]
-                                    ,[ 8000, 0.438]
-                                    ];
+private _rtrGndEffTable =
+[
+ [ 6804, 0.189]
+,[ 7711, 0.170]
+,[ 8165, 0.187]
+,[ 8618, 0.310]
+,[ 9525, 0.509]
+];
+
 private _rtrThrustScalarTable_min = [
                                      [    0, 0.032]
                                     ,[ 2000, 0.052]
@@ -78,13 +80,14 @@ private _rtrThrustScalarTable_max = [
                                     ,[ 6000, 2.132]
                                     ,[ 8000, 2.561]
                                     ];
-private _rtrTipLossTable          = [
-                                     [ 6804, 1.108]
-                                    ,[ 7711, 1.050]
-                                    ,[ 8165, 1.000]
-                                    ,[ 8618, 0.989]
-                                    ,[ 9525, 0.940]
-                                    ];
+private _rtrTipLossTable = 
+[
+ [ 6804, 1.108]
+,[ 7711, 1.050]
+,[ 8165, 1.000]
+,[ 8618, 0.958]
+,[ 9525, 0.890]
+];
 
 private _velocityThrustExponentTable = 
 [
@@ -163,9 +166,6 @@ private _bladeTipVel               = _rtrOmega * _bladeRadius;
 private _rtrArea                   = PI * _bladeRadius^2;
 
 //Calculate the required rotor power
-private _vel_vbe     =  36.011;
-private _vel_vne     = 128.611;
-
 private _profile_min = 0.180;
 private _profile_max = 0.407;
 
@@ -174,7 +174,7 @@ private _velYNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" selec
 private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind];
 
 private _profilePowerCollectiveScalar = [_collectiveOutput / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
-private _profile_cur                  = (_profile_min + (((_profile_max * _profilePowerCollectiveScalar) - _profile_min) / _vel_vne) * _velXYNoWind);
+private _profile_cur                  = (_profile_min + (((_profile_max * _profilePowerCollectiveScalar) - _profile_min) / VEL_VNE) * _velXYNoWind);
 
 private _inducedPowerVelocityScalarTable = 
 [
@@ -262,7 +262,7 @@ private _axisZ = [0.0, 0.0, 1.0];
 private _heightAGL     = _rtrHeightAGL  + (ASLToAGL getPosASL _heli # 2);
 private _rtrDiam       = _bladeRadius * 2;
 
-private _rtrGndEffScalar = ([_rtrGndEffTable, _altitude] call fza_fnc_linearInterp) select 1;
+private _rtrGndEffScalar = ([_rtrGndEffTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp) select 1;
 private _gndEffScalar  = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar          = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust  = _rtrThrust * _gndEffScalar;
