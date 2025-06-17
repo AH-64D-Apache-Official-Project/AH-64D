@@ -10,12 +10,12 @@ if (_value) then {
         case "fza_ah64_kbCollectiveUp": {
             fza_sfmplus_keyboardCollective = true;
             _heli setVariable ["fza_sfmplus_kbHeliCollectiveRaiseOut", 1.0];
-            systemChat format ["increasing collective!"];
+            //systemChat format ["increasing collective!"];
         };
         case "fza_ah64_kbCollectiveDn": {
             fza_sfmplus_keyboardCollective = true;
             _heli setVariable ["fza_sfmplus_kbHeliCollectiveLowerOut", 1.0];
-            systemChat format ["decreasing collective!"];
+            //systemChat format ["decreasing collective!"];
         };
     };
 };
@@ -26,12 +26,12 @@ if !(_value) then {
         case "fza_ah64_kbCollectiveUp": {
             fza_sfmplus_keyboardCollective = true;
             _heli setVariable ["fza_sfmplus_kbHeliCollectiveRaiseOut", 0.0];
-            systemChat format ["no longer increasing collective!"];
+            //systemChat format ["no longer increasing collective!"];
         };
         case "fza_ah64_kbCollectiveDn": {
             fza_sfmplus_keyboardCollective = true;
             _heli setVariable ["fza_sfmplus_kbHeliCollectiveLowerOut", 0.0];
-            systemChat format ["no longer decreasing collective!"];
+            //systemChat format ["no longer decreasing collective!"];
         };        
     };
 };
