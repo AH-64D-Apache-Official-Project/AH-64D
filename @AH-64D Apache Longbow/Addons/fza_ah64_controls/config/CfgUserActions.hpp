@@ -15,14 +15,19 @@ class fza_ah64_cockpit_##system##_##control {\
 };
 #define COCKPIT_CONTROL_SEP 
 
-#define CfgUserAxisDef(vname, vdisplayName, vtooltip) \
+#define CfgUserAnalogDef(vname, vdisplayName, vtooltip) \
 class vname {\
     displayName           = vdisplayName;\
     tooltip               = vtooltip;\
-    onActivate            = __EVAL(format["['%1', true] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
-    onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
     onAnalog              = __EVAL(format["['%1', _this] call fza_sfmplus_fnc_analogHandler", #vname]);\
     analogChangeThreshold = 0.01; \
+}
+#define CfgUserNonAnalogDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onActivate            = __EVAL(format["['%1', true]  call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+    onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
 }
 
 class CfgUserActions
@@ -60,13 +65,15 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
     CfgUserActionDef(fza_ah64_stickyControlInterupt, "Sticky Control Interupt", "When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.");
     CfgUserActionDef(fza_ah64_forceTrimPanicButton, "Force Trim Panic Button", "Zeroes out the force trim values.");
-    CfgUserAxisDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
-    CfgUserAxisDef(fza_ah64_cyclicBackward, "Cyclic Backward", "Cyclic Backward");
-    CfgUserAxisDef(fza_ah64_cyclicLeft, "Cyclic Left", "Cyclic Left");
-    CfgUserAxisDef(fza_ah64_cyclicRight, "Cyclic Right", "Cyclic Right");
-    CfgUserAxisDef(fza_ah64_pedalLeft, "Pedal Left", "Pedal Left");
-    CfgUserAxisDef(fza_ah64_pedalRight, "Pedal Right", "Pedal Right");
-    CfgUserAxisDef(fza_ah64_collectiveUp, "Collective Up", "Collective Up");
-    CfgUserAxisDef(fza_ah64_collectiveDn, "Collective Down", "Collective Down");   
+    CfgUserAnalogDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
+    CfgUserAnalogDef(fza_ah64_cyclicBackward, "Cyclic Backward", "Cyclic Backward");
+    CfgUserAnalogDef(fza_ah64_cyclicLeft, "Cyclic Left", "Cyclic Left");
+    CfgUserAnalogDef(fza_ah64_cyclicRight, "Cyclic Right", "Cyclic Right");
+    CfgUserAnalogDef(fza_ah64_pedalLeft, "Pedal Left", "Pedal Left");
+    CfgUserAnalogDef(fza_ah64_pedalRight, "Pedal Right", "Pedal Right");
+    CfgUserAnalogDef(fza_ah64_collectiveUp, "HOTAS Collective Up", "Collective Up");
+    CfgUserAnalogDef(fza_ah64_collectiveDn, "HOTAS Collective Down", "Collective Down");
+    CfgUserNonAnalogDef(fza_ah64_kbCollectiveUp, "Keyboard Collective Up", "Collective Up");
+    CfgUserNonAnalogDef(fza_ah64_kbCollectiveDn, "Keyboard Collective Down", "Collective Down");    
     #include "\fza_ah64_controls\headers\controls.h"
 };

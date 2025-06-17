@@ -86,7 +86,7 @@ switch (_name) do {
         _heli setVariable ["fza_sfmplus_heliRudderRightOut", _heliRudderRightOut];
     };
     case "fza_ah64_collectiveUp": {
-       if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) exitWith {};
+        fza_sfmplus_keyboardCollective = false;
 
         private _heliCollectiveRaiseDevices = [];
         { 
@@ -97,10 +97,11 @@ switch (_name) do {
 
         _heliCollectiveRaiseOut = if ((count _heliCollectiveRaiseDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveRaiseDevices); };
         _heliCollectiveRaiseOut = linearConversion [0.0, _heliCollectiveRaiseOut, _value, 0.0, 1.0, true];
+        
         _heli setVariable ["fza_sfmplus_heliCollectiveRaiseOut", _heliCollectiveRaiseOut];
     };
     case "fza_ah64_collectiveDn": {
-        if (fza_ah64_sfmPlusCollectiveControl == KEYBOARD) exitWith {};
+        fza_sfmplus_keyboardCollective = false;
 
         private _heliCollectiveLowerDevices = [];
         { 
@@ -111,6 +112,7 @@ switch (_name) do {
     
         _heliCollectiveLowerOut = if ((count _heliCollectiveLowerDevices) == 0) then { 1.0; } else {1.0 / (count _heliCollectiveLowerDevices); };
         _heliCollectiveLowerOut = linearConversion [0.0, _heliCollectiveLowerOut, _value, 0.0, 1.0, true];
+
         _heli setVariable ["fza_sfmplus_heliCollectiveLowerOut", _heliCollectiveLowerOut];
     };
 };

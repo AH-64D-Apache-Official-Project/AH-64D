@@ -44,7 +44,9 @@ class UserActionsConflictGroups{
             fza_ah64_pedalLeft,
             fza_ah64_pedalRight,
             fza_ah64_collectiveUp,
-            fza_ah64_collectiveDn
+            fza_ah64_collectiveDn,
+            fza_ah64_kbCollectiveUp,
+            fza_ah64_kbCollectiveDn
         };
     };
 };
