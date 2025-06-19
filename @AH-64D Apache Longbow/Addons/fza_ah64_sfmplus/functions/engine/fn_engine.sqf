@@ -91,14 +91,14 @@ switch (_engState) do {
 		//Np
         if (_isAutorotating) then {
             private _autoNp = 1.01;
-            if (_collectiveOutput > 0.295) then {
-                _autoNp = linearConversion[1.0, 0.295, _collectiveOutput, 0.0, 0.78, true];
+            if (_collectiveOutput > 0.050) then {
+                _autoNp = linearConversion[1.0, 0.050, _collectiveOutput, 0.0, 0.78, true];
             };
-            if (_collectiveOutput <= 0.295 && _collectiveOutput > 0.10) then {
-                _autoNp = linearConversion[0.295, 0.100, _collectiveOutput, 1.01, 1.05, true];
+            if (_collectiveOutput <= 0.050 && _collectiveOutput > 0.025) then {
+                _autoNp = linearConversion[0.050, 0.025, _collectiveOutput, 1.01, 1.03, true];
             };
-            if (_collectiveOutput <= 0.10) then {
-                _autoNp = linearConversion[0.100, 0.0, _collectiveOutput, 1.05, 1.15, true];
+            if (_collectiveOutput <= 0.025) then {
+                _autoNp = linearConversion[0.025, 0.0, _collectiveOutput, 1.03, 1.15, true];
             };
             _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
         } else {
@@ -149,11 +149,11 @@ switch (_engState) do {
             //Autorotation handler
             if (_isAutorotating) then { 
                 private _autoNp = 1.01;
-                if (_collectiveOutput <= 0.295 && _collectiveOutput > 0.05) then {
-                    _autoNp = linearConversion[0.295, 0.050, _collectiveOutput, 1.01, 1.05, true];
+                if (_collectiveOutput <= 0.050 && _collectiveOutput > 0.025) then {
+                    _autoNp = linearConversion[0.050, 0.025, _collectiveOutput, 1.01, 1.03, true];
                 };
-                if (_collectiveOutput <= 0.05) then {
-                    _autoNp = linearConversion[0.050, 0.0, _collectiveOutput, 1.05, 1.15, true];
+                if (_collectiveOutput <= 0.025) then {
+                    _autoNp = linearConversion[0.025, 0.0, _collectiveOutput, 1.03, 1.15, true];
                 };
                 _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
             } else {

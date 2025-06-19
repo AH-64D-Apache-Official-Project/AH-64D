@@ -205,10 +205,23 @@ private _inducedPowerCollectiveCorrectionTable =
 ,[69.96, 0.799]
 ,[72.02, 0.840]
 ];
+
+private _collectiveTorqueCorrectionTable =
+[
+ [0.000, 0.000]
+,[0.050, 0.760]
+,[0.225, 0.798]
+,[0.250, 1.000]
+,[0.850, 1.000]
+,[1.000, 1.500]
+];
+
 private _inducedPowerCollectiveCorrection = ([_inducedPowerCollectiveCorrectionTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
 private _induced_val                      = [_collectiveOutput / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
 private _induced_cur                      = _inducedPowerVelocityScalar * _induced_val;
-private _power_val                        = [_profile_cur + _induced_cur, 0.0, 2.50] call BIS_fnc_clamp;
+private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _collectiveOutput] call fza_fnc_linearInterp) select 1;
+_collectiveTorqueCorrection               = linearConversion[0.0, VEL_ETL, _velXYNoWind, 1.0, _collectiveTorqueCorrection, true];
+private _power_val                        = [(_profile_cur + _induced_cur) * _collectiveTorqueCorrection, 0.0, 2.50] call BIS_fnc_clamp;
 private _power_req                        = _power_val * 2133.0;
 private _torque_req                       = (_power_req / 0.001) / 0.105 / 21109;
 /*
