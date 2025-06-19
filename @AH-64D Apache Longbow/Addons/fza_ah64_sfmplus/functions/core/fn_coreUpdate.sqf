@@ -22,7 +22,7 @@ params ["_heli"];
 if (isGamePaused || CBA_missionTime < 0.1) exitwith {
     fza_ah64_previousTime = diag_tickTime;
     _heli setVariable ["fza_sfmplus_previousTime",  diag_tickTime];
-    _heli setVariable ["fza_sfmplus_deltaTime_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit]
+    _heli setVariable ["fza_sfmplus_deltaTime_avg", [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 };
 
 private _config      = configFile >> "CfgVehicles" >> typeof _heli;

@@ -50,15 +50,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusCollectiveControl",
-    "LIST",
-    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
-    [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],0],
-    2
-] call CBA_fnc_addSetting;
-
-[
     "fza_sfmplus_cyclicCenterTrimMode",
     "CHECKBOX",
     ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],
