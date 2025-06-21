@@ -171,6 +171,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmPlusFmDebug",
+    "CHECKBOX",
+    ["Enable FM Debuging", "Displays debug output for troubleshooting FM issues."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
     "fza_ah64_aiFireControl",
     "CHECKBOX",
     ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
