@@ -111,6 +111,32 @@ private _yawToPitch = [_yawToPitchTable, _pedalOut] call fza_fnc_linearInterp se
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _yawToRollTable = //move to config!
 [
+ [-1.0,  0.681]
+,[-0.9,  0.421]
+,[-0.8,  0.291]
+,[-0.7,  0.226]
+,[-0.6,  0.181]
+,[-0.5,  0.151]
+,[-0.4,  0.121]
+,[-0.3,  0.090]
+,[-0.2,  0.060]
+,[-0.1,  0.030]
+,[ 0.0,  0.000]
+,[ 0.1, -0.024]
+,[ 0.2, -0.059]
+,[ 0.3, -0.103]
+,[ 0.4, -0.155]
+,[ 0.5, -0.208]
+,[ 0.6, -0.266]
+,[ 0.7, -0.349]
+,[ 0.8, -0.431]
+,[ 0.9, -0.579]
+,[ 1.0, -0.857]
+];
+
+/*
+private _yawToRollTable = //move to config!
+[
  [-1.0,  0.244]
 ,[-0.9,  0.220]
 ,[-0.8,  0.195]
@@ -133,11 +159,8 @@ private _yawToRollTable = //move to config!
 ,[ 0.9, -0.220]
 ,[ 1.0, -0.244]
 ];
-private _yawToRoll = 0.0;
-
-if (fza_ah64_sfmPlusAutoPedal) then {
-    _yawToRoll = [_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 1;
-};
+*/
+private _yawToRoll = [_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 1;
 
 //systemChat format ["_yawToRoll = %1", _yawToRoll];
 /////////////////////////////////////////////////////////////////////////////////////////////
