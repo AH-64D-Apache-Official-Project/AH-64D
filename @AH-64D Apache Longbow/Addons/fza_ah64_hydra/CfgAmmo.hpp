@@ -23,10 +23,10 @@ class CfgAmmo {
         fza_shortCode               = "";
         fza_weaponName              = "";
 
-        soundfly[]                  = {"fza_ah64_us\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
-        soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_rocket_explosion_stereo_soundset", "fza_shell_explosion_reverb_soundset"};
-        soundsetsoniccrack[]        = {"fza_sc_rocket_flyby_soundset"};
-        model                       = "\fza_ah64_us\weps\fza_hydra_m151_wep";
+        soundfly[]                  = {"fza_ah64_control\audio\Flyby\SoundFly1.ogg", 1, 1, 400};
+        soundsetexplosion[]         = {"fza_rocket_explosion_soundset", "fza_soundset_hydra_explosion_stereo", "fza_shell_explosion_reverb_soundset"};
+        soundsetsoniccrack[]        = {"fza_soundset_hydra_flyby"};
+        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep";
         explosionEffects            = "GrenadeExplosion";
         effectsmissile              = "fza_hydraEffect";
         effectsMissileInit          = "";
@@ -76,8 +76,8 @@ class CfgAmmo {
         ace_frag_skip               = 0;
         fza_shortCode               = "6PD";
         fza_weaponName              = "fza_275_m151_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m151_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m151";
+        model                       = "\fza_ah64_hydra\fza_hydra_m151_wep";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m151";
         hit                         = 60;
         indirectHit                 = 40;
         indirectHitRange            = 13;
@@ -87,8 +87,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6FL";
         fza_weaponName              = "fza_275_m255a1_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
         CraterEffects               = "ATMissileCrater";
 
         submunitionDirectionType    ="SubmunitionModelDirection";
@@ -111,8 +111,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6IL";
         fza_weaponName              = "fza_275_m257_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
         CraterEffects               = "ATMissileCrater";
 
         submunitionAmmo             = "fza_m257_flare";
@@ -132,8 +132,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6MP";
         fza_weaponName              = "fza_275_m261_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
 
         submunitionDirectionType    = "SubmunitionModelDirection";
         submunitionAmmo             = "fza_m73mpsm";
@@ -151,8 +151,8 @@ class CfgAmmo {
     {
         fza_shortCode               = "6IR";
         fza_weaponName              = "fza_275_m278_wep";
-        model                       = "\fza_ah64_us\weps\fza_hydra_m261_wep";
-        proxyShape                  = "\fza_ah64_us\fza_hydra_m261";
+        model                       = "\fza_ah64_hydra\fza_hydra_m261_wep";
+        proxyShape                  = "\fza_ah64_hydra\fza_hydra_m261";
         CraterEffects               = "ATMissileCrater";
 
         submunitionAmmo             = "fza_m278_flare";
@@ -178,7 +178,7 @@ class CfgAmmo {
         ace_frag_enabled            = 1;
         ace_frag_skip               = 0;
 
-        soundsetexplosion[]         = {"fza_small_explosion_soundset", "fza_he_explosion_stereo_soundset", "fza_small_explosion_reverb_soundset"};
+        soundsetexplosion[]         = {"fza_soundset_hydra_explosion_small", "fza_soundset_hydra_explosion", "fza_soundset_hydra_explosion_reverb"};
         simulation                  = "shotShell";
         model                       = "\A3\weapons_f\ammo\UGL_slug"; //M73 model needed.
         explosionEffects            = "ExploAmmoExplosion";

@@ -9,7 +9,7 @@ class CfgVehicles {
         scope                   = 2;
         scopeCurator            = 2;
         displayName             = "AH-64D Pilot";
-        editorPreview           = "\fza_ah64_us\editorPreview\fza_ah64_pilot.jpg";
+        editorPreview           = "\fza_ah64_crew\data\fza_ah64_pilot.jpg";
         uniformClass            = "U_B_CombatUniform_mcam";
         weapons[]               = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
         respawnWeapons[]        = {"arifle_SPAR_01_blk_MRCO_Flash_F", "hgun_P07_blk_F", "Throw", "Put", "Binocular"};
