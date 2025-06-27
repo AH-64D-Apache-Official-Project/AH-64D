@@ -69,58 +69,59 @@ if !(isMultiplayer) then {
 
 if (fza_ah64_sfmPlusFmDebug) then { 
     hintSilent format [
-    "_cyclicFwdAft = %1        
-    \n_cyclicLeftRight = %2      
-    \n_pedalYaw = %3   
-    \n_collectiveOuput = %4      
-    \n_stabilatorPosition = %5      
+    "_cyclicFwdAft = %1
+    \n_cyclicLeftRight = %2
+    \n_pedalYaw = %3
+    \n_collectiveOuput = %4 
+    \n_stabilatorPosition = %5
     \n--------------------    
-    \n_springlessCyclic = %7      
-    \n_springlessPedals = %8      
-    \n_stickyPitch = %9      
-    \n_stickyRoll = %10      
-    \n_stickyYaw = %11      
-    \n_autoPedal = %12    
-    \n_cyclicCenterTrimMode = %35   
-    \n_pedalCenterTrimMode = %36   
+    \n_springlessCyclic = %7
+    \n_springlessPedals = %8
+    \n_stickyPitch = %9
+    \n_stickyRoll = %10
+    \n_stickyYaw = %11
+    \n_autoPedal = %12
+    \n_cyclicCenterTrimMode = %35
+    \n_pedalCenterTrimMode = %36
     \n--------------------    
-    \n_kbStickyInterupt = %13    
-    \n_forceTrimInterupted = %14    
+    \n_kbStickyInterupt = %13
+    \n_forceTrimInterupted = %14
+    \n--------------------
+    \n_attHoldCycPitchOut = %15
+    \n_sasPitchOut = %31
+    \n_attHoldCycRollOut = %16
+    \n_sasRollOut = %32
+    \n_hdgHoldPedalYawOut = %17
+    \n_sasYawOut = %33
+    \n_altHoldCollOut = %18
+    \n--------------------
+    \n_forceTrimPosPitch = %19
+    \n_forceTrimPosRoll = %20
+    \n_forceTrimPosPedal = %21
     \n--------------------    
-    \n_attHoldCycPitchOut = %15    
-    \n_sasPitchOut = %31    
-    \n_attHoldCycRollOut = %16    
-    \n_sasRollOut = %32    
-    \n_hdgHoldPedalYawOut = %17    
-    \n_sasYawOut = %33    
-    \n_altHoldCollOut = %18    
+    \n_centerOfMass = [%22, %23, %24]
+    \n_grossWeight = %6 lbs
     \n--------------------    
-    \n_forceTrimPosPitch = %19    
-    \n_forceTrimPosRoll = %20    
-    \n_forceTrimPosPedal = %21    
+    \n_attHoldActive = %25 
+    \n_attHoldSubMode = %26
     \n--------------------    
-    \n_centerOfMass = [%22, %23, %24]    
+    \n_altHoldActive = %27
+    \n_altHoldSubMode = %28
     \n--------------------    
-    \n_attHoldActive = %25    
-    \n_attHoldSubMode = %26    
+    \n_hdgHoldActive = %29
+    \n_hdgHoldSubMode = %30
     \n--------------------    
-    \n_altHoldActive = %27    
-    \n_altHoldSubMode = %28    
-    \n--------------------    
-    \n_hdgHoldActive = %29    
-    \n_hdgHoldSubMode = %30    
-    \n--------------------    
-    \n_flightControlLockOut = %34   
-    \n_autoPedalTimeScalar = %37  
-    \nF/B[%41, %42] L/R[%43,%44]  
-    \nPL/PR[%45,%46] CR/CL[%47,%48]  
-    ",       
+    \n_flightControlLockOut = %34
+    \n_autoPedalTimeScalar = %37
+    \nF/B[%41, %42] L/R[%43,%44]
+    \nPL/PR[%45,%46] CR/CL[%47,%48]
+    ",
     _heli getVariable "fza_sfmplus_cyclicFwdAft" toFixed 3,        //1    
     _heli getVariable "fza_sfmplus_cyclicLeftRight" toFixed 3,     //2    
     _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 3,      //3    
     _heli getVariable "fza_sfmplus_collectiveOutput" toFixed 3,    //4    
     _heli getVariable "fza_ah64_stabilatorPosition" toFixed 3,     //5    
-    0,  //6    
+    ((_heli getVariable "fza_sfmplus_GWT") * 2.20462) toFixed 0,  //6    
     fza_ah64_sfmPlusSpringlessCyclic,   //7    
     fza_ah64_sfmPlusSpringlessPedals,   //8    
     fza_ah64_sfmPlusKeyboardStickyPitch,    //9    
