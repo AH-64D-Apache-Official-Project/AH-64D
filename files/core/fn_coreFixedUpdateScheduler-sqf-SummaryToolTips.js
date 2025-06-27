@@ -1,1 +1,1 @@
-﻿NDSummary.OnToolTipsLoaded("File:core/fn_coreFixedUpdateScheduler.sqf",{126:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Provides a fixed time interval to smooth out physics calculations while also handling frame drops to ensure consistency.</div></div>"});
+﻿NDSummary.OnToolTipsLoaded("File:core/fn_coreFixedUpdateScheduler.sqf",{128:"<div class=\"NDToolTip TFunction LSQF\"><div class=\"TTSummary\">Provides a fixed time interval to smooth out physics calculations while also handling frame drops to ensure consistency.</div></div>"});
