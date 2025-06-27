@@ -1,4 +1,4 @@
-import { drawIhadss, exampleModel } from "./ihadss";
+import { drawIhadss, exampleModel, type model } from "./ihadss";
 import "./style.css";
 
 const canvas = document.getElementById("canvas")! as HTMLCanvasElement;
@@ -10,11 +10,26 @@ const ASPECT_RATIO = 4 / 3;
 const VIRTUAL_WIDTH = 640;
 const VIRTUAL_HEIGHT = VIRTUAL_WIDTH / ASPECT_RATIO;
 
+let model: model | null = window.A3API ? null : exampleModel
+
 function draw() {
-  context.fillStyle = "#000";
-  context.fillRect(0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
-  drawIhadss(context, exampleModel);
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  if (!window.A3API) {
+    context.fillStyle = "#000";
+    context.fillRect(0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+  }
+  if (model) {
+    drawIhadss(context, model);
+  }
 }
+
+export function updateModel(newModel:model) {
+  model = newModel;
+  draw();
+}
+
+// @ts-expect-error implicitly has an 'any' type
+window["updateModel"] = updateModel;
 
 function resizeCanvas() {
   const windowWidth = window.innerWidth;
@@ -31,7 +46,6 @@ function resizeCanvas() {
   canvas.height = VIRTUAL_HEIGHT;
   draw();
 }
-document.fonts.add(new FontFace("BMKApacheFont", "url(./BMKApacheFont.ttf)"));
 document.fonts.load("3px BMKApacheFont").then(() => {
   window.addEventListener("resize", resizeCanvas);
   resizeCanvas();

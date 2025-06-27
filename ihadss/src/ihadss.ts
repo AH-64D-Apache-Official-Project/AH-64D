@@ -63,7 +63,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
-  ctx.textBaseline = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText("5200", 513, 115);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
@@ -74,7 +74,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
-  ctx.textBaseline = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText("-2500", 513, 354);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
@@ -186,7 +186,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
-  ctx.textBaseline = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText("HI", 510, 232 - 22);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;
@@ -197,7 +197,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
   ctx.textAlign = "right";
-  ctx.textBaseline = "center";
+  ctx.textBaseline = "middle";
   ctx.fillText("LO", 510, 232 + 21);
   ctx.globalAlpha = 1;
   ctx.lineWidth = 2;

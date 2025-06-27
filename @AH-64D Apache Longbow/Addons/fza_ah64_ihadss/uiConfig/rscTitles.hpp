@@ -1,5 +1,34 @@
 class RscTitles
 {
+    class fza_ah64_symbology
+    {
+        idd = 650;
+        movingEnable =  1;
+        duration     =  99999;
+        fadein       =  0;
+        fadeout      =  0;
+        name = "fza_ah64_symbology";
+        onLoad = "uiNameSpace setvariable ['fza_ah64_symbology',_this select 0];";
+        class controls
+        {
+            class fza_ah64_symbology
+            {
+                idc = 960;
+                type = CT_WEBBROWSER;
+                style = 0;
+                x = 0;
+                y = 0;
+                w = 1;
+                h = 1;
+#ifdef FZA_EXTERNAL_SYMBOLOGY
+                allowExternalURL = 1;
+#endif
+                url = "";
+                colorBackground[] = {0,0,0,0};
+                onLoad = "(_this # 0) ctrlWebBrowserAction [""OpenDataAsURL"",loadFile ""fza_ah64_ihadss\web\index.html""]"
+            };
+        };
+    };
     class fza_ah64_nvsoverlay
     {
         idd = 800;

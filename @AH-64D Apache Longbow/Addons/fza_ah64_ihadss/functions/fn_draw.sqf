@@ -62,6 +62,7 @@ private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
 private _clickhelper = "fza_ah64_click_helper" call BIS_fnc_rscLayer;
 private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
 private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
+private _symbology = "fza_ah64_symbology" call BIS_fnc_rscLayer;
 
 if (isNil "fza_ah64_helperinit") then {
     _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
@@ -138,7 +139,7 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
 
 //1ST PERSON VIEW IHADSS BASIC FLIGHT INFO SETUP
 
-    if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
+if ((gunner _heli == player || driver _heli == player) && ((!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL") || cameraView == "GUNNER") && _powerOnState) then {
     if (isNull(uiNameSpace getVariable "fza_ah64_raddisp")) then {
         _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
 
@@ -150,17 +151,22 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 189) ctrlSetTextColor[0.1, 1, 0, 1];
         _rocketcode = "???";
     };
+    if (isNull (uiNameSpace getVariable ["fza_ah64_symbology", displayNull])) then {
+        _symbology cutRsc ["fza_ah64_symbology", "PLAIN", 0, false];
+    }
 } else {
     if (cameraView != "INTERNAL") then {
         _clickhelper cuttext["", "PLAIN", 0, false];
         _monocle cuttext["", "PLAIN", 0, false];
     };
     _raddisp cuttext["", "PLAIN", 0, false];
+    _symbology cuttext["", "PLAIN", 0, false];
     _laseit cuttext["", "PLAIN", 0, false];
 };
 
 if !_powerOnState then {
     _raddisp cuttext["", "PLAIN", 0, false];
+    _symbology cuttext["", "PLAIN", 0, false];
     _laseit cuttext["", "PLAIN", 0, false];
 };
 
@@ -280,6 +286,11 @@ fza_ah64_blackScreenEffect ppEffectEnable _setDeadOptics;
 
 if !_acBusOn then {
     [_heli] call fza_fnc_laserDisarm;
+};
+
+private _symbologyCtrl = uiNamespace getVariable "fza_ah64_symbology" displayCtrl 960;
+if (!isNull _symbologyCtrl) then {
+    [_heli, _symbologyCtrl] call fza_ihadss_fnc_symbologyRender;
 };
 
 _autohide = {

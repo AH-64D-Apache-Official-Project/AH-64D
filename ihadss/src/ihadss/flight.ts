@@ -7,7 +7,9 @@ export type model = {
   sideslip: number;
 };
 
-export const exampleModel = {
+export const exampleModel: model = {
+  vel: [0, 0],
+  accel: [0, 0],
   sideslip: 0.33,
 };
 
@@ -69,9 +71,9 @@ function drawLubberLine(ctx: CanvasRenderingContext2D) {
   ctx.fill();
 }
 
-function drawAccelerationCue(ctx: CanvasRenderingContext2D, model: model) {
-    const modelVel   = model.vel;
-    const modelAccel = model.accel;  
+function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
+    // const modelVel   = model.vel;
+    // const modelAccel = model.accel;  
 
     const accelPosX = 320 + 50;
     const accelPosY = 240 - 50;
@@ -83,7 +85,7 @@ function drawAccelerationCue(ctx: CanvasRenderingContext2D, model: model) {
     ctx.stroke();
 }
 
-function drawVelocityVector(ctx: CanvasRenderingContext2D, model: model) {
+function drawVelocityVector(ctx: CanvasRenderingContext2D, _model: model) {
 
   const velVecOriginX = 320;
   const velVecOriginY = 240;
@@ -103,7 +105,7 @@ function drawVelocityVector(ctx: CanvasRenderingContext2D, model: model) {
   ctx.stroke();
 }
 
-function drawVsiScale(ctx: CanvasRenderingContext2D, model: model) {
+function drawVsiScale(ctx: CanvasRenderingContext2D, _model: model) {
   const posX         = 533;
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
@@ -128,7 +130,7 @@ function drawVsiScale(ctx: CanvasRenderingContext2D, model: model) {
   ctx.stroke();
 }
 
-function drawRadAltScale(ctx: CanvasRenderingContext2D, model: model) {
+function drawRadAltScale(ctx: CanvasRenderingContext2D, _model: model) {
   const posX         = 551;
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
@@ -160,7 +162,7 @@ function drawRadAltScale(ctx: CanvasRenderingContext2D, model: model) {
   ctx.stroke();
 }
 
-function drawVsiIndexer (ctx: CanvasRenderingContext2D, model: model) {
+function drawVsiIndexer (ctx: CanvasRenderingContext2D, _model: model) {
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
 
@@ -183,7 +185,7 @@ function drawVsiIndexer (ctx: CanvasRenderingContext2D, model: model) {
   ctx.fill();
 }
 
-function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
+function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
   
@@ -201,7 +203,7 @@ function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
   ctx.stroke();
 }
 
-function drawAttHoldIndicator (ctx: CanvasRenderingContext2D, model: model) {
+function drawAttHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
   ctx.beginPath();
   ctx.moveTo(119, 214);
   ctx.lineTo(156, 214);

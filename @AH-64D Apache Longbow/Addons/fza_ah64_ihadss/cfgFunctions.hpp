@@ -34,5 +34,10 @@ class CfgFunctions
             file = "\fza_ah64_ihadss\functions\flight";
             class flightVelocityVector {R;};
         };
+        class symbology {
+            file = "\fza_ah64_ihadss\functions\symbology";
+            class symbologyPosCoord {R;};
+            class symbologyRender {R;};
+        };
     };
 };
