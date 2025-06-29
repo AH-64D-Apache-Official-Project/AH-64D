@@ -93,7 +93,7 @@ _stabOutputTable = [
                    ];
 */
                    
-if (_stabDamage < SYS_STAB_DMG_THRESH || _dcBusOn) then {
+if (_stabDamage < SYS_STAB_DMG_THRESH && _dcBusOn) then {
     _desiredTheta = [_stabOutputTable, (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
     _theta        = [_theta, _desiredTheta, (1.0 / 1.5) * _deltaTime] call BIS_fnc_lerp;
     _heli setVariable ["fza_ah64_stabilatorPosition", _theta];
