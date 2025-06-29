@@ -4,25 +4,25 @@ class SoundsExt
     {
         class EngineExt
         {
-            sound[] = {"\fza_ah64_control\audio\Engine", 1, 1.000000, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Engine", 1, 1.000000, 1200};
             frequency = "rotorSpeed";
             volume = "camPos*((rotorSpeed-0.72)*4)";
         };
         class RotorExt
         {
-            sound[] = {"\fza_ah64_control\audio\Ext_Rotor.ogg", 1, 1.000000, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Ext_Rotor.ogg", 1, 1.000000, 1200};
             frequency = "rotorSpeed * (1 - rotorThrust/5)";
             volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
         };
         class EngineClose
         {
-            sound[] = {"\fza_ah64_control\audio\Engine_Close.ogg", 1, 1.000000, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Engine_Close.ogg", 1, 1.000000, 1200};
             frequency = "rotorSpeed";
             volume = "camPos*((rotorSpeed-0.72)*4)";
         };
         class RotorClose
         {
-            sound[] = {"\fza_ah64_control\audio\Rotor_Close.ogg", 1, 1.000000, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Rotor_Close.ogg", 1, 1.000000, 1200};
             frequency = "rotorSpeed * (1 - rotorThrust/5)";
             volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
         };
@@ -36,30 +36,30 @@ class SoundsExt
         {
             cone[] = {3, 1.57, 3, 1.57};
             frequency = "rotorSpeed";
-            sound[] = {"\fza_ah64_control\audio\Ext_Tail_Rotor.ogg", 3, 1, 1200};
+            sound[] = {"\fza_ah64_controls\data\audio\Ext_Tail_Rotor.ogg", 3, 1, 1200};
             volume = "camPos*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
         };
         class Distance
         {
-            sound[]  = {"\fza_ah64_control\audio\Engine_Far.ogg", 4, 1, 3500};
+            sound[]  = {"\fza_ah64_controls\data\audio\Engine_Far.ogg", 4, 1, 3500};
             frequency = "rotorSpeed";
             volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
         };
         class FarDistance
         {
-            sound[]  = {"\fza_ah64_control\audio\Rotor_Far.ogg", 4, 1, 3500};
+            sound[]  = {"\fza_ah64_controls\data\audio\Rotor_Far.ogg", 4, 1, 3500};
             frequency = "rotorSpeed";
             volume = "2 * camPos * (0 max (rotorSpeed-0.4))";
         };
         class EngineInt
         {
-            sound[] = {"\fza_ah64_control\audio\Int_Engine.ogg", 1, 1.000000};
+            sound[] = {"\fza_ah64_controls\data\audio\Int_Engine.ogg", 1, 1.000000};
             frequency = "rotorSpeed";
             volume = "(1-camPos)*((rotorSpeed-0.75)*4)";
         };
         class RotorInt
         {
-            sound[] = {"\fza_ah64_control\audio\Int_Rotor.ogg", 1, 1};
+            sound[] = {"\fza_ah64_controls\data\audio\Int_Rotor.ogg", 1, 1};
             frequency = "rotorSpeed * (1 - rotorThrust/5)";
             volume = "(1-camPos)*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)";
         };
