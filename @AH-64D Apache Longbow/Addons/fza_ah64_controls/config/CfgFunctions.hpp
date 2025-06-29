@@ -78,21 +78,6 @@ class CfgFunctions
             class uiMouseMove {R;};
             class uiShowIntro {R;};
         };
-        class weapon
-        {
-            file = "\fza_ah64_controls\functions\weapon";
-            class weaponActionSwitch {R;};
-            class weaponMissileGetSelected {R;};
-            class weaponMissileCycle {R;};
-            class weaponMissileInventory {R;};
-            class weaponPylonCheckValid {R;};
-            class weaponRocketInventory {R;};
-            class weaponRocketSetSelected {R;};
-            class weaponSwapM230Mag {R;};
-            class weaponTrajectoryChange {R;};
-            class weaponTurretAim {R;};
-            class weaponUpdateSelected {R;};
-        };
         class functions
         {
             file = "\fza_ah64_controls\functions";

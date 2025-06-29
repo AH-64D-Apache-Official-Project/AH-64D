@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    _ret = [_heli] call fza_fnc_weaponTurretAim
+    _ret = [_heli] call fza_weapons_fnc_TurretAim
     //_ret => [30, -20]
     ---
 

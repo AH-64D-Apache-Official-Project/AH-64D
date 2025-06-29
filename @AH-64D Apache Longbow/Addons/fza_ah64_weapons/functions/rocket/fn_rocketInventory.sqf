@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponRocketInventory
+Function: fza_weapons_fnc_RocketInventory
 
 Description:
     Gathers rocket inventory information, using given turret to work out whether it is selected or not.

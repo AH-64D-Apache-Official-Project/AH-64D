@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponTrajectoryChange
+Function: fza_weapons_fnc_TrajectoryChange
 
 Description:
     Cycles through the available hellfire trajectories
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli] call fza_fnc_weaponTrajectoryChange
+    [_heli] call fza_weapons_fnc_TrajectoryChange
 
 Author:
     Unknown
