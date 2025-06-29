@@ -23,5 +23,4 @@ if (!(_heli getVariable ["fza_ah64_cannonInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_cannonInitialised", true, true];
 
     _heli setVariable ["fza_ah64_burst_limit", 10, true];
-    _heli setVariable ["fza_ah64_burst_fired",  0, true];
 };

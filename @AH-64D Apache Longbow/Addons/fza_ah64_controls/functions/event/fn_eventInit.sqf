@@ -41,7 +41,6 @@ params["_heli"];
 [_heli] call fza_systems_fnc_coreVariables;
 
 if (!(isNil "fza_ah64_noinit")) exitwith {};
-_heli addAction ["<t color='#ff0000'>Weapons inhibited</t>", {}, [], -10, false, false, "DefaultAction", "count (_target getVariable ""fza_ah64_weaponInhibited"") != 0"];
 
 if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_aircraftInitialised", true, true];

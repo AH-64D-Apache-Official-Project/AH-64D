@@ -2,7 +2,7 @@ params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 #define SALVO_ALL 99
 
-private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+private _rocketInventory = [_heli] call fza_weapons_fnc_RocketInventory;
 
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
 if (_heli getVariable "fza_ah64_rocketsalvo" == SALVO_ALL) then {

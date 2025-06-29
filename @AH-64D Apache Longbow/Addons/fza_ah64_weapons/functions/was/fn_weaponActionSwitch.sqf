@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponActionSwitch
+Function: fza_weapons_fnc_weaponActionSwitch
 
 Description:
     Switches the player between different weapon types
@@ -13,7 +13,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch
+    [_heli, WAS_WEAPON_GUN] call fza_weapons_fnc_weaponActionSwitch
     ---
 
 Author:
@@ -21,7 +21,4 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_weapon"];
 
-if !(_heli turretLocal [0]) exitWith {};
-
-_heli setVariable ["fza_ah64_was", _weapon, true];
-[_heli] call fza_fnc_weaponUpdateSelected;
+[_heli, "fza_ah64_was", _weapon] call fza_fnc_setSeatVariable;
