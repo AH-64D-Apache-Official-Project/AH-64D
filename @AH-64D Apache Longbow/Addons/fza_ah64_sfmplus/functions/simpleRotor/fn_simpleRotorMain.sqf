@@ -52,10 +52,12 @@ private _rtrRPMTrimVal          = 1.01;
 private _rtrGearRatio           = 72.291;
 private _rtrNumBlades           = 4;
 
-private _bladeRadius            = 7.315;   //m
-private _bladeChord             = 0.533;   //m
-private _bladePitch_min         = 1.0;     //deg
-private _bladePitch_max         = 19.0;    //deg
+private _bladeRadius            = 7.315;    //m
+private _bladeChord             = 0.533;    //m
+private _bladeMass              = 72.108;   //kg
+private _bladeHingeOffset       = 0.038;    //dimensionless, % of bladeRadius
+private _bladePitch_min         = 1.0;      //deg
+private _bladePitch_max         = 19.0;     //deg
 
 private _rtrGndEffTable =
 [
@@ -65,21 +67,22 @@ private _rtrGndEffTable =
 ,[ 8618, 0.310]
 ,[ 9525, 0.509]
 ];
-
-private _rtrThrustScalarTable_min = [
-                                     [    0, 0.032]
-                                    ,[ 2000, 0.052]
-                                    ,[ 4000, 0.037]
-                                    ,[ 6000, 0.041]
-                                    ,[ 8000, 0.045]
-                                    ];
-private _rtrThrustScalarTable_max = [
-                                     [    0, 1.168]
-                                    ,[ 2000, 1.422]
-                                    ,[ 4000, 1.745]
-                                    ,[ 6000, 2.132]
-                                    ,[ 8000, 2.561]
-                                    ];
+private _rtrThrustScalarTable_min = 
+[
+ [    0, 0.032]
+,[ 2000, 0.052]
+,[ 4000, 0.037]
+,[ 6000, 0.041]
+,[ 8000, 0.045]
+];
+private _rtrThrustScalarTable_max = 
+[
+ [    0, 1.168]
+,[ 2000, 1.422]
+,[ 4000, 1.745]
+,[ 6000, 2.132]
+,[ 8000, 2.561]
+];
 private _rtrTipLossTable = 
 [
  [ 6804, 1.108]
@@ -88,7 +91,6 @@ private _rtrTipLossTable =
 ,[ 8618, 0.958]
 ,[ 9525, 0.890]
 ];
-
 private _velocityThrustExponentTable = 
 [
  [ 0.00, 0.000]
@@ -110,18 +112,27 @@ private _rollTorqueScalar       = 0.75;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
+//Moment of inertia
+private _Icm  = (1.0 / 3.0) * _bladeMass * (_bladeRadius * _bladeRadius);
+private _Iy   = (1.0 / 12.0) * _bladeMass * (_bladeChord * _bladeChord);
+private _md2  = _bladeMass * (_bladeHingeOffset * _bladeHingeOffset);
+private _Itot = _Icm + _md2;
+private _Jtot = (_Iy + _Itot) * _rtrNumBlades;
+[_heli, "fza_sfmplus_rtrMoi", 0, _Jtot, true] call fza_fnc_setArrayVariable;
+
 //Thrust produced 
 private _collectiveOutput              = (_heli getVariable "fza_sfmplus_collectiveOutput") + _altHoldCollOut;
 private _bladePitch_cur                = _bladePitch_min + (_bladePitch_max - _bladePitch_min) * _collectiveOutput;
 private _rtrThrustScalar_min           = [_rtrThrustScalarTable_min, _altitude] call fza_fnc_linearInterp select 1;
 private _bladePitchInducedThrustScalar = _rtrThrustScalar_min + ((1 - _rtrThrustScalar_min) / _bladePitch_max)  * _bladePitch_cur;
-(_heli getVariable "fza_sfmplus_engPctNP")
-    params ["_eng1PctNP", "_eng2PctNp"];
-private _inputRPM                      = _eng1PctNP max _eng2PctNp;
+//(_heli getVariable "fza_sfmplus_engPctNP")
+//    params ["_eng1PctNP", "_eng2PctNp"];
+private _inputRPM                      = (_heli getVariable "fza_sfmplus_xmsnOutputRpm") / 20900;//_eng1PctNP max _eng2PctNp;
+private _inputRpmPct                   = [_inputRpm / _rtrRPMTrimVal, 0.0, 1.0] call BIS_fnc_clamp;
 
 //Rotor induced thrust as a function of RPM
 private _rtrThrustScalar_max       = [_rtrThrustScalarTable_max, _altitude] call fza_fnc_linearInterp select 1;
-private _rtrRPMInducedThrustScalar = (_inputRPM / _rtrRPMTrimVal) * _rtrThrustScalar_max;
+private _rtrRPMInducedThrustScalar = _inputRpmPct * _rtrThrustScalar_max;
 
 //Thrust scalar as a result of altitude
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
@@ -205,7 +216,6 @@ private _inducedPowerCollectiveCorrectionTable =
 ,[69.96, 0.799]
 ,[72.02, 0.840]
 ];
-
 private _collectiveTorqueCorrectionTable =
 [
  [0.000, 0.000]
@@ -215,15 +225,26 @@ private _collectiveTorqueCorrectionTable =
 ,[0.850, 1.000]
 ,[1.000, 1.500]
 ];
-
+private _autorotationTorqueTable =
+[
+ [-20.32,-30.0]
+,[-15.25,-15.0]
+,[-10.16,-10.0]
+,[- 5.08,  0.0]
+,[ -2.54,  0.0]
+,[  0.00,  0.0]
+];
 private _inducedPowerCollectiveCorrection = ([_inducedPowerCollectiveCorrectionTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
 private _induced_val                      = [_collectiveOutput / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
 private _induced_cur                      = _inducedPowerVelocityScalar * _induced_val;
 private _collectiveTorqueCorrection       = ([_collectiveTorqueCorrectionTable, _collectiveOutput] call fza_fnc_linearInterp) select 1;
 _collectiveTorqueCorrection               = linearConversion[0.0, VEL_ETL, _velXYNoWind, 1.0, _collectiveTorqueCorrection, true];
-private _power_val                        = [(_profile_cur + _induced_cur) * _collectiveTorqueCorrection, 0.0, 2.50] call BIS_fnc_clamp;
+private _power_val                        = [(_profile_cur + _induced_cur) * _collectiveTorqueCorrection, -1.0, 2.50] call BIS_fnc_clamp;
 private _power_req                        = _power_val * 2133.0;
 private _torque_req                       = (_power_req / 0.001) / 0.105 / 21109;
+private _autorotationTorque               = ([_autorotationTorqueTable, _velZ] call fza_fnc_linearInterp) select 1;
+_torque_req                               = (_torque_req * _inputRpmPct) + _autorotationTorque;
+//systemChat format ["_velZ = %1 -- _autorotationTorque = %2", _velZ, _autorotationTorque];
 /*
 private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
 private _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
@@ -248,7 +269,7 @@ _torque_req = _torque_req * _pedalTqScalar;
 //systemChat format ["_pedalPosition = %1", _pedalPosition];
 
 private _rtrTorque   = _torque_req * _rtrGearRatio;
-_rtrTorque           = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, _rtrTorque, true];
+//_rtrTorque           = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, _rtrTorque, true];
 /*
 hintSilent format ["_profile_cur = % 1
                     \n_induced_val = %2
@@ -265,7 +286,8 @@ hintSilent format ["_profile_cur = % 1
                     ,_torque_req
                     ,(_torque_req / 481.109) * 100 toFixed 1];
 */
-_heli setVariable ["fza_sfmplus_reqEngTorque", _torque_req];
+//systemChat format ["_torque_req = %1",_torque_req];
+[_heli, "fza_sfmplus_reqEngTorque", 0, _torque_req, true] call fza_fnc_setArrayVariable;
 
 private _axisX = [1.0, 0.0, 0.0];
 private _axisY = [0.0, 1.0, 0.0];
@@ -341,7 +363,7 @@ private _cyclicFwdAft     = _heli getVariable "fza_sfmplus_cyclicFwdAft";
 private _cyclicFwdAftTrim = 0.0;
 _cyclicFwdAftTrim         = _heli getVariable "fza_ah64_forceTrimPosPitch";
 
-private _pitchTorque      = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _pitchTorqueScalar, true];
+private _pitchTorque      = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _pitchTorqueScalar, true];
 private _pitchInput       = ([_cyclicFwdAft, _cyclicFwdAftTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcPitchOut;
 _pitchInput               = [_pitchInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _torqueX          = _pitchTorque * _pitchInput * _deltaTime; 
@@ -354,7 +376,7 @@ _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
 _rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _rollTorque          = linearConversion [0.0, 1.0, _inputRPM / _rtrRPMTrimVal, 0.0, 100000 * _rollTorqueScalar, true];
+private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
 private _torqueY             = _rollTorque * _rollInput * _deltaTime; 
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////

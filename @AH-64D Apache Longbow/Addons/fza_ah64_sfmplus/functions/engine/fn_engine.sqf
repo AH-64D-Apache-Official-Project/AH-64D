@@ -177,7 +177,7 @@ private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIG
 
 //If the engine isn't overspeed, do normal engine things
 if (!_engOverspeed) then {
-    private _rtrTq = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.109;
+    private _rtrTq = (_heli getVariable "fza_sfmplus_reqEngTorque" select 0) / 481.109;
     if (_isSingleEng) then {
         if (_engPowerLeverState in ["OFF", "IDLE"]) then {
             _engPctTQ = 0.0;
@@ -216,8 +216,8 @@ if (_engPctNP >= 1.196) then {
 
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
+//[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
+//[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_fnc_setArrayVariable;

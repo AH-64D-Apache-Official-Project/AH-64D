@@ -35,6 +35,7 @@ class CfgFunctions
         class engine {
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
+            class engine2 {R;};
             class engineController {R;};
             class engineReset {R;};
             class engineVariables {R;};
@@ -103,6 +104,11 @@ class CfgFunctions
             class simpleRotorNewtRaphSolver {R;};
             class simpleRotorTail {R;};
             class simpleRotorVariables {R;};
+        };
+        class transmission {
+            file = "\fza_ah64_sfmplus\functions\transmission";
+            class transmission {R;};
+            class transmissionVariables {R;};
         };
         class utility {
             file = "\fza_ah64_sfmplus\functions";

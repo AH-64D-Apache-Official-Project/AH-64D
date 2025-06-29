@@ -60,6 +60,9 @@ if (isAutoHoverOn _heli) then {
 //Engines
 [_heli] call fza_sfmplus_fnc_engineController;
 
+//Transmission
+[_heli] call fza_sfmplus_fnc_transmission;
+
 //Damage
 [_heli] call fza_sfmplus_fnc_damageApply;
 

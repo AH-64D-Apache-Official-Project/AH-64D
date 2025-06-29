@@ -4,6 +4,11 @@ ignorePaths:
   - "@AH-64D Apache Longbow/Addons/fza_ah64_mpd/tex/tsdIcons" # Icons have a specific filename structure
   - "@AH-64D Apache Longbow/Addons/fza_ah64_mpd/font/BMKApacheFont" # Icons have a specific filename structure
   - "@AH-64D Apache Longbow/Addons/fza_ah64_mpd/font/BMKApacheFontTextures" # Icons have a specific filename structure
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_cannon/data"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_controls/data"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_hydra/data"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_hellfire/data"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_ase/data"  
 ignoreFileNames:
   - "$PBOPREFIX$"
   - "$PREFIX$"

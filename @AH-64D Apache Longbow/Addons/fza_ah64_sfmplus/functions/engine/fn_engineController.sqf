@@ -99,6 +99,9 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
 if (currentPilot _heli == player || local _heli) then {
     [_heli, 0] call fza_sfmplus_fnc_engine;
     [_heli, 1] call fza_sfmplus_fnc_engine;
+
+    [_heli, 0] call fza_sfmplus_fnc_engine2;
+    [_heli, 1] call fza_sfmplus_fnc_engine2;
 };
 
 private _no1EngDmg = _heli getHitPointDamage "hitengine1";

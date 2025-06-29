@@ -171,7 +171,11 @@ _heli setVariable ["fza_sfmplus_pedalYawValue",      0.0];
 [_heli] call fza_sfmplus_fnc_fuelSet;
 
 //Engines
+_heli setVariable ["fza_sfmplus_pid_engine",        [[0.7000, 0.0000, 0.0005] call fza_fnc_pidCreate, [0.7000, 0.0000, 0.0005] call fza_fnc_pidCreate]];
 [_heli] call fza_sfmplus_fnc_engineVariables;
+
+//Transmission
+[_heli] call fza_sfmplus_fnc_transmissionVariables;
 
 //Rotors
 [_heli] call fza_sfmplus_fnc_simpleRotorVariables;
