@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponMissileCycle
+Function: fza_weapons_fnc_MissileCycle
 
 Description:
     Cycles through the available hellfire types
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli] call fza_fnc_weaponMissileCycle
+    [_heli] call fza_weapons_fnc_MissileCycle
 
 Author:
     mattysmith22
@@ -25,4 +25,4 @@ if (_missiles isEqualTo []) exitWith {};
 private _nextMissile = [_missiles, _heli getVariable "fza_ah64_selectedMissile"] call fza_fnc_cycle;
 
 _heli setVariable ["fza_ah64_selectedMissile", _nextMissile, true];
-[_heli] call fza_fnc_weaponUpdateSelected;
+[_heli] call fza_weapons_fnc_UpdateSelected;

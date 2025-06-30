@@ -30,7 +30,7 @@ private _conW = 2*14*SYMB_DEG_SCALING_FACTOR;
 private _conH = 2*19*SYMB_DEG_SCALING_FACTOR;
 private _Offset = -0.35;
 
-if (WAS_WEAPON_RKT != _heli getVariable "fza_ah64_was") exitwith {};    
+if (WAS_WEAPON_RKT != [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) exitwith {};    
 if (cameraView != "GUNNER") then {_Offset = 0.14;};
 
 private _tex = "\fza_ah64_model\tex\HDU\ah64_rkt.paa";

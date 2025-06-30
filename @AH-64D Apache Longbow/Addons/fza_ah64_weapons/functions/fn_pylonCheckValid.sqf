@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_weaponPylonCheckValid
+Function: fza_weapons_fnc_PylonCheckValid
 
 Description:
     Validates the loadouts on the pylons to make sure that it is valid.

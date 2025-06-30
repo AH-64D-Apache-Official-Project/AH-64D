@@ -32,7 +32,7 @@ private _fcrState = [0, 1] select (_settings getVariable "fcrInstalled");
 _heli animateSource ["fcr_enable", _fcrState];
 
 private _iafsState = [1, 0] select (_settings getVariable "iafsInstalled");
-[_heli, _iafsState] call fza_fnc_weaponSwapM230Mag;
+[_heli, _iafsState] call fza_weapons_fnc_SwapM230Mag;
 
 //SFM Weight sim
 [_heli] call fza_sfmplus_fnc_coreConfig;

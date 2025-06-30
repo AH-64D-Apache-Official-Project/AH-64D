@@ -23,7 +23,7 @@ params ["_heli"];
 #include "\fza_ah64_controls\headers\systemConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 
-private _wasState       = _heli getVariable "fza_ah64_was";
+private _wasState       = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _fcrTargets     = _heli getVariable "fza_ah64_fcrTargets";
 private _cScopeCount    = 0;
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
@@ -117,7 +117,7 @@ if (_heli getVariable "fza_ah64_fcrcscope") then {
         private _ntsPos = _fcrTargets # _ntsIndex # 0;
         if (!isNil "_ntsPos") then {_guiPos = worldtoscreen asltoagl _ntsPos;};
         if (count _guiPos < 1) then {_guiPos = [-100, -100];};
-        private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\nts%1_ca.paa", (["", "_noMsl"] select ((_heli getVariable "fza_ah64_was") == WAS_WEAPON_NONE))];
+        private _tex = format ["\fza_ah64_mpd\tex\fcrIcons\nts%1_ca.paa", (["", "_noMsl"] select (([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable) == WAS_WEAPON_NONE))];
         private _position = [(_GuiPos#0)-0.03,(_GuiPos#1)-0.05] call fza_fnc_compensateSafezone;
 
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 208) ctrlSetText _tex;
