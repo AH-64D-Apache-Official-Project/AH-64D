@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_weapons_fnc_TurretAim
+Function: fza_weapons_fnc_pylonController
 
 Description:
     Points turrets, sensors and weaponry at the correct positions according to acquisition sources.
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli] call fza_weapons_fnc_TurretAim
+    [_heli] call fza_weapons_fnc_pylonController;
 
 Author:
     Snow(Dryden)

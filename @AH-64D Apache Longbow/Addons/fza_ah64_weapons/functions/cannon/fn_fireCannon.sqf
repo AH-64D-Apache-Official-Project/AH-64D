@@ -16,6 +16,7 @@ while {!_cannotFire && (inputaction "defaultAction" > 0.5)} do {
     waitUntil {(weaponstate [_heli, [0], "fza_m230"])#5 == 0};
     if (_cannonFired >= (_heli getVariable "fza_ah64_burst_limit") && (_heli getVariable "fza_ah64_burst_limit") != -1) exitWith {};
     if !(_heli getVariable "fza_ah64_armSafeArmed") exitWith {};
+    if (_heli getvariable "fza_ah64_gunInhibited" != "") exitwith {};
     [_heli, "fza_m230"] call BIS_fnc_fire;
     _cannonFired = _cannonFired + 1;
     sleep 0.01;

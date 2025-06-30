@@ -43,7 +43,7 @@ private _cameraTarget = objNull;
 
 if (_was == WAS_WEAPON_GUN) then {
     if (_gunFailed) exitwith {
-        // If the gun is failed, we don't want to do anything
+        _inhibit = "   ";
     };
     private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
     private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
@@ -53,19 +53,10 @@ if (_was == WAS_WEAPON_GUN) then {
     if !(-60 < _tadsElevation && _tadsElevation < 11) then {
         _inhibit = "EL LIMIT";
     };
-    if (_inhibit != "") then {
-        _safemessage = "_inhibit";
-        // If the gun is inhibited, we don't want to do anything
-    } else {
-        if (Currentweapon _heli == "fza_gun_inhibit") then {
-            //allow the gun to be used
-        };
-    };
+    _heli setVariable ["fza_ah64_gunInhibited", _inhibit, true];
     if (_sight == SIGHT_FXD) exitwith {
         _mainturret = 0;
         _maingun = 0;
-        _inhibit = "GUN FIXED";
-        //safeMessage //GUN FIXED
     };
     _mainturret = -rad ([_tadsAzimuth, -86, 86] call BIS_fnc_clamp);
     _maingun = rad ([_tadsElevation, -60, 11] call BIS_fnc_clamp);
@@ -77,5 +68,3 @@ if (_gunFailed) then {
 
 [_heli, "mainTurret", _mainturret] call fza_fnc_updateAnimations;
 [_heli, "mainGun", _maingun] call fza_fnc_updateAnimations;
-
-[_heli, "fza_ah64_weaponInhibited", _inhibit] call fza_fnc_updateNetworkGlobal;

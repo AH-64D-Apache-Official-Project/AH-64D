@@ -14,7 +14,6 @@ class CfgFunctions {
             class init {R;};
             class pylonCheckValid {R;};
             class pylonController {R;};
-            class rangeSource {R;};
             class sightData {R;};
         };
         class cannon {
