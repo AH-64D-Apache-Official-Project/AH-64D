@@ -9,7 +9,7 @@ switch (_control) do {
         [_heli] call fza_fnc_controlHandlelaserchange;
     };
     case "r1": {
-        [_heli] call fza_fnc_weaponMissileCycle
+        [_heli] call fza_weapons_fnc_MissileCycle
     };
 };
 

@@ -55,7 +55,7 @@ class AnimationSources
     {
         displayName = "Swap IAFS for 1200rnd magazine";
         author = "AH-64D Development Team";
-        onPhaseChanged = "_this call fza_fnc_weaponSwapM230Mag";
+        onPhaseChanged = "_this call fza_weapons_fnc_SwapM230Mag";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
