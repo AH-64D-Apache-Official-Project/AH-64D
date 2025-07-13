@@ -482,9 +482,6 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-if (_weaponWas == WAS_WEAPON_MSL) then {
-    _safemessage = _heli getVariable "fza_ah64_hellfireLaunch";
-};
 if (_weaponWas == WAS_WEAPON_RKT) then {
     _safemessage = _heli getVariable "fza_ah64_rocketInhibited";
 };

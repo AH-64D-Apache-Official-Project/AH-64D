@@ -34,6 +34,7 @@ private _onGnd           = [_heli] call fza_sfmplus_fnc_onGround;
 private _pylonMagazines  = getPylonMagazines _heli;
 private _firstPylonMags  = [_pylonMagazines#0,_pylonMagazines#4,_pylonMagazines#8,_pylonMagazines#12];
 private _pylonAdjustment = 0;
+private _inhibit         = "";
 
 private _utilLevelMin  = (_heli getVariable "fza_systems_utilLevel_pct" < SYS_HYD_MIN_LVL);
 private _utilHydFailed = (_heli getVariable "fza_systems_utilHydPSI" < SYS_MIN_HYD_PSI);
@@ -50,8 +51,9 @@ if (_was == WAS_WEAPON_RKT && _sight != SIGHT_FXD) then {
     _pylonAdjustment = ([0, -0.35, -1.69] vectorAdd ((_heli worldToModel aslToAgl _aimLocation)) call CBA_fnc_vect2Polar)# 2;
     
     if !(-15 < _pylonAdjustment && _pylonAdjustment < 4) then {
-        [_heli, "fza_ah64_rocketInhibit", "PYLON LIMIT"] call fza_fnc_updateNetworkGlobal;
+        _inhibit = "PYLON LIMIT";
     };
+    [_heli, "fza_ah64_rocketInhibit", _inhibit] call fza_fnc_updateNetworkGlobal;
 };
 
 for "_i" from 0 to 3 do {
