@@ -133,7 +133,7 @@ private _yawToRollTable = //move to config!
 ,[ 0.9, -0.275]
 ,[ 1.0, -0.412]
 ];
-private _yawToRoll = [_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 1;
+private _yawToRoll = ([_yawToRollTable, _pedalOut] call fza_fnc_linearInterp select 1) * 0.6;
 
 //systemChat format ["_yawToRoll = %1", _yawToRoll];
 /////////////////////////////////////////////////////////////////////////////////////////////
