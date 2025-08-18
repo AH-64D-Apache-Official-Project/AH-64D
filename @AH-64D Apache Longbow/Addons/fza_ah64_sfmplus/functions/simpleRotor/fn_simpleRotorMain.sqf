@@ -107,8 +107,8 @@ private _velocityThrustExponentTable =
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;
 
-private _pitchTorqueScalar      = 2.50;
-private _rollTorqueScalar       = 0.75;
+private _pitchTorqueScalar      = 2.50 * 0.9;
+private _rollTorqueScalar       = 0.75 * 0.9;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
 
