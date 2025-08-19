@@ -35,12 +35,14 @@ private _collToPitchOut         = _heli getVariable "fza_sfmplus_fmcCollectiveTo
 private _yawToPitchOut          = _heli getVariable "fza_sfmplus_fmcYawToPitch";
 private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
 private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _collToPitchOut + _yawToPitchOut;
+_fmcPitchOut                    = [_fmcPitchOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
 private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
 private _collToRollOut          = _heli getVariable "fza_sfmplus_fmcCollectiveToRoll";
 private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
 private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
+_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
