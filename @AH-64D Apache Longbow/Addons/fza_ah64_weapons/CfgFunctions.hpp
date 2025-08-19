@@ -16,6 +16,7 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_weapons\functions";
             class init {R;};
+            class jettisonAll {R;};
         };
     };
 };

@@ -307,6 +307,9 @@ if (_value) then {
             private _lightval = _heli getVariable "fza_ah64_lightSearchLight";
             _heli setVariable ["fza_ah64_lightSearchLight", !_lightval, true];
         };
+        case "fza_ah64_collectiveEmergJett": {
+            _heli spawn fza_weapons_fnc_jettisonAll;
+        };
     };
 };
 
