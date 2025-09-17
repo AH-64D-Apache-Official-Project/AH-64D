@@ -89,7 +89,7 @@ if ((_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERN
 private _initialized = missionNamespace getVariable "fza_ah64_raddisp";
 if (isNil "_initialized") then {
     _raddisp cutrsc["fza_ah64_raddisp", "PLAIN", 0, false];
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\ihadss.paa";
 
     for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
@@ -99,7 +99,7 @@ if (isNil "_initialized") then {
 
 if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && (gunner _heli == player || driver _heli == player)) then {
     _monocle cutrsc["fza_ah64_monocleinbox", "PLAIN", 0, false];
-    ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_US\tex\HDU\monocle_solid.paa";
+    ((uiNameSpace getVariable "fza_ah64_monocleinbox") displayCtrl 501) ctrlSetText "\fza_ah64_model\tex\HDU\monocle_solid.paa";
 } else {
     _monocle cuttext["", "PLAIN", -1, false];
 };
@@ -158,7 +158,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         };
     };
 
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\TADSmain_co.paa";
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
     
     //COLOR SET THESE
@@ -191,12 +191,12 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     //LASER SYMBOLOGY FOR GUNNER
     if !(isNull laserTarget _heli) then {
         _laseit cutrsc["fza_ah64_laseit", "PLAIN", 0, false];
-        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_US\tex\HDU\Apache_LaserOn.paa";
+        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_model\tex\HDU\Apache_LaserOn.paa";
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
     //LSC SYMBOLOGY FOR GUNNER
     if (_heli getvariable "fza_ah64_LmcActive") then {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_US\tex\HDU\TADSLMC_co.paa";
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_model\tex\HDU\TADSLMC_co.paa";
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
     };
 

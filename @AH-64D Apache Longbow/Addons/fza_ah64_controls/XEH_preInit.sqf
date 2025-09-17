@@ -23,15 +23,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusCollectiveControl",
-    "LIST",
-    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
-    [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
-    2
-] call CBA_fnc_addSetting;
-
-[
     "fza_sfmplus_cyclicCenterTrimMode",
     "CHECKBOX",
     ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],
@@ -147,6 +138,15 @@ private _projName = "AH-64D Official Project";
     "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
     ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusFmDebug",
+    "CHECKBOX",
+    ["Enable FM Debuging", "Displays debug output for troubleshooting FM issues."],
     [_projName, "Flight model"],
     [false],
     2

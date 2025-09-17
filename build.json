@@ -1,8 +1,6 @@
 {
     "addonsFolder": "@AH-64D Apache Longbow\\Addons",
     "excludePboSymlinks": [
-        "fza_ah64_us"
-    ],
-    "noBinarize": [],
-    "outputFolder": "@AH-64D Apache Longbow\\Addons"
+        "fza_ah64_model"
+    ]
 }

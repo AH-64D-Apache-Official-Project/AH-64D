@@ -19,7 +19,7 @@ fza_ah64_introShownThisScenario = true;
 private _content = parseText
 "<t align='center' size='2'>AH-64D Official Project V2.2</t><br/>
 <br/>
-<t align='center'><img size='10' image='\fza_ah64_us\tex\intro.jpg'/></t><br/>
+<t align='center'><img size='10' image='\fza_ah64_model\tex\intro.jpg'/></t><br/>
 <br/>
 After over three years of development, we are happy to announce V2.2. This has been a large release with changes ranging from the displays being rewritten, to a new flight model and damage handling being implemented.<br/>
 <br/>
