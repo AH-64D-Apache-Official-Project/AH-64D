@@ -19,6 +19,7 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\Gunner\cfgDoor.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\cfgEnginePanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\cfgFirePanel.hpp"
+                #include "\fza_ah64_hatchet\components\Gunner\cfgLightPanel.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\CfgMfd.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\CfgMisc.hpp"
             };
