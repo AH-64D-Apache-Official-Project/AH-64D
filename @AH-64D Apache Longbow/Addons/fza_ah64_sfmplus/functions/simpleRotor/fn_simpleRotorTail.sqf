@@ -33,6 +33,7 @@ private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
 private _hdgHoldPedalYawOut     = _heli getVariable "fza_sfmplus_fmcHdgHoldPedalYawOut";
 private _sasYawOut              = _heli getVariable "fza_sfmplus_fmcSasYawOut";
 private _fmcYawOut              = _hdgHoldPedalYawOut + _sasYawOut;
+_fmcYawOut                      = [_fmcYawOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;
@@ -75,7 +76,7 @@ _pedalLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosPedal";
 
 private _pedalInput         = ([_pedalLeftRight, _pedalLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcYawOut;
 _pedalInput                 = [_pedalInput, -1.0, 1.0] call BIS_fnc_clamp;
-private _bladePitchInducedThrustScalar = [_bladePitchInducedThrustTable, _pedalInput] call fza_fnc_linearInterp select 1;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
+private _bladePitchInducedThrustScalar = ([_bladePitchInducedThrustTable, _pedalInput] call fza_fnc_linearInterp select 1) * 0.7;//linearConversion [_bladePitch_min, _bladePitch_max, _bladePitch_cur, _rtrThrustScalar_min, _rtrThrustScalar_max, true];
 //systemChat format ["_bladePitchInducedThrustScalar = %1 -- _pedalLeftRight = %2", _bladePitchInducedThrustScalar toFixed 3, _pedalLeftRight];
 (_heli getVariable "fza_sfmplus_engPctNP")
     params ["_eng1PctNP", "_eng2PctNp"];

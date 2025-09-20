@@ -276,6 +276,39 @@ class CfgVehicles {
         editorPreview   = "\fza_ah64_controls\data\editorpreview\fza_ah64d_b1.jpg";
     };
 
+    class StaticMGWeapon;
+    class fza_ah64_pylon_base: StaticMGWeapon {
+        scope = 1;
+        displayName = "Pylon";
+        crew = "";
+        model = "\fza_ah64_controls\data\pya_pylon_single.p3d";
+        destrType = "DestructDefault";
+        threat[] = {0.2, 0.2, 0.2};
+        radarTargetSize = 0.05;
+        visualTargetSize = 0.05;
+        irTargetSize = 0.05;
+
+        class Components {
+            class TransportPylonsComponent {
+                uiPicture = "";
+                class pylons {
+                    class pylons1 {
+                        maxweight = 560;
+                        turret[] = {0};
+                        hardPoints[] = {"fza_hydra70_zone_AC", "fza_hydra70_zone_BD", "fza_hydra70_zone_E", "fza_agm114_ul", "fza_agm114_ur", "fza_agm114_ll", "fza_agm114_lr", "fza_railzone"};
+                        attachment = "";
+                        priority = 1;
+                        UIposition[] = {0.1, 0.05};
+                    };
+                };
+            };
+        };
+
+        ace_cargo_space = 0;
+        ace_cargo_hasCargo = 0;
+        ace_dragging_canDrag = 1;
+        ace_dragging_canCarry = 1;
+    };
 
     class fza_ah64d_b2e: fza_ah64base{scope = 0;displayName = "DEPRECATED";};
 };

@@ -37,6 +37,7 @@ class UserActionsConflictGroups{
             fza_ah64_tadsLHGLmc,
             fza_ah64_stickyControlInterupt,
             fza_ah64_forceTrimPanicButton,
+            fza_ah64_collectiveEmergJett,
             fza_ah64_cyclicForward,
             fza_ah64_cyclicBackward,
             fza_ah64_cyclicLeft,

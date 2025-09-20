@@ -15,6 +15,7 @@ class CfgFunctions {
             class pylonCheckValid {R;};
             class pylonController {R;};
             class sightData {R;};
+            class jettisonAll {R;};
         };
         class cannon {
             file = "\fza_ah64_weapons\functions\cannon";
