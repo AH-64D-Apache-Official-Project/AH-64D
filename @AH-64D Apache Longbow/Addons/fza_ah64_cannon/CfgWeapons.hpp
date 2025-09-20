@@ -21,6 +21,7 @@ class CfgWeapons {
         useAction           = 0;
         useActionTitle      = "";
         modes[]             = {"manual","close","short","medium","far"};
+        reloadTime = 0.08175;
 
         //ACE Advanced Ballistics Cfg
         ACE_barrelTwist             = 177.8;
@@ -52,7 +53,7 @@ class CfgWeapons {
             };
             soundContinuous = 0;
             soundBurst = 0;
-            reloadTime = 0.109;
+            reloadTime = 0.08175;
             dispersion = 0.006;
             aiRateOfFire = 1;
             aiRateOfFireDistance = 10;

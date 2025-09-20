@@ -14,6 +14,7 @@ class CfgWeapons {
         weight = 80;
         useAction = 0;
         useActionTitle = "";
+        reloadTime = 0.0675;
 
         //ACE CFG
         ace_overpressure_angle = 50;
@@ -30,7 +31,7 @@ class CfgWeapons {
                 soundSetShot[] = {"fza_soundset_hydra_shot"};
             };
             autoFire = 0;
-            reloadTime = 0.09;
+            reloadTime = 0.0675;
             dispersion = 0.08;
             showToPlayer = 0;
             aiRateOfFire = 4;
@@ -61,7 +62,7 @@ class CfgWeapons {
             displayName="M261";
             soundContinuous = 0;
             autoFire = 1;
-            reloadTime = 0.09;
+            reloadTime = 0.0675;
             dispersion = 0.0025;
             aiRateOfFire = 1;
             aiRateOfFireDistance = 10;

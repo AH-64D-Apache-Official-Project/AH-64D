@@ -30,7 +30,7 @@ private _vector = [];
 private _allowableAngle = 20;
 private _constraintBoxUseTads = false;
 
-if (WAS_WEAPON_MSL != _heli getVariable "fza_ah64_was") exitwith {};
+if (WAS_WEAPON_MSL != ([_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable)) exitwith {};
 
 if (_heli getVariable "fza_ah64_selectedMissile" == "fza_agm114l_wep") then {
 	_heli getVariable "fza_ah64_fcrNts" params ["_ntsObj", "_ntsPos"];

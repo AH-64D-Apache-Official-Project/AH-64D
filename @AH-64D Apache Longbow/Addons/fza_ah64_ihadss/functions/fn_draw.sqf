@@ -29,7 +29,7 @@ params ["_heli"];
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState   = (_acBusOn && _dcBusOn);
-private _weaponWas      = _heli getVariable "fza_ah64_was";
+private _weaponWas      = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _ntsPosition    = (_heli getVariable "fza_ah64_fcrNts")#1;
 private _headsdown      = (cameraView == "GUNNER" && player == gunner _heli);
 private _a3ti_vis       = call A3TI_fnc_getA3TIVision;
@@ -429,7 +429,7 @@ if (_weaponWas == WAS_WEAPON_MSL) then {
 if (_weaponWas == WAS_WEAPON_RKT) then {
     private _weapon = (["RKT", "PRKT"] select (isManualFire _heli));
     private _rocketcode = getText (configFile >> "CfgAmmo" >> _ammo >> "fza_shortCode");
-    private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+    private _rocketInventory = [_heli] call fza_weapons_fnc_RocketInventory;
     private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType");
     private _rocketInvIndex = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}};
     if (_rocketInvIndex != -1) then {
@@ -482,9 +482,14 @@ if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
 };
 
 ///HAD INHIBIT MESSAGES
-if (_heli getVariable "fza_ah64_weaponInhibited" != "") then {
-    _safemessage = _heli getVariable "fza_ah64_weaponInhibited";
+if (_weaponWas == WAS_WEAPON_RKT) then {
+    _safemessage = _heli getVariable "fza_ah64_rocketInhibited";
 };
+if (_weaponWas == WAS_WEAPON_GUN) then {
+    _safemessage = _heli getVariable "fza_ah64_gunInhibited";
+};
+
+
 
 //SET NUMBERS AND IDC
 ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 121) ctrlSetText _sensor + _targrange;

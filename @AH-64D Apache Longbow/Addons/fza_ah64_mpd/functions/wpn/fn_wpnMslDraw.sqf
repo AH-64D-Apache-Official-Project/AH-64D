@@ -1,9 +1,9 @@
 params["_heli", "_mpdIndex", "_state"];
 #include "\fza_ah64_mpd\headers\mfdConstants.h"
 
-private _missileInventory = [_heli] call fza_fnc_weaponMissileInventory;
+private _missileInventory = [_heli] call fza_weapons_fnc_MissileInventory;
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedMissile" >> "fza_ammoType");
-private _selectedMsl = [_missileInventory, _curAmmo] call fza_fnc_weaponMissileGetSelected;
+private _selectedMsl = [_missileInventory, _curAmmo] call fza_weapons_fnc_MissileGetSelected;
 private _seekerType = getText (configFile >> "CfgAmmo" >> _curAmmo >> "fza_salType");
 
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_HF), _selectedMsl + 1];

@@ -92,7 +92,7 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LRFD_CODE), _heli getVar
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_WPN_LST_CODE), _heli getVariable "fza_ah64_laserLSTCode"];
 
 [_heli, _mpdIndex, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC] call fza_mpd_fnc_acqDraw;
-private _was = _heli getVariable "fza_ah64_was";
+private _was = [_heli, "fza_ah64_was"] call fza_fnc_getSeatVariable;
 private _selectedWeapon = _state get "selectedWeapon";
 private _wasOverride = _state get "wasOverride";
 
@@ -116,7 +116,7 @@ _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_WPN_SELECTED_WPN), _selectedWeap
 
 //Rocket pods draw
 
-private _rocketInventory = [_heli] call fza_fnc_weaponRocketInventory;
+private _rocketInventory = [_heli] call fza_weapons_fnc_RocketInventory;
 private _curAmmo = getText (configFile >> "CfgWeapons" >> _heli getVariable "fza_ah64_selectedRocket" >> "fza_ammoType"); 
 private _rocketInvIndex  = _rocketInventory findIf {if (_x isEqualTo []) then {false} else {_x # 0 == _curAmmo}}; 
 private _pylonsWithRockets = [];

@@ -8,8 +8,6 @@ class CfgWeapons {
         displayName="AGM-114";
         magazines[]={};
         holdsterAnimValue = 3;
-        reloadTime = 0.1;
-        magazineReloadTime = 0.1;
         showAimCursorInternal = 0;
         cursor = "EmptyCursor";
         cursorAim = "EmptyCursor";
@@ -29,7 +27,7 @@ class CfgWeapons {
         {
             displayName = "LOAL-HI";
             textureType = "terrain";
-            reloadTime = 0.1;
+            reloadTime = 0.01;
             magazineReloadTime = 0.1;
             sounds[] = {"StandardSound"};
             class StandardSound 

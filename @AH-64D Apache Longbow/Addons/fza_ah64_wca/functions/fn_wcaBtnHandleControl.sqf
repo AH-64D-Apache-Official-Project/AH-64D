@@ -11,7 +11,7 @@ switch (_control) do {
     case "armSafe": {
         if (!_gndOrideOn && _onGnd) exitWith {};
         _heli setVariable  ["fza_ah64_armSafeArmed", !(_heli getVariable "fza_ah64_armSafeArmed"), true];
-        [_heli] remoteExec ["fza_fnc_weaponUpdateSelected", [_heli turretUnit [0], Driver _heli]];
+        [_heli] remoteExec ["fza_weapons_fnc_UpdateSelected", [_heli turretUnit [0], Driver _heli]];
         playsound "fza_ah64_switch_flip4";
     };
     case "gndOride": {

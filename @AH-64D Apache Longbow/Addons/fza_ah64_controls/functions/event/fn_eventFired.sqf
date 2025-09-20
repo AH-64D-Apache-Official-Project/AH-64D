@@ -24,9 +24,6 @@ params["_heli", "_weapon", "_muzzle", "_mode", "_ammotype", "_magazine", "_misso
 _gunner = getShotParents _missobj#1;//unable to retrieve correct gunner from EH
 if (player != _gunner) exitwith {};
 
-_this call fza_cannon_fnc_fired;
-_this call fza_hydra_fnc_fired;
-
 //Damages any outside occupants if wing stores used
 {
     _x params ["_unit"];

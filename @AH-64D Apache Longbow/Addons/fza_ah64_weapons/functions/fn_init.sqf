@@ -23,20 +23,25 @@ params ["_heli"];
 if (!(_heli getVariable ["fza_ah64_weaponsInitialised", false]) && local _heli) then {
     _heli setVariable ["fza_ah64_weaponsInitialised", true, true];
 
-    _heli selectWeaponTurret ["fza_ma_safe", [0], "fza_ma_safe"];
+    _heli setVariable ["fza_ah64_tadsElevation", 0];
+    _heli setVariable ["fza_ah64_tadsAzimuth",   0];
+    _heli setVariable ["fza_ah64_lastTimePropagated", 0];
 
-    _heli setVariable ["fza_ah64_weaponInhibited", "", true];
     _heli setVariable ["fza_ah64_rocketsalvo",      2, true];
-    _heli setVariable ["fza_ah64_salvoFired",       0, true];
     _heli setVariable ["fza_ah64_rocketPylonElev",  0, true];
+    
+    _heli setVariable ["fza_ah64_gunInhibited", ""];
+    _heli setVariable ["fza_ah64_rocketInhibit", ""];
 
     private _rockets = weapons _heli select {_x isKindOf ["fza_hydra70", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedRocket", ["", _rockets # 0] select (count _rockets > 0), true];
     private _missiles = weapons _heli select {_x isKindOf ["fza_hellfire", configFile >> "CfgWeapons"]};
     _heli setVariable ["fza_ah64_selectedMissile", ["", _missiles # 0] select (count _missiles > 0), true];
-    _heli setVariable ["fza_ah64_was", WAS_WEAPON_NONE, true];
+    _heli setVariable ["fza_ah64_was_plt", WAS_WEAPON_NONE, true];
+    _heli setVariable ["fza_ah64_was_cpg", WAS_WEAPON_NONE, true];
 };
 
+/*
 while {player != vehicle player && alive player && alive _heli && local _heli} do {
     //Fixes pylons that went onto the wrong turret (pilot, rather than gunner)
     if (local _heli) then { 
