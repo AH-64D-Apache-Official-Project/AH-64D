@@ -79,7 +79,7 @@ private _pedalLeftRight     = _heliRudderRightOut - _heliRudderLeftOut;
 _pedalLeftRight             = [_pedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
 //systemChat format ["_pedalLeftRight = %1", _pedalLeftRight toFixed 2];
 
-if (!_isPlaying) then {
+if (!_isPlaying || (freeLook && fza_ah64_sfmPlusMouseAsJoystick)) then {
     _cyclicFwdAft      = 0.0;
     _cyclicLeftRight   = 0.0;
 };
