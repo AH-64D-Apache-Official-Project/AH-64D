@@ -35,14 +35,14 @@ private _collToPitchOut         = _heli getVariable "fza_sfmplus_fmcCollectiveTo
 private _yawToPitchOut          = _heli getVariable "fza_sfmplus_fmcYawToPitch";
 private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
 private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _collToPitchOut + _yawToPitchOut;
-_fmcPitchOut                    = [_fmcPitchOut, -0.15, 0.15] call BIS_fnc_clamp;
+//_fmcPitchOut                    = [_fmcPitchOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
 private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
 private _collToRollOut          = _heli getVariable "fza_sfmplus_fmcCollectiveToRoll";
 private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
 private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
-_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
+//_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
@@ -431,7 +431,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
 
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#99ffffff'>Entering VRS Condition!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#99ffffff'>Entering VRS Condition!</t>"];
             };
         };
         //2933 fpm to 3867 
@@ -445,7 +445,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
 
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#FFFF00'>Caution! VRS Developing!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#FFFF00'>Caution! VRS Developing!</t>"];
             };
         };
         //3867fpm to 4800 fpm
@@ -458,7 +458,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#ff0000'>Warning! Fully Developed VRS Imminent!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#ff0000'>Warning! Fully Developed VRS Imminent!</t>"];
             };
         };
         //> 4800fpm
@@ -473,7 +473,7 @@ if (cameraView == "INTERNAL") then {
 
             if (fza_ah64_sfmPlusVrsWarning) then {
 
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#ff0000'>Danger! You are in VRS!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#ff0000'>Danger! You are in VRS!</t>"];
             };
         };
     } else {

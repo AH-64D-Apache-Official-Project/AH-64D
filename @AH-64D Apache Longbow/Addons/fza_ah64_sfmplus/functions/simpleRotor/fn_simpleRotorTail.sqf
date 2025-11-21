@@ -33,7 +33,7 @@ private _dryAirDensity          = _heli getVariable "fza_sfmplus_rho";
 private _hdgHoldPedalYawOut     = _heli getVariable "fza_sfmplus_fmcHdgHoldPedalYawOut";
 private _sasYawOut              = _heli getVariable "fza_sfmplus_fmcSasYawOut";
 private _fmcYawOut              = _hdgHoldPedalYawOut + _sasYawOut;
-_fmcYawOut                      = [_fmcYawOut, -0.15, 0.15] call BIS_fnc_clamp;
+//_fmcYawOut                      = [_fmcYawOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _rtrPos                 = [-0.87, -6.98, -0.075];
 private _rtrDesignRPM           = 1403.0;

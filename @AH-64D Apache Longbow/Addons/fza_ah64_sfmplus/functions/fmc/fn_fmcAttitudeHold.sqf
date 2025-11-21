@@ -116,4 +116,7 @@ if ( _heli getVariable "fza_ah64_attHoldActive" && !(_heli getVariable "fza_ah64
 //systemChat format ["Dist = %4 -- DistX = %1 -- DistY = %2 -- Dir = %3", _distX toFixed 2, _distY toFixed 2, _dir toFixed 2, _dist toFixed 2];
 //systemChat format ["VelX = %1 -- VelY = %2 -- Pitch Out = %3 -- Roll Out = %4", _curVelX toFixed 2, _curVelY toFixed 2, _attHoldCycPitchOut toFixed 2, _attHoldCycRollOut toFixed 2];
 
+_attHoldCycPitchOut = [_attHoldCycPitchOut, -0.1, 0.1] call BIS_fnc_clamp;
+_attHoldCycRollOut  = [_attHoldCycRollOut, -0.1, 0.1] call BIS_fnc_clamp;
+
 [_attHoldCycPitchOut, _attHoldCycRollOut]

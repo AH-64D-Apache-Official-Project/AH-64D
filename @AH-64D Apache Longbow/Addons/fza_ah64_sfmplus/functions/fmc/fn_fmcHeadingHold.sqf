@@ -95,4 +95,6 @@ if (_heli getVariable "fza_ah64_hdgHoldActive") then {
     [_pid] call fza_fnc_pidReset;
 };
 
+_output = [_output,  -0.1, 0.1] call BIS_fnc_clamp;
+
 _output;
