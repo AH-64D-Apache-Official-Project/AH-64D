@@ -68,6 +68,7 @@ _heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
 _heli setVariable ["fza_ah64_lastTimePropagated", 0];
 _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
+_heli setVariable ["ace_rearm_scriptedLoadout", true];
 
 if (player in _heli && !is3den && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
