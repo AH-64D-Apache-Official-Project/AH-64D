@@ -1,6 +1,7 @@
 class SoundsExt
 {
-    class Sounds
+    #include "sounds.hpp"
+    /* class Sounds
     {
         class EngineExt
         {
@@ -87,5 +88,5 @@ class SoundsExt
             frequency = "0.66 + rotorSpeed / 3";
             volume = "(1 - camPos) * (transmissionDamage factor [0.45, 0.5]) * (rotorSpeed factor [0.2, 0.5])";
         };
-    };
+    }; */
 };
