@@ -150,7 +150,7 @@ class fza_Wind_Close_Ext_SoundShader_Base
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\Share\Wind_Ext",
+			"\fza_ah64_audio\audio\Engine\Env\Share\Wind_Ext.ogg",
 			1
 		}
 	};
@@ -358,7 +358,7 @@ class fza_WindWash_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\Share\Wind_Int",
+			"\fza_ah64_audio\audio\Engine\Env\Share\Wind_Int.ogg",
 			1
 		}
 	};

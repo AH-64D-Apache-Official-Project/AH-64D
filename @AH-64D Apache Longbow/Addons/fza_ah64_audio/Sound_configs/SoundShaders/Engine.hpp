@@ -26,7 +26,7 @@ class fza_Rotor_Distance_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Distant_Rotor",
+			"\fza_ah64_audio\audio\Engine\Ext\Distant_Rotor.ogg",
 			1
 		}
 	};
@@ -48,18 +48,18 @@ class fza_Engine_Distance_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Distant_Engine",
+			"\fza_ah64_audio\audio\Engine\Ext\Distant_Engine.ogg",
 			1
 		}
 	};
-	frequency="1.25*rotorspeed*(1-rotorthrust/15)";
+	frequency="rotorspeed*(1-rotorthrust/15)";
 	volume="camext*((rotorspeed-0.72)*4)*(CustomSoundController14+1)";
 	range=3000;
 	rangecurve[]=
 	{
 		{0,0},
 		{300,1},
-		{1000,0.3},
+		{2000,0.3},
 		{3000,0}
 	};
 };
@@ -69,17 +69,17 @@ class fza_EngineExt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Engine_Ext",
+			"\fza_ah64_audio\audio\Engine\Ext\Engine_Ext.ogg",
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/6)";
+	frequency="rotorSpeed*(1+rotorThrust/15)";
 	volume="camext*(rotorSpeed factor [0.3, 1])*(CustomSoundController14+1)";
 	range=1000;
 	rangecurve[]=
 	{
-		{0,1},
-		{300,0.8},
+		{0,0.35},
+		{300,1},
 		{800,0.3},
 		{1000,0}
 	};
@@ -90,7 +90,7 @@ class fza_RotorExt_SoundShader: fza_EngineExt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Rotor_Ext",
+			"\fza_ah64_audio\audio\Engine\Ext\Rotor_Ext.ogg",
 			1
 		}
 	};
@@ -111,19 +111,19 @@ class fza_Turbine_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Ext\Turbine_Ext",
+			"\fza_ah64_audio\audio\Engine\Ext\Turbine_Ext.ogg",
 			1
 		}
 	};
 	frequency="rotorSpeed";
 	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4))";
-	range=200;
+	range=500;
 	rangecurve[]=
 	{
 		{0,1},
 		{30,1},
-		{150,0.65},
-		{200,0}
+		{200,0.65},
+		{500,0}
 	};
 };
 
@@ -234,11 +234,11 @@ class fza_EngineInt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Int\Engine_Int",
+			"\fza_ah64_audio\audio\Engine\Int\Engine_Int.ogg",
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/6)*0.8";
+	frequency="rotorSpeed*(1+rotorThrust/15)";
 	volume="camInt*(rotorSpeed factor [0.3, 1])*(CustomSoundController16+1)";
 };
 class fza_RotorInt_SoundShader
@@ -247,10 +247,10 @@ class fza_RotorInt_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Int\Rotor_Int",
+			"\fza_ah64_audio\audio\Engine\Int\Rotor_Int.ogg",
 			1
 		}
 	};
-	frequency="rotorSpeed*(1-rotorThrust/5)*1.2";
+	frequency="rotorSpeed*(1-rotorThrust/15)";
 	volume="camInt*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)*(rotorSpeed factor [0.3, 1])*((playerPos interpolate [0,1,1,4]) max 1)*(CustomSoundController16+1)";
 };
