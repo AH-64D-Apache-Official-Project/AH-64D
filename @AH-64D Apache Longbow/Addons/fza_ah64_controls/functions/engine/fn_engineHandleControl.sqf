@@ -33,7 +33,7 @@ switch(_control) do {
         if (!_apuBtnOn && _battBusOn) then {
             [_heli] call fza_systems_fnc_interactAPUButton;
             playsound "fza_ah64_apubutton";
-            [_heli] spawn fza_fnc_fxLoops;
+            // [_heli] spawn fza_fnc_fxLoops;
             [_heli, ["fza_ah64_apustart_3D", 200]] remoteExec["say3d"];
         } else {
             if (_apuBtnOn) then {
@@ -55,11 +55,11 @@ switch(_control) do {
     case "power": {
         if (_battSwitchOn) then {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli] spawn fza_fnc_fxLoops;
+            // [_heli] spawn fza_fnc_fxLoops;
             playsound "fza_ah64_battery";
         } else {
             [_heli] call fza_systems_fnc_interactBattSwitch;
-            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"];
+            [_heli, ["fza_ah64_fake_3D", 10]] remoteExec["say3d"]; //- Cut off Sound
             playsound "fza_ah64_battery";
         };
     };

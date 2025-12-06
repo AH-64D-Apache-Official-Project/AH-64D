@@ -12,6 +12,7 @@ class fza_External_Base
 	occlusionObstruction=1;
 	occlusionFactor=0.3;
 	obstructionFactor=0.2;
+	doppler=1;
 	volumefactor=1;
 	spatial=1;
 	loop=1;
