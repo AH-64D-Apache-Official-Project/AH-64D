@@ -5,7 +5,7 @@ class fza_APUSoundLoop_Ext_SoundSet: fza_Standard_External_Base
 	{
 		"fza_APUSoundLoop_Ext_SoundShader"
 	};
-	volumefactor=0.25;
+	volumefactor=1;
 };
 
 //External
@@ -91,7 +91,7 @@ class fza_ah64_APU_Start_Ext_SoundSet: fza_ah64_Startup_Ext_SoundSet
 	{
 		"fza_ah64_APU_Start_Ext_SoundShader"
 	};
-	volumeFactor=0.2;
+	volumeFactor=1;
 	playTrigger="CustomSoundController12";
 };
 
@@ -103,7 +103,7 @@ class fza_ah64_Startup_Int_SoundSet: fza_Internal_Base
 	{
 		"fza_ah64_Startup_Int_SoundShader"
 	};
-	volumeFactor=fza_Vol_Multi_Int(0.8);
+	volumeFactor=fza_Vol_Multi_Int(0.5);
 	playTrigger="CustomSoundController10";
 	loop=0;
 };
@@ -121,6 +121,7 @@ class fza_ah64_APU_Start_Int_SoundSet: fza_ah64_Startup_Int_SoundSet
 	{
 		"fza_ah64_APU_Start_Int_SoundShader"
 	};
+	volumeFactor=fza_Vol_Multi_Int(0.5);
 	playTrigger="CustomSoundController12";
 };
 
@@ -131,7 +132,7 @@ class fza_ApuSoundLoop_Int_Soundet: fza_Internal_Base
 	{
 		"fza_ApuSoundLoop_Int_SoundShader"
 	};
-	volumefactor=fza_Vol_Multi_Int(0.35);
+	volumefactor=fza_Vol_Multi_Int(1);
 };
 
 //Internal

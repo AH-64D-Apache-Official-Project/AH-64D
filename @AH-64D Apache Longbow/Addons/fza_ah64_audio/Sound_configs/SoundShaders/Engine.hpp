@@ -6,7 +6,7 @@ class fza_APUSoundLoop_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\apu_ext_loop",
+			"\fza_ah64_audio\audio\Engine\Env\share\apu_ext_loop.ogg",
 			1
 		}
 	};
@@ -58,7 +58,7 @@ class fza_Engine_Distance_SoundShader
 	rangecurve[]=
 	{
 		{0,0},
-		{300,1},
+		{800,1},
 		{2000,0.3},
 		{3000,0}
 	};
@@ -122,7 +122,7 @@ class fza_Turbine_Ext_SoundShader
 	{
 		{0,1},
 		{30,1},
-		{200,0.65},
+		{400,0.65},
 		{500,0}
 	};
 };
@@ -134,7 +134,7 @@ class fza_ah64_Startup_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start.ogg",
 			1
 		}
 	};
@@ -155,7 +155,7 @@ class fza_ah64_Shutdown_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Shutdown",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Shutdown.ogg",
 			1
 		}
 	};
@@ -167,11 +167,11 @@ class fza_ah64_APU_Start_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int",
+			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Ext.ogg",
 			1
 		}
 	};
-	volume="camext*(CustomSoundController14+1) * CustomSoundController12";
+	volume="camext*(CustomSoundController14+1)";
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,7 +183,7 @@ class fza_ah64_Startup_Int_SoundShader: fza_ah64_Startup_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start_Int",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start_Int.ogg",
 			1
 		}
 	};
@@ -195,7 +195,7 @@ class fza_ah64_Shutdown_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Shutdown_Int",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Shutdown_Int.ogg",
 			1
 		}
 	};
@@ -207,11 +207,11 @@ class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int",
+			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int.ogg",
 			1
 		}
 	};
-	volume="camInt*(CustomSoundController16+1) * CustomSoundController12";
+	volume="camInt*(CustomSoundController16+1)";
 };
 
 // -APU
@@ -221,7 +221,7 @@ class fza_ApuSoundLoop_Int_SoundShader: fza_ApuSoundLoop_Ext_SoundShader
 	{
 		
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\apu_int_loop",
+			"\fza_ah64_audio\audio\Engine\Env\share\apu_int_loop.ogg",
 			1
 		}
 	};
