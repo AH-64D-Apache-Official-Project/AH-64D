@@ -46,8 +46,12 @@ switch (_state) do {
                 _stateParams = time;
                 _changeMade = true;
 
-                _heli animateSource[_engineSwitch, 1];;
-                _heli say3D["fza_ah64_estart_3D", 100, 1];
+                systemChat str ["Engine Set POS",time];
+                _heli animateSource[_engineSwitch, 1];
+                setCustomSoundController [_heli, "CustomSoundController10", 1];
+                setCustomSoundController [_heli, "CustomSoundController11", 0];
+                
+                // _heli say3D["fza_ah64_estart_3D", 100, 1];
             };
         };
     case "OFFSTARTED": {
@@ -55,6 +59,10 @@ switch (_state) do {
             _state = "STARTEDOFF";
             _stateParams = time;
             _changeMade = true;
+
+            systemChat str ["Engine Set POS (OFF)",time];
+            setCustomSoundController [_heli, "CustomSoundController10", 0];
+            setCustomSoundController [_heli, "CustomSoundController11", 1];
 
             _heli animateSource[_engineSwitch, 0];
         };

@@ -35,6 +35,11 @@ if (_apuBtnOn && _battBusOn && _apuFuelAvail) then {
 };
 _heli setVariable ["fza_systems_apuRPM_pct", _apuRPM_pct];
 
+
+setCustomSoundController [_heli,"CustomSoundController1", 1.15 * _apuRPM_pct];
+setCustomSoundController [_heli,"CustomSoundController2",_apuRPM_pct];
+hintSilent str getCustomSoundController [_heli, "CustomSoundController2"];
+
 //Set the APU state
 if (_apuRPM_pct <= SYS_MIN_RPM) then {
     _apuOn = false;
