@@ -400,3 +400,15 @@ class fza_SpeedStress_Int_SoundShader_Base: fza_Wind_Int_SoundShader_Base
 	};
 	volume="camInt*(speed factor[40,80])*(CustomSoundController16+1)";
 };
+class fza_ETL_VRS_Shake_01_SoundShader_Base: fza_Wind_Int_SoundShader_Base
+{
+	sound[]   = {"\fza_ah64_us\audio\CreakingAirFrame.ogg", 1, 1};
+	frequency = "CustomSoundController3";
+	volume    = "camInt*rotorSpeed*CustomSoundController4";
+};
+class fza_ETL_VRS_Shake_02_SoundShader_Base: fza_Wind_Int_SoundShader_Base
+{
+	sound[]   = {"A3\Sounds_F\vehicles\noises\vehicle_stress3", 1, 1};
+	frequency = "CustomSoundController3";
+	volume    = "camInt*rotorSpeed*CustomSoundController4";
+};
