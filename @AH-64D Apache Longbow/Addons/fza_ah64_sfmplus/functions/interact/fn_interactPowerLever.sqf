@@ -54,3 +54,6 @@ if (_state == "FLY") then {
     //HeliSim
     //[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;
 };
+
+//- Update power sound
+[_heli, "powerLever"] call fza_fnc_fxLoops

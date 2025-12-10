@@ -59,7 +59,7 @@ class fza_Turbine_Ext_SoundSet: fza_External_Base
 	{
 		"fza_Turbine_Ext_SoundShader"
 	};
-	volumeFactor=1;
+	volumeFactor=1.6;
 	shape="fza_Turbine_Shape";
 	sound3dprocessingtype="fza_Turbine_3DProcessor";
 };
@@ -72,7 +72,7 @@ class fza_ah64_Startup_Ext_SoundSet: fza_External_Base
 		"fza_ah64_Startup_Ext_SoundShader"
 	};
 	playTrigger="CustomSoundController10";
-	volumeFactor=1.3;
+	volumeFactor=1.8;
 	loop=0;
 	sound3dprocessingtype="fza_ENG_Trigger_3DProcessor";
 };
@@ -91,48 +91,75 @@ class fza_ah64_APU_Start_Ext_SoundSet: fza_ah64_Startup_Ext_SoundSet
 	{
 		"fza_ah64_APU_Start_Ext_SoundShader"
 	};
-	volumeFactor=1;
-	playTrigger="CustomSoundController12";
+	volumeFactor=1.45;
+	playTrigger="CustomSoundController9";
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class fza_ah64_Startup_Int_SoundSet: fza_Internal_Base
-{
-	soundshaders[]=
-	{
-		"fza_ah64_Startup_Int_SoundShader"
-	};
-	volumeFactor=fza_Vol_Multi_Int(0.5);
-	playTrigger="CustomSoundController10";
-	loop=0;
-};
-class fza_ah64_Shutdown_Int_SoundSet: fza_ah64_Startup_Int_SoundSet
-{
-	soundshaders[]=
-	{
-		"fza_ah64_Shutdown_Int_SoundShader"
-	};
-	playTrigger="CustomSoundController11";
-};
-class fza_ah64_APU_Start_Int_SoundSet: fza_ah64_Startup_Int_SoundSet
+class fza_ah64_APU_Start_Int_SoundSet: fza_Internal_Base
 {
 	soundshaders[]=
 	{
 		"fza_ah64_APU_Start_Int_SoundShader"
 	};
+	sound3dprocessingtype="VehicleInt_Back_3DProcessingType";
 	volumeFactor=fza_Vol_Multi_Int(0.5);
+	playTrigger="CustomSoundController9";
+	loop=0;
+};
+class fza_ah64_Startup_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Startup_Int_SoundShader"
+	};
+	sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
+	volumeFactor=fza_Vol_Multi_Int(2);
+	playTrigger="CustomSoundController10";
+
+	frequencyRandomizerMin=1;
+};
+class fza_ah64_Startup_Int_Right_SoundSet: fza_ah64_Startup_Int_Left_SoundSet
+{
+	sound3dprocessingtype="fza_VehicleInt_Right_3DProcessingType";
 	playTrigger="CustomSoundController12";
 };
+class fza_ah64_Shutdown_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Shutdown_Int_SoundShader"
+	};
+	sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
+	volumeFactor=fza_Vol_Multi_Int(2);
+	playTrigger="CustomSoundController11";
+
+	frequencyRandomizerMin=1;
+};
+class fza_ah64_Shutdown_Int_Right_SoundSet: fza_ah64_Shutdown_Int_Left_SoundSet
+{
+	sound3dprocessingtype="fza_VehicleInt_Right_3DProcessingType";
+	playTrigger="CustomSoundController13";
+};
+
 
 // -APU
-class fza_ApuSoundLoop_Int_Soundet: fza_Internal_Base
+class fza_ApuSoundLoop_Int_SoundSet: fza_Internal_Base
 {
 	soundshaders[] = 
 	{
 		"fza_ApuSoundLoop_Int_SoundShader"
 	};
 	volumefactor=fza_Vol_Multi_Int(1);
+};
+class fza_BattLoop_Int_SoundSet: fza_Internal_Base
+{
+	soundshaders[] = 
+	{
+		"fza_BattLoop_Int_SoundShader"
+	};
+	volumefactor=fza_Vol_Multi_Int(0.5);
 };
 
 //Internal
@@ -142,7 +169,7 @@ class fza_EngineInt_SoundSet: fza_Internal_Base
 	{
 		"fza_EngineInt_SoundShader"
 	};
-	volumefactor=fza_Vol_Multi_Int(0.8);
+	volumefactor=fza_Vol_Multi_Int(1.2);
 };
 class fza_RotorInt_SoundSet: fza_EngineInt_SoundSet
 {
