@@ -4,7 +4,8 @@ class Sounds
     {
         "fza_Empty_SoundSet",
         "fza_APUSoundLoop_Ext_SoundSet",
-        "fza_APUSoundLoop_Int_Soundet",
+        "fza_ApuSoundLoop_Int_SoundSet",
+        "fza_BattLoop_Int_SoundSet",
         "fza_EngineInt_SoundSet",
         "fza_RotorInt_SoundSet",
         "fza_TransmissionDamage_Int_phase1_SoundSet_Base",
@@ -19,6 +20,9 @@ class Sounds
         "fza_GStress_Int_SoundSet_Base",
         "fza_FrameStress_Int_SoundSet_Base",
         "fza_SpeedStress_Int_SoundSet_Base",
+        "fza_ETL_VRS_Shake_01_SoundSet_Base",
+        "fza_ETL_VRS_Shake_02_SoundSet_Base",
+
         "fza_EngineExt_SoundSet",
         "fza_RotorExt_SoundSet",
         //-Alarms

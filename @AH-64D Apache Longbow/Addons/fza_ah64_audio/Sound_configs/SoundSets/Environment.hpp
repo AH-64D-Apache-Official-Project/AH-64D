@@ -251,3 +251,17 @@ class fza_SpeedStress_Int_SoundSet_Base: fza_Internal_Base
 		"fza_SpeedStress_Int_SoundShader_Base"
 	};
 };
+class fza_ETL_VRS_Shake_01_SoundSet_Base: fza_Internal_Base
+{
+	soundshaders[]=
+	{
+		"fza_ETL_VRS_Shake_01_SoundShader_Base"
+	};
+};
+class fza_ETL_VRS_Shake_02_SoundSet_Base: fza_Internal_Base
+{
+	soundshaders[]=
+	{
+		"fza_ETL_VRS_Shake_02_SoundShader_Base"
+	};
+};
