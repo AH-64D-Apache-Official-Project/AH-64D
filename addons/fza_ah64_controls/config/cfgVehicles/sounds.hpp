@@ -32,8 +32,10 @@ class Sounds
         "fza_ah64_Startup_Ext_SoundSet",
         "fza_ah64_Shutdown_Ext_SoundSet",
         "fza_ah64_APU_Start_Ext_SoundSet",
-        "fza_ah64_Startup_Int_SoundSet",
-        "fza_ah64_Shutdown_Int_SoundSet",
+        "fza_ah64_Startup_Int_Left_SoundSet",
+        "fza_ah64_Startup_Int_Right_SoundSet",
+        "fza_ah64_Shutdown_Int_Left_SoundSet",
+        "fza_ah64_Shutdown_Int_Right_SoundSet",
         "fza_ah64_APU_Start_Int_SoundSet",
 
         "fza_Rotor_Distance_SoundSet",

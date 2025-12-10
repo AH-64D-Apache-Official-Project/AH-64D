@@ -30,8 +30,8 @@ class fza_Rotor_Distance_SoundShader
 			1
 		}
 	};
-	frequency="rotorspeed * (1-rotorthrust/15) * 1";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorspeed-0.1))*(1 + rotorthrust)";
+	frequency="rotorspeed * (1-rotorthrust/15) * (CustomSoundController15 + 0.75)";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorspeed-0.1))*(1 + rotorthrust) * (CustomSoundController15 + 0.75)";
 	range=3000;
 	rangecurve[]=
 	{
@@ -52,8 +52,8 @@ class fza_Engine_Distance_SoundShader
 			1
 		}
 	};
-	frequency="rotorspeed*(1-rotorthrust/15)";
-	volume="camext*((rotorspeed-0.72)*4)*(CustomSoundController14+1)";
+	frequency="rotorspeed*(1-rotorthrust/15) * (CustomSoundController15 + 0.75)";
+	volume="camext*((rotorspeed-0.72)*4)*(CustomSoundController14+1) * (CustomSoundController15 + 0.75)";
 	range=3000;
 	rangecurve[]=
 	{
@@ -94,8 +94,8 @@ class fza_RotorExt_SoundShader: fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency="(rotorSpeed factor [0.3, 0.7])*(1 - rotorThrust/10)";
-	volume="camext*(rotorSpeed factor [0.3, 1])*(1 + (rotorThrust * 1.2))*(CustomSoundController14+1)";
+	frequency="(rotorSpeed factor [0.3, 0.7])*(1 - rotorThrust/10) * (CustomSoundController15 + 0.75)";
+	volume="camext*(rotorSpeed factor [0.3, 1])*(1 + (rotorThrust * 1.2))*(CustomSoundController14+1) * (CustomSoundController15 + 0.75)";
 	range=1200;
 	rangecurve[]=
 	{
@@ -115,8 +115,8 @@ class fza_Turbine_Ext_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4))";
+	frequency="rotorSpeed * (CustomSoundController15 + 0.75)";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 + 0.75)";
 	range=500;
 	rangecurve[]=
 	{
@@ -171,7 +171,7 @@ class fza_ah64_APU_Start_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 			1
 		}
 	};
-	volume="camext*(CustomSoundController14+1)";
+	volume="camext*(CustomSoundController14+1)*CustomSoundController9";
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -211,7 +211,8 @@ class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 			1
 		}
 	};
-	volume="camInt*(CustomSoundController16+1)";
+	frequency=1;
+	volume="camInt*(CustomSoundController16+1)*CustomSoundController9";
 };
 
 // -APU
@@ -227,6 +228,19 @@ class fza_ApuSoundLoop_Int_SoundShader: fza_ApuSoundLoop_Ext_SoundShader
 	};
 	volume="camInt*CustomSoundController2*(CustomSoundController16+1)";
 };
+class fza_BattLoop_Int_SoundShader: fza_ApuSoundLoop_Int_SoundShader
+{
+	samples[]=
+	{
+		
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\avionics.ogg",
+			1
+		}
+	};
+	frequency=1;
+	volume="camInt*CustomSoundController5*(CustomSoundController16+1)";
+};
 
 class fza_EngineInt_SoundShader
 {
@@ -238,8 +252,8 @@ class fza_EngineInt_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/15)";
-	volume="camInt*(rotorSpeed factor [0.3, 1])*(CustomSoundController16+1)";
+	frequency="rotorSpeed*(1+rotorThrust/15) * (CustomSoundController15 + 0.75)";
+	volume="camInt*(rotorSpeed factor [0.3, 1])*(CustomSoundController16+1) * (CustomSoundController15 + 0.75)";
 };
 class fza_RotorInt_SoundShader
 {

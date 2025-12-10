@@ -38,4 +38,22 @@ class CfgSound3DProcessors
 		innerRange=8;
 		range=15;
 	};
+
+	class fza_VehicleInt_Right_3DProcessingType
+	{
+		type="surround_panner";
+		radius=10;
+		reference="vehicle";
+		volumeFrontLeft=0;
+		volumeFrontRight=0.3;
+		volumeBackLeft=0.1;
+		volumeBackRight=1;
+	};
+	class fza_VehicleInt_Left_3DProcessingType: fza_VehicleInt_Right_3DProcessingType
+	{
+		volumeFrontRight=0;
+		volumeFrontLeft=0.3;
+		volumeBackRight=0.1;
+		volumeBackLeft=1;
+	};
 };

@@ -50,3 +50,6 @@ if (_state == "FLY") then {
     [_heli, _engPwrLeverAnimName, 1, 0.25] call fza_fnc_animSetValue;
     [_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state, true] call fza_fnc_setArrayVariable;
 };
+
+//- Update power sound
+[_heli, "powerLever"] call fza_fnc_fxLoops
