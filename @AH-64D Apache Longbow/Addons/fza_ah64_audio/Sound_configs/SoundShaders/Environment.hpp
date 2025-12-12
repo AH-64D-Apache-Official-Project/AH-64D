@@ -37,7 +37,7 @@ class fza_Alarm_Damage_Ext_SoundShader_Base
 	//volume="engineOn*(1 - ((transmissionDamage factor [0.61, 0.60])*(motorDamage factor [0.61, 0.60])*(rotorDamage factor [0.70, 0.50])))*(rotorSpeed factor [0, 0.001])";
 	range=20;
 };
-class fza_Alarm_RotorLow_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
+/* class fza_Alarm_RotorLow_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
 {
 	samples[]=
 	{
@@ -50,7 +50,7 @@ class fza_Alarm_RotorLow_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_
 	frequency=1;
 	volume="CustomSoundController6";
 	range=20;
-};
+}; */
 
 // -Scrub Sound
 class fza_ScrubTree_Ext_SoundShader_Base: fza_Alarm_Damage_Ext_SoundShader_Base
@@ -202,7 +202,7 @@ class fza_Alarm_Damage_Int_SoundShader_Base
 	//volume="CustomSoundController7*engineOn*camInt*( 1 - ((motorDamage factor [0.61, 0.60])*(rotorDamage factor [0.51, 0.50])))*(rotorSpeed factor [0.0, 0.001])";
 	volume="CustomSoundController7*camInt*(CustomSoundController16+1)";
 };
-class fza_Alarm_RotorLow_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
+/* class fza_Alarm_RotorLow_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base
 {
 	samples[]=
 	{
@@ -215,7 +215,7 @@ class fza_Alarm_RotorLow_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_
 	};
 	//volume="CustomSoundController6*engineOn*camInt*(rotorSpeed factor [0.9, 0.8999])*(rotorSpeed factor [-0.5, 1])*(speed factor [3, 3.01])";
 	volume="CustomSoundController6*camInt*(CustomSoundController16+1)";
-};
+}; */
 
 // -Scrub Sound
 class fza_ScrubLand_Int_SoundShader_Base: fza_Alarm_Damage_Int_SoundShader_Base

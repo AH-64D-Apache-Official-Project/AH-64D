@@ -10,8 +10,8 @@ class fza_APUSoundLoop_Ext_SoundShader
 			1
 		}
 	};
-	frequency="CustomSoundController1";
-	volume="camPos*CustomSoundController2*(CustomSoundController14+1)";
+	frequency="1.15 * CustomSoundController1";
+	volume="camPos*CustomSoundController1*(CustomSoundController14+1)";
 	range=200;
 	rangecurve[]=
 	{
@@ -171,7 +171,7 @@ class fza_ah64_Shutdown_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 			1
 		}
 	};
-	volume="camext*(CustomSoundController14+1) * CustomSoundController11";
+	volume="camext*(CustomSoundController14+1)";
 };
 class fza_ah64_APU_Start_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 {
@@ -223,7 +223,7 @@ class fza_ah64_Shutdown_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 			1
 		}
 	};
-	volume="camInt*(CustomSoundController16+1) * CustomSoundController11";
+	volume="camInt*(CustomSoundController16+1)";
 };
 class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 {
@@ -250,7 +250,7 @@ class fza_ApuSoundLoop_Int_SoundShader: fza_ApuSoundLoop_Ext_SoundShader
 			1
 		}
 	};
-	volume="camInt*CustomSoundController2*(CustomSoundController16+1)";
+	volume="camInt*CustomSoundController1*(CustomSoundController16+1)";
 };
 class fza_BattLoop_Int_SoundShader: fza_ApuSoundLoop_Int_SoundShader
 {
@@ -263,7 +263,7 @@ class fza_BattLoop_Int_SoundShader: fza_ApuSoundLoop_Int_SoundShader
 		}
 	};
 	frequency=1;
-	volume="camInt*CustomSoundController5*(CustomSoundController16+1)";
+	volume="camInt*CustomSoundController2*(CustomSoundController16+1)";
 };
 
 class fza_EngineInt_SoundShader

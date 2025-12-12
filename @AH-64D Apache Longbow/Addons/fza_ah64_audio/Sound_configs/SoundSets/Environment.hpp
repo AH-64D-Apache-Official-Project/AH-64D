@@ -42,13 +42,13 @@ class fza_Alarm_Damage_Ext_SoundSet_Base: fza_Standard_External_Base
 	};
 	volumefactor=0.2;
 };
-class fza_Alarm_RotorLow_Ext_SoundSet_Base: fza_Alarm_Damage_Ext_SoundSet_Base
+/* class fza_Alarm_RotorLow_Ext_SoundSet_Base: fza_Alarm_Damage_Ext_SoundSet_Base
 {
 	soundshaders[]=
 	{
 		"fza_Alarm_RotorLow_Ext_SoundShader_Base"
 	};
-};
+}; */
 
 // -Scrub Sound
 class fza_ScrubTree_Ext_SoundSet_Base: fza_Standard_External_Base

@@ -26,8 +26,8 @@ class Sounds
         "fza_EngineExt_SoundSet",
         "fza_RotorExt_SoundSet",
         //-Alarms
-        "fza_Alarm_Damage_Int_SoundSet_Base",
-        "fza_Alarm_RotorLow_Int_SoundSet_Base",
+        // "fza_Alarm_Damage_Int_SoundSet_Base",
+        // "fza_Alarm_RotorLow_Int_SoundSet_Base",
         //- Startup + Shutdown
         "fza_ah64_Startup_Ext_SoundSet",
         "fza_ah64_Shutdown_Ext_SoundSet",
