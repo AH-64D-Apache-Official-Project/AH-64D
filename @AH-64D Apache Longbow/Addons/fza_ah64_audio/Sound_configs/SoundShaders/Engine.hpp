@@ -128,7 +128,7 @@ class fza_Turbine_Ext_SoundShader
 };
 
 //-Startup + Shutdown
-class fza_ah64_Startup_Ext_SoundShader
+class fza_ah64_Starter_Ext_SoundShader
 {
 	samples[]=
 	{
@@ -139,7 +139,7 @@ class fza_ah64_Startup_Ext_SoundShader
 		}
 	};
 	frequency=1;
-	volume="camext*(CustomSoundController14+1) * CustomSoundController10";
+	volume="camext*(CustomSoundController14+1)";
 	range=300;
 	rangecurve[]=
 	{
@@ -148,6 +148,18 @@ class fza_ah64_Startup_Ext_SoundShader
 		{100,0.65},
 		{600,0}
 	};
+};
+class fza_ah64_Startup_Ext_SoundShader: fza_ah64_Starter_Ext_SoundShader
+{
+	samples[]=
+	{
+
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start.ogg",
+			1
+		}
+	};
+	volume="camext*(CustomSoundController14+1)";
 };
 class fza_ah64_Shutdown_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 {
@@ -177,6 +189,18 @@ class fza_ah64_APU_Start_Ext_SoundShader: fza_ah64_Startup_Ext_SoundShader
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Internal
 
+class fza_ah64_Starter_Int_SoundShader: fza_ah64_Starter_Ext_SoundShader
+{
+	samples[]=
+	{
+
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Starter_Int.ogg",
+			1
+		}
+	};
+	volume="camInt*(CustomSoundController16+1)";
+};
 class fza_ah64_Startup_Int_SoundShader: fza_ah64_Startup_Ext_SoundShader
 {
 	samples[]=
@@ -187,7 +211,7 @@ class fza_ah64_Startup_Int_SoundShader: fza_ah64_Startup_Ext_SoundShader
 			1
 		}
 	};
-	volume="camInt*(CustomSoundController16+1) * CustomSoundController10";
+	volume="camInt*(CustomSoundController16+1)";
 };
 class fza_ah64_Shutdown_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 {

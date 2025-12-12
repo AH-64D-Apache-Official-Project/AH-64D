@@ -108,6 +108,23 @@ class fza_ah64_APU_Start_Int_SoundSet: fza_Internal_Base
 	playTrigger="CustomSoundController9";
 	loop=0;
 };
+class fza_ah64_Starter_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Starter_Int_SoundShader"
+	};
+	sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
+	volumeFactor=fza_Vol_Multi_Int(0.1);
+	playTrigger="CustomSoundController5";
+
+	frequencyRandomizerMin=1;
+};
+class fza_ah64_Starter_Int_Right_SoundSet: fza_ah64_Starter_Int_Left_SoundSet
+{
+	sound3dprocessingtype="fza_VehicleInt_Right_3DProcessingType";
+	playTrigger="CustomSoundController6";
+};
 class fza_ah64_Startup_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
 {
 	soundshaders[]=
