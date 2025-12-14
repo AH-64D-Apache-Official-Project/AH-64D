@@ -9,9 +9,7 @@ private _newPointsArray = {
     _ret;
 };
 
-private _isLocal = if (typeName _heli == "OBJECT") then {local _heli} else {isServer};
-
-if (!(_heli getVariable ["fza_dms_aircraftInitialised", false]) && _isLocal) then {
+if (!(_heli getVariable ["fza_dms_aircraftInitialised", false])) then {
     _heli setVariable ["fza_dms_aircraftInitialised", true, true];
 
     _heli setVariable ["fza_dms_routeNext", [[],[0,0,0]], true];

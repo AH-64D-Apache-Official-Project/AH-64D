@@ -86,7 +86,8 @@ if (fza_ah64_sfmPlusFmDebug) then {
     \n_autoPedal = %12
     \n_cyclicCenterTrimMode = %35
     \n_pedalCenterTrimMode = %36
-    \n--------------------    
+    \n--------------------
+    \n_mouseAsJoystick = %50    
     \n_kbStickyInterupt = %13
     \n_forceTrimInterupted = %14
     \n--------------------
@@ -118,6 +119,9 @@ if (fza_ah64_sfmPlusFmDebug) then {
     \n_autoPedalTimeScalar = %37
     \nF/B[%41, %42] L/R[%43,%44]
     \nPL/PR[%45,%46] CR/CL[%47,%48]
+    \n--------------------
+    \nPitch = %38 Roll = %39
+    \nYaw = %49  Sideslip = %40
     ",
     _heli getVariable "fza_sfmplus_cyclicFwdAft" toFixed 3,        //1    
     _heli getVariable "fza_sfmplus_cyclicLeftRight" toFixed 3,     //2    
@@ -156,9 +160,9 @@ if (fza_ah64_sfmPlusFmDebug) then {
     fza_sfmplus_cyclicCenterTrimMode, //35   
     fza_sfmplus_pedalCenterTrimMode, //36   
     fza_ah64_sfmPlusAutoPedalTimeScalar, //37   
-    0, //38   
-    0, //39   
-    0, //40  
+    _heli call BIS_fnc_getPitchBank select 0 toFixed 2, //38   
+    _heli call BIS_fnc_getPitchBank select 1 toFixed 2, //39   
+    _heli getVariable "fza_sfmplus_aero_beta_deg" toFixed 2, //40  
     _heli getVariable "fza_sfmplus_pedalLeftRight" toFixed 2, //41  
     _heli getVariable "fza_sfmplus_heliCyclicBackwardOut" toFixed 2, //42  
     _heli getVariable "fza_sfmplus_heliCyclicLeftOut" toFixed 2, //43  
@@ -166,7 +170,9 @@ if (fza_ah64_sfmPlusFmDebug) then {
     _heli getVariable "fza_sfmplus_heliRudderLeftOut" toFixed 2, //45  
     _heli getVariable "fza_sfmplus_heliRudderRightOut" toFixed 2, //46  
     _heli getVariable "fza_sfmplus_heliCollectiveRaiseOut" toFixed 2, //47  
-    _heli getVariable "fza_sfmplus_heliCollectiveLowerOut" toFixed 2 //48  
+    _heli getVariable "fza_sfmplus_heliCollectiveLowerOut" toFixed 2, //48
+    ([player getRelDir _heli] call CBA_fnc_simplifyAngle180)  toFixed 2, //49
+    fza_ah64_sfmPlusMouseAsJoystick //50
     ];
 };
 
