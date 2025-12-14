@@ -15,6 +15,20 @@ class fza_ah64_cockpit_##system##_##control {\
 };
 #define COCKPIT_CONTROL_SEP 
 
+#define CfgUserAnalogDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onAnalog              = __EVAL(format["['%1', _this] call fza_sfmplus_fnc_analogHandler", #vname]);\
+    analogChangeThreshold = 0.01; \
+}
+#define CfgUserNonAnalogDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onActivate            = __EVAL(format["['%1', true]  call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+    onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+}
 
 class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectHMD, "Sight Select HMD", "Sets the current sight to HMD");

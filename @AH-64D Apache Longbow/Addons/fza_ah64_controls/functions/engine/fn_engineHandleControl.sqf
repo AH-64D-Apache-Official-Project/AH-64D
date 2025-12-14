@@ -109,7 +109,6 @@ switch(_control) do {
             [_heli, 0, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
             [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
         };
-        [_heli, 1, "FLY"] spawn fza_sfmplus_fnc_interactPowerLever;
     };
     
     //--------------------ENGINE 2--------------------//

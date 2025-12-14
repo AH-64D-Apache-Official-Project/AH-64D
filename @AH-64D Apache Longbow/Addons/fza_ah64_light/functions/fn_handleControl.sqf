@@ -22,7 +22,7 @@ Author:
 ---------------------------------------------------------------------------- */
 #include "\fza_ah64_controls\headers\script_common.hpp"
 params ["_heli", "_system", "_control"];
-systemchat str _this;
+
 private _battBusOn = _heli getVariable "fza_systems_battBusOn";
 private _acBusOn   = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
