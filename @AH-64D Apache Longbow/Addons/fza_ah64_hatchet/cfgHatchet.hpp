@@ -4,7 +4,7 @@ class CfgVehicles {
     class Helicopter;
     class Helicopter_Base_F : Helicopter {};
     class fza_ah64base : Helicopter_Base_F {
-        class vxf_driver {
+        class hct_driver {
             class interaction {
                 #include "\fza_ah64_hatchet\components\pilot\cfgDoor.hpp"
                 #include "\fza_ah64_hatchet\components\pilot\cfgEnginePanel.hpp"
@@ -14,7 +14,7 @@ class CfgVehicles {
                 #include "\fza_ah64_hatchet\components\pilot\CfgMisc.hpp"
             };
         };
-        class vxf_gunner: vxf_driver {
+        class hct_gunner: hct_driver {
             class interaction {
                 #include "\fza_ah64_hatchet\components\Gunner\cfgDoor.hpp"
                 #include "\fza_ah64_hatchet\components\Gunner\cfgEnginePanel.hpp"

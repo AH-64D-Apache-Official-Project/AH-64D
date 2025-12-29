@@ -94,10 +94,6 @@ class CfgFunctions
             class relativeDirection {R;};
             class velocityVector {R;};
             class compensateSafezone { R;};
-            class targetisADA {R;};
-            class bearingClock {R;};
-            class loadoutImportJson {R;};
-            class setTailNumber {R;};
             class configToHashMap {R;};
             class doortoggle {R;};
         };

@@ -56,6 +56,7 @@ def getPboInfo(settings):
             pboInfo.a3symlink = os.path.join(arma3Path(),pboInfo.pboPrefix)
         except:
             pboInfo.a3symlink = None
+        pboInfo.buildSymlink = os.path.join("build",pboInfo.pboPrefix)
 
         if (name in settings["excludePboSymlinks"]):
             pboInfo.a3symlink = None
@@ -82,9 +83,28 @@ def commandsToCreateSymlink(pbo):
     commands.append(f'mklink /J "{pbo.a3symlink}" "{pbo.folder}"')
     return commands
 
+def removeSymlink(pathTo):
+    if pathTo is None:
+        return []
+    commands = []
+    if isJunction(pathTo):
+        commands.append(f'fsutil reparsepoint delete \"{pathTo}\"')
+    if os.path.isdir(pathTo):
+        commands.append(Delete(pathTo))
+    return commands
+
+def buildSymlink(pathFrom, pathTo):
+    if pathTo is None:
+        return []
+    commands = removeSymlink(pathTo)
+    if not os.path.isdir(os.path.dirname(pathTo)):
+        commands.append(Mkdir(os.path.dirname(pathTo)))
+    commands.append(f'mklink /J "{pathTo}" "{pathFrom}"')
+    return commands
+
 def buildPbo(settings,env, pbo):
-    env.Command(pbo.outputPath, allFilesIn(pbo.folder), 
-        f'"{addonBuilderPath()}" "{os.path.abspath(pbo.folder)}" "{os.path.abspath(settings["addonsFolder"])}" -clear -include=buildExtIncludes.txt')
+    env.Command(pbo.outputPath, allFilesIn(pbo.folder) + ["build"], 
+        f'"{addonBuilderPath()}" "{os.path.abspath(pbo.buildSymlink)}" "{os.path.abspath(settings["addonsFolder"])}" -clear -project=build -include=buildExtIncludes.txt')
     targetDefinition(pbo.name, f"Build the {pbo.name} pbo.")
     return env.Alias(pbo.name, pbo.outputPath)
 
@@ -110,6 +130,8 @@ pboAliases = [buildPbo(settings,env, pbo) for pbo in pbos]
 
 env.Command("buildTools", [], Mkdir("buildTools"))
     
+buildDir = env.Command("build", allFilesIn("include"), [Copy("build", "include")] + sum(map(lambda pbo: buildSymlink(pbo.folder, pbo.buildSymlink),pbos),[]))
+
 env.Command(r"buildTools\Natural Docs", [], [downloadNaturaldocs, Delete(r"buildTools\NaturalDocs.zip")])
 
 allPbos = env.Alias("all", pboAliases)
