@@ -5,11 +5,20 @@ class CfgSoundCurves
 		points[]=
 		{
 			{0.0,1.0},
-			{0.4,0.6},
-			{0.6,0.4},
-			{0.8,0.2},
+			{0.3,0.6},
+			{0.6,0.2},
 			{0.9,0.1},
 			{1.0,0.0}
+		};
+	};
+	class fza_Ext_Distant_Curve
+	{
+		points[]=
+		{
+			{0.0,0.2},
+			{0.8,0.4},
+			{0.9,0.6},
+			{1.0,1.0}
 		};
 	};
 	class fza_Tail_Rotor_Curve
