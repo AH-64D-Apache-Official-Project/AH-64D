@@ -5,7 +5,7 @@ class fza_APUSoundLoop_Ext_SoundSet: fza_Standard_External_Base
 	{
 		"fza_APUSoundLoop_Ext_SoundShader"
 	};
-	volumefactor=1;
+	volumefactor=0.5;
 };
 
 //External
@@ -17,9 +17,10 @@ class fza_Rotor_Distance_SoundSet: fza_External_Base
 	};
 	volumeFactor=0.5;
 	shape="fza_BottomLess_Shape";
+	volumecurve="fza_Ext_Distant_Curve";
 	distancefilter="fza_Distant_Engine_Filter";
 	sound3dprocessingtype="fza_Distant_3DProcessor";
-	doppler=1;
+	// doppler=1;
 };
 class fza_Engine_Distance_SoundSet: fza_Rotor_Distance_SoundSet
 {
@@ -29,7 +30,7 @@ class fza_Engine_Distance_SoundSet: fza_Rotor_Distance_SoundSet
 	};
 	volumeFactor=0.5;
 	shape="fza_Front_Shape";
-	doppler=1;
+	// doppler=1;
 };
 class fza_EngineExt_SoundSet: fza_External_Base
 {
@@ -37,11 +38,11 @@ class fza_EngineExt_SoundSet: fza_External_Base
 	{
 		"fza_EngineExt_SoundShader"
 	};
-	volumefactor=1.25;
+	volumefactor=0.8;
 	// volumecurve="fza_Tail_Rotor_Curve";
 	sound3dprocessingtype="fza_TailRotor_3DProcessor";
 	posoffset[]={0,0,-10};
-	doppler=1;
+	// doppler=1;
 };
 class fza_RotorExt_SoundSet: fza_External_Base
 {
@@ -65,34 +66,56 @@ class fza_Turbine_Ext_SoundSet: fza_External_Base
 };
 
 //- Startup + Shutdown
-class fza_ah64_Startup_Ext_SoundSet: fza_External_Base
-{
-	soundshaders[]=
-	{
-		"fza_ah64_Startup_Ext_SoundShader"
-	};
-	playTrigger="CustomSoundController10";
-	volumeFactor=1.8;
-	loop=0;
-	sound3dprocessingtype="fza_ENG_Trigger_3DProcessor";
-};
-class fza_ah64_Shutdown_Ext_SoundSet: fza_ah64_Startup_Ext_SoundSet
-{
-	soundshaders[]=
-	{
-		"fza_ah64_Shutdown_Ext_SoundShader"
-	};
-	volumeFactor=1.8;
-	playTrigger="CustomSoundController11";
-};
-class fza_ah64_APU_Start_Ext_SoundSet: fza_ah64_Startup_Ext_SoundSet
+class fza_ah64_APU_Start_Ext_SoundSet: fza_External_Base
 {
 	soundshaders[]=
 	{
 		"fza_ah64_APU_Start_Ext_SoundShader"
 	};
-	volumeFactor=1.45;
+	volumeFactor=0.5;
 	playTrigger="CustomSoundController9";
+	loop=0;
+	sound3dprocessingtype="fza_ENG_Trigger_3DProcessor";
+	frequencyRandomizerMin=1;
+};
+class fza_ah64_Starter_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Starter_Ext_SoundShader"
+	};
+	volumeFactor=0.5;
+	playTrigger="CustomSoundController5";
+};
+class fza_ah64_Starter_Ext_Right_SoundSet: fza_ah64_Starter_Ext_Left_SoundSet
+{
+	playTrigger="CustomSoundController6";
+};
+class fza_ah64_Startup_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Startup_Ext_SoundShader"
+	};
+	volumeFactor=0.5;
+	playTrigger="CustomSoundController10";
+};
+class fza_ah64_Startup_Ext_Right_SoundSet: fza_ah64_Startup_Ext_Left_SoundSet
+{
+	playTrigger="CustomSoundController12";
+};
+class fza_ah64_Shutdown_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Shutdown_Ext_SoundShader"
+	};
+	volumeFactor=0.5;
+	playTrigger="CustomSoundController11";
+};
+class fza_ah64_Shutdown_Ext_Right_SoundSet: fza_ah64_Shutdown_Ext_Left_SoundSet
+{
+	playTrigger="CustomSoundController13";
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
