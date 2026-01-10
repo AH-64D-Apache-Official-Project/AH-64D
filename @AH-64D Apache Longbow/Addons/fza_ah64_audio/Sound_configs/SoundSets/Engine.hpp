@@ -60,7 +60,7 @@ class fza_Turbine_Ext_SoundSet: fza_External_Base
 	{
 		"fza_Turbine_Ext_SoundShader"
 	};
-	volumeFactor=1.6;
+	volumeFactor=0.75;
 	shape="fza_Turbine_Shape";
 	sound3dprocessingtype="fza_Turbine_3DProcessor";
 };
@@ -84,7 +84,7 @@ class fza_ah64_Starter_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
 	{
 		"fza_ah64_Starter_Ext_SoundShader"
 	};
-	volumeFactor=0.5;
+	volumeFactor=1;
 	playTrigger="CustomSoundController5";
 };
 class fza_ah64_Starter_Ext_Right_SoundSet: fza_ah64_Starter_Ext_Left_SoundSet
@@ -97,7 +97,7 @@ class fza_ah64_Startup_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
 	{
 		"fza_ah64_Startup_Ext_SoundShader"
 	};
-	volumeFactor=0.5;
+	volumeFactor=1;
 	playTrigger="CustomSoundController10";
 };
 class fza_ah64_Startup_Ext_Right_SoundSet: fza_ah64_Startup_Ext_Left_SoundSet

@@ -73,8 +73,8 @@ class fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/15)";
-	volume="camext*(rotorSpeed factor [0.3, 1])*(CustomSoundController14+1)";
+	frequency="rotorSpeed*(1+rotorThrust/15) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	volume="camext*(rotorSpeed factor [0.3, 1])*(CustomSoundController14+1) * (CustomSoundController15 interpolate [0,0.25,0,1])";
 	range=1000;
 	rangecurve[]=
 	{
@@ -115,8 +115,8 @@ class fza_Turbine_Ext_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed * (1 - rotorThrust/10) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="rotorSpeed * (1 - rotorThrust/10) * (CustomSoundController15 interpolate [0,0.25,0.2,1])";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 interpolate [0,0.25,0.5,1])";
 	range=500;
 	rangecurve[]=
 	{
@@ -134,7 +134,7 @@ class fza_ah64_Starter_Ext_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Start.ogg",
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Starter",
 			1
 		}
 	};

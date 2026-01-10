@@ -76,12 +76,12 @@ switch (_type) do {
             private _engPct = getCustomSoundController [_heli, "CustomSoundController15"];
 
             _engPowerLeverState_OLD isEqualTo _engPowerLeverState &&
-            abs(_engPct - _engPct_toValue) > 0.01
+            abs(_engPct - _engPct_toValue) > 0.001
         } do {
             private _deltaTime          = _heli getVariable "fza_sfmplus_deltaTime";
             private _engPct = getCustomSoundController [_heli, "CustomSoundController15"];
 
-            _engPct = [_engPct, _engPct_toValue, _deltaTime / 1.5] call BIS_fnc_lerp;
+            _engPct = [_engPct, _engPct_toValue, _deltaTime / 3.5] call BIS_fnc_lerp;
             
             setCustomSoundController [_heli,"CustomSoundController15", _engPct];
             sleep _deltaTime;
