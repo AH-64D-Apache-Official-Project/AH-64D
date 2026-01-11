@@ -116,7 +116,7 @@ class fza_Turbine_Ext_SoundShader
 		}
 	};
 	frequency="rotorSpeed * (1 - rotorThrust/10) * (CustomSoundController15 interpolate [0,0.25,0.2,1])";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 interpolate [0,0.25,0.5,1])";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 interpolate [0,0.25,0.25,1])";
 	range=500;
 	rangecurve[]=
 	{
