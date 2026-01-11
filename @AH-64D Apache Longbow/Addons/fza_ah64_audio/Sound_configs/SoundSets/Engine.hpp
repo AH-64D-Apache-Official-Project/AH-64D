@@ -5,7 +5,7 @@ class fza_APUSoundLoop_Ext_SoundSet: fza_Standard_External_Base
 	{
 		"fza_APUSoundLoop_Ext_SoundShader"
 	};
-	volumefactor=0.5;
+	volumefactor=0.25;
 };
 
 //External
@@ -28,7 +28,7 @@ class fza_Engine_Distance_SoundSet: fza_Rotor_Distance_SoundSet
 	{
 		"fza_Engine_Distance_SoundShader"
 	};
-	volumeFactor=0.5;
+	volumeFactor=0.75;
 	shape="fza_Front_Shape";
 	// doppler=1;
 };
@@ -60,7 +60,7 @@ class fza_Turbine_Ext_SoundSet: fza_External_Base
 	{
 		"fza_Turbine_Ext_SoundShader"
 	};
-	volumeFactor=0.75;
+	volumeFactor=0.5;
 	shape="fza_Turbine_Shape";
 	sound3dprocessingtype="fza_Turbine_3DProcessor";
 };
@@ -72,7 +72,7 @@ class fza_ah64_APU_Start_Ext_SoundSet: fza_External_Base
 	{
 		"fza_ah64_APU_Start_Ext_SoundShader"
 	};
-	volumeFactor=0.5;
+	volumeFactor=0.2;
 	playTrigger="CustomSoundController9";
 	loop=0;
 	sound3dprocessingtype="fza_ENG_Trigger_3DProcessor";
@@ -84,7 +84,7 @@ class fza_ah64_Starter_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
 	{
 		"fza_ah64_Starter_Ext_SoundShader"
 	};
-	volumeFactor=1;
+	volumeFactor=0.4;
 	playTrigger="CustomSoundController5";
 };
 class fza_ah64_Starter_Ext_Right_SoundSet: fza_ah64_Starter_Ext_Left_SoundSet
