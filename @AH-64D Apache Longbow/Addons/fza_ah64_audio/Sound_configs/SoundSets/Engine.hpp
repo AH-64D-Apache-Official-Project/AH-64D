@@ -39,7 +39,7 @@ class fza_EngineExt_SoundSet: fza_External_Base
 		"fza_EngineExt_SoundShader"
 	};
 	volumefactor=0.8;
-	// volumecurve="fza_Tail_Rotor_Curve";
+	volumecurve="fza_Tail_Rotor_Curve";
 	sound3dprocessingtype="fza_TailRotor_3DProcessor";
 	posoffset[]={0,0,-10};
 	// doppler=1;

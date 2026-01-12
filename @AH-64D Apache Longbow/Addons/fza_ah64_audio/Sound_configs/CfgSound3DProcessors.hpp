@@ -24,7 +24,7 @@ class CfgSound3DProcessors
 	};
 	class fza_TailRotor_3DProcessor: fza_Close_3DProcessor
 	{
-		innerRange=0;
+		innerRange=30;
 		range=120;
 	};
 	class fza_Rotor_3DProcessor: fza_Close_3DProcessor
