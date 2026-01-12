@@ -36,7 +36,7 @@ class CfgSoundShapes
 	};
   class fza_Turbine_Shape: fza_Rear_Shape
 	{
-    outervolume=0.8;
+    outervolume=0.15;
 		innerangle=130;
 		outerangle=210;
 	};
