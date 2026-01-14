@@ -148,6 +148,18 @@ class fza_ah64_Starter_Ext_SoundShader
 		{300,0}
 	};
 };
+class fza_ah64_Turbine_Starter_Ext_SoundShader: fza_ah64_Starter_Ext_SoundShader
+{
+	samples[]=
+	{
+
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Turbine_Starter.ogg",
+			1
+		}
+	};
+	volume="camext*(CustomSoundController14+1)";
+};
 class fza_ah64_Startup_Ext_SoundShader: fza_ah64_Starter_Ext_SoundShader
 {
 	samples[]=
@@ -195,6 +207,18 @@ class fza_ah64_Starter_Int_SoundShader: fza_ah64_Starter_Ext_SoundShader
 
 		{
 			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Starter_Int.ogg",
+			1
+		}
+	};
+	volume="camInt*(CustomSoundController16+1)";
+};
+class fza_ah64_Turbine_Starter_Int_SoundShader: fza_ah64_Turbine_Starter_Ext_SoundShader
+{
+	samples[]=
+	{
+
+		{
+			"\fza_ah64_audio\audio\Engine\Env\share\Engine_Turbine_Starter_Int.ogg",
 			1
 		}
 	};

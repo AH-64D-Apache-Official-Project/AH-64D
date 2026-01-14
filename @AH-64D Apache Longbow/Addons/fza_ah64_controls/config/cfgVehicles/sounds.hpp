@@ -31,6 +31,8 @@ class Sounds
         //- Startup + Shutdown
         "fza_ah64_Starter_Ext_Left_SoundSet",
         "fza_ah64_Starter_Ext_Right_SoundSet",
+        "fza_ah64_Turbine_Starter_Ext_Left_SoundSet",
+        "fza_ah64_Turbine_Starter_Ext_Left_SoundSet",
         // "fza_ah64_Startup_Ext_Left_SoundSet",
         // "fza_ah64_Startup_Ext_Right_SoundSet",
         "fza_ah64_Shutdown_Ext_Left_SoundSet",
@@ -38,6 +40,8 @@ class Sounds
         "fza_ah64_APU_Start_Ext_SoundSet",
         "fza_ah64_Starter_Int_Left_SoundSet",
         "fza_ah64_Starter_Int_Right_SoundSet",
+        "fza_ah64_Turbine_Starter_Int_Left_SoundSet",
+        "fza_ah64_Turbine_Starter_Int_Right_SoundSet",
         "fza_ah64_Startup_Int_Left_SoundSet",
         "fza_ah64_Startup_Int_Right_SoundSet",
         "fza_ah64_Shutdown_Int_Left_SoundSet",

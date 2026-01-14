@@ -84,12 +84,25 @@ class fza_ah64_Starter_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
 	{
 		"fza_ah64_Starter_Ext_SoundShader"
 	};
-	volumeFactor=0.4;
-	playTrigger="CustomSoundController5";
+	volumeFactor=0.6;
+	playTrigger="CustomSoundController5 max 0";
 };
 class fza_ah64_Starter_Ext_Right_SoundSet: fza_ah64_Starter_Ext_Left_SoundSet
 {
-	playTrigger="CustomSoundController6";
+	playTrigger="CustomSoundController6 max 0";
+};
+class fza_ah64_Turbine_Starter_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Turbine_Starter_Ext_SoundShader"
+	};
+	volumeFactor=0.65;
+	playTrigger="(-CustomSoundController5) max 0";
+};
+class fza_ah64_Turbine_Starter_Ext_Right_SoundSet: fza_ah64_Turbine_Starter_Ext_Left_SoundSet
+{
+	playTrigger="(-CustomSoundController6) max 0";
 };
 class fza_ah64_Startup_Ext_Left_SoundSet: fza_ah64_APU_Start_Ext_SoundSet
 {
@@ -139,14 +152,31 @@ class fza_ah64_Starter_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
 	};
 	sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
 	volumeFactor=fza_Vol_Multi_Int(0.1);
-	playTrigger="CustomSoundController5";
+	playTrigger="CustomSoundController5 max 0";
 
 	frequencyRandomizerMin=1;
 };
 class fza_ah64_Starter_Int_Right_SoundSet: fza_ah64_Starter_Int_Left_SoundSet
 {
 	sound3dprocessingtype="fza_VehicleInt_Right_3DProcessingType";
-	playTrigger="CustomSoundController6";
+	playTrigger="CustomSoundController6 max 0";
+};
+class fza_ah64_Turbine_Starter_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
+{
+	soundshaders[]=
+	{
+		"fza_ah64_Turbine_Starter_Int_SoundShader"
+	};
+	// sound3dprocessingtype="fza_VehicleInt_Left_3DProcessingType";
+	volumeFactor=fza_Vol_Multi_Int(1);
+	playTrigger="(-CustomSoundController5) max 0";
+
+	// frequencyRandomizerMin=1;
+};
+class fza_ah64_Turbine_Starter_Int_Right_SoundSet: fza_ah64_Turbine_Starter_Int_Left_SoundSet
+{
+	// sound3dprocessingtype="fza_VehicleInt_Right_3DProcessingType";
+	playTrigger="(-CustomSoundController6) max 0";
 };
 class fza_ah64_Startup_Int_Left_SoundSet: fza_ah64_APU_Start_Int_SoundSet
 {
