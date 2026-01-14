@@ -5,7 +5,7 @@ if (!_public) exitWith {};
 
 switch (_variableName) do {
   case "fza_sfmplus_engState": {
-    systemChat str [format ["Engine Set POS (%1)", _value], time];
+    // systemChat str [format ["Engine Set POS (%1)", _value], time];
 
     private _Snd_Ctrl_BaseID = 5; //- CustomSoundController 5
     private _toValue = call {
@@ -16,7 +16,7 @@ switch (_variableName) do {
 
     private _Snd_Ctrl = format ["CustomSoundController%1", _Snd_Ctrl_BaseID + _index];
     private _cur_Snd_Ctrl = getCustomSoundController [_heli, _Snd_Ctrl];
-    systemChat str ["StartSwitch",_Snd_Ctrl,_toValue,_cur_Snd_Ctrl];
+    // systemChat str ["StartSwitch",_Snd_Ctrl,_toValue,_cur_Snd_Ctrl];
       
     if (_cur_Snd_Ctrl == _toValue) exitWith {};
     setCustomSoundController [_heli, _Snd_Ctrl, _toValue];

@@ -21,7 +21,7 @@ if (!canSuspend) exitWith {
     _this spawn fza_fnc_fxLoops;
 };
 
-systemChat str ["fx LOOP", _type ,time];
+// systemChat str ["fx LOOP", _type ,time];
 
 switch (_type) do {
     case "apu": {
