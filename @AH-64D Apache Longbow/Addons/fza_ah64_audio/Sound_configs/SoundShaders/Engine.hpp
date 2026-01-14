@@ -30,8 +30,8 @@ class fza_Rotor_Distance_SoundShader
 			1
 		}
 	};
-	frequency="rotorspeed * (1-rotorthrust/15) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorspeed-0.1))*(1 + rotorthrust) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="rotorspeed * (1-rotorthrust/15) * CustomSoundController15";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorspeed-0.1))*(1 + rotorthrust) * CustomSoundController15";
 	range=3000;
 	rangecurve[]=
 	{
@@ -52,8 +52,8 @@ class fza_Engine_Distance_SoundShader
 			1
 		}
 	};
-	frequency="rotorspeed*(1-rotorthrust/15) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="camext*((rotorspeed-0.72)*4)*(CustomSoundController14+1) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="rotorspeed*(1-rotorthrust/15) * CustomSoundController15";
+	volume="camext*((rotorspeed-0.72)*4)*(CustomSoundController14+1) * CustomSoundController15";
 	range=3000;
 	rangecurve[]=
 	{
@@ -73,13 +73,13 @@ class fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/15) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="camext*(rotorSpeed factor [0.3, 1])*(CustomSoundController14+1) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="rotorSpeed*(1+rotorThrust/15) * CustomSoundController15";
+	volume="camext*(rotorSpeed factor [0.3, 1])*(CustomSoundController14+1) * CustomSoundController15";
 	range=1000;
 	rangecurve[]=
 	{
 		{0,0.35},
-		{300,1},
+		{150,1},
 		{800,0.3},
 		{1000,0}
 	};
@@ -94,13 +94,13 @@ class fza_RotorExt_SoundShader: fza_EngineExt_SoundShader
 			1
 		}
 	};
-	frequency="(rotorSpeed factor [0.3, 0.7])*(1 - rotorThrust/10) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="camext*(rotorSpeed factor [0.3, 1])*(1 + (rotorThrust * 1.2))*(CustomSoundController14+1) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="(rotorSpeed factor [0.3, 0.7])*(1 - rotorThrust/10) * CustomSoundController15";
+	volume="camext*(rotorSpeed factor [0.3, 1])*(1 + (rotorThrust * 1.2))*(CustomSoundController14+1) * CustomSoundController15";
 	range=1200;
 	rangecurve[]=
 	{
 		{0,0.2},
-		{150,1},
+		{500,1},
 		{1000,0.4},
 		{1200,0}
 	};
@@ -115,15 +115,14 @@ class fza_Turbine_Ext_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed * (1 - rotorThrust/10) * (CustomSoundController15 interpolate [0,0.25,0.2,1])";
-	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (CustomSoundController15 interpolate [0,0.25,0.25,1])";
-	range=500;
+	frequency="rotorSpeed * (1 - rotorThrust/10) * (0.2 max CustomSoundController15)";
+	volume="(CustomSoundController14+1)*camext*(0 max (rotorSpeed-0.4)) * (0.25 max CustomSoundController15)";
+	range=200;
 	rangecurve[]=
 	{
 		{0,1},
-		{30,1},
-		{400,0.65},
-		{500,0}
+		{50,0.65},
+		{200,0}
 	};
 };
 
@@ -146,7 +145,7 @@ class fza_ah64_Starter_Ext_SoundShader
 		{0,1},
 		{30,1},
 		{100,0.65},
-		{600,0}
+		{300,0}
 	};
 };
 class fza_ah64_Startup_Ext_SoundShader: fza_ah64_Starter_Ext_SoundShader
@@ -231,7 +230,7 @@ class fza_ah64_APU_Start_Int_SoundShader: fza_ah64_Startup_Int_SoundShader
 	{
 
 		{
-			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int.ogg",
+			"\fza_ah64_audio\audio\Engine\Env\share\APU_Start_Int",
 			1
 		}
 	};
@@ -276,8 +275,8 @@ class fza_EngineInt_SoundShader
 			1
 		}
 	};
-	frequency="rotorSpeed*(1+rotorThrust/15) * (CustomSoundController15 interpolate [0,0.25,0,1])";
-	volume="camInt*(rotorSpeed factor [0.3, 1])*(CustomSoundController16+1) * (CustomSoundController15 interpolate [0,0.25,0,1])";
+	frequency="rotorSpeed*(1+rotorThrust/15) * CustomSoundController15";
+	volume="camInt*(rotorSpeed factor [0.3, 1])*(CustomSoundController16+1) * (0.7 max CustomSoundController15)";
 };
 class fza_RotorInt_SoundShader
 {
@@ -290,5 +289,5 @@ class fza_RotorInt_SoundShader
 		}
 	};
 	frequency="rotorSpeed*(1-rotorThrust/15)";
-	volume="camInt*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)*(rotorSpeed factor [0.3, 1])*((playerPos interpolate [0,1,1,4]) max 1)*(CustomSoundController16+1)";
+	volume="camInt*(0 max (rotorSpeed-0.1))*(1 + rotorThrust)*(rotorSpeed factor [0.3, 1])*((playerPos interpolate [0,1,1,4]) max 1)*(CustomSoundController16+1) * (0.25 max CustomSoundController15)";
 };

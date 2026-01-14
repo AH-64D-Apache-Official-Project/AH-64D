@@ -54,24 +54,3 @@ switch (_state) do {
         //[_heli, _engNum, 1.0] call bmk_fnc_engineSetThrottle;
     };
 };
-
-//- Catch lever when the engine isn't started yet
-if (_engState == "OFF" && _state != "OFF") exitWith {};
-
-{
-	_x params ["_Snd_Ctrl_BaseID","_toStatus"];
-
-	private _Snd_Ctrl = format ["CustomSoundController%1", _Snd_Ctrl_BaseID + (_engNum * 2)];
-	
-	private _toValue = parseNumber _toStatus;
-	private _cur_Snd_Ctrl = getCustomSoundController [_heli, _Snd_Ctrl];
-		
-	if (_cur_Snd_Ctrl == _toValue) then {continue};
-	setCustomSoundController [_heli, _Snd_Ctrl, _toValue];
-} forEach [
-	[10, _state != "OFF"],// Startup (ID : 10, 12)
-	[11, _state == "OFF"] // Shutdown (ID : 11, 13)
-];
-
-//- Update power sound
-[_heli, "powerLever"] call fza_fnc_fxLoops;

@@ -37,3 +37,6 @@ _heli setVariable ["fza_ah64_comsVolume", createHashMapFromArray
 //Coms Panel Squelch
 _heli setVariable ["fza_ah64_radioSquelch", createHashMapFromArray
     [ ["VHF",true],["UHF",true],["FM1",true],["FM2",true]], true];
+
+//- Sound Controller Handler
+    ["fza_updateArrayVariable", fza_audio_fnc_updateEngineSoundController] call CBA_fnc_addEventHandler;

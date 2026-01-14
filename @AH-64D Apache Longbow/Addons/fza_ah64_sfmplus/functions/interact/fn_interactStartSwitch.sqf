@@ -23,34 +23,16 @@ if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
-{
-	_x params ["_Snd_Ctrl_BaseID","_toStatus"];
-
-	private _Snd_Ctrl = format ["CustomSoundController%1", _Snd_Ctrl_BaseID + _engNum];
-	private _toValue = parseNumber _toStatus;
-	private _cur_Snd_Ctrl = getCustomSoundController [_heli, _Snd_Ctrl];
-		
-	systemChat str ["StartSwitch",_Snd_Ctrl,_toValue,_cur_Snd_Ctrl];
-	if (_cur_Snd_Ctrl == _toValue) then {continue};
-	setCustomSoundController [_heli, _Snd_Ctrl, _toValue];
-} forEach [
-	[5, _engState == "OFF"] // Startup (ID : 5, 6)
-];
-
 switch (_engState) do {
 	case "STARTING": {
 		_engState = "OFF";
 		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
-		systemChat str ["Engine Set POS (OFF)",time];
 		
 		false;
 	};
 	case "OFF": {
 		_engState = "STARTING";
 		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
-		systemChat str ["Engine Set POS (START)",time];
 		
 		true;
 	};
