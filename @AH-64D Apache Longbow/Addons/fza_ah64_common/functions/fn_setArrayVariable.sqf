@@ -25,3 +25,6 @@ if _public then {
     [_heli, _variableName, _temp] call fza_fnc_updateNetworkGlobal;
 };
 _heli setVariable[_variableName, _temp];
+
+//- Local Event when variable value gets updated
+["fza_updateArrayVariable",_this] call CBA_fnc_LocalEvent;
