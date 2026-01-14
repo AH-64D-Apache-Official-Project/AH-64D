@@ -1,3 +1,27 @@
+/* ----------------------------------------------------------------------------
+Function: fza_audio_fnc_updateEngineSoundController
+Description:
+    trigger on `fza_fnc_setArrayVariable` change variable event to update engine sound controllers.
+
+Parameters:
+    _heli  - heli itself <OBJECT>
+    _variableName  - variable Name that been updated <STRING>
+    _index  - Engine index [0/1] <STRING>
+    _value  - Value of the variable <ANYTHING>
+    _public  - Is the value public to the network <BOOL>
+
+Returns:
+    Nothing
+
+Examples
+    (begin example)
+        [params] call fza_audio_fnc_updateEngineSoundController
+    (end)
+
+Author:
+    Aaren
+---------------------------------------------------------------------------- */
+
 params ["_heli", "_variableName", "_index", "_value", ["_public", false]];
 
 //- Must be public variables
