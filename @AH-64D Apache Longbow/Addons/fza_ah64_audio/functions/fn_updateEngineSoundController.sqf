@@ -26,6 +26,7 @@ params ["_heli", "_variableName", "_index", "_value", ["_public", false]];
 
 //- Must be public variables
 if (!_public) exitWith {};
+private _triggerEvent = true;
 
 switch (_variableName) do {
   case "fza_sfmplus_engState": {
@@ -73,4 +74,13 @@ switch (_variableName) do {
     //- Update power sound
     [_heli, "powerLever"] call fza_fnc_fxLoops;
   };
+
+  default {
+    _triggerEvent = false;
+  };
+};
+
+//- Raises a CBA event on all machines, except the local one.
+if (_triggerEvent) then {
+  ["fza_updateArrayVariable", _this] call CBA_fnc_remoteEvent;
 };
