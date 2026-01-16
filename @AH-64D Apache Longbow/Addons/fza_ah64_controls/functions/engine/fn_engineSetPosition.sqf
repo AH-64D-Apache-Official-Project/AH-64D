@@ -51,8 +51,9 @@ switch (_state) do {
                 _stateParams = time;
                 _changeMade = true;
 
-                _heli animateSource[_engineSwitch, 1];;
-                _heli say3D["fza_ah64_estart_3D", 100, 1];
+                _heli animateSource[_engineSwitch, 1];
+                
+                // _heli say3D["fza_ah64_estart_3D", 100, 1];
             };
         };
     case "OFFSTARTED": {

@@ -64,3 +64,8 @@ buildCfg.json
 .sconsign.dblite
 venv/
 buildTools
+
+# Sound Files
+*.wav
+*.pkf
+*.xmp

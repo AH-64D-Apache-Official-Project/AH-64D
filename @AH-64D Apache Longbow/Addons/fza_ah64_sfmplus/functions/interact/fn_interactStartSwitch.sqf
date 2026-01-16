@@ -27,13 +27,13 @@ switch (_engState) do {
 	case "STARTING": {
 		_engState = "OFF";
 		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
+		
 		false;
 	};
 	case "OFF": {
 		_engState = "STARTING";
 		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
+		
 		true;
 	};
 	default {
