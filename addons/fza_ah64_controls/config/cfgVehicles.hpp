@@ -266,13 +266,6 @@ class CfgVehicles {
             };
         };
     };
-
-    //- TEST SOUND DUMMY
-    class Helicopter_Base_H;
-    class Heli_Transport_01_base_F: Helicopter_Base_H {
-        #include "cfgVehicles\sounds.hpp"
-        #include "cfgVehicles\soundsExt.hpp"
-    };
     
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;
