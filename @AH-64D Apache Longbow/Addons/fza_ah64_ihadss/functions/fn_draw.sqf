@@ -221,8 +221,8 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
-    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
-    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_US\tex\HDU\ihadss.paa"; //TEST
+    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP 
+    ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\ihadss.paa"; //TEST
     ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "";
