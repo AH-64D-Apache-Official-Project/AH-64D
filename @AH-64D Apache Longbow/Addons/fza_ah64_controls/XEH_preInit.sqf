@@ -50,6 +50,15 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
+    "fza_ah64_sfmplusRealismSetting",
+    "LIST",
+    ["Aircraft Realism Settings", ""],
+    [_projName, "Flight model"],
+    [[CASUAL, REALISTIC],["Casual", "Realistic"],0],
+    0
+] call CBA_fnc_addSetting;
+
+[
     "fza_sfmplus_cyclicCenterTrimMode",
     "CHECKBOX",
     ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],

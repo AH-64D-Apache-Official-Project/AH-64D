@@ -35,7 +35,12 @@ private _sasYawOut              = _heli getVariable "fza_sfmplus_fmcSasYawOut";
 private _fmcYawOut              = _hdgHoldPedalYawOut + _sasYawOut;
 //_fmcYawOut                      = [_fmcYawOut, -0.15, 0.15] call BIS_fnc_clamp;
 
-private _rtrPos                 = [-0.87, -6.98, -0.075];
+private _rtrPos                 = [0.0, 0.0, 0.0];
+if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+    _rtrPos = [-0.87, -6.98, -0.075];
+} else {
+    _rtrPos = [ 0.00, -6.98, -0.075];
+};
 private _rtrDesignRPM           = 1403.0;
 private _rtrRPMTrimVal          = 1.01;
 private _rtrGearRatio           = 14.90;
@@ -130,10 +135,18 @@ private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
         //Tail rotor thrust force
-        _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
+        if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+            _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
+        };
 
         //Tail rotor torque
-        _heli addTorque (_heli vectorModelToWorld _moment);
+        private _torque = [0.0, 0.0, 0.0];
+        if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+            _torque = _moment;
+        } else {
+            _torque = [0.0, 0.0, _moment select 2];
+        };
+        _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
 

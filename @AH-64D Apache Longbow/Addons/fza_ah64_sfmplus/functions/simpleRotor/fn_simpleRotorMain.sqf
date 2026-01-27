@@ -379,7 +379,7 @@ _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
 _rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
-private _torqueY             = _rollTorque * _rollInput * _deltaTime; 
+private _torqueY             = _rollTorque * _rollInput * _deltaTime;
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw Torque           /////////////////////////////////////////////////////////////////////
@@ -395,9 +395,14 @@ if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+
         //Main rotor torque
         private _torque = [0.0, 0.0, 0.0];
-        _torque = [_torqueX, _torqueY, _torqueZ];
+        if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+            _torque = [_torqueX, _torqueY, _torqueZ];
+        } else {
+            _torque = [_torqueX, _torqueY, 0.0];   
+        };
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
