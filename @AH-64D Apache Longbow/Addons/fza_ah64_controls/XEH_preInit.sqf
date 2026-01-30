@@ -129,7 +129,7 @@ private _projName = "AH-64D Official Project";
     [false],
     2
 ] call CBA_fnc_addSetting;
-
+/*
 [
     "fza_ah64_sfmPlusAutoPedalTimeScalar",
     "SLIDER",
@@ -138,7 +138,7 @@ private _projName = "AH-64D Official Project";
     [0.1, 2.0, 1.5, 1],
     2
 ] call CBA_fnc_addSetting;
-
+*/
 [
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",

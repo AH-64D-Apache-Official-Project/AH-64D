@@ -228,7 +228,14 @@ for "_j" from 0 to (_numElements - 1) do {
     private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
-    _heli addTorque (_heli vectorModelToWorld _moment);
+    private _torque = [0.0, 0.0, 0.0];
+    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+        _torque = _moment;
+    } else {
+        _torque = [0.0, 0.0, _moment select 2];
+    };
+
+    _heli addTorque (_heli vectorModelToWorld _torque);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Debug                /////////////////////////////////////////////////////////////////////
