@@ -7,7 +7,6 @@ Description:
 
 Parameters:
     _heli      - The helicopter to get information from [Unit].
-    _deltaTime - Passed delta time from core update.
 
 Returns:
     ...
@@ -18,7 +17,7 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_deltaTime"];
+params ["_heli"];
 
 if (!local _heli) exitWith {};
 

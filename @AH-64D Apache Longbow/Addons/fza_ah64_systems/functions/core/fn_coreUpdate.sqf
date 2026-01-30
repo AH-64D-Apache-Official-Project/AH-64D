@@ -18,7 +18,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _deltaTime = ((["systems_deltaTime"] call BIS_fnc_deltaTime) min 1/30);
+if (CBA_missionTime < 0.1) exitwith {};
+private _deltaTime = ["systems_deltaTime"] call BIS_fnc_deltaTime;
 
 //Update the Electrical System
 [_heli, _deltaTime] call fza_systems_fnc_electricalController;

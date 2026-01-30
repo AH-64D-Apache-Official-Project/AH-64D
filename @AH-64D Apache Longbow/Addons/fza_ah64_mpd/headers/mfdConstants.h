@@ -3,6 +3,13 @@
 #define MFD_IND_PAGE_LEFT 1
 #define MFD_IND_PAGE_RIGHT 2
 #define MFD_IND_KU_STATE 3
+#define MFD_IND_IAFS_INSTALLED 4
+//5,6,7,8,9
+#define MFD_IND_ARM_SAFE 5
+#define MFD_IND_GND_ORIDE 6
+#define MFD_IND_EMER_HYD 7
+#define MFD_IND_MSTR_CAUT 8
+#define MFD_IND_MSTR_WARN 9
 
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
@@ -30,8 +37,12 @@
 #define MFD_IND_FLT_FLIGHT_PATH_X 7
 #define MFD_IND_FLT_FLIGHT_PATH_Y 8
 #define MFD_IND_FLT_ACQ_BOX 9
+#define MFD_IND_FLT_VERT_SPEED 10
 
 //Fuel page
+#define MFD_IND_FUEL_IAFS_INSTALLED 0
+#define MFD_IND_FUEL_IAFS_ON        1
+
 #define MFD_TEXT_IND_FUEL_FWD 0
 #define MFD_TEXT_IND_FUEL_AFT 1
 #define MFD_TEXT_IND_FUEL_INT 2
@@ -39,6 +50,9 @@
 #define MFD_TEXT_IND_FUEL_FLOW_1 4
 #define MFD_TEXT_IND_FUEL_FLOW_2 5
 #define MFD_TEXT_IND_FUEL_FLOW_TOT 6
+#define MFD_TEXT_IND_FUEL_IAFS 7
+#define MFD_TEXT_IND_FUEL_ENDR_TOT 8
+#define MFD_TEXT_IND_FUEL_TOT 9
 
 //Engine page
 #define MFD_IND_ENG_TORQUE_1 0
@@ -99,27 +113,36 @@
 #define MFD_IND_WPN_WAS 4
 #define MFD_IND_WPN_SELECTED_WPN 5
 // Whether that rocket pod is present. 0 - neither pod is present, 1 - only (1/2) is present, 2 - only (3/4) is present, 3 - (1/2) and (3/4) present
-#define MFD_IND_WPN_RKT_1_4_STATE 6
-#define MFD_IND_WPN_RKT_2_3_STATE 7
+#define MFD_IND_WPN_ROCKET_POD_1_4_STATE 6
+#define MFD_IND_WPN_ROCKET_POD_2_3_STATE 7
 #define MFD_IND_WPN_ACQ_BOX 8
 
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_BURST_LIMIT 9
+#define MFD_IND_WPN_GUN_BURST_LIMIT 9
 // 1-indexed (from top) selected burst limit
-#define MFD_IND_WPN_SELECTED_RKT_INV 9
+#define MFD_IND_WPN_RKT_SELECTED_INV 9
 // 0 for SAL, 1 for RF
-#define MFD_IND_WPN_SELECTED_MSL_TYPE 9
+#define MFD_IND_WPN_MSL_SELECTED_TYPE 9
 // 1-indexed missile channel selection for primary and alt
 #define MFD_IND_WPN_SELECTED_PRI_CH 10
 #define MFD_IND_WPN_SELECTED_ALT_CH 11
+#define MFD_IND_WPN_CMS_MODE_TYPE 12
+//Msl trajectory
+#define MFD_IND_WPN_POPOUT_MENU 13
+#define MFD_IND_WPN_POPOUT 14
+//Weapons failures
+#define MFD_IND_WPN_CANNON_FAILURE 15
+#define MFD_IND_WPN_PYLON_1_4_FAILURE 16
+#define MFD_IND_WPN_PYLON_2_3_FAILURE 17
 // 0 - no menu, 1 - show CHAN selection for PRI, 2 - show CHAN selection for ALT
 #define MFD_IND_WPN_MSL_MENU 19
 
+
 #define MFD_TEXT_IND_WPN_ACQ_SRC 0
 #define MFD_TEXT_IND_WPN_SIGHT 1
-#define MFD_TEXT_IND_WPN_CHAFF_QTY 2
-#define MFD_TEXT_IND_WPN_RKT_1_4_TEXT 3
-#define MFD_TEXT_IND_WPN_RKT_2_3_TEXT 4
+#define MFD_TEXT_IND_WPN_CMS_QTY 2
+#define MFD_TEXT_IND_WPN_ROCKET_POD_1_4_TEXT 3
+#define MFD_TEXT_IND_WPN_ROCKET_POD_2_3_TEXT 4
 #define MFD_TEXT_IND_WPN_GUN_ROUNDS 5
 #define MFD_TEXT_IND_WPN_LRFD_CODE 6
 #define MFD_TEXT_IND_WPN_LST_CODE 7
@@ -151,14 +174,14 @@
 
 //TSD Root page indices
 #define MFD_IND_TSD_ROOT_SHOW_WPT_DATA_CURRTE 0
-#define MFD_IND_TSD_ROOT_SHOW_WIND 8
-#define MFD_IND_TSD_ROOT_SHOW_ENDR 9
 
 #define MFD_TEXT_IND_TSD_ROOT_ENDR 0
 #define MFD_TEXT_IND_TSD_ROOT_WPDEST 1
 #define MFD_TEXT_IND_TSD_ROOT_GROUNDSPEED 2
 #define MFD_TEXT_IND_TSD_ROOT_WPDIST 3
 #define MFD_TEXT_IND_TSD_ROOT_WPETA 4
+#define MFD_TEXT_IND_TSD_ROOT_WIND 5
+#define MFD_TEXT_IND_TSD_ROOT_FCR 11 //deconflict with show page
 
 //TSD Show page indices
 #define MFD_IND_TSD_SHOW_WPT_DATA_CURRTE 0
@@ -173,9 +196,10 @@
 #define MFD_IND_TSD_SHOW_ENDR 9
 #define MFD_IND_TSD_ASE_FOOTPRINT 10
 
+#define MFD_IND_TSD_OPEN_POPOUT 13
 #define MFD_IND_TSD_ACQ_BOX 14
 #define MFD_IND_TSD_CTR 15
-#define MFD_IND_TSD_SHOW_HSI 16
+#define MFD_IND_TSD_HSI 16
 #define MFD_IND_TSD_SCALE_BOXES 17
 #define MFD_IND_TSD_PHASE 18
 #define MFD_IND_TSD_SUBPAGE 19
@@ -187,14 +211,33 @@
 #define MFD_IND_TSD_WPT_ADD_TYPE 1
 
 //TSD RTE page indices
-#define MFD_IND_TSD_RTE_VARIANT 0
+#define MFD_IND_TSD_RTE_VARIANT         0
+#define MFD_IND_TSD_RTE_TEXT_POINTS     1
+#define MFD_IND_TSD_RTE_END_INDEX       2
+#define MFD_IND_TSD_RTE_POINT           3
+#define MFD_IND_TSD_RTE_POINTEDIT       4
+#define MFD_IND_TSD_RTE_RVW_INDEX       5
 
-#define MFD_TEXT_IND_TSD_RTE_DIR_CURWPT 0
+#define MFD_TEXT_IND_TSD_RTE_CURPNT     0
+#define MFD_TEXT_IND_TSD_RTE_POINT_R5   1
+#define MFD_TEXT_IND_TSD_RTE_POINT_R4   2
+#define MFD_TEXT_IND_TSD_RTE_POINT_R3   3
+#define MFD_TEXT_IND_TSD_RTE_POINT_R2   4
+#define MFD_TEXT_IND_TSD_RTE_NAME_T1    5
+#define MFD_TEXT_IND_TSD_RTE_NAME_T2    6
+#define MFD_TEXT_IND_TSD_RTE_NAME_T3    7
+#define MFD_TEXT_IND_TSD_RTE_NAME_T4    8
+#define MFD_TEXT_IND_TSD_RTE_NAME_T5    9
+
+#define MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_1 16
+#define MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_2 17
+#define MFD_TEXT_IND_TSD_RTE_RVW_DETAILS_3 18
 
 #define MFD_TEXT_IND_TSD_WPT_CURRENT_POINT 0
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_1 1
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_2 2
 #define MFD_TEXT_IND_TSD_WPT_DETAILS_3 3
+#define MFD_TEXT_IND_TSD_WPT_CURRENT_POINT_ID 4
 
 //TSD THRT page indices
 #define MFD_IND_TSD_THRT_VARIANT 0
@@ -202,9 +245,26 @@
 
 // FCR Indices
 //--User value
-#define MFD_IND_FCR_ANIM       0
-#define MFD_IND_FCR_SCAN_TYPE  1
-#define MFD_IND_FCR_ACQ_BOX    2
+#define MFD_IND_FCR_ANIM        0
+#define MFD_IND_FCR_SCAN_TYPE   1
+#define MFD_IND_FCR_ACQ_BOX     2
+#define MFD_IND_FCR_MODE        3
+#define MFD_IND_FCR_ATM_BLOCK   4
+#define MFD_IND_FCR_LINE_SHOW   5
+#define MFD_IND_FCR_CSCOPE      6
+#define MFD_IND_FCR_ARROW_L     7
+#define MFD_IND_FCR_ARROW_R     8
+#define MFD_IND_FCR_FOV_X       9
+#define MFD_IND_FCR_FOV_Y       10
+#define MFD_IND_FCR_CUEDLOS_X   11
+#define MFD_IND_FCR_CUEDLOS_Y   12
+#define MFD_IND_FCR_CENTERLINE  13
+#define MFD_IND_FCR_PREV_CENTER 14
+#define MFD_IND_FCR_COMMAND_HEADING  15
+#define MFD_IND_FCR_ALTERNATE_SENSOR 16
+
+#define MFD_IND_FCR_INSTALLED 19
+
 //--User text
 #define MFD_TEXT_IND_FCR_COUNT 0
 #define MFD_TEXT_IND_FCR_SSS   1
@@ -220,22 +280,17 @@
 #define MFD_IND_ASE_IRJAM_PWR    2
 #define MFD_IND_ASE_IRJAM_STATE  3
 #define MFD_IND_ASE_AUTOPAGE     5
+#define MFD_IND_ASE_BRITISH      6
+#define MFD_IND_ASE_AMERICAN     7
 //--Azimuth
-#define MFD_IND_ASE_OBJECT_01_AZ 6
-#define MFD_IND_ASE_OBJECT_02_AZ 7
-#define MFD_IND_ASE_OBJECT_03_AZ 8
-#define MFD_IND_ASE_OBJECT_04_AZ 9
-#define MFD_IND_ASE_OBJECT_05_AZ 10
-#define MFD_IND_ASE_OBJECT_06_AZ 11
-#define MFD_IND_ASE_OBJECT_07_AZ 12
-//--Mode
-#define MFD_IND_ASE_OBJECT_01_MD 13
-#define MFD_IND_ASE_OBJECT_02_MD 14
-#define MFD_IND_ASE_OBJECT_03_MD 15
-#define MFD_IND_ASE_OBJECT_04_MD 16
-#define MFD_IND_ASE_OBJECT_05_MD 17
-#define MFD_IND_ASE_OBJECT_06_MD 18
-#define MFD_IND_ASE_OBJECT_07_MD 19
+#define MFD_IND_ASE_01_AZ 13
+#define MFD_IND_ASE_02_AZ 14
+#define MFD_IND_ASE_03_AZ 15
+#define MFD_IND_ASE_04_AZ 16
+#define MFD_IND_ASE_05_AZ 17
+#define MFD_IND_ASE_06_AZ 18
+#define MFD_IND_ASE_07_AZ 19
+
 //--Text
 #define MFD_TEXT_IND_ASE_CHAFF_COUNT 0
 #define MFD_TEXT_IND_ASE_RLWR_COUNT  1
@@ -286,7 +341,9 @@
 #define MFD_TEXT_IND_PERF_RNG_SPD 14
 #define MFD_TEXT_IND_PERF_END_SPD 15
 //--Wind Speed & Direction
-#define MFD_TEXT_IND_WIND 16
+#define MFD_TEXT_IND_PERF_WIND 16
+//--CG
+#define MFD_TEXT_IND_PERF_CG   17
 
 //DTU Page
 #define MFD_IND_DTU_SUBPAGE 0
@@ -294,12 +351,19 @@
 #define MFD_DTU_LOADING 0
 #define MFD_DTU_LOAD_COMPLETE 1
 
+#define MFD_TEXT_DTU_DATE 19
+
 //A/C Util Page
 #define MFD_IND_ACUTIL_PITCH 0
 #define MFD_IND_ACUTIL_ROLL  1
 #define MFD_IND_ACUTIL_YAW   2
 #define MFD_IND_ACUTIL_COLL  3
 #define MFD_IND_ACUTIL_TRIM  4
+
+#define MFD_IND_ABR_PAGE 0
+#define MFD_IND_ABR_PAGENUM 1
+//abr pages
+#define MFD_ABR_NUMPAGES 3
 
 // PAGE INDEXES
 #define MPD_PAGE_OFF  0
@@ -319,6 +383,7 @@
 #define MPD_PAGE_CHAN 14
 #define MPD_PAGE_PERF 15
 #define MPD_PAGE_ACUTIL 16
+#define MPD_PAGE_ABR 17
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

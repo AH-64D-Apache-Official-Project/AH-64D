@@ -1,5 +1,5 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT 0.035
+#define TEXT_HEIGHT (0.0253/2)
 disableSerialization;
 params
     ["_heli"
@@ -10,7 +10,10 @@ params
     , ["_heliCtr", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
+    , "_displayIdx"
     ];
+
+private _xDispOffset = _displayIdx / 2;
 
 private _getOrCreateCtrl = {
     params ["_display", "_ctrlPoint", "_key", "_class"];
@@ -27,16 +30,6 @@ private _getOrCreateCtrl = {
     _ctrlPoint get _key
 };
 
-private _yScale = (4/3) / (getResolution # 4);
-private _yOffset = (1-_yScale)/2;
-
-if (_heli turretLocal [-1]) then {
-    _heli animateSource ["plt_uiscale", _yScale];
-};
-if (_heli turretLocal [0]) then {
-    _heli animateSource ["cpg_uiscale", _yScale];
-};
-
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
     params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
 
@@ -50,17 +43,23 @@ if (_dmsPoint # 0 == MPD_POSMODE_WORLD) then {
     private _y = _heliCtr # 1 - cos _theta * (_r * _scale);
     _uiCtr = [_x, _y];
 };
+
+if (_uiCtr#0 < 0.04 || _uiCtr#0 > 0.96 || _uiCtr#1 <0.04 || _uiCtr # 1 > 0.96) exitWith {
+    {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _ctrlPoint;
+};
+//There for while we are rendering both MPDs on one texture to prevent icons bleeding onto second screen
+
 private _uiTop = [_uiCtr # 0 - (0.5*_iconSize), _uiCtr # 1 - (0.5*_iconSize)];
 
 // Draw icons
 private _iconCtrl = [_display, _ctrlPoint, "icon", "RscPicture"] call _getOrCreateCtrl;
-_iconCtrl ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl ctrlSetPosition [_xDispOffset + _uiTop # 0 / 2, _uiTop # 1 / 2, _iconSize / 2, _iconSize / 2];
 _iconCtrl ctrlSetTextColor _color;
 _iconCtrl ctrlSetText (_iconTex);
 _iconCtrl ctrlCommit 0;
 
 private _iconCtrl2 = [_display, _ctrlPoint, "icon2", "RscPicture"] call _getOrCreateCtrl;
-_iconCtrl2 ctrlSetPosition [_uiTop # 0, _yOffset + _uiTop # 1 * _yScale, _iconSize, _iconSize * _yScale];
+_iconCtrl2 ctrlSetPosition [_xDispOffset + _uiTop # 0 / 2, _uiTop # 1 / 2, _iconSize / 2, _iconSize / 2];
 _iconCtrl2 ctrlSetTextColor _color;
 _iconCtrl2 ctrlSetText (_iconTex2);
 _iconCtrl2 ctrlCommit 0;
@@ -81,13 +80,13 @@ private _drawText = {
         case "bottom": {_textYOffset = TEXT_HEIGHT * -0.5};
     };
     _textCtrl ctrlSetPosition
-        [ _uiTop # 0 + (_textOffset # 0 * _iconSize) + _xOffset
-        , _yOffset + (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset - 0.5) * _yScale
-        , 1
-        , 1 * _yScale
+        [ _xDispOffset + (_uiTop # 0 + (_textOffset # 0 * _iconSize) + _xOffset) / 2
+        , (_uiTop # 1 + (_textOffset # 1 * _iconSize) + _textYOffset - 0.5)  / 2
+        , 1 / 2
+        , 1 / 2
         ];
     _textCtrl ctrlSetTextColor _color;
-    _textCtrl ctrlSetFontHeight (TEXT_HEIGHT*_yScale);
+    _textCtrl ctrlSetFontHeight TEXT_HEIGHT;
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;
 };

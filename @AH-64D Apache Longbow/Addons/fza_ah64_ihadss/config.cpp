@@ -4,10 +4,10 @@ class CfgPatches
     class fza_ah64_ihadss
     {
         units[] = {};
-        author = "Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+        author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {};
+        requiredAddons[] = {"fza_ah64_common"};
     };
 };
 

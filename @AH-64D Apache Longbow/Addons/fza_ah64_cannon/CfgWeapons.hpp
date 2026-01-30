@@ -6,7 +6,7 @@ class CfgWeapons {
         displayName         = "M230-E1";
         nameSound           = "cannon";
         cursor              = "EmptyCursor";
-        cursorAim           = "mg";
+        cursorAim           = "";
         showAimCursorInternal = 0;
         magazines[]         ={"fza_m230_300","fza_m230_1200"};
         canLock             = 1;
@@ -29,6 +29,7 @@ class CfgWeapons {
         ace_overpressure_angle      = 90;
         ace_overpressure_range      = 2;
         ace_overpressure_damage     = 0.265;
+        ace_overheating_barrelMass  = 16;   //16kg
 
         class GunParticles
         {
@@ -47,7 +48,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_m230_soundset"};
+                soundSetShot[] = {"fza_soundset_cannon_shot"};
             };
             soundContinuous = 0;
             soundBurst = 0;
@@ -128,24 +129,9 @@ class CfgWeapons {
         };
     };
     
-    class fza_burstlimiter: fza_m230
-    {
-        scope = 1;
-        displayName="BURST LIMIT";
-        cursor="";
-        cursorAim="";
-        magazines[]={"fza_burstlimit"};
-        textureType = "single";
-    };
-        
-    class fza_ma_safe: fza_m230
-    {
-        scope = 1;
-        displayName="MASTER ARM SAFE";
-        cursor="";
-        cursorAim="";
-        magazines[]={"fza_safe"};
-        textureType = "single";
-    };
-    class fza_gun_safe: fza_ma_safe {displayName = "Gun Safe";};
+    class fza_cannon_limit: fza_m230{displayName="Burst Limit";magazines[]={"fza_cannon_limit"};};
+    class fza_ma_safe: fza_cannon_limit{ displayName="MASTER ARM SAFE";magazines[]={"fza_safe"};};
+    class fza_gun_inhibit: fza_cannon_limit {displayName = "Cannon Inhibit";magazines[]={"fza_gun_inhibit"};};
+    class fza_hydra_limit: fza_cannon_limit {displayName = "Salvo Limit";magazines[]={"fza_hydra_limit"};};
+    class fza_pylon_inhibit: fza_cannon_limit {displayName = "Pylon Inhibit";magazines[]={"fza_pylon_inhibit"};};
 };

@@ -16,18 +16,23 @@ Examples:
     ---
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["", "_launchParams"];
 _launchParams params ["_shooter","","","_attackProfile","","_laserinfo"];
 
-_heli = vehicle _shooter;
+#define SCALE_METERS_KM 0.001
+#define SCALE_KM_TOF 4
 
-//AttackProfile
+private _heli = vehicle _shooter;
 private _attackProfile = [_heli] call fza_hellfire_fnc_getattackProfile;
+private _lasePos       = [_heli] call fza_hellfire_fnc_salLasePos;
+private _currentTof    = _heli getVariable "fza_ah64_tofCountDown";
 
-if (_missilelobl) then {
+if !isNil "_lasePos" then {
     _attackProfile = "hellfire";
+    _currentTof pushBack (cba_missiontime + (_lasePos distance _heli) * SCALE_METERS_KM * SCALE_KM_TOF);
+    _heli setvariable ["fza_ah64_tofCountDown", _currentTof];
 };
 
 _launchParams set [3, _attackProfile];

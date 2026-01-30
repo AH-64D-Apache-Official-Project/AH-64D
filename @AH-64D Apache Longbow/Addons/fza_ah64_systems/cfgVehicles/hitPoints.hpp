@@ -1,6 +1,7 @@
 #define HIT_RADIUS_01 0.14
 #define HIT_RADIUS_02 0.05
 #define ARMOR_SCALAR  0.067
+#define MIN_HIT 0.05
 
 class HitPoints
 {
@@ -8,7 +9,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.30;
         name = "hit_apu";
         material = 51;
@@ -18,7 +19,7 @@ class HitPoints
     {
         armor = 1.62 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.34;
         name = "hit_drives_intermediategearbox";
         material = 51;
@@ -28,7 +29,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.24;
         name = "hit_drives_noseGearbox1";
         material = 51;
@@ -38,7 +39,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.24;
         name = "hit_drives_noseGearbox2";
         material = 51;
@@ -48,7 +49,7 @@ class HitPoints
     {
         armor = 1.62 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.34;
         name = "hit_drives_tailrotorgearbox";
         material = 51;
@@ -58,7 +59,7 @@ class HitPoints
     {
         armor = 2.88 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.30;
         name = "hit_drives_transmission";
         material = 51;
@@ -68,7 +69,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.24;
         name = "hit_elec_battery";
         material = 51;
@@ -78,7 +79,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.09;
         name = "hit_elec_generator1";
         material = 51;
@@ -88,7 +89,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.09;
         name = "hit_elec_generator2";
         material = 51;
@@ -98,7 +99,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.10;
         name = "hit_elec_rectifier1";
         material = 51;
@@ -108,7 +109,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.10;
         name = "hit_elec_rectifier2";
         material = 51;
@@ -118,7 +119,7 @@ class HitPoints
     {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.30;
         name = "hitengine1";
         material = 51;
@@ -128,16 +129,27 @@ class HitPoints
     {
         armor = 1.80 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.30;
         name = "hitengine2";
         material = 51;
         passThrough = 0;
     };
+    class hitengine
+    {
+        armor = 999;
+        depends = "0.5 * (HitEngine1 + HitEngine2)";
+        explosionShielding = 1;
+        material = 51;
+        minimalHit = 1;
+        name = "engine_hit";
+        passThrough = 0;
+        radius = 0.05;
+    };
     class hit_fuel_aft {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.15;
         name = "hit_fuel_aft";
         material = 51;
@@ -146,7 +158,7 @@ class HitPoints
     class hit_fuel_forward {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.15;
         name = "hit_fuel_forward";
         material = 51;
@@ -155,7 +167,7 @@ class HitPoints
     class hit_msnEquip_magandrobbie {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.15;
         name = "hit_msnEquip_magandrobbie";
         material = 51;
@@ -165,7 +177,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.20;
         name = "hit_hyd_prireservoir";
         material = 51;
@@ -175,7 +187,7 @@ class HitPoints
     {
         armor = 0.90 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.15;
         name = "hit_hyd_priPump";
         material = 51;
@@ -185,7 +197,7 @@ class HitPoints
     {
         armor = 0.72 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.20;
         name = "hit_hyd_utilreservoir";
         material = 51;
@@ -195,7 +207,7 @@ class HitPoints
     {
         armor = 0.90 * ARMOR_SCALAR;
         radius = HIT_RADIUS_02;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.15;
         name = "hit_hyd_utilPump";
         material = 51;
@@ -205,7 +217,7 @@ class HitPoints
     {
         armor = 5.76 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hithrotor";
         material = 51;
@@ -215,7 +227,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_gun_turret";
         material = 51;
@@ -225,7 +237,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pnvs_flir";
         material = 51;
@@ -235,7 +247,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pnvs_turret";
         material = 51;
@@ -245,7 +257,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pylon1";
         material = 51;
@@ -255,7 +267,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pylon2";
         material = 51;
@@ -265,7 +277,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pylon3";
         material = 51;
@@ -275,7 +287,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_pylon4";
         material = 51;
@@ -285,7 +297,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_tads_dtv";
         material = 51;
@@ -295,19 +307,9 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_tads_flir";
-        material = 51;
-        passThrough = 0;
-    };
-    class hit_msnEquip_tads_turret
-    {
-        armor = 1.44 * ARMOR_SCALAR;
-        radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
-        explosionShielding = 0.80;
-        name = "hit_msnEquip_tads_turret";
         material = 51;
         passThrough = 0;
     };
@@ -315,9 +317,19 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_msnEquip_fcr";
+        material = 51;
+        passThrough = 0;
+    };
+    class hit_msnEquip_irJam
+    {
+        armor = 1.44 * ARMOR_SCALAR;
+        radius = HIT_RADIUS_02;
+        minimalHit = MIN_HIT;
+        explosionShielding = 0.24;
+        name = "hit_msnEquip_irJam";
         material = 51;
         passThrough = 0;
     };
@@ -325,7 +337,7 @@ class HitPoints
     {
         armor = 1.44 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hit_stabilator";
         material = 51;
@@ -335,7 +347,7 @@ class HitPoints
     {
         armor = 5.76 * ARMOR_SCALAR;
         radius = HIT_RADIUS_01;
-        minimalHit = 0.1;
+        minimalHit = MIN_HIT;
         explosionShielding = 0.80;
         name = "hitvrotor";
         material = 51;

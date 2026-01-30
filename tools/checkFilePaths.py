@@ -1,4 +1,4 @@
-# Checks that all files within the mod folder (@AH-64D Apache Longbow/Addons/fza_ah64_us) match the
+# Checks that all files within the mod folder (@AH-64D Apache Longbow/Addons/fza_ah64_model) match the
 # file conventions, as defined by regex
 
 import subprocess
@@ -9,10 +9,10 @@ import yaml
 import sys
 
 #A valid PBO file name must start with "fza_ah64_" and then be all lower case letters
-reValidPboName = re.compile(r'^fza_ah64_[a-z]+$')
+reValidPboName = re.compile(r'^fza_(ah64|compat)_[a-z]+$')
 # A valid folder name must start with lower case, and then be any
 reValidFolderName = re.compile(r'^[a-z0-9][a-zA-Z0-9]*(_[a-z0-9][a-zA-Z0-9]*)*$')
-reValidFileName = re.compile(r'^[a-z0-9][a-zA-Z0-9]*(_[a-z0-9][a-zA-Z0-9]*)*\.[a-z]+$')
+reValidFileName = re.compile(r'^[a-z0-9][a-zA-Z0-9]*(_[a-z0-9][a-zA-Z0-9]*)*\.[a-z0-9]+$')
 reValidConfigName = re.compile(r'(Cfg|Fza|Rsc)[A-Z0-9][a-z0-9A-Z]*\.hpp')
 
 def listPrefix(pref,val):

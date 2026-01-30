@@ -14,8 +14,10 @@ class CfgFunctions
             class arhSeeker {RECOMPILE_FLAG;};
             class checkSeekerAngle {RECOMPILE_FLAG;};
             class getAttackProfile {RECOMPILE_FLAG;};
+            class init {RECOMPILE_FLAG;};
             class limaLoblCheck {RECOMPILE_FLAG;};
             class salFired {RECOMPILE_FLAG;};
+            class salLasePos {RECOMPILE_FLAG;};
             class salShouldStartLobl {RECOMPILE_FLAG;};
         };
     };

@@ -2,6 +2,7 @@ class Turrets : Turrets
 {
     class MainTurret: NewTurret
     {
+        class MFD {};
         gunnerAction = "fza_ah64_copilot";
         gunnerGetInAction = "pilot_Heli_Light_02_Enter";
         gunnerGetOutAction = "GetOutHigh";
@@ -10,8 +11,8 @@ class Turrets : Turrets
         primary = 1;
         primaryGunner = 1;
         stabilizedInAxes = 3;
-        weapons[] = {"fza_ma_safe", "fza_gun_safe", "Laserdesignator_mounted", "fza_burstlimiter","fza_m230"};
-        magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300"};
+        weapons[] = {"fza_ma_safe", "Laserdesignator_mounted","fza_m230", "fza_cannon_limit", "fza_gun_inhibit", "fza_hydra_limit", "fza_pylon_inhibit"};
+        magazines[] = {"fza_safe", "LaserBatteries", "fza_m230_300", "fza_cannon_limit", "fza_gun_inhibit", "fza_hydra_limit", "fza_pylon_inhibit"};
         memoryPointsGetInGunner = "pos gunner";
         memoryPointsGetInGunnerDir = "pos gunner dir";
         memoryPointGun = "laserBegin";
@@ -22,15 +23,13 @@ class Turrets : Turrets
         animationsourcegun = "tads";
         gunBeg = "laserBegin";
         gunEnd = "laserEnd";
-        gunnerOpticsModel = "";
+        gunnerOpticsModel = "\fza_ah64_ihadss\sight\apache_heads_down_mask.p3d";
         gunnerOpticsColor[] = {1,1,1,1};
         minElev = -60;
         maxElev = 30;
         initElev= 0;
-        maxXRotSpeed = 1; // yawing speed
-        maxYRotSpeed = 1; // pitching speed
-        maxMouseXRotSpeed= 0.5;
-        maxMouseYRotSpeed= 0.5;
+        maxHorizontalRotSpeed = 1.047;
+        maxVerticalRotSpeed = 1.047;
         minTurn = -120;
         maxTurn = 120;
         initTurn = 0;
@@ -50,96 +49,106 @@ class Turrets : Turrets
         discreteDistanceInitIndex=5;
         isCopilot = 1;
         usePiP=1;
-        class Reflectors
-        {
-            class cabin
-            {
-                color[]={0.306, 0.878, 0.349};
-                ambient[] = {0.306, 0.878, 0.349};
-                intensity = 25;
-                size = 1;
-                innerAngle = 30;
-                outerAngle = 150;
-                coneFadeCoef = 1;
-                position = "plt_floodlamps";
-                direction = "plt_memflood";
-                hitpoint = "plt_floodlamps";
-                selection = "plt_floodlamps";
-                useFlare = 0;
-                flareSize = 0;
-                flareMaxDistance = 0;
-                dayLight = 1;
-                blinking = 0;
-                class Attenuation
-                {
-                    start           = 0;
-                    constant        = 0;
-                    linear          = 1;
-                    quadratic       = 2;
-                    hardLimitStart  = 0.65;
-                    hardLimitEnd    = 1.9;
-                };
-            };
-            class cargo_light_1: cabin
-            {
-                position = "cpg_flood";
-                direction = "cpg_memflood";
-                hitpoint = "cpg_flood";
-                selection = "cpg_flood";
-            };
-        };
         class HitPoints
-        {
+        {//utilize vanilla turret lock when tads component is destroyed
             class HitTurret
             {
-                armor = 0.9;
+                armor = 1.44 * 0.067;
+                radius = 0.14;
+                minimalHit = 0.05;
+                explosionShielding = 0.80;
+                name = "hit_msnEquip_tads_turret";
                 material = 51;
-                name = "tads_tur";
-                visual = "skin_tads1";
-                passThrough = 1;
-            };
-            class HitGun
-            {
-                armor = 1.3;
-                material = 52;
-                name = "otochlaven";
-                visual = "skin_otochlaven";
-                passThrough = 1;
+                passThrough = 0;
             };
         };
-        class OpticsIn
-        {
-            class Wide
-            {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                directionStabilized = 1;
+        class OpticsIn {
+            class Flir_Wide {
+                gunnerOpticsModel = "\fza_ah64_ihadss\sight\apache_heads_down_mask.p3d";
+                initfov = "(50 / 100)";
+                minfov  = "(50 / 100)";
+                maxfov  = "(50 / 100)";
+                visionmode[] = {"Ti"};
+                thermalmode[] = {0,1};
+                directionStabilized = 0;
+                minanglex = -60;
+                maxanglex = 30;
+                minangley = -120;
+                maxangley = 120;
                 initanglex = 0;
                 initangley = 0;
-                initfov = 0.466;
-                maxanglex = 30;
-                maxangley = 120;
-                maxfov = 0.466;
-                minanglex = -60;
-                minangley = -120;
-                minfov = 0.466;
                 opticsdisplayname = "W";
-                thermalmode[] = {0,1};
-                visionmode[] = {"Normal","Ti"};
+                thermalResolution[] = {0.0, 360, 1.0, 360};
+                //intensity, sharpness, grainSize, intensityX0, intensityX1, monochromatic, static, blurCoef
+                //ix0 and ix1 effect the intensity of the grain pattern
+                //----------------inten-sharp-grain--ix0---ix1---mono--stat--blur
+                thermalNoise[] = { 0.50, 0.25, 0.25, 0.05, 0.15, 1.00, 0.00, 0.50}; // {0.04,0.04,0.04,0.04,0.04,0,0,1};
             };
-            class Medium: Wide
-            {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                initfov = 0.09;
-                maxfov = 0.09;
-                minfov = 0.09;
+            class Flir_Medium: Flir_Wide {
+                initfov = "(10.1 / 100)";
+                minfov  = "(10.1 / 100)";
+                maxfov  = "(10.1 / 100)";
                 opticsdisplayname = "M";
             };
-            class Narrow: Wide
-            {
-                gunneropticsmodel = "\fza_ah64_us\fza_ah64_optics_empty";
-                initfov = 0.01;
-                maxfov = 0.01;
-                minfov = 0.01;
+            class Flir_Narrow: Flir_Wide {
+                initfov = "(3.1 / 100)";
+                minfov  = "(3.1 / 100)";
+                maxfov  = "(3.1 / 100)";
+                opticsdisplayname = "N";
+            };  
+            class Flir_Zoom: Flir_Wide {
+                initfov = "(1.6 / 100)";
+                minfov  = "(1.6 / 100)";
+                maxfov  = "(1.6 / 100)";
+                opticsdisplayname = "Z";
+                thermalResolution[] = {0.0, 180, 1.0, 180};
+            };
+            class A3ti_Wide: Flir_Wide {
+                visionmode[] = {"Normal"};
+                opticsdisplayname = "W";
+            };
+            class A3ti_Medium: Flir_Medium {
+                visionmode[] = {"Normal"};
+                opticsdisplayname = "M";
+            };
+            class A3ti_Narrow: Flir_Narrow {
+                visionmode[] = {"Normal"};
+                opticsdisplayname = "N";
+            };  
+            class A3ti_Zoom: Flir_Zoom {
+                visionmode[] = {"Normal"};
+                opticsdisplayname = "Z";
+            };
+            class Dtv_wide: Flir_Wide {
+                visionmode[] = {"Normal"};
+                initfov = "(4 / 100)";
+                minfov  = "(4 / 100)";
+                maxfov  = "(4 / 100)";
+                opticsdisplayname = "w";
+            };
+            class Dtv_dummyFOV: Dtv_wide {};
+            class Dtv_Narrow: Dtv_wide {
+                initfov = "(0.9 / 100)";
+                minfov  = "(0.9 / 100)";
+                maxfov  = "(0.9 / 100)";
+                opticsdisplayname = "N";
+            };
+            class Dtv_Zoom: Dtv_wide {
+                initfov = "(0.45 / 100)";
+                minfov  = "(0.45 / 100)";
+                maxfov  = "(0.45 / 100)";
+                opticsdisplayname = "Z";
+            };
+            class Dvo_Wide: Dtv_wide {
+                initfov = "(18 / 100)";
+                minfov  = "(18 / 100)";
+                maxfov  = "(18 / 100)";
+                opticsdisplayname = "W";
+            };
+            class Dvo_Narrow: Dtv_wide {
+                initfov = "(4 / 100)";
+                minfov  = "(4 / 100)";
+                maxfov  = "(4 / 100)";
                 opticsdisplayname = "N";
             };
         };
@@ -189,6 +198,5 @@ class Turrets : Turrets
                 y = "(profilenamespace getvariable [""IGUI_GRID_CUSTOMINFORIGHT_Y"",(safezoneY + safezoneH - 21 * ((((safezoneW / safezoneH) min 1.2) / 1.2) / 25))])";
             };
         };
-        class MFD {};
     };
 };

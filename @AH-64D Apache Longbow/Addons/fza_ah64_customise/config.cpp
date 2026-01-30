@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_customise
     {
         units[] = {"fza_ah64_FireControlRadar", "fza_ah64_IAFS", "fza_ah64_1200Magazine"};
-        author ="Franze, Nodunit, Voodooflies, Keplager, mattysmith22, BradMick, Rosd6(Dryden) & Community";
+        author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls"};
@@ -29,5 +29,5 @@ class CfgEditorSubcategories
     };
 };
 
-#include "Config\cfgVehicles.hpp"
-#include "Config\cfgFunctions.hpp"
+#include "cfgVehicles.hpp"
+#include "cfgFunctions.hpp"

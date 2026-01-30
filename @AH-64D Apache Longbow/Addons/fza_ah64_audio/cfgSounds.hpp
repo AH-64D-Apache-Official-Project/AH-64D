@@ -26,6 +26,18 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\Radar_states\bt_launch.ogg",100,1,1};
         titles[]={};
     };
+    class fza_ah64_missile
+    {
+        name = "fza_ah64_missile";
+        sound[] = {"\fza_ah64_audio\audio\Radar_states\bt_missile.ogg",100,1,1};
+        titles[]={};
+    };
+    class fza_ah64_designating
+    {
+        name = "fza_ah64_bt_designating";
+        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_designating.ogg",100,1,1};
+        titles[]={};
+    };
 
     //systems
     class fza_ah64_aft_deck_fire
@@ -200,40 +212,10 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa3.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_sa4
-    {
-        name = "fza_ah64_bt_sa4";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa4.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa5
-    {
-        name = "fza_ah64_bt_sa5";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa5.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa6
-    {
-        name = "fza_ah64_bt_sa6";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa6.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa7
-    {
-        name = "fza_ah64_bt_sa7";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa7.ogg",100,1,1};
-        titles[]={};
-    };
     class fza_ah64_bt_sa8
     {
         name = "fza_ah64_bt_sa8";
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa8.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa9
-    {
-        name = "fza_ah64_bt_sa9";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa9.ogg",100,1,1};
         titles[]={};
     };
     class fza_ah64_bt_sa10
@@ -248,46 +230,16 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa11.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_sa12
-    {
-        name = "fza_ah64_bt_sa12";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa12.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa13
-    {
-        name = "fza_ah64_bt_sa13";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa13.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa14
-    {
-        name = "fza_ah64_bt_sa14";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa14.ogg",100,1,1};
-        titles[]={};
-    };
     class fza_ah64_bt_sa15
     {
         name = "fza_ah64_bt_sa15";
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa15.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_sa16
-    {
-        name = "fza_ah64_bt_sa16";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa16.ogg",100,1,1};
-        titles[]={};
-    };
     class fza_ah64_bt_sa17
     {
         name = "fza_ah64_bt_sa17";
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa17.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa18
-    {
-        name = "fza_ah64_bt_sa18";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa18.ogg",100,1,1};
         titles[]={};
     };
     class fza_ah64_bt_sa19
@@ -314,54 +266,6 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa2.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_sa23
-    {
-        name = "fza_ah64_bt_sa23";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa23.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa24
-    {
-        name = "fza_ah64_bt_sa24";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa24.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa25
-    {
-        name = "fza_ah64_bt_sa25";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa25.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa26
-    {
-        name = "fza_ah64_bt_sa26";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa26.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa27
-    {
-        name = "fza_ah64_bt_sa27";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa27.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa28
-    {
-        name = "fza_ah64_bt_sa28";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa28.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa29
-    {
-        name = "fza_ah64_bt_sa29";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa29.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_sa30
-    {
-        name = "fza_ah64_bt_sa30";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_sa30.ogg",100,1,1};
-        titles[]={};
-    };
     //misc identifiers
     class fza_ah64_bt_zsu
     {
@@ -375,46 +279,16 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_2s6.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_aspide
+    class fza_ah64_bt_laser
     {
-        name = "fza_ah64_bt_aspide";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_aspide.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_bsr
-    {
-        name = "fza_ah64_bt_bsr";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_bsr.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_crotale
-    {
-        name = "fza_ah64_bt_crotale";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_crotale.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_csa21
-    {
-        name = "fza_ah64_bt_csa21";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_csa21.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_designation
-    {
-        name = "fza_ah64_bt_designation";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_designation.ogg",100,1,1};
+        name = "fza_ah64_bt_laser";
+        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_laser.ogg",100,1,1};
         titles[]={};
     };
     class fza_ah64_bt_hawk
     {
         name = "fza_ah64_bt_hawk";
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_hawk.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_laser
-    {
-        name = "fza_ah64_bt_laser";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_laser.ogg",100,1,1};
         titles[]={};
     };
     class fza_ah64_bt_naval
@@ -429,78 +303,35 @@ class CfgSounds
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_radar.ogg",100,1,1};
         titles[]={};
     };
-    class fza_ah64_bt_rapier
-    {
-        name = "fza_ah64_bt_rapier";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_rapier.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_rbs70
-    {
-        name = "fza_ah64_bt_rbs70";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_rbs70.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_bt_roland
-    {
-        name = "fza_ah64_bt_roland";
-        sound[] = {"\fza_ah64_audio\audio\identifiers\bt_roland.ogg",100,1,1};
-        titles[]={};
-    };
     class fza_ah64_bt_gun
     {
         name = "fza_ah64_bt_gun";
         sound[] = {"\fza_ah64_audio\audio\identifiers\bt_gun.ogg",100,1,1};
         titles[]={};
     };
-
-    //rotor damage
-    class fza_ah64_tail_rotor_damaged_1
-    {
-        name = "fza_ah64_tail_rotor_damaged_1";
-        sound[] = {"\fza_ah64_us\audio\tail_rotor_damaged_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_tail_rotor_failure_1
-    {
-        name = "fza_ah64_tail_rotor_failure_1";
-        sound[] = {"\fza_ah64_us\audio\tail_rotor_failure_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_main_rotor_damaged_1
-    {
-        name = "fza_ah64_main_rotor_damaged_1";
-        sound[] = {"\fza_ah64_us\audio\main_rotor_damaged_1.ogg",100,1,1};
-        titles[]={};
-    };
-    class fza_ah64_main_rotor_failure_1
-    {
-        name = "fza_ah64_main_rotor_failure_1";
-        sound[] = {"\fza_ah64_us\audio\main_rotor_failure_1.ogg",100,1,1};
-        titles[]={};
-    };
+    
     //Caution sounds
-    class fza_ah64_Altitude_low
+    class fza_ah64_altitude_low
     {
-        name = "fza_ah64_";
-        sound[] = {"\fza_ah64_audio\audio\Systems\bt_Altitude_low.ogg",60,1,10};
+        name = "fza_ah64_altitude_low";
+        sound[] = {"\fza_ah64_audio\audio\Systems\bt_altitude_low.ogg",60,1,10};
         titles[]={};
     };
     class fza_ah64_APR_39_power_up
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_APR_39_power_up";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_APR_39_power_up.ogg",60,1,10};
         titles[]={};
     };
-    class fza_ah64_Caution
+    class fza_ah64_caution
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_caution";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_caution.ogg",100,1,10};
         titles[]={};
     };
-    class fza_ah64_Flight_control
+    class fza_ah64_flight_control
     {
-        name = "fza_ah64_";
+        name = "fza_ah64_flight_control";
         sound[] = {"\fza_ah64_audio\audio\Systems\bt_flt_ctrl.ogg",100,1,10};
         titles[]={};
     };

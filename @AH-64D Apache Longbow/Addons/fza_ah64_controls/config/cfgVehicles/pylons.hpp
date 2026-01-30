@@ -7,26 +7,26 @@
 #define PYLON_UI_PYLON_3 0.3
 #define PYLON_UI_PYLON_4 0.1
 class TransportPylonsComponent {
-    uiPicture = "\fza_ah64_us\tex\pylonmenu.paa";
+    uiPicture = "\fza_ah64_model\tex\pylonmenu.paa";
     class pylons {
         class pylons1 { //Pylon 1 rocket zone alpha
             maxweight = 560;
             turret[] = {0};
-            hardPoints[] = {"fza_hydra70_zone_AC", "fza_agm114_ul"};
-            attachment = "fza_275_m229_zoneA";
+            hardPoints[] = {"fza_hydra70_zone_AC", "fza_agm114_ul", "fza_railzone"};
+            attachment = "fza_275_m151_zoneA";
             bay = -1;
             priority = 8;
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_1_Y};
         };
         class pylons2:pylons1 { //Pylon 1 rocket zone bravo
             hardPoints[] = {"fza_hydra70_zone_BD", "fza_agm114_ur"};
-            attachment = "fza_275_m229_zoneB";
+            attachment = "fza_275_m151_zoneB";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_2_Y};
             priority = 7;
         };
         class pylons3:pylons1 { //Pylon 1 rocket zone echo
             hardPoints[] = {"fza_hydra70_zone_E", "fza_agm114_ll"};
-            attachment = "fza_275_m229_zoneE";
+            attachment = "fza_275_m151_zoneE";
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_3_Y};
             priority = 6;
         };
@@ -36,7 +36,7 @@ class TransportPylonsComponent {
             UIposition[] = {PYLON_UI_PYLON_1, PYLON_UI_SUBPYLON_4_Y};
             priority = 5;
         };
-        
+        ////////////////////////////////////////////////////////////
         class pylons5: pylons1 { //Pylon 2 missile upper left
             attachment = "fza_agm114k_ul";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_1_Y};
@@ -48,16 +48,16 @@ class TransportPylonsComponent {
             priority = 3;
         };
         class pylons7: pylons3 { //Pylon 2 missile lower left
-            attachment = "fza_agm114l_ll";
+            attachment = "fza_agm114k_ll";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_3_Y};
             priority = 2;
         };
         class pylons8: pylons4 { //Pylon 2 missile lower right
-            attachment = "fza_agm114l_lr";
+            attachment = "fza_agm114k_lr";
             UIposition[] = {PYLON_UI_PYLON_2, PYLON_UI_SUBPYLON_4_Y};
             priority = 1;
         };
-        
+        ////////////////////////////////////////////////////////////
         class pylons9: pylons5 { //Pylon 3 rocket zone charlie
             mirroredMissilePos = 5;
             UIposition[] = {PYLON_UI_PYLON_3, PYLON_UI_SUBPYLON_1_Y};
@@ -110,7 +110,7 @@ class TransportPylonsComponent {
             displayName = "Heavy Attack";
         };
         class coin {
-            attachment[] = {"fza_275_m151_zoneA","fza_275_m255_zoneB","fza_275_m257_zoneE","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
+            attachment[] = {"fza_275_m151_zoneA","fza_275_m255a1_zoneB","fza_275_m257_zoneE","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
             displayName = "COIN";
         };
         class Empty {

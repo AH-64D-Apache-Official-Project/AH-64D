@@ -18,13 +18,14 @@
 
 //Route sub-page selections     
 #define TSD_RTE                 [3, 0]
-#define TSD_RTE_ADD             [3, 1]
-#define TSD_RTE_DEL             [3, 2]
+#define TSD_RTE_ADD_NOPOINTSEL  [3, 1]
+#define TSD_RTE_ADD_POINTSEL    [3, 2]
+#define TSD_RTE_DEL             [3, 3]
 //--Direct
-#define TSD_RTE_DIR_NOPOINTSEL  [3, 3]
-#define TSD_RTE_DIR_POINTSEL    [3, 4]
-#define TSD_RTE_RVW             [3, 5]
-#define TSD_RTE_RTM             [3, 6]                   
+#define TSD_RTE_DIR_NOPOINTSEL  [3, 4]
+#define TSD_RTE_DIR_POINTSEL    [3, 5]
+#define TSD_RTE_RVW             [3, 6]
+#define TSD_RTE_RTM             [3, 7]                   
 
 //Threat sub-page selections    
 #define TSD_THRT                [4, 0]
@@ -39,7 +40,8 @@
 #define TSD_THRT_XMIT           [4, 7]
 
 //FCR Page
-#define FCR_ROOT                [5, 0]
+#define FCR_GTM                 [5, 0]
+#define FCR_ATM                 [5, 1]
 
 //ASE Page
 #define ASE_ROOT                [6, 0]

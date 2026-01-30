@@ -2,26 +2,33 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 #include "\fza_ah64_dms\headers\constants.h"
 #include "\fza_ah64_controls\headers\systemConstants.h"
-params ["_heli", "_mpdIndex"];
+params["_heli", "_mpdIndex", "_state", "_persistState"];
 
-private _fcrState     = _heli getVariable "fza_ah64_fcrState";
-private _fcrTargets   = _heli getVariable "fza_ah64_fcrTargets";
-private _lastScanInfo = _heli getVariable "fza_ah64_fcrLastScan";
+private _fcrMode = _heli getvariable "fza_ah64_fcrMode";
+private _cScope  = _heli getVariable "fza_ah64_fcrcscope";
 
-_fcrState params ["_fcrScanState", "_fcrScanStartTime"];
-//FCR wiper
-if (_fcrScanState != FCR_MODE_OFF) then {
-    private _fcrScanDeltaTime = time - _fcrScanStartTime;
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ANIM),      _fcrScanDeltaTime % 2];
-    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_SCAN_TYPE), _fcrScanState];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CSCOPE), BOOLTONUM(_cScope)];
+if (_heli animationPhase "fcr_enable" == 0) then {_fcrMode = 0;};
+
+switch _fcrMode do {
+    case 0: { //NOT INSTALLED
+        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 0];
+        _heli setVariable ["fza_ah64_fcrTargets", [], true];
+        _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];
+        [_heli,[], _mpdIndex, 1] call fza_mpd_fnc_drawIcons;
+    };
+    case 1: { //Gtm
+        _this call fza_mpd_fnc_fcrGTMDraw;
+        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 1];
+    };
+    case 2: {  //ATM
+        _this call fza_mpd_fnc_fcrATMDraw;
+        _heli setUserMfdvalue [MFD_INDEX_OFFSET(MFD_IND_FCR_MODE), 2];
+    };
 };
 
-//Total target count
-private _fcrTgtCount  = count _fcrTargets;
-_heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_COUNT), str _fcrTgtCount];
-
 //Sight Select Status
-private _sight        = [_heli] call fza_fnc_targetingGetSightSelect;
+private _sight        = [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable;
 private _sightSelStat = "HMD";
 switch (_sight) do {
     case 0: {
@@ -38,6 +45,47 @@ switch (_sight) do {
     };
 };
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_SSS), _sightSelStat];
+
+//Command Heading Chevron
+private _nextPoint = (_heli getVariable "fza_dms_routeNext")#0;
+private _nextPointPos = [_heli, _nextPoint, POINT_GET_ARMA_POS] call fza_dms_fnc_pointGetValue;
+if (isNil "_nextPointPos") then {
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), -360];
+} else {
+    private _waypointDirection = [(_heli getRelDir _nextPointPos)] call CBA_fnc_simplifyAngle180;
+    _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_COMMAND_HEADING), _waypointDirection];
+};
+
+//Alternate Sensor Bearing
+private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
+private _tadsElevation = _heli getVariable "fza_ah64_tadsElevation";
+private _alternatesensorpan = (if (player == gunner _heli) then {deg(_heli animationPhase "pnvs")} else {_tadsAzimuth});
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_ALTERNATE_SENSOR), _alternatesensorpan];
+
+//FCR CenterLine
+_heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time","_lastDir"]; 
+private _fcrHeading = [(_dir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+private _lastHeading = [(_lastDir - direction _heli) mod 360] call CBA_fnc_simplifyAngle180;
+if !(_heli animationPhase "fcr_enable" == 1) then {
+    _fcrHeading = -1000;
+    _lastHeading = -1000;
+};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CENTERLINE), _fcrHeading];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_PREV_CENTER), _lastHeading];
+
+//TADS POS
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_X), _tadsAzimuth];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_FOV_Y), -_tadsElevation];
+
+//Cued LOS
+private _curTurret = [_heli] call fza_fnc_currentTurret;
+private _currentAcq = [_heli, _curTurret] call fza_fnc_targetingCurAcq;
+private _acqVector = [_heli, _currentAcq] call fza_fnc_targetingAcqVec;
+private _acqVector = _heli vectorWorldToModelVisual _acqVector;
+_acqVector call CBA_fnc_vect2Polar params ["_magnitude", "_quedLosX", "_quedLosY"];
+private _quedLosX = _quedLosX call CBA_fnc_simplifyAngle180;
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_X), _quedLosX];
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_FCR_CUEDLOS_Y), -_quedLosY];
 
 //Range and Range Source
 private _nts     = _heli getVariable "fza_ah64_fcrNts";
@@ -107,74 +155,5 @@ _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WC), _wpnCtrl];
 //Weapon Status
 _heli setUserMfdText [MFD_INDEX_OFFSET(MFD_TEXT_IND_FCR_WS), _wpnStat];
 
-//FCR page draw
-private _nts  = _heli getVariable "fza_ah64_fcrNts";
-private _nts  = _nts # 0;
-private _ntsIndex  = _fcrTargets findIf {_x # 3 == _nts};
-private _antsIndex = 0;
-if (count _fcrTargets > 0) then {
-    _antsIndex = (_ntsIndex + 1) mod (count _fcrTargets);
-};
-
-private _pointsArray = [];
-{
-    _x params ["_pos", "_type", "_speed", "_obj"];
-    private _distance_m          = _heli distance2d _pos;
-    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
-    private _unitStatus          = ""; //loal, lobl, move
-    private _unitSelAndWpnStatus = []; //nts, ants
-    //Unit type
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN: {
-            _unitType = "UNK";
-        };
-        case FCR_TYPE_WHEELED: {
-            _unitType = "WHEEL";
-        };
-        case FCR_TYPE_HELICOPTER: {
-            _unitType = "HELI";
-        };
-        case FCR_TYPE_FLYER: {
-            _unitType = "FLYER";
-        };
-        case FCR_TYPE_TRACKED: {
-            _unitType = "TRACK";
-        };
-        case FCR_TYPE_ADU: {
-            _unitType = "ADU";
-        };
-    };
-    //Unit status
-    if ((_speed >= FCR_LIMIT_MOVING_MIN_SPEED_KMH) && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-        if (_distance_m > FCR_LIMIT_STATIONARY_RANGE || _unitType == "FLYER") then {
-            continue;
-        };
-    };
-    //Unit select status
-    if (_forEachIndex == _ntsIndex) then {
-        if (_wasState == WAS_WEAPON_NONE) then {
-            _unitSelAndWpnStatus = ["NTS", "NOMSL"];
-        } else {
-            _unitSelAndWpnStatus = ["NTS"];
-        };
-    };
-    if (_forEachIndex == _antsIndex) then {
-        _unitSelAndWpnStatus = ["ANTS"];
-    };
-    private _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
-} forEach (_heli getVariable "fza_ah64_fcrTargets");
-
-POINTSARRAY = _pointsArray;
 
 [_heli, _mpdIndex, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC] call fza_mpd_fnc_acqDraw;
-
-[_heli, _pointsArray, _mpdIndex,  (0.08125 * 8 / 8000), [0.5, 0.87], _lastScanInfo # 0, _lastScanInfo #1] call fza_mpd_fnc_drawIcons;

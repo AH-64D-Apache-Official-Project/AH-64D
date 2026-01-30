@@ -6,7 +6,7 @@ class vname {\
     onDeactivate = __EVAL(format["['%1', false] call fza_fnc_coreControlHandle", #vname]);\
 }
 
-#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name) \
+#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, moving_point) \
 class fza_ah64_cockpit_##system##_##control {\
     displayName = __EVAL(format["%1: %2", system_name, control_name]);\
     tooltip = "";\
@@ -14,6 +14,21 @@ class fza_ah64_cockpit_##system##_##control {\
     onDeactivate = __EVAL(format["['%1', '%2', '%3', '%4', false] call fza_fnc_coreCockpitControlHandle", #system, #control, pilot_mempoint, gunner_mempoint]);\
 };
 #define COCKPIT_CONTROL_SEP 
+
+#define CfgUserAnalogDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onAnalog              = __EVAL(format["['%1', _this] call fza_sfmplus_fnc_analogHandler", #vname]);\
+    analogChangeThreshold = 0.01; \
+}
+#define CfgUserNonAnalogDef(vname, vdisplayName, vtooltip) \
+class vname {\
+    displayName           = vdisplayName;\
+    tooltip               = vtooltip;\
+    onActivate            = __EVAL(format["['%1', true]  call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+    onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
+}
 
 class CfgUserActions
 {
@@ -32,10 +47,34 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");
     CfgUserActionDef(fza_ah64_wasRkt, "WAS Rockets", "Action the rockets in your crew station");
     CfgUserActionDef(fza_ah64_wasMsl, "WAS Missiles", "Action the missiles in your crew station");
-    CfgUserActionDef(fza_ah64_masterSafe, "Toggle Master Safe", "Arms or Safes the aircraft");
-    CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_up, "Force Trim/Hold Mode Switch Up", "NOT CURRENTLY USED");
+    CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_up, "Force Trim/Hold Mode Switch Up", "When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_right, "Force Trim/Hold Mode Switch Right", "Activates Altitude Hold");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_down, "Force Trim/Hold Mode Switch Down", "De-Activates both Attitude and Altitude Hold");
     CfgUserActionDef(fza_ah64_forceTrimHoldModeSwitch_left, "Force Trim/Hold Mode Switch Left", "Activates Attitude Hold");
+    CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
+    CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
+    CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
+    CfgUserActionDef(fza_ah64_freeCursor, "Detach interact cursor", "Detaches the cursor from the head");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_W, "TADS LHG FOV Switch - W", "Sets the Tads FOV to Wide");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_M, "TADS LHG FOV Switch - M", "Sets the Tads FOV to Medium");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_N, "TADS LHG FOV Switch - N", "Sets the Tads FOV to Narrow");
+    CfgUserActionDef(fza_ah64_tadsLHGFov_Z, "TADS LHG FOV Switch - Z", "Sets the Tads FOV to Zoom");
+    CfgUserActionDef(fza_ah64_SensorSelect_FLIR, "LHG Sensor Select Switch - FLIR", "Sets the Tads Sensor to FLIR");
+    CfgUserActionDef(fza_ah64_SensorSelect_DTV, "LHG Sensor Select Switch - DTV", "Sets the Tads Sensor to DTV");
+    CfgUserActionDef(fza_ah64_SensorSelect_DVO, "LHG Sensor Select Switch - DVO", "Sets the Tads Sensor to DVO");
+    CfgUserActionDef(fza_ah64_tadsLHGLmc, "LHG LMC Button", "Toggles Tads Linear Motion Compensator");
+    CfgUserActionDef(fza_ah64_stickyControlInterupt, "Sticky Control Interupt", "When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.");
+    CfgUserActionDef(fza_ah64_forceTrimPanicButton, "Force Trim Panic Button", "Zeroes out the force trim values.");
+    CfgUserActionDef(fza_ah64_collectiveEmergJett, "Emergency Jettison", "Collective Emergency Jettison Button");
+    CfgUserAnalogDef(fza_ah64_cyclicForward, "Cyclic Forward", "Cyclic Forward");
+    CfgUserAnalogDef(fza_ah64_cyclicBackward, "Cyclic Backward", "Cyclic Backward");
+    CfgUserAnalogDef(fza_ah64_cyclicLeft, "Cyclic Left", "Cyclic Left");
+    CfgUserAnalogDef(fza_ah64_cyclicRight, "Cyclic Right", "Cyclic Right");
+    CfgUserAnalogDef(fza_ah64_pedalLeft, "Pedal Left", "Pedal Left");
+    CfgUserAnalogDef(fza_ah64_pedalRight, "Pedal Right", "Pedal Right");
+    CfgUserAnalogDef(fza_ah64_collectiveUp, "HOTAS Collective Up", "Collective Up");
+    CfgUserAnalogDef(fza_ah64_collectiveDn, "HOTAS Collective Down", "Collective Down");
+    CfgUserNonAnalogDef(fza_ah64_kbCollectiveUp, "Keyboard Collective Up", "Collective Up");
+    CfgUserNonAnalogDef(fza_ah64_kbCollectiveDn, "Keyboard Collective Down", "Collective Down");
     #include "\fza_ah64_controls\headers\controls.h"
 };

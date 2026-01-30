@@ -4,7 +4,7 @@ class VABs_Mode_Gun {
     class className {\
         MPD_TEXT_R(Name, MPD_POS_BUTTON_L_X, posY, MPD_TEXT_STATIC(burstName)) \
         class Box {\
-            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_BURST_LIMIT), burstIndex)));\
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_GUN_BURST_LIMIT), burstIndex)));\
             MPD_BOX_R(Null, MPD_POS_BUTTON_L_X, posY, numChars)\
         };\
     };

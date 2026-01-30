@@ -1,13 +1,16 @@
-fza_ah64_sfmPlusKeyboardOnly = true;
+fza_sfmplus_keyboardCollective         = true;
+fza_sfmplus_keyboardCollectivePrevious = true;
 
-private _eventTypes = ["Activate", "Deactivate", "Analog"];
-
-{
-    addUserActionEventHandler ["HeliCollectiveRaise", _x, {fza_ah64_sfmPlusKeyboardOnly = true;}];
-    addUserActionEventHandler ["HeliCollectiveLower", _x, {fza_ah64_sfmPlusKeyboardOnly = true;}];
-} forEach _eventTypes;
-
-{
-    addUserActionEventHandler ["HeliCollectiveRaiseCont", _x, {fza_ah64_sfmPlusKeyboardOnly = false;}];
-    addUserActionEventHandler ["HeliCollectiveLowerCont", _x, {fza_ah64_sfmPlusKeyboardOnly = false;}];
-} forEach _eventTypes;
+//private _nonAnalogEvents = ["Activate", "Deactivate"];
+//
+//{
+//    addUserActionEventHandler ["fza_ah64_kbCollectiveUp", _x, {fza_sfmplus_keyboardCollective = true;}];
+//    addUserActionEventHandler ["fza_ah64_kbCollectiveDn", _x, {fza_sfmplus_keyboardCollective = true;}];
+//} forEach _nonAnalogEvents;
+//
+//private _analogEvents = ["Analog"];
+//
+//{
+//    addUserActionEventHandler ["fza_ah64_collectiveUp", _x, {fza_sfmplus_keyboardCollective = false;}];
+//    addUserActionEventHandler ["fza_ah64_collectiveDn", _x, {fza_sfmplus_keyboardCollective = false;}];
+//} forEach _analogEvents;

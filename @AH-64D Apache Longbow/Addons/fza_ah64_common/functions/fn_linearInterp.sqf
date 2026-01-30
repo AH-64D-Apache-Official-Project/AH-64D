@@ -52,7 +52,7 @@ if (_upperIndex == 0) exitWith {
 }; //If it is below the values that can be interpolated
 
 if (_upperIndex == -1) exitWith {
-    _arr select(count _arr - 1);
+    _arr select -1;
 }; //If it is below the values that can be interpolated
 
 private _lowerIndex = _upperIndex - 1;
@@ -65,8 +65,9 @@ private _lerp = {
     _lowVal + (_highVal - _lowVal) / (_highKey - _lowKey) * (_intendedKey - _lowKey);
 };
 
-_out = []; {
-    _out pushBack([_lowerRow select 0, _upperRow select 0, _x, _upperRow select _forEachIndex, _key] call _lerp);
-}
-forEach(_lowerRow);
+private _out = [_key]; 
+for "_i" from 1 to (count _lowerRow - 1) do { 
+    private _interpValue = [_lowerRow select 0, _upperRow select 0, _lowerRow select _i, _upperRow select _i, _key] call _lerp; 
+    _out pushBack _interpValue; 
+}; 
 _out;

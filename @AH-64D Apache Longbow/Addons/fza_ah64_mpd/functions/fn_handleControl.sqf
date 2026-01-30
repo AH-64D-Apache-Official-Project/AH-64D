@@ -48,6 +48,6 @@ switch (_control) do {
     };
 };
 
-(_heli getVariable "fza_mpd_mpdState") # _mpdIndex params ["_page","","","_state", "_persistState", "_handleControl"];
+(_heli getVariable "fza_mpd_mpdState") # _mpdIndex params ["_page","","","","_state", "_persistState", "_handleControl"];
 
 [_heli, _mpdIndex, _control, _state, _persistState get _page] call _handleControl;

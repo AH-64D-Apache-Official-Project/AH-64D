@@ -3,18 +3,10 @@ class CfgVehicles {
     class Helicopter_Base_F : Helicopter {
         class MFD;
         class Turrets;
+        class NewTurret;
     };
     class fza_ah64base : Helicopter_Base_F {
-        class NewTurret;
-        class Turrets : Turrets {
-            class MainTurret : NewTurret {
-                class MFD;
-            }
-        };
-        class EventHandlers;
-    };
-    class fza_ah64d_b2e : fza_ah64base {
-        class MFD : MFD {
+        class MFD {
             #define MFD_IND_PAGE MFD_IND_PAGE_LEFT
             #define MFD_OFFSET MFD_OFFSET_L
             class MPD_L {
@@ -34,7 +26,7 @@ class CfgVehicles {
         };
         class Turrets : Turrets {
             class MainTurret : NewTurret {
-                class MFD : MFD {
+                class MFD {
                     #define MFD_IND_PAGE MFD_IND_PAGE_LEFT
                     #define MFD_OFFSET MFD_OFFSET_L
                     class MPD_L {
@@ -54,7 +46,7 @@ class CfgVehicles {
                 };
             };
         };
-        class EventHandlers : EventHandlers {
+        class EventHandlers {
             class fza_mpd {
                 init = "[_this # 0] call fza_mpd_fnc_init";
             };
@@ -95,20 +87,25 @@ class CfgVehicles {
                     selectedWeapon = 0;
                     variant = 0;
                     wasOverride = 0;
+                    popOutMenu = 0;
                 };
             };
             #include "\fza_ah64_mpd\headers\tsd.hpp"
             class TSD {
                 index = MPD_PAGE_TSD;
                 draw  = "fza_mpd_fnc_pageTSDDraw";
+                drawCanvas = "fza_mpd_fnc_pageTSDDrawCanvas";
                 handleControl = "fza_mpd_fnc_pageTSDHandleControl";
                 usesIcons = 1;
                 class InitState {
                     subPageVarPage[] = {0,0};
+                    showScale = 0;
+                    routeScroll = 0;
                 };
                 class PersistState {
                     mode = "nav";
                     ctr = 0;
+                    tsdScale = 25000;
                 };
             };
             class DMS {
@@ -133,11 +130,15 @@ class CfgVehicles {
                 draw  = "fza_mpd_fnc_pageFCRDraw";
                 handleControl = "fza_mpd_fnc_pageFCRHandleControl";
                 usesIcons = 1;
+                class InitState {
+                    subPageVarPage[] = {5,0};
+                };
             };
             class ASE {
                 index = MPD_PAGE_ASE;
                 draw  = "fza_mpd_fnc_pageASEDraw";
                 handleControl = "fza_mpd_fnc_pageASEHandleControl";
+                usesIcons = 1;
             };
             class CHAN {
                 index = MPD_PAGE_CHAN;
@@ -169,6 +170,14 @@ class CfgVehicles {
                 index = MPD_PAGE_ACUTIL;
                 draw  = "fza_mpd_fnc_pageACUtilDraw";
                 handleControl = "fza_mpd_fnc_pageACUtilHandleControl";
+            };
+            class ABR {
+                index = MPD_PAGE_ABR;
+                draw  = "fza_mpd_fnc_pageABRDraw";
+                handleControl = "fza_mpd_fnc_pageABRHandleControl";
+                class PersistState {
+                    pageNumber = 1;
+                };
             };
         };
     };

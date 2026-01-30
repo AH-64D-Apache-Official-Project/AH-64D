@@ -110,7 +110,7 @@
         };
 
         class wind_text {
-             MPD_TEXT_R(WND, MPD_TEXT_WIDTH * 33.5, MPD_TEXT_HEIGHT * 15.6, MPD_TEXT_USER(MFD_TEXT_IND_WIND))//MPD_TEXT_STATIC("WIND 067/15"))
+             MPD_TEXT_R(WND, MPD_TEXT_WIDTH * 33.5, MPD_TEXT_HEIGHT * 15.6, MPD_TEXT_USER(MFD_TEXT_IND_PERF_WIND))//MPD_TEXT_STATIC("WIND 067/15"))
         };
     };
 
@@ -187,7 +187,8 @@
 
         class cg_text {
             MPD_TEXT_R(TOP , MPD_TEXT_WIDTH * 15.2, MPD_TEXT_HEIGHT * 16.9, MPD_TEXT_STATIC("FWD          CG          AFT"))
-            MPD_TEXT_R(BOT , MPD_TEXT_WIDTH * 15.2, MPD_TEXT_HEIGHT * 17.8, MPD_TEXT_STATIC("201.0       203.1      207.0"))
+            MPD_TEXT_R(CG  , MPD_TEXT_WIDTH * 27.2, MPD_TEXT_HEIGHT * 17.8, MPD_TEXT_USER(MFD_TEXT_IND_PERF_CG))
+            MPD_TEXT_R(BOT , MPD_TEXT_WIDTH * 15.2, MPD_TEXT_HEIGHT * 17.8, MPD_TEXT_STATIC("201.0                  207.0"))
         };
     };
 

@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\systemConstants.h"
+#include "\fza_ah64_ase\headers\ase.h"
 
 class ase_draw {
     class lines {
@@ -96,7 +97,7 @@ class ase_draw {
 
     #define IRJamX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define IRJamY MPD_POS_BUTTON_LR_1_Y - 0.05*MPD_TEXT_HEIGHT
-    class lines_IRJamOnOff {
+    class lines_msnEquipOnOff {
         type = line;
         width = 3;
         points[] = {
@@ -112,55 +113,120 @@ class ase_draw {
             {{IRJamX - 0.010, IRJamY + 0.000}, 1},
         };
     };
-    class IRJamON {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
-        class IRJamDraw {
-            class polys_IRJamOnOff {
-                class Polygons {
-                    type = polygon;
-                    points[] = {
-                        { //Top left
-                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX - 0.007, IRJamY - 0.007}, 1},
-                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Top right
-                            {{IRJamX - 0.000, IRJamY - 0.010}, 1},
-                            {{IRJamX + 0.007, IRJamY - 0.007}, 1},
-                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Bottom right
-                            {{IRJamX + 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
-                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        },
-                        { //Bottom left
-                            {{IRJamX + 0.000, IRJamY + 0.010}, 1},
-                            {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
-                            {{IRJamX - 0.010, IRJamY + 0.000}, 1},
-                            {{IRJamX, IRJamY}, 1}
-                        }
+    class showMWS {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_BRITISH), 1));
+        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CH/FL"))
+        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MWS "))
+        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CMS"))
+        class MWS_ON {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+            class MWSDraw {
+                class polys_MWSOnOff {
+                    class Polygons {
+                        type = polygon;
+                        points[] = {
+                            { //Top left
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX - 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Top right
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX + 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom right
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom left
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            }
+                        };
+                    };
+                    class lines_IRJam {
+                        type = line;
+                        width = 3;
+                        points[] = {
+                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                        };
+                    };
+                    class text_IRJamWarm {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
+                    };
+                    class text_IRJamOper {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
                     };
                 };
-                class lines_IRJam {
-                    type = line;
-                    width = 3;
-                    points[] = {
-                        MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+            };
+        };
+    };
+    class ShowIRJam {
+        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_AMERICAN), 1));
+        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
+        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("IRJAM  "))
+        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CHAFF"))
+        class IRJam_ON {
+            condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_IRJAM_PWR)));
+            class IRJamDraw {
+                class polys_IRJamOnOff {
+                    class Polygons {
+                        type = polygon;
+                        points[] = {
+                            { //Top left
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX - 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Top right
+                                {{IRJamX - 0.000, IRJamY - 0.010}, 1},
+                                {{IRJamX + 0.007, IRJamY - 0.007}, 1},
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom right
+                                {{IRJamX + 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX + 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            },
+                            { //Bottom left
+                                {{IRJamX + 0.000, IRJamY + 0.010}, 1},
+                                {{IRJamX - 0.007, IRJamY + 0.007}, 1}, 
+                                {{IRJamX - 0.010, IRJamY + 0.000}, 1},
+                                {{IRJamX, IRJamY}, 1}
+                            }
+                        };
                     };
-                };
-                class text_IRJamWarm {
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
-                    //R1
-                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
-                };
-                class text_IRJamOper {
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
-                    //R1
-                    MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
+                    class lines_IRJam {
+                        type = line;
+                        width = 3;
+                        points[] = {
+                            MPD_POINTS_BOX(Null, MPD_POS_BUTTON_R_X-(4*MPD_TEXT_WIDTH), MPD_POS_BUTTON_LR_1_Y + 0.6*MPD_TEXT_HEIGHT, 4*MPD_TEXT_WIDTH, MPD_TEXT_HEIGHT-0.015),
+                        };
+                    };
+                    class text_IRJamWarm {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_WARM));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("WARM"))
+                    };
+                    class text_IRJamOper {
+                        condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_ASE_IRJAM_STATE), ASE_IRJAM_STATE_OPER));
+                        //R1
+                        MPD_TEXT_L(IRJAM_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("OPER"))
+                    };
                 };
             };
         };
@@ -168,6 +234,8 @@ class ase_draw {
 
     #define RLWRX MPD_POS_BUTTON_R_X - 0.1*MPD_TEXT_WIDTH
     #define RLWRY MPD_POS_BUTTON_LR_6_Y - 0.05*MPD_TEXT_HEIGHT
+    
+    
     class RLWR_Off {
         class lines_RLWROnOff {
             type = line;
@@ -229,8 +297,45 @@ class ase_draw {
                 };
             };
             MPD_TEXT_L(RLWR_2, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_ASE_RLWR_COUNT))
+
+            //Draw ASE Lines
+            #define ASE_AZ(name, mpdVal)\
+            class aseaz_##name {\
+                color[] = {1,1,0,1};\
+                class line##name {\
+                condition = C_COND(C_MORE(C_MPD_USER(mpdVal), -1));\
+                    class trackLine {\
+                        type     = line;\
+                        width    = 3;\
+                        points[] = {\
+                            {ase_az_##name, { 0.000, 0.018}, 1},\
+                            {ase_az_##name, { 0.000, 0.036}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.054}, 1},\
+                            {ase_az_##name, { 0.000, 0.071}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.089}, 1},\
+                            {ase_az_##name, { 0.000, 0.107}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.125}, 1},\
+                            {ase_az_##name, { 0.000, 0.143}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.161}, 1},\
+                            {ase_az_##name, { 0.000, 0.179}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.196}, 1},\
+                            {ase_az_##name, { 0.000, 0.214}, 1}, {},\
+                            {ase_az_##name, { 0.000, 0.232}, 1},\
+                            {ase_az_##name, { 0.000, 0.250}, 1}, {},\
+                        };\
+                    };\
+                };\
+            };
         };
     };
+
+    ASE_AZ(01, MFD_IND_ASE_01_AZ)
+    ASE_AZ(02, MFD_IND_ASE_02_AZ)
+    ASE_AZ(03, MFD_IND_ASE_03_AZ)
+    ASE_AZ(04, MFD_IND_ASE_04_AZ)
+    ASE_AZ(05, MFD_IND_ASE_05_AZ)
+    ASE_AZ(06, MFD_IND_ASE_06_AZ)
+    ASE_AZ(07, MFD_IND_ASE_07_AZ)
 
     //Ownship Icon
     class lines_ownshipIcon {
@@ -275,7 +380,6 @@ class ase_draw {
 
     class vabs {
         //T1
-        MPD_TEXT_C(CHAFF_1,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("CHAFF"))
         MPD_BOX_C(CHAFF_2,    MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, 4)
         //T2
         MPD_BOX_TALL_C(ASE, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 3)
@@ -286,8 +390,6 @@ class ase_draw {
         //MPD_ARROW_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
         MPD_TEXT_C(UTIL,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
         
-        //R1
-        MPD_TEXT_L(IRJAM_1, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("IRJAM "))
         //R4
         MPD_BOX_BAR_L(CTR, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y)
         MPD_TEXT_L(CTR,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_4_Y, MPD_TEXT_STATIC("CAQ"))
@@ -297,8 +399,8 @@ class ase_draw {
 
         //L1
         MPD_TEXT_R(MODE,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y - 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF MODE"))
-        MPD_BOX_R(PGM,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 7)
-        MPD_TEXT_R(PGM,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("PROGRAM"))
+        MPD_BOX_R(PGM,    MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, 6)
+        MPD_TEXT_R(PGM,   MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y + 0.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANUAL"))
         //L3
         MPD_TEXT_R(SRH_1, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y - 0.75*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("S"))
         MPD_TEXT_R(SRH_2, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y,                        MPD_TEXT_STATIC("R"))
@@ -319,11 +421,11 @@ class ase_draw {
 
     //Chaff
     class text_ChaffSafe {
-        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
+        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("SAFE"))
     };
     class text_ChaffArm {
-        condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE)));
+        condition = C_COND(C_MPD_USER(MFD_IND_ASE_CHAFF_STATE));
         MPD_TEXT_C(CHAFF_2,   MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y + MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("ARM"))
     };
 
@@ -356,200 +458,11 @@ class ase_draw {
         MPD_TEXT_R(AUTOPAGE_07, 0.08, 0.600+2.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("G"))
         MPD_TEXT_R(AUTOPAGE_08, 0.08, 0.600+3.5*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
 
-        //Chaff count box
-        MPD_TEXT_C(CHAFF_COUNT_1,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 3*MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("CHAFF"))
-        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CHAFF_QTY))
+        //CMS count box
+        MPD_TEXT_C(CHAFF_COUNT_2,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y - 2*MPD_TEXT_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_WPN_CMS_QTY))
 
         // Hdg info
         MPD_TEXT_C(HeadingHigh, 0.5, MPD_POS_BUTTON_T_Y, source = heading; sourceScale = 1;)
         MPD_TEXT_C(HeadingLow,  0.5, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("360"))
-    };
-};
-
-class ase_threats_gnd {
-    condition = C_COND(C_NOT(C_MPD_USER(MFD_IND_ASE_RLWR_PWR)));
-    color[] = {1,1,0,1};
-    class sensor_group {
-        type            = sensor;
-        pos[]           = {{0.175, 0.175}, 1};  //top left of circle
-        down[]          = {{0.825, 0.825}, 1};  //bottom right of circle
-        showTargetTypes = 1+2+8+64+128+256;
-        //1 - Sensor sectors,
-        //2 - Threats, <--Lock/Launch cone
-        //4 - Marked tgt symbol,
-        //8 - Own detection,
-        //16 - Remote detection,
-        //32 - Active detection,
-        //64 - Passive detection,
-        //128 - Ground tgts,
-        //256 - Air tgts,
-        //512 - Men,
-        //1024 - Special (laser, NV)
-        width             = 3;    //When 1 is included in showTargetTypes, controls thickness of radar circle
-        sensorLineType    = 1;    //Same as lineType 0 - Full line, 1 - dotted line, 2 - dashed line, 3 - dot-dashed line
-        sensorLineWidth   = 3;    //0 sets the default launch cone indicator to invisible
-        range             = ASE_DETECT_RANGE_M;
-        
-        /*
-        class MissileThreat { //<-- This shuold only be present on british mission equipment aircraft
-            color[] = {1,1,0,1};
-            class TargetLines {
-                type = line;
-                width = 3;
-                points[] = {
-                    {{ 0.00,  0.04}, 1},
-                    {{ 0.04,  0.00}, 1},
-                    {{ 0.00, -0.04}, 1},
-                    {{-0.04,  0.00}, 1},
-                    {{ 0.00,  0.04}, 1},
-                };
-            };
-            class Text {
-                type        ="text";
-                source      ="static";
-                text        ="M";
-                scale       =1;
-                sourceScale =1;
-                align       = "center";
-                pos[]       = {{ 0.000,       -0.020       }, 1};
-                right[]     = {{ 0.000 + 0.04,-0.020       }, 1};
-                down[]      = {{ 0.000,       -0.020 + 0.04}, 1};
-            }; 
-        };
-        */
-        class rwr { //Radar is emitting
-            class TargetLines {
-                type = line;
-                width = 3;
-                points[] = {};
-            };
-            class Text {
-                type        ="text";
-                source      ="static";
-                text        ="R";
-                scale       =1;
-                sourceScale =1;
-                align       = "center";
-                pos[]       = {{ 0.000,        -0.020       }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.020       }, 1};
-                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
-            }; 
-        };
-        class markingThreat: rwr {   //Radar tracking (acquisition)
-            class TargetLines : TargetLines {
-                points[] = {
-                    //Acquistion/Tracking Diamond
-                    {{ 0.00,  0.04}, 1},
-                    {{ 0.04,  0.00}, 1},
-                    {{ 0.00, -0.04}, 1},
-                    {{-0.04,  0.00}, 1},
-                    {{ 0.00,  0.04}, 1},
-                };
-            };
-        class Text {
-                type        ="text";
-                source      ="static";
-                text        ="R";
-                scale       =1;
-                sourceScale =1;
-                align       = "center";
-                pos[]       = {{ 0.000,        -0.020    }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.020    }, 1};
-                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
-            }; 
-        };
-        class lockingThreat: rwr {   //Radar is locked on (track/launch)
-            class TargetLines : TargetLines {
-                points[] = {
-                    //Acquistion/Tracking Diamond
-                    {{ 0.00,  0.04}, 1},
-                    {{ 0.04,  0.00}, 1},
-                    {{ 0.00, -0.04}, 1},
-                    {{-0.04,  0.00}, 1},
-                    {{ 0.00,  0.04}, 1},
-                };
-            };
-            class Text {
-                type        ="text";
-                source      ="static";
-                text        ="R";
-                scale       =1;
-                sourceScale =1;
-                align       = "center";
-                pos[]       = {{ 0.000,        -0.020    }, 1};
-                right[]     = {{ 0.000 + 0.04, -0.020    }, 1};
-                down[]      = {{ 0.000,        -0.020 + 0.04}, 1};
-            };  
-        };
-        class markedTarget {
-            color[] = {1,0,1,1};
-            class TargetLines {
-                points[] = {
-                    //Laser symbol
-                    {{-0.015,-0.015}, 1},
-                    {{ 0.015, 0.015}, 1}, {},
-                    {{-0.015, 0.015}, 1},
-                    {{ 0.015,-0.015}, 1}, {},
-                    {{-0.015, 0.000}, 1},
-                    {{ 0.015, 0.000}, 1}, {},
-                };
-            };
-        };
-        class target: markedTarget {
-            color[] = {0,1,1,1};
-            class TargetLines {
-                points[] = {
-                    //Laser symbol
-                    {{-0.015,-0.015}, 1},
-                    {{ 0.015, 0.015}, 1}, {},
-                    {{-0.015, 0.015}, 1},
-                    {{ 0.015,-0.015}, 1}, {},
-                    {{-0.015, 0.000}, 1},
-                    {{ 0.015, 0.000}, 1}, {},
-                };
-            };
-        };
-        class targetLaser: target {
-            color[] = {0,1,1,1};
-            class TargetLines {
-                points[] = {
-                    //Laser symbol
-                    {{-0.015,-0.015}, 1},
-                    {{ 0.015, 0.015}, 1}, {},
-                    {{-0.015, 0.015}, 1},
-                    {{ 0.015,-0.015}, 1}, {},
-                    {{-0.015, 0.000}, 1},
-                    {{ 0.015, 0.000}, 1}, {},
-                };
-            };
-        };
-        class targetLaserFriendly: targetLaser {
-            color[] = {0,1,0,1};
-            class TargetLines {
-                points[] = {
-                    //Laser symbol
-                    {{-0.015,-0.015}, 1},
-                    {{ 0.015, 0.015}, 1}, {},
-                    {{-0.015, 0.015}, 1},
-                    {{ 0.015,-0.015}, 1}, {},
-                    {{-0.015, 0.000}, 1},
-                    {{ 0.015, 0.000}, 1}, {},
-                };
-            };
-        };
-        class targetLaserEnemy: targetLaser  {
-            color[] = {1,0,0,1};
-            class TargetLines {
-                points[] = {
-                    //Laser symbol
-                    {{-0.015,-0.015}, 1},
-                    {{ 0.015, 0.015}, 1}, {},
-                    {{-0.015, 0.015}, 1},
-                    {{ 0.015,-0.015}, 1}, {},
-                    {{-0.015, 0.000}, 1},
-                    {{ 0.015, 0.000}, 1}, {},
-                };
-            };
-        };
     };
 };

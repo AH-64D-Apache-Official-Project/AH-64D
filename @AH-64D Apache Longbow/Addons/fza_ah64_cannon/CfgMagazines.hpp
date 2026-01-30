@@ -1,7 +1,6 @@
 class CfgMagazines {
     class VehicleMagazine;
-    class fza_m230_300: VehicleMagazine
-    {
+    class fza_m230_300: VehicleMagazine {
         scope = 2;
         displayName = "30mm HEDP";
         ammo = "fza_30x113";
@@ -10,8 +9,7 @@ class CfgMagazines {
         tracersevery = 0;
         weight = 104.8;
     };
-    class fza_m230_1200: fza_m230_300
-    {
+    class fza_m230_1200: fza_m230_300 {
         scope = 2;
         displayName = "30mm HEDP";
         ammo = "fza_30x113";

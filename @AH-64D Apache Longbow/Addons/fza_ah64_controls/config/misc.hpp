@@ -20,7 +20,7 @@ class CfgFactionClasses
         displayName = "AH-64D Project";
         priority = 2;
         icon = "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
-        side = "TWest";
+        side = TWest;
     };
 };
 class CfgVehicleClasses

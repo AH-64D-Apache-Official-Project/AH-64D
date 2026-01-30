@@ -52,8 +52,8 @@ MPD_TEXT_SMALL_R(SFR_QTY, 0.5 + MPD_TEXT_SMALL_WIDTH, 0.96 - (MPD_TEXT_HEIGHT * 
 // Fuel endurance
 MPD_TEXT_SMALL_C(FENDR_HEAD, 0.69 + (((MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5)) / 2), 0.77, MPD_TEXT_STATIC("ENDR"))
 
-MPD_TEXT_SMALL_R(FENDR_INT_TEXT, 0.69, 0.77 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
-MPD_TEXT_L(FENDR_INT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.77 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_INT))
+MPD_TEXT_SMALL_R(FENDR_INT_TEXT, 0.69, 0.78 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("INT"))
+MPD_TEXT_L(FENDR_INT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.78 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_INT))
 
 // Fuel type
 MPD_TEXT_L(FTYPE_TYPE, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y - (MPD_TEXT_HEIGHT / 2), MPD_TEXT_STATIC("TYPE"))
@@ -175,5 +175,105 @@ class TextBoxes {
     points[] = {
         MPD_POINTS_BOX("Null", 0.4425,0.18, 0.1075, 0.070), {},
         MPD_POINTS_BOX("Null", (0.5-0.05),0.4875,0.095,0.125)
+    };
+};
+
+
+
+#define IAFS_QTY_X 0.46
+#define IAFS_QTY_Y 0.33
+
+#define IAFS_X MPD_POS_BUTTON_L_X + 0.1*MPD_TEXT_WIDTH
+#define IAFS_Y MPD_POS_BUTTON_LR_2_Y + 0.5*MPD_TEXT_HEIGHT
+class ShowIAFS {
+    condition = C_COND(C_MPD_USER(MFD_IND_FUEL_IAFS_INSTALLED));
+
+    MPD_TEXT_R(IAFS_TXT, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC(" C AUX"))
+    //Center tank quantity
+    MPD_TEXT_C(IAFS_QTY, IAFS_QTY_X, IAFS_QTY_Y, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_IAFS))
+    
+    //Total quantity
+    MPD_TEXT_SMALL_R(FTANKSTOT, 0.09, 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+    MPD_TEXT_R(FTANKSTOTQTY, 0.09 + (MPD_TEXT_SMALL_WIDTH * 4), 0.85, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_TOT))
+    MPD_TEXT_SMALL_R(FTANKSTOTLB, 0.09 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 4), 0.85 + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("LB"))
+
+    //Total endurance
+    MPD_TEXT_SMALL_R(FENDR_TOT_TEXT, 0.69, 0.82 + MPD_TEXT_SMALL_HEIGHT + MPD_TEXT_SMALL_PAD, MPD_TEXT_STATIC("TOT"))
+    MPD_TEXT_L(FENDR_TOT_TIME, 0.69 + (MPD_TEXT_SMALL_WIDTH * 5) + (MPD_TEXT_WIDTH * 3.5), 0.82 + MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_USER(MFD_TEXT_IND_FUEL_ENDR_TOT))
+
+    class box_IAFS {
+        type = line;
+        width = 3;
+        points[] = {
+        MPD_POINTS_BOX(Null, IAFS_QTY_X-(1.5*MPD_TEXT_WIDTH), IAFS_QTY_Y, 3*MPD_TEXT_WIDTH, 0.98*MPD_TEXT_HEIGHT),
+        };
+    };
+
+
+    class iafs_Off {
+        class lines_iafsOnOff {
+            type = line;
+            width = 3;
+            points[] = {
+                //Power Indicator
+                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
+                {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
+                {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1},
+                {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
+                {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+            };
+        };
+    };
+    class iafs_On {
+        condition = C_COND(C_MPD_USER(MFD_IND_FUEL_IAFS_ON));
+        class iafs_draw {
+            class polys_iafsOnOff {
+                class Polygons {
+                    type = polygon;
+                    points[] = {
+                        { //Top left
+                            {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                            {{IAFS_X - 0.007, IAFS_Y - 0.007}, 1},
+                            {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                            {{IAFS_X, IAFS_Y}, 1}
+                        },
+                        { //Top right
+                            {{IAFS_X - 0.000, IAFS_Y - 0.010}, 1},
+                            {{IAFS_X + 0.007, IAFS_Y - 0.007}, 1},
+                            {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                            {{IAFS_X, IAFS_Y}, 1}
+                        },
+                        { //Bottom right
+                            {{IAFS_X + 0.010, IAFS_Y + 0.000}, 1},
+                            {{IAFS_X + 0.007, IAFS_Y + 0.007}, 1}, 
+                            {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                            {{IAFS_X, IAFS_Y}, 1}
+                        },
+                        { //Bottom left
+                            {{IAFS_X + 0.000, IAFS_Y + 0.010}, 1},
+                            {{IAFS_X - 0.007, IAFS_Y + 0.007}, 1}, 
+                            {{IAFS_X - 0.010, IAFS_Y + 0.000}, 1},
+                            {{IAFS_X, IAFS_Y}, 1}
+                        }
+                    };
+                };
+            };
+        };
+    };
+
+    class fuelLines_IAFS {
+        type = line;
+        width = 9;
+        points[] = {
+            {{0.48, 0.256}, 1},
+            {{0.48, 0.322}, 1}, 
+            {},
+            {{0.48, 0.382}, 1},
+            {{0.48, 0.480}, 1} 
+        };
     };
 };

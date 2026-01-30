@@ -1,11 +1,10 @@
 class CfgAmmo {
     class B_30mm_HE;
-    class fza_30x113: B_30mm_HE
-    {
+    class fza_30x113: B_30mm_HE {
         //Ace Cfg
         ACE_caliber = 30.00;
         ACE_bulletLength = 104;
-        ACE_bulletMass = 114;
+        ACE_bulletMass = 234;
         ACE_muzzleVelocityVariationSD = 0.37;
         ACE_ammoTempMuzzleVelocityShifts[] = {-27.20, -26.44, -23.76, -21.00, -17.54, -13.10, -7.95, -1.62, 6.24, 15.48, 27.75};
         ACE_ballisticCoefficients[] = {0.151};
@@ -41,9 +40,9 @@ class CfgAmmo {
         triggerOnImpact             =1;
         deleteParentWhenTriggered   =0;
         
-        soundsetbulletfly[]         = {"fza_sc_bullet_flyby_soundset"};
-        soundsetsoniccrack[]        = {"fza_sc_30x113_soundset"};
-        soundsetexplosion[]         = {"fza_20mm_explosion_soundset", "fza_explosion_echo_small_soundset"};
+        soundsetbulletfly[]         = {"fza_soundset_cannon_flyby"};
+        soundsetsoniccrack[]        = {"fza_soundset_cannon_flyby_1"};
+        soundsetexplosion[]         = {"fza_soundset_cannon_explosion", "fza_soundset_cannon_explosion_echo"};
 
         //AI uasge
         aiAmmoUsageFlags            = "64+128+256";
@@ -65,33 +64,21 @@ class CfgAmmo {
         midRangeProbab = 0.8;
         maxRange = 3500;
         maxRangeProbab = 0.6;
-        class CamShakeExplode
-        {
+        class CamShakeExplode {
             power = 6;
             duration = 1;
             frequency = 20;
-            distance = 67.8178;
         };
-        class CamShakeHit
-        {
+        class CamShakeHit {
             power = 30;
             duration = 0.4;
             frequency = 20;
-            distance = 1;
         };
-        class CamShakeFire
-        {
-            power = 2.23607;
+        class CamShakeFire {
+            power = 1.8;
             duration = 1;
-            frequency = 20;
-            distance = 40;
-        };
-        class CamShakePlayerFire
-        {
-            power = 0.01;
-            duration = 0.1;
-            frequency = 20;
-            distance = 1;
+            frequency = 16;
+            distance = 4;
         };
     };
 };

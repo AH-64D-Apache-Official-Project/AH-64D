@@ -11,6 +11,8 @@ class CfgWeapons {
         reloadTime = 0.1;
         magazineReloadTime = 0.1;
         showAimCursorInternal = 0;
+        cursor = "EmptyCursor";
+        cursorAim = "EmptyCursor";
         textureType = "semi";
         weaponLockDelay = 0;
         weaponLockSystem = 4;
@@ -20,7 +22,7 @@ class CfgWeapons {
         sounds[] = {"StandardSound"};
         class StandardSound 
         {
-            soundSetShot[] = {"fza_agm114_soundset"};
+            soundSetShot[] = {"fza_soundset_hellfire_shot"};
         };
         modes[] = {"TopDown"};
         class TopDown: MissileLauncher
@@ -32,7 +34,7 @@ class CfgWeapons {
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
-                soundSetShot[] = {"fza_agm114_soundset"};
+                soundSetShot[] = {"fza_soundset_hellfire_shot"};
             };
             lockedtargetsound[] = {"", 1, 1};
             lockingtargetsound[] = {"", 1, 1};
@@ -57,10 +59,9 @@ class CfgWeapons {
             magazines[] = {HELLFIRE_MAGAZINES(ammoName)};\
             fza_ammoType = ammoName;\
         };
-    HELLFIRE_WEAPON_CONFIG(fza_agm114a, "AGM-114A")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114c, "AGM-114C")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114k, "AGM-114K")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114l, "AGM-114L")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114m, "AGM-114M")
-    HELLFIRE_WEAPON_CONFIG(fza_agm114n, "AGM-114N")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114fa,  "AGM-114FA")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k,   "AGM-114K")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k2a, "AGM-114K2A")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114l,   "AGM-114L")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114n,   "AGM-114N")
 };

@@ -13,5 +13,10 @@ class CfgFunctions
             file = "\fza_ah64_weapons\functions\pylon";
             class pylonSetOwner {R;};
         };
+        class functions {
+            file = "\fza_ah64_weapons\functions";
+            class init {R;};
+            class jettisonAll {R;};
+        };
     };
 };

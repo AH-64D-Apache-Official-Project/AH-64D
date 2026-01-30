@@ -1,13 +1,13 @@
 class InfoBoxes {
 
     class Wind {
-        condition = C_COND(C_MPD_USER(MFD_IND_TSD_ROOT_SHOW_WIND));
+        condition = C_COND(C_MPD_USER(MFD_IND_TSD_SHOW_WIND));
         class Occluder {
             color[] = {0,0,0,1};
             class Polygons {
                 type = polygon;
                 points[] = {
-                    MPD_POINTS_BOX_POLY(Null, 0.7, 0.8, 7*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
+                    MPD_POINTS_BOX_POLY(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
                 };
             };
         };
@@ -15,15 +15,16 @@ class InfoBoxes {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, 0.7, 0.8, 7*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
+                MPD_POINTS_BOX(Null, 0.68, 0.8, 8*MPD_TEXT_WIDTH+0.005, MPD_TEXT_HEIGHT-0.01) //Wind info
             };
         };
-        // Wind info
-        MPD_TEXT_R(WindInfo, 0.7, 0.8, MPD_TEXT_STATIC("CALM"))
+        class wind_text {
+            MPD_TEXT_R(WND, 0.68, 0.795, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_WIND))
+        };
     };
 
     class Endurance {
-        condition = C_COND(C_MPD_USER(MFD_IND_TSD_ROOT_SHOW_ENDR));
+        condition = C_COND(C_MPD_USER(MFD_IND_TSD_SHOW_ENDR));
         class Occluder {
             color[] = {0,0,0,1};
             class Polygons {
@@ -43,7 +44,7 @@ class InfoBoxes {
 
         // Endurance info
         MPD_TEXT_L(Endurance, 0.7+7*MPD_TEXT_WIDTH, 0.73, MPD_TEXT_USER(MFD_TEXT_IND_TSD_ROOT_ENDR))
-        MPD_TEXT_SMALL_R(EnduranceLabel, 0.7+MPD_TEXT_WIDTH, 0.73+MPD_TEXT_HEIGHT-MPD_TEXT_SMALL_HEIGHT, MPD_TEXT_STATIC("EN"))
+        MPD_TEXT_SMALL_R(EnduranceLabel, 0.7+MPD_TEXT_WIDTH, 0.73+MPD_TEXT_HEIGHT-MPD_TEXT_SMALL_HEIGHT - 0.007, MPD_TEXT_STATIC("EN"))
     };
 
     class WaypointData {

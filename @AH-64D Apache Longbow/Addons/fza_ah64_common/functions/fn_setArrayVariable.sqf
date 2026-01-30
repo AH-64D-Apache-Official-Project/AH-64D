@@ -18,6 +18,10 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli", "_variableName", "_index", "_value", ["_public", false]];
 
-private _temp = (_heli getVariable _variableName);
+private _temp = +(_heli getVariable _variableName);
 _temp set [_index, _value];
-_heli setVariable[_variableName, _temp, _public];
+
+if _public then {
+    [_heli, _variableName, _temp] call fza_fnc_updateNetworkGlobal;
+};
+_heli setVariable[_variableName, _temp];

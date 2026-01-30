@@ -3,30 +3,45 @@ class AnimationSources
     ////////RADAR///////
     class fcr_enable
     {
-        displayName = "Install FCR";
-        author = "Apache mod development team";
-        onPhaseChanged = "_this # 0 enableVehicleSensor [""ActiveRadarSensorComponent"",_this # 1 == 1];";
+        displayName = "Mount FCR (Fire Control Radar)";
+        author = "AH-64D Development Team";
         source = "user";
-        initPhase = 1;
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class Plt_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class cpg_flood
+    {
+        source = "user";
+        initPhase = 0;
+        animPeriod = 0.001;
+    };
+    class landing_light
+    {
+        source = "user";
+        initPhase = 0;
         animPeriod = 0.001;
     };
     class msn_equip_american
     {
-        displayName = "Install American Mission Equipment";
-        author = "Apache mod development team";
         source = "user";
-        forceAnimatePhase = 1;
-        forceAnimate[] = {"msn_equip_british", 0};
         initPhase = 1;
         animPeriod = 0.001;
+        onPhaseChanged = "if (_this#1 == 1) then {_this#0 animateSource [""msn_equip_british"", 0];};";//Future Note:force deselect all other ase equipment upon Amerian == 1
     };
     class msn_equip_british
     {
-        displayName = "Install British Mission Equipment";
-        author = "Apache mod development team";
+        displayName = "Mount British Mission Equipment";
+        author = "AH-64D Development Team";
         source = "user";
         forceAnimatePhase = 1;
-        forceAnimate[] = {"msn_equip_american", 0};
+        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
+        forceAnimate[] = {"msn_equip_american", 0,"fcr_enable", 1};
         initPhase = 0;
         animPeriod = 0.001;
     };
@@ -39,8 +54,8 @@ class AnimationSources
     class magazine_set_1200
     {
         displayName = "Swap IAFS for 1200rnd magazine";
-        author = "Apache mod development team";
-        onPhaseChanged = "_this remoteExec [""fza_fnc_weaponSwapM230Mag"",_this # 0];";
+        author = "AH-64D Development Team";
+        onPhaseChanged = "_this call fza_fnc_weaponSwapM230Mag";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
@@ -49,7 +64,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.01;
-        initPhase  = 1;
+        initPhase  = -5.5;
     };
     class pnvs
     {
@@ -91,25 +106,25 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon2
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon3
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class pylon4
     {
         source = "user";
         animPeriod = 0.1;
-        initPhase=0;
+        initPhase=0.5;
     };
     class swashplate_up_tns
     {
@@ -337,7 +352,7 @@ class AnimationSources
     {
         source = "user";
         animPeriod = 0.001;
-        initPhase=1;
+        initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_rtrbrake"", ""plt_rtrbrake""] call fza_fnc_animReset";
     };
     class plt_anticollision
@@ -345,7 +360,7 @@ class AnimationSources
         source = "user";
         animPeriod = 0.001;
         initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_anticollision"", ""plt_anticollision""] call fza_fnc_animReset";
+        onPhaseChanged = "[_this # 0, ""fza_ah64_lightAntiColl"", ""plt_anticollision""] call fza_fnc_animReset";
     };
     class plt_firesw
     {
@@ -371,20 +386,6 @@ class AnimationSources
         animPeriod = 0.001;
         initPhase=0;
     };
-    class plt_batt
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_battery"", ""plt_batt""] call fza_fnc_animReset";
-    };
-    class plt_apu
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=0;
-        onPhaseChanged = "[_this # 0, ""fza_ah64_apu"", ""plt_apu""] call fza_fnc_animReset";
-    };
     class cpg_ihadss_brt
     {
         source = "user";
@@ -405,26 +406,19 @@ class AnimationSources
         initPhase=0;
         onPhaseChanged = "[_this # 0, ""fza_ah64_powerLever2"", ""plt_eng2_throttle""] call fza_fnc_animReset";
     };
-    class plt_uiscale
-    {
-        source = "user";
-        animPeriod = 0.001;
-        initPhase=1;
-    };
-    class cpg_uiscale : plt_uiscale {};
     //////////////DOORS//////////////////
     class pdoor
     {
-        displayName = "Open Pilot door";
-        author = "Apache mod development team";
+        displayName = "Toggle Pilot door";
+        author = "AH-64D Development Team";
         source = "user";
         animPeriod = 1;
         initPhase=0;
     };
     class gdoor
     {
-        displayName = "Open Gunner door";
-        author = "Apache mod development team";
+        displayName = "Toggle Gunner door";
+        author = "AH-64D Development Team";
         source = "user";
         animPeriod = 1;
         initPhase=0;
@@ -433,29 +427,27 @@ class AnimationSources
     class l_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class l_ads_b : l_ads_p
     {
         source = "user";
     };
-    class l_ads_y : l_ads_p
-    {
-        source = "user";
-    };
     class r_ads_p
     {
         source = "user";
-        animPeriod = 0.001;
+        animPeriod = 0.01;
         initPhase=0;
     };
     class r_ads_b : r_ads_p
     {
         source = "user";
     };
-    class r_ads_y : r_ads_p
+    class mpd_scale
     {
-        source = "user";
-    };
+        source = user;
+        initPhase = 1;
+        animPeriod = 0.01;
+    }
 };

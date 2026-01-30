@@ -17,7 +17,7 @@ Parameters:
             _text1 is the first part of text
             _text2 is the second part of text, where applicable
     _display - 1 if right, 0 if left
-    _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *fza_ah64_rangesetting x 0.75*
+    _scale - (optional) Ratio to apply to scale from the world's size to the MPD size. Defaults to *persist state "tsdScale" x 0.75*
     _center - (optional) Where in the screen should be where the "helicopter" should be when converting from world. Defaults to [0.5, 0.25]
 
 Returns:
@@ -32,20 +32,16 @@ params
     [ "_heli"
     , "_dmsPoints"
     , "_displayIdx"
-    , ["_scale", -1]
+    , "_scale"
     , ["_center", [0.5, 0.75]]
     , ["_heading", direction (_this # 0)]
     , ["_heliPos", getPosASL (_this # 0)]
     ];
 
 private _displaySide = ["left", "right"] select _displayIdx;
-private _display = uiNamespace getVariable "fza_mpd_display" get _displaySide;
+private _display = uiNamespace getVariable "fza_mpd_display";
 
-private _ctrlPoints = _display getVariable "fza_points";
-
-if (_scale == -1) then {
-    _scale = (0.125 * 5 / (_heli getVariable "fza_ah64_rangesetting"));
-};
+private _ctrlPoints = _display getVariable ("fza_points_"+_displaySide);
 
 //Set all current state to be not updated. This lets us know which ones can be removed
 {_y set ["updated", false]} forEach _ctrlPoints;
@@ -53,7 +49,7 @@ if (_scale == -1) then {
 //Draw each UI element
 {
     if !(_forEachIndex in _ctrlPoints) then {_ctrlPoints set [_forEachIndex, createHashMap]};
-    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos] call fza_mpd_fnc_uiDrawPoint;
+    [_heli, _display, _x, _ctrlPoints get _forEachIndex, _scale, _center, _heading, _heliPos, _displayIdx] call fza_mpd_fnc_uiDrawPoint;
 
     (_ctrlPoints get _forEachIndex) set ["updated", true];
 } forEach _dmsPoints;
@@ -63,6 +59,5 @@ if (_scale == -1) then {
     if (_y get "updated") then {continue;};
     
     {if (typeName _y == "CONTROL") then {ctrlDelete _y;};} forEach _y;
-    _ctrlPoints deleteAt _x;
 } forEach _ctrlPoints;
 displayUpdate _display;

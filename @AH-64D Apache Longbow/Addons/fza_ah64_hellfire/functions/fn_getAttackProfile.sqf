@@ -14,7 +14,7 @@ Examples:
     [_heli] call fza_hellfire_fnc_getattackProfile
 
 Author:
-    Rosd6(Dryden)
+    Snow(Dryden)
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 

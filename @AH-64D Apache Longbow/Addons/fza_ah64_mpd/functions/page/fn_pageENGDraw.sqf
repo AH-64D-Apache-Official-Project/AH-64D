@@ -2,8 +2,6 @@
 #include "\fza_ah64_controls\headers\wcaConstants.h"
 params ["_heli", "_mpdIndex"];
 
-private _configVehicles = configOf _heli >> "CfgVehicles";
-private _flightModel    = getText (_configVehicles >> "fza_flightModel");
 
 // #region ENGINE 1
 private _e1np   = (_heli getVariable "fza_sfmplus_engPctNP" select 0) * 100;
@@ -49,30 +47,10 @@ _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_TGT_2), _e2tgt toFixed 0
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NG_2), (_e2ng/10) toFixed 1];
 _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_OIL_PSI_2), _e2opsi toFixed 0];
 
-// #region ROTORS
-private _rotorRpm = 0.0;
-if (_flightModel == "SFMPlus") then {
-     _rotorRpm = ((_heli animationPhase "mainrotorRPM") * 1.08) * 10;
-    _rotorRpm = [_rotorRpm, 0.0, _e1Np max _e2Np] call BIS_fnc_clamp;
-} else {
-    _rotorRpm = _e1Np max _e2Np;
-};
+private _rotorRpm = ([_heli] call fza_sfmplus_fnc_getRtrRPM) * 100;
+
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_NR), round _rotorRpm];
 _heli setUserMFDText  [MFD_INDEX_OFFSET(MFD_TEXT_IND_ENG_NR), _rotorRpm toFixed 0];
-
-//TODO: Change so sound occurs even if not in engine page
-/*
-if (_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5 && !fza_ah64_warnHighRpm) then {
-    [_heli, 1, "engineWarning", "fza_ah64_rotor_rpm_high", 1.5] call fza_audio_fnc_addASEMessage;
-    
-    fza_ah64_warnHighRpm = true;
-};
-if !(_rotorRpm > 110 && isengineon _heli && (getpos _heli select 2) > 5) then {
-    fza_ah64_warnHighRpm = false;
-};*/
-
-private _airMode = getpos _heli select 2 > 1;
-_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), [0, 1] select _airMode];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TGT_BAR), 965];
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_TORQUE_BAR), 125];
 
@@ -88,15 +66,16 @@ if (_engineStates # 1 in ["STARTING", "STARTED"]) then {
     _engineStarted = 2;
 };
 
+private _pagemode = [2,1] select ([_heli] call fza_sfmplus_fnc_onGround);
 _heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_START), _engineStarted];
-if (_airMode) then {
-    private _wcas = [_heli] call fza_fnc_coreGetWCAs;
-    _wcas resize 5;
-    _wcas = _wcas apply {[_x, [WCA_ADVISORY, ""]] select (isNil "_x")};
-    {
-        _heli setUserMFDText [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 1];
-        _heli setUserMFDValue [MFD_INDEX_OFFSET(_forEachIndex + MFD_IND_ENG_WCA_1), _x # 0];
-    } forEach _wcas;
+private _wcas = [_heli] call fza_fnc_coreGetWCAs;
+_wcas = _wcas select {!(WCA_ADVISORY in _x)};
+_wcas resize [5, [0," "]];
+if (_wcas#0#1 isNotEqualTo " ") then {_pagemode = 3;};
+_heli setUserMfdValue [MFD_INDEX_OFFSET(MFD_IND_ENG_MODE), _pagemode];
+for "_x" from 0 to 4 do {
+    _heli setUserMFDText [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#1];
+    _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_ENG_WCA_1 + _x), _wcas#_x#0];
 };
 
 //Hydraulics

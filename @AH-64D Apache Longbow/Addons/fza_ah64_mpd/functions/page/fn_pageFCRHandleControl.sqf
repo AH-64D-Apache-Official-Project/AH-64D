@@ -1,4 +1,5 @@
 #include "\fza_ah64_controls\headers\script_common.hpp"
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
 params ["_heli", "_mpdIndex", "_control"];
 
 switch(_control) do {
@@ -8,4 +9,8 @@ switch(_control) do {
     case "t1": {
         _heli setVariable ["fza_ah64_fcrcscope", !(_heli getVariable "fza_ah64_fcrcscope")];
     };
+    case "l1": {
+        [_heli] call fza_fcr_fnc_cycleNTS;
+    };
 };
+ 

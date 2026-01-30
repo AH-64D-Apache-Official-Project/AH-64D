@@ -10,15 +10,21 @@ class CfgFunctions
         class functions {
             file = "\fza_ah64_common\functions";
             class addKeybind {R;};
-            class calculateSideslip {R;};
             class cycle {R;};
             class debugDrawCircle {R;};
             class debugDrawLine {R;};
             class getArea {R;};
+            class getSeat {R;};
+            class getSeatVariable {R;};
             class linearInterp {R;};
             class padString {R;};
+            class rotateVector {R;};
             class setArrayVariable {R;};
+            class setSeatVariable {R;};
+            class sign {R;};
             class currentTurret {R;};
+            class updateNetworkGlobal {R;};
+            class updateAnimations {R;};
         };
         class pid {
             file = "\fza_ah64_common\functions\pid";

@@ -9,18 +9,30 @@ class CfgFunctions
         tag="fza_mpd";
         class functions {
             file = "\fza_ah64_mpd\functions";
+            class acqDraw {RECOMPILE_FLAG;};
+            class bearingToScreen {RECOMPILE_FLAG;};
             class currentPage {RECOMPILE_FLAG;};
             class drawIcons {RECOMPILE_FLAG;};
             class handleControl {RECOMPILE_FLAG;};
-            class handleZoom {RECOMPILE_FLAG;};
+            class iconBlink {RECOMPILE_FLAG;};
+            class init {RECOMPILE_FLAG;};
+            class propagatePage {RECOMPILE_FLAG;};
             class setCurrentPage {RECOMPILE_FLAG;};
             class update {RECOMPILE_FLAG;};
-            class init {RECOMPILE_FLAG;};
-            class acqDraw {RECOMPILE_FLAG;};
         };
+        class canvas {
+            file = "\fza_ah64_mpd\functions\canvas";
+            class canvasDraw {RECOMPILE_FLAG;};
+            class canvasDrawLine {RECOMPILE_FLAG;};
+        }
         class chan {
             file = "\fza_ah64_mpd\functions\chan";
             class chanShowFrequencies {RECOMPILE_FLAG;};
+        };
+        class fcr {
+            file = "\fza_ah64_mpd\functions\fcr";
+            class fcrATMDraw {RECOMPILE_FLAG;};
+            class fcrGTMDraw {RECOMPILE_FLAG;};
         };
         class fuel {
             file = "\fza_ah64_mpd\functions\fuel";
@@ -30,6 +42,8 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\tsd";
             class tsdRTEDraw {RECOMPILE_FLAG;};
             class tsdRTEHandleControl {RECOMPILE_FLAG;};
+            class tsdScaleDraw {RECOMPILE_FLAG;};
+            class tsdScaleHandleControl {RECOMPILE_FLAG;};
             class tsdSHOWDraw {RECOMPILE_FLAG;};
             class tsdSHOWHandleControl {RECOMPILE_FLAG;};
             class tsdTHRTDraw {RECOMPILE_FLAG;};
@@ -41,6 +55,8 @@ class CfgFunctions
         };
         class page {
             file = "\fza_ah64_mpd\functions\page";
+            class pageABRDraw {RECOMPILE_FLAG;};
+            class pageABRHandleControl {RECOMPILE_FLAG;};
             class pageACUtilDraw {RECOMPILE_FLAG;};
             class pageACUtilHandleControl {RECOMPILE_FLAG;};
             class pageASEDraw {RECOMPILE_FLAG;};
@@ -65,6 +81,7 @@ class CfgFunctions
             class pageFUELHandleControl {RECOMPILE_FLAG;};
             class pageMENUHandleControl {RECOMPILE_FLAG;};
             class pageTSDDraw {RECOMPILE_FLAG;};
+            class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};
             class pageWCADraw {RECOMPILE_FLAG;};
             class pageWCAHandleControl {RECOMPILE_FLAG;};
@@ -77,6 +94,19 @@ class CfgFunctions
             file = "\fza_ah64_mpd\functions\ui";
             class uiInit {RECOMPILE_FLAG;};
             class uiDrawPoint {RECOMPILE_FLAG;};
-        }
+        };
+        class wpn {
+            file = "\fza_ah64_mpd\functions\wpn";
+            class wpnGunDraw {RECOMPILE_FLAG;};
+            class wpnGunHandlecontrol {RECOMPILE_FLAG;};
+            class wpnRktDraw {RECOMPILE_FLAG;};
+            class wpnRktHandlecontrol {RECOMPILE_FLAG;};
+            class wpnQuantityDraw {RECOMPILE_FLAG;};
+            class wpnQuantityHandleControl {RECOMPILE_FLAG;};
+            class wpnMslDraw {RECOMPILE_FLAG;};
+            class wpnMslHandlecontrol {RECOMPILE_FLAG;};
+            class wpnTrajDraw {RECOMPILE_FLAG;};
+            class wpnTrajHandleControl {RECOMPILE_FLAG;};
+        };
     };
 };

@@ -1,11 +1,3 @@
-class Extended_Engine_EventHandlers {
-    class fza_ah64base {
-        class fza_ah64_aicrew_engine_eh {
-            engine = "_this spawn fza_aiCrew_fnc_engineStart;";
-        };
-    };
-};
-
 class Extended_GetOut_EventHandlers {
     class fza_ah64base {
         class fza_ah64_aicrew_getout_eh {
