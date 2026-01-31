@@ -19,11 +19,6 @@ Author:
 ---------------------------------------------------------------------------- */
 params["_heli", "_turret", "_state"];
 
-private _value     = [false, true] select (_turret isEqualTo [-1]);
-private _animation = ["cpg_flood", "plt_flood"] select _value;
-private _texture   = ["\fza_ah64_model\tex\in\pushbut.paa", "\fza_ah64_model\tex\in\dlt.paa"] select _value;
-private _texture   = ["", _texture] select _state;
-private _selection = ["in_backlight2", "in_backlight"] select _value;
+private _animation = ["cpg_flood", "plt_flood"] select (_turret isEqualTo [-1]);
 
 _heli animateSource [_animation, ([0,1] select _state)];
-_heli setObjectTextureGlobal [_selection, _texture];

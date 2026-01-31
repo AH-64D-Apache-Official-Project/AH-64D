@@ -59,40 +59,8 @@ private _fcrhdg      = -360;
 
 //layers
 private _raddisp = "fza_ah64_raddisp" call BIS_fnc_rscLayer;
-private _clickhelper = "fza_ah64_click_helper" call BIS_fnc_rscLayer;
 private _monocle = "fza_ah64_monocleinbox" call BIS_fnc_rscLayer;
 private _laseit = "fza_ah64_laseit" call BIS_fnc_rscLayer;
-
-if (isNil "fza_ah64_helperinit") then {
-    _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
-    if (isNil "fza_ah64_mousetracker") then {
-        fza_ah64_mousetracker = (findDisplay 46) displayAddEventHandler["MouseMoving", "_this call fza_fnc_uiMouseMove"];
-    };
-    fza_ah64_helperinit = true;
-};
-
-if (isNull(uiNameSpace getVariable "fza_ah64_click_helper")) then {
-    _clickhelper cutrsc["fza_ah64_click_helper", "PLAIN", 0, false];
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602) ctrlSetTextColor[0, 1, 1, 1];
-};
-
-private _clickHint = (uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 602;
-if (fza_ah64_enableClickHelper) then {
-    private _controls = [_heli] call fza_fnc_coreGetObjectsLookedAt;
-    if (_controls isEqualTo []) then {
-        _clickHint ctrlSetText "";
-    } else {
-        //If there are multiple controls in the range, make sure we use the closest one
-        if(count _controls > 1) then {
-            _controls = [_controls, [], {_x # 6}, "ASCEND"] call BIS_fnc_sortBy;
-        };
-        _clickHint ctrlSetText (_controls # 0 # 5);
-    };
-} else {
-     _clickHint ctrlSetText "";
-};
-_clickHint ctrlCommit 0.001;
 
 if (isNull laserTarget _heli) then {
     _laseit cuttext["", "PLAIN", 0.1, false];
@@ -102,7 +70,7 @@ if !(_heli getvariable "fza_ah64_LmcActive") then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if ((_heli getVariable "fza_ah64_ihadss_pnvs_cam" != 0) && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
     private _aspect = getResolution#4;
     private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
     if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
@@ -152,7 +120,6 @@ if (!(_heli getVariable "fza_ah64_monocleinbox") && cameraView == "INTERNAL" && 
     };
 } else {
     if (cameraView != "INTERNAL") then {
-        _clickhelper cuttext["", "PLAIN", 0, false];
         _monocle cuttext["", "PLAIN", 0, false];
     };
     _raddisp cuttext["", "PLAIN", 0, false];
@@ -203,7 +170,6 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1]; //COLOR WHITE TADS VIEW ACQ
     };
 
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0]; // Hide interact action
 
     //RELOCATE TEXTURES AS FOLLOWS
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 123) ctrlsetposition[0.31, 0.345, 0.5, 0.12];
@@ -255,9 +221,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;
     };
 
-    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP
-    ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601)
-    ctrlSetTextColor[1, 1, 1, 1];
+    //REMOVE AND/OR RECOLOR TEXTURES ONCE HEADSUP 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\ihadss.paa"; //TEST
     ((uiNameSpace getVariable "fza_ah64_laseit")  displayCtrl 701) ctrlSetText "";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "";

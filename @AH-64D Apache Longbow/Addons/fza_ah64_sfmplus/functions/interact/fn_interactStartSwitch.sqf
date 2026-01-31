@@ -17,26 +17,27 @@ Examples:
 Author:
     BradMick
 ---------------------------------------------------------------------------- */
-params ["_heli", "_engNum"];
+params ["_heli", "_engNum", "_action"];
 
 if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
-private _engState    = _heli getVariable "fza_sfmplus_engState" select _engNum;
+private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
-switch (_engState) do {
-	case "STARTING": {
-		_engState = "OFF";
-		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
-		false;
-	};
-	case "OFF": {
-		_engState = "STARTING";
-		[_heli, "fza_sfmplus_engState", _engNum, _engState, true] call fza_fnc_setArrayVariable;
-
-		true;
-	};
-	default {
-		true;
-	}
+switch (_action) do {
+    case "START": {
+        _heli animateSource [(["plt_eng1_start", "plt_eng2_start"] select _engNum), 0.5];
+        if (_engState isEqualTo "OFF") exitWith {
+            [_heli, "fza_sfmplus_engState", _engNum, "STARTING", true] call fza_fnc_setArrayVariable;
+        };
+        true;
+    };
+    case "IGN ORDIE": {
+        if (_engState isEqualTo "STARTING") exitWith {
+            [_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
+        };
+        true;
+    };
+    default {
+        false;
+    };
 };

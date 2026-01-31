@@ -29,56 +29,6 @@ class RscTitles
             };
         };
     };
-    class fza_ah64_click_helper
-    {
-        idd = 600;
-        movingEnable =  1;
-        duration     =  99999;
-        fadein       =  0;
-        fadeout      =  0;
-        name = "fza_ah64_click_helper";
-        onLoad = "with uiNameSpace do { fza_ah64_click_helper = _this select 0 }";
-        class controls
-        {
-            class fza_ah64_click_helper_center
-            {
-                idc = 601;
-                type = 0;
-                colorText[] = {1, 1, 1, 1};
-                font = "EtelkaMonospaceProBold";
-                colorBackground[] = {1, 1, 1, 1};
-                text = "\fza_ah64_model\tex\hdu\hmd_curs_ca.paa";
-                style = 48;
-                sizeEx = 1024;
-                x = 0.495;
-                y = 0.491;
-                w = 0.01;
-                h = 0.015;
-            };
-            class fza_ah64_click_helper_txt
-            {
-                type = 13;
-                idc = 602;
-                style = 2 + 16;
-                lineSpacing = 1;
-                x = 0.25;
-                y = 0.55;
-                w = 0.5;
-                h = 0.12;
-                size = 0.02;
-                colorBackground[] = {0,0,0,0};
-                colorText[] = {0.1,1,0,0.5};
-                text = "";
-                font = "EtelkaMonospaceProBold";
-                class Attributes
-                {
-                    font = "EtelkaMonospaceProBold";
-                    align = "center";
-                    shadow = false;
-                };
-            };
-        };
-    };
     class fza_ah64_raddisp
     {
         idd = 100;
