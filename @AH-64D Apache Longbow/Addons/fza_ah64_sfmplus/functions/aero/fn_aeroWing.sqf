@@ -1,5 +1,6 @@
-params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
+
+params ["_heli","_wingPos","_pitch","_roll","_span","_chord","_sweep","_twist","_tipWidthScalar"];
 
 if (!local _heli) exitWith {};
 
@@ -11,14 +12,14 @@ private _rho            = _heli getVariable "fza_sfmplus_rho";
 private _heliCOM        = getCenterOfMass _heli;
 private _numElements    = 5;//getArray  (_heliSimCfg >> "wingElements")               select _wingNum;
 private _airfoilTable   = getArray (_sfmPlusConfig >> "airfoilTable02");
-private _wingPos        = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
-private _pitch          = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
-private _roll           = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
-private _span           = 2.25;//getArray  (_heliSimCfg >> "wingSpan")                   select _wingNum;    //SPN
-private _chord          = 0.95;//getArray  (_heliSimCfg >> "wingChord")                  select _wingNum;    //CRD
-private _sweep          = -1.2;//getArray  (_heliSimCfg >> "wingSweep")                  select _wingNum;    //SWP
-private _twist          = 0.0;//getArray  (_heliSimCfg >> "wingTwist")                  select _wingNum;
-private _tipWidthScalar = 1.0;//getArray  (_heliSimCfg >> "wingTipWidthScalar")         select _wingNum;    //TWS
+//private _wingPos        = [0.0, -6.3, -0.75];//getArray  (_heliSimCfg >> "wingPos")                    select _wingNum;    //POS
+//private _pitch          = 0.0;//getArray  (_heliSimCfg >> "wingPitch")                  select _wingNum;    //PCH
+//private _roll           = -90.0;//getArray  (_heliSimCfg >> "wingRoll")                   select _wingNum;    //RLL
+//private _span           = 2.25;//getArray  (_heliSimCfg >> "wingSpan")                   select _wingNum;    //SPN
+//private _chord          = 0.95;//getArray  (_heliSimCfg >> "wingChord")                  select _wingNum;    //CRD
+//private _sweep          = -1.2;//getArray  (_heliSimCfg >> "wingSweep")                  select _wingNum;    //SWP
+//private _twist          = 0.0;//getArray  (_heliSimCfg >> "wingTwist")                  select _wingNum;
+//private _tipWidthScalar = 1.0;//getArray  (_heliSimCfg >> "wingTipWidthScalar")         select _wingNum;    //TWS
 private _chordLinePos   = 0.25;//getArray  (_heliSimCfg >> "wingChordLinePos")           select _wingNum;
 
 private _vectorRight   = [[1.0, 0.0, 0.0], _pitch, _roll] call fza_fnc_rotateVector;
@@ -134,7 +135,7 @@ for "_j" from 0 to (_numElements - 1) do {
     _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
     private _dragVector = _relativeWind;
-    _dragVector = vectorNormalized _dragVector;
+    _dragVector = (vectorNormalized _dragVector) vectorMultiply -1.0;
     _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
 
     #ifdef __A3_DEBUG__
@@ -148,7 +149,14 @@ for "_j" from 0 to (_numElements - 1) do {
     private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
-    _heli addTorque (_heli vectorModelToWorld _moment);
+    private _torque = [0.0, 0.0, 0.0];
+    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+        _torque = _moment;
+    } else {
+        _torque = [0.0, 0.0, _moment select 2];
+    };
+
+    _heli addTorque (_heli vectorModelToWorld _torque);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Debug                /////////////////////////////////////////////////////////////////////

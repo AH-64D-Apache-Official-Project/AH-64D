@@ -35,14 +35,14 @@ private _collToPitchOut         = _heli getVariable "fza_sfmplus_fmcCollectiveTo
 private _yawToPitchOut          = _heli getVariable "fza_sfmplus_fmcYawToPitch";
 private _sasPitchOut            = _heli getVariable "fza_sfmplus_fmcSasPitchOut";
 private _fmcPitchOut            = _attHoldCycPitchOut + _sasPitchOut + _collToPitchOut + _yawToPitchOut;
-_fmcPitchOut                    = [_fmcPitchOut, -0.15, 0.15] call BIS_fnc_clamp;
+//_fmcPitchOut                    = [_fmcPitchOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _attHoldCycRollOut      = _heli getVariable "fza_sfmplus_fmcAttHoldCycRollOut";
 private _sasRollOut             = _heli getVariable "fza_sfmplus_fmcSasRollOut";
 private _collToRollOut          = _heli getVariable "fza_sfmplus_fmcCollectiveToRoll";
 private _yawToRollOut           = _heli getVariable "fza_sfmplus_fmcYawToRoll";
 private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRollOut + _yawToRollOut;
-_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
+//_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
 private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
@@ -379,7 +379,7 @@ _cyclicLeftRightTrim         = _heli getVariable "fza_ah64_forceTrimPosRoll";
 private _rollInput           = ([_cyclicLeftRight, _cyclicLeftRightTrim] call fza_sfmplus_fnc_getInterpInput) + _fmcRollOut;
 _rollInput                   = [_rollInput, -1.0, 1.0] call BIS_fnc_clamp;
 private _rollTorque          = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, 100000 * _rollTorqueScalar, true];
-private _torqueY             = _rollTorque * _rollInput * _deltaTime; 
+private _torqueY             = _rollTorque * _rollInput * _deltaTime;
 //systemChat format ["_pitchInput = %1 -- _rollInput = %2", _pitchInput toFixed 3, _rollInput toFixed 3];
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Yaw Torque           /////////////////////////////////////////////////////////////////////
@@ -395,9 +395,14 @@ if (currentPilot _heli == player) then {
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
+
         //Main rotor torque
         private _torque = [0.0, 0.0, 0.0];
-        _torque = [_torqueX, _torqueY, _torqueZ];
+        if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+            _torque = [_torqueX, _torqueY, _torqueZ];
+        } else {
+            _torque = [_torqueX, _torqueY, 0.0];   
+        };
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
@@ -431,7 +436,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
 
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#99ffffff'>Entering VRS Condition!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#99ffffff'>Entering VRS Condition!</t>"];
             };
         };
         //2933 fpm to 3867 
@@ -445,7 +450,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
 
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#FFFF00'>Caution! VRS Developing!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#FFFF00'>Caution! VRS Developing!</t>"];
             };
         };
         //3867fpm to 4800 fpm
@@ -458,7 +463,7 @@ if (cameraView == "INTERNAL") then {
             setCustomSoundController[_heli, "CustomSoundController3", 6.4];
             setCustomSoundController[_heli, "CustomSoundController4", 1.8];
             if (fza_ah64_sfmPlusVrsWarning) then {
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#ff0000'>Warning! Fully Developed VRS Imminent!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#ff0000'>Warning! Fully Developed VRS Imminent!</t>"];
             };
         };
         //> 4800fpm
@@ -473,7 +478,7 @@ if (cameraView == "INTERNAL") then {
 
             if (fza_ah64_sfmPlusVrsWarning) then {
 
-                hintSilent parseText format ["<t size='1.25' font='Zeppelin33' color='#ff0000'>Danger! You are in VRS!</t>"];
+                hintSilent parseText format ["<t size='1.5' font='EtelkaMonospacePro' color='#ff0000'>Danger! You are in VRS!</t>"];
             };
         };
     } else {

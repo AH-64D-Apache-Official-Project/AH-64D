@@ -179,8 +179,8 @@ if (fza_ah64_sfmPlusAutoPedal) then {
 
     if (_yawBreakout || _gndSpeed > HDG_HOLD_SPEED_SWITCH_DECEL) then {
         _desiredHdg       = getDir _heli;
-        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / fza_ah64_sfmPlusAutoPedalTimeScalar) * _deltaTime] call BIS_fnc_lerp;
-        _kbPedalLeftRight = [_kbPedalLeftRight, -0.5, 0.5] call BIS_fnc_clamp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, _pedalLeftRight, (1.0 / 0.1) * _deltaTime] call BIS_fnc_lerp;
+        _kbPedalLeftRight = [_kbPedalLeftRight, -1.0, 1.0] call BIS_fnc_clamp;
         _pedalLeftRight   = _kbPedalLeftRight;
 
         _heli setVariable ["fza_sfmplus_kbPedalLeftRight", _kbPedalLeftRight];

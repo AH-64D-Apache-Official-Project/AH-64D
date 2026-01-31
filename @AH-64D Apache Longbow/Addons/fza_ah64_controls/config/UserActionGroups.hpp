@@ -53,14 +53,22 @@ class UserActionGroups {
     {
         name = "AH-64D Apache Official: Input";
         group[] = {
+            //HOTAS & Keyboard Cylic
             fza_ah64_cyclicForward,
             fza_ah64_cyclicBackward,
             fza_ah64_cyclicLeft,
             fza_ah64_cyclicRight,
+            //Mouse Cyclic
+            //fza_ah64_mouseCyclicForward,
+            //fza_ah64_mouseCyclicBackward,
+            //fza_ah64_mouseCyclicLeft,
+            //fza_ah64_mouseCyclicRight,
+            //HOTAS & Keyboard Collective
             fza_ah64_pedalLeft,
             fza_ah64_pedalRight,
             fza_ah64_collectiveUp,
             fza_ah64_collectiveDn,
+            //Keyboard Collective
             fza_ah64_kbCollectiveUp,
             fza_ah64_kbCollectiveDn
         };

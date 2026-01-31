@@ -141,4 +141,12 @@ private _yawToRoll = ([_yawToRollTable, _pedalOut] call fza_fnc_linearInterp sel
 /////////////////////////////////////////////////////////////////////////////////////////////
 private _collAirspeedToYaw = 0.0;
 
+if (fza_ah64_sfmplusRealismSetting != REALISTIC) then {
+	_collToRoll        = 0.0;
+	_collToYaw         = 0.0;
+	_yawToPitch        = 0.0;
+	_yawToRoll 		   = 0.0;
+	_collAirspeedToYaw = 0.0;
+};
+
 [_collToPitch, _collToRoll, _collToYaw, _yawToPitch, _yawToRoll, _collAirspeedToYaw];
