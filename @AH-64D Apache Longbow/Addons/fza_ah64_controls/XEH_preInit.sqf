@@ -126,7 +126,7 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
     [_projName, "Flight model"],
-    [false],
+    [true],
     2
 ] call CBA_fnc_addSetting;
 
