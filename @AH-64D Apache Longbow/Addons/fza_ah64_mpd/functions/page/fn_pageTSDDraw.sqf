@@ -77,7 +77,6 @@ switch (_state get "subPageVarPage" select 0) do {
 
 _this call fza_mpd_fnc_tsdScaleDraw;
 
-private _pointsArray = [];
 //TSD Points
 private _pointsArray      = [];
 private _showEnemy        = _heli getVariable "fza_mpd_tsdShowEnemy" select _phase;
@@ -197,8 +196,6 @@ if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
 
 //ASE Points
-private _ctrX       = 0.5;  
-private _ctrY       = 0.75 - 0.25 * (_persistState get "ctr");
 private _aseObjects = _heli getVariable "fza_ah64_ase_objects";
 private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
 {

@@ -140,10 +140,12 @@ private _rtrRPMInducedThrustScalar = _inputRpmPct * _rtrThrustScalar_max;
 private _airDensityThrustScalar    = _dryAirDensity / ISA_STD_DAY_AIR_DENSITY;
 
 //Additional thrust gained from increasing forward airspeed
-private _velX                      = _heli getVariable "fza_sfmplus_velModelSpace" select 0;
-private _velY                      = _heli getVariable "fza_sfmplus_velModelSpace" select 1;
-private _velWindY                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 1;
-private _velWindX                  = _heli getVariable "fza_sfmplus_velWindModelSpace" select 0;
+private _velModelSpace             = _heli getVariable "fza_sfmplus_velModelSpace";
+private _velX                      = _velModelSpace select 0;
+private _velY                      = _velModelSpace select 1;
+private _velWindModelSpace         = _heli getVariable "fza_sfmplus_velWindModelSpace";
+private _velWindY                  = _velWindModelSpace select 1;
+private _velWindX                  = _velWindModelSpace select 0;
 if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
@@ -153,7 +155,7 @@ private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
 
 //Induced flow handler
-private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpace" select 2;
+private _velZ                      = _velModelSpace select 2;
 private _inducedVelocityScalar     = 1.0;
 private _vrsVelMin                 = _heli getVariable "fza_sfmplus_vrsVelocityMin";
 private _vrsVelMax                 = _heli getVariable "fza_sfmplus_vrsVelocityMax";
@@ -182,8 +184,9 @@ private _rtrArea                   = PI * _bladeRadius^2;
 private _profile_min = 0.180;
 private _profile_max = 0.407;
 
-private _velXNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 0;
-private _velYNoWind  = _heli getVariable "fza_sfmplus_velModelSpaceNoWind" select 1;
+private _velNoWindArr = _heli getVariable "fza_sfmplus_velModelSpaceNoWind";
+private _velXNoWind  = _velNoWindArr select 0;
+private _velYNoWind  = _velNoWindArr select 1;
 private _velXYNoWind = vectorMagnitude [_velXNoWind, _velYNoWind];
 
 private _profilePowerCollectiveScalar = [_collectiveOutput / _profile_max, 0.0, 1.0] call BIS_fnc_clamp;
@@ -304,8 +307,9 @@ private _gndEffScalar  = (1 - (_heightAGL / _rtrDiam)) * _rtrGndEffScalar;
 _gndEffScalar          = [_gndEffScalar, 0.0, 1.0] call BIS_fnc_clamp;
 private _gndEffThrust  = _rtrThrust * _gndEffScalar;
 
-private _eng1TQ        = _heli getVariable "fza_sfmplus_engPctTQ" select 0;
-private _eng2TQ        = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
+private _engPctTQArr   = _heli getVariable "fza_sfmplus_engPctTQ";
+private _eng1TQ        = _engPctTQArr select 0;
+private _eng2TQ        = _engPctTQArr select 1;
 private _engPctTQ      = _eng1TQ max _eng2TQ;
 private _isSingleEng   = _heli getVariable "fza_sfmplus_isSingleEng";
 

@@ -165,7 +165,7 @@ if !_powerOnState then {
 };
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
-    if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
+    if (_Visionmode == 1) then {
         fza_ah64_flirResolutionEffect ppEffectEnable true;
         fza_ah64_monoChromeEffect ppEffectEnable false;
         fza_ah64_dvoEffect ppEffectEnable false;
@@ -193,14 +193,16 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
-    
+
     //COLOR SET THESE
+    private _hduColourG = _hduColour select 1;
+    private _hduWhite = [_hduColourG, _hduColourG, _hduColourG, 1];
     for "_i" from 121 to 209 do {
         //if (_i in [129,135,136,137,138,139,140,141,142,143,144,145,146,182,186]) exitwith {};
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduWhite;
     };
     for "_i" from 802 to 804 do {
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1]; //COLOR WHITE TADS VIEW ACQ
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduWhite; //COLOR WHITE TADS VIEW ACQ
     };
 
     ((uiNameSpace getVariable "fza_ah64_click_helper") displayCtrl 601) ctrlSetTextColor[1, 1, 1, 0]; // Hide interact action
@@ -226,12 +228,12 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     if !(isNull laserTarget _heli) then {
         _laseit cutrsc["fza_ah64_laseit", "PLAIN", 0, false];
         ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetText "\fza_ah64_model\tex\HDU\Apache_LaserOn.paa";
-        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+        ((uiNameSpace getVariable "fza_ah64_laseit") displayCtrl 701) ctrlSetTextColor _hduWhite;
     };
     //LSC SYMBOLOGY FOR GUNNER
     if (_heli getvariable "fza_ah64_LmcActive") then {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetText "\fza_ah64_model\tex\HDU\TADSLMC_co.paa";
-        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor[(_hduColour select 1), (_hduColour select 1), (_hduColour select 1), 1];
+        ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 703) ctrlSetTextColor _hduWhite;
     };
 
     //TADS DTV/FLIR Fail
@@ -336,7 +338,8 @@ if (!isNull laserTarget _heli) then {
     _targrange = format["*%1", round(_heli distance laserTarget _heli)];
 };
 
-_thetatarg = [_heli, getposatl _heli#0, getposatl _heli#1, _ntsPosition#0, _ntsPosition#1] call fza_fnc_relativeDirection;
+private _heliPosATL = getposatl _heli;
+_thetatarg = [_heli, _heliPosATL#0, _heliPosATL#1, _ntsPosition#0, _ntsPosition#1] call fza_fnc_relativeDirection;
 
 _aimpos = worldtoscreen(_heli modelToWorldVisual[0, +20, 0]);
 if (count _aimpos < 1) then {
@@ -360,7 +363,8 @@ if (_thetatarg > 45 && _thetatarg < 180) then {
 };
 
 //Use the perfGetData method to update the TQ in the HDU
-_TQVal = (_heli getVariable "fza_sfmplus_engPctTQ" select 0) max (_heli getVariable "fza_sfmplus_engPctTQ" select 1);
+private _engPctTQArr = _heli getVariable "fza_sfmplus_engPctTQ";
+_TQVal = (_engPctTQArr select 0) max (_engPctTQArr select 1);
 _collective = format["%1", round(100 * _TQVal)];
 if (_collective == "scalar") then {
     _collective = "0";
@@ -453,14 +457,15 @@ if (_weaponWas == WAS_WEAPON_GUN) then {
 };
 
 //IHADSS FLIGHT MODES
+private _hmdMode = _heli getVariable "fza_ah64_hmdfsmode";
 
-if (((_heli getVariable "fza_ah64_hmdfsmode") != "trans" && (_heli getVariable "fza_ah64_hmdfsmode") != "cruise") || (_headsdown)) then {
+if ((_hmdMode != "trans" && _hmdMode != "cruise") || (_headsdown)) then {
     _waypointcode = "";
     _gspdcode = "";
     _fpv = [-100, -100];
 };
 
-if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
+if (_hmdMode != "cruise") then {
     _baraltft = "";
 };
 
@@ -468,7 +473,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
 #define BOBUP_EDGE_FEET 40
 
 _bobcoords = [-100, -100];
-if (_heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+if (_hmdMode == "bobup") then {
     private _thetabob = (_heli getdir (_heli getVariable "fza_ah64_bobpos")) - direction _heli;
     private _heliBobDist = (_heli distance2d (_heli getVariable "fza_ah64_bobpos")) / BOBUP_EDGE_FEET * SCALE_METERS_FEET * BOBUP_EDGE_DISPLAY;
     private _coordX = sin _thetabob;
@@ -546,19 +551,20 @@ private _velY   = 0.0;
 private _accelX = 0.0; 
 private _accelY = 0.0;
 
-if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 3.08667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 3.08667;
+private _velNoWind = _heli getVariable "fza_sfmplus_velModelSpaceNoWind";
+if (_hmdMode == "hover" || _hmdMode == "bobup") then {
+    _velX = (_velNoWind select 0) / 3.08667;
+    _velY = (_velNoWind select 1) / 3.08667;
 };
 
-if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
-    _velX = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0) / 30.8667;
-    _velY = ((_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1) / 30.8667;
+if (_hmdMode == "trans") then {
+    _velX = (_velNoWind select 0) / 30.8667;
+    _velY = (_velNoWind select 1) / 30.8667;
 };
 _velX = [_velX, -1.0, 1.0] call BIS_fnc_clamp;
 _velY = [_velY, -1.0, 1.0] call BIS_fnc_clamp;
 
-if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
+if (_hmdMode != "cruise") then {
     _accelX    = (_heli getVariable "fza_sfmplus_accelX") / 12.0;
     _accelX    = [_accelX, -1.0, 1.0] call BIS_fnc_clamp;
 
@@ -566,7 +572,7 @@ if (_heli getVariable "fza_ah64_hmdfsmode" != "cruise") then {
     _accelY    = [_accelY, -1.0, 1.0] call BIS_fnc_clamp;
 
     private _accelScaling = 0.168;
-    if (_heli getVariable "fza_ah64_hmdfsmode" == "hover" || _heli getVariable "fza_ah64_hmdfsmode" == "bobup") then {
+    if (_hmdMode == "hover" || _hmdMode == "bobup") then {
         if ((_heli getVariable "fza_sfmplus_gndSpeed") <= 6) then {
             _accelCueX =  _velX + _accelX;
             _accelCueY = -_velY - _accelY;
@@ -612,19 +618,19 @@ _pbvar set [0, [_pbvar # 0 + 5, -25, 25] call BIS_fnc_clamp];
 
 //HUD HORIZON OBJECTS
 
-if ((_heli getVariable "fza_ah64_hmdfsmode" != "trans" && _heli getVariable "fza_ah64_hmdfsmode" != "cruise") || (_headsdown)) then {
+if ((_hmdMode != "trans" && _hmdMode != "cruise") || (_headsdown)) then {
     {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _x) ctrlSetPosition[100, 10, 100];
     }
     foreach[250, 251, 252, 253, 254, 255, 256, 257, 258, 259, 260, 261, 262, 263, 264, 265, 266, 267, 268, 269];
 } else {
-    if (_heli getVariable "fza_ah64_hmdfsmode" == "trans") then {
+    if (_hmdMode == "trans") then {
         [269, (_pbvar select 0), (_pbvar select 1)] call _autohide;
     } else {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 269) ctrlSetPosition[100, 10, 100];
     };
 
-    if (_heli getVariable "fza_ah64_hmdfsmode" == "cruise") then {
+    if (_hmdMode == "cruise") then {
         [250, (_pbvar select 0), (_pbvar select 1)] call _autohide;
         [251, (_pbvar select 0) - 10, (_pbvar select 1)] call _autohide;
         [252, (_pbvar select 0) - 20, (_pbvar select 1)] call _autohide;

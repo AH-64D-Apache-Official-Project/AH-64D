@@ -9,6 +9,7 @@ private _heli = vehicle player;
 
 private _onGnd      = [_heli] call fza_sfmplus_fnc_onGround;
 private _gndOrideOn = _heli getVariable "fza_ah64_gndOrideOn";
+private _was        = _heli getVariable "fza_ah64_was";
 
 if (_value) then {
     //When button pressed
@@ -58,7 +59,8 @@ if (_value) then {
         case "fza_ah64_symbologySelectDown": {
             switch (_heli getVariable "fza_ah64_hmdfsmode") do {
                 case "hover": {
-                    _heli setVariable ["fza_ah64_bobpos", [(getposasl _heli select 0), (getposasl _heli select 1)], true];
+                    private _heliASL = getposasl _heli;
+                    _heli setVariable ["fza_ah64_bobpos", [_heliASL select 0, _heliASL select 1], true];
                     _heli setVariable ["fza_ah64_bobhdg", getdir _heli, true];
                     _heli setVariable ["fza_ah64_hmdfsmode", "bobup", true];
                 };
@@ -72,8 +74,6 @@ if (_value) then {
         };
         case "fza_ah64_fcrSingleScan": {
             private _fcrState = _heli getVariable "fza_ah64_fcrState";
-            private _onGnd = [_heli] call fza_sfmplus_fnc_onGround;
-            private _gndOrideOn  = _heli getVariable "fza_ah64_gndOrideOn";
             if (!_gndOrideOn && _onGnd || _fcrState#0 == FCR_MODE_FAULT) exitwith {};
             if (_fcrState#0 != FCR_MODE_ON_SINGLE) exitwith {
                 player action ["ActiveSensorsOn", _heli];
@@ -88,14 +88,14 @@ if (_value) then {
             // Todo: Implemen target store
         };
         case "fza_ah64_missileAdvance": {
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_was == WAS_WEAPON_MSL) then {
                 [_heli] call fza_fnc_weaponMissileCycle
             };
         };
         case "fza_ah64_wasGun": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_GUN) then {
+            if (_was == WAS_WEAPON_GUN) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
                 [_heli, WAS_WEAPON_GUN] call fza_fnc_weaponActionSwitch;
@@ -104,7 +104,7 @@ if (_value) then {
         case "fza_ah64_wasRkt": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_RKT) then {
+            if (_was == WAS_WEAPON_RKT) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
                 [_heli, WAS_WEAPON_RKT] call fza_fnc_weaponActionSwitch;
@@ -113,7 +113,7 @@ if (_value) then {
         case "fza_ah64_wasMsl": {
             if (!_gndOrideOn && _onGnd) exitWith {[_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;};
 
-            if (_heli getVariable "fza_ah64_was" == WAS_WEAPON_MSL) then {
+            if (_was == WAS_WEAPON_MSL) then {
                 [_heli, WAS_WEAPON_NONE] call fza_fnc_weaponActionSwitch;
             } else {
                 [_heli, WAS_WEAPON_MSL] call fza_fnc_weaponActionSwitch;
