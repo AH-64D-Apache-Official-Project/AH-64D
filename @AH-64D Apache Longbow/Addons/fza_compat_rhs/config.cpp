@@ -6,7 +6,7 @@ class CfgPatches
         author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {"rhs_c_a2port_armor"};
+        requiredAddons[] = {"fza_ah64_controls", "rhs_c_a2port_armor"};
         skipWhenMissingDependencies = 1;
     };
 };

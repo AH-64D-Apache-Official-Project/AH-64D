@@ -64,3 +64,5 @@ buildCfg.json
 .sconsign.dblite
 venv/
 buildTools
+
+build/

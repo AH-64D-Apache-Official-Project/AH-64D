@@ -30,8 +30,7 @@ class vname {\
     onDeactivate          = __EVAL(format["['%1', false] call fza_sfmplus_fnc_nonAnalogHandler", #vname]);\
 }
 
-class CfgUserActions
-{
+class CfgUserActions {
     CfgUserActionDef(fza_ah64_sightSelectHMD, "Sight Select HMD", "Sets the current sight to HMD");
     CfgUserActionDef(fza_ah64_sightSelectTADS, "Sight Select TADS", "Sets the current sight to TADS");
     CfgUserActionDef(fza_ah64_sightSelectFXD, "Sight Select FXD", "Sets the current sight to FXD");
@@ -42,7 +41,6 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_laserDesig, "LRFD Second Detent (Lase)", "Lases the target when held down.");
     CfgUserActionDef(fza_ah64_fcrSingleScan, "FCR Single Scan", "Scans the FCR a single time");
     CfgUserActionDef(fza_ah64_targetStoreUpdate, "Target Store", "Stores the target being currently looked at in the TADS as a waypoint");
-    CfgUserActionDef(fza_ah64_crosshairInteract, "Crosshair Action", "Interact with item in the cockpit under the crosshair");
     CfgUserActionDef(fza_ah64_missileAdvance, "Missile Advance", "Advances through all missile types");
     CfgUserActionDef(fza_ah64_wasGun, "WAS Gun", "Action the gun in your crew station");
     CfgUserActionDef(fza_ah64_wasRkt, "WAS Rockets", "Action the rockets in your crew station");
@@ -54,7 +52,6 @@ class CfgUserActions
     CfgUserActionDef(fza_ah64_fcrModeSwitch_up, "Ground Targeting Mode (GTM)", "Sets the Fire Control Radar To Ground Targeting Mode");
     CfgUserActionDef(fza_ah64_fcrModeSwitch_down, "Air Targeting Mode (ATM)", "Sets the Fire Control Radar To Air Targeting Mode");
     CfgUserActionDef(fza_ah64_flare, "Deploy Flare", "Deploy a single Flare countermeasure");
-    CfgUserActionDef(fza_ah64_freeCursor, "Detach interact cursor", "Detaches the cursor from the head");
     CfgUserActionDef(fza_ah64_tadsLHGFov_W, "TADS LHG FOV Switch - W", "Sets the Tads FOV to Wide");
     CfgUserActionDef(fza_ah64_tadsLHGFov_M, "TADS LHG FOV Switch - M", "Sets the Tads FOV to Medium");
     CfgUserActionDef(fza_ah64_tadsLHGFov_N, "TADS LHG FOV Switch - N", "Sets the Tads FOV to Narrow");

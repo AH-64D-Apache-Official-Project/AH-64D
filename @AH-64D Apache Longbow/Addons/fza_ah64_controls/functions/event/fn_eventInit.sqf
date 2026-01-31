@@ -61,13 +61,10 @@ if (!(_heli getVariable ["fza_ah64_aircraftInitialised", false]) && local _heli)
     ], true];
 };
 
-//free cursor
-_heli setVariable ["fza_ah64_freeCursorEnabled", false];
-_heli setVariable ["fza_ah64_freeCursorHpos", 0.5];
-_heli setVariable ["fza_ah64_freeCursorVpos", 0.5];
 _heli setVariable ["fza_ah64_lastTimePropagated", 0];
 _heli setVariable ["fza_ah64_tadsElevation", 0];
 _heli setVariable ["fza_ah64_tadsAzimuth",   0];
+_heli setVariable ["ace_rearm_scriptedLoadout", true];
 
 if (player in _heli && !is3den && {fza_ah64_showPopupv2_2 && !fza_ah64_introShownThisScenario}) then {
     _heli spawn {
@@ -94,22 +91,3 @@ if (local _heli) then {
         }; 
     } foreach getAllPylonsInfo _heli; 
 };
-
-#define COCKPIT_CONTROL(pilot_mempoint, gunner_mempoint, system, system_name, control, sensitivity, control_name, movable) [pilot_mempoint, gunner_mempoint, #system, #control, sensitivity, control_name, movable]
-#define COCKPIT_CONTROL_SEP ,
-private _data =  [
-    #include "\fza_ah64_controls\headers\controls.h"
-];
-
-private _controls = [];
-{
-    _x params [["_pilotPos", ""], ["_gunnerPos", ""], "_systemName", "_eventName", "_sensitivity", "_description", "_movable"];
-    if (_pilotPos != "" && !_movable) then {
-        _pilotPos = _heli selectionposition _pilotPos;
-    };
-    if (_gunnerPos != "" && !_movable) then {
-        _gunnerPos = _heli selectionposition _gunnerPos;
-    };
-    _controls pushback [_pilotPos, _gunnerPos, _systemName, _eventName, _sensitivity, _description, _movable];
-} foreach _data;
-_heli setvariable ["fza_ah64_objectsDataArray", _controls];
