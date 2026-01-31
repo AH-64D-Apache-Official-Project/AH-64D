@@ -40,6 +40,19 @@ class CfgDefaultKeysPresets {
             fza_ah64_SensorSelect_FLIR[] = {0x1D130031};
             fza_ah64_SensorSelect_DTV[] = {0x2A130031};
             fza_ah64_SensorSelect_DVO[] = {0x38130031};
+            fza_ah64_stickyControlInterupt[] = {0x39};
+            fza_ah64_forceTrimPanicButton[] = {};
+            fza_ah64_collectiveEmergJett[] = {};
+            fza_ah64_cyclicForward[] = {0x11};
+            fza_ah64_cyclicBackward[] = {0x1F};
+            fza_ah64_cyclicLeft[] = {0x1E};
+            fza_ah64_cyclicRight[] = {0x20};
+            fza_ah64_pedalLeft[] = {0x10};
+            fza_ah64_pedalRight[] = {0x12};
+            fza_ah64_collectiveUp[] = {};
+            fza_ah64_collectiveDn[] = {};
+            fza_ah64_kbCollectiveUp[] = {0x2A};
+            fza_ah64_kbCollectiveDn[] = {0x1D};
             
         };
     };
