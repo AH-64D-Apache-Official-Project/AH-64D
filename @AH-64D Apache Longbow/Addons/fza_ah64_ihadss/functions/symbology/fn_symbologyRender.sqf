@@ -1,13 +1,28 @@
 params ["_heli", "_ctrl"];
 
-
 private _model = createHashMapFromArray
     [ ["flight", createHashMapFromArray
-        [ ["sideslip",  fza_ah64_sideslip]
-        , ["vel",       [0,0]]
-        , ["accel",     [0,0]]
+        [ ["selSymb",   _heli getVariable "fza_ah64_hmdfsmode"]
+        , ["vel",       [(_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0, (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1]]
+        , ["accel",     [_heli getVariable "fza_sfmplus_accelX", _heli getVariable "fza_sfmplus_accelY"]]
+        , ["pitch",     (_heli call BIS_fnc_getPitchBank) select 0]
+        , ["roll",      (_heli call BIS_fnc_getPitchBank) select 1]
+        , ["sideslip",  fza_ah64_sideslip]
         , ["roc",       _heli getVariable "fza_sfmplus_velClimb"]
         , ["tas",       _heli getVariable "fza_sfmplus_vel3D"]
+        , ["gndSpd",    _heli getVariable "fza_sfmplus_gndSpeed"]
+        , ["baroAlt",   ([_heli] call fza_sfmplus_fnc_getAltitude) select 0]
+        , ["radAlt",    ([_heli] call fza_sfmplus_fnc_getAltitude) select 1]
+        , ["engTq",     ((_heli getVariable "fza_sfmplus_engPctTQ" select 0) * 100) max ((_heli getVariable "fza_sfmplus_engPctTQ" select 1) * 100)]
+        , ["engTgt",    (_heli getVariable "fza_sfmplus_engTGT" select 0) max (_heli getVariable "fza_sfmplus_engTGT" select 1)]
+        , ["curWpt",    ([_heli] call fza_mpd_fnc_tsdWaypointStatusText) select 0]
+        , ["dstToWpt",  ([_heli] call fza_mpd_fnc_tsdWaypointStatusText) select 2]
+        , ["timeToWpt", ([_heli] call fza_mpd_fnc_tsdWaypointStatusText) select 3]
+        , ["acftHdg",   direction _heli]
+        , ["attHoldAct", _heli getVariable "fza_ah64_attHoldActive"]
+        , ["altHoldAct", _heli getVariable "fza_ah64_altHoldActive"]
+        , ["loAltWarn",  33]
+        , ["hiAltWarn",  200]
         ]]
     , ["sensor", createHashMapFromArray
         [ ["headTracker", [_ctrl, _heli modelToWorldVisual [0, 1000000, 0]] call fza_ihadss_fnc_symbologyPosCoord]
