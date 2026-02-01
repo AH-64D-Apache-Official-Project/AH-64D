@@ -1,3 +1,5 @@
+#define QUOTE(x) #x
+#define COMMA ,
 
 class CfgPatches
 {
@@ -10,6 +12,12 @@ class CfgPatches
         requiredAddons[] = {"fza_ah64_common"};
     };
 };
+
+#ifdef CMD__FZA_IHADSS_LIVE_URL
+class CfgCommands {
+    allowedHTMLLoadURIs[] += {QUOTE(CMD__FZA_IHADSS_LIVE_URL)};
+};
+#endif
 
 #include "cfgFunctions.hpp"
 #include "uiConfig\defines.hpp"

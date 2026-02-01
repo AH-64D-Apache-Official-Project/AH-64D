@@ -10,11 +10,13 @@ const ASPECT_RATIO = 4 / 3;
 const VIRTUAL_WIDTH = 640;
 const VIRTUAL_HEIGHT = VIRTUAL_WIDTH / ASPECT_RATIO;
 
+let inArma3 = window.A3API ? true : false
+
 let model: model | null = window.A3API ? null : exampleModel
 
 function draw() {
   context.clearRect(0, 0, canvas.width, canvas.height);
-  if (!window.A3API) {
+  if (!inArma3) {
     context.fillStyle = "#000";
     context.fillRect(0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
   }
@@ -24,6 +26,7 @@ function draw() {
 }
 
 export function updateModel(newModel:model) {
+  inArma3 = true
   model = newModel;
   draw();
 }

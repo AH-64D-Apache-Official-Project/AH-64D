@@ -20,12 +20,13 @@ class RscTitles
                 y = 0;
                 w = 1;
                 h = 1;
-#ifdef FZA_EXTERNAL_SYMBOLOGY
-                allowExternalURL = 1;
-#endif
-                url = "";
                 colorBackground[] = {0,0,0,0};
-                onLoad = "(_this # 0) ctrlWebBrowserAction [""OpenDataAsURL"",loadFile ""fza_ah64_ihadss\web\index.html""]"
+#ifdef CMD__FZA_IHADSS_LIVE_URL
+                url = QUOTE(CMD__FZA_IHADSS_LIVE_URL);
+                allowExternalURL = 1;
+#else
+                url = "fza_ah64_ihadss\web\index.html";
+#endif
             };
         };
     };
