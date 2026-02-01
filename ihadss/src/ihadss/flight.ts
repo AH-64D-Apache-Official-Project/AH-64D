@@ -5,12 +5,16 @@ export type model = {
   vel: coord;
   accel: coord;
   sideslip: number;
+  roc: number;
+  tas: number;
 };
 
 export const exampleModel: model = {
   vel: [0, 0],
   accel: [0, 0],
   sideslip: 0.33,
+  roc: 500,
+  tas: 90,
 };
 
 export function draw(ctx: CanvasRenderingContext2D, model: model) {
@@ -20,7 +24,7 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawVelocityVector(ctx, model);
   drawVsiScale(ctx, model);
   drawRadAltScale(ctx, model);
-  drawVsiIndexer(ctx, model);
+  drawVsiIndexer(ctx, model.roc);
   drawAttHoldIndicator(ctx, model);
   drawAltHoldIndicator(ctx, model);
   drawFlightPathVector(ctx);
@@ -162,16 +166,16 @@ function drawRadAltScale(ctx: CanvasRenderingContext2D, _model: model) {
   ctx.stroke();
 }
 
-function drawVsiIndexer (ctx: CanvasRenderingContext2D, _model: model) {
+function drawVsiIndexer (ctx: CanvasRenderingContext2D, roc: number) {
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
 
   const posX = 523;
   const posY = (vsiScaleTopY + vsiScaleBotY) / 2;
 
-  const vsiMax       = 2000; //fpp
+  const vsiMax       = 2000; //fpm
   const vsiScale     = (vsiScaleBotY - vsiScaleTopY) / vsiMax;
-  const curRoC       = 333;
+  const curRoC       = roc;
 
   ctx.beginPath();
   ctx.moveTo(posX - 7, posY - (vsiScale * curRoC) - 8);

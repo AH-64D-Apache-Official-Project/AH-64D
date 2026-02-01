@@ -29,7 +29,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.fillText("860C", 174, 115 + 17);
 
   //TAS
-  ctx.fillText("102", 154, 232);
+  ctx.fillText(model.flight.tas.toFixed(0), 154, 232);
 
   //G-meter
   ctx.fillText("1.2G", 154+6, 232 + 22);
