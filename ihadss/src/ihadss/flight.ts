@@ -107,11 +107,6 @@ function drawLubberLine(ctx: CanvasRenderingContext2D) {
   ctx.fill();
 }
 
-//The origin of the acceleration cue is the tip of the velocity vector, except
-//when in hover symbol and the VV is fully saturated, then it's origin shifts
-//to the center of the LOS reticle. This logic needs to be implemented.
-
-//The scalar needs to change based on hover/transition symbology
 function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
     if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
       const max = 167;
@@ -138,8 +133,16 @@ function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
       const accelX = _model.accel[0] * 10;
       const accelY = _model.accel[1] * 10;
 
-      const accelPosX = 320 + velX + accelX;
-      const accelPosY = 240 - velY - accelY;
+      let accelPosX = 320;
+      let accelPosY = 240;
+      if (_model.gndSpd <= 6) { 
+      accelPosX = 320 + velX + accelX;
+      accelPosY = 240 - velY - accelY;
+      }
+      else {
+        accelPosX = 320 + accelX;
+        accelPosY = 240 - accelY;
+      }
 
       const radius    = 7;
 
