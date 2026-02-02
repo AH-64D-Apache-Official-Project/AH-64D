@@ -12,13 +12,17 @@ export const exampleModel: model = {
   sensor: sensor.exampleModel,
 };
 
-export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
-  console.log(model);
-  
-  //Torque
+function ihadssStyle(ctx: CanvasRenderingContext2D) {
   ctx.strokeStyle = "#0F0";
   ctx.fillStyle = "#0F0";
   ctx.font = "15px BMKApacheFont";
+  ctx.globalAlpha = 1;
+  ctx.lineWidth = 2;
+}
+
+export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
+  ihadssStyle(ctx)
+  //Torque
   ctx.textAlign = "left";
   ctx.textBaseline = "bottom";
   ctx.fillText(model.flight.engTq.toFixed(0) + "%", 129, 115);
@@ -150,4 +154,18 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   base.draw(ctx);
   flight.draw(ctx, model.flight);
   sensor.draw(ctx, model.sensor);
+}
+
+export type icontype = "headtracker"
+
+export function drawIhadssIcon(ctx: CanvasRenderingContext2D, icon: icontype): void {
+  ihadssStyle(ctx)
+  ctx.save();
+  ctx.translate(32, 32);
+  switch (icon) {
+    case "headtracker": {
+      sensor.drawHeadTracker(ctx);
+    }
+  }
+  ctx.restore();
 }

@@ -36,6 +36,8 @@ class CfgFunctions
         };
         class symbology {
             file = "\fza_ah64_ihadss\functions\symbology";
+            class symbologyStaticCreate {R;};
+            class symbologyStaticSetPos {R;};
             class symbologyPosCoord {R;};
             class symbologyRender {R;};
         };

@@ -28,6 +28,14 @@ class RscTitles
                 url = "fza_ah64_ihadss\web\index.html";
 #endif
             };
+            class fza_ah64_iconclip: RscControlsGroupNoScrollbars
+            {
+                idc = 961;
+                x = 1/8;
+                y = 0;
+                w = 3/4;
+                h = 1;
+            }
         };
     };
     class fza_ah64_nvsoverlay

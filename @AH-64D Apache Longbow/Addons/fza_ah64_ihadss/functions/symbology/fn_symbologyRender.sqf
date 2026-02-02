@@ -1,4 +1,8 @@
-params ["_heli", "_ctrl"];
+params ["_heli", "_disp"];
+
+_ctrl = _disp displayCtrl 960;
+
+if (isNull _ctrl) exitWith {};
 
 private _model = createHashMapFromArray
     [ ["flight", createHashMapFromArray
@@ -24,9 +28,16 @@ private _model = createHashMapFromArray
         , ["loAltWarn",  33]
         , ["hiAltWarn",  200]
         ]]
-    , ["sensor", createHashMapFromArray
-        [ ["headTracker", [_ctrl, _heli modelToWorldVisual [0, 1000000, 0]] call fza_ihadss_fnc_symbologyPosCoord]
-        ]]
+    , ["sensor", createHashMapFromArray []]
     ];
-
 _ctrl ctrlWebBrowserAction ["ExecJS", Format ["updateModel(%1)", toJSON _model]];
+
+private _headTrackerPos = _heli modelToWorldVisual [0, 1000000, 0];
+
+if (isNull (_disp getVariable ["fza_ihadss_icon_headtracker", controlNull])) then {
+    _disp setVariable ["fza_ihadss_icon_headtracker", [_disp, "headtracker"] call fza_ihadss_fnc_symbologyStaticCreate];
+};
+
+private _headTrackerCtrl = _disp getVariable "fza_ihadss_icon_headtracker";
+
+[_headTrackerCtrl, _headTrackerPos] call fza_ihadss_fnc_symbologyStaticSetPos;

@@ -288,10 +288,7 @@ if !_acBusOn then {
     [_heli] call fza_fnc_laserDisarm;
 };
 
-private _symbologyCtrl = uiNamespace getVariable "fza_ah64_symbology" displayCtrl 960;
-if (!isNull _symbologyCtrl) then {
-    [_heli, _symbologyCtrl] call fza_ihadss_fnc_symbologyRender;
-};
+[_heli, uiNamespace getVariable "fza_ah64_symbology"] call fza_ihadss_fnc_symbologyRender;
 
 _autohide = {
     _partid  = _this select 0;
