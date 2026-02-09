@@ -182,34 +182,6 @@ const headingTapeLeftX   = 199;
 const headingTapeRightX  = 441;
 const headingTapeDegrees = 200;
 
-export function drawHeadingTape(ctx: CanvasRenderingContext2D) {
-  const posY      = 66;
-
-  const shortTickHeight = 3;
-  const longTickHeight  = 5;
-
-  const width     = headingTapeRightX - headingTapeLeftX;
-  const numTicks  = 20;
-  const spacing   = width / numTicks;
-
-  ctx.beginPath();
-  //Small ticks
-  for (let i = 0; i <= numTicks; i++) {
-    if (i % 1 == 0) {
-      ctx.moveTo(199 + (i * spacing), posY - shortTickHeight);
-      ctx.lineTo(199 + (i * spacing), posY + shortTickHeight);
-    }
-  }
-  //Large ticks
-  for (let i = 0; i <= numTicks; i++) {
-    if (i % 3 == 1) {
-      ctx.moveTo(199 + (i * spacing), posY - longTickHeight);
-      ctx.lineTo(199 + (i * spacing), posY + longTickHeight);
-    }
-  }
-  ctx.stroke();
-}
-
 function drawCuedLos(ctx: CanvasRenderingContext2D) {
   ctx.save();
   ctx.translate(320 + 80, 240 + 40);

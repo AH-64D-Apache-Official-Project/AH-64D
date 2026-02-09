@@ -123,13 +123,6 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.textBaseline = "bottom";
   ctx.fillText(model.flight.acftHdg.toFixed(0), 320, 60);
 
-  ctx.font = "15px BMKApacheFont";
-  ctx.fillText("W", 199+12, 57);
-  ctx.fillText("30", 199+48, 57);
-  ctx.fillText("33", 199+84, 57);
-  ctx.fillText("3", 199+157, 57);
-  ctx.fillText("6", 199+194, 57);
-  ctx.fillText("E", 199+230, 57);
 
   //Waypoint Selection
   ctx.font         = "15px BMKApacheFont";
