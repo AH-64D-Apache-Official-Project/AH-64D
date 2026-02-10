@@ -631,11 +631,11 @@ if (_model.selSymb == "cruise") {
         ctx.moveTo(-32, nadirY + 24);
         ctx.lineTo(-32, nadirY - 24);  
 
-        //Top Text
+        //Top Text <-- this needs to be inverted
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "center";
         ctx.fillText("DIVE",  0.0, nadirY - 31);
-        //Bottom Text <-- this needs to be inverted
+        //Bottom Text
         ctx.textAlign = "center";
         ctx.fillText("DIVE",  0.0, nadirY + 45);
       }
@@ -776,6 +776,6 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
         ctx.fillText("33", tickX, posY - textoffsetY);
       }
     }
-  ctx.stroke();
+    ctx.stroke();
   }
 }

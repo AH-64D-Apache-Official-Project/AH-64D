@@ -6,7 +6,6 @@ export const exampleModel: model = {
 };
 
 export function draw(ctx: CanvasRenderingContext2D, model: model) {
-  drawHeadingTape(ctx);
   drawFieldOfRegardPilot(ctx, model);
   drawFieldOfRegardFcrCenterline(ctx);
   drawFieldOfRegardFcrPrevCenterline(ctx);

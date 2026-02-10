@@ -125,24 +125,26 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
 
 
   //Waypoint Selection
-  ctx.font         = "15px BMKApacheFont";
-  ctx.textAlign    = "left";
-  ctx.textBaseline = "bottom";
-  ctx.fillText(model.flight.curWpt, 86, 365);
+ if (model.flight.selSymb == "trans" || model.flight.selSymb == "cruise") {
+    ctx.font         = "15px BMKApacheFont";
+    ctx.textAlign    = "left";
+    ctx.textBaseline = "bottom";
+    ctx.fillText(model.flight.curWpt, 86, 365);
 
-  //Waypoint Distance
-  ctx.font         = "15px BMKApacheFont";
-  ctx.textAlign    = "right";
-  ctx.textBaseline = "bottom";
-  //The "KM" needs to dissapear when a waypoint is currently selected or present
-  if (model.flight.dstToWpt != "") {
-    ctx.fillText(model.flight.dstToWpt + "KM", 222, 365);
+    //Waypoint Distance
+    ctx.font         = "15px BMKApacheFont";
+    ctx.textAlign    = "right";
+    ctx.textBaseline = "bottom";
+    //The "KM" needs to dissapear when a waypoint is currently selected or present
+    if (model.flight.dstToWpt != "") {
+      ctx.fillText(model.flight.dstToWpt + "KM", 222, 365);
+    }
+    //Ground Speed
+    ctx.fillText(model.flight.gndSpd.toFixed(0), 134, 389);
+
+    //Waypoint Time to Go
+    ctx.fillText(model.flight.timeToWpt, 215, 389);
   }
-  //Ground Speed
-  ctx.fillText(model.flight.gndSpd.toFixed(0), 134, 389);
-
-  //Waypoint Time to Go
-  ctx.fillText(model.flight.timeToWpt, 215, 389);
 
   base.draw(ctx);
   flight.draw(ctx, model.flight);
