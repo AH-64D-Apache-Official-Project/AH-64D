@@ -64,6 +64,7 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawCruisePitchLadder(ctx, model);
   drawNavigationFlyToCue(ctx, model);
   drawBobUpBox(ctx, model);
+  drawHeadingTape(ctx, model);
 }
 
 function drawTrimBall(ctx: CanvasRenderingContext2D, _model: model) {
@@ -692,5 +693,89 @@ function drawBobUpBox(ctx: CanvasRenderingContext2D, _model: model) {
     ctx.lineTo(posX - 20, posY - 10);
     ctx.lineTo(posX - 10, posY - 20);
     ctx.stroke();
+  }
+}
+
+export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
+  const posY      = 66;
+
+  const shortTickHeight = 3;
+  const longTickHeight  = 5;
+  const textoffsetY     = 7;
+
+  const numTicks  = 36;
+  const spacing   = 12;
+
+  const aircraftoffset = Math.round(_model.acftHdg * spacing / 10);
+  ctx.beginPath();
+
+  for (let i = 0; i < numTicks; i++) {
+    let tickheading = i * 10;
+    let offset = tickheading - _model.acftHdg;
+
+    if (offset < -180) {
+      offset += 360;
+      tickheading += 360;
+    } else if (offset > 180) {
+      offset -= 360;
+      tickheading -= 360;
+    }
+
+    if (offset <= -105 || offset >= 105) {
+      continue;
+    }
+
+    const major = (tickheading % 30) == 0;
+    const tickX = (320 + tickheading * spacing / 10 - aircraftoffset);
+    
+    if (major) {
+      ctx.moveTo(tickX, posY - longTickHeight);
+      ctx.lineTo(tickX, posY + longTickHeight);
+    } else {
+      ctx.moveTo(tickX, posY - shortTickHeight);
+      ctx.lineTo(tickX, posY + shortTickHeight);
+    }
+
+    ctx.textAlign = "center";
+    ctx.font = "15px BMKApacheFont";
+    if (offset >= 23 || offset <= -23) {
+      if ((tickheading % 360) == 0) {
+        ctx.fillText("N", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 30) {
+        ctx.fillText("3", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 60) {
+        ctx.fillText("6", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 90) {
+        ctx.fillText("E", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 120) {
+        ctx.fillText("12", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 150) {
+        ctx.fillText("15", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 180) {
+        ctx.fillText("S", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 210) {
+        ctx.fillText("21", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 240) {
+        ctx.fillText("24", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 270) {
+        ctx.fillText("W", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 300) {
+        ctx.fillText("30", tickX, posY - textoffsetY);
+      }
+      if ((tickheading % 360) == 330) {
+        ctx.fillText("33", tickX, posY - textoffsetY);
+      }
+    }
+  ctx.stroke();
   }
 }
