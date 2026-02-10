@@ -26,11 +26,11 @@ export type model = {
 };
 
 export const exampleModel: model = {
-  selSymb: "hover",
+  selSymb: "cruise",
   vel: [5, 8],
   accel: [5, 7],
-  pitch: 45.0,
-  roll: 45.0,
+  pitch: -30.0,
+  roll: 0.0,
   sideslip: 0.33,
   roc: 500,
   tas: 90,
@@ -41,7 +41,7 @@ export const exampleModel: model = {
   engTgt: 860,
   curWpt: "W19",
   dstToWpt: "6.5",
-  timeToWpt: "2:00:00",
+  timeToWpt: "2:10:00",
   acftHdg: 229,
   altHoldAct: true,
   attHoldAct: true,
@@ -61,6 +61,7 @@ export function draw(ctx: CanvasRenderingContext2D, model: model) {
   drawAltHoldIndicator(ctx, model);
   drawFlightPathVector(ctx, model);
   drawTransitionHorizonLine(ctx, model);
+  drawCruisePitchLadder(ctx, model);
   drawNavigationFlyToCue(ctx, model);
   drawBobUpBox(ctx, model);
 }
@@ -152,7 +153,6 @@ function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
   }
 }
 
-//The scalar needs to change based on hover/transition symbology
 function drawVelocityVector(ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
     const velVecOriginX = 320;
@@ -368,8 +368,7 @@ function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model)
     ctx.translate(posX, posY);
     ctx.rotate(-_model.roll * 0.0174533);
     ctx.beginPath();
-    //ctx.moveTo(-horizonStart, 0);
-    //ctx.lineTo(horizonWidth, 0);  
+ 
     for (let i = 0; i < 8; i++) {
       if ((i % 2) == 0) {
         ctx.moveTo(-horizonStart + (horizonIncrement * i), 0);
@@ -384,6 +383,266 @@ function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model)
     ctx.restore();
   }
 }
+
+function drawCruisePitchLadder(ctx: CanvasRenderingContext2D, _model: model) {
+if (_model.selSymb == "cruise") {
+    const posX      = 320;
+
+    const pitchBias = 0;
+    const scalar    = 5 / 22;
+    const pitchY = clamp(
+    (_model.pitch + pitchBias) / scalar
+    , -(90 / scalar)
+    ,  (90 / scalar)
+    );
+
+    const posY = 240 + pitchY;
+
+    const horizonStart      = 142;
+    const shortHorizonStart = horizonStart / 3;
+    const shortHorizonWidth = 104;
+    const shortHorizonIncrement = (shortHorizonWidth - 26) / 12;
+
+    ctx.save();
+    ctx.translate(posX, posY);
+    ctx.rotate(-_model.roll * 0.0174533);
+    ctx.beginPath();
+
+    //horizon line
+    if (posY >= 108 && posY <= 372) {
+      ctx.moveTo(-horizonStart, 0);
+      ctx.lineTo( horizonStart, 0);
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Top Horizon Bars    ////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    for (let i = 1; i < 4; i++) {
+      const ladderY = (i * -10) / scalar;
+      if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
+        //left text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "right";
+        ctx.fillText((i * 10).toFixed(0), -shortHorizonStart - 1, ladderY + 7);
+        //left vertical line
+        ctx.moveTo(-shortHorizonStart + 1,                            ladderY);
+        ctx.lineTo(-shortHorizonStart + 1,                            ladderY + 7);
+        //left horizontal line
+        ctx.moveTo(-shortHorizonStart,                                ladderY);
+        ctx.lineTo(-shortHorizonStart + (shortHorizonWidth / 2) - 20, ladderY);
+        //right horizontal line
+        ctx.moveTo( shortHorizonStart, ladderY);
+        ctx.lineTo( shortHorizonStart - (shortHorizonWidth / 2) + 20, ladderY);
+        //right vertical line
+        ctx.moveTo( shortHorizonStart - 1,                            ladderY);
+        ctx.lineTo( shortHorizonStart - 1,                            ladderY + 7);
+        //right text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "left";
+        ctx.fillText((i * 10).toFixed(0),  shortHorizonStart + 1, ladderY + 7);
+      }
+    }
+    console.log(posY);
+    //45 Degrees
+    const topLadderY45 = -(45 + pitchBias) / scalar;
+    if ((topLadderY45 + pitchY) >= -154 && (topLadderY45 + pitchY) <= 154) {
+      //left text
+      ctx.font      = "15px BMKApacheFont";
+      ctx.textAlign = "right";
+      ctx.fillText("45", -shortHorizonStart - 1, topLadderY45 + 7);
+      //left vertical line
+      ctx.moveTo(-shortHorizonStart + 1,                            topLadderY45);
+      ctx.lineTo(-shortHorizonStart + 1,                            topLadderY45 + 7);
+      //left horizontal line
+      ctx.moveTo(-shortHorizonStart,                                topLadderY45);
+      ctx.lineTo(-shortHorizonStart + (shortHorizonWidth / 2) - 20, topLadderY45);
+      //right horizontal line
+      ctx.moveTo( shortHorizonStart, topLadderY45);
+      ctx.lineTo( shortHorizonStart - (shortHorizonWidth / 2) + 20, topLadderY45);
+      //right vertical line
+      ctx.moveTo( shortHorizonStart - 1,                            topLadderY45);
+      ctx.lineTo( shortHorizonStart - 1,                            topLadderY45 + 7);
+      //right text
+      ctx.font      = "15px BMKApacheFont";
+      ctx.textAlign = "left";
+      ctx.fillText("45",  shortHorizonStart + 1, topLadderY45 + 7);
+    }
+
+    //60 degrees
+    const topLadderY60 = -(60 + pitchBias) / scalar;
+    if ((topLadderY60 + pitchY) >= -154 && (topLadderY60 + pitchY) <= 154) {
+      //left text
+      ctx.font      = "15px BMKApacheFont";
+      ctx.textAlign = "right";
+      ctx.fillText("60", -shortHorizonStart - 1, topLadderY60 + 7);
+      //left vertical line
+      ctx.moveTo(-shortHorizonStart + 1,                            topLadderY60);
+      ctx.lineTo(-shortHorizonStart + 1,                            topLadderY60 + 7);
+      //left horizontal line
+      ctx.moveTo(-shortHorizonStart,                                topLadderY60);
+      ctx.lineTo(-shortHorizonStart + (shortHorizonWidth / 2) - 20, topLadderY60);
+      //right horizontal line
+      ctx.moveTo( shortHorizonStart, topLadderY60);
+      ctx.lineTo( shortHorizonStart - (shortHorizonWidth / 2) + 20, topLadderY60);
+      //right vertical line
+      ctx.moveTo( shortHorizonStart - 1,                            topLadderY60);
+      ctx.lineTo( shortHorizonStart - 1,                            topLadderY60 + 7);
+      //right text
+      ctx.font      = "15px BMKApacheFont";
+      ctx.textAlign = "left";
+      ctx.fillText("60",  shortHorizonStart + 1, topLadderY60 + 7);
+    }
+
+    //Zenith (90 degrees up)
+    const zenithY = -(90 + pitchBias) / scalar;
+    if ((zenithY + pitchY) >= -154 && (zenithY + pitchY) <= 154) {
+      /*
+      ctx.beginPath();
+      ctx.arc(0, zenithY, 4, 0, 2 * Math.PI);
+      ctx.fill();
+      */
+      //Left line
+      ctx.moveTo( 32, zenithY - 24);
+      ctx.lineTo( 32, zenithY + 24);  
+      //Right line
+      ctx.moveTo(-32, zenithY - 24);
+      ctx.lineTo(-32, zenithY + 24);  
+
+      //Top Text
+      ctx.font      = "15px BMKApacheFont";
+      ctx.textAlign = "center";
+      ctx.fillText("CLIMB",  0.0, zenithY - 31);
+      //Bottom Text <-- this needs to be inverted
+      ctx.textAlign = "center";
+      ctx.fillText("CLIMB",  0.0, zenithY + 45);
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////
+    //Bottom Horizon Bars ////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////
+    for (let i = 1; i < 4; i++) {
+      const ladderY = (i * 10) / scalar;
+      if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
+          //left text
+          ctx.font      = "15px BMKApacheFont";
+          ctx.textAlign = "right";
+          ctx.fillText((i * 10).toFixed(0), -shortHorizonStart - 1, ladderY + 7);
+          //left vertical line
+          ctx.moveTo(-shortHorizonStart + 1, ladderY);
+          ctx.lineTo(-shortHorizonStart + 1, ladderY - 7);
+          for (let i = 0; i < 6; i++) {
+            if ((i % 2) == 0) {
+              //left horizontal line
+              ctx.moveTo(-shortHorizonStart + (shortHorizonIncrement * i),       ladderY);
+              ctx.lineTo(-shortHorizonStart + (shortHorizonIncrement * (i + 1)), ladderY);
+              }
+          }
+          for (let i = 0; i < 6; i++) {
+            if ((i % 2) == 0) {
+              //right horizontal line
+              ctx.moveTo( shortHorizonStart - (shortHorizonIncrement * i),       ladderY);
+              ctx.lineTo( shortHorizonStart - (shortHorizonIncrement * (i + 1)), ladderY);
+            }
+          }
+          //right vertical line
+          ctx.moveTo( shortHorizonStart - 1, ladderY);
+          ctx.lineTo( shortHorizonStart - 1, ladderY - 7);
+          //right text
+          ctx.font      = "15px BMKApacheFont";
+          ctx.textAlign = "left";
+          ctx.fillText((i * 10).toFixed(0), shortHorizonStart + 1, ladderY + 7);
+        }
+      }
+      //45 degrees
+      const bottomLadder45 = (45 - pitchBias) / scalar;
+      if ((bottomLadder45 + pitchY) >= -154 && (bottomLadder45 + pitchY) <= 154) {
+        //left text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "right";
+        ctx.fillText("45", -shortHorizonStart - 1, bottomLadder45 + 7);
+        //left vertical line
+        ctx.moveTo(-shortHorizonStart + 1, bottomLadder45);
+        ctx.lineTo(-shortHorizonStart + 1, bottomLadder45 - 7);
+        for (let i = 0; i < 6; i++) {
+          if ((i % 2) == 0) {
+            //left horizontal line
+            ctx.moveTo(-shortHorizonStart + (shortHorizonIncrement * i),       bottomLadder45);
+            ctx.lineTo(-shortHorizonStart + (shortHorizonIncrement * (i + 1)), bottomLadder45);
+            }
+        }
+        for (let i = 0; i < 6; i++) {
+          if ((i % 2) == 0) {
+            //right horizontal line
+            ctx.moveTo( shortHorizonStart - (shortHorizonIncrement * i),       bottomLadder45);
+            ctx.lineTo( shortHorizonStart - (shortHorizonIncrement * (i + 1)), bottomLadder45);
+          }
+        }
+        //right vertical line
+        ctx.moveTo( shortHorizonStart - 1, bottomLadder45);
+        ctx.lineTo( shortHorizonStart - 1, bottomLadder45 - 7);
+        //right text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "left";
+        ctx.fillText("45", shortHorizonStart + 1, bottomLadder45 + 7);
+      }
+      //60 degrees
+      const bottomLadder60 = (60 - pitchBias) / scalar;
+      if ((bottomLadder60 + pitchY) >= -154 && (bottomLadder60 + pitchY) <= 154) {
+        //left text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "right";
+        ctx.fillText("60", -shortHorizonStart - 1, bottomLadder60 + 7);
+        //left vertical line
+        ctx.moveTo(-shortHorizonStart + 1, bottomLadder60);
+        ctx.lineTo(-shortHorizonStart + 1, bottomLadder60 - 7);
+        for (let i = 0; i < 6; i++) {
+          if ((i % 2) == 0) {
+            //left horizontal line
+            ctx.moveTo(-shortHorizonStart + (shortHorizonIncrement * i),       bottomLadder60);
+            ctx.lineTo(-shortHorizonStart + (shortHorizonIncrement * (i + 1)), bottomLadder60);
+            }
+        }
+        for (let i = 0; i < 6; i++) {
+          if ((i % 2) == 0) {
+            //right horizontal line
+            ctx.moveTo( shortHorizonStart - (shortHorizonIncrement * i),       bottomLadder60);
+            ctx.lineTo( shortHorizonStart - (shortHorizonIncrement * (i + 1)), bottomLadder60);
+          }
+        }
+        //right vertical line
+        ctx.moveTo( shortHorizonStart - 1, bottomLadder60);
+        ctx.lineTo( shortHorizonStart - 1, bottomLadder60 - 7);
+        //right text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "left";
+        ctx.fillText("60", shortHorizonStart + 1, bottomLadder60 + 7);
+      }
+      //Nadir (90 degrees down)
+      const nadirY = (90 - pitchBias) / scalar;
+      if ((nadirY + pitchY) >= -154 && (nadirY + pitchY) <= 154) {
+        /*
+        ctx.beginPath();
+        ctx.arc(0, nadirY, 4, 0, 2 * Math.PI);
+        ctx.fill();
+        */
+        //Left line
+        ctx.moveTo( 32, nadirY + 24);
+        ctx.lineTo( 32, nadirY - 24);  
+        //Right line
+        ctx.moveTo(-32, nadirY + 24);
+        ctx.lineTo(-32, nadirY - 24);  
+
+        //Top Text
+        ctx.font      = "15px BMKApacheFont";
+        ctx.textAlign = "center";
+        ctx.fillText("DIVE",  0.0, nadirY - 31);
+        //Bottom Text <-- this needs to be inverted
+        ctx.textAlign = "center";
+        ctx.fillText("DIVE",  0.0, nadirY + 45);
+      }
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
 
 function drawNavigationFlyToCue(ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "trans" || _model.selSymb == "cruise") {

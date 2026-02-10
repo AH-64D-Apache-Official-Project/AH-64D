@@ -57,7 +57,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
     ctx.font         = "15px BMKApacheFont";
     ctx.textAlign    = "right";
     ctx.textBaseline = "middle";
-    ctx.fillText(model.flight.baroAlt.toFixed(0), 513, 115);
+    ctx.fillText(model.flight.baroAlt.toFixed(0), 513, 108);
   }
 
   //VSI > 1000 FPM Descent Text
