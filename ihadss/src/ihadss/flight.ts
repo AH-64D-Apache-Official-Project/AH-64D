@@ -33,7 +33,7 @@ export const exampleModel: model = {
   fpv: [-0.1, -0.2],
   pitch: 90.0,
   roll: 0.0,
-  heading: 229,
+  heading: 16,
   sideslip: 0.33,
   roc: 500,
   tas: 90,
@@ -752,44 +752,56 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
 
     ctx.textAlign = "center";
     ctx.font = "15px BMKApacheFont";
-    if (offset >= 23 || offset <= -23) {
-      if ((tickheading % 360) == 0) {
-        ctx.fillText("N", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 30) {
-        ctx.fillText("3", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 60) {
-        ctx.fillText("6", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 90) {
-        ctx.fillText("E", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 120) {
-        ctx.fillText("12", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 150) {
-        ctx.fillText("15", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 180) {
-        ctx.fillText("S", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 210) {
-        ctx.fillText("21", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 240) {
-        ctx.fillText("24", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 270) {
-        ctx.fillText("W", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 300) {
-        ctx.fillText("30", tickX, posY - textoffsetY);
-      }
-      if ((tickheading % 360) == 330) {
-        ctx.fillText("33", tickX, posY - textoffsetY);
-      }
+
+    if (((tickheading + 360) % 360) == 0) {
+      ctx.fillText("N", tickX, posY - textoffsetY);
     }
-    ctx.stroke();
+    if (((tickheading + 360) % 360) == 30) {
+      ctx.fillText("3", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 60) {
+      ctx.fillText("6", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 90) {
+      ctx.fillText("E", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 120) {
+      ctx.fillText("12", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 150) {
+      ctx.fillText("15", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 180) {
+      ctx.fillText("S", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 210) {
+      ctx.fillText("21", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 240) {
+      ctx.fillText("24", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 270) {
+      ctx.fillText("W", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 300) {
+      ctx.fillText("30", tickX, posY - textoffsetY);
+    }
+    if (((tickheading + 360) % 360) == 330) {
+      ctx.fillText("33", tickX, posY - textoffsetY);
+    }
   }
+  ctx.stroke();
+
+  const headingtext = _model.heading.toFixed(0);
+  const textwidth = ctx.measureText(headingtext);
+  const textpadding = 10;
+  
+  ctx.clearRect(320 - ((textwidth.width + textpadding) / 2), 40, textwidth.width + textpadding, 20);
+  
+  //Center Heading
+  ctx.textAlign = "center";
+  ctx.font = "18px BMKApacheFont";
+  ctx.textBaseline = "bottom";
+  ctx.fillText(headingtext, 320, 60);
+
 }
