@@ -121,7 +121,7 @@ export function drawIhadss(ctx: CanvasRenderingContext2D, model: model): void {
   ctx.textAlign = "center";
   ctx.font = "18px BMKApacheFont";
   ctx.textBaseline = "bottom";
-  ctx.fillText(model.flight.acftHdg.toFixed(0), 320, 60);
+  ctx.fillText(model.flight.heading.toFixed(0), 320, 60);
 
 
   //Waypoint Selection

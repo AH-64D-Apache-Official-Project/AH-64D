@@ -5,8 +5,10 @@ export type model = {
   selSymb: string;  //"bobup", "hover", "trans", "cruise"
   vel: coord;
   accel: coord;
+  fpv: coord;
   pitch: number;
   roll: number;
+  heading: number;
   sideslip: number;
   roc: number;
   tas: number;
@@ -18,7 +20,6 @@ export type model = {
   curWpt: string;
   dstToWpt: string;
   timeToWpt: string;
-  acftHdg: number;
   attHoldAct: boolean;
   altHoldAct: boolean;
   loAltWarn: number;
@@ -29,8 +30,10 @@ export const exampleModel: model = {
   selSymb: "cruise",
   vel: [5, 8],
   accel: [5, 7],
-  pitch: -30.0,
+  fpv: [-0.1, -0.2],
+  pitch: 90.0,
   roll: 0.0,
+  heading: 229,
   sideslip: 0.33,
   roc: 500,
   tas: 90,
@@ -42,7 +45,6 @@ export const exampleModel: model = {
   curWpt: "W19",
   dstToWpt: "6.5",
   timeToWpt: "2:10:00",
-  acftHdg: 229,
   altHoldAct: true,
   attHoldAct: true,
   loAltWarn: 33,
@@ -324,25 +326,33 @@ function drawAttHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
 
 function drawFlightPathVector(ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "trans" || _model.selSymb == "cruise") {
-    const posX = 320 + 130;
-    const posY = 240 - 20;
+    const fovX = 40;
+    const fovY = 30;
+
+    const scalarX = fovX / 640;
+    const scalarY = fovY / 480;
+
+    const posX = 320 + ((_model.fpv[0] * fovX) / scalarX);
+    const posY = 240 - ((_model.fpv[1] * fovY) / scalarY);
 
     const radius = 9;
 
-    ctx.beginPath();
-    ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
-    ctx.stroke();
+    //if (posX >= 125 && posX <= 515 && posY >= 95 && posY <= 405) {
+      ctx.beginPath();
+      ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
+      ctx.stroke();
 
-    ctx.save();
-    ctx.translate(posX, posY);
-    ctx.beginPath();
-    for (let i = 0; i < 3; i++) {
-      ctx.moveTo(9, 0);
-      ctx.lineTo(9 + 9, 0);
-      ctx.rotate(-0.5 * Math.PI);
-    }
-    ctx.stroke();
-    ctx.restore();
+      ctx.save();
+      ctx.translate(posX, posY);
+      ctx.beginPath();
+      for (let i = 0; i < 3; i++) {
+        ctx.moveTo(9, 0);
+        ctx.lineTo(9 + 9, 0);
+        ctx.rotate(-0.5 * Math.PI);
+      }
+      ctx.stroke();
+      ctx.restore();
+    //}
   }
 }
 
@@ -389,8 +399,8 @@ function drawCruisePitchLadder(ctx: CanvasRenderingContext2D, _model: model) {
 if (_model.selSymb == "cruise") {
     const posX      = 320;
 
-    const pitchBias = 0;
-    const scalar    = 5 / 22;
+    const pitchBias = 5;
+    const scalar    = 5 / 44;
     const pitchY = clamp(
     (_model.pitch + pitchBias) / scalar
     , -(90 / scalar)
@@ -442,7 +452,6 @@ if (_model.selSymb == "cruise") {
         ctx.fillText((i * 10).toFixed(0),  shortHorizonStart + 1, ladderY + 7);
       }
     }
-    console.log(posY);
     //45 Degrees
     const topLadderY45 = -(45 + pitchBias) / scalar;
     if ((topLadderY45 + pitchY) >= -154 && (topLadderY45 + pitchY) <= 154) {
@@ -467,7 +476,6 @@ if (_model.selSymb == "cruise") {
       ctx.textAlign = "left";
       ctx.fillText("45",  shortHorizonStart + 1, topLadderY45 + 7);
     }
-
     //60 degrees
     const topLadderY60 = -(60 + pitchBias) / scalar;
     if ((topLadderY60 + pitchY) >= -154 && (topLadderY60 + pitchY) <= 154) {
@@ -492,35 +500,39 @@ if (_model.selSymb == "cruise") {
       ctx.textAlign = "left";
       ctx.fillText("60",  shortHorizonStart + 1, topLadderY60 + 7);
     }
-
     //Zenith (90 degrees up)
     const zenithY = -(90 + pitchBias) / scalar;
     if ((zenithY + pitchY) >= -154 && (zenithY + pitchY) <= 154) {
-      /*
+      //Zenith dot
+      ctx.save();
       ctx.beginPath();
       ctx.arc(0, zenithY, 4, 0, 2 * Math.PI);
       ctx.fill();
-      */
+      ctx.stroke();
+      ctx.restore();
       //Left line
       ctx.moveTo( 32, zenithY - 24);
       ctx.lineTo( 32, zenithY + 24);  
       //Right line
       ctx.moveTo(-32, zenithY - 24);
       ctx.lineTo(-32, zenithY + 24);  
-
       //Top Text
       ctx.font      = "15px BMKApacheFont";
       ctx.textAlign = "center";
       ctx.fillText("CLIMB",  0.0, zenithY - 31);
-      //Bottom Text <-- this needs to be inverted
+      //Bottom Text
+      ctx.save();
+      ctx.translate(0.0, zenithY);
+      ctx.rotate(180 * 0.0174533);
       ctx.textAlign = "center";
-      ctx.fillText("CLIMB",  0.0, zenithY + 45);
+      ctx.fillText("CLIMB",  0.0, -31);
+      ctx.restore();
     }
     //////////////////////////////////////////////////////////////////////////////////////////
     //Bottom Horizon Bars ////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     for (let i = 1; i < 4; i++) {
-      const ladderY = (i * 10) / scalar;
+    const ladderY = (i * 10) / scalar;
       if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
           //left text
           ctx.font      = "15px BMKApacheFont";
@@ -619,23 +631,25 @@ if (_model.selSymb == "cruise") {
       //Nadir (90 degrees down)
       const nadirY = (90 - pitchBias) / scalar;
       if ((nadirY + pitchY) >= -154 && (nadirY + pitchY) <= 154) {
-        /*
+        //Nadir dot
         ctx.beginPath();
         ctx.arc(0, nadirY, 4, 0, 2 * Math.PI);
         ctx.fill();
-        */
+        ctx.stroke();
         //Left line
         ctx.moveTo( 32, nadirY + 24);
         ctx.lineTo( 32, nadirY - 24);  
         //Right line
         ctx.moveTo(-32, nadirY + 24);
-        ctx.lineTo(-32, nadirY - 24);  
-
-        //Top Text <-- this needs to be inverted
-        ctx.font      = "15px BMKApacheFont";
+        ctx.lineTo(-32, nadirY - 24);
+        //Top text
+        ctx.save();
+        ctx.translate(0.0, nadirY);
+        ctx.rotate(180 * 0.0174533);
         ctx.textAlign = "center";
-        ctx.fillText("DIVE",  0.0, nadirY - 31);
-        //Bottom Text
+        ctx.fillText("DIVE",  0.0, 45);
+        ctx.restore();
+        //Bottom text
         ctx.textAlign = "center";
         ctx.fillText("DIVE",  0.0, nadirY + 45);
       }
@@ -706,12 +720,12 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
   const numTicks  = 36;
   const spacing   = 12;
 
-  const aircraftoffset = Math.round(_model.acftHdg * spacing / 10);
+  const aircraftoffset = Math.round(_model.heading * spacing / 10);
   ctx.beginPath();
 
   for (let i = 0; i < numTicks; i++) {
     let tickheading = i * 10;
-    let offset = tickheading - _model.acftHdg;
+    let offset = tickheading - _model.heading;
 
     if (offset < -180) {
       offset += 360;
