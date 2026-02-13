@@ -33,7 +33,7 @@ private _model = createHashMapFromArray
     , ["sensor", createHashMapFromArray
        [
        ]]
-    , ["ihadss", createHashMapFromArray
+    , ["ihadssHadFields", createHashMapFromArray
        [ ["ownerCue",       "-OWNER-CUE-"]
        , ["wpnInhibit",     "WEAPON-INHIB"]
        , ["sightSelStatus", "SSS--L"]
