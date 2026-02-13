@@ -1,16 +1,16 @@
-export function draw(ctx: CanvasRenderingContext2D) {
-  drawLos(ctx);
+export function draw(_ctx: CanvasRenderingContext2D) {
+  drawLos(_ctx);
 }
 
-function drawLos(ctx: CanvasRenderingContext2D) {
-  ctx.save();
-  ctx.translate(320, 240);
-  ctx.beginPath();
+function drawLos(_ctx: CanvasRenderingContext2D) {
+  _ctx.save();
+  _ctx.translate(320, 240);
+  _ctx.beginPath();
   for (let i = 0; i < 4; i++) {
-    ctx.moveTo(0, 9);
-    ctx.lineTo(0, 9 + 18);
-    ctx.rotate(0.5 * Math.PI);
+    _ctx.moveTo(0, 9);
+    _ctx.lineTo(0, 9 + 18);
+    _ctx.rotate(0.5 * Math.PI);
   }
-  ctx.stroke();
-  ctx.restore();
+  _ctx.stroke();
+  _ctx.restore();
 }

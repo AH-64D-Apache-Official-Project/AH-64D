@@ -10,7 +10,7 @@ private _model = createHashMapFromArray
         , ["selSymb",   _heli getVariable "fza_ah64_hmdfsmode"]
         , ["vel",       [(_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0, (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1]]
         , ["accel",     [_heli getVariable "fza_sfmplus_accelX", _heli getVariable "fza_sfmplus_accelY"]]
-        , ["fpv",       [worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind")), -1, 1] call BIS_fnc_clampVector]
+        , ["fpv",       [worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind"))]]
         , ["pitch",     (_heli call BIS_fnc_getPitchBank) select 0]
         , ["roll",      (_heli call BIS_fnc_getPitchBank) select 1]
         , ["heading",   direction _heli]
@@ -30,7 +30,19 @@ private _model = createHashMapFromArray
         , ["loAltWarn",  33]
         , ["hiAltWarn",  200]
         ]]
-    , ["sensor", createHashMapFromArray []]
+    , ["sensor", createHashMapFromArray
+       [
+       ]]
+    , ["ihadss", createHashMapFromArray
+       [ ["ownerCue",       "-OWNER-CUE-"]
+       , ["wpnInhibit",     "WEAPON-INHIB"]
+       , ["sightSelStatus", "SSS--L"]
+       , ["sighStatus",     "SIGHT-STATUS"]
+       , ["rngAndRngSrc",   1000]
+       , ["wpnControl",     "WPNCT"]
+       , ["acqSelStatus",   "ACQS"]
+       , ["wpnStatus",      "WEAPONSTATUS"]
+       ]]
     ];
 _ctrl ctrlWebBrowserAction ["ExecJS", Format ["updateModel(%1)", toJSON _model]];
 

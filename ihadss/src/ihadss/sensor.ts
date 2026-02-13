@@ -5,63 +5,63 @@ export type model = {
 export const exampleModel: model = {
 };
 
-export function draw(ctx: CanvasRenderingContext2D, model: model) {
-  drawFieldOfRegardPilot(ctx, model);
-  drawFieldOfRegardFcrCenterline(ctx);
-  drawFieldOfRegardFcrPrevCenterline(ctx);
-  drawFieldOfRegardCuedLosDot(ctx);
-  drawFieldOfRegardFieldOfViewBox(ctx);
-  drawCuedLos(ctx);
-  drawCueingDotTop(ctx);
-  drawCueingDotRight(ctx);
-  drawCueingDotBottom(ctx);
-  drawCueingDotLeft(ctx);
-  drawCommandBobupHeading(ctx);
-  drawAlternateSensorBearing(ctx);
-  drawHeadingTapeFcrCenterline(ctx);
+export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
+  drawFieldOfRegardPilot(_ctx, _model);
+  drawFieldOfRegardFcrCenterline(_ctx);
+  drawFieldOfRegardFcrPrevCenterline(_ctx);
+  drawFieldOfRegardCuedLosDot(_ctx);
+  drawFieldOfRegardFieldOfViewBox(_ctx);
+  drawCuedLos(_ctx);
+  drawCueingDotTop(_ctx);
+  drawCueingDotRight(_ctx);
+  drawCueingDotBottom(_ctx);
+  drawCueingDotLeft(_ctx);
+  drawCommandBobupHeading(_ctx);
+  drawAlternateSensorBearing(_ctx);
+  drawHeadingTapeFcrCenterline(_ctx);
 }
 
 const pilotFieldOfRegardLeft  = 262;
 const pilotFieldOfRegardRight = 433;
 
-export function drawFieldOfRegardPilot(ctx: CanvasRenderingContext2D, _model: model) {
-  ctx.strokeRect(pilotFieldOfRegardLeft, pilotFieldOfRegardRight, 116, 43);
+export function drawFieldOfRegardPilot(_ctx: CanvasRenderingContext2D, _model: model) {
+  _ctx.strokeRect(pilotFieldOfRegardLeft, pilotFieldOfRegardRight, 116, 43);
 
   //Left vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(262,448);
-  ctx.lineTo(269,448);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(262,448);
+  _ctx.lineTo(269,448);
+  _ctx.stroke();
 
   //Right vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(371,448);
-  ctx.lineTo(378,448);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(371,448);
+  _ctx.lineTo(378,448);
+  _ctx.stroke();
 
   //Top vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(320,433);
-  ctx.lineTo(320,440);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(320,433);
+  _ctx.lineTo(320,440);
+  _ctx.stroke();
 
   //Bottom vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(320,469);
-  ctx.lineTo(320,476);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(320,469);
+  _ctx.lineTo(320,476);
+  _ctx.stroke();
 }
 
-export function drawFieldOfRegardFcrCenterline(ctx: CanvasRenderingContext2D) {
+export function drawFieldOfRegardFcrCenterline(_ctx: CanvasRenderingContext2D) {
   const posX = 320 - 15;
  
-  ctx.beginPath();
-  ctx.moveTo(posX, 433);
-  ctx.lineTo(posX, 476);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(posX, 433);
+  _ctx.lineTo(posX, 476);
+  _ctx.stroke();
 }
 
-export function drawFieldOfRegardFcrPrevCenterline(ctx: CanvasRenderingContext2D) {
+export function drawFieldOfRegardFcrPrevCenterline(_ctx: CanvasRenderingContext2D) {
   const posX = 320 + 35;
  
   const top = 433;
@@ -70,133 +70,133 @@ export function drawFieldOfRegardFcrPrevCenterline(ctx: CanvasRenderingContext2D
   const numTicks = 9;
   const spacing  = (bot - top) / numTicks;
 
-  ctx.beginPath();
+  _ctx.beginPath();
   for (let i = 0; i < numTicks; i++) {
     if (i % 2 == 0) {
-      ctx.moveTo(posX, top + (i * spacing));
-      ctx.lineTo(posX, top + ((i + 1) * spacing));
+      _ctx.moveTo(posX, top + (i * spacing));
+      _ctx.lineTo(posX, top + ((i + 1) * spacing));
     }
   }
-  ctx.stroke();
+  _ctx.stroke();
 }
 
-export function drawFieldOfRegardGunner(ctx: CanvasRenderingContext2D, _model: model) {
-  ctx.strokeRect(262, 433, 116, 43);
+export function drawFieldOfRegardGunner(_ctx: CanvasRenderingContext2D, _model: model) {
+  _ctx.strokeRect(262, 433, 116, 43);
 
   //Left vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(262,448);
-  ctx.lineTo(269,448);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(262,448);
+  _ctx.lineTo(269,448);
+  _ctx.stroke();
 
   //Right vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(371,448);
-  ctx.lineTo(378,448);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(371,448);
+  _ctx.lineTo(378,448);
+  _ctx.stroke();
 
   //Top vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(320,433);
-  ctx.lineTo(320,440);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(320,433);
+  _ctx.lineTo(320,440);
+  _ctx.stroke();
 
   //Bottom vertical tic mark
-  ctx.beginPath();
-  ctx.moveTo(320,469);
-  ctx.lineTo(320,476);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(320,469);
+  _ctx.lineTo(320,476);
+  _ctx.stroke();
 }
 
-export function drawFieldOfRegardFieldOfViewBox(ctx: CanvasRenderingContext2D) {
+export function drawFieldOfRegardFieldOfViewBox(_ctx: CanvasRenderingContext2D) {
   const fovPosX = 320 - 30;
   const fovPosY = 448 - 5;
 
-  ctx.beginPath();
-  ctx.moveTo(fovPosX - 9, fovPosY - 7);
-  ctx.lineTo(fovPosX + 9, fovPosY - 7);
-  ctx.lineTo(fovPosX + 9, fovPosY + 7);
-  ctx.lineTo(fovPosX - 9, fovPosY + 7);
-  ctx.lineTo(fovPosX - 9, fovPosY - 8);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(fovPosX - 9, fovPosY - 7);
+  _ctx.lineTo(fovPosX + 9, fovPosY - 7);
+  _ctx.lineTo(fovPosX + 9, fovPosY + 7);
+  _ctx.lineTo(fovPosX - 9, fovPosY + 7);
+  _ctx.lineTo(fovPosX - 9, fovPosY - 8);
+  _ctx.stroke();
 }
 
-export function drawFieldOfRegardCuedLosDot (ctx: CanvasRenderingContext2D) {
+export function drawFieldOfRegardCuedLosDot (_ctx: CanvasRenderingContext2D) {
   const fovPosX = 320 + 20;
   const fovPosY = 452 + 10;
   
   const radius  = 2;
 
-  ctx.beginPath();
-  ctx.arc(fovPosX, fovPosY, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(fovPosX, fovPosY, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
-export function drawHeadTracker(ctx: CanvasRenderingContext2D) {
-  ctx.save();
-  ctx.beginPath();
+export function drawHeadTracker(_ctx: CanvasRenderingContext2D) {
+  _ctx.save();
+  _ctx.beginPath();
   for (let i = 0; i < 4; i++) {
-    ctx.moveTo(-8, 18);
-    ctx.lineTo(0, 26);
-    ctx.lineTo(8, 18);
-    ctx.rotate(0.5 * Math.PI);
+    _ctx.moveTo(-8, 18);
+    _ctx.lineTo(0, 26);
+    _ctx.lineTo(8, 18);
+    _ctx.rotate(0.5 * Math.PI);
   }
-  ctx.stroke();
-  ctx.restore();
+  _ctx.stroke();
+  _ctx.restore();
 }
 
-export function drawCueingDotTop(ctx: CanvasRenderingContext2D) {
+export function drawCueingDotTop(_ctx: CanvasRenderingContext2D) {
   const radius = 3;
 
-  ctx.beginPath();
-  ctx.arc(320, 203, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(320, 203, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
-export function drawCueingDotRight(ctx: CanvasRenderingContext2D) {
+export function drawCueingDotRight(_ctx: CanvasRenderingContext2D) {
   const radius = 3;
 
-  ctx.beginPath();
-  ctx.arc(357, 240, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(357, 240, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
-export function drawCueingDotBottom(ctx: CanvasRenderingContext2D) {
+export function drawCueingDotBottom(_ctx: CanvasRenderingContext2D) {
   const radius = 3;
 
-  ctx.beginPath();
-  ctx.arc(320, 277, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(320, 277, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
-export function drawCueingDotLeft(ctx: CanvasRenderingContext2D) {
+export function drawCueingDotLeft(_ctx: CanvasRenderingContext2D) {
   const radius = 3;
 
-  ctx.beginPath();
-  ctx.arc(283, 240, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(283, 240, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
 const headingTapeLeftX   = 199;
 const headingTapeRightX  = 441;
 const headingTapeDegrees = 200;
 
-function drawCuedLos(ctx: CanvasRenderingContext2D) {
-  ctx.save();
-  ctx.translate(320 + 80, 240 + 40);
-  ctx.beginPath();
+function drawCuedLos(_ctx: CanvasRenderingContext2D) {
+  _ctx.save();
+  _ctx.translate(320 + 80, 240 + 40);
+  _ctx.beginPath();
   for (let i = 0; i < 4; i++) {
-    ctx.moveTo(0, 9 + 18);
-    ctx.lineTo(0, 9 + 12);
-    ctx.moveTo(0, 9 + 6);
-    ctx.lineTo(0, 9);
-    ctx.rotate(0.5 * Math.PI);
+    _ctx.moveTo(0, 9 + 18);
+    _ctx.lineTo(0, 9 + 12);
+    _ctx.moveTo(0, 9 + 6);
+    _ctx.lineTo(0, 9);
+    _ctx.rotate(0.5 * Math.PI);
   }
-  ctx.stroke();
-  ctx.restore();
+  _ctx.stroke();
+  _ctx.restore();
 }
 
-function drawCommandBobupHeading(ctx: CanvasRenderingContext2D) {
+function drawCommandBobupHeading(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = -60;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
@@ -204,14 +204,14 @@ function drawCommandBobupHeading(ctx: CanvasRenderingContext2D) {
   const posX = 320 + (hdgDiff * increment);
   const posY = 83;
 
-  ctx.beginPath();
-  ctx.moveTo(posX - 6, posY + 6);
-  ctx.lineTo(posX, posY - 7);
-  ctx.lineTo(posX + 6, posY + 6);
-  ctx.stroke();
+  _ctx.beginPath();
+  _ctx.moveTo(posX - 6, posY + 6);
+  _ctx.lineTo(posX, posY - 7);
+  _ctx.lineTo(posX + 6, posY + 6);
+  _ctx.stroke();
 }
 
-function drawAlternateSensorBearing(ctx: CanvasRenderingContext2D) {
+function drawAlternateSensorBearing(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = 60;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
@@ -219,14 +219,14 @@ function drawAlternateSensorBearing(ctx: CanvasRenderingContext2D) {
   const posX = 320 + (hdgDiff * increment);
   const posY = 83;
 
-  ctx.beginPath();
-  ctx.moveTo(posX - 4, posY + 4);
-  ctx.lineTo(posX, posY - 5);
-  ctx.lineTo(posX + 4, posY + 4);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.moveTo(posX - 4, posY + 4);
+  _ctx.lineTo(posX, posY - 5);
+  _ctx.lineTo(posX + 4, posY + 4);
+  _ctx.fill();
 }
 
-function drawHeadingTapeFcrCenterline(ctx: CanvasRenderingContext2D) {
+function drawHeadingTapeFcrCenterline(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = 30;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
@@ -234,25 +234,25 @@ function drawHeadingTapeFcrCenterline(ctx: CanvasRenderingContext2D) {
   const posX = 320 + (hdgDiff * increment);
   const posY = 76;
 
-  ctx.beginPath();
-  ctx.moveTo(posX - 1, posY - 3);
-  ctx.lineTo(posX - 1, posY + 3);
-  ctx.lineTo(posX - 4, posY + 3);
-  ctx.lineTo(posX - 5, posY + 2);
-  ctx.lineTo(posX - 6, posY);
-  ctx.lineTo(posX - 5, posY - 2);
-  ctx.lineTo(posX - 4, posY - 3);
-  ctx.lineTo(posX - 2, posY - 3);
-  ctx.lineTo(posX - 1, posY - 3);
+  _ctx.beginPath();
+  _ctx.moveTo(posX - 1, posY - 3);
+  _ctx.lineTo(posX - 1, posY + 3);
+  _ctx.lineTo(posX - 4, posY + 3);
+  _ctx.lineTo(posX - 5, posY + 2);
+  _ctx.lineTo(posX - 6, posY);
+  _ctx.lineTo(posX - 5, posY - 2);
+  _ctx.lineTo(posX - 4, posY - 3);
+  _ctx.lineTo(posX - 2, posY - 3);
+  _ctx.lineTo(posX - 1, posY - 3);
 
-  ctx.moveTo(posX + 1, posY - 3);
-  ctx.lineTo(posX + 1, posY + 3);
-  ctx.lineTo(posX + 4, posY + 3);
-  ctx.lineTo(posX + 5, posY + 2);
-  ctx.lineTo(posX + 6, posY);
-  ctx.lineTo(posX + 5, posY - 2);
-  ctx.lineTo(posX + 4, posY - 3);
-  ctx.lineTo(posX + 2, posY - 3);
-  ctx.lineTo(posX + 1, posY - 3);
-  ctx.fill();
+  _ctx.moveTo(posX + 1, posY - 3);
+  _ctx.lineTo(posX + 1, posY + 3);
+  _ctx.lineTo(posX + 4, posY + 3);
+  _ctx.lineTo(posX + 5, posY + 2);
+  _ctx.lineTo(posX + 6, posY);
+  _ctx.lineTo(posX + 5, posY - 2);
+  _ctx.lineTo(posX + 4, posY - 3);
+  _ctx.lineTo(posX + 2, posY - 3);
+  _ctx.lineTo(posX + 1, posY - 3);
+  _ctx.fill();
 }

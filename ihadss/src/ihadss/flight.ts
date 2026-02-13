@@ -28,16 +28,16 @@ export type model = {
 };
 
 export const exampleModel: model = {
-  pitchBias: 0,
+  pitchBias: 5,
   selSymb: "cruise",
   vel: [5, 8],
   accel: [5, 7],
-  fpv: [-0.1, -0.2],
-  pitch: 33.0,
-  roll: 20.0,
+  fpv: [0.03, 0.1],
+  pitch: -5.0,
+  roll: 0.0,
   heading: 16,
   sideslip: 0.33,
-  roc: 500,
+  roc: -1350,
   tas: 90,
   gndSpd: 70,
   radAlt: 75,
@@ -53,40 +53,40 @@ export const exampleModel: model = {
   hiAltWarn: 200,
 };
 
-export function draw(ctx: CanvasRenderingContext2D, model: model) {
-  drawTrimBall(ctx, model);
-  drawLubberLine(ctx);
-  drawAccelerationCue(ctx, model);
-  drawVelocityVector(ctx, model);
-  drawVsiScale(ctx, model);
-  drawRadAltScale(ctx, model);
-  drawVsiIndexer(ctx, model);
-  drawAttHoldIndicator(ctx, model);
-  drawAltHoldIndicator(ctx, model);
-  drawFlightPathVector(ctx, model);
-  drawTransitionHorizonLine(ctx, model);
-  drawCruisePitchLadder(ctx, model);
-  drawNavigationFlyToCue(ctx, model);
-  drawBobUpBox(ctx, model);
-  drawHeadingTape(ctx, model);
+export function draw(_ctx: CanvasRenderingContext2D, model: model) {
+  drawTrimBall(_ctx, model);
+  drawLubberLine(_ctx);
+  drawAccelerationCue(_ctx, model);
+  drawVelocityVector(_ctx, model);
+  drawVsiScale(_ctx, model);
+  drawRadAltScale(_ctx, model);
+  drawVsiIndexer(_ctx, model);
+  drawAttHoldIndicator(_ctx, model);
+  drawAltHoldIndicator(_ctx, model);
+  drawFlightPathVector(_ctx, model);
+  drawTransitionHorizonLine(_ctx, model);
+  drawCruisePitchLadder(_ctx, model);
+  drawNavigationFlyToCue(_ctx, model);
+  drawBobUpBox(_ctx, model);
+  drawHeadingTape(_ctx, model);
 }
 
-function drawTrimBall(ctx: CanvasRenderingContext2D, _model: model) {
-  ctx.beginPath();
+function drawTrimBall(_ctx: CanvasRenderingContext2D, _model: model) {
+  _ctx.beginPath();
   //Vertical line left
-  ctx.moveTo(311, 415);
-  ctx.lineTo(311, 433);
+  _ctx.moveTo(311, 415);
+  _ctx.lineTo(311, 433);
 
   //Vertical line right
-  ctx.moveTo(329, 415);
-  ctx.lineTo(329, 433);
+  _ctx.moveTo(329, 415);
+  _ctx.lineTo(329, 433);
 
   //Horizontal line
   const maxLeft = 257;
   const maxRight = 383;
-  ctx.moveTo(maxLeft, 433);
-  ctx.lineTo(maxRight, 433);
-  ctx.stroke();
+  _ctx.moveTo(maxLeft, 433);
+  _ctx.lineTo(maxRight, 433);
+  _ctx.stroke();
 
   const radius = 9;
 
@@ -98,22 +98,22 @@ function drawTrimBall(ctx: CanvasRenderingContext2D, _model: model) {
     maxRight - radius,
   );
 
-  ctx.beginPath();
-  ctx.arc(trimPos, 424, radius, 0, 2 * Math.PI);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.arc(trimPos, 424, radius, 0, 2 * Math.PI);
+  _ctx.fill();
 }
 
-function drawLubberLine(ctx: CanvasRenderingContext2D) {
-  ctx.beginPath();
-  ctx.moveTo(318, 73);
-  ctx.lineTo(322, 73);
-  ctx.lineTo(322, 96);
-  ctx.lineTo(318, 96);
-  ctx.lineTo(318, 73);
-  ctx.fill();
+function drawLubberLine(_ctx: CanvasRenderingContext2D) {
+  _ctx.beginPath();
+  _ctx.moveTo(318, 73);
+  _ctx.lineTo(322, 73);
+  _ctx.lineTo(322, 96);
+  _ctx.lineTo(318, 96);
+  _ctx.lineTo(318, 73);
+  _ctx.fill();
 }
 
-function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
+function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
     if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
       const max = 167;
 
@@ -152,13 +152,13 @@ function drawAccelerationCue(ctx: CanvasRenderingContext2D, _model: model) {
 
       const radius    = 7;
 
-      ctx.beginPath();
-      ctx.arc(accelPosX, accelPosY, radius, 0, 2 * Math.PI);
-      ctx.stroke();
+      _ctx.beginPath();
+      _ctx.arc(accelPosX, accelPosY, radius, 0, 2 * Math.PI);
+      _ctx.stroke();
   }
 }
 
-function drawVelocityVector(ctx: CanvasRenderingContext2D, _model: model) {
+function drawVelocityVector(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
     const velVecOriginX = 320;
     const velVecOriginY = 240;
@@ -189,18 +189,18 @@ function drawVelocityVector(ctx: CanvasRenderingContext2D, _model: model) {
 
     const radius = 2;
 
-    ctx.beginPath();
-    ctx.arc(velVecTipPosX, velVecTipPosY, radius, 0, 2 * Math.PI);
-    ctx.fill();
+    _ctx.beginPath();
+    _ctx.arc(velVecTipPosX, velVecTipPosY, radius, 0, 2 * Math.PI);
+    _ctx.fill();
 
-    ctx.beginPath();
-    ctx.moveTo(velVecOriginX, velVecOriginY);
-    ctx.lineTo(velVecTipPosX, velVecTipPosY);
-    ctx.stroke();
+    _ctx.beginPath();
+    _ctx.moveTo(velVecOriginX, velVecOriginY);
+    _ctx.lineTo(velVecTipPosX, velVecTipPosY);
+    _ctx.stroke();
   }
 }
 
-function drawVsiScale(ctx: CanvasRenderingContext2D, _model: model) {
+function drawVsiScale(_ctx: CanvasRenderingContext2D, _model: model) {
   const posX         = 533;
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
@@ -209,23 +209,23 @@ function drawVsiScale(ctx: CanvasRenderingContext2D, _model: model) {
   const numTicks     = 20;
   const spacing      = (vsiScaleBotY - vsiScaleTopY) / numTicks;
 
-  ctx.beginPath();
+  _ctx.beginPath();
     //Large ticks
   for (let i = 6; i <= numTicks - 6; i++) {
-    ctx.moveTo(posX              , vsiScaleTopY + (i * spacing));
-    ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+    _ctx.moveTo(posX              , vsiScaleTopY + (i * spacing));
+    _ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
   }
   //Large ticks
   for (let i = 0; i <= numTicks; i++) {
     if (i % 5 == 0) {
-      ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
-      ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+      _ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+      _ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
     }
   }
-  ctx.stroke();
+  _ctx.stroke();
 }
 
-function drawRadAltScale(ctx: CanvasRenderingContext2D, _model: model) {
+function drawRadAltScale(_ctx: CanvasRenderingContext2D, _model: model) {
   const posX         = 551;
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
@@ -244,26 +244,26 @@ function drawRadAltScale(ctx: CanvasRenderingContext2D, _model: model) {
   );
 
   if (curAltAgl < 200) {
-    ctx.beginPath();
-    ctx.rect(542 - (altBarWidth / 2), vsiScaleBotY, altBarWidth, -altScale * curAltAgl);
-    ctx.fill();
+    _ctx.beginPath();
+    _ctx.rect(542 - (altBarWidth / 2), vsiScaleBotY, altBarWidth, -altScale * curAltAgl);
+    _ctx.fill();
     //Large ticks
     for (let i = 16; i <= numTicks - 1; i++) {
-      ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
-      ctx.lineTo(posX,               vsiScaleTopY + (i * spacing));
+      _ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+      _ctx.lineTo(posX,               vsiScaleTopY + (i * spacing));
     }
     //Large ticks
     for (let i = 0; i <= numTicks; i++) {
       if (i % 5 == 0) {
-        ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
-        ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
+        _ctx.moveTo(posX - (width / 2), vsiScaleTopY + (i * spacing));
+        _ctx.lineTo(posX + (width / 2), vsiScaleTopY + (i * spacing));
       }
     }
-    ctx.stroke();
+    _ctx.stroke();
   }
 }
 
-function drawVsiIndexer (ctx: CanvasRenderingContext2D, _model: model) {
+function drawVsiIndexer (_ctx: CanvasRenderingContext2D, _model: model) {
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
 
@@ -278,19 +278,19 @@ function drawVsiIndexer (ctx: CanvasRenderingContext2D, _model: model) {
   ,  vsiMax / 2
   );
 
-  ctx.beginPath();
-  ctx.moveTo(posX - 7, posY - (vsiScale * curRoC) - 8);
-  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) - 8);
-  ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) - 1);
-  ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) + 1);
-  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
-  ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
-  ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) + 8);
-  ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) - 8);
-  ctx.fill();
+  _ctx.beginPath();
+  _ctx.moveTo(posX - 7, posY - (vsiScale * curRoC) - 8);
+  _ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) - 8);
+  _ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) - 1);
+  _ctx.lineTo(posX + 5, posY - (vsiScale * curRoC) + 1);
+  _ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
+  _ctx.lineTo(posX - 5, posY - (vsiScale * curRoC) + 8);
+  _ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) + 8);
+  _ctx.lineTo(posX - 7, posY - (vsiScale * curRoC) - 8);
+  _ctx.fill();
 }
 
-function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
+function drawAltHoldIndicator (_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.altHoldAct) {
     const vsiScaleTopY = 104;
     const vsiScaleBotY = 347;
@@ -298,35 +298,35 @@ function drawAltHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
     const posX = 523;
     const posY = (vsiScaleTopY + vsiScaleBotY) / 2;
 
-    ctx.beginPath();
-    ctx.moveTo(posX - 10, posY - 9);
-    ctx.lineTo(posX - 3, posY - 9);
-    ctx.lineTo(posX + 6, posY - 2);
-    ctx.lineTo(posX + 6, posY + 2);
-    ctx.lineTo(posX - 3, posY + 9);
-    ctx.lineTo(posX - 10, posY + 9);
-    ctx.lineTo(posX - 10, posY - 10);
-    ctx.stroke();
+    _ctx.beginPath();
+    _ctx.moveTo(posX - 10, posY - 9);
+    _ctx.lineTo(posX - 3, posY - 9);
+    _ctx.lineTo(posX + 6, posY - 2);
+    _ctx.lineTo(posX + 6, posY + 2);
+    _ctx.lineTo(posX - 3, posY + 9);
+    _ctx.lineTo(posX - 10, posY + 9);
+    _ctx.lineTo(posX - 10, posY - 10);
+    _ctx.stroke();
   }
 }
 
-function drawAttHoldIndicator (ctx: CanvasRenderingContext2D, _model: model) {
+function drawAttHoldIndicator (_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.attHoldAct) {
-    ctx.beginPath();
-    ctx.moveTo(119, 214);
-    ctx.lineTo(156, 214);
-    ctx.lineTo(158, 216);
-    ctx.lineTo(158, 234);
-    ctx.lineTo(156, 236);
-    ctx.lineTo(119, 236);
-    ctx.lineTo(117, 234);
-    ctx.lineTo(117, 216);
-    ctx.lineTo(119, 214);
-    ctx.stroke();
+    _ctx.beginPath();
+    _ctx.moveTo(119, 214);
+    _ctx.lineTo(156, 214);
+    _ctx.lineTo(158, 216);
+    _ctx.lineTo(158, 234);
+    _ctx.lineTo(156, 236);
+    _ctx.lineTo(119, 236);
+    _ctx.lineTo(117, 234);
+    _ctx.lineTo(117, 216);
+    _ctx.lineTo(119, 214);
+    _ctx.stroke();
   }
 }
 
-function drawFlightPathVector(ctx: CanvasRenderingContext2D, _model: model) {
+function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "trans" || _model.selSymb == "cruise") {
     const fovX = 40;
     const fovY = 30;
@@ -339,24 +339,24 @@ function drawFlightPathVector(ctx: CanvasRenderingContext2D, _model: model) {
 
     const radius = 9;
 
-    ctx.beginPath();
-    ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
-    ctx.stroke();
+    _ctx.beginPath();
+    _ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
+    _ctx.stroke();
 
-    ctx.save();
-    ctx.translate(posX, posY);
-    ctx.beginPath();
+    _ctx.save();
+    _ctx.translate(posX, posY);
+    _ctx.beginPath();
     for (let i = 0; i < 3; i++) {
-      ctx.moveTo(9, 0);
-      ctx.lineTo(9 + 9, 0);
-      ctx.rotate(-0.5 * Math.PI);
+      _ctx.moveTo(9, 0);
+      _ctx.lineTo(9 + 9, 0);
+      _ctx.rotate(-0.5 * Math.PI);
     }
-    ctx.stroke();
-    ctx.restore();
+    _ctx.stroke();
+    _ctx.restore();
   }
 }
 
-function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model) {
+function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "trans") {
     const posX = 320;
 
@@ -374,33 +374,33 @@ function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model)
     const horizonWidth = 110;
     const horizonIncrement = horizonWidth / 8;
 
-    ctx.save();
-    ctx.translate(posX, posY);
-    ctx.rotate(-_model.roll * 0.0174533);
-    ctx.beginPath();
+    _ctx.save();
+    _ctx.translate(posX, posY);
+    _ctx.rotate(-_model.roll * 0.0174533);
+    _ctx.beginPath();
  
     for (let i = 0; i < 8; i++) {
       if ((i % 2) == 0) {
-        ctx.moveTo(-horizonStart + (horizonIncrement * i), 0);
-        ctx.lineTo(-horizonStart + (horizonIncrement * (i + 1)), 0);
+        _ctx.moveTo(-horizonStart + (horizonIncrement * i), 0);
+        _ctx.lineTo(-horizonStart + (horizonIncrement * (i + 1)), 0);
       }
       if ((i % 2) == 0) {
-        ctx.moveTo(horizonStart - (horizonIncrement * i), 0);
-        ctx.lineTo(horizonStart - (horizonIncrement * (i + 1)), 0);
+        _ctx.moveTo(horizonStart - (horizonIncrement * i), 0);
+        _ctx.lineTo(horizonStart - (horizonIncrement * (i + 1)), 0);
       }
     }
-    ctx.stroke();
-    ctx.restore();
+    _ctx.stroke();
+    _ctx.restore();
   }
 }
 
-function drawCruisePitchLadder(ctx: CanvasRenderingContext2D, _model: model) {
+function drawCruisePitchLadder(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "cruise") {
-    ctx.save(); // clip save
+    _ctx.save(); // clip save
       const w = 300;
       const h = 320;
-      ctx.rect(320 - (w / 2), 255 - (h / 2), w, h);
-      ctx.clip();//320 - (botWidth / 2),480 - botHeight, botWidth, botHeight);
+      _ctx.rect(320 - (w / 2), 255 - (h / 2), w, h);
+      _ctx.clip();//320 - (botWidth / 2),480 - botHeight, botWidth, botHeight);
       
       const scalar    = 5 / 44;
       const pitchY = clamp(
@@ -416,202 +416,202 @@ function drawCruisePitchLadder(ctx: CanvasRenderingContext2D, _model: model) {
       const shortHorizonStart = horizonStart / 3;
       const shortHorizonWidth = 104;
 
-      ctx.save(); // pitch ladder save
-      ctx.translate(posX, posY);
-      ctx.rotate(-_model.roll * 0.0174533);
-      ctx.beginPath();
+      _ctx.save(); // pitch ladder save
+      _ctx.translate(posX, posY);
+      _ctx.rotate(-_model.roll * 0.0174533);
+      _ctx.beginPath();
 
       //horizon line
-      ctx.moveTo(-horizonStart, 0);
-      ctx.lineTo( horizonStart, 0);
+      _ctx.moveTo(-horizonStart, 0);
+      _ctx.lineTo( horizonStart, 0);
       //////////////////////////////////////////////////////////////////////////////////////////
       //0 to 30 degrees up  ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
       for (let i = 1; i < 4; i++) {
-        drawSolidLadderLine(ctx, _model, i * -10, scalar, shortHorizonStart + (i * 12), shortHorizonWidth + (i * 24));
+        drawSolidLadderLine(_ctx, _model, i * -10, scalar, shortHorizonStart + (i * 12), shortHorizonWidth + (i * 24));
       }
       //////////////////////////////////////////////////////////////////////////////////////////
       //45 degrees up       ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawSolidLadderLine(ctx, _model, -45, scalar, shortHorizonStart + 54, shortHorizonWidth + 108);
+      drawSolidLadderLine(_ctx, _model, -45, scalar, shortHorizonStart + 54, shortHorizonWidth + 108);
       //////////////////////////////////////////////////////////////////////////////////////////
       //60 degrees up       ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawSolidLadderLine(ctx, _model, -60, scalar, shortHorizonStart + 72, shortHorizonWidth + 144);
+      drawSolidLadderLine(_ctx, _model, -60, scalar, shortHorizonStart + 72, shortHorizonWidth + 144);
       
-      ctx.stroke();
+      _ctx.stroke();
       //////////////////////////////////////////////////////////////////////////////////////////
       //90 degrees up       ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawZenithNadir(ctx, _model, -90, scalar, "CLIMB");
+      drawZenithNadir(_ctx, _model, -90, scalar, "CLIMB");
       //////////////////////////////////////////////////////////////////////////////////////////
       //0 to 30 degrees down ///////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
       for (let i = 1; i < 4; i++) {
-        drawDashedLadderLine(ctx, _model, i * 10, scalar, shortHorizonStart + (i * 12), shortHorizonWidth + (i * 24));
+        drawDashedLadderLine(_ctx, _model, i * 10, scalar, shortHorizonStart + (i * 12), shortHorizonWidth + (i * 24));
       }
       //////////////////////////////////////////////////////////////////////////////////////////
       //45 degrees down     ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawDashedLadderLine(ctx, _model, 45, scalar, shortHorizonStart + 54, shortHorizonWidth + 108);
+      drawDashedLadderLine(_ctx, _model, 45, scalar, shortHorizonStart + 54, shortHorizonWidth + 108);
       //////////////////////////////////////////////////////////////////////////////////////////
       //60 degrees down     ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawDashedLadderLine(ctx, _model, 60, scalar, shortHorizonStart + 72, shortHorizonWidth + 144);
+      drawDashedLadderLine(_ctx, _model, 60, scalar, shortHorizonStart + 72, shortHorizonWidth + 144);
       
-      ctx.stroke();
+      _ctx.stroke();
       //////////////////////////////////////////////////////////////////////////////////////////
       //90 degrees down     ////////////////////////////////////////////////////////////////////
       //////////////////////////////////////////////////////////////////////////////////////////
-      drawZenithNadir(ctx, _model, 90, scalar, "DIVE");
+      drawZenithNadir(_ctx, _model, 90, scalar, "DIVE");
 
-      ctx.restore(); // pitch ladder restore
-    ctx.restore(); // clip restore
+      _ctx.restore(); // pitch ladder restore
+    _ctx.restore(); // clip restore
   }
 }
 
-function drawSolidLadderLine(ctx: CanvasRenderingContext2D, _model: model, _pitch: number, _scalar: number, _x: number, _w: number) {
+function drawSolidLadderLine(_ctx: CanvasRenderingContext2D, _model: model, _pitch: number, _scalar: number, _x: number, _w: number) {
   const y = _pitch / _scalar;
   const pitchText = Math.abs(_pitch);
   //left text
-  ctx.font      = "15px BMKApacheFont";
-  ctx.textAlign = "right";
-  ctx.fillText((pitchText).toFixed(0), -_x - 1, y + 7);
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "right";
+  _ctx.fillText((pitchText).toFixed(0), -_x - 1, y + 7);
   //left vertical line
-  ctx.moveTo(-_x + 1, y);
-  ctx.lineTo(-_x + 1, y + 7);
+  _ctx.moveTo(-_x + 1, y);
+  _ctx.lineTo(-_x + 1, y + 7);
   //left horizontal line
-  ctx.moveTo(-_x, y);
-  ctx.lineTo(-_x + (_w / 2) - 20, y);
+  _ctx.moveTo(-_x, y);
+  _ctx.lineTo(-_x + (_w / 2) - 20, y);
   //right horizontal line
-  ctx.moveTo( _x, y);
-  ctx.lineTo( _x - (_w / 2) + 20, y);
+  _ctx.moveTo( _x, y);
+  _ctx.lineTo( _x - (_w / 2) + 20, y);
   //right vertical line
-  ctx.moveTo( _x - 1, y);
-  ctx.lineTo( _x - 1, y + 7);
+  _ctx.moveTo( _x - 1, y);
+  _ctx.lineTo( _x - 1, y + 7);
   //right text
-  ctx.font      = "15px BMKApacheFont";
-  ctx.textAlign = "left";
-  ctx.fillText((pitchText).toFixed(0),  _x + 1, y + 7);
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "left";
+  _ctx.fillText((pitchText).toFixed(0),  _x + 1, y + 7);
 }
 
-function drawDashedLadderLine(ctx: CanvasRenderingContext2D, _model: model, _pitch: number, _scalar: number, _x: number, _w: number)
+function drawDashedLadderLine(_ctx: CanvasRenderingContext2D, _model: model, _pitch: number, _scalar: number, _x: number, _w: number)
 {
   const y = _pitch / _scalar;
   const w = (_w - 26) / 12;
   const pitchText = Math.abs(_pitch);
   //left text
-  ctx.font      = "15px BMKApacheFont";
-  ctx.textAlign = "right";
-  ctx.fillText((pitchText).toFixed(0), -_x - 1, y + 7);
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "right";
+  _ctx.fillText((pitchText).toFixed(0), -_x - 1, y + 7);
   //left vertical line
-  ctx.moveTo(-_x + 1, y);
-  ctx.lineTo(-_x + 1, y - 7);
+  _ctx.moveTo(-_x + 1, y);
+  _ctx.lineTo(-_x + 1, y - 7);
   for (let i = 0; i < 6; i++) {
     if ((i % 2) == 0) {
       //left horizontal line
-      ctx.moveTo(-_x + (w * i),       y);
-      ctx.lineTo(-_x + (w * (i + 1)), y);
+      _ctx.moveTo(-_x + (w * i),       y);
+      _ctx.lineTo(-_x + (w * (i + 1)), y);
       }
   }
   for (let i = 0; i < 6; i++) {
     if ((i % 2) == 0) {
       //right horizontal line
-      ctx.moveTo(_x - (w * i),       y);
-      ctx.lineTo(_x - (w * (i + 1)), y);
+      _ctx.moveTo(_x - (w * i),       y);
+      _ctx.lineTo(_x - (w * (i + 1)), y);
     }
   }
   //right vertical line
-  ctx.moveTo(_x - 1, y);
-  ctx.lineTo(_x - 1, y - 7);
+  _ctx.moveTo(_x - 1, y);
+  _ctx.lineTo(_x - 1, y - 7);
   //right text
-  ctx.font      = "15px BMKApacheFont";
-  ctx.textAlign = "left";
-  ctx.fillText((pitchText).toFixed(0), _x + 1, y + 7);
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "left";
+  _ctx.fillText((pitchText).toFixed(0), _x + 1, y + 7);
 }
 
-function drawZenithNadir(ctx: CanvasRenderingContext2D, _model: model, _pitch: number,  _scalar: number, _text: string)
+function drawZenithNadir(_ctx: CanvasRenderingContext2D, _model: model, _pitch: number,  _scalar: number, _text: string)
 {
   const zenithY = _pitch / _scalar;
   //Zenith dot
-  ctx.save();
-  ctx.beginPath();
-  ctx.arc(0, zenithY, 4, 0, 2 * Math.PI);
-  ctx.fill();
-  ctx.stroke();
-  ctx.restore();
+  _ctx.save();
+  _ctx.beginPath();
+  _ctx.arc(0, zenithY, 4, 0, 2 * Math.PI);
+  _ctx.fill();
+  _ctx.stroke();
+  _ctx.restore();
   //Left line
-  ctx.beginPath();
-  ctx.moveTo( 32, zenithY - 24);
-  ctx.lineTo( 32, zenithY + 24);  
+  _ctx.beginPath();
+  _ctx.moveTo( 32, zenithY - 24);
+  _ctx.lineTo( 32, zenithY + 24);  
   //Right line
-  ctx.moveTo(-32, zenithY - 24);
-  ctx.lineTo(-32, zenithY + 24);  
+  _ctx.moveTo(-32, zenithY - 24);
+  _ctx.lineTo(-32, zenithY + 24);  
   //Top Text
-  ctx.font      = "15px BMKApacheFont";
-  ctx.textAlign = "center";
-  ctx.fillText(_text,  0.0, zenithY - 31);
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "center";
+  _ctx.fillText(_text,  0.0, zenithY - 31);
   //Bottom Text
-  ctx.save();
-  ctx.translate(0.0, zenithY);
-  ctx.rotate(180 * 0.0174533);
-  ctx.textAlign = "center";
-  ctx.fillText(_text,  0.0, -31);
-  ctx.restore();
+  _ctx.save();
+  _ctx.translate(0.0, zenithY);
+  _ctx.rotate(180 * 0.0174533);
+  _ctx.textAlign = "center";
+  _ctx.fillText(_text,  0.0, -31);
+  _ctx.restore();
 }
 
-function drawNavigationFlyToCue(ctx: CanvasRenderingContext2D, _model: model) {
+function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "trans" || _model.selSymb == "cruise") {
     const posX = 320 + 130;
     const posY = 240 - 20;
 
-    ctx.save();
-    ctx.translate(posX, posY);
-    ctx.beginPath();
-    ctx.moveTo(-27, 5);
-    ctx.lineTo(-27,-3);
-    ctx.lineTo(-2, -29);
-    ctx.lineTo( 2, -29);
-    ctx.lineTo( 27,-3);
-    ctx.lineTo( 27, 4);
-    ctx.lineTo( 17, 13);
-    ctx.lineTo(-17, 13);
-    ctx.lineTo(-27, 4);
-    ctx.stroke();
+    _ctx.save();
+    _ctx.translate(posX, posY);
+    _ctx.beginPath();
+    _ctx.moveTo(-27, 5);
+    _ctx.lineTo(-27,-3);
+    _ctx.lineTo(-2, -29);
+    _ctx.lineTo( 2, -29);
+    _ctx.lineTo( 27,-3);
+    _ctx.lineTo( 27, 4);
+    _ctx.lineTo( 17, 13);
+    _ctx.lineTo(-17, 13);
+    _ctx.lineTo(-27, 4);
+    _ctx.stroke();
 
-    ctx.beginPath();
-    ctx.moveTo(-3,0);
-    ctx.lineTo(0,-3);
-    ctx.lineTo(3,0);
-    ctx.lineTo(3,2);
-    ctx.lineTo(-3,2);
-    ctx.lineTo(-3,0);
-    ctx.fill();
+    _ctx.beginPath();
+    _ctx.moveTo(-3,0);
+    _ctx.lineTo(0,-3);
+    _ctx.lineTo(3,0);
+    _ctx.lineTo(3,2);
+    _ctx.lineTo(-3,2);
+    _ctx.lineTo(-3,0);
+    _ctx.fill();
 
-    ctx.restore();
+    _ctx.restore();
   }
 }
 
-function drawBobUpBox(ctx: CanvasRenderingContext2D, _model: model) {
+function drawBobUpBox(_ctx: CanvasRenderingContext2D, _model: model) {
   if (_model.selSymb == "bobup") {
     const posX = 320 - 60;
     const posY = 240 + 30;
 
-    ctx.beginPath();
-    ctx.moveTo(posX - 10, posY - 20);
-    ctx.lineTo(posX + 10, posY - 20);
-    ctx.lineTo(posX + 20, posY - 10);
-    ctx.lineTo(posX + 20, posY + 10);
-    ctx.lineTo(posX + 10, posY + 20);
-    ctx.lineTo(posX - 10, posY + 20);
-    ctx.lineTo(posX - 20, posY + 10);
-    ctx.lineTo(posX - 20, posY - 10);
-    ctx.lineTo(posX - 10, posY - 20);
-    ctx.stroke();
+    _ctx.beginPath();
+    _ctx.moveTo(posX - 10, posY - 20);
+    _ctx.lineTo(posX + 10, posY - 20);
+    _ctx.lineTo(posX + 20, posY - 10);
+    _ctx.lineTo(posX + 20, posY + 10);
+    _ctx.lineTo(posX + 10, posY + 20);
+    _ctx.lineTo(posX - 10, posY + 20);
+    _ctx.lineTo(posX - 20, posY + 10);
+    _ctx.lineTo(posX - 20, posY - 10);
+    _ctx.lineTo(posX - 10, posY - 20);
+    _ctx.stroke();
   }
 }
 
-export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
+export function drawHeadingTape(_ctx: CanvasRenderingContext2D, _model: model) {
   const posY      = 66;
 
   const shortTickHeight = 3;
@@ -622,7 +622,7 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
   const spacing   = 12;
 
   const aircraftoffset = Math.round(_model.heading * spacing / 10);
-  ctx.beginPath();
+  _ctx.beginPath();
 
   for (let i = 0; i < numTicks; i++) {
     let tickheading = i * 10;
@@ -644,64 +644,64 @@ export function drawHeadingTape(ctx: CanvasRenderingContext2D, _model: model) {
     const tickX = (320 + tickheading * spacing / 10 - aircraftoffset);
     
     if (major) {
-      ctx.moveTo(tickX, posY - longTickHeight);
-      ctx.lineTo(tickX, posY + longTickHeight);
+      _ctx.moveTo(tickX, posY - longTickHeight);
+      _ctx.lineTo(tickX, posY + longTickHeight);
     } else {
-      ctx.moveTo(tickX, posY - shortTickHeight);
-      ctx.lineTo(tickX, posY + shortTickHeight);
+      _ctx.moveTo(tickX, posY - shortTickHeight);
+      _ctx.lineTo(tickX, posY + shortTickHeight);
     }
 
-    ctx.textAlign = "center";
-    ctx.font = "15px BMKApacheFont";
+    _ctx.textAlign = "center";
+    _ctx.font = "15px BMKApacheFont";
 
     if (((tickheading + 360) % 360) == 0) {
-      ctx.fillText("N", tickX, posY - textoffsetY);
+      _ctx.fillText("N", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 30) {
-      ctx.fillText("3", tickX, posY - textoffsetY);
+      _ctx.fillText("3", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 60) {
-      ctx.fillText("6", tickX, posY - textoffsetY);
+      _ctx.fillText("6", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 90) {
-      ctx.fillText("E", tickX, posY - textoffsetY);
+      _ctx.fillText("E", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 120) {
-      ctx.fillText("12", tickX, posY - textoffsetY);
+      _ctx.fillText("12", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 150) {
-      ctx.fillText("15", tickX, posY - textoffsetY);
+      _ctx.fillText("15", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 180) {
-      ctx.fillText("S", tickX, posY - textoffsetY);
+      _ctx.fillText("S", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 210) {
-      ctx.fillText("21", tickX, posY - textoffsetY);
+      _ctx.fillText("21", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 240) {
-      ctx.fillText("24", tickX, posY - textoffsetY);
+      _ctx.fillText("24", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 270) {
-      ctx.fillText("W", tickX, posY - textoffsetY);
+      _ctx.fillText("W", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 300) {
-      ctx.fillText("30", tickX, posY - textoffsetY);
+      _ctx.fillText("30", tickX, posY - textoffsetY);
     }
     if (((tickheading + 360) % 360) == 330) {
-      ctx.fillText("33", tickX, posY - textoffsetY);
+      _ctx.fillText("33", tickX, posY - textoffsetY);
     }
   }
-  ctx.stroke();
+  _ctx.stroke();
 
   const headingtext = _model.heading.toFixed(0);
-  const textwidth = ctx.measureText(headingtext);
+  const textwidth = _ctx.measureText(headingtext);
   const textpadding = 10;
   
-  ctx.clearRect(320 - ((textwidth.width + textpadding) / 2), 40, textwidth.width + textpadding, 20);
+  _ctx.clearRect(320 - ((textwidth.width + textpadding) / 2), 40, textwidth.width + textpadding, 20);
   
   //Center Heading
-  ctx.textAlign = "center";
-  ctx.font = "18px BMKApacheFont";
-  ctx.textBaseline = "bottom";
-  ctx.fillText(headingtext, 320, 60);
+  _ctx.textAlign = "center";
+  _ctx.font = "18px BMKApacheFont";
+  _ctx.textBaseline = "bottom";
+  _ctx.fillText(headingtext, 320, 60);
 }
