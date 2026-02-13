@@ -2,6 +2,7 @@ import { clamp, interpolate } from "../math";
 import type { coord } from "./common";
 
 export type model = {
+  pitchBias: number;
   selSymb: string;  //"bobup", "hover", "trans", "cruise"
   vel: coord;
   accel: coord;
@@ -27,12 +28,13 @@ export type model = {
 };
 
 export const exampleModel: model = {
+  pitchBias: 5,
   selSymb: "cruise",
   vel: [5, 8],
   accel: [5, 7],
   fpv: [-0.1, -0.2],
-  pitch: 90.0,
-  roll: 0.0,
+  pitch: 20.0,
+  roll: 45.0,
   heading: 16,
   sideslip: 0.33,
   roc: 500,
@@ -360,11 +362,10 @@ function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model)
   if (_model.selSymb == "trans") {
     const posX = 320;
 
-    const pitchBias = 5;
     const scalar    = 5 / 22;
     const maxY      = 35 / scalar;
     const pitchY = clamp(
-    (_model.pitch + pitchBias) / scalar
+    (_model.pitch + _model.pitchBias) / scalar
     , -maxY
     , maxY
     );
@@ -397,17 +398,15 @@ function drawTransitionHorizonLine(ctx: CanvasRenderingContext2D, _model: model)
 
 function drawCruisePitchLadder(ctx: CanvasRenderingContext2D, _model: model) {
 if (_model.selSymb == "cruise") {
-    const posX      = 320;
-
-    const pitchBias = 5;
     const scalar    = 5 / 44;
     const pitchY = clamp(
-    (_model.pitch + pitchBias) / scalar
+    (_model.pitch + _model.pitchBias) / scalar
     , -(90 / scalar)
     ,  (90 / scalar)
     );
-
-    const posY = 240 + pitchY;
+  
+    const posX = 320 - pitchY * Math.sin(-_model.roll * 0.0174533);
+    const posY = 240 + pitchY * Math.cos(-_model.roll * 0.0174533);
 
     const horizonStart      = 142;
     const shortHorizonStart = horizonStart / 3;
@@ -420,16 +419,16 @@ if (_model.selSymb == "cruise") {
     ctx.beginPath();
 
     //horizon line
-    if (posY >= 108 && posY <= 372) {
+    //if (posY >= 108 && posY <= 372) {
       ctx.moveTo(-horizonStart, 0);
       ctx.lineTo( horizonStart, 0);
-    }
+    //}
     //////////////////////////////////////////////////////////////////////////////////////////
     //Top Horizon Bars    ////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
     for (let i = 1; i < 4; i++) {
       const ladderY = (i * -10) / scalar;
-      if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
+      //if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
         //left text
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "right";
@@ -450,11 +449,11 @@ if (_model.selSymb == "cruise") {
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "left";
         ctx.fillText((i * 10).toFixed(0),  shortHorizonStart + 1, ladderY + 7);
-      }
+      //}
     }
     //45 Degrees
-    const topLadderY45 = -(45 + pitchBias) / scalar;
-    if ((topLadderY45 + pitchY) >= -154 && (topLadderY45 + pitchY) <= 154) {
+    const topLadderY45 = -(45 + _model.pitchBias) / scalar;
+    //if ((topLadderY45 + pitchY) >= -154 && (topLadderY45 + pitchY) <= 154) {
       //left text
       ctx.font      = "15px BMKApacheFont";
       ctx.textAlign = "right";
@@ -475,10 +474,10 @@ if (_model.selSymb == "cruise") {
       ctx.font      = "15px BMKApacheFont";
       ctx.textAlign = "left";
       ctx.fillText("45",  shortHorizonStart + 1, topLadderY45 + 7);
-    }
+    //}
     //60 degrees
-    const topLadderY60 = -(60 + pitchBias) / scalar;
-    if ((topLadderY60 + pitchY) >= -154 && (topLadderY60 + pitchY) <= 154) {
+    const topLadderY60 = -(60 + _model.pitchBias) / scalar;
+    //if ((topLadderY60 + pitchY) >= -154 && (topLadderY60 + pitchY) <= 154) {
       //left text
       ctx.font      = "15px BMKApacheFont";
       ctx.textAlign = "right";
@@ -499,9 +498,9 @@ if (_model.selSymb == "cruise") {
       ctx.font      = "15px BMKApacheFont";
       ctx.textAlign = "left";
       ctx.fillText("60",  shortHorizonStart + 1, topLadderY60 + 7);
-    }
+    //}
     //Zenith (90 degrees up)
-    const zenithY = -(90 + pitchBias) / scalar;
+    const zenithY = -(90 + _model.pitchBias) / scalar;
     if ((zenithY + pitchY) >= -154 && (zenithY + pitchY) <= 154) {
       //Zenith dot
       ctx.save();
@@ -511,6 +510,7 @@ if (_model.selSymb == "cruise") {
       ctx.stroke();
       ctx.restore();
       //Left line
+      ctx.beginPath();
       ctx.moveTo( 32, zenithY - 24);
       ctx.lineTo( 32, zenithY + 24);  
       //Right line
@@ -533,7 +533,7 @@ if (_model.selSymb == "cruise") {
     //////////////////////////////////////////////////////////////////////////////////////////
     for (let i = 1; i < 4; i++) {
     const ladderY = (i * 10) / scalar;
-      if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
+      //if ((ladderY + pitchY) >= -154 && (ladderY + pitchY) <= 154) {
           //left text
           ctx.font      = "15px BMKApacheFont";
           ctx.textAlign = "right";
@@ -562,11 +562,11 @@ if (_model.selSymb == "cruise") {
           ctx.font      = "15px BMKApacheFont";
           ctx.textAlign = "left";
           ctx.fillText((i * 10).toFixed(0), shortHorizonStart + 1, ladderY + 7);
-        }
+        //}
       }
       //45 degrees
-      const bottomLadder45 = (45 - pitchBias) / scalar;
-      if ((bottomLadder45 + pitchY) >= -154 && (bottomLadder45 + pitchY) <= 154) {
+      const bottomLadder45 = (45 - _model.pitchBias) / scalar;
+      //if ((bottomLadder45 + pitchY) >= -154 && (bottomLadder45 + pitchY) <= 154) {
         //left text
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "right";
@@ -595,10 +595,10 @@ if (_model.selSymb == "cruise") {
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "left";
         ctx.fillText("45", shortHorizonStart + 1, bottomLadder45 + 7);
-      }
+      //}
       //60 degrees
-      const bottomLadder60 = (60 - pitchBias) / scalar;
-      if ((bottomLadder60 + pitchY) >= -154 && (bottomLadder60 + pitchY) <= 154) {
+      const bottomLadder60 = (60 - _model.pitchBias) / scalar;
+      //if ((bottomLadder60 + pitchY) >= -154 && (bottomLadder60 + pitchY) <= 154) {
         //left text
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "right";
@@ -627,9 +627,9 @@ if (_model.selSymb == "cruise") {
         ctx.font      = "15px BMKApacheFont";
         ctx.textAlign = "left";
         ctx.fillText("60", shortHorizonStart + 1, bottomLadder60 + 7);
-      }
+      //}
       //Nadir (90 degrees down)
-      const nadirY = (90 - pitchBias) / scalar;
+      const nadirY = (90 - _model.pitchBias) / scalar;
       if ((nadirY + pitchY) >= -154 && (nadirY + pitchY) <= 154) {
         //Nadir dot
         ctx.beginPath();

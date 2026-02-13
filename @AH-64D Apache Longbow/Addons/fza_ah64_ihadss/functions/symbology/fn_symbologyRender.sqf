@@ -6,7 +6,8 @@ if (isNull _ctrl) exitWith {};
 
 private _model = createHashMapFromArray
     [ ["flight", createHashMapFromArray
-        [ ["selSymb",   _heli getVariable "fza_ah64_hmdfsmode"]
+        [ ["pitchBias", 5]
+        , ["selSymb",   _heli getVariable "fza_ah64_hmdfsmode"]
         , ["vel",       [(_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 0, (_heli getVariable "fza_sfmplus_velModelSpaceNoWind") select 1]]
         , ["accel",     [_heli getVariable "fza_sfmplus_accelX", _heli getVariable "fza_sfmplus_accelY"]]
         , ["fpv",       [worldToScreen aslToAgl(aglToAsl positionCameraToWorld[0,0,0] vectorAdd (_heli getVariable "fza_sfmplus_velWorldSpaceNoWind")), -1, 1] call BIS_fnc_clampVector]
