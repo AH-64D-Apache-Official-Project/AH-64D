@@ -11,6 +11,8 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawLoalConstraintsBox(_ctx, _model);
 
   drawInhibitedRocketSteeringCursor(_ctx, _model);
+  drawInhibitedLoblConstraintsBox(_ctx, _model);
+  drawInhibitedLoalConstraintsBox(_ctx, _model);
 }
 
 function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _model: model) {
@@ -62,8 +64,8 @@ function drawInhibitedRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _mode
     //Upper left horizontal line
     for (let i = 0; i < 3; i++) {
         if ((i % 2) == 0) {
-            _ctx.moveTo(-23 + (lineIncrement * i),       -(cursorHeight / 2) - 5);
-            _ctx.lineTo(-23 + (lineIncrement * (i + 1)), -(cursorHeight / 2) - 5);
+            _ctx.moveTo(-23 + (lineIncrement * i),       -(cursorHeight / 2) - 4);
+            _ctx.lineTo(-23 + (lineIncrement * (i + 1)), -(cursorHeight / 2) - 4);
         }
     }
 
@@ -133,10 +135,122 @@ function drawLoalConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
     const boxWidthHeight = 26;
 
     _ctx.save();
-    _ctx.translate(posX + 50, posY - 60);
+    _ctx.translate(posX - 50, posY - 60);
     _ctx.beginPath();
 
     _ctx.strokeRect(-boxWidthHeight / 2, -boxWidthHeight / 2, boxWidthHeight, boxWidthHeight);
+
+    _ctx.stroke();
+    _ctx.restore();
+}
+
+function drawInhibitedLoblConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+    const posX = 320;
+    const posY = 240;  
+
+    _ctx.save();
+    _ctx.translate(posX + 90, posY - 40);
+    _ctx.beginPath();
+
+    //Top of box
+    _ctx.moveTo(-51, -50);
+    _ctx.lineTo(-42, -50);
+    _ctx.moveTo(-38, -50);
+    _ctx.lineTo(-22, -50);
+    _ctx.moveTo(-18, -50);
+    _ctx.lineTo( -2, -50);
+    _ctx.moveTo(  2, -50);
+    _ctx.lineTo( 18, -50);
+    _ctx.moveTo( 22, -50);
+    _ctx.lineTo( 38, -50);
+    _ctx.moveTo( 42, -50);
+    _ctx.lineTo( 51, -50);
+
+    //Right of box
+    _ctx.moveTo( 50,-50);
+    _ctx.lineTo( 50,-42);
+    _ctx.moveTo( 50,-38);
+    _ctx.lineTo( 50,-22);
+    _ctx.moveTo( 50,-18);
+    _ctx.lineTo( 50, -2);
+    _ctx.moveTo( 50,  2);
+    _ctx.lineTo( 50, 18);
+    _ctx.moveTo( 50, 22);
+    _ctx.lineTo( 50, 38);
+    _ctx.moveTo( 50, 42);
+    _ctx.lineTo( 50, 50);
+
+    //Bottom of box
+    _ctx.moveTo(-51, 50);
+    _ctx.lineTo(-42, 50);
+    _ctx.moveTo(-38, 50);
+    _ctx.lineTo(-22, 50);
+    _ctx.moveTo(-18, 50);
+    _ctx.lineTo( -2, 50);
+    _ctx.moveTo(  2, 50);
+    _ctx.lineTo( 18, 50);
+    _ctx.moveTo( 22, 50);
+    _ctx.lineTo( 38, 50);
+    _ctx.moveTo( 42, 50);
+    _ctx.lineTo( 51, 50);
+
+    //Left of box
+    _ctx.moveTo(-50,-50);
+    _ctx.lineTo(-50,-42);
+    _ctx.moveTo(-50,-38);
+    _ctx.lineTo(-50,-22);
+    _ctx.moveTo(-50,-18);
+    _ctx.lineTo(-50, -2);
+    _ctx.moveTo(-50,  2);
+    _ctx.lineTo(-50, 18);
+    _ctx.moveTo(-50, 22);
+    _ctx.lineTo(-50, 38);
+    _ctx.moveTo(-50, 42);
+    _ctx.lineTo(-50, 50);
+
+    _ctx.stroke();
+    _ctx.restore();
+}
+
+function drawInhibitedLoalConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+    const posX = 320;
+    const posY = 240;  
+
+    _ctx.save();
+    _ctx.translate(posX - 70, posY + 20);
+    _ctx.beginPath();
+
+    //Top of box
+    _ctx.moveTo(-14, -13);
+    _ctx.lineTo( -9, -13);
+    _ctx.moveTo( -5, -13);
+    _ctx.lineTo(  5, -13);
+    _ctx.moveTo(  9, -13);
+    _ctx.lineTo( 14, -13);
+
+    //Right of box
+    _ctx.moveTo( 13, -13);
+    _ctx.lineTo( 13,  -9);
+    _ctx.moveTo( 13,  -5);
+    _ctx.lineTo( 13,   5);
+    _ctx.moveTo( 13,   9);
+    _ctx.lineTo( 13,  13);
+
+    //Bottom of box
+    _ctx.moveTo(-14, 13);
+    _ctx.lineTo( -9, 13);
+    _ctx.moveTo( -5, 13);
+    _ctx.lineTo(  5, 13);
+    _ctx.moveTo(  9, 13);
+    _ctx.lineTo( 14, 13);
+
+    //Left of box
+    _ctx.moveTo(-13, -13);
+    _ctx.lineTo(-13,  -9);
+    _ctx.moveTo(-13,  -5);
+    _ctx.lineTo(-13,   5);
+    _ctx.moveTo(-13,   9);
+    _ctx.lineTo(-13,  13);
 
     _ctx.stroke();
     _ctx.restore();

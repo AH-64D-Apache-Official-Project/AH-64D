@@ -6,7 +6,6 @@ export const exampleModel: model = {
 };
 
 export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
-  drawFieldOfRegardPilot(_ctx, _model);
   drawFieldOfRegardFcrCenterline(_ctx);
   drawFieldOfRegardFcrPrevCenterline(_ctx);
   drawFieldOfRegardCuedLosDot(_ctx);
@@ -19,37 +18,6 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawCommandBobupHeading(_ctx);
   drawAlternateSensorBearing(_ctx);
   drawHeadingTapeFcrCenterline(_ctx);
-}
-
-const pilotFieldOfRegardLeft  = 262;
-const pilotFieldOfRegardRight = 433;
-
-export function drawFieldOfRegardPilot(_ctx: CanvasRenderingContext2D, _model: model) {
-  _ctx.strokeRect(pilotFieldOfRegardLeft, pilotFieldOfRegardRight, 116, 43);
-
-  //Left vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(262,448);
-  _ctx.lineTo(269,448);
-  _ctx.stroke();
-
-  //Right vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(371,448);
-  _ctx.lineTo(378,448);
-  _ctx.stroke();
-
-  //Top vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(320,433);
-  _ctx.lineTo(320,440);
-  _ctx.stroke();
-
-  //Bottom vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(320,469);
-  _ctx.lineTo(320,476);
-  _ctx.stroke();
 }
 
 export function drawFieldOfRegardFcrCenterline(_ctx: CanvasRenderingContext2D) {
@@ -80,34 +48,6 @@ export function drawFieldOfRegardFcrPrevCenterline(_ctx: CanvasRenderingContext2
   _ctx.stroke();
 }
 
-export function drawFieldOfRegardGunner(_ctx: CanvasRenderingContext2D, _model: model) {
-  _ctx.strokeRect(262, 433, 116, 43);
-
-  //Left vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(262,448);
-  _ctx.lineTo(269,448);
-  _ctx.stroke();
-
-  //Right vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(371,448);
-  _ctx.lineTo(378,448);
-  _ctx.stroke();
-
-  //Top vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(320,433);
-  _ctx.lineTo(320,440);
-  _ctx.stroke();
-
-  //Bottom vertical tic mark
-  _ctx.beginPath();
-  _ctx.moveTo(320,469);
-  _ctx.lineTo(320,476);
-  _ctx.stroke();
-}
-
 export function drawFieldOfRegardFieldOfViewBox(_ctx: CanvasRenderingContext2D) {
   const fovPosX = 320 - 30;
   const fovPosY = 448 - 5;
@@ -130,19 +70,6 @@ export function drawFieldOfRegardCuedLosDot (_ctx: CanvasRenderingContext2D) {
   _ctx.beginPath();
   _ctx.arc(fovPosX, fovPosY, radius, 0, 2 * Math.PI);
   _ctx.fill();
-}
-
-export function drawHeadTracker(_ctx: CanvasRenderingContext2D) {
-  _ctx.save();
-  _ctx.beginPath();
-  for (let i = 0; i < 4; i++) {
-    _ctx.moveTo(-8, 18);
-    _ctx.lineTo(0, 26);
-    _ctx.lineTo(8, 18);
-    _ctx.rotate(0.5 * Math.PI);
-  }
-  _ctx.stroke();
-  _ctx.restore();
 }
 
 export function drawCueingDotTop(_ctx: CanvasRenderingContext2D) {

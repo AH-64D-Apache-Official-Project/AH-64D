@@ -1,9 +1,10 @@
 import * as base from "./ihadss/base";
-import * as flight from "./ihadss/flight";
+import * as flight from "./ihadss/flightFormat";
 import * as sensor from "./ihadss/sensor";
 import * as weapon from "./ihadss/weapon";
 
 export type model = {
+  base: base.model;
   flight: flight.model;
   sensor: sensor.model;
   weapon: weapon.model;
@@ -19,6 +20,7 @@ export type model = {
 };
 
 export const exampleModel: model = {
+  base: base.exampleModel,
   flight: flight.exampleModel,
   sensor: sensor.exampleModel,
   weapon: weapon.exampleModel,
@@ -90,7 +92,7 @@ export function drawIhadss(_ctx: CanvasRenderingContext2D, _model: model): void 
   //Owner Cue
   _ctx.textAlign    = "center";
   _ctx.textBaseline = "bottom";
-  _ctx.fillText("-OWNDER-CUE-", 320, 395);
+  _ctx.fillText("-OWNER-CUE-", 320, 395);
   //_ctx.fillText(_model.ownerCue, 320, 395);
 
   //WPN Inhibit
@@ -170,7 +172,7 @@ export function drawIhadss(_ctx: CanvasRenderingContext2D, _model: model): void 
     _ctx.fillText(_model.flight.timeToWpt, 215, 389);
   }
 
-  base.draw(_ctx);
+  base.draw(_ctx, _model.base);
   flight.draw(_ctx, _model.flight);
   sensor.draw(_ctx, _model.sensor);
   weapon.draw(_ctx, _model.weapon);
@@ -184,7 +186,7 @@ export function drawIhadssIcon(_ctx: CanvasRenderingContext2D, _icon: icontype):
   _ctx.translate(32, 32);
   switch (_icon) {
     case "headtracker": {
-      sensor.drawHeadTracker(_ctx);
+      base.drawHeadTracker(_ctx);
     }
   }
   _ctx.restore();

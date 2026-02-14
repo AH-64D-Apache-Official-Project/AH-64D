@@ -33,8 +33,8 @@ export const exampleModel: model = {
   vel: [5, 8],
   accel: [5, 7],
   fpv: [0.03, 0.1],
-  pitch: -5.0,
-  roll: 0.0,
+  pitch: -25.0,
+  roll: 15.0,
   heading: 16,
   sideslip: 0.33,
   roc: -1350,
@@ -53,22 +53,22 @@ export const exampleModel: model = {
   hiAltWarn: 200,
 };
 
-export function draw(_ctx: CanvasRenderingContext2D, model: model) {
-  drawTrimBall(_ctx, model);
+export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
+  drawTrimBall(_ctx, _model);
   drawLubberLine(_ctx);
-  drawAccelerationCue(_ctx, model);
-  drawVelocityVector(_ctx, model);
-  drawVsiScale(_ctx, model);
-  drawRadAltScale(_ctx, model);
-  drawVsiIndexer(_ctx, model);
-  drawAttHoldIndicator(_ctx, model);
-  drawAltHoldIndicator(_ctx, model);
-  drawFlightPathVector(_ctx, model);
-  drawTransitionHorizonLine(_ctx, model);
-  drawCruisePitchLadder(_ctx, model);
-  drawNavigationFlyToCue(_ctx, model);
-  drawBobUpBox(_ctx, model);
-  drawHeadingTape(_ctx, model);
+  drawAccelerationCue(_ctx, _model);
+  drawVelocityVector(_ctx, _model);
+  drawVsiScale(_ctx, _model);
+  drawRadAltScale(_ctx, _model);
+  drawVsiIndexer(_ctx, _model);
+  drawAttHoldIndicator(_ctx, _model);
+  drawAltHoldIndicator(_ctx, _model);
+  drawFlightPathVector(_ctx, _model);
+  drawTransitionHorizonLine(_ctx, _model);
+  drawCruisePitchLadder(_ctx, _model);
+  drawNavigationFlyToCue(_ctx, _model);
+  drawBobUpBox(_ctx, _model);
+  drawHeadingTape(_ctx, _model);
 }
 
 function drawTrimBall(_ctx: CanvasRenderingContext2D, _model: model) {
