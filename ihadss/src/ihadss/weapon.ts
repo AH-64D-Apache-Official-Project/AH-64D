@@ -9,6 +9,8 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawArticulatingRocketSteeringCursor(_ctx, _model);
   drawLoblConstraintsBox(_ctx, _model);
   drawLoalConstraintsBox(_ctx, _model);
+
+  drawInhibitedRocketSteeringCursor(_ctx, _model);
 }
 
 function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _model: model) {
@@ -41,6 +43,69 @@ function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _m
     _ctx.moveTo( 23, (cursorHeight / 2) + 5);
     _ctx.lineTo(  5, (cursorHeight / 2) + 5);
 
+    _ctx.stroke();
+    _ctx.restore();
+}
+
+function drawInhibitedRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _model: model) {
+    const posX = 320;
+    const posY = 240;
+
+    const cursorHeight  = 90;
+    const lineWidth     = 18;
+    const lineIncrement = lineWidth / 3;
+
+    _ctx.save();
+    _ctx.translate(posX + 50, posY - 20);
+    _ctx.beginPath();
+ 
+    //Upper left horizontal line
+    for (let i = 0; i < 3; i++) {
+        if ((i % 2) == 0) {
+            _ctx.moveTo(-23 + (lineIncrement * i),       -(cursorHeight / 2) - 5);
+            _ctx.lineTo(-23 + (lineIncrement * (i + 1)), -(cursorHeight / 2) - 5);
+        }
+    }
+
+    //Upper right horizontal line
+    for (let i = 0; i < 3; i++) {
+        if ((i % 2) == 0) {
+            _ctx.moveTo( 23 - (lineIncrement * i),       -(cursorHeight / 2) - 5);
+            _ctx.lineTo( 23 - (lineIncrement * (i + 1)), -(cursorHeight / 2) - 5);
+        }
+    }
+
+    //Center vertical line
+    _ctx.moveTo(0, -45);
+    _ctx.lineTo(0, -31);
+
+    _ctx.moveTo(0, -26);
+    _ctx.lineTo(0, -12);
+
+    _ctx.moveTo(0, -7);
+    _ctx.lineTo(0,  7);
+
+    _ctx.moveTo(0, 12);
+    _ctx.lineTo(0, 26);
+
+    _ctx.moveTo(0, 31);
+    _ctx.lineTo(0, 45);
+
+    //Upper left horizontal line
+    for (let i = 0; i < 3; i++) {
+        if ((i % 2) == 0) {
+            _ctx.moveTo(-23 + (lineIncrement * i),       (cursorHeight / 2) + 5);
+            _ctx.lineTo(-23 + (lineIncrement * (i + 1)), (cursorHeight / 2) + 5);
+        }
+    }
+
+    //Upper right horizontal line
+    for (let i = 0; i < 3; i++) {
+        if ((i % 2) == 0) {
+            _ctx.moveTo( 23 - (lineIncrement * i),       (cursorHeight / 2) + 5);
+            _ctx.lineTo( 23 - (lineIncrement * (i + 1)), (cursorHeight / 2) + 5);
+        }
+    }
     _ctx.stroke();
     _ctx.restore();
 }
