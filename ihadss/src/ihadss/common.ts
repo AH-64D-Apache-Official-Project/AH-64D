@@ -5,7 +5,7 @@ export const mainDisplayArea: coord[] = [
   [560, 0],
   [560, 480],
   [80, 480],
-];
+]
 
 export function clipMainDisplay(_ctx: CanvasRenderingContext2D) {
   _ctx.beginPath();
@@ -19,4 +19,4 @@ export const safeArea: coord[] = [
   [520, 65],
   [520, 415],
   [120, 415],
-];
+]

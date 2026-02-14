@@ -1,20 +1,18 @@
+import * as base from "./base";
 import { clamp, interpolate } from "../math";
 import type { coord } from "./common";
 
 export type model = {
+  base: base.model;
   pitchBias: number;
-  selSymb: string;  //"bobup", "hover", "trans", "cruise"
   vel: coord;
   accel: coord;
   fpv: coord;
   pitch: number;
   roll: number;
-  heading: number;
   sideslip: number;
   roc: number;
   tas: number;
-  gndSpd: number;
-  radAlt: number;
   baroAlt: number;
   engTq: number;
   engTgt: number;
@@ -25,22 +23,19 @@ export type model = {
   altHoldAct: boolean;
   loAltWarn: number;
   hiAltWarn: number;
-};
+}
 
 export const exampleModel: model = {
+  base: base.exampleModel,
   pitchBias: 5,
-  selSymb: "cruise",
   vel: [5, 8],
   accel: [5, 7],
   fpv: [0.03, 0.1],
   pitch: -25.0,
   roll: 15.0,
-  heading: 16,
   sideslip: 0.33,
   roc: -1350,
   tas: 90,
-  gndSpd: 70,
-  radAlt: 75,
   baroAlt: 250,
   engTq: 72,
   engTgt: 860,
@@ -51,11 +46,11 @@ export const exampleModel: model = {
   attHoldAct: true,
   loAltWarn: 33,
   hiAltWarn: 200,
-};
+}
 
 export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
+  drawText(_ctx, _model);
   drawTrimBall(_ctx, _model);
-  drawLubberLine(_ctx);
   drawAccelerationCue(_ctx, _model);
   drawVelocityVector(_ctx, _model);
   drawVsiScale(_ctx, _model);
@@ -68,7 +63,96 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawCruisePitchLadder(_ctx, _model);
   drawNavigationFlyToCue(_ctx, _model);
   drawBobUpBox(_ctx, _model);
-  drawHeadingTape(_ctx, _model);
+}
+
+function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
+  //Torque
+  _ctx.textAlign = "left";
+  _ctx.textBaseline = "bottom";
+  _ctx.fillText(_model.engTq.toFixed(0) + "%", 129, 115);
+  _ctx.globalAlpha = 1;
+  _ctx.lineWidth = 2;
+
+  //TGT
+  //This should only display in the last 2 or 2.5 minutes of a particular tgt limit
+  //If dual engine, then it's the last 2 minutes of the 10 minute limit, if single
+  //engine, then it's the full duration of the 2.5 minute limit 
+  /*
+  _ctx.font = "15px BMKApacheFont";
+  _ctx.textAlign = "right";
+  _ctx.fillText(model.flightFormat.engTgt.toFixed(0) + "C", 174, 115 + 17);
+  */
+  
+  //TAS
+  _ctx.font      = "15px BMKApacheFont";
+  _ctx.textAlign = "right";
+  _ctx.fillText(_model.tas.toFixed(0), 154, 232);
+
+  //G-meter
+  //There's currently nothing to feed this value
+  /*
+  _ctx.font = "15px BMKApacheFont";
+  _ctx.textAlign = "right";
+  _ctx.fillText("1.2G", 154+6, 232 + 22);
+  */
+
+  //MSL Altitude
+  if (_model.base.selSymb == "cruise") {
+    _ctx.font         = "15px BMKApacheFont";
+    _ctx.textAlign    = "right";
+    _ctx.textBaseline = "middle";
+    _ctx.fillText(_model.baroAlt.toFixed(0), 513, 108);
+  }
+
+  //VSI > 1000 FPM Descent Text
+  if (_model.roc < -1000) {
+    const rocVal = Math.round(_model.roc / 100) * 100;
+    _ctx.fillText(rocVal.toFixed(0), 513, 354);
+  }
+
+  //Radar Altitude
+  _ctx.textAlign = "right";
+  _ctx.textBaseline = "bottom";
+  _ctx.fillText(_model.base.radAlt.toFixed(0), 510, 232);
+
+  //HI Altitude Alert
+  //This needs to be set by the FLT SET page, which is not currently implemented
+  if (_model.base.radAlt > _model.hiAltWarn) {
+    _ctx.textAlign = "right";
+    _ctx.textBaseline = "middle";
+    _ctx.fillText("HI", 510, 232 - 24);
+  }
+
+  //LO Altitude Alert
+  //This needs to be set by the FLT SET page, which is not currently implemented
+  if (_model.base.radAlt < _model.loAltWarn) {
+    _ctx.textAlign = "right";
+    _ctx.textBaseline = "middle";
+    _ctx.save();
+    _ctx.fillText("LO", 510, 232 + 21);
+  }
+
+  //Waypoint Selection
+ if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
+    _ctx.font         = "15px BMKApacheFont";
+    _ctx.textAlign    = "left";
+    _ctx.textBaseline = "bottom";
+    _ctx.fillText(_model.curWpt, 86, 365);
+
+    //Waypoint Distance
+    _ctx.font         = "15px BMKApacheFont";
+    _ctx.textAlign    = "right";
+    _ctx.textBaseline = "bottom";
+    //The "KM" needs to dissapear when a waypoint is currently selected or present
+    if (_model.dstToWpt != "") {
+      _ctx.fillText(_model.dstToWpt + "KM", 222, 365);
+    };
+    //Ground Speed
+    _ctx.fillText(_model.base.gndSpd.toFixed(0), 134, 389);
+
+    //Waypoint Time to Go
+    _ctx.fillText(_model.timeToWpt, 215, 389);
+  }
 }
 
 function drawTrimBall(_ctx: CanvasRenderingContext2D, _model: model) {
@@ -96,31 +180,21 @@ function drawTrimBall(_ctx: CanvasRenderingContext2D, _model: model) {
     1,
     maxLeft + radius,
     maxRight - radius,
-  );
+  )
 
   _ctx.beginPath();
   _ctx.arc(trimPos, 424, radius, 0, 2 * Math.PI);
   _ctx.fill();
 }
 
-function drawLubberLine(_ctx: CanvasRenderingContext2D) {
-  _ctx.beginPath();
-  _ctx.moveTo(318, 73);
-  _ctx.lineTo(322, 73);
-  _ctx.lineTo(322, 96);
-  _ctx.lineTo(318, 96);
-  _ctx.lineTo(318, 73);
-  _ctx.fill();
-}
-
 function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
-    if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
+    if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover" || _model.base.selSymb == "trans") {
       const max = 167;
 
       let scalar =  0;
-      if (_model.selSymb == "bobup" || _model.selSymb == "hover") {
+      if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover") {
         scalar = 6 / max;
-      } else if (_model.selSymb == "trans")
+      } else if (_model.base.selSymb == "trans")
       {
         scalar = 60 / max;
       }
@@ -129,19 +203,19 @@ function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
       (_model.vel[0] * 1.94384) / scalar
       , -max
       , max
-      );
+      )
       const velY = clamp(
       (_model.vel[1] * 1.94384) / scalar
       , -max
       , max
-      );
+      )
     
       const accelX = _model.accel[0] * 10;
       const accelY = _model.accel[1] * 10;
 
       let accelPosX = 320;
       let accelPosY = 240;
-      if (_model.gndSpd <= 6) { 
+      if (_model.base.gndSpd <= 6) { 
       accelPosX = 320 + velX + accelX;
       accelPosY = 240 - velY - accelY;
       }
@@ -159,16 +233,16 @@ function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
 }
 
 function drawVelocityVector(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "bobup" || _model.selSymb == "hover" || _model.selSymb == "trans") {
+  if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover" || _model.base.selSymb == "trans") {
     const velVecOriginX = 320;
     const velVecOriginY = 240;
 
     const max = 167;
 
     let scalar =  0;
-    if (_model.selSymb == "bobup" || _model.selSymb == "hover") {
+    if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover") {
       scalar = 6 / max;
-    } else if (_model.selSymb == "trans")
+    } else if (_model.base.selSymb == "trans")
     {
       scalar = 60 / max;
     }
@@ -177,12 +251,12 @@ function drawVelocityVector(_ctx: CanvasRenderingContext2D, _model: model) {
     (_model.vel[0] * 1.94384) / scalar
     , -max
     , max
-    );
+    )
     const velY = clamp(
     (_model.vel[1] * 1.94384) / scalar
     , -max
     , max
-    );
+    )
 
     const velVecTipPosX = 320 + velX;
     const velVecTipPosY = 240 - velY;
@@ -238,10 +312,10 @@ function drawRadAltScale(_ctx: CanvasRenderingContext2D, _model: model) {
   const maxAlt       = 200; //ft agl
   const altScale     = (vsiScaleBotY - vsiScaleTopY) / maxAlt;
   const curAltAgl    = clamp(
-   _model.radAlt
+   _model.base.radAlt
   , 0
   , maxAlt
-  );
+  )
 
   if (curAltAgl < 200) {
     _ctx.beginPath();
@@ -276,7 +350,7 @@ function drawVsiIndexer (_ctx: CanvasRenderingContext2D, _model: model) {
     _model.roc
   , -vsiMax / 2
   ,  vsiMax / 2
-  );
+  )
 
   _ctx.beginPath();
   _ctx.moveTo(posX - 7, posY - (vsiScale * curRoC) - 8);
@@ -327,7 +401,7 @@ function drawAttHoldIndicator (_ctx: CanvasRenderingContext2D, _model: model) {
 }
 
 function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "trans" || _model.selSymb == "cruise") {
+  if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
     const fovX = 40;
     const fovY = 30;
 
@@ -357,7 +431,7 @@ function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _model: model) {
 }
 
 function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "trans") {
+  if (_model.base.selSymb == "trans") {
     const posX = 320;
 
     const scalar    = 5 / 22;
@@ -366,7 +440,7 @@ function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model
     (_model.pitch + _model.pitchBias) / scalar
     , -maxY
     , maxY
-    );
+    )
 
     const posY = 240 + pitchY;
 
@@ -395,7 +469,7 @@ function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model
 }
 
 function drawCruisePitchLadder(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "cruise") {
+  if (_model.base.selSymb == "cruise") {
     _ctx.save(); // clip save
       const w = 300;
       const h = 320;
@@ -561,7 +635,7 @@ function drawZenithNadir(_ctx: CanvasRenderingContext2D, _model: model, _pitch: 
 }
 
 function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "trans" || _model.selSymb == "cruise") {
+  if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
     const posX = 320 + 130;
     const posY = 240 - 20;
 
@@ -593,7 +667,7 @@ function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _model: model) {
 }
 
 function drawBobUpBox(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.selSymb == "bobup") {
+  if (_model.base.selSymb == "bobup") {
     const posX = 320 - 60;
     const posY = 240 + 30;
 
@@ -609,99 +683,4 @@ function drawBobUpBox(_ctx: CanvasRenderingContext2D, _model: model) {
     _ctx.lineTo(posX - 10, posY - 20);
     _ctx.stroke();
   }
-}
-
-export function drawHeadingTape(_ctx: CanvasRenderingContext2D, _model: model) {
-  const posY      = 66;
-
-  const shortTickHeight = 3;
-  const longTickHeight  = 5;
-  const textoffsetY     = 7;
-
-  const numTicks  = 36;
-  const spacing   = 12;
-
-  const aircraftoffset = Math.round(_model.heading * spacing / 10);
-  _ctx.beginPath();
-
-  for (let i = 0; i < numTicks; i++) {
-    let tickheading = i * 10;
-    let offset = tickheading - _model.heading;
-
-    if (offset < -180) {
-      offset += 360;
-      tickheading += 360;
-    } else if (offset > 180) {
-      offset -= 360;
-      tickheading -= 360;
-    }
-
-    if (offset <= -105 || offset >= 105) {
-      continue;
-    }
-
-    const major = (tickheading % 30) == 0;
-    const tickX = (320 + tickheading * spacing / 10 - aircraftoffset);
-    
-    if (major) {
-      _ctx.moveTo(tickX, posY - longTickHeight);
-      _ctx.lineTo(tickX, posY + longTickHeight);
-    } else {
-      _ctx.moveTo(tickX, posY - shortTickHeight);
-      _ctx.lineTo(tickX, posY + shortTickHeight);
-    }
-
-    _ctx.textAlign = "center";
-    _ctx.font = "15px BMKApacheFont";
-
-    if (((tickheading + 360) % 360) == 0) {
-      _ctx.fillText("N", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 30) {
-      _ctx.fillText("3", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 60) {
-      _ctx.fillText("6", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 90) {
-      _ctx.fillText("E", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 120) {
-      _ctx.fillText("12", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 150) {
-      _ctx.fillText("15", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 180) {
-      _ctx.fillText("S", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 210) {
-      _ctx.fillText("21", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 240) {
-      _ctx.fillText("24", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 270) {
-      _ctx.fillText("W", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 300) {
-      _ctx.fillText("30", tickX, posY - textoffsetY);
-    }
-    if (((tickheading + 360) % 360) == 330) {
-      _ctx.fillText("33", tickX, posY - textoffsetY);
-    }
-  }
-  _ctx.stroke();
-
-  const headingtext = _model.heading.toFixed(0);
-  const textwidth = _ctx.measureText(headingtext);
-  const textpadding = 10;
-  
-  _ctx.clearRect(320 - ((textwidth.width + textpadding) / 2), 40, textwidth.width + textpadding, 20);
-  
-  //Center Heading
-  _ctx.textAlign = "center";
-  _ctx.font = "18px BMKApacheFont";
-  _ctx.textBaseline = "bottom";
-  _ctx.fillText(headingtext, 320, 60);
 }

@@ -1,9 +1,9 @@
 export type model = {
-};
+}
 
 
 export const exampleModel: model = {
-};
+}
 
 export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawFieldOfRegardFcrCenterline(_ctx);
@@ -108,7 +108,7 @@ const headingTapeLeftX   = 199;
 const headingTapeRightX  = 441;
 const headingTapeDegrees = 200;
 
-function drawCuedLos(_ctx: CanvasRenderingContext2D) {
+export function drawCuedLos(_ctx: CanvasRenderingContext2D) {
   _ctx.save();
   _ctx.translate(320 + 80, 240 + 40);
   _ctx.beginPath();
@@ -123,7 +123,7 @@ function drawCuedLos(_ctx: CanvasRenderingContext2D) {
   _ctx.restore();
 }
 
-function drawCommandBobupHeading(_ctx: CanvasRenderingContext2D) {
+export function drawCommandBobupHeading(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = -60;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
@@ -138,7 +138,7 @@ function drawCommandBobupHeading(_ctx: CanvasRenderingContext2D) {
   _ctx.stroke();
 }
 
-function drawAlternateSensorBearing(_ctx: CanvasRenderingContext2D) {
+export function drawAlternateSensorBearing(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = 60;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
@@ -153,7 +153,7 @@ function drawAlternateSensorBearing(_ctx: CanvasRenderingContext2D) {
   _ctx.fill();
 }
 
-function drawHeadingTapeFcrCenterline(_ctx: CanvasRenderingContext2D) {
+export function drawHeadingTapeFcrCenterline(_ctx: CanvasRenderingContext2D) {
   const hdgDiff   = 30;
   const width     = headingTapeRightX - headingTapeLeftX;
   const increment = width / headingTapeDegrees;
