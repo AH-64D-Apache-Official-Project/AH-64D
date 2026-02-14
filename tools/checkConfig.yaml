@@ -17,3 +17,4 @@ ignoreFileNames:
   - "UserActionGroups.hpp"
   - "UserActionsConflictGroups.hpp"
   - "ACE_GuidanceConfig.hpp"
+  - ".gitignore"
