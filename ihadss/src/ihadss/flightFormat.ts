@@ -3,7 +3,6 @@ import { clamp, interpolate } from "../math";
 import type { coord } from "./common";
 
 export type model = {
-  base: base.model;
   pitchBias: number;
   vel: coord;
   accel: coord;
@@ -26,7 +25,6 @@ export type model = {
 }
 
 export const exampleModel: model = {
-  base: base.exampleModel,
   pitchBias: 5,
   vel: [5, 8],
   accel: [5, 7],
@@ -48,24 +46,24 @@ export const exampleModel: model = {
   hiAltWarn: 200,
 }
 
-export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
-  drawText(_ctx, _model);
+export function draw(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  drawText(_ctx, _baseModel, _model);
   drawTrimBall(_ctx, _model);
-  drawAccelerationCue(_ctx, _model);
-  drawVelocityVector(_ctx, _model);
+  drawAccelerationCue(_ctx, _baseModel, _model);
+  drawVelocityVector(_ctx, _baseModel, _model);
   drawVsiScale(_ctx, _model);
-  drawRadAltScale(_ctx, _model);
+  drawRadAltScale(_ctx, _baseModel, _model);
   drawVsiIndexer(_ctx, _model);
   drawAttHoldIndicator(_ctx, _model);
   drawAltHoldIndicator(_ctx, _model);
-  drawFlightPathVector(_ctx, _model);
-  drawTransitionHorizonLine(_ctx, _model);
-  drawCruisePitchLadder(_ctx, _model);
-  drawNavigationFlyToCue(_ctx, _model);
-  drawBobUpBox(_ctx, _model);
+  drawFlightPathVector(_ctx, _baseModel, _model);
+  drawTransitionHorizonLine(_ctx, _baseModel, _model);
+  drawCruisePitchLadder(_ctx, _baseModel, _model);
+  drawNavigationFlyToCue(_ctx, _baseModel, _model);
+  drawBobUpBox(_ctx, _baseModel, _model);
 }
 
-function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
+function drawText(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
   //Torque
   _ctx.textAlign = "left";
   _ctx.textBaseline = "bottom";
@@ -97,7 +95,7 @@ function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
   */
 
   //MSL Altitude
-  if (_model.base.selSymb == "cruise") {
+  if (_baseModel.selSymb == "cruise") {
     _ctx.font         = "15px BMKApacheFont";
     _ctx.textAlign    = "right";
     _ctx.textBaseline = "middle";
@@ -113,11 +111,11 @@ function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
   //Radar Altitude
   _ctx.textAlign = "right";
   _ctx.textBaseline = "bottom";
-  _ctx.fillText(_model.base.radAlt.toFixed(0), 510, 232);
+  _ctx.fillText(_baseModel.radAlt.toFixed(0), 510, 232);
 
   //HI Altitude Alert
   //This needs to be set by the FLT SET page, which is not currently implemented
-  if (_model.base.radAlt > _model.hiAltWarn) {
+  if (_baseModel.radAlt > _model.hiAltWarn) {
     _ctx.textAlign = "right";
     _ctx.textBaseline = "middle";
     _ctx.fillText("HI", 510, 232 - 24);
@@ -125,7 +123,7 @@ function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
 
   //LO Altitude Alert
   //This needs to be set by the FLT SET page, which is not currently implemented
-  if (_model.base.radAlt < _model.loAltWarn) {
+  if (_baseModel.radAlt < _model.loAltWarn) {
     _ctx.textAlign = "right";
     _ctx.textBaseline = "middle";
     _ctx.save();
@@ -133,7 +131,7 @@ function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
   }
 
   //Waypoint Selection
- if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
+ if (_baseModel.selSymb == "trans" || _baseModel.selSymb == "cruise") {
     _ctx.font         = "15px BMKApacheFont";
     _ctx.textAlign    = "left";
     _ctx.textBaseline = "bottom";
@@ -148,7 +146,7 @@ function drawText(_ctx: CanvasRenderingContext2D, _model: model) {
       _ctx.fillText(_model.dstToWpt + "KM", 222, 365);
     };
     //Ground Speed
-    _ctx.fillText(_model.base.gndSpd.toFixed(0), 134, 389);
+    _ctx.fillText(_baseModel.gndSpd.toFixed(0), 134, 389);
 
     //Waypoint Time to Go
     _ctx.fillText(_model.timeToWpt, 215, 389);
@@ -187,14 +185,14 @@ function drawTrimBall(_ctx: CanvasRenderingContext2D, _model: model) {
   _ctx.fill();
 }
 
-function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
-    if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover" || _model.base.selSymb == "trans") {
+function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+    if (_baseModel.selSymb == "bobup" || _baseModel.selSymb == "hover" || _baseModel.selSymb == "trans") {
       const max = 167;
 
       let scalar =  0;
-      if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover") {
+      if (_baseModel.selSymb == "bobup" || _baseModel.selSymb == "hover") {
         scalar = 6 / max;
-      } else if (_model.base.selSymb == "trans")
+      } else if (_baseModel.selSymb == "trans")
       {
         scalar = 60 / max;
       }
@@ -215,7 +213,7 @@ function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
 
       let accelPosX = 320;
       let accelPosY = 240;
-      if (_model.base.gndSpd <= 6) { 
+      if (_baseModel.gndSpd <= 6) { 
       accelPosX = 320 + velX + accelX;
       accelPosY = 240 - velY - accelY;
       }
@@ -232,17 +230,17 @@ function drawAccelerationCue(_ctx: CanvasRenderingContext2D, _model: model) {
   }
 }
 
-function drawVelocityVector(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover" || _model.base.selSymb == "trans") {
+function drawVelocityVector(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "bobup" || _baseModel.selSymb == "hover" || _baseModel.selSymb == "trans") {
     const velVecOriginX = 320;
     const velVecOriginY = 240;
 
     const max = 167;
 
     let scalar =  0;
-    if (_model.base.selSymb == "bobup" || _model.base.selSymb == "hover") {
+    if (_baseModel.selSymb == "bobup" || _baseModel.selSymb == "hover") {
       scalar = 6 / max;
-    } else if (_model.base.selSymb == "trans")
+    } else if (_baseModel.selSymb == "trans")
     {
       scalar = 60 / max;
     }
@@ -299,7 +297,7 @@ function drawVsiScale(_ctx: CanvasRenderingContext2D, _model: model) {
   _ctx.stroke();
 }
 
-function drawRadAltScale(_ctx: CanvasRenderingContext2D, _model: model) {
+function drawRadAltScale(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
   const posX         = 551;
   const vsiScaleTopY = 104;
   const vsiScaleBotY = 347;
@@ -312,7 +310,7 @@ function drawRadAltScale(_ctx: CanvasRenderingContext2D, _model: model) {
   const maxAlt       = 200; //ft agl
   const altScale     = (vsiScaleBotY - vsiScaleTopY) / maxAlt;
   const curAltAgl    = clamp(
-   _model.base.radAlt
+   _baseModel.radAlt
   , 0
   , maxAlt
   )
@@ -400,8 +398,8 @@ function drawAttHoldIndicator (_ctx: CanvasRenderingContext2D, _model: model) {
   }
 }
 
-function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
+function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "trans" || _baseModel.selSymb == "cruise") {
     const fovX = 40;
     const fovY = 30;
 
@@ -430,8 +428,8 @@ function drawFlightPathVector(_ctx: CanvasRenderingContext2D, _model: model) {
   }
 }
 
-function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "trans") {
+function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "trans") {
     const posX = 320;
 
     const scalar    = 5 / 22;
@@ -468,8 +466,8 @@ function drawTransitionHorizonLine(_ctx: CanvasRenderingContext2D, _model: model
   }
 }
 
-function drawCruisePitchLadder(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "cruise") {
+function drawCruisePitchLadder(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "cruise") {
     _ctx.save(); // clip save
       const w = 300;
       const h = 320;
@@ -634,8 +632,8 @@ function drawZenithNadir(_ctx: CanvasRenderingContext2D, _model: model, _pitch: 
   _ctx.restore();
 }
 
-function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "trans" || _model.base.selSymb == "cruise") {
+function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "trans" || _baseModel.selSymb == "cruise") {
     const posX = 320 + 130;
     const posY = 240 - 20;
 
@@ -666,8 +664,8 @@ function drawNavigationFlyToCue(_ctx: CanvasRenderingContext2D, _model: model) {
   }
 }
 
-function drawBobUpBox(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.selSymb == "bobup") {
+function drawBobUpBox(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.selSymb == "bobup") {
     const posX = 320 - 60;
     const posY = 240 + 30;
 

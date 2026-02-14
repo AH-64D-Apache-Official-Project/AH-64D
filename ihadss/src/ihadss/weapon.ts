@@ -1,29 +1,27 @@
 import * as base from "./base";
 
 export type model = {
-    base: base.model;
 }
 
 export const exampleModel: model = {
-    base: base.exampleModel,
 }
 
-export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
-  if (_model.base.wpnWas == 2) {
-    drawArticulatingRocketSteeringCursor(_ctx, _model);
-    drawInhibitedRocketSteeringCursor(_ctx, _model);
+export function draw(_ctx: CanvasRenderingContext2D, _baseModel: base.model, _model: model) {
+  if (_baseModel.wpnWas == 2) {
+    drawArticulatingRocketSteeringCursor(_ctx);
+    drawInhibitedRocketSteeringCursor(_ctx);
   }
   
-  if (_model.base.wpnWas == 3) {
-    drawLoblConstraintsBox(_ctx, _model);
-    drawInhibitedLoblConstraintsBox(_ctx, _model);
+  if (_baseModel.wpnWas == 3) {
+    drawLoblConstraintsBox(_ctx);
+    drawInhibitedLoblConstraintsBox(_ctx);
   
-    drawLoalConstraintsBox(_ctx, _model);
-    drawInhibitedLoalConstraintsBox(_ctx, _model);
+    drawLoalConstraintsBox(_ctx);
+    drawInhibitedLoalConstraintsBox(_ctx);
   }
 }
 
-export function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;
 
@@ -57,7 +55,7 @@ export function drawArticulatingRocketSteeringCursor(_ctx: CanvasRenderingContex
     _ctx.restore();
 }
 
-export function drawInhibitedRocketSteeringCursor(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawInhibitedRocketSteeringCursor(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;
 
@@ -120,7 +118,7 @@ export function drawInhibitedRocketSteeringCursor(_ctx: CanvasRenderingContext2D
     _ctx.restore();
 }
 
-export function drawLoblConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawLoblConstraintsBox(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;  
     
@@ -136,7 +134,7 @@ export function drawLoblConstraintsBox(_ctx: CanvasRenderingContext2D, _model: m
     _ctx.restore();
 }
 
-export function drawLoalConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawLoalConstraintsBox(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;  
     
@@ -152,7 +150,7 @@ export function drawLoalConstraintsBox(_ctx: CanvasRenderingContext2D, _model: m
     _ctx.restore();
 }
 
-export function drawInhibitedLoblConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawInhibitedLoblConstraintsBox(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;  
 
@@ -220,7 +218,7 @@ export function drawInhibitedLoblConstraintsBox(_ctx: CanvasRenderingContext2D, 
     _ctx.restore();
 }
 
-export function drawInhibitedLoalConstraintsBox(_ctx: CanvasRenderingContext2D, _model: model) {
+export function drawInhibitedLoalConstraintsBox(_ctx: CanvasRenderingContext2D) {
     const posX = 320;
     const posY = 240;  
 

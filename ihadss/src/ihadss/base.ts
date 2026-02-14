@@ -21,7 +21,7 @@ export const exampleModel: model = {
   crewStation: "plt",
   sightSelect: 0,
   nvsMode: "off",
-  selSymb: "cruise",
+  selSymb: "trans",
   wpnWas: 0,
   heading: 16,
   gndSpd: 72,
@@ -286,6 +286,7 @@ export function drawLubberLine(_ctx: CanvasRenderingContext2D) {
 
 export function drawHadFields(_ctx: CanvasRenderingContext2D, _model: model) {
   ihadssStyle(_ctx);
+  
   //Owner Cue
   _ctx.textAlign    = "center";
   _ctx.textBaseline = "bottom";
