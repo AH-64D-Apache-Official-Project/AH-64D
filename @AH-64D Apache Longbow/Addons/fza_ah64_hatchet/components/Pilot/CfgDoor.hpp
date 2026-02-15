@@ -1,7 +1,7 @@
 class PilotDoor {
     positionType = "anim";
     position = "ctrlref_p_doorhandle";
-    label = "Pilot Door Handle";
+    label = "Open/Close Pilot Door";
     animation = "Pdoor";
     animStates[] = {1,0};
     animLabels[] = {"OPEN", "CLOSE"};

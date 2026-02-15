@@ -13,7 +13,7 @@ class className {\
     clickSound = Audio;\
 };\
 
-#define CfgSwitch(className, Mempoint, Text, animationName, Distance, States, StatesLabel, Code, Audio) \
+#define CfgSwitch(className, Mempoint, Text, animationName, Distance, States, StatesLabel, Code, Code2, Audio) \
 class className {\
     positionType = "anim";\
     position = Mempoint;\
@@ -23,5 +23,6 @@ class className {\
     animLabels[] = {StatesLabel};\
     radius = Distance;\
     animend = Code;\
+    buttonDown = Code2;\
     clickSound = Audio;\
 };\
