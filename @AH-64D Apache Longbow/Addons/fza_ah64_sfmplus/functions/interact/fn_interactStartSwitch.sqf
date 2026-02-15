@@ -23,7 +23,7 @@ if (_heli getVariable "fza_ah64_rtrbrake") exitWith {};
 
 private _engState = _heli getVariable "fza_sfmplus_engState" select _engNum;
 
-_heli animateSource [(["plt_eng1_start", "plt_eng2_start"] select _engNum), 0.5];
+_heli animateSource [(["plt_eng1_start", "plt_eng2_start"] select _engNum), 0.5, 0.2];
 
 switch (_action) do {
     case "START": {

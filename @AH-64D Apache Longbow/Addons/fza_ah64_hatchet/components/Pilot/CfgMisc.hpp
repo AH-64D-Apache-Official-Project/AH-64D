@@ -3,4 +3,5 @@ CfgButtonDown(ArmSafeToggle, "plt_btn_arm_safe", "Toggle Arm/Safe", 0.025, [ARR_
 CfgButtonDown(GroundOverrideToggle, "plt_btn_gnd_oride", "Activate Ground Override", 0.025, [ARR_3(_this#0, QUOTE(gndOrideBtn), QUOTE(gndOride))] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
 CfgButtonDown(MasterCautionButton, "plt_btn_mstr_caut", "Acknowledge Master Caution", 0.025, [ARR_3(_this#0, QUOTE(mstrCautBtn), QUOTE(mstrCaut))] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
 CfgButtonDown(MasterWarningButton, "plt_btn_mstr_warn", "Acknowledge Master Warning", 0.025, [ARR_3(_this#0, QUOTE(mstrWarnBtn), QUOTE(mstrWarn))] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
-CfgButtonDown(KeyboardUnit, "plt_ku_ctr", "Toggle Keyboard Unit", 0.1, [ARR_3(_this#0, QUOTE(ku), QUOTE(activate))] call fza_fnc_coreCockpitInteract, "fza_ah64_switch_flip4");
+CfgButtonUpConditions(ActivateKeyboardUnit, isNil QUOTE(fza_ku_keyDownEvent), "plt_ku_ctr", "Activate Keyboard Unit", 0.1, _this#0 call fza_ku_fnc_activateInput, "fza_ah64_switch_flip4")
+CfgButtonDownConditions(DeactivateKeyboardUnit, !isNil QUOTE(fza_ku_keyDownEvent), "plt_ku_ctr", "Deactivate Keyboard Unit", 0.1, _this#0 call fza_ku_fnc_deactivateInput, "fza_ah64_switch_flip4")

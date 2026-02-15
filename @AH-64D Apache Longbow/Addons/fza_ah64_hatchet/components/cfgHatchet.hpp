@@ -13,6 +13,39 @@ class className {\
     clickSound = Audio;\
 };\
 
+#define CfgButtonUp(className, Mempoint, Text, Distance, Code, Audio) \
+class className {\
+    positionType = "static";\
+    position = Mempoint;\
+    label = Text;\
+    radius = Distance;\
+    buttonUp = Code;\
+    clickSound = Audio;\
+};\
+
+#define CfgButtonDownConditions(className, Condition, Mempoint, Text, Distance, Code, Audio) \
+class className {\
+    condition = Condition;\
+    positionType = "static";\
+    position = Mempoint;\
+    label = Text;\
+    radius = Distance;\
+    buttonDown = Code;\
+    clickSound = Audio;\
+};\
+
+#define CfgButtonUpConditions(className, Condition, Mempoint, Text, Distance, Code, Audio) \
+class className {\
+    condition = Condition;\
+    positionType = "static";\
+    position = Mempoint;\
+    label = Text;\
+    radius = Distance;\
+    buttonUp = Code;\
+    clickSound = Audio;\
+};\
+
+
 #define CfgSwitch(className, Mempoint, Text, animationName, Distance, States, StatesLabel, Code, Code2, Audio) \
 class className {\
     positionType = "anim";\
