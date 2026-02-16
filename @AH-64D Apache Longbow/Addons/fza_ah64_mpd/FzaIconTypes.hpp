@@ -803,7 +803,7 @@ class FzaIconTypes {
 
     class TSD_TADS_CROSSHAIR:IconTypeH {
         tex   = "\fza_ah64_mpd\tex\tsdIcons\tads_tsd_icon.paa";
-        type  = POINT_TYPE_BFT;
+        type  = POINT_TYPE_SYSTEM;
         color[] = MPD_ICON_COLOR_GREEN;
     };
 
