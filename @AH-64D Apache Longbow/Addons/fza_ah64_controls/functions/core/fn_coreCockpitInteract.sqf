@@ -9,13 +9,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_fire_fnc_handleControl;
     };
     case "door": {
-        if (_control == "handle") then {
-            if (player == gunner _heli) then {
-                [_heli] spawn fza_fnc_doortoggleG;
-            } else {
-                [_heli] spawn fza_fnc_doortogglep;
-            };
-        }
+        [_heli] spawn fza_fnc_doortoggle;
     };
     case "engine": {
         [_heli, _system, _control] call fza_fnc_engineHandleControl;
@@ -24,17 +18,7 @@ switch (_system) do {
         [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };
     case "nvs": {
-        private _nvsSwitch = (if (driver _heli == player) then {"plt_nvsmode"} else {"cpg_nvsmode"});
-        if (_control == "mode") then {
-            if (_heli animationphase _nvsSwitch < 1) then {
-                _heli animateSource[_nvsSwitch, 1];
-                _heli setVariable ["fza_ah64_nvsModeSwitchNorm", true];
-            } else {
-                _heli animateSource[_nvsSwitch, 0];
-                _heli setVariable ["fza_ah64_nvsModeSwitchNorm", false];
-            };
-            playsound "fza_ah64_switch_flip3";
-        };
+        [_heli, _system, _control] call fza_ihadss_fnc_handleControl;
     };
     case "light": {
         [_heli, _system, _control] call fza_light_fnc_handleControl;

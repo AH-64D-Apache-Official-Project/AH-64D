@@ -35,6 +35,7 @@ class CfgFunctions
         class engine {
             file = "\fza_ah64_sfmplus\functions\engine";
             class engine  {R;};
+            class engine2 {R;};
             class engineController {R;};
             class engineReset {R;};
             class engineVariables {R;};
@@ -51,6 +52,7 @@ class CfgFunctions
             class fmcAltitudeHold {R;};
             class fmcAltitudeHoldEnable {R;};
             class fmcAttitudeHoldEnable {R;};
+            class fmcControlMixing {R;};
             class fmcForceTrimSet {R;};
             class fmcHeadingHold {R;};
             class fmcHoldModesDisable {R;};
@@ -103,8 +105,14 @@ class CfgFunctions
             class simpleRotorTail {R;};
             class simpleRotorVariables {R;};
         };
+        class transmission {
+            file = "\fza_ah64_sfmplus\functions\transmission";
+            class transmission {R;};
+            class transmissionVariables {R;};
+        };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
+            class analogHandler {R;};
             class calculateAeroValues {R;};
             class centerTrimMode {R;};
             class getAccelerations {R;};
@@ -119,6 +127,7 @@ class CfgFunctions
             class init {R;};
             class isINF {R;};
             class isNAN {R;};
+            class nonAnalogHandler {R;};
             class onGround {R;};
         };
     };

@@ -29,16 +29,20 @@ private _dcBusOn   = _heli getVariable "fza_systems_dcBusOn";
 private _powerOnState = (_acBusOn && _dcBusOn);
 
 switch (_control) do {
-    case "floodlight": {
+    case "FLOODLIGHTING": {
         private _turret   = ((_heli call fza_fnc_currentTurret) isEqualTo [-1]);
         private _variable  = ["fza_ah64_lightCpgFlood", "fza_ah64_lightPltFlood"] select _turret;
         private _value = !(_heli getvariable _variable);
         _heli setVariable [_variable, _value];
         [_heli, (_heli call fza_fnc_currentTurret), _value] call fza_light_fnc_setFloodLight;
-        playsound "fza_ah64_button_rotary";
     };
-    case "anticollision": {
+    case "ANTI-COLLISION ON": {
+        [_heli, "fza_ah64_lightAntiColl", true] call fza_fnc_animSetValue;
+    };
+    case "ANTI-COLLISION OFF": {
+        [_heli, "fza_ah64_lightAntiColl", false] call fza_fnc_animSetValue;
+    };
+    case "collisionToggle": {
         [_heli, "fza_ah64_lightAntiColl", !(_heli getVariable "fza_ah64_lightAntiColl")] call fza_fnc_animSetValue;
-        playsound "fza_ah64_switch_flip3";
     };
 };

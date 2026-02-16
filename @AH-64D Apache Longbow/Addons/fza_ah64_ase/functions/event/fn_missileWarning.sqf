@@ -34,7 +34,7 @@ private _rlwrPwr  = _heli getVariable "fza_ah64_ase_rlwrPwr";
 private _mpdLeft  = [_heli, 0] call fza_mpd_fnc_currentPage;
 private _mpdright = [_heli, 1] call fza_mpd_fnc_currentPage;
 private _theta = _heli getRelDir _missile;
-private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_fnc_bearingClock];
+private _dirAud = format ["fza_ah64_bt_%1oclock", [_theta] call fza_ase_fnc_bearingClock];
 
 _heli getVariable "fza_ah64_ase_irJamState" params ["_irJamState"];
 if (_irJamState == ASE_IRJAM_STATE_OPER && _heli animationPhase "msn_equip_British" == 1) exitWith {

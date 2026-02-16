@@ -46,7 +46,7 @@ if (_apuRPM_pct > SYS_MIN_RPM) then {
     };
 };
 _heli setVariable ["fza_systems_apuOn", _apuOn];
-_heli setObjectTexture ["in_lt_apu", ["", "\fza_ah64_us\tex\in\pushbut.paa"] select _apuOn];
+_heli setObjectTexture ["in_lt_apu", ["", "\fza_ah64_model\tex\in\pushbut.paa"] select _apuOn];
 
 if (_apuOn) then {
     _apuFF_kgs = 0.0220;//175pph

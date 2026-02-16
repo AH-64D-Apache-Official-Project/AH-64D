@@ -91,14 +91,14 @@ switch (_engState) do {
 		//Np
         if (_isAutorotating) then {
             private _autoNp = 1.01;
-            if (_collectiveOutput > 0.295) then {
-                _autoNp = linearConversion[1.0, 0.295, _collectiveOutput, 0.0, 0.78, true];
+            if (_collectiveOutput > 0.050) then {
+                _autoNp = linearConversion[1.0, 0.050, _collectiveOutput, 0.0, 0.78, true];
             };
-            if (_collectiveOutput <= 0.295 && _collectiveOutput > 0.10) then {
-                _autoNp = linearConversion[0.295, 0.100, _collectiveOutput, 1.01, 1.05, true];
+            if (_collectiveOutput <= 0.050 && _collectiveOutput > 0.025) then {
+                _autoNp = linearConversion[0.050, 0.025, _collectiveOutput, 1.01, 1.03, true];
             };
-            if (_collectiveOutput <= 0.10) then {
-                _autoNp = linearConversion[0.100, 0.0, _collectiveOutput, 1.05, 1.15, true];
+            if (_collectiveOutput <= 0.025) then {
+                _autoNp = linearConversion[0.025, 0.0, _collectiveOutput, 1.03, 1.15, true];
             };
             _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
         } else {
@@ -149,11 +149,11 @@ switch (_engState) do {
             //Autorotation handler
             if (_isAutorotating) then { 
                 private _autoNp = 1.01;
-                if (_collectiveOutput <= 0.295 && _collectiveOutput > 0.10) then {
-                    _autoNp = linearConversion[0.295, 0.100, _collectiveOutput, 1.01, 1.05, true];
+                if (_collectiveOutput <= 0.050 && _collectiveOutput > 0.025) then {
+                    _autoNp = linearConversion[0.050, 0.025, _collectiveOutput, 1.01, 1.03, true];
                 };
-                if (_collectiveOutput <= 0.10) then {
-                    _autoNp = linearConversion[0.100, 0.0, _collectiveOutput, 1.05, 1.15, true];
+                if (_collectiveOutput <= 0.025) then {
+                    _autoNp = linearConversion[0.025, 0.0, _collectiveOutput, 1.03, 1.15, true];
                 };
                 _engPctNP       = [_engPctNP, _autoNp, _deltaTime] call BIS_fnc_lerp;
             } else {
@@ -177,7 +177,7 @@ private _hvrTQ      = linearConversion [15.24, 1.52, _heightAGL, _hvrOGE, _hvrIG
 
 //If the engine isn't overspeed, do normal engine things
 if (!_engOverspeed) then {
-    private _rtrTq = (_heli getVariable "fza_sfmplus_reqEngTorque") / 481.109;
+    private _rtrTq = (_heli getVariable "fza_sfmplus_reqEngTorque" select 0) / 481.109;
     if (_isSingleEng) then {
         if (_engPowerLeverState in ["OFF", "IDLE"]) then {
             _engPctTQ = 0.0;
@@ -216,8 +216,8 @@ if (_engPctNP >= 1.196) then {
 
 //Update variables
 [_heli, "fza_sfmplus_engPctNG",      _engNum, _engPctNG] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
+//[_heli, "fza_sfmplus_engPctNP",      _engNum, _engPctNP] call fza_fnc_setArrayVariable;
+//[_heli, "fza_sfmplus_engPctTQ",      _engNum, _engPctTQ] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engBaseTGT",    _engNum, _engBaseTGT] call fza_fnc_setArrayVariable;
 [_heli, "fza_sfmplus_engBaseOilPSI", _engNum, _engBaseOilPSI] call fza_fnc_setArrayVariable;

@@ -7,7 +7,7 @@ class CfgMagazines {
             ammo = ammoname; \
             displayName = disp; \
             descriptionShort = dispShort; \
-            model = \fza_ah64_us\fza_ah64_auxtank.p3d; \
+            model = \fza_ah64_auxtank\fza_ah64_auxtank.p3d; \
             count = 1; \
             hardpoints[] = {"fza_railzone"}; \
             reloadSound[] = {"A3\sounds_f\dummysound", 0.000316228, 1}; \

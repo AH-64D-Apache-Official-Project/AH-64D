@@ -6,7 +6,7 @@ class CfgPatches
         author = "AH-64D Development Team";
         weapons[] = {};
         requiredVersion = 1.0;
-        requiredAddons[] = {};
+        requiredAddons[] = {"fza_ah64_controls"};
     };
 };
 
@@ -14,6 +14,8 @@ class CfgPatches
 
 #include "CfgAmmo.hpp"
 #include "CfgFunctions.hpp"
-#include "CfgNonAIVehicles.hpp"
 #include "CfgMagazines.hpp"
+#include "CfgNonAIVehicles.hpp"
+#include "CfgSoundSets.hpp"
+#include "CfgSoundShaders.hpp"
 #include "CfgWeapons.hpp"

@@ -3,10 +3,8 @@
 #else
 #define R recompile = 0
 #endif
-class CfgFunctions
-{
-    class fza_ah64_cannon
-    {
+class CfgFunctions {
+    class fza_ah64_cannon {
         tag = "fza_cannon";
         class functions {
             file = "\fza_ah64_cannon\functions";

@@ -1,0 +1,1 @@
+CfgButtonDown(Floodlighting, cpg_flood, "Flood Light", 0.05, [ARR_3(_this#0, QUOTE(light), QUOTE(FLOODLIGHTING))] call fza_fnc_coreCockpitInteract, "fza_ah64_button_rotary");

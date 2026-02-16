@@ -10,33 +10,6 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_freeCursorSensitivity",
-    "SLIDER",
-    "Free cursor mode sensitivity",
-    [_projName, "Control"],
-    [0, 0.1, 0.05, 2],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_freeCursorfreelooklock",
-    "CHECKBOX",
-    "Lock the cursor when in free look",
-    [_projName, "Control"],
-    [true],
-    2
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_enableClickHelper",
-    "CHECKBOX",
-    ["Enable cockpit hints", "Disabling this will hide the Cockpit hints"],
-    [_projName, "UI"],
-    [true],
-    2
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_vanillaTargetingEnable",
     "CHECKBOX",
     ["Show vanilla targeting information (restart required)", "Disabling this will hide vanilla targeting information (restart needed)"],
@@ -50,12 +23,12 @@ private _projName = "AH-64D Official Project";
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_sfmPlusCollectiveControl",
+    "fza_ah64_sfmplusRealismSetting",
     "LIST",
-    ["Collective Control", "HOTAS is for users using a Throttle. Keyboard/Gamepad is for users using a gamepad with buttons or keyboard for collective."],
+    ["Aircraft Realism Settings", ""],
     [_projName, "Flight model"],
-    [[HOTAS,KEYBOARD],["HOTAS","Keyboard/Gamepad"],1],
-    2
+    [[CASUAL, REALISTIC],["Casual", "Realistic"],0],
+    0
 ] call CBA_fnc_addSetting;
 
 [
@@ -126,7 +99,7 @@ private _projName = "AH-64D Official Project";
     "CHECKBOX",
     ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
     [_projName, "Flight model"],
-    [false],
+    [true],
     2
 ] call CBA_fnc_addSetting;
 
@@ -165,6 +138,15 @@ private _projName = "AH-64D Official Project";
     "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
     ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
+    [_projName, "Flight model"],
+    [false],
+    2
+] call CBA_fnc_addSetting;
+
+[
+    "fza_ah64_sfmPlusFmDebug",
+    "CHECKBOX",
+    ["Enable FM Debuging", "Displays debug output for troubleshooting FM issues."],
     [_projName, "Flight model"],
     [false],
     2

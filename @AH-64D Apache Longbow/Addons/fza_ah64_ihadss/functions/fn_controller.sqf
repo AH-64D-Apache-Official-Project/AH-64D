@@ -30,7 +30,6 @@ private _hideMonocle = !(vehicle player isKindOf "fza_ah64base")
 
 if _hideMonocle exitWith {
     ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) ctrlSetText "";
-    ("fza_ah64_click_helper" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_monocleinbox" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_nvsoverlay" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];
     ("fza_ah64_raddisp" call BIS_fnc_rscLayer) cuttext["", "PLAIN"];

@@ -93,7 +93,7 @@ _stabOutputTable = [
                    ];
 */
                    
-if (_stabDamage < SYS_STAB_DMG_THRESH || _dcBusOn) then {
+if (_stabDamage < SYS_STAB_DMG_THRESH && _dcBusOn) then {
     _desiredTheta = [_stabOutputTable, (_heli getVariable "fza_sfmplus_vel2D") * KNOTS_TO_MPS] call fza_fnc_linearInterp select 1;
     _theta        = [_theta, _desiredTheta, (1.0 / 1.5) * _deltaTime] call BIS_fnc_lerp;
     _heli setVariable ["fza_ah64_stabilatorPosition", _theta];
@@ -228,7 +228,14 @@ for "_j" from 0 to (_numElements - 1) do {
     private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
-    _heli addTorque (_heli vectorModelToWorld _moment);
+    private _torque = [0.0, 0.0, 0.0];
+    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+        _torque = _moment;
+    } else {
+        _torque = [0.0, 0.0, _moment select 2];
+    };
+
+    _heli addTorque (_heli vectorModelToWorld _torque);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Debug                /////////////////////////////////////////////////////////////////////

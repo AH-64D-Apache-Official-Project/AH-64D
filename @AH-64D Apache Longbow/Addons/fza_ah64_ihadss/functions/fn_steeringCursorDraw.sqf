@@ -33,7 +33,7 @@ private _Offset = -0.35;
 if (WAS_WEAPON_RKT != _heli getVariable "fza_ah64_was") exitwith {};    
 if (cameraView != "GUNNER") then {_Offset = 0.14;};
 
-private _tex = "\fza_ah64_us\tex\HDU\ah64_rkt.paa";
+private _tex = "\fza_ah64_model\tex\HDU\ah64_rkt.paa";
 _steeringCursorControl ctrlSetText _tex;
 private _tadsAzimuth = _heli getVariable "fza_ah64_tadsAzimuth";
 _screenPos = [_Offset + _tadsAzimuth*4, -8 + (-_pylonelev/0.64)] call fza_ihadss_fnc_angleToScreen;

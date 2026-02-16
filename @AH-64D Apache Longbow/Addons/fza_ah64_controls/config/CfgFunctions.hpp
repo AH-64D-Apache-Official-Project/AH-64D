@@ -26,7 +26,6 @@ class CfgFunctions
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
             class coreFixedUpdateScheduler {R;};
-            class coreGetObjectsLookedAt {R;};
             class coreGetWCAs {R;};
             class coreCockpitControlHandle {R;};
             class coreCockpitInteract {R;};
@@ -38,14 +37,9 @@ class CfgFunctions
         class engine
         {
             file = "\fza_ah64_controls\functions\engine";
-            class engineHandleControl {R;};
-            class engineSetPosition
-            {
-                R;
-                description = "Sets up engine to be at Off, Idle, Fly";
-            };
-            class engineUpdate
-            { R; description = "Updates internal engine state"; };
+            class enginehandlecontrol {R;};
+            class engineSetPosition { R; description = "Sets up engine to be at Off, Idle, Fly"; };
+            class engineUpdate {R; description = "Updates internal engine state"; };
         };
         class event
         {
@@ -75,7 +69,6 @@ class CfgFunctions
         class ui
         {
             file = "\fza_ah64_controls\functions\ui";
-            class uiMouseMove {R;};
             class uiShowIntro {R;};
         };
         class weapon
@@ -101,13 +94,8 @@ class CfgFunctions
             class relativeDirection {R;};
             class velocityVector {R;};
             class compensateSafezone { R;};
-            class targetisADA {R;};
-            class doortoggleP {R;};
-            class doortoggleG {R;};
-            class bearingClock {R;};
-            class loadoutImportJson {R;};
-            class setTailNumber {R;};
             class configToHashMap {R;};
+            class doortoggle {R;};
         };
     };
 };

@@ -22,7 +22,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_laserDesig[] = {0x22}; //G
             fza_ah64_fcrSingleScan[] = {0x2A130013}; //Shift+R
             fza_ah64_targetStoreUpdate[] = {0x2A130022}; //Shift+G
-            fza_ah64_crosshairInteract[] = {0x56}; // Backslash (\)
             fza_ah64_waypointIncrease[] = {0x2A130006}; //Shift+5
             fza_ah64_waypointDecrease[] = {0x1D130006}; //Ctrl+5
             fza_ah64_countermeasure[] = {0x13}; //R
@@ -32,7 +31,6 @@ class CfgDefaultKeysPresets {
             fza_ah64_wasMsl[] = {0x04}; // 3
             fza_ah64_fcrModeSwitch_up[] = {0x2A130023}; //Shift+H
             fza_ah64_fcrModeSwitch_down[] = {0x1D130023}; //Ctrl+H
-            fza_ah64_freeCursor[] = {0x16}; // U
             fza_ah64_flare[] = {0x13}; // R
             fza_ah64_tadsLHGFov_W[] = {0x38130002};
             fza_ah64_tadsLHGFov_M[] = {0x38130003};
@@ -42,6 +40,20 @@ class CfgDefaultKeysPresets {
             fza_ah64_SensorSelect_FLIR[] = {0x1D130031};
             fza_ah64_SensorSelect_DTV[] = {0x2A130031};
             fza_ah64_SensorSelect_DVO[] = {0x38130031};
+            fza_ah64_stickyControlInterupt[] = {0x39};
+            fza_ah64_forceTrimPanicButton[] = {};
+            fza_ah64_collectiveEmergJett[] = {};
+            fza_ah64_cyclicForward[] = {0x11};
+            fza_ah64_cyclicBackward[] = {0x1F};
+            fza_ah64_cyclicLeft[] = {0x1E};
+            fza_ah64_cyclicRight[] = {0x20};
+            fza_ah64_pedalLeft[] = {0x10};
+            fza_ah64_pedalRight[] = {0x12};
+            fza_ah64_collectiveUp[] = {};
+            fza_ah64_collectiveDn[] = {};
+            fza_ah64_kbCollectiveUp[] = {0x2A};
+            fza_ah64_kbCollectiveDn[] = {0x1D};
+            
         };
     };
     class Arma3: Arma2 {

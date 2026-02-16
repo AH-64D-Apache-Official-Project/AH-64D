@@ -67,56 +67,6 @@ class RscTitles
             };
         };
     };
-    class fza_ah64_click_helper
-    {
-        idd = 600;
-        movingEnable =  1;
-        duration     =  99999;
-        fadein       =  0;
-        fadeout      =  0;
-        name = "fza_ah64_click_helper";
-        onLoad = "with uiNameSpace do { fza_ah64_click_helper = _this select 0 }";
-        class controls
-        {
-            class fza_ah64_click_helper_center
-            {
-                idc = 601;
-                type = 0;
-                colorText[] = {1, 1, 1, 1};
-                font = "EtelkaMonospaceProBold";
-                colorBackground[] = {1, 1, 1, 1};
-                text = "\fza_ah64_US\tex\hdu\hmd_curs_ca.paa";
-                style = 48;
-                sizeEx = 1024;
-                x = 0.495;
-                y = 0.491;
-                w = 0.01;
-                h = 0.015;
-            };
-            class fza_ah64_click_helper_txt
-            {
-                type = 13;
-                idc = 602;
-                style = 2 + 16;
-                lineSpacing = 1;
-                x = 0.25;
-                y = 0.55;
-                w = 0.5;
-                h = 0.12;
-                size = 0.02;
-                colorBackground[] = {0,0,0,0};
-                colorText[] = {0.1,1,0,0.5};
-                text = "";
-                font = "EtelkaMonospaceProBold";
-                class Attributes
-                {
-                    font = "EtelkaMonospaceProBold";
-                    align = "center";
-                    shadow = false;
-                };
-            };
-        };
-    };
     class fza_ah64_raddisp
     {
         idd = 100;
@@ -132,7 +82,7 @@ class RscTitles
             {
                 idc = 250;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_c.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_c.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -149,7 +99,7 @@ class RscTitles
             {
                 idc = 251;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p1.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p1.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -166,7 +116,7 @@ class RscTitles
             {
                 idc = 252;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p2.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p2.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -183,7 +133,7 @@ class RscTitles
             {
                 idc = 253;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p3.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p3.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -200,7 +150,7 @@ class RscTitles
             {
                 idc = 254;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p4.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p4.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -217,7 +167,7 @@ class RscTitles
             {
                 idc = 255;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p5.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p5.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -234,7 +184,7 @@ class RscTitles
             {
                 idc = 256;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p6.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p6.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -251,7 +201,7 @@ class RscTitles
             {
                 idc = 257;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p7.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p7.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -268,7 +218,7 @@ class RscTitles
             {
                 idc = 258;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p8.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p8.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -285,7 +235,7 @@ class RscTitles
             {
                 idc = 259;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_p9.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_p9.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -303,7 +253,7 @@ class RscTitles
             {
                 idc = 260;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n1.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n1.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -320,7 +270,7 @@ class RscTitles
             {
                 idc = 261;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n2.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n2.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -337,7 +287,7 @@ class RscTitles
             {
                 idc = 262;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n3.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n3.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -354,7 +304,7 @@ class RscTitles
             {
                 idc = 263;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n4.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n4.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -371,7 +321,7 @@ class RscTitles
             {
                 idc = 264;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n5.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n5.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -388,7 +338,7 @@ class RscTitles
             {
                 idc = 265;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n6.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n6.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -405,7 +355,7 @@ class RscTitles
             {
                 idc = 266;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n7.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n7.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -422,7 +372,7 @@ class RscTitles
             {
                 idc = 267;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n8.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n8.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -439,7 +389,7 @@ class RscTitles
             {
                 idc = 268;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_n9.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_n9.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -457,7 +407,7 @@ class RscTitles
             {
                 idc = 269;
                 type = 82;
-                model = "\fza_ah64_us\prx\ihadss\fza_ah64_ihadss_hor_d.p3d";
+                model = "\fza_ah64_model\prx\ihadss\fza_ah64_ihadss_hor_d.p3d";
                 scale = 1;
                 direction[] = {0, -0.35, -0.65};
                 up[] = {0, 0.65, -0.35};
@@ -509,7 +459,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\headpos.paa";
+                        text = "\fza_ah64_model\tex\HDU\headpos.paa";
                         style = 48;
                         sizeEx = 256;
                         x = 0.49;
@@ -532,7 +482,7 @@ class RscTitles
                             1,
                             1
                         };
-                        text = "\fza_ah64_US\tex\HDU\ah64_target.paa";
+                        text = "\fza_ah64_model\tex\HDU\ah64_target.paa";
                         style = 48;
                         sizeEx = 64;
                         x = 0;
@@ -1178,7 +1128,7 @@ class RscTitles
                     colorText[] = {0.1, 1, 0, 1};
                     font = "EtelkaMonospaceProBold";
                     colorBackground[] = {1, 1, 1, 1};
-                    text = "\fza_ah64_US\tex\HDU\ihadss.paa";
+                    text = "\fza_ah64_model\tex\HDU\ihadss.paa";
                     style = 48;
                     sizeEx = 1024;
                     x = 0.2485;
@@ -1193,7 +1143,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\f16_rsc_jhmcs_targ.paa";
+                        text = "\fza_ah64_model\tex\HDU\f16_rsc_jhmcs_targ.paa";
                         style = 48;
                         sizeEx = 64;
                         x = 0;
@@ -1208,7 +1158,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\tadspos.paa";
+                        text = "\fza_ah64_model\tex\HDU\tadspos.paa";
                         style = 48;
                         sizeEx = 256;
                         x = 0.5;
@@ -1223,7 +1173,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_chev.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_chev.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1238,7 +1188,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\alt_vsi.paa";
+                        text = "\fza_ah64_model\tex\alt_vsi.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.678;
@@ -1253,7 +1203,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+                        text = "\fza_ah64_model\tex\HDU\horizon_bar.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.708;
@@ -1268,7 +1218,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_fcr.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_fcr.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.678;
@@ -1283,7 +1233,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_360.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_360.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1298,7 +1248,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_30.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_30.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1313,7 +1263,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_60.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_60.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1328,7 +1278,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_90.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_90.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1343,7 +1293,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_120.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_120.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1358,7 +1308,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_150.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_150.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1373,7 +1323,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_180.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_180.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1388,7 +1338,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_210.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_210.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1403,7 +1353,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_240.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_240.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1418,7 +1368,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_270.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_270.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1433,7 +1383,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_300.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_300.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1448,7 +1398,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\mark_330.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_330.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1463,7 +1413,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+                        text = "\fza_ah64_model\tex\HDU\horizon_bar.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1570,7 +1520,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\horizon_bar.paa";
+                        text = "\fza_ah64_model\tex\HDU\horizon_bar.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1608,7 +1558,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\cue_ca.paa";
+                        text = "\fza_ah64_model\tex\cue_ca.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1623,7 +1573,7 @@ class RscTitles
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\hmd_slip.paa";
+                        text = "\fza_ah64_model\tex\HDU\hmd_slip.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = 0.5;
@@ -1639,7 +1589,7 @@ class RscTitles
                         colorText[] = {0.1, 1, 0, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\bobup.paa";
+                        text = "\fza_ah64_model\tex\HDU\bobup.paa";
                         style = 48;
                         sizeEx = 256;
                         x = 0.49;
@@ -1692,7 +1642,7 @@ class RscTitles
                         colorText[] = {0.1, 1, 0, 1};
                         font = "EtelkaMonospaceProBold";
                         colorBackground[] = {1, 1, 1, 1};
-                        text = "\fza_ah64_US\tex\HDU\FOV-W.paa";
+                        text = "\fza_ah64_model\tex\HDU\FOV-W.paa";
                         style = 48;
                         sizeEx = 1024;
                         x = (safezoneX + safezoneW * 0.4);
@@ -1703,7 +1653,7 @@ class RscTitles
                     class fza_ah64_alternatesensor
                     {
                         idc = 207;
-                        text = "\fza_ah64_US\tex\HDU\mark_alt_sens.paa";
+                        text = "\fza_ah64_model\tex\HDU\mark_alt_sens.paa";
                         type = 0;
                         colorText[] = {1, 1, 1, 1};
                         font = "EtelkaMonospaceProBold";
@@ -1828,7 +1778,7 @@ class RscTitles
                 colorText[] = {1,1,1,1};
                 font = "EtelkaMonospaceProBold";
                 colorBackground[] = {1, 1, 1, 1};
-                text = "\fza_ah64_US\tex\HDU\monocle_solid.paa";
+                text = "\fza_ah64_model\tex\HDU\monocle_solid.paa";
                 style = 48;
                 sizeEx = 1;
                 x = (ICE_HUD_SCX-ICE_HUD_Monocle_Size)*0.2 + 0.15;
