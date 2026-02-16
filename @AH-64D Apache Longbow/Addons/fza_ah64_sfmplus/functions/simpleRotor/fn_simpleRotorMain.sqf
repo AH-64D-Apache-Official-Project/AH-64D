@@ -22,7 +22,7 @@ Author:
 
 params ["_heli"];
 
-if (!local _heli) exitWith {};
+if (!local _heli || !alive _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
 
@@ -392,7 +392,7 @@ private _torqueZ         = _rtrTorque * _rtrTorqueScalar * _deltaTime;
 if (currentPilot _heli == player) then {
     private _mainRtrDamage = _heli getHitPointDamage "HitHRotor";
 
-    if (_mainRtrDamage < 0.99) then {
+    if (_mainRtrDamage < 0.99 && (count _thrustZ == 3)) then {
         //Main rotor thrust
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
 
@@ -403,7 +403,9 @@ if (currentPilot _heli == player) then {
         } else {
             _torque = [_torqueX, _torqueY, 0.0];   
         };
-        _heli addTorque (_heli vectorModelToWorld _torque);
+        if (count _torque == 3) then {
+            _heli addTorque (_heli vectorModelToWorld _torque);
+        };
     };
 };
 /////////////////////////////////////////////////////////////////////////////////////////////

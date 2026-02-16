@@ -22,7 +22,7 @@ params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 #include "\fza_ah64_systems\headers\systems.hpp"
 
-if (!local _heli) exitWith {};
+if (!local _heli || !alive _heli) exitWith {};
 
 private _deltaTime              = fza_ah64_fixedTimeStep;
 
@@ -135,7 +135,7 @@ private _outTq     = [0.0, 0.0, 0.0];
 if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS_TGB_DMG_THRESH) then {
     if (currentPilot _heli == player) then {     
         //Tail rotor thrust force
-        if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+        if (fza_ah64_sfmplusRealismSetting == REALISTIC && (count _thrustVector == 3)) then {
             _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
         };
 
@@ -146,7 +146,9 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
         } else {
             _torque = [0.0, 0.0, _moment select 2];
         };
-        _heli addTorque (_heli vectorModelToWorld _torque);
+        if (count _torque == 3) then {
+            _heli addTorque (_heli vectorModelToWorld _torque);
+        };
     };
 };
 
