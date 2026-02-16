@@ -16,13 +16,14 @@ class CfgFunctions
         };
         class functions {
             file = "\fza_ah64_ku\functions";
+            class activateInput{R;};
             class addPrompt{R;};
             class clear{R;};
+            class deactivateInput{R;};
             class enter{R;};
             class handleInput{R;};
             class init{R;};
             class stopInput{R;};
-            class toggleInput{R;};
             class updateScreen{R;};
         };
     };
