@@ -21,7 +21,7 @@ private _pidSASYaw   = _heli getVariable "fza_sfmplus_pid_sas_yaw";
            , "_angVelZ"
            ];
 
-private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime      = (_heli getVariable "fza_sfmplus_deltaTime")/ accTime;
 private _sasPitchOutput = 0.0;
 private _sasRollOutput  = 0.0;
 private _sasYawOutput   = 0.0;
