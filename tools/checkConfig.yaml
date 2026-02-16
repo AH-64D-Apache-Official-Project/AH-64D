@@ -8,7 +8,9 @@ ignorePaths:
   - "@AH-64D Apache Longbow/Addons/fza_ah64_controls/data"
   - "@AH-64D Apache Longbow/Addons/fza_ah64_hydra/data"
   - "@AH-64D Apache Longbow/Addons/fza_ah64_hellfire/data"
-  - "@AH-64D Apache Longbow/Addons/fza_ah64_ase/data"  
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_ase/data"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_hatchet/components/Gunner"
+  - "@AH-64D Apache Longbow/Addons/fza_ah64_hatchet/components/Pilot"
 ignoreFileNames:
   - "$PBOPREFIX$"
   - "$PREFIX$"
