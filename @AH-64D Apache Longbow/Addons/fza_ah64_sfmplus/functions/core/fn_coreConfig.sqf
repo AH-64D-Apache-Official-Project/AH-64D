@@ -57,6 +57,7 @@ _heli setVariable ["fza_sfmplus_collectiveValue",       0.0];
 _heli setVariable ["fza_sfmplus_currentTime",         0.0];
 _heli setVariable ["fza_sfmplus_previousTime",        0.0];
 _heli setVariable ["fza_sfmplus_deltaTime",           0.0];
+_heli setVariable ["fza_sfmplus_deltaTime_compair",   0.0];
 _heli setVariable ["fza_sfmplus_deltaTime_avg",       [fza_sfmplus_movingAverageSize] call fza_sfmplus_fnc_smoothAverageInit];
 
 _heli setVariable ["fza_sfmplus_gndSpeed",            0.0];

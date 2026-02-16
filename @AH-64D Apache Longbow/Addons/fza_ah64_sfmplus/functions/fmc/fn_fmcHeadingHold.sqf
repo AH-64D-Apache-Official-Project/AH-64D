@@ -11,7 +11,7 @@ private _pidTrn        = _heli getVariable "fza_sfmplus_pid_trnCoord";
 //_pidTrn set ["ki", T_KI];
 //_pidTrn set ["kd", T_KD];
 
-private _deltaTime     = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime     = (_heli getVariable "fza_sfmplus_deltaTime")/ accTime;
 private _gndSpeed      = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _curHdg        = getDir _heli;
 private _desiredHdg    = _heli getVariable "fza_ah64_hdgHoldDesiredHdg";
