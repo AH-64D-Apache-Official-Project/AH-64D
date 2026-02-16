@@ -211,7 +211,15 @@ private _showRLWR = _heli getVariable "fza_mpd_tsdShowRlwr" select _phase;
     _pointsArray pushBack [MPD_POSMODE_SCREEN, [_screenX, _screenY, 0.0], "", POINT_TYPE_ASE, _forEachIndex, _iconClass];
 } forEach _aseObjects;
 
-[_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
+//TSD Sensor line
+private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariable;
+_posTadsTgt = _heli getVariable ["fza_ah64_tadsTarget", [-1,-1,-1]];
 
+if (_posTadsTgt isnotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _posTadsTgt, "", POINT_TYPE_BFT, 0, "TSD_TADS_CROSSHAIR"];
+};
+
+
+[_heli, _mpdIndex, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC] call fza_mpd_fnc_acqDraw;
 
 [_heli, _pointsArray, _mpdIndex, _tsdScale, [_ctrX, _ctrY]] call fza_mpd_fnc_drawIcons;
