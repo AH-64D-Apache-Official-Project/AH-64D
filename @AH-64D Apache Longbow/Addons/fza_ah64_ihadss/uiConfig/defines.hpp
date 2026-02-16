@@ -9,6 +9,7 @@
 #define CT_EDIT 2
 #define CT_COMBO                 4
 #define CT_LISTBOX               5
+#define CT_WEBBROWSER 106
 
 #define FontM "PuristaMedium"
 
