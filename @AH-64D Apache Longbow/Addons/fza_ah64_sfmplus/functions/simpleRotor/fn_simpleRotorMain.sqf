@@ -394,6 +394,7 @@ if (currentPilot _heli == player) then {
 
     if (_mainRtrDamage < 0.99) then {
         //Main rotor thrust
+        if ([vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustZ] call fza_sfmplus_fnc_isINF) then { _thrustZ = [0.0, 0.0, 0.0]; };
         _heli addForce  [_heli vectorModelToWorld _thrustZ, _rtrPos];
 
         //Main rotor torque
@@ -403,6 +404,8 @@ if (currentPilot _heli == player) then {
         } else {
             _torque = [_torqueX, _torqueY, 0.0];   
         };
+
+        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
