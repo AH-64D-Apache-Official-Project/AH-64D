@@ -12,9 +12,10 @@
 #define POINT_TYPE_WP 0
 #define POINT_TYPE_HZ 1
 #define POINT_TYPE_CM 2
-#define POINT_TYPE_TG 3
-#define POINT_TYPE_FCR 4
-#define POINT_TYPE_ASE 5
+#define POINT_TYPE_BFT 3
+#define POINT_TYPE_TG 4
+#define POINT_TYPE_FCR 5
+#define POINT_TYPE_ASE 6
 
 #define POINT_COUNT_WP_HZ 50
 #define POINT_COUNT_CM 49

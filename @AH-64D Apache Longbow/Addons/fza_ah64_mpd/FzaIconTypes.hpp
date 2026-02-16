@@ -611,6 +611,14 @@ class FzaIconTypes {
     class FCR_FLYER_MOVE_NTS:FCR_FLYER_MOVE       { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_ca.paa";};
     class FCR_FLYER_MOVE_NTS_NOMSL:FCR_FLYER_MOVE { tex2 = "\fza_ah64_mpd\tex\fcrIcons\nts_noMsl_ca.paa";};
 
+//--------------------TSD blueforce tracker
+
+    class TSD_BLUEFORCE_TRACKER:IconTypeH {
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\wheelLOBL_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_BLUE;
+    };
+
 //--------------------Icon Type I--------------------
 //
 //             +---------+    +---------+   

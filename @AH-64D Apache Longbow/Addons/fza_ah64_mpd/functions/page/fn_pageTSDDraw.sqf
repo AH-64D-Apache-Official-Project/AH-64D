@@ -108,6 +108,17 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
+//Blue force tracker points
+private _reportingUnits =  listRemoteTargets side player;
+private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
+{
+    _x params ["_Object"];
+    if (_object isEqualTo _heli) then {continue;};
+    if !(_Object iskindof "car" || _Object iskindof "tank" || _Object iskindof "air" || _Object iskindof "ship") then {continue;};
+    if (!_showFriendly) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, getpos _Object, "", POINT_TYPE_BFT, _forEachIndex, "TSD_BLUEFORCE_TRACKER"];
+} foreach _reportingUnits;
+
 //FCR Points
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_scanPos", "_time"];
