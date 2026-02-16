@@ -103,7 +103,7 @@ if !(_heli getvariable "fza_ah64_LmcActive") then {
 };
 
 //PNVS HDU
-if (_heli getVariable "fza_ah64_ihadss_pnvs_cam" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
+if (_heli getVariable "fza_ah64_nvsModeSwitchNorm" && cameraView == "INTERNAL" && alive player && _powerOnState && !(_heli getVariable "fza_ah64_monocleinbox")) then {
     private _aspect = getResolution#4;
     private _pnvsTexture = format ["#(argb,512,512,1)r2t(fza_ah64_pnvscam2,%1)", _aspect];
     if (ctrlText ((uiNameSpace getVariable "fza_ah64_nvsoverlay") displayCtrl 120) != _pnvsTexture) then {
@@ -176,7 +176,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         fza_ah64_monoChromeEffect ppEffectEnable false;
         fza_ah64_dvoEffect ppEffectEnable false;
         fza_ah64_chromAberrationEffect ppEffectEnable false;
-        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedFov") == 3) then {
             fza_ah64_flirResolutionEffect ppEffectAdjust [180];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         } else {
@@ -185,12 +185,12 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
         };
     } else {
         fza_ah64_flirResolutionEffect ppEffectEnable false;
-        if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedSensor") in ["DTV"]) then {
             fza_ah64_dvoEffect ppEffectEnable false;
             fza_ah64_monoChromeEffect ppEffectEnable true;
             fza_ah64_chromAberrationEffect ppEffectEnable true;
         };
-        if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+        if ((_heli getVariable "fza_ah64_tadsSelectedSensor") in ["DVO"]) then {
             fza_ah64_dvoEffect ppEffectEnable true;
             fza_ah64_monoChromeEffect ppEffectEnable false;
             fza_ah64_chromAberrationEffect ppEffectEnable true;

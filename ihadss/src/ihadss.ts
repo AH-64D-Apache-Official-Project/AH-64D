@@ -39,12 +39,12 @@ export function drawIhadss(_ctx: CanvasRenderingContext2D, _model: model): void 
         weapon.draw(_ctx, _model.base, _model.weapon);
     } else {
         //0 = HMD, 2 = FCR
-        if (_model.base.sightSelect == 0 || _model.base.sightSelect == 2) {
+        if ((_model.base.sightSelect == 0 || _model.base.sightSelect == 2) && _model.gunnerFormat.isHeadsDown == false) {
             flightFormat.draw(_ctx, _model.base, _model.flightFormat); 
             sensor.draw(_ctx, _model.sensor);
             weapon.draw(_ctx, _model.base, _model.weapon);
         } else {
-            gunnerFormat.draw(_ctx, _model.gunnerFormat);
+            gunnerFormat.draw(_ctx, _model.base, _model.gunnerFormat);
             sensor.draw(_ctx, _model.sensor);
             weapon.draw(_ctx, _model.base, _model.weapon);
         }

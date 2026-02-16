@@ -4,15 +4,20 @@ _ctrl = _disp displayCtrl 960;
 
 if (isNull _ctrl) exitWith {};
 
-private _crewStation = "none";
+private _crewStation = "plt";
 if (driver vehicle player == player) then { _crewStation = "plt"; systemChat format ["%1", _crewStation]; };
 if (gunner vehicle player == player) then { _crewStation = "cpg"; systemChat format ["%1", _crewStation]; };
+
+private _isHeadsDown = false;
+if (cameraView == "GUNNER" && player == gunner _heli) then { _isHeadsDown = true; };
+
+systemChat format ["%1", [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable];
 
 private _model = createHashMapFromArray
     [   ["base", createHashMapFromArray
             [ ["crewStation",    _crewStation]
-            , ["sightSelect",    _heli getVariable "fza_ah64_sight"]
-            , ["nvsMode",        "off"]
+            , ["sightSelect",    [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable]
+            , ["nvsModeNorm",    _heli getVariable "fza_ah64_nvsModeSwitchNorm"]
             , ["selSymb",        _heli getVariable "fza_ah64_hmdfsmode"]
             , ["wpnWas",         _heli getVariable "fza_ah64_was"]
             , ["heading",        direction _heli]
@@ -20,7 +25,6 @@ private _model = createHashMapFromArray
             , ["radAlt",         ([_heli] call fza_sfmplus_fnc_getAltitude) select 1]
             , ["ownerCue",       "-OWNER-CUE-"]
             , ["wpnInhibit",     "WEAPON-INHIB"]
-            , ["sightSelStatus", "SSS--L"]
             , ["sightStatus",    "SIGHT-STATUS"]
             , ["rngAndRngSrc",   1234]
             , ["wpnControl",     "WPNCT"]
@@ -47,6 +51,11 @@ private _model = createHashMapFromArray
             , ["altHoldAct", _heli getVariable "fza_ah64_altHoldActive"]
             , ["loAltWarn",  33]
             , ["hiAltWarn",  200]
+        ]]
+    ,   [ "gunnerFormat", createHashMapFromArray
+            [ ["isHeadsDown",   _isHeadsDown]
+            , ["sensorSelect",  _heli getVariable "fza_ah64_tadsSelectedSensor"]    //"FLIR", "DTV", "DVO"
+            , ["fov",           _heli getVariable "fza_ah64_tadsSelectedFov"]       //0 = W, 1 = M, 2 = N, 3 = Z
         ]]
     ,   ["sensor", createHashMapFromArray
         [

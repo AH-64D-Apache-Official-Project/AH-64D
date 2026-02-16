@@ -28,10 +28,10 @@ switch (_system) do {
         if (_control == "mode") then {
             if (_heli animationphase _nvsSwitch < 1) then {
                 _heli animateSource[_nvsSwitch, 1];
-                _heli setVariable ["fza_ah64_ihadss_pnvs_cam", true];
+                _heli setVariable ["fza_ah64_nvsModeSwitchNorm", true];
             } else {
                 _heli animateSource[_nvsSwitch, 0];
-                _heli setVariable ["fza_ah64_ihadss_pnvs_cam", false];
+                _heli setVariable ["fza_ah64_nvsModeSwitchNorm", false];
             };
             playsound "fza_ah64_switch_flip3";
         };

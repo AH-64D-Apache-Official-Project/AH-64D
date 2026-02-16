@@ -1,7 +1,7 @@
 export type model = {
   crewStation: string;  //"plt" "cpg"
   sightSelect: number;  //0 = hmd, 1 = tads, 2 = fcr
-  nvsMode: string; //"OFF" "NORM" "FIXED"
+  nvsModeNorm: boolean;
   selSymb: string;  //"bobup", "hover", "trans", "cruise"
   wpnWas: number; //0 = none, 1 = gun, 2 = rkt, 3 = msl
   heading: number;
@@ -9,7 +9,6 @@ export type model = {
   radAlt: number;
   ownerCue: string;
   wpnInhibit: string;
-  sightSelStatus: string;
   sightStatus: string;
   rngAndRngSrc: number;
   wpnControl: string;
@@ -18,17 +17,16 @@ export type model = {
 }
 
 export const exampleModel: model = {
-  crewStation: "plt",
-  sightSelect: 0,
-  nvsMode: "off",
+  crewStation: "cpg",
+  sightSelect: 1,
+  nvsModeNorm: false,
   selSymb: "trans",
   wpnWas: 0,
   heading: 16,
   gndSpd: 72,
-  radAlt: 65,
+  radAlt: 243,
   ownerCue: "-OWNER-CUE-",
   wpnInhibit: "WEAPON-INHIB",
-  sightSelStatus: "SSS--L",
   sightStatus: "SIGHT-STATUS",
   rngAndRngSrc: 1000,
   wpnControl: "WPNCT",
@@ -50,7 +48,7 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
     drawFieldOfRegardPilot(_ctx);
   } else {
     //1 = TADS
-    if (_model.sightSelect == 1 && _model.nvsMode == "off") {
+    if (_model.sightSelect == 1 && _model.nvsModeNorm == false) {
       drawGunnerFormatLos(_ctx);
       drawFieldOfRegardGunner(_ctx);
     } else {
@@ -68,8 +66,8 @@ export function drawFlightFormatLos(_ctx: CanvasRenderingContext2D) {
   _ctx.translate(320, 240);
   _ctx.beginPath();
   for (let i = 0; i < 4; i++) {
-    _ctx.moveTo(0, 9);
-    _ctx.lineTo(0, 9 + 18);
+    _ctx.moveTo(0, 10);
+    _ctx.lineTo(0, 10 + 18);
     _ctx.rotate(0.5 * Math.PI);
   };
   _ctx.stroke();
@@ -77,7 +75,24 @@ export function drawFlightFormatLos(_ctx: CanvasRenderingContext2D) {
 }
 
 function drawGunnerFormatLos(_ctx: CanvasRenderingContext2D) {
+  _ctx.save();
+  _ctx.translate(320, 240);
+  _ctx.beginPath();
+  //Top vertical line
+  _ctx.moveTo( 0, -27);
+  _ctx.lineTo( 0, -10);
+  //Right horizontal line
+  _ctx.moveTo( 10, 0);
+  _ctx.lineTo( 53, 0);
+  //Bottom vertical line
+  _ctx.moveTo( 0, 10);
+  _ctx.lineTo( 0, 27);
+  //Left horizontal line
+  _ctx.moveTo(-53, 0);
+  _ctx.lineTo(-10,  0);
 
+  _ctx.stroke();
+  _ctx.restore();
 }
 
 export function drawHeadTracker(_ctx: CanvasRenderingContext2D) {
@@ -286,34 +301,43 @@ export function drawLubberLine(_ctx: CanvasRenderingContext2D) {
 
 export function drawHadFields(_ctx: CanvasRenderingContext2D, _model: model) {
   ihadssStyle(_ctx);
-  
+
   //Owner Cue
   _ctx.textAlign    = "center";
   _ctx.textBaseline = "bottom";
-  _ctx.fillText(_model.ownerCue, 320, 395);
+  _ctx.fillText(_model.ownerCue,   320, 395);
 
   //WPN Inhibit
   _ctx.fillText(_model.wpnInhibit, 320, 412);
 
   //HAD Sight Select Status
-  const adjustment  = 5;
-  const adjustment2 = 3;
-  _ctx.textAlign    = "left";
-  _ctx.textBaseline = "bottom";
-  _ctx.fillText(_model.sightSelStatus, 121 - adjustment, 452);
+  drawSightSelectStatus(_ctx, _model);
 
   //HAD Sight Status
-  _ctx.fillText(_model.sightStatus, 121 - adjustment, 471);
+  _ctx.fillText(_model.sightStatus, 116, 471);
 
   //HAD Range & Range Source
-  _ctx.fillText(_model.rngAndRngSrc.toFixed(0), 200 - adjustment, 452);
+  _ctx.fillText(_model.rngAndRngSrc.toFixed(0), 195, 452);
 
   //HAD Weapon Control
-  _ctx.fillText(_model.wpnControl, 391 - adjustment2, 452);
+  _ctx.fillText(_model.wpnControl,   388, 452);
 
   //HAD Acquisition Select Status
-  _ctx.fillText(_model.acqSelStatus, 458 - adjustment2, 452);
+  _ctx.fillText(_model.acqSelStatus, 455, 452);
 
   //HAD Weapon Status
-  _ctx.fillText(_model.wpnStatus, 391 - adjustment2, 471);
+  _ctx.fillText(_model.wpnStatus,    388, 471);
+}
+
+export function drawSightSelectStatus(_ctx: CanvasRenderingContext2D, _model: model) {
+    _ctx.textAlign    = "left";
+    _ctx.textBaseline = "bottom";
+    //0 = hmd, 1 = tads, 2 = fcr
+    if (_model.sightSelect == 0) {
+        _ctx.fillText("HMD", 116, 452);
+    } else if (_model.sightSelect == 1) {
+        _ctx.fillText("TADS", 116, 452);
+    } else if (_model.sightSelect == 2) {
+        _ctx.fillText("FCR", 116, 452);
+    }
 }

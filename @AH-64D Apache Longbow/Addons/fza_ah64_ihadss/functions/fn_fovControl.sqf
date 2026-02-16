@@ -20,8 +20,8 @@ Author:
 ---------------------------------------------------------------------------- */
 params ["_heli"];
 
-private _inputindex = _heli getVariable "fza_ah64_tadsZoom";
-private _thermalM   = _heli getVariable "fza_ah64_tadsVision";
+private _inputindex = _heli getVariable "fza_ah64_tadsSelectedFov";
+private _thermalM   = _heli getVariable "fza_ah64_tadsSelectedSensor";
 private _a3tiM      = _heli getVariable "fza_ah64_tadsA3ti";
 private _Visionmode = [_heli] call fza_ihadss_fnc_getVisionMode;
 private _flirIndex  = [0,1,2,3];
@@ -50,4 +50,4 @@ if (_Visionmode == 0 && _a3tiM) then {  //A3TI to DTV
 };
 
 _heli setTurretOpticsMode [[0], _zoomindex];
-_heli setVariable ["fza_ah64_tadsZoom", _inputindex];
+_heli setVariable ["fza_ah64_tadsSelectedFov", _inputindex];

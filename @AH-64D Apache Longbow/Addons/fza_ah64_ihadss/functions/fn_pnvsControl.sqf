@@ -25,7 +25,7 @@ if (player != driver _heli) exitwith {};
 
 private _acBusOn        = _heli getVariable "fza_systems_acBusOn";
 private _dcBusOn        = _heli getVariable "fza_systems_dcBusOn";
-private _pnvsControl    = _heli getVariable "fza_ah64_ihadss_pnvs_cam";
+private _pnvsControl    = _heli getVariable "fza_ah64_nvsModeSwitchNorm";
 private _monocle        = _heli getVariable "fza_ah64_monocleinbox";
 private _pnvsDamage     = _heli getHitPointDamage "hit_msnEquip_pnvs_turret";
 
