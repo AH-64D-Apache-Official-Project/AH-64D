@@ -179,6 +179,14 @@ class CfgVehicles {
                     pageNumber = 1;
                 };
             };
+            class COORD {
+                index = MPD_PAGE_COORD;
+                draw  = "fza_mpd_fnc_pageCOORDDraw";
+                handleControl = "fza_mpd_fnc_pageCOORDHandleControl";
+                class InitState {
+                    pageNumber = 1;
+                };
+            };
         };
     };
 };

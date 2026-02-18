@@ -35,6 +35,9 @@ switch (_state get "subPageVarPage" select 0) do {
             case "r3": {
                 _persistState set ["ctr", 1 - (_persistState get "ctr")];
             };
+            case "t5": {
+                [_heli, _mpdIndex, "coord", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
+            };
         };
     };
     case 1: { // SHOW

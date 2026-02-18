@@ -26,6 +26,7 @@ class Bones {
     #include "pages\fcr_bones.hpp"
     #include "pages\wpn_bones.hpp"
     #include "pages\abr_bones.hpp"
+    #include "pages\coord_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
@@ -97,5 +98,9 @@ class Draw
     class ABR{
         condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ABR));
         #include "pages\abr_draw.hpp"
+    };
+    class COORD{
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_COORD));
+        #include "pages\coord_draw.hpp"
     };
 };
