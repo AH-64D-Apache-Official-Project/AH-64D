@@ -233,6 +233,7 @@ fza_ah64_introShownThisScenario = false;
 fza_ah64_lastFrameGetIn         = false;
 private _fovConfig              = configFile >> "CfgVehicles" >> "fza_ah64base" >> "Turrets" >> "MainTurret" >> "OpticsIn";
 fza_ah64_tadsFOVs = [
+    //0------------1--------------2--------------3------------4------------5--------------6--------------7------------8-----------9---------------10------------11----------12----------13
     "Flir_Wide", "Flir_Medium", "Flir_Narrow", "Flir_Zoom", "A3ti_Wide", "A3ti_Medium", "A3ti_Narrow", "A3ti_Zoom", "Dtv_wide", "Dtv_dummyFOV", "Dtv_Narrow", "Dtv_Zoom", "Dvo_Wide", "Dvo_Narrow"
 ] apply {getNumber (_fovConfig >> _x >> "initfov")};
 

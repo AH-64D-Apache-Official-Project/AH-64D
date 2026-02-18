@@ -49,5 +49,7 @@ if (_Visionmode == 0 && _a3tiM) then {  //A3TI to DTV
     _heli setVariable ["fza_ah64_tadsA3ti", false];
 };
 
+systemChat format ["_zoomIndex = %1", _zoomIndex];
+
 _heli setTurretOpticsMode [[0], _zoomindex];
 _heli setVariable ["fza_ah64_tadsSelectedFov", _inputindex];

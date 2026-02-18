@@ -50,13 +50,14 @@ export function drawTadsSelectedSensorText(_ctx: CanvasRenderingContext2D, _mode
 }
 
 export function drawFlirFovGates(_ctx: CanvasRenderingContext2D, _model: model) {
-  _ctx.save();
-  _ctx.translate(320, 240);
-  _ctx.beginPath();
+    _ctx.save();
+    _ctx.translate(320, 240);
+    _ctx.beginPath();
 
-    //W & M = 14x mag
-    //N = 63x mag
-    //Z = 126x mag
+    //W = 1x mag
+    //M = 5.7x mag
+    //N = 18x mag
+    //Z = 36x mag
 
     let width = 0;
     let height = 0;
@@ -87,7 +88,7 @@ export function drawFlirFovGates(_ctx: CanvasRenderingContext2D, _model: model) 
         _ctx.moveTo(-(width / 2) + 1, (height / 2));
         _ctx.lineTo(-(width / 2) + 1, (height / 2) - 17);
     } else if (_model.fov == 1) {
-        width  = 202;
+        width  = 203;
         height = 152;
         //Top left corner
         _ctx.moveTo(-(width / 2),      -height / 2);
@@ -148,16 +149,15 @@ export function drawFlirFovGates(_ctx: CanvasRenderingContext2D, _model: model) 
         _ctx.translate(320, 240);
         _ctx.beginPath();
 
-        //W = 1x mag
-        //M = 5.7x mag
-        //N = 18x mag
-        //Z = 36x mag
+        //W & M = 14x mag
+        //N = 32x mag (should be 63x mag but arma is arma)
+        //Z = 63x mag (should be 126x mag
 
         let width  = 0;
         let height = 0;
         if (_model.fov == 0 || _model.fov == 1) {
-        width  = 142;
-        height = 107;
+        width  = 280;
+        height = 210;
         //Top left corner
         _ctx.moveTo(-(width / 2),      -height / 2);
         _ctx.lineTo(-(width / 2) + 17, -height / 2);
@@ -182,8 +182,8 @@ export function drawFlirFovGates(_ctx: CanvasRenderingContext2D, _model: model) 
         _ctx.moveTo(-(width / 2) + 1, (height / 2));
         _ctx.lineTo(-(width / 2) + 1, (height / 2) - 17);
     } else if (_model.fov == 2) {
-        width  = 320;
-        height = 240;
+        width  = 325;
+        height = 244;
         //Top left corner
         _ctx.moveTo(-(width / 2),      -height / 2);
         _ctx.lineTo(-(width / 2) + 17, -height / 2);

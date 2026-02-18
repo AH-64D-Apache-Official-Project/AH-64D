@@ -59,6 +59,7 @@ export function draw(_ctx: CanvasRenderingContext2D, _model: model) {
   drawHeadingTape(_ctx, _model);
   drawLubberLine(_ctx);
   drawHadFields(_ctx, _model);
+  drawDisplayArea(_ctx);
 }
 
 export function drawFlightFormatLos(_ctx: CanvasRenderingContext2D) {
@@ -340,4 +341,10 @@ export function drawSightSelectStatus(_ctx: CanvasRenderingContext2D, _model: mo
     } else if (_model.sightSelect == 2) {
         _ctx.fillText("FCR", 116, 452);
     }
+}
+
+export function drawDisplayArea(_ctx: CanvasRenderingContext2D) {
+  const displayAreaWidthHeight = 480;
+
+  _ctx.strokeRect(320 - (displayAreaWidthHeight / 2), 240 - (displayAreaWidthHeight / 2), displayAreaWidthHeight, displayAreaWidthHeight);
 }
