@@ -17,11 +17,13 @@ switch (_control) do {
         _coordPage = _coordPage - 1;
         if (_coordPage <= 0) then {_coordPage = _pageNumberMax;};
         _state set ["pageNumber", _coordPage];
+        _state set ["PointSelected", -1];
     };    
     case "b3": {
         _coordPage = _coordPage + 1;
         if (_coordPage > _pageNumberMax) then {_coordPage = 1;};
         _state set ["pageNumber", _coordPage];
+        _state set ["PointSelected", -1];
     };
     case "t1": {
         if (_pageType != "WPTHZ") then {
@@ -84,6 +86,7 @@ switch (_control) do {
         };
     };
     case "r3": {
+        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
         if (_pointselected == 3) then {
             _state set ["PointSelected", -1];
         } else {
@@ -91,6 +94,7 @@ switch (_control) do {
         };
     };
     case "r4": {
+        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
         if (_pointselected == 4) then {
             _state set ["PointSelected", -1];
         } else {
@@ -98,6 +102,7 @@ switch (_control) do {
         };
     };
     case "r5": {
+        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
         if (_pointselected == 5) then {
             _state set ["PointSelected", -1];
         } else {
@@ -105,6 +110,7 @@ switch (_control) do {
         };
     };
     case "r6": {
+        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
         if (_pointselected == 6) then {
             _state set ["PointSelected", -1];
         } else {

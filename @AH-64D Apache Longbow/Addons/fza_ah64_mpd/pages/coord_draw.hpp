@@ -118,7 +118,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_1_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_1_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
@@ -128,7 +128,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_2_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_2_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
@@ -138,7 +138,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_3_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_3_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
@@ -148,7 +148,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_4_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_4_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
@@ -158,7 +158,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_5_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_5_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };
@@ -168,7 +168,7 @@ class pointSelect {
             type=line;
             width=3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_6_X - MPD_TEXT_HEIGHT), (35 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
+                MPD_POINTS_BOX(Null, (0.5 - (35 * MPD_TEXT_WIDTH / 2)), (MPD_POS_BUTTON_TB_6_X - MPD_TEXT_HEIGHT), (38 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT * 3)
             };
         };
     };

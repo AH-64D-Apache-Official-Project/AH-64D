@@ -30,6 +30,60 @@ switch (_pageType) do {
 
         //fza_dms_controlMeasures
     };
+    case "COORD": {
+        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 5];
+        
+        private _targetThreats = _heli getvariable "fza_dms_targetsThreats";
+        private _pageNumeber = (count _targetThreats) / 6;
+
+        for "_i" from 0 to 5 step 1 do {
+            private _pointValue = (_i + (6 *_pageNumber)) - 6;
+            private _pointInfo = _targetThreats # (_pointValue min 50);
+            private _mfdTextIndex = (_i * 3 + 3);
+            private _posHeli = getPos _heli;
+
+            if (_pointValue < 50) then {;
+                if ((_i + 1) != _pointselected) then {
+                    if (_pointInfo isnotEqualTo -1) then {
+                        _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET) toFixed 0, 5] call fza_fnc_padString]];
+                    } else {
+                    _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", ([4, (_pointValue + 1)] call fza_dms_fnc_pointToString), "TG", "AAA", "XXXX", "XXXX", "XXXXX"]];
+                };
+                } else {
+                    if (_pointInfo isnotEqualTo -1) then {
+                        _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
+                        //Line 1
+                        private _dstToWpt_m  = (_pointInfo # POINT_GET_ARMA_POS) distance2D _posHeli;
+                        private _heliVel_mps = vectorMagnitude velocity _heli;
+                        private _timeToWpt   = "99:99:99";
+                        private _arriveAtWpt = "99:99:99";
+                        if (_heliVel_mps > 0.514) then { //>1kt (0.514m/s)
+                            private _timeToWpt_sec = _dstToWpt_m / _heliVel_mps;
+                            _timeToWpt   = [_timeToWpt_sec, "HH:MM:SS"] call BIS_fnc_secondsToString;
+                            _arriveAtWpt = [dayTime + (_timeToWpt_sec / 3600), "HH:MM:SS"] call BIS_fnc_timeToString;
+                        };
+                        private _line1 = format["    %1 %2 %3 ETE %4 ETA %5L  ",(_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, _timeToWpt, _arriveAtWpt];
+                        //line 2
+                        private _hdg          = (_heli getDir _armaPos) tofixed 0;
+                        private _dstToWpt_km  = (_armaPos distance2D _posHeli) * 0.001;
+                        private _line2 = format[" %1 W84 47 13S FU  %2 %3 %4° %5 KM   ",(_id call fza_dms_fnc_pointToString), (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], _hdg,[_dstToWpt_km, 2, 1] call CBA_fnc_formatNumber];
+                        //line 3
+                        private _dstToWpt_nm  = (_armaPos distance2D _posHeli) * 0.000539957;
+                        private _line3 = format["   %1 %2 FT %3 NM ", _latLong, [[(_altMSL) * SCALE_METERS_FEET,0,0] call CBA_fnc_formatNumber, 5] call fza_fnc_padString, [_dstToWpt_nm,2,1] call CBA_fnc_formatNumber];
+
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex - 1), _line1];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex),     _line2];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), _line3];
+                    } else {
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex - 1),  (["?01 TG AAA ETE 00:00:00 ETA 00:00:00L", 39] call fza_fnc_padString)];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex),      ([([(format["%1 W84 47 13S FU  XXXX XXXX XXX° XX.X KM", ([4, (_pointValue + 1)] call fza_dms_fnc_pointToString)]), 45, true] call fza_fnc_padString), 46] call fza_fnc_padString)];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), (["NXX XX.XX WXXX XX.XX XXXXX FT XX.X NM", 39] call fza_fnc_padString)];
+                    };
+                };
+            };//45
+        };
+    };
     case "LINE": {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 3];
 
@@ -41,40 +95,6 @@ switch (_pageType) do {
 
 
         //fza_dms_Area
-    };
-    case "COORD": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 5];
-        
-        private _targetThreats = _heli getvariable "fza_dms_targetsThreats";
-        private _pageNumeber = (count _targetThreats) / 6;
-
-        for "_i" from 0 to 5 step 1 do {
-            private _pointValue = (_i + (6 *_pageNumber)) - 6;
-            private _pointInfo = _targetThreats # (_pointValue min 50);
-            private _mfdTextIndex = (_i * 3 + 3);
-            private _textString = format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", ([4, (_pointValue + 1)] call fza_dms_fnc_pointToString), "TG", "AAA", "XXXX", "XXXX", "XXXXX"];
-
-            if ((_i + 1) == _pointselected) then {
-                if (_pointInfo isEqualTo -1) then {continue;};
-                _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
-                _textString = format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET) toFixed 0, 5] call fza_fnc_padString];
-            } else {
-
-
-            };
-
-
-            if (_pointValue > 49) then {_textstring = ""};
-            _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), _textString];
-
-            hintSILENT str format [" page type = %1,
-                                    \n pagenum = %2
-                                    \n pagenummax = %3
-                                    \n pagenumstring = %4
-                                    \n textstring = %5
-                                    \n mfdtextindex = %6%",_pageType, _pageNumber, _pageNumberMax, _pageNumberstr, _textString, MFD_TEXT_IND_COORD_LINE ];
-
-        };
     };
     case "SHOT": {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 6];
@@ -89,6 +109,18 @@ switch (_pageType) do {
 
 
 /*
+
+
+            hintSILENT str format [" page type = %1,
+                                    \n pagenum = %2
+                                    \n pagenummax = %3
+                                    \n pagenumstring = %4
+                                    \n textstring = %5
+                                    \n mfdtextindex = %6%",_pageType, _pageNumber, _pageNumberMax, _pageNumberstr, _textString, MFD_TEXT_IND_COORD_LINE ];
+
+
+
+
 //MPD_TEXT_USER(MFD_TEXT_IND_COORD_Line_16))
 
 if (isNil "_pointDetails") then {
