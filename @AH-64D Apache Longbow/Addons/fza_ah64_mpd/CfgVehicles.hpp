@@ -185,6 +185,9 @@ class CfgVehicles {
                 handleControl = "fza_mpd_fnc_pageCOORDHandleControl";
                 class InitState {
                     pageNumber = 1;
+                    pageNumberMax = 9;
+                    pageType = "COORD";
+                    PointSelected = -1;
                 };
             };
         };

@@ -26,7 +26,6 @@ class Bones {
     #include "pages\fcr_bones.hpp"
     #include "pages\wpn_bones.hpp"
     #include "pages\abr_bones.hpp"
-    #include "pages\coord_bones.hpp"
 };
 // HUD-Elements definitions
 class Draw
