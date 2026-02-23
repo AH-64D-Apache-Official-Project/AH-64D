@@ -8,6 +8,7 @@ private _tsdState      = _state get "tsdState";
 private _pageNumberMax = _state get "pageNumberMax";
 private _pageType      = _state get "pageType";
 private _pointselected = _state get "PointSelected";
+private _shotatdel     = _state get "shotatdel";
 
 switch (_control) do {
     case "b1": {
@@ -26,36 +27,36 @@ switch (_control) do {
         _state set ["PointSelected", -1];
     };
     case "t1": {
-        if (_pageType != "WPTHZ") then {
-            _state set ["pageType", "WPTHZ"];
+        if (_pageType != 1) then {
+            _state set ["pageType", 1];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         };
     };
     case "t2": {
-        if (_pageType != "CTRLM") then {
-            _state set ["pageType", "CTRLM"];
+        if (_pageType != 2) then {
+            _state set ["pageType", 2];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         };
     };
     /*case "t3": {
-        if (_pageType != "LINE") then {
-            _state set ["pageType", "LINE"];
+        if (_pageType != 3) then {
+            _state set ["pageType", 3];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         };
     };*/
     /*case "t4": {
-        if (_pageType != "AREA") then {
-            _state set ["pageType", "AREA"];
+        if (_pageType != 4) then {
+            _state set ["pageType", 4];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         };
     };*/
     case "t5": {
-        if (_pageType != "COORD") then {
-            _state set ["pageType", "COORD"];
+        if (_pageType != 5) then {
+            _state set ["pageType", 5];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         } else {
@@ -63,8 +64,8 @@ switch (_control) do {
         };
     };
     case "t6": {
-        if (_pageType != "SHOT") then {
-            _state set ["pageType", "SHOT"];
+        if (_pageType != 6) then {
+            _state set ["pageType", 6];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
         };
@@ -117,4 +118,14 @@ switch (_control) do {
             _state set ["PointSelected", 6];
         };
     };
+
+    case "l3": {
+        if (_pageType == 6) then {
+            if (_shotatdel == 0) then {
+                _state set ["shotatdel", 1];
+            } else {
+                _state set ["shotatdel", 0];
+            };
+        };
+    }
 };

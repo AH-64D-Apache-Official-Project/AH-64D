@@ -25,6 +25,13 @@ if (_type == POINT_TYPE_TG) exitWith {
     ["fza_dms_targetsThreats", _arrIndex];
 };
 
+if (_type == POINT_TYPE_SHOT) exitWith {
+    private _arrIndex = _index - 1;
+
+    if (_arrIndex < 0 || _arrIndex >= POINT_COUNT_SHOT) exitwith {-1};
+    ["fza_dms_shotAt", _arrIndex];
+};
+
 -1;
 
 //Either -1 if invalid, or [_varName, _arrIndex]

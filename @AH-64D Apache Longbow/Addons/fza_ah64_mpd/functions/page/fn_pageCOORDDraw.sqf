@@ -9,6 +9,7 @@ private _pageNumber = _state get "pageNumber";
 private _pageNumberMax = _state get "pageNumberMax";
 private _pointselected = _state get "PointSelected";
 private _pageNumberstr = str _pageNumber + "/" + str _pageNumberMax;
+private _shotatdel = _state get "shotatdel";
 
 for "_i" from 2 to 19 do {
     _heli setUserMfdText[MFD_INDEX_OFFSET(_i), ""];
@@ -16,39 +17,52 @@ for "_i" from 2 to 19 do {
 
 _heli setUserMfdtext  [MFD_INDEX_OFFSET(MFD_TEXT_COORD_PAGENUM), _pageNumberstr];
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_POINT), _pointselected];
+_heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_SHOTDEL), _shotatdel];
 
 switch (_pageType) do {
-    case "WPTHZ": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 1];
+    case 1;
+    case 2;
+    case 5: {
+        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), _pageType];
+        private _type = 4;
+        private _ident = "WP";
+        private _offset = 0;
+        private _min = 50;
+        private _targetThreats = _heli getvariable (switch (_pageType) do {
+            case 1: {
+                _type = 0;
+                _ident = "WP";
+                "fza_dms_waypointsHazards"
+            };
+            case 2: {
+                _type = 2;
+                _ident = "CM";
+                _offset = 50;
+                _min = 49;
+                "fza_dms_controlMeasures"
+            };
+            case 5: {
+                _type = 4;
+                _ident = "TG";
+                "fza_dms_targetsThreats"
+            };
+        });
 
-        //fza_dms_waypointsHazards
-
-    };
-    case "CTRLM": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 2];
-
-
-        //fza_dms_controlMeasures
-    };
-    case "COORD": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 5];
-        
-        private _targetThreats = _heli getvariable "fza_dms_targetsThreats";
         private _pageNumeber = (count _targetThreats) / 6;
 
         for "_i" from 0 to 5 step 1 do {
             private _pointValue = (_i + (6 *_pageNumber)) - 6;
-            private _pointInfo = _targetThreats # (_pointValue min 50);
+            private _pointInfo = _targetThreats # (_pointValue min (50 min _min));
             private _mfdTextIndex = (_i * 3 + 3);
             private _posHeli = getPos _heli;
 
             if (_pointValue < 50) then {;
-                if ((_i + 1) != _pointselected) then {
+                if ((_i     + 1) != _pointselected) then {
                     if (_pointInfo isnotEqualTo -1) then {
                         _pointInfo params ["_MPD_POSMODE_WORLD", "_armaPos", "_freeText", "_type","_id","_ident","_gridCoord","_latLong", "_altMSL"];
                         _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", (_id call fza_dms_fnc_pointToString), _ident, [_freeText, 3] call fza_fnc_padString, (str(_armaPos # 0)) select [0,4], str((_armaPos # 1)) select [0,4], [(_altMSL * SCALE_METERS_FEET) toFixed 0, 5] call fza_fnc_padString]];
                     } else {
-                    _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", ([4, (_pointValue + 1)] call fza_dms_fnc_pointToString), "TG", "AAA", "XXXX", "XXXX", "XXXXX"]];
+                    _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), format["%1 %2 %3 W84 47 13S FU %4 %5 %6 FT", ([_type, (_pointValue + (1 + _offset))] call fza_dms_fnc_pointToString), _ident, "AAA", "XXXX", "XXXX", "XXXXX"]];
                 };
                 } else {
                     if (_pointInfo isnotEqualTo -1) then {
@@ -76,31 +90,35 @@ switch (_pageType) do {
                         _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex),     _line2];
                         _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), _line3];
                     } else {
-                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex - 1),  (["?01 TG AAA ETE 00:00:00 ETA 00:00:00L", 39] call fza_fnc_padString)];
-                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex),      ([([(format["%1 W84 47 13S FU  XXXX XXXX XXX° XX.X KM", ([4, (_pointValue + 1)] call fza_dms_fnc_pointToString)]), 45, true] call fza_fnc_padString), 46] call fza_fnc_padString)];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex - 1),  ([format["?01 %1 AAA ETE 00:00:00 ETA 00:00:00L", _ident], 39] call fza_fnc_padString)];
+                        _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex),      ([([(format["%1 W84 47 13S FU  XXXX XXXX XXX° XX.X KM", ([_type, (_pointValue + (1 + _offset))] call fza_dms_fnc_pointToString)]), 45, true] call fza_fnc_padString), 46] call fza_fnc_padString)];
                         _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), (["NXX XX.XX WXXX XX.XX XXXXX FT XX.X NM", 39] call fza_fnc_padString)];
                     };
                 };
             };//45
         };
     };
-    case "LINE": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 3];
+    case 3;
+    case 4: {
+        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), _pageType];
+        private _targetThreats = _heli getvariable switch (_pageType) do {
+            case 1: {"fza_dms_lines"};
+            case 2: {"fza_dms_area"};
+        };
 
 
-        //fza_dms_Line
     };
-    case "AREA": {
-        _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 4];
-
-
-        //fza_dms_Area
-    };
-    case "SHOT": {
+    case 6: {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 6];
         
-        
-        //fza_dms_shotAt
+        for "_i" from 0 to 5 step 1 do {
+            private _pointValue = (_i + (6 *_pageNumber)) - 6;
+            private _pointInfo = _targetThreats # (_pointValue min (50 min _min));
+            private _pointInfo = _heli getVariable "fza_dms_shotAt";
+            private _mfdTextIndex = (_i * 3 + 3);
+            private _posHeli = getPos _heli;
+
+        };
     };
 };
 

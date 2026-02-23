@@ -108,6 +108,39 @@ class PageSelect {
     class shotat {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 6));
         MPD_BOX_TALL_C(SHOT, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
+
+        class deleteSelect {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_SHOTDEL), 1));
+
+            MPD_TEXT_R(DELYES,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("YES"))
+            MPD_TEXT_R(DELNO,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("NO"))
+            
+            
+            class lines {
+                type  = line;
+                width = 3;
+                points[] = {
+                    {{0.010, 0.250},1},
+                    {{0.100, 0.250},1},
+                    {{0.100, 0.280},1}, {},
+                    {{0.100, 0.520},1},
+                    {{0.100, 0.550},1},
+                    {{0.010, 0.550},1}
+                };
+            };
+            MPD_TEXT_R(TYPE_01, 0.1, MPD_POS_BUTTON_LR_2_Y - 0.9 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("D"))
+            MPD_TEXT_R(TYPE_02, 0.1, MPD_POS_BUTTON_LR_2_Y, MPD_TEXT_STATIC("E"))
+            MPD_TEXT_R(TYPE_03, 0.1, MPD_POS_BUTTON_LR_2_Y + 0.9 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("L"))
+            MPD_TEXT_R(TYPE_04, 0.1, MPD_POS_BUTTON_LR_2_Y + 1.8 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
+            MPD_TEXT_R(TYPE_05, 0.1, MPD_POS_BUTTON_LR_2_Y + 2.7 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("T"))
+            MPD_TEXT_R(TYPE_06, 0.1, MPD_POS_BUTTON_LR_2_Y + 3.6 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("E"))
+        };
+        class deleteNotSelect {
+            condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_SHOTDEL), 0));
+
+            MPD_TEXT_R(DEL,  MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_3_Y, MPD_TEXT_STATIC("DEL"))
+        };
+        
     };
 };
 

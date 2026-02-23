@@ -186,8 +186,9 @@ class CfgVehicles {
                 class InitState {
                     pageNumber = 1;
                     pageNumberMax = 9;
-                    pageType = "COORD";
+                    pageType = 5;
                     PointSelected = -1;
+                    shotatdel = 0;
                 };
             };
         };
