@@ -83,48 +83,31 @@ _seekerStateParams set [8, _targetType];
 _launchParams set [3, _attackProfile];
 _launchParams set [0, objnull];
 
-private _ident = "FCR_UNK_LOAL";
-if !(isNull _targObj) then {
-    _fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
-    private _distance_m          = (getpos _heli) distance2d _pos;
-    private _unitType            = ""; //adu, heli, tracked, unk, wheeled, flyer
-    private _unitStatus          = "LOAL"; //loal, lobl, move
 
-    //Unit type
-    switch (_type) do {
-        case FCR_TYPE_UNKNOWN: {
-            _unitType = "UNK";
-        };
-        case FCR_TYPE_WHEELED: {
-            _unitType = "WHEEL";
-        };
-        case FCR_TYPE_HELICOPTER: {
-            _unitType = "HELI";
-        };
-        case FCR_TYPE_FLYER: {
-            _unitType = "FLYER";
-        };
-        case FCR_TYPE_TRACKED: {
-            _unitType = "TRACK";
-        };
-        case FCR_TYPE_ADU: {
-            _unitType = "ADU";
-        };
-    };
-    //Unit status
-    if ((_moving && (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
-        _unitStatus = "MOVE";
-    } else {
-        if (_distance_m >= FCR_LIMIT_MIN_RANGE && _distance_m <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
-            _unitStatus = "LOBL";
-        };
-        if (_distance_m > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _distance_m <= FCR_LIMIT_STATIONARY_RANGE) then {
-            _unitStatus = "LOAL";
-        };
-    };
-    if (_unitType == "" || _unitStatus == "") exitwith {};
-    _ident = ["FCR",_unitType,_unitStatus] joinString "_";
+//SHOT AT FILE UPDATE
+_fcrData params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
+private _unitType   = "UNK";
+private _unitStatus = "LOAL"; 
+
+switch (_type) do {
+    case FCR_TYPE_UNKNOWN:    {_unitType = "UNK";};
+    case FCR_TYPE_WHEELED:    {_unitType = "WHEEL";};
+    case FCR_TYPE_HELICOPTER: {_unitType = "HELI";};
+    case FCR_TYPE_FLYER:      {_unitType = "FLYER";};
+    case FCR_TYPE_TRACKED:    {_unitType = "TRACK";};
+    case FCR_TYPE_ADU:        {_unitType = "ADU";};
 };
 
-//shot at file
-[_heli, _ident, _targetType, "RF", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_hellfire_fnc_dmsShot;
+if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RANGE)) || _unitType == "FLYER") then {
+    _unitStatus = "MOVE";
+} else {
+    if (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE) then {
+        _unitStatus = "LOBL";
+    };
+    if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then {
+        _unitStatus = "LOAL";
+    };
+};
+_ident = ["FCR",_unitType,_unitStatus] joinString "_";
+
+[_heli, _ident, "RF", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_hellfire_fnc_dmsShot;

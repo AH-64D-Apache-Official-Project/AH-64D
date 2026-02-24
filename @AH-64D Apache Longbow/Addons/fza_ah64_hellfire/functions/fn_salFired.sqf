@@ -50,3 +50,10 @@ if !(_index == -1) then {
     //create no code launch
     _launchParams set [5, [99999999, ACE_DEFAULT_LASER_WAVELENGTH, ACE_DEFAULT_LASER_WAVELENGTH]];
 };
+
+
+//SHOT AT FILE UPDATE
+private _targetpos= [0,0,0];
+private _remoteEngagement = true;
+if !isNil "_lasePos" then {_targetpos= _lasePos; _remoteEngagement = false;};
+[_heli, "FCR_UNK_LOAL", "SAL", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_hellfire_fnc_dmsShot;

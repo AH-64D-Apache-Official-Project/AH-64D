@@ -34,8 +34,6 @@ class lines {
     type = line;
     width = 3;
     points[] = {
-        MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT),//Title Box
-        {},
         {{0.278, 0.966}, 1},//left scroll arrow
         {{0.302, 0.951}, 1},
         {{0.308, 0.951}, 1},
@@ -59,7 +57,7 @@ class lines {
         {{0.502, 0.966}, 1},
         {},
     };
-};
+}; 
 
 class CoordPageTextlines {
 
@@ -93,7 +91,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (21.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 10.75), 0.09, (21.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
         
@@ -107,7 +105,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -120,7 +118,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (24.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 12.25), 0.09, (24.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -133,7 +131,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.25), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -146,7 +144,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.75), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
     };
@@ -159,7 +157,7 @@ class PageSelect {
             type = line;
             width = 3;
             points[] = {
-                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (7.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 3.75), 0.09, (7.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
             };
         };
 
