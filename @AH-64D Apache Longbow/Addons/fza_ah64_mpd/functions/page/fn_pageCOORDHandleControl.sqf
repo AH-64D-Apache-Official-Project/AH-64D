@@ -31,6 +31,7 @@ switch (_control) do {
             _state set ["pageType", 1];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
+            _state set ["shotatdel", 0];
         };
     };
     case "t2": {
@@ -38,6 +39,7 @@ switch (_control) do {
             _state set ["pageType", 2];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
+            _state set ["shotatdel", 0];
         };
     };
     /*case "t3": {
@@ -45,6 +47,7 @@ switch (_control) do {
             _state set ["pageType", 3];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
+            _state set ["shotatdel", 0];
         };
     };*/
     /*case "t4": {
@@ -52,6 +55,7 @@ switch (_control) do {
             _state set ["pageType", 4];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
+            _state set ["shotatdel", 0];
         };
     };*/
     case "t5": {
@@ -59,6 +63,7 @@ switch (_control) do {
             _state set ["pageType", 5];
             _state set ["pageNumber", 1];
             _state set ["PointSelected", -1];
+            _state set ["shotatdel", 0];
         } else {
             [_heli, _mpdIndex, "tsd", _tsdState] call fza_mpd_fnc_setCurrentPage;
         };
@@ -73,6 +78,7 @@ switch (_control) do {
 
     //point selection
     case "r1": {
+        if (_pageType == 6) exitwith {};
         if (_pointselected == 1) then {
             _state set ["PointSelected", -1];
         } else {
@@ -80,6 +86,7 @@ switch (_control) do {
         };
     };
     case "r2": {
+        if (_pageType == 6) exitwith {};
         if (_pointselected == 2) then {
             _state set ["PointSelected", -1];
         } else {
@@ -87,7 +94,8 @@ switch (_control) do {
         };
     };
     case "r3": {
-        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitwith {};
+        if (_pageType == 5 && _coordPage == 9) exitwith {};
         if (_pointselected == 3) then {
             _state set ["PointSelected", -1];
         } else {
@@ -95,7 +103,8 @@ switch (_control) do {
         };
     };
     case "r4": {
-        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitwith {};
+        if (_pageType == 5 && _coordPage == 9) exitwith {};
         if (_pointselected == 4) then {
             _state set ["PointSelected", -1];
         } else {
@@ -103,7 +112,8 @@ switch (_control) do {
         };
     };
     case "r5": {
-        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitwith {};
+        if (_pageType == 5 && _coordPage == 9) exitwith {};
         if (_pointselected == 5) then {
             _state set ["PointSelected", -1];
         } else {
@@ -111,12 +121,14 @@ switch (_control) do {
         };
     };
     case "r6": {
-        if (_pageType == "COORD" && _coordPage == 9) exitwith {};
+        if (_pageType == 6) exitwith {};
+        if (_pageType == 5 && _coordPage == 9) exitwith {};
         if (_pointselected == 6) then {
             _state set ["PointSelected", -1];
         } else {
             _state set ["PointSelected", 6];
         };
+        
     };
 
     case "l3": {

@@ -29,7 +29,6 @@ MPD_TEXT_C(COORD,  MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("C
 MPD_ARROW_C(SHOT, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 5)
 MPD_TEXT_C(SHOT,  MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("SHOT"))
 
-MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("TARGETS AND THREATS"))
 
 class lines {
     type = line;
@@ -88,26 +87,81 @@ class PageSelect {
     class WPTHZ {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 1));
         MPD_BOX_TALL_C(WPTHZBOX, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 5)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("WAYPOINTS AND HAZARDS"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (21.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
+        
     };
     class CTRLM {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 2));
         MPD_BOX_TALL_C(WPTHZBOX, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, 5)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("CONTROL MEASURES"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
     };
     class line {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 3));
         MPD_BOX_TALL_C(LINEBOX, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y, 5)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("BOUNDARY AND PHASE LINES"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (24.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
     };
     class area {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 4));
         MPD_BOX_TALL_C(AREABOX, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y, 5)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("ENGAGEMENT AREAS"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (16.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
     };
     class coord {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 5));
         MPD_BOX_TALL_C(COORD, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, 5)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("TARGETS AND THREATS"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (19.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
     };
     class shotat {
         condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_TYPE), 6));
         MPD_BOX_TALL_C(SHOT, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
+
+        MPD_TEXT_C(TARGETSANDTHREATS, 0.5, 0.09, MPD_TEXT_STATIC("SHOT AT"))
+        class lines {
+            type = line;
+            width = 3;
+            points[] = {
+                MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 9.5), 0.09, (7.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+            };
+        };
 
         class deleteSelect {
             condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_COORD_PAGE_SHOTDEL), 1));
