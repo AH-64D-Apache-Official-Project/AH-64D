@@ -109,7 +109,7 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
 //Blue force tracker points
-private _reportingUnits =  listRemoteTargets side player;
+private _reportingUnits =  listRemoteTargets playerSide;
 private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
 {
     _x params ["_Object"];
