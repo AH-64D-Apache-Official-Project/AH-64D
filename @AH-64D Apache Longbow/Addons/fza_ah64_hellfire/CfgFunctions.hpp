@@ -13,6 +13,7 @@ class CfgFunctions
             class arhFired {RECOMPILE_FLAG;};
             class arhSeeker {RECOMPILE_FLAG;};
             class checkSeekerAngle {RECOMPILE_FLAG;};
+            class dmsShot {RECOMPILE_FLAG;};
             class getAttackProfile {RECOMPILE_FLAG;};
             class init {RECOMPILE_FLAG;};
             class limaLoblCheck {RECOMPILE_FLAG;};

@@ -4,6 +4,8 @@ params ["_heli", "_mpdIndex", "_control", "_state", "_persistState"];
 
 if (_this call fza_mpd_fnc_tsdScaleHandleControl) exitwith {};
 
+private _subPage = _state get "subPageVarPage" select 0;
+
 switch (_control) do {
     case "t2": {
         [_heli, _mpdIndex, "ase"] call fza_mpd_fnc_setCurrentPage;
@@ -15,9 +17,14 @@ switch (_control) do {
         private _newMode = ["atk", "nav"] select (_persistState get "mode" == "atk");
         _persistState set ["mode", _newMode];
     };
+    case "t5": {
+        if (_subPage != 1) then {
+            [_heli, _mpdIndex, "coord", ["tsdState"] createHashMapFromArray [_state]] call fza_mpd_fnc_setCurrentPage;
+        };
+    };
 };
 
-switch (_state get "subPageVarPage" select 0) do {
+switch _subPage do {
     case 0: { // Root
         switch (_control) do {
             case "l6": {
