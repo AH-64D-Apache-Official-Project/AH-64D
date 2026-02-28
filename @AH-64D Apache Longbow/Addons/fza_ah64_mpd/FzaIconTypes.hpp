@@ -12,6 +12,7 @@
 #define MPD_ICON_TEXT_FREE 1
 
 #define ICON_SIZE 0.09
+#define ICON_SIZE_BLUEFORCE_TRACKER 0.12
 
 class FzaIconTypes {
     // Common templates to be used for generating icons.
@@ -617,6 +618,7 @@ class FzaIconTypes {
         tex   = "\fza_ah64_mpd\tex\fcrIcons\wheelLOBL_ca.paa";
         type  = POINT_TYPE_FCR;
         color[] = MPD_ICON_COLOR_BLUE;
+        size  = ICON_SIZE_BLUEFORCE_TRACKER;
     };
 
 //--------------------Icon Type I--------------------
