@@ -800,4 +800,13 @@ class FzaIconTypes {
         type  = POINT_TYPE_ASE;
         color[] = MPD_ICON_COLOR_YELLOW;
     };
+
+//--------------------TSD Crosshair--------------------
+
+    class TSD_TADS_CROSSHAIR:IconTypeH {
+        tex   = "\fza_ah64_mpd\tex\tsdIcons\tads_tsd_icon.paa";
+        type  = POINT_TYPE_SYSTEM;
+        color[] = MPD_ICON_COLOR_GREEN;
+    };
+
 };

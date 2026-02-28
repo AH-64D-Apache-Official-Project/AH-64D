@@ -108,11 +108,11 @@ switch(_control) do {
         private _fireTest = _heli getVariable "fza_ah64_firetest";
         if (_fireTest == 0) then {
             [_heli, _system, "FIRE TEST 1"] call fza_fnc_coreCockpitInteract;
-            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0];
+            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1];
         };
         if (_fireTest == 1) then {
             [_heli, _system, "FIRE TEST 2"] call fza_fnc_coreCockpitInteract;
-            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 1]
+            _heli animateSource [["cpg_firesw", "plt_firesw"] select (player == driver _heli), 0]
         };
         if (_fireTest == 2) then {
             [_heli, _system, "OFF"] call fza_fnc_coreCockpitInteract;

@@ -1,7 +1,7 @@
 class PilotDoor {
     positionType = "anim";
     position = "ctrlref_g_doorhandle";
-    label = "Gunner Door Handle";
+    label = "Open/Close Gunner Door";
     animation = "Gdoor";
     animStates[] = {1,0};
     animLabels[] = {"OPEN", "CLOSE"};

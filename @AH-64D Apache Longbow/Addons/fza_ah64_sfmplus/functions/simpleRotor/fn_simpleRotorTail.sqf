@@ -136,6 +136,7 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
     if (currentPilot _heli == player) then {     
         //Tail rotor thrust force
         if ( fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+            if ([vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _thrustVector] call fza_sfmplus_fnc_isINF) then { _thrustVector = [0.0, 0.0, 0.0]; };
             _heli addForce [_heli vectorModelToWorld _thrustVector, _rtrPos];
         };
 
@@ -146,6 +147,7 @@ if (_tailRtrDamage < 0.85 && _IGBDamage < SYS_IGB_DMG_THRESH && _TGBDamage < SYS
         } else {
             _torque = [0.0, 0.0, _moment select 2];
         };
+        if ([vectorMagnitude _torque] call fza_sfmplus_fnc_isNAN || [vectorMagnitude _torque] call fza_sfmplus_fnc_isINF) then { _torque = [0.0, 0.0, 0.0]; };
         _heli addTorque (_heli vectorModelToWorld _torque);
     };
 };
