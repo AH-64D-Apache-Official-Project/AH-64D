@@ -17,6 +17,10 @@ switch (_type) do {
         _varName = "fza_dms_targetsThreats";
         _offset = 1;
     };
+    case POINT_TYPE_SHOT: {
+        _varName = "fza_dms_shotAt";
+        _offset = 1;
+    };
 };
 
 private _index = (_heli getVariable _varName) findIf {_x isEqualTo -1};
