@@ -38,7 +38,7 @@ private _subMode  = _heli getVariable "fza_ah64_attHoldSubMode";
            , "_angVelZ"
            ];
 
-private _deltaTime = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime = (_heli getVariable "fza_sfmplus_deltaTime")/ accTime;
 private _gndSpeed  = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 
 //Attitude hold

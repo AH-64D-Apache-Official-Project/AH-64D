@@ -1,7 +1,7 @@
 params ["_heli"];
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-private _deltaTime  = _heli getVariable "fza_sfmplus_deltaTime";
+private _deltaTime  = (_heli getVariable "fza_sfmplus_deltaTime")/ accTime;
 private _gndSpeed   = (_heli getVariable "fza_sfmplus_gndSpeed") * KNOTS_TO_MPS;
 private _pidRadAlt  = _heli getVariable "fza_sfmplus_pid_radHold";
 //_pidRadAlt set ["kp", RAD_KP];
