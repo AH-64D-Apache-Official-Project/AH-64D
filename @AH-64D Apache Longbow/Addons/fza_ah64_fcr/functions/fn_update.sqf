@@ -92,3 +92,6 @@ private _nts = _heli getVariable "fza_ah64_fcrNts";
 if (_nts#0 isEqualTo objNull) then {
     _heli call fza_fcr_fnc_cycleNTS;
 };
+
+//Update shot File
+[_heli] call fza_dms_fnc_ageShot;

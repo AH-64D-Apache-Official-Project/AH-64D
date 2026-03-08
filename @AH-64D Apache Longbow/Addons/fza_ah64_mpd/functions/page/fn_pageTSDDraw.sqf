@@ -108,16 +108,17 @@ private _showAtkHazzard   = _heli getVariable "fza_mpd_tsdShowAtkHazard";
     } forEach (_heli getVariable _x);
 } forEach (["fza_dms_waypointsHazards", "fza_dms_controlMeasures", "fza_dms_targetsThreats"]);
 
-//Blue force tracker points
-private _reportingUnits =  listRemoteTargets side player;
-private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
+//Shot At UnderLay
+private _shotATList = _heli getvariable "fza_dms_shotAt";
 {
-    _x params ["_Object"];
-    if (_object isEqualTo _heli) then {continue;};
-    if !(_Object iskindof "car" || _Object iskindof "tank" || _Object iskindof "air" || _Object iskindof "ship") then {continue;};
-    if (!_showFriendly) then {continue;};
-    _pointsArray pushBack [MPD_POSMODE_WORLD, getpos _Object, "", POINT_TYPE_BFT, _forEachIndex, "TSD_BLUEFORCE_TRACKER"];
-} foreach _reportingUnits;
+    if !_showAtkShot exitwith {};
+    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
+    if (_x isEqualTo -1) then {continue;};
+    if (_overlay != 0) then {continue;};
+    if (_rangesetting >= 25000) then {continue;};
+    if !_showAtkShot then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, "FCR_TSD_SHOTAT"];
+} foreach _shotATList;
 
 //FCR Points
 _heli getVariable "fza_ah64_fcrState"    params ["_fcrScanState", "_fcrScanStartTime"];
@@ -188,7 +189,7 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
         if (_unitType == "" || _unitStatus == "") exitwith {continue;};
         _ident = (["FCR",_unitType,_unitStatus] + _unitSelAndWpnStatus) joinString "_";
     } else {
-        _ident= "FCR_TSD_SC25_50";
+        _ident= "FCR_TSD_SC25_50_YELLOW";
     };
 
     _pointsArray pushBack [MPD_POSMODE_WORLD, _pos, "", POINT_TYPE_FCR, _forEachIndex, _ident];
@@ -206,6 +207,31 @@ if (_sight == SIGHT_FCR) then {
 };
 if (_heli animationPhase "fcr_enable" == 0) then {_tsdFcrState = 0;};
 _heli setUserMFDValue [MFD_INDEX_OFFSET(MFD_TEXT_IND_TSD_ROOT_FCR), _tsdFcrState];
+
+//Blue force tracker points
+private _reportingUnits =  listRemoteTargets side player;
+private _showFriendly     = _heli getVariable "fza_mpd_tsdShowFriendly" select _phase;
+{
+    _x params ["_Object"];
+    if (_object isEqualTo _heli) then {continue;};
+    if !(_Object iskindof "car" || _Object iskindof "tank" || _Object iskindof "air" || _Object iskindof "ship") then {continue;};
+    if (!_showFriendly) then {continue;};
+    _icon = "TSD_BLUEFORCE_TRACKER";
+    if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_BLUE";};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, getpos _Object, "", POINT_TYPE_BFT, _forEachIndex, _icon];
+} foreach _reportingUnits;
+
+//Shot At Overlay
+private _shotATList = _heli getvariable "fza_dms_shotAt";
+{
+    if !_showAtkShot exitwith {};
+    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
+    _icon = "FCR_TSD_SHOTAT";
+    if (_x isEqualTo -1) then {continue;};
+    if (_overlay != 1) then {continue;};
+    if (_rangesetting >= 25000) then {_icon = "FCR_TSD_SC25_50_GREEN";};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_SHOT, _forEachIndex, _icon];
+} foreach _shotATList;
 
 //ASE Points
 private _ctrX       = 0.5;  
@@ -227,7 +253,7 @@ private _sightCpg = [_heli, "fza_ah64_sight" , "cpg"] call fza_fnc_getSeatVariab
 _posTadsTgt = _heli getVariable ["fza_ah64_tadsTarget", [-1,-1,-1]];
 
 if (_posTadsTgt isnotEqualTo [-1,-1,-1] && _sightCpg isEqualTo SIGHT_TADS) then {
-    _pointsArray pushBack [MPD_POSMODE_WORLD, _posTadsTgt, "", POINT_TYPE_BFT, 0, "TSD_TADS_CROSSHAIR"];
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _posTadsTgt, "", POINT_TYPE_SYSTEM, 0, "TSD_TADS_CROSSHAIR"];
 };
 
 

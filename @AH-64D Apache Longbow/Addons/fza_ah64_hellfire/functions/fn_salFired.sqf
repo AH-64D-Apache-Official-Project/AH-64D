@@ -56,4 +56,4 @@ if !(_index == -1) then {
 private _targetpos= [0,0,0];
 private _remoteEngagement = true;
 if !isNil "_lasePos" then {_targetpos= _lasePos; _remoteEngagement = false;};
-[_heli, "FCR_UNK_LOAL", "SAL", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_hellfire_fnc_dmsShot;
+[_heli, "FCR_UNK_LOAL", "SAL", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_dms_fnc_addShot;

@@ -110,4 +110,4 @@ if ((_moving && (_range >= FCR_LIMIT_MIN_RANGE && _range <= FCR_LIMIT_MOVING_RAN
 };
 _ident = ["FCR",_unitType,_unitStatus] joinString "_";
 
-[_heli, _ident, "RF", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_hellfire_fnc_dmsShot;
+[_heli, _ident, "RF", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targPos] call fza_dms_fnc_addShot;

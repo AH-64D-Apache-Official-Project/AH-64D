@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_hellfire_fnc_dmsShot
+Function: fza_dms_fnc_addShot
 
 Description:
     Add the shot to the DMS shot list
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, _targetType, _missileType, _triggerTime, _shotPos] call fza_hellfire_fnc_dmsShot;
+    [_heli, _targetType, _missileType, _triggerTime, _shotPos] call fza_dms_fnc_addShot;
 
 Author:
     Snow(Dryden)
@@ -31,12 +31,12 @@ if _remoteEngagement then {
 };
 
 if (_shotAtIndex != -1) then {
-    _shotAtArray set [_shotAtIndex, [(_shotAtIndex + 1), _ident, _missileType, _triggerTime, _shotPos, "OWN", 1, 0]];
-    _heli setVariable ["fza_dms_shotAt", _shotAtArray];
+    _shotAtArray set [_shotAtIndex, [(_shotAtIndex + 1), _ident, _missileType, _triggerTime, _shotPos, "OWN", 1]];
 } else { 
     private _shotAtCompairArray = ([_shotAtArray, [], {_x # 0}, "ASCEND"] call BIS_fnc_sortBy)#0;
     private _ShotAtLargestIndex = ([_shotAtArray, [], {_x # 0}, "DESCEND"] call BIS_fnc_sortBy)#0#0;
     private _shotAtIndexNext = (_shotAtArray find _shotAtCompairArray) mod 16;
     _shotAtArray set [_shotAtIndexNext, [(_ShotAtLargestIndex + 1), _ident, _missileType, _triggerTime, _shotPos, "OWN", 1]];
-    _heli setVariable ["fza_dms_shotAt", _shotAtArray];
 };
+
+[_heli, "fza_dms_shotAt", _shotAtArray] call fza_fnc_updateNetworkGlobal;
