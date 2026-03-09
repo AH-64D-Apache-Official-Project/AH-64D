@@ -66,7 +66,7 @@ if (_value) then {
                 player action ["ActiveSensorsOn", _heli];
                 _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_ON_SINGLE, CBA_missionTime], true];
                 _heli setVariable ["fza_ah64_fcrTargets", [], true];
-                _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+                _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0], []], true];
             };
             player action ["ActiveSensorsOff", _heli];
             _heli setVariable ["fza_ah64_fcrState", [FCR_MODE_OFF, CBA_missionTime], true];

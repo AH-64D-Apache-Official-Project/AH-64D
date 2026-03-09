@@ -55,5 +55,5 @@ if !(_index == -1) then {
 //SHOT AT FILE UPDATE
 private _targetpos= [0,0,0];
 private _remoteEngagement = true;
-if !isNil "_lasePos" then {_targetpos= _lasePos; _remoteEngagement = false;};
-[_heli, "FCR_UNK_LOAL", "SAL", [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_dms_fnc_addShot;
+if (!isNil "_lasePos" && !isNull laserTarget _heli) then {_targetpos = _lasePos; _remoteEngagement = false;};
+[_heli, [daytime, "HH:MM:SS"] call BIS_fnc_timeToString, _targetpos, _remoteEngagement] call fza_dms_fnc_addShotSAL;

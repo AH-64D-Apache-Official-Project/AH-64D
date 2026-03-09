@@ -20,7 +20,7 @@ params["_heli"];
 
 private _fcrTargets = _heli getVariable "fza_ah64_fcrTargets";
 if (count _fcrTargets == 0) then {
-    [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0]]] call fza_fnc_updateNetworkGlobal;
+    [_heli, "fza_ah64_fcrNts", [objNull,[0,0,0]], []] call fza_fnc_updateNetworkGlobal;
 } else {
     private _oldNts = _heli getVariable "fza_ah64_fcrNts";
     private _oldNts = _oldNts # 0;

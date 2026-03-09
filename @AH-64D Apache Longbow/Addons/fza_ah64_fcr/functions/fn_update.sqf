@@ -82,7 +82,7 @@ _fcrTargets = [_fcrTargets, [], _eval, "ASCEND"] call BIS_fnc_sortBy;
 
 [_heli, "fza_ah64_fcrTargets", _fcrTargets] call fza_fnc_updateNetworkGlobal;
 if (count _fcrTargets == 0) then {
-    _heli setVariable ["fza_ah64_fcrNts", [objNull,[0,0,0]], true];
+    _heli setVariable ["fza_ah64_fcrNts", [objNull, [0,0,0], []], true];
 };
 
 _heli getVariable "fza_ah64_fcrLastScan" params ["_dir", "_pos", "_time"]; 
