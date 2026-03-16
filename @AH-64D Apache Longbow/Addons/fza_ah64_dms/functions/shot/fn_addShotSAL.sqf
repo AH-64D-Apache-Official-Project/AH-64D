@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_dms_fnc_addShotRF
+Function: fza_dms_fnc_addShotSAL
 
 Description:
     Add the shot to the DMS shot list
@@ -11,7 +11,7 @@ Returns:
     Nothing
 
 Examples:
-    [_heli, _targetType, _missileType, _triggerTime, _shotPos] call fza_dms_fnc_addShotRF;
+    [_heli, _triggerTime, _shotPos, , _remoteEngagement] call fza_dms_fnc_addShotSAL;
 
 Author:
     Snow(Dryden)
@@ -57,9 +57,7 @@ if (_shotPos isnotequalto [0,0,0]) then {
         if (_range > FCR_LIMIT_LOAL_LOBL_SWITCH_RANGE && _range <= FCR_LIMIT_STATIONARY_RANGE) then                    {_unitStatus = "LOAL";};
     };
     _ident = ["FCR",_unitType,_unitStatus] joinString "_";
-    systemchat str _ident;
 };
-systemchat str _ident;
 
 if (_shotAtIndex != -1) then {
     _shotAtArray set [_shotAtIndex, [(_shotAtIndex + 1), _ident, "SAL", _triggerTime, _shotPos, "OWN", 1]];
