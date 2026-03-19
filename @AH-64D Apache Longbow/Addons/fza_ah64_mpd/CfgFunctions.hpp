@@ -83,6 +83,8 @@ class CfgFunctions
             class pageTSDDraw {RECOMPILE_FLAG;};
             class pageTSDDrawCanvas {RECOMPILE_FLAG;};
             class pageTSDHandleControl {RECOMPILE_FLAG;};
+            class pageVERDraw {RECOMPILE_FLAG;};
+            class pageVERHandleControl {RECOMPILE_FLAG;};
             class pageWCADraw {RECOMPILE_FLAG;};
             class pageWCAHandleControl {RECOMPILE_FLAG;};
             class pageWPNDraw {RECOMPILE_FLAG;};
