@@ -10,6 +10,9 @@ switch(_control) do {
     case "b1": {
         [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
     };
+    case "t5": {
+        [_heli, _mpdIndex, "ver"] call fza_mpd_fnc_setCurrentPage;
+    };
 };
 
 switch (_state get "subPage") do {

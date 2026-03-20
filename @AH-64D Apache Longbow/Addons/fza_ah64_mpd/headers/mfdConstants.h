@@ -14,7 +14,7 @@
 #define MFD_TEXT_IND_UFDTEXT0 0
 #define MFD_TEXT_IND_KU 9
 #define MFD_OFFSET_L 10
-#define MFD_OFFSET_R 30
+#define MFD_OFFSET_R 50
 
 //Flight page
 #define MFD_TEXT_IND_FLT_TORQUE       0
@@ -384,6 +384,7 @@
 #define MPD_PAGE_PERF 15
 #define MPD_PAGE_ACUTIL 16
 #define MPD_PAGE_ABR 17
+#define MPD_PAGE_VER 18
 
 #define BOOLTONUM [0,1] select
 #define MFD_INDEX_OFFSET(num) (([MFD_OFFSET_L, MFD_OFFSET_R] select _mpdIndex) + (num))

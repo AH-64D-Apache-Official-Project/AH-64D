@@ -99,7 +99,7 @@ class Draw
         #include "pages\abr_draw.hpp"
     };
     class VER{
-        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_ABR));
-        #include "pages\VER_draw.hpp"
+        condition = C_COND(C_EQ(C_USER(MFD_IND_PAGE), MPD_PAGE_VER));
+        #include "pages\ver_draw.hpp"
     };
 };
