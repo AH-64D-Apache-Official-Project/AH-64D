@@ -1,4 +1,14 @@
-params ["_heli", "_mpdIndex", "_control", "_state"];
 #include "\fza_ah64_controls\headers\script_common.hpp"
-#include "\fza_ah64_mpd\headers\mfdConstants.h"
-#include "\fza_ah64_mpd\headers\tsd.hpp"
+params ["_heli", "_mpdIndex", "_control"];
+
+switch(_control) do {
+    case "b1": {
+        [_heli, _mpdIndex, "menu"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "t1": {
+        [_heli, _mpdIndex, "dtu"] call fza_mpd_fnc_setCurrentPage;
+    };
+    case "t5": {
+        [_heli, _mpdIndex, "DMS"] call fza_mpd_fnc_setCurrentPage;
+    };
+};

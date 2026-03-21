@@ -2,6 +2,7 @@
 #define MPD_COLOUR_CYAN   {0,1,1,1}
 #define MPD_COLOUR_RED    {1,0,0,1}
 #define MPD_COLOUR_YELLOW {1,1,0,1}
+#define MPD_COLOUR_WHITE {1,1,1,1}
 
 /* Constants: Text size constants
   MPD_TEXT_HEIGHT - Height of a single normal character
