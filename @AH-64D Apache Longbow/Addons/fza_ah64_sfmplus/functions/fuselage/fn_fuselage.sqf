@@ -1,9 +1,39 @@
 #include "\fza_ah64_sfmplus\headers\core.hpp"
 
-params ["_heli"];
+params ["_heli", "_center", "_rotation", "_count", "_coords"];
 
 if (!local _heli) exitWith {};
 
+private _pitch = _rotation select 0;
+private _roll  = _rotation select 1;
+private _yaw   = _rotation select 2;
+
+private _vecRight = [[1.0, 0.0, 0.0], _pitch, _roll, _yaw] call fza_fnc_rotateVector;
+private _vecFwd   = [[0.0, 1.0, 0.0], _pitch, _roll, _yaw] call fza_fnc_rotateVector;
+private _vecUp    = [[0.0, 0.0, 1.0], _pitch, _roll, _yaw] call fza_fnc_rotateVector;
+
+private _rotMat   = [
+                     [(sin _roll) - (sin _yaw), 0.0, 0.0]
+                    ,[0.0,                      1.0, 0.0]
+                    ,[0.0,                      0.0, (cos _roll) + (sin _yaw)]
+                    ];
+
+private _velModelSpace = _heli getVariable "fza_sfmplus_velModelSpace";
+private _relWind = [[_velModelSpace # 0], [_velModelSpace # 1], [_velModelSpace # 2]];
+_relWind         = _rotMat matrixMultiply _relWind;
+_relWind         = [_relWind # 0 # 0, _relWind # 1 # 0, _relWind # 2 # 0];
+
+private _angVelModelSpace = _heli getVariable "fza_sfmplus_angVelModelSpace";
+private _angVel = [[_angVelModelSpace # 0], [_angVelModelSpace # 1], [_angVelModelSpace # 2]];
+_angVel         = _rotMat matrixMultiply _angVel;
+_angVel         = [_angVel # 0 # 0, _angVel # 1 # 0, _angVel # 2 # 0];
+
+for "_i" from 0 to (_count - 1) do {
+    private _verts = _coords select _i;
+    [_heli, _center, _vecRight, _vecFwd, _vecUp, _relWind, _angVel, _verts select 0, _verts select 1, _verts select 2, _verts select 3] call fza_sfmplus_fnc_aeroSurface;
+};
+
+/*
 private _deltaTime          = fza_ah64_fixedTimeStep;
 private _altitude           = _heli getVariable "fza_sfmplus_PA";
 private _temperature        = _heli getVariable "fza_sfmplus_FAT";
@@ -47,6 +77,7 @@ private _heliSimDragTableY = [
                              ,[ 6000,1.20,1.05,1.00,0.95,0.95]   
                              ,[ 8000,1.15,0.95,0.90,1.10,1.10] 
                              ];
+*/
 
                                 /*
 DRAG_TABLE =[ 
@@ -57,6 +88,8 @@ DRAG_TABLE =[
 ,[ 8000,0.00,0.00,0.00,0.01,0.00]
 ];
 */
+
+/*
 _interpDragCoefTableY      = [_heliSimDragTableY, _altitude] call fza_fnc_linearInterp; //_heliSimDragTableY
 private _dragCoefTableY    = [[-40, _interpDragCoefTableY # 1]
                              ,[-20, _interpDragCoefTableY # 2]
@@ -142,3 +175,4 @@ private _vecZ = [0.0, 0.0, 1.0];
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecY, "green"] call fza_fnc_debugDrawLine;
 [_heli, _aerodynamicCenter, _aerodynamicCenter vectorAdd _vecZ, "blue"]  call fza_fnc_debugDrawLine;
 #endif
+*/

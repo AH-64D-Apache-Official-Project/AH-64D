@@ -24,7 +24,7 @@ params ["_heli"];
 
 if (!local _heli) exitWith {};
 
-private _deltaTime              = fza_ah64_fixedTimeStep;
+private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;
 
 private _altitude               = _heli getVariable "fza_sfmplus_PA";
 private _temperature            = _heli getVariable "fza_sfmplus_FAT";

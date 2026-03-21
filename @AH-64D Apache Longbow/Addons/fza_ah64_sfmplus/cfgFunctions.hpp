@@ -20,12 +20,13 @@ class CfgFunctions
         class aero {
             file = "\fza_ah64_sfmplus\functions\aero";
             class aeroStabilator {R;};
+            class aeroSurface {R;};
             class aeroWing {R;};
         };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
+            class coreAeroUpdate {R;};
             class coreConfig {R;};
-            class coreFixedUpdate {R;};
             class coreUpdate  {R;};
         };
         class damage {
@@ -66,7 +67,8 @@ class CfgFunctions
         };
         class fuselage {
             file = "\fza_ah64_sfmplus\functions\fuselage";
-            class fuselageDrag {R;};
+            class fuselage {R;};
+            class fuselageVariables {R;};
         };
         class interact {
             file = "\fza_ah64_sfmplus\functions\interact";

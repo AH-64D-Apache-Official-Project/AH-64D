@@ -1,5 +1,5 @@
 /* ----------------------------------------------------------------------------
-Function: fza_fnc_coreFixedUpdatecheduler
+Function: fza_fnc_coreAeroUpdatecheduler
 Description:
     Provides a fixed time interval to smooth out physics calculations while also handling
     frame drops to ensure consistency.
@@ -12,7 +12,7 @@ Returns:
 
 Examples:
     --- Code
-    [_heli] call fza_fnc_coreFixedUpdateScheduler
+    [_heli] call fza_fnc_coreAeroUpdateScheduler
     ---
 Author:
     BradMick

@@ -28,7 +28,7 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 if (!local _heli) exitWith {};
 
-private _deltaTime       = fza_ah64_fixedTimeStep;
+private _deltaTime       = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;
 private _rho             = _heli getVariable "fza_sfmplus_rho";
 
 private _heliCOM         = getCenterOfMass _heli;

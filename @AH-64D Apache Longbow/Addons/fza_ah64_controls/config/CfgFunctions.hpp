@@ -25,7 +25,7 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\core";
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
-            class coreFixedUpdateScheduler {R;};
+            //class coreFixedUpdateScheduler {R;};
             class coreGetWCAs {R;};
             class coreCockpitControlHandle {R;};
             class coreCockpitInteract {R;};
