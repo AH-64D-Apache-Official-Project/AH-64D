@@ -4,6 +4,8 @@ params ["_heli", "_center", "_rotation", "_count", "_coords"];
 
 if (!local _heli) exitWith {};
 
+[_heli] call fza_sfmplus_fnc_fuselageFront;
+/*
 private _pitch = _rotation select 0;
 private _roll  = _rotation select 1;
 private _yaw   = _rotation select 2;
@@ -32,7 +34,7 @@ for "_i" from 0 to (_count - 1) do {
     private _verts = _coords select _i;
     [_heli, _center, _vecRight, _vecFwd, _vecUp, _relWind, _angVel, _verts select 0, _verts select 1, _verts select 2, _verts select 3] call fza_sfmplus_fnc_aeroSurface;
 };
-
+*/
 /*
 private _deltaTime          = fza_ah64_fixedTimeStep;
 private _altitude           = _heli getVariable "fza_sfmplus_PA";

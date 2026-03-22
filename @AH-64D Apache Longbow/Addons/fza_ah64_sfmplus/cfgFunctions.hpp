@@ -68,6 +68,9 @@ class CfgFunctions
         class fuselage {
             file = "\fza_ah64_sfmplus\functions\fuselage";
             class fuselage {R;};
+            class fuselageFront {R;};
+            class fuselageSide {R;};
+            class fuselageTop {R;};
             class fuselageVariables {R;};
         };
         class interact {

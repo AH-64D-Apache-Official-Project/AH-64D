@@ -1,0 +1,1 @@
+private _fuselageSideCenter   = [0.0, 0.74, -1.60];
