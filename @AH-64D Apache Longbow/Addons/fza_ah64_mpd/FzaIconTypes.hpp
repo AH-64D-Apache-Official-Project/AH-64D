@@ -45,11 +45,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.83,0.5};
+        textAOffset[] = {0.8,0.5};
         textAHAlign = "left";
         textAVAlign = "center";
 
-        textBOffset[] = {0.5,0.12};
+        textBOffset[] = {0.5,0.1};
         textBHAlign = "center";
         textBVAlign = "bottom";
     };
@@ -73,11 +73,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.15, 0.3};
+        textAOffset[] = {0.05, 0.3};
         textAHAlign = "left";
         textAVAlign = "center";
         
-        textBOffset[] = {0.85, 0.3};
+        textBOffset[] = {0.95, 0.3};
         textBHAlign = "right";
         textBVAlign = "center";
     };
@@ -89,11 +89,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.15, 0.3};
+        textAOffset[] = {0.05, 0.4};
         textAHAlign = "left";
         textAVAlign = "center";
         
-        textBOffset[] = {0.85, 0.3};
+        textBOffset[] = {0.95, 0.4};
         textBHAlign = "right";
         textBVAlign = "center";
     };
@@ -449,7 +449,26 @@ class FzaIconTypes {
         textA = "Z";
         textB = "U";
     };
-    
+    class CT:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "C";
+        textB = "T";
+    };
+    class CH:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "C";
+        textB = "H";
+    };
+    class ST:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "S";
+        textB = "T";
+    };
+    class HK:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "H";
+        textB = "K";
+    };
 //--------------------Icon Type H--------------------
 //
 //             +---------+    +---------+   
@@ -644,6 +663,14 @@ class FzaIconTypes {
         textB = "3";
     };
     class RLWR_SA3_ACQ_TRK:RLWR_SA3_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //SA-3
+    class RLWR_SA6_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textB = "6";
+    };
+    class RLWR_SA6_ACQ_TRK:RLWR_SA6_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //SA-8
     class RLWR_SA8_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -652,6 +679,14 @@ class FzaIconTypes {
         textB = "8";
     };
     class RLWR_SA8_ACQ_TRK:RLWR_SA8_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //SA-9
+    class RLWR_SA9_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textB = "9";
+    };
+    class RLWR_SA9_ACQ_TRK:RLWR_SA9_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //SA-10
     class RLWR_SA10_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -670,6 +705,15 @@ class FzaIconTypes {
         textB = "1";
     };
     class RLWR_SA11_ACQ_TRK:RLWR_SA11_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //SA-13
+    class RLWR_SA13_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "1";
+        textB = "3";
+    };
+    class RLWR_SA13_ACQ_TRK:RLWR_SA13_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //SA-15
     class RLWR_SA15_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
@@ -715,6 +759,24 @@ class FzaIconTypes {
         textB = "1";
     };
     class RLWR_SA21_ACQ_TRK:RLWR_SA21_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //Crotale
+    class RLWR_CT_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "C";
+        textB = "T";
+    };
+    class RLWR_CT_ACQ_TRK:RLWR_CT_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
+    //CHAPARRAL
+    class RLWR_CH_SRH : IconTypeI {
+        tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
+        type  = POINT_TYPE_ASE;
+        color[] = MPD_ICON_COLOR_YELLOW;
+        textA = "C";
+        textB = "H";
+    };
+    class RLWR_CH_ACQ_TRK:RLWR_CH_SRH { tex2 = "\fza_ah64_mpd\tex\aseIcons\rlwrBox_ca.paa";};
     //GU
     class RLWR_GU_SRH : IconTypeI {
         tex   = "\fza_ah64_mpd\tex\aseIcons\rlwrIcon_ca.paa";
