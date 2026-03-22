@@ -15,15 +15,7 @@ class CfgVehicles {
         fza_aseClass = "RADAR"; //CROTALE, Audio does not exist
         fza_aseIcon = "CT";
     };
-    class PRACS_M163_MACHBET: APC_Tracked_02_base_F {
-        fza_aseClass = "RADAR"; //VULCAN, Audio does not exist
-        fza_aseIcon = "VU";
-    };
     class PRACS_M163_PIVADS: APC_Tracked_02_base_F {
-        fza_aseClass = "RADAR"; //VULCAN, Audio does not exist
-        fza_aseIcon = "VU";
-    };
-    class PRACS_M163_VADS: PRACS_M163_PIVADS {
         fza_aseClass = "RADAR"; //VULCAN, Audio does not exist
         fza_aseIcon = "VU";
     };
