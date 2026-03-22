@@ -45,11 +45,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.83,0.5};
+        textAOffset[] = {0.8,0.5};
         textAHAlign = "left";
         textAVAlign = "center";
 
-        textBOffset[] = {0.5,0.12};
+        textBOffset[] = {0.5,0.1};
         textBHAlign = "center";
         textBVAlign = "bottom";
     };
@@ -73,11 +73,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.15, 0.3};
+        textAOffset[] = {0.05, 0.3};
         textAHAlign = "left";
         textAVAlign = "center";
         
-        textBOffset[] = {0.85, 0.3};
+        textBOffset[] = {0.95, 0.3};
         textBHAlign = "right";
         textBVAlign = "center";
     };
@@ -89,11 +89,11 @@ class FzaIconTypes {
         type = -1;
         size = ICON_SIZE;
 
-        textAOffset[] = {0.15, 0.3};
+        textAOffset[] = {0.05, 0.4};
         textAHAlign = "left";
         textAVAlign = "center";
         
-        textBOffset[] = {0.85, 0.3};
+        textBOffset[] = {0.95, 0.4};
         textBHAlign = "right";
         textBVAlign = "center";
     };
@@ -464,7 +464,11 @@ class FzaIconTypes {
         textA = "S";
         textB = "T";
     };
-    
+    class HK:Icon1 { 
+        tex = "\fza_ah64_mpd\tex\tsdIcons\targetThreats\gu_ca.paa";
+        textA = "H";
+        textB = "K";
+    };
 //--------------------Icon Type H--------------------
 //
 //             +---------+    +---------+   
