@@ -1,6 +1,6 @@
 class CfgPatches
 {
-    class fza_compat_racs_sla
+    class fza_compat_pracs_sla
     {
         units[] = {};
         author = "AH-64D Development Team";

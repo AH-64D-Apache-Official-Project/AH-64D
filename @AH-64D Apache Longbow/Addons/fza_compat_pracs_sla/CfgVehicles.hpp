@@ -22,7 +22,7 @@ class CfgVehicles {
         fza_aseIcon = "SA2";
     };
     class PRACS_SLA_SA6: APC_Tracked_02_base_F {
-        fza_aseClass = "SA6";
+        fza_aseClass = "RADAR"; //SA6, Audio does not yet exist
         fza_aseIcon = "SA6";
     };
     class PRACS_SLA_SA8: Wheeled_APC_F {
@@ -30,11 +30,11 @@ class CfgVehicles {
         fza_aseIcon = "SA8";
     };
     class PRACS_SLA_SA9: APC_Tracked_02_base_F {
-        fza_aseClass = "SA9";
+        fza_aseClass = "RADAR"; //SA9, Audio does not yet exist
         fza_aseIcon = "SA9";
     };
     class PRACS_SLA_SA13: Tank_F {
-        fza_aseClass = "SA13";
+        fza_aseClass = "RADAR"; //SA13, Audio does not yet exist
         fza_aseIcon = "SA13";
     };
     class PRACS_SLA_SA17: Tank_F {
@@ -42,7 +42,7 @@ class CfgVehicles {
         fza_aseIcon = "SA17";
     };
     class PRACS_SLA_2S6M_Tunguska: Tank_F {
-        fza_aseClass = "SA19";
-        fza_aseIcon = "S6";
+        fza_aseClass = "2S6";
+        fza_aseIcon = "2S6";
     };
 };
