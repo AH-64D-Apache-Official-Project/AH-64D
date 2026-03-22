@@ -11,6 +11,22 @@ if (gunner vehicle player == player) then { _crewStation = "cpg"; systemChat for
 private _isHeadsDown = false;
 if (cameraView == "GUNNER" && player == gunner _heli) then { _isHeadsDown = true; };
 
+private _ctrlWidth  = safeZoneW;
+if (!_isHeadsDown) then { _ctrlWidth = safeZoneW * 0.5; };
+
+private _ctrlHeight = safeZoneH;
+if (!_isHeadsDown) then { _ctrlHeight = safeZoneH * 0.5; };
+
+_ctrl ctrlSetPositionW _ctrlWidth;
+_ctrl ctrlSetPositionH _ctrlHeight;
+
+_ctrl ctrlSetPositionX ((safeZoneW - _ctrlWidth)  / 2 + safeZoneX);
+_ctrl ctrlSetPositionY ((safeZoneH - _ctrlHeight) / 2 + safeZoneY);
+
+_ctrl ctrlCommit 0;
+
+
+
 systemChat format ["selected sight = %1 -- visionMode = %2 -- fov = %3", [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable, [_heli] call fza_ihadss_fnc_getVisionMode, _heli getVariable "fza_ah64_tadsSelectedFov"];
 
 private _model = createHashMapFromArray
