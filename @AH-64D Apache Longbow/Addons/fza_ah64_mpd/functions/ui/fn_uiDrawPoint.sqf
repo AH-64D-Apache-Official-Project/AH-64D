@@ -1,5 +1,4 @@
 #include "\fza_ah64_dms\headers\constants.h"
-#define TEXT_HEIGHT (0.0253/2)
 disableSerialization;
 params
     ["_heli"
@@ -32,6 +31,8 @@ private _getOrCreateCtrl = {
 
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
     params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
+
+#define TEXT_HEIGHT (0.0008/_iconSize)
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
