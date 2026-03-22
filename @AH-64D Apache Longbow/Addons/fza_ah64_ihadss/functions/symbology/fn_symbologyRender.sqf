@@ -25,8 +25,6 @@ _ctrl ctrlSetPositionY ((safeZoneH - _ctrlHeight) / 2 + safeZoneY);
 
 _ctrl ctrlCommit 0;
 
-
-
 systemChat format ["selected sight = %1 -- visionMode = %2 -- fov = %3", [_heli, "fza_ah64_sight"] call fza_fnc_getSeatVariable, [_heli] call fza_ihadss_fnc_getVisionMode, _heli getVariable "fza_ah64_tadsSelectedFov"];
 
 private _model = createHashMapFromArray
