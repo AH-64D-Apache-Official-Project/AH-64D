@@ -13,8 +13,9 @@ private _heliCom        = getCenterOfMass _heli;
 private _rho            = _heli getVariable "fza_sfmplus_rho";
 private _debugLineScale = 1.0 / 30.0;
 
-private _center         = [0.00, 0.60, -1.40];
-private _rotation       = [5.00, 0.00,  0.00];
+private _position       = _heli getVariable "fza_sfmplus_fuselagePosition";
+private _rotation       = _heli getVariable "fza_sfmplus_fuselageFrontRotation";
+private _dragCoefTable  = _heli getVariable "fza_sfmplus_fuselageFrontDragCoefTable";
 private _count          = _heli getVariable "fza_sfmplus_fuselageFrontCount";
 private _coords         = _heli getVariable "fza_sfmplus_fuselageFront";
 
@@ -33,10 +34,10 @@ for "_i" from 0 to (_count - 1) do {
     private _v3    = _verts select 2;
     private _v4    = _verts select 3;
 
-    private _a = _center vectorAdd (_vecRight vectorMultiply (_v1 select 0)) vectorAdd (_vecFwd vectorMultiply (_v1 select 1)) vectorAdd (_vecUp vectorMultiply (_v1 select 2));
-    private _b = _center vectorAdd (_vecRight vectorMultiply (_v2 select 0)) vectorAdd (_vecFwd vectorMultiply (_v2 select 1)) vectorAdd (_vecUp vectorMultiply (_v2 select 2));
-    private _c = _center vectorAdd (_vecRight vectorMultiply (_v3 select 0)) vectorAdd (_vecFwd vectorMultiply (_v3 select 1)) vectorAdd (_vecUp vectorMultiply (_v3 select 2));
-    private _d = _center vectorAdd (_vecRight vectorMultiply (_v4 select 0)) vectorAdd (_vecFwd vectorMultiply (_v4 select 1)) vectorAdd (_vecUp vectorMultiply (_v4 select 2));
+    private _a = _position vectorAdd (_vecRight vectorMultiply (_v1 select 0)) vectorAdd (_vecFwd vectorMultiply (_v1 select 1)) vectorAdd (_vecUp vectorMultiply (_v1 select 2));
+    private _b = _position vectorAdd (_vecRight vectorMultiply (_v2 select 0)) vectorAdd (_vecFwd vectorMultiply (_v2 select 1)) vectorAdd (_vecUp vectorMultiply (_v2 select 2));
+    private _c = _position vectorAdd (_vecRight vectorMultiply (_v3 select 0)) vectorAdd (_vecFwd vectorMultiply (_v3 select 1)) vectorAdd (_vecUp vectorMultiply (_v3 select 2));
+    private _d = _position vectorAdd (_vecRight vectorMultiply (_v4 select 0)) vectorAdd (_vecFwd vectorMultiply (_v4 select 1)) vectorAdd (_vecUp vectorMultiply (_v4 select 2));
 
     private _f = _d vectorDiff ((_d vectorDiff _c) vectorMultiply 0.5);
     private _g = _a vectorDiff ((_a vectorDiff _b) vectorMultiply 0.5);
@@ -46,30 +47,6 @@ for "_i" from 0 to (_count - 1) do {
     #ifdef __A3_DEBUG__
     [_heli, _e, _e vectorAdd _vecFwd, "white"] call fza_fnc_debugDrawLine;
     #endif
-
-    //Drag coefficient
-    /*
-    private _dragCoefVelTable =
-    [
-    //-------0k-----2k-----4k-----6k-----8k----
-     [  0.0, 0.020, 0.000, 0.000, 0.000, 0.000]  //0kts
-    ,[20.58, 0.034, 0.000, 0.000, 0.000, 0.000]  //40kts
-    ,[36.01, 0.080, 0.000, 0.000, 0.000, 0.000]  //70kts
-    ,[46.30, 0.115, 0.000, 0.000, 0.000, 0.000]  //90kts
-    ,[51.44, 0.135, 0.000, 0.000, 0.000, 0.000]  //100kts
-    ,[61.73, 0.190, 0.000, 0.000, 0.000, 0.000]  //120kts
-    ,[72.02, 0.260, 0.000, 0.000, 0.000, 0.000]  //140kts
-    ,[77.17, 0.000, 0.000, 0.000, 0.000, 0.000]  //150kts
-    ];
-    */
-    private _dragCoefTable =
-    [
-     [   0, 0.200]
-    ,[2000, 0.270]
-    ,[4000, 0.300]
-    ,[6000, 0.520]
-    ,[8000, 0.750]
-    ];
 
     private _v          = _heli getVariable "fza_sfmplus_vel2D";
     private _pa         = _heli getVariable "fza_sfmplus_PA";

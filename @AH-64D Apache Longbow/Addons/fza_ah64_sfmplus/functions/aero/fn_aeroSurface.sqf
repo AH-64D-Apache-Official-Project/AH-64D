@@ -43,9 +43,9 @@ _chordLine         = vectorNormalized _chordLine;
 _relWind = _relWind vectorMultiply -1.0;
 
 private _deltaPos   = _e vectorDiff _heliCom;
-//private _locRelWind = (vectorNormalized _angVel) vectorCrossProduct (vectorNormalized _deltaPos);
-//_locRelWind         = _locRelWind vectorMultiply -((vectorMagnitude _angVel) * (vectorMagnitude _deltaPos));
-//_relWind            = _relWind vectorAdd _locRelWind;
+private _locRelWind = (vectorNormalized _angVel) vectorCrossProduct (vectorNormalized _deltaPos);
+_locRelWind         = _locRelWind vectorMultiply -((vectorMagnitude _angVel) * (vectorMagnitude _deltaPos));
+_relWind            = _relWind vectorAdd _locRelWind;
 
 private _relWindNormalized = vectorNormalized (_relWind vectorMultiply -1.0);
 

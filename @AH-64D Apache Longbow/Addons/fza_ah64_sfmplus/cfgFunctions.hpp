@@ -25,8 +25,8 @@ class CfgFunctions
         };
         class core {
             file = "\fza_ah64_sfmplus\functions\core";
-            class coreAeroUpdate {R;};
             class coreConfig {R;};
+            class coreFlightModelUpdate {R;};
             class coreUpdate  {R;};
         };
         class damage {
