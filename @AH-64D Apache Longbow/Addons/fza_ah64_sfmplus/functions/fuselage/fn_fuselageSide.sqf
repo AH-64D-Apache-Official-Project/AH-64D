@@ -10,7 +10,7 @@ private _sfmPlusConfig  = _cfg >> "Fza_SfmPlus";
 private _deltaTime      = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;
 private _heliCom        = getCenterOfMass _heli;
 private _rho            = _heli getVariable "fza_sfmplus_rho";
-private _debugLineScale = 1.0 / 250.0;
+private _debugLineScale = 1.0 / 30.0;
 
 private _position       = _heli getVariable "fza_sfmplus_fuselagePosition";
 private _rotation       = _heli getVariable "fza_sfmplus_fuselageSideRotation";
@@ -103,9 +103,14 @@ for "_i" from 0 to (_count - 1) do {
     //_heli addForce[_heli vectorModelToWorld _liftVector, _e];
     //_heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
-    private _moment    = _liftVector vectorCrossProduct _deltaPos;
+    private _moment = _liftVector vectorCrossProduct _deltaPos;
 
-    _heli addTorque (_heli vectorModelToWorld _moment);
+    private _torque = [0.0, 0.0, 0.0];
+    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+        _torque = _moment;
+    };
+
+    _heli addTorque (_heli vectorModelToWorld _torque);
 	
     #ifdef __A3_DEBUG__
     //Draw the wing
