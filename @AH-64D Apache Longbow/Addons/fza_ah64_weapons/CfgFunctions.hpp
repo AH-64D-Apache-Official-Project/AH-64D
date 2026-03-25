@@ -9,6 +9,13 @@ class CfgFunctions
     class fza_ah64_weapons
     {
         tag = "fza_weapons";
+        class ballistics {
+            file = "\fza_ah64_weapons\functions\ballistics";
+            class ballisticComputer {R;};
+            class calculateDragForce {R;};
+            class calculateElevationAngle {R;};
+            class calculateRange {R;};
+        };
         class pylon {
             file = "\fza_ah64_weapons\functions\pylon";
             class pylonSetOwner {R;};
