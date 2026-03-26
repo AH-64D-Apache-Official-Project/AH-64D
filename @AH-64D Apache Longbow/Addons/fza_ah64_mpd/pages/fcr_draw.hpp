@@ -242,6 +242,7 @@ class root {
 
     class acq {
         MPD_ACQ_SRC(Acq, MFD_IND_FCR_ACQ_BOX, MFD_TEXT_IND_FCR_ACQ_SRC, Fcr_Acq)
+        MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
     };
 
     class text {

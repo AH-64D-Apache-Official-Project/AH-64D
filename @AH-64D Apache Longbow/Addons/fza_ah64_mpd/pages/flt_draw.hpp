@@ -21,6 +21,7 @@ class flt_draw {
     ///////////////// R ///////////////
     //R6
     MPD_ACQ_SRC(Acq, MFD_IND_FLT_ACQ_BOX, MFD_TEXT_IND_FLT_ACQ_SRC, Flt_Acq)
+    MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
     ///////////////// B ///////////////
     MPD_TEXT_C(ENG, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("ENG"))
