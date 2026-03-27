@@ -47,10 +47,6 @@ fza_ah64_monoChromeEffect ppEffectCommit 0;
 fza_ah64_flirResolutionEffect = ppEffectCreate["Resolution", 4001];
 fza_ah64_flirResolutionEffect ppEffectCommit 0;
 
-fza_ah64_flirBlurEffect = ppEffectCreate["DynamicBlur", 4001];
-fza_ah64_flirBlurEffect ppEffectAdjust [0.7];
-fza_ah64_flirBlurEffect ppEffectCommit 0;
-
 fza_ah64_dvoEffect = ppEffectCreate["colorCorrections", 4002];
 fza_ah64_dvoEffect ppEffectAdjust[1.00, 0.95, -0.05, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], [0.55, 0.55, 0.55, 0], [0, 0, 0, 0, 0, 0, 4]];
 fza_ah64_dvoEffect ppEffectCommit 0;
@@ -58,6 +54,10 @@ fza_ah64_dvoEffect ppEffectCommit 0;
 fza_ah64_chromAberrationEffect = ppEffectCreate["ChromAberration", 4003];
 fza_ah64_chromAberrationEffect ppEffectAdjust [0.0075, 0.0075, false];
 fza_ah64_chromAberrationEffect ppEffectCommit 0;
+
+fza_ah64_flirBlurEffect = ppEffectCreate["DynamicBlur", 4004];
+fza_ah64_flirBlurEffect ppEffectAdjust [0.3];
+fza_ah64_flirBlurEffect ppEffectCommit 0;
 
 fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
 fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];

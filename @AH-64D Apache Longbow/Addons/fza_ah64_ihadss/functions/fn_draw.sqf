@@ -166,6 +166,24 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirBlurEffect ppEffectEnable true;
         };
     };
+    if ((_heli getVariable "fza_ah64_tadsZoom") == 0) then {
+        fza_ah64_flirBlurEffect ppEffectAdjust [0.3];
+        fza_ah64_flirBlurEffect ppEffectCommit 0;
+    };
+    if ((_heli getVariable "fza_ah64_tadsZoom") == 1) then {
+        fza_ah64_flirBlurEffect ppEffectAdjust [0.4];
+        fza_ah64_flirBlurEffect ppEffectCommit 0;
+    };
+    if ((_heli getVariable "fza_ah64_tadsZoom") == 2) then {
+        fza_ah64_flirBlurEffect ppEffectAdjust [0.5];
+        fza_ah64_flirBlurEffect ppEffectCommit 0;
+    };
+    if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+        fza_ah64_flirBlurEffect ppEffectAdjust [0.75];
+        fza_ah64_flirBlurEffect ppEffectCommit 0;
+    };
+
+    
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
