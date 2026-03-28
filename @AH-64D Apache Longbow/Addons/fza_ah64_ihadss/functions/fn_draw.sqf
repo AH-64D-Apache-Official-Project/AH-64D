@@ -134,6 +134,7 @@ if !_powerOnState then {
 if (cameraView == "GUNNER" && player == gunner _heli) then {
     if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
         //A3TI FLIR
+        //systemChat format ["A3TI"];
         fza_ah64_flirResolutionEffect ppEffectEnable true;
         fza_ah64_dvoEffect ppEffectEnable false;
         fza_ah64_monoChromeEffect ppEffectEnable false;
@@ -165,6 +166,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirBlurEffect ppEffectCommit 0;
         };
     } else {
+        //systemChat format ["Vanilla"];
         if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
             fza_ah64_flirResolutionEffect ppEffectEnable false;
             fza_ah64_dvoEffect ppEffectEnable false;
