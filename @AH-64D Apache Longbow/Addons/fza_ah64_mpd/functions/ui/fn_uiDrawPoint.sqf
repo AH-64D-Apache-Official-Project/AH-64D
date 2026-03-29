@@ -32,7 +32,7 @@ private _getOrCreateCtrl = {
 ([_dmsPoint # POINT_GET_IDENT] call fza_dms_fnc_pointGetIdentDetails)
     params ["_iconTex", "_iconTex2", "_iconSize", "_color", "_textA", "_textB"];
 
-#define TEXT_HEIGHT (0.0008/_iconSize)
+private _textHeight = 0.0008 / _iconSize;
 
 //Arma pos
 private _armaPos = _dmsPoint # POINT_GET_ARMA_POS;
@@ -77,8 +77,8 @@ private _drawText = {
     };
     private _textYOffset = 0;
     switch _textYAlign do {
-        case "top": {_textYOffset = TEXT_HEIGHT * 0.5};
-        case "bottom": {_textYOffset = TEXT_HEIGHT * -0.5};
+        case "top": {_textYOffset = _textHeight * 0.5};
+        case "bottom": {_textYOffset = _textHeight * -0.5};
     };
     _textCtrl ctrlSetPosition
         [ _xDispOffset + (_uiTop # 0 + (_textOffset # 0 * _iconSize) + _xOffset) / 2
@@ -87,7 +87,7 @@ private _drawText = {
         , 1 / 2
         ];
     _textCtrl ctrlSetTextColor _color;
-    _textCtrl ctrlSetFontHeight TEXT_HEIGHT;
+    _textCtrl ctrlSetFontHeight _textHeight;
     _textCtrl ctrlSetText ([_dmsPoint, _text] call fza_dms_fnc_pointFillIconText);
     _textCtrl ctrlCommit 0;
 };
