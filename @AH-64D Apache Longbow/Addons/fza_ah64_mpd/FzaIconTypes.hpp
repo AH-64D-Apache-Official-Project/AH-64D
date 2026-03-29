@@ -476,12 +476,6 @@ class FzaIconTypes {
 //             |   TEX   |    |  TEX 2  |
 //             |         |    |         |
 //             +---------+    +---------+
-    //----------TSD FCR ICON SCALE 25 & 50-----------
-        class FCR_TSD_SC25_50:IconTypeH { 
-        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
-        type  = POINT_TYPE_FCR;
-        color[] = MPD_ICON_COLOR_YELLOW;
-    };
     //--------------------FCR LOAL--------------------
     //ADU
     class FCR_ADU_LOAL:IconTypeH { 
@@ -871,4 +865,34 @@ class FzaIconTypes {
         color[] = MPD_ICON_COLOR_GREEN;
     };
 
+//--------------------FCR/TSD ShotAt--------------------
+
+    class FCR_TSD_SHOTAT:IconTypeH {
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\shotAT_ca.paa";
+        type  = POINT_TYPE_SYSTEM;
+        color[] = MPD_ICON_COLOR_GREEN;
+    };
+
+//--------------------TSD Rectangles--------------------
+
+    class FCR_TSD_SC25_50_YELLOW:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_YELLOW;
+    };
+    class FCR_TSD_SC25_50_GREEN:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_GREEN;
+    };
+    class FCR_TSD_SC25_50_BLUE:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_BLUE;
+    };
+    class FCR_TSD_SC25_50_RED:IconTypeH { 
+        tex   = "\fza_ah64_mpd\tex\fcrIcons\scale25_50_icon_ca.paa";
+        type  = POINT_TYPE_FCR;
+        color[] = MPD_ICON_COLOR_RED;
+    };
 };

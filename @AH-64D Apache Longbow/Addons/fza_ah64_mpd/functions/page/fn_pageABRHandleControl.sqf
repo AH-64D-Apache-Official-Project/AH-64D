@@ -35,4 +35,7 @@ switch (_control) do {
     case "b6": {
         [_heli, _mpdIndex, "tsd", ["subPageVarPage"] createHashMapFromArray [TSD_THRT]] call fza_mpd_fnc_setCurrentPage;
     };
+    case "t5": {
+        [_heli, _mpdIndex, "coord", _tsdState] call fza_mpd_fnc_setCurrentPage;
+    };
 };

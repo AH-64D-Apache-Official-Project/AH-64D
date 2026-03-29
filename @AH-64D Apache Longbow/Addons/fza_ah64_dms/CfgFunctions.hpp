@@ -43,5 +43,11 @@ class CfgFunctions
             class routeDelPoint {R;};
             class routeSetDir {R;};
         };
+        class shot {
+            file = "\fza_ah64_dms\functions\shot";
+            class addShotRF {R;};
+            class addShotSAL {R;};
+            class ageShot {R;};
+        };
     };
 };
