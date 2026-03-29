@@ -60,25 +60,25 @@ _up         = vectorNormalized _up;
 [_heli, _e, _e vectorAdd _up, "white"] call fza_fnc_debugDrawLine;
 #endif
 
-private _AoA = _chordLine vectorDotProduct _relWindNormalized;
-_AoA = [_AoA, -1.0, 1.0] call BIS_fnc_clamp;
-_AoA = acos _AoA;
+private _aoa = _chordLine vectorDotProduct _relWindNormalized;
+_aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
+_aoa = acos _aoa;
 
 private _aoaCorrection = _vecRight vectorDotProduct _relWindNormalized;
 if (_aoaCorrection > 0.0) then {
-	_AoA = _AoA * -1.0;
+	_aoa = _aoa * -1.0;
 };
 
 //Lift coefficient
 private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
-private _CL          = [_airfoilTable, _AoA] call fza_fnc_linearInterp select 1;
+private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
 private _v            = vectorMagnitude _relWind;
 private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
 systemChat format ["%1 - %2 - %3 - %4", _area, _CL, _v, _lift];
 
 //Drag coefficient
-private _CD          = [_airfoilTable, _AoA] call fza_fnc_linearInterp select 2;
+private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
 private _drag         = _CD * 0.5 * _rho * _area * (_v * _v);
 
 private _liftVector = _vecRight vectorCrossProduct _relWind;

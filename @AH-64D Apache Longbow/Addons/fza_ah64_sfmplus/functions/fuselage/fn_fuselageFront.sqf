@@ -66,12 +66,12 @@ for "_i" from 0 to (_count - 1) do {
     private _deltaPos = _e vectorDiff _heliCom;
     private _moment   = _dragVector vectorCrossProduct _deltaPos;
 
-    private _torque = [0.0, 0.0, 0.0];
-    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-        _torque = _moment;
-    };
+    //private _torque = [0.0, 0.0, 0.0];
+    //if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+    //    _torque = _moment;
+    //};
 
-    _heli addTorque (_heli vectorModelToWorld _torque);
+    _heli addTorque (_heli vectorModelToWorld _moment);//_torque);
 
     #ifdef __A3_DEBUG__
     //Draw the wing

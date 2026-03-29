@@ -74,7 +74,7 @@ for "_i" from 0 to (_count - 1) do {
 
     private _relWindNormalized = vectorNormalized _relWind;
 
-	private _aoa = ((_relWindNormalized select 2) * -1.0) atan2 (_chordLine select 1);
+	private _aoa = (_relWindNormalized select 2) atan2 (_chordLine select 1);
 
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
@@ -104,12 +104,12 @@ for "_i" from 0 to (_count - 1) do {
 
     private _moment = _liftVector vectorCrossProduct _deltaPos;
 
-    private _torque = [0.0, 0.0, 0.0];
-    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-        _torque = _moment;
-    };
+    //private _torque = [0.0, 0.0, 0.0];
+    //if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+    //    _torque = _moment;
+    //};
 
-    _heli addTorque (_heli vectorModelToWorld _torque);
+    _heli addTorque (_heli vectorModelToWorld _moment);//_torque);
 
     #ifdef __A3_DEBUG__
     //Draw the wing
