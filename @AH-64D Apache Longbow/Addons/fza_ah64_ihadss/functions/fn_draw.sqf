@@ -133,10 +133,14 @@ if !_powerOnState then {
 
 if (cameraView == "GUNNER" && player == gunner _heli) then {
     if (([_heli] call fza_ihadss_fnc_getVisionMode) == 1) then {
+        //A3TI FLIR
+        //systemChat format ["A3TI"];
         fza_ah64_flirResolutionEffect ppEffectEnable true;
-        fza_ah64_monoChromeEffect ppEffectEnable false;
         fza_ah64_dvoEffect ppEffectEnable false;
+        fza_ah64_monoChromeEffect ppEffectEnable false;
         fza_ah64_chromAberrationEffect ppEffectEnable false;
+        fza_ah64_flirBlurEffect ppEffectEnable true;
+        //The zoom FOV is a digital zoom that doubles the resolution
         if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
             fza_ah64_flirResolutionEffect ppEffectAdjust [180];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
@@ -144,19 +148,75 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
             fza_ah64_flirResolutionEffect ppEffectAdjust [360];
             fza_ah64_flirResolutionEffect ppEffectCommit 0;
         };
+        //Progressive blur w/ zoom
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 0) then {
+            fza_ah64_flirBlurEffect ppEffectAdjust [0.15];
+            fza_ah64_flirBlurEffect ppEffectCommit 0;
+        };
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 1) then {
+            fza_ah64_flirBlurEffect ppEffectAdjust [0.20];
+            fza_ah64_flirBlurEffect ppEffectCommit 0;
+        };
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 2) then {
+            fza_ah64_flirBlurEffect ppEffectAdjust [0.30];
+            fza_ah64_flirBlurEffect ppEffectCommit 0;
+        };
+        if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+            fza_ah64_flirBlurEffect ppEffectAdjust [0.40];
+            fza_ah64_flirBlurEffect ppEffectCommit 0;
+        };
     } else {
-        fza_ah64_flirResolutionEffect ppEffectEnable false;
+        //systemChat format ["Vanilla"];
         if ((_heli getVariable "fza_ah64_tadsVision") in ["DTV"]) then {
+            fza_ah64_flirResolutionEffect ppEffectEnable false;
             fza_ah64_dvoEffect ppEffectEnable false;
             fza_ah64_monoChromeEffect ppEffectEnable true;
             fza_ah64_chromAberrationEffect ppEffectEnable true;
+            fza_ah64_flirBlurEffect ppEffectEnable false;
         };
         if ((_heli getVariable "fza_ah64_tadsVision") in ["DVO"]) then {
+            fza_ah64_flirResolutionEffect ppEffectEnable false;
             fza_ah64_dvoEffect ppEffectEnable true;
             fza_ah64_monoChromeEffect ppEffectEnable false;
             fza_ah64_chromAberrationEffect ppEffectEnable true;
+            fza_ah64_flirBlurEffect ppEffectEnable false;
+        };
+        //"Vanilla" FLIR
+        if ((_heli getVariable "fza_ah64_tadsVision") in ["FLIR"]) then {
+            fza_ah64_flirResolutionEffect ppEffectEnable true;
+            fza_ah64_dvoEffect ppEffectEnable false;
+            fza_ah64_monoChromeEffect ppEffectEnable false;
+            fza_ah64_chromAberrationEffect ppEffectEnable false;
+            fza_ah64_flirBlurEffect ppEffectEnable true;
+            //The zoom FOV is a digital zoom that doubles the resolution
+            if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+                fza_ah64_flirResolutionEffect ppEffectAdjust [270];
+                fza_ah64_flirResolutionEffect ppEffectCommit 0;
+            } else {
+                fza_ah64_flirResolutionEffect ppEffectAdjust [540];
+                fza_ah64_flirResolutionEffect ppEffectCommit 0;
+            };
+            //Progressive blur w/ zoom
+            if ((_heli getVariable "fza_ah64_tadsZoom") == 0) then {
+                fza_ah64_flirBlurEffect ppEffectAdjust [0.15];
+                fza_ah64_flirBlurEffect ppEffectCommit 0;
+            };
+            if ((_heli getVariable "fza_ah64_tadsZoom") == 1) then {
+                fza_ah64_flirBlurEffect ppEffectAdjust [0.20];
+                fza_ah64_flirBlurEffect ppEffectCommit 0;
+            };
+            if ((_heli getVariable "fza_ah64_tadsZoom") == 2) then {
+                fza_ah64_flirBlurEffect ppEffectAdjust [0.30];
+                fza_ah64_flirBlurEffect ppEffectCommit 0;
+            };
+            if ((_heli getVariable "fza_ah64_tadsZoom") == 3) then {
+                fza_ah64_flirBlurEffect ppEffectAdjust [0.40];
+                fza_ah64_flirBlurEffect ppEffectCommit 0;
+            };
         };
     };
+
+    
 
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 130) ctrlSetText "\fza_ah64_model\tex\HDU\TADSmain_co.paa";
     ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl 802) ctrlSetText "RCD      TADS"; //static data
@@ -216,6 +276,7 @@ if (cameraView == "GUNNER" && player == gunner _heli) then {
     fza_ah64_dvoEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
+    fza_ah64_flirBlurEffect ppEffectEnable false;
 
     for "_i" from 121 to 209 do {
         ((uiNameSpace getVariable "fza_ah64_raddisp") displayCtrl _i) ctrlSetTextColor _hduColour;

@@ -35,6 +35,7 @@ if (_thermalM == "DTV") then { //DTV Index
 };
 
 if (_thermalM == "DVO") then { //DTV Index
+    if (_inputindex == 99) then {_inputindex = 1};
     _zoomindex = _dvoIndex select _inputindex;
 };
 
