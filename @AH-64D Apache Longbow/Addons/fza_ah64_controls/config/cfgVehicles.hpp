@@ -18,7 +18,10 @@ class CfgVehicles {
         mapSize     = 10;
 
         A3TI_ThermalSelections[] = {"skin"};
-        
+
+        //MFD values
+        mfdMaxUserValues = 90
+
         #include "cfgVehicles\acre.hpp"
         #include "cfgVehicles\animationSources.hpp"
         #include "cfgVehicles\itcAir.hpp"

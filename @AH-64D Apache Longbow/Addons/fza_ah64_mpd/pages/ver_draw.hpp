@@ -1,0 +1,137 @@
+#include "\fza_ah64_mpd\headers\mfdConstants.h"
+
+//MPD_BOX_BAR_T(FAULT, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y)
+
+//T1
+MPD_ARROW_C(DTU, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, 3)
+MPD_TEXT_C(DTU, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("DTU"))
+//T2
+MPD_BOX_BAR_T(FAULT, MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y)
+MPD_TEXT_C(FAULT,    MPD_POS_BUTTON_TB_2_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("FAULT"))
+//T3
+MPD_BOX_BAR_T(IBIT, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y)
+MPD_TEXT_C(IBIT, MPD_POS_BUTTON_TB_3_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("IBIT"))
+
+//T5
+MPD_ARROW_C(VERS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, 4)
+MPD_TEXT_C(VERS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("VERS"))
+MPD_BOX_TALL_C(VERS, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, 4)
+//T6
+MPD_ARROW_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, 4)
+MPD_TEXT_C(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
+
+//B1
+MPD_BOX_C(WPT,  MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, 3)
+MPD_TEXT_C(DMS, MPD_POS_BUTTON_TB_1_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("DMS"))
+//B6
+MPD_ARROW_C(VER, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, 3)
+MPD_TEXT_C(VER, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("WCA"))
+
+MPD_TEXT_R(PBOLeft, 0.121, 0.15, MPD_TEXT_STATIC("PBO"))
+MPD_TEXT_R(PBORight, 0.52, 0.15, MPD_TEXT_STATIC("PBO"))
+
+//Title Box
+MPD_TEXT_C(SOFTWAREVERSIONS, 0.5, 0.09, MPD_TEXT_STATIC("SOFTWARE VERSIONS"))
+class lines {
+    type = line;
+    width = 3;
+    points[] = {
+        MPD_POINTS_BOX(Null, (0.5 - MPD_TEXT_WIDTH * 8.5), 0.09, (17.5 * MPD_TEXT_WIDTH), MPD_TEXT_HEIGHT)
+    };
+};
+
+class pageScroll {
+    condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_VER_PAGENUM), 1));
+    class lines {
+        type = line;
+        width = 3;
+        points[] = {
+            {{0.278, 0.966}, 1},//left scroll arrow
+            {{0.302, 0.951}, 1},
+            {{0.308, 0.951}, 1},
+            {{0.308, 0.959}, 1},
+            {{0.326, 0.959}, 1},
+            {{0.326, 0.975}, 1},
+            {{0.308, 0.975}, 1},
+            {{0.308, 0.983}, 1},
+            {{0.302, 0.983}, 1},
+            {{0.278, 0.966}, 1},
+            {},
+            {{0.502, 0.966}, 1},//right scroll arrow
+            {{0.478, 0.951}, 1},
+            {{0.472, 0.951}, 1},
+            {{0.472, 0.959}, 1},
+            {{0.454, 0.959}, 1},
+            {{0.454, 0.975}, 1},
+            {{0.472, 0.975}, 1},
+            {{0.472, 0.983}, 1},
+            {{0.478, 0.983}, 1},
+            {{0.502, 0.966}, 1},
+            {},
+        };
+    };
+    MPD_TEXT_C(PAGE, ((MPD_POS_BUTTON_TB_2_X + MPD_POS_BUTTON_TB_3_X)/2), MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT + 0.01, MPD_TEXT_STATIC("PAGE"))
+    MPD_TEXT_C(PAGE_NUMB, ((MPD_POS_BUTTON_TB_2_X + MPD_POS_BUTTON_TB_3_X)/2), MPD_POS_BUTTON_B_Y, MPD_TEXT_USER(MFD_TEXT_VER_PAGESTR))
+};
+
+#define MPD_VER_COLUMN_1_X (0.49 - 18 * MPD_TEXT_WIDTH)
+#define MPD_VER_COLUMN_2_X 0.52
+#define MPD_VER_COLUMN_Y 0.24
+#define MPD_VER_COLUMN_SPACING (MPD_TEXT_HEIGHT * 0.90)
+
+#define MPD_VER_ITEM_L(INDEX,STATE,COLOUR) \
+class VerItem_L_##INDEX##_##STATE { \
+    condition = C_COND(C_EQ(C_MPD_USER(INDEX),STATE)); \
+    color[] = COLOUR; \
+    MPD_TEXT_R(ColumnText, MPD_VER_COLUMN_1_X, (MPD_VER_COLUMN_Y + (INDEX * MPD_VER_COLUMN_SPACING)), MPD_TEXT_USER(INDEX)) \
+};
+
+#define MPD_VER_ITEM_R(INDEX,STATE,COLOUR) \
+class VerItem_R_##INDEX##_##STATE { \
+    condition = C_COND(C_EQ(C_MPD_USER(INDEX),STATE)); \
+    color[] = COLOUR; \
+    MPD_TEXT_R(ColumnText, MPD_VER_COLUMN_2_X, (MPD_VER_COLUMN_Y + ((INDEX - 16) * MPD_VER_COLUMN_SPACING)), MPD_TEXT_USER(INDEX)) \
+};
+
+#define MPD_VER_L(INDEX) \
+    MPD_VER_ITEM_L(INDEX,0,MPD_COLOUR_GREEN) \
+    MPD_VER_ITEM_L(INDEX,1,MPD_COLOUR_WHITE) \
+
+#define MPD_VER_R(INDEX) \
+    MPD_VER_ITEM_R(INDEX,0,MPD_COLOUR_GREEN) \
+    MPD_VER_ITEM_R(INDEX,1,MPD_COLOUR_WHITE) \
+    
+class SoftwareInfoDisplay {
+    MPD_VER_L(0)
+    MPD_VER_L(1)
+    MPD_VER_L(2)
+    MPD_VER_L(3)
+    MPD_VER_L(4)
+    MPD_VER_L(5)
+    MPD_VER_L(6)
+    MPD_VER_L(7)
+    MPD_VER_L(8)
+    MPD_VER_L(9)
+    MPD_VER_L(10)
+    MPD_VER_L(11)
+    MPD_VER_L(12)
+    MPD_VER_L(13)
+    MPD_VER_L(14)
+    MPD_VER_L(15)
+    MPD_VER_R(16)
+    MPD_VER_R(17)
+    MPD_VER_R(18)
+    MPD_VER_R(19)
+    MPD_VER_R(20)
+    MPD_VER_R(21)
+    MPD_VER_R(22)
+    MPD_VER_R(23)
+    MPD_VER_R(24)
+    MPD_VER_R(25)
+    MPD_VER_R(26)
+    MPD_VER_R(27)
+    MPD_VER_R(28)
+    MPD_VER_R(29)
+    MPD_VER_R(30)
+    MPD_VER_R(31)
+};

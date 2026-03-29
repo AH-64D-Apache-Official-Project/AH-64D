@@ -13,6 +13,9 @@ import tools.mfd_documentation.document as mfd_document
 env = Environment(tools=[])
 
 # Utility functions
+def currentCommitHash():
+    commit = subprocess.run(["git", "rev-parse", "--short", "HEAD"], capture_output=True, check=True)
+    return commit.stdout.decode('ascii').strip()
 
 def allFilesIn(path):
     return [s.replace("$", "$$") for s in glob.glob(path + '/**/*', recursive=True) if os.path.isfile(s)]
@@ -102,7 +105,12 @@ def buildSymlink(pathFrom, pathTo):
     commands.append(f'mklink /J "{pathTo}" "{pathFrom}"')
     return commands
 
-def buildPbo(settings,env, pbo):
+def buildPbo(settings,pbos,env, pbo):
+    commit = currentCommitHash()
+    with open(os.path.join(pbo.folder, "version.hpp"), 'w') as f:
+        f.write(f"hash = \"{commit}\";\n")
+        f.write("pbos[] = {\""+ "\", \"".join(map(lambda pbo: pbo.name, pbos)) + "\"};\n")
+        
     env.Command(pbo.outputPath, allFilesIn(pbo.folder) + ["build"], 
         f'"{addonBuilderPath()}" "{os.path.abspath(pbo.buildSymlink)}" "{os.path.abspath(settings["addonsFolder"])}" -clear -project=build -include=buildExtIncludes.txt')
     targetDefinition(pbo.name, f"Build the {pbo.name} pbo.")
@@ -126,7 +134,7 @@ def generateMfdDocumentation(target, source, env):
 settings = getSettings()
 pbos = getPboInfo(settings)
 
-pboAliases = [buildPbo(settings,env, pbo) for pbo in pbos]
+pboAliases = [buildPbo(settings,pbos,env, pbo) for pbo in pbos]
 
 env.Command("buildTools", [], Mkdir("buildTools"))
     

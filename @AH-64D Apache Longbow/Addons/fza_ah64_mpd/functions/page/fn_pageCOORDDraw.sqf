@@ -113,7 +113,7 @@ switch (_pageType) do {
         _heli setUserMFDValue[MFD_INDEX_OFFSET(MFD_IND_COORD_PAGE_TYPE), 6];
         private _variable = _heli getVariable "fza_dms_shotAt";
         private _posHeli = getPos _heli;
-        _state set ["pageNumberMax", ((abs ceil ( count((vehicle player getVariable "fza_dms_shotAt") select {_x isNotEqualto -1}) / 6)) max 1)];
+        _state set ["pageNumberMax", ((abs ceil ( count((_heli getVariable "fza_dms_shotAt") select {_x isNotEqualto -1}) / 6)) max 1)];
 
         for "_i" from 0 to 5 step 1 do {
             private _pointValue = (_i + (6 *_pageNumber)) - 6;
@@ -124,10 +124,9 @@ switch (_pageType) do {
             if (_pointInfo isnotEqualTo -1) then {
                 _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex), [[format["%1     %2 %3L %4", ([(_pointValue + 1), 2] call CBA_fnc_formatNumber), [_missileType, 3, true] call fza_fnc_padString, _triggerTime, _ind], 28, true] call fza_fnc_padString, 29] call fza_fnc_padString];
                 _heli setUserMfdText[MFD_INDEX_OFFSET(_mfdTextIndex + 1), [format["W84 47 13S FU %1 %2", ([(_shotPos#0)/10, 4] call CBA_fnc_formatNumber), ([(_shotPos#1)/10, 4] call CBA_fnc_formatNumber)], 28] call fza_fnc_padString];
+                _pointsArray pushBack [MPD_POSMODE_SCREEN, [0.35,(0.20 + (0.1185 * _i)),0], "", POINT_TYPE_FCR, _i, _ident];
             };
         
-            //draw icon
-            _pointsArray pushBack [MPD_POSMODE_SCREEN, [0.35,(0.20 + (0.1185 * _i)),0], "", POINT_TYPE_FCR, _i, _ident];
         };
     };
 };
