@@ -183,6 +183,10 @@ class CfgVehicles {
                 index = MPD_PAGE_VER;
                 draw  = "fza_mpd_fnc_pageVERDraw";
                 handleControl = "fza_mpd_fnc_pageVERHandleControl";
+                class InitState {
+                    pageNumber = 1;
+                    pageNumberMax = 1;
+                };
             };
             class COORD {
                 index = MPD_PAGE_COORD;
