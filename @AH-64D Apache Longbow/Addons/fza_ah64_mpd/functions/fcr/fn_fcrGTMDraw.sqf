@@ -30,6 +30,16 @@ if (count _displayTargets > 1 && _ntsIndex != -1) then {
 private _pointsArray = [];
 private _scale = (0.08125 * 8 / 8000);
 private _heliCtr = [0.5, 0.87];
+
+//Shot At UnderLay
+private _shotATList = _heli getvariable "fza_dms_shotAt";
+{
+    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
+    if (_x isEqualTo -1) then {continue;};
+    if (_overlay != 0) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+} foreach _shotATList;
+
 {
     _x params ["_pos", "_type", "_moving", "_target", "_aziAngle", "_elevAngle", "_range"];
     private _distance_m          = _scanPos distance2d _pos;
@@ -93,6 +103,15 @@ private _heliCtr = [0.5, 0.87];
     private _uiCtr = [_x, _y, 0];
     _pointsArray pushBack [MPD_POSMODE_SCREEN, _uiCtr, "", POINT_TYPE_FCR, _forEachIndex, _ident];
 } forEach _displayTargets;
+
+//Shot At Overlay
+private _shotATList = _heli getvariable "fza_dms_shotAt";
+{
+    _x params ["_index", "_ident", "_missileType", "_triggerTime", "_shotPos", "_owner", "_overlay"];
+    if (_x isEqualTo -1) then {continue;};
+    if (_overlay != 1) then {continue;};
+    _pointsArray pushBack [MPD_POSMODE_WORLD, _shotPos, "", POINT_TYPE_BFT, _forEachIndex, "FCR_TSD_SHOTAT"];
+} foreach _shotATList;
 
 //Total target count
 private _fcrTgtCount  = count _displayTargets;

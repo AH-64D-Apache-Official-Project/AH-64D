@@ -24,7 +24,7 @@ params ["_heli"];
 
 if (!local _heli) exitWith {};
 
-private _deltaTime              = fza_ah64_fixedTimeStep;
+private _deltaTime              = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;
 
 private _altitude               = _heli getVariable "fza_sfmplus_PA";
 private _temperature            = _heli getVariable "fza_sfmplus_FAT";
@@ -109,8 +109,8 @@ private _velocityThrustExponentTable =
 private _vrsScalarExponent      = 0.3;
 private _rtrTorqueScalar        = 1.0;
 
-private _pitchTorqueScalar      = 2.50 * 0.9;
-private _rollTorqueScalar       = 0.75 * 0.9;
+private _pitchTorqueScalar      = 2.50 * 1.3;
+private _rollTorqueScalar       = 0.75 * 1.3;
 
 private _baseThrust             = 102306;  //N - max gross weight (kg) * gravity (9.806 m/s)
 

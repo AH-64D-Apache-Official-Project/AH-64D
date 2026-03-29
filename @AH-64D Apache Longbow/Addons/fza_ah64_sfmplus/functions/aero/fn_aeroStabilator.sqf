@@ -28,7 +28,7 @@ private _sfmPlusConfig = _cfg >> "Fza_SfmPlus";
 
 if (!local _heli) exitWith {};
 
-private _deltaTime       = fza_ah64_fixedTimeStep;
+private _deltaTime       = _heli getVariable "fza_sfmplus_deltaTime";//fza_ah64_fixedTimeStep;
 private _rho             = _heli getVariable "fza_sfmplus_rho";
 
 private _heliCOM         = getCenterOfMass _heli;
@@ -162,40 +162,44 @@ for "_j" from 0 to (_numElements - 1) do {
     [_heli, _e, _e vectorAdd _chordLine, "blue"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
+    private _relWind = (_heli getVariable "fza_sfmplus_velModelSpace") vectorMultiply -1.0;
 
     private _fromAeroCenterToCOM = _e vectorDiff _heliCOM;
-    private _angularVel   = (_heli getVariable "fza_sfmplus_angVelModelSpace");
+    private _angularVel          = (_heli getVariable "fza_sfmplus_angVelModelSpace");
 
     private _localRelWind = (vectorNormalized _angularVel) vectorCrossProduct (vectorNormalized _fromAeroCenterToCOM);
     _localRelWind         = _localRelWind vectorMultiply -((vectorMagnitude _angularVel) * (vectorMagnitude _fromAeroCenterToCOM));
-    _relativeWind         = _relativeWind vectorAdd _localRelWind;
+    _relWind         = _relWind vectorAdd _localRelWind;
 
     #ifdef __A3_DEBUG__
-    [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "red"] call fza_fnc_debugDrawLine;
+    [_heli, _e vectorDiff (vectorNormalized _relWind), _e, "red"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWindCorrection = _vectorRight;
-    private _dotProduct             = _relativeWindCorrection vectorDotProduct _relativeWind;
-    _relativeWindCorrection         = _relativeWindCorrection vectorMultiply _dotProduct;
-    _relativeWind                   = _relativeWind vectorDiff _relativeWindCorrection;
+    private _relWindCorrection = _vectorRight;
+    private _dotProduct        = _relWindCorrection vectorDotProduct _relWind;
+    _relWindCorrection         = _relWindCorrection vectorMultiply _dotProduct;
+    _relWind                   = _relWind vectorDiff _relWindCorrection;
     
     #ifdef __A3_DEBUG__
-    [_heli, _e vectorDiff (vectorNormalized _relativeWind), _e, "green"] call fza_fnc_debugDrawLine;
+    [_heli, _e vectorDiff (vectorNormalized _relWind), _e, "green"] call fza_fnc_debugDrawLine;
     #endif
 
-    private _relativeWindNormalized = vectorNormalized _relativeWind;
-    private _aoa                    = _chordLine vectorDotProduct (_relativeWindNormalized vectorMultiply -1.0);
+    private _relWindNormalized = vectorNormalized _relWind;
+    private _aoa                    = _chordLine vectorDotProduct _relWindNormalized;
     _aoa = [_aoa, -1.0, 1.0] call BIS_fnc_clamp;
     _aoa = acos _aoa;
 
-    private _up = _chordLine vectorCrossProduct (vectorNormalized (_g vectorDiff _f));
+    private _up = _chordLine vectorCrossProduct (vectorNormalized (_f vectorDiff _g));
     _up         = vectorNormalized _up;
-    if (_span < 0.0) then {
-        _up = _up vectorMultiply -1.0;
-    };
+    //if (_span < 0.0) then {
+    //    _up = _up vectorMultiply -1.0;
+    //};
 
-    private _yAxisDotRelativeWind = _up vectorDotProduct _relativeWindNormalized;
+    #ifdef __A3_DEBUG__
+    [_heli, _e, _e vectorAdd _up, "white"] call fza_fnc_debugDrawLine;
+    #endif
+
+    private _yAxisDotRelativeWind = _up vectorDotProduct _relWindNormalized;
     if (_yAxisDotRelativeWind < 0.0) then {
         _aoa = _aoa * -1.0;
     };
@@ -203,17 +207,17 @@ for "_j" from 0 to (_numElements - 1) do {
     //Lift coefficient
     private _area        = [_a, _b, _c, _d] call fza_fnc_getArea;
     private _CL          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 1;
-    private _v           = vectorMagnitude _relativeWind;
+    private _v           = vectorMagnitude _relWind;
     private _lift        = _CL * 0.5 * _rho * _area * (_v * _v);
     //Drag coefficient
     private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
     private _drag        = _CD * 0.5 * _rho * _area * (_v * _v);
-
-    private _liftVector  = _vectorRight vectorCrossProduct _relativeWind;
+    
+    private _liftVector = _vectorRight vectorCrossProduct _relWind;
     _liftVector = vectorNormalized _liftVector;
     _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
 
-    private _dragVector = _relativeWind;
+    private _dragVector = _relWind;
     _dragVector = vectorNormalized _dragVector;
     _dragVector = _dragVector vectorMultiply (_drag * _deltaTime);
 
@@ -222,20 +226,20 @@ for "_j" from 0 to (_numElements - 1) do {
     [_heli, _e vectorAdd (_dragVector vectorMultiply _debugLineScale), _e, "red"]   call fza_fnc_debugDrawLine;
     #endif
 
-    _heli addForce[_heli vectorModelToWorld _liftVector, _e];
-    _heli addForce[_heli vectorModelToWorld _dragVector, _e];
+    //_heli addForce[_heli vectorModelToWorld _liftVector, _e];
+    //_heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
     private _deltaPos  = _e vectorDiff (getCenterOfMass _heli);
     private _moment    = _liftVector vectorCrossProduct _deltaPos;
 
-    private _torque = [0.0, 0.0, 0.0];
-    if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
-        _torque = _moment;
-    } else {
-        _torque = [0.0, 0.0, _moment select 2];
-    };
+    //private _torque = [0.0, 0.0, 0.0];
+    //if (fza_ah64_sfmplusRealismSetting == REALISTIC) then {
+    //    _torque = _moment;
+    //} else {
+    //    _torque = [0.0, 0.0, _moment select 2];
+    //};
 
-    _heli addTorque (_heli vectorModelToWorld _torque);
+    _heli addTorque (_heli vectorModelToWorld _moment);//_torque);
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
 // Debug                /////////////////////////////////////////////////////////////////////

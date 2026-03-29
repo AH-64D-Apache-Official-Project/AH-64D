@@ -10,8 +10,8 @@ if (isGamePaused || CBA_missionTime < 0.1) exitwith {};
 //Tail Rotor
 [_heli] call fza_sfmplus_fnc_simpleRotorTail;
 
-//Drag
-[_heli] call fza_sfmplus_fnc_fuselageDrag;
+//Fuselage
+[_heli] call fza_sfmplus_fnc_fuselage;
 
 //Right Wing
 [ _heli
