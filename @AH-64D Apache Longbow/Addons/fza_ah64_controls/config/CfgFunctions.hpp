@@ -77,6 +77,8 @@ class CfgFunctions
             class weaponActionSwitch {R;};
             class weaponMissileGetSelected {R;};
             class weaponMissileCycle {R;};
+            class weaponMissileCycleType {R;};
+            class weaponMissileCycleTypeSal {R;};
             class weaponMissileInventory {R;};
             class weaponPylonCheckValid {R;};
             class weaponRocketInventory {R;};
