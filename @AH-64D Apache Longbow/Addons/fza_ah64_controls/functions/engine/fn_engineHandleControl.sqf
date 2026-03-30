@@ -85,9 +85,11 @@ switch(_control) do {
     case "e1startertoggle": {
         private _engState = _heli getVariable "fza_sfmplus_engState" select 0;
         if (_engState isEqualTo "OFF") then {
+            _heli animateSource ["plt_eng1_start", 1, true];
             [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
         };
         if (_engState isEqualTo "STARTING") exitWith {
+            _heli animateSource ["plt_eng1_start", 0, true];
             [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
         };
     };
@@ -122,9 +124,11 @@ switch(_control) do {
     case "e2startertoggle": {
         private _engState = _heli getVariable "fza_sfmplus_engState" select 1;
         if (_engState isEqualTo "OFF") then {
+            _heli animateSource ["plt_eng2_start", 1, true];
             [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
         };
         if (_engState isEqualTo "STARTING") exitWith {
+            _heli animateSource ["plt_eng2_start", 0, true];
             [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
         };
     };

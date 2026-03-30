@@ -38,6 +38,7 @@ if _hideMonocle exitWith {
     fza_ah64_monoChromeEffect ppEffectEnable false;
     fza_ah64_blackScreenEffect ppEffectEnable false;
     fza_ah64_flirResolutionEffect ppEffectEnable false;
+    fza_ah64_flirBlurEffect ppEffectEnable false;
     fza_ah64_chromAberrationEffect ppEffectEnable false;
     fza_ah64_dvoEffect ppEffectEnable false;
 };

@@ -25,7 +25,7 @@ class CfgFunctions
             file = "\fza_ah64_controls\functions\core";
             class coreDraw3Dscheduler {R;};
             class coreEachFrameScheduler {R;};
-            class coreFixedUpdateScheduler {R;};
+            //class coreFixedUpdateScheduler {R;};
             class coreGetWCAs {R;};
             class coreCockpitControlHandle {R;};
             class coreCockpitInteract {R;};
@@ -77,6 +77,8 @@ class CfgFunctions
             class weaponActionSwitch {R;};
             class weaponMissileGetSelected {R;};
             class weaponMissileCycle {R;};
+            class weaponMissileCycleType {R;};
+            class weaponMissileCycleTypeSal {R;};
             class weaponMissileInventory {R;};
             class weaponPylonCheckValid {R;};
             class weaponRocketInventory {R;};

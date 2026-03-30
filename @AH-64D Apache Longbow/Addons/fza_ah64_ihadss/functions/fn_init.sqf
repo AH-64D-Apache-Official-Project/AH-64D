@@ -40,21 +40,82 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
     _heli setVariable ["fza_ah64_lmcRange",          1000,    true];
 };
 
-fza_ah64_monoChromeEffect = ppEffectCreate["colorCorrections", 4000];
-fza_ah64_monoChromeEffect ppEffectAdjust[0.95, 0.75, -0.05, [0.25, 0.25, 0.25, 0.0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]];
-fza_ah64_monoChromeEffect ppEffectCommit 0;
+[] spawn {
+    ["colorCorrections", 400, [0.95, 0.75, -0.05, [0.25, 0.25, 0.25, 0.0], [1, 1, 1, 0], [0.33, 0.33, 0.33, 0], [0, 0, 0, 0, 0, 0, 4]]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_monoChromeEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_monoChromeEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_monoChromeEffect ppEffectAdjust _effect;
+        fza_ah64_monoChromeEffect ppEffectCommit 0;
+    };
 
-fza_ah64_flirResolutionEffect = ppEffectCreate["Resolution", 4001];
-fza_ah64_flirResolutionEffect ppEffectCommit 0;
+    ["Resolution", 401, [360]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_flirResolutionEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_flirResolutionEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_flirResolutionEffect ppEffectAdjust _effect;
+        fza_ah64_flirResolutionEffect ppEffectCommit 0;
+    };
 
-fza_ah64_dvoEffect = ppEffectCreate["colorCorrections", 4002];
-fza_ah64_dvoEffect ppEffectAdjust[1.00, 0.95, -0.05, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], [0.55, 0.55, 0.55, 0], [0, 0, 0, 0, 0, 0, 4]];
-fza_ah64_dvoEffect ppEffectCommit 0;
+    ["colorCorrections", 402, [1.00, 0.95, -0.05, [0.0, 0.0, 0.0, 0.0], [1.0, 1.0, 1.0, 1.0], [0.55, 0.55, 0.55, 0], [0, 0, 0, 0, 0, 0, 4]]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_dvoEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_dvoEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_dvoEffect ppEffectAdjust _effect;
+        fza_ah64_dvoEffect ppEffectCommit 0;
+    };
 
-fza_ah64_chromAberrationEffect = ppEffectCreate["ChromAberration", 4003];
-fza_ah64_chromAberrationEffect ppEffectAdjust [0.0075, 0.0075, false];
-fza_ah64_chromAberrationEffect ppEffectCommit 0;
+    ["ChromAberration", 403, [0.0075, 0.0075, false]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_chromAberrationEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_chromAberrationEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_chromAberrationEffect ppEffectAdjust _effect;
+        fza_ah64_chromAberrationEffect ppEffectCommit 0;
+    };
 
-fza_ah64_blackScreenEffect = ppEffectCreate ["colorCorrections",1498];
-fza_ah64_blackScreenEffect ppEffectAdjust [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
-fza_ah64_blackScreenEffect ppEffectCommit 0;
+    ["DynamicBlur", 404, [0.3]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_flirBlurEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_flirBlurEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_flirBlurEffect ppEffectAdjust _effect;
+        fza_ah64_flirBlurEffect ppEffectCommit 0;
+    };
+
+    ["colorCorrections", 405, [0, 0, 0, [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]] call
+    {
+        params ["_name", "_priority", "_effect", "_handle"];
+        while {
+            fza_ah64_blackScreenEffect = ppEffectCreate [_name, _priority];
+            fza_ah64_blackScreenEffect < 0
+        } do {
+            _priority = _priority + 1;
+        };
+        fza_ah64_blackScreenEffect ppEffectAdjust _effect;
+        fza_ah64_blackScreenEffect ppEffectCommit 0;
+    };
+};

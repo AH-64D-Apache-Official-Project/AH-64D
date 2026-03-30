@@ -8,9 +8,11 @@ class tsdRoot {
         #include "components\vabs_bottom.hpp"
         //T4
         MPD_TEXT_C(PP, MPD_POS_BUTTON_TB_4_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC(" PP"))
+        MPD_BOX_BAR_T(PP, MPD_POS_BUTTON_TB_4_X+0.0075, MPD_POS_BUTTON_T_Y)
         
         //R6
         MPD_ACQ_SRC(Acq, MFD_IND_TSD_ACQ_BOX, MFD_TEXT_IND_TSD_ACQ_SRC, Tsd_Acq)
+        MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
 
         //L1
         MPD_ARROW_R(ADF, MPD_POS_BUTTON_L_X, MPD_POS_BUTTON_LR_1_Y, 3)

@@ -36,6 +36,7 @@ Author:
 
 params ["_heli"];
 
+#define SYSTEM_PRIORITY            0
 #define HYD_FAIL_PRIORITY          1
 #define OVRSPD_PRIORITY            1
 #define RTR_RPM_PRIORITY           2
@@ -112,6 +113,7 @@ private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
+
 //--APU Warnings
 if (_heli getVariable "fza_ah64_apu_fire") then {
     ([_heli, _activeWarn, "APU FIRE", "", FIRE_PRIORITY, "fza_ah64_APU_fire", 3] call fza_wca_fnc_wcaAddWarning)
@@ -423,6 +425,11 @@ if ((!_dcBusOn || _heli getHitPointDamage "hit_msnEquip_irJam" >= SYS_ASE_DMG_TH
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // ADVISORIES       /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
+
+if  (_heli getVariable "fza_mpd_verMisMatch") then {
+    _wcas pushBack [WCA_ADVISORY, "VERSION MISMATCH", "VERS MISM"];
+};
+
 if (_heli animationphase "gdoor" > 0 || _heli animationphase "pdoor" > 0) then {
     _wcas pushBack [WCA_ADVISORY, "CANOPY OPEN", "CANOPY"];
 };

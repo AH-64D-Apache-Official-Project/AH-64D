@@ -10,6 +10,7 @@ class CfgPatches
         version = 2.2.1;
         versionStr = "2.2.1";
         versionAr[] = {2, 2, 1};
+        #include "version.hpp"
     };
 };
 

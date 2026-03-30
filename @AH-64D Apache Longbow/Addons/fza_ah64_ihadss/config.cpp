@@ -10,6 +10,7 @@ class CfgPatches
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls"};
+        #include "version.hpp"
     };
 };
 

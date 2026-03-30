@@ -8,6 +8,7 @@ class CfgPatches
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls", "pook_SAM_Base"};
         skipWhenMissingDependencies = 1;
+        #include "version.hpp"
     };
 };
 

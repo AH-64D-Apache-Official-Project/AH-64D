@@ -23,9 +23,6 @@ switch (_system) do {
     case "light": {
         [_heli, _system, _control] call fza_light_fnc_handleControl;
     };
-    case "ku": {
-        [_heli, _system, _control] call fza_ku_fnc_toggleInput;
-    };
     case "armSafeBtn": {
         [_heli, _system, _control] call fza_wca_fnc_wcaBtnHandleControl;
     };

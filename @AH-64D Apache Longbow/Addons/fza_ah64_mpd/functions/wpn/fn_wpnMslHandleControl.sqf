@@ -9,7 +9,7 @@ switch (_control) do {
         [_heli] call fza_fnc_controlHandlelaserchange;
     };
     case "r1": {
-        [_heli] call fza_fnc_weaponMissileCycle
+        [_heli] call fza_fnc_weaponMissileCycleType;
     };
 };
 
@@ -25,6 +25,9 @@ switch (_state get "variant") do {
                 if (_heli getVariable "fza_ah64_laserMissilePrimaryCode" != -1) then {
                     _state set ["variant", 2];
                 }
+            };
+            case "l3": {
+                [_heli] call fza_fnc_weaponMissileCycleTypeSal;
             };
         };
     };

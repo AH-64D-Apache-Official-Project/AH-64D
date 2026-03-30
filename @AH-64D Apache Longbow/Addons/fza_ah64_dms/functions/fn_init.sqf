@@ -17,4 +17,5 @@ if (!(_heli getVariable ["fza_dms_aircraftInitialised", false])) then {
     _heli setVariable ["fza_dms_waypointsHazards", [POINT_COUNT_WP_HZ] call _newPointsArray, true];
     _heli setVariable ["fza_dms_controlMeasures", [POINT_COUNT_CM] call _newPointsArray, true];
     _heli setVariable ["fza_dms_targetsThreats", [POINT_COUNT_TG_TH] call _newPointsArray, true];
+    _heli setVariable ["fza_dms_shotAt", [POINT_COUNT_SHOT] call _newPointsArray, true];
 };

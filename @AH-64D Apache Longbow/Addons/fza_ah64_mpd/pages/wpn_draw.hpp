@@ -13,8 +13,9 @@ class wpnDraw {
         MPD_ARROW_C(COORD, MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y,5)
         MPD_TEXT_C(COORD,  MPD_POS_BUTTON_TB_5_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("COORD"))
         //T6
-        MPD_ARROW_C(UTIL,  MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y,4)
+        //MPD_ARROW_C(UTIL,  MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y,4)
         MPD_TEXT_C(UTIL,   MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y, MPD_TEXT_STATIC("UTIL"))
+        MPD_BOX_BAR_T(UTIL, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_T_Y)
         class hide {
             condition = C_COND(C_NOT(C_EQ(C_MPD_USER(MFD_IND_WPN_SELECTED_WPN), 2)));
             //R4
@@ -23,14 +24,15 @@ class wpnDraw {
             //R5
             MPD_TEXT_L(LRFD_label, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y - 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("LRFD"))
             MPD_BOX_L(LRFD,        MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, 5)
-            MPD_BOX_BAR_L(LRFD,    MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y)
             MPD_TEXT_L(LRFD,       MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_5_Y + 0.5 * MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("FIRST"))
             //R6
             MPD_ACQ_SRC(Acq, MFD_IND_WPN_ACQ_BOX, MFD_TEXT_IND_WPN_ACQ_SRC, Wpn_Acq)
+            MPD_BOX_BAR_L(Acq, MPD_POS_BUTTON_R_X, MPD_POS_BUTTON_LR_6_Y)
             
             //B6
             MPD_TEXT_C(MANRNG_Label, MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y - MPD_TEXT_HEIGHT, MPD_TEXT_STATIC("MANRNG>"))
             MPD_TEXT_C(MANRNG,       MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y, MPD_TEXT_STATIC("1000"))
+            MPD_BOX_BAR_B(MANRNG,    MPD_POS_BUTTON_TB_6_X, MPD_POS_BUTTON_B_Y)
         };
         #define WPN_WEAPON_OPTION(className, posX, weaponIndex, weaponName)\
             class className {\
@@ -40,7 +42,7 @@ class wpnDraw {
                     MPD_BOX_C(Name, posX, MPD_POS_BUTTON_B_Y, 3)\
                 }\
                 class Actioned{\
-                    condition = C_COND(C_EQ(C_MPD_USER(MFD_IND_WPN_WAS), weaponIndex));\
+                    condition = C_COND(C_MORE(C_MPD_USER(MFD_IND_WPN_WAS), 0));\
                     color[] = {0.05,0.25,0,0.5};\
                     class Polygon {\
                     type = polygon;\
