@@ -16,7 +16,7 @@ The primary features of the aircraft are:
 
 ## History
 
-Around the time that Arma 3 was released, the original two developers moved to other projects. Since then, Sacha 'Voodooflies' Oropeza has taken over as the project lead, maintaining the project since. Since then, more developers have joined the team and restarted active development.
+This project is the official Arma 3 port of the legendary AH-64D Apache mod originally created by Franze & Nodunit for Arma 2. Launched in February 2017 with their blessing, this open-source initiative aims to deliver an unparalleled high-fidelity flight simulation experience within the Arma 3 engine. Built for sim-enthusiasts and real-life pilots, this repository represents the continued evolution of the "Official" branch following the transition from the original development team.
 
 The 'Official' in the name is from when the original developers moved on, specifying that this branch-off of their work was the one that was the official port to Arma 3.
 
@@ -32,18 +32,49 @@ To install via Github Releases, you must download a version from our [Releases P
 
 From there, once it is unzipped, you can add `@AH-64D Apache Longbow` as a local mod through the [Arma 3 launcher](https://community.bistudio.com/wiki/Arma_3:_Launcher_-_Mod_Handling).
 
-Make sure you also have CBA installed and active, as the launcher will not automatically handle this dependency when not installing through the workshop.
+Make sure you also have CBA, ACE & Hatchet Interaction Framework installed and active, as the launcher will not automatically handle this dependency when not installing through the workshop (It will remind you with an error if you forget).
 
 ### From Source (Development versions)
 
 Use of these versions is at your own risk - these versions can be half-complete or intermediate versions that don't meet our standards for release. We recommend for anything other than development / testing to use the other two options.
 
-To build the mod from source, you must use Addon Builder, from [Arma 3 Tools](https://store.steampowered.com/app/233800/Arma_3_Tools/). Use it to build each of the folders within `@AH-64D Apache Longbow/Addons/` with the following settings:
+## Development Guide
 
-* Binarize enabled
-* (Under Options) set the "List of files to copy directly" to the contents of the file `buildExtIncludes.txt`.
+### SConstruct(SCONS) Build environment
+The AH-64D is built with SConstcut, or for short, SCONS.
 
-From there you can run it as if you had downloaded it [from Github releases](#via-github-releases).
+#### Prerequisite: python > 3
+To install scons, you require python 3.
+To check what python version you have installed, you can use the `python --version` command
+
+#### Scons installation
+Once you confirmed you have python installed, you can use the command
+`python -m pip install scons`
+To install scons
+
+#### Pre-Commit
+This is a tool that checks any new file names or paths that do not match our standard
+`python -m pip install pre-commit`
+To install Pre Commit
+
+#### Troubleshooting
+**PATH Warning**
+Important: when installing scons, you might find the following error:
+```
+WARNING: The scripts scons-configure-cache.exe, scons.exe and sconsign.exe are installed in 'C:\Users\<user>\AppData\Local\Programs\Python\Python39\Scripts' which is not on PATH.
+Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.
+```
+If you find this, you will have to add the python folder to your PATH.
+If you don't know how to add variables to your PATH, you can find more information here https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/
+
+**Other errors**
+If you find any other errors, please ask the dev team in the AH-64D Official Project discord server.
+
+#### Usage
+Once installed, you should be able to open the project's root folder in your terminal, and run `scons`.
+This should generate fully built PBOs in your addons folder.
+
+<a rel="license" href="https://www.bohemia.net/community/licenses/arma-public-license-share-alike" target="_blank" ><img src="https://data.bistudio.com/images/license/APL-SA.png" ><br>This work is licensed under the Arma Public License Share Alike </a>
 
 ## Support
 
