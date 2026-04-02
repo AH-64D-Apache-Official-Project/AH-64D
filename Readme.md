@@ -70,11 +70,8 @@ If you don't know how to add variables to your PATH, you can find more informati
 **Other errors**
 If you find any other errors, please ask the dev team in the AH-64D Official Project discord server.
 
-#### Usage
 Once installed, you should be able to open the project's root folder in your terminal, and run `scons`.
 This should generate fully built PBOs in your addons folder.
-
-<a rel="license" href="https://www.bohemia.net/community/licenses/arma-public-license-share-alike" target="_blank" ><img src="https://data.bistudio.com/images/license/APL-SA.png" ><br>This work is licensed under the Arma Public License Share Alike </a>
 
 ## Support
 
@@ -97,3 +94,7 @@ The main fields that we are looking for help in are as follows:
 * **Artists** - We need people who can make textures and 3D models to work on the aircraft and additional content around it.
 * **Documentation writers** - We are trying to expand our wiki, and other content to help us better teach our players about the features we add.
 * **Testers** - We need people to test the new content we make, ensuring it all works as expected to the standards we expect.
+
+## Usage
+
+<a rel="license" href="https://www.bohemia.net/community/licenses/arma-public-license-nd" target="_blank" ><img src="https://data.bistudio.com/images/license/APL-ND.png" ><br>This work is licensed under the Arma Public License No Derivatives (APL-ND) </a>
