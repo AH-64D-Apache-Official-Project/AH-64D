@@ -14,7 +14,7 @@ private _debugLineScale = 1.0 / 30.0;
 
 private _position       = _heli getVariable "fza_sfmplus_fuselagePosition";
 private _rotation       = _heli getVariable "fza_sfmplus_fuselageSideRotation";
-//private _dragCoefTable  = _heli getVariable "fza_sfmplus_fuselageSideDragCoefTable";
+private _dragCoefTable  = _heli getVariable "fza_sfmplus_fuselageSideDragCoefTable";
 private _airfoilTable   = getArray (_sfmPlusConfig >> "airfoilTable01");
 private _count          = _heli getVariable "fza_sfmplus_fuselageSideCount";
 private _coords         = _heli getVariable "fza_sfmplus_fuselageSide";
@@ -84,8 +84,8 @@ for "_i" from 0 to (_count - 1) do {
     private _lift         = _CL * 0.5 * _rho * _area * (_v * _v);
 
     //Drag coefficient
-    private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
-    private _drag         = _CD * 0.5 * _rho * _area * (_v * _v);
+    private _CD          =  [_dragCoefTable, _pa] call fza_fnc_linearInterp select 1;
+    private _drag         = _CD * 0.5 * _rho * _area * (_relWindX * _relWindX);
 
     private _liftVector = _right vectorCrossProduct _relWind;
     _liftVector = vectorNormalized _liftVector;
@@ -101,7 +101,7 @@ for "_i" from 0 to (_count - 1) do {
     #endif
 
     //_heli addForce[_heli vectorModelToWorld _liftVector, _e];
-    //_heli addForce[_heli vectorModelToWorld _dragVector, _e];
+    _heli addForce[_heli vectorModelToWorld _dragVector, _e];
 
     private _moment = _liftVector vectorCrossProduct _deltaPos;
 

@@ -20,6 +20,8 @@ private _engPid             = _heli getVariable "fza_sfmplus_pid_engine" select 
 //_engPid set ["kp", E_KP];
 //_engPid set ["ki", E_KI];
 //_engPid set ["kd", E_KD];
+private _rtrTqReq           = _heli getVariable "fza_sfmplus_reqEngTorque" select 0;
+private _engOverspeed       = _heli getVariable "fza_ah64_engineOverspeed" select _engNum;
 
 private _npTrimRef          = 0.0;
 private _throttle           = 0.0;
@@ -31,7 +33,11 @@ if (_engPowerLeverState == "FLY") then {
     _throttle  = 0.18;
     _npTrimRef = _npFlyRef;
 };
-_npTrimRef     = _npTrimRef * _designRpm;
+if (_engOverspeed) then {
+    _npTrimRef     = (_npTrimRef * 2.0) * _designRpm;
+} else {
+    _npTrimRef     = _npTrimRef * _designRpm;
+};
 
 private _engLimitTQ  = 0.0;
 private _isSingleEng = _heli getVariable "fza_sfmplus_isSingleEng";
@@ -61,13 +67,20 @@ if (_engState in ["STARTING", "ON"]) then {
     _tqOutput = [_tqOutput, 0.0, _maxTorque] call BIS_fnc_clamp;
 
     _engPctNp = _xmsnRpm / _designRpm;
-    _engPctTq = _tqOutput / _engRefTq;
+    _engPctTq = _rtrTqReq/ _engRefTq;
 };
 [_heli, "fza_sfmplus_engOutputTq", _engNum, _tqOutput, true] call fza_fnc_setArrayVariable;
 
 [_heli, "fza_sfmplus_engPctNP",    _engNum, _engPctNp] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_engPctTQ",    _engNum, _engPctTq] call fza_fnc_setArrayVariable;
 
-
+if (_isSingleEng) then {
+    if (_engPowerLeverState == "IDLE") then {
+        [_heli, "fza_sfmplus_engPctTQ",    _engNum, 0.0] call fza_fnc_setArrayVariable;
+    } else {
+        [_heli, "fza_sfmplus_engPctTQ",    _engNum, _engPctTq] call fza_fnc_setArrayVariable;
+    };
+} else {
+    [_heli, "fza_sfmplus_engPctTQ",    _engNum, _engPctTq / 2.0] call fza_fnc_setArrayVariable;
+};
 //systemChat format ["_engRefTq = %1 -- _maxPowerInWatts = %2 -- _maxOutputTq = %3", _engRefTq, _maxPowerInWatts, _maxTorque];
 //systemChat format ["Engine %3 -- _trimTq = %1 -- _tqOutput = %2 -- _maxTorque = %4", _trimTq toFixed 2, _tqOutput toFixed 2, _engNum, _maxTorque];

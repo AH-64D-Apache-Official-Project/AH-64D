@@ -148,6 +148,7 @@ if (_velWindY < 0.0) then {
     _velWindY = 0.0;
 };
 private _velXY                     = vectorMagnitude [_velX + _velWindX, _velY + _velWindY];
+if ([_velXY] call fza_sfmplus_fnc_isNAN || [_velXY] call fza_sfmplus_fnc_isINF) then { _velXY = 0.0; };
 private _velocityThrustExponent    = [_velocityThrustExponentTable, _velXY] call fza_fnc_linearInterp select 1;
 //systemChat format ["_velocityThrustExponent = %1 -- _collectiveOutput = %2", _velocityThrustExponent toFixed 3, (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
 private _airspeedVelocityScalar    = (1 + (_velXY / VEL_VBE)) ^ (_velocityThrustExponent);
@@ -158,7 +159,6 @@ private _inducedVelocityScalar     = 1.0;
 private _vrsVelMin                 = _heli getVariable "fza_sfmplus_vrsVelocityMin";
 private _vrsVelMax                 = _heli getVariable "fza_sfmplus_vrsVelocityMax";
 private _vrsVel                    = linearConversion[0.0, VEL_ETL, _velXY, _vrsVelMax, VEL_VRS, true];
-if ([_vrsVel] call fza_sfmplus_fnc_isNAN || [_vrsVel] call fza_sfmplus_fnc_isINF) then { _vrsVel = 0.0; };
 if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
     private _vrsScalar = if(_velZ == 0.0) then { 0.0; } else { abs(_vrsVelMin / _velZ)^_vrsScalarExponent; };
     _inducedVelocityScalar   = if(_vrsVelMax == 0.0) then { 1.0; } else { (1 - (_velZ / _vrsVelMax)) * _vrsScalar; };
