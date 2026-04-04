@@ -158,7 +158,10 @@ private _velZ                      = _heli getVariable "fza_sfmplus_velModelSpac
 private _inducedVelocityScalar     = 1.0;
 private _vrsVelMin                 = _heli getVariable "fza_sfmplus_vrsVelocityMin";
 private _vrsVelMax                 = _heli getVariable "fza_sfmplus_vrsVelocityMax";
-private _vrsVel                    = linearConversion[0.0, VEL_ETL, _velXY, _vrsVelMax, VEL_VRS, true];
+private _vrsVel = 0.0;
+if (_heli getVariable "fza_sfmplus_rtrThrust" select 0 > 0.0) then {
+    _vrsVel = linearConversion[0.0, VEL_ETL, _velXY, _vrsVelMax, VEL_VRS, true];
+};
 if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
     private _vrsScalar = if(_velZ == 0.0) then { 0.0; } else { abs(_vrsVelMin / _velZ)^_vrsScalarExponent; };
     _inducedVelocityScalar   = if(_vrsVelMax == 0.0) then { 1.0; } else { (1 - (_velZ / _vrsVelMax)) * _vrsScalar; };

@@ -24,6 +24,7 @@ private _isSingleEng      = _heli getVariable "fza_sfmplus_isSingleEng";
 private _grbxHitPtDmg     = _heli getHitPointDamage "hit_drives_noseGearbox1";
 private _dmgTimerCont     = _heli getVariable "fza_systems_dmgTimerCont";
 private _dmgTimerTrans    = _heli getVariable "fza_systems_dmgTimerTrans";
+private _randomTq         = _heli getVariable "fza_sfmplus_randomTq" select 0;
 private _applyDamage      = false;
 private _engOverspeed     = false;
 
@@ -88,6 +89,7 @@ if (_isSingleEng == true) then {
 //--Persistent damage
 if (_grbxHitPtDmg > 0.25) then {
     _persistentDmg = _grbxHitPtDmg / 600.0;
+    _randomTq      = _grbxHitPtDmg * random[-0.10, 0, 0.10];
 };
 if (_grbxHitPtDmg > 0.50) then {
     _persistentDmg = _grbxHitPtDmg / 500.0;
@@ -100,6 +102,8 @@ private _dmgPerSec = (_persistentDmg + _dynamicDmgStage1 + _dynamicDmgStage2 + _
 private _grbxDmg   = _grbxHitPtDmg + _dmgPerSec;
 
 _heli setHitPointDamage ["hit_drives_noseGearbox1", _grbxDmg];
+
+[_heli, "fza_sfmplus_randomTq", 0, _randomTq, true] call fza_fnc_setArrayVariable;
 
 if (_grbxHitPtDmg == 1.0) then {
     _engOverspeed = true;

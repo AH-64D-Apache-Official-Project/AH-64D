@@ -27,6 +27,8 @@ private _totEngTQ      = _eng1PctTQ + _eng2PctTQ;
 private _xmsnHitPtDmg  = _heli getHitPointDamage "hit_drives_transmission";
 private _dmgTimerCont  = _heli getVariable "fza_systems_dmgTimerCont";
 private _dmgTimerTrans = _heli getVariable "fza_systems_dmgTimerTrans";
+private _randomTq1     = _heli getVariable "fza_sfmplus_randomTq" select 2;
+private _randomTq2     = _heli getVariable "fza_sfmplus_randomTq" select 3;
 private _applyDamage   = false;
 
 private _persistentDmg    = 0.0;
@@ -67,6 +69,8 @@ if (_applyDamage) then {
 //--Persistent damage
 if (_xmsnHitPtDmg > 0.25) then {
     _persistentDmg = _xmsnHitPtDmg / 600.0;
+    _randomTq1     = _xmsnHitPtDmg * random[-0.10, 0, 0.10];
+    _randomTq2     = _xmsnHitPtDmg * random[-0.10, 0, 0.10];
 };
 if (_xmsnHitPtDmg > 0.50) then {
     _persistentDmg = _xmsnHitPtDmg / 500.0;
@@ -79,6 +83,9 @@ private _dmgPerSec = (_persistentDmg + _dynamicDmgStage1 + _dynamicDmgStage2) * 
 private _dmg       = _xmsnHitPtDmg + _dmgPerSec;
 
 _heli setHitPointDamage ["hit_drives_transmission", _dmg];
+
+[_heli, "fza_sfmplus_randomTq", 2, _randomTq1, true] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_randomTq", 3, _randomTq2, true] call fza_fnc_setArrayVariable;
 
 if (_xmsnHitPtDmg == 1.0) then {
     _heli setHitPointDamage ["hithrotor",           1.0];
