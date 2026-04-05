@@ -110,6 +110,13 @@ private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
 //ASE
 private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
+private _pylonMagazines = getPylonMagazines _heli;
+private _auxTank1FuelMass = _heli getvariable "fza_sfmplus_stn1FuelMass";
+private _auxTank2FuelMass = _heli getvariable "fza_sfmplus_stn2FuelMass";
+private _auxTank3FuelMass = _heli getvariable "fza_sfmplus_stn3FuelMass";
+private _auxTank4FuelMass = _heli getvariable "fza_sfmplus_stn4FuelMass";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -490,6 +497,21 @@ if (_fcrState#0 == FCR_MODE_FAULT) then {
 if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
+
+//Auxilary Fuel tanks 
+if ((["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) && _auxTank1FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "XTERNAL 1 EMPTY", "EXT1 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) && _auxTank2FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "XTERNAL 2 EMPTY", "EXT2 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) && _auxTank3FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "XTERNAL 3 EMPTY", "EXT3 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "XTERNAL 4 EMPTY", "EXT4 EMPTY"];
+};
+
 
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _wptPassed = _heli getvariable "fza_ah64_wptpassed";
