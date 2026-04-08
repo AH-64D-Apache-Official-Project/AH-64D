@@ -4,7 +4,7 @@
 #define COCKPIT_CONTROL_SEP ,
 class UserActionGroups {
     class fza_ah64 {// unique classname for your category
-        name = "AH-64D Apache Official"; // display name of your category
+        name = "$STR_FZA_AH64_OFFICIAL_PROJECT"; // display name of your category
         group[] = {
             fza_ah64_sightSelectHMD,
             fza_ah64_sightSelectTADS,
@@ -43,7 +43,7 @@ class UserActionGroups {
         };
     };
     class fza_ah64_cockpit {
-        name = "AH-64D Apache Official: Cockpit Controls";
+        name = "$STR_FZA_AH64_COCKPIT_CONTROLS";
         group[] = {
             #include "\fza_ah64_controls\headers\controls.h"
         };
@@ -51,7 +51,7 @@ class UserActionGroups {
 
     class fza_ah64_input
     {
-        name = "AH-64D Apache Official: Input";
+        name = "$STR_FZA_AH64_INPUT";
         group[] = {
             //HOTAS & Keyboard Cylic
             fza_ah64_cyclicForward,
