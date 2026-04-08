@@ -409,9 +409,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
-            <English>TOGGLE NIGHT VISION SYSTEM</English>
-            <Original>TOGGLE NIGHT VISION SYSTEM</Original>
+        <Key ID="STR_FZA_AH64_NVS_OFF">
+            <English>OFF</English>
+            <Original>OFF</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -428,7 +428,7 @@
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
             <English>TOGGLE NIGHT VISION SYSTEM</English>
-            <Original>Toggle Night Vision System</Original>
+            <Original>TOGGLE NIGHT VISION SYSTEM</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

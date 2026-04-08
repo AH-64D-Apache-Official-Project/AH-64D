@@ -1,0 +1,993 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <!-- RIGHT MPD -->
+        <Key ID="STR_FZA_AH64_RMPD_L1">
+            <English>RIGHT MPD L1</English>
+            <Original>RIGHT MPD L1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L2">
+            <English>RIGHT MPD L2</English>
+            <Original>RIGHT MPD L2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L3">
+            <English>RIGHT MPD L3</English>
+            <Original>RIGHT MPD L3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L4">
+            <English>RIGHT MPD L4</English>
+            <Original>RIGHT MPD L4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L5">
+            <English>RIGHT MPD L5</English>
+            <Original>RIGHT MPD L5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_L6">
+            <English>RIGHT MPD L6</English>
+            <Original>RIGHT MPD L6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
+            <English>RIGHT MPD B1/MENU</English>
+            <Original>RIGHT MPD B1/MENU</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B2">
+            <English>RIGHT MPD B2</English>
+            <Original>RIGHT MPD B2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B3">
+            <English>RIGHT MPD B3</English>
+            <Original>RIGHT MPD B3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B4">
+            <English>RIGHT MPD B4</English>
+            <Original>RIGHT MPD B4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B5">
+            <English>RIGHT MPD B5</English>
+            <Original>RIGHT MPD B5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_B6">
+            <English>RIGHT MPD B6</English>
+            <Original>RIGHT MPD B6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R1">
+            <English>RIGHT MPD R1</English>
+            <Original>RIGHT MPD R1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R2">
+            <English>RIGHT MPD R2</English>
+            <Original>RIGHT MPD R2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R3">
+            <English>RIGHT MPD R3</English>
+            <Original>RIGHT MPD R3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R4">
+            <English>RIGHT MPD R4</English>
+            <Original>RIGHT MPD R4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R5">
+            <English>RIGHT MPD R5</English>
+            <Original>RIGHT MPD R5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_R6">
+            <English>RIGHT MPD R6</English>
+            <Original>RIGHT MPD R6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T1">
+            <English>RIGHT MPD T1</English>
+            <Original>RIGHT MPD T1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T2">
+            <English>RIGHT MPD T2</English>
+            <Original>RIGHT MPD T2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T3">
+            <English>RIGHT MPD T3</English>
+            <Original>RIGHT MPD T3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T4">
+            <English>RIGHT MPD T4</English>
+            <Original>RIGHT MPD T4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T5">
+            <English>RIGHT MPD T5</English>
+            <Original>RIGHT MPD T5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_T6">
+            <English>RIGHT MPD T6</English>
+            <Original>RIGHT MPD T6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_FCR">
+            <English>RIGHT MPD FCR</English>
+            <Original>RIGHT MPD FCR</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_WPN">
+            <English>RIGHT MPD WPN</English>
+            <Original>RIGHT MPD WPN</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_TSD">
+            <English>RIGHT MPD TSD</English>
+            <Original>RIGHT MPD TSD</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_AC">
+            <English>RIGHT MPD A/C</English>
+            <Original>RIGHT MPD A/C</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_RMPD_BRIGHTNESS">
+            <English>RIGHT MPD BRIGHTNESS</English>
+            <Original>RIGHT MPD BRIGHTNESS</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <!-- LEFT MPD -->
+        <Key ID="STR_FZA_AH64_LMPD_L1">
+            <English>LEFT MPD L1</English>
+            <Original>LEFT MPD L1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L2">
+            <English>LEFT MPD L2</English>
+            <Original>LEFT MPD L2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L3">
+            <English>LEFT MPD L3</English>
+            <Original>LEFT MPD L3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L4">
+            <English>LEFT MPD L4</English>
+            <Original>LEFT MPD L4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L5">
+            <English>LEFT MPD L5</English>
+            <Original>LEFT MPD L5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_L6">
+            <English>LEFT MPD L6</English>
+            <Original>LEFT MPD L6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
+            <English>LEFT MPD B1/MENU</English>
+            <Original>LEFT MPD B1/MENU</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B2">
+            <English>LEFT MPD B2</English>
+            <Original>LEFT MPD B2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B3">
+            <English>LEFT MPD B3</English>
+            <Original>LEFT MPD B3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B4">
+            <English>LEFT MPD B4</English>
+            <Original>LEFT MPD B4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B5">
+            <English>LEFT MPD B5</English>
+            <Original>LEFT MPD B5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_B6">
+            <English>LEFT MPD B6</English>
+            <Original>LEFT MPD B6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R1">
+            <English>LEFT MPD R1</English>
+            <Original>LEFT MPD R1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R2">
+            <English>LEFT MPD R2</English>
+            <Original>LEFT MPD R2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R3">
+            <English>LEFT MPD R3</English>
+            <Original>LEFT MPD R3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R4">
+            <English>LEFT MPD R4</English>
+            <Original>LEFT MPD R4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R5">
+            <English>LEFT MPD R5</English>
+            <Original>LEFT MPD R5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_R6">
+            <English>LEFT MPD R6</English>
+            <Original>LEFT MPD R6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T1">
+            <English>LEFT MPD T1</English>
+            <Original>LEFT MPD T1</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T2">
+            <English>LEFT MPD T2</English>
+            <Original>LEFT MPD T2</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T3">
+            <English>LEFT MPD T3</English>
+            <Original>LEFT MPD T3</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T4">
+            <English>LEFT MPD T4</English>
+            <Original>LEFT MPD T4</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T5">
+            <English>LEFT MPD T5</English>
+            <Original>LEFT MPD T5</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_T6">
+            <English>LEFT MPD T6</English>
+            <Original>LEFT MPD T6</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_FCR">
+            <English>LEFT MPD FCR</English>
+            <Original>LEFT MPD FCR</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_WPN">
+            <English>LEFT MPD WPN</English>
+            <Original>LEFT MPD WPN</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_TSD">
+            <English>LEFT MPD TSD</English>
+            <Original>LEFT MPD TSD</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_AC">
+            <English>LEFT MPD A/C</English>
+            <Original>LEFT MPD A/C</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_LMPD_BRIGHTNESS">
+            <English>LEFT MPD BRIGHTNESS</English>
+            <Original>LEFT MPD BRIGHTNESS</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+    </Package>
+</Project>

@@ -36,13 +36,13 @@ switch (_control) do {
         _heli setVariable [_variable, _value];
         [_heli, (_heli call fza_fnc_currentTurret), _value] call fza_light_fnc_setFloodLight;
     };
-    case "ANTI-COLLISION ON": {
+    case (localize "STR_FZA_AH64_ANTI_COLLISION_ON"): {
         [_heli, "fza_ah64_lightAntiColl", true] call fza_fnc_animSetValue;
     };
-    case "ANTI-COLLISION OFF": {
+    case (localize "STR_FZA_AH64_ANTI_COLLISION_OFF"): {
         [_heli, "fza_ah64_lightAntiColl", false] call fza_fnc_animSetValue;
     };
-    case "collisionToggle": {
+    case "anticollisionToggle": {
         [_heli, "fza_ah64_lightAntiColl", !(_heli getVariable "fza_ah64_lightAntiColl")] call fza_fnc_animSetValue;
     };
 };
