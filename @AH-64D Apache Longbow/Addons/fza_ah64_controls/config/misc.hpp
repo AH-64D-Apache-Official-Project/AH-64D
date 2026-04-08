@@ -17,7 +17,7 @@ class CfgFactionClasses
 {
     class fza_usaav
     {
-        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT_TITLE";
+        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT";
         priority = 2;
         icon = "\a3\Data_f\cfgFactionClasses_BLU_ca.paa";
         side = TWest;
@@ -27,10 +27,10 @@ class CfgVehicleClasses
 {
     class fza_helicopters
     {
-        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT_TITLE";
+        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT";
     };
     class fza_Men
     {
-        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT_TITLE";
+        displayName = "$STR_FZA_AH64_OFFICIAL_PROJECT";
     };
 };
