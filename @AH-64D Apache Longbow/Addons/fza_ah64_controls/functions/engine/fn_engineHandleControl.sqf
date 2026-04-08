@@ -67,19 +67,19 @@ switch(_control) do {
     case "rtrbraketoggle": {
         [_heli, "fza_ah64_rtrbrake", !(_heli getVariable "fza_ah64_rtrbrake")] call fza_fnc_animSetValue;
     };
-    case "ROTOR BRAKE LOCK": {
+    case (localize "STR_FZA_AH64_ROTOR_BRAKE_LOCK"): {
         [_heli, "fza_ah64_rtrbrake", true] call fza_fnc_animSetValue;
     };
-    case "ROTOR BRAKE OFF": {
+    case (localize "STR_FZA_AH64_ROTOR_BRAKE_OFF"): {
         [_heli, "fza_ah64_rtrbrake", false] call fza_fnc_animSetValue;
     };
 
     //--------------------ENGINE 1--------------------//
     //Start Switch
-    case "ENGINE ONE START": {
+    case (localize "STR_FZA_AH64_ENGINE_ONE_START"): {
         [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case "ENGINE ONE IGN ORDIE": {
+    case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_ORDIE"): {
         [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e1startertoggle": {
@@ -115,10 +115,10 @@ switch(_control) do {
     
     //--------------------ENGINE 2--------------------//
     //Start Switch
-    case "ENGINE TWO START": {
+    case (localize "STR_FZA_AH64_ENGINE_TWO_START"): {
         [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case "ENGINE TWO IGN ORDIE": {
+    case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_ORDIE"): {
         [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e2startertoggle": {

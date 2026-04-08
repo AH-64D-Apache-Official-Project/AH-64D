@@ -14,4 +14,8 @@ class CfgPatches
     };
 };
 
+#define PREFIX FZA //For Language localization macro, Matches the stringtable prefix in the language files
+#define COMPONENT AH64 //For Language localization macro, Matches the stringtable prefix in the language files
+#include "\x\cba\addons\main\script_macros_common.hpp"
+
 #include "cfgHatchet.hpp"
