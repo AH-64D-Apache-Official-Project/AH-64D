@@ -53,7 +53,7 @@ class cfgVehicles {
             class fza_pylonLoadout
             {
                 displayName  = "$STR_FZA_AH64_LOADOUT";
-                tooltip      = "Loadout in JSON form to export";
+                tooltip      = "$STR_FZA_AH64_LOADOUT_INFO";
                 property     = "fza_ah64_loadout";
                 control      = "Edit";
                 expression   = "[_this, _value] call fza_customise_fnc_loadoutImportJson;";
@@ -65,7 +65,7 @@ class cfgVehicles {
             };
             class fza_ah64_tailNumber {
                 displayName  = "$STR_FZA_AH64_TAIL_NUMBER";
-                tooltip      = "Enter a 7 character tail number. Leave a space to skip a position.";
+                tooltip      = "$STR_FZA_AH64_TAIL_NUMBER_INFO";
                 property     = "fza_attribute_tailNumber";
                 control      = "Edit";
                 expression   = "[_this, _value] call fza_customise_fnc_setTailNumber;";
