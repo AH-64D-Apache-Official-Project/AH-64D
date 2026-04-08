@@ -1,5 +1,5 @@
 class BIS_AddonInfo
 {
-    author = "AH-64D Development Team";
+    author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
     timepacked="1550631914";
 };

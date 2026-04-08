@@ -12,7 +12,7 @@ class CfgVehicles {
     class fza_ah64base : Helicopter_Base_F {
         icon        = "fza_ah64_controls\data\icons\b1_topdown_128x128_ca.paa";
         picture     = "fza_ah64_controls\data\icons\b1_silloheutte_128x64_ca.paa";
-        displayName = "AH-64 Offical Project Base class";
+        displayName = "$STR_FZA_AH64_BASE_CLASS";
         model       = "\fza_ah64_model\fza_ah64d_b1.p3d";
         scope       = 0;
         mapSize     = 10;
@@ -103,7 +103,7 @@ class CfgVehicles {
         armor                    = 600;
         attenuationEffectType    = "HeliAttenuation";
         audible                  = 4;
-        author                   = "AH-64D Development Team";
+        author                   = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         availableForSupportTypes[] = {"CAS_Heli", "Transport"};
         camshakecoef             = 0.3;
         cargoAction[]            = {"fza_ah64_leftcargo","fza_ah64_rightcargo"};
@@ -274,15 +274,15 @@ class CfgVehicles {
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;
         scope           = 2;
-        author          = "AH-64D Development Team";
-        displayName     = "AH-64D BLOCK I";
+        author          = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
+        displayName     = "$STR_FZA_AH64_BLOCK_1_CLASS";
         editorPreview   = "\fza_ah64_controls\data\editorpreview\fza_ah64d_b1.jpg";
     };
 
     class StaticMGWeapon;
     class fza_ah64_pylon_base: StaticMGWeapon {
         scope = 1;
-        displayName = "Pylon";
+        displayName = "$STR_FZA_AH64_PYLON";
         crew = "";
         model = "\fza_ah64_controls\data\pya_pylon_single.p3d";
         destrType = "DestructDefault";
@@ -312,6 +312,4 @@ class CfgVehicles {
         ace_dragging_canDrag = 1;
         ace_dragging_canCarry = 1;
     };
-
-    class fza_ah64d_b2e: fza_ah64base{scope = 0;displayName = "DEPRECATED";};
 };

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <!-- RIGHT MPD -->
-        <Key ID="STR_FZA_AH64_RMPD">
-            <English>RIGHT MPD</English>
-            <Original>RIGHT MPD</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD">
+            <English>Sight Select HMD</English>
+            <Original>Sight Select HMD</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -19,9 +18,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L1">
-            <English>RIGHT MPD L1</English>
-            <Original>RIGHT MPD L1</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD_INFO">
+            <English>Sets the current sight to HMD</English>
+            <Original>Sets the current sight to HMD</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -36,9 +35,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L2">
-            <English>RIGHT MPD L2</English>
-            <Original>RIGHT MPD L2</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS">
+            <English>Sight Select TADS</English>
+            <Original>Sight Select TADS</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -53,9 +52,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L3">
-            <English>RIGHT MPD L3</English>
-            <Original>RIGHT MPD L3</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS_INFO">
+            <English>Sets the current sight to TADS</English>
+            <Original>Sets the current sight to TADS</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -70,9 +69,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L4">
-            <English>RIGHT MPD L4</English>
-            <Original>RIGHT MPD L4</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD">
+            <English>Sight Select FXD</English>
+            <Original>Sight Select FXD</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -87,9 +86,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L5">
-            <English>RIGHT MPD L5</English>
-            <Original>RIGHT MPD L5</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD_INFO">
+            <English>Sets the current sight to FXD</English>
+            <Original>Sets the current sight to FXD</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -104,9 +103,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L6">
-            <English>RIGHT MPD L6</English>
-            <Original>RIGHT MPD L6</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR">
+            <English>Sight Select FCR</English>
+            <Original>Sight Select FCR</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -121,9 +120,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
-            <English>RIGHT MPD B1/MENU</English>
-            <Original>RIGHT MPD B1/MENU</Original>
+        <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR_INFO">
+            <English>Sets the current sight to FCR</English>
+            <Original>Sets the current sight to FCR</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -138,9 +137,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B2">
-            <English>RIGHT MPD B2</English>
-            <Original>RIGHT MPD B2</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP">
+            <English>Symbology Select Up</English>
+            <Original>Symbology Select Up</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -155,9 +154,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B3">
-            <English>RIGHT MPD B3</English>
-            <Original>RIGHT MPD B3</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP_INFO">
+            <English>Cycles the HDU Symbology between Transition and Cruise modes</English>
+            <Original>Cycles the HDU Symbology between Transition and Cruise modes</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -172,9 +171,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B4">
-            <English>RIGHT MPD B4</English>
-            <Original>RIGHT MPD B4</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN">
+            <English>Symbology Select Down</English>
+            <Original>Symbology Select Down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -189,9 +188,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B5">
-            <English>RIGHT MPD B5</English>
-            <Original>RIGHT MPD B5</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN_INFO">
+            <English>Cycles the HDU Symbology between Hover and Bobup modes</English>
+            <Original>Cycles the HDU Symbology between Hover and Bobup modes</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -206,9 +205,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B6">
-            <English>RIGHT MPD B6</English>
-            <Original>RIGHT MPD B6</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS">
+            <English>Symbology Select Press</English>
+            <Original>Symbology Select Press</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -223,9 +222,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R1">
-            <English>RIGHT MPD R1</English>
-            <Original>RIGHT MPD R1</Original>
+        <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO">
+            <English>Brings up the FLT page on the left MPD</English>
+            <Original>Brings up the FLT page on the left MPD</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -240,9 +239,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R2">
-            <English>RIGHT MPD R2</English>
-            <Original>RIGHT MPD R2</Original>
+        <Key ID="STR_FZA_AH64_LASER_DESIG">
+            <English>LRFD Second Detent (Lase)</English>
+            <Original>LRFD Second Detent (Lase)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -257,9 +256,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R3">
-            <English>RIGHT MPD R3</English>
-            <Original>RIGHT MPD R3</Original>
+        <Key ID="STR_FZA_AH64_LASER_DESIG_INFO">
+            <English>Lases the target when held down.</English>
+            <Original>Lases the target when held down.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -274,9 +273,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R4">
-            <English>RIGHT MPD R4</English>
-            <Original>RIGHT MPD R4</Original>
+        <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
+            <English>FCR Single Scan</English>
+            <Original>FCR Single Scan</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -291,9 +290,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R5">
-            <English>RIGHT MPD R5</English>
-            <Original>RIGHT MPD R5</Original>
+        <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN_INFO">
+            <English>Scans the FCR a single time</English>
+            <Original>Scans the FCR a single time</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -308,9 +307,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R6">
-            <English>RIGHT MPD R6</English>
-            <Original>RIGHT MPD R6</Original>
+        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE">
+            <English>Target Store</English>
+            <Original>Target Store</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -325,9 +324,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T1">
-            <English>RIGHT MPD T1</English>
-            <Original>RIGHT MPD T1</Original>
+        <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE_INFO">
+            <English>Stores the target being currently looked at in the TADS as a waypoint</English>
+            <Original>Stores the target being currently looked at in the TADS as a waypoint</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -342,9 +341,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T2">
-            <English>RIGHT MPD T2</English>
-            <Original>RIGHT MPD T2</Original>
+        <Key ID="STR_FZA_AH64_MISSILE_ADVANCE">
+            <English>Missile Advance</English>
+            <Original>Missile Advance</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -359,9 +358,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T3">
-            <English>RIGHT MPD T3</English>
-            <Original>RIGHT MPD T3</Original>
+        <Key ID="STR_FZA_AH64_MISSILE_ADVANCE_INFO">
+            <English>Advances through all missile types</English>
+            <Original>Advances through all missile types</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -376,9 +375,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T4">
-            <English>RIGHT MPD T4</English>
-            <Original>RIGHT MPD T4</Original>
+        <Key ID="STR_FZA_AH64_WAS_GUN">
+            <English>WAS Gun</English>
+            <Original>WAS Gun</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -393,9 +392,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T5">
-            <English>RIGHT MPD T5</English>
-            <Original>RIGHT MPD T5</Original>
+        <Key ID="STR_FZA_AH64_WAS_GUN_INFO">
+            <English>Action the gun in your crew station</English>
+            <Original>Action the gun in your crew station</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -410,9 +409,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T6">
-            <English>RIGHT MPD T6</English>
-            <Original>RIGHT MPD T6</Original>
+        <Key ID="STR_FZA_AH64_WAS_RKT">
+            <English>WAS Rockets</English>
+            <Original>WAS Rockets</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -427,9 +426,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_FCR">
-            <English>RIGHT MPD FCR</English>
-            <Original>RIGHT MPD FCR</Original>
+        <Key ID="STR_FZA_AH64_WAS_RKT_INFO">
+            <English>Action the rockets in your crew station</English>
+            <Original>Action the rockets in your crew station</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -444,9 +443,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_WPN">
-            <English>RIGHT MPD WPN</English>
-            <Original>RIGHT MPD WPN</Original>
+        <Key ID="STR_FZA_AH64_WAS_MSL">
+            <English>WAS Missiles</English>
+            <Original>WAS Missiles</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -461,9 +460,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_TSD">
-            <English>RIGHT MPD TSD</English>
-            <Original>RIGHT MPD TSD</Original>
+        <Key ID="STR_FZA_AH64_WAS_MSL_INFO">
+            <English>Action the missiles in your crew station</English>
+            <Original>Action the missiles in your crew station</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -478,9 +477,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_AC">
-            <English>RIGHT MPD A/C</English>
-            <Original>RIGHT MPD A/C</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP">
+            <English>Force Trim/Hold Mode Switch Up</English>
+            <Original>Force Trim/Hold Mode Switch Up</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -495,9 +494,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_BRIGHTNESS">
-            <English>RIGHT MPD BRIGHTNESS</English>
-            <Original>RIGHT MPD BRIGHTNESS</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP_INFO">
+            <English>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</English>
+            <Original>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -512,10 +511,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <!-- LEFT MPD -->
-        <Key ID="STR_FZA_AH64_LMPD">
-            <English>LEFT MPD</English>
-            <Original>LEFT MPD</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT">
+            <English>Force Trim/Hold Mode Switch Right</English>
+            <Original>Force Trim/Hold Mode Switch Right</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -530,9 +528,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L1">
-            <English>LEFT MPD L1</English>
-            <Original>LEFT MPD L1</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT_INFO">
+            <English>Activates Altitude Hold</English>
+            <Original>Activates Altitude Hold</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -547,9 +545,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L2">
-            <English>LEFT MPD L2</English>
-            <Original>LEFT MPD L2</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN">
+            <English>Force Trim/Hold Mode Switch Down</English>
+            <Original>Force Trim/Hold Mode Switch Down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -564,9 +562,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L3">
-            <English>LEFT MPD L3</English>
-            <Original>LEFT MPD L3</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN_INFO">
+            <English>De-Activates both Attitude and Altitude Hold</English>
+            <Original>De-Activates both Attitude and Altitude Hold</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -581,9 +579,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L4">
-            <English>LEFT MPD L4</English>
-            <Original>LEFT MPD L4</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT">
+            <English>Force Trim/Hold Mode Switch Left</English>
+            <Original>Force Trim/Hold Mode Switch Left</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -598,9 +596,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L5">
-            <English>LEFT MPD L5</English>
-            <Original>LEFT MPD L5</Original>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT_INFO">
+            <English>Activates Attitude Hold</English>
+            <Original>Activates Attitude Hold</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -615,9 +613,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L6">
-            <English>LEFT MPD L6</English>
-            <Original>LEFT MPD L6</Original>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP">
+            <English>Ground Targeting Mode (GTM)</English>
+            <Original>Ground Targeting Mode (GTM)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -632,9 +630,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
-            <English>LEFT MPD B1/MENU</English>
-            <Original>LEFT MPD B1/MENU</Original>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO">
+            <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
+            <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -649,9 +647,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B2">
-            <English>LEFT MPD B2</English>
-            <Original>LEFT MPD B2</Original>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN">
+            <English>Air Targeting Mode (ATM)</English>
+            <Original>Air Targeting Mode (ATM)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -666,9 +664,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B3">
-            <English>LEFT MPD B3</English>
-            <Original>LEFT MPD B3</Original>
+        <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO">
+            <English>Sets the Fire Control Radar To Air Targeting Mode</English>
+            <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -683,9 +681,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B4">
-            <English>LEFT MPD B4</English>
-            <Original>LEFT MPD B4</Original>
+        <Key ID="STR_FZA_AH64_FLARE">
+            <English>Deploy Flare</English>
+            <Original>Deploy Flare</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -700,9 +698,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B5">
-            <English>LEFT MPD B5</English>
-            <Original>LEFT MPD B5</Original>
+        <Key ID="STR_FZA_AH64_FLARE_INFO">
+            <English>Deploy a single Flare countermeasure</English>
+            <Original>Deploy a single Flare countermeasure</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -717,9 +715,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B6">
-            <English>LEFT MPD B6</English>
-            <Original>LEFT MPD B6</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W">
+            <English>TADS LHG FOV Switch - W</English>
+            <Original>TADS LHG FOV Switch - W</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -734,9 +732,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R1">
-            <English>LEFT MPD R1</English>
-            <Original>LEFT MPD R1</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W_INFO">
+            <English>Sets the Tads FOV to Wide</English>
+            <Original>Sets the Tads FOV to Wide</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -751,9 +749,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R2">
-            <English>LEFT MPD R2</English>
-            <Original>LEFT MPD R2</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M">
+            <English>TADS LHG FOV Switch - M</English>
+            <Original>TADS LHG FOV Switch - M</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -768,9 +766,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R3">
-            <English>LEFT MPD R3</English>
-            <Original>LEFT MPD R3</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M_INFO">
+            <English>Sets the Tads FOV to Medium</English>
+            <Original>Sets the Tads FOV to Medium</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -785,9 +783,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R4">
-            <English>LEFT MPD R4</English>
-            <Original>LEFT MPD R4</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N">
+            <English>TADS LHG FOV Switch - N</English>
+            <Original>TADS LHG FOV Switch - N</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -802,9 +800,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R5">
-            <English>LEFT MPD R5</English>
-            <Original>LEFT MPD R5</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N_INFO">
+            <English>Sets the Tads FOV to Narrow</English>
+            <Original>Sets the Tads FOV to Narrow</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -819,9 +817,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R6">
-            <English>LEFT MPD R6</English>
-            <Original>LEFT MPD R6</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z">
+            <English>TADS LHG FOV Switch - Z</English>
+            <Original>TADS LHG FOV Switch - Z</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -836,9 +834,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T1">
-            <English>LEFT MPD T1</English>
-            <Original>LEFT MPD T1</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z_INFO">
+            <English>Sets the Tads FOV to Zoom</English>
+            <Original>Sets the Tads FOV to Zoom</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -853,9 +851,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T2">
-            <English>LEFT MPD T2</English>
-            <Original>LEFT MPD T2</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR">
+            <English>LHG Sensor Select Switch - FLIR</English>
+            <Original>LHG Sensor Select Switch - FLIR</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -870,9 +868,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T3">
-            <English>LEFT MPD T3</English>
-            <Original>LEFT MPD T3</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR_INFO">
+            <English>Sets the Tads Sensor to FLIR</English>
+            <Original>Sets the Tads Sensor to FLIR</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -887,9 +885,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T4">
-            <English>LEFT MPD T4</English>
-            <Original>LEFT MPD T4</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV">
+            <English>LHG Sensor Select Switch - DTV</English>
+            <Original>LHG Sensor Select Switch - DTV</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -904,9 +902,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T5">
-            <English>LEFT MPD T5</English>
-            <Original>LEFT MPD T5</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV_INFO">
+            <English>Sets the Tads Sensor to DTV</English>
+            <Original>Sets the Tads Sensor to DTV</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -921,9 +919,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T6">
-            <English>LEFT MPD T6</English>
-            <Original>LEFT MPD T6</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO">
+            <English>LHG Sensor Select Switch - DVO</English>
+            <Original>LHG Sensor Select Switch - DVO</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -938,9 +936,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_FCR">
-            <English>LEFT MPD FCR</English>
-            <Original>LEFT MPD FCR</Original>
+        <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO_INFO">
+            <English>Sets the Tads Sensor to DVO</English>
+            <Original>Sets the Tads Sensor to DVO</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -955,9 +953,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_WPN">
-            <English>LEFT MPD WPN</English>
-            <Original>LEFT MPD WPN</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_LMC">
+            <English>LHG LMC Button</English>
+            <Original>LHG LMC Button</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -972,9 +970,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_TSD">
-            <English>LEFT MPD TSD</English>
-            <Original>LEFT MPD TSD</Original>
+        <Key ID="STR_FZA_AH64_TADS_LHG_LMC_INFO">
+            <English>Toggles Tads Linear Motion Compensator</English>
+            <Original>Toggles Tads Linear Motion Compensator</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -989,9 +987,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_AC">
-            <English>LEFT MPD A/C</English>
-            <Original>LEFT MPD A/C</Original>
+        <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT">
+            <English>Sticky Control Interupt</English>
+            <Original>Sticky Control Interupt</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -1006,9 +1004,247 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_BRIGHTNESS">
-            <English>LEFT MPD BRIGHTNESS</English>
-            <Original>LEFT MPD BRIGHTNESS</Original>
+        <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT_INFO">
+            <English>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</English>
+            <Original>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON">
+            <English>Force Trim Panic Button</English>
+            <Original>Force Trim Panic Button</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON_INFO">
+            <English>Zeroes out the force trim values.</English>
+            <Original>Zeroes out the force trim values.</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT">
+            <English>Emergency Jettison</English>
+            <Original>Emergency Jettison</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO">
+            <English>Collective Emergency Jettison Button</English>
+            <Original>Collective Emergency Jettison Button</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_FORWARD">
+            <English>Cyclic Forward</English>
+            <Original>Cyclic Forward</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_BACKWARD">
+            <English>Cyclic Backward</English>
+            <Original>Cyclic Backward</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_LEFT">
+            <English>Cyclic Left</English>
+            <Original>Cyclic Left</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_CYCLIC_RIGHT">
+            <English>Cyclic Right</English>
+            <Original>Cyclic Right</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_PEDAL_LEFT">
+            <English>Pedal Left</English>
+            <Original>Pedal Left</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_PEDAL_RIGHT">
+            <English>Pedal Right</English>
+            <Original>Pedal Right</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_UP">
+            <English>HOTAS Collective Up</English>
+            <Original>HOTAS Collective Up</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_COLLECTIVE_DN">
+            <English>HOTAS Collective Down</English>
+            <Original>HOTAS Collective Down</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_KB_COLLECTIVE_UP">
+            <English>Keyboard Collective Up</English>
+            <Original>Keyboard Collective Up</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_KB_COLLECTIVE_DN">
+            <English>Keyboard Collective Down</English>
+            <Original>Keyboard Collective Down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

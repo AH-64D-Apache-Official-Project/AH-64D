@@ -3,7 +3,7 @@ class CfgWeapons {
     class fza_hydra70: RocketPods
     {
         scope = private;
-        displayName="M261";
+        displayName="$STR_FZA_AH64_HYDRA_M275";
         magazines[]={};
         modes[] = {"Single","Far_AI","Medium_AI"};
         canLock = 0;
@@ -23,7 +23,7 @@ class CfgWeapons {
 
         class Far_AI: RocketPods
         {
-            displayName="M261";
+            displayName="$STR_FZA_AH64_HYDRA_M275";
             sounds[] = {"StandardSound"};
             class StandardSound 
             {
@@ -58,7 +58,7 @@ class CfgWeapons {
         };
         class Single: RocketPods
         {
-            displayName="M261";
+            displayName="$STR_FZA_AH64_HYDRA_M275";
             soundContinuous = 0;
             autoFire = 1;
             reloadTime = 0.09;
@@ -87,9 +87,9 @@ class CfgWeapons {
             magazines[] = {ROCKET_MAGAZINES(ammoName)};\
             fza_ammoType = ammoName;\
         };
-    ROCKET_WEAPON_CONFIG(fza_275_m151, "M151 HEDP")
-    ROCKET_WEAPON_CONFIG(fza_275_m255a1, "M255A1 FLEC")
-    ROCKET_WEAPON_CONFIG(fza_275_m257, "M257 IL")
-    ROCKET_WEAPON_CONFIG(fza_275_m261, "M261 MPSM")
-    ROCKET_WEAPON_CONFIG(fza_275_m278, "M278 IR IL")
+    ROCKET_WEAPON_CONFIG(fza_275_m151, "$STR_FZA_AH64_HYDRA_M151")
+    ROCKET_WEAPON_CONFIG(fza_275_m255a1, "$STR_FZA_AH64_HYDRA_M255A1")
+    ROCKET_WEAPON_CONFIG(fza_275_m257, "$STR_FZA_AH64_HYDRA_M257_IL")
+    ROCKET_WEAPON_CONFIG(fza_275_m261, "$STR_FZA_AH64_HYDRA_M278_IR_IL")
+    ROCKET_WEAPON_CONFIG(fza_275_m278, "$STR_FZA_AH64_HYDRA_M275")
 };

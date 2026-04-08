@@ -34,18 +34,18 @@ class CfgMagazines {
             weight = 37.51;\
         }
     
-    ROCKET_MAGAZINE_CONFIG(fza_275_m151, "M151 HEDP", "The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
-    ROCKET_MAGAZINE_CONFIG(fza_275_m255a1, "M255A1 FLEC", "The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
-    ROCKET_MAGAZINE_CONFIG(fza_275_m261, "M261 MPSM", "The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.");
-    ROCKET_MAGAZINE_CONFIG(fza_275_m257, "M257 IL", "The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.");
-    ROCKET_MAGAZINE_CONFIG(fza_275_m278, "M278 IR IL", "The M278 is an IR illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.");
+    ROCKET_MAGAZINE_CONFIG(fza_275_m151, "$STR_FZA_AH64_HYDRA_M151", "$STR_FZA_AH64_HYDRA_M151_INFO");
+    ROCKET_MAGAZINE_CONFIG(fza_275_m255a1, "$STR_FZA_AH64_HYDRA_M255A1", "$STR_FZA_AH64_HYDRA_M255A1_INFO");
+    ROCKET_MAGAZINE_CONFIG(fza_275_m261, "$STR_FZA_AH64_HYDRA_M261_MPSM", "$STR_FZA_AH64_HYDRA_M261_MPSM_INFO");
+    ROCKET_MAGAZINE_CONFIG(fza_275_m257, "$STR_FZA_AH64_HYDRA_M257_IL", "$STR_FZA_AH64_HYDRA_M257_IL_INFO");
+    ROCKET_MAGAZINE_CONFIG(fza_275_m278, "$STR_FZA_AH64_HYDRA_M278_IR_IL", "$STR_FZA_AH64_HYDRA_M278_IR_IL_INFO");
 
     class fza_275_pod: fza_275_m151_zoneA {
-        descriptionShort = "The M261 is a 19-tube, 2.75” FFAR Launcher";
+        descriptionShort = "$STR_FZA_AH64_HYDRA_M275_INFO";
         model = "\fza_ah64_hydra\data\pylon\fza_pod_zoneA.p3d";
         hardpoints[] = {"fza_railzone"};
         fza_pylonType = "rocket";
-        displayName = "M261"; 
+        displayName = "$STR_FZA_AH64_HYDRA_M275"; 
         count = 0;
     };
 };

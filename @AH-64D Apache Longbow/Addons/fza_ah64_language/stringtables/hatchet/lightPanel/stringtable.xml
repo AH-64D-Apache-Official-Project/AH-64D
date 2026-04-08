@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        <Key ID="STR_FZA_AH64_LIGHTING">
+            <English>LIGHTING</English>
+            <Original>LIGHTING</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_FLOOD_LIGHT">
             <English>TOGGLE FLOOD LIGHT</English>
             <Original>TOGGLE FLOOD LIGHT</Original>

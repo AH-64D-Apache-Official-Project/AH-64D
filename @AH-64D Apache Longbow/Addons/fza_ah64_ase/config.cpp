@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_ase
     {
         units[] = {};
-        author = "AH-64D Development Team";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls", "A3_Data_F_Jets_Loadorder", "A3_Data_F_Tank_Loadorder","A3_Data_F_Sams_Loadorder", "A3_Data_F_Loadorder"};

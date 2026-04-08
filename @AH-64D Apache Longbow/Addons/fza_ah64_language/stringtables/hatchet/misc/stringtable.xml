@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
+        <Key ID="STR_FZA_AH64_EMERGENCY_PANEL">
+            <English>EMERGENCY PANEL</English>
+            <Original>TOGGLE EMERGENCY HYDRAULICS</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_EMERGENCY_HYDRAULICS">
             <English>TOGGLE EMERGENCY HYDRAULICS</English>
             <Original>TOGGLE EMERGENCY HYDRAULICS</Original>
@@ -18,9 +35,43 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
+        <Key ID="STR_FZA_AH64_IHADSS">
+            <English>IHADSS</English>
+            <Original>IHADSS</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
         <Key ID="STR_FZA_AH64_EQUIP_STOW_MONOCLE">
             <English>EQUIP/STOW MONOCLE</English>
             <Original>EQUIP/STOW MONOCLE</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_ARMAMENT_PANEL">
+            <English>ARMAMENT PANEL</English>
+            <Original>ARMAMENT PANEL</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -69,6 +120,23 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
+        <Key ID="STR_FZA_AH64_MASTER_WARNING_CAUTION_PANEL">
+            <English>WARNING/CAUTION PANEL</English>
+            <Original>WARNING/CAUTION PANEL</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
         <Key ID="STR_FZA_AH64_ACKNOWLEDGE_MASTER_CAUTION">
             <English>ACKNOWLEDGE MASTER CAUTION</English>
             <Original>ACKNOWLEDGE MASTER CAUTION</Original>
@@ -89,6 +157,40 @@
         <Key ID="STR_FZA_AH64_ACKNOWLEDGE_MASTER_WARNING">
             <English>ACKNOWLEDGE MASTER WARNING</English>
             <Original>ACKNOWLEDGE MASTER WARNING</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_KEYBOARD_UNIT">
+            <English>KEYBOARD</English>
+            <Original>KEYBOARD</Original>
+            <!-- <French>Example</French> -->
+            <!-- <Dutch>Example</Dutch> -->
+            <!-- <Spanish>Example</Spanish> -->
+            <!-- <Italian>Example</Italian> -->
+            <!-- <German>Example</German> -->
+            <!-- <Czech>Example</Czech> -->
+            <!-- <Polish>Example</Polish> -->
+            <!-- <Russian>Example</Russian> -->
+            <!-- <Portuguese>Example</Portuguese> -->
+            <!-- <Korean>Example</Korean> -->
+            <!-- <Japanese>Example</Japanese> -->
+            <!-- <Chinesesimp>Example</Chinesesimp> -->
+            <!-- <Turkish>Example</Turkish> -->
+        </Key>
+        <Key ID="STR_FZA_AH64_ACTIVATE_KEYBOARD_UNIT_TOGGLE">
+            <English>TOGGLE KEYBOARD UNIT</English>
+            <Original>TOGGLE KEYBOARD UNIT</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

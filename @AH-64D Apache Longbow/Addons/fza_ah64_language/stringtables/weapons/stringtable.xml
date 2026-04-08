@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <!-- RIGHT MPD -->
-        <Key ID="STR_FZA_AH64_RMPD">
-            <English>RIGHT MPD</English>
-            <Original>RIGHT MPD</Original>
+        <Key ID="STR_FZA_AH64_FLARES">
+            <English>Flares</English>
+            <Original>Flares</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -19,9 +18,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L1">
-            <English>RIGHT MPD L1</English>
-            <Original>RIGHT MPD L1</Original>
+        <Key ID="STR_FZA_AH64_CHAFF">
+            <English>Chaff</English>
+            <Original>Chaff`</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -36,9 +35,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L2">
-            <English>RIGHT MPD L2</English>
-            <Original>RIGHT MPD L2</Original>
+        <Key ID="STR_FZA_AH64_IRJAM">
+            <English>IR Jammer (DO NOT REARM)</English>
+            <Original>IR Jammer (DO NOT REARM)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -53,9 +52,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L3">
-            <English>RIGHT MPD L3</English>
-            <Original>RIGHT MPD L3</Original>
+        <Key ID="STR_FZA_AH64_30MM_HEDP">
+            <English>30mm HEDP</English>
+            <Original>30mm HEDP</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -70,9 +69,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L4">
-            <English>RIGHT MPD L4</English>
-            <Original>RIGHT MPD L4</Original>
+        <Key ID="STR_FZA_AH64_M230_E1">
+            <English>M230-E1</English>
+            <Original>M230-E1</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -87,9 +86,10 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L5">
-            <English>RIGHT MPD L5</English>
-            <Original>RIGHT MPD L5</Original>
+        
+        <Key ID="STR_FZA_AH64_BURST_LIMIT">
+            <English>Burst Limit</English>
+            <Original>Burst Limit</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -104,9 +104,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_L6">
-            <English>RIGHT MPD L6</English>
-            <Original>RIGHT MPD L6</Original>
+        <Key ID="STR_FZA_AH64_MASTER_ARM_SAFE">
+            <English>MASTER ARM SAFE</English>
+            <Original>MASTER ARM SAFE</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -121,9 +121,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B1_MENU">
-            <English>RIGHT MPD B1/MENU</English>
-            <Original>RIGHT MPD B1/MENU</Original>
+        <Key ID="STR_FZA_AH64_CANNON_INHIBIT">
+            <English>Cannon Inhibit</English>
+            <Original>Cannon Inhibit</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -138,9 +138,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B2">
-            <English>RIGHT MPD B2</English>
-            <Original>RIGHT MPD B2</Original>
+        <Key ID="STR_FZA_AH64_SALVO_LIMIT">
+            <English>Salvo Limit</English>
+            <Original>Salvo Limit</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -155,9 +155,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B3">
-            <English>RIGHT MPD B3</English>
-            <Original>RIGHT MPD B3</Original>
+        <Key ID="STR_FZA_AH64_PYLON_INHIBIT">
+            <English>Pylon Inhibit</English>
+            <Original>Pylon Inhibit</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -172,9 +172,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B4">
-            <English>RIGHT MPD B4</English>
-            <Original>RIGHT MPD B4</Original>
+        <Key ID="STR_FZA_AH64_230GAL_AUX_TANK">
+            <English>230gal Aux Tank</English>
+            <Original>230gal Aux Tank</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -189,9 +189,12 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B5">
-            <English>RIGHT MPD B5</English>
-            <Original>RIGHT MPD B5</Original>
+
+
+        <!-- ////Pylon Presets//// -->
+        <Key ID="STR_FZA_AH64_COMBAT_SUPPORT_FCR">
+            <English>Combat Support (FCR)</English>
+            <Original>Combat Support (FCR)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -206,9 +209,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_B6">
-            <English>RIGHT MPD B6</English>
-            <Original>RIGHT MPD B6</Original>
+        <Key ID="STR_FZA_AH64_COMBAT_SUPPORT">
+            <English>Combat Support</English>
+            <Original>Combat Support</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -223,9 +226,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R1">
-            <English>RIGHT MPD R1</English>
-            <Original>RIGHT MPD R1</Original>
+        <Key ID="STR_FZA_AH64_HEAVY_ATTACK_FCR">
+            <English>Heavy Attack (FCR)</English>
+            <Original>Heavy Attack (FCR)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -240,9 +243,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R2">
-            <English>RIGHT MPD R2</English>
-            <Original>RIGHT MPD R2</Original>
+        <Key ID="STR_FZA_AH64_HEAVY_ATTACK">
+            <English>Heavy Attack</English>
+            <Original>Heavy Attack</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -257,9 +260,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R3">
-            <English>RIGHT MPD R3</English>
-            <Original>RIGHT MPD R3</Original>
+        <Key ID="STR_FZA_AH64_COIN">
+            <English>COIN</English>
+            <Original>COIN</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -274,9 +277,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R4">
-            <English>RIGHT MPD R4</English>
-            <Original>RIGHT MPD R4</Original>
+        <Key ID="STR_FZA_AH64_EMPTY">
+            <English>Empty</English>
+            <Original>Empty</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -291,9 +294,11 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R5">
-            <English>RIGHT MPD R5</English>
-            <Original>RIGHT MPD R5</Original>
+
+        <!-- ////HellFires//// -->
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114FA">
+            <English>AGM-114FA</English>
+            <Original>AGM-114FA</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -308,9 +313,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_R6">
-            <English>RIGHT MPD R6</English>
-            <Original>RIGHT MPD R6</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114FA_INFO">
+            <English>SAL 1 Guidance, effective range - 7km. The FA variant introduced a blast sleeve onto the C model for a cheap anti-personel missile.</English>
+            <Original>SAL 1 Guidance, effective range - 7km. The FA variant introduced a blast sleeve onto the C model for a cheap anti-personel missile.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -325,9 +330,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T1">
-            <English>RIGHT MPD T1</English>
-            <Original>RIGHT MPD T1</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K">
+            <English>AGM-114K</English>
+            <Original>AGM-114K</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -342,9 +347,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T2">
-            <English>RIGHT MPD T2</English>
-            <Original>RIGHT MPD T2</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K_INFO">
+            <English>SAL 2 Guidance, effective range - 8km. This is the most advanced model of all the laser guided hellfires available.</English>
+            <Original>SAL 2 Guidance, effective range - 8km. This is the most advanced model of all the laser guided hellfires available.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -359,9 +364,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T3">
-            <English>RIGHT MPD T3</English>
-            <Original>RIGHT MPD T3</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K2A">
+            <English>AGM-114K2A</English>
+            <Original>AGM-114K2A</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -376,9 +381,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T4">
-            <English>RIGHT MPD T4</English>
-            <Original>RIGHT MPD T4</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K2A_INFO">
+            <English>SAL 2 Guidance, effective range - 8km. The K2A variant added a blast sleeve onto the K model for a cheap anti-personel missile.</English>
+            <Original>SAL 2 Guidance, effective range - 8km. The K2A variant added a blast sleeve onto the K model for a cheap anti-personel missile.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -393,9 +398,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T5">
-            <English>RIGHT MPD T5</English>
-            <Original>RIGHT MPD T5</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114L">
+            <English>AGM-114L</English>
+            <Original>AGM-114L</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -410,9 +415,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_T6">
-            <English>RIGHT MPD T6</English>
-            <Original>RIGHT MPD T6</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114L_INFO">
+            <English>One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.</English>
+            <Original>One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -427,9 +432,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_FCR">
-            <English>RIGHT MPD FCR</English>
-            <Original>RIGHT MPD FCR</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114N">
+            <English>AGM-114N</English>
+            <Original>AGM-114N</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -444,9 +449,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_WPN">
-            <English>RIGHT MPD WPN</English>
-            <Original>RIGHT MPD WPN</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114N_INFO">
+            <English>SAL 2 Guidance, effective range - 8km. , The N variant is a K model with a thermobaric warhead. It is very deadly when used against hardened targets.</English>
+            <Original>SAL 2 Guidance, effective range - 8km. , The N variant is a K model with a thermobaric warhead. It is very deadly when used against hardened targets.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -461,9 +466,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_TSD">
-            <English>RIGHT MPD TSD</English>
-            <Original>RIGHT MPD TSD</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_M299">
+            <English>M299</English>
+            <Original>M299</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -478,9 +483,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_AC">
-            <English>RIGHT MPD A/C</English>
-            <Original>RIGHT MPD A/C</Original>
+        <Key ID="STR_FZA_AH64_HELLFIRE_M299_INFO">
+            <English>The M299 is a 4-Rail Hellfire Launcher</English>
+            <Original>The M299 is a 4-Rail Hellfire Launcher</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -495,9 +500,11 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_RMPD_BRIGHTNESS">
-            <English>RIGHT MPD BRIGHTNESS</English>
-            <Original>RIGHT MPD BRIGHTNESS</Original>
+
+        <!-- ////HYDRAS//// -->
+        <Key ID="STR_FZA_AH64_HYDRA_M151">
+            <English>M151 HEDP</English>
+            <Original>M151 HEDP</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -512,10 +519,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <!-- LEFT MPD -->
-        <Key ID="STR_FZA_AH64_LMPD">
-            <English>LEFT MPD</English>
-            <Original>LEFT MPD</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M151_INFO">
+            <English>The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
+            <Original>The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -530,9 +536,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L1">
-            <English>LEFT MPD L1</English>
-            <Original>LEFT MPD L1</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M255A1">
+            <English>M255A1 FLEC</English>
+            <Original>M255A1 FLEC</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -547,9 +553,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L2">
-            <English>LEFT MPD L2</English>
-            <Original>LEFT MPD L2</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M255A1_INFO">
+            <English>The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
+            <Original>The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -564,9 +570,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L3">
-            <English>LEFT MPD L3</English>
-            <Original>LEFT MPD L3</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M261_MPSM">
+            <English>M261 MPSM</English>
+            <Original>M261 MPSM</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -581,9 +587,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L4">
-            <English>LEFT MPD L4</English>
-            <Original>LEFT MPD L4</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M261_MPSM_INFO">
+            <English>The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
+            <Original>The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -598,9 +604,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L5">
-            <English>LEFT MPD L5</English>
-            <Original>LEFT MPD L5</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M257_IL">
+            <English>M257 IL</English>
+            <Original>M257 IL</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -615,9 +621,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_L6">
-            <English>LEFT MPD L6</English>
-            <Original>LEFT MPD L6</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M257_IL_INFO">
+            <English>The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</English>
+            <Original>The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -632,9 +638,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B1_MENU">
-            <English>LEFT MPD B1/MENU</English>
-            <Original>LEFT MPD B1/MENU</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M278_IR_IL">
+            <English>M278 IR IL</English>
+            <Original>M278 IR IL</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -649,9 +655,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B2">
-            <English>LEFT MPD B2</English>
-            <Original>LEFT MPD B2</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M278_IR_IL_INFO">
+            <English>The M278 is an IR illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</English>
+            <Original>The M278 is an IR illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -666,9 +672,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B3">
-            <English>LEFT MPD B3</English>
-            <Original>LEFT MPD B3</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M275">
+            <English>M275</English>
+            <Original>M275</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -683,332 +689,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B4">
-            <English>LEFT MPD B4</English>
-            <Original>LEFT MPD B4</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B5">
-            <English>LEFT MPD B5</English>
-            <Original>LEFT MPD B5</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_B6">
-            <English>LEFT MPD B6</English>
-            <Original>LEFT MPD B6</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R1">
-            <English>LEFT MPD R1</English>
-            <Original>LEFT MPD R1</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R2">
-            <English>LEFT MPD R2</English>
-            <Original>LEFT MPD R2</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R3">
-            <English>LEFT MPD R3</English>
-            <Original>LEFT MPD R3</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R4">
-            <English>LEFT MPD R4</English>
-            <Original>LEFT MPD R4</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R5">
-            <English>LEFT MPD R5</English>
-            <Original>LEFT MPD R5</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_R6">
-            <English>LEFT MPD R6</English>
-            <Original>LEFT MPD R6</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T1">
-            <English>LEFT MPD T1</English>
-            <Original>LEFT MPD T1</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T2">
-            <English>LEFT MPD T2</English>
-            <Original>LEFT MPD T2</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T3">
-            <English>LEFT MPD T3</English>
-            <Original>LEFT MPD T3</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T4">
-            <English>LEFT MPD T4</English>
-            <Original>LEFT MPD T4</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T5">
-            <English>LEFT MPD T5</English>
-            <Original>LEFT MPD T5</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_T6">
-            <English>LEFT MPD T6</English>
-            <Original>LEFT MPD T6</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_FCR">
-            <English>LEFT MPD FCR</English>
-            <Original>LEFT MPD FCR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_WPN">
-            <English>LEFT MPD WPN</English>
-            <Original>LEFT MPD WPN</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_TSD">
-            <English>LEFT MPD TSD</English>
-            <Original>LEFT MPD TSD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_AC">
-            <English>LEFT MPD A/C</English>
-            <Original>LEFT MPD A/C</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_LMPD_BRIGHTNESS">
-            <English>LEFT MPD BRIGHTNESS</English>
-            <Original>LEFT MPD BRIGHTNESS</Original>
+        <Key ID="STR_FZA_AH64_HYDRA_M275_INFO">
+            <English>The M261 is a 19-tube, 2.75” FFAR Launcher.</English>
+            <Original>The M261 is a 19-tube, 2.75” FFAR Launcher.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

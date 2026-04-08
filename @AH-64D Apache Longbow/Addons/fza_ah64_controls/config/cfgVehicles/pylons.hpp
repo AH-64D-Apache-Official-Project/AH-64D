@@ -95,27 +95,27 @@ class TransportPylonsComponent {
     class presets {
         class cmbt_sprt_fcr {
             attachment[] = {"fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE", ""};
-            displayName = "Combat Support (FCR)";
+            displayName = "$STR_FZA_AH64_COMBAT_SUPPORT_FCR";
         };
         class cmbt_sprt {
             attachment[] = {"fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE","","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_275_m151_zoneA","fza_275_m261_zoneB","fza_275_m261_zoneE",""};
-            displayName = "Combat Support";
+            displayName = "$STR_FZA_AH64_COMBAT_SUPPORT";
         };
         class hvy_atk_fcr {
             attachment[] = {"fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114l_ll","fza_agm114l_lr"};
-            displayName = "Heavy Attack (FCR)";
+            displayName = "$STR_FZA_AH64_HEAVY_ATTACK_FCR";
         };
         class hvy_atk {
             attachment[] = {"fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr","fza_agm114k_ul","fza_agm114k_ur","fza_agm114k_ll","fza_agm114k_lr"};
-            displayName = "Heavy Attack";
+            displayName = "$STR_FZA_AH64_HEAVY_ATTACK";
         };
         class coin {
             attachment[] = {"fza_275_m151_zoneA","fza_275_m255a1_zoneB","fza_275_m257_zoneE","","","","","","","","","","fza_agm114k_ul","","","fza_agm114n_lr"};
-            displayName = "COIN";
+            displayName = "$STR_FZA_AH64_COIN";
         };
         class Empty {
             attachment[] = {"","","","","","","","","","","","","","","",""};
-            displayName = "Empty";
+            displayName = "$STR_FZA_AH64_EMPTY";
         };
     };
 };

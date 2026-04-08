@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_customise
     {
         units[] = {"fza_ah64_FireControlRadar", "fza_ah64_IAFS", "fza_ah64_1200Magazine"};
-        author = "AH-64D Development Team";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls"};

@@ -1,5 +1,5 @@
 class CfgVehicleClasses {
     class fza_dms {
-        displayName = "AH-64D DMS";
+        displayName = "$STR_FZA_AH64_DMS";
     };
 };

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <Key ID="STR_FZA_AH64_example">
-            <English>EXAMPLE</English>
-            <Original>EXAMPLE</Original>
+        <Key ID="STR_FZA_AH64_FIRE_PANEL">
+            <English>FIRE PANEL</English>
+            <Original>FIRE PANEL</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

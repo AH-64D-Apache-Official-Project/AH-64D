@@ -3,7 +3,7 @@ class CfgPatches
     class fza_ah64_fcr
     {
         units[] = {};
-        author = "AH-64D Development Team";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 1.0;
         requiredAddons[] = {"fza_ah64_controls"};

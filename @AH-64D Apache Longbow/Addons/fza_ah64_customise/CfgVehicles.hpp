@@ -4,7 +4,7 @@ class cfgVehicles {
     class Land_WoodenCrate_01_F;
     class fza_ah64_ObjectBase: Land_WoodenCrate_01_F {
         author                              = "Snow(Dryden)";
-        displayName                         = "Apache Object Base";
+        displayName                         = "$STR_FZA_AH64_OBJECT_BASE";
         scope                               = 1;
         ace_cargo_canLoad                   = 1;
         ace_dragging_canCarry               = 1;
@@ -27,18 +27,18 @@ class cfgVehicles {
         };
     };
     class fza_ah64_FireControlRadar: fza_ah64_ObjectBase {
-        displayName                         = "AH-64 Fire Control Radar";
+        displayName                         = "$STR_FZA_AH64_FCR";
         model                               = "\fza_ah64_model\fza_longbow.p3d";
         editorSubcategory                   = "EdSubcat_fza_ah64_Components";
         scope                               = 2;
     };
     class fza_ah64_IAFS: fza_ah64_ObjectBase {
-        displayName                         = "AH-64 IAFS";
+        displayName                         = "$STR_FZA_AH64_IAFS";
         editorSubcategory                   = "EdSubcat_fza_ah64_Components";
         scope                               = 2;
     };
     class fza_ah64_1200Magazine: fza_ah64_ObjectBase {
-        displayName                         = "AH-64 1200 Magazine";
+        displayName                         = "$STR_FZA_AH64_1200MAGAZINE";
         editorSubcategory                   = "EdSubcat_fza_ah64_Magazines";
         scope                               = 2;
     };
@@ -52,7 +52,7 @@ class cfgVehicles {
         class Attributes{
             class fza_pylonLoadout
             {
-                displayName  = "Loadout Config";
+                displayName  = "$STR_FZA_AH64_LOADOUT";
                 tooltip      = "Loadout in JSON form to export";
                 property     = "fza_ah64_loadout";
                 control      = "Edit";
@@ -64,7 +64,7 @@ class cfgVehicles {
                 typeName     = "STRING";    
             };
             class fza_ah64_tailNumber {
-                displayName  = "Custom Tail Number";
+                displayName  = "$STR_FZA_AH64_TAIL_NUMBER";
                 tooltip      = "Enter a 7 character tail number. Leave a space to skip a position.";
                 property     = "fza_attribute_tailNumber";
                 control      = "Edit";

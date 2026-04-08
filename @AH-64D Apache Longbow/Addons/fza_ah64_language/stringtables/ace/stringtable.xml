@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <Key ID="STR_FZA_AH64_ENGINE_PANEL">
-            <English>ENGINE PANEL</English>
-            <Original>ENGINE PANEL</Original>
+        <!-- ////TAIL NUMBER//// -->
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS">
+            <English>Set Tail Numbers</English>
+            <Original>Set Tail Numbers</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -18,9 +19,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_BATTERY_POWER">
-            <English>TOGGLE BATTERY POWER</English>
-            <Original>TOGGLE BATTERY POWER</Original>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_1">
+            <English>Position 1</English>
+            <Original>Position 1</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -35,9 +36,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_APU_POWER">
-            <English>TOGGLE APU POWER</English>
-            <Original>TOGGLE APU POWER</Original>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_2">
+            <English>Position 2</English>
+            <Original>Position 2</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -52,9 +53,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_ROTOR_BRAKE">
-            <English>TOGGLE ROTOR BRAKE</English>
-            <Original>TOGGLE ROTOR BRAKE</Original>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_3">
+            <English>Position 3</English>
+            <Original>Position 3</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -69,9 +70,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_1_OFF">
-            <English>SET ENGINE 1 OFF</English>
-            <Original>SET ENGINE 1 OFF</Original>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_4">
+            <English>Position 4</English>
+            <Original>Position 4</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -86,9 +87,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_1_IDLE">
-            <English>SET ENGINE 1 IDLE</English>
-            <Original>SET ENGINE 1 IDLE</Original>
+        <Key ID="STR_FZA_AH64_SET_TAIL_NUMBERS_POSITION_5">
+            <English>Position 5</English>
+            <Original>Position 5</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -103,9 +104,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_1_FLY">
-            <English>SET ENGINE 1 FLY</English>
-            <Original>SET ENGINE 1 FLY</Original>
+        <Key ID="STR_FZA_AH64_CLEAR_TAIL_NUMBERS">
+            <English>CLEAR</English>
+            <Original>CLEAR</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -120,9 +121,11 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_1">
-            <English>START/OVERRIDE ENGINE 1</English>
-            <Original>START/OVERRIDE ENGINE 1</Original>
+
+        <!-- ////NUMBERS//// -->
+        <Key ID="STR_FZA_AH64_NUMBER_ZERO">
+            <English>Zero</English>
+            <Original>Zero</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -137,9 +140,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_ONE_START">
-            <English>ENGINE ONE START</English>
-            <Original>ENGINE ONE START</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_ONE">
+            <English>One</English>
+            <Original>One</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -154,9 +157,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_ONE_OFF">
-            <English>OFF</English>
-            <Original>OFF</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_TWO">
+            <English>Two</English>
+            <Original>Two</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -171,9 +174,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE">
-            <English>ENGINE ONE IGNITION OVERRIDE</English>
-            <Original>ENGINE ONE IGNITION OVERRIDE</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_THREE">
+            <English>Three</English>
+            <Original>Three</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -188,9 +191,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_2_OFF">
-            <English>SET ENGINE 2 OFF</English>
-            <Original>SET ENGINE 2 OFF</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_FOUR">
+            <English>Four</English>
+            <Original>Four</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -205,9 +208,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_2_IDLE">
-            <English>SET ENGINE 2 IDLE</English>
-            <Original>SET ENGINE 2 IDLE</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_FIVE">
+            <English>Five</English>
+            <Original>Five</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -222,9 +225,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SET_ENGINE_2_FLY">
-            <English>SET ENGINE 2 FLY</English>
-            <Original>SET ENGINE 2 FLY</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_SIX">
+            <English>Six</English>
+            <Original>Six</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -239,9 +242,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_2">
-            <English>START/OVERRIDE ENGINE 2</English>
-            <Original>START/OVERRIDE ENGINE 2</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_SEVEN">
+            <English>Seven</English>
+            <Original>Seven</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -256,9 +259,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_TWO_START">
-            <English>ENGINE TWO START</English>
-            <Original>ENGINE TWO START</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_EIGHT">
+            <English>Eight</English>
+            <Original>Eight</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -273,9 +276,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_TWO_OFF">
-            <English>OFF</English>
-            <Original>OFF</Original>
+        <Key ID="STR_FZA_AH64_NUMBER_NINE">
+            <English>Nine</English>
+            <Original>Nine</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -290,9 +293,11 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE">
-            <English>ENGINE TWO IGNITION OVERRIDE</English>
-            <Original>ENGINE TWO IGNITION OVERRIDE</Original>
+
+        <!-- ////INTERCTIONS//// -->
+        <Key ID="STR_FZA_AH64_ACE_OPEN_PILOT_DOOR">
+            <English>Open Pilot Door</English>
+            <Original>Open Pilot Door</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -307,9 +312,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
-            <English>Toggle Night Vision System</English>
-            <Original>Toggle Night Vision System</Original>
+        <Key ID="STR_FZA_AH64_ACE_CLOSE_PILOT_DOOR">
+            <English>Close Pilot Door</English>
+            <Original>Close Pilot Door</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -324,9 +329,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ROTOR_BRAKE_OFF">
-            <English>ROTOR BRAKE OFF</English>
-            <Original>ROTOR BRAKE OFF</Original>
+        <Key ID="STR_FZA_AH64_ACE_OPEN_GUNNER_DOOR">
+            <English>Open Gunner Door</English>
+            <Original>Open Gunner Door</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -341,9 +346,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_ROTOR_BRAKE_LOCK">
-            <English>ROTOR BRAKE LOCK</English>
-            <Original>ROTOR BRAKE LOCK</Original>
+        <Key ID="STR_FZA_AH64_ACE_CLOSE_GUNNER_DOOR">
+            <English>Close Gunner Door</English>
+            <Original>Close Gunner Door</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -358,9 +363,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
-            <English>TOGGLE NVS MODE</English>
-            <Original>TOGGLE NVS MODE</Original>
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_FIRE_CONTROL_RADAR">
+            <English>Attach Fire Control Radar</English>
+            <Original>Attach Fire Control Radar</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -375,9 +380,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_NVS">
-            <English>NVS MODE</English>
-            <Original>NVS MODE</Original>
+        <Key ID="STR_FZA_AH64_ACE_DETACH_FIRE_CONTROL_RADAR">
+            <English>Detach Fire Control Radar</English>
+            <Original>Detach Fire Control Radar</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -392,9 +397,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_NVS_FIXED">
-            <English>FIXED</English>
-            <Original>FIXED</Original>
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_INTERNAL_AUXILIARY_FUEL_SYSTEM">
+            <English>Attach Internal Auxilary Fuel System</English>
+            <Original>Attach Internal Auxilary Fuel System</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -409,43 +414,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_NVS_NORM">
-            <English>NORM</English>
-            <Original>NORM</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_NVS_OFF">
-            <English>OFF</English>
-            <Original>OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
-            <English>TOGGLE NIGHT VISION SYSTEM</English>
-            <Original>TOGGLE NIGHT VISION SYSTEM</Original>
+        <Key ID="STR_FZA_AH64_ACE_ATTACH_1200_30MM_MAGAZINE">
+            <English>Attach 1200 30mm Magazine</English>
+            <Original>Attach 1200 30mm Magazine</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->

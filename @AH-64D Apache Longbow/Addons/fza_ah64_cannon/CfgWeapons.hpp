@@ -3,7 +3,7 @@ class CfgWeapons {
     class fza_m230: CannonCore
     {
         scope               = 1;
-        displayName         = "M230-E1";
+        displayName         = "$STR_FZA_AH64_M230_E1";
         nameSound           = "cannon";
         cursor              = "EmptyCursor";
         cursorAim           = "";
@@ -42,7 +42,7 @@ class CfgWeapons {
         };
         class manual: CannonCore
         {
-            displayName="M230";
+            displayName="$STR_FZA_AH64_M230_E1";
             autoFire = 1;
             textureType = "fullAuto";
             sounds[] = {"StandardSound"};
@@ -129,9 +129,9 @@ class CfgWeapons {
         };
     };
     
-    class fza_cannon_limit: fza_m230{displayName="Burst Limit";magazines[]={"fza_cannon_limit"};};
-    class fza_ma_safe: fza_cannon_limit{ displayName="MASTER ARM SAFE";magazines[]={"fza_safe"};};
-    class fza_gun_inhibit: fza_cannon_limit {displayName = "Cannon Inhibit";magazines[]={"fza_gun_inhibit"};};
-    class fza_hydra_limit: fza_cannon_limit {displayName = "Salvo Limit";magazines[]={"fza_hydra_limit"};};
-    class fza_pylon_inhibit: fza_cannon_limit {displayName = "Pylon Inhibit";magazines[]={"fza_pylon_inhibit"};};
+    class fza_cannon_limit: fza_m230{displayName="$STR_FZA_AH64_BURST_LIMIT";magazines[]={"fza_cannon_limit"};};
+    class fza_ma_safe: fza_cannon_limit{ displayName="$STR_FZA_AH64_MASTER_ARM_SAFE";magazines[]={"fza_safe"};};
+    class fza_gun_inhibit: fza_cannon_limit {displayName = "$STR_FZA_AH64_CANNON_INHIBIT";magazines[]={"fza_gun_inhibit"};};
+    class fza_hydra_limit: fza_cannon_limit {displayName = "$STR_FZA_AH64_SALVO_LIMIT";magazines[]={"fza_hydra_limit"};};
+    class fza_pylon_inhibit: fza_cannon_limit {displayName = "$STR_FZA_AH64_PYLON_INHIBIT";magazines[]={"fza_pylon_inhibit"};};
 };
