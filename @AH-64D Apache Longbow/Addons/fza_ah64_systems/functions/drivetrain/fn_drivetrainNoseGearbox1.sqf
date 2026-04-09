@@ -107,5 +107,5 @@ _heli setHitPointDamage ["hit_drives_noseGearbox1", _grbxDmg];
 
 if (_grbxHitPtDmg == 1.0) then {
     _engOverspeed = true;
-    [_heli, "fza_ah64_engineOverspeed", 0, _engOverspeed, true] call fza_fnc_setArrayVariable;
+    [_heli, "fza_ah64_engineOverspeed", 0, _engOverspeed, false] call fza_fnc_setArrayVariable;
 };

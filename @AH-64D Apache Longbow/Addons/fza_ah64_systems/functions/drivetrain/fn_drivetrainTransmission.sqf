@@ -84,8 +84,8 @@ private _dmg       = _xmsnHitPtDmg + _dmgPerSec;
 
 _heli setHitPointDamage ["hit_drives_transmission", _dmg];
 
-[_heli, "fza_sfmplus_randomTq", 2, _randomTq1, true] call fza_fnc_setArrayVariable;
-[_heli, "fza_sfmplus_randomTq", 3, _randomTq2, true] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_randomTq", 2, _randomTq1, false] call fza_fnc_setArrayVariable;
+[_heli, "fza_sfmplus_randomTq", 3, _randomTq2, false] call fza_fnc_setArrayVariable;
 
 if (_xmsnHitPtDmg == 1.0) then {
     _heli setHitPointDamage ["hithrotor",           1.0];
