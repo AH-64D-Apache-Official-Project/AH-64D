@@ -2,7 +2,7 @@
 class CfgPatches {
     class fza_ah64_controls {
         units[] = {"fza_ah64base","fza_ah64d_b1","fza_ah64d_b2e","fza_ah64_pilot"};
-        author = "AH-64D Development Team";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         weapons[] = {};
         requiredVersion = 2.10;
         requiredAddons[] = {"A3_Air_F_Beta","A3_Sounds_F","A3_Data_F", "cba_main", "cba_xeh"};

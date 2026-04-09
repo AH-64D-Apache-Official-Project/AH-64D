@@ -3,8 +3,8 @@ class AnimationSources
     ////////RADAR///////
     class fcr_enable
     {
-        displayName = "Mount FCR (Fire Control Radar)";
-        author = "AH-64D Development Team";
+        displayName = "$STR_FZA_AH64_MOUNT_FCR";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         initPhase = 0;
         animPeriod = 0.001;
@@ -36,8 +36,8 @@ class AnimationSources
     };
     class msn_equip_british
     {
-        displayName = "Mount British Mission Equipment";
-        author = "AH-64D Development Team";
+        displayName = "$STR_FZA_AH64_MOUNT_BRITISH_MISSION_EQUIPMENT";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         forceAnimatePhase = 1;
         onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
@@ -53,8 +53,8 @@ class AnimationSources
     };
     class magazine_set_1200
     {
-        displayName = "Swap IAFS for 1200rnd magazine";
-        author = "AH-64D Development Team";
+        displayName = "$STR_FZA_AH64_SWAP_IAFS";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         onPhaseChanged = "_this call fza_fnc_weaponSwapM230Mag";
         source = "user";
         initPhase = 0;
@@ -409,16 +409,16 @@ class AnimationSources
     //////////////DOORS//////////////////
     class pdoor
     {
-        displayName = "Toggle Pilot door";
-        author = "AH-64D Development Team";
+        displayName = "$STR_FZA_AH64_TOGGLE_PILOT_DOOR";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         animPeriod = 1;
         initPhase=0;
     };
     class gdoor
     {
-        displayName = "Toggle Gunner door";
-        author = "AH-64D Development Team";
+        displayName = "$STR_FZA_AH64_TOGGLE_GUNNER_DOOR";
+        author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         animPeriod = 1;
         initPhase=0;

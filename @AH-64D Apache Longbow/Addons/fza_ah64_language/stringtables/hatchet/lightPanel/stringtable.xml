@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_LIGHTING">
+            <English>LIGHTING</English>
+            <Original>LIGHTING</Original>
+            <French>ÉCLAIRAGE</French>
+            <Dutch>VERLICHTING</Dutch>
+            <Spanish>ILUMINACIÓN</Spanish>
+            <Italian>ILLUMINAZIONE</Italian>
+            <German>BELEUCHTUNG</German>
+            <Czech>OSVĚTLENÍ</Czech>
+            <Polish>OŚWIETLENIE</Polish>
+            <Russian>ОСВЕЩЕНИЕ</Russian>
+            <Portuguese>ILUMINAÇÃO</Portuguese>
+            <Korean>조명</Korean>
+            <Japanese>ライティング</Japanese>
+            <Chinesesimp>照明</Chinesesimp>
+            <Turkish>AYDINLATMA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_FLOOD_LIGHT">
+            <English>TOGGLE FLOOD LIGHT</English>
+            <Original>TOGGLE FLOOD LIGHT</Original>
+            <French>BASCULER PROJECTEUR</French>
+            <Dutch>ZOEKMACHT AAN/UIT</Dutch>
+            <Spanish>ALTERNAR LUZ DE INUNDACIÓN</Spanish>
+            <Italian>COMMUTA FARO</Italian>
+            <German>FLUTLICHT UMSCHALTEN</German>
+            <Czech>PŘEPNOUT REFLEKTOR</Czech>
+            <Polish>PRZEŁĄCZNIK OŚWIETLENIA</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПРОЖЕКТОРА</Russian>
+            <Portuguese>ALTERNAR LUZ DE INUNDAÇÃO</Portuguese>
+            <Korean>범람광 전환</Korean>
+            <Japanese>フラッドライト切替</Japanese>
+            <Chinesesimp>切换泛光灯</Chinesesimp>
+            <Turkish>SEL IŞIK AÇKAPA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_ANTI_COLLISION_LIGHT">
+            <English>TOGGLE ANTI-COLLISION LIGHT</English>
+            <Original>TOGGLE ANTI-COLLISION LIGHT</Original>
+            <French>BASCULER FEU ANTI-COLLISION</French>
+            <Dutch>ANTICOLLISIELAMP AAN/UIT</Dutch>
+            <Spanish>ALTERNAR LUZ ANTI-COLISIÓN</Spanish>
+            <Italian>COMMUTA LUCE ANTI-COLLISIONE</Italian>
+            <German>ANTI-KOLLISIONS-LICHT UMSCHALTEN</German>
+            <Czech>PŘEPNOUT ANTICOLLIZNÍ SVĚTLO</Czech>
+            <Polish>PRZEŁĄCZNIK ŚWIATŁA ANTI-KOLIZJI</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПРОТИВОСТОЛКНОВИТЕЛЬНОГО ОГНЯ</Russian>
+            <Portuguese>ALTERNAR LUZ ANTI-COLISÃO</Portuguese>
+            <Korean>충돌방지등 전환</Korean>
+            <Japanese>衝突回避灯切替</Japanese>
+            <Chinesesimp>切换防碰撞灯</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA IŞIK AÇKAPA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ANTI_COLLISION_ON">
+            <English>ANTI-COLLISION ON</English>
+            <Original>ANTI-COLLISION ON</Original>
+            <French>ANTI-COLLISION ACTIVÉ</French>
+            <Dutch>ANTICOLLISIE AAN</Dutch>
+            <Spanish>ANTI-COLISIÓN ACTIVADO</Spanish>
+            <Italian>ANTI-COLLISIONE ATTIVO</Italian>
+            <German>ANTI-KOLLISION EIN</German>
+            <Czech>ANTICOLLIZNÍ REŽIM ZAPNUT</Czech>
+            <Polish>ANTI-KOLIZJA WŁĄCZONE</Polish>
+            <Russian>ПРОТИВОСТОЛКНОВЕНИЕ ВКЛЮЧЕНО</Russian>
+            <Portuguese>ANTI-COLISÃO ATIVADO</Portuguese>
+            <Korean>충돌방지 활성화</Korean>
+            <Japanese>衝突回避オン</Japanese>
+            <Chinesesimp>防碰撞启用</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA AÇIK</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ANTI_COLLISION_OFF">
+            <English>ANTI-COLLISION OFF</English>
+            <Original>ANTI-COLLISION OFF</Original>
+            <French>ANTI-COLLISION DÉSACTIVÉ</French>
+            <Dutch>ANTICOLLISIE UIT</Dutch>
+            <Spanish>ANTI-COLISIÓN DESACTIVADO</Spanish>
+            <Italian>ANTI-COLLISIONE DISATTIVO</Italian>
+            <German>ANTI-KOLLISION AUS</German>
+            <Czech>ANTICOLLIZNÍ REŽIM VYPNUT</Czech>
+            <Polish>ANTI-KOLIZJA WYŁĄCZONE</Polish>
+            <Russian>ПРОТИВОСТОЛКНОВЕНИЕ ОТКЛЮЧЕНО</Russian>
+            <Portuguese>ANTI-COLISÃO DESATIVADO</Portuguese>
+            <Korean>충돌방지 비활성화</Korean>
+            <Japanese>衝突回避オフ</Japanese>
+            <Chinesesimp>防碰撞禁用</Chinesesimp>
+            <Turkish>ANTİ-ÇARPıŞMA KAPAL</Turkish>
+        </Key>
+    </Package>
+</Project>

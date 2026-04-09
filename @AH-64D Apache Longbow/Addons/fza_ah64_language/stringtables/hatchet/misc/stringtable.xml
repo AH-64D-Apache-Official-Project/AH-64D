@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="FZA">
+    <Package name="AH64">
+        <Key ID="STR_FZA_AH64_EMERGENCY_PANEL">
+            <English>EMERGENCY PANEL</English>
+            <Original>TOGGLE EMERGENCY HYDRAULICS</Original>
+            <French>PANNEAU D'URGENCE</French>
+            <Dutch>NOODPANEEL</Dutch>
+            <Spanish>PANEL DE EMERGENCIA</Spanish>
+            <Italian>PANNELLO DI EMERGENZA</Italian>
+            <German>NOTFALLPANEEL</German>
+            <Czech>NOUZOVÝ PANEL</Czech>
+            <Polish>PANEL AWARYJNY</Polish>
+            <Russian>АВАРИЙНАЯ ПАНЕЛЬ</Russian>
+            <Portuguese>PAINEL DE EMERGÊNCIA</Portuguese>
+            <Korean>긴급 패널</Korean>
+            <Japanese>緊急パネル</Japanese>
+            <Chinesesimp>紧急面板</Chinesesimp>
+            <Turkish>ACİL PANELİ</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_EMERGENCY_HYDRAULICS">
+            <English>TOGGLE EMERGENCY HYDRAULICS</English>
+            <Original>TOGGLE EMERGENCY HYDRAULICS</Original>
+            <French>ACTIVER/DÉSACTIVER HYDRAULIQUE D'URGENCE</French>
+            <Dutch>NOODHYDRAULICA IN-/UITSCHAKELEN</Dutch>
+            <Spanish>ACTIVAR/DESACTIVAR HIDRÁULICA DE EMERGENCIA</Spanish>
+            <Italian>ATTIVA/DISATTIVA IDRAULICA DI EMERGENZA</Italian>
+            <German>NOTFALL-HYDRAULIK UMSCHALTEN</German>
+            <Czech>PŘEPNOUT NOUZOVOU HYDRAULIKU</Czech>
+            <Polish>PRZEŁĄCZ HYDRAULIKĘ AWARYJNĄ</Polish>
+            <Russian>ПЕРЕКЛЮЧИТЬ АВАРИЙНУЮ ГИДРАВЛИКУ</Russian>
+            <Portuguese>ATIVAR/DESATIVAR HIDRÁULICA DE EMERGÊNCIA</Portuguese>
+            <Korean>비상 유압 토글</Korean>
+            <Japanese>緊急油圧を切り替え</Japanese>
+            <Chinesesimp>切换紧急液压</Chinesesimp>
+            <Turkish>ACİL HİDROLİK DEĞIŞTIR</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_IHADSS">
+            <English>IHADSS</English>
+            <Original>IHADSS</Original>
+            <French>IHADSS</French>
+            <Dutch>IHADSS</Dutch>
+            <Spanish>IHADSS</Spanish>
+            <Italian>IHADSS</Italian>
+            <German>IHADSS</German>
+            <Czech>IHADSS</Czech>
+            <Polish>IHADSS</Polish>
+            <Russian>IHADSS</Russian>
+            <Portuguese>IHADSS</Portuguese>
+            <Korean>IHADSS</Korean>
+            <Japanese>IHADSS</Japanese>
+            <Chinesesimp>IHADSS</Chinesesimp>
+            <Turkish>IHADSS</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_EQUIP_STOW_MONOCLE">
+            <English>EQUIP/STOW MONOCLE</English>
+            <Original>EQUIP/STOW MONOCLE</Original>
+            <French>ÉQUIPER/RANGER MONOCLE</French>
+            <Dutch>MONOCLE OPZETTEN/OPBERGEN</Dutch>
+            <Spanish>EQUIPAR/GUARDAR MONÓCULO</Spanish>
+            <Italian>INDOSSA/RIPONI MONOCOLO</Italian>
+            <German>MONOKEL ANBRINGEN/VERSTAUEN</German>
+            <Czech>NASADIT/SCHOVAT MONOKL</Czech>
+            <Polish>ZAŁÓŻ/SCHOWAJ MONOKL</Polish>
+            <Russian>НАДЕТЬ/УБРАТЬ МОНОКЛЬ</Russian>
+            <Portuguese>EQUIPAR/GUARDAR MONÓCULO</Portuguese>
+            <Korean>단안경 착용/보관</Korean>
+            <Japanese>モノキュルを装着/収納</Japanese>
+            <Chinesesimp>装备/收起单眼镜</Chinesesimp>
+            <Turkish>MONOKULü KULLAN/SAKLA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ARMAMENT_PANEL">
+            <English>ARMAMENT PANEL</English>
+            <Original>ARMAMENT PANEL</Original>
+            <French>PANNEAU D'ARMEMENT</French>
+            <Dutch>BEWAPENINGSPANEEL</Dutch>
+            <Spanish>PANEL DE ARMAMENTO</Spanish>
+            <Italian>PANNELLO ARMAMENTI</Italian>
+            <German>BEWAFFNUNGSPANEEL</German>
+            <Czech>ZBROJNÍ PANEL</Czech>
+            <Polish>PANEL UZBROJENIA</Polish>
+            <Russian>ПАНЕЛЬ ВООРУЖЕНИЯ</Russian>
+            <Portuguese>PAINEL DE ARMAMENTO</Portuguese>
+            <Korean>무기 패널</Korean>
+            <Japanese>兵装パネル</Japanese>
+            <Chinesesimp>武器面板</Chinesesimp>
+            <Turkish>SILAH PANELİ</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_TOGGLE_ARM_SAFE">
+            <English>TOGGLE ARM/SAFE</English>
+            <Original>TOGGLE ARM/SAFE</Original>
+            <French>BASCULER ARMÉ/SÛR</French>
+            <Dutch>SCHAKELEN BEWAPEND/VEILIG</Dutch>
+            <Spanish>CAMBIAR ARMADO/SEGURO</Spanish>
+            <Italian>ATTIVA/DISATTIVA ARMATO/SICURO</Italian>
+            <German>SCHARF/SICHER UMSCHALTEN</German>
+            <Czech>PŘEPNOUT PŘIPRAVEN/BEZPEČNÝ</Czech>
+            <Polish>PRZEŁĄCZ GOTÓW/BEZPIECZNY</Polish>
+            <Russian>ПЕРЕКЛЮЧИТЬ БОЕВОЙ/БЕЗОПАСНЫЙ</Russian>
+            <Portuguese>ALTERNAR ARMADO/SEGURO</Portuguese>
+            <Korean>전투/안전 토글</Korean>
+            <Japanese>アーム/セーフを切り替え</Japanese>
+            <Chinesesimp>切换武装/安全</Chinesesimp>
+            <Turkish>SİLAHLI/GÜVENLI DEĞIŞTIR</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACTIVATE_GROUND_OVERRIDE">
+            <English>TOGGLE GROUND OVERRIDE</English>
+            <Original>TOGGLE GROUND OVERRIDE</Original>
+            <French>BASCULER PRIORITÉ SOL</French>
+            <Dutch>PRIORITEIT GROND OMSCHAKELEN</Dutch>
+            <Spanish>CAMBIAR ANULACIÓN DE TIERRA</Spanish>
+            <Italian>ATTIVA/DISATTIVA PRIORITÀ TERRA</Italian>
+            <German>BODEN-PRIORITÄT UMSCHALTEN</German>
+            <Czech>PŘEPNOUT PRIORITU ZEMĚ</Czech>
+            <Polish>PRZEŁĄCZ PRIORYTET GRUNTU</Polish>
+            <Russian>ПЕРЕКЛЮЧИТЬ ПРИОРИТЕТ ЗЕМЛИ</Russian>
+            <Portuguese>ALTERNAR PRIORIDADE DE TERRA</Portuguese>
+            <Korean>지상 우선권 토글</Korean>
+            <Japanese>グラウンドオーバーライドを切り替え</Japanese>
+            <Chinesesimp>切换地面优先级</Chinesesimp>
+            <Turkish>ZEMIN ÖNCELİĞİ DEĞIŞTIR</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_MASTER_WARNING_CAUTION_PANEL">
+            <English>WARNING/CAUTION PANEL</English>
+            <Original>WARNING/CAUTION PANEL</Original>
+            <French>PANNEAU AVERTISSEMENT/ATTENTION</French>
+            <Dutch>WAARSCHUWING/VOORZICHT PANEEL</Dutch>
+            <Spanish>PANEL DE ADVERTENCIA/PRECAUCIÓN</Spanish>
+            <Italian>PANNELLO AVVERTENZA/ATTENZIONE</Italian>
+            <German>WARNUNG-/ACHTUNGSPANEEL</German>
+            <Czech>PANEL VAROVÁNÍ/OPATRNOSTI</Czech>
+            <Polish>PANEL OSTRZEŻENIE/OSTROŻNOŚĆ</Polish>
+            <Russian>ПАНЕЛЬ ПРЕДУПРЕЖДЕНИЕ/ВНИМАНИЕ</Russian>
+            <Portuguese>PAINEL AVISO/PRECAUÇÃO</Portuguese>
+            <Korean>경고/주의 패널</Korean>
+            <Japanese>警告/注意パネル</Japanese>
+            <Chinesesimp>警告/注意面板</Chinesesimp>
+            <Turkish>UYARI/DİKKAT PANELİ</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACKNOWLEDGE_MASTER_CAUTION">
+            <English>ACKNOWLEDGE MASTER CAUTION</English>
+            <Original>ACKNOWLEDGE MASTER CAUTION</Original>
+            <French>ACQUITTER ATTENTION PRINCIPAL</French>
+            <Dutch>VOORZICHT BEVESTIGEN</Dutch>
+            <Spanish>RECONOCER PRECAUCIÓN PRINCIPAL</Spanish>
+            <Italian>RICONOSCI ATTENZIONE PRINCIPALE</Italian>
+            <German>ACHTUNG BESTÄTIGEN</German>
+            <Czech>POTVRDIT OPATRNOST</Czech>
+            <Polish>POTWIERDŹ OSTROŻNOŚĆ</Polish>
+            <Russian>ПОДТВЕРДИТЬ ВНИМАНИЕ</Russian>
+            <Portuguese>RECONHECER PRECAUÇÃO PRINCIPAL</Portuguese>
+            <Korean>주의 인정</Korean>
+            <Japanese>注意を確認</Japanese>
+            <Chinesesimp>确认注意</Chinesesimp>
+            <Turkish>DİKKAT ONAYLA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACKNOWLEDGE_MASTER_WARNING">
+            <English>ACKNOWLEDGE MASTER WARNING</English>
+            <Original>ACKNOWLEDGE MASTER WARNING</Original>
+            <French>ACQUITTER AVERTISSEMENT PRINCIPAL</French>
+            <Dutch>WAARSCHUWING BEVESTIGEN</Dutch>
+            <Spanish>RECONOCER ADVERTENCIA PRINCIPAL</Spanish>
+            <Italian>RICONOSCI AVVERTENZA PRINCIPALE</Italian>
+            <German>WARNUNG BESTÄTIGEN</German>
+            <Czech>POTVRDIT VAROVÁNÍ</Czech>
+            <Polish>POTWIERDŹ OSTRZEŻENIE</Polish>
+            <Russian>ПОДТВЕРДИТЬ ПРЕДУПРЕЖДЕНИЕ</Russian>
+            <Portuguese>RECONHECER AVISO PRINCIPAL</Portuguese>
+            <Korean>경고 인정</Korean>
+            <Japanese>警告を確認</Japanese>
+            <Chinesesimp>确认警告</Chinesesimp>
+            <Turkish>UYARI ONAYLA</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_KEYBOARD_UNIT">
+            <English>KEYBOARD</English>
+            <Original>KEYBOARD</Original>
+            <French>CLAVIER</French>
+            <Dutch>TOETSENBORD</Dutch>
+            <Spanish>TECLADO</Spanish>
+            <Italian>TASTIERA</Italian>
+            <German>TASTATUR</German>
+            <Czech>KLÁVESNICE</Czech>
+            <Polish>KLAWIATURA</Polish>
+            <Russian>КЛАВИАТУРА</Russian>
+            <Portuguese>TECLADO</Portuguese>
+            <Korean>키보드</Korean>
+            <Japanese>キーボード</Japanese>
+            <Chinesesimp>键盘</Chinesesimp>
+            <Turkish>KLAVYATURİ</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACTIVATE_KEYBOARD_UNIT_TOGGLE">
+            <English>TOGGLE KEYBOARD UNIT</English>
+            <Original>TOGGLE KEYBOARD UNIT</Original>
+            <French>BASCULER UNITÉ CLAVIER</French>
+            <Dutch>TOETSENBORDUNIT OMSCHAKELEN</Dutch>
+            <Spanish>CAMBIAR UNIDAD DE TECLADO</Spanish>
+            <Italian>ATTIVA/DISATTIVA UNITÀ TASTIERA</Italian>
+            <German>TASTATUREINHEIT UMSCHALTEN</German>
+            <Czech>PŘEPNOUT JEDNOTKU KLÁVESNICE</Czech>
+            <Polish>PRZEŁĄCZ JEDNOSTKĘ KLAWIATURY</Polish>
+            <Russian>ПЕРЕКЛЮЧИТЬ БЛОК КЛАВИАТУРЫ</Russian>
+            <Portuguese>ALTERNAR UNIDADE DE TECLADO</Portuguese>
+            <Korean>키보드 장치 토글</Korean>
+            <Japanese>キーボードユニットを切り替え</Japanese>
+            <Chinesesimp>切换键盘单位</Chinesesimp>
+            <Turkish>KLAVYATURİ BİRİMİ DEĞIŞTIR</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_ACTIVATE_KEYBOARD_UNIT">
+            <English>ACTIVATE KEYBOARD UNIT</English>
+            <Original>ACTIVATE KEYBOARD UNIT</Original>
+            <French>ACTIVER UNITÉ CLAVIER</French>
+            <Dutch>TOETSENBORDUNIT ACTIVEREN</Dutch>
+            <Spanish>ACTIVAR UNIDAD DE TECLADO</Spanish>
+            <Italian>ATTIVA UNITÀ TASTIERA</Italian>
+            <German>TASTATUREINHEIT AKTIVIEREN</German>
+            <Czech>AKTIVOVAT JEDNOTKU KLÁVESNICE</Czech>
+            <Polish>AKTYWUJ JEDNOSTKĘ KLAWIATURY</Polish>
+            <Russian>АКТИВИРОВАТЬ БЛОК КЛАВИАТУРЫ</Russian>
+            <Portuguese>ATIVAR UNIDADE DE TECLADO</Portuguese>
+            <Korean>키보드 장치 활성화</Korean>
+            <Japanese>キーボードユニットを有効化</Japanese>
+            <Chinesesimp>激活键盘单位</Chinesesimp>
+            <Turkish>KLAVYATURİ BİRİMİNİ ETKINLEŞTIR</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_DEACTIVATE_KEYBOARD_UNIT">
+            <English>DEACTIVATE KEYBOARD UNIT</English>
+            <Original>DEACTIVATE KEYBOARD UNIT</Original>
+            <French>DÉSACTIVER UNITÉ CLAVIER</French>
+            <Dutch>TOETSENBORDUNIT DEACTIVEREN</Dutch>
+            <Spanish>DESACTIVAR UNIDAD DE TECLADO</Spanish>
+            <Italian>DISATTIVA UNITÀ TASTIERA</Italian>
+            <German>TASTATUREINHEIT DEAKTIVIEREN</German>
+            <Czech>DEAKTIVOVAT JEDNOTKU KLÁVESNICE</Czech>
+            <Polish>DEZAKTYWUJ JEDNOSTKĘ KLAWIATURY</Polish>
+            <Russian>ДЕАКТИВИРОВАТЬ БЛОК КЛАВИАТУРЫ</Russian>
+            <Portuguese>DESATIVAR UNIDADE DE TECLADO</Portuguese>
+            <Korean>키보드 장치 비활성화</Korean>
+            <Japanese>キーボードユニットを無効化</Japanese>
+            <Chinesesimp>停用键盘单位</Chinesesimp>
+            <Turkish>KLAVYATURİ BİRİMİNİ DEVRE DIŞI BIRAK</Turkish>
+        </Key>
+    </Package>
+</Project>

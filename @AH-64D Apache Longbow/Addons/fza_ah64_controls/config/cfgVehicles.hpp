@@ -12,7 +12,7 @@ class CfgVehicles {
     class fza_ah64base : Helicopter_Base_F {
         icon        = "fza_ah64_controls\data\icons\b1_topdown_128x128_ca.paa";
         picture     = "fza_ah64_controls\data\icons\b1_silloheutte_128x64_ca.paa";
-        displayName = "AH-64 Offical Project Base class";
+        displayName = "$STR_FZA_AH64_BASE_CLASS";
         model       = "\fza_ah64_model\fza_ah64d_b1.p3d";
         scope       = 0;
         mapSize     = 10;
@@ -103,7 +103,7 @@ class CfgVehicles {
         armor                    = 600;
         attenuationEffectType    = "HeliAttenuation";
         audible                  = 4;
-        author                   = "AH-64D Development Team";
+        author                   = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         availableForSupportTypes[] = {"CAS_Heli", "Transport"};
         camshakecoef             = 0.3;
         cargoAction[]            = {"fza_ah64_leftcargo","fza_ah64_rightcargo"};
@@ -200,7 +200,7 @@ class CfgVehicles {
         vehicleclass             = "fza_helicopters";
         weapons[]                = {"fza_CMChaffLauncher","fza_AseIRjammer"};
         class Library {
-            libTextDesc = "The AH-64D Block I is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.";
+            libTextDesc = "$STR_FZA_AH64_OFFICIAL_PROJECT_LIBRARY_DESCRIPTION";
         };
         class HeadLimits {
             initanglex = 0;
@@ -274,15 +274,15 @@ class CfgVehicles {
     class fza_ah64d_b1: fza_ah64base {
         side            = 1;
         scope           = 2;
-        author          = "AH-64D Development Team";
-        displayName     = "AH-64D BLOCK I";
+        author          = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
+        displayName     = "$STR_FZA_AH64_BLOCK_1_CLASS";
         editorPreview   = "\fza_ah64_controls\data\editorpreview\fza_ah64d_b1.jpg";
     };
 
     class StaticMGWeapon;
     class fza_ah64_pylon_base: StaticMGWeapon {
         scope = 1;
-        displayName = "Pylon";
+        displayName = "$STR_FZA_AH64_PYLON";
         crew = "";
         model = "\fza_ah64_controls\data\pya_pylon_single.p3d";
         destrType = "DestructDefault";
@@ -312,6 +312,4 @@ class CfgVehicles {
         ace_dragging_canDrag = 1;
         ace_dragging_canCarry = 1;
     };
-
-    class fza_ah64d_b2e: fza_ah64base{scope = 0;displayName = "DEPRECATED";};
 };

@@ -46,13 +46,13 @@ switch(_control) do {
         };
         playsound "fza_ah64_switch_flip3";
     };
-    Case "OFF": {
+    Case (localize "STR_FZA_AH64_NVS_OFF"): {
         _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0];
     };
-    Case "NORM": {
+    Case (localize "STR_FZA_AH64_NVS_NORM"): {
         _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0.5];
     };
-    Case "FIXED": {
+    Case (localize "STR_FZA_AH64_NVS_FIXED"): {
         _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 1];
     };
 };

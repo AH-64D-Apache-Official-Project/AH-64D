@@ -19,7 +19,7 @@ class CfgVehicles {
         vehicleClass = fza_dms;
         class Attributes {
             class fza_dms_point_index {
-                displayName = "Point Index";
+                displayName = "$STR_FZA_AH64_DMS_POINT_INDEX";
                 tooltip = "";
                 control = "Edit";
                 property = "fza_dms_point_index";
@@ -31,8 +31,8 @@ class CfgVehicles {
                 condition = "1";
             };
             class fza_dms_point_ident {
-                displayName = "Point Ident";
-                tooltip = "The 2-character IDENT code describing the point";
+                displayName = "$STR_FZA_AH64_DMS_POINT_IDENT";
+                tooltip = "$STR_FZA_AH64_DMS_POINT_IDENT_INFO";
                 control = fza_dms_ident;
                 property = "fza_dms_point_ident";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
@@ -43,8 +43,8 @@ class CfgVehicles {
                 condition = "1";
             };
             class fza_dms_point_free {
-                displayName = "Point Free Text";
-                tooltip = "3 characters of free text describing the point";
+                displayName = "$STR_FZA_AH64_DMS_POINT_FREE";
+                tooltip = "$STR_FZA_AH64_DMS_POINT_FREE_INFO";
                 control = "Edit";
                 property = "fza_dms_point_free";
                 expression =  "_this setVariable ['%s',_value]; _this call fza_dms_fnc_edenPointModify;";
@@ -60,10 +60,10 @@ class CfgVehicles {
     class fza_dms_point_wp_hz : fza_dms_point_base {
         scope = public;
         fza_point_type[] = {POINT_TYPE_WP, POINT_TYPE_HZ};
-        displayName = "DMS Waypoint / Hazard";
+        displayName = "$STR_FZA_AH64_DMS_WAYPOINT_HAZARD";
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
-                tooltip = "Waypoint/Hazards are allowed to range from 1-50";
+                tooltip = "$STR_FZA_AH64_DMS_WAYPOINT_HAZARD_INFO";
                 defaultValue = "[_this, 'fza_dms_point_wp_hz'] call fza_dms_fnc_edenPointNext;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
@@ -77,10 +77,10 @@ class CfgVehicles {
     class fza_dms_point_cm : fza_dms_point_base {
         scope = public;
         fza_point_type[] = {POINT_TYPE_CM};
-        displayName = "DMS Control Measure";
+        displayName = "$STR_FZA_AH64_DMS_CONTROL_MEASURE";
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
-                tooltip = "Control Measures are allowed to range from 51-99."; //Beware that Present Positions (PPOS) will overwrite CM 93 thru 99.
+                tooltip = "$STR_FZA_AH64_DMS_CONTROL_MEASURE_INFO"; //Beware that Present Positions (PPOS) will overwrite CM 93 thru 99.
                 defaultValue = "([_this, 'fza_dms_point_cm'] call fza_dms_fnc_edenPointNext)+50;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
@@ -94,10 +94,10 @@ class CfgVehicles {
     class fza_dms_point_tg : fza_dms_point_base {
         scope = public;
         fza_point_type[] = {POINT_TYPE_TG};
-        displayName = "DMS Target / Threat";
+        displayName = "$STR_FZA_AH64_DMS_TARGET_THREAT";
         class Attributes : Attributes {
             class fza_dms_point_index : fza_dms_point_index {
-                tooltip = "Target/Threats are allowed to range from 1-50";
+                tooltip = "$STR_FZA_AH64_DMS_TARGET_THREAT_INFO";
                 defaultValue = "[ _this, 'fza_dms_point_tg'] call fza_dms_fnc_edenPointNext;";
             };
             class fza_dms_point_ident : fza_dms_point_ident {
