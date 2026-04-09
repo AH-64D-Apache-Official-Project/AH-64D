@@ -7,9 +7,6 @@ class CfgPatches
         weapons[] = {};
         requiredVersion = 2.10;
         requiredAddons[] = {"fza_ah64_controls", "HCT_core"};
-        version = 2.2.1;
-        versionStr = "2.2.1";
-        versionAr[] = {2, 2, 1};
         #include "version.hpp"
     };
 };
