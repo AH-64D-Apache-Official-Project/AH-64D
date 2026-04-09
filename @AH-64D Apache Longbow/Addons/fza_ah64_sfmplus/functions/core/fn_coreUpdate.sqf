@@ -212,7 +212,6 @@ hintsilent format ["v0.11
                     _heli getVariable "fza_sfmplus_engPctNP",
                     _heli getVariable "fza_sfmplus_engPowerLeverState",
                     fza_sfmplus_collectiveOutput,
-                    _heli getVariable "fza_sfmplus_engFF",
-                    _heli getVariable "fza_sfmplus_engBaseNG"];
+                    _heli getVariable "fza_sfmplus_engFF"];
 */
 #endif

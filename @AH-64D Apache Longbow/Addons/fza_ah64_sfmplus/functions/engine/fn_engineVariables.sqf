@@ -36,7 +36,6 @@ _heli setVariable ["fza_sfmplus_isAutorotating",        false];
 _heli setVariable ["fza_sfmplus_engFF",                 [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engBaseNG",             [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engPctNG",              [0.0, 0.0]];
-_heli setVariable ["fza_sfmplus_engBaseNP",             [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engPctNP",              [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engPctTQ",              [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engBaseTGT",            [0.0, 0.0]];
@@ -46,3 +45,5 @@ _heli setVariable ["fza_sfmplus_engOilPSI",             [0.0, 0.0]];
 
 _heli setVariable ["fza_sfmplus_engOutputTq",           [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engTrimTq",             [0.0, 0.0]];
+
+_heli setVariable ["fza_sfmplus_randomTq",              [0.0, 0.0, 0.0, 0.0]];
