@@ -31,7 +31,7 @@ if (_state == "OFF") then {
     [_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state, true] call fza_fnc_setArrayVariable;
 
     if (_engState == "ON") then {
-        [_heli, _engNum] call fza_sfmplus_fnc_engineReset;
+        [_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
     };
 
     //HeliSim
