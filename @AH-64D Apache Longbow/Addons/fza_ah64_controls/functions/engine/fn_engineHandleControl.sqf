@@ -28,6 +28,8 @@ private _apuBtnOn     = _heli getVariable "fza_systems_apuBtnOn";
 private _battSwitchOn = _heli getVariable "fza_systems_battSwitchOn";
 private _battBusOn    = _heli getVariable "fza_systems_battBusOn";
 
+if (player != driver _heli) exitWith {};
+
 switch(_control) do {
     case "apu": {
         if (!_apuBtnOn && _battBusOn) then {
