@@ -3,7 +3,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_showPopupv2_2",
     "CHECKBOX",
-    ["Show Popup Intro", "Show popup when the player gets into an Apache"],
+    [(localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP"), (localize "STR_FZA_AH64_SETTINGS_SHOW_POPUP_INFO")],
     [_projName, "UI"],
     true,
     2
@@ -12,7 +12,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_vanillaTargetingEnable",
     "CHECKBOX",
-    ["Show vanilla targeting information (restart required)", "Disabling this will hide vanilla targeting information (restart needed)"],
+    [(localize "STR_FZA_AH64_SETTINGS_VANILLA_TARGETING"), (localize "STR_FZA_AH64_SETTINGS_VANILLA_TARGETING_INFO")],
     [_projName, "UI"],
     [true],
     0,
@@ -25,7 +25,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmplusRealismSetting",
     "LIST",
-    ["Aircraft Realism Settings", ""],
+    [(localize "STR_FZA_AH64_SETTINGS_HELISIM_REALISM"), (localize "STR_FZA_AH64_SETTINGS_HELISIM_REALISM_INFO")],
     [_projName, "Flight model"],
     [[CASUAL, REALISTIC],["Casual", "Realistic"],0],
     0
@@ -34,7 +34,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_sfmplus_cyclicCenterTrimMode",
     "CHECKBOX",
-    ["Cyclic Center Trim Mode", "When enabled, the cyclic is locked out until re-centered."],
+    [(localize "STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE"), (localize "STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -43,7 +43,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_sfmplus_pedalCenterTrimMode",
     "CHECKBOX",
-    ["Pedal Center Trim Mode", "When enabled, the pedals are locked out until re-centered."],
+    [(localize "STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE"), (localize "STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -52,7 +52,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusSpringlessCyclic",
     "CHECKBOX",
-    ["Springless Cyclic", "When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS."],
+    [(localize "STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC"), (localize "STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -70,7 +70,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyPitch",
     "CHECKBOX",
-    ["Keyboard Sticky Pitch", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down"],
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -79,7 +79,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyRoll",
     "CHECKBOX",
-    ["Keyboard Sticky Roll", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down."],
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -88,7 +88,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusKeyboardStickyYaw",
     "CHECKBOX",
-    ["Keyboard Sticky Yaw", "DOES NOT WORK WITH AUTO PEDAL! When enabled, keyboard input is continously updated while the input key is held down."],
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -97,7 +97,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusAutoPedal",
     "CHECKBOX",
-    ["Keyboard Auto Pedal", "DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI."],
+    [(localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL"), (localize "STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL_INFO")],
     [_projName, "Flight model"],
     [true],
     2
@@ -106,7 +106,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusMouseAsJoystick",
     "CHECKBOX",
-    ["Mouse as Joystick", "DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option."],
+    [(localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK"), (localize "STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -115,7 +115,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusMouseSense",
     "SLIDER",
-    ["Mouse Sensitivity", "Controls the sensitivity of the Mouse when used as a Joystick."],
+    [(localize "STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY"), (localize "STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY_INFO")],
     [_projName, "Flight model"],
     [0.1, 1.0, 1.0, 1],
     2
@@ -124,11 +124,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmplusEnvironment",
     "LIST",
-    ["Aircraft Environmental Settings", "Standard day is Sea Level and 15 deg C.
-    Europe is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C. 
-    The Middle East is a base altitude of 1,800ft and a temperature of 30 deg C. 
-    Central Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C. 
-    Asia is a base altitude of 3100ft and a temperature of 25 deg C."],
+    [(localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_INFO")],
     [_projName, "Flight model"],
     [[ISA_STD, EUROPE_SUMMER, EUROPE_WINTER, MIDDLE_EAST, CENTRAL_ASIA_SUMMER, CENTRAL_ASIA_WINTER, ASIA],["Standard Day", "Europe - Summer", "Europe - Winter", "Middle East", "Cental Asia - Summer", "Central Asia - Winter", "Asia"],1],
     0
@@ -137,7 +133,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusVrsWarning",
     "CHECKBOX",
-    ["Enable VRS Warning", "When enabled, will alert the pilot to the onset of VRS."],
+    [(localize "STR_FZA_AH64_SETTINGS_VRS_WARNING"), (localize "STR_FZA_AH64_SETTINGS_VRS_WARNING_INFO")],
     [_projName, "Flight model"],
     [false],
     2
@@ -146,43 +142,16 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_sfmPlusFmDebug",
     "CHECKBOX",
-    ["Enable FM Debuging", "Displays debug output for troubleshooting FM issues."],
+    [(localize "STR_FZA_AH64_SETTINGS_FM_DEBUG"), (localize "STR_FZA_AH64_SETTINGS_FM_DEBUG_INFO")],
     [_projName, "Flight model"],
     [false],
     2
 ] call CBA_fnc_addSetting;
 
 [
-    "fza_ah64_aiFireControl",
-    "CHECKBOX",
-    ["Fire suppresion", "Enabling an AI Pilot to handle engine fires"],
-    [_projName, "AI Control settings"],
-    [true],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_aiFireResponse",
-    "SLIDER",
-    ["Fire suppresion response time", "This setting controls how long it takes the Ai to handle an engine fire"],
-    [_projName, "AI Control settings"],
-    [4, 30, 15, 0],
-    0
-] call CBA_fnc_addSetting;
-
-[
-    "fza_ah64_aiFloodlight",
-    "CHECKBOX",
-    ["Cockpit lighting control", "Enabling an AI to turn on the cockpit lighting near dark (does not work with full AI crew)"],
-    [_projName, "AI Control settings"],
-    [false],
-    0
-] call CBA_fnc_addSetting;
-
-[
     "fza_ah64_volumeMaster",
     "SLIDER",
-    ["Master volume Knob", "Temporary Master volume control"],
+    [(localize "STR_FZA_AH64_SETTINGS_MASTER_VOLUME"), (localize "STR_FZA_AH64_SETTINGS_MASTER_VOLUME_INFO")],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
     2
@@ -191,7 +160,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_volumeRlwr",
     "SLIDER",
-    ["RLWR volume Knob", "Temporary RLWR volume control"],
+    [(localize "STR_FZA_AH64_SETTINGS_RLWR_VOLUME"), (localize "STR_FZA_AH64_SETTINGS_RLWR_VOLUME_INFO")],
     [_projName, "Coms Panel"],
     [0, 5, 3, 1],
     2
@@ -200,7 +169,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_tadsCycleIncludeDTV",
     "CHECKBOX",
-    ["NV Cycle Include DTV", "With this the Night vision button will also cycle through DTV and not just BHOT & WHOT"],
+    [(localize "STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV"), (localize "STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV_INFO")],
     [_projName, "TADS Controls"],
     [true],
     2
@@ -209,7 +178,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_tadsCycleIncludeDVO",
     "CHECKBOX",
-    ["NV Cycle Include DVO", "With this the Night vision button will also cycle through DVO and not just BHOT & WHOT"],
+    [(localize "STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO"), (localize "STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO_INFO")],
     [_projName, "TADS Controls"],
     [true],
     2
@@ -218,7 +187,7 @@ private _projName = "AH-64D Official Project";
 [
     "fza_ah64_LMCSensitivity",
     "SLIDER",
-    ["LMC Sensitivity", "(LMC) Linear motion compensator input sensitivity control"],
+    [(localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY"), (localize "STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO")],
     [_projName, "TADS Controls"],
     [0, 1, 0.5, 1],
     2

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="FZA">
     <Package name="AH64">
-        <Key ID="STR_FZA_AH64_PROJECT_LIBRARY_DESCRIPTION">
-            <English>The AH-64D Block I is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.</English>
-            <Original>The AH-64D Block I is an anti-tank attack helicopter. Defining characteristics are: Four bladed main rotor, X-shaped tail rotor, a boxy cockpit with two distinct bays on the sides, two stub wings with two pylons each, two main wheels and a tail wheel, a chin mounted turret, and a long rounded tailboom with a stabilizator at the rear. Production began in 1982 and the first unit was deployed in 1986. By 1993, the US Army had over 800 Apaches in service. It was firsted used in combat during Operation Just Cause, the invasion of Panama in 1989 where some drawbacks were encountered (primarily with the avionics). During Desert Storm in 1991, Apaches performed the first strike of that conflict by destroying Iraqi early warning radars. More drawbacks were encountered in Desert Storm, some of which were: limited navigation capabilities, high maintenance, and intolerance to desert conditions. AH-64As went through some modernization upgrades, but the AH-64A has been phased out of active US Army service in favor of the AH-64D, and now only National Guard and Reserve units operate the A model. The AH-64D has two General Electric T700-GE-701C engines producing a total of 3392shp, giving the aircraft a maximum clean speed of about 227mph (365kmh). This speed comes down to about 300kmh loaded. Combat endurance is about 2 hours with standard loads. It is armed with a M230 30mm Chain Gun cannon by default, with provisions for AGM-114 HELLFIRE missiles and 2.75in HYDRA-70 rockets. Experimentally it has used the Stinger missile, Sidearm missile, Sidewinder missile, and Starstreak missile. The US Army has not used any of these weapons operationally with the Apache.</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SHOW_POPUP">
+            <English>Show Popup Intro</English>
+            <Original>Show Popup Intro</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -18,9 +18,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_OFFICIAL_PROJECT">
-            <English>AH-64D Official Project</English>
-            <Original>AH-64D Official Project</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SHOW_POPUP_INFO">
+            <English>Show popup when the player gets into an Apache</English>
+            <Original>Show popup when the player gets into an Apache</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -35,9 +35,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_COCKPIT_CONTROLS">
-            <English>AH-64D Official Project: Cockpit Controls</English>
-            <Original>AH-64D Official Project: Cockpit Controls</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_VANILLA_TARGETING">
+            <English>Show Vanilla Targeting Information (restart required)</English>
+            <Original>Show Vanilla Targeting Information (restart required)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -52,9 +52,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_INPUT">
-            <English>AH-64D Official Project: Input</English>
-            <Original>AH-64D Official Project: Input</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_VANILLA_TARGETING_INFO">
+            <English>Disabling this will hide vanilla targeting information (restart needed)</English>
+            <Original>Disabling this will hide vanilla targeting information (restart needed)</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -69,9 +69,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_DEVELOPMENT_TEAM">
-            <English>AH-64 Development Team</English>
-            <Original>AH-64 Development Team</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM">
+            <English>Aircraft Realism Settings</English>
+            <Original>Aircraft Realism Settings</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -86,9 +86,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_BASE_CLASS">
-            <English>AH-64 Offical Project Base class</English>
-            <Original>AH-64 Offical Project Base class</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_HELISIM_REALISM_INFO">
+            <English>Switch helisim between different realism levels, Casual recomneded for keyboard</English>
+            <Original>Switch helisim between different realism levels, Casual recomneded for keyboard</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -103,9 +103,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_BLOCK_1_CLASS">
-            <English>AH-64D BLOCK I</English>
-            <Original>AH-64D BLOCK I</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE">
+            <English>Cyclic Center Trim Mode</English>
+            <Original>Cyclic Center Trim Mode</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -120,9 +120,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_PYLON">
-            <English>Pylon</English>
-            <Original>Pylon</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_CYCLIC_CENTER_TRIM_MODE_INFO">
+            <English>When enabled, the cyclic is locked out until re-centered</English>
+            <Original>When enabled, the cyclic is locked out until re-centered</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -137,11 +137,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-
-        <!-- ////ANIMATIONS//// -->
-        <Key ID="STR_FZA_AH64_TOGGLE_PILOT_DOOR">
-            <English>Toggle Pilot door</English>
-            <Original>Toggle Pilot door</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE">
+            <English>Pedal Center Trim Mode</English>
+            <Original>Pedal Center Trim Mode</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -156,9 +154,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TOGGLE_GUNNER_DOOR">
-            <English>Toggle Gunner door</English>
-            <Original>Toggle Gunner door</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_PEDAL_CENTER_TRIM_MODE_INFO">
+            <English>When enabled, the pedals are locked out until re-centered</English>
+            <Original>When enabled, the pedals are locked out until re-centered</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -173,9 +171,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_MOUNT_FCR">
-            <English>Mount FCR (Fire Control Radar)</English>
-            <Original>Mount FCR (Fire Control Radar)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC">
+            <English>Springless Cyclic</English>
+            <Original>Springless Cyclic</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -190,9 +188,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_MOUNT_BRITISH_MISSION_EQUIPMENT">
-            <English>Mount British Mission Equipment</English>
-            <Original>Mount British Mission Equipment</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_CYCLIC_INFO">
+            <English>When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS</English>
+            <Original>When enabled, cyclic force trim is disabled. This is for users with force feedback or springless HOTAS</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -207,9 +205,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_SWAP_IAFS">
-            <English>Swap IAFS for 1200rnd magazine</English>
-            <Original>Swap IAFS for 1200rnd magazine</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS">
+            <English>Springless Pedals</English>
+            <Original>Springless Pedals</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -224,9 +222,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_PILOT">
-            <English>AH-64D Pilot</English>
-            <Original>AH-64D Pilot</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_SPRINGLESS_PEDALS_INFO">
+            <English>When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold</English>
+            <Original>When enabled, pedal force trim is disabled. This is for users with force feedback or springless pedals. This option also disables Heading Hold</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -241,11 +239,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-
-        <!-- ////TEXTURES//// -->
-        <Key ID="STR_FZA_AH64_TEXTURE_DEFAULT">
-            <English>Default</English>
-            <Original>Default</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH">
+            <English>Keyboard Sticky Pitch</English>
+            <Original>Keyboard Sticky Pitch</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -260,9 +256,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_DEFAULT_WEATHERED">
-            <English>Default Weathered</English>
-            <Original>Default Weathered</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_PITCH_INFO">
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -277,9 +273,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_ARB229TH">
-            <English>229th ARB</English>
-            <Original>229th ARB</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL">
+            <English>Keyboard Sticky Roll</English>
+            <Original>Keyboard Sticky Roll</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -294,9 +290,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_ARB229TH_WEATHERED">
-            <English>229th ARB (weathered)</English>
-            <Original>229th ARB (weathered)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_ROLL_INFO">
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -311,9 +307,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_INDIAN_AIR_FORCE">
-            <English>Indian Air Force</English>
-            <Original>Indian Air Force</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW">
+            <English>Keyboard Sticky Yaw</English>
+            <Original>Keyboard Sticky Yaw</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -328,9 +324,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_RNLAf_Q_09">
-            <English>RNLAF 301 Squadron Q-09</English>
-            <Original>RNLAF 301 Squadron Q-09</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_STICKY_YAW_INFO">
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</English>
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! When enabled, keyboard input is continously updated while the input key is held down</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -345,9 +341,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_RNLAf_DEMO">
-            <English>RNLAF 301 Squadron Demo Team</English>
-            <Original>RNLAF 301 Squadron Demo Team</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL">
+            <English>Keyboard Auto Pedal</English>
+            <Original>Keyboard Auto Pedal</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -362,9 +358,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC">
-            <English>United Kingdom Army Air Corps</English>
-            <Original>United Kingdom Army Air Corps</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_KEYBOARD_AUTO_PEDAL_INFO">
+            <English>DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI</English>
+            <Original>DOES NOT WORK WITH STICKY YAW! When enabled, the pedals are automatically managed by AI</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -379,9 +375,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC_WEATHERED">
-            <English>United Kingdom Army Air Corps (weathered)</English>
-            <Original>United Kingdom Army Air Corps (weathered)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK">
+            <English>Mouse as Joystick</English>
+            <Original>Mouse as Joystick</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -396,9 +392,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_UK_AAC_SF">
-            <English>United Kingdom Army Air Corps Special Forces</English>
-            <Original>United Kingdom Army Air Corps Special Forces</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_AS_JOYSTICK_INFO">
+            <English>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option and stops input in freelook</English>
+            <Original>DO NOT USE THIS IF USING HOTAS OR GAMEPAD! Enables the mouse sensitivity option and stops input in freelook</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -413,9 +409,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_211TH_CLEAN">
-            <English>1/211th ARB "The Air Pirates" Utah National Guard</English>
-            <Original>1/211th ARB "The Air Pirates" Utah National Guard</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY">
+            <English>Mouse Sensitivity</English>
+            <Original>Mouse Sensitivity</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -430,9 +426,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_211TH_WEATHERED">
-            <English>1/211th ARB "The Air Pirates" Utah National Guard (weathered)</English>
-            <Original>1/211th ARB "The Air Pirates" Utah National Guard (weathered)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MOUSE_SENSITIVITY_INFO">
+            <English>Controls the sensitivity of the Mouse when used as a Joystick</English>
+            <Original>Controls the sensitivity of the Mouse when used as a Joystick</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -447,9 +443,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_ISRAELI_AIR_FORCE">
-            <English>Israeli Air Force (IAF Saraf)</English>
-            <Original>Israeli Air Force (IAF Saraf)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT">
+            <English>Aircraft Environmental Settings</English>
+            <Original>Aircraft Environmental Settings</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -464,9 +460,17 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_SHIELD">
-            <English>Shield (Marvel)</English>
-            <Original>Shield (Marvel)</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_ENVIRONMENT_INFO">
+            <English>Standard day is Sea Level and 15 deg C.
+                Europe is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C. 
+                The Middle East is a base altitude of 1,800ft and a temperature of 30 deg C. 
+                Central Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C. 
+                Asia is a base altitude of 3100ft and a temperature of 25 deg C.</English>
+            <Original>Standard day is Sea Level and 15 deg C.
+                Europe is a base altitude of 800ft, with a Summer temperature of 20 deg C and a Winter temperature of 0 deg C. 
+                The Middle East is a base altitude of 1,800ft and a temperature of 30 deg C. 
+                Central Asia is a base altitude of 5000ft, with a Summer temperature of 30 deg C and a winter temperature of -5 deg C. 
+                Asia is a base altitude of 3100ft and a temperature of 25 deg C.</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -481,9 +485,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TEXTURE_NODUNIT">
-            <English>Kane's Wrath</English>
-            <Original>Kane's Wrath</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_VRS_WARNING">
+            <English>Enable VRS Warning</English>
+            <Original>Enable VRS Warning</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -498,11 +502,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-
-        <!-- ////OBJECTS//// -->
-        <Key ID="STR_FZA_AH64_OBJECT_BASE">
-            <English>Apache Object Base</English>
-            <Original>Apache Object Base</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_VRS_WARNING_INFO">
+            <English>When enabled, will alert the pilot to the onset of VRS</English>
+            <Original>When enabled, will alert the pilot to the onset of VRS</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -517,9 +519,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_FCR">
-            <English>AH-64 Fire Control Radar</English>
-            <Original>AH-64 Fire Control Radar</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_FM_DEBUG">
+            <English>Enable FM Debugging</English>
+            <Original>Enable FM Debugging</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -534,9 +536,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_IAFS">
-            <English>AH-64 IAFS</English>
-            <Original>AH-64 IAFS</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_FM_DEBUG_INFO">
+            <English>Displays debug output for troubleshooting FM issues</English>
+            <Original>Displays debug output for troubleshooting FM issues</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -551,9 +553,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_1200MAGAZINE">
-            <English>AH-64 1200 Magazine</English>
-            <Original>AH-64 1200 Magazine</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MASTER_VOLUME">
+            <English>Master volume Knob</English>
+            <Original>Master volume Knob</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -568,9 +570,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LOADOUT">
-            <English>Loadout Config</English>
-            <Original>Loadout Config</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_MASTER_VOLUME_INFO">
+            <English>Temporary Master volume control</English>
+            <Original>Temporary Master volume control</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -585,9 +587,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_LOADOUT_INFO">
-            <English>Loadout in JSON form to export</English>
-            <Original>Loadout in JSON form to export</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_RLWR_VOLUME">
+            <English>RLWR volume Knob</English>
+            <Original>RLWR volume Knob</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -602,9 +604,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TAIL_NUMBER">
-            <English>Custom Tail Numbers</English>
-            <Original>Custom Tail Numbers</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_RLWR_VOLUME_INFO">
+            <English>Temporary RLWR volume control</English>
+            <Original>Temporary RLWR volume control</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -619,9 +621,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_TAIL_NUMBER_INFO">
-            <English>Enter a 7 character tail number. Leave a space to skip a position.</English>
-            <Original>Enter a 7 character tail number. Leave a space to skip a position.</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV">
+            <English>NV Cycle Include DTV</English>
+            <Original>NV Cycle Include DTV</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -636,11 +638,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-
-        <!-- ////DMS LOGIC//// -->
-        <Key ID="STR_FZA_AH64_DMS">
-            <English>AH-64D DMS</English>
-            <Original>AH-64D DMS</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DTV_INFO">
+            <English>When enabled, the Night Vision button will also cycle through DTV and not just BHOT and WHOT</English>
+            <Original>When enabled, the Night Vision button will also cycle through DTV and not just BHOT and WHOT</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -655,9 +655,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_DMS_POINT_INDEX">
-            <English>Point Index</English>
-            <Original>Point Index</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO">
+            <English>NV Cycle Include DVO</English>
+            <Original>NV Cycle Include DVO</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -672,9 +672,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_DMS_POINT_IDENT">
-            <English>Point Ident</English>
-            <Original>Point Ident</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_TADS_CYCLE_INCLUDE_DVO_INFO">
+            <English>When enabled, the Night Vision button will also cycle through DVO and not just BHOT and WHOT</English>
+            <Original>When enabled, the Night Vision button will also cycle through DVO and not just BHOT and WHOT</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -689,9 +689,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_DMS_POINT_IDENT_INFO">
-            <English>The 2-character IDENT code describing the point</English>
-            <Original>The 2-character IDENT code describing the point</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY">
+            <English>LMC Sensitivity</English>
+            <Original>LMC Sensitivity</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
@@ -706,128 +706,9 @@
             <!-- <Chinesesimp>Example</Chinesesimp> -->
             <!-- <Turkish>Example</Turkish> -->
         </Key>
-        <Key ID="STR_FZA_AH64_DMS_POINT_FREE">
-            <English>Point Free Text</English>
-            <Original>Point Free Text</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_POINT_FREE_INFO">
-            <English>The 3-character free text describing the point</English>
-            <Original>The 3-character free text describing the point</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_WAYPOINT_HAZARD">
-            <English>DMS Waypoint / Hazard</English>
-            <Original>DMS Waypoint / Hazard</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_WAYPOINT_HAZARD_INFO">
-            <English>Waypoint/Hazards are allowed to range from 1-50</English>
-            <Original>Waypoint/Hazards are allowed to range from 1-50</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_CONTROL_MEASURE">
-            <English>DMS Control Measure</English>
-            <Original>DMS Control Measure</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_CONTROL_MEASURE_INFO">
-            <English>Control Measures are allowed to range from 51-99</English>
-            <Original>Control Measures are allowed to range from 51-99</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_TARGET_THREAT">
-            <English>DMS Target / Threat</English>
-            <Original>DMS Target / Threat</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
-        </Key>
-        <Key ID="STR_FZA_AH64_DMS_TARGET_THREAT_INFO">
-            <English>Target/Threats are allowed to range from 1-50</English>
-            <Original>Target/Threats are allowed to range from 1-50</Original>
+        <Key ID="STR_FZA_AH64_SETTINGS_LMC_SENSITIVITY_INFO">
+            <English>TADS (LMC) Linear motion compensator input sensitivity control</English>
+            <Original>TADS (LMC) Linear motion compensator input sensitivity control</Original>
             <!-- <French>Example</French> -->
             <!-- <Dutch>Example</Dutch> -->
             <!-- <Spanish>Example</Spanish> -->
