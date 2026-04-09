@@ -4,70 +4,70 @@
         <Key ID="STR_FZA_AH64_DOOR">
             <English>OPEN/CLOSE DOOR</English>
             <Original>OPEN/CLOSE DOOR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>OUVRIR/FERMER PORTE</French>
+            <Dutch>DEUR OPENEN/SLUITEN</Dutch>
+            <Spanish>ABRIR/CERRAR PUERTA</Spanish>
+            <Italian>APRI/CHIUDI PORTA</Italian>
+            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
+            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
+            <Polish>OTWÓRZ/ZAMKNIJ DRZWI</Polish>
+            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
+            <Portuguese>ABRIR/FECHAR PORTA</Portuguese>
+            <Korean>문 열기/닫기</Korean>
+            <Japanese>ドアを開く/閉じる</Japanese>
+            <Chinesesimp>打开/关闭门</Chinesesimp>
+            <Turkish>KAPIYI AÇ/KAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_DOOR_OPEN_CLOSE">
             <English>OPEN/CLOSE DOOR</English>
             <Original>OPEN/CLOSE DOOR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>OUVRIR/FERMER PORTE</French>
+            <Dutch>DEUR OPENEN/SLUITEN</Dutch>
+            <Spanish>ABRIR/CERRAR PUERTA</Spanish>
+            <Italian>APRI/CHIUDI PORTA</Italian>
+            <German>TÜR ÖFFNEN/SCHLIESSEN</German>
+            <Czech>OTEVŘÍT/ZAVŘÍT DVEŘE</Czech>
+            <Polish>OTWÓRZ/ZAMKNIJ DRZWI</Polish>
+            <Russian>ОТКРЫТЬ/ЗАКРЫТЬ ДВЕРЬ</Russian>
+            <Portuguese>ABRIR/FECHAR PORTA</Portuguese>
+            <Korean>문 열기/닫기</Korean>
+            <Japanese>ドアを開く/閉じる</Japanese>
+            <Chinesesimp>打开/关闭门</Chinesesimp>
+            <Turkish>KAPIYI AÇ/KAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_DOOR_OPEN">
             <English>OPEN</English>
             <Original>OPEN</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>OUVRIR</French>
+            <Dutch>OPENEN</Dutch>
+            <Spanish>ABRIR</Spanish>
+            <Italian>APRI</Italian>
+            <German>ÖFFNEN</German>
+            <Czech>OTEVŘÍT</Czech>
+            <Polish>OTWÓRZ</Polish>
+            <Russian>ОТКРЫТЬ</Russian>
+            <Portuguese>ABRIR</Portuguese>
+            <Korean>열기</Korean>
+            <Japanese>開く</Japanese>
+            <Chinesesimp>打开</Chinesesimp>
+            <Turkish>AÇ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_DOOR_CLOSE">
             <English>CLOSE</English>
             <Original>CLOSE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FERMER</French>
+            <Dutch>SLUITEN</Dutch>
+            <Spanish>CERRAR</Spanish>
+            <Italian>CHIUDI</Italian>
+            <German>SCHLIESSEN</German>
+            <Czech>ZAVŘÍT</Czech>
+            <Polish>ZAMKNIJ</Polish>
+            <Russian>ЗАКРЫТЬ</Russian>
+            <Portuguese>FECHAR</Portuguese>
+            <Korean>닫기</Korean>
+            <Japanese>閉じる</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPA</Turkish>
         </Key>
     </Package>
 </Project>

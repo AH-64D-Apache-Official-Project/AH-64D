@@ -4,190 +4,207 @@
         <Key ID="STR_FZA_AH64_FLARES">
             <English>Flares</English>
             <Original>Flares</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Leurres</French>
+            <Dutch>Flares</Dutch>
+            <Spanish>Bengalas</Spanish>
+            <Italian>Bengali</Italian>
+            <German>Täuschkörper</German>
+            <Czech>Zábleskvač</Czech>
+            <Polish>Flary</Polish>
+            <Russian>Ловушки</Russian>
+            <Portuguese>Flares</Portuguese>
+            <Korean>플레어</Korean>
+            <Japanese>フレア</Japanese>
+            <Chinesesimp>照明弹</Chinesesimp>
+            <Turkish>Işık Saçan Yalın Atış</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CHAFF">
             <English>Chaff</English>
             <Original>Chaff`</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Paille Chaff</French>
+            <Dutch>Chaff</Dutch>
+            <Spanish>Chaff</Spanish>
+            <Italian>Chaff</Italian>
+            <German>Chaff</German>
+            <Czech>Chaff</Czech>
+            <Polish>Chaff</Polish>
+            <Russian>Chaff</Russian>
+            <Portuguese>Chaff</Portuguese>
+            <Korean>챠프</Korean>
+            <Japanese>チャフ</Japanese>
+            <Chinesesimp>干扰箔条</Chinesesimp>
+            <Turkish>Chaff</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_IRJAM">
             <English>IR Jammer (DO NOT REARM)</English>
             <Original>IR Jammer (DO NOT REARM)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Brouilleur IR (NE PAS RÉARMER)</French>
+            <Dutch>IR Jammer (NIET HERBELADING)</Dutch>
+            <Spanish>Bloqueador IR (NO REABASTECER)</Spanish>
+            <Italian>Disturbatore IR (NON RIARMARE)</Italian>
+            <German>IR-Störer (NICHT AUFLADEN)</German>
+            <Czech>IR Jammer (NEPROVÁDĚT ZBROJ)</Czech>
+            <Polish>Zagłuszacz IR (NIE PRZEŁADOWAĆ)</Polish>
+            <Russian>Помеха IR (НЕ ПЕРЕВООРУЖАТЬ)</Russian>
+            <Portuguese>Jammer IR (NÃO REABASTEÇA)</Portuguese>
+            <Korean>IR 재머 (재충전 금지)</Korean>
+            <Japanese>IRジャマー（再武装しないでください）</Japanese>
+            <Chinesesimp>红外干扰机(请勿重新武装)</Chinesesimp>
+            <Turkish>IR Jammer (YENİDEN SILAHLANMAYIN)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_30MM_HEDP">
             <English>30mm HEDP</English>
             <Original>30mm HEDP</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>30mm HEDP</French>
+            <Dutch>30mm HEDP</Dutch>
+            <Spanish>30mm HEDP</Spanish>
+            <Italian>30mm HEDP</Italian>
+            <German>30mm HEDP</German>
+            <Czech>30mm HEDP</Czech>
+            <Polish>30mm HEDP</Polish>
+            <Russian>30mm HEDP</Russian>
+            <Portuguese>30mm HEDP</Portuguese>
+            <Korean>30mm HEDP</Korean>
+            <Japanese>30mm HEDP</Japanese>
+            <Chinesesimp>30mm HEDP</Chinesesimp>
+            <Turkish>30mm HEDP</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_M230_E1">
             <English>M230-E1</English>
             <Original>M230-E1</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M230-E1</French>
+            <Dutch>M230-E1</Dutch>
+            <Spanish>M230-E1</Spanish>
+            <Italian>M230-E1</Italian>
+            <German>M230-E1</German>
+            <Czech>M230-E1</Czech>
+            <Polish>M230-E1</Polish>
+            <Russian>M230-E1</Russian>
+            <Portuguese>M230-E1</Portuguese>
+            <Korean>M230-E1</Korean>
+            <Japanese>M230-E1</Japanese>
+            <Chinesesimp>M230-E1</Chinesesimp>
+            <Turkish>M230-E1</Turkish>
         </Key>
         
         <Key ID="STR_FZA_AH64_BURST_LIMIT">
             <English>Burst Limit</English>
             <Original>Burst Limit</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Limite de Rafale</French>
+            <Dutch>Burstlimiet</Dutch>
+            <Spanish>Límite de Ráfaga</Spanish>
+            <Italian>Limite di Rajata</Italian>
+            <German>Salvengrenze</German>
+            <Czech>Limit Sálvy</Czech>
+            <Polish>Limit Serii</Polish>
+            <Russian>Лимит Очереди</Russian>
+            <Portuguese>Limite de Rajada</Portuguese>
+            <Korean>버스트 제한</Korean>
+            <Japanese>バースト制限</Japanese>
+            <Chinesesimp>突发限制</Chinesesimp>
+            <Turkish>Patlama Sınırı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_MASTER_ARM_SAFE">
             <English>MASTER ARM SAFE</English>
             <Original>MASTER ARM SAFE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>ARMEMENT MAÎTRE SÛRETÉ</French>
+            <Dutch>MASTER ARM VEILIG</Dutch>
+            <Spanish>ARMA MAESTRA SEGURA</Spanish>
+            <Italian>ARM PRINCIPALE SICURO</Italian>
+            <German>HAUPTWAFFE SICHERUNG</German>
+            <Czech>HLAVNÍ ZBROJNÍ BEZPEČNOST</Czech>
+            <Polish>GŁÓWNA BROŃ BEZPIECZNA</Polish>
+            <Russian>ГЛАВНОЕ ВООРУЖЕНИЕ БЕЗОПАСНОСТЬ</Russian>
+            <Portuguese>ARMA MESTRE SEGURA</Portuguese>
+            <Korean>마스터 암 안전</Korean>
+            <Japanese>マスターアーム安全</Japanese>
+            <Chinesesimp>主武装安全</Chinesesimp>
+            <Turkish>ANA SILAH GÜVENLİK</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CANNON_INHIBIT">
             <English>Cannon Inhibit</English>
             <Original>Cannon Inhibit</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Inhibition Canon</French>
+            <Dutch>Kanon Inhibitie</Dutch>
+            <Spanish>Inhibición de Cañón</Spanish>
+            <Italian>Inibizione Cannone</Italian>
+            <German>Kanonensperre</German>
+            <Czech>Zablokování Kanónu</Czech>
+            <Polish>Inhibicja Armaty</Polish>
+            <Russian>Блокировка Пушки</Russian>
+            <Portuguese>Inibição de Canhão</Portuguese>
+            <Korean>대포 억제</Korean>
+            <Japanese>砲の抑制</Japanese>
+            <Chinesesimp>大炮抑制</Chinesesimp>
+            <Turkish>Silah Bastırması</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SALVO_LIMIT">
             <English>Salvo Limit</English>
             <Original>Salvo Limit</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Limite de Salve</French>
+            <Dutch>Salvolimiet</Dutch>
+            <Spanish>Límite de Salva</Spanish>
+            <Italian>Limite di Salva</Italian>
+            <German>Salvenlimite</German>
+            <Czech>Limit Salvy</Czech>
+            <Polish>Limit Salwy</Polish>
+            <Russian>Лимит Залпа</Russian>
+            <Portuguese>Limite de Salva</Portuguese>
+            <Korean>일제 제한</Korean>
+            <Japanese>斉射制限</Japanese>
+            <Chinesesimp>齐射限制</Chinesesimp>
+            <Turkish>Ateş Limiti</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_PYLON_INHIBIT">
             <English>Pylon Inhibit</English>
             <Original>Pylon Inhibit</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Inhibition Pylône</French>
+            <Dutch>Pylon Inhibitie</Dutch>
+            <Spanish>Inhibición de Pilón</Spanish>
+            <Italian>Inibizione Pilone</Italian>
+            <German>Pylonsperre</German>
+            <Czech>Zablokování Pylonu</Czech>
+            <Polish>Inhibicja Pylonu</Polish>
+            <Russian>Блокировка Пилона</Russian>
+            <Portuguese>Inibição de Pilone</Portuguese>
+            <Korean>파일론 억제</Korean>
+            <Japanese>パイロン抑制</Japanese>
+            <Chinesesimp>塔基抑制</Chinesesimp>
+            <Turkish>Pylon Bastırması</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_230GAL_AUX_TANK">
             <English>230gal Aux Tank</English>
             <Original>230gal Aux Tank</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Réservoir Auxiliaire 230 gal</French>
+            <Dutch>230 gal Aux Tank</Dutch>
+            <Spanish>Tanque Auxiliar 230 gal</Spanish>
+            <Italian>Serbatoio Ausiliario 230 gal</Italian>
+            <German>230 Gallonen Zusatztank</German>
+            <Czech>Pomocná nádrž 230 gal</Czech>
+            <Polish>Zbiornik Pomocniczy 230 gal</Polish>
+            <Russian>Вспомогательный Бак 230 гал</Russian>
+            <Portuguese>Tanque Auxiliar 230 gal</Portuguese>
+            <Korean>230갤론 보조 탱크</Korean>
+            <Japanese>230ガロン補助タンク</Japanese>
+            <Chinesesimp>230加仑辅助油箱</Chinesesimp>
+            <Turkish>230 galon Yardımcı Tank</Turkish>
+        </Key>
+        <Key ID="STR_FZA_AH64_230GAL_AUX_TANK_INFO">
+            <English>An unarmored external fuel tank that provides 230gal (1,541lbs) of fuel. Total additional weight is 1681lbs</English>
+            <Original>An unarmored external fuel tank that provides 230gal (1,541lbs) of fuel. Total additional weight is 1681lbs</Original>
+            <French>Un réservoir de carburant externe non blindé qui fournit 230 gal (1 541 lbs) de carburant. Le poids supplémentaire total est de 1681 lbs</French>
+            <Dutch>Een onbewapend externe brandstoftank die 230 gal (1.541 lbs) brandstof levert. Het totale extra gewicht is 1681 lbs</Dutch>
+            <Spanish>Un tanque de combustible externo sin armadura que proporciona 230 gal (1.541 lbs) de combustible. El peso adicional total es de 1681 lbs</Spanish>
+            <Italian>Un serbatoio di carburante esterno non corazzato che fornisce 230 gal (1.541 lbs) di carburante. Il peso aggiuntivo totale è di 1681 lbs</Italian>
+            <German>Ein ungepanzerter externer Kraftstofftank, der 230 Gallonen (1.541 lbs) Kraftstoff liefert. Das zusätzliche Gesamtgewicht beträgt 1681 lbs</German>
+            <Czech>Neostnojená externí palivová nádrž, která poskytuje 230 gal (1 541 lbs) paliva. Celková dodatečná hmotnost je 1681 lbs</Czech>
+            <Polish>Nieosłonięty zewnętrzny zbiornik paliwa, który zapewnia 230 gal (1 541 lbs) paliwa. Całkowita dodatkowa waga to 1681 lbs</Polish>
+            <Russian>Неброневой наружный топливный бак, обеспечивающий 230 галлонов (1 541 фунт) топлива. Дополнительный общий вес составляет 1681 фунт</Russian>
+            <Portuguese>Um tanque de combustível externo não blindado que fornece 230 gal (1.541 lbs) de combustível. O peso adicional total é 1681 lbs</Portuguese>
+            <Korean>230갤론(1,541파운드)의 연료를 제공하는 무장갑 외부 연료 탱크. 총 추가 무게는 1681파운드</Korean>
+            <Japanese>230ガロン（1,541ポンド）の燃料を提供する非装甲外部燃料タンク。総追加重量は1681ポンド</Japanese>
+            <Chinesesimp>一个无装甲外部油箱，提供230加仑（1,541磅）的燃料。总增加重量为1681磅</Chinesesimp>
+            <Turkish>230 gal (1.541 lbs) yakıt sağlayan silahsız harici bir yakıt deposu. Toplam ek ağırlık 1681 lbs'dir</Turkish>
         </Key>
 
 
@@ -195,516 +212,516 @@
         <Key ID="STR_FZA_AH64_COMBAT_SUPPORT_FCR">
             <English>Combat Support (FCR)</English>
             <Original>Combat Support (FCR)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Soutien Tactique (FCR)</French>
+            <Dutch>Gevechtssteun (FCR)</Dutch>
+            <Spanish>Apoyo de Combate (FCR)</Spanish>
+            <Italian>Supporto Combattimento (FCR)</Italian>
+            <German>Kampfunterstützung (FCR)</German>
+            <Czech>Boj Podpora (FCR)</Czech>
+            <Polish>Wsparcie Bojowe (FCR)</Polish>
+            <Russian>Боевая Поддержка (FCR)</Russian>
+            <Portuguese>Apoio de Combate (FCR)</Portuguese>
+            <Korean>전투 지원 (FCR)</Korean>
+            <Japanese>戦闘サポート (FCR)</Japanese>
+            <Chinesesimp>战斗支援(FCR)</Chinesesimp>
+            <Turkish>Muharebe Desteği (FCR)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COMBAT_SUPPORT">
             <English>Combat Support</English>
             <Original>Combat Support</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Soutien Tactique</French>
+            <Dutch>Gevechtssteun</Dutch>
+            <Spanish>Apoyo de Combate</Spanish>
+            <Italian>Supporto Combattimento</Italian>
+            <German>Kampfunterstützung</German>
+            <Czech>Boj Podpora</Czech>
+            <Polish>Wsparcie Bojowe</Polish>
+            <Russian>Боевая Поддержка</Russian>
+            <Portuguese>Apoio de Combate</Portuguese>
+            <Korean>전투 지원</Korean>
+            <Japanese>戦闘サポート</Japanese>
+            <Chinesesimp>战斗支援</Chinesesimp>
+            <Turkish>Muharebe Desteği</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HEAVY_ATTACK_FCR">
             <English>Heavy Attack (FCR)</English>
             <Original>Heavy Attack (FCR)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Attaque Lourde (FCR)</French>
+            <Dutch>Zware Aanval (FCR)</Dutch>
+            <Spanish>Ataque Pesado (FCR)</Spanish>
+            <Italian>Attacco Pesante (FCR)</Italian>
+            <German>Schwerer Angriff (FCR)</German>
+            <Czech>Těžký Útok (FCR)</Czech>
+            <Polish>Ciężki Atak (FCR)</Polish>
+            <Russian>Тяжелая Атака (FCR)</Russian>
+            <Portuguese>Ataque Pesado (FCR)</Portuguese>
+            <Korean>중공격 (FCR)</Korean>
+            <Japanese>重攻撃(FCR)</Japanese>
+            <Chinesesimp>重型攻击(FCR)</Chinesesimp>
+            <Turkish>Ağır Saldırı (FCR)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HEAVY_ATTACK">
             <English>Heavy Attack</English>
             <Original>Heavy Attack</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Attaque Lourde</French>
+            <Dutch>Zware Aanval</Dutch>
+            <Spanish>Ataque Pesado</Spanish>
+            <Italian>Attacco Pesante</Italian>
+            <German>Schwerer Angriff</German>
+            <Czech>Těžký Útok</Czech>
+            <Polish>Ciężki Atak</Polish>
+            <Russian>Тяжелая Атака</Russian>
+            <Portuguese>Ataque Pesado</Portuguese>
+            <Korean>중공격</Korean>
+            <Japanese>重攻撃</Japanese>
+            <Chinesesimp>重型攻击</Chinesesimp>
+            <Turkish>Ağır Saldırı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COIN">
             <English>COIN</English>
             <Original>COIN</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>COIN</French>
+            <Dutch>COIN</Dutch>
+            <Spanish>COIN</Spanish>
+            <Italian>COIN</Italian>
+            <German>COIN</German>
+            <Czech>COIN</Czech>
+            <Polish>COIN</Polish>
+            <Russian>COIN</Russian>
+            <Portuguese>COIN</Portuguese>
+            <Korean>COIN</Korean>
+            <Japanese>COIN</Japanese>
+            <Chinesesimp>COIN</Chinesesimp>
+            <Turkish>COIN</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_EMPTY">
             <English>Empty</English>
             <Original>Empty</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Vide</French>
+            <Dutch>Leeg</Dutch>
+            <Spanish>Vacío</Spanish>
+            <Italian>Vuoto</Italian>
+            <German>Leer</German>
+            <Czech>Prázdný</Czech>
+            <Polish>Pusty</Polish>
+            <Russian>Пусто</Russian>
+            <Portuguese>Vazio</Portuguese>
+            <Korean>비어있음</Korean>
+            <Japanese>空</Japanese>
+            <Chinesesimp>空的</Chinesesimp>
+            <Turkish>Boş</Turkish>
         </Key>
 
         <!-- ////HellFires//// -->
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114FA">
             <English>AGM-114FA</English>
             <Original>AGM-114FA</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>AGM-114FA</French>
+            <Dutch>AGM-114FA</Dutch>
+            <Spanish>AGM-114FA</Spanish>
+            <Italian>AGM-114FA</Italian>
+            <German>AGM-114FA</German>
+            <Czech>AGM-114FA</Czech>
+            <Polish>AGM-114FA</Polish>
+            <Russian>AGM-114FA</Russian>
+            <Portuguese>AGM-114FA</Portuguese>
+            <Korean>AGM-114FA</Korean>
+            <Japanese>AGM-114FA</Japanese>
+            <Chinesesimp>AGM-114FA</Chinesesimp>
+            <Turkish>AGM-114FA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114FA_INFO">
             <English>SAL 1 Guidance, effective range - 7km. The FA variant introduced a blast sleeve onto the C model for a cheap anti-personel missile.</English>
             <Original>SAL 1 Guidance, effective range - 7km. The FA variant introduced a blast sleeve onto the C model for a cheap anti-personel missile.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Guidage SAL 1, portée effective - 7 km. La variante FA a introduit une manchon d'explosion sur le modèle C pour un missile anti-personnel bon marché.</French>
+            <Dutch>SAL 1 Begeleiding, effectief bereik - 7 km. De FA-variant introduceerde een explosiemantel op het C-model voor een goedkope anti-personeelsmissiel.</Dutch>
+            <Spanish>Guía SAL 1, alcance efectivo - 7 km. La variante FA introdujo una manga de explosión en el modelo C para un misil anti-personal económico.</Spanish>
+            <Italian>Guida SAL 1, portata effettiva - 7 km. La variante FA ha introdotto una manica d'esplosione sul modello C per un missile anti-personale economico.</Italian>
+            <German>SAL 1 Lenkung, Effektivreichweite - 7 km. Die FA-Variante führte eine Explosionshülse auf dem C-Modell für eine kostengünstige Antipersonenmissile ein.</German>
+            <Czech>SAL 1 Navedení, efektivní dosah - 7 km. Varianta FA zavedla výbuchový rukáv na model C pro levný protiopersonální střelu.</Czech>
+            <Polish>Przewodnictwo SAL 1, zasięg efektywny - 7 km. Wariant FA wprowadził tuleję wybuchową na model C w celu taniego pocisku przeciwpersonalnego.</Polish>
+            <Russian>Наведение SAL 1, эффективная дальность - 7 км. Вариант FA представил взрывную гильзу на модель C для дешевой противопехотной ракеты.</Russian>
+            <Portuguese>Orientação SAL 1, alcance efetivo - 7 km. A variante FA introduziu uma manga de explosão no modelo C para um míssil anti-pessoal barato.</Portuguese>
+            <Korean>SAL 1 유도, 유효 범위 - 7km. FA 변종은 저렴한 대인 미사일을 위해 C 모델에 블래스트 슬리브를 도입했습니다.</Korean>
+            <Japanese>SAL 1ガイダンス、有効範囲 - 7km。 FAバリアントはCモデルに爆発スリーブを導入して、安価な対人ミサイルにしました。</Japanese>
+            <Chinesesimp>SAL 1制导，有效范围 - 7公里。FA变体在C型上引入了爆炸套筒，作为廉价的反人员导弹。</Chinesesimp>
+            <Turkish>SAL 1 Rehberlik, etkili menzil - 7 km. FA varyantı, ucuz anti-personel füzesi için C modeline bir patlama kolunu tanıttı.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K">
             <English>AGM-114K</English>
             <Original>AGM-114K</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>AGM-114K</French>
+            <Dutch>AGM-114K</Dutch>
+            <Spanish>AGM-114K</Spanish>
+            <Italian>AGM-114K</Italian>
+            <German>AGM-114K</German>
+            <Czech>AGM-114K</Czech>
+            <Polish>AGM-114K</Polish>
+            <Russian>AGM-114K</Russian>
+            <Portuguese>AGM-114K</Portuguese>
+            <Korean>AGM-114K</Korean>
+            <Japanese>AGM-114K</Japanese>
+            <Chinesesimp>AGM-114K</Chinesesimp>
+            <Turkish>AGM-114K</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K_INFO">
             <English>SAL 2 Guidance, effective range - 8km. This is the most advanced model of all the laser guided hellfires available.</English>
             <Original>SAL 2 Guidance, effective range - 8km. This is the most advanced model of all the laser guided hellfires available.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Guidage SAL 2, portée effective - 8 km. C'est le modèle le plus avancé de tous les feux d'enfer guidés par laser disponibles.</French>
+            <Dutch>SAL 2 Begeleiding, effectief bereik - 8 km. Dit is het meest geavanceerde model van alle beschikbare lasergestuurde hellfires.</Dutch>
+            <Spanish>Guía SAL 2, alcance efectivo - 8 km. Este es el modelo más avanzado de todos los fuegos del infierno guiados por láser disponibles.</Spanish>
+            <Italian>Guida SAL 2, portata effettiva - 8 km. Questo è il modello più avanzato di tutti i fuochi dell'inferno guidati da laser disponibili.</Italian>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Dies ist das fortschrittlichste Modell aller verfügbaren lasegesteuerten Hellfire-Raketen.</German>
+            <Czech>SAL 2 Navedení, efektivní dosah - 8 km. Toto je nejpokročilejší model všech dostupných laserově řízených hellfire.</Czech>
+            <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. To jest najzaawansowany model wszystkich dostępnych pocisków Hellfire kierowanych laserem.</Polish>
+            <Russian>Наведение SAL 2, эффективная дальность - 8 км. Это самая передовая модель из всех доступных лазерных ракет Hellfire.</Russian>
+            <Portuguese>Orientação SAL 2, alcance efetivo - 8 km. Este é o modelo mais avançado de todos os Hellfire guiados por laser disponíveis.</Portuguese>
+            <Korean>SAL 2 유도, 유효 범위 - 8km. 이것은 사용 가능한 모든 레이저 유도식 Hellfire 중 가장 고급 모델입니다.</Korean>
+            <Japanese>SAL 2ガイダンス、有効範囲 - 8km。これは利用可能なすべてのレーザー誘導ヘルファイアの中で最も高度なモデルです。</Japanese>
+            <Chinesesimp>SAL 2制导，有效范围 - 8公里。这是所有可用的激光制导地狱火中最先进的型号。</Chinesesimp>
+            <Turkish>SAL 2 Rehberlik, etkili menzil - 8 km. Bu, mevcut tüm lazer rehberli Hellfire'ın en gelişmiş modelidir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K2A">
             <English>AGM-114K2A</English>
             <Original>AGM-114K2A</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>AGM-114K2A</French>
+            <Dutch>AGM-114K2A</Dutch>
+            <Spanish>AGM-114K2A</Spanish>
+            <Italian>AGM-114K2A</Italian>
+            <German>AGM-114K2A</German>
+            <Czech>AGM-114K2A</Czech>
+            <Polish>AGM-114K2A</Polish>
+            <Russian>AGM-114K2A</Russian>
+            <Portuguese>AGM-114K2A</Portuguese>
+            <Korean>AGM-114K2A</Korean>
+            <Japanese>AGM-114K2A</Japanese>
+            <Chinesesimp>AGM-114K2A</Chinesesimp>
+            <Turkish>AGM-114K2A</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114K2A_INFO">
             <English>SAL 2 Guidance, effective range - 8km. The K2A variant added a blast sleeve onto the K model for a cheap anti-personel missile.</English>
             <Original>SAL 2 Guidance, effective range - 8km. The K2A variant added a blast sleeve onto the K model for a cheap anti-personel missile.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Guidage SAL 2, portée effective - 8 km. La variante K2A a ajouté une manchon d'explosion sur le modèle K pour un missile anti-personnel bon marché.</French>
+            <Dutch>SAL 2 Begeleiding, effectief bereik - 8 km. De K2A-variant voegde een explosiemantel toe aan het K-model voor een goedkope anti-personeelsmissiel.</Dutch>
+            <Spanish>Guía SAL 2, alcance efectivo - 8 km. La variante K2A agregó una manga de explosión al modelo K para un misil anti-personal económico.</Spanish>
+            <Italian>Guida SAL 2, portata effettiva - 8 km. La variante K2A ha aggiunto una manica d'esplosione al modello K per un missile anti-personale economico.</Italian>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Die K2A-Variante fügte eine Explosionshülse zum K-Modell für eine kostengünstige Antipersonenmissile hinzu.</German>
+            <Czech>SAL 2 Navedení, efektivní dosah - 8 km. Varianta K2A přidala výbuchový rukáv na model K pro levný protiopersonální střelu.</Czech>
+            <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. Wariant K2A dodał tulejkę wybuchową do modelu K w celu taniego pocisku przeciwpersonalnego.</Polish>
+            <Russian>Наведение SAL 2, эффективная дальность - 8 км. Вариант K2A добавил взрывную гильзу к модели K для дешевой противопехотной ракеты.</Russian>
+            <Portuguese>Orientação SAL 2, alcance efetivo - 8 km. A variante K2A adicionou uma manga de explosão ao modelo K para um míssil anti-pessoal barato.</Portuguese>
+            <Korean>SAL 2 유도, 유효 범위 - 8km. K2A 변형은 저렴한 대인 미사일을 위해 K 모델에 블래스트 슬리브를 추가했습니다.</Korean>
+            <Japanese>SAL 2ガイダンス、有効範囲 - 8km。 K2AバリアントはKモデルに爆発スリーブを追加して、安価な対人ミサイルにしました。</Japanese>
+            <Chinesesimp>SAL 2制导，有效范围 - 8公里。K2A变体在K型上添加了爆炸套筒，作为廉价的反人员导弹。</Chinesesimp>
+            <Turkish>SAL 2 Rehberlik, etkili menzil - 8 km. K2A varyantı, ucuz anti-personel füzesi için K modeline bir patlama kolunu ekledi.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114L">
             <English>AGM-114L</English>
             <Original>AGM-114L</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>AGM-114L</French>
+            <Dutch>AGM-114L</Dutch>
+            <Spanish>AGM-114L</Spanish>
+            <Italian>AGM-114L</Italian>
+            <German>AGM-114L</German>
+            <Czech>AGM-114L</Czech>
+            <Polish>AGM-114L</Polish>
+            <Russian>AGM-114L</Russian>
+            <Portuguese>AGM-114L</Portuguese>
+            <Korean>AGM-114L</Korean>
+            <Japanese>AGM-114L</Japanese>
+            <Chinesesimp>AGM-114L</Chinesesimp>
+            <Turkish>AGM-114L</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114L_INFO">
             <English>One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.</English>
             <Original>One of the most advanced anti-tank missiles in the world. Radar guided, it is capable of hitting targets out to 8km and can destroy any known armored vehicle in existence.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>L'un des missiles anti-char les plus avancés au monde. Guidé par radar, il est capable de frapper des cibles jusqu'à 8 km et peut détruire n'importe quel véhicule blindé connu.</French>
+            <Dutch>Een van de meest geavanceerde anti-tankraketten ter wereld. Radargestuurd, het is in staat doelen tot 8 km aan te vallen en kan elk bekend gepantserd voertuig vernietigen.</Dutch>
+            <Spanish>Uno de los misiles antitanque más avanzados del mundo. Guiado por radar, es capaz de golpear objetivos hasta 8 km y puede destruir cualquier vehículo blindado conocido.</Spanish>
+            <Italian>Uno dei missili anticarro più avanzati al mondo. Guidato da radar, è in grado di colpire bersagli fino a 8 km e può distruggere qualsiasi veicolo blindato conosciuto.</Italian>
+            <German>Eine der fortschrittlichsten Panzerabwehrraketen der Welt. Radargesteuert kann sie Ziele bis zu 8 km treffen und jedes bekannte gepanzerte Fahrzeug zerstören.</German>
+            <Czech>Jedna z nejpokročilejších protiletadlových střel na světě. Řízená radarem, je schopna zasáhnout cíle až do vzdálenosti 8 km a může zničit jakýkoli známý obrněný vůz.</Czech>
+            <Polish>Jeden z najbardziej zaawansowanych pocisków przeciwpancernych na świecie. Kierowany radarem, jest w stanie trafić cele na odległość do 8 km i może zniszczyć każdy znany pojazd opancerzony.</Polish>
+            <Russian>Один из самых передовых противотанковых ракетных комплексов в мире. Управляемые радаром, они способны поражать цели на расстояние до 8 км и могут уничтожить любое известное бронированное транспортное средство.</Russian>
+            <Portuguese>Um dos mísseis anti-tanque mais avançados do mundo. Guiado por radar, é capaz de atingir alvos até 8 km e pode destruir qualquer veículo blindado conhecido em existência.</Portuguese>
+            <Korean>세계에서 가장 발전된 대전차 미사일 중 하나입니다. 레이더 유도식으로 8km까지 목표를 타격할 수 있으며 존재하는 모든 알려진 장갑 차량을 파괴할 수 있습니다.</Korean>
+            <Japanese>世界で最も高度な対戦車ミサイルの1つです。レーダー誘導で、8kmまでの目標を撃つことができ、既知のすべての装甲車両を破壊できます。</Japanese>
+            <Chinesesimp>世界上最先进的反坦克导弹之一。雷达制导，能够击中距离8公里的目标，可以摧毁任何已知的装甲车辆。</Chinesesimp>
+            <Turkish>Dünyada en ileri anti-tank füzelerinden biridir. Radarla kılavuzlanmış, 8km uzaklıktaki hedefleri vurabilen ve var olan herhangi bir zırhlı aracı yok edebilir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114N">
             <English>AGM-114N</English>
             <Original>AGM-114N</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>AGM-114N</French>
+            <Dutch>AGM-114N</Dutch>
+            <Spanish>AGM-114N</Spanish>
+            <Italian>AGM-114N</Italian>
+            <German>AGM-114N</German>
+            <Czech>AGM-114N</Czech>
+            <Polish>AGM-114N</Polish>
+            <Russian>AGM-114N</Russian>
+            <Portuguese>AGM-114N</Portuguese>
+            <Korean>AGM-114N</Korean>
+            <Japanese>AGM-114N</Japanese>
+            <Chinesesimp>AGM-114N</Chinesesimp>
+            <Turkish>AGM-114N</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_AGM_114N_INFO">
             <English>SAL 2 Guidance, effective range - 8km. , The N variant is a K model with a thermobaric warhead. It is very deadly when used against hardened targets.</English>
             <Original>SAL 2 Guidance, effective range - 8km. , The N variant is a K model with a thermobaric warhead. It is very deadly when used against hardened targets.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Guidage SAL 2, portée effective - 8 km. La variante N est un modèle K avec une tête thermobarique. Il est très mortel lorsqu'il est utilisé contre des cibles renforcées.</French>
+            <Dutch>SAL 2 Begeleiding, effectief bereik - 8 km. De N-variant is een K-model met een thermobarische kop. Het is erg dodelijk wanneer gebruikt tegen versterkte doelen.</Dutch>
+            <Spanish>Guía SAL 2, alcance efectivo - 8 km. La variante N es un modelo K con una cabeza termobárica. Es muy mortal cuando se utiliza contra objetivos endurecidos.</Spanish>
+            <Italian>Guida SAL 2, portata effettiva - 8 km. La variante N è un modello K con una testata termobarica. È molto letale quando usato contro bersagli induriti.</Italian>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Die N-Variante ist ein K-Modell mit einem thermobarischen Sprengkopf. Es ist sehr tödlich gegen gehärtete Ziele.</German>
+            <Czech>SAL 2 Navedení, efektivní dosah - 8 km. Varianta N je model K s termobarickou hlavicí. Je velmi smrtelný, když se používá proti zpevněným cílům.</Czech>
+            <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. Wariant N to model K z głowicą termobaryczną. Jest bardzo śmiercionośny gdy stosowany przeciwko twardzonym celom.</Polish>
+            <Russian>Наведение SAL 2, эффективная дальность - 8 км. Вариант N представляет собой модель K с термобарической боеголовкой. Это очень смертоносно при использовании против укрепленных целей.</Russian>
+            <Portuguese>Orientação SAL 2, alcance efetivo - 8 km. A variante N é um modelo K com uma ogiva termobárica. É muito letal quando usado contra alvos endurecidos.</Portuguese>
+            <Korean>SAL 2 유도, 유효 범위 - 8km. N 변형은 열반응식 탄두가 있는 K 모델입니다. 견고한 목표를 상대로 사용할 때 매우 치명적입니다.</Korean>
+            <Japanese>SAL 2ガイダンス、有効範囲 - 8km。 N型はサーモバリック弾頭を備えたKモデルです。堅化された目標に対して使用する場合、非常に致命的です。</Japanese>
+            <Chinesesimp>SAL 2制导，有效范围 - 8公里。N型是带有温压弹头的K型。对加固目标使用时致命性很强。</Chinesesimp>
+            <Turkish>SAL 2 Rehberlik, etkili menzil - 8 km. N varyantı, termobariк savaş başlığı olan bir K modelidir. Sertleştirilmiş hedeflere karşı kullanıldığında çok ölümcüldür.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_M299">
             <English>M299</English>
             <Original>M299</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M299</French>
+            <Dutch>M299</Dutch>
+            <Spanish>M299</Spanish>
+            <Italian>M299</Italian>
+            <German>M299</German>
+            <Czech>M299</Czech>
+            <Polish>M299</Polish>
+            <Russian>M299</Russian>
+            <Portuguese>M299</Portuguese>
+            <Korean>M299</Korean>
+            <Japanese>M299</Japanese>
+            <Chinesesimp>M299</Chinesesimp>
+            <Turkish>M299</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HELLFIRE_M299_INFO">
             <English>The M299 is a 4-Rail Hellfire Launcher</English>
             <Original>The M299 is a 4-Rail Hellfire Launcher</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Le M299 est un lanceur Hellfire à 4 rails</French>
+            <Dutch>De M299 is een 4-Rails Hellfire Launcher</Dutch>
+            <Spanish>El M299 es un lanzador Hellfire de 4 rieles</Spanish>
+            <Italian>L'M299 è un lanciatore Hellfire a 4 rail</Italian>
+            <German>Die M299 ist ein 4-Schienen-Hellfire-Werfer</German>
+            <Czech>M299 je 4-kolejnicová střelnice Hellfire</Czech>
+            <Polish>M299 to 4-torowy granatnik Hellfire</Polish>
+            <Russian>M299 - это 4-направляющий пусковой аппарат Hellfire</Russian>
+            <Portuguese>O M299 é um lançador Hellfire de 4 trilhos</Portuguese>
+            <Korean>M299는 4-레일 Hellfire 발사기입니다</Korean>
+            <Japanese>M299は4レールヘルファイア発射装置です</Japanese>
+            <Chinesesimp>M299是一个4导轨地狱火发射器</Chinesesimp>
+            <Turkish>M299, 4 raylı bir Hellfire fırlatıcıdır</Turkish>
         </Key>
 
         <!-- ////HYDRAS//// -->
         <Key ID="STR_FZA_AH64_HYDRA_M151">
             <English>M151 HEDP</English>
             <Original>M151 HEDP</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M151 HEDP</French>
+            <Dutch>M151 HEDP</Dutch>
+            <Spanish>M151 HEDP</Spanish>
+            <Italian>M151 HEDP</Italian>
+            <German>M151 HEDP</German>
+            <Czech>M151 HEDP</Czech>
+            <Polish>M151 HEDP</Polish>
+            <Russian>M151 HEDP</Russian>
+            <Portuguese>M151 HEDP</Portuguese>
+            <Korean>M151 HEDP</Korean>
+            <Japanese>M151 HEDP</Japanese>
+            <Chinesesimp>M151 HEDP</Chinesesimp>
+            <Turkish>M151 HEDP</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M151_INFO">
             <English>The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
             <Original>The M151 warhead is a 10 pound warhead with a pre-fragmented shell. It is effective against light armored vehicles and personnel. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>La tête M151 est une tête de 10 livres avec un obus pré-fragmenté. Il est efficace contre les véhicules blindés légers et le personnel. Il est monté sur un moteur de fusée Mark 66 Mod 6 avec une portée effective de 5 km.</French>
+            <Dutch>De M151-kop is een 10 pond-kop met een vooraf gefragmenteerde schaal. Het is effectief tegen licht gepantserde voertuigen en personeel. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
+            <Spanish>La cabeza M151 es una cabeza de 10 libras con un proyectil pre-fragmentado. Es efectivo contra vehículos blindados ligeros y personal. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
+            <Italian>La testata M151 è una testata da 10 libbre con un guscio pre-frammentato. È efficace contro veicoli blindati leggeri e personale. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
+            <German>Der M151-Gefechtskopf ist ein 10-Pfund-Gefechtskopf mit vorgefertigter Schale. Es ist wirksam gegen leicht gepanzerte Fahrzeuge und Personal. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <Czech>Hlava M151 je 10librová hlava s předfragmentovanou skořápkou. Je účinná proti lehce obrněným vozidlům a personálu. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
+            <Polish>Głowica M151 to 10-funtowa głowica z wstępnie sfragmentowaną osłoną. Działa skutecznie przeciwko lekko opancerzonym pojazdom i personelowi. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
+            <Russian>Боеголовка M151 - это 10-фунтовая боеголовка с предварительно фрагментированным корпусом. Она эффективна против легко бронированных транспортных средств и личного состава. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
+            <Portuguese>A ogiva M151 é uma ogiva de 10 libras com um projétil pré-fragmentado. É eficaz contra veículos blindados leves e pessoal. É montado em um motor de foguete Mark 66 Mod 6 com alcance efetivo de 5 km.</Portuguese>
+            <Korean>M151 탄두는 사전 단편화된 포탄이 있는 10파운드 탄두입니다. 경장갑 차량과 인원에 효과적입니다. Mark 66 Mod 6 로켓 모터에 장착되며 유효 범위는 5km입니다.</Korean>
+            <Japanese>M151弾頭は、事前に断片化されたシェルを備えた10ポンドの弾頭です。軽装甲車両と人員に対して効果的です。Mark 66 Mod 6ロケットモーターに搭載され、有効範囲は5kmです。</Japanese>
+            <Chinesesimp>M151弹头是一个10磅的弹头，有预先碎裂的外壳。对轻装甲车辆和人员有效。安装在Mark 66 Mod 6火箭发动机上，有效范围为5公里。</Chinesesimp>
+            <Turkish>M151 savaş başlığı, önceden parçalanmış bir mermisi olan 10 libralık bir savaş başlığıdır. Hafif zırhlı araçlar ve personele karşı etkilidir. Mark 66 Mod 6 roket motoru üzerine monte edilmiş, 5 km etkili menzile sahiptir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M255A1">
             <English>M255A1 FLEC</English>
             <Original>M255A1 FLEC</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M255A1 FLEC</French>
+            <Dutch>M255A1 FLEC</Dutch>
+            <Spanish>M255A1 FLEC</Spanish>
+            <Italian>M255A1 FLEC</Italian>
+            <German>M255A1 FLEC</German>
+            <Czech>M255A1 FLEC</Czech>
+            <Polish>M255A1 FLEC</Polish>
+            <Russian>M255A1 FLEC</Russian>
+            <Portuguese>M255A1 FLEC</Portuguese>
+            <Korean>M255A1 FLEC</Korean>
+            <Japanese>M255A1 FLEC</Japanese>
+            <Chinesesimp>M255A1 FLEC</Chinesesimp>
+            <Turkish>M255A1 FLEC</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M255A1_INFO">
             <English>The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
             <Original>The M255 warhead is a submunition rocket with over 1000 60 grain flechettes. These are effective against personnel with moderate effectiveness against unarmored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>La tête M255 est une fusée de sous-munitions avec plus de 1000 fléchettes de 60 grains. Ceux-ci sont efficaces contre le personnel avec une efficacité modérée contre les véhicules non blindés. Il est monté sur un moteur de fusée Mark 66 Mod 6 avec une portée effective de 5 km.</French>
+            <Dutch>De M255-kop is een submunitieraket met meer dan 1000 60-korrelige flechettes. Deze zijn effectief tegen personeel met matige effectiviteit tegen onbepantserde voertuigen. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
+            <Spanish>La cabeza M255 es un cohete de submuniciones con más de 1000 flechettes de 60 granos. Estos son efectivos contra personal con efectividad moderada contra vehículos sin armadura. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
+            <Italian>La testata M255 è un razzo a submunizioni con oltre 1000 frecce da 60 grani. Questi sono efficaci contro il personale con moderata efficacia contro veicoli non blindati. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
+            <German>Der M255-Gefechtskopf ist eine Submunitionsrakete mit über 1000 60-Körner-Geschossen. Diese sind wirksam gegen Personal mit moderater Wirksamkeit gegen ungepanzerte Fahrzeuge. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <Czech>Hlava M255 je submunční raketa s více než 1000 střelami o hmotnosti 60 zrn. Jsou účinné proti personálu s střední účinností proti neopancéřovaným vozidlům. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
+            <Polish>Głowica M255 to rakieta submunisyjna z ponad 1000 strzałkami 60-zarnowymi. Są one skuteczne przeciwko personelowi ze średnią skutecznością przeciwko pojazdom bez opancerzenia. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
+            <Russian>Боеголовка M255 - это субмунционная ракета с более чем 1000 стрелками по 60 зерен. Они эффективны против личного состава с умеренной эффективностью против небронированных транспортных средств. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
+            <Portuguese>A ogiva M255 é um foguete de submunição com mais de 1000 flechas de 60 grãos. Estes são eficazes contra pessoal com eficácia moderada contra veículos desarmados. É montado em um motor de foguete Mark 66 Mod 6 com alcance efetivo de 5 km.</Portuguese>
+            <Korean>M255 탄두는 1000개 이상의 60곡물 플레셰트가 있는 서브뮤니션 로켓입니다. 이들은 인원에 대해 효과적이며 무장하지 않은 차량에 대해 중간 정도의 효과가 있습니다. Mark 66 Mod 6 로켓 모터에 장착되며 유효 범위는 5km입니다.</Korean>
+            <Japanese>M255弾頭は、1000個以上の60粒フレシェットを備えた子爆弾ロケットです。これらは人員に対して効果的であり、装甲されていない車両に対しては中程度の効果があります。Mark 66 Mod 6ロケットモーターに搭載され、有効範囲は5kmです。</Japanese>
+            <Chinesesimp>M255弹头是一枚有超过1000个60粒飞镖的子弹药火箭。这些对人员有效，对无装甲车辆有中等效果。安装在Mark 66 Mod 6火箭发动机上，有效范围为5公里。</Chinesesimp>
+            <Turkish>M255 savaş başlığı, 1000'den fazla 60 tane başlı ok içeren bir submünisyon roketi. Bunlar personele karşı etkili ve silahsız araçlara karşı orta düzey etkilidir. Mark 66 Mod 6 roket motoru üzerine monte edilmiş, 5 km etkili menzile sahiptir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M261_MPSM">
             <English>M261 MPSM</English>
             <Original>M261 MPSM</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M261 MPSM</French>
+            <Dutch>M261 MPSM</Dutch>
+            <Spanish>M261 MPSM</Spanish>
+            <Italian>M261 MPSM</Italian>
+            <German>M261 MPSM</German>
+            <Czech>M261 MPSM</Czech>
+            <Polish>M261 MPSM</Polish>
+            <Russian>M261 MPSM</Russian>
+            <Portuguese>M261 MPSM</Portuguese>
+            <Korean>M261 MPSM</Korean>
+            <Japanese>M261 MPSM</Japanese>
+            <Chinesesimp>M261 MPSM</Chinesesimp>
+            <Turkish>M261 MPSM</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M261_MPSM_INFO">
             <English>The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</English>
             <Original>The M261 warhead is a submunition rocket with 9 parachute-retarded munitions. These are effective against both personnel and light armored vehicles. It is mounted to a Mark 66 Mod 6 rocket motor with an effective range of 5km.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>La tête M261 est une fusée de sous-munitions avec 9 munitions retardées par parachute. Celles-ci sont efficaces contre le personnel et les véhicules blindés légers. Il est monté sur un moteur de fusée Mark 66 Mod 6 avec une portée effective de 5 km.</French>
+            <Dutch>De M261-kop is een submunitieraket met 9 parachute-vertraagde munitie. Deze zijn effectief tegen zowel personeel als licht gepantserde voertuigen. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
+            <Spanish>La cabeza M261 es un cohete de submuniciones con 9 municiones retardadas por paracaídas. Estos son efectivos contra el personal y vehículos blindados ligeros. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
+            <Italian>La testata M261 è un razzo a submunizioni con 9 munizioni ritardate da paracadute. Questi sono efficaci contro sia il personale che i veicoli blindati leggeri. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
+            <German>Der M261-Gefechtskopf ist eine Submunitionsrakete mit 9 fallschirmverzögerten Munition. Diese sind wirksam gegen sowohl Personal als auch leicht gepanzerte Fahrzeuge. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <Czech>Hlava M261 je submunční raketa s 9 padákem zpomalenou municí. Ty jsou účinné proti personálu i lehce obrněným vozidlům. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
+            <Polish>Głowica M261 to rakieta submunisyjna z 9 amunicją opóźnioną spadochronem. Są one skuteczne zarówno przeciwko personelowi, jak i lekko opancerzonym pojazdom. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
+            <Russian>Боеголовка M261 - это субмунционная ракета с 9 парашютно-замедленной боеприпасов. Они эффективны как против личного состава, так и против легко бронированных транспортных средств. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
+            <Portuguese>A ogiva M261 é um foguete de submunição com 9 munições retardadas por paraquedas. Estes são eficazes contra pessoal e veículos blindados leves. É montado em um motor de foguete Mark 66 Mod 6 com alcance efetivo de 5 km.</Portuguese>
+            <Korean>M261 탄두는 9개의 낙하산 지연 탄약이 있는 서브뮤니션 로켓입니다. 이들은 인원과 경장갑 차량 모두에 효과적입니다. Mark 66 Mod 6 로켓 모터에 장착되며 유효 범위는 5km입니다.</Korean>
+            <Japanese>M261弾頭は、9つのパラシュート遅延弾薬を備えた子爆弾ロケットです。これらは人員と軽装甲車両の両方に対して効果的です。Mark 66 Mod 6ロケットモーターに搭載され、有効範囲は5kmです。</Japanese>
+            <Chinesesimp>M261弹头是一枚有9枚降落伞延迟弹药的子弹药火箭。这些对人员和轻装甲车辆都有效。安装在Mark 66 Mod 6火箭发动机上，有效范围为5公里。</Chinesesimp>
+            <Turkish>M261 savaş başlığı, 9 paraşüt gecikmeli mühimmat içeren bir submünisyon roketi. Bunlar hem personele hem de hafif zırhlı araçlara karşı etkilidir. Mark 66 Mod 6 roket motoru üzerine monte edilmiş, 5 km etkili menzile sahiptir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M257_IL">
             <English>M257 IL</English>
             <Original>M257 IL</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M257 IL</French>
+            <Dutch>M257 IL</Dutch>
+            <Spanish>M257 IL</Spanish>
+            <Italian>M257 IL</Italian>
+            <German>M257 IL</German>
+            <Czech>M257 IL</Czech>
+            <Polish>M257 IL</Polish>
+            <Russian>M257 IL</Russian>
+            <Portuguese>M257 IL</Portuguese>
+            <Korean>M257 IL</Korean>
+            <Japanese>M257 IL</Japanese>
+            <Chinesesimp>M257 IL</Chinesesimp>
+            <Turkish>M257 IL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M257_IL_INFO">
             <English>The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</English>
             <Original>The M257 is an illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Le M257 est une tête d'illumination contenant un fusée de parachute. Il peut éclairer une zone d'un kilomètre carré pendant environ 100 secondes. Il est monté sur un moteur de fusée Mark 66 Mod 6 avec une distance de déclenchement de 3,5 km.</French>
+            <Dutch>De M257 is een verlichtingskop met een parachuteflare. Het kan een oppervlakte van een vierkante kilometer gedurende ongeveer 100 seconden verlichten. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een triggervafstand van 3,5 km.</Dutch>
+            <Spanish>El M257 es una cabeza de iluminación que contiene un bengala de paracaídas. Puede iluminar un área de un kilómetro cuadrado durante aproximadamente 100 segundos. Se monta en un motor cohete Mark 66 Mod 6 con una distancia de activación de 3,5 km.</Spanish>
+            <Italian>L'M257 è una testata di illuminazione contenente un flare di paracadute. Può illuminare un'area di un chilometro quadrato per circa 100 secondi. È montato su un motore a razzo Mark 66 Mod 6 con una distanza di attivazione di 3,5 km.</Italian>
+            <German>Die M257 ist ein Beleuchtungsgefechtskopf mit einem Fallschirmflare. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
+            <Czech>M257 je osvětlovací hlava obsahující padákem flare. Může osvětlit oblast o ploše jednoho čtverečního kilometru po dobu přibližně 100 sekund. Je připevnena k raketovému motoru Mark 66 Mod 6 s dálkou spuštění 3,5 km.</Czech>
+            <Polish>M257 to głowica oświetlająca zawierająca flare spadochronowy. Może oświetlić obszar o powierzchni jednego kilometra kwadratowego przez około 100 sekund. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z dystansem wyzwalania 3,5 km.</Polish>
+            <Russian>M257 - это осветительная боеголовка с парашютным фаером. Она может освещать территорию в один квадратный километр в течение примерно 100 секунд. Она установлена на ракетный двигатель Mark 66 Mod 6 с расстоянием срабатывания 3,5 км.</Russian>
+            <Portuguese>O M257 é uma ogiva de iluminação contendo um flare de paraquedas. Ele pode iluminar uma área de um quilômetro quadrado por aproximadamente 100 segundos. É montado em um motor de foguete Mark 66 Mod 6 com uma distância de acionamento de 3,5 km.</Portuguese>
+            <Korean>M257은 낙하산 플레어를 포함하는 조명 탄두입니다. 약 100초 동안 1제곱킬로미터 면적을 조명할 수 있습니다. Mark 66 Mod 6 로켓 모터에 장착되며 트리거 거리는 3.5km입니다.</Korean>
+            <Japanese>M257は、パラシュートフレアを含む照明弾頭です。約100秒間、1平方キロメートルの領域を照らすことができます。Mark 66 Mod 6ロケットモーターに搭載され、トリガー距離は3.5kmです。</Japanese>
+            <Chinesesimp>M257是一个包含降落伞照明弹的照明弹头。它可以在大约100秒内照亮一平方公里的区域。安装在Mark 66 Mod 6火箭发动机上，触发距离为3.5公里。</Chinesesimp>
+            <Turkish>M257, paraşüt flare içeren bir aydınlatma savaş başlığıdır. Yaklaşık 100 saniye boyunca bir kilometre kare alan aydınlatabilir. Mark 66 Mod 6 roket motoru üzerine monte edilmiş, tetikleme mesafesi 3,5 km'dir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M278_IR_IL">
             <English>M278 IR IL</English>
             <Original>M278 IR IL</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M278 IR IL</French>
+            <Dutch>M278 IR IL</Dutch>
+            <Spanish>M278 IR IL</Spanish>
+            <Italian>M278 IR IL</Italian>
+            <German>M278 IR IL</German>
+            <Czech>M278 IR IL</Czech>
+            <Polish>M278 IR IL</Polish>
+            <Russian>M278 IR IL</Russian>
+            <Portuguese>M278 IR IL</Portuguese>
+            <Korean>M278 IR IL</Korean>
+            <Japanese>M278 IR IL</Japanese>
+            <Chinesesimp>M278 IR IL</Chinesesimp>
+            <Turkish>M278 IR IL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M278_IR_IL_INFO">
             <English>The M278 is an IR illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</English>
             <Original>The M278 is an IR illumination warhead containing a parachute flare. It can illuminate an area of a square kilometer for approximately 100 seconds. It is mounted to a Mark 66 Mod 6 rocket motor with a trigger distance of 3.5km.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Le M278 est une tête d'illumination IR contenant un fusée de parachute. Il peut éclairer une zone d'un kilomètre carré pendant environ 100 secondes. Il est monté sur un moteur de fusée Mark 66 Mod 6 avec une distance de déclenchement de 3,5 km.</French>
+            <Dutch>De M278 is een IR-verlichtingskop met een parachuteflare. Het kan een oppervlakte van een vierkante kilometer gedurende ongeveer 100 seconden verlichten. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een triggervafstand van 3,5 km.</Dutch>
+            <Spanish>El M278 es una cabeza de iluminación IR que contiene un bengala de paracaídas. Puede iluminar un área de un kilómetro cuadrado durante aproximadamente 100 segundos. Se monta en un motor cohete Mark 66 Mod 6 con una distancia de activación de 3,5 km.</Spanish>
+            <Italian>L'M278 è una testata di illuminazione IR contenente un flare di paracadute. Può illuminare un'area di un chilometro quadrato per circa 100 secondi. È montato su un motore a razzo Mark 66 Mod 6 con una distanza di attivazione di 3,5 km.</Italian>
+            <German>Die M278 ist ein IR-Beleuchtungsgefechtskopf mit einem Fallschirmflare. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
+            <Czech>M278 je IR osvětlovací hlava obsahující padákem flare. Může osvětlit oblast o ploše jednoho čtverečního kilometru po dobu přibližně 100 sekund. Je připevnena k raketovému motoru Mark 66 Mod 6 s dálkou spuštění 3,5 km.</Czech>
+            <Polish>M278 to głowica oświetlająca IR zawierająca flare spadochronowy. Może oświetlić obszar o powierzchni jednego kilometra kwadratowego przez około 100 sekund. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z dystansem wyzwalania 3,5 km.</Polish>
+            <Russian>M278 - это IR-осветительная боеголовка с парашютным фаером. Она может освещать территорию в один квадратный километр в течение примерно 100 секунд. Она установлена на ракетный двигатель Mark 66 Mod 6 с расстоянием срабатывания 3,5 км.</Russian>
+            <Portuguese>O M278 é uma ogiva de iluminação IR contendo um flare de paraquedas. Ele pode iluminar uma área de um quilômetro quadrado por aproximadamente 100 segundos. É montado em um motor de foguete Mark 66 Mod 6 com uma distância de acionamento de 3,5 km.</Portuguese>
+            <Korean>M278은 낙하산 플레어를 포함하는 IR 조명 탄두입니다. 약 100초 동안 1제곱킬로미터 면적을 조명할 수 있습니다. Mark 66 Mod 6 로켓 모터에 장착되며 트리거 거리는 3.5km입니다.</Korean>
+            <Japanese>M278は、パラシュートフレアを含むIR照明弾頭です。約100秒間、1平方キロメートルの領域を照らすことができます。Mark 66 Mod 6ロケットモーターに搭載され、トリガー距離は3.5kmです。</Japanese>
+            <Chinesesimp>M278是一个包含降落伞照明弹的IR照明弹头。它可以在大约100秒内照亮一平方公里的区域。安装在Mark 66 Mod 6火箭发动机上，触发距离为3.5公里。</Chinesesimp>
+            <Turkish>M278, paraşüt flare içeren bir IR aydınlatma savaş başlığıdır. Yaklaşık 100 saniye boyunca bir kilometre kare alan aydınlatabilir. Mark 66 Mod 6 roket motoru üzerine monte edilmiş, tetikleme mesafesi 3,5 km'dir.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M275">
             <English>M275</English>
             <Original>M275</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>M275</French>
+            <Dutch>M275</Dutch>
+            <Spanish>M275</Spanish>
+            <Italian>M275</Italian>
+            <German>M275</German>
+            <Czech>M275</Czech>
+            <Polish>M275</Polish>
+            <Russian>M275</Russian>
+            <Portuguese>M275</Portuguese>
+            <Korean>M275</Korean>
+            <Japanese>M275</Japanese>
+            <Chinesesimp>M275</Chinesesimp>
+            <Turkish>M275</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_HYDRA_M275_INFO">
             <English>The M261 is a 19-tube, 2.75” FFAR Launcher.</English>
             <Original>The M261 is a 19-tube, 2.75” FFAR Launcher.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Le M261 est un lanceur FFAR à 19 tubes, 2,75".</French>
+            <Dutch>De M261 is een 19-buis, 2,75" FFAR-lancer.</Dutch>
+            <Spanish>El M261 es un lanzador FFAR de 19 tubos, 2,75".</Spanish>
+            <Italian>L'M261 è un lanciatore FFAR a 19 tubi, 2,75".</Italian>
+            <German>Die M261 ist ein 19-Rohr-FFAR-Werfer, 2,75".</German>
+            <Czech>M261 je 19trubkový launches FFAR, 2,75".</Czech>
+            <Polish>M261 to 19-rurowy system wyrzutniczy FFAR, 2,75".</Polish>
+            <Russian>M261 - это 19-трубный пусковой аппарат FFAR 2,75".</Russian>
+            <Portuguese>O M261 é um lançador FFAR de 19 tubos, 2,75".</Portuguese>
+            <Korean>M261은 19튜브, 2.75" FFAR 발사기입니다.</Korean>
+            <Japanese>M261は19管の2.75"FFAR発射装置です。</Japanese>
+            <Chinesesimp>M261是一个19管，2.75"FFAR发射器。</Chinesesimp>
+            <Turkish>M261, 19 tüplü, 2.75" FFAR fırlatıcısıdır.</Turkish>
         </Key>
     </Package>
 </Project>

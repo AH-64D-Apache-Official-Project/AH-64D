@@ -4,1260 +4,1260 @@
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD">
             <English>Sight Select HMD</English>
             <Original>Sight Select HMD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner HMD</French>
+            <Dutch>HMD Selecteren</Dutch>
+            <Spanish>Seleccionar HMD</Spanish>
+            <Italian>Seleziona HMD</Italian>
+            <German>HMD Wählen</German>
+            <Czech>Vybrat HMD</Czech>
+            <Polish>Wybierz HMD</Polish>
+            <Russian>Выберите HMD</Russian>
+            <Portuguese>Selecionar HMD</Portuguese>
+            <Korean>HMD 선택</Korean>
+            <Japanese>HMD選択</Japanese>
+            <Chinesesimp>选择HMD</Chinesesimp>
+            <Turkish>HMD Seç</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_HMD_INFO">
             <English>Sets the current sight to HMD</English>
             <Original>Sets the current sight to HMD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit la visée actuelle à HMD</French>
+            <Dutch>Stelt het huidige zicht op HMD in</Dutch>
+            <Spanish>Establece la vista actual a HMD</Spanish>
+            <Italian>Imposta la vista attuale su HMD</Italian>
+            <German>Setzt das aktuelle Ziel auf HMD</German>
+            <Czech>Nastaví aktuální pohled na HMD</Czech>
+            <Polish>Ustawia bieżący widok na HMD</Polish>
+            <Russian>Устанавливает текущий вид на HMD</Russian>
+            <Portuguese>Define o sinal atual como HMD</Portuguese>
+            <Korean>현재 조준을 HMD로 설정</Korean>
+            <Japanese>現在のサイトをHMDに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为HMD</Chinesesimp>
+            <Turkish>Geçerli görüşü HMD olarak ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS">
             <English>Sight Select TADS</English>
             <Original>Sight Select TADS</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner TADS</French>
+            <Dutch>TADS Selecteren</Dutch>
+            <Spanish>Seleccionar TADS</Spanish>
+            <Italian>Seleziona TADS</Italian>
+            <German>TADS Wählen</German>
+            <Czech>Vybrat TADS</Czech>
+            <Polish>Wybierz TADS</Polish>
+            <Russian>Выберите TADS</Russian>
+            <Portuguese>Selecionar TADS</Portuguese>
+            <Korean>TADS 선택</Korean>
+            <Japanese>TADS選択</Japanese>
+            <Chinesesimp>选择TADS</Chinesesimp>
+            <Turkish>TADS Seç</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_TADS_INFO">
             <English>Sets the current sight to TADS</English>
             <Original>Sets the current sight to TADS</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit la visée actuelle à TADS</French>
+            <Dutch>Stelt het huidige zicht op TADS in</Dutch>
+            <Spanish>Establece la vista actual a TADS</Spanish>
+            <Italian>Imposta la vista attuale su TADS</Italian>
+            <German>Setzt das aktuelle Ziel auf TADS</German>
+            <Czech>Nastaví aktuální pohled na TADS</Czech>
+            <Polish>Ustawia bieżący widok na TADS</Polish>
+            <Russian>Устанавливает текущий вид на TADS</Russian>
+            <Portuguese>Define o sinal atual como TADS</Portuguese>
+            <Korean>현재 조준을 TADS로 설정</Korean>
+            <Japanese>現在のサイトをTADSに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为TADS</Chinesesimp>
+            <Turkish>Geçerli görüşü TADS olarak ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD">
             <English>Sight Select FXD</English>
             <Original>Sight Select FXD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner FXD</French>
+            <Dutch>FXD Selecteren</Dutch>
+            <Spanish>Seleccionar FXD</Spanish>
+            <Italian>Seleziona FXD</Italian>
+            <German>FXD Wählen</German>
+            <Czech>Vybrat FXD</Czech>
+            <Polish>Wybierz FXD</Polish>
+            <Russian>Выберите FXD</Russian>
+            <Portuguese>Selecionar FXD</Portuguese>
+            <Korean>FXD 선택</Korean>
+            <Japanese>FXD選択</Japanese>
+            <Chinesesimp>选择FXD</Chinesesimp>
+            <Turkish>FXD Seç</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FXD_INFO">
             <English>Sets the current sight to FXD</English>
             <Original>Sets the current sight to FXD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit la visée actuelle à FXD</French>
+            <Dutch>Stelt het huidige zicht op FXD in</Dutch>
+            <Spanish>Establece la vista actual a FXD</Spanish>
+            <Italian>Imposta la vista attuale su FXD</Italian>
+            <German>Setzt das aktuelle Ziel auf FXD</German>
+            <Czech>Nastaví aktuální pohled na FXD</Czech>
+            <Polish>Ustawia bieżący widok na FXD</Polish>
+            <Russian>Устанавливает текущий вид на FXD</Russian>
+            <Portuguese>Define o sinal atual como FXD</Portuguese>
+            <Korean>현재 조준을 FXD로 설정</Korean>
+            <Japanese>現在のサイトをFXDに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为FXD</Chinesesimp>
+            <Turkish>Geçerli görüşü FXD olarak ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR">
             <English>Sight Select FCR</English>
             <Original>Sight Select FCR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner FCR</French>
+            <Dutch>FCR Selecteren</Dutch>
+            <Spanish>Seleccionar FCR</Spanish>
+            <Italian>Seleziona FCR</Italian>
+            <German>FCR Wählen</German>
+            <Czech>Vybrat FCR</Czech>
+            <Polish>Wybierz FCR</Polish>
+            <Russian>Выберите FCR</Russian>
+            <Portuguese>Selecionar FCR</Portuguese>
+            <Korean>FCR 선택</Korean>
+            <Japanese>FCR選択</Japanese>
+            <Chinesesimp>选择FCR</Chinesesimp>
+            <Turkish>FCR Seç</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SIGHT_SELECT_FCR_INFO">
             <English>Sets the current sight to FCR</English>
             <Original>Sets the current sight to FCR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit la visée actuelle à FCR</French>
+            <Dutch>Stelt het huidige zicht op FCR in</Dutch>
+            <Spanish>Establece la vista actual a FCR</Spanish>
+            <Italian>Imposta la vista attuale su FCR</Italian>
+            <German>Setzt das aktuelle Ziel auf FCR</German>
+            <Czech>Nastaví aktuální pohled na FCR</Czech>
+            <Polish>Ustawia bieżący widok na FCR</Polish>
+            <Russian>Устанавливает текущий вид на FCR</Russian>
+            <Portuguese>Define o sinal atual como FCR</Portuguese>
+            <Korean>현재 조준을 FCR로 설정</Korean>
+            <Japanese>現在のサイトをFCRに設定</Japanese>
+            <Chinesesimp>将当前瞄准设置为FCR</Chinesesimp>
+            <Turkish>Geçerli görüşü FCR olarak ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP">
             <English>Symbology Select Up</English>
             <Original>Symbology Select Up</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner Symbologie Haut</French>
+            <Dutch>Symbologie Selecteren Omhoog</Dutch>
+            <Spanish>Seleccionar Simbología Arriba</Spanish>
+            <Italian>Seleziona Simbologia Su</Italian>
+            <German>Symbologie Wählen Oben</German>
+            <Czech>Vybrat Symboliku Nahoru</Czech>
+            <Polish>Wybierz Symbologię Górę</Polish>
+            <Russian>Выберите Символику Вверх</Russian>
+            <Portuguese>Selecionar Simbologia Cima</Portuguese>
+            <Korean>기호 선택 위</Korean>
+            <Japanese>シンボロジー選択上</Japanese>
+            <Chinesesimp>选择符号向上</Chinesesimp>
+            <Turkish>Simboloji Seç Yukarı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_UP_INFO">
             <English>Cycles the HDU Symbology between Transition and Cruise modes</English>
             <Original>Cycles the HDU Symbology between Transition and Cruise modes</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Alterne la symbologie HDU entre les modes Transition et Croisière</French>
+            <Dutch>Wisselt HDU-symbologie tussen Transition- en Cruise-modi</Dutch>
+            <Spanish>Alterna la simbología HDU entre modos de Transición y Crucero</Spanish>
+            <Italian>Commuta la simbologia HDU tra i modi Transizione e Crociera</Italian>
+            <German>Wechselt die HDU-Symbologie zwischen Übergangs- und Reisemodus</German>
+            <Czech>Přepíná HDU symboliku mezi režimy Přechod a Cestování</Czech>
+            <Polish>Przełącza symbologię HDU między trybami przejścia i marszutą</Polish>
+            <Russian>Переключает символику HDU между режимами перехода и круиза</Russian>
+            <Portuguese>Alterna a simbologia HDU entre modos de Transição e Cruzeiro</Portuguese>
+            <Korean>HDU 기호를 전환 및 순항 모드 사이에서 전환</Korean>
+            <Japanese>HDUシンボロジーを遷移とクルーズモード間で切り替える</Japanese>
+            <Chinesesimp>在过渡和巡航模式之间循环HDU符号</Chinesesimp>
+            <Turkish>HDU Sembolojisini Geçiş ve Cruise Modları Arasında Döngü</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN">
             <English>Symbology Select Down</English>
             <Original>Symbology Select Down</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Sélectionner Symbologie Bas</French>
+            <Dutch>Symbologie Selecteren Omlaag</Dutch>
+            <Spanish>Seleccionar Simbología Abajo</Spanish>
+            <Italian>Seleziona Simbologia Giù</Italian>
+            <German>Symbologie Wählen Unten</German>
+            <Czech>Vybrat Symboliku Dolů</Czech>
+            <Polish>Wybierz Symbologię Dół</Polish>
+            <Russian>Выберите Символику Вниз</Russian>
+            <Portuguese>Selecionar Simbologia Baixo</Portuguese>
+            <Korean>기호 선택 아래</Korean>
+            <Japanese>シンボロジー選択下</Japanese>
+            <Chinesesimp>选择符号向下</Chinesesimp>
+            <Turkish>Simboloji Seç Aşağı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_DOWN_INFO">
             <English>Cycles the HDU Symbology between Hover and Bobup modes</English>
             <Original>Cycles the HDU Symbology between Hover and Bobup modes</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Alterne la symbologie HDU entre les modes Surplace et Remontée</French>
+            <Dutch>Wisselt HDU-symbologie tussen Hover- en Bobup-modi</Dutch>
+            <Spanish>Alterna la simbología HDU entre modos de Flotación y Ascenso</Spanish>
+            <Italian>Commuta la simbologia HDU tra i modi Hover e Bobup</Italian>
+            <German>Wechselt die HDU-Symbologie zwischen Hover- und Bobup-Modus</German>
+            <Czech>Přepíná HDU symboliku mezi režimy Hoveru a Bobup</Czech>
+            <Polish>Przełącza symbologię HDU między trybami Unoszenia się i Bobup</Polish>
+            <Russian>Переключает символику HDU между режимами зависания и подъема</Russian>
+            <Portuguese>Alterna a simbologia HDU entre modos de Pairação e Bobup</Portuguese>
+            <Korean>HDU 기호를 호버 및 밥업 모드 사이에서 전환</Korean>
+            <Japanese>HDUシンボロジーをホバーとボバップモード間で切り替える</Japanese>
+            <Chinesesimp>在悬停和翻转模式之间循环HDU符号</Chinesesimp>
+            <Turkish>HDU Sembolojisini Hover ve Bobup Modları Arasında Döngü</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS">
             <English>Symbology Select Press</English>
             <Original>Symbology Select Press</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Appuyer sur Sélection Symbologie</French>
+            <Dutch>Symbologie Selecteren Indrukken</Dutch>
+            <Spanish>Presionar Seleccionar Simbología</Spanish>
+            <Italian>Premere Seleziona Simbologia</Italian>
+            <German>Symbologie Wählen Drücken</German>
+            <Czech>Vybrat Symboliku Stisk</Czech>
+            <Polish>Naciśnij Wybierz Symbologię</Polish>
+            <Russian>Нажмите Выбрать Символику</Russian>
+            <Portuguese>Pressionar Selecionar Simbologia</Portuguese>
+            <Korean>기호 선택 누르기</Korean>
+            <Japanese>シンボロジー選択押す</Japanese>
+            <Chinesesimp>按符号选择</Chinesesimp>
+            <Turkish>Simboloji Seç Basın</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SYMBOLOGY_SELECT_PRESS_INFO">
             <English>Brings up the FLT page on the left MPD</English>
             <Original>Brings up the FLT page on the left MPD</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Affiche la page FLT sur le MPD gauche</French>
+            <Dutch>Brengt de FLT-pagina op de linker MPD tevoorschijn</Dutch>
+            <Spanish>Abre la página FLT en el MPD izquierdo</Spanish>
+            <Italian>Porta la pagina FLT al MPD sinistro</Italian>
+            <German>Bringt die FLT-Seite auf dem linken MPD auf</German>
+            <Czech>Přivede stránku FLT na levý MPD</Czech>
+            <Polish>Wyświetla stronę FLT na lewym MPD</Polish>
+            <Russian>Выводит страницу FLT на левый МПД</Russian>
+            <Portuguese>Abre a página FLT no MPD esquerdo</Portuguese>
+            <Korean>좌측 MPD에 FLT 페이지 표시</Korean>
+            <Japanese>左MPDにFLTページを表示</Japanese>
+            <Chinesesimp>在左MPD上显示FLT页面</Chinesesimp>
+            <Turkish>Sol MPD'de FLT Sayfasını Aç</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_LASER_DESIG">
             <English>LRFD Second Detent (Lase)</English>
             <Original>LRFD Second Detent (Lase)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Deuxième Cran LRFD (Laser)</French>
+            <Dutch>LRFD Tweede Vastzetting (Laser)</Dutch>
+            <Spanish>Segundo Detente LRFD (Láser)</Spanish>
+            <Italian>Secondo Scatto LRFD (Laser)</Italian>
+            <German>LRFD Zweite Rastung (Laser)</German>
+            <Czech>Druhá Záklopka LRFD (Laser)</Czech>
+            <Polish>Drugi Zatrzask LRFD (Laser)</Polish>
+            <Russian>Второй защелки LRFD (Лазер)</Russian>
+            <Portuguese>Segundo Engate LRFD (Laser)</Portuguese>
+            <Korean>LRFD 두 번째 딸깍 (레이저)</Korean>
+            <Japanese>LRFD第2ディテント（レーザー）</Japanese>
+            <Chinesesimp>LRFD第二卡扣（激光）</Chinesesimp>
+            <Turkish>LRFD İkinci Pozisyon (Lazer)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_LASER_DESIG_INFO">
             <English>Lases the target when held down.</English>
             <Original>Lases the target when held down.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Pulse laser sur la cible lorsqu'il est maintenu.</French>
+            <Dutch>Lasermarkeert het doel als u het inhoudt.</Dutch>
+            <Spanish>Marca el objetivo con láser cuando se mantiene pulsado.</Spanish>
+            <Italian>Laser il bersaglio quando tenuto premuto.</Italian>
+            <German>Lasert das Ziel beim Gedrückthalten.</German>
+            <Czech>Laseruje cíl při podržení.</Czech>
+            <Polish>Laseruje cel gdy przytrzymany.</Polish>
+            <Russian>Лазерует цель при удержании.</Russian>
+            <Portuguese>Laser o alvo quando mantido pressionado.</Portuguese>
+            <Korean>누르고 있을 때 대상에 레이저를 조사합니다.</Korean>
+            <Japanese>押し続けるとターゲットをレーザー照射します。</Japanese>
+            <Chinesesimp>按住时用激光照射目标。</Chinesesimp>
+            <Turkish>Basılı tutarken hedefi lazerle işaretler.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN">
             <English>FCR Single Scan</English>
             <Original>FCR Single Scan</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Balayage Unique FCR</French>
+            <Dutch>FCR Enkel Scannen</Dutch>
+            <Spanish>Escaneo Único FCR</Spanish>
+            <Italian>Scansione Singola FCR</Italian>
+            <German>FCR Einzelner Scan</German>
+            <Czech>Jednorázové Skenování FCR</Czech>
+            <Polish>Jednorazowe Skanowanie FCR</Polish>
+            <Russian>Одиночное Сканирование FCR</Russian>
+            <Portuguese>Digitalização Única FCR</Portuguese>
+            <Korean>FCR 단일 스캔</Korean>
+            <Japanese>FCR単一スキャン</Japanese>
+            <Chinesesimp>FCR单次扫描</Chinesesimp>
+            <Turkish>FCR Tek Tarama</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_SINGLE_SCAN_INFO">
             <English>Scans the FCR a single time</English>
             <Original>Scans the FCR a single time</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Scanne le FCR une seule fois</French>
+            <Dutch>Scant de FCR eenmaal</Dutch>
+            <Spanish>Escanea el FCR una sola vez</Spanish>
+            <Italian>Esegue la scansione del FCR una sola volta</Italian>
+            <German>Scannt den FCR einmal</German>
+            <Czech>Naskenuje FCR jednou</Czech>
+            <Polish>Skanuje FCR jeden raz</Polish>
+            <Russian>Сканирует FCR один раз</Russian>
+            <Portuguese>Digitaliza o FCR uma única vez</Portuguese>
+            <Korean>FCR을 한 번 스캔합니다</Korean>
+            <Japanese>FCRを1回スキャンします</Japanese>
+            <Chinesesimp>扫描FCR一次</Chinesesimp>
+            <Turkish>FCR'yi bir kez tarar</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE">
             <English>Target Store</English>
             <Original>Target Store</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Enregistrer Cible</French>
+            <Dutch>Doel Opslaan</Dutch>
+            <Spanish>Almacenar Objetivo</Spanish>
+            <Italian>Memorizza Obiettivo</Italian>
+            <German>Ziel Speichern</German>
+            <Czech>Uložit Cíl</Czech>
+            <Polish>Przechowywanie Celu</Polish>
+            <Russian>Сохранить Цель</Russian>
+            <Portuguese>Armazenar Alvo</Portuguese>
+            <Korean>대상 저장</Korean>
+            <Japanese>ターゲット保存</Japanese>
+            <Chinesesimp>目标存储</Chinesesimp>
+            <Turkish>Hedefi Kaydet</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TARGET_STORE_UPDATE_INFO">
             <English>Stores the target being currently looked at in the TADS as a waypoint</English>
             <Original>Stores the target being currently looked at in the TADS as a waypoint</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Enregistre la cible actuellement observée dans le TADS en tant que point de cheminement</French>
+            <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
+            <Spanish>Almacena el objetivo observado actualmente en el TADS como un punto de ruta</Spanish>
+            <Italian>Memorizza l'obiettivo attualmente osservato in TADS come waypoint</Italian>
+            <German>Speichert das derzeit in TADS beobachtete Ziel als Wegpunkt</German>
+            <Czech>Uloží cíl aktuálně pozorovaný v TADS jako bod trasy</Czech>
+            <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
+            <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
+            <Portuguese>Armazena o alvo observado atualmente no TADS como um ponto de rota</Portuguese>
+            <Korean>TADS에서 현재 관찰 중인 대상을 경유점으로 저장</Korean>
+            <Japanese>TADSで現在見ている目標をウェイポイントとして保存します</Japanese>
+            <Chinesesimp>将当前在TADS中观察的目标存储为路点</Chinesesimp>
+            <Turkish>TADS'da şu anda bakılan hedefi bir rota noktası olarak kaydedin</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_MISSILE_ADVANCE">
             <English>Missile Advance</English>
             <Original>Missile Advance</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Avancer Missile</French>
+            <Dutch>Raket Vooruit</Dutch>
+            <Spanish>Avance de Misil</Spanish>
+            <Italian>Avanzamento Missile</Italian>
+            <German>Rakete Voraus</German>
+            <Czech>Pokročilá Raketa</Czech>
+            <Polish>Zaawansowany Pocisk</Polish>
+            <Russian>Продвижение Ракеты</Russian>
+            <Portuguese>Avanço de Míssil</Portuguese>
+            <Korean>미사일 전진</Korean>
+            <Japanese>ミサイル前進</Japanese>
+            <Chinesesimp>导弹前进</Chinesesimp>
+            <Turkish>Füze İlerlemesi</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_MISSILE_ADVANCE_INFO">
             <English>Advances through all missile types</English>
             <Original>Advances through all missile types</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Avance tous les types de missiles</French>
+            <Dutch>Gaat door alle rakeytypes</Dutch>
+            <Spanish>Avanza a través de todos los tipos de misiles</Spanish>
+            <Italian>Avanza attraverso tutti i tipi di missili</Italian>
+            <German>Durchläuft alle Raketentypen</German>
+            <Czech>Postupuje přes všechny typy raket</Czech>
+            <Polish>Przechodzi przez wszystkie typy pocisków</Polish>
+            <Russian>Проходит через все типы ракет</Russian>
+            <Portuguese>Avança através de todos os tipos de mísseis</Portuguese>
+            <Korean>모든 미사일 유형을 순회합니다</Korean>
+            <Japanese>すべてのミサイルタイプを進めます</Japanese>
+            <Chinesesimp>通过所有导弹类型</Chinesesimp>
+            <Turkish>Tüm füze türlerinde ilerler</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN">
             <English>WAS Gun</English>
             <Original>WAS Gun</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Pistolet WAS</French>
+            <Dutch>WAS Kanon</Dutch>
+            <Spanish>Arma WAS</Spanish>
+            <Italian>Arma WAS</Italian>
+            <German>WAS Waffe</German>
+            <Czech>Pistole WAS</Czech>
+            <Polish>Pistolet WAS</Polish>
+            <Russian>Пушка WAS</Russian>
+            <Portuguese>Arma WAS</Portuguese>
+            <Korean>WAS 총</Korean>
+            <Japanese>WAS銃</Japanese>
+            <Chinesesimp>WAS枪</Chinesesimp>
+            <Turkish>WAS Silahı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_GUN_INFO">
             <English>Action the gun in your crew station</English>
             <Original>Action the gun in your crew station</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Activer le pistolet dans votre station d'équipage</French>
+            <Dutch>Bedien het kanon in uw crew station</Dutch>
+            <Spanish>Dispara el arma en tu estación de tripulación</Spanish>
+            <Italian>Attiva l'arma nella tua stazione di equipaggio</Italian>
+            <German>Bediene die Waffe in deiner Besatzungsstation</German>
+            <Czech>Oběhuj pistoli ve své stanici posádky</Czech>
+            <Polish>Obsługuj pistolet w swojej stanowiska załogi</Polish>
+            <Russian>Активируйте пушку на своей позиции экипажа</Russian>
+            <Portuguese>Dispare a arma em sua estação de tripulação</Portuguese>
+            <Korean>승무원 스테이션에서 총을 조작합니다</Korean>
+            <Japanese>乗員ステーションの銃を操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作枪支</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Silahı İşletebilirsiniz</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_RKT">
             <English>WAS Rockets</English>
             <Original>WAS Rockets</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Roquettes WAS</French>
+            <Dutch>WAS Raketten</Dutch>
+            <Spanish>Cohetes WAS</Spanish>
+            <Italian>Razzi WAS</Italian>
+            <German>WAS Raketen</German>
+            <Czech>Rakety WAS</Czech>
+            <Polish>Rakiety WAS</Polish>
+            <Russian>Ракеты WAS</Russian>
+            <Portuguese>Foguetes WAS</Portuguese>
+            <Korean>WAS 로켓</Korean>
+            <Japanese>WAS ロケット</Japanese>
+            <Chinesesimp>WAS火箭</Chinesesimp>
+            <Turkish>WAS Roketleri</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_RKT_INFO">
             <English>Action the rockets in your crew station</English>
             <Original>Action the rockets in your crew station</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Activer les roquettes dans votre station d'équipage</French>
+            <Dutch>Bedien de raketten in uw crew station</Dutch>
+            <Spanish>Dispara los cohetes en tu estación de tripulación</Spanish>
+            <Italian>Attiva i razzi nella tua stazione di equipaggio</Italian>
+            <German>Bediene die Raketen in deiner Besatzungsstation</German>
+            <Czech>Oběhuj rakety ve své stanici posádky</Czech>
+            <Polish>Obsługuj rakiety w swojej stanowiska załogi</Polish>
+            <Russian>Активируйте ракеты на своей позиции экипажа</Russian>
+            <Portuguese>Dispare os foguetes em sua estação de tripulação</Portuguese>
+            <Korean>승무원 스테이션에서 로켓을 조작합니다</Korean>
+            <Japanese>乗員ステーションのロケットを操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作火箭</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Roketleri İşletebilirsiniz</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_MSL">
             <English>WAS Missiles</English>
             <Original>WAS Missiles</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Missiles WAS</French>
+            <Dutch>WAS Raketten</Dutch>
+            <Spanish>Misiles WAS</Spanish>
+            <Italian>Missili WAS</Italian>
+            <German>WAS Lenkflugkörper</German>
+            <Czech>Střely WAS</Czech>
+            <Polish>Pociski WAS</Polish>
+            <Russian>Ракеты WAS</Russian>
+            <Portuguese>Mísseis WAS</Portuguese>
+            <Korean>WAS 미사일</Korean>
+            <Japanese>WAS ミサイル</Japanese>
+            <Chinesesimp>WAS导弹</Chinesesimp>
+            <Turkish>WAS Füzeleri</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_WAS_MSL_INFO">
             <English>Action the missiles in your crew station</English>
             <Original>Action the missiles in your crew station</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Activer les missiles dans votre station d'équipage</French>
+            <Dutch>Bedien de raketten in uw crew station</Dutch>
+            <Spanish>Dispara los misiles en tu estación de tripulación</Spanish>
+            <Italian>Attiva i missili nella tua stazione di equipaggio</Italian>
+            <German>Bediene die Lenkflugkörper in deiner Besatzungsstation</German>
+            <Czech>Oběhuj střely ve své stanici posádky</Czech>
+            <Polish>Obsługuj pociski w swojej stanowiska załogi</Polish>
+            <Russian>Активируйте ракеты на своей позиции экипажа</Russian>
+            <Portuguese>Dispare os mísseis em sua estação de tripulação</Portuguese>
+            <Korean>승무원 스테이션에서 미사일을 조작합니다</Korean>
+            <Japanese>乗員ステーションのミサイルを操作します</Japanese>
+            <Chinesesimp>在您的乘员舱中操作导弹</Chinesesimp>
+            <Turkish>Crew İstasyonunuzda Füzeleri İşletebilirsiniz</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP">
             <English>Force Trim/Hold Mode Switch Up</English>
             <Original>Force Trim/Hold Mode Switch Up</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Basculer Force Trim/Mode Maintien Haut</French>
+            <Dutch>Force Trim/Hold Mode Schakelaar Omhoog</Dutch>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Arriba</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Su</Italian>
+            <German>Force Trim/Hold Mode Schalter Oben</German>
+            <Czech>Přepínač Síla Trim/Režim Drž Nahoru</Czech>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Górę</Polish>
+            <Russian>Переключатель Force Trim / Hold Mode Вверх</Russian>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Cima</Portuguese>
+            <Korean>강제 트림/홀드 모드 스위치 위</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ上</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向上</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Yukarı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_UP_INFO">
             <English>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</English>
             <Original>When momentarily interupted, Updates the flight control reference position for Attitude Hold and de-activates Heading and Attitude Hold when held.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Lorsqu'interrompu brièvement, met à jour la position de référence du contrôle de vol pour le maintien d'attitude et désactive le maintien de cap et d'attitude lorsqu'il est maintenu.</French>
+            <Dutch>Wanneer kort onderbroken, werkt het referentieposition van de vliegtuigcontrole bij voor Attitude Hold en deactiveert Heading and Attitude Hold wanneer vastgehouden.</Dutch>
+            <Spanish>Cuando se interrumpe momentáneamente, actualiza la posición de referencia del control de vuelo para el mantenimiento de actitud y desactiva el mantenimiento de rumbo y actitud cuando se mantiene pulsado.</Spanish>
+            <Italian>Quando momentaneamente interrotto, aggiorna la posizione di riferimento del controllo di volo per il mantenimento dell'assetto e disattiva il mantenimento della prua e dell'assetto quando tenuto premuto.</Italian>
+            <German>Bei kurzer Unterbrechung aktualisiert die Referenzposition der Flugsteuerung für die Halteposition und deaktiviert die Kopf- und Halteposition beim Halten.</German>
+            <Czech>Při krátkém přerušení aktualizuje polohu reference řízení letu pro Attitude Hold a deaktivuje Heading a Attitude Hold, pokud je drženo.</Czech>
+            <Polish>Po krótkim przerwaniu aktualizuje pozycję odniesienia sterowania lotem dla Attitude Hold i dezaktywuje Heading and Attitude Hold po przytrzymaniu.</Polish>
+            <Russian>При кратковременном прерывании обновляет положение эталона управления полетом для режима удержания тангажа и отключает режим удержания курса и тангажа при удержании.</Russian>
+            <Portuguese>Quando interrompido momentaneamente, atualiza a posição de referência do controle de voo para Attitude Hold e desativa Heading and Attitude Hold quando mantido.</Portuguese>
+            <Korean>순간 중단될 때 비행 제어 기준 위치를 Attitude Hold로 업데이트하고 누르고 있을 때 Heading 및 Attitude Hold를 비활성화합니다.</Korean>
+            <Japanese>一瞬中断された場合、Attitude Holdのフライトコントロール基準位置を更新し、保持されたときにHeading and Attitude Holdを無効にします。</Japanese>
+            <Chinesesimp>当瞬间中断时，更新姿态保持的飞行控制参考位置，并在按住时停用航向和姿态保持。</Chinesesimp>
+            <Turkish>Kısaca kesildiğinde, Attitude Hold için uçuş kontrolü referans konumunu güncelleştirir ve tutulduğunda Heading ve Attitude Hold'u devre dışı bırakır.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT">
             <English>Force Trim/Hold Mode Switch Right</English>
             <Original>Force Trim/Hold Mode Switch Right</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Basculer Force Trim/Mode Maintien Droite</French>
+            <Dutch>Force Trim/Hold Mode Schakelaar Rechts</Dutch>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Derecha</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Destra</Italian>
+            <German>Force Trim/Hold Mode Schalter Rechts</German>
+            <Czech>Přepínač Síla Trim/Režim Drž Vpravo</Czech>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Prawo</Polish>
+            <Russian>Переключатель Force Trim / Hold Mode Вправо</Russian>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Direita</Portuguese>
+            <Korean>강제 트림/홀드 모드 스위치 오른쪽</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ右</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向右</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Sağ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_RIGHT_INFO">
             <English>Activates Altitude Hold</English>
             <Original>Activates Altitude Hold</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Active le maintien d'altitude</French>
+            <Dutch>Activeert hoogtehoud</Dutch>
+            <Spanish>Activa el mantenimiento de altitud</Spanish>
+            <Italian>Attiva il mantenimento dell'altitudine</Italian>
+            <German>Aktiviert die Höhenhaltung</German>
+            <Czech>Aktivuje drž nadmořské výšky</Czech>
+            <Polish>Aktywuje Altitude Hold</Polish>
+            <Russian>Активирует удержание высоты</Russian>
+            <Portuguese>Ativa o Altitude Hold</Portuguese>
+            <Korean>고도 유지 활성화</Korean>
+            <Japanese>高度保持を有効にします</Japanese>
+            <Chinesesimp>激活高度保持</Chinesesimp>
+            <Turkish>Yükseklik Tutmayı Etkinleştirir</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN">
             <English>Force Trim/Hold Mode Switch Down</English>
             <Original>Force Trim/Hold Mode Switch Down</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Basculer Force Trim/Mode Maintien Bas</French>
+            <Dutch>Force Trim/Hold Mode Schakelaar Omlaag</Dutch>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Abajo</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Giù</Italian>
+            <German>Force Trim/Hold Mode Schalter Unten</German>
+            <Czech>Přepínač Síla Trim/Režim Drž Dolů</Czech>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Dół</Polish>
+            <Russian>Переключатель Force Trim / Hold Mode Вниз</Russian>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Baixo</Portuguese>
+            <Korean>강제 트림/홀드 모드 스위치 아래</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ下</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向下</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Aşağı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_DOWN_INFO">
             <English>De-Activates both Attitude and Altitude Hold</English>
             <Original>De-Activates both Attitude and Altitude Hold</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Désactive à la fois le maintien d'attitude et d'altitude</French>
+            <Dutch>Deactiveert zowel Attitude als Altitude Hold</Dutch>
+            <Spanish>Desactiva tanto el mantenimiento de actitud como el de altitud</Spanish>
+            <Italian>Disattiva sia il mantenimento dell'assetto che dell'altitudine</Italian>
+            <German>Deaktiviert sowohl die Halteposition als auch die Höhenhaltung</German>
+            <Czech>Deaktivuje držení postoje i nadmořské výšky</Czech>
+            <Polish>Dezaktywuje zarówno Attitude Hold, jak i Altitude Hold</Polish>
+            <Russian>Деактивирует удержание как тангажа, так и высоты</Russian>
+            <Portuguese>Desativa tanto o Attitude Hold quanto o Altitude Hold</Portuguese>
+            <Korean>자세 및 고도 유지 모두 비활성화</Korean>
+            <Japanese>姿勢保持と高度保持の両方を無効にします</Japanese>
+            <Chinesesimp>停用姿态和高度保持</Chinesesimp>
+            <Turkish>Hem Attitude Hold hem de Altitude Hold'u Devre Dışı Bırakır</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT">
             <English>Force Trim/Hold Mode Switch Left</English>
             <Original>Force Trim/Hold Mode Switch Left</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Basculer Force Trim/Mode Maintien Gauche</French>
+            <Dutch>Force Trim/Hold Mode Schakelaar Links</Dutch>
+            <Spanish>Interruptor Fuerza Trim/Modo Retención Izquierda</Spanish>
+            <Italian>Interruttore Forzatura Trim/Modalità Mantenimento Sinistra</Italian>
+            <German>Force Trim/Hold Mode Schalter Links</German>
+            <Czech>Přepínač Síla Trim/Režim Drž Vlevo</Czech>
+            <Polish>Włącznik Wymuszonego Trymu / Trybu Trzymania Lewo</Polish>
+            <Russian>Переключатель Force Trim / Hold Mode Влево</Russian>
+            <Portuguese>Interruptor Força Trim/Modo Segurança Esquerda</Portuguese>
+            <Korean>강제 트림/홀드 모드 스위치 왼쪽</Korean>
+            <Japanese>フォーストトリム/ホールドモードスイッチ左</Japanese>
+            <Chinesesimp>强制配平/保持模式开关向左</Chinesesimp>
+            <Turkish>Kuvvet Trim/Hold Modu Anahtar Sol</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_HOLD_MODE_SWITCH_LEFT_INFO">
             <English>Activates Attitude Hold</English>
             <Original>Activates Attitude Hold</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Active le maintien d'attitude</French>
+            <Dutch>Activeert Attitude Hold</Dutch>
+            <Spanish>Activa el mantenimiento de actitud</Spanish>
+            <Italian>Attiva il mantenimento dell'assetto</Italian>
+            <German>Aktiviert die Lagekontrolle</German>
+            <Czech>Aktivuje drž postoje</Czech>
+            <Polish>Aktywuje Attitude Hold</Polish>
+            <Russian>Активирует удержание тангажа</Russian>
+            <Portuguese>Ativa o Attitude Hold</Portuguese>
+            <Korean>자세 유지 활성화</Korean>
+            <Japanese>姿勢保持を有効にします</Japanese>
+            <Chinesesimp>激活姿态保持</Chinesesimp>
+            <Turkish>Attitude Hold'u Etkinleştirir</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP">
             <English>Ground Targeting Mode (GTM)</English>
             <Original>Ground Targeting Mode (GTM)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Mode de Ciblage Terrestre (GTM)</French>
+            <Dutch>Grondrichtingsmodus (GTM)</Dutch>
+            <Spanish>Modo de Orientación Terrestre (GTM)</Spanish>
+            <Italian>Modalità di Puntamento a Terra (GTM)</Italian>
+            <German>Bodenzielmodus (GTM)</German>
+            <Czech>Režim Cílení Země (GTM)</Czech>
+            <Polish>Tryb Namierzania Gruntu (GTM)</Polish>
+            <Russian>Режим наземного наведения (GTM)</Russian>
+            <Portuguese>Modo de Orientação Terrestre (GTM)</Portuguese>
+            <Korean>지상 조준 모드 (GTM)</Korean>
+            <Japanese>地上ターゲティングモード（GTM）</Japanese>
+            <Chinesesimp>地面瞄准模式（GTM）</Chinesesimp>
+            <Turkish>Yer Hedefleme Modu (GTM)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_UP_INFO">
             <English>Sets the Fire Control Radar To Ground Targeting Mode</English>
             <Original>Sets the Fire Control Radar To Ground Targeting Mode</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Règle le radar de contrôle de tir en mode de ciblage terrestre</French>
+            <Dutch>Stelt de vuurregel radar in op grondrichtingsmodus</Dutch>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Terrestre</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento a Terra</Italian>
+            <German>Stellt das Feuerleiterradar auf Bodenzielmodus ein</German>
+            <Czech>Nastaví radar řízení palby na režim cílení země</Czech>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Gruntu</Polish>
+            <Russian>Устанавливает радар управления огнем в режим наземного наведения</Russian>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Terrestre</Portuguese>
+            <Korean>화력 통제 레이더를 지상 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを地上ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为地面瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Yer Hedefleme Moduna Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN">
             <English>Air Targeting Mode (ATM)</English>
             <Original>Air Targeting Mode (ATM)</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Mode de Ciblage Aérien (ATM)</French>
+            <Dutch>Luchttargetering Modus (ATM)</Dutch>
+            <Spanish>Modo de Orientación Aérea (ATM)</Spanish>
+            <Italian>Modalità di Puntamento Aereo (ATM)</Italian>
+            <German>Luftzielmodus (ATM)</German>
+            <Czech>Režim Cílení Vzduchu (ATM)</Czech>
+            <Polish>Tryb Namierzania Powietrza (ATM)</Polish>
+            <Russian>Режим воздушного наведения (ATM)</Russian>
+            <Portuguese>Modo de Orientação Aérea (ATM)</Portuguese>
+            <Korean>공중 조준 모드 (ATM)</Korean>
+            <Japanese>空中ターゲティングモード（ATM）</Japanese>
+            <Chinesesimp>空中瞄准模式（ATM）</Chinesesimp>
+            <Turkish>Hava Hedefleme Modu (ATM)</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FCR_MODE_SWITCH_DOWN_INFO">
             <English>Sets the Fire Control Radar To Air Targeting Mode</English>
             <Original>Sets the Fire Control Radar To Air Targeting Mode</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Règle le radar de contrôle de tir en mode de ciblage aérien</French>
+            <Dutch>Stelt de vuurregel radar in op luchttargetering modus</Dutch>
+            <Spanish>Configura el Radar de Control de Fuego al Modo de Orientación Aérea</Spanish>
+            <Italian>Imposta il Radar di Controllo del Fuoco in Modalità di Puntamento Aereo</Italian>
+            <German>Stellt das Feuerleiterradar auf Luftzielmodus ein</German>
+            <Czech>Nastaví radar řízení palby na režim cílení vzduchu</Czech>
+            <Polish>Ustawia Radar Kontroli Ognia na Tryb Namierzania Powietrza</Polish>
+            <Russian>Устанавливает радар управления огнем в режим воздушного наведения</Russian>
+            <Portuguese>Define o Radar de Controle de Tiro para Modo de Orientação Aérea</Portuguese>
+            <Korean>화력 통제 레이더를 공중 조준 모드로 설정</Korean>
+            <Japanese>火器管制レーダーを空中ターゲティングモードに設定</Japanese>
+            <Chinesesimp>将火力管制雷达设置为空中瞄准模式</Chinesesimp>
+            <Turkish>Ateş Kontrol Radarını Hava Hedefleme Moduna Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FLARE">
             <English>Deploy Flare</English>
             <Original>Deploy Flare</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Déployer Leurre</French>
+            <Dutch>Flare Inzetten</Dutch>
+            <Spanish>Lanzar Bengala</Spanish>
+            <Italian>Dispensa Bengala</Italian>
+            <German>Täuschkörper Werfen</German>
+            <Czech>Vypustit Záblesk</Czech>
+            <Polish>Wystrzel Flary</Polish>
+            <Russian>Развернуть Ловушку</Russian>
+            <Portuguese>Disparar Flare</Portuguese>
+            <Korean>플레어 발사</Korean>
+            <Japanese>フレアを展開</Japanese>
+            <Chinesesimp>发射照明弹</Chinesesimp>
+            <Turkish>Işık Saçan Yalın Ata</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FLARE_INFO">
             <English>Deploy a single Flare countermeasure</English>
             <Original>Deploy a single Flare countermeasure</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Déploie une seule mesure de contre-leurre</French>
+            <Dutch>Zet een enkele flare tegen-maatregel in</Dutch>
+            <Spanish>Despliega una única medida de contramedida</Spanish>
+            <Italian>Dispensa una singola misura di contromisura</Italian>
+            <German>Setzt eine einzelne Täuschkörper-Gegenmaßnahme ein</German>
+            <Czech>Vypustí jednu záblesk-protimu</Czech>
+            <Polish>Wystrzeluje jedną flara jako protiśrodek</Polish>
+            <Russian>Развернуть одну ловушку в качестве контрмеры</Russian>
+            <Portuguese>Dispara uma única medida de contramedida</Portuguese>
+            <Korean>단일 플레어 대응책 발사</Korean>
+            <Japanese>単一のフレア対策を展開</Japanese>
+            <Chinesesimp>部署单个照明弹对抗措施</Chinesesimp>
+            <Turkish>Tek bir karşı önlem olarak ışık saçan yalın ata</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W">
             <English>TADS LHG FOV Switch - W</English>
             <Original>TADS LHG FOV Switch - W</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur FOV LHG TADS - W</French>
+            <Dutch>TADS LHG FOV Schakelaar - W</Dutch>
+            <Spanish>Interruptor FOV LHG TADS - W</Spanish>
+            <Italian>Interruttore FOV LHG TADS - W</Italian>
+            <German>TADS LHG FOV Schalter - W</German>
+            <Czech>Přepínač FOV LHG TADS - W</Czech>
+            <Polish>Przełącznik FOV LHG TADS - W</Polish>
+            <Russian>Переключатель FOV LHG TADS - W</Russian>
+            <Portuguese>Chave FOV LHG TADS - W</Portuguese>
+            <Korean>TADS LHG FOV 스위치 - W</Korean>
+            <Japanese>TADS LHG FOV スイッチ - W</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - W</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - W</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_W_INFO">
             <English>Sets the Tads FOV to Wide</English>
             <Original>Sets the Tads FOV to Wide</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le FOV du TADS sur Large</French>
+            <Dutch>Stelt het TADS FOV in op Breed</Dutch>
+            <Spanish>Establece el FOV del TADS en Ancho</Spanish>
+            <Italian>Imposta il FOV del TADS su Ampio</Italian>
+            <German>Setzt das TADS FOV auf Weit</German>
+            <Czech>Nastavuje FOV TADS na Široké</Czech>
+            <Polish>Ustawia FOV TADS na Szerokie</Polish>
+            <Russian>Установить FOV TADS на Широкий</Russian>
+            <Portuguese>Define o FOV do TADS como Amplo</Portuguese>
+            <Korean>TADS FOV를 광각으로 설정</Korean>
+            <Japanese>TADS FOVを広角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为宽角</Chinesesimp>
+            <Turkish>TADS FOV'u Geniş Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M">
             <English>TADS LHG FOV Switch - M</English>
             <Original>TADS LHG FOV Switch - M</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur FOV LHG TADS - M</French>
+            <Dutch>TADS LHG FOV Schakelaar - M</Dutch>
+            <Spanish>Interruptor FOV LHG TADS - M</Spanish>
+            <Italian>Interruttore FOV LHG TADS - M</Italian>
+            <German>TADS LHG FOV Schalter - M</German>
+            <Czech>Přepínač FOV LHG TADS - M</Czech>
+            <Polish>Przełącznik FOV LHG TADS - M</Polish>
+            <Russian>Переключатель FOV LHG TADS - M</Russian>
+            <Portuguese>Chave FOV LHG TADS - M</Portuguese>
+            <Korean>TADS LHG FOV 스위치 - M</Korean>
+            <Japanese>TADS LHG FOV スイッチ - M</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - M</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - M</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_M_INFO">
             <English>Sets the Tads FOV to Medium</English>
             <Original>Sets the Tads FOV to Medium</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le FOV du TADS sur Moyen</French>
+            <Dutch>Stelt het TADS FOV in op Middel</Dutch>
+            <Spanish>Establece el FOV del TADS en Medio</Spanish>
+            <Italian>Imposta il FOV del TADS su Medio</Italian>
+            <German>Setzt das TADS FOV auf Mittel</German>
+            <Czech>Nastavuje FOV TADS na Střední</Czech>
+            <Polish>Ustawia FOV TADS na Średnie</Polish>
+            <Russian>Установить FOV TADS на Средний</Russian>
+            <Portuguese>Define o FOV do TADS como Médio</Portuguese>
+            <Korean>TADS FOV를 중각으로 설정</Korean>
+            <Japanese>TADS FOVを中角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为中角</Chinesesimp>
+            <Turkish>TADS FOV'u Orta Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N">
             <English>TADS LHG FOV Switch - N</English>
             <Original>TADS LHG FOV Switch - N</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur FOV LHG TADS - N</French>
+            <Dutch>TADS LHG FOV Schakelaar - N</Dutch>
+            <Spanish>Interruptor FOV LHG TADS - N</Spanish>
+            <Italian>Interruttore FOV LHG TADS - N</Italian>
+            <German>TADS LHG FOV Schalter - N</German>
+            <Czech>Přepínač FOV LHG TADS - N</Czech>
+            <Polish>Przełącznik FOV LHG TADS - N</Polish>
+            <Russian>Переключатель FOV LHG TADS - N</Russian>
+            <Portuguese>Chave FOV LHG TADS - N</Portuguese>
+            <Korean>TADS LHG FOV 스위치 - N</Korean>
+            <Japanese>TADS LHG FOV スイッチ - N</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - N</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - N</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_N_INFO">
             <English>Sets the Tads FOV to Narrow</English>
             <Original>Sets the Tads FOV to Narrow</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le FOV du TADS sur Étroit</French>
+            <Dutch>Stelt het TADS FOV in op Nauw</Dutch>
+            <Spanish>Establece el FOV del TADS en Estrecho</Spanish>
+            <Italian>Imposta il FOV del TADS su Stretto</Italian>
+            <German>Setzt das TADS FOV auf Eng</German>
+            <Czech>Nastavuje FOV TADS na Úzké</Czech>
+            <Polish>Ustawia FOV TADS na Wąskie</Polish>
+            <Russian>Установить FOV TADS на Узкий</Russian>
+            <Portuguese>Define o FOV do TADS como Estreito</Portuguese>
+            <Korean>TADS FOV를 협각으로 설정</Korean>
+            <Japanese>TADS FOVを狭角に設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为窄角</Chinesesimp>
+            <Turkish>TADS FOV'u Dar Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z">
             <English>TADS LHG FOV Switch - Z</English>
             <Original>TADS LHG FOV Switch - Z</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur FOV LHG TADS - Z</French>
+            <Dutch>TADS LHG FOV Schakelaar - Z</Dutch>
+            <Spanish>Interruptor FOV LHG TADS - Z</Spanish>
+            <Italian>Interruttore FOV LHG TADS - Z</Italian>
+            <German>TADS LHG FOV Schalter - Z</German>
+            <Czech>Přepínač FOV LHG TADS - Z</Czech>
+            <Polish>Przełącznik FOV LHG TADS - Z</Polish>
+            <Russian>Переключатель FOV LHG TADS - Z</Russian>
+            <Portuguese>Chave FOV LHG TADS - Z</Portuguese>
+            <Korean>TADS LHG FOV 스위치 - Z</Korean>
+            <Japanese>TADS LHG FOV スイッチ - Z</Japanese>
+            <Chinesesimp>TADS LHG FOV开关 - Z</Chinesesimp>
+            <Turkish>TADS LHG FOV Anahtarı - Z</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_FOV_Z_INFO">
             <English>Sets the Tads FOV to Zoom</English>
             <Original>Sets the Tads FOV to Zoom</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le FOV du TADS sur Zoom</French>
+            <Dutch>Stelt het TADS FOV in op Zoom</Dutch>
+            <Spanish>Establece el FOV del TADS en Zoom</Spanish>
+            <Italian>Imposta il FOV del TADS su Zoom</Italian>
+            <German>Setzt das TADS FOV auf Zoom</German>
+            <Czech>Nastavuje FOV TADS na Zoom</Czech>
+            <Polish>Ustawia FOV TADS na Przybliżenie</Polish>
+            <Russian>Установить FOV TADS на Масштабирование</Russian>
+            <Portuguese>Define o FOV do TADS como Zoom</Portuguese>
+            <Korean>TADS FOV를 줌으로 설정</Korean>
+            <Japanese>TADS FOVをズームに設定</Japanese>
+            <Chinesesimp>将TADS FOV设置为变焦</Chinesesimp>
+            <Turkish>TADS FOV'u Yakınlaştır Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR">
             <English>LHG Sensor Select Switch - FLIR</English>
             <Original>LHG Sensor Select Switch - FLIR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur Sélection Capteur LHG - FLIR</French>
+            <Dutch>LHG Sensor Selectie Schakelaar - FLIR</Dutch>
+            <Spanish>Interruptor Selección Sensor LHG - FLIR</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - FLIR</Italian>
+            <German>LHG Sensor Select Schalter - FLIR</German>
+            <Czech>Přepínač Výběr Senzoru LHG - FLIR</Czech>
+            <Polish>Przełącznik Wyboru Czujnika LHG - FLIR</Polish>
+            <Russian>Переключатель Выбора Датчика LHG - FLIR</Russian>
+            <Portuguese>Chave Seleção Sensor LHG - FLIR</Portuguese>
+            <Korean>LHG 센서 선택 스위치 - FLIR</Korean>
+            <Japanese>LHG センサ選択スイッチ - FLIR</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - FLIR</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - FLIR</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_FLIR_INFO">
             <English>Sets the Tads Sensor to FLIR</English>
             <Original>Sets the Tads Sensor to FLIR</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le Capteur TADS sur FLIR</French>
+            <Dutch>Stelt de TADS Sensor in op FLIR</Dutch>
+            <Spanish>Establece el Sensor TADS en FLIR</Spanish>
+            <Italian>Imposta il Sensore TADS su FLIR</Italian>
+            <German>Setzt den TADS Sensor auf FLIR</German>
+            <Czech>Nastavuje Senzor TADS na FLIR</Czech>
+            <Polish>Ustawia Czujnik TADS na FLIR</Polish>
+            <Russian>Установить Датчик TADS на FLIR</Russian>
+            <Portuguese>Define o Sensor TADS como FLIR</Portuguese>
+            <Korean>TADS 센서를 FLIR로 설정</Korean>
+            <Japanese>TADSセンサをFLIRに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为FLIR</Chinesesimp>
+            <Turkish>TADS Sensörünü FLIR Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV">
             <English>LHG Sensor Select Switch - DTV</English>
             <Original>LHG Sensor Select Switch - DTV</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur Sélection Capteur LHG - DTV</French>
+            <Dutch>LHG Sensor Selectie Schakelaar - DTV</Dutch>
+            <Spanish>Interruptor Selección Sensor LHG - DTV</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - DTV</Italian>
+            <German>LHG Sensor Select Schalter - DTV</German>
+            <Czech>Přepínač Výběr Senzoru LHG - DTV</Czech>
+            <Polish>Przełącznik Wyboru Czujnika LHG - DTV</Polish>
+            <Russian>Переключатель Выбора Датчика LHG - DTV</Russian>
+            <Portuguese>Chave Seleção Sensor LHG - DTV</Portuguese>
+            <Korean>LHG 센서 선택 스위치 - DTV</Korean>
+            <Japanese>LHG センサ選択スイッチ - DTV</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - DTV</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - DTV</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_DTV_INFO">
             <English>Sets the Tads Sensor to DTV</English>
             <Original>Sets the Tads Sensor to DTV</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le Capteur TADS sur DTV</French>
+            <Dutch>Stelt de TADS Sensor in op DTV</Dutch>
+            <Spanish>Establece el Sensor TADS en DTV</Spanish>
+            <Italian>Imposta il Sensore TADS su DTV</Italian>
+            <German>Setzt den TADS Sensor auf DTV</German>
+            <Czech>Nastavuje Senzor TADS na DTV</Czech>
+            <Polish>Ustawia Czujnik TADS na DTV</Polish>
+            <Russian>Установить Датчик TADS на DTV</Russian>
+            <Portuguese>Define o Sensor TADS como DTV</Portuguese>
+            <Korean>TADS 센서를 DTV로 설정</Korean>
+            <Japanese>TADSセンサをDTVに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为DTV</Chinesesimp>
+            <Turkish>TADS Sensörünü DTV Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO">
             <English>LHG Sensor Select Switch - DVO</English>
             <Original>LHG Sensor Select Switch - DVO</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Commutateur Sélection Capteur LHG - DVO</French>
+            <Dutch>LHG Sensor Selectie Schakelaar - DVO</Dutch>
+            <Spanish>Interruptor Selección Sensor LHG - DVO</Spanish>
+            <Italian>Interruttore Selezione Sensore LHG - DVO</Italian>
+            <German>LHG Sensor Select Schalter - DVO</German>
+            <Czech>Přepínač Výběr Senzoru LHG - DVO</Czech>
+            <Polish>Przełącznik Wyboru Czujnika LHG - DVO</Polish>
+            <Russian>Переключатель Выбора Датчика LHG - DVO</Russian>
+            <Portuguese>Chave Seleção Sensor LHG - DVO</Portuguese>
+            <Korean>LHG 센서 선택 스위치 - DVO</Korean>
+            <Japanese>LHG センサ選択スイッチ - DVO</Japanese>
+            <Chinesesimp>LHG传感器选择开关 - DVO</Chinesesimp>
+            <Turkish>LHG Sensör Seçim Anahtarı - DVO</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SENSOR_SELECT_DVO_INFO">
             <English>Sets the Tads Sensor to DVO</English>
             <Original>Sets the Tads Sensor to DVO</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Définit le Capteur TADS sur DVO</French>
+            <Dutch>Stelt de TADS Sensor in op DVO</Dutch>
+            <Spanish>Establece el Sensor TADS en DVO</Spanish>
+            <Italian>Imposta il Sensore TADS su DVO</Italian>
+            <German>Setzt den TADS Sensor auf DVO</German>
+            <Czech>Nastavuje Senzor TADS na DVO</Czech>
+            <Polish>Ustawia Czujnik TADS na DVO</Polish>
+            <Russian>Установить Датчик TADS на DVO</Russian>
+            <Portuguese>Define o Sensor TADS como DVO</Portuguese>
+            <Korean>TADS 센서를 DVO로 설정</Korean>
+            <Japanese>TADSセンサをDVOに設定</Japanese>
+            <Chinesesimp>将TADS传感器设置为DVO</Chinesesimp>
+            <Turkish>TADS Sensörünü DVO Olarak Ayarla</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_LMC">
             <English>LHG LMC Button</English>
             <Original>LHG LMC Button</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Bouton LMC LHG</French>
+            <Dutch>LHG LMC Knop</Dutch>
+            <Spanish>Botón LMC LHG</Spanish>
+            <Italian>Pulsante LMC LHG</Italian>
+            <German>LHG LMC Taste</German>
+            <Czech>Tlačítko LMC LHG</Czech>
+            <Polish>Przycisk LMC LHG</Polish>
+            <Russian>Кнопка LMC LHG</Russian>
+            <Portuguese>Botão LMC LHG</Portuguese>
+            <Korean>LHG LMC 버튼</Korean>
+            <Japanese>LHG LMCボタン</Japanese>
+            <Chinesesimp>LHG LMC按钮</Chinesesimp>
+            <Turkish>LHG LMC Düğmesi</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TADS_LHG_LMC_INFO">
             <English>Toggles Tads Linear Motion Compensator</English>
             <Original>Toggles Tads Linear Motion Compensator</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Bascule le Compensateur de Mouvement Linéaire TADS</French>
+            <Dutch>Schakelt TADS Lineaire Bewegingscompensator in/uit</Dutch>
+            <Spanish>Alterna el Compensador de Movimiento Lineal TADS</Spanish>
+            <Italian>Attiva/Disattiva il Compensatore Movimento Lineare TADS</Italian>
+            <German>Schaltet TADS Linear Bewegungskompensator um</German>
+            <Czech>Přepíná TADS Kompenzátor Lineárního Pohybu</Czech>
+            <Polish>Przełącza Kompensator Ruchu Liniowego TADS</Polish>
+            <Russian>Переключает Компенсатор Линейного Движения TADS</Russian>
+            <Portuguese>Alterna o Compensador de Movimento Linear TADS</Portuguese>
+            <Korean>TADS 선형 움직임 보상기 토글</Korean>
+            <Japanese>TADS線形モーション補正機をトグル</Japanese>
+            <Chinesesimp>切换TADS线性运动补偿器</Chinesesimp>
+            <Turkish>TADS Doğrusal Hareket Telafi Cihazını Aç/Kapat</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT">
             <English>Sticky Control Interupt</English>
             <Original>Sticky Control Interupt</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Interruption Commande Persistante</French>
+            <Dutch>Sticky Controle Onderbreking</Dutch>
+            <Spanish>Interrupción de Control Persistente</Spanish>
+            <Italian>Interruzione Controllo Persistente</Italian>
+            <German>Sticky Steuerung Unterbrechung</German>
+            <Czech>Přerušení Lepkavého Ovládání</Czech>
+            <Polish>Przerwanie Lepkiej Kontroli</Polish>
+            <Russian>Прерывание Липкого Управления</Russian>
+            <Portuguese>Interrupção de Controle Pegajoso</Portuguese>
+            <Korean>고정 제어 중단</Korean>
+            <Japanese>スティッキーコントロール中断</Japanese>
+            <Chinesesimp>粘性控制中断</Chinesesimp>
+            <Turkish>Yapışkan Kontrol Kesintisi</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_STICKY_CONTROL_INTERUPT_INFO">
             <English>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</English>
             <Original>When using sticky cyclic, disables sticky cyclic for enhanced maneuvering.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Lors de l'utilisation du cyclique persistant, désactive le cyclique persistant pour une meilleure manœuvrabilité.</French>
+            <Dutch>Wanneer sticky cyclic wordt gebruikt, schakelt het sticky cyclic uit voor verbeterde manoeuvreerbaarheid.</Dutch>
+            <Spanish>Cuando se usa el cíclico persistente, desactiva el cíclico persistente para mejorar la maniobrabilidad.</Spanish>
+            <Italian>Quando si utilizza il ciclico persistente, disattiva il ciclico persistente per una migliore manovrabilità.</Italian>
+            <German>Bei Verwendung von Sticky Cyclic wird das Sticky Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
+            <Czech>Při použití lepkavého cyklického zákazu zákazu lepkavého cyklického pro vyšší manévrovatelnost.</Czech>
+            <Polish>Przy użyciu lepkiego cyklicznego wyłącza lepkie cykliczne dla lepszej manewrowości.</Polish>
+            <Russian>При использовании липкого циклического отключает липкое циклическое для улучшенной маневренности.</Russian>
+            <Portuguese>Ao usar o cíclico pegajoso, desativa o cíclico pegajoso para melhor capacidade de manobra.</Portuguese>
+            <Korean>고정 사이클릭 사용 시 향상된 조작을 위해 고정 사이클릭을 비활성화합니다.</Korean>
+            <Japanese>スティッキーサイクリックを使用する場合、スティッキーサイクリックを無効にして操縦性を向上させます。</Japanese>
+            <Chinesesimp>使用粘性循环时，禁用粘性循环以增强机动性。</Chinesesimp>
+            <Turkish>Yapışkan döngüsel kullanımda, yapışkan döngüsel'i devre dışı bırakarak geliştirilmiş manevra kabiliyeti sağlar.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON">
             <English>Force Trim Panic Button</English>
             <Original>Force Trim Panic Button</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Bouton Panique Ajustement Forcé</French>
+            <Dutch>Force Trim Paniekknop</Dutch>
+            <Spanish>Botón de Pánico Trim Forzado</Spanish>
+            <Italian>Pulsante Panico Trim Forzato</Italian>
+            <German>Kraft Trim Paniktaste</German>
+            <Czech>Tlačítko Panika Vynucené Vyrovnání</Czech>
+            <Polish>Przycisk Paniki Wymuszonego Trimmera</Polish>
+            <Russian>Кнопка Паники Принудительной Подрезки</Russian>
+            <Portuguese>Botão de Pânico Ajuste Forçado</Portuguese>
+            <Korean>강제 트림 패닉 버튼</Korean>
+            <Japanese>フォーストトリムパニックボタン</Japanese>
+            <Chinesesimp>强制配平紧急按钮</Chinesesimp>
+            <Turkish>Kuvvet Trim Panik Düğmesi</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_FORCE_TRIM_PANIC_BUTTON_INFO">
             <English>Zeroes out the force trim values.</English>
             <Original>Zeroes out the force trim values.</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Réinitialise les valeurs d'ajustement forcé.</French>
+            <Dutch>Zet de force trim waarden op nul.</Dutch>
+            <Spanish>Anula los valores de ajuste forzado.</Spanish>
+            <Italian>Azzera i valori di trim forzato.</Italian>
+            <German>Setzt die Kraft Trim Werte auf Null.</German>
+            <Czech>Vynuluje hodnoty vynuceného vyrovnání.</Czech>
+            <Polish>Zeruje wartości wymuszonego trimmera.</Polish>
+            <Russian>Обнуляет значения принудительной подрезки.</Russian>
+            <Portuguese>Zera os valores de ajuste forçado.</Portuguese>
+            <Korean>강제 트림 값을 0으로 설정합니다.</Korean>
+            <Japanese>フォーストトリムの値をリセットします。</Japanese>
+            <Chinesesimp>将强制配平值重置为零。</Chinesesimp>
+            <Turkish>Kuvvet trim değerlerini sıfırlar.</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT">
             <English>Emergency Jettison</English>
             <Original>Emergency Jettison</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Largage d'Urgence</French>
+            <Dutch>Noodlastdrop</Dutch>
+            <Spanish>Expulsión de Emergencia</Spanish>
+            <Italian>Rilascio di Emergenza</Italian>
+            <German>Notfall Abwurf</German>
+            <Czech>Nouzové Vyhazování</Czech>
+            <Polish>Nadzwyczajne Zrzucanie</Polish>
+            <Russian>Аварийный Сброс</Russian>
+            <Portuguese>Ejeção de Emergência</Portuguese>
+            <Korean>긴급 투기</Korean>
+            <Japanese>緊急投棄</Japanese>
+            <Chinesesimp>紧急投放</Chinesesimp>
+            <Turkish>Acil Durum Bırakma</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COLLECTIVE_EMERG_JETT_INFO">
             <English>Collective Emergency Jettison Button</English>
             <Original>Collective Emergency Jettison Button</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Bouton Collectif de Largage d'Urgence</French>
+            <Dutch>Collectieve Noodlastdrop Knop</Dutch>
+            <Spanish>Botón Colectivo de Expulsión de Emergencia</Spanish>
+            <Italian>Pulsante Collettivo di Rilascio di Emergenza</Italian>
+            <German>Collective Notfall Abwurf Taste</German>
+            <Czech>Tlačítko Kolektivního Nouzového Vyhazování</Czech>
+            <Polish>Przycisk Zbiorowego Nadzwyczajnego Zrzucania</Polish>
+            <Russian>Кнопка Коллективного Аварийного Сброса</Russian>
+            <Portuguese>Botão Coletivo de Ejeção de Emergência</Portuguese>
+            <Korean>집단 긴급 투기 버튼</Korean>
+            <Japanese>集団緊急投棄ボタン</Japanese>
+            <Chinesesimp>集体紧急投放按钮</Chinesesimp>
+            <Turkish>Toplu Acil Durum Bırakma Düğmesi</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CYCLIC_FORWARD">
             <English>Cyclic Forward</English>
             <Original>Cyclic Forward</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Cyclique Avant</French>
+            <Dutch>Cyclisch Vooruit</Dutch>
+            <Spanish>Cíclico Adelante</Spanish>
+            <Italian>Ciclico Avanti</Italian>
+            <German>Zyklisch Vorwärts</German>
+            <Czech>Cyklické Dopředu</Czech>
+            <Polish>Cykliczne Przód</Polish>
+            <Russian>Циклический Вперед</Russian>
+            <Portuguese>Cíclico Frente</Portuguese>
+            <Korean>사이클릭 전진</Korean>
+            <Japanese>サイクリック前進</Japanese>
+            <Chinesesimp>循环向前</Chinesesimp>
+            <Turkish>Döngüsel İleri</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CYCLIC_BACKWARD">
             <English>Cyclic Backward</English>
             <Original>Cyclic Backward</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Cyclique Arrière</French>
+            <Dutch>Cyclisch Achteruit</Dutch>
+            <Spanish>Cíclico Atrás</Spanish>
+            <Italian>Ciclico Indietro</Italian>
+            <German>Zyklisch Rückwärts</German>
+            <Czech>Cyklické Dozadu</Czech>
+            <Polish>Cykliczne Tył</Polish>
+            <Russian>Циклический Назад</Russian>
+            <Portuguese>Cíclico Atrás</Portuguese>
+            <Korean>사이클릭 후진</Korean>
+            <Japanese>サイクリック後進</Japanese>
+            <Chinesesimp>循环向后</Chinesesimp>
+            <Turkish>Döngüsel Geri</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CYCLIC_LEFT">
             <English>Cyclic Left</English>
             <Original>Cyclic Left</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Cyclique Gauche</French>
+            <Dutch>Cyclisch Links</Dutch>
+            <Spanish>Cíclico Izquierda</Spanish>
+            <Italian>Ciclico Sinistra</Italian>
+            <German>Zyklisch Links</German>
+            <Czech>Cyklické Vlevo</Czech>
+            <Polish>Cykliczne Lewo</Polish>
+            <Russian>Циклический Влево</Russian>
+            <Portuguese>Cíclico Esquerda</Portuguese>
+            <Korean>사이클릭 좌측</Korean>
+            <Japanese>サイクリック左</Japanese>
+            <Chinesesimp>循环向左</Chinesesimp>
+            <Turkish>Döngüsel Sol</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_CYCLIC_RIGHT">
             <English>Cyclic Right</English>
             <Original>Cyclic Right</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Cyclique Droite</French>
+            <Dutch>Cyclisch Rechts</Dutch>
+            <Spanish>Cíclico Derecha</Spanish>
+            <Italian>Ciclico Destra</Italian>
+            <German>Zyklisch Rechts</German>
+            <Czech>Cyklické Vpravo</Czech>
+            <Polish>Cykliczne Prawo</Polish>
+            <Russian>Циклический Вправо</Russian>
+            <Portuguese>Cíclico Direita</Portuguese>
+            <Korean>사이클릭 우측</Korean>
+            <Japanese>サイクリック右</Japanese>
+            <Chinesesimp>循环向右</Chinesesimp>
+            <Turkish>Döngüsel Sağ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_PEDAL_LEFT">
             <English>Pedal Left</English>
             <Original>Pedal Left</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Pédal Gauche</French>
+            <Dutch>Pedaal Links</Dutch>
+            <Spanish>Pedal Izquierda</Spanish>
+            <Italian>Pedale Sinistra</Italian>
+            <German>Pedal Links</German>
+            <Czech>Pedál Vlevo</Czech>
+            <Polish>Pedał Lewo</Polish>
+            <Russian>Педаль Влево</Russian>
+            <Portuguese>Pedal Esquerda</Portuguese>
+            <Korean>페달 좌측</Korean>
+            <Japanese>ペダル左</Japanese>
+            <Chinesesimp>踏板左</Chinesesimp>
+            <Turkish>Pedal Sol</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_PEDAL_RIGHT">
             <English>Pedal Right</English>
             <Original>Pedal Right</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Pédal Droite</French>
+            <Dutch>Pedaal Rechts</Dutch>
+            <Spanish>Pedal Derecha</Spanish>
+            <Italian>Pedale Destra</Italian>
+            <German>Pedal Rechts</German>
+            <Czech>Pedál Vpravo</Czech>
+            <Polish>Pedał Prawo</Polish>
+            <Russian>Педаль Вправо</Russian>
+            <Portuguese>Pedal Direita</Portuguese>
+            <Korean>페달 우측</Korean>
+            <Japanese>ペダル右</Japanese>
+            <Chinesesimp>踏板右</Chinesesimp>
+            <Turkish>Pedal Sağ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COLLECTIVE_UP">
             <English>HOTAS Collective Up</English>
             <Original>HOTAS Collective Up</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Collective HOTAS Haut</French>
+            <Dutch>HOTAS Collectief Omhoog</Dutch>
+            <Spanish>Colectivo HOTAS Arriba</Spanish>
+            <Italian>Collettivo HOTAS Su</Italian>
+            <German>HOTAS Collective Auf</German>
+            <Czech>HOTAS Kolektivní Nahoru</Czech>
+            <Polish>HOTAS Zbiorowy Góra</Polish>
+            <Russian>HOTAS Коллективный Вверх</Russian>
+            <Portuguese>Coletivo HOTAS Para Cima</Portuguese>
+            <Korean>HOTAS 집단 위로</Korean>
+            <Japanese>HOTAS集団上昇</Japanese>
+            <Chinesesimp>HOTAS集体向上</Chinesesimp>
+            <Turkish>HOTAS Toplu Yukarı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_COLLECTIVE_DN">
             <English>HOTAS Collective Down</English>
             <Original>HOTAS Collective Down</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Collective HOTAS Bas</French>
+            <Dutch>HOTAS Collectief Omlaag</Dutch>
+            <Spanish>Colectivo HOTAS Abajo</Spanish>
+            <Italian>Collettivo HOTAS Giù</Italian>
+            <German>HOTAS Collective Ab</German>
+            <Czech>HOTAS Kolektivní Dolů</Czech>
+            <Polish>HOTAS Zbiorowy Dół</Polish>
+            <Russian>HOTAS Коллективный Вниз</Russian>
+            <Portuguese>Coletivo HOTAS Para Baixo</Portuguese>
+            <Korean>HOTAS 집단 아래로</Korean>
+            <Japanese>HOTAS集団下降</Japanese>
+            <Chinesesimp>HOTAS集体向下</Chinesesimp>
+            <Turkish>HOTAS Toplu Aşağı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_KB_COLLECTIVE_UP">
             <English>Keyboard Collective Up</English>
             <Original>Keyboard Collective Up</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Clavier Collective Haut</French>
+            <Dutch>Toetsenbord Collectief Omhoog</Dutch>
+            <Spanish>Teclado Colectivo Arriba</Spanish>
+            <Italian>Tastiera Collettivo Su</Italian>
+            <German>Tastatur Collective Auf</German>
+            <Czech>Klávesnice Kolektivní Nahoru</Czech>
+            <Polish>Klawiatura Zbiorowy Góra</Polish>
+            <Russian>Клавиатура Коллективный Вверх</Russian>
+            <Portuguese>Teclado Coletivo Para Cima</Portuguese>
+            <Korean>키보드 집단 위로</Korean>
+            <Japanese>キーボード集団上昇</Japanese>
+            <Chinesesimp>键盘集体向上</Chinesesimp>
+            <Turkish>Klavye Toplu Yukarı</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_KB_COLLECTIVE_DN">
             <English>Keyboard Collective Down</English>
             <Original>Keyboard Collective Down</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Clavier Collective Bas</French>
+            <Dutch>Toetsenbord Collectief Omlaag</Dutch>
+            <Spanish>Teclado Colectivo Abajo</Spanish>
+            <Italian>Tastiera Collettivo Giù</Italian>
+            <German>Tastatur Collective Ab</German>
+            <Czech>Klávesnice Kolektivní Dolů</Czech>
+            <Polish>Klawiatura Zbiorowy Dół</Polish>
+            <Russian>Клавиатура Коллективный Вниз</Russian>
+            <Portuguese>Teclado Coletivo Para Baixo</Portuguese>
+            <Korean>키보드 집단 아래로</Korean>
+            <Japanese>キーボード集団下降</Japanese>
+            <Chinesesimp>键盘集体向下</Chinesesimp>
+            <Turkish>Klavye Toplu Aşağı</Turkish>
         </Key>
     </Package>
 </Project>

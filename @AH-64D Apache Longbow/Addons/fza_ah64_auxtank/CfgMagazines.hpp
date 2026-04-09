@@ -15,5 +15,5 @@ class CfgMagazines {
             fza_pylonType = "auxTank"; \
         }; \
     
-    AUXTANK_MAGAZINE_CONFIG(fza_230gal_auxTank, "$STR_FZA_AH64_230GAL_AUX_TANK", "An unarmored external fuel tank that provides 230gal (1,541lbs) of fuel. Total additional weight is 1681lbs");
+    AUXTANK_MAGAZINE_CONFIG(fza_230gal_auxTank, "$STR_FZA_AH64_230GAL_AUX_TANK", "$STR_FZA_AH64_230GAL_AUX_TANK_INFO");
 };

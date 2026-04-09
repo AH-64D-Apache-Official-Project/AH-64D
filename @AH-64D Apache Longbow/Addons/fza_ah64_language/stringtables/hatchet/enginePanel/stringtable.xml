@@ -4,461 +4,461 @@
         <Key ID="STR_FZA_AH64_ENGINE_PANEL">
             <English>ENGINE PANEL</English>
             <Original>ENGINE PANEL</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>PANNEAU MOTEUR</French>
+            <Dutch>MOTORPANEEL</Dutch>
+            <Spanish>PANEL DE MOTORES</Spanish>
+            <Italian>PANNELLO MOTORE</Italian>
+            <German>MOTORENTAFEL</German>
+            <Czech>MOTOR PANEL</Czech>
+            <Polish>PANEL SILNIKA</Polish>
+            <Russian>ПАНЕЛЬ ДВИГАТЕЛЯ</Russian>
+            <Portuguese>PAINEL DE MOTOR</Portuguese>
+            <Korean>엔진 패널</Korean>
+            <Japanese>エンジンパネル</Japanese>
+            <Chinesesimp>发动机面板</Chinesesimp>
+            <Turkish>MOTOR PANELİ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_BATTERY_POWER">
             <English>TOGGLE BATTERY POWER</English>
             <Original>TOGGLE BATTERY POWER</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>BASCULER ALIMENTATION BATTERIE</French>
+            <Dutch>BATTERIJSTROOM AAN/UIT</Dutch>
+            <Spanish>ALTERNAR POTENCIA DE BATERÍA</Spanish>
+            <Italian>COMMUTA ALIMENTAZIONE BATTERIA</Italian>
+            <German>BATTERIESTROM UMSCHALTEN</German>
+            <Czech>PŘEPNOUT NAPÁJENÍ BATERIE</Czech>
+            <Polish>PRZEŁĄCZNIK ZASILANIA BATERII</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПИТАНИЯ БАТАРЕИ</Russian>
+            <Portuguese>ALTERNAR POTÊNCIA DA BATERIA</Portuguese>
+            <Korean>배터리 전원 전환</Korean>
+            <Japanese>バッテリー電源切替</Japanese>
+            <Chinesesimp>切换电池电源</Chinesesimp>
+            <Turkish>PİL GÜCÜ AÇKAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_APU_POWER">
             <English>TOGGLE APU POWER</English>
             <Original>TOGGLE APU POWER</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>BASCULER ALIMENTATION APU</French>
+            <Dutch>APU STROOM AAN/UIT</Dutch>
+            <Spanish>ALTERNAR POTENCIA APU</Spanish>
+            <Italian>COMMUTA ALIMENTAZIONE APU</Italian>
+            <German>APU-STROMVERSORGUNG UMSCHALTEN</German>
+            <Czech>PŘEPNOUT NAPÁJENÍ APU</Czech>
+            <Polish>PRZEŁĄCZNIK ZASILANIA APU</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ПИТАНИЯ АОУ</Russian>
+            <Portuguese>ALTERNAR POTÊNCIA APU</Portuguese>
+            <Korean>APU 전원 전환</Korean>
+            <Japanese>APU電源切替</Japanese>
+            <Chinesesimp>切换APU电源</Chinesesimp>
+            <Turkish>APU GÜCÜ AÇKAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_ROTOR_BRAKE">
             <English>TOGGLE ROTOR BRAKE</English>
             <Original>TOGGLE ROTOR BRAKE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>BASCULER FREIN ROTOR</French>
+            <Dutch>ROTORREM AAN/UIT</Dutch>
+            <Spanish>ALTERNAR FRENO DE ROTOR</Spanish>
+            <Italian>COMMUTA FRENO ROTORE</Italian>
+            <German>ROTORBREMSE UMSCHALTEN</German>
+            <Czech>PŘEPNOUT BRZDU ROTORU</Czech>
+            <Polish>PRZEŁĄCZNIK HAMULCA WIRNIKA</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ ТОРМОЗА РОТОРА</Russian>
+            <Portuguese>ALTERNAR FREIO DE ROTOR</Portuguese>
+            <Korean>회전자 제동 전환</Korean>
+            <Japanese>ローター制動切替</Japanese>
+            <Chinesesimp>切换旋翼制动</Chinesesimp>
+            <Turkish>ROTOR FRENI AÇKAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_1_OFF">
             <English>SET ENGINE 1 OFF</English>
             <Original>SET ENGINE 1 OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>COUPER MOTEUR 1</French>
+            <Dutch>MOTOR 1 UIT</Dutch>
+            <Spanish>APAGAR MOTOR 1</Spanish>
+            <Italian>SPEGNI MOTORE 1</Italian>
+            <German>MOTOR 1 AUSSCHALTEN</German>
+            <Czech>VYPNOUT MOTOR 1</Czech>
+            <Polish>WYŁĄCZYĆ SILNIK 1</Polish>
+            <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 1</Russian>
+            <Portuguese>DESLIGAR MOTOR 1</Portuguese>
+            <Korean>엔진 1 끔</Korean>
+            <Japanese>エンジン1オフ</Japanese>
+            <Chinesesimp>关闭发动机1</Chinesesimp>
+            <Turkish>MOTOR 1 KAPAT</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_1_IDLE">
             <English>SET ENGINE 1 IDLE</English>
             <Original>SET ENGINE 1 IDLE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>MOTEUR 1 AU RALENTI</French>
+            <Dutch>MOTOR 1 STATIONAIR</Dutch>
+            <Spanish>MOTOR 1 EN RALENTÍ</Spanish>
+            <Italian>MOTORE 1 AL MINIMO</Italian>
+            <German>MOTOR 1 LEERLAUF</German>
+            <Czech>MOTOR 1 NEČINNÝ</Czech>
+            <Polish>SILNIK 1 NA BIEGU JAŁOWYM</Polish>
+            <Russian>ДВИГАТЕЛЬ 1 НА ХОЛОСТОМ ХОДУ</Russian>
+            <Portuguese>MOTOR 1 EM MARCHA LENTA</Portuguese>
+            <Korean>엔진 1 유휴</Korean>
+            <Japanese>エンジン1アイドル</Japanese>
+            <Chinesesimp>发动机1空转</Chinesesimp>
+            <Turkish>MOTOR 1 BOŞ ÇALIŞMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_1_FLY">
             <English>SET ENGINE 1 FLY</English>
             <Original>SET ENGINE 1 FLY</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>MOTEUR 1 EN VOL</French>
+            <Dutch>MOTOR 1 VLIEGEN</Dutch>
+            <Spanish>MOTOR 1 EN VUELO</Spanish>
+            <Italian>MOTORE 1 IN VOLO</Italian>
+            <German>MOTOR 1 FLUGMODUS</German>
+            <Czech>MOTOR 1 LÉTÁNÍ</Czech>
+            <Polish>SILNIK 1 LATANIE</Polish>
+            <Russian>ДВИГАТЕЛЬ 1 В РЕЖИМЕ ПОЛЕТА</Russian>
+            <Portuguese>MOTOR 1 EM VOO</Portuguese>
+            <Korean>엔진 1 비행</Korean>
+            <Japanese>エンジン1フライト</Japanese>
+            <Chinesesimp>发动机1飞行</Chinesesimp>
+            <Turkish>MOTOR 1 UÇUŞ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_1">
             <English>START/OVERRIDE ENGINE 1</English>
             <Original>START/OVERRIDE ENGINE 1</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>DÉMARRAGE/FORÇAGE MOTEUR 1</French>
+            <Dutch>START/OVERRIDE MOTOR 1</Dutch>
+            <Spanish>INICIAR/FORZAR MOTOR 1</Spanish>
+            <Italian>AVVIA/FORZAMENTO MOTORE 1</Italian>
+            <German>START/NOTBETRIEB MOTOR 1</German>
+            <Czech>START/PŘEPNUTÍ MOTOR 1</Czech>
+            <Polish>START/WYMUSZENIE SILNIKA 1</Polish>
+            <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 1</Russian>
+            <Portuguese>INICIAR/FORÇAR MOTOR 1</Portuguese>
+            <Korean>엔진1 시작/강제</Korean>
+            <Japanese>エンジン1スタート/オーバーライド</Japanese>
+            <Chinesesimp>发动机1启动/强制</Chinesesimp>
+            <Turkish>MOTOR 1 BAŞLAT/ZORLAMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_ONE_START">
             <English>ENGINE ONE START</English>
             <Original>ENGINE ONE START</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>DÉMARRAGE MOTEUR UN</French>
+            <Dutch>MOTOR EEN STARTEN</Dutch>
+            <Spanish>MOTOR UNO INICIADO</Spanish>
+            <Italian>MOTORE UNO AVVIATO</Italian>
+            <German>MOTOR EINS STARTET</German>
+            <Czech>MOTOR JEDNA START</Czech>
+            <Polish>SILNIK JEDEN START</Polish>
+            <Russian>ДВИГАТЕЛЬ ОДИН ЗАПУСК</Russian>
+            <Portuguese>MOTOR UM INICIADO</Portuguese>
+            <Korean>엔진 원 시작</Korean>
+            <Japanese>エンジンワンスタート</Japanese>
+            <Chinesesimp>发动机一启动</Chinesesimp>
+            <Turkish>MOTOR BİR BAŞLAT</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_ONE_OFF">
             <English>OFF</English>
             <Original>OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>ARRÊT</French>
+            <Dutch>UIT</Dutch>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <German>AUS</German>
+            <Czech>VYPNUT</Czech>
+            <Polish>WYŁĄCZONE</Polish>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE">
             <English>ENGINE ONE IGNITION OVERRIDE</English>
             <Original>ENGINE ONE IGNITION OVERRIDE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FORÇAGE ALLUMAGE MOTEUR 1</French>
+            <Dutch>MOTOR 1 ONTSTEKING OVERRIDE</Dutch>
+            <Spanish>FORZAR IGNICIÓN MOTOR 1</Spanish>
+            <Italian>FORZAMENTO ACCENSIONE MOTORE 1</Italian>
+            <German>MOTOR 1 NOTBETRIEB ZÜNDUNG</German>
+            <Czech>MOTOR 1 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
+            <Polish>WYMUSZENIE ZAPŁONU SILNIKA 1</Polish>
+            <Russian>ДВИГАТЕЛЬ 1 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
+            <Portuguese>FORÇAR IGNIÇÃO MOTOR 1</Portuguese>
+            <Korean>엔진1 점화 강제</Korean>
+            <Japanese>エンジン1イグニッションオーバーライド</Japanese>
+            <Chinesesimp>发动机1点火强制</Chinesesimp>
+            <Turkish>MOTOR 1 ATEŞLEME ZORLAMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_2_OFF">
             <English>SET ENGINE 2 OFF</English>
             <Original>SET ENGINE 2 OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>COUPER MOTEUR 2</French>
+            <Dutch>MOTOR 2 UIT</Dutch>
+            <Spanish>APAGAR MOTOR 2</Spanish>
+            <Italian>SPEGNI MOTORE 2</Italian>
+            <German>MOTOR 2 AUSSCHALTEN</German>
+            <Czech>VYPNOUT MOTOR 2</Czech>
+            <Polish>WYŁĄCZYĆ SILNIK 2</Polish>
+            <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 2</Russian>
+            <Portuguese>DESLIGAR MOTOR 2</Portuguese>
+            <Korean>엔진 2 끔</Korean>
+            <Japanese>エンジン2オフ</Japanese>
+            <Chinesesimp>关闭发动机2</Chinesesimp>
+            <Turkish>MOTOR 2 KAPAT</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_2_IDLE">
             <English>SET ENGINE 2 IDLE</English>
             <Original>SET ENGINE 2 IDLE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>MOTEUR 2 AU RALENTI</French>
+            <Dutch>MOTOR 2 STATIONAIR</Dutch>
+            <Spanish>MOTOR 2 EN RALENTÍ</Spanish>
+            <Italian>MOTORE 2 AL MINIMO</Italian>
+            <German>MOTOR 2 LEERLAUF</German>
+            <Czech>MOTOR 2 NEČINNÝ</Czech>
+            <Polish>SILNIK 2 NA BIEGU JAŁOWYM</Polish>
+            <Russian>ДВИГАТЕЛЬ 2 НА ХОЛОСТОМ ХОДУ</Russian>
+            <Portuguese>MOTOR 2 EM MARCHA LENTA</Portuguese>
+            <Korean>엔진 2 유휴</Korean>
+            <Japanese>エンジン2アイドル</Japanese>
+            <Chinesesimp>发动机2空转</Chinesesimp>
+            <Turkish>MOTOR 2 BOŞ ÇALIŞMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_SET_ENGINE_2_FLY">
             <English>SET ENGINE 2 FLY</English>
             <Original>SET ENGINE 2 FLY</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>MOTEUR 2 EN VOL</French>
+            <Dutch>MOTOR 2 VLIEGEN</Dutch>
+            <Spanish>MOTOR 2 EN VUELO</Spanish>
+            <Italian>MOTORE 2 IN VOLO</Italian>
+            <German>MOTOR 2 FLUGMODUS</German>
+            <Czech>MOTOR 2 LÉTÁNÍ</Czech>
+            <Polish>SILNIK 2 LATANIE</Polish>
+            <Russian>ДВИГАТЕЛЬ 2 В РЕЖИМЕ ПОЛЕТА</Russian>
+            <Portuguese>MOTOR 2 EM VOO</Portuguese>
+            <Korean>엔진 2 비행</Korean>
+            <Japanese>エンジン2フライト</Japanese>
+            <Chinesesimp>发动机2飞行</Chinesesimp>
+            <Turkish>MOTOR 2 UÇUŞ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_START_OVERRIDE_ENGINE_2">
             <English>START/OVERRIDE ENGINE 2</English>
             <Original>START/OVERRIDE ENGINE 2</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>DÉMARRAGE/FORÇAGE MOTEUR 2</French>
+            <Dutch>START/OVERRIDE MOTOR 2</Dutch>
+            <Spanish>INICIAR/FORZAR MOTOR 2</Spanish>
+            <Italian>AVVIA/FORZAMENTO MOTORE 2</Italian>
+            <German>START/NOTBETRIEB MOTOR 2</German>
+            <Czech>START/PŘEPNUTÍ MOTOR 2</Czech>
+            <Polish>START/WYMUSZENIE SILNIKA 2</Polish>
+            <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 2</Russian>
+            <Portuguese>INICIAR/FORÇAR MOTOR 2</Portuguese>
+            <Korean>엔진2 시작/강제</Korean>
+            <Japanese>エンジン2スタート/オーバーライド</Japanese>
+            <Chinesesimp>发动机2启动/强制</Chinesesimp>
+            <Turkish>MOTOR 2 BAŞLAT/ZORLAMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_TWO_START">
             <English>ENGINE TWO START</English>
             <Original>ENGINE TWO START</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>DÉMARRAGE MOTEUR DEUX</French>
+            <Dutch>MOTOR TWEE STARTEN</Dutch>
+            <Spanish>MOTOR DOS INICIADO</Spanish>
+            <Italian>MOTORE DUE AVVIATO</Italian>
+            <German>MOTOR ZWEI STARTET</German>
+            <Czech>MOTOR DVA START</Czech>
+            <Polish>SILNIK DWA START</Polish>
+            <Russian>ДВИГАТЕЛЬ ДВА ЗАПУСК</Russian>
+            <Portuguese>MOTOR DOIS INICIADO</Portuguese>
+            <Korean>엔진 투 시작</Korean>
+            <Japanese>エンジンツウスタート</Japanese>
+            <Chinesesimp>发动机二启动</Chinesesimp>
+            <Turkish>MOTOR İKİ BAŞLAT</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_TWO_OFF">
             <English>OFF</English>
             <Original>OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>ARRÊT</French>
+            <Dutch>UIT</Dutch>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <German>AUS</German>
+            <Czech>VYPNUT</Czech>
+            <Polish>WYŁĄCZONE</Polish>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE">
             <English>ENGINE TWO IGNITION OVERRIDE</English>
             <Original>ENGINE TWO IGNITION OVERRIDE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FORÇAGE ALLUMAGE MOTEUR 2</French>
+            <Dutch>MOTOR 2 ONTSTEKING OVERRIDE</Dutch>
+            <Spanish>FORZAR IGNICIÓN MOTOR 2</Spanish>
+            <Italian>FORZAMENTO ACCENSIONE MOTORE 2</Italian>
+            <German>MOTOR 2 NOTBETRIEB ZÜNDUNG</German>
+            <Czech>MOTOR 2 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
+            <Polish>WYMUSZENIE ZAPŁONU SILNIKA 2</Polish>
+            <Russian>ДВИГАТЕЛЬ 2 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
+            <Portuguese>FORÇAR IGNIÇÃO MOTOR 2</Portuguese>
+            <Korean>엔진2 점화 강제</Korean>
+            <Japanese>エンジン2イグニッションオーバーライド</Japanese>
+            <Chinesesimp>发动机2点火强制</Chinesesimp>
+            <Turkish>MOTOR 2 ATEŞLEME ZORLAMA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
             <English>Toggle Night Vision System</English>
             <Original>Toggle Night Vision System</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>Basculer Système Vision Nocturne</French>
+            <Dutch>Nachtvisionsysteem In/Uit</Dutch>
+            <Spanish>Alternar Sistema de Visión Nocturna</Spanish>
+            <Italian>Commuta Sistema Visione Notturna</Italian>
+            <German>Nachtsichtsystem Umschalten</German>
+            <Czech>Přepnout Systém Nočního Vidění</Czech>
+            <Polish>Przełącznik Systemu Noktowizji</Polish>
+            <Russian>Переключить Систему Ночного Видения</Russian>
+            <Portuguese>Alternar Sistema de Visão Noturna</Portuguese>
+            <Korean>야간 투시 시스템 전환</Korean>
+            <Japanese>ナイトビジョンシステム切替</Japanese>
+            <Chinesesimp>切换夜视系统</Chinesesimp>
+            <Turkish>Gece Görüş Sistemi Açkapa</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ROTOR_BRAKE_OFF">
             <English>ROTOR BRAKE OFF</English>
             <Original>ROTOR BRAKE OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FREIN ROTOR DÉSACTIVÉ</French>
+            <Dutch>ROTORREM UIT</Dutch>
+            <Spanish>FRENO ROTOR DESACTIVADO</Spanish>
+            <Italian>FRENO ROTORE DISATTIVO</Italian>
+            <German>ROTORBREMSE AUS</German>
+            <Czech>BRZDA ROTORU VYPNUTA</Czech>
+            <Polish>HAMULEC WIRNIKA WYŁĄCZONY</Polish>
+            <Russian>ТОРМОЗ РОТОРА ВЫКЛЮЧЕН</Russian>
+            <Portuguese>FREIO ROTOR DESATIVADO</Portuguese>
+            <Korean>로터 제동 해제</Korean>
+            <Japanese>ローター制動オフ</Japanese>
+            <Chinesesimp>旋翼制动关闭</Chinesesimp>
+            <Turkish>ROTOR FRENI KAPAL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_ROTOR_BRAKE_LOCK">
             <English>ROTOR BRAKE LOCK</English>
             <Original>ROTOR BRAKE LOCK</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FREIN ROTOR VERROUILLÉ</French>
+            <Dutch>ROTORREM GEBLOKKEERD</Dutch>
+            <Spanish>FRENO ROTOR BLOQUEADO</Spanish>
+            <Italian>FRENO ROTORE BLOCCATO</Italian>
+            <German>ROTORBREMSE GESPERRT</German>
+            <Czech>BRZDA ROTORU UZAMČENA</Czech>
+            <Polish>HAMULEC WIRNIKA ZABLOKOWANY</Polish>
+            <Russian>ТОРМОЗ РОТОРА ЗАБЛОКИРОВАН</Russian>
+            <Portuguese>FREIO ROTOR TRAVADO</Portuguese>
+            <Korean>로터 제동 잠금</Korean>
+            <Japanese>ローター制動ロック</Japanese>
+            <Chinesesimp>旋翼制动锁定</Chinesesimp>
+            <Turkish>ROTOR FRENI KİLİTLİ</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
             <English>TOGGLE NVS MODE</English>
             <Original>TOGGLE NVS MODE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>BASCULER MODE NVS</French>
+            <Dutch>NVS MODUS AAN/UIT</Dutch>
+            <Spanish>ALTERNAR MODO NVS</Spanish>
+            <Italian>COMMUTA MODO NVS</Italian>
+            <German>NVS-MODUS UMSCHALTEN</German>
+            <Czech>PŘEPNOUT REŽIM NVS</Czech>
+            <Polish>PRZEŁĄCZNIK TRYBU NVS</Polish>
+            <Russian>ПЕРЕКЛЮЧЕНИЕ РЕЖИМА NVS</Russian>
+            <Portuguese>ALTERNAR MODO NVS</Portuguese>
+            <Korean>NVS 모드 전환</Korean>
+            <Japanese>NVSモード切替</Japanese>
+            <Chinesesimp>切换NVS模式</Chinesesimp>
+            <Turkish>NVS MODU AÇKAPA</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_NVS">
             <English>NVS MODE</English>
             <Original>NVS MODE</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>MODE NVS</French>
+            <Dutch>NVS MODUS</Dutch>
+            <Spanish>MODO NVS</Spanish>
+            <Italian>MODO NVS</Italian>
+            <German>NVS-MODUS</German>
+            <Czech>REŽIM NVS</Czech>
+            <Polish>TRYB NVS</Polish>
+            <Russian>РЕЖИМ NVS</Russian>
+            <Portuguese>MODO NVS</Portuguese>
+            <Korean>NVS 모드</Korean>
+            <Japanese>NVSモード</Japanese>
+            <Chinesesimp>NVS模式</Chinesesimp>
+            <Turkish>NVS MODU</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_NVS_FIXED">
             <English>FIXED</English>
             <Original>FIXED</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>FIXE</French>
+            <Dutch>VAST</Dutch>
+            <Spanish>FIJO</Spanish>
+            <Italian>FISSO</Italian>
+            <German>FEST</German>
+            <Czech>PEVNÉ</Czech>
+            <Polish>STAŁY</Polish>
+            <Russian>ФИКСИРОВАННЫЙ</Russian>
+            <Portuguese>FIXO</Portuguese>
+            <Korean>고정</Korean>
+            <Japanese>固定</Japanese>
+            <Chinesesimp>固定</Chinesesimp>
+            <Turkish>SABİT</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_NVS_NORM">
             <English>NORM</English>
             <Original>NORM</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>NORM</French>
+            <Dutch>NORM</Dutch>
+            <Spanish>NORM</Spanish>
+            <Italian>NORM</Italian>
+            <German>NORM</German>
+            <Czech>NORM</Czech>
+            <Polish>NORM</Polish>
+            <Russian>НОРМ</Russian>
+            <Portuguese>NORM</Portuguese>
+            <Korean>표준</Korean>
+            <Japanese>標準</Japanese>
+            <Chinesesimp>标准</Chinesesimp>
+            <Turkish>NORM</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_NVS_OFF">
             <English>OFF</English>
             <Original>OFF</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>ARRÊT</French>
+            <Dutch>UIT</Dutch>
+            <Spanish>APAGADO</Spanish>
+            <Italian>SPENTO</Italian>
+            <German>AUS</German>
+            <Czech>VYPNUT</Czech>
+            <Polish>WYŁĄCZONE</Polish>
+            <Russian>ВЫКЛЮЧЕНО</Russian>
+            <Portuguese>DESLIGADO</Portuguese>
+            <Korean>끔</Korean>
+            <Japanese>オフ</Japanese>
+            <Chinesesimp>关闭</Chinesesimp>
+            <Turkish>KAPAL</Turkish>
         </Key>
         <Key ID="STR_FZA_AH64_TOGGLE_NIGHT_VISION_SYSTEM">
             <English>TOGGLE NIGHT VISION SYSTEM</English>
             <Original>TOGGLE NIGHT VISION SYSTEM</Original>
-            <!-- <French>Example</French> -->
-            <!-- <Dutch>Example</Dutch> -->
-            <!-- <Spanish>Example</Spanish> -->
-            <!-- <Italian>Example</Italian> -->
-            <!-- <German>Example</German> -->
-            <!-- <Czech>Example</Czech> -->
-            <!-- <Polish>Example</Polish> -->
-            <!-- <Russian>Example</Russian> -->
-            <!-- <Portuguese>Example</Portuguese> -->
-            <!-- <Korean>Example</Korean> -->
-            <!-- <Japanese>Example</Japanese> -->
-            <!-- <Chinesesimp>Example</Chinesesimp> -->
-            <!-- <Turkish>Example</Turkish> -->
+            <French>BASCULER SYSTÈME VISION NOCTURNE</French>
+            <Dutch>NACHTVISIONSYSTEEM AAN/UIT</Dutch>
+            <Spanish>ALTERNAR SISTEMA DE VISIÓN NOCTURNA</Spanish>
+            <Italian>COMMUTA SISTEMA VISIONE NOTTURNA</Italian>
+            <German>NACHTSICHTSYSTEM UMSCHALTEN</German>
+            <Czech>PŘEPNOUT SYSTÉM NOČNÍHO VIDĚNÍ</Czech>
+            <Polish>PRZEŁĄCZNIK SYSTEMU NOKTOWIZJI</Polish>
+            <Russian>ПЕРЕКЛЮЧИТЬ СИСТЕМУ НОЧНОГО ВИДЕНИЯ</Russian>
+            <Portuguese>ALTERNAR SISTEMA DE VISÃO NOTURNA</Portuguese>
+            <Korean>야간 투시 시스템 전환</Korean>
+            <Japanese>ナイトビジョンシステム切替</Japanese>
+            <Chinesesimp>切换夜视系统</Chinesesimp>
+            <Turkish>Gece Görüş Sistemi Açkapa</Turkish>
         </Key>
     </Package>
 </Project>

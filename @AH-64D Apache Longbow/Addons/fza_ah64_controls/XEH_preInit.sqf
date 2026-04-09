@@ -27,7 +27,7 @@ private _projName = "AH-64D Official Project";
     "LIST",
     [(localize "STR_FZA_AH64_SETTINGS_HELISIM_REALISM"), (localize "STR_FZA_AH64_SETTINGS_HELISIM_REALISM_INFO")],
     [_projName, "Flight model"],
-    [[CASUAL, REALISTIC],["Casual", "Realistic"],0],
+    [[CASUAL, REALISTIC],[(localize "STR_FZA_AH64_SETTINGS_REALISM_CASUAL"), (localize "STR_FZA_AH64_SETTINGS_REALISM_REALISTIC")],0],
     0
 ] call CBA_fnc_addSetting;
 
@@ -126,7 +126,7 @@ private _projName = "AH-64D Official Project";
     "LIST",
     [(localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_INFO")],
     [_projName, "Flight model"],
-    [[ISA_STD, EUROPE_SUMMER, EUROPE_WINTER, MIDDLE_EAST, CENTRAL_ASIA_SUMMER, CENTRAL_ASIA_WINTER, ASIA],["Standard Day", "Europe - Summer", "Europe - Winter", "Middle East", "Cental Asia - Summer", "Central Asia - Winter", "Asia"],1],
+    [[ISA_STD, EUROPE_SUMMER, EUROPE_WINTER, MIDDLE_EAST, CENTRAL_ASIA_SUMMER, CENTRAL_ASIA_WINTER, ASIA],[(localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_STANDARD_DAY"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_EUROPE_SUMMER"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_EUROPE_WINTER"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_MIDDLE_EAST"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_CENTRAL_ASIA_SUMMER"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_CENTRAL_ASIA_WINTER"), (localize "STR_FZA_AH64_SETTINGS_ENVIRONMENT_ASIA")],1],
     0
 ] call CBA_fnc_addSetting;
 
