@@ -80,9 +80,7 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         _heli setVariable [_x, _heli getVariable _x, true];
     } forEach [
         "fza_sfmplus_engFF",
-        "fza_sfmplus_engBaseNG",
         "fza_sfmplus_engPctNG",
-        "fza_sfmplus_engBaseNP",
         "fza_sfmplus_engPctNP",
         "fza_sfmplus_engPctTQ",
         "fza_sfmplus_engBaseTGT",
@@ -91,7 +89,9 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
         "fza_sfmplus_engOilPSI",
         "fza_sfmplus_engState",
         "fza_sfmplus_engFF",
-        "fza_sfmplus_collectiveOutput"
+        "fza_sfmplus_collectiveOutput",
+        "fza_sfmplus_xmsnOutputRpm",
+        "fza_sfmplus_xmsnDeltaRpm"
     ];
     _heli setVariable ["fza_sfmplus_lastTimePropagated", time, true];
 };

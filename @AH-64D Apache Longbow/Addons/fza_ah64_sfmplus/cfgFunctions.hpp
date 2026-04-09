@@ -38,7 +38,6 @@ class CfgFunctions
             class engine  {R;};
             class engine2 {R;};
             class engineController {R;};
-            class engineReset {R;};
             class engineVariables {R;};
         };
         class environment {

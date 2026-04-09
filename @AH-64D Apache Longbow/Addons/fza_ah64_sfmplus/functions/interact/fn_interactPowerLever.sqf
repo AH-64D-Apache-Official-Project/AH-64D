@@ -2,8 +2,7 @@
 Function: fza_sfmplus_fnc_interactPowerLever
 
 Description:
-    Handles power lever animation and invokes engineReset when a power lever is
-    taken to off.
+    Handles power lever animation
 
 Parameters:
     _heli   - The helicopter to get information from [Unit].
@@ -31,7 +30,7 @@ if (_state == "OFF") then {
     [_heli, "fza_sfmplus_engPowerLeverState", _engNum, _state, true] call fza_fnc_setArrayVariable;
 
     if (_engState == "ON") then {
-        [_heli, _engNum] call fza_sfmplus_fnc_engineReset;
+        [_heli, "fza_sfmplus_engState", _engNum, "OFF", true] call fza_fnc_setArrayVariable;
     };
 
     //HeliSim
