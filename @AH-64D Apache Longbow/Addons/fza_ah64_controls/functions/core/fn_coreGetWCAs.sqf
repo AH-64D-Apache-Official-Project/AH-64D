@@ -110,6 +110,13 @@ private _utilLevel_pct       = _heli getVariable "fza_systems_utilLevel_pct";
 //ASE
 private _msnEquipState       = _heli getVariable "fza_ah64_ase_msnEquipPwr";
 
+private _pylonMagazines = getPylonMagazines _heli;
+private _auxTank1FuelMass = _heli getvariable "fza_sfmplus_stn1FuelMass";
+private _auxTank2FuelMass = _heli getvariable "fza_sfmplus_stn2FuelMass";
+private _auxTank3FuelMass = _heli getvariable "fza_sfmplus_stn3FuelMass";
+private _auxTank4FuelMass = _heli getvariable "fza_sfmplus_stn4FuelMass";
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////// 
 // WARNINGS         /////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////// 
@@ -280,7 +287,16 @@ if (_IGBDamage >= SYS_IGB_DMG_THRESH || _TGBDamage >= SYS_TGB_DMG_THRESH) then {
     [_activeCaut, "GRBX VIB"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose gearbox 1
-if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
+if (_NGB1Damage >= 0.50) then {
+     ([_heli, _activeCaut, "GRBX 1 OIL PSI LOW", "GRBX1 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX1 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_NGB1Damage >= 0.75) then {
      ([_heli, _activeCaut, "GEARBOX 1 CHIPS", "GRBX1 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -290,7 +306,16 @@ if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
     [_activeCaut, "GRBX1 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose Gearbox 2
-if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
+if (_NGB2Damage >= 0.50) then {
+     ([_heli, _activeCaut, "GRBX 2 OIL PSI LOW", "GRBX2 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX2 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_NGB2Damage >= 0.75) then {
      ([_heli, _activeCaut, "GEARBOX 2 CHIPS", "GRBX2 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -300,7 +325,25 @@ if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
     [_activeCaut, "GRBX2 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Transmission
-if (_xmsnDamage >= SYS_XMSN_DMG_THRESH) then {
+if (_xmsnDamage >= 0.50) then {
+    ([_heli, _activeCaut, "XMSN 1 OIL PSI LOW", "XMSN1 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "XMSN1 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_xmsnDamage >= 0.63) then {
+    ([_heli, _activeCaut, "XMSN 2 OIL PSI LOW", "XMSN2 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "XMSN2 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_xmsnDamage >= 0.75) then {
     ([_heli, _activeCaut, "MAIN XMSN CHIPS", "XMSN CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -490,6 +533,21 @@ if (_fcrState#0 == FCR_MODE_FAULT) then {
 if (_onGnd) then {
     _wcas pushBack [WCA_ADVISORY, "TAIL WHEEL LOCk SEL", "TW LOCK SEL"];
 };
+
+//Auxilary Fuel tanks 
+if ((["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) && _auxTank1FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 1 EMPTY", "EXT1 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) && _auxTank2FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 2 EMPTY", "EXT2 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) && _auxTank3FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 3 EMPTY", "EXT3 EMPTY"];
+};
+if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4FuelMass < 25) then {
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 4 EMPTY", "EXT4 EMPTY"];
+};
+
 
 private _wptAprch = _heli getvariable "fza_ah64_wptAprch";
 private _wptPassed = _heli getvariable "fza_ah64_wptpassed";

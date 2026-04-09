@@ -45,3 +45,5 @@ _heli setVariable ["fza_sfmplus_engOilPSI",             [0.0, 0.0]];
 
 _heli setVariable ["fza_sfmplus_engOutputTq",           [0.0, 0.0]];
 _heli setVariable ["fza_sfmplus_engTrimTq",             [0.0, 0.0]];
+
+_heli setVariable ["fza_sfmplus_randomTq",              [0.0, 0.0, 0.0, 0.0]];
