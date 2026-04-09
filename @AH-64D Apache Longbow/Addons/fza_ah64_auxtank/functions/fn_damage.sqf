@@ -33,8 +33,8 @@ if (_system == "hit_msnEquip_pylon1" && _damage > SYS_WPN_DMG_THRESH) then {
     if (_heli getvariable "fza_sfmplus_stn1FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn1FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn1FuelMass" < 90) exitwith {};
-    _AuxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-2.38,2.3,-2]);   
-    triggerAmmo _AuxtankExplosion;
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-2.38,2.3,-2]);   
+    triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [1, ""];
     
 };
@@ -43,8 +43,8 @@ if (_system == "hit_msnEquip_pylon2" && _damage > SYS_WPN_DMG_THRESH) then {
     if (_heli getvariable "fza_sfmplus_stn2FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn2FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn2FuelMass" < 90) exitwith {};
-    _AuxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-1.66,2.3,-2]);   
-    triggerAmmo _AuxtankExplosion;
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [-1.66,2.3,-2]);   
+    triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [5, ""];
 };
 if (_system == "hit_msnEquip_pylon3" && _damage > SYS_WPN_DMG_THRESH) then {
@@ -52,8 +52,8 @@ if (_system == "hit_msnEquip_pylon3" && _damage > SYS_WPN_DMG_THRESH) then {
     if (_heli getvariable "fza_sfmplus_stn3FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn3FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn3FuelMass" < 90) exitwith {};
-    _AuxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [1.66,2.3,-2]);   
-    triggerAmmo _AuxtankExplosion;
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [1.66,2.3,-2]);   
+    triggerAmmo _auxtankExplosion;
     _heli setPylonLoadout [9, ""];
 };
 if (_system == "hit_msnEquip_pylon4" && _damage > SYS_WPN_DMG_THRESH) then {
@@ -61,7 +61,7 @@ if (_system == "hit_msnEquip_pylon4" && _damage > SYS_WPN_DMG_THRESH) then {
     if (_heli getvariable "fza_sfmplus_stn4FuelMass" < 450) then {_ammoClass = _mediumAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn4FuelMass" < 200) then {_ammoClass = _smallAmmoClass;};
     if (_heli getvariable "fza_sfmplus_stn4FuelMass" < 90) exitwith {};
-    _AuxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [2.38,2.3,-2]);   
-    triggerAmmo _AuxtankExplosion; 
+    _auxtankExplosion = _ammoClass createVehicle (_heli modelToWorld [2.38,2.3,-2]);   
+    triggerAmmo _auxtankExplosion; 
     _heli setPylonLoadout [13, ""];
 };
