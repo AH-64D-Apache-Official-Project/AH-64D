@@ -280,7 +280,16 @@ if (_IGBDamage >= SYS_IGB_DMG_THRESH || _TGBDamage >= SYS_TGB_DMG_THRESH) then {
     [_activeCaut, "GRBX VIB"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose gearbox 1
-if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
+if (_NGB1Damage >= 0.50) then {
+     ([_heli, _activeCaut, "GRBX 1 OIL PSI LOW", "GRBX1 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX1 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_NGB1Damage >= 0.75) then {
      ([_heli, _activeCaut, "GEARBOX 1 CHIPS", "GRBX1 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -290,7 +299,16 @@ if (_NGB1Damage >= SYS_NGB_DMG_THRESH) then {
     [_activeCaut, "GRBX1 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Nose Gearbox 2
-if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
+if (_NGB2Damage >= 0.50) then {
+     ([_heli, _activeCaut, "GRBX 2 OIL PSI LOW", "GRBX2 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "GRBX2 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_NGB2Damage >= 0.75) then {
      ([_heli, _activeCaut, "GEARBOX 2 CHIPS", "GRBX2 CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
@@ -300,7 +318,25 @@ if (_NGB2Damage >= SYS_NGB_DMG_THRESH) then {
     [_activeCaut, "GRBX2 CHIPS"] call fza_wca_fnc_wcaDelCaution;
 };
 //--Transmission
-if (_xmsnDamage >= SYS_XMSN_DMG_THRESH) then {
+if (_xmsnDamage >= 0.50) then {
+    ([_heli, _activeCaut, "XMSN 1 OIL PSI LOW", "XMSN1 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "XMSN1 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_xmsnDamage >= 0.63) then {
+    ([_heli, _activeCaut, "XMSN 2 OIL PSI LOW", "XMSN2 OIL PSI", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
+        params ["_wcaAddCaution", "_playAudio"];
+
+    _playCautAudio = _playAudio;
+    _wcas pushBack _wcaAddCaution;
+} else {
+    [_activeCaut, "XMSN2 OIL PSI"] call fza_wca_fnc_wcaDelCaution;
+};
+if (_xmsnDamage >= 0.75) then {
     ([_heli, _activeCaut, "MAIN XMSN CHIPS", "XMSN CHIPS", _playCautAudio] call fza_wca_fnc_wcaAddCaution)
         params ["_wcaAddCaution", "_playAudio"];
 
