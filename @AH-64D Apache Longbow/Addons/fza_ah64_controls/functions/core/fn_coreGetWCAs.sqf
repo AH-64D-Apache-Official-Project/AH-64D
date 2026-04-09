@@ -500,16 +500,16 @@ if (_onGnd) then {
 
 //Auxilary Fuel tanks 
 if ((["auxTank", _pylonMagazines select 0] call BIS_fnc_inString) && _auxTank1FuelMass < 25) then {
-    _wcas pushBack [WCA_ADVISORY, "XTERNAL 1 EMPTY", "EXT1 EMPTY"];
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 1 EMPTY", "EXT1 EMPTY"];
 };
 if ((["auxTank", _pylonMagazines select 4] call BIS_fnc_inString) && _auxTank2FuelMass < 25) then {
-    _wcas pushBack [WCA_ADVISORY, "XTERNAL 2 EMPTY", "EXT2 EMPTY"];
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 2 EMPTY", "EXT2 EMPTY"];
 };
 if ((["auxTank", _pylonMagazines select 8] call BIS_fnc_inString) && _auxTank3FuelMass < 25) then {
-    _wcas pushBack [WCA_ADVISORY, "XTERNAL 3 EMPTY", "EXT3 EMPTY"];
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 3 EMPTY", "EXT3 EMPTY"];
 };
 if ((["auxTank", _pylonMagazines select 12] call BIS_fnc_inString) && _auxTank4FuelMass < 25) then {
-    _wcas pushBack [WCA_ADVISORY, "XTERNAL 4 EMPTY", "EXT4 EMPTY"];
+    _wcas pushBack [WCA_ADVISORY, "EXTERNAL 4 EMPTY", "EXT4 EMPTY"];
 };
 
 
