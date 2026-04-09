@@ -40,3 +40,8 @@ for "_i" from ((_pageNumber * 32) - 32) to ((_pageNumber * 32) - 1) do {
     _heli setUserMfdText [MFD_INDEX_OFFSET(_i), _outputString];
     _heli setUserMfdValue [MFD_INDEX_OFFSET(_i), (_validationState min 1)];
 };
+
+//Reset UFD
+if (_heli getVariable "fza_mpd_verMisMatch") then {
+    _heli setVariable ["fza_mpd_verMisMatch", false];
+};
