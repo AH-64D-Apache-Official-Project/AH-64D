@@ -68,7 +68,7 @@ if !_apuOn then {
     };
 };
 
-if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State == "ON" && _eng2State == "ON")) then {
+if ((_eng1PwrLvrState isEqualTo _eng2PwrLvrState) && (_eng1State in ["STARTING","ON"] && _eng2State in ["STARTING","ON"])) then {
     _isSingleEng = false;
 } else {
     _isSingleEng = true;
