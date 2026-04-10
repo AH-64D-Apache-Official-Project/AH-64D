@@ -355,6 +355,7 @@ private _RoCScalar       = [_tqRoCTable, _tqChange] call fza_fnc_linearInterp se
 private _climbThrust     = _baseThrust * _RoCScalar;
 private _tipLossScalar   = [_rtrTipLossTable, _heli getVariable "fza_sfmplus_GWT"] call fza_fnc_linearInterp select 1;
 private _totThrust       = (_rtrThrust + _gndEffThrust + _climbThrust) * _tipLossScalar;
+if ([_totThrust] call fza_sfmplus_fnc_isNAN || [_totThrust] call fza_sfmplus_fnc_isINF) then { _totThrust = 0.0; };
 [_heli, "fza_sfmplus_rtrThrust", 0, _totThrust, true] call fza_fnc_setArrayVariable;
 private _thrustZ         = _axisZ vectorMultiply (_totThrust * _deltaTime);
 private _inducedVelocity = sqrt(_totThrust / (2 * _dryAirDensity * _rtrArea));
