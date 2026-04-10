@@ -43,18 +43,16 @@ private _eng2TQ   = _heli getVariable "fza_sfmplus_engPctTQ" select 1;
 private _engPctTQ = _eng1TQ max _eng2TQ;
 
 private _isSingleEng     = _heli getVariable "fza_sfmplus_isSingleEng";
-private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
+//private _isAutorotating  = _heli getVariable "fza_sfmplus_isAutorotating";
 
 if (local _heli) then {
     if ((_heli getHitPointDamage "hithrotor") > 0.9) then {
         _heli engineOn false;
     } else {
-        if (_eng1State != "OFF" || _eng2State != "OFF" || _isAutorotating) then {
+        if (_eng1State != "OFF" || _eng2State != "OFF" || _rtrRPM >= 0.5) then {
             _heli engineOn true;
-            //_heli setHitpointDamage ["hithrotor", 0.0];
         } else {
             _heli engineOn false;
-            //_heli setHitpointDamage ["hithrotor", 0.0];
         };
     };
 };
@@ -116,6 +114,7 @@ if (_no2EngDmg > SYS_ENG_DMG_THRESH || fuel _heli < 0.01) then {
 };
 
 //Autorotation handler
+/*
 private _velXY = vectorMagnitude [velocityModelSpace _heli # 0, velocityModelSpace _heli # 1];
 if (   _engPctTQ < 0.10
     && !_onGnd
@@ -124,5 +123,6 @@ if (   _engPctTQ < 0.10
 } else {
     _heli setVariable ["fza_sfmplus_isAutorotating", false];
 };
+*/
 //systemChat format ["_isAutorotating = %1", _heli getVariable "fza_sfmplus_isAutorotating"];
 //End Autorotation handler

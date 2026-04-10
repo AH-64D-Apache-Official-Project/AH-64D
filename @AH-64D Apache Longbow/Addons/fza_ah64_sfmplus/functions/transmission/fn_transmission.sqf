@@ -27,6 +27,8 @@ if (_outputRpm < 0.0) then {
     _outputRpm = _outputRpm + _deltaRpm;
 };
 
+//systemChat format ["_outputRpm = %1", _outputRpm];
+
 _heli setVariable ["fza_sfmplus_xmsnOutputRpm", _outputRpm];
 _heli setVariable ["fza_sfmplus_xmsnDeltaRpm",  _deltaRpm];
 

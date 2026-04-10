@@ -45,7 +45,7 @@ private _fmcRollOut             = _attHoldCycRollOut + _sasRollOut + _collToRoll
 //_fmcRollOut                     = [_fmcRollOut, -0.15, 0.15] call BIS_fnc_clamp;
 
 private _altHoldCollOut         = _heli getVariable "fza_sfmplus_fmcAltHoldCollOut";
-private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
+//private _isAutorotating         = _heli getVariable "fza_sfmplus_isAutorotating";
 
 private _rtrPos                 = [0.0, 2.06, 0.70];
 private _rtrHeightAGL           = 3.606;   //m
@@ -166,12 +166,11 @@ if (_velZ < -_vrsVelMin && _velXY < VEL_ETL) then {
     private _vrsScalar = if(_velZ == 0.0) then { 0.0; } else { abs(_vrsVelMin / _velZ)^_vrsScalarExponent; };
     _inducedVelocityScalar   = if(_vrsVelMax == 0.0) then { 1.0; } else { (1 - (_velZ / _vrsVelMax)) * _vrsScalar; };
 } else {
-    //Collective must be < 20% and TAS must be < 145 kts
-    if (_isAutorotating && _velXY < 74.59) then {
-        _inducedVelocityScalar = 1 - (_velZ / 7.62);
-    } else {
-        _inducedVelocityScalar = if(_vrsVel == 0.0) then { 1.0; } else { 1 - (_velZ / _vrsVel); };
-    };
+
+    private _denom = linearConversion[-7.62, -19.30, _velZ, _vrsVel, 3.81, true];
+    _inducedVelocityScalar = if(_vrsVel == 0.0) then { 1.0; } else { 1 - (_velZ / _denom); };
+    
+    //systemChat format ["_denom = %1", _denom];
 };
 
 //Finally, multiply all the scalars above to arrive at the final thrust scalar
@@ -232,12 +231,12 @@ private _collectiveTorqueCorrectionTable =
 ];
 private _autorotationTorqueTable =
 [
- [-20.32,-30.0]
-,[-15.25,-15.0]
-,[-10.16,-10.0]
-,[- 5.08,  0.0]
-,[ -2.54,  0.0]
-,[  0.00,  0.0]
+ [-20.32,-100.0] //4000fpm
+,[-15.24, -50.0] //3000fpm
+,[-12.70, -25.0] //2500fpm
+,[-10.16, -10.0] //2000fpm
+,[ -7.62,  -5.0] //1500fpm
+,[  0.00,   0.0]
 ];
 private _inducedPowerCollectiveCorrection = ([_inducedPowerCollectiveCorrectionTable, _velXYNoWind] call fza_fnc_linearInterp) select 1;
 private _induced_val                      = [_collectiveOutput / _inducedPowerCollectiveCorrection, 0.0, 2.0] call BIS_fnc_clamp;
@@ -249,49 +248,10 @@ private _power_req                        = _power_val * 2133.0;
 private _torque_req                       = (_power_req / 0.001) / 0.105 / 21109;
 private _autorotationTorque               = ([_autorotationTorqueTable, _velZ] call fza_fnc_linearInterp) select 1;
 _torque_req                               = (_torque_req * _inputRpmPct) + _autorotationTorque;
-//systemChat format ["_velZ = %1 -- _autorotationTorque = %2", _velZ, _autorotationTorque];
-/*
-private _pedalLeftRight     = _heli getVariable "fza_sfmplus_pedalLeftRight";
-private _pedalLeftRightTrim = _heli getVariable "fza_ah64_forceTrimPosPedal";
-private _hdgHoldPedalYawOut = _heli getVariable "fza_sfmplus_hdgHoldPedalYawOut";
-private _tailRtrScalar      = [
-                               [-1.00, 1.20]
-                              ,[-0.80, 1.05] 
-                              ,[-0.05, 1.00]
-                              ,[ 0.00, 1.00]
-                              ,[ 0.50, 1.00]
-                              ,[ 0.80, 0.95]
-                              ,[ 1.00, 0.80]
-                              ];
-private _pedalPosition = _pedalLeftRight + _pedalLeftRightTrim + _hdgHoldPedalYawOut;
-private _tailRtrDamage = _heli getHitPointDamage "hitvrotor";
-private _pedalTqScalar = 1.0;
-if (_tailRtrDamage < 0.85) then {
-    _pedalTqScalar = [_tailRtrScalar, _pedalPosition] call fza_fnc_linearInterp select 1;
-};
-_torque_req = _torque_req * _pedalTqScalar;
-*/
-//systemChat format ["_pedalPosition = %1", _pedalPosition];
+
+//systemChat format ["_velZ = %1 -- _autorotationTorque = %2", _velZ * 196.85, _autorotationTorque];
 
 private _rtrTorque   = _torque_req * _rtrGearRatio;
-//_rtrTorque           = linearConversion [0.0, 1.0, _inputRpmPct, 0.0, _rtrTorque, true];
-/*
-hintSilent format ["_profile_cur = % 1
-                    \n_induced_val = %2
-                    \n_induced_cur = %3
-                    \n_power_val = %4
-                    \n_power_req = %5
-                    \n_torque_req = %6
-                    \n_torque_req = %7 pct"
-                    ,_profile_cur
-                    ,_induced_val
-                    ,_induced_cur
-                    ,_power_val
-                    ,_power_req
-                    ,_torque_req
-                    ,(_torque_req / 481.109) * 100 toFixed 1];
-*/
-//systemChat format ["_torque_req = %1",_torque_req];
 [_heli, "fza_sfmplus_reqEngTorque", 0, _torque_req, true] call fza_fnc_setArrayVariable;
 
 private _axisX = [1.0, 0.0, 0.0];
@@ -431,7 +391,7 @@ if (cameraView == "INTERNAL") then {
     };
 
     //Camera shake effect for vortex ring sate
-    if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround) && !_isAutorotating) then {  //must be less than ETL
+    if (_velXYNoWind < 12.35 && _inputRPM > EPSILON && !([_heli] call fza_sfmplus_fnc_onGround)) then {  //must be less than ETL
         //2000 fpm to 2933fpm
         if (_velZ < -(_vrsVelMax * 0.40) && _velZ > -(_vrsVelMax * 0.60)) then {
             enableCamShake true;
