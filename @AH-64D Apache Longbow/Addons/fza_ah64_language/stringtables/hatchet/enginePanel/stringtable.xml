@@ -8,7 +8,7 @@
             <Dutch>MOTORPANEEL</Dutch>
             <Spanish>PANEL DE MOTORES</Spanish>
             <Italian>PANNELLO MOTORE</Italian>
-            <German>MOTORENTAFEL</German>
+            <German>TRIEBWERKFELD</German>
             <Czech>MOTOR PANEL</Czech>
             <Polish>PANEL SILNIKA</Polish>
             <Russian>ПАНЕЛЬ ДВИГАТЕЛЯ</Russian>
@@ -76,7 +76,7 @@
             <Dutch>MOTOR 1 UIT</Dutch>
             <Spanish>APAGAR MOTOR 1</Spanish>
             <Italian>SPEGNI MOTORE 1</Italian>
-            <German>MOTOR 1 AUSSCHALTEN</German>
+            <German>TRIEBWERK 1 ABSCHALTEN</German>
             <Czech>VYPNOUT MOTOR 1</Czech>
             <Polish>WYŁĄCZYĆ SILNIK 1</Polish>
             <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 1</Russian>
@@ -93,7 +93,7 @@
             <Dutch>MOTOR 1 STATIONAIR</Dutch>
             <Spanish>MOTOR 1 EN RALENTÍ</Spanish>
             <Italian>MOTORE 1 AL MINIMO</Italian>
-            <German>MOTOR 1 LEERLAUF</German>
+            <German>TRIEBWERK 1 LEERLAUF</German>
             <Czech>MOTOR 1 NEČINNÝ</Czech>
             <Polish>SILNIK 1 NA BIEGU JAŁOWYM</Polish>
             <Russian>ДВИГАТЕЛЬ 1 НА ХОЛОСТОМ ХОДУ</Russian>
@@ -110,7 +110,7 @@
             <Dutch>MOTOR 1 VLIEGEN</Dutch>
             <Spanish>MOTOR 1 EN VUELO</Spanish>
             <Italian>MOTORE 1 IN VOLO</Italian>
-            <German>MOTOR 1 FLUGMODUS</German>
+            <German>TRIEBWERK 1 FLUGMODUS</German>
             <Czech>MOTOR 1 LÉTÁNÍ</Czech>
             <Polish>SILNIK 1 LATANIE</Polish>
             <Russian>ДВИГАТЕЛЬ 1 В РЕЖИМЕ ПОЛЕТА</Russian>
@@ -127,7 +127,7 @@
             <Dutch>START/OVERRIDE MOTOR 1</Dutch>
             <Spanish>INICIAR/FORZAR MOTOR 1</Spanish>
             <Italian>AVVIA/FORZAMENTO MOTORE 1</Italian>
-            <German>START/NOTBETRIEB MOTOR 1</German>
+            <German>START/NOTBETRIEB TRIEBWERK 1</German>
             <Czech>START/PŘEPNUTÍ MOTOR 1</Czech>
             <Polish>START/WYMUSZENIE SILNIKA 1</Polish>
             <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 1</Russian>
@@ -144,7 +144,7 @@
             <Dutch>MOTOR EEN STARTEN</Dutch>
             <Spanish>MOTOR UNO INICIADO</Spanish>
             <Italian>MOTORE UNO AVVIATO</Italian>
-            <German>MOTOR EINS STARTET</German>
+            <German>TRIEBWERK EINS START</German>
             <Czech>MOTOR JEDNA START</Czech>
             <Polish>SILNIK JEDEN START</Polish>
             <Russian>ДВИГАТЕЛЬ ОДИН ЗАПУСК</Russian>
@@ -178,7 +178,7 @@
             <Dutch>MOTOR 1 ONTSTEKING OVERRIDE</Dutch>
             <Spanish>FORZAR IGNICIÓN MOTOR 1</Spanish>
             <Italian>FORZAMENTO ACCENSIONE MOTORE 1</Italian>
-            <German>MOTOR 1 NOTBETRIEB ZÜNDUNG</German>
+            <German>TRIEBWERK 1 NOTBETRIEB ZÜNDUNG</German>
             <Czech>MOTOR 1 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
             <Polish>WYMUSZENIE ZAPŁONU SILNIKA 1</Polish>
             <Russian>ДВИГАТЕЛЬ 1 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
@@ -195,7 +195,7 @@
             <Dutch>MOTOR 2 UIT</Dutch>
             <Spanish>APAGAR MOTOR 2</Spanish>
             <Italian>SPEGNI MOTORE 2</Italian>
-            <German>MOTOR 2 AUSSCHALTEN</German>
+            <German>TRIEBWERK 2 ABSCHALTEN</German>
             <Czech>VYPNOUT MOTOR 2</Czech>
             <Polish>WYŁĄCZYĆ SILNIK 2</Polish>
             <Russian>ВЫКЛЮЧИТЬ ДВИГАТЕЛЬ 2</Russian>
@@ -212,7 +212,7 @@
             <Dutch>MOTOR 2 STATIONAIR</Dutch>
             <Spanish>MOTOR 2 EN RALENTÍ</Spanish>
             <Italian>MOTORE 2 AL MINIMO</Italian>
-            <German>MOTOR 2 LEERLAUF</German>
+            <German>TRIEBWERK 2 LEERLAUF</German>
             <Czech>MOTOR 2 NEČINNÝ</Czech>
             <Polish>SILNIK 2 NA BIEGU JAŁOWYM</Polish>
             <Russian>ДВИГАТЕЛЬ 2 НА ХОЛОСТОМ ХОДУ</Russian>
@@ -229,7 +229,7 @@
             <Dutch>MOTOR 2 VLIEGEN</Dutch>
             <Spanish>MOTOR 2 EN VUELO</Spanish>
             <Italian>MOTORE 2 IN VOLO</Italian>
-            <German>MOTOR 2 FLUGMODUS</German>
+            <German>TRIEBWERK 2 FLUGMODUS</German>
             <Czech>MOTOR 2 LÉTÁNÍ</Czech>
             <Polish>SILNIK 2 LATANIE</Polish>
             <Russian>ДВИГАТЕЛЬ 2 В РЕЖИМЕ ПОЛЕТА</Russian>
@@ -246,7 +246,7 @@
             <Dutch>START/OVERRIDE MOTOR 2</Dutch>
             <Spanish>INICIAR/FORZAR MOTOR 2</Spanish>
             <Italian>AVVIA/FORZAMENTO MOTORE 2</Italian>
-            <German>START/NOTBETRIEB MOTOR 2</German>
+            <German>START/NOTBETRIEB TRIEBWERK 2</German>
             <Czech>START/PŘEPNUTÍ MOTOR 2</Czech>
             <Polish>START/WYMUSZENIE SILNIKA 2</Polish>
             <Russian>ПУСК/ПРИНУДИТЕЛЬНЫЙ ДВИГАТЕЛЬ 2</Russian>
@@ -263,7 +263,7 @@
             <Dutch>MOTOR TWEE STARTEN</Dutch>
             <Spanish>MOTOR DOS INICIADO</Spanish>
             <Italian>MOTORE DUE AVVIATO</Italian>
-            <German>MOTOR ZWEI STARTET</German>
+            <German>TRIEBWERK ZWEI START</German>
             <Czech>MOTOR DVA START</Czech>
             <Polish>SILNIK DWA START</Polish>
             <Russian>ДВИГАТЕЛЬ ДВА ЗАПУСК</Russian>
@@ -297,7 +297,7 @@
             <Dutch>MOTOR 2 ONTSTEKING OVERRIDE</Dutch>
             <Spanish>FORZAR IGNICIÓN MOTOR 2</Spanish>
             <Italian>FORZAMENTO ACCENSIONE MOTORE 2</Italian>
-            <German>MOTOR 2 NOTBETRIEB ZÜNDUNG</German>
+            <German>TRIEBWERK 2 NOTBETRIEB ZÜNDUNG</German>
             <Czech>MOTOR 2 PŘEPNUTÍ ZAPALOVÁNÍ</Czech>
             <Polish>WYMUSZENIE ZAPŁONU SILNIKA 2</Polish>
             <Russian>ДВИГАТЕЛЬ 2 ПРИНУДИТЕЛЬНОЕ ЗАЖИГАНИЕ</Russian>
@@ -348,7 +348,7 @@
             <Dutch>ROTORREM GEBLOKKEERD</Dutch>
             <Spanish>FRENO ROTOR BLOQUEADO</Spanish>
             <Italian>FRENO ROTORE BLOCCATO</Italian>
-            <German>ROTORBREMSE GESPERRT</German>
+            <German>ROTORBREMSE SPERRUNG</German>
             <Czech>BRZDA ROTORU UZAMČENA</Czech>
             <Polish>HAMULEC WIRNIKA ZABLOKOWANY</Polish>
             <Russian>ТОРМОЗ РОТОРА ЗАБЛОКИРОВАН</Russian>
@@ -399,7 +399,7 @@
             <Dutch>VAST</Dutch>
             <Spanish>FIJO</Spanish>
             <Italian>FISSO</Italian>
-            <German>FEST</German>
+            <German>FIXIERT</German>
             <Czech>PEVNÉ</Czech>
             <Polish>STAŁY</Polish>
             <Russian>ФИКСИРОВАННЫЙ</Russian>
