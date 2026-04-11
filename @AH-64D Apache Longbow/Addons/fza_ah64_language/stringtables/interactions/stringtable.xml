@@ -229,7 +229,7 @@
             <Dutch>Brengt de FLT-pagina op de linker MPD tevoorschijn</Dutch>
             <Spanish>Abre la página FLT en el MPD izquierdo</Spanish>
             <Italian>Porta la pagina FLT al MPD sinistro</Italian>
-            <German>Bringt die FLT-Seite auf dem linken MPD auf</German>
+            <German>Ruft die FLT-Seite auf dem linken MPD auf</German>
             <Czech>Přivede stránku FLT na levý MPD</Czech>
             <Polish>Wyświetla stronę FLT na lewym MPD</Polish>
             <Russian>Выводит страницу FLT на левый МПД</Russian>
@@ -297,7 +297,7 @@
             <Dutch>Scant de FCR eenmaal</Dutch>
             <Spanish>Escanea el FCR una sola vez</Spanish>
             <Italian>Esegue la scansione del FCR una sola volta</Italian>
-            <German>Scannt den FCR einmal</German>
+            <German>Scannt das FCR einmal</German>
             <Czech>Naskenuje FCR jednou</Czech>
             <Polish>Skanuje FCR jeden raz</Polish>
             <Russian>Сканирует FCR один раз</Russian>
@@ -331,7 +331,7 @@
             <Dutch>Slaat het doel dat momenteel in TADS wordt bekeken op als een waypoint</Dutch>
             <Spanish>Almacena el objetivo observado actualmente en el TADS como un punto de ruta</Spanish>
             <Italian>Memorizza l'obiettivo attualmente osservato in TADS come waypoint</Italian>
-            <German>Speichert das derzeit in TADS beobachtete Ziel als Wegpunkt</German>
+            <German>Speichert das derzeit im TADS beobachtete Ziel als Wegpunkt</German>
             <Czech>Uloží cíl aktuálně pozorovaný v TADS jako bod trasy</Czech>
             <Polish>Przechowuje aktualnie obserwowany cel w TADS jako punkt trasy</Polish>
             <Russian>Сохраняет наблюдаемую цель в TADS в качестве путевой точки</Russian>
@@ -382,7 +382,7 @@
             <Dutch>WAS Kanon</Dutch>
             <Spanish>Arma WAS</Spanish>
             <Italian>Arma WAS</Italian>
-            <German>WAS Waffe</German>
+            <German>WAS Bordkanone</German>
             <Czech>Pistole WAS</Czech>
             <Polish>Pistolet WAS</Polish>
             <Russian>Пушка WAS</Russian>
@@ -399,7 +399,7 @@
             <Dutch>Bedien het kanon in uw crew station</Dutch>
             <Spanish>Dispara el arma en tu estación de tripulación</Spanish>
             <Italian>Attiva l'arma nella tua stazione di equipaggio</Italian>
-            <German>Bediene die Waffe in deiner Besatzungsstation</German>
+            <German>Bediene die Bordkanone in deiner Besatzungsstation</German>
             <Czech>Oběhuj pistoli ve své stanici posádky</Czech>
             <Polish>Obsługuj pistolet w swojej stanowiska załogi</Polish>
             <Russian>Активируйте пушку на своей позиции экипажа</Russian>
@@ -501,7 +501,7 @@
             <Dutch>Wanneer kort onderbroken, werkt het referentieposition van de vliegtuigcontrole bij voor Attitude Hold en deactiveert Heading and Attitude Hold wanneer vastgehouden.</Dutch>
             <Spanish>Cuando se interrumpe momentáneamente, actualiza la posición de referencia del control de vuelo para el mantenimiento de actitud y desactiva el mantenimiento de rumbo y actitud cuando se mantiene pulsado.</Spanish>
             <Italian>Quando momentaneamente interrotto, aggiorna la posizione di riferimento del controllo di volo per il mantenimento dell'assetto e disattiva il mantenimento della prua e dell'assetto quando tenuto premuto.</Italian>
-            <German>Bei kurzer Unterbrechung aktualisiert die Referenzposition der Flugsteuerung für die Halteposition und deaktiviert die Kopf- und Halteposition beim Halten.</German>
+            <German>Aktualisiert bei kurzer Unterbrechung die Referenzposition der Flugsteuerung für die Neigungshaltung und deaktiviert die Richtungs- und Neigungshaltung beim Halten.</German>
             <Czech>Při krátkém přerušení aktualizuje polohu reference řízení letu pro Attitude Hold a deaktivuje Heading a Attitude Hold, pokud je drženo.</Czech>
             <Polish>Po krótkim przerwaniu aktualizuje pozycję odniesienia sterowania lotem dla Attitude Hold i dezaktywuje Heading and Attitude Hold po przytrzymaniu.</Polish>
             <Russian>При кратковременном прерывании обновляет положение эталона управления полетом для режима удержания тангажа и отключает режим удержания курса и тангажа при удержании.</Russian>
@@ -569,7 +569,7 @@
             <Dutch>Deactiveert zowel Attitude als Altitude Hold</Dutch>
             <Spanish>Desactiva tanto el mantenimiento de actitud como el de altitud</Spanish>
             <Italian>Disattiva sia il mantenimento dell'assetto che dell'altitudine</Italian>
-            <German>Deaktiviert sowohl die Halteposition als auch die Höhenhaltung</German>
+            <German>Deaktiviert sowohl die Neigungshaltung als auch die Höhenhaltung</German>
             <Czech>Deaktivuje držení postoje i nadmořské výšky</Czech>
             <Polish>Dezaktywuje zarówno Attitude Hold, jak i Altitude Hold</Polish>
             <Russian>Деактивирует удержание как тангажа, так и высоты</Russian>
@@ -603,7 +603,7 @@
             <Dutch>Activeert Attitude Hold</Dutch>
             <Spanish>Activa el mantenimiento de actitud</Spanish>
             <Italian>Attiva il mantenimento dell'assetto</Italian>
-            <German>Aktiviert die Lagekontrolle</German>
+            <German>Aktiviert die Neigungshaltung</German>
             <Czech>Aktivuje drž postoje</Czech>
             <Polish>Aktywuje Attitude Hold</Polish>
             <Russian>Активирует удержание тангажа</Russian>
@@ -807,7 +807,7 @@
             <Dutch>Stelt het TADS FOV in op Nauw</Dutch>
             <Spanish>Establece el FOV del TADS en Estrecho</Spanish>
             <Italian>Imposta il FOV del TADS su Stretto</Italian>
-            <German>Setzt das TADS FOV auf Eng</German>
+            <German>Setzt das TADS FOV auf Schmal</German>
             <Czech>Nastavuje FOV TADS na Úzké</Czech>
             <Polish>Ustawia FOV TADS na Wąskie</Polish>
             <Russian>Установить FOV TADS на Узкий</Russian>
@@ -977,7 +977,7 @@
             <Dutch>Schakelt TADS Lineaire Bewegingscompensator in/uit</Dutch>
             <Spanish>Alterna el Compensador de Movimiento Lineal TADS</Spanish>
             <Italian>Attiva/Disattiva il Compensatore Movimento Lineare TADS</Italian>
-            <German>Schaltet TADS Linear Bewegungskompensator um</German>
+            <German>Schaltet TADS Linearer Bewegungskompensator um</German>
             <Czech>Přepíná TADS Kompenzátor Lineárního Pohybu</Czech>
             <Polish>Przełącza Kompensator Ruchu Liniowego TADS</Polish>
             <Russian>Переключает Компенсатор Линейного Движения TADS</Russian>
@@ -994,7 +994,7 @@
             <Dutch>Sticky Controle Onderbreking</Dutch>
             <Spanish>Interrupción de Control Persistente</Spanish>
             <Italian>Interruzione Controllo Persistente</Italian>
-            <German>Sticky Steuerung Unterbrechung</German>
+            <German>Persistente Steuerung Unterbrechung</German>
             <Czech>Přerušení Lepkavého Ovládání</Czech>
             <Polish>Przerwanie Lepkiej Kontroli</Polish>
             <Russian>Прерывание Липкого Управления</Russian>
@@ -1011,7 +1011,7 @@
             <Dutch>Wanneer sticky cyclic wordt gebruikt, schakelt het sticky cyclic uit voor verbeterde manoeuvreerbaarheid.</Dutch>
             <Spanish>Cuando se usa el cíclico persistente, desactiva el cíclico persistente para mejorar la maniobrabilidad.</Spanish>
             <Italian>Quando si utilizza il ciclico persistente, disattiva il ciclico persistente per una migliore manovrabilità.</Italian>
-            <German>Bei Verwendung von Sticky Cyclic wird das Sticky Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
+            <German>Bei Verwendung von Persistentem Cyclic wird das Persistente Cyclic deaktiviert, um bessere Manövrierbarkeit zu ermöglichen.</German>
             <Czech>Při použití lepkavého cyklického zákazu zákazu lepkavého cyklického pro vyšší manévrovatelnost.</Czech>
             <Polish>Przy użyciu lepkiego cyklicznego wyłącza lepkie cykliczne dla lepszej manewrowości.</Polish>
             <Russian>При использовании липкого циклического отключает липкое циклическое для улучшенной маневренности.</Russian>
@@ -1028,7 +1028,7 @@
             <Dutch>Force Trim Paniekknop</Dutch>
             <Spanish>Botón de Pánico Trim Forzado</Spanish>
             <Italian>Pulsante Panico Trim Forzato</Italian>
-            <German>Kraft Trim Paniktaste</German>
+            <German>Zwangstrim Paniktaste</German>
             <Czech>Tlačítko Panika Vynucené Vyrovnání</Czech>
             <Polish>Przycisk Paniki Wymuszonego Trimmera</Polish>
             <Russian>Кнопка Паники Принудительной Подрезки</Russian>
@@ -1045,7 +1045,7 @@
             <Dutch>Zet de force trim waarden op nul.</Dutch>
             <Spanish>Anula los valores de ajuste forzado.</Spanish>
             <Italian>Azzera i valori di trim forzato.</Italian>
-            <German>Setzt die Kraft Trim Werte auf Null.</German>
+            <German>Setzt die Zwangstrim Werte auf Null.</German>
             <Czech>Vynuluje hodnoty vynuceného vyrovnání.</Czech>
             <Polish>Zeruje wartości wymuszonego trimmera.</Polish>
             <Russian>Обнуляет значения принудительной подрезки.</Russian>
@@ -1079,7 +1079,7 @@
             <Dutch>Collectieve Noodlastdrop Knop</Dutch>
             <Spanish>Botón Colectivo de Expulsión de Emergencia</Spanish>
             <Italian>Pulsante Collettivo di Rilascio di Emergenza</Italian>
-            <German>Collective Notfall Abwurf Taste</German>
+            <German>Kollective Notfall Abwurf Taste</German>
             <Czech>Tlačítko Kolektivního Nouzového Vyhazování</Czech>
             <Polish>Przycisk Zbiorowego Nadzwyczajnego Zrzucania</Polish>
             <Russian>Кнопка Коллективного Аварийного Сброса</Russian>
@@ -1096,7 +1096,7 @@
             <Dutch>Cyclisch Vooruit</Dutch>
             <Spanish>Cíclico Adelante</Spanish>
             <Italian>Ciclico Avanti</Italian>
-            <German>Zyklisch Vorwärts</German>
+            <German>Cyclic Vorwärts</German>
             <Czech>Cyklické Dopředu</Czech>
             <Polish>Cykliczne Przód</Polish>
             <Russian>Циклический Вперед</Russian>
@@ -1113,7 +1113,7 @@
             <Dutch>Cyclisch Achteruit</Dutch>
             <Spanish>Cíclico Atrás</Spanish>
             <Italian>Ciclico Indietro</Italian>
-            <German>Zyklisch Rückwärts</German>
+            <German>Cyclic Rückwärts</German>
             <Czech>Cyklické Dozadu</Czech>
             <Polish>Cykliczne Tył</Polish>
             <Russian>Циклический Назад</Russian>
@@ -1130,7 +1130,7 @@
             <Dutch>Cyclisch Links</Dutch>
             <Spanish>Cíclico Izquierda</Spanish>
             <Italian>Ciclico Sinistra</Italian>
-            <German>Zyklisch Links</German>
+            <German>Cyclic Links</German>
             <Czech>Cyklické Vlevo</Czech>
             <Polish>Cykliczne Lewo</Polish>
             <Russian>Циклический Влево</Russian>
@@ -1147,7 +1147,7 @@
             <Dutch>Cyclisch Rechts</Dutch>
             <Spanish>Cíclico Derecha</Spanish>
             <Italian>Ciclico Destra</Italian>
-            <German>Zyklisch Rechts</German>
+            <German>Cyclic Rechts</German>
             <Czech>Cyklické Vpravo</Czech>
             <Polish>Cykliczne Prawo</Polish>
             <Russian>Циклический Вправо</Russian>
