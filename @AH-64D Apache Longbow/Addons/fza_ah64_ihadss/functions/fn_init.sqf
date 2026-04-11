@@ -26,10 +26,10 @@ if (!(_heli getVariable ["fza_ah64_ihadssInitialised", false]) && local _heli) t
 
     _heli setVariable ["fza_ah64_hmdfsmode",       "trans", true];
     _heli setVariable ["fza_ah64_monocleinbox",    true,    true];
-    _heli setVariable ["fza_ah64_ihadss_pnvs_cam", 0,   true];
+    _heli setVariable ["fza_ah64_nvsModeSwitchNorm",   0,   true];
        
-    _heli setVariable ["fza_ah64_tadsVision",     "FLIR",    true];
-    _heli setVariable ["fza_ah64_tadsZoom",        0,       true];
+    _heli setVariable ["fza_ah64_tadsSelectedSensor",     "FLIR",    true];
+    _heli setVariable ["fza_ah64_tadsSelectedFov",        0,       true];
     _heli setVariable ["fza_ah64_tadsA3ti",        false,   true];
     
     //Tads
