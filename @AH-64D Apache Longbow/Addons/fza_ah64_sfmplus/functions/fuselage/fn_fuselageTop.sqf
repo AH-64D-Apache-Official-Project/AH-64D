@@ -46,10 +46,10 @@ for "_i" from 0 to (_count - 1) do {
 	private _chordLine = _vecFwd;
 	_chordLine         = vectorNormalized _chordLine;
 
-    private _up 	   = _chordLine vectorCrossProduct (vectorNormalized (_f vectorDiff _g));
+    private _up 	   = _vecUp;
     _up         	   = vectorNormalized _up;
 
-	private _right	   = _up vectorCrossProduct (vectorNormalized (_b vectorDiff _a));
+	private _right	   = _vecRight;
     _right         	   = vectorNormalized _right;
 
     #ifdef __A3_DEBUG__
@@ -84,11 +84,9 @@ for "_i" from 0 to (_count - 1) do {
 
     //Drag coefficient
     private _CD          = [_airfoilTable, _aoa] call fza_fnc_linearInterp select 2;
-    private _drag         = _CD * 0.5 * _rho * _area * (_v * _v);
+    private _drag         = _CD * 0.5 * _rho * _area * (_relWindZ * _relWindZ);
 
-    private _liftVector = _right vectorCrossProduct _relWind;
-    _liftVector = vectorNormalized _liftVector;
-    _liftVector = _liftVector vectorMultiply (_lift * _deltaTime);
+    private _liftVector = _up vectorMultiply (_lift * _deltaTime);
 
     private _dragVector = _relWind;
     _dragVector = (vectorNormalized _dragVector) vectorMultiply -1.0;
