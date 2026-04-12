@@ -246,33 +246,21 @@ if (_priHydPSI < SYS_MIN_HYD_PSI && _utilLevel_pct < SYS_HYD_MIN_LVL) then {
 };
 
 if (!_hydFailure || _emerHydOn) then {
+    private _collectiveValue = _heli getVariable "fza_sfmplus_collectiveOutput";
     if (fza_sfmplus_keyboardCollective) then {
-        private _collectiveValue = _heli getVariable "fza_sfmplus_collectiveOutput";
         if (_keyCollectiveUp > 0.1) then { _collectiveValue = _collectiveValue + ((1.0 / 4.0) * _deltaTime); };
         if (_keyCollectiveDn > 0.1) then { _collectiveValue = _collectiveValue - ((1.0 / 4.0) * _deltaTime); };
         _collectiveValue = (round (_collectiveValue / 0.005)) * 0.005;
         _collectiveValue = [_collectiveValue, 0.0, 1.0] call bis_fnc_clamp;
-        _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
-
         //systemChat format ["KB collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     } else {
         private _collectiveValue = _joyCollectiveUp - _joyCollectiveDn;
         _collectiveValue = [_collectiveValue, -1.0, 1.0] call BIS_fnc_clamp;
         _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
-
-        if (isNil "fza_sfmplus_lastIsPlaying") then {
-            _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
-        } else {
-            if (_isPlaying && fza_sfmplus_lastIsPlaying) then {
-                private _collectivePrevious = _heli getVariable "fza_sfmplus_collectivePrevious";
-                _heli setVariable ["fza_sfmplus_collectiveOutput", _collectivePrevious];
-            };
-        };
-
-        fza_sfmplus_lastIsPlaying = _isPlaying;
-        _heli setVariable ["fza_sfmplus_collectivePrevious", _collectiveValue];
-        
         //systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
+    };
+    if (_isPlaying && !_isZeus) then {
+        _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
     };
 };
 /////////////////////////////////////////////////////////////////////////////////////////////
@@ -293,7 +281,6 @@ if (_isZeus && (!_hydFailure || _emerHydOn)) then {
     _heli setVariable ["fza_sfmplus_cyclicFwdAft",     0.0];
     _heli setVariable ["fza_sfmplus_cyclicLeftRight",  0.0];
     _heli setVariable ["fza_sfmplus_pedalLeftRight",   0.0];
-    _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveOutput];
 };
 
 if (fza_ah64_lastFrameGetIn) then {
