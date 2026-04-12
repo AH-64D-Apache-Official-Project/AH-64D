@@ -94,7 +94,7 @@
             <Dutch>Burstlimiet</Dutch>
             <Spanish>Límite de Ráfaga</Spanish>
             <Italian>Limite di Rajata</Italian>
-            <German>Salvengrenze</German>
+            <German>Salvenbegrenzung</German>
             <Czech>Limit Sálvy</Czech>
             <Polish>Limit Serii</Polish>
             <Russian>Лимит Очереди</Russian>
@@ -145,7 +145,7 @@
             <Dutch>Salvolimiet</Dutch>
             <Spanish>Límite de Salva</Spanish>
             <Italian>Limite di Salva</Italian>
-            <German>Salvenlimite</German>
+            <German>Salvenbegrenzung</German>
             <Czech>Limit Salvy</Czech>
             <Polish>Limit Salwy</Polish>
             <Russian>Лимит Залпа</Russian>
@@ -162,7 +162,7 @@
             <Dutch>Pylon Inhibitie</Dutch>
             <Spanish>Inhibición de Pilón</Spanish>
             <Italian>Inibizione Pilone</Italian>
-            <German>Pylonsperre</German>
+            <German>Waffenstationssperre</German>
             <Czech>Zablokování Pylonu</Czech>
             <Polish>Inhibicja Pylonu</Polish>
             <Russian>Блокировка Пилона</Russian>
@@ -337,7 +337,7 @@
             <Dutch>SAL 1 Begeleiding, effectief bereik - 7 km. De FA-variant introduceerde een explosiemantel op het C-model voor een goedkope anti-personeelsmissiel.</Dutch>
             <Spanish>Guía SAL 1, alcance efectivo - 7 km. La variante FA introdujo una manga de explosión en el modelo C para un misil anti-personal económico.</Spanish>
             <Italian>Guida SAL 1, portata effettiva - 7 km. La variante FA ha introdotto una manica d'esplosione sul modello C per un missile anti-personale economico.</Italian>
-            <German>SAL 1 Lenkung, Effektivreichweite - 7 km. Die FA-Variante führte eine Explosionshülse auf dem C-Modell für eine kostengünstige Antipersonenmissile ein.</German>
+            <German>SAL 1 Lenkung, Effektivreichweite - 7 km. Die FA-Variante führte eine Sprenghülse auf dem C-Modell las ein kostengünstiger Antipersonen-Lenkflugkörper ein.</German>
             <Czech>SAL 1 Navedení, efektivní dosah - 7 km. Varianta FA zavedla výbuchový rukáv na model C pro levný protiopersonální střelu.</Czech>
             <Polish>Przewodnictwo SAL 1, zasięg efektywny - 7 km. Wariant FA wprowadził tuleję wybuchową na model C w celu taniego pocisku przeciwpersonalnego.</Polish>
             <Russian>Наведение SAL 1, эффективная дальность - 7 км. Вариант FA представил взрывную гильзу на модель C для дешевой противопехотной ракеты.</Russian>
@@ -371,7 +371,7 @@
             <Dutch>SAL 2 Begeleiding, effectief bereik - 8 km. Dit is het meest geavanceerde model van alle beschikbare lasergestuurde hellfires.</Dutch>
             <Spanish>Guía SAL 2, alcance efectivo - 8 km. Este es el modelo más avanzado de todos los fuegos del infierno guiados por láser disponibles.</Spanish>
             <Italian>Guida SAL 2, portata effettiva - 8 km. Questo è il modello più avanzato di tutti i fuochi dell'inferno guidati da laser disponibili.</Italian>
-            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Dies ist das fortschrittlichste Modell aller verfügbaren lasegesteuerten Hellfire-Raketen.</German>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Dies ist das fortschrittlichste Modell aller verfügbaren lasergesteuerten Hellfire-Lenkflugkörper.</German>
             <Czech>SAL 2 Navedení, efektivní dosah - 8 km. Toto je nejpokročilejší model všech dostupných laserově řízených hellfire.</Czech>
             <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. To jest najzaawansowany model wszystkich dostępnych pocisków Hellfire kierowanych laserem.</Polish>
             <Russian>Наведение SAL 2, эффективная дальность - 8 км. Это самая передовая модель из всех доступных лазерных ракет Hellfire.</Russian>
@@ -405,7 +405,7 @@
             <Dutch>SAL 2 Begeleiding, effectief bereik - 8 km. De K2A-variant voegde een explosiemantel toe aan het K-model voor een goedkope anti-personeelsmissiel.</Dutch>
             <Spanish>Guía SAL 2, alcance efectivo - 8 km. La variante K2A agregó una manga de explosión al modelo K para un misil anti-personal económico.</Spanish>
             <Italian>Guida SAL 2, portata effettiva - 8 km. La variante K2A ha aggiunto una manica d'esplosione al modello K per un missile anti-personale economico.</Italian>
-            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Die K2A-Variante fügte eine Explosionshülse zum K-Modell für eine kostengünstige Antipersonenmissile hinzu.</German>
+            <German>SAL 2 Lenkung, Effektivreichweite - 8 km. Die K2A-Variante fügte eine Sprenghülse zum K-Modell für einen kostengünstigen Antipersonen-Lenkflugkörper hinzu.</German>
             <Czech>SAL 2 Navedení, efektivní dosah - 8 km. Varianta K2A přidala výbuchový rukáv na model K pro levný protiopersonální střelu.</Czech>
             <Polish>Przewodnictwo SAL 2, zasięg efektywny - 8 km. Wariant K2A dodał tulejkę wybuchową do modelu K w celu taniego pocisku przeciwpersonalnego.</Polish>
             <Russian>Наведение SAL 2, эффективная дальность - 8 км. Вариант K2A добавил взрывную гильзу к модели K для дешевой противопехотной ракеты.</Russian>
@@ -439,7 +439,7 @@
             <Dutch>Een van de meest geavanceerde anti-tankraketten ter wereld. Radargestuurd, het is in staat doelen tot 8 km aan te vallen en kan elk bekend gepantserd voertuig vernietigen.</Dutch>
             <Spanish>Uno de los misiles antitanque más avanzados del mundo. Guiado por radar, es capaz de golpear objetivos hasta 8 km y puede destruir cualquier vehículo blindado conocido.</Spanish>
             <Italian>Uno dei missili anticarro più avanzati al mondo. Guidato da radar, è in grado di colpire bersagli fino a 8 km e può distruggere qualsiasi veicolo blindato conosciuto.</Italian>
-            <German>Eine der fortschrittlichsten Panzerabwehrraketen der Welt. Radargesteuert kann sie Ziele bis zu 8 km treffen und jedes bekannte gepanzerte Fahrzeug zerstören.</German>
+            <German>Eine der fortschrittlichsten Panzerabwehr-Lenkflugkörper der Welt. Radargesteuert kann sie Ziele bis zu 8 km treffen und jedes bekannte gepanzerte Fahrzeug zerstören.</German>
             <Czech>Jedna z nejpokročilejších protiletadlových střel na světě. Řízená radarem, je schopna zasáhnout cíle až do vzdálenosti 8 km a může zničit jakýkoli známý obrněný vůz.</Czech>
             <Polish>Jeden z najbardziej zaawansowanych pocisków przeciwpancernych na świecie. Kierowany radarem, jest w stanie trafić cele na odległość do 8 km i może zniszczyć każdy znany pojazd opancerzony.</Polish>
             <Russian>Один из самых передовых противотанковых ракетных комплексов в мире. Управляемые радаром, они способны поражать цели на расстояние до 8 км и могут уничтожить любое известное бронированное транспортное средство.</Russian>
@@ -543,7 +543,7 @@
             <Dutch>De M151-kop is een 10 pond-kop met een vooraf gefragmenteerde schaal. Het is effectief tegen licht gepantserde voertuigen en personeel. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
             <Spanish>La cabeza M151 es una cabeza de 10 libras con un proyectil pre-fragmentado. Es efectivo contra vehículos blindados ligeros y personal. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
             <Italian>La testata M151 è una testata da 10 libbre con un guscio pre-frammentato. È efficace contro veicoli blindati leggeri e personale. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
-            <German>Der M151-Gefechtskopf ist ein 10-Pfund-Gefechtskopf mit vorgefertigter Schale. Es ist wirksam gegen leicht gepanzerte Fahrzeuge und Personal. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <German>Der M151-Gefechtskopf ist ein 10-Pfund-Gefechtskopf mit vorgesplitterter Schale. Er ist wirksam gegen leicht gepanzerte Fahrzeuge und Personen. Er ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
             <Czech>Hlava M151 je 10librová hlava s předfragmentovanou skořápkou. Je účinná proti lehce obrněným vozidlům a personálu. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
             <Polish>Głowica M151 to 10-funtowa głowica z wstępnie sfragmentowaną osłoną. Działa skutecznie przeciwko lekko opancerzonym pojazdom i personelowi. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
             <Russian>Боеголовка M151 - это 10-фунтовая боеголовка с предварительно фрагментированным корпусом. Она эффективна против легко бронированных транспортных средств и личного состава. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
@@ -577,7 +577,7 @@
             <Dutch>De M255-kop is een submunitieraket met meer dan 1000 60-korrelige flechettes. Deze zijn effectief tegen personeel met matige effectiviteit tegen onbepantserde voertuigen. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
             <Spanish>La cabeza M255 es un cohete de submuniciones con más de 1000 flechettes de 60 granos. Estos son efectivos contra personal con efectividad moderada contra vehículos sin armadura. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
             <Italian>La testata M255 è un razzo a submunizioni con oltre 1000 frecce da 60 grani. Questi sono efficaci contro il personale con moderata efficacia contro veicoli non blindati. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
-            <German>Der M255-Gefechtskopf ist eine Submunitionsrakete mit über 1000 60-Körner-Geschossen. Diese sind wirksam gegen Personal mit moderater Wirksamkeit gegen ungepanzerte Fahrzeuge. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <German>Der M255-Gefechtskopf ist eine Submunitions-Lenkflugkörper mit über 1000 60-Körner-Geschossen. Er ist wirksam gegen Personen und moderat wirksam gegen ungepanzerte Fahrzeuge. Er ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
             <Czech>Hlava M255 je submunční raketa s více než 1000 střelami o hmotnosti 60 zrn. Jsou účinné proti personálu s střední účinností proti neopancéřovaným vozidlům. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
             <Polish>Głowica M255 to rakieta submunisyjna z ponad 1000 strzałkami 60-zarnowymi. Są one skuteczne przeciwko personelowi ze średnią skutecznością przeciwko pojazdom bez opancerzenia. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
             <Russian>Боеголовка M255 - это субмунционная ракета с более чем 1000 стрелками по 60 зерен. Они эффективны против личного состава с умеренной эффективностью против небронированных транспортных средств. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
@@ -611,7 +611,7 @@
             <Dutch>De M261-kop is een submunitieraket met 9 parachute-vertraagde munitie. Deze zijn effectief tegen zowel personeel als licht gepantserde voertuigen. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een effectief bereik van 5 km.</Dutch>
             <Spanish>La cabeza M261 es un cohete de submuniciones con 9 municiones retardadas por paracaídas. Estos son efectivos contra el personal y vehículos blindados ligeros. Se monta en un motor cohete Mark 66 Mod 6 con un alcance efectivo de 5 km.</Spanish>
             <Italian>La testata M261 è un razzo a submunizioni con 9 munizioni ritardate da paracadute. Questi sono efficaci contro sia il personale che i veicoli blindati leggeri. È montato su un motore a razzo Mark 66 Mod 6 con una portata effettiva di 5 km.</Italian>
-            <German>Der M261-Gefechtskopf ist eine Submunitionsrakete mit 9 fallschirmverzögerten Munition. Diese sind wirksam gegen sowohl Personal als auch leicht gepanzerte Fahrzeuge. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
+            <German>Der M261-Gefechtskopf ist ein Submunitions-Lenkflugkörper mit 9 fallschirmverzögerten Munition. Er ist wirksam gegen sowohl Personen als auch leicht gepanzerte Fahrzeuge. Er ist an einem Mark 66 Mod 6-Raketenmotor mit einer Effektivreichweite von 5 km montiert.</German>
             <Czech>Hlava M261 je submunční raketa s 9 padákem zpomalenou municí. Ty jsou účinné proti personálu i lehce obrněným vozidlům. Je připevnena k raketovému motoru Mark 66 Mod 6 s efektivním dosahem 5 km.</Czech>
             <Polish>Głowica M261 to rakieta submunisyjna z 9 amunicją opóźnioną spadochronem. Są one skuteczne zarówno przeciwko personelowi, jak i lekko opancerzonym pojazdom. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z efektywnym zasięgiem 5 km.</Polish>
             <Russian>Боеголовка M261 - это субмунционная ракета с 9 парашютно-замедленной боеприпасов. Они эффективны как против личного состава, так и против легко бронированных транспортных средств. Она установлена на ракетный двигатель Mark 66 Mod 6 с эффективной дальностью 5 км.</Russian>
@@ -645,7 +645,7 @@
             <Dutch>De M257 is een verlichtingskop met een parachuteflare. Het kan een oppervlakte van een vierkante kilometer gedurende ongeveer 100 seconden verlichten. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een triggervafstand van 3,5 km.</Dutch>
             <Spanish>El M257 es una cabeza de iluminación que contiene un bengala de paracaídas. Puede iluminar un área de un kilómetro cuadrado durante aproximadamente 100 segundos. Se monta en un motor cohete Mark 66 Mod 6 con una distancia de activación de 3,5 km.</Spanish>
             <Italian>L'M257 è una testata di illuminazione contenente un flare di paracadute. Può illuminare un'area di un chilometro quadrato per circa 100 secondi. È montato su un motore a razzo Mark 66 Mod 6 con una distanza di attivazione di 3,5 km.</Italian>
-            <German>Die M257 ist ein Beleuchtungsgefechtskopf mit einem Fallschirmflare. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
+            <German>Die M257 ist ein Beleuchtungsgefechtskopf mit einer Fallschirmverzögerten Leuchtfackel. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Sie ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
             <Czech>M257 je osvětlovací hlava obsahující padákem flare. Může osvětlit oblast o ploše jednoho čtverečního kilometru po dobu přibližně 100 sekund. Je připevnena k raketovému motoru Mark 66 Mod 6 s dálkou spuštění 3,5 km.</Czech>
             <Polish>M257 to głowica oświetlająca zawierająca flare spadochronowy. Może oświetlić obszar o powierzchni jednego kilometra kwadratowego przez około 100 sekund. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z dystansem wyzwalania 3,5 km.</Polish>
             <Russian>M257 - это осветительная боеголовка с парашютным фаером. Она может освещать территорию в один квадратный километр в течение примерно 100 секунд. Она установлена на ракетный двигатель Mark 66 Mod 6 с расстоянием срабатывания 3,5 км.</Russian>
@@ -679,7 +679,7 @@
             <Dutch>De M278 is een IR-verlichtingskop met een parachuteflare. Het kan een oppervlakte van een vierkante kilometer gedurende ongeveer 100 seconden verlichten. Het is gemonteerd op een Mark 66 Mod 6 raketmotor met een triggervafstand van 3,5 km.</Dutch>
             <Spanish>El M278 es una cabeza de iluminación IR que contiene un bengala de paracaídas. Puede iluminar un área de un kilómetro cuadrado durante aproximadamente 100 segundos. Se monta en un motor cohete Mark 66 Mod 6 con una distancia de activación de 3,5 km.</Spanish>
             <Italian>L'M278 è una testata di illuminazione IR contenente un flare di paracadute. Può illuminare un'area di un chilometro quadrato per circa 100 secondi. È montato su un motore a razzo Mark 66 Mod 6 con una distanza di attivazione di 3,5 km.</Italian>
-            <German>Die M278 ist ein IR-Beleuchtungsgefechtskopf mit einem Fallschirmflare. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Es ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
+            <German>Die M278 ist ein IR-Beleuchtungsgefechtskopf mit einer Fallschirmverzögerten Leuchtfackel. Sie kann eine Fläche von einem Quadratkilometer für etwa 100 Sekunden beleuchten. Sie ist an einem Mark 66 Mod 6-Raketenmotor mit einer Auslöserentfernung von 3,5 km montiert.</German>
             <Czech>M278 je IR osvětlovací hlava obsahující padákem flare. Může osvětlit oblast o ploše jednoho čtverečního kilometru po dobu přibližně 100 sekund. Je připevnena k raketovému motoru Mark 66 Mod 6 s dálkou spuštění 3,5 km.</Czech>
             <Polish>M278 to głowica oświetlająca IR zawierająca flare spadochronowy. Może oświetlić obszar o powierzchni jednego kilometra kwadratowego przez około 100 sekund. Jest zamontowana na silniku rakietowym Mark 66 Mod 6 z dystansem wyzwalania 3,5 km.</Polish>
             <Russian>M278 - это IR-осветительная боеголовка с парашютным фаером. Она может освещать территорию в один квадратный километр в течение примерно 100 секунд. Она установлена на ракетный двигатель Mark 66 Mod 6 с расстоянием срабатывания 3,5 км.</Russian>
