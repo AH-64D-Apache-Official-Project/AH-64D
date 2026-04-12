@@ -42,7 +42,7 @@
             <Dutch>Vanilla Targeting Informatie Weergeven (herstart vereist)</Dutch>
             <Spanish>Mostrar Información de Targeting Vanilla (se requiere reinicio)</Spanish>
             <Italian>Mostra Informazioni Targeting Vanilla (riavvio richiesto)</Italian>
-            <German>Vanilla Targeting Information Anzeigen (Neustart erforderlich)</German>
+            <German>Vanilla Zielausrichtungsinformationen Anzeigen (Neustart erforderlich)</German>
             <Czech>Zobrazit Informace o Vanilla Targeting (vyžaduje restart)</Czech>
             <Polish>Pokaż Informacje Vanilla Targeting (wymagany restart)</Polish>
             <Russian>Показать Информацию Vanilla Targeting (требуется перезагрузка)</Russian>
@@ -59,7 +59,7 @@
             <Dutch>Het uitschakelen hiervan verbergt vanilla targeting informatie (herstart nodig)</Dutch>
             <Spanish>Desactivar esto ocultará la información de targeting vanilla (se necesita reinicio)</Spanish>
             <Italian>La disabilitazione nasconderà le informazioni di targeting vanilla (è necessario riavviare)</Italian>
-            <German>Das Deaktivieren blendet Vanilla Targeting Information aus (Neustart erforderlich)</German>
+            <German>Das Deaktivieren blendet Vanilla Zielausrichtungsinformationen aus (Neustart erforderlich)</German>
             <Czech>Zakázání skryje informace vanilla targeting (je třeba restartovat)</Czech>
             <Polish>Wyłączenie tego ukryje informacje vanilla targeting (wymagany restart)</Polish>
             <Russian>Отключение скроет информацию vanilla targeting (требуется перезагрузка)</Russian>
@@ -110,7 +110,7 @@
             <Dutch>Cyclisch Centraal Trim Modus</Dutch>
             <Spanish>Modo Ajuste Centro Cíclico</Spanish>
             <Italian>Modalità Trim Centro Ciclico</Italian>
-            <German>Zyklisches Mittel Trim Modus</German>
+            <German>Cyclic Mittelpunkt Trim Modus</German>
             <Czech>Režim Středu Cyklických Výchylek</Czech>
             <Polish>Tryb Centralnego Trimmera Cyklicznego</Polish>
             <Russian>Режим Центральной Подрезки Циклического</Russian>
@@ -127,7 +127,7 @@
             <Dutch>Wanneer ingeschakeld, wordt de cyclische grendel vergrendeld totdat deze opnieuw gecentreerd is</Dutch>
             <Spanish>Cuando se habilita, el cíclico se bloquea hasta que se recentra</Spanish>
             <Italian>Se abilitato, il ciclico viene bloccato fino al ricentraggio</Italian>
-            <German>Wenn aktiviert, wird das Zyklische gesperrt, bis es neu zentriert wird</German>
+            <German>Wenn aktiviert, wird das Cyclic gesperrt, bis es neu zentriert wird</German>
             <Czech>Pokud je povoleno, cyklické je uzamčeno, dokud není recentrováno</Czech>
             <Polish>Po włączeniu cykliczne jest zablokowane do ponownego wycentrowania</Polish>
             <Russian>При включении циклическое заблокировано до переоцентрирования</Russian>
@@ -144,7 +144,7 @@
             <Dutch>Pedaal Centraal Trim Modus</Dutch>
             <Spanish>Modo Ajuste Centro Pedal</Spanish>
             <Italian>Modalità Trim Centro Pedale</Italian>
-            <German>Pedal Mittel Trim Modus</German>
+            <German>Pedal Mittelpunkt Trim Modus</German>
             <Czech>Režim Středu Pedálových Výchylek</Czech>
             <Polish>Tryb Centralnego Trimmera Pedału</Polish>
             <Russian>Режим Центральной Подрезки Педали</Russian>
@@ -178,7 +178,7 @@
             <Dutch>Veerloze Cyclisch</Dutch>
             <Spanish>Cíclico sin Resorte</Spanish>
             <Italian>Ciclico Senza Molla</Italian>
-            <German>Federlose Zyklische</German>
+            <German>Federloses Cyclic</German>
             <Czech>Cyklické bez Pružiny</Czech>
             <Polish>Cykliczne bez Sprężyny</Polish>
             <Russian>Циклический без Пружины</Russian>
@@ -195,7 +195,7 @@
             <Dutch>Wanneer ingeschakeld, is cyclische krachttrim uitgeschakeld. Dit is voor gebruikers met force feedback of veerloze HOTAS</Dutch>
             <Spanish>Cuando se habilita, el trim de fuerza cíclica está deshabilitado. Esto es para usuarios con retroalimentación de fuerza o HOTAS sin resorte</Spanish>
             <Italian>Se abilitato, il trim di forza ciclico è disabilitato. Questo è per gli utenti con retroazione di forza o HOTAS senza molla</Italian>
-            <German>Wenn aktiviert, ist das zyklische Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federloser HOTAS</German>
+            <German>Wenn aktiviert, ist das Cyclic Zwangstrim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federloser HOTAS</German>
             <Czech>Pokud je povoleno, je cyklické silové vyrovnání zakázáno. Toto je pro uživatele se zpětnou vazbou sil nebo HOTAS bez pružiny</Czech>
             <Polish>Po włączeniu cykliczny trim siły jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub HOTAS bez sprężyny</Polish>
             <Russian>При включении циклический силовой триммер отключен. Это для пользователей с обратной связью силы или HOTAS без пружины</Russian>
@@ -229,7 +229,7 @@
             <Dutch>Wanneer ingeschakeld, is het pedaalforcetrimminguitgeschakeld. Dit is voor gebruikers met force feedback of veerloze pedalen. Deze optie schakelt ook Heading Hold uit</Dutch>
             <Spanish>Cuando se habilita, el trim de fuerza del pedal está deshabilitado. Esto es para usuarios con retroalimentación de fuerza o pedales sin resorte. Esta opción también desactiva Heading Hold</Spanish>
             <Italian>Se abilitato, il trim di forza del pedale è disabilitato. Questo è per gli utenti con retroazione di forza o pedali senza molla. Questa opzione disabilita anche Heading Hold</Italian>
-            <German>Wenn aktiviert, ist das Pedal Kraft Trim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federlosen Pedalen. Diese Option deaktiviert auch Heading Hold</German>
+            <German>Wenn aktiviert, ist das Pedal Zwangstrim deaktiviert. Dies ist für Benutzer mit Force Feedback oder federlosen Pedalen. Diese Option deaktiviert auch Heading Hold</German>
             <Czech>Pokud je povoleno, je silové vyrovnání pedálu zakázáno. Toto je pro uživatele se zpětnou vazbou sil nebo pedály bez pružiny. Tato možnost také deaktivuje udržování nadpisu</Czech>
             <Polish>Po włączeniu pedał силового trimmera jest wyłączony. Jest to dla użytkowników z informacją zwrotną siły lub pedałami bez sprężyny. Ta opcja również wyłącza Utrzymywanie kierunku</Polish>
             <Russian>При включении педальный силовой триммер отключен. Это для пользователей с обратной связью силы или педалями без пружины. Эта опция также отключает удержание курса</Russian>
@@ -246,7 +246,7 @@
             <Dutch>Toetsenbord Sticky Pitch</Dutch>
             <Spanish>Teclado Cabeceo Persistente</Spanish>
             <Italian>Tastiera Beccheggio Persistente</Italian>
-            <German>Tastatur Sticky Pitch</German>
+            <German>Tastatur Persistenter Pitch</German>
             <Czech>Klávesnice Lepkavý Sklon</Czech>
             <Polish>Klawiatura Lepkie Pochylenie</Polish>
             <Russian>Клавиатура Липкий Тангаж</Russian>
@@ -280,7 +280,7 @@
             <Dutch>Toetsenbord Sticky Roll</Dutch>
             <Spanish>Teclado Balanceo Persistente</Spanish>
             <Italian>Tastiera Rollio Persistente</Italian>
-            <German>Tastatur Sticky Roll</German>
+            <German>Tastatur Persistenter Roll</German>
             <Czech>Klávesnice Lepkavý Skluz</Czech>
             <Polish>Klawiatura Lepkie Przechylenie</Polish>
             <Russian>Клавиатура Липкий Крен</Russian>
@@ -314,7 +314,7 @@
             <Dutch>Toetsenbord Sticky Yaw</Dutch>
             <Spanish>Teclado Guiñada Persistente</Spanish>
             <Italian>Tastiera Imbardata Persistente</Italian>
-            <German>Tastatur Sticky Yaw</German>
+            <German>Tastatur Persistenter Yaw</German>
             <Czech>Klávesnice Lepkavý Kurs</Czech>
             <Polish>Klawiatura Lepkie Odchylenie</Polish>
             <Russian>Клавиатура Липкий Рыскание</Russian>
@@ -365,7 +365,7 @@
             <Dutch>WERKT NIET MET STICKY YAW! Wanneer ingeschakeld, worden de pedalen automatisch beheerd door AI</Dutch>
             <Spanish>¡NO FUNCIONA CON YAW PERSISTENTE! Cuando se habilita, los pedales se gestionan automáticamente mediante IA</Spanish>
             <Italian>NON FUNZIONA CON IMBARDATA PERSISTENTE! Quando abilitato, i pedali vengono gestiti automaticamente dall'IA</Italian>
-            <German>FUNKTIONIERT NICHT MIT STICKY YAW! Wenn aktiviert, werden die Pedale automatisch von der KI verwaltet</German>
+            <German>FUNKTIONIERT NICHT MIT PERSISTENTEM YAW! Wenn aktiviert, werden die Pedale automatisch von der KI verwaltet</German>
             <Czech>NEFUNGUJE SE STICKY YAW! Pokud je povoleno, pedály jsou automaticky spravovány AI</Czech>
             <Polish>NIE DZIAŁA Z STICKY YAW! Po włączeniu pedały są automatycznie zarządzane przez AI</Polish>
             <Russian>НЕ РАБОТАЕТ С ЛИПКИМ РЫСКАНИЕМ! При включении педали автоматически управляются ИИ</Russian>
@@ -552,7 +552,7 @@
             <Dutch>Hoofdvolume Knop</Dutch>
             <Spanish>Botón Volumen Maestro</Spanish>
             <Italian>Pulsante Volume Principale</Italian>
-            <German>Hauptvolumen Regler</German>
+            <German>Hauptlautstärke Regler</German>
             <Czech>Tlačítko Hlavního Hlasitosti</Czech>
             <Polish>Gałka Głównej Głośności</Polish>
             <Russian>Кнопка Основного Громкости</Russian>

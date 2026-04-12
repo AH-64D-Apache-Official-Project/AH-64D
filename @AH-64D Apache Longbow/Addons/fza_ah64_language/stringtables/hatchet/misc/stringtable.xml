@@ -8,7 +8,7 @@
             <Dutch>NOODPANEEL</Dutch>
             <Spanish>PANEL DE EMERGENCIA</Spanish>
             <Italian>PANNELLO DI EMERGENZA</Italian>
-            <German>NOTFALLPANEEL</German>
+            <German>NOTFALLFELD</German>
             <Czech>NOUZOVÝ PANEL</Czech>
             <Polish>PANEL AWARYJNY</Polish>
             <Russian>АВАРИЙНАЯ ПАНЕЛЬ</Russian>
@@ -76,7 +76,7 @@
             <Dutch>BEWAPENINGSPANEEL</Dutch>
             <Spanish>PANEL DE ARMAMENTO</Spanish>
             <Italian>PANNELLO ARMAMENTI</Italian>
-            <German>BEWAFFNUNGSPANEEL</German>
+            <German>BEWAFFNUNGSFELD</German>
             <Czech>ZBROJNÍ PANEL</Czech>
             <Polish>PANEL UZBROJENIA</Polish>
             <Russian>ПАНЕЛЬ ВООРУЖЕНИЯ</Russian>
@@ -127,7 +127,7 @@
             <Dutch>WAARSCHUWING/VOORZICHT PANEEL</Dutch>
             <Spanish>PANEL DE ADVERTENCIA/PRECAUCIÓN</Spanish>
             <Italian>PANNELLO AVVERTENZA/ATTENZIONE</Italian>
-            <German>WARNUNG-/ACHTUNGSPANEEL</German>
+            <German>WARNUNGS-/ACHTUNGSFELD</German>
             <Czech>PANEL VAROVÁNÍ/OPATRNOSTI</Czech>
             <Polish>PANEL OSTRZEŻENIE/OSTROŻNOŚĆ</Polish>
             <Russian>ПАНЕЛЬ ПРЕДУПРЕЖДЕНИЕ/ВНИМАНИЕ</Russian>
