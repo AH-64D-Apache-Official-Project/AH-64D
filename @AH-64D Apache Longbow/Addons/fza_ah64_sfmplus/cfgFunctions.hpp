@@ -115,6 +115,10 @@ class CfgFunctions
             class transmission {R;};
             class transmissionVariables {R;};
         };
+        class ui {
+            file = "\fza_ah64_sfmplus\functions\ui";
+            class controlConfigurator{R;};
+        };
         class utility {
             file = "\fza_ah64_sfmplus\functions";
             class analogHandler {R;};
