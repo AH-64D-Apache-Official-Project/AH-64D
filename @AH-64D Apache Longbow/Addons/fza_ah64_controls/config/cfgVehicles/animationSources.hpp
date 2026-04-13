@@ -40,7 +40,7 @@ class AnimationSources
         author = "$STR_FZA_AH64_DEVELOPMENT_TEAM";
         source = "user";
         forceAnimatePhase = 1;
-        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};_this remoteExec [""fza_ase_fnc_swapFlares"",_this # 0];";//Future Note:force deselect all other ase equipment upon british == 1
+        onPhaseChanged = "if (_this#1 == 0) then {_this#0 animateSource [""msn_equip_american"", 1];};[_this#0, _this # 1] remoteExec [""fza_ase_fnc_swapFlares"", _this#0];";//Future Note:force deselect all other ase equipment upon british == 1
         forceAnimate[] = {"msn_equip_american", 0,"fcr_enable", 1};
         initPhase = 0;
         animPeriod = 0.001;

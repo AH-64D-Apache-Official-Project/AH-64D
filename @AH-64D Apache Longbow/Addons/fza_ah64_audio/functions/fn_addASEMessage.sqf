@@ -27,7 +27,7 @@ private _volume     = fza_ah64_volumeRlwr;
 _this insert [3, [_volume]];
 
 if (_aseMsg isEqualTo "" || {_priority > _aseMsg # 1}) then {
-    _heli setvariable ["fza_audio_ase_message", _this];
+    [_heli, "fza_audio_ase_message", _this] call fza_fnc_updateNetworkGlobal;
 };
 
 private _funcHook = _heli getVariable ["fza_audio_funcHook", scriptNull];

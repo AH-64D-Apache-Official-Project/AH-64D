@@ -52,10 +52,10 @@ if (_targetComp == "IAFS") exitwith {
             private _nearestObject = nearestObject [_player, "fza_ah64_IAFS"];
             deleteVehicle _nearestObject;
             _target animateSource ["magazine_set_1200", 0];
-            [_target, 0] remoteExec ["fza_fnc_weaponSwapM230Mag", [gunner _target, driver _target]];
+            [_target, 0] remoteExec ["fza_fnc_weaponSwapM230Mag", [objectFromNetId (netId _target)]];
             //Spawn 1200rnd Mag
-            private _object = "fza_ah64_1200Magazine" createVehicle [0,0,0];
-            [_player, _object] call ace_dragging_fnc_carryObject;
+            private _object = createVehicle ["fza_ah64_1200Magazine", position player];
+            [_player, _object] call ace_dragging_fnc_startCarry;
         },
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",
@@ -80,10 +80,10 @@ if (_targetComp == "MAG") exitwith {
             private _nearestObject = nearestObject [_player, "fza_ah64_1200Magazine"];
             deleteVehicle _nearestObject;
             _target animateSource ["magazine_set_1200", 1];
-            [_target, 1] remoteExec ["fza_fnc_weaponSwapM230Mag", [gunner _target, driver _target]];
+            [_target, 1] remoteExec ["fza_fnc_weaponSwapM230Mag", [objectFromNetId (netId _target)]];
             //spawn IAFS
-            private _object = "fza_ah64_IAFS" createVehicle [0,0,0];
-            [_player, _object] call ace_dragging_fnc_carryObject;
+            private _object = createVehicle ["fza_ah64_IAFS", position player];
+            [_player, _object] call ace_dragging_fnc_startCarry;
         },
         {},
         localize "STR_A3_MP_GroundSupport_ProgressBar_LoadingGroup",

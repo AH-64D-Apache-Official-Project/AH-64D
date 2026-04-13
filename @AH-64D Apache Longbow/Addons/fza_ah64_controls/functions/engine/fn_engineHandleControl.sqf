@@ -81,7 +81,7 @@ switch(_control) do {
     case (localize "STR_FZA_AH64_ENGINE_ONE_START"): {
         [_heli, 0, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_ORDIE"): {
+    case (localize "STR_FZA_AH64_ENGINE_ONE_IGN_OVERRIDE"): {
         [_heli, 0, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e1startertoggle": {
@@ -120,7 +120,7 @@ switch(_control) do {
     case (localize "STR_FZA_AH64_ENGINE_TWO_START"): {
         [_heli, 1, "START"] call fza_sfmplus_fnc_interactStartSwitch;
     };
-    case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_ORDIE"): {
+    case (localize "STR_FZA_AH64_ENGINE_TWO_IGN_OVERRIDE"): {
         [_heli, 1, "IGN ORDIE"] call fza_sfmplus_fnc_interactStartSwitch;
     };
     case "e2startertoggle": {

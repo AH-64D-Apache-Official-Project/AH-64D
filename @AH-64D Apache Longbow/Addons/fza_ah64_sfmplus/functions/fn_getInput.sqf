@@ -259,7 +259,7 @@ if (!_hydFailure || _emerHydOn) then {
         _collectiveValue = linearConversion[ -1.0, 1.0, _collectiveValue, 0.0, 1.0];
         //systemChat format ["HOTAS collective! -- %1", (_heli getVariable "fza_sfmplus_collectiveOutput") toFixed 3];
     };
-    if (_isPlaying && !_isZeus) then {
+    if (_isPlaying) then {
         _heli setVariable ["fza_sfmplus_collectiveOutput", _collectiveValue];
     };
 };

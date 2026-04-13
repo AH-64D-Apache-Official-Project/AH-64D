@@ -77,6 +77,7 @@ if (isMultiplayer && (currentPilot _heli == player || local _heli) && (_heli get
     {
         _heli setVariable [_x, _heli getVariable _x, true];
     } forEach [
+        "fza_systems_apuRPM_pct",
         "fza_sfmplus_engFF",
         "fza_sfmplus_engPctNG",
         "fza_sfmplus_engPctNP",
