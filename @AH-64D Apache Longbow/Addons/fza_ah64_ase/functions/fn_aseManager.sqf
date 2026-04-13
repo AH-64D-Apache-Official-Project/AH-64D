@@ -30,7 +30,7 @@ private _mwsPwr   = (_heli animationPhase "msn_equip_british" == 1 && _heli getV
 
 if (_dcBusOn) then {
     [_heli, _deltaTime] call fza_ase_fnc_irJam;
-    if ((_aseUpdateTime + (1 / 2)) - CBA_missionTime < 0) then {
+    if ((_aseUpdateTime + (1 / 5)) - CBA_missionTime < 0) then {
         _heli setVariable ["fza_ah64_ase_updateTimer", CBA_missionTime];
 
         [_heli] call fza_ase_fnc_rwr params [["_rwrObjects", []], ["_rwrAudio", []]];
