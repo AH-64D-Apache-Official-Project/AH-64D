@@ -1,0 +1,67 @@
+class CfgWeapons {
+    class MissileLauncher;
+    class ace_hellfire_launcher;
+    
+    class fza_hellfire: ace_hellfire_launcher
+    {
+        scope = private;
+        displayName="AGM-114";
+        magazines[]={};
+        holdsterAnimValue = 3;
+        reloadTime = 0.1;
+        magazineReloadTime = 0.1;
+        showAimCursorInternal = 0;
+        cursor = "EmptyCursor";
+        cursorAim = "EmptyCursor";
+        textureType = "semi";
+        weaponLockDelay = 0;
+        weaponLockSystem = 4;
+        cmImmunity = 0.9;
+        lockedtargetsound[] = {"", 1, 1};
+        lockingtargetsound[] = {"", 1, 1};
+        sounds[] = {"StandardSound"};
+        class StandardSound 
+        {
+            soundSetShot[] = {"fza_soundset_hellfire_shot"};
+        };
+        modes[] = {"TopDown"};
+        class TopDown: MissileLauncher
+        {
+            displayName = "LOAL-HI";
+            textureType = "terrain";
+            reloadTime = 0.1;
+            magazineReloadTime = 0.1;
+            sounds[] = {"StandardSound"};
+            class StandardSound 
+            {
+                soundSetShot[] = {"fza_soundset_hellfire_shot"};
+            };
+            lockedtargetsound[] = {"", 1, 1};
+            lockingtargetsound[] = {"", 1, 1};
+            minRange = 360;
+            minRangeProbab = 0.4;
+            midRange = 1500;
+            midRangeProbab = 1.0;
+            maxRange = 8000;
+            maxRangeProbab = 0.95;
+        };
+        //ACE CFG
+        ace_overpressure_angle = 50;
+        ace_overpressure_range = 12;
+        ace_overpressure_damage = 0.7;
+        ace_overpressure_offset = 1;
+    };
+    #define HELLFIRE_MAGAZINES(ammoName) ammoName##_ll, ammoName##_lr, ammoName##_ul, ammoName##_ur
+    #define HELLFIRE_WEAPON_CONFIG(ammoName, prettyName) \
+        class ammoName##_wep : fza_hellfire {\
+            scope = protected;\
+            displayName = prettyName;\
+            magazines[] = {HELLFIRE_MAGAZINES(ammoName)};\
+            fza_ammoType = ammoName;\
+        };
+    HELLFIRE_WEAPON_CONFIG(fza_agm114fa,  "$STR_FZA_AH64_HELLFIRE_AGM_114FA")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k,   "$STR_FZA_AH64_HELLFIRE_AGM_114K")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114k2a, "$STR_FZA_AH64_HELLFIRE_AGM_114K2A")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114l,   "$STR_FZA_AH64_HELLFIRE_AGM_114L")
+    HELLFIRE_WEAPON_CONFIG(fza_agm114n,   "$STR_FZA_AH64_HELLFIRE_AGM_114N")
+};

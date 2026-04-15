@@ -1,0 +1,25 @@
+name = "AH-64D Apache Longbow"
+prefix = "AH-64D"
+mainprefix = "x"
+
+[version]
+major = 2
+minor = 2
+patch = 9
+build = 2
+
+[files]
+include = [
+    "mod.cpp",
+    "apache_mod_logo.paa",
+    "apache_mod_picture.paa",
+]
+
+[properties]
+author = "AH-64 Development team"
+
+[hemtt.build]
+pdrive = "ignore"
+
+[hemtt.check]
+pdrive = "ignore"

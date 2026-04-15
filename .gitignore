@@ -66,4 +66,7 @@ venv/
 buildTools
 
 build/
-\@AH-64D Apache Longbow/Addons/*/version.hpp
+\addons/*/version.hpp
+
+#HEMTT LOGS
+.hemttout

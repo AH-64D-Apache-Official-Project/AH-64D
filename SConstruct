@@ -22,7 +22,49 @@ def allFilesIn(path):
 
 def getSettings():
     with open("build.json") as file:
-        return json.load(file)
+        settings = json.load(file)
+
+    # Prefer configured addons folder, but fall back to the repo-local
+    # `addons` folder when legacy @mod paths are missing.
+    addons_folder = settings.get("addonsFolder", "addons")
+    if not os.path.isdir(addons_folder):
+        fallback = "addons"
+        if os.path.isdir(fallback):
+            print(f"Warning: addonsFolder '{addons_folder}' not found; using '{fallback}'")
+            settings["addonsFolder"] = fallback
+        else:
+            raise FileNotFoundError(
+                f"Configured addonsFolder '{addons_folder}' does not exist, and fallback '{fallback}' is missing."
+            )
+
+    return settings
+
+def setupAddonsDirectory():
+    """Create addons/ directory with copies of all addons for HEMTT."""
+    addons_root = os.path.join(getSettings()["addonsFolder"])
+    addons_link = "addons"
+    
+    # Create addons directory if it doesn't exist
+    os.makedirs(addons_link, exist_ok=True)
+    
+    # Get all addon folders
+    addon_folders = [d for d in os.listdir(addons_root) 
+                     if os.path.isdir(os.path.join(addons_root, d))]
+    
+    # Copy each addon using xcopy (preserves structure)
+    for addon in addon_folders:
+        source = os.path.join(addons_root, addon)
+        target = os.path.join(addons_link, addon)
+        
+        # Skip if already up to date
+        if os.path.isdir(target):
+            continue
+        
+        # Copy using xcopy
+        subprocess.run(
+            ["xcopy", source, target, "/E", "/I", "/Y"],
+            capture_output=True
+        )
 
 def targetDefinition(target, description):
     return env.Help(f"\n{target.ljust(20)}\t - {description}")
@@ -43,6 +85,23 @@ def arma3Path():
 
 def addonBuilderPath():
     return os.path.join(a3toolsPath(), "AddonBuilder", "AddonBuilder.exe")
+
+def hemttPath():
+    result = subprocess.run(["where", "hemtt"], capture_output=True)
+    if result.returncode == 0:
+        return result.stdout.decode('ascii').strip().split('\n')[0]
+    
+    # Fallback locations
+    fallback_paths = [
+        r"C:\Program Files\hemtt\hemtt.exe",
+        r"C:\Program Files (x86)\hemtt\hemtt.exe",
+        os.path.expandvars(r"%APPDATA%\.cargo\bin\hemtt.exe"),
+    ]
+    for path in fallback_paths:
+        if os.path.isfile(path):
+            return path
+    
+    raise FileNotFoundError("HEMTT not found. Please install HEMTT from https://hemtt.dev/")
 
 class Object(object):
     pass
@@ -110,11 +169,10 @@ def buildPbo(settings,pbos,env, pbo):
     with open(os.path.join(pbo.folder, "version.hpp"), 'w') as f:
         f.write(f"hash = \"{commit}\";\n")
         f.write("pbos[] = {\""+ "\", \"".join(map(lambda pbo: pbo.name, pbos)) + "\"};\n")
-        
-    env.Command(pbo.outputPath, allFilesIn(pbo.folder) + ["build"], 
-        f'"{addonBuilderPath()}" "{os.path.abspath(pbo.buildSymlink)}" "{os.path.abspath(settings["addonsFolder"])}" -clear -project=build -include=buildExtIncludes.txt')
+    
+    # Return path - HEMPT handles all builds in one call
     targetDefinition(pbo.name, f"Build the {pbo.name} pbo.")
-    return env.Alias(pbo.name, pbo.outputPath)
+    return pbo.outputPath
 
 def downloadNaturaldocs(target, source, env):
     url = "https://www.naturaldocs.org/download/natural_docs/2.2/Natural_Docs_2.2.zip"
@@ -142,7 +200,11 @@ buildDir = env.Command("build", allFilesIn("include"), [Copy("build", "include")
 
 env.Command(r"buildTools\Natural Docs", [], [downloadNaturaldocs, Delete(r"buildTools\NaturalDocs.zip")])
 
-allPbos = env.Alias("all", pboAliases)
+# Build all PBOs using HEMPT (single call builds all addons)
+hemtt_exe = hemttPath()
+hemttBuild = env.Command(pboAliases, ["build"], f'"{hemtt_exe}" build')
+
+allPbos = env.Alias("all", [hemttBuild])
 targetDefinition("all", "Build all pbos.")
 
 buildDocs = env.Command(r"docs\index.html",
